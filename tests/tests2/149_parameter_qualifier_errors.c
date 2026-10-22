@@ -1,11 +1,11 @@
-void defined_const(int *pointer);
+فراغ defined_const(صحيح *اشارہ_گر);
 
-void defined_const(int *const pointer)
+فراغ defined_const(صحيح *ثابت اشارہ_گر)
 {
-    pointer = 0;
+    اشارہ_گر = 0;
 }
 
-int main(void)
+صحيح مکھ(فراغ)
 {
-    return 0;
+    أرجع 0;
 }

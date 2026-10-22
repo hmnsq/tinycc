@@ -1,8 +1,8 @@
-#define f(x) x
-#define g(x) f(x) f(x
-#define i(x) g(x)) g(x
-#define h(x) i(x))) i(x
-#define k(x) i(x))) i(x))))
+#تعریف_کرو f(x) x
+#تعریف_کرو g(x) f(x) f(x
+#تعریف_کرو i(x) g(x)) g(x
+#تعریف_کرو h(x) i(x))) i(x
+#تعریف_کرو k(x) i(x))) i(x))))
 f(x)
 g(x))
 i(x)))

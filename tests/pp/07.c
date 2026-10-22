@@ -1,4 +1,4 @@
-#define a() YES
-#define b() a
+#تعریف_کرو a() YES
+#تعریف_کرو b() a
 b()
 b()()

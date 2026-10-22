@@ -1,2 +1,2 @@
-#pragma once
-printf ("counter %d\n", __COUNTER__);
+#ہدایت once
+لکھو ("counter %d\n", __COUNTER__);

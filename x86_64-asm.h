@@ -45,7 +45,7 @@
     DEF_ASM_OP0L(vmresume, 0xc3, 0, OPC_0F01)
     DEF_ASM_OP0L(vmxoff, 0xc4, 0, OPC_0F01)
 
-     /* strings */
+     /*لڑیاں*/
 ALT(DEF_ASM_OP0L(cmpsb, 0xa6, 0, OPC_BWLX))
 ALT(DEF_ASM_OP0L(scmpb, 0xa6, 0, OPC_BWLX))
 
@@ -64,7 +64,7 @@ ALT(DEF_ASM_OP0L(sscab, 0xae, 0, OPC_BWLX))
 ALT(DEF_ASM_OP0L(stosb, 0xaa, 0, OPC_BWLX))
 ALT(DEF_ASM_OP0L(sstob, 0xaa, 0, OPC_BWLX))
 
-     /* bits */
+     /*بٹ*/
 
 ALT(DEF_ASM_OP2(bsfw, 0x0fbc, 0, OPC_MODRM | OPC_WLX, OPT_REGW | OPT_EA, OPT_REGW))
 ALT(DEF_ASM_OP2(bsrw, 0x0fbd, 0, OPC_MODRM | OPC_WLX, OPT_REGW | OPT_EA, OPT_REGW))
@@ -87,7 +87,7 @@ ALT(DEF_ASM_OP2(tzcntw, 0xf30fbc, 0, OPC_MODRM | OPC_WLX, OPT_REGW | OPT_EA, OPT
 ALT(DEF_ASM_OP2(lzcntw, 0xf30fbd, 0, OPC_MODRM | OPC_WLX, OPT_REGW | OPT_EA, OPT_REGW))
 
      /* prefixes */
-     DEF_ASM_OP0(lock, 0xf0)
+     DEF_ASM_OP0(جندرا, 0xf0)
      DEF_ASM_OP0(rep, 0xf3)
      DEF_ASM_OP0(repe, 0xf3)
      DEF_ASM_OP0(repz, 0xf3)
@@ -142,7 +142,7 @@ ALT(DEF_ASM_OP2(movzwl, 0x0fb7, 0, OPC_MODRM, OPT_REG16 | OPT_EA, OPT_REG32))
 ALT(DEF_ASM_OP2(movzwq, 0x0fb7, 0, OPC_MODRM, OPT_REG16 | OPT_EA, OPT_REG))
 
 ALT(DEF_ASM_OP1(pushq, 0x6a, 0, 0, OPT_IM8S))
-ALT(DEF_ASM_OP1(push, 0x6a, 0, 0, OPT_IM8S))
+ALT(DEF_ASM_OP1(ڈالو, 0x6a, 0, 0, OPT_IM8S))
 ALT(DEF_ASM_OP1(pushw, 0x666a, 0, 0, OPT_IM8S))
 ALT(DEF_ASM_OP1(pushw, 0x50, 0, OPC_REG | OPC_WLX, OPT_REG64))
 ALT(DEF_ASM_OP1(pushw, 0x50, 0, OPC_REG | OPC_WLX, OPT_REG16))
@@ -212,9 +212,9 @@ ALT(DEF_ASM_OP1(idivb, 0xf6, 7, OPC_MODRM | OPC_BWLX, OPT_REG | OPT_EA))
 ALT(DEF_ASM_OP2(idivb, 0xf6, 7, OPC_MODRM | OPC_BWLX, OPT_REG | OPT_EA, OPT_EAX))
 
      /* shifts */
-ALT(DEF_ASM_OP2(rolb, 0xc0, 0, OPC_MODRM | OPC_BWLX | OPC_SHIFT, OPT_IM8, OPT_EA | OPT_REG))
-ALT(DEF_ASM_OP2(rolb, 0xd2, 0, OPC_MODRM | OPC_BWLX | OPC_SHIFT, OPT_CL, OPT_EA | OPT_REG))
-ALT(DEF_ASM_OP1(rolb, 0xd0, 0, OPC_MODRM | OPC_BWLX | OPC_SHIFT, OPT_EA | OPT_REG))
+ALT(DEF_ASM_OP2(rolb, 0xc0, 0, OPC_MODRM | OPC_BWLX | OPC_کھسکاؤ, OPT_IM8, OPT_EA | OPT_REG))
+ALT(DEF_ASM_OP2(rolb, 0xd2, 0, OPC_MODRM | OPC_BWLX | OPC_کھسکاؤ, OPT_CL, OPT_EA | OPT_REG))
+ALT(DEF_ASM_OP1(rolb, 0xd0, 0, OPC_MODRM | OPC_BWLX | OPC_کھسکاؤ, OPT_EA | OPT_REG))
 
 ALT(DEF_ASM_OP3(shldw, 0x0fa4, 0, OPC_MODRM | OPC_WLX, OPT_IM8, OPT_REGW, OPT_EA | OPT_REGW))
 ALT(DEF_ASM_OP3(shldw, 0x0fa5, 0, OPC_MODRM | OPC_WLX, OPT_CL, OPT_REGW, OPT_EA | OPT_REGW))
@@ -235,7 +235,7 @@ ALT(DEF_ASM_OP1(ljmp, 0xff, 5, OPC_MODRM, OPT_EA))
     DEF_ASM_OP1(ljmpw, 0x66ff, 5, OPC_MODRM, OPT_EA)
     DEF_ASM_OP1(ljmpl, 0xff, 5, OPC_MODRM, OPT_EA)
 
-ALT(DEF_ASM_OP1(int, 0xcd, 0, 0, OPT_IM8))
+ALT(DEF_ASM_OP1(صحيح, 0xcd, 0, 0, OPT_IM8))
 ALT(DEF_ASM_OP1(seto, 0x0f90, 0, OPC_MODRM | OPC_TEST, OPT_REG8 | OPT_EA))
 ALT(DEF_ASM_OP1(setob, 0x0f90, 0, OPC_MODRM | OPC_TEST, OPT_REG8 | OPT_EA))
     DEF_ASM_OP2(enter, 0xc8, 0, 0, OPT_IM16, OPT_IM8)
@@ -551,9 +551,9 @@ ALT(DEF_ASM_OP2(cvtsd2si, 0xf20f2d, 0, OPC_MODRM | OPC_48, OPT_EA | OPT_SSE, OPT
 
     /* Control-Flow Enforcement */
     DEF_ASM_OP0L(endbr64, 0xf30f1e, 7, OPC_MODRM)
-#undef ALT
-#undef DEF_ASM_OP0
-#undef DEF_ASM_OP0L
-#undef DEF_ASM_OP1
-#undef DEF_ASM_OP2
-#undef DEF_ASM_OP3
+#تعریف_رد ALT
+#تعریف_رد DEF_ASM_OP0
+#تعریف_رد DEF_ASM_OP0L
+#تعریف_رد DEF_ASM_OP1
+#تعریف_رد DEF_ASM_OP2
+#تعریف_رد DEF_ASM_OP3

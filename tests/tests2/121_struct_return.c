@@ -1,53 +1,53 @@
-#include <stdio.h>
+#ضمن <stdio.h>
 
-typedef struct {
-    int data[4];
-    double d1;
-    double d2;
-} Node;
+تعريفنوع بنية {
+    صحيح انکڑے[4];
+    مزدوج d1;
+    مزدوج d2;
+} گرہ_2;
 
-typedef struct {
-    int a, b, c;
+تعريفنوع بنية {
+    صحيح a, b, c;
 } A;
 
-Node init(Node self) {
-    self.data[0] = 0;
-    self.data[1] = 1;
-    self.data[2] = 2;
-    self.data[3] = 3;
+گرہ_2 init(گرہ_2 self) {
+    self.انکڑے[0] = 0;
+    self.انکڑے[1] = 1;
+    self.انکڑے[2] = 2;
+    self.انکڑے[3] = 3;
     self.d1 = 1234;
     self.d2 = 2345;
-    return self;
+    أرجع self;
 }
 
-void dummy(Node self) {
+فراغ dummy(گرہ_2 self) {
 }
 
-void print_data(Node data) {
-    printf ("%d %d %d %d %g %g\n",
-            data.data[0], data.data[1], data.data[2], data.data[3],
-            data.d1, data.d2);
+فراغ print_انکڑے(گرہ_2 انکڑے) {
+    لکھو ("%d %d %d %d %g %g\n",
+            انکڑے.انکڑے[0], انکڑے.انکڑے[1], انکڑے.انکڑے[2], انکڑے.انکڑے[3],
+            انکڑے.d1, انکڑے.d2);
 }
 
-A test(void)
+A test(فراغ)
 {
-    int i;
+    صحيح i;
     A arr[30];
 
-    for (i = 0; i < 30; i++)
+    لكل (i = 0; i < 30; i++)
         arr[i].b = i;
-    return arr[29];
+    أرجع arr[29];
 }
 
-int main(void) {
+صحيح مکھ(فراغ) {
     /* This code resulted in a bounds checking error */
-    Node data;
+    گرہ_2 انکڑے;
     A a;
-    dummy (data);
-    char val;
-    data = init (data);
-    print_data(data);
+    dummy (انکڑے);
+    حرف val;
+    انکڑے = init (انکڑے);
+    print_انکڑے(انکڑے);
     a = test();
-    printf("%d\n", a.b);
-    return 0;
+    لکھو("%d\n", a.b);
+    أرجع 0;
 }

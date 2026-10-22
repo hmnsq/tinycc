@@ -1,52 +1,52 @@
-#include <stdio.h>
+#ضمن <stdio.h>
 
-int array[16];
+صحيح array[16];
 
 //Swap integer values by array indexes
-void swap(int a, int b)
+فراغ وٹاندرا_2(صحيح a, صحيح b)
 {
-   int tmp  = array[a];
+   صحيح tmp  = array[a];
    array[a] = array[b];
    array[b] = tmp;
 }
 
 //Partition the array into two halves and return the
 //index about which the array is partitioned
-int partition(int left, int right)
+صحيح حصے_کرو(صحيح بایاں, صحيح دایاں)
 {
-   int pivotIndex = left;
-   int pivotValue = array[pivotIndex];
-   int index = left;
-   int i;
+   صحيح دھرا_اشاریہ = بایاں;
+   صحيح دھرا_قدر = array[دھرا_اشاریہ];
+   صحيح اشاریہ = بایاں;
+   صحيح i;
 
-   swap(pivotIndex, right);
-   for(i = left; i < right; i++)
+   وٹاندرا_2(دھرا_اشاریہ, دایاں);
+   لكل(i = بایاں; i < دایاں; i++)
    {
-      if(array[i] < pivotValue)
+      إذا(array[i] < دھرا_قدر)
       {
-         swap(i, index);
-         index += 1;
+         وٹاندرا_2(i, اشاریہ);
+         اشاریہ += 1;
       }
    }
-   swap(right, index);
+   وٹاندرا_2(دایاں, اشاریہ);
 
-   return index;
+   أرجع اشاریہ;
 }
 
 //Quicksort the array
-void quicksort(int left, int right)
+فراغ quicksort(صحيح بایاں, صحيح دایاں)
 {
-   if(left >= right)
-      return;
+   إذا(بایاں >= دایاں)
+      أرجع;
 
-   int index = partition(left, right);
-   quicksort(left, index - 1);
-   quicksort(index + 1, right);
+   صحيح اشاریہ = حصے_کرو(بایاں, دایاں);
+   quicksort(بایاں, اشاریہ - 1);
+   quicksort(اشاریہ + 1, دایاں);
 }
 
-int main()
+صحيح مکھ()
 {
-   int i;
+   صحيح i;
 
    array[0] = 62;
    array[1] = 83;
@@ -65,19 +65,19 @@ int main()
    array[14] = 74;
    array[15] = 55;
 
-   for (i = 0; i < 16; i++)
-      printf("%d ", array[i]);
+   لكل (i = 0; i < 16; i++)
+      لکھو("%d ", array[i]);
 
-   printf("\n");
+   لکھو("\n");
 
    quicksort(0, 15);
 
-   for (i = 0; i < 16; i++)
-      printf("%d ", array[i]);
+   لكل (i = 0; i < 16; i++)
+      لکھو("%d ", array[i]);
 
-   printf("\n");
+   لکھو("\n");
 
-   return 0;
+   أرجع 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

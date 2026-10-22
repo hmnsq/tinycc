@@ -1,26 +1,26 @@
-#include <stdio.h>
-struct wchar {
-    char *data; char mem[];
+#ضمن <stdio.h>
+بنية wchar {
+    حرف *انکڑے; حرف mem[];
 };
-struct wint {
-    char *data; int mem[];
+بنية wint {
+    حرف *انکڑے; صحيح mem[];
 };
-int f1char (void) {
-    char s[9]="nonono";
-    struct wchar q = {"bugs"};
-    return !s[0];
+صحيح f1char (فراغ) {
+    حرف s[9]="nonono";
+    بنية wchar q = {"bugs"};
+    أرجع !s[0];
 }
-int f1int (void) {
-    char s[9]="nonono";
-    struct wint q = {"bugs"};
-    return !s[0];
+صحيح f1int (فراغ) {
+    حرف s[9]="nonono";
+    بنية wint q = {"bugs"};
+    أرجع !s[0];
 }
-int empty[] = {}; // GNU extension
-int main (void) {
-   char s[9]="nonono";
-   static struct wchar q = {"bugs", {'c'}};
+صحيح خالی_تھاواں[] = {}; // GNU extension
+صحيح مکھ (فراغ) {
+   حرف s[9]="nonono";
+   ساكن بنية wchar q = {"bugs", {'c'}};
    //printf ("tcc has %s %s\n", s, q.data);
-   if (f1char() || f1int())
-     printf ("bla\n");
-   return !s[0];
+   إذا (f1char() || f1int())
+     لکھو ("bla\n");
+   أرجع !s[0];
 }

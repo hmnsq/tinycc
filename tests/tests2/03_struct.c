@@ -1,38 +1,38 @@
-extern int printf(const char*, ...);
+خارجي صحيح لکھو(ثابت حرف*, ...);
 
-struct fred;
+بنية fred;
 
-void fred$(struct fred* this)
+فراغ fred$(بنية fred* this)
 {
-    printf("~fred()\n");
+    لکھو("~fred()\n");
 }
 
-struct __attribute__((__cleanup__(fred$))) fred
+بنية __attribute__((__cleanup__(fred$))) fred
 {
-   int boris;
-   int natasha;
+   صحيح boris;
+   صحيح natasha;
 };
 
-int main()
+صحيح مکھ()
 {
-    struct fred  __attribute__((__cleanup__(fred$))) bloggs;
+    بنية fred  __attribute__((__cleanup__(fred$))) bloggs;
 
    bloggs.boris = 12;
    bloggs.natasha = 34;
 
-   printf("%d\n", bloggs.boris);
-   printf("%d\n", bloggs.natasha);
+   لکھو("%d\n", bloggs.boris);
+   لکھو("%d\n", bloggs.natasha);
 
-   struct fred jones[2];
+   بنية fred jones[2];
    jones[0].boris = 12;
    jones[0].natasha = 34;
    jones[1].boris = 56;
    jones[1].natasha = 78;
 
-   printf("%d\n", jones[0].boris);
-   printf("%d\n", jones[0].natasha);
-   printf("%d\n", jones[1].boris);
-   printf("%d\n", jones[1].natasha);
+   لکھو("%d\n", jones[0].boris);
+   لکھو("%d\n", jones[0].natasha);
+   لکھو("%d\n", jones[1].boris);
+   لکھو("%d\n", jones[1].natasha);
 
-   return 0;
+   أرجع 0;
 }

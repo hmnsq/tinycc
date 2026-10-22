@@ -15,7 +15,7 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
-#include "tcc.h"
+#ضمن "tcc.h"
 
 /* In order to make life easy for us we are generating Mach-O files which
    don't make use of some modern features, but which aren't entirely classic
@@ -31,100 +31,100 @@
    to setup our own crt code.  We're not using lazy linking, so even function
    calls are resolved at startup.  */
 
-#if !defined TCC_TARGET_X86_64 && !defined TCC_TARGET_ARM64
-#error Platform not supported
-#endif
+#إذا !defined TCC_نشانہ_X86_64 && !defined TCC_نشانہ_ARM64
+#غلطی Platform not supported
+#جے_انت
 
 /* XXX: this file uses tcc_error() to the effect of exit(1) */
-#undef _tcc_error
+#تعریف_رد _tcc_error
 
-#define DEBUG_MACHO 0
-#define dprintf if (DEBUG_MACHO) printf
+#تعریف_کرو DEBUG_MACHO 0
+#تعریف_کرو dprintf إذا (DEBUG_MACHO) لکھو
 
-#define MH_EXECUTE              (0x2)
-#define MH_DYLDLINK             (0x4)
-#define MH_DYLIB                (0x6)
-#define MH_PIE                  (0x200000)
+#تعریف_کرو MH_EXECUTE              (0x2)
+#تعریف_کرو MH_DYLDLINK             (0x4)
+#تعریف_کرو MH_DYLIB                (0x6)
+#تعریف_کرو MH_PIE                  (0x200000)
 
-#define CPU_SUBTYPE_LIB64       (0x80000000)
-#define CPU_SUBTYPE_X86_ALL     (3)
-#define CPU_SUBTYPE_ARM64_ALL   (0)
+#تعریف_کرو CPU_SUBTYPE_LIB64       (0x80000000)
+#تعریف_کرو CPU_SUBTYPE_X86_ALL     (3)
+#تعریف_کرو CPU_SUBTYPE_ARM64_ALL   (0)
 
-#define CPU_ARCH_ABI64          (0x01000000)
+#تعریف_کرو CPU_ARCH_ABI64          (0x01000000)
 
-#define CPU_TYPE_X86            (7)
-#define CPU_TYPE_X86_64         (CPU_TYPE_X86 | CPU_ARCH_ABI64)
-#define CPU_TYPE_ARM            (12)
-#define CPU_TYPE_ARM64          (CPU_TYPE_ARM | CPU_ARCH_ABI64)
+#تعریف_کرو CPU_TYPE_X86            (7)
+#تعریف_کرو CPU_TYPE_X86_64         (CPU_TYPE_X86 | CPU_ARCH_ABI64)
+#تعریف_کرو CPU_TYPE_ARM            (12)
+#تعریف_کرو CPU_TYPE_ARM64          (CPU_TYPE_ARM | CPU_ARCH_ABI64)
 
-struct fat_header {
+بنية fat_سرخی {
     uint32_t        magic;          /* FAT_MAGIC or FAT_MAGIC_64 */
     uint32_t        nfat_arch;      /* number of structs that follow */
 };
 
-struct fat_arch {
-    int             cputype;        /* cpu specifier (int) */
-    int             cpusubtype;     /* machine specifier (int) */
-    uint32_t        offset;         /* file offset to this object file */
-    uint32_t        size;           /* size of this object file */
+بنية fat_arch {
+    صحيح             cputype;        /* cpu specifier (int) */
+    صحيح             cpusubtype;     /* machine specifier (int) */
+    uint32_t        وتھ;         /* file offset to this object file */
+    uint32_t        ناپ;           /* size of this object file */
     uint32_t        align;          /* alignment as a power of 2 */
 };
 
-#define FAT_MAGIC       0xcafebabe
-#define FAT_CIGAM       0xbebafeca
-#define FAT_MAGIC_64    0xcafebabf
-#define FAT_CIGAM_64    0xbfbafeca
+#تعریف_کرو FAT_MAGIC       0xcafebabe
+#تعریف_کرو FAT_CIGAM       0xbebafeca
+#تعریف_کرو FAT_MAGIC_64    0xcafebabf
+#تعریف_کرو FAT_CIGAM_64    0xbfbafeca
 
-struct mach_header {
+بنية mach_سرخی {
     uint32_t        magic;          /* mach magic number identifier */
-    int             cputype;        /* cpu specifier */
-    int             cpusubtype;     /* machine specifier */
+    صحيح             cputype;        /* cpu specifier */
+    صحيح             cpusubtype;     /* machine specifier */
     uint32_t        filetype;       /* type of file */
     uint32_t        ncmds;          /* number of load commands */
     uint32_t        sizeofcmds;     /* the size of all the load commands */
     uint32_t        flags;          /* flags */
 };
 
-struct mach_header_64 {
-    struct mach_header  mh;
+بنية mach_سرخی_64 {
+    بنية mach_سرخی  mh;
     uint32_t            reserved;       /* reserved, pad to 64bit */
 };
 
 /* Constant for the magic field of the mach_header (32-bit architectures) */
-#define MH_MAGIC        0xfeedface      /* the mach magic number */
-#define MH_CIGAM        0xcefaedfe      /* NXSwapInt(MH_MAGIC) */
-#define MH_MAGIC_64     0xfeedfacf      /* the 64-bit mach magic number */
-#define MH_CIGAM_64     0xcffaedfe      /* NXSwapInt(MH_MAGIC_64) */
+#تعریف_کرو MH_MAGIC        0xfeedface      /* the mach magic number */
+#تعریف_کرو MH_CIGAM        0xcefaedfe      /* NXSwapInt(MH_MAGIC) */
+#تعریف_کرو MH_MAGIC_64     0xfeedfacf      /* the 64-bit mach magic number */
+#تعریف_کرو MH_CIGAM_64     0xcffaedfe      /* NXSwapInt(MH_MAGIC_64) */
 
-struct load_command {
+بنية لدو_command {
     uint32_t        cmd;            /* type of load command */
     uint32_t        cmdsize;        /* total size of command in bytes */
 };
 
-#define LC_REQ_DYLD 0x80000000
-#define LC_SYMTAB        0x2
-#define LC_DYSYMTAB      0xb
-#define LC_LOAD_DYLIB    0xc
-#define LC_ID_DYLIB      0xd
-#define LC_LOAD_DYLINKER 0xe
-#define LC_SEGMENT_64    0x19
-#define LC_RPATH (0x1c | LC_REQ_DYLD)
-#define LC_REEXPORT_DYLIB (0x1f | LC_REQ_DYLD)
-#define LC_DYLD_INFO_ONLY (0x22|LC_REQ_DYLD)
-#define LC_MAIN (0x28|LC_REQ_DYLD)
-#define LC_SOURCE_VERSION 0x2A
-#define LC_BUILD_VERSION 0x32
-#define LC_DYLD_EXPORTS_TRIE (0x33 | LC_REQ_DYLD)
-#define LC_DYLD_CHAINED_FIXUPS (0x34 | LC_REQ_DYLD)
+#تعریف_کرو LC_REQ_DYLD 0x80000000
+#تعریف_کرو LC_SYMTAB        0x2
+#تعریف_کرو LC_DYSYMTAB      0xb
+#تعریف_کرو LC_لدو_DYLIB    0xc
+#تعریف_کرو LC_ID_DYLIB      0xd
+#تعریف_کرو LC_لدو_DYLINKER 0xe
+#تعریف_کرو LC_SEGMENT_64    0x19
+#تعریف_کرو LC_RPATH (0x1c | LC_REQ_DYLD)
+#تعریف_کرو LC_REEXPORT_DYLIB (0x1f | LC_REQ_DYLD)
+#تعریف_کرو LC_DYLD_INFO_ONLY (0x22|LC_REQ_DYLD)
+#تعریف_کرو LC_MAIN (0x28|LC_REQ_DYLD)
+#تعریف_کرو LC_سروت_نسخہ 0x2A
+#تعریف_کرو LC_BUILD_نسخہ 0x32
+#تعریف_کرو LC_DYLD_EXPORTS_TRIE (0x33 | LC_REQ_DYLD)
+#تعریف_کرو LC_DYLD_CHAINED_FIXUPS (0x34 | LC_REQ_DYLD)
 
-#define SG_READ_ONLY    0x10 /* This segment is made read-only after fixups */
+#تعریف_کرو SG_READ_ONLY    0x10 /* This segment is made read-only after fixups */
 
-typedef int vm_prot_t;
+تعريفنوع صحيح vm_prot_t;
 
-struct segment_command_64 { /* for 64-bit architectures */
+بنية segment_command_64 { /* for 64-bit architectures */
     uint32_t        cmd;            /* LC_SEGMENT_64 */
     uint32_t        cmdsize;        /* includes sizeof section_64 structs */
-    char            segname[16];    /* segment name */
+    حرف            segname[16];    /* segment name */
     uint64_t        vmaddr;         /* memory address of this segment */
     uint64_t        vmsize;         /* memory size of this segment */
     uint64_t        fileoff;        /* file offset of this segment */
@@ -135,12 +135,12 @@ struct segment_command_64 { /* for 64-bit architectures */
     uint32_t        flags;          /* flags */
 };
 
-struct section_64 { /* for 64-bit architectures */
-    char            sectname[16];   /* name of this section */
-    char            segname[16];    /* segment this section goes in */
+بنية section_64 { /* for 64-bit architectures */
+    حرف            sectname[16];   /* name of this section */
+    حرف            segname[16];    /* segment this section goes in */
     uint64_t        addr;           /* memory address of this section */
-    uint64_t        size;           /* size in bytes of this section */
-    uint32_t        offset;         /* file offset of this section */
+    uint64_t        ناپ;           /* size in bytes of this section */
+    uint32_t        وتھ;         /* file offset of this section */
     uint32_t        align;          /* section alignment (power of 2) */
     uint32_t        reloff;         /* file offset of relocation entries */
     uint32_t        nreloc;         /* number of relocation entries */
@@ -150,118 +150,118 @@ struct section_64 { /* for 64-bit architectures */
     uint32_t        reserved3;      /* reserved */
 };
 
-enum {
+تعداد {
     DYLD_CHAINED_IMPORT          = 1,
 };
 
-struct dyld_chained_fixups_header {
-    uint32_t    fixups_version; ///< 0
-    uint32_t    starts_offset;  ///< Offset of dyld_chained_starts_in_image.
-    uint32_t    imports_offset; ///< Offset of imports table in chain_data.
-    uint32_t    symbols_offset; ///< Offset of symbol strings in chain_data.
-    uint32_t    imports_count;  ///< Number of imported symbol names.
+بنية dyld_chained_fixups_سرخی {
+    uint32_t    fixups_نسخہ; ///< 0
+    uint32_t    starts_وتھ;  ///< Offset of dyld_chained_starts_in_image.
+    uint32_t    imports_وتھ; ///< Offset of imports table in chain_data.
+    uint32_t    symbols_وتھ; ///< Offset of symbol strings in chain_data.
+    uint32_t    imports_گنتی;  ///< Number of imported symbol names.
     uint32_t    imports_format; ///< DYLD_CHAINED_IMPORT*
     uint32_t    symbols_format; ///< 0 => uncompressed, 1 => zlib compressed
 };
 
-struct dyld_chained_starts_in_image
+بنية dyld_chained_starts_وچ_image
 {
-    uint32_t    seg_count;
-    uint32_t    seg_info_offset[1];  // each entry is offset into this struct for that segment
+    uint32_t    seg_گنتی;
+    uint32_t    seg_info_وتھ[1];  // each entry is offset into this struct for that segment
     // followed by pool of dyld_chain_starts_in_segment data
 };
 
-enum {
+تعداد {
     DYLD_CHAINED_PTR_64                     =  2,    // target is vmaddr
-    DYLD_CHAINED_PTR_64_OFFSET              =  6,    // target is vm offset
+    DYLD_CHAINED_PTR_64_وتھ              =  6,    // target is vm offset
 };
 
-enum {
-    DYLD_CHAINED_PTR_START_NONE   = 0xFFFF, // used in page_start[] to denote a page with no fixups
+تعداد {
+    DYLD_CHAINED_PTR_شروع_NONE   = 0xFFFF, // used in page_start[] to denote a page with no fixups
 };
 
-#define SEG_PAGE_SIZE 16384
+#تعریف_کرو SEG_ورقہ_ناپ 16384
 
-struct dyld_chained_starts_in_segment
+بنية dyld_chained_starts_وچ_segment
 {
-    uint32_t    size;               // size of this (amount kernel needs to copy)
-    uint16_t    page_size;          // 0x1000 or 0x4000
-    uint16_t    pointer_format;     // DYLD_CHAINED_PTR_*
-    uint64_t    segment_offset;     // offset in memory to start of segment
-    uint32_t    max_valid_pointer;  // for 32-bit OS, any value beyond this is not a pointer
-    uint16_t    page_count;         // how many pages are in array
-    uint16_t    page_start[1];      // each entry is offset in each page of first element in chain
+    uint32_t    ناپ;               // size of this (amount kernel needs to copy)
+    uint16_t    ورقہ_ناپ;          // 0x1000 or 0x4000
+    uint16_t    اشارہ_گر_format;     // DYLD_CHAINED_PTR_*
+    uint64_t    segment_وتھ;     // offset in memory to start of segment
+    uint32_t    max_valid_اشارہ_گر;  // for 32-bit OS, any value beyond this is not a pointer
+    uint16_t    ورقہ_گنتی;         // how many pages are in array
+    uint16_t    ورقہ_شروع[1];      // each entry is offset in each page of first element in chain
                                     // or DYLD_CHAINED_PTR_START_NONE if no fixups on page
 };
 
-enum BindSpecialDylib {
+تعداد BindSpecialDylib {
   BIND_SPECIAL_DYLIB_FLAT_LOOKUP = -2,
 };
 
-struct dyld_chained_import
+بنية dyld_chained_import
 {
     uint32_t    lib_ordinal :  8,
                 weak_import :  1,
-                name_offset : 23;
+                name_وتھ : 23;
 };
 
-struct dyld_chained_ptr_64_rebase
+بنية dyld_chained_ptr_64_rebase
 {
-    uint64_t    target    : 36,    // vmaddr, 64GB max image size
+    uint64_t    نشانہ    : 36,    // vmaddr, 64GB max image size
                 high8     :  8,    // top 8 bits set to this after slide added
                 reserved  :  7,    // all zeros
-                next      : 12,    // 4-byte stride
+                اگلا      : 12,    // 4-byte stride
                 bind      :  1;    // == 0
 };
 
-struct dyld_chained_ptr_64_bind
+بنية dyld_chained_ptr_64_bind
 {
     uint64_t    ordinal   : 24,
                 addend    :  8,   // 0 thru 255
                 reserved  : 19,   // all zeros
-                next      : 12,   // 4-byte stride
+                اگلا      : 12,   // 4-byte stride
                 bind      :  1;   // == 1
 };
 
-#define S_REGULAR                       0x0
-#define S_ZEROFILL                      0x1
-#define S_NON_LAZY_SYMBOL_POINTERS      0x6
-#define S_LAZY_SYMBOL_POINTERS          0x7
-#define S_SYMBOL_STUBS                  0x8
-#define S_MOD_INIT_FUNC_POINTERS        0x9
-#define S_MOD_TERM_FUNC_POINTERS        0xa
+#تعریف_کرو S_REGULAR                       0x0
+#تعریف_کرو S_ZEROFILL                      0x1
+#تعریف_کرو S_NON_LAZY_علامت_سوچکاں      0x6
+#تعریف_کرو S_LAZY_علامت_سوچکاں          0x7
+#تعریف_کرو S_علامت_STUBS                  0x8
+#تعریف_کرو S_MOD_INIT_FUNC_سوچکاں        0x9
+#تعریف_کرو S_MOD_رکن_FUNC_سوچکاں        0xa
 
-#define S_ATTR_PURE_INSTRUCTIONS        0x80000000
-#define S_ATTR_SOME_INSTRUCTIONS        0x00000400
-#define S_ATTR_DEBUG             	0x02000000
+#تعریف_کرو S_ATTR_خالص_INSTRUCTIONS        0x80000000
+#تعریف_کرو S_ATTR_SOME_INSTRUCTIONS        0x00000400
+#تعریف_کرو S_ATTR_DEBUG             	0x02000000
 
 
-typedef uint32_t lc_str;
+تعريفنوع uint32_t lc_str;
 
-struct dylib_command {
+بنية dylib_command {
     uint32_t cmd;                   /* LC_ID_DYLIB, LC_LOAD_{,WEAK_}DYLIB,
                                        LC_REEXPORT_DYLIB */
     uint32_t cmdsize;               /* includes pathname string */
     lc_str   name;                  /* library's path name */
     uint32_t timestamp;             /* library's build time stamp */
-    uint32_t current_version;       /* library's current version number */
-    uint32_t compatibility_version; /* library's compatibility vers number*/
+    uint32_t current_نسخہ;       /* library's current version number */
+    uint32_t compatibility_نسخہ; /* library's compatibility vers number*/
 };
 
-struct rpath_command {
+بنية rpath_command {
     uint32_t     cmd;           /* LC_RPATH */
     uint32_t     cmdsize;       /* includes string */
-    lc_str       path;          /* path to add to run path */
+    lc_str       رستہ;          /* path to add to run path */
 };
 
-struct dylinker_command {
+بنية dylinker_command {
     uint32_t        cmd;            /* LC_ID_DYLINKER, LC_LOAD_DYLINKER or
                                        LC_DYLD_ENVIRONMENT */
     uint32_t        cmdsize;        /* includes pathname string */
     lc_str          name;           /* dynamic linker's path name */
 };
 
-struct linkedit_data_command {
+بنية linkedit_انکڑے_command {
     uint32_t    cmd;            /* LC_CODE_SIGNATURE, LC_SEGMENT_SPLIT_INFO,
                                    LC_FUNCTION_STARTS, LC_DATA_IN_CODE,
                                    LC_DYLIB_CODE_SIGN_DRS,
@@ -273,9 +273,9 @@ struct linkedit_data_command {
     uint32_t    datasize;       /* file size of data in __LINKEDIT segment  */
 };
 
-#define PLATFORM_MACOS 1
+#تعریف_کرو PLATFORM_MACOS 1
 
-struct build_version_command {
+بنية build_نسخہ_command {
     uint32_t    cmd;            /* LC_BUILD_VERSION */
     uint32_t    cmdsize;        /* sizeof(struct build_version_command) plus */
                                 /* ntools * sizeof(struct build_tool_version) */
@@ -285,13 +285,13 @@ struct build_version_command {
     uint32_t    ntools;         /* number of tool entries following this */
 };
 
-struct source_version_command {
+بنية سروت_نسخہ_command {
     uint32_t  cmd;      /* LC_SOURCE_VERSION */
     uint32_t  cmdsize;  /* 16 */
-    uint64_t  version;  /* A.B.C.D.E packed as a24.b10.c10.d10.e10 */
+    uint64_t  نسخہ;  /* A.B.C.D.E packed as a24.b10.c10.d10.e10 */
 };
 
-struct symtab_command {
+بنية symtab_command {
     uint32_t        cmd;            /* LC_SYMTAB */
     uint32_t        cmdsize;        /* sizeof(struct symtab_command) */
     uint32_t        symoff;         /* symbol table offset */
@@ -300,7 +300,7 @@ struct symtab_command {
     uint32_t        strsize;        /* string table size in bytes */
 };
 
-struct dysymtab_command {
+بنية dysymtab_command {
     uint32_t cmd;       /* LC_DYSYMTAB */
     uint32_t cmdsize;   /* sizeof(struct dysymtab_command) */
 
@@ -331,263 +331,263 @@ struct dysymtab_command {
     uint32_t nlocrel;   /* number of local relocation entries */
 };
 
-#define BIND_OPCODE_DONE                                        0x00
-#define BIND_OPCODE_SET_DYLIB_SPECIAL_IMM                       0x30
-#define BIND_OPCODE_SET_SYMBOL_TRAILING_FLAGS_IMM               0x40
-#define BIND_OPCODE_SET_TYPE_IMM                                0x50
-#define BIND_OPCODE_SET_SEGMENT_AND_OFFSET_ULEB                 0x70
-#define BIND_OPCODE_DO_BIND                                     0x90
+#تعریف_کرو BIND_OPCODE_پورا                                        0x00
+#تعریف_کرو BIND_OPCODE_سیٹ_DYLIB_SPECIAL_IMM                       0x30
+#تعریف_کرو BIND_OPCODE_سیٹ_علامت_TRAILING_FLAGS_IMM               0x40
+#تعریف_کرو BIND_OPCODE_سیٹ_TYPE_IMM                                0x50
+#تعریف_کرو BIND_OPCODE_سیٹ_SEGMENT_AND_وتھ_ULEB                 0x70
+#تعریف_کرو BIND_OPCODE_DO_BIND                                     0x90
 
-#define BIND_SYMBOL_FLAGS_WEAK_IMPORT                           0x1
+#تعریف_کرو BIND_علامت_FLAGS_WEAK_IMPORT                           0x1
 
-#define BIND_TYPE_POINTER                                       1
-#define BIND_SPECIAL_DYLIB_FLAT_LOOKUP                          -2
+#تعریف_کرو BIND_TYPE_اشارہ_گر                                       1
+#تعریف_کرو BIND_SPECIAL_DYLIB_FLAT_LOOKUP                          -2
 
-#define REBASE_OPCODE_DONE                                      0x00
-#define REBASE_OPCODE_SET_TYPE_IMM                              0x10
-#define REBASE_OPCODE_SET_SEGMENT_AND_OFFSET_ULEB               0x20
-#define REBASE_OPCODE_DO_REBASE_IMM_TIMES                       0x50
+#تعریف_کرو REBASE_OPCODE_پورا                                      0x00
+#تعریف_کرو REBASE_OPCODE_سیٹ_TYPE_IMM                              0x10
+#تعریف_کرو REBASE_OPCODE_سیٹ_SEGMENT_AND_وتھ_ULEB               0x20
+#تعریف_کرو REBASE_OPCODE_DO_REBASE_IMM_TIMES                       0x50
 
-#define REBASE_TYPE_POINTER                                     1
+#تعریف_کرو REBASE_TYPE_اشارہ_گر                                     1
 
-#define EXPORT_SYMBOL_FLAGS_KIND_REGULAR                        0x00
-#define EXPORT_SYMBOL_FLAGS_KIND_ABSOLUTE                       0x02
-#define EXPORT_SYMBOL_FLAGS_WEAK_DEFINITION                     0x04
+#تعریف_کرو EXPORT_علامت_FLAGS_قسم_REGULAR                        0x00
+#تعریف_کرو EXPORT_علامت_FLAGS_قسم_ABSOLUTE                       0x02
+#تعریف_کرو EXPORT_علامت_FLAGS_WEAK_DEFINITION                     0x04
 
-struct dyld_info_command {
+بنية dyld_info_command {
     uint32_t cmd;             /* LC_DYLD_INFO or LC_DYLD_INFO_ONLY */
     uint32_t cmdsize;         /* sizeof(struct dyld_info_command) */
     uint32_t rebase_off;      /* file offset to rebase info  */
-    uint32_t rebase_size;     /* size of rebase info   */
+    uint32_t rebase_ناپ;     /* size of rebase info   */
     uint32_t bind_off;        /* file offset to binding info   */
-    uint32_t bind_size;       /* size of binding info  */
+    uint32_t bind_ناپ;       /* size of binding info  */
     uint32_t weak_bind_off;   /* file offset to weak binding info   */
-    uint32_t weak_bind_size;  /* size of weak binding info  */
+    uint32_t weak_bind_ناپ;  /* size of weak binding info  */
     uint32_t lazy_bind_off;   /* file offset to lazy binding info */
-    uint32_t lazy_bind_size;  /* size of lazy binding infs */
+    uint32_t lazy_bind_ناپ;  /* size of lazy binding infs */
     uint32_t export_off;      /* file offset to lazy binding info */
-    uint32_t export_size;     /* size of lazy binding infs */
+    uint32_t export_ناپ;     /* size of lazy binding infs */
 };
 
-#define INDIRECT_SYMBOL_LOCAL   0x80000000
+#تعریف_کرو اسدھا_علامت_LOCAL   0x80000000
 
-struct entry_point_command {
+بنية اندراج_نقطہ_command {
     uint32_t  cmd;      /* LC_MAIN only used in MH_EXECUTE filetypes */
     uint32_t  cmdsize;  /* 24 */
     uint64_t  entryoff; /* file (__TEXT) offset of main() */
     uint64_t  stacksize;/* if not zero, initial stack size */
 };
 
-enum skind {
+تعداد skind {
     sk_unknown = 0,
     sk_discard,
-    sk_text,
+    sk_متن,
     sk_stubs,
     sk_stub_helper,
-    sk_ro_data,
+    sk_ro_انکڑے,
     sk_uw_info,
     sk_nl_ptr,  // non-lazy pointers, aka GOT
     sk_debug_info,
     sk_debug_abbrev,
-    sk_debug_line,
+    sk_debug_سطر,
     sk_debug_aranges,
     sk_debug_str,
-    sk_debug_line_str,
+    sk_debug_سطر_str,
     sk_stab,
     sk_stab_str,
     sk_la_ptr,  // lazy pointers
     sk_init,
     sk_fini,
-    sk_rw_data,
+    sk_rw_انکڑے,
     sk_bss,
     sk_linkedit,
-    sk_last
+    sk_آخری
 };
 
-struct nlist_64 {
+بنية nlist_64 {
     uint32_t  n_strx;      /* index into the string table */
     uint8_t n_type;        /* type flag, see below */
     uint8_t n_sect;        /* section number or NO_SECT */
     uint16_t n_desc;       /* see <mach-o/stab.h> */
-    uint64_t n_value;      /* value of this symbol (or stab offset) */
+    uint64_t n_قدر;      /* value of this symbol (or stab offset) */
 };
 
-#define N_UNDF  0x0
-#define N_ABS   0x2
-#define N_EXT   0x1
-#define N_SECT  0xe
+#تعریف_کرو N_UNDF  0x0
+#تعریف_کرو N_ABS   0x2
+#تعریف_کرو N_EXT   0x1
+#تعریف_کرو N_SECT  0xe
 
-#define N_WEAK_REF      0x0040
-#define N_WEAK_DEF      0x0080
+#تعریف_کرو N_WEAK_REF      0x0040
+#تعریف_کرو N_WEAK_DEF      0x0080
 
-struct macho {
-    struct mach_header_64 mh;
-    int *seg2lc, nseg;
-    struct load_command **lc;
-    struct entry_point_command *ep;
-    int nlc;
-    struct {
+بنية macho {
+    بنية mach_سرخی_64 mh;
+    صحيح *seg2lc, nseg;
+    بنية لدو_command **lc;
+    بنية اندراج_نقطہ_command *ep;
+    صحيح nlc;
+    بنية {
         Section *s;
-        int machosect;
-    } sk_to_sect[sk_last];
-    int *elfsectomacho;
-    int *e2msym;
+        صحيح machosect;
+    } sk_منزل_sect[sk_آخری];
+    صحيح *elfsectomacho;
+    صحيح *e2msym;
     Section *symtab, *strtab, *indirsyms, *stubs, *exports;
     uint32_t ilocal, iextdef, iundef;
-    int stubsym, n_got, nr_plt;
-    int segment[sk_last];
-#ifdef CONFIG_NEW_MACHO
+    صحيح stubsym, n_got, nr_plt;
+    صحيح segment[sk_آخری];
+#جے_تعریف_شدہ CONFIG_NEW_MACHO
     Section *chained_fixups;
-    int n_bind;
-    int n_bind_rebase;
-    struct bind_rebase {
-	int section;
-	int bind;
+    صحيح n_bind;
+    صحيح n_bind_rebase;
+    بنية bind_rebase {
+	صحيح section;
+	صحيح bind;
 	ElfW_Rel rel;
     } *bind_rebase;
-#else
+#وإلا
     Section *rebase, *binding, *weak_binding, *lazy_binding;
-    Section *stub_helper, *la_symbol_ptr;
-    struct dyld_info_command *dyldinfo;
-    int helpsym, lasym, dyld_private, dyld_stub_binder;
-    int n_lazy_bind;    
-    struct s_lazy_bind {
-        int section;
-        int bind_offset;
-        int la_symbol_offset;
+    Section *stub_helper, *la_علامت_ptr;
+    بنية dyld_info_command *dyldinfo;
+    صحيح helpsym, lasym, dyld_نجی, dyld_stub_binder;
+    صحيح n_lazy_bind;    
+    بنية s_lazy_bind {
+        صحيح section;
+        صحيح bind_وتھ;
+        صحيح la_علامت_وتھ;
         ElfW_Rel rel;
     } *s_lazy_bind;
-    int n_rebase;    
-    struct s_rebase {
-        int section;
+    صحيح n_rebase;    
+    بنية s_rebase {
+        صحيح section;
         ElfW_Rel rel;
     } *s_rebase;
-    int n_bind; 
-    struct bind {
-        int section;
+    صحيح n_bind; 
+    بنية bind {
+        صحيح section;
         ElfW_Rel rel;
     } *bind;
-#endif
+#جے_انت
 };
 
-#define SHT_LINKEDIT (SHT_LOOS + 42)
-#define SHN_FROMDLL  (SHN_LOOS + 2)  /* Symbol is undefined, comes from a DLL */
+#تعریف_کرو SHT_LINKEDIT (SHT_LOOS + 42)
+#تعریف_کرو SHN_FROMDLL  (SHN_LOOS + 2)  /* Symbol is undefined, comes from a DLL */
 
-static void * add_lc(struct macho *mo, uint32_t cmd, uint32_t cmdsize)
+ساكن فراغ * جوڑو_lc(بنية macho *mo, uint32_t cmd, uint32_t cmdsize)
 {
-    struct load_command *lc = tcc_mallocz(cmdsize);
+    بنية لدو_command *lc = tcc_mallocz(cmdsize);
     lc->cmd = cmd;
     lc->cmdsize = cmdsize;
-    mo->lc = tcc_realloc(mo->lc, sizeof(mo->lc[0]) * (mo->nlc + 1));
+    mo->lc = tcc_realloc(mo->lc, حجم(mo->lc[0]) * (mo->nlc + 1));
     mo->lc[mo->nlc++] = lc;
-    return lc;
+    أرجع lc;
 }
 
-static struct segment_command_64 * add_segment(struct macho *mo, const char *name)
+ساكن بنية segment_command_64 * جوڑو_segment(بنية macho *mo, ثابت حرف *name)
 {
-    struct segment_command_64 *sc = add_lc(mo, LC_SEGMENT_64, sizeof(*sc));
+    بنية segment_command_64 *sc = جوڑو_lc(mo, LC_SEGMENT_64, حجم(*sc));
     strncpy(sc->segname, name, 16);
-    mo->seg2lc = tcc_realloc(mo->seg2lc, sizeof(*mo->seg2lc) * (mo->nseg + 1));
+    mo->seg2lc = tcc_realloc(mo->seg2lc, حجم(*mo->seg2lc) * (mo->nseg + 1));
     mo->seg2lc[mo->nseg++] = mo->nlc - 1;
-    return sc;
+    أرجع sc;
 }
 
-static struct segment_command_64 * get_segment(struct macho *mo, int i)
+ساكن بنية segment_command_64 * get_segment(بنية macho *mo, صحيح i)
 {
-    return (struct segment_command_64 *) (mo->lc[mo->seg2lc[i]]);
+    أرجع (بنية segment_command_64 *) (mo->lc[mo->seg2lc[i]]);
 }
 
-static int add_section(struct macho *mo, struct segment_command_64 **_seg, const char *name)
+ساكن صحيح جوڑو_section(بنية macho *mo, بنية segment_command_64 **_seg, ثابت حرف *name)
 {
-    struct segment_command_64 *seg = *_seg;
-    int ret = seg->nsects;
-    struct section_64 *sec;
+    بنية segment_command_64 *seg = *_seg;
+    صحيح ret = seg->nsects;
+    بنية section_64 *sec;
     seg->nsects++;
-    seg->cmdsize += sizeof(*sec);
-    seg = tcc_realloc(seg, sizeof(*seg) + seg->nsects * sizeof(*sec));
-    sec = (struct section_64*)((char*)seg + sizeof(*seg)) + ret;
-    memset(sec, 0, sizeof(*sec));
+    seg->cmdsize += حجم(*sec);
+    seg = tcc_realloc(seg, حجم(*seg) + seg->nsects * حجم(*sec));
+    sec = (بنية section_64*)((حرف*)seg + حجم(*seg)) + ret;
+    memset(sec, 0, حجم(*sec));
     strncpy(sec->sectname, name, 16);
     strncpy(sec->segname, seg->segname, 16);
     *_seg = seg;
-    return ret;
+    أرجع ret;
 }
 
-static struct section_64 *get_section(struct segment_command_64 *seg, int i)
+ساكن بنية section_64 *get_section(بنية segment_command_64 *seg, صحيح i)
 {
-    return (struct section_64*)((char*)seg + sizeof(*seg)) + i;
+    أرجع (بنية section_64*)((حرف*)seg + حجم(*seg)) + i;
 }
 
-static void * add_dylib(struct macho *mo, char *name)
+ساكن فراغ * جوڑو_dylib(بنية macho *mo, حرف *name)
 {
-    struct dylib_command *lc;
-    int sz = (sizeof(*lc) + strlen(name) + 1 + 7) & -8;
-    lc = add_lc(mo, LC_LOAD_DYLIB, sz);
-    lc->name = sizeof(*lc);
-    strcpy((char*)lc + lc->name, name);
+    بنية dylib_command *lc;
+    صحيح sz = (حجم(*lc) + لڑی_لمبائی(name) + 1 + 7) & -8;
+    lc = جوڑو_lc(mo, LC_لدو_DYLIB, sz);
+    lc->name = حجم(*lc);
+    strcpy((حرف*)lc + lc->name, name);
     lc->timestamp = 2;
-    lc->current_version = 1 << 16;
-    lc->compatibility_version = 1 << 16;
-    return lc;
+    lc->current_نسخہ = 1 << 16;
+    lc->compatibility_نسخہ = 1 << 16;
+    أرجع lc;
 }
 
-static int uleb128_size (unsigned long long value)
+ساكن صحيح uleb128_ناپ (بنانشانی لما لما قدر)
 {
-    int size =  0;
+    صحيح ناپ =  0;
 
-    do {
-        value >>= 7;
-        size++;
-    } while (value != 0);
-    return size;
+    افعل {
+        قدر >>= 7;
+        ناپ++;
+    } طالما (قدر != 0);
+    أرجع ناپ;
 }
 
-static void write_uleb128(Section *section, uint64_t value)
+ساكن فراغ write_uleb128(Section *section, uint64_t قدر)
 {
-    do {
-        unsigned char byte = value & 0x7f;
-	uint8_t *ptr = section_ptr_add(section, 1);
+    افعل {
+        بنانشانی حرف byte = قدر & 0x7f;
+	uint8_t *ptr = section_ptr_جوڑو(section, 1);
 
-        value >>= 7;
-        *ptr = byte | (value ? 0x80 : 0);
-    } while (value != 0);
+        قدر >>= 7;
+        *ptr = byte | (قدر ? 0x80 : 0);
+    } طالما (قدر != 0);
 }
 
-static void tcc_macho_add_destructor(TCCState *s1)
+ساكن فراغ tcc_macho_جوڑو_destructor(TCCState *s1)
 {
-    int init_sym, mh_execute_header, at_exit_sym;
+    صحيح init_sym, mh_execute_سرخی, at_exit_sym;
     Section *s;
     ElfW_Rel *rel;
     uint8_t *ptr;
 
-    mh_execute_header = put_elf_sym(s1->symtab, -4096, 0,
+    mh_execute_سرخی = put_elf_sym(s1->symtab, -4096, 0,
 				    ELFW(ST_INFO)(STB_GLOBAL, STT_OBJECT), 0,
-				    text_section->sh_num, "__mh_execute_header");
-    s = find_section(s1, ".fini_array");
-    if (s->data_offset == 0)
-        return; 
-    init_sym = put_elf_sym(s1->symtab, text_section->data_offset, 0,
+				    متن_section->sh_عدد, "__mh_execute_header");
+    s = لبھو_section(s1, ".fini_array");
+    إذا (s->انکڑے_وتھ == 0)
+        أرجع; 
+    init_sym = put_elf_sym(s1->symtab, متن_section->انکڑے_وتھ, 0,
                            ELFW(ST_INFO)(STB_LOCAL, STT_FUNC), 0,
-                           text_section->sh_num, "___GLOBAL_init_65535");
+                           متن_section->sh_عدد, "___GLOBAL_init_65535");
     at_exit_sym = put_elf_sym(s1->symtab, 0, 0,
                               ELFW(ST_INFO)(STB_GLOBAL, STT_FUNC), 0,
                               SHN_UNDEF, "___cxa_atexit");
-#ifdef TCC_TARGET_X86_64
-    ptr = section_ptr_add(text_section, 4);
+#جے_تعریف_شدہ TCC_نشانہ_X86_64
+    ptr = section_ptr_جوڑو(متن_section, 4);
     ptr[0] = 0x55;  // pushq   %rbp
     ptr[1] = 0x48;  // movq    %rsp, %rbp
     ptr[2] = 0x89;
     ptr[3] = 0xe5;
     for_each_elem(s->reloc, 0, rel, ElfW_Rel) {
-        int sym_index = ELFW(R_SYM)(rel->r_info);
+        صحيح sym_اشاریہ = ELFW(R_SYM)(rel->r_info);
 
-        ptr = section_ptr_add(text_section, 26);
+        ptr = section_ptr_جوڑو(متن_section, 26);
         ptr[0] = 0x48;  // lea destructor(%rip),%rax
         ptr[1] = 0x8d;
         ptr[2] = 0x05;
-        put_elf_reloca(s1->symtab, text_section, 
-		       text_section->data_offset - 23,
-		       R_X86_64_PC32, sym_index, -4);
+        put_elf_reloca(s1->symtab, متن_section, 
+		       متن_section->انکڑے_وتھ - 23,
+		       R_X86_64_PC32, sym_اشاریہ, -4);
         ptr[7] = 0x48;  // mov %rax,%rdi
         ptr[8] = 0x89;
         ptr[9] = 0xc7;
@@ -598,212 +598,212 @@ static void tcc_macho_add_destructor(TCCState *s1)
         ptr[14] = 0x48;  // lea mh_execute_header(%rip),%rdx
         ptr[15] = 0x8d;
         ptr[16] = 0x15;
-        put_elf_reloca(s1->symtab, text_section,
-		       text_section->data_offset - 9,
-		       R_X86_64_PC32, mh_execute_header, -4);
+        put_elf_reloca(s1->symtab, متن_section,
+		       متن_section->انکڑے_وتھ - 9,
+		       R_X86_64_PC32, mh_execute_سرخی, -4);
 	ptr[21] = 0xe8; // call __cxa_atexit
-        put_elf_reloca(s1->symtab, text_section,
-		       text_section->data_offset - 4,
+        put_elf_reloca(s1->symtab, متن_section,
+		       متن_section->انکڑے_وتھ - 4,
 		       R_X86_64_PLT32, at_exit_sym, -4);
     }
-    ptr = section_ptr_add(text_section, 2);
+    ptr = section_ptr_جوڑو(متن_section, 2);
     ptr[0] = 0x5d;  // pop   %rbp
     ptr[1] = 0xc3;  // ret
-#elif defined TCC_TARGET_ARM64
-    ptr = section_ptr_add(text_section, 8);
+#وإلاإذا defined TCC_نشانہ_ARM64
+    ptr = section_ptr_جوڑو(متن_section, 8);
     write32le(ptr, 0xa9bf7bfd);     // stp     x29, x30, [sp, #-16]!
     write32le(ptr + 4, 0x910003fd); // mov     x29, sp
     for_each_elem(s->reloc, 0, rel, ElfW_Rel) {
-        int sym_index = ELFW(R_SYM)(rel->r_info);
+        صحيح sym_اشاریہ = ELFW(R_SYM)(rel->r_info);
 
-        ptr = section_ptr_add(text_section, 24);
-        put_elf_reloc(s1->symtab, text_section, 
-		      text_section->data_offset - 24,
-		      R_AARCH64_ADR_PREL_PG_HI21, sym_index);
+        ptr = section_ptr_جوڑو(متن_section, 24);
+        put_elf_reloc(s1->symtab, متن_section, 
+		      متن_section->انکڑے_وتھ - 24,
+		      R_AARCH64_ADR_PREL_PG_HI21, sym_اشاریہ);
         write32le(ptr, 0x90000000);      // adrp x0, destructor@page
-        put_elf_reloc(s1->symtab, text_section,
-		      text_section->data_offset - 20,
-		      R_AARCH64_LDST8_ABS_LO12_NC, sym_index);
+        put_elf_reloc(s1->symtab, متن_section,
+		      متن_section->انکڑے_وتھ - 20,
+		      R_AARCH64_LDST8_ABS_LO12_NC, sym_اشاریہ);
         write32le(ptr + 4, 0x91000000);  // add x0,x0,destructor@pageoff
         write32le(ptr + 8, 0xd2800001);  // mov x1, #0
-        put_elf_reloc(s1->symtab, text_section, 
-		      text_section->data_offset - 12,
-		      R_AARCH64_ADR_PREL_PG_HI21, mh_execute_header);
+        put_elf_reloc(s1->symtab, متن_section, 
+		      متن_section->انکڑے_وتھ - 12,
+		      R_AARCH64_ADR_PREL_PG_HI21, mh_execute_سرخی);
         write32le(ptr + 12, 0x90000002);      // adrp x2, mh_execute_header@page
-        put_elf_reloc(s1->symtab, text_section,
-		      text_section->data_offset - 8,
-		      R_AARCH64_LDST8_ABS_LO12_NC, mh_execute_header);
+        put_elf_reloc(s1->symtab, متن_section,
+		      متن_section->انکڑے_وتھ - 8,
+		      R_AARCH64_LDST8_ABS_LO12_NC, mh_execute_سرخی);
         write32le(ptr + 16, 0x91000042);  // add x2,x2,mh_execute_header@pageoff
-        put_elf_reloc(s1->symtab, text_section,
-		      text_section->data_offset - 4,
+        put_elf_reloc(s1->symtab, متن_section,
+		      متن_section->انکڑے_وتھ - 4,
 		      R_AARCH64_CALL26, at_exit_sym);
 	write32le(ptr + 20, 0x94000000); // bl __cxa_atexit
     }
-    ptr = section_ptr_add(text_section, 8);
+    ptr = section_ptr_جوڑو(متن_section, 8);
     write32le(ptr, 0xa8c17bfd);     // ldp     x29, x30, [sp], #16
     write32le(ptr + 4, 0xd65f03c0); // ret
-#endif
-    s->reloc->data_offset = s->data_offset = 0;
+#جے_انت
+    s->reloc->انکڑے_وتھ = s->انکڑے_وتھ = 0;
     s->sh_flags &= ~SHF_ALLOC;
-    add_array (s1, ".init_array", init_sym);
+    جوڑو_array (s1, ".init_array", init_sym);
 }
 
-#ifdef CONFIG_NEW_MACHO
-static void bind_rebase_add(struct macho *mo, int bind, int sh_info,
-			    ElfW_Rel *rel, struct sym_attr *attr)
+#جے_تعریف_شدہ CONFIG_NEW_MACHO
+ساكن فراغ bind_rebase_جوڑو(بنية macho *mo, صحيح bind, صحيح sh_info,
+			    ElfW_Rel *rel, بنية sym_attr *attr)
 {
     mo->bind_rebase = tcc_realloc(mo->bind_rebase, (mo->n_bind_rebase + 1) *
-		                  sizeof(struct bind_rebase));
+		                  حجم(بنية bind_rebase));
     mo->bind_rebase[mo->n_bind_rebase].section = sh_info;
     mo->bind_rebase[mo->n_bind_rebase].bind = bind;
     mo->bind_rebase[mo->n_bind_rebase].rel = *rel;
-    if (attr)
-        mo->bind_rebase[mo->n_bind_rebase].rel.r_offset = attr->got_offset;
+    إذا (attr)
+        mo->bind_rebase[mo->n_bind_rebase].rel.r_وتھ = attr->got_وتھ;
     mo->n_bind_rebase++;
     mo->n_bind += bind;
 }
 
-static void check_relocs(TCCState *s1, struct macho *mo)
+ساكن فراغ check_relocs(TCCState *s1, بنية macho *mo)
 {
     Section *s;
     ElfW_Rel *rel, save_rel;
     ElfW(Sym) *sym;
-    int i, j, type, gotplt_entry, sym_index, for_code;
+    صحيح i, j, type, gotplt_اندراج, sym_اشاریہ, for_کوڈ;
     uint32_t *pi, *goti;
-    struct sym_attr *attr;
+    بنية sym_attr *attr;
 
-    goti = NULL;
+    goti = عدم;
     mo->nr_plt = mo->n_got = 0;
-    for (i = 1; i < s1->nb_sections; i++) {
+    لكل (i = 1; i < s1->nb_sections; i++) {
         s = s1->sections[i];
-        if (s->sh_type != SHT_RELX ||
-	    !strncmp(s1->sections[s->sh_info]->name, ".debug_", 7))
-            continue;
+        إذا (s->sh_type != SHT_RELX ||
+	    !لڑی_مقابلہ(s1->sections[s->sh_info]->name, ".debug_", 7))
+            استمر;
         for_each_elem(s, 0, rel, ElfW_Rel) {
 	    save_rel = *rel;
             type = ELFW(R_TYPE)(rel->r_info);
-            gotplt_entry = gotplt_entry_type(type);
-            for_code = code_reloc(type);
+            gotplt_اندراج = gotplt_اندراج_type(type);
+            for_کوڈ = کوڈ_reloc(type);
             /* We generate a non-lazy pointer for used undefined symbols
                and for defined symbols that must have a place for their
                address due to codegen (i.e. a reloc requiring a got slot).  */
-            sym_index = ELFW(R_SYM)(rel->r_info);
-            sym = &((ElfW(Sym) *)symtab_section->data)[sym_index];
-            if (sym->st_shndx == SHN_UNDEF
-                || gotplt_entry == ALWAYS_GOTPLT_ENTRY) {
-                attr = get_sym_attr(s1, sym_index, 1);
-                if (!attr->dyn_index) {
-                    attr->got_offset = s1->got->data_offset;
-                    attr->plt_offset = -1;
-                    attr->dyn_index = 1; /* used as flag */
-                    section_ptr_add(s1->got, PTR_SIZE);
-                    put_elf_reloc(s1->symtab, s1->got, attr->got_offset,
-                                  R_JMP_SLOT, sym_index);
-	 	    goti = tcc_realloc(goti, (mo->n_got + 1) * sizeof(*goti));
-                    if (ELFW(ST_BIND)(sym->st_info) == STB_LOCAL) {
-                        if (sym->st_shndx == SHN_UNDEF)
+            sym_اشاریہ = ELFW(R_SYM)(rel->r_info);
+            sym = &((ElfW(Sym) *)symtab_section->انکڑے)[sym_اشاریہ];
+            إذا (sym->st_shndx == SHN_UNDEF
+                || gotplt_اندراج == ALWAYS_GOTPLT_اندراج) {
+                attr = get_sym_attr(s1, sym_اشاریہ, 1);
+                إذا (!attr->dyn_اشاریہ) {
+                    attr->got_وتھ = s1->got->انکڑے_وتھ;
+                    attr->plt_وتھ = -1;
+                    attr->dyn_اشاریہ = 1; /* used as flag */
+                    section_ptr_جوڑو(s1->got, PTR_ناپ);
+                    put_elf_reloc(s1->symtab, s1->got, attr->got_وتھ,
+                                  R_JMP_تھاں, sym_اشاریہ);
+	 	    goti = tcc_realloc(goti, (mo->n_got + 1) * حجم(*goti));
+                    إذا (ELFW(ST_BIND)(sym->st_info) == STB_LOCAL) {
+                        إذا (sym->st_shndx == SHN_UNDEF)
                           tcc_error("unresolved local reference to '%s'",
-				    (char *) symtab_section->link->data + sym->st_name);
-			goti[mo->n_got++] = INDIRECT_SYMBOL_LOCAL;
-                    } else {
-                        goti[mo->n_got++] = mo->e2msym[sym_index];
-                        if (sym->st_shndx == SHN_UNDEF
-#ifdef TCC_TARGET_X86_64
+				    (حرف *) symtab_section->link->انکڑے + sym->st_name);
+			goti[mo->n_got++] = اسدھا_علامت_LOCAL;
+                    } وإلا {
+                        goti[mo->n_got++] = mo->e2msym[sym_اشاریہ];
+                        إذا (sym->st_shndx == SHN_UNDEF
+#جے_تعریف_شدہ TCC_نشانہ_X86_64
                             && type == R_X86_64_GOTPCREL
-#elif defined TCC_TARGET_ARM64
-                            && type == R_AARCH64_ADR_GOT_PAGE
-#endif
+#وإلاإذا defined TCC_نشانہ_ARM64
+                            && type == R_AARCH64_ADR_GOT_ورقہ
+#جے_انت
                             ) {
-			    attr->plt_offset = -mo->n_bind_rebase - 2;
-			    bind_rebase_add(mo, 1, s1->got->reloc->sh_info, &save_rel, attr);
-			    s1->got->reloc->data_offset -= sizeof (ElfW_Rel);
+			    attr->plt_وتھ = -mo->n_bind_rebase - 2;
+			    bind_rebase_جوڑو(mo, 1, s1->got->reloc->sh_info, &save_rel, attr);
+			    s1->got->reloc->انکڑے_وتھ -= حجم (ElfW_Rel);
 			}
-		        if (for_code && sym->st_shndx == SHN_UNDEF)
-			    s1->got->reloc->data_offset -= sizeof (ElfW_Rel);
+		        إذا (for_کوڈ && sym->st_shndx == SHN_UNDEF)
+			    s1->got->reloc->انکڑے_وتھ -= حجم (ElfW_Rel);
 		    }
                 }
-                if (for_code && sym->st_shndx == SHN_UNDEF) {
-		    if ((int)attr->plt_offset < -1) {
+                إذا (for_کوڈ && sym->st_shndx == SHN_UNDEF) {
+		    إذا ((صحيح)attr->plt_وتھ < -1) {
 			/* remove above bind and replace with plt */
-			mo->bind_rebase[-attr->plt_offset - 2].bind = 2;
-			attr->plt_offset = -1;
+			mo->bind_rebase[-attr->plt_وتھ - 2].bind = 2;
+			attr->plt_وتھ = -1;
 		    }
-                    if (attr->plt_offset == -1) {
+                    إذا (attr->plt_وتھ == -1) {
                         uint8_t *jmp;
 
-                        attr->plt_offset = mo->stubs->data_offset;
-#ifdef TCC_TARGET_X86_64
-                        if (type != R_X86_64_PLT32)
-                             continue;
-                        jmp = section_ptr_add(mo->stubs, 6);
+                        attr->plt_وتھ = mo->stubs->انکڑے_وتھ;
+#جے_تعریف_شدہ TCC_نشانہ_X86_64
+                        إذا (type != R_X86_64_PLT32)
+                             استمر;
+                        jmp = section_ptr_جوڑو(mo->stubs, 6);
                         jmp[0] = 0xff;  /* jmpq *ofs(%rip) */
                         jmp[1] = 0x25;
                         put_elf_reloc(s1->symtab, mo->stubs,
-                                      attr->plt_offset + 2,
-                                      R_X86_64_GOTPCREL, sym_index);
-#elif defined TCC_TARGET_ARM64
-                        if (type != R_AARCH64_CALL26)
-                             continue;
-                        jmp = section_ptr_add(mo->stubs, 12);
+                                      attr->plt_وتھ + 2,
+                                      R_X86_64_GOTPCREL, sym_اشاریہ);
+#وإلاإذا defined TCC_نشانہ_ARM64
+                        إذا (type != R_AARCH64_CALL26)
+                             استمر;
+                        jmp = section_ptr_جوڑو(mo->stubs, 12);
                         put_elf_reloc(s1->symtab, mo->stubs,
-                                      attr->plt_offset,
-                                      R_AARCH64_ADR_GOT_PAGE, sym_index);
+                                      attr->plt_وتھ,
+                                      R_AARCH64_ADR_GOT_ورقہ, sym_اشاریہ);
                         write32le(jmp, // adrp x16, #sym
                                   0x90000010);
                         put_elf_reloc(s1->symtab, mo->stubs,
-                                      attr->plt_offset + 4,
-                                      R_AARCH64_LD64_GOT_LO12_NC, sym_index);
+                                      attr->plt_وتھ + 4,
+                                      R_AARCH64_LD64_GOT_LO12_NC, sym_اشاریہ);
                         write32le(jmp + 4, // ld x16,[x16, #sym]
                                   0xf9400210);
                         write32le(jmp + 8, // br x16
                                   0xd61f0200);
-#endif
-			bind_rebase_add(mo, 1, s1->got->reloc->sh_info, &save_rel, attr);
-                        pi = section_ptr_add(mo->indirsyms, sizeof(*pi));
-                        *pi = mo->e2msym[sym_index];
+#جے_انت
+			bind_rebase_جوڑو(mo, 1, s1->got->reloc->sh_info, &save_rel, attr);
+                        pi = section_ptr_جوڑو(mo->indirsyms, حجم(*pi));
+                        *pi = mo->e2msym[sym_اشاریہ];
                         mo->nr_plt++;
                     }
                     rel->r_info = ELFW(R_INFO)(mo->stubsym, type);
-                    rel->r_addend += attr->plt_offset;
+                    rel->r_addend += attr->plt_وتھ;
                 }
             }
-	    if (type == R_DATA_PTR || type == R_JMP_SLOT)
-		bind_rebase_add(mo, sym->st_shndx == SHN_UNDEF ? 1 : 0,
-				s->sh_info, &save_rel, NULL);
+	    إذا (type == R_انکڑے_PTR || type == R_JMP_تھاں)
+		bind_rebase_جوڑو(mo, sym->st_shndx == SHN_UNDEF ? 1 : 0,
+				s->sh_info, &save_rel, عدم);
         }
     }
     /* remove deleted binds */
-    for (i = 0, j = 0; i < mo->n_bind_rebase; i++)
-	if (mo->bind_rebase[i].bind == 2)
+    لكل (i = 0, j = 0; i < mo->n_bind_rebase; i++)
+	إذا (mo->bind_rebase[i].bind == 2)
 	    mo->n_bind--;
-	else
+	وإلا
 	    mo->bind_rebase[j++] = mo->bind_rebase[i];
     mo->n_bind_rebase = j;
-    pi = section_ptr_add(mo->indirsyms, mo->n_got * sizeof(*pi));
-    memcpy(pi, goti, mo->n_got * sizeof(*pi));
+    pi = section_ptr_جوڑو(mo->indirsyms, mo->n_got * حجم(*pi));
+    حافظہ_نقل(pi, goti, mo->n_got * حجم(*pi));
     tcc_free(goti);
 }
 
-#else
+#وإلا
 
-static void check_relocs(TCCState *s1, struct macho *mo)
+ساكن فراغ check_relocs(TCCState *s1, بنية macho *mo)
 {
     uint8_t *jmp;
     Section *s;
     ElfW_Rel *rel, save_rel;
     ElfW(Sym) *sym;
-    int i, type, gotplt_entry, sym_index, for_code;
-    int bind_offset, la_symbol_offset;
+    صحيح i, type, gotplt_اندراج, sym_اشاریہ, for_کوڈ;
+    صحيح bind_وتھ, la_علامت_وتھ;
     uint32_t *pi, *goti;
-    struct sym_attr *attr;
+    بنية sym_attr *attr;
 
-#ifdef TCC_TARGET_X86_64
-    jmp = section_ptr_add(mo->stub_helper, 16);
+#جے_تعریف_شدہ TCC_نشانہ_X86_64
+    jmp = section_ptr_جوڑو(mo->stub_helper, 16);
     jmp[0] = 0x4c;  /* leaq _dyld_private(%rip), %r11 */
     jmp[1] = 0x8d;
     jmp[2] = 0x1d;
     put_elf_reloca(s1->symtab, mo->stub_helper, 3,
-		   R_X86_64_PC32, mo->dyld_private, -4);
+		   R_X86_64_PC32, mo->dyld_نجی, -4);
     jmp[7] = 0x41;  /* pushq %r11 */
     jmp[8] = 0x53;
     jmp[9] = 0xff;  /* jmpq    *dyld_stub_binder@GOT(%rip) */
@@ -811,180 +811,180 @@ static void check_relocs(TCCState *s1, struct macho *mo)
     put_elf_reloca(s1->symtab, mo->stub_helper, 11,
 		   R_X86_64_GOTPCREL, mo->dyld_stub_binder, -4);
     jmp[15] = 0x90; /* nop */
-#elif defined TCC_TARGET_ARM64
-    jmp = section_ptr_add(mo->stub_helper, 24);
+#وإلاإذا defined TCC_نشانہ_ARM64
+    jmp = section_ptr_جوڑو(mo->stub_helper, 24);
     put_elf_reloc(s1->symtab, mo->stub_helper, 0,
-		  R_AARCH64_ADR_PREL_PG_HI21, mo->dyld_private);
+		  R_AARCH64_ADR_PREL_PG_HI21, mo->dyld_نجی);
     write32le(jmp, 0x90000011); // adrp x17, _dyld_private@page
     put_elf_reloc(s1->symtab, mo->stub_helper, 4,
-		  R_AARCH64_LDST64_ABS_LO12_NC, mo->dyld_private);
+		  R_AARCH64_LDST64_ABS_LO12_NC, mo->dyld_نجی);
     write32le(jmp + 4, 0x91000231); // add x17,x17,_dyld_private@pageoff
     write32le(jmp + 8, 0xa9bf47f0); // stp x16/x17, [sp, #-16]!
     put_elf_reloc(s1->symtab, mo->stub_helper, 12,
-		  R_AARCH64_ADR_GOT_PAGE, mo->dyld_stub_binder);
+		  R_AARCH64_ADR_GOT_ورقہ, mo->dyld_stub_binder);
     write32le(jmp + 12, 0x90000010); // adrp x16, dyld_stub_binder@page
     put_elf_reloc(s1->symtab, mo->stub_helper, 16,
 		  R_AARCH64_LD64_GOT_LO12_NC, mo->dyld_stub_binder);
     write32le(jmp + 16, 0xf9400210); // ldr x16,[x16,dyld_stub_binder@pageoff]
     write32le(jmp + 20, 0xd61f0200); // br x16
-#endif
+#جے_انت
     
-    goti = NULL;
+    goti = عدم;
     mo->nr_plt = mo->n_got = 0;
-    for (i = 1; i < s1->nb_sections; i++) {
+    لكل (i = 1; i < s1->nb_sections; i++) {
         s = s1->sections[i];
-        if (s->sh_type != SHT_RELX ||
-	    !strncmp(s1->sections[s->sh_info]->name, ".debug_", 7))
-            continue;
+        إذا (s->sh_type != SHT_RELX ||
+	    !لڑی_مقابلہ(s1->sections[s->sh_info]->name, ".debug_", 7))
+            استمر;
         for_each_elem(s, 0, rel, ElfW_Rel) {
 	    save_rel = *rel;
             type = ELFW(R_TYPE)(rel->r_info);
-            gotplt_entry = gotplt_entry_type(type);
-            for_code = code_reloc(type);
+            gotplt_اندراج = gotplt_اندراج_type(type);
+            for_کوڈ = کوڈ_reloc(type);
             /* We generate a non-lazy pointer for used undefined symbols
                and for defined symbols that must have a place for their
                address due to codegen (i.e. a reloc requiring a got slot).  */
-            sym_index = ELFW(R_SYM)(rel->r_info);
-            sym = &((ElfW(Sym) *)symtab_section->data)[sym_index];
-            if (sym->st_shndx == SHN_UNDEF
-                || gotplt_entry == ALWAYS_GOTPLT_ENTRY) {
-                attr = get_sym_attr(s1, sym_index, 1);
-                if (!attr->dyn_index) {
-                    attr->got_offset = s1->got->data_offset;
-                    attr->plt_offset = -1;
-                    attr->dyn_index = 1; /* used as flag */
-		    section_ptr_add(s1->got, PTR_SIZE);
-                    put_elf_reloc(s1->symtab, s1->got, attr->got_offset,
-                                  R_JMP_SLOT, sym_index);
-		    goti = tcc_realloc(goti, (mo->n_got + 1) * sizeof(*goti));
-                    if (ELFW(ST_BIND)(sym->st_info) == STB_LOCAL) {
-                        if (sym->st_shndx == SHN_UNDEF)
+            sym_اشاریہ = ELFW(R_SYM)(rel->r_info);
+            sym = &((ElfW(Sym) *)symtab_section->انکڑے)[sym_اشاریہ];
+            إذا (sym->st_shndx == SHN_UNDEF
+                || gotplt_اندراج == ALWAYS_GOTPLT_اندراج) {
+                attr = get_sym_attr(s1, sym_اشاریہ, 1);
+                إذا (!attr->dyn_اشاریہ) {
+                    attr->got_وتھ = s1->got->انکڑے_وتھ;
+                    attr->plt_وتھ = -1;
+                    attr->dyn_اشاریہ = 1; /* used as flag */
+		    section_ptr_جوڑو(s1->got, PTR_ناپ);
+                    put_elf_reloc(s1->symtab, s1->got, attr->got_وتھ,
+                                  R_JMP_تھاں, sym_اشاریہ);
+		    goti = tcc_realloc(goti, (mo->n_got + 1) * حجم(*goti));
+                    إذا (ELFW(ST_BIND)(sym->st_info) == STB_LOCAL) {
+                        إذا (sym->st_shndx == SHN_UNDEF)
                           tcc_error("unresolved local reference to '%s'",
-				    (char *) symtab_section->link->data + sym->st_name);
-			goti[mo->n_got++] = INDIRECT_SYMBOL_LOCAL;
-                    } else {
-			goti[mo->n_got++] = mo->e2msym[sym_index];
-			if (sym->st_shndx == SHN_UNDEF
-#ifdef TCC_TARGET_X86_64
+				    (حرف *) symtab_section->link->انکڑے + sym->st_name);
+			goti[mo->n_got++] = اسدھا_علامت_LOCAL;
+                    } وإلا {
+			goti[mo->n_got++] = mo->e2msym[sym_اشاریہ];
+			إذا (sym->st_shndx == SHN_UNDEF
+#جے_تعریف_شدہ TCC_نشانہ_X86_64
 			    && type == R_X86_64_GOTPCREL
-#elif defined TCC_TARGET_ARM64
-			    && type == R_AARCH64_ADR_GOT_PAGE
-#endif
+#وإلاإذا defined TCC_نشانہ_ARM64
+			    && type == R_AARCH64_ADR_GOT_ورقہ
+#جے_انت
 			    ) {
 			    mo->bind =
 			        tcc_realloc(mo->bind,
 					    (mo->n_bind + 1) *
-					    sizeof(struct bind));
+					    حجم(بنية bind));
 			    mo->bind[mo->n_bind].section = s1->got->reloc->sh_info;
 			    mo->bind[mo->n_bind].rel = save_rel;
-                            mo->bind[mo->n_bind].rel.r_offset = attr->got_offset;
+                            mo->bind[mo->n_bind].rel.r_وتھ = attr->got_وتھ;
 			    mo->n_bind++;
-			    s1->got->reloc->data_offset -= sizeof (ElfW_Rel);
+			    s1->got->reloc->انکڑے_وتھ -= حجم (ElfW_Rel);
 			}
 		    }
                 }
-                if (for_code && sym->st_shndx == SHN_UNDEF) {
-                    if (attr->plt_offset == -1) {
-                        attr->plt_offset = mo->stubs->data_offset;
-#ifdef TCC_TARGET_X86_64
-			if (type != R_X86_64_PLT32)
-			     continue;
+                إذا (for_کوڈ && sym->st_shndx == SHN_UNDEF) {
+                    إذا (attr->plt_وتھ == -1) {
+                        attr->plt_وتھ = mo->stubs->انکڑے_وتھ;
+#جے_تعریف_شدہ TCC_نشانہ_X86_64
+			إذا (type != R_X86_64_PLT32)
+			     استمر;
 			/* __stubs */
-                        jmp = section_ptr_add(mo->stubs, 6);
+                        jmp = section_ptr_جوڑو(mo->stubs, 6);
                         jmp[0] = 0xff;  /* jmpq *__la_symbol_ptr(%rip) */
                         jmp[1] = 0x25;
                         put_elf_reloca(s1->symtab, mo->stubs,
-                                       mo->stubs->data_offset - 4,
+                                       mo->stubs->انکڑے_وتھ - 4,
                                        R_X86_64_PC32, mo->lasym,
-				       mo->la_symbol_ptr->data_offset - 4);
+				       mo->la_علامت_ptr->انکڑے_وتھ - 4);
 
 			/* __stub_helper */
-			bind_offset = mo->stub_helper->data_offset + 1;
-                        jmp = section_ptr_add(mo->stub_helper, 10);
+			bind_وتھ = mo->stub_helper->انکڑے_وتھ + 1;
+                        jmp = section_ptr_جوڑو(mo->stub_helper, 10);
                         jmp[0] = 0x68;  /* pushq $bind_offset */
                         jmp[5] = 0xe9;  /* jmpq __stub_helper */
-                        write32le(jmp + 6, -mo->stub_helper->data_offset);
+                        write32le(jmp + 6, -mo->stub_helper->انکڑے_وتھ);
 
 			/* __la_symbol_ptr */
-			la_symbol_offset = mo->la_symbol_ptr->data_offset;
-                        put_elf_reloca(s1->symtab, mo->la_symbol_ptr,
-				       mo->la_symbol_ptr->data_offset,
-				       R_DATA_PTR, mo->helpsym,
-				       mo->stub_helper->data_offset - 10);
-			section_ptr_add(mo->la_symbol_ptr, PTR_SIZE);
-#elif defined TCC_TARGET_ARM64
-			if (type != R_AARCH64_CALL26)
-			     continue;
+			la_علامت_وتھ = mo->la_علامت_ptr->انکڑے_وتھ;
+                        put_elf_reloca(s1->symtab, mo->la_علامت_ptr,
+				       mo->la_علامت_ptr->انکڑے_وتھ,
+				       R_انکڑے_PTR, mo->helpsym,
+				       mo->stub_helper->انکڑے_وتھ - 10);
+			section_ptr_جوڑو(mo->la_علامت_ptr, PTR_ناپ);
+#وإلاإذا defined TCC_نشانہ_ARM64
+			إذا (type != R_AARCH64_CALL26)
+			     استمر;
 			/* __stubs */
-                        jmp = section_ptr_add(mo->stubs, 12);
+                        jmp = section_ptr_جوڑو(mo->stubs, 12);
                         put_elf_reloca(s1->symtab, mo->stubs,
-                                       mo->stubs->data_offset - 12,
+                                       mo->stubs->انکڑے_وتھ - 12,
                                        R_AARCH64_ADR_PREL_PG_HI21, mo->lasym,
-				       mo->la_symbol_ptr->data_offset);
+				       mo->la_علامت_ptr->انکڑے_وتھ);
                         write32le(jmp, // adrp x16, __la_symbol_ptr@page
                                   0x90000010);
                         put_elf_reloca(s1->symtab, mo->stubs,
-                                       mo->stubs->data_offset - 8,
+                                       mo->stubs->انکڑے_وتھ - 8,
                                        R_AARCH64_LDST64_ABS_LO12_NC, mo->lasym,
-				       mo->la_symbol_ptr->data_offset);
+				       mo->la_علامت_ptr->انکڑے_وتھ);
                         write32le(jmp + 4, // ldr x16,[x16, __la_symbol_ptr@pageoff]
                                   0xf9400210);
                         write32le(jmp + 8, // br x16
                                   0xd61f0200);
 
 			/* __stub_helper */
-			bind_offset = mo->stub_helper->data_offset + 8;
-                        jmp = section_ptr_add(mo->stub_helper, 12);
+			bind_وتھ = mo->stub_helper->انکڑے_وتھ + 8;
+                        jmp = section_ptr_جوڑو(mo->stub_helper, 12);
                         write32le(jmp + 0, // ldr  w16, l0
                                   0x18000050);
                         write32le(jmp + 4, // b stubHelperHeader
                                   0x14000000 +
-				  ((-(mo->stub_helper->data_offset - 8) / 4) &
+				  ((-(mo->stub_helper->انکڑے_وتھ - 8) / 4) &
 				   0x3ffffff));
                         write32le(jmp + 8, 0); // l0: .long bind_offset
 
 			/* __la_symbol_ptr */
-			la_symbol_offset = mo->la_symbol_ptr->data_offset;
-                        put_elf_reloca(s1->symtab, mo->la_symbol_ptr,
-				       mo->la_symbol_ptr->data_offset,
-				       R_DATA_PTR, mo->helpsym,
-				       mo->stub_helper->data_offset - 12);
-			section_ptr_add(mo->la_symbol_ptr, PTR_SIZE);
-#endif
+			la_علامت_وتھ = mo->la_علامت_ptr->انکڑے_وتھ;
+                        put_elf_reloca(s1->symtab, mo->la_علامت_ptr,
+				       mo->la_علامت_ptr->انکڑے_وتھ,
+				       R_انکڑے_PTR, mo->helpsym,
+				       mo->stub_helper->انکڑے_وتھ - 12);
+			section_ptr_جوڑو(mo->la_علامت_ptr, PTR_ناپ);
+#جے_انت
                         mo->s_lazy_bind =
                             tcc_realloc(mo->s_lazy_bind, (mo->n_lazy_bind + 1) *
-                                        sizeof(struct s_lazy_bind));
+                                        حجم(بنية s_lazy_bind));
                         mo->s_lazy_bind[mo->n_lazy_bind].section =
                             mo->stub_helper->reloc->sh_info;
-                        mo->s_lazy_bind[mo->n_lazy_bind].bind_offset =
-			    bind_offset;
-                        mo->s_lazy_bind[mo->n_lazy_bind].la_symbol_offset =
-			    la_symbol_offset;
+                        mo->s_lazy_bind[mo->n_lazy_bind].bind_وتھ =
+			    bind_وتھ;
+                        mo->s_lazy_bind[mo->n_lazy_bind].la_علامت_وتھ =
+			    la_علامت_وتھ;
                         mo->s_lazy_bind[mo->n_lazy_bind].rel = save_rel;
-                        mo->s_lazy_bind[mo->n_lazy_bind].rel.r_offset =
-                            attr->plt_offset;
+                        mo->s_lazy_bind[mo->n_lazy_bind].rel.r_وتھ =
+                            attr->plt_وتھ;
                         mo->n_lazy_bind++;
-			pi = section_ptr_add(mo->indirsyms, sizeof(*pi));
-			*pi = mo->e2msym[sym_index];
+			pi = section_ptr_جوڑو(mo->indirsyms, حجم(*pi));
+			*pi = mo->e2msym[sym_اشاریہ];
 			mo->nr_plt++;
                     }
                     rel->r_info = ELFW(R_INFO)(mo->stubsym, type);
-                    rel->r_addend += attr->plt_offset;
+                    rel->r_addend += attr->plt_وتھ;
                 }
             }
-            if (type == R_DATA_PTR || type == R_JMP_SLOT) {
-		if (sym->st_shndx == SHN_UNDEF) {
+            إذا (type == R_انکڑے_PTR || type == R_JMP_تھاں) {
+		إذا (sym->st_shndx == SHN_UNDEF) {
 		    mo->bind = tcc_realloc(mo->bind,
 					   (mo->n_bind + 1) *
-					   sizeof(struct bind));
+					   حجم(بنية bind));
 		    mo->bind[mo->n_bind].section = s->sh_info;
 		    mo->bind[mo->n_bind].rel = save_rel;
 		    mo->n_bind++;
 		}
-		else {
+		وإلا {
                     mo->s_rebase =
                         tcc_realloc(mo->s_rebase, (mo->n_rebase + 1) *
-				    sizeof(struct s_rebase));
+				    حجم(بنية s_rebase));
                     mo->s_rebase[mo->n_rebase].section = s->sh_info;
                     mo->s_rebase[mo->n_rebase].rel = save_rel;
                     mo->n_rebase++;
@@ -992,176 +992,176 @@ static void check_relocs(TCCState *s1, struct macho *mo)
 	    }
         }
     }
-    pi = section_ptr_add(mo->indirsyms, mo->n_got * sizeof(*pi));
-    memcpy(pi, goti, mo->n_got * sizeof(*pi));
-    pi = section_ptr_add(mo->indirsyms, mo->nr_plt * sizeof(*pi));
-    memcpy(pi, mo->indirsyms->data, mo->nr_plt * sizeof(*pi));
+    pi = section_ptr_جوڑو(mo->indirsyms, mo->n_got * حجم(*pi));
+    حافظہ_نقل(pi, goti, mo->n_got * حجم(*pi));
+    pi = section_ptr_جوڑو(mo->indirsyms, mo->nr_plt * حجم(*pi));
+    حافظہ_نقل(pi, mo->indirsyms->انکڑے, mo->nr_plt * حجم(*pi));
     tcc_free(goti);
 }
-#endif
+#جے_انت
 
-static int check_symbols(TCCState *s1, struct macho *mo)
+ساكن صحيح check_symbols(TCCState *s1, بنية macho *mo)
 {
-    int sym_index, sym_end;
-    int ret = 0;
+    صحيح sym_اشاریہ, sym_سرا;
+    صحيح ret = 0;
 
     mo->ilocal = mo->iextdef = mo->iundef = -1;
-    sym_end = symtab_section->data_offset / sizeof(ElfW(Sym));
-    for (sym_index = 1; sym_index < sym_end; ++sym_index) {
-        int elf_index = ((struct nlist_64 *)mo->symtab->data + sym_index - 1)->n_value;
-        ElfW(Sym) *sym = (ElfW(Sym) *)symtab_section->data + elf_index;
-        const char *name = (char*)symtab_section->link->data + sym->st_name;
-        unsigned type = ELFW(ST_TYPE)(sym->st_info);
-        unsigned bind = ELFW(ST_BIND)(sym->st_info);
-        unsigned vis  = ELFW(ST_VISIBILITY)(sym->st_other);
+    sym_سرا = symtab_section->انکڑے_وتھ / حجم(ElfW(Sym));
+    لكل (sym_اشاریہ = 1; sym_اشاریہ < sym_سرا; ++sym_اشاریہ) {
+        صحيح elf_اشاریہ = ((بنية nlist_64 *)mo->symtab->انکڑے + sym_اشاریہ - 1)->n_قدر;
+        ElfW(Sym) *sym = (ElfW(Sym) *)symtab_section->انکڑے + elf_اشاریہ;
+        ثابت حرف *name = (حرف*)symtab_section->link->انکڑے + sym->st_name;
+        بنانشانی type = ELFW(ST_TYPE)(sym->st_info);
+        بنانشانی bind = ELFW(ST_BIND)(sym->st_info);
+        بنانشانی vis  = ELFW(ST_VISIBILITY)(sym->st_other);
 
         dprintf("%4d (%4d): %09lx %4d %4d %4d %3d %s\n",
-                sym_index, elf_index, (long)sym->st_value,
+                sym_اشاریہ, elf_اشاریہ, (لما)sym->st_قدر,
                 type, bind, vis, sym->st_shndx, name);
-        if (bind == STB_LOCAL) {
-            if (mo->ilocal == -1)
-              mo->ilocal = sym_index - 1;
-            if (mo->iextdef != -1 || mo->iundef != -1)
+        إذا (bind == STB_LOCAL) {
+            إذا (mo->ilocal == -1)
+              mo->ilocal = sym_اشاریہ - 1;
+            إذا (mo->iextdef != -1 || mo->iundef != -1)
               tcc_error("local syms after global ones");
-        } else if (sym->st_shndx != SHN_UNDEF) {
-            if (mo->iextdef == -1)
-              mo->iextdef = sym_index - 1;
-            if (mo->iundef != -1)
+        } وإلا إذا (sym->st_shndx != SHN_UNDEF) {
+            إذا (mo->iextdef == -1)
+              mo->iextdef = sym_اشاریہ - 1;
+            إذا (mo->iundef != -1)
               tcc_error("external defined symbol after undefined");
-        } else if (sym->st_shndx == SHN_UNDEF) {
-            if (mo->iundef == -1)
-              mo->iundef = sym_index - 1;
-            if (ELFW(ST_BIND)(sym->st_info) == STB_WEAK
+        } وإلا إذا (sym->st_shndx == SHN_UNDEF) {
+            إذا (mo->iundef == -1)
+              mo->iundef = sym_اشاریہ - 1;
+            إذا (ELFW(ST_BIND)(sym->st_info) == STB_WEAK
 		|| s1->output_type != TCC_OUTPUT_EXE
-                || find_elf_sym(s1->dynsymtab_section, name)) {
+                || لبھو_elf_sym(s1->dynsymtab_section, name)) {
                 /* Mark the symbol as coming from a dylib so that
                    relocate_syms doesn't complain.  Normally bind_exe_dynsyms
                    would do this check, and place the symbol into dynsym
                    which is checked by relocate_syms.  But Mach-O doesn't use
                    bind_exe_dynsyms.  */
                 sym->st_shndx = SHN_FROMDLL;
-                continue;
+                استمر;
             }
             tcc_error_noabort("unresolved reference to '%s'", name);
             ret = -1;
         }
     }
-    return ret;
+    أرجع ret;
 }
 
-static void convert_symbol(TCCState *s1, struct macho *mo, struct nlist_64 *pn)
+ساكن فراغ convert_علامت(TCCState *s1, بنية macho *mo, بنية nlist_64 *pn)
 {
-    struct nlist_64 n = *pn;
-    ElfSym *sym = (ElfW(Sym) *)symtab_section->data + pn->n_value;
-    const char *name = (char*)symtab_section->link->data + sym->st_name;
-    switch(ELFW(ST_TYPE)(sym->st_info)) {
-    case STT_NOTYPE:
-    case STT_OBJECT:
-    case STT_FUNC:
-    case STT_TLS:
-    case STT_SECTION:
+    بنية nlist_64 n = *pn;
+    ElfSym *sym = (ElfW(Sym) *)symtab_section->انکڑے + pn->n_قدر;
+    ثابت حرف *name = (حرف*)symtab_section->link->انکڑے + sym->st_name;
+    بدل(ELFW(ST_TYPE)(sym->st_info)) {
+    حالة STT_NOTYPE:
+    حالة STT_OBJECT:
+    حالة STT_FUNC:
+    حالة STT_TLS:
+    حالة STT_SECTION:
         n.n_type = N_SECT;
-        break;
-    case STT_FILE:
+        اكسر;
+    حالة STT_FILE:
         n.n_type = N_ABS;
-        break;
-    default:
+        اكسر;
+    افتراضي:
         tcc_error("unhandled ELF symbol type %d %s",
                   ELFW(ST_TYPE)(sym->st_info), name);
     }
-    if (sym->st_shndx == SHN_UNDEF)
+    إذا (sym->st_shndx == SHN_UNDEF)
       tcc_error("should have been rewritten to SHN_FROMDLL: %s", name);
-    else if (sym->st_shndx == SHN_FROMDLL)
+    وإلا إذا (sym->st_shndx == SHN_FROMDLL)
       n.n_type = N_UNDF, n.n_sect = 0;
-    else if (sym->st_shndx == SHN_ABS)
+    وإلا إذا (sym->st_shndx == SHN_ABS)
       n.n_type = N_ABS, n.n_sect = 0;
-    else if (sym->st_shndx >= SHN_LORESERVE)
+    وإلا إذا (sym->st_shndx >= SHN_LORESERVE)
       tcc_error("unhandled ELF symbol section %d %s", sym->st_shndx, name);
-    else if (!mo->elfsectomacho[sym->st_shndx]) {
-      if (strncmp(s1->sections[sym->st_shndx]->name, ".debug_", 7))
+    وإلا إذا (!mo->elfsectomacho[sym->st_shndx]) {
+      إذا (لڑی_مقابلہ(s1->sections[sym->st_shndx]->name, ".debug_", 7))
         tcc_error("ELF section %d(%s) not mapped into Mach-O for symbol %s",
                   sym->st_shndx, s1->sections[sym->st_shndx]->name, name);
     }
-    else
+    وإلا
       n.n_sect = mo->elfsectomacho[sym->st_shndx];
-    if (ELFW(ST_BIND)(sym->st_info) == STB_GLOBAL)
+    إذا (ELFW(ST_BIND)(sym->st_info) == STB_GLOBAL)
       n.n_type |=  N_EXT;
-    else if (ELFW(ST_BIND)(sym->st_info) == STB_WEAK)
+    وإلا إذا (ELFW(ST_BIND)(sym->st_info) == STB_WEAK)
       n.n_desc |= N_WEAK_REF | (n.n_type != N_UNDF ? N_WEAK_DEF : 0);
     n.n_strx = pn->n_strx;
-    n.n_value = sym->st_value;
+    n.n_قدر = sym->st_قدر;
     *pn = n;
 }
 
-static void convert_symbols(TCCState *s1, struct macho *mo)
+ساكن فراغ convert_symbols(TCCState *s1, بنية macho *mo)
 {
-    struct nlist_64 *pn;
-    for_each_elem(mo->symtab, 0, pn, struct nlist_64)
-        convert_symbol(s1, mo, pn);
+    بنية nlist_64 *pn;
+    for_each_elem(mo->symtab, 0, pn, بنية nlist_64)
+        convert_علامت(s1, mo, pn);
 }
 
-static int machosymcmp(const void *_a, const void *_b, void *arg)
+ساكن صحيح machosymcmp(ثابت فراغ *_a, ثابت فراغ *_b, فراغ *arg)
 {
     TCCState *s1 = arg;
-    int ea = ((struct nlist_64 *)_a)->n_value;
-    int eb = ((struct nlist_64 *)_b)->n_value;
-    ElfSym *sa = (ElfSym *)symtab_section->data + ea;
-    ElfSym *sb = (ElfSym *)symtab_section->data + eb;
-    int r;
+    صحيح ea = ((بنية nlist_64 *)_a)->n_قدر;
+    صحيح eb = ((بنية nlist_64 *)_b)->n_قدر;
+    ElfSym *sa = (ElfSym *)symtab_section->انکڑے + ea;
+    ElfSym *sb = (ElfSym *)symtab_section->انکڑے + eb;
+    صحيح r;
     /* locals, then defined externals, then undefined externals, the
        last two sections also by name, otherwise stable sort */
     r = (ELFW(ST_BIND)(sb->st_info) == STB_LOCAL)
         - (ELFW(ST_BIND)(sa->st_info) == STB_LOCAL);
-    if (r)
-      return r;
+    إذا (r)
+      أرجع r;
     r = (sa->st_shndx == SHN_UNDEF) - (sb->st_shndx == SHN_UNDEF);
-    if (r)
-      return r;
-    if (ELFW(ST_BIND)(sa->st_info) != STB_LOCAL) {
-        const char * na = (char*)symtab_section->link->data + sa->st_name;
-        const char * nb = (char*)symtab_section->link->data + sb->st_name;
+    إذا (r)
+      أرجع r;
+    إذا (ELFW(ST_BIND)(sa->st_info) != STB_LOCAL) {
+        ثابت حرف * na = (حرف*)symtab_section->link->انکڑے + sa->st_name;
+        ثابت حرف * nb = (حرف*)symtab_section->link->انکڑے + sb->st_name;
         r = strcmp(na, nb);
-        if (r)
-          return r;
+        إذا (r)
+          أرجع r;
     }
-    return ea - eb;
+    أرجع ea - eb;
 }
 
 /* cannot use qsort because code has to be reentrant */
-static void tcc_qsort (void  *base, size_t nel, size_t width,
-                       int (*comp)(const void *, const void *, void *), void *arg)
+ساكن فراغ tcc_qsort (فراغ  *ادھار, ناپ_t nel, ناپ_t چوڑائی,
+                       صحيح (*comp)(ثابت فراغ *, ثابت فراغ *, فراغ *), فراغ *arg)
 {
-    size_t wnel, gap, wgap, i, j, k;
-    char *a, *b, tmp;
+    ناپ_t wnel, gap, wgap, i, j, k;
+    حرف *a, *b, tmp;
 
-    wnel = width * nel;
-    for (gap = 0; ++gap < nel;)
+    wnel = چوڑائی * nel;
+    لكل (gap = 0; ++gap < nel;)
         gap *= 3;
-    while ( gap /= 3 ) {
-        wgap = width * gap;
-        for (i = wgap; i < wnel; i += width) {
-            for (j = i - wgap; ;j -= wgap) {
-                a = j + (char *)base;
+    طالما ( gap /= 3 ) {
+        wgap = چوڑائی * gap;
+        لكل (i = wgap; i < wnel; i += چوڑائی) {
+            لكل (j = i - wgap; ;j -= wgap) {
+                a = j + (حرف *)ادھار;
                 b = a + wgap;
-                if ( (*comp)(a, b, arg) <= 0 )
-                    break;
-                k = width;
-                do {
+                إذا ( (*comp)(a, b, arg) <= 0 )
+                    اكسر;
+                k = چوڑائی;
+                افعل {
                     tmp = *a;
                     *a++ = *b;
                     *b++ = tmp;
-                } while ( --k );
-                if (j < wgap)
-                    break;
+                } طالما ( --k );
+                إذا (j < wgap)
+                    اكسر;
             }
         }
     }
 }
 
-static void create_symtab(TCCState *s1, struct macho *mo)
+ساكن فراغ create_symtab(TCCState *s1, بنية macho *mo)
 {
-    int sym_index, sym_end;
-    struct nlist_64 *pn;
+    صحيح sym_اشاریہ, sym_سرا;
+    بنية nlist_64 *pn;
 
     /* Stub creation belongs to check_relocs, but we need to create
        the symbol now, so its included in the sorting.  */
@@ -1169,24 +1169,24 @@ static void create_symtab(TCCState *s1, struct macho *mo)
     s1->got = new_section(s1, ".got", SHT_PROGBITS, SHF_ALLOC | SHF_WRITE);
     mo->stubsym = put_elf_sym(s1->symtab, 0, 0,
                               ELFW(ST_INFO)(STB_LOCAL, STT_SECTION), 0,
-                              mo->stubs->sh_num, ".__stubs");
-#ifdef CONFIG_NEW_MACHO
+                              mo->stubs->sh_عدد, ".__stubs");
+#جے_تعریف_شدہ CONFIG_NEW_MACHO
     mo->chained_fixups = new_section(s1, "CHAINED_FIXUPS",
 				     SHT_LINKEDIT, SHF_ALLOC | SHF_WRITE);
-#else
+#وإلا
     mo->stub_helper = new_section(s1, "__stub_helper", SHT_PROGBITS, SHF_ALLOC | SHF_EXECINSTR);
-    mo->la_symbol_ptr = new_section(s1, "__la_symbol_ptr", SHT_PROGBITS, SHF_ALLOC | SHF_WRITE);
+    mo->la_علامت_ptr = new_section(s1, "__la_symbol_ptr", SHT_PROGBITS, SHF_ALLOC | SHF_WRITE);
     mo->helpsym = put_elf_sym(s1->symtab, 0, 0,
                               ELFW(ST_INFO)(STB_LOCAL, STT_SECTION), 0,
-                              mo->stub_helper->sh_num, ".__stub_helper");
+                              mo->stub_helper->sh_عدد, ".__stub_helper");
     mo->lasym = put_elf_sym(s1->symtab, 0, 0,
                             ELFW(ST_INFO)(STB_LOCAL, STT_SECTION), 0,
-                            mo->la_symbol_ptr->sh_num, ".__la_symbol_ptr");
-    section_ptr_add(data_section, -data_section->data_offset & (PTR_SIZE - 1));
-    mo->dyld_private = put_elf_sym(s1->symtab, data_section->data_offset, PTR_SIZE,
+                            mo->la_علامت_ptr->sh_عدد, ".__la_symbol_ptr");
+    section_ptr_جوڑو(انکڑے_section, -انکڑے_section->انکڑے_وتھ & (PTR_ناپ - 1));
+    mo->dyld_نجی = put_elf_sym(s1->symtab, انکڑے_section->انکڑے_وتھ, PTR_ناپ,
                                    ELFW(ST_INFO)(STB_LOCAL, STT_OBJECT), 0,
-                                   data_section->sh_num, ".__dyld_private");
-    section_ptr_add(data_section, PTR_SIZE);
+                                   انکڑے_section->sh_عدد, ".__dyld_private");
+    section_ptr_جوڑو(انکڑے_section, PTR_ناپ);
     mo->dyld_stub_binder = put_elf_sym(s1->symtab, 0, 0,
                 		       ELFW(ST_INFO)(STB_GLOBAL, STT_OBJECT), 0,
 				       SHN_UNDEF, "dyld_stub_binder");
@@ -1194,46 +1194,46 @@ static void create_symtab(TCCState *s1, struct macho *mo)
     mo->binding = new_section(s1, "BINDING", SHT_LINKEDIT, SHF_ALLOC | SHF_WRITE);
     mo->weak_binding = new_section(s1, "WEAK_BINDING", SHT_LINKEDIT, SHF_ALLOC | SHF_WRITE);
     mo->lazy_binding = new_section(s1, "LAZY_BINDING", SHT_LINKEDIT, SHF_ALLOC | SHF_WRITE);
-#endif
+#جے_انت
     mo->exports = new_section(s1, "EXPORT", SHT_LINKEDIT, SHF_ALLOC | SHF_WRITE);
     mo->indirsyms = new_section(s1, "LEINDIR", SHT_LINKEDIT, SHF_ALLOC | SHF_WRITE);
 
     mo->symtab = new_section(s1, "LESYMTAB", SHT_LINKEDIT, SHF_ALLOC | SHF_WRITE);
     mo->strtab = new_section(s1, "LESTRTAB", SHT_LINKEDIT, SHF_ALLOC | SHF_WRITE);
     put_elf_str(mo->strtab, " "); /* Mach-O starts strtab with a space */
-    sym_end = symtab_section->data_offset / sizeof(ElfW(Sym));
-    pn = section_ptr_add(mo->symtab, sizeof(*pn) * (sym_end - 1));
-    for (sym_index = 1; sym_index < sym_end; ++sym_index) {
-        ElfW(Sym) *sym = (ElfW(Sym) *)symtab_section->data + sym_index;
-        const char *name = (char*)symtab_section->link->data + sym->st_name;
-        pn[sym_index - 1].n_strx = put_elf_str(mo->strtab, name);
-        pn[sym_index - 1].n_value = sym_index;
+    sym_سرا = symtab_section->انکڑے_وتھ / حجم(ElfW(Sym));
+    pn = section_ptr_جوڑو(mo->symtab, حجم(*pn) * (sym_سرا - 1));
+    لكل (sym_اشاریہ = 1; sym_اشاریہ < sym_سرا; ++sym_اشاریہ) {
+        ElfW(Sym) *sym = (ElfW(Sym) *)symtab_section->انکڑے + sym_اشاریہ;
+        ثابت حرف *name = (حرف*)symtab_section->link->انکڑے + sym->st_name;
+        pn[sym_اشاریہ - 1].n_strx = put_elf_str(mo->strtab, name);
+        pn[sym_اشاریہ - 1].n_قدر = sym_اشاریہ;
     }
-    section_ptr_add(mo->strtab, -mo->strtab->data_offset & (PTR_SIZE - 1));
-    tcc_qsort(pn, sym_end - 1, sizeof(*pn), machosymcmp, s1);
-    mo->e2msym = tcc_malloc(sym_end * sizeof(*mo->e2msym));
+    section_ptr_جوڑو(mo->strtab, -mo->strtab->انکڑے_وتھ & (PTR_ناپ - 1));
+    tcc_qsort(pn, sym_سرا - 1, حجم(*pn), machosymcmp, s1);
+    mo->e2msym = tcc_malloc(sym_سرا * حجم(*mo->e2msym));
     mo->e2msym[0] = -1;
-    for (sym_index = 1; sym_index < sym_end; ++sym_index) {
-        mo->e2msym[pn[sym_index - 1].n_value] = sym_index - 1;
+    لكل (sym_اشاریہ = 1; sym_اشاریہ < sym_سرا; ++sym_اشاریہ) {
+        mo->e2msym[pn[sym_اشاریہ - 1].n_قدر] = sym_اشاریہ - 1;
     }
 }
 
-const struct {
-    int seg_initial;
+ثابت بنية {
+    صحيح seg_initial;
     uint32_t flags;
-    const char *name;
-} skinfo[sk_last] = {
+    ثابت حرف *name;
+} skinfo[sk_آخری] = {
     /*[sk_unknown] =*/        { 0 },
     /*[sk_discard] =*/        { 0 },
-    /*[sk_text] =*/           { 1, S_REGULAR | S_ATTR_PURE_INSTRUCTIONS
+    /*[sk_text] =*/           { 1, S_REGULAR | S_ATTR_خالص_INSTRUCTIONS
                                    | S_ATTR_SOME_INSTRUCTIONS, "__text" },
-    /*[sk_stubs] =*/          { 1, S_REGULAR | S_ATTR_PURE_INSTRUCTIONS | S_SYMBOL_STUBS
+    /*[sk_stubs] =*/          { 1, S_REGULAR | S_ATTR_خالص_INSTRUCTIONS | S_علامت_STUBS
                                    | S_ATTR_SOME_INSTRUCTIONS , "__stubs" },
-    /*[sk_stub_helper] =*/    { 1, S_REGULAR | S_ATTR_PURE_INSTRUCTIONS
+    /*[sk_stub_helper] =*/    { 1, S_REGULAR | S_ATTR_خالص_INSTRUCTIONS
                                    | S_ATTR_SOME_INSTRUCTIONS , "__stub_helper" },
     /*[sk_ro_data] =*/        { 2, S_REGULAR, "__rodata" },
     /*[sk_uw_info] =*/        { 0 },
-    /*[sk_nl_ptr] =*/         { 2, S_NON_LAZY_SYMBOL_POINTERS, "__got" },
+    /*[sk_nl_ptr] =*/         { 2, S_NON_LAZY_علامت_سوچکاں, "__got" },
     /*[sk_debug_info] =*/     { 3, S_REGULAR | S_ATTR_DEBUG, "__debug_info" },
     /*[sk_debug_abbrev] =*/   { 3, S_REGULAR | S_ATTR_DEBUG, "__debug_abbrev" },
     /*[sk_debug_line] =*/     { 3, S_REGULAR | S_ATTR_DEBUG, "__debug_line" },
@@ -1242,650 +1242,650 @@ const struct {
     /*[sk_debug_line_str] =*/ { 3, S_REGULAR | S_ATTR_DEBUG, "__debug_line_str" },
     /*[sk_stab] =*/           { 4, S_REGULAR, "__stab" },
     /*[sk_stab_str] =*/       { 4, S_REGULAR, "__stab_str" },
-    /*[sk_la_ptr] =*/         { 4, S_LAZY_SYMBOL_POINTERS, "__la_symbol_ptr" },
-    /*[sk_init] =*/           { 4, S_MOD_INIT_FUNC_POINTERS, "__mod_init_func" },
-    /*[sk_fini] =*/           { 4, S_MOD_TERM_FUNC_POINTERS, "__mod_term_func" },
+    /*[sk_la_ptr] =*/         { 4, S_LAZY_علامت_سوچکاں, "__la_symbol_ptr" },
+    /*[sk_init] =*/           { 4, S_MOD_INIT_FUNC_سوچکاں, "__mod_init_func" },
+    /*[sk_fini] =*/           { 4, S_MOD_رکن_FUNC_سوچکاں, "__mod_term_func" },
     /*[sk_rw_data] =*/        { 4, S_REGULAR, "__data" },
     /*[sk_bss] =*/            { 4, S_ZEROFILL, "__bss" },
-    /*[sk_linkedit] =*/       { 5, S_REGULAR, NULL },
+    /*[sk_linkedit] =*/       { 5, S_REGULAR, عدم },
 };
 
-#define	START	((uint64_t)1 << 32)
+#تعریف_کرو	شروع_3	((uint64_t)1 << 32)
 
-const struct {
-    int used;
-    const char *name;
+ثابت بنية {
+    صحيح ورتیا;
+    ثابت حرف *name;
     uint64_t vmaddr;
     uint64_t vmsize;
     vm_prot_t maxprot;
     vm_prot_t initprot;
     uint32_t flags;
 } all_segment[] = {
-    { 1, "__PAGEZERO",       0, START, 0, 0,            0 },
-    { 0, "__TEXT",       START,     0, 5, 5,            0 },
+    { 1, "__PAGEZERO",       0, شروع_3, 0, 0,            0 },
+    { 0, "__TEXT",       شروع_3,     0, 5, 5,            0 },
     { 0, "__DATA_CONST",    -1,     0, 3, 3, SG_READ_ONLY },
     { 0, "__DWARF",         -1,     0, 7, 3,            0 },
     { 0, "__DATA",          -1,     0, 3, 3,            0 },
     { 1, "__LINKEDIT",      -1,     0, 1, 1,            0 },
 };
 
-#define	N_SEGMENT	(sizeof(all_segment)/sizeof(all_segment[0]))
+#تعریف_کرو	N_SEGMENT	(حجم(all_segment)/حجم(all_segment[0]))
 
-#ifdef CONFIG_NEW_MACHO
-static void calc_fixup_size(TCCState *s1, struct macho *mo)
+#جے_تعریف_شدہ CONFIG_NEW_MACHO
+ساكن فراغ calc_fixup_ناپ(TCCState *s1, بنية macho *mo)
 {
-    int i, size;
+    صحيح i, ناپ;
 
-    size = (sizeof(struct dyld_chained_fixups_header) + 7) & -8;
-    size += (sizeof(struct dyld_chained_starts_in_image) + (mo->nseg - 1) * sizeof(uint32_t) + 7) & -8;
-    for (i = (s1->output_type == TCC_OUTPUT_EXE); i < mo->nseg - 1; i++) {
-	int page_count = (get_segment(mo, i)->vmsize + SEG_PAGE_SIZE - 1) / SEG_PAGE_SIZE;
-	size += (sizeof(struct dyld_chained_starts_in_segment) + (page_count - 1) * sizeof(uint16_t) + 7) & -8;
+    ناپ = (حجم(بنية dyld_chained_fixups_سرخی) + 7) & -8;
+    ناپ += (حجم(بنية dyld_chained_starts_وچ_image) + (mo->nseg - 1) * حجم(uint32_t) + 7) & -8;
+    لكل (i = (s1->output_type == TCC_OUTPUT_EXE); i < mo->nseg - 1; i++) {
+	صحيح ورقہ_گنتی = (get_segment(mo, i)->vmsize + SEG_ورقہ_ناپ - 1) / SEG_ورقہ_ناپ;
+	ناپ += (حجم(بنية dyld_chained_starts_وچ_segment) + (ورقہ_گنتی - 1) * حجم(uint16_t) + 7) & -8;
     }
-    size += mo->n_bind * sizeof (struct dyld_chained_import) + 1;
-    for (i = 0; i < mo->n_bind_rebase; i++) {
-	if (mo->bind_rebase[i].bind) {
-	    int sym_index = ELFW(R_SYM)(mo->bind_rebase[i].rel.r_info);
-	    ElfW(Sym) *sym = &((ElfW(Sym) *)symtab_section->data)[sym_index];
-	    const char *name = (char *) symtab_section->link->data + sym->st_name;
-	    size += strlen(name) + 1;
+    ناپ += mo->n_bind * حجم (بنية dyld_chained_import) + 1;
+    لكل (i = 0; i < mo->n_bind_rebase; i++) {
+	إذا (mo->bind_rebase[i].bind) {
+	    صحيح sym_اشاریہ = ELFW(R_SYM)(mo->bind_rebase[i].rel.r_info);
+	    ElfW(Sym) *sym = &((ElfW(Sym) *)symtab_section->انکڑے)[sym_اشاریہ];
+	    ثابت حرف *name = (حرف *) symtab_section->link->انکڑے + sym->st_name;
+	    ناپ += لڑی_لمبائی(name) + 1;
 	}
     }
-    size = (size + 7) & -8;
-    section_ptr_add(mo->chained_fixups, size);
+    ناپ = (ناپ + 7) & -8;
+    section_ptr_جوڑو(mo->chained_fixups, ناپ);
 }
 
-#else
+#وإلا
 
-static void set_segment_and_offset(TCCState *s1, struct macho *mo, addr_t addr,
-				   uint8_t *ptr, int opcode,
-				   Section *sec, addr_t offset)
+ساكن فراغ سیٹ_segment_and_وتھ(TCCState *s1, بنية macho *mo, addr_t addr,
+				   uint8_t *ptr, صحيح opcode,
+				   Section *sec, addr_t وتھ)
 {
-    int i;
-    struct segment_command_64 *seg = NULL;
+    صحيح i;
+    بنية segment_command_64 *seg = عدم;
 
-    for (i = (s1->output_type == TCC_OUTPUT_EXE); i < mo->nseg - 1; i++) {
+    لكل (i = (s1->output_type == TCC_OUTPUT_EXE); i < mo->nseg - 1; i++) {
 	seg = get_segment(mo, i);
-	if (addr >= seg->vmaddr && addr < (seg->vmaddr + seg->vmsize))
-	    break;
+	إذا (addr >= seg->vmaddr && addr < (seg->vmaddr + seg->vmsize))
+	    اكسر;
     }
     *ptr = opcode | i;
-    write_uleb128(sec, offset - seg->vmaddr);
+    write_uleb128(sec, وتھ - seg->vmaddr);
 }
 
-static void bind_rebase(TCCState *s1, struct macho *mo)
+ساكن فراغ bind_rebase(TCCState *s1, بنية macho *mo)
 {
-    int i;
+    صحيح i;
     uint8_t *ptr;
     ElfW(Sym) *sym;
-    const char *name;
+    ثابت حرف *name;
 
-    for (i = 0; i < mo->n_lazy_bind; i++) {
-	int sym_index = ELFW(R_SYM)(mo->s_lazy_bind[i].rel.r_info);
+    لكل (i = 0; i < mo->n_lazy_bind; i++) {
+	صحيح sym_اشاریہ = ELFW(R_SYM)(mo->s_lazy_bind[i].rel.r_info);
 
-	sym = &((ElfW(Sym) *)symtab_section->data)[sym_index];
-	name = (char *) symtab_section->link->data + sym->st_name;
-	write32le(mo->stub_helper->data +
-		  mo->s_lazy_bind[i].bind_offset,
-		  mo->lazy_binding->data_offset);
-	ptr = section_ptr_add(mo->lazy_binding, 1);
-	set_segment_and_offset(s1, mo, mo->la_symbol_ptr->sh_addr, ptr,
-			       BIND_OPCODE_SET_SEGMENT_AND_OFFSET_ULEB,
+	sym = &((ElfW(Sym) *)symtab_section->انکڑے)[sym_اشاریہ];
+	name = (حرف *) symtab_section->link->انکڑے + sym->st_name;
+	write32le(mo->stub_helper->انکڑے +
+		  mo->s_lazy_bind[i].bind_وتھ,
+		  mo->lazy_binding->انکڑے_وتھ);
+	ptr = section_ptr_جوڑو(mo->lazy_binding, 1);
+	سیٹ_segment_and_وتھ(s1, mo, mo->la_علامت_ptr->sh_addr, ptr,
+			       BIND_OPCODE_سیٹ_SEGMENT_AND_وتھ_ULEB,
 			       mo->lazy_binding,
-			       mo->s_lazy_bind[i].la_symbol_offset +
-			       mo->la_symbol_ptr->sh_addr);
-	ptr = section_ptr_add(mo->lazy_binding, 5 + strlen(name));
-	*ptr++ = BIND_OPCODE_SET_DYLIB_SPECIAL_IMM |
+			       mo->s_lazy_bind[i].la_علامت_وتھ +
+			       mo->la_علامت_ptr->sh_addr);
+	ptr = section_ptr_جوڑو(mo->lazy_binding, 5 + لڑی_لمبائی(name));
+	*ptr++ = BIND_OPCODE_سیٹ_DYLIB_SPECIAL_IMM |
 		 (BIND_SPECIAL_DYLIB_FLAT_LOOKUP & 0xf);
-	*ptr++ = BIND_OPCODE_SET_SYMBOL_TRAILING_FLAGS_IMM | 0;
-	strcpy((char *)ptr, name);
-	ptr += strlen(name) + 1;
+	*ptr++ = BIND_OPCODE_سیٹ_علامت_TRAILING_FLAGS_IMM | 0;
+	strcpy((حرف *)ptr, name);
+	ptr += لڑی_لمبائی(name) + 1;
 	*ptr++ = BIND_OPCODE_DO_BIND;
-	*ptr = BIND_OPCODE_DONE;
+	*ptr = BIND_OPCODE_پورا;
     }
-    for (i = 0; i < mo->n_rebase; i++) {
+    لكل (i = 0; i < mo->n_rebase; i++) {
 	Section *s = s1->sections[mo->s_rebase[i].section];
 
-	ptr = section_ptr_add(mo->rebase, 2);
-	*ptr++ = REBASE_OPCODE_SET_TYPE_IMM | REBASE_TYPE_POINTER;
-	set_segment_and_offset(s1, mo, s->sh_addr, ptr,
-			       REBASE_OPCODE_SET_SEGMENT_AND_OFFSET_ULEB,
+	ptr = section_ptr_جوڑو(mo->rebase, 2);
+	*ptr++ = REBASE_OPCODE_سیٹ_TYPE_IMM | REBASE_TYPE_اشارہ_گر;
+	سیٹ_segment_and_وتھ(s1, mo, s->sh_addr, ptr,
+			       REBASE_OPCODE_سیٹ_SEGMENT_AND_وتھ_ULEB,
 			       mo->rebase,
-			       mo->s_rebase[i].rel.r_offset +
+			       mo->s_rebase[i].rel.r_وتھ +
 			       s->sh_addr);
-	ptr = section_ptr_add(mo->rebase, 1);
+	ptr = section_ptr_جوڑو(mo->rebase, 1);
 	*ptr = REBASE_OPCODE_DO_REBASE_IMM_TIMES | 1;
     }
-    for (i = 0; i < mo->n_bind; i++) {
-	int sym_index = ELFW(R_SYM)(mo->bind[i].rel.r_info);
+    لكل (i = 0; i < mo->n_bind; i++) {
+	صحيح sym_اشاریہ = ELFW(R_SYM)(mo->bind[i].rel.r_info);
 	Section *s = s1->sections[mo->bind[i].section];
 	Section *binding;
 
-	sym = &((ElfW(Sym) *)symtab_section->data)[sym_index];
-	name = (char *) symtab_section->link->data + sym->st_name;
+	sym = &((ElfW(Sym) *)symtab_section->انکڑے)[sym_اشاریہ];
+	name = (حرف *) symtab_section->link->انکڑے + sym->st_name;
 	binding = ELFW(ST_BIND)(sym->st_info) == STB_WEAK
 	    ? mo->weak_binding : mo->binding;
-        ptr = section_ptr_add(binding, 4 + (binding == mo->binding) +
-			     	       strlen(name));
-	if (binding == mo->binding)
-            *ptr++ = BIND_OPCODE_SET_DYLIB_SPECIAL_IMM |
+        ptr = section_ptr_جوڑو(binding, 4 + (binding == mo->binding) +
+			     	       لڑی_لمبائی(name));
+	إذا (binding == mo->binding)
+            *ptr++ = BIND_OPCODE_سیٹ_DYLIB_SPECIAL_IMM |
 	             (BIND_SPECIAL_DYLIB_FLAT_LOOKUP & 0xf);
-        *ptr++ = BIND_OPCODE_SET_SYMBOL_TRAILING_FLAGS_IMM |
+        *ptr++ = BIND_OPCODE_سیٹ_علامت_TRAILING_FLAGS_IMM |
 		 (binding == mo->weak_binding
-		  ? BIND_SYMBOL_FLAGS_WEAK_IMPORT : 0);
-        strcpy((char *)ptr, name);
-        ptr += strlen(name) + 1;
-        *ptr++ = BIND_OPCODE_SET_TYPE_IMM | BIND_TYPE_POINTER;
-	set_segment_and_offset(s1, mo, s->sh_addr, ptr,
-			       BIND_OPCODE_SET_SEGMENT_AND_OFFSET_ULEB,
+		  ? BIND_علامت_FLAGS_WEAK_IMPORT : 0);
+        strcpy((حرف *)ptr, name);
+        ptr += لڑی_لمبائی(name) + 1;
+        *ptr++ = BIND_OPCODE_سیٹ_TYPE_IMM | BIND_TYPE_اشارہ_گر;
+	سیٹ_segment_and_وتھ(s1, mo, s->sh_addr, ptr,
+			       BIND_OPCODE_سیٹ_SEGMENT_AND_وتھ_ULEB,
 			       binding,
-			       mo->bind[i].rel.r_offset + s->sh_addr);
-        ptr = section_ptr_add(binding, 1);
+			       mo->bind[i].rel.r_وتھ + s->sh_addr);
+        ptr = section_ptr_جوڑو(binding, 1);
         *ptr++ = BIND_OPCODE_DO_BIND;
     }
-    if (mo->rebase->data_offset) {
-        ptr = section_ptr_add(mo->rebase, 1);
-        *ptr = REBASE_OPCODE_DONE;
+    إذا (mo->rebase->انکڑے_وتھ) {
+        ptr = section_ptr_جوڑو(mo->rebase, 1);
+        *ptr = REBASE_OPCODE_پورا;
     }
-    if (mo->binding->data_offset) {
-        ptr = section_ptr_add(mo->binding, 1);
-        *ptr = BIND_OPCODE_DONE;
+    إذا (mo->binding->انکڑے_وتھ) {
+        ptr = section_ptr_جوڑو(mo->binding, 1);
+        *ptr = BIND_OPCODE_پورا;
     }
-    if (mo->weak_binding->data_offset) {
-        ptr = section_ptr_add(mo->weak_binding, 1);
-        *ptr = BIND_OPCODE_DONE;
+    إذا (mo->weak_binding->انکڑے_وتھ) {
+        ptr = section_ptr_جوڑو(mo->weak_binding, 1);
+        *ptr = BIND_OPCODE_پورا;
     }
     tcc_free(mo->s_lazy_bind);
     tcc_free(mo->s_rebase);
     tcc_free(mo->bind);
 }
-#endif
+#جے_انت
 
-struct trie_info {
-    const char *name;
-    int flag;
+بنية trie_info {
+    ثابت حرف *name;
+    صحيح flag;
     addr_t addr;
-    int str_size;
-    int term_size;
+    صحيح str_ناپ;
+    صحيح رکن_ناپ;
 };
 
-struct trie_node {
-    int start;
-    int end;
-    int index_start;
-    int index_end;
-    int n_child;
-    struct trie_node *child;
+بنية trie_گرہ {
+    صحيح شروع;
+    صحيح سرا;
+    صحيح اشاریہ_شروع;
+    صحيح اشاریہ_سرا;
+    صحيح n_بچہ;
+    بنية trie_گرہ *بچہ;
 };
 
-struct trie_seq {
-    int n_child;
-    struct trie_node *node;
-    int offset;
-    int nest_offset;
+بنية trie_seq {
+    صحيح n_بچہ;
+    بنية trie_گرہ *گرہ;
+    صحيح وتھ;
+    صحيح nest_وتھ;
 };
 
-static void create_trie(struct trie_node *node,
-                        int from, int to, int index_start,
-                        int n_trie, struct trie_info *trie)
+ساكن فراغ create_trie(بنية trie_گرہ *گرہ,
+                        صحيح from, صحيح منزل, صحيح اشاریہ_شروع,
+                        صحيح n_trie, بنية trie_info *trie)
 {
-    int i;
-    int start, end, index_end;
-    char cur;
-    struct trie_node *child;
+    صحيح i;
+    صحيح شروع, سرا, اشاریہ_سرا;
+    حرف cur;
+    بنية trie_گرہ *بچہ;
 
-    for (i = from; i < to; i = end) {
-        cur = trie[i].name[index_start];
-        start = i++;
-        for (; i < to; i++)
-            if (cur != trie[i].name[index_start])
-                break;
-        end = i;
-        if (start == end - 1 ||
-            (trie[start].name[index_start] &&
-             trie[start].name[index_start + 1] == 0))
-            index_end = trie[start].str_size - 1;
-        else {
-            index_end = index_start + 1;
-            for (;;) {
-                cur = trie[start].name[index_end];
-                for (i = start + 1; i < end; i++)
-                    if (cur != trie[i].name[index_end])
-                        break;
-                if (trie[start].name[index_end] &&
-                    trie[start].name[index_end + 1] == 0) {
-                    end = start + 1;
-                    index_end = trie[start].str_size - 1;
-                    break;
+    لكل (i = from; i < منزل; i = سرا) {
+        cur = trie[i].name[اشاریہ_شروع];
+        شروع = i++;
+        لكل (; i < منزل; i++)
+            إذا (cur != trie[i].name[اشاریہ_شروع])
+                اكسر;
+        سرا = i;
+        إذا (شروع == سرا - 1 ||
+            (trie[شروع].name[اشاریہ_شروع] &&
+             trie[شروع].name[اشاریہ_شروع + 1] == 0))
+            اشاریہ_سرا = trie[شروع].str_ناپ - 1;
+        وإلا {
+            اشاریہ_سرا = اشاریہ_شروع + 1;
+            لكل (;;) {
+                cur = trie[شروع].name[اشاریہ_سرا];
+                لكل (i = شروع + 1; i < سرا; i++)
+                    إذا (cur != trie[i].name[اشاریہ_سرا])
+                        اكسر;
+                إذا (trie[شروع].name[اشاریہ_سرا] &&
+                    trie[شروع].name[اشاریہ_سرا + 1] == 0) {
+                    سرا = شروع + 1;
+                    اشاریہ_سرا = trie[شروع].str_ناپ - 1;
+                    اكسر;
                 }
-                if (i != end)
-                    break;
-                index_end++;
+                إذا (i != سرا)
+                    اكسر;
+                اشاریہ_سرا++;
             }
         }
-        node->child = tcc_realloc(node->child,
-                                  (node->n_child + 1) *
-                                  sizeof(struct trie_node));
-        child = &node->child[node->n_child];
-        child->start = start;
-        child->end = end;
-        child->index_start = index_start;
-        child->index_end = index_end;
-        child->n_child = 0;
-        child->child = NULL;
-        node->n_child++;
-        if (start != end - 1)
-            create_trie(child, start, end, index_end, n_trie, trie);
+        گرہ->بچہ = tcc_realloc(گرہ->بچہ,
+                                  (گرہ->n_بچہ + 1) *
+                                  حجم(بنية trie_گرہ));
+        بچہ = &گرہ->بچہ[گرہ->n_بچہ];
+        بچہ->شروع = شروع;
+        بچہ->سرا = سرا;
+        بچہ->اشاریہ_شروع = اشاریہ_شروع;
+        بچہ->اشاریہ_سرا = اشاریہ_سرا;
+        بچہ->n_بچہ = 0;
+        بچہ->بچہ = عدم;
+        گرہ->n_بچہ++;
+        إذا (شروع != سرا - 1)
+            create_trie(بچہ, شروع, سرا, اشاریہ_سرا, n_trie, trie);
     }
 }
 
-static int create_seq(int *offset, int *n_seq, struct trie_seq **seq,
-                        struct trie_node *node,
-                        int n_trie, struct trie_info *trie)
+ساكن صحيح create_seq(صحيح *وتھ, صحيح *n_seq, بنية trie_seq **seq,
+                        بنية trie_گرہ *گرہ,
+                        صحيح n_trie, بنية trie_info *trie)
 {
-    int i, nest_offset, last_seq = *n_seq, retval = *offset;
-    struct trie_seq *p_seq;
-    struct trie_node *p_nest;
+    صحيح i, nest_وتھ, آخری_seq = *n_seq, retval = *وتھ;
+    بنية trie_seq *p_seq;
+    بنية trie_گرہ *p_nest;
 
-    for (i = 0; i < node->n_child; i++) {
-        p_nest = &node->child[i];
-        *seq = tcc_realloc(*seq, (*n_seq + 1) * sizeof(struct trie_seq));
+    لكل (i = 0; i < گرہ->n_بچہ; i++) {
+        p_nest = &گرہ->بچہ[i];
+        *seq = tcc_realloc(*seq, (*n_seq + 1) * حجم(بنية trie_seq));
         p_seq = &(*seq)[(*n_seq)++];
-        p_seq->n_child = i == 0 ? node->n_child : -1;
-        p_seq->node = p_nest;
-        p_seq->offset = *offset;
-        p_seq->nest_offset = 0;
-        *offset += (i == 0 ? 1 + 1 : 0) +
-                   p_nest->index_end - p_nest->index_start + 1 + 3;
+        p_seq->n_بچہ = i == 0 ? گرہ->n_بچہ : -1;
+        p_seq->گرہ = p_nest;
+        p_seq->وتھ = *وتھ;
+        p_seq->nest_وتھ = 0;
+        *وتھ += (i == 0 ? 1 + 1 : 0) +
+                   p_nest->اشاریہ_سرا - p_nest->اشاریہ_شروع + 1 + 3;
     }
-    for (i = 0; i < node->n_child; i++) {
-        nest_offset =
-            create_seq(offset, n_seq, seq, &node->child[i], n_trie, trie);
-        p_seq = &(*seq)[last_seq + i];
-        p_seq->nest_offset = nest_offset;
+    لكل (i = 0; i < گرہ->n_بچہ; i++) {
+        nest_وتھ =
+            create_seq(وتھ, n_seq, seq, &گرہ->بچہ[i], n_trie, trie);
+        p_seq = &(*seq)[آخری_seq + i];
+        p_seq->nest_وتھ = nest_وتھ;
     }
-    return retval;
+    أرجع retval;
 }
 
-static void node_free(struct trie_node *node)
+ساكن فراغ گرہ_free(بنية trie_گرہ *گرہ)
 {
-    int i;
+    صحيح i;
 
-    for (i = 0; i < node->n_child; i++)
-	node_free(&node->child[i]);
-    tcc_free(node->child);
+    لكل (i = 0; i < گرہ->n_بچہ; i++)
+	گرہ_free(&گرہ->بچہ[i]);
+    tcc_free(گرہ->بچہ);
 }
 
-static int triecmp(const void *_a, const void *_b, void *arg)
+ساكن صحيح triecmp(ثابت فراغ *_a, ثابت فراغ *_b, فراغ *arg)
 {
-    struct trie_info *a = (struct trie_info *) _a;
-    struct trie_info *b = (struct trie_info *) _b;
-    int len_a = strlen(a->name);
-    int len_b = strlen(b->name);
+    بنية trie_info *a = (بنية trie_info *) _a;
+    بنية trie_info *b = (بنية trie_info *) _b;
+    صحيح len_a = لڑی_لمبائی(a->name);
+    صحيح len_b = لڑی_لمبائی(b->name);
 
     /* strange sorting needed. Name 'xx' should be after 'xx1' */
-    if (!strncmp(a->name, b->name, len_a < len_b ? len_a : len_b))
-	return len_a < len_b ? 1 : (len_a > len_b ? -1 : 0);
-    return strcmp(a->name, b->name);
+    إذا (!لڑی_مقابلہ(a->name, b->name, len_a < len_b ? len_a : len_b))
+	أرجع len_a < len_b ? 1 : (len_a > len_b ? -1 : 0);
+    أرجع strcmp(a->name, b->name);
 }
 
-static void export_trie(TCCState *s1, struct macho *mo)
+ساكن فراغ export_trie(TCCState *s1, بنية macho *mo)
 {
-    int i, size, offset = 0, save_offset;
+    صحيح i, ناپ, وتھ = 0, save_وتھ;
     uint8_t *ptr;
-    int sym_index;
-    int sym_end = symtab_section->data_offset / sizeof(ElfW(Sym));
-    int n_trie = 0, n_seq = 0;
-    struct trie_info *trie = NULL, *p_trie;
-    struct trie_node node, *p_node;
-    struct trie_seq *seq = NULL;
+    صحيح sym_اشاریہ;
+    صحيح sym_سرا = symtab_section->انکڑے_وتھ / حجم(ElfW(Sym));
+    صحيح n_trie = 0, n_seq = 0;
+    بنية trie_info *trie = عدم, *p_trie;
+    بنية trie_گرہ گرہ, *p_گرہ;
+    بنية trie_seq *seq = عدم;
     addr_t vm_addr = get_segment(mo, s1->output_type == TCC_OUTPUT_EXE)->vmaddr;
 
-    for (sym_index = 1; sym_index < sym_end; ++sym_index) {
-	ElfW(Sym) *sym = (ElfW(Sym) *)symtab_section->data + sym_index;
-	const char *name = (char*)symtab_section->link->data + sym->st_name;
+    لكل (sym_اشاریہ = 1; sym_اشاریہ < sym_سرا; ++sym_اشاریہ) {
+	ElfW(Sym) *sym = (ElfW(Sym) *)symtab_section->انکڑے + sym_اشاریہ;
+	ثابت حرف *name = (حرف*)symtab_section->link->انکڑے + sym->st_name;
 
-	if (sym->st_shndx != SHN_UNDEF && sym->st_shndx < SHN_LORESERVE &&
+	إذا (sym->st_shndx != SHN_UNDEF && sym->st_shndx < SHN_LORESERVE &&
             (ELFW(ST_BIND)(sym->st_info) == STB_GLOBAL ||
 	     ELFW(ST_BIND)(sym->st_info) == STB_WEAK)) {
-	    int flag = EXPORT_SYMBOL_FLAGS_KIND_REGULAR;
+	    صحيح flag = EXPORT_علامت_FLAGS_قسم_REGULAR;
 	    addr_t addr =
-		sym->st_value + s1->sections[sym->st_shndx]->sh_addr - vm_addr;
+		sym->st_قدر + s1->sections[sym->st_shndx]->sh_addr - vm_addr;
 
-	    if (ELFW(ST_BIND)(sym->st_info) == STB_WEAK)
-		flag |= EXPORT_SYMBOL_FLAGS_WEAK_DEFINITION;
-	    dprintf ("%s %d %llx\n", name, flag, (long long)addr + vm_addr);
-	    trie = tcc_realloc(trie, (n_trie + 1) * sizeof(struct trie_info));
+	    إذا (ELFW(ST_BIND)(sym->st_info) == STB_WEAK)
+		flag |= EXPORT_علامت_FLAGS_WEAK_DEFINITION;
+	    dprintf ("%s %d %llx\n", name, flag, (لما لما)addr + vm_addr);
+	    trie = tcc_realloc(trie, (n_trie + 1) * حجم(بنية trie_info));
 	    trie[n_trie].name = name;
 	    trie[n_trie].flag = flag;
 	    trie[n_trie].addr = addr;
-	    trie[n_trie].str_size = strlen(name) + 1;
-	    trie[n_trie].term_size = uleb128_size(flag) + uleb128_size(addr);
+	    trie[n_trie].str_ناپ = لڑی_لمبائی(name) + 1;
+	    trie[n_trie].رکن_ناپ = uleb128_ناپ(flag) + uleb128_ناپ(addr);
 	    n_trie++;
 	}
     }
-    if (n_trie) {
-        tcc_qsort(trie, n_trie, sizeof(struct trie_info), triecmp, NULL);
-	memset(&node, 0, sizeof(node));
-        create_trie(&node, 0, n_trie, 0, n_trie, trie);
-	create_seq(&offset, &n_seq, &seq, &node, n_trie, trie);
-        save_offset = offset;
-        for (i = 0; i < n_seq; i++) {
-            p_node = seq[i].node;
-            if (p_node->n_child == 0) {
-                p_trie = &trie[p_node->start];
-                seq[i].nest_offset = offset;
-                offset += 1 + p_trie->term_size + 1;
+    إذا (n_trie) {
+        tcc_qsort(trie, n_trie, حجم(بنية trie_info), triecmp, عدم);
+	memset(&گرہ, 0, حجم(گرہ));
+        create_trie(&گرہ, 0, n_trie, 0, n_trie, trie);
+	create_seq(&وتھ, &n_seq, &seq, &گرہ, n_trie, trie);
+        save_وتھ = وتھ;
+        لكل (i = 0; i < n_seq; i++) {
+            p_گرہ = seq[i].گرہ;
+            إذا (p_گرہ->n_بچہ == 0) {
+                p_trie = &trie[p_گرہ->شروع];
+                seq[i].nest_وتھ = وتھ;
+                وتھ += 1 + p_trie->رکن_ناپ + 1;
             }
         }
-        for (i = 0; i < n_seq; i++) {
-            p_node = seq[i].node;
-            p_trie = &trie[p_node->start];
-            if (seq[i].n_child >= 0) {
-                section_ptr_add(mo->exports,
-				seq[i].offset - mo->exports->data_offset);
-                ptr = section_ptr_add(mo->exports, 2);
+        لكل (i = 0; i < n_seq; i++) {
+            p_گرہ = seq[i].گرہ;
+            p_trie = &trie[p_گرہ->شروع];
+            إذا (seq[i].n_بچہ >= 0) {
+                section_ptr_جوڑو(mo->exports,
+				seq[i].وتھ - mo->exports->انکڑے_وتھ);
+                ptr = section_ptr_جوڑو(mo->exports, 2);
                 *ptr++ = 0;
-                *ptr = seq[i].n_child;
+                *ptr = seq[i].n_بچہ;
             }
-            size = p_node->index_end - p_node->index_start;
-            ptr = section_ptr_add(mo->exports, size + 1);
-            memcpy(ptr, &p_trie->name[p_node->index_start], size);
-            ptr[size] = 0;
-            write_uleb128(mo->exports, seq[i].nest_offset);
+            ناپ = p_گرہ->اشاریہ_سرا - p_گرہ->اشاریہ_شروع;
+            ptr = section_ptr_جوڑو(mo->exports, ناپ + 1);
+            حافظہ_نقل(ptr, &p_trie->name[p_گرہ->اشاریہ_شروع], ناپ);
+            ptr[ناپ] = 0;
+            write_uleb128(mo->exports, seq[i].nest_وتھ);
         }
-        section_ptr_add(mo->exports, save_offset - mo->exports->data_offset);
-        for (i = 0; i < n_seq; i++) {
-            p_node = seq[i].node;
-            if (p_node->n_child == 0) {
-                p_trie = &trie[p_node->start];
-                write_uleb128(mo->exports, p_trie->term_size);
+        section_ptr_جوڑو(mo->exports, save_وتھ - mo->exports->انکڑے_وتھ);
+        لكل (i = 0; i < n_seq; i++) {
+            p_گرہ = seq[i].گرہ;
+            إذا (p_گرہ->n_بچہ == 0) {
+                p_trie = &trie[p_گرہ->شروع];
+                write_uleb128(mo->exports, p_trie->رکن_ناپ);
                 write_uleb128(mo->exports, p_trie->flag);
                 write_uleb128(mo->exports, p_trie->addr);
-                ptr = section_ptr_add(mo->exports, 1);
+                ptr = section_ptr_جوڑو(mo->exports, 1);
                 *ptr = 0;
             }
         }
-        section_ptr_add(mo->exports, -mo->exports->data_offset & 7);
-	node_free(&node);
+        section_ptr_جوڑو(mo->exports, -mo->exports->انکڑے_وتھ & 7);
+	گرہ_free(&گرہ);
         tcc_free(seq);
     }
     tcc_free(trie);
 }
 
-static void collect_sections(TCCState *s1, struct macho *mo, const char *filename)
+ساكن فراغ collect_sections(TCCState *s1, بنية macho *mo, ثابت حرف *filename)
 {
-    int i, sk, numsec;
-    int used_segment[N_SEGMENT];
+    صحيح i, sk, numsec;
+    صحيح ورتیا_segment[N_SEGMENT];
     uint64_t curaddr, fileofs;
     Section *s;
-    struct segment_command_64 *seg;
-    struct dylib_command *dylib;
-#ifdef CONFIG_NEW_MACHO
-    struct linkedit_data_command *chained_fixups_lc;
-    struct linkedit_data_command *export_trie_lc;
-#endif
-    struct build_version_command *dyldbv;
-    struct source_version_command *dyldsv;
-    struct rpath_command *rpath;
-    struct dylinker_command *dyldlc;
-    struct symtab_command *symlc;
-    struct dysymtab_command *dysymlc;
-    char *str;
+    بنية segment_command_64 *seg;
+    بنية dylib_command *dylib;
+#جے_تعریف_شدہ CONFIG_NEW_MACHO
+    بنية linkedit_انکڑے_command *chained_fixups_lc;
+    بنية linkedit_انکڑے_command *export_trie_lc;
+#جے_انت
+    بنية build_نسخہ_command *dyldbv;
+    بنية سروت_نسخہ_command *dyldsv;
+    بنية rpath_command *rpath;
+    بنية dylinker_command *dyldlc;
+    بنية symtab_command *symlc;
+    بنية dysymtab_command *dysymlc;
+    حرف *str;
 
-    for (i = 0; i < N_SEGMENT; i++)
-	used_segment[i] = all_segment[i].used;
+    لكل (i = 0; i < N_SEGMENT; i++)
+	ورتیا_segment[i] = all_segment[i].ورتیا;
 
-    memset (mo->sk_to_sect, 0, sizeof(mo->sk_to_sect));
-    for (i = s1->nb_sections; i-- > 1;) {
-        int type, flags;
+    memset (mo->sk_منزل_sect, 0, حجم(mo->sk_منزل_sect));
+    لكل (i = s1->nb_sections; i-- > 1;) {
+        صحيح type, flags;
         s = s1->sections[i];
         type = s->sh_type;
         flags = s->sh_flags;
         sk = sk_unknown;
 	/* debug sections have sometimes no SHF_ALLOC */
-        if ((flags & SHF_ALLOC) || !strncmp(s->name, ".debug_", 7)) {
-            switch (type) {
-            default:           sk = sk_unknown; break;
-            case SHT_INIT_ARRAY: sk = sk_init; break;
-            case SHT_FINI_ARRAY: sk = sk_fini; break;
-            case SHT_NOBITS:   sk = sk_bss; break;
-            case SHT_SYMTAB:   sk = sk_discard; break;
-            case SHT_STRTAB:
-		if (s == stabstr_section)
+        إذا ((flags & SHF_ALLOC) || !لڑی_مقابلہ(s->name, ".debug_", 7)) {
+            بدل (type) {
+            افتراضي:           sk = sk_unknown; اكسر;
+            حالة SHT_INIT_ARRAY: sk = sk_init; اكسر;
+            حالة SHT_FINI_ARRAY: sk = sk_fini; اكسر;
+            حالة SHT_NOBITS:   sk = sk_bss; اكسر;
+            حالة SHT_SYMTAB:   sk = sk_discard; اكسر;
+            حالة SHT_STRTAB:
+		إذا (s == stabstr_section)
 		  sk = sk_stab_str;
-		else
+		وإلا
 		  sk = sk_discard;
-		break;
-            case SHT_RELX:     sk = sk_discard; break;
-            case SHT_LINKEDIT: sk = sk_linkedit; break;
-            case SHT_PROGBITS:
-                if (s == mo->stubs)
+		اكسر;
+            حالة SHT_RELX:     sk = sk_discard; اكسر;
+            حالة SHT_LINKEDIT: sk = sk_linkedit; اكسر;
+            حالة SHT_PROGBITS:
+                إذا (s == mo->stubs)
                   sk = sk_stubs;
-#ifndef CONFIG_NEW_MACHO
-                else if (s == mo->stub_helper)
+#جے_بنا_تعریف CONFIG_NEW_MACHO
+                وإلا إذا (s == mo->stub_helper)
                   sk = sk_stub_helper;
-                else if (s == mo->la_symbol_ptr)
+                وإلا إذا (s == mo->la_علامت_ptr)
                   sk = sk_la_ptr;
-#endif
-                else if (s == rodata_section)
-                  sk = sk_ro_data;
-                else if (s == s1->got)
+#جے_انت
+                وإلا إذا (s == rodata_section)
+                  sk = sk_ro_انکڑے;
+                وإلا إذا (s == s1->got)
                   sk = sk_nl_ptr;
-                else if (s == stab_section)
+                وإلا إذا (s == stab_section)
                   sk = sk_stab;
-                else if (s == dwarf_info_section)
+                وإلا إذا (s == dwarf_info_section)
                   sk = sk_debug_info;
-                else if (s == dwarf_abbrev_section)
+                وإلا إذا (s == dwarf_abbrev_section)
                   sk = sk_debug_abbrev;
-                else if (s == dwarf_line_section)
-                  sk = sk_debug_line;
-                else if (s == dwarf_aranges_section)
+                وإلا إذا (s == dwarf_سطر_section)
+                  sk = sk_debug_سطر;
+                وإلا إذا (s == dwarf_aranges_section)
                   sk = sk_debug_aranges;
-                else if (s == dwarf_str_section)
+                وإلا إذا (s == dwarf_str_section)
                   sk = sk_debug_str;
-                else if (s == dwarf_line_str_section)
-                  sk = sk_debug_line_str;
-                else if (flags & SHF_EXECINSTR)
-                  sk = sk_text;
-                else if (flags & SHF_WRITE)
-                  sk = sk_rw_data;
-                else
-                  sk = sk_ro_data;
-                break;
+                وإلا إذا (s == dwarf_سطر_str_section)
+                  sk = sk_debug_سطر_str;
+                وإلا إذا (flags & SHF_EXECINSTR)
+                  sk = sk_متن;
+                وإلا إذا (flags & SHF_WRITE)
+                  sk = sk_rw_انکڑے;
+                وإلا
+                  sk = sk_ro_انکڑے;
+                اكسر;
             }
-        } else
+        } وإلا
           sk = sk_discard;
-        s->prev = mo->sk_to_sect[sk].s;
-        mo->sk_to_sect[sk].s = s;
-	used_segment[skinfo[sk].seg_initial] = 1;
+        s->prev = mo->sk_منزل_sect[sk].s;
+        mo->sk_منزل_sect[sk].s = s;
+	ورتیا_segment[skinfo[sk].seg_initial] = 1;
     }
 
-    if (s1->output_type != TCC_OUTPUT_EXE)
-	used_segment[0] = 0;
+    إذا (s1->output_type != TCC_OUTPUT_EXE)
+	ورتیا_segment[0] = 0;
 
-    for (i = 0; i < N_SEGMENT; i++)
-	if (used_segment[i]) {
-	    seg = add_segment(mo, all_segment[i].name);
-	    if (i == 1 && s1->output_type != TCC_OUTPUT_EXE)
+    لكل (i = 0; i < N_SEGMENT; i++)
+	إذا (ورتیا_segment[i]) {
+	    seg = جوڑو_segment(mo, all_segment[i].name);
+	    إذا (i == 1 && s1->output_type != TCC_OUTPUT_EXE)
 	        seg->vmaddr = 0;
-	    else
+	    وإلا
 	        seg->vmaddr = all_segment[i].vmaddr;
 	    seg->vmsize = all_segment[i].vmsize;
 	    seg->maxprot = all_segment[i].maxprot;
 	    seg->initprot = all_segment[i].initprot;
 	    seg->flags = all_segment[i].flags;
-            for (sk = sk_unknown; sk < sk_last; sk++)
-		if (skinfo[sk].seg_initial == i)
+            لكل (sk = sk_unknown; sk < sk_آخری; sk++)
+		إذا (skinfo[sk].seg_initial == i)
 	            mo->segment[sk] = mo->nseg - 1;
 	}
 
-    if (s1->output_type != TCC_OUTPUT_EXE) {
-	const char *name = s1->install_name ? s1->install_name : filename;
-        i = (sizeof(*dylib) + strlen(name) + 1 + 7) &-8;
-        dylib = add_lc(mo, LC_ID_DYLIB, i);
-	dylib->name = sizeof(*dylib);
+    إذا (s1->output_type != TCC_OUTPUT_EXE) {
+	ثابت حرف *name = s1->install_name ? s1->install_name : filename;
+        i = (حجم(*dylib) + لڑی_لمبائی(name) + 1 + 7) &-8;
+        dylib = جوڑو_lc(mo, LC_ID_DYLIB, i);
+	dylib->name = حجم(*dylib);
 	dylib->timestamp = 1;
-	dylib->current_version =
-	    s1->current_version ? s1->current_version : 1 << 16;
-	dylib->compatibility_version =
-	    s1->compatibility_version ? s1->compatibility_version : 1 << 16;
-        str = (char*)dylib + dylib->name;
+	dylib->current_نسخہ =
+	    s1->current_نسخہ ? s1->current_نسخہ : 1 << 16;
+	dylib->compatibility_نسخہ =
+	    s1->compatibility_نسخہ ? s1->compatibility_نسخہ : 1 << 16;
+        str = (حرف*)dylib + dylib->name;
         strcpy(str, name);
     }
 
-#ifdef CONFIG_NEW_MACHO
-    chained_fixups_lc = add_lc(mo, LC_DYLD_CHAINED_FIXUPS,
-			       sizeof(struct linkedit_data_command));
-    export_trie_lc = add_lc(mo, LC_DYLD_EXPORTS_TRIE,
-			    sizeof(struct linkedit_data_command));
-#else
-    mo->dyldinfo = add_lc(mo, LC_DYLD_INFO_ONLY, sizeof(*mo->dyldinfo));
-#endif
+#جے_تعریف_شدہ CONFIG_NEW_MACHO
+    chained_fixups_lc = جوڑو_lc(mo, LC_DYLD_CHAINED_FIXUPS,
+			       حجم(بنية linkedit_انکڑے_command));
+    export_trie_lc = جوڑو_lc(mo, LC_DYLD_EXPORTS_TRIE,
+			    حجم(بنية linkedit_انکڑے_command));
+#وإلا
+    mo->dyldinfo = جوڑو_lc(mo, LC_DYLD_INFO_ONLY, حجم(*mo->dyldinfo));
+#جے_انت
 
-    symlc = add_lc(mo, LC_SYMTAB, sizeof(*symlc));
-    dysymlc = add_lc(mo, LC_DYSYMTAB, sizeof(*dysymlc));
+    symlc = جوڑو_lc(mo, LC_SYMTAB, حجم(*symlc));
+    dysymlc = جوڑو_lc(mo, LC_DYSYMTAB, حجم(*dysymlc));
 
-    if (s1->output_type == TCC_OUTPUT_EXE) {
-        i = (sizeof(*dyldlc) + strlen("/usr/lib/dyld") + 1 + 7) &-8;
-        dyldlc = add_lc(mo, LC_LOAD_DYLINKER, i);
-        dyldlc->name = sizeof(*dyldlc);
-        str = (char*)dyldlc + dyldlc->name;
+    إذا (s1->output_type == TCC_OUTPUT_EXE) {
+        i = (حجم(*dyldlc) + لڑی_لمبائی("/usr/lib/dyld") + 1 + 7) &-8;
+        dyldlc = جوڑو_lc(mo, LC_لدو_DYLINKER, i);
+        dyldlc->name = حجم(*dyldlc);
+        str = (حرف*)dyldlc + dyldlc->name;
         strcpy(str, "/usr/lib/dyld");
     }
 
-    dyldbv = add_lc(mo, LC_BUILD_VERSION, sizeof(*dyldbv));
+    dyldbv = جوڑو_lc(mo, LC_BUILD_نسخہ, حجم(*dyldbv));
     dyldbv->platform = PLATFORM_MACOS;
     dyldbv->minos = (10 << 16) + (6 << 8);
     dyldbv->sdk = (10 << 16) + (6 << 8);
     dyldbv->ntools = 0;
 
-    dyldsv = add_lc(mo, LC_SOURCE_VERSION, sizeof(*dyldsv));
-    dyldsv->version = 0;
+    dyldsv = جوڑو_lc(mo, LC_سروت_نسخہ, حجم(*dyldsv));
+    dyldsv->نسخہ = 0;
 
-    if (s1->output_type == TCC_OUTPUT_EXE) {
-        mo->ep = add_lc(mo, LC_MAIN, sizeof(*mo->ep));
+    إذا (s1->output_type == TCC_OUTPUT_EXE) {
+        mo->ep = جوڑو_lc(mo, LC_MAIN, حجم(*mo->ep));
         mo->ep->entryoff = 4096;
     }
 
-    for(i = 0; i < s1->nb_loaded_dlls; i++) {
+    لكل(i = 0; i < s1->nb_loaded_dlls; i++) {
         DLLReference *dllref = s1->loaded_dlls[i];
-        if (dllref->level == 0)
-          add_dylib(mo, dllref->name);
+        إذا (dllref->level == 0)
+          جوڑو_dylib(mo, dllref->name);
     }
 
-    if (s1->rpath) {
-	char *path = s1->rpath, *end;
-	do {
-	    end = strchr(path, ':');
-	    if (!end)
-		end = strchr(path, 0);
-            i = (sizeof(*rpath) + (end - path) + 1 + 7) &-8;
-            rpath = add_lc(mo, LC_RPATH, i);
-            rpath->path = sizeof(*rpath);
-            str = (char*)rpath + rpath->path;
-            memcpy(str, path, end - path);
-	    str[end - path] = 0;
-	    path = end + 1;
-	} while (*end);
+    إذا (s1->rpath) {
+	حرف *رستہ = s1->rpath, *سرا;
+	افعل {
+	    سرا = strchr(رستہ, ':');
+	    إذا (!سرا)
+		سرا = strchr(رستہ, 0);
+            i = (حجم(*rpath) + (سرا - رستہ) + 1 + 7) &-8;
+            rpath = جوڑو_lc(mo, LC_RPATH, i);
+            rpath->رستہ = حجم(*rpath);
+            str = (حرف*)rpath + rpath->رستہ;
+            حافظہ_نقل(str, رستہ, سرا - رستہ);
+	    str[سرا - رستہ] = 0;
+	    رستہ = سرا + 1;
+	} طالما (*سرا);
     }
 
     fileofs = 4096;  /* leave space for mach-o headers */
     curaddr = get_segment(mo, s1->output_type == TCC_OUTPUT_EXE)->vmaddr;
     curaddr += 4096;
-    seg = NULL;
+    seg = عدم;
     numsec = 0;
-    mo->elfsectomacho = tcc_mallocz(sizeof(*mo->elfsectomacho) * s1->nb_sections);
-    for (sk = sk_unknown; sk < sk_last; sk++) {
-        struct section_64 *sec = NULL;
-        if (seg) {
+    mo->elfsectomacho = tcc_mallocz(حجم(*mo->elfsectomacho) * s1->nb_sections);
+    لكل (sk = sk_unknown; sk < sk_آخری; sk++) {
+        بنية section_64 *sec = عدم;
+        إذا (seg) {
             seg->vmsize = curaddr - seg->vmaddr;
             seg->filesize = fileofs - seg->fileoff;
         }
-#ifdef CONFIG_NEW_MACHO
-	if (sk == sk_linkedit) {
-	    calc_fixup_size(s1, mo);
+#جے_تعریف_شدہ CONFIG_NEW_MACHO
+	إذا (sk == sk_linkedit) {
+	    calc_fixup_ناپ(s1, mo);
 	    export_trie(s1, mo);
 	}
-#else
-	if (sk == sk_linkedit) {
+#وإلا
+	إذا (sk == sk_linkedit) {
 	    bind_rebase(s1, mo);
 	    export_trie(s1, mo);
 	}
-#endif
-        if (skinfo[sk].seg_initial &&
+#جے_انت
+        إذا (skinfo[sk].seg_initial &&
 	    (s1->output_type != TCC_OUTPUT_EXE || mo->segment[sk]) &&
-	    mo->sk_to_sect[sk].s) {
+	    mo->sk_منزل_sect[sk].s) {
             uint64_t al = 0;
-            int si;
+            صحيح si;
             seg = get_segment(mo, mo->segment[sk]);
-            if (skinfo[sk].name) {
-                si = add_section(mo, &seg, skinfo[sk].name);
+            إذا (skinfo[sk].name) {
+                si = جوڑو_section(mo, &seg, skinfo[sk].name);
                 numsec++;
-                mo->lc[mo->seg2lc[mo->segment[sk]]] = (struct load_command*)seg;
-                mo->sk_to_sect[sk].machosect = si;
+                mo->lc[mo->seg2lc[mo->segment[sk]]] = (بنية لدو_command*)seg;
+                mo->sk_منزل_sect[sk].machosect = si;
                 sec = get_section(seg, si);
                 sec->flags = skinfo[sk].flags;
-		if (sk == sk_stubs)
-#ifdef TCC_TARGET_X86_64
+		إذا (sk == sk_stubs)
+#جے_تعریف_شدہ TCC_نشانہ_X86_64
 	    	    sec->reserved2 = 6;
-#elif defined TCC_TARGET_ARM64
+#وإلاإذا defined TCC_نشانہ_ARM64
 	    	    sec->reserved2 = 12;
-#endif
-		if (sk == sk_nl_ptr)
+#جے_انت
+		إذا (sk == sk_nl_ptr)
 	    	    sec->reserved1 = mo->nr_plt;
-#ifndef CONFIG_NEW_MACHO
-		if (sk == sk_la_ptr)
+#جے_بنا_تعریف CONFIG_NEW_MACHO
+		إذا (sk == sk_la_ptr)
 	    	    sec->reserved1 = mo->nr_plt + mo->n_got;
-#endif
+#جے_انت
             }
-            if (seg->vmaddr == -1) {
-                curaddr = (curaddr + SEG_PAGE_SIZE - 1) & -SEG_PAGE_SIZE;
+            إذا (seg->vmaddr == -1) {
+                curaddr = (curaddr + SEG_ورقہ_ناپ - 1) & -SEG_ورقہ_ناپ;
                 seg->vmaddr = curaddr;
-                fileofs = (fileofs + SEG_PAGE_SIZE - 1) & -SEG_PAGE_SIZE;
+                fileofs = (fileofs + SEG_ورقہ_ناپ - 1) & -SEG_ورقہ_ناپ;
                 seg->fileoff = fileofs;
             }
 
-            for (s = mo->sk_to_sect[sk].s; s; s = s->prev) {
-                int a = exact_log2p1(s->sh_addralign);
-                if (a && al < (a - 1))
+            لكل (s = mo->sk_منزل_sect[sk].s; s; s = s->prev) {
+                صحيح a = exact_log2p1(s->sh_addralign);
+                إذا (a && al < (a - 1))
                   al = a - 1;
-                s->sh_size = s->data_offset;
+                s->sh_ناپ = s->انکڑے_وتھ;
             }
-            if (sec)
+            إذا (sec)
               sec->align = al;
             al = 1ULL << al;
-            if (al > 4096)
+            إذا (al > 4096)
               tcc_warning("alignment > 4096"), sec->align = 12, al = 4096;
             curaddr = (curaddr + al - 1) & -al;
             fileofs = (fileofs + al - 1) & -al;
-            if (sec) {
+            إذا (sec) {
                 sec->addr = curaddr;
-                sec->offset = fileofs;
+                sec->وتھ = fileofs;
             }
-            for (s = mo->sk_to_sect[sk].s; s; s = s->prev) {
+            لكل (s = mo->sk_منزل_sect[sk].s; s; s = s->prev) {
                 al = s->sh_addralign;
                 curaddr = (curaddr + al - 1) & -al;
-                dprintf("%s: curaddr now 0x%lx\n", s->name, (long)curaddr);
+                dprintf("%s: curaddr now 0x%lx\n", s->name, (لما)curaddr);
                 s->sh_addr = curaddr;
-                curaddr += s->sh_size;
-                if (s->sh_type != SHT_NOBITS) {
+                curaddr += s->sh_ناپ;
+                إذا (s->sh_type != SHT_NOBITS) {
                     fileofs = (fileofs + al - 1) & -al;
-                    s->sh_offset = fileofs;
-                    fileofs += s->sh_size;
-                    dprintf("%s: fileofs now %ld\n", s->name, (long)fileofs);
+                    s->sh_وتھ = fileofs;
+                    fileofs += s->sh_ناپ;
+                    dprintf("%s: fileofs now %ld\n", s->name, (لما)fileofs);
                 }
-                if (sec)
-                  mo->elfsectomacho[s->sh_num] = numsec;
+                إذا (sec)
+                  mo->elfsectomacho[s->sh_عدد] = numsec;
             }
-            if (sec)
-              sec->size = curaddr - sec->addr;
+            إذا (sec)
+              sec->ناپ = curaddr - sec->addr;
         }
-        if (DEBUG_MACHO)
-          for (s = mo->sk_to_sect[sk].s; s; s = s->prev) {
-              int type = s->sh_type;
-              int flags = s->sh_flags;
-              printf("%d section %-16s %-10s %09lx %04x %02d %s,%s,%s\n",
+        إذا (DEBUG_MACHO)
+          لكل (s = mo->sk_منزل_sect[sk].s; s; s = s->prev) {
+              صحيح type = s->sh_type;
+              صحيح flags = s->sh_flags;
+              لکھو("%d section %-16s %-10s %09lx %04x %02d %s,%s,%s\n",
                      sk,
                      s->name,
                      type == SHT_PROGBITS ? "progbits" :
@@ -1895,8 +1895,8 @@ static void collect_sections(TCCState *s1, struct macho *mo, const char *filenam
                      type == SHT_INIT_ARRAY ? "init" :
                      type == SHT_FINI_ARRAY ? "fini" :
                      type == SHT_RELX ? "rel" : "???",
-                     (long)s->sh_addr,
-                     (unsigned)s->data_offset,
+                     (لما)s->sh_addr,
+                     (بنانشانی)s->انکڑے_وتھ,
                      s->sh_addralign,
                      flags & SHF_ALLOC ? "alloc" : "",
                      flags & SHF_WRITE ? "write" : "",
@@ -1904,16 +1904,16 @@ static void collect_sections(TCCState *s1, struct macho *mo, const char *filenam
                     );
           }
     }
-    if (seg) {
+    إذا (seg) {
         seg->vmsize = curaddr - seg->vmaddr;
         seg->filesize = fileofs - seg->fileoff;
     }
 
     /* Fill symtab info */
-    symlc->symoff = mo->symtab->sh_offset;
-    symlc->nsyms = mo->symtab->data_offset / sizeof(struct nlist_64);
-    symlc->stroff = mo->strtab->sh_offset;
-    symlc->strsize = mo->strtab->data_offset;
+    symlc->symoff = mo->symtab->sh_وتھ;
+    symlc->nsyms = mo->symtab->انکڑے_وتھ / حجم(بنية nlist_64);
+    symlc->stroff = mo->strtab->sh_وتھ;
+    symlc->strsize = mo->strtab->انکڑے_وتھ;
 
     dysymlc->iundefsym = mo->iundef == -1 ? symlc->nsyms : mo->iundef;
     dysymlc->iextdefsym = mo->iextdef == -1 ? dysymlc->iundefsym : mo->iextdef;
@@ -1921,312 +1921,312 @@ static void collect_sections(TCCState *s1, struct macho *mo, const char *filenam
     dysymlc->nlocalsym = dysymlc->iextdefsym - dysymlc->ilocalsym;
     dysymlc->nextdefsym = dysymlc->iundefsym - dysymlc->iextdefsym;
     dysymlc->nundefsym = symlc->nsyms - dysymlc->iundefsym;
-    dysymlc->indirectsymoff = mo->indirsyms->sh_offset;
-    dysymlc->nindirectsyms = mo->indirsyms->data_offset / sizeof(uint32_t);
+    dysymlc->indirectsymoff = mo->indirsyms->sh_وتھ;
+    dysymlc->nindirectsyms = mo->indirsyms->انکڑے_وتھ / حجم(uint32_t);
 
-#ifdef CONFIG_NEW_MACHO
-    if (mo->chained_fixups->data_offset) {
-        chained_fixups_lc->dataoff = mo->chained_fixups->sh_offset;
-        chained_fixups_lc->datasize = mo->chained_fixups->data_offset;
+#جے_تعریف_شدہ CONFIG_NEW_MACHO
+    إذا (mo->chained_fixups->انکڑے_وتھ) {
+        chained_fixups_lc->dataoff = mo->chained_fixups->sh_وتھ;
+        chained_fixups_lc->datasize = mo->chained_fixups->انکڑے_وتھ;
     }
-    if (mo->exports->data_offset) {
-        export_trie_lc->dataoff = mo->exports->sh_offset;
-        export_trie_lc->datasize = mo->exports->data_offset;
+    إذا (mo->exports->انکڑے_وتھ) {
+        export_trie_lc->dataoff = mo->exports->sh_وتھ;
+        export_trie_lc->datasize = mo->exports->انکڑے_وتھ;
     }
-#else
-    if (mo->rebase->data_offset) {
-        mo->dyldinfo->rebase_off = mo->rebase->sh_offset;
-        mo->dyldinfo->rebase_size = mo->rebase->data_offset;
+#وإلا
+    إذا (mo->rebase->انکڑے_وتھ) {
+        mo->dyldinfo->rebase_off = mo->rebase->sh_وتھ;
+        mo->dyldinfo->rebase_ناپ = mo->rebase->انکڑے_وتھ;
     }
-    if (mo->binding->data_offset) {
-        mo->dyldinfo->bind_off = mo->binding->sh_offset;
-        mo->dyldinfo->bind_size = mo->binding->data_offset;
+    إذا (mo->binding->انکڑے_وتھ) {
+        mo->dyldinfo->bind_off = mo->binding->sh_وتھ;
+        mo->dyldinfo->bind_ناپ = mo->binding->انکڑے_وتھ;
     }
-    if (mo->weak_binding->data_offset) {
-        mo->dyldinfo->weak_bind_off = mo->weak_binding->sh_offset;
-        mo->dyldinfo->weak_bind_size = mo->weak_binding->data_offset;
+    إذا (mo->weak_binding->انکڑے_وتھ) {
+        mo->dyldinfo->weak_bind_off = mo->weak_binding->sh_وتھ;
+        mo->dyldinfo->weak_bind_ناپ = mo->weak_binding->انکڑے_وتھ;
     }
-    if (mo->lazy_binding->data_offset) {
-        mo->dyldinfo->lazy_bind_off = mo->lazy_binding->sh_offset;
-        mo->dyldinfo->lazy_bind_size = mo->lazy_binding->data_offset;
+    إذا (mo->lazy_binding->انکڑے_وتھ) {
+        mo->dyldinfo->lazy_bind_off = mo->lazy_binding->sh_وتھ;
+        mo->dyldinfo->lazy_bind_ناپ = mo->lazy_binding->انکڑے_وتھ;
     }
-    if (mo->exports->data_offset) {
-        mo->dyldinfo->export_off = mo->exports->sh_offset;
-        mo->dyldinfo->export_size = mo->exports->data_offset;
+    إذا (mo->exports->انکڑے_وتھ) {
+        mo->dyldinfo->export_off = mo->exports->sh_وتھ;
+        mo->dyldinfo->export_ناپ = mo->exports->انکڑے_وتھ;
     }
-#endif
+#جے_انت
 }
 
-static void macho_write(TCCState *s1, struct macho *mo, FILE *fp)
+ساكن فراغ macho_write(TCCState *s1, بنية macho *mo, FILE *fp)
 {
-    int i, sk;
+    صحيح i, sk;
     uint64_t fileofs = 0;
     Section *s;
     mo->mh.mh.magic = MH_MAGIC_64;
-#ifdef TCC_TARGET_X86_64
+#جے_تعریف_شدہ TCC_نشانہ_X86_64
     mo->mh.mh.cputype = CPU_TYPE_X86_64;
     mo->mh.mh.cpusubtype = CPU_SUBTYPE_LIB64 | CPU_SUBTYPE_X86_ALL;
-#elif defined TCC_TARGET_ARM64
+#وإلاإذا defined TCC_نشانہ_ARM64
     mo->mh.mh.cputype = CPU_TYPE_ARM64;
     mo->mh.mh.cpusubtype = CPU_SUBTYPE_ARM64_ALL;
-#endif
-    if (s1->output_type == TCC_OUTPUT_EXE) {
+#جے_انت
+    إذا (s1->output_type == TCC_OUTPUT_EXE) {
         mo->mh.mh.filetype = MH_EXECUTE;
         mo->mh.mh.flags = MH_DYLDLINK | MH_PIE;
     }
-    else {
+    وإلا {
         mo->mh.mh.filetype = MH_DYLIB;
         mo->mh.mh.flags = MH_DYLDLINK;
     }
     mo->mh.mh.ncmds = mo->nlc;
     mo->mh.mh.sizeofcmds = 0;
-    for (i = 0; i < mo->nlc; i++)
+    لكل (i = 0; i < mo->nlc; i++)
       mo->mh.mh.sizeofcmds += mo->lc[i]->cmdsize;
 
-    fwrite(&mo->mh, 1, sizeof(mo->mh), fp);
-    fileofs += sizeof(mo->mh);
-    for (i = 0; i < mo->nlc; i++) {
+    fwrite(&mo->mh, 1, حجم(mo->mh), fp);
+    fileofs += حجم(mo->mh);
+    لكل (i = 0; i < mo->nlc; i++) {
         fwrite(mo->lc[i], 1, mo->lc[i]->cmdsize, fp);
         fileofs += mo->lc[i]->cmdsize;
     }
 
-    for (sk = sk_unknown; sk < sk_last; sk++) {
+    لكل (sk = sk_unknown; sk < sk_آخری; sk++) {
         //struct segment_command_64 *seg;
-        if (skinfo[sk].seg_initial == 0 ||
+        إذا (skinfo[sk].seg_initial == 0 ||
 	    (s1->output_type == TCC_OUTPUT_EXE && !mo->segment[sk]) ||
-	    !mo->sk_to_sect[sk].s)
-          continue;
+	    !mo->sk_منزل_sect[sk].s)
+          استمر;
         /*seg =*/ get_segment(mo, mo->segment[sk]);
-        for (s = mo->sk_to_sect[sk].s; s; s = s->prev) {
-            if (s->sh_type != SHT_NOBITS) {
-                while (fileofs < s->sh_offset)
+        لكل (s = mo->sk_منزل_sect[sk].s; s; s = s->prev) {
+            إذا (s->sh_type != SHT_NOBITS) {
+                طالما (fileofs < s->sh_وتھ)
                   fputc(0, fp), fileofs++;
-                if (s->sh_size) {
-                    fwrite(s->data, 1, s->sh_size, fp);
-                    fileofs += s->sh_size;
+                إذا (s->sh_ناپ) {
+                    fwrite(s->انکڑے, 1, s->sh_ناپ, fp);
+                    fileofs += s->sh_ناپ;
                 }
             }
         }
     }
 }
 
-#ifdef CONFIG_NEW_MACHO
-static int bind_rebase_cmp(const void *_a, const void *_b, void *arg)
+#جے_تعریف_شدہ CONFIG_NEW_MACHO
+ساكن صحيح bind_rebase_cmp(ثابت فراغ *_a, ثابت فراغ *_b, فراغ *arg)
 {
     TCCState *s1 = arg;
-    struct bind_rebase *a = (struct bind_rebase *) _a;
-    struct bind_rebase *b = (struct bind_rebase *) _b;
-    addr_t aa = s1->sections[a->section]->sh_addr + a->rel.r_offset;
-    addr_t ab = s1->sections[b->section]->sh_addr + b->rel.r_offset;
+    بنية bind_rebase *a = (بنية bind_rebase *) _a;
+    بنية bind_rebase *b = (بنية bind_rebase *) _b;
+    addr_t aa = s1->sections[a->section]->sh_addr + a->rel.r_وتھ;
+    addr_t ab = s1->sections[b->section]->sh_addr + b->rel.r_وتھ;
 
-    return aa > ab ? 1 : aa < ab ? -1 : 0;
+    أرجع aa > ab ? 1 : aa < ab ? -1 : 0;
 }
 
-ST_FUNC void bind_rebase_import(TCCState *s1, struct macho *mo)
+ST_FUNC فراغ bind_rebase_import(TCCState *s1, بنية macho *mo)
 {
-    int i, j, k, bind_index, size, page_count, sym_index;
-    const char *name;
+    صحيح i, j, k, bind_اشاریہ, ناپ, ورقہ_گنتی, sym_اشاریہ;
+    ثابت حرف *name;
     ElfW(Sym) *sym;
-    unsigned char *data = mo->chained_fixups->data;
-    struct segment_command_64 *seg;
-    struct dyld_chained_fixups_header *header;
-    struct dyld_chained_starts_in_image *image;
-    struct dyld_chained_starts_in_segment *segment;
-    struct dyld_chained_import *import;
+    بنانشانی حرف *انکڑے = mo->chained_fixups->انکڑے;
+    بنية segment_command_64 *seg;
+    بنية dyld_chained_fixups_سرخی *سرخی;
+    بنية dyld_chained_starts_وچ_image *image;
+    بنية dyld_chained_starts_وچ_segment *segment;
+    بنية dyld_chained_import *import;
 
-    tcc_qsort(mo->bind_rebase, mo->n_bind_rebase, sizeof(struct bind_rebase),
+    tcc_qsort(mo->bind_rebase, mo->n_bind_rebase, حجم(بنية bind_rebase),
 	      bind_rebase_cmp, s1);
-    for (i = 0; i < mo->n_bind_rebase - 1; i++)
-	if (mo->bind_rebase[i].section == mo->bind_rebase[i + 1].section &&
-	    mo->bind_rebase[i].rel.r_offset == mo->bind_rebase[i + 1].rel.r_offset) {
-	    sym_index = ELFW(R_SYM)(mo->bind_rebase[i].rel.r_info);
-            sym = &((ElfW(Sym) *)symtab_section->data)[sym_index];
-	    name = (char *) symtab_section->link->data + sym->st_name;
+    لكل (i = 0; i < mo->n_bind_rebase - 1; i++)
+	إذا (mo->bind_rebase[i].section == mo->bind_rebase[i + 1].section &&
+	    mo->bind_rebase[i].rel.r_وتھ == mo->bind_rebase[i + 1].rel.r_وتھ) {
+	    sym_اشاریہ = ELFW(R_SYM)(mo->bind_rebase[i].rel.r_info);
+            sym = &((ElfW(Sym) *)symtab_section->انکڑے)[sym_اشاریہ];
+	    name = (حرف *) symtab_section->link->انکڑے + sym->st_name;
 	    tcc_error("Overlap %s/%s %s:%s",
 		      mo->bind_rebase[i].bind ? "bind" : "rebase",
 		      mo->bind_rebase[i + 1].bind ? "bind" : "rebase",
 		      s1->sections[mo->bind_rebase[i].section]->name, name);
 	}
-    header = (struct dyld_chained_fixups_header *) data;
-    data += (sizeof(struct dyld_chained_fixups_header) + 7) & -8;
-    header->starts_offset = data - mo->chained_fixups->data;
-    header->imports_count = mo->n_bind;
-    header->imports_format = DYLD_CHAINED_IMPORT;
-    header->symbols_format = 0;
-    size = sizeof(struct dyld_chained_starts_in_image) +
-	   (mo->nseg - 1) * sizeof(uint32_t);
-    image = (struct dyld_chained_starts_in_image *) data;
-    data += (size + 7) & -8;
-    image->seg_count = mo->nseg;
-    for (i = (s1->output_type == TCC_OUTPUT_EXE); i < mo->nseg - 1; i++) {
-        image->seg_info_offset[i] = (data - mo->chained_fixups->data) -
-				    header->starts_offset;
+    سرخی = (بنية dyld_chained_fixups_سرخی *) انکڑے;
+    انکڑے += (حجم(بنية dyld_chained_fixups_سرخی) + 7) & -8;
+    سرخی->starts_وتھ = انکڑے - mo->chained_fixups->انکڑے;
+    سرخی->imports_گنتی = mo->n_bind;
+    سرخی->imports_format = DYLD_CHAINED_IMPORT;
+    سرخی->symbols_format = 0;
+    ناپ = حجم(بنية dyld_chained_starts_وچ_image) +
+	   (mo->nseg - 1) * حجم(uint32_t);
+    image = (بنية dyld_chained_starts_وچ_image *) انکڑے;
+    انکڑے += (ناپ + 7) & -8;
+    image->seg_گنتی = mo->nseg;
+    لكل (i = (s1->output_type == TCC_OUTPUT_EXE); i < mo->nseg - 1; i++) {
+        image->seg_info_وتھ[i] = (انکڑے - mo->chained_fixups->انکڑے) -
+				    سرخی->starts_وتھ;
 	seg = get_segment(mo, i);
-	page_count = (seg->vmsize + SEG_PAGE_SIZE - 1) / SEG_PAGE_SIZE;
-	size = sizeof(struct dyld_chained_starts_in_segment) +
-		      (page_count - 1) * sizeof(uint16_t);
-        segment = (struct dyld_chained_starts_in_segment *) data;
-        data += (size + 7) & -8;
-        segment->size = size;
-        segment->page_size = SEG_PAGE_SIZE;
-#if 1
-#define	PTR_64_OFFSET 0
-#define	PTR_64_MASK   0x7FFFFFFFFFFULL
-        segment->pointer_format = DYLD_CHAINED_PTR_64;
-#else
-#define	PTR_64_OFFSET 0x100000000ULL
-#define	PTR_64_MASK   0xFFFFFFFFFFFFFFULL
-        segment->pointer_format = DYLD_CHAINED_PTR_64_OFFSET;
-#endif
-        segment->segment_offset = seg->fileoff;
-        segment->max_valid_pointer = 0;
-        segment->page_count = page_count;
+	ورقہ_گنتی = (seg->vmsize + SEG_ورقہ_ناپ - 1) / SEG_ورقہ_ناپ;
+	ناپ = حجم(بنية dyld_chained_starts_وچ_segment) +
+		      (ورقہ_گنتی - 1) * حجم(uint16_t);
+        segment = (بنية dyld_chained_starts_وچ_segment *) انکڑے;
+        انکڑے += (ناپ + 7) & -8;
+        segment->ناپ = ناپ;
+        segment->ورقہ_ناپ = SEG_ورقہ_ناپ;
+#إذا 1
+#تعریف_کرو	PTR_64_وتھ 0
+#تعریف_کرو	PTR_64_نقاب   0x7FFFFFFFFFFULL
+        segment->اشارہ_گر_format = DYLD_CHAINED_PTR_64;
+#وإلا
+#تعریف_کرو	PTR_64_وتھ 0x100000000ULL
+#تعریف_کرو	PTR_64_نقاب   0xFFFFFFFFFFFFFFULL
+        segment->اشارہ_گر_format = DYLD_CHAINED_PTR_64_وتھ;
+#جے_انت
+        segment->segment_وتھ = seg->fileoff;
+        segment->max_valid_اشارہ_گر = 0;
+        segment->ورقہ_گنتی = ورقہ_گنتی;
 	// add bind/rebase
-	bind_index = 0;
+	bind_اشاریہ = 0;
 	k = 0;
-	for (j = 0; j < page_count; j++) {
-	    addr_t start = seg->vmaddr + j * SEG_PAGE_SIZE;
-	    addr_t end = start + SEG_PAGE_SIZE;
-	    void *last = NULL;
-	    addr_t last_o = 0;
+	لكل (j = 0; j < ورقہ_گنتی; j++) {
+	    addr_t شروع = seg->vmaddr + j * SEG_ورقہ_ناپ;
+	    addr_t سرا = شروع + SEG_ورقہ_ناپ;
+	    فراغ *آخری = عدم;
+	    addr_t آخری_o = 0;
 	    addr_t cur_o, cur;
-	    struct dyld_chained_ptr_64_rebase *rebase;
-	    struct dyld_chained_ptr_64_bind *bind;
+	    بنية dyld_chained_ptr_64_rebase *rebase;
+	    بنية dyld_chained_ptr_64_bind *bind;
 
-	    segment->page_start[j] = DYLD_CHAINED_PTR_START_NONE;
-	    for (; k < mo->n_bind_rebase; k++) {
+	    segment->ورقہ_شروع[j] = DYLD_CHAINED_PTR_شروع_NONE;
+	    لكل (; k < mo->n_bind_rebase; k++) {
 	        Section *s = s1->sections[mo->bind_rebase[k].section];
-		addr_t r_offset = mo->bind_rebase[k].rel.r_offset;
-		addr_t addr = s->sh_addr + r_offset;
+		addr_t r_وتھ = mo->bind_rebase[k].rel.r_وتھ;
+		addr_t addr = s->sh_addr + r_وتھ;
 
-		if ((addr & 3) ||
-		    (addr & (SEG_PAGE_SIZE - 1)) > SEG_PAGE_SIZE - PTR_SIZE)
+		إذا ((addr & 3) ||
+		    (addr & (SEG_ورقہ_ناپ - 1)) > SEG_ورقہ_ناپ - PTR_ناپ)
 		    tcc_error("Illegal rel_offset %s %lld",
-			      s->name, (long long)r_offset);
-		if (addr >= end)
-		    break;
-		if (addr >= start) {
-		    cur_o = addr - start;
-	            if (mo->bind_rebase[k].bind) {
-		        if (segment->page_start[j] == DYLD_CHAINED_PTR_START_NONE)
-			    segment->page_start[j] = cur_o;
-		        else {
-			    bind = (struct dyld_chained_ptr_64_bind *) last;
-			    bind->next = (cur_o - last_o) / 4;
+			      s->name, (لما لما)r_وتھ);
+		إذا (addr >= سرا)
+		    اكسر;
+		إذا (addr >= شروع) {
+		    cur_o = addr - شروع;
+	            إذا (mo->bind_rebase[k].bind) {
+		        إذا (segment->ورقہ_شروع[j] == DYLD_CHAINED_PTR_شروع_NONE)
+			    segment->ورقہ_شروع[j] = cur_o;
+		        وإلا {
+			    bind = (بنية dyld_chained_ptr_64_bind *) آخری;
+			    bind->اگلا = (cur_o - آخری_o) / 4;
 		        }
-		        bind = (struct dyld_chained_ptr_64_bind *)
-				    (s->data + r_offset);
-		        last = bind;
-		        last_o = cur_o;
-		        bind->ordinal = bind_index;
+		        bind = (بنية dyld_chained_ptr_64_bind *)
+				    (s->انکڑے + r_وتھ);
+		        آخری = bind;
+		        آخری_o = cur_o;
+		        bind->ordinal = bind_اشاریہ;
 		        bind->addend = 0;
 		        bind->reserved = 0;
-		        bind->next = 0;
+		        bind->اگلا = 0;
 		        bind->bind = 1;
 		    }
-		    else {
-		        if (segment->page_start[j] == DYLD_CHAINED_PTR_START_NONE)
-			    segment->page_start[j] = cur_o;
-		        else {
-			    rebase = (struct dyld_chained_ptr_64_rebase *) last;
-			    rebase->next = (cur_o - last_o) / 4;
+		    وإلا {
+		        إذا (segment->ورقہ_شروع[j] == DYLD_CHAINED_PTR_شروع_NONE)
+			    segment->ورقہ_شروع[j] = cur_o;
+		        وإلا {
+			    rebase = (بنية dyld_chained_ptr_64_rebase *) آخری;
+			    rebase->اگلا = (cur_o - آخری_o) / 4;
 		        }
-		        rebase = (struct dyld_chained_ptr_64_rebase *)
-				    (s->data + r_offset);
-		        last = rebase;
-		        last_o = cur_o;
-		        cur = (*(uint64_t *) (s->data + r_offset)) -
-			      PTR_64_OFFSET;
-		        rebase->target = cur & PTR_64_MASK;
+		        rebase = (بنية dyld_chained_ptr_64_rebase *)
+				    (s->انکڑے + r_وتھ);
+		        آخری = rebase;
+		        آخری_o = cur_o;
+		        cur = (*(uint64_t *) (s->انکڑے + r_وتھ)) -
+			      PTR_64_وتھ;
+		        rebase->نشانہ = cur & PTR_64_نقاب;
 		        rebase->high8 = cur >> (64 - 8);
-			if (cur != ((uint64_t)rebase->high8 << (64 - 8)) + rebase->target)
+			إذا (cur != ((uint64_t)rebase->high8 << (64 - 8)) + rebase->نشانہ)
 			    tcc_error("rebase error");
 		        rebase->reserved = 0;
-		        rebase->next = 0;
+		        rebase->اگلا = 0;
 		        rebase->bind = 0;
 		    }
 		}
-		bind_index += mo->bind_rebase[k].bind;
+		bind_اشاریہ += mo->bind_rebase[k].bind;
 	    }
 	}
     }
     // add imports
-    header->imports_offset = data - mo->chained_fixups->data;
-    import = (struct dyld_chained_import *) data;
-    data += mo->n_bind * sizeof (struct dyld_chained_import);
-    header->symbols_offset = data - mo->chained_fixups->data;
-    data++;
-    for (i = 0, bind_index = 0; i < mo->n_bind_rebase; i++) {
-	if (mo->bind_rebase[i].bind) {
-	    import[bind_index].lib_ordinal =
+    سرخی->imports_وتھ = انکڑے - mo->chained_fixups->انکڑے;
+    import = (بنية dyld_chained_import *) انکڑے;
+    انکڑے += mo->n_bind * حجم (بنية dyld_chained_import);
+    سرخی->symbols_وتھ = انکڑے - mo->chained_fixups->انکڑے;
+    انکڑے++;
+    لكل (i = 0, bind_اشاریہ = 0; i < mo->n_bind_rebase; i++) {
+	إذا (mo->bind_rebase[i].bind) {
+	    import[bind_اشاریہ].lib_ordinal =
 		BIND_SPECIAL_DYLIB_FLAT_LOOKUP & 0xffu;
-	    import[bind_index].name_offset =
-		(data - mo->chained_fixups->data) - header->symbols_offset;
-	    sym_index = ELFW(R_SYM)(mo->bind_rebase[i].rel.r_info);
-	    sym = &((ElfW(Sym) *)symtab_section->data)[sym_index];
-	    import[bind_index].weak_import =
+	    import[bind_اشاریہ].name_وتھ =
+		(انکڑے - mo->chained_fixups->انکڑے) - سرخی->symbols_وتھ;
+	    sym_اشاریہ = ELFW(R_SYM)(mo->bind_rebase[i].rel.r_info);
+	    sym = &((ElfW(Sym) *)symtab_section->انکڑے)[sym_اشاریہ];
+	    import[bind_اشاریہ].weak_import =
 		ELFW(ST_BIND)(sym->st_info) == STB_WEAK;
-	    name = (char *) symtab_section->link->data + sym->st_name;
-            strcpy((char *) data, name);
-	    data += strlen(name) + 1;
-	    bind_index++;
+	    name = (حرف *) symtab_section->link->انکڑے + sym->st_name;
+            strcpy((حرف *) انکڑے, name);
+	    انکڑے += لڑی_لمبائی(name) + 1;
+	    bind_اشاریہ++;
 	}
     }
     tcc_free(mo->bind_rebase);
 }
-#endif
+#جے_انت
 
-ST_FUNC int macho_output_file(TCCState *s1, const char *filename)
+ST_FUNC صحيح macho_output_file(TCCState *s1, ثابت حرف *filename)
 {
-    int fd, mode, file_type;
+    صحيح fd, منوال, file_type;
     FILE *fp;
-    int i, ret = -1;
-    struct macho mo;
+    صحيح i, ret = -1;
+    بنية macho mo;
 
-    (void)memset(&mo, 0, sizeof(mo));
+    (فراغ)memset(&mo, 0, حجم(mo));
 
     file_type = s1->output_type;
-    if (file_type == TCC_OUTPUT_OBJ)
-        mode = 0666;
-    else
-        mode = 0777;
+    إذا (file_type == TCC_OUTPUT_OBJ)
+        منوال = 0666;
+    وإلا
+        منوال = 0777;
     unlink(filename);
-    fd = open(filename, O_WRONLY | O_CREAT | O_TRUNC | O_BINARY, mode);
-    if (fd < 0 || (fp = fdopen(fd, "wb")) == NULL) {
+    fd = open(filename, O_WRONLY | O_CREAT | O_TRUNC | O_ثنائی_2, منوال);
+    إذا (fd < 0 || (fp = fdopen(fd, "wb")) == عدم) {
         tcc_error_noabort("could not write '%s: %s'", filename, strerror(errno));
-        return -1;
+        أرجع -1;
     }
-    tcc_add_runtime(s1);
-    tcc_macho_add_destructor(s1);
+    tcc_جوڑو_runtime(s1);
+    tcc_macho_جوڑو_destructor(s1);
     resolve_common_syms(s1);
     create_symtab(s1, &mo);
     check_relocs(s1, &mo);
     ret = check_symbols(s1, &mo);
-    if (!ret) {
-	int save_output = s1->output_type;
+    إذا (!ret) {
+	صحيح save_output = s1->output_type;
 
         collect_sections(s1, &mo, filename);
         relocate_syms(s1, s1->symtab, 0);
-	if (s1->output_type == TCC_OUTPUT_EXE)
+	إذا (s1->output_type == TCC_OUTPUT_EXE)
             mo.ep->entryoff = get_sym_addr(s1, "main", 1, 1)
                             -     get_segment(&mo, 1)->vmaddr;
-        if (s1->nb_errors)
-          goto do_ret;
+        إذا (s1->nb_errors)
+          اذهب do_ret;
 	// Macho uses bind/rebase instead of dynsym
 	s1->output_type = TCC_OUTPUT_EXE;
         relocate_sections(s1);
 	s1->output_type = save_output;
-#ifdef CONFIG_NEW_MACHO
+#جے_تعریف_شدہ CONFIG_NEW_MACHO
 	bind_rebase_import(s1, &mo);
-#endif
+#جے_انت
         convert_symbols(s1, &mo);
-        if (s1->verbose)
-            printf("<- %s\n", filename);
+        إذا (s1->verbose)
+            لکھو("<- %s\n", filename);
         macho_write(s1, &mo, fp);
     }
 
  do_ret:
-    for (i = 0; i < mo.nlc; i++)
+    لكل (i = 0; i < mo.nlc; i++)
       tcc_free(mo.lc[i]);
     tcc_free(mo.seg2lc);
     tcc_free(mo.lc);
@@ -2234,244 +2234,244 @@ ST_FUNC int macho_output_file(TCCState *s1, const char *filename)
     tcc_free(mo.e2msym);
 
     fclose(fp);
-#ifdef CONFIG_CODESIGN
-    if (!ret) {
-	char command[1024];
-	int retval;
+#جے_تعریف_شدہ CONFIG_CODESIGN
+    إذا (!ret) {
+	حرف command[1024];
+	صحيح retval;
 
-	snprintf(command, sizeof(command), "codesign -f -s - %s", filename);
+	snprintf(command, حجم(command), "codesign -f -s - %s", filename);
 	retval = system (command);
-	if (retval == -1 || !(WIFEXITED(retval) && WEXITSTATUS(retval) == 0))
+	إذا (retval == -1 || !(WIFEXITED(retval) && WEXITSTATUS(retval) == 0))
 	    tcc_error ("command failed '%s'", command);
     }
-#endif
-    return ret;
+#جے_انت
+    أرجع ret;
 }
 
-static uint32_t macho_swap32(uint32_t x)
+ساكن uint32_t macho_swap32(uint32_t x)
 {
-  return (x >> 24) | (x << 24) | ((x >> 8) & 0xff00) | ((x & 0xff00) << 8);
+  أرجع (x >> 24) | (x << 24) | ((x >> 8) & 0xff00) | ((x & 0xff00) << 8);
 }
-#define SWAP(x) (swap ? macho_swap32(x) : (x))
-#define tbd_parse_movepast(s) \
-    (pos = (pos = strstr(pos, s)) ? pos + strlen(s) : NULL)
-#define tbd_parse_movetoany(cs) (pos = strpbrk(pos, cs))
-#define tbd_parse_skipws while (*pos && (*pos==' '||*pos=='\n')) ++pos
-#define tbd_parse_tramplequote if(*pos=='\''||*pos=='"') tbd_parse_trample
-#define tbd_parse_tramplespace if(*pos==' ') tbd_parse_trample
-#define tbd_parse_trample *pos++=0
+#تعریف_کرو وٹاندرا(x) (وٹاندرا_2 ? macho_swap32(x) : (x))
+#تعریف_کرو tbd_parse_movepast(s) \
+    (pos = (pos = لڑی_کھوج(pos, s)) ? pos + لڑی_لمبائی(s) : عدم)
+#تعریف_کرو tbd_parse_movetoany(cs) (pos = strpbrk(pos, cs))
+#تعریف_کرو tbd_parse_skipws طالما (*pos && (*pos==' '||*pos=='\n')) ++pos
+#تعریف_کرو tbd_parse_tramplequote إذا(*pos=='\''||*pos=='"') tbd_parse_trample
+#تعریف_کرو tbd_parse_tramplespace إذا(*pos==' ') tbd_parse_trample
+#تعریف_کرو tbd_parse_trample *pos++=0
 
-#ifdef TCC_IS_NATIVE
+#جے_تعریف_شدہ TCC_IS_NATIVE
 /* Looks for the active developer SDK set by xcode-select (or the default
    one set during installation.) */
-ST_FUNC void tcc_add_macos_sdkpath(TCCState* s)
+ST_FUNC فراغ tcc_جوڑو_macos_sdkpath(TCCState* s)
 {
-    char *sdkroot = NULL, *pos = NULL;
-    void* xcs = dlopen("libxcselect.dylib", RTLD_GLOBAL | RTLD_LAZY);
-    CString path;
-    int (*f)(unsigned int, char**) = dlsym(xcs, "xcselect_host_sdk_path");
-    cstr_new(&path);
-    if (f) f(1, &sdkroot);
-    if (sdkroot)
-        pos = strstr(sdkroot,"SDKs/MacOSX");
-    if (pos)
-        cstr_printf(&path, "%.*s.sdk/usr/lib", (int)(pos - sdkroot + 11), sdkroot);
+    حرف *sdkroot = عدم, *pos = عدم;
+    فراغ* xcs = dlopen("libxcselect.dylib", RTLD_GLOBAL | RTLD_LAZY);
+    CString رستہ;
+    صحيح (*f)(بنانشانی صحيح, حرف**) = dlsym(xcs, "xcselect_host_sdk_path");
+    cstr_new(&رستہ);
+    إذا (f) f(1, &sdkroot);
+    إذا (sdkroot)
+        pos = لڑی_کھوج(sdkroot,"SDKs/MacOSX");
+    إذا (pos)
+        cstr_printf(&رستہ, "%.*s.sdk/usr/lib", (صحيح)(pos - sdkroot + 11), sdkroot);
     /* must use free from libc directly */
-#pragma push_macro("free")
-#undef free
-    free(sdkroot);
-#pragma pop_macro("free")
-    if (path.size)
-        tcc_add_library_path(s, (char*)path.data);
-    else
-        tcc_add_library_path(s,
+#ہدایت ڈالو_macro("free")
+#تعریف_رد حرر
+    حرر(sdkroot);
+#ہدایت نکالو_macro("free")
+    إذا (رستہ.ناپ)
+        tcc_جوڑو_library_رستہ(s, (حرف*)رستہ.انکڑے);
+    وإلا
+        tcc_جوڑو_library_رستہ(s,
             "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/lib"
             ":" "/Applications/Xcode.app/Developer/SDKs/MacOSX.sdk/usr/lib"
             );
-    cstr_free(&path);
+    cstr_free(&رستہ);
 }
 
-ST_FUNC char* macho_tbd_soname(int fd) {
-    char *soname, *data, *pos;
-    char *ret = 0;
-    pos = data = tcc_load_text(fd);
-    if (!tbd_parse_movepast("install-name: ")) goto the_end;
+ST_FUNC حرف* macho_tbd_soname(صحيح fd) {
+    حرف *soname, *انکڑے, *pos;
+    حرف *ret = 0;
+    pos = انکڑے = tcc_لدو_متن(fd);
+    إذا (!tbd_parse_movepast("install-name: ")) اذهب the_سرا;
     tbd_parse_skipws;
     tbd_parse_tramplequote;
     soname = pos;
-    if (!tbd_parse_movetoany("\n \"'")) goto the_end;
+    إذا (!tbd_parse_movetoany("\n \"'")) اذهب the_سرا;
     tbd_parse_trample;
     ret = tcc_strdup(soname);
-the_end:
-    tcc_free(data);
-    return ret;
+the_سرا:
+    tcc_free(انکڑے);
+    أرجع ret;
 }
-#endif /* TCC_IS_NATIVE */
+#جے_انت /* TCC_IS_NATIVE */
 
-ST_FUNC int macho_load_tbd(TCCState* s1, int fd, const char* filename, int lev)
+ST_FUNC صحيح macho_لدو_tbd(TCCState* s1, صحيح fd, ثابت حرف* filename, صحيح lev)
 {
-    char *soname, *data, *pos;
-    int ret = -1;
+    حرف *soname, *انکڑے, *pos;
+    صحيح ret = -1;
 
-    pos = data = tcc_load_text(fd);
-    if (!tbd_parse_movepast("install-name: ")) goto the_end;
+    pos = انکڑے = tcc_لدو_متن(fd);
+    إذا (!tbd_parse_movepast("install-name: ")) اذهب the_سرا;
     tbd_parse_skipws;
     tbd_parse_tramplequote;
     soname = pos;
-    if (!tbd_parse_movetoany("\n \"'")) goto the_end;
+    إذا (!tbd_parse_movetoany("\n \"'")) اذهب the_سرا;
     tbd_parse_trample;
     ret = 0;
-    if (tcc_add_dllref(s1, soname, lev)->found)
-        goto the_end;
-    while(pos) {
-        char* sym = NULL;
-        int cont = 1;
-        if (!tbd_parse_movepast("symbols: ")) break;
-        if (!tbd_parse_movepast("[")) break;
-        while (cont) {
+    إذا (tcc_جوڑو_dllref(s1, soname, lev)->لبھیا)
+        اذهب the_سرا;
+    طالما(pos) {
+        حرف* sym = عدم;
+        صحيح cont = 1;
+        إذا (!tbd_parse_movepast("symbols: ")) اكسر;
+        إذا (!tbd_parse_movepast("[")) اكسر;
+        طالما (cont) {
             tbd_parse_skipws;
             tbd_parse_tramplequote;
             sym = pos;
-            if (!tbd_parse_movetoany(",] \"'")) break;
+            إذا (!tbd_parse_movetoany(",] \"'")) اكسر;
             tbd_parse_tramplequote;
             tbd_parse_tramplespace;
             tbd_parse_skipws;
-            if (*pos==0||*pos==']') cont=0;
+            إذا (*pos==0||*pos==']') cont=0;
             tbd_parse_trample;
-            set_elf_sym(s1->dynsymtab_section, 0, 0,
+            سیٹ_elf_sym(s1->dynsymtab_section, 0, 0,
                 ELFW(ST_INFO)(STB_GLOBAL, STT_NOTYPE), 0, SHN_UNDEF, sym);
         }
     }
 
-the_end:
-    tcc_free(data);
-    return ret;
+the_سرا:
+    tcc_free(انکڑے);
+    أرجع ret;
 }
 
-ST_FUNC int macho_load_dll(TCCState * s1, int fd, const char* filename, int lev)
+ST_FUNC صحيح macho_لدو_dll(TCCState * s1, صحيح fd, ثابت حرف* filename, صحيح lev)
 {
-    unsigned char buf[sizeof(struct mach_header_64)];
-    void *buf2;
+    بنانشانی حرف buf[حجم(بنية mach_سرخی_64)];
+    فراغ *buf2;
     uint32_t machofs = 0;
-    struct fat_header fh;
-    struct mach_header mh;
-    struct load_command *lc;
-    int i, swap = 0;
-    const char *soname = filename;
-    struct nlist_64 *symtab = 0;
+    بنية fat_سرخی fh;
+    بنية mach_سرخی mh;
+    بنية لدو_command *lc;
+    صحيح i, وٹاندرا_2 = 0;
+    ثابت حرف *soname = filename;
+    بنية nlist_64 *symtab = 0;
     uint32_t nsyms = 0;
-    char *strtab = 0;
+    حرف *strtab = 0;
     uint32_t strsize = 0;
     uint32_t iextdef = 0;
     uint32_t nextdef = 0;
 
   again:
-    if (full_read(fd, buf, sizeof(buf)) != sizeof(buf))
-      return -1;
-    memcpy(&fh, buf, sizeof(fh));
-    if (fh.magic == FAT_MAGIC || fh.magic == FAT_CIGAM) {
-        struct fat_arch *fa = load_data(fd, sizeof(fh),
-                                        fh.nfat_arch * sizeof(*fa));
-        swap = fh.magic == FAT_CIGAM;
-        for (i = 0; i < SWAP(fh.nfat_arch); i++)
-#ifdef TCC_TARGET_X86_64
-          if (SWAP(fa[i].cputype) == CPU_TYPE_X86_64
-              && SWAP(fa[i].cpusubtype) == CPU_SUBTYPE_X86_ALL)
-#elif defined TCC_TARGET_ARM64
-          if (SWAP(fa[i].cputype) == CPU_TYPE_ARM64
-              && SWAP(fa[i].cpusubtype) == CPU_SUBTYPE_ARM64_ALL)
-#endif
-            break;
-        if (i == SWAP(fh.nfat_arch)) {
+    إذا (بھریا_read(fd, buf, حجم(buf)) != حجم(buf))
+      أرجع -1;
+    حافظہ_نقل(&fh, buf, حجم(fh));
+    إذا (fh.magic == FAT_MAGIC || fh.magic == FAT_CIGAM) {
+        بنية fat_arch *fa = لدو_انکڑے(fd, حجم(fh),
+                                        fh.nfat_arch * حجم(*fa));
+        وٹاندرا_2 = fh.magic == FAT_CIGAM;
+        لكل (i = 0; i < وٹاندرا(fh.nfat_arch); i++)
+#جے_تعریف_شدہ TCC_نشانہ_X86_64
+          إذا (وٹاندرا(fa[i].cputype) == CPU_TYPE_X86_64
+              && وٹاندرا(fa[i].cpusubtype) == CPU_SUBTYPE_X86_ALL)
+#وإلاإذا defined TCC_نشانہ_ARM64
+          إذا (وٹاندرا(fa[i].cputype) == CPU_TYPE_ARM64
+              && وٹاندرا(fa[i].cpusubtype) == CPU_SUBTYPE_ARM64_ALL)
+#جے_انت
+            اكسر;
+        إذا (i == وٹاندرا(fh.nfat_arch)) {
             tcc_free(fa);
-            return -1;
+            أرجع -1;
         }
-        machofs = SWAP(fa[i].offset);
+        machofs = وٹاندرا(fa[i].وتھ);
         tcc_free(fa);
         lseek(fd, machofs, SEEK_SET);
-        goto again;
-    } else if (fh.magic == FAT_MAGIC_64 || fh.magic == FAT_CIGAM_64) {
+        اذهب again;
+    } وإلا إذا (fh.magic == FAT_MAGIC_64 || fh.magic == FAT_CIGAM_64) {
         tcc_warning("%s: Mach-O fat 64bit files of type 0x%x not handled",
                     filename, fh.magic);
-        return -1;
+        أرجع -1;
     }
 
-    memcpy(&mh, buf, sizeof(mh));
-    if (mh.magic != MH_MAGIC_64)
-      return -1;
+    حافظہ_نقل(&mh, buf, حجم(mh));
+    إذا (mh.magic != MH_MAGIC_64)
+      أرجع -1;
     dprintf("found Mach-O at %d\n", machofs);
-    buf2 = load_data(fd, machofs + sizeof(struct mach_header_64), mh.sizeofcmds);
-    for (i = 0, lc = buf2; i < mh.ncmds; i++) {
+    buf2 = لدو_انکڑے(fd, machofs + حجم(بنية mach_سرخی_64), mh.sizeofcmds);
+    لكل (i = 0, lc = buf2; i < mh.ncmds; i++) {
         dprintf("lc %2d: 0x%08x\n", i, lc->cmd);
-        switch (lc->cmd) {
-        case LC_SYMTAB:
+        بدل (lc->cmd) {
+        حالة LC_SYMTAB:
         {
-            struct symtab_command *sc = (struct symtab_command*)lc;
+            بنية symtab_command *sc = (بنية symtab_command*)lc;
             nsyms = sc->nsyms;
-            symtab = load_data(fd, machofs + sc->symoff, nsyms * sizeof(*symtab));
+            symtab = لدو_انکڑے(fd, machofs + sc->symoff, nsyms * حجم(*symtab));
             strsize = sc->strsize;
-            strtab = load_data(fd, machofs + sc->stroff, strsize);
-            break;
+            strtab = لدو_انکڑے(fd, machofs + sc->stroff, strsize);
+            اكسر;
         }
-        case LC_ID_DYLIB:
+        حالة LC_ID_DYLIB:
         {
-            struct dylib_command *dc = (struct dylib_command*)lc;
-            soname = (char*)lc + dc->name;
+            بنية dylib_command *dc = (بنية dylib_command*)lc;
+            soname = (حرف*)lc + dc->name;
             dprintf(" ID_DYLIB %d 0x%x 0x%x %s\n",
-                    dc->timestamp, dc->current_version,
-                    dc->compatibility_version, soname);
-            break;
+                    dc->timestamp, dc->current_نسخہ,
+                    dc->compatibility_نسخہ, soname);
+            اكسر;
         }
-        case LC_REEXPORT_DYLIB:
+        حالة LC_REEXPORT_DYLIB:
         {
-            struct dylib_command *dc = (struct dylib_command*)lc;
-            char *name = (char*)lc + dc->name;
-            int subfd = open(name, O_RDONLY | O_BINARY);
+            بنية dylib_command *dc = (بنية dylib_command*)lc;
+            حرف *name = (حرف*)lc + dc->name;
+            صحيح subfd = open(name, O_RDONLY | O_ثنائی_2);
             dprintf(" REEXPORT %s\n", name);
-            if (subfd < 0)
+            إذا (subfd < 0)
               tcc_warning("can't open %s (reexported from %s)", name, filename);
-            else {
+            وإلا {
                 /* Hopefully the REEXPORTs never form a cycle, we don't check
                    for that!  */
-                macho_load_dll(s1, subfd, name, lev + 1);
+                macho_لدو_dll(s1, subfd, name, lev + 1);
                 close(subfd);
             }
-            break;
+            اكسر;
         }
-        case LC_DYSYMTAB:
+        حالة LC_DYSYMTAB:
         {
-            struct dysymtab_command *dc = (struct dysymtab_command*)lc;
+            بنية dysymtab_command *dc = (بنية dysymtab_command*)lc;
             iextdef = dc->iextdefsym;
             nextdef = dc->nextdefsym;
-            break;
+            اكسر;
         }
         }
-        lc = (struct load_command*) ((char*)lc + lc->cmdsize);
+        lc = (بنية لدو_command*) ((حرف*)lc + lc->cmdsize);
     }
 
-    if (tcc_add_dllref(s1, soname, lev)->found)
-        goto the_end;
+    إذا (tcc_جوڑو_dllref(s1, soname, lev)->لبھیا)
+        اذهب the_سرا;
 
-    if (!nsyms || !nextdef)
+    إذا (!nsyms || !nextdef)
       tcc_warning("%s doesn't export any symbols?", filename);
 
     //dprintf("symbols (all):\n");
     dprintf("symbols (exported):\n");
     dprintf("    n: typ sec   desc              value name\n");
     //for (i = 0; i < nsyms; i++) {
-    for (i = iextdef; i < iextdef + nextdef; i++) {
-        struct nlist_64 *sym = symtab + i;
+    لكل (i = iextdef; i < iextdef + nextdef; i++) {
+        بنية nlist_64 *sym = symtab + i;
         dprintf("%5d: %3d %3d 0x%04x 0x%016lx %s\n",
-                i, sym->n_type, sym->n_sect, sym->n_desc, (long)sym->n_value,
+                i, sym->n_type, sym->n_sect, sym->n_desc, (لما)sym->n_قدر,
                 strtab + sym->n_strx);
-        set_elf_sym(s1->dynsymtab_section, 0, 0,
+        سیٹ_elf_sym(s1->dynsymtab_section, 0, 0,
                     ELFW(ST_INFO)(STB_GLOBAL, STT_NOTYPE),
                     0, SHN_UNDEF, strtab + sym->n_strx);
     }
 
-  the_end:
+  the_سرا:
     tcc_free(strtab);
     tcc_free(symtab);
     tcc_free(buf2);
-    return 0;
+    أرجع 0;
 }

@@ -1,15 +1,15 @@
-#include <stdio.h>
+#ضمن <stdio.h>
 
-int main() 
+صحيح مکھ() 
 {
-   int Count;
+   صحيح گنتی_3;
 
-   for (Count = 1; Count <= 10; Count++)
+   لكل (گنتی_3 = 1; گنتی_3 <= 10; گنتی_3++)
    {
-      printf("%d\n", Count);
+      لکھو("%d\n", گنتی_3);
    }
 
-   return 0;
+   أرجع 0;
 }
 
 // vim: set expandtab ts=4 sw=3 sts=3 tw=80 :

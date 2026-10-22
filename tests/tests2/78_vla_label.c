@@ -1,45 +1,45 @@
-#include <stdio.h>
+#ضمن <stdio.h>
 
 /* This test segfaults as of April 27, 2015. */
-void f1(int argc)
+فراغ f1(صحيح argc)
 {
-  char test[argc];
-  if(0)
+  حرف test[argc];
+  إذا(0)
   label:
-    printf("boom!\n");
-  if(argc-- == 0)
-    return;
-  goto label;
+    لکھو("boom!\n");
+  إذا(argc-- == 0)
+    أرجع;
+  اذهب label;
 }
 
 /* This segfaulted on 2015-11-19. */
-void f2(void)
+فراغ f2(فراغ)
 {
-    goto start;
+    اذهب شروع;
     {
-        int a[1 && 1]; /* not a variable-length array */
-        int b[1 || 1]; /* not a variable-length array */
-        int c[1 ? 1 : 1]; /* not a variable-length array */
-    start:
+        صحيح a[1 && 1]; /* not a variable-length array */
+        صحيح b[1 || 1]; /* not a variable-length array */
+        صحيح c[1 ? 1 : 1]; /* not a variable-length array */
+    شروع:
         a[0] = 0;
         b[0] = 0;
         c[0] = 0;
     }
 }
 
-void f3(void)
+فراغ f3(فراغ)
 {
-    printf("%d\n", 0 ? printf("x1\n") : 11);
-    printf("%d\n", 1 ? 12 : printf("x2\n"));
-    printf("%d\n", 0 && printf("x3\n"));
-    printf("%d\n", 1 || printf("x4\n"));
+    لکھو("%d\n", 0 ? لکھو("x1\n") : 11);
+    لکھو("%d\n", 1 ? 12 : لکھو("x2\n"));
+    لکھو("%d\n", 0 && لکھو("x3\n"));
+    لکھو("%d\n", 1 || لکھو("x4\n"));
 }
 
-int main()
+صحيح مکھ()
 {
   f1(2);
   f2();
   f3();
 
-  return 0;
+  أرجع 0;
 }

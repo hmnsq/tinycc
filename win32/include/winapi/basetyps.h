@@ -3,83 +3,83 @@
  * This file is part of the w64 mingw-runtime package.
  * No warranty is given; refer to the file DISCLAIMER within this package.
  */
-#if !defined(_BASETYPS_H_)
-#define _BASETYPS_H_
+#إذا !defined(_BASETYPS_H_)
+#تعریف_کرو _BASETYPS_H_
 
-#ifdef __cplusplus
-#define EXTERN_C extern "C"
-#else
-#define EXTERN_C extern
-#endif
+#جے_تعریف_شدہ __cplusplus
+#تعریف_کرو EXTERN_C خارجي "C"
+#وإلا
+#تعریف_کرو EXTERN_C خارجي
+#جے_انت
 
-#define STDMETHODCALLTYPE WINAPI
-#define STDMETHODVCALLTYPE __cdecl
+#تعریف_کرو STDMETHODCALLTYPE WINAPI
+#تعریف_کرو STDMETHODVCALLTYPE __cdecl
 
-#define STDAPICALLTYPE WINAPI
-#define STDAPIVCALLTYPE __cdecl
+#تعریف_کرو STDAPICALLTYPE WINAPI
+#تعریف_کرو STDAPIVCALLTYPE __cdecl
 
-#define STDAPI EXTERN_C HRESULT WINAPI
-#define STDAPI_(type) EXTERN_C type WINAPI
+#تعریف_کرو STDAPI EXTERN_C HRESULT WINAPI
+#تعریف_کرو STDAPI_(type) EXTERN_C type WINAPI
 
-#define STDMETHODIMP HRESULT WINAPI
-#define STDMETHODIMP_(type) type WINAPI
+#تعریف_کرو STDMETHODIMP HRESULT WINAPI
+#تعریف_کرو STDMETHODIMP_(type) type WINAPI
 
-#define STDAPIV EXTERN_C HRESULT STDAPIVCALLTYPE
-#define STDAPIV_(type) EXTERN_C type STDAPIVCALLTYPE
+#تعریف_کرو STDAPIV EXTERN_C HRESULT STDAPIVCALLTYPE
+#تعریف_کرو STDAPIV_(type) EXTERN_C type STDAPIVCALLTYPE
 
-#define STDMETHODIMPV HRESULT STDMETHODVCALLTYPE
-#define STDMETHODIMPV_(type) type STDMETHODVCALLTYPE
+#تعریف_کرو STDMETHODIMPV HRESULT STDMETHODVCALLTYPE
+#تعریف_کرو STDMETHODIMPV_(type) type STDMETHODVCALLTYPE
 
-#if defined(__cplusplus) && !defined(CINTERFACE)
+#إذا defined(__cplusplus) && !defined(CINTERFACE)
 
-#define __STRUCT__ struct
-#define STDMETHOD(method) virtual HRESULT WINAPI method
-#define STDMETHOD_(type,method) virtual type WINAPI method
-#define STDMETHODV(method) virtual HRESULT STDMETHODVCALLTYPE method
-#define STDMETHODV_(type,method) virtual type STDMETHODVCALLTYPE method
-#define PURE = 0
-#define THIS_
-#define THIS void
-#define DECLARE_INTERFACE(iface) __STRUCT__ iface
-#define DECLARE_INTERFACE_(iface,baseiface) __STRUCT__ iface : public baseiface
-#else
+#تعریف_کرو __STRUCT__ بنية
+#تعریف_کرو STDMETHOD(طریقہ) مجازی HRESULT WINAPI طریقہ
+#تعریف_کرو STDMETHOD_(type,طریقہ) مجازی type WINAPI طریقہ
+#تعریف_کرو STDMETHODV(طریقہ) مجازی HRESULT STDMETHODVCALLTYPE طریقہ
+#تعریف_کرو STDMETHODV_(type,طریقہ) مجازی type STDMETHODVCALLTYPE طریقہ
+#تعریف_کرو خالص = 0
+#تعریف_کرو THIS_
+#تعریف_کرو THIS فراغ
+#تعریف_کرو DECLARE_INTERFACE(iface) __STRUCT__ iface
+#تعریف_کرو DECLARE_INTERFACE_(iface,baseiface) __STRUCT__ iface : عام baseiface
+#وإلا
 
-#ifndef __OBJC__
-#define interface struct
-#endif
+#جے_بنا_تعریف __OBJC__
+#تعریف_کرو interface بنية
+#جے_انت
 
-#define STDMETHOD(method) HRESULT (WINAPI *method)
-#define STDMETHOD_(type,method) type (WINAPI *method)
-#define STDMETHODV(method) HRESULT (STDMETHODVCALLTYPE *method)
-#define STDMETHODV_(type,method) type (STDMETHODVCALLTYPE *method)
+#تعریف_کرو STDMETHOD(طریقہ) HRESULT (WINAPI *طریقہ)
+#تعریف_کرو STDMETHOD_(type,طریقہ) type (WINAPI *طریقہ)
+#تعریف_کرو STDMETHODV(طریقہ) HRESULT (STDMETHODVCALLTYPE *طریقہ)
+#تعریف_کرو STDMETHODV_(type,طریقہ) type (STDMETHODVCALLTYPE *طریقہ)
 
-#define PURE
-#define THIS_ INTERFACE *This,
-#define THIS INTERFACE *This
-#ifdef CONST_VTABLE
-#define DECLARE_INTERFACE(iface) typedef struct iface { \
-  const struct iface##Vtbl *lpVtbl; } iface; \
-  typedef const struct iface##Vtbl iface##Vtbl; \
-  const struct iface##Vtbl
-#else
-#define DECLARE_INTERFACE(iface) typedef struct iface { \
-    struct iface##Vtbl *lpVtbl; \
+#تعریف_کرو خالص
+#تعریف_کرو THIS_ INTERFACE *This,
+#تعریف_کرو THIS INTERFACE *This
+#جے_تعریف_شدہ CONST_VTABLE
+#تعریف_کرو DECLARE_INTERFACE(iface) تعريفنوع بنية iface { \
+  ثابت بنية iface##Vtbl *lpVtbl; } iface; \
+  تعريفنوع ثابت بنية iface##Vtbl iface##Vtbl; \
+  ثابت بنية iface##Vtbl
+#وإلا
+#تعریف_کرو DECLARE_INTERFACE(iface) تعريفنوع بنية iface { \
+    بنية iface##Vtbl *lpVtbl; \
   } iface; \
-  typedef struct iface##Vtbl iface##Vtbl; \
-  struct iface##Vtbl
-#endif
-#define DECLARE_INTERFACE_(iface,baseiface) DECLARE_INTERFACE(iface)
-#endif
+  تعريفنوع بنية iface##Vtbl iface##Vtbl; \
+  بنية iface##Vtbl
+#جے_انت
+#تعریف_کرو DECLARE_INTERFACE_(iface,baseiface) DECLARE_INTERFACE(iface)
+#جے_انت
 
-#include <guiddef.h>
+#ضمن <guiddef.h>
 
-#ifndef _ERROR_STATUS_T_DEFINED
-#define _ERROR_STATUS_T_DEFINED
-typedef unsigned long error_status_t;
-#endif
+#جے_بنا_تعریف ERROR_حالت_T_DEFINED
+#تعریف_کرو ERROR_حالت_T_DEFINED
+تعريفنوع بنانشانی لما error_حالت_t;
+#جے_انت
 
-#ifndef _WCHAR_T_DEFINED
-typedef unsigned short wchar_t;
-#define _WCHAR_T_DEFINED
-#endif
-#endif
+#جے_بنا_تعریف _WCHAR_T_DEFINED
+تعريفنوع بنانشانی چھوٹا wchar_t;
+#تعریف_کرو _WCHAR_T_DEFINED
+#جے_انت
+#جے_انت

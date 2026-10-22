@@ -1,26 +1,26 @@
-#include <stdio.h>
+#ضمن <stdio.h>
 
-int main()
+صحيح مکھ()
 {
-   int a;
-   char b;
+   صحيح a;
+   حرف b;
 
    a = 0;
-   while (a < 2)
+   طالما (a < 2)
    {
-      printf("%d", a++);
-      break;
+      لکھو("%d", a++);
+      اكسر;
 
       b = 'A';
-      while (b < 'C')
+      طالما (b < 'C')
       {
-         printf("%c", b++);
+         لکھو("%c", b++);
       }
-      printf("e");
+      لکھو("e");
    }
-   printf("\n");
+   لکھو("\n");
 
-   return 0;
+   أرجع 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

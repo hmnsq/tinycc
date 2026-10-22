@@ -1,17 +1,17 @@
-#include <stdio.h>
-int main() {
-  printf("%d\n", (int)-1.0);
-  double d = -1.0;
-  printf("%d\n", (int)d);
+#ضمن <stdio.h>
+صحيح مکھ() {
+  لکھو("%d\n", (صحيح)-1.0);
+  مزدوج d = -1.0;
+  لکھو("%d\n", (صحيح)d);
 
-  printf("%d\n", (int)-2147483648.0);
+  لکھو("%d\n", (صحيح)-2147483648.0);
   d = -2147483648.0;
-  printf("%d\n", (int)d);
+  لکھو("%d\n", (صحيح)d);
 
-#ifndef _WIN32
-  printf("%llu\n", (unsigned long long)1e19);
-#else
+#جے_بنا_تعریف _WIN32
+  لکھو("%llu\n", (بنانشانی لما لما)1e19);
+#وإلا
   /* some msvc compiler won't compile tcc correctly in this ragard */
-  printf("10000000000000000000\n");
-#endif
+  لکھو("10000000000000000000\n");
+#جے_انت
 }

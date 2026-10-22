@@ -1,85 +1,85 @@
-#include <stdio.h>
+#ضمن <stdio.h>
 
-int main()
+صحيح مکھ()
 {
-   printf("#include test\n");
+   لکھو("#include test\n");
 
-#if 1
-#if 0
-   printf("a\n");
-#else
-   printf("b\n");
-#endif
-#else
-#if 0
-   printf("c\n");
-#else
-   printf("d\n");
-#endif
-#endif
+#إذا 1
+#إذا 0
+   لکھو("a\n");
+#وإلا
+   لکھو("b\n");
+#جے_انت
+#وإلا
+#إذا 0
+   لکھو("c\n");
+#وإلا
+   لکھو("d\n");
+#جے_انت
+#جے_انت
 
-#if 0
-#if 1
-   printf("e\n");
-#else
-   printf("f\n");
-#endif
-#else
-#if 1
-   printf("g\n");
-#else
-   printf("h\n");
-#endif
-#endif
+#إذا 0
+#إذا 1
+   لکھو("e\n");
+#وإلا
+   لکھو("f\n");
+#جے_انت
+#وإلا
+#إذا 1
+   لکھو("g\n");
+#وإلا
+   لکھو("h\n");
+#جے_انت
+#جے_انت
 
-#define DEF
+#تعریف_کرو DEF
 
-#ifdef DEF
-#ifdef DEF
-   printf("i\n");
-#else
-   printf("j\n");
-#endif
-#else
-#ifdef DEF
-   printf("k\n");
-#else
-   printf("l\n");
-#endif
-#endif
+#جے_تعریف_شدہ DEF
+#جے_تعریف_شدہ DEF
+   لکھو("i\n");
+#وإلا
+   لکھو("j\n");
+#جے_انت
+#وإلا
+#جے_تعریف_شدہ DEF
+   لکھو("k\n");
+#وإلا
+   لکھو("l\n");
+#جے_انت
+#جے_انت
 
-#ifndef DEF
-#ifndef DEF
-   printf("m\n");
-#else
-   printf("n\n");
-#endif
-#else
-#ifndef DEF
-   printf("o\n");
-#else
-   printf("p\n");
-#endif
-#endif
+#جے_بنا_تعریف DEF
+#جے_بنا_تعریف DEF
+   لکھو("m\n");
+#وإلا
+   لکھو("n\n");
+#جے_انت
+#وإلا
+#جے_بنا_تعریف DEF
+   لکھو("o\n");
+#وإلا
+   لکھو("p\n");
+#جے_انت
+#جے_انت
 
-#define ONE 1
-#define ZERO 0
+#تعریف_کرو ONE 1
+#تعریف_کرو ZERO 0
 
-#if ONE
-#if ZERO
-   printf("q\n");
-#else
-   printf("r\n");
-#endif
-#else
-#if ZERO
-   printf("s\n");
-#else
-   printf("t\n");
-#endif
-#endif
+#إذا ONE
+#إذا ZERO
+   لکھو("q\n");
+#وإلا
+   لکھو("r\n");
+#جے_انت
+#وإلا
+#إذا ZERO
+   لکھو("s\n");
+#وإلا
+   لکھو("t\n");
+#جے_انت
+#جے_انت
 
-   return 0;
+   أرجع 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

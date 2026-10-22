@@ -3,131 +3,131 @@
  * This file is part of the w64 mingw-runtime package.
  * No warranty is given; refer to the file DISCLAIMER within this package.
  */
-#ifndef _TIMEB_H_
-#define _TIMEB_H_
+#جے_بنا_تعریف _TIMEB_H_
+#تعریف_کرو _TIMEB_H_
 
-#include <_mingw.h>
+#ضمن <_mingw.h>
 
-#ifndef _WIN32
-#error Only Win32 target is supported!
-#endif
+#جے_بنا_تعریف _WIN32
+#غلطی Only Win32 نشانہ is supported!
+#جے_انت
 
-#pragma pack(push,_CRT_PACKING)
+#ہدایت pack(ڈالو,_CRT_PACKING)
 
-#ifdef __cplusplus
-extern "C" {
-#endif
+#جے_تعریف_شدہ __cplusplus
+خارجي "C" {
+#جے_انت
 
-#ifndef _CRTIMP
-#define _CRTIMP __declspec(dllimport)
-#endif
+#جے_بنا_تعریف _CRTIMP
+#تعریف_کرو _CRTIMP __declspec(dllimport)
+#جے_انت
 
-#ifndef __TINYC__ /* gr */
-#ifdef _USE_32BIT_TIME_T
-#ifdef _WIN64
-#undef _USE_32BIT_TIME_T
-#endif
-#else
-#if _INTEGRAL_MAX_BITS < 64
-#define _USE_32BIT_TIME_T
-#endif
-#endif
-#endif
+#جے_بنا_تعریف __TINYC__ /* gr */
+#جے_تعریف_شدہ USE_32_ثنائی_ہندسہ_ویلا_T
+#جے_تعریف_شدہ _WIN64
+#تعریف_رد USE_32_ثنائی_ہندسہ_ویلا_T
+#جے_انت
+#وإلا
+#إذا INTEGRAL_MAX_بٹ < 64
+#تعریف_کرو USE_32_ثنائی_ہندسہ_ویلا_T
+#جے_انت
+#جے_انت
+#جے_انت
 
-#ifndef _TIME32_T_DEFINED
-  typedef long __time32_t;
-#define _TIME32_T_DEFINED
-#endif
+#جے_بنا_تعریف _TIME32_T_DEFINED
+  تعريفنوع لما __time32_t;
+#تعریف_کرو _TIME32_T_DEFINED
+#جے_انت
 
-#ifndef _TIME64_T_DEFINED
-#if _INTEGRAL_MAX_BITS >= 64
-  typedef __int64 __time64_t;
-#endif
-#define _TIME64_T_DEFINED
-#endif
+#جے_بنا_تعریف _TIME64_T_DEFINED
+#إذا INTEGRAL_MAX_بٹ >= 64
+  تعريفنوع __int64 __time64_t;
+#جے_انت
+#تعریف_کرو _TIME64_T_DEFINED
+#جے_انت
 
-#ifndef _TIME_T_DEFINED
-#ifdef _USE_32BIT_TIME_T
-  typedef __time32_t time_t;
-#else
-  typedef __time64_t time_t;
-#endif
-#define _TIME_T_DEFINED
-#endif
+#جے_بنا_تعریف ویلا_T_DEFINED
+#جے_تعریف_شدہ USE_32_ثنائی_ہندسہ_ویلا_T
+  تعريفنوع __time32_t time_t;
+#وإلا
+  تعريفنوع __time64_t time_t;
+#جے_انت
+#تعریف_کرو ویلا_T_DEFINED
+#جے_انت
 
-#ifndef _TIMEB_DEFINED
-#define _TIMEB_DEFINED
+#جے_بنا_تعریف _TIMEB_DEFINED
+#تعریف_کرو _TIMEB_DEFINED
 
-  struct __timeb32 {
-    __time32_t time;
-    unsigned short millitm;
-    short timezone;
-    short dstflag;
+  بنية __timeb32 {
+    __time32_t ویلا;
+    بنانشانی چھوٹا millitm;
+    چھوٹا timezone;
+    چھوٹا dstflag;
   };
 
-#ifndef	NO_OLDNAMES
-  struct timeb {
-    time_t time;
-    unsigned short millitm;
-    short timezone;
-    short dstflag;
+#جے_بنا_تعریف	NO_OLDNAMES
+  بنية timeb {
+    time_t ویلا;
+    بنانشانی چھوٹا millitm;
+    چھوٹا timezone;
+    چھوٹا dstflag;
   };
-#endif
+#جے_انت
 
-#if _INTEGRAL_MAX_BITS >= 64
-  struct __timeb64 {
-    __time64_t time;
-    unsigned short millitm;
-    short timezone;
-    short dstflag;
+#إذا INTEGRAL_MAX_بٹ >= 64
+  بنية __timeb64 {
+    __time64_t ویلا;
+    بنانشانی چھوٹا millitm;
+    چھوٹا timezone;
+    چھوٹا dstflag;
   };
-#endif
+#جے_انت
 
-#ifdef _USE_32BIT_TIME_T
-#define _timeb __timeb32
+#جے_تعریف_شدہ USE_32_ثنائی_ہندسہ_ویلا_T
+#تعریف_کرو _timeb __timeb32
 //gr #define _ftime _ftime32
-#define _ftime32 _ftime
-#else
-#define _timeb __timeb64
-#define _ftime _ftime64
-#endif
-#endif
+#تعریف_کرو _ftime32 _ftime
+#وإلا
+#تعریف_کرو _timeb __timeb64
+#تعریف_کرو _ftime _ftime64
+#جے_انت
+#جے_انت
 
-  _CRTIMP void __cdecl _ftime32(struct __timeb32 *_Time);
-#if _INTEGRAL_MAX_BITS >= 64
-  _CRTIMP void __cdecl _ftime64(struct __timeb64 *_Time);
-#endif
+  _CRTIMP فراغ __cdecl _ftime32(بنية __timeb32 *ویلا_2);
+#إذا INTEGRAL_MAX_بٹ >= 64
+  _CRTIMP فراغ __cdecl _ftime64(بنية __timeb64 *ویلا_2);
+#جے_انت
 
-#ifndef _TIMESPEC_DEFINED
-#define _TIMESPEC_DEFINED
-struct timespec {
+#جے_بنا_تعریف _TIMESPEC_DEFINED
+#تعریف_کرو _TIMESPEC_DEFINED
+بنية timespec {
   time_t  tv_sec;   /* Seconds */
-  long    tv_nsec;  /* Nanoseconds */
+  لما    tv_nsec;  /* Nanoseconds */
 };
 
-struct itimerspec {
-  struct timespec  it_interval;  /* Timer period */
-  struct timespec  it_value;     /* Timer expiration */
+بنية itimerspec {
+  بنية timespec  it_interval;  /* Timer period */
+  بنية timespec  it_value;     /* Timer expiration */
 };
-#endif
+#جے_انت
 
-#if !defined (RC_INVOKED) && !defined (NO_OLDNAMES)
-#ifdef _USE_32BIT_TIME_T
-__CRT_INLINE void __cdecl ftime(struct timeb *_Tmb) {
-  _ftime32((struct __timeb32 *)_Tmb);
+#إذا !defined (RC_INVOKED) && !defined (NO_OLDNAMES)
+#جے_تعریف_شدہ USE_32_ثنائی_ہندسہ_ویلا_T
+__CRT_INLINE فراغ __cdecl ftime(بنية timeb *_Tmb) {
+  _ftime32((بنية __timeb32 *)_Tmb);
 }
-#else
-__CRT_INLINE void __cdecl ftime(struct timeb *_Tmb) {
-  _ftime64((struct __timeb64 *)_Tmb);
+#وإلا
+__CRT_INLINE فراغ __cdecl ftime(بنية timeb *_Tmb) {
+  _ftime64((بنية __timeb64 *)_Tmb);
 }
-#endif
-#endif
+#جے_انت
+#جے_انت
 
-#ifdef __cplusplus
+#جے_تعریف_شدہ __cplusplus
 }
-#endif
+#جے_انت
 
-#pragma pack(pop)
+#ہدایت pack(نکالو)
 
-#include <sec_api/sys/timeb_s.h>
-#endif
+#ضمن <sec_api/sys/timeb_s.h>
+#جے_انت

@@ -3,604 +3,604 @@
  * This file is part of the w64 mingw-runtime package.
  * No warranty is given; refer to the file DISCLAIMER within this package.
  */
-#ifndef _INC_STDLIB
-#define _INC_STDLIB
+#جے_بنا_تعریف _INC_STDLIB
+#تعریف_کرو _INC_STDLIB
 
-#include <_mingw.h>
-#include <limits.h>
+#ضمن <_mingw.h>
+#ضمن <limits.h>
 
-#pragma pack(push,_CRT_PACKING)
+#ہدایت pack(ڈالو,_CRT_PACKING)
 
-#ifdef __cplusplus
-extern "C" {
-#endif
+#جے_تعریف_شدہ __cplusplus
+خارجي "C" {
+#جے_انت
 
-#ifndef NULL
-#ifdef __cplusplus
-#define NULL 0
-#else
-#define NULL ((void *)0)
-#endif
-#endif
+#جے_بنا_تعریف عدم
+#جے_تعریف_شدہ __cplusplus
+#تعریف_کرو عدم 0
+#وإلا
+#تعریف_کرو عدم ((فراغ *)0)
+#جے_انت
+#جے_انت
 
-#define EXIT_SUCCESS 0
-#define EXIT_FAILURE 1
+#تعریف_کرو EXIT_SUCCESS 0
+#تعریف_کرو EXIT_FAILURE 1
 
-#ifndef _ONEXIT_T_DEFINED
-#define _ONEXIT_T_DEFINED
+#جے_بنا_تعریف _ONEXIT_T_DEFINED
+#تعریف_کرو _ONEXIT_T_DEFINED
 
-  typedef int (__cdecl *_onexit_t)(void);
+  تعريفنوع صحيح (__cdecl *_onexit_t)(فراغ);
 
-#ifndef NO_OLDNAMES
-#define onexit_t _onexit_t
-#endif
-#endif
+#جے_بنا_تعریف NO_OLDNAMES
+#تعریف_کرو onexit_t _onexit_t
+#جے_انت
+#جے_انت
 
-#ifndef _DIV_T_DEFINED
-#define _DIV_T_DEFINED
+#جے_بنا_تعریف _DIV_T_DEFINED
+#تعریف_کرو _DIV_T_DEFINED
 
-  typedef struct _div_t {
-    int quot;
-    int rem;
+  تعريفنوع بنية _div_t {
+    صحيح quot;
+    صحيح rem;
   } div_t;
 
-  typedef struct _ldiv_t {
-    long quot;
-    long rem;
+  تعريفنوع بنية _ldiv_t {
+    لما quot;
+    لما rem;
   } ldiv_t;
-#endif
+#جے_انت
 
-#ifndef _CRT_DOUBLE_DEC
-#define _CRT_DOUBLE_DEC
+#جے_بنا_تعریف _CRT_DOUBLE_DEC
+#تعریف_کرو _CRT_DOUBLE_DEC
 
-#pragma pack(4)
-  typedef struct {
-    unsigned char ld[10];
+#ہدایت pack(4)
+  تعريفنوع بنية {
+    بنانشانی حرف ld[10];
   } _LDOUBLE;
-#pragma pack()
+#ہدایت pack()
 
-#define _PTR_LD(x) ((unsigned char *)(&(x)->ld))
+#تعریف_کرو _PTR_LD(x) ((بنانشانی حرف *)(&(x)->ld))
 
-  typedef struct {
-    double x;
+  تعريفنوع بنية {
+    مزدوج x;
   } _CRT_DOUBLE;
 
-  typedef struct {
-    float f;
+  تعريفنوع بنية {
+    عائم f;
   } _CRT_FLOAT;
 
-#pragma push_macro("long")
-#undef long
+#ہدایت ڈالو_macro("long")
+#تعریف_رد لما
 
-  typedef struct {
-    long double x;
+  تعريفنوع بنية {
+    لما مزدوج x;
   } _LONGDOUBLE;
 
-#pragma pop_macro("long")
+#ہدایت نکالو_macro("long")
 
-#pragma pack(4)
-  typedef struct {
-    unsigned char ld12[12];
+#ہدایت pack(4)
+  تعريفنوع بنية {
+    بنانشانی حرف ld12[12];
   } _LDBL12;
-#pragma pack()
-#endif
+#ہدایت pack()
+#جے_انت
 
-#define RAND_MAX 0x7fff
+#تعریف_کرو RAND_MAX 0x7fff
 
-#ifndef MB_CUR_MAX
-#define MB_CUR_MAX ___mb_cur_max_func()
-#ifndef __mb_cur_max
-#ifdef _MSVCRT_
-  extern int __mb_cur_max;
-#else
-#define __mb_cur_max    (*_imp____mb_cur_max)
-  extern int *_imp____mb_cur_max;
-#endif
-#endif
-#ifdef _MSVCRT_
-  extern int __mbcur_max;
-#define ___mb_cur_max_func() (__mb_cur_max)
-#else
-  extern int* _imp____mbcur_max;
-#define ___mb_cur_max_func() (*_imp____mb_cur_max)
-#endif
-#endif
+#جے_بنا_تعریف MB_CUR_MAX
+#تعریف_کرو MB_CUR_MAX ___mb_cur_max_func()
+#جے_بنا_تعریف __mb_cur_max
+#جے_تعریف_شدہ _MSVCRT_
+  خارجي صحيح __mb_cur_max;
+#وإلا
+#تعریف_کرو __mb_cur_max    (*_imp____mb_cur_max)
+  خارجي صحيح *_imp____mb_cur_max;
+#جے_انت
+#جے_انت
+#جے_تعریف_شدہ _MSVCRT_
+  خارجي صحيح __mbcur_max;
+#تعریف_کرو ___mb_cur_max_func() (__mb_cur_max)
+#وإلا
+  خارجي صحيح* _imp____mbcur_max;
+#تعریف_کرو ___mb_cur_max_func() (*_imp____mb_cur_max)
+#جے_انت
+#جے_انت
 
-#define __max(a,b) (((a) > (b)) ? (a) : (b))
-#define __min(a,b) (((a) < (b)) ? (a) : (b))
+#تعریف_کرو __max(a,b) (((a) > (b)) ? (a) : (b))
+#تعریف_کرو __min(a,b) (((a) < (b)) ? (a) : (b))
 
-#define _MAX_PATH 260
-#define _MAX_DRIVE 3
-#define _MAX_DIR 256
-#define _MAX_FNAME 256
-#define _MAX_EXT 256
+#تعریف_کرو MAX_رستہ_2 260
+#تعریف_کرو _MAX_DRIVE 3
+#تعریف_کرو _MAX_DIR 256
+#تعریف_کرو _MAX_FNAME 256
+#تعریف_کرو _MAX_EXT 256
 
-#define _OUT_TO_DEFAULT 0
-#define _OUT_TO_STDERR 1
-#define _OUT_TO_MSGBOX 2
-#define _REPORT_ERRMODE 3
+#تعریف_کرو باہرلا_منزل_DEFAULT 0
+#تعریف_کرو باہرلا_منزل_STDERR 1
+#تعریف_کرو باہرلا_منزل_MSGBOX 2
+#تعریف_کرو _REPORT_ERRMODE 3
 
-#define _WRITE_ABORT_MSG 0x1
-#define _CALL_REPORTFAULT 0x2
+#تعریف_کرو WRITE_ABORT_پیغام 0x1
+#تعریف_کرو _CALL_REPORTFAULT 0x2
 
-#define _MAX_ENV 32767
+#تعریف_کرو _MAX_ENV 32767
 
-  typedef void (__cdecl *_purecall_handler)(void);
+  تعريفنوع فراغ (__cdecl *_purecall_handler)(فراغ);
 
-  _CRTIMP _purecall_handler __cdecl _set_purecall_handler(_purecall_handler _Handler);
-  _CRTIMP _purecall_handler __cdecl _get_purecall_handler(void);
+  _CRTIMP _purecall_handler __cdecl سیٹ_purecall_handler(_purecall_handler _Handler);
+  _CRTIMP _purecall_handler __cdecl _get_purecall_handler(فراغ);
 
-  typedef void (__cdecl *_invalid_parameter_handler)(const wchar_t *,const wchar_t *,const wchar_t *,unsigned int,uintptr_t);
-  _invalid_parameter_handler __cdecl _set_invalid_parameter_handler(_invalid_parameter_handler _Handler);
-  _invalid_parameter_handler __cdecl _get_invalid_parameter_handler(void);
+  تعريفنوع فراغ (__cdecl *_invalid_parameter_handler)(ثابت wchar_t *,ثابت wchar_t *,ثابت wchar_t *,بنانشانی صحيح,uintptr_t);
+  _invalid_parameter_handler __cdecl سیٹ_invalid_parameter_handler(_invalid_parameter_handler _Handler);
+  _invalid_parameter_handler __cdecl _get_invalid_parameter_handler(فراغ);
 
-#ifndef _CRT_ERRNO_DEFINED
-#define _CRT_ERRNO_DEFINED
-  _CRTIMP int *__cdecl _errno(void);
-#define errno (*_errno())
-  errno_t __cdecl _set_errno(int _Value);
-  errno_t __cdecl _get_errno(int *_Value);
-#endif
-  _CRTIMP unsigned long *__cdecl __doserrno(void);
-#define _doserrno (*__doserrno())
-  errno_t __cdecl _set_doserrno(unsigned long _Value);
-  errno_t __cdecl _get_doserrno(unsigned long *_Value);
-#ifdef _MSVCRT_
-  extern char *_sys_errlist[];
-  extern int _sys_nerr;
-#else
-  _CRTIMP char *_sys_errlist[1];
-  _CRTIMP int _sys_nerr;
-#endif
-#if (defined(_X86_) && !defined(__x86_64))
-  _CRTIMP int *__cdecl __p___argc(void);
-  _CRTIMP char ***__cdecl __p___argv(void);
-  _CRTIMP wchar_t ***__cdecl __p___wargv(void);
-  _CRTIMP char ***__cdecl __p__environ(void);
-  _CRTIMP wchar_t ***__cdecl __p__wenviron(void);
-  _CRTIMP char **__cdecl __p__pgmptr(void);
-  _CRTIMP wchar_t **__cdecl __p__wpgmptr(void);
-#endif
-#ifndef __argc
-#ifdef _MSVCRT_
-  extern int __argc;
-#else
-#define __argc (*_imp____argc)
-  extern int *_imp____argc;
-#endif
-#endif
-#ifndef __argv
-#ifdef _MSVCRT_
-  extern char **__argv;
-#else
-#define __argv  (*_imp____argv)
-  extern char ***_imp____argv;
-#endif
-#endif
-#ifndef __wargv
-#ifdef _MSVCRT_
-  extern wchar_t **__wargv;
-#else
-#define __wargv (*_imp____wargv)
-  extern wchar_t ***_imp____wargv;
-#endif
-#endif
+#جے_بنا_تعریف _CRT_ERRNO_DEFINED
+#تعریف_کرو _CRT_ERRNO_DEFINED
+  _CRTIMP صحيح *__cdecl _errno(فراغ);
+#تعریف_کرو errno (*_errno())
+  errno_t __cdecl سیٹ_errno(صحيح قدر_2);
+  errno_t __cdecl _get_errno(صحيح *قدر_2);
+#جے_انت
+  _CRTIMP بنانشانی لما *__cdecl __doserrno(فراغ);
+#تعریف_کرو _doserrno (*__doserrno())
+  errno_t __cdecl سیٹ_doserrno(بنانشانی لما قدر_2);
+  errno_t __cdecl _get_doserrno(بنانشانی لما *قدر_2);
+#جے_تعریف_شدہ _MSVCRT_
+  خارجي حرف *_sys_errlist[];
+  خارجي صحيح _sys_nerr;
+#وإلا
+  _CRTIMP حرف *_sys_errlist[1];
+  _CRTIMP صحيح _sys_nerr;
+#جے_انت
+#إذا (defined(_X86_) && !defined(__x86_64))
+  _CRTIMP صحيح *__cdecl __p___argc(فراغ);
+  _CRTIMP حرف ***__cdecl __p___argv(فراغ);
+  _CRTIMP wchar_t ***__cdecl __p___wargv(فراغ);
+  _CRTIMP حرف ***__cdecl __p__environ(فراغ);
+  _CRTIMP wchar_t ***__cdecl __p__wenviron(فراغ);
+  _CRTIMP حرف **__cdecl __p__pgmptr(فراغ);
+  _CRTIMP wchar_t **__cdecl __p__wpgmptr(فراغ);
+#جے_انت
+#جے_بنا_تعریف __argc
+#جے_تعریف_شدہ _MSVCRT_
+  خارجي صحيح __argc;
+#وإلا
+#تعریف_کرو __argc (*_imp____argc)
+  خارجي صحيح *_imp____argc;
+#جے_انت
+#جے_انت
+#جے_بنا_تعریف __argv
+#جے_تعریف_شدہ _MSVCRT_
+  خارجي حرف **__argv;
+#وإلا
+#تعریف_کرو __argv  (*_imp____argv)
+  خارجي حرف ***_imp____argv;
+#جے_انت
+#جے_انت
+#جے_بنا_تعریف __wargv
+#جے_تعریف_شدہ _MSVCRT_
+  خارجي wchar_t **__wargv;
+#وإلا
+#تعریف_کرو __wargv (*_imp____wargv)
+  خارجي wchar_t ***_imp____wargv;
+#جے_انت
+#جے_انت
 
-#ifdef _POSIX_
-  extern char **environ;
-#else
-#ifndef _environ
-#ifdef _MSVCRT_
-  extern char **_environ;
-#else
-#define _environ (*_imp___environ)
-  extern char ***_imp___environ;
-#endif
-#endif
+#جے_تعریف_شدہ _POSIX_
+  خارجي حرف **environ;
+#وإلا
+#جے_بنا_تعریف _environ
+#جے_تعریف_شدہ _MSVCRT_
+  خارجي حرف **_environ;
+#وإلا
+#تعریف_کرو _environ (*_imp___environ)
+  خارجي حرف ***_imp___environ;
+#جے_انت
+#جے_انت
 
-#ifndef _wenviron
-#ifdef _MSVCRT_
-  extern wchar_t **_wenviron;
-#else
-#define _wenviron       (*_imp___wenviron)
-  extern wchar_t ***_imp___wenviron;
-#endif
-#endif
-#endif
+#جے_بنا_تعریف _wenviron
+#جے_تعریف_شدہ _MSVCRT_
+  خارجي wchar_t **_wenviron;
+#وإلا
+#تعریف_کرو _wenviron       (*_imp___wenviron)
+  خارجي wchar_t ***_imp___wenviron;
+#جے_انت
+#جے_انت
+#جے_انت
 
-#if defined __aarch64__
+#إذا defined __aarch64__
 /* something does not work using those from msvcrt.dll */
 # undef __argc
 # undef __argv
 # undef __wargv
 # undef _wenviron
 # undef _environ
-extern int __argc;
-extern char **__argv;
-extern wchar_t **__wargv;
-extern char **_environ;
-extern wchar_t **_wenviron;
-#endif
+خارجي صحيح __argc;
+خارجي حرف **__argv;
+خارجي wchar_t **__wargv;
+خارجي حرف **_environ;
+خارجي wchar_t **_wenviron;
+#جے_انت
 
-#ifndef _pgmptr
-#ifdef _MSVCRT_
-  extern char *_pgmptr;
-#else
-#define _pgmptr (*_imp___pgmptr)
-  extern char **_imp___pgmptr;
-#endif
-#endif
+#جے_بنا_تعریف _pgmptr
+#جے_تعریف_شدہ _MSVCRT_
+  خارجي حرف *_pgmptr;
+#وإلا
+#تعریف_کرو _pgmptr (*_imp___pgmptr)
+  خارجي حرف **_imp___pgmptr;
+#جے_انت
+#جے_انت
 
-#ifndef _wpgmptr
-#ifdef _MSVCRT_
-  extern wchar_t *_wpgmptr;
-#else
-#define _wpgmptr        (*_imp___wpgmptr)
-  extern wchar_t **_imp___wpgmptr;
-#endif
-#endif
-  errno_t __cdecl _get_pgmptr(char **_Value);
-  errno_t __cdecl _get_wpgmptr(wchar_t **_Value);
-#ifndef _fmode
-#ifdef _MSVCRT_
-  extern int _fmode;
-#else
-#define _fmode  (*_imp___fmode)
-  extern int *_imp___fmode;
-#endif
-#endif
-  _CRTIMP errno_t __cdecl _set_fmode(int _Mode);
-  _CRTIMP errno_t __cdecl _get_fmode(int *_PMode);
+#جے_بنا_تعریف _wpgmptr
+#جے_تعریف_شدہ _MSVCRT_
+  خارجي wchar_t *_wpgmptr;
+#وإلا
+#تعریف_کرو _wpgmptr        (*_imp___wpgmptr)
+  خارجي wchar_t **_imp___wpgmptr;
+#جے_انت
+#جے_انت
+  errno_t __cdecl _get_pgmptr(حرف **قدر_2);
+  errno_t __cdecl _get_wpgmptr(wchar_t **قدر_2);
+#جے_بنا_تعریف _fmode
+#جے_تعریف_شدہ _MSVCRT_
+  خارجي صحيح _fmode;
+#وإلا
+#تعریف_کرو _fmode  (*_imp___fmode)
+  خارجي صحيح *_imp___fmode;
+#جے_انت
+#جے_انت
+  _CRTIMP errno_t __cdecl سیٹ_fmode(صحيح منوال_3);
+  _CRTIMP errno_t __cdecl _get_fmode(صحيح *_PMode);
 
-#ifndef _osplatform
-#ifdef _MSVCRT_
-  extern unsigned int _osplatform;
-#else
-#define _osplatform (*_imp___osplatform)
-  extern unsigned int *_imp___osplatform;
-#endif
-#endif
+#جے_بنا_تعریف _osplatform
+#جے_تعریف_شدہ _MSVCRT_
+  خارجي بنانشانی صحيح _osplatform;
+#وإلا
+#تعریف_کرو _osplatform (*_imp___osplatform)
+  خارجي بنانشانی صحيح *_imp___osplatform;
+#جے_انت
+#جے_انت
 
-#ifndef _osver
-#ifdef _MSVCRT_
-  extern unsigned int _osver;
-#else
-#define _osver  (*_imp___osver)
-  extern unsigned int *_imp___osver;
-#endif
-#endif
+#جے_بنا_تعریف _osver
+#جے_تعریف_شدہ _MSVCRT_
+  خارجي بنانشانی صحيح _osver;
+#وإلا
+#تعریف_کرو _osver  (*_imp___osver)
+  خارجي بنانشانی صحيح *_imp___osver;
+#جے_انت
+#جے_انت
 
-#ifndef _winver
-#ifdef _MSVCRT_
-  extern unsigned int _winver;
-#else
-#define _winver (*_imp___winver)
-  extern unsigned int *_imp___winver;
-#endif
-#endif
+#جے_بنا_تعریف _winver
+#جے_تعریف_شدہ _MSVCRT_
+  خارجي بنانشانی صحيح _winver;
+#وإلا
+#تعریف_کرو _winver (*_imp___winver)
+  خارجي بنانشانی صحيح *_imp___winver;
+#جے_انت
+#جے_انت
 
-#ifndef _winmajor
-#ifdef _MSVCRT_
-  extern unsigned int _winmajor;
-#else
-#define _winmajor       (*_imp___winmajor)
-  extern unsigned int *_imp___winmajor;
-#endif
-#endif
+#جے_بنا_تعریف _winmajor
+#جے_تعریف_شدہ _MSVCRT_
+  خارجي بنانشانی صحيح _winmajor;
+#وإلا
+#تعریف_کرو _winmajor       (*_imp___winmajor)
+  خارجي بنانشانی صحيح *_imp___winmajor;
+#جے_انت
+#جے_انت
 
-#ifndef _winminor
-#ifdef _MSVCRT_
-  extern unsigned int _winminor;
-#else
-#define _winminor       (*_imp___winminor)
-  extern unsigned int *_imp___winminor;
-#endif
-#endif
+#جے_بنا_تعریف _winminor
+#جے_تعریف_شدہ _MSVCRT_
+  خارجي بنانشانی صحيح _winminor;
+#وإلا
+#تعریف_کرو _winminor       (*_imp___winminor)
+  خارجي بنانشانی صحيح *_imp___winminor;
+#جے_انت
+#جے_انت
 
-  errno_t __cdecl _get_osplatform(unsigned int *_Value);
-  errno_t __cdecl _get_osver(unsigned int *_Value);
-  errno_t __cdecl _get_winver(unsigned int *_Value);
-  errno_t __cdecl _get_winmajor(unsigned int *_Value);
-  errno_t __cdecl _get_winminor(unsigned int *_Value);
-#ifndef _countof
-#ifndef __cplusplus
-#define _countof(_Array) (sizeof(_Array) / sizeof(_Array[0]))
-#else
-  extern "C++" {
-    template <typename _CountofType,size_t _SizeOfArray> char (*__countof_helper(UNALIGNED _CountofType (&_Array)[_SizeOfArray]))[_SizeOfArray];
-#define _countof(_Array) sizeof(*__countof_helper(_Array))
+  errno_t __cdecl _get_osplatform(بنانشانی صحيح *قدر_2);
+  errno_t __cdecl _get_osver(بنانشانی صحيح *قدر_2);
+  errno_t __cdecl _get_winver(بنانشانی صحيح *قدر_2);
+  errno_t __cdecl _get_winmajor(بنانشانی صحيح *قدر_2);
+  errno_t __cdecl _get_winminor(بنانشانی صحيح *قدر_2);
+#جے_بنا_تعریف _countof
+#جے_بنا_تعریف __cplusplus
+#تعریف_کرو _countof(_Array) (حجم(_Array) / حجم(_Array[0]))
+#وإلا
+  خارجي "C++" {
+    سانچا <typename _CountofType,ناپ_t ناپ_دا_Array> حرف (*__countof_helper(UNALIGNED _CountofType (&_Array)[ناپ_دا_Array]))[ناپ_دا_Array];
+#تعریف_کرو _countof(_Array) حجم(*__countof_helper(_Array))
   }
-#endif
-#endif
+#جے_انت
+#جے_انت
 
-#ifndef _CRT_TERMINATE_DEFINED
-#define _CRT_TERMINATE_DEFINED
-  void __cdecl __MINGW_NOTHROW exit(int _Code) __MINGW_ATTRIB_NORETURN;
-  _CRTIMP void __cdecl __MINGW_NOTHROW _exit(int _Code) __MINGW_ATTRIB_NORETURN;
-#if !defined __NO_ISOCEXT /* extern stub in static libmingwex.a */
+#جے_بنا_تعریف _CRT_TERMINATE_DEFINED
+#تعریف_کرو _CRT_TERMINATE_DEFINED
+  فراغ __cdecl __MINGW_NOTHROW باہر_نکلو(صحيح کوڈ_3) __MINGW_ATTRIB_NORETURN;
+  _CRTIMP فراغ __cdecl __MINGW_NOTHROW _exit(صحيح کوڈ_3) __MINGW_ATTRIB_NORETURN;
+#إذا !defined __NO_ISOCEXT /* extern stub in static libmingwex.a */
   /* C99 function name */
-  void __cdecl _Exit(int) __MINGW_ATTRIB_NORETURN;
-  __CRT_INLINE __MINGW_ATTRIB_NORETURN void  __cdecl _Exit(int status)
-  {  _exit(status); }
-#endif
+  فراغ __cdecl _Exit(صحيح) __MINGW_ATTRIB_NORETURN;
+  __CRT_INLINE __MINGW_ATTRIB_NORETURN فراغ  __cdecl _Exit(صحيح حالت)
+  {  _exit(حالت); }
+#جے_انت
 
-#pragma push_macro("abort")
-#undef abort
-  void __cdecl __declspec(noreturn) abort(void);
-#pragma pop_macro("abort")
+#ہدایت ڈالو_macro("abort")
+#تعریف_رد abort
+  فراغ __cdecl __declspec(noreturn) abort(فراغ);
+#ہدایت نکالو_macro("abort")
 
-#endif
+#جے_انت
 
-  _CRTIMP unsigned int __cdecl _set_abort_behavior(unsigned int _Flags,unsigned int _Mask);
+  _CRTIMP بنانشانی صحيح __cdecl سیٹ_abort_behavior(بنانشانی صحيح _Flags,بنانشانی صحيح نقاب_2);
 
-#ifndef _CRT_ABS_DEFINED
-#define _CRT_ABS_DEFINED
-  int __cdecl abs(int _X);
-  long __cdecl labs(long _X);
-#endif
+#جے_بنا_تعریف _CRT_ABS_DEFINED
+#تعریف_کرو _CRT_ABS_DEFINED
+  صحيح __cdecl مطلق_قدر(صحيح _X);
+  لما __cdecl labs(لما _X);
+#جے_انت
 
-#if _INTEGRAL_MAX_BITS >= 64
+#إذا INTEGRAL_MAX_بٹ >= 64
   __int64 __cdecl _abs64(__int64);
-#endif
-  int __cdecl atexit(void (__cdecl *)(void));
-#ifndef _CRT_ATOF_DEFINED
-#define _CRT_ATOF_DEFINED
-  double __cdecl atof(const char *_String);
-  double __cdecl _atof_l(const char *_String,_locale_t _Locale);
-#endif
-  int __cdecl atoi(const char *_Str);
-  _CRTIMP int __cdecl _atoi_l(const char *_Str,_locale_t _Locale);
-  long __cdecl atol(const char *_Str);
-  _CRTIMP long __cdecl _atol_l(const char *_Str,_locale_t _Locale);
-#ifndef _CRT_ALGO_DEFINED
-#define _CRT_ALGO_DEFINED
-  void *__cdecl bsearch(const void *_Key,const void *_Base,size_t _NumOfElements,size_t _SizeOfElements,int (__cdecl *_PtFuncCompare)(const void *,const void *));
-  void __cdecl qsort(void *_Base,size_t _NumOfElements,size_t _SizeOfElements,int (__cdecl *_PtFuncCompare)(const void *,const void *));
-#endif
-  unsigned short __cdecl _byteswap_ushort(unsigned short _Short);
+#جے_انت
+  صحيح __cdecl atexit(فراغ (__cdecl *)(فراغ));
+#جے_بنا_تعریف _CRT_ATOF_DEFINED
+#تعریف_کرو _CRT_ATOF_DEFINED
+  مزدوج __cdecl atof(ثابت حرف *_String);
+  مزدوج __cdecl _atof_l(ثابت حرف *_String,_locale_t _Locale);
+#جے_انت
+  صحيح __cdecl atoi(ثابت حرف *_Str);
+  _CRTIMP صحيح __cdecl _atoi_l(ثابت حرف *_Str,_locale_t _Locale);
+  لما __cdecl atol(ثابت حرف *_Str);
+  _CRTIMP لما __cdecl _atol_l(ثابت حرف *_Str,_locale_t _Locale);
+#جے_بنا_تعریف _CRT_ALGO_DEFINED
+#تعریف_کرو _CRT_ALGO_DEFINED
+  فراغ *__cdecl bsearch(ثابت فراغ *کلید_2,ثابت فراغ *ادھار_3,ناپ_t عدد_دا_Elements,ناپ_t ناپ_دا_Elements,صحيح (__cdecl *_PtFuncCompare)(ثابت فراغ *,ثابت فراغ *));
+  فراغ __cdecl qsort(فراغ *ادھار_3,ناپ_t عدد_دا_Elements,ناپ_t ناپ_دا_Elements,صحيح (__cdecl *_PtFuncCompare)(ثابت فراغ *,ثابت فراغ *));
+#جے_انت
+  بنانشانی چھوٹا __cdecl _byteswap_ushort(بنانشانی چھوٹا _Short);
   /*unsigned long __cdecl _byteswap_ulong (unsigned long _Long); */
-#if _INTEGRAL_MAX_BITS >= 64
-  unsigned __int64 __cdecl _byteswap_uint64(unsigned __int64 _Int64);
-#endif
-  div_t __cdecl div(int _Numerator,int _Denominator);
-  char *__cdecl getenv(const char *_VarName);
-  _CRTIMP char *__cdecl _itoa(int _Value,char *_Dest,int _Radix);
-#if _INTEGRAL_MAX_BITS >= 64
-  _CRTIMP char *__cdecl _i64toa(__int64 _Val,char *_DstBuf,int _Radix);
-  _CRTIMP char *__cdecl _ui64toa(unsigned __int64 _Val,char *_DstBuf,int _Radix);
-  _CRTIMP __int64 __cdecl _atoi64(const char *_String);
-  _CRTIMP __int64 __cdecl _atoi64_l(const char *_String,_locale_t _Locale);
-  _CRTIMP __int64 __cdecl _strtoi64(const char *_String,char **_EndPtr,int _Radix);
-  _CRTIMP __int64 __cdecl _strtoi64_l(const char *_String,char **_EndPtr,int _Radix,_locale_t _Locale);
-  _CRTIMP unsigned __int64 __cdecl _strtoui64(const char *_String,char **_EndPtr,int _Radix);
-  _CRTIMP unsigned __int64 __cdecl _strtoui64_l(const char *_String,char **_EndPtr,int _Radix,_locale_t _Locale);
-#endif
-  ldiv_t __cdecl ldiv(long _Numerator,long _Denominator);
-  _CRTIMP char *__cdecl _ltoa(long _Value,char *_Dest,int _Radix);
-  int __cdecl mblen(const char *_Ch,size_t _MaxCount);
-  _CRTIMP int __cdecl _mblen_l(const char *_Ch,size_t _MaxCount,_locale_t _Locale);
-  _CRTIMP size_t __cdecl _mbstrlen(const char *_Str);
-  _CRTIMP size_t __cdecl _mbstrlen_l(const char *_Str,_locale_t _Locale);
-  _CRTIMP size_t __cdecl _mbstrnlen(const char *_Str,size_t _MaxCount);
-  _CRTIMP size_t __cdecl _mbstrnlen_l(const char *_Str,size_t _MaxCount,_locale_t _Locale);
-  int __cdecl mbtowc(wchar_t *_DstCh,const char *_SrcCh,size_t _SrcSizeInBytes);
-  _CRTIMP int __cdecl _mbtowc_l(wchar_t *_DstCh,const char *_SrcCh,size_t _SrcSizeInBytes,_locale_t _Locale);
-  size_t __cdecl mbstowcs(wchar_t *_Dest,const char *_Source,size_t _MaxCount);
-  _CRTIMP size_t __cdecl _mbstowcs_l(wchar_t *_Dest,const char *_Source,size_t _MaxCount,_locale_t _Locale);
-  int __cdecl rand(void);
-  _CRTIMP int __cdecl _set_error_mode(int _Mode);
-  void __cdecl srand(unsigned int _Seed);
-  double __cdecl strtod(const char *_Str,char **_EndPtr);
-#if !defined __NO_ISOCEXT  /* in libmingwex.a */
-#if __TINYC__
-  __CRT_INLINE float __cdecl strtof (const char *p, char ** e) { return strtod(p, e); }
-  __CRT_INLINE long double __cdecl strtold(const char *p, char ** e) { return strtod(p, e); }
-#else
-  float __cdecl strtof (const char * __restrict__, char ** __restrict__);
-  long double __cdecl strtold(const char * __restrict__, char ** __restrict__);
-#endif
-#else
-  float __cdecl strtof(const char *nptr, char **endptr);
-#endif /* __NO_ISOCEXT */
-  _CRTIMP double __cdecl _strtod_l(const char *_Str,char **_EndPtr,_locale_t _Locale);
-  long __cdecl strtol(const char *_Str,char **_EndPtr,int _Radix);
-  _CRTIMP long __cdecl _strtol_l(const char *_Str,char **_EndPtr,int _Radix,_locale_t _Locale);
-  unsigned long __cdecl strtoul(const char *_Str,char **_EndPtr,int _Radix);
-  _CRTIMP unsigned long __cdecl _strtoul_l(const char *_Str,char **_EndPtr,int _Radix,_locale_t _Locale);
-#ifndef _CRT_SYSTEM_DEFINED
-#define _CRT_SYSTEM_DEFINED
-  int __cdecl system(const char *_Command);
-#endif
-  _CRTIMP char *__cdecl _ultoa(unsigned long _Value,char *_Dest,int _Radix);
-  int __cdecl wctomb(char *_MbCh,wchar_t _WCh);
-  _CRTIMP int __cdecl _wctomb_l(char *_MbCh,wchar_t _WCh,_locale_t _Locale);
-  size_t __cdecl wcstombs(char *_Dest,const wchar_t *_Source,size_t _MaxCount);
-  _CRTIMP size_t __cdecl _wcstombs_l(char *_Dest,const wchar_t *_Source,size_t _MaxCount,_locale_t _Locale);
+#إذا INTEGRAL_MAX_بٹ >= 64
+  بنانشانی __int64 __cdecl _byteswap_uint64(بنانشانی __int64 _Int64);
+#جے_انت
+  div_t __cdecl div(صحيح _Numerator,صحيح _Denominator);
+  حرف *__cdecl getenv(ثابت حرف *_VarName);
+  _CRTIMP حرف *__cdecl _itoa(صحيح قدر_2,حرف *_Dest,صحيح _Radix);
+#إذا INTEGRAL_MAX_بٹ >= 64
+  _CRTIMP حرف *__cdecl _i64toa(__int64 _Val,حرف *_DstBuf,صحيح _Radix);
+  _CRTIMP حرف *__cdecl _ui64toa(بنانشانی __int64 _Val,حرف *_DstBuf,صحيح _Radix);
+  _CRTIMP __int64 __cdecl _atoi64(ثابت حرف *_String);
+  _CRTIMP __int64 __cdecl _atoi64_l(ثابت حرف *_String,_locale_t _Locale);
+  _CRTIMP __int64 __cdecl _strtoi64(ثابت حرف *_String,حرف **سرا_Ptr,صحيح _Radix);
+  _CRTIMP __int64 __cdecl _strtoi64_l(ثابت حرف *_String,حرف **سرا_Ptr,صحيح _Radix,_locale_t _Locale);
+  _CRTIMP بنانشانی __int64 __cdecl _strtoui64(ثابت حرف *_String,حرف **سرا_Ptr,صحيح _Radix);
+  _CRTIMP بنانشانی __int64 __cdecl _strtoui64_l(ثابت حرف *_String,حرف **سرا_Ptr,صحيح _Radix,_locale_t _Locale);
+#جے_انت
+  ldiv_t __cdecl ldiv(لما _Numerator,لما _Denominator);
+  _CRTIMP حرف *__cdecl _ltoa(لما قدر_2,حرف *_Dest,صحيح _Radix);
+  صحيح __cdecl mblen(ثابت حرف *_Ch,ناپ_t Max_گنتی);
+  _CRTIMP صحيح __cdecl _mblen_l(ثابت حرف *_Ch,ناپ_t Max_گنتی,_locale_t _Locale);
+  _CRTIMP ناپ_t __cdecl _mbstrlen(ثابت حرف *_Str);
+  _CRTIMP ناپ_t __cdecl _mbstrlen_l(ثابت حرف *_Str,_locale_t _Locale);
+  _CRTIMP ناپ_t __cdecl _mbstrnlen(ثابت حرف *_Str,ناپ_t Max_گنتی);
+  _CRTIMP ناپ_t __cdecl _mbstrnlen_l(ثابت حرف *_Str,ناپ_t Max_گنتی,_locale_t _Locale);
+  صحيح __cdecl mbtowc(wchar_t *_DstCh,ثابت حرف *_SrcCh,ناپ_t Src_ناپ_وچ_بائٹاں);
+  _CRTIMP صحيح __cdecl _mbtowc_l(wchar_t *_DstCh,ثابت حرف *_SrcCh,ناپ_t Src_ناپ_وچ_بائٹاں,_locale_t _Locale);
+  ناپ_t __cdecl mbstowcs(wchar_t *_Dest,ثابت حرف *سروت_3,ناپ_t Max_گنتی);
+  _CRTIMP ناپ_t __cdecl _mbstowcs_l(wchar_t *_Dest,ثابت حرف *سروت_3,ناپ_t Max_گنتی,_locale_t _Locale);
+  صحيح __cdecl rand(فراغ);
+  _CRTIMP صحيح __cdecl سیٹ_error_منوال(صحيح منوال_3);
+  فراغ __cdecl srand(بنانشانی صحيح بیج);
+  مزدوج __cdecl strtod(ثابت حرف *_Str,حرف **سرا_Ptr);
+#إذا !defined __NO_ISOCEXT  /* in libmingwex.a */
+#إذا __TINYC__
+  __CRT_INLINE عائم __cdecl strtof (ثابت حرف *p, حرف ** e) { أرجع strtod(p, e); }
+  __CRT_INLINE لما مزدوج __cdecl strtold(ثابت حرف *p, حرف ** e) { أرجع strtod(p, e); }
+#وإلا
+  عائم __cdecl strtof (ثابت حرف * __restrict__, حرف ** __restrict__);
+  لما مزدوج __cdecl strtold(ثابت حرف * __restrict__, حرف ** __restrict__);
+#جے_انت
+#وإلا
+  عائم __cdecl strtof(ثابت حرف *nptr, حرف **endptr);
+#جے_انت /* __NO_ISOCEXT */
+  _CRTIMP مزدوج __cdecl _strtod_l(ثابت حرف *_Str,حرف **سرا_Ptr,_locale_t _Locale);
+  لما __cdecl strtol(ثابت حرف *_Str,حرف **سرا_Ptr,صحيح _Radix);
+  _CRTIMP لما __cdecl _strtol_l(ثابت حرف *_Str,حرف **سرا_Ptr,صحيح _Radix,_locale_t _Locale);
+  بنانشانی لما __cdecl strtoul(ثابت حرف *_Str,حرف **سرا_Ptr,صحيح _Radix);
+  _CRTIMP بنانشانی لما __cdecl _strtoul_l(ثابت حرف *_Str,حرف **سرا_Ptr,صحيح _Radix,_locale_t _Locale);
+#جے_بنا_تعریف _CRT_SYSTEM_DEFINED
+#تعریف_کرو _CRT_SYSTEM_DEFINED
+  صحيح __cdecl system(ثابت حرف *_Command);
+#جے_انت
+  _CRTIMP حرف *__cdecl _ultoa(بنانشانی لما قدر_2,حرف *_Dest,صحيح _Radix);
+  صحيح __cdecl wctomb(حرف *_MbCh,wchar_t _WCh);
+  _CRTIMP صحيح __cdecl _wctomb_l(حرف *_MbCh,wchar_t _WCh,_locale_t _Locale);
+  ناپ_t __cdecl wcstombs(حرف *_Dest,ثابت wchar_t *سروت_3,ناپ_t Max_گنتی);
+  _CRTIMP ناپ_t __cdecl _wcstombs_l(حرف *_Dest,ثابت wchar_t *سروت_3,ناپ_t Max_گنتی,_locale_t _Locale);
 
-#ifndef _CRT_ALLOCATION_DEFINED
-#define _CRT_ALLOCATION_DEFINED
-  void *__cdecl calloc(size_t _NumOfElements,size_t _SizeOfElements);
-  void __cdecl free(void *_Memory);
-  void *__cdecl malloc(size_t _Size);
-  void *__cdecl realloc(void *_Memory,size_t _NewSize);
-  _CRTIMP void *__cdecl _recalloc(void *_Memory,size_t _Count,size_t _Size);
-  _CRTIMP void __cdecl _aligned_free(void *_Memory);
-  _CRTIMP void *__cdecl _aligned_malloc(size_t _Size,size_t _Alignment);
-  _CRTIMP void *__cdecl _aligned_offset_malloc(size_t _Size,size_t _Alignment,size_t _Offset);
-  _CRTIMP void *__cdecl _aligned_realloc(void *_Memory,size_t _Size,size_t _Alignment);
-  _CRTIMP void *__cdecl _aligned_recalloc(void *_Memory,size_t _Count,size_t _Size,size_t _Alignment);
-  _CRTIMP void *__cdecl _aligned_offset_realloc(void *_Memory,size_t _Size,size_t _Alignment,size_t _Offset);
-  _CRTIMP void *__cdecl _aligned_offset_recalloc(void *_Memory,size_t _Count,size_t _Size,size_t _Alignment,size_t _Offset);
-#endif
+#جے_بنا_تعریف CRT_ونڈ_DEFINED
+#تعریف_کرو CRT_ونڈ_DEFINED
+  فراغ *__cdecl صفر_حافظہ_دیو(ناپ_t عدد_دا_Elements,ناپ_t ناپ_دا_Elements);
+  فراغ __cdecl حرر(فراغ *حافظہ);
+  فراغ *__cdecl حافظہ_دیو(ناپ_t ناپ_4);
+  فراغ *__cdecl realloc(فراغ *حافظہ,ناپ_t New_ناپ);
+  _CRTIMP فراغ *__cdecl _recalloc(فراغ *حافظہ,ناپ_t گنتی_5,ناپ_t ناپ_4);
+  _CRTIMP فراغ __cdecl _aligned_free(فراغ *حافظہ);
+  _CRTIMP فراغ *__cdecl _aligned_malloc(ناپ_t ناپ_4,ناپ_t _Alignment);
+  _CRTIMP فراغ *__cdecl aligned_وتھ_malloc(ناپ_t ناپ_4,ناپ_t _Alignment,ناپ_t وتھ_2);
+  _CRTIMP فراغ *__cdecl _aligned_realloc(فراغ *حافظہ,ناپ_t ناپ_4,ناپ_t _Alignment);
+  _CRTIMP فراغ *__cdecl _aligned_recalloc(فراغ *حافظہ,ناپ_t گنتی_5,ناپ_t ناپ_4,ناپ_t _Alignment);
+  _CRTIMP فراغ *__cdecl aligned_وتھ_realloc(فراغ *حافظہ,ناپ_t ناپ_4,ناپ_t _Alignment,ناپ_t وتھ_2);
+  _CRTIMP فراغ *__cdecl aligned_وتھ_recalloc(فراغ *حافظہ,ناپ_t گنتی_5,ناپ_t ناپ_4,ناپ_t _Alignment,ناپ_t وتھ_2);
+#جے_انت
 
-#ifndef _WSTDLIB_DEFINED
-#define _WSTDLIB_DEFINED
+#جے_بنا_تعریف _WSTDLIB_DEFINED
+#تعریف_کرو _WSTDLIB_DEFINED
 
-  _CRTIMP wchar_t *__cdecl _itow(int _Value,wchar_t *_Dest,int _Radix);
-  _CRTIMP wchar_t *__cdecl _ltow(long _Value,wchar_t *_Dest,int _Radix);
-  _CRTIMP wchar_t *__cdecl _ultow(unsigned long _Value,wchar_t *_Dest,int _Radix);
-  double __cdecl wcstod(const wchar_t *_Str,wchar_t **_EndPtr);
-  float __cdecl wcstof(const wchar_t *nptr, wchar_t **endptr);
-#if !defined __NO_ISOCEXT /* in libmingwex.a */
-  float __cdecl wcstof( const wchar_t * __restrict__, wchar_t ** __restrict__);
-  long double __cdecl wcstold(const wchar_t * __restrict__, wchar_t ** __restrict__);
-#endif /* __NO_ISOCEXT */
-  _CRTIMP double __cdecl _wcstod_l(const wchar_t *_Str,wchar_t **_EndPtr,_locale_t _Locale);
-  long __cdecl wcstol(const wchar_t *_Str,wchar_t **_EndPtr,int _Radix);
-  _CRTIMP long __cdecl _wcstol_l(const wchar_t *_Str,wchar_t **_EndPtr,int _Radix,_locale_t _Locale);
-  unsigned long __cdecl wcstoul(const wchar_t *_Str,wchar_t **_EndPtr,int _Radix);
-  _CRTIMP unsigned long __cdecl _wcstoul_l(const wchar_t *_Str,wchar_t **_EndPtr,int _Radix,_locale_t _Locale);
-  _CRTIMP wchar_t *__cdecl _wgetenv(const wchar_t *_VarName);
-#ifndef _CRT_WSYSTEM_DEFINED
-#define _CRT_WSYSTEM_DEFINED
-  _CRTIMP int __cdecl _wsystem(const wchar_t *_Command);
-#endif
-  _CRTIMP double __cdecl _wtof(const wchar_t *_Str);
-  _CRTIMP double __cdecl _wtof_l(const wchar_t *_Str,_locale_t _Locale);
-  _CRTIMP int __cdecl _wtoi(const wchar_t *_Str);
-  _CRTIMP int __cdecl _wtoi_l(const wchar_t *_Str,_locale_t _Locale);
-  _CRTIMP long __cdecl _wtol(const wchar_t *_Str);
-  _CRTIMP long __cdecl _wtol_l(const wchar_t *_Str,_locale_t _Locale);
+  _CRTIMP wchar_t *__cdecl _itow(صحيح قدر_2,wchar_t *_Dest,صحيح _Radix);
+  _CRTIMP wchar_t *__cdecl _ltow(لما قدر_2,wchar_t *_Dest,صحيح _Radix);
+  _CRTIMP wchar_t *__cdecl _ultow(بنانشانی لما قدر_2,wchar_t *_Dest,صحيح _Radix);
+  مزدوج __cdecl wcstod(ثابت wchar_t *_Str,wchar_t **سرا_Ptr);
+  عائم __cdecl wcstof(ثابت wchar_t *nptr, wchar_t **endptr);
+#إذا !defined __NO_ISOCEXT /* in libmingwex.a */
+  عائم __cdecl wcstof( ثابت wchar_t * __restrict__, wchar_t ** __restrict__);
+  لما مزدوج __cdecl wcstold(ثابت wchar_t * __restrict__, wchar_t ** __restrict__);
+#جے_انت /* __NO_ISOCEXT */
+  _CRTIMP مزدوج __cdecl _wcstod_l(ثابت wchar_t *_Str,wchar_t **سرا_Ptr,_locale_t _Locale);
+  لما __cdecl wcstol(ثابت wchar_t *_Str,wchar_t **سرا_Ptr,صحيح _Radix);
+  _CRTIMP لما __cdecl _wcstol_l(ثابت wchar_t *_Str,wchar_t **سرا_Ptr,صحيح _Radix,_locale_t _Locale);
+  بنانشانی لما __cdecl wcstoul(ثابت wchar_t *_Str,wchar_t **سرا_Ptr,صحيح _Radix);
+  _CRTIMP بنانشانی لما __cdecl _wcstoul_l(ثابت wchar_t *_Str,wchar_t **سرا_Ptr,صحيح _Radix,_locale_t _Locale);
+  _CRTIMP wchar_t *__cdecl _wgetenv(ثابت wchar_t *_VarName);
+#جے_بنا_تعریف _CRT_WSYSTEM_DEFINED
+#تعریف_کرو _CRT_WSYSTEM_DEFINED
+  _CRTIMP صحيح __cdecl _wsystem(ثابت wchar_t *_Command);
+#جے_انت
+  _CRTIMP مزدوج __cdecl _wtof(ثابت wchar_t *_Str);
+  _CRTIMP مزدوج __cdecl _wtof_l(ثابت wchar_t *_Str,_locale_t _Locale);
+  _CRTIMP صحيح __cdecl _wtoi(ثابت wchar_t *_Str);
+  _CRTIMP صحيح __cdecl _wtoi_l(ثابت wchar_t *_Str,_locale_t _Locale);
+  _CRTIMP لما __cdecl _wtol(ثابت wchar_t *_Str);
+  _CRTIMP لما __cdecl _wtol_l(ثابت wchar_t *_Str,_locale_t _Locale);
 
-#if _INTEGRAL_MAX_BITS >= 64
-  _CRTIMP wchar_t *__cdecl _i64tow(__int64 _Val,wchar_t *_DstBuf,int _Radix);
-  _CRTIMP wchar_t *__cdecl _ui64tow(unsigned __int64 _Val,wchar_t *_DstBuf,int _Radix);
-  _CRTIMP __int64 __cdecl _wtoi64(const wchar_t *_Str);
-  _CRTIMP __int64 __cdecl _wtoi64_l(const wchar_t *_Str,_locale_t _Locale);
-  _CRTIMP __int64 __cdecl _wcstoi64(const wchar_t *_Str,wchar_t **_EndPtr,int _Radix);
-  _CRTIMP __int64 __cdecl _wcstoi64_l(const wchar_t *_Str,wchar_t **_EndPtr,int _Radix,_locale_t _Locale);
-  _CRTIMP unsigned __int64 __cdecl _wcstoui64(const wchar_t *_Str,wchar_t **_EndPtr,int _Radix);
-  _CRTIMP unsigned __int64 __cdecl _wcstoui64_l(const wchar_t *_Str ,wchar_t **_EndPtr,int _Radix,_locale_t _Locale);
-#endif
-#endif
+#إذا INTEGRAL_MAX_بٹ >= 64
+  _CRTIMP wchar_t *__cdecl _i64tow(__int64 _Val,wchar_t *_DstBuf,صحيح _Radix);
+  _CRTIMP wchar_t *__cdecl _ui64tow(بنانشانی __int64 _Val,wchar_t *_DstBuf,صحيح _Radix);
+  _CRTIMP __int64 __cdecl _wtoi64(ثابت wchar_t *_Str);
+  _CRTIMP __int64 __cdecl _wtoi64_l(ثابت wchar_t *_Str,_locale_t _Locale);
+  _CRTIMP __int64 __cdecl _wcstoi64(ثابت wchar_t *_Str,wchar_t **سرا_Ptr,صحيح _Radix);
+  _CRTIMP __int64 __cdecl _wcstoi64_l(ثابت wchar_t *_Str,wchar_t **سرا_Ptr,صحيح _Radix,_locale_t _Locale);
+  _CRTIMP بنانشانی __int64 __cdecl _wcstoui64(ثابت wchar_t *_Str,wchar_t **سرا_Ptr,صحيح _Radix);
+  _CRTIMP بنانشانی __int64 __cdecl _wcstoui64_l(ثابت wchar_t *_Str ,wchar_t **سرا_Ptr,صحيح _Radix,_locale_t _Locale);
+#جے_انت
+#جے_انت
 
-#ifndef _POSIX_
-#define _CVTBUFSIZE (309+40)
-  _CRTIMP char *__cdecl _fullpath(char *_FullPath,const char *_Path,size_t _SizeInBytes);
-  _CRTIMP char *__cdecl _ecvt(double _Val,int _NumOfDigits,int *_PtDec,int *_PtSign);
-  _CRTIMP char *__cdecl _fcvt(double _Val,int _NumOfDec,int *_PtDec,int *_PtSign);
-  _CRTIMP char *__cdecl _gcvt(double _Val,int _NumOfDigits,char *_DstBuf);
-  _CRTIMP int __cdecl _atodbl(_CRT_DOUBLE *_Result,char *_Str);
-  _CRTIMP int __cdecl _atoldbl(_LDOUBLE *_Result,char *_Str);
-  _CRTIMP int __cdecl _atoflt(_CRT_FLOAT *_Result,char *_Str);
-  _CRTIMP int __cdecl _atodbl_l(_CRT_DOUBLE *_Result,char *_Str,_locale_t _Locale);
-  _CRTIMP int __cdecl _atoldbl_l(_LDOUBLE *_Result,char *_Str,_locale_t _Locale);
-  _CRTIMP int __cdecl _atoflt_l(_CRT_FLOAT *_Result,char *_Str,_locale_t _Locale);
-  unsigned long __cdecl _lrotl(unsigned long _Val,int _Shift);
-  unsigned long __cdecl _lrotr(unsigned long _Val,int _Shift);
-  _CRTIMP void __cdecl _makepath(char *_Path,const char *_Drive,const char *_Dir,const char *_Filename,const char *_Ext);
+#جے_بنا_تعریف _POSIX_
+#تعریف_کرو _CVTBUFSIZE (309+40)
+  _CRTIMP حرف *__cdecl _fullpath(حرف *بھریا_رستہ,ثابت حرف *رستہ_2,ناپ_t ناپ_وچ_بائٹاں);
+  _CRTIMP حرف *__cdecl _ecvt(مزدوج _Val,صحيح عدد_دا_Digits,صحيح *_PtDec,صحيح *_PtSign);
+  _CRTIMP حرف *__cdecl _fcvt(مزدوج _Val,صحيح عدد_دا_Dec,صحيح *_PtDec,صحيح *_PtSign);
+  _CRTIMP حرف *__cdecl _gcvt(مزدوج _Val,صحيح عدد_دا_Digits,حرف *_DstBuf);
+  _CRTIMP صحيح __cdecl _atodbl(_CRT_DOUBLE *نتیجہ_2,حرف *_Str);
+  _CRTIMP صحيح __cdecl _atoldbl(_LDOUBLE *نتیجہ_2,حرف *_Str);
+  _CRTIMP صحيح __cdecl _atoflt(_CRT_FLOAT *نتیجہ_2,حرف *_Str);
+  _CRTIMP صحيح __cdecl _atodbl_l(_CRT_DOUBLE *نتیجہ_2,حرف *_Str,_locale_t _Locale);
+  _CRTIMP صحيح __cdecl _atoldbl_l(_LDOUBLE *نتیجہ_2,حرف *_Str,_locale_t _Locale);
+  _CRTIMP صحيح __cdecl _atoflt_l(_CRT_FLOAT *نتیجہ_2,حرف *_Str,_locale_t _Locale);
+  بنانشانی لما __cdecl _lrotl(بنانشانی لما _Val,صحيح کھسکاؤ_2);
+  بنانشانی لما __cdecl _lrotr(بنانشانی لما _Val,صحيح کھسکاؤ_2);
+  _CRTIMP فراغ __cdecl _makepath(حرف *رستہ_2,ثابت حرف *_Drive,ثابت حرف *_Dir,ثابت حرف *_Filename,ثابت حرف *_Ext);
   _onexit_t __cdecl _onexit(_onexit_t _Func);
 
-#ifndef _CRT_PERROR_DEFINED
-#define _CRT_PERROR_DEFINED
-  void __cdecl perror(const char *_ErrMsg);
-#endif
-  _CRTIMP int __cdecl _putenv(const char *_EnvString);
-  unsigned int __cdecl _rotl(unsigned int _Val,int _Shift);
-#if _INTEGRAL_MAX_BITS >= 64
-  unsigned __int64 __cdecl _rotl64(unsigned __int64 _Val,int _Shift);
-#endif
-  unsigned int __cdecl _rotr(unsigned int _Val,int _Shift);
-#if _INTEGRAL_MAX_BITS >= 64
-  unsigned __int64 __cdecl _rotr64(unsigned __int64 _Val,int _Shift);
-#endif
-  _CRTIMP void __cdecl _searchenv(const char *_Filename,const char *_EnvVar,char *_ResultPath);
-  _CRTIMP void __cdecl _splitpath(const char *_FullPath,char *_Drive,char *_Dir,char *_Filename,char *_Ext);
-  _CRTIMP void __cdecl _swab(char *_Buf1,char *_Buf2,int _SizeInBytes);
+#جے_بنا_تعریف _CRT_PERROR_DEFINED
+#تعریف_کرو _CRT_PERROR_DEFINED
+  فراغ __cdecl perror(ثابت حرف *Err_پیغام);
+#جے_انت
+  _CRTIMP صحيح __cdecl _putenv(ثابت حرف *_EnvString);
+  بنانشانی صحيح __cdecl _rotl(بنانشانی صحيح _Val,صحيح کھسکاؤ_2);
+#إذا INTEGRAL_MAX_بٹ >= 64
+  بنانشانی __int64 __cdecl _rotl64(بنانشانی __int64 _Val,صحيح کھسکاؤ_2);
+#جے_انت
+  بنانشانی صحيح __cdecl _rotr(بنانشانی صحيح _Val,صحيح کھسکاؤ_2);
+#إذا INTEGRAL_MAX_بٹ >= 64
+  بنانشانی __int64 __cdecl _rotr64(بنانشانی __int64 _Val,صحيح کھسکاؤ_2);
+#جے_انت
+  _CRTIMP فراغ __cdecl _searchenv(ثابت حرف *_Filename,ثابت حرف *_EnvVar,حرف *نتیجہ_رستہ);
+  _CRTIMP فراغ __cdecl _splitpath(ثابت حرف *بھریا_رستہ,حرف *_Drive,حرف *_Dir,حرف *_Filename,حرف *_Ext);
+  _CRTIMP فراغ __cdecl _swab(حرف *_Buf1,حرف *_Buf2,صحيح ناپ_وچ_بائٹاں);
 
-#ifndef _WSTDLIBP_DEFINED
-#define _WSTDLIBP_DEFINED
-  _CRTIMP wchar_t *__cdecl _wfullpath(wchar_t *_FullPath,const wchar_t *_Path,size_t _SizeInWords);
-  _CRTIMP void __cdecl _wmakepath(wchar_t *_ResultPath,const wchar_t *_Drive,const wchar_t *_Dir,const wchar_t *_Filename,const wchar_t *_Ext);
-#ifndef _CRT_WPERROR_DEFINED
-#define _CRT_WPERROR_DEFINED
-  _CRTIMP void __cdecl _wperror(const wchar_t *_ErrMsg);
-#endif
-  _CRTIMP int __cdecl _wputenv(const wchar_t *_EnvString);
-  _CRTIMP void __cdecl _wsearchenv(const wchar_t *_Filename,const wchar_t *_EnvVar,wchar_t *_ResultPath);
-  _CRTIMP void __cdecl _wsplitpath(const wchar_t *_FullPath,wchar_t *_Drive,wchar_t *_Dir,wchar_t *_Filename,wchar_t *_Ext);
-#endif
+#جے_بنا_تعریف _WSTDLIBP_DEFINED
+#تعریف_کرو _WSTDLIBP_DEFINED
+  _CRTIMP wchar_t *__cdecl _wfullpath(wchar_t *بھریا_رستہ,ثابت wchar_t *رستہ_2,ناپ_t ناپ_وچ_الفاظ);
+  _CRTIMP فراغ __cdecl _wmakepath(wchar_t *نتیجہ_رستہ,ثابت wchar_t *_Drive,ثابت wchar_t *_Dir,ثابت wchar_t *_Filename,ثابت wchar_t *_Ext);
+#جے_بنا_تعریف _CRT_WPERROR_DEFINED
+#تعریف_کرو _CRT_WPERROR_DEFINED
+  _CRTIMP فراغ __cdecl _wperror(ثابت wchar_t *Err_پیغام);
+#جے_انت
+  _CRTIMP صحيح __cdecl _wputenv(ثابت wchar_t *_EnvString);
+  _CRTIMP فراغ __cdecl _wsearchenv(ثابت wchar_t *_Filename,ثابت wchar_t *_EnvVar,wchar_t *نتیجہ_رستہ);
+  _CRTIMP فراغ __cdecl _wsplitpath(ثابت wchar_t *بھریا_رستہ,wchar_t *_Drive,wchar_t *_Dir,wchar_t *_Filename,wchar_t *_Ext);
+#جے_انت
 
-  _CRTIMP void __cdecl _beep(unsigned _Frequency,unsigned _Duration) __MINGW_ATTRIB_DEPRECATED;
+  _CRTIMP فراغ __cdecl _beep(بنانشانی _Frequency,بنانشانی _Duration) __MINGW_ATTRIB_DEPRECATED;
   /* Not to be confused with  _set_error_mode (int).  */
-  _CRTIMP void __cdecl _seterrormode(int _Mode) __MINGW_ATTRIB_DEPRECATED;
-  _CRTIMP void __cdecl _sleep(unsigned long _Duration) __MINGW_ATTRIB_DEPRECATED;
-#endif
+  _CRTIMP فراغ __cdecl _seterrormode(صحيح منوال_3) __MINGW_ATTRIB_DEPRECATED;
+  _CRTIMP فراغ __cdecl _sleep(بنانشانی لما _Duration) __MINGW_ATTRIB_DEPRECATED;
+#جے_انت
 
-#ifndef NO_OLDNAMES
-#ifndef _POSIX_
-#if 0
-#ifndef __cplusplus
-#ifndef NOMINMAX
-#ifndef max
-#define max(a,b) (((a) > (b)) ? (a) : (b))
-#endif
-#ifndef min
-#define min(a,b) (((a) < (b)) ? (a) : (b))
-#endif
-#endif
-#endif
-#endif
+#جے_بنا_تعریف NO_OLDNAMES
+#جے_بنا_تعریف _POSIX_
+#إذا 0
+#جے_بنا_تعریف __cplusplus
+#جے_بنا_تعریف NOMINMAX
+#جے_بنا_تعریف max
+#تعریف_کرو max(a,b) (((a) > (b)) ? (a) : (b))
+#جے_انت
+#جے_بنا_تعریف min
+#تعریف_کرو min(a,b) (((a) < (b)) ? (a) : (b))
+#جے_انت
+#جے_انت
+#جے_انت
+#جے_انت
 
-#define sys_errlist _sys_errlist
-#define sys_nerr _sys_nerr
-#define environ _environ
-  char *__cdecl ecvt(double _Val,int _NumOfDigits,int *_PtDec,int *_PtSign);
-  char *__cdecl fcvt(double _Val,int _NumOfDec,int *_PtDec,int *_PtSign);
-  char *__cdecl gcvt(double _Val,int _NumOfDigits,char *_DstBuf);
-  char *__cdecl itoa(int _Val,char *_DstBuf,int _Radix);
-  char *__cdecl ltoa(long _Val,char *_DstBuf,int _Radix);
-  int __cdecl putenv(const char *_EnvString);
-  void __cdecl swab(char *_Buf1,char *_Buf2,int _SizeInBytes);
-  char *__cdecl ultoa(unsigned long _Val,char *_Dstbuf,int _Radix);
+#تعریف_کرو sys_errlist _sys_errlist
+#تعریف_کرو sys_nerr _sys_nerr
+#تعریف_کرو environ _environ
+  حرف *__cdecl ecvt(مزدوج _Val,صحيح عدد_دا_Digits,صحيح *_PtDec,صحيح *_PtSign);
+  حرف *__cdecl fcvt(مزدوج _Val,صحيح عدد_دا_Dec,صحيح *_PtDec,صحيح *_PtSign);
+  حرف *__cdecl gcvt(مزدوج _Val,صحيح عدد_دا_Digits,حرف *_DstBuf);
+  حرف *__cdecl itoa(صحيح _Val,حرف *_DstBuf,صحيح _Radix);
+  حرف *__cdecl ltoa(لما _Val,حرف *_DstBuf,صحيح _Radix);
+  صحيح __cdecl putenv(ثابت حرف *_EnvString);
+  فراغ __cdecl swab(حرف *_Buf1,حرف *_Buf2,صحيح ناپ_وچ_بائٹاں);
+  حرف *__cdecl ultoa(بنانشانی لما _Val,حرف *_Dstbuf,صحيح _Radix);
   onexit_t __cdecl onexit(onexit_t _Func);
-#endif
-#endif
+#جے_انت
+#جے_انت
 
-#if !defined __NO_ISOCEXT /* externs in static libmingwex.a */
+#إذا !defined __NO_ISOCEXT /* externs in static libmingwex.a */
 
-  typedef struct { long long quot, rem; } lldiv_t;
+  تعريفنوع بنية { لما لما quot, rem; } lldiv_t;
 
-  lldiv_t __cdecl lldiv(long long, long long);
+  lldiv_t __cdecl lldiv(لما لما, لما لما);
 
-  __CRT_INLINE long long __cdecl llabs(long long _j) { return (_j >= 0 ? _j : -_j); }
+  __CRT_INLINE لما لما __cdecl llabs(لما لما _j) { أرجع (_j >= 0 ? _j : -_j); }
 
- #ifdef __TINYC__ /* gr */
-  #define strtoll _strtoi64
-  #define strtoull _strtoui64
- #else
-  long long  __cdecl strtoll(const char* __restrict__, char** __restrict, int);
-  unsigned long long  __cdecl strtoull(const char* __restrict__, char** __restrict__, int);
- #endif
+ #جے_تعریف_شدہ __TINYC__ /* gr */
+  #تعریف_کرو strtoll _strtoi64
+  #تعریف_کرو strtoull _strtoui64
+ #وإلا
+  لما لما  __cdecl strtoll(ثابت حرف* __restrict__, حرف** __restrict, صحيح);
+  بنانشانی لما لما  __cdecl strtoull(ثابت حرف* __restrict__, حرف** __restrict__, صحيح);
+ #جے_انت
 
   /* these are stubs for MS _i64 versions */
-  long long  __cdecl atoll (const char *);
+  لما لما  __cdecl atoll (ثابت حرف *);
 
-#ifndef __STRICT_ANSI__
-  long long  __cdecl wtoll (const wchar_t *);
-  char *__cdecl lltoa (long long, char *, int);
-  char *__cdecl ulltoa (unsigned long long , char *, int);
-  wchar_t *__cdecl lltow (long long, wchar_t *, int);
-  wchar_t *__cdecl ulltow (unsigned long long, wchar_t *, int);
+#جے_بنا_تعریف __STRICT_ANSI__
+  لما لما  __cdecl wtoll (ثابت wchar_t *);
+  حرف *__cdecl lltoa (لما لما, حرف *, صحيح);
+  حرف *__cdecl ulltoa (بنانشانی لما لما , حرف *, صحيح);
+  wchar_t *__cdecl lltow (لما لما, wchar_t *, صحيح);
+  wchar_t *__cdecl ulltow (بنانشانی لما لما, wchar_t *, صحيح);
 
   /* __CRT_INLINE using non-ansi functions */
-  __CRT_INLINE long long  __cdecl atoll (const char * _c) { return _atoi64 (_c); }
-  __CRT_INLINE char *__cdecl lltoa (long long _n, char * _c, int _i) { return _i64toa (_n, _c, _i); }
-  __CRT_INLINE char *__cdecl ulltoa (unsigned long long _n, char * _c, int _i) { return _ui64toa (_n, _c, _i); }
-  __CRT_INLINE long long  __cdecl wtoll (const wchar_t * _w) { return _wtoi64 (_w); }
-  __CRT_INLINE wchar_t *__cdecl lltow (long long _n, wchar_t * _w, int _i) { return _i64tow (_n, _w, _i); }
-  __CRT_INLINE wchar_t *__cdecl ulltow (unsigned long long _n, wchar_t * _w, int _i) { return _ui64tow (_n, _w, _i); }
-#endif /* (__STRICT_ANSI__)  */
+  __CRT_INLINE لما لما  __cdecl atoll (ثابت حرف * _c) { أرجع _atoi64 (_c); }
+  __CRT_INLINE حرف *__cdecl lltoa (لما لما _n, حرف * _c, صحيح _i) { أرجع _i64toa (_n, _c, _i); }
+  __CRT_INLINE حرف *__cdecl ulltoa (بنانشانی لما لما _n, حرف * _c, صحيح _i) { أرجع _ui64toa (_n, _c, _i); }
+  __CRT_INLINE لما لما  __cdecl wtoll (ثابت wchar_t * _w) { أرجع _wtoi64 (_w); }
+  __CRT_INLINE wchar_t *__cdecl lltow (لما لما _n, wchar_t * _w, صحيح _i) { أرجع _i64tow (_n, _w, _i); }
+  __CRT_INLINE wchar_t *__cdecl ulltow (بنانشانی لما لما _n, wchar_t * _w, صحيح _i) { أرجع _ui64tow (_n, _w, _i); }
+#جے_انت /* (__STRICT_ANSI__)  */
 
-#endif /* !__NO_ISOCEXT */
+#جے_انت /* !__NO_ISOCEXT */
 
-#ifdef __cplusplus
+#جے_تعریف_شدہ __cplusplus
 }
-#endif
+#جے_انت
 
-#pragma pack(pop)
+#ہدایت pack(نکالو)
 
-#include <sec_api/stdlib_s.h>
-#include <malloc.h>
+#ضمن <sec_api/stdlib_s.h>
+#ضمن <malloc.h>
 
-#endif
+#جے_انت

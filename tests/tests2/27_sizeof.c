@@ -1,18 +1,18 @@
-#include <stdio.h>
+#ضمن <stdio.h>
 
-int main()
+صحيح مکھ()
 {
-   char a;
-   int b;
-   double c;
+   حرف a;
+   صحيح b;
+   مزدوج c;
 
-   printf("%d\n", sizeof(a));
-   printf("%d\n", sizeof(b));
-   printf("%d\n", sizeof(c));
+   لکھو("%d\n", حجم(a));
+   لکھو("%d\n", حجم(b));
+   لکھو("%d\n", حجم(c));
 
-   printf("%d\n", sizeof(!a));
+   لکھو("%d\n", حجم(!a));
 
-   return 0;
+   أرجع 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

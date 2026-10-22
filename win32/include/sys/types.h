@@ -3,121 +3,121 @@
  * This file is part of the w64 mingw-runtime package.
  * No warranty is given; refer to the file DISCLAIMER within this package.
  */
-#ifndef _INC_TYPES
-#define _INC_TYPES
+#جے_بنا_تعریف _INC_TYPES
+#تعریف_کرو _INC_TYPES
 
-#ifndef _WIN32
-#error Only Win32 target is supported!
-#endif
+#جے_بنا_تعریف _WIN32
+#غلطی Only Win32 نشانہ is supported!
+#جے_انت
 
-#include <_mingw.h>
+#ضمن <_mingw.h>
 
-#ifndef __TINYC__ /* gr */
-#ifdef _USE_32BIT_TIME_T
-#ifdef _WIN64
-#undef _USE_32BIT_TIME_T
-#endif
-#else
-#if _INTEGRAL_MAX_BITS < 64
-#define _USE_32BIT_TIME_T
-#endif
-#endif
-#endif
+#جے_بنا_تعریف __TINYC__ /* gr */
+#جے_تعریف_شدہ USE_32_ثنائی_ہندسہ_ویلا_T
+#جے_تعریف_شدہ _WIN64
+#تعریف_رد USE_32_ثنائی_ہندسہ_ویلا_T
+#جے_انت
+#وإلا
+#إذا INTEGRAL_MAX_بٹ < 64
+#تعریف_کرو USE_32_ثنائی_ہندسہ_ویلا_T
+#جے_انت
+#جے_انت
+#جے_انت
 
-#ifndef _TIME32_T_DEFINED
-#define _TIME32_T_DEFINED
-typedef long __time32_t;
-#endif
+#جے_بنا_تعریف _TIME32_T_DEFINED
+#تعریف_کرو _TIME32_T_DEFINED
+تعريفنوع لما __time32_t;
+#جے_انت
 
-#ifndef _TIME64_T_DEFINED
-#define _TIME64_T_DEFINED
-#if _INTEGRAL_MAX_BITS >= 64
-typedef __int64 __time64_t;
-#endif
-#endif
+#جے_بنا_تعریف _TIME64_T_DEFINED
+#تعریف_کرو _TIME64_T_DEFINED
+#إذا INTEGRAL_MAX_بٹ >= 64
+تعريفنوع __int64 __time64_t;
+#جے_انت
+#جے_انت
 
-#ifndef _TIME_T_DEFINED
-#define _TIME_T_DEFINED
-#ifdef _USE_32BIT_TIME_T
-typedef __time32_t time_t;
-#else
-typedef __time64_t time_t;
-#endif
-#endif
+#جے_بنا_تعریف ویلا_T_DEFINED
+#تعریف_کرو ویلا_T_DEFINED
+#جے_تعریف_شدہ USE_32_ثنائی_ہندسہ_ویلا_T
+تعريفنوع __time32_t time_t;
+#وإلا
+تعريفنوع __time64_t time_t;
+#جے_انت
+#جے_انت
 
-#ifndef _INO_T_DEFINED
-#define _INO_T_DEFINED
-typedef unsigned short _ino_t;
-#ifndef	NO_OLDNAMES
-typedef unsigned short ino_t;
-#endif
-#endif
+#جے_بنا_تعریف _INO_T_DEFINED
+#تعریف_کرو _INO_T_DEFINED
+تعريفنوع بنانشانی چھوٹا _ino_t;
+#جے_بنا_تعریف	NO_OLDNAMES
+تعريفنوع بنانشانی چھوٹا ino_t;
+#جے_انت
+#جے_انت
 
-#ifndef _DEV_T_DEFINED
-#define _DEV_T_DEFINED
-typedef unsigned int _dev_t;
-#ifndef	NO_OLDNAMES
-typedef unsigned int dev_t;
-#endif
-#endif
+#جے_بنا_تعریف _DEV_T_DEFINED
+#تعریف_کرو _DEV_T_DEFINED
+تعريفنوع بنانشانی صحيح _dev_t;
+#جے_بنا_تعریف	NO_OLDNAMES
+تعريفنوع بنانشانی صحيح dev_t;
+#جے_انت
+#جے_انت
 
-#ifndef _PID_T_
-#define	_PID_T_
-#ifndef _WIN64
-typedef int	_pid_t;
-#else
-typedef __int64	_pid_t;
-#endif
+#جے_بنا_تعریف _PID_T_
+#تعریف_کرو	_PID_T_
+#جے_بنا_تعریف _WIN64
+تعريفنوع صحيح	_pid_t;
+#وإلا
+تعريفنوع __int64	_pid_t;
+#جے_انت
 
-#ifndef	NO_OLDNAMES
-typedef _pid_t	pid_t;
-#endif
-#endif	/* Not _PID_T_ */
+#جے_بنا_تعریف	NO_OLDNAMES
+تعريفنوع _pid_t	pid_t;
+#جے_انت
+#جے_انت	/* Not _PID_T_ */
 
-#ifndef _MODE_T_
-#define	_MODE_T_
-typedef unsigned short _mode_t;
+#جے_بنا_تعریف منوال_T
+#تعریف_کرو	منوال_T
+تعريفنوع بنانشانی چھوٹا منوال_t;
 
-#ifndef	NO_OLDNAMES
-typedef _mode_t	mode_t;
-#endif
-#endif	/* Not _MODE_T_ */
+#جے_بنا_تعریف	NO_OLDNAMES
+تعريفنوع منوال_t	mode_t;
+#جے_انت
+#جے_انت	/* Not _MODE_T_ */
 
-#ifndef _OFF_T_DEFINED
-#define _OFF_T_DEFINED
-#ifndef _OFF_T_
-#define _OFF_T_
-  typedef long _off_t;
-#if !defined(NO_OLDNAMES) || defined(_POSIX)
-  typedef long off_t;
-#endif
-#endif
-#endif
+#جے_بنا_تعریف _OFF_T_DEFINED
+#تعریف_کرو _OFF_T_DEFINED
+#جے_بنا_تعریف _OFF_T_
+#تعریف_کرو _OFF_T_
+  تعريفنوع لما _off_t;
+#إذا !defined(NO_OLDNAMES) || defined(_POSIX)
+  تعريفنوع لما off_t;
+#جے_انت
+#جے_انت
+#جے_انت
 
-#ifndef _OFF64_T_DEFINED
-#define _OFF64_T_DEFINED
-  typedef long long _off64_t;
-#if !defined(NO_OLDNAMES) || defined(_POSIX)
-  typedef long long off64_t;
-#endif
-#endif
+#جے_بنا_تعریف _OFF64_T_DEFINED
+#تعریف_کرو _OFF64_T_DEFINED
+  تعريفنوع لما لما _off64_t;
+#إذا !defined(NO_OLDNAMES) || defined(_POSIX)
+  تعريفنوع لما لما off64_t;
+#جے_انت
+#جے_انت
 
 /* required by (unbundled) unistd.h for usleep arg type */
-#ifndef __NO_ISOCEXT
-typedef unsigned int useconds_t;
-#endif
+#جے_بنا_تعریف __NO_ISOCEXT
+تعريفنوع بنانشانی صحيح useconds_t;
+#جے_انت
 
-#ifndef _TIMESPEC_DEFINED
-#define _TIMESPEC_DEFINED
-struct timespec {
+#جے_بنا_تعریف _TIMESPEC_DEFINED
+#تعریف_کرو _TIMESPEC_DEFINED
+بنية timespec {
   time_t  tv_sec;   /* Seconds */
-  long    tv_nsec;  /* Nanoseconds */
+  لما    tv_nsec;  /* Nanoseconds */
 };
 
-struct itimerspec {
-  struct timespec  it_interval;  /* Timer period */
-  struct timespec  it_value;     /* Timer expiration */
+بنية itimerspec {
+  بنية timespec  it_interval;  /* Timer period */
+  بنية timespec  it_value;     /* Timer expiration */
 };
-#endif
+#جے_انت
 
-#endif
+#جے_انت

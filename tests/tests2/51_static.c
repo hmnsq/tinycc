@@ -1,30 +1,30 @@
-#include <stdio.h>
+#ضمن <stdio.h>
 
-static int fred = 1234;
-static int joe;
+ساكن صحيح fred = 1234;
+ساكن صحيح joe;
 
-void henry()
+فراغ henry()
 {
-   static int fred = 4567;
+   ساكن صحيح fred = 4567;
 
-   printf("%d\n", fred);
+   لکھو("%d\n", fred);
    fred++;
 }
 
-int main()
+صحيح مکھ()
 {
-   printf("%d\n", fred);
+   لکھو("%d\n", fred);
    henry();
    henry();
    henry();
    henry();
-   printf("%d\n", fred);
+   لکھو("%d\n", fred);
    fred = 8901;
    joe = 2345;
-   printf("%d\n", fred);
-   printf("%d\n", joe);
+   لکھو("%d\n", fred);
+   لکھو("%d\n", joe);
 
-   return 0;
+   أرجع 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

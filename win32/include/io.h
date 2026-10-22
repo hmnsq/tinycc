@@ -4,415 +4,415 @@
  * This file is part of the w64 mingw-runtime package.
  * No warranty is given; refer to the file DISCLAIMER within this package.
  */
-#ifndef _IO_H_
-#define _IO_H_
+#جے_بنا_تعریف _IO_H_
+#تعریف_کرو _IO_H_
 
-#include <_mingw.h>
-#include <string.h>
+#ضمن <_mingw.h>
+#ضمن <string.h>
 
-#pragma pack(push,_CRT_PACKING)
+#ہدایت pack(ڈالو,_CRT_PACKING)
 
-#ifndef _POSIX_
+#جے_بنا_تعریف _POSIX_
 
-#ifdef __cplusplus
-extern "C" {
-#endif
+#جے_تعریف_شدہ __cplusplus
+خارجي "C" {
+#جے_انت
 
-_CRTIMP char* __cdecl _getcwd (char*, int);
-#ifndef _FSIZE_T_DEFINED
-  typedef unsigned long _fsize_t;
-#define _FSIZE_T_DEFINED
-#endif
+_CRTIMP حرف* __cdecl _getcwd (حرف*, صحيح);
+#جے_بنا_تعریف _FSIZE_T_DEFINED
+  تعريفنوع بنانشانی لما _fsize_t;
+#تعریف_کرو _FSIZE_T_DEFINED
+#جے_انت
 
-#ifndef _FINDDATA_T_DEFINED
+#جے_بنا_تعریف _FINDDATA_T_DEFINED
 
-  struct _finddata32_t {
-    unsigned attrib;
-    __time32_t time_create;
-    __time32_t time_access;
-    __time32_t time_write;
-    _fsize_t size;
-    char name[260];
+  بنية _finddata32_t {
+    بنانشانی attrib;
+    __time32_t ویلا_create;
+    __time32_t ویلا_access;
+    __time32_t ویلا_write;
+    _fsize_t ناپ;
+    حرف name[260];
   };
 
 /*#if _INTEGRAL_MAX_BITS >= 64*/
 
-  struct _finddata32i64_t {
-    unsigned attrib;
-    __time32_t time_create;
-    __time32_t time_access;
-    __time32_t time_write;
-    __int64 size;
-    char name[260];
+  بنية _finddata32i64_t {
+    بنانشانی attrib;
+    __time32_t ویلا_create;
+    __time32_t ویلا_access;
+    __time32_t ویلا_write;
+    __int64 ناپ;
+    حرف name[260];
   };
 
-  struct _finddata64i32_t {
-    unsigned attrib;
-    __time64_t time_create;
-    __time64_t time_access;
-    __time64_t time_write;
-    _fsize_t size;
-    char name[260];
+  بنية _finddata64i32_t {
+    بنانشانی attrib;
+    __time64_t ویلا_create;
+    __time64_t ویلا_access;
+    __time64_t ویلا_write;
+    _fsize_t ناپ;
+    حرف name[260];
   };
 
-  struct __finddata64_t {
-    unsigned attrib;
-    __time64_t time_create;
-    __time64_t time_access;
-    __time64_t time_write;
-    __int64 size;
-    char name[260];
+  بنية __finddata64_t {
+    بنانشانی attrib;
+    __time64_t ویلا_create;
+    __time64_t ویلا_access;
+    __time64_t ویلا_write;
+    __int64 ناپ;
+    حرف name[260];
   };
 /* #endif */
 
-#ifdef _USE_32BIT_TIME_T
-#define _finddata_t _finddata32_t
-#define _finddatai64_t _finddata32i64_t
+#جے_تعریف_شدہ USE_32_ثنائی_ہندسہ_ویلا_T
+#تعریف_کرو _finddata_t _finddata32_t
+#تعریف_کرو _finddatai64_t _finddata32i64_t
 
-#ifdef _WIN64
-#define _findfirst _findfirst32
-#define _findnext _findnext32
-#else
-#define _findfirst32 _findfirst
-#define _findnext32 _findnext
-#endif
-#define _findfirsti64 _findfirst32i64
-#define _findnexti64 _findnext32i64
-#else
-#define _finddata_t _finddata64i32_t
-#define _finddatai64_t __finddata64_t
+#جے_تعریف_شدہ _WIN64
+#تعریف_کرو _findfirst _findfirst32
+#تعریف_کرو _findnext _findnext32
+#وإلا
+#تعریف_کرو _findfirst32 _findfirst
+#تعریف_کرو _findnext32 _findnext
+#جے_انت
+#تعریف_کرو _findfirsti64 _findfirst32i64
+#تعریف_کرو _findnexti64 _findnext32i64
+#وإلا
+#تعریف_کرو _finddata_t _finddata64i32_t
+#تعریف_کرو _finddatai64_t __finddata64_t
 
-#define _findfirst _findfirst64i32
-#define _findnext _findnext64i32
-#define _findfirsti64 _findfirst64
-#define _findnexti64 _findnext64
-#endif
+#تعریف_کرو _findfirst _findfirst64i32
+#تعریف_کرو _findnext _findnext64i32
+#تعریف_کرو _findfirsti64 _findfirst64
+#تعریف_کرو _findnexti64 _findnext64
+#جے_انت
 
-#define _FINDDATA_T_DEFINED
-#endif
+#تعریف_کرو _FINDDATA_T_DEFINED
+#جے_انت
 
-#ifndef _WFINDDATA_T_DEFINED
+#جے_بنا_تعریف _WFINDDATA_T_DEFINED
 
-  struct _wfinddata32_t {
-    unsigned attrib;
-    __time32_t time_create;
-    __time32_t time_access;
-    __time32_t time_write;
-    _fsize_t size;
+  بنية _wfinddata32_t {
+    بنانشانی attrib;
+    __time32_t ویلا_create;
+    __time32_t ویلا_access;
+    __time32_t ویلا_write;
+    _fsize_t ناپ;
     wchar_t name[260];
   };
 
 /* #if _INTEGRAL_MAX_BITS >= 64 */
 
-  struct _wfinddata32i64_t {
-    unsigned attrib;
-    __time32_t time_create;
-    __time32_t time_access;
-    __time32_t time_write;
-    __int64 size;
+  بنية _wfinddata32i64_t {
+    بنانشانی attrib;
+    __time32_t ویلا_create;
+    __time32_t ویلا_access;
+    __time32_t ویلا_write;
+    __int64 ناپ;
     wchar_t name[260];
   };
 
-  struct _wfinddata64i32_t {
-    unsigned attrib;
-    __time64_t time_create;
-    __time64_t time_access;
-    __time64_t time_write;
-    _fsize_t size;
+  بنية _wfinddata64i32_t {
+    بنانشانی attrib;
+    __time64_t ویلا_create;
+    __time64_t ویلا_access;
+    __time64_t ویلا_write;
+    _fsize_t ناپ;
     wchar_t name[260];
   };
 
-  struct _wfinddata64_t {
-    unsigned attrib;
-    __time64_t time_create;
-    __time64_t time_access;
-    __time64_t time_write;
-    __int64 size;
+  بنية _wfinddata64_t {
+    بنانشانی attrib;
+    __time64_t ویلا_create;
+    __time64_t ویلا_access;
+    __time64_t ویلا_write;
+    __int64 ناپ;
     wchar_t name[260];
   };
 /* #endif */
 
-#ifdef _USE_32BIT_TIME_T
-#define _wfinddata_t _wfinddata32_t
-#define _wfinddatai64_t _wfinddata32i64_t
+#جے_تعریف_شدہ USE_32_ثنائی_ہندسہ_ویلا_T
+#تعریف_کرو _wfinddata_t _wfinddata32_t
+#تعریف_کرو _wfinddatai64_t _wfinddata32i64_t
 
-#define _wfindfirst _wfindfirst32
-#define _wfindnext _wfindnext32
-#define _wfindfirsti64 _wfindfirst32i64
-#define _wfindnexti64 _wfindnext32i64
-#else
-#define _wfinddata_t _wfinddata64i32_t
-#define _wfinddatai64_t _wfinddata64_t
+#تعریف_کرو _wfindfirst _wfindfirst32
+#تعریف_کرو _wfindnext _wfindnext32
+#تعریف_کرو _wfindfirsti64 _wfindfirst32i64
+#تعریف_کرو _wfindnexti64 _wfindnext32i64
+#وإلا
+#تعریف_کرو _wfinddata_t _wfinddata64i32_t
+#تعریف_کرو _wfinddatai64_t _wfinddata64_t
 
-#define _wfindfirst _wfindfirst64i32
-#define _wfindnext _wfindnext64i32
-#define _wfindfirsti64 _wfindfirst64
-#define _wfindnexti64 _wfindnext64
-#endif
+#تعریف_کرو _wfindfirst _wfindfirst64i32
+#تعریف_کرو _wfindnext _wfindnext64i32
+#تعریف_کرو _wfindfirsti64 _wfindfirst64
+#تعریف_کرو _wfindnexti64 _wfindnext64
+#جے_انت
 
-#define _WFINDDATA_T_DEFINED
-#endif
+#تعریف_کرو _WFINDDATA_T_DEFINED
+#جے_انت
 
-#define _A_NORMAL 0x00
-#define _A_RDONLY 0x01
-#define _A_HIDDEN 0x02
-#define _A_SYSTEM 0x04
-#define _A_SUBDIR 0x10
-#define _A_ARCH 0x20
+#تعریف_کرو A_عام 0x00
+#تعریف_کرو _A_RDONLY 0x01
+#تعریف_کرو _A_HIDDEN 0x02
+#تعریف_کرو _A_SYSTEM 0x04
+#تعریف_کرو _A_SUBDIR 0x10
+#تعریف_کرو _A_ARCH 0x20
 
-#ifndef _SIZE_T_DEFINED
-#define _SIZE_T_DEFINED
-#undef size_t
-#ifdef _WIN64
-#if defined(__GNUC__) && defined(__STRICT_ANSI__)
-  typedef unsigned int size_t __attribute__ ((mode (DI)));
-#else
-  typedef unsigned __int64 size_t;
-#endif
-#else
-  typedef unsigned int size_t;
-#endif
-#endif
+#جے_بنا_تعریف _SIZE_T_DEFINED
+#تعریف_کرو _SIZE_T_DEFINED
+#تعریف_رد ناپ_t
+#جے_تعریف_شدہ _WIN64
+#إذا defined(__GNUC__) && defined(__STRICT_ANSI__)
+  تعريفنوع بنانشانی صحيح ناپ_t __attribute__ ((منوال (DI)));
+#وإلا
+  تعريفنوع بنانشانی __int64 ناپ_t;
+#جے_انت
+#وإلا
+  تعريفنوع بنانشانی صحيح ناپ_t;
+#جے_انت
+#جے_انت
 
-#ifndef _SSIZE_T_DEFINED
-#define _SSIZE_T_DEFINED
-#undef ssize_t
-#ifdef _WIN64
-#if defined(__GNUC__) && defined(__STRICT_ANSI__)
-  typedef int ssize_t __attribute__ ((mode (DI)));
-#else
-  typedef __int64 ssize_t;
-#endif
-#else
-  typedef int ssize_t;
-#endif
-#endif
+#جے_بنا_تعریف _SSIZE_T_DEFINED
+#تعریف_کرو _SSIZE_T_DEFINED
+#تعریف_رد ssize_t
+#جے_تعریف_شدہ _WIN64
+#إذا defined(__GNUC__) && defined(__STRICT_ANSI__)
+  تعريفنوع صحيح ssize_t __attribute__ ((منوال (DI)));
+#وإلا
+  تعريفنوع __int64 ssize_t;
+#جے_انت
+#وإلا
+  تعريفنوع صحيح ssize_t;
+#جے_انت
+#جے_انت
 
-#ifndef _OFF_T_DEFINED
-#define _OFF_T_DEFINED
-#ifndef _OFF_T_
-#define _OFF_T_
-  typedef long _off_t;
-#if !defined(NO_OLDNAMES) || defined(_POSIX)
-  typedef long off_t;
-#endif
-#endif
-#endif
+#جے_بنا_تعریف _OFF_T_DEFINED
+#تعریف_کرو _OFF_T_DEFINED
+#جے_بنا_تعریف _OFF_T_
+#تعریف_کرو _OFF_T_
+  تعريفنوع لما _off_t;
+#إذا !defined(NO_OLDNAMES) || defined(_POSIX)
+  تعريفنوع لما off_t;
+#جے_انت
+#جے_انت
+#جے_انت
 
-#ifndef _OFF64_T_DEFINED
-#define _OFF64_T_DEFINED
-#if defined(__GNUC__) && defined(__STRICT_ANSI__)
-  typedef int _off64_t __attribute__ ((mode (DI)));
-#if !defined(NO_OLDNAMES) || defined(_POSIX)
-  typedef int off64_t __attribute__ ((mode (DI)));
-#endif
-#else
-  typedef long long _off64_t;
-#if !defined(NO_OLDNAMES) || defined(_POSIX)
-  typedef long long off64_t;
-#endif
-#endif
-#endif
+#جے_بنا_تعریف _OFF64_T_DEFINED
+#تعریف_کرو _OFF64_T_DEFINED
+#إذا defined(__GNUC__) && defined(__STRICT_ANSI__)
+  تعريفنوع صحيح _off64_t __attribute__ ((منوال (DI)));
+#إذا !defined(NO_OLDNAMES) || defined(_POSIX)
+  تعريفنوع صحيح off64_t __attribute__ ((منوال (DI)));
+#جے_انت
+#وإلا
+  تعريفنوع لما لما _off64_t;
+#إذا !defined(NO_OLDNAMES) || defined(_POSIX)
+  تعريفنوع لما لما off64_t;
+#جے_انت
+#جے_انت
+#جے_انت
 
   /* Some defines for _access nAccessMode (MS doesn't define them, but
   * it doesn't seem to hurt to add them). */
-#define	F_OK	0	/* Check for file existence */
-#define	X_OK	1	/* Check for execute permission. */
-#define	W_OK	2	/* Check for write permission */
-#define	R_OK	4	/* Check for read permission */
+#تعریف_کرو	F_OK	0	/* Check for file existence */
+#تعریف_کرو	X_OK	1	/* Check for execute permission. */
+#تعریف_کرو	W_OK	2	/* Check for write permission */
+#تعریف_کرو	R_OK	4	/* Check for read permission */
 
-  _CRTIMP int __cdecl _access(const char *_Filename,int _AccessMode);
-  _CRTIMP int __cdecl _chmod(const char *_Filename,int _Mode);
-  _CRTIMP int __cdecl _chsize(int _FileHandle,long _Size);
-  _CRTIMP int __cdecl _close(int _FileHandle);
-  _CRTIMP int __cdecl _commit(int _FileHandle);
-  _CRTIMP int __cdecl _creat(const char *_Filename,int _PermissionMode);
-  _CRTIMP int __cdecl _dup(int _FileHandle);
-  _CRTIMP int __cdecl _dup2(int _FileHandleSrc,int _FileHandleDst);
-  _CRTIMP int __cdecl _eof(int _FileHandle);
-  _CRTIMP long __cdecl _filelength(int _FileHandle);
-  _CRTIMP intptr_t __cdecl _findfirst32(const char *_Filename,struct _finddata32_t *_FindData);
-  _CRTIMP int __cdecl _findnext32(intptr_t _FindHandle,struct _finddata32_t *_FindData);
-  _CRTIMP int __cdecl _findclose(intptr_t _FindHandle);
-  _CRTIMP int __cdecl _isatty(int _FileHandle);
-  _CRTIMP int __cdecl _locking(int _FileHandle,int _LockMode,long _NumOfBytes);
-  _CRTIMP long __cdecl _lseek(int _FileHandle,long _Offset,int _Origin);
-  _off64_t lseek64(int fd,_off64_t offset, int whence);
-  _CRTIMP char *__cdecl _mktemp(char *_TemplateName);
-  _CRTIMP int __cdecl _pipe(int *_PtHandles,unsigned int _PipeSize,int _TextMode);
-  _CRTIMP int __cdecl _read(int _FileHandle,void *_DstBuf,unsigned int _MaxCharCount);
+  _CRTIMP صحيح __cdecl _access(ثابت حرف *_Filename,صحيح Access_منوال);
+  _CRTIMP صحيح __cdecl _chmod(ثابت حرف *_Filename,صحيح منوال_3);
+  _CRTIMP صحيح __cdecl _chsize(صحيح _FileHandle,لما ناپ_4);
+  _CRTIMP صحيح __cdecl _close(صحيح _FileHandle);
+  _CRTIMP صحيح __cdecl _commit(صحيح _FileHandle);
+  _CRTIMP صحيح __cdecl _creat(ثابت حرف *_Filename,صحيح Permission_منوال);
+  _CRTIMP صحيح __cdecl _dup(صحيح _FileHandle);
+  _CRTIMP صحيح __cdecl _dup2(صحيح _FileHandleSrc,صحيح _FileHandleDst);
+  _CRTIMP صحيح __cdecl _eof(صحيح _FileHandle);
+  _CRTIMP لما __cdecl _filelength(صحيح _FileHandle);
+  _CRTIMP intptr_t __cdecl _findfirst32(ثابت حرف *_Filename,بنية _finddata32_t *لبھو_انکڑے);
+  _CRTIMP صحيح __cdecl _findnext32(intptr_t لبھو_Handle,بنية _finddata32_t *لبھو_انکڑے);
+  _CRTIMP صحيح __cdecl _findclose(intptr_t لبھو_Handle);
+  _CRTIMP صحيح __cdecl _isatty(صحيح _FileHandle);
+  _CRTIMP صحيح __cdecl _locking(صحيح _FileHandle,صحيح جندرا_منوال,لما عدد_دا_بائٹاں);
+  _CRTIMP لما __cdecl _lseek(صحيح _FileHandle,لما وتھ_2,صحيح _Origin);
+  _off64_t lseek64(صحيح fd,_off64_t وتھ, صحيح whence);
+  _CRTIMP حرف *__cdecl _mktemp(حرف *_TemplateName);
+  _CRTIMP صحيح __cdecl _pipe(صحيح *_PtHandles,بنانشانی صحيح Pipe_ناپ,صحيح متن_منوال);
+  _CRTIMP صحيح __cdecl _read(صحيح _FileHandle,فراغ *_DstBuf,بنانشانی صحيح Max_Char_گنتی);
 
-#ifndef _CRT_DIRECTORY_DEFINED
-#define _CRT_DIRECTORY_DEFINED
-  int __cdecl remove(const char *_Filename);
-  int __cdecl rename(const char *_OldFilename,const char *_NewFilename);
-  _CRTIMP int __cdecl _unlink(const char *_Filename);
-#ifndef	NO_OLDNAMES
-  int __cdecl unlink(const char *_Filename);
-#endif
-#endif
+#جے_بنا_تعریف _CRT_DIRECTORY_DEFINED
+#تعریف_کرو _CRT_DIRECTORY_DEFINED
+  صحيح __cdecl remove(ثابت حرف *_Filename);
+  صحيح __cdecl rename(ثابت حرف *_OldFilename,ثابت حرف *_NewFilename);
+  _CRTIMP صحيح __cdecl _unlink(ثابت حرف *_Filename);
+#جے_بنا_تعریف	NO_OLDNAMES
+  صحيح __cdecl unlink(ثابت حرف *_Filename);
+#جے_انت
+#جے_انت
 
-  _CRTIMP int __cdecl _setmode(int _FileHandle,int _Mode);
-  _CRTIMP long __cdecl _tell(int _FileHandle);
-  _CRTIMP int __cdecl _umask(int _Mode);
-  _CRTIMP int __cdecl _write(int _FileHandle,const void *_Buf,unsigned int _MaxCharCount);
+  _CRTIMP صحيح __cdecl _setmode(صحيح _FileHandle,صحيح منوال_3);
+  _CRTIMP لما __cdecl _tell(صحيح _FileHandle);
+  _CRTIMP صحيح __cdecl _umask(صحيح منوال_3);
+  _CRTIMP صحيح __cdecl _write(صحيح _FileHandle,ثابت فراغ *_Buf,بنانشانی صحيح Max_Char_گنتی);
 
-#if _INTEGRAL_MAX_BITS >= 64
-  _CRTIMP __int64 __cdecl _filelengthi64(int _FileHandle);
-  _CRTIMP intptr_t __cdecl _findfirst32i64(const char *_Filename,struct _finddata32i64_t *_FindData);
-  _CRTIMP intptr_t __cdecl _findfirst64(const char *_Filename,struct __finddata64_t *_FindData);
-#ifdef __cplusplus
-#include <string.h>
-#endif
-  intptr_t __cdecl _findfirst64i32(const char *_Filename,struct _finddata64i32_t *_FindData);
-  __CRT_INLINE intptr_t __cdecl _findfirst64i32(const char *_Filename,struct _finddata64i32_t *_FindData)
+#إذا INTEGRAL_MAX_بٹ >= 64
+  _CRTIMP __int64 __cdecl _filelengthi64(صحيح _FileHandle);
+  _CRTIMP intptr_t __cdecl _findfirst32i64(ثابت حرف *_Filename,بنية _finddata32i64_t *لبھو_انکڑے);
+  _CRTIMP intptr_t __cdecl _findfirst64(ثابت حرف *_Filename,بنية __finddata64_t *لبھو_انکڑے);
+#جے_تعریف_شدہ __cplusplus
+#ضمن <string.h>
+#جے_انت
+  intptr_t __cdecl _findfirst64i32(ثابت حرف *_Filename,بنية _finddata64i32_t *لبھو_انکڑے);
+  __CRT_INLINE intptr_t __cdecl _findfirst64i32(ثابت حرف *_Filename,بنية _finddata64i32_t *لبھو_انکڑے)
   {
-    struct __finddata64_t fd;
+    بنية __finddata64_t fd;
     intptr_t ret = _findfirst64(_Filename,&fd);
-    _FindData->attrib=fd.attrib;
-    _FindData->time_create=fd.time_create;
-    _FindData->time_access=fd.time_access;
-    _FindData->time_write=fd.time_write;
-    _FindData->size=(_fsize_t) fd.size;
-    strncpy(_FindData->name,fd.name,260);
-    return ret;
+    لبھو_انکڑے->attrib=fd.attrib;
+    لبھو_انکڑے->ویلا_create=fd.ویلا_create;
+    لبھو_انکڑے->ویلا_access=fd.ویلا_access;
+    لبھو_انکڑے->ویلا_write=fd.ویلا_write;
+    لبھو_انکڑے->ناپ=(_fsize_t) fd.ناپ;
+    strncpy(لبھو_انکڑے->name,fd.name,260);
+    أرجع ret;
   }
-  _CRTIMP int __cdecl _findnext32i64(intptr_t _FindHandle,struct _finddata32i64_t *_FindData);
-  _CRTIMP int __cdecl _findnext64(intptr_t _FindHandle,struct __finddata64_t *_FindData);
-  int __cdecl _findnext64i32(intptr_t _FindHandle,struct _finddata64i32_t *_FindData);
-  __CRT_INLINE int __cdecl _findnext64i32(intptr_t _FindHandle,struct _finddata64i32_t *_FindData)
+  _CRTIMP صحيح __cdecl _findnext32i64(intptr_t لبھو_Handle,بنية _finddata32i64_t *لبھو_انکڑے);
+  _CRTIMP صحيح __cdecl _findnext64(intptr_t لبھو_Handle,بنية __finddata64_t *لبھو_انکڑے);
+  صحيح __cdecl _findnext64i32(intptr_t لبھو_Handle,بنية _finddata64i32_t *لبھو_انکڑے);
+  __CRT_INLINE صحيح __cdecl _findnext64i32(intptr_t لبھو_Handle,بنية _finddata64i32_t *لبھو_انکڑے)
   {
-    struct __finddata64_t fd;
-    int ret = _findnext64(_FindHandle,&fd);
-    _FindData->attrib=fd.attrib;
-    _FindData->time_create=fd.time_create;
-    _FindData->time_access=fd.time_access;
-    _FindData->time_write=fd.time_write;
-    _FindData->size=(_fsize_t) fd.size;
-    strncpy(_FindData->name,fd.name,260);
-    return ret;
+    بنية __finddata64_t fd;
+    صحيح ret = _findnext64(لبھو_Handle,&fd);
+    لبھو_انکڑے->attrib=fd.attrib;
+    لبھو_انکڑے->ویلا_create=fd.ویلا_create;
+    لبھو_انکڑے->ویلا_access=fd.ویلا_access;
+    لبھو_انکڑے->ویلا_write=fd.ویلا_write;
+    لبھو_انکڑے->ناپ=(_fsize_t) fd.ناپ;
+    strncpy(لبھو_انکڑے->name,fd.name,260);
+    أرجع ret;
   }
-  __int64 __cdecl _lseeki64(int _FileHandle,__int64 _Offset,int _Origin);
-  __int64 __cdecl _telli64(int _FileHandle);
-#endif
-#ifndef NO_OLDNAMES
+  __int64 __cdecl _lseeki64(صحيح _FileHandle,__int64 وتھ_2,صحيح _Origin);
+  __int64 __cdecl _telli64(صحيح _FileHandle);
+#جے_انت
+#جے_بنا_تعریف NO_OLDNAMES
 
-#ifndef _UWIN
-  int __cdecl chdir (const char *);
-  char *__cdecl getcwd (char *, int);
-  int __cdecl mkdir (const char *);
-  char *__cdecl mktemp(char *);
-  int __cdecl rmdir (const char*);
-  int __cdecl chmod (const char *, int);
-#endif /* _UWIN */
+#جے_بنا_تعریف _UWIN
+  صحيح __cdecl chdir (ثابت حرف *);
+  حرف *__cdecl getcwd (حرف *, صحيح);
+  صحيح __cdecl mkdir (ثابت حرف *);
+  حرف *__cdecl mktemp(حرف *);
+  صحيح __cdecl rmdir (ثابت حرف*);
+  صحيح __cdecl chmod (ثابت حرف *, صحيح);
+#جے_انت /* _UWIN */
 
-#endif /* Not NO_OLDNAMES */
+#جے_انت /* Not NO_OLDNAMES */
 
-  _CRTIMP errno_t __cdecl _sopen_s(int *_FileHandle,const char *_Filename,int _OpenFlag,int _ShareFlag,int _PermissionMode);
+  _CRTIMP errno_t __cdecl _sopen_s(صحيح *_FileHandle,ثابت حرف *_Filename,صحيح _OpenFlag,صحيح _ShareFlag,صحيح Permission_منوال);
 
-#ifndef __cplusplus
-  _CRTIMP int __cdecl _open(const char *_Filename,int _OpenFlag,...);
-  _CRTIMP int __cdecl _sopen(const char *_Filename,int _OpenFlag,int _ShareFlag,...);
-#else
-  extern "C++" _CRTIMP int __cdecl _open(const char *_Filename,int _Openflag,int _PermissionMode = 0);
-  extern "C++" _CRTIMP int __cdecl _sopen(const char *_Filename,int _Openflag,int _ShareFlag,int _PermissionMode = 0);
-#endif
+#جے_بنا_تعریف __cplusplus
+  _CRTIMP صحيح __cdecl _open(ثابت حرف *_Filename,صحيح _OpenFlag,...);
+  _CRTIMP صحيح __cdecl _sopen(ثابت حرف *_Filename,صحيح _OpenFlag,صحيح _ShareFlag,...);
+#وإلا
+  خارجي "C++" _CRTIMP صحيح __cdecl _open(ثابت حرف *_Filename,صحيح _Openflag,صحيح Permission_منوال = 0);
+  خارجي "C++" _CRTIMP صحيح __cdecl _sopen(ثابت حرف *_Filename,صحيح _Openflag,صحيح _ShareFlag,صحيح Permission_منوال = 0);
+#جے_انت
 
-#ifndef _WIO_DEFINED
-#define _WIO_DEFINED
-  _CRTIMP int __cdecl _waccess(const wchar_t *_Filename,int _AccessMode);
-  _CRTIMP int __cdecl _wchmod(const wchar_t *_Filename,int _Mode);
-  _CRTIMP int __cdecl _wcreat(const wchar_t *_Filename,int _PermissionMode);
-  _CRTIMP intptr_t __cdecl _wfindfirst32(const wchar_t *_Filename,struct _wfinddata32_t *_FindData);
-  _CRTIMP int __cdecl _wfindnext32(intptr_t _FindHandle,struct _wfinddata32_t *_FindData);
-  _CRTIMP int __cdecl _wunlink(const wchar_t *_Filename);
-  _CRTIMP int __cdecl _wrename(const wchar_t *_NewFilename,const wchar_t *_OldFilename);
+#جے_بنا_تعریف _WIO_DEFINED
+#تعریف_کرو _WIO_DEFINED
+  _CRTIMP صحيح __cdecl _waccess(ثابت wchar_t *_Filename,صحيح Access_منوال);
+  _CRTIMP صحيح __cdecl _wchmod(ثابت wchar_t *_Filename,صحيح منوال_3);
+  _CRTIMP صحيح __cdecl _wcreat(ثابت wchar_t *_Filename,صحيح Permission_منوال);
+  _CRTIMP intptr_t __cdecl _wfindfirst32(ثابت wchar_t *_Filename,بنية _wfinddata32_t *لبھو_انکڑے);
+  _CRTIMP صحيح __cdecl _wfindnext32(intptr_t لبھو_Handle,بنية _wfinddata32_t *لبھو_انکڑے);
+  _CRTIMP صحيح __cdecl _wunlink(ثابت wchar_t *_Filename);
+  _CRTIMP صحيح __cdecl _wrename(ثابت wchar_t *_NewFilename,ثابت wchar_t *_OldFilename);
   _CRTIMP wchar_t *__cdecl _wmktemp(wchar_t *_TemplateName);
 
-#if _INTEGRAL_MAX_BITS >= 64
-  _CRTIMP intptr_t __cdecl _wfindfirst32i64(const wchar_t *_Filename,struct _wfinddata32i64_t *_FindData);
-  intptr_t __cdecl _wfindfirst64i32(const wchar_t *_Filename,struct _wfinddata64i32_t *_FindData);
-  _CRTIMP intptr_t __cdecl _wfindfirst64(const wchar_t *_Filename,struct _wfinddata64_t *_FindData);
-  _CRTIMP int __cdecl _wfindnext32i64(intptr_t _FindHandle,struct _wfinddata32i64_t *_FindData);
-  int __cdecl _wfindnext64i32(intptr_t _FindHandle,struct _wfinddata64i32_t *_FindData);
-  _CRTIMP int __cdecl _wfindnext64(intptr_t _FindHandle,struct _wfinddata64_t *_FindData);
-#endif
+#إذا INTEGRAL_MAX_بٹ >= 64
+  _CRTIMP intptr_t __cdecl _wfindfirst32i64(ثابت wchar_t *_Filename,بنية _wfinddata32i64_t *لبھو_انکڑے);
+  intptr_t __cdecl _wfindfirst64i32(ثابت wchar_t *_Filename,بنية _wfinddata64i32_t *لبھو_انکڑے);
+  _CRTIMP intptr_t __cdecl _wfindfirst64(ثابت wchar_t *_Filename,بنية _wfinddata64_t *لبھو_انکڑے);
+  _CRTIMP صحيح __cdecl _wfindnext32i64(intptr_t لبھو_Handle,بنية _wfinddata32i64_t *لبھو_انکڑے);
+  صحيح __cdecl _wfindnext64i32(intptr_t لبھو_Handle,بنية _wfinddata64i32_t *لبھو_انکڑے);
+  _CRTIMP صحيح __cdecl _wfindnext64(intptr_t لبھو_Handle,بنية _wfinddata64_t *لبھو_انکڑے);
+#جے_انت
 
-  _CRTIMP errno_t __cdecl _wsopen_s(int *_FileHandle,const wchar_t *_Filename,int _OpenFlag,int _ShareFlag,int _PermissionFlag);
+  _CRTIMP errno_t __cdecl _wsopen_s(صحيح *_FileHandle,ثابت wchar_t *_Filename,صحيح _OpenFlag,صحيح _ShareFlag,صحيح _PermissionFlag);
 
-#if !defined(__cplusplus) || !(defined(_X86_) && !defined(__x86_64))
-  _CRTIMP int __cdecl _wopen(const wchar_t *_Filename,int _OpenFlag,...);
-  _CRTIMP int __cdecl _wsopen(const wchar_t *_Filename,int _OpenFlag,int _ShareFlag,...);
-#else
-  extern "C++" _CRTIMP int __cdecl _wopen(const wchar_t *_Filename,int _OpenFlag,int _PermissionMode = 0);
-  extern "C++" _CRTIMP int __cdecl _wsopen(const wchar_t *_Filename,int _OpenFlag,int _ShareFlag,int _PermissionMode = 0);
-#endif
+#إذا !defined(__cplusplus) || !(defined(_X86_) && !defined(__x86_64))
+  _CRTIMP صحيح __cdecl _wopen(ثابت wchar_t *_Filename,صحيح _OpenFlag,...);
+  _CRTIMP صحيح __cdecl _wsopen(ثابت wchar_t *_Filename,صحيح _OpenFlag,صحيح _ShareFlag,...);
+#وإلا
+  خارجي "C++" _CRTIMP صحيح __cdecl _wopen(ثابت wchar_t *_Filename,صحيح _OpenFlag,صحيح Permission_منوال = 0);
+  خارجي "C++" _CRTIMP صحيح __cdecl _wsopen(ثابت wchar_t *_Filename,صحيح _OpenFlag,صحيح _ShareFlag,صحيح Permission_منوال = 0);
+#جے_انت
 
-#endif
+#جے_انت
 
-  int __cdecl __lock_fhandle(int _Filehandle);
-  void __cdecl _unlock_fhandle(int _Filehandle);
-  _CRTIMP intptr_t __cdecl _get_osfhandle(int _FileHandle);
-  _CRTIMP int __cdecl _open_osfhandle(intptr_t _OSFileHandle,int _Flags);
+  صحيح __cdecl __lock_fhandle(صحيح _Filehandle);
+  فراغ __cdecl _unlock_fhandle(صحيح _Filehandle);
+  _CRTIMP intptr_t __cdecl _get_osfhandle(صحيح _FileHandle);
+  _CRTIMP صحيح __cdecl _open_osfhandle(intptr_t _OSFileHandle,صحيح _Flags);
 
-#ifndef	NO_OLDNAMES
-  int __cdecl access(const char *_Filename,int _AccessMode);
-  int __cdecl chmod(const char *_Filename,int _AccessMode);
-  int __cdecl chsize(int _FileHandle,long _Size);
-  int __cdecl close(int _FileHandle);
-  int __cdecl creat(const char *_Filename,int _PermissionMode);
-  int __cdecl dup(int _FileHandle);
-  int __cdecl dup2(int _FileHandleSrc,int _FileHandleDst);
-  int __cdecl eof(int _FileHandle);
-  long __cdecl filelength(int _FileHandle);
-  int __cdecl isatty(int _FileHandle);
-  int __cdecl locking(int _FileHandle,int _LockMode,long _NumOfBytes);
-  long __cdecl lseek(int _FileHandle,long _Offset,int _Origin);
-  char *__cdecl mktemp(char *_TemplateName);
-  int __cdecl open(const char *_Filename,int _OpenFlag,...);
-  int __cdecl read(int _FileHandle,void *_DstBuf,unsigned int _MaxCharCount);
-  int __cdecl setmode(int _FileHandle,int _Mode);
-  int __cdecl sopen(const char *_Filename,int _OpenFlag,int _ShareFlag,...);
-  long __cdecl tell(int _FileHandle);
-  int __cdecl umask(int _Mode);
-  int __cdecl write(int _Filehandle,const void *_Buf,unsigned int _MaxCharCount);
-#endif
+#جے_بنا_تعریف	NO_OLDNAMES
+  صحيح __cdecl access(ثابت حرف *_Filename,صحيح Access_منوال);
+  صحيح __cdecl chmod(ثابت حرف *_Filename,صحيح Access_منوال);
+  صحيح __cdecl chsize(صحيح _FileHandle,لما ناپ_4);
+  صحيح __cdecl close(صحيح _FileHandle);
+  صحيح __cdecl creat(ثابت حرف *_Filename,صحيح Permission_منوال);
+  صحيح __cdecl dup(صحيح _FileHandle);
+  صحيح __cdecl dup2(صحيح _FileHandleSrc,صحيح _FileHandleDst);
+  صحيح __cdecl eof(صحيح _FileHandle);
+  لما __cdecl filelength(صحيح _FileHandle);
+  صحيح __cdecl isatty(صحيح _FileHandle);
+  صحيح __cdecl locking(صحيح _FileHandle,صحيح جندرا_منوال,لما عدد_دا_بائٹاں);
+  لما __cdecl lseek(صحيح _FileHandle,لما وتھ_2,صحيح _Origin);
+  حرف *__cdecl mktemp(حرف *_TemplateName);
+  صحيح __cdecl open(ثابت حرف *_Filename,صحيح _OpenFlag,...);
+  صحيح __cdecl اقرأ(صحيح _FileHandle,فراغ *_DstBuf,بنانشانی صحيح Max_Char_گنتی);
+  صحيح __cdecl setmode(صحيح _FileHandle,صحيح منوال_3);
+  صحيح __cdecl sopen(ثابت حرف *_Filename,صحيح _OpenFlag,صحيح _ShareFlag,...);
+  لما __cdecl tell(صحيح _FileHandle);
+  صحيح __cdecl umask(صحيح منوال_3);
+  صحيح __cdecl اكتب(صحيح _Filehandle,ثابت فراغ *_Buf,بنانشانی صحيح Max_Char_گنتی);
+#جے_انت
 
-#ifdef __cplusplus
+#جے_تعریف_شدہ __cplusplus
 }
-#endif
-#endif
+#جے_انت
+#جے_انت
 
-#ifdef __cplusplus
-extern "C" {
-#endif
+#جے_تعریف_شدہ __cplusplus
+خارجي "C" {
+#جے_انت
 
 /* Misc stuff */
-char *getlogin(void);
-#ifdef __USE_MINGW_ALARM
-unsigned int alarm(unsigned int seconds);
-#endif
+حرف *getlogin(فراغ);
+#جے_تعریف_شدہ __USE_MINGW_ALARM
+بنانشانی صحيح alarm(بنانشانی صحيح seconds);
+#جے_انت
 
-#ifdef __USE_MINGW_ACCESS
+#جے_تعریف_شدہ __USE_MINGW_ACCESS
 /*  Old versions of MSVCRT access() just ignored X_OK, while the version
     shipped with Vista, returns an error code.  This will restore the
     old behaviour  */
-static inline int __mingw_access (const char *__fname, int __mode) {
-  return  _access (__fname, __mode & ~X_OK);
+ساكن مضمن صحيح __mingw_access (ثابت حرف *__fname, صحيح __mode) {
+  أرجع  _access (__fname, __mode & ~X_OK);
 }
 
-#define access(__f,__m)  __mingw_access (__f, __m)
-#endif
+#تعریف_کرو access(__f,__m)  __mingw_access (__f, __m)
+#جے_انت
 
 
-#ifdef __cplusplus
+#جے_تعریف_شدہ __cplusplus
 }
-#endif
+#جے_انت
 
 
-#pragma pack(pop)
+#ہدایت pack(نکالو)
 
-#include <sec_api/io_s.h>
+#ضمن <sec_api/io_s.h>
 
-#endif /* End _IO_H_ */
+#جے_انت /* End _IO_H_ */
 

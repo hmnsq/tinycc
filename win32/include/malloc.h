@@ -3,179 +3,179 @@
  * This file is part of the w64 mingw-runtime package.
  * No warranty is given; refer to the file DISCLAIMER within this package.
  */
-#ifndef _MALLOC_H_
-#define _MALLOC_H_
+#جے_بنا_تعریف _MALLOC_H_
+#تعریف_کرو _MALLOC_H_
 
-#include <_mingw.h>
+#ضمن <_mingw.h>
 
-#pragma pack(push,_CRT_PACKING)
+#ہدایت pack(ڈالو,_CRT_PACKING)
 
-#ifndef _MM_MALLOC_H_INCLUDED
-#define _MM_MALLOC_H_INCLUDED
-#endif
+#جے_بنا_تعریف _MM_MALLOC_H_INCLUDED
+#تعریف_کرو _MM_MALLOC_H_INCLUDED
+#جے_انت
 
-#ifdef __cplusplus
-extern "C" {
-#endif
+#جے_تعریف_شدہ __cplusplus
+خارجي "C" {
+#جے_انت
 
-#ifdef _WIN64
-#define _HEAP_MAXREQ 0xFFFFFFFFFFFFFFE0
-#else
-#define _HEAP_MAXREQ 0xFFFFFFE0
-#endif
+#جے_تعریف_شدہ _WIN64
+#تعریف_کرو ڈھیر_MAXREQ 0xFFFFFFFFFFFFFFE0
+#وإلا
+#تعریف_کرو ڈھیر_MAXREQ 0xFFFFFFE0
+#جے_انت
 
-#ifndef _STATIC_ASSERT
-#define _STATIC_ASSERT(expr) extern void __static_assert_t(int [(expr)?1:-1])
-#endif
+#جے_بنا_تعریف _STATIC_ASSERT
+#تعریف_کرو _STATIC_ASSERT(اظہاریہ) خارجي فراغ __static_assert_t(صحيح [(اظہاریہ)?1:-1])
+#جے_انت
 
 /* Return codes for _heapwalk()  */
-#define _HEAPEMPTY (-1)
-#define _HEAPOK (-2)
-#define _HEAPBADBEGIN (-3)
-#define _HEAPBADNODE (-4)
-#define _HEAPEND (-5)
-#define _HEAPBADPTR (-6)
+#تعریف_کرو _HEAPEMPTY (-1)
+#تعریف_کرو _HEAPOK (-2)
+#تعریف_کرو _HEAPBADBEGIN (-3)
+#تعریف_کرو _HEAPBADNODE (-4)
+#تعریف_کرو _HEAPEND (-5)
+#تعریف_کرو _HEAPBADPTR (-6)
 
 /* Values for _heapinfo.useflag */
-#define _FREEENTRY 0
-#define _USEDENTRY 1
+#تعریف_کرو _FREEENTRY 0
+#تعریف_کرو _USEDENTRY 1
 
-#ifndef _HEAPINFO_DEFINED
-#define _HEAPINFO_DEFINED
+#جے_بنا_تعریف _HEAPINFO_DEFINED
+#تعریف_کرو _HEAPINFO_DEFINED
  /* The structure used to walk through the heap with _heapwalk.  */
-  typedef struct _heapinfo {
-    int *_pentry;
-    size_t _size;
-    int _useflag;
+  تعريفنوع بنية _heapinfo {
+    صحيح *_pentry;
+    ناپ_t ناپ_5;
+    صحيح _useflag;
   } _HEAPINFO;
-#endif
+#جے_انت
 
-  extern unsigned int _amblksiz;
+  خارجي بنانشانی صحيح _amblksiz;
 
-#define _mm_free(a) _aligned_free(a)
-#define _mm_malloc(a,b) _aligned_malloc(a,b)
+#تعریف_کرو _mm_free(a) _aligned_free(a)
+#تعریف_کرو _mm_malloc(a,b) _aligned_malloc(a,b)
 
-#ifndef _CRT_ALLOCATION_DEFINED
-#define _CRT_ALLOCATION_DEFINED
-  void *__cdecl calloc(size_t _NumOfElements,size_t _SizeOfElements);
-  void __cdecl free(void *_Memory);
-  void *__cdecl malloc(size_t _Size);
-  void *__cdecl realloc(void *_Memory,size_t _NewSize);
-  _CRTIMP void *__cdecl _recalloc(void *_Memory,size_t _Count,size_t _Size);
-  _CRTIMP void __cdecl _aligned_free(void *_Memory);
-  _CRTIMP void *__cdecl _aligned_malloc(size_t _Size,size_t _Alignment);
-  _CRTIMP void *__cdecl _aligned_offset_malloc(size_t _Size,size_t _Alignment,size_t _Offset);
-  _CRTIMP void *__cdecl _aligned_realloc(void *_Memory,size_t _Size,size_t _Alignment);
-  _CRTIMP void *__cdecl _aligned_recalloc(void *_Memory,size_t _Count,size_t _Size,size_t _Alignment);
-  _CRTIMP void *__cdecl _aligned_offset_realloc(void *_Memory,size_t _Size,size_t _Alignment,size_t _Offset);
-  _CRTIMP void *__cdecl _aligned_offset_recalloc(void *_Memory,size_t _Count,size_t _Size,size_t _Alignment,size_t _Offset);
-#endif
+#جے_بنا_تعریف CRT_ونڈ_DEFINED
+#تعریف_کرو CRT_ونڈ_DEFINED
+  فراغ *__cdecl صفر_حافظہ_دیو(ناپ_t عدد_دا_Elements,ناپ_t ناپ_دا_Elements);
+  فراغ __cdecl حرر(فراغ *حافظہ);
+  فراغ *__cdecl حافظہ_دیو(ناپ_t ناپ_4);
+  فراغ *__cdecl realloc(فراغ *حافظہ,ناپ_t New_ناپ);
+  _CRTIMP فراغ *__cdecl _recalloc(فراغ *حافظہ,ناپ_t گنتی_5,ناپ_t ناپ_4);
+  _CRTIMP فراغ __cdecl _aligned_free(فراغ *حافظہ);
+  _CRTIMP فراغ *__cdecl _aligned_malloc(ناپ_t ناپ_4,ناپ_t _Alignment);
+  _CRTIMP فراغ *__cdecl aligned_وتھ_malloc(ناپ_t ناپ_4,ناپ_t _Alignment,ناپ_t وتھ_2);
+  _CRTIMP فراغ *__cdecl _aligned_realloc(فراغ *حافظہ,ناپ_t ناپ_4,ناپ_t _Alignment);
+  _CRTIMP فراغ *__cdecl _aligned_recalloc(فراغ *حافظہ,ناپ_t گنتی_5,ناپ_t ناپ_4,ناپ_t _Alignment);
+  _CRTIMP فراغ *__cdecl aligned_وتھ_realloc(فراغ *حافظہ,ناپ_t ناپ_4,ناپ_t _Alignment,ناپ_t وتھ_2);
+  _CRTIMP فراغ *__cdecl aligned_وتھ_recalloc(فراغ *حافظہ,ناپ_t گنتی_5,ناپ_t ناپ_4,ناپ_t _Alignment,ناپ_t وتھ_2);
+#جے_انت
 
-#define _MAX_WAIT_MALLOC_CRT 60000
+#تعریف_کرو _MAX_WAIT_MALLOC_CRT 60000
 
-  _CRTIMP int __cdecl _resetstkoflw (void);
-  _CRTIMP unsigned long __cdecl _set_malloc_crt_max_wait(unsigned long _NewValue);
+  _CRTIMP صحيح __cdecl _resetstkoflw (فراغ);
+  _CRTIMP بنانشانی لما __cdecl سیٹ_malloc_crt_max_wait(بنانشانی لما New_قدر);
 
-  _CRTIMP void *__cdecl _expand(void *_Memory,size_t _NewSize);
-  _CRTIMP size_t __cdecl _msize(void *_Memory);
-#ifdef __GNUC__
-#undef _alloca
-#define _alloca(x) __builtin_alloca((x))
-#else
+  _CRTIMP فراغ *__cdecl _expand(فراغ *حافظہ,ناپ_t New_ناپ);
+  _CRTIMP ناپ_t __cdecl _msize(فراغ *حافظہ);
+#جے_تعریف_شدہ __GNUC__
+#تعریف_رد _alloca
+#تعریف_کرو _alloca(x) __builtin_alloca((x))
+#وإلا
   /* tcc implements alloca internally and exposes it (since commit d778bde7).
   /* alloca is declared at include/stddef.h (which is distributed with tcc).
    */
-#ifdef _alloca
-#undef _alloca
-#endif
-#define _alloca(x) alloca((x))
-#endif
-  _CRTIMP size_t __cdecl _get_sbh_threshold(void);
-  _CRTIMP int __cdecl _set_sbh_threshold(size_t _NewValue);
-  _CRTIMP errno_t __cdecl _set_amblksiz(size_t _Value);
-  _CRTIMP errno_t __cdecl _get_amblksiz(size_t *_Value);
-  _CRTIMP int __cdecl _heapadd(void *_Memory,size_t _Size);
-  _CRTIMP int __cdecl _heapchk(void);
-  _CRTIMP int __cdecl _heapmin(void);
-  _CRTIMP int __cdecl _heapset(unsigned int _Fill);
-  _CRTIMP int __cdecl _heapwalk(_HEAPINFO *_EntryInfo);
-  _CRTIMP size_t __cdecl _heapused(size_t *_Used,size_t *_Commit);
-  _CRTIMP intptr_t __cdecl _get_heap_handle(void);
+#جے_تعریف_شدہ _alloca
+#تعریف_رد _alloca
+#جے_انت
+#تعریف_کرو _alloca(x) alloca((x))
+#جے_انت
+  _CRTIMP ناپ_t __cdecl get_sbh_حد(فراغ);
+  _CRTIMP صحيح __cdecl سیٹ_sbh_حد(ناپ_t New_قدر);
+  _CRTIMP errno_t __cdecl سیٹ_amblksiz(ناپ_t قدر_2);
+  _CRTIMP errno_t __cdecl _get_amblksiz(ناپ_t *قدر_2);
+  _CRTIMP صحيح __cdecl _heapadd(فراغ *حافظہ,ناپ_t ناپ_4);
+  _CRTIMP صحيح __cdecl _heapchk(فراغ);
+  _CRTIMP صحيح __cdecl _heapmin(فراغ);
+  _CRTIMP صحيح __cdecl _heapset(بنانشانی صحيح _Fill);
+  _CRTIMP صحيح __cdecl _heapwalk(_HEAPINFO *اندراج_Info);
+  _CRTIMP ناپ_t __cdecl _heapused(ناپ_t *ورتیا_2,ناپ_t *_Commit);
+  _CRTIMP intptr_t __cdecl get_ڈھیر_handle(فراغ);
 
-#define _ALLOCA_S_THRESHOLD 1024
-#define _ALLOCA_S_STACK_MARKER 0xCCCC
-#define _ALLOCA_S_HEAP_MARKER 0xDDDD
+#تعریف_کرو ALLOCA_S_حد 1024
+#تعریف_کرو ALLOCA_S_ڈھیر_MARKER 0xCCCC
+#تعریف_کرو ALLOCA_S_ڈھیر_MARKER_2 0xDDDD
 
-#if(defined(_X86_) && !defined(__x86_64))
-#define _ALLOCA_S_MARKER_SIZE 8
-#elif defined(__ia64__) || defined(__x86_64)
-#define _ALLOCA_S_MARKER_SIZE 16
-#endif
+#إذا(defined(_X86_) && !defined(__x86_64))
+#تعریف_کرو ALLOCA_S_MARKER_ناپ 8
+#وإلاإذا defined(__ia64__) || defined(__x86_64)
+#تعریف_کرو ALLOCA_S_MARKER_ناپ 16
+#جے_انت
 
-#if !defined(RC_INVOKED)
-  static __inline void *_MarkAllocaS(void *_Ptr,unsigned int _Marker) {
-    if(_Ptr) {
-      *((unsigned int*)_Ptr) = _Marker;
-      _Ptr = (char*)_Ptr + _ALLOCA_S_MARKER_SIZE;
+#إذا !defined(RC_INVOKED)
+  ساكن __inline فراغ *_MarkAllocaS(فراغ *_Ptr,بنانشانی صحيح _Marker) {
+    إذا(_Ptr) {
+      *((بنانشانی صحيح*)_Ptr) = _Marker;
+      _Ptr = (حرف*)_Ptr + ALLOCA_S_MARKER_ناپ;
     }
-    return _Ptr;
+    أرجع _Ptr;
   }
-#endif
+#جے_انت
 
-#undef _malloca
-#define _malloca(size) \
-  ((((size) + _ALLOCA_S_MARKER_SIZE) <= _ALLOCA_S_THRESHOLD) ? \
-    _MarkAllocaS(_alloca((size) + _ALLOCA_S_MARKER_SIZE),_ALLOCA_S_STACK_MARKER) : \
-    _MarkAllocaS(malloc((size) + _ALLOCA_S_MARKER_SIZE),_ALLOCA_S_HEAP_MARKER))
-#undef _FREEA_INLINE
-#define _FREEA_INLINE
+#تعریف_رد _malloca
+#تعریف_کرو _malloca(ناپ) \
+  ((((ناپ) + ALLOCA_S_MARKER_ناپ) <= ALLOCA_S_حد) ? \
+    _MarkAllocaS(_alloca((ناپ) + ALLOCA_S_MARKER_ناپ),ALLOCA_S_ڈھیر_MARKER) : \
+    _MarkAllocaS(حافظہ_دیو((ناپ) + ALLOCA_S_MARKER_ناپ),ALLOCA_S_ڈھیر_MARKER_2))
+#تعریف_رد _FREEA_INLINE
+#تعریف_کرو _FREEA_INLINE
 
-#ifndef RC_INVOKED
-#undef _freea
-  static __inline void __cdecl _freea(void *_Memory) {
-    unsigned int _Marker;
-    if(_Memory) {
-      _Memory = (char*)_Memory - _ALLOCA_S_MARKER_SIZE;
-      _Marker = *(unsigned int *)_Memory;
-      if(_Marker==_ALLOCA_S_HEAP_MARKER) {
-	free(_Memory);
+#جے_بنا_تعریف RC_INVOKED
+#تعریف_رد _freea
+  ساكن __inline فراغ __cdecl _freea(فراغ *حافظہ) {
+    بنانشانی صحيح _Marker;
+    إذا(حافظہ) {
+      حافظہ = (حرف*)حافظہ - ALLOCA_S_MARKER_ناپ;
+      _Marker = *(بنانشانی صحيح *)حافظہ;
+      إذا(_Marker==ALLOCA_S_ڈھیر_MARKER_2) {
+	حرر(حافظہ);
       }
-#ifdef _ASSERTE
-      else if(_Marker!=_ALLOCA_S_STACK_MARKER) {
+#جے_تعریف_شدہ _ASSERTE
+      وإلا إذا(_Marker!=ALLOCA_S_ڈھیر_MARKER) {
 	_ASSERTE(("Corrupted pointer passed to _freea",0));
       }
-#endif
+#جے_انت
     }
   }
-#endif /* RC_INVOKED */
+#جے_انت /* RC_INVOKED */
 
-#ifndef	NO_OLDNAMES
-#ifdef __GNUC__
-#undef alloca
-#define alloca(x) __builtin_alloca((x))
-#endif
-#endif
+#جے_بنا_تعریف	NO_OLDNAMES
+#جے_تعریف_شدہ __GNUC__
+#تعریف_رد alloca
+#تعریف_کرو alloca(x) __builtin_alloca((x))
+#جے_انت
+#جے_انت
 
-#ifdef HEAPHOOK
-#ifndef _HEAPHOOK_DEFINED
-#define _HEAPHOOK_DEFINED
-  typedef int (__cdecl *_HEAPHOOK)(int,size_t,void *,void **);
-#endif
+#جے_تعریف_شدہ HEAPHOOK
+#جے_بنا_تعریف _HEAPHOOK_DEFINED
+#تعریف_کرو _HEAPHOOK_DEFINED
+  تعريفنوع صحيح (__cdecl *_HEAPHOOK)(صحيح,ناپ_t,فراغ *,فراغ **);
+#جے_انت
 
   _CRTIMP _HEAPHOOK __cdecl _setheaphook(_HEAPHOOK _NewHook);
 
-#define _HEAP_MALLOC 1
-#define _HEAP_CALLOC 2
-#define _HEAP_FREE 3
-#define _HEAP_REALLOC 4
-#define _HEAP_MSIZE 5
-#define _HEAP_EXPAND 6
-#endif
+#تعریف_کرو ڈھیر_MALLOC 1
+#تعریف_کرو ڈھیر_CALLOC 2
+#تعریف_کرو ڈھیر_FREE 3
+#تعریف_کرو ڈھیر_REALLOC 4
+#تعریف_کرو ڈھیر_MSIZE 5
+#تعریف_کرو ڈھیر_EXPAND 6
+#جے_انت
 
-#ifdef __cplusplus
+#جے_تعریف_شدہ __cplusplus
 }
-#endif
+#جے_انت
 
-#pragma pack(pop)
+#ہدایت pack(نکالو)
 
-#endif /* _MALLOC_H_ */
+#جے_انت /* _MALLOC_H_ */

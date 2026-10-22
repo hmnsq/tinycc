@@ -3,39 +3,39 @@
  * This file is part of the w64 mingw-runtime package.
  * No warranty is given; refer to the file DISCLAIMER within this package.
  */
-#ifndef _INC_STRING_S
-#define _INC_STRING_S
+#جے_بنا_تعریف _INC_STRING_S
+#تعریف_کرو _INC_STRING_S
 
-#include <string.h>
+#ضمن <string.h>
 
-#if defined(MINGW_HAS_SECURE_API)
+#إذا defined(MINGW_HAS_SECURE_API)
 
-#ifdef __cplusplus
-extern "C" {
-#endif
+#جے_تعریف_شدہ __cplusplus
+خارجي "C" {
+#جے_انت
 
-  _CRTIMP errno_t __cdecl _strset_s(char *_Dst,size_t _DstSize,int _Value);
-  _CRTIMP errno_t __cdecl _strerror_s(char *_Buf,size_t _SizeInBytes,const char *_ErrMsg);
-  _CRTIMP errno_t __cdecl _strlwr_s(char *_Str,size_t _Size);
-  _CRTIMP errno_t __cdecl _strlwr_s_l(char *_Str,size_t _Size,_locale_t _Locale);
-  _CRTIMP errno_t __cdecl _strnset_s(char *_Str,size_t _Size,int _Val,size_t _MaxCount);
-  _CRTIMP errno_t __cdecl _strupr_s(char *_Str,size_t _Size);
-  _CRTIMP errno_t __cdecl _strupr_s_l(char *_Str,size_t _Size,_locale_t _Locale);
-#ifndef _WSTRING_S_DEFINED
-#define _WSTRING_S_DEFINED
-  _CRTIMP wchar_t *__cdecl wcstok_s(wchar_t *_Str,const wchar_t *_Delim,wchar_t **_Context);
-  _CRTIMP errno_t __cdecl _wcserror_s(wchar_t *_Buf,size_t _SizeInWords,int _ErrNum);
-  _CRTIMP errno_t __cdecl __wcserror_s(wchar_t *_Buffer,size_t _SizeInWords,const wchar_t *_ErrMsg);
-  _CRTIMP errno_t __cdecl _wcsnset_s(wchar_t *_Dst,size_t _DstSizeInWords,wchar_t _Val,size_t _MaxCount);
-  _CRTIMP errno_t __cdecl _wcsset_s(wchar_t *_Str,size_t _SizeInWords,wchar_t _Val);
-  _CRTIMP errno_t __cdecl _wcslwr_s(wchar_t *_Str,size_t _SizeInWords);
-  _CRTIMP errno_t __cdecl _wcslwr_s_l(wchar_t *_Str,size_t _SizeInWords,_locale_t _Locale);
-  _CRTIMP errno_t __cdecl _wcsupr_s(wchar_t *_Str,size_t _Size);
-  _CRTIMP errno_t __cdecl _wcsupr_s_l(wchar_t *_Str,size_t _Size,_locale_t _Locale);
-#endif
+  _CRTIMP errno_t __cdecl _strset_s(حرف *_Dst,ناپ_t Dst_ناپ,صحيح قدر_2);
+  _CRTIMP errno_t __cdecl _strerror_s(حرف *_Buf,ناپ_t ناپ_وچ_بائٹاں,ثابت حرف *Err_پیغام);
+  _CRTIMP errno_t __cdecl _strlwr_s(حرف *_Str,ناپ_t ناپ_4);
+  _CRTIMP errno_t __cdecl _strlwr_s_l(حرف *_Str,ناپ_t ناپ_4,_locale_t _Locale);
+  _CRTIMP errno_t __cdecl _strnset_s(حرف *_Str,ناپ_t ناپ_4,صحيح _Val,ناپ_t Max_گنتی);
+  _CRTIMP errno_t __cdecl _strupr_s(حرف *_Str,ناپ_t ناپ_4);
+  _CRTIMP errno_t __cdecl _strupr_s_l(حرف *_Str,ناپ_t ناپ_4,_locale_t _Locale);
+#جے_بنا_تعریف _WSTRING_S_DEFINED
+#تعریف_کرو _WSTRING_S_DEFINED
+  _CRTIMP wchar_t *__cdecl wcstok_s(wchar_t *_Str,ثابت wchar_t *_Delim,wchar_t **_Context);
+  _CRTIMP errno_t __cdecl _wcserror_s(wchar_t *_Buf,ناپ_t ناپ_وچ_الفاظ,صحيح Err_عدد);
+  _CRTIMP errno_t __cdecl __wcserror_s(wchar_t *بفر_2,ناپ_t ناپ_وچ_الفاظ,ثابت wchar_t *Err_پیغام);
+  _CRTIMP errno_t __cdecl _wcsnset_s(wchar_t *_Dst,ناپ_t Dst_ناپ_وچ_الفاظ,wchar_t _Val,ناپ_t Max_گنتی);
+  _CRTIMP errno_t __cdecl _wcsset_s(wchar_t *_Str,ناپ_t ناپ_وچ_الفاظ,wchar_t _Val);
+  _CRTIMP errno_t __cdecl _wcslwr_s(wchar_t *_Str,ناپ_t ناپ_وچ_الفاظ);
+  _CRTIMP errno_t __cdecl _wcslwr_s_l(wchar_t *_Str,ناپ_t ناپ_وچ_الفاظ,_locale_t _Locale);
+  _CRTIMP errno_t __cdecl _wcsupr_s(wchar_t *_Str,ناپ_t ناپ_4);
+  _CRTIMP errno_t __cdecl _wcsupr_s_l(wchar_t *_Str,ناپ_t ناپ_4,_locale_t _Locale);
+#جے_انت
 
-#ifdef __cplusplus
+#جے_تعریف_شدہ __cplusplus
 }
-#endif
-#endif
-#endif
+#جے_انت
+#جے_انت
+#جے_انت

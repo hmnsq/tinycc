@@ -3,125 +3,125 @@
  * This file is part of the w64 mingw-runtime package.
  * No warranty is given; refer to the file DISCLAIMER within this package.
  */
-#ifndef _WINDOWS_
-#define _WINDOWS_
+#جے_بنا_تعریف _WINDOWS_
+#تعریف_کرو _WINDOWS_
 
-#ifndef WIN32_LEAN_AND_MEAN
-#define WIN32_LEAN_AND_MEAN 1
-#endif
+#جے_بنا_تعریف WIN32_LEAN_AND_اوسط
+#تعریف_کرو WIN32_LEAN_AND_اوسط 1
+#جے_انت
 
-#ifndef WINVER
-#define WINVER 0x0502
-#endif
+#جے_بنا_تعریف WINVER
+#تعریف_کرو WINVER 0x0502
+#جے_انت
 
-#include <_mingw.h>
+#ضمن <_mingw.h>
 
-#ifndef _INC_WINDOWS
-#define _INC_WINDOWS
+#جے_بنا_تعریف _INC_WINDOWS
+#تعریف_کرو _INC_WINDOWS
 
-#if defined(RC_INVOKED) && !defined(NOWINRES)
+#إذا defined(RC_INVOKED) && !defined(NOWINRES)
 
-#include <winresrc.h>
-#else
+#ضمن <winresrc.h>
+#وإلا
 
-#ifdef RC_INVOKED
-#define NOATOM
-#define NOGDI
-#define NOGDICAPMASKS
-#define NOMETAFILE
-#define NOMINMAX
-#define NOMSG
-#define NOOPENFILE
-#define NORASTEROPS
-#define NOSCROLL
-#define NOSOUND
-#define NOSYSMETRICS
-#define NOTEXTMETRIC
-#define NOWH
-#define NOCOMM
-#define NOKANJI
-#define NOCRYPT
-#define NOMCX
-#endif
+#جے_تعریف_شدہ RC_INVOKED
+#تعریف_کرو NOATOM
+#تعریف_کرو NOGDI
+#تعریف_کرو NOGDICAPMASKS
+#تعریف_کرو NOMETAFILE
+#تعریف_کرو NOMINMAX
+#تعریف_کرو NOMSG
+#تعریف_کرو NOOPENFILE
+#تعریف_کرو NORASTEROPS
+#تعریف_کرو NOSCROLL
+#تعریف_کرو NOSOUND
+#تعریف_کرو NOSYSMETRICS
+#تعریف_کرو NOTEXTMETRIC
+#تعریف_کرو NOWH
+#تعریف_کرو NOCOMM
+#تعریف_کرو NOKANJI
+#تعریف_کرو NOCRYPT
+#تعریف_کرو NOMCX
+#جے_انت
 
-#if !defined(I_X86_) && !defined(_IA64_) && !defined(_AMD64_) && (defined(_X86_) && !defined(__x86_64))
-#define I_X86_
-#endif
+#إذا !defined(I_X86_) && !defined(_IA64_) && !defined(_AMD64_) && (defined(_X86_) && !defined(__x86_64))
+#تعریف_کرو I_X86_
+#جے_انت
 
-#if !defined(I_X86_) && !defined(_IA64_) && !defined(_AMD64_) && defined(__x86_64)
-#define _AMD64_
-#endif
+#إذا !defined(I_X86_) && !defined(_IA64_) && !defined(_AMD64_) && defined(__x86_64)
+#تعریف_کرو _AMD64_
+#جے_انت
 
-#if !defined(I_X86_) && !(defined(_X86_) && !defined(__x86_64)) && !defined(_AMD64_) && defined(__ia64__)
-#if !defined(_IA64_)
-#define _IA64_
-#endif
-#endif
+#إذا !defined(I_X86_) && !(defined(_X86_) && !defined(__x86_64)) && !defined(_AMD64_) && defined(__ia64__)
+#إذا !defined(_IA64_)
+#تعریف_کرو _IA64_
+#جے_انت
+#جے_انت
 
-#ifndef RC_INVOKED
-#include <excpt.h>
-#include <stdarg.h>
-#endif
+#جے_بنا_تعریف RC_INVOKED
+#ضمن <excpt.h>
+#ضمن <stdarg.h>
+#جے_انت
 
-#include <windef.h>
-#include <winbase.h>
-#include <wingdi.h>
-#include <winuser.h>
-#include <winnls.h>
-#include <wincon.h>
-#include <winver.h>
-#include <winreg.h>
+#ضمن <windef.h>
+#ضمن <winbase.h>
+#ضمن <wingdi.h>
+#ضمن <winuser.h>
+#ضمن <winnls.h>
+#ضمن <wincon.h>
+#ضمن <winver.h>
+#ضمن <winreg.h>
 //gr #include <winnetwk.h>
 
-#ifndef WIN32_LEAN_AND_MEAN
-#include <cderr.h>
-#include <dde.h>
-#include <ddeml.h>
-#include <dlgs.h>
-#include <lzexpand.h>
-#include <mmsystem.h>
-#include <nb30.h>
-#include <rpc.h>
-#include <shellapi.h>
-#include <winperf.h>
-#include <winsock.h>
-#ifndef NOCRYPT
-#include <wincrypt.h>
-#include <winefs.h>
-#include <winscard.h>
-#endif
+#جے_بنا_تعریف WIN32_LEAN_AND_اوسط
+#ضمن <cderr.h>
+#ضمن <dde.h>
+#ضمن <ddeml.h>
+#ضمن <dlgs.h>
+#ضمن <lzexpand.h>
+#ضمن <mmsystem.h>
+#ضمن <nb30.h>
+#ضمن <rpc.h>
+#ضمن <shellapi.h>
+#ضمن <winperf.h>
+#ضمن <winsock.h>
+#جے_بنا_تعریف NOCRYPT
+#ضمن <wincrypt.h>
+#ضمن <winefs.h>
+#ضمن <winscard.h>
+#جے_انت
 
-#ifndef NOUSER
-#ifndef NOGDI
-#include <winspool.h>
-#ifdef INC_OLE1
-#include <ole.h>
-#else
-#include <ole2.h>
-#endif
-#include <commdlg.h>
-#endif
-#endif
-#endif
+#جے_بنا_تعریف NOUSER
+#جے_بنا_تعریف NOGDI
+#ضمن <winspool.h>
+#جے_تعریف_شدہ INC_OLE1
+#ضمن <ole.h>
+#وإلا
+#ضمن <ole2.h>
+#جے_انت
+#ضمن <commdlg.h>
+#جے_انت
+#جے_انت
+#جے_انت
 
 //gr #include <stralign.h>
 
-#ifdef INC_OLE2
-#include <ole2.h>
-#endif
+#جے_تعریف_شدہ INC_OLE2
+#ضمن <ole2.h>
+#جے_انت
 
-#ifndef NOSERVICE
-#include <winsvc.h>
-#endif
+#جے_بنا_تعریف NOSERVICE
+#ضمن <winsvc.h>
+#جے_انت
 
-#ifndef NOMCX
-#include <mcx.h>
-#endif
+#جے_بنا_تعریف NOMCX
+#ضمن <mcx.h>
+#جے_انت
 
-#ifndef NOIME
-#include <imm.h>
-#endif
+#جے_بنا_تعریف NOIME
+#ضمن <imm.h>
+#جے_انت
 
-#endif
-#endif
-#endif
+#جے_انت
+#جے_انت
+#جے_انت

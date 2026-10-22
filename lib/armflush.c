@@ -5,12 +5,12 @@
    itself needs this function */
 
 /* ------------------------------------------------------------- */
-#if defined __arm__
+#إذا defined __arm__
 
-#ifdef __TINYC__
+#جے_تعریف_شدہ __TINYC__
 
 /* syscall wrapper */
-unsigned _tccsyscall(unsigned syscall_nr, ...);
+بنانشانی _tccsyscall(بنانشانی syscall_nr, ...);
 
 /* arm-tcc supports only fake asm currently */
 __asm__(
@@ -26,45 +26,45 @@ __asm__(
     );
 
 /* from unistd.h: */
-#if defined(__thumb__) || defined(__ARM_EABI__)
+#إذا defined(__thumb__) || defined(__ARM_EABI__)
 # define __NR_SYSCALL_BASE      0x0
-#else
+#وإلا
 # define __NR_SYSCALL_BASE      0x900000
-#endif
-#define __ARM_NR_BASE           (__NR_SYSCALL_BASE+0x0f0000)
-#define __ARM_NR_cacheflush     (__ARM_NR_BASE+2)
+#جے_انت
+#تعریف_کرو __ARM_NR_BASE           (__NR_SYSCALL_BASE+0x0f0000)
+#تعریف_کرو __ARM_NR_cacheflush     (__ARM_NR_BASE+2)
 
-#define syscall _tccsyscall
+#تعریف_کرو syscall _tccsyscall
 
-#else
+#وإلا
 
-#define _GNU_SOURCE
-#include <unistd.h>
-#include <sys/syscall.h>
-#include <stdio.h>
+#تعریف_کرو GNU_سروت
+#ضمن <unistd.h>
+#ضمن <sys/syscall.h>
+#ضمن <stdio.h>
 
-#endif
+#جے_انت
 
 /* Flushing for tccrun */
-void __clear_cache(void *beginning, void *end)
+فراغ __clear_cache(فراغ *beginning, فراغ *سرا)
 {
 /* __ARM_NR_cacheflush is kernel private and should not be used in user space.
  * However, there is no ARM asm parser in tcc so we use it for now */
-    syscall(__ARM_NR_cacheflush, beginning, end, 0);
+    syscall(__ARM_NR_cacheflush, beginning, سرا, 0);
 }
 
 /* ------------------------------------------------------------- */
-#elif defined __aarch64__
-void __clear_cache(void *beg, void *end)
+#وإلاإذا defined __aarch64__
+فراغ __clear_cache(فراغ *beg, فراغ *سرا)
 {
-    __arm64_clear_cache(beg, end);
+    __arm64_clear_cache(beg, سرا);
 }
 
 /* ------------------------------------------------------------- */
-#elif defined __riscv
-void __clear_cache(void *beg, void *end)
+#وإلاإذا defined __riscv
+فراغ __clear_cache(فراغ *beg, فراغ *سرا)
 {
-    __riscv64_clear_cache(beg, end);
+    __riscv64_clear_cache(beg, سرا);
 }
 
-#endif
+#جے_انت

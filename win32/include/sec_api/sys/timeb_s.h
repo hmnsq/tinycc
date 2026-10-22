@@ -4,31 +4,31 @@
  * No warranty is given; refer to the file DISCLAIMER within this package.
  */
 
-#ifndef _TIMEB_H_S
-#define _TIMEB_H_S
+#جے_بنا_تعریف _TIMEB_H_S
+#تعریف_کرو _TIMEB_H_S
 
-#include <sys/timeb.h>
+#ضمن <sys/timeb.h>
 
-#ifdef __cplusplus
-extern "C" {
-#endif
+#جے_تعریف_شدہ __cplusplus
+خارجي "C" {
+#جے_انت
 
-#if defined(MINGW_HAS_SECURE_API)
+#إذا defined(MINGW_HAS_SECURE_API)
 
-#ifdef _USE_32BIT_TIME_T
-#define _ftime_s _ftime32_s
-#else
-#define _ftime_s _ftime64_s
-#endif
+#جے_تعریف_شدہ USE_32_ثنائی_ہندسہ_ویلا_T
+#تعریف_کرو _ftime_s _ftime32_s
+#وإلا
+#تعریف_کرو _ftime_s _ftime64_s
+#جے_انت
 
-  _CRTIMP errno_t __cdecl _ftime32_s(struct __timeb32 *_Time);
-#if _INTEGRAL_MAX_BITS >= 64
-  _CRTIMP errno_t __cdecl _ftime64_s(struct __timeb64 *_Time);
-#endif
-#endif
+  _CRTIMP errno_t __cdecl _ftime32_s(بنية __timeb32 *ویلا_2);
+#إذا INTEGRAL_MAX_بٹ >= 64
+  _CRTIMP errno_t __cdecl _ftime64_s(بنية __timeb64 *ویلا_2);
+#جے_انت
+#جے_انت
 
-#ifdef __cplusplus
+#جے_تعریف_شدہ __cplusplus
 }
-#endif
+#جے_انت
 
-#endif
+#جے_انت

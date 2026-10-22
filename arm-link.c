@@ -1,161 +1,161 @@
-#ifdef TARGET_DEFS_ONLY
+#جے_تعریف_شدہ نشانہ_DEFS_ONLY
 
-#define EM_TCC_TARGET EM_ARM
+#تعریف_کرو EM_TCC_نشانہ EM_ARM
 
 /* relocation type for 32 bit data relocation */
-#define R_DATA_32   R_ARM_ABS32
-#define R_DATA_PTR  R_ARM_ABS32
-#define R_JMP_SLOT  R_ARM_JUMP_SLOT
-#define R_GLOB_DAT  R_ARM_GLOB_DAT
-#define R_COPY      R_ARM_COPY
-#define R_RELATIVE  R_ARM_RELATIVE
+#تعریف_کرو R_انکڑے_32   R_ARM_ABS32
+#تعریف_کرو R_انکڑے_PTR  R_ARM_ABS32
+#تعریف_کرو R_JMP_تھاں  R_ARM_JUMP_تھاں
+#تعریف_کرو R_GLOB_DAT  R_ARM_GLOB_DAT
+#تعریف_کرو R_COPY      R_ARM_COPY
+#تعریف_کرو R_RELATIVE  R_ARM_RELATIVE
 
-#define R_NUM       R_ARM_NUM
+#تعریف_کرو R_عدد       R_ARM_عدد
 
-#define ELF_START_ADDR 0x00010000
-#define ELF_PAGE_SIZE  0x10000
+#تعریف_کرو ELF_شروع_ADDR 0x00010000
+#تعریف_کرو ELF_ورقہ_ناپ  0x10000
 
-#define PCRELATIVE_DLLPLT 1
-#define RELOCATE_DLLPLT 1
+#تعریف_کرو PCRELATIVE_DLLPLT 1
+#تعریف_کرو RELOCATE_DLLPLT 1
 
-#else /* !TARGET_DEFS_ONLY */
+#وإلا /* !TARGET_DEFS_ONLY */
 
-#include "tcc.h"
+#ضمن "tcc.h"
 
-#ifdef NEED_RELOC_TYPE
+#جے_تعریف_شدہ NEED_RELOC_TYPE
 /* Returns 1 for a code relocation, 0 for a data relocation. For unknown
    relocations, returns -1. */
-ST_FUNC int code_reloc (int reloc_type)
+ST_FUNC صحيح کوڈ_reloc (صحيح reloc_type)
 {
-    switch (reloc_type) {
-	case R_ARM_MOVT_ABS:
-	case R_ARM_MOVW_ABS_NC:
-	case R_ARM_THM_MOVT_ABS:
-	case R_ARM_THM_MOVW_ABS_NC:
-	case R_ARM_ABS32:
-	case R_ARM_REL32:
-	case R_ARM_GOTPC:
-	case R_ARM_GOTOFF:
-	case R_ARM_GOT32:
-	case R_ARM_GOT_PREL:
-	case R_ARM_COPY:
-	case R_ARM_GLOB_DAT:
-	case R_ARM_NONE:
-	case R_ARM_TARGET1:
-	case R_ARM_MOVT_PREL:
-	case R_ARM_MOVW_PREL_NC:
-	case R_ARM_TLS_LE32:
-            return 0;
+    بدل (reloc_type) {
+	حالة R_ARM_MOVT_ABS:
+	حالة R_ARM_MOVW_ABS_NC:
+	حالة R_ARM_THM_MOVT_ABS:
+	حالة R_ARM_THM_MOVW_ABS_NC:
+	حالة R_ARM_ABS32:
+	حالة R_ARM_REL32:
+	حالة R_ARM_GOTPC:
+	حالة R_ARM_GOTOFF:
+	حالة R_ARM_GOT32:
+	حالة R_ARM_GOT_PREL:
+	حالة R_ARM_COPY:
+	حالة R_ARM_GLOB_DAT:
+	حالة R_ARM_NONE:
+	حالة R_ARM_TARGET1:
+	حالة R_ARM_MOVT_PREL:
+	حالة R_ARM_MOVW_PREL_NC:
+	حالة R_ARM_TLS_LE32:
+            أرجع 0;
 
-        case R_ARM_PC24:
-        case R_ARM_CALL:
-	case R_ARM_JUMP24:
-	case R_ARM_PLT32:
-	case R_ARM_THM_PC22:
-	case R_ARM_THM_JUMP24:
-	case R_ARM_PREL31:
-	case R_ARM_V4BX:
-	case R_ARM_JUMP_SLOT:
-            return 1;
+        حالة R_ARM_PC24:
+        حالة R_ARM_CALL:
+	حالة R_ARM_JUMP24:
+	حالة R_ARM_PLT32:
+	حالة R_ARM_THM_PC22:
+	حالة R_ARM_THM_JUMP24:
+	حالة R_ARM_PREL31:
+	حالة R_ARM_V4BX:
+	حالة R_ARM_JUMP_تھاں:
+            أرجع 1;
     }
-    return -1;
+    أرجع -1;
 }
 
 /* Returns an enumerator to describe whether and when the relocation needs a
    GOT and/or PLT entry to be created. See tcc.h for a description of the
    different values. */
-ST_FUNC int gotplt_entry_type (int reloc_type)
+ST_FUNC صحيح gotplt_اندراج_type (صحيح reloc_type)
 {
-    switch (reloc_type) {
-	case R_ARM_NONE:
-	case R_ARM_COPY:
-	case R_ARM_GLOB_DAT:
-	case R_ARM_JUMP_SLOT:
-	case R_ARM_TLS_LE32:
-            return NO_GOTPLT_ENTRY;
+    بدل (reloc_type) {
+	حالة R_ARM_NONE:
+	حالة R_ARM_COPY:
+	حالة R_ARM_GLOB_DAT:
+	حالة R_ARM_JUMP_تھاں:
+	حالة R_ARM_TLS_LE32:
+            أرجع NO_GOTPLT_اندراج;
 
-        case R_ARM_PC24:
-        case R_ARM_CALL:
-	case R_ARM_JUMP24:
-	case R_ARM_PLT32:
-	case R_ARM_THM_PC22:
-	case R_ARM_THM_JUMP24:
-	case R_ARM_MOVT_ABS:
-	case R_ARM_MOVW_ABS_NC:
-	case R_ARM_THM_MOVT_ABS:
-	case R_ARM_THM_MOVW_ABS_NC:
-	case R_ARM_PREL31:
-	case R_ARM_ABS32:
-	case R_ARM_REL32:
-	case R_ARM_V4BX:
-	case R_ARM_TARGET1:
-	case R_ARM_MOVT_PREL:
-	case R_ARM_MOVW_PREL_NC:
-            return AUTO_GOTPLT_ENTRY;
+        حالة R_ARM_PC24:
+        حالة R_ARM_CALL:
+	حالة R_ARM_JUMP24:
+	حالة R_ARM_PLT32:
+	حالة R_ARM_THM_PC22:
+	حالة R_ARM_THM_JUMP24:
+	حالة R_ARM_MOVT_ABS:
+	حالة R_ARM_MOVW_ABS_NC:
+	حالة R_ARM_THM_MOVT_ABS:
+	حالة R_ARM_THM_MOVW_ABS_NC:
+	حالة R_ARM_PREL31:
+	حالة R_ARM_ABS32:
+	حالة R_ARM_REL32:
+	حالة R_ARM_V4BX:
+	حالة R_ARM_TARGET1:
+	حالة R_ARM_MOVT_PREL:
+	حالة R_ARM_MOVW_PREL_NC:
+            أرجع AUTO_GOTPLT_اندراج;
 
-	case R_ARM_GOTPC:
-	case R_ARM_GOTOFF:
-            return BUILD_GOT_ONLY;
+	حالة R_ARM_GOTPC:
+	حالة R_ARM_GOTOFF:
+            أرجع BUILD_GOT_ONLY;
 
-	case R_ARM_GOT32:
-	case R_ARM_GOT_PREL:
-            return ALWAYS_GOTPLT_ENTRY;
+	حالة R_ARM_GOT32:
+	حالة R_ARM_GOT_PREL:
+            أرجع ALWAYS_GOTPLT_اندراج;
     }
-    return -1;
+    أرجع -1;
 }
 
-#ifdef NEED_BUILD_GOT
-ST_FUNC unsigned create_plt_entry(TCCState *s1, unsigned got_offset, struct sym_attr *attr)
+#جے_تعریف_شدہ NEED_BUILD_GOT
+ST_FUNC بنانشانی create_plt_اندراج(TCCState *s1, بنانشانی got_وتھ, بنية sym_attr *attr)
 {
     Section *plt = s1->plt;
     uint8_t *p;
-    unsigned plt_offset;
+    بنانشانی plt_وتھ;
 
     /* when building a DLL, GOT entry accesses must be done relative to
        start of GOT (see x86_64 example above)  */
 
     /* empty PLT: create PLT0 entry that push address of call site and
        jump to ld.so resolution routine (GOT + 8) */
-    if (plt->data_offset == 0) {
-        p = section_ptr_add(plt, 20);
+    إذا (plt->انکڑے_وتھ == 0) {
+        p = section_ptr_جوڑو(plt, 20);
         write32le(p,    0xe52de004); /* push {lr}         */
         write32le(p+4,  0xe59fe004); /* ldr lr, [pc, #4] */
         write32le(p+8,  0xe08fe00e); /* add lr, pc, lr    */
         write32le(p+12, 0xe5bef008); /* ldr pc, [lr, #8]! */
         /* p+16 is set in relocate_plt */
     }
-    plt_offset = plt->data_offset;
+    plt_وتھ = plt->انکڑے_وتھ;
 
-    if (attr->plt_thumb_stub) {
-        p = section_ptr_add(plt, 4);
+    إذا (attr->plt_thumb_stub) {
+        p = section_ptr_جوڑو(plt, 4);
         write32le(p,   0x4778); /* bx pc */
         write32le(p+2, 0x46c0); /* nop   */
     }
-    p = section_ptr_add(plt, 16);
+    p = section_ptr_جوڑو(plt, 16);
     /* save GOT offset for relocate_plt */
-    write32le(p + 4, got_offset);
-    return plt_offset;
+    write32le(p + 4, got_وتھ);
+    أرجع plt_وتھ;
 }
 
 /* relocate the PLT: compute addresses and offsets in the PLT now that final
    address for PLT and GOT are known (see fill_program_header) */
-ST_FUNC void relocate_plt(TCCState *s1)
+ST_FUNC فراغ relocate_plt(TCCState *s1)
 {
-    uint8_t *p, *p_end;
+    uint8_t *p, *p_سرا;
 
-    if (!s1->plt)
-      return;
+    إذا (!s1->plt)
+      أرجع;
 
-    p = s1->plt->data;
-    p_end = p + s1->plt->data_offset;
+    p = s1->plt->انکڑے;
+    p_سرا = p + s1->plt->انکڑے_وتھ;
 
-    if (p < p_end) {
-        int x = s1->got->sh_addr - s1->plt->sh_addr - 12;
-        write32le(s1->plt->data + 16, x - 4);
+    إذا (p < p_سرا) {
+        صحيح x = s1->got->sh_addr - s1->plt->sh_addr - 12;
+        write32le(s1->plt->انکڑے + 16, x - 4);
         p += 20;
-        while (p < p_end) {
-	    unsigned off = x  + read32le(p + 4) + (s1->plt->data - p) + 4;
-            if (read32le(p) == 0x46c04778) /* PLT Thumb stub present */
+        طالما (p < p_سرا) {
+	    بنانشانی off = x  + read32le(p + 4) + (s1->plt->انکڑے - p) + 4;
+            إذا (read32le(p) == 0x46c04778) /* PLT Thumb stub present */
                 p += 4;
             write32le(p, 0xe28fc200 | ((off >> 28) & 0xf));      // add ip, pc, #0xN0000000
             write32le(p + 4, 0xe28cc600 | ((off >> 20) & 0xff)); // add ip, pc, #0xNN00000
@@ -165,78 +165,78 @@ ST_FUNC void relocate_plt(TCCState *s1)
         }
     }
 
-    if (s1->plt->reloc) {
+    إذا (s1->plt->reloc) {
         ElfW_Rel *rel;
-        p = s1->got->data;
+        p = s1->got->انکڑے;
         for_each_elem(s1->plt->reloc, 0, rel, ElfW_Rel) {
-            write32le(p + rel->r_offset, s1->plt->sh_addr);
+            write32le(p + rel->r_وتھ, s1->plt->sh_addr);
 	}
     }
 }
-#endif
-#endif
+#جے_انت
+#جے_انت
 
-ST_FUNC void relocate(TCCState *s1, ElfW_Rel *rel, int type, unsigned char *ptr, addr_t addr, addr_t val)
+ST_FUNC فراغ relocate(TCCState *s1, ElfW_Rel *rel, صحيح type, بنانشانی حرف *ptr, addr_t addr, addr_t val)
 {
     ElfW(Sym) *sym;
-    int sym_index, esym_index;
+    صحيح sym_اشاریہ, esym_اشاریہ;
 
-    sym_index = ELFW(R_SYM)(rel->r_info);
-    sym = &((ElfW(Sym) *)symtab_section->data)[sym_index];
+    sym_اشاریہ = ELFW(R_SYM)(rel->r_info);
+    sym = &((ElfW(Sym) *)symtab_section->انکڑے)[sym_اشاریہ];
 
-    switch(type) {
-        case R_ARM_PC24:
-        case R_ARM_CALL:
-        case R_ARM_JUMP24:
-        case R_ARM_PLT32:
+    بدل(type) {
+        حالة R_ARM_PC24:
+        حالة R_ARM_CALL:
+        حالة R_ARM_JUMP24:
+        حالة R_ARM_PLT32:
             {
-                int x, is_thumb, is_call, h, blx_avail, is_bl, th_ko;
-                unsigned code = read32le(ptr);
-                x = code & 0x00ffffff;
-#ifdef DEBUG_RELOC
-		printf ("reloc %d: x=0x%x val=0x%x ", type, x, val);
-#endif
-                code &= 0xff000000;
+                صحيح x, is_thumb, is_call, h, blx_avail, is_bl, th_ko;
+                بنانشانی کوڈ = read32le(ptr);
+                x = کوڈ & 0x00ffffff;
+#جے_تعریف_شدہ DEBUG_RELOC
+		لکھو ("reloc %d: x=0x%x val=0x%x ", type, x, val);
+#جے_انت
+                کوڈ &= 0xff000000;
                 x <<= 2;
-                if (x & 0x2000000)
+                إذا (x & 0x2000000)
                     x -= 0x4000000;
                 blx_avail = (CONFIG_TCC_CPUVER >= 5);
                 is_thumb = val & 1;
-                is_bl = code == 0xeb000000;
+                is_bl = کوڈ == 0xeb000000;
                 is_call = (type == R_ARM_CALL || (type == R_ARM_PC24 && is_bl));
                 x += val - addr;
-#ifdef DEBUG_RELOC
-		printf (" newx=0x%x name=%s\n", x,
-			(char *) symtab_section->link->data + sym->st_name);
-#endif
+#جے_تعریف_شدہ DEBUG_RELOC
+		لکھو (" newx=0x%x name=%s\n", x,
+			(حرف *) symtab_section->link->انکڑے + sym->st_name);
+#جے_انت
                 h = x & 2;
                 th_ko = (x & 3) && (!blx_avail || !is_call);
-                if (th_ko || x >= 0x2000000 || x < -0x2000000)
+                إذا (th_ko || x >= 0x2000000 || x < -0x2000000)
                     tcc_error_noabort("can't relocate value at %x,%d",addr, type);
                 x >>= 2;
                 x &= 0xffffff;
                 /* Only reached if blx is avail and it is a call */
-                if (is_thumb) {
+                إذا (is_thumb) {
                     x |= h << 24;
-                    code = 0xfa000000; /* bl -> blx */
+                    کوڈ = 0xfa000000; /* bl -> blx */
                 }
-                write32le(ptr, code | x);
+                write32le(ptr, کوڈ | x);
             }
-            return;
+            أرجع;
         /* Since these relocations only concern Thumb-2 and blx instruction was
            introduced before Thumb-2, we can assume blx is available and not
            guard its use */
-        case R_ARM_THM_PC22:
-        case R_ARM_THM_JUMP24:
+        حالة R_ARM_THM_PC22:
+        حالة R_ARM_THM_JUMP24:
             {
-                int x, hi, lo, s, j1, j2, i1, i2, imm10, imm11;
-                int to_thumb, is_call, to_plt, blx_bit = 1 << 12;
+                صحيح x, hi, lo, s, j1, j2, i1, i2, imm10, imm11;
+                صحيح منزل_thumb, is_call, منزل_plt, blx_ثنائی_ہندسہ = 1 << 12;
                 Section *plt;
 
                 /* weak reference */
-                if (sym->st_shndx == SHN_UNDEF &&
+                إذا (sym->st_shndx == SHN_UNDEF &&
                     ELFW(ST_BIND)(sym->st_info) == STB_WEAK)
-                    return;
+                    أرجع;
 
                 /* Get initial offset */
                 hi = read16le(ptr);
@@ -250,38 +250,38 @@ ST_FUNC void relocate(TCCState *s1, ElfW_Rel *rel, int type, unsigned char *ptr,
                 imm11 = lo & 0x7ff;
                 x = (s << 24) | (i1 << 23) | (i2 << 22) |
                     (imm10 << 12) | (imm11 << 1);
-                if (x & 0x01000000)
+                إذا (x & 0x01000000)
                     x -= 0x02000000;
 
                 /* Relocation infos */
-                to_thumb = val & 1;
+                منزل_thumb = val & 1;
                 plt = s1->plt;
-                to_plt = (val >= plt->sh_addr) &&
-                         (val < plt->sh_addr + plt->data_offset);
+                منزل_plt = (val >= plt->sh_addr) &&
+                         (val < plt->sh_addr + plt->انکڑے_وتھ);
                 is_call = (type == R_ARM_THM_PC22);
 
-                if (!to_thumb && !to_plt && !is_call) {
-                    int index;
+                إذا (!منزل_thumb && !منزل_plt && !is_call) {
+                    صحيح اشاریہ;
                     uint8_t *p;
-                    char *name, buf[1024];
-                    Section *text;
+                    حرف *name, buf[1024];
+                    Section *متن;
 
-                    name = (char *) symtab_section->link->data + sym->st_name;
-                    text = s1->sections[sym->st_shndx];
+                    name = (حرف *) symtab_section->link->انکڑے + sym->st_name;
+                    متن = s1->sections[sym->st_shndx];
                     /* Modify reloc to target a thumb stub to switch to ARM */
-                    snprintf(buf, sizeof(buf), "%s_from_thumb", name);
-                    index = put_elf_sym(symtab_section,
-                                        text->data_offset + 1,
-                                        sym->st_size, sym->st_info, 0,
+                    snprintf(buf, حجم(buf), "%s_from_thumb", name);
+                    اشاریہ = put_elf_sym(symtab_section,
+                                        متن->انکڑے_وتھ + 1,
+                                        sym->st_ناپ, sym->st_info, 0,
                                         sym->st_shndx, buf);
-                    to_thumb = 1;
-                    val = text->data_offset + 1;
-                    rel->r_info = ELFW(R_INFO)(index, type);
+                    منزل_thumb = 1;
+                    val = متن->انکڑے_وتھ + 1;
+                    rel->r_info = ELFW(R_INFO)(اشاریہ, type);
                     /* Create a thumb stub function to switch to ARM mode */
-                    put_elf_reloc(symtab_section, text,
-                                  text->data_offset + 4, R_ARM_JUMP24,
-                                  sym_index);
-                    p = section_ptr_add(text, 8);
+                    put_elf_reloc(symtab_section, متن,
+                                  متن->انکڑے_وتھ + 4, R_ARM_JUMP24,
+                                  sym_اشاریہ);
+                    p = section_ptr_جوڑو(متن, 8);
                     write32le(p,   0x4778); /* bx pc */
                     write32le(p+2, 0x46c0); /* nop   */
                     write32le(p+4, 0xeafffffe); /* b $sym */
@@ -289,8 +289,8 @@ ST_FUNC void relocate(TCCState *s1, ElfW_Rel *rel, int type, unsigned char *ptr,
 
                 /* Compute final offset */
                 x += val - addr;
-                if (!to_thumb && is_call) {
-                    blx_bit = 0; /* bl -> blx */
+                إذا (!منزل_thumb && is_call) {
+                    blx_ثنائی_ہندسہ = 0; /* bl -> blx */
                     x = (x + 3) & -4; /* Compute offset from aligned PC */
                 }
 
@@ -299,8 +299,8 @@ ST_FUNC void relocate(TCCState *s1, ElfW_Rel *rel, int type, unsigned char *ptr,
                    * if target is to be entered in arm mode:
                      - bit 1 must not set
                      - instruction must be a call (bl) or a jump to PLT */
-                if (!to_thumb || x >= 0x1000000 || x < -0x1000000)
-                    if (to_thumb || (val & 2) || (!is_call && !to_plt))
+                إذا (!منزل_thumb || x >= 0x1000000 || x < -0x1000000)
+                    إذا (منزل_thumb || (val & 2) || (!is_call && !منزل_plt))
                         tcc_error_noabort("can't relocate value at %x,%d",addr, type);
 
                 /* Compute and store final offset */
@@ -314,142 +314,142 @@ ST_FUNC void relocate(TCCState *s1, ElfW_Rel *rel, int type, unsigned char *ptr,
                 write16le(ptr, (hi & 0xf800) |
                                (s << 10) | imm10);
                 write16le(ptr+2, (lo & 0xc000) |
-                                 (j1 << 13) | blx_bit | (j2 << 11) |
+                                 (j1 << 13) | blx_ثنائی_ہندسہ | (j2 << 11) |
                                  imm11);
             }
-            return;
-        case R_ARM_MOVT_ABS:
-        case R_ARM_MOVW_ABS_NC:
+            أرجع;
+        حالة R_ARM_MOVT_ABS:
+        حالة R_ARM_MOVW_ABS_NC:
             {
-                int x, imm4, imm12;
-                if (type == R_ARM_MOVT_ABS)
+                صحيح x, imm4, imm12;
+                إذا (type == R_ARM_MOVT_ABS)
                     val >>= 16;
                 imm12 = val & 0xfff;
                 imm4 = (val >> 12) & 0xf;
                 x = (imm4 << 16) | imm12;
-                if (type == R_ARM_THM_MOVT_ABS)
+                إذا (type == R_ARM_THM_MOVT_ABS)
                     write32le(ptr, read32le(ptr) | x);
-                else
+                وإلا
                     add32le(ptr, x);
             }
-            return;
-        case R_ARM_MOVT_PREL:
-        case R_ARM_MOVW_PREL_NC:
+            أرجع;
+        حالة R_ARM_MOVT_PREL:
+        حالة R_ARM_MOVW_PREL_NC:
             {
-		int insn = read32le(ptr);
-                int addend = ((insn >> 4) & 0xf000) | (insn & 0xfff);
+		صحيح insn = read32le(ptr);
+                صحيح addend = ((insn >> 4) & 0xf000) | (insn & 0xfff);
 
 		addend = (addend ^ 0x8000) - 0x8000;
 		val += addend - addr;
-		if (type == R_ARM_MOVT_PREL)
+		إذا (type == R_ARM_MOVT_PREL)
 		    val >>= 16;
 		write32le(ptr, (insn & 0xfff0f000) |
 			       ((val & 0xf000) << 4) | (val & 0xfff));
             }
-            return;
-        case R_ARM_THM_MOVT_ABS:
-        case R_ARM_THM_MOVW_ABS_NC:
+            أرجع;
+        حالة R_ARM_THM_MOVT_ABS:
+        حالة R_ARM_THM_MOVW_ABS_NC:
             {
-                int x, i, imm4, imm3, imm8;
-                if (type == R_ARM_THM_MOVT_ABS)
+                صحيح x, i, imm4, imm3, imm8;
+                إذا (type == R_ARM_THM_MOVT_ABS)
                     val >>= 16;
                 imm8 = val & 0xff;
                 imm3 = (val >> 8) & 0x7;
                 i = (val >> 11) & 1;
                 imm4 = (val >> 12) & 0xf;
                 x = (imm3 << 28) | (imm8 << 16) | (i << 10) | imm4;
-                if (type == R_ARM_THM_MOVT_ABS)
+                إذا (type == R_ARM_THM_MOVT_ABS)
                     write32le(ptr, read32le(ptr) | x);
-                else
+                وإلا
                     add32le(ptr, x);
             }
-            return;
-        case R_ARM_PREL31:
+            أرجع;
+        حالة R_ARM_PREL31:
             {
-                int x;
+                صحيح x;
                 x = read32le(ptr) & 0x7fffffff;
                 write32le(ptr, read32le(ptr) & 0x80000000);
                 x = (x * 2) / 2;
                 x += val - addr;
-                if((x^(x>>1))&0x40000000)
+                إذا((x^(x>>1))&0x40000000)
                     tcc_error_noabort("can't relocate value at %x,%d",addr, type);
                 write32le(ptr, read32le(ptr) | (x & 0x7fffffff));
             }
-            return;
-        case R_ARM_ABS32:
-        case R_ARM_TARGET1:
-            if (s1->output_type & TCC_OUTPUT_DYN) {
-                esym_index = get_sym_attr(s1, sym_index, 0)->dyn_index;
-                qrel->r_offset = rel->r_offset;
-                if (esym_index) {
-                    qrel->r_info = ELFW(R_INFO)(esym_index, R_ARM_ABS32);
+            أرجع;
+        حالة R_ARM_ABS32:
+        حالة R_ARM_TARGET1:
+            إذا (s1->output_type & TCC_OUTPUT_DYN) {
+                esym_اشاریہ = get_sym_attr(s1, sym_اشاریہ, 0)->dyn_اشاریہ;
+                qrel->r_وتھ = rel->r_وتھ;
+                إذا (esym_اشاریہ) {
+                    qrel->r_info = ELFW(R_INFO)(esym_اشاریہ, R_ARM_ABS32);
                     qrel++;
-                    return;
-                } else {
+                    أرجع;
+                } وإلا {
                     qrel->r_info = ELFW(R_INFO)(0, R_ARM_RELATIVE);
                     qrel++;
                 }
             }
             add32le(ptr, val);
-            return;
-        case R_ARM_REL32:
+            أرجع;
+        حالة R_ARM_REL32:
             add32le(ptr, val - addr);
-            return;
-        case R_ARM_GOTPC:
+            أرجع;
+        حالة R_ARM_GOTPC:
             add32le(ptr, s1->got->sh_addr - addr);
-            return;
-        case R_ARM_GOTOFF:
+            أرجع;
+        حالة R_ARM_GOTOFF:
             add32le(ptr, val - s1->got->sh_addr);
-            return;
-        case R_ARM_GOT32:
+            أرجع;
+        حالة R_ARM_GOT32:
             /* we load the got offset */
-            add32le(ptr, get_sym_attr(s1, sym_index, 0)->got_offset);
-            return;
-	case R_ARM_GOT_PREL:
+            add32le(ptr, get_sym_attr(s1, sym_اشاریہ, 0)->got_وتھ);
+            أرجع;
+	حالة R_ARM_GOT_PREL:
             /* we load the pc relative got offset */
             add32le(ptr, s1->got->sh_addr +
-			 get_sym_attr(s1, sym_index, 0)->got_offset -
+			 get_sym_attr(s1, sym_اشاریہ, 0)->got_وتھ -
 			 addr);
-            return;
-        case R_ARM_COPY:
-            return;
-        case R_ARM_V4BX:
+            أرجع;
+        حالة R_ARM_COPY:
+            أرجع;
+        حالة R_ARM_V4BX:
             /* trade Thumb support for ARMv4 support */
-            if ((0x0ffffff0 & read32le(ptr)) == 0x012FFF10)
+            إذا ((0x0ffffff0 & read32le(ptr)) == 0x012FFF10)
                 write32le(ptr, read32le(ptr) ^ 0xE12FFF10 ^ 0xE1A0F000); /* BX Rm -> MOV PC, Rm */
-            return;
-        case R_ARM_GLOB_DAT:
-        case R_ARM_JUMP_SLOT:
+            أرجع;
+        حالة R_ARM_GLOB_DAT:
+        حالة R_ARM_JUMP_تھاں:
             write32le(ptr, val);
-            return;
-        case R_ARM_NONE:
+            أرجع;
+        حالة R_ARM_NONE:
             /* Nothing to do.  Normally used to indicate a dependency
                on a certain symbol (like for exception handling under EABI).  */
-            return;
-        case R_ARM_RELATIVE:
-#ifdef TCC_TARGET_PE
+            أرجع;
+        حالة R_ARM_RELATIVE:
+#جے_تعریف_شدہ TCC_نشانہ_PE
             add32le(ptr, val - s1->pe_imagebase);
-#endif
+#جے_انت
             /* do nothing */
-            return;
-        case R_ARM_TLS_LE32:
+            أرجع;
+        حالة R_ARM_TLS_LE32:
             {
                 int32_t x;
-                if (s1->tls_end) {
-                    x = val - s1->tls_start + 8;
-                } else {
-                    ElfW(Sym) *sym = &((ElfW(Sym) *)symtab_section->data)[sym_index];
+                إذا (s1->tls_سرا) {
+                    x = val - s1->tls_شروع + 8;
+                } وإلا {
+                    ElfW(Sym) *sym = &((ElfW(Sym) *)symtab_section->انکڑے)[sym_اشاریہ];
                     Section *sec = s1->sections[sym->st_shndx];
-                    x = val - sec->sh_addr - sec->data_offset + 8;
+                    x = val - sec->sh_addr - sec->انکڑے_وتھ + 8;
                 }
                 add32le(ptr, x);
             }
-            return;
-        default:
+            أرجع;
+        افتراضي:
             fprintf(stderr,"FIXME: handle reloc type %d at %x [%p] to %x\n",
-                type, (unsigned)addr, ptr, (unsigned)val);
-            return;
+                type, (بنانشانی)addr, ptr, (بنانشانی)val);
+            أرجع;
     }
 }
 
-#endif /* !TARGET_DEFS_ONLY */
+#جے_انت /* !TARGET_DEFS_ONLY */

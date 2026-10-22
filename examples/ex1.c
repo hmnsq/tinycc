@@ -1,8 +1,8 @@
-#!/usr/local/bin/tcc -run
-#include <tcclib.h>
+#!/usr/local/bin/tcc -لگاتار
+#ضمن <tcclib.h>
 
-int main()
+صحيح مکھ()
 {
-    printf("Hello World\n");
-    return 0;
+    لکھو("Hello World\n");
+    أرجع 0;
 }

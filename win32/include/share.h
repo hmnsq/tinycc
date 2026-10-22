@@ -3,26 +3,26 @@
  * This file is part of the w64 mingw-runtime package.
  * No warranty is given; refer to the file DISCLAIMER within this package.
  */
-#ifndef _INC_SHARE
-#define _INC_SHARE
+#جے_بنا_تعریف _INC_SHARE
+#تعریف_کرو _INC_SHARE
 
-#ifndef _WIN32
-#error Only Win32 target is supported!
-#endif
+#جے_بنا_تعریف _WIN32
+#غلطی Only Win32 نشانہ is supported!
+#جے_انت
 
-#define _SH_COMPAT 0x00
-#define _SH_DENYRW 0x10
-#define _SH_DENYWR 0x20
-#define _SH_DENYRD 0x30
-#define _SH_DENYNO 0x40
-#define _SH_SECURE 0x80
+#تعریف_کرو _SH_COMPAT 0x00
+#تعریف_کرو _SH_DENYRW 0x10
+#تعریف_کرو _SH_DENYWR 0x20
+#تعریف_کرو _SH_DENYRD 0x30
+#تعریف_کرو _SH_DENYNO 0x40
+#تعریف_کرو _SH_SECURE 0x80
 
-#ifndef	NO_OLDNAMES
-#define SH_COMPAT _SH_COMPAT
-#define SH_DENYRW _SH_DENYRW
-#define SH_DENYWR _SH_DENYWR
-#define SH_DENYRD _SH_DENYRD
-#define SH_DENYNO _SH_DENYNO
-#endif
+#جے_بنا_تعریف	NO_OLDNAMES
+#تعریف_کرو SH_COMPAT _SH_COMPAT
+#تعریف_کرو SH_DENYRW _SH_DENYRW
+#تعریف_کرو SH_DENYWR _SH_DENYWR
+#تعریف_کرو SH_DENYRD _SH_DENYRD
+#تعریف_کرو SH_DENYNO _SH_DENYNO
+#جے_انت
 
-#endif
+#جے_انت

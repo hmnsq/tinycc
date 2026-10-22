@@ -1,7 +1,7 @@
-#ifndef _STDNORETURN_H
-#define _STDNORETURN_H
+#جے_بنا_تعریف _STDNORETURN_H
+#تعریف_کرو _STDNORETURN_H
 
 /* ISOC11 noreturn */
-#define noreturn _Noreturn
+#تعریف_کرو noreturn _Noreturn
 
-#endif /* _STDNORETURN_H */
+#جے_انت /* _STDNORETURN_H */

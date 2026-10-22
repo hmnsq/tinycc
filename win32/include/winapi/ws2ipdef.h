@@ -1,21 +1,21 @@
-#ifndef _WS2IPDEF_H
-#define _WS2IPDEF_H
+#جے_بنا_تعریف _WS2IPDEF_H
+#تعریف_کرو _WS2IPDEF_H
 
-#if __GNUC__ >=3
-#pragma GCC system_header
-#endif
+#إذا __GNUC__ >=3
+#ہدایت GCC system_سرخی
+#جے_انت
 
-#include <winsock2.h>
+#ضمن <winsock2.h>
 
-struct ip_mreq {
-  struct in_addr imr_multiaddr;
-  struct in_addr imr_interface;
+بنية ip_mreq {
+  بنية وچ_addr imr_multiaddr;
+  بنية وچ_addr imr_interface;
 };
 
-struct ip_mreq_source {
-  struct in_addr imr_multiaddr;
-  struct in_addr imr_sourceaddr;
-  struct in_addr imr_interface;
+بنية ip_mreq_سروت {
+  بنية وچ_addr imr_multiaddr;
+  بنية وچ_addr imr_sourceaddr;
+  بنية وچ_addr imr_interface;
 };
 
-#endif
+#جے_انت

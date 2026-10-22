@@ -1,26 +1,26 @@
-#!/usr/local/bin/tcc -run -L/usr/X11R6/lib -lX11
-#include <stdlib.h>
-#include <stdio.h>
-#include <X11/Xlib.h>
+#!/usr/local/bin/tcc -لگاتار -L/usr/X11R6/lib -lX11
+#ضمن <stdlib.h>
+#ضمن <stdio.h>
+#ضمن <X11/Xlib.h>
 
 /* Yes, TCC can use X11 too ! */
 
-int main(int argc, char **argv)
+صحيح مکھ(صحيح argc, حرف **argv)
 {
     Display *display;
     Screen *screen;
 
     display = XOpenDisplay("");
-    if (!display) {
+    إذا (!display) {
         fprintf(stderr, "Could not open X11 display\n");
-        exit(1);
+        باہر_نکلو(1);
     }
-    printf("X11 display opened.\n");
-    screen = XScreenOfDisplay(display, 0);
-    printf("width = %d\nheight = %d\ndepth = %d\n",
-           screen->width,
-           screen->height,
-           screen->root_depth);
+    لکھو("X11 display opened.\n");
+    screen = XScreen_دا_Display(display, 0);
+    لکھو("width = %d\nheight = %d\ndepth = %d\n",
+           screen->چوڑائی,
+           screen->اچائی,
+           screen->جڑ_ڈونگھائی);
     XCloseDisplay(display);
-    return 0;
+    أرجع 0;
 }

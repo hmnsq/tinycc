@@ -1,41 +1,41 @@
-#include <stdio.h>
+#ضمن <stdio.h>
 
-#define $(x) x
-#define $fred 10
-#define joe$ 20
-#define hen$y 30
+#تعریف_کرو $(x) x
+#تعریف_کرو $fred 10
+#تعریف_کرو joe$ 20
+#تعریف_کرو hen$y 30
 
-#define $10(x) x*10
-#define _$10(x) x/10
+#تعریف_کرو $10(x) x*10
+#تعریف_کرو _$10(x) x/10
 
-int main()
+صحيح مکھ()
 {
-   printf("fred=%d\n", $fred);
-   printf("joe=%d\n", joe$);
-   printf("henry=%d\n", hen$y);
+   لکھو("fred=%d\n", $fred);
+   لکھو("joe=%d\n", joe$);
+   لکھو("henry=%d\n", hen$y);
 
-   printf("fred2=%d\n", $($fred));
-   printf("joe2=%d\n", $(joe$));
-   printf("henry2=%d\n", $(hen$y));
+   لکھو("fred2=%d\n", $($fred));
+   لکھو("joe2=%d\n", $(joe$));
+   لکھو("henry2=%d\n", $(hen$y));
 
-   printf("fred10=%d\n", $10($fred));
-   printf("joe_10=%d\n", _$10(joe$));
+   لکھو("fred10=%d\n", $10($fred));
+   لکھو("joe_10=%d\n", _$10(joe$));
 
-   int $ = 10;
-   int a100$ = 100;
-   int a$$ = 1000;
-   int a$c$b = 2121;
-   int $100 = 10000;
-   const char *$$$ = "money";
+   صحيح $ = 10;
+   صحيح a100$ = 100;
+   صحيح a$$ = 1000;
+   صحيح a$c$b = 2121;
+   صحيح $100 = 10000;
+   ثابت حرف *$$$ = "money";
 
-   printf("local=%d\n", $);
-   printf("a100$=%d\n", a100$);
-   printf("a$$=%d\n", a$$);
-   printf("a$c$b=%d\n", a$c$b);
-   printf("$100=%d\n", $100);
-   printf("$$$=%s", $$$);
+   لکھو("local=%d\n", $);
+   لکھو("a100$=%d\n", a100$);
+   لکھو("a$$=%d\n", a$$);
+   لکھو("a$c$b=%d\n", a$c$b);
+   لکھو("$100=%d\n", $100);
+   لکھو("$$$=%s", $$$);
 
-   return 0;
+   أرجع 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

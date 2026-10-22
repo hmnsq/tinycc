@@ -3,144 +3,144 @@
  * This file is part of the w64 mingw-runtime package.
  * No warranty is given; refer to the file DISCLAIMER within this package.
  */
-#ifndef _INC_UTIME
-#define _INC_UTIME
+#جے_بنا_تعریف _INC_UTIME
+#تعریف_کرو _INC_UTIME
 
-#ifndef _WIN32
-#error Only Win32 target is supported!
-#endif
+#جے_بنا_تعریف _WIN32
+#غلطی Only Win32 نشانہ is supported!
+#جے_انت
 
-#include <_mingw.h>
+#ضمن <_mingw.h>
 
-#pragma pack(push,_CRT_PACKING)
+#ہدایت pack(ڈالو,_CRT_PACKING)
 
-#ifdef __cplusplus
-extern "C" {
-#endif
+#جے_تعریف_شدہ __cplusplus
+خارجي "C" {
+#جے_انت
 
-#ifndef _CRTIMP
-#define _CRTIMP __declspec(dllimport)
-#endif
+#جے_بنا_تعریف _CRTIMP
+#تعریف_کرو _CRTIMP __declspec(dllimport)
+#جے_انت
 
-#ifndef _WCHAR_T_DEFINED
-  typedef unsigned short wchar_t;
-#define _WCHAR_T_DEFINED
-#endif
+#جے_بنا_تعریف _WCHAR_T_DEFINED
+  تعريفنوع بنانشانی چھوٹا wchar_t;
+#تعریف_کرو _WCHAR_T_DEFINED
+#جے_انت
 
-#ifndef __TINYC__ /* gr */
-#ifdef _USE_32BIT_TIME_T
-#ifdef _WIN64
-#undef _USE_32BIT_TIME_T
-#endif
-#else
-#if _INTEGRAL_MAX_BITS < 64
-#define _USE_32BIT_TIME_T
-#endif
-#endif
-#endif
+#جے_بنا_تعریف __TINYC__ /* gr */
+#جے_تعریف_شدہ USE_32_ثنائی_ہندسہ_ویلا_T
+#جے_تعریف_شدہ _WIN64
+#تعریف_رد USE_32_ثنائی_ہندسہ_ویلا_T
+#جے_انت
+#وإلا
+#إذا INTEGRAL_MAX_بٹ < 64
+#تعریف_کرو USE_32_ثنائی_ہندسہ_ویلا_T
+#جے_انت
+#جے_انت
+#جے_انت
 
-#ifndef _TIME32_T_DEFINED
-#define _TIME32_T_DEFINED
-  typedef long __time32_t;
-#endif
+#جے_بنا_تعریف _TIME32_T_DEFINED
+#تعریف_کرو _TIME32_T_DEFINED
+  تعريفنوع لما __time32_t;
+#جے_انت
 
-#ifndef _TIME64_T_DEFINED
-#define _TIME64_T_DEFINED
-#if _INTEGRAL_MAX_BITS >= 64
-  typedef __int64 __time64_t;
-#endif
-#endif
+#جے_بنا_تعریف _TIME64_T_DEFINED
+#تعریف_کرو _TIME64_T_DEFINED
+#إذا INTEGRAL_MAX_بٹ >= 64
+  تعريفنوع __int64 __time64_t;
+#جے_انت
+#جے_انت
 
-#ifndef _TIME_T_DEFINED
-#define _TIME_T_DEFINED
-#ifdef _USE_32BIT_TIME_T
-  typedef __time32_t time_t;
-#else
-  typedef __time64_t time_t;
-#endif
-#endif
+#جے_بنا_تعریف ویلا_T_DEFINED
+#تعریف_کرو ویلا_T_DEFINED
+#جے_تعریف_شدہ USE_32_ثنائی_ہندسہ_ویلا_T
+  تعريفنوع __time32_t time_t;
+#وإلا
+  تعريفنوع __time64_t time_t;
+#جے_انت
+#جے_انت
 
-#ifndef _UTIMBUF_DEFINED
-#define _UTIMBUF_DEFINED
+#جے_بنا_تعریف _UTIMBUF_DEFINED
+#تعریف_کرو _UTIMBUF_DEFINED
 
-  struct _utimbuf {
+  بنية _utimbuf {
     time_t actime;
     time_t modtime;
   };
 
-  struct __utimbuf32 {
+  بنية __utimbuf32 {
     __time32_t actime;
     __time32_t modtime;
   };
 
-#if _INTEGRAL_MAX_BITS >= 64
-  struct __utimbuf64 {
+#إذا INTEGRAL_MAX_بٹ >= 64
+  بنية __utimbuf64 {
     __time64_t actime;
     __time64_t modtime;
   };
-#endif
+#جے_انت
 
-#ifndef	NO_OLDNAMES
-  struct utimbuf {
+#جے_بنا_تعریف	NO_OLDNAMES
+  بنية utimbuf {
     time_t actime;
     time_t modtime;
   };
 
-  struct utimbuf32 {
+  بنية utimbuf32 {
     __time32_t actime;
     __time32_t modtime;
   };
-#endif
-#endif
+#جے_انت
+#جے_انت
 
-  _CRTIMP int __cdecl _utime32(const char *_Filename,struct __utimbuf32 *_Time);
-  _CRTIMP int __cdecl _futime32(int _FileDes,struct __utimbuf32 *_Time);
-  _CRTIMP int __cdecl _wutime32(const wchar_t *_Filename,struct __utimbuf32 *_Time);
-#if _INTEGRAL_MAX_BITS >= 64
-  _CRTIMP int __cdecl _utime64(const char *_Filename,struct __utimbuf64 *_Time);
-  _CRTIMP int __cdecl _futime64(int _FileDes,struct __utimbuf64 *_Time);
-  _CRTIMP int __cdecl _wutime64(const wchar_t *_Filename,struct __utimbuf64 *_Time);
-#endif
+  _CRTIMP صحيح __cdecl _utime32(ثابت حرف *_Filename,بنية __utimbuf32 *ویلا_2);
+  _CRTIMP صحيح __cdecl _futime32(صحيح _FileDes,بنية __utimbuf32 *ویلا_2);
+  _CRTIMP صحيح __cdecl _wutime32(ثابت wchar_t *_Filename,بنية __utimbuf32 *ویلا_2);
+#إذا INTEGRAL_MAX_بٹ >= 64
+  _CRTIMP صحيح __cdecl _utime64(ثابت حرف *_Filename,بنية __utimbuf64 *ویلا_2);
+  _CRTIMP صحيح __cdecl _futime64(صحيح _FileDes,بنية __utimbuf64 *ویلا_2);
+  _CRTIMP صحيح __cdecl _wutime64(ثابت wchar_t *_Filename,بنية __utimbuf64 *ویلا_2);
+#جے_انت
 
-#ifndef RC_INVOKED
-#ifdef _USE_32BIT_TIME_T
-__CRT_INLINE int __cdecl _utime(const char *_Filename,struct _utimbuf *_Utimbuf) {
-  return _utime32(_Filename,(struct __utimbuf32 *)_Utimbuf);
+#جے_بنا_تعریف RC_INVOKED
+#جے_تعریف_شدہ USE_32_ثنائی_ہندسہ_ویلا_T
+__CRT_INLINE صحيح __cdecl _utime(ثابت حرف *_Filename,بنية _utimbuf *_Utimbuf) {
+  أرجع _utime32(_Filename,(بنية __utimbuf32 *)_Utimbuf);
 }
-__CRT_INLINE int __cdecl _futime(int _Desc,struct _utimbuf *_Utimbuf) {
-  return _futime32(_Desc,(struct __utimbuf32 *)_Utimbuf);
+__CRT_INLINE صحيح __cdecl _futime(صحيح _Desc,بنية _utimbuf *_Utimbuf) {
+  أرجع _futime32(_Desc,(بنية __utimbuf32 *)_Utimbuf);
 }
-__CRT_INLINE int __cdecl _wutime(const wchar_t *_Filename,struct _utimbuf *_Utimbuf) {
-  return _wutime32(_Filename,(struct __utimbuf32 *)_Utimbuf);
+__CRT_INLINE صحيح __cdecl _wutime(ثابت wchar_t *_Filename,بنية _utimbuf *_Utimbuf) {
+  أرجع _wutime32(_Filename,(بنية __utimbuf32 *)_Utimbuf);
 }
-#else
-__CRT_INLINE int __cdecl _utime(const char *_Filename,struct _utimbuf *_Utimbuf) {
-  return _utime64(_Filename,(struct __utimbuf64 *)_Utimbuf);
+#وإلا
+__CRT_INLINE صحيح __cdecl _utime(ثابت حرف *_Filename,بنية _utimbuf *_Utimbuf) {
+  أرجع _utime64(_Filename,(بنية __utimbuf64 *)_Utimbuf);
 }
-__CRT_INLINE int __cdecl _futime(int _Desc,struct _utimbuf *_Utimbuf) {
-  return _futime64(_Desc,(struct __utimbuf64 *)_Utimbuf);
+__CRT_INLINE صحيح __cdecl _futime(صحيح _Desc,بنية _utimbuf *_Utimbuf) {
+  أرجع _futime64(_Desc,(بنية __utimbuf64 *)_Utimbuf);
 }
-__CRT_INLINE int __cdecl _wutime(const wchar_t *_Filename,struct _utimbuf *_Utimbuf) {
-  return _wutime64(_Filename,(struct __utimbuf64 *)_Utimbuf);
+__CRT_INLINE صحيح __cdecl _wutime(ثابت wchar_t *_Filename,بنية _utimbuf *_Utimbuf) {
+  أرجع _wutime64(_Filename,(بنية __utimbuf64 *)_Utimbuf);
 }
-#endif
+#جے_انت
 
-#ifndef	NO_OLDNAMES
-#ifdef _USE_32BIT_TIME_T
-__CRT_INLINE int __cdecl utime(const char *_Filename,struct utimbuf *_Utimbuf) {
-  return _utime32(_Filename,(struct __utimbuf32 *)_Utimbuf);
+#جے_بنا_تعریف	NO_OLDNAMES
+#جے_تعریف_شدہ USE_32_ثنائی_ہندسہ_ویلا_T
+__CRT_INLINE صحيح __cdecl utime(ثابت حرف *_Filename,بنية utimbuf *_Utimbuf) {
+  أرجع _utime32(_Filename,(بنية __utimbuf32 *)_Utimbuf);
 }
-#else
-__CRT_INLINE int __cdecl utime(const char *_Filename,struct utimbuf *_Utimbuf) {
-  return _utime64(_Filename,(struct __utimbuf64 *)_Utimbuf);
+#وإلا
+__CRT_INLINE صحيح __cdecl utime(ثابت حرف *_Filename,بنية utimbuf *_Utimbuf) {
+  أرجع _utime64(_Filename,(بنية __utimbuf64 *)_Utimbuf);
 }
-#endif
-#endif
-#endif
+#جے_انت
+#جے_انت
+#جے_انت
 
-#ifdef __cplusplus
+#جے_تعریف_شدہ __cplusplus
 }
-#endif
+#جے_انت
 
-#pragma pack(pop)
-#endif
+#ہدایت pack(نکالو)
+#جے_انت

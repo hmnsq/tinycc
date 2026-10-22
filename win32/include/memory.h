@@ -3,38 +3,38 @@
  * This file is part of the w64 mingw-runtime package.
  * No warranty is given; refer to the file DISCLAIMER within this package.
  */
-#ifndef _INC_MEMORY
-#define _INC_MEMORY
+#جے_بنا_تعریف INC_حافظہ
+#تعریف_کرو INC_حافظہ
 
-#include <_mingw.h>
+#ضمن <_mingw.h>
 
-#ifdef __cplusplus
-extern "C" {
-#endif
+#جے_تعریف_شدہ __cplusplus
+خارجي "C" {
+#جے_انت
 
-#ifndef _CONST_RETURN
-#define _CONST_RETURN
-#endif
+#جے_بنا_تعریف _CONST_RETURN
+#تعریف_کرو _CONST_RETURN
+#جے_انت
 
-#define _WConst_return _CONST_RETURN
+#تعریف_کرو _WConst_return _CONST_RETURN
 
-#ifndef _CRT_MEMORY_DEFINED
-#define _CRT_MEMORY_DEFINED
-  _CRTIMP void *__cdecl _memccpy(void *_Dst,const void *_Src,int _Val,size_t _MaxCount);
-  _CONST_RETURN void *__cdecl memchr(const void *_Buf ,int _Val,size_t _MaxCount);
-  _CRTIMP int __cdecl _memicmp(const void *_Buf1,const void *_Buf2,size_t _Size);
-  _CRTIMP int __cdecl _memicmp_l(const void *_Buf1,const void *_Buf2,size_t _Size,_locale_t _Locale);
-  int __cdecl memcmp(const void *_Buf1,const void *_Buf2,size_t _Size);
-  void *__cdecl memcpy(void *_Dst,const void *_Src,size_t _Size);
-  void *__cdecl memset(void *_Dst,int _Val,size_t _Size);
+#جے_بنا_تعریف CRT_حافظہ_DEFINED
+#تعریف_کرو CRT_حافظہ_DEFINED
+  _CRTIMP فراغ *__cdecl _memccpy(فراغ *_Dst,ثابت فراغ *_Src,صحيح _Val,ناپ_t Max_گنتی);
+  _CONST_RETURN فراغ *__cdecl memchr(ثابت فراغ *_Buf ,صحيح _Val,ناپ_t Max_گنتی);
+  _CRTIMP صحيح __cdecl _memicmp(ثابت فراغ *_Buf1,ثابت فراغ *_Buf2,ناپ_t ناپ_4);
+  _CRTIMP صحيح __cdecl _memicmp_l(ثابت فراغ *_Buf1,ثابت فراغ *_Buf2,ناپ_t ناپ_4,_locale_t _Locale);
+  صحيح __cdecl memcmp(ثابت فراغ *_Buf1,ثابت فراغ *_Buf2,ناپ_t ناپ_4);
+  فراغ *__cdecl حافظہ_نقل(فراغ *_Dst,ثابت فراغ *_Src,ناپ_t ناپ_4);
+  فراغ *__cdecl memset(فراغ *_Dst,صحيح _Val,ناپ_t ناپ_4);
 
-#ifndef	NO_OLDNAMES
-  void *__cdecl memccpy(void *_Dst,const void *_Src,int _Val,size_t _Size);
-  int __cdecl memicmp(const void *_Buf1,const void *_Buf2,size_t _Size);
-#endif
-#endif
+#جے_بنا_تعریف	NO_OLDNAMES
+  فراغ *__cdecl memccpy(فراغ *_Dst,ثابت فراغ *_Src,صحيح _Val,ناپ_t ناپ_4);
+  صحيح __cdecl memicmp(ثابت فراغ *_Buf1,ثابت فراغ *_Buf2,ناپ_t ناپ_4);
+#جے_انت
+#جے_انت
 
-#ifdef __cplusplus
+#جے_تعریف_شدہ __cplusplus
 }
-#endif
-#endif
+#جے_انت
+#جے_انت

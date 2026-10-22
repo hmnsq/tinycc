@@ -15,157 +15,157 @@
  *
  */
 
-#ifndef __MINGW_H
-#define __MINGW_H
+#جے_بنا_تعریف __MINGW_H
+#تعریف_کرو __MINGW_H
 
 /* some winapi files define these before including _mingw.h --> */
-#undef __cdecl
-#undef _X86_
-#undef WIN32
+#تعریف_رد __cdecl
+#تعریف_رد _X86_
+#تعریف_رد WIN32
 /* <-- */
 
-#include <stddef.h>
-#include <stdarg.h>
+#ضمن <stddef.h>
+#ضمن <stdarg.h>
 
-#define __int8 char
-#define __int16 short
-#define __int32 int
-#define __int64 long long
-#define _HAVE_INT64
+#تعریف_کرو __int8 حرف
+#تعریف_کرو __int16 چھوٹا
+#تعریف_کرو __int32 صحيح
+#تعریف_کرو __int64 لما لما
+#تعریف_کرو _HAVE_INT64
 
-#define __cdecl
-#define __declspec(x) __attribute__((x))
-#define __unaligned __attribute__((packed))
-#define __fastcall __attribute__((fastcall))
+#تعریف_کرو __cdecl
+#تعریف_کرو __declspec(x) __attribute__((x))
+#تعریف_کرو __unaligned __attribute__((packed))
+#تعریف_کرو __fastcall __attribute__((fastcall))
 
-#define __MSVCRT__ 1
-#undef _MSVCRT_
-#define __MINGW_IMPORT extern __declspec(dllimport)
-#define __MINGW_ATTRIB_NORETURN __declspec(noreturn)
-#define __MINGW_ATTRIB_CONST
-#define __MINGW_ATTRIB_DEPRECATED
-#define __MINGW_ATTRIB_MALLOC
-#define __MINGW_ATTRIB_PURE
-#define __MINGW_ATTRIB_NONNULL(arg)
-#define __MINGW_NOTHROW
-#define __GNUC_VA_LIST
+#تعریف_کرو __MSVCRT__ 1
+#تعریف_رد _MSVCRT_
+#تعریف_کرو __MINGW_IMPORT خارجي __declspec(dllimport)
+#تعریف_کرو __MINGW_ATTRIB_NORETURN __declspec(noreturn)
+#تعریف_کرو __MINGW_ATTRIB_CONST
+#تعریف_کرو __MINGW_ATTRIB_DEPRECATED
+#تعریف_کرو __MINGW_ATTRIB_MALLOC
+#تعریف_کرو __MINGW_ATTRIB_PURE
+#تعریف_کرو __MINGW_ATTRIB_NONNULL(arg)
+#تعریف_کرو __MINGW_NOTHROW
+#تعریف_کرو __GNUC_VA_LIST
 
-#define _CRTIMP extern
-#define __CRT_INLINE static __inline__
+#تعریف_کرو _CRTIMP خارجي
+#تعریف_کرو __CRT_INLINE ساكن __inline__
 
-#define _CRT_ALIGN(x) __attribute__((aligned(x)))
-#define DECLSPEC_ALIGN(x) __attribute__((aligned(x)))
-#define _CRT_PACKING 8
-#define __CRT_UNALIGNED
-#define _CONST_RETURN
+#تعریف_کرو _CRT_ALIGN(x) __attribute__((aligned(x)))
+#تعریف_کرو DECLSPEC_ALIGN(x) __attribute__((aligned(x)))
+#تعریف_کرو _CRT_PACKING 8
+#تعریف_کرو __CRT_UNALIGNED
+#تعریف_کرو _CONST_RETURN
 
-#ifndef _TRUNCATE
-#define _TRUNCATE ((size_t)-1)
-#endif
+#جے_بنا_تعریف _TRUNCATE
+#تعریف_کرو _TRUNCATE ((ناپ_t)-1)
+#جے_انت
 
-#define __CRT_STRINGIZE(_Value) #_Value
-#define _CRT_STRINGIZE(_Value) __CRT_STRINGIZE(_Value)
-#define __CRT_WIDE(_String) L ## _String
-#define _CRT_WIDE(_String) __CRT_WIDE(_String)
+#تعریف_کرو __CRT_STRINGIZE(قدر_2) #_Value
+#تعریف_کرو _CRT_STRINGIZE(قدر_2) __CRT_STRINGIZE(قدر_2)
+#تعریف_کرو __CRT_WIDE(_String) L ## _String
+#تعریف_کرو _CRT_WIDE(_String) __CRT_WIDE(_String)
 
-#ifdef _WIN64
-#define __stdcall
-#if defined(__aarch64__)
-#define _M_ARM64 1
-#define _ARM64_ 1
-#else
-#define _AMD64_ 1
-#define __x86_64 1
-#define _M_X64 100 /* Visual Studio */
-#define _M_AMD64 100 /* Visual Studio */
-#endif
-#else
-#define __stdcall __attribute__((__stdcall__))
-#define _X86_ 1
-#define _M_IX86 300 /* Visual Studio */
-#ifndef __MINGW_USE_VC2005_COMPAT /* time became 64, but not timeval.tv_sec */
-# ifndef _USE_32BIT_TIME_T
-#  define _USE_32BIT_TIME_T
+#جے_تعریف_شدہ _WIN64
+#تعریف_کرو __stdcall
+#إذا defined(__aarch64__)
+#تعریف_کرو _M_ARM64 1
+#تعریف_کرو _ARM64_ 1
+#وإلا
+#تعریف_کرو _AMD64_ 1
+#تعریف_کرو __x86_64 1
+#تعریف_کرو _M_X64 100 /* Visual Studio */
+#تعریف_کرو _M_AMD64 100 /* Visual Studio */
+#جے_انت
+#وإلا
+#تعریف_کرو __stdcall __attribute__((__stdcall__))
+#تعریف_کرو _X86_ 1
+#تعریف_کرو _M_IX86 300 /* Visual Studio */
+#جے_بنا_تعریف __MINGW_USE_VC2005_COMPAT /* time became 64, but not timeval.tv_sec */
+# ifndef USE_32_ثنائی_ہندسہ_ویلا_T
+#  define USE_32_ثنائی_ہندسہ_ویلا_T
 # endif
-#endif
-#endif
+#جے_انت
+#جے_انت
 
 /* in stddef.h */
-#define _SIZE_T_DEFINED
-#define _SSIZE_T_DEFINED
-#define _PTRDIFF_T_DEFINED
-#define _WCHAR_T_DEFINED
-#define _UINTPTR_T_DEFINED
-#define _INTPTR_T_DEFINED
-#define _INTEGRAL_MAX_BITS 64
+#تعریف_کرو _SIZE_T_DEFINED
+#تعریف_کرو _SSIZE_T_DEFINED
+#تعریف_کرو _PTRDIFF_T_DEFINED
+#تعریف_کرو _WCHAR_T_DEFINED
+#تعریف_کرو _UINTPTR_T_DEFINED
+#تعریف_کرو _INTPTR_T_DEFINED
+#تعریف_کرو INTEGRAL_MAX_بٹ 64
 
-#ifndef _TIME32_T_DEFINED
-#define _TIME32_T_DEFINED
-typedef long __time32_t;
-#endif
+#جے_بنا_تعریف _TIME32_T_DEFINED
+#تعریف_کرو _TIME32_T_DEFINED
+تعريفنوع لما __time32_t;
+#جے_انت
 
-#ifndef _TIME64_T_DEFINED
-#define _TIME64_T_DEFINED
-typedef long long __time64_t;
-#endif
+#جے_بنا_تعریف _TIME64_T_DEFINED
+#تعریف_کرو _TIME64_T_DEFINED
+تعريفنوع لما لما __time64_t;
+#جے_انت
 
-#ifndef _TIME_T_DEFINED
-#define _TIME_T_DEFINED
-#ifdef _USE_32BIT_TIME_T
-typedef __time32_t time_t;
-#else
-typedef __time64_t time_t;
-#endif
-#endif
+#جے_بنا_تعریف ویلا_T_DEFINED
+#تعریف_کرو ویلا_T_DEFINED
+#جے_تعریف_شدہ USE_32_ثنائی_ہندسہ_ویلا_T
+تعريفنوع __time32_t time_t;
+#وإلا
+تعريفنوع __time64_t time_t;
+#جے_انت
+#جے_انت
 
-#ifndef _WCTYPE_T_DEFINED
-#define _WCTYPE_T_DEFINED
-typedef wchar_t wctype_t;
-#endif
+#جے_بنا_تعریف _WCTYPE_T_DEFINED
+#تعریف_کرو _WCTYPE_T_DEFINED
+تعريفنوع wchar_t wctype_t;
+#جے_انت
 
-#ifndef _WINT_T
-#define _WINT_T
-typedef __WINT_TYPE__ wint_t;
-#endif
+#جے_بنا_تعریف _WINT_T
+#تعریف_کرو _WINT_T
+تعريفنوع __WINT_TYPE__ wint_t;
+#جے_انت
 
-typedef int errno_t;
-#define _ERRCODE_DEFINED
+تعريفنوع صحيح errno_t;
+#تعریف_کرو _ERRCODE_DEFINED
 
-typedef struct threadlocaleinfostruct *pthreadlocinfo;
-typedef struct threadmbcinfostruct *pthreadmbcinfo;
-typedef struct localeinfo_struct _locale_tstruct,*_locale_t;
+تعريفنوع بنية threadlocaleinfostruct *pthreadlocinfo;
+تعريفنوع بنية threadmbcinfostruct *pthreadmbcinfo;
+تعريفنوع بنية localeinfo_struct _locale_tstruct,*_locale_t;
 
 /* for winapi */
-#define _ANONYMOUS_UNION
-#define _ANONYMOUS_STRUCT
-#define DECLSPEC_NORETURN __declspec(noreturn)
-#define DECLARE_STDCALL_P(type) __stdcall type
-#define NOSERVICE 1
-#define NOMCX 1
-#define NOIME 1
-#define __INTRIN_H_
-#ifndef DUMMYUNIONNAME
+#تعریف_کرو _ANONYMOUS_UNION
+#تعریف_کرو _ANONYMOUS_STRUCT
+#تعریف_کرو DECLSPEC_NORETURN __declspec(noreturn)
+#تعریف_کرو DECLARE_STDCALL_P(type) __stdcall type
+#تعریف_کرو NOSERVICE 1
+#تعریف_کرو NOMCX 1
+#تعریف_کرو NOIME 1
+#تعریف_کرو __INTRIN_H_
+#جے_بنا_تعریف DUMMYUNIONNAME
 #  define DUMMYUNIONNAME
 #  define DUMMYUNIONNAME1
 #  define DUMMYUNIONNAME2
 #  define DUMMYUNIONNAME3
 #  define DUMMYUNIONNAME4
 #  define DUMMYUNIONNAME5
-#endif
-#ifndef DUMMYSTRUCTNAME
+#جے_انت
+#جے_بنا_تعریف DUMMYSTRUCTNAME
 #  define DUMMYSTRUCTNAME
-#endif
-#ifndef WINVER
+#جے_انت
+#جے_بنا_تعریف WINVER
 # define WINVER 0x0502
-#endif
-#ifndef _WIN32_WINNT
+#جے_انت
+#جے_بنا_تعریف _WIN32_WINNT
 # define _WIN32_WINNT 0x502
-#endif
+#جے_انت
 
-#define __C89_NAMELESS
-#define __MINGW_EXTENSION
-#define WINAPI_FAMILY_PARTITION(X) 1
-#define MINGW_HAS_SECURE_API
-#define WIN32 1
+#تعریف_کرو __C89_NAMELESS
+#تعریف_کرو __MINGW_EXTENSION
+#تعریف_کرو WINAPI_FAMILY_حصے_کرو(X) 1
+#تعریف_کرو MINGW_HAS_SECURE_API
+#تعریف_کرو WIN32 1
 
-#endif /* __MINGW_H */
+#جے_انت /* __MINGW_H */

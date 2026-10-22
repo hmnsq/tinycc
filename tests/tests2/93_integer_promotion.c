@@ -1,21 +1,21 @@
 /* integer promotion */
 
-int printf(const char*, ...);
-#define promote(s) printf(" %ssigned : %s\n", (s) - 100 < 0 ? "  " : "un", #s);
+صحيح لکھو(ثابت حرف*, ...);
+#تعریف_کرو promote(s) لکھو(" %ssigned : %s\n", (s) - 100 < 0 ? "  " : "un", #s);
 
-int main (void)
+صحيح مکھ (فراغ)
 {
-    struct {
-        unsigned u3:3;
-        unsigned u31:31;
-        unsigned u32:32;
-        unsigned long ul31:31;
-        unsigned long ul32:32;
-        unsigned long long ull31:31;
-        unsigned long long ull32:32;
-        unsigned long long ull33:33;
-        unsigned long long ull64:64;
-        unsigned char c;
+    بنية {
+        بنانشانی u3:3;
+        بنانشانی u31:31;
+        بنانشانی u32:32;
+        بنانشانی لما ul31:31;
+        بنانشانی لما ul32:32;
+        بنانشانی لما لما ull31:31;
+        بنانشانی لما لما ull32:32;
+        بنانشانی لما لما ull33:33;
+        بنانشانی لما لما ull64:64;
+        بنانشانی حرف c;
     } s = { 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 };
 
     promote(s.u3);
@@ -28,7 +28,7 @@ int main (void)
     promote(s.ull33);
     promote(s.ull64);
     promote(s.c);
-    printf("\n");
+    لکھو("\n");
 
     promote((1 ? s.u3 : 1));
     promote((1 ? s.u31 : 1));
@@ -40,7 +40,7 @@ int main (void)
     promote((1 ? s.ull33 : 1));
     promote((1 ? s.ull64 : 1));
     promote((1 ? s.c : 1));
-    printf("\n");
+    لکھو("\n");
 
     promote(s.u3 << 1);
     promote(s.u31 << 1);
@@ -52,7 +52,7 @@ int main (void)
     promote(s.ull33 << 1);
     promote(s.ull64 << 1);
     promote(s.c << 1);
-    printf("\n");
+    لکھو("\n");
 
     promote(+s.u3);
     promote(+s.u31);
@@ -64,7 +64,7 @@ int main (void)
     promote(+s.ull33);
     promote(+s.ull64);
     promote(+s.c);
-    printf("\n");
+    لکھو("\n");
 
     promote(-s.u3);
     promote(-s.u31);
@@ -76,7 +76,7 @@ int main (void)
     promote(-s.ull33);
     promote(-s.ull64);
     promote(-s.c);
-    printf("\n");
+    لکھو("\n");
 
     promote(~s.u3);
     promote(~s.u31);
@@ -88,7 +88,7 @@ int main (void)
     promote(~s.ull33);
     promote(~s.ull64);
     promote(~s.c);
-    printf("\n");
+    لکھو("\n");
 
     promote(!s.u3);
     promote(!s.u31);
@@ -100,12 +100,12 @@ int main (void)
     promote(!s.ull33);
     promote(!s.ull64);
     promote(!s.c);
-    printf("\n");
+    لکھو("\n");
 
-    promote(+(unsigned)s.u3);
-    promote(-(unsigned)s.u3);
-    promote(~(unsigned)s.u3);
-    promote(!(unsigned)s.u3);
+    promote(+(بنانشانی)s.u3);
+    promote(-(بنانشانی)s.u3);
+    promote(~(بنانشانی)s.u3);
+    promote(!(بنانشانی)s.u3);
 
-    return 0;
+    أرجع 0;
 }

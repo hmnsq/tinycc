@@ -1,15 +1,15 @@
-#ifdef __leading_underscore
+#جے_تعریف_شدہ __leading_underscore
 # define _ "_"
-#else
+#وإلا
 # define _
-#endif
+#جے_انت
 
-extern int printf (const char *, ...);
-extern void vide(void);
+خارجي صحيح لکھو (ثابت حرف *, ...);
+خارجي فراغ vide(فراغ);
 __asm__(_"vide: ret");
 
-int main() {
+صحيح مکھ() {
     vide();
-    printf ("okay\n");
-    return 0;
+    لکھو ("okay\n");
+    أرجع 0;
 }

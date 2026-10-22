@@ -26,7 +26,7 @@
      DEF(TOK_VOLATILE1, "volatile")
      DEF(TOK_VOLATILE2, "__volatile") /* gcc keyword */
      DEF(TOK_VOLATILE3, "__volatile__") /* gcc keyword */
-     DEF(TOK_REGISTER, "register")
+     DEF(TOK_رجسٹر, "register")
      DEF(TOK_SIGNED1, "signed")
      DEF(TOK_SIGNED2, "__signed") /* gcc keyword */
      DEF(TOK_SIGNED3, "__signed__") /* gcc keyword */
@@ -74,7 +74,7 @@
 /* preprocessor only */
      DEF(TOK_DEFINE, "define")
      DEF(TOK_INCLUDE, "include")
-     DEF(TOK_INCLUDE_NEXT, "include_next")
+     DEF(TOK_INCLUDE_اگلا, "include_next")
      DEF(TOK_IFDEF, "ifdef")
      DEF(TOK_IFNDEF, "ifndef")
      DEF(TOK_ELIF, "elif")
@@ -83,17 +83,17 @@
      DEF(TOK_UNDEF, "undef")
      DEF(TOK_ERROR, "error")
      DEF(TOK_WARNING, "warning")
-     DEF(TOK_LINE, "line")
+     DEF(TOK_سطر, "line")
      DEF(TOK_PRAGMA, "pragma")
-     DEF(TOK___LINE__, "__LINE__")
+     DEF(TOK_سطر_2, "__LINE__")
      DEF(TOK___FILE__, "__FILE__")
      DEF(TOK___DATE__, "__DATE__")
-     DEF(TOK___TIME__, "__TIME__")
+     DEF(TOK_ویلا, "__TIME__")
      DEF(TOK___FUNCTION__, "__FUNCTION__")
-     DEF(TOK___VA_ARGS__, "__VA_ARGS__")
+     DEF(TOK_VA_دلیلاں, "__VA_ARGS__")
      DEF(TOK___COUNTER__, "__COUNTER__")
      DEF(TOK___HAS_INCLUDE, "__has_include")
-     DEF(TOK___HAS_INCLUDE_NEXT, "__has_include_next")
+     DEF(TOK_HAS_INCLUDE_اگلا, "__has_include_next")
 
 /* special identifiers */
      DEF(TOK___FUNC__, "__func__")
@@ -149,12 +149,12 @@
      DEF(TOK_PURE1, "pure")
      DEF(TOK_PURE2, "__pure__")
 
-     DEF(TOK_MODE, "__mode__")
-     DEF(TOK_MODE_QI, "__QI__")
-     DEF(TOK_MODE_DI, "__DI__")
-     DEF(TOK_MODE_HI, "__HI__")
-     DEF(TOK_MODE_SI, "__SI__")
-     DEF(TOK_MODE_word, "__word__")
+     DEF(TOK_منوال, "__mode__")
+     DEF(TOK_منوال_QI, "__QI__")
+     DEF(TOK_منوال_DI, "__DI__")
+     DEF(TOK_منوال_HI, "__HI__")
+     DEF(TOK_منوال_SI, "__SI__")
+     DEF(TOK_منوال_لفظ, "__word__")
 
      DEF(TOK_DLLEXPORT, "dllexport")
      DEF(TOK_DLLIMPORT, "dllimport")
@@ -166,26 +166,26 @@
      DEF(TOK_VISIBILITY2, "__visibility__")
 
      DEF(TOK_builtin_types_compatible_p, "__builtin_types_compatible_p")
-     DEF(TOK_builtin_choose_expr, "__builtin_choose_expr")
+     DEF(TOK_builtin_چنو_اظہاریہ, "__builtin_choose_expr")
      DEF(TOK_builtin_constant_p, "__builtin_constant_p")
-     DEF(TOK_builtin_frame_address, "__builtin_frame_address")
-     DEF(TOK_builtin_return_address, "__builtin_return_address")
+     DEF(TOK_builtin_چوکھٹا_پتہ, "__builtin_frame_address")
+     DEF(TOK_builtin_return_پتہ, "__builtin_return_address")
      DEF(TOK_builtin_expect, "__builtin_expect")
      DEF(TOK_builtin_unreachable, "__builtin_unreachable")
      /*DEF(TOK_builtin_va_list, "__builtin_va_list")*/
-#if defined TCC_TARGET_PE && defined TCC_TARGET_X86_64
-     DEF(TOK_builtin_va_start, "__builtin_va_start")
-#elif defined TCC_TARGET_X86_64
+#إذا defined TCC_نشانہ_PE && defined TCC_نشانہ_X86_64
+     DEF(TOK_builtin_va_شروع, "__builtin_va_start")
+#وإلاإذا defined TCC_نشانہ_X86_64
      DEF(TOK_builtin_va_arg_types, "__builtin_va_arg_types")
-#elif defined TCC_TARGET_ARM64
-     DEF(TOK_builtin_va_start, "__builtin_va_start")
+#وإلاإذا defined TCC_نشانہ_ARM64
+     DEF(TOK_builtin_va_شروع, "__builtin_va_start")
      DEF(TOK_builtin_va_arg, "__builtin_va_arg")
-#elif defined TCC_TARGET_RISCV64
-     DEF(TOK_builtin_va_start, "__builtin_va_start")
-#endif
+#وإلاإذا defined TCC_نشانہ_RISCV64
+     DEF(TOK_builtin_va_شروع, "__builtin_va_start")
+#جے_انت
 
 /* atomic operations */
-#define DEF_ATOMIC(ID) DEF(TOK_##__##ID, "__"#ID)
+#تعریف_کرو DEF_ATOMIC(ID) DEF(TOK_##__##ID, "__"#ID)
      DEF_ATOMIC(atomic_store)
      DEF_ATOMIC(atomic_load)
      DEF_ATOMIC(atomic_exchange)
@@ -196,7 +196,7 @@
      DEF_ATOMIC(atomic_fetch_xor)
      DEF_ATOMIC(atomic_fetch_and)
      DEF_ATOMIC(atomic_fetch_nand)
-     DEF_ATOMIC(atomic_add_fetch)
+     DEF_ATOMIC(atomic_جوڑو_fetch)
      DEF_ATOMIC(atomic_sub_fetch)
      DEF_ATOMIC(atomic_or_fetch)
      DEF_ATOMIC(atomic_xor_fetch)
@@ -205,22 +205,22 @@
 
 /* pragma */
      DEF(TOK_pack, "pack")
-#if !defined(TCC_TARGET_I386) && !defined(TCC_TARGET_X86_64) && \
-    !defined(TCC_TARGET_ARM) && !defined(TCC_TARGET_ARM64) && \
-    !defined(TCC_TARGET_RISCV64)
+#إذا !defined(TCC_نشانہ_I386) && !defined(TCC_نشانہ_X86_64) && \
+    !defined(TCC_نشانہ_ARM) && !defined(TCC_نشانہ_ARM64) && \
+    !defined(TCC_نشانہ_RISCV64)
      /* already defined for assembler */
-     DEF(TOK_ASM_push, "push")
-     DEF(TOK_ASM_pop, "pop")
-#endif
+     DEF(TOK_ASM_ڈالو, "push")
+     DEF(TOK_ASM_نکالو, "pop")
+#جے_انت
      DEF(TOK_comment, "comment")
      DEF(TOK_lib, "lib")
-     DEF(TOK_push_macro, "push_macro")
-     DEF(TOK_pop_macro, "pop_macro")
+     DEF(TOK_ڈالو_macro, "push_macro")
+     DEF(TOK_نکالو_macro, "pop_macro")
      DEF(TOK_once, "once")
      DEF(TOK_option, "option")
 
 /* builtin functions or variables */
-#ifndef TCC_ARM_EABI
+#جے_بنا_تعریف TCC_ARM_EABI
      DEF(TOK_memcpy, "memcpy")
      DEF(TOK_memmove, "memmove")
      DEF(TOK_memset, "memset")
@@ -239,9 +239,9 @@
 # endif
      DEF(TOK___fixunssfdi, "__fixunssfdi")
      DEF(TOK___fixunsdfdi, "__fixunsdfdi")
-#endif
+#جے_انت
 
-#if defined TCC_TARGET_ARM
+#إذا defined TCC_نشانہ_ARM
 # ifdef TCC_ARM_EABI
      DEF(TOK_memcpy, "__aeabi_memcpy")
      DEF(TOK_memmove, "__aeabi_memmove")
@@ -265,7 +265,7 @@
      DEF(TOK___floatundidf, "__aeabi_ul2d")
      DEF(TOK___fixunssfdi, "__aeabi_f2ulz")
      DEF(TOK___fixunsdfdi, "__aeabi_d2ulz")
-# else
+# وإلا
      DEF(TOK___modsi3, "__modsi3")
      DEF(TOK___umodsi3, "__umodsi3")
      DEF(TOK___divsi3, "__divsi3")
@@ -282,39 +282,39 @@
      DEF(TOK___fixsfdi, "__fixsfdi")
      DEF(TOK___fixdfdi, "__fixdfdi")
 # endif
-#endif
+#جے_انت
 
-#if defined TCC_TARGET_C67
+#إذا defined TCC_نشانہ_C67
      DEF(TOK__divi, "_divi")
      DEF(TOK__divu, "_divu")
      DEF(TOK__divf, "_divf")
      DEF(TOK__divd, "_divd")
      DEF(TOK__remi, "_remi")
      DEF(TOK__remu, "_remu")
-#endif
+#جے_انت
 
-#if defined TCC_TARGET_I386
+#إذا defined TCC_نشانہ_I386
      DEF(TOK___fixsfdi, "__fixsfdi")
      DEF(TOK___fixdfdi, "__fixdfdi")
      DEF(TOK___fixxfdi, "__fixxfdi")
-#endif
-#if defined TCC_TARGET_X86_64
+#جے_انت
+#إذا defined TCC_نشانہ_X86_64
      DEF(TOK___fixxfdi, "__fixxfdi")
-#endif
+#جے_انت
 
      DEF(TOK_alloca, "alloca")
 
-#if defined TCC_TARGET_PE
+#إذا defined TCC_نشانہ_PE
      DEF(TOK___chkstk, "__chkstk")
-     DEF(TOK___tls_index, "__tls_index")
-#endif
-#ifdef TCC_TARGET_ARM64
+     DEF(TOK_tls_اشاریہ, "__tls_index")
+#جے_انت
+#جے_تعریف_شدہ TCC_نشانہ_ARM64
      DEF(TOK___arm64_clear_cache, "__arm64_clear_cache")
-#endif
-#ifdef TCC_TARGET_RISCV64
+#جے_انت
+#جے_تعریف_شدہ TCC_نشانہ_RISCV64
      DEF(TOK___riscv64_clear_cache, "__riscv64_clear_cache")
-#endif
-#if defined TCC_TARGET_ARM64 || defined TCC_TARGET_RISCV64
+#جے_انت
+#إذا defined TCC_نشانہ_ARM64 || defined TCC_نشانہ_RISCV64
      DEF(TOK___addtf3, "__addtf3")
      DEF(TOK___subtf3, "__subtf3")
      DEF(TOK___multf3, "__multf3")
@@ -338,11 +338,11 @@
      DEF(TOK___letf2, "__letf2")
      DEF(TOK___gttf2, "__gttf2")
      DEF(TOK___getf2, "__getf2")
-#endif
+#جے_انت
 
 /* bound checking symbols */
-#ifdef CONFIG_TCC_BCHECK
-     DEF(TOK___bound_ptr_add, "__bound_ptr_add")
+#جے_تعریف_شدہ CONFIG_TCC_BCHECK
+     DEF(TOK_bound_ptr_جوڑو, "__bound_ptr_add")
      DEF(TOK___bound_ptr_indir1, "__bound_ptr_indir1")
      DEF(TOK___bound_ptr_indir2, "__bound_ptr_indir2")
      DEF(TOK___bound_ptr_indir4, "__bound_ptr_indir4")
@@ -355,11 +355,11 @@
      DEF(TOK___bound_setjmp, "__bound_setjmp")
      DEF(TOK___bound_longjmp, "__bound_longjmp")
      DEF(TOK___bound_new_region, "__bound_new_region")
-# ifdef TCC_TARGET_PE
-#  ifdef TCC_TARGET_X86_64
+# ifdef TCC_نشانہ_PE
+#  ifdef TCC_نشانہ_X86_64
      DEF(TOK___bound_alloca_nr, "__bound_alloca_nr")
 #  endif
-# else
+# وإلا
      DEF(TOK_sigsetjmp, "sigsetjmp")
      DEF(TOK___sigsetjmp, "__sigsetjmp")
      DEF(TOK_siglongjmp, "siglongjmp")
@@ -367,24 +367,24 @@
      DEF(TOK_setjmp, "setjmp")
      DEF(TOK__setjmp, "_setjmp")
      DEF(TOK_longjmp, "longjmp")
-#endif
+#جے_انت
 
 
 /*********************************************************************/
 /* Tiny Assembler */
-#define DEF_ASM(x) DEF(TOK_ASM_ ## x, #x)
-#define DEF_ASMDIR(x) DEF(TOK_ASMDIR_ ## x, "." #x)
-#define TOK_ASM_int TOK_INT
+#تعریف_کرو DEF_ASM(x) DEF(TOK_ASM_ ## x, #x)
+#تعریف_کرو DEF_ASMDIR(x) DEF(TOK_ASMDIR_ ## x, "." #x)
+#تعریف_کرو TOK_ASM_int TOK_INT
 
-#define TOK_ASMDIR_FIRST TOK_ASMDIR_byte
-#define TOK_ASMDIR_LAST TOK_ASMDIR_section
+#تعریف_کرو TOK_ASMDIR_پہلا TOK_ASMDIR_byte
+#تعریف_کرو TOK_ASMDIR_آخری TOK_ASMDIR_section
 
  DEF_ASMDIR(byte)       /* must be first directive */
- DEF_ASMDIR(word)
+ DEF_ASMDIR(لفظ)
  DEF_ASMDIR(align)
  DEF_ASMDIR(balign)
  DEF_ASMDIR(p2align)
- DEF_ASMDIR(set)
+ DEF_ASMDIR(سیٹ)
  DEF_ASMDIR(skip)
  DEF_ASMDIR(space)
  DEF_ASMDIR(string)
@@ -396,12 +396,12 @@
  DEF_ASMDIR(weak)
  DEF_ASMDIR(hidden)
  DEF_ASMDIR(ident)
- DEF_ASMDIR(size)
+ DEF_ASMDIR(ناپ)
  DEF_ASMDIR(type)
- DEF_ASMDIR(text)
- DEF_ASMDIR(data)
+ DEF_ASMDIR(متن)
+ DEF_ASMDIR(انکڑے)
  DEF_ASMDIR(bss)
- DEF_ASMDIR(previous)
+ DEF_ASMDIR(پچھلا)
  DEF_ASMDIR(pushsection)
  DEF_ASMDIR(popsection)
  DEF_ASMDIR(fill)
@@ -409,34 +409,34 @@
  DEF_ASMDIR(endr)
  DEF_ASMDIR(org)
  DEF_ASMDIR(quad)
-#if PTR_SIZE == 4
+#إذا PTR_ناپ == 4
  DEF_ASMDIR(code16)
  DEF_ASMDIR(code32)
-#else
+#وإلا
  DEF_ASMDIR(code64)
-#endif
-#if defined(TCC_TARGET_RISCV64)
+#جے_انت
+#إذا defined(TCC_نشانہ_RISCV64)
  DEF_ASMDIR(option)
-#endif
- DEF_ASMDIR(short)
- DEF_ASMDIR(long)
- DEF_ASMDIR(int)
+#جے_انت
+ DEF_ASMDIR(چھوٹا)
+ DEF_ASMDIR(لما)
+ DEF_ASMDIR(صحيح)
  DEF_ASMDIR(symver)
  DEF_ASMDIR(reloc)
  DEF_ASMDIR(section)    /* must be last directive */
 
-#if defined TCC_TARGET_I386 || defined TCC_TARGET_X86_64
-#include "i386-tok.h"
-#endif
+#إذا defined TCC_نشانہ_I386 || defined TCC_نشانہ_X86_64
+#ضمن "i386-tok.h"
+#جے_انت
 
-#if defined TCC_TARGET_ARM
-#include "arm-tok.h"
-#endif
+#إذا defined TCC_نشانہ_ARM
+#ضمن "arm-tok.h"
+#جے_انت
 
-#if defined TCC_TARGET_ARM64
-#include "arm64-tok.h"
-#endif
+#إذا defined TCC_نشانہ_ARM64
+#ضمن "arm64-tok.h"
+#جے_انت
 
-#if defined TCC_TARGET_RISCV64
-#include "riscv64-tok.h"
-#endif
+#إذا defined TCC_نشانہ_RISCV64
+#ضمن "riscv64-tok.h"
+#جے_انت

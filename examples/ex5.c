@@ -1,8 +1,8 @@
-#include <stdlib.h>
-#include <stdio.h>
+#ضمن <stdlib.h>
+#ضمن <stdio.h>
 
-int main()
+صحيح مکھ()
 {
-    printf("Hello World\n");
-    return 0;
+    لکھو("Hello World\n");
+    أرجع 0;
 }
