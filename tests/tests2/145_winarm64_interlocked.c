@@ -1,12 +1,12 @@
-#include <stdio.h>
-#include <windows.h>
+#ضمن <stdio.h>
+#ضمن <windows.h>
 
 #define PTR(x) ((PVOID)(ULONG_PTR)(x))
 #define CHECK(name, expr) printf("%s: %s\n", name, (expr) ? "yes" : "no")
 
-int main(void)
+صحيح main(فراغ)
 {
-    PVOID volatile slot = PTR(0x1111222233334444ULL);
+    PVOID متطاير slot = PTR(0x1111222233334444ULL);
     PVOID old;
 
     old = InterlockedExchangePointer(&slot, PTR(0x5555666677778888ULL));
@@ -31,5 +31,5 @@ int main(void)
     CHECK("release old", old == PTR(0x9999aaaabbbbccccULL));
     CHECK("release stored", slot == PTR(0xdddd111122223333ULL));
 
-    return 0;
+    ܦܢܐ 0;
 }

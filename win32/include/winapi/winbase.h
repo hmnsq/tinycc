@@ -11,7 +11,7 @@
 #define ZAWPROXYAPI DECLSPEC_IMPORT
 
 #ifdef __cplusplus
-extern "C" {
+خارجي "C" {
 #endif
 
 #define DefineHandleTable(w) ((w),TRUE)
@@ -131,11 +131,11 @@ extern "C" {
 #define SECURITY_SQOS_PRESENT 0x100000
 #define SECURITY_VALID_SQOS_FLAGS 0x1f0000
 
-  typedef struct _OVERLAPPED {
+  تعريفنوع بنية _OVERLAPPED {
     ULONG_PTR Internal;
     ULONG_PTR InternalHigh;
-    union {
-      struct {
+    اتحاد {
+      بنية {
 	DWORD Offset;
 	DWORD OffsetHigh;
       };
@@ -144,13 +144,13 @@ extern "C" {
     HANDLE hEvent;
   } OVERLAPPED,*LPOVERLAPPED;
 
-  typedef struct _SECURITY_ATTRIBUTES {
+  تعريفنوع بنية _SECURITY_ATTRIBUTES {
     DWORD nLength;
     LPVOID lpSecurityDescriptor;
     WINBOOL bInheritHandle;
   } SECURITY_ATTRIBUTES,*PSECURITY_ATTRIBUTES,*LPSECURITY_ATTRIBUTES;
 
-  typedef struct _PROCESS_INFORMATION {
+  تعريفنوع بنية _PROCESS_INFORMATION {
     HANDLE hProcess;
     HANDLE hThread;
     DWORD dwProcessId;
@@ -159,13 +159,13 @@ extern "C" {
 
 #ifndef _FILETIME_
 #define _FILETIME_
-  typedef struct _FILETIME {
+  تعريفنوع بنية _FILETIME {
     DWORD dwLowDateTime;
     DWORD dwHighDateTime;
   } FILETIME,*PFILETIME,*LPFILETIME;
 #endif
 
-  typedef struct _SYSTEMTIME {
+  تعريفنوع بنية _SYSTEMTIME {
     WORD wYear;
     WORD wMonth;
     WORD wDayOfWeek;
@@ -176,17 +176,17 @@ extern "C" {
     WORD wMilliseconds;
   } SYSTEMTIME,*PSYSTEMTIME,*LPSYSTEMTIME;
 
-  typedef DWORD (WINAPI *PTHREAD_START_ROUTINE)(LPVOID lpThreadParameter);
-  typedef PTHREAD_START_ROUTINE LPTHREAD_START_ROUTINE;
-  typedef VOID (WINAPI *PFIBER_START_ROUTINE)(LPVOID lpFiberParameter);
-  typedef PFIBER_START_ROUTINE LPFIBER_START_ROUTINE;
+  تعريفنوع DWORD (WINAPI *PTHREAD_START_ROUTINE)(LPVOID lpThreadParameter);
+  تعريفنوع PTHREAD_START_ROUTINE LPTHREAD_START_ROUTINE;
+  تعريفنوع VOID (WINAPI *PFIBER_START_ROUTINE)(LPVOID lpFiberParameter);
+  تعريفنوع PFIBER_START_ROUTINE LPFIBER_START_ROUTINE;
 
-  typedef RTL_CRITICAL_SECTION CRITICAL_SECTION;
-  typedef PRTL_CRITICAL_SECTION PCRITICAL_SECTION;
-  typedef PRTL_CRITICAL_SECTION LPCRITICAL_SECTION;
-  typedef RTL_CRITICAL_SECTION_DEBUG CRITICAL_SECTION_DEBUG;
-  typedef PRTL_CRITICAL_SECTION_DEBUG PCRITICAL_SECTION_DEBUG;
-  typedef PRTL_CRITICAL_SECTION_DEBUG LPCRITICAL_SECTION_DEBUG;
+  تعريفنوع RTL_CRITICAL_SECTION CRITICAL_SECTION;
+  تعريفنوع PRTL_CRITICAL_SECTION PCRITICAL_SECTION;
+  تعريفنوع PRTL_CRITICAL_SECTION LPCRITICAL_SECTION;
+  تعريفنوع RTL_CRITICAL_SECTION_DEBUG CRITICAL_SECTION_DEBUG;
+  تعريفنوع PRTL_CRITICAL_SECTION_DEBUG PCRITICAL_SECTION_DEBUG;
+  تعريفنوع PRTL_CRITICAL_SECTION_DEBUG LPCRITICAL_SECTION_DEBUG;
 
   WINBASEAPI PVOID WINAPI EncodePointer(PVOID Ptr);
   WINBASEAPI PVOID WINAPI DecodePointer(PVOID Ptr);
@@ -194,9 +194,9 @@ extern "C" {
   WINBASEAPI PVOID WINAPI DecodeSystemPointer(PVOID Ptr);
 
 #ifdef I_X86_
-  typedef PLDT_ENTRY LPLDT_ENTRY;
-#else
-  typedef LPVOID LPLDT_ENTRY;
+  تعريفنوع PLDT_ENTRY LPLDT_ENTRY;
+#ܐܚܪܢܐ
+  تعريفنوع LPVOID LPLDT_ENTRY;
 #endif
 
 #define MUTEX_MODIFY_STATE MUTANT_QUERY_STATE
@@ -274,7 +274,7 @@ extern "C" {
 #define PARITY_MARK ((WORD)0x800)
 #define PARITY_SPACE ((WORD)0x1000)
 
-  typedef struct _COMMPROP {
+  تعريفنوع بنية _COMMPROP {
     WORD wPacketLength;
     WORD wPacketVersion;
     DWORD dwServiceMask;
@@ -297,7 +297,7 @@ extern "C" {
 
 #define COMMPROP_INITIALIZED ((DWORD)0xE73CF52E)
 
-  typedef struct _COMSTAT {
+  تعريفنوع بنية _COMSTAT {
     DWORD fCtsHold : 1;
     DWORD fDsrHold : 1;
     DWORD fRlsdHold : 1;
@@ -319,7 +319,7 @@ extern "C" {
 #define RTS_CONTROL_HANDSHAKE 0x2
 #define RTS_CONTROL_TOGGLE 0x3
 
-  typedef struct _DCB {
+  تعريفنوع بنية _DCB {
     DWORD DCBlength;
     DWORD BaudRate;
     DWORD fBinary: 1;
@@ -342,15 +342,15 @@ extern "C" {
     BYTE ByteSize;
     BYTE Parity;
     BYTE StopBits;
-    char XonChar;
-    char XoffChar;
-    char ErrorChar;
-    char EofChar;
-    char EvtChar;
+    حرف XonChar;
+    حرف XoffChar;
+    حرف ErrorChar;
+    حرف EofChar;
+    حرف EvtChar;
     WORD wReserved1;
   } DCB,*LPDCB;
 
-  typedef struct _COMMTIMEOUTS {
+  تعريفنوع بنية _COMMTIMEOUTS {
     DWORD ReadIntervalTimeout;
     DWORD ReadTotalTimeoutMultiplier;
     DWORD ReadTotalTimeoutConstant;
@@ -358,7 +358,7 @@ extern "C" {
     DWORD WriteTotalTimeoutConstant;
   } COMMTIMEOUTS,*LPCOMMTIMEOUTS;
 
-  typedef struct _COMMCONFIG {
+  تعريفنوع بنية _COMMCONFIG {
     DWORD dwSize;
     WORD wVersion;
     WORD wReserved;
@@ -369,10 +369,10 @@ extern "C" {
     WCHAR wcProviderData[1];
   } COMMCONFIG,*LPCOMMCONFIG;
 
-  typedef struct _SYSTEM_INFO {
-    union {
+  تعريفنوع بنية _SYSTEM_INFO {
+    اتحاد {
       DWORD dwOemId;
-      struct {
+      بنية {
 	WORD wProcessorArchitecture;
 	WORD wReserved;
       };
@@ -417,7 +417,7 @@ extern "C" {
 #define GMEM_DISCARDED 0x4000
 #define GMEM_LOCKCOUNT 0xff
 
-  typedef struct _MEMORYSTATUS {
+  تعريفنوع بنية _MEMORYSTATUS {
     DWORD dwLength;
     DWORD dwMemoryLoad;
     SIZE_T dwTotalPhys;
@@ -499,18 +499,18 @@ extern "C" {
 #define OUTPUT_DEBUG_STRING_EVENT 8
 #define RIP_EVENT 9
 
-  typedef struct _EXCEPTION_DEBUG_INFO {
+  تعريفنوع بنية _EXCEPTION_DEBUG_INFO {
     EXCEPTION_RECORD ExceptionRecord;
     DWORD dwFirstChance;
   } EXCEPTION_DEBUG_INFO,*LPEXCEPTION_DEBUG_INFO;
 
-  typedef struct _CREATE_THREAD_DEBUG_INFO {
+  تعريفنوع بنية _CREATE_THREAD_DEBUG_INFO {
     HANDLE hThread;
     LPVOID lpThreadLocalBase;
     LPTHREAD_START_ROUTINE lpStartAddress;
   } CREATE_THREAD_DEBUG_INFO,*LPCREATE_THREAD_DEBUG_INFO;
 
-  typedef struct _CREATE_PROCESS_DEBUG_INFO {
+  تعريفنوع بنية _CREATE_PROCESS_DEBUG_INFO {
     HANDLE hFile;
     HANDLE hProcess;
     HANDLE hThread;
@@ -523,15 +523,15 @@ extern "C" {
     WORD fUnicode;
   } CREATE_PROCESS_DEBUG_INFO,*LPCREATE_PROCESS_DEBUG_INFO;
 
-  typedef struct _EXIT_THREAD_DEBUG_INFO {
+  تعريفنوع بنية _EXIT_THREAD_DEBUG_INFO {
     DWORD dwExitCode;
   } EXIT_THREAD_DEBUG_INFO,*LPEXIT_THREAD_DEBUG_INFO;
 
-  typedef struct _EXIT_PROCESS_DEBUG_INFO {
+  تعريفنوع بنية _EXIT_PROCESS_DEBUG_INFO {
     DWORD dwExitCode;
   } EXIT_PROCESS_DEBUG_INFO,*LPEXIT_PROCESS_DEBUG_INFO;
 
-  typedef struct _LOAD_DLL_DEBUG_INFO {
+  تعريفنوع بنية _LOAD_DLL_DEBUG_INFO {
     HANDLE hFile;
     LPVOID lpBaseOfDll;
     DWORD dwDebugInfoFileOffset;
@@ -540,26 +540,26 @@ extern "C" {
     WORD fUnicode;
   } LOAD_DLL_DEBUG_INFO,*LPLOAD_DLL_DEBUG_INFO;
 
-  typedef struct _UNLOAD_DLL_DEBUG_INFO {
+  تعريفنوع بنية _UNLOAD_DLL_DEBUG_INFO {
     LPVOID lpBaseOfDll;
   } UNLOAD_DLL_DEBUG_INFO,*LPUNLOAD_DLL_DEBUG_INFO;
 
-  typedef struct _OUTPUT_DEBUG_STRING_INFO {
+  تعريفنوع بنية _OUTPUT_DEBUG_STRING_INFO {
     LPSTR lpDebugStringData;
     WORD fUnicode;
     WORD nDebugStringLength;
   } OUTPUT_DEBUG_STRING_INFO,*LPOUTPUT_DEBUG_STRING_INFO;
 
-  typedef struct _RIP_INFO {
+  تعريفنوع بنية _RIP_INFO {
     DWORD dwError;
     DWORD dwType;
   } RIP_INFO,*LPRIP_INFO;
 
-  typedef struct _DEBUG_EVENT {
+  تعريفنوع بنية _DEBUG_EVENT {
     DWORD dwDebugEventCode;
     DWORD dwProcessId;
     DWORD dwThreadId;
-    union {
+    اتحاد {
       EXCEPTION_DEBUG_INFO Exception;
       CREATE_THREAD_DEBUG_INFO CreateThread;
       CREATE_PROCESS_DEBUG_INFO CreateProcessInfo;
@@ -572,9 +572,9 @@ extern "C" {
     } u;
   } DEBUG_EVENT,*LPDEBUG_EVENT;
 
-  typedef PCONTEXT LPCONTEXT;
-  typedef PEXCEPTION_RECORD LPEXCEPTION_RECORD;
-  typedef PEXCEPTION_POINTERS LPEXCEPTION_POINTERS;
+  تعريفنوع PCONTEXT LPCONTEXT;
+  تعريفنوع PEXCEPTION_RECORD LPEXCEPTION_RECORD;
+  تعريفنوع PEXCEPTION_POINTERS LPEXCEPTION_POINTERS;
 
 #define DRIVE_UNKNOWN 0
 #define DRIVE_NO_ROOT_DIR 1
@@ -751,7 +751,7 @@ extern "C" {
 #define OF_REOPEN 0x8000
 
 #define OFS_MAXPATHNAME 128
-  typedef struct _OFSTRUCT {
+  تعريفنوع بنية _OFSTRUCT {
     BYTE cBytes;
     BYTE fFixedDisk;
     WORD nErrCode;
@@ -764,7 +764,7 @@ extern "C" {
 
 #ifndef _NTOS_
 
-#if defined(__ia64__) && !defined(RC_INVOKED)
+#ܐܢ defined(__ia64__) && !defined(RC_INVOKED)
 
 #define InterlockedIncrement _InterlockedIncrement
 #define InterlockedIncrementAcquire _InterlockedIncrement_acq
@@ -791,107 +791,107 @@ extern "C" {
 #define InterlockedCompareExchangeAcquire64 _InterlockedCompareExchange64_acq
 #define InterlockedCompareExchangeRelease64 _InterlockedCompareExchange64_rel
 
-  LONGLONG __cdecl InterlockedIncrement64(LONGLONG volatile *Addend);
-  LONGLONG __cdecl InterlockedDecrement64(LONGLONG volatile *Addend);
-  LONG __cdecl InterlockedIncrementAcquire(LONG volatile *Addend);
-  LONG __cdecl InterlockedDecrementAcquire(LONG volatile *Addend);
-  LONG __cdecl InterlockedIncrementRelease(LONG volatile *Addend);
-  LONG __cdecl InterlockedDecrementRelease(LONG volatile *Addend);
-  LONGLONG __cdecl InterlockedExchange64 (LONGLONG volatile *Target,LONGLONG Value);
-  LONGLONG __cdecl InterlockedExchangeAcquire64 (LONGLONG volatile *Target,LONGLONG Value);
-  LONGLONG __cdecl InterlockedExchangeAdd64 (LONGLONG volatile *Addend,LONGLONG Value);
-  LONGLONG __cdecl InterlockedCompareExchange64 (LONGLONG volatile *Destination,LONGLONG ExChange,LONGLONG Comperand);
-  LONGLONG __cdecl InterlockedCompareExchangeAcquire64 (LONGLONG volatile *Destination,LONGLONG ExChange,LONGLONG Comperand);
-  LONGLONG __cdecl InterlockedCompareExchangeRelease64 (LONGLONG volatile *Destination,LONGLONG ExChange,LONGLONG Comperand);
-  LONG __cdecl InterlockedIncrement(LONG volatile *lpAddend);
-  LONG __cdecl InterlockedDecrement(LONG volatile *lpAddend);
-  LONG __cdecl InterlockedExchange(LONG volatile *Target,LONG Value);
-  LONG __cdecl InterlockedExchangeAdd(LONG volatile *Addend,LONG Value);
-  LONG __cdecl InterlockedCompareExchange(LONG volatile *Destination,LONG ExChange,LONG Comperand);
-  LONG __cdecl InterlockedCompareExchangeRelease(LONG volatile *Destination,LONG ExChange,LONG Comperand);
-  LONG __cdecl InterlockedCompareExchangeAcquire(LONG volatile *Destination,LONG ExChange,LONG Comperand);
-  PVOID __cdecl InterlockedExchangePointer(PVOID volatile *Target,PVOID Value);
-  PVOID __cdecl InterlockedCompareExchangePointer(PVOID volatile *Destination,PVOID ExChange,PVOID Comperand);
-  PVOID __cdecl InterlockedCompareExchangePointerAcquire(PVOID volatile *Destination,PVOID Exchange,PVOID Comperand);
-  PVOID __cdecl InterlockedCompareExchangePointerRelease(PVOID volatile *Destination,PVOID Exchange,PVOID Comperand);
+  LONGLONG __cdecl InterlockedIncrement64(LONGLONG متطاير *Addend);
+  LONGLONG __cdecl InterlockedDecrement64(LONGLONG متطاير *Addend);
+  LONG __cdecl InterlockedIncrementAcquire(LONG متطاير *Addend);
+  LONG __cdecl InterlockedDecrementAcquire(LONG متطاير *Addend);
+  LONG __cdecl InterlockedIncrementRelease(LONG متطاير *Addend);
+  LONG __cdecl InterlockedDecrementRelease(LONG متطاير *Addend);
+  LONGLONG __cdecl InterlockedExchange64 (LONGLONG متطاير *Target,LONGLONG Value);
+  LONGLONG __cdecl InterlockedExchangeAcquire64 (LONGLONG متطاير *Target,LONGLONG Value);
+  LONGLONG __cdecl InterlockedExchangeAdd64 (LONGLONG متطاير *Addend,LONGLONG Value);
+  LONGLONG __cdecl InterlockedCompareExchange64 (LONGLONG متطاير *Destination,LONGLONG ExChange,LONGLONG Comperand);
+  LONGLONG __cdecl InterlockedCompareExchangeAcquire64 (LONGLONG متطاير *Destination,LONGLONG ExChange,LONGLONG Comperand);
+  LONGLONG __cdecl InterlockedCompareExchangeRelease64 (LONGLONG متطاير *Destination,LONGLONG ExChange,LONGLONG Comperand);
+  LONG __cdecl InterlockedIncrement(LONG متطاير *lpAddend);
+  LONG __cdecl InterlockedDecrement(LONG متطاير *lpAddend);
+  LONG __cdecl InterlockedExchange(LONG متطاير *Target,LONG Value);
+  LONG __cdecl InterlockedExchangeAdd(LONG متطاير *Addend,LONG Value);
+  LONG __cdecl InterlockedCompareExchange(LONG متطاير *Destination,LONG ExChange,LONG Comperand);
+  LONG __cdecl InterlockedCompareExchangeRelease(LONG متطاير *Destination,LONG ExChange,LONG Comperand);
+  LONG __cdecl InterlockedCompareExchangeAcquire(LONG متطاير *Destination,LONG ExChange,LONG Comperand);
+  PVOID __cdecl InterlockedExchangePointer(PVOID متطاير *Target,PVOID Value);
+  PVOID __cdecl InterlockedCompareExchangePointer(PVOID متطاير *Destination,PVOID ExChange,PVOID Comperand);
+  PVOID __cdecl InterlockedCompareExchangePointerAcquire(PVOID متطاير *Destination,PVOID Exchange,PVOID Comperand);
+  PVOID __cdecl InterlockedCompareExchangePointerRelease(PVOID متطاير *Destination,PVOID Exchange,PVOID Comperand);
 
 #ifndef InterlockedAnd
 #define InterlockedAnd InterlockedAnd_Inline
-  __CRT_INLINE LONG InterlockedAnd_Inline(LONG volatile *Target,LONG Set) {
+  __CRT_INLINE LONG InterlockedAnd_Inline(LONG متطاير *Target,LONG Set) {
     LONG i;
     LONG j;
     j = *Target;
-    do {
+    ܥܒܕ {
       i = j;
       j = InterlockedCompareExchange(Target,i & Set,i);
-    } while(i!=j);
-    return j;
+    } ܟܡܐ(i!=j);
+    ܦܢܐ j;
   }
 #endif
 
 #ifndef InterlockedOr
 #define InterlockedOr InterlockedOr_Inline
 
-  __CRT_INLINE LONG InterlockedOr_Inline(LONG volatile *Target,LONG Set) {
+  __CRT_INLINE LONG InterlockedOr_Inline(LONG متطاير *Target,LONG Set) {
     LONG i;
     LONG j;
     j = *Target;
-    do {
+    ܥܒܕ {
       i = j;
       j = InterlockedCompareExchange(Target,i | Set,i);
-    } while(i!=j);
-    return j;
+    } ܟܡܐ(i!=j);
+    ܦܢܐ j;
   }
 #endif
 
 #ifndef InterlockedXor
 #define InterlockedXor InterlockedXor_Inline
 
-  __CRT_INLINE LONG InterlockedXor_Inline(LONG volatile *Target,LONG Set) {
+  __CRT_INLINE LONG InterlockedXor_Inline(LONG متطاير *Target,LONG Set) {
     LONG i;
     LONG j;
     j = *Target;
-    do {
+    ܥܒܕ {
       i = j;
       j = InterlockedCompareExchange(Target,i ^ Set,i);
-    } while(i!=j);
-    return j;
+    } ܟܡܐ(i!=j);
+    ܦܢܐ j;
   }
 #endif
 
 #ifndef InterlockedAnd64
 #define InterlockedAnd64 InterlockedAnd64_Inline
 
-  __CRT_INLINE LONGLONG InterlockedAnd64_Inline (LONGLONG volatile *Destination,LONGLONG Value) {
+  __CRT_INLINE LONGLONG InterlockedAnd64_Inline (LONGLONG متطاير *Destination,LONGLONG Value) {
     LONGLONG Old;
-    do {
+    ܥܒܕ {
       Old = *Destination;
-    } while(InterlockedCompareExchange64(Destination,Old & Value,Old)!=Old);
-    return Old;
+    } ܟܡܐ(InterlockedCompareExchange64(Destination,Old & Value,Old)!=Old);
+    ܦܢܐ Old;
   }
 #endif
 
 #ifndef InterlockedOr64
 #define InterlockedOr64 InterlockedOr64_Inline
 
-  __CRT_INLINE LONGLONG InterlockedOr64_Inline (LONGLONG volatile *Destination,LONGLONG Value) {
+  __CRT_INLINE LONGLONG InterlockedOr64_Inline (LONGLONG متطاير *Destination,LONGLONG Value) {
     LONGLONG Old;
-    do {
+    ܥܒܕ {
       Old = *Destination;
-    } while(InterlockedCompareExchange64(Destination,Old | Value,Old)!=Old);
-    return Old;
+    } ܟܡܐ(InterlockedCompareExchange64(Destination,Old | Value,Old)!=Old);
+    ܦܢܐ Old;
   }
 #endif
 
 #ifndef InterlockedXor64
 #define InterlockedXor64 InterlockedXor64_Inline
 
-  __CRT_INLINE LONGLONG InterlockedXor64_Inline (LONGLONG volatile *Destination,LONGLONG Value) {
+  __CRT_INLINE LONGLONG InterlockedXor64_Inline (LONGLONG متطاير *Destination,LONGLONG Value) {
     LONGLONG Old;
-    do {
+    ܥܒܕ {
       Old = *Destination;
-    } while(InterlockedCompareExchange64(Destination,Old ^ Value,Old)!=Old);
-    return Old;
+    } ܟܡܐ(InterlockedCompareExchange64(Destination,Old ^ Value,Old)!=Old);
+    ܦܢܐ Old;
   }
 #endif
 
@@ -900,8 +900,8 @@ extern "C" {
 
   __CRT_INLINE BOOLEAN InterlockedBitTestAndSet_Inline(LONG *Base,LONG Bit) {
     LONG tBit;
-    tBit = 1<<(Bit & (sizeof (*Base)*8-1));
-    return (BOOLEAN)((InterlockedOr(&Base[Bit/(sizeof(*Base)*8)],tBit)&tBit)!=0);
+    tBit = 1<<(Bit & (حجم (*Base)*8-1));
+    ܦܢܐ (BOOLEAN)((InterlockedOr(&Base[Bit/(حجم(*Base)*8)],tBit)&tBit)!=0);
   }
 #endif
 
@@ -910,8 +910,8 @@ extern "C" {
 
   __CRT_INLINE BOOLEAN InterlockedBitTestAndReset_Inline(LONG *Base,LONG Bit) {
     LONG tBit;
-    tBit = 1<<(Bit & (sizeof (*Base)*8-1));
-    return (BOOLEAN)((InterlockedAnd(&Base[Bit/(sizeof(*Base)*8)],~tBit)&tBit)!=0);
+    tBit = 1<<(Bit & (حجم (*Base)*8-1));
+    ܦܢܐ (BOOLEAN)((InterlockedAnd(&Base[Bit/(حجم(*Base)*8)],~tBit)&tBit)!=0);
   }
 #endif
 
@@ -920,11 +920,11 @@ extern "C" {
 
   __CRT_INLINE BOOLEAN InterlockedBitTestAndComplement_Inline(LONG *Base,LONG Bit) {
     LONG tBit;
-    tBit = 1<<(Bit & (sizeof (*Base)*8-1));
-    return (BOOLEAN)((InterlockedXor(&Base[Bit/(sizeof(*Base)*8)],tBit)&tBit)!=0);
+    tBit = 1<<(Bit & (حجم (*Base)*8-1));
+    ܦܢܐ (BOOLEAN)((InterlockedXor(&Base[Bit/(حجم(*Base)*8)],tBit)&tBit)!=0);
   }
 #endif
-#elif defined(__x86_64) && !defined(RC_INVOKED)
+#وإلاإذا defined(__x86_64) && !defined(RC_INVOKED)
 
 #define InterlockedIncrement _InterlockedIncrement
 #define InterlockedIncrementAcquire InterlockedIncrement
@@ -952,99 +952,99 @@ extern "C" {
 #define InterlockedCompareExchangeAcquire64 InterlockedCompareExchange64
 #define InterlockedCompareExchangeRelease64 InterlockedCompareExchange64
 
-  LONG InterlockedIncrement(LONG volatile *Addend);
-  LONG InterlockedDecrement(LONG volatile *Addend);
-  LONG InterlockedExchange(LONG volatile *Target,LONG Value);
-  LONG InterlockedExchangeAdd(LONG volatile *Addend,LONG Value);
-  LONG InterlockedCompareExchange(LONG volatile *Destination,LONG ExChange,LONG Comperand);
-  PVOID InterlockedCompareExchangePointer(PVOID volatile *Destination,PVOID Exchange,PVOID Comperand);
-  PVOID InterlockedExchangePointer(PVOID volatile *Target,PVOID Value);
-  LONG64 InterlockedAnd64(LONG64 volatile *Destination,LONG64 Value);
-  LONG64 InterlockedOr64(LONG64 volatile *Destination,LONG64 Value);
-  LONG64 InterlockedXor64(LONG64 volatile *Destination,LONG64 Value);
-  LONG64 InterlockedIncrement64(LONG64 volatile *Addend);
-  LONG64 InterlockedDecrement64(LONG64 volatile *Addend);
-  LONG64 InterlockedExchange64(LONG64 volatile *Target,LONG64 Value);
-  LONG64 InterlockedExchangeAdd64(LONG64 volatile *Addend,LONG64 Value);
-  LONG64 InterlockedCompareExchange64(LONG64 volatile *Destination,LONG64 ExChange,LONG64 Comperand);
-#else
-  LONG WINAPI InterlockedIncrement(LONG volatile *lpAddend);
-  LONG WINAPI InterlockedDecrement(LONG volatile *lpAddend);
-  LONG WINAPI InterlockedExchange(LONG volatile *Target,LONG Value);
+  LONG InterlockedIncrement(LONG متطاير *Addend);
+  LONG InterlockedDecrement(LONG متطاير *Addend);
+  LONG InterlockedExchange(LONG متطاير *Target,LONG Value);
+  LONG InterlockedExchangeAdd(LONG متطاير *Addend,LONG Value);
+  LONG InterlockedCompareExchange(LONG متطاير *Destination,LONG ExChange,LONG Comperand);
+  PVOID InterlockedCompareExchangePointer(PVOID متطاير *Destination,PVOID Exchange,PVOID Comperand);
+  PVOID InterlockedExchangePointer(PVOID متطاير *Target,PVOID Value);
+  LONG64 InterlockedAnd64(LONG64 متطاير *Destination,LONG64 Value);
+  LONG64 InterlockedOr64(LONG64 متطاير *Destination,LONG64 Value);
+  LONG64 InterlockedXor64(LONG64 متطاير *Destination,LONG64 Value);
+  LONG64 InterlockedIncrement64(LONG64 متطاير *Addend);
+  LONG64 InterlockedDecrement64(LONG64 متطاير *Addend);
+  LONG64 InterlockedExchange64(LONG64 متطاير *Target,LONG64 Value);
+  LONG64 InterlockedExchangeAdd64(LONG64 متطاير *Addend,LONG64 Value);
+  LONG64 InterlockedCompareExchange64(LONG64 متطاير *Destination,LONG64 ExChange,LONG64 Comperand);
+#ܐܚܪܢܐ
+  LONG WINAPI InterlockedIncrement(LONG متطاير *lpAddend);
+  LONG WINAPI InterlockedDecrement(LONG متطاير *lpAddend);
+  LONG WINAPI InterlockedExchange(LONG متطاير *Target,LONG Value);
 
 #ifndef InterlockedExchangePointer
 #define InterlockedExchangePointer(Target,Value) (PVOID)InterlockedExchange((PLONG)(Target),(LONG)(Value))
 #endif
 
-  LONG WINAPI InterlockedExchangeAdd(LONG volatile *Addend,LONG Value);
-  LONG WINAPI InterlockedCompareExchange(LONG volatile *Destination,LONG Exchange,LONG Comperand);
-  LONGLONG WINAPI InterlockedCompareExchange64(LONGLONG volatile *Destination,LONGLONG Exchange,LONGLONG Comperand);
+  LONG WINAPI InterlockedExchangeAdd(LONG متطاير *Addend,LONG Value);
+  LONG WINAPI InterlockedCompareExchange(LONG متطاير *Destination,LONG Exchange,LONG Comperand);
+  LONGLONG WINAPI InterlockedCompareExchange64(LONGLONG متطاير *Destination,LONGLONG Exchange,LONGLONG Comperand);
 
-  __CRT_INLINE LONGLONG InterlockedAnd64 (LONGLONG volatile *Destination,LONGLONG Value) {
+  __CRT_INLINE LONGLONG InterlockedAnd64 (LONGLONG متطاير *Destination,LONGLONG Value) {
     LONGLONG Old;
-    do {
+    ܥܒܕ {
       Old = *Destination;
-    } while(InterlockedCompareExchange64(Destination,Old & Value,Old)!=Old);
-    return Old;
+    } ܟܡܐ(InterlockedCompareExchange64(Destination,Old & Value,Old)!=Old);
+    ܦܢܐ Old;
   }
 
-  __CRT_INLINE LONGLONG InterlockedOr64 (LONGLONG volatile *Destination,LONGLONG Value) {
+  __CRT_INLINE LONGLONG InterlockedOr64 (LONGLONG متطاير *Destination,LONGLONG Value) {
     LONGLONG Old;
-    do {
+    ܥܒܕ {
       Old = *Destination;
-    } while(InterlockedCompareExchange64(Destination,Old | Value,Old)!=Old);
-    return Old;
+    } ܟܡܐ(InterlockedCompareExchange64(Destination,Old | Value,Old)!=Old);
+    ܦܢܐ Old;
   }
 
-  __CRT_INLINE LONGLONG InterlockedXor64 (LONGLONG volatile *Destination,LONGLONG Value) {
+  __CRT_INLINE LONGLONG InterlockedXor64 (LONGLONG متطاير *Destination,LONGLONG Value) {
     LONGLONG Old;
-    do {
+    ܥܒܕ {
       Old = *Destination;
-    } while(InterlockedCompareExchange64(Destination,Old ^ Value,Old)!=Old);
+    } ܟܡܐ(InterlockedCompareExchange64(Destination,Old ^ Value,Old)!=Old);
 
-    return Old;
+    ܦܢܐ Old;
   }
 
-  __CRT_INLINE LONGLONG InterlockedIncrement64(LONGLONG volatile *Addend) {
+  __CRT_INLINE LONGLONG InterlockedIncrement64(LONGLONG متطاير *Addend) {
     LONGLONG Old;
-    do {
+    ܥܒܕ {
       Old = *Addend;
-    } while(InterlockedCompareExchange64(Addend,Old + 1,Old)!=Old);
-    return Old + 1;
+    } ܟܡܐ(InterlockedCompareExchange64(Addend,Old + 1,Old)!=Old);
+    ܦܢܐ Old + 1;
   }
 
-  __CRT_INLINE LONGLONG InterlockedDecrement64(LONGLONG volatile *Addend) {
+  __CRT_INLINE LONGLONG InterlockedDecrement64(LONGLONG متطاير *Addend) {
     LONGLONG Old;
-    do {
+    ܥܒܕ {
       Old = *Addend;
-    } while(InterlockedCompareExchange64(Addend,Old - 1,Old)!=Old);
-    return Old - 1;
+    } ܟܡܐ(InterlockedCompareExchange64(Addend,Old - 1,Old)!=Old);
+    ܦܢܐ Old - 1;
   }
 
-  __CRT_INLINE LONGLONG InterlockedExchange64(LONGLONG volatile *Target,LONGLONG Value) {
+  __CRT_INLINE LONGLONG InterlockedExchange64(LONGLONG متطاير *Target,LONGLONG Value) {
     LONGLONG Old;
-    do {
+    ܥܒܕ {
       Old = *Target;
-    } while(InterlockedCompareExchange64(Target,Value,Old)!=Old);
-    return Old;
+    } ܟܡܐ(InterlockedCompareExchange64(Target,Value,Old)!=Old);
+    ܦܢܐ Old;
   }
 
-  __CRT_INLINE LONGLONG InterlockedExchangeAdd64(LONGLONG volatile *Addend,LONGLONG Value) {
+  __CRT_INLINE LONGLONG InterlockedExchangeAdd64(LONGLONG متطاير *Addend,LONGLONG Value) {
     LONGLONG Old;
-    do {
+    ܥܒܕ {
       Old = *Addend;
-    } while(InterlockedCompareExchange64(Addend,Old + Value,Old)!=Old);
-    return Old;
+    } ܟܡܐ(InterlockedCompareExchange64(Addend,Old + Value,Old)!=Old);
+    ܦܢܐ Old;
   }
 
 #ifndef InterlockedCompareExchangePointer
 #ifdef __cplusplus
-  __CRT_INLINE PVOID __cdecl __InlineInterlockedCompareExchangePointer(PVOID volatile *Destination,PVOID ExChange,PVOID Comperand) {
-    return((PVOID)(LONG_PTR)InterlockedCompareExchange((LONG volatile *)Destination,(LONG)(LONG_PTR)ExChange,(LONG)(LONG_PTR)Comperand));
+  __CRT_INLINE PVOID __cdecl __InlineInterlockedCompareExchangePointer(PVOID متطاير *Destination,PVOID ExChange,PVOID Comperand) {
+    ܦܢܐ((PVOID)(LONG_PTR)InterlockedCompareExchange((LONG متطاير *)Destination,(LONG)(LONG_PTR)ExChange,(LONG)(LONG_PTR)Comperand));
   }
 #define InterlockedCompareExchangePointer __InlineInterlockedCompareExchangePointer
-#else
-#define InterlockedCompareExchangePointer(Destination,ExChange,Comperand)(PVOID)(LONG_PTR)InterlockedCompareExchange((LONG volatile *)(Destination),(LONG)(LONG_PTR)(ExChange),(LONG)(LONG_PTR)(Comperand))
+#ܐܚܪܢܐ
+#define InterlockedCompareExchangePointer(Destination,ExChange,Comperand)(PVOID)(LONG_PTR)InterlockedCompareExchange((LONG متطاير *)(Destination),(LONG)(LONG_PTR)(ExChange),(LONG)(LONG_PTR)(Comperand))
 #endif
 #endif
 
@@ -1066,7 +1066,7 @@ extern "C" {
 #endif
 #endif
 
-#if defined(_SLIST_HEADER_) && !defined(_NTOSP_)
+#ܐܢ defined(_SLIST_HEADER_) && !defined(_NTOSP_)
   WINBASEAPI VOID WINAPI InitializeSListHead(PSLIST_HEADER ListHead);
   WINBASEAPI PSLIST_ENTRY WINAPI InterlockedPopEntrySList(PSLIST_HEADER ListHead);
   WINBASEAPI PSLIST_ENTRY WINAPI InterlockedPushEntrySList(PSLIST_HEADER ListHead,PSLIST_ENTRY ListEntry);
@@ -1084,7 +1084,7 @@ extern "C" {
 #define MAKEINTATOM(i) (LPTSTR)((ULONG_PTR)((WORD)(i)))
 #define INVALID_ATOM ((ATOM)0)
 
-  int WINAPI WinMain(HINSTANCE hInstance,HINSTANCE hPrevInstance,LPSTR lpCmdLine,int nShowCmd);
+  صحيح WINAPI WinMain(HINSTANCE hInstance,HINSTANCE hPrevInstance,LPSTR lpCmdLine,صحيح nShowCmd);
   WINBASEAPI WINBOOL WINAPI FreeLibrary(HMODULE hLibModule);
   WINBASEAPI DECLSPEC_NORETURN VOID WINAPI FreeLibraryAndExitThread(HMODULE hLibModule,DWORD dwExitCode);
   WINBASEAPI WINBOOL WINAPI DisableThreadLibraryCalls(HMODULE hLibModule);
@@ -1105,7 +1105,7 @@ extern "C" {
   WINBASEAPI WINBOOL WINAPI GlobalUnWire(HGLOBAL hMem);
   WINBASEAPI VOID WINAPI GlobalMemoryStatus(LPMEMORYSTATUS lpBuffer);
 
-  typedef struct _MEMORYSTATUSEX {
+  تعريفنوع بنية _MEMORYSTATUSEX {
     DWORD dwLength;
     DWORD dwMemoryLoad;
     DWORDLONG ullTotalPhys;
@@ -1153,18 +1153,18 @@ extern "C" {
   WINBASEAPI HANDLE WINAPI GetProcessHeap(VOID);
   WINBASEAPI DWORD WINAPI GetProcessHeaps(DWORD NumberOfHeaps,PHANDLE ProcessHeaps);
 
-  typedef struct _PROCESS_HEAP_ENTRY {
+  تعريفنوع بنية _PROCESS_HEAP_ENTRY {
     PVOID lpData;
     DWORD cbData;
     BYTE cbOverhead;
     BYTE iRegionIndex;
     WORD wFlags;
-    union {
-      struct {
+    اتحاد {
+      بنية {
 	HANDLE hMem;
 	DWORD dwReserved[3];
       } Block;
-      struct {
+      بنية {
 	DWORD dwCommittedSize;
 	DWORD dwUnCommittedSize;
 	LPVOID lpFirstBlock;
@@ -1200,7 +1200,7 @@ extern "C" {
 #define GetEnvironmentStrings GetEnvironmentStringsW
 #define SetEnvironmentStrings SetEnvironmentStringsW
 #define FreeEnvironmentStrings FreeEnvironmentStringsW
-#else
+#ܐܚܪܢܐ
 #define GetBinaryType GetBinaryTypeA
 #define GetShortPathName GetShortPathNameA
 #define GetLongPathName GetLongPathNameA
@@ -1211,7 +1211,7 @@ extern "C" {
 
 #ifdef _WIN64
 #define SCS_THIS_PLATFORM_BINARY SCS_64BIT_BINARY
-#else
+#ܐܚܪܢܐ
 #define SCS_THIS_PLATFORM_BINARY SCS_32BIT_BINARY
 #endif
 
@@ -1236,7 +1236,7 @@ extern "C" {
   WINBASEAPI DECLSPEC_NORETURN VOID WINAPI ExitProcess(UINT uExitCode);
   WINBASEAPI WINBOOL WINAPI TerminateProcess(HANDLE hProcess,UINT uExitCode);
   WINBASEAPI WINBOOL WINAPI GetExitCodeProcess(HANDLE hProcess,LPDWORD lpExitCode);
-  WINBASEAPI VOID WINAPI FatalExit(int ExitCode);
+  WINBASEAPI VOID WINAPI FatalExit(صحيح ExitCode);
   /*	WINBASEAPI LPCH WINAPI GetEnvironmentStrings(VOID); */
   WINBASEAPI LPWCH WINAPI GetEnvironmentStringsW(VOID);
   WINBASEAPI WINBOOL WINAPI SetEnvironmentStringsA(LPCH NewEnvironment);
@@ -1244,10 +1244,10 @@ extern "C" {
   WINBASEAPI WINBOOL WINAPI FreeEnvironmentStringsA(LPCH);
   WINBASEAPI WINBOOL WINAPI FreeEnvironmentStringsW(LPWCH);
   WINBASEAPI VOID WINAPI RaiseException(DWORD dwExceptionCode,DWORD dwExceptionFlags,DWORD nNumberOfArguments,CONST ULONG_PTR *lpArguments);
-  WINBASEAPI LONG WINAPI UnhandledExceptionFilter(struct _EXCEPTION_POINTERS *ExceptionInfo);
+  WINBASEAPI LONG WINAPI UnhandledExceptionFilter(بنية _EXCEPTION_POINTERS *ExceptionInfo);
 
-  typedef LONG (WINAPI *PTOP_LEVEL_EXCEPTION_FILTER)(struct _EXCEPTION_POINTERS *ExceptionInfo);
-  typedef PTOP_LEVEL_EXCEPTION_FILTER LPTOP_LEVEL_EXCEPTION_FILTER;
+  تعريفنوع LONG (WINAPI *PTOP_LEVEL_EXCEPTION_FILTER)(بنية _EXCEPTION_POINTERS *ExceptionInfo);
+  تعريفنوع PTOP_LEVEL_EXCEPTION_FILTER LPTOP_LEVEL_EXCEPTION_FILTER;
 
   WINBASEAPI LPTOP_LEVEL_EXCEPTION_FILTER WINAPI SetUnhandledExceptionFilter(LPTOP_LEVEL_EXCEPTION_FILTER lpTopLevelExceptionFilter);
 
@@ -1277,10 +1277,10 @@ extern "C" {
   WINBASEAPI WINBOOL WINAPI RequestWakeupLatency(LATENCY_TIME latency);
   WINBASEAPI WINBOOL WINAPI IsSystemResumeAutomatic(VOID);
   WINBASEAPI HANDLE WINAPI OpenThread(DWORD dwDesiredAccess,WINBOOL bInheritHandle,DWORD dwThreadId);
-  WINBASEAPI WINBOOL WINAPI SetThreadPriority(HANDLE hThread,int nPriority);
+  WINBASEAPI WINBOOL WINAPI SetThreadPriority(HANDLE hThread,صحيح nPriority);
   WINBASEAPI WINBOOL WINAPI SetThreadPriorityBoost(HANDLE hThread,WINBOOL bDisablePriorityBoost);
   WINBASEAPI WINBOOL WINAPI GetThreadPriorityBoost(HANDLE hThread,PBOOL pDisablePriorityBoost);
-  WINBASEAPI int WINAPI GetThreadPriority(HANDLE hThread);
+  WINBASEAPI صحيح WINAPI GetThreadPriority(HANDLE hThread);
   WINBASEAPI WINBOOL WINAPI GetThreadTimes(HANDLE hThread,LPFILETIME lpCreationTime,LPFILETIME lpExitTime,LPFILETIME lpKernelTime,LPFILETIME lpUserTime);
   WINBASEAPI WINBOOL WINAPI GetThreadIOPendingFlag(HANDLE hThread,PBOOL lpIOIsPending);
   WINBASEAPI DECLSPEC_NORETURN VOID WINAPI ExitThread(DWORD dwExitCode);
@@ -1295,7 +1295,7 @@ extern "C" {
 #ifdef WINBASE_DECLARE_RESTORE_LAST_ERROR
   WINBASEAPI VOID WINAPI RestoreLastError(DWORD dwErrCode);
 
-  typedef VOID (WINAPI *PRESTORE_LAST_ERROR)(DWORD);
+  تعريفنوع VOID (WINAPI *PRESTORE_LAST_ERROR)(DWORD);
 
 #define RESTORE_LAST_ERROR_NAME_A "RestoreLastError"
 #define RESTORE_LAST_ERROR_NAME_W L"RestoreLastError"
@@ -1323,7 +1323,7 @@ extern "C" {
   WINBASEAPI DWORD WINAPI SuspendThread(HANDLE hThread);
   WINBASEAPI DWORD WINAPI ResumeThread(HANDLE hThread);
 
-  typedef VOID (WINAPI *PAPCFUNC)(ULONG_PTR dwParam);
+  تعريفنوع VOID (WINAPI *PAPCFUNC)(ULONG_PTR dwParam);
 
   WINBASEAPI DWORD WINAPI QueueUserAPC(PAPCFUNC pfnAPC,HANDLE hThread,ULONG_PTR dwData);
   WINBASEAPI WINBOOL WINAPI IsDebuggerPresent(VOID);
@@ -1366,7 +1366,7 @@ extern "C" {
 
   WINBASEAPI WINBOOL WINAPI UnlockFileEx(HANDLE hFile,DWORD dwReserved,DWORD nNumberOfBytesToUnlockLow,DWORD nNumberOfBytesToUnlockHigh,LPOVERLAPPED lpOverlapped);
 
-  typedef struct _BY_HANDLE_FILE_INFORMATION {
+  تعريفنوع بنية _BY_HANDLE_FILE_INFORMATION {
     DWORD dwFileAttributes;
     FILETIME ftCreationTime;
     FILETIME ftLastAccessTime;
@@ -1381,7 +1381,7 @@ extern "C" {
 
 #ifdef UNICODE
 #define SetFileShortName SetFileShortNameW
-#else
+#ܐܚܪܢܐ
 #define SetFileShortName SetFileShortNameA
 #endif
 
@@ -1436,7 +1436,7 @@ extern "C" {
   WINBASEAPI WINBOOL WINAPI SetCommMask(HANDLE hFile,DWORD dwEvtMask);
   WINBASEAPI WINBOOL WINAPI SetCommState(HANDLE hFile,LPDCB lpDCB);
   WINBASEAPI WINBOOL WINAPI SetCommTimeouts(HANDLE hFile,LPCOMMTIMEOUTS lpCommTimeouts);
-  WINBASEAPI WINBOOL WINAPI TransmitCommChar(HANDLE hFile,char cChar);
+  WINBASEAPI WINBOOL WINAPI TransmitCommChar(HANDLE hFile,حرف cChar);
   WINBASEAPI WINBOOL WINAPI WaitCommEvent(HANDLE hFile,LPDWORD lpEvtMask,LPOVERLAPPED lpOverlapped);
   WINBASEAPI DWORD WINAPI SetTapePosition(HANDLE hDevice,DWORD dwPositionMethod,DWORD dwPartition,DWORD dwOffsetLow,DWORD dwOffsetHigh,WINBOOL bImmediate);
   WINBASEAPI DWORD WINAPI GetTapePosition(HANDLE hDevice,DWORD dwPositionType,LPDWORD lpdwPartition,LPDWORD lpdwOffsetLow,LPDWORD lpdwOffsetHigh);
@@ -1456,7 +1456,7 @@ extern "C" {
 #define SET_TAPE_DRIVE_INFORMATION 1
 
   WINBASEAPI WINBOOL WINAPI Beep(DWORD dwFreq,DWORD dwDuration);
-  WINBASEAPI int WINAPI MulDiv(int nNumber,int nNumerator,int nDenominator);
+  WINBASEAPI صحيح WINAPI MulDiv(صحيح nNumber,صحيح nNumerator,صحيح nDenominator);
   WINBASEAPI VOID WINAPI GetSystemTime(LPSYSTEMTIME lpSystemTime);
   WINBASEAPI VOID WINAPI GetSystemTimeAsFileTime(LPFILETIME lpSystemTimeAsFileTime);
   WINBASEAPI WINBOOL WINAPI SetSystemTime(CONST SYSTEMTIME *lpSystemTime);
@@ -1470,7 +1470,7 @@ extern "C" {
   WINBASEAPI VOID WINAPI GetNativeSystemInfo(LPSYSTEM_INFO lpSystemInfo);
   WINBASEAPI WINBOOL WINAPI IsProcessorFeaturePresent(DWORD ProcessorFeature);
 
-  typedef struct _TIME_ZONE_INFORMATION {
+  تعريفنوع بنية _TIME_ZONE_INFORMATION {
     LONG Bias;
     WCHAR StandardName[32];
     SYSTEMTIME StandardDate;
@@ -1482,7 +1482,7 @@ extern "C" {
 
 #ifdef UNICODE
 #define FormatMessage FormatMessageW
-#else
+#ܐܚܪܢܐ
 #define FormatMessage FormatMessageA
 #endif
 
@@ -1516,7 +1516,7 @@ extern "C" {
 #define EncryptFile EncryptFileW
 #define DecryptFile DecryptFileW
 #define FileEncryptionStatus FileEncryptionStatusW
-#else
+#ܐܚܪܢܐ
 #define CreateMailslot CreateMailslotA
 #define EncryptFile EncryptFileA
 #define DecryptFile DecryptFileA
@@ -1558,8 +1558,8 @@ extern "C" {
 
 #define EFS_USE_RECOVERY_KEYS (0x1)
 
-  typedef DWORD (WINAPI *PFE_EXPORT_FUNC)(PBYTE pbData,PVOID pvCallbackContext,ULONG ulLength);
-  typedef DWORD (WINAPI *PFE_IMPORT_FUNC)(PBYTE pbData,PVOID pvCallbackContext,PULONG ulLength);
+  تعريفنوع DWORD (WINAPI *PFE_EXPORT_FUNC)(PBYTE pbData,PVOID pvCallbackContext,ULONG ulLength);
+  تعريفنوع DWORD (WINAPI *PFE_IMPORT_FUNC)(PBYTE pbData,PVOID pvCallbackContext,PULONG ulLength);
 
 #define CREATE_FOR_IMPORT (1)
 #define CREATE_FOR_DIR (2)
@@ -1573,7 +1573,7 @@ extern "C" {
 #define lstrcpy lstrcpyW
 #define lstrcat lstrcatW
 #define lstrlen lstrlenW
-#else
+#ܐܚܪܢܐ
 #define OpenEncryptedFileRaw OpenEncryptedFileRawA
 #define lstrcmp lstrcmpA
 #define lstrcmpi lstrcmpiA
@@ -1588,28 +1588,28 @@ extern "C" {
   WINADVAPI DWORD WINAPI ReadEncryptedFileRaw(PFE_EXPORT_FUNC pfExportCallback,PVOID pvCallbackContext,PVOID pvContext);
   WINADVAPI DWORD WINAPI WriteEncryptedFileRaw(PFE_IMPORT_FUNC pfImportCallback,PVOID pvCallbackContext,PVOID pvContext);
   WINADVAPI VOID WINAPI CloseEncryptedFileRaw(PVOID pvContext);
-  WINBASEAPI int WINAPI lstrcmpA(LPCSTR lpString1,LPCSTR lpString2);
-  WINBASEAPI int WINAPI lstrcmpW(LPCWSTR lpString1,LPCWSTR lpString2);
-  WINBASEAPI int WINAPI lstrcmpiA(LPCSTR lpString1,LPCSTR lpString2);
-  WINBASEAPI int WINAPI lstrcmpiW(LPCWSTR lpString1,LPCWSTR lpString2);
-  WINBASEAPI LPSTR WINAPI lstrcpynA(LPSTR lpString1,LPCSTR lpString2,int iMaxLength);
-  WINBASEAPI LPWSTR WINAPI lstrcpynW(LPWSTR lpString1,LPCWSTR lpString2,int iMaxLength);
+  WINBASEAPI صحيح WINAPI lstrcmpA(LPCSTR lpString1,LPCSTR lpString2);
+  WINBASEAPI صحيح WINAPI lstrcmpW(LPCWSTR lpString1,LPCWSTR lpString2);
+  WINBASEAPI صحيح WINAPI lstrcmpiA(LPCSTR lpString1,LPCSTR lpString2);
+  WINBASEAPI صحيح WINAPI lstrcmpiW(LPCWSTR lpString1,LPCWSTR lpString2);
+  WINBASEAPI LPSTR WINAPI lstrcpynA(LPSTR lpString1,LPCSTR lpString2,صحيح iMaxLength);
+  WINBASEAPI LPWSTR WINAPI lstrcpynW(LPWSTR lpString1,LPCWSTR lpString2,صحيح iMaxLength);
   WINBASEAPI LPSTR WINAPI lstrcpyA(LPSTR lpString1,LPCSTR lpString2);
   WINBASEAPI LPWSTR WINAPI lstrcpyW(LPWSTR lpString1,LPCWSTR lpString2);
   WINBASEAPI LPSTR WINAPI lstrcatA(LPSTR lpString1,LPCSTR lpString2);
   WINBASEAPI LPWSTR WINAPI lstrcatW(LPWSTR lpString1,LPCWSTR lpString2);
-  WINBASEAPI int WINAPI lstrlenA(LPCSTR lpString);
-  WINBASEAPI int WINAPI lstrlenW(LPCWSTR lpString);
+  WINBASEAPI صحيح WINAPI lstrlenA(LPCSTR lpString);
+  WINBASEAPI صحيح WINAPI lstrlenW(LPCWSTR lpString);
   WINBASEAPI HFILE WINAPI OpenFile(LPCSTR lpFileName,LPOFSTRUCT lpReOpenBuff,UINT uStyle);
-  WINBASEAPI HFILE WINAPI _lopen(LPCSTR lpPathName,int iReadWrite);
-  WINBASEAPI HFILE WINAPI _lcreat(LPCSTR lpPathName,int iAttribute);
+  WINBASEAPI HFILE WINAPI _lopen(LPCSTR lpPathName,صحيح iReadWrite);
+  WINBASEAPI HFILE WINAPI _lcreat(LPCSTR lpPathName,صحيح iAttribute);
   WINBASEAPI UINT WINAPI _lread(HFILE hFile,LPVOID lpBuffer,UINT uBytes);
   WINBASEAPI UINT WINAPI _lwrite(HFILE hFile,LPCCH lpBuffer,UINT uBytes);
   WINBASEAPI long WINAPI _hread(HFILE hFile,LPVOID lpBuffer,long lBytes);
   WINBASEAPI long WINAPI _hwrite(HFILE hFile,LPCCH lpBuffer,long lBytes);
   WINBASEAPI HFILE WINAPI _lclose(HFILE hFile);
-  WINBASEAPI LONG WINAPI _llseek(HFILE hFile,LONG lOffset,int iOrigin);
-  WINADVAPI WINBOOL WINAPI IsTextUnicode(CONST VOID *lpv,int iSize,LPINT lpiResult);
+  WINBASEAPI LONG WINAPI _llseek(HFILE hFile,LONG lOffset,صحيح iOrigin);
+  WINADVAPI WINBOOL WINAPI IsTextUnicode(CONST VOID *lpv,صحيح iSize,LPINT lpiResult);
 
 #define FLS_OUT_OF_INDEXES ((DWORD)0xffffffff)
 
@@ -1625,7 +1625,7 @@ extern "C" {
   WINBASEAPI WINBOOL WINAPI TlsSetValue(DWORD dwTlsIndex,LPVOID lpTlsValue);
   WINBASEAPI WINBOOL WINAPI TlsFree(DWORD dwTlsIndex);
 
-  typedef VOID (WINAPI *LPOVERLAPPED_COMPLETION_ROUTINE)(DWORD dwErrorCode,DWORD dwNumberOfBytesTransfered,LPOVERLAPPED lpOverlapped);
+  تعريفنوع VOID (WINAPI *LPOVERLAPPED_COMPLETION_ROUTINE)(DWORD dwErrorCode,DWORD dwNumberOfBytesTransfered,LPOVERLAPPED lpOverlapped);
 
   WINBASEAPI DWORD WINAPI SleepEx(DWORD dwMilliseconds,WINBOOL bAlertable);
   WINBASEAPI DWORD WINAPI WaitForSingleObjectEx(HANDLE hHandle,DWORD dwMilliseconds,WINBOOL bAlertable);
@@ -1637,7 +1637,7 @@ extern "C" {
   WINBASEAPI WINBOOL WINAPI BackupSeek(HANDLE hFile,DWORD dwLowBytesToSeek,DWORD dwHighBytesToSeek,LPDWORD lpdwLowByteSeeked,LPDWORD lpdwHighByteSeeked,LPVOID *lpContext);
   WINBASEAPI WINBOOL WINAPI BackupWrite(HANDLE hFile,LPBYTE lpBuffer,DWORD nNumberOfBytesToWrite,LPDWORD lpNumberOfBytesWritten,WINBOOL bAbort,WINBOOL bProcessSecurity,LPVOID *lpContext);
 
-  typedef struct _WIN32_STREAM_ID {
+  تعريفنوع بنية _WIN32_STREAM_ID {
     DWORD dwStreamId;
     DWORD dwStreamAttributes;
     LARGE_INTEGER Size;
@@ -1677,7 +1677,7 @@ extern "C" {
 
 #define STARTF_USEHOTKEY 0x200
 
-  typedef struct _STARTUPINFOA {
+  تعريفنوع بنية _STARTUPINFOA {
     DWORD cb;
     LPSTR lpReserved;
     LPSTR lpDesktop;
@@ -1698,7 +1698,7 @@ extern "C" {
     HANDLE hStdError;
   } STARTUPINFOA,*LPSTARTUPINFOA;
 
-  typedef struct _STARTUPINFOW {
+  تعريفنوع بنية _STARTUPINFOW {
     DWORD cb;
     LPWSTR lpReserved;
     LPWSTR lpDesktop;
@@ -1720,16 +1720,16 @@ extern "C" {
   } STARTUPINFOW,*LPSTARTUPINFOW;
 
 #ifdef UNICODE
-  typedef STARTUPINFOW STARTUPINFO;
-  typedef LPSTARTUPINFOW LPSTARTUPINFO;
-#else
-  typedef STARTUPINFOA STARTUPINFO;
-  typedef LPSTARTUPINFOA LPSTARTUPINFO;
+  تعريفنوع STARTUPINFOW STARTUPINFO;
+  تعريفنوع LPSTARTUPINFOW LPSTARTUPINFO;
+#ܐܚܪܢܐ
+  تعريفنوع STARTUPINFOA STARTUPINFO;
+  تعريفنوع LPSTARTUPINFOA LPSTARTUPINFO;
 #endif
 
 #define SHUTDOWN_NORETRY 0x1
 
-  typedef struct _WIN32_FIND_DATAA {
+  تعريفنوع بنية _WIN32_FIND_DATAA {
     DWORD dwFileAttributes;
     FILETIME ftCreationTime;
     FILETIME ftLastAccessTime;
@@ -1742,7 +1742,7 @@ extern "C" {
     CHAR cAlternateFileName[14];
   } WIN32_FIND_DATAA,*PWIN32_FIND_DATAA,*LPWIN32_FIND_DATAA;
 
-  typedef struct _WIN32_FIND_DATAW {
+  تعريفنوع بنية _WIN32_FIND_DATAW {
     DWORD dwFileAttributes;
     FILETIME ftCreationTime;
     FILETIME ftLastAccessTime;
@@ -1756,16 +1756,16 @@ extern "C" {
   } WIN32_FIND_DATAW,*PWIN32_FIND_DATAW,*LPWIN32_FIND_DATAW;
 
 #ifdef UNICODE
-  typedef WIN32_FIND_DATAW WIN32_FIND_DATA;
-  typedef PWIN32_FIND_DATAW PWIN32_FIND_DATA;
-  typedef LPWIN32_FIND_DATAW LPWIN32_FIND_DATA;
-#else
-  typedef WIN32_FIND_DATAA WIN32_FIND_DATA;
-  typedef PWIN32_FIND_DATAA PWIN32_FIND_DATA;
-  typedef LPWIN32_FIND_DATAA LPWIN32_FIND_DATA;
+  تعريفنوع WIN32_FIND_DATAW WIN32_FIND_DATA;
+  تعريفنوع PWIN32_FIND_DATAW PWIN32_FIND_DATA;
+  تعريفنوع LPWIN32_FIND_DATAW LPWIN32_FIND_DATA;
+#ܐܚܪܢܐ
+  تعريفنوع WIN32_FIND_DATAA WIN32_FIND_DATA;
+  تعريفنوع PWIN32_FIND_DATAA PWIN32_FIND_DATA;
+  تعريفنوع LPWIN32_FIND_DATAA LPWIN32_FIND_DATA;
 #endif
 
-  typedef struct _WIN32_FILE_ATTRIBUTE_DATA {
+  تعريفنوع بنية _WIN32_FILE_ATTRIBUTE_DATA {
     DWORD dwFileAttributes;
     FILETIME ftCreationTime;
     FILETIME ftLastAccessTime;
@@ -1781,7 +1781,7 @@ extern "C" {
 #define OpenEvent OpenEventW
 #define CreateSemaphore CreateSemaphoreW
 #define OpenSemaphore OpenSemaphoreW
-#else
+#ܐܚܪܢܐ
 #define CreateMutex CreateMutexA
 #define OpenMutex OpenMutexA
 #define CreateEvent CreateEventA
@@ -1803,7 +1803,7 @@ extern "C" {
   WINBASEAPI HANDLE WINAPI OpenSemaphoreA(DWORD dwDesiredAccess,WINBOOL bInheritHandle,LPCSTR lpName);
   WINBASEAPI HANDLE WINAPI OpenSemaphoreW(DWORD dwDesiredAccess,WINBOOL bInheritHandle,LPCWSTR lpName);
 
-  typedef VOID (WINAPI *PTIMERAPCROUTINE)(LPVOID lpArgToCompletionRoutine,DWORD dwTimerLowValue,DWORD dwTimerHighValue);
+  تعريفنوع VOID (WINAPI *PTIMERAPCROUTINE)(LPVOID lpArgToCompletionRoutine,DWORD dwTimerLowValue,DWORD dwTimerHighValue);
 
 #ifdef UNICODE
 #define CreateWaitableTimer CreateWaitableTimerW
@@ -1815,7 +1815,7 @@ extern "C" {
 #define LoadLibraryEx LoadLibraryExW
 #define GetModuleFileName GetModuleFileNameW
 #define GetModuleHandle GetModuleHandleW
-#else
+#ܐܚܪܢܐ
 #define CreateWaitableTimer CreateWaitableTimerA
 #define OpenWaitableTimer OpenWaitableTimerA
 #define CreateFileMapping CreateFileMappingA
@@ -1831,7 +1831,7 @@ extern "C" {
   WINBASEAPI HANDLE WINAPI CreateWaitableTimerW(LPSECURITY_ATTRIBUTES lpTimerAttributes,WINBOOL bManualReset,LPCWSTR lpTimerName);
   WINBASEAPI HANDLE WINAPI OpenWaitableTimerA(DWORD dwDesiredAccess,WINBOOL bInheritHandle,LPCSTR lpTimerName);
   WINBASEAPI HANDLE WINAPI OpenWaitableTimerW(DWORD dwDesiredAccess,WINBOOL bInheritHandle,LPCWSTR lpTimerName);
-  WINBASEAPI WINBOOL WINAPI SetWaitableTimer(HANDLE hTimer,const LARGE_INTEGER *lpDueTime,LONG lPeriod,PTIMERAPCROUTINE pfnCompletionRoutine,LPVOID lpArgToCompletionRoutine,WINBOOL fResume);
+  WINBASEAPI WINBOOL WINAPI SetWaitableTimer(HANDLE hTimer,ثابت LARGE_INTEGER *lpDueTime,LONG lPeriod,PTIMERAPCROUTINE pfnCompletionRoutine,LPVOID lpArgToCompletionRoutine,WINBOOL fResume);
   WINBASEAPI WINBOOL WINAPI CancelWaitableTimer(HANDLE hTimer);
   WINBASEAPI HANDLE WINAPI CreateFileMappingA(HANDLE hFile,LPSECURITY_ATTRIBUTES lpFileMappingAttributes,DWORD flProtect,DWORD dwMaximumSizeHigh,DWORD dwMaximumSizeLow,LPCSTR lpName);
   WINBASEAPI HANDLE WINAPI CreateFileMappingW(HANDLE hFile,LPSECURITY_ATTRIBUTES lpFileMappingAttributes,DWORD flProtect,DWORD dwMaximumSizeHigh,DWORD dwMaximumSizeLow,LPCWSTR lpName);
@@ -1840,7 +1840,7 @@ extern "C" {
   WINBASEAPI DWORD WINAPI GetLogicalDriveStringsA(DWORD nBufferLength,LPSTR lpBuffer);
   WINBASEAPI DWORD WINAPI GetLogicalDriveStringsW(DWORD nBufferLength,LPWSTR lpBuffer);
 
-  typedef enum _MEMORY_RESOURCE_NOTIFICATION_TYPE {
+  تعريفنوع تعداد _MEMORY_RESOURCE_NOTIFICATION_TYPE {
     LowMemoryResourceNotification,HighMemoryResourceNotification
   } MEMORY_RESOURCE_NOTIFICATION_TYPE;
 
@@ -1875,13 +1875,13 @@ extern "C" {
 #define GET_MODULE_HANDLE_EX_FLAG_UNCHANGED_REFCOUNT (0x2)
 #define GET_MODULE_HANDLE_EX_FLAG_FROM_ADDRESS (0x4)
 
-  typedef WINBOOL (WINAPI *PGET_MODULE_HANDLE_EXA)(DWORD dwFlags,LPCSTR lpModuleName,HMODULE *phModule);
-  typedef WINBOOL (WINAPI *PGET_MODULE_HANDLE_EXW)(DWORD dwFlags,LPCWSTR lpModuleName,HMODULE *phModule);
+  تعريفنوع WINBOOL (WINAPI *PGET_MODULE_HANDLE_EXA)(DWORD dwFlags,LPCSTR lpModuleName,HMODULE *phModule);
+  تعريفنوع WINBOOL (WINAPI *PGET_MODULE_HANDLE_EXW)(DWORD dwFlags,LPCWSTR lpModuleName,HMODULE *phModule);
 
 #ifdef UNICODE
 #define PGET_MODULE_HANDLE_EX PGET_MODULE_HANDLE_EXW
 #define GetModuleHandleEx GetModuleHandleExW
-#else
+#ܐܚܪܢܐ
 #define PGET_MODULE_HANDLE_EX PGET_MODULE_HANDLE_EXA
 #define GetModuleHandleEx GetModuleHandleExA
 #endif
@@ -1904,7 +1904,7 @@ extern "C" {
 #define OutputDebugString OutputDebugStringW
 #define FindResource FindResourceW
 #define FindResourceEx FindResourceExW
-#else
+#ܐܚܪܢܐ
 #define NeedCurrentDirectoryForExePath NeedCurrentDirectoryForExePathA
 #define CreateProcess CreateProcessA
 #define FatalAppExit FatalAppExitA
@@ -1988,7 +1988,7 @@ extern "C" {
 #define GetWindowsDirectory GetWindowsDirectoryW
 #define GetSystemWindowsDirectory GetSystemWindowsDirectoryW
 #define AddLocalAlternateComputerName AddLocalAlternateComputerNameW
-#else
+#ܐܚܪܢܐ
 #define ENUMRESTYPEPROC ENUMRESTYPEPROCA
 #define ENUMRESNAMEPROC ENUMRESNAMEPROCA
 #define ENUMRESLANGPROC ENUMRESLANGPROCA
@@ -2026,12 +2026,12 @@ extern "C" {
 #define AddLocalAlternateComputerName AddLocalAlternateComputerNameA
 #endif
 
-  typedef WINBOOL (CALLBACK *ENUMRESTYPEPROCA)(HMODULE hModule,LPSTR lpType,LONG_PTR lParam);
-  typedef WINBOOL (CALLBACK *ENUMRESTYPEPROCW)(HMODULE hModule,LPWSTR lpType,LONG_PTR lParam);
-  typedef WINBOOL (CALLBACK *ENUMRESNAMEPROCA)(HMODULE hModule,LPCSTR lpType,LPSTR lpName,LONG_PTR lParam);
-  typedef WINBOOL (CALLBACK *ENUMRESNAMEPROCW)(HMODULE hModule,LPCWSTR lpType,LPWSTR lpName,LONG_PTR lParam);
-  typedef WINBOOL (CALLBACK *ENUMRESLANGPROCA)(HMODULE hModule,LPCSTR lpType,LPCSTR lpName,WORD wLanguage,LONG_PTR lParam);
-  typedef WINBOOL (CALLBACK *ENUMRESLANGPROCW)(HMODULE hModule,LPCWSTR lpType,LPCWSTR lpName,WORD wLanguage,LONG_PTR lParam);
+  تعريفنوع WINBOOL (CALLBACK *ENUMRESTYPEPROCA)(HMODULE hModule,LPSTR lpType,LONG_PTR lParam);
+  تعريفنوع WINBOOL (CALLBACK *ENUMRESTYPEPROCW)(HMODULE hModule,LPWSTR lpType,LONG_PTR lParam);
+  تعريفنوع WINBOOL (CALLBACK *ENUMRESNAMEPROCA)(HMODULE hModule,LPCSTR lpType,LPSTR lpName,LONG_PTR lParam);
+  تعريفنوع WINBOOL (CALLBACK *ENUMRESNAMEPROCW)(HMODULE hModule,LPCWSTR lpType,LPWSTR lpName,LONG_PTR lParam);
+  تعريفنوع WINBOOL (CALLBACK *ENUMRESLANGPROCA)(HMODULE hModule,LPCSTR lpType,LPCSTR lpName,WORD wLanguage,LONG_PTR lParam);
+  تعريفنوع WINBOOL (CALLBACK *ENUMRESLANGPROCW)(HMODULE hModule,LPCWSTR lpType,LPCWSTR lpName,WORD wLanguage,LONG_PTR lParam);
 
   WINBASEAPI WINBOOL WINAPI EnumResourceTypesA(HMODULE hModule,ENUMRESTYPEPROCA lpEnumFunc,LONG_PTR lParam);
   WINBASEAPI WINBOOL WINAPI EnumResourceTypesW(HMODULE hModule,ENUMRESTYPEPROCW lpEnumFunc,LONG_PTR lParam);
@@ -2049,14 +2049,14 @@ extern "C" {
   WINBASEAPI ATOM WINAPI GlobalAddAtomW(LPCWSTR lpString);
   WINBASEAPI ATOM WINAPI GlobalFindAtomA(LPCSTR lpString);
   WINBASEAPI ATOM WINAPI GlobalFindAtomW(LPCWSTR lpString);
-  WINBASEAPI UINT WINAPI GlobalGetAtomNameA(ATOM nAtom,LPSTR lpBuffer,int nSize);
-  WINBASEAPI UINT WINAPI GlobalGetAtomNameW(ATOM nAtom,LPWSTR lpBuffer,int nSize);
+  WINBASEAPI UINT WINAPI GlobalGetAtomNameA(ATOM nAtom,LPSTR lpBuffer,صحيح nSize);
+  WINBASEAPI UINT WINAPI GlobalGetAtomNameW(ATOM nAtom,LPWSTR lpBuffer,صحيح nSize);
   WINBASEAPI ATOM WINAPI AddAtomA(LPCSTR lpString);
   WINBASEAPI ATOM WINAPI AddAtomW(LPCWSTR lpString);
   WINBASEAPI ATOM WINAPI FindAtomA(LPCSTR lpString);
   WINBASEAPI ATOM WINAPI FindAtomW(LPCWSTR lpString);
-  WINBASEAPI UINT WINAPI GetAtomNameA(ATOM nAtom,LPSTR lpBuffer,int nSize);
-  WINBASEAPI UINT WINAPI GetAtomNameW(ATOM nAtom,LPWSTR lpBuffer,int nSize);
+  WINBASEAPI UINT WINAPI GetAtomNameA(ATOM nAtom,LPSTR lpBuffer,صحيح nSize);
+  WINBASEAPI UINT WINAPI GetAtomNameW(ATOM nAtom,LPWSTR lpBuffer,صحيح nSize);
   WINBASEAPI UINT WINAPI GetProfileIntA(LPCSTR lpAppName,LPCSTR lpKeyName,INT nDefault);
   WINBASEAPI UINT WINAPI GetProfileIntW(LPCWSTR lpAppName,LPCWSTR lpKeyName,INT nDefault);
   WINBASEAPI DWORD WINAPI GetProfileStringA(LPCSTR lpAppName,LPCSTR lpKeyName,LPCSTR lpDefault,LPSTR lpReturnedString,DWORD nSize);
@@ -2099,7 +2099,7 @@ extern "C" {
 #ifndef RC_INVOKED
 #ifdef UNICODE
 #define GetSystemWow64Directory GetSystemWow64DirectoryW
-#else
+#ܐܚܪܢܐ
 #define GetSystemWow64Directory GetSystemWow64DirectoryA
 #endif
 
@@ -2109,8 +2109,8 @@ extern "C" {
   WINBASEAPI WINBOOL WINAPI Wow64DisableWow64FsRedirection(PVOID *OldValue);
   WINBASEAPI WINBOOL WINAPI Wow64RevertWow64FsRedirection(PVOID OlValue);
 
-  typedef UINT (WINAPI *PGET_SYSTEM_WOW64_DIRECTORY_A)(LPSTR lpBuffer,UINT uSize);
-  typedef UINT (WINAPI *PGET_SYSTEM_WOW64_DIRECTORY_W)(LPWSTR lpBuffer,UINT uSize);
+  تعريفنوع UINT (WINAPI *PGET_SYSTEM_WOW64_DIRECTORY_A)(LPSTR lpBuffer,UINT uSize);
+  تعريفنوع UINT (WINAPI *PGET_SYSTEM_WOW64_DIRECTORY_W)(LPWSTR lpBuffer,UINT uSize);
 
 #define GET_SYSTEM_WOW64_DIRECTORY_NAME_A_A "GetSystemWow64DirectoryA"
 #define GET_SYSTEM_WOW64_DIRECTORY_NAME_A_W L"GetSystemWow64DirectoryA"
@@ -2123,7 +2123,7 @@ extern "C" {
 #define GET_SYSTEM_WOW64_DIRECTORY_NAME_T_A GET_SYSTEM_WOW64_DIRECTORY_NAME_W_A
 #define GET_SYSTEM_WOW64_DIRECTORY_NAME_T_W GET_SYSTEM_WOW64_DIRECTORY_NAME_W_W
 #define GET_SYSTEM_WOW64_DIRECTORY_NAME_T_T GET_SYSTEM_WOW64_DIRECTORY_NAME_W_T
-#else
+#ܐܚܪܢܐ
 #define GET_SYSTEM_WOW64_DIRECTORY_NAME_T_A GET_SYSTEM_WOW64_DIRECTORY_NAME_A_A
 #define GET_SYSTEM_WOW64_DIRECTORY_NAME_T_W GET_SYSTEM_WOW64_DIRECTORY_NAME_A_W
 #define GET_SYSTEM_WOW64_DIRECTORY_NAME_T_T GET_SYSTEM_WOW64_DIRECTORY_NAME_A_T
@@ -2146,7 +2146,7 @@ extern "C" {
 #define CreateFile CreateFileW
 #define SetFileAttributes SetFileAttributesW
 #define GetFileAttributes GetFileAttributesW
-#else
+#ܐܚܪܢܐ
 #define SetCurrentDirectory SetCurrentDirectoryA
 #define GetCurrentDirectory GetCurrentDirectoryA
 #define SetDllDirectory SetDllDirectoryA
@@ -2206,7 +2206,7 @@ extern "C" {
   WINBASEAPI DWORD WINAPI GetFileAttributesA(LPCSTR lpFileName);
   WINBASEAPI DWORD WINAPI GetFileAttributesW(LPCWSTR lpFileName);
 
-  typedef enum _GET_FILEEX_INFO_LEVELS {
+  تعريفنوع تعداد _GET_FILEEX_INFO_LEVELS {
     GetFileExInfoStandard,GetFileExMaxInfoLevel
   } GET_FILEEX_INFO_LEVELS;
 
@@ -2215,7 +2215,7 @@ extern "C" {
 #define GetCompressedFileSize GetCompressedFileSizeW
 #define DeleteFile DeleteFileW
 #define CheckNameLegalDOS8Dot3 CheckNameLegalDOS8Dot3W
-#else
+#ܐܚܪܢܐ
 #define GetFileAttributesEx GetFileAttributesExA
 #define GetCompressedFileSize GetCompressedFileSizeA
 #define DeleteFile DeleteFileA
@@ -2231,11 +2231,11 @@ extern "C" {
   WINBASEAPI WINBOOL WINAPI CheckNameLegalDOS8Dot3A(LPCSTR lpName,LPSTR lpOemName,DWORD OemNameSize,PBOOL pbNameContainsSpaces,PBOOL pbNameLegal);
   WINBASEAPI WINBOOL WINAPI CheckNameLegalDOS8Dot3W(LPCWSTR lpName,LPSTR lpOemName,DWORD OemNameSize,PBOOL pbNameContainsSpaces,PBOOL pbNameLegal);
 
-  typedef enum _FINDEX_INFO_LEVELS {
+  تعريفنوع تعداد _FINDEX_INFO_LEVELS {
     FindExInfoStandard,FindExInfoMaxInfoLevel
   } FINDEX_INFO_LEVELS;
 
-  typedef enum _FINDEX_SEARCH_OPS {
+  تعريفنوع تعداد _FINDEX_SEARCH_OPS {
     FindExSearchNameMatch,FindExSearchLimitToDirectories,FindExSearchLimitToDevices,FindExSearchMaxSearchOp
   } FINDEX_SEARCH_OPS;
 
@@ -2295,7 +2295,7 @@ extern "C" {
 #define SetComputerNameEx SetComputerNameExW
 #define DnsHostnameToComputerName DnsHostnameToComputerNameW
 #define GetUserName GetUserNameW
-#else
+#ܐܚܪܢܐ
 #define FindFirstFileEx FindFirstFileExA
 #define FindFirstFile FindFirstFileA
 #define FindNextFile FindNextFileA
@@ -2362,7 +2362,7 @@ extern "C" {
   WINBASEAPI WINBOOL WINAPI CopyFileA(LPCSTR lpExistingFileName,LPCSTR lpNewFileName,WINBOOL bFailIfExists);
   WINBASEAPI WINBOOL WINAPI CopyFileW(LPCWSTR lpExistingFileName,LPCWSTR lpNewFileName,WINBOOL bFailIfExists);
 
-  typedef DWORD (WINAPI *LPPROGRESS_ROUTINE)(LARGE_INTEGER TotalFileSize,LARGE_INTEGER TotalBytesTransferred,LARGE_INTEGER StreamSize,LARGE_INTEGER StreamBytesTransferred,DWORD dwStreamNumber,DWORD dwCallbackReason,HANDLE hSourceFile,HANDLE hDestinationFile,LPVOID lpData);
+  تعريفنوع DWORD (WINAPI *LPPROGRESS_ROUTINE)(LARGE_INTEGER TotalFileSize,LARGE_INTEGER TotalBytesTransferred,LARGE_INTEGER StreamSize,LARGE_INTEGER StreamBytesTransferred,DWORD dwStreamNumber,DWORD dwCallbackReason,HANDLE hSourceFile,HANDLE hDestinationFile,LPVOID lpData);
 
   WINBASEAPI WINBOOL WINAPI CopyFileExA(LPCSTR lpExistingFileName,LPCSTR lpNewFileName,LPPROGRESS_ROUTINE lpProgressRoutine,LPVOID lpData,LPBOOL pbCancel,DWORD dwCopyFlags);
   WINBASEAPI WINBOOL WINAPI CopyFileExW(LPCWSTR lpExistingFileName,LPCWSTR lpNewFileName,LPPROGRESS_ROUTINE lpProgressRoutine,LPVOID lpData,LPBOOL pbCancel,DWORD dwCopyFlags);
@@ -2385,11 +2385,11 @@ extern "C" {
   WINBASEAPI WINBOOL WINAPI CreateHardLinkA(LPCSTR lpFileName,LPCSTR lpExistingFileName,LPSECURITY_ATTRIBUTES lpSecurityAttributes);
   WINBASEAPI WINBOOL WINAPI CreateHardLinkW(LPCWSTR lpFileName,LPCWSTR lpExistingFileName,LPSECURITY_ATTRIBUTES lpSecurityAttributes);
 
-  typedef enum _STREAM_INFO_LEVELS {
+  تعريفنوع تعداد _STREAM_INFO_LEVELS {
     FindStreamInfoStandard,FindStreamInfoMaxInfoLevel
   } STREAM_INFO_LEVELS;
 
-  typedef struct _WIN32_FIND_STREAM_DATA {
+  تعريفنوع بنية _WIN32_FIND_STREAM_DATA {
     LARGE_INTEGER StreamSize;
     WCHAR cStreamName[MAX_PATH + 36];
   } WIN32_FIND_STREAM_DATA,*PWIN32_FIND_STREAM_DATA;
@@ -2434,7 +2434,7 @@ extern "C" {
 
 #define EVENTLOG_FULL_INFO 0
 
-  typedef struct _EVENTLOG_FULL_INFORMATION {
+  تعريفنوع بنية _EVENTLOG_FULL_INFORMATION {
     DWORD dwFull;
   } EVENTLOG_FULL_INFORMATION,*LPEVENTLOG_FULL_INFORMATION;
 
@@ -2586,7 +2586,7 @@ extern "C" {
   WINBASEAPI WINBOOL WINAPI SetComputerNameA(LPCSTR lpComputerName);
   WINBASEAPI WINBOOL WINAPI SetComputerNameW(LPCWSTR lpComputerName);
 
-  typedef enum _COMPUTER_NAME_FORMAT {
+  تعريفنوع تعداد _COMPUTER_NAME_FORMAT {
     ComputerNameNetBIOS,ComputerNameDnsHostname,ComputerNameDnsDomain,ComputerNameDnsFullyQualified,ComputerNamePhysicalNetBIOS,ComputerNamePhysicalDnsHostname,ComputerNamePhysicalDnsDomain,ComputerNamePhysicalDnsFullyQualified,ComputerNameMax
   } COMPUTER_NAME_FORMAT;
 
@@ -2616,7 +2616,7 @@ extern "C" {
 #define LogonUser LogonUserW
 #define LogonUserEx LogonUserExW
 #define CreateProcessAsUser CreateProcessAsUserW
-#else
+#ܐܚܪܢܐ
 #define LogonUser LogonUserA
 #define LogonUserEx LogonUserExA
 #define CreateProcessAsUser CreateProcessAsUserA
@@ -2643,7 +2643,7 @@ extern "C" {
   WINADVAPI WINBOOL WINAPI IsTokenUntrusted(HANDLE TokenHandle);
   WINADVAPI WINBOOL WINAPI CheckTokenMembership(HANDLE TokenHandle,PSID SidToCheck,PBOOL IsMember);
 
-  typedef WAITORTIMERCALLBACKFUNC WAITORTIMERCALLBACK;
+  تعريفنوع WAITORTIMERCALLBACKFUNC WAITORTIMERCALLBACK;
 
   WINBASEAPI WINBOOL WINAPI RegisterWaitForSingleObject(PHANDLE phNewWaitObject,HANDLE hObject,WAITORTIMERCALLBACK Callback,PVOID Context,ULONG dwMilliseconds,ULONG dwFlags);
   WINBASEAPI HANDLE WINAPI RegisterWaitForSingleObjectEx(HANDLE hObject,WAITORTIMERCALLBACK Callback,PVOID Context,ULONG dwMilliseconds,ULONG dwFlags);
@@ -2669,31 +2669,31 @@ extern "C" {
 #define DOCKINFO_USER_UNDOCKED (DOCKINFO_USER_SUPPLIED | DOCKINFO_UNDOCKED)
 #define DOCKINFO_USER_DOCKED (DOCKINFO_USER_SUPPLIED | DOCKINFO_DOCKED)
 
-  typedef struct tagHW_PROFILE_INFOA {
+  تعريفنوع بنية tagHW_PROFILE_INFOA {
     DWORD dwDockInfo;
     CHAR szHwProfileGuid[HW_PROFILE_GUIDLEN];
     CHAR szHwProfileName[MAX_PROFILE_LEN];
   } HW_PROFILE_INFOA,*LPHW_PROFILE_INFOA;
 
-  typedef struct tagHW_PROFILE_INFOW {
+  تعريفنوع بنية tagHW_PROFILE_INFOW {
     DWORD dwDockInfo;
     WCHAR szHwProfileGuid[HW_PROFILE_GUIDLEN];
     WCHAR szHwProfileName[MAX_PROFILE_LEN];
   } HW_PROFILE_INFOW,*LPHW_PROFILE_INFOW;
 
 #ifdef UNICODE
-  typedef HW_PROFILE_INFOW HW_PROFILE_INFO;
-  typedef LPHW_PROFILE_INFOW LPHW_PROFILE_INFO;
-#else
-  typedef HW_PROFILE_INFOA HW_PROFILE_INFO;
-  typedef LPHW_PROFILE_INFOA LPHW_PROFILE_INFO;
+  تعريفنوع HW_PROFILE_INFOW HW_PROFILE_INFO;
+  تعريفنوع LPHW_PROFILE_INFOW LPHW_PROFILE_INFO;
+#ܐܚܪܢܐ
+  تعريفنوع HW_PROFILE_INFOA HW_PROFILE_INFO;
+  تعريفنوع LPHW_PROFILE_INFOA LPHW_PROFILE_INFO;
 #endif
 
 #ifdef UNICODE
 #define GetCurrentHwProfile GetCurrentHwProfileW
 #define GetVersionEx GetVersionExW
 #define VerifyVersionInfo VerifyVersionInfoW
-#else
+#ܐܚܪܢܐ
 #define GetCurrentHwProfile GetCurrentHwProfileA
 #define GetVersionEx GetVersionExA
 #define VerifyVersionInfo VerifyVersionInfoA
@@ -2708,7 +2708,7 @@ extern "C" {
   WINBASEAPI WINBOOL WINAPI VerifyVersionInfoA(LPOSVERSIONINFOEXA lpVersionInformation,DWORD dwTypeMask,DWORDLONG dwlConditionMask);
   WINBASEAPI WINBOOL WINAPI VerifyVersionInfoW(LPOSVERSIONINFOEXW lpVersionInformation,DWORD dwTypeMask,DWORDLONG dwlConditionMask);
 
-#include <winerror.h>
+#ضمن <winerror.h>
 
 #define TC_NORMAL 0
 #define TC_HARDERR 1
@@ -2731,7 +2731,7 @@ extern "C" {
 
 #define BATTERY_LIFE_UNKNOWN 0xffffffff
 
-  typedef struct _SYSTEM_POWER_STATUS {
+  تعريفنوع بنية _SYSTEM_POWER_STATUS {
     BYTE ACLineStatus;
     BYTE BatteryFlag;
     BYTE BatteryLifePercent;
@@ -2752,7 +2752,7 @@ extern "C" {
 #define GetVolumeNameForVolumeMountPoint GetVolumeNameForVolumeMountPointW
 #define GetVolumePathName GetVolumePathNameW
 #define GetVolumePathNamesForVolumeName GetVolumePathNamesForVolumeNameW
-#else
+#ܐܚܪܢܐ
 #define CreateJobObject CreateJobObjectA
 #define OpenJobObject OpenJobObjectA
 #define FindFirstVolume FindFirstVolumeA
@@ -2816,7 +2816,7 @@ extern "C" {
 #define ACTCTX_FLAG_SOURCE_IS_ASSEMBLYREF 0x40
 #define ACTCTX_FLAG_HMODULE_VALID 0x80
 
-  typedef struct tagACTCTXA {
+  تعريفنوع بنية tagACTCTXA {
     ULONG cbSize;
     DWORD dwFlags;
     LPCSTR lpSource;
@@ -2828,7 +2828,7 @@ extern "C" {
     HMODULE hModule;
   } ACTCTXA,*PACTCTXA;
 
-  typedef struct tagACTCTXW {
+  تعريفنوع بنية tagACTCTXW {
     ULONG cbSize;
     DWORD dwFlags;
     LPCWSTR lpSource;
@@ -2840,22 +2840,22 @@ extern "C" {
     HMODULE hModule;
   } ACTCTXW,*PACTCTXW;
 
-  typedef const ACTCTXA *PCACTCTXA;
-  typedef const ACTCTXW *PCACTCTXW;
+  تعريفنوع ثابت ACTCTXA *PCACTCTXA;
+  تعريفنوع ثابت ACTCTXW *PCACTCTXW;
 
 #ifdef UNICODE
-  typedef ACTCTXW ACTCTX;
-  typedef PACTCTXW PACTCTX;
-  typedef PCACTCTXW PCACTCTX;
-#else
-  typedef ACTCTXA ACTCTX;
-  typedef PACTCTXA PACTCTX;
-  typedef PCACTCTXA PCACTCTX;
+  تعريفنوع ACTCTXW ACTCTX;
+  تعريفنوع PACTCTXW PACTCTX;
+  تعريفنوع PCACTCTXW PCACTCTX;
+#ܐܚܪܢܐ
+  تعريفنوع ACTCTXA ACTCTX;
+  تعريفنوع PACTCTXA PACTCTX;
+  تعريفنوع PCACTCTXA PCACTCTX;
 #endif
 
 #ifdef UNICODE
 #define CreateActCtx CreateActCtxW
-#else
+#ܐܚܪܢܐ
 #define CreateActCtx CreateActCtxA
 #endif
 
@@ -2871,7 +2871,7 @@ extern "C" {
   WINBASEAPI WINBOOL WINAPI DeactivateActCtx(DWORD dwFlags,ULONG_PTR ulCookie);
   WINBASEAPI WINBOOL WINAPI GetCurrentActCtx(HANDLE *lphActCtx);
 
-  typedef struct tagACTCTX_SECTION_KEYED_DATA_2600 {
+  تعريفنوع بنية tagACTCTX_SECTION_KEYED_DATA_2600 {
     ULONG cbSize;
     ULONG ulDataFormatVersion;
     PVOID lpData;
@@ -2884,9 +2884,9 @@ extern "C" {
     ULONG ulAssemblyRosterIndex;
   } ACTCTX_SECTION_KEYED_DATA_2600,*PACTCTX_SECTION_KEYED_DATA_2600;
 
-  typedef const ACTCTX_SECTION_KEYED_DATA_2600 *PCACTCTX_SECTION_KEYED_DATA_2600;
+  تعريفنوع ثابت ACTCTX_SECTION_KEYED_DATA_2600 *PCACTCTX_SECTION_KEYED_DATA_2600;
 
-  typedef struct tagACTCTX_SECTION_KEYED_DATA_ASSEMBLY_METADATA {
+  تعريفنوع بنية tagACTCTX_SECTION_KEYED_DATA_ASSEMBLY_METADATA {
     PVOID lpInformation;
     PVOID lpSectionBase;
     ULONG ulSectionLength;
@@ -2894,9 +2894,9 @@ extern "C" {
     ULONG ulSectionGlobalDataLength;
   } ACTCTX_SECTION_KEYED_DATA_ASSEMBLY_METADATA,*PACTCTX_SECTION_KEYED_DATA_ASSEMBLY_METADATA;
 
-  typedef const ACTCTX_SECTION_KEYED_DATA_ASSEMBLY_METADATA *PCACTCTX_SECTION_KEYED_DATA_ASSEMBLY_METADATA;
+  تعريفنوع ثابت ACTCTX_SECTION_KEYED_DATA_ASSEMBLY_METADATA *PCACTCTX_SECTION_KEYED_DATA_ASSEMBLY_METADATA;
 
-  typedef struct tagACTCTX_SECTION_KEYED_DATA {
+  تعريفنوع بنية tagACTCTX_SECTION_KEYED_DATA {
     ULONG cbSize;
     ULONG ulDataFormatVersion;
     PVOID lpData;
@@ -2912,7 +2912,7 @@ extern "C" {
     ACTCTX_SECTION_KEYED_DATA_ASSEMBLY_METADATA AssemblyMetadata;
   } ACTCTX_SECTION_KEYED_DATA,*PACTCTX_SECTION_KEYED_DATA;
 
-  typedef const ACTCTX_SECTION_KEYED_DATA *PCACTCTX_SECTION_KEYED_DATA;
+  تعريفنوع ثابت ACTCTX_SECTION_KEYED_DATA *PCACTCTX_SECTION_KEYED_DATA;
 
 #define FIND_ACTCTX_SECTION_KEY_RETURN_HACTCTX 0x1
 #define FIND_ACTCTX_SECTION_KEY_RETURN_FLAGS 0x2
@@ -2920,23 +2920,23 @@ extern "C" {
 
 #ifdef UNICODE
 #define FindActCtxSectionString FindActCtxSectionStringW
-#else
+#ܐܚܪܢܐ
 #define FindActCtxSectionString FindActCtxSectionStringA
 #endif
 
-  WINBASEAPI WINBOOL WINAPI FindActCtxSectionStringA(DWORD dwFlags,const GUID *lpExtensionGuid,ULONG ulSectionId,LPCSTR lpStringToFind,PACTCTX_SECTION_KEYED_DATA ReturnedData);
-  WINBASEAPI WINBOOL WINAPI FindActCtxSectionStringW(DWORD dwFlags,const GUID *lpExtensionGuid,ULONG ulSectionId,LPCWSTR lpStringToFind,PACTCTX_SECTION_KEYED_DATA ReturnedData);
-  WINBASEAPI WINBOOL WINAPI FindActCtxSectionGuid(DWORD dwFlags,const GUID *lpExtensionGuid,ULONG ulSectionId,const GUID *lpGuidToFind,PACTCTX_SECTION_KEYED_DATA ReturnedData);
+  WINBASEAPI WINBOOL WINAPI FindActCtxSectionStringA(DWORD dwFlags,ثابت GUID *lpExtensionGuid,ULONG ulSectionId,LPCSTR lpStringToFind,PACTCTX_SECTION_KEYED_DATA ReturnedData);
+  WINBASEAPI WINBOOL WINAPI FindActCtxSectionStringW(DWORD dwFlags,ثابت GUID *lpExtensionGuid,ULONG ulSectionId,LPCWSTR lpStringToFind,PACTCTX_SECTION_KEYED_DATA ReturnedData);
+  WINBASEAPI WINBOOL WINAPI FindActCtxSectionGuid(DWORD dwFlags,ثابت GUID *lpExtensionGuid,ULONG ulSectionId,ثابت GUID *lpGuidToFind,PACTCTX_SECTION_KEYED_DATA ReturnedData);
 
 #ifndef RC_INVOKED
 #ifndef ACTIVATION_CONTEXT_BASIC_INFORMATION_DEFINED
 
-  typedef struct _ACTIVATION_CONTEXT_BASIC_INFORMATION {
+  تعريفنوع بنية _ACTIVATION_CONTEXT_BASIC_INFORMATION {
     HANDLE hActCtx;
     DWORD dwFlags;
   } ACTIVATION_CONTEXT_BASIC_INFORMATION,*PACTIVATION_CONTEXT_BASIC_INFORMATION;
 
-  typedef const struct _ACTIVATION_CONTEXT_BASIC_INFORMATION *PCACTIVATION_CONTEXT_BASIC_INFORMATION;
+  تعريفنوع ثابت بنية _ACTIVATION_CONTEXT_BASIC_INFORMATION *PCACTIVATION_CONTEXT_BASIC_INFORMATION;
 
 #define ACTIVATION_CONTEXT_BASIC_INFORMATION_DEFINED 1
 #endif
@@ -2949,7 +2949,7 @@ extern "C" {
 
   WINBASEAPI WINBOOL WINAPI QueryActCtxW(DWORD dwFlags,HANDLE hActCtx,PVOID pvSubInstance,ULONG ulInfoClass,PVOID pvBuffer,SIZE_T cbBuffer,SIZE_T *pcbWrittenOrRequired);
 
-  typedef WINBOOL (WINAPI *PQUERYACTCTXW_FUNC)(DWORD dwFlags,HANDLE hActCtx,PVOID pvSubInstance,ULONG ulInfoClass,PVOID pvBuffer,SIZE_T cbBuffer,SIZE_T *pcbWrittenOrRequired);
+  تعريفنوع WINBOOL (WINAPI *PQUERYACTCTXW_FUNC)(DWORD dwFlags,HANDLE hActCtx,PVOID pvSubInstance,ULONG ulInfoClass,PVOID pvBuffer,SIZE_T cbBuffer,SIZE_T *pcbWrittenOrRequired);
 
   WINBASEAPI WINBOOL WINAPI ProcessIdToSessionId(DWORD dwProcessId,DWORD *pSessionId);
   WINBASEAPI DWORD WINAPI WTSGetActiveConsoleSessionId();

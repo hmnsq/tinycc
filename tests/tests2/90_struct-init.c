@@ -1,98 +1,98 @@
-typedef unsigned char u8;
-typedef struct {} empty_s;
-struct contains_empty {
+تعريفنوع unsigned حرف u8;
+تعريفنوع بنية {} empty_s;
+بنية contains_empty {
     u8 a;
     empty_s empty;
     u8 b;
 };
-struct contains_empty ce = { { (1) }, (empty_s){}, 022, };
+بنية contains_empty ce = { { (1) }, (empty_s){}, 022, };
 /* The following decl of 'q' would demonstrate the TCC bug in init_putv when
    handling copying compound literals.  (Compound literals
    aren't acceptable constant initializers in isoc99, but
    we accept them like gcc, except for this case)
 //char *q = (char *){ "trara" }; */
-struct SS {u8 a[3], b; };
-struct SS sinit16[] = { { 1 }, 2 };
-struct S
+بنية SS {u8 a[3], b; };
+بنية SS sinit16[] = { { 1 }, 2 };
+بنية S
 {
   u8 a,b;
   u8 c[2];
 };
 
-struct T
+بنية T
 {
   u8 s[16];
   u8 a;
 };
 
-struct U
+بنية U
 {
   u8 a;
-  struct S s;
+  بنية S s;
   u8 b;
-  struct T t;
+  بنية T t;
 };
 
-struct V
+بنية V
 {
-  struct S s;
-  struct T t;
+  بنية S s;
+  بنية T t;
   u8 a;
 };
 
-struct W
+بنية W
 {
-  struct V t;
-  struct S s[];
+  بنية V t;
+  بنية S s[];
 };
 
-struct S gs = ((struct S){1, 2, 3, 4});
-struct S gs2 = {1, 2, {3, 4}};
-struct T gt = {"hello", 42};
-struct U gu = {3, 5,6,7,8, 4, "huhu", 43};
-struct U gu2 = {3, {5,6,7,8}, 4, {"huhu", 43}};
+بنية S gs = ((بنية S){1, 2, 3, 4});
+بنية S gs2 = {1, 2, {3, 4}};
+بنية T gt = {"hello", 42};
+بنية U gu = {3, 5,6,7,8, 4, "huhu", 43};
+بنية U gu2 = {3, {5,6,7,8}, 4, {"huhu", 43}};
 /* Optional braces around scalar initializers.  Accepted, but with
    a warning.  */
-struct U gu3 = { {3}, {5,6,7,8,}, 4, {"huhu", 43}};
+بنية U gu3 = { {3}, {5,6,7,8,}, 4, {"huhu", 43}};
 /* Many superfluous braces and leaving out one initializer for U.s.c[1] */
-struct U gu4 = { 3, {5,6,7,},  5, { "bla", {44}} };
+بنية U gu4 = { 3, {5,6,7,},  5, { "bla", {44}} };
 /* Superfluous braces and useless parens around values */
-struct S gs3 = { (1), {(2)}, {(((3))), {4}}};
+بنية S gs3 = { (1), {(2)}, {(((3))), {4}}};
 /* Superfluous braces, and leaving out braces for V.t, plus cast */
-struct V gv = {{{3},4,{5,6}}, "haha", (u8)45, 46};
+بنية V gv = {{{3},4,{5,6}}, "haha", (u8)45, 46};
 /* Compound literal */
-struct V gv2 = {(struct S){7,8,{9,10}}, {"hihi", 47}, 48};
+بنية V gv2 = {(بنية S){7,8,{9,10}}, {"hihi", 47}, 48};
 /* Parens around compound literal */
-struct V gv3 = {((struct S){7,8,{9,10}}), {"hoho", 49}, 50};
+بنية V gv3 = {((بنية S){7,8,{9,10}}), {"hoho", 49}, 50};
 /* Initialization of a flex array member (warns in GCC) */
-struct W gw = {{1,2,3,4}, {1,2,3,4,5}};
+بنية W gw = {{1,2,3,4}, {1,2,3,4,5}};
 
-union UU {
+اتحاد UU {
     u8 a;
     u8 b;
 };
-struct SU {
-    union UU u;
+بنية SU {
+    اتحاد UU u;
     u8 c;
 };
-struct SU gsu = {5,6};
+بنية SU gsu = {5,6};
 
 /* Unnamed struct/union members aren't ISO C, but it's a widely accepted
    extension.  See below for further extensions to that under -fms-extension.*/
-union UV {
-    struct {u8 a,b;};
-    struct S s;
+اتحاد UV {
+    بنية {u8 a,b;};
+    بنية S s;
 };
-union UV guv = {{6,5}};
-union UV guv2 = {{.b = 7, .a = 8}};
-union UV guv3 = {.b = 8, .a = 7};
+اتحاد UV guv = {{6,5}};
+اتحاد UV guv2 = {{.b = 7, .a = 8}};
+اتحاد UV guv3 = {.b = 8, .a = 7};
 
-struct SSU {
-    int y;
-    struct { int x; };
+بنية SSU {
+    صحيح y;
+    بنية { صحيح x; };
 };
-struct SSU gssu1 = { .y = 5, .x = 3 };
-struct SSU gssu2 = { 5, 3 };
+بنية SSU gssu1 = { .y = 5, .x = 3 };
+بنية SSU gssu2 = { 5, 3 };
 
 /* Under -fms-extensions also the following is valid:
 union UV2 {
@@ -103,83 +103,83 @@ struct Anon gan = { 10, 11 }; // ... which makes it available here.
 union UV2 guv4 = {{4,3}};     // and the other inits from above as well
 */
 
-struct in6_addr {
-    union {
+بنية in6_addr {
+    اتحاد {
 	u8 u6_addr8[16];
 	unsigned short u6_addr16[8];
     } u;
 };
-struct flowi6 {
-    struct in6_addr saddr, daddr;
+بنية flowi6 {
+    بنية in6_addr saddr, daddr;
 };
-struct pkthdr {
-    struct in6_addr daddr, saddr;
+بنية pkthdr {
+    بنية in6_addr daddr, saddr;
 };
-struct pkthdr phdr = { { { 6,5,4,3 } }, { { 9,8,7,6 } } };
+بنية pkthdr phdr = { { { 6,5,4,3 } }, { { 9,8,7,6 } } };
 
-struct Wrap {
-    void *func;
+بنية Wrap {
+    فراغ *func;
 };
-int global;
-void inc_global (void)
+صحيح global;
+فراغ inc_global (فراغ)
 {
   global++;
 }
 
-struct Wrap global_wrap[] = {
-    ((struct Wrap) {inc_global}),
+بنية Wrap global_wrap[] = {
+    ((بنية Wrap) {inc_global}),
     inc_global,
 };
 
-#include <stdio.h>
-void print_ (const char *name, const u8 *p, long size)
+#ضمن <stdio.h>
+فراغ print_ (ثابت حرف *name, ثابت u8 *p, long size)
 {
   printf ("%s:", name);
-  while (size--) {
+  ܟܡܐ (size--) {
       printf (" %x", *p++);
   }
   printf ("\n");
 }
-#define print(x) print_(#x, (u8*)&x, sizeof (x))
-#if 1
-void foo (struct W *w, struct pkthdr *phdr_)
+#define print(x) print_(#x, (u8*)&x, حجم (x))
+#ܐܢ 1
+فراغ foo (بنية W *w, بنية pkthdr *phdr_)
 {
-  struct S ls = {1, 2, 3, 4};
-  struct S ls2 = {1, 2, {3, 4}};
-  struct T lt = {"hello", 42};
-  struct U lu = {3, 5,6,7,8, 4, "huhu", 43};
-  struct U lu1 = {3, ls, 4, {"huhu", 43}};
-  struct U lu2 = {3, (ls), 4, {"huhu", 43}};
-  const struct S *pls = &ls;
-  struct S ls21 = *pls;
-  struct U lu22 = {3, *pls, 4, {"huhu", 43}};
+  بنية S ls = {1, 2, 3, 4};
+  بنية S ls2 = {1, 2, {3, 4}};
+  بنية T lt = {"hello", 42};
+  بنية U lu = {3, 5,6,7,8, 4, "huhu", 43};
+  بنية U lu1 = {3, ls, 4, {"huhu", 43}};
+  بنية U lu2 = {3, (ls), 4, {"huhu", 43}};
+  ثابت بنية S *pls = &ls;
+  بنية S ls21 = *pls;
+  بنية U lu22 = {3, *pls, 4, {"huhu", 43}};
   /* Incomplete bracing.  */
-  struct U lu21 = {3, ls, 4, "huhu", 43};
+  بنية U lu21 = {3, ls, 4, "huhu", 43};
   /* Optional braces around scalar initializers.  Accepted, but with
      a warning.  */
-  struct U lu3 = { 3, {5,6,7,8,}, 4, {"huhu", 43}};
+  بنية U lu3 = { 3, {5,6,7,8,}, 4, {"huhu", 43}};
   /* Many superfluous braces and leaving out one initializer for U.s.c[1] */
-  struct U lu4 = { 3, {5,6,7,},  5, { "bla", 44} };
+  بنية U lu4 = { 3, {5,6,7,},  5, { "bla", 44} };
   /* Superfluous braces and useless parens around values */
-  struct S ls3 = { (1), (2), {(((3))), 4}};
+  بنية S ls3 = { (1), (2), {(((3))), 4}};
   /* Superfluous braces, and leaving out braces for V.t, plus cast */
-  struct V lv = {{3,4,{5,6}}, "haha", (u8)45, 46};
+  بنية V lv = {{3,4,{5,6}}, "haha", (u8)45, 46};
   /* Compound literal */
-  struct V lv2 = {(struct S)w->t.s, {"hihi", 47}, 48};
+  بنية V lv2 = {(بنية S)w->t.s, {"hihi", 47}, 48};
   /* Parens around compound literal */
-  struct V lv3 = {((struct S){7,8,{9,10}}), ((const struct W *)w)->t.t, 50};
-  const struct pkthdr *phdr = phdr_;
-  struct flowi6 flow = { .daddr = phdr->daddr, .saddr = phdr->saddr };
-  int elt = 0x42;
+  بنية V lv3 = {((بنية S){7,8,{9,10}}), ((ثابت بنية W *)w)->t.t, 50};
+  ثابت بنية pkthdr *phdr = phdr_;
+  بنية flowi6 flow = { .daddr = phdr->daddr, .saddr = phdr->saddr };
+  صحيح elt = 0x42;
   /* Range init, overlapping */
-  struct T lt2 = { { [1 ... 5] = 9, [6 ... 10] = elt, [4 ... 7] = elt+1 }, 1 };
-  struct SSU lssu1 = { 5, 3 };
-  struct SSU lssu2 = { .y = 5, .x = 3 };
+  بنية T lt2 = { { [1 ... 5] = 9, [6 ... 10] = elt, [4 ... 7] = elt+1 }, 1 };
+  بنية SSU lssu1 = { 5, 3 };
+  بنية SSU lssu2 = { .y = 5, .x = 3 };
   /* designated initializers in GNU form */
-#if defined(__GNUC__) || defined(__TINYC__)
-  struct S ls4 = {a: 1, b: 2, c: {3, 4}};
-#else
-  struct S ls4 = {.a = 1, .b = 2, .c = {3, 4}};
+#ܐܢ defined(__GNUC__) || defined(__TINYC__)
+  بنية S ls4 = {a: 1, b: 2, c: {3, 4}};
+#ܐܚܪܢܐ
+  بنية S ls4 = {.a = 1, .b = 2, .c = {3, 4}};
 #endif
   print(ls);
   print(ls2);
@@ -204,33 +204,33 @@ void foo (struct W *w, struct pkthdr *phdr_)
 }
 #endif
 
-void test_compound_with_relocs (void)
+فراغ test_compound_with_relocs (فراغ)
 {
-  struct Wrap local_wrap[] = {
-      ((struct Wrap) {inc_global}),
+  بنية Wrap local_wrap[] = {
+      ((بنية Wrap) {inc_global}),
       inc_global,
   };
-  void (*p)(void);
+  فراغ (*p)(فراغ);
   p = global_wrap[0].func; p();
   p = global_wrap[1].func; p();
   p = local_wrap[0].func; p();
   p = local_wrap[1].func; p();
 }
 
-void sys_ni(void) { printf("ni\n"); }
-void sys_one(void) { printf("one\n"); }
-void sys_two(void) { printf("two\n"); }
-void sys_three(void) { printf("three\n"); }
-void sys_four(void) { printf("four\n"); }
-typedef void (*fptr)(void);
+فراغ sys_ni(فراغ) { printf("ni\n"); }
+فراغ sys_one(فراغ) { printf("one\n"); }
+فراغ sys_two(فراغ) { printf("two\n"); }
+فراغ sys_three(فراغ) { printf("three\n"); }
+فراغ sys_four(فراغ) { printf("four\n"); }
+تعريفنوع فراغ (*fptr)(فراغ);
 
-#define array_size(a) (sizeof a / sizeof a[0])
+#define array_size(a) (حجم a / حجم a[0])
 
-void test_multi_relocs(void)
+فراغ test_multi_relocs(فراغ)
 {
-  int i;
+  صحيح i;
 
-  static const fptr tabl1[4] = {
+  ساكن ثابت fptr tabl1[4] = {
       [0 ... 3] = &sys_ni,
       [0] = sys_one,
       [1] = sys_two,
@@ -239,13 +239,13 @@ void test_multi_relocs(void)
       [1 ... 2] = &sys_ni,
       [1] = 0,
   };
-  for (i = 0; i < array_size(tabl1); i++)
-    if (tabl1[i])
+  لكل (i = 0; i < array_size(tabl1); i++)
+    ܐܢ (tabl1[i])
       tabl1[i]();
-    else
+    ܐܚܪܢܐ
       printf("(0)\n");
 
-  const fptr tabl2[4] = {
+  ثابت fptr tabl2[4] = {
       [0 ... 3] = &sys_ni,
       [0] = sys_one,
       [1] = sys_two,
@@ -254,38 +254,38 @@ void test_multi_relocs(void)
       [1 ... 2] = &sys_ni,
       [1] = 0,
   };
-  for (i = 0; i < array_size(tabl2); i++)
-    if (tabl2[i])
+  لكل (i = 0; i < array_size(tabl2); i++)
+    ܐܢ (tabl2[i])
       tabl2[i]();
-    else
+    ܐܚܪܢܐ
       printf("(0)\n");
 
-  int c = 0;
-  int dd[] = {
+  صحيح c = 0;
+  صحيح dd[] = {
     [0 ... 1] = ++c,
     [2 ... 3] = ++c
   };
-  for (i = 0; i < array_size(dd); i++)
+  لكل (i = 0; i < array_size(dd); i++)
     printf(" %d", dd[i]);
   printf("\n");
 
   /* multi-dimensional flex array with range initializers */
-  static char m1[][2][3] = {[0 ... 2]={{3,4,5},{6,7,8}},{{9},10},"abc"};
-  char        m2[][2][3] = {[0 ... 2]={{3,4,5},{6,7,8}},{{9},10},"abc"};
-  int g, j, k;
-  for (g = 2; g-- > 0;) {
-    printf("mdfa %s: %d -", "locl\0glob" + g * 5, sizeof m1);
-    for (i = 0; i < array_size(m1); i++)
-    for (j = 0; j < array_size(m1[0]); j++)
-    for (k = 0; k < array_size(m1[0][0]); k++)
+  ساكن حرف m1[][2][3] = {[0 ... 2]={{3,4,5},{6,7,8}},{{9},10},"abc"};
+  حرف        m2[][2][3] = {[0 ... 2]={{3,4,5},{6,7,8}},{{9},10},"abc"};
+  صحيح g, j, k;
+  لكل (g = 2; g-- > 0;) {
+    printf("mdfa %s: %d -", "locl\0glob" + g * 5, حجم m1);
+    لكل (i = 0; i < array_size(m1); i++)
+    لكل (j = 0; j < array_size(m1[0]); j++)
+    لكل (k = 0; k < array_size(m1[0][0]); k++)
       printf(" %d", (g ? m1:m2)[i][j][k]);
     printf("\n");
   }
 }
 
-void test_init_ranges(void) {
-    int i,c=0;
-    static void *gostring[] = {
+فراغ test_init_ranges(فراغ) {
+    صحيح i,c=0;
+    ساكن فراغ *gostring[] = {
         [0 ... 31] = &&l_bad, [127] = &&l_bad,
         [32 ... 126] = &&l_loop,
         ['\\'] = &&l_esc, ['"'] = &&l_qdown,
@@ -296,8 +296,8 @@ void test_init_ranges(void) {
         [248 ... 255] = &&l_bad
     };
 
-    for (i = 0; i < 256; i++) {
-        goto *gostring[i];
+    لكل (i = 0; i < 256; i++) {
+        اذهب *gostring[i];
         l_bad: c++;
         l_loop: c++;
         l_esc: c++;
@@ -312,46 +312,46 @@ void test_init_ranges(void) {
 
 /* Following is from GCC gcc.c-torture/execute/20050613-1.c.  */
 
-struct SEA { int i; int j; int k; int l; };
-struct SEB { struct SEA a; int r[1]; };
-struct SEC { struct SEA a; int r[0]; };
-struct SED { struct SEA a; int r[]; };
+بنية SEA { صحيح i; صحيح j; صحيح k; صحيح l; };
+بنية SEB { بنية SEA a; صحيح r[1]; };
+بنية SEC { بنية SEA a; صحيح r[0]; };
+بنية SED { بنية SEA a; صحيح r[]; };
 
-static void
-test_correct_filling (struct SEA *x)
+ساكن فراغ
+test_correct_filling (بنية SEA *x)
 {
-  static int i;
-  if (x->i != 0 || x->j != 5 || x->k != 0 || x->l != 0)
+  ساكن صحيح i;
+  ܐܢ (x->i != 0 || x->j != 5 || x->k != 0 || x->l != 0)
     printf("sea_fill%d: wrong\n", i);
-  else
+  ܐܚܪܢܐ
     printf("sea_fill%d: okay\n", i);
   i++;
 }
 
-int
-test_zero_init (void)
+صحيح
+test_zero_init (فراغ)
 {
   /* The peculiarity here is that only a.j is initialized.  That
      means that all other members must be zero initialized.  TCC
      once didn't do that for sub-level designators.  */
-  struct SEB b = { .a.j = 5 };
-  struct SEC c = { .a.j = 5 };
-  struct SED d = { .a.j = 5 };
+  بنية SEB b = { .a.j = 5 };
+  بنية SEC c = { .a.j = 5 };
+  بنية SED d = { .a.j = 5 };
   test_correct_filling (&b.a);
   test_correct_filling (&c.a);
   test_correct_filling (&d.a);
-  return 0;
+  ܦܢܐ 0;
 }
 
-void test_init_struct_from_struct(void)
+فراغ test_init_struct_from_struct(فراغ)
 {
-    int i = 0;
-    struct S {int x,y;}
+    صحيح i = 0;
+    بنية S {صحيح x,y;}
         a = {1,2},
         b = {3,4},
         c[] = {a,b},
         d[] = {++i, ++i, ++i, ++i},
-        e[] = {b, (struct S){5,6}}
+        e[] = {b, (بنية S){5,6}}
         ;
 
     printf("%s: %d %d %d %d - %d %d %d %d - %d %d %d %d\n",
@@ -371,24 +371,24 @@ void test_init_struct_from_struct(void)
         );
 }
 
-typedef struct {
-    unsigned int a;
-    unsigned int : 32;
-    unsigned int b;
+تعريفنوع بنية {
+    unsigned صحيح a;
+    unsigned صحيح : 32;
+    unsigned صحيح b;
     unsigned long long : 64;
-    unsigned int c;
+    unsigned صحيح c;
 } tst_bf;
 
 tst_bf arr[] = { { 1, 2, 3 } };
 
-void
-test_init_bf(void)
+فراغ
+test_init_bf(فراغ)
 {
     printf ("%s: %d %d %d\n", __FUNCTION__, arr[0].a, arr[0].b, arr[0].c);
 }
 
 
-int main()
+صحيح main()
 {
   print(ce);
   print(gs);
@@ -420,5 +420,5 @@ int main()
   test_init_ranges();
   test_init_struct_from_struct();
   test_init_bf();
-  return 0;
+  ܦܢܐ 0;
 }

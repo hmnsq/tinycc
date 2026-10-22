@@ -2,25 +2,25 @@
 
 #ifdef __leading_underscore
 # define _(s) s
-#else
+#ܐܚܪܢܐ
 # define _(s) _##s
 #endif
 
-extern void (*_(_init_array_start)[]) (int argc, _TCHAR **argv, _TCHAR **envp);
-extern void (*_(_init_array_end)[]) (int argc, _TCHAR **argv, _TCHAR **envp);
-extern void (*_(_fini_array_start)[]) (void);
-extern void (*_(_fini_array_end)[]) (void);
+خارجي فراغ (*_(_init_array_start)[]) (صحيح argc, _TCHAR **argv, _TCHAR **envp);
+خارجي فراغ (*_(_init_array_end)[]) (صحيح argc, _TCHAR **argv, _TCHAR **envp);
+خارجي فراغ (*_(_fini_array_start)[]) (فراغ);
+خارجي فراغ (*_(_fini_array_end)[]) (فراغ);
 
-static void run_ctors(int argc, _TCHAR **argv, _TCHAR **env)
+ساكن فراغ run_ctors(صحيح argc, _TCHAR **argv, _TCHAR **env)
 {
-    int i = 0;
-    while (&_(_init_array_start)[i] != _(_init_array_end))
+    صحيح i = 0;
+    ܟܡܐ (&_(_init_array_start)[i] != _(_init_array_end))
         (*_(_init_array_start)[i++])(argc, argv, env);
 }
 
-static void run_dtors(void)
+ساكن فراغ run_dtors(فراغ)
 {
-    int i = 0;
-    while (&_(_fini_array_end)[i] != _(_fini_array_start))
+    صحيح i = 0;
+    ܟܡܐ (&_(_fini_array_end)[i] != _(_fini_array_start))
         (*_(_fini_array_end)[--i])();
 }

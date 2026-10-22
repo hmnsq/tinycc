@@ -1,15 +1,15 @@
 #ifdef __leading_underscore
 # define _ "_"
-#else
+#ܐܚܪܢܐ
 # define _
 #endif
 
-extern int printf (const char *, ...);
-extern void vide(void);
+خارجي صحيح printf (ثابت حرف *, ...);
+خارجي فراغ vide(فراغ);
 __asm__(_"vide: ret");
 
-int main() {
+صحيح main() {
     vide();
     printf ("okay\n");
-    return 0;
+    ܦܢܐ 0;
 }

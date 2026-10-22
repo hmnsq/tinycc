@@ -7,18 +7,18 @@
 #define _INC_SHELLAPI
 
 #ifndef WINSHELLAPI
-#if !defined(_SHELL32_)
+#ܐܢ !defined(_SHELL32_)
 #define WINSHELLAPI DECLSPEC_IMPORT
-#else
+#ܐܚܪܢܐ
 #define WINSHELLAPI
 #endif
 #endif
 
 #ifndef SHSTDAPI
-#if !defined(_SHELL32_)
+#ܐܢ !defined(_SHELL32_)
 #define SHSTDAPI EXTERN_C DECLSPEC_IMPORT HRESULT WINAPI
 #define SHSTDAPI_(type) EXTERN_C DECLSPEC_IMPORT type WINAPI
-#else
+#ܐܚܪܢܐ
 #define SHSTDAPI STDAPI
 #define SHSTDAPI_(type) STDAPI_(type)
 #endif
@@ -26,18 +26,18 @@
 
 /* SHDOCAPI[_] definitions not required in this TinyCC minimal header */
 
-#if !defined(_WIN64)
-#include <pshpack1.h>
+#ܐܢ !defined(_WIN64)
+#ضمن <pshpack1.h>
 #endif
 
 #ifdef __cplusplus
-extern "C" {
+خارجي "C" {
 #endif
 
 #ifdef UNICODE
 #define ShellExecute ShellExecuteW
 #define FindExecutable FindExecutableW
-#else
+#ܐܚܪܢܐ
 #define ShellExecute ShellExecuteA
 #define FindExecutable FindExecutableA
 #endif
@@ -47,13 +47,13 @@ extern "C" {
   SHSTDAPI_(HINSTANCE) ShellExecuteW(HWND hwnd,LPCWSTR lpOperation,LPCWSTR lpFile,LPCWSTR lpParameters,LPCWSTR lpDirectory,INT nShowCmd);
   SHSTDAPI_(HINSTANCE) FindExecutableA(LPCSTR lpFile,LPCSTR lpDirectory,LPSTR lpResult);
   SHSTDAPI_(HINSTANCE) FindExecutableW(LPCWSTR lpFile,LPCWSTR lpDirectory,LPWSTR lpResult);
-  SHSTDAPI_(LPWSTR *) CommandLineToArgvW(LPCWSTR lpCmdLine,int*pNumArgs);
+  SHSTDAPI_(LPWSTR *) CommandLineToArgvW(LPCWSTR lpCmdLine,صحيح*pNumArgs);
 
 #ifdef __cplusplus
 }
 #endif
 
-#if !defined(_WIN64)
-#include <poppack.h>
+#ܐܢ !defined(_WIN64)
+#ضمن <poppack.h>
 #endif
 #endif

@@ -1,31 +1,31 @@
-void foo(int [5]);
-void fooc(int x[const 5]);
-void foos(int x[static 5]);
-void foov(int x[volatile 5]);
-void foor(int x[restrict 5]);
-void fooc(int [const 5]);
-void foos(int [static 5]);
-void foov(int [volatile 5]);
-void foor(int [restrict 5]);
-void fooc(int (* const x));
-void foos(int *x);
-void foov(int * volatile x);
-void foor(int * restrict x);
-void fooc(int x[volatile 5])
+فراغ foo(صحيح [5]);
+فراغ fooc(صحيح x[ثابت 5]);
+فراغ foos(صحيح x[ساكن 5]);
+فراغ foov(صحيح x[متطاير 5]);
+فراغ foor(صحيح x[restrict 5]);
+فراغ fooc(صحيح [ثابت 5]);
+فراغ foos(صحيح [ساكن 5]);
+فراغ foov(صحيح [متطاير 5]);
+فراغ foor(صحيح [restrict 5]);
+فراغ fooc(صحيح (* ثابت x));
+فراغ foos(صحيح *x);
+فراغ foov(صحيح * متطاير x);
+فراغ foor(صحيح * restrict x);
+فراغ fooc(صحيح x[متطاير 5])
 {
   x[3] = 42;
 #ifdef INVALID
   x = 0;
 #endif
 }
-void foovm(int x[const *]);
-void foovm(int * const x);
+فراغ foovm(صحيح x[ثابت *]);
+فراغ foovm(صحيح * ثابت x);
 
-typedef int *pointer_array[2];
-typedef int *restrict restricted_pointer;
-typedef restrict pointer_array restricted_pointer_array;
+تعريفنوع صحيح *pointer_array[2];
+تعريفنوع صحيح *restrict restricted_pointer;
+تعريفنوع restrict pointer_array restricted_pointer_array;
 
-_Static_assert(!__builtin_types_compatible_p(int **,
+_Static_assert(!__builtin_types_compatible_p(صحيح **,
                                              restricted_pointer *),
                "nested restrict qualifier is retained");
 _Static_assert(__builtin_types_compatible_p(restricted_pointer_array,
@@ -33,7 +33,7 @@ _Static_assert(__builtin_types_compatible_p(restricted_pointer_array,
                "restrict can qualify an array of pointer types");
 
 restricted_pointer *restricted_pp;
-int **unrestricted_pp;
+صحيح **unrestricted_pp;
 
 _Static_assert(__builtin_types_compatible_p(
                    __typeof__(1 ? restricted_pp : unrestricted_pp),
@@ -41,14 +41,14 @@ _Static_assert(__builtin_types_compatible_p(
                "conditional expression combines restrict qualifiers");
 
 #ifdef INVALID
-void wrongc(int x[3][const 4]);
-void wrongvm(int x[static *]);
-void foovm(int x[const *])
+فراغ wrongc(صحيح x[3][ثابت 4]);
+فراغ wrongvm(صحيح x[ساكن *]);
+فراغ foovm(صحيح x[ثابت *])
 {
   x[2] = 1;
 }
 #endif
-int main()
+صحيح main()
 {
-  return 0;
+  ܦܢܐ 0;
 }

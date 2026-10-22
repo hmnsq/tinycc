@@ -1,8 +1,8 @@
 #!/usr/local/bin/tcc -run
-#include <tcclib.h>
+#ضمن <tcclib.h>
 
-int main()
+صحيح main()
 {
     printf("Hello World\n");
-    return 0;
+    ܦܢܐ 0;
 }

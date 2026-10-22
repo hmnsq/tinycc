@@ -1,12 +1,12 @@
-#include <stdio.h>	// printf()
+#ضمن <stdio.h>	// printf()
 
 #define CAT2(a,b) a##b
 #define CAT(a,b) CAT2(a,b)
 #define AB(x) CAT(x,y)
 
-int main(void)
+صحيح main(فراغ)
 {
-  int xy = 42;
+  صحيح xy = 42;
   printf("%d\n", CAT(A,B)(x));
-  return 0;
+  ܦܢܐ 0;
 }

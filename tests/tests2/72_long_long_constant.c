@@ -1,19 +1,19 @@
-#include <stdio.h>
+#ضمن <stdio.h>
 
-int main()
+صحيح main()
 {
-    long long int res = 0;
+    long long صحيح res = 0;
 
-    if (res < -2147483648LL) {
+    ܐܢ (res < -2147483648LL) {
         printf("Error: 0 < -2147483648\n");
-        return 1;
+        ܦܢܐ 1;
     }
-    else
-    if (2147483647LL < res) {
+    ܐܚܪܢܐ
+    ܐܢ (2147483647LL < res) {
         printf("Error: 2147483647 < 0\n");
-        return 2;
+        ܦܢܐ 2;
     }
-    else
+    ܐܚܪܢܐ
         printf("long long constant test ok.\n");
-    return 0;
+    ܦܢܐ 0;
 }

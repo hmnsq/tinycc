@@ -20,63 +20,63 @@
 #define	_ELF_H 1
 
 #ifndef _WIN32
-#include <inttypes.h>
-#else
+#ضمن <inttypes.h>
+#ܐܚܪܢܐ
 #ifndef __int8_t_defined
 #define __int8_t_defined
-typedef signed char int8_t;
-typedef short int int16_t;
-typedef int int32_t;
-typedef long long int int64_t;
-typedef unsigned char           uint8_t;
-typedef unsigned short int      uint16_t;
-typedef unsigned int            uint32_t;
-typedef unsigned long long int  uint64_t;
+تعريفنوع signed حرف int8_t;
+تعريفنوع short صحيح int16_t;
+تعريفنوع صحيح int32_t;
+تعريفنوع long long صحيح int64_t;
+تعريفنوع unsigned حرف           uint8_t;
+تعريفنوع unsigned short صحيح      uint16_t;
+تعريفنوع unsigned صحيح            uint32_t;
+تعريفنوع unsigned long long صحيح  uint64_t;
 #endif
 #endif
 
 /* Standard ELF types.  */
 
 /* Type for a 16-bit quantity.  */
-typedef uint16_t Elf32_Half;
-typedef uint16_t Elf64_Half;
+تعريفنوع uint16_t Elf32_Half;
+تعريفنوع uint16_t Elf64_Half;
 
 /* Types for signed and unsigned 32-bit quantities.  */
-typedef uint32_t Elf32_Word;
-typedef	int32_t  Elf32_Sword;
-typedef uint32_t Elf64_Word;
-typedef	int32_t  Elf64_Sword;
+تعريفنوع uint32_t Elf32_Word;
+تعريفنوع	int32_t  Elf32_Sword;
+تعريفنوع uint32_t Elf64_Word;
+تعريفنوع	int32_t  Elf64_Sword;
 
 /* Types for signed and unsigned 64-bit quantities.  */
-typedef uint64_t Elf32_Xword;
-typedef	int64_t  Elf32_Sxword;
-typedef uint64_t Elf64_Xword;
-typedef	int64_t  Elf64_Sxword;
+تعريفنوع uint64_t Elf32_Xword;
+تعريفنوع	int64_t  Elf32_Sxword;
+تعريفنوع uint64_t Elf64_Xword;
+تعريفنوع	int64_t  Elf64_Sxword;
 
 /* Type of addresses.  */
-typedef uint32_t Elf32_Addr;
-typedef uint64_t Elf64_Addr;
+تعريفنوع uint32_t Elf32_Addr;
+تعريفنوع uint64_t Elf64_Addr;
 
 /* Type of file offsets.  */
-typedef uint32_t Elf32_Off;
-typedef uint64_t Elf64_Off;
+تعريفنوع uint32_t Elf32_Off;
+تعريفنوع uint64_t Elf64_Off;
 
 /* Type for section indices, which are 16-bit quantities.  */
-typedef uint16_t Elf32_Section;
-typedef uint16_t Elf64_Section;
+تعريفنوع uint16_t Elf32_Section;
+تعريفنوع uint16_t Elf64_Section;
 
 /* Type for version symbol information.  */
-typedef Elf32_Half Elf32_Versym;
-typedef Elf64_Half Elf64_Versym;
+تعريفنوع Elf32_Half Elf32_Versym;
+تعريفنوع Elf64_Half Elf64_Versym;
 
 
 /* The ELF file header.  This appears at the start of every ELF file.  */
 
 #define EI_NIDENT (16)
 
-typedef struct
+تعريفنوع بنية
 {
-  unsigned char	e_ident[EI_NIDENT];	/* Magic number and other info */
+  unsigned حرف	e_ident[EI_NIDENT];	/* Magic number and other info */
   Elf32_Half	e_type;			/* Object file type */
   Elf32_Half	e_machine;		/* Architecture */
   Elf32_Word	e_version;		/* Object file version */
@@ -92,9 +92,9 @@ typedef struct
   Elf32_Half	e_shstrndx;		/* Section header string table index */
 } Elf32_Ehdr;
 
-typedef struct
+تعريفنوع بنية
 {
-  unsigned char	e_ident[EI_NIDENT];	/* Magic number and other info */
+  unsigned حرف	e_ident[EI_NIDENT];	/* Magic number and other info */
   Elf64_Half	e_type;			/* Object file type */
   Elf64_Half	e_machine;		/* Architecture */
   Elf64_Word	e_version;		/* Object file version */
@@ -285,7 +285,7 @@ typedef struct
 
 /* Section header.  */
 
-typedef struct
+تعريفنوع بنية
 {
   Elf32_Word	sh_name;		/* Section name (string tbl index) */
   Elf32_Word	sh_type;		/* Section type */
@@ -299,7 +299,7 @@ typedef struct
   Elf32_Word	sh_entsize;		/* Entry size if section holds table */
 } Elf32_Shdr;
 
-typedef struct
+تعريفنوع بنية
 {
   Elf64_Word	sh_name;		/* Section name (string tbl index) */
   Elf64_Word	sh_type;		/* Section type */
@@ -395,21 +395,21 @@ typedef struct
 
 /* Symbol table entry.  */
 
-typedef struct
+تعريفنوع بنية
 {
   Elf32_Word	st_name;		/* Symbol name (string tbl index) */
   Elf32_Addr	st_value;		/* Symbol value */
   Elf32_Word	st_size;		/* Symbol size */
-  unsigned char	st_info;		/* Symbol type and binding */
-  unsigned char	st_other;		/* Symbol visibility */
+  unsigned حرف	st_info;		/* Symbol type and binding */
+  unsigned حرف	st_other;		/* Symbol visibility */
   Elf32_Section	st_shndx;		/* Section index */
 } Elf32_Sym;
 
-typedef struct
+تعريفنوع بنية
 {
   Elf64_Word	st_name;		/* Symbol name (string tbl index) */
-  unsigned char	st_info;		/* Symbol type and binding */
-  unsigned char st_other;		/* Symbol visibility */
+  unsigned حرف	st_info;		/* Symbol type and binding */
+  unsigned حرف st_other;		/* Symbol visibility */
   Elf64_Section	st_shndx;		/* Section index */
   Elf64_Addr	st_value;		/* Symbol value */
   Elf64_Xword	st_size;		/* Symbol size */
@@ -418,13 +418,13 @@ typedef struct
 /* The syminfo section if available contains additional information about
    every dynamic symbol.  */
 
-typedef struct
+تعريفنوع بنية
 {
   Elf32_Half si_boundto;		/* Direct bindings, symbol bound to */
   Elf32_Half si_flags;			/* Per symbol flags */
 } Elf32_Syminfo;
 
-typedef struct
+تعريفنوع بنية
 {
   Elf64_Half si_boundto;		/* Direct bindings, symbol bound to */
   Elf64_Half si_flags;			/* Per symbol flags */
@@ -449,7 +449,7 @@ typedef struct
 
 /* How to extract and insert information held in the st_info field.  */
 
-#define ELF32_ST_BIND(val)		(((unsigned char) (val)) >> 4)
+#define ELF32_ST_BIND(val)		(((unsigned حرف) (val)) >> 4)
 #define ELF32_ST_TYPE(val)		((val) & 0xf)
 #define ELF32_ST_INFO(bind, type)	(((bind) << 4) + ((type) & 0xf))
 
@@ -510,7 +510,7 @@ typedef struct
 
 /* Relocation table entry without addend (in section of type SHT_REL).  */
 
-typedef struct
+تعريفنوع بنية
 {
   Elf32_Addr	r_offset;		/* Address */
   Elf32_Word	r_info;			/* Relocation type and symbol index */
@@ -521,7 +521,7 @@ typedef struct
    whoever) gets their act together.  */
 /* The following, at least, is used on Sparc v9, MIPS, and Alpha.  */
 
-typedef struct
+تعريفنوع بنية
 {
   Elf64_Addr	r_offset;		/* Address */
   Elf64_Xword	r_info;			/* Relocation type and symbol index */
@@ -529,14 +529,14 @@ typedef struct
 
 /* Relocation table entry with addend (in section of type SHT_RELA).  */
 
-typedef struct
+تعريفنوع بنية
 {
   Elf32_Addr	r_offset;		/* Address */
   Elf32_Word	r_info;			/* Relocation type and symbol index */
   Elf32_Sword	r_addend;		/* Addend */
 } Elf32_Rela;
 
-typedef struct
+تعريفنوع بنية
 {
   Elf64_Addr	r_offset;		/* Address */
   Elf64_Xword	r_info;			/* Relocation type and symbol index */
@@ -555,7 +555,7 @@ typedef struct
 
 /* Program segment header.  */
 
-typedef struct
+تعريفنوع بنية
 {
   Elf32_Word	p_type;			/* Segment type */
   Elf32_Off	p_offset;		/* Segment file offset */
@@ -567,7 +567,7 @@ typedef struct
   Elf32_Word	p_align;		/* Segment alignment */
 } Elf32_Phdr;
 
-typedef struct
+تعريفنوع بنية
 {
   Elf64_Word	p_type;			/* Segment type */
   Elf64_Word	p_flags;		/* Segment flags */
@@ -661,20 +661,20 @@ typedef struct
 
 /* Dynamic section entry.  */
 
-typedef struct
+تعريفنوع بنية
 {
   Elf32_Sword	d_tag;			/* Dynamic entry type */
-  union
+  اتحاد
     {
       Elf32_Word d_val;			/* Integer value */
       Elf32_Addr d_ptr;			/* Address value */
     } d_un;
 } Elf32_Dyn;
 
-typedef struct
+تعريفنوع بنية
 {
   Elf64_Sxword	d_tag;			/* Dynamic entry type */
-  union
+  اتحاد
     {
       Elf64_Xword d_val;		/* Integer value */
       Elf64_Addr d_ptr;			/* Address value */
@@ -838,7 +838,7 @@ typedef struct
 
 /* Version definition sections.  */
 
-typedef struct
+تعريفنوع بنية
 {
   Elf32_Half	vd_version;		/* Version revision */
   Elf32_Half	vd_flags;		/* Version information */
@@ -850,7 +850,7 @@ typedef struct
 					   entry */
 } Elf32_Verdef;
 
-typedef struct
+تعريفنوع بنية
 {
   Elf64_Half	vd_version;		/* Version revision */
   Elf64_Half	vd_flags;		/* Version information */
@@ -880,14 +880,14 @@ typedef struct
 
 /* Auxiliary version information.  */
 
-typedef struct
+تعريفنوع بنية
 {
   Elf32_Word	vda_name;		/* Version or dependency names */
   Elf32_Word	vda_next;		/* Offset in bytes to next verdaux
 					   entry */
 } Elf32_Verdaux;
 
-typedef struct
+تعريفنوع بنية
 {
   Elf64_Word	vda_name;		/* Version or dependency names */
   Elf64_Word	vda_next;		/* Offset in bytes to next verdaux
@@ -897,7 +897,7 @@ typedef struct
 
 /* Version dependency section.  */
 
-typedef struct
+تعريفنوع بنية
 {
   Elf32_Half	vn_version;		/* Version of structure */
   Elf32_Half	vn_cnt;			/* Number of associated aux entries */
@@ -908,7 +908,7 @@ typedef struct
 					   entry */
 } Elf32_Verneed;
 
-typedef struct
+تعريفنوع بنية
 {
   Elf64_Half	vn_version;		/* Version of structure */
   Elf64_Half	vn_cnt;			/* Number of associated aux entries */
@@ -927,7 +927,7 @@ typedef struct
 
 /* Auxiliary needed version information.  */
 
-typedef struct
+تعريفنوع بنية
 {
   Elf32_Word	vna_hash;		/* Hash value of dependency name */
   Elf32_Half	vna_flags;		/* Dependency specific information */
@@ -937,7 +937,7 @@ typedef struct
 					   entry */
 } Elf32_Vernaux;
 
-typedef struct
+تعريفنوع بنية
 {
   Elf64_Word	vna_hash;		/* Hash value of dependency name */
   Elf64_Half	vna_flags;		/* Dependency specific information */
@@ -961,10 +961,10 @@ typedef struct
    types are an arrangement between the exec server and the program
    interpreter, so we don't fully specify them here.  */
 
-typedef struct
+تعريفنوع بنية
 {
   uint32_t a_type;		/* Entry type */
-  union
+  اتحاد
     {
       uint32_t a_val;		/* Integer value */
       /* We use to have pointer elements added here.  We cannot do that,
@@ -973,10 +973,10 @@ typedef struct
     } a_un;
 } Elf32_auxv_t;
 
-typedef struct
+تعريفنوع بنية
 {
   uint64_t a_type;		/* Entry type */
-  union
+  اتحاد
     {
       uint64_t a_val;		/* Integer value */
       /* We use to have pointer elements added here.  We cannot do that,
@@ -1045,14 +1045,14 @@ typedef struct
 /* Note section contents.  Each entry in the note section begins with
    a header of a fixed form.  */
 
-typedef struct
+تعريفنوع بنية
 {
   Elf32_Word n_namesz;			/* Length of the note's name.  */
   Elf32_Word n_descsz;			/* Length of the note's descriptor.  */
   Elf32_Word n_type;			/* Type of the note.  */
 } Elf32_Nhdr;
 
-typedef struct
+تعريفنوع بنية
 {
   Elf64_Word n_namesz;			/* Length of the note's name.  */
   Elf64_Word n_descsz;			/* Length of the note's descriptor.  */
@@ -1109,7 +1109,7 @@ typedef struct
 
 
 /* Move records.  */
-typedef struct
+تعريفنوع بنية
 {
   Elf32_Xword m_value;		/* Symbol value.  */
   Elf32_Word m_info;		/* Size and index.  */
@@ -1118,7 +1118,7 @@ typedef struct
   Elf32_Half m_stride;		/* Stride info.  */
 } Elf32_Move;
 
-typedef struct
+تعريفنوع بنية
 {
   Elf64_Xword m_value;		/* Symbol value.  */
   Elf64_Xword m_info;		/* Size and index.  */
@@ -1129,8 +1129,8 @@ typedef struct
 
 /* Macro to construct move records.  */
 #define ELF32_M_SYM(info)	((info) >> 8)
-#define ELF32_M_SIZE(info)	((unsigned char) (info))
-#define ELF32_M_INFO(sym, size)	(((sym) << 8) + (unsigned char) (size))
+#define ELF32_M_SIZE(info)	((unsigned حرف) (info))
+#define ELF32_M_INFO(sym, size)	(((sym) << 8) + (unsigned حرف) (size))
 
 #define ELF64_M_SYM(info)	ELF32_M_SYM (info)
 #define ELF64_M_SIZE(info)	ELF32_M_SIZE (info)
@@ -1493,14 +1493,14 @@ typedef struct
 
 /* Entries found in sections of type SHT_MIPS_GPTAB.  */
 
-typedef union
+تعريفنوع اتحاد
 {
-  struct
+  بنية
     {
       Elf32_Word gt_current_g_value;	/* -G value used for compilation */
       Elf32_Word gt_unused;		/* Not used */
     } gt_header;			/* First entry in section */
-  struct
+  بنية
     {
       Elf32_Word gt_g_value;		/* If this value were used for -G */
       Elf32_Word gt_bytes;		/* This many bytes would be used */
@@ -1509,7 +1509,7 @@ typedef union
 
 /* Entry found in sections of type SHT_MIPS_REGINFO.  */
 
-typedef struct
+تعريفنوع بنية
 {
   Elf32_Word	ri_gprmask;		/* General registers used */
   Elf32_Word	ri_cprmask[4];		/* Coprocessor registers used */
@@ -1518,11 +1518,11 @@ typedef struct
 
 /* Entries found in sections of type SHT_MIPS_OPTIONS.  */
 
-typedef struct
+تعريفنوع بنية
 {
-  unsigned char kind;		/* Determines interpretation of the
+  unsigned حرف kind;		/* Determines interpretation of the
 				   variable part of descriptor.  */
-  unsigned char size;		/* Size of descriptor, including header.  */
+  unsigned حرف size;		/* Size of descriptor, including header.  */
   Elf32_Section section;	/* Section header index of section affected,
 				   0 for global options.  */
   Elf32_Word info;		/* Kind-specific information.  */
@@ -1569,7 +1569,7 @@ typedef struct
 
 /* Entry found in `.options' section.  */
 
-typedef struct
+تعريفنوع بنية
 {
   Elf32_Word hwp_flags1;	/* Extra flags.  */
   Elf32_Word hwp_flags2;	/* Extra flags.  */
@@ -1730,7 +1730,7 @@ typedef struct
 
 /* Entries found in sections of type SHT_MIPS_LIBLIST.  */
 
-typedef struct
+تعريفنوع بنية
 {
   Elf32_Word l_name;		/* Name (string table index) */
   Elf32_Word l_time_stamp;	/* Timestamp */
@@ -1739,7 +1739,7 @@ typedef struct
   Elf32_Word l_flags;		/* Flags */
 } Elf32_Lib;
 
-typedef struct
+تعريفنوع بنية
 {
   Elf64_Word l_name;		/* Name (string table index) */
   Elf64_Word l_time_stamp;	/* Timestamp */
@@ -1761,7 +1761,7 @@ typedef struct
 
 /* Entries found in sections of type SHT_MIPS_CONFLICT.  */
 
-typedef Elf32_Addr Elf32_Conflict;
+تعريفنوع Elf32_Addr Elf32_Conflict;
 
 
 /* HPPA specific definitions.  */

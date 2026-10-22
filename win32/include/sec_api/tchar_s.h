@@ -6,12 +6,12 @@
 #ifndef _INC_TCHAR_S
 #define _INC_TCHAR_S
 
-#include <tchar.h>
+#ضمن <tchar.h>
 
-#if defined(MINGW_HAS_SECURE_API)
+#ܐܢ defined(MINGW_HAS_SECURE_API)
 
 #ifdef __cplusplus
-extern "C" {
+خارجي "C" {
 #endif
 
 #ifdef _UNICODE
@@ -107,7 +107,7 @@ extern "C" {
 #define _wcsnset_s_l(_Destination,_Destination_size_chars,_Value,_Count,_Locale) (_wcsnset_s(_Destination,_Destination_size_chars,_Value,_Count))
 #define _wcsset_s_l(_Destination,_Destination_size_chars,_Value,_Locale) (_wcsset_s(_Destination,_Destination_size_chars,_Value))
 
-#else
+#ܐܚܪܢܐ
 
 #define _tprintf_s printf_s
 #define _tprintf_s_l _printf_s_l
@@ -208,28 +208,28 @@ extern "C" {
 
 #define _tccpy_s _mbccpy_s
 #define _tccpy_s_l _mbccpy_s_l
-#else
+#ܐܚܪܢܐ
 
-  _CRTIMP char *__cdecl _tcsncat_s(char *_Dst,size_t _DstSizeInChars,const char *_Src,size_t _MaxCount);
-  _CRTIMP char *__cdecl _tcsncat_s_l(char *_Dst,size_t _DstSizeInChars,const char *_Src,size_t _MaxCount,_locale_t _Locale);
-  _CRTIMP char *__cdecl _tcsncpy_s(char *_Dst,size_t _DstSizeInChars,const char *_Src,size_t _MaxCount);
-  _CRTIMP char *__cdecl _tcsncpy_s_l(char *_Dst,size_t _DstSizeInChars,const char *_Src,size_t _MaxCount,_locale_t _Locale);
-  _CRTIMP char *__cdecl _tcstok_s(char *_Str,const char *_Delim,char **_Context);
-  _CRTIMP char *__cdecl _tcstok_s_l(char *_Str,const char *_Delim,char **_Context,_locale_t _Locale);
-  _CRTIMP errno_t __cdecl _tcsset_s(char *_Str,size_t _SizeInChars,unsigned int _Val);
-  _CRTIMP errno_t __cdecl _tcsset_s_l(char *_Str,size_t _SizeInChars,unsigned int,_locale_t _Locale);
-  _CRTIMP char *__cdecl _tcsnccat_s(char *_Dst,size_t _DstSizeInChars,const char *_Src,size_t _MaxCount);
-  _CRTIMP char *__cdecl _tcsnccat_s_l(char *_Dst,size_t _DstSizeInChars,const char *_Src,size_t _MaxCount,_locale_t _Locale);
-  _CRTIMP char *__cdecl _tcsnccpy_s(char *_Dst,size_t _DstSizeInChars,const char *_Src,size_t _MaxCount);
-  _CRTIMP char *__cdecl _tcsnccpy_s_l(char *_Dst,size_t _DstSizeInChars,const char *_Src,size_t _MaxCount,_locale_t _Locale);
-  _CRTIMP char *__cdecl _tcslwr_s(char *_Str,size_t _SizeInChars);
-  _CRTIMP char *__cdecl _tcslwr_s_l(char *_Str,size_t _SizeInChars,_locale_t _Locale);
-  _CRTIMP char *__cdecl _tcsupr_s(char *_Str,size_t _SizeInChars);
-  _CRTIMP char *__cdecl _tcsupr_s_l(char *_Str,size_t _SizeInChars,_locale_t _Locale);
+  _CRTIMP حرف *__cdecl _tcsncat_s(حرف *_Dst,size_t _DstSizeInChars,ثابت حرف *_Src,size_t _MaxCount);
+  _CRTIMP حرف *__cdecl _tcsncat_s_l(حرف *_Dst,size_t _DstSizeInChars,ثابت حرف *_Src,size_t _MaxCount,_locale_t _Locale);
+  _CRTIMP حرف *__cdecl _tcsncpy_s(حرف *_Dst,size_t _DstSizeInChars,ثابت حرف *_Src,size_t _MaxCount);
+  _CRTIMP حرف *__cdecl _tcsncpy_s_l(حرف *_Dst,size_t _DstSizeInChars,ثابت حرف *_Src,size_t _MaxCount,_locale_t _Locale);
+  _CRTIMP حرف *__cdecl _tcstok_s(حرف *_Str,ثابت حرف *_Delim,حرف **_Context);
+  _CRTIMP حرف *__cdecl _tcstok_s_l(حرف *_Str,ثابت حرف *_Delim,حرف **_Context,_locale_t _Locale);
+  _CRTIMP errno_t __cdecl _tcsset_s(حرف *_Str,size_t _SizeInChars,unsigned صحيح _Val);
+  _CRTIMP errno_t __cdecl _tcsset_s_l(حرف *_Str,size_t _SizeInChars,unsigned صحيح,_locale_t _Locale);
+  _CRTIMP حرف *__cdecl _tcsnccat_s(حرف *_Dst,size_t _DstSizeInChars,ثابت حرف *_Src,size_t _MaxCount);
+  _CRTIMP حرف *__cdecl _tcsnccat_s_l(حرف *_Dst,size_t _DstSizeInChars,ثابت حرف *_Src,size_t _MaxCount,_locale_t _Locale);
+  _CRTIMP حرف *__cdecl _tcsnccpy_s(حرف *_Dst,size_t _DstSizeInChars,ثابت حرف *_Src,size_t _MaxCount);
+  _CRTIMP حرف *__cdecl _tcsnccpy_s_l(حرف *_Dst,size_t _DstSizeInChars,ثابت حرف *_Src,size_t _MaxCount,_locale_t _Locale);
+  _CRTIMP حرف *__cdecl _tcslwr_s(حرف *_Str,size_t _SizeInChars);
+  _CRTIMP حرف *__cdecl _tcslwr_s_l(حرف *_Str,size_t _SizeInChars,_locale_t _Locale);
+  _CRTIMP حرف *__cdecl _tcsupr_s(حرف *_Str,size_t _SizeInChars);
+  _CRTIMP حرف *__cdecl _tcsupr_s_l(حرف *_Str,size_t _SizeInChars,_locale_t _Locale);
 
 #endif
 
-#else
+#ܐܚܪܢܐ
 
 #define _tcsncat_s strncat_s
 #define _tcsncat_s_l _strncat_s_l

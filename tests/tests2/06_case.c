@@ -1,29 +1,29 @@
-#include <stdio.h>
+#ضمن <stdio.h>
 
-int main()
+صحيح main()
 {
-   int Count;
+   صحيح Count;
 
-   for (Count = 0; Count < 4; Count++)
+   لكل (Count = 0; Count < 4; Count++)
    {
       printf("%d\n", Count);
-      switch (Count)
+      بدل (Count)
       {
-         case 1:
+         حالة 1:
             printf("%d\n", 1);
-            break;
+            اكسر;
 
-         case 2:
+         حالة 2:
             printf("%d\n", 2);
-            break;
+            اكسر;
 
-         default:
+         افتراضي:
             printf("%d\n", 0);
-            break;
+            اكسر;
       }
    }
 
-   return 0;
+   ܦܢܐ 0;
 }
 
 // vim: set expandtab ts=4 sw=3 sts=3 tw=80 :

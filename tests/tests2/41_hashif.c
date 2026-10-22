@@ -1,33 +1,33 @@
-#include <stdio.h>
+#ضمن <stdio.h>
 
-int main()
+صحيح main()
 {
    printf("#include test\n");
 
-#if 1
-#if 0
+#ܐܢ 1
+#ܐܢ 0
    printf("a\n");
-#else
+#ܐܚܪܢܐ
    printf("b\n");
 #endif
-#else
-#if 0
+#ܐܚܪܢܐ
+#ܐܢ 0
    printf("c\n");
-#else
+#ܐܚܪܢܐ
    printf("d\n");
 #endif
 #endif
 
-#if 0
-#if 1
+#ܐܢ 0
+#ܐܢ 1
    printf("e\n");
-#else
+#ܐܚܪܢܐ
    printf("f\n");
 #endif
-#else
-#if 1
+#ܐܚܪܢܐ
+#ܐܢ 1
    printf("g\n");
-#else
+#ܐܚܪܢܐ
    printf("h\n");
 #endif
 #endif
@@ -37,13 +37,13 @@ int main()
 #ifdef DEF
 #ifdef DEF
    printf("i\n");
-#else
+#ܐܚܪܢܐ
    printf("j\n");
 #endif
-#else
+#ܐܚܪܢܐ
 #ifdef DEF
    printf("k\n");
-#else
+#ܐܚܪܢܐ
    printf("l\n");
 #endif
 #endif
@@ -51,13 +51,13 @@ int main()
 #ifndef DEF
 #ifndef DEF
    printf("m\n");
-#else
+#ܐܚܪܢܐ
    printf("n\n");
 #endif
-#else
+#ܐܚܪܢܐ
 #ifndef DEF
    printf("o\n");
-#else
+#ܐܚܪܢܐ
    printf("p\n");
 #endif
 #endif
@@ -65,21 +65,21 @@ int main()
 #define ONE 1
 #define ZERO 0
 
-#if ONE
-#if ZERO
+#ܐܢ ONE
+#ܐܢ ZERO
    printf("q\n");
-#else
+#ܐܚܪܢܐ
    printf("r\n");
 #endif
-#else
-#if ZERO
+#ܐܚܪܢܐ
+#ܐܢ ZERO
    printf("s\n");
-#else
+#ܐܚܪܢܐ
    printf("t\n");
 #endif
 #endif
 
-   return 0;
+   ܦܢܐ 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/
