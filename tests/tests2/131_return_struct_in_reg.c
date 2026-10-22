@@ -1,41 +1,41 @@
-#include<stdio.h>
+#समावेश<stdio.h>
 
-struct s1 {
-    unsigned char a:4, b:4;
+काष्ठा s1 {
+    अचिन्हित अक्षर a:4, b:4;
 } g1 = { 0x05, 0x0a };
 
-struct s2 {
-    unsigned char a, b;
+काष्ठा s2 {
+    अचिन्हित अक्षर a, b;
 } g2 = { 0x12, 0x34 };
 
-struct s4 {
-    unsigned short a, b;
+काष्ठा s4 {
+    अचिन्हित लघु a, b;
 } g4 = { 0x1245, 0x5678 };
 
-struct s8 {
-    unsigned a, b;
+काष्ठा s8 {
+    अचिन्हित a, b;
 } g8 = { 0x12345678, 0x9abcdef0 };
 
 /* returned in 2 registers on riscv64 */
-struct s16 {
-    unsigned long long a, b;
+काष्ठा s16 {
+    अचिन्हित दीर्घ दीर्घ a, b;
 } g16 = { 0x123456789abcdef0ULL, 0xfedcba9876543210ULL };
 
 /* Homogeneous float aggregate on ARM hard-float */
-struct s_f4 {
-    double a, b, c, d;
+काष्ठा s_f4 {
+    द्विगुन a, b, c, d;
 } g_f4 = { 1,2,3,4 };
 
-#define def(S) \
-struct s##S f##S(int x) \
+#घोषणा def(S) \
+काष्ठा s##S f##S(पूर्णांक x) \
 { \
-    struct s##S l##S = g##S, *p##S = &l##S; \
-    if (x == 0) \
-        return g##S; \
-    else if (x == 1) \
-        return l##S; \
-    else \
-        return *p##S; \
+    काष्ठा s##S l##S = g##S, *p##S = &l##S; \
+    अगर (x == 0) \
+        वापस g##S; \
+    अन्यथा अगर (x == 1) \
+        वापस l##S; \
+    अन्यथा \
+        वापस *p##S; \
 }
 
 def(1)
@@ -45,26 +45,26 @@ def(8)
 def(16)
 def(_f4)
 
-#define chk(S,x) \
-    struct s##S l##S = f##S(x); \
-    printf("%02llx %02llx\n", \
-        (unsigned long long)l##S.a, \
-        (unsigned long long)l##S.b \
+#घोषणा chk(S,x) \
+    काष्ठा s##S l##S = f##S(x); \
+    म_लिखो("%02llx %02llx\n", \
+        (अचिन्हित दीर्घ दीर्घ)l##S.a, \
+        (अचिन्हित दीर्घ दीर्घ)l##S.b \
         );
 
-int main()
+पूर्णांक मुख्य()
 {
-    for (int x = 0;;) {
+    क्रम (पूर्णांक x = 0;;) {
         chk(1,x);
         chk(2,x);
         chk(4,x);
         chk(8,x);
         chk(16,x);
-        struct s_f4 l_f4 = f_f4(x);
-        printf("%.1f %.1f %.1f %.1f\n", l_f4.a, l_f4.b, l_f4.c, l_f4.d);
-        if (++x > 2)
-            break;
-        printf("\n");
+        काष्ठा s_f4 l_f4 = f_f4(x);
+        म_लिखो("%.1f %.1f %.1f %.1f\n", l_f4.a, l_f4.b, l_f4.c, l_f4.d);
+        अगर (++x > 2)
+            अवरोध;
+        म_लिखो("\n");
     }
-    return 0;
+    वापस 0;
 }

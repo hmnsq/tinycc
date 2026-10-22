@@ -1,55 +1,55 @@
 /* The following are all valid decls, even though some subtypes
    are incomplete.  */
-enum E *e;
-const enum E *e1;
-enum E const *e2;
-struct S *s;
-const struct S *s1;
-struct S const *s2;
+क्रमागत E *e;
+स्थिर क्रमागत E *e1;
+क्रमागत E स्थिर *e2;
+काष्ठा S *s;
+स्थिर काष्ठा S *s1;
+काष्ठा S स्थिर *s2;
 
 /* Various strangely looking declarators, which are all valid
    and have to map to the same numbered typedefs. */
-typedef int (*fptr1)();
-int f1 (int (), int);
-typedef int (*fptr2)(int x);
-int f2 (int (int x), int);
-typedef int (*fptr3)(int);
-int f3 (int (int), int);
-typedef int (*fptr4[4])(int);
-int f4 (int (*[4])(int), int);
-typedef int (*fptr5)(fptr1);
-int f5 (int (int()), fptr1);
-int f1 (fptr1 fp, int i)
+प्रकार पूर्णांक (*fptr1)();
+पूर्णांक f1 (पूर्णांक (), पूर्णांक);
+प्रकार पूर्णांक (*fptr2)(पूर्णांक x);
+पूर्णांक f2 (पूर्णांक (पूर्णांक x), पूर्णांक);
+प्रकार पूर्णांक (*fptr3)(पूर्णांक);
+पूर्णांक f3 (पूर्णांक (पूर्णांक), पूर्णांक);
+प्रकार पूर्णांक (*fptr4[4])(पूर्णांक);
+पूर्णांक f4 (पूर्णांक (*[4])(पूर्णांक), पूर्णांक);
+प्रकार पूर्णांक (*fptr5)(fptr1);
+पूर्णांक f5 (पूर्णांक (पूर्णांक()), fptr1);
+पूर्णांक f1 (fptr1 fp, पूर्णांक i)
 {
-  return (*fp)(i);
+  वापस (*fp)(i);
 }
-int f2 (fptr2 fp, int i)
+पूर्णांक f2 (fptr2 fp, पूर्णांक i)
 {
-  return (*fp)(i);
+  वापस (*fp)(i);
 }
-int f3 (fptr3 fp, int i)
+पूर्णांक f3 (fptr3 fp, पूर्णांक i)
 {
-  return (*fp)(i);
+  वापस (*fp)(i);
 }
-int f4 (fptr4 fp, int i)
+पूर्णांक f4 (fptr4 fp, पूर्णांक i)
 {
-  return (*fp[i])(i);
+  वापस (*fp[i])(i);
 }
-int f5 (fptr5 fp, fptr1 i)
+पूर्णांक f5 (fptr5 fp, fptr1 i)
 {
-  return fp(i);
+  वापस fp(i);
 }
-typedef int intx4[4];
-int f8 (intx4, int);
-int f8 (int ([4]), int);
-int f8 (int y[4], int i)
+प्रकार पूर्णांक intx4[4];
+पूर्णांक f8 (intx4, पूर्णांक);
+पूर्णांक f8 (पूर्णांक ([4]), पूर्णांक);
+पूर्णांक f8 (पूर्णांक y[4], पूर्णांक i)
 {
-  return y[i];
+  वापस y[i];
 }
-int f9 (int (*)(int), int);
-int f9 (int ((int)), int);
-int f9 (int f(int), int i)
+पूर्णांक f9 (पूर्णांक (*)(पूर्णांक), पूर्णांक);
+पूर्णांक f9 (पूर्णांक ((पूर्णांक)), पूर्णांक);
+पूर्णांक f9 (पूर्णांक f(पूर्णांक), पूर्णांक i)
 {
-  return f(i);
+  वापस f(i);
 }
-int main () { return 0; }
+पूर्णांक मुख्य () { वापस 0; }

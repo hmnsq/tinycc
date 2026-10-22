@@ -1,14 +1,14 @@
-#include <stdio.h>
+#समावेश <stdio.h>
 
-#define P(A,B) A ## B ; bob
-#define Q(A,B) A ## B+
+#घोषणा P(A,B) A ## B ; bob
+#घोषणा Q(A,B) A ## B+
 
-int main(void)
+पूर्णांक मुख्य(व्योम)
 {
-    int bob, jim = 21;
+    पूर्णांक bob, jim = 21;
     bob = P(jim,) *= 2;
-    printf("jim: %d, bob: %d\n", jim, bob);
+    म_लिखो("jim: %d, bob: %d\n", jim, bob);
     jim = 60 Q(+,)3;
-    printf("jim: %d\n", jim);
-    return 0;
+    म_लिखो("jim: %d\n", jim);
+    वापस 0;
 }

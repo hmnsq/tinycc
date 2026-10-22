@@ -3,89 +3,89 @@
  * This file is part of the w64 mingw-runtime package.
  * No warranty is given; refer to the file DISCLAIMER within this package.
  */
-#ifndef _INC_LOCALE
-#define _INC_LOCALE
+#अगर_अघोषित _INC_LOCALE
+#घोषणा _INC_LOCALE
 
-#include <_mingw.h>
+#समावेश <_mingw.h>
 
-#pragma pack(push,_CRT_PACKING)
+#आशय pack(धकेलो,_CRT_PACKING)
 
-#ifdef __cplusplus
-extern "C" {
-#endif
+#अगर_घोषित __cplusplus
+बाह्य "C" {
+#पूर्ण_अगर
 
-#ifndef NULL
-#ifdef __cplusplus
-#define NULL 0
-#else
-#define NULL ((void *)0)
-#endif
-#endif
+#अगर_अघोषित शून्य
+#अगर_घोषित __cplusplus
+#घोषणा शून्य 0
+#अन्यथा
+#घोषणा शून्य ((व्योम *)0)
+#पूर्ण_अगर
+#पूर्ण_अगर
 
-#define LC_ALL 0
-#define LC_COLLATE 1
-#define LC_CTYPE 2
-#define LC_MONETARY 3
-#define LC_NUMERIC 4
-#define LC_TIME 5
+#घोषणा LC_ALL 0
+#घोषणा LC_COLLATE 1
+#घोषणा LC_CTYPE 2
+#घोषणा LC_MONETARY 3
+#घोषणा LC_NUMERIC 4
+#घोषणा LC_TIME 5
 
-#define LC_MIN LC_ALL
-#define LC_MAX LC_TIME
+#घोषणा LC_MIN LC_ALL
+#घोषणा LC_MAX LC_TIME
 
-#ifndef _LCONV_DEFINED
-#define _LCONV_DEFINED
-  struct lconv {
-    char *decimal_point;
-    char *thousands_sep;
-    char *grouping;
-    char *int_curr_symbol;
-    char *currency_symbol;
-    char *mon_decimal_point;
-    char *mon_thousands_sep;
-    char *mon_grouping;
-    char *positive_sign;
-    char *negative_sign;
-    char int_frac_digits;
-    char frac_digits;
-    char p_cs_precedes;
-    char p_sep_by_space;
-    char n_cs_precedes;
-    char n_sep_by_space;
-    char p_sign_posn;
-    char n_sign_posn;
+#अगर_अघोषित _LCONV_DEFINED
+#घोषणा _LCONV_DEFINED
+  काष्ठा स्था_बदल {
+    अक्षर *decimal_point;
+    अक्षर *thousands_sep;
+    अक्षर *grouping;
+    अक्षर *int_curr_प्रतीक;
+    अक्षर *currency_प्रतीक;
+    अक्षर *mon_decimal_point;
+    अक्षर *mon_thousands_sep;
+    अक्षर *mon_grouping;
+    अक्षर *positive_sign;
+    अक्षर *negative_sign;
+    अक्षर int_frac_digits;
+    अक्षर frac_digits;
+    अक्षर p_cs_precedes;
+    अक्षर p_sep_by_space;
+    अक्षर n_cs_precedes;
+    अक्षर n_sep_by_space;
+    अक्षर p_sign_posn;
+    अक्षर n_sign_posn;
   };
-#endif
+#पूर्ण_अगर
 
-#ifndef _CONFIG_LOCALE_SWT
-#define _CONFIG_LOCALE_SWT
+#अगर_अघोषित _CONFIG_LOCALE_SWT
+#घोषणा _CONFIG_LOCALE_SWT
 
-#define _ENABLE_PER_THREAD_LOCALE 0x1
-#define _DISABLE_PER_THREAD_LOCALE 0x2
-#define _ENABLE_PER_THREAD_LOCALE_GLOBAL 0x10
-#define _DISABLE_PER_THREAD_LOCALE_GLOBAL 0x20
-#define _ENABLE_PER_THREAD_LOCALE_NEW 0x100
-#define _DISABLE_PER_THREAD_LOCALE_NEW 0x200
+#घोषणा _ENABLE_PER_THREAD_LOCALE 0x1
+#घोषणा _DISABLE_PER_THREAD_LOCALE 0x2
+#घोषणा _ENABLE_PER_THREAD_LOCALE_GLOBAL 0x10
+#घोषणा _DISABLE_PER_THREAD_LOCALE_GLOBAL 0x20
+#घोषणा _ENABLE_PER_THREAD_LOCALE_NEW 0x100
+#घोषणा _DISABLE_PER_THREAD_LOCALE_NEW 0x200
 
-#endif
+#पूर्ण_अगर
 
-  int __cdecl _configthreadlocale(int _Flag);
-  char *__cdecl setlocale(int _Category,const char *_Locale);
-  _CRTIMP struct lconv *__cdecl localeconv(void);
-  _locale_t __cdecl _get_current_locale(void);
-  _locale_t __cdecl _create_locale(int _Category,const char *_Locale);
-  void __cdecl _free_locale(_locale_t _Locale);
-  _locale_t __cdecl __get_current_locale(void);
-  _locale_t __cdecl __create_locale(int _Category,const char *_Locale);
-  void __cdecl __free_locale(_locale_t _Locale);
+  पूर्णांक __cdecl _configthreadlocale(पूर्णांक _Flag);
+  अक्षर *__cdecl रखो_क्षेत्र(पूर्णांक _Category,स्थिर अक्षर *_Locale);
+  _CRTIMP काष्ठा स्था_बदल *__cdecl क्षेत्र_बदलो(व्योम);
+  _locale_t __cdecl _get_current_locale(व्योम);
+  _locale_t __cdecl _create_locale(पूर्णांक _Category,स्थिर अक्षर *_Locale);
+  व्योम __cdecl _free_locale(_locale_t _Locale);
+  _locale_t __cdecl __get_current_locale(व्योम);
+  _locale_t __cdecl __create_locale(पूर्णांक _Category,स्थिर अक्षर *_Locale);
+  व्योम __cdecl __free_locale(_locale_t _Locale);
 
-#ifndef _WLOCALE_DEFINED
-#define _WLOCALE_DEFINED
-  _CRTIMP wchar_t *__cdecl _wsetlocale(int _Category,const wchar_t *_Locale);
-#endif
+#अगर_अघोषित _WLOCALE_DEFINED
+#घोषणा _WLOCALE_DEFINED
+  _CRTIMP ब_अक्षर_प्रकार *__cdecl _wsetlocale(पूर्णांक _Category,स्थिर ब_अक्षर_प्रकार *_Locale);
+#पूर्ण_अगर
 
-#ifdef __cplusplus
+#अगर_घोषित __cplusplus
 }
-#endif
+#पूर्ण_अगर
 
-#pragma pack(pop)
-#endif
+#आशय pack(निकालो)
+#पूर्ण_अगर

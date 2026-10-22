@@ -1,3 +1,3 @@
-#define _UNICODE 1
-#define UNICODE 1
-#include "crt1.c"
+#घोषणा _UNICODE 1
+#घोषणा UNICODE 1
+#समावेश "crt1.c"

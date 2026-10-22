@@ -14,8 +14,8 @@
 __chkstk:
     /* Windows ARM64 stack probing helper.
        arm64-gen.c passes the requested frame size in x15, scaled in 16-byte
-       units. Probe one 4 KiB page at a time and leave SP unchanged; the caller
-       subtracts SP after the probe returns. */
+       units. Probe one 4 KiB page at a time and leave ढस unchanged; the caller
+       subtracts ढस after the probe returns. */
     mov     x16, sp
     lsl     x17, x15, 4
     cbz     x17, L_chkstk_done

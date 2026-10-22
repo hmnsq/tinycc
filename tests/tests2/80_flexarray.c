@@ -1,26 +1,26 @@
-#include <stdio.h>
-struct wchar {
-    char *data; char mem[];
+#समावेश <stdio.h>
+काष्ठा wchar {
+    अक्षर *तथ्य; अक्षर mem[];
 };
-struct wint {
-    char *data; int mem[];
+काष्ठा wint {
+    अक्षर *तथ्य; पूर्णांक mem[];
 };
-int f1char (void) {
-    char s[9]="nonono";
-    struct wchar q = {"bugs"};
-    return !s[0];
+पूर्णांक f1char (व्योम) {
+    अक्षर s[9]="nonono";
+    काष्ठा wchar q = {"bugs"};
+    वापस !s[0];
 }
-int f1int (void) {
-    char s[9]="nonono";
-    struct wint q = {"bugs"};
-    return !s[0];
+पूर्णांक f1int (व्योम) {
+    अक्षर s[9]="nonono";
+    काष्ठा wint q = {"bugs"};
+    वापस !s[0];
 }
-int empty[] = {}; // GNU extension
-int main (void) {
-   char s[9]="nonono";
-   static struct wchar q = {"bugs", {'c'}};
+पूर्णांक empty[] = {}; // GNU extension
+पूर्णांक मुख्य (व्योम) {
+   अक्षर s[9]="nonono";
+   अटल काष्ठा wchar q = {"bugs", {'c'}};
    //printf ("tcc has %s %s\n", s, q.data);
-   if (f1char() || f1int())
-     printf ("bla\n");
-   return !s[0];
+   अगर (f1char() || f1int())
+     म_लिखो ("bla\n");
+   वापस !s[0];
 }

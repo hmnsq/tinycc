@@ -1,18 +1,18 @@
-#include <stdio.h>
+#समावेश <stdio.h>
 
-int main()
+पूर्णांक मुख्य()
 {
-   int Count = 0;
+   पूर्णांक गिनती_3 = 0;
 
-   for (;;)
+   क्रम (;;)
    {
-      Count++;
-      printf("%d\n", Count);
-      if (Count >= 10)
-         break;
+      गिनती_3++;
+      म_लिखो("%d\n", गिनती_3);
+      अगर (गिनती_3 >= 10)
+         अवरोध;
    }
 
-   return 0;
+   वापस 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

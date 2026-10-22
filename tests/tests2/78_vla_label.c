@@ -1,25 +1,25 @@
-#include <stdio.h>
+#समावेश <stdio.h>
 
 /* This test segfaults as of April 27, 2015. */
-void f1(int argc)
+व्योम f1(पूर्णांक argc)
 {
-  char test[argc];
-  if(0)
+  अक्षर test[argc];
+  अगर(0)
   label:
-    printf("boom!\n");
-  if(argc-- == 0)
-    return;
-  goto label;
+    म_लिखो("boom!\n");
+  अगर(argc-- == 0)
+    वापस;
+  जाओ label;
 }
 
 /* This segfaulted on 2015-11-19. */
-void f2(void)
+व्योम f2(व्योम)
 {
-    goto start;
+    जाओ start;
     {
-        int a[1 && 1]; /* not a variable-length array */
-        int b[1 || 1]; /* not a variable-length array */
-        int c[1 ? 1 : 1]; /* not a variable-length array */
+        पूर्णांक a[1 && 1]; /* not a variable-length array */
+        पूर्णांक b[1 || 1]; /* not a variable-length array */
+        पूर्णांक c[1 ? 1 : 1]; /* not a variable-length array */
     start:
         a[0] = 0;
         b[0] = 0;
@@ -27,19 +27,19 @@ void f2(void)
     }
 }
 
-void f3(void)
+व्योम f3(व्योम)
 {
-    printf("%d\n", 0 ? printf("x1\n") : 11);
-    printf("%d\n", 1 ? 12 : printf("x2\n"));
-    printf("%d\n", 0 && printf("x3\n"));
-    printf("%d\n", 1 || printf("x4\n"));
+    म_लिखो("%d\n", 0 ? म_लिखो("x1\n") : 11);
+    म_लिखो("%d\n", 1 ? 12 : म_लिखो("x2\n"));
+    म_लिखो("%d\n", 0 && म_लिखो("x3\n"));
+    म_लिखो("%d\n", 1 || म_लिखो("x4\n"));
 }
 
-int main()
+पूर्णांक मुख्य()
 {
   f1(2);
   f2();
   f3();
 
-  return 0;
+  वापस 0;
 }

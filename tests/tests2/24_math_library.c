@@ -1,30 +1,30 @@
-#define _ISOC99_SOURCE 1
+#घोषणा _ISOC99_SOURCE 1
 
-#include <stdio.h>
-#include <math.h>
+#समावेश <stdio.h>
+#समावेश <math.h>
 
-int main()
+पूर्णांक मुख्य()
 {
-   printf("%f\n", sin(0.12));
-   printf("%f\n", cos(0.12));
-   printf("%f\n", tan(0.12));
-   printf("%f\n", asin(0.12));
-   printf("%f\n", acos(0.12));
-   printf("%f\n", atan(0.12));
-   printf("%f\n", sinh(0.12));
-   printf("%f\n", cosh(0.12));
-   printf("%f\n", tanh(0.12));
-   printf("%f\n", exp(0.12));
-   printf("%f\n", fabs(-0.12));
-   printf("%f\n", log(0.12));
-   printf("%f\n", log10(0.12));
-   printf("%f\n", pow(0.12, 0.12));
-   printf("%f\n", sqrt(0.12));
-   printf("%f\n", round(12.34));
-   printf("%f\n", ceil(12.34));
-   printf("%f\n", floor(12.34));
+   म_लिखो("%f\n", sin(0.12));
+   म_लिखो("%f\n", cos(0.12));
+   म_लिखो("%f\n", tan(0.12));
+   म_लिखो("%f\n", asin(0.12));
+   म_लिखो("%f\n", acos(0.12));
+   म_लिखो("%f\n", atan(0.12));
+   म_लिखो("%f\n", sinh(0.12));
+   म_लिखो("%f\n", cosh(0.12));
+   म_लिखो("%f\n", tanh(0.12));
+   म_लिखो("%f\n", exp(0.12));
+   म_लिखो("%f\n", भ_असल(-0.12));
+   म_लिखो("%f\n", log(0.12));
+   म_लिखो("%f\n", log10(0.12));
+   म_लिखो("%f\n", घात(0.12, 0.12));
+   म_लिखो("%f\n", वर्ग_मूल(0.12));
+   म_लिखो("%f\n", round(12.34));
+   म_लिखो("%f\n", उच्चमान(12.34));
+   म_लिखो("%f\n", न्यूनमान(12.34));
 
-   return 0;
+   वापस 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

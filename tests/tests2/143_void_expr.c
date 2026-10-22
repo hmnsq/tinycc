@@ -1,17 +1,17 @@
-#include <stdio.h>
+#समावेश <stdio.h>
 
-static void f(int x)
+अटल व्योम f(पूर्णांक x)
 {
-     printf("f(%d)\n", x);
+     म_लिखो("f(%d)\n", x);
 }
 
-int main(void)
+पूर्णांक मुख्य(व्योम)
 {
-     int count = 0, i = 0;
-     for (; i < 3; ++i) {
-         printf("%d\n", i);
-         (void)(i || (f(i), ++count));
+     पूर्णांक गिनती_2 = 0, i = 0;
+     क्रम (; i < 3; ++i) {
+         म_लिखो("%d\n", i);
+         (व्योम)(i || (f(i), ++गिनती_2));
      }
-     printf("count %d\n", count);
-     return count == 1 ? 0 : 1;
+     म_लिखो("count %d\n", गिनती_2);
+     वापस गिनती_2 == 1 ? 0 : 1;
 }

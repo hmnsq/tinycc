@@ -1,123 +1,123 @@
-inline void inline_inline_2decl_only(void);
-inline void inline_inline_2decl_only(void);
+अंतरभूत व्योम inline_inline_2decl_only(व्योम);
+अंतरभूत व्योम inline_inline_2decl_only(व्योम);
 
-inline void inline_inline_undeclared(void){}
+अंतरभूत व्योम inline_inline_undeclared(व्योम){}
 
-inline void inline_inline_predeclared(void);
-inline void inline_inline_predeclared(void){}
+अंतरभूत व्योम inline_inline_predeclared(व्योम);
+अंतरभूत व्योम inline_inline_predeclared(व्योम){}
 
-inline void inline_inline_postdeclared(void){}
-inline void inline_inline_postdeclared(void);
+अंतरभूत व्योम inline_inline_postdeclared(व्योम){}
+अंतरभूत व्योम inline_inline_postdeclared(व्योम);
 
-inline void inline_inline_prepostdeclared(void);
-inline void inline_inline_prepostdeclared(void){}
-inline void inline_inline_prepostdeclared(void);
+अंतरभूत व्योम inline_inline_prepostdeclared(व्योम);
+अंतरभूत व्योम inline_inline_prepostdeclared(व्योम){}
+अंतरभूत व्योम inline_inline_prepostdeclared(व्योम);
 
-inline void inline_inline_undeclared2(void){}
+अंतरभूत व्योम inline_inline_undeclared2(व्योम){}
 
-inline void inline_inline_predeclared2(void);
-inline void inline_inline_predeclared2(void);
-inline void inline_inline_predeclared2(void){}
+अंतरभूत व्योम inline_inline_predeclared2(व्योम);
+अंतरभूत व्योम inline_inline_predeclared2(व्योम);
+अंतरभूत व्योम inline_inline_predeclared2(व्योम){}
 
-inline void inline_inline_postdeclared2(void){}
-inline void inline_inline_postdeclared2(void);
-inline void inline_inline_postdeclared2(void);
+अंतरभूत व्योम inline_inline_postdeclared2(व्योम){}
+अंतरभूत व्योम inline_inline_postdeclared2(व्योम);
+अंतरभूत व्योम inline_inline_postdeclared2(व्योम);
 
-inline void inline_inline_prepostdeclared2(void);
-inline void inline_inline_prepostdeclared2(void);
-inline void inline_inline_prepostdeclared2(void){}
-inline void inline_inline_prepostdeclared2(void);
-inline void inline_inline_prepostdeclared2(void);
+अंतरभूत व्योम inline_inline_prepostdeclared2(व्योम);
+अंतरभूत व्योम inline_inline_prepostdeclared2(व्योम);
+अंतरभूत व्योम inline_inline_prepostdeclared2(व्योम){}
+अंतरभूत व्योम inline_inline_prepostdeclared2(व्योम);
+अंतरभूत व्योम inline_inline_prepostdeclared2(व्योम);
 
-extern void extern_extern_undeclared(void){}
+बाह्य व्योम extern_extern_undeclared(व्योम){}
 
-extern void extern_extern_predeclared(void);
-extern void extern_extern_predeclared(void){}
+बाह्य व्योम extern_extern_predeclared(व्योम);
+बाह्य व्योम extern_extern_predeclared(व्योम){}
 
-extern void extern_extern_postdeclared(void){}
-extern void extern_extern_postdeclared(void);
+बाह्य व्योम extern_extern_postdeclared(व्योम){}
+बाह्य व्योम extern_extern_postdeclared(व्योम);
 
-extern void extern_extern_prepostdeclared(void);
-extern void extern_extern_prepostdeclared(void){}
-extern void extern_extern_prepostdeclared(void);
+बाह्य व्योम extern_extern_prepostdeclared(व्योम);
+बाह्य व्योम extern_extern_prepostdeclared(व्योम){}
+बाह्य व्योम extern_extern_prepostdeclared(व्योम);
 
-extern void extern_extern_undeclared2(void){}
+बाह्य व्योम extern_extern_undeclared2(व्योम){}
 
-extern void extern_extern_predeclared2(void);
-extern void extern_extern_predeclared2(void);
-extern void extern_extern_predeclared2(void){}
+बाह्य व्योम extern_extern_predeclared2(व्योम);
+बाह्य व्योम extern_extern_predeclared2(व्योम);
+बाह्य व्योम extern_extern_predeclared2(व्योम){}
 
-extern void extern_extern_postdeclared2(void){}
-extern void extern_extern_postdeclared2(void);
-extern void extern_extern_postdeclared2(void);
+बाह्य व्योम extern_extern_postdeclared2(व्योम){}
+बाह्य व्योम extern_extern_postdeclared2(व्योम);
+बाह्य व्योम extern_extern_postdeclared2(व्योम);
 
-extern void extern_extern_prepostdeclared2(void);
-extern void extern_extern_prepostdeclared2(void);
-extern void extern_extern_prepostdeclared2(void){}
-extern void extern_extern_prepostdeclared2(void);
-extern void extern_extern_prepostdeclared2(void);
+बाह्य व्योम extern_extern_prepostdeclared2(व्योम);
+बाह्य व्योम extern_extern_prepostdeclared2(व्योम);
+बाह्य व्योम extern_extern_prepostdeclared2(व्योम){}
+बाह्य व्योम extern_extern_prepostdeclared2(व्योम);
+बाह्य व्योम extern_extern_prepostdeclared2(व्योम);
 
-void extern_undeclared(void){}
+व्योम extern_undeclared(व्योम){}
 
-void extern_predeclared(void);
-void extern_predeclared(void){}
+व्योम extern_predeclared(व्योम);
+व्योम extern_predeclared(व्योम){}
 
-void extern_postdeclared(void){}
-void extern_postdeclared(void);
+व्योम extern_postdeclared(व्योम){}
+व्योम extern_postdeclared(व्योम);
 
-void extern_prepostdeclared(void);
-void extern_prepostdeclared(void){}
-void extern_prepostdeclared(void);
+व्योम extern_prepostdeclared(व्योम);
+व्योम extern_prepostdeclared(व्योम){}
+व्योम extern_prepostdeclared(व्योम);
 
-void extern_undeclared2(void){}
+व्योम extern_undeclared2(व्योम){}
 
-void extern_predeclared2(void);
-void extern_predeclared2(void);
-void extern_predeclared2(void){}
+व्योम extern_predeclared2(व्योम);
+व्योम extern_predeclared2(व्योम);
+व्योम extern_predeclared2(व्योम){}
 
-void extern_postdeclared2(void){}
-void extern_postdeclared2(void);
-void extern_postdeclared2(void);
+व्योम extern_postdeclared2(व्योम){}
+व्योम extern_postdeclared2(व्योम);
+व्योम extern_postdeclared2(व्योम);
 
 
-extern inline void noinst_extern_inline_undeclared(void){}
+बाह्य अंतरभूत व्योम noinst_extern_inline_undeclared(व्योम){}
 
-extern inline void noinst_extern_inline_postdeclared(void){}
-inline void noinst_extern_inline_postdeclared(void);
+बाह्य अंतरभूत व्योम noinst_extern_inline_postdeclared(व्योम){}
+अंतरभूत व्योम noinst_extern_inline_postdeclared(व्योम);
 
-extern inline void noinst_extern_inline_postdeclared2(void){}
-inline void noinst_extern_inline_postdeclared2(void);
-inline void noinst_extern_inline_postdeclared2(void);
+बाह्य अंतरभूत व्योम noinst_extern_inline_postdeclared2(व्योम){}
+अंतरभूत व्योम noinst_extern_inline_postdeclared2(व्योम);
+अंतरभूत व्योम noinst_extern_inline_postdeclared2(व्योम);
 
-extern inline void inst_extern_inline_postdeclared(void){}
-extern inline void inst_extern_inline_postdeclared(void);
-inline void inst2_extern_inline_postdeclared(void){}
-void inst2_extern_inline_postdeclared(void);
+बाह्य अंतरभूत व्योम inst_extern_inline_postdeclared(व्योम){}
+बाह्य अंतरभूत व्योम inst_extern_inline_postdeclared(व्योम);
+अंतरभूत व्योम inst2_extern_inline_postdeclared(व्योम){}
+व्योम inst2_extern_inline_postdeclared(व्योम);
 
-void inst_extern_inline_predeclared(void);
-extern inline void inst_extern_inline_predeclared(void){}
-void inst2_extern_inline_predeclared(void);
-inline void inst2_extern_inline_predeclared(void){}
-extern inline void inst3_extern_inline_predeclared(void);
-inline void inst3_extern_inline_predeclared(void){}
+व्योम inst_extern_inline_predeclared(व्योम);
+बाह्य अंतरभूत व्योम inst_extern_inline_predeclared(व्योम){}
+व्योम inst2_extern_inline_predeclared(व्योम);
+अंतरभूत व्योम inst2_extern_inline_predeclared(व्योम){}
+बाह्य अंतरभूत व्योम inst3_extern_inline_predeclared(व्योम);
+अंतरभूत व्योम inst3_extern_inline_predeclared(व्योम){}
 
-static inline void noinst_static_inline_postdeclared(void){}
-static inline void noinst_static_inline_postdeclared(void);
-static inline void noinst2_static_inline_postdeclared(void){}
-static void noinst2_static_inline_postdeclared(void);
+अटल अंतरभूत व्योम noinst_static_inline_postdeclared(व्योम){}
+अटल अंतरभूत व्योम noinst_static_inline_postdeclared(व्योम);
+अटल अंतरभूत व्योम noinst2_static_inline_postdeclared(व्योम){}
+अटल व्योम noinst2_static_inline_postdeclared(व्योम);
 
-static void noinst_static_inline_predeclared(void);
-static inline void noinst_static_inline_predeclared(void){}
-static void noinst2_static_inline_predeclared(void);
-static inline void noinst2_static_inline_predeclared(void){}
+अटल व्योम noinst_static_inline_predeclared(व्योम);
+अटल अंतरभूत व्योम noinst_static_inline_predeclared(व्योम){}
+अटल व्योम noinst2_static_inline_predeclared(व्योम);
+अटल अंतरभूत व्योम noinst2_static_inline_predeclared(व्योम){}
 
-static void static_func(void);
-void static_func(void) { }
+अटल व्योम static_func(व्योम);
+व्योम static_func(व्योम) { }
 
-inline void noinst_extern_inline_func(void);
-void noinst_extern_inline_func(void) { }
+अंतरभूत व्योम noinst_extern_inline_func(व्योम);
+व्योम noinst_extern_inline_func(व्योम) { }
 
-int main()
+पूर्णांक मुख्य()
 {
         inline_inline_undeclared(); inline_inline_predeclared(); inline_inline_postdeclared();
         inline_inline_undeclared2(); inline_inline_predeclared2(); inline_inline_postdeclared2();
@@ -126,7 +126,7 @@ int main()
 	noinst_static_inline_predeclared();
 	noinst2_static_inline_predeclared();
 
-        void check_exports();
+        व्योम check_exports();
         check_exports();
-        return 0;
+        वापस 0;
 }

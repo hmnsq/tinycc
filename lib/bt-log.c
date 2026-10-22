@@ -1,56 +1,56 @@
 /* ------------------------------------------------------------- */
 /* function to get a stack backtrace on demand with a message */
 
-#include <stdarg.h>
-#include <stdio.h>
-#include <string.h>
-#undef __attribute__
+#समावेश <stdarg.h>
+#समावेश <stdio.h>
+#समावेश <string.h>
+#अघोषित __attribute__
 
-#ifdef _WIN32
+#अगर_घोषित _WIN32
 # define DLL_EXPORT __declspec(dllexport)
-#else
+#अन्यथा
 # define DLL_EXPORT
-#endif
+#पूर्ण_अगर
 
 /* Needed when using ...libtcc1-usegcc=yes in lib/Makefile */
-#if (defined(__GNUC__) && (__GNUC__ >= 6)) || defined(__clang__)
-#pragma GCC diagnostic push
-#pragma GCC diagnostic ignored "-Wframe-address"
-#endif
+#अगर (defined(__GNUC__) && (__GNUC__ >= 6)) || defined(__clang__)
+#आशय GCC diagnostic धकेलो
+#आशय GCC diagnostic ignored "-Wframe-address"
+#पूर्ण_अगर
 
-typedef struct rt_frame {
-    void *ip, *fp, *sp;
+प्रकार काष्ठा rt_frame {
+    व्योम *ip, *fp, *sp;
 } rt_frame;
 
 __attribute__((weak))
-int _tcc_backtrace(rt_frame *f, const char *fmt, va_list ap);
+पूर्णांक _tcc_backtrace(rt_frame *f, स्थिर अक्षर *fmt, बहु_सूची ap);
 
-DLL_EXPORT int tcc_backtrace(const char *fmt, ...)
+DLL_EXPORT पूर्णांक tcc_backtrace(स्थिर अक्षर *fmt, ...)
 {
-    va_list ap;
-    int ret;
+    बहु_सूची ap;
+    पूर्णांक ret;
 
-    if (_tcc_backtrace) {
+    अगर (_tcc_backtrace) {
         rt_frame f;
         f.fp = __builtin_frame_address(1);
         f.ip = __builtin_return_address(0);
-        va_start(ap, fmt);
+        बहु_शुरू(ap, fmt);
         ret = _tcc_backtrace(&f, fmt, ap);
-        va_end(ap);
-    } else {
-        const char *p, *nl = "\n";
-        if (fmt[0] == '^' && (p = strchr(fmt + 1, fmt[0])))
+        बहु_पूर्ण(ap);
+    } अन्यथा {
+        स्थिर अक्षर *p, *nl = "\n";
+        अगर (fmt[0] == '^' && (p = म_अक्षर(fmt + 1, fmt[0])))
             fmt = p + 1;
-        if (fmt[0] == '\001')
+        अगर (fmt[0] == '\001')
             ++fmt, nl = "";
-        va_start(ap, fmt);
-        ret = vfprintf(stderr, fmt, ap);
-        va_end(ap);
-        fprintf(stderr, "%s", nl), fflush(stderr);
+        बहु_शुरू(ap, fmt);
+        ret = भख_लिखो(मानक_त्रुटि, fmt, ap);
+        बहु_पूर्ण(ap);
+        ख_लिखो(मानक_त्रुटि, "%s", nl), ख_साफ(मानक_त्रुटि);
     }
-    return ret;
+    वापस ret;
 }
 
-#if (defined(__GNUC__) && (__GNUC__ >= 6)) || defined(__clang__)
-#pragma GCC diagnostic pop
-#endif
+#अगर (defined(__GNUC__) && (__GNUC__ >= 6)) || defined(__clang__)
+#आशय GCC diagnostic निकालो
+#पूर्ण_अगर

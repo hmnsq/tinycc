@@ -1,17 +1,17 @@
-#include <stdio.h>
+#समावेश <stdio.h>
 
-int main()
+पूर्णांक मुख्य()
 {
-   char Buf[100];
-   int Count;
+   अक्षर Buf[100];
+   पूर्णांक गिनती_3;
 
-   for (Count = 1; Count <= 20; Count++)
+   क्रम (गिनती_3 = 1; गिनती_3 <= 20; गिनती_3++)
    {
-      sprintf(Buf, "->%02d<-\n", Count);
-      printf("%s", Buf);
+      प्र_लिखो(Buf, "->%02d<-\n", गिनती_3);
+      म_लिखो("%s", Buf);
    }
 
-   return 0;
+   वापस 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

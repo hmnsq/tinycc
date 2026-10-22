@@ -1,62 +1,62 @@
 /* accept 'defined' as result of substitution */
 
 ----- 1 ------
-#define AAA 2
-#define BBB
-#define CCC (defined ( AAA ) && AAA > 1 && !defined BBB)
-#if !CCC
+#घोषणा AAA 2
+#घोषणा BBB
+#घोषणा CCC (defined ( AAA ) && AAA > 1 && !defined BBB)
+#अगर !CCC
 OK
-#else
+#अन्यथा
 NOT OK
-#endif
+#पूर्ण_अगर
 
 ----- 2 ------
-#undef BBB
-#if CCC
+#अघोषित BBB
+#अगर CCC
 OK
-#else
+#अन्यथा
 NOT OK
-#endif
+#पूर्ण_अगर
 
 ----- 3 ------
-#define DEFINED defined
-#define DDD (DEFINED ( AAA ) && AAA > 1 && !DEFINED BBB)
-#if (DDD)
+#घोषणा DEFINED defined
+#घोषणा DDD (DEFINED ( AAA ) && AAA > 1 && !DEFINED BBB)
+#अगर (DDD)
 OK
-#else
+#अन्यथा
 NOT OK
-#endif
+#पूर्ण_अगर
 
 ----- 4 ------
-#undef AAA
-#if !(DDD)
+#अघोषित AAA
+#अगर !(DDD)
 OK
-#else
+#अन्यथा
 NOT OK
-#endif
+#पूर्ण_अगर
 
 ----- 5 ------
-line __LINE__
-#define __LINE__ # ## #
-line __LINE__
+पंक्ति_2 __LINE__
+#घोषणा __LINE__ # ## #
+पंक्ति_2 __LINE__
 
 ----- 10 ------
 /* preprocessor numbers are (u)intmax_t */
-#if -2147483648 < 0
+#अगर -2147483648 < 0
 1 true
-#endif
-#if -0x80000000 < 0
+#पूर्ण_अगर
+#अगर -0x80000000 < 0
 2 true
-#endif
-#if -9223372036854775808U > 0
+#पूर्ण_अगर
+#अगर -9223372036854775808U > 0
 3 true
-#endif
-#if -0x8000000000000000 > 0 // unsigned by overflow
+#पूर्ण_अगर
+#अगर -0x8000000000000000 > 0 // unsigned by overflow
 4 true
-#endif
-#if 1 << 31 > 2 && 1 << 32 > 2 && 1 << 63 < 2 && 1U << 63 > 2
+#पूर्ण_अगर
+#अगर 1 << 31 > 2 && 1 << 32 > 2 && 1 << 63 < 2 && 1U << 63 > 2
 5 true
-#endif
-#if (1<<29) * 11 >= 1<<32 && defined DDD << 63 < 0
+#पूर्ण_अगर
+#अगर (1<<29) * 11 >= 1<<32 && defined DDD << 63 < 0
 6 true
-#endif
+#पूर्ण_अगर

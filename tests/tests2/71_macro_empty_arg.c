@@ -1,9 +1,9 @@
-#include <stdio.h>
+#समावेश <stdio.h>
 
-#define T(a,b,c) a b c
+#घोषणा T(a,b,c) a b c
 
-int main(void)
+पूर्णांक मुख्य(व्योम)
 {
-    printf("%d", T(1,+,2) T(+,,) T(,2,*) T(,7,) T(,,));
-    return 0;
+    म_लिखो("%d", T(1,+,2) T(+,,) T(,2,*) T(,7,) T(,,));
+    वापस 0;
 }

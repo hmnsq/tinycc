@@ -1,17 +1,17 @@
-#include <stdio.h>
+#समावेश <stdio.h>
 
-int main()
+पूर्णांक मुख्य()
 {
-   int a;
+   पूर्णांक a;
 
-   for (a = 0; a < 2; a++)
+   क्रम (a = 0; a < 2; a++)
    {
-      int b = a;
+      पूर्णांक b = a;
    }
 
-   printf("it's all good\n");
+   म_लिखो("it's all good\n");
 
-   return 0;
+   वापस 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

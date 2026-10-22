@@ -1,86 +1,86 @@
 /* ------------------------------------------------------------- */
 /* support for tcc_run() */
 
-#ifdef __leading_underscore
+#अगर_घोषित __leading_underscore
 # define _(s) s
-#else
+#अन्यथा
 # define _(s) _##s
-#endif
+#पूर्ण_अगर
 
-#ifndef _WIN32
-extern void (*_(_init_array_start)[]) (int argc, char **argv, char **envp);
-extern void (*_(_init_array_end)[]) (int argc, char **argv, char **envp);
-static void run_ctors(int argc, char **argv, char **env)
+#अगर_अघोषित _WIN32
+बाह्य व्योम (*_(_init_array_start)[]) (पूर्णांक argc, अक्षर **argv, अक्षर **envp);
+बाह्य व्योम (*_(_init_array_end)[]) (पूर्णांक argc, अक्षर **argv, अक्षर **envp);
+अटल व्योम run_ctors(पूर्णांक argc, अक्षर **argv, अक्षर **env)
 {
-    int i = 0;
-    while (&_(_init_array_start)[i] != _(_init_array_end))
+    पूर्णांक i = 0;
+    जबतक (&_(_init_array_start)[i] != _(_init_array_end))
         (*_(_init_array_start)[i++])(argc, argv, env);
 }
-#endif
+#पूर्ण_अगर
 
-extern void (*_(_fini_array_start)[]) (void);
-extern void (*_(_fini_array_end)[]) (void);
-static void run_dtors(void)
+बाह्य व्योम (*_(_fini_array_start)[]) (व्योम);
+बाह्य व्योम (*_(_fini_array_end)[]) (व्योम);
+अटल व्योम run_dtors(व्योम)
 {
-    int i = 0;
-    while (&_(_fini_array_end)[i] != _(_fini_array_start))
+    पूर्णांक i = 0;
+    जबतक (&_(_fini_array_end)[i] != _(_fini_array_start))
         (*_(_fini_array_end)[--i])();
 }
 
-static void *rt_exitfunc[32];
-static void *rt_exitarg[32];
-static int __rt_nr_exit;
+अटल व्योम *rt_exitfunc[32];
+अटल व्योम *rt_exitarg[32];
+अटल पूर्णांक __rt_nr_exit;
 
-void __run_on_exit(int ret)
+व्योम __run_on_exit(पूर्णांक ret)
 {
-    int n = __rt_nr_exit;
-    while (n)
-	--n, ((void(*)(int,void*))rt_exitfunc[n])(ret, rt_exitarg[n]);
+    पूर्णांक n = __rt_nr_exit;
+    जबतक (n)
+	--n, ((व्योम(*)(पूर्णांक,व्योम*))rt_exitfunc[n])(ret, rt_exitarg[n]);
 }
 
-int on_exit(void *function, void *arg)
+पूर्णांक on_exit(व्योम *function, व्योम *arg)
 {
-    int n = __rt_nr_exit;
-    if (n < 32) {
+    पूर्णांक n = __rt_nr_exit;
+    अगर (n < 32) {
 	rt_exitfunc[n] = function;
 	rt_exitarg[n] = arg;
         __rt_nr_exit = n + 1;
-        return 0;
+        वापस 0;
     }
-    return 1;
+    वापस 1;
 }
 
-int atexit(void (*function)(void))
+पूर्णांक निकास_पर(व्योम (*function)(व्योम))
 {
-    return on_exit(function, 0);
+    वापस on_exit(function, 0);
 }
 
-typedef struct rt_frame {
-    void *ip, *fp, *sp;
+प्रकार काष्ठा rt_frame {
+    व्योम *ip, *fp, *sp;
 } rt_frame;
 
-__attribute__((noreturn)) void __rt_exit(rt_frame *, int);
+__attribute__((noreturn)) व्योम __rt_exit(rt_frame *, पूर्णांक);
 
-void exit(int code)
+व्योम निकास(पूर्णांक code)
 {
     rt_frame f;
     run_dtors();
     __run_on_exit(code);
     f.fp = 0;
-    f.ip = exit;
+    f.ip = निकास;
     __rt_exit(&f, code);
 }
 
-#ifndef _WIN32
-int main(int, char**, char**);
+#अगर_अघोषित _WIN32
+पूर्णांक मुख्य(पूर्णांक, अक्षर**, अक्षर**);
 
-int _runmain(int argc, char **argv, char **envp)
+पूर्णांक _runmain(पूर्णांक argc, अक्षर **argv, अक्षर **envp)
 {
-    int ret;
+    पूर्णांक ret;
     run_ctors(argc, argv, envp);
-    ret = main(argc, argv, envp);
+    ret = मुख्य(argc, argv, envp);
     run_dtors();
     __run_on_exit(ret);
-    return ret;
+    वापस ret;
 }
-#endif
+#पूर्ण_अगर

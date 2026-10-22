@@ -3,174 +3,174 @@
  * This file is part of the w64 mingw-runtime package.
  * No warranty is given; refer to the file DISCLAIMER within this package.
  */
-#ifndef _INC_PROCESS
-#define _INC_PROCESS
+#अगर_अघोषित _INC_PROCESS
+#घोषणा _INC_PROCESS
 
-#include <_mingw.h>
+#समावेश <_mingw.h>
 
 /* Includes a definition of _pid_t and pid_t */
-#include <sys/types.h>
+#समावेश <sys/types.h>
 
-#ifndef _POSIX_
-#ifdef __cplusplus
-extern "C" {
-#endif
+#अगर_अघोषित _POSIX_
+#अगर_घोषित __cplusplus
+बाह्य "C" {
+#पूर्ण_अगर
 
-#define _P_WAIT 0
-#define _P_NOWAIT 1
-#define _OLD_P_OVERLAY 2
-#define _P_NOWAITO 3
-#define _P_DETACH 4
-#define _P_OVERLAY 2
+#घोषणा _P_WAIT 0
+#घोषणा _P_NOWAIT 1
+#घोषणा _OLD_P_OVERLAY 2
+#घोषणा _P_NOWAITO 3
+#घोषणा _P_DETACH 4
+#घोषणा _P_OVERLAY 2
 
-#define _WAIT_CHILD 0
-#define _WAIT_GRANDCHILD 1
+#घोषणा _WAIT_CHILD 0
+#घोषणा _WAIT_GRANDCHILD 1
 
-  _CRTIMP uintptr_t __cdecl _beginthread(void (__cdecl *_StartAddress) (void *),unsigned _StackSize,void *_ArgList);
-  _CRTIMP void __cdecl _endthread(void);
-  _CRTIMP uintptr_t __cdecl _beginthreadex(void *_Security,unsigned _StackSize,unsigned (__stdcall *_StartAddress) (void *),void *_ArgList,unsigned _InitFlag,unsigned *_ThrdAddr);
-  _CRTIMP void __cdecl _endthreadex(unsigned _Retval);
+  _CRTIMP uintptr_t __cdecl _beginthread(व्योम (__cdecl *_StartAddress) (व्योम *),अचिन्हित ढेर_आकार_2,व्योम *_ArgList);
+  _CRTIMP व्योम __cdecl _endthread(व्योम);
+  _CRTIMP uintptr_t __cdecl _beginthreadex(व्योम *_Security,अचिन्हित ढेर_आकार_2,अचिन्हित (__stdcall *_StartAddress) (व्योम *),व्योम *_ArgList,अचिन्हित _InitFlag,अचिन्हित *_ThrdAddr);
+  _CRTIMP व्योम __cdecl _endthreadex(अचिन्हित _Retval);
 
-#ifndef _CRT_TERMINATE_DEFINED
-#define _CRT_TERMINATE_DEFINED
-  void __cdecl __MINGW_NOTHROW exit(int _Code) __MINGW_ATTRIB_NORETURN;
-  _CRTIMP void __cdecl __MINGW_NOTHROW _exit(int _Code) __MINGW_ATTRIB_NORETURN;
+#अगर_अघोषित _CRT_TERMINATE_DEFINED
+#घोषणा _CRT_TERMINATE_DEFINED
+  व्योम __cdecl __MINGW_NOTHROW निकास(पूर्णांक _Code) __MINGW_ATTRIB_NORETURN;
+  _CRTIMP व्योम __cdecl __MINGW_NOTHROW _निकास(पूर्णांक _Code) __MINGW_ATTRIB_NORETURN;
 
-#pragma push_macro("abort")
-#undef abort
-  void __cdecl __declspec(noreturn) abort(void);
-#pragma pop_macro("abort")
+#आशय धकेलो_macro("abort")
+#अघोषित पात
+  व्योम __cdecl __declspec(noreturn) पात(व्योम);
+#आशय निकालो_macro("abort")
 
-#endif
+#पूर्ण_अगर
 
-  _CRTIMP void __cdecl __MINGW_NOTHROW _cexit(void);
-  _CRTIMP void __cdecl __MINGW_NOTHROW _c_exit(void);
-  _CRTIMP int __cdecl _getpid(void);
-  _CRTIMP intptr_t __cdecl _cwait(int *_TermStat,intptr_t _ProcHandle,int _Action);
-  _CRTIMP intptr_t __cdecl _execl(const char *_Filename,const char *_ArgList,...);
-  _CRTIMP intptr_t __cdecl _execle(const char *_Filename,const char *_ArgList,...);
-  _CRTIMP intptr_t __cdecl _execlp(const char *_Filename,const char *_ArgList,...);
-  _CRTIMP intptr_t __cdecl _execlpe(const char *_Filename,const char *_ArgList,...);
-  _CRTIMP intptr_t __cdecl _execv(const char *_Filename,const char *const *_ArgList);
-  _CRTIMP intptr_t __cdecl _execve(const char *_Filename,const char *const *_ArgList,const char *const *_Env);
-  _CRTIMP intptr_t __cdecl _execvp(const char *_Filename,const char *const *_ArgList);
-  _CRTIMP intptr_t __cdecl _execvpe(const char *_Filename,const char *const *_ArgList,const char *const *_Env);
-  _CRTIMP intptr_t __cdecl _spawnl(int _Mode,const char *_Filename,const char *_ArgList,...);
-  _CRTIMP intptr_t __cdecl _spawnle(int _Mode,const char *_Filename,const char *_ArgList,...);
-  _CRTIMP intptr_t __cdecl _spawnlp(int _Mode,const char *_Filename,const char *_ArgList,...);
-  _CRTIMP intptr_t __cdecl _spawnlpe(int _Mode,const char *_Filename,const char *_ArgList,...);
-  _CRTIMP intptr_t __cdecl _spawnv(int _Mode,const char *_Filename,const char *const *_ArgList);
-  _CRTIMP intptr_t __cdecl _spawnve(int _Mode,const char *_Filename,const char *const *_ArgList,const char *const *_Env);
-  _CRTIMP intptr_t __cdecl _spawnvp(int _Mode,const char *_Filename,const char *const *_ArgList);
-  _CRTIMP intptr_t __cdecl _spawnvpe(int _Mode,const char *_Filename,const char *const *_ArgList,const char *const *_Env);
+  _CRTIMP व्योम __cdecl __MINGW_NOTHROW _cexit(व्योम);
+  _CRTIMP व्योम __cdecl __MINGW_NOTHROW _c_exit(व्योम);
+  _CRTIMP पूर्णांक __cdecl _getpid(व्योम);
+  _CRTIMP intptr_t __cdecl _cwait(पूर्णांक *_TermStat,intptr_t _ProcHandle,पूर्णांक _Action);
+  _CRTIMP intptr_t __cdecl _execl(स्थिर अक्षर *_Filename,स्थिर अक्षर *_ArgList,...);
+  _CRTIMP intptr_t __cdecl _execle(स्थिर अक्षर *_Filename,स्थिर अक्षर *_ArgList,...);
+  _CRTIMP intptr_t __cdecl _execlp(स्थिर अक्षर *_Filename,स्थिर अक्षर *_ArgList,...);
+  _CRTIMP intptr_t __cdecl _execlpe(स्थिर अक्षर *_Filename,स्थिर अक्षर *_ArgList,...);
+  _CRTIMP intptr_t __cdecl _execv(स्थिर अक्षर *_Filename,स्थिर अक्षर *स्थिर *_ArgList);
+  _CRTIMP intptr_t __cdecl _execve(स्थिर अक्षर *_Filename,स्थिर अक्षर *स्थिर *_ArgList,स्थिर अक्षर *स्थिर *_Env);
+  _CRTIMP intptr_t __cdecl _execvp(स्थिर अक्षर *_Filename,स्थिर अक्षर *स्थिर *_ArgList);
+  _CRTIMP intptr_t __cdecl _execvpe(स्थिर अक्षर *_Filename,स्थिर अक्षर *स्थिर *_ArgList,स्थिर अक्षर *स्थिर *_Env);
+  _CRTIMP intptr_t __cdecl _spawnl(पूर्णांक _Mode,स्थिर अक्षर *_Filename,स्थिर अक्षर *_ArgList,...);
+  _CRTIMP intptr_t __cdecl _spawnle(पूर्णांक _Mode,स्थिर अक्षर *_Filename,स्थिर अक्षर *_ArgList,...);
+  _CRTIMP intptr_t __cdecl _spawnlp(पूर्णांक _Mode,स्थिर अक्षर *_Filename,स्थिर अक्षर *_ArgList,...);
+  _CRTIMP intptr_t __cdecl _spawnlpe(पूर्णांक _Mode,स्थिर अक्षर *_Filename,स्थिर अक्षर *_ArgList,...);
+  _CRTIMP intptr_t __cdecl _spawnv(पूर्णांक _Mode,स्थिर अक्षर *_Filename,स्थिर अक्षर *स्थिर *_ArgList);
+  _CRTIMP intptr_t __cdecl _spawnve(पूर्णांक _Mode,स्थिर अक्षर *_Filename,स्थिर अक्षर *स्थिर *_ArgList,स्थिर अक्षर *स्थिर *_Env);
+  _CRTIMP intptr_t __cdecl _spawnvp(पूर्णांक _Mode,स्थिर अक्षर *_Filename,स्थिर अक्षर *स्थिर *_ArgList);
+  _CRTIMP intptr_t __cdecl _spawnvpe(पूर्णांक _Mode,स्थिर अक्षर *_Filename,स्थिर अक्षर *स्थिर *_ArgList,स्थिर अक्षर *स्थिर *_Env);
 
-#ifndef _CRT_SYSTEM_DEFINED
-#define _CRT_SYSTEM_DEFINED
-  int __cdecl system(const char *_Command);
-#endif
+#अगर_अघोषित _CRT_SYSTEM_DEFINED
+#घोषणा _CRT_SYSTEM_DEFINED
+  पूर्णांक __cdecl प्रणाली(स्थिर अक्षर *_Command);
+#पूर्ण_अगर
 
-#ifndef _WPROCESS_DEFINED
-#define _WPROCESS_DEFINED
-  _CRTIMP intptr_t __cdecl _wexecl(const wchar_t *_Filename,const wchar_t *_ArgList,...);
-  _CRTIMP intptr_t __cdecl _wexecle(const wchar_t *_Filename,const wchar_t *_ArgList,...);
-  _CRTIMP intptr_t __cdecl _wexeclp(const wchar_t *_Filename,const wchar_t *_ArgList,...);
-  _CRTIMP intptr_t __cdecl _wexeclpe(const wchar_t *_Filename,const wchar_t *_ArgList,...);
-  _CRTIMP intptr_t __cdecl _wexecv(const wchar_t *_Filename,const wchar_t *const *_ArgList);
-  _CRTIMP intptr_t __cdecl _wexecve(const wchar_t *_Filename,const wchar_t *const *_ArgList,const wchar_t *const *_Env);
-  _CRTIMP intptr_t __cdecl _wexecvp(const wchar_t *_Filename,const wchar_t *const *_ArgList);
-  _CRTIMP intptr_t __cdecl _wexecvpe(const wchar_t *_Filename,const wchar_t *const *_ArgList,const wchar_t *const *_Env);
-  _CRTIMP intptr_t __cdecl _wspawnl(int _Mode,const wchar_t *_Filename,const wchar_t *_ArgList,...);
-  _CRTIMP intptr_t __cdecl _wspawnle(int _Mode,const wchar_t *_Filename,const wchar_t *_ArgList,...);
-  _CRTIMP intptr_t __cdecl _wspawnlp(int _Mode,const wchar_t *_Filename,const wchar_t *_ArgList,...);
-  _CRTIMP intptr_t __cdecl _wspawnlpe(int _Mode,const wchar_t *_Filename,const wchar_t *_ArgList,...);
-  _CRTIMP intptr_t __cdecl _wspawnv(int _Mode,const wchar_t *_Filename,const wchar_t *const *_ArgList);
-  _CRTIMP intptr_t __cdecl _wspawnve(int _Mode,const wchar_t *_Filename,const wchar_t *const *_ArgList,const wchar_t *const *_Env);
-  _CRTIMP intptr_t __cdecl _wspawnvp(int _Mode,const wchar_t *_Filename,const wchar_t *const *_ArgList);
-  _CRTIMP intptr_t __cdecl _wspawnvpe(int _Mode,const wchar_t *_Filename,const wchar_t *const *_ArgList,const wchar_t *const *_Env);
-#ifndef _CRT_WSYSTEM_DEFINED
-#define _CRT_WSYSTEM_DEFINED
-  _CRTIMP int __cdecl _wsystem(const wchar_t *_Command);
-#endif
-#endif
+#अगर_अघोषित _WPROCESS_DEFINED
+#घोषणा _WPROCESS_DEFINED
+  _CRTIMP intptr_t __cdecl _wexecl(स्थिर ब_अक्षर_प्रकार *_Filename,स्थिर ब_अक्षर_प्रकार *_ArgList,...);
+  _CRTIMP intptr_t __cdecl _wexecle(स्थिर ब_अक्षर_प्रकार *_Filename,स्थिर ब_अक्षर_प्रकार *_ArgList,...);
+  _CRTIMP intptr_t __cdecl _wexeclp(स्थिर ब_अक्षर_प्रकार *_Filename,स्थिर ब_अक्षर_प्रकार *_ArgList,...);
+  _CRTIMP intptr_t __cdecl _wexeclpe(स्थिर ब_अक्षर_प्रकार *_Filename,स्थिर ब_अक्षर_प्रकार *_ArgList,...);
+  _CRTIMP intptr_t __cdecl _wexecv(स्थिर ब_अक्षर_प्रकार *_Filename,स्थिर ब_अक्षर_प्रकार *स्थिर *_ArgList);
+  _CRTIMP intptr_t __cdecl _wexecve(स्थिर ब_अक्षर_प्रकार *_Filename,स्थिर ब_अक्षर_प्रकार *स्थिर *_ArgList,स्थिर ब_अक्षर_प्रकार *स्थिर *_Env);
+  _CRTIMP intptr_t __cdecl _wexecvp(स्थिर ब_अक्षर_प्रकार *_Filename,स्थिर ब_अक्षर_प्रकार *स्थिर *_ArgList);
+  _CRTIMP intptr_t __cdecl _wexecvpe(स्थिर ब_अक्षर_प्रकार *_Filename,स्थिर ब_अक्षर_प्रकार *स्थिर *_ArgList,स्थिर ब_अक्षर_प्रकार *स्थिर *_Env);
+  _CRTIMP intptr_t __cdecl _wspawnl(पूर्णांक _Mode,स्थिर ब_अक्षर_प्रकार *_Filename,स्थिर ब_अक्षर_प्रकार *_ArgList,...);
+  _CRTIMP intptr_t __cdecl _wspawnle(पूर्णांक _Mode,स्थिर ब_अक्षर_प्रकार *_Filename,स्थिर ब_अक्षर_प्रकार *_ArgList,...);
+  _CRTIMP intptr_t __cdecl _wspawnlp(पूर्णांक _Mode,स्थिर ब_अक्षर_प्रकार *_Filename,स्थिर ब_अक्षर_प्रकार *_ArgList,...);
+  _CRTIMP intptr_t __cdecl _wspawnlpe(पूर्णांक _Mode,स्थिर ब_अक्षर_प्रकार *_Filename,स्थिर ब_अक्षर_प्रकार *_ArgList,...);
+  _CRTIMP intptr_t __cdecl _wspawnv(पूर्णांक _Mode,स्थिर ब_अक्षर_प्रकार *_Filename,स्थिर ब_अक्षर_प्रकार *स्थिर *_ArgList);
+  _CRTIMP intptr_t __cdecl _wspawnve(पूर्णांक _Mode,स्थिर ब_अक्षर_प्रकार *_Filename,स्थिर ब_अक्षर_प्रकार *स्थिर *_ArgList,स्थिर ब_अक्षर_प्रकार *स्थिर *_Env);
+  _CRTIMP intptr_t __cdecl _wspawnvp(पूर्णांक _Mode,स्थिर ब_अक्षर_प्रकार *_Filename,स्थिर ब_अक्षर_प्रकार *स्थिर *_ArgList);
+  _CRTIMP intptr_t __cdecl _wspawnvpe(पूर्णांक _Mode,स्थिर ब_अक्षर_प्रकार *_Filename,स्थिर ब_अक्षर_प्रकार *स्थिर *_ArgList,स्थिर ब_अक्षर_प्रकार *स्थिर *_Env);
+#अगर_अघोषित _CRT_WSYSTEM_DEFINED
+#घोषणा _CRT_WSYSTEM_DEFINED
+  _CRTIMP पूर्णांक __cdecl _wsystem(स्थिर ब_अक्षर_प्रकार *_Command);
+#पूर्ण_अगर
+#पूर्ण_अगर
 
-  void __cdecl __security_init_cookie(void);
-#if (defined(_X86_) && !defined(__x86_64))
-  void __fastcall __security_check_cookie(uintptr_t _StackCookie);
-  __declspec(noreturn) void __cdecl __report_gsfailure(void);
-#else
-  void __cdecl __security_check_cookie(uintptr_t _StackCookie);
-  __declspec(noreturn) void __cdecl __report_gsfailure(uintptr_t _StackCookie);
-#endif
-  extern uintptr_t __security_cookie;
+  व्योम __cdecl __security_init_cookie(व्योम);
+#अगर (defined(_X86_) && !defined(__x86_64))
+  व्योम __fastcall __security_check_cookie(uintptr_t ढेर_Cookie);
+  __declspec(noreturn) व्योम __cdecl __report_gsfailure(व्योम);
+#अन्यथा
+  व्योम __cdecl __security_check_cookie(uintptr_t ढेर_Cookie);
+  __declspec(noreturn) व्योम __cdecl __report_gsfailure(uintptr_t ढेर_Cookie);
+#पूर्ण_अगर
+  बाह्य uintptr_t __security_cookie;
 
-  intptr_t __cdecl _loaddll(char *_Filename);
-  int __cdecl _unloaddll(intptr_t _Handle);
-  int (__cdecl *__cdecl _getdllprocaddr(intptr_t _Handle,char *_ProcedureName,intptr_t _Ordinal))(void);
+  intptr_t __cdecl _loaddll(अक्षर *_Filename);
+  पूर्णांक __cdecl _unloaddll(intptr_t _Handle);
+  पूर्णांक (__cdecl *__cdecl _getdllprocaddr(intptr_t _Handle,अक्षर *_ProcedureName,intptr_t _Ordinal))(व्योम);
 
-#ifdef _DECL_DLLMAIN
-#ifdef _WINDOWS_
+#अगर_घोषित _DECL_DLLMAIN
+#अगर_घोषित _WINDOWS_
   WINBOOL WINAPI DllMain(HANDLE _HDllHandle,DWORD _Reason,LPVOID _Reserved);
   WINBOOL WINAPI _CRT_INIT(HANDLE _HDllHandle,DWORD _Reason,LPVOID _Reserved);
   WINBOOL WINAPI _wCRT_INIT(HANDLE _HDllHandle,DWORD _Reason,LPVOID _Reserved);
-  extern WINBOOL (WINAPI *const _pRawDllMain)(HANDLE,DWORD,LPVOID);
-#else
-  int __stdcall DllMain(void *_HDllHandle,unsigned _Reason,void *_Reserved);
-  int __stdcall _CRT_INIT(void *_HDllHandle,unsigned _Reason,void *_Reserved);
-  int __stdcall _wCRT_INIT(void *_HDllHandle,unsigned _Reason,void *_Reserved);
-  extern int (__stdcall *const _pRawDllMain)(void *,unsigned,void *);
-#endif
-#endif
+  बाह्य WINBOOL (WINAPI *स्थिर _pRawDllMain)(HANDLE,DWORD,LPVOID);
+#अन्यथा
+  पूर्णांक __stdcall DllMain(व्योम *_HDllHandle,अचिन्हित _Reason,व्योम *_Reserved);
+  पूर्णांक __stdcall _CRT_INIT(व्योम *_HDllHandle,अचिन्हित _Reason,व्योम *_Reserved);
+  पूर्णांक __stdcall _wCRT_INIT(व्योम *_HDllHandle,अचिन्हित _Reason,व्योम *_Reserved);
+  बाह्य पूर्णांक (__stdcall *स्थिर _pRawDllMain)(व्योम *,अचिन्हित,व्योम *);
+#पूर्ण_अगर
+#पूर्ण_अगर
 
-#ifndef	NO_OLDNAMES
-#define P_WAIT _P_WAIT
-#define P_NOWAIT _P_NOWAIT
-#define P_OVERLAY _P_OVERLAY
-#define OLD_P_OVERLAY _OLD_P_OVERLAY
-#define P_NOWAITO _P_NOWAITO
-#define P_DETACH _P_DETACH
-#define WAIT_CHILD _WAIT_CHILD
-#define WAIT_GRANDCHILD _WAIT_GRANDCHILD
+#अगर_अघोषित	NO_OLDNAMES
+#घोषणा P_WAIT _P_WAIT
+#घोषणा P_NOWAIT _P_NOWAIT
+#घोषणा P_OVERLAY _P_OVERLAY
+#घोषणा OLD_P_OVERLAY _OLD_P_OVERLAY
+#घोषणा P_NOWAITO _P_NOWAITO
+#घोषणा P_DETACH _P_DETACH
+#घोषणा WAIT_CHILD _WAIT_CHILD
+#घोषणा WAIT_GRANDCHILD _WAIT_GRANDCHILD
 
-  intptr_t __cdecl cwait(int *_TermStat,intptr_t _ProcHandle,int _Action);
-#ifdef __GNUC__
-  int __cdecl execl(const char *_Filename,const char *_ArgList,...);
-  int __cdecl execle(const char *_Filename,const char *_ArgList,...);
-  int __cdecl execlp(const char *_Filename,const char *_ArgList,...);
-  int __cdecl execlpe(const char *_Filename,const char *_ArgList,...);
-#else
-    intptr_t __cdecl execl(const char *_Filename,const char *_ArgList,...);
-  intptr_t __cdecl execle(const char *_Filename,const char *_ArgList,...);
-  intptr_t __cdecl execlp(const char *_Filename,const char *_ArgList,...);
-  intptr_t __cdecl execlpe(const char *_Filename,const char *_ArgList,...);
-#endif
-  intptr_t __cdecl spawnl(int,const char *_Filename,const char *_ArgList,...);
-  intptr_t __cdecl spawnle(int,const char *_Filename,const char *_ArgList,...);
-  intptr_t __cdecl spawnlp(int,const char *_Filename,const char *_ArgList,...);
-  intptr_t __cdecl spawnlpe(int,const char *_Filename,const char *_ArgList,...);
-  int __cdecl getpid(void);
-#ifdef __GNUC__
+  intptr_t __cdecl cwait(पूर्णांक *_TermStat,intptr_t _ProcHandle,पूर्णांक _Action);
+#अगर_घोषित __GNUC__
+  पूर्णांक __cdecl execl(स्थिर अक्षर *_Filename,स्थिर अक्षर *_ArgList,...);
+  पूर्णांक __cdecl execle(स्थिर अक्षर *_Filename,स्थिर अक्षर *_ArgList,...);
+  पूर्णांक __cdecl execlp(स्थिर अक्षर *_Filename,स्थिर अक्षर *_ArgList,...);
+  पूर्णांक __cdecl execlpe(स्थिर अक्षर *_Filename,स्थिर अक्षर *_ArgList,...);
+#अन्यथा
+    intptr_t __cdecl execl(स्थिर अक्षर *_Filename,स्थिर अक्षर *_ArgList,...);
+  intptr_t __cdecl execle(स्थिर अक्षर *_Filename,स्थिर अक्षर *_ArgList,...);
+  intptr_t __cdecl execlp(स्थिर अक्षर *_Filename,स्थिर अक्षर *_ArgList,...);
+  intptr_t __cdecl execlpe(स्थिर अक्षर *_Filename,स्थिर अक्षर *_ArgList,...);
+#पूर्ण_अगर
+  intptr_t __cdecl spawnl(पूर्णांक,स्थिर अक्षर *_Filename,स्थिर अक्षर *_ArgList,...);
+  intptr_t __cdecl spawnle(पूर्णांक,स्थिर अक्षर *_Filename,स्थिर अक्षर *_ArgList,...);
+  intptr_t __cdecl spawnlp(पूर्णांक,स्थिर अक्षर *_Filename,स्थिर अक्षर *_ArgList,...);
+  intptr_t __cdecl spawnlpe(पूर्णांक,स्थिर अक्षर *_Filename,स्थिर अक्षर *_ArgList,...);
+  पूर्णांक __cdecl getpid(व्योम);
+#अगर_घोषित __GNUC__
   /* Those methods are predefined by gcc builtins to return int. So to prevent
      stupid warnings, define them in POSIX way.  This is save, because those
      methods do not return in success case, so that the return value is not
      really dependent to its scalar width.  */
-  int __cdecl execv(const char *_Filename,const char *const _ArgList[]);
-  int __cdecl execve(const char *_Filename,const char *const _ArgList[],const char *const _Env[]);
-  int __cdecl execvp(const char *_Filename,const char *const _ArgList[]);
-  int __cdecl execvpe(const char *_Filename,const char *const _ArgList[],const char *const _Env[]);
-#else
-  intptr_t __cdecl execv(const char *_Filename,const char *const _ArgList[]);
-  intptr_t __cdecl execve(const char *_Filename,const char *const _ArgList[],const char *const _Env[]);
-  intptr_t __cdecl execvp(const char *_Filename,const char *const _ArgList[]);
-  intptr_t __cdecl execvpe(const char *_Filename,const char *const _ArgList[],const char *const _Env[]);
-#endif
-  intptr_t __cdecl spawnv(int,const char *_Filename,const char *const _ArgList[]);
-  intptr_t __cdecl spawnve(int,const char *_Filename,const char *const _ArgList[],const char *const _Env[]);
-  intptr_t __cdecl spawnvp(int,const char *_Filename,const char *const _ArgList[]);
-  intptr_t __cdecl spawnvpe(int,const char *_Filename,const char *const _ArgList[],char *const _Env[]);
-#endif
+  पूर्णांक __cdecl execv(स्थिर अक्षर *_Filename,स्थिर अक्षर *स्थिर _ArgList[]);
+  पूर्णांक __cdecl execve(स्थिर अक्षर *_Filename,स्थिर अक्षर *स्थिर _ArgList[],स्थिर अक्षर *स्थिर _Env[]);
+  पूर्णांक __cdecl execvp(स्थिर अक्षर *_Filename,स्थिर अक्षर *स्थिर _ArgList[]);
+  पूर्णांक __cdecl execvpe(स्थिर अक्षर *_Filename,स्थिर अक्षर *स्थिर _ArgList[],स्थिर अक्षर *स्थिर _Env[]);
+#अन्यथा
+  intptr_t __cdecl execv(स्थिर अक्षर *_Filename,स्थिर अक्षर *स्थिर _ArgList[]);
+  intptr_t __cdecl execve(स्थिर अक्षर *_Filename,स्थिर अक्षर *स्थिर _ArgList[],स्थिर अक्षर *स्थिर _Env[]);
+  intptr_t __cdecl execvp(स्थिर अक्षर *_Filename,स्थिर अक्षर *स्थिर _ArgList[]);
+  intptr_t __cdecl execvpe(स्थिर अक्षर *_Filename,स्थिर अक्षर *स्थिर _ArgList[],स्थिर अक्षर *स्थिर _Env[]);
+#पूर्ण_अगर
+  intptr_t __cdecl spawnv(पूर्णांक,स्थिर अक्षर *_Filename,स्थिर अक्षर *स्थिर _ArgList[]);
+  intptr_t __cdecl spawnve(पूर्णांक,स्थिर अक्षर *_Filename,स्थिर अक्षर *स्थिर _ArgList[],स्थिर अक्षर *स्थिर _Env[]);
+  intptr_t __cdecl spawnvp(पूर्णांक,स्थिर अक्षर *_Filename,स्थिर अक्षर *स्थिर _ArgList[]);
+  intptr_t __cdecl spawnvpe(पूर्णांक,स्थिर अक्षर *_Filename,स्थिर अक्षर *स्थिर _ArgList[],अक्षर *स्थिर _Env[]);
+#पूर्ण_अगर
 
-#ifdef __cplusplus
+#अगर_घोषित __cplusplus
 }
-#endif
-#endif
-#endif
+#पूर्ण_अगर
+#पूर्ण_अगर
+#पूर्ण_अगर

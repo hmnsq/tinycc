@@ -1,8 +1,8 @@
 #!/usr/local/bin/tcc -run
-#include <tcclib.h>
+#समावेश <tcclib.h>
 
-int main()
+पूर्णांक मुख्य()
 {
-    printf("Hello World\n");
-    return 0;
+    म_लिखो("Hello World\n");
+    वापस 0;
 }

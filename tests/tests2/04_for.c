@@ -1,15 +1,15 @@
-#include <stdio.h>
+#समावेश <stdio.h>
 
-int main() 
+पूर्णांक मुख्य() 
 {
-   int Count;
+   पूर्णांक गिनती_3;
 
-   for (Count = 1; Count <= 10; Count++)
+   क्रम (गिनती_3 = 1; गिनती_3 <= 10; गिनती_3++)
    {
-      printf("%d\n", Count);
+      म_लिखो("%d\n", गिनती_3);
    }
 
-   return 0;
+   वापस 0;
 }
 
 // vim: set expandtab ts=4 sw=3 sts=3 tw=80 :

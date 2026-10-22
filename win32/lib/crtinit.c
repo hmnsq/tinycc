@@ -1,26 +1,26 @@
 //+---------------------------------------------------------------------------
 
-#ifdef __leading_underscore
+#अगर_घोषित __leading_underscore
 # define _(s) s
-#else
+#अन्यथा
 # define _(s) _##s
-#endif
+#पूर्ण_अगर
 
-extern void (*_(_init_array_start)[]) (int argc, _TCHAR **argv, _TCHAR **envp);
-extern void (*_(_init_array_end)[]) (int argc, _TCHAR **argv, _TCHAR **envp);
-extern void (*_(_fini_array_start)[]) (void);
-extern void (*_(_fini_array_end)[]) (void);
+बाह्य व्योम (*_(_init_array_start)[]) (पूर्णांक argc, _TCHAR **argv, _TCHAR **envp);
+बाह्य व्योम (*_(_init_array_end)[]) (पूर्णांक argc, _TCHAR **argv, _TCHAR **envp);
+बाह्य व्योम (*_(_fini_array_start)[]) (व्योम);
+बाह्य व्योम (*_(_fini_array_end)[]) (व्योम);
 
-static void run_ctors(int argc, _TCHAR **argv, _TCHAR **env)
+अटल व्योम run_ctors(पूर्णांक argc, _TCHAR **argv, _TCHAR **env)
 {
-    int i = 0;
-    while (&_(_init_array_start)[i] != _(_init_array_end))
+    पूर्णांक i = 0;
+    जबतक (&_(_init_array_start)[i] != _(_init_array_end))
         (*_(_init_array_start)[i++])(argc, argv, env);
 }
 
-static void run_dtors(void)
+अटल व्योम run_dtors(व्योम)
 {
-    int i = 0;
-    while (&_(_fini_array_end)[i] != _(_fini_array_start))
+    पूर्णांक i = 0;
+    जबतक (&_(_fini_array_end)[i] != _(_fini_array_start))
         (*_(_fini_array_end)[--i])();
 }

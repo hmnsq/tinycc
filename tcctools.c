@@ -28,35 +28,35 @@
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
  */
 
-#include "tcc.h"
+#समावेश "tcc.h"
 
 //#define ARMAG  "!<arch>\n"
-#define ARFMAG "`\n"
+#घोषणा ARFMAG "`\n"
 
-typedef struct {
-    char ar_name[16];
-    char ar_date[12];
-    char ar_uid[6];
-    char ar_gid[6];
-    char ar_mode[8];
-    char ar_size[10];
-    char ar_fmag[2];
+प्रकार काष्ठा {
+    अक्षर ar_name[16];
+    अक्षर ar_date[12];
+    अक्षर ar_uid[6];
+    अक्षर ar_gid[6];
+    अक्षर ar_mode[8];
+    अक्षर ar_आकार[10];
+    अक्षर ar_fmag[2];
 } ArHdr;
 
-static unsigned long le2belong(unsigned long ul) {
-    return ((ul & 0xFF0000)>>8)+((ul & 0xFF000000)>>24) +
+अटल अचिन्हित दीर्घ le2belong(अचिन्हित दीर्घ ul) {
+    वापस ((ul & 0xFF0000)>>8)+((ul & 0xFF000000)>>24) +
         ((ul & 0xFF)<<24)+((ul & 0xFF00)<<8);
 }
 
-static int ar_usage(int ret) {
-    fprintf(stderr, "usage: tcc -ar [crstvx] lib [files]\n");
-    fprintf(stderr, "create library ([abdiopN] not supported).\n");
-    return ret;
+अटल पूर्णांक ar_usage(पूर्णांक ret) {
+    ख_लिखो(मानक_त्रुटि, "usage: tcc -ar [crstvx] lib [files]\n");
+    ख_लिखो(मानक_त्रुटि, "create library ([abdiopN] not supported).\n");
+    वापस ret;
 }
 
-ST_FUNC int tcc_tool_ar(int argc, char **argv)
+ST_FUNC पूर्णांक tcc_tool_ar(पूर्णांक argc, अक्षर **argv)
 {
-    static const ArHdr arhdr_init = {
+    अटल स्थिर ArHdr arhdr_init = {
         "/               ",
         "0           ",
         "0     ",
@@ -69,188 +69,188 @@ ST_FUNC int tcc_tool_ar(int argc, char **argv)
     ArHdr arhdr = arhdr_init;
     ArHdr arhdro = arhdr_init;
 
-    FILE *fi, *fh = NULL, *fo = NULL;
-    const char *created_file = NULL; // must delete on error
+    खाता *fi, *fh = शून्य, *fo = शून्य;
+    स्थिर अक्षर *created_file = शून्य; // must delete on error
     ElfW(Ehdr) *ehdr;
     ElfW(Shdr) *shdr;
     ElfW(Sym) *sym;
-    int i, fsize, i_lib, i_obj;
-    char *buf, *shstr, *symtab, *strtab;
-    int symtabsize = 0;//, strtabsize = 0;
-    char *anames = NULL;
-    int *afpos = NULL;
-    int istrlen, strpos = 0, fpos = 0, funccnt = 0, funcmax, hofs;
-    char tfile[260], stmp[20];
-    char *file, *name;
-    int ret = 2;
-    const char *ops_conflict = "habdiopN";  // unsupported but destructive if ignored.
-    int extract = 0;
-    int table = 0;
-    int verbose = 0;
+    पूर्णांक i, fsize, i_lib, i_obj;
+    अक्षर *buf, *shstr, *symtab, *strtab;
+    पूर्णांक symtabsize = 0;//, strtabsize = 0;
+    अक्षर *anames = शून्य;
+    पूर्णांक *afpos = शून्य;
+    पूर्णांक istrlen, strpos = 0, fpos = 0, funccnt = 0, funcmax, hofs;
+    अक्षर tfile[260], stmp[20];
+    अक्षर *file, *name;
+    पूर्णांक ret = 2;
+    स्थिर अक्षर *ops_conflict = "habdiopN";  // unsupported but destructive if ignored.
+    पूर्णांक extract = 0;
+    पूर्णांक table = 0;
+    पूर्णांक verbose = 0;
 
     i_lib = 0; i_obj = 0;  // will hold the index of the lib and first obj
-    for (i = 1; i < argc; i++) {
-        const char *a = argv[i];
-        if (*a == '-' && strchr(a, '.'))
+    क्रम (i = 1; i < argc; i++) {
+        स्थिर अक्षर *a = argv[i];
+        अगर (*a == '-' && म_अक्षर(a, '.'))
             ret = 1; // -x.y is always invalid (same as gnu ar)
-        if ((*a == '-') || (i == 1 && !strchr(a, '.'))) {  // options argument
-            if (strpbrk(a, ops_conflict))
+        अगर ((*a == '-') || (i == 1 && !म_अक्षर(a, '.'))) {  // options argument
+            अगर (strpbrk(a, ops_conflict))
                 ret = 1;
-            if (strchr(a, 'x'))
+            अगर (म_अक्षर(a, 'x'))
                 extract = 1;
-            if (strchr(a, 't'))
+            अगर (म_अक्षर(a, 't'))
                 table = 1;
-            if (strchr(a, 'v'))
+            अगर (म_अक्षर(a, 'v'))
                 verbose = 1;
-        } else {  // lib or obj files: don't abort - keep validating all args.
-            if (!i_lib)  // first file is the lib
+        } अन्यथा {  // lib or obj files: don't abort - keep validating all args.
+            अगर (!i_lib)  // first file is the lib
                 i_lib = i;
-            else if (!i_obj)  // second file is the first obj
+            अन्यथा अगर (!i_obj)  // second file is the first obj
                 i_obj = i;
         }
     }
 
-    if (!i_lib)  // i_obj implies also i_lib.
+    अगर (!i_lib)  // i_obj implies also i_lib.
         ret = 1;
     i_obj = i_obj ? i_obj : argc;  // An empty archive will be generated if no input file is given
 
-    if (ret == 1)
-        return ar_usage(ret);
+    अगर (ret == 1)
+        वापस ar_usage(ret);
 
-    if (extract || table) {
-        if ((fh = fopen(argv[i_lib], "rb")) == NULL)
+    अगर (extract || table) {
+        अगर ((fh = ख_खोलो(argv[i_lib], "rb")) == शून्य)
         {
-            fprintf(stderr, "tcc: ar: can't open file %s\n", argv[i_lib]);
-            goto finish;
+            ख_लिखो(मानक_त्रुटि, "tcc: ar: can't open file %s\n", argv[i_lib]);
+            जाओ finish;
         }
-        fread(stmp, 1, 8, fh);
-	if (memcmp(stmp,ARMAG,8))
+        ख_पढ़ो(stmp, 1, 8, fh);
+	अगर (स_भेद(stmp,ARMAG,8))
 	{
 no_ar:
-            fprintf(stderr, "tcc: ar: not an ar archive %s\n", argv[i_lib]);
-            goto finish;
+            ख_लिखो(मानक_त्रुटि, "tcc: ar: not an ar archive %s\n", argv[i_lib]);
+            जाओ finish;
 	}
-	while (fread(&arhdr, 1, sizeof(arhdr), fh) == sizeof(arhdr)) {
-	    char *p, *e;
+	जबतक (ख_पढ़ो(&arhdr, 1, माप(arhdr), fh) == माप(arhdr)) {
+	    अक्षर *p, *e;
 
-	    if (memcmp(arhdr.ar_fmag, ARFMAG, 2))
-		goto no_ar;
+	    अगर (स_भेद(arhdr.ar_fmag, ARFMAG, 2))
+		जाओ no_ar;
 	    p = arhdr.ar_name;
-	    for (e = p + sizeof arhdr.ar_name; e > p && e[-1] == ' ';)
+	    क्रम (e = p + माप arhdr.ar_name; e > p && e[-1] == ' ';)
 		e--;
 	    *e = '\0';
-	    arhdr.ar_size[sizeof arhdr.ar_size-1] = 0;
-	    fsize = atoi(arhdr.ar_size);
+	    arhdr.ar_आकार[माप arhdr.ar_आकार-1] = 0;
+	    fsize = म_से_प(arhdr.ar_आकार);
 	    buf = tcc_malloc(fsize + 1);
-	    fread(buf, fsize, 1, fh);
-	    if (strcmp(arhdr.ar_name,"/") && strcmp(arhdr.ar_name,"/SYM64/")) {
-		if (e > p && e[-1] == '/')
+	    ख_पढ़ो(buf, fsize, 1, fh);
+	    अगर (म_भेद(arhdr.ar_name,"/") && म_भेद(arhdr.ar_name,"/SYM64/")) {
+		अगर (e > p && e[-1] == '/')
 		    e[-1] = '\0';
 		/* tv not implemented */
-	        if (table || verbose)
-		    printf("%s%s\n", extract ? "x - " : "", arhdr.ar_name);
-		if (extract) {
-		    if ((fo = fopen(arhdr.ar_name, "wb")) == NULL)
+	        अगर (table || verbose)
+		    म_लिखो("%s%s\n", extract ? "x - " : "", arhdr.ar_name);
+		अगर (extract) {
+		    अगर ((fo = ख_खोलो(arhdr.ar_name, "wb")) == शून्य)
 		    {
-			fprintf(stderr, "tcc: ar: can't create file %s\n",
+			ख_लिखो(मानक_त्रुटि, "tcc: ar: can't create file %s\n",
 				arhdr.ar_name);
 		        tcc_free(buf);
-			goto finish;
+			जाओ finish;
 		    }
-		    fwrite(buf, fsize, 1, fo);
-		    fclose(fo);
+		    ख_डालो(buf, fsize, 1, fo);
+		    ख_बंद(fo);
 		    /* ignore date/uid/gid/mode */
 		}
 	    }
-            if (fsize & 1)
-                fgetc(fh);
+            अगर (fsize & 1)
+                ख_अक्षर_लो(fh);
             tcc_free(buf);
 	}
 	ret = 0;
 finish:
-	if (fh)
-		fclose(fh);
-	return ret;
+	अगर (fh)
+		ख_बंद(fh);
+	वापस ret;
     }
 
-    if ((fh = fopen(argv[i_lib], "wb")) == NULL)
+    अगर ((fh = ख_खोलो(argv[i_lib], "wb")) == शून्य)
     {
-        fprintf(stderr, "tcc: ar: can't create file %s\n", argv[i_lib]);
-        goto the_end;
+        ख_लिखो(मानक_त्रुटि, "tcc: ar: can't create file %s\n", argv[i_lib]);
+        जाओ the_end;
     }
     created_file = argv[i_lib];
 
-    sprintf(tfile, "%s.tmp", argv[i_lib]);
-    if ((fo = fopen(tfile, "wb+")) == NULL)
+    प्र_लिखो(tfile, "%s.tmp", argv[i_lib]);
+    अगर ((fo = ख_खोलो(tfile, "wb+")) == शून्य)
     {
-        fprintf(stderr, "tcc: ar: can't create temporary file %s\n", tfile);
-        goto the_end;
+        ख_लिखो(मानक_त्रुटि, "tcc: ar: can't create temporary file %s\n", tfile);
+        जाओ the_end;
     }
 
     funcmax = 250;
-    afpos = tcc_realloc(NULL, funcmax * sizeof *afpos); // 250 func
-    memcpy(&arhdro.ar_mode, "100644", 6);
+    afpos = tcc_realloc(शून्य, funcmax * माप *afpos); // 250 func
+    स_नकल(&arhdro.ar_mode, "100644", 6);
 
     // i_obj = first input object file
-    while (i_obj < argc)
+    जबतक (i_obj < argc)
     {
-        if (*argv[i_obj] == '-') {  // by now, all options start with '-'
+        अगर (*argv[i_obj] == '-') {  // by now, all options start with '-'
             i_obj++;
-            continue;
+            जारी;
         }
-        if ((fi = fopen(argv[i_obj], "rb")) == NULL) {
-            fprintf(stderr, "tcc: ar: can't open file %s \n", argv[i_obj]);
-            goto the_end;
+        अगर ((fi = ख_खोलो(argv[i_obj], "rb")) == शून्य) {
+            ख_लिखो(मानक_त्रुटि, "tcc: ar: can't open file %s \n", argv[i_obj]);
+            जाओ the_end;
         }
-        if (verbose)
-            printf("a - %s\n", argv[i_obj]);
+        अगर (verbose)
+            म_लिखो("a - %s\n", argv[i_obj]);
 
-        fseek(fi, 0, SEEK_END);
-        fsize = ftell(fi);
-        fseek(fi, 0, SEEK_SET);
+        ख_जाओ(fi, 0, अंत_से);
+        fsize = ख_बताओ(fi);
+        ख_जाओ(fi, 0, शुरू_से);
         buf = tcc_malloc(fsize + 1);
-        fread(buf, fsize, 1, fi);
-        fclose(fi);
+        ख_पढ़ो(buf, fsize, 1, fi);
+        ख_बंद(fi);
 
         // elf header
         ehdr = (ElfW(Ehdr) *)buf;
-        if (ehdr->e_ident[4] != ELFCLASSW)
+        अगर (ehdr->e_ident[4] != ELFCLASSW)
         {
-            fprintf(stderr, "tcc: ar: Unsupported Elf Class: %s\n", argv[i_obj]);
-            goto the_end;
+            ख_लिखो(मानक_त्रुटि, "tcc: ar: Unsupported Elf Class: %s\n", argv[i_obj]);
+            जाओ the_end;
         }
 
         shdr = (ElfW(Shdr) *) (buf + ehdr->e_shoff + ehdr->e_shstrndx * ehdr->e_shentsize);
-        shstr = (char *)(buf + shdr->sh_offset);
-        symtab = strtab = NULL;
-        for (i = 0; i < ehdr->e_shnum; i++)
+        shstr = (अक्षर *)(buf + shdr->sh_offset);
+        symtab = strtab = शून्य;
+        क्रम (i = 0; i < ehdr->e_shnum; i++)
         {
             shdr = (ElfW(Shdr) *) (buf + ehdr->e_shoff + i * ehdr->e_shentsize);
-            if (!shdr->sh_offset)
-                continue;
-            if (shdr->sh_type == SHT_SYMTAB)
+            अगर (!shdr->sh_offset)
+                जारी;
+            अगर (shdr->sh_type == SHT_SYMTAB)
             {
-                symtab = (char *)(buf + shdr->sh_offset);
-                symtabsize = shdr->sh_size;
+                symtab = (अक्षर *)(buf + shdr->sh_offset);
+                symtabsize = shdr->sh_आकार;
             }
-            if (shdr->sh_type == SHT_STRTAB)
+            अगर (shdr->sh_type == SHT_STRTAB)
             {
-                if (!strcmp(shstr + shdr->sh_name, ".strtab"))
+                अगर (!म_भेद(shstr + shdr->sh_name, ".strtab"))
                 {
-                    strtab = (char *)(buf + shdr->sh_offset);
+                    strtab = (अक्षर *)(buf + shdr->sh_offset);
                     //strtabsize = shdr->sh_size;
                 }
             }
         }
 
-        if (symtab && strtab)
+        अगर (symtab && strtab)
         {
-            int nsym = symtabsize / sizeof(ElfW(Sym));
+            पूर्णांक nsym = symtabsize / माप(ElfW(Sym));
             //printf("symtab: info size shndx name\n");
-            for (i = 1; i < nsym; i++)
+            क्रम (i = 1; i < nsym; i++)
             {
-                sym = (ElfW(Sym) *) (symtab + i * sizeof(ElfW(Sym)));
-                if (sym->st_shndx &&
+                sym = (ElfW(Sym) *) (symtab + i * माप(ElfW(Sym)));
+                अगर (sym->st_shndx &&
                     (sym->st_info == 0x10
                     || sym->st_info == 0x11
                     || sym->st_info == 0x12
@@ -259,13 +259,13 @@ finish:
                     || sym->st_info == 0x22
                     )) {
                     //printf("symtab: %2Xh %4Xh %2Xh %s\n", sym->st_info, sym->st_size, sym->st_shndx, strtab + sym->st_name);
-                    istrlen = strlen(strtab + sym->st_name)+1;
+                    istrlen = म_माप(strtab + sym->st_name)+1;
                     anames = tcc_realloc(anames, strpos+istrlen);
-                    strcpy(anames + strpos, strtab + sym->st_name);
+                    म_नकल(anames + strpos, strtab + sym->st_name);
                     strpos += istrlen;
-                    if (++funccnt >= funcmax) {
+                    अगर (++funccnt >= funcmax) {
                         funcmax += 250;
-                        afpos = tcc_realloc(afpos, funcmax * sizeof *afpos); // 250 func more
+                        afpos = tcc_realloc(afpos, funcmax * माप *afpos); // 250 func more
                     }
                     afpos[funccnt] = fpos;
                 }
@@ -273,67 +273,67 @@ finish:
         }
 
         file = argv[i_obj];
-        for (name = strchr(file, 0);
+        क्रम (name = म_अक्षर(file, 0);
              name > file && name[-1] != '/' && name[-1] != '\\';
              --name);
-        istrlen = strlen(name);
-        if (istrlen >= sizeof(arhdro.ar_name))
-            istrlen = sizeof(arhdro.ar_name) - 1;
-        memset(arhdro.ar_name, ' ', sizeof(arhdro.ar_name));
-        memcpy(arhdro.ar_name, name, istrlen);
+        istrlen = म_माप(name);
+        अगर (istrlen >= माप(arhdro.ar_name))
+            istrlen = माप(arhdro.ar_name) - 1;
+        स_रखो(arhdro.ar_name, ' ', माप(arhdro.ar_name));
+        स_नकल(arhdro.ar_name, name, istrlen);
         arhdro.ar_name[istrlen] = '/';
-        sprintf(stmp, "%-10d", fsize);
-        memcpy(&arhdro.ar_size, stmp, 10);
-        fwrite(&arhdro, sizeof(arhdro), 1, fo);
-        fwrite(buf, fsize, 1, fo);
+        प्र_लिखो(stmp, "%-10d", fsize);
+        स_नकल(&arhdro.ar_आकार, stmp, 10);
+        ख_डालो(&arhdro, माप(arhdro), 1, fo);
+        ख_डालो(buf, fsize, 1, fo);
         tcc_free(buf);
         i_obj++;
-        fpos += (fsize + sizeof(arhdro));
-        if (fpos & 1)
-            fputc(0, fo), ++fpos;
+        fpos += (fsize + माप(arhdro));
+        अगर (fpos & 1)
+            ख_अक्षर_दो(0, fo), ++fpos;
     }
-    hofs = 8 + sizeof(arhdr) + strpos + (funccnt+1) * sizeof(int);
+    hofs = 8 + माप(arhdr) + strpos + (funccnt+1) * माप(पूर्णांक);
     fpos = 0;
-    if ((hofs & 1)) // align
+    अगर ((hofs & 1)) // align
         hofs++, fpos = 1;
     // write header
-    fwrite(ARMAG, 8, 1, fh);
+    ख_डालो(ARMAG, 8, 1, fh);
     // create an empty archive
-    if (!funccnt) {
+    अगर (!funccnt) {
         ret = 0;
-        goto the_end;
+        जाओ the_end;
     }
-    sprintf(stmp, "%-10d", (int)(strpos + (funccnt+1) * sizeof(int)) + fpos);
-    memcpy(&arhdr.ar_size, stmp, 10);
-    fwrite(&arhdr, sizeof(arhdr), 1, fh);
+    प्र_लिखो(stmp, "%-10d", (पूर्णांक)(strpos + (funccnt+1) * माप(पूर्णांक)) + fpos);
+    स_नकल(&arhdr.ar_आकार, stmp, 10);
+    ख_डालो(&arhdr, माप(arhdr), 1, fh);
     afpos[0] = le2belong(funccnt);
-    for (i=1; i<=funccnt; i++)
+    क्रम (i=1; i<=funccnt; i++)
         afpos[i] = le2belong(afpos[i] + hofs);
-    fwrite(afpos, (funccnt+1) * sizeof(int), 1, fh);
-    fwrite(anames, strpos, 1, fh);
-    if (fpos)
-        fwrite("", 1, 1, fh);
+    ख_डालो(afpos, (funccnt+1) * माप(पूर्णांक), 1, fh);
+    ख_डालो(anames, strpos, 1, fh);
+    अगर (fpos)
+        ख_डालो("", 1, 1, fh);
     // write objects
-    fseek(fo, 0, SEEK_END);
-    fsize = ftell(fo);
-    fseek(fo, 0, SEEK_SET);
+    ख_जाओ(fo, 0, अंत_से);
+    fsize = ख_बताओ(fo);
+    ख_जाओ(fo, 0, शुरू_से);
     buf = tcc_malloc(fsize + 1);
-    fread(buf, fsize, 1, fo);
-    fwrite(buf, fsize, 1, fh);
+    ख_पढ़ो(buf, fsize, 1, fo);
+    ख_डालो(buf, fsize, 1, fh);
     tcc_free(buf);
     ret = 0;
 the_end:
-    if (anames)
+    अगर (anames)
         tcc_free(anames);
-    if (afpos)
+    अगर (afpos)
         tcc_free(afpos);
-    if (fh)
-        fclose(fh);
-    if (created_file && ret != 0)
-        remove(created_file);
-    if (fo)
-        fclose(fo), remove(tfile);
-    return ret;
+    अगर (fh)
+        ख_बंद(fh);
+    अगर (created_file && ret != 0)
+        हटाओ(created_file);
+    अगर (fo)
+        ख_बंद(fo), हटाओ(tfile);
+    वापस ret;
 }
 
 /* -------------------------------------------------------------- */
@@ -358,109 +358,109 @@ the_end:
  * Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
  */
 
-#ifdef TCC_TARGET_PE
+#अगर_घोषित TCC_TARGET_PE
 
-ST_FUNC int tcc_tool_impdef(int argc, char **argv)
+ST_FUNC पूर्णांक tcc_tool_impdef(पूर्णांक argc, अक्षर **argv)
 {
-    int ret, v, i;
-    char infile[260];
-    char outfile[260];
+    पूर्णांक ret, v, i;
+    अक्षर infile[260];
+    अक्षर outfile[260];
 
-    const char *file;
-    char *p, *q;
-    FILE *fp, *op;
+    स्थिर अक्षर *file;
+    अक्षर *p, *q;
+    खाता *fp, *op;
 
-#ifdef _WIN32
-    char path[260];
-#endif
+#अगर_घोषित _WIN32
+    अक्षर path[260];
+#पूर्ण_अगर
 
     infile[0] = outfile[0] = 0;
-    fp = op = NULL;
+    fp = op = शून्य;
     ret = 1;
-    p = NULL;
+    p = शून्य;
     v = 0;
 
-    for (i = 1; i < argc; ++i) {
-        const char *a = argv[i];
-        if ('-' == a[0]) {
-            if (0 == strcmp(a, "-v")) {
+    क्रम (i = 1; i < argc; ++i) {
+        स्थिर अक्षर *a = argv[i];
+        अगर ('-' == a[0]) {
+            अगर (0 == म_भेद(a, "-v")) {
                 v = 1;
-            } else if (0 == strcmp(a, "-o")) {
-                if (++i == argc)
-                    goto usage;
-                strcpy(outfile, argv[i]);
-            } else
-                goto usage;
-        } else if (0 == infile[0])
-            strcpy(infile, a);
-        else
-            goto usage;
+            } अन्यथा अगर (0 == म_भेद(a, "-o")) {
+                अगर (++i == argc)
+                    जाओ usage;
+                म_नकल(outfile, argv[i]);
+            } अन्यथा
+                जाओ usage;
+        } अन्यथा अगर (0 == infile[0])
+            म_नकल(infile, a);
+        अन्यथा
+            जाओ usage;
     }
 
-    if (0 == infile[0]) {
+    अगर (0 == infile[0]) {
 usage:
-        fprintf(stderr,
+        ख_लिखो(मानक_त्रुटि,
             "usage: tcc -impdef library.dll [-v] [-o outputfile]\n"
             "create export definition file (.def) from dll\n"
             );
-        goto the_end;
+        जाओ the_end;
     }
 
-    if (0 == outfile[0]) {
-        strcpy(outfile, tcc_basename(infile));
-        q = strrchr(outfile, '.');
-        if (NULL == q)
-            q = strchr(outfile, 0);
-        strcpy(q, ".def");
+    अगर (0 == outfile[0]) {
+        म_नकल(outfile, tcc_basename(infile));
+        q = म_खोजप(outfile, '.');
+        अगर (शून्य == q)
+            q = म_अक्षर(outfile, 0);
+        म_नकल(q, ".def");
     }
 
     file = infile;
-#ifdef _WIN32
-    if (SearchPath(NULL, file, ".dll", sizeof path, path, NULL))
+#अगर_घोषित _WIN32
+    अगर (खोज_Path(शून्य, file, ".dll", माप path, path, शून्य))
         file = path;
-#endif
+#पूर्ण_अगर
     ret = tcc_get_dllexports(file, &p);
-    if (ret || !p) {
-        fprintf(stderr, "tcc: impdef: %s '%s'\n",
+    अगर (ret || !p) {
+        ख_लिखो(मानक_त्रुटि, "tcc: impdef: %s '%s'\n",
             ret == -1 ? "can't find file" :
             ret ==  1 ? "can't read symbols" :
             ret ==  0 ? "no symbols found in" :
             "unknown file type", file);
         ret = 1;
-        goto the_end;
+        जाओ the_end;
     }
 
-    if (v)
-        printf("-> %s\n", file);
+    अगर (v)
+        म_लिखो("-> %s\n", file);
 
-    op = fopen(outfile, "wb");
-    if (NULL == op) {
-        fprintf(stderr, "tcc: impdef: could not create output file: %s\n", outfile);
-        goto the_end;
+    op = ख_खोलो(outfile, "wb");
+    अगर (शून्य == op) {
+        ख_लिखो(मानक_त्रुटि, "tcc: impdef: could not create output file: %s\n", outfile);
+        जाओ the_end;
     }
 
-    fprintf(op, "LIBRARY %s\n\nEXPORTS\n", tcc_basename(file));
-    for (q = p, i = 0; *q; ++i) {
-        fprintf(op, "%s\n", q);
-        q += strlen(q) + 1;
+    ख_लिखो(op, "LIBRARY %s\n\nEXPORTS\n", tcc_basename(file));
+    क्रम (q = p, i = 0; *q; ++i) {
+        ख_लिखो(op, "%s\n", q);
+        q += म_माप(q) + 1;
     }
 
-    if (v)
-        printf("<- %s (%d symbol%s)\n", outfile, i, &"s"[i<2]);
+    अगर (v)
+        म_लिखो("<- %s (%d symbol%s)\n", outfile, i, &"s"[i<2]);
 
     ret = 0;
 
 the_end:
-    if (p)
+    अगर (p)
         tcc_free(p);
-    if (fp)
-        fclose(fp);
-    if (op)
-        fclose(op);
-    return ret;
+    अगर (fp)
+        ख_बंद(fp);
+    अगर (op)
+        ख_बंद(op);
+    वापस ret;
 }
 
-#endif /* TCC_TARGET_PE */
+#पूर्ण_अगर /* TCC_TARGET_PE */
 
 /* -------------------------------------------------------------- */
 /*
@@ -485,17 +485,17 @@ the_end:
 
 /* re-execute the i386/x86_64 cross-compilers with tcc -m32/-m64: */
 
-#if !defined TCC_TARGET_I386 && !defined TCC_TARGET_X86_64
+#अगर !defined TCC_TARGET_I386 && !defined TCC_TARGET_X86_64
 
-ST_FUNC int tcc_tool_cross(char **argv, int option)
+ST_FUNC पूर्णांक tcc_tool_cross(अक्षर **argv, पूर्णांक option)
 {
-    fprintf(stderr, "tcc -m%d not implemented\n", option);
-    return 1;
+    ख_लिखो(मानक_त्रुटि, "tcc -m%d not implemented\n", option);
+    वापस 1;
 }
 
-#else
-#ifdef _WIN32
-#include <process.h>
+#अन्यथा
+#अगर_घोषित _WIN32
+#समावेश <process.h>
 
 /* - Empty argument or with space/tab (not newline) requires quoting.
  * - Double-quotes at the value require '\'-escape, regardless of quoting.
@@ -507,145 +507,145 @@ ST_FUNC int tcc_tool_cross(char **argv, int option)
  *
  * https://learn.microsoft.com/en-us/cpp/c-language/parsing-c-command-line-arguments
  */
-static char *quote_win32(const char *s)
+अटल अक्षर *quote_win32(स्थिर अक्षर *s)
 {
-    char *o, *r = tcc_malloc(2 * strlen(s) + 3);   /* max-esc, quotes, \0 */
-    int cbs = 0, quoted = !*s;  /* consecutive backslashes before current */
+    अक्षर *o, *r = tcc_malloc(2 * म_माप(s) + 3);   /* max-esc, quotes, \0 */
+    पूर्णांक cbs = 0, quoted = !*s;  /* consecutive backslashes before current */
 
-    for (o = r; *s; *o++ = *s++) {
+    क्रम (o = r; *s; *o++ = *s++) {
         quoted |= *s == ' ' || *s == '\t';
-        if (*s == '\\' || *s == '"')
+        अगर (*s == '\\' || *s == '"')
             *o++ = '\\';
-        else
+        अन्यथा
             o -= cbs;  /* undo cbs escapes, if any (not followed by DQ) */
         cbs = *s == '\\' ? cbs + 1 : 0;
     }
-    if (quoted) {
-        memmove(r + 1, r, o++ - r);
+    अगर (quoted) {
+        स_हटाओ(r + 1, r, o++ - r);
         *r = *o++ = '"';
-    } else {
+    } अन्यथा {
         o -= cbs;
     }
 
     *o = 0;
-    return r; /* don't bother with realloc(r, o-r+1) */
+    वापस r; /* don't bother with realloc(r, o-r+1) */
 }
 
-static int execvp_win32(const char *prog, char **argv)
+अटल पूर्णांक execvp_win32(स्थिर अक्षर *prog, अक्षर **argv)
 {
-    int ret; char **p;
+    पूर्णांक ret; अक्षर **p;
     /* replace all " by \" */
-    for (p = argv; *p; ++p)
+    क्रम (p = argv; *p; ++p)
         *p = quote_win32(*p);
-    ret = _spawnvp(P_NOWAIT, prog, (const char *const*)argv);
-    if (-1 == ret)
-        return ret;
+    ret = _spawnvp(P_NOWAIT, prog, (स्थिर अक्षर *स्थिर*)argv);
+    अगर (-1 == ret)
+        वापस ret;
     _cwait(&ret, ret, WAIT_CHILD);
-    exit(ret);
+    निकास(ret);
 }
-#define execvp execvp_win32
-#endif /* _WIN32 */
+#घोषणा execvp execvp_win32
+#पूर्ण_अगर /* _WIN32 */
 
-ST_FUNC int tcc_tool_cross(char **argv, int target)
+ST_FUNC पूर्णांक tcc_tool_cross(अक्षर **argv, पूर्णांक target)
 {
-    char program[4096];
-    char *a0 = argv[0];
-    int prefix = tcc_basename(a0) - a0;
+    अक्षर program[4096];
+    अक्षर *a0 = argv[0];
+    पूर्णांक prefix = tcc_basename(a0) - a0;
 
-    snprintf(program, sizeof program,
+    snprintf(program, माप program,
         "%.*s%s"
-#ifdef TCC_TARGET_PE
+#अगर_घोषित TCC_TARGET_PE
         "-win32"
-#endif
+#पूर्ण_अगर
         "-tcc"
-#ifdef _WIN32
+#अगर_घोषित _WIN32
         ".exe"
-#endif
+#पूर्ण_अगर
         , prefix, a0, target == 64 ? "x86_64" : "i386");
 
-    if (strcmp(a0, program))
+    अगर (म_भेद(a0, program))
         execvp(argv[0] = program, argv);
-    fprintf(stderr, "tcc: could not run '%s'\n", program);
-    return 1;
+    ख_लिखो(मानक_त्रुटि, "tcc: could not run '%s'\n", program);
+    वापस 1;
 }
 
-#endif /* TCC_TARGET_I386 && TCC_TARGET_X86_64 */
+#पूर्ण_अगर /* TCC_TARGET_I386 && TCC_TARGET_X86_64 */
 /* -------------------------------------------------------------- */
 /* enable commandline wildcard expansion (tcc -o x.exe *.c) */
 
-#ifdef _WIN32
-const int _CRT_glob = 1;
-#ifndef _CRT_glob
-const int _dowildcard = 1;
-#endif
-#endif
+#अगर_घोषित _WIN32
+स्थिर पूर्णांक _CRT_glob = 1;
+#अगर_अघोषित _CRT_glob
+स्थिर पूर्णांक _dowildcard = 1;
+#पूर्ण_अगर
+#पूर्ण_अगर
 
 /* -------------------------------------------------------------- */
 /* generate xxx.d file */
 
-static char *escape_target_dep(const char *s) {
-    char *res = tcc_malloc(strlen(s) * 2 + 1);
-    int j;
-    for (j = 0; *s; s++, j++) {
-        if (is_space(*s)) {
+अटल अक्षर *escape_target_dep(स्थिर अक्षर *s) {
+    अक्षर *res = tcc_malloc(म_माप(s) * 2 + 1);
+    पूर्णांक j;
+    क्रम (j = 0; *s; s++, j++) {
+        अगर (is_space(*s)) {
             res[j++] = '\\';
         }
         res[j] = *s;
     }
     res[j] = '\0';
-    return res;
+    वापस res;
 }
 
-ST_FUNC int gen_makedeps(TCCState *s1, const char *target, const char *filename)
+ST_FUNC पूर्णांक gen_makedeps(TCCState *s1, स्थिर अक्षर *target, स्थिर अक्षर *filename)
 {
-    FILE *depout;
-    char buf[1024];
-    char **escaped_targets;
-    int i, k, num_targets;
+    खाता *depout;
+    अक्षर buf[1024];
+    अक्षर **escaped_targets;
+    पूर्णांक i, k, अंक_targets;
 
-    if (!filename) {
+    अगर (!filename) {
         /* compute filename automatically: dir/file.o -> dir/file.d */
-        snprintf(buf, sizeof buf, "%.*s.d",
-            (int)(tcc_fileextension(target) - target), target);
+        snprintf(buf, माप buf, "%.*s.d",
+            (पूर्णांक)(tcc_fileextension(target) - target), target);
         filename = buf;
     }
 
-    if(!strcmp(filename, "-"))
+    अगर(!म_भेद(filename, "-"))
         depout = fdopen(1, "w");
-    else
+    अन्यथा
         /* XXX return err codes instead of error() ? */
-        depout = fopen(filename, "w");
-    if (!depout)
-        return tcc_error_noabort("could not open '%s'", filename);
-    if (s1->verbose)
-        printf("<- %s\n", filename);
+        depout = ख_खोलो(filename, "w");
+    अगर (!depout)
+        वापस tcc_error_noabort("could not open '%s'", filename);
+    अगर (s1->verbose)
+        म_लिखो("<- %s\n", filename);
 
-    escaped_targets = tcc_malloc(s1->nb_target_deps * sizeof(*escaped_targets));
-    num_targets = 0;
-    for (i = 0; i<s1->nb_target_deps; ++i) {
-        for (k = 0; k < i; ++k)
-            if (0 == strcmp(s1->target_deps[i], s1->target_deps[k]))
-                goto next;
-        escaped_targets[num_targets++] = escape_target_dep(s1->target_deps[i]);
-    next:;
+    escaped_targets = tcc_malloc(s1->nb_target_deps * माप(*escaped_targets));
+    अंक_targets = 0;
+    क्रम (i = 0; i<s1->nb_target_deps; ++i) {
+        क्रम (k = 0; k < i; ++k)
+            अगर (0 == म_भेद(s1->target_deps[i], s1->target_deps[k]))
+                जाओ अग्र;
+        escaped_targets[अंक_targets++] = escape_target_dep(s1->target_deps[i]);
+    अग्र:;
     }
 
-    fprintf(depout, "%s:", target);
-    for (i = 0; i < num_targets; ++i)
-        fprintf(depout, " \\\n  %s", escaped_targets[i]);
-    fprintf(depout, "\n");
-    if (s1->gen_phony_deps) {
+    ख_लिखो(depout, "%s:", target);
+    क्रम (i = 0; i < अंक_targets; ++i)
+        ख_लिखो(depout, " \\\n  %s", escaped_targets[i]);
+    ख_लिखो(depout, "\n");
+    अगर (s1->gen_phony_deps) {
         /* Skip first file, which is the c file.
          * Only works for single file give on command-line,
          * but other compilers have the same limitation */
-        for (i = 1; i < num_targets; ++i)
-            fprintf(depout, "%s:\n", escaped_targets[i]);
+        क्रम (i = 1; i < अंक_targets; ++i)
+            ख_लिखो(depout, "%s:\n", escaped_targets[i]);
     }
-    for (i = 0; i < num_targets; ++i)
+    क्रम (i = 0; i < अंक_targets; ++i)
         tcc_free(escaped_targets[i]);
     tcc_free(escaped_targets);
-    fclose(depout);
-    return 0;
+    ख_बंद(depout);
+    वापस 0;
 }
 
 /* -------------------------------------------------------------- */

@@ -1,3 +1,3 @@
-#define _UNICODE 1
-#define UNICODE 1
-#include "wincrt1.c"
+#घोषणा _UNICODE 1
+#घोषणा UNICODE 1
+#समावेश "wincrt1.c"

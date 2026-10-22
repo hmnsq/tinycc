@@ -3,1100 +3,1100 @@
  * This file is part of the w64 mingw-runtime package.
  * No warranty is given; refer to the file DISCLAIMER within this package.
  */
-#include <_mingw.h>
+#समावेश <_mingw.h>
 
-#ifndef _INC_TCHAR
-#define _INC_TCHAR
+#अगर_अघोषित _INC_TCHAR
+#घोषणा _INC_TCHAR
 
-#ifdef _STRSAFE_H_INCLUDED_
-#error Need to include strsafe.h after tchar.h
-#endif
+#अगर_घोषित _STRSAFE_H_INCLUDED_
+#त्रुटि Need to include strsafe.h after tchar.h
+#पूर्ण_अगर
 
-#ifdef __cplusplus
-extern "C" {
-#endif
+#अगर_घोषित __cplusplus
+बाह्य "C" {
+#पूर्ण_अगर
 
-#define _ftcscat _tcscat
-#define _ftcschr _tcschr
-#define _ftcscpy _tcscpy
-#define _ftcscspn _tcscspn
-#define _ftcslen _tcslen
-#define _ftcsncat _tcsncat
-#define _ftcsncpy _tcsncpy
-#define _ftcspbrk _tcspbrk
-#define _ftcsrchr _tcsrchr
-#define _ftcsspn _tcsspn
-#define _ftcsstr _tcsstr
-#define _ftcstok _tcstok
+#घोषणा _ftcscat _tcscat
+#घोषणा _ftcschr _tcschr
+#घोषणा _ftcscpy _tcscpy
+#घोषणा _ftcscspn _tcscspn
+#घोषणा _ftcslen _tcslen
+#घोषणा _ftcsncat _tcsncat
+#घोषणा _ftcsncpy _tcsncpy
+#घोषणा _ftcspbrk _tcspbrk
+#घोषणा _ftcsrchr _tcsrchr
+#घोषणा _ftcsspn _tcsspn
+#घोषणा _ftcsstr _tcsstr
+#घोषणा _ftcstok _tcstok
 
-#define _ftcsdup _tcsdup
-#define _ftcsnset _tcsnset
-#define _ftcsrev _tcsrev
-#define _ftcsset _tcsset
+#घोषणा _ftcsdup _tcsdup
+#घोषणा _ftcsnset _tcsnset
+#घोषणा _ftcsrev _tcsrev
+#घोषणा _ftcsset _tcsset
 
-#define _ftcscmp _tcscmp
-#define _ftcsicmp _tcsicmp
-#define _ftcsnccmp _tcsnccmp
-#define _ftcsncmp _tcsncmp
-#define _ftcsncicmp _tcsncicmp
-#define _ftcsnicmp _tcsnicmp
+#घोषणा _ftcscmp _tcscmp
+#घोषणा _ftcsicmp _tcsicmp
+#घोषणा _ftcsnccmp _tcsnccmp
+#घोषणा _ftcsncmp _tcsncmp
+#घोषणा _ftcsncicmp _tcsncicmp
+#घोषणा _ftcsnicmp _tcsnicmp
 
-#define _ftcscoll _tcscoll
-#define _ftcsicoll _tcsicoll
-#define _ftcsnccoll _tcsnccoll
-#define _ftcsncoll _tcsncoll
-#define _ftcsncicoll _tcsncicoll
-#define _ftcsnicoll _tcsnicoll
+#घोषणा _ftcscoll _tcscoll
+#घोषणा _ftcsicoll _tcsicoll
+#घोषणा _ftcsnccoll _tcsnccoll
+#घोषणा _ftcsncoll _tcsncoll
+#घोषणा _ftcsncicoll _tcsncicoll
+#घोषणा _ftcsnicoll _tcsnicoll
 
-#define _ftcsclen _tcsclen
-#define _ftcsnccat _tcsnccat
-#define _ftcsnccpy _tcsnccpy
-#define _ftcsncset _tcsncset
+#घोषणा _ftcsclen _tcsclen
+#घोषणा _ftcsnccat _tcsnccat
+#घोषणा _ftcsnccpy _tcsnccpy
+#घोषणा _ftcsncset _tcsncset
 
-#define _ftcsdec _tcsdec
-#define _ftcsinc _tcsinc
-#define _ftcsnbcnt _tcsnbcnt
-#define _ftcsnccnt _tcsnccnt
-#define _ftcsnextc _tcsnextc
-#define _ftcsninc _tcsninc
-#define _ftcsspnp _tcsspnp
+#घोषणा _ftcsdec _tcsdec
+#घोषणा _ftcsinc _tcsinc
+#घोषणा _ftcsnbcnt _tcsnbcnt
+#घोषणा _ftcsnccnt _tcsnccnt
+#घोषणा _ftcsnextc _tcsnextc
+#घोषणा _ftcsninc _tcsninc
+#घोषणा _ftcsspnp _tcsspnp
 
-#define _ftcslwr _tcslwr
-#define _ftcsupr _tcsupr
+#घोषणा _ftcslwr _tcslwr
+#घोषणा _ftcsupr _tcsupr
 
-#define _ftclen _tclen
-#define _ftccpy _tccpy
-#define _ftccmp _tccmp
+#घोषणा _ftclen _tclen
+#घोषणा _ftccpy _tccpy
+#घोषणा _ftccmp _tccmp
 
-#ifndef _CONST_RETURN
-#ifdef __cplusplus
-#define _CONST_RETURN const
-#define _CRT_CONST_CORRECT_OVERLOADS
-#else
-#define _CONST_RETURN
-#endif
-#endif
+#अगर_अघोषित _CONST_RETURN
+#अगर_घोषित __cplusplus
+#घोषणा _CONST_RETURN स्थिर
+#घोषणा _CRT_CONST_CORRECT_OVERLOADS
+#अन्यथा
+#घोषणा _CONST_RETURN
+#पूर्ण_अगर
+#पूर्ण_अगर
 
-#define _WConst_return _CONST_RETURN
+#घोषणा _WConst_return _CONST_RETURN
 
-#ifdef _UNICODE
+#अगर_घोषित _UNICODE
 
-#ifdef __cplusplus
+#अगर_घोषित __cplusplus
 }
-#endif
+#पूर्ण_अगर
 
-#include <wchar.h>
+#समावेश <wchar.h>
 
-#ifdef __cplusplus
-extern "C" {
-#endif
+#अगर_घोषित __cplusplus
+बाह्य "C" {
+#पूर्ण_अगर
 
-#ifndef _WCTYPE_T_DEFINED
-#define _WCTYPE_T_DEFINED
-  typedef unsigned short wint_t;
-  typedef unsigned short wctype_t;
-#endif
+#अगर_अघोषित _WCTYPE_T_DEFINED
+#घोषणा _WCTYPE_T_DEFINED
+  प्रकार अचिन्हित लघु wint_t;
+  प्रकार अचिन्हित लघु wctype_t;
+#पूर्ण_अगर
 
-#ifndef __TCHAR_DEFINED
-#define __TCHAR_DEFINED
-  typedef wchar_t _TCHAR;
-  typedef wchar_t _TSCHAR;
-  typedef wchar_t _TUCHAR;
-  typedef wchar_t _TXCHAR;
-  typedef wint_t _TINT;
-#endif
+#अगर_अघोषित __TCHAR_DEFINED
+#घोषणा __TCHAR_DEFINED
+  प्रकार ब_अक्षर_प्रकार _TCHAR;
+  प्रकार ब_अक्षर_प्रकार _TSCHAR;
+  प्रकार ब_अक्षर_प्रकार _TUCHAR;
+  प्रकार ब_अक्षर_प्रकार _TXCHAR;
+  प्रकार wint_t _TINT;
+#पूर्ण_अगर
 
-#ifndef _TCHAR_DEFINED
-#define _TCHAR_DEFINED
-#ifndef	NO_OLDNAMES
-  typedef wchar_t TCHAR;
-#endif
-#endif
+#अगर_अघोषित _TCHAR_DEFINED
+#घोषणा _TCHAR_DEFINED
+#अगर_अघोषित	NO_OLDNAMES
+  प्रकार ब_अक्षर_प्रकार TCHAR;
+#पूर्ण_अगर
+#पूर्ण_अगर
 
-#define _TEOF WEOF
+#घोषणा _TEOF WEOF
 
-#define __T(x) L##x
+#घोषणा __T(x) L##x
 
-#define _tmain wmain
-#define _tWinMain wWinMain
-#define _tenviron _wenviron
-#define __targv __wargv
+#घोषणा _tmain wmain
+#घोषणा _tWinMain wWinMain
+#घोषणा _tenviron _wenviron
+#घोषणा __targv __wargv
 
-#define _tprintf wprintf
-#define _tprintf_l _wprintf_l
-#define _tprintf_p _wprintf_p
-#define _tprintf_p_l _wprintf_p_l
-#define _tcprintf _cwprintf
-#define _tcprintf_l _cwprintf_l
-#define _tcprintf_p _cwprintf_p
-#define _tcprintf_p_l _cwprintf_p_l
-#define _vtcprintf _vcwprintf
-#define _vtcprintf_l _vcwprintf_l
-#define _vtcprintf_p _vcwprintf_p
-#define _vtcprintf_p_l _vcwprintf_p_l
-#define _ftprintf fwprintf
-#define _ftprintf_l _fwprintf_l
-#define _ftprintf_p _fwprintf_p
-#define _ftprintf_p_l _fwprintf_p_l
-#define _stprintf swprintf
-#define _stprintf_l __swprintf_l
-#define _stprintf_p _swprintf_p
-#define _stprintf_p_l _swprintf_p_l
-#define _sctprintf _scwprintf
-#define _sctprintf_l _scwprintf_l
-#define _sctprintf_p _scwprintf_p
-#define _sctprintf_p_l _scwprintf_p_l
-#define _sntprintf _snwprintf
-#define _sntprintf_l _snwprintf_l
-#define _vtprintf vwprintf
-#define _vtprintf_l _vwprintf_l
-#define _vtprintf_p _vwprintf_p
-#define _vtprintf_p_l _vwprintf_p_l
-#define _vftprintf vfwprintf
-#define _vftprintf_l _vfwprintf_l
-#define _vftprintf_p _vfwprintf_p
-#define _vftprintf_p_l _vfwprintf_p_l
-#define _vstprintf vswprintf
-#define _vstprintf_l _vswprintf_l
-#define _vstprintf_p _vswprintf_p
-#define _vstprintf_p_l _vswprintf_p_l
-#define _vsctprintf _vscwprintf
-#define _vsctprintf_l _vscwprintf_l
-#define _vsctprintf_p _vscwprintf_p
-#define _vsctprintf_p_l _vscwprintf_p_l
-#define _vsntprintf _vsnwprintf
-#define _vsntprintf_l _vsnwprintf_l
+#घोषणा _tprintf wprintf
+#घोषणा _tprintf_l _wprintf_l
+#घोषणा _tprintf_p _wprintf_p
+#घोषणा _tprintf_p_l _wprintf_p_l
+#घोषणा _tcprintf _cwprintf
+#घोषणा _tcprintf_l _cwprintf_l
+#घोषणा _tcprintf_p _cwprintf_p
+#घोषणा _tcprintf_p_l _cwprintf_p_l
+#घोषणा _vtcprintf _vcwprintf
+#घोषणा _vtcprintf_l _vcwprintf_l
+#घोषणा _vtcprintf_p _vcwprintf_p
+#घोषणा _vtcprintf_p_l _vcwprintf_p_l
+#घोषणा _ftprintf fwprintf
+#घोषणा _ftprintf_l _fwprintf_l
+#घोषणा _ftprintf_p _fwprintf_p
+#घोषणा _ftprintf_p_l _fwprintf_p_l
+#घोषणा _stprintf swprintf
+#घोषणा _stprintf_l __swprintf_l
+#घोषणा _stprintf_p _swprintf_p
+#घोषणा _stprintf_p_l _swprintf_p_l
+#घोषणा _sctprintf _scwprintf
+#घोषणा _sctprintf_l _scwprintf_l
+#घोषणा _sctprintf_p _scwprintf_p
+#घोषणा _sctprintf_p_l _scwprintf_p_l
+#घोषणा _sntprintf _snwprintf
+#घोषणा _sntprintf_l _snwprintf_l
+#घोषणा _vtprintf vwprintf
+#घोषणा _vtprintf_l _vwprintf_l
+#घोषणा _vtprintf_p _vwprintf_p
+#घोषणा _vtprintf_p_l _vwprintf_p_l
+#घोषणा _vftprintf vfwprintf
+#घोषणा _vftprintf_l _vfwprintf_l
+#घोषणा _vftprintf_p _vfwprintf_p
+#घोषणा _vftprintf_p_l _vfwprintf_p_l
+#घोषणा _vstprintf vswprintf
+#घोषणा _vstprintf_l _vswprintf_l
+#घोषणा _vstprintf_p _vswprintf_p
+#घोषणा _vstprintf_p_l _vswprintf_p_l
+#घोषणा _vsctprintf _vscwprintf
+#घोषणा _vsctprintf_l _vscwprintf_l
+#घोषणा _vsctprintf_p _vscwprintf_p
+#घोषणा _vsctprintf_p_l _vscwprintf_p_l
+#घोषणा _vsntprintf _vsnwprintf
+#घोषणा _vsntprintf_l _vsnwprintf_l
 
-#define _tscanf wscanf
-#define _tscanf_l _wscanf_l
-#define _tcscanf _cwscanf
-#define _tcscanf_l _cwscanf_l
-#define _ftscanf fwscanf
-#define _ftscanf_l _fwscanf_l
-#define _stscanf swscanf
-#define _stscanf_l _swscanf_l
-#define _sntscanf _snwscanf
-#define _sntscanf_l _snwscanf_l
+#घोषणा _tscanf wscanf
+#घोषणा _tscanf_l _wscanf_l
+#घोषणा _tcscanf _cwscanf
+#घोषणा _tcscanf_l _cwscanf_l
+#घोषणा _ftscanf fwscanf
+#घोषणा _ftscanf_l _fwscanf_l
+#घोषणा _stscanf swscanf
+#घोषणा _stscanf_l _swscanf_l
+#घोषणा _sntscanf _snwscanf
+#घोषणा _sntscanf_l _snwscanf_l
 
-#define _fgettc fgetwc
-#define _fgettc_nolock _fgetwc_nolock
-#define _fgettchar _fgetwchar
-#define _fgetts fgetws
-#define _fputtc fputwc
-#define _fputtc_nolock _fputwc_nolock
-#define _fputtchar _fputwchar
-#define _fputts fputws
-#define _cputts _cputws
-#define _cgetts _cgetws
-#define _gettc getwc
-#define _gettc_nolock _getwc_nolock
-#define _gettch _getwch
-#define _gettch_nolock _getwch_nolock
-#define _gettche _getwche
-#define _gettche_nolock _getwche_nolock
-#define _gettchar getwchar
-#define _gettchar_nolock _getwchar_nolock
-#define _getts _getws
-#define _puttc putwc
-#define _puttc_nolock _putwc_nolock
-#define _puttchar putwchar
-#define _puttchar_nolock _putwchar_nolock
-#define _puttch _putwch
-#define _puttch_nolock _putwch_nolock
-#define _putts _putws
-#define _ungettc ungetwc
-#define _ungettc_nolock _ungetwc_nolock
-#define _ungettch _ungetwch
-#define _ungettch_nolock _ungetwch_nolock
+#घोषणा _fgettc fgetwc
+#घोषणा _fgettc_nolock _fgetwc_nolock
+#घोषणा _fgettchar _fgetwchar
+#घोषणा _fgetts fgetws
+#घोषणा _fputtc fputwc
+#घोषणा _fputtc_nolock _fputwc_nolock
+#घोषणा _fputtchar _fputwchar
+#घोषणा _fputts fputws
+#घोषणा _cputts _cputws
+#घोषणा _cgetts _cgetws
+#घोषणा _gettc getwc
+#घोषणा _gettc_nolock _getwc_nolock
+#घोषणा _gettch _getwch
+#घोषणा _gettch_nolock _getwch_nolock
+#घोषणा _gettche _getwche
+#घोषणा _gettche_nolock _getwche_nolock
+#घोषणा _gettchar getwchar
+#घोषणा _gettchar_nolock _getwchar_nolock
+#घोषणा _getts _getws
+#घोषणा _puttc putwc
+#घोषणा _puttc_nolock _putwc_nolock
+#घोषणा _puttchar putwchar
+#घोषणा _puttchar_nolock _putwchar_nolock
+#घोषणा _puttch _putwch
+#घोषणा _puttch_nolock _putwch_nolock
+#घोषणा _putts _putws
+#घोषणा _ungettc ungetwc
+#घोषणा _ungettc_nolock _ungetwc_nolock
+#घोषणा _ungettch _ungetwch
+#घोषणा _ungettch_nolock _ungetwch_nolock
 
-#define _tcstod wcstod
-#define _tcstol wcstol
-#define _tcstoul wcstoul
-#define _tcstoi64 _wcstoi64
-#define _tcstoui64 _wcstoui64
-#define _tstof _wtof
-#define _tstol _wtol
-#define _tstoi _wtoi
-#define _tstoi64 _wtoi64
-#define _tcstod_l _wcstod_l
-#define _tcstol_l _wcstol_l
-#define _tcstoul_l _wcstoul_l
-#define _tcstoi64_l _wcstoi64_l
-#define _tcstoui64_l _wcstoui64_l
-#define _tstof_l _wtof_l
-#define _tstol_l _wtol_l
-#define _tstoi_l _wtoi_l
-#define _tstoi64_l _wtoi64_l
+#घोषणा _tcstod wcstod
+#घोषणा _tcstol wcstol
+#घोषणा _tcstoul wcstoul
+#घोषणा _tcstoi64 _wcstoi64
+#घोषणा _tcstoui64 _wcstoui64
+#घोषणा _tstof _wtof
+#घोषणा _tstol _wtol
+#घोषणा _tstoi _wtoi
+#घोषणा _tstoi64 _wtoi64
+#घोषणा _tcstod_l _wcstod_l
+#घोषणा _tcstol_l _wcstol_l
+#घोषणा _tcstoul_l _wcstoul_l
+#घोषणा _tcstoi64_l _wcstoi64_l
+#घोषणा _tcstoui64_l _wcstoui64_l
+#घोषणा _tstof_l _wtof_l
+#घोषणा _tstol_l _wtol_l
+#घोषणा _tstoi_l _wtoi_l
+#घोषणा _tstoi64_l _wtoi64_l
 
-#define _itot _itow
-#define _ltot _ltow
-#define _ultot _ultow
-#define _ttoi _wtoi
-#define _ttol _wtol
+#घोषणा _itot _itow
+#घोषणा _ltot _ltow
+#घोषणा _ultot _ultow
+#घोषणा _ttoi _wtoi
+#घोषणा _ttol _wtol
 
-#define _ttoi64 _wtoi64
-#define _i64tot _i64tow
-#define _ui64tot _ui64tow
+#घोषणा _ttoi64 _wtoi64
+#घोषणा _i64tot _i64tow
+#घोषणा _ui64tot _ui64tow
 
-#define _tcscat wcscat
-#define _tcschr wcschr
-#define _tcscpy wcscpy
-#define _tcscspn wcscspn
-#define _tcslen wcslen
-#define _tcsnlen wcsnlen
-#define _tcsncat wcsncat
-#define _tcsncat_l _wcsncat_l
-#define _tcsncpy wcsncpy
-#define _tcsncpy_l _wcsncpy_l
-#define _tcspbrk wcspbrk
-#define _tcsrchr wcsrchr
-#define _tcsspn wcsspn
-#define _tcsstr wcsstr
-#define _tcstok wcstok
-#define _tcstok_l _wcstok_l
-#define _tcserror _wcserror
-#define __tcserror __wcserror
+#घोषणा _tcscat wcscat
+#घोषणा _tcschr wcschr
+#घोषणा _tcscpy wcscpy
+#घोषणा _tcscspn wcscspn
+#घोषणा _tcslen wcslen
+#घोषणा _tcsnlen wcsnlen
+#घोषणा _tcsncat wcsncat
+#घोषणा _tcsncat_l _wcsncat_l
+#घोषणा _tcsncpy wcsncpy
+#घोषणा _tcsncpy_l _wcsncpy_l
+#घोषणा _tcspbrk wcspbrk
+#घोषणा _tcsrchr wcsrchr
+#घोषणा _tcsspn wcsspn
+#घोषणा _tcsstr wcsstr
+#घोषणा _tcstok wcstok
+#घोषणा _tcstok_l _wcstok_l
+#घोषणा _tcserror _wcserror
+#घोषणा __tcserror __wcserror
 
-#define _tcsdup _wcsdup
-#define _tcsnset _wcsnset
-#define _tcsnset_l _wcsnset_l
-#define _tcsrev _wcsrev
-#define _tcsset _wcsset
-#define _tcsset_l _wcsset_l
+#घोषणा _tcsdup _wcsdup
+#घोषणा _tcsnset _wcsnset
+#घोषणा _tcsnset_l _wcsnset_l
+#घोषणा _tcsrev _wcsrev
+#घोषणा _tcsset _wcsset
+#घोषणा _tcsset_l _wcsset_l
 
-#define _tcscmp wcscmp
-#define _tcsicmp _wcsicmp
-#define _tcsicmp_l _wcsicmp_l
-#define _tcsnccmp wcsncmp
-#define _tcsncmp wcsncmp
-#define _tcsncicmp _wcsnicmp
-#define _tcsncicmp_l _wcsnicmp_l
-#define _tcsnicmp _wcsnicmp
-#define _tcsnicmp_l _wcsnicmp_l
+#घोषणा _tcscmp wcscmp
+#घोषणा _tcsicmp _wcsicmp
+#घोषणा _tcsicmp_l _wcsicmp_l
+#घोषणा _tcsnccmp wcsncmp
+#घोषणा _tcsncmp wcsncmp
+#घोषणा _tcsncicmp _wcsnicmp
+#घोषणा _tcsncicmp_l _wcsnicmp_l
+#घोषणा _tcsnicmp _wcsnicmp
+#घोषणा _tcsnicmp_l _wcsnicmp_l
 
-#define _tcscoll wcscoll
-#define _tcscoll_l _wcscoll_l
-#define _tcsicoll _wcsicoll
-#define _tcsicoll_l _wcsicoll_l
-#define _tcsnccoll _wcsncoll
-#define _tcsnccoll_l _wcsncoll_l
-#define _tcsncoll _wcsncoll
-#define _tcsncoll_l _wcsncoll_l
-#define _tcsncicoll _wcsnicoll
-#define _tcsncicoll_l _wcsnicoll_l
-#define _tcsnicoll _wcsnicoll
-#define _tcsnicoll_l _wcsnicoll_l
+#घोषणा _tcscoll wcscoll
+#घोषणा _tcscoll_l _wcscoll_l
+#घोषणा _tcsicoll _wcsicoll
+#घोषणा _tcsicoll_l _wcsicoll_l
+#घोषणा _tcsnccoll _wcsncoll
+#घोषणा _tcsnccoll_l _wcsncoll_l
+#घोषणा _tcsncoll _wcsncoll
+#घोषणा _tcsncoll_l _wcsncoll_l
+#घोषणा _tcsncicoll _wcsnicoll
+#घोषणा _tcsncicoll_l _wcsnicoll_l
+#घोषणा _tcsnicoll _wcsnicoll
+#घोषणा _tcsnicoll_l _wcsnicoll_l
 
-#define _texecl _wexecl
-#define _texecle _wexecle
-#define _texeclp _wexeclp
-#define _texeclpe _wexeclpe
-#define _texecv _wexecv
-#define _texecve _wexecve
-#define _texecvp _wexecvp
-#define _texecvpe _wexecvpe
+#घोषणा _texecl _wexecl
+#घोषणा _texecle _wexecle
+#घोषणा _texeclp _wexeclp
+#घोषणा _texeclpe _wexeclpe
+#घोषणा _texecv _wexecv
+#घोषणा _texecve _wexecve
+#घोषणा _texecvp _wexecvp
+#घोषणा _texecvpe _wexecvpe
 
-#define _tspawnl _wspawnl
-#define _tspawnle _wspawnle
-#define _tspawnlp _wspawnlp
-#define _tspawnlpe _wspawnlpe
-#define _tspawnv _wspawnv
-#define _tspawnve _wspawnve
-#define _tspawnvp _wspawnvp
-#define _tspawnvp _wspawnvp
-#define _tspawnvpe _wspawnvpe
+#घोषणा _tspawnl _wspawnl
+#घोषणा _tspawnle _wspawnle
+#घोषणा _tspawnlp _wspawnlp
+#घोषणा _tspawnlpe _wspawnlpe
+#घोषणा _tspawnv _wspawnv
+#घोषणा _tspawnve _wspawnve
+#घोषणा _tspawnvp _wspawnvp
+#घोषणा _tspawnvp _wspawnvp
+#घोषणा _tspawnvpe _wspawnvpe
 
-#define _tsystem _wsystem
+#घोषणा _tsystem _wsystem
 
-#define _tasctime _wasctime
-#define _tctime _wctime
-#define _tctime32 _wctime32
-#define _tctime64 _wctime64
-#define _tstrdate _wstrdate
-#define _tstrtime _wstrtime
-#define _tutime _wutime
-#define _tutime32 _wutime32
-#define _tutime64 _wutime64
-#define _tcsftime wcsftime
-#define _tcsftime_l _wcsftime_l
+#घोषणा _tasctime _wasctime
+#घोषणा _tctime _wctime
+#घोषणा _tctime32 _wctime32
+#घोषणा _tctime64 _wctime64
+#घोषणा _tstrdate _wstrdate
+#घोषणा _tstrtime _wstrtime
+#घोषणा _tutime _wutime
+#घोषणा _tutime32 _wutime32
+#घोषणा _tutime64 _wutime64
+#घोषणा _tcsftime wcsftime
+#घोषणा _tcsftime_l _wcsftime_l
 
-#define _tchdir _wchdir
-#define _tgetcwd _wgetcwd
-#define _tgetdcwd _wgetdcwd
-#define _tgetdcwd_nolock _wgetdcwd_nolock
-#define _tmkdir _wmkdir
-#define _trmdir _wrmdir
+#घोषणा _tchdir _wchdir
+#घोषणा _tgetcwd _wgetcwd
+#घोषणा _tgetdcwd _wgetdcwd
+#घोषणा _tgetdcwd_nolock _wgetdcwd_nolock
+#घोषणा _tmkdir _wmkdir
+#घोषणा _trmdir _wrmdir
 
-#define _tfullpath _wfullpath
-#define _tgetenv _wgetenv
-#define _tmakepath _wmakepath
-#define _tpgmptr _wpgmptr
-#define _get_tpgmptr _get_wpgmptr
-#define _tputenv _wputenv
-#define _tsearchenv _wsearchenv
-#define _tsplitpath _wsplitpath
+#घोषणा _tfullpath _wfullpath
+#घोषणा _tgetenv _wgetenv
+#घोषणा _tmakepath _wmakepath
+#घोषणा _tpgmptr _wpgmptr
+#घोषणा _get_tpgmptr _get_wpgmptr
+#घोषणा _tputenv _wputenv
+#घोषणा _tsearchenv _wsearchenv
+#घोषणा _tsplitpath _wsplitpath
 
-#define _tfdopen _wfdopen
-#define _tfsopen _wfsopen
-#define _tfopen _wfopen
-#define _tfreopen _wfreopen
-#define _tperror _wperror
-#define _tpopen _wpopen
-#define _ttempnam _wtempnam
-#define _ttmpnam _wtmpnam
+#घोषणा _tfdopen _wfdopen
+#घोषणा _tfsopen _wfsopen
+#घोषणा _tfopen _wfopen
+#घोषणा _tfreopen _wfreopen
+#घोषणा _tperror _wperror
+#घोषणा _tpopen _wpopen
+#घोषणा _ttempnam _wtempnam
+#घोषणा _ttmpnam _wtmpnam
 
-#define _taccess _waccess
-#define _tchmod _wchmod
-#define _tcreat _wcreat
-#define _tfindfirst _wfindfirst
-#define _tfindfirst32 _wfindfirst32
-#define _tfindfirst64 _wfindfirst64
-#define _tfindfirsti64 _wfindfirsti64
-#define _tfindfirst32i64 _wfindfirst32i64
-#define _tfindfirst64i32 _wfindfirst64i32
-#define _tfindnext _wfindnext
-#define _tfindnext32 _wfindnext32
-#define _tfindnext64 _wfindnext64
-#define _tfindnexti64 _wfindnexti64
-#define _tfindnext32i64 _wfindnext32i64
-#define _tfindnext64i32 _wfindnext64i32
-#define _tmktemp _wmktemp
-#define _topen _wopen
-#define _tremove _wremove
-#define _trename _wrename
-#define _tsopen _wsopen
-#define _tunlink _wunlink
+#घोषणा _taccess _waccess
+#घोषणा _tchmod _wchmod
+#घोषणा _tcreat _wcreat
+#घोषणा _tfindfirst _wfindfirst
+#घोषणा _tfindfirst32 _wfindfirst32
+#घोषणा _tfindfirst64 _wfindfirst64
+#घोषणा _tfindfirsti64 _wfindfirsti64
+#घोषणा _tfindfirst32i64 _wfindfirst32i64
+#घोषणा _tfindfirst64i32 _wfindfirst64i32
+#घोषणा _tfindnext _wfindnext
+#घोषणा _tfindnext32 _wfindnext32
+#घोषणा _tfindnext64 _wfindnext64
+#घोषणा _tfindnexti64 _wfindnexti64
+#घोषणा _tfindnext32i64 _wfindnext32i64
+#घोषणा _tfindnext64i32 _wfindnext64i32
+#घोषणा _tmktemp _wmktemp
+#घोषणा _topen _wopen
+#घोषणा _tremove _wremove
+#घोषणा _trename _wrename
+#घोषणा _tsopen _wsopen
+#घोषणा _tunlink _wunlink
 
-#define _tfinddata_t _wfinddata_t
-#define _tfinddata32_t _wfinddata32_t
-#define _tfinddata64_t _wfinddata64_t
-#define _tfinddatai64_t _wfinddatai64_t
-#define _tfinddata32i64_t _wfinddata32i64_t
-#define _tfinddata64i32_t _wfinddata64i32_t
+#घोषणा _tfinddata_t _wfinddata_t
+#घोषणा _tfinddata32_t _wfinddata32_t
+#घोषणा _tfinddata64_t _wfinddata64_t
+#घोषणा _tfinddatai64_t _wfinddatai64_t
+#घोषणा _tfinddata32i64_t _wfinddata32i64_t
+#घोषणा _tfinddata64i32_t _wfinddata64i32_t
 
-#define _tstat _wstat
-#define _tstat32 _wstat32
-#define _tstat32i64 _wstat32i64
-#define _tstat64 _wstat64
-#define _tstat64i32 _wstat64i32
-#define _tstati64 _wstati64
+#घोषणा _tstat _wstat
+#घोषणा _tstat32 _wstat32
+#घोषणा _tstat32i64 _wstat32i64
+#घोषणा _tstat64 _wstat64
+#घोषणा _tstat64i32 _wstat64i32
+#घोषणा _tstati64 _wstati64
 
-#define _tsetlocale _wsetlocale
+#घोषणा _tsetlocale _wsetlocale
 
-#define _tcsclen wcslen
-#define _tcscnlen wcsnlen
-#define _tcsclen_l(_String,_Locale) wcslen(_String)
-#define _tcscnlen_l(_String,_Max_count,_Locale) wcsnlen_l((_String),(_Max_count))
-#define _tcsnccat wcsncat
-#define _tcsnccat_l _wcsncat_l
-#define _tcsnccpy wcsncpy
-#define _tcsnccpy_l _wcsncpy_l
-#define _tcsncset _wcsnset
+#घोषणा _tcsclen wcslen
+#घोषणा _tcscnlen wcsnlen
+#घोषणा _tcsclen_l(_String,_Locale) wcslen(_String)
+#घोषणा _tcscnlen_l(_String,Max_गिनती_2,_Locale) wcsnlen_l((_String),(Max_गिनती_2))
+#घोषणा _tcsnccat wcsncat
+#घोषणा _tcsnccat_l _wcsncat_l
+#घोषणा _tcsnccpy wcsncpy
+#घोषणा _tcsnccpy_l _wcsncpy_l
+#घोषणा _tcsncset _wcsnset
 
-#define _tcsdec _wcsdec
-#define _tcsinc _wcsinc
-#define _tcsnbcnt _wcsncnt
-#define _tcsnccnt _wcsncnt
-#define _tcsnextc _wcsnextc
-#define _tcsninc _wcsninc
-#define _tcsspnp _wcsspnp
+#घोषणा _tcsdec _wcsdec
+#घोषणा _tcsinc _wcsinc
+#घोषणा _tcsnbcnt _wcsncnt
+#घोषणा _tcsnccnt _wcsncnt
+#घोषणा _tcsnextc _wcsnextc
+#घोषणा _tcsninc _wcsninc
+#घोषणा _tcsspnp _wcsspnp
 
-#define _tcslwr _wcslwr
-#define _tcslwr_l _wcslwr_l
-#define _tcsupr _wcsupr
-#define _tcsupr_l _wcsupr_l
-#define _tcsxfrm wcsxfrm
-#define _tcsxfrm_l _wcsxfrm_l
+#घोषणा _tcslwr _wcslwr
+#घोषणा _tcslwr_l _wcslwr_l
+#घोषणा _tcsupr _wcsupr
+#घोषणा _tcsupr_l _wcsupr_l
+#घोषणा _tcsxfrm wcsxfrm
+#घोषणा _tcsxfrm_l _wcsxfrm_l
 
-#define _tclen(_pc) (1)
-#define _tccpy(_pc1,_cpc2) ((*(_pc1) = *(_cpc2)))
-#define _tccmp(_cpc1,_cpc2) ((*(_cpc1))-(*(_cpc2)))
+#घोषणा _tclen(_pc) (1)
+#घोषणा _tccpy(_pc1,_cpc2) ((*(_pc1) = *(_cpc2)))
+#घोषणा _tccmp(_cpc1,_cpc2) ((*(_cpc1))-(*(_cpc2)))
 
-#define _istalnum iswalnum
-#define _istalnum_l _iswalnum_l
-#define _istalpha iswalpha
-#define _istalpha_l _iswalpha_l
-#define _istascii iswascii
-#define _istcntrl iswcntrl
-#define _istcntrl_l _iswcntrl_l
-#define _istdigit iswdigit
-#define _istdigit_l _iswdigit_l
-#define _istgraph iswgraph
-#define _istgraph_l _iswgraph_l
-#define _istlower iswlower
-#define _istlower_l _iswlower_l
-#define _istprint iswprint
-#define _istprint_l _iswprint_l
-#define _istpunct iswpunct
-#define _istpunct_l _iswpunct_l
-#define _istspace iswspace
-#define _istspace_l _iswspace_l
-#define _istupper iswupper
-#define _istupper_l _iswupper_l
-#define _istxdigit iswxdigit
-#define _istxdigit_l _iswxdigit_l
+#घोषणा _istalnum iswalnum
+#घोषणा _istalnum_l _iswalnum_l
+#घोषणा _istalpha iswalpha
+#घोषणा _istalpha_l _iswalpha_l
+#घोषणा _istascii iswascii
+#घोषणा _istcntrl iswcntrl
+#घोषणा _istcntrl_l _iswcntrl_l
+#घोषणा _istdigit iswdigit
+#घोषणा _istdigit_l _iswdigit_l
+#घोषणा _istgraph iswgraph
+#घोषणा _istgraph_l _iswgraph_l
+#घोषणा _istlower iswlower
+#घोषणा _istlower_l _iswlower_l
+#घोषणा _istprint iswprint
+#घोषणा _istprint_l _iswprint_l
+#घोषणा _istpunct iswpunct
+#घोषणा _istpunct_l _iswpunct_l
+#घोषणा _istspace iswspace
+#घोषणा _istspace_l _iswspace_l
+#घोषणा _istupper iswupper
+#घोषणा _istupper_l _iswupper_l
+#घोषणा _istxdigit iswxdigit
+#घोषणा _istxdigit_l _iswxdigit_l
 
-#define _totupper towupper
-#define _totupper_l _towupper_l
-#define _totlower towlower
-#define _totlower_l _towlower_l
+#घोषणा _totupper towupper
+#घोषणा _totupper_l _towupper_l
+#घोषणा _totlower towlower
+#घोषणा _totlower_l _towlower_l
 
-#define _istlegal(_Char) (1)
-#define _istlead(_Char) (0)
-#define _istleadbyte(_Char) (0)
-#define _istleadbyte_l(_Char,_Locale) (0)
+#घोषणा _istlegal(_Char) (1)
+#घोषणा _istlead(_Char) (0)
+#घोषणा _istleadbyte(_Char) (0)
+#घोषणा _istleadbyte_l(_Char,_Locale) (0)
 
-#define _wcsdec(_cpc1,_cpc2) ((_cpc1)>=(_cpc2) ? NULL : (_cpc2)-1)
-#define _wcsinc(_pc) ((_pc)+1)
-#define _wcsnextc(_cpc) ((unsigned int) *(_cpc))
-#define _wcsninc(_pc,_sz) (((_pc)+(_sz)))
-  _CRTIMP size_t __cdecl __wcsncnt(const wchar_t *_Str,size_t _MaxCount);
-#define _wcsncnt(_cpc,_sz) (__wcsncnt(_cpc,_sz))
-#define _wcsspnp(_cpc1,_cpc2) (!_cpc1 ? NULL : ((*((_cpc1)+wcsspn(_cpc1,_cpc2))) ? ((_cpc1)+wcsspn(_cpc1,_cpc2)) : NULL))
-#define _wcsncpy_l(_Destination,_Source,_Count,_Locale) (wcsncpy(_Destination,_Source,_Count))
-#define _wcsncat_l(_Destination,_Source,_Count,_Locale) (wcsncat(_Destination,_Source,_Count))
-#define _wcstok_l(_String,_Delimiters,_Locale) (wcstok(_String,_Delimiters))
-#define _wcsnset_l(_Destination,_Value,_Count,_Locale) (_wcsnset(_Destination,_Value,_Count))
-#define _wcsset_l(_Destination,_Value,_Locale) (_wcsset(_Destination,_Value))
+#घोषणा _wcsdec(_cpc1,_cpc2) ((_cpc1)>=(_cpc2) ? शून्य : (_cpc2)-1)
+#घोषणा _wcsinc(_pc) ((_pc)+1)
+#घोषणा _wcsnextc(_cpc) ((अचिन्हित पूर्णांक) *(_cpc))
+#घोषणा _wcsninc(_pc,_sz) (((_pc)+(_sz)))
+  _CRTIMP माप_प्रकार __cdecl __wcsncnt(स्थिर ब_अक्षर_प्रकार *_Str,माप_प्रकार Max_गिनती);
+#घोषणा _wcsncnt(_cpc,_sz) (__wcsncnt(_cpc,_sz))
+#घोषणा _wcsspnp(_cpc1,_cpc2) (!_cpc1 ? शून्य : ((*((_cpc1)+wcsspn(_cpc1,_cpc2))) ? ((_cpc1)+wcsspn(_cpc1,_cpc2)) : शून्य))
+#घोषणा _wcsncpy_l(_Destination,_Source,गिनती_5,_Locale) (wcsncpy(_Destination,_Source,गिनती_5))
+#घोषणा _wcsncat_l(_Destination,_Source,गिनती_5,_Locale) (wcsncat(_Destination,_Source,गिनती_5))
+#घोषणा _wcstok_l(_String,_Delimiters,_Locale) (wcstok(_String,_Delimiters))
+#घोषणा _wcsnset_l(_Destination,मूल्य_2,गिनती_5,_Locale) (_wcsnset(_Destination,मूल्य_2,गिनती_5))
+#घोषणा _wcsset_l(_Destination,मूल्य_2,_Locale) (_wcsset(_Destination,मूल्य_2))
 
   /* dirent structures and functions */
-#define _tdirent	_wdirent
-#define _TDIR 		_WDIR
-#define _topendir	_wopendir
-#define _tclosedir	_wclosedir
-#define _treaddir	_wreaddir
-#define _trewinddir	_wrewinddir
-#define _ttelldir	_wtelldir
-#define _tseekdir	_wseekdir
+#घोषणा _tdirent	_wdirent
+#घोषणा _TDIR 		_WDIR
+#घोषणा _topendir	_wopendir
+#घोषणा _tclosedir	_wclosedir
+#घोषणा _treaddir	_wreaddir
+#घोषणा _trewinddir	_wrewinddir
+#घोषणा _ttelldir	_wtelldir
+#घोषणा _tseekdir	_wseekdir
 
-#else
+#अन्यथा
 
-#ifdef __cplusplus
+#अगर_घोषित __cplusplus
 }
-#endif
+#पूर्ण_अगर
 
-#include <string.h>
+#समावेश <string.h>
 
-#ifdef __cplusplus
-extern "C" {
-#endif
+#अगर_घोषित __cplusplus
+बाह्य "C" {
+#पूर्ण_अगर
 
-#define _TEOF EOF
+#घोषणा _TEOF खातापूर्ण
 
-#define __T(x) x
+#घोषणा __T(x) x
 
-#define _tmain main
-#define _tWinMain WinMain
-#ifdef _POSIX_
-#define _tenviron environ
-#else
-#define _tenviron _environ
-#endif
-#define __targv __argv
+#घोषणा _tmain मुख्य
+#घोषणा _tWinMain WinMain
+#अगर_घोषित _POSIX_
+#घोषणा _tenviron environ
+#अन्यथा
+#घोषणा _tenviron _environ
+#पूर्ण_अगर
+#घोषणा __targv __argv
 
-#define _tprintf printf
-#define _tprintf_l _printf_l
-#define _tprintf_p _printf_p
-#define _tprintf_p_l _printf_p_l
-#define _tcprintf _cprintf
-#define _tcprintf_l _cprintf_l
-#define _tcprintf_p _cprintf_p
-#define _tcprintf_p_l _cprintf_p_l
-#define _vtcprintf _vcprintf
-#define _vtcprintf_l _vcprintf_l
-#define _vtcprintf_p _vcprintf_p
-#define _vtcprintf_p_l _vcprintf_p_l
-#define _ftprintf fprintf
-#define _ftprintf_l _fprintf_l
-#define _ftprintf_p _fprintf_p
-#define _ftprintf_p_l _fprintf_p_l
-#define _stprintf sprintf
-#define _stprintf_l _sprintf_l
-#define _stprintf_p _sprintf_p
-#define _stprintf_p_l _sprintf_p_l
-#define _sctprintf _scprintf
-#define _sctprintf_l _scprintf_l
-#define _sctprintf_p _scprintf_p
-#define _sctprintf_p_l _scprintf_p_l
-#define _sntprintf _snprintf
-#define _sntprintf_l _snprintf_l
-#define _vtprintf vprintf
-#define _vtprintf_l _vprintf_l
-#define _vtprintf_p _vprintf_p
-#define _vtprintf_p_l _vprintf_p_l
-#define _vftprintf vfprintf
-#define _vftprintf_l _vfprintf_l
-#define _vftprintf_p _vfprintf_p
-#define _vftprintf_p_l _vfprintf_p_l
-#define _vstprintf vsprintf
-#define _vstprintf_l _vsprintf_l
-#define _vstprintf_p _vsprintf_p
-#define _vstprintf_p_l _vsprintf_p_l
-#define _vsctprintf _vscprintf
-#define _vsctprintf_l _vscprintf_l
-#define _vsctprintf_p _vscprintf_p
-#define _vsctprintf_p_l _vscprintf_p_l
-#define _vsntprintf _vsnprintf
-#define _vsntprintf_l _vsnprintf_l
+#घोषणा _tprintf म_लिखो
+#घोषणा _tprintf_l _printf_l
+#घोषणा _tprintf_p _printf_p
+#घोषणा _tprintf_p_l _printf_p_l
+#घोषणा _tcprintf _cprintf
+#घोषणा _tcprintf_l _cprintf_l
+#घोषणा _tcprintf_p _cprintf_p
+#घोषणा _tcprintf_p_l _cprintf_p_l
+#घोषणा _vtcprintf _vcprintf
+#घोषणा _vtcprintf_l _vcprintf_l
+#घोषणा _vtcprintf_p _vcprintf_p
+#घोषणा _vtcprintf_p_l _vcprintf_p_l
+#घोषणा _ftprintf ख_लिखो
+#घोषणा _ftprintf_l _fprintf_l
+#घोषणा _ftprintf_p _fprintf_p
+#घोषणा _ftprintf_p_l _fprintf_p_l
+#घोषणा _stprintf प्र_लिखो
+#घोषणा _stprintf_l _sprintf_l
+#घोषणा _stprintf_p _sprintf_p
+#घोषणा _stprintf_p_l _sprintf_p_l
+#घोषणा _sctprintf _scprintf
+#घोषणा _sctprintf_l _scprintf_l
+#घोषणा _sctprintf_p _scprintf_p
+#घोषणा _sctprintf_p_l _scprintf_p_l
+#घोषणा _sntprintf _snprintf
+#घोषणा _sntprintf_l _snprintf_l
+#घोषणा _vtprintf भ_लिखो
+#घोषणा _vtprintf_l _vprintf_l
+#घोषणा _vtprintf_p _vprintf_p
+#घोषणा _vtprintf_p_l _vprintf_p_l
+#घोषणा _vftprintf भख_लिखो
+#घोषणा _vftprintf_l _vfprintf_l
+#घोषणा _vftprintf_p _vfprintf_p
+#घोषणा _vftprintf_p_l _vfprintf_p_l
+#घोषणा _vstprintf भम_लिखो
+#घोषणा _vstprintf_l _vsprintf_l
+#घोषणा _vstprintf_p _vsprintf_p
+#घोषणा _vstprintf_p_l _vsprintf_p_l
+#घोषणा _vsctprintf _vscprintf
+#घोषणा _vsctprintf_l _vscprintf_l
+#घोषणा _vsctprintf_p _vscprintf_p
+#घोषणा _vsctprintf_p_l _vscprintf_p_l
+#घोषणा _vsntprintf _vsnprintf
+#घोषणा _vsntprintf_l _vsnprintf_l
 
-#define _tscanf scanf
-#define _tscanf_l _scanf_l
-#define _tcscanf _cscanf
-#define _tcscanf_l _cscanf_l
-#define _ftscanf fscanf
-#define _ftscanf_l _fscanf_l
-#define _stscanf sscanf
-#define _stscanf_l _sscanf_l
-#define _sntscanf _snscanf
-#define _sntscanf_l _snscanf_l
+#घोषणा _tscanf म_पूछो
+#घोषणा _tscanf_l _scanf_l
+#घोषणा _tcscanf _cscanf
+#घोषणा _tcscanf_l _cscanf_l
+#घोषणा _ftscanf ख_पूछो
+#घोषणा _ftscanf_l _fscanf_l
+#घोषणा _stscanf माला_पूछो
+#घोषणा _stscanf_l _sscanf_l
+#घोषणा _sntscanf _snscanf
+#घोषणा _sntscanf_l _snscanf_l
 
-#define _fgettc fgetc
-#define _fgettc_nolock _fgetc_nolock
-#define _fgettchar _fgetchar
-#define _fgetts fgets
-#define _fputtc fputc
-#define _fputtc_nolock _fputc_nolock
-#define _fputtchar _fputchar
-#define _fputts fputs
-#define _cputts _cputs
-#define _gettc getc
-#define _gettc_nolock _getc_nolock
-#define _gettch _getch
-#define _gettch_nolock _getch_nolock
-#define _gettche _getche
-#define _gettche_nolock _getche_nolock
-#define _gettchar getchar
-#define _gettchar_nolock _getchar_nolock
-#define _getts gets
-#define _cgetts _cgets
-#define _puttc putc
-#define _puttc_nolock _putc_nolock
-#define _puttchar putchar
-#define _puttchar_nolock _putchar_nolock
-#define _puttch _putch
-#define _puttch_nolock _putch_nolock
-#define _putts puts
-#define _ungettc ungetc
-#define _ungettc_nolock _ungetc_nolock
-#define _ungettch _ungetch
-#define _ungettch_nolock _ungetch_nolock
+#घोषणा _fgettc ख_अक्षर_लो
+#घोषणा _fgettc_nolock _fgetc_nolock
+#घोषणा _fgettchar _fgetchar
+#घोषणा _fgetts ख_माला_लो
+#घोषणा _fputtc ख_अक्षर_दो
+#घोषणा _fputtc_nolock _fputc_nolock
+#घोषणा _fputtchar _fputchar
+#घोषणा _fputts ख_माला_दो
+#घोषणा _cputts _cputs
+#घोषणा _gettc अ_लो
+#घोषणा _gettc_nolock _getc_nolock
+#घोषणा _gettch _getch
+#घोषणा _gettch_nolock _getch_nolock
+#घोषणा _gettche _getche
+#घोषणा _gettche_nolock _getche_nolock
+#घोषणा _gettchar अक्षर_लो
+#घोषणा _gettchar_nolock _getchar_nolock
+#घोषणा _getts माला_लो
+#घोषणा _cgetts _cgets
+#घोषणा _puttc अ_दो
+#घोषणा _puttc_nolock _putc_nolock
+#घोषणा _puttchar अक्षर_दो
+#घोषणा _puttchar_nolock _putchar_nolock
+#घोषणा _puttch _putch
+#घोषणा _puttch_nolock _putch_nolock
+#घोषणा _putts माला_दो
+#घोषणा _ungettc अक्षर_वापस
+#घोषणा _ungettc_nolock _ungetc_nolock
+#घोषणा _ungettch _ungetch
+#घोषणा _ungettch_nolock _ungetch_nolock
 
-#define _tcstod strtod
-#define _tcstol strtol
-#define _tcstoul strtoul
-#define _tstof atof
-#define _tstol atol
-#define _tstoi atoi
-#define _tstoi64 _atoi64
-#define _tcstod_l _strtod_l
-#define _tcstol_l _strtol_l
-#define _tcstoul_l _strtoul_l
-#define _tstof_l _atof_l
-#define _tstol_l _atol_l
-#define _tstoi_l _atoi_l
-#define _tstoi64_l _atoi64_l
+#घोषणा _tcstod म_से_भग्न
+#घोषणा _tcstol म_से_दीर्घ
+#घोषणा _tcstoul म_से_अदीर्घ
+#घोषणा _tstof म_से_भ
+#घोषणा _tstol म_से_द
+#घोषणा _tstoi म_से_प
+#घोषणा _tstoi64 _atoi64
+#घोषणा _tcstod_l _strtod_l
+#घोषणा _tcstol_l _strtol_l
+#घोषणा _tcstoul_l _strtoul_l
+#घोषणा _tstof_l _atof_l
+#घोषणा _tstol_l _atol_l
+#घोषणा _tstoi_l _atoi_l
+#घोषणा _tstoi64_l _atoi64_l
 
-#define _itot _itoa
-#define _ltot _ltoa
-#define _ultot _ultoa
-#define _ttoi atoi
-#define _ttol atol
+#घोषणा _itot _itoa
+#घोषणा _ltot _ltoa
+#घोषणा _ultot _ultoa
+#घोषणा _ttoi म_से_प
+#घोषणा _ttol म_से_द
 
-#define _ttoi64 _atoi64
-#define _tcstoi64 _strtoi64
-#define _tcstoi64_l _strtoi64_l
-#define _tcstoui64 _strtoui64
-#define _tcstoui64_l _strtoui64_l
-#define _i64tot _i64toa
-#define _ui64tot _ui64toa
+#घोषणा _ttoi64 _atoi64
+#घोषणा _tcstoi64 _strtoi64
+#घोषणा _tcstoi64_l _strtoi64_l
+#घोषणा _tcstoui64 _strtoui64
+#घोषणा _tcstoui64_l _strtoui64_l
+#घोषणा _i64tot _i64toa
+#घोषणा _ui64tot _ui64toa
 
-#define _tcscat strcat
-#define _tcscpy strcpy
-#define _tcsdup _strdup
-#define _tcslen strlen
-#if 0
-#define _tcsnlen strnlen
-#endif
-#define _tcsxfrm strxfrm
-#define _tcsxfrm_l _strxfrm_l
-#define _tcserror strerror
-#define __tcserror _strerror
+#घोषणा _tcscat म_जोड़ो
+#घोषणा _tcscpy म_नकल
+#घोषणा _tcsdup _strdup
+#घोषणा _tcslen म_माप
+#अगर 0
+#घोषणा _tcsnlen strnlen
+#पूर्ण_अगर
+#घोषणा _tcsxfrm strxfrm
+#घोषणा _tcsxfrm_l _strxfrm_l
+#घोषणा _tcserror म_त्रुटि
+#घोषणा __tcserror _strerror
 
-#define _texecl _execl
-#define _texecle _execle
-#define _texeclp _execlp
-#define _texeclpe _execlpe
-#define _texecv _execv
-#define _texecve _execve
-#define _texecvp _execvp
-#define _texecvpe _execvpe
+#घोषणा _texecl _execl
+#घोषणा _texecle _execle
+#घोषणा _texeclp _execlp
+#घोषणा _texeclpe _execlpe
+#घोषणा _texecv _execv
+#घोषणा _texecve _execve
+#घोषणा _texecvp _execvp
+#घोषणा _texecvpe _execvpe
 
-#define _tspawnl _spawnl
-#define _tspawnle _spawnle
-#define _tspawnlp _spawnlp
-#define _tspawnlpe _spawnlpe
-#define _tspawnv _spawnv
-#define _tspawnve _spawnve
-#define _tspawnvp _spawnvp
-#define _tspawnvpe _spawnvpe
+#घोषणा _tspawnl _spawnl
+#घोषणा _tspawnle _spawnle
+#घोषणा _tspawnlp _spawnlp
+#घोषणा _tspawnlpe _spawnlpe
+#घोषणा _tspawnv _spawnv
+#घोषणा _tspawnve _spawnve
+#घोषणा _tspawnvp _spawnvp
+#घोषणा _tspawnvpe _spawnvpe
 
-#define _tsystem system
+#घोषणा _tsystem प्रणाली
 
-#define _tasctime asctime
-#define _tctime ctime
-#define _tctime32 _ctime32
-#define _tctime64 _ctime64
-#define _tstrdate _strdate
-#define _tstrtime _strtime
-#define _tutime _utime
-#define _tutime32 _utime32
-#define _tutime64 _utime64
-#define _tcsftime strftime
-#define _tcsftime_l _strftime_l
+#घोषणा _tasctime समय_ठीक
+#घोषणा _tctime स_समय
+#घोषणा _tctime32 _ctime32
+#घोषणा _tctime64 _ctime64
+#घोषणा _tstrdate _strdate
+#घोषणा _tstrtime _strtime
+#घोषणा _tutime _utime
+#घोषणा _tutime32 _utime32
+#घोषणा _tutime64 _utime64
+#घोषणा _tcsftime स_माला
+#घोषणा _tcsftime_l _strftime_l
 
-#define _tchdir _chdir
-#define _tgetcwd _getcwd
-#define _tgetdcwd _getdcwd
-#define _tgetdcwd_nolock _getdcwd_nolock
-#define _tmkdir _mkdir
-#define _trmdir _rmdir
+#घोषणा _tchdir _chdir
+#घोषणा _tgetcwd _getcwd
+#घोषणा _tgetdcwd _getdcwd
+#घोषणा _tgetdcwd_nolock _getdcwd_nolock
+#घोषणा _tmkdir _mkdir
+#घोषणा _trmdir _rmdir
 
-#define _tfullpath _fullpath
-#define _tgetenv getenv
-#define _tmakepath _makepath
-#define _tpgmptr _pgmptr
-#define _get_tpgmptr _get_pgmptr
-#define _tputenv _putenv
-#define _tsearchenv _searchenv
-#define _tsplitpath _splitpath
+#घोषणा _tfullpath _fullpath
+#घोषणा _tgetenv दो_पर्या
+#घोषणा _tmakepath _makepath
+#घोषणा _tpgmptr _pgmptr
+#घोषणा _get_tpgmptr _get_pgmptr
+#घोषणा _tputenv _putenv
+#घोषणा _tsearchenv _searchenv
+#घोषणा _tsplitpath _splitpath
 
-#ifdef _POSIX_
-#define _tfdopen fdopen
-#else
-#define _tfdopen _fdopen
-#endif
-#define _tfsopen _fsopen
-#define _tfopen fopen
-#define _tfreopen freopen
-#define _tperror perror
-#define _tpopen _popen
-#define _ttempnam _tempnam
-#define _ttmpnam tmpnam
+#अगर_घोषित _POSIX_
+#घोषणा _tfdopen fdopen
+#अन्यथा
+#घोषणा _tfdopen _fdopen
+#पूर्ण_अगर
+#घोषणा _tfsopen _fsopen
+#घोषणा _tfopen ख_खोलो
+#घोषणा _tfreopen ख_व_खोलो
+#घोषणा _tperror लिखो_त्रुटि
+#घोषणा _tpopen _popen
+#घोषणा _ttempnam _tempnam
+#घोषणा _ttmpnam क्षणिक
 
-#define _tchmod _chmod
-#define _tcreat _creat
-#define _tfindfirst _findfirst
-#define _tfindfirst32 _findfirst32
-#define _tfindfirst64 _findfirst64
-#define _tfindfirsti64 _findfirsti64
-#define _tfindfirst32i64 _findfirst32i64
-#define _tfindfirst64i32 _findfirst64i32
-#define _tfindnext _findnext
-#define _tfindnext32 _findnext32
-#define _tfindnext64 _findnext64
-#define _tfindnexti64 _findnexti64
-#define _tfindnext32i64 _findnext32i64
-#define _tfindnext64i32 _findnext64i32
-#define _tmktemp _mktemp
+#घोषणा _tchmod _chmod
+#घोषणा _tcreat _creat
+#घोषणा _tfindfirst _findfirst
+#घोषणा _tfindfirst32 _findfirst32
+#घोषणा _tfindfirst64 _findfirst64
+#घोषणा _tfindfirsti64 _findfirsti64
+#घोषणा _tfindfirst32i64 _findfirst32i64
+#घोषणा _tfindfirst64i32 _findfirst64i32
+#घोषणा _tfindnext _findnext
+#घोषणा _tfindnext32 _findnext32
+#घोषणा _tfindnext64 _findnext64
+#घोषणा _tfindnexti64 _findnexti64
+#घोषणा _tfindnext32i64 _findnext32i64
+#घोषणा _tfindnext64i32 _findnext64i32
+#घोषणा _tmktemp _mktemp
 
-#ifdef _POSIX_
-#define _topen open
-#define _taccess access
-#else
-#define _topen _open
-#define _taccess _access
-#endif
+#अगर_घोषित _POSIX_
+#घोषणा _topen खोलो
+#घोषणा _taccess access
+#अन्यथा
+#घोषणा _topen _open
+#घोषणा _taccess _access
+#पूर्ण_अगर
 
-#define _tremove remove
-#define _trename rename
-#define _tsopen _sopen
-#define _tunlink _unlink
+#घोषणा _tremove हटाओ
+#घोषणा _trename नाम
+#घोषणा _tsopen _sopen
+#घोषणा _tunlink _unlink
 
-#define _tfinddata_t _finddata_t
-#define _tfinddata32_t _finddata32_t
-#define _tfinddata64_t __finddata64_t
-#define _tfinddatai64_t _finddatai64_t
-#define _tfinddata32i64_t _finddata32i64_t
-#define _tfinddata64i32_t _finddata64i32_t
+#घोषणा _tfinddata_t _finddata_t
+#घोषणा _tfinddata32_t _finddata32_t
+#घोषणा _tfinddata64_t __finddata64_t
+#घोषणा _tfinddatai64_t _finddatai64_t
+#घोषणा _tfinddata32i64_t _finddata32i64_t
+#घोषणा _tfinddata64i32_t _finddata64i32_t
 
-#define _istascii __isascii
-#define _istcntrl iscntrl
-#define _istcntrl_l _iscntrl_l
-#define _istxdigit isxdigit
-#define _istxdigit_l _isxdigit_l
+#घोषणा _istascii __isascii
+#घोषणा _istcntrl है_नियंत्रण
+#घोषणा _istcntrl_l _iscntrl_l
+#घोषणा _istxdigit है_षष्ठादशक
+#घोषणा _istxdigit_l _isxdigit_l
 
-#define _tstat _stat
-#define _tstat32 _stat32
-#define _tstat32i64 _stat32i64
-#define _tstat64 _stat64
-#define _tstat64i32 _stat64i32
-#define _tstati64 _stati64
+#घोषणा _tstat _stat
+#घोषणा _tstat32 _stat32
+#घोषणा _tstat32i64 _stat32i64
+#घोषणा _tstat64 _stat64
+#घोषणा _tstat64i32 _stat64i32
+#घोषणा _tstati64 _stati64
 
-#define _tsetlocale setlocale
+#घोषणा _tsetlocale रखो_क्षेत्र
 
-#ifdef _MBCS
+#अगर_घोषित _MBCS
 
-#ifdef __cplusplus
+#अगर_घोषित __cplusplus
 }
-#endif
+#पूर्ण_अगर
 
-#include <mbstring.h>
+#समावेश <mbstring.h>
 
-#ifdef __cplusplus
-extern "C" {
-#endif
+#अगर_घोषित __cplusplus
+बाह्य "C" {
+#पूर्ण_अगर
 
-#ifndef __TCHAR_DEFINED
-  typedef char _TCHAR;
-  typedef signed char _TSCHAR;
-  typedef unsigned char _TUCHAR;
-  typedef unsigned char _TXCHAR;
-  typedef unsigned int _TINT;
-#define __TCHAR_DEFINED
-#endif
+#अगर_अघोषित __TCHAR_DEFINED
+  प्रकार अक्षर _TCHAR;
+  प्रकार चिन्हित अक्षर _TSCHAR;
+  प्रकार अचिन्हित अक्षर _TUCHAR;
+  प्रकार अचिन्हित अक्षर _TXCHAR;
+  प्रकार अचिन्हित पूर्णांक _TINT;
+#घोषणा __TCHAR_DEFINED
+#पूर्ण_अगर
 
-#ifndef _TCHAR_DEFINED
-#ifndef	NO_OLDNAMES
-  typedef char TCHAR;
-#endif
-#define _TCHAR_DEFINED
-#endif
+#अगर_अघोषित _TCHAR_DEFINED
+#अगर_अघोषित	NO_OLDNAMES
+  प्रकार अक्षर TCHAR;
+#पूर्ण_अगर
+#घोषणा _TCHAR_DEFINED
+#पूर्ण_अगर
 
-#ifdef _MB_MAP_DIRECT
+#अगर_घोषित _MB_MAP_DIRECT
 
-#define _tcschr _mbschr
-#define _tcscspn _mbscspn
-#define _tcsncat _mbsnbcat
-#define _tcsncat_l _mbsnbcat_l
-#define _tcsncpy _mbsnbcpy
-#define _tcsncpy_l _mbsnbcpy_l
-#define _tcspbrk _mbspbrk
-#define _tcsrchr _mbsrchr
-#define _tcsspn _mbsspn
-#define _tcsstr _mbsstr
-#define _tcstok _mbstok
-#define _tcstok_l _mbstok_l
+#घोषणा _tcschr _mbschr
+#घोषणा _tcscspn _mbscspn
+#घोषणा _tcsncat _mbsnbcat
+#घोषणा _tcsncat_l _mbsnbcat_l
+#घोषणा _tcsncpy _mbsnbcpy
+#घोषणा _tcsncpy_l _mbsnbcpy_l
+#घोषणा _tcspbrk _mbspbrk
+#घोषणा _tcsrchr _mbsrchr
+#घोषणा _tcsspn _mbsspn
+#घोषणा _tcsstr _mbsstr
+#घोषणा _tcstok _mbstok
+#घोषणा _tcstok_l _mbstok_l
 
-#define _tcsnset _mbsnbset
-#define _tcsnset_l _mbsnbset_l
-#define _tcsrev _mbsrev
-#define _tcsset _mbsset
-#define _tcsset_l _mbsset_l
+#घोषणा _tcsnset _mbsnbset
+#घोषणा _tcsnset_l _mbsnbset_l
+#घोषणा _tcsrev _mbsrev
+#घोषणा _tcsset _mbsset
+#घोषणा _tcsset_l _mbsset_l
 
-#define _tcscmp _mbscmp
-#define _tcsicmp _mbsicmp
-#define _tcsicmp_l _mbsicmp_l
-#define _tcsnccmp _mbsncmp
-#define _tcsncmp _mbsnbcmp
-#define _tcsncicmp _mbsnicmp
-#define _tcsncicmp_l _mbsnicmp_l
-#define _tcsnicmp _mbsnbicmp
-#define _tcsnicmp_l _mbsnbicmp_l
+#घोषणा _tcscmp _mbscmp
+#घोषणा _tcsicmp _mbsicmp
+#घोषणा _tcsicmp_l _mbsicmp_l
+#घोषणा _tcsnccmp _mbsncmp
+#घोषणा _tcsncmp _mbsnbcmp
+#घोषणा _tcsncicmp _mbsnicmp
+#घोषणा _tcsncicmp_l _mbsnicmp_l
+#घोषणा _tcsnicmp _mbsnbicmp
+#घोषणा _tcsnicmp_l _mbsnbicmp_l
 
-#define _tcscoll _mbscoll
-#define _tcscoll_l _mbscoll_l
-#define _tcsicoll _mbsicoll
-#define _tcsicoll_l _mbsicoll_l
-#define _tcsnccoll _mbsncoll
-#define _tcsnccoll_l _mbsncoll_l
-#define _tcsncoll _mbsnbcoll
-#define _tcsncoll_l _mbsnbcoll_l
-#define _tcsncicoll _mbsnicoll
-#define _tcsncicoll_l _mbsnicoll_l
-#define _tcsnicoll _mbsnbicoll
-#define _tcsnicoll_l _mbsnbicoll_l
+#घोषणा _tcscoll _mbscoll
+#घोषणा _tcscoll_l _mbscoll_l
+#घोषणा _tcsicoll _mbsicoll
+#घोषणा _tcsicoll_l _mbsicoll_l
+#घोषणा _tcsnccoll _mbsncoll
+#घोषणा _tcsnccoll_l _mbsncoll_l
+#घोषणा _tcsncoll _mbsnbcoll
+#घोषणा _tcsncoll_l _mbsnbcoll_l
+#घोषणा _tcsncicoll _mbsnicoll
+#घोषणा _tcsncicoll_l _mbsnicoll_l
+#घोषणा _tcsnicoll _mbsnbicoll
+#घोषणा _tcsnicoll_l _mbsnbicoll_l
 
-#define _tcsclen _mbslen
-#define _tcscnlen _mbsnlen
-#define _tcsclen_l _mbslen_l
-#define _tcscnlen_l _mbsnlen_l
-#define _tcsnccat _mbsncat
-#define _tcsnccat_l _mbsncat_l
-#define _tcsnccpy _mbsncpy
-#define _tcsnccpy_l _mbsncpy_l
-#define _tcsncset _mbsnset
-#define _tcsncset_l _mbsnset_l
+#घोषणा _tcsclen _mbslen
+#घोषणा _tcscnlen _mbsnlen
+#घोषणा _tcsclen_l _mbslen_l
+#घोषणा _tcscnlen_l _mbsnlen_l
+#घोषणा _tcsnccat _mbsncat
+#घोषणा _tcsnccat_l _mbsncat_l
+#घोषणा _tcsnccpy _mbsncpy
+#घोषणा _tcsnccpy_l _mbsncpy_l
+#घोषणा _tcsncset _mbsnset
+#घोषणा _tcsncset_l _mbsnset_l
 
-#define _tcsdec _mbsdec
-#define _tcsinc _mbsinc
-#define _tcsnbcnt _mbsnbcnt
-#define _tcsnccnt _mbsnccnt
-#define _tcsnextc _mbsnextc
-#define _tcsninc _mbsninc
-#define _tcsspnp _mbsspnp
+#घोषणा _tcsdec _mbsdec
+#घोषणा _tcsinc _mbsinc
+#घोषणा _tcsnbcnt _mbsnbcnt
+#घोषणा _tcsnccnt _mbsnccnt
+#घोषणा _tcsnextc _mbsnextc
+#घोषणा _tcsninc _mbsninc
+#घोषणा _tcsspnp _mbsspnp
 
-#define _tcslwr _mbslwr
-#define _tcslwr_l _mbslwr_l
-#define _tcsupr _mbsupr
-#define _tcsupr_l _mbsupr_l
+#घोषणा _tcslwr _mbslwr
+#घोषणा _tcslwr_l _mbslwr_l
+#घोषणा _tcsupr _mbsupr
+#घोषणा _tcsupr_l _mbsupr_l
 
-#define _tclen _mbclen
-#define _tccpy _mbccpy
-#define _tccpy_l _mbccpy_l
-#else
+#घोषणा _tclen _mbclen
+#घोषणा _tccpy _mbccpy
+#घोषणा _tccpy_l _mbccpy_l
+#अन्यथा
 
-  _CRTIMP _CONST_RETURN char *__cdecl _tcschr(const char *_Str,unsigned int _Val);
-  _CRTIMP size_t __cdecl _tcscspn(const char *_Str,const char *_Control);
-  _CRTIMP char *__cdecl _tcsncat(char *_Dst,const char *_Src,size_t _MaxCount);
-  _CRTIMP char *__cdecl _tcsncat_l(char *_Dst,const char *_Src,size_t _MaxCount,_locale_t _Locale);
-  _CRTIMP char *__cdecl _tcsncpy(char *_Dst,const char *_Src,size_t _MaxCount);
-  _CRTIMP char *__cdecl _tcsncpy_l(char *_Dst,const char *_Src,size_t _MaxCount,_locale_t _Locale);
-  _CRTIMP _CONST_RETURN char *__cdecl _tcspbrk(const char *_Str,const char *_Control);
-  _CRTIMP _CONST_RETURN char *__cdecl _tcsrchr(const char *_Str,unsigned int _Ch);
-  _CRTIMP size_t __cdecl _tcsspn(const char *_Str,const char *_Control);
-  _CRTIMP _CONST_RETURN char *__cdecl _tcsstr(const char *_Str,const char *_Substr);
-  _CRTIMP char *__cdecl _tcstok(char *_Str,const char *_Delim);
-  _CRTIMP char *__cdecl _tcstok_l(char *_Str,const char *_Delim,_locale_t _Locale);
-  _CRTIMP char *__cdecl _tcsnset(char *_Str,unsigned int _Val,size_t _MaxCount);
-  _CRTIMP char *__cdecl _tcsrev(char *_Str);
-  _CRTIMP char *__cdecl _tcsset(char *_Str,unsigned int _Val);
-  _CRTIMP char *__cdecl _tcsset_l(char *_Str,unsigned int _Val,_locale_t _Locale);
-  _CRTIMP int __cdecl _tcscmp(const char *_Str1,const char *_Str);
-  _CRTIMP int __cdecl _tcsicmp(const char *_Str1,const char *_Str2);
-  _CRTIMP int __cdecl _tcsicmp_l(const char *_Str1,const char *_Str2,_locale_t _Locale);
-  _CRTIMP int __cdecl _tcsnccmp(const char *_Str1,const char *_Str2,size_t _MaxCount);
-  _CRTIMP int __cdecl _tcsncmp(const char *_Str1,const char *_Str2,size_t _MaxCount);
-  _CRTIMP int __cdecl _tcsncicmp(const char *_Str1,const char *_Str2,size_t _MaxCount);
-  _CRTIMP int __cdecl _tcsncicmp_l(const char *_Str1,const char *_Str2,size_t _MaxCount,_locale_t _Locale);
-  _CRTIMP int __cdecl _tcsnicmp(const char *_Str1,const char *_Str2,size_t _MaxCount);
-  _CRTIMP int __cdecl _tcsnicmp_l(const char *_Str1,const char *_Str2,size_t _MaxCount,_locale_t _Locale);
-  _CRTIMP int __cdecl _tcscoll(const char *_Str1,const char *_Str2);
-  _CRTIMP int __cdecl _tcscoll_l(const char *_Str1,const char *_Str2,_locale_t _Locale);
-  _CRTIMP int __cdecl _tcsicoll(const char *_Str1,const char *_Str2);
-  _CRTIMP int __cdecl _tcsicoll_l(const char *_Str1,const char *_Str2,_locale_t _Locale);
-  _CRTIMP int __cdecl _tcsnccoll(const char *_Str1,const char *_Str2,size_t _MaxCount);
-  _CRTIMP int __cdecl _tcsnccoll_l(const char *_Str1,const char *_Str2,size_t _MaxCount,_locale_t _Locale);
-  _CRTIMP int __cdecl _tcsncoll(const char *_Str1,const char *_Str2,size_t _MaxCount);
-  _CRTIMP int __cdecl _tcsncoll_l(const char *_Str1,const char *_Str2,size_t _MaxCount,_locale_t _Locale);
-  _CRTIMP int __cdecl _tcsncicoll(const char *_Str1,const char *_Str2,size_t _MaxCount);
-  _CRTIMP int __cdecl _tcsncicoll_l(const char *_Str1,const char *_Str2,size_t _MaxCount,_locale_t _Locale);
-  _CRTIMP int __cdecl _tcsnicoll(const char *_Str1,const char *_Str2,size_t _MaxCount);
-  _CRTIMP int __cdecl _tcsnicoll_l(const char *_Str1,const char *_Str2,size_t _MaxCount,_locale_t _Locale);
-  _CRTIMP size_t __cdecl _tcsclen(const char *_Str);
-  _CRTIMP size_t __cdecl _tcscnlen(const char *_Str,size_t _MaxCount);
-  _CRTIMP size_t __cdecl _tcsclen_l(const char *_Str,_locale_t _Locale);
-  _CRTIMP size_t __cdecl _tcscnlen_l(const char *_Str,size_t _MaxCount,_locale_t _Locale);
-  _CRTIMP char *__cdecl _tcsnccat(char *_Dst,const char *_Src,size_t _MaxCount);
-  _CRTIMP char *__cdecl _tcsnccat_l(char *_Dst,const char *_Src,size_t _MaxCount,_locale_t _Locale);
-  _CRTIMP char *__cdecl _tcsnccpy(char *_Dst,const char *_Src,size_t _MaxCount);
-  _CRTIMP char *__cdecl _tcsnccpy_l(char *_Dst,const char *_Src,size_t _MaxCount,_locale_t _Locale);
-  _CRTIMP char *__cdecl _tcsncset(char *_Str,unsigned int _Val,size_t _MaxCount);
-  _CRTIMP char *__cdecl _tcsdec(const char *_Start,const char *_Pos);
-  _CRTIMP char *__cdecl _tcsinc(const char *_Ptr);
-  _CRTIMP size_t __cdecl _tcsnbcnt(const char *_Str,size_t _MaxCount);
-  _CRTIMP size_t __cdecl _tcsnccnt(const char *_Str,size_t _MaxCount);
-  _CRTIMP unsigned int __cdecl _tcsnextc (const char *_Str);
-  _CRTIMP char *__cdecl _tcsninc(const char *_Ptr,size_t _Count);
-  _CRTIMP char *__cdecl _tcsspnp(const char *_Str1,const char *_Str2);
-  _CRTIMP char *__cdecl _tcslwr(char *_Str);
-  _CRTIMP char *__cdecl _tcslwr_l(char *_Str,_locale_t _Locale);
-  _CRTIMP char *__cdecl _tcsupr(char *_Str);
-  _CRTIMP char *__cdecl _tcsupr_l(char *_Str,_locale_t _Locale);
-  _CRTIMP size_t __cdecl _tclen(const char *_Str);
-  _CRTIMP void __cdecl _tccpy(char *_DstCh,const char *_SrcCh);
+  _CRTIMP _CONST_RETURN अक्षर *__cdecl _tcschr(स्थिर अक्षर *_Str,अचिन्हित पूर्णांक _Val);
+  _CRTIMP माप_प्रकार __cdecl _tcscspn(स्थिर अक्षर *_Str,स्थिर अक्षर *_Control);
+  _CRTIMP अक्षर *__cdecl _tcsncat(अक्षर *_Dst,स्थिर अक्षर *_Src,माप_प्रकार Max_गिनती);
+  _CRTIMP अक्षर *__cdecl _tcsncat_l(अक्षर *_Dst,स्थिर अक्षर *_Src,माप_प्रकार Max_गिनती,_locale_t _Locale);
+  _CRTIMP अक्षर *__cdecl _tcsncpy(अक्षर *_Dst,स्थिर अक्षर *_Src,माप_प्रकार Max_गिनती);
+  _CRTIMP अक्षर *__cdecl _tcsncpy_l(अक्षर *_Dst,स्थिर अक्षर *_Src,माप_प्रकार Max_गिनती,_locale_t _Locale);
+  _CRTIMP _CONST_RETURN अक्षर *__cdecl _tcspbrk(स्थिर अक्षर *_Str,स्थिर अक्षर *_Control);
+  _CRTIMP _CONST_RETURN अक्षर *__cdecl _tcsrchr(स्थिर अक्षर *_Str,अचिन्हित पूर्णांक _Ch);
+  _CRTIMP माप_प्रकार __cdecl _tcsspn(स्थिर अक्षर *_Str,स्थिर अक्षर *_Control);
+  _CRTIMP _CONST_RETURN अक्षर *__cdecl _tcsstr(स्थिर अक्षर *_Str,स्थिर अक्षर *_Substr);
+  _CRTIMP अक्षर *__cdecl _tcstok(अक्षर *_Str,स्थिर अक्षर *_Delim);
+  _CRTIMP अक्षर *__cdecl _tcstok_l(अक्षर *_Str,स्थिर अक्षर *_Delim,_locale_t _Locale);
+  _CRTIMP अक्षर *__cdecl _tcsnset(अक्षर *_Str,अचिन्हित पूर्णांक _Val,माप_प्रकार Max_गिनती);
+  _CRTIMP अक्षर *__cdecl _tcsrev(अक्षर *_Str);
+  _CRTIMP अक्षर *__cdecl _tcsset(अक्षर *_Str,अचिन्हित पूर्णांक _Val);
+  _CRTIMP अक्षर *__cdecl _tcsset_l(अक्षर *_Str,अचिन्हित पूर्णांक _Val,_locale_t _Locale);
+  _CRTIMP पूर्णांक __cdecl _tcscmp(स्थिर अक्षर *_Str1,स्थिर अक्षर *_Str);
+  _CRTIMP पूर्णांक __cdecl _tcsicmp(स्थिर अक्षर *_Str1,स्थिर अक्षर *_Str2);
+  _CRTIMP पूर्णांक __cdecl _tcsicmp_l(स्थिर अक्षर *_Str1,स्थिर अक्षर *_Str2,_locale_t _Locale);
+  _CRTIMP पूर्णांक __cdecl _tcsnccmp(स्थिर अक्षर *_Str1,स्थिर अक्षर *_Str2,माप_प्रकार Max_गिनती);
+  _CRTIMP पूर्णांक __cdecl _tcsncmp(स्थिर अक्षर *_Str1,स्थिर अक्षर *_Str2,माप_प्रकार Max_गिनती);
+  _CRTIMP पूर्णांक __cdecl _tcsncicmp(स्थिर अक्षर *_Str1,स्थिर अक्षर *_Str2,माप_प्रकार Max_गिनती);
+  _CRTIMP पूर्णांक __cdecl _tcsncicmp_l(स्थिर अक्षर *_Str1,स्थिर अक्षर *_Str2,माप_प्रकार Max_गिनती,_locale_t _Locale);
+  _CRTIMP पूर्णांक __cdecl _tcsnicmp(स्थिर अक्षर *_Str1,स्थिर अक्षर *_Str2,माप_प्रकार Max_गिनती);
+  _CRTIMP पूर्णांक __cdecl _tcsnicmp_l(स्थिर अक्षर *_Str1,स्थिर अक्षर *_Str2,माप_प्रकार Max_गिनती,_locale_t _Locale);
+  _CRTIMP पूर्णांक __cdecl _tcscoll(स्थिर अक्षर *_Str1,स्थिर अक्षर *_Str2);
+  _CRTIMP पूर्णांक __cdecl _tcscoll_l(स्थिर अक्षर *_Str1,स्थिर अक्षर *_Str2,_locale_t _Locale);
+  _CRTIMP पूर्णांक __cdecl _tcsicoll(स्थिर अक्षर *_Str1,स्थिर अक्षर *_Str2);
+  _CRTIMP पूर्णांक __cdecl _tcsicoll_l(स्थिर अक्षर *_Str1,स्थिर अक्षर *_Str2,_locale_t _Locale);
+  _CRTIMP पूर्णांक __cdecl _tcsnccoll(स्थिर अक्षर *_Str1,स्थिर अक्षर *_Str2,माप_प्रकार Max_गिनती);
+  _CRTIMP पूर्णांक __cdecl _tcsnccoll_l(स्थिर अक्षर *_Str1,स्थिर अक्षर *_Str2,माप_प्रकार Max_गिनती,_locale_t _Locale);
+  _CRTIMP पूर्णांक __cdecl _tcsncoll(स्थिर अक्षर *_Str1,स्थिर अक्षर *_Str2,माप_प्रकार Max_गिनती);
+  _CRTIMP पूर्णांक __cdecl _tcsncoll_l(स्थिर अक्षर *_Str1,स्थिर अक्षर *_Str2,माप_प्रकार Max_गिनती,_locale_t _Locale);
+  _CRTIMP पूर्णांक __cdecl _tcsncicoll(स्थिर अक्षर *_Str1,स्थिर अक्षर *_Str2,माप_प्रकार Max_गिनती);
+  _CRTIMP पूर्णांक __cdecl _tcsncicoll_l(स्थिर अक्षर *_Str1,स्थिर अक्षर *_Str2,माप_प्रकार Max_गिनती,_locale_t _Locale);
+  _CRTIMP पूर्णांक __cdecl _tcsnicoll(स्थिर अक्षर *_Str1,स्थिर अक्षर *_Str2,माप_प्रकार Max_गिनती);
+  _CRTIMP पूर्णांक __cdecl _tcsnicoll_l(स्थिर अक्षर *_Str1,स्थिर अक्षर *_Str2,माप_प्रकार Max_गिनती,_locale_t _Locale);
+  _CRTIMP माप_प्रकार __cdecl _tcsclen(स्थिर अक्षर *_Str);
+  _CRTIMP माप_प्रकार __cdecl _tcscnlen(स्थिर अक्षर *_Str,माप_प्रकार Max_गिनती);
+  _CRTIMP माप_प्रकार __cdecl _tcsclen_l(स्थिर अक्षर *_Str,_locale_t _Locale);
+  _CRTIMP माप_प्रकार __cdecl _tcscnlen_l(स्थिर अक्षर *_Str,माप_प्रकार Max_गिनती,_locale_t _Locale);
+  _CRTIMP अक्षर *__cdecl _tcsnccat(अक्षर *_Dst,स्थिर अक्षर *_Src,माप_प्रकार Max_गिनती);
+  _CRTIMP अक्षर *__cdecl _tcsnccat_l(अक्षर *_Dst,स्थिर अक्षर *_Src,माप_प्रकार Max_गिनती,_locale_t _Locale);
+  _CRTIMP अक्षर *__cdecl _tcsnccpy(अक्षर *_Dst,स्थिर अक्षर *_Src,माप_प्रकार Max_गिनती);
+  _CRTIMP अक्षर *__cdecl _tcsnccpy_l(अक्षर *_Dst,स्थिर अक्षर *_Src,माप_प्रकार Max_गिनती,_locale_t _Locale);
+  _CRTIMP अक्षर *__cdecl _tcsncset(अक्षर *_Str,अचिन्हित पूर्णांक _Val,माप_प्रकार Max_गिनती);
+  _CRTIMP अक्षर *__cdecl _tcsdec(स्थिर अक्षर *_Start,स्थिर अक्षर *_Pos);
+  _CRTIMP अक्षर *__cdecl _tcsinc(स्थिर अक्षर *_Ptr);
+  _CRTIMP माप_प्रकार __cdecl _tcsnbcnt(स्थिर अक्षर *_Str,माप_प्रकार Max_गिनती);
+  _CRTIMP माप_प्रकार __cdecl _tcsnccnt(स्थिर अक्षर *_Str,माप_प्रकार Max_गिनती);
+  _CRTIMP अचिन्हित पूर्णांक __cdecl _tcsnextc (स्थिर अक्षर *_Str);
+  _CRTIMP अक्षर *__cdecl _tcsninc(स्थिर अक्षर *_Ptr,माप_प्रकार गिनती_5);
+  _CRTIMP अक्षर *__cdecl _tcsspnp(स्थिर अक्षर *_Str1,स्थिर अक्षर *_Str2);
+  _CRTIMP अक्षर *__cdecl _tcslwr(अक्षर *_Str);
+  _CRTIMP अक्षर *__cdecl _tcslwr_l(अक्षर *_Str,_locale_t _Locale);
+  _CRTIMP अक्षर *__cdecl _tcsupr(अक्षर *_Str);
+  _CRTIMP अक्षर *__cdecl _tcsupr_l(अक्षर *_Str,_locale_t _Locale);
+  _CRTIMP माप_प्रकार __cdecl _tclen(स्थिर अक्षर *_Str);
+  _CRTIMP व्योम __cdecl _tccpy(अक्षर *_DstCh,स्थिर अक्षर *_SrcCh);
 
-#ifdef __cplusplus
-#ifndef _CPP_TCHAR_INLINES_DEFINED
-#define _CPP_TCHAR_INLINES_DEFINED
-  extern "C++" {
-    extern inline char *__cdecl _tcschr(char *_S,unsigned int _C) { return ((char *)_tcschr((const char *)_S,_C)); }
-    extern inline char *__cdecl _tcspbrk(char *_S,const char *_P) { return ((char *)_tcspbrk((const char *)_S,_P)); }
-    extern inline char *__cdecl _tcsrchr(char *_S,unsigned int _C) { return ((char *)_tcsrchr((const char *)_S,_C)); }
-    extern inline char *__cdecl _tcsstr(char *_S,const char *_P) { return ((char *)_tcsstr((const char *)_S,_P)); }
+#अगर_घोषित __cplusplus
+#अगर_अघोषित _CPP_TCHAR_INLINES_DEFINED
+#घोषणा _CPP_TCHAR_INLINES_DEFINED
+  बाह्य "C++" {
+    बाह्य अंतरभूत अक्षर *__cdecl _tcschr(अक्षर *_S,अचिन्हित पूर्णांक _C) { वापस ((अक्षर *)_tcschr((स्थिर अक्षर *)_S,_C)); }
+    बाह्य अंतरभूत अक्षर *__cdecl _tcspbrk(अक्षर *_S,स्थिर अक्षर *_P) { वापस ((अक्षर *)_tcspbrk((स्थिर अक्षर *)_S,_P)); }
+    बाह्य अंतरभूत अक्षर *__cdecl _tcsrchr(अक्षर *_S,अचिन्हित पूर्णांक _C) { वापस ((अक्षर *)_tcsrchr((स्थिर अक्षर *)_S,_C)); }
+    बाह्य अंतरभूत अक्षर *__cdecl _tcsstr(अक्षर *_S,स्थिर अक्षर *_P) { वापस ((अक्षर *)_tcsstr((स्थिर अक्षर *)_S,_P)); }
   }
-#endif
-#endif
-#endif
+#पूर्ण_अगर
+#पूर्ण_अगर
+#पूर्ण_अगर
 
-#define _tccmp(_cp1,_cp2) _tcsnccmp(_cp1,_cp2,1)
+#घोषणा _tccmp(_cp1,_cp2) _tcsnccmp(_cp1,_cp2,1)
 
-#define _istalnum _ismbcalnum
-#define _istalnum_l _ismbcalnum_l
-#define _istalpha _ismbcalpha
-#define _istalpha_l _ismbcalpha_l
-#define _istdigit _ismbcdigit
-#define _istdigit_l _ismbcdigit_l
-#define _istgraph _ismbcgraph
-#define _istgraph_l _ismbcgraph_l
-#define _istlegal _ismbclegal
-#define _istlegal_l _ismbclegal_l
-#define _istlower _ismbclower
-#define _istlower_l _ismbclower_l
-#define _istprint _ismbcprint
-#define _istprint_l _ismbcprint_l
-#define _istpunct _ismbcpunct
-#define _istpunct_l _ismbcpunct_l
-#define _istspace _ismbcspace
-#define _istspace_l _ismbcspace_l
-#define _istupper _ismbcupper
-#define _istupper_l _ismbcupper_l
+#घोषणा _istalnum _ismbcalnum
+#घोषणा _istalnum_l _ismbcalnum_l
+#घोषणा _istalpha _ismbcalpha
+#घोषणा _istalpha_l _ismbcalpha_l
+#घोषणा _istdigit _ismbcdigit
+#घोषणा _istdigit_l _ismbcdigit_l
+#घोषणा _istgraph _ismbcgraph
+#घोषणा _istgraph_l _ismbcgraph_l
+#घोषणा _istlegal _ismbclegal
+#घोषणा _istlegal_l _ismbclegal_l
+#घोषणा _istlower _ismbclower
+#घोषणा _istlower_l _ismbclower_l
+#घोषणा _istprint _ismbcprint
+#घोषणा _istprint_l _ismbcprint_l
+#घोषणा _istpunct _ismbcpunct
+#घोषणा _istpunct_l _ismbcpunct_l
+#घोषणा _istspace _ismbcspace
+#घोषणा _istspace_l _ismbcspace_l
+#घोषणा _istupper _ismbcupper
+#घोषणा _istupper_l _ismbcupper_l
 
-#define _totupper _mbctoupper
-#define _totupper_l _mbctoupper_l
-#define _totlower _mbctolower
-#define _totlower_l _mbctolower_l
+#घोषणा _totupper _mbctoupper
+#घोषणा _totupper_l _mbctoupper_l
+#घोषणा _totlower _mbctolower
+#घोषणा _totlower_l _mbctolower_l
 
-#define _istlead _ismbblead
-#define _istleadbyte isleadbyte
-#define _istleadbyte_l _isleadbyte_l
-#else
+#घोषणा _istlead _ismbblead
+#घोषणा _istleadbyte isleadbyte
+#घोषणा _istleadbyte_l _isleadbyte_l
+#अन्यथा
 
-#ifndef __TCHAR_DEFINED
-#define __TCHAR_DEFINED
-  typedef char _TCHAR;
-  typedef signed char _TSCHAR;
-  typedef unsigned char _TUCHAR;
-  typedef char _TXCHAR;
-  typedef int _TINT;
-#endif
+#अगर_अघोषित __TCHAR_DEFINED
+#घोषणा __TCHAR_DEFINED
+  प्रकार अक्षर _TCHAR;
+  प्रकार चिन्हित अक्षर _TSCHAR;
+  प्रकार अचिन्हित अक्षर _TUCHAR;
+  प्रकार अक्षर _TXCHAR;
+  प्रकार पूर्णांक _TINT;
+#पूर्ण_अगर
 
-#ifndef _TCHAR_DEFINED
-#define _TCHAR_DEFINED
-#ifndef	NO_OLDNAMES
-  typedef char TCHAR;
-#endif
-#endif
+#अगर_अघोषित _TCHAR_DEFINED
+#घोषणा _TCHAR_DEFINED
+#अगर_अघोषित	NO_OLDNAMES
+  प्रकार अक्षर TCHAR;
+#पूर्ण_अगर
+#पूर्ण_अगर
 
-#define _tcschr strchr
-#define _tcscspn strcspn
-#define _tcsncat strncat
-#define _tcsncat_l _strncat_l
-#define _tcsncpy strncpy
-#define _tcsncpy_l _strncpy_l
-#define _tcspbrk strpbrk
-#define _tcsrchr strrchr
-#define _tcsspn strspn
-#define _tcsstr strstr
-#define _tcstok strtok
-#define _tcstok_l _strtok_l
+#घोषणा _tcschr म_अक्षर
+#घोषणा _tcscspn म_खोज
+#घोषणा _tcsncat म_जोड़न
+#घोषणा _tcsncat_l _strncat_l
+#घोषणा _tcsncpy म_नकलन
+#घोषणा _tcsncpy_l _strncpy_l
+#घोषणा _tcspbrk strpbrk
+#घोषणा _tcsrchr म_खोजप
+#घोषणा _tcsspn म_अखोज
+#घोषणा _tcsstr म_माला
+#घोषणा _tcstok म_मोहर
+#घोषणा _tcstok_l _strtok_l
 
-#define _tcsnset _strnset
-#define _tcsnset_l _strnset_l
-#define _tcsrev _strrev
-#define _tcsset _strset
+#घोषणा _tcsnset _strnset
+#घोषणा _tcsnset_l _strnset_l
+#घोषणा _tcsrev _strrev
+#घोषणा _tcsset _strset
 
-#define _tcscmp strcmp
-#define _tcsicmp _stricmp
-#define _tcsicmp_l _stricmp_l
-#define _tcsnccmp strncmp
-#define _tcsncmp strncmp
-#define _tcsncicmp _strnicmp
-#define _tcsncicmp_l _strnicmp_l
-#define _tcsnicmp _strnicmp
-#define _tcsnicmp_l _strnicmp_l
+#घोषणा _tcscmp म_भेद
+#घोषणा _tcsicmp _stricmp
+#घोषणा _tcsicmp_l _stricmp_l
+#घोषणा _tcsnccmp म_भेदन
+#घोषणा _tcsncmp म_भेदन
+#घोषणा _tcsncicmp _strnicmp
+#घोषणा _tcsncicmp_l _strnicmp_l
+#घोषणा _tcsnicmp _strnicmp
+#घोषणा _tcsnicmp_l _strnicmp_l
 
-#define _tcscoll strcoll
-#define _tcscoll_l _strcoll_l
-#define _tcsicoll _stricoll
-#define _tcsicoll_l _stricoll_l
-#define _tcsnccoll _strncoll
-#define _tcsnccoll_l _strncoll_l
-#define _tcsncoll _strncoll
-#define _tcsncoll_l _strncoll_l
-#define _tcsncicoll _strnicoll
-#define _tcsncicoll_l _strnicoll_l
-#define _tcsnicoll _strnicoll
-#define _tcsnicoll_l _strnicoll_l
+#घोषणा _tcscoll strcoll
+#घोषणा _tcscoll_l _strcoll_l
+#घोषणा _tcsicoll _stricoll
+#घोषणा _tcsicoll_l _stricoll_l
+#घोषणा _tcsnccoll _strncoll
+#घोषणा _tcsnccoll_l _strncoll_l
+#घोषणा _tcsncoll _strncoll
+#घोषणा _tcsncoll_l _strncoll_l
+#घोषणा _tcsncicoll _strnicoll
+#घोषणा _tcsncicoll_l _strnicoll_l
+#घोषणा _tcsnicoll _strnicoll
+#घोषणा _tcsnicoll_l _strnicoll_l
 
-#define _tcsclen strlen
-#define _tcscnlen strnlen
-#define _tcsclen_l(_String,_Locale) strlen(_String)
-#define _tcscnlen_l(_String,_Max_count,_Locale) strnlen_l((_String),(_Max_count))
-#define _tcsnccat strncat
-#define _tcsnccat_l _strncat_l
-#define _tcsnccpy strncpy
-#define _tcsnccpy_l _strncpy_l
-#define _tcsncset _strnset
+#घोषणा _tcsclen म_माप
+#घोषणा _tcscnlen strnlen
+#घोषणा _tcsclen_l(_String,_Locale) म_माप(_String)
+#घोषणा _tcscnlen_l(_String,Max_गिनती_2,_Locale) strnlen_l((_String),(Max_गिनती_2))
+#घोषणा _tcsnccat म_जोड़न
+#घोषणा _tcsnccat_l _strncat_l
+#घोषणा _tcsnccpy म_नकलन
+#घोषणा _tcsnccpy_l _strncpy_l
+#घोषणा _tcsncset _strnset
 
-#define _tcsdec _strdec
-#define _tcsinc _strinc
-#define _tcsnbcnt _strncnt
-#define _tcsnccnt _strncnt
-#define _tcsnextc _strnextc
-#define _tcsninc _strninc
-#define _tcsspnp _strspnp
+#घोषणा _tcsdec _strdec
+#घोषणा _tcsinc _strinc
+#घोषणा _tcsnbcnt _strncnt
+#घोषणा _tcsnccnt _strncnt
+#घोषणा _tcsnextc _strnextc
+#घोषणा _tcsninc _strninc
+#घोषणा _tcsspnp _strspnp
 
-#define _tcslwr _strlwr
-#define _tcslwr_l _strlwr_l
-#define _tcsupr _strupr
-#define _tcsupr_l _strupr_l
-#define _tcsxfrm strxfrm
-#define _tcsxfrm_l _strxfrm_l
+#घोषणा _tcslwr _strlwr
+#घोषणा _tcslwr_l _strlwr_l
+#घोषणा _tcsupr _strupr
+#घोषणा _tcsupr_l _strupr_l
+#घोषणा _tcsxfrm strxfrm
+#घोषणा _tcsxfrm_l _strxfrm_l
 
-#define _istlead(_Char) (0)
-#define _istleadbyte(_Char) (0)
-#define _istleadbyte_l(_Char,_Locale) (0)
+#घोषणा _istlead(_Char) (0)
+#घोषणा _istleadbyte(_Char) (0)
+#घोषणा _istleadbyte_l(_Char,_Locale) (0)
 
-#define _tclen(_pc) (1)
-#define _tccpy(_pc1,_cpc2) (*(_pc1) = *(_cpc2))
-#define _tccmp(_cpc1,_cpc2) (((unsigned char)*(_cpc1))-((unsigned char)*(_cpc2)))
+#घोषणा _tclen(_pc) (1)
+#घोषणा _tccpy(_pc1,_cpc2) (*(_pc1) = *(_cpc2))
+#घोषणा _tccmp(_cpc1,_cpc2) (((अचिन्हित अक्षर)*(_cpc1))-((अचिन्हित अक्षर)*(_cpc2)))
 
   /* dirent structures and functions */
-#define _tdirent	dirent
-#define _TDIR 		DIR
-#define _topendir	opendir
-#define _tclosedir	closedir
-#define _treaddir	readdir
-#define _trewinddir	rewinddir
-#define _ttelldir	telldir
-#define _tseekdir	seekdir
+#घोषणा _tdirent	dirent
+#घोषणा _TDIR 		सूची
+#घोषणा _topendir	सूची_खोलो
+#घोषणा _tclosedir	बंद_सूची
+#घोषणा _treaddir	सूची_पढ़ो
+#घोषणा _trewinddir	सूची_शुरु
+#घोषणा _ttelldir	telldir
+#घोषणा _tseekdir	seekdir
 
-#define _istalnum isalnum
-#define _istalnum_l _isalnum_l
-#define _istalpha isalpha
-#define _istalpha_l _isalpha_l
-#define _istdigit isdigit
-#define _istdigit_l _isdigit_l
-#define _istgraph isgraph
-#define _istgraph_l _isgraph_l
-#define _istlower islower
-#define _istlower_l _islower_l
-#define _istprint isprint
-#define _istprint_l _isprint_l
-#define _istpunct ispunct
-#define _istpunct_l _ispunct_l
-#define _istspace isspace
-#define _istspace_l _isspace_l
-#define _istupper isupper
-#define _istupper_l _isupper_l
+#घोषणा _istalnum है_अक्षर_अंक
+#घोषणा _istalnum_l _isalnum_l
+#घोषणा _istalpha है_अक्षर
+#घोषणा _istalpha_l _isalpha_l
+#घोषणा _istdigit है_अंक
+#घोषणा _istdigit_l _isdigit_l
+#घोषणा _istgraph है_चित्र
+#घोषणा _istgraph_l _isgraph_l
+#घोषणा _istlower है_छोटा
+#घोषणा _istlower_l _islower_l
+#घोषणा _istprint है_छाप
+#घोषणा _istprint_l _isprint_l
+#घोषणा _istpunct है_विराम
+#घोषणा _istpunct_l _ispunct_l
+#घोषणा _istspace है_खाली
+#घोषणा _istspace_l _isspace_l
+#घोषणा _istupper है_बड़ा
+#घोषणा _istupper_l _isupper_l
 
-#define _totupper toupper
-#define _totupper_l _toupper_l
-#define _totlower tolower
-#define _totlower_l _tolower_l
+#घोषणा _totupper बड़े
+#घोषणा _totupper_l _toupper_l
+#घोषणा _totlower छोटे
+#घोषणा _totlower_l _tolower_l
 
-#define _istlegal(_c) (1)
+#घोषणा _istlegal(_c) (1)
 
-#ifndef NULL
-#ifdef __cplusplus
-#define NULL 0
-#else
-#define NULL ((void *)0)
-#endif
-#endif
+#अगर_अघोषित शून्य
+#अगर_घोषित __cplusplus
+#घोषणा शून्य 0
+#अन्यथा
+#घोषणा शून्य ((व्योम *)0)
+#पूर्ण_अगर
+#पूर्ण_अगर
 
-#define _strdec(_cpc1,_cpc2) ((_cpc1)>=(_cpc2) ? NULL : (_cpc2)-1)
-#define _strinc(_pc) ((_pc)+1)
-#define _strnextc(_cpc) ((unsigned int) *(const unsigned char *)(_cpc))
-#define _strninc(_pc,_sz) (((_pc)+(_sz)))
-  _CRTIMP size_t __cdecl __strncnt(const char *_Str,size_t _Cnt);
-#define _strncnt(_cpc,_sz) (__strncnt(_cpc,_sz))
-#define _strspnp(_cpc1,_cpc2) (!_cpc1 ? NULL : ((*((_cpc1)+strspn(_cpc1,_cpc2))) ? ((_cpc1)+strspn(_cpc1,_cpc2)) : NULL))
+#घोषणा _strdec(_cpc1,_cpc2) ((_cpc1)>=(_cpc2) ? शून्य : (_cpc2)-1)
+#घोषणा _strinc(_pc) ((_pc)+1)
+#घोषणा _strnextc(_cpc) ((अचिन्हित पूर्णांक) *(स्थिर अचिन्हित अक्षर *)(_cpc))
+#घोषणा _strninc(_pc,_sz) (((_pc)+(_sz)))
+  _CRTIMP माप_प्रकार __cdecl __strncnt(स्थिर अक्षर *_Str,माप_प्रकार _Cnt);
+#घोषणा _strncnt(_cpc,_sz) (__strncnt(_cpc,_sz))
+#घोषणा _strspnp(_cpc1,_cpc2) (!_cpc1 ? शून्य : ((*((_cpc1)+म_अखोज(_cpc1,_cpc2))) ? ((_cpc1)+म_अखोज(_cpc1,_cpc2)) : शून्य))
 
-#define _strncpy_l(_Destination,_Source,_Count,_Locale) (strncpy(_Destination,_Source,_Count))
-#define _strncat_l(_Destination,_Source,_Count,_Locale) (strncat(_Destination,_Source,_Count))
-#define _strtok_l(_String,_Delimiters,_Locale) (strtok(_String,_Delimiters))
-#define _strnset_l(_Destination,_Value,_Count,_Locale) (_strnset(_Destination,_Value,_Count))
-#define _strset_l(_Destination,_Value,_Locale) (_strset(_Destination,_Value))
-#endif
-#endif
+#घोषणा _strncpy_l(_Destination,_Source,गिनती_5,_Locale) (म_नकलन(_Destination,_Source,गिनती_5))
+#घोषणा _strncat_l(_Destination,_Source,गिनती_5,_Locale) (म_जोड़न(_Destination,_Source,गिनती_5))
+#घोषणा _strtok_l(_String,_Delimiters,_Locale) (म_मोहर(_String,_Delimiters))
+#घोषणा _strnset_l(_Destination,मूल्य_2,गिनती_5,_Locale) (_strnset(_Destination,मूल्य_2,गिनती_5))
+#घोषणा _strset_l(_Destination,मूल्य_2,_Locale) (_strset(_Destination,मूल्य_2))
+#पूर्ण_अगर
+#पूर्ण_अगर
 
-#define _T(x) __T(x)
-#define _TEXT(x) __T(x)
+#घोषणा _T(x) __T(x)
+#घोषणा _TEXT(x) __T(x)
 
-#ifdef __cplusplus
+#अगर_घोषित __cplusplus
 }
-#endif
+#पूर्ण_अगर
 
-#include <sec_api/tchar_s.h>
-#endif
+#समावेश <sec_api/tchar_s.h>
+#पूर्ण_अगर

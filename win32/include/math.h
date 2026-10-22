@@ -3,229 +3,229 @@
  * This file is part of the w64 mingw-runtime package.
  * No warranty is given; refer to the file DISCLAIMER within this package.
  */
-#ifndef _MATH_H_
-#define _MATH_H_
+#अगर_अघोषित _MATH_H_
+#घोषणा _MATH_H_
 
-#if __GNUC__ >= 3
-#pragma GCC system_header
-#endif
+#अगर __GNUC__ >= 3
+#आशय GCC system_header
+#पूर्ण_अगर
 
-#include <_mingw.h>
+#समावेश <_mingw.h>
 
-struct exception;
+काष्ठा exception;
 
-#pragma pack(push,_CRT_PACKING)
+#आशय pack(धकेलो,_CRT_PACKING)
 
-#define _DOMAIN 1
-#define _SING 2
-#define _OVERFLOW 3
-#define _UNDERFLOW 4
-#define _TLOSS 5
-#define _PLOSS 6
+#घोषणा _DOMAIN 1
+#घोषणा _SING 2
+#घोषणा _OVERFLOW 3
+#घोषणा _UNDERFLOW 4
+#घोषणा _TLOSS 5
+#घोषणा _PLOSS 6
 
-#ifndef __STRICT_ANSI__
-#ifndef	NO_OLDNAMES
-#define DOMAIN _DOMAIN
-#define SING _SING
-#define OVERFLOW _OVERFLOW
-#define UNDERFLOW _UNDERFLOW
-#define TLOSS _TLOSS
-#define PLOSS _PLOSS
-#endif
-#endif
+#अगर_अघोषित __STRICT_ANSI__
+#अगर_अघोषित	NO_OLDNAMES
+#घोषणा DOMAIN _DOMAIN
+#घोषणा SING _SING
+#घोषणा OVERFLOW _OVERFLOW
+#घोषणा UNDERFLOW _UNDERFLOW
+#घोषणा TLOSS _TLOSS
+#घोषणा PLOSS _PLOSS
+#पूर्ण_अगर
+#पूर्ण_अगर
 
-#ifndef __STRICT_ANSI__
-#define M_E 2.71828182845904523536
-#define M_LOG2E 1.44269504088896340736
-#define M_LOG10E 0.434294481903251827651
-#define M_LN2 0.693147180559945309417
-#define M_LN10 2.30258509299404568402
-#define M_PI 3.14159265358979323846
-#define M_PI_2 1.57079632679489661923
-#define M_PI_4 0.785398163397448309616
-#define M_1_PI 0.318309886183790671538
-#define M_2_PI 0.636619772367581343076
-#define M_2_SQRTPI 1.12837916709551257390
-#define M_SQRT2 1.41421356237309504880
-#define M_SQRT1_2 0.707106781186547524401
-#endif
+#अगर_अघोषित __STRICT_ANSI__
+#घोषणा M_E 2.71828182845904523536
+#घोषणा M_LOG2E 1.44269504088896340736
+#घोषणा M_LOG10E 0.434294481903251827651
+#घोषणा M_LN2 0.693147180559945309417
+#घोषणा M_LN10 2.30258509299404568402
+#घोषणा M_PI 3.14159265358979323846
+#घोषणा M_PI_2 1.57079632679489661923
+#घोषणा M_PI_4 0.785398163397448309616
+#घोषणा M_1_PI 0.318309886183790671538
+#घोषणा M_2_PI 0.636619772367581343076
+#घोषणा M_2_SQRTPI 1.12837916709551257390
+#घोषणा M_SQRT2 1.41421356237309504880
+#घोषणा M_SQRT1_2 0.707106781186547524401
+#पूर्ण_अगर
 
-#ifndef __STRICT_ANSI__
+#अगर_अघोषित __STRICT_ANSI__
 /* See also float.h  */
-#ifndef __MINGW_FPCLASS_DEFINED
-#define __MINGW_FPCLASS_DEFINED 1
-#define	_FPCLASS_SNAN	0x0001	/* Signaling "Not a Number" */
-#define	_FPCLASS_QNAN	0x0002	/* Quiet "Not a Number" */
-#define	_FPCLASS_NINF	0x0004	/* Negative Infinity */
-#define	_FPCLASS_NN	0x0008	/* Negative Normal */
-#define	_FPCLASS_ND	0x0010	/* Negative Denormal */
-#define	_FPCLASS_NZ	0x0020	/* Negative Zero */
-#define	_FPCLASS_PZ	0x0040	/* Positive Zero */
-#define	_FPCLASS_PD	0x0080	/* Positive Denormal */
-#define	_FPCLASS_PN	0x0100	/* Positive Normal */
-#define	_FPCLASS_PINF	0x0200	/* Positive Infinity */
-#endif
-#endif
+#अगर_अघोषित __MINGW_FPCLASS_DEFINED
+#घोषणा __MINGW_FPCLASS_DEFINED 1
+#घोषणा	_FPCLASS_SNAN	0x0001	/* Signaling "Not a Number" */
+#घोषणा	_FPCLASS_QNAN	0x0002	/* Quiet "Not a Number" */
+#घोषणा	_FPCLASS_NINF	0x0004	/* Negative Infinity */
+#घोषणा	_FPCLASS_NN	0x0008	/* Negative Normal */
+#घोषणा	_FPCLASS_ND	0x0010	/* Negative Denormal */
+#घोषणा	_FPCLASS_NZ	0x0020	/* Negative Zero */
+#घोषणा	_FPCLASS_PZ	0x0040	/* Positive Zero */
+#घोषणा	_FPCLASS_PD	0x0080	/* Positive Denormal */
+#घोषणा	_FPCLASS_PN	0x0100	/* Positive Normal */
+#घोषणा	_FPCLASS_PINF	0x0200	/* Positive Infinity */
+#पूर्ण_अगर
+#पूर्ण_अगर
 
-#ifdef __cplusplus
-extern "C" {
-#endif
+#अगर_घोषित __cplusplus
+बाह्य "C" {
+#पूर्ण_अगर
 
-#ifndef _EXCEPTION_DEFINED
-#define _EXCEPTION_DEFINED
-  struct _exception {
-    int type;
-    char *name;
-    double arg1;
-    double arg2;
-    double retval;
+#अगर_अघोषित _EXCEPTION_DEFINED
+#घोषणा _EXCEPTION_DEFINED
+  काष्ठा _exception {
+    पूर्णांक type;
+    अक्षर *name;
+    द्विगुन arg1;
+    द्विगुन arg2;
+    द्विगुन retval;
   };
-#endif
+#पूर्ण_अगर
 
-#ifndef _COMPLEX_DEFINED
-#define _COMPLEX_DEFINED
-  struct _complex {
-    double x,y;
+#अगर_अघोषित _COMPLEX_DEFINED
+#घोषणा _COMPLEX_DEFINED
+  काष्ठा _complex {
+    द्विगुन x,y;
   };
-#endif
+#पूर्ण_अगर
 
-#define EDOM 33
-#define ERANGE 34
+#घोषणा गलत_तर्क 33
+#घोषणा दुस्फल 34
 
-#ifndef _HUGE
-#ifdef _MSVCRT_
-  extern double *_HUGE;
-#else
-  extern double *_imp___HUGE;
-#define _HUGE	(*_imp___HUGE)
-#endif
-#endif
+#अगर_अघोषित _HUGE
+#अगर_घोषित _MSVCRT_
+  बाह्य द्विगुन *_HUGE;
+#अन्यथा
+  बाह्य द्विगुन *_imp___HUGE;
+#घोषणा _HUGE	(*_imp___HUGE)
+#पूर्ण_अगर
+#पूर्ण_अगर
 
-#define HUGE_VAL _HUGE
+#घोषणा विशाल_मान _HUGE
 
-#ifndef _CRT_ABS_DEFINED
-#define _CRT_ABS_DEFINED
-  int __cdecl abs(int _X);
-  long __cdecl labs(long _X);
-#endif
-  double __cdecl acos(double _X);
-  double __cdecl asin(double _X);
-  double __cdecl atan(double _X);
-  double __cdecl atan2(double _Y,double _X);
-#ifndef _SIGN_DEFINED
-#define _SIGN_DEFINED
-  _CRTIMP double __cdecl _copysign (double _Number,double _Sign);
-  _CRTIMP double __cdecl _chgsign (double _X);
-#endif
-  double __cdecl cos(double _X);
-  double __cdecl cosh(double _X);
-  double __cdecl exp(double _X);
-  double __cdecl expm1(double _X);
-  double __cdecl fabs(double _X);
-  double __cdecl fmod(double _X,double _Y);
-  double __cdecl log(double _X);
-  double __cdecl log10(double _X);
-  double __cdecl pow(double _X,double _Y);
-  double __cdecl sin(double _X);
-  double __cdecl sinh(double _X);
-  double __cdecl tan(double _X);
-  double __cdecl tanh(double _X);
-  double __cdecl sqrt(double _X);
-#ifndef _CRT_ATOF_DEFINED
-#define _CRT_ATOF_DEFINED
-  double __cdecl atof(const char *_String);
-  double __cdecl _atof_l(const char *_String,_locale_t _Locale);
-#endif
+#अगर_अघोषित _CRT_ABS_DEFINED
+#घोषणा _CRT_ABS_DEFINED
+  पूर्णांक __cdecl असल(पूर्णांक _X);
+  दीर्घ __cdecl द_असल(दीर्घ _X);
+#पूर्ण_अगर
+  द्विगुन __cdecl acos(द्विगुन _X);
+  द्विगुन __cdecl asin(द्विगुन _X);
+  द्विगुन __cdecl atan(द्विगुन _X);
+  द्विगुन __cdecl atan2(द्विगुन _Y,द्विगुन _X);
+#अगर_अघोषित _SIGN_DEFINED
+#घोषणा _SIGN_DEFINED
+  _CRTIMP द्विगुन __cdecl _copysign (द्विगुन संख्या,द्विगुन _Sign);
+  _CRTIMP द्विगुन __cdecl _chgsign (द्विगुन _X);
+#पूर्ण_अगर
+  द्विगुन __cdecl cos(द्विगुन _X);
+  द्विगुन __cdecl cosh(द्विगुन _X);
+  द्विगुन __cdecl exp(द्विगुन _X);
+  द्विगुन __cdecl expm1(द्विगुन _X);
+  द्विगुन __cdecl भ_असल(द्विगुन _X);
+  द्विगुन __cdecl भ_शेष(द्विगुन _X,द्विगुन _Y);
+  द्विगुन __cdecl log(द्विगुन _X);
+  द्विगुन __cdecl log10(द्विगुन _X);
+  द्विगुन __cdecl घात(द्विगुन _X,द्विगुन _Y);
+  द्विगुन __cdecl sin(द्विगुन _X);
+  द्विगुन __cdecl sinh(द्विगुन _X);
+  द्विगुन __cdecl tan(द्विगुन _X);
+  द्विगुन __cdecl tanh(द्विगुन _X);
+  द्विगुन __cdecl वर्ग_मूल(द्विगुन _X);
+#अगर_अघोषित _CRT_ATOF_DEFINED
+#घोषणा _CRT_ATOF_DEFINED
+  द्विगुन __cdecl म_से_भ(स्थिर अक्षर *_String);
+  द्विगुन __cdecl _atof_l(स्थिर अक्षर *_String,_locale_t _Locale);
+#पूर्ण_अगर
 
-  _CRTIMP double __cdecl _cabs(struct _complex _ComplexA);
-  double __cdecl ceil(double _X);
-  double __cdecl floor(double _X);
-  double __cdecl frexp(double _X,int *_Y);
-  double __cdecl _hypot(double _X,double _Y);
-  _CRTIMP double __cdecl _j0(double _X);
-  _CRTIMP double __cdecl _j1(double _X);
-  _CRTIMP double __cdecl _jn(int _X,double _Y);
-  double __cdecl ldexp(double _X,int _Y);
-#ifndef _CRT_MATHERR_DEFINED
-#define _CRT_MATHERR_DEFINED
-  int __cdecl _matherr(struct _exception *_Except);
-#endif
-  double __cdecl modf(double _X,double *_Y);
-  _CRTIMP double __cdecl _y0(double _X);
-  _CRTIMP double __cdecl _y1(double _X);
-  _CRTIMP double __cdecl _yn(int _X,double _Y);
+  _CRTIMP द्विगुन __cdecl _cabs(काष्ठा _complex _ComplexA);
+  द्विगुन __cdecl उच्चमान(द्विगुन _X);
+  द्विगुन __cdecl न्यूनमान(द्विगुन _X);
+  द्विगुन __cdecl frexp(द्विगुन _X,पूर्णांक *_Y);
+  द्विगुन __cdecl _hypot(द्विगुन _X,द्विगुन _Y);
+  _CRTIMP द्विगुन __cdecl _j0(द्विगुन _X);
+  _CRTIMP द्विगुन __cdecl _j1(द्विगुन _X);
+  _CRTIMP द्विगुन __cdecl _jn(पूर्णांक _X,द्विगुन _Y);
+  द्विगुन __cdecl ldexp(द्विगुन _X,पूर्णांक _Y);
+#अगर_अघोषित _CRT_MATHERR_DEFINED
+#घोषणा _CRT_MATHERR_DEFINED
+  पूर्णांक __cdecl _matherr(काष्ठा _exception *_Except);
+#पूर्ण_अगर
+  द्विगुन __cdecl modf(द्विगुन _X,द्विगुन *_Y);
+  _CRTIMP द्विगुन __cdecl _y0(द्विगुन _X);
+  _CRTIMP द्विगुन __cdecl _y1(द्विगुन _X);
+  _CRTIMP द्विगुन __cdecl _yn(पूर्णांक _X,द्विगुन _Y);
 
-#if(defined(_X86_) && !defined(__x86_64))
-  _CRTIMP int __cdecl _set_SSE2_enable(int _Flag);
+#अगर(defined(_X86_) && !defined(__x86_64))
+  _CRTIMP पूर्णांक __cdecl _set_SSE2_enable(पूर्णांक _Flag);
   /* from libmingwex */
-  float __cdecl _hypotf(float _X,float _Y);
-#endif
+  भग्न __cdecl _hypotf(भग्न _X,भग्न _Y);
+#पूर्ण_अगर
 
-  float frexpf(float _X,int *_Y);
-  float __cdecl ldexpf(float _X,int _Y);
-  long double __cdecl ldexpl(long double _X,int _Y);
-  float __cdecl acosf(float _X);
-  float __cdecl asinf(float _X);
-   float __cdecl atanf(float _X);
-   float __cdecl atan2f(float _X,float _Y);
-   float __cdecl cosf(float _X);
-   float __cdecl sinf(float _X);
-   float __cdecl tanf(float _X);
-   float __cdecl coshf(float _X);
-   float __cdecl sinhf(float _X);
-   float __cdecl tanhf(float _X);
-   float __cdecl expf(float _X);
-   float __cdecl expm1f(float _X);
-   float __cdecl logf(float _X);
-   float __cdecl log10f(float _X);
-   float __cdecl modff(float _X,float *_Y);
-   float __cdecl powf(float _X,float _Y);
-   float __cdecl sqrtf(float _X);
-   float __cdecl ceilf(float _X);
-   float __cdecl floorf(float _X);
-  float __cdecl fmodf(float _X,float _Y);
-   float __cdecl _hypotf(float _X,float _Y);
-  float __cdecl fabsf(float _X);
-#if !defined(__ia64__)
+  भग्न frexpf(भग्न _X,पूर्णांक *_Y);
+  भग्न __cdecl ldexpf(भग्न _X,पूर्णांक _Y);
+  दीर्घ द्विगुन __cdecl ldexpl(दीर्घ द्विगुन _X,पूर्णांक _Y);
+  भग्न __cdecl acosf(भग्न _X);
+  भग्न __cdecl asinf(भग्न _X);
+   भग्न __cdecl atanf(भग्न _X);
+   भग्न __cdecl atan2f(भग्न _X,भग्न _Y);
+   भग्न __cdecl cosf(भग्न _X);
+   भग्न __cdecl sinf(भग्न _X);
+   भग्न __cdecl tanf(भग्न _X);
+   भग्न __cdecl coshf(भग्न _X);
+   भग्न __cdecl sinhf(भग्न _X);
+   भग्न __cdecl tanhf(भग्न _X);
+   भग्न __cdecl expf(भग्न _X);
+   भग्न __cdecl expm1f(भग्न _X);
+   भग्न __cdecl logf(भग्न _X);
+   भग्न __cdecl log10f(भग्न _X);
+   भग्न __cdecl modff(भग्न _X,भग्न *_Y);
+   भग्न __cdecl powf(भग्न _X,भग्न _Y);
+   भग्न __cdecl sqrtf(भग्न _X);
+   भग्न __cdecl ceilf(भग्न _X);
+   भग्न __cdecl floorf(भग्न _X);
+  भग्न __cdecl fmodf(भग्न _X,भग्न _Y);
+   भग्न __cdecl _hypotf(भग्न _X,भग्न _Y);
+  भग्न __cdecl fabsf(भग्न _X);
+#अगर !defined(__ia64__)
    /* from libmingwex */
-   float __cdecl _copysignf (float _Number,float _Sign);
-   float __cdecl _chgsignf (float _X);
-   float __cdecl _logbf(float _X);
-   float __cdecl _nextafterf(float _X,float _Y);
-   int __cdecl _finitef(float _X);
-   int __cdecl _isnanf(float _X);
-   int __cdecl _fpclassf(float _X);
-#endif
+   भग्न __cdecl _copysignf (भग्न संख्या,भग्न _Sign);
+   भग्न __cdecl _chgsignf (भग्न _X);
+   भग्न __cdecl _logbf(भग्न _X);
+   भग्न __cdecl _nextafterf(भग्न _X,भग्न _Y);
+   पूर्णांक __cdecl _finitef(भग्न _X);
+   पूर्णांक __cdecl _isnanf(भग्न _X);
+   पूर्णांक __cdecl _fpclassf(भग्न _X);
+#पूर्ण_अगर
 
-#ifndef	NO_OLDNAMES
-#define matherr _matherr
+#अगर_अघोषित	NO_OLDNAMES
+#घोषणा matherr _matherr
 
-#define HUGE	_HUGE
+#घोषणा HUGE	_HUGE
   /*	double __cdecl cabs(struct _complex _X); */
-  double __cdecl hypot(double _X,double _Y);
-  _CRTIMP double __cdecl j0(double _X);
-  _CRTIMP double __cdecl j1(double _X);
-  _CRTIMP double __cdecl jn(int _X,double _Y);
-  _CRTIMP double __cdecl y0(double _X);
-  _CRTIMP double __cdecl y1(double _X);
-  _CRTIMP double __cdecl yn(int _X,double _Y);
-#endif
+  द्विगुन __cdecl hypot(द्विगुन _X,द्विगुन _Y);
+  _CRTIMP द्विगुन __cdecl j0(द्विगुन _X);
+  _CRTIMP द्विगुन __cdecl j1(द्विगुन _X);
+  _CRTIMP द्विगुन __cdecl jn(पूर्णांक _X,द्विगुन _Y);
+  _CRTIMP द्विगुन __cdecl y0(द्विगुन _X);
+  _CRTIMP द्विगुन __cdecl y1(द्विगुन _X);
+  _CRTIMP द्विगुन __cdecl yn(पूर्णांक _X,द्विगुन _Y);
+#पूर्ण_अगर
 
-#ifndef __NO_ISOCEXT
-#if (defined (__STDC_VERSION__) && __STDC_VERSION__ >= 199901L) \
+#अगर_अघोषित __NO_ISOCEXT
+#अगर (defined (__STDC_VERSION__) && __STDC_VERSION__ >= 199901L) \
   || !defined __STRICT_ANSI__ || defined __GLIBCPP__
 
-#define NAN (0.0F/0.0F)
-#define HUGE_VALF (1.0F/0.0F)
-#define HUGE_VALL (1.0L/0.0L)
-#define INFINITY (1.0F/0.0F)
+#घोषणा न_अंक (0.0F/0.0F)
+#घोषणा HUGE_VALF (1.0F/0.0F)
+#घोषणा HUGE_VALL (1.0L/0.0L)
+#घोषणा अनन्त (1.0F/0.0F)
 
 
-#define FP_NAN		0x0100
-#define FP_NORMAL	0x0400
-#define FP_INFINITE	(FP_NAN | FP_NORMAL)
-#define FP_ZERO		0x4000
-#define FP_SUBNORMAL	(FP_NORMAL | FP_ZERO)
+#घोषणा FP_NAN		0x0100
+#घोषणा FP_NORMAL	0x0400
+#घोषणा FP_INFINITE	(FP_NAN | FP_NORMAL)
+#घोषणा FP_ZERO		0x4000
+#घोषणा FP_SUBNORMAL	(FP_NORMAL | FP_ZERO)
   /* 0x0200 is signbit mask */
 
 
@@ -236,220 +236,220 @@ extern "C" {
   converted to double, and zero when converted to float.)
   */
 
-  extern int __cdecl __fpclassifyf (float);
-  extern int __cdecl __fpclassify (double);
-  extern int __cdecl __fpclassifyl (long double);
+  बाह्य पूर्णांक __cdecl __fpclassifyf (भग्न);
+  बाह्य पूर्णांक __cdecl __fpclassify (द्विगुन);
+  बाह्य पूर्णांक __cdecl __fpclassifyl (दीर्घ द्विगुन);
 
 /* Implemented at tcc/tcc_libm.h
 #define fpclassify(x) (sizeof (x) == sizeof (float) ? __fpclassifyf (x)	  \
   : sizeof (x) == sizeof (double) ? __fpclassify (x) \
   : __fpclassifyl (x))
 */
-#define fpclassify(x) \
-  _Generic(x, float: __fpclassifyf, double: __fpclassify, long double: __fpclassifyl)(x)
+#घोषणा fpclassify(x) \
+  _Generic(x, भग्न: __fpclassifyf, द्विगुन: __fpclassify, दीर्घ द्विगुन: __fpclassifyl)(x)
 
   /* 7.12.3.2 */
-#define isfinite(x) ((fpclassify(x) & FP_NAN) == 0)
+#घोषणा है_सीमित(x) ((fpclassify(x) & FP_NAN) == 0)
 
   /* 7.12.3.3 */
-#define isinf(x) (fpclassify(x) == FP_INFINITE)
+#घोषणा isinf(x) (fpclassify(x) == FP_INFINITE)
 
   /* 7.12.3.4 */
   /* We don't need to worry about truncation here:
   A NaN stays a NaN. */
-#define isnan(x) (fpclassify(x) == FP_NAN)
+#घोषणा isnan(x) (fpclassify(x) == FP_NAN)
 
   /* 7.12.3.5 */
-#define isnormal(x) (fpclassify(x) == FP_NORMAL)
+#घोषणा isnormal(x) (fpclassify(x) == FP_NORMAL)
 
   /* 7.12.3.6 The signbit macro */
 
-  extern int __cdecl __signbitf (float);
-  extern int __cdecl __signbit (double);
-  extern int __cdecl __signbitl (long double);
+  बाह्य पूर्णांक __cdecl __signbitf (भग्न);
+  बाह्य पूर्णांक __cdecl __signbit (द्विगुन);
+  बाह्य पूर्णांक __cdecl __signbitl (दीर्घ द्विगुन);
 
 /* Implemented at tcc/tcc_libm.h
 #define signbit(x) (sizeof (x) == sizeof (float) ? __signbitf (x)	\
   : sizeof (x) == sizeof (double) ? __signbit (x)	\
   : __signbitl (x))
 */
-#define signbit(x) \
-  _Generic(x, float: __signbitf, double: __signbit, long double: __signbitl)(x)
+#घोषणा signbit(x) \
+  _Generic(x, भग्न: __signbitf, द्विगुन: __signbit, दीर्घ द्विगुन: __signbitl)(x)
 
-  extern double __cdecl exp2(double);
-  extern float __cdecl exp2f(float);
-  extern long double __cdecl exp2l(long double);
+  बाह्य द्विगुन __cdecl exp2(द्विगुन);
+  बाह्य भग्न __cdecl exp2f(भग्न);
+  बाह्य दीर्घ द्विगुन __cdecl exp2l(दीर्घ द्विगुन);
 
-#define FP_ILOGB0 ((int)0x80000000)
-#define FP_ILOGBNAN ((int)0x80000000)
-  extern int __cdecl ilogb (double);
-  extern int __cdecl ilogbf (float);
-  extern int __cdecl ilogbl (long double);
+#घोषणा FP_ILOGB0 ((पूर्णांक)0x80000000)
+#घोषणा FP_ILOGBNAN ((पूर्णांक)0x80000000)
+  बाह्य पूर्णांक __cdecl ilogb (द्विगुन);
+  बाह्य पूर्णांक __cdecl ilogbf (भग्न);
+  बाह्य पूर्णांक __cdecl ilogbl (दीर्घ द्विगुन);
 
-  extern double __cdecl log1p(double);
-  extern float __cdecl log1pf(float);
-  extern long double __cdecl log1pl(long double);
+  बाह्य द्विगुन __cdecl log1p(द्विगुन);
+  बाह्य भग्न __cdecl log1pf(भग्न);
+  बाह्य दीर्घ द्विगुन __cdecl log1pl(दीर्घ द्विगुन);
 
-  extern double __cdecl log2 (double);
-  extern float __cdecl log2f (float);
-  extern long double __cdecl log2l (long double);
+  बाह्य द्विगुन __cdecl log2 (द्विगुन);
+  बाह्य भग्न __cdecl log2f (भग्न);
+  बाह्य दीर्घ द्विगुन __cdecl log2l (दीर्घ द्विगुन);
 
-  extern double __cdecl logb (double);
-  extern float __cdecl logbf (float);
-  extern long double __cdecl logbl (long double);
+  बाह्य द्विगुन __cdecl logb (द्विगुन);
+  बाह्य भग्न __cdecl logbf (भग्न);
+  बाह्य दीर्घ द्विगुन __cdecl logbl (दीर्घ द्विगुन);
 
-  extern long double __cdecl modfl (long double, long double*);
+  बाह्य दीर्घ द्विगुन __cdecl modfl (दीर्घ द्विगुन, दीर्घ द्विगुन*);
 
   /* 7.12.6.13 */
-  extern double __cdecl scalbn (double, int);
-  extern float __cdecl scalbnf (float, int);
-  extern long double __cdecl scalbnl (long double, int);
+  बाह्य द्विगुन __cdecl scalbn (द्विगुन, पूर्णांक);
+  बाह्य भग्न __cdecl scalbnf (भग्न, पूर्णांक);
+  बाह्य दीर्घ द्विगुन __cdecl scalbnl (दीर्घ द्विगुन, पूर्णांक);
 
-  extern double __cdecl scalbln (double, long);
-  extern float __cdecl scalblnf (float, long);
-  extern long double __cdecl scalblnl (long double, long);
+  बाह्य द्विगुन __cdecl scalbln (द्विगुन, दीर्घ);
+  बाह्य भग्न __cdecl scalblnf (भग्न, दीर्घ);
+  बाह्य दीर्घ द्विगुन __cdecl scalblnl (दीर्घ द्विगुन, दीर्घ);
 
   /* 7.12.7.1 */
   /* Implementations adapted from Cephes versions */ 
-  extern double __cdecl cbrt (double);
-  extern float __cdecl cbrtf (float);
-  extern long double __cdecl cbrtl (long double);
+  बाह्य द्विगुन __cdecl cbrt (द्विगुन);
+  बाह्य भग्न __cdecl cbrtf (भग्न);
+  बाह्य दीर्घ द्विगुन __cdecl cbrtl (दीर्घ द्विगुन);
 
-  extern double __cdecl hypot (double, double);
-  extern float __cdecl hypotf (float, float);
-  extern long double __cdecl hypotl (long double, long double);
+  बाह्य द्विगुन __cdecl hypot (द्विगुन, द्विगुन);
+  बाह्य भग्न __cdecl hypotf (भग्न, भग्न);
+  बाह्य दीर्घ द्विगुन __cdecl hypotl (दीर्घ द्विगुन, दीर्घ द्विगुन);
 
-  extern long double __cdecl powl (long double, long double);
-  extern long double __cdecl expl(long double);
-  extern long double __cdecl expm1l(long double);
-  extern long double __cdecl coshl(long double);
-  extern long double __cdecl fabsl (long double);
-  extern long double __cdecl acosl(long double);
-  extern long double __cdecl asinl(long double);
-  extern long double __cdecl atanl(long double);
-  extern long double __cdecl atan2l(long double,long double);
-  extern long double __cdecl sinhl(long double);
-  extern long double __cdecl tanhl(long double);
+  बाह्य दीर्घ द्विगुन __cdecl powl (दीर्घ द्विगुन, दीर्घ द्विगुन);
+  बाह्य दीर्घ द्विगुन __cdecl expl(दीर्घ द्विगुन);
+  बाह्य दीर्घ द्विगुन __cdecl expm1l(दीर्घ द्विगुन);
+  बाह्य दीर्घ द्विगुन __cdecl coshl(दीर्घ द्विगुन);
+  बाह्य दीर्घ द्विगुन __cdecl fabsl (दीर्घ द्विगुन);
+  बाह्य दीर्घ द्विगुन __cdecl acosl(दीर्घ द्विगुन);
+  बाह्य दीर्घ द्विगुन __cdecl asinl(दीर्घ द्विगुन);
+  बाह्य दीर्घ द्विगुन __cdecl atanl(दीर्घ द्विगुन);
+  बाह्य दीर्घ द्विगुन __cdecl atan2l(दीर्घ द्विगुन,दीर्घ द्विगुन);
+  बाह्य दीर्घ द्विगुन __cdecl sinhl(दीर्घ द्विगुन);
+  बाह्य दीर्घ द्विगुन __cdecl tanhl(दीर्घ द्विगुन);
 
   /* 7.12.8.1 The erf functions  */
-  extern double __cdecl erf (double);
-  extern float __cdecl erff (float);
+  बाह्य द्विगुन __cdecl erf (द्विगुन);
+  बाह्य भग्न __cdecl erff (भग्न);
   /* TODO
   extern long double __cdecl erfl (long double);
   */ 
 
   /* 7.12.8.2 The erfc functions  */
-  extern double __cdecl erfc (double);
-  extern float __cdecl erfcf (float);
+  बाह्य द्विगुन __cdecl erfc (द्विगुन);
+  बाह्य भग्न __cdecl erfcf (भग्न);
   /* TODO
   extern long double __cdecl erfcl (long double);
   */ 
 
   /* 7.12.8.3 The lgamma functions */
-  extern double __cdecl lgamma (double);
-  extern float __cdecl lgammaf (float);
-  extern long double __cdecl lgammal (long double);
+  बाह्य द्विगुन __cdecl lgamma (द्विगुन);
+  बाह्य भग्न __cdecl lgammaf (भग्न);
+  बाह्य दीर्घ द्विगुन __cdecl lgammal (दीर्घ द्विगुन);
 
   /* 7.12.8.4 The tgamma functions */
-  extern double __cdecl tgamma (double);
-  extern float __cdecl tgammaf (float);
-  extern long double __cdecl tgammal (long double);
+  बाह्य द्विगुन __cdecl tgamma (द्विगुन);
+  बाह्य भग्न __cdecl tgammaf (भग्न);
+  बाह्य दीर्घ द्विगुन __cdecl tgammal (दीर्घ द्विगुन);
 
-  extern long double __cdecl ceill (long double);
-  extern long double __cdecl floorl (long double);
-  extern long double __cdecl frexpl(long double,int *);
-  extern long double __cdecl log10l(long double);
-  extern long double __cdecl logl(long double);
-  extern long double __cdecl cosl(long double);
-  extern long double __cdecl sinl(long double);
-  extern long double __cdecl tanl(long double);
-  extern long double sqrtl(long double);
+  बाह्य दीर्घ द्विगुन __cdecl ceill (दीर्घ द्विगुन);
+  बाह्य दीर्घ द्विगुन __cdecl floorl (दीर्घ द्विगुन);
+  बाह्य दीर्घ द्विगुन __cdecl frexpl(दीर्घ द्विगुन,पूर्णांक *);
+  बाह्य दीर्घ द्विगुन __cdecl log10l(दीर्घ द्विगुन);
+  बाह्य दीर्घ द्विगुन __cdecl logl(दीर्घ द्विगुन);
+  बाह्य दीर्घ द्विगुन __cdecl cosl(दीर्घ द्विगुन);
+  बाह्य दीर्घ द्विगुन __cdecl sinl(दीर्घ द्विगुन);
+  बाह्य दीर्घ द्विगुन __cdecl tanl(दीर्घ द्विगुन);
+  बाह्य दीर्घ द्विगुन sqrtl(दीर्घ द्विगुन);
 
   /* 7.12.9.3 */
-  extern double __cdecl nearbyint ( double);
-  extern float __cdecl nearbyintf (float);
-  extern long double __cdecl nearbyintl (long double);
+  बाह्य द्विगुन __cdecl nearbyint ( द्विगुन);
+  बाह्य भग्न __cdecl nearbyintf (भग्न);
+  बाह्य दीर्घ द्विगुन __cdecl nearbyintl (दीर्घ द्विगुन);
 
   /* 7.12.9.4 */
   /* round, using fpu control word settings */
-  extern double __cdecl rint (double);
-  extern float __cdecl rintf (float);
-  extern long double __cdecl rintl (long double);
+  बाह्य द्विगुन __cdecl rint (द्विगुन);
+  बाह्य भग्न __cdecl rintf (भग्न);
+  बाह्य दीर्घ द्विगुन __cdecl rintl (दीर्घ द्विगुन);
 
-  extern long __cdecl lrint (double);
-  extern long __cdecl lrintf (float);
-  extern long __cdecl lrintl (long double);
+  बाह्य दीर्घ __cdecl lrint (द्विगुन);
+  बाह्य दीर्घ __cdecl lrintf (भग्न);
+  बाह्य दीर्घ __cdecl lrintl (दीर्घ द्विगुन);
 
-  extern long long __cdecl llrint (double);
-  extern long long __cdecl llrintf (float);
-  extern long long __cdecl llrintl (long double);
+  बाह्य दीर्घ दीर्घ __cdecl llrint (द्विगुन);
+  बाह्य दीर्घ दीर्घ __cdecl llrintf (भग्न);
+  बाह्य दीर्घ दीर्घ __cdecl llrintl (दीर्घ द्विगुन);
 
-  #define FE_TONEAREST	0x0000
-  #define FE_DOWNWARD	0x0400
-  #define FE_UPWARD	0x0800
-  #define FE_TOWARDZERO	0x0c00
+  #घोषणा FE_TONEAREST	0x0000
+  #घोषणा FE_DOWNWARD	0x0400
+  #घोषणा FE_UPWARD	0x0800
+  #घोषणा FE_TOWARDZERO	0x0c00
 
   /* 7.12.9.6 */
   /* round away from zero, regardless of fpu control word settings */
-  extern double __cdecl round (double);
-  extern float __cdecl roundf (float);
-  extern long double __cdecl roundl (long double);
+  बाह्य द्विगुन __cdecl round (द्विगुन);
+  बाह्य भग्न __cdecl roundf (भग्न);
+  बाह्य दीर्घ द्विगुन __cdecl roundl (दीर्घ द्विगुन);
 
   /* 7.12.9.7  */
-  extern long __cdecl lround (double);
-  extern long __cdecl lroundf (float);
-  extern long __cdecl lroundl (long double);
+  बाह्य दीर्घ __cdecl lround (द्विगुन);
+  बाह्य दीर्घ __cdecl lroundf (भग्न);
+  बाह्य दीर्घ __cdecl lroundl (दीर्घ द्विगुन);
 
-  extern long long __cdecl llround (double);
-  extern long long __cdecl llroundf (float);
-  extern long long __cdecl llroundl (long double);
+  बाह्य दीर्घ दीर्घ __cdecl llround (द्विगुन);
+  बाह्य दीर्घ दीर्घ __cdecl llroundf (भग्न);
+  बाह्य दीर्घ दीर्घ __cdecl llroundl (दीर्घ द्विगुन);
 
   /* 7.12.9.8 */
   /* round towards zero, regardless of fpu control word settings */
-  extern double __cdecl trunc (double);
-  extern float __cdecl truncf (float);
-  extern long double __cdecl truncl (long double);
+  बाह्य द्विगुन __cdecl trunc (द्विगुन);
+  बाह्य भग्न __cdecl truncf (भग्न);
+  बाह्य दीर्घ द्विगुन __cdecl truncl (दीर्घ द्विगुन);
 
-  extern long double __cdecl fmodl (long double, long double);
+  बाह्य दीर्घ द्विगुन __cdecl fmodl (दीर्घ द्विगुन, दीर्घ द्विगुन);
 
   /* 7.12.10.2 */ 
-  extern double __cdecl remainder (double, double);
-  extern float __cdecl remainderf (float, float);
-  extern long double __cdecl remainderl (long double, long double);
+  बाह्य द्विगुन __cdecl remainder (द्विगुन, द्विगुन);
+  बाह्य भग्न __cdecl remainderf (भग्न, भग्न);
+  बाह्य दीर्घ द्विगुन __cdecl remainderl (दीर्घ द्विगुन, दीर्घ द्विगुन);
 
   /* 7.12.10.3 */
-  extern double __cdecl remquo(double, double, int *);
-  extern float __cdecl remquof(float, float, int *);
-  extern long double __cdecl remquol(long double, long double, int *);
+  बाह्य द्विगुन __cdecl remquo(द्विगुन, द्विगुन, पूर्णांक *);
+  बाह्य भग्न __cdecl remquof(भग्न, भग्न, पूर्णांक *);
+  बाह्य दीर्घ द्विगुन __cdecl remquol(दीर्घ द्विगुन, दीर्घ द्विगुन, पूर्णांक *);
 
   /* 7.12.11.1 */
-  extern double __cdecl copysign (double, double); /* in libmoldname.a */
-  extern float __cdecl copysignf (float, float);
-  extern long double __cdecl copysignl (long double, long double);
+  बाह्य द्विगुन __cdecl copysign (द्विगुन, द्विगुन); /* in libmoldname.a */
+  बाह्य भग्न __cdecl copysignf (भग्न, भग्न);
+  बाह्य दीर्घ द्विगुन __cdecl copysignl (दीर्घ द्विगुन, दीर्घ द्विगुन);
 
   /* 7.12.11.2 Return a NaN */
-  extern double __cdecl nan(const char *tagp);
-  extern float __cdecl nanf(const char *tagp);
-  extern long double __cdecl nanl(const char *tagp);
+  बाह्य द्विगुन __cdecl nan(स्थिर अक्षर *tagp);
+  बाह्य भग्न __cdecl nanf(स्थिर अक्षर *tagp);
+  बाह्य दीर्घ द्विगुन __cdecl nanl(स्थिर अक्षर *tagp);
 
-#ifndef __STRICT_ANSI__
-#define _nan() nan("")
-#define _nanf() nanf("")
-#define _nanl() nanl("")
-#endif
+#अगर_अघोषित __STRICT_ANSI__
+#घोषणा _nan() nan("")
+#घोषणा _nanf() nanf("")
+#घोषणा _nanl() nanl("")
+#पूर्ण_अगर
 
   /* 7.12.11.3 */
-  extern double __cdecl nextafter (double, double); /* in libmoldname.a */
-  extern float __cdecl nextafterf (float, float);
-  extern long double __cdecl nextafterl (long double, long double);
+  बाह्य द्विगुन __cdecl nextafter (द्विगुन, द्विगुन); /* in libmoldname.a */
+  बाह्य भग्न __cdecl nextafterf (भग्न, भग्न);
+  बाह्य दीर्घ द्विगुन __cdecl nextafterl (दीर्घ द्विगुन, दीर्घ द्विगुन);
 
   /* 7.12.11.4 The nexttoward functions: TODO */
 
   /* 7.12.12.1 */
   /*  x > y ? (x - y) : 0.0  */
-  extern double __cdecl fdim (double x, double y);
-  extern float __cdecl fdimf (float x, float y);
-  extern long double __cdecl fdiml (long double x, long double y);
+  बाह्य द्विगुन __cdecl fdim (द्विगुन x, द्विगुन y);
+  बाह्य भग्न __cdecl fdimf (भग्न x, भग्न y);
+  बाह्य दीर्घ द्विगुन __cdecl fdiml (दीर्घ द्विगुन x, दीर्घ द्विगुन y);
 
   /* fmax and fmin.
   NaN arguments are treated as missing data: if one argument is a NaN
@@ -457,29 +457,29 @@ extern "C" {
   value. */
 
   /* 7.12.12.2 */
-  extern double __cdecl fmax  (double, double);
-  extern float __cdecl fmaxf (float, float);
-  extern long double __cdecl fmaxl (long double, long double);
+  बाह्य द्विगुन __cdecl fmax  (द्विगुन, द्विगुन);
+  बाह्य भग्न __cdecl fmaxf (भग्न, भग्न);
+  बाह्य दीर्घ द्विगुन __cdecl fmaxl (दीर्घ द्विगुन, दीर्घ द्विगुन);
 
   /* 7.12.12.3 */
-  extern double __cdecl fmin (double, double);
-  extern float __cdecl fminf (float, float);
-  extern long double __cdecl fminl (long double, long double);
+  बाह्य द्विगुन __cdecl fmin (द्विगुन, द्विगुन);
+  बाह्य भग्न __cdecl fminf (भग्न, भग्न);
+  बाह्य दीर्घ द्विगुन __cdecl fminl (दीर्घ द्विगुन, दीर्घ द्विगुन);
 
   /* 7.12.13.1 */
   /* return x * y + z as a ternary op */ 
-  extern double __cdecl fma (double, double, double);
-  extern float __cdecl fmaf (float, float, float);
-  extern long double __cdecl fmal (long double, long double, long double);
+  बाह्य द्विगुन __cdecl fma (द्विगुन, द्विगुन, द्विगुन);
+  बाह्य भग्न __cdecl fmaf (भग्न, भग्न, भग्न);
+  बाह्य दीर्घ द्विगुन __cdecl fmal (दीर्घ द्विगुन, दीर्घ द्विगुन, दीर्घ द्विगुन);
 
 
-#endif /* __STDC_VERSION__ >= 199901L */
-#endif /* __NO_ISOCEXT */
+#पूर्ण_अगर /* __STDC_VERSION__ >= 199901L */
+#पूर्ण_अगर /* __NO_ISOCEXT */
 
-#ifdef __cplusplus
+#अगर_घोषित __cplusplus
 }
-#endif
-#pragma pack(pop)
+#पूर्ण_अगर
+#आशय pack(निकालो)
 
 /* 7.12.14 */
 /* 
@@ -491,7 +491,7 @@ extern "C" {
  */
 
 /* Mini libm (inline __fpclassify*, __signbit* and variants) */
-#include "tcc/tcc_libm.h"
+#समावेश "tcc/tcc_libm.h"
 
-#endif /* End _MATH_H_ */
+#पूर्ण_अगर /* End _MATH_H_ */
 

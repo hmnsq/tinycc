@@ -21,49 +21,49 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 
-#ifdef TARGET_DEFS_ONLY
+#अगर_घोषित TARGET_DEFS_ONLY
 
-#if defined(TCC_ARM_EABI) && !defined(TCC_ARM_VFP)
-#error "Currently TinyCC only supports float computation with VFP instructions"
-#endif
+#अगर defined(TCC_ARM_EABI) && !defined(TCC_ARM_VFP)
+#त्रुटि "Currently TinyCC only supports float computation with VFP instructions"
+#पूर्ण_अगर
 
 /* number of available registers */
-#ifdef TCC_ARM_VFP
-#define NB_REGS            13
-#else
-#define NB_REGS             9
-#endif
+#अगर_घोषित TCC_ARM_VFP
+#घोषणा NB_REGS            13
+#अन्यथा
+#घोषणा NB_REGS             9
+#पूर्ण_अगर
 
-#ifndef CONFIG_TCC_CPUVER
+#अगर_अघोषित CONFIG_TCC_CPUVER
 # define CONFIG_TCC_CPUVER 5
-#endif
+#पूर्ण_अगर
 
 /* a register can belong to several classes. The classes must be
    sorted from more general to more precise (see gv2() code which does
    assumptions on it). */
-#define RC_INT     0x0001 /* generic integer register */
-#define RC_FLOAT   0x0002 /* generic float register */
-#define RC_R0      0x0004
-#define RC_R1      0x0008
-#define RC_R2      0x0010
-#define RC_R3      0x0020
-#define RC_R12     0x0040
-#define RC_F0      0x0080
-#define RC_F1      0x0100
-#define RC_F2      0x0200
-#define RC_F3      0x0400
-#ifdef TCC_ARM_VFP
-#define RC_F4      0x0800
-#define RC_F5      0x1000
-#define RC_F6      0x2000
-#define RC_F7      0x4000
-#endif
-#define RC_IRET    RC_R0  /* function return: integer register */
-#define RC_IRE2    RC_R1  /* function return: second integer register */
-#define RC_FRET    RC_F0  /* function return: float register */
+#घोषणा RC_INT     0x0001 /* generic integer register */
+#घोषणा RC_FLOAT   0x0002 /* generic float register */
+#घोषणा RC_R0      0x0004
+#घोषणा RC_R1      0x0008
+#घोषणा RC_R2      0x0010
+#घोषणा RC_R3      0x0020
+#घोषणा RC_R12     0x0040
+#घोषणा RC_F0      0x0080
+#घोषणा RC_F1      0x0100
+#घोषणा RC_F2      0x0200
+#घोषणा RC_F3      0x0400
+#अगर_घोषित TCC_ARM_VFP
+#घोषणा RC_F4      0x0800
+#घोषणा RC_F5      0x1000
+#घोषणा RC_F6      0x2000
+#घोषणा RC_F7      0x4000
+#पूर्ण_अगर
+#घोषणा RC_IRET    RC_R0  /* function return: integer register */
+#घोषणा RC_IRE2    RC_R1  /* function return: second integer register */
+#घोषणा RC_FRET    RC_F0  /* function return: float register */
 
 /* pretty names for the registers */
-enum {
+क्रमागत {
     TREG_R0 = 0,
     TREG_R1,
     TREG_R2,
@@ -73,76 +73,76 @@ enum {
     TREG_F1,
     TREG_F2,
     TREG_F3,
-#ifdef TCC_ARM_VFP
+#अगर_घोषित TCC_ARM_VFP
     TREG_F4,
     TREG_F5,
     TREG_F6,
     TREG_F7,
-#endif
+#पूर्ण_अगर
     TREG_SP = 13,
     TREG_LR,
 };
 
-#ifdef TCC_ARM_VFP
-#define T2CPR(t) (((t) & VT_BTYPE) != VT_FLOAT ? 0x100 : 0)
-#endif
+#अगर_घोषित TCC_ARM_VFP
+#घोषणा T2CPR(t) (((t) & VT_BTYPE) != VT_FLOAT ? 0x100 : 0)
+#पूर्ण_अगर
 
 /* return registers for function */
-#define REG_IRET TREG_R0 /* single word int return register */
-#define REG_IRE2 TREG_R1 /* second word return register (for long long) */
-#define REG_FRET TREG_F0 /* float return register */
+#घोषणा REG_IRET TREG_R0 /* single word int return register */
+#घोषणा REG_IRE2 TREG_R1 /* second word return register (for long long) */
+#घोषणा REG_FRET TREG_F0 /* float return register */
 
-#ifdef TCC_ARM_EABI
-#define TOK___divdi3 TOK___aeabi_ldivmod
-#define TOK___moddi3 TOK___aeabi_ldivmod
-#define TOK___udivdi3 TOK___aeabi_uldivmod
-#define TOK___umoddi3 TOK___aeabi_uldivmod
-#endif
+#अगर_घोषित TCC_ARM_EABI
+#घोषणा TOK___divdi3 TOK___aeabi_ldivmod
+#घोषणा TOK___moddi3 TOK___aeabi_ldivmod
+#घोषणा TOK___udivdi3 TOK___aeabi_uldivmod
+#घोषणा TOK___umoddi3 TOK___aeabi_uldivmod
+#पूर्ण_अगर
 
 /* defined if function parameters must be evaluated in reverse order */
-#define INVERT_FUNC_PARAMS
+#घोषणा INVERT_FUNC_PARAMS
 
 /* defined if structures are passed as pointers. Otherwise structures
    are directly pushed on stack. */
 /* #define FUNC_STRUCT_PARAM_AS_PTR */
 
 /* pointer size, in bytes */
-#define PTR_SIZE 4
+#घोषणा PTR_आकार 4
 
 /* long double size and alignment, in bytes */
-#ifdef TCC_ARM_VFP
-#define LDOUBLE_SIZE  8
-#endif
+#अगर_घोषित TCC_ARM_VFP
+#घोषणा LDOUBLE_आकार  8
+#पूर्ण_अगर
 
-#ifndef LDOUBLE_SIZE
-#define LDOUBLE_SIZE  8
-#endif
+#अगर_अघोषित LDOUBLE_आकार
+#घोषणा LDOUBLE_आकार  8
+#पूर्ण_अगर
 
-#ifdef TCC_ARM_EABI
-#define LDOUBLE_ALIGN 8
-#else
-#define LDOUBLE_ALIGN 4
-#endif
+#अगर_घोषित TCC_ARM_EABI
+#घोषणा LDOUBLE_ALIGN 8
+#अन्यथा
+#घोषणा LDOUBLE_ALIGN 4
+#पूर्ण_अगर
 
-#if LDOUBLE_SIZE == 8
+#अगर LDOUBLE_आकार == 8
 # define TCC_USING_DOUBLE_FOR_LDOUBLE 1
-#endif
+#पूर्ण_अगर
 
 /* maximum alignment (for aligned attribute support) */
-#define MAX_ALIGN     8
+#घोषणा MAX_ALIGN     8
 
-#define CHAR_IS_UNSIGNED
+#घोषणा CHAR_IS_UNSIGNED
 
-#define ARM_SOFTFP_FLOAT 0
-#define ARM_HARD_FLOAT 1
+#घोषणा ARM_SOFTFP_FLOAT 0
+#घोषणा ARM_HARD_FLOAT 1
 
 /******************************************************/
-#else /* ! TARGET_DEFS_ONLY */
+#अन्यथा /* ! TARGET_DEFS_ONLY */
 /******************************************************/
-#define USING_GLOBALS
-#include "tcc.h"
+#घोषणा USING_GLOBALS
+#समावेश "tcc.h"
 
-ST_DATA const char * const target_machine_defs =
+ST_तथ्य स्थिर अक्षर * स्थिर target_machine_defs =
     "__arm__\0"
     "__arm\0"
     "arm\0"
@@ -152,12 +152,12 @@ ST_DATA const char * const target_machine_defs =
     "__ARM_ARCH_4__\0"
     "__ARMEL__\0"
     "__APCS_32__\0"
-#if defined TCC_ARM_EABI
+#अगर defined TCC_ARM_EABI
     "__ARM_EABI__\0"
-#endif
+#पूर्ण_अगर
     ;
 
-ST_DATA const int reg_classes[NB_REGS] = {
+ST_तथ्य स्थिर पूर्णांक reg_classes[NB_REGS] = {
     /* r0 */ RC_INT | RC_R0,
     /* r1 */ RC_INT | RC_R1,
     /* r2 */ RC_INT | RC_R2,
@@ -167,199 +167,199 @@ ST_DATA const int reg_classes[NB_REGS] = {
     /* f1 */ RC_FLOAT | RC_F1,
     /* f2 */ RC_FLOAT | RC_F2,
     /* f3 */ RC_FLOAT | RC_F3,
-#ifdef TCC_ARM_VFP
+#अगर_घोषित TCC_ARM_VFP
  /* d4/s8 */ RC_FLOAT | RC_F4,
 /* d5/s10 */ RC_FLOAT | RC_F5,
 /* d6/s12 */ RC_FLOAT | RC_F6,
 /* d7/s14 */ RC_FLOAT | RC_F7,
-#endif
+#पूर्ण_अगर
 };
 
-static int float_abi;
-static int func_sub_sp_offset, last_itod_magic;
-static int leaffunc;
+अटल पूर्णांक float_abi;
+अटल पूर्णांक func_sub_sp_offset, last_itod_magic;
+अटल पूर्णांक leaffunc;
 
-#if defined(CONFIG_TCC_BCHECK)
-static addr_t func_bound_offset;
-static unsigned long func_bound_ind;
-ST_DATA int func_bound_add_epilog;
-#endif
+#अगर defined(CONFIG_TCC_BCHECK)
+अटल addr_t func_bound_offset;
+अटल अचिन्हित दीर्घ func_bound_ind;
+ST_तथ्य पूर्णांक func_bound_add_epilog;
+#पूर्ण_अगर
 
-#if defined(TCC_ARM_EABI) && defined(TCC_ARM_VFP)
-static CType float_type, double_type, func_float_type, func_double_type;
-ST_FUNC void arm_init(struct TCCState *s)
+#अगर defined(TCC_ARM_EABI) && defined(TCC_ARM_VFP)
+अटल CType float_type, double_type, func_float_type, func_double_type;
+ST_FUNC व्योम arm_init(काष्ठा TCCState *s)
 {
     float_type.t = VT_FLOAT;
     double_type.t = VT_DOUBLE;
     func_float_type.t = VT_FUNC;
-    func_float_type.ref = sym_push(SYM_FIELD, &float_type, FUNC_CDECL, FUNC_OLD);
+    func_float_type.ref = sym_धकेलो(SYM_FIELD, &float_type, FUNC_CDECL, FUNC_OLD);
     func_double_type.t = VT_FUNC;
-    func_double_type.ref = sym_push(SYM_FIELD, &double_type, FUNC_CDECL, FUNC_OLD);
+    func_double_type.ref = sym_धकेलो(SYM_FIELD, &double_type, FUNC_CDECL, FUNC_OLD);
 
     float_abi = s->float_abi;
-#ifndef TCC_ARM_HARDFLOAT
+#अगर_अघोषित TCC_ARM_HARDFLOAT
 // XXX: Works on OpenBSD
 // # warning "soft float ABI currently not supported: default to softfp"
-#endif
+#पूर्ण_अगर
 }
-#else
-#define func_float_type func_old_type
-#define func_double_type func_old_type
-#define func_ldouble_type func_old_type
-ST_FUNC void arm_init(struct TCCState *s)
+#अन्यथा
+#घोषणा func_float_type func_old_type
+#घोषणा func_double_type func_old_type
+#घोषणा func_ldouble_type func_old_type
+ST_FUNC व्योम arm_init(काष्ठा TCCState *s)
 {
-#if 0
-#if !defined (TCC_ARM_VFP)
+#अगर 0
+#अगर !defined (TCC_ARM_VFP)
     tcc_warning("Support for FPA is deprecated and will be removed in next"
                 " release");
-#endif
-#if !defined (TCC_ARM_EABI)
+#पूर्ण_अगर
+#अगर !defined (TCC_ARM_EABI)
     tcc_warning("Support for OABI is deprecated and will be removed in next"
                 " release");
-#endif
-#endif
+#पूर्ण_अगर
+#पूर्ण_अगर
 }
-#endif
+#पूर्ण_अगर
 
-#define CHECK_R(r) ((r) >= TREG_R0 && (r) <= TREG_LR)
+#घोषणा CHECK_R(r) ((r) >= TREG_R0 && (r) <= TREG_LR)
 
-static int two2mask(int a,int b) {
-  if (!CHECK_R(a) || !CHECK_R(b))
+अटल पूर्णांक two2mask(पूर्णांक a,पूर्णांक b) {
+  अगर (!CHECK_R(a) || !CHECK_R(b))
     tcc_error("compiler error! registers %i,%i is not valid",a,b);
-  return (reg_classes[a]|reg_classes[b])&~(RC_INT|RC_FLOAT);
+  वापस (reg_classes[a]|reg_classes[b])&~(RC_INT|RC_FLOAT);
 }
 
-static int regmask(int r) {
-  if (!CHECK_R(r))
+अटल पूर्णांक regmask(पूर्णांक r) {
+  अगर (!CHECK_R(r))
     tcc_error("compiler error! register %i is not valid",r);
-  return reg_classes[r]&~(RC_INT|RC_FLOAT);
+  वापस reg_classes[r]&~(RC_INT|RC_FLOAT);
 }
 
 /******************************************************/
 
-void o(uint32_t i)
+व्योम o(uint32_t i)
 {
   /* this is a good place to start adding big-endian support*/
-  int ind1;
-  if (nocode_wanted)
-    return;
+  पूर्णांक ind1;
+  अगर (nocode_wanted)
+    वापस;
   ind1 = ind + 4;
-  if (!cur_text_section)
+  अगर (!cur_text_section)
     tcc_error("compiler error! This happens f.ex. if the compiler\n"
          "can't evaluate constant expressions outside of a function.");
-  if (ind1 > cur_text_section->data_allocated)
+  अगर (ind1 > cur_text_section->तथ्य_allocated)
     section_realloc(cur_text_section, ind1);
-  cur_text_section->data[ind++] = i&255;
+  cur_text_section->तथ्य[ind++] = i&255;
   i>>=8;
-  cur_text_section->data[ind++] = i&255;
+  cur_text_section->तथ्य[ind++] = i&255;
   i>>=8;
-  cur_text_section->data[ind++] = i&255;
+  cur_text_section->तथ्य[ind++] = i&255;
   i>>=8;
-  cur_text_section->data[ind++] = i;
+  cur_text_section->तथ्य[ind++] = i;
 }
 
-static uint32_t stuff_const(uint32_t op, uint32_t c)
+अटल uint32_t stuff_const(uint32_t op, uint32_t c)
 {
-  int try_neg=0;
+  पूर्णांक try_neg=0;
   uint32_t nc = 0, negop = 0;
 
-  switch(op&0x1F00000)
+  चयन(op&0x1F00000)
   {
-    case 0x800000: //add
-    case 0x400000: //sub
+    हाल 0x800000: //add
+    हाल 0x400000: //sub
       try_neg=1;
       negop=op^0xC00000;
       nc=-c;
-      break;
-    case 0x1A00000: //mov
-    case 0x1E00000: //mvn
+      अवरोध;
+    हाल 0x1A00000: //mov
+    हाल 0x1E00000: //mvn
       try_neg=1;
       negop=op^0x400000;
       nc=~c;
-      break;
-    case 0x200000: //xor
-      if(c==~0)
-	return (op&0xF010F000)|((op>>16)&0xF)|0x1E00000;
-      break;
-    case 0x0: //and
-      if(c==~0)
-	return (op&0xF010F000)|((op>>16)&0xF)|0x1A00000;
-    case 0x1C00000: //bic
+      अवरोध;
+    हाल 0x200000: //xor
+      अगर(c==~0)
+	वापस (op&0xF010F000)|((op>>16)&0xF)|0x1E00000;
+      अवरोध;
+    हाल 0x0: //and
+      अगर(c==~0)
+	वापस (op&0xF010F000)|((op>>16)&0xF)|0x1A00000;
+    हाल 0x1C00000: //bic
       try_neg=1;
       negop=op^0x1C00000;
       nc=~c;
-      break;
-    case 0x1800000: //orr
-      if(c==~0)
-	return (op&0xFFF0FFFF)|0x1E00000;
-      break;
+      अवरोध;
+    हाल 0x1800000: //orr
+      अगर(c==~0)
+	वापस (op&0xFFF0FFFF)|0x1E00000;
+      अवरोध;
   }
-  do {
+  करो {
     uint32_t m;
-    int i;
-    if(c<256) /* catch undefined <<32 */
-      return op|c;
-    for(i=2;i<32;i+=2) {
+    पूर्णांक i;
+    अगर(c<256) /* catch undefined <<32 */
+      वापस op|c;
+    क्रम(i=2;i<32;i+=2) {
       m=(0xffu>>i)|(0xffu<<(32-i));
-      if(!(c&~m))
-	return op|(i<<7)|(c<<i)|(c>>(32-i));
+      अगर(!(c&~m))
+	वापस op|(i<<7)|(c<<i)|(c>>(32-i));
     }
     op=negop;
     c=nc;
-  } while(try_neg--);
-  return 0;
+  } जबतक(try_neg--);
+  वापस 0;
 }
 
 
 //only add,sub
-void stuff_const_harder(uint32_t op, uint32_t v) {
+व्योम stuff_const_harder(uint32_t op, uint32_t v) {
   uint32_t x;
   x=stuff_const(op,v);
-  if(x)
+  अगर(x)
     o(x);
-  else {
+  अन्यथा {
     uint32_t a[16], nv, no, o2, n2;
-    int i,j,k;
+    पूर्णांक i,j,k;
     a[0]=0xff;
     o2=(op&0xfff0ffff)|((op&0xf000)<<4);;
-    for(i=1;i<16;i++)
+    क्रम(i=1;i<16;i++)
       a[i]=(a[i-1]>>2)|(a[i-1]<<30);
-    for(i=0;i<12;i++)
-      for(j=i<4?i+12:15;j>=i+4;j--)
-	if((v&(a[i]|a[j]))==v) {
+    क्रम(i=0;i<12;i++)
+      क्रम(j=i<4?i+12:15;j>=i+4;j--)
+	अगर((v&(a[i]|a[j]))==v) {
 	  o(stuff_const(op,v&a[i]));
 	  o(stuff_const(o2,v&a[j]));
-	  return;
+	  वापस;
 	}
     no=op^0xC00000;
     n2=o2^0xC00000;
     nv=-v;
-    for(i=0;i<12;i++)
-      for(j=i<4?i+12:15;j>=i+4;j--)
-	if((nv&(a[i]|a[j]))==nv) {
+    क्रम(i=0;i<12;i++)
+      क्रम(j=i<4?i+12:15;j>=i+4;j--)
+	अगर((nv&(a[i]|a[j]))==nv) {
 	  o(stuff_const(no,nv&a[i]));
 	  o(stuff_const(n2,nv&a[j]));
-	  return;
+	  वापस;
 	}
-    for(i=0;i<8;i++)
-      for(j=i+4;j<12;j++)
-	for(k=i<4?i+12:15;k>=j+4;k--)
-	  if((v&(a[i]|a[j]|a[k]))==v) {
+    क्रम(i=0;i<8;i++)
+      क्रम(j=i+4;j<12;j++)
+	क्रम(k=i<4?i+12:15;k>=j+4;k--)
+	  अगर((v&(a[i]|a[j]|a[k]))==v) {
 	    o(stuff_const(op,v&a[i]));
 	    o(stuff_const(o2,v&a[j]));
 	    o(stuff_const(o2,v&a[k]));
-	    return;
+	    वापस;
 	  }
     no=op^0xC00000;
     nv=-v;
-    for(i=0;i<8;i++)
-      for(j=i+4;j<12;j++)
-	for(k=i<4?i+12:15;k>=j+4;k--)
-	  if((nv&(a[i]|a[j]|a[k]))==nv) {
+    क्रम(i=0;i<8;i++)
+      क्रम(j=i+4;j<12;j++)
+	क्रम(k=i<4?i+12:15;k>=j+4;k--)
+	  अगर((nv&(a[i]|a[j]|a[k]))==nv) {
 	    o(stuff_const(no,nv&a[i]));
 	    o(stuff_const(n2,nv&a[j]));
 	    o(stuff_const(n2,nv&a[k]));
-	    return;
+	    वापस;
 	  }
     o(stuff_const(op,v&a[0]));
     o(stuff_const(o2,v&a[4]));
@@ -368,210 +368,210 @@ void stuff_const_harder(uint32_t op, uint32_t v) {
   }
 }
 
-uint32_t encbranch(int pos, int addr, int fail)
+uint32_t encbranch(पूर्णांक pos, पूर्णांक addr, पूर्णांक fail)
 {
   addr-=pos+8;
   addr/=4;
-  if(addr>=0x1000000 || addr<-0x1000000) {
-    if(fail)
+  अगर(addr>=0x1000000 || addr<-0x1000000) {
+    अगर(fail)
       tcc_error("FIXME: function bigger than 32MB");
-    return 0;
+    वापस 0;
   }
-  return 0x0A000000|(addr&0xffffff);
+  वापस 0x0A000000|(addr&0xffffff);
 }
 
-int decbranch(int pos)
+पूर्णांक decbranch(पूर्णांक pos)
 {
-  int x;
-  x=*(uint32_t *)(cur_text_section->data + pos);
+  पूर्णांक x;
+  x=*(uint32_t *)(cur_text_section->तथ्य + pos);
   x&=0x00ffffff;
-  if(x&0x800000)
+  अगर(x&0x800000)
     x-=0x1000000;
-  return x*4+pos+8;
+  वापस x*4+pos+8;
 }
 
 /* output a symbol and patch all calls to it */
-void gsym_addr(int t, int a)
+व्योम gsym_addr(पूर्णांक t, पूर्णांक a)
 {
   uint32_t *x;
-  int lt;
-  while(t) {
-    x=(uint32_t *)(cur_text_section->data + t);
+  पूर्णांक lt;
+  जबतक(t) {
+    x=(uint32_t *)(cur_text_section->तथ्य + t);
     t=decbranch(lt=t);
-    if(a==lt+4)
+    अगर(a==lt+4)
       *x=0xE1A00000; // nop
-    else {
+    अन्यथा {
       *x &= 0xff000000;
       *x |= encbranch(lt,a,1);
     }
   }
 }
 
-#ifdef TCC_ARM_VFP
-static uint32_t vfpr(int r)
+#अगर_घोषित TCC_ARM_VFP
+अटल uint32_t vfpr(पूर्णांक r)
 {
-  if(r<TREG_F0 || r>TREG_F7)
+  अगर(r<TREG_F0 || r>TREG_F7)
     tcc_error("compiler error! register %i is no vfp register",r);
-  return r - TREG_F0;
+  वापस r - TREG_F0;
 }
-#else
-static uint32_t fpr(int r)
+#अन्यथा
+अटल uint32_t fpr(पूर्णांक r)
 {
-  if(r<TREG_F0 || r>TREG_F3)
+  अगर(r<TREG_F0 || r>TREG_F3)
     tcc_error("compiler error! register %i is no fpa register",r);
-  return r - TREG_F0;
+  वापस r - TREG_F0;
 }
-#endif
+#पूर्ण_अगर
 
-static uint32_t intr(int r)
+अटल uint32_t intr(पूर्णांक r)
 {
-  if(r == TREG_R12)
-    return 12;
-  if(r >= TREG_R0 && r <= TREG_R3)
-    return r - TREG_R0;
-  if (!(r >= TREG_SP && r <= TREG_LR))
+  अगर(r == TREG_R12)
+    वापस 12;
+  अगर(r >= TREG_R0 && r <= TREG_R3)
+    वापस r - TREG_R0;
+  अगर (!(r >= TREG_SP && r <= TREG_LR))
     tcc_error("compiler error! register %i is no int register",r);
-  return r + (13 - TREG_SP);
+  वापस r + (13 - TREG_SP);
 }
 
-static void calcaddr(uint32_t *base, int *off, int *sgn, int maxoff, unsigned shift)
+अटल व्योम calcaddr(uint32_t *base, पूर्णांक *off, पूर्णांक *sgn, पूर्णांक maxoff, अचिन्हित shift)
 {
-  if(*off>maxoff || *off&((1<<shift)-1)) {
+  अगर(*off>maxoff || *off&((1<<shift)-1)) {
     uint32_t x, y;
     x=0xE280E000;
-    if(*sgn)
+    अगर(*sgn)
       x=0xE240E000;
     x|=(*base)<<16;
     *base=14; // lr
     y=stuff_const(x,*off&~maxoff);
-    if(y) {
+    अगर(y) {
       o(y);
       *off&=maxoff;
-      return;
+      वापस;
     }
     y=stuff_const(x,(*off+maxoff)&~maxoff);
-    if(y) {
+    अगर(y) {
       o(y);
       *sgn=!*sgn;
       *off=((*off+maxoff)&~maxoff)-*off;
-      return;
+      वापस;
     }
     stuff_const_harder(x,*off&~maxoff);
     *off&=maxoff;
   }
 }
 
-static uint32_t mapcc(int cc)
+अटल uint32_t mapcc(पूर्णांक cc)
 {
-  switch(cc)
+  चयन(cc)
   {
-    case TOK_ULT:
-      return 0x30000000; /* CC/LO */
-    case TOK_UGE:
-      return 0x20000000; /* CS/HS */
-    case TOK_EQ:
-      return 0x00000000; /* EQ */
-    case TOK_NE:
-      return 0x10000000; /* NE */
-    case TOK_ULE:
-      return 0x90000000; /* LS */
-    case TOK_UGT:
-      return 0x80000000; /* HI */
-    case TOK_Nset:
-      return 0x40000000; /* MI */
-    case TOK_Nclear:
-      return 0x50000000; /* PL */
-    case TOK_LT:
-      return 0xB0000000; /* LT */
-    case TOK_GE:
-      return 0xA0000000; /* GE */
-    case TOK_LE:
-      return 0xD0000000; /* LE */
-    case TOK_GT:
-      return 0xC0000000; /* GT */
+    हाल TOK_ULT:
+      वापस 0x30000000; /* CC/LO */
+    हाल TOK_UGE:
+      वापस 0x20000000; /* CS/HS */
+    हाल TOK_EQ:
+      वापस 0x00000000; /* EQ */
+    हाल TOK_NE:
+      वापस 0x10000000; /* NE */
+    हाल TOK_ULE:
+      वापस 0x90000000; /* LS */
+    हाल TOK_UGT:
+      वापस 0x80000000; /* HI */
+    हाल TOK_Nset:
+      वापस 0x40000000; /* MI */
+    हाल TOK_Nclear:
+      वापस 0x50000000; /* PL */
+    हाल TOK_LT:
+      वापस 0xB0000000; /* LT */
+    हाल TOK_GE:
+      वापस 0xA0000000; /* GE */
+    हाल TOK_LE:
+      वापस 0xD0000000; /* LE */
+    हाल TOK_GT:
+      वापस 0xC0000000; /* GT */
   }
   tcc_error("unexpected condition code");
-  return 0xE0000000; /* AL */
+  वापस 0xE0000000; /* AL */
 }
 
-static int negcc(int cc)
+अटल पूर्णांक negcc(पूर्णांक cc)
 {
-  switch(cc)
+  चयन(cc)
   {
-    case TOK_ULT:
-      return TOK_UGE;
-    case TOK_UGE:
-      return TOK_ULT;
-    case TOK_EQ:
-      return TOK_NE;
-    case TOK_NE:
-      return TOK_EQ;
-    case TOK_ULE:
-      return TOK_UGT;
-    case TOK_UGT:
-      return TOK_ULE;
-    case TOK_Nset:
-      return TOK_Nclear;
-    case TOK_Nclear:
-      return TOK_Nset;
-    case TOK_LT:
-      return TOK_GE;
-    case TOK_GE:
-      return TOK_LT;
-    case TOK_LE:
-      return TOK_GT;
-    case TOK_GT:
-      return TOK_LE;
+    हाल TOK_ULT:
+      वापस TOK_UGE;
+    हाल TOK_UGE:
+      वापस TOK_ULT;
+    हाल TOK_EQ:
+      वापस TOK_NE;
+    हाल TOK_NE:
+      वापस TOK_EQ;
+    हाल TOK_ULE:
+      वापस TOK_UGT;
+    हाल TOK_UGT:
+      वापस TOK_ULE;
+    हाल TOK_Nset:
+      वापस TOK_Nclear;
+    हाल TOK_Nclear:
+      वापस TOK_Nset;
+    हाल TOK_LT:
+      वापस TOK_GE;
+    हाल TOK_GE:
+      वापस TOK_LT;
+    हाल TOK_LE:
+      वापस TOK_GT;
+    हाल TOK_GT:
+      वापस TOK_LE;
   }
   tcc_error("unexpected condition code");
-  return TOK_NE;
+  वापस TOK_NE;
 }
 
 /* Load value into register r.
    Use relative/got addressing to avoid setting DT_TEXTREL */
-static void load_value(SValue *sv, int r)
+अटल व्योम load_मूल्य(SValue *sv, पूर्णांक r)
 {
-#if CONFIG_TCC_CPUVER >= 7
-    if (!(sv->r & VT_SYM)) {
-        unsigned x=sv->c.i;
+#अगर CONFIG_TCC_CPUVER >= 7
+    अगर (!(sv->r & VT_SYM)) {
+        अचिन्हित x=sv->c.i;
         o(0xE3000000|intr(r)<<12|(x&0xFFF)|(x<<4&0xF0000)); /* movw rx,#x(lo) */
-        if (x&0xFFFF0000)
+        अगर (x&0xFFFF0000)
           o(0xE3400000|intr(r)<<12|(x>>16&0xFFF)|(x>>12&0xF0000)); /* movt rx,#x(hi) */
-        return;
+        वापस;
     }
-#endif
+#पूर्ण_अगर
     o(0xE59F0000|(intr(r)<<12)); /* ldr r, [pc] */
     o(0xEA000000); /* b $+4 */
-#ifndef CONFIG_TCC_PIC
-    if(sv->r & VT_SYM)
+#अगर_अघोषित CONFIG_TCC_PIC
+    अगर(sv->r & VT_SYM)
         greloc(cur_text_section, sv->sym, ind, R_ARM_ABS32);
     o(sv->c.i);
-#else
-    if(sv->r & VT_SYM) {
-	if (sv->sym->type.t & VT_STATIC) {
+#अन्यथा
+    अगर(sv->r & VT_SYM) {
+	अगर (sv->sym->type.t & VT_STATIC) {
             greloc(cur_text_section, sv->sym, ind, R_ARM_REL32);
             o(sv->c.i - 12);
             o(0xe080000f | (intr(r)<<12) | (intr(r)<<16));  // add rx,rx,pc
         }
-        else {
+        अन्यथा {
             greloc(cur_text_section, sv->sym, ind, R_ARM_GOT_PREL);
             o(-12);
             o(0xe080000f | (intr(r)<<12) | (intr(r)<<16));  // add rx,rx,pc
             o(0xe5900000 | (intr(r)<<12) | (intr(r)<<16));  // ldr rx,[rx]
-            if (sv->c.i)
+            अगर (sv->c.i)
               stuff_const_harder(0xe2800000 | (intr(r)<<12) | (intr(r)<<16),
                                  sv->c.i);
         }
     }
-    else
+    अन्यथा
         o(sv->c.i);
-#endif
+#पूर्ण_अगर
 }
 
 /* load 'r' from value 'sv' */
-void load(int r, SValue *sv)
+व्योम load(पूर्णांक r, SValue *sv)
 {
-  int v, ft, fc, fr, sign;
+  पूर्णांक v, ft, fc, fr, sign;
   uint32_t op, base;
   SValue v1;
 
@@ -579,28 +579,28 @@ void load(int r, SValue *sv)
   ft = sv->type.t;
   fc = sv->c.i;
 
-  if(fc>=0)
+  अगर(fc>=0)
     sign=0;
-  else {
+  अन्यथा {
     sign=1;
-    fc=-(unsigned)fc;
+    fc=-(अचिन्हित)fc;
   }
 
   v = fr & VT_VALMASK;
-  if (fr & VT_LVAL) {
+  अगर (fr & VT_LVAL) {
 
-    if ((fr & VT_SYM) && sv->sym->type.t & VT_TLS) {
+    अगर ((fr & VT_SYM) && sv->sym->type.t & VT_TLS) {
         /* XXX: this does not work */
         uint32_t op;
         o(0xee1d0fe0); /* mrc p15, 0, lr, c13, c0, 3 */
         op = 0xe510e000; /* ldr r, [lr, #0] */
         greloca(cur_text_section, sv->sym, ind, R_ARM_TLS_LE32, 0);
         o(op | (intr(r) << 12));
-        return;
+        वापस;
     }
 
     base = 0xB; // fp
-    if(v == VT_LLOCAL) {
+    अगर(v == VT_LLOCAL) {
       v1.type.t = VT_PTR;
       v1.r = VT_LOCAL | VT_LVAL;
       v1.c.i = sv->c.i;
@@ -608,7 +608,7 @@ void load(int r, SValue *sv)
       base = 14; /* lr */
       fc=sign=0;
       v=VT_LOCAL;
-    } else if(v == VT_CONST) {
+    } अन्यथा अगर(v == VT_CONST) {
       v1.type.t = VT_PTR;
       v1.r = fr&~VT_LVAL;
       v1.c.i = sv->c.i;
@@ -617,135 +617,135 @@ void load(int r, SValue *sv)
       base = 14; /* lr */
       fc=sign=0;
       v=VT_LOCAL;
-    } else if(v < VT_CONST) {
+    } अन्यथा अगर(v < VT_CONST) {
       base=intr(v);
       fc=sign=0;
       v=VT_LOCAL;
     }
-    if(v == VT_LOCAL) {
-      if(is_float(ft)) {
+    अगर(v == VT_LOCAL) {
+      अगर(is_float(ft)) {
 	calcaddr(&base,&fc,&sign,1020,2);
-#ifdef TCC_ARM_VFP
+#अगर_घोषित TCC_ARM_VFP
         op=0xED100A00; /* flds */
-        if(!sign)
+        अगर(!sign)
           op|=0x800000;
-        if ((ft & VT_BTYPE) != VT_FLOAT)
+        अगर ((ft & VT_BTYPE) != VT_FLOAT)
           op|=0x100;   /* flds -> fldd */
         o(op|(vfpr(r)<<12)|(fc>>2)|(base<<16));
-#else
+#अन्यथा
 	op=0xED100100;
-	if(!sign)
+	अगर(!sign)
 	  op|=0x800000;
-	if ((ft & VT_BTYPE) == VT_DOUBLE)
+	अगर ((ft & VT_BTYPE) == VT_DOUBLE)
 	  op|=0x8000;
-#if LDOUBLE_SIZE != 8
-	else if ((ft & VT_BTYPE) == VT_LDOUBLE)
+#अगर LDOUBLE_आकार != 8
+	अन्यथा अगर ((ft & VT_BTYPE) == VT_LDOUBLE)
 	  op|=0x400000;
-#endif
+#पूर्ण_अगर
 	o(op|(fpr(r)<<12)|(fc>>2)|(base<<16));
-#endif
-      } else if((ft & (VT_BTYPE|VT_UNSIGNED)) == VT_BYTE
+#पूर्ण_अगर
+      } अन्यथा अगर((ft & (VT_BTYPE|VT_UNSIGNED)) == VT_BYTE
                 || (ft & VT_BTYPE) == VT_SHORT) {
 	calcaddr(&base,&fc,&sign,255,0);
 	op=0xE1500090;
-	if ((ft & VT_BTYPE) == VT_SHORT)
+	अगर ((ft & VT_BTYPE) == VT_SHORT)
 	  op|=0x20;
-	if ((ft & VT_UNSIGNED) == 0)
+	अगर ((ft & VT_UNSIGNED) == 0)
 	  op|=0x40;
-	if(!sign)
+	अगर(!sign)
 	  op|=0x800000;
 	o(op|(intr(r)<<12)|(base<<16)|((fc&0xf0)<<4)|(fc&0xf));
-      } else {
+      } अन्यथा {
 	calcaddr(&base,&fc,&sign,4095,0);
 	op=0xE5100000;
-	if(!sign)
+	अगर(!sign)
 	  op|=0x800000;
-        if ((ft & VT_BTYPE) == VT_BYTE || (ft & VT_BTYPE) == VT_BOOL)
+        अगर ((ft & VT_BTYPE) == VT_BYTE || (ft & VT_BTYPE) == VT_BOOL)
           op|=0x400000;
         o(op|(intr(r)<<12)|fc|(base<<16));
       }
-      return;
+      वापस;
     }
-  } else {
-    if (v == VT_CONST) {
+  } अन्यथा {
+    अगर (v == VT_CONST) {
       op=stuff_const(0xE3A00000|(intr(r)<<12),sv->c.i);
-      if (fr & VT_SYM || !op)
-	load_value(sv, r);
-      else
+      अगर (fr & VT_SYM || !op)
+	load_मूल्य(sv, r);
+      अन्यथा
         o(op);
-      return;
-    } else if (v == VT_LOCAL) {
+      वापस;
+    } अन्यथा अगर (v == VT_LOCAL) {
       op=stuff_const(0xE28B0000|(intr(r)<<12),sv->c.i);
-      if (fr & VT_SYM || !op) {
-	load_value(sv, r);
+      अगर (fr & VT_SYM || !op) {
+	load_मूल्य(sv, r);
 	o(0xE08B0000|(intr(r)<<12)|intr(r));
-      } else
+      } अन्यथा
 	o(op);
-      return;
-    } else if(v == VT_CMP) {
+      वापस;
+    } अन्यथा अगर(v == VT_CMP) {
       o(mapcc(sv->c.i)|0x3A00001|(intr(r)<<12));
       o(mapcc(negcc(sv->c.i))|0x3A00000|(intr(r)<<12));
-      return;
-    } else if (v == VT_JMP || v == VT_JMPI) {
-      int t;
+      वापस;
+    } अन्यथा अगर (v == VT_JMP || v == VT_JMPI) {
+      पूर्णांक t;
       t = v & 1;
       o(0xE3A00000|(intr(r)<<12)|t);
       o(0xEA000000);
       gsym(sv->c.i);
       o(0xE3A00000|(intr(r)<<12)|(t^1));
-      return;
-    } else if (v < VT_CONST) {
-      if(is_float(ft))
-#ifdef TCC_ARM_VFP
+      वापस;
+    } अन्यथा अगर (v < VT_CONST) {
+      अगर(is_float(ft))
+#अगर_घोषित TCC_ARM_VFP
         o(0xEEB00A40|(vfpr(r)<<12)|vfpr(v)|T2CPR(ft)); /* fcpyX */
-#else
+#अन्यथा
 	o(0xEE008180|(fpr(r)<<12)|fpr(v));
-#endif
-      else
+#पूर्ण_अगर
+      अन्यथा
 	o(0xE1A00000|(intr(r)<<12)|intr(v));
-      return;
+      वापस;
     }
   }
   tcc_error("load unimplemented!");
 }
 
 /* store register 'r' in lvalue 'v' */
-void store(int r, SValue *sv)
+व्योम store(पूर्णांक r, SValue *sv)
 {
   SValue v1;
-  int v, ft, fc, fr, sign;
+  पूर्णांक v, ft, fc, fr, sign;
   uint32_t op, base;
 
   fr = sv->r;
   ft = sv->type.t;
   fc = sv->c.i;
 
-  if(fc>=0)
+  अगर(fc>=0)
     sign=0;
-  else {
+  अन्यथा {
     sign=1;
     fc=-fc;
   }
 
   v = fr & VT_VALMASK;
-  if (fr & VT_LVAL || fr == VT_LOCAL) {
+  अगर (fr & VT_LVAL || fr == VT_LOCAL) {
 
-    if ((fr & VT_SYM) && sv->sym->type.t & VT_TLS) {
+    अगर ((fr & VT_SYM) && sv->sym->type.t & VT_TLS) {
         /* XXX: this does not work */
         uint32_t op;
         o(0xee1d0fe0); /* mrc p15, 0, lr, c13, c0, 3 */
         op = 0xe500e000; /* str r, [lr, #0] */
         greloca(cur_text_section, sv->sym, ind, R_ARM_TLS_LE32, 0);
         o(op | (intr(r) << 12));
-        return;
+        वापस;
     }
 
     base = 0xb; /* fp */
-    if(v < VT_CONST) {
+    अगर(v < VT_CONST) {
       base=intr(v);
       v=VT_LOCAL;
       fc=sign=0;
-    } else if(v == VT_CONST) {
+    } अन्यथा अगर(v == VT_CONST) {
       v1.type.t = ft;
       v1.r = fr&~VT_LVAL;
       v1.c.i = sv->c.i;
@@ -755,97 +755,97 @@ void store(int r, SValue *sv)
       fc=sign=0;
       v=VT_LOCAL;
     }
-    if(v == VT_LOCAL) {
-       if(is_float(ft)) {
+    अगर(v == VT_LOCAL) {
+       अगर(is_float(ft)) {
 	calcaddr(&base,&fc,&sign,1020,2);
-#ifdef TCC_ARM_VFP
+#अगर_घोषित TCC_ARM_VFP
         op=0xED000A00; /* fsts */
-        if(!sign)
+        अगर(!sign)
           op|=0x800000;
-        if ((ft & VT_BTYPE) != VT_FLOAT)
+        अगर ((ft & VT_BTYPE) != VT_FLOAT)
           op|=0x100;   /* fsts -> fstd */
         o(op|(vfpr(r)<<12)|(fc>>2)|(base<<16));
-#else
+#अन्यथा
 	op=0xED000100;
-	if(!sign)
+	अगर(!sign)
 	  op|=0x800000;
-	if ((ft & VT_BTYPE) == VT_DOUBLE)
+	अगर ((ft & VT_BTYPE) == VT_DOUBLE)
 	  op|=0x8000;
-#if LDOUBLE_SIZE != 8
-	else if ((ft & VT_BTYPE) == VT_LDOUBLE)
+#अगर LDOUBLE_आकार != 8
+	अन्यथा अगर ((ft & VT_BTYPE) == VT_LDOUBLE)
 	  op|=0x400000;
-#endif
+#पूर्ण_अगर
 	o(op|(fpr(r)<<12)|(fc>>2)|(base<<16));
-#endif
-	return;
-      } else if((ft & VT_BTYPE) == VT_SHORT) {
+#पूर्ण_अगर
+	वापस;
+      } अन्यथा अगर((ft & VT_BTYPE) == VT_SHORT) {
 	calcaddr(&base,&fc,&sign,255,0);
 	op=0xE14000B0;
-	if(!sign)
+	अगर(!sign)
 	  op|=0x800000;
 	o(op|(intr(r)<<12)|(base<<16)|((fc&0xf0)<<4)|(fc&0xf));
-      } else {
+      } अन्यथा {
 	calcaddr(&base,&fc,&sign,4095,0);
 	op=0xE5000000;
-	if(!sign)
+	अगर(!sign)
 	  op|=0x800000;
-        if ((ft & VT_BTYPE) == VT_BYTE || (ft & VT_BTYPE) == VT_BOOL)
+        अगर ((ft & VT_BTYPE) == VT_BYTE || (ft & VT_BTYPE) == VT_BOOL)
           op|=0x400000;
         o(op|(intr(r)<<12)|fc|(base<<16));
       }
-      return;
+      वापस;
     }
   }
   tcc_error("store unimplemented");
 }
 
-static void gadd_sp(int val)
+अटल व्योम gadd_sp(पूर्णांक val)
 {
   stuff_const_harder(0xE28DD000,val);
 }
 
 /* 'is_jmp' is '1' if it is a jump */
-static void gcall_or_jmp(int is_jmp)
+अटल व्योम gcall_or_jmp(पूर्णांक is_jmp)
 {
-  int r;
+  पूर्णांक r;
   uint32_t x;
-  if ((vtop->r & (VT_VALMASK | VT_LVAL)) == VT_CONST) {
+  अगर ((vtop->r & (VT_VALMASK | VT_LVAL)) == VT_CONST) {
     /* constant case */
-    if(vtop->r & VT_SYM){
+    अगर(vtop->r & VT_SYM){
 	x=encbranch(ind,ind+vtop->c.i,0);
-	if(x) {
+	अगर(x) {
 	    /* relocation case */
 	    greloc(cur_text_section, vtop->sym, ind, R_ARM_PC24);
 	    o(x|(is_jmp?0xE0000000:0xE1000000));
-	} else {
+	} अन्यथा {
 	    r = TREG_LR;
-	    load_value(vtop, r);
-	    if(is_jmp)
+	    load_मूल्य(vtop, r);
+	    अगर(is_jmp)
 	        o(0xE1A0F000 | intr(r)); // mov pc, r
-	    else
+	    अन्यथा
 		o(0xe12fff30 | intr(r)); // blx r
 	}
-     }else{
-	if(!is_jmp)
+     }अन्यथा{
+	अगर(!is_jmp)
 	    o(0xE28FE004); // add lr,pc,#4
 	o(0xE51FF004);   // ldr pc,[pc,#-4]
 	o(vtop->c.i);
      }
-  } else {
+  } अन्यथा {
     /* otherwise, indirect call */
-#ifdef CONFIG_TCC_BCHECK
+#अगर_घोषित CONFIG_TCC_BCHECK
     vtop->r &= ~VT_MUSTBOUND;
-#endif
+#पूर्ण_अगर
     r = gv(RC_INT);
-    if(!is_jmp)
+    अगर(!is_jmp)
       o(0xE1A0E00F);       // mov lr,pc
     o(0xE1A0F000|intr(r)); // mov pc,r
   }
 }
 
-#if defined(CONFIG_TCC_BCHECK)
+#अगर defined(CONFIG_TCC_BCHECK)
 
-static void gen_bounds_call(int v)
+अटल व्योम gen_bounds_call(पूर्णांक v)
 {
     Sym *sym = external_helper_sym(v);
 
@@ -853,10 +853,10 @@ static void gen_bounds_call(int v)
     o(0xebfffffe);
 }
 
-static void gen_bounds_prolog(void)
+अटल व्योम gen_bounds_prolog(व्योम)
 {
     /* leave some room for bound checking code */
-    func_bound_offset = lbounds_section->data_offset;
+    func_bound_offset = lbounds_section->तथ्य_offset;
     func_bound_ind = ind;
     func_bound_add_epilog = 0;
     o(0xe1a00000);  /* ld r0,lbounds_section->data_offset */
@@ -866,30 +866,30 @@ static void gen_bounds_prolog(void)
     o(0xe1a00000);  /* call __bound_local_new */
 }
 
-static void gen_bounds_epilog(void)
+अटल व्योम gen_bounds_epilog(व्योम)
 {
     addr_t saved_ind;
     addr_t *bounds_ptr;
-    Sym *sym_data;
-    int offset_modified = func_bound_offset != lbounds_section->data_offset;
+    Sym *sym_तथ्य;
+    पूर्णांक offset_modified = func_bound_offset != lbounds_section->तथ्य_offset;
 
-    if (!offset_modified && !func_bound_add_epilog)
-        return;
+    अगर (!offset_modified && !func_bound_add_epilog)
+        वापस;
 
     /* add end of table info */
-    bounds_ptr = section_ptr_add(lbounds_section, sizeof(addr_t));
+    bounds_ptr = section_ptr_add(lbounds_section, माप(addr_t));
     *bounds_ptr = 0;
 
-    sym_data = get_sym_ref(&char_pointer_type, lbounds_section,
-                           func_bound_offset, PTR_SIZE);
+    sym_तथ्य = get_sym_ref(&char_pointer_type, lbounds_section,
+                           func_bound_offset, PTR_आकार);
 
     /* generate bound local allocation */
-    if (offset_modified) {
+    अगर (offset_modified) {
         saved_ind = ind;
         ind = func_bound_ind;
         o(0xe59f0000);  /* ldr r0, [pc] */
         o(0xea000000);  /* b $+4 */
-        greloc(cur_text_section, sym_data, ind, R_ARM_REL32);
+        greloc(cur_text_section, sym_तथ्य, ind, R_ARM_REL32);
         o(-12);  /* lbounds_section->data_offset */
 	o(0xe080000f);  /* add r0,r0,pc */
         gen_bounds_call(TOK___bound_local_new);
@@ -901,44 +901,44 @@ static void gen_bounds_epilog(void)
     o(0xed2d0b04);  /* vpush {d0,d1} */
     o(0xe59f0000);  /* ldr r0, [pc] */
     o(0xea000000);  /* b $+4 */
-    greloc(cur_text_section, sym_data, ind, R_ARM_REL32);
+    greloc(cur_text_section, sym_तथ्य, ind, R_ARM_REL32);
     o(-12);  /* lbounds_section->data_offset */
     o(0xe080000f);  /* add r0,r0,pc */
     gen_bounds_call(TOK___bound_local_delete);
     o(0xecbd0b04); /* vpop {d0,d1} */
     o(0xe8bd0003); /* pop {r0,r1} */
 }
-#endif
+#पूर्ण_अगर
 
 /* Return whether a structure is an homogeneous float aggregate or not.
    The answer is true if all the elements of the structure are of the same
    primitive float type and there is less than 4 elements.
 
    type: the type corresponding to the structure to be tested */
-static int is_hgen_float_aggr(CType *type)
+अटल पूर्णांक is_hgen_float_aggr(CType *type)
 {
-  if ((type->t & VT_BTYPE) == VT_STRUCT) {
-    struct Sym *ref;
-    int btype, nb_fields = 0;
+  अगर ((type->t & VT_BTYPE) == VT_STRUCT) {
+    काष्ठा Sym *ref;
+    पूर्णांक btype, nb_fields = 0;
 
-    ref = type->ref->next;
-    if (ref) {
+    ref = type->ref->अग्र;
+    अगर (ref) {
       btype = ref->type.t & VT_BTYPE;
-      if (btype == VT_FLOAT || btype == VT_DOUBLE) {
-        for(; ref && btype == (ref->type.t & VT_BTYPE); ref = ref->next, nb_fields++)
+      अगर (btype == VT_FLOAT || btype == VT_DOUBLE) {
+        क्रम(; ref && btype == (ref->type.t & VT_BTYPE); ref = ref->अग्र, nb_fields++)
             ;
-        return !ref && nb_fields <= 4;
+        वापस !ref && nb_fields <= 4;
       }
     }
   }
-  return 0;
+  वापस 0;
 }
 
-struct avail_regs {
-  signed char avail[3]; /* 3 holes max with only float and double alignments */
-  int first_hole; /* first available hole */
-  int last_hole; /* last available hole (none if equal to first_hole) */
-  int first_free_reg; /* next free register in the sequence, hole excluded */
+काष्ठा avail_regs {
+  चिन्हित अक्षर avail[3]; /* 3 holes max with only float and double alignments */
+  पूर्णांक first_hole; /* first available hole */
+  पूर्णांक last_hole; /* last available hole (none if equal to first_hole) */
+  पूर्णांक first_free_reg; /* next free register in the sequence, hole excluded */
 };
 
 /* Find suitable registers for a VFP Co-Processor Register Candidate (VFP CPRC
@@ -950,82 +950,82 @@ struct avail_regs {
    avregs: opaque structure to keep track of available VFP co-processor regs
    align: alignment constraints for the param, as returned by type_size()
    size: size of the parameter, as returned by type_size() */
-int assign_vfpreg(struct avail_regs *avregs, int align, int size)
+पूर्णांक assign_vfpreg(काष्ठा avail_regs *avregs, पूर्णांक align, पूर्णांक आकार)
 {
-  int first_reg = 0;
+  पूर्णांक first_reg = 0;
 
-  if (avregs->first_free_reg == -1)
-    return -1;
-  if (align >> 3) { /* double alignment */
+  अगर (avregs->first_free_reg == -1)
+    वापस -1;
+  अगर (align >> 3) { /* double alignment */
     first_reg = avregs->first_free_reg;
     /* alignment constraint not respected so use next reg and record hole */
-    if (first_reg & 1)
+    अगर (first_reg & 1)
       avregs->avail[avregs->last_hole++] = first_reg++;
-  } else { /* no special alignment (float or array of float) */
+  } अन्यथा { /* no special alignment (float or array of float) */
     /* if single float and a hole is available, assign the param to it */
-    if (size == 4 && avregs->first_hole != avregs->last_hole)
-      return avregs->avail[avregs->first_hole++];
-    else
+    अगर (आकार == 4 && avregs->first_hole != avregs->last_hole)
+      वापस avregs->avail[avregs->first_hole++];
+    अन्यथा
       first_reg = avregs->first_free_reg;
   }
-  if (first_reg + size / 4 <= 16) {
-    avregs->first_free_reg = first_reg + size / 4;
-    return first_reg;
+  अगर (first_reg + आकार / 4 <= 16) {
+    avregs->first_free_reg = first_reg + आकार / 4;
+    वापस first_reg;
   }
   avregs->first_free_reg = -1;
-  return -1;
+  वापस -1;
 }
 
 /* Returns whether all params need to be passed in core registers or not.
    This is the case for function part of the runtime ABI. */
-int floats_in_core_regs(SValue *sval)
+पूर्णांक floats_in_core_regs(SValue *sval)
 {
-  if (!sval->sym)
-    return 0;
+  अगर (!sval->sym)
+    वापस 0;
 
-  switch (sval->sym->v) {
-    case TOK___floatundisf:
-    case TOK___floatundidf:
-    case TOK___fixunssfdi:
-    case TOK___fixunsdfdi:
-#ifndef TCC_ARM_VFP
-    case TOK___fixunsxfdi:
-#endif
-    case TOK___floatdisf:
-    case TOK___floatdidf:
-    case TOK___fixsfdi:
-    case TOK___fixdfdi:
-      return 1;
+  चयन (sval->sym->v) {
+    हाल TOK___floatundisf:
+    हाल TOK___floatundidf:
+    हाल TOK___fixunssfdi:
+    हाल TOK___fixunsdfdi:
+#अगर_अघोषित TCC_ARM_VFP
+    हाल TOK___fixunsxfdi:
+#पूर्ण_अगर
+    हाल TOK___floatdisf:
+    हाल TOK___floatdidf:
+    हाल TOK___fixsfdi:
+    हाल TOK___fixdfdi:
+      वापस 1;
 
-    default:
-      return 0;
+    शेष:
+      वापस 0;
   }
 }
 
 /* Return the number of registers needed to return the struct, or 0 if
    returning via struct pointer. */
-ST_FUNC int gfunc_sret(CType *vt, int variadic, CType *ret, int *ret_align, int *regsize) {
-#ifdef TCC_ARM_EABI
-    int size, align;
-    size = type_size(vt, &align);
-    if (float_abi == ARM_HARD_FLOAT && !variadic &&
+ST_FUNC पूर्णांक gfunc_sret(CType *vt, पूर्णांक variadic, CType *ret, पूर्णांक *ret_align, पूर्णांक *regsize) {
+#अगर_घोषित TCC_ARM_EABI
+    पूर्णांक आकार, align;
+    आकार = type_आकार(vt, &align);
+    अगर (float_abi == ARM_HARD_FLOAT && !variadic &&
         (is_float(vt->t) || is_hgen_float_aggr(vt))) {
         *ret_align = 8;
 	*regsize = 8;
-        ret->ref = NULL;
+        ret->ref = शून्य;
         ret->t = VT_DOUBLE;
-        return (size + 7) >> 3;
-    } else if (size > 0 && size <= 4) {
+        वापस (आकार + 7) >> 3;
+    } अन्यथा अगर (आकार > 0 && आकार <= 4) {
         *ret_align = 4;
 	*regsize = 4;
-        ret->ref = NULL;
+        ret->ref = शून्य;
         ret->t = VT_INT;
-        return 1;
-    } else
-        return 0;
-#else
-    return 0;
-#endif
+        वापस 1;
+    } अन्यथा
+        वापस 0;
+#अन्यथा
+    वापस 0;
+#पूर्ण_अगर
 }
 
 /* Parameters are classified according to how they are copied to their final
@@ -1037,8 +1037,8 @@ ST_FUNC int gfunc_sret(CType *vt, int variadic, CType *ret, int *ret_align, int 
      VFP_STRUCT_CLASS;
    - VFP_STRUCT_CLASS must come after VFP_CLASS.
    See the comment for the main loop in copy_params() for the reason. */
-enum reg_class {
-	STACK_CLASS = 0,
+क्रमागत reg_class {
+	ढेर_CLASS = 0,
 	CORE_STRUCT_CLASS,
 	VFP_CLASS,
 	VFP_STRUCT_CLASS,
@@ -1046,23 +1046,23 @@ enum reg_class {
 	NB_CLASSES
 };
 
-struct param_plan {
-    int start; /* first reg or addr used depending on the class */
-    int end; /* last reg used or next free addr depending on the class */
+काष्ठा param_plan {
+    पूर्णांक start; /* first reg or addr used depending on the class */
+    पूर्णांक end; /* last reg used or next free addr depending on the class */
     SValue *sval; /* pointer to SValue on the value stack */
-    struct param_plan *prev; /*  previous element in this class */
+    काष्ठा param_plan *पूर्व; /*  previous element in this class */
 };
 
-struct plan {
-    struct param_plan *pplans; /* array of all the param plans */
-    struct param_plan *clsplans[NB_CLASSES]; /* per class lists of param plans */
-    int nb_plans;
+काष्ठा plan {
+    काष्ठा param_plan *pplans; /* array of all the param plans */
+    काष्ठा param_plan *clsplans[NB_CLASSES]; /* per class lists of param plans */
+    पूर्णांक nb_plans;
 };
 
-static void add_param_plan(struct plan* plan, int cls, int start, int end, SValue *v)
+अटल व्योम add_param_plan(काष्ठा plan* plan, पूर्णांक cls, पूर्णांक start, पूर्णांक end, SValue *v)
 {
-    struct param_plan *p = &plan->pplans[plan->nb_plans++];
-    p->prev = plan->clsplans[cls];
+    काष्ठा param_plan *p = &plan->pplans[plan->nb_plans++];
+    p->पूर्व = plan->clsplans[cls];
     plan->clsplans[cls] = p;
     p->start = start, p->end = end, p->sval = v;
 }
@@ -1084,79 +1084,79 @@ static void add_param_plan(struct plan* plan, int cls, int start, int end, SValu
    Note: this function allocated an array in plan->pplans with tcc_malloc. It
    is the responsibility of the caller to free this array once used (ie not
    before copy_params). */
-static int assign_regs(int nb_args, int float_abi, struct plan *plan, int *todo)
+अटल पूर्णांक assign_regs(पूर्णांक nb_args, पूर्णांक float_abi, काष्ठा plan *plan, पूर्णांक *todo)
 {
-  int i, size, align;
-  int ncrn /* next core register number */, nsaa /* next stacked argument address*/;
-  struct avail_regs avregs = {{0}};
+  पूर्णांक i, आकार, align;
+  पूर्णांक ncrn /* next core register number */, nsaa /* next stacked argument address*/;
+  काष्ठा avail_regs avregs = {{0}};
 
   ncrn = nsaa = 0;
   *todo = 0;
 
-  for(i = nb_args; i-- ;) {
-    int j, start_vfpreg = 0;
+  क्रम(i = nb_args; i-- ;) {
+    पूर्णांक j, start_vfpreg = 0;
     CType type = vtop[-i].type;
     type.t &= ~VT_ARRAY;
-    size = type_size(&type, &align);
-    size = (size + 3) & ~3;
+    आकार = type_आकार(&type, &align);
+    आकार = (आकार + 3) & ~3;
     align = (align + 3) & ~3;
-    switch(vtop[-i].type.t & VT_BTYPE) {
-      case VT_STRUCT:
-      case VT_FLOAT:
-      case VT_DOUBLE:
-      case VT_LDOUBLE:
-      if (float_abi == ARM_HARD_FLOAT) {
-        int is_hfa = 0; /* Homogeneous float aggregate */
+    चयन(vtop[-i].type.t & VT_BTYPE) {
+      हाल VT_STRUCT:
+      हाल VT_FLOAT:
+      हाल VT_DOUBLE:
+      हाल VT_LDOUBLE:
+      अगर (float_abi == ARM_HARD_FLOAT) {
+        पूर्णांक is_hfa = 0; /* Homogeneous float aggregate */
 
-        if (is_float(vtop[-i].type.t)
+        अगर (is_float(vtop[-i].type.t)
             || (is_hfa = is_hgen_float_aggr(&vtop[-i].type))) {
-          int end_vfpreg;
+          पूर्णांक end_vfpreg;
 
-          start_vfpreg = assign_vfpreg(&avregs, align, size);
-          end_vfpreg = start_vfpreg + ((size - 1) >> 2);
-          if (start_vfpreg >= 0) {
+          start_vfpreg = assign_vfpreg(&avregs, align, आकार);
+          end_vfpreg = start_vfpreg + ((आकार - 1) >> 2);
+          अगर (start_vfpreg >= 0) {
             add_param_plan(plan, is_hfa ? VFP_STRUCT_CLASS : VFP_CLASS,
                 start_vfpreg, end_vfpreg, &vtop[-i]);
-            continue;
-          } else
-            break;
+            जारी;
+          } अन्यथा
+            अवरोध;
         }
       }
       ncrn = (ncrn + (align-1)/4) & ~((align/4) - 1);
-      if (ncrn + size/4 <= 4 || (ncrn < 4 && start_vfpreg != -1)) {
+      अगर (ncrn + आकार/4 <= 4 || (ncrn < 4 && start_vfpreg != -1)) {
         /* The parameter is allocated both in core register and on stack. As
 	 * such, it can be of either class: it would either be the last of
 	 * CORE_STRUCT_CLASS or the first of STACK_CLASS. */
-        for (j = ncrn; j < 4 && j < ncrn + size / 4; j++)
+        क्रम (j = ncrn; j < 4 && j < ncrn + आकार / 4; j++)
           *todo|=(1<<j);
         add_param_plan(plan, CORE_STRUCT_CLASS, ncrn, j, &vtop[-i]);
-        ncrn += size/4;
-        if (ncrn > 4)
+        ncrn += आकार/4;
+        अगर (ncrn > 4)
           nsaa = (ncrn - 4) * 4;
-      } else {
+      } अन्यथा {
         ncrn = 4;
-        break;
+        अवरोध;
       }
-      continue;
-      default:
-      if (ncrn < 4) {
-        int is_long = (vtop[-i].type.t & VT_BTYPE) == VT_LLONG;
+      जारी;
+      शेष:
+      अगर (ncrn < 4) {
+        पूर्णांक is_long = (vtop[-i].type.t & VT_BTYPE) == VT_LLONG;
 
-        if (is_long) {
+        अगर (is_long) {
           ncrn = (ncrn + 1) & -2;
-          if (ncrn == 4)
-            break;
+          अगर (ncrn == 4)
+            अवरोध;
         }
         add_param_plan(plan, CORE_CLASS, ncrn, ncrn + is_long, &vtop[-i]);
         ncrn += 1 + is_long;
-        continue;
+        जारी;
       }
     }
     nsaa = (nsaa + (align - 1)) & ~(align - 1);
-    add_param_plan(plan, STACK_CLASS, nsaa, nsaa + size, &vtop[-i]);
-    nsaa += size; /* size already rounded up before */
+    add_param_plan(plan, ढेर_CLASS, nsaa, nsaa + आकार, &vtop[-i]);
+    nsaa += आकार; /* size already rounded up before */
   }
-  return nsaa;
+  वापस nsaa;
 }
 
 /* Copy parameters to their final destination (core reg, VFP reg or stack) for
@@ -1167,11 +1167,11 @@ static int assign_regs(int nb_args, int float_abi, struct plan *plan, int *todo)
    todo: a bitmap indicating what core reg will hold a parameter
 
    Returns the number of SValue added by this function on the value stack */
-static int copy_params(int nb_args, struct plan *plan, int todo)
+अटल पूर्णांक copy_params(पूर्णांक nb_args, काष्ठा plan *plan, पूर्णांक todo)
 {
-  int size, align, r, i, nb_extra_sval = 0;
-  struct param_plan *pplan;
-  int pass = 0;
+  पूर्णांक आकार, align, r, i, nb_extra_sval = 0;
+  काष्ठा param_plan *pplan;
+  पूर्णांक pass = 0;
 
    /* Several constraints require parameters to be copied in a specific order:
       - structures are copied to the stack before being loaded in a reg;
@@ -1189,29 +1189,29 @@ static int copy_params(int nb_args, struct plan *plan, int todo)
         VFP regs as the copy might use an even numbered VFP reg that already
         holds part of a structure. */
 again:
-  for(i = 0; i < NB_CLASSES; i++) {
-    for(pplan = plan->clsplans[i]; pplan; pplan = pplan->prev) {
+  क्रम(i = 0; i < NB_CLASSES; i++) {
+    क्रम(pplan = plan->clsplans[i]; pplan; pplan = pplan->पूर्व) {
 
-      if (pass
+      अगर (pass
           && (i != CORE_CLASS || pplan->sval->r < VT_CONST))
-        continue;
+        जारी;
 
       vpushv(pplan->sval);
       pplan->sval->r = pplan->sval->r2 = VT_CONST; /* disable entry */
-      switch(i) {
-        case STACK_CLASS:
-        case CORE_STRUCT_CLASS:
-        case VFP_STRUCT_CLASS:
-          if ((pplan->sval->type.t & VT_BTYPE) == VT_STRUCT) {
-            int padding = 0;
-            size = type_size(&pplan->sval->type, &align);
+      चयन(i) {
+        हाल ढेर_CLASS:
+        हाल CORE_STRUCT_CLASS:
+        हाल VFP_STRUCT_CLASS:
+          अगर ((pplan->sval->type.t & VT_BTYPE) == VT_STRUCT) {
+            पूर्णांक padding = 0;
+            आकार = type_आकार(&pplan->sval->type, &align);
             /* align to stack align size */
-            size = (size + 3) & ~3;
-            if (i == STACK_CLASS && pplan->prev)
-              padding = pplan->start - pplan->prev->end;
-            size += padding; /* Add padding if any */
+            आकार = (आकार + 3) & ~3;
+            अगर (i == ढेर_CLASS && pplan->पूर्व)
+              padding = pplan->start - pplan->पूर्व->end;
+            आकार += padding; /* Add padding if any */
             /* allocate the necessary size on stack */
-            gadd_sp(-size);
+            gadd_sp(-आकार);
             /* generate structure store */
             r = get_reg(RC_INT);
             o(0xE28D0000|(intr(r)<<12)|padding); /* add r, sp, padding */
@@ -1226,46 +1226,46 @@ again:
                immediately since there is no way of loading data in multiple
                non consecutive VFP registers as what is done for other
                structures (see the use of todo). */
-            if (i == VFP_STRUCT_CLASS) {
-              int first = pplan->start, nb = pplan->end - first + 1;
+            अगर (i == VFP_STRUCT_CLASS) {
+              पूर्णांक first = pplan->start, nb = pplan->end - first + 1;
               /* vpop.32 {pplan->start, ..., pplan->end} */
               o(0xECBD0A00|(first&1)<<22|(first>>1)<<12|nb);
               /* No need to write the register used to a SValue since VFP regs
                  cannot be used for gcall_or_jmp */
             }
-          } else {
-            if (is_float(pplan->sval->type.t)) {
-#ifdef TCC_ARM_VFP
+          } अन्यथा {
+            अगर (is_float(pplan->sval->type.t)) {
+#अगर_घोषित TCC_ARM_VFP
               r = vfpr(gv(RC_FLOAT)) << 12;
-              if ((pplan->sval->type.t & VT_BTYPE) == VT_FLOAT)
-                size = 4;
-              else {
-                size = 8;
+              अगर ((pplan->sval->type.t & VT_BTYPE) == VT_FLOAT)
+                आकार = 4;
+              अन्यथा {
+                आकार = 8;
                 r |= 0x101; /* vpush.32 -> vpush.64 */
               }
               o(0xED2D0A01 + r); /* vpush */
-#else
+#अन्यथा
               r = fpr(gv(RC_FLOAT)) << 12;
-              if ((pplan->sval->type.t & VT_BTYPE) == VT_FLOAT)
-                size = 4;
-              else if ((pplan->sval->type.t & VT_BTYPE) == VT_DOUBLE)
-                size = 8;
-              else
-                size = LDOUBLE_SIZE;
-              if (size == 12)
+              अगर ((pplan->sval->type.t & VT_BTYPE) == VT_FLOAT)
+                आकार = 4;
+              अन्यथा अगर ((pplan->sval->type.t & VT_BTYPE) == VT_DOUBLE)
+                आकार = 8;
+              अन्यथा
+                आकार = LDOUBLE_आकार;
+              अगर (आकार == 12)
                 r |= 0x400000;
-              else if(size == 8)
+              अन्यथा अगर(आकार == 8)
                 r|=0x8000;
 
-              o(0xED2D0100|r|(size>>2)); /* some kind of vpush for FPA */
-#endif
-            } else {
+              o(0xED2D0100|r|(आकार>>2)); /* some kind of vpush for FPA */
+#पूर्ण_अगर
+            } अन्यथा {
               /* simple type (currently always same size) */
               /* XXX: implicit cast ? */
-              size=4;
-              if ((pplan->sval->type.t & VT_BTYPE) == VT_LLONG) {
+              आकार=4;
+              अगर ((pplan->sval->type.t & VT_BTYPE) == VT_LLONG) {
                 lexpand();
-                size = 8;
+                आकार = 8;
                 r = gv(RC_INT);
                 o(0xE52D0004|(intr(r)<<12)); /* push r */
                 vtop--;
@@ -1273,21 +1273,21 @@ again:
               r = gv(RC_INT);
               o(0xE52D0004|(intr(r)<<12)); /* push r */
             }
-            if (i == STACK_CLASS && pplan->prev)
-              gadd_sp(pplan->prev->end - pplan->start); /* Add padding if any */
+            अगर (i == ढेर_CLASS && pplan->पूर्व)
+              gadd_sp(pplan->पूर्व->end - pplan->start); /* Add padding if any */
           }
-          break;
+          अवरोध;
 
-        case VFP_CLASS:
+        हाल VFP_CLASS:
           gv(regmask(TREG_F0 + (pplan->start >> 1)));
-          if (pplan->start & 1) { /* Must be in upper part of double register */
+          अगर (pplan->start & 1) { /* Must be in upper part of double register */
             o(0xEEF00A40|((pplan->start>>1)<<12)|(pplan->start>>1)); /* vmov.f32 s(n+1), sn */
             vtop->r = VT_CONST; /* avoid being saved on stack by gv for next float */
           }
-          break;
+          अवरोध;
 
-        case CORE_CLASS:
-          if ((pplan->sval->type.t & VT_BTYPE) == VT_LLONG) {
+        हाल CORE_CLASS:
+          अगर ((pplan->sval->type.t & VT_BTYPE) == VT_LLONG) {
             lexpand();
             gv(regmask(pplan->end));
             pplan->sval->r2 = vtop->r;
@@ -1297,7 +1297,7 @@ again:
           /* Mark register as used so that gcall_or_jmp use another one
              (regs >=4 are free as never used to pass parameters) */
           pplan->sval->r = vtop->r;
-          break;
+          अवरोध;
       }
       vtop--;
     }
@@ -1305,20 +1305,20 @@ again:
 
   /* second pass to restore registers that were saved on stack by accident.
      Maybe redundant after the "lvalue_save" patch in tccgen.c:gv() */
-  if (++pass < 2)
-    goto again;
+  अगर (++pass < 2)
+    जाओ again;
 
-  if(todo) {
+  अगर(todo) {
     o(0xE8BD0000|todo); /* pop {todo} */
-    for(pplan = plan->clsplans[CORE_STRUCT_CLASS]; pplan; pplan = pplan->prev) {
-      int r;
+    क्रम(pplan = plan->clsplans[CORE_STRUCT_CLASS]; pplan; pplan = pplan->पूर्व) {
+      पूर्णांक r;
       pplan->sval->r = pplan->start;
       /* An SValue can only pin 2 registers at best (r and r2) but a structure
          can occupy more than 2 registers. Thus, we need to push on the value
          stack some fake parameter to have on SValue for each registers used
          by a structure (r2 is not used). */
-      for (r = pplan->start + 1; r <= pplan->end; r++) {
-        if (todo & (1 << r)) {
+      क्रम (r = pplan->start + 1; r <= pplan->end; r++) {
+        अगर (todo & (1 << r)) {
           nb_extra_sval++;
           vpushi(0);
           vtop->r = r;
@@ -1326,49 +1326,49 @@ again:
       }
     }
   }
-  return nb_extra_sval;
+  वापस nb_extra_sval;
 }
 
 /* Generate function call. The function address is pushed first, then
    all the parameters in call order. This functions pops all the
    parameters and the function address. */
-void gfunc_call(int nb_args)
+व्योम gfunc_call(पूर्णांक nb_args)
 {
-  int args_size;
-  int def_float_abi = float_abi;
-  int todo;
-  struct plan plan;
-#ifdef TCC_ARM_EABI
-  int variadic;
-#endif
+  पूर्णांक args_आकार;
+  पूर्णांक def_float_abi = float_abi;
+  पूर्णांक todo;
+  काष्ठा plan plan;
+#अगर_घोषित TCC_ARM_EABI
+  पूर्णांक variadic;
+#पूर्ण_अगर
 
-#ifdef CONFIG_TCC_BCHECK
-  if (tcc_state->do_bounds_check)
+#अगर_घोषित CONFIG_TCC_BCHECK
+  अगर (tcc_state->do_bounds_check)
     gbound_args(nb_args);
-#endif
+#पूर्ण_अगर
 
   save_regs(nb_args + 1);
 
-#ifdef TCC_ARM_EABI
-  if (float_abi == ARM_HARD_FLOAT) {
+#अगर_घोषित TCC_ARM_EABI
+  अगर (float_abi == ARM_HARD_FLOAT) {
     variadic = (vtop[-nb_args].type.ref->f.func_type == FUNC_ELLIPSIS);
-    if (variadic || floats_in_core_regs(&vtop[-nb_args]))
+    अगर (variadic || floats_in_core_regs(&vtop[-nb_args]))
       float_abi = ARM_SOFTFP_FLOAT;
   }
-#endif
+#पूर्ण_अगर
 
-  memset(&plan, 0, sizeof plan);
-  if (nb_args)
-    plan.pplans = tcc_malloc(nb_args * sizeof(*plan.pplans));
+  स_रखो(&plan, 0, माप plan);
+  अगर (nb_args)
+    plan.pplans = tcc_malloc(nb_args * माप(*plan.pplans));
 
-  args_size = assign_regs(nb_args, float_abi, &plan, &todo);
+  args_आकार = assign_regs(nb_args, float_abi, &plan, &todo);
 
-#ifdef TCC_ARM_EABI
-  if (args_size & 7) { /* Stack must be 8 byte aligned at fct call for EABI */
-    args_size = (args_size + 7) & ~7;
+#अगर_घोषित TCC_ARM_EABI
+  अगर (args_आकार & 7) { /* Stack must be 8 byte aligned at fct call for EABI */
+    args_आकार = (args_आकार + 7) & ~7;
     o(0xE24DD004); /* sub sp, sp, #4 */
   }
-#endif
+#पूर्ण_अगर
 
   nb_args += copy_params(nb_args, &plan, todo);
   tcc_free(plan.pplans);
@@ -1376,72 +1376,72 @@ void gfunc_call(int nb_args)
   /* Move fct SValue on top as required by gcall_or_jmp */
   vrotb(nb_args + 1);
   gcall_or_jmp(0);
-  if (args_size)
-      gadd_sp(args_size); /* pop all parameters passed on the stack */
-#if defined(TCC_ARM_EABI) && defined(TCC_ARM_VFP)
-  if(float_abi == ARM_SOFTFP_FLOAT && is_float(vtop->type.ref->type.t)) {
-    if((vtop->type.ref->type.t & VT_BTYPE) == VT_FLOAT) {
+  अगर (args_आकार)
+      gadd_sp(args_आकार); /* pop all parameters passed on the stack */
+#अगर defined(TCC_ARM_EABI) && defined(TCC_ARM_VFP)
+  अगर(float_abi == ARM_SOFTFP_FLOAT && is_float(vtop->type.ref->type.t)) {
+    अगर((vtop->type.ref->type.t & VT_BTYPE) == VT_FLOAT) {
       o(0xEE000A10); /*vmov s0, r0 */
-    } else {
+    } अन्यथा {
       o(0xEE000B10); /* vmov.32 d0[0], r0 */
       o(0xEE201B10); /* vmov.32 d0[1], r1 */
     }
   }
-#endif
+#पूर्ण_अगर
   vtop -= nb_args + 1; /* Pop all params and fct address from value stack */
   leaffunc = 0; /* we are calling a function, so we aren't in a leaf function */
   float_abi = def_float_abi;
 }
 
 /* generate function prolog of type 't' */
-void gfunc_prolog(Sym *func_sym)
+व्योम gfunc_prolog(Sym *func_sym)
 {
   CType *func_type = &func_sym->type;
   Sym *sym,*sym2;
-  int n, nf, size, align, rs, struct_ret = 0;
-  int addr, pn, sn; /* pn=core, sn=stack */
+  पूर्णांक n, nf, आकार, align, rs, struct_ret = 0;
+  पूर्णांक addr, pn, sn; /* pn=core, sn=stack */
   CType ret_type;
 
-#ifdef TCC_ARM_EABI
-  struct avail_regs avregs = {{0}};
-#endif
+#अगर_घोषित TCC_ARM_EABI
+  काष्ठा avail_regs avregs = {{0}};
+#पूर्ण_अगर
 
   sym = func_type->ref;
 
   n = nf = 0;
-  if ((func_vt.t & VT_BTYPE) == VT_STRUCT &&
+  अगर ((func_vt.t & VT_BTYPE) == VT_STRUCT &&
       !gfunc_sret(&func_vt, func_var, &ret_type, &align, &rs))
   {
     n++;
     struct_ret = 1;
     func_vc = 12; /* Offset from fp of the place to store the result */
   }
-  for(sym2 = sym->next; sym2 && (n < 4 || nf < 16); sym2 = sym2->next) {
-    size = type_size(&sym2->type, &align);
-#ifdef TCC_ARM_EABI
-    if (float_abi == ARM_HARD_FLOAT && !func_var &&
+  क्रम(sym2 = sym->अग्र; sym2 && (n < 4 || nf < 16); sym2 = sym2->अग्र) {
+    आकार = type_आकार(&sym2->type, &align);
+#अगर_घोषित TCC_ARM_EABI
+    अगर (float_abi == ARM_HARD_FLOAT && !func_var &&
         (is_float(sym2->type.t) || is_hgen_float_aggr(&sym2->type))) {
-      int tmpnf = assign_vfpreg(&avregs, align, size);
-      tmpnf += (size + 3) / 4;
+      पूर्णांक tmpnf = assign_vfpreg(&avregs, align, आकार);
+      tmpnf += (आकार + 3) / 4;
       nf = (tmpnf > nf) ? tmpnf : nf;
-    } else
-#endif
-    if (n < 4)
-      n += (size + 3) / 4;
+    } अन्यथा
+#पूर्ण_अगर
+    अगर (n < 4)
+      n += (आकार + 3) / 4;
   }
   o(0xE1A0C00D); /* mov ip,sp */
-  if (func_var)
+  अगर (func_var)
     n=4;
-  if (n) {
-    if(n>4)
+  अगर (n) {
+    अगर(n>4)
       n=4;
-#ifdef TCC_ARM_EABI
+#अगर_घोषित TCC_ARM_EABI
     n=(n+1)&-2;
-#endif
+#पूर्ण_अगर
     o(0xE92D0000|((1<<n)-1)); /* save r0-r4 on stack if needed */
   }
-  if (nf) {
-    if (nf>16)
+  अगर (nf) {
+    अगर (nf>16)
       nf=16;
     nf=(nf+1)&-2; /* nf => HARDFLOAT => EABI */
     o(0xED2D0A00|nf); /* save s0-s15 on stack if needed */
@@ -1451,264 +1451,264 @@ void gfunc_prolog(Sym *func_sym)
   func_sub_sp_offset = ind;
   o(0xE1A00000); /* nop, leave space for stack adjustment in epilog */
 
-#ifdef TCC_ARM_EABI
-  if (float_abi == ARM_HARD_FLOAT) {
+#अगर_घोषित TCC_ARM_EABI
+  अगर (float_abi == ARM_HARD_FLOAT) {
     func_vc += nf * 4;
-    memset(&avregs, 0, sizeof avregs);
+    स_रखो(&avregs, 0, माप avregs);
   }
-#endif
+#पूर्ण_अगर
   pn = struct_ret, sn = 0;
-  while ((sym = sym->next)) {
+  जबतक ((sym = sym->अग्र)) {
     CType *type;
     type = &sym->type;
-    size = type_size(type, &align);
-    size = (size + 3) >> 2;
+    आकार = type_आकार(type, &align);
+    आकार = (आकार + 3) >> 2;
     align = (align + 3) & ~3;
-#ifdef TCC_ARM_EABI
-    if (float_abi == ARM_HARD_FLOAT && !func_var && (is_float(sym->type.t)
+#अगर_घोषित TCC_ARM_EABI
+    अगर (float_abi == ARM_HARD_FLOAT && !func_var && (is_float(sym->type.t)
         || is_hgen_float_aggr(&sym->type))) {
-      int fpn = assign_vfpreg(&avregs, align, size << 2);
-      if (fpn >= 0)
+      पूर्णांक fpn = assign_vfpreg(&avregs, align, आकार << 2);
+      अगर (fpn >= 0)
         addr = fpn * 4;
-      else
-        goto from_stack;
-    } else
-#endif
-    if (pn < 4) {
-#ifdef TCC_ARM_EABI
+      अन्यथा
+        जाओ from_ढेर;
+    } अन्यथा
+#पूर्ण_अगर
+    अगर (pn < 4) {
+#अगर_घोषित TCC_ARM_EABI
         pn = (pn + (align-1)/4) & -(align/4);
-#endif
+#पूर्ण_अगर
       addr = (nf + pn) * 4;
-      pn += size;
-      if (!sn && pn > 4)
+      pn += आकार;
+      अगर (!sn && pn > 4)
         sn = (pn - 4);
-    } else {
-#ifdef TCC_ARM_EABI
-from_stack:
+    } अन्यथा {
+#अगर_घोषित TCC_ARM_EABI
+from_ढेर:
         sn = (sn + (align-1)/4) & -(align/4);
-#endif
+#पूर्ण_अगर
       addr = (n + nf + sn) * 4;
-      sn += size;
+      sn += आकार;
     }
     gfunc_set_param(sym, addr + 12, 0);
   }
   last_itod_magic=0;
   leaffunc = 1;
   loc = 0;
-#ifdef CONFIG_TCC_BCHECK
-  if (tcc_state->do_bounds_check)
+#अगर_घोषित CONFIG_TCC_BCHECK
+  अगर (tcc_state->do_bounds_check)
     gen_bounds_prolog();
-#endif
+#पूर्ण_अगर
 }
 
 /* generate function epilog */
-void gfunc_epilog(void)
+व्योम gfunc_epilog(व्योम)
 {
   uint32_t x;
-  int diff;
+  पूर्णांक diff;
 
-#ifdef CONFIG_TCC_BCHECK
-  if (tcc_state->do_bounds_check)
+#अगर_घोषित CONFIG_TCC_BCHECK
+  अगर (tcc_state->do_bounds_check)
     gen_bounds_epilog();
-#endif
+#पूर्ण_अगर
   /* Copy float return value to core register if base standard is used and
      float computation is made with VFP */
-#if defined(TCC_ARM_EABI) && defined(TCC_ARM_VFP)
-  if ((float_abi == ARM_SOFTFP_FLOAT || func_var) && is_float(func_vt.t)) {
-    if((func_vt.t & VT_BTYPE) == VT_FLOAT)
+#अगर defined(TCC_ARM_EABI) && defined(TCC_ARM_VFP)
+  अगर ((float_abi == ARM_SOFTFP_FLOAT || func_var) && is_float(func_vt.t)) {
+    अगर((func_vt.t & VT_BTYPE) == VT_FLOAT)
       o(0xEE100A10); /* fmrs r0, s0 */
-    else {
+    अन्यथा {
       o(0xEE100B10); /* fmrdl r0, d0 */
       o(0xEE301B10); /* fmrdh r1, d0 */
     }
   }
-#endif
+#पूर्ण_अगर
   o(0xE89BA800); /* restore fp, sp, pc */
   diff = (-loc + 3) & -4;
-#ifdef TCC_ARM_EABI
-  if(!leaffunc)
+#अगर_घोषित TCC_ARM_EABI
+  अगर(!leaffunc)
     diff = ((diff + 11) & -8) - 4;
-#endif
-  if(diff > 0) {
+#पूर्ण_अगर
+  अगर(diff > 0) {
     x=stuff_const(0xE24BD000, diff); /* sub sp,fp,# */
-    if(x)
-      *(uint32_t *)(cur_text_section->data + func_sub_sp_offset) = x;
-    else {
-      int addr;
+    अगर(x)
+      *(uint32_t *)(cur_text_section->तथ्य + func_sub_sp_offset) = x;
+    अन्यथा {
+      पूर्णांक addr;
       addr=ind;
       o(0xE59FC004); /* ldr ip,[pc+4] */
       o(0xE04BD00C); /* sub sp,fp,ip  */
       o(0xE1A0F00E); /* mov pc,lr */
       o(diff);
-      *(uint32_t *)(cur_text_section->data + func_sub_sp_offset) = 0xE1000000|encbranch(func_sub_sp_offset,addr,1);
+      *(uint32_t *)(cur_text_section->तथ्य + func_sub_sp_offset) = 0xE1000000|encbranch(func_sub_sp_offset,addr,1);
     }
   }
 }
 
-ST_FUNC void gen_fill_nops(int bytes)
+ST_FUNC व्योम gen_fill_nops(पूर्णांक bytes)
 {
-    if ((bytes & 3))
+    अगर ((bytes & 3))
       tcc_error("alignment of code section not multiple of 4");
-    while (bytes > 0) {
+    जबतक (bytes > 0) {
 	o(0xE1A00000);
 	bytes -= 4;
     }
 }
 
 /* generate a jump to a label */
-ST_FUNC int gjmp(int t)
+ST_FUNC पूर्णांक gjmp(पूर्णांक t)
 {
-  int r;
-  if (nocode_wanted)
-    return t;
+  पूर्णांक r;
+  अगर (nocode_wanted)
+    वापस t;
   r=ind;
   o(0xE0000000|encbranch(r,t,1));
-  return r;
+  वापस r;
 }
 
 /* generate a jump to a fixed address */
-ST_FUNC void gjmp_addr(int a)
+ST_FUNC व्योम gjmp_addr(पूर्णांक a)
 {
   gjmp(a);
 }
 
-ST_FUNC int gjmp_cond(int op, int t)
+ST_FUNC पूर्णांक gjmp_cond(पूर्णांक op, पूर्णांक t)
 {
-  int r;
-  if (nocode_wanted)
-    return t;
+  पूर्णांक r;
+  अगर (nocode_wanted)
+    वापस t;
   r=ind;
   op=mapcc(op);
   op|=encbranch(r,t,1);
   o(op);
-  return r;
+  वापस r;
 }
 
-ST_FUNC int gjmp_append(int n, int t)
+ST_FUNC पूर्णांक gjmp_append(पूर्णांक n, पूर्णांक t)
 {
   uint32_t *x;
-  int p,lp;
-  if(n) {
+  पूर्णांक p,lp;
+  अगर(n) {
     p = n;
-    do {
+    करो {
       p = decbranch(lp=p);
-    } while(p);
-    x = (uint32_t *)(cur_text_section->data + lp);
+    } जबतक(p);
+    x = (uint32_t *)(cur_text_section->तथ्य + lp);
     *x &= 0xff000000;
     *x |= encbranch(lp,t,1);
     t = n;
   }
-  return t;
+  वापस t;
 }
 
 /* generate an integer binary operation */
-void gen_opi(int op)
+व्योम gen_opi(पूर्णांक op)
 {
-  int c, func = 0;
+  पूर्णांक c, func = 0;
   uint32_t opc = 0, r, fr;
-  unsigned short retreg = REG_IRET;
+  अचिन्हित लघु retreg = REG_IRET;
 
   c=0;
-  switch(op) {
-    case '+':
+  चयन(op) {
+    हाल '+':
       opc = 0x8;
       c=1;
-      break;
-    case TOK_ADDC1: /* add with carry generation */
+      अवरोध;
+    हाल TOK_ADDC1: /* add with carry generation */
       opc = 0x9;
       c=1;
-      break;
-    case '-':
+      अवरोध;
+    हाल '-':
       opc = 0x4;
       c=1;
-      break;
-    case TOK_SUBC1: /* sub with carry generation */
+      अवरोध;
+    हाल TOK_SUBC1: /* sub with carry generation */
       opc = 0x5;
       c=1;
-      break;
-    case TOK_ADDC2: /* add with carry use */
+      अवरोध;
+    हाल TOK_ADDC2: /* add with carry use */
       opc = 0xA;
       c=1;
-      break;
-    case TOK_SUBC2: /* sub with carry use */
+      अवरोध;
+    हाल TOK_SUBC2: /* sub with carry use */
       opc = 0xC;
       c=1;
-      break;
-    case '&':
+      अवरोध;
+    हाल '&':
       opc = 0x0;
       c=1;
-      break;
-    case '^':
+      अवरोध;
+    हाल '^':
       opc = 0x2;
       c=1;
-      break;
-    case '|':
+      अवरोध;
+    हाल '|':
       opc = 0x18;
       c=1;
-      break;
-    case '*':
+      अवरोध;
+    हाल '*':
       gv2(RC_INT, RC_INT);
       r = vtop[-1].r;
       fr = vtop[0].r;
       vtop--;
       o(0xE0000090|(intr(r)<<16)|(intr(r)<<8)|intr(fr));
-      return;
-    case TOK_SHL:
+      वापस;
+    हाल TOK_SHL:
       opc = 0;
       c=2;
-      break;
-    case TOK_SHR:
+      अवरोध;
+    हाल TOK_SHR:
       opc = 1;
       c=2;
-      break;
-    case TOK_SAR:
+      अवरोध;
+    हाल TOK_SAR:
       opc = 2;
       c=2;
-      break;
-    case '/':
-    case TOK_PDIV:
+      अवरोध;
+    हाल '/':
+    हाल TOK_PDIV:
       func=TOK___divsi3;
       c=3;
-      break;
-    case TOK_UDIV:
+      अवरोध;
+    हाल TOK_UDIV:
       func=TOK___udivsi3;
       c=3;
-      break;
-    case '%':
-#ifdef TCC_ARM_EABI
+      अवरोध;
+    हाल '%':
+#अगर_घोषित TCC_ARM_EABI
       func=TOK___aeabi_idivmod;
       retreg=REG_IRE2;
-#else
+#अन्यथा
       func=TOK___modsi3;
-#endif
+#पूर्ण_अगर
       c=3;
-      break;
-    case TOK_UMOD:
-#ifdef TCC_ARM_EABI
+      अवरोध;
+    हाल TOK_UMOD:
+#अगर_घोषित TCC_ARM_EABI
       func=TOK___aeabi_uidivmod;
       retreg=REG_IRE2;
-#else
+#अन्यथा
       func=TOK___umodsi3;
-#endif
+#पूर्ण_अगर
       c=3;
-      break;
-    case TOK_UMULL:
+      अवरोध;
+    हाल TOK_UMULL:
       gv2(RC_INT, RC_INT);
       r=intr(vtop[-1].r2=get_reg(RC_INT));
       c=vtop[-1].r;
       vtop[-1].r=get_reg_ex(RC_INT,regmask(c));
       vtop--;
       o(0xE0800090|(r<<16)|(intr(vtop->r)<<12)|(intr(c)<<8)|intr(vtop[1].r));
-      return;
-    default:
+      वापस;
+    शेष:
       opc = 0x15;
       c=1;
-      break;
+      अवरोध;
   }
-  switch(c) {
-    case 1:
-      if((vtop[-1].r & (VT_VALMASK | VT_LVAL | VT_SYM)) == VT_CONST) {
-	if(opc == 4 || opc == 5 || opc == 0xc) {
+  चयन(c) {
+    हाल 1:
+      अगर((vtop[-1].r & (VT_VALMASK | VT_LVAL | VT_SYM)) == VT_CONST) {
+	अगर(opc == 4 || opc == 5 || opc == 0xc) {
 	  vswap();
 	  opc|=2; // sub -> rsb
 	}
@@ -1717,142 +1717,142 @@ void gen_opi(int op)
       c=intr(gv(RC_INT));
       vswap();
       opc=0xE0000000|(opc<<20);
-      if((vtop->r & (VT_VALMASK | VT_LVAL | VT_SYM)) == VT_CONST) {
+      अगर((vtop->r & (VT_VALMASK | VT_LVAL | VT_SYM)) == VT_CONST) {
 	uint32_t x;
 	x=stuff_const(opc|0x2000000|(c<<16),vtop->c.i);
-	if(x) {
-	  if ((x & 0xfff00000) == 0xe3500000)   // cmp rx,#c
+	अगर(x) {
+	  अगर ((x & 0xfff00000) == 0xe3500000)   // cmp rx,#c
 	    o(x);
-	  else {
+	  अन्यथा {
 	    r=intr(vtop[-1].r=get_reg_ex(RC_INT,regmask(vtop[-1].r)));
 	    o(x|(r<<12));
 	  }
-	  goto done;
+	  जाओ done;
 	}
       }
       fr=intr(gv(RC_INT));
-#ifdef CONFIG_TCC_BCHECK
-      if ((vtop[-1].r & VT_VALMASK) >= VT_CONST) {
+#अगर_घोषित CONFIG_TCC_BCHECK
+      अगर ((vtop[-1].r & VT_VALMASK) >= VT_CONST) {
         vswap();
         c=intr(gv(RC_INT));
         vswap();
       }
-#endif
-      if ((opc & 0xfff00000) == 0xe1500000) // cmp rx,ry
+#पूर्ण_अगर
+      अगर ((opc & 0xfff00000) == 0xe1500000) // cmp rx,ry
 	o(opc|(c<<16)|fr);
-      else {
+      अन्यथा {
         r=intr(vtop[-1].r=get_reg_ex(RC_INT,two2mask(vtop->r,vtop[-1].r)));
         o(opc|(c<<16)|(r<<12)|fr);
       }
 done:
       vtop--;
-      if (op >= TOK_ULT && op <= TOK_GT)
+      अगर (op >= TOK_ULT && op <= TOK_GT)
         vset_VT_CMP(op);
-      break;
-    case 2:
+      अवरोध;
+    हाल 2:
       opc=0xE1A00000|(opc<<5);
       vswap();
       r=intr(gv(RC_INT));
       vswap();
-      if ((vtop->r & (VT_VALMASK | VT_LVAL | VT_SYM)) == VT_CONST) {
+      अगर ((vtop->r & (VT_VALMASK | VT_LVAL | VT_SYM)) == VT_CONST) {
 	fr=intr(vtop[-1].r=get_reg_ex(RC_INT,regmask(vtop[-1].r)));
 	c = vtop->c.i & 0x1f;
 	o(opc|r|(c<<7)|(fr<<12));
-      } else {
+      } अन्यथा {
         fr=intr(gv(RC_INT));
-#ifdef CONFIG_TCC_BCHECK
-        if ((vtop[-1].r & VT_VALMASK) >= VT_CONST) {
+#अगर_घोषित CONFIG_TCC_BCHECK
+        अगर ((vtop[-1].r & VT_VALMASK) >= VT_CONST) {
           vswap();
           r=intr(gv(RC_INT));
           vswap();
         }
-#endif
+#पूर्ण_अगर
 	c=intr(vtop[-1].r=get_reg_ex(RC_INT,two2mask(vtop->r,vtop[-1].r)));
 	o(opc|r|(c<<12)|(fr<<8)|0x10);
       }
       vtop--;
-      break;
-    case 3:
+      अवरोध;
+    हाल 3:
       vpush_helper_func(func);
       vrott(3);
       gfunc_call(2);
       vpushi(0);
       vtop->r = retreg;
-      break;
-    default:
+      अवरोध;
+    शेष:
       tcc_error("gen_opi %i unimplemented!",op);
   }
 }
 
-#ifdef TCC_ARM_VFP
-static int is_zero(int i)
+#अगर_घोषित TCC_ARM_VFP
+अटल पूर्णांक is_zero(पूर्णांक i)
 {
-  if((vtop[i].r & (VT_VALMASK | VT_LVAL | VT_SYM)) != VT_CONST)
-    return 0;
-  if (vtop[i].type.t == VT_FLOAT)
-    return (vtop[i].c.f == 0.f);
-  else if (vtop[i].type.t == VT_DOUBLE)
-    return (vtop[i].c.d == 0.0);
-  return (vtop[i].c.ld == 0.l);
+  अगर((vtop[i].r & (VT_VALMASK | VT_LVAL | VT_SYM)) != VT_CONST)
+    वापस 0;
+  अगर (vtop[i].type.t == VT_FLOAT)
+    वापस (vtop[i].c.f == 0.f);
+  अन्यथा अगर (vtop[i].type.t == VT_DOUBLE)
+    वापस (vtop[i].c.d == 0.0);
+  वापस (vtop[i].c.ld == 0.l);
 }
 
 /* generate a floating point operation 'v = t1 op t2' instruction. The
  *    two operands are guaranteed to have the same floating point type */
-void gen_opf(int op)
+व्योम gen_opf(पूर्णांक op)
 {
   uint32_t x;
-  int fneg=0,r;
+  पूर्णांक fneg=0,r;
   x=0xEE000A00|T2CPR(vtop->type.t);
-  switch(op) {
-    case '+':
-      if(is_zero(-1))
+  चयन(op) {
+    हाल '+':
+      अगर(is_zero(-1))
         vswap();
-      if(is_zero(0)) {
+      अगर(is_zero(0)) {
         vtop--;
-        return;
+        वापस;
       }
       x|=0x300000;
-      break;
-    case '-':
+      अवरोध;
+    हाल '-':
       x|=0x300040;
-      if(is_zero(0)) {
+      अगर(is_zero(0)) {
         vtop--;
-        return;
+        वापस;
       }
-      if(is_zero(-1)) {
+      अगर(is_zero(-1)) {
         x|=0x810000; /* fsubX -> fnegX */
         vswap();
         vtop--;
         fneg=1;
       }
-      break;
-    case '*':
+      अवरोध;
+    हाल '*':
       x|=0x200000;
-      break;
-    case '/':
+      अवरोध;
+    हाल '/':
       x|=0x800000;
-      break;
-    default:
-      if(op < TOK_ULT || op > TOK_GT) {
+      अवरोध;
+    शेष:
+      अगर(op < TOK_ULT || op > TOK_GT) {
         tcc_error("unknown fp op %x!",op);
-        return;
+        वापस;
       }
-      if(is_zero(-1)) {
+      अगर(is_zero(-1)) {
         vswap();
-        switch(op) {
-          case TOK_LT: op=TOK_GT; break;
-          case TOK_GE: op=TOK_ULE; break;
-          case TOK_LE: op=TOK_GE; break;
-          case TOK_GT: op=TOK_ULT; break;
+        चयन(op) {
+          हाल TOK_LT: op=TOK_GT; अवरोध;
+          हाल TOK_GE: op=TOK_ULE; अवरोध;
+          हाल TOK_LE: op=TOK_GE; अवरोध;
+          हाल TOK_GT: op=TOK_ULT; अवरोध;
         }
       }
       x|=0xB40040; /* fcmpX */
-      if(op!=TOK_EQ && op!=TOK_NE)
+      अगर(op!=TOK_EQ && op!=TOK_NE)
         x|=0x80; /* fcmpX -> fcmpeX */
-      if(is_zero(0)) {
+      अगर(is_zero(0)) {
         vtop--;
         o(x|0x10000|(vfpr(gv(RC_FLOAT))<<12)); /* fcmp(e)X -> fcmp(e)zX */
-      } else {
+      } अन्यथा {
         gv2(RC_FLOAT,RC_FLOAT);
         x|=vfpr(vtop[0].r);
         o(x|(vfpr(vtop[-1].r) << 12));
@@ -1860,81 +1860,81 @@ void gen_opf(int op)
       }
       o(0xEEF1FA10); /* fmstat */
 
-      switch(op) {
-        case TOK_LE: op=TOK_ULE; break;
-        case TOK_LT: op=TOK_ULT; break;
-        case TOK_UGE: op=TOK_GE; break;
-        case TOK_UGT: op=TOK_GT; break;
+      चयन(op) {
+        हाल TOK_LE: op=TOK_ULE; अवरोध;
+        हाल TOK_LT: op=TOK_ULT; अवरोध;
+        हाल TOK_UGE: op=TOK_GE; अवरोध;
+        हाल TOK_UGT: op=TOK_GT; अवरोध;
       }
       vset_VT_CMP(op);
-      return;
+      वापस;
   }
   r=gv(RC_FLOAT);
   x|=vfpr(r);
   r=regmask(r);
-  if(!fneg) {
-    int r2;
+  अगर(!fneg) {
+    पूर्णांक r2;
     vswap();
     r2=gv(RC_FLOAT);
     x|=vfpr(r2)<<16;
     r|=regmask(r2);
-#ifdef CONFIG_TCC_BCHECK
-    if ((vtop[-1].r & VT_VALMASK) >= VT_CONST) {
+#अगर_घोषित CONFIG_TCC_BCHECK
+    अगर ((vtop[-1].r & VT_VALMASK) >= VT_CONST) {
       vswap();
       r=gv(RC_FLOAT);
       vswap();
       x=(x&~0xf)|vfpr(r);
     }
-#endif
+#पूर्ण_अगर
   }
   vtop->r=get_reg_ex(RC_FLOAT,r);
-  if(!fneg)
+  अगर(!fneg)
     vtop--;
   o(x|(vfpr(vtop->r)<<12));
 }
 
-#else
-static uint32_t is_fconst()
+#अन्यथा
+अटल uint32_t is_fconst()
 {
-  long double f;
+  दीर्घ द्विगुन f;
   uint32_t r;
-  if((vtop->r & (VT_VALMASK | VT_LVAL | VT_SYM)) != VT_CONST)
-    return 0;
-  if (vtop->type.t == VT_FLOAT)
+  अगर((vtop->r & (VT_VALMASK | VT_LVAL | VT_SYM)) != VT_CONST)
+    वापस 0;
+  अगर (vtop->type.t == VT_FLOAT)
     f = vtop->c.f;
-  else if (vtop->type.t == VT_DOUBLE)
+  अन्यथा अगर (vtop->type.t == VT_DOUBLE)
     f = vtop->c.d;
-  else
+  अन्यथा
     f = vtop->c.ld;
-  if(!ieee_finite(f))
-    return 0;
+  अगर(!ieee_finite(f))
+    वापस 0;
   r=0x8;
-  if(f<0.0) {
+  अगर(f<0.0) {
     r=0x18;
     f=-f;
   }
-  if(f==0.0)
-    return r;
-  if(f==1.0)
-    return r|1;
-  if(f==2.0)
-    return r|2;
-  if(f==3.0)
-    return r|3;
-  if(f==4.0)
-    return r|4;
-  if(f==5.0)
-    return r|5;
-  if(f==0.5)
-    return r|6;
-  if(f==10.0)
-    return r|7;
-  return 0;
+  अगर(f==0.0)
+    वापस r;
+  अगर(f==1.0)
+    वापस r|1;
+  अगर(f==2.0)
+    वापस r|2;
+  अगर(f==3.0)
+    वापस r|3;
+  अगर(f==4.0)
+    वापस r|4;
+  अगर(f==5.0)
+    वापस r|5;
+  अगर(f==0.5)
+    वापस r|6;
+  अगर(f==10.0)
+    वापस r|7;
+  वापस 0;
 }
 
 /* generate a floating point operation 'v = t1 op t2' instruction. The
    two operands are guaranteed to have the same floating point type */
-void gen_opf(int op)
+व्योम gen_opf(पूर्णांक op)
 {
   uint32_t x, r, r2, c1, c2;
   //fputs("gen_opf\n",stderr);
@@ -1943,186 +1943,186 @@ void gen_opf(int op)
   vswap();
   c2 = is_fconst();
   x=0xEE000100;
-  if ((vtop->type.t & VT_BTYPE) == VT_DOUBLE)
+  अगर ((vtop->type.t & VT_BTYPE) == VT_DOUBLE)
     x|=0x80;
-#if LDOUBLE_SIZE != 8
-  else if ((vtop->type.t & VT_BTYPE) == VT_LDOUBLE)
+#अगर LDOUBLE_आकार != 8
+  अन्यथा अगर ((vtop->type.t & VT_BTYPE) == VT_LDOUBLE)
     x|=0x80000;
-#endif
+#पूर्ण_अगर
 
-  switch(op)
+  चयन(op)
   {
-    case '+':
-      if(!c2) {
+    हाल '+':
+      अगर(!c2) {
 	vswap();
 	c2=c1;
       }
       vswap();
       r=fpr(gv(RC_FLOAT));
       vswap();
-      if(c2) {
-	if(c2>0xf)
+      अगर(c2) {
+	अगर(c2>0xf)
 	  x|=0x200000; // suf
 	r2=c2&0xf;
-      } else {
+      } अन्यथा {
 	r2=fpr(gv(RC_FLOAT));
-#ifdef CONFIG_TCC_BCHECK
-        if ((vtop[-1].r & VT_VALMASK) >= VT_CONST) {
+#अगर_घोषित CONFIG_TCC_BCHECK
+        अगर ((vtop[-1].r & VT_VALMASK) >= VT_CONST) {
           vswap();
           r=fpr(gv(RC_FLOAT));
           vswap();
         }
-#endif
+#पूर्ण_अगर
       }
-      break;
-    case '-':
-      if(c2) {
-	if(c2<=0xf)
+      अवरोध;
+    हाल '-':
+      अगर(c2) {
+	अगर(c2<=0xf)
 	  x|=0x200000; // suf
 	r2=c2&0xf;
 	vswap();
 	r=fpr(gv(RC_FLOAT));
 	vswap();
-      } else if(c1 && c1<=0xf) {
+      } अन्यथा अगर(c1 && c1<=0xf) {
 	x|=0x300000; // rsf
 	r2=c1;
 	r=fpr(gv(RC_FLOAT));
 	vswap();
-      } else {
+      } अन्यथा {
 	x|=0x200000; // suf
 	vswap();
 	r=fpr(gv(RC_FLOAT));
 	vswap();
 	r2=fpr(gv(RC_FLOAT));
-#ifdef CONFIG_TCC_BCHECK
-        if ((vtop[-1].r & VT_VALMASK) >= VT_CONST) {
+#अगर_घोषित CONFIG_TCC_BCHECK
+        अगर ((vtop[-1].r & VT_VALMASK) >= VT_CONST) {
           vswap();
           r=fpr(gv(RC_FLOAT));
           vswap();
         }
-#endif
+#पूर्ण_अगर
       }
-      break;
-    case '*':
-      if(!c2 || c2>0xf) {
+      अवरोध;
+    हाल '*':
+      अगर(!c2 || c2>0xf) {
 	vswap();
 	c2=c1;
       }
       vswap();
       r=fpr(gv(RC_FLOAT));
       vswap();
-      if(c2 && c2<=0xf)
+      अगर(c2 && c2<=0xf)
 	r2=c2;
-      else {
+      अन्यथा {
 	r2=fpr(gv(RC_FLOAT));
-#ifdef CONFIG_TCC_BCHECK
-        if ((vtop[-1].r & VT_VALMASK) >= VT_CONST) {
+#अगर_घोषित CONFIG_TCC_BCHECK
+        अगर ((vtop[-1].r & VT_VALMASK) >= VT_CONST) {
           vswap();
           r=fpr(gv(RC_FLOAT));
           vswap();
         }
-#endif
+#पूर्ण_अगर
       }
       x|=0x100000; // muf
-      break;
-    case '/':
-      if(c2 && c2<=0xf) {
+      अवरोध;
+    हाल '/':
+      अगर(c2 && c2<=0xf) {
 	x|=0x400000; // dvf
 	r2=c2;
 	vswap();
 	r=fpr(gv(RC_FLOAT));
 	vswap();
-      } else if(c1 && c1<=0xf) {
+      } अन्यथा अगर(c1 && c1<=0xf) {
 	x|=0x500000; // rdf
 	r2=c1;
 	r=fpr(gv(RC_FLOAT));
 	vswap();
-      } else {
+      } अन्यथा {
 	x|=0x400000; // dvf
 	vswap();
 	r=fpr(gv(RC_FLOAT));
 	vswap();
 	r2=fpr(gv(RC_FLOAT));
-#ifdef CONFIG_TCC_BCHECK
-        if ((vtop[-1].r & VT_VALMASK) >= VT_CONST) {
+#अगर_घोषित CONFIG_TCC_BCHECK
+        अगर ((vtop[-1].r & VT_VALMASK) >= VT_CONST) {
           vswap();
           r=fpr(gv(RC_FLOAT));
           vswap();
         }
-#endif
+#पूर्ण_अगर
       }
-      break;
-    default:
-      if(op >= TOK_ULT && op <= TOK_GT) {
+      अवरोध;
+    शेष:
+      अगर(op >= TOK_ULT && op <= TOK_GT) {
 	x|=0xd0f110; // cmfe
 /* bug (intention?) in Linux FPU emulator
    doesn't set carry if equal */
-	switch(op) {
-	  case TOK_ULT:
-	  case TOK_UGE:
-	  case TOK_ULE:
-	  case TOK_UGT:
+	चयन(op) {
+	  हाल TOK_ULT:
+	  हाल TOK_UGE:
+	  हाल TOK_ULE:
+	  हाल TOK_UGT:
             tcc_error("unsigned comparison on floats?");
-	    break;
-	  case TOK_LT:
+	    अवरोध;
+	  हाल TOK_LT:
             op=TOK_Nset;
-	    break;
-	  case TOK_LE:
+	    अवरोध;
+	  हाल TOK_LE:
             op=TOK_ULE; /* correct in unordered case only if AC bit in FPSR set */
-	    break;
-	  case TOK_EQ:
-	  case TOK_NE:
+	    अवरोध;
+	  हाल TOK_EQ:
+	  हाल TOK_NE:
 	    x&=~0x400000; // cmfe -> cmf
-	    break;
+	    अवरोध;
 	}
-	if(c1 && !c2) {
+	अगर(c1 && !c2) {
 	  c2=c1;
 	  vswap();
-	  switch(op) {
-            case TOK_Nset:
+	  चयन(op) {
+            हाल TOK_Nset:
               op=TOK_GT;
-	      break;
-            case TOK_GE:
+	      अवरोध;
+            हाल TOK_GE:
 	      op=TOK_ULE;
-	      break;
-	    case TOK_ULE:
+	      अवरोध;
+	    हाल TOK_ULE:
               op=TOK_GE;
-	      break;
-            case TOK_GT:
+	      अवरोध;
+            हाल TOK_GT:
               op=TOK_Nset;
-	      break;
+	      अवरोध;
 	  }
 	}
 	vswap();
 	r=fpr(gv(RC_FLOAT));
 	vswap();
-	if(c2) {
-	  if(c2>0xf)
+	अगर(c2) {
+	  अगर(c2>0xf)
 	    x|=0x200000;
 	  r2=c2&0xf;
-	} else {
+	} अन्यथा {
 	  r2=fpr(gv(RC_FLOAT));
-#ifdef CONFIG_TCC_BCHECK
-          if ((vtop[-1].r & VT_VALMASK) >= VT_CONST) {
+#अगर_घोषित CONFIG_TCC_BCHECK
+          अगर ((vtop[-1].r & VT_VALMASK) >= VT_CONST) {
             vswap();
             r=fpr(gv(RC_FLOAT));
             vswap();
           }
-#endif
+#पूर्ण_अगर
 	}
         --vtop;
         vset_VT_CMP(op);
         ++vtop;
-      } else {
+      } अन्यथा {
         tcc_error("unknown fp op %x!",op);
-	return;
+	वापस;
       }
   }
-  if(vtop[-1].r == VT_CMP)
+  अगर(vtop[-1].r == VT_CMP)
     c1=15;
-  else {
+  अन्यथा {
     c1=vtop->r;
-    if(r2&0x8)
+    अगर(r2&0x8)
       c1=vtop[-1].r;
     vtop[-1].r=get_reg_ex(RC_FLOAT,two2mask(vtop[-1].r,c1));
     c1=fpr(vtop[-1].r);
@@ -2130,163 +2130,163 @@ void gen_opf(int op)
   vtop--;
   o(x|(r<<16)|(c1<<12)|r2);
 }
-#endif
+#पूर्ण_अगर
 
 /* convert integers to fp 't' type. Must handle 'int', 'unsigned int'
    and 'long long' cases. */
-ST_FUNC void gen_cvt_itof(int t)
+ST_FUNC व्योम gen_cvt_itof(पूर्णांक t)
 {
   uint32_t r, r2;
-  int bt;
+  पूर्णांक bt;
   bt=vtop->type.t & VT_BTYPE;
-  if(bt == VT_INT || bt == VT_SHORT || bt == VT_BYTE) {
-#ifndef TCC_ARM_VFP
+  अगर(bt == VT_INT || bt == VT_SHORT || bt == VT_BYTE) {
+#अगर_अघोषित TCC_ARM_VFP
     uint32_t dsize = 0;
-#endif
+#पूर्ण_अगर
     r=intr(gv(RC_INT));
-#ifdef TCC_ARM_VFP
+#अगर_घोषित TCC_ARM_VFP
     r2=vfpr(vtop->r=get_reg(RC_FLOAT));
     o(0xEE000A10|(r<<12)|(r2<<16)); /* fmsr */
     r2|=r2<<12;
-    if(!(vtop->type.t & VT_UNSIGNED))
+    अगर(!(vtop->type.t & VT_UNSIGNED))
       r2|=0x80;                /* fuitoX -> fsituX */
     o(0xEEB80A40|r2|T2CPR(t)); /* fYitoX*/
-#else
+#अन्यथा
     r2=fpr(vtop->r=get_reg(RC_FLOAT));
-    if((t & VT_BTYPE) != VT_FLOAT)
+    अगर((t & VT_BTYPE) != VT_FLOAT)
       dsize=0x80;    /* flts -> fltd */
     o(0xEE000110|dsize|(r2<<16)|(r<<12)); /* flts */
-    if((vtop->type.t & (VT_UNSIGNED|VT_BTYPE)) == (VT_UNSIGNED|VT_INT)) {
+    अगर((vtop->type.t & (VT_UNSIGNED|VT_BTYPE)) == (VT_UNSIGNED|VT_INT)) {
       uint32_t off = 0;
       o(0xE3500000|(r<<12));        /* cmp */
       r=fpr(get_reg(RC_FLOAT));
-      if(last_itod_magic) {
+      अगर(last_itod_magic) {
 	off=ind+8-last_itod_magic;
 	off/=4;
-	if(off>255)
+	अगर(off>255)
 	  off=0;
       }
       o(0xBD1F0100|(r<<12)|off);    /* ldflts */
-      if(!off) {
+      अगर(!off) {
         o(0xEA000000);              /* b */
         last_itod_magic=ind;
         o(0x4F800000);              /* 4294967296.0f */
       }
       o(0xBE000100|dsize|(r2<<16)|(r2<<12)|r); /* adflt */
     }
-#endif
-    return;
-  } else if(bt == VT_LLONG) {
-    int func;
+#पूर्ण_अगर
+    वापस;
+  } अन्यथा अगर(bt == VT_LLONG) {
+    पूर्णांक func;
     CType *func_type = 0;
-    if((t & VT_BTYPE) == VT_FLOAT) {
+    अगर((t & VT_BTYPE) == VT_FLOAT) {
       func_type = &func_float_type;
-      if(vtop->type.t & VT_UNSIGNED)
+      अगर(vtop->type.t & VT_UNSIGNED)
         func=TOK___floatundisf;
-      else
+      अन्यथा
         func=TOK___floatdisf;
-    } else if((t & VT_BTYPE) == VT_DOUBLE) {
+    } अन्यथा अगर((t & VT_BTYPE) == VT_DOUBLE) {
       func_type = &func_double_type;
-      if(vtop->type.t & VT_UNSIGNED)
+      अगर(vtop->type.t & VT_UNSIGNED)
         func=TOK___floatundidf;
-      else
+      अन्यथा
         func=TOK___floatdidf;
-#if LDOUBLE_SIZE != 8
-    } else if((t & VT_BTYPE) == VT_LDOUBLE) {
+#अगर LDOUBLE_आकार != 8
+    } अन्यथा अगर((t & VT_BTYPE) == VT_LDOUBLE) {
       func_type = &func_ldouble_type;
-      if(vtop->type.t & VT_UNSIGNED)
+      अगर(vtop->type.t & VT_UNSIGNED)
         func=TOK___floatundixf;
-      else
+      अन्यथा
         func=TOK___floatdixf;
-#endif
+#पूर्ण_अगर
     }
-    if(func_type) {
+    अगर(func_type) {
       vpushsym(func_type, external_helper_sym(func));
       vswap();
       gfunc_call(1);
       vpushi(0);
       vtop->r=TREG_F0;
-      return;
+      वापस;
     }
   }
   tcc_error("unimplemented gen_cvt_itof %x!",vtop->type.t);
 }
 
 /* convert fp to int 't' type */
-void gen_cvt_ftoi(int t)
+व्योम gen_cvt_ftoi(पूर्णांक t)
 {
   uint32_t r, r2;
-  int u, func = 0;
+  पूर्णांक u, func = 0;
   u=t&VT_UNSIGNED;
   t&=VT_BTYPE;
   r2=vtop->type.t & VT_BTYPE;
-  if(t==VT_INT) {
-#ifdef TCC_ARM_VFP
+  अगर(t==VT_INT) {
+#अगर_घोषित TCC_ARM_VFP
     r=vfpr(gv(RC_FLOAT));
     u=u?0:0x10000;
     o(0xEEBC0AC0|(r<<12)|r|T2CPR(r2)|u); /* ftoXizY */
     r2=intr(vtop->r=get_reg(RC_INT));
     o(0xEE100A10|(r<<16)|(r2<<12));
-    return;
-#else
-    if(u) {
-      if(r2 == VT_FLOAT)
+    वापस;
+#अन्यथा
+    अगर(u) {
+      अगर(r2 == VT_FLOAT)
         func=TOK___fixunssfsi;
-      else if(r2 == VT_DOUBLE)
+      अन्यथा अगर(r2 == VT_DOUBLE)
 	func=TOK___fixunsdfsi;
-#if LDOUBLE_SIZE != 8
-      else if(r2 == VT_LDOUBLE)
+#अगर LDOUBLE_आकार != 8
+      अन्यथा अगर(r2 == VT_LDOUBLE)
 	func=TOK___fixunsxfsi;
-#endif
-    } else {
+#पूर्ण_अगर
+    } अन्यथा {
       r=fpr(gv(RC_FLOAT));
       r2=intr(vtop->r=get_reg(RC_INT));
       o(0xEE100170|(r2<<12)|r);
-      return;
+      वापस;
     }
-#endif
-  } else if(t == VT_LLONG) { // unsigned handled in gen_cvt_ftoi1
-    if(r2 == VT_FLOAT)
+#पूर्ण_अगर
+  } अन्यथा अगर(t == VT_LLONG) { // unsigned handled in gen_cvt_ftoi1
+    अगर(r2 == VT_FLOAT)
       func=TOK___fixsfdi;
-    else if(r2 == VT_DOUBLE)
+    अन्यथा अगर(r2 == VT_DOUBLE)
       func=TOK___fixdfdi;
-#if LDOUBLE_SIZE != 8
-    else if(r2 == VT_LDOUBLE)
+#अगर LDOUBLE_आकार != 8
+    अन्यथा अगर(r2 == VT_LDOUBLE)
       func=TOK___fixxfdi;
-#endif
+#पूर्ण_अगर
   }
-  if(func) {
+  अगर(func) {
     vpush_helper_func(func);
     vswap();
     gfunc_call(1);
     vpushi(0);
-    if(t == VT_LLONG)
+    अगर(t == VT_LLONG)
       vtop->r2 = REG_IRE2;
     vtop->r = REG_IRET;
-    return;
+    वापस;
   }
   tcc_error("unimplemented gen_cvt_ftoi!");
 }
 
 /* convert from one floating point type to another */
-void gen_cvt_ftof(int t)
+व्योम gen_cvt_ftof(पूर्णांक t)
 {
-#ifdef TCC_ARM_VFP
+#अगर_घोषित TCC_ARM_VFP
   uint32_t r = gv(RC_FLOAT);
-  if(((vtop->type.t & VT_BTYPE) == VT_FLOAT) != ((t & VT_BTYPE) == VT_FLOAT)) {
+  अगर(((vtop->type.t & VT_BTYPE) == VT_FLOAT) != ((t & VT_BTYPE) == VT_FLOAT)) {
     r = vfpr(r);
     o(0xEEB70AC0|(r<<12)|r|T2CPR(vtop->type.t));
   }
-#else
+#अन्यथा
   /* all we have to do on i386 and FPA ARM is to put the float in a register */
   gv(RC_FLOAT);
-#endif
+#पूर्ण_अगर
 }
 
 /* increment tcov counter */
-ST_FUNC void gen_increment_tcov (SValue *sv)
+ST_FUNC व्योम gen_increment_tcov (SValue *sv)
 {
-  int r1, r2;
+  पूर्णांक r1, r2;
 
   vpushv(sv);
   vtop->r = r1 = get_reg(RC_INT);
@@ -2307,14 +2307,14 @@ ST_FUNC void gen_increment_tcov (SValue *sv)
 }
 
 /* computed goto support */
-void ggoto(void)
+व्योम ggoto(व्योम)
 {
   gcall_or_jmp(1);
   vtop--;
 }
 
 /* Save the stack pointer onto the stack and return the location of its address */
-ST_FUNC void gen_vla_sp_save(int addr) {
+ST_FUNC व्योम gen_vla_sp_save(पूर्णांक addr) {
     SValue v;
     v.type.t = VT_PTR;
     v.r = VT_LOCAL | VT_LVAL;
@@ -2323,7 +2323,7 @@ ST_FUNC void gen_vla_sp_save(int addr) {
 }
 
 /* Restore the SP from a location on the stack */
-ST_FUNC void gen_vla_sp_restore(int addr) {
+ST_FUNC व्योम gen_vla_sp_restore(पूर्णांक addr) {
     SValue v;
     v.type.t = VT_PTR;
     v.r = VT_LOCAL | VT_LVAL;
@@ -2332,31 +2332,31 @@ ST_FUNC void gen_vla_sp_restore(int addr) {
 }
 
 /* Subtract from the stack pointer, and push the resulting value onto the stack */
-ST_FUNC void gen_vla_alloc(CType *type, int align) {
-    int r;
-#if defined(CONFIG_TCC_BCHECK)
-    if (tcc_state->do_bounds_check)
+ST_FUNC व्योम gen_vla_alloc(CType *type, पूर्णांक align) {
+    पूर्णांक r;
+#अगर defined(CONFIG_TCC_BCHECK)
+    अगर (tcc_state->do_bounds_check)
         vpushv(vtop);
-#endif
+#पूर्ण_अगर
     r = intr(gv(RC_INT));
-#if defined(CONFIG_TCC_BCHECK)
-    if (tcc_state->do_bounds_check)
+#अगर defined(CONFIG_TCC_BCHECK)
+    अगर (tcc_state->do_bounds_check)
         o(0xe2800001 | (r<<16)|(r<<12)); /* add r,r,#1 */
-#endif
+#पूर्ण_अगर
     o(0xE04D0000|(r<<12)|r); /* sub r, sp, r */
-#ifdef TCC_ARM_EABI
-    if (align < 8)
+#अगर_घोषित TCC_ARM_EABI
+    अगर (align < 8)
         align = 8;
-#else
-    if (align < 4)
+#अन्यथा
+    अगर (align < 4)
         align = 4;
-#endif
-    if (align & (align - 1))
+#पूर्ण_अगर
+    अगर (align & (align - 1))
         tcc_error("alignment is not a power of 2: %i", align);
     o(stuff_const(0xE3C0D000|(r<<16), align - 1)); /* bic sp, r, #align-1 */
     vpop();
-#if defined(CONFIG_TCC_BCHECK)
-    if (tcc_state->do_bounds_check) {
+#अगर defined(CONFIG_TCC_BCHECK)
+    अगर (tcc_state->do_bounds_check) {
         vpushi(0);
         vtop->r = TREG_R0;
         o(0xe1a0000d | (vtop->r << 12)); // mov r0,sp
@@ -2366,10 +2366,10 @@ ST_FUNC void gen_vla_alloc(CType *type, int align) {
         gfunc_call(2);
         func_bound_add_epilog = 1;
     }
-#endif
+#पूर्ण_अगर
 }
 
 /* end of ARM code generator */
 /*************************************************************/
-#endif
+#पूर्ण_अगर
 /*************************************************************/

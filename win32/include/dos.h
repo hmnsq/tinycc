@@ -3,53 +3,53 @@
  * This file is part of the w64 mingw-runtime package.
  * No warranty is given; refer to the file DISCLAIMER within this package.
  */
-#ifndef _INC_DOS
-#define _INC_DOS
+#अगर_अघोषित _INC_DOS
+#घोषणा _INC_DOS
 
-#include <_mingw.h>
-#include <io.h>
+#समावेश <_mingw.h>
+#समावेश <io.h>
 
-#pragma pack(push,_CRT_PACKING)
+#आशय pack(धकेलो,_CRT_PACKING)
 
-#ifdef __cplusplus
-extern "C" {
-#endif
+#अगर_घोषित __cplusplus
+बाह्य "C" {
+#पूर्ण_अगर
 
-#ifndef _DISKFREE_T_DEFINED
-#define _DISKFREE_T_DEFINED
+#अगर_अघोषित _DISKFREE_T_DEFINED
+#घोषणा _DISKFREE_T_DEFINED
 
-  struct _diskfree_t {
-    unsigned total_clusters;
-    unsigned avail_clusters;
-    unsigned sectors_per_cluster;
-    unsigned bytes_per_sector;
+  काष्ठा _diskfree_t {
+    अचिन्हित योग_clusters;
+    अचिन्हित avail_clusters;
+    अचिन्हित sectors_per_cluster;
+    अचिन्हित bytes_per_sector;
   };
-#endif
+#पूर्ण_अगर
 
-#define _A_NORMAL 0x00
-#define _A_RDONLY 0x01
-#define _A_HIDDEN 0x02
-#define _A_SYSTEM 0x04
-#define _A_SUBDIR 0x10
-#define _A_ARCH 0x20
+#घोषणा _A_NORMAL 0x00
+#घोषणा _A_RDONLY 0x01
+#घोषणा _A_HIDDEN 0x02
+#घोषणा _A_SYSTEM 0x04
+#घोषणा _A_SUBDIR 0x10
+#घोषणा _A_ARCH 0x20
 
-#ifndef _GETDISKFREE_DEFINED
-#define _GETDISKFREE_DEFINED
-  _CRTIMP unsigned __cdecl _getdiskfree(unsigned _Drive,struct _diskfree_t *_DiskFree);
-#endif
+#अगर_अघोषित _GETDISKFREE_DEFINED
+#घोषणा _GETDISKFREE_DEFINED
+  _CRTIMP अचिन्हित __cdecl _getdiskfree(अचिन्हित _Drive,काष्ठा _diskfree_t *_DiskFree);
+#पूर्ण_अगर
 
-#if (defined(_X86_) && !defined(__x86_64))
-  void __cdecl _disable(void);
-  void __cdecl _enable(void);
-#endif
+#अगर (defined(_X86_) && !defined(__x86_64))
+  व्योम __cdecl _disable(व्योम);
+  व्योम __cdecl _enable(व्योम);
+#पूर्ण_अगर
 
-#ifndef	NO_OLDNAMES
-#define diskfree_t _diskfree_t
-#endif
+#अगर_अघोषित	NO_OLDNAMES
+#घोषणा diskfree_t _diskfree_t
+#पूर्ण_अगर
 
-#ifdef __cplusplus
+#अगर_घोषित __cplusplus
 }
-#endif
+#पूर्ण_अगर
 
-#pragma pack(pop)
-#endif
+#आशय pack(निकालो)
+#पूर्ण_अगर

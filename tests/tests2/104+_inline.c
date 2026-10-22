@@ -1,11 +1,11 @@
 
-#define GOT(f) \
-    __attribute__((weak)) void f(void); \
-    printf("%d %s\n", !!((__SIZE_TYPE__)f & ~0u), #f);
+#घोषणा GOT(f) \
+    __attribute__((weak)) व्योम f(व्योम); \
+    म_लिखो("%d %s\n", !!((__SIZE_TYPE__)f & ~0u), #f);
 
-int printf(const char*, ...);
+पूर्णांक म_लिखो(स्थिर अक्षर*, ...);
 
-void check_exports()
+व्योम check_exports()
 {
     // 0
     GOT(inline_inline_2decl_only)
@@ -39,7 +39,7 @@ void check_exports()
     GOT(inst3_extern_inline_predeclared)
     GOT(inst_extern_inline_postdeclared)
     GOT(inst_extern_inline_predeclared)
-    GOT(main)
+    GOT(मुख्य)
     GOT(noinst_extern_inline_func)
     GOT(noinst_extern_inline_postdeclared)
     GOT(noinst_extern_inline_postdeclared2)

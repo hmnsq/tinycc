@@ -1,14 +1,14 @@
-#include <stdio.h>
+#समावेश <stdio.h>
 
-int main() 
+पूर्णांक मुख्य() 
 {
-   printf("Hello\n");
-   printf("Hello\n"); /* this is a comment */ printf("Hello\n");
-   printf("Hello\n");
+   म_लिखो("Hello\n");
+   म_लिखो("Hello\n"); /* this is a comment */ म_लिखो("Hello\n");
+   म_लिखो("Hello\n");
    // this is also a comment sayhello();
-   printf("Hello\n");
+   म_लिखो("Hello\n");
 
-   return 0;
+   वापस 0;
 }
 
 // vim: set expandtab ts=4 sw=3 sts=3 tw=80 :

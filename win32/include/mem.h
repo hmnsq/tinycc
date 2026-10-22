@@ -8,6 +8,6 @@
  *
  * mem.h maps to string.h
  */
-#ifndef	__STRICT_ANSI__
-#include <string.h>
-#endif
+#अगर_अघोषित	__STRICT_ANSI__
+#समावेश <string.h>
+#पूर्ण_अगर

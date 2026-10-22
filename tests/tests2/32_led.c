@@ -28,33 +28,33 @@ cursor to a previous line.
 
 
 
-#include <stdlib.h>
-#include <stdio.h>
+#समावेश <stdlib.h>
+#समावेश <stdio.h>
 
-#define MAX_DIGITS 32
-#define NO_MAIN
+#घोषणा MAX_DIGITS 32
+#घोषणा NO_MAIN
 
 
 /* Print the top line of the digit d into buffer. 
    Does not null terminate buffer. */
 
-void topline(int d, char *p){
+व्योम topline(पूर्णांक d, अक्षर *p){
 
    *p++ = ' ';
-   switch(d){
+   चयन(d){
 
       /* all these have _ on top line */
 
-      case 0:
-      case 2:
-      case 3:
-      case 5:
-      case 7:
-      case 8:
-      case 9:
+      हाल 0:
+      हाल 2:
+      हाल 3:
+      हाल 5:
+      हाल 7:
+      हाल 8:
+      हाल 9:
          *p++ = '_';
-         break;
-      default:
+         अवरोध;
+      शेष:
          *p++=' ';
 
    }
@@ -64,55 +64,55 @@ void topline(int d, char *p){
 /* Print the middle line of the digit d into the buffer. 
    Does not null terminate. */
 
-void midline(int d, char *p){
+व्योम midline(पूर्णांक d, अक्षर *p){
 
-   switch(d){
+   चयन(d){
 
       /* those that have leading | on middle line */
 
-      case 0:
-      case 4:
-      case 5:
-      case 6:
-      case 8:
-      case 9:
+      हाल 0:
+      हाल 4:
+      हाल 5:
+      हाल 6:
+      हाल 8:
+      हाल 9:
          *p++='|';
-         break;
-      default:
+         अवरोध;
+      शेष:
          *p++=' ';	
    }
-   switch(d){
+   चयन(d){
 
       /* those that have _ on middle line */
 
-      case 2:
-      case 3:
-      case 4:
-      case 5:
-      case 6:
-      case 8:
-      case 9:
+      हाल 2:
+      हाल 3:
+      हाल 4:
+      हाल 5:
+      हाल 6:
+      हाल 8:
+      हाल 9:
          *p++='_';
-         break;
-      default:
+         अवरोध;
+      शेष:
          *p++=' ';
 
    }
-   switch(d){
+   चयन(d){
 
       /* those that have closing | on middle line */
 
-      case 0:
-      case 1:
-      case 2:
-      case 3:
-      case 4:
-      case 7:
-      case 8:
-      case 9:
+      हाल 0:
+      हाल 1:
+      हाल 2:
+      हाल 3:
+      हाल 4:
+      हाल 7:
+      हाल 8:
+      हाल 9:
          *p++='|';
-         break;
-      default:
+         अवरोध;
+      शेष:
          *p++=' ';
 
    }
@@ -120,54 +120,54 @@ void midline(int d, char *p){
 
 /* Print the bottom line of the digit d. Does not null terminate. */
 
-void botline(int d, char *p){
+व्योम botline(पूर्णांक d, अक्षर *p){
 
 
-   switch(d){
+   चयन(d){
 
       /* those that have leading | on bottom line */
 
-      case 0:
-      case 2:
-      case 6:
-      case 8:
+      हाल 0:
+      हाल 2:
+      हाल 6:
+      हाल 8:
          *p++='|';
-         break;
-      default:
+         अवरोध;
+      शेष:
          *p++=' ';	
    }
-   switch(d){
+   चयन(d){
 
       /* those that have _ on bottom line */
 
-      case 0:
-      case 2:
-      case 3:
-      case 5:
-      case 6:
-      case 8:
+      हाल 0:
+      हाल 2:
+      हाल 3:
+      हाल 5:
+      हाल 6:
+      हाल 8:
          *p++='_';
-         break;
-      default:
+         अवरोध;
+      शेष:
          *p++=' ';
 
    }
-   switch(d){
+   चयन(d){
 
       /* those that have closing | on bottom line */
 
-      case 0:
-      case 1:
-      case 3:
-      case 4:
-      case 5:
-      case 6:
-      case 7:
-      case 8:
-      case 9:
+      हाल 0:
+      हाल 1:
+      हाल 3:
+      हाल 4:
+      हाल 5:
+      हाल 6:
+      हाल 7:
+      हाल 8:
+      हाल 9:
          *p++='|';
-         break;
-      default:
+         अवरोध;
+      शेष:
          *p++=' ';
 
    }
@@ -175,26 +175,26 @@ void botline(int d, char *p){
 
 /* Write the led representation of integer to string buffer. */
 
-void print_led(unsigned long x, char *buf)
+व्योम print_led(अचिन्हित दीर्घ x, अक्षर *buf)
 {
 
-   int i=0,n;
-   static int d[MAX_DIGITS];
+   पूर्णांक i=0,n;
+   अटल पूर्णांक d[MAX_DIGITS];
 
 
    /* extract digits from x */
 
    n = ( x == 0L ? 1 : 0 );  /* 0 is a digit, hence a special case */
 
-   while(x){
-      d[n++] = (int)(x%10L);
-      if(n >= MAX_DIGITS)break;
+   जबतक(x){
+      d[n++] = (पूर्णांक)(x%10L);
+      अगर(n >= MAX_DIGITS)अवरोध;
       x = x/10L;
    }
 
    /* print top lines of all digits */
 
-   for(i=n-1;i>=0;i--){
+   क्रम(i=n-1;i>=0;i--){
       topline(d[i],buf);
       buf += 3;
       *buf++=' ';
@@ -203,7 +203,7 @@ void print_led(unsigned long x, char *buf)
 
    /* print middle lines of all digits */
 
-   for(i=n-1;i>=0;i--){
+   क्रम(i=n-1;i>=0;i--){
       midline(d[i],buf);
       buf += 3;
       *buf++=' ';
@@ -212,7 +212,7 @@ void print_led(unsigned long x, char *buf)
 
    /* print bottom lines of all digits */
 
-   for(i=n-1;i>=0;i--){
+   क्रम(i=n-1;i>=0;i--){
       botline(d[i],buf);
       buf += 3;
       *buf++=' ';
@@ -221,46 +221,46 @@ void print_led(unsigned long x, char *buf)
    *buf='\0';
 }
 
-int main()
+पूर्णांक मुख्य()
 {
-   char buf[5*MAX_DIGITS];
+   अक्षर buf[5*MAX_DIGITS];
    print_led(1234567, buf);
-   printf("%s\n",buf);
+   म_लिखो("%s\n",buf);
 
-   return 0;
+   वापस 0;
 }
 
-#ifndef NO_MAIN
-int main(int argc, char **argv)
+#अगर_अघोषित NO_MAIN
+पूर्णांक मुख्य(पूर्णांक argc, अक्षर **argv)
 {
 
-   int i=0,n;
-   long x;
-   static int d[MAX_DIGITS];
-   char buf[5*MAX_DIGITS];
+   पूर्णांक i=0,n;
+   दीर्घ x;
+   अटल पूर्णांक d[MAX_DIGITS];
+   अक्षर buf[5*MAX_DIGITS];
 
-   if(argc != 2){
-      fprintf(stderr,"led: usage: led integer\n");
-      return 1;
+   अगर(argc != 2){
+      ख_लिखो(मानक_त्रुटि,"led: usage: led integer\n");
+      वापस 1;
    }
 
    /* fetch argument from command line */
 
-   x = atol(argv[1]);
+   x = म_से_द(argv[1]);
 
    /* sanity check */
 
-   if(x<0){
-      fprintf(stderr,"led: %d must be non-negative\n",x);
-      return 1;
+   अगर(x<0){
+      ख_लिखो(मानक_त्रुटि,"led: %d must be non-negative\n",x);
+      वापस 1;
    }
 
    print_led(x,buf);
-   printf("%s\n",buf);
+   म_लिखो("%s\n",buf);
 
-   return 0;
+   वापस 0;
 
 }
-#endif
+#पूर्ण_अगर
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

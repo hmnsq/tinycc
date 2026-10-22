@@ -1,17 +1,17 @@
-#include <stdio.h>
-int main() {
-  printf("%d\n", (int)-1.0);
-  double d = -1.0;
-  printf("%d\n", (int)d);
+#समावेश <stdio.h>
+पूर्णांक मुख्य() {
+  म_लिखो("%d\n", (पूर्णांक)-1.0);
+  द्विगुन d = -1.0;
+  म_लिखो("%d\n", (पूर्णांक)d);
 
-  printf("%d\n", (int)-2147483648.0);
+  म_लिखो("%d\n", (पूर्णांक)-2147483648.0);
   d = -2147483648.0;
-  printf("%d\n", (int)d);
+  म_लिखो("%d\n", (पूर्णांक)d);
 
-#ifndef _WIN32
-  printf("%llu\n", (unsigned long long)1e19);
-#else
+#अगर_अघोषित _WIN32
+  म_लिखो("%llu\n", (अचिन्हित दीर्घ दीर्घ)1e19);
+#अन्यथा
   /* some msvc compiler won't compile tcc correctly in this ragard */
-  printf("10000000000000000000\n");
-#endif
+  म_लिखो("10000000000000000000\n");
+#पूर्ण_अगर
 }

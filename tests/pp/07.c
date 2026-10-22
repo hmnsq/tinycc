@@ -1,4 +1,4 @@
-#define a() YES
-#define b() a
+#घोषणा a() YES
+#घोषणा b() a
 b()
 b()()

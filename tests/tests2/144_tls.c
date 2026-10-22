@@ -1,72 +1,72 @@
-#include <stdio.h>
-#include "threads.h"
+#समावेश <stdio.h>
+#समावेश "threads.h"
 
-#if __SIZEOF_POINTER__ == 8
+#अगर __SIZEOF_POINTER__ == 8
 # define pFMT "0x%llx"
-#else
+#अन्यथा
 # define pFMT "0x%x"
-#endif
+#पूर्ण_अगर
 
-#define	CHECK(var,fmt,val)	printf(fmt "\n",var); if (var != val) errors = 1
+#घोषणा	CHECK(var,fmt,val)	म_लिखो(fmt "\n",var); अगर (var != val) errors = 1
 
-typedef enum { tls_a, tls_b, tls_c } tls_enum_type;
-typedef struct { int tls_d, tls_e, tls_f; } tls_struct_type;
+प्रकार क्रमागत { tls_a, tls_b, tls_c } tls_enum_type;
+प्रकार काष्ठा { पूर्णांक tls_d, tls_e, tls_f; } tls_struct_type;
 
-typedef struct {
-    int *init;
-    signed short *element;
+प्रकार काष्ठा {
+    पूर्णांक *init;
+    चिन्हित लघु *element;
 } tls_address_type;
 
-__thread char tls_char = 42;
-__thread short tls_short = 43;
-__thread int tls_init = 44;
-__thread long long tls_long_long = 45;
-__thread int tls_zero;
-__thread float tls_float = 46.0;
-__thread double tls_double = 47.0;
-__thread long double tls_long_double = 48.0;
-__thread int *tls_ptr = (int *)49;
+__thread अक्षर tls_char = 42;
+__thread लघु tls_short = 43;
+__thread पूर्णांक tls_init = 44;
+__thread दीर्घ दीर्घ tls_long_long = 45;
+__thread पूर्णांक tls_zero;
+__thread भग्न tls_float = 46.0;
+__thread द्विगुन tls_double = 47.0;
+__thread दीर्घ द्विगुन tls_long_double = 48.0;
+__thread पूर्णांक *tls_ptr = (पूर्णांक *)49;
 __thread tls_enum_type tls_enum = tls_b;
 __thread tls_struct_type tls_struct = { 50, 51, 52 };
-__thread signed char tls_signed_char = -5;
-__thread unsigned char tls_unsigned_char = 250;
-__thread signed short tls_signed_short = -1234;
-__thread unsigned short tls_unsigned_short = 60000;
-__thread signed short tls_array[4] = { -1000, 2000, -3000, 4000 };
+__thread चिन्हित अक्षर tls_signed_char = -5;
+__thread अचिन्हित अक्षर tls_unsigned_char = 250;
+__thread चिन्हित लघु tls_signed_short = -1234;
+__thread अचिन्हित लघु tls_unsigned_short = 60000;
+__thread चिन्हित लघु tls_array[4] = { -1000, 2000, -3000, 4000 };
 
-#if defined __riscv && __riscv_xlen == 64
-typedef struct {
-    char padding[4096];
-    int value;
+#अगर defined __riscv && __riscv_xlen == 64
+प्रकार काष्ठा {
+    अक्षर padding[4096];
+    पूर्णांक मूल्य;
 } tls_large_type;
 
 __thread tls_large_type tls_large = { { 0 }, 123456 };
-#endif
+#पूर्ण_अगर
 
-static int check_extra(int changed)
+अटल पूर्णांक check_extra(पूर्णांक changed)
 {
-    volatile int index = 2;
+    अस्थिर पूर्णांक सूचकांक = 2;
 
-    if (changed)
-        return tls_signed_char != -7 || tls_unsigned_char != 42
+    अगर (changed)
+        वापस tls_signed_char != -7 || tls_unsigned_char != 42
             || tls_signed_short != -2222 || tls_unsigned_short != 12345
-            || tls_array[1] != 2222 || tls_array[index] != -3333;
+            || tls_array[1] != 2222 || tls_array[सूचकांक] != -3333;
 
-    if (tls_signed_char != -5 || tls_unsigned_char != 250
+    अगर (tls_signed_char != -5 || tls_unsigned_char != 250
         || tls_signed_short != -1234 || tls_unsigned_short != 60000
-        || tls_array[1] != 2000 || tls_array[index] != -3000)
-        return 1;
+        || tls_array[1] != 2000 || tls_array[सूचकांक] != -3000)
+        वापस 1;
 
-#if defined __riscv && __riscv_xlen == 64
-    if (tls_large.value != 123456)
-        return 1;
-#endif
-    return 0;
+#अगर defined __riscv && __riscv_xlen == 64
+    अगर (tls_large.मूल्य != 123456)
+        वापस 1;
+#पूर्ण_अगर
+    वापस 0;
 }
 
-static int check(void)
+अटल पूर्णांक check(व्योम)
 {
-    int errors = 0;
+    पूर्णांक errors = 0;
 
     CHECK(tls_char, "%d", 42);
     CHECK(tls_short, "%d", 43);
@@ -76,26 +76,26 @@ static int check(void)
     CHECK(tls_float, "%g", 46.0);
     CHECK(tls_double, "%g", 47.0);
     CHECK(tls_long_double, "%Lg", 48.0);
-    CHECK(tls_ptr, pFMT, (int *)49);
+    CHECK(tls_ptr, pFMT, (पूर्णांक *)49);
     CHECK(tls_enum, "%d", tls_b);
     CHECK(tls_struct.tls_d, "%d", 50);
     CHECK(tls_struct.tls_e, "%d", 51);
     CHECK(tls_struct.tls_f, "%d", 52);
-    return errors;
+    वापस errors;
 }
 
-static void *thread_func(void *arg)
+अटल व्योम *thread_func(व्योम *arg)
 {
     tls_address_type *main_addresses = arg;
-    int *init_address = &tls_init;
-    signed short *element_address = &tls_array[1];
-    volatile int index = 2;
-    long errors = check();
+    पूर्णांक *init_address = &tls_init;
+    चिन्हित लघु *element_address = &tls_array[1];
+    अस्थिर पूर्णांक सूचकांक = 2;
+    दीर्घ errors = check();
 
-    if (init_address == main_addresses->init
+    अगर (init_address == main_addresses->init
         || element_address == main_addresses->element
         || *init_address != 44 || *element_address != 2000
-        || tls_array[index] != -3000 || check_extra(0))
+        || tls_array[सूचकांक] != -3000 || check_extra(0))
         errors = 1;
 
     tls_char = 10;
@@ -106,13 +106,13 @@ static void *thread_func(void *arg)
     tls_float = 60.0;
     tls_double = 70.0;
     tls_long_double = 80.0;
-    tls_ptr = (int *)90;
+    tls_ptr = (पूर्णांक *)90;
     tls_enum = tls_c;
     tls_struct.tls_d = 100;
     tls_struct.tls_e = 110;
     tls_struct.tls_f = 120;
     *element_address = 2222;
-    tls_array[index] = -3333;
+    tls_array[सूचकांक] = -3333;
     tls_signed_char = -7;
     tls_unsigned_char = 42;
     tls_signed_short = -2222;
@@ -127,37 +127,37 @@ static void *thread_func(void *arg)
     CHECK(tls_double, "%g", 70.0);
     CHECK(tls_long_double, "%Lg", 80.0);
     CHECK(tls_enum, "%d", tls_c);
-    CHECK(tls_ptr, pFMT, (int *)90);
+    CHECK(tls_ptr, pFMT, (पूर्णांक *)90);
     CHECK(tls_struct.tls_d, "%d", 100);
     CHECK(tls_struct.tls_e, "%d", 110);
     CHECK(tls_struct.tls_f, "%d", 120);
 
-    if (*init_address != 30 || *element_address != 2222
-        || tls_array[index] != -3333 || check_extra(1))
+    अगर (*init_address != 30 || *element_address != 2222
+        || tls_array[सूचकांक] != -3333 || check_extra(1))
         errors = 1;
 
-    return (void *)(size_t)errors;
+    वापस (व्योम *)(माप_प्रकार)errors;
 }
 
-int main()
+पूर्णांक मुख्य()
 {
     pthread_t t;
-    void *ret;
-    int errors = check();
+    व्योम *ret;
+    पूर्णांक errors = check();
     tls_address_type addresses = { &tls_init, &tls_array[1] };
 
-    if (*addresses.init != 44 || *addresses.element != 2000
+    अगर (*addresses.init != 44 || *addresses.element != 2000
         || check_extra(0))
         errors = 1;
 
-    pthread_create(&t, NULL, thread_func, &addresses);
+    pthread_create(&t, शून्य, thread_func, &addresses);
     pthread_join(t, &ret);
 
     errors |= (ret ? 1 : 0) | check();
-    if (*addresses.init != 44 || *addresses.element != 2000
+    अगर (*addresses.init != 44 || *addresses.element != 2000
         || check_extra(0))
         errors = 1;
 
-    printf("errors: %d\n", errors);
-    return errors;
+    म_लिखो("errors: %d\n", errors);
+    वापस errors;
 }

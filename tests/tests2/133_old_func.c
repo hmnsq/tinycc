@@ -1,41 +1,41 @@
-int printf(const char *s, ...);
+पूर्णांक म_लिखो(स्थिर अक्षर *s, ...);
 
-float fx(x)
-float x;
+भग्न fx(x)
+भग्न x;
 {
-    return 2.0 * x;
+    वापस 2.0 * x;
 }
 
-void func(float a);
+व्योम func(भग्न a);
 
-void func3(struct p { int a; int b; } *q) {
+व्योम func3(काष्ठा p { पूर्णांक a; पूर्णांक b; } *q) {
 }
 
-void func4(q)
- struct p { int a; int b; int c; } *q;
+व्योम func4(q)
+ काष्ठा p { पूर्णांक a; पूर्णांक b; पूर्णांक c; } *q;
 {
 }
 
-struct p { int a; int b; int c; int d; };
+काष्ठा p { पूर्णांक a; पूर्णांक b; पूर्णांक c; पूर्णांक d; };
 
-int
-main(void)
+पूर्णांक
+मुख्य(व्योम)
 {
-    float fy();
+    भग्न fy();
 
-    printf("%g %g\n", fx(2.0), fy(10.0));
-    printf("%g %g\n", fx(2.0f), fy(10.0f));
+    म_लिखो("%g %g\n", fx(2.0), fy(10.0));
+    म_लिखो("%g %g\n", fx(2.0f), fy(10.0f));
     func(1);
 }
 
-float fy(x)
-float x;
+भग्न fy(x)
+भग्न x;
 {
-    return 3.0 * x;
+    वापस 3.0 * x;
 }
 
-void func(a)
-float a;
+व्योम func(a)
+भग्न a;
 {
-    printf("%g\n", a);
+    म_लिखो("%g\n", a);
 }

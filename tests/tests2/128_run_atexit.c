@@ -1,59 +1,59 @@
-#include <stdio.h>
+#समावेश <stdio.h>
 
-int atexit(void (*function)(void));
-int on_exit(void (*function)(int, void *), void *arg);
-void exit(int status);
+पूर्णांक निकास_पर(व्योम (*function)(व्योम));
+पूर्णांक on_exit(व्योम (*function)(पूर्णांक, व्योम *), व्योम *arg);
+व्योम निकास(पूर्णांक status);
 
-void __attribute((constructor)) startup5(void)
+व्योम __attribute((constructor)) startup5(व्योम)
 {
-    printf ("startup5\n");
+    म_लिखो ("startup5\n");
 }
 
-void cleanup1(void)
+व्योम cleanup1(व्योम)
 {
-    printf ("cleanup1\n");
-    fflush(stdout);
+    म_लिखो ("cleanup1\n");
+    ख_साफ(मानक_निकास);
 }
 
-void cleanup2(void)
+व्योम cleanup2(व्योम)
 {
-    printf ("cleanup2\n");
+    म_लिखो ("cleanup2\n");
 }
 
-void cleanup3(int ret, void *arg)
+व्योम cleanup3(पूर्णांक ret, व्योम *arg)
 {
-    printf ("%d %s\n", ret, (char *) arg);
+    म_लिखो ("%d %s\n", ret, (अक्षर *) arg);
 }
 
-void cleanup4(int ret, void *arg)
+व्योम cleanup4(पूर्णांक ret, व्योम *arg)
 {
-    printf ("%d %s\n", ret, (char *) arg);
+    म_लिखो ("%d %s\n", ret, (अक्षर *) arg);
 }
 
-void __attribute((destructor)) cleanup5(void)
+व्योम __attribute((destructor)) cleanup5(व्योम)
 {
-    printf ("cleanup5\n");
+    म_लिखो ("cleanup5\n");
 }
 
-void test(void)
+व्योम test(व्योम)
 {
-    atexit(cleanup1);
-    atexit(cleanup2);
+    निकास_पर(cleanup1);
+    निकास_पर(cleanup2);
     on_exit(cleanup3, "cleanup3");
     on_exit(cleanup4, "cleanup4");
 }
 
-#if defined test_128_return
-int main(int argc, char **argv)
+#अगर defined test_128_return
+पूर्णांक मुख्य(पूर्णांक argc, अक्षर **argv)
 {
     test();
-    return 1;
+    वापस 1;
 } 
 
-#elif defined test_128_exit
-int main(int argc, char **argv)
+#या_अगर defined test_128_exit
+पूर्णांक मुख्य(पूर्णांक argc, अक्षर **argv)
 {
     test();
-    exit(2);
+    निकास(2);
 } 
-#endif
+#पूर्ण_अगर

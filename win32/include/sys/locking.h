@@ -3,28 +3,28 @@
  * This file is part of the w64 mingw-runtime package.
  * No warranty is given; refer to the file DISCLAIMER within this package.
  */
-#ifndef _INC_LOCKING
-#define _INC_LOCKING
+#अगर_अघोषित _INC_LOCKING
+#घोषणा _INC_LOCKING
 
-#ifndef _WIN32
-#error Only Win32 target is supported!
-#endif
+#अगर_अघोषित _WIN32
+#त्रुटि Only Win32 target is supported!
+#पूर्ण_अगर
 
 /* All the headers include this file. */
-#include <_mingw.h>
+#समावेश <_mingw.h>
 
-#define _LK_UNLCK 0
-#define _LK_LOCK 1
-#define _LK_NBLCK 2
-#define _LK_RLCK 3
-#define _LK_NBRLCK 4
+#घोषणा _LK_UNLCK 0
+#घोषणा _LK_LOCK 1
+#घोषणा _LK_NBLCK 2
+#घोषणा _LK_RLCK 3
+#घोषणा _LK_NBRLCK 4
 
-#ifndef	NO_OLDNAMES
-#define LK_UNLCK _LK_UNLCK
-#define LK_LOCK _LK_LOCK
-#define LK_NBLCK _LK_NBLCK
-#define LK_RLCK _LK_RLCK
-#define LK_NBRLCK _LK_NBRLCK
-#endif
+#अगर_अघोषित	NO_OLDNAMES
+#घोषणा LK_UNLCK _LK_UNLCK
+#घोषणा LK_LOCK _LK_LOCK
+#घोषणा LK_NBLCK _LK_NBLCK
+#घोषणा LK_RLCK _LK_RLCK
+#घोषणा LK_NBRLCK _LK_NBRLCK
+#पूर्ण_अगर
 
-#endif
+#पूर्ण_अगर

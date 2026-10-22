@@ -1,20 +1,20 @@
-extern int write (int fd, void *buf, int len);
+बाह्य पूर्णांक ग_लिखो (पूर्णांक fd, व्योम *buf, पूर्णांक len);
 
-static void __attribute__ ((constructor))
-testc (void)
+अटल व्योम __attribute__ ((constructor))
+testc (व्योम)
 {
-  write (1, "constructor\n", 12);
+  ग_लिखो (1, "constructor\n", 12);
 }
 
-static void __attribute__ ((destructor))
-testd (void)
+अटल व्योम __attribute__ ((destructor))
+testd (व्योम)
 {
-  write (1, "destructor\n", 11);
+  ग_लिखो (1, "destructor\n", 11);
 }
 
-int
-main (void)
+पूर्णांक
+मुख्य (व्योम)
 {
-  write (1, "main\n", 5);
-  return 0;
+  ग_लिखो (1, "main\n", 5);
+  वापस 0;
 }

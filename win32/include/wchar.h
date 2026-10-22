@@ -3,871 +3,871 @@
  * This file is part of the w64 mingw-runtime package.
  * No warranty is given; refer to the file DISCLAIMER within this package.
  */
-#ifndef _INC_WCHAR
-#define _INC_WCHAR
+#अगर_अघोषित _INC_WCHAR
+#घोषणा _INC_WCHAR
 
-#include <_mingw.h>
+#समावेश <_mingw.h>
 
-#pragma pack(push,_CRT_PACKING)
+#आशय pack(धकेलो,_CRT_PACKING)
 
-#ifdef __cplusplus
-extern "C" {
-#endif
+#अगर_घोषित __cplusplus
+बाह्य "C" {
+#पूर्ण_अगर
 
-#ifndef WCHAR_MIN  /* also at stdint.h */
-#define WCHAR_MIN 0
-#define WCHAR_MAX ((wchar_t) -1) /* UINT16_MAX */
-#endif
+#अगर_अघोषित WCHAR_MIN  /* also at stdint.h */
+#घोषणा WCHAR_MIN 0
+#घोषणा WCHAR_MAX ((ब_अक्षर_प्रकार) -1) /* UINT16_MAX */
+#पूर्ण_अगर
 
-#ifndef __GNUC_VA_LIST
-#define __GNUC_VA_LIST
-  typedef __builtin_va_list __gnuc_va_list;
-#endif
+#अगर_अघोषित __GNUC_VA_LIST
+#घोषणा __GNUC_VA_LIST
+  प्रकार __builtin_va_list __gnuc_va_list;
+#पूर्ण_अगर
 
-#ifndef _VA_LIST_DEFINED
-#define _VA_LIST_DEFINED
-  typedef __gnuc_va_list va_list;
-#endif
+#अगर_अघोषित _VA_LIST_DEFINED
+#घोषणा _VA_LIST_DEFINED
+  प्रकार __gnuc_va_list बहु_सूची;
+#पूर्ण_अगर
 
-#ifndef WEOF
-#define WEOF (wint_t)(0xFFFF)
-#endif
+#अगर_अघोषित WEOF
+#घोषणा WEOF (wint_t)(0xFFFF)
+#पूर्ण_अगर
 
-#ifndef _FILE_DEFINED
-  struct _iobuf {
-    char *_ptr;
-    int _cnt;
-    char *_base;
-    int _flag;
-    int _file;
-    int _charbuf;
-    int _bufsiz;
-    char *_tmpfname;
+#अगर_अघोषित _FILE_DEFINED
+  काष्ठा _iobuf {
+    अक्षर *_ptr;
+    पूर्णांक _cnt;
+    अक्षर *_base;
+    पूर्णांक _flag;
+    पूर्णांक _file;
+    पूर्णांक _charbuf;
+    पूर्णांक _bufsiz;
+    अक्षर *_tmpfname;
   };
-  typedef struct _iobuf FILE;
-#define _FILE_DEFINED
-#endif
+  प्रकार काष्ठा _iobuf खाता;
+#घोषणा _FILE_DEFINED
+#पूर्ण_अगर
 
-#ifndef _STDIO_DEFINED
-#ifdef _WIN64
-  _CRTIMP FILE *__cdecl __iob_func(void);
-#else
-#ifdef _MSVCRT_
-extern FILE _iob[];	/* A pointer to an array of FILE */
-#define __iob_func()	(_iob)
-#else
-extern FILE (*_imp___iob)[];	/* A pointer to an array of FILE */
-#define __iob_func()	(*_imp___iob)
-#define _iob __iob_func()
-#endif
-#endif
+#अगर_अघोषित _STDIO_DEFINED
+#अगर_घोषित _WIN64
+  _CRTIMP खाता *__cdecl __iob_func(व्योम);
+#अन्यथा
+#अगर_घोषित _MSVCRT_
+बाह्य खाता _iob[];	/* A pointer to an array of FILE */
+#घोषणा __iob_func()	(_iob)
+#अन्यथा
+बाह्य खाता (*_imp___iob)[];	/* A pointer to an array of FILE */
+#घोषणा __iob_func()	(*_imp___iob)
+#घोषणा _iob __iob_func()
+#पूर्ण_अगर
+#पूर्ण_अगर
 
-#define _iob __iob_func()
-#endif
+#घोषणा _iob __iob_func()
+#पूर्ण_अगर
 
-#ifndef _STDSTREAM_DEFINED
-#define stdin (&__iob_func()[0])
-#define stdout (&__iob_func()[1])
-#define stderr (&__iob_func()[2])
-#define _STDSTREAM_DEFINED
-#endif
+#अगर_अघोषित _STDSTREAM_DEFINED
+#घोषणा मानक_निवेश (&__iob_func()[0])
+#घोषणा मानक_निकास (&__iob_func()[1])
+#घोषणा मानक_त्रुटि (&__iob_func()[2])
+#घोषणा _STDSTREAM_DEFINED
+#पूर्ण_अगर
 
-#ifndef _FSIZE_T_DEFINED
-  typedef unsigned long _fsize_t;
-#define _FSIZE_T_DEFINED
-#endif
+#अगर_अघोषित _FSIZE_T_DEFINED
+  प्रकार अचिन्हित दीर्घ _fsize_t;
+#घोषणा _FSIZE_T_DEFINED
+#पूर्ण_अगर
 
-#ifndef _WFINDDATA_T_DEFINED
-  struct _wfinddata32_t {
-    unsigned attrib;
+#अगर_अघोषित _WFINDDATA_T_DEFINED
+  काष्ठा _wfinddata32_t {
+    अचिन्हित attrib;
     __time32_t time_create;
     __time32_t time_access;
     __time32_t time_write;
-    _fsize_t size;
-    wchar_t name[260];
+    _fsize_t आकार;
+    ब_अक्षर_प्रकार name[260];
   };
 
 /* #if _INTEGRAL_MAX_BITS >= 64 */
 
-  struct _wfinddata32i64_t {
-    unsigned attrib;
+  काष्ठा _wfinddata32i64_t {
+    अचिन्हित attrib;
     __time32_t time_create;
     __time32_t time_access;
     __time32_t time_write;
-    __int64 size;
-    wchar_t name[260];
+    __int64 आकार;
+    ब_अक्षर_प्रकार name[260];
   };
 
-  struct _wfinddata64i32_t {
-    unsigned attrib;
+  काष्ठा _wfinddata64i32_t {
+    अचिन्हित attrib;
     __time64_t time_create;
     __time64_t time_access;
     __time64_t time_write;
-    _fsize_t size;
-    wchar_t name[260];
+    _fsize_t आकार;
+    ब_अक्षर_प्रकार name[260];
   };
 
-  struct _wfinddata64_t {
-    unsigned attrib;
+  काष्ठा _wfinddata64_t {
+    अचिन्हित attrib;
     __time64_t time_create;
     __time64_t time_access;
     __time64_t time_write;
-    __int64 size;
-    wchar_t name[260];
+    __int64 आकार;
+    ब_अक्षर_प्रकार name[260];
   };
 /* #endif */
 
-#ifdef _USE_32BIT_TIME_T
-#define _wfinddata_t _wfinddata32_t
-#define _wfinddatai64_t _wfinddata32i64_t
+#अगर_घोषित _USE_32BIT_TIME_T
+#घोषणा _wfinddata_t _wfinddata32_t
+#घोषणा _wfinddatai64_t _wfinddata32i64_t
 
-#define _wfindfirst _wfindfirst32
-#define _wfindnext _wfindnext32
-#define _wfindfirsti64 _wfindfirst32i64
-#define _wfindnexti64 _wfindnext32i64
-#else
-#define _wfinddata_t _wfinddata64i32_t
-#define _wfinddatai64_t _wfinddata64_t
+#घोषणा _wfindfirst _wfindfirst32
+#घोषणा _wfindnext _wfindnext32
+#घोषणा _wfindfirsti64 _wfindfirst32i64
+#घोषणा _wfindnexti64 _wfindnext32i64
+#अन्यथा
+#घोषणा _wfinddata_t _wfinddata64i32_t
+#घोषणा _wfinddatai64_t _wfinddata64_t
 
-#define _wfindfirst _wfindfirst64i32
-#define _wfindnext _wfindnext64i32
-#define _wfindfirsti64 _wfindfirst64
-#define _wfindnexti64 _wfindnext64
-#endif
+#घोषणा _wfindfirst _wfindfirst64i32
+#घोषणा _wfindnext _wfindnext64i32
+#घोषणा _wfindfirsti64 _wfindfirst64
+#घोषणा _wfindnexti64 _wfindnext64
+#पूर्ण_अगर
 
-#define _WFINDDATA_T_DEFINED
-#endif
+#घोषणा _WFINDDATA_T_DEFINED
+#पूर्ण_अगर
 
-#ifndef NULL
-#ifdef __cplusplus
-#define NULL 0
-#else
-#define NULL ((void *)0)
-#endif
-#endif
+#अगर_अघोषित शून्य
+#अगर_घोषित __cplusplus
+#घोषणा शून्य 0
+#अन्यथा
+#घोषणा शून्य ((व्योम *)0)
+#पूर्ण_अगर
+#पूर्ण_अगर
 
-#ifndef _CONST_RETURN
-#define _CONST_RETURN
-#endif
+#अगर_अघोषित _CONST_RETURN
+#घोषणा _CONST_RETURN
+#पूर्ण_अगर
 
-#define _WConst_return _CONST_RETURN
+#घोषणा _WConst_return _CONST_RETURN
 
-#ifndef _CRT_CTYPEDATA_DEFINED
-#define _CRT_CTYPEDATA_DEFINED
-#ifndef _CTYPE_DISABLE_MACROS
+#अगर_अघोषित _CRT_CTYPEDATA_DEFINED
+#घोषणा _CRT_CTYPEDATA_DEFINED
+#अगर_अघोषित _CTYPE_DISABLE_MACROS
 
-#ifndef __PCTYPE_FUNC
-#define __PCTYPE_FUNC __pctype_func()
-#ifdef _MSVCRT_
-#define __pctype_func() (_pctype)
-#else
-#define __pctype_func() (*_imp___pctype)
-#endif
-#endif
+#अगर_अघोषित __PCTYPE_FUNC
+#घोषणा __PCTYPE_FUNC __pctype_func()
+#अगर_घोषित _MSVCRT_
+#घोषणा __pctype_func() (_pctype)
+#अन्यथा
+#घोषणा __pctype_func() (*_imp___pctype)
+#पूर्ण_अगर
+#पूर्ण_अगर
 
-#ifndef _pctype
-#ifdef _MSVCRT_
-  extern unsigned short *_pctype;
-#else
-  extern unsigned short **_imp___pctype;
-#define _pctype (*_imp___pctype)
-#endif
-#endif
-#endif
-#endif
+#अगर_अघोषित _pctype
+#अगर_घोषित _MSVCRT_
+  बाह्य अचिन्हित लघु *_pctype;
+#अन्यथा
+  बाह्य अचिन्हित लघु **_imp___pctype;
+#घोषणा _pctype (*_imp___pctype)
+#पूर्ण_अगर
+#पूर्ण_अगर
+#पूर्ण_अगर
+#पूर्ण_अगर
 
-#ifndef _CRT_WCTYPEDATA_DEFINED
-#define _CRT_WCTYPEDATA_DEFINED
-#ifndef _CTYPE_DISABLE_MACROS
-#ifndef _wctype
-#ifdef _MSVCRT_
-  extern unsigned short *_wctype;
-#else
-  extern unsigned short **_imp___wctype;
-#define _wctype (*_imp___wctype)
-#endif
-#endif
+#अगर_अघोषित _CRT_WCTYPEDATA_DEFINED
+#घोषणा _CRT_WCTYPEDATA_DEFINED
+#अगर_अघोषित _CTYPE_DISABLE_MACROS
+#अगर_अघोषित _wctype
+#अगर_घोषित _MSVCRT_
+  बाह्य अचिन्हित लघु *_wctype;
+#अन्यथा
+  बाह्य अचिन्हित लघु **_imp___wctype;
+#घोषणा _wctype (*_imp___wctype)
+#पूर्ण_अगर
+#पूर्ण_अगर
 
-#ifdef _MSVCRT_
-#define __pwctype_func() (_pwctype)
-#else
-#define __pwctype_func() (*_imp___pwctype)
-#endif
+#अगर_घोषित _MSVCRT_
+#घोषणा __pwctype_func() (_pwctype)
+#अन्यथा
+#घोषणा __pwctype_func() (*_imp___pwctype)
+#पूर्ण_अगर
 
-#ifndef _pwctype
-#ifdef _MSVCRT_
-  extern unsigned short *_pwctype;
-#else
-  extern unsigned short **_imp___pwctype;
-#define _pwctype (*_imp___pwctype)
-#endif
-#endif
+#अगर_अघोषित _pwctype
+#अगर_घोषित _MSVCRT_
+  बाह्य अचिन्हित लघु *_pwctype;
+#अन्यथा
+  बाह्य अचिन्हित लघु **_imp___pwctype;
+#घोषणा _pwctype (*_imp___pwctype)
+#पूर्ण_अगर
+#पूर्ण_अगर
 
-#endif
-#endif
+#पूर्ण_अगर
+#पूर्ण_अगर
 
-#define _UPPER 0x1
-#define _LOWER 0x2
-#define _DIGIT 0x4
-#define _SPACE 0x8
+#घोषणा _UPPER 0x1
+#घोषणा _LOWER 0x2
+#घोषणा _DIGIT 0x4
+#घोषणा _SPACE 0x8
 
-#define _PUNCT 0x10
-#define _CONTROL 0x20
-#define _BLANK 0x40
-#define _HEX 0x80
+#घोषणा _PUNCT 0x10
+#घोषणा _CONTROL 0x20
+#घोषणा _BLANK 0x40
+#घोषणा _HEX 0x80
 
-#define _LEADBYTE 0x8000
-#define _ALPHA (0x0100|_UPPER|_LOWER)
+#घोषणा _LEADBYTE 0x8000
+#घोषणा _ALPHA (0x0100|_UPPER|_LOWER)
 
-#ifndef _WCTYPE_DEFINED
-#define _WCTYPE_DEFINED
+#अगर_अघोषित _WCTYPE_DEFINED
+#घोषणा _WCTYPE_DEFINED
 
-  int __cdecl iswalpha(wint_t _C);
-  _CRTIMP int __cdecl _iswalpha_l(wint_t _C,_locale_t _Locale);
-  int __cdecl iswupper(wint_t _C);
-  _CRTIMP int __cdecl _iswupper_l(wint_t _C,_locale_t _Locale);
-  int __cdecl iswlower(wint_t _C);
-  _CRTIMP int __cdecl _iswlower_l(wint_t _C,_locale_t _Locale);
-  int __cdecl iswdigit(wint_t _C);
-  _CRTIMP int __cdecl _iswdigit_l(wint_t _C,_locale_t _Locale);
-  int __cdecl iswxdigit(wint_t _C);
-  _CRTIMP int __cdecl _iswxdigit_l(wint_t _C,_locale_t _Locale);
-  int __cdecl iswspace(wint_t _C);
-  _CRTIMP int __cdecl _iswspace_l(wint_t _C,_locale_t _Locale);
-  int __cdecl iswpunct(wint_t _C);
-  _CRTIMP int __cdecl _iswpunct_l(wint_t _C,_locale_t _Locale);
-  int __cdecl iswalnum(wint_t _C);
-  _CRTIMP int __cdecl _iswalnum_l(wint_t _C,_locale_t _Locale);
-  int __cdecl iswprint(wint_t _C);
-  _CRTIMP int __cdecl _iswprint_l(wint_t _C,_locale_t _Locale);
-  int __cdecl iswgraph(wint_t _C);
-  _CRTIMP int __cdecl _iswgraph_l(wint_t _C,_locale_t _Locale);
-  int __cdecl iswcntrl(wint_t _C);
-  _CRTIMP int __cdecl _iswcntrl_l(wint_t _C,_locale_t _Locale);
-  int __cdecl iswascii(wint_t _C);
-  int __cdecl isleadbyte(int _C);
-  _CRTIMP int __cdecl _isleadbyte_l(int _C,_locale_t _Locale);
+  पूर्णांक __cdecl iswalpha(wint_t _C);
+  _CRTIMP पूर्णांक __cdecl _iswalpha_l(wint_t _C,_locale_t _Locale);
+  पूर्णांक __cdecl iswupper(wint_t _C);
+  _CRTIMP पूर्णांक __cdecl _iswupper_l(wint_t _C,_locale_t _Locale);
+  पूर्णांक __cdecl iswlower(wint_t _C);
+  _CRTIMP पूर्णांक __cdecl _iswlower_l(wint_t _C,_locale_t _Locale);
+  पूर्णांक __cdecl iswdigit(wint_t _C);
+  _CRTIMP पूर्णांक __cdecl _iswdigit_l(wint_t _C,_locale_t _Locale);
+  पूर्णांक __cdecl iswxdigit(wint_t _C);
+  _CRTIMP पूर्णांक __cdecl _iswxdigit_l(wint_t _C,_locale_t _Locale);
+  पूर्णांक __cdecl iswspace(wint_t _C);
+  _CRTIMP पूर्णांक __cdecl _iswspace_l(wint_t _C,_locale_t _Locale);
+  पूर्णांक __cdecl iswpunct(wint_t _C);
+  _CRTIMP पूर्णांक __cdecl _iswpunct_l(wint_t _C,_locale_t _Locale);
+  पूर्णांक __cdecl iswalnum(wint_t _C);
+  _CRTIMP पूर्णांक __cdecl _iswalnum_l(wint_t _C,_locale_t _Locale);
+  पूर्णांक __cdecl iswprint(wint_t _C);
+  _CRTIMP पूर्णांक __cdecl _iswprint_l(wint_t _C,_locale_t _Locale);
+  पूर्णांक __cdecl iswgraph(wint_t _C);
+  _CRTIMP पूर्णांक __cdecl _iswgraph_l(wint_t _C,_locale_t _Locale);
+  पूर्णांक __cdecl iswcntrl(wint_t _C);
+  _CRTIMP पूर्णांक __cdecl _iswcntrl_l(wint_t _C,_locale_t _Locale);
+  पूर्णांक __cdecl iswascii(wint_t _C);
+  पूर्णांक __cdecl isleadbyte(पूर्णांक _C);
+  _CRTIMP पूर्णांक __cdecl _isleadbyte_l(पूर्णांक _C,_locale_t _Locale);
   wint_t __cdecl towupper(wint_t _C);
   _CRTIMP wint_t __cdecl _towupper_l(wint_t _C,_locale_t _Locale);
   wint_t __cdecl towlower(wint_t _C);
   _CRTIMP wint_t __cdecl _towlower_l(wint_t _C,_locale_t _Locale);
-  int __cdecl iswctype(wint_t _C,wctype_t _Type);
-  _CRTIMP int __cdecl _iswctype_l(wint_t _C,wctype_t _Type,_locale_t _Locale);
-  _CRTIMP int __cdecl __iswcsymf(wint_t _C);
-  _CRTIMP int __cdecl _iswcsymf_l(wint_t _C,_locale_t _Locale);
-  _CRTIMP int __cdecl __iswcsym(wint_t _C);
-  _CRTIMP int __cdecl _iswcsym_l(wint_t _C,_locale_t _Locale);
-  int __cdecl is_wctype(wint_t _C,wctype_t _Type);
-#endif
+  पूर्णांक __cdecl iswctype(wint_t _C,wctype_t _Type);
+  _CRTIMP पूर्णांक __cdecl _iswctype_l(wint_t _C,wctype_t _Type,_locale_t _Locale);
+  _CRTIMP पूर्णांक __cdecl __iswcsymf(wint_t _C);
+  _CRTIMP पूर्णांक __cdecl _iswcsymf_l(wint_t _C,_locale_t _Locale);
+  _CRTIMP पूर्णांक __cdecl __iswcsym(wint_t _C);
+  _CRTIMP पूर्णांक __cdecl _iswcsym_l(wint_t _C,_locale_t _Locale);
+  पूर्णांक __cdecl is_wctype(wint_t _C,wctype_t _Type);
+#पूर्ण_अगर
 
-#ifndef _WDIRECT_DEFINED
-#define _WDIRECT_DEFINED
+#अगर_अघोषित _WDIRECT_DEFINED
+#घोषणा _WDIRECT_DEFINED
 
-  _CRTIMP wchar_t *__cdecl _wgetcwd(wchar_t *_DstBuf,int _SizeInWords);
-  _CRTIMP wchar_t *__cdecl _wgetdcwd(int _Drive,wchar_t *_DstBuf,int _SizeInWords);
-  wchar_t *__cdecl _wgetdcwd_nolock(int _Drive,wchar_t *_DstBuf,int _SizeInWords);
-  _CRTIMP int __cdecl _wchdir(const wchar_t *_Path);
-  _CRTIMP int __cdecl _wmkdir(const wchar_t *_Path);
-  _CRTIMP int __cdecl _wrmdir(const wchar_t *_Path);
-#endif
+  _CRTIMP ब_अक्षर_प्रकार *__cdecl _wgetcwd(ब_अक्षर_प्रकार *_DstBuf,पूर्णांक आकार_In_शब्दगण);
+  _CRTIMP ब_अक्षर_प्रकार *__cdecl _wgetdcwd(पूर्णांक _Drive,ब_अक्षर_प्रकार *_DstBuf,पूर्णांक आकार_In_शब्दगण);
+  ब_अक्षर_प्रकार *__cdecl _wgetdcwd_nolock(पूर्णांक _Drive,ब_अक्षर_प्रकार *_DstBuf,पूर्णांक आकार_In_शब्दगण);
+  _CRTIMP पूर्णांक __cdecl _wchdir(स्थिर ब_अक्षर_प्रकार *_Path);
+  _CRTIMP पूर्णांक __cdecl _wmkdir(स्थिर ब_अक्षर_प्रकार *_Path);
+  _CRTIMP पूर्णांक __cdecl _wrmdir(स्थिर ब_अक्षर_प्रकार *_Path);
+#पूर्ण_अगर
 
-#ifndef _WIO_DEFINED
-#define _WIO_DEFINED
+#अगर_अघोषित _WIO_DEFINED
+#घोषणा _WIO_DEFINED
 
-  _CRTIMP int __cdecl _waccess(const wchar_t *_Filename,int _AccessMode);
-  _CRTIMP int __cdecl _wchmod(const wchar_t *_Filename,int _Mode);
-  _CRTIMP int __cdecl _wcreat(const wchar_t *_Filename,int _PermissionMode);
-  _CRTIMP intptr_t __cdecl _wfindfirst32(const wchar_t *_Filename,struct _wfinddata32_t *_FindData);
-  _CRTIMP int __cdecl _wfindnext32(intptr_t _FindHandle,struct _wfinddata32_t *_FindData);
-  _CRTIMP int __cdecl _wunlink(const wchar_t *_Filename);
-  _CRTIMP int __cdecl _wrename(const wchar_t *_NewFilename,const wchar_t *_OldFilename);
-  _CRTIMP wchar_t *__cdecl _wmktemp(wchar_t *_TemplateName);
-#if _INTEGRAL_MAX_BITS >= 64
-  _CRTIMP intptr_t __cdecl _wfindfirst32i64(const wchar_t *_Filename,struct _wfinddata32i64_t *_FindData);
-  intptr_t __cdecl _wfindfirst64i32(const wchar_t *_Filename,struct _wfinddata64i32_t *_FindData);
-  _CRTIMP intptr_t __cdecl _wfindfirst64(const wchar_t *_Filename,struct _wfinddata64_t *_FindData);
-  _CRTIMP int __cdecl _wfindnext32i64(intptr_t _FindHandle,struct _wfinddata32i64_t *_FindData);
-  int __cdecl _wfindnext64i32(intptr_t _FindHandle,struct _wfinddata64i32_t *_FindData);
-  _CRTIMP int __cdecl _wfindnext64(intptr_t _FindHandle,struct _wfinddata64_t *_FindData);
-#endif
-  _CRTIMP errno_t __cdecl _wsopen_s(int *_FileHandle,const wchar_t *_Filename,int _OpenFlag,int _ShareFlag,int _PermissionFlag);
-#if !defined(__cplusplus) || !(defined(_X86_) && !defined(__x86_64))
-  _CRTIMP int __cdecl _wopen(const wchar_t *_Filename,int _OpenFlag,...);
-  _CRTIMP int __cdecl _wsopen(const wchar_t *_Filename,int _OpenFlag,int _ShareFlag,...);
-#else
-  extern "C++" _CRTIMP int __cdecl _wopen(const wchar_t *_Filename,int _OpenFlag,int _PermissionMode = 0);
-  extern "C++" _CRTIMP int __cdecl _wsopen(const wchar_t *_Filename,int _OpenFlag,int _ShareFlag,int _PermissionMode = 0);
-#endif
-#endif
+  _CRTIMP पूर्णांक __cdecl _waccess(स्थिर ब_अक्षर_प्रकार *_Filename,पूर्णांक _AccessMode);
+  _CRTIMP पूर्णांक __cdecl _wchmod(स्थिर ब_अक्षर_प्रकार *_Filename,पूर्णांक _Mode);
+  _CRTIMP पूर्णांक __cdecl _wcreat(स्थिर ब_अक्षर_प्रकार *_Filename,पूर्णांक _PermissionMode);
+  _CRTIMP intptr_t __cdecl _wfindfirst32(स्थिर ब_अक्षर_प्रकार *_Filename,काष्ठा _wfinddata32_t *Find_तथ्य);
+  _CRTIMP पूर्णांक __cdecl _wfindnext32(intptr_t _FindHandle,काष्ठा _wfinddata32_t *Find_तथ्य);
+  _CRTIMP पूर्णांक __cdecl _wunlink(स्थिर ब_अक्षर_प्रकार *_Filename);
+  _CRTIMP पूर्णांक __cdecl _wrename(स्थिर ब_अक्षर_प्रकार *_NewFilename,स्थिर ब_अक्षर_प्रकार *_OldFilename);
+  _CRTIMP ब_अक्षर_प्रकार *__cdecl _wmktemp(ब_अक्षर_प्रकार *_TemplateName);
+#अगर _INTEGRAL_MAX_BITS >= 64
+  _CRTIMP intptr_t __cdecl _wfindfirst32i64(स्थिर ब_अक्षर_प्रकार *_Filename,काष्ठा _wfinddata32i64_t *Find_तथ्य);
+  intptr_t __cdecl _wfindfirst64i32(स्थिर ब_अक्षर_प्रकार *_Filename,काष्ठा _wfinddata64i32_t *Find_तथ्य);
+  _CRTIMP intptr_t __cdecl _wfindfirst64(स्थिर ब_अक्षर_प्रकार *_Filename,काष्ठा _wfinddata64_t *Find_तथ्य);
+  _CRTIMP पूर्णांक __cdecl _wfindnext32i64(intptr_t _FindHandle,काष्ठा _wfinddata32i64_t *Find_तथ्य);
+  पूर्णांक __cdecl _wfindnext64i32(intptr_t _FindHandle,काष्ठा _wfinddata64i32_t *Find_तथ्य);
+  _CRTIMP पूर्णांक __cdecl _wfindnext64(intptr_t _FindHandle,काष्ठा _wfinddata64_t *Find_तथ्य);
+#पूर्ण_अगर
+  _CRTIMP errno_t __cdecl _wsopen_s(पूर्णांक *_FileHandle,स्थिर ब_अक्षर_प्रकार *_Filename,पूर्णांक _OpenFlag,पूर्णांक _ShareFlag,पूर्णांक _PermissionFlag);
+#अगर !defined(__cplusplus) || !(defined(_X86_) && !defined(__x86_64))
+  _CRTIMP पूर्णांक __cdecl _wopen(स्थिर ब_अक्षर_प्रकार *_Filename,पूर्णांक _OpenFlag,...);
+  _CRTIMP पूर्णांक __cdecl _wsopen(स्थिर ब_अक्षर_प्रकार *_Filename,पूर्णांक _OpenFlag,पूर्णांक _ShareFlag,...);
+#अन्यथा
+  बाह्य "C++" _CRTIMP पूर्णांक __cdecl _wopen(स्थिर ब_अक्षर_प्रकार *_Filename,पूर्णांक _OpenFlag,पूर्णांक _PermissionMode = 0);
+  बाह्य "C++" _CRTIMP पूर्णांक __cdecl _wsopen(स्थिर ब_अक्षर_प्रकार *_Filename,पूर्णांक _OpenFlag,पूर्णांक _ShareFlag,पूर्णांक _PermissionMode = 0);
+#पूर्ण_अगर
+#पूर्ण_अगर
 
-#ifndef _WLOCALE_DEFINED
-#define _WLOCALE_DEFINED
-  _CRTIMP wchar_t *__cdecl _wsetlocale(int _Category,const wchar_t *_Locale);
-#endif
+#अगर_अघोषित _WLOCALE_DEFINED
+#घोषणा _WLOCALE_DEFINED
+  _CRTIMP ब_अक्षर_प्रकार *__cdecl _wsetlocale(पूर्णांक _Category,स्थिर ब_अक्षर_प्रकार *_Locale);
+#पूर्ण_अगर
 
-#ifndef _WPROCESS_DEFINED
-#define _WPROCESS_DEFINED
+#अगर_अघोषित _WPROCESS_DEFINED
+#घोषणा _WPROCESS_DEFINED
 
-  _CRTIMP intptr_t __cdecl _wexecl(const wchar_t *_Filename,const wchar_t *_ArgList,...);
-  _CRTIMP intptr_t __cdecl _wexecle(const wchar_t *_Filename,const wchar_t *_ArgList,...);
-  _CRTIMP intptr_t __cdecl _wexeclp(const wchar_t *_Filename,const wchar_t *_ArgList,...);
-  _CRTIMP intptr_t __cdecl _wexeclpe(const wchar_t *_Filename,const wchar_t *_ArgList,...);
-  _CRTIMP intptr_t __cdecl _wexecv(const wchar_t *_Filename,const wchar_t *const *_ArgList);
-  _CRTIMP intptr_t __cdecl _wexecve(const wchar_t *_Filename,const wchar_t *const *_ArgList,const wchar_t *const *_Env);
-  _CRTIMP intptr_t __cdecl _wexecvp(const wchar_t *_Filename,const wchar_t *const *_ArgList);
-  _CRTIMP intptr_t __cdecl _wexecvpe(const wchar_t *_Filename,const wchar_t *const *_ArgList,const wchar_t *const *_Env);
-  _CRTIMP intptr_t __cdecl _wspawnl(int _Mode,const wchar_t *_Filename,const wchar_t *_ArgList,...);
-  _CRTIMP intptr_t __cdecl _wspawnle(int _Mode,const wchar_t *_Filename,const wchar_t *_ArgList,...);
-  _CRTIMP intptr_t __cdecl _wspawnlp(int _Mode,const wchar_t *_Filename,const wchar_t *_ArgList,...);
-  _CRTIMP intptr_t __cdecl _wspawnlpe(int _Mode,const wchar_t *_Filename,const wchar_t *_ArgList,...);
-  _CRTIMP intptr_t __cdecl _wspawnv(int _Mode,const wchar_t *_Filename,const wchar_t *const *_ArgList);
-  _CRTIMP intptr_t __cdecl _wspawnve(int _Mode,const wchar_t *_Filename,const wchar_t *const *_ArgList,const wchar_t *const *_Env);
-  _CRTIMP intptr_t __cdecl _wspawnvp(int _Mode,const wchar_t *_Filename,const wchar_t *const *_ArgList);
-  _CRTIMP intptr_t __cdecl _wspawnvpe(int _Mode,const wchar_t *_Filename,const wchar_t *const *_ArgList,const wchar_t *const *_Env);
-#ifndef _CRT_WSYSTEM_DEFINED
-#define _CRT_WSYSTEM_DEFINED
-  _CRTIMP int __cdecl _wsystem(const wchar_t *_Command);
-#endif
-#endif
+  _CRTIMP intptr_t __cdecl _wexecl(स्थिर ब_अक्षर_प्रकार *_Filename,स्थिर ब_अक्षर_प्रकार *_ArgList,...);
+  _CRTIMP intptr_t __cdecl _wexecle(स्थिर ब_अक्षर_प्रकार *_Filename,स्थिर ब_अक्षर_प्रकार *_ArgList,...);
+  _CRTIMP intptr_t __cdecl _wexeclp(स्थिर ब_अक्षर_प्रकार *_Filename,स्थिर ब_अक्षर_प्रकार *_ArgList,...);
+  _CRTIMP intptr_t __cdecl _wexeclpe(स्थिर ब_अक्षर_प्रकार *_Filename,स्थिर ब_अक्षर_प्रकार *_ArgList,...);
+  _CRTIMP intptr_t __cdecl _wexecv(स्थिर ब_अक्षर_प्रकार *_Filename,स्थिर ब_अक्षर_प्रकार *स्थिर *_ArgList);
+  _CRTIMP intptr_t __cdecl _wexecve(स्थिर ब_अक्षर_प्रकार *_Filename,स्थिर ब_अक्षर_प्रकार *स्थिर *_ArgList,स्थिर ब_अक्षर_प्रकार *स्थिर *_Env);
+  _CRTIMP intptr_t __cdecl _wexecvp(स्थिर ब_अक्षर_प्रकार *_Filename,स्थिर ब_अक्षर_प्रकार *स्थिर *_ArgList);
+  _CRTIMP intptr_t __cdecl _wexecvpe(स्थिर ब_अक्षर_प्रकार *_Filename,स्थिर ब_अक्षर_प्रकार *स्थिर *_ArgList,स्थिर ब_अक्षर_प्रकार *स्थिर *_Env);
+  _CRTIMP intptr_t __cdecl _wspawnl(पूर्णांक _Mode,स्थिर ब_अक्षर_प्रकार *_Filename,स्थिर ब_अक्षर_प्रकार *_ArgList,...);
+  _CRTIMP intptr_t __cdecl _wspawnle(पूर्णांक _Mode,स्थिर ब_अक्षर_प्रकार *_Filename,स्थिर ब_अक्षर_प्रकार *_ArgList,...);
+  _CRTIMP intptr_t __cdecl _wspawnlp(पूर्णांक _Mode,स्थिर ब_अक्षर_प्रकार *_Filename,स्थिर ब_अक्षर_प्रकार *_ArgList,...);
+  _CRTIMP intptr_t __cdecl _wspawnlpe(पूर्णांक _Mode,स्थिर ब_अक्षर_प्रकार *_Filename,स्थिर ब_अक्षर_प्रकार *_ArgList,...);
+  _CRTIMP intptr_t __cdecl _wspawnv(पूर्णांक _Mode,स्थिर ब_अक्षर_प्रकार *_Filename,स्थिर ब_अक्षर_प्रकार *स्थिर *_ArgList);
+  _CRTIMP intptr_t __cdecl _wspawnve(पूर्णांक _Mode,स्थिर ब_अक्षर_प्रकार *_Filename,स्थिर ब_अक्षर_प्रकार *स्थिर *_ArgList,स्थिर ब_अक्षर_प्रकार *स्थिर *_Env);
+  _CRTIMP intptr_t __cdecl _wspawnvp(पूर्णांक _Mode,स्थिर ब_अक्षर_प्रकार *_Filename,स्थिर ब_अक्षर_प्रकार *स्थिर *_ArgList);
+  _CRTIMP intptr_t __cdecl _wspawnvpe(पूर्णांक _Mode,स्थिर ब_अक्षर_प्रकार *_Filename,स्थिर ब_अक्षर_प्रकार *स्थिर *_ArgList,स्थिर ब_अक्षर_प्रकार *स्थिर *_Env);
+#अगर_अघोषित _CRT_WSYSTEM_DEFINED
+#घोषणा _CRT_WSYSTEM_DEFINED
+  _CRTIMP पूर्णांक __cdecl _wsystem(स्थिर ब_अक्षर_प्रकार *_Command);
+#पूर्ण_अगर
+#पूर्ण_अगर
 
-#ifndef _WCTYPE_INLINE_DEFINED
-#undef _CRT_WCTYPE_NOINLINE
-#if !defined(__cplusplus) || defined(_CRT_WCTYPE_NOINLINE)
-#define iswalpha(_c) (iswctype(_c,_ALPHA))
-#define iswupper(_c) (iswctype(_c,_UPPER))
-#define iswlower(_c) (iswctype(_c,_LOWER))
-#define iswdigit(_c) (iswctype(_c,_DIGIT))
-#define iswxdigit(_c) (iswctype(_c,_HEX))
-#define iswspace(_c) (iswctype(_c,_SPACE))
-#define iswpunct(_c) (iswctype(_c,_PUNCT))
-#define iswalnum(_c) (iswctype(_c,_ALPHA|_DIGIT))
-#define iswprint(_c) (iswctype(_c,_BLANK|_PUNCT|_ALPHA|_DIGIT))
-#define iswgraph(_c) (iswctype(_c,_PUNCT|_ALPHA|_DIGIT))
-#define iswcntrl(_c) (iswctype(_c,_CONTROL))
-#define iswascii(_c) ((unsigned)(_c) < 0x80)
+#अगर_अघोषित _WCTYPE_INLINE_DEFINED
+#अघोषित _CRT_WCTYPE_NOINLINE
+#अगर !defined(__cplusplus) || defined(_CRT_WCTYPE_NOINLINE)
+#घोषणा iswalpha(_c) (iswctype(_c,_ALPHA))
+#घोषणा iswupper(_c) (iswctype(_c,_UPPER))
+#घोषणा iswlower(_c) (iswctype(_c,_LOWER))
+#घोषणा iswdigit(_c) (iswctype(_c,_DIGIT))
+#घोषणा iswxdigit(_c) (iswctype(_c,_HEX))
+#घोषणा iswspace(_c) (iswctype(_c,_SPACE))
+#घोषणा iswpunct(_c) (iswctype(_c,_PUNCT))
+#घोषणा iswalnum(_c) (iswctype(_c,_ALPHA|_DIGIT))
+#घोषणा iswprint(_c) (iswctype(_c,_BLANK|_PUNCT|_ALPHA|_DIGIT))
+#घोषणा iswgraph(_c) (iswctype(_c,_PUNCT|_ALPHA|_DIGIT))
+#घोषणा iswcntrl(_c) (iswctype(_c,_CONTROL))
+#घोषणा iswascii(_c) ((अचिन्हित)(_c) < 0x80)
 
-#define _iswalpha_l(_c,_p) (_iswctype_l(_c,_ALPHA,_p))
-#define _iswupper_l(_c,_p) (_iswctype_l(_c,_UPPER,_p))
-#define _iswlower_l(_c,_p) (_iswctype_l(_c,_LOWER,_p))
-#define _iswdigit_l(_c,_p) (_iswctype_l(_c,_DIGIT,_p))
-#define _iswxdigit_l(_c,_p) (_iswctype_l(_c,_HEX,_p))
-#define _iswspace_l(_c,_p) (_iswctype_l(_c,_SPACE,_p))
-#define _iswpunct_l(_c,_p) (_iswctype_l(_c,_PUNCT,_p))
-#define _iswalnum_l(_c,_p) (_iswctype_l(_c,_ALPHA|_DIGIT,_p))
-#define _iswprint_l(_c,_p) (_iswctype_l(_c,_BLANK|_PUNCT|_ALPHA|_DIGIT,_p))
-#define _iswgraph_l(_c,_p) (_iswctype_l(_c,_PUNCT|_ALPHA|_DIGIT,_p))
-#define _iswcntrl_l(_c,_p) (_iswctype_l(_c,_CONTROL,_p))
-#ifndef _CTYPE_DISABLE_MACROS
-#define isleadbyte(_c) (__PCTYPE_FUNC[(unsigned char)(_c)] & _LEADBYTE)
-#endif
-#endif
-#define _WCTYPE_INLINE_DEFINED
-#endif
+#घोषणा _iswalpha_l(_c,_p) (_iswctype_l(_c,_ALPHA,_p))
+#घोषणा _iswupper_l(_c,_p) (_iswctype_l(_c,_UPPER,_p))
+#घोषणा _iswlower_l(_c,_p) (_iswctype_l(_c,_LOWER,_p))
+#घोषणा _iswdigit_l(_c,_p) (_iswctype_l(_c,_DIGIT,_p))
+#घोषणा _iswxdigit_l(_c,_p) (_iswctype_l(_c,_HEX,_p))
+#घोषणा _iswspace_l(_c,_p) (_iswctype_l(_c,_SPACE,_p))
+#घोषणा _iswpunct_l(_c,_p) (_iswctype_l(_c,_PUNCT,_p))
+#घोषणा _iswalnum_l(_c,_p) (_iswctype_l(_c,_ALPHA|_DIGIT,_p))
+#घोषणा _iswprint_l(_c,_p) (_iswctype_l(_c,_BLANK|_PUNCT|_ALPHA|_DIGIT,_p))
+#घोषणा _iswgraph_l(_c,_p) (_iswctype_l(_c,_PUNCT|_ALPHA|_DIGIT,_p))
+#घोषणा _iswcntrl_l(_c,_p) (_iswctype_l(_c,_CONTROL,_p))
+#अगर_अघोषित _CTYPE_DISABLE_MACROS
+#घोषणा isleadbyte(_c) (__PCTYPE_FUNC[(अचिन्हित अक्षर)(_c)] & _LEADBYTE)
+#पूर्ण_अगर
+#पूर्ण_अगर
+#घोषणा _WCTYPE_INLINE_DEFINED
+#पूर्ण_अगर
 
-#if !defined(_POSIX_) || defined(__GNUC__)
-#ifndef _INO_T_DEFINED
-#define _INO_T_DEFINED
-  typedef unsigned short _ino_t;
-#ifndef	NO_OLDNAMES
-  typedef unsigned short ino_t;
-#endif
-#endif
+#अगर !defined(_POSIX_) || defined(__GNUC__)
+#अगर_अघोषित _INO_T_DEFINED
+#घोषणा _INO_T_DEFINED
+  प्रकार अचिन्हित लघु _ino_t;
+#अगर_अघोषित	NO_OLDNAMES
+  प्रकार अचिन्हित लघु ino_t;
+#पूर्ण_अगर
+#पूर्ण_अगर
 
-#ifndef _DEV_T_DEFINED
-#define _DEV_T_DEFINED
-  typedef unsigned int _dev_t;
-#ifndef	NO_OLDNAMES
-  typedef unsigned int dev_t;
-#endif
-#endif
+#अगर_अघोषित _DEV_T_DEFINED
+#घोषणा _DEV_T_DEFINED
+  प्रकार अचिन्हित पूर्णांक _dev_t;
+#अगर_अघोषित	NO_OLDNAMES
+  प्रकार अचिन्हित पूर्णांक dev_t;
+#पूर्ण_अगर
+#पूर्ण_अगर
 
-#ifndef _OFF_T_DEFINED
-#define _OFF_T_DEFINED
-#ifndef _OFF_T_
-#define _OFF_T_
-  typedef long _off_t;
-#if !defined(NO_OLDNAMES) || defined(_POSIX)
-  typedef long off_t;
-#endif
-#endif
-#endif
+#अगर_अघोषित _OFF_T_DEFINED
+#घोषणा _OFF_T_DEFINED
+#अगर_अघोषित _OFF_T_
+#घोषणा _OFF_T_
+  प्रकार दीर्घ _off_t;
+#अगर !defined(NO_OLDNAMES) || defined(_POSIX)
+  प्रकार दीर्घ off_t;
+#पूर्ण_अगर
+#पूर्ण_अगर
+#पूर्ण_अगर
 
-#ifndef _OFF64_T_DEFINED
-#define _OFF64_T_DEFINED
-  typedef long long _off64_t;
-#if !defined(NO_OLDNAMES) || defined(_POSIX)
-  typedef long long off64_t;
-#endif
-#endif
+#अगर_अघोषित _OFF64_T_DEFINED
+#घोषणा _OFF64_T_DEFINED
+  प्रकार दीर्घ दीर्घ _off64_t;
+#अगर !defined(NO_OLDNAMES) || defined(_POSIX)
+  प्रकार दीर्घ दीर्घ off64_t;
+#पूर्ण_अगर
+#पूर्ण_अगर
 
-#ifndef _STAT_DEFINED
-#define _STAT_DEFINED
+#अगर_अघोषित _STAT_DEFINED
+#घोषणा _STAT_DEFINED
 
-#ifdef _USE_32BIT_TIME_T
-#ifdef WIN64
-#define _fstat _fstat32
-#define _stat _stat32
-#define _wstat _wstat32
-#else
-#define _fstat32 _fstat
-#define _stat32 _stat
-#define _wstat32 _wstat
-#endif
-#define _fstati64 _fstat32i64
-#define _stati64 _stat32i64
-#define _wstati64 _wstat32i64
-#else
-#define _fstat _fstat64i32
-#define _fstati64 _fstat64
-#define _stat _stat64i32
-#define _stati64 _stat64
-#define _wstat _wstat64i32
-#define _wstati64 _wstat64
-#endif
+#अगर_घोषित _USE_32BIT_TIME_T
+#अगर_घोषित WIN64
+#घोषणा _fstat _fstat32
+#घोषणा _stat _stat32
+#घोषणा _wstat _wstat32
+#अन्यथा
+#घोषणा _fstat32 _fstat
+#घोषणा _stat32 _stat
+#घोषणा _wstat32 _wstat
+#पूर्ण_अगर
+#घोषणा _fstati64 _fstat32i64
+#घोषणा _stati64 _stat32i64
+#घोषणा _wstati64 _wstat32i64
+#अन्यथा
+#घोषणा _fstat _fstat64i32
+#घोषणा _fstati64 _fstat64
+#घोषणा _stat _stat64i32
+#घोषणा _stati64 _stat64
+#घोषणा _wstat _wstat64i32
+#घोषणा _wstati64 _wstat64
+#पूर्ण_अगर
 
-  struct _stat32 {
+  काष्ठा _stat32 {
     _dev_t st_dev;
     _ino_t st_ino;
-    unsigned short st_mode;
-    short st_nlink;
-    short st_uid;
-    short st_gid;
+    अचिन्हित लघु st_mode;
+    लघु st_nlink;
+    लघु st_uid;
+    लघु st_gid;
     _dev_t st_rdev;
-    _off_t st_size;
+    _off_t st_आकार;
     __time32_t st_atime;
     __time32_t st_mtime;
     __time32_t st_ctime;
   };
 
-#ifndef	NO_OLDNAMES
-  struct stat {
+#अगर_अघोषित	NO_OLDNAMES
+  काष्ठा stat {
     _dev_t st_dev;
     _ino_t st_ino;
-    unsigned short st_mode;
-    short st_nlink;
-    short st_uid;
-    short st_gid;
+    अचिन्हित लघु st_mode;
+    लघु st_nlink;
+    लघु st_uid;
+    लघु st_gid;
     _dev_t st_rdev;
-    _off_t st_size;
-    time_t st_atime;
-    time_t st_mtime;
-    time_t st_ctime;
+    _off_t st_आकार;
+    समय_प्रकार st_atime;
+    समय_प्रकार st_mtime;
+    समय_प्रकार st_ctime;
   };
-#endif
+#पूर्ण_अगर
 
-#if _INTEGRAL_MAX_BITS >= 64
+#अगर _INTEGRAL_MAX_BITS >= 64
 
-  struct _stat32i64 {
+  काष्ठा _stat32i64 {
     _dev_t st_dev;
     _ino_t st_ino;
-    unsigned short st_mode;
-    short st_nlink;
-    short st_uid;
-    short st_gid;
+    अचिन्हित लघु st_mode;
+    लघु st_nlink;
+    लघु st_uid;
+    लघु st_gid;
     _dev_t st_rdev;
-    __int64 st_size;
+    __int64 st_आकार;
     __time32_t st_atime;
     __time32_t st_mtime;
     __time32_t st_ctime;
   };
 
-  struct _stat64i32 {
+  काष्ठा _stat64i32 {
     _dev_t st_dev;
     _ino_t st_ino;
-    unsigned short st_mode;
-    short st_nlink;
-    short st_uid;
-    short st_gid;
+    अचिन्हित लघु st_mode;
+    लघु st_nlink;
+    लघु st_uid;
+    लघु st_gid;
     _dev_t st_rdev;
-    _off_t st_size;
+    _off_t st_आकार;
     __time64_t st_atime;
     __time64_t st_mtime;
     __time64_t st_ctime;
   };
 
-  struct _stat64 {
+  काष्ठा _stat64 {
     _dev_t st_dev;
     _ino_t st_ino;
-    unsigned short st_mode;
-    short st_nlink;
-    short st_uid;
-    short st_gid;
+    अचिन्हित लघु st_mode;
+    लघु st_nlink;
+    लघु st_uid;
+    लघु st_gid;
     _dev_t st_rdev;
-    __int64 st_size;
+    __int64 st_आकार;
     __time64_t st_atime;
     __time64_t st_mtime;
     __time64_t st_ctime;
   };
-#endif
+#पूर्ण_अगर
 
-#define __stat64 _stat64
+#घोषणा __stat64 _stat64
 
-#endif
+#पूर्ण_अगर
 
-#ifndef _WSTAT_DEFINED
-#define _WSTAT_DEFINED
+#अगर_अघोषित _WSTAT_DEFINED
+#घोषणा _WSTAT_DEFINED
 
-  _CRTIMP int __cdecl _wstat32(const wchar_t *_Name,struct _stat32 *_Stat);
-#if _INTEGRAL_MAX_BITS >= 64
-  _CRTIMP int __cdecl _wstat32i64(const wchar_t *_Name,struct _stat32i64 *_Stat);
-  int __cdecl _wstat64i32(const wchar_t *_Name,struct _stat64i32 *_Stat);
-  _CRTIMP int __cdecl _wstat64(const wchar_t *_Name,struct _stat64 *_Stat);
-#endif
-#endif
-#endif
+  _CRTIMP पूर्णांक __cdecl _wstat32(स्थिर ब_अक्षर_प्रकार *_Name,काष्ठा _stat32 *_Stat);
+#अगर _INTEGRAL_MAX_BITS >= 64
+  _CRTIMP पूर्णांक __cdecl _wstat32i64(स्थिर ब_अक्षर_प्रकार *_Name,काष्ठा _stat32i64 *_Stat);
+  पूर्णांक __cdecl _wstat64i32(स्थिर ब_अक्षर_प्रकार *_Name,काष्ठा _stat64i32 *_Stat);
+  _CRTIMP पूर्णांक __cdecl _wstat64(स्थिर ब_अक्षर_प्रकार *_Name,काष्ठा _stat64 *_Stat);
+#पूर्ण_अगर
+#पूर्ण_अगर
+#पूर्ण_अगर
 
-#ifndef _WCONIO_DEFINED
-#define _WCONIO_DEFINED
+#अगर_अघोषित _WCONIO_DEFINED
+#घोषणा _WCONIO_DEFINED
 
-#ifndef WEOF
-#define WEOF (wint_t)(0xFFFF)
-#endif
+#अगर_अघोषित WEOF
+#घोषणा WEOF (wint_t)(0xFFFF)
+#पूर्ण_अगर
 
-  _CRTIMP wchar_t *_cgetws(wchar_t *_Buffer);
-  _CRTIMP wint_t __cdecl _getwch(void);
-  _CRTIMP wint_t __cdecl _getwche(void);
-  _CRTIMP wint_t __cdecl _putwch(wchar_t _WCh);
+  _CRTIMP ब_अक्षर_प्रकार *_cgetws(ब_अक्षर_प्रकार *बफर_2);
+  _CRTIMP wint_t __cdecl _getwch(व्योम);
+  _CRTIMP wint_t __cdecl _getwche(व्योम);
+  _CRTIMP wint_t __cdecl _putwch(ब_अक्षर_प्रकार _WCh);
   _CRTIMP wint_t __cdecl _ungetwch(wint_t _WCh);
-  _CRTIMP int __cdecl _cputws(const wchar_t *_String);
-  _CRTIMP int __cdecl _cwprintf(const wchar_t *_Format,...);
-  _CRTIMP int __cdecl _cwscanf(const wchar_t *_Format,...);
-  _CRTIMP int __cdecl _cwscanf_l(const wchar_t *_Format,_locale_t _Locale,...);
-  _CRTIMP int __cdecl _vcwprintf(const wchar_t *_Format,va_list _ArgList);
-  _CRTIMP int __cdecl _cwprintf_p(const wchar_t *_Format,...);
-  _CRTIMP int __cdecl _vcwprintf_p(const wchar_t *_Format,va_list _ArgList);
+  _CRTIMP पूर्णांक __cdecl _cputws(स्थिर ब_अक्षर_प्रकार *_String);
+  _CRTIMP पूर्णांक __cdecl _cwprintf(स्थिर ब_अक्षर_प्रकार *_Format,...);
+  _CRTIMP पूर्णांक __cdecl _cwscanf(स्थिर ब_अक्षर_प्रकार *_Format,...);
+  _CRTIMP पूर्णांक __cdecl _cwscanf_l(स्थिर ब_अक्षर_प्रकार *_Format,_locale_t _Locale,...);
+  _CRTIMP पूर्णांक __cdecl _vcwprintf(स्थिर ब_अक्षर_प्रकार *_Format,बहु_सूची _ArgList);
+  _CRTIMP पूर्णांक __cdecl _cwprintf_p(स्थिर ब_अक्षर_प्रकार *_Format,...);
+  _CRTIMP पूर्णांक __cdecl _vcwprintf_p(स्थिर ब_अक्षर_प्रकार *_Format,बहु_सूची _ArgList);
 
-  _CRTIMP int __cdecl _cwprintf_l(const wchar_t *_Format,_locale_t _Locale,...);
-  _CRTIMP int __cdecl _vcwprintf_l(const wchar_t *_Format,_locale_t _Locale,va_list _ArgList);
-  _CRTIMP int __cdecl _cwprintf_p_l(const wchar_t *_Format,_locale_t _Locale,...);
-  _CRTIMP int __cdecl _vcwprintf_p_l(const wchar_t *_Format,_locale_t _Locale,va_list _ArgList);
-  wint_t __cdecl _putwch_nolock(wchar_t _WCh);
-  wint_t __cdecl _getwch_nolock(void);
-  wint_t __cdecl _getwche_nolock(void);
+  _CRTIMP पूर्णांक __cdecl _cwprintf_l(स्थिर ब_अक्षर_प्रकार *_Format,_locale_t _Locale,...);
+  _CRTIMP पूर्णांक __cdecl _vcwprintf_l(स्थिर ब_अक्षर_प्रकार *_Format,_locale_t _Locale,बहु_सूची _ArgList);
+  _CRTIMP पूर्णांक __cdecl _cwprintf_p_l(स्थिर ब_अक्षर_प्रकार *_Format,_locale_t _Locale,...);
+  _CRTIMP पूर्णांक __cdecl _vcwprintf_p_l(स्थिर ब_अक्षर_प्रकार *_Format,_locale_t _Locale,बहु_सूची _ArgList);
+  wint_t __cdecl _putwch_nolock(ब_अक्षर_प्रकार _WCh);
+  wint_t __cdecl _getwch_nolock(व्योम);
+  wint_t __cdecl _getwche_nolock(व्योम);
   wint_t __cdecl _ungetwch_nolock(wint_t _WCh);
-#endif
+#पूर्ण_अगर
 
-#ifndef _WSTDIO_DEFINED
-#define _WSTDIO_DEFINED
+#अगर_अघोषित _WSTDIO_DEFINED
+#घोषणा _WSTDIO_DEFINED
 
-#ifndef WEOF
-#define WEOF (wint_t)(0xFFFF)
-#endif
+#अगर_अघोषित WEOF
+#घोषणा WEOF (wint_t)(0xFFFF)
+#पूर्ण_अगर
 
-#ifdef _POSIX_
-  _CRTIMP FILE *__cdecl _wfsopen(const wchar_t *_Filename,const wchar_t *_Mode);
-#else
-  _CRTIMP FILE *__cdecl _wfsopen(const wchar_t *_Filename,const wchar_t *_Mode,int _ShFlag);
-#endif
+#अगर_घोषित _POSIX_
+  _CRTIMP खाता *__cdecl _wfsopen(स्थिर ब_अक्षर_प्रकार *_Filename,स्थिर ब_अक्षर_प्रकार *_Mode);
+#अन्यथा
+  _CRTIMP खाता *__cdecl _wfsopen(स्थिर ब_अक्षर_प्रकार *_Filename,स्थिर ब_अक्षर_प्रकार *_Mode,पूर्णांक _ShFlag);
+#पूर्ण_अगर
 
-  wint_t __cdecl fgetwc(FILE *_File);
-  _CRTIMP wint_t __cdecl _fgetwchar(void);
-  wint_t __cdecl fputwc(wchar_t _Ch,FILE *_File);
-  _CRTIMP wint_t __cdecl _fputwchar(wchar_t _Ch);
-  wint_t __cdecl getwc(FILE *_File);
-  wint_t __cdecl getwchar(void);
-  wint_t __cdecl putwc(wchar_t _Ch,FILE *_File);
-  wint_t __cdecl putwchar(wchar_t _Ch);
-  wint_t __cdecl ungetwc(wint_t _Ch,FILE *_File);
-  wchar_t *__cdecl fgetws(wchar_t *_Dst,int _SizeInWords,FILE *_File);
-  int __cdecl fputws(const wchar_t *_Str,FILE *_File);
-  _CRTIMP wchar_t *__cdecl _getws(wchar_t *_String);
-  _CRTIMP int __cdecl _putws(const wchar_t *_Str);
-  int __cdecl fwprintf(FILE *_File,const wchar_t *_Format,...);
-  int __cdecl wprintf(const wchar_t *_Format,...);
-  _CRTIMP int __cdecl _scwprintf(const wchar_t *_Format,...);
-  int __cdecl vfwprintf(FILE *_File,const wchar_t *_Format,va_list _ArgList);
-  int __cdecl vwprintf(const wchar_t *_Format,va_list _ArgList);
-  _CRTIMP int __cdecl swprintf(wchar_t*, const wchar_t*, ...);
-  _CRTIMP int __cdecl vswprintf(wchar_t*, const wchar_t*,va_list);
-  _CRTIMP int __cdecl _swprintf_c(wchar_t *_DstBuf,size_t _SizeInWords,const wchar_t *_Format,...);
-  _CRTIMP int __cdecl _vswprintf_c(wchar_t *_DstBuf,size_t _SizeInWords,const wchar_t *_Format,va_list _ArgList);
-  _CRTIMP int __cdecl _snwprintf(wchar_t *_Dest,size_t _Count,const wchar_t *_Format,...);
-  _CRTIMP int __cdecl _vsnwprintf(wchar_t *_Dest,size_t _Count,const wchar_t *_Format,va_list _Args);
-#ifndef __NO_ISOCEXT  /* externs in libmingwex.a */
-  int __cdecl snwprintf (wchar_t *s, size_t n, const wchar_t * format, ...);
-  __CRT_INLINE int __cdecl vsnwprintf (wchar_t *s, size_t n, const wchar_t *format, va_list arg) { return _vsnwprintf(s,n,format,arg); }
-  int __cdecl vwscanf (const wchar_t *, va_list);
-  int __cdecl vfwscanf (FILE *,const wchar_t *,va_list);
-  int __cdecl vswscanf (const wchar_t *,const wchar_t *,va_list);
-#endif
-  _CRTIMP int __cdecl _fwprintf_p(FILE *_File,const wchar_t *_Format,...);
-  _CRTIMP int __cdecl _wprintf_p(const wchar_t *_Format,...);
-  _CRTIMP int __cdecl _vfwprintf_p(FILE *_File,const wchar_t *_Format,va_list _ArgList);
-  _CRTIMP int __cdecl _vwprintf_p(const wchar_t *_Format,va_list _ArgList);
-  _CRTIMP int __cdecl _swprintf_p(wchar_t *_DstBuf,size_t _MaxCount,const wchar_t *_Format,...);
-  _CRTIMP int __cdecl _vswprintf_p(wchar_t *_DstBuf,size_t _MaxCount,const wchar_t *_Format,va_list _ArgList);
-  _CRTIMP int __cdecl _scwprintf_p(const wchar_t *_Format,...);
-  _CRTIMP int __cdecl _vscwprintf_p(const wchar_t *_Format,va_list _ArgList);
-  _CRTIMP int __cdecl _wprintf_l(const wchar_t *_Format,_locale_t _Locale,...);
-  _CRTIMP int __cdecl _wprintf_p_l(const wchar_t *_Format,_locale_t _Locale,...);
-  _CRTIMP int __cdecl _vwprintf_l(const wchar_t *_Format,_locale_t _Locale,va_list _ArgList);
-  _CRTIMP int __cdecl _vwprintf_p_l(const wchar_t *_Format,_locale_t _Locale,va_list _ArgList);
-  _CRTIMP int __cdecl _fwprintf_l(FILE *_File,const wchar_t *_Format,_locale_t _Locale,...);
-  _CRTIMP int __cdecl _fwprintf_p_l(FILE *_File,const wchar_t *_Format,_locale_t _Locale,...);
-  _CRTIMP int __cdecl _vfwprintf_l(FILE *_File,const wchar_t *_Format,_locale_t _Locale,va_list _ArgList);
-  _CRTIMP int __cdecl _vfwprintf_p_l(FILE *_File,const wchar_t *_Format,_locale_t _Locale,va_list _ArgList);
-  _CRTIMP int __cdecl _swprintf_c_l(wchar_t *_DstBuf,size_t _MaxCount,const wchar_t *_Format,_locale_t _Locale,...);
-  _CRTIMP int __cdecl _swprintf_p_l(wchar_t *_DstBuf,size_t _MaxCount,const wchar_t *_Format,_locale_t _Locale,...);
-  _CRTIMP int __cdecl _vswprintf_c_l(wchar_t *_DstBuf,size_t _MaxCount,const wchar_t *_Format,_locale_t _Locale,va_list _ArgList);
-  _CRTIMP int __cdecl _vswprintf_p_l(wchar_t *_DstBuf,size_t _MaxCount,const wchar_t *_Format,_locale_t _Locale,va_list _ArgList);
-  _CRTIMP int __cdecl _scwprintf_l(const wchar_t *_Format,_locale_t _Locale,...);
-  _CRTIMP int __cdecl _scwprintf_p_l(const wchar_t *_Format,_locale_t _Locale,...);
-  _CRTIMP int __cdecl _vscwprintf_p_l(const wchar_t *_Format,_locale_t _Locale,va_list _ArgList);
-  _CRTIMP int __cdecl _snwprintf_l(wchar_t *_DstBuf,size_t _MaxCount,const wchar_t *_Format,_locale_t _Locale,...);
-  _CRTIMP int __cdecl _vsnwprintf_l(wchar_t *_DstBuf,size_t _MaxCount,const wchar_t *_Format,_locale_t _Locale,va_list _ArgList);
-  _CRTIMP int __cdecl _swprintf(wchar_t *_Dest,const wchar_t *_Format,...);
-  _CRTIMP int __cdecl _vswprintf(wchar_t *_Dest,const wchar_t *_Format,va_list _Args);
-  _CRTIMP int __cdecl __swprintf_l(wchar_t *_Dest,const wchar_t *_Format,_locale_t _Plocinfo,...);
-  _CRTIMP int __cdecl __vswprintf_l(wchar_t *_Dest,const wchar_t *_Format,_locale_t _Plocinfo,va_list _Args);
-#ifndef RC_INVOKED
-#include <vadefs.h>
-#endif
+  wint_t __cdecl fgetwc(खाता *_File);
+  _CRTIMP wint_t __cdecl _fgetwchar(व्योम);
+  wint_t __cdecl fputwc(ब_अक्षर_प्रकार _Ch,खाता *_File);
+  _CRTIMP wint_t __cdecl _fputwchar(ब_अक्षर_प्रकार _Ch);
+  wint_t __cdecl getwc(खाता *_File);
+  wint_t __cdecl getwchar(व्योम);
+  wint_t __cdecl putwc(ब_अक्षर_प्रकार _Ch,खाता *_File);
+  wint_t __cdecl putwchar(ब_अक्षर_प्रकार _Ch);
+  wint_t __cdecl ungetwc(wint_t _Ch,खाता *_File);
+  ब_अक्षर_प्रकार *__cdecl fgetws(ब_अक्षर_प्रकार *_Dst,पूर्णांक आकार_In_शब्दगण,खाता *_File);
+  पूर्णांक __cdecl fputws(स्थिर ब_अक्षर_प्रकार *_Str,खाता *_File);
+  _CRTIMP ब_अक्षर_प्रकार *__cdecl _getws(ब_अक्षर_प्रकार *_String);
+  _CRTIMP पूर्णांक __cdecl _putws(स्थिर ब_अक्षर_प्रकार *_Str);
+  पूर्णांक __cdecl fwprintf(खाता *_File,स्थिर ब_अक्षर_प्रकार *_Format,...);
+  पूर्णांक __cdecl wprintf(स्थिर ब_अक्षर_प्रकार *_Format,...);
+  _CRTIMP पूर्णांक __cdecl _scwprintf(स्थिर ब_अक्षर_प्रकार *_Format,...);
+  पूर्णांक __cdecl vfwprintf(खाता *_File,स्थिर ब_अक्षर_प्रकार *_Format,बहु_सूची _ArgList);
+  पूर्णांक __cdecl vwprintf(स्थिर ब_अक्षर_प्रकार *_Format,बहु_सूची _ArgList);
+  _CRTIMP पूर्णांक __cdecl swprintf(ब_अक्षर_प्रकार*, स्थिर ब_अक्षर_प्रकार*, ...);
+  _CRTIMP पूर्णांक __cdecl vswprintf(ब_अक्षर_प्रकार*, स्थिर ब_अक्षर_प्रकार*,बहु_सूची);
+  _CRTIMP पूर्णांक __cdecl _swprintf_c(ब_अक्षर_प्रकार *_DstBuf,माप_प्रकार आकार_In_शब्दगण,स्थिर ब_अक्षर_प्रकार *_Format,...);
+  _CRTIMP पूर्णांक __cdecl _vswprintf_c(ब_अक्षर_प्रकार *_DstBuf,माप_प्रकार आकार_In_शब्दगण,स्थिर ब_अक्षर_प्रकार *_Format,बहु_सूची _ArgList);
+  _CRTIMP पूर्णांक __cdecl _snwprintf(ब_अक्षर_प्रकार *_Dest,माप_प्रकार गिनती_5,स्थिर ब_अक्षर_प्रकार *_Format,...);
+  _CRTIMP पूर्णांक __cdecl _vsnwprintf(ब_अक्षर_प्रकार *_Dest,माप_प्रकार गिनती_5,स्थिर ब_अक्षर_प्रकार *_Format,बहु_सूची _Args);
+#अगर_अघोषित __NO_ISOCEXT  /* externs in libmingwex.a */
+  पूर्णांक __cdecl snwprintf (ब_अक्षर_प्रकार *s, माप_प्रकार n, स्थिर ब_अक्षर_प्रकार * format, ...);
+  __CRT_INLINE पूर्णांक __cdecl vsnwprintf (ब_अक्षर_प्रकार *s, माप_प्रकार n, स्थिर ब_अक्षर_प्रकार *format, बहु_सूची arg) { वापस _vsnwprintf(s,n,format,arg); }
+  पूर्णांक __cdecl vwscanf (स्थिर ब_अक्षर_प्रकार *, बहु_सूची);
+  पूर्णांक __cdecl vfwscanf (खाता *,स्थिर ब_अक्षर_प्रकार *,बहु_सूची);
+  पूर्णांक __cdecl vswscanf (स्थिर ब_अक्षर_प्रकार *,स्थिर ब_अक्षर_प्रकार *,बहु_सूची);
+#पूर्ण_अगर
+  _CRTIMP पूर्णांक __cdecl _fwprintf_p(खाता *_File,स्थिर ब_अक्षर_प्रकार *_Format,...);
+  _CRTIMP पूर्णांक __cdecl _wprintf_p(स्थिर ब_अक्षर_प्रकार *_Format,...);
+  _CRTIMP पूर्णांक __cdecl _vfwprintf_p(खाता *_File,स्थिर ब_अक्षर_प्रकार *_Format,बहु_सूची _ArgList);
+  _CRTIMP पूर्णांक __cdecl _vwprintf_p(स्थिर ब_अक्षर_प्रकार *_Format,बहु_सूची _ArgList);
+  _CRTIMP पूर्णांक __cdecl _swprintf_p(ब_अक्षर_प्रकार *_DstBuf,माप_प्रकार Max_गिनती,स्थिर ब_अक्षर_प्रकार *_Format,...);
+  _CRTIMP पूर्णांक __cdecl _vswprintf_p(ब_अक्षर_प्रकार *_DstBuf,माप_प्रकार Max_गिनती,स्थिर ब_अक्षर_प्रकार *_Format,बहु_सूची _ArgList);
+  _CRTIMP पूर्णांक __cdecl _scwprintf_p(स्थिर ब_अक्षर_प्रकार *_Format,...);
+  _CRTIMP पूर्णांक __cdecl _vscwprintf_p(स्थिर ब_अक्षर_प्रकार *_Format,बहु_सूची _ArgList);
+  _CRTIMP पूर्णांक __cdecl _wprintf_l(स्थिर ब_अक्षर_प्रकार *_Format,_locale_t _Locale,...);
+  _CRTIMP पूर्णांक __cdecl _wprintf_p_l(स्थिर ब_अक्षर_प्रकार *_Format,_locale_t _Locale,...);
+  _CRTIMP पूर्णांक __cdecl _vwprintf_l(स्थिर ब_अक्षर_प्रकार *_Format,_locale_t _Locale,बहु_सूची _ArgList);
+  _CRTIMP पूर्णांक __cdecl _vwprintf_p_l(स्थिर ब_अक्षर_प्रकार *_Format,_locale_t _Locale,बहु_सूची _ArgList);
+  _CRTIMP पूर्णांक __cdecl _fwprintf_l(खाता *_File,स्थिर ब_अक्षर_प्रकार *_Format,_locale_t _Locale,...);
+  _CRTIMP पूर्णांक __cdecl _fwprintf_p_l(खाता *_File,स्थिर ब_अक्षर_प्रकार *_Format,_locale_t _Locale,...);
+  _CRTIMP पूर्णांक __cdecl _vfwprintf_l(खाता *_File,स्थिर ब_अक्षर_प्रकार *_Format,_locale_t _Locale,बहु_सूची _ArgList);
+  _CRTIMP पूर्णांक __cdecl _vfwprintf_p_l(खाता *_File,स्थिर ब_अक्षर_प्रकार *_Format,_locale_t _Locale,बहु_सूची _ArgList);
+  _CRTIMP पूर्णांक __cdecl _swprintf_c_l(ब_अक्षर_प्रकार *_DstBuf,माप_प्रकार Max_गिनती,स्थिर ब_अक्षर_प्रकार *_Format,_locale_t _Locale,...);
+  _CRTIMP पूर्णांक __cdecl _swprintf_p_l(ब_अक्षर_प्रकार *_DstBuf,माप_प्रकार Max_गिनती,स्थिर ब_अक्षर_प्रकार *_Format,_locale_t _Locale,...);
+  _CRTIMP पूर्णांक __cdecl _vswprintf_c_l(ब_अक्षर_प्रकार *_DstBuf,माप_प्रकार Max_गिनती,स्थिर ब_अक्षर_प्रकार *_Format,_locale_t _Locale,बहु_सूची _ArgList);
+  _CRTIMP पूर्णांक __cdecl _vswprintf_p_l(ब_अक्षर_प्रकार *_DstBuf,माप_प्रकार Max_गिनती,स्थिर ब_अक्षर_प्रकार *_Format,_locale_t _Locale,बहु_सूची _ArgList);
+  _CRTIMP पूर्णांक __cdecl _scwprintf_l(स्थिर ब_अक्षर_प्रकार *_Format,_locale_t _Locale,...);
+  _CRTIMP पूर्णांक __cdecl _scwprintf_p_l(स्थिर ब_अक्षर_प्रकार *_Format,_locale_t _Locale,...);
+  _CRTIMP पूर्णांक __cdecl _vscwprintf_p_l(स्थिर ब_अक्षर_प्रकार *_Format,_locale_t _Locale,बहु_सूची _ArgList);
+  _CRTIMP पूर्णांक __cdecl _snwprintf_l(ब_अक्षर_प्रकार *_DstBuf,माप_प्रकार Max_गिनती,स्थिर ब_अक्षर_प्रकार *_Format,_locale_t _Locale,...);
+  _CRTIMP पूर्णांक __cdecl _vsnwprintf_l(ब_अक्षर_प्रकार *_DstBuf,माप_प्रकार Max_गिनती,स्थिर ब_अक्षर_प्रकार *_Format,_locale_t _Locale,बहु_सूची _ArgList);
+  _CRTIMP पूर्णांक __cdecl _swprintf(ब_अक्षर_प्रकार *_Dest,स्थिर ब_अक्षर_प्रकार *_Format,...);
+  _CRTIMP पूर्णांक __cdecl _vswprintf(ब_अक्षर_प्रकार *_Dest,स्थिर ब_अक्षर_प्रकार *_Format,बहु_सूची _Args);
+  _CRTIMP पूर्णांक __cdecl __swprintf_l(ब_अक्षर_प्रकार *_Dest,स्थिर ब_अक्षर_प्रकार *_Format,_locale_t _Plocinfo,...);
+  _CRTIMP पूर्णांक __cdecl __vswprintf_l(ब_अक्षर_प्रकार *_Dest,स्थिर ब_अक्षर_प्रकार *_Format,_locale_t _Plocinfo,बहु_सूची _Args);
+#अगर_अघोषित RC_INVOKED
+#समावेश <vadefs.h>
+#पूर्ण_अगर
 
-#ifdef _CRT_NON_CONFORMING_SWPRINTFS
-#ifndef __cplusplus
-#define swprintf _swprintf
-#define vswprintf _vswprintf
-#define _swprintf_l __swprintf_l
-#define _vswprintf_l __vswprintf_l
-#endif
-#endif
+#अगर_घोषित _CRT_NON_CONFORMING_SWPRINTFS
+#अगर_अघोषित __cplusplus
+#घोषणा swprintf _swprintf
+#घोषणा vswprintf _vswprintf
+#घोषणा _swprintf_l __swprintf_l
+#घोषणा _vswprintf_l __vswprintf_l
+#पूर्ण_अगर
+#पूर्ण_अगर
 
-  _CRTIMP wchar_t *__cdecl _wtempnam(const wchar_t *_Directory,const wchar_t *_FilePrefix);
-  _CRTIMP int __cdecl _vscwprintf(const wchar_t *_Format,va_list _ArgList);
-  _CRTIMP int __cdecl _vscwprintf_l(const wchar_t *_Format,_locale_t _Locale,va_list _ArgList);
-  int __cdecl fwscanf(FILE *_File,const wchar_t *_Format,...);
-  _CRTIMP int __cdecl _fwscanf_l(FILE *_File,const wchar_t *_Format,_locale_t _Locale,...);
-  int __cdecl swscanf(const wchar_t *_Src,const wchar_t *_Format,...);
-  _CRTIMP int __cdecl _swscanf_l(const wchar_t *_Src,const wchar_t *_Format,_locale_t _Locale,...);
-  _CRTIMP int __cdecl _snwscanf(const wchar_t *_Src,size_t _MaxCount,const wchar_t *_Format,...);
-  _CRTIMP int __cdecl _snwscanf_l(const wchar_t *_Src,size_t _MaxCount,const wchar_t *_Format,_locale_t _Locale,...);
-  int __cdecl wscanf(const wchar_t *_Format,...);
-  _CRTIMP int __cdecl _wscanf_l(const wchar_t *_Format,_locale_t _Locale,...);
-  _CRTIMP FILE *__cdecl _wfdopen(int _FileHandle ,const wchar_t *_Mode);
-  _CRTIMP FILE *__cdecl _wfopen(const wchar_t *_Filename,const wchar_t *_Mode);
-  _CRTIMP FILE *__cdecl _wfreopen(const wchar_t *_Filename,const wchar_t *_Mode,FILE *_OldFile);
+  _CRTIMP ब_अक्षर_प्रकार *__cdecl _wtempnam(स्थिर ब_अक्षर_प्रकार *_Directory,स्थिर ब_अक्षर_प्रकार *_FilePrefix);
+  _CRTIMP पूर्णांक __cdecl _vscwprintf(स्थिर ब_अक्षर_प्रकार *_Format,बहु_सूची _ArgList);
+  _CRTIMP पूर्णांक __cdecl _vscwprintf_l(स्थिर ब_अक्षर_प्रकार *_Format,_locale_t _Locale,बहु_सूची _ArgList);
+  पूर्णांक __cdecl fwscanf(खाता *_File,स्थिर ब_अक्षर_प्रकार *_Format,...);
+  _CRTIMP पूर्णांक __cdecl _fwscanf_l(खाता *_File,स्थिर ब_अक्षर_प्रकार *_Format,_locale_t _Locale,...);
+  पूर्णांक __cdecl swscanf(स्थिर ब_अक्षर_प्रकार *_Src,स्थिर ब_अक्षर_प्रकार *_Format,...);
+  _CRTIMP पूर्णांक __cdecl _swscanf_l(स्थिर ब_अक्षर_प्रकार *_Src,स्थिर ब_अक्षर_प्रकार *_Format,_locale_t _Locale,...);
+  _CRTIMP पूर्णांक __cdecl _snwscanf(स्थिर ब_अक्षर_प्रकार *_Src,माप_प्रकार Max_गिनती,स्थिर ब_अक्षर_प्रकार *_Format,...);
+  _CRTIMP पूर्णांक __cdecl _snwscanf_l(स्थिर ब_अक्षर_प्रकार *_Src,माप_प्रकार Max_गिनती,स्थिर ब_अक्षर_प्रकार *_Format,_locale_t _Locale,...);
+  पूर्णांक __cdecl wscanf(स्थिर ब_अक्षर_प्रकार *_Format,...);
+  _CRTIMP पूर्णांक __cdecl _wscanf_l(स्थिर ब_अक्षर_प्रकार *_Format,_locale_t _Locale,...);
+  _CRTIMP खाता *__cdecl _wfdopen(पूर्णांक _FileHandle ,स्थिर ब_अक्षर_प्रकार *_Mode);
+  _CRTIMP खाता *__cdecl _wfopen(स्थिर ब_अक्षर_प्रकार *_Filename,स्थिर ब_अक्षर_प्रकार *_Mode);
+  _CRTIMP खाता *__cdecl _wfreopen(स्थिर ब_अक्षर_प्रकार *_Filename,स्थिर ब_अक्षर_प्रकार *_Mode,खाता *_OldFile);
 
-#ifndef _CRT_WPERROR_DEFINED
-#define _CRT_WPERROR_DEFINED
-  _CRTIMP void __cdecl _wperror(const wchar_t *_ErrMsg);
-#endif
-  _CRTIMP FILE *__cdecl _wpopen(const wchar_t *_Command,const wchar_t *_Mode);
-#if !defined(NO_OLDNAMES) && !defined(wpopen)
-#define wpopen	_wpopen
-#endif
-  _CRTIMP int __cdecl _wremove(const wchar_t *_Filename);
-  _CRTIMP wchar_t *__cdecl _wtmpnam(wchar_t *_Buffer);
-  _CRTIMP wint_t __cdecl _fgetwc_nolock(FILE *_File);
-  _CRTIMP wint_t __cdecl _fputwc_nolock(wchar_t _Ch,FILE *_File);
-  _CRTIMP wint_t __cdecl _ungetwc_nolock(wint_t _Ch,FILE *_File);
+#अगर_अघोषित _CRT_WPERROR_DEFINED
+#घोषणा _CRT_WPERROR_DEFINED
+  _CRTIMP व्योम __cdecl _wperror(स्थिर ब_अक्षर_प्रकार *Err_संदेश);
+#पूर्ण_अगर
+  _CRTIMP खाता *__cdecl _wpopen(स्थिर ब_अक्षर_प्रकार *_Command,स्थिर ब_अक्षर_प्रकार *_Mode);
+#अगर !defined(NO_OLDNAMES) && !defined(wpopen)
+#घोषणा wpopen	_wpopen
+#पूर्ण_अगर
+  _CRTIMP पूर्णांक __cdecl _wremove(स्थिर ब_अक्षर_प्रकार *_Filename);
+  _CRTIMP ब_अक्षर_प्रकार *__cdecl _wtmpnam(ब_अक्षर_प्रकार *बफर_2);
+  _CRTIMP wint_t __cdecl _fgetwc_nolock(खाता *_File);
+  _CRTIMP wint_t __cdecl _fputwc_nolock(ब_अक्षर_प्रकार _Ch,खाता *_File);
+  _CRTIMP wint_t __cdecl _ungetwc_nolock(wint_t _Ch,खाता *_File);
 
-#undef _CRT_GETPUTWCHAR_NOINLINE
+#अघोषित _CRT_GETPUTWCHAR_NOINLINE
 
-#if !defined(__cplusplus) || defined(_CRT_GETPUTWCHAR_NOINLINE)
-#define getwchar() fgetwc(stdin)
-#define putwchar(_c) fputwc((_c),stdout)
-#else
-  __CRT_INLINE wint_t __cdecl getwchar() {return (fgetwc(stdin)); }
-  __CRT_INLINE wint_t __cdecl putwchar(wchar_t _C) {return (fputwc(_C,stdout)); }
-#endif
+#अगर !defined(__cplusplus) || defined(_CRT_GETPUTWCHAR_NOINLINE)
+#घोषणा getwchar() fgetwc(मानक_निवेश)
+#घोषणा putwchar(_c) fputwc((_c),मानक_निकास)
+#अन्यथा
+  __CRT_INLINE wint_t __cdecl getwchar() {वापस (fgetwc(मानक_निवेश)); }
+  __CRT_INLINE wint_t __cdecl putwchar(ब_अक्षर_प्रकार _C) {वापस (fputwc(_C,मानक_निकास)); }
+#पूर्ण_अगर
 
-#define getwc(_stm) fgetwc(_stm)
-#define putwc(_c,_stm) fputwc(_c,_stm)
-#define _putwc_nolock(_c,_stm) _fputwc_nolock(_c,_stm)
-#define _getwc_nolock(_c) _fgetwc_nolock(_c)
-#endif
+#घोषणा getwc(_stm) fgetwc(_stm)
+#घोषणा putwc(_c,_stm) fputwc(_c,_stm)
+#घोषणा _putwc_nolock(_c,_stm) _fputwc_nolock(_c,_stm)
+#घोषणा _getwc_nolock(_c) _fgetwc_nolock(_c)
+#पूर्ण_अगर
 
-#ifndef _WSTDLIB_DEFINED
-#define _WSTDLIB_DEFINED
+#अगर_अघोषित _WSTDLIB_DEFINED
+#घोषणा _WSTDLIB_DEFINED
 
-  _CRTIMP wchar_t *__cdecl _itow(int _Value,wchar_t *_Dest,int _Radix);
-  _CRTIMP wchar_t *__cdecl _ltow(long _Value,wchar_t *_Dest,int _Radix);
-  _CRTIMP wchar_t *__cdecl _ultow(unsigned long _Value,wchar_t *_Dest,int _Radix);
-  double __cdecl wcstod(const wchar_t *_Str,wchar_t **_EndPtr);
-  _CRTIMP double __cdecl _wcstod_l(const wchar_t *_Str,wchar_t **_EndPtr,_locale_t _Locale);
-  float __cdecl wcstof( const wchar_t *nptr, wchar_t **endptr);
-#if !defined __NO_ISOCEXT /* in libmingwex.a */
-  float __cdecl wcstof (const wchar_t * __restrict__, wchar_t ** __restrict__);
-  long double __cdecl wcstold (const wchar_t * __restrict__, wchar_t ** __restrict__);
-#endif /* __NO_ISOCEXT */
-  long __cdecl wcstol(const wchar_t *_Str,wchar_t **_EndPtr,int _Radix);
-  _CRTIMP long __cdecl _wcstol_l(const wchar_t *_Str,wchar_t **_EndPtr,int _Radix,_locale_t _Locale);
-  unsigned long __cdecl wcstoul(const wchar_t *_Str,wchar_t **_EndPtr,int _Radix);
-  _CRTIMP unsigned long __cdecl _wcstoul_l(const wchar_t *_Str,wchar_t **_EndPtr,int _Radix,_locale_t _Locale);
-  _CRTIMP wchar_t *__cdecl _wgetenv(const wchar_t *_VarName);
-#ifndef _CRT_WSYSTEM_DEFINED
-#define _CRT_WSYSTEM_DEFINED
-  _CRTIMP int __cdecl _wsystem(const wchar_t *_Command);
-#endif
-  _CRTIMP double __cdecl _wtof(const wchar_t *_Str);
-  _CRTIMP double __cdecl _wtof_l(const wchar_t *_Str,_locale_t _Locale);
-  _CRTIMP int __cdecl _wtoi(const wchar_t *_Str);
-  _CRTIMP int __cdecl _wtoi_l(const wchar_t *_Str,_locale_t _Locale);
-  _CRTIMP long __cdecl _wtol(const wchar_t *_Str);
-  _CRTIMP long __cdecl _wtol_l(const wchar_t *_Str,_locale_t _Locale);
+  _CRTIMP ब_अक्षर_प्रकार *__cdecl _itow(पूर्णांक मूल्य_2,ब_अक्षर_प्रकार *_Dest,पूर्णांक _Radix);
+  _CRTIMP ब_अक्षर_प्रकार *__cdecl _ltow(दीर्घ मूल्य_2,ब_अक्षर_प्रकार *_Dest,पूर्णांक _Radix);
+  _CRTIMP ब_अक्षर_प्रकार *__cdecl _ultow(अचिन्हित दीर्घ मूल्य_2,ब_अक्षर_प्रकार *_Dest,पूर्णांक _Radix);
+  द्विगुन __cdecl wcstod(स्थिर ब_अक्षर_प्रकार *_Str,ब_अक्षर_प्रकार **_EndPtr);
+  _CRTIMP द्विगुन __cdecl _wcstod_l(स्थिर ब_अक्षर_प्रकार *_Str,ब_अक्षर_प्रकार **_EndPtr,_locale_t _Locale);
+  भग्न __cdecl wcstof( स्थिर ब_अक्षर_प्रकार *nptr, ब_अक्षर_प्रकार **endptr);
+#अगर !defined __NO_ISOCEXT /* in libmingwex.a */
+  भग्न __cdecl wcstof (स्थिर ब_अक्षर_प्रकार * __restrict__, ब_अक्षर_प्रकार ** __restrict__);
+  दीर्घ द्विगुन __cdecl wcstold (स्थिर ब_अक्षर_प्रकार * __restrict__, ब_अक्षर_प्रकार ** __restrict__);
+#पूर्ण_अगर /* __NO_ISOCEXT */
+  दीर्घ __cdecl wcstol(स्थिर ब_अक्षर_प्रकार *_Str,ब_अक्षर_प्रकार **_EndPtr,पूर्णांक _Radix);
+  _CRTIMP दीर्घ __cdecl _wcstol_l(स्थिर ब_अक्षर_प्रकार *_Str,ब_अक्षर_प्रकार **_EndPtr,पूर्णांक _Radix,_locale_t _Locale);
+  अचिन्हित दीर्घ __cdecl wcstoul(स्थिर ब_अक्षर_प्रकार *_Str,ब_अक्षर_प्रकार **_EndPtr,पूर्णांक _Radix);
+  _CRTIMP अचिन्हित दीर्घ __cdecl _wcstoul_l(स्थिर ब_अक्षर_प्रकार *_Str,ब_अक्षर_प्रकार **_EndPtr,पूर्णांक _Radix,_locale_t _Locale);
+  _CRTIMP ब_अक्षर_प्रकार *__cdecl _wgetenv(स्थिर ब_अक्षर_प्रकार *_VarName);
+#अगर_अघोषित _CRT_WSYSTEM_DEFINED
+#घोषणा _CRT_WSYSTEM_DEFINED
+  _CRTIMP पूर्णांक __cdecl _wsystem(स्थिर ब_अक्षर_प्रकार *_Command);
+#पूर्ण_अगर
+  _CRTIMP द्विगुन __cdecl _wtof(स्थिर ब_अक्षर_प्रकार *_Str);
+  _CRTIMP द्विगुन __cdecl _wtof_l(स्थिर ब_अक्षर_प्रकार *_Str,_locale_t _Locale);
+  _CRTIMP पूर्णांक __cdecl _wtoi(स्थिर ब_अक्षर_प्रकार *_Str);
+  _CRTIMP पूर्णांक __cdecl _wtoi_l(स्थिर ब_अक्षर_प्रकार *_Str,_locale_t _Locale);
+  _CRTIMP दीर्घ __cdecl _wtol(स्थिर ब_अक्षर_प्रकार *_Str);
+  _CRTIMP दीर्घ __cdecl _wtol_l(स्थिर ब_अक्षर_प्रकार *_Str,_locale_t _Locale);
 
-#if _INTEGRAL_MAX_BITS >= 64
-  _CRTIMP wchar_t *__cdecl _i64tow(__int64 _Val,wchar_t *_DstBuf,int _Radix);
-  _CRTIMP wchar_t *__cdecl _ui64tow(unsigned __int64 _Val,wchar_t *_DstBuf,int _Radix);
-  _CRTIMP __int64 __cdecl _wtoi64(const wchar_t *_Str);
-  _CRTIMP __int64 __cdecl _wtoi64_l(const wchar_t *_Str,_locale_t _Locale);
-  _CRTIMP __int64 __cdecl _wcstoi64(const wchar_t *_Str,wchar_t **_EndPtr,int _Radix);
-  _CRTIMP __int64 __cdecl _wcstoi64_l(const wchar_t *_Str,wchar_t **_EndPtr,int _Radix,_locale_t _Locale);
-  _CRTIMP unsigned __int64 __cdecl _wcstoui64(const wchar_t *_Str,wchar_t **_EndPtr,int _Radix);
-  _CRTIMP unsigned __int64 __cdecl _wcstoui64_l(const wchar_t *_Str,wchar_t **_EndPtr,int _Radix,_locale_t _Locale);
-#endif
-#endif
+#अगर _INTEGRAL_MAX_BITS >= 64
+  _CRTIMP ब_अक्षर_प्रकार *__cdecl _i64tow(__int64 _Val,ब_अक्षर_प्रकार *_DstBuf,पूर्णांक _Radix);
+  _CRTIMP ब_अक्षर_प्रकार *__cdecl _ui64tow(अचिन्हित __int64 _Val,ब_अक्षर_प्रकार *_DstBuf,पूर्णांक _Radix);
+  _CRTIMP __int64 __cdecl _wtoi64(स्थिर ब_अक्षर_प्रकार *_Str);
+  _CRTIMP __int64 __cdecl _wtoi64_l(स्थिर ब_अक्षर_प्रकार *_Str,_locale_t _Locale);
+  _CRTIMP __int64 __cdecl _wcstoi64(स्थिर ब_अक्षर_प्रकार *_Str,ब_अक्षर_प्रकार **_EndPtr,पूर्णांक _Radix);
+  _CRTIMP __int64 __cdecl _wcstoi64_l(स्थिर ब_अक्षर_प्रकार *_Str,ब_अक्षर_प्रकार **_EndPtr,पूर्णांक _Radix,_locale_t _Locale);
+  _CRTIMP अचिन्हित __int64 __cdecl _wcstoui64(स्थिर ब_अक्षर_प्रकार *_Str,ब_अक्षर_प्रकार **_EndPtr,पूर्णांक _Radix);
+  _CRTIMP अचिन्हित __int64 __cdecl _wcstoui64_l(स्थिर ब_अक्षर_प्रकार *_Str,ब_अक्षर_प्रकार **_EndPtr,पूर्णांक _Radix,_locale_t _Locale);
+#पूर्ण_अगर
+#पूर्ण_अगर
 
-#ifndef _POSIX_
-#ifndef _WSTDLIBP_DEFINED
-#define _WSTDLIBP_DEFINED
-  _CRTIMP wchar_t *__cdecl _wfullpath(wchar_t *_FullPath,const wchar_t *_Path,size_t _SizeInWords);
-  _CRTIMP void __cdecl _wmakepath(wchar_t *_ResultPath,const wchar_t *_Drive,const wchar_t *_Dir,const wchar_t *_Filename,const wchar_t *_Ext);
-#ifndef _CRT_WPERROR_DEFINED
-#define _CRT_WPERROR_DEFINED
-  _CRTIMP void __cdecl _wperror(const wchar_t *_ErrMsg);
-#endif
-  _CRTIMP int __cdecl _wputenv(const wchar_t *_EnvString);
-  _CRTIMP void __cdecl _wsearchenv(const wchar_t *_Filename,const wchar_t *_EnvVar,wchar_t *_ResultPath);
-  _CRTIMP void __cdecl _wsplitpath(const wchar_t *_FullPath,wchar_t *_Drive,wchar_t *_Dir,wchar_t *_Filename,wchar_t *_Ext);
-#endif
-#endif
+#अगर_अघोषित _POSIX_
+#अगर_अघोषित _WSTDLIBP_DEFINED
+#घोषणा _WSTDLIBP_DEFINED
+  _CRTIMP ब_अक्षर_प्रकार *__cdecl _wfullpath(ब_अक्षर_प्रकार *_FullPath,स्थिर ब_अक्षर_प्रकार *_Path,माप_प्रकार आकार_In_शब्दगण);
+  _CRTIMP व्योम __cdecl _wmakepath(ब_अक्षर_प्रकार *परिणाम_Path,स्थिर ब_अक्षर_प्रकार *_Drive,स्थिर ब_अक्षर_प्रकार *_Dir,स्थिर ब_अक्षर_प्रकार *_Filename,स्थिर ब_अक्षर_प्रकार *_Ext);
+#अगर_अघोषित _CRT_WPERROR_DEFINED
+#घोषणा _CRT_WPERROR_DEFINED
+  _CRTIMP व्योम __cdecl _wperror(स्थिर ब_अक्षर_प्रकार *Err_संदेश);
+#पूर्ण_अगर
+  _CRTIMP पूर्णांक __cdecl _wputenv(स्थिर ब_अक्षर_प्रकार *_EnvString);
+  _CRTIMP व्योम __cdecl _wsearchenv(स्थिर ब_अक्षर_प्रकार *_Filename,स्थिर ब_अक्षर_प्रकार *_EnvVar,ब_अक्षर_प्रकार *परिणाम_Path);
+  _CRTIMP व्योम __cdecl _wsplitpath(स्थिर ब_अक्षर_प्रकार *_FullPath,ब_अक्षर_प्रकार *_Drive,ब_अक्षर_प्रकार *_Dir,ब_अक्षर_प्रकार *_Filename,ब_अक्षर_प्रकार *_Ext);
+#पूर्ण_अगर
+#पूर्ण_अगर
 
-#ifndef _WSTRING_DEFINED
-#define _WSTRING_DEFINED
-  _CRTIMP wchar_t *__cdecl _wcsdup(const wchar_t *_Str);
-  wchar_t *__cdecl wcscat(wchar_t *_Dest,const wchar_t *_Source);
-  _CONST_RETURN wchar_t *__cdecl wcschr(const wchar_t *_Str,wchar_t _Ch);
-  int __cdecl wcscmp(const wchar_t *_Str1,const wchar_t *_Str2);
-  wchar_t *__cdecl wcscpy(wchar_t *_Dest,const wchar_t *_Source);
-  size_t __cdecl wcscspn(const wchar_t *_Str,const wchar_t *_Control);
-  size_t __cdecl wcslen(const wchar_t *_Str);
-  size_t __cdecl wcsnlen(const wchar_t *_Src,size_t _MaxCount);
-  wchar_t *__cdecl wcsncat(wchar_t *_Dest,const wchar_t *_Source,size_t _Count);
-  int __cdecl wcsncmp(const wchar_t *_Str1,const wchar_t *_Str2,size_t _MaxCount);
-  wchar_t *__cdecl wcsncpy(wchar_t *_Dest,const wchar_t *_Source,size_t _Count);
-  _CONST_RETURN wchar_t *__cdecl wcspbrk(const wchar_t *_Str,const wchar_t *_Control);
-  _CONST_RETURN wchar_t *__cdecl wcsrchr(const wchar_t *_Str,wchar_t _Ch);
-  size_t __cdecl wcsspn(const wchar_t *_Str,const wchar_t *_Control);
-  _CONST_RETURN wchar_t *__cdecl wcsstr(const wchar_t *_Str,const wchar_t *_SubStr);
-  wchar_t *__cdecl wcstok(wchar_t *_Str,const wchar_t *_Delim);
-  _CRTIMP wchar_t *__cdecl _wcserror(int _ErrNum);
-  _CRTIMP wchar_t *__cdecl __wcserror(const wchar_t *_Str);
-  _CRTIMP int __cdecl _wcsicmp(const wchar_t *_Str1,const wchar_t *_Str2);
-  _CRTIMP int __cdecl _wcsicmp_l(const wchar_t *_Str1,const wchar_t *_Str2,_locale_t _Locale);
-  _CRTIMP int __cdecl _wcsnicmp(const wchar_t *_Str1,const wchar_t *_Str2,size_t _MaxCount);
-  _CRTIMP int __cdecl _wcsnicmp_l(const wchar_t *_Str1,const wchar_t *_Str2,size_t _MaxCount,_locale_t _Locale);
-  _CRTIMP wchar_t *__cdecl _wcsnset(wchar_t *_Str,wchar_t _Val,size_t _MaxCount);
-  _CRTIMP wchar_t *__cdecl _wcsrev(wchar_t *_Str);
-  _CRTIMP wchar_t *__cdecl _wcsset(wchar_t *_Str,wchar_t _Val);
-  _CRTIMP wchar_t *__cdecl _wcslwr(wchar_t *_String);
-  _CRTIMP wchar_t *_wcslwr_l(wchar_t *_String,_locale_t _Locale);
-  _CRTIMP wchar_t *__cdecl _wcsupr(wchar_t *_String);
-  _CRTIMP wchar_t *_wcsupr_l(wchar_t *_String,_locale_t _Locale);
-  size_t __cdecl wcsxfrm(wchar_t *_Dst,const wchar_t *_Src,size_t _MaxCount);
-  _CRTIMP size_t __cdecl _wcsxfrm_l(wchar_t *_Dst,const wchar_t *_Src,size_t _MaxCount,_locale_t _Locale);
-  int __cdecl wcscoll(const wchar_t *_Str1,const wchar_t *_Str2);
-  _CRTIMP int __cdecl _wcscoll_l(const wchar_t *_Str1,const wchar_t *_Str2,_locale_t _Locale);
-  _CRTIMP int __cdecl _wcsicoll(const wchar_t *_Str1,const wchar_t *_Str2);
-  _CRTIMP int __cdecl _wcsicoll_l(const wchar_t *_Str1,const wchar_t *_Str2,_locale_t _Locale);
-  _CRTIMP int __cdecl _wcsncoll(const wchar_t *_Str1,const wchar_t *_Str2,size_t _MaxCount);
-  _CRTIMP int __cdecl _wcsncoll_l(const wchar_t *_Str1,const wchar_t *_Str2,size_t _MaxCount,_locale_t _Locale);
-  _CRTIMP int __cdecl _wcsnicoll(const wchar_t *_Str1,const wchar_t *_Str2,size_t _MaxCount);
-  _CRTIMP int __cdecl _wcsnicoll_l(const wchar_t *_Str1,const wchar_t *_Str2,size_t _MaxCount,_locale_t _Locale);
+#अगर_अघोषित _WSTRING_DEFINED
+#घोषणा _WSTRING_DEFINED
+  _CRTIMP ब_अक्षर_प्रकार *__cdecl _wcsdup(स्थिर ब_अक्षर_प्रकार *_Str);
+  ब_अक्षर_प्रकार *__cdecl wcscat(ब_अक्षर_प्रकार *_Dest,स्थिर ब_अक्षर_प्रकार *_Source);
+  _CONST_RETURN ब_अक्षर_प्रकार *__cdecl wcschr(स्थिर ब_अक्षर_प्रकार *_Str,ब_अक्षर_प्रकार _Ch);
+  पूर्णांक __cdecl wcscmp(स्थिर ब_अक्षर_प्रकार *_Str1,स्थिर ब_अक्षर_प्रकार *_Str2);
+  ब_अक्षर_प्रकार *__cdecl wcscpy(ब_अक्षर_प्रकार *_Dest,स्थिर ब_अक्षर_प्रकार *_Source);
+  माप_प्रकार __cdecl wcscspn(स्थिर ब_अक्षर_प्रकार *_Str,स्थिर ब_अक्षर_प्रकार *_Control);
+  माप_प्रकार __cdecl wcslen(स्थिर ब_अक्षर_प्रकार *_Str);
+  माप_प्रकार __cdecl wcsnlen(स्थिर ब_अक्षर_प्रकार *_Src,माप_प्रकार Max_गिनती);
+  ब_अक्षर_प्रकार *__cdecl wcsncat(ब_अक्षर_प्रकार *_Dest,स्थिर ब_अक्षर_प्रकार *_Source,माप_प्रकार गिनती_5);
+  पूर्णांक __cdecl wcsncmp(स्थिर ब_अक्षर_प्रकार *_Str1,स्थिर ब_अक्षर_प्रकार *_Str2,माप_प्रकार Max_गिनती);
+  ब_अक्षर_प्रकार *__cdecl wcsncpy(ब_अक्षर_प्रकार *_Dest,स्थिर ब_अक्षर_प्रकार *_Source,माप_प्रकार गिनती_5);
+  _CONST_RETURN ब_अक्षर_प्रकार *__cdecl wcspbrk(स्थिर ब_अक्षर_प्रकार *_Str,स्थिर ब_अक्षर_प्रकार *_Control);
+  _CONST_RETURN ब_अक्षर_प्रकार *__cdecl wcsrchr(स्थिर ब_अक्षर_प्रकार *_Str,ब_अक्षर_प्रकार _Ch);
+  माप_प्रकार __cdecl wcsspn(स्थिर ब_अक्षर_प्रकार *_Str,स्थिर ब_अक्षर_प्रकार *_Control);
+  _CONST_RETURN ब_अक्षर_प्रकार *__cdecl wcsstr(स्थिर ब_अक्षर_प्रकार *_Str,स्थिर ब_अक्षर_प्रकार *_SubStr);
+  ब_अक्षर_प्रकार *__cdecl wcstok(ब_अक्षर_प्रकार *_Str,स्थिर ब_अक्षर_प्रकार *_Delim);
+  _CRTIMP ब_अक्षर_प्रकार *__cdecl _wcserror(पूर्णांक Err_अंक);
+  _CRTIMP ब_अक्षर_प्रकार *__cdecl __wcserror(स्थिर ब_अक्षर_प्रकार *_Str);
+  _CRTIMP पूर्णांक __cdecl _wcsicmp(स्थिर ब_अक्षर_प्रकार *_Str1,स्थिर ब_अक्षर_प्रकार *_Str2);
+  _CRTIMP पूर्णांक __cdecl _wcsicmp_l(स्थिर ब_अक्षर_प्रकार *_Str1,स्थिर ब_अक्षर_प्रकार *_Str2,_locale_t _Locale);
+  _CRTIMP पूर्णांक __cdecl _wcsnicmp(स्थिर ब_अक्षर_प्रकार *_Str1,स्थिर ब_अक्षर_प्रकार *_Str2,माप_प्रकार Max_गिनती);
+  _CRTIMP पूर्णांक __cdecl _wcsnicmp_l(स्थिर ब_अक्षर_प्रकार *_Str1,स्थिर ब_अक्षर_प्रकार *_Str2,माप_प्रकार Max_गिनती,_locale_t _Locale);
+  _CRTIMP ब_अक्षर_प्रकार *__cdecl _wcsnset(ब_अक्षर_प्रकार *_Str,ब_अक्षर_प्रकार _Val,माप_प्रकार Max_गिनती);
+  _CRTIMP ब_अक्षर_प्रकार *__cdecl _wcsrev(ब_अक्षर_प्रकार *_Str);
+  _CRTIMP ब_अक्षर_प्रकार *__cdecl _wcsset(ब_अक्षर_प्रकार *_Str,ब_अक्षर_प्रकार _Val);
+  _CRTIMP ब_अक्षर_प्रकार *__cdecl _wcslwr(ब_अक्षर_प्रकार *_String);
+  _CRTIMP ब_अक्षर_प्रकार *_wcslwr_l(ब_अक्षर_प्रकार *_String,_locale_t _Locale);
+  _CRTIMP ब_अक्षर_प्रकार *__cdecl _wcsupr(ब_अक्षर_प्रकार *_String);
+  _CRTIMP ब_अक्षर_प्रकार *_wcsupr_l(ब_अक्षर_प्रकार *_String,_locale_t _Locale);
+  माप_प्रकार __cdecl wcsxfrm(ब_अक्षर_प्रकार *_Dst,स्थिर ब_अक्षर_प्रकार *_Src,माप_प्रकार Max_गिनती);
+  _CRTIMP माप_प्रकार __cdecl _wcsxfrm_l(ब_अक्षर_प्रकार *_Dst,स्थिर ब_अक्षर_प्रकार *_Src,माप_प्रकार Max_गिनती,_locale_t _Locale);
+  पूर्णांक __cdecl wcscoll(स्थिर ब_अक्षर_प्रकार *_Str1,स्थिर ब_अक्षर_प्रकार *_Str2);
+  _CRTIMP पूर्णांक __cdecl _wcscoll_l(स्थिर ब_अक्षर_प्रकार *_Str1,स्थिर ब_अक्षर_प्रकार *_Str2,_locale_t _Locale);
+  _CRTIMP पूर्णांक __cdecl _wcsicoll(स्थिर ब_अक्षर_प्रकार *_Str1,स्थिर ब_अक्षर_प्रकार *_Str2);
+  _CRTIMP पूर्णांक __cdecl _wcsicoll_l(स्थिर ब_अक्षर_प्रकार *_Str1,स्थिर ब_अक्षर_प्रकार *_Str2,_locale_t _Locale);
+  _CRTIMP पूर्णांक __cdecl _wcsncoll(स्थिर ब_अक्षर_प्रकार *_Str1,स्थिर ब_अक्षर_प्रकार *_Str2,माप_प्रकार Max_गिनती);
+  _CRTIMP पूर्णांक __cdecl _wcsncoll_l(स्थिर ब_अक्षर_प्रकार *_Str1,स्थिर ब_अक्षर_प्रकार *_Str2,माप_प्रकार Max_गिनती,_locale_t _Locale);
+  _CRTIMP पूर्णांक __cdecl _wcsnicoll(स्थिर ब_अक्षर_प्रकार *_Str1,स्थिर ब_अक्षर_प्रकार *_Str2,माप_प्रकार Max_गिनती);
+  _CRTIMP पूर्णांक __cdecl _wcsnicoll_l(स्थिर ब_अक्षर_प्रकार *_Str1,स्थिर ब_अक्षर_प्रकार *_Str2,माप_प्रकार Max_गिनती,_locale_t _Locale);
 
-#ifndef	NO_OLDNAMES
-  wchar_t *__cdecl wcsdup(const wchar_t *_Str);
-#define wcswcs wcsstr
-  int __cdecl wcsicmp(const wchar_t *_Str1,const wchar_t *_Str2);
-  int __cdecl wcsnicmp(const wchar_t *_Str1,const wchar_t *_Str2,size_t _MaxCount);
-  wchar_t *__cdecl wcsnset(wchar_t *_Str,wchar_t _Val,size_t _MaxCount);
-  wchar_t *__cdecl wcsrev(wchar_t *_Str);
-  wchar_t *__cdecl wcsset(wchar_t *_Str,wchar_t _Val);
-  wchar_t *__cdecl wcslwr(wchar_t *_Str);
-  wchar_t *__cdecl wcsupr(wchar_t *_Str);
-  int __cdecl wcsicoll(const wchar_t *_Str1,const wchar_t *_Str2);
-#endif
-#endif
+#अगर_अघोषित	NO_OLDNAMES
+  ब_अक्षर_प्रकार *__cdecl wcsdup(स्थिर ब_अक्षर_प्रकार *_Str);
+#घोषणा wcswcs wcsstr
+  पूर्णांक __cdecl wcsicmp(स्थिर ब_अक्षर_प्रकार *_Str1,स्थिर ब_अक्षर_प्रकार *_Str2);
+  पूर्णांक __cdecl wcsnicmp(स्थिर ब_अक्षर_प्रकार *_Str1,स्थिर ब_अक्षर_प्रकार *_Str2,माप_प्रकार Max_गिनती);
+  ब_अक्षर_प्रकार *__cdecl wcsnset(ब_अक्षर_प्रकार *_Str,ब_अक्षर_प्रकार _Val,माप_प्रकार Max_गिनती);
+  ब_अक्षर_प्रकार *__cdecl wcsrev(ब_अक्षर_प्रकार *_Str);
+  ब_अक्षर_प्रकार *__cdecl wcsset(ब_अक्षर_प्रकार *_Str,ब_अक्षर_प्रकार _Val);
+  ब_अक्षर_प्रकार *__cdecl wcslwr(ब_अक्षर_प्रकार *_Str);
+  ब_अक्षर_प्रकार *__cdecl wcsupr(ब_अक्षर_प्रकार *_Str);
+  पूर्णांक __cdecl wcsicoll(स्थिर ब_अक्षर_प्रकार *_Str1,स्थिर ब_अक्षर_प्रकार *_Str2);
+#पूर्ण_अगर
+#पूर्ण_अगर
 
-#ifndef _TM_DEFINED
-#define _TM_DEFINED
-  struct tm {
-    int tm_sec;
-    int tm_min;
-    int tm_hour;
-    int tm_mday;
-    int tm_mon;
-    int tm_year;
-    int tm_wday;
-    int tm_yday;
-    int tm_isdst;
+#अगर_अघोषित _TM_DEFINED
+#घोषणा _TM_DEFINED
+  काष्ठा पंचांग {
+    पूर्णांक tm_sec;
+    पूर्णांक tm_min;
+    पूर्णांक tm_hour;
+    पूर्णांक tm_mday;
+    पूर्णांक tm_mon;
+    पूर्णांक tm_year;
+    पूर्णांक tm_wday;
+    पूर्णांक tm_yday;
+    पूर्णांक tm_isdst;
   };
-#endif
+#पूर्ण_अगर
 
-#ifndef _WTIME_DEFINED
-#define _WTIME_DEFINED
+#अगर_अघोषित _WTIME_DEFINED
+#घोषणा _WTIME_DEFINED
 
-  _CRTIMP wchar_t *__cdecl _wasctime(const struct tm *_Tm);
-  _CRTIMP wchar_t *__cdecl _wctime32(const __time32_t *_Time);
-  size_t __cdecl wcsftime(wchar_t *_Buf,size_t _SizeInWords,const wchar_t *_Format,const struct tm *_Tm);
-  _CRTIMP size_t __cdecl _wcsftime_l(wchar_t *_Buf,size_t _SizeInWords,const wchar_t *_Format,const struct tm *_Tm,_locale_t _Locale);
-  _CRTIMP wchar_t *__cdecl _wstrdate(wchar_t *_Buffer);
-  _CRTIMP wchar_t *__cdecl _wstrtime(wchar_t *_Buffer);
-#if _INTEGRAL_MAX_BITS >= 64
-  _CRTIMP wchar_t *__cdecl _wctime64(const __time64_t *_Time);
-#endif
+  _CRTIMP ब_अक्षर_प्रकार *__cdecl _wasctime(स्थिर काष्ठा पंचांग *_Tm);
+  _CRTIMP ब_अक्षर_प्रकार *__cdecl _wctime32(स्थिर __time32_t *_Time);
+  माप_प्रकार __cdecl wcsftime(ब_अक्षर_प्रकार *_Buf,माप_प्रकार आकार_In_शब्दगण,स्थिर ब_अक्षर_प्रकार *_Format,स्थिर काष्ठा पंचांग *_Tm);
+  _CRTIMP माप_प्रकार __cdecl _wcsftime_l(ब_अक्षर_प्रकार *_Buf,माप_प्रकार आकार_In_शब्दगण,स्थिर ब_अक्षर_प्रकार *_Format,स्थिर काष्ठा पंचांग *_Tm,_locale_t _Locale);
+  _CRTIMP ब_अक्षर_प्रकार *__cdecl _wstrdate(ब_अक्षर_प्रकार *बफर_2);
+  _CRTIMP ब_अक्षर_प्रकार *__cdecl _wstrtime(ब_अक्षर_प्रकार *बफर_2);
+#अगर _INTEGRAL_MAX_BITS >= 64
+  _CRTIMP ब_अक्षर_प्रकार *__cdecl _wctime64(स्थिर __time64_t *_Time);
+#पूर्ण_अगर
 
-#if !defined (RC_INVOKED) && !defined (_INC_WTIME_INL)
-#define _INC_WTIME_INL
-#ifdef _USE_32BIT_TIME_T
-__CRT_INLINE wchar_t *__cdecl _wctime(const time_t *_Time) { return _wctime32(_Time); }
-#else
-__CRT_INLINE wchar_t *__cdecl _wctime(const time_t *_Time) { return _wctime64(_Time); }
-#endif
-#endif
-#endif
+#अगर !defined (RC_INVOKED) && !defined (_INC_WTIME_INL)
+#घोषणा _INC_WTIME_INL
+#अगर_घोषित _USE_32BIT_TIME_T
+__CRT_INLINE ब_अक्षर_प्रकार *__cdecl _wctime(स्थिर समय_प्रकार *_Time) { वापस _wctime32(_Time); }
+#अन्यथा
+__CRT_INLINE ब_अक्षर_प्रकार *__cdecl _wctime(स्थिर समय_प्रकार *_Time) { वापस _wctime64(_Time); }
+#पूर्ण_अगर
+#पूर्ण_अगर
+#पूर्ण_अगर
 
-  typedef int mbstate_t;
-  typedef wchar_t _Wint_t;
+  प्रकार पूर्णांक mbstate_t;
+  प्रकार ब_अक्षर_प्रकार _Wint_t;
 
-  wint_t __cdecl btowc(int);
-  size_t __cdecl mbrlen(const char *_Ch,size_t _SizeInBytes,mbstate_t *_State);
-  size_t __cdecl mbrtowc(wchar_t *_DstCh,const char *_SrcCh,size_t _SizeInBytes,mbstate_t *_State);
-  size_t __cdecl mbsrtowcs(wchar_t *_Dest,const char **_PSrc,size_t _Count,mbstate_t *_State);
-  size_t __cdecl wcrtomb(char *_Dest,wchar_t _Source,mbstate_t *_State);
-  size_t __cdecl wcsrtombs(char *_Dest,const wchar_t **_PSource,size_t _Count,mbstate_t *_State);
-  int __cdecl wctob(wint_t _WCh);
+  wint_t __cdecl btowc(पूर्णांक);
+  माप_प्रकार __cdecl mbrlen(स्थिर अक्षर *_Ch,माप_प्रकार आकार_In_Bytes,mbstate_t *_State);
+  माप_प्रकार __cdecl mbrtowc(ब_अक्षर_प्रकार *_DstCh,स्थिर अक्षर *_SrcCh,माप_प्रकार आकार_In_Bytes,mbstate_t *_State);
+  माप_प्रकार __cdecl mbsrtowcs(ब_अक्षर_प्रकार *_Dest,स्थिर अक्षर **_PSrc,माप_प्रकार गिनती_5,mbstate_t *_State);
+  माप_प्रकार __cdecl wcrtomb(अक्षर *_Dest,ब_अक्षर_प्रकार _Source,mbstate_t *_State);
+  माप_प्रकार __cdecl wcsrtombs(अक्षर *_Dest,स्थिर ब_अक्षर_प्रकार **_PSource,माप_प्रकार गिनती_5,mbstate_t *_State);
+  पूर्णांक __cdecl wctob(wint_t _WCh);
 
-#ifndef __NO_ISOCEXT /* these need static lib libmingwex.a */
-  wchar_t *__cdecl wmemset(wchar_t *s, wchar_t c, size_t n);
-  _CONST_RETURN wchar_t *__cdecl wmemchr(const wchar_t *s, wchar_t c, size_t n);
-  int wmemcmp(const wchar_t *s1, const wchar_t *s2,size_t n);
-  wchar_t *__cdecl wmemcpy(wchar_t *s1,const wchar_t *s2,size_t n);
-  wchar_t *__cdecl wmemmove(wchar_t *s1, const wchar_t *s2, size_t n);
-  long long __cdecl wcstoll(const wchar_t *nptr,wchar_t **endptr, int base);
-  unsigned long long __cdecl wcstoull(const wchar_t *nptr,wchar_t **endptr, int base);
-#endif /* __NO_ISOCEXT */
+#अगर_अघोषित __NO_ISOCEXT /* these need static lib libmingwex.a */
+  ब_अक्षर_प्रकार *__cdecl wmemset(ब_अक्षर_प्रकार *s, ब_अक्षर_प्रकार c, माप_प्रकार n);
+  _CONST_RETURN ब_अक्षर_प्रकार *__cdecl wmemchr(स्थिर ब_अक्षर_प्रकार *s, ब_अक्षर_प्रकार c, माप_प्रकार n);
+  पूर्णांक wmemcmp(स्थिर ब_अक्षर_प्रकार *s1, स्थिर ब_अक्षर_प्रकार *s2,माप_प्रकार n);
+  ब_अक्षर_प्रकार *__cdecl wmemcpy(ब_अक्षर_प्रकार *s1,स्थिर ब_अक्षर_प्रकार *s2,माप_प्रकार n);
+  ब_अक्षर_प्रकार *__cdecl wmemmove(ब_अक्षर_प्रकार *s1, स्थिर ब_अक्षर_प्रकार *s2, माप_प्रकार n);
+  दीर्घ दीर्घ __cdecl wcstoll(स्थिर ब_अक्षर_प्रकार *nptr,ब_अक्षर_प्रकार **endptr, पूर्णांक base);
+  अचिन्हित दीर्घ दीर्घ __cdecl wcstoull(स्थिर ब_अक्षर_प्रकार *nptr,ब_अक्षर_प्रकार **endptr, पूर्णांक base);
+#पूर्ण_अगर /* __NO_ISOCEXT */
 
-  void *__cdecl memmove(void *_Dst,const void *_Src,size_t _MaxCount);
-  void *__cdecl memcpy(void *_Dst,const void *_Src,size_t _MaxCount);
-  __CRT_INLINE int __cdecl fwide(FILE *_F,int _M) { (void)_F; return (_M); }
-  __CRT_INLINE int __cdecl mbsinit(const mbstate_t *_P) { return (!_P || *_P==0); }
-  __CRT_INLINE _CONST_RETURN wchar_t *__cdecl wmemchr(const wchar_t *_S,wchar_t _C,size_t _N) { for (;0<_N;++_S,--_N) if (*_S==_C) return (_CONST_RETURN wchar_t *)(_S); return (0); }
-  __CRT_INLINE int __cdecl wmemcmp(const wchar_t *_S1,const wchar_t *_S2,size_t _N) { for (; 0 < _N; ++_S1,++_S2,--_N) if (*_S1!=*_S2) return (*_S1 < *_S2 ? -1 : +1); return (0); }
-  __CRT_INLINE wchar_t *__cdecl wmemcpy(wchar_t *_S1,const wchar_t *_S2,size_t _N) { return (wchar_t *)memcpy(_S1,_S2,_N*sizeof(wchar_t)); }
-  __CRT_INLINE wchar_t *__cdecl wmemmove(wchar_t *_S1,const wchar_t *_S2,size_t _N) { return (wchar_t *)memmove(_S1,_S2,_N*sizeof(wchar_t)); }
-  __CRT_INLINE wchar_t *__cdecl wmemset(wchar_t *_S,wchar_t _C,size_t _N) {
-    wchar_t *_Su = _S;
-    for (;0<_N;++_Su,--_N) {
+  व्योम *__cdecl स_हटाओ(व्योम *_Dst,स्थिर व्योम *_Src,माप_प्रकार Max_गिनती);
+  व्योम *__cdecl स_नकल(व्योम *_Dst,स्थिर व्योम *_Src,माप_प्रकार Max_गिनती);
+  __CRT_INLINE पूर्णांक __cdecl fwide(खाता *_F,पूर्णांक _M) { (व्योम)_F; वापस (_M); }
+  __CRT_INLINE पूर्णांक __cdecl mbsinit(स्थिर mbstate_t *_P) { वापस (!_P || *_P==0); }
+  __CRT_INLINE _CONST_RETURN ब_अक्षर_प्रकार *__cdecl wmemchr(स्थिर ब_अक्षर_प्रकार *_S,ब_अक्षर_प्रकार _C,माप_प्रकार _N) { क्रम (;0<_N;++_S,--_N) अगर (*_S==_C) वापस (_CONST_RETURN ब_अक्षर_प्रकार *)(_S); वापस (0); }
+  __CRT_INLINE पूर्णांक __cdecl wmemcmp(स्थिर ब_अक्षर_प्रकार *_S1,स्थिर ब_अक्षर_प्रकार *_S2,माप_प्रकार _N) { क्रम (; 0 < _N; ++_S1,++_S2,--_N) अगर (*_S1!=*_S2) वापस (*_S1 < *_S2 ? -1 : +1); वापस (0); }
+  __CRT_INLINE ब_अक्षर_प्रकार *__cdecl wmemcpy(ब_अक्षर_प्रकार *_S1,स्थिर ब_अक्षर_प्रकार *_S2,माप_प्रकार _N) { वापस (ब_अक्षर_प्रकार *)स_नकल(_S1,_S2,_N*माप(ब_अक्षर_प्रकार)); }
+  __CRT_INLINE ब_अक्षर_प्रकार *__cdecl wmemmove(ब_अक्षर_प्रकार *_S1,स्थिर ब_अक्षर_प्रकार *_S2,माप_प्रकार _N) { वापस (ब_अक्षर_प्रकार *)स_हटाओ(_S1,_S2,_N*माप(ब_अक्षर_प्रकार)); }
+  __CRT_INLINE ब_अक्षर_प्रकार *__cdecl wmemset(ब_अक्षर_प्रकार *_S,ब_अक्षर_प्रकार _C,माप_प्रकार _N) {
+    ब_अक्षर_प्रकार *_Su = _S;
+    क्रम (;0<_N;++_Su,--_N) {
       *_Su = _C;
     }
-    return (_S);
+    वापस (_S);
   }
-#ifdef __cplusplus
+#अगर_घोषित __cplusplus
 }
-#endif
+#पूर्ण_अगर
 
-#pragma pack(pop)
+#आशय pack(निकालो)
 
-#include <sec_api/wchar_s.h>
-#endif
+#समावेश <sec_api/wchar_s.h>
+#पूर्ण_अगर

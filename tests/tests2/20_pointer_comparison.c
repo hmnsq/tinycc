@@ -1,24 +1,24 @@
-#include <stdio.h>
+#समावेश <stdio.h>
 
-int main()
+पूर्णांक मुख्य()
 {
-   int a;
-   int b;
-   int *d;
-   int *e;
+   पूर्णांक a;
+   पूर्णांक b;
+   पूर्णांक *d;
+   पूर्णांक *e;
    d = &a;
    e = &b;
    a = 12;
    b = 34;
-   printf("%d\n", *d);
-   printf("%d\n", *e);
-   printf("%d\n", d == e);
-   printf("%d\n", d != e);
+   म_लिखो("%d\n", *d);
+   म_लिखो("%d\n", *e);
+   म_लिखो("%d\n", d == e);
+   म_लिखो("%d\n", d != e);
    d = e;
-   printf("%d\n", d == e);
-   printf("%d\n", d != e);
+   म_लिखो("%d\n", d == e);
+   म_लिखो("%d\n", d != e);
 
-   return 0;
+   वापस 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

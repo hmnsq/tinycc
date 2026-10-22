@@ -1,9 +1,9 @@
-#include <stdio.h>
-double привет=0.1;
-int Lefèvre=2;
-int main(){
-    printf("привет=%g\n",привет);
-    printf("Lefèvre=%d\n",Lefèvre);
-    return 0;
+#समावेश <stdio.h>
+द्विगुन привет=0.1;
+पूर्णांक Lefèvre=2;
+पूर्णांक मुख्य(){
+    म_लिखो("привет=%g\n",привет);
+    म_लिखो("Lefèvre=%d\n",Lefèvre);
+    वापस 0;
 }
 // pcc & tcc only

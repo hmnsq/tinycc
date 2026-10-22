@@ -1,24 +1,24 @@
-#include <stdio.h>
+#समावेश <stdio.h>
 
-void fred(int x)
+व्योम fred(पूर्णांक x)
 {
-   switch (x)
+   चयन (x)
    {
-      case 1: printf("1\n"); return;
-      case 2: printf("2\n"); break;
-      case 3: printf("3\n"); return;
+      हाल 1: म_लिखो("1\n"); वापस;
+      हाल 2: म_लिखो("2\n"); अवरोध;
+      हाल 3: म_लिखो("3\n"); वापस;
    }
 
-   printf("out\n");
+   म_लिखो("out\n");
 }
 
-int main()
+पूर्णांक मुख्य()
 {
    fred(1);
    fred(2);
    fred(3);
 
-   return 0;
+   वापस 0;
 }    
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

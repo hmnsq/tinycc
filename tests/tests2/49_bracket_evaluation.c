@@ -1,23 +1,23 @@
-#include <stdio.h>
+#समावेश <stdio.h>
 
-struct point
+काष्ठा point
 {
-   double x;
-   double y;
+   द्विगुन x;
+   द्विगुन y;
 };
 
-struct point point_array[100];
+काष्ठा point point_array[100];
 
-int main()
+पूर्णांक मुख्य()
 {
-   int my_point = 10;
+   पूर्णांक my_point = 10;
 
    point_array[my_point].x = 12.34;
    point_array[my_point].y = 56.78;
 
-   printf("%f, %f\n", point_array[my_point].x, point_array[my_point].y);
+   म_लिखो("%f, %f\n", point_array[my_point].x, point_array[my_point].y);
 
-   return 0;
+   वापस 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

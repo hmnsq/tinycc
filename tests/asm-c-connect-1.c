@@ -1,69 +1,69 @@
-#include <stdio.h>
+#समावेश <stdio.h>
 
-#if (defined _WIN32 || defined __APPLE__) && (!defined __TINYC__ || defined __leading_underscore)
+#अगर (defined _WIN32 || defined __APPLE__) && (!defined __TINYC__ || defined __leading_underscore)
 # define _ "_"
-#else
+#अन्यथा
 # define _
-#endif
+#पूर्ण_अगर
 
-#ifdef __clang__
+#अगर_घोषित __clang__
 /* clang needs some help tp not throw functions away even at -O0 */
-#define __USED __attribute__((__used__))
-#else
-#define __USED
-#endif
+#घोषणा __USED __attribute__((__used__))
+#अन्यथा
+#घोषणा __USED
+#पूर्ण_अगर
 
-static int __USED x1_c (void)
+अटल पूर्णांक __USED x1_c (व्योम)
 {
-    printf(" x1");
-    return 1;
+    म_लिखो(" x1");
+    वापस 1;
 }
 
-#if __i386__
-asm(".text;"_"x1: call "_"x1_c; ret");
-#else
+#अगर __i386__
+यंत्र(".text;"_"x1: call "_"x1_c; ret");
+#अन्यथा
 /* Keep stack aligned */
-asm(".text;"_"x1: sub $8,%rsp; call "_"x1_c; add $8,%rsp; ret");
-#endif
+यंत्र(".text;"_"x1: sub $8,%rsp; call "_"x1_c; add $8,%rsp; ret");
+#पूर्ण_अगर
 
-void callx4(void);
-void callx5_again(void);
+व्योम callx4(व्योम);
+व्योम callx5_again(व्योम);
 
-void x6()
+व्योम x6()
 {
-    printf(" x6-1");
+    म_लिखो(" x6-1");
 }
 
-int main(int argc, char *argv[])
+पूर्णांक मुख्य(पूर्णांक argc, अक्षर *argv[])
 {
-    printf("*");
-    asm("call "_"x1");
-    asm("call "_"x2");
-    asm("call "_"x3");
+    म_लिखो("*");
+    यंत्र("call "_"x1");
+    यंत्र("call "_"x2");
+    यंत्र("call "_"x3");
     callx4();
-    asm("call "_"x5");
+    यंत्र("call "_"x5");
     callx5_again();
     x6();
-    printf(" *\n");
-    return 0;
+    म_लिखो(" *\n");
+    वापस 0;
 }
 
-static
-int __USED x2(void)
+अटल
+पूर्णांक __USED x2(व्योम)
 {
-    printf(" x2");
-    return 2;
+    म_लिखो(" x2");
+    वापस 2;
 }
 
-extern int x3(void);
+बाह्य पूर्णांक x3(व्योम);
 
-void x4(void)
+व्योम x4(व्योम)
 {
-    printf(" x4");
+    म_लिखो(" x4");
 }
 
-void x5(void);
-void x5(void)
+व्योम x5(व्योम);
+व्योम x5(व्योम)
 {
-    printf(" x5");
+    म_लिखो(" x5");
 }

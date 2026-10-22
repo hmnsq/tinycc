@@ -2,75 +2,75 @@
  * Multi-thread Test for libtcc
  */
 
-#ifndef FIB
-#include <stdlib.h>
-#include <stdio.h>
-#include <string.h>
-#include <setjmp.h>
-#include "libtcc.h"
+#अगर_अघोषित FIB
+#समावेश <stdlib.h>
+#समावेश <stdio.h>
+#समावेश <string.h>
+#समावेश <setjmp.h>
+#समावेश "libtcc.h"
 
-#define M 20 /* number of states */
-#define F(n) (n % 20 + 2) /* fib argument */
+#घोषणा M 20 /* number of states */
+#घोषणा F(n) (n % 20 + 2) /* fib argument */
 
-#ifdef _WIN32
-#include <windows.h>
-#define TF_TYPE(func, param) DWORD WINAPI func(void *param)
-typedef TF_TYPE(ThreadFunc, x);
+#अगर_घोषित _WIN32
+#समावेश <windows.h>
+#घोषणा TF_TYPE(func, param) DWORD WINAPI func(व्योम *param)
+प्रकार TF_TYPE(ThreadFunc, x);
 HANDLE hh[M];
-void create_thread(ThreadFunc f, int n)
+व्योम create_thread(ThreadFunc f, पूर्णांक n)
 {
     DWORD tid;
-    hh[n] = CreateThread(NULL, 0, f, (void*)(size_t)n, 0, &tid);
+    hh[n] = CreateThread(शून्य, 0, f, (व्योम*)(माप_प्रकार)n, 0, &tid);
 }
-void wait_threads(int n)
+व्योम wait_threads(पूर्णांक n)
 {
     WaitForMultipleObjects(n, hh, TRUE, INFINITE);
-    while (n)
+    जबतक (n)
         CloseHandle(hh[--n]);
 }
-void sleep_ms(unsigned n)
+व्योम sleep_ms(अचिन्हित n)
 {
     Sleep(n);
 }
-#else
-#include <sys/time.h>
-#include <unistd.h>
-#include <pthread.h>
-#define TF_TYPE(func, param) void* func(void *param)
-typedef TF_TYPE(ThreadFunc, x);
+#अन्यथा
+#समावेश <sys/time.h>
+#समावेश <unistd.h>
+#समावेश <pthread.h>
+#घोषणा TF_TYPE(func, param) व्योम* func(व्योम *param)
+प्रकार TF_TYPE(ThreadFunc, x);
 pthread_t hh[M];
-void create_thread(ThreadFunc f, int n)
+व्योम create_thread(ThreadFunc f, पूर्णांक n)
 {
-    pthread_create(&hh[n], NULL, f, (void*)(size_t)n);
+    pthread_create(&hh[n], शून्य, f, (व्योम*)(माप_प्रकार)n);
 }
-void wait_threads(int n)
+व्योम wait_threads(पूर्णांक n)
 {
-    while (n)
-        pthread_join(hh[--n], NULL);
+    जबतक (n)
+        pthread_join(hh[--n], शून्य);
 
 }
-void sleep_ms(unsigned n)
+व्योम sleep_ms(अचिन्हित n)
 {
     usleep(n * 1000);
 }
-#endif
+#पूर्ण_अगर
 
-void handle_error(void *opaque, const char *msg)
+व्योम handle_error(व्योम *opaque, स्थिर अक्षर *संदेश)
 {
-    fprintf(opaque, "%s\n", msg);
+    ख_लिखो(opaque, "%s\n", संदेश);
 }
 
 /* this function is called by the generated code */
-int add(int a, int b)
+पूर्णांक add(पूर्णांक a, पूर्णांक b)
 {
-    return a + b;
+    वापस a + b;
 }
 
-#define _str(s) #s
-#define str(s) _str(s)
+#घोषणा _str(s) #s
+#घोषणा str(s) _str(s)
 /* as a trick, prepend #line directive for better error/warning messages */
-#define PROG(lbl) \
-    char lbl[] = "#line " str(__LINE__) " " str(__FILE__) "\n\n"
+#घोषणा PROG(lbl) \
+    अक्षर lbl[] = "#line " str(__LINE__) " " str(__खाता__) "\n\n"
 
 PROG(my_program)
 "#include <tcclib.h>\n" /* include the "Simple libc header for TCC" */
@@ -94,270 +94,270 @@ PROG(my_program)
 "#  warning is this the correct file:line...\n"
 "}\n";
 
-int g_argc; char **g_argv;
+पूर्णांक g_argc; अक्षर **g_argv;
 
-void parse_args(TCCState *s)
+व्योम parse_args(TCCState *s)
 {
-    int i;
+    पूर्णांक i;
     /* if tcclib.h and libtcc1.a are not installed, where can we find them */
-    for (i = 1; i < g_argc; ++i) {
-        char *a = g_argv[i];
-        if (a[0] == '-') {
-            if (a[1] == 'B')
+    क्रम (i = 1; i < g_argc; ++i) {
+        अक्षर *a = g_argv[i];
+        अगर (a[0] == '-') {
+            अगर (a[1] == 'B')
                 tcc_set_lib_path(s, a+2);
-            else if (a[1] == 'I')
+            अन्यथा अगर (a[1] == 'I')
                 tcc_add_include_path(s, a+2);
-            else if (a[1] == 'L')
+            अन्यथा अगर (a[1] == 'L')
                 tcc_add_library_path(s, a+2);
-            else if (a[1] == 'D')
-                tcc_define_symbol(s, a+2, NULL);
+            अन्यथा अगर (a[1] == 'D')
+                tcc_define_प्रतीक(s, a+2, शून्य);
         }
     }
 }
 
-int backtrace_func(
-    void *ud,
-    void *pc,
-    const char *file,
-    int line,
-    const char *func,
-    const char *msg)
+पूर्णांक backtrace_func(
+    व्योम *ud,
+    व्योम *pc,
+    स्थिर अक्षर *file,
+    पूर्णांक पंक्ति_2,
+    स्थिर अक्षर *func,
+    स्थिर अक्षर *संदेश)
 {
-#if 0
-    printf("\n  *** %p %s %s:%d in '%s'",
+#अगर 0
+    म_लिखो("\n  *** %p %s %s:%d in '%s'",
         pc,
-        msg ? "at" : "by",
+        संदेश ? "at" : "by",
         file ? file : "?",
-        line,
+        पंक्ति_2,
         func ? func : "?");
-    return 1; // want more backtrace levels
-#else
+    वापस 1; // want more backtrace levels
+#अन्यथा
     //printf(" [%d]", *(int*)ud);
-    printf("!");
-    return 0; // cancel backtrace
-#endif
+    म_लिखो("!");
+    वापस 0; // cancel backtrace
+#पूर्ण_अगर
 }
 
-TCCState *new_state(int w)
+TCCState *new_state(पूर्णांक w)
 {
     TCCState *s = tcc_new();
-    if (!s) {
-        fprintf(stderr, __FILE__ ": could not create tcc state\n");
-        exit(1);
+    अगर (!s) {
+        ख_लिखो(मानक_त्रुटि, __खाता__ ": could not create tcc state\n");
+        निकास(1);
     }
-    tcc_set_error_func(s, stdout, handle_error);
+    tcc_set_error_func(s, मानक_निकास, handle_error);
     parse_args(s);
-    if (0 == (w & 1))
+    अगर (0 == (w & 1))
         tcc_set_options(s, "-w");
-    if (w & 2) {
+    अगर (w & 2) {
         tcc_set_options(s, "-bt");
-        tcc_define_symbol(s, "N_CRASH", str(M/2));
-    } else
-        tcc_define_symbol(s, "N_CRASH", "-1000");
+        tcc_define_प्रतीक(s, "N_CRASH", str(M/2));
+    } अन्यथा
+        tcc_define_प्रतीक(s, "N_CRASH", "-1000");
     tcc_set_output_type(s, TCC_OUTPUT_MEMORY);
-    return s;
+    वापस s;
 }
 
-void *reloc_state(TCCState *s, const char *entry)
+व्योम *reloc_state(TCCState *s, स्थिर अक्षर *entry)
 {
-    void *func;
-    tcc_add_symbol(s, "add", add);
-    tcc_add_symbol(s, "printf", printf);
-    if (tcc_relocate(s) < 0) {
-        fprintf(stderr, __FILE__ ": could not relocate tcc state.\n");
-        return NULL;
+    व्योम *func;
+    tcc_add_प्रतीक(s, "add", add);
+    tcc_add_प्रतीक(s, "printf", म_लिखो);
+    अगर (tcc_relocate(s) < 0) {
+        ख_लिखो(मानक_त्रुटि, __खाता__ ": could not relocate tcc state.\n");
+        वापस शून्य;
     }
-    func = tcc_get_symbol(s, entry);
-    if (!func)
-        fprintf(stderr, __FILE__ ": could not get entry symbol.\n");
-    return func;
+    func = tcc_get_प्रतीक(s, entry);
+    अगर (!func)
+        ख_लिखो(मानक_त्रुटि, __खाता__ ": could not get entry symbol.\n");
+    वापस func;
 }
 
 /* work with several states at the same time */
-int state_test(int w)
+पूर्णांक state_test(पूर्णांक w)
 {
     TCCState *s[M];
-    int (*funcs[M])(int);
-    int n;
-    jmp_buf jb;
+    पूर्णांक (*funcs[M])(पूर्णांक);
+    पूर्णांक n;
+    लाँघ_बफ jb;
 
-    for (n = 0; n < M + 4; ++n) {
-        unsigned a = n, b = n - 1, c = n - 2, d = n - 3, e = n - 4;
-        if (a < M)
+    क्रम (n = 0; n < M + 4; ++n) {
+        अचिन्हित a = n, b = n - 1, c = n - 2, d = n - 3, e = n - 4;
+        अगर (a < M)
             s[a] = new_state(w);
-        if (b < M)
-            if (tcc_compile_string(s[b], my_program) == -1)
-                break;
-        if (c < M)
+        अगर (b < M)
+            अगर (tcc_compile_string(s[b], my_program) == -1)
+                अवरोध;
+        अगर (c < M)
             funcs[c] = reloc_state(s[c], "foo");
-        if (d < M && funcs[d]) {
+        अगर (d < M && funcs[d]) {
             tcc_set_backtrace_func(s[d], &d, backtrace_func);
-            if (0 == tcc_setjmp(s[d], jb, funcs[d]))
+            अगर (0 == tcc_setjmp(s[d], jb, funcs[d]))
                 funcs[d](F(d));
         }
-        if (e < M)
+        अगर (e < M)
             tcc_delete(s[e]);
     }
-    return 0;
+    वापस 0;
 }
 
 /* simple compilation in threads */
 TF_TYPE(thread_test_simple, vn)
 {
     TCCState *s;
-    int (*func)(int);
-    int ret;
-    int n = (size_t)vn;
-    jmp_buf jb;
+    पूर्णांक (*func)(पूर्णांक);
+    पूर्णांक ret;
+    पूर्णांक n = (माप_प्रकार)vn;
+    लाँघ_बफ jb;
 
     s = new_state(0); /* '2' for exceptions */
     sleep_ms(1);
     ret = tcc_compile_string(s, my_program);
     sleep_ms(1);
-    if (ret >= 0) {
+    अगर (ret >= 0) {
         func = reloc_state(s, "foo");
         tcc_set_backtrace_func(s, &n, backtrace_func);
-        if (func) {
-            if (0 == tcc_setjmp(s, jb, func))
+        अगर (func) {
+            अगर (0 == tcc_setjmp(s, jb, func))
                 func(F(n));
         }
     }
     tcc_delete(s);
-    return 0;
+    वापस 0;
 }
 
 /* more complex compilation in threads */
 TF_TYPE(thread_test_complex, vn)
 {
     TCCState *s;
-    int ret;
-    int n = (size_t)vn;
-    char *argv[30], b[10];
-    int argc = 0, i;
+    पूर्णांक ret;
+    पूर्णांक n = (माप_प्रकार)vn;
+    अक्षर *argv[30], b[10];
+    पूर्णांक argc = 0, i;
 
-    sprintf(b, "%d", F(n));
+    प्र_लिखो(b, "%d", F(n));
 
-    for (i = 1; i < g_argc; ++i) argv[argc++] = g_argv[i];
-#if 0
+    क्रम (i = 1; i < g_argc; ++i) argv[argc++] = g_argv[i];
+#अगर 0
     argv[argc++] = "-run";
-    for (i = 1; i < g_argc; ++i) argv[argc++] = g_argv[i];
-#endif
+    क्रम (i = 1; i < g_argc; ++i) argv[argc++] = g_argv[i];
+#पूर्ण_अगर
     argv[argc++] = "-DFIB";
     argv[argc++] = "-run";
-    argv[argc++] = __FILE__;
+    argv[argc++] = __खाता__;
     argv[argc++] = b;
-    argv[argc] = NULL;
+    argv[argc] = शून्य;
 
     s = new_state(1);
     sleep_ms(2);
     ret = tcc_add_file(s, argv[0]);
     sleep_ms(3);
-    if (ret == 0)
+    अगर (ret == 0)
         tcc_run(s, argc, argv);
     tcc_delete(s);
-    fflush(stdout);
-    return 0;
+    ख_साफ(मानक_निकास);
+    वापस 0;
 }
 
-void time_tcc(int n, const char *src)
+व्योम time_tcc(पूर्णांक n, स्थिर अक्षर *src)
 {
     TCCState *s;
-    int ret, i = 0;
-    while (i++ < n) {
+    पूर्णांक ret, i = 0;
+    जबतक (i++ < n) {
         s = new_state(1);
-        printf(" %d", i), fflush(stdout);
+        म_लिखो(" %d", i), ख_साफ(मानक_निकास);
         ret = tcc_add_file(s, src);
         tcc_delete(s);
-        if (ret < 0)
-            exit(1);
+        अगर (ret < 0)
+            निकास(1);
     }
 }
 
-static unsigned getclock_ms(void)
+अटल अचिन्हित getclock_ms(व्योम)
 {
-#ifdef _WIN32
-    return GetTickCount();
-#else
-    struct timeval tv;
-    gettimeofday(&tv, NULL);
-    return tv.tv_sec*1000 + (tv.tv_usec+500)/1000;
-#endif
+#अगर_घोषित _WIN32
+    वापस Get_Tick_गिनती();
+#अन्यथा
+    काष्ठा timeval tv;
+    gettimeofday(&tv, शून्य);
+    वापस tv.tv_sec*1000 + (tv.tv_usec+500)/1000;
+#पूर्ण_अगर
 }
 
-int main(int argc, char **argv)
+पूर्णांक मुख्य(पूर्णांक argc, अक्षर **argv)
 {
-    int n;
-    unsigned t;
+    पूर्णांक n;
+    अचिन्हित t;
 
     g_argc = argc;
     g_argv = argv;
 
-    if (argc < 2) {
-        fprintf(stderr, "usage: libtcc_test_mt tcc.c <options>\n");
-        return 1;
+    अगर (argc < 2) {
+        ख_लिखो(मानक_त्रुटि, "usage: libtcc_test_mt tcc.c <options>\n");
+        वापस 1;
     }
 
-#if 1
-    printf("running fib with mixed calls\n "), fflush(stdout);
+#अगर 1
+    म_लिखो("running fib with mixed calls\n "), ख_साफ(मानक_निकास);
     t = getclock_ms();
     state_test(0);
-    printf("\n (%u ms)\n", getclock_ms() - t);
-#endif
-#if 1
-    printf("producing some exceptions (!)\n "), fflush(stdout);
+    म_लिखो("\n (%u ms)\n", getclock_ms() - t);
+#पूर्ण_अगर
+#अगर 1
+    म_लिखो("producing some exceptions (!)\n "), ख_साफ(मानक_निकास);
     t = getclock_ms();
     state_test(2);
-    printf("\n (%u ms)\n", getclock_ms() - t);
-#endif
-#if 1
+    म_लिखो("\n (%u ms)\n", getclock_ms() - t);
+#पूर्ण_अगर
+#अगर 1
     //{ int i; for (i = 0; i < 100; ++i) { printf("(%d) ", i);
-    printf("running fib in threads\n "), fflush(stdout);
+    म_लिखो("running fib in threads\n "), ख_साफ(मानक_निकास);
     t = getclock_ms();
-    for (n = 0; n < M; ++n)
+    क्रम (n = 0; n < M; ++n)
         create_thread(thread_test_simple, n);
     wait_threads(n);
-    printf("\n (%u ms)\n", getclock_ms() - t);
+    म_लिखो("\n (%u ms)\n", getclock_ms() - t);
         //}}
-#endif
-#if 1
-    printf("running tcc.c in threads to run fib\n "), fflush(stdout);
+#पूर्ण_अगर
+#अगर 1
+    म_लिखो("running tcc.c in threads to run fib\n "), ख_साफ(मानक_निकास);
     t = getclock_ms();
-    for (n = 0; n < M; ++n)
+    क्रम (n = 0; n < M; ++n)
         create_thread(thread_test_complex, n);
     wait_threads(n);
-    printf("\n (%u ms)\n", getclock_ms() - t);
-#endif
-#if 1
-    printf("compiling tcc.c 10 times\n "), fflush(stdout);
+    म_लिखो("\n (%u ms)\n", getclock_ms() - t);
+#पूर्ण_अगर
+#अगर 1
+    म_लिखो("compiling tcc.c 10 times\n "), ख_साफ(मानक_निकास);
     t = getclock_ms();
     time_tcc(10, argv[1]);
-    printf("\n (%u ms)\n", getclock_ms() - t), fflush(stdout);
-#endif
-    return 0;
+    म_लिखो("\n (%u ms)\n", getclock_ms() - t), ख_साफ(मानक_निकास);
+#पूर्ण_अगर
+    वापस 0;
 }
 
-#else
-#include <tcclib.h>
-#ifdef _WIN32
+#अन्यथा
+#समावेश <tcclib.h>
+#अगर_घोषित _WIN32
 # ifndef _WIN64
     __declspec(stdcall)
 # endif
-    void Sleep(unsigned);
+    व्योम Sleep(अचिन्हित);
 # define sleep_ms Sleep
-#else
-    int usleep(unsigned long);
+#अन्यथा
+    पूर्णांक usleep(अचिन्हित दीर्घ);
 # define sleep_ms(x) usleep((x)*1000);
-#endif
+#पूर्ण_अगर
 
-int fib(n)
+पूर्णांक fib(n)
 {
-    return (n <= 2) ? 1 : fib(n-1) + fib(n-2);
+    वापस (n <= 2) ? 1 : fib(n-1) + fib(n-2);
 }
 
-int main(int argc, char **argv)
+पूर्णांक मुख्य(पूर्णांक argc, अक्षर **argv)
 {
     sleep_ms(333);
-    printf(" %d", fib(atoi(argv[1])));
-    return 0;
+    म_लिखो(" %d", fib(म_से_प(argv[1])));
+    वापस 0;
 }
-#endif
+#पूर्ण_अगर

@@ -1,28 +1,28 @@
-#include <stdio.h>
+#समावेश <stdio.h>
 
-int main()
+पूर्णांक मुख्य()
 {
-   int a;
-   int *b;
-   int *c;
+   पूर्णांक a;
+   पूर्णांक *b;
+   पूर्णांक *c;
 
    a = 42;
    b = &a;
-   c = NULL;
+   c = शून्य;
 
-   printf("%d\n", *b);
+   म_लिखो("%d\n", *b);
 
-   if (b == NULL)
-      printf("b is NULL\n");
-   else
-      printf("b is not NULL\n");
+   अगर (b == शून्य)
+      म_लिखो("b is NULL\n");
+   अन्यथा
+      म_लिखो("b is not NULL\n");
 
-   if (c == NULL)
-      printf("c is NULL\n");
-   else
-      printf("c is not NULL\n");
+   अगर (c == शून्य)
+      म_लिखो("c is NULL\n");
+   अन्यथा
+      म_लिखो("c is not NULL\n");
 
-   return 0;
+   वापस 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

@@ -1,14 +1,14 @@
-#include <stdio.h>
+#समावेश <stdio.h>
 
-#define FRED 12
-#define BLOGGS(x) (12*(x))
+#घोषणा FRED 12
+#घोषणा BLOGGS(x) (12*(x))
 
-int main()
+पूर्णांक मुख्य()
 {
-   printf("%d\n", FRED);
-   printf("%d, %d, %d\n", BLOGGS(1), BLOGGS(2), BLOGGS(3));
+   म_लिखो("%d\n", FRED);
+   म_लिखो("%d, %d, %d\n", BLOGGS(1), BLOGGS(2), BLOGGS(3));
 
-   return 0;
+   वापस 0;
 }
 
 // vim: set expandtab ts=4 sw=3 sts=3 tw=80 :

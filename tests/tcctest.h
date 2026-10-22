@@ -1,9 +1,9 @@
-static inline const char *get_basefile_from_header(void)
+अटल अंतरभूत स्थिर अक्षर *get_basefile_from_header(व्योम)
 {
-  return __BASE_FILE__;
+  वापस __BASE_FILE__;
 }
 
-static inline const char *get_file_from_header(void)
+अटल अंतरभूत स्थिर अक्षर *get_file_from_header(व्योम)
 {
-  return __FILE__;
+  वापस __खाता__;
 }

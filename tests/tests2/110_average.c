@@ -1,27 +1,27 @@
-#include <stdio.h>
+#समावेश <stdio.h>
 
-typedef struct
+प्रकार काष्ठा
 {
-    double average;
-    int count;
+    द्विगुन average;
+    पूर्णांक गिनती_2;
 }
 stats_type;
 
-static void
-testc (stats_type *s, long long data)
+अटल व्योम
+testc (stats_type *s, दीर्घ दीर्घ तथ्य)
 {
-    s->average = (s->average * s->count + data) / (s->count + 1);
-    s->count++;
+    s->average = (s->average * s->गिनती_2 + तथ्य) / (s->गिनती_2 + 1);
+    s->गिनती_2++;
 }
 
-int main (void)
+पूर्णांक मुख्य (व्योम)
 {
     stats_type s;
 
     s.average = 0;
-    s.count = 0;
+    s.गिनती_2 = 0;
     testc (&s, 10);
     testc (&s, 20);
-    printf ("%g %d\n", s.average, s.count);
-    return 0;
+    म_लिखो ("%g %d\n", s.average, s.गिनती_2);
+    वापस 0;
 }

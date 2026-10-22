@@ -1,21 +1,21 @@
-#include <stdio.h>
+#समावेश <stdio.h>
 
-int main() 
+पूर्णांक मुख्य() 
 {
-   int Count;
-   int Array[10];
+   पूर्णांक गिनती_3;
+   पूर्णांक Array[10];
 
-   for (Count = 1; Count <= 10; Count++)
+   क्रम (गिनती_3 = 1; गिनती_3 <= 10; गिनती_3++)
    {
-      Array[Count-1] = Count * Count;
+      Array[गिनती_3-1] = गिनती_3 * गिनती_3;
    }
 
-   for (Count = 0; Count < 10; Count++)
+   क्रम (गिनती_3 = 0; गिनती_3 < 10; गिनती_3++)
    {
-      printf("%d\n", Array[Count]);
+      म_लिखो("%d\n", Array[गिनती_3]);
    }
 
-   return 0;
+   वापस 0;
 }
 
 // vim: set expandtab ts=4 sw=3 sts=3 tw=80 :

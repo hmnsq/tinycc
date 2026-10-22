@@ -3,121 +3,121 @@
  * This file is part of the w64 mingw-runtime package.
  * No warranty is given; refer to the file DISCLAIMER within this package.
  */
-#ifndef _INC_TYPES
-#define _INC_TYPES
+#अगर_अघोषित _INC_TYPES
+#घोषणा _INC_TYPES
 
-#ifndef _WIN32
-#error Only Win32 target is supported!
-#endif
+#अगर_अघोषित _WIN32
+#त्रुटि Only Win32 target is supported!
+#पूर्ण_अगर
 
-#include <_mingw.h>
+#समावेश <_mingw.h>
 
-#ifndef __TINYC__ /* gr */
-#ifdef _USE_32BIT_TIME_T
-#ifdef _WIN64
-#undef _USE_32BIT_TIME_T
-#endif
-#else
-#if _INTEGRAL_MAX_BITS < 64
-#define _USE_32BIT_TIME_T
-#endif
-#endif
-#endif
+#अगर_अघोषित __TINYC__ /* gr */
+#अगर_घोषित _USE_32BIT_TIME_T
+#अगर_घोषित _WIN64
+#अघोषित _USE_32BIT_TIME_T
+#पूर्ण_अगर
+#अन्यथा
+#अगर _INTEGRAL_MAX_BITS < 64
+#घोषणा _USE_32BIT_TIME_T
+#पूर्ण_अगर
+#पूर्ण_अगर
+#पूर्ण_अगर
 
-#ifndef _TIME32_T_DEFINED
-#define _TIME32_T_DEFINED
-typedef long __time32_t;
-#endif
+#अगर_अघोषित _TIME32_T_DEFINED
+#घोषणा _TIME32_T_DEFINED
+प्रकार दीर्घ __time32_t;
+#पूर्ण_अगर
 
-#ifndef _TIME64_T_DEFINED
-#define _TIME64_T_DEFINED
-#if _INTEGRAL_MAX_BITS >= 64
-typedef __int64 __time64_t;
-#endif
-#endif
+#अगर_अघोषित _TIME64_T_DEFINED
+#घोषणा _TIME64_T_DEFINED
+#अगर _INTEGRAL_MAX_BITS >= 64
+प्रकार __int64 __time64_t;
+#पूर्ण_अगर
+#पूर्ण_अगर
 
-#ifndef _TIME_T_DEFINED
-#define _TIME_T_DEFINED
-#ifdef _USE_32BIT_TIME_T
-typedef __time32_t time_t;
-#else
-typedef __time64_t time_t;
-#endif
-#endif
+#अगर_अघोषित _TIME_T_DEFINED
+#घोषणा _TIME_T_DEFINED
+#अगर_घोषित _USE_32BIT_TIME_T
+प्रकार __time32_t समय_प्रकार;
+#अन्यथा
+प्रकार __time64_t समय_प्रकार;
+#पूर्ण_अगर
+#पूर्ण_अगर
 
-#ifndef _INO_T_DEFINED
-#define _INO_T_DEFINED
-typedef unsigned short _ino_t;
-#ifndef	NO_OLDNAMES
-typedef unsigned short ino_t;
-#endif
-#endif
+#अगर_अघोषित _INO_T_DEFINED
+#घोषणा _INO_T_DEFINED
+प्रकार अचिन्हित लघु _ino_t;
+#अगर_अघोषित	NO_OLDNAMES
+प्रकार अचिन्हित लघु ino_t;
+#पूर्ण_अगर
+#पूर्ण_अगर
 
-#ifndef _DEV_T_DEFINED
-#define _DEV_T_DEFINED
-typedef unsigned int _dev_t;
-#ifndef	NO_OLDNAMES
-typedef unsigned int dev_t;
-#endif
-#endif
+#अगर_अघोषित _DEV_T_DEFINED
+#घोषणा _DEV_T_DEFINED
+प्रकार अचिन्हित पूर्णांक _dev_t;
+#अगर_अघोषित	NO_OLDNAMES
+प्रकार अचिन्हित पूर्णांक dev_t;
+#पूर्ण_अगर
+#पूर्ण_अगर
 
-#ifndef _PID_T_
-#define	_PID_T_
-#ifndef _WIN64
-typedef int	_pid_t;
-#else
-typedef __int64	_pid_t;
-#endif
+#अगर_अघोषित _PID_T_
+#घोषणा	_PID_T_
+#अगर_अघोषित _WIN64
+प्रकार पूर्णांक	_pid_t;
+#अन्यथा
+प्रकार __int64	_pid_t;
+#पूर्ण_अगर
 
-#ifndef	NO_OLDNAMES
-typedef _pid_t	pid_t;
-#endif
-#endif	/* Not _PID_T_ */
+#अगर_अघोषित	NO_OLDNAMES
+प्रकार _pid_t	pid_t;
+#पूर्ण_अगर
+#पूर्ण_अगर	/* Not _PID_T_ */
 
-#ifndef _MODE_T_
-#define	_MODE_T_
-typedef unsigned short _mode_t;
+#अगर_अघोषित _MODE_T_
+#घोषणा	_MODE_T_
+प्रकार अचिन्हित लघु _mode_t;
 
-#ifndef	NO_OLDNAMES
-typedef _mode_t	mode_t;
-#endif
-#endif	/* Not _MODE_T_ */
+#अगर_अघोषित	NO_OLDNAMES
+प्रकार _mode_t	mode_t;
+#पूर्ण_अगर
+#पूर्ण_अगर	/* Not _MODE_T_ */
 
-#ifndef _OFF_T_DEFINED
-#define _OFF_T_DEFINED
-#ifndef _OFF_T_
-#define _OFF_T_
-  typedef long _off_t;
-#if !defined(NO_OLDNAMES) || defined(_POSIX)
-  typedef long off_t;
-#endif
-#endif
-#endif
+#अगर_अघोषित _OFF_T_DEFINED
+#घोषणा _OFF_T_DEFINED
+#अगर_अघोषित _OFF_T_
+#घोषणा _OFF_T_
+  प्रकार दीर्घ _off_t;
+#अगर !defined(NO_OLDNAMES) || defined(_POSIX)
+  प्रकार दीर्घ off_t;
+#पूर्ण_अगर
+#पूर्ण_अगर
+#पूर्ण_अगर
 
-#ifndef _OFF64_T_DEFINED
-#define _OFF64_T_DEFINED
-  typedef long long _off64_t;
-#if !defined(NO_OLDNAMES) || defined(_POSIX)
-  typedef long long off64_t;
-#endif
-#endif
+#अगर_अघोषित _OFF64_T_DEFINED
+#घोषणा _OFF64_T_DEFINED
+  प्रकार दीर्घ दीर्घ _off64_t;
+#अगर !defined(NO_OLDNAMES) || defined(_POSIX)
+  प्रकार दीर्घ दीर्घ off64_t;
+#पूर्ण_अगर
+#पूर्ण_अगर
 
 /* required by (unbundled) unistd.h for usleep arg type */
-#ifndef __NO_ISOCEXT
-typedef unsigned int useconds_t;
-#endif
+#अगर_अघोषित __NO_ISOCEXT
+प्रकार अचिन्हित पूर्णांक useconds_t;
+#पूर्ण_अगर
 
-#ifndef _TIMESPEC_DEFINED
-#define _TIMESPEC_DEFINED
-struct timespec {
-  time_t  tv_sec;   /* Seconds */
-  long    tv_nsec;  /* Nanoseconds */
+#अगर_अघोषित _TIMESPEC_DEFINED
+#घोषणा _TIMESPEC_DEFINED
+काष्ठा timespec {
+  समय_प्रकार  tv_sec;   /* Seconds */
+  दीर्घ    tv_nsec;  /* Nanoseconds */
 };
 
-struct itimerspec {
-  struct timespec  it_interval;  /* Timer period */
-  struct timespec  it_value;     /* Timer expiration */
+काष्ठा itimerspec {
+  काष्ठा timespec  it_interval;  /* Timer period */
+  काष्ठा timespec  it_value;     /* Timer expiration */
 };
-#endif
+#पूर्ण_अगर
 
-#endif
+#पूर्ण_अगर

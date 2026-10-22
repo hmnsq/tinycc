@@ -3,57 +3,57 @@
  * This file is part of the w64 mingw-runtime package.
  * No warranty is given; refer to the file DISCLAIMER within this package.
  */
-#ifndef _INC_SHELLAPI
-#define _INC_SHELLAPI
+#अगर_अघोषित _INC_SHELLAPI
+#घोषणा _INC_SHELLAPI
 
-#ifndef WINSHELLAPI
-#if !defined(_SHELL32_)
-#define WINSHELLAPI DECLSPEC_IMPORT
-#else
-#define WINSHELLAPI
-#endif
-#endif
+#अगर_अघोषित WINSHELLAPI
+#अगर !defined(_SHELL32_)
+#घोषणा WINSHELLAPI DECLSPEC_IMPORT
+#अन्यथा
+#घोषणा WINSHELLAPI
+#पूर्ण_अगर
+#पूर्ण_अगर
 
-#ifndef SHSTDAPI
-#if !defined(_SHELL32_)
-#define SHSTDAPI EXTERN_C DECLSPEC_IMPORT HRESULT WINAPI
-#define SHSTDAPI_(type) EXTERN_C DECLSPEC_IMPORT type WINAPI
-#else
-#define SHSTDAPI STDAPI
-#define SHSTDAPI_(type) STDAPI_(type)
-#endif
-#endif
+#अगर_अघोषित SHSTDAPI
+#अगर !defined(_SHELL32_)
+#घोषणा SHSTDAPI EXTERN_C DECLSPEC_IMPORT HRESULT WINAPI
+#घोषणा SHSTDAPI_(type) EXTERN_C DECLSPEC_IMPORT type WINAPI
+#अन्यथा
+#घोषणा SHSTDAPI STDAPI
+#घोषणा SHSTDAPI_(type) STDAPI_(type)
+#पूर्ण_अगर
+#पूर्ण_अगर
 
 /* SHDOCAPI[_] definitions not required in this TinyCC minimal header */
 
-#if !defined(_WIN64)
-#include <pshpack1.h>
-#endif
+#अगर !defined(_WIN64)
+#समावेश <pshpack1.h>
+#पूर्ण_अगर
 
-#ifdef __cplusplus
-extern "C" {
-#endif
+#अगर_घोषित __cplusplus
+बाह्य "C" {
+#पूर्ण_अगर
 
-#ifdef UNICODE
-#define ShellExecute ShellExecuteW
-#define FindExecutable FindExecutableW
-#else
-#define ShellExecute ShellExecuteA
-#define FindExecutable FindExecutableA
-#endif
+#अगर_घोषित UNICODE
+#घोषणा ShellExecute ShellExecuteW
+#घोषणा FindExecutable FindExecutableW
+#अन्यथा
+#घोषणा ShellExecute ShellExecuteA
+#घोषणा FindExecutable FindExecutableA
+#पूर्ण_अगर
 
   /* minimal subset distributed with TinyCC. nShowCmd is at winuser.h */
   SHSTDAPI_(HINSTANCE) ShellExecuteA(HWND hwnd,LPCSTR lpOperation,LPCSTR lpFile,LPCSTR lpParameters,LPCSTR lpDirectory,INT nShowCmd);
   SHSTDAPI_(HINSTANCE) ShellExecuteW(HWND hwnd,LPCWSTR lpOperation,LPCWSTR lpFile,LPCWSTR lpParameters,LPCWSTR lpDirectory,INT nShowCmd);
-  SHSTDAPI_(HINSTANCE) FindExecutableA(LPCSTR lpFile,LPCSTR lpDirectory,LPSTR lpResult);
-  SHSTDAPI_(HINSTANCE) FindExecutableW(LPCWSTR lpFile,LPCWSTR lpDirectory,LPWSTR lpResult);
-  SHSTDAPI_(LPWSTR *) CommandLineToArgvW(LPCWSTR lpCmdLine,int*pNumArgs);
+  SHSTDAPI_(HINSTANCE) FindExecutableA(LPCSTR lpFile,LPCSTR lpDirectory,LPSTR lp_परिणाम);
+  SHSTDAPI_(HINSTANCE) FindExecutableW(LPCWSTR lpFile,LPCWSTR lpDirectory,LPWSTR lp_परिणाम);
+  SHSTDAPI_(LPWSTR *) Command_पंक्ति_To_Argv_W(LPCWSTR lp_Cmd_पंक्ति,पूर्णांक*p_अंक_Args);
 
-#ifdef __cplusplus
+#अगर_घोषित __cplusplus
 }
-#endif
+#पूर्ण_अगर
 
-#if !defined(_WIN64)
-#include <poppack.h>
-#endif
-#endif
+#अगर !defined(_WIN64)
+#समावेश <poppack.h>
+#पूर्ण_अगर
+#पूर्ण_अगर

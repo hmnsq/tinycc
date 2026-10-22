@@ -1,15 +1,15 @@
-#include <stdio.h>
+#समावेश <stdio.h>
 
-void fred(void)
+व्योम fred(व्योम)
 {
-   printf("yo\n");
+   म_लिखो("yo\n");
 }
 
-int main()
+पूर्णांक मुख्य()
 {
    fred();
 
-   return 0;
+   वापस 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

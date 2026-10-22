@@ -1,359 +1,359 @@
-extern int printf(const char*, ...);
-static int glob_i = 0;
+बाह्य पूर्णांक म_लिखो(स्थिर अक्षर*, ...);
+अटल पूर्णांक glob_i = 0;
 
-typedef struct { int a; int b; int c; int d; int e; int f; int g; int h; } tstl;
-typedef struct { int a; int b; int c; int d; } tsti;
-typedef struct { double a; double b; } tstd;
-typedef struct { long double a; } tstld;
-typedef struct { int a; double b; } tstm;
-typedef struct { float a; float b; float c; float d; } tstf;
+प्रकार काष्ठा { पूर्णांक a; पूर्णांक b; पूर्णांक c; पूर्णांक d; पूर्णांक e; पूर्णांक f; पूर्णांक g; पूर्णांक h; } tstl;
+प्रकार काष्ठा { पूर्णांक a; पूर्णांक b; पूर्णांक c; पूर्णांक d; } tsti;
+प्रकार काष्ठा { द्विगुन a; द्विगुन b; } tstd;
+प्रकार काष्ठा { दीर्घ द्विगुन a; } tstld;
+प्रकार काष्ठा { पूर्णांक a; द्विगुन b; } tstm;
+प्रकार काष्ठा { भग्न a; भग्न b; भग्न c; भग्न d; } tstf;
 
-void incr_glob_i(int *i)
+व्योम incr_glob_i(पूर्णांक *i)
 {
   glob_i += *i;
   *i = -1;
 }
 
-#define INCR_GI {						\
-    int i __attribute__ ((__cleanup__(incr_glob_i))) = 1;	\
+#घोषणा INCR_GI {						\
+    पूर्णांक i __attribute__ ((__cleanup__(incr_glob_i))) = 1;	\
   }
 
-#define INCR_GI0 INCR_GI INCR_GI INCR_GI INCR_GI
-#define INCR_GI1 INCR_GI0 INCR_GI0 INCR_GI0 INCR_GI0
-#define INCR_GI2 INCR_GI1 INCR_GI1 INCR_GI1 INCR_GI1
-#define INCR_GI3 INCR_GI2 INCR_GI2 INCR_GI2 INCR_GI2
-#define INCR_GI4 INCR_GI3 INCR_GI3 INCR_GI3 INCR_GI3
-#define INCR_GI5 INCR_GI4 INCR_GI4 INCR_GI4 INCR_GI4
-#define INCR_GI6 INCR_GI5 INCR_GI5 INCR_GI5 INCR_GI5
-#define INCR_GI7 INCR_GI6 INCR_GI6 INCR_GI6 INCR_GI6
+#घोषणा INCR_GI0 INCR_GI INCR_GI INCR_GI INCR_GI
+#घोषणा INCR_GI1 INCR_GI0 INCR_GI0 INCR_GI0 INCR_GI0
+#घोषणा INCR_GI2 INCR_GI1 INCR_GI1 INCR_GI1 INCR_GI1
+#घोषणा INCR_GI3 INCR_GI2 INCR_GI2 INCR_GI2 INCR_GI2
+#घोषणा INCR_GI4 INCR_GI3 INCR_GI3 INCR_GI3 INCR_GI3
+#घोषणा INCR_GI5 INCR_GI4 INCR_GI4 INCR_GI4 INCR_GI4
+#घोषणा INCR_GI6 INCR_GI5 INCR_GI5 INCR_GI5 INCR_GI5
+#घोषणा INCR_GI7 INCR_GI6 INCR_GI6 INCR_GI6 INCR_GI6
 
 
-void check2(char **hum);
+व्योम check2(अक्षर **hum);
 
-void check(int *j)
+व्योम check(पूर्णांक *j)
 {
-    char * __attribute__ ((cleanup(check2))) stop_that = "wololo";
-    int chk = 0;
+    अक्षर * __attribute__ ((cleanup(check2))) stop_that = "wololo";
+    पूर्णांक chk = 0;
 
     {
-	char * __attribute__ ((cleanup(check2))) stop_that = "plop";
+	अक्षर * __attribute__ ((cleanup(check2))) stop_that = "plop";
 
 	{
 	  non_plopage:
-	    printf("---- %d\n", chk);
+	    म_लिखो("---- %d\n", chk);
 	}
-	if (!chk) {
+	अगर (!chk) {
 	    chk = 1;
-	    goto non_plopage;
+	    जाओ non_plopage;
 	}
     }
 
     {
-	char * __attribute__ ((cleanup(check2))) stop_that = "tata !";
+	अक्षर * __attribute__ ((cleanup(check2))) stop_that = "tata !";
 
-	goto out;
+	जाओ out;
 	stop_that = "titi";
     }
   again:
     chk = 2;
     {
-	char * __attribute__ ((cleanup(check2))) cascade1 = "1";
+	अक्षर * __attribute__ ((cleanup(check2))) cascade1 = "1";
 	{
-	    char * __attribute__ ((cleanup(check2))) cascade2 = "2";
+	    अक्षर * __attribute__ ((cleanup(check2))) cascade2 = "2";
 	    {
-		char * __attribute__ ((cleanup(check2))) cascade3 = "3";
+		अक्षर * __attribute__ ((cleanup(check2))) cascade3 = "3";
 
-		goto out;
+		जाओ out;
 		cascade3 = "nope";
 	    }
 	}
     }
   out:
-    if (chk != 2)
-	goto again;
+    अगर (chk != 2)
+	जाओ again;
     {
 	{
-	    char * __attribute__ ((cleanup(check2))) out = "last goto out";
+	    अक्षर * __attribute__ ((cleanup(check2))) out = "last goto out";
 	    ++chk;
-	    if (chk != 3)
-		goto out;
+	    अगर (chk != 3)
+		जाओ out;
 	}
     }
     *j = -1;
-    return;
+    वापस;
 }
 
-void check_oh_i(char *oh_i)
+व्योम check_oh_i(अक्षर *oh_i)
 {
-    printf("c: %c\n", *oh_i);
+    म_लिखो("c: %c\n", *oh_i);
     *oh_i = '0';
 }
 
-void goto_hell(double *f)
+व्योम goto_hell(द्विगुन *f)
 {
-    printf("oo: %f\n", *f);
+    म_लिखो("oo: %f\n", *f);
     *f = -1.0;
 }
 
-char *test()
+अक्षर *test()
 {
-    char *__attribute__ ((cleanup(check2))) str = "I don't think this should be print(but gcc got it wrong too)";
+    अक्षर *__attribute__ ((cleanup(check2))) str = "I don't think this should be print(but gcc got it wrong too)";
 
-    return str;
+    वापस str;
 }
 
-void test_ret_subcall(char *that)
+व्योम test_ret_subcall(अक्षर *that)
 {
-    printf("should be print before\n");
+    म_लिखो("should be print before\n");
 }
 
-void test_ret()
+व्योम test_ret()
 {
-    char *__attribute__ ((cleanup(check2))) that = "that";
-    return test_ret_subcall(that);
+    अक्षर *__attribute__ ((cleanup(check2))) that = "that";
+    वापस test_ret_subcall(that);
 }
 
-void test_ret2()
+व्योम test_ret2()
 {
-  char *__attribute__ ((cleanup(check2))) that = "-that";
+  अक्षर *__attribute__ ((cleanup(check2))) that = "-that";
   {
-    char *__attribute__ ((cleanup(check2))) that = "this should appear only once";
+    अक्षर *__attribute__ ((cleanup(check2))) that = "this should appear only once";
   }
   {
-    char *__attribute__ ((cleanup(check2))) that = "-that2";
-    return;
+    अक्षर *__attribute__ ((cleanup(check2))) that = "-that2";
+    वापस;
   }
 }
 
-void test2(void) {
-    int chk = 0;
+व्योम test2(व्योम) {
+    पूर्णांक chk = 0;
 again:
-    if (!chk) {
-        char * __attribute__ ((cleanup(check2))) stop_that = "test2";
+    अगर (!chk) {
+        अक्षर * __attribute__ ((cleanup(check2))) stop_that = "test2";
         chk++;
-        goto again;
+        जाओ again;
     }
 }
 
-int test3(void) {
-    char * __attribute__ ((cleanup(check2))) stop_that = "three";
-    int chk = 0;
+पूर्णांक test3(व्योम) {
+    अक्षर * __attribute__ ((cleanup(check2))) stop_that = "three";
+    पूर्णांक chk = 0;
 
-    if (chk) {
+    अगर (chk) {
         {
           outside:
 	    {
-            char * __attribute__ ((cleanup(check2))) stop_that = "two";
-            printf("---- %d\n", chk);
+            अक्षर * __attribute__ ((cleanup(check2))) stop_that = "two";
+            म_लिखो("---- %d\n", chk);
 	    }
         }
     }
-    if (!chk)
+    अगर (!chk)
     {
-        char * __attribute__ ((cleanup(check2))) stop_that = "one";
+        अक्षर * __attribute__ ((cleanup(check2))) stop_that = "one";
 
-        if (!chk) {
+        अगर (!chk) {
             chk = 1;
-            goto outside;
+            जाओ outside;
         }
     }
-    return 0;
+    वापस 0;
 }
 
-void cl(int *ip)
+व्योम cl(पूर्णांक *ip)
 {
-    printf("%d\n", *ip);
+    म_लिखो("%d\n", *ip);
     *ip = -1;
 }
 
-void loop_cleanups(void)
+व्योम loop_cleanups(व्योम)
 {
-    __attribute__((cleanup(cl))) int l = 1000;
+    __attribute__((cleanup(cl))) पूर्णांक l = 1000;
 
-    printf("-- loop 0 --\n");
-    for ( __attribute__((cleanup(cl))) int i = 0; i < 10; ++i) {
-        __attribute__((cleanup(cl))) int j = 100;
+    म_लिखो("-- loop 0 --\n");
+    क्रम ( __attribute__((cleanup(cl))) पूर्णांक i = 0; i < 10; ++i) {
+        __attribute__((cleanup(cl))) पूर्णांक j = 100;
     }
 
-    printf("-- loop 1 --\n");
-    for (__attribute__((cleanup(cl))) int i = 0; i < 10; ++i) {
-        __attribute__((cleanup(cl)))  int j = 200;
-        continue;
+    म_लिखो("-- loop 1 --\n");
+    क्रम (__attribute__((cleanup(cl))) पूर्णांक i = 0; i < 10; ++i) {
+        __attribute__((cleanup(cl)))  पूर्णांक j = 200;
+        जारी;
     }
 
-    printf("-- loop 2 --\n");
-    for (__attribute__((cleanup(cl))) int i = 0; i < 10; ++i) {
-        __attribute__((cleanup(cl))) int j = 300;
-        break;
+    म_लिखो("-- loop 2 --\n");
+    क्रम (__attribute__((cleanup(cl))) पूर्णांक i = 0; i < 10; ++i) {
+        __attribute__((cleanup(cl))) पूर्णांक j = 300;
+        अवरोध;
     }
 
-    printf("-- loop 3 --\n");
-    for (int i = 0; i < 2; ++i) {
-	__attribute__((cleanup(cl))) int j = 400;
-	switch (i) {
-	case 0:
-	    continue;
-	default:
+    म_लिखो("-- loop 3 --\n");
+    क्रम (पूर्णांक i = 0; i < 2; ++i) {
+	__attribute__((cleanup(cl))) पूर्णांक j = 400;
+	चयन (i) {
+	हाल 0:
+	    जारी;
+	शेष:
 	{
-	    __attribute__((cleanup(cl))) int jj = 500;
-	    break;
+	    __attribute__((cleanup(cl))) पूर्णांक jj = 500;
+	    अवरोध;
 	}
 	}
     }
-    printf("after break\n");
+    म_लिखो("after break\n");
 }
 
-void my_cleanup1(int *p) {
-    printf("%d\n", *p);
+व्योम my_cleanup1(पूर्णांक *p) {
+    म_लिखो("%d\n", *p);
     *p = 0x90;
 }
 
-int test_cleanup1(void) {
-    int __attribute__((cleanup(my_cleanup1))) n = 42;
-    return n;
+पूर्णांक test_cleanup1(व्योम) {
+    पूर्णांक __attribute__((cleanup(my_cleanup1))) n = 42;
+    वापस n;
 }
 
-void my_cleanup2(tstl *p) {
-    printf("%d %d %d %d %d %d %d %d\n", p->a, p->b, p->c, p->d,
+व्योम my_cleanup2(tstl *p) {
+    म_लिखो("%d %d %d %d %d %d %d %d\n", p->a, p->b, p->c, p->d,
 			                p->e, p->f, p->g, p->h);
     p->a = 0x90; p->b = 0x91; p->c = 0x92; p->d = 0x93;
     p->e = 0x94; p->f = 0x95; p->g = 0x96; p->h = 0x97;
 }
 
-tstl test_cleanup2(void) {
+tstl test_cleanup2(व्योम) {
     tstl __attribute__((cleanup(my_cleanup2))) n;
     n.a = 42; n.b = 43; n.c = 44; n.d = 45;
     n.e = 46; n.f = 47; n.g = 48; n.h = 49;
-    return n;
+    वापस n;
 }
 
-void my_cleanup3(tsti *p) {
-    printf("%d %d %d %d\n", p->a, p->b, p->c, p->d);
+व्योम my_cleanup3(tsti *p) {
+    म_लिखो("%d %d %d %d\n", p->a, p->b, p->c, p->d);
     p->a = 0x90; p->b = 0x91; p->c = 0x92; p->d = 0x93;
 }
 
-tsti test_cleanup3(void) {
+tsti test_cleanup3(व्योम) {
     tsti __attribute__((cleanup(my_cleanup3))) n;
     n.a = 42; n.b = 43; n.c = 44; n.d = 45;
-    return n;
+    वापस n;
 }
 
-void my_cleanup4(tstd *p) {
-    printf("%g %g\n", p->a, p->b);
+व्योम my_cleanup4(tstd *p) {
+    म_लिखो("%g %g\n", p->a, p->b);
     p->a = 90.0; p->b = 91.0;
 }
 
-tstd test_cleanup4(void) {
+tstd test_cleanup4(व्योम) {
     tstd __attribute__((cleanup(my_cleanup4))) n;
     n.a = 42.0; n.b = 43.0;
-    return n;
+    वापस n;
 }
 
-void my_cleanup5(tstld *p) {
-    printf("%Lf\n", p->a);
+व्योम my_cleanup5(tstld *p) {
+    म_लिखो("%Lf\n", p->a);
     p->a = 90.0;
 }
 
-tstld test_cleanup5(void) {
+tstld test_cleanup5(व्योम) {
     tstld __attribute__((cleanup(my_cleanup5))) n;
     n.a = 42.0;
-    return n;
+    वापस n;
 }
 
-void my_cleanup6(tstm *p) {
-    printf("%d %g\n", p->a, p->b);
+व्योम my_cleanup6(tstm *p) {
+    म_लिखो("%d %g\n", p->a, p->b);
     p->a = 90;
     p->b = 91.0;
 }
 
-tstm test_cleanup6(void) {
+tstm test_cleanup6(व्योम) {
     tstm __attribute__((cleanup(my_cleanup6))) n;
     n.a = 42;
     n.b = 43.0;
-    return n;
+    वापस n;
 }
 
-void my_cleanup7(tstf *p) {
-    printf("%f %f %f %f\n", p->a, p->b, p->c, p->d);
+व्योम my_cleanup7(tstf *p) {
+    म_लिखो("%f %f %f %f\n", p->a, p->b, p->c, p->d);
     p->a = 0x90; p->b = 0x91; p->c = 0x92; p->d = 0x93;
 }
 
-tstf test_cleanup7(void) {
+tstf test_cleanup7(व्योम) {
     tstf __attribute__((cleanup(my_cleanup7))) n;
     n.a = 42; n.b = 43; n.c = 44; n.d = 45;
-    return n;
+    वापस n;
 }
 
-void my_cleanup8(int **p) {
+व्योम my_cleanup8(पूर्णांक **p) {
     **p = 0x90;
 }
 
-int test_cleanup8(void) {
-    int n = 42;
-    int __attribute__((cleanup(my_cleanup8))) *p = &n;
-    return n;
+पूर्णांक test_cleanup8(व्योम) {
+    पूर्णांक n = 42;
+    पूर्णांक __attribute__((cleanup(my_cleanup8))) *p = &n;
+    वापस n;
 }
 
-static void my_cleanupe(int *p) {
+अटल व्योम my_cleanupe(पूर्णांक *p) {
     *p = 0x90;
 }
 
-int main()
+पूर्णांक मुख्य()
 {
-    int i __attribute__ ((__cleanup__(check))) = 0, not_i;
-    int chk = 0;
-    (void)not_i;
+    पूर्णांक i __attribute__ ((__cleanup__(check))) = 0, not_i;
+    पूर्णांक chk = 0;
+    (व्योम)not_i;
     tstl tl;
     tsti ti;
     tstd td;
     tstld tld;
-    tstm tm;
+    tstm पंचांग;
     tstf tf;
 
     {
-	__attribute__ ((__cleanup__(check_oh_i))) char oh_i = 'o', o = 'a';
+	__attribute__ ((__cleanup__(check_oh_i))) अक्षर oh_i = 'o', o = 'a';
     }
 
     INCR_GI7;
-    printf("glob_i: %d\n", glob_i);
+    म_लिखो("glob_i: %d\n", glob_i);
  naaaaaaaa:
-    if (!chk) {
-	__attribute__ ((__cleanup__(check_oh_i))) char oh_i = 'f';
-	double __attribute__ ((__cleanup__(goto_hell))) f = 2.6;
+    अगर (!chk) {
+	__attribute__ ((__cleanup__(check_oh_i))) अक्षर oh_i = 'f';
+	द्विगुन __attribute__ ((__cleanup__(goto_hell))) f = 2.6;
 
 	chk = 1;
-	goto naaaaaaaa;
+	जाओ naaaaaaaa;
     }
     i = 105;
-    printf("because what if free was call inside cleanup function %s\n", test());
+    म_लिखो("because what if free was call inside cleanup function %s\n", test());
     test_ret();
     test_ret2();
     test2();
     test3();
     loop_cleanups();
-    printf("%d\n", test_cleanup1());
+    म_लिखो("%d\n", test_cleanup1());
     tl = test_cleanup2();
-    printf("%d %d %d %d %d %d %d %d\n", tl.a, tl.b, tl.c, tl.d,
+    म_लिखो("%d %d %d %d %d %d %d %d\n", tl.a, tl.b, tl.c, tl.d,
 					tl.e, tl.f, tl.g, tl.h);
     ti = test_cleanup3();
-    printf("%d %d %d %d\n", ti.a, ti.b, ti.c, ti.d);
+    म_लिखो("%d %d %d %d\n", ti.a, ti.b, ti.c, ti.d);
     td = test_cleanup4();
-    printf("%g %g\n", td.a, td.b);
+    म_लिखो("%g %g\n", td.a, td.b);
     tld = test_cleanup5();
-    printf("%Lf\n", tld.a);
-    tm = test_cleanup6();
-    printf("%d %g\n", tm.a, tm.b);
+    म_लिखो("%Lf\n", tld.a);
+    पंचांग = test_cleanup6();
+    म_लिखो("%d %g\n", पंचांग.a, पंचांग.b);
     tf = test_cleanup7();
-    printf("%f %f %f %f\n", tf.a, tf.b, tf.c, tf.d);
-    printf("%d\n", test_cleanup8());
-    printf("%d\n", ({
-            int __attribute__ ((cleanup(my_cleanupe))) n = 42;
+    म_लिखो("%f %f %f %f\n", tf.a, tf.b, tf.c, tf.d);
+    म_लिखो("%d\n", test_cleanup8());
+    म_लिखो("%d\n", ({
+            पूर्णांक __attribute__ ((cleanup(my_cleanupe))) n = 42;
             n; }));
-    return i;
+    वापस i;
 }
 
-void check2(char **hum)
+व्योम check2(अक्षर **hum)
 {
-    printf("str: %s\n", *hum);
+    म_लिखो("str: %s\n", *hum);
     *hum = "fail";
 }

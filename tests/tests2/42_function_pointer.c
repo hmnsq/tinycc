@@ -1,22 +1,22 @@
-#include <stdio.h>
+#समावेश <stdio.h>
 
-int fred(int p)
+पूर्णांक fred(पूर्णांक p)
 {
-   printf("yo %d\n", p);
-   return 42;
+   म_लिखो("yo %d\n", p);
+   वापस 42;
 }
 
-int (*f)(int) = &fred;
+पूर्णांक (*f)(पूर्णांक) = &fred;
 
 /* To test what this is supposed to test the destination function
    (fprint here) must not be called directly anywhere in the test.  */
-int (*fprintfptr)(FILE *, const char *, ...) = &fprintf;
+पूर्णांक (*fprintfptr)(खाता *, स्थिर अक्षर *, ...) = &ख_लिखो;
 
-int main()
+पूर्णांक मुख्य()
 {
-   fprintfptr(stdout, "%d\n", (*f)(24));
+   fprintfptr(मानक_निकास, "%d\n", (*f)(24));
 
-   return 0;
+   वापस 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

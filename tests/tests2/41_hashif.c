@@ -1,85 +1,85 @@
-#include <stdio.h>
+#समावेश <stdio.h>
 
-int main()
+पूर्णांक मुख्य()
 {
-   printf("#include test\n");
+   म_लिखो("#include test\n");
 
-#if 1
-#if 0
-   printf("a\n");
-#else
-   printf("b\n");
-#endif
-#else
-#if 0
-   printf("c\n");
-#else
-   printf("d\n");
-#endif
-#endif
+#अगर 1
+#अगर 0
+   म_लिखो("a\n");
+#अन्यथा
+   म_लिखो("b\n");
+#पूर्ण_अगर
+#अन्यथा
+#अगर 0
+   म_लिखो("c\n");
+#अन्यथा
+   म_लिखो("d\n");
+#पूर्ण_अगर
+#पूर्ण_अगर
 
-#if 0
-#if 1
-   printf("e\n");
-#else
-   printf("f\n");
-#endif
-#else
-#if 1
-   printf("g\n");
-#else
-   printf("h\n");
-#endif
-#endif
+#अगर 0
+#अगर 1
+   म_लिखो("e\n");
+#अन्यथा
+   म_लिखो("f\n");
+#पूर्ण_अगर
+#अन्यथा
+#अगर 1
+   म_लिखो("g\n");
+#अन्यथा
+   म_लिखो("h\n");
+#पूर्ण_अगर
+#पूर्ण_अगर
 
-#define DEF
+#घोषणा DEF
 
-#ifdef DEF
-#ifdef DEF
-   printf("i\n");
-#else
-   printf("j\n");
-#endif
-#else
-#ifdef DEF
-   printf("k\n");
-#else
-   printf("l\n");
-#endif
-#endif
+#अगर_घोषित DEF
+#अगर_घोषित DEF
+   म_लिखो("i\n");
+#अन्यथा
+   म_लिखो("j\n");
+#पूर्ण_अगर
+#अन्यथा
+#अगर_घोषित DEF
+   म_लिखो("k\n");
+#अन्यथा
+   म_लिखो("l\n");
+#पूर्ण_अगर
+#पूर्ण_अगर
 
-#ifndef DEF
-#ifndef DEF
-   printf("m\n");
-#else
-   printf("n\n");
-#endif
-#else
-#ifndef DEF
-   printf("o\n");
-#else
-   printf("p\n");
-#endif
-#endif
+#अगर_अघोषित DEF
+#अगर_अघोषित DEF
+   म_लिखो("m\n");
+#अन्यथा
+   म_लिखो("n\n");
+#पूर्ण_अगर
+#अन्यथा
+#अगर_अघोषित DEF
+   म_लिखो("o\n");
+#अन्यथा
+   म_लिखो("p\n");
+#पूर्ण_अगर
+#पूर्ण_अगर
 
-#define ONE 1
-#define ZERO 0
+#घोषणा ONE 1
+#घोषणा ZERO 0
 
-#if ONE
-#if ZERO
-   printf("q\n");
-#else
-   printf("r\n");
-#endif
-#else
-#if ZERO
-   printf("s\n");
-#else
-   printf("t\n");
-#endif
-#endif
+#अगर ONE
+#अगर ZERO
+   म_लिखो("q\n");
+#अन्यथा
+   म_लिखो("r\n");
+#पूर्ण_अगर
+#अन्यथा
+#अगर ZERO
+   म_लिखो("s\n");
+#अन्यथा
+   म_लिखो("t\n");
+#पूर्ण_अगर
+#पूर्ण_अगर
 
-   return 0;
+   वापस 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

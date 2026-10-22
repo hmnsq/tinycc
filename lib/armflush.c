@@ -5,12 +5,12 @@
    itself needs this function */
 
 /* ------------------------------------------------------------- */
-#if defined __arm__
+#अगर defined __arm__
 
-#ifdef __TINYC__
+#अगर_घोषित __TINYC__
 
 /* syscall wrapper */
-unsigned _tccsyscall(unsigned syscall_nr, ...);
+अचिन्हित _tccsyscall(अचिन्हित syscall_nr, ...);
 
 /* arm-tcc supports only fake asm currently */
 __asm__(
@@ -26,27 +26,27 @@ __asm__(
     );
 
 /* from unistd.h: */
-#if defined(__thumb__) || defined(__ARM_EABI__)
+#अगर defined(__thumb__) || defined(__ARM_EABI__)
 # define __NR_SYSCALL_BASE      0x0
-#else
+#अन्यथा
 # define __NR_SYSCALL_BASE      0x900000
-#endif
-#define __ARM_NR_BASE           (__NR_SYSCALL_BASE+0x0f0000)
-#define __ARM_NR_cacheflush     (__ARM_NR_BASE+2)
+#पूर्ण_अगर
+#घोषणा __ARM_NR_BASE           (__NR_SYSCALL_BASE+0x0f0000)
+#घोषणा __ARM_NR_cacheflush     (__ARM_NR_BASE+2)
 
-#define syscall _tccsyscall
+#घोषणा syscall _tccsyscall
 
-#else
+#अन्यथा
 
-#define _GNU_SOURCE
-#include <unistd.h>
-#include <sys/syscall.h>
-#include <stdio.h>
+#घोषणा _GNU_SOURCE
+#समावेश <unistd.h>
+#समावेश <sys/syscall.h>
+#समावेश <stdio.h>
 
-#endif
+#पूर्ण_अगर
 
 /* Flushing for tccrun */
-void __clear_cache(void *beginning, void *end)
+व्योम __clear_cache(व्योम *beginning, व्योम *end)
 {
 /* __ARM_NR_cacheflush is kernel private and should not be used in user space.
  * However, there is no ARM asm parser in tcc so we use it for now */
@@ -54,17 +54,17 @@ void __clear_cache(void *beginning, void *end)
 }
 
 /* ------------------------------------------------------------- */
-#elif defined __aarch64__
-void __clear_cache(void *beg, void *end)
+#या_अगर defined __aarch64__
+व्योम __clear_cache(व्योम *beg, व्योम *end)
 {
     __arm64_clear_cache(beg, end);
 }
 
 /* ------------------------------------------------------------- */
-#elif defined __riscv
-void __clear_cache(void *beg, void *end)
+#या_अगर defined __riscv
+व्योम __clear_cache(व्योम *beg, व्योम *end)
 {
     __riscv64_clear_cache(beg, end);
 }
 
-#endif
+#पूर्ण_अगर

@@ -1,52 +1,52 @@
-#include <stdio.h>
+#समावेश <stdio.h>
 
-int array[16];
+पूर्णांक array[16];
 
 //Swap integer values by array indexes
-void swap(int a, int b)
+व्योम swap(पूर्णांक a, पूर्णांक b)
 {
-   int tmp  = array[a];
+   पूर्णांक tmp  = array[a];
    array[a] = array[b];
    array[b] = tmp;
 }
 
 //Partition the array into two halves and return the
 //index about which the array is partitioned
-int partition(int left, int right)
+पूर्णांक partition(पूर्णांक बायाँ, पूर्णांक दायाँ)
 {
-   int pivotIndex = left;
-   int pivotValue = array[pivotIndex];
-   int index = left;
-   int i;
+   पूर्णांक pivot_सूचकांक = बायाँ;
+   पूर्णांक pivot_मूल्य = array[pivot_सूचकांक];
+   पूर्णांक सूचकांक = बायाँ;
+   पूर्णांक i;
 
-   swap(pivotIndex, right);
-   for(i = left; i < right; i++)
+   swap(pivot_सूचकांक, दायाँ);
+   क्रम(i = बायाँ; i < दायाँ; i++)
    {
-      if(array[i] < pivotValue)
+      अगर(array[i] < pivot_मूल्य)
       {
-         swap(i, index);
-         index += 1;
+         swap(i, सूचकांक);
+         सूचकांक += 1;
       }
    }
-   swap(right, index);
+   swap(दायाँ, सूचकांक);
 
-   return index;
+   वापस सूचकांक;
 }
 
 //Quicksort the array
-void quicksort(int left, int right)
+व्योम quicksort(पूर्णांक बायाँ, पूर्णांक दायाँ)
 {
-   if(left >= right)
-      return;
+   अगर(बायाँ >= दायाँ)
+      वापस;
 
-   int index = partition(left, right);
-   quicksort(left, index - 1);
-   quicksort(index + 1, right);
+   पूर्णांक सूचकांक = partition(बायाँ, दायाँ);
+   quicksort(बायाँ, सूचकांक - 1);
+   quicksort(सूचकांक + 1, दायाँ);
 }
 
-int main()
+पूर्णांक मुख्य()
 {
-   int i;
+   पूर्णांक i;
 
    array[0] = 62;
    array[1] = 83;
@@ -65,19 +65,19 @@ int main()
    array[14] = 74;
    array[15] = 55;
 
-   for (i = 0; i < 16; i++)
-      printf("%d ", array[i]);
+   क्रम (i = 0; i < 16; i++)
+      म_लिखो("%d ", array[i]);
 
-   printf("\n");
+   म_लिखो("\n");
 
    quicksort(0, 15);
 
-   for (i = 0; i < 16; i++)
-      printf("%d ", array[i]);
+   क्रम (i = 0; i < 16; i++)
+      म_लिखो("%d ", array[i]);
 
-   printf("\n");
+   म_लिखो("\n");
 
-   return 0;
+   वापस 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

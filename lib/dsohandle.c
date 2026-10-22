@@ -1,1 +1,1 @@
-void * __dso_handle __attribute((visibility("hidden"))) = &__dso_handle;
+व्योम * __dso_handle __attribute((visibility("hidden"))) = &__dso_handle;

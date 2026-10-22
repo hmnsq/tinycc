@@ -1,84 +1,84 @@
-#include <stdio.h>
-#include <string.h>
-#include <setjmp.h>
-#if !defined(_WIN32)
-#include <pthread.h>
-#else
-#include <windows.h>
-#endif
+#समावेश <stdio.h>
+#समावेश <string.h>
+#समावेश <setjmp.h>
+#अगर !defined(_WIN32)
+#समावेश <pthread.h>
+#अन्यथा
+#समावेश <windows.h>
+#पूर्ण_अगर
 
-#define	SIZE	10
-#define	COUNT	10
+#घोषणा	आकार_2	10
+#घोषणा	गिनती_4	10
 
-#define TST   int i, a[2], b[2];                \
-              for (i = 0; i < 2; i++) a[i] = 0; \
-              for (i = 0; i < 2; i++) b[i] = 0
+#घोषणा TST   पूर्णांक i, a[2], b[2];                \
+              क्रम (i = 0; i < 2; i++) a[i] = 0; \
+              क्रम (i = 0; i < 2; i++) b[i] = 0
 
-static int count[SIZE];
+अटल पूर्णांक गिनती_2[आकार_2];
 
-static void tst1 (jmp_buf loc)
+अटल व्योम tst1 (लाँघ_बफ loc)
 {
     TST;
-    longjmp(loc, 1);
+    दीर्घ_लाँघ(loc, 1);
 }
 
-static void tst2(jmp_buf loc)
+अटल व्योम tst2(लाँघ_बफ loc)
 {
-    jmp_buf jmp;
+    लाँघ_बफ jmp;
 
-    setjmp (jmp);
+    बनाओ_लाँघ (jmp);
     TST;
     tst1(loc);
 }
 
-static void *tst (void * index)
+अटल व्योम *tst (व्योम * सूचकांक)
 {
-    jmp_buf loc;
-    int i = *(int *) index;
-    static int v[SIZE];
+    लाँघ_बफ loc;
+    पूर्णांक i = *(पूर्णांक *) सूचकांक;
+    अटल पूर्णांक v[आकार_2];
 
-    for (v[i] = 0; v[i] < COUNT; v[i]++) {
-        if (setjmp (loc) == 0) {
+    क्रम (v[i] = 0; v[i] < गिनती_4; v[i]++) {
+        अगर (बनाओ_लाँघ (loc) == 0) {
             TST;
             tst2(loc);
         }
-        else {
-            count[i]++;
+        अन्यथा {
+            गिनती_2[i]++;
         }
-        i = *(int *) index;
+        i = *(पूर्णांक *) सूचकांक;
     }
-    return NULL;
+    वापस शून्य;
 }
 
-int
-main (void)
+पूर्णांक
+मुख्य (व्योम)
 {
-    int i;
-#if !defined(_WIN32)
-    pthread_t id[SIZE];
-#else
-    HANDLE id[SIZE];
-#endif
-    int index[SIZE];
+    पूर्णांक i;
+#अगर !defined(_WIN32)
+    pthread_t id[आकार_2];
+#अन्यथा
+    HANDLE id[आकार_2];
+#पूर्ण_अगर
+    पूर्णांक सूचकांक[आकार_2];
 
-    for (i = 0; i < SIZE; i++) {
-        index[i] = i;
-#if !defined(_WIN32)
-        pthread_create (&id[i], NULL, tst, (void *) &index[i]);
-#else
-        id[i] = CreateThread(NULL, 8192, (LPTHREAD_START_ROUTINE) tst, (void *) &index[i], 0, NULL);
-#endif
+    क्रम (i = 0; i < आकार_2; i++) {
+        सूचकांक[i] = i;
+#अगर !defined(_WIN32)
+        pthread_create (&id[i], शून्य, tst, (व्योम *) &सूचकांक[i]);
+#अन्यथा
+        id[i] = CreateThread(शून्य, 8192, (LPTHREAD_START_ROUTINE) tst, (व्योम *) &सूचकांक[i], 0, शून्य);
+#पूर्ण_अगर
     }
-    for (i = 0; i < SIZE; i++) {
-#if !defined(_WIN32)
-        pthread_join (id[i], NULL);
-#else
+    क्रम (i = 0; i < आकार_2; i++) {
+#अगर !defined(_WIN32)
+        pthread_join (id[i], शून्य);
+#अन्यथा
         WaitForSingleObject(id[i], INFINITE);
-#endif
+#पूर्ण_अगर
     }
-    for (i = 0; i < SIZE; i++) {
-        if (count[i] != COUNT)
-            printf ("error: %d %d\n", i, count[i]);
+    क्रम (i = 0; i < आकार_2; i++) {
+        अगर (गिनती_2[i] != गिनती_4)
+            म_लिखो ("error: %d %d\n", i, गिनती_2[i]);
     }
-    return 0;
+    वापस 0;
 }

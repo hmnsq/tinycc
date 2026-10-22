@@ -1,53 +1,53 @@
-#include <stdio.h>
+#समावेश <stdio.h>
 
-typedef struct {
-    int data[4];
-    double d1;
-    double d2;
-} Node;
+प्रकार काष्ठा {
+    पूर्णांक तथ्य[4];
+    द्विगुन d1;
+    द्विगुन d2;
+} गाँठ_2;
 
-typedef struct {
-    int a, b, c;
+प्रकार काष्ठा {
+    पूर्णांक a, b, c;
 } A;
 
-Node init(Node self) {
-    self.data[0] = 0;
-    self.data[1] = 1;
-    self.data[2] = 2;
-    self.data[3] = 3;
+गाँठ_2 init(गाँठ_2 self) {
+    self.तथ्य[0] = 0;
+    self.तथ्य[1] = 1;
+    self.तथ्य[2] = 2;
+    self.तथ्य[3] = 3;
     self.d1 = 1234;
     self.d2 = 2345;
-    return self;
+    वापस self;
 }
 
-void dummy(Node self) {
+व्योम dummy(गाँठ_2 self) {
 }
 
-void print_data(Node data) {
-    printf ("%d %d %d %d %g %g\n",
-            data.data[0], data.data[1], data.data[2], data.data[3],
-            data.d1, data.d2);
+व्योम print_तथ्य(गाँठ_2 तथ्य) {
+    म_लिखो ("%d %d %d %d %g %g\n",
+            तथ्य.तथ्य[0], तथ्य.तथ्य[1], तथ्य.तथ्य[2], तथ्य.तथ्य[3],
+            तथ्य.d1, तथ्य.d2);
 }
 
-A test(void)
+A test(व्योम)
 {
-    int i;
+    पूर्णांक i;
     A arr[30];
 
-    for (i = 0; i < 30; i++)
+    क्रम (i = 0; i < 30; i++)
         arr[i].b = i;
-    return arr[29];
+    वापस arr[29];
 }
 
-int main(void) {
+पूर्णांक मुख्य(व्योम) {
     /* This code resulted in a bounds checking error */
-    Node data;
+    गाँठ_2 तथ्य;
     A a;
-    dummy (data);
-    char val;
-    data = init (data);
-    print_data(data);
+    dummy (तथ्य);
+    अक्षर val;
+    तथ्य = init (तथ्य);
+    print_तथ्य(तथ्य);
     a = test();
-    printf("%d\n", a.b);
-    return 0;
+    म_लिखो("%d\n", a.b);
+    वापस 0;
 }

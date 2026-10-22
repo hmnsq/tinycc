@@ -15,157 +15,157 @@
  *
  */
 
-#ifndef __MINGW_H
-#define __MINGW_H
+#अगर_अघोषित __MINGW_H
+#घोषणा __MINGW_H
 
 /* some winapi files define these before including _mingw.h --> */
-#undef __cdecl
-#undef _X86_
-#undef WIN32
+#अघोषित __cdecl
+#अघोषित _X86_
+#अघोषित WIN32
 /* <-- */
 
-#include <stddef.h>
-#include <stdarg.h>
+#समावेश <stddef.h>
+#समावेश <stdarg.h>
 
-#define __int8 char
-#define __int16 short
-#define __int32 int
-#define __int64 long long
-#define _HAVE_INT64
+#घोषणा __int8 अक्षर
+#घोषणा __int16 लघु
+#घोषणा __int32 पूर्णांक
+#घोषणा __int64 दीर्घ दीर्घ
+#घोषणा _HAVE_INT64
 
-#define __cdecl
-#define __declspec(x) __attribute__((x))
-#define __unaligned __attribute__((packed))
-#define __fastcall __attribute__((fastcall))
+#घोषणा __cdecl
+#घोषणा __declspec(x) __attribute__((x))
+#घोषणा __unaligned __attribute__((packed))
+#घोषणा __fastcall __attribute__((fastcall))
 
-#define __MSVCRT__ 1
-#undef _MSVCRT_
-#define __MINGW_IMPORT extern __declspec(dllimport)
-#define __MINGW_ATTRIB_NORETURN __declspec(noreturn)
-#define __MINGW_ATTRIB_CONST
-#define __MINGW_ATTRIB_DEPRECATED
-#define __MINGW_ATTRIB_MALLOC
-#define __MINGW_ATTRIB_PURE
-#define __MINGW_ATTRIB_NONNULL(arg)
-#define __MINGW_NOTHROW
-#define __GNUC_VA_LIST
+#घोषणा __MSVCRT__ 1
+#अघोषित _MSVCRT_
+#घोषणा __MINGW_IMPORT बाह्य __declspec(dllimport)
+#घोषणा __MINGW_ATTRIB_NORETURN __declspec(noreturn)
+#घोषणा __MINGW_ATTRIB_CONST
+#घोषणा __MINGW_ATTRIB_DEPRECATED
+#घोषणा __MINGW_ATTRIB_MALLOC
+#घोषणा __MINGW_ATTRIB_PURE
+#घोषणा __MINGW_ATTRIB_NONNULL(arg)
+#घोषणा __MINGW_NOTHROW
+#घोषणा __GNUC_VA_LIST
 
-#define _CRTIMP extern
-#define __CRT_INLINE static __inline__
+#घोषणा _CRTIMP बाह्य
+#घोषणा __CRT_INLINE अटल __inline__
 
-#define _CRT_ALIGN(x) __attribute__((aligned(x)))
-#define DECLSPEC_ALIGN(x) __attribute__((aligned(x)))
-#define _CRT_PACKING 8
-#define __CRT_UNALIGNED
-#define _CONST_RETURN
+#घोषणा _CRT_ALIGN(x) __attribute__((aligned(x)))
+#घोषणा DECLSPEC_ALIGN(x) __attribute__((aligned(x)))
+#घोषणा _CRT_PACKING 8
+#घोषणा __CRT_UNALIGNED
+#घोषणा _CONST_RETURN
 
-#ifndef _TRUNCATE
-#define _TRUNCATE ((size_t)-1)
-#endif
+#अगर_अघोषित _TRUNCATE
+#घोषणा _TRUNCATE ((माप_प्रकार)-1)
+#पूर्ण_अगर
 
-#define __CRT_STRINGIZE(_Value) #_Value
-#define _CRT_STRINGIZE(_Value) __CRT_STRINGIZE(_Value)
-#define __CRT_WIDE(_String) L ## _String
-#define _CRT_WIDE(_String) __CRT_WIDE(_String)
+#घोषणा __CRT_STRINGIZE(मूल्य_2) #_Value
+#घोषणा _CRT_STRINGIZE(मूल्य_2) __CRT_STRINGIZE(मूल्य_2)
+#घोषणा __CRT_WIDE(_String) L ## _String
+#घोषणा _CRT_WIDE(_String) __CRT_WIDE(_String)
 
-#ifdef _WIN64
-#define __stdcall
-#if defined(__aarch64__)
-#define _M_ARM64 1
-#define _ARM64_ 1
-#else
-#define _AMD64_ 1
-#define __x86_64 1
-#define _M_X64 100 /* Visual Studio */
-#define _M_AMD64 100 /* Visual Studio */
-#endif
-#else
-#define __stdcall __attribute__((__stdcall__))
-#define _X86_ 1
-#define _M_IX86 300 /* Visual Studio */
-#ifndef __MINGW_USE_VC2005_COMPAT /* time became 64, but not timeval.tv_sec */
+#अगर_घोषित _WIN64
+#घोषणा __stdcall
+#अगर defined(__aarch64__)
+#घोषणा _M_ARM64 1
+#घोषणा _ARM64_ 1
+#अन्यथा
+#घोषणा _AMD64_ 1
+#घोषणा __x86_64 1
+#घोषणा _M_X64 100 /* Visual Studio */
+#घोषणा _M_AMD64 100 /* Visual Studio */
+#पूर्ण_अगर
+#अन्यथा
+#घोषणा __stdcall __attribute__((__stdcall__))
+#घोषणा _X86_ 1
+#घोषणा _M_IX86 300 /* Visual Studio */
+#अगर_अघोषित __MINGW_USE_VC2005_COMPAT /* time became 64, but not timeval.tv_sec */
 # ifndef _USE_32BIT_TIME_T
 #  define _USE_32BIT_TIME_T
 # endif
-#endif
-#endif
+#पूर्ण_अगर
+#पूर्ण_अगर
 
 /* in stddef.h */
-#define _SIZE_T_DEFINED
-#define _SSIZE_T_DEFINED
-#define _PTRDIFF_T_DEFINED
-#define _WCHAR_T_DEFINED
-#define _UINTPTR_T_DEFINED
-#define _INTPTR_T_DEFINED
-#define _INTEGRAL_MAX_BITS 64
+#घोषणा _SIZE_T_DEFINED
+#घोषणा _SSIZE_T_DEFINED
+#घोषणा _PTRDIFF_T_DEFINED
+#घोषणा _WCHAR_T_DEFINED
+#घोषणा _UINTPTR_T_DEFINED
+#घोषणा _INTPTR_T_DEFINED
+#घोषणा _INTEGRAL_MAX_BITS 64
 
-#ifndef _TIME32_T_DEFINED
-#define _TIME32_T_DEFINED
-typedef long __time32_t;
-#endif
+#अगर_अघोषित _TIME32_T_DEFINED
+#घोषणा _TIME32_T_DEFINED
+प्रकार दीर्घ __time32_t;
+#पूर्ण_अगर
 
-#ifndef _TIME64_T_DEFINED
-#define _TIME64_T_DEFINED
-typedef long long __time64_t;
-#endif
+#अगर_अघोषित _TIME64_T_DEFINED
+#घोषणा _TIME64_T_DEFINED
+प्रकार दीर्घ दीर्घ __time64_t;
+#पूर्ण_अगर
 
-#ifndef _TIME_T_DEFINED
-#define _TIME_T_DEFINED
-#ifdef _USE_32BIT_TIME_T
-typedef __time32_t time_t;
-#else
-typedef __time64_t time_t;
-#endif
-#endif
+#अगर_अघोषित _TIME_T_DEFINED
+#घोषणा _TIME_T_DEFINED
+#अगर_घोषित _USE_32BIT_TIME_T
+प्रकार __time32_t समय_प्रकार;
+#अन्यथा
+प्रकार __time64_t समय_प्रकार;
+#पूर्ण_अगर
+#पूर्ण_अगर
 
-#ifndef _WCTYPE_T_DEFINED
-#define _WCTYPE_T_DEFINED
-typedef wchar_t wctype_t;
-#endif
+#अगर_अघोषित _WCTYPE_T_DEFINED
+#घोषणा _WCTYPE_T_DEFINED
+प्रकार ब_अक्षर_प्रकार wctype_t;
+#पूर्ण_अगर
 
-#ifndef _WINT_T
-#define _WINT_T
-typedef __WINT_TYPE__ wint_t;
-#endif
+#अगर_अघोषित _WINT_T
+#घोषणा _WINT_T
+प्रकार __WINT_TYPE__ wint_t;
+#पूर्ण_अगर
 
-typedef int errno_t;
-#define _ERRCODE_DEFINED
+प्रकार पूर्णांक errno_t;
+#घोषणा _ERRCODE_DEFINED
 
-typedef struct threadlocaleinfostruct *pthreadlocinfo;
-typedef struct threadmbcinfostruct *pthreadmbcinfo;
-typedef struct localeinfo_struct _locale_tstruct,*_locale_t;
+प्रकार काष्ठा threadlocaleinfostruct *pthreadlocinfo;
+प्रकार काष्ठा threadmbcinfostruct *pthreadmbcinfo;
+प्रकार काष्ठा localeinfo_struct _locale_tstruct,*_locale_t;
 
 /* for winapi */
-#define _ANONYMOUS_UNION
-#define _ANONYMOUS_STRUCT
-#define DECLSPEC_NORETURN __declspec(noreturn)
-#define DECLARE_STDCALL_P(type) __stdcall type
-#define NOSERVICE 1
-#define NOMCX 1
-#define NOIME 1
-#define __INTRIN_H_
-#ifndef DUMMYUNIONNAME
+#घोषणा _ANONYMOUS_UNION
+#घोषणा _ANONYMOUS_STRUCT
+#घोषणा DECLSPEC_NORETURN __declspec(noreturn)
+#घोषणा DECLARE_STDCALL_P(type) __stdcall type
+#घोषणा NOSERVICE 1
+#घोषणा NOMCX 1
+#घोषणा NOIME 1
+#घोषणा __INTRIN_H_
+#अगर_अघोषित DUMMYUNIONNAME
 #  define DUMMYUNIONNAME
 #  define DUMMYUNIONNAME1
 #  define DUMMYUNIONNAME2
 #  define DUMMYUNIONNAME3
 #  define DUMMYUNIONNAME4
 #  define DUMMYUNIONNAME5
-#endif
-#ifndef DUMMYSTRUCTNAME
+#पूर्ण_अगर
+#अगर_अघोषित DUMMYSTRUCTNAME
 #  define DUMMYSTRUCTNAME
-#endif
-#ifndef WINVER
+#पूर्ण_अगर
+#अगर_अघोषित WINVER
 # define WINVER 0x0502
-#endif
-#ifndef _WIN32_WINNT
+#पूर्ण_अगर
+#अगर_अघोषित _WIN32_WINNT
 # define _WIN32_WINNT 0x502
-#endif
+#पूर्ण_अगर
 
-#define __C89_NAMELESS
-#define __MINGW_EXTENSION
-#define WINAPI_FAMILY_PARTITION(X) 1
-#define MINGW_HAS_SECURE_API
-#define WIN32 1
+#घोषणा __C89_NAMELESS
+#घोषणा __MINGW_EXTENSION
+#घोषणा WINAPI_FAMILY_PARTITION(X) 1
+#घोषणा MINGW_HAS_SECURE_API
+#घोषणा WIN32 1
 
-#endif /* __MINGW_H */
+#पूर्ण_अगर /* __MINGW_H */

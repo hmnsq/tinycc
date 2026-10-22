@@ -1,8 +1,8 @@
-#include <stdlib.h>
-#include <stdio.h>
+#समावेश <stdlib.h>
+#समावेश <stdio.h>
 
-int main()
+पूर्णांक मुख्य()
 {
-    printf("Hello World\n");
-    return 0;
+    म_लिखो("Hello World\n");
+    वापस 0;
 }

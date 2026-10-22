@@ -1,48 +1,48 @@
-#include <stdio.h>
+#समावेश <stdio.h>
 
-#if (defined _WIN32 || defined __APPLE__) && (!defined __TINYC__ || defined __leading_underscore)
+#अगर (defined _WIN32 || defined __APPLE__) && (!defined __TINYC__ || defined __leading_underscore)
 # define _ "_"
-#else
+#अन्यथा
 # define _
-#endif
+#पूर्ण_अगर
 
-#ifdef __clang__
+#अगर_घोषित __clang__
 /* clang needs some help tp not throw functions away even at -O0 */
-#define __USED __attribute__((__used__))
-#else
-#define __USED
-#endif
+#घोषणा __USED __attribute__((__used__))
+#अन्यथा
+#घोषणा __USED
+#पूर्ण_अगर
 
-int x3(void)
+पूर्णांक x3(व्योम)
 {
-    printf(" x3");
-    return 3;
+    म_लिखो(" x3");
+    वापस 3;
 }
 
 /* That callx4 is defined globally (as if ".globl callx4")
    is a TCC extension.  GCC doesn't behave like this.  */
-void callx4(void);
-#if __i386__
+व्योम callx4(व्योम);
+#अगर __i386__
 __asm__(_"callx4: call "_"x4; ret;"
-#else
+#अन्यथा
 /* Keep stack aligned */
 __asm__(_"callx4: sub $8,%rsp; call "_"x4; add $8,%rsp; ret;"
-#endif
-#ifndef __TINYC__
+#पूर्ण_अगर
+#अगर_अघोषित __TINYC__
     " .global "_"callx4"
-#endif
+#पूर्ण_अगर
 );
 
-extern void x5(void);
+बाह्य व्योम x5(व्योम);
 
-void callx5_again(void);
-void callx5_again(void)
+व्योम callx5_again(व्योम);
+व्योम callx5_again(व्योम)
 {
     x5();
-    asm("call "_"x6");
+    यंत्र("call "_"x6");
 }
 
-static void __USED x6()
+अटल व्योम __USED x6()
 {
-    printf(" x6-2");
+    म_लिखो(" x6-2");
 }

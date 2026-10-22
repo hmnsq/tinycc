@@ -1,8 +1,8 @@
-#define f(x) x
-#define g(x) f(x) f(x
-#define i(x) g(x)) g(x
-#define h(x) i(x))) i(x
-#define k(x) i(x))) i(x))))
+#घोषणा f(x) x
+#घोषणा g(x) f(x) f(x
+#घोषणा i(x) g(x)) g(x
+#घोषणा h(x) i(x))) i(x
+#घोषणा k(x) i(x))) i(x))))
 f(x)
 g(x))
 i(x)))

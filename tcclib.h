@@ -4,79 +4,79 @@
  * only for your convenience so that you do not need to put the whole
  * glibc include files on your floppy disk 
  */
-#ifndef _TCCLIB_H
-#define _TCCLIB_H
+#अगर_अघोषित _TCCLIB_H
+#घोषणा _TCCLIB_H
 
-#include <stddef.h>
-#include <stdarg.h>
+#समावेश <stddef.h>
+#समावेश <stdarg.h>
 
 /* stdlib.h */
-void *calloc(size_t nmemb, size_t size);
-void *malloc(size_t size);
-void free(void *ptr);
-void *realloc(void *ptr, size_t size);
-int atoi(const char *nptr);
-long int strtol(const char *nptr, char **endptr, int base);
-unsigned long int strtoul(const char *nptr, char **endptr, int base);
-void exit(int);
-void *alloca(size_t);
+व्योम *सुस्मृति(माप_प्रकार nmemb, माप_प्रकार आकार);
+व्योम *दो_स्मृति(माप_प्रकार आकार);
+व्योम मुक्त(व्योम *ptr);
+व्योम *पुनः_स्मृति(व्योम *ptr, माप_प्रकार आकार);
+पूर्णांक म_से_प(स्थिर अक्षर *nptr);
+दीर्घ पूर्णांक म_से_दीर्घ(स्थिर अक्षर *nptr, अक्षर **endptr, पूर्णांक base);
+अचिन्हित दीर्घ पूर्णांक म_से_अदीर्घ(स्थिर अक्षर *nptr, अक्षर **endptr, पूर्णांक base);
+व्योम निकास(पूर्णांक);
+व्योम *alloca(माप_प्रकार);
 
 /* stdio.h */
-typedef struct __FILE FILE;
-#define EOF (-1)
-extern FILE *stdin;
-extern FILE *stdout;
-extern FILE *stderr;
-FILE *fopen(const char *path, const char *mode);
-FILE *fdopen(int fildes, const char *mode);
-FILE *freopen(const  char *path, const char *mode, FILE *stream);
-int fclose(FILE *stream);
-size_t  fread(void *ptr, size_t size, size_t nmemb, FILE *stream);
-size_t  fwrite(void *ptr, size_t size, size_t nmemb, FILE *stream);
-int fgetc(FILE *stream);
-char *fgets(char *s, int size, FILE *stream);
-int getc(FILE *stream);
-int getchar(void);
-char *gets(char *s);
-int ungetc(int c, FILE *stream);
-int fflush(FILE *stream);
-int puts(const char *s);
-int putchar (int c);
+प्रकार काष्ठा __FILE खाता;
+#घोषणा खातापूर्ण (-1)
+बाह्य खाता *मानक_निवेश;
+बाह्य खाता *मानक_निकास;
+बाह्य खाता *मानक_त्रुटि;
+खाता *ख_खोलो(स्थिर अक्षर *path, स्थिर अक्षर *mode);
+खाता *fdopen(पूर्णांक fildes, स्थिर अक्षर *mode);
+खाता *ख_व_खोलो(स्थिर  अक्षर *path, स्थिर अक्षर *mode, खाता *stream);
+पूर्णांक ख_बंद(खाता *stream);
+माप_प्रकार  ख_पढ़ो(व्योम *ptr, माप_प्रकार आकार, माप_प्रकार nmemb, खाता *stream);
+माप_प्रकार  ख_डालो(व्योम *ptr, माप_प्रकार आकार, माप_प्रकार nmemb, खाता *stream);
+पूर्णांक ख_अक्षर_लो(खाता *stream);
+अक्षर *ख_माला_लो(अक्षर *s, पूर्णांक आकार, खाता *stream);
+पूर्णांक अ_लो(खाता *stream);
+पूर्णांक अक्षर_लो(व्योम);
+अक्षर *माला_लो(अक्षर *s);
+पूर्णांक अक्षर_वापस(पूर्णांक c, खाता *stream);
+पूर्णांक ख_साफ(खाता *stream);
+पूर्णांक माला_दो(स्थिर अक्षर *s);
+पूर्णांक अक्षर_दो (पूर्णांक c);
 
-int printf(const char *format, ...);
-int fprintf(FILE *stream, const char *format, ...);
-int sprintf(char *str, const char *format, ...);
-int snprintf(char *str, size_t size, const  char  *format, ...);
-int asprintf(char **strp, const char *format, ...);
-int dprintf(int fd, const char *format, ...);
-int vprintf(const char *format, va_list ap);
-int vfprintf(FILE  *stream,  const  char *format, va_list ap);
-int vsprintf(char *str, const char *format, va_list ap);
-int vsnprintf(char *str, size_t size, const char  *format, va_list ap);
-int vasprintf(char  **strp,  const  char *format, va_list ap);
-int vdprintf(int fd, const char *format, va_list ap);
+पूर्णांक म_लिखो(स्थिर अक्षर *format, ...);
+पूर्णांक ख_लिखो(खाता *stream, स्थिर अक्षर *format, ...);
+पूर्णांक प्र_लिखो(अक्षर *str, स्थिर अक्षर *format, ...);
+पूर्णांक snprintf(अक्षर *str, माप_प्रकार आकार, स्थिर  अक्षर  *format, ...);
+पूर्णांक asprintf(अक्षर **strp, स्थिर अक्षर *format, ...);
+पूर्णांक dprintf(पूर्णांक fd, स्थिर अक्षर *format, ...);
+पूर्णांक भ_लिखो(स्थिर अक्षर *format, बहु_सूची ap);
+पूर्णांक भख_लिखो(खाता  *stream,  स्थिर  अक्षर *format, बहु_सूची ap);
+पूर्णांक भम_लिखो(अक्षर *str, स्थिर अक्षर *format, बहु_सूची ap);
+पूर्णांक vsnprintf(अक्षर *str, माप_प्रकार आकार, स्थिर अक्षर  *format, बहु_सूची ap);
+पूर्णांक vasprintf(अक्षर  **strp,  स्थिर  अक्षर *format, बहु_सूची ap);
+पूर्णांक vdprintf(पूर्णांक fd, स्थिर अक्षर *format, बहु_सूची ap);
 
-void perror(const char *s);
+व्योम लिखो_त्रुटि(स्थिर अक्षर *s);
 
 /* string.h */
-char *strcat(char *dest, const char *src);
-char *strchr(const char *s, int c);
-char *strrchr(const char *s, int c);
-char *strcpy(char *dest, const char *src);
-void *memcpy(void *dest, const void *src, size_t n);
-void *memmove(void *dest, const void *src, size_t n);
-void *memset(void *s, int c, size_t n);
-char *strdup(const char *s);
-size_t strlen(const char *s);
+अक्षर *म_जोड़ो(अक्षर *dest, स्थिर अक्षर *src);
+अक्षर *म_अक्षर(स्थिर अक्षर *s, पूर्णांक c);
+अक्षर *म_खोजप(स्थिर अक्षर *s, पूर्णांक c);
+अक्षर *म_नकल(अक्षर *dest, स्थिर अक्षर *src);
+व्योम *स_नकल(व्योम *dest, स्थिर व्योम *src, माप_प्रकार n);
+व्योम *स_हटाओ(व्योम *dest, स्थिर व्योम *src, माप_प्रकार n);
+व्योम *स_रखो(व्योम *s, पूर्णांक c, माप_प्रकार n);
+अक्षर *strdup(स्थिर अक्षर *s);
+माप_प्रकार म_माप(स्थिर अक्षर *s);
 
 /* dlfcn.h */
-#define RTLD_LAZY       0x001
-#define RTLD_NOW        0x002
-#define RTLD_GLOBAL     0x100
+#घोषणा RTLD_LAZY       0x001
+#घोषणा RTLD_NOW        0x002
+#घोषणा RTLD_GLOBAL     0x100
 
-void *dlopen(const char *filename, int flag);
-const char *dlerror(void);
-void *dlsym(void *handle, char *symbol);
-int dlclose(void *handle);
+व्योम *dlopen(स्थिर अक्षर *filename, पूर्णांक flag);
+स्थिर अक्षर *dlerror(व्योम);
+व्योम *dlsym(व्योम *handle, अक्षर *प्रतीक);
+पूर्णांक dlclose(व्योम *handle);
 
-#endif /* _TCCLIB_H */
+#पूर्ण_अगर /* _TCCLIB_H */

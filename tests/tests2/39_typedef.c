@@ -1,85 +1,85 @@
-#include <stdio.h>
+#समावेश <stdio.h>
 
-typedef int MyInt;
+प्रकार पूर्णांक MyInt;
 
-struct FunStruct
+काष्ठा FunStruct
 {
-   int i;
-   int j;
+   पूर्णांक i;
+   पूर्णांक j;
 };
 
-typedef struct FunStruct MyFunStruct;
+प्रकार काष्ठा FunStruct MyFunStruct;
 
-typedef MyFunStruct *MoreFunThanEver;
+प्रकार MyFunStruct *MoreFunThanEver;
 
-typedef int t[];
-int tints[];
+प्रकार पूर्णांक t[];
+पूर्णांक tints[];
 
-int main()
+पूर्णांक मुख्य()
 {
-   int i, *p;
+   पूर्णांक i, *p;
    MyInt a = 1;
-   printf("%d\n", a);
+   म_लिखो("%d\n", a);
 
    MyFunStruct b;
    b.i = 12;
    b.j = 34;
-   printf("%d,%d\n", b.i, b.j);
+   म_लिखो("%d,%d\n", b.i, b.j);
 
    MoreFunThanEver c = &b;
-   printf("%d,%d\n", c->i, c->j);
+   म_लिखो("%d,%d\n", c->i, c->j);
 
    p = (t){1,2,3};
-   for (i = 0; i < 3 ; i++) printf("%d ", *p++); printf("\n");
+   क्रम (i = 0; i < 3 ; i++) म_लिखो("%d ", *p++); म_लिखो("\n");
    p = (t){1,2,3,4};
-   for (i = 0; i < 4 ; i++) printf("%d ", *p++); printf("\n");
+   क्रम (i = 0; i < 4 ; i++) म_लिखो("%d ", *p++); म_लिखो("\n");
 
-   printf("%d\n", (int)sizeof((t){1,2,3}));
-   printf("%d\n", (int)sizeof((t){1,2,3,4}));
+   म_लिखो("%d\n", (पूर्णांक)माप((t){1,2,3}));
+   म_लिखो("%d\n", (पूर्णांक)माप((t){1,2,3,4}));
 
    /* two arrays derived from same base type */
    t t3 = { 1,2,3 }, t4 = { 4,5,6,7 };
-   for (p = t3, i = 0; i < 3 ; i++) printf("%d ", *p++);
-   for (p = t4, i = 0; i < 4 ; i++) printf("%d ", *p++); printf("\n");
+   क्रम (p = t3, i = 0; i < 3 ; i++) म_लिखो("%d ", *p++);
+   क्रम (p = t4, i = 0; i < 4 ; i++) म_लिखो("%d ", *p++); म_लिखो("\n");
    typeof(tints) t5 = { 1,2,3 }, t6 = { 4,5,6,7 };
-   for (p = t5, i = 0; i < 3 ; i++) printf("%d ", *p++);
-   for (p = t6, i = 0; i < 4 ; i++) printf("%d ", *p++); printf("\n");
+   क्रम (p = t5, i = 0; i < 3 ; i++) म_लिखो("%d ", *p++);
+   क्रम (p = t6, i = 0; i < 4 ; i++) म_लिखो("%d ", *p++); म_लिखो("\n");
 
-   return 0;
+   वापस 0;
 }
 
 /* "If the specification of an array type includes any type qualifiers,
    the element type is so-qualified, not the array type." */
 
-typedef int A[3];
-extern A const ca;
-extern const A ca;
-extern const int ca[3];
+प्रकार पूर्णांक A[3];
+बाह्य A स्थिर ca;
+बाह्य स्थिर A ca;
+बाह्य स्थिर पूर्णांक ca[3];
 
-typedef A B[1][2];
-extern B const cb;
-extern const B cb;
-extern const int cb[1][2][3];
+प्रकार A B[1][2];
+बाह्य B स्थिर cb;
+बाह्य स्थिर B cb;
+बाह्य स्थिर पूर्णांक cb[1][2][3];
 
-extern B b;
-extern int b[1][2][3];
+बाह्य B b;
+बाह्य पूर्णांक b[1][2][3];
 
 /* Funny but valid function declaration.  */
-typedef int functype (int);
-extern functype func;
-int func(int i)
+प्रकार पूर्णांक functype (पूर्णांक);
+बाह्य functype func;
+पूर्णांक func(पूर्णांक i)
 {
-   return i + 1;
+   वापस i + 1;
 }
 
 /* Even funnier function decl and definition using typeof.  */
-int set_anon_super(void);
-int set_anon_super(void)
+पूर्णांक set_anon_super(व्योम);
+पूर्णांक set_anon_super(व्योम)
 {
-   return 42;
+   वापस 42;
 }
-typedef int sas_type (void);
-extern typeof(set_anon_super) set_anon_super;
-extern sas_type set_anon_super;
+प्रकार पूर्णांक sas_type (व्योम);
+बाह्य typeof(set_anon_super) set_anon_super;
+बाह्य sas_type set_anon_super;
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

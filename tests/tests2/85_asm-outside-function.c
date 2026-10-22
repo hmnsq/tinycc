@@ -1,15 +1,15 @@
-#ifdef __leading_underscore
+#अगर_घोषित __leading_underscore
 # define _ "_"
-#else
+#अन्यथा
 # define _
-#endif
+#पूर्ण_अगर
 
-extern int printf (const char *, ...);
-extern void vide(void);
+बाह्य पूर्णांक म_लिखो (स्थिर अक्षर *, ...);
+बाह्य व्योम vide(व्योम);
 __asm__(_"vide: ret");
 
-int main() {
+पूर्णांक मुख्य() {
     vide();
-    printf ("okay\n");
-    return 0;
+    म_लिखो ("okay\n");
+    वापस 0;
 }

@@ -3,56 +3,56 @@
    when stored into/loaded from a 8 bit bit-field of enum type (which
    itself is implementation defined, so isn't necessarily supported by all
    other compilers).  */
-enum tree_code {
+क्रमागत वृक्ष_code {
   SOME_CODE = 148, /* has bit 7 set, and hence all further enum values as well */
-  LAST_AND_UNUSED_TREE_CODE
+  LAST_AND_UNUSED_वृक्ष_CODE
 };
-typedef union tree_node *tree;
-struct tree_common
+प्रकार जोड़ वृक्ष_गाँठ *वृक्ष_2;
+काष्ठा वृक्ष_common
 {
-  union tree_node *chain;
-  union tree_node *type;
-  enum tree_code code : 8;
-  unsigned side_effects_flag : 1;
+  जोड़ वृक्ष_गाँठ *chain;
+  जोड़ वृक्ष_गाँठ *type;
+  क्रमागत वृक्ष_code code : 8;
+  अचिन्हित side_effects_flag : 1;
 };
-union tree_node
+जोड़ वृक्ष_गाँठ
 {
-  struct tree_common common;
+  काष्ठा वृक्ष_common common;
  };
-enum c_tree_code {
-  C_DUMMY_TREE_CODE = LAST_AND_UNUSED_TREE_CODE,
-  STMT_EXPR,
-  LAST_C_TREE_CODE
+क्रमागत c_वृक्ष_code {
+  C_DUMMY_वृक्ष_CODE = LAST_AND_UNUSED_वृक्ष_CODE,
+  STMT_व्यंजक,
+  LAST_C_वृक्ष_CODE
 };
-enum cplus_tree_code {
-  CP_DUMMY_TREE_CODE = LAST_C_TREE_CODE,
+क्रमागत cplus_वृक्ष_code {
+  CP_DUMMY_वृक्ष_CODE = LAST_C_वृक्ष_CODE,
   AMBIG_CONV,
-  LAST_CPLUS_TREE_CODE
+  LAST_CPLUS_वृक्ष_CODE
 };
 
-extern int printf(const char *, ...);
-int blah(){return 0;}
+बाह्य पूर्णांक म_लिखो(स्थिर अक्षर *, ...);
+पूर्णांक blah(){वापस 0;}
 
-int convert_like_real (tree convs)
+पूर्णांक convert_like_real (वृक्ष_2 convs)
 {
-  switch (((enum tree_code) (convs)->common.code))
+  चयन (((क्रमागत वृक्ष_code) (convs)->common.code))
     {
-    case AMBIG_CONV: /* This has bit 7 set, which must not be the sign
+    हाल AMBIG_CONV: /* This has bit 7 set, which must not be the sign
 			bit in tree_common.code, i.e. the bitfield must
 			be somehow marked unsigned.  */
-      return blah();
-    default:
-      break;
+      वापस blah();
+    शेष:
+      अवरोध;
     };
-   printf("unsigned enum bit-fields broken\n");
-   return 0;
+   म_लिखो("unsigned enum bit-fields broken\n");
+   वापस 0;
 }
 
-int main()
+पूर्णांक मुख्य()
 {
-  union tree_node convs;
+  जोड़ वृक्ष_गाँठ convs;
 
   convs.common.code = AMBIG_CONV;
   convert_like_real (&convs);
-  return 0;
+  वापस 0;
 }

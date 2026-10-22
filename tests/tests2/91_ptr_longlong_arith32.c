@@ -1,15 +1,15 @@
-int printf(const char *, ...);
-char t[] = "012345678";
+पूर्णांक म_लिखो(स्थिर अक्षर *, ...);
+अक्षर t[] = "012345678";
 
-int main(void)
+पूर्णांक मुख्य(व्योम)
 {
-    char *data = t;
-    unsigned long long r = 4;
-    unsigned a = 5;
-    unsigned long long b = 12;
+    अक्षर *तथ्य = t;
+    अचिन्हित दीर्घ दीर्घ r = 4;
+    अचिन्हित a = 5;
+    अचिन्हित दीर्घ दीर्घ b = 12;
 
-    *(unsigned*)(data + r) += a - b;
+    *(अचिन्हित*)(तथ्य + r) += a - b;
 
-    printf("data = \"%s\"\n", data);
-    return 0;
+    म_लिखो("data = \"%s\"\n", तथ्य);
+    वापस 0;
 }

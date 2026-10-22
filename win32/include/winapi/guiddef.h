@@ -3,154 +3,154 @@
  * This file is part of the w64 mingw-runtime package.
  * No warranty is given; refer to the file DISCLAIMER within this package.
  */
-#ifndef GUID_DEFINED
-#define GUID_DEFINED
-typedef struct _GUID {
-  unsigned long Data1;
-  unsigned short Data2;
-  unsigned short Data3;
-  unsigned char Data4[8 ];
+#अगर_अघोषित GUID_DEFINED
+#घोषणा GUID_DEFINED
+प्रकार काष्ठा _GUID {
+  अचिन्हित दीर्घ Data1;
+  अचिन्हित लघु Data2;
+  अचिन्हित लघु Data3;
+  अचिन्हित अक्षर Data4[8 ];
 } GUID;
-#endif
+#पूर्ण_अगर
 
-#ifndef UUID_DEFINED
-#define UUID_DEFINED
-typedef GUID UUID;
-#endif
+#अगर_अघोषित UUID_DEFINED
+#घोषणा UUID_DEFINED
+प्रकार GUID UUID;
+#पूर्ण_अगर
 
-#ifndef FAR
-#define FAR
-#endif
+#अगर_अघोषित FAR
+#घोषणा FAR
+#पूर्ण_अगर
 
-#ifndef DECLSPEC_SELECTANY
-#define DECLSPEC_SELECTANY __declspec(selectany)
-#endif
+#अगर_अघोषित DECLSPEC_SELECTANY
+#घोषणा DECLSPEC_SELECTANY __declspec(selectany)
+#पूर्ण_अगर
 
-#ifndef EXTERN_C
-#ifdef __cplusplus
-#define EXTERN_C extern "C"
-#else
-#define EXTERN_C extern
-#endif
-#endif
+#अगर_अघोषित EXTERN_C
+#अगर_घोषित __cplusplus
+#घोषणा EXTERN_C बाह्य "C"
+#अन्यथा
+#घोषणा EXTERN_C बाह्य
+#पूर्ण_अगर
+#पूर्ण_अगर
 
-#ifdef DEFINE_GUID
-#undef DEFINE_GUID
-#endif
+#अगर_घोषित DEFINE_GUID
+#अघोषित DEFINE_GUID
+#पूर्ण_अगर
 
-#ifdef INITGUID
-#ifdef __cplusplus
-#define DEFINE_GUID(name,l,w1,w2,b1,b2,b3,b4,b5,b6,b7,b8) EXTERN_C const GUID DECLSPEC_SELECTANY name = { l,w1,w2,{ b1,b2,b3,b4,b5,b6,b7,b8 } }
-#else
-#define DEFINE_GUID(name,l,w1,w2,b1,b2,b3,b4,b5,b6,b7,b8) const GUID DECLSPEC_SELECTANY name = { l,w1,w2,{ b1,b2,b3,b4,b5,b6,b7,b8 } }
-#endif
-#else
-#define DEFINE_GUID(name,l,w1,w2,b1,b2,b3,b4,b5,b6,b7,b8) EXTERN_C const GUID name
-#endif
+#अगर_घोषित INITGUID
+#अगर_घोषित __cplusplus
+#घोषणा DEFINE_GUID(name,l,w1,w2,b1,b2,b3,b4,b5,b6,b7,b8) EXTERN_C स्थिर GUID DECLSPEC_SELECTANY name = { l,w1,w2,{ b1,b2,b3,b4,b5,b6,b7,b8 } }
+#अन्यथा
+#घोषणा DEFINE_GUID(name,l,w1,w2,b1,b2,b3,b4,b5,b6,b7,b8) स्थिर GUID DECLSPEC_SELECTANY name = { l,w1,w2,{ b1,b2,b3,b4,b5,b6,b7,b8 } }
+#पूर्ण_अगर
+#अन्यथा
+#घोषणा DEFINE_GUID(name,l,w1,w2,b1,b2,b3,b4,b5,b6,b7,b8) EXTERN_C स्थिर GUID name
+#पूर्ण_अगर
 
-#define DEFINE_OLEGUID(name,l,w1,w2) DEFINE_GUID(name,l,w1,w2,0xC0,0,0,0,0,0,0,0x46)
+#घोषणा DEFINE_OLEGUID(name,l,w1,w2) DEFINE_GUID(name,l,w1,w2,0xC0,0,0,0,0,0,0,0x46)
 
-#ifndef _GUIDDEF_H_
-#define _GUIDDEF_H_
+#अगर_अघोषित _GUIDDEF_H_
+#घोषणा _GUIDDEF_H_
 
-#ifndef __LPGUID_DEFINED__
-#define __LPGUID_DEFINED__
-typedef GUID *LPGUID;
-#endif
+#अगर_अघोषित __LPGUID_DEFINED__
+#घोषणा __LPGUID_DEFINED__
+प्रकार GUID *LPGUID;
+#पूर्ण_अगर
 
-#ifndef __LPCGUID_DEFINED__
-#define __LPCGUID_DEFINED__
-typedef const GUID *LPCGUID;
-#endif
+#अगर_अघोषित __LPCGUID_DEFINED__
+#घोषणा __LPCGUID_DEFINED__
+प्रकार स्थिर GUID *LPCGUID;
+#पूर्ण_अगर
 
-#ifndef __IID_DEFINED__
-#define __IID_DEFINED__
+#अगर_अघोषित __IID_DEFINED__
+#घोषणा __IID_DEFINED__
 
-typedef GUID IID;
-typedef IID *LPIID;
-#define IID_NULL GUID_NULL
-#define IsEqualIID(riid1,riid2) IsEqualGUID(riid1,riid2)
-typedef GUID CLSID;
-typedef CLSID *LPCLSID;
-#define CLSID_NULL GUID_NULL
-#define IsEqualCLSID(rclsid1,rclsid2) IsEqualGUID(rclsid1,rclsid2)
-typedef GUID FMTID;
-typedef FMTID *LPFMTID;
-#define FMTID_NULL GUID_NULL
-#define IsEqualFMTID(rfmtid1,rfmtid2) IsEqualGUID(rfmtid1,rfmtid2)
+प्रकार GUID IID;
+प्रकार IID *LPIID;
+#घोषणा IID_NULL GUID_NULL
+#घोषणा IsEqualIID(riid1,riid2) IsEqualGUID(riid1,riid2)
+प्रकार GUID CLSID;
+प्रकार CLSID *LPCLSID;
+#घोषणा CLSID_NULL GUID_NULL
+#घोषणा IsEqualCLSID(rclsid1,rclsid2) IsEqualGUID(rclsid1,rclsid2)
+प्रकार GUID FMTID;
+प्रकार FMTID *LPFMTID;
+#घोषणा FMTID_NULL GUID_NULL
+#घोषणा IsEqualFMTID(rfmtid1,rfmtid2) IsEqualGUID(rfmtid1,rfmtid2)
 
-#ifdef __midl_proxy
-#define __MIDL_CONST
-#else
-#define __MIDL_CONST const
-#endif
+#अगर_घोषित __midl_proxy
+#घोषणा __MIDL_CONST
+#अन्यथा
+#घोषणा __MIDL_CONST स्थिर
+#पूर्ण_अगर
 
-#ifndef _REFGUID_DEFINED
-#define _REFGUID_DEFINED
-#ifdef __cplusplus
-#define REFGUID const GUID &
-#else
-#define REFGUID const GUID *__MIDL_CONST
-#endif
-#endif
+#अगर_अघोषित _REFGUID_DEFINED
+#घोषणा _REFGUID_DEFINED
+#अगर_घोषित __cplusplus
+#घोषणा REFGUID स्थिर GUID &
+#अन्यथा
+#घोषणा REFGUID स्थिर GUID *__MIDL_CONST
+#पूर्ण_अगर
+#पूर्ण_अगर
 
-#ifndef _REFIID_DEFINED
-#define _REFIID_DEFINED
-#ifdef __cplusplus
-#define REFIID const IID &
-#else
-#define REFIID const IID *__MIDL_CONST
-#endif
-#endif
+#अगर_अघोषित _REFIID_DEFINED
+#घोषणा _REFIID_DEFINED
+#अगर_घोषित __cplusplus
+#घोषणा REFIID स्थिर IID &
+#अन्यथा
+#घोषणा REFIID स्थिर IID *__MIDL_CONST
+#पूर्ण_अगर
+#पूर्ण_अगर
 
-#ifndef _REFCLSID_DEFINED
-#define _REFCLSID_DEFINED
-#ifdef __cplusplus
-#define REFCLSID const IID &
-#else
-#define REFCLSID const IID *__MIDL_CONST
-#endif
-#endif
+#अगर_अघोषित _REFCLSID_DEFINED
+#घोषणा _REFCLSID_DEFINED
+#अगर_घोषित __cplusplus
+#घोषणा REFCLSID स्थिर IID &
+#अन्यथा
+#घोषणा REFCLSID स्थिर IID *__MIDL_CONST
+#पूर्ण_अगर
+#पूर्ण_अगर
 
-#ifndef _REFFMTID_DEFINED
-#define _REFFMTID_DEFINED
-#ifdef __cplusplus
-#define REFFMTID const IID &
-#else
-#define REFFMTID const IID *__MIDL_CONST
-#endif
-#endif
-#endif
+#अगर_अघोषित _REFFMTID_DEFINED
+#घोषणा _REFFMTID_DEFINED
+#अगर_घोषित __cplusplus
+#घोषणा REFFMTID स्थिर IID &
+#अन्यथा
+#घोषणा REFFMTID स्थिर IID *__MIDL_CONST
+#पूर्ण_अगर
+#पूर्ण_अगर
+#पूर्ण_अगर
 
-#ifndef _SYS_GUID_OPERATORS_
-#define _SYS_GUID_OPERATORS_
-#include <string.h>
+#अगर_अघोषित _SYS_GUID_OPERATORS_
+#घोषणा _SYS_GUID_OPERATORS_
+#समावेश <string.h>
 
-#ifdef __cplusplus
-__inline int InlineIsEqualGUID(REFGUID rguid1,REFGUID rguid2) {
-  return (((unsigned long *) &rguid1)[0]==((unsigned long *) &rguid2)[0] && ((unsigned long *) &rguid1)[1]==((unsigned long *) &rguid2)[1] &&
-    ((unsigned long *) &rguid1)[2]==((unsigned long *) &rguid2)[2] && ((unsigned long *) &rguid1)[3]==((unsigned long *) &rguid2)[3]);
+#अगर_घोषित __cplusplus
+__inline पूर्णांक InlineIsEqualGUID(REFGUID rguid1,REFGUID rguid2) {
+  वापस (((अचिन्हित दीर्घ *) &rguid1)[0]==((अचिन्हित दीर्घ *) &rguid2)[0] && ((अचिन्हित दीर्घ *) &rguid1)[1]==((अचिन्हित दीर्घ *) &rguid2)[1] &&
+    ((अचिन्हित दीर्घ *) &rguid1)[2]==((अचिन्हित दीर्घ *) &rguid2)[2] && ((अचिन्हित दीर्घ *) &rguid1)[3]==((अचिन्हित दीर्घ *) &rguid2)[3]);
 }
-__inline int IsEqualGUID(REFGUID rguid1,REFGUID rguid2) { return !memcmp(&rguid1,&rguid2,sizeof(GUID)); }
-#else
-#define InlineIsEqualGUID(rguid1,rguid2) (((unsigned long *) rguid1)[0]==((unsigned long *) rguid2)[0] && ((unsigned long *) rguid1)[1]==((unsigned long *) rguid2)[1] && ((unsigned long *) rguid1)[2]==((unsigned long *) rguid2)[2] && ((unsigned long *) rguid1)[3]==((unsigned long *) rguid2)[3])
-#define IsEqualGUID(rguid1,rguid2) (!memcmp(rguid1,rguid2,sizeof(GUID)))
-#endif
+__inline पूर्णांक IsEqualGUID(REFGUID rguid1,REFGUID rguid2) { वापस !स_भेद(&rguid1,&rguid2,माप(GUID)); }
+#अन्यथा
+#घोषणा InlineIsEqualGUID(rguid1,rguid2) (((अचिन्हित दीर्घ *) rguid1)[0]==((अचिन्हित दीर्घ *) rguid2)[0] && ((अचिन्हित दीर्घ *) rguid1)[1]==((अचिन्हित दीर्घ *) rguid2)[1] && ((अचिन्हित दीर्घ *) rguid1)[2]==((अचिन्हित दीर्घ *) rguid2)[2] && ((अचिन्हित दीर्घ *) rguid1)[3]==((अचिन्हित दीर्घ *) rguid2)[3])
+#घोषणा IsEqualGUID(rguid1,rguid2) (!स_भेद(rguid1,rguid2,माप(GUID)))
+#पूर्ण_अगर
 
-#ifdef __INLINE_ISEQUAL_GUID
-#undef IsEqualGUID
-#define IsEqualGUID(rguid1,rguid2) InlineIsEqualGUID(rguid1,rguid2)
-#endif
+#अगर_घोषित __INLINE_ISEQUAL_GUID
+#अघोषित IsEqualGUID
+#घोषणा IsEqualGUID(rguid1,rguid2) InlineIsEqualGUID(rguid1,rguid2)
+#पूर्ण_अगर
 
-#define IsEqualIID(riid1,riid2) IsEqualGUID(riid1,riid2)
-#define IsEqualCLSID(rclsid1,rclsid2) IsEqualGUID(rclsid1,rclsid2)
+#घोषणा IsEqualIID(riid1,riid2) IsEqualGUID(riid1,riid2)
+#घोषणा IsEqualCLSID(rclsid1,rclsid2) IsEqualGUID(rclsid1,rclsid2)
 
-#if !defined _SYS_GUID_OPERATOR_EQ_ && !defined _NO_SYS_GUID_OPERATOR_EQ_
-#define _SYS_GUID_OPERATOR_EQ_
-#ifdef __cplusplus
-__inline int operator==(REFGUID guidOne,REFGUID guidOther) { return IsEqualGUID(guidOne,guidOther); }
-__inline int operator!=(REFGUID guidOne,REFGUID guidOther) { return !(guidOne==guidOther); }
-#endif
-#endif
-#endif
-#endif
+#अगर !defined _SYS_GUID_OPERATOR_EQ_ && !defined _NO_SYS_GUID_OPERATOR_EQ_
+#घोषणा _SYS_GUID_OPERATOR_EQ_
+#अगर_घोषित __cplusplus
+__inline पूर्णांक चालक==(REFGUID guidOne,REFGUID guidOther) { वापस IsEqualGUID(guidOne,guidOther); }
+__inline पूर्णांक चालक!=(REFGUID guidOne,REFGUID guidOther) { वापस !(guidOne==guidOther); }
+#पूर्ण_अगर
+#पूर्ण_अगर
+#पूर्ण_अगर
+#पूर्ण_अगर

@@ -1,5 +1,5 @@
 # `modelist' label. Each video mode record looks like:
-#ifdef AAA
+#ifdef जठ
 # modelist' label. Each video mode record looks like:
 #endif
 .text

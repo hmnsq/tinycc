@@ -2,52 +2,52 @@
 // crt1.c
 
 // _UNICODE for tchar.h, UNICODE for API
-#include <tchar.h>
+#समावेश <tchar.h>
 
-#include <windows.h>
-#include <stdio.h>
-#include <stdlib.h>
+#समावेश <windows.h>
+#समावेश <stdio.h>
+#समावेश <stdlib.h>
 
-#define _UNKNOWN_APP    0
-#define _CONSOLE_APP    1
-#define _GUI_APP        2
+#घोषणा _UNKNOWN_APP    0
+#घोषणा _CONSOLE_APP    1
+#घोषणा _GUI_APP        2
 
-#define _MCW_PC         0x00030000 // Precision Control
-#define _PC_24          0x00020000 // 24 bits
-#define _PC_53          0x00010000 // 53 bits
-#define _PC_64          0x00000000 // 64 bits
+#घोषणा _MCW_PC         0x00030000 // Precision Control
+#घोषणा _PC_24          0x00020000 // 24 bits
+#घोषणा _PC_53          0x00010000 // 53 bits
+#घोषणा _PC_64          0x00000000 // 64 bits
 
-#ifdef _UNICODE
-#define __tgetmainargs __wgetmainargs
-#define _tstart _wstart
-#define _tmain wmain
-#define _runtmain _runwmain
-#else
-#define __tgetmainargs __getmainargs
-#define _tstart _start
-#define _tmain main
-#define _runtmain _runmain
-#endif
+#अगर_घोषित _UNICODE
+#घोषणा __tgetmainargs __wgetmainargs
+#घोषणा _tstart _wstart
+#घोषणा _tmain wmain
+#घोषणा _runtmain _runwmain
+#अन्यथा
+#घोषणा __tgetmainargs __getmainargs
+#घोषणा _tstart _start
+#घोषणा _tmain मुख्य
+#घोषणा _runtmain _runmain
+#पूर्ण_अगर
 
-typedef struct { int newmode; } _startupinfo;
-int __cdecl __tgetmainargs(int *pargc, _TCHAR ***pargv, _TCHAR ***penv, int globb, _startupinfo*);
-void __cdecl __set_app_type(int apptype);
-unsigned int __cdecl _controlfp(unsigned int new_value, unsigned int mask);
-extern int _tmain(int argc, _TCHAR * argv[], _TCHAR * env[]);
+प्रकार काष्ठा { पूर्णांक newmode; } _startupinfo;
+पूर्णांक __cdecl __tgetmainargs(पूर्णांक *pargc, _TCHAR ***pargv, _TCHAR ***penv, पूर्णांक globb, _startupinfo*);
+व्योम __cdecl __set_app_type(पूर्णांक apptype);
+अचिन्हित पूर्णांक __cdecl _controlfp(अचिन्हित पूर्णांक new_मूल्य, अचिन्हित पूर्णांक mask);
+बाह्य पूर्णांक _tmain(पूर्णांक argc, _TCHAR * argv[], _TCHAR * env[]);
 
-#include "crtinit.c"
+#समावेश "crtinit.c"
 
 /* Allow command-line globbing with "int _dowildcard = 1;" in the user source */
-int _dowildcard;
+पूर्णांक _dowildcard;
 
-static LONG WINAPI catch_sig(EXCEPTION_POINTERS *ex)
+अटल LONG WINAPI catch_sig(EXCEPTION_POINTERS *ex)
 {
-  return _XcptFilter(ex->ExceptionRecord->ExceptionCode, ex);
+  वापस _XcptFilter(ex->ExceptionRecord->ExceptionCode, ex);
 }
 
-void _tstart(void)
+व्योम _tstart(व्योम)
 {
-    int ret;
+    पूर्णांक ret;
 
     _startupinfo start_info = {0};
     SetUnhandledExceptionFilter(catch_sig);
@@ -56,49 +56,49 @@ void _tstart(void)
 
     // Set default FP precision to 53 bits (8-byte double)
     // _MCW_PC (Precision control) is not supported on ARM
-#if defined __i386__ || defined __x86_64__
+#अगर defined __i386__ || defined __x86_64__
     _controlfp(_PC_53, _MCW_PC);
-#endif
+#पूर्ण_अगर
 
     __tgetmainargs( &__argc, &__targv, &_tenviron, _dowildcard, &start_info);
     run_ctors(__argc, __targv, _tenviron);
     ret = _tmain(__argc, __targv, _tenviron);
     run_dtors();
-    exit(ret);
+    निकास(ret);
 }
 
 // =============================================
 // for 'tcc -run ,,,'
 
-__attribute__((weak)) extern int __run_on_exit();
+__attribute__((weak)) बाह्य पूर्णांक __run_on_exit();
 
-int _runtmain(int argc, /* as tcc passed in */ char **argv)
+पूर्णांक _runtmain(पूर्णांक argc, /* as tcc passed in */ अक्षर **argv)
 {
-    int ret;
-#if defined UNICODE || defined __aarch64__
+    पूर्णांक ret;
+#अगर defined UNICODE || defined __aarch64__
     _startupinfo start_info = {0};
     __tgetmainargs(&__argc, &__targv, &_tenviron, 0, &start_info);
-#endif
-#ifdef UNICODE
+#पूर्ण_अगर
+#अगर_घोषित UNICODE
     /* may be wrong when tcc has received wildcards (*.c) */
-    if (argc < __argc) {
+    अगर (argc < __argc) {
         __targv += __argc - argc;
         __argc = argc;
     }
-#else
+#अन्यथा
     __argc = argc;
     __targv = argv;
-#endif
-#if defined __i386__ || defined __x86_64__
+#पूर्ण_अगर
+#अगर defined __i386__ || defined __x86_64__
     _controlfp(_PC_53, _MCW_PC);
-#endif
+#पूर्ण_अगर
     run_ctors(__argc, __targv, _tenviron);
     ret = _tmain(__argc, __targv, _tenviron);
-    fflush(stdout);
-    fflush(stderr);
+    ख_साफ(मानक_निकास);
+    ख_साफ(मानक_त्रुटि);
     run_dtors();
     __run_on_exit(ret);
-    return ret;
+    वापस ret;
 }
 
 // =============================================

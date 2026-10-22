@@ -1,236 +1,236 @@
-#include <stdlib.h>
-#include <stdio.h>
-#include <string.h>
+#समावेश <stdlib.h>
+#समावेश <stdio.h>
+#समावेश <string.h>
 
-#define NB_ITS 1000000
+#घोषणा NB_ITS 1000000
 //#define NB_ITS 1
-#define TAB_SIZE 100
+#घोषणा TAB_आकार 100
 
-int tab[TAB_SIZE];
-int ret_sum;
-char tab3[256];
+पूर्णांक tab[TAB_आकार];
+पूर्णांक ret_योग;
+अक्षर tab3[256];
 
-int test1(void)
+पूर्णांक test1(व्योम)
 {
-    int i, sum = 0;
-    for(i=0;i<TAB_SIZE;i++) {
-        sum += tab[i];
+    पूर्णांक i, योग = 0;
+    क्रम(i=0;i<TAB_आकार;i++) {
+        योग += tab[i];
     }
-    return sum;
+    वापस योग;
 }
 
 /* error */
-int test2(void)
+पूर्णांक test2(व्योम)
 {
-    int i, sum = 0;
-    for(i=0;i<TAB_SIZE + 1;i++) {
-        sum += tab[i];
+    पूर्णांक i, योग = 0;
+    क्रम(i=0;i<TAB_आकार + 1;i++) {
+        योग += tab[i];
     }
-    return sum;
+    वापस योग;
 }
 
 /* actually, profiling test */
-int test3(void)
+पूर्णांक test3(व्योम)
 {
-    int sum;
-    int i, it;
+    पूर्णांक योग;
+    पूर्णांक i, it;
 
-    sum = 0;
-    for(it=0;it<NB_ITS;it++) {
-        for(i=0;i<TAB_SIZE;i++) {
-            sum += tab[i];
+    योग = 0;
+    क्रम(it=0;it<NB_ITS;it++) {
+        क्रम(i=0;i<TAB_आकार;i++) {
+            योग += tab[i];
         }
     }
-    return sum;
+    वापस योग;
 }
 
 /* ok */
-int test4(void)
+पूर्णांक test4(व्योम)
 {
-    int i, sum = 0;
-    int *tab4;
+    पूर्णांक i, योग = 0;
+    पूर्णांक *tab4;
 
-    tab4 = malloc(20 * sizeof(int));
-    for(i=0;i<20;i++) {
-        sum += tab4[i];
+    tab4 = दो_स्मृति(20 * माप(पूर्णांक));
+    क्रम(i=0;i<20;i++) {
+        योग += tab4[i];
     }
-    free(tab4);
+    मुक्त(tab4);
 
-    return sum;
+    वापस योग;
 }
 
 /* error */
-int test5(void)
+पूर्णांक test5(व्योम)
 {
-    int i, sum = 0;
-    int *tab4;
+    पूर्णांक i, योग = 0;
+    पूर्णांक *tab4;
 
-    tab4 = malloc(20 * sizeof(int));
-    for(i=0;i<21;i++) {
-        sum += tab4[i];
+    tab4 = दो_स्मृति(20 * माप(पूर्णांक));
+    क्रम(i=0;i<21;i++) {
+        योग += tab4[i];
     }
-    free(tab4);
+    मुक्त(tab4);
 
-    return sum;
+    वापस योग;
 }
 
 /* error */
-int test6(void)
+पूर्णांक test6(व्योम)
 {
-    int i, sum = 0;
-    int *tab4;
+    पूर्णांक i, योग = 0;
+    पूर्णांक *tab4;
     
-    tab4 = malloc(20 * sizeof(int));
-    free(tab4);
-    for(i=0;i<21;i++) {
-        sum += tab4[i];
+    tab4 = दो_स्मृति(20 * माप(पूर्णांक));
+    मुक्त(tab4);
+    क्रम(i=0;i<21;i++) {
+        योग += tab4[i];
     }
 
-    return sum;
+    वापस योग;
 }
 
 /* error */
-int test7(void)
+पूर्णांक test7(व्योम)
 {
-    int i, sum = 0;
-    int *p;
+    पूर्णांक i, योग = 0;
+    पूर्णांक *p;
 
-    for(i=0;i<TAB_SIZE + 1;i++) {
+    क्रम(i=0;i<TAB_आकार + 1;i++) {
         p = &tab[i];
-        if (i == TAB_SIZE)
-            printf("i=%d %x\n", i, p);
-        sum += *p;
+        अगर (i == TAB_आकार)
+            म_लिखो("i=%d %x\n", i, p);
+        योग += *p;
     }
-    return sum;
+    वापस योग;
 }
 
 /* ok */
-int test8(void)
+पूर्णांक test8(व्योम)
 {
-    int i, sum = 0;
-    int tab[10];
+    पूर्णांक i, योग = 0;
+    पूर्णांक tab[10];
 
-    for(i=0;i<10;i++) {
-        sum += tab[i];
+    क्रम(i=0;i<10;i++) {
+        योग += tab[i];
     }
-    return sum;
+    वापस योग;
 }
 
 /* error */
-int test9(void)
+पूर्णांक test9(व्योम)
 {
-    int i, sum = 0;
-    char tab[10];
+    पूर्णांक i, योग = 0;
+    अक्षर tab[10];
 
-    for(i=0;i<11;i++) {
-        sum += tab[i];
+    क्रम(i=0;i<11;i++) {
+        योग += tab[i];
     }
-    return sum;
+    वापस योग;
 }
 
 /* ok */
-int test10(void)
+पूर्णांक test10(व्योम)
 {
-    char tab[10];
-    char tab1[10];
+    अक्षर tab[10];
+    अक्षर tab1[10];
 
-    memset(tab, 0, 10);
-    memcpy(tab, tab1, 10);
-    memmove(tab, tab1, 10);
-    return 0;
+    स_रखो(tab, 0, 10);
+    स_नकल(tab, tab1, 10);
+    स_हटाओ(tab, tab1, 10);
+    वापस 0;
 }
 
 /* error */
-int test11(void)
+पूर्णांक test11(व्योम)
 {
-    char tab[10];
+    अक्षर tab[10];
 
-    memset(tab, 0, 11);
-    return 0;
+    स_रखो(tab, 0, 11);
+    वापस 0;
 }
 
 /* error */
-int test12(void)
+पूर्णांक test12(व्योम)
 {
-    void *ptr;
-    ptr = malloc(10);
-    free(ptr);
-    free(ptr);
-    return 0;
+    व्योम *ptr;
+    ptr = दो_स्मृति(10);
+    मुक्त(ptr);
+    मुक्त(ptr);
+    वापस 0;
 }
 
 /* error */
-int test13(void)
+पूर्णांक test13(व्योम)
 {
-    char pad1 = 0;
-    char tab[10];
-    char pad2 = 0;
-    memset(tab, 'a', sizeof(tab));
-    return strlen(tab);
+    अक्षर pad1 = 0;
+    अक्षर tab[10];
+    अक्षर pad2 = 0;
+    स_रखो(tab, 'a', माप(tab));
+    वापस म_माप(tab);
 }
 
-int test14(void)
+पूर्णांक test14(व्योम)
 {
-    char *p = alloca(TAB_SIZE);
-    size_t ret;
-    memset(p, 'a', TAB_SIZE);
-    p[TAB_SIZE-1] = 0;
-    ret = strlen(p);
-    return ret;
+    अक्षर *p = alloca(TAB_आकार);
+    माप_प्रकार ret;
+    स_रखो(p, 'a', TAB_आकार);
+    p[TAB_आकार-1] = 0;
+    ret = म_माप(p);
+    वापस ret;
 }
 
 /* error */
-int test15(void)
+पूर्णांक test15(व्योम)
 {
-    char *p = alloca(TAB_SIZE-1);
-    size_t ret;
-    memset(p, 'a', TAB_SIZE);
-    p[TAB_SIZE-1] = 0;
-    ret = strlen(p);
-    return ret;
+    अक्षर *p = alloca(TAB_आकार-1);
+    माप_प्रकार ret;
+    स_रखो(p, 'a', TAB_आकार);
+    p[TAB_आकार-1] = 0;
+    ret = म_माप(p);
+    वापस ret;
 }
 
 /* ok */
-int test16()
+पूर्णांक test16()
 {
-    char *demo = "This is only a test.";
-    char *p, *q;
+    अक्षर *demo = "This is only a test.";
+    अक्षर *p, *q;
 
     p = alloca(16);
-    strcpy(p,"12345678901234");
+    म_नकल(p,"12345678901234");
 
     /* Test alloca embedded in a larger expression */
-    printf("alloca : %s : %s\n", p, strcpy(q=alloca(strlen(demo)+1),demo) );
+    म_लिखो("alloca : %s : %s\n", p, म_नकल(q=alloca(म_माप(demo)+1),demo) );
 
-    return 0;
+    वापस 0;
 }
 
 /* error */
-int test17()
+पूर्णांक test17()
 {
-    char *demo = "This is only a test.";
-    char *p, *q;
+    अक्षर *demo = "This is only a test.";
+    अक्षर *p, *q;
 
     p = alloca(16);
-    strcpy(p,"12345678901234");
+    म_नकल(p,"12345678901234");
 
     /* Test alloca embedded in a larger expression */
-    printf("alloca : %s : %s\n", p, strcpy(q=alloca(strlen(demo)),demo) );
+    म_लिखो("alloca : %s : %s\n", p, म_नकल(q=alloca(म_माप(demo)),demo) );
 
-    return 0;
+    वापस 0;
 }
 
-int test18(void)
+पूर्णांक test18(व्योम)
 {
-    int i, sum = 0, n = TAB_SIZE;
-    int tab[n];
-    for(i=0;i<TAB_SIZE+1;i++) {
-        sum += tab[i];
+    पूर्णांक i, योग = 0, n = TAB_आकार;
+    पूर्णांक tab[n];
+    क्रम(i=0;i<TAB_आकार+1;i++) {
+        योग += tab[i];
     }
-    return sum;
+    वापस योग;
 }
 
-int (*table_test[])(void) = {
+पूर्णांक (*table_test[])(व्योम) = {
     test1,
     test2,
     test3,
@@ -251,44 +251,44 @@ int (*table_test[])(void) = {
     test18
 };
 
-int main(int argc, char **argv)
+पूर्णांक मुख्य(पूर्णांक argc, अक्षर **argv)
 {
-    int i;
-    char *cp;
-    int index;
-    int (*ftest)(void);
-    int index_max = sizeof(table_test)/sizeof(table_test[0]);
+    पूर्णांक i;
+    अक्षर *cp;
+    पूर्णांक सूचकांक;
+    पूर्णांक (*ftest)(व्योम);
+    पूर्णांक सूचकांक_max = माप(table_test)/माप(table_test[0]);
 
     /* check bounds checking main arg */
-    for (i = 0; i < argc; i++) {
+    क्रम (i = 0; i < argc; i++) {
         cp = argv[i];
-        while (*cp) {
+        जबतक (*cp) {
             cp++;
         }
     }
 
-    if (argc < 2) {
-        printf(
+    अगर (argc < 2) {
+        म_लिखो(
     	    "test TCC bound checking system\n"
 	    "usage: boundtest N\n"
-            "  1 <= N <= %d\n", index_max);
-        exit(1);
+            "  1 <= N <= %d\n", सूचकांक_max);
+        निकास(1);
     }
 
-    index = 0;
-    if (argc >= 2)
-        index = atoi(argv[1]) - 1;
+    सूचकांक = 0;
+    अगर (argc >= 2)
+        सूचकांक = म_से_प(argv[1]) - 1;
 
-    if ((index < 0) || (index >= index_max)) {
-        printf("N is outside of the valid range (%d)\n", index);
-        exit(2);
+    अगर ((सूचकांक < 0) || (सूचकांक >= सूचकांक_max)) {
+        म_लिखो("N is outside of the valid range (%d)\n", सूचकांक);
+        निकास(2);
     }
 
     /* well, we also use bounds on this ! */
-    ftest = table_test[index];
+    ftest = table_test[सूचकांक];
     ftest();
 
-    return 0;
+    वापस 0;
 }
 
 /*

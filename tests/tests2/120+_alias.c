@@ -1,18 +1,18 @@
-extern int printf (const char *, ...);
-extern void target(void);
-extern void alias_for_target(void);
-extern void asm_for_target(void);
-extern int g_int, alias_int;
+बाह्य पूर्णांक म_लिखो (स्थिर अक्षर *, ...);
+बाह्य व्योम target(व्योम);
+बाह्य व्योम alias_for_target(व्योम);
+बाह्य व्योम asm_for_target(व्योम);
+बाह्य पूर्णांक g_int, alias_int;
 
-void inunit2(void);
+व्योम inunit2(व्योम);
 
-void inunit2(void)
+व्योम inunit2(व्योम)
 {
-  printf("in unit2:\n");
+  म_लिखो("in unit2:\n");
   target();
   alias_for_target();
   /* This symbol is not supposed to be available in this unit:
      asm_for_target();
    */
-  printf("g_int = %d\nalias_int = %d\n", g_int, alias_int);
+  म_लिखो("g_int = %d\nalias_int = %d\n", g_int, alias_int);
 }

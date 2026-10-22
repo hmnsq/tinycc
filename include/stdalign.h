@@ -1,16 +1,16 @@
-#ifndef _STDALIGN_H
-#define _STDALIGN_H
+#अगर_अघोषित _STDALIGN_H
+#घोषणा _STDALIGN_H
 
-#if __STDC_VERSION__ < 201112L && (defined(__GNUC__) || defined(__TINYC__))
+#अगर __STDC_VERSION__ < 201112L && (defined(__GNUC__) || defined(__TINYC__))
 # define _Alignas(t) __attribute__((__aligned__(t)))
 # define _Alignof(t) __alignof__(t)
-#endif
+#पूर्ण_अगर
 
-#define alignas _Alignas
-#define alignof _Alignof
+#घोषणा alignas _Alignas
+#घोषणा alignof _Alignof
 
-#define __alignas_is_defined 1
-#define __alignof_is_defined 1
+#घोषणा __alignas_is_defined 1
+#घोषणा __alignof_is_defined 1
 
-#endif /* _STDALIGN_H */
+#पूर्ण_अगर /* _STDALIGN_H */
 

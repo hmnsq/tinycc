@@ -3,179 +3,179 @@
  * This file is part of the w64 mingw-runtime package.
  * No warranty is given; refer to the file DISCLAIMER within this package.
  */
-#ifndef _MALLOC_H_
-#define _MALLOC_H_
+#अगर_अघोषित _MALLOC_H_
+#घोषणा _MALLOC_H_
 
-#include <_mingw.h>
+#समावेश <_mingw.h>
 
-#pragma pack(push,_CRT_PACKING)
+#आशय pack(धकेलो,_CRT_PACKING)
 
-#ifndef _MM_MALLOC_H_INCLUDED
-#define _MM_MALLOC_H_INCLUDED
-#endif
+#अगर_अघोषित _MM_MALLOC_H_INCLUDED
+#घोषणा _MM_MALLOC_H_INCLUDED
+#पूर्ण_अगर
 
-#ifdef __cplusplus
-extern "C" {
-#endif
+#अगर_घोषित __cplusplus
+बाह्य "C" {
+#पूर्ण_अगर
 
-#ifdef _WIN64
-#define _HEAP_MAXREQ 0xFFFFFFFFFFFFFFE0
-#else
-#define _HEAP_MAXREQ 0xFFFFFFE0
-#endif
+#अगर_घोषित _WIN64
+#घोषणा _HEAP_MAXREQ 0xFFFFFFFFFFFFFFE0
+#अन्यथा
+#घोषणा _HEAP_MAXREQ 0xFFFFFFE0
+#पूर्ण_अगर
 
-#ifndef _STATIC_ASSERT
-#define _STATIC_ASSERT(expr) extern void __static_assert_t(int [(expr)?1:-1])
-#endif
+#अगर_अघोषित _STATIC_ASSERT
+#घोषणा _STATIC_ASSERT(व्यंजक) बाह्य व्योम __static_assert_t(पूर्णांक [(व्यंजक)?1:-1])
+#पूर्ण_अगर
 
 /* Return codes for _heapwalk()  */
-#define _HEAPEMPTY (-1)
-#define _HEAPOK (-2)
-#define _HEAPBADBEGIN (-3)
-#define _HEAPBADNODE (-4)
-#define _HEAPEND (-5)
-#define _HEAPBADPTR (-6)
+#घोषणा _HEAPEMPTY (-1)
+#घोषणा _HEAPOK (-2)
+#घोषणा _HEAPBADBEGIN (-3)
+#घोषणा _HEAPBADNODE (-4)
+#घोषणा _HEAPEND (-5)
+#घोषणा _HEAPBADPTR (-6)
 
 /* Values for _heapinfo.useflag */
-#define _FREEENTRY 0
-#define _USEDENTRY 1
+#घोषणा _FREEENTRY 0
+#घोषणा _USEDENTRY 1
 
-#ifndef _HEAPINFO_DEFINED
-#define _HEAPINFO_DEFINED
+#अगर_अघोषित _HEAPINFO_DEFINED
+#घोषणा _HEAPINFO_DEFINED
  /* The structure used to walk through the heap with _heapwalk.  */
-  typedef struct _heapinfo {
-    int *_pentry;
-    size_t _size;
-    int _useflag;
+  प्रकार काष्ठा _heapinfo {
+    पूर्णांक *_pentry;
+    माप_प्रकार आकार_5;
+    पूर्णांक _useflag;
   } _HEAPINFO;
-#endif
+#पूर्ण_अगर
 
-  extern unsigned int _amblksiz;
+  बाह्य अचिन्हित पूर्णांक _amblksiz;
 
-#define _mm_free(a) _aligned_free(a)
-#define _mm_malloc(a,b) _aligned_malloc(a,b)
+#घोषणा _mm_free(a) _aligned_free(a)
+#घोषणा _mm_malloc(a,b) _aligned_malloc(a,b)
 
-#ifndef _CRT_ALLOCATION_DEFINED
-#define _CRT_ALLOCATION_DEFINED
-  void *__cdecl calloc(size_t _NumOfElements,size_t _SizeOfElements);
-  void __cdecl free(void *_Memory);
-  void *__cdecl malloc(size_t _Size);
-  void *__cdecl realloc(void *_Memory,size_t _NewSize);
-  _CRTIMP void *__cdecl _recalloc(void *_Memory,size_t _Count,size_t _Size);
-  _CRTIMP void __cdecl _aligned_free(void *_Memory);
-  _CRTIMP void *__cdecl _aligned_malloc(size_t _Size,size_t _Alignment);
-  _CRTIMP void *__cdecl _aligned_offset_malloc(size_t _Size,size_t _Alignment,size_t _Offset);
-  _CRTIMP void *__cdecl _aligned_realloc(void *_Memory,size_t _Size,size_t _Alignment);
-  _CRTIMP void *__cdecl _aligned_recalloc(void *_Memory,size_t _Count,size_t _Size,size_t _Alignment);
-  _CRTIMP void *__cdecl _aligned_offset_realloc(void *_Memory,size_t _Size,size_t _Alignment,size_t _Offset);
-  _CRTIMP void *__cdecl _aligned_offset_recalloc(void *_Memory,size_t _Count,size_t _Size,size_t _Alignment,size_t _Offset);
-#endif
+#अगर_अघोषित _CRT_ALLOCATION_DEFINED
+#घोषणा _CRT_ALLOCATION_DEFINED
+  व्योम *__cdecl सुस्मृति(माप_प्रकार अंक_Of_Elements,माप_प्रकार आकार_Of_Elements);
+  व्योम __cdecl मुक्त(व्योम *_Memory);
+  व्योम *__cdecl दो_स्मृति(माप_प्रकार आकार_4);
+  व्योम *__cdecl पुनः_स्मृति(व्योम *_Memory,माप_प्रकार New_आकार);
+  _CRTIMP व्योम *__cdecl _recalloc(व्योम *_Memory,माप_प्रकार गिनती_5,माप_प्रकार आकार_4);
+  _CRTIMP व्योम __cdecl _aligned_free(व्योम *_Memory);
+  _CRTIMP व्योम *__cdecl _aligned_malloc(माप_प्रकार आकार_4,माप_प्रकार _Alignment);
+  _CRTIMP व्योम *__cdecl _aligned_offset_malloc(माप_प्रकार आकार_4,माप_प्रकार _Alignment,माप_प्रकार _Offset);
+  _CRTIMP व्योम *__cdecl _aligned_realloc(व्योम *_Memory,माप_प्रकार आकार_4,माप_प्रकार _Alignment);
+  _CRTIMP व्योम *__cdecl _aligned_recalloc(व्योम *_Memory,माप_प्रकार गिनती_5,माप_प्रकार आकार_4,माप_प्रकार _Alignment);
+  _CRTIMP व्योम *__cdecl _aligned_offset_realloc(व्योम *_Memory,माप_प्रकार आकार_4,माप_प्रकार _Alignment,माप_प्रकार _Offset);
+  _CRTIMP व्योम *__cdecl _aligned_offset_recalloc(व्योम *_Memory,माप_प्रकार गिनती_5,माप_प्रकार आकार_4,माप_प्रकार _Alignment,माप_प्रकार _Offset);
+#पूर्ण_अगर
 
-#define _MAX_WAIT_MALLOC_CRT 60000
+#घोषणा _MAX_WAIT_MALLOC_CRT 60000
 
-  _CRTIMP int __cdecl _resetstkoflw (void);
-  _CRTIMP unsigned long __cdecl _set_malloc_crt_max_wait(unsigned long _NewValue);
+  _CRTIMP पूर्णांक __cdecl _resetstkoflw (व्योम);
+  _CRTIMP अचिन्हित दीर्घ __cdecl _set_malloc_crt_max_wait(अचिन्हित दीर्घ New_मूल्य);
 
-  _CRTIMP void *__cdecl _expand(void *_Memory,size_t _NewSize);
-  _CRTIMP size_t __cdecl _msize(void *_Memory);
-#ifdef __GNUC__
-#undef _alloca
-#define _alloca(x) __builtin_alloca((x))
-#else
+  _CRTIMP व्योम *__cdecl _expand(व्योम *_Memory,माप_प्रकार New_आकार);
+  _CRTIMP माप_प्रकार __cdecl _msize(व्योम *_Memory);
+#अगर_घोषित __GNUC__
+#अघोषित _alloca
+#घोषणा _alloca(x) __builtin_alloca((x))
+#अन्यथा
   /* tcc implements alloca internally and exposes it (since commit d778bde7).
   /* alloca is declared at include/stddef.h (which is distributed with tcc).
    */
-#ifdef _alloca
-#undef _alloca
-#endif
-#define _alloca(x) alloca((x))
-#endif
-  _CRTIMP size_t __cdecl _get_sbh_threshold(void);
-  _CRTIMP int __cdecl _set_sbh_threshold(size_t _NewValue);
-  _CRTIMP errno_t __cdecl _set_amblksiz(size_t _Value);
-  _CRTIMP errno_t __cdecl _get_amblksiz(size_t *_Value);
-  _CRTIMP int __cdecl _heapadd(void *_Memory,size_t _Size);
-  _CRTIMP int __cdecl _heapchk(void);
-  _CRTIMP int __cdecl _heapmin(void);
-  _CRTIMP int __cdecl _heapset(unsigned int _Fill);
-  _CRTIMP int __cdecl _heapwalk(_HEAPINFO *_EntryInfo);
-  _CRTIMP size_t __cdecl _heapused(size_t *_Used,size_t *_Commit);
-  _CRTIMP intptr_t __cdecl _get_heap_handle(void);
+#अगर_घोषित _alloca
+#अघोषित _alloca
+#पूर्ण_अगर
+#घोषणा _alloca(x) alloca((x))
+#पूर्ण_अगर
+  _CRTIMP माप_प्रकार __cdecl _get_sbh_threshold(व्योम);
+  _CRTIMP पूर्णांक __cdecl _set_sbh_threshold(माप_प्रकार New_मूल्य);
+  _CRTIMP errno_t __cdecl _set_amblksiz(माप_प्रकार मूल्य_2);
+  _CRTIMP errno_t __cdecl _get_amblksiz(माप_प्रकार *मूल्य_2);
+  _CRTIMP पूर्णांक __cdecl _heapadd(व्योम *_Memory,माप_प्रकार आकार_4);
+  _CRTIMP पूर्णांक __cdecl _heapchk(व्योम);
+  _CRTIMP पूर्णांक __cdecl _heapmin(व्योम);
+  _CRTIMP पूर्णांक __cdecl _heapset(अचिन्हित पूर्णांक _Fill);
+  _CRTIMP पूर्णांक __cdecl _heapwalk(_HEAPINFO *_EntryInfo);
+  _CRTIMP माप_प्रकार __cdecl _heapused(माप_प्रकार *_Used,माप_प्रकार *_Commit);
+  _CRTIMP intptr_t __cdecl _get_heap_handle(व्योम);
 
-#define _ALLOCA_S_THRESHOLD 1024
-#define _ALLOCA_S_STACK_MARKER 0xCCCC
-#define _ALLOCA_S_HEAP_MARKER 0xDDDD
+#घोषणा _ALLOCA_S_THRESHOLD 1024
+#घोषणा ALLOCA_S_ढेर_MARKER 0xCCCC
+#घोषणा _ALLOCA_S_HEAP_MARKER 0xDDDD
 
-#if(defined(_X86_) && !defined(__x86_64))
-#define _ALLOCA_S_MARKER_SIZE 8
-#elif defined(__ia64__) || defined(__x86_64)
-#define _ALLOCA_S_MARKER_SIZE 16
-#endif
+#अगर(defined(_X86_) && !defined(__x86_64))
+#घोषणा ALLOCA_S_MARKER_आकार 8
+#या_अगर defined(__ia64__) || defined(__x86_64)
+#घोषणा ALLOCA_S_MARKER_आकार 16
+#पूर्ण_अगर
 
-#if !defined(RC_INVOKED)
-  static __inline void *_MarkAllocaS(void *_Ptr,unsigned int _Marker) {
-    if(_Ptr) {
-      *((unsigned int*)_Ptr) = _Marker;
-      _Ptr = (char*)_Ptr + _ALLOCA_S_MARKER_SIZE;
+#अगर !defined(RC_INVOKED)
+  अटल __inline व्योम *_MarkAllocaS(व्योम *_Ptr,अचिन्हित पूर्णांक _Marker) {
+    अगर(_Ptr) {
+      *((अचिन्हित पूर्णांक*)_Ptr) = _Marker;
+      _Ptr = (अक्षर*)_Ptr + ALLOCA_S_MARKER_आकार;
     }
-    return _Ptr;
+    वापस _Ptr;
   }
-#endif
+#पूर्ण_अगर
 
-#undef _malloca
-#define _malloca(size) \
-  ((((size) + _ALLOCA_S_MARKER_SIZE) <= _ALLOCA_S_THRESHOLD) ? \
-    _MarkAllocaS(_alloca((size) + _ALLOCA_S_MARKER_SIZE),_ALLOCA_S_STACK_MARKER) : \
-    _MarkAllocaS(malloc((size) + _ALLOCA_S_MARKER_SIZE),_ALLOCA_S_HEAP_MARKER))
-#undef _FREEA_INLINE
-#define _FREEA_INLINE
+#अघोषित _malloca
+#घोषणा _malloca(आकार) \
+  ((((आकार) + ALLOCA_S_MARKER_आकार) <= _ALLOCA_S_THRESHOLD) ? \
+    _MarkAllocaS(_alloca((आकार) + ALLOCA_S_MARKER_आकार),ALLOCA_S_ढेर_MARKER) : \
+    _MarkAllocaS(दो_स्मृति((आकार) + ALLOCA_S_MARKER_आकार),_ALLOCA_S_HEAP_MARKER))
+#अघोषित _FREEA_INLINE
+#घोषणा _FREEA_INLINE
 
-#ifndef RC_INVOKED
-#undef _freea
-  static __inline void __cdecl _freea(void *_Memory) {
-    unsigned int _Marker;
-    if(_Memory) {
-      _Memory = (char*)_Memory - _ALLOCA_S_MARKER_SIZE;
-      _Marker = *(unsigned int *)_Memory;
-      if(_Marker==_ALLOCA_S_HEAP_MARKER) {
-	free(_Memory);
+#अगर_अघोषित RC_INVOKED
+#अघोषित _freea
+  अटल __inline व्योम __cdecl _freea(व्योम *_Memory) {
+    अचिन्हित पूर्णांक _Marker;
+    अगर(_Memory) {
+      _Memory = (अक्षर*)_Memory - ALLOCA_S_MARKER_आकार;
+      _Marker = *(अचिन्हित पूर्णांक *)_Memory;
+      अगर(_Marker==_ALLOCA_S_HEAP_MARKER) {
+	मुक्त(_Memory);
       }
-#ifdef _ASSERTE
-      else if(_Marker!=_ALLOCA_S_STACK_MARKER) {
+#अगर_घोषित _ASSERTE
+      अन्यथा अगर(_Marker!=ALLOCA_S_ढेर_MARKER) {
 	_ASSERTE(("Corrupted pointer passed to _freea",0));
       }
-#endif
+#पूर्ण_अगर
     }
   }
-#endif /* RC_INVOKED */
+#पूर्ण_अगर /* RC_INVOKED */
 
-#ifndef	NO_OLDNAMES
-#ifdef __GNUC__
-#undef alloca
-#define alloca(x) __builtin_alloca((x))
-#endif
-#endif
+#अगर_अघोषित	NO_OLDNAMES
+#अगर_घोषित __GNUC__
+#अघोषित alloca
+#घोषणा alloca(x) __builtin_alloca((x))
+#पूर्ण_अगर
+#पूर्ण_अगर
 
-#ifdef HEAPHOOK
-#ifndef _HEAPHOOK_DEFINED
-#define _HEAPHOOK_DEFINED
-  typedef int (__cdecl *_HEAPHOOK)(int,size_t,void *,void **);
-#endif
+#अगर_घोषित HEAPHOOK
+#अगर_अघोषित _HEAPHOOK_DEFINED
+#घोषणा _HEAPHOOK_DEFINED
+  प्रकार पूर्णांक (__cdecl *_HEAPHOOK)(पूर्णांक,माप_प्रकार,व्योम *,व्योम **);
+#पूर्ण_अगर
 
   _CRTIMP _HEAPHOOK __cdecl _setheaphook(_HEAPHOOK _NewHook);
 
-#define _HEAP_MALLOC 1
-#define _HEAP_CALLOC 2
-#define _HEAP_FREE 3
-#define _HEAP_REALLOC 4
-#define _HEAP_MSIZE 5
-#define _HEAP_EXPAND 6
-#endif
+#घोषणा _HEAP_MALLOC 1
+#घोषणा _HEAP_CALLOC 2
+#घोषणा _HEAP_FREE 3
+#घोषणा _HEAP_REALLOC 4
+#घोषणा _HEAP_MSIZE 5
+#घोषणा _HEAP_EXPAND 6
+#पूर्ण_अगर
 
-#ifdef __cplusplus
+#अगर_घोषित __cplusplus
 }
-#endif
+#पूर्ण_अगर
 
-#pragma pack(pop)
+#आशय pack(निकालो)
 
-#endif /* _MALLOC_H_ */
+#पूर्ण_अगर /* _MALLOC_H_ */

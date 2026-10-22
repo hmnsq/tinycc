@@ -1,14 +1,14 @@
-#ifndef _STDARG_H
-#define _STDARG_H
+#अगर_अघोषित _STDARG_H
+#घोषणा _STDARG_H
 
-typedef __builtin_va_list va_list;
-#define va_start __builtin_va_start
-#define va_arg __builtin_va_arg
-#define va_copy __builtin_va_copy
-#define va_end __builtin_va_end
+प्रकार __builtin_va_list बहु_सूची;
+#घोषणा बहु_शुरू __builtin_va_start
+#घोषणा बहु_तर्क __builtin_va_arg
+#घोषणा va_copy __builtin_va_copy
+#घोषणा बहु_पूर्ण __builtin_va_end
 
 /* fix a buggy dependency on GCC in libio.h */
-typedef va_list __gnuc_va_list;
-#define _VA_LIST_DEFINED
+प्रकार बहु_सूची __gnuc_va_list;
+#घोषणा _VA_LIST_DEFINED
 
-#endif /* _STDARG_H */
+#पूर्ण_अगर /* _STDARG_H */

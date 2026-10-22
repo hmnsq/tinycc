@@ -1,21 +1,21 @@
-#include <stdio.h>
+#समावेश <stdio.h>
 
-int main()
+पूर्णांक मुख्य()
 {
-   int x, y, z;
+   पूर्णांक x, y, z;
 
-   for (x = 0; x < 2; x++)
+   क्रम (x = 0; x < 2; x++)
    {
-      for (y = 0; y < 3; y++)
+      क्रम (y = 0; y < 3; y++)
       {
-         for (z = 0; z < 3; z++)
+         क्रम (z = 0; z < 3; z++)
          {
-            printf("%d %d %d\n", x, y, z);
+            म_लिखो("%d %d %d\n", x, y, z);
          }
       }
    }
 
-   return 0;
+   वापस 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

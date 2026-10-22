@@ -1,4 +1,4 @@
-#define X(a,b, \
+#घोषणा X(a,b, \
 	c,d) \
 	foo
 

@@ -160,10 +160,10 @@
  DEF_ASM(stc2)
  DEF_ASM(stc2l)
 
-#define ARM_INSTRUCTION_GROUP(tok) ((((tok) - TOK_ASM_nopeq) & 0xFFFFFFF0) + TOK_ASM_nopeq)
+#घोषणा ARM_INSTRUCTION_GROUP(tok) ((((tok) - TOK_ASM_nopeq) & 0xFFFFFFF0) + TOK_ASM_nopeq)
 
 /* Note: condition code is 4 bits */
-#define DEF_ASM_CONDED(x) \
+#घोषणा DEF_ASM_CONDED(x) \
   DEF(TOK_ASM_ ## x ## eq, #x "eq") \
   DEF(TOK_ASM_ ## x ## ne, #x "ne") \
   DEF(TOK_ASM_ ## x ## cs, #x "cs") \
@@ -182,7 +182,7 @@
   DEF(TOK_ASM_ ## x ## rsvd, #x "rsvd")
 
 /* Note: condition code is 4 bits */
-#define DEF_ASM_CONDED_WITH_SUFFIX(x, y) \
+#घोषणा DEF_ASM_CONDED_WITH_SUFFIX(x, y) \
   DEF(TOK_ASM_ ## x ## eq ## _ ## y, #x "eq." #y) \
   DEF(TOK_ASM_ ## x ## ne ## _ ## y, #x "ne." #y) \
   DEF(TOK_ASM_ ## x ## cs ## _ ## y, #x "cs." #y) \
@@ -200,11 +200,11 @@
   DEF(TOK_ASM_ ## x ## _ ## y, #x "." #y) \
   DEF(TOK_ASM_ ## x ## rsvd ## _ ## y, #x "rsvd." #y)
 
-#define DEF_ASM_CONDED_VFP_F32_F64(x) \
+#घोषणा DEF_ASM_CONDED_VFP_F32_F64(x) \
   DEF_ASM_CONDED_WITH_SUFFIX(x, f32) \
   DEF_ASM_CONDED_WITH_SUFFIX(x, f64)
 
-#define DEF_ASM_CONDED_WITH_TWO_SUFFIXES(x, y, z) \
+#घोषणा DEF_ASM_CONDED_WITH_TWO_SUFFIXES(x, y, z) \
   DEF(TOK_ASM_ ## x ## eq ## _ ## y ## _ ## z, #x "eq." #y "." #z) \
   DEF(TOK_ASM_ ## x ## ne ## _ ## y ## _ ## z, #x "ne." #y "." #z) \
   DEF(TOK_ASM_ ## x ## cs ## _ ## y ## _ ## z, #x "cs." #y "." #z) \
@@ -295,8 +295,8 @@
 
  /* instruction macros */
 
- DEF_ASM_CONDED(push)
- DEF_ASM_CONDED(pop)
+ DEF_ASM_CONDED(धकेलो)
+ DEF_ASM_CONDED(निकालो)
 
  /* branches */
 

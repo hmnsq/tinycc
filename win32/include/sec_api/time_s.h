@@ -3,59 +3,59 @@
  * This file is part of the w64 mingw-runtime package.
  * No warranty is given; refer to the file DISCLAIMER within this package.
  */
-#ifndef _TIME_H__S
-#define _TIME_H__S
+#अगर_अघोषित _TIME_H__S
+#घोषणा _TIME_H__S
 
-#include <time.h>
+#समावेश <time.h>
 
-#if defined(MINGW_HAS_SECURE_API)
+#अगर defined(MINGW_HAS_SECURE_API)
 
-#ifdef __cplusplus
-extern "C" {
-#endif
+#अगर_घोषित __cplusplus
+बाह्य "C" {
+#पूर्ण_अगर
 
-  _CRTIMP errno_t __cdecl _ctime32_s(char *_Buf,size_t _SizeInBytes,const __time32_t *_Time);
-  _CRTIMP errno_t __cdecl _gmtime32_s(struct tm *_Tm,const __time32_t *_Time);
-  _CRTIMP errno_t __cdecl _localtime32_s(struct tm *_Tm,const __time32_t *_Time);
-  _CRTIMP errno_t __cdecl _strdate_s(char *_Buf,size_t _SizeInBytes);
-  _CRTIMP errno_t __cdecl _strtime_s(char *_Buf ,size_t _SizeInBytes);
-#if _INTEGRAL_MAX_BITS >= 64
-  _CRTIMP errno_t __cdecl _ctime64_s(char *_Buf,size_t _SizeInBytes,const __time64_t *_Time);
-  _CRTIMP errno_t __cdecl _gmtime64_s(struct tm *_Tm,const __time64_t *_Time);
-  _CRTIMP errno_t __cdecl _localtime64_s(struct tm *_Tm,const __time64_t *_Time);
-#endif
+  _CRTIMP errno_t __cdecl _ctime32_s(अक्षर *_Buf,माप_प्रकार आकार_In_Bytes,स्थिर __time32_t *_Time);
+  _CRTIMP errno_t __cdecl _gmtime32_s(काष्ठा पंचांग *_Tm,स्थिर __time32_t *_Time);
+  _CRTIMP errno_t __cdecl _localtime32_s(काष्ठा पंचांग *_Tm,स्थिर __time32_t *_Time);
+  _CRTIMP errno_t __cdecl _strdate_s(अक्षर *_Buf,माप_प्रकार आकार_In_Bytes);
+  _CRTIMP errno_t __cdecl _strtime_s(अक्षर *_Buf ,माप_प्रकार आकार_In_Bytes);
+#अगर _INTEGRAL_MAX_BITS >= 64
+  _CRTIMP errno_t __cdecl _ctime64_s(अक्षर *_Buf,माप_प्रकार आकार_In_Bytes,स्थिर __time64_t *_Time);
+  _CRTIMP errno_t __cdecl _gmtime64_s(काष्ठा पंचांग *_Tm,स्थिर __time64_t *_Time);
+  _CRTIMP errno_t __cdecl _localtime64_s(काष्ठा पंचांग *_Tm,स्थिर __time64_t *_Time);
+#पूर्ण_अगर
 
-#ifndef _WTIME_S_DEFINED
-#define _WTIME_S_DEFINED
-  _CRTIMP errno_t __cdecl _wasctime_s(wchar_t *_Buf,size_t _SizeInWords,const struct tm *_Tm);
-  _CRTIMP errno_t __cdecl _wctime32_s(wchar_t *_Buf,size_t _SizeInWords,const __time32_t *_Time);
-  _CRTIMP errno_t __cdecl _wstrdate_s(wchar_t *_Buf,size_t _SizeInWords);
-  _CRTIMP errno_t __cdecl _wstrtime_s(wchar_t *_Buf,size_t _SizeInWords);
-#if _INTEGRAL_MAX_BITS >= 64
-  _CRTIMP errno_t __cdecl _wctime64_s(wchar_t *_Buf,size_t _SizeInWords,const __time64_t *_Time);
-#endif
+#अगर_अघोषित _WTIME_S_DEFINED
+#घोषणा _WTIME_S_DEFINED
+  _CRTIMP errno_t __cdecl _wasctime_s(ब_अक्षर_प्रकार *_Buf,माप_प्रकार आकार_In_शब्दगण,स्थिर काष्ठा पंचांग *_Tm);
+  _CRTIMP errno_t __cdecl _wctime32_s(ब_अक्षर_प्रकार *_Buf,माप_प्रकार आकार_In_शब्दगण,स्थिर __time32_t *_Time);
+  _CRTIMP errno_t __cdecl _wstrdate_s(ब_अक्षर_प्रकार *_Buf,माप_प्रकार आकार_In_शब्दगण);
+  _CRTIMP errno_t __cdecl _wstrtime_s(ब_अक्षर_प्रकार *_Buf,माप_प्रकार आकार_In_शब्दगण);
+#अगर _INTEGRAL_MAX_BITS >= 64
+  _CRTIMP errno_t __cdecl _wctime64_s(ब_अक्षर_प्रकार *_Buf,माप_प्रकार आकार_In_शब्दगण,स्थिर __time64_t *_Time);
+#पूर्ण_अगर
 
-#if !defined (RC_INVOKED) && !defined (_INC_WTIME_S_INL)
-#define _INC_WTIME_S_INL
-#ifdef _USE_32BIT_TIME_T
-__CRT_INLINE errno_t __cdecl _wctime_s(wchar_t *_Buffer,size_t _SizeInWords,const time_t *_Time) { return _wctime32_s(_Buffer,_SizeInWords,_Time); }
-#else
-__CRT_INLINE errno_t __cdecl _wctime_s(wchar_t *_Buffer,size_t _SizeInWords,const time_t *_Time) { return _wctime64_s(_Buffer,_SizeInWords,_Time); }
-#endif
-#endif
-#endif
+#अगर !defined (RC_INVOKED) && !defined (_INC_WTIME_S_INL)
+#घोषणा _INC_WTIME_S_INL
+#अगर_घोषित _USE_32BIT_TIME_T
+__CRT_INLINE errno_t __cdecl _wctime_s(ब_अक्षर_प्रकार *बफर_2,माप_प्रकार आकार_In_शब्दगण,स्थिर समय_प्रकार *_Time) { वापस _wctime32_s(बफर_2,आकार_In_शब्दगण,_Time); }
+#अन्यथा
+__CRT_INLINE errno_t __cdecl _wctime_s(ब_अक्षर_प्रकार *बफर_2,माप_प्रकार आकार_In_शब्दगण,स्थिर समय_प्रकार *_Time) { वापस _wctime64_s(बफर_2,आकार_In_शब्दगण,_Time); }
+#पूर्ण_अगर
+#पूर्ण_अगर
+#पूर्ण_अगर
 
-#ifndef RC_INVOKED
-#ifdef _USE_32BIT_TIME_T
-__CRT_INLINE errno_t __cdecl localtime_s(struct tm *_Tm,const time_t *_Time) { return _localtime32_s(_Tm,_Time); }
-#else
-__CRT_INLINE errno_t __cdecl localtime_s(struct tm *_Tm,const time_t *_Time) { return _localtime64_s(_Tm,_Time); }
-#endif
-#endif
+#अगर_अघोषित RC_INVOKED
+#अगर_घोषित _USE_32BIT_TIME_T
+__CRT_INLINE errno_t __cdecl localtime_s(काष्ठा पंचांग *_Tm,स्थिर समय_प्रकार *_Time) { वापस _localtime32_s(_Tm,_Time); }
+#अन्यथा
+__CRT_INLINE errno_t __cdecl localtime_s(काष्ठा पंचांग *_Tm,स्थिर समय_प्रकार *_Time) { वापस _localtime64_s(_Tm,_Time); }
+#पूर्ण_अगर
+#पूर्ण_अगर
 
-#ifdef __cplusplus
+#अगर_घोषित __cplusplus
 }
-#endif
+#पूर्ण_अगर
 
-#endif
-#endif
+#पूर्ण_अगर
+#पूर्ण_अगर

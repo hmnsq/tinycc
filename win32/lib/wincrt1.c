@@ -1,86 +1,86 @@
 //+---------------------------------------------------------------------------
 
 // _UNICODE for tchar.h, UNICODE for API
-#include <tchar.h>
+#समावेश <tchar.h>
 
-#include <windows.h>
-#include <stdlib.h>
+#समावेश <windows.h>
+#समावेश <stdlib.h>
 
-#define __UNKNOWN_APP    0
-#define __CONSOLE_APP    1
-#define __GUI_APP        2
-void __set_app_type(int);
-void _controlfp(unsigned a, unsigned b);
+#घोषणा __UNKNOWN_APP    0
+#घोषणा __CONSOLE_APP    1
+#घोषणा __GUI_APP        2
+व्योम __set_app_type(पूर्णांक);
+व्योम _controlfp(अचिन्हित a, अचिन्हित b);
 
-#ifdef _UNICODE
-#define __tgetmainargs __wgetmainargs
-#define _twinstart _wwinstart
-#define _runtwinmain _runwwinmain
-int APIENTRY wWinMain(HINSTANCE, HINSTANCE, LPWSTR, int);
-#else
-#define __tgetmainargs __getmainargs
-#define _twinstart _winstart
-#define _runtwinmain _runwinmain
-#endif
+#अगर_घोषित _UNICODE
+#घोषणा __tgetmainargs __wgetmainargs
+#घोषणा _twinstart _wwinstart
+#घोषणा _runtwinmain _runwwinmain
+पूर्णांक APIENTRY wWinMain(HINSTANCE, HINSTANCE, LPWSTR, पूर्णांक);
+#अन्यथा
+#घोषणा __tgetmainargs __getmainargs
+#घोषणा _twinstart _winstart
+#घोषणा _runtwinmain _runwinmain
+#पूर्ण_अगर
 
-typedef struct { int newmode; } _startupinfo;
-int __cdecl __tgetmainargs(int *pargc, _TCHAR ***pargv, _TCHAR ***penv, int globb, _startupinfo*);
+प्रकार काष्ठा { पूर्णांक newmode; } _startupinfo;
+पूर्णांक __cdecl __tgetmainargs(पूर्णांक *pargc, _TCHAR ***pargv, _TCHAR ***penv, पूर्णांक globb, _startupinfo*);
 
-#include "crtinit.c"
+#समावेश "crtinit.c"
 
-static int go_winmain(TCHAR *arg1)
+अटल पूर्णांक go_winmain(TCHAR *arg1)
 {
     STARTUPINFO si;
     _TCHAR *szCmd, *p;
-    int fShow;
-    int retval;
+    पूर्णांक fShow;
+    पूर्णांक retval;
 
     GetStartupInfo(&si);
-    if (si.dwFlags & STARTF_USESHOWWINDOW)
+    अगर (si.dwFlags & STARTF_USESHOWWINDOW)
         fShow = si.wShowWindow;
-    else
+    अन्यथा
         fShow = SW_SHOWDEFAULT;
 
-    szCmd = NULL, p = GetCommandLine();
-    if (arg1)
+    szCmd = शून्य, p = Get_Command_पंक्ति();
+    अगर (arg1)
         szCmd = _tcsstr(p, arg1);
-    if (NULL == szCmd)
+    अगर (शून्य == szCmd)
         szCmd = _tcsdup(__T(""));
-    else if (szCmd > p && szCmd[-1] == __T('"'))
+    अन्यथा अगर (szCmd > p && szCmd[-1] == __T('"'))
         --szCmd;
-#if defined __i386__ || defined __x86_64__
+#अगर defined __i386__ || defined __x86_64__
     _controlfp(0x10000, 0x30000);
-#endif
+#पूर्ण_अगर
     run_ctors(__argc, __targv, _tenviron);
-    retval = _tWinMain(GetModuleHandle(NULL), NULL, szCmd, fShow);
+    retval = _tWinMain(GetModuleHandle(शून्य), शून्य, szCmd, fShow);
     run_dtors();
-    return retval;
+    वापस retval;
 }
 
-static LONG WINAPI catch_sig(EXCEPTION_POINTERS *ex)
+अटल LONG WINAPI catch_sig(EXCEPTION_POINTERS *ex)
 {
-  return _XcptFilter(ex->ExceptionRecord->ExceptionCode, ex);
+  वापस _XcptFilter(ex->ExceptionRecord->ExceptionCode, ex);
 }
 
-int _twinstart(void)
+पूर्णांक _twinstart(व्योम)
 {
     _startupinfo start_info_con = {0};
     SetUnhandledExceptionFilter(catch_sig);
     __set_app_type(__GUI_APP);
     __tgetmainargs(&__argc, &__targv, &_tenviron, 0, &start_info_con);
-    exit(go_winmain(__argc > 1 ? __targv[1] : NULL));
+    निकास(go_winmain(__argc > 1 ? __targv[1] : शून्य));
 }
 
-int _runtwinmain(int argc, /* as tcc passed in */ char **argv)
+पूर्णांक _runtwinmain(पूर्णांक argc, /* as tcc passed in */ अक्षर **argv)
 {
-#ifdef UNICODE
+#अगर_घोषित UNICODE
     _startupinfo start_info = {0};
     __tgetmainargs(&__argc, &__targv, &_tenviron, 0, &start_info);
     /* may be wrong when tcc has received wildcards (*.c) */
-    if (argc < __argc)
+    अगर (argc < __argc)
         __targv += __argc - argc, __argc = argc;
-#else
+#अन्यथा
     __argc = argc, __targv = argv;
-#endif
-    return go_winmain(__argc > 1 ? __targv[1] : NULL);
+#पूर्ण_अगर
+    वापस go_winmain(__argc > 1 ? __targv[1] : शून्य);
 }

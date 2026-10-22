@@ -1,113 +1,113 @@
-#include <stdio.h>
+#समावेश <stdio.h>
 
-int f(void)
+पूर्णांक f(व्योम)
 {
-  return 5;
+  वापस 5;
 }
 
-void test1()
+व्योम test1()
 {
-  int count = 10;
-  void *addr[10];
-  for(;count--;) {
-    int a[f()];
+  पूर्णांक गिनती_2 = 10;
+  व्योम *addr[10];
+  क्रम(;गिनती_2--;) {
+    पूर्णांक a[f()];
 
-    addr[count] = a;
+    addr[गिनती_2] = a;
 
-    continue;
+    जारी;
   }
 
-  if(addr[9] == addr[0]) {
-    printf("OK\n");
-  } else {
-    printf("NOT OK\n");
-  }
-}
-
-void test2()
-{
-  int count = 10;
-  void *addr[count];
-  for(;count--;) {
-    int a[f()];
-
-    addr[count] = a;
-
-    continue;
-  }
-
-  if(addr[9] == addr[0]) {
-    printf("OK\n");
-  } else {
-    printf("NOT OK\n");
+  अगर(addr[9] == addr[0]) {
+    म_लिखो("OK\n");
+  } अन्यथा {
+    म_लिखो("NOT OK\n");
   }
 }
 
-void test3()
+व्योम test2()
 {
-  int count = 10;
-  void *addr[count];
-  while(count--) {
-      int b[f()];
-      if (count >= 0) {
-          int a[f()];
+  पूर्णांक गिनती_2 = 10;
+  व्योम *addr[गिनती_2];
+  क्रम(;गिनती_2--;) {
+    पूर्णांक a[f()];
 
-          addr[count] = a;
+    addr[गिनती_2] = a;
 
-          continue;
+    जारी;
+  }
+
+  अगर(addr[9] == addr[0]) {
+    म_लिखो("OK\n");
+  } अन्यथा {
+    म_लिखो("NOT OK\n");
+  }
+}
+
+व्योम test3()
+{
+  पूर्णांक गिनती_2 = 10;
+  व्योम *addr[गिनती_2];
+  जबतक(गिनती_2--) {
+      पूर्णांक b[f()];
+      अगर (गिनती_2 >= 0) {
+          पूर्णांक a[f()];
+
+          addr[गिनती_2] = a;
+
+          जारी;
       }
   }
 
-  if(addr[9] == addr[0]) {
-    printf("OK\n");
-  } else {
-    printf("NOT OK\n");
+  अगर(addr[9] == addr[0]) {
+    म_लिखो("OK\n");
+  } अन्यथा {
+    म_लिखो("NOT OK\n");
   }
 }
 
-void test4()
+व्योम test4()
 {
-  int count = 10;
-  void *addr[count];
-  do {
-    int a[f()];
+  पूर्णांक गिनती_2 = 10;
+  व्योम *addr[गिनती_2];
+  करो {
+    पूर्णांक a[f()];
 
-    addr[--count] = a;
+    addr[--गिनती_2] = a;
 
-    continue;
-  } while (count);
+    जारी;
+  } जबतक (गिनती_2);
 
-  if(addr[9] == addr[0]) {
-    printf("OK\n");
-  } else {
-    printf("NOT OK\n");
+  अगर(addr[9] == addr[0]) {
+    म_लिखो("OK\n");
+  } अन्यथा {
+    म_लिखो("NOT OK\n");
   }
 }
 
-void test5()
+व्योम test5()
 {
-  int count = 10;
-  int a[f()];
-  int c[f()];
+  पूर्णांक गिनती_2 = 10;
+  पूर्णांक a[f()];
+  पूर्णांक c[f()];
 
   c[0] = 42;
 
-  for(;count--;) {
-    int b[f()];
-    int i;
-    for (i=0; i<f(); i++) {
-      b[i] = count;
+  क्रम(;गिनती_2--;) {
+    पूर्णांक b[f()];
+    पूर्णांक i;
+    क्रम (i=0; i<f(); i++) {
+      b[i] = गिनती_2;
     }
   }
 
-  if (c[0] == 42) {
-    printf("OK\n");
-  } else {
-    printf("NOT OK\n");
+  अगर (c[0] == 42) {
+    म_लिखो("OK\n");
+  } अन्यथा {
+    म_लिखो("NOT OK\n");
   }
 }
 
-int main(void)
+पूर्णांक मुख्य(व्योम)
 {
   test1();
   test2();
@@ -115,5 +115,5 @@ int main(void)
   test4();
   test5();
 
-  return 0;
+  वापस 0;
 }

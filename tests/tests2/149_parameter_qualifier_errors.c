@@ -1,11 +1,11 @@
-void defined_const(int *pointer);
+व्योम defined_const(पूर्णांक *pointer);
 
-void defined_const(int *const pointer)
+व्योम defined_const(पूर्णांक *स्थिर pointer)
 {
     pointer = 0;
 }
 
-int main(void)
+पूर्णांक मुख्य(व्योम)
 {
-    return 0;
+    वापस 0;
 }

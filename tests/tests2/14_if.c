@@ -1,21 +1,21 @@
-#include <stdio.h>
+#समावेश <stdio.h>
 
-int main()
+पूर्णांक मुख्य()
 {
-   int a = 1;
+   पूर्णांक a = 1;
 
-   if (a)
-      printf("a is true\n");
-   else
-      printf("a is false\n");
+   अगर (a)
+      म_लिखो("a is true\n");
+   अन्यथा
+      म_लिखो("a is false\n");
 
-   int b = 0;
-   if (b)
-      printf("b is true\n");
-   else
-      printf("b is false\n");
+   पूर्णांक b = 0;
+   अगर (b)
+      म_लिखो("b is true\n");
+   अन्यथा
+      म_लिखो("b is false\n");
 
-   return 0;
+   वापस 0;
 }
 
 // vim: set expandtab ts=4 sw=3 sts=3 tw=80 :

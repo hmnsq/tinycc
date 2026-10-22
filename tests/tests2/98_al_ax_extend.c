@@ -1,6 +1,6 @@
-#include <stdio.h>
-#include <stdlib.h>
-asm (
+#समावेश <stdio.h>
+#समावेश <stdlib.h>
+यंत्र (
     ".text;"
     ".globl _us;.globl _ss;.globl _uc;.globl _sc;"
     "_us:;_ss:;_uc:;_sc:;"
@@ -8,34 +8,34 @@ asm (
 	"ret;"
 );
 
-#ifndef __leading_underscore
-#define us _us
-#define ss _ss
-#define uc _uc
-#define sc _sc
-#endif
+#अगर_अघोषित __leading_underscore
+#घोषणा us _us
+#घोषणा ss _ss
+#घोषणा uc _uc
+#घोषणा sc _sc
+#पूर्ण_अगर
 
-int main()
+पूर्णांक मुख्य()
 {
-    unsigned short us(void);
-    short ss(void);
-    unsigned char uc(void);
-    signed char sc(void);
+    अचिन्हित लघु us(व्योम);
+    लघु ss(व्योम);
+    अचिन्हित अक्षर uc(व्योम);
+    चिन्हित अक्षर sc(व्योम);
 
-    unsigned short (*fpus)(void) = us;
-    short (*fpss)(void) = ss;
-    unsigned char (*fpuc)(void) = uc;
-    signed char (*fpsc)(void) = sc;
+    अचिन्हित लघु (*fpus)(व्योम) = us;
+    लघु (*fpss)(व्योम) = ss;
+    अचिन्हित अक्षर (*fpuc)(व्योम) = uc;
+    चिन्हित अक्षर (*fpsc)(व्योम) = sc;
 
-    printf("%08X %08X\n", us() + 1, fpus() + 1);
-    printf("%08X %08X\n", ss() + 1, fpss() + 1);
-    printf("%08X %08X\n", uc() + 1, fpuc() + 1);
-    printf("%08X %08X\n", sc() + 1, fpsc() + 1);
-    printf("\n");
-    printf("%08X %08X\n", fpus() + 1, us() + 1);
-    printf("%08X %08X\n", fpss() + 1, ss() + 1);
-    printf("%08X %08X\n", fpuc() + 1, uc() + 1);
-    printf("%08X %08X\n", fpsc() + 1, sc() + 1);
+    म_लिखो("%08X %08X\n", us() + 1, fpus() + 1);
+    म_लिखो("%08X %08X\n", ss() + 1, fpss() + 1);
+    म_लिखो("%08X %08X\n", uc() + 1, fpuc() + 1);
+    म_लिखो("%08X %08X\n", sc() + 1, fpsc() + 1);
+    म_लिखो("\n");
+    म_लिखो("%08X %08X\n", fpus() + 1, us() + 1);
+    म_लिखो("%08X %08X\n", fpss() + 1, ss() + 1);
+    म_लिखो("%08X %08X\n", fpuc() + 1, uc() + 1);
+    म_लिखो("%08X %08X\n", fpsc() + 1, sc() + 1);
 
-    return 0;
+    वापस 0;
 }

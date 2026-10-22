@@ -1,18 +1,18 @@
-#include <stdio.h>
+#समावेश <stdio.h>
 
-int main()
+पूर्णांक मुख्य()
 {
-   char a;
-   int b;
-   double c;
+   अक्षर a;
+   पूर्णांक b;
+   द्विगुन c;
 
-   printf("%d\n", sizeof(a));
-   printf("%d\n", sizeof(b));
-   printf("%d\n", sizeof(c));
+   म_लिखो("%d\n", माप(a));
+   म_लिखो("%d\n", माप(b));
+   म_लिखो("%d\n", माप(c));
 
-   printf("%d\n", sizeof(!a));
+   म_लिखो("%d\n", माप(!a));
 
-   return 0;
+   वापस 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

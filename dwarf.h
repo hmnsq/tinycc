@@ -26,11 +26,11 @@
    the GNU Lesser General Public License along with this program.  If
    not, see <http://www.gnu.org/licenses/>.  */
 
-#ifndef _DWARF_H
-#define	_DWARF_H 1
+#अगर_अघोषित _DWARF_H
+#घोषणा	_DWARF_H 1
 
 /* DWARF Unit Header Types.  */
-enum
+क्रमागत
   {
     DW_UT_compile = 0x01,
     DW_UT_type = 0x02,
@@ -44,7 +44,7 @@ enum
   };
 
 /* DWARF tags.  */
-enum
+क्रमागत
   {
     DW_TAG_array_type = 0x01,
     DW_TAG_class_type = 0x02,
@@ -93,7 +93,7 @@ enum
     DW_TAG_packed_type = 0x2d,
     DW_TAG_subprogram = 0x2e,
     DW_TAG_template_type_parameter = 0x2f,
-    DW_TAG_template_value_parameter = 0x30,
+    DW_TAG_template_मूल्य_parameter = 0x30,
     DW_TAG_thrown_type = 0x31,
     DW_TAG_try_block = 0x32,
     DW_TAG_variant_part = 0x33,
@@ -143,7 +143,7 @@ enum
 
 
 /* Children determination encodings.  */
-enum
+क्रमागत
   {
     DW_CHILDREN_no = 0,
     DW_CHILDREN_yes = 1
@@ -151,7 +151,7 @@ enum
 
 
 /* DWARF attributes encodings.  */
-enum
+क्रमागत
   {
     DW_AT_sibling = 0x01,
     DW_AT_location = 0x02,
@@ -163,26 +163,26 @@ enum
     /* 0x08 reserved.  */
     DW_AT_ordering = 0x09,
     /* 0x0a reserved.  */
-    DW_AT_byte_size = 0x0b,
+    DW_AT_byte_आकार = 0x0b,
     DW_AT_bit_offset = 0x0c,  /* Deprecated in DWARF4.  */
-    DW_AT_bit_size = 0x0d,
+    DW_AT_bit_आकार = 0x0d,
     /* 0x0e reserved.  */
     /* 0x0f reserved.  */
     DW_AT_stmt_list = 0x10,
-    DW_AT_low_pc = 0x11,
-    DW_AT_high_pc = 0x12,
+    DW_AT_निचला_pc = 0x11,
+    DW_AT_ऊपरी_pc = 0x12,
     DW_AT_language = 0x13,
     /* 0x14 reserved.  */
     DW_AT_discr = 0x15,
-    DW_AT_discr_value = 0x16,
+    DW_AT_discr_मूल्य = 0x16,
     DW_AT_visibility = 0x17,
     DW_AT_import = 0x18,
-    DW_AT_string_length = 0x19,
+    DW_AT_string_लंबाई = 0x19,
     DW_AT_common_reference = 0x1a,
     DW_AT_comp_dir = 0x1b,
-    DW_AT_const_value = 0x1c,
+    DW_AT_const_मूल्य = 0x1c,
     DW_AT_containing_type = 0x1d,
-    DW_AT_default_value = 0x1e,
+    DW_AT_default_मूल्य = 0x1e,
     /* 0x1f reserved.  */
     DW_AT_inline = 0x20,
     DW_AT_is_optional = 0x21,
@@ -207,11 +207,11 @@ enum
     DW_AT_artificial = 0x34,
     DW_AT_base_types = 0x35,
     DW_AT_calling_convention = 0x36,
-    DW_AT_count = 0x37,
-    DW_AT_data_member_location = 0x38,
+    DW_AT_गिनती = 0x37,
+    DW_AT_तथ्य_member_location = 0x38,
     DW_AT_decl_column = 0x39,
     DW_AT_decl_file = 0x3a,
-    DW_AT_decl_line = 0x3b,
+    DW_AT_decl_पंक्ति = 0x3b,
     DW_AT_declaration = 0x3c,
     DW_AT_discr_list = 0x3d,
     DW_AT_encoding = 0x3e,
@@ -232,7 +232,7 @@ enum
     DW_AT_vtable_elem_location = 0x4d,
     DW_AT_allocated = 0x4e,
     DW_AT_associated = 0x4f,
-    DW_AT_data_location = 0x50,
+    DW_AT_तथ्य_location = 0x50,
     DW_AT_byte_stride = 0x51,
     DW_AT_entry_pc = 0x52,
     DW_AT_use_UTF8 = 0x53,
@@ -241,13 +241,13 @@ enum
     DW_AT_trampoline = 0x56,
     DW_AT_call_column = 0x57,
     DW_AT_call_file = 0x58,
-    DW_AT_call_line = 0x59,
+    DW_AT_call_पंक्ति = 0x59,
     DW_AT_description = 0x5a,
-    DW_AT_binary_scale = 0x5b,
+    DW_AT_द्विआधारी_scale = 0x5b,
     DW_AT_decimal_scale = 0x5c,
     DW_AT_small = 0x5d,
     DW_AT_decimal_sign = 0x5e,
-    DW_AT_digit_count = 0x5f,
+    DW_AT_digit_गिनती = 0x5f,
     DW_AT_picture_string = 0x60,
     DW_AT_mutable = 0x61,
     DW_AT_threads_scaled = 0x62,
@@ -259,12 +259,12 @@ enum
     DW_AT_recursive = 0x68,
     DW_AT_signature = 0x69,
     DW_AT_main_subprogram = 0x6a,
-    DW_AT_data_bit_offset = 0x6b,
-    DW_AT_const_expr = 0x6c,
+    DW_AT_तथ्य_bit_offset = 0x6b,
+    DW_AT_const_व्यंजक = 0x6c,
     DW_AT_enum_class = 0x6d,
     DW_AT_linkage_name = 0x6e,
-    DW_AT_string_length_bit_size = 0x6f,
-    DW_AT_string_length_byte_size = 0x70,
+    DW_AT_string_लंबाई_bit_आकार = 0x6f,
+    DW_AT_string_लंबाई_byte_आकार = 0x70,
     DW_AT_rank = 0x71,
     DW_AT_str_offsets_base = 0x72,
     DW_AT_addr_base = 0x73,
@@ -276,17 +276,17 @@ enum
     DW_AT_macros = 0x79,
     DW_AT_call_all_calls = 0x7a,
     DW_AT_call_all_source_calls = 0x7b,
-    DW_AT_call_all_tail_calls = 0x7c,
+    DW_AT_call_all_पुच्छ_calls = 0x7c,
     DW_AT_call_return_pc = 0x7d,
-    DW_AT_call_value = 0x7e,
+    DW_AT_call_मूल्य = 0x7e,
     DW_AT_call_origin = 0x7f,
     DW_AT_call_parameter = 0x80,
     DW_AT_call_pc = 0x81,
-    DW_AT_call_tail_call = 0x82,
+    DW_AT_call_पुच्छ_call = 0x82,
     DW_AT_call_target = 0x83,
     DW_AT_call_target_clobbered = 0x84,
-    DW_AT_call_data_location = 0x85,
-    DW_AT_call_data_value = 0x86,
+    DW_AT_call_तथ्य_location = 0x85,
+    DW_AT_call_तथ्य_मूल्य = 0x86,
     DW_AT_noreturn = 0x87,
     DW_AT_alignment = 0x88,
     DW_AT_export_symbols = 0x89,
@@ -298,7 +298,7 @@ enum
 
     DW_AT_MIPS_fde = 0x2001,
     DW_AT_MIPS_loop_begin = 0x2002,
-    DW_AT_MIPS_tail_loop_begin = 0x2003,
+    DW_AT_MIPS_पुच्छ_loop_begin = 0x2003,
     DW_AT_MIPS_epilog_begin = 0x2004,
     DW_AT_MIPS_loop_unroll_factor = 0x2005,
     DW_AT_MIPS_software_pipeline_depth = 0x2006,
@@ -312,7 +312,7 @@ enum
     DW_AT_MIPS_ptr_dopetype = 0x200e,
     DW_AT_MIPS_allocatable_dopetype = 0x200f,
     DW_AT_MIPS_assumed_shape_dopetype = 0x2010,
-    DW_AT_MIPS_assumed_size = 0x2011,
+    DW_AT_MIPS_assumed_आकार = 0x2011,
 
     /* GNU extensions.  */
     DW_AT_sf_names = 0x2101,
@@ -331,12 +331,12 @@ enum
     DW_AT_GNU_shared_locks_required = 0x210e,
     DW_AT_GNU_odr_signature = 0x210f,
     DW_AT_GNU_template_name = 0x2110,
-    DW_AT_GNU_call_site_value = 0x2111,
-    DW_AT_GNU_call_site_data_value = 0x2112,
+    DW_AT_GNU_call_site_मूल्य = 0x2111,
+    DW_AT_GNU_call_site_तथ्य_मूल्य = 0x2112,
     DW_AT_GNU_call_site_target = 0x2113,
     DW_AT_GNU_call_site_target_clobbered = 0x2114,
-    DW_AT_GNU_tail_call = 0x2115,
-    DW_AT_GNU_all_tail_call_sites = 0x2116,
+    DW_AT_GNU_पुच्छ_call = 0x2115,
+    DW_AT_GNU_all_पुच्छ_call_sites = 0x2116,
     DW_AT_GNU_all_call_sites = 0x2117,
     DW_AT_GNU_all_source_call_sites = 0x2118,
     DW_AT_GNU_locviews = 0x2137,
@@ -364,14 +364,14 @@ enum
    Will not appear in known-dwarf.h  */
 
 /* DWARF1 array subscripts and element data types.  */
-#define DW_AT_subscr_data	0x0a
+#घोषणा DW_AT_subscr_तथ्य	0x0a
 /* DWARF1 enumeration literals.  */
-#define DW_AT_element_list	0x0f
+#घोषणा DW_AT_element_list	0x0f
 /* DWARF1 reference for variable to member structure, class or union.  */
-#define DW_AT_member		0x14
+#घोषणा DW_AT_member		0x14
 
 /* DWARF form encodings.  */
-enum
+क्रमागत
   {
     DW_FORM_addr = 0x01,
     DW_FORM_block2 = 0x03,
@@ -402,7 +402,7 @@ enum
     DW_FORM_ref_sup4 = 0x1c,
     DW_FORM_strp_sup = 0x1d,
     DW_FORM_data16 = 0x1e,
-    DW_FORM_line_strp = 0x1f,
+    DW_FORM_पंक्ति_strp = 0x1f,
     DW_FORM_ref_sig8 = 0x20,
     DW_FORM_implicit_const = 0x21,
     DW_FORM_loclistx = 0x22,
@@ -418,8 +418,8 @@ enum
     DW_FORM_addrx4 = 0x2c,
 
     /* GNU Debug Fission extensions.  */
-    DW_FORM_GNU_addr_index = 0x1f01,
-    DW_FORM_GNU_str_index = 0x1f02,
+    DW_FORM_GNU_addr_सूचकांक = 0x1f01,
+    DW_FORM_GNU_str_सूचकांक = 0x1f02,
 
     DW_FORM_GNU_ref_alt = 0x1f20, /* offset in alternate .debuginfo.  */
     DW_FORM_GNU_strp_alt = 0x1f21 /* offset in alternate .debug_str. */
@@ -427,7 +427,7 @@ enum
 
 
 /* DWARF location operation encodings.  */
-enum
+क्रमागत
   {
     DW_OP_addr = 0x03,		/* Constant address.  */
     DW_OP_deref = 0x06,
@@ -571,23 +571,23 @@ enum
     DW_OP_fbreg = 0x91,		/* Signed LEB128 offset.  */
     DW_OP_bregx = 0x92,		/* ULEB128 register followed by SLEB128 off. */
     DW_OP_piece = 0x93,		/* ULEB128 size of piece addressed. */
-    DW_OP_deref_size = 0x94,	/* 1-byte size of data retrieved.  */
-    DW_OP_xderef_size = 0x95,	/* 1-byte size of data retrieved.  */
+    DW_OP_deref_आकार = 0x94,	/* 1-byte size of data retrieved.  */
+    DW_OP_xderef_आकार = 0x95,	/* 1-byte size of data retrieved.  */
     DW_OP_nop = 0x96,
-    DW_OP_push_object_address = 0x97,
+    DW_OP_धकेलो_object_address = 0x97,
     DW_OP_call2 = 0x98,
     DW_OP_call4 = 0x99,
     DW_OP_call_ref = 0x9a,
     DW_OP_form_tls_address = 0x9b,/* TLS offset to address in current thread */
     DW_OP_call_frame_cfa = 0x9c,/* CFA as determined by CFI.  */
     DW_OP_bit_piece = 0x9d,	/* ULEB128 size and ULEB128 offset in bits.  */
-    DW_OP_implicit_value = 0x9e, /* DW_FORM_block follows opcode.  */
-    DW_OP_stack_value = 0x9f,	 /* No operands, special like DW_OP_piece.  */
+    DW_OP_implicit_मूल्य = 0x9e, /* DW_FORM_block follows opcode.  */
+    DW_OP_ढेर_मूल्य = 0x9f,	 /* No operands, special like DW_OP_piece.  */
 
     DW_OP_implicit_pointer = 0xa0,
     DW_OP_addrx = 0xa1,
     DW_OP_constx = 0xa2,
-    DW_OP_entry_value = 0xa3,
+    DW_OP_entry_मूल्य = 0xa3,
     DW_OP_const_type = 0xa4,
     DW_OP_regval_type = 0xa5,
     DW_OP_deref_type = 0xa6,
@@ -596,11 +596,11 @@ enum
     DW_OP_reinterpret = 0xa9,
 
     /* GNU extensions.  */
-    DW_OP_GNU_push_tls_address = 0xe0,
+    DW_OP_GNU_धकेलो_tls_address = 0xe0,
     DW_OP_GNU_uninit = 0xf0,
     DW_OP_GNU_encoded_addr = 0xf1,
     DW_OP_GNU_implicit_pointer = 0xf2,
-    DW_OP_GNU_entry_value = 0xf3,
+    DW_OP_GNU_entry_मूल्य = 0xf3,
     DW_OP_GNU_const_type = 0xf4,
     DW_OP_GNU_regval_type = 0xf5,
     DW_OP_GNU_deref_type = 0xf6,
@@ -609,10 +609,10 @@ enum
     DW_OP_GNU_parameter_ref = 0xfa,
 
     /* GNU Debug Fission extensions.  */
-    DW_OP_GNU_addr_index = 0xfb,
-    DW_OP_GNU_const_index = 0xfc,
+    DW_OP_GNU_addr_सूचकांक = 0xfb,
+    DW_OP_GNU_const_सूचकांक = 0xfc,
 
-    DW_OP_GNU_variable_value = 0xfd,
+    DW_OP_GNU_variable_मूल्य = 0xfd,
 
     DW_OP_lo_user = 0xe0,	/* Implementation-defined range start.  */
     DW_OP_hi_user = 0xff	/* Implementation-defined range end.  */
@@ -620,7 +620,7 @@ enum
 
 
 /* DWARF base type encodings.  */
-enum
+क्रमागत
   {
     DW_ATE_void = 0x0,
     DW_ATE_address = 0x1,
@@ -648,7 +648,7 @@ enum
 
 
 /* DWARF decimal sign encodings.  */
-enum
+क्रमागत
   {
     DW_DS_unsigned = 1,
     DW_DS_leading_overpunch = 2,
@@ -659,7 +659,7 @@ enum
 
 
 /* DWARF endianity encodings.  */
-enum
+क्रमागत
   {
     DW_END_default = 0,
     DW_END_big = 1,
@@ -671,7 +671,7 @@ enum
 
 
 /* DWARF accessibility encodings.  */
-enum
+क्रमागत
   {
     DW_ACCESS_public = 1,
     DW_ACCESS_protected = 2,
@@ -680,7 +680,7 @@ enum
 
 
 /* DWARF visibility encodings.  */
-enum
+क्रमागत
   {
     DW_VIS_local = 1,
     DW_VIS_exported = 2,
@@ -689,7 +689,7 @@ enum
 
 
 /* DWARF virtuality encodings.  */
-enum
+क्रमागत
   {
     DW_VIRTUALITY_none = 0,
     DW_VIRTUALITY_virtual = 1,
@@ -698,7 +698,7 @@ enum
 
 
 /* DWARF language encodings.  */
-enum
+क्रमागत
   {
     DW_LANG_C89 = 0x0001,	     /* ISO C:1989 */
     DW_LANG_C = 0x0002,		     /* C */
@@ -744,10 +744,10 @@ enum
   };
 
 /* Old (typo) '1' != 'I'.  */
-#define DW_LANG_PL1 DW_LANG_PLI
+#घोषणा DW_LANG_PL1 DW_LANG_PLI
 
 /* DWARF identifier case encodings.  */
-enum
+क्रमागत
   {
     DW_ID_case_sensitive = 0,
     DW_ID_up_case = 1,
@@ -760,20 +760,20 @@ enum
    Used as values of DW_AT_calling_convention for subroutines
    (normal, program or nocall) or structures, unions and class types
    (normal, reference or value).  */
-enum
+क्रमागत
   {
     DW_CC_normal = 0x1,
     DW_CC_program = 0x2,
     DW_CC_nocall = 0x3,
     DW_CC_pass_by_reference = 0x4,
-    DW_CC_pass_by_value = 0x5,
+    DW_CC_pass_by_मूल्य = 0x5,
     DW_CC_lo_user = 0x40,
     DW_CC_hi_user = 0xff
   };
 
 
 /* DWARF inline encodings.  */
-enum
+क्रमागत
   {
     DW_INL_not_inlined = 0,
     DW_INL_inlined = 1,
@@ -783,7 +783,7 @@ enum
 
 
 /* DWARF ordering encodings.  */
-enum
+क्रमागत
   {
     DW_ORD_row_major = 0,
     DW_ORD_col_major = 1
@@ -791,14 +791,14 @@ enum
 
 
 /* DWARF discriminant descriptor encodings.  */
-enum
+क्रमागत
   {
     DW_DSC_label = 0,
     DW_DSC_range = 1
   };
 
 /* DWARF defaulted member function encodings.  */
-enum
+क्रमागत
   {
     DW_DEFAULTED_no = 0,
     DW_DEFAULTED_in_class = 1,
@@ -806,23 +806,23 @@ enum
   };
 
 /* DWARF line content descriptions.  */
-enum
+क्रमागत
   {
     DW_LNCT_path = 0x1,
-    DW_LNCT_directory_index = 0x2,
+    DW_LNCT_directory_सूचकांक = 0x2,
     DW_LNCT_timestamp = 0x3,
-    DW_LNCT_size = 0x4,
+    DW_LNCT_आकार = 0x4,
     DW_LNCT_MD5 = 0x5,
     DW_LNCT_lo_user = 0x2000,
     DW_LNCT_hi_user = 0x3fff
   };
 
 /* DWARF standard opcode encodings.  */
-enum
+क्रमागत
   {
     DW_LNS_copy = 1,
     DW_LNS_advance_pc = 2,
-    DW_LNS_advance_line = 3,
+    DW_LNS_advance_पंक्ति = 3,
     DW_LNS_set_file = 4,
     DW_LNS_set_column = 5,
     DW_LNS_negate_stmt = 6,
@@ -836,7 +836,7 @@ enum
 
 
 /* DWARF extended opcode encodings.  */
-enum
+क्रमागत
   {
     DW_LNE_end_sequence = 1,
     DW_LNE_set_address = 2,
@@ -853,7 +853,7 @@ enum
 
 
 /* DWARF macinfo type encodings.  */
-enum
+क्रमागत
   {
     DW_MACINFO_define = 1,
     DW_MACINFO_undef = 2,
@@ -864,7 +864,7 @@ enum
 
 
 /* DWARF debug_macro type encodings.  */
-enum
+क्रमागत
   {
     DW_MACRO_define = 0x01,
     DW_MACRO_undef = 0x02,
@@ -885,62 +885,62 @@ enum
 /* Old GNU extension names for DWARF5 debug_macro type encodings.
    There are no equivalents for the supplementary object file (sup)
    and indirect string references (strx).  */
-#define DW_MACRO_GNU_define		 DW_MACRO_define
-#define DW_MACRO_GNU_undef		 DW_MACRO_undef
-#define DW_MACRO_GNU_start_file		 DW_MACRO_start_file
-#define DW_MACRO_GNU_end_file		 DW_MACRO_end_file
-#define DW_MACRO_GNU_define_indirect	 DW_MACRO_define_strp
-#define DW_MACRO_GNU_undef_indirect	 DW_MACRO_undef_strp
-#define DW_MACRO_GNU_transparent_include DW_MACRO_import
-#define DW_MACRO_GNU_lo_user		 DW_MACRO_lo_user
-#define DW_MACRO_GNU_hi_user		 DW_MACRO_hi_user
+#घोषणा DW_MACRO_GNU_define		 DW_MACRO_define
+#घोषणा DW_MACRO_GNU_undef		 DW_MACRO_undef
+#घोषणा DW_MACRO_GNU_start_file		 DW_MACRO_start_file
+#घोषणा DW_MACRO_GNU_end_file		 DW_MACRO_end_file
+#घोषणा DW_MACRO_GNU_define_indirect	 DW_MACRO_define_strp
+#घोषणा DW_MACRO_GNU_undef_indirect	 DW_MACRO_undef_strp
+#घोषणा DW_MACRO_GNU_transparent_include DW_MACRO_import
+#घोषणा DW_MACRO_GNU_lo_user		 DW_MACRO_lo_user
+#घोषणा DW_MACRO_GNU_hi_user		 DW_MACRO_hi_user
 
 
 /* Range list entry encoding.  */
-enum
+क्रमागत
   {
     DW_RLE_end_of_list = 0x0,
     DW_RLE_base_addressx = 0x1,
     DW_RLE_startx_endx = 0x2,
-    DW_RLE_startx_length = 0x3,
+    DW_RLE_startx_लंबाई = 0x3,
     DW_RLE_offset_pair = 0x4,
     DW_RLE_base_address = 0x5,
     DW_RLE_start_end = 0x6,
-    DW_RLE_start_length = 0x7
+    DW_RLE_start_लंबाई = 0x7
   };
 
 
 /* Location list entry encoding.  */
-enum
+क्रमागत
   {
     DW_LLE_end_of_list = 0x0,
     DW_LLE_base_addressx = 0x1,
     DW_LLE_startx_endx = 0x2,
-    DW_LLE_startx_length = 0x3,
+    DW_LLE_startx_लंबाई = 0x3,
     DW_LLE_offset_pair = 0x4,
     DW_LLE_default_location = 0x5,
     DW_LLE_base_address = 0x6,
     DW_LLE_start_end = 0x7,
-    DW_LLE_start_length = 0x8
+    DW_LLE_start_लंबाई = 0x8
   };
 
 
 /* GNU DebugFission list entry encodings (.debug_loc.dwo).  */
-enum
+क्रमागत
   {
     DW_LLE_GNU_end_of_list_entry = 0x0,
     DW_LLE_GNU_base_address_selection_entry = 0x1,
     DW_LLE_GNU_start_end_entry = 0x2,
-    DW_LLE_GNU_start_length_entry = 0x3
+    DW_LLE_GNU_start_लंबाई_entry = 0x3
   };
 
 /* DWARF5 package file section identifiers.  */
-enum
+क्रमागत
   {
     DW_SECT_INFO = 1,
     /* Reserved = 2, */
     DW_SECT_ABBREV = 3,
-    DW_SECT_LINE = 4,
+    DW_SECT_पंक्ति = 4,
     DW_SECT_LOCLISTS = 5,
     DW_SECT_STR_OFFSETS = 6,
     DW_SECT_MACRO = 7,
@@ -949,7 +949,7 @@ enum
 
 
 /* DWARF call frame instruction encodings.  */
-enum
+क्रमागत
   {
     DW_CFA_advance_loc = 0x40,
     DW_CFA_offset = 0x80,
@@ -964,7 +964,7 @@ enum
     DW_CFA_offset_extended = 0x05,
     DW_CFA_restore_extended = 0x06,
     DW_CFA_undefined = 0x07,
-    DW_CFA_same_value = 0x08,
+    DW_CFA_same_मूल्य = 0x08,
     DW_CFA_register = 0x09,
     DW_CFA_remember_state = 0x0a,
     DW_CFA_restore_state = 0x0b,
@@ -980,17 +980,17 @@ enum
     DW_CFA_val_offset_sf = 0x15,
     DW_CFA_val_expression = 0x16,
 
-    DW_CFA_low_user = 0x1c,
+    DW_CFA_निचला_user = 0x1c,
     DW_CFA_MIPS_advance_loc8 = 0x1d,
     DW_CFA_GNU_window_save = 0x2d,
     DW_CFA_AARCH64_negate_ra_state = 0x2d,
-    DW_CFA_GNU_args_size = 0x2e,
+    DW_CFA_GNU_args_आकार = 0x2e,
     DW_CFA_GNU_negative_offset_extended = 0x2f,
-    DW_CFA_high_user = 0x3f
+    DW_CFA_ऊपरी_user = 0x3f
   };
 
 /* ID indicating CIE as opposed to FDE in .debug_frame.  */
-enum
+क्रमागत
   {
     DW_CIE_ID_32 = 0xffffffffU,		 /* In 32-bit format CIE header.  */
     DW_CIE_ID_64 = 0xffffffffffffffffULL /* In 64-bit format CIE header.  */
@@ -998,7 +998,7 @@ enum
 
 
 /* Information for GNU unwind information.  */
-enum
+क्रमागत
   {
     DW_EH_PE_absptr = 0x00,
     DW_EH_PE_omit = 0xff,
@@ -1026,7 +1026,7 @@ enum
 
 
 /* DWARF XXX.  */
-#define DW_ADDR_none	0
+#घोषणा DW_ADDR_none	0
 
 /* Section 7.2.2 of the DWARF3 specification defines a range of escape
    codes that can appear in the length field of certain DWARF structures.
@@ -1039,8 +1039,8 @@ enum
    Note: There is a typo in DWARF3 spec (published Dec 20, 2005).  In
    sections 7.4, 7.5.1, 7.19, 7.20 the minimum escape code is referred to
    as 0xffffff00 whereas in fact it should be 0xfffffff0.  */
-#define DWARF3_LENGTH_MIN_ESCAPE_CODE 0xfffffff0u
-#define DWARF3_LENGTH_MAX_ESCAPE_CODE 0xffffffffu
-#define DWARF3_LENGTH_64_BIT          DWARF3_LENGTH_MAX_ESCAPE_CODE
+#घोषणा DWARF3_लंबाई_MIN_ESCAPE_CODE 0xfffffff0u
+#घोषणा DWARF3_लंबाई_MAX_ESCAPE_CODE 0xffffffffu
+#घोषणा DWARF3_लंबाई_64_BIT          DWARF3_लंबाई_MAX_ESCAPE_CODE
 
-#endif	/* dwarf.h */
+#पूर्ण_अगर	/* dwarf.h */

@@ -1,31 +1,31 @@
-void foo(int [5]);
-void fooc(int x[const 5]);
-void foos(int x[static 5]);
-void foov(int x[volatile 5]);
-void foor(int x[restrict 5]);
-void fooc(int [const 5]);
-void foos(int [static 5]);
-void foov(int [volatile 5]);
-void foor(int [restrict 5]);
-void fooc(int (* const x));
-void foos(int *x);
-void foov(int * volatile x);
-void foor(int * restrict x);
-void fooc(int x[volatile 5])
+व्योम foo(पूर्णांक [5]);
+व्योम fooc(पूर्णांक x[स्थिर 5]);
+व्योम foos(पूर्णांक x[अटल 5]);
+व्योम foov(पूर्णांक x[अस्थिर 5]);
+व्योम foor(पूर्णांक x[restrict 5]);
+व्योम fooc(पूर्णांक [स्थिर 5]);
+व्योम foos(पूर्णांक [अटल 5]);
+व्योम foov(पूर्णांक [अस्थिर 5]);
+व्योम foor(पूर्णांक [restrict 5]);
+व्योम fooc(पूर्णांक (* स्थिर x));
+व्योम foos(पूर्णांक *x);
+व्योम foov(पूर्णांक * अस्थिर x);
+व्योम foor(पूर्णांक * restrict x);
+व्योम fooc(पूर्णांक x[अस्थिर 5])
 {
   x[3] = 42;
-#ifdef INVALID
+#अगर_घोषित INVALID
   x = 0;
-#endif
+#पूर्ण_अगर
 }
-void foovm(int x[const *]);
-void foovm(int * const x);
+व्योम foovm(पूर्णांक x[स्थिर *]);
+व्योम foovm(पूर्णांक * स्थिर x);
 
-typedef int *pointer_array[2];
-typedef int *restrict restricted_pointer;
-typedef restrict pointer_array restricted_pointer_array;
+प्रकार पूर्णांक *pointer_array[2];
+प्रकार पूर्णांक *restrict restricted_pointer;
+प्रकार restrict pointer_array restricted_pointer_array;
 
-_Static_assert(!__builtin_types_compatible_p(int **,
+_Static_assert(!__builtin_types_compatible_p(पूर्णांक **,
                                              restricted_pointer *),
                "nested restrict qualifier is retained");
 _Static_assert(__builtin_types_compatible_p(restricted_pointer_array,
@@ -33,22 +33,22 @@ _Static_assert(__builtin_types_compatible_p(restricted_pointer_array,
                "restrict can qualify an array of pointer types");
 
 restricted_pointer *restricted_pp;
-int **unrestricted_pp;
+पूर्णांक **unrestricted_pp;
 
 _Static_assert(__builtin_types_compatible_p(
                    __typeof__(1 ? restricted_pp : unrestricted_pp),
                    restricted_pointer *),
                "conditional expression combines restrict qualifiers");
 
-#ifdef INVALID
-void wrongc(int x[3][const 4]);
-void wrongvm(int x[static *]);
-void foovm(int x[const *])
+#अगर_घोषित INVALID
+व्योम wrongc(पूर्णांक x[3][स्थिर 4]);
+व्योम wrongvm(पूर्णांक x[अटल *]);
+व्योम foovm(पूर्णांक x[स्थिर *])
 {
   x[2] = 1;
 }
-#endif
-int main()
+#पूर्ण_अगर
+पूर्णांक मुख्य()
 {
-  return 0;
+  वापस 0;
 }

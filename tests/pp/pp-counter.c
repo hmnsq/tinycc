@@ -1,18 +1,18 @@
 X1 __COUNTER__
 X2 __COUNTER__
-#if __COUNTER__
+#अगर __COUNTER__
 X3 __COUNTER__
-#endif
-#define pass(x) x
-#define a x __COUNTER__ y
-#define a2 pass(__COUNTER__)
-#define f(c) c __COUNTER__
-#define apply(d) d d __COUNTER__ x2 f(d) y2 __COUNTER__
-#define _paste(a,b) a ## b
-#define paste(a,b) _paste(a,b)
-#define _paste3(a,b,c) a ## b ## c
-#define doublepaste(a,b) _paste3(a,b,b)
-#define str(x) #x
+#पूर्ण_अगर
+#घोषणा pass(x) x
+#घोषणा a x __COUNTER__ y
+#घोषणा a2 pass(__COUNTER__)
+#घोषणा f(c) c __COUNTER__
+#घोषणा apply(d) d d __COUNTER__ x2 f(d) y2 __COUNTER__
+#घोषणा _paste(a,b) a ## b
+#घोषणा paste(a,b) _paste(a,b)
+#घोषणा _paste3(a,b,c) a ## b ## c
+#घोषणा doublepaste(a,b) _paste3(a,b,b)
+#घोषणा str(x) #x
 X4 a
 X5 f(a)
 X6 f(b)

@@ -1,179 +1,179 @@
-int printf(const char*, ...);
+पूर्णांक म_लिखो(स्थिर अक्षर*, ...);
 
-#define myassert(x) \
-    printf("%s:%d: %s : \"%s\"\n", __FILE__,__LINE__,(x)?"ok":"error",#x)
+#घोषणा myassert(x) \
+    म_लिखो("%s:%d: %s : \"%s\"\n", __खाता__,__LINE__,(x)?"ok":"error",#x)
 
-enum{ in = 0};
+क्रमागत{ in = 0};
 
-int main_1(){
+पूर्णांक main_1(){
     {
         myassert(!in);
-        if(sizeof(enum{in=1})) myassert(in);
+        अगर(माप(क्रमागत{in=1})) myassert(in);
         myassert(!in); //OOPS
     }
     {
         myassert(!in);
-        switch(sizeof(enum{in=1})) { default: myassert(in); }
+        चयन(माप(क्रमागत{in=1})) { शेष: myassert(in); }
         myassert(!in); //OOPS
     }
     {
         myassert(!in);
-        while(sizeof(enum{in=1})) { myassert(in); break; }
+        जबतक(माप(क्रमागत{in=1})) { myassert(in); अवरोध; }
         myassert(!in); //OOPS
     }
     {
         myassert(!in);
-        do{ myassert(!in);}while(0*sizeof(enum{in=1}));
+        करो{ myassert(!in);}जबतक(0*माप(क्रमागत{in=1}));
         myassert(!in); //OOPS
     }
 
     {
         myassert(!in);
-        for(sizeof(enum{in=1});;){ myassert(in); break; }
+        क्रम(माप(क्रमागत{in=1});;){ myassert(in); अवरोध; }
         myassert(!in); //OK
     }
     {
         myassert(!in);
-        for(;;sizeof(enum{in=1})){ myassert(in); break; }
+        क्रम(;;माप(क्रमागत{in=1})){ myassert(in); अवरोध; }
         myassert(!in); //OK
     }
     {
         myassert(!in);
-        for(;sizeof(enum{in=1});){ myassert(in); break; }
+        क्रम(;माप(क्रमागत{in=1});){ myassert(in); अवरोध; }
         myassert(!in); //OK
     }
-    return 0;
+    वापस 0;
 }
 
 /* --------------------------------------------- */
-int main_2()
+पूर्णांक main_2()
 {
-  char c = 'a';
-  void func1(char c); /* param 'c' must not shadow local 'c' */
+  अक्षर c = 'a';
+  व्योम func1(अक्षर c); /* param 'c' must not shadow local 'c' */
   func1(c);
-  return 0;
+  वापस 0;
 }
 
-void func1(char c)
+व्योम func1(अक्षर c)
 {
     myassert(c == 'a');
 }
 
-struct st { int a; };
+काष्ठा st { पूर्णांक a; };
 
 /* --------------------------------------------- */
-int main_3()
+पूर्णांक main_3()
 {
-  struct st func(void);
-  struct st st = func(); /* not an 'incompatible redefinition' */
+  काष्ठा st func(व्योम);
+  काष्ठा st st = func(); /* not an 'incompatible redefinition' */
   myassert(st.a == 10);
-  return 0;
+  वापस 0;
 }
 
-struct st func(void)
+काष्ठा st func(व्योम)
 {
-  struct st st = { 10 };
-  return st;
+  काष्ठा st st = { 10 };
+  वापस st;
 }
 
 /* --------------------------------------------- */
 /* func* 'md' must not be shadowed by param 'md' */
-static void f4(char *(*md)(char *md))
+अटल व्योम f4(अक्षर *(*md)(अक्षर *md))
 {
    (*md)("test");
 }
-static char *a4(char *a)
+अटल अक्षर *a4(अक्षर *a)
 {
-    int strcmp();
-    myassert(!strcmp(a, "test"));
-    return a;
+    पूर्णांक म_भेद();
+    myassert(!म_भेद(a, "test"));
+    वापस a;
 }
 
-int main_4()
+पूर्णांक main_4()
 {
     f4(a4);
-    return 0;
+    वापस 0;
 }
 
 /* --------------------------------------------- */
-int a5[3], b5[];
-int f5(void);
-int main_5()
+पूर्णांक a5[3], b5[];
+पूर्णांक f5(व्योम);
+पूर्णांक main_5()
 {
-    extern int a5[3], b5[3];
+    बाह्य पूर्णांक a5[3], b5[3];
     a5[2]=10, b5[2]=4;
     myassert(f5() == 10 + 4);
-    return 0;
+    वापस 0;
 }
-int f5(void)
+पूर्णांक f5(व्योम)
 {
-    return a5[2]+b5[2];
+    वापस a5[2]+b5[2];
 }
-int b5[3];
+पूर्णांक b5[3];
 
 /* --------------------------------------------- */
-static int f6(int);
-int i6 = 11;
+अटल पूर्णांक f6(पूर्णांक);
+पूर्णांक i6 = 11;
 
-int main_6()
+पूर्णांक main_6()
 {
     {
-        int i6 = 33, f6 = 44;
+        पूर्णांक i6 = 33, f6 = 44;
         myassert(i6 == 33 && f6 == 44);
         {
-            int f6(int);
-            extern int i6;
+            पूर्णांक f6(पूर्णांक);
+            बाह्य पूर्णांक i6;
             myassert(i6 == 11 && f6(22) == 22);
         }
         myassert(i6 == 33 && f6 == 44);
     }
     myassert(i6 == 11 && f6(22) == 22);
-    return 0;
+    वापस 0;
 }
 
-int f6(int x)
+पूर्णांक f6(पूर्णांक x)
 {
-    return x;
+    वापस x;
 }
 
 /* --------------------------------------------- */
 
-#if defined __TINYC__ \
+#अगर defined __TINYC__ \
     ? !defined __leading_underscore \
     : !(defined __APPLE__ || defined _WIN32)
 # define _
-#else
+#अन्यथा
 # define _ "_"
-#endif
+#पूर्ण_अगर
 
-struct xx7 { int a, b; };
+काष्ठा xx7 { पूर्णांक a, b; };
 
-void f7()
+व्योम f7()
 {
-    struct xx7 { int c; } x;
+    काष्ठा xx7 { पूर्णांक c; } x;
     {
-        extern struct xx7 { int a, b; } x __asm__(_"z7");
+        बाह्य काष्ठा xx7 { पूर्णांक a, b; } x __asm__(_"z7");
         x.a = 12;
-        struct xx7 y = { 0,0 };
+        काष्ठा xx7 y = { 0,0 };
     }
-    struct xx7 y = { 90 };
+    काष्ठा xx7 y = { 90 };
     x.c = 78;
-    printf("xx7 (1) : %d %d\n", x.c, y.c);
+    म_लिखो("xx7 (1) : %d %d\n", x.c, y.c);
 }
 
-int main_7()
+पूर्णांक main_7()
 {
     f7();
-    extern struct xx7 y __asm__(_"z7");
-    printf("xx7 (2) : %d %d\n", y.a, y.b);
-    return 0;
+    बाह्य काष्ठा xx7 y __asm__(_"z7");
+    म_लिखो("xx7 (2) : %d %d\n", y.a, y.b);
+    वापस 0;
 }
 
 
-struct xx7 z7 = { 0, 34 };
+काष्ठा xx7 z7 = { 0, 34 };
 
 /* --------------------------------------------- */
-int main()
+पूर्णांक मुख्य()
 {
     main_1();
     main_2();
@@ -182,5 +182,5 @@ int main()
     main_5();
     main_6();
     main_7();
-    return 0;
+    वापस 0;
 }

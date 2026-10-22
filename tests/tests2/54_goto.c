@@ -1,56 +1,56 @@
-#include <stdio.h>
+#समावेश <stdio.h>
 
-void fred()
+व्योम fred()
 {
-   printf("In fred()\n");
-   goto done;
-   printf("In middle\n");
+   म_लिखो("In fred()\n");
+   जाओ done;
+   म_लिखो("In middle\n");
 done:
-   printf("At end\n");
+   म_लिखो("At end\n");
 }
 
-void joe()
+व्योम joe()
 {
-   int b = 5678;
+   पूर्णांक b = 5678;
 
-   printf("In joe()\n");
+   म_लिखो("In joe()\n");
 
    {
-      int c = 1234;
-      printf("c = %d\n", c);
-      goto outer;
-      printf("uh-oh\n");
+      पूर्णांक c = 1234;
+      म_लिखो("c = %d\n", c);
+      जाओ outer;
+      म_लिखो("uh-oh\n");
    }
 
 outer:    
 
-   printf("done\n");
+   म_लिखो("done\n");
 }
 
-void henry()
+व्योम henry()
 {
-   int a;
+   पूर्णांक a;
 
-   printf("In henry()\n");
-   goto inner;
+   म_लिखो("In henry()\n");
+   जाओ inner;
 
    {
-      int b;
+      पूर्णांक b;
 inner:    
       b = 1234;
-      printf("b = %d\n", b);
+      म_लिखो("b = %d\n", b);
    }
 
-   printf("done\n");
+   म_लिखो("done\n");
 }
 
-int main()
+पूर्णांक मुख्य()
 {
    fred();
    joe();
    henry();
 
-   return 0;
+   वापस 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

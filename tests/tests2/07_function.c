@@ -1,35 +1,35 @@
-#include <stdio.h>
+#समावेश <stdio.h>
 
-int myfunc(int x)
+पूर्णांक myfunc(पूर्णांक x)
 {
-   return x * x;
+   वापस x * x;
 }
 
-void vfunc(int a)
+व्योम vfunc(पूर्णांक a)
 {
-   printf("a=%d\n", a);
+   म_लिखो("a=%d\n", a);
 }
 
-void qfunc()
+व्योम qfunc()
 {
-   printf("qfunc()\n");
+   म_लिखो("qfunc()\n");
 }
 
-void zfunc()
+व्योम zfunc()
 {
-	((void (*)(void))0) ();
+	((व्योम (*)(व्योम))0) ();
 }
 
-int main()
+पूर्णांक मुख्य()
 {
-   printf("%d\n", myfunc(3));
-   printf("%d\n", myfunc(4));
+   म_लिखो("%d\n", myfunc(3));
+   म_लिखो("%d\n", myfunc(4));
 
    vfunc(1234);
 
    qfunc();
 
-   return 0;
+   वापस 0;
 }
 
 // vim: set expandtab ts=4 sw=3 sts=3 tw=80 :

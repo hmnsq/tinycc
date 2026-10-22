@@ -1,112 +1,112 @@
-extern int printf(const char *format, ...);
-static void kb_wait_1(void)
+बाह्य पूर्णांक म_लिखो(स्थिर अक्षर *format, ...);
+अटल व्योम kb_wait_1(व्योम)
 {
-    unsigned long timeout = 2;
-    do {
+    अचिन्हित दीर्घ timeout = 2;
+    करो {
         (1 ?
-            printf("timeout=%ld\n", timeout) :
+            म_लिखो("timeout=%ld\n", timeout) :
             ({
-                while (1)
-                    printf("error\n");
+                जबतक (1)
+                    म_लिखो("error\n");
             })
         );
         timeout--;
-    } while (timeout);
+    } जबतक (timeout);
 }
-static void kb_wait_2(void)
+अटल व्योम kb_wait_2(व्योम)
 {
-    unsigned long timeout = 2;
-    do {
+    अचिन्हित दीर्घ timeout = 2;
+    करो {
         (1 ?
-            printf("timeout=%ld\n", timeout) :
+            म_लिखो("timeout=%ld\n", timeout) :
             ({
-                for (;;)
-                    printf("error\n");
+                क्रम (;;)
+                    म_लिखो("error\n");
             })
         );
         timeout--;
-    } while (timeout);
+    } जबतक (timeout);
 }
-static void kb_wait_2_1(void)
+अटल व्योम kb_wait_2_1(व्योम)
 {
-    unsigned long timeout = 2;
-    do {
+    अचिन्हित दीर्घ timeout = 2;
+    करो {
         (1 ?
-            printf("timeout=%ld\n", timeout) :
+            म_लिखो("timeout=%ld\n", timeout) :
             ({
-                do {
-                    printf("error\n");
-		} while (1);
+                करो {
+                    म_लिखो("error\n");
+		} जबतक (1);
             })
         );
         timeout--;
-    } while (timeout);
+    } जबतक (timeout);
 }
-static void kb_wait_2_2(void)
+अटल व्योम kb_wait_2_2(व्योम)
 {
-    unsigned long timeout = 2;
-    do {
+    अचिन्हित दीर्घ timeout = 2;
+    करो {
         (1 ?
-            printf("timeout=%ld\n", timeout) :
+            म_लिखो("timeout=%ld\n", timeout) :
             ({
                 label:
-                    printf("error\n");
-		goto label;
+                    म_लिखो("error\n");
+		जाओ label;
             })
         );
         timeout--;
-    } while (timeout);
+    } जबतक (timeout);
 }
-static void kb_wait_3(void)
+अटल व्योम kb_wait_3(व्योम)
 {
-    unsigned long timeout = 2;
-    do {
+    अचिन्हित दीर्घ timeout = 2;
+    करो {
         (1 ?
-            printf("timeout=%ld\n", timeout) :
+            म_लिखो("timeout=%ld\n", timeout) :
             ({
-                int i = 1;
-                goto label;
+                पूर्णांक i = 1;
+                जाओ label;
                 i = i + 2;
             label:
                 i = i + 3;
             })
         );
         timeout--;
-    } while (timeout);
+    } जबतक (timeout);
 }
-static void kb_wait_4(void)
+अटल व्योम kb_wait_4(व्योम)
 {
-    unsigned long timeout = 2;
-    do {
+    अचिन्हित दीर्घ timeout = 2;
+    करो {
         (1 ?
-            printf("timeout=%ld\n", timeout) :
+            म_लिखो("timeout=%ld\n", timeout) :
             ({
-                switch(timeout) {
-                    case 2:
-                        printf("timeout is 2");
-                        break;
-                    case 1:
-                        printf("timeout is 1");
-                        break;
-                    default:
-                        printf("timeout is 0?");
-                        break;
+                चयन(timeout) {
+                    हाल 2:
+                        म_लिखो("timeout is 2");
+                        अवरोध;
+                    हाल 1:
+                        म_लिखो("timeout is 1");
+                        अवरोध;
+                    शेष:
+                        म_लिखो("timeout is 0?");
+                        अवरोध;
                 };
                 // return;
             })
         );
         timeout--;
-    } while (timeout);
+    } जबतक (timeout);
 }
-int main()
+पूर्णांक मुख्य()
 {
-    printf("begin\n");
+    म_लिखो("begin\n");
     kb_wait_1();
     kb_wait_2();
     kb_wait_2_1();
     kb_wait_2_2();
     kb_wait_3();
     kb_wait_4();
-    printf("end\n");
-    return 0;
+    म_लिखो("end\n");
+    वापस 0;
 }

@@ -1,8 +1,8 @@
-#ifndef _TCC_LIBM_H_
-#define _TCC_LIBM_H_
+#अगर_अघोषित _TCC_LIBM_H_
+#घोषणा _TCC_LIBM_H_
 
-#include "../math.h"
-#include "../stdint.h"
+#समावेश "../math.h"
+#समावेश "../stdint.h"
 
 /* TCC uses 8 bytes for double and long double, so effectively the l variants
  * are never used. For now, they just run the normal (double) variant.
@@ -46,220 +46,220 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 /* fpclassify */
 
-__CRT_INLINE int __cdecl __fpclassify (double x) {
-  union {double f; uint64_t i;} u = {.f = x};
-  int e = u.i>>52 & 0x7ff;
-  if (!e) return u.i<<1 ? FP_SUBNORMAL : FP_ZERO;
-  if (e==0x7ff) return u.i<<12 ? FP_NAN : FP_INFINITE;
-  return FP_NORMAL;
+__CRT_INLINE पूर्णांक __cdecl __fpclassify (द्विगुन x) {
+  जोड़ {द्विगुन f; uint64_t i;} u = {.f = x};
+  पूर्णांक e = u.i>>52 & 0x7ff;
+  अगर (!e) वापस u.i<<1 ? FP_SUBNORMAL : FP_ZERO;
+  अगर (e==0x7ff) वापस u.i<<12 ? FP_NAN : FP_INFINITE;
+  वापस FP_NORMAL;
 }
 
-__CRT_INLINE int __cdecl __fpclassifyf (float x) {
-  union {float f; uint32_t i;} u = {.f = x};
-  int e = u.i>>23 & 0xff;
-  if (!e) return u.i<<1 ? FP_SUBNORMAL : FP_ZERO;
-  if (e==0xff) return u.i<<9 ? FP_NAN : FP_INFINITE;
-  return FP_NORMAL;
+__CRT_INLINE पूर्णांक __cdecl __fpclassifyf (भग्न x) {
+  जोड़ {भग्न f; uint32_t i;} u = {.f = x};
+  पूर्णांक e = u.i>>23 & 0xff;
+  अगर (!e) वापस u.i<<1 ? FP_SUBNORMAL : FP_ZERO;
+  अगर (e==0xff) वापस u.i<<9 ? FP_NAN : FP_INFINITE;
+  वापस FP_NORMAL;
 }
 
-__CRT_INLINE int __cdecl __fpclassifyl (long double x) {
-  return __fpclassify(x);
+__CRT_INLINE पूर्णांक __cdecl __fpclassifyl (दीर्घ द्विगुन x) {
+  वापस __fpclassify(x);
 }
 
 
 /* signbit */
 
-__CRT_INLINE int __cdecl __signbit (double x) {
-  union {double f; uint64_t i;} u = {.f = x};
-  return u.i>>63;
+__CRT_INLINE पूर्णांक __cdecl __signbit (द्विगुन x) {
+  जोड़ {द्विगुन f; uint64_t i;} u = {.f = x};
+  वापस u.i>>63;
 }
 
-__CRT_INLINE int __cdecl __signbitf (float x) {
-  union {float f; uint32_t i; } u = {.f = x};
-  return u.i>>31;
+__CRT_INLINE पूर्णांक __cdecl __signbitf (भग्न x) {
+  जोड़ {भग्न f; uint32_t i; } u = {.f = x};
+  वापस u.i>>31;
 }
 
-__CRT_INLINE int __cdecl __signbitl (long double x) {
-  return __signbit(x);
+__CRT_INLINE पूर्णांक __cdecl __signbitl (दीर्घ द्विगुन x) {
+  वापस __signbit(x);
 }
 
 
 /* fmin*, fmax* */
 
-#define TCCFP_FMIN_EVAL (isnan(x) ? y :                                      \
+#घोषणा TCCFP_FMIN_EVAL (isnan(x) ? y :                                      \
                          isnan(y) ? x :                                      \
                          (signbit(x) != signbit(y)) ? (signbit(x) ? x : y) : \
                          x < y ? x : y)
 
-__CRT_INLINE double __cdecl fmin (double x, double y) {
-  return TCCFP_FMIN_EVAL;
+__CRT_INLINE द्विगुन __cdecl fmin (द्विगुन x, द्विगुन y) {
+  वापस TCCFP_FMIN_EVAL;
 }
 
-__CRT_INLINE float __cdecl fminf (float x, float y) {
-  return TCCFP_FMIN_EVAL;
+__CRT_INLINE भग्न __cdecl fminf (भग्न x, भग्न y) {
+  वापस TCCFP_FMIN_EVAL;
 }
 
-__CRT_INLINE long double __cdecl fminl (long double x, long double y) {
-  return TCCFP_FMIN_EVAL;
+__CRT_INLINE दीर्घ द्विगुन __cdecl fminl (दीर्घ द्विगुन x, दीर्घ द्विगुन y) {
+  वापस TCCFP_FMIN_EVAL;
 }
 
-#define TCCFP_FMAX_EVAL (isnan(x) ? y :                                      \
+#घोषणा TCCFP_FMAX_EVAL (isnan(x) ? y :                                      \
                          isnan(y) ? x :                                      \
                          (signbit(x) != signbit(y)) ? (signbit(x) ? y : x) : \
                          x < y ? y : x)
 
-__CRT_INLINE double __cdecl fmax (double x, double y) {
-  return TCCFP_FMAX_EVAL;
+__CRT_INLINE द्विगुन __cdecl fmax (द्विगुन x, द्विगुन y) {
+  वापस TCCFP_FMAX_EVAL;
 }
 
-__CRT_INLINE float __cdecl fmaxf (float x, float y) {
-  return TCCFP_FMAX_EVAL;
+__CRT_INLINE भग्न __cdecl fmaxf (भग्न x, भग्न y) {
+  वापस TCCFP_FMAX_EVAL;
 }
 
-__CRT_INLINE long double __cdecl fmaxl (long double x, long double y) {
-  return TCCFP_FMAX_EVAL;
+__CRT_INLINE दीर्घ द्विगुन __cdecl fmaxl (दीर्घ द्विगुन x, दीर्घ द्विगुन y) {
+  वापस TCCFP_FMAX_EVAL;
 }
 
 
 /* *round* */
 
-#define TCCFP_FORCE_EVAL(x) do {  \
-  volatile typeof(x) __x;         \
+#घोषणा TCCFP_FORCE_EVAL(x) करो {  \
+  अस्थिर typeof(x) __x;         \
   __x = (x);                      \
-} while(0)
+} जबतक(0)
 
-__CRT_INLINE double __cdecl round (double x) {
-  union {double f; uint64_t i;} u = {.f = x};
-  int e = u.i >> 52 & 0x7ff;
-  double y;
+__CRT_INLINE द्विगुन __cdecl round (द्विगुन x) {
+  जोड़ {द्विगुन f; uint64_t i;} u = {.f = x};
+  पूर्णांक e = u.i >> 52 & 0x7ff;
+  द्विगुन y;
 
-  if (e >= 0x3ff+52)
-    return x;
-  if (u.i >> 63)
+  अगर (e >= 0x3ff+52)
+    वापस x;
+  अगर (u.i >> 63)
     x = -x;
-  if (e < 0x3ff-1) {
+  अगर (e < 0x3ff-1) {
     /* raise inexact if x!=0 */
     TCCFP_FORCE_EVAL(x + 0x1p52);
-    return 0*u.f;
+    वापस 0*u.f;
   }
-  y = (double)(x + 0x1p52) - 0x1p52 - x;
+  y = (द्विगुन)(x + 0x1p52) - 0x1p52 - x;
   y = y + x - (y > 0.5) + (y <= -0.5); /* branchless */
-  return (u.i >> 63) ? -y : y;
+  वापस (u.i >> 63) ? -y : y;
 }
 
-__CRT_INLINE long __cdecl lround (double x) {
-  return round(x);
+__CRT_INLINE दीर्घ __cdecl lround (द्विगुन x) {
+  वापस round(x);
 }
 
-__CRT_INLINE long long __cdecl llround (double x) {
-  return round(x);
+__CRT_INLINE दीर्घ दीर्घ __cdecl llround (द्विगुन x) {
+  वापस round(x);
 }
 
-__CRT_INLINE float __cdecl roundf (float x) {
-  return round(x);
+__CRT_INLINE भग्न __cdecl roundf (भग्न x) {
+  वापस round(x);
 }
 
-__CRT_INLINE long __cdecl lroundf (float x) {
-  return round(x);
+__CRT_INLINE दीर्घ __cdecl lroundf (भग्न x) {
+  वापस round(x);
 }
 
-__CRT_INLINE long long __cdecl llroundf (float x) {
-  return round(x);
+__CRT_INLINE दीर्घ दीर्घ __cdecl llroundf (भग्न x) {
+  वापस round(x);
 }
 
-__CRT_INLINE long double __cdecl roundl (long double x) {
-  return round(x);
+__CRT_INLINE दीर्घ द्विगुन __cdecl roundl (दीर्घ द्विगुन x) {
+  वापस round(x);
 }
 
-__CRT_INLINE long __cdecl lroundl (long double x) {
-  return round(x);
+__CRT_INLINE दीर्घ __cdecl lroundl (दीर्घ द्विगुन x) {
+  वापस round(x);
 }
 
-__CRT_INLINE long long __cdecl llroundl (long double x) {
-  return round(x);
+__CRT_INLINE दीर्घ दीर्घ __cdecl llroundl (दीर्घ द्विगुन x) {
+  वापस round(x);
 }
 
 
 /* MUSL asinh, acosh, atanh */
 
-__CRT_INLINE double __cdecl asinh(double x) {
-  union {double f; uint64_t i;} u = {.f = x};
-  unsigned e = u.i >> 52 & 0x7ff, s = u.i >> 63;
+__CRT_INLINE द्विगुन __cdecl asinh(द्विगुन x) {
+  जोड़ {द्विगुन f; uint64_t i;} u = {.f = x};
+  अचिन्हित e = u.i >> 52 & 0x7ff, s = u.i >> 63;
   u.i &= -1ull / 2, x = u.f;
-  if (e >= 0x3ff + 26) x = log(x) + 0.693147180559945309;
-  else if (e >= 0x3ff + 1) x = log(2*x + 1 / (sqrt(x*x + 1) + x)); /* |x|>=2 */
-  else if (e >= 0x3ff - 26) x = log1p(x + x*x / (sqrt(x*x + 1) + 1));
-  else TCCFP_FORCE_EVAL(x + 0x1p120f);
-  return s ? -x : x;
+  अगर (e >= 0x3ff + 26) x = log(x) + 0.693147180559945309;
+  अन्यथा अगर (e >= 0x3ff + 1) x = log(2*x + 1 / (वर्ग_मूल(x*x + 1) + x)); /* |x|>=2 */
+  अन्यथा अगर (e >= 0x3ff - 26) x = log1p(x + x*x / (वर्ग_मूल(x*x + 1) + 1));
+  अन्यथा TCCFP_FORCE_EVAL(x + 0x1p120f);
+  वापस s ? -x : x;
 }
 
-__CRT_INLINE double __cdecl acosh(double x) {
-  union {double f; uint64_t i;} u = {.f = x};
-  unsigned e = u.i >> 52 & 0x7ff;
-  if (e < 0x3ff + 1) return --x, log1p(x + sqrt(x*x + 2*x)); /* |x|<2 */
-  if (e < 0x3ff + 26) return log(2*x - 1 / (x + sqrt(x*x - 1)));
-  return log(x) + 0.693147180559945309;
+__CRT_INLINE द्विगुन __cdecl acosh(द्विगुन x) {
+  जोड़ {द्विगुन f; uint64_t i;} u = {.f = x};
+  अचिन्हित e = u.i >> 52 & 0x7ff;
+  अगर (e < 0x3ff + 1) वापस --x, log1p(x + वर्ग_मूल(x*x + 2*x)); /* |x|<2 */
+  अगर (e < 0x3ff + 26) वापस log(2*x - 1 / (x + वर्ग_मूल(x*x - 1)));
+  वापस log(x) + 0.693147180559945309;
 }
 
-__CRT_INLINE double __cdecl atanh(double x) {
-  union {double f; uint64_t i;} u = {.f = x};
-  unsigned e = u.i >> 52 & 0x7ff, s = u.i >> 63;
+__CRT_INLINE द्विगुन __cdecl atanh(द्विगुन x) {
+  जोड़ {द्विगुन f; uint64_t i;} u = {.f = x};
+  अचिन्हित e = u.i >> 52 & 0x7ff, s = u.i >> 63;
   u.i &= -1ull / 2, x = u.f;
-  if (e < 0x3ff - 1) {
-    if (e < 0x3ff - 32) { if (e == 0) TCCFP_FORCE_EVAL((float)x); }
-    else x = 0.5 * log1p(2*x + 2*x*x / (1 - x)); /* |x| < 0.5 */
-  } else x = 0.5 * log1p(2*(x / (1 - x))); /* avoid overflow */
-  return s ? -x : x;
+  अगर (e < 0x3ff - 1) {
+    अगर (e < 0x3ff - 32) { अगर (e == 0) TCCFP_FORCE_EVAL((भग्न)x); }
+    अन्यथा x = 0.5 * log1p(2*x + 2*x*x / (1 - x)); /* |x| < 0.5 */
+  } अन्यथा x = 0.5 * log1p(2*(x / (1 - x))); /* avoid overflow */
+  वापस s ? -x : x;
 }
 
 /* MUSL scalbn */
 
-__CRT_INLINE double __cdecl scalbn(double x, int n) {
-  union {double f; uint64_t i;} u;
-  if (n > 1023) {
+__CRT_INLINE द्विगुन __cdecl scalbn(द्विगुन x, पूर्णांक n) {
+  जोड़ {द्विगुन f; uint64_t i;} u;
+  अगर (n > 1023) {
     x *= 0x1p1023, n -= 1023;
-    if (n > 1023) {
+    अगर (n > 1023) {
       x *= 0x1p1023, n -= 1023;
-      if (n > 1023) n = 1023;
+      अगर (n > 1023) n = 1023;
     }
-  } else if (n < -1022) {
+  } अन्यथा अगर (n < -1022) {
     x *= 0x1p-1022 * 0x1p53, n += 1022 - 53;
-    if (n < -1022) {
+    अगर (n < -1022) {
       x *= 0x1p-1022 * 0x1p53, n += 1022 - 53;
-      if (n < -1022) n = -1022;
+      अगर (n < -1022) n = -1022;
     }
   }
   u.i = (0x3ffull + n) << 52;
-  return x * u.f;
+  वापस x * u.f;
 }
 
 /* MUSL: Override msvcrt frexp(): 4.5x speedup! */
 
-__CRT_INLINE double __cdecl frexp(double x, int *e) {
-  union {double f; uint64_t i;} u = {.f = x};
-  int ee = u.i>>52 & 0x7ff;
-  if (!ee) {
-    if (x) x = frexp(x*0x1p64, e), *e -= 64;
-    else *e = 0;
-    return x;
-  } else if (ee == 0x7ff)
-    return x;
+__CRT_INLINE द्विगुन __cdecl frexp(द्विगुन x, पूर्णांक *e) {
+  जोड़ {द्विगुन f; uint64_t i;} u = {.f = x};
+  पूर्णांक ee = u.i>>52 & 0x7ff;
+  अगर (!ee) {
+    अगर (x) x = frexp(x*0x1p64, e), *e -= 64;
+    अन्यथा *e = 0;
+    वापस x;
+  } अन्यथा अगर (ee == 0x7ff)
+    वापस x;
   *e = ee - 0x3fe;
   u.i &= 0x800fffffffffffffull;
   u.i |= 0x3fe0000000000000ull;
-  return u.f;
+  वापस u.f;
 }
 
 /* MUSL nan */
 
-__CRT_INLINE double __cdecl nan(const char* s) {
-  return NAN;
+__CRT_INLINE द्विगुन __cdecl nan(स्थिर अक्षर* s) {
+  वापस न_अंक;
 }
-__CRT_INLINE float __cdecl nanf(const char* s) {
-  return NAN;
+__CRT_INLINE भग्न __cdecl nanf(स्थिर अक्षर* s) {
+  वापस न_अंक;
 }
-__CRT_INLINE long double __cdecl nanl(const char* s) {
-  return NAN;
+__CRT_INLINE दीर्घ द्विगुन __cdecl nanl(स्थिर अक्षर* s) {
+  वापस न_अंक;
 }
 
 
@@ -274,112 +274,112 @@ __CRT_INLINE long double __cdecl nanl(const char* s) {
  * In <stdlib.h>: lldiv().
  */
 
-__CRT_INLINE float __cdecl scalbnf(float x, int n) {
-  return scalbn(x, n);
+__CRT_INLINE भग्न __cdecl scalbnf(भग्न x, पूर्णांक n) {
+  वापस scalbn(x, n);
 }
-__CRT_INLINE long double __cdecl scalbnl(long double x, int n) {
-  return scalbn(x, n);
+__CRT_INLINE दीर्घ द्विगुन __cdecl scalbnl(दीर्घ द्विगुन x, पूर्णांक n) {
+  वापस scalbn(x, n);
 }
 
-__CRT_INLINE double __cdecl scalbln(double x, long n) {
-  return scalbn(x, n);
+__CRT_INLINE द्विगुन __cdecl scalbln(द्विगुन x, दीर्घ n) {
+  वापस scalbn(x, n);
 }
-__CRT_INLINE float __cdecl scalblnf(float x, long n) {
-  return scalbn(x, n);
+__CRT_INLINE भग्न __cdecl scalblnf(भग्न x, दीर्घ n) {
+  वापस scalbn(x, n);
 }
-__CRT_INLINE long double __cdecl scalblnl(long double x, long n) {
-  return scalbn(x, n);
+__CRT_INLINE दीर्घ द्विगुन __cdecl scalblnl(दीर्घ द्विगुन x, दीर्घ n) {
+  वापस scalbn(x, n);
 }
 
 /* Override msvcrt ldexp(): 7.3x speedup! */
 
-__CRT_INLINE double __cdecl ldexp(double x, int expn) {
-  return scalbn(x, expn);
+__CRT_INLINE द्विगुन __cdecl ldexp(द्विगुन x, पूर्णांक expn) {
+  वापस scalbn(x, expn);
 }
-__CRT_INLINE float __cdecl ldexpf(float x, int expn) {
-  return scalbn(x, expn);
+__CRT_INLINE भग्न __cdecl ldexpf(भग्न x, पूर्णांक expn) {
+  वापस scalbn(x, expn);
 }
-__CRT_INLINE long double __cdecl ldexpl(long double x, int expn) {
-  return scalbn(x, expn);
-}
-
-__CRT_INLINE float __cdecl frexpf(float x, int *y) {
-  return frexp(x, y);
-}
-__CRT_INLINE long double __cdecl frexpl (long double x, int* y) {
-  return frexp(x, y);
+__CRT_INLINE दीर्घ द्विगुन __cdecl ldexpl(दीर्घ द्विगुन x, पूर्णांक expn) {
+  वापस scalbn(x, expn);
 }
 
+__CRT_INLINE भग्न __cdecl frexpf(भग्न x, पूर्णांक *y) {
+  वापस frexp(x, y);
+}
+__CRT_INLINE दीर्घ द्विगुन __cdecl frexpl (दीर्घ द्विगुन x, पूर्णांक* y) {
+  वापस frexp(x, y);
+}
 
-__CRT_INLINE double __cdecl rint(double x) {
-double retval;
+
+__CRT_INLINE द्विगुन __cdecl rint(द्विगुन x) {
+द्विगुन retval;
   __asm__ (
     "fldl    %1\n"
     "frndint   \n"
     "fstpl    %0\n" : "=m" (retval) : "m" (x));
-  return retval;
+  वापस retval;
 }
 
-__CRT_INLINE float __cdecl rintf(float x) {
-  float retval;
+__CRT_INLINE भग्न __cdecl rintf(भग्न x) {
+  भग्न retval;
   __asm__ (
     "flds    %1\n"
     "frndint   \n"
     "fstps    %0\n" : "=m" (retval) : "m" (x));
-   return retval;
+   वापस retval;
 }
-__CRT_INLINE long double __cdecl rintl (long double x) {
-  return rint(x);
+__CRT_INLINE दीर्घ द्विगुन __cdecl rintl (दीर्घ द्विगुन x) {
+  वापस rint(x);
 }
 
 
 /* 7.12.9.5 */
-__CRT_INLINE long __cdecl lrint(double x) {
-  long retval;
+__CRT_INLINE दीर्घ __cdecl lrint(द्विगुन x) {
+  दीर्घ retval;
   __asm__ __volatile__
     ("fldl   %1\n"
      "fistpl %0"  : "=m" (retval) : "m" (x));
-  return retval;
+  वापस retval;
 }
 
-__CRT_INLINE long __cdecl lrintf(float x) {
-  long retval;
+__CRT_INLINE दीर्घ __cdecl lrintf(भग्न x) {
+  दीर्घ retval;
   __asm__ __volatile__
     ("flds   %1\n"
      "fistpl %0"  : "=m" (retval) : "m" (x));
-  return retval;
+  वापस retval;
 }
 
-__CRT_INLINE long __cdecl lrintl (long double x) {
-  return lrint(x);
+__CRT_INLINE दीर्घ __cdecl lrintl (दीर्घ द्विगुन x) {
+  वापस lrint(x);
 }
 
 
-__CRT_INLINE long long __cdecl llrint(double x) {
-long long retval;
+__CRT_INLINE दीर्घ दीर्घ __cdecl llrint(द्विगुन x) {
+दीर्घ दीर्घ retval;
   __asm__ __volatile__
     ("fldl    %1\n"
      "fistpll %0"  : "=m" (retval) : "m" (x));
-  return retval;
+  वापस retval;
 }
 
-__CRT_INLINE long long __cdecl llrintf(float x) {
-  long long retval;
+__CRT_INLINE दीर्घ दीर्घ __cdecl llrintf(भग्न x) {
+  दीर्घ दीर्घ retval;
   __asm__ __volatile__
     ("flds   %1\n"
      "fistpll %0"  : "=m" (retval) : "m" (x));
-  return retval;
+  वापस retval;
 }
 
-__CRT_INLINE long long __cdecl llrintl (long double x) {
-  return llrint(x);
+__CRT_INLINE दीर्घ दीर्घ __cdecl llrintl (दीर्घ द्विगुन x) {
+  वापस llrint(x);
 }
 
 
-__CRT_INLINE double __cdecl trunc(double _x) {
-  double retval;
-  unsigned short saved_cw;
-  unsigned short tmp_cw;
+__CRT_INLINE द्विगुन __cdecl trunc(द्विगुन _x) {
+  द्विगुन retval;
+  अचिन्हित लघु saved_cw;
+  अचिन्हित लघु tmp_cw;
   __asm__ ("fnstcw %0;" : "=m" (saved_cw)); /* save FPU control word */
   tmp_cw = (saved_cw & ~(FE_TONEAREST | FE_DOWNWARD | FE_UPWARD | FE_TOWARDZERO))
     | FE_TOWARDZERO;
@@ -388,177 +388,177 @@ __CRT_INLINE double __cdecl trunc(double _x) {
            "frndint;"
            "fstpl  %0;" : "=m" (retval)  : "m" (_x)); /* round towards zero */
   __asm__ ("fldcw %0;" : : "m" (saved_cw) ); /* restore saved control word */
-  return retval;
+  वापस retval;
 }
 
-__CRT_INLINE float __cdecl truncf(float x) {
-  return (float) ((intptr_t) x);
+__CRT_INLINE भग्न __cdecl truncf(भग्न x) {
+  वापस (भग्न) ((intptr_t) x);
 }
-__CRT_INLINE long double __cdecl truncl(long double x) {
-  return trunc(x);
-}
-
-
-__CRT_INLINE long double __cdecl nextafterl(long double x, long double to) {
-  return nextafter(x, to);
+__CRT_INLINE दीर्घ द्विगुन __cdecl truncl(दीर्घ द्विगुन x) {
+  वापस trunc(x);
 }
 
-__CRT_INLINE double __cdecl nexttoward(double x, long double to) {
-  return nextafter(x, to);
+
+__CRT_INLINE दीर्घ द्विगुन __cdecl nextafterl(दीर्घ द्विगुन x, दीर्घ द्विगुन to) {
+  वापस nextafter(x, to);
 }
-__CRT_INLINE float __cdecl nexttowardf(float x, long double to) {
-  return nextafterf(x, to);
+
+__CRT_INLINE द्विगुन __cdecl nexttoward(द्विगुन x, दीर्घ द्विगुन to) {
+  वापस nextafter(x, to);
 }
-__CRT_INLINE long double __cdecl nexttowardl(long double x, long double to) {
-  return nextafter(x, to);
+__CRT_INLINE भग्न __cdecl nexttowardf(भग्न x, दीर्घ द्विगुन to) {
+  वापस nextafterf(x, to);
+}
+__CRT_INLINE दीर्घ द्विगुन __cdecl nexttowardl(दीर्घ द्विगुन x, दीर्घ द्विगुन to) {
+  वापस nextafter(x, to);
 }
 
 /* Override msvcrt fabs(): 6.3x speedup! */
 
-__CRT_INLINE double __cdecl fabs(double x) {
-  return x < 0 ? -x : x;
+__CRT_INLINE द्विगुन __cdecl भ_असल(द्विगुन x) {
+  वापस x < 0 ? -x : x;
 }
-__CRT_INLINE float __cdecl fabsf(float x) {
-  return x < 0 ? -x : x;
+__CRT_INLINE भग्न __cdecl fabsf(भग्न x) {
+  वापस x < 0 ? -x : x;
 }
-__CRT_INLINE long double __cdecl fabsl(long double x) {
-  return x < 0 ? -x : x;
+__CRT_INLINE दीर्घ द्विगुन __cdecl fabsl(दीर्घ द्विगुन x) {
+  वापस x < 0 ? -x : x;
 }
 
 
-#if defined(_WIN32) && !defined(_WIN64) && !defined(__ia64__)
-  __CRT_INLINE float acosf(float x) { return acos(x); }
-  __CRT_INLINE float asinf(float x) { return asin(x); }
-  __CRT_INLINE float atanf(float x) { return atan(x); }
-  __CRT_INLINE float atan2f(float x, float y) { return atan2(x, y); }
-  __CRT_INLINE float ceilf(float x) { return ceil(x); }
-  __CRT_INLINE float cosf(float x) { return cos(x); }
-  __CRT_INLINE float coshf(float x) { return cosh(x); }
-  __CRT_INLINE float expf(float x) { return exp(x); }
-  __CRT_INLINE float floorf(float x) { return floor(x); }
-  __CRT_INLINE float fmodf(float x, float y) { return fmod(x, y); }
-  __CRT_INLINE float logf(float x) { return log(x); }
-  __CRT_INLINE float logbf(float x) { return logb(x); }
-  __CRT_INLINE float log10f(float x) { return log10(x); }
-  __CRT_INLINE float modff(float x, float *y) { double di, df = modf(x, &di); *y = di; return df; }
-  __CRT_INLINE float powf(float x, float y) { return pow(x, y); }
-  __CRT_INLINE float sinf(float x) { return sin(x); }
-  __CRT_INLINE float sinhf(float x) { return sinh(x); }
-  __CRT_INLINE float sqrtf(float x) { return sqrt(x); }
-  __CRT_INLINE float tanf(float x) { return tan(x); }
-  __CRT_INLINE float tanhf(float x) { return tanh(x); }
-#endif
-__CRT_INLINE float __cdecl asinhf(float x) { return asinh(x); }
-__CRT_INLINE float __cdecl acoshf(float x) { return acosh(x); }
-__CRT_INLINE float __cdecl atanhf(float x) { return atanh(x); }
+#अगर defined(_WIN32) && !defined(_WIN64) && !defined(__ia64__)
+  __CRT_INLINE भग्न acosf(भग्न x) { वापस acos(x); }
+  __CRT_INLINE भग्न asinf(भग्न x) { वापस asin(x); }
+  __CRT_INLINE भग्न atanf(भग्न x) { वापस atan(x); }
+  __CRT_INLINE भग्न atan2f(भग्न x, भग्न y) { वापस atan2(x, y); }
+  __CRT_INLINE भग्न ceilf(भग्न x) { वापस उच्चमान(x); }
+  __CRT_INLINE भग्न cosf(भग्न x) { वापस cos(x); }
+  __CRT_INLINE भग्न coshf(भग्न x) { वापस cosh(x); }
+  __CRT_INLINE भग्न expf(भग्न x) { वापस exp(x); }
+  __CRT_INLINE भग्न floorf(भग्न x) { वापस न्यूनमान(x); }
+  __CRT_INLINE भग्न fmodf(भग्न x, भग्न y) { वापस भ_शेष(x, y); }
+  __CRT_INLINE भग्न logf(भग्न x) { वापस log(x); }
+  __CRT_INLINE भग्न logbf(भग्न x) { वापस logb(x); }
+  __CRT_INLINE भग्न log10f(भग्न x) { वापस log10(x); }
+  __CRT_INLINE भग्न modff(भग्न x, भग्न *y) { द्विगुन di, df = modf(x, &di); *y = di; वापस df; }
+  __CRT_INLINE भग्न powf(भग्न x, भग्न y) { वापस घात(x, y); }
+  __CRT_INLINE भग्न sinf(भग्न x) { वापस sin(x); }
+  __CRT_INLINE भग्न sinhf(भग्न x) { वापस sinh(x); }
+  __CRT_INLINE भग्न sqrtf(भग्न x) { वापस वर्ग_मूल(x); }
+  __CRT_INLINE भग्न tanf(भग्न x) { वापस tan(x); }
+  __CRT_INLINE भग्न tanhf(भग्न x) { वापस tanh(x); }
+#पूर्ण_अगर
+__CRT_INLINE भग्न __cdecl asinhf(भग्न x) { वापस asinh(x); }
+__CRT_INLINE भग्न __cdecl acoshf(भग्न x) { वापस acosh(x); }
+__CRT_INLINE भग्न __cdecl atanhf(भग्न x) { वापस atanh(x); }
 
-__CRT_INLINE long double __cdecl asinhl(long double x) { return asinh(x); }
-__CRT_INLINE long double __cdecl acoshl(long double x) { return acosh(x); }
-__CRT_INLINE long double __cdecl atanhl(long double x) { return atanh(x); }
-__CRT_INLINE long double __cdecl asinl(long double x) { return asin(x); }
-__CRT_INLINE long double __cdecl acosl(long double x) { return acos(x); }
-__CRT_INLINE long double __cdecl atanl(long double x) { return atan(x); }
-__CRT_INLINE long double __cdecl ceill(long double x) { return ceil(x); }
-__CRT_INLINE long double __cdecl coshl(long double x) { return cosh(x); }
-__CRT_INLINE long double __cdecl cosl(long double x) { return cos(x); }
-__CRT_INLINE long double __cdecl expl(long double x) { return exp(x); }
-__CRT_INLINE long double __cdecl floorl(long double x) { return floor(x); }
-__CRT_INLINE long double __cdecl fmodl(long double x, long double y) { return fmod(x, y); }
-__CRT_INLINE long double __cdecl hypotl(long double x, long double y) { return hypot(x, y); }
-__CRT_INLINE long double __cdecl logl(long double x) { return log(x); }
-__CRT_INLINE long double __cdecl logbl(long double x) { return logb(x); }
-__CRT_INLINE long double __cdecl log10l(long double x) { return log10(x); }
-__CRT_INLINE long double __cdecl modfl(long double x, long double* y) { double y1 = *y; x = modf(x, &y1); *y = y1; return x; }
-__CRT_INLINE long double __cdecl powl(long double x, long double y) { return pow(x, y); }
-__CRT_INLINE long double __cdecl sinhl(long double x) { return sinh(x); }
-__CRT_INLINE long double __cdecl sinl(long double x) { return sin(x); }
-__CRT_INLINE long double __cdecl sqrtl(long double x) { return sqrt(x); }
-__CRT_INLINE long double __cdecl tanhl(long double x) { return tanh(x); }
-__CRT_INLINE long double __cdecl tanl(long double x) { return tan(x); }
+__CRT_INLINE दीर्घ द्विगुन __cdecl asinhl(दीर्घ द्विगुन x) { वापस asinh(x); }
+__CRT_INLINE दीर्घ द्विगुन __cdecl acoshl(दीर्घ द्विगुन x) { वापस acosh(x); }
+__CRT_INLINE दीर्घ द्विगुन __cdecl atanhl(दीर्घ द्विगुन x) { वापस atanh(x); }
+__CRT_INLINE दीर्घ द्विगुन __cdecl asinl(दीर्घ द्विगुन x) { वापस asin(x); }
+__CRT_INLINE दीर्घ द्विगुन __cdecl acosl(दीर्घ द्विगुन x) { वापस acos(x); }
+__CRT_INLINE दीर्घ द्विगुन __cdecl atanl(दीर्घ द्विगुन x) { वापस atan(x); }
+__CRT_INLINE दीर्घ द्विगुन __cdecl ceill(दीर्घ द्विगुन x) { वापस उच्चमान(x); }
+__CRT_INLINE दीर्घ द्विगुन __cdecl coshl(दीर्घ द्विगुन x) { वापस cosh(x); }
+__CRT_INLINE दीर्घ द्विगुन __cdecl cosl(दीर्घ द्विगुन x) { वापस cos(x); }
+__CRT_INLINE दीर्घ द्विगुन __cdecl expl(दीर्घ द्विगुन x) { वापस exp(x); }
+__CRT_INLINE दीर्घ द्विगुन __cdecl floorl(दीर्घ द्विगुन x) { वापस न्यूनमान(x); }
+__CRT_INLINE दीर्घ द्विगुन __cdecl fmodl(दीर्घ द्विगुन x, दीर्घ द्विगुन y) { वापस भ_शेष(x, y); }
+__CRT_INLINE दीर्घ द्विगुन __cdecl hypotl(दीर्घ द्विगुन x, दीर्घ द्विगुन y) { वापस hypot(x, y); }
+__CRT_INLINE दीर्घ द्विगुन __cdecl logl(दीर्घ द्विगुन x) { वापस log(x); }
+__CRT_INLINE दीर्घ द्विगुन __cdecl logbl(दीर्घ द्विगुन x) { वापस logb(x); }
+__CRT_INLINE दीर्घ द्विगुन __cdecl log10l(दीर्घ द्विगुन x) { वापस log10(x); }
+__CRT_INLINE दीर्घ द्विगुन __cdecl modfl(दीर्घ द्विगुन x, दीर्घ द्विगुन* y) { द्विगुन y1 = *y; x = modf(x, &y1); *y = y1; वापस x; }
+__CRT_INLINE दीर्घ द्विगुन __cdecl powl(दीर्घ द्विगुन x, दीर्घ द्विगुन y) { वापस घात(x, y); }
+__CRT_INLINE दीर्घ द्विगुन __cdecl sinhl(दीर्घ द्विगुन x) { वापस sinh(x); }
+__CRT_INLINE दीर्घ द्विगुन __cdecl sinl(दीर्घ द्विगुन x) { वापस sin(x); }
+__CRT_INLINE दीर्घ द्विगुन __cdecl sqrtl(दीर्घ द्विगुन x) { वापस वर्ग_मूल(x); }
+__CRT_INLINE दीर्घ द्विगुन __cdecl tanhl(दीर्घ द्विगुन x) { वापस tanh(x); }
+__CRT_INLINE दीर्घ द्विगुन __cdecl tanl(दीर्घ द्विगुन x) { वापस tan(x); }
 
 /* Following are accurate, but much shorter implementations than MUSL lib. */
 
-__CRT_INLINE double __cdecl log1p(double x) {
-  double u = 1.0 + x;
-  return u == 1.0 ? x : log(u)*(x / (u - 1.0));
+__CRT_INLINE द्विगुन __cdecl log1p(द्विगुन x) {
+  द्विगुन u = 1.0 + x;
+  वापस u == 1.0 ? x : log(u)*(x / (u - 1.0));
 }
-__CRT_INLINE float __cdecl log1pf(float x) {
-  float u = 1.0f + x;
-  return u == 1.0f ? x : logf(u)*(x / (u - 1.0f));
+__CRT_INLINE भग्न __cdecl log1pf(भग्न x) {
+  भग्न u = 1.0f + x;
+  वापस u == 1.0f ? x : logf(u)*(x / (u - 1.0f));
 }
-__CRT_INLINE long double __cdecl log1pl(long double x) {
-  return log1p(x);
-}
-
-
-__CRT_INLINE double __cdecl expm1(double x) {
-  if (x > 0.0024 || x < -0.0024) return exp(x) - 1.0;
-  return x*(1.0 + 0.5*x*(1.0 + (1/3.0)*x*(1.0 + 0.25*x*(1.0 + 0.2*x))));
-}
-__CRT_INLINE float __cdecl expm1f(float x) {
-  if (x > 0.085f || x < -0.085f) return expf(x) - 1.0f;
-  return x*(1.0f + 0.5f*x*(1.0f + (1/3.0f)*x*(1.0f + 0.25f*x)));
-}
-__CRT_INLINE long double __cdecl expm1l(long double x) {
-  return expm1(x);
+__CRT_INLINE दीर्घ द्विगुन __cdecl log1pl(दीर्घ द्विगुन x) {
+  वापस log1p(x);
 }
 
 
-__CRT_INLINE double __cdecl cbrt(double x) {
-  return x < 0.0 ? -pow(-x, 1/3.0) : pow(x, 1/3.0);
+__CRT_INLINE द्विगुन __cdecl expm1(द्विगुन x) {
+  अगर (x > 0.0024 || x < -0.0024) वापस exp(x) - 1.0;
+  वापस x*(1.0 + 0.5*x*(1.0 + (1/3.0)*x*(1.0 + 0.25*x*(1.0 + 0.2*x))));
 }
-__CRT_INLINE float __cdecl cbrtf(float x) {
-  return x < 0.0f ? -pow(-x, 1/3.0) : pow(x, 1/3.0);
+__CRT_INLINE भग्न __cdecl expm1f(भग्न x) {
+  अगर (x > 0.085f || x < -0.085f) वापस expf(x) - 1.0f;
+  वापस x*(1.0f + 0.5f*x*(1.0f + (1/3.0f)*x*(1.0f + 0.25f*x)));
 }
-__CRT_INLINE long double __cdecl cbrtl(long double x) {
-  return cbrt(x);
-}
-
-
-__CRT_INLINE double __cdecl log2(double x) {
-  return log(x) * 1.442695040888963407;
-}
-__CRT_INLINE float __cdecl log2f(float x) {
-  return log(x) * 1.442695040888963407;
-}
-__CRT_INLINE long double __cdecl log2l(long double x) {
-  return log(x) * 1.442695040888963407;
+__CRT_INLINE दीर्घ द्विगुन __cdecl expm1l(दीर्घ द्विगुन x) {
+  वापस expm1(x);
 }
 
 
-__CRT_INLINE double __cdecl exp2(double x) {
-  return exp(x * 0.693147180559945309);
+__CRT_INLINE द्विगुन __cdecl cbrt(द्विगुन x) {
+  वापस x < 0.0 ? -घात(-x, 1/3.0) : घात(x, 1/3.0);
 }
-__CRT_INLINE float __cdecl exp2f(float x) {
-  return exp(x * 0.693147180559945309);
+__CRT_INLINE भग्न __cdecl cbrtf(भग्न x) {
+  वापस x < 0.0f ? -घात(-x, 1/3.0) : घात(x, 1/3.0);
 }
-__CRT_INLINE long double __cdecl exp2l(long double x) {
-  return exp(x * 0.693147180559945309);
-}
-
-
-__CRT_INLINE int __cdecl ilogb(double x) {
-  return (int) logb(x);
-}
-__CRT_INLINE int __cdecl ilogbf(float x) {
-  return (int) logbf(x);
-}
-__CRT_INLINE int __cdecl ilogbl(long double x) {
-  return (int) logb(x);
+__CRT_INLINE दीर्घ द्विगुन __cdecl cbrtl(दीर्घ द्विगुन x) {
+  वापस cbrt(x);
 }
 
 
-__CRT_INLINE double __cdecl fdim(double x, double y) {
-  if (isnan(x) || isnan(y)) return NAN;
-  return x > y ? x - y : 0;
+__CRT_INLINE द्विगुन __cdecl log2(द्विगुन x) {
+  वापस log(x) * 1.442695040888963407;
 }
-__CRT_INLINE float __cdecl fdimf(float x, float y) {
-  if (isnan(x) || isnan(y)) return NAN;
-  return x > y ? x - y : 0;
+__CRT_INLINE भग्न __cdecl log2f(भग्न x) {
+  वापस log(x) * 1.442695040888963407;
 }
-__CRT_INLINE long double __cdecl fdiml(long double x, long double y) {
-  if (isnan(x) || isnan(y)) return NAN;
-  return x > y ? x - y : 0;
+__CRT_INLINE दीर्घ द्विगुन __cdecl log2l(दीर्घ द्विगुन x) {
+  वापस log(x) * 1.442695040888963407;
+}
+
+
+__CRT_INLINE द्विगुन __cdecl exp2(द्विगुन x) {
+  वापस exp(x * 0.693147180559945309);
+}
+__CRT_INLINE भग्न __cdecl exp2f(भग्न x) {
+  वापस exp(x * 0.693147180559945309);
+}
+__CRT_INLINE दीर्घ द्विगुन __cdecl exp2l(दीर्घ द्विगुन x) {
+  वापस exp(x * 0.693147180559945309);
+}
+
+
+__CRT_INLINE पूर्णांक __cdecl ilogb(द्विगुन x) {
+  वापस (पूर्णांक) logb(x);
+}
+__CRT_INLINE पूर्णांक __cdecl ilogbf(भग्न x) {
+  वापस (पूर्णांक) logbf(x);
+}
+__CRT_INLINE पूर्णांक __cdecl ilogbl(दीर्घ द्विगुन x) {
+  वापस (पूर्णांक) logb(x);
+}
+
+
+__CRT_INLINE द्विगुन __cdecl fdim(द्विगुन x, द्विगुन y) {
+  अगर (isnan(x) || isnan(y)) वापस न_अंक;
+  वापस x > y ? x - y : 0;
+}
+__CRT_INLINE भग्न __cdecl fdimf(भग्न x, भग्न y) {
+  अगर (isnan(x) || isnan(y)) वापस न_अंक;
+  वापस x > y ? x - y : 0;
+}
+__CRT_INLINE दीर्घ द्विगुन __cdecl fdiml(दीर्घ द्विगुन x, दीर्घ द्विगुन y) {
+  अगर (isnan(x) || isnan(y)) वापस न_अंक;
+  वापस x > y ? x - y : 0;
 }
 
 
@@ -567,52 +567,52 @@ __CRT_INLINE long double __cdecl fdiml(long double x, long double y) {
  * https://www.johndcook.com/blog/cpp_gamma
  */
 
-__CRT_INLINE double __cdecl tgamma(double x) {
-  double m = 1.0, t = 3.14159265358979323;
-  if (x == floor(x)) {
-    if (x == 0) return INFINITY;
-    if (x < 0) return NAN;
-    if (x < 26) { for (double k = 2; k < x; ++k) m *= k; return m; }
+__CRT_INLINE द्विगुन __cdecl tgamma(द्विगुन x) {
+  द्विगुन m = 1.0, t = 3.14159265358979323;
+  अगर (x == न्यूनमान(x)) {
+    अगर (x == 0) वापस अनन्त;
+    अगर (x < 0) वापस न_अंक;
+    अगर (x < 26) { क्रम (द्विगुन k = 2; k < x; ++k) m *= k; वापस m; }
   }
-  if (x < 0.5)
-    return t / (sin(t*x)*tgamma(1.0 - x));
-  if (x > 12.0)
-    return exp(lgamma(x));
+  अगर (x < 0.5)
+    वापस t / (sin(t*x)*tgamma(1.0 - x));
+  अगर (x > 12.0)
+    वापस exp(lgamma(x));
 
-  static const double c[8] = {676.5203681218851, -1259.1392167224028,
+  अटल स्थिर द्विगुन c[8] = {676.5203681218851, -1259.1392167224028,
                               771.32342877765313, -176.61502916214059,
                               12.507343278686905, -0.13857109526572012,
                               9.9843695780195716e-6, 1.5056327351493116e-7};
   m = 0.99999999999980993, t = x + 6.5; /* x-1+8-.5 */
-  for (int k = 0; k < 8; ++k) m += c[k] / (x + k);
-  return 2.50662827463100050 * pow(t, x - 0.5)*exp(-t)*m; /* C=sqrt(2pi) */
+  क्रम (पूर्णांक k = 0; k < 8; ++k) m += c[k] / (x + k);
+  वापस 2.50662827463100050 * घात(t, x - 0.5)*exp(-t)*m; /* C=sqrt(2pi) */
 }
 
 
-__CRT_INLINE double __cdecl lgamma(double x) {
-  if (x < 12.0) {
-    if (x <= 0.0 && x == floor(x)) return INFINITY;
+__CRT_INLINE द्विगुन __cdecl lgamma(द्विगुन x) {
+  अगर (x < 12.0) {
+    अगर (x <= 0.0 && x == न्यूनमान(x)) वापस अनन्त;
     x = tgamma(x);
-    return log(x < 0.0 ? -x : x);
+    वापस log(x < 0.0 ? -x : x);
   }
-  static const double c[7] = {1.0/12.0, -1.0/360.0, 1.0/1260.0, -1.0/1680.0,
+  अटल स्थिर द्विगुन c[7] = {1.0/12.0, -1.0/360.0, 1.0/1260.0, -1.0/1680.0,
                               1.0/1188.0, -691.0/360360.0, 1.0/156.0};
-  double m = -3617.0/122400.0, t = 1.0 / (x*x);
-  for (int k = 6; k >= 0; --k) m = m*t + c[k];
-  return (x - 0.5)*log(x) - x + 0.918938533204672742 + m / x; /* C=log(2pi)/2 */
+  द्विगुन m = -3617.0/122400.0, t = 1.0 / (x*x);
+  क्रम (पूर्णांक k = 6; k >= 0; --k) m = m*t + c[k];
+  वापस (x - 0.5)*log(x) - x + 0.918938533204672742 + m / x; /* C=log(2pi)/2 */
 }
 
-__CRT_INLINE float __cdecl tgammaf(float x) {
-  return tgamma(x);
+__CRT_INLINE भग्न __cdecl tgammaf(भग्न x) {
+  वापस tgamma(x);
 }
-__CRT_INLINE float __cdecl lgammaf(float x) {
-  return lgamma(x);
+__CRT_INLINE भग्न __cdecl lgammaf(भग्न x) {
+  वापस lgamma(x);
 }
-__CRT_INLINE long double __cdecl tgammal(long double x) {
-  return tgamma(x);
+__CRT_INLINE दीर्घ द्विगुन __cdecl tgammal(दीर्घ द्विगुन x) {
+  वापस tgamma(x);
 }
-__CRT_INLINE long double __cdecl lgammal(long double x) {
-  return lgamma(x);
+__CRT_INLINE दीर्घ द्विगुन __cdecl lgammal(दीर्घ द्विगुन x) {
+  वापस lgamma(x);
 }
 
-#endif /* _TCC_LIBM_H_ */
+#पूर्ण_अगर /* _TCC_LIBM_H_ */

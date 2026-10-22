@@ -1,17 +1,17 @@
-#include <stdio.h>
+#समावेश <stdio.h>
 
-int main()
+पूर्णांक मुख्य()
 {
-   printf("%d\n", '\1');
-   printf("%d\n", '\10');
-   printf("%d\n", '\100');
-   printf("%d\n", '\x01');
-   printf("%d\n", '\x0e');
-   printf("%d\n", '\x10');
-   printf("%d\n", '\x40');
-   printf("test \x40\n");
+   म_लिखो("%d\n", '\1');
+   म_लिखो("%d\n", '\10');
+   म_लिखो("%d\n", '\100');
+   म_लिखो("%d\n", '\x01');
+   म_लिखो("%d\n", '\x0e');
+   म_लिखो("%d\n", '\x10');
+   म_लिखो("%d\n", '\x40');
+   म_लिखो("test \x40\n");
 
-   return 0;
+   वापस 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

@@ -1,14 +1,14 @@
-#include <stdio.h>
+#समावेश <stdio.h>
 
-int main(int argc, char **argv)
+पूर्णांक मुख्य(पूर्णांक argc, अक्षर **argv)
 {
-   int Count;
+   पूर्णांक गिनती_3;
 
-   printf("hello world %d\n", argc);
-   for (Count = 1; Count < argc; Count++)
-      printf("arg %d: %s\n", Count, argv[Count]);
+   म_लिखो("hello world %d\n", argc);
+   क्रम (गिनती_3 = 1; गिनती_3 < argc; गिनती_3++)
+      म_लिखो("arg %d: %s\n", गिनती_3, argv[गिनती_3]);
 
-   return 0;
+   वापस 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

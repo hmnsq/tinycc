@@ -5,24 +5,24 @@
  */
 /* 7.8 Format conversion of integer types <inttypes.h> */
 
-#ifndef _INTTYPES_H_
-#define _INTTYPES_H_
+#अगर_अघोषित _INTTYPES_H_
+#घोषणा _INTTYPES_H_
 
-#include <_mingw.h>
-#include <stdint.h>
-#define __need_wchar_t
-#include <stddef.h>
+#समावेश <_mingw.h>
+#समावेश <stdint.h>
+#घोषणा __need_wchar_t
+#समावेश <stddef.h>
 
-#ifdef	__cplusplus
-extern	"C"	{
-#endif
+#अगर_घोषित	__cplusplus
+बाह्य	"C"	{
+#पूर्ण_अगर
 
-typedef struct {
+प्रकार काष्ठा {
 	intmax_t quot;
 	intmax_t rem;
 	} imaxdiv_t;
 
-#if !defined(__cplusplus) || defined(__STDC_FORMAT_MACROS)
+#अगर !defined(__cplusplus) || defined(__STDC_FORMAT_MACROS)
 
 /* 7.8.1 Macros for format specifiers
  * 
@@ -33,109 +33,109 @@ typedef struct {
  */
 
 /* fprintf macros for signed types */
-#define PRId8 "d"
-#define PRId16 "d"
-#define PRId32 "d"
-#define PRId64 "I64d"
+#घोषणा PRId8 "d"
+#घोषणा PRId16 "d"
+#घोषणा PRId32 "d"
+#घोषणा PRId64 "I64d"
 
-#define PRIdLEAST8 "d"
-#define PRIdLEAST16 "d"
-#define PRIdLEAST32 "d"
-#define PRIdLEAST64 "I64d"
+#घोषणा PRIdLEAST8 "d"
+#घोषणा PRIdLEAST16 "d"
+#घोषणा PRIdLEAST32 "d"
+#घोषणा PRIdLEAST64 "I64d"
 
-#define PRIdFAST8 "d"
-#define PRIdFAST16 "d"
-#define PRIdFAST32 "d"
-#define PRIdFAST64 "I64d"
+#घोषणा PRIdFAST8 "d"
+#घोषणा PRIdFAST16 "d"
+#घोषणा PRIdFAST32 "d"
+#घोषणा PRIdFAST64 "I64d"
 
-#define PRIdMAX "I64d"
+#घोषणा PRIdMAX "I64d"
 
-#define PRIi8 "i"
-#define PRIi16 "i"
-#define PRIi32 "i"
-#define PRIi64 "I64i"
+#घोषणा PRIi8 "i"
+#घोषणा PRIi16 "i"
+#घोषणा PRIi32 "i"
+#घोषणा PRIi64 "I64i"
 
-#define PRIiLEAST8 "i"
-#define PRIiLEAST16 "i"
-#define PRIiLEAST32 "i"
-#define PRIiLEAST64 "I64i"
+#घोषणा PRIiLEAST8 "i"
+#घोषणा PRIiLEAST16 "i"
+#घोषणा PRIiLEAST32 "i"
+#घोषणा PRIiLEAST64 "I64i"
 
-#define PRIiFAST8 "i"
-#define PRIiFAST16 "i"
-#define PRIiFAST32 "i"
-#define PRIiFAST64 "I64i"
+#घोषणा PRIiFAST8 "i"
+#घोषणा PRIiFAST16 "i"
+#घोषणा PRIiFAST32 "i"
+#घोषणा PRIiFAST64 "I64i"
 
-#define PRIiMAX "I64i"
+#घोषणा PRIiMAX "I64i"
 
-#define PRIo8 "o"
-#define PRIo16 "o"
-#define PRIo32 "o"
-#define PRIo64 "I64o"
+#घोषणा PRIo8 "o"
+#घोषणा PRIo16 "o"
+#घोषणा PRIo32 "o"
+#घोषणा PRIo64 "I64o"
 
-#define PRIoLEAST8 "o"
-#define PRIoLEAST16 "o"
-#define PRIoLEAST32 "o"
-#define PRIoLEAST64 "I64o"
+#घोषणा PRIoLEAST8 "o"
+#घोषणा PRIoLEAST16 "o"
+#घोषणा PRIoLEAST32 "o"
+#घोषणा PRIoLEAST64 "I64o"
 
-#define PRIoFAST8 "o"
-#define PRIoFAST16 "o"
-#define PRIoFAST32 "o"
-#define PRIoFAST64 "I64o"
+#घोषणा PRIoFAST8 "o"
+#घोषणा PRIoFAST16 "o"
+#घोषणा PRIoFAST32 "o"
+#घोषणा PRIoFAST64 "I64o"
 
-#define PRIoMAX "I64o"
+#घोषणा PRIoMAX "I64o"
 
 /* fprintf macros for unsigned types */
-#define PRIu8 "u"
-#define PRIu16 "u"
-#define PRIu32 "u"
-#define PRIu64 "I64u"
+#घोषणा PRIu8 "u"
+#घोषणा PRIu16 "u"
+#घोषणा PRIu32 "u"
+#घोषणा PRIu64 "I64u"
 
 
-#define PRIuLEAST8 "u"
-#define PRIuLEAST16 "u"
-#define PRIuLEAST32 "u"
-#define PRIuLEAST64 "I64u"
+#घोषणा PRIuLEAST8 "u"
+#घोषणा PRIuLEAST16 "u"
+#घोषणा PRIuLEAST32 "u"
+#घोषणा PRIuLEAST64 "I64u"
 
-#define PRIuFAST8 "u"
-#define PRIuFAST16 "u"
-#define PRIuFAST32 "u"
-#define PRIuFAST64 "I64u"
+#घोषणा PRIuFAST8 "u"
+#घोषणा PRIuFAST16 "u"
+#घोषणा PRIuFAST32 "u"
+#घोषणा PRIuFAST64 "I64u"
 
-#define PRIuMAX "I64u"
+#घोषणा PRIuMAX "I64u"
 
-#define PRIx8 "x"
-#define PRIx16 "x"
-#define PRIx32 "x"
-#define PRIx64 "I64x"
+#घोषणा PRIx8 "x"
+#घोषणा PRIx16 "x"
+#घोषणा PRIx32 "x"
+#घोषणा PRIx64 "I64x"
 
-#define PRIxLEAST8 "x"
-#define PRIxLEAST16 "x"
-#define PRIxLEAST32 "x"
-#define PRIxLEAST64 "I64x"
+#घोषणा PRIxLEAST8 "x"
+#घोषणा PRIxLEAST16 "x"
+#घोषणा PRIxLEAST32 "x"
+#घोषणा PRIxLEAST64 "I64x"
 
-#define PRIxFAST8 "x"
-#define PRIxFAST16 "x"
-#define PRIxFAST32 "x"
-#define PRIxFAST64 "I64x"
+#घोषणा PRIxFAST8 "x"
+#घोषणा PRIxFAST16 "x"
+#घोषणा PRIxFAST32 "x"
+#घोषणा PRIxFAST64 "I64x"
 
-#define PRIxMAX "I64x"
+#घोषणा PRIxMAX "I64x"
 
-#define PRIX8 "X"
-#define PRIX16 "X"
-#define PRIX32 "X"
-#define PRIX64 "I64X"
+#घोषणा PRIX8 "X"
+#घोषणा PRIX16 "X"
+#घोषणा PRIX32 "X"
+#घोषणा PRIX64 "I64X"
 
-#define PRIXLEAST8 "X"
-#define PRIXLEAST16 "X"
-#define PRIXLEAST32 "X"
-#define PRIXLEAST64 "I64X"
+#घोषणा PRIXLEAST8 "X"
+#घोषणा PRIXLEAST16 "X"
+#घोषणा PRIXLEAST32 "X"
+#घोषणा PRIXLEAST64 "I64X"
 
-#define PRIXFAST8 "X"
-#define PRIXFAST16 "X"
-#define PRIXFAST32 "X"
-#define PRIXFAST64 "I64X"
+#घोषणा PRIXFAST8 "X"
+#घोषणा PRIXFAST16 "X"
+#घोषणा PRIXFAST32 "X"
+#घोषणा PRIXFAST64 "I64X"
 
-#define PRIXMAX "I64X"
+#घोषणा PRIXMAX "I64X"
 
 /*
  *   fscanf macros for signed int types
@@ -144,154 +144,154 @@ typedef struct {
  *   no length identifiers
  */
 
-#define SCNd16 "hd"
-#define SCNd32 "d"
-#define SCNd64 "I64d"
+#घोषणा SCNd16 "hd"
+#घोषणा SCNd32 "d"
+#घोषणा SCNd64 "I64d"
 
-#define SCNdLEAST16 "hd"
-#define SCNdLEAST32 "d"
-#define SCNdLEAST64 "I64d"
+#घोषणा SCNdLEAST16 "hd"
+#घोषणा SCNdLEAST32 "d"
+#घोषणा SCNdLEAST64 "I64d"
 
-#define SCNdFAST16 "hd"
-#define SCNdFAST32 "d"
-#define SCNdFAST64 "I64d"
+#घोषणा SCNdFAST16 "hd"
+#घोषणा SCNdFAST32 "d"
+#घोषणा SCNdFAST64 "I64d"
 
-#define SCNdMAX "I64d"
+#घोषणा SCNdMAX "I64d"
 
-#define SCNi16 "hi"
-#define SCNi32 "i"
-#define SCNi64 "I64i"
+#घोषणा SCNi16 "hi"
+#घोषणा SCNi32 "i"
+#घोषणा SCNi64 "I64i"
 
-#define SCNiLEAST16 "hi"
-#define SCNiLEAST32 "i"
-#define SCNiLEAST64 "I64i"
+#घोषणा SCNiLEAST16 "hi"
+#घोषणा SCNiLEAST32 "i"
+#घोषणा SCNiLEAST64 "I64i"
 
-#define SCNiFAST16 "hi"
-#define SCNiFAST32 "i"
-#define SCNiFAST64 "I64i"
+#घोषणा SCNiFAST16 "hi"
+#घोषणा SCNiFAST32 "i"
+#घोषणा SCNiFAST64 "I64i"
 
-#define SCNiMAX "I64i"
+#घोषणा SCNiMAX "I64i"
 
-#define SCNo16 "ho"
-#define SCNo32 "o"
-#define SCNo64 "I64o"
+#घोषणा SCNo16 "ho"
+#घोषणा SCNo32 "o"
+#घोषणा SCNo64 "I64o"
 
-#define SCNoLEAST16 "ho"
-#define SCNoLEAST32 "o"
-#define SCNoLEAST64 "I64o"
+#घोषणा SCNoLEAST16 "ho"
+#घोषणा SCNoLEAST32 "o"
+#घोषणा SCNoLEAST64 "I64o"
 
-#define SCNoFAST16 "ho"
-#define SCNoFAST32 "o"
-#define SCNoFAST64 "I64o"
+#घोषणा SCNoFAST16 "ho"
+#घोषणा SCNoFAST32 "o"
+#घोषणा SCNoFAST64 "I64o"
 
-#define SCNoMAX "I64o"
+#घोषणा SCNoMAX "I64o"
 
-#define SCNx16 "hx"
-#define SCNx32 "x"
-#define SCNx64 "I64x"
+#घोषणा SCNx16 "hx"
+#घोषणा SCNx32 "x"
+#घोषणा SCNx64 "I64x"
 
-#define SCNxLEAST16 "hx"
-#define SCNxLEAST32 "x"
-#define SCNxLEAST64 "I64x"
+#घोषणा SCNxLEAST16 "hx"
+#घोषणा SCNxLEAST32 "x"
+#घोषणा SCNxLEAST64 "I64x"
 
-#define SCNxFAST16 "hx"
-#define SCNxFAST32 "x"
-#define SCNxFAST64 "I64x"
+#घोषणा SCNxFAST16 "hx"
+#घोषणा SCNxFAST32 "x"
+#घोषणा SCNxFAST64 "I64x"
 
-#define SCNxMAX "I64x"
+#घोषणा SCNxMAX "I64x"
 
 /* fscanf macros for unsigned int types */
 
-#define SCNu16 "hu"
-#define SCNu32 "u"
-#define SCNu64 "I64u"
+#घोषणा SCNu16 "hu"
+#घोषणा SCNu32 "u"
+#घोषणा SCNu64 "I64u"
 
-#define SCNuLEAST16 "hu"
-#define SCNuLEAST32 "u"
-#define SCNuLEAST64 "I64u"
+#घोषणा SCNuLEAST16 "hu"
+#घोषणा SCNuLEAST32 "u"
+#घोषणा SCNuLEAST64 "I64u"
 
-#define SCNuFAST16 "hu"
-#define SCNuFAST32 "u"
-#define SCNuFAST64 "I64u"
+#घोषणा SCNuFAST16 "hu"
+#घोषणा SCNuFAST32 "u"
+#घोषणा SCNuFAST64 "I64u"
 
-#define SCNuMAX "I64u"
+#घोषणा SCNuMAX "I64u"
 
-#ifdef _WIN64
-#define PRIdPTR "I64d"
-#define PRIiPTR "I64i"
-#define PRIoPTR "I64o"
-#define PRIuPTR "I64u"
-#define PRIxPTR "I64x"
-#define PRIXPTR "I64X"
-#define SCNdPTR "I64d"
-#define SCNiPTR "I64i"
-#define SCNoPTR "I64o"
-#define SCNxPTR "I64x"
-#define SCNuPTR "I64u"
-#else
-#define PRIdPTR "d"
-#define PRIiPTR "i"
-#define PRIoPTR "o"
-#define PRIuPTR "u"
-#define PRIxPTR "x"
-#define PRIXPTR "X"
-#define SCNdPTR "d"
-#define SCNiPTR "i"
-#define SCNoPTR "o"
-#define SCNxPTR "x"
-#define SCNuPTR "u"
-#endif
+#अगर_घोषित _WIN64
+#घोषणा PRIdPTR "I64d"
+#घोषणा PRIiPTR "I64i"
+#घोषणा PRIoPTR "I64o"
+#घोषणा PRIuPTR "I64u"
+#घोषणा PRIxPTR "I64x"
+#घोषणा PRIXPTR "I64X"
+#घोषणा SCNdPTR "I64d"
+#घोषणा SCNiPTR "I64i"
+#घोषणा SCNoPTR "I64o"
+#घोषणा SCNxPTR "I64x"
+#घोषणा SCNuPTR "I64u"
+#अन्यथा
+#घोषणा PRIdPTR "d"
+#घोषणा PRIiPTR "i"
+#घोषणा PRIoPTR "o"
+#घोषणा PRIuPTR "u"
+#घोषणा PRIxPTR "x"
+#घोषणा PRIXPTR "X"
+#घोषणा SCNdPTR "d"
+#घोषणा SCNiPTR "i"
+#घोषणा SCNoPTR "o"
+#घोषणा SCNxPTR "x"
+#घोषणा SCNuPTR "u"
+#पूर्ण_अगर
 
-#if defined (__STDC_VERSION__) && __STDC_VERSION__ >= 199901L
+#अगर defined (__STDC_VERSION__) && __STDC_VERSION__ >= 199901L
 /*
  * no length modifier for char types prior to C9x
  * MS runtime  scanf appears to treat "hh" as "h" 
  */
 
 /* signed char */
-#define SCNd8 "hhd"
-#define SCNdLEAST8 "hhd"
-#define SCNdFAST8 "hhd"
+#घोषणा SCNd8 "hhd"
+#घोषणा SCNdLEAST8 "hhd"
+#घोषणा SCNdFAST8 "hhd"
 
-#define SCNi8 "hhi"
-#define SCNiLEAST8 "hhi"
-#define SCNiFAST8 "hhi"
+#घोषणा SCNi8 "hhi"
+#घोषणा SCNiLEAST8 "hhi"
+#घोषणा SCNiFAST8 "hhi"
 
-#define SCNo8 "hho"
-#define SCNoLEAST8 "hho"
-#define SCNoFAST8 "hho"
+#घोषणा SCNo8 "hho"
+#घोषणा SCNoLEAST8 "hho"
+#घोषणा SCNoFAST8 "hho"
 
-#define SCNx8 "hhx"
-#define SCNxLEAST8 "hhx"
-#define SCNxFAST8 "hhx"
+#घोषणा SCNx8 "hhx"
+#घोषणा SCNxLEAST8 "hhx"
+#घोषणा SCNxFAST8 "hhx"
 
 /* unsigned char */
-#define SCNu8 "hhu"
-#define SCNuLEAST8 "hhu"
-#define SCNuFAST8 "hhu"
-#endif /* __STDC_VERSION__ >= 199901 */
+#घोषणा SCNu8 "hhu"
+#घोषणा SCNuLEAST8 "hhu"
+#घोषणा SCNuFAST8 "hhu"
+#पूर्ण_अगर /* __STDC_VERSION__ >= 199901 */
 
-#endif	/* !defined(__cplusplus) || defined(__STDC_FORMAT_MACROS) */
+#पूर्ण_अगर	/* !defined(__cplusplus) || defined(__STDC_FORMAT_MACROS) */
 
 intmax_t __cdecl imaxabs (intmax_t j);
 __CRT_INLINE intmax_t __cdecl imaxabs (intmax_t j)
-	{return	(j >= 0 ? j : -j);}
+	{वापस	(j >= 0 ? j : -j);}
 imaxdiv_t __cdecl imaxdiv (intmax_t numer, intmax_t denom);
 
 /* 7.8.2 Conversion functions for greatest-width integer types */
 
-intmax_t __cdecl strtoimax (const char* __restrict__ nptr,
-                            char** __restrict__ endptr, int base);
-uintmax_t __cdecl strtoumax (const char* __restrict__ nptr,
-			     char** __restrict__ endptr, int base);
+intmax_t __cdecl strtoimax (स्थिर अक्षर* __restrict__ nptr,
+                            अक्षर** __restrict__ endptr, पूर्णांक base);
+uintmax_t __cdecl strtoumax (स्थिर अक्षर* __restrict__ nptr,
+			     अक्षर** __restrict__ endptr, पूर्णांक base);
 
-intmax_t __cdecl wcstoimax (const wchar_t* __restrict__ nptr,
-                            wchar_t** __restrict__ endptr, int base);
-uintmax_t __cdecl wcstoumax (const wchar_t* __restrict__ nptr,
-			     wchar_t** __restrict__ endptr, int base);
+intmax_t __cdecl wcstoimax (स्थिर ब_अक्षर_प्रकार* __restrict__ nptr,
+                            ब_अक्षर_प्रकार** __restrict__ endptr, पूर्णांक base);
+uintmax_t __cdecl wcstoumax (स्थिर ब_अक्षर_प्रकार* __restrict__ nptr,
+			     ब_अक्षर_प्रकार** __restrict__ endptr, पूर्णांक base);
 
-#ifdef	__cplusplus
+#अगर_घोषित	__cplusplus
 }
-#endif
+#पूर्ण_अगर
 
-#endif /* ndef _INTTYPES_H */
+#पूर्ण_अगर /* ndef _INTTYPES_H */

@@ -1,125 +1,125 @@
 // This program is designed to test some arm64-specific things, such as the
 // calling convention, but should give the same results on any architecture.
 
-#include <stdarg.h>
-#include <stdint.h>
-#include <stdio.h>
+#समावेश <stdarg.h>
+#समावेश <stdint.h>
+#समावेश <stdio.h>
 
-struct s1 { char x[1]; } s1 = { "0" };
-struct s2 { char x[2]; } s2 = { "12" };
-struct s3 { char x[3]; } s3 = { "345" };
-struct s4 { char x[4]; } s4 = { "6789" };
-struct s5 { char x[5]; } s5 = { "abcde" };
-struct s6 { char x[6]; } s6 = { "fghijk" };
-struct s7 { char x[7]; } s7 = { "lmnopqr" };
-struct s8 { char x[8]; } s8 = { "stuvwxyz" };
-struct s9 { char x[9]; } s9 = { "ABCDEFGHI" };
-struct s10 { char x[10]; } s10 = { "JKLMNOPQRS" };
-struct s11 { char x[11]; } s11 = { "TUVWXYZ0123" };
-struct s12 { char x[12]; } s12 = { "456789abcdef" };
-struct s13 { char x[13]; } s13 = { "ghijklmnopqrs" };
-struct s14 { char x[14]; } s14 = { "tuvwxyzABCDEFG" };
-struct s15 { char x[15]; } s15 = { "HIJKLMNOPQRSTUV" };
-struct s16 { char x[16]; } s16 = { "WXYZ0123456789ab" };
-struct s17 { char x[17]; } s17 = { "cdefghijklmnopqrs" };
+काष्ठा s1 { अक्षर x[1]; } s1 = { "0" };
+काष्ठा s2 { अक्षर x[2]; } s2 = { "12" };
+काष्ठा s3 { अक्षर x[3]; } s3 = { "345" };
+काष्ठा s4 { अक्षर x[4]; } s4 = { "6789" };
+काष्ठा s5 { अक्षर x[5]; } s5 = { "abcde" };
+काष्ठा s6 { अक्षर x[6]; } s6 = { "fghijk" };
+काष्ठा s7 { अक्षर x[7]; } s7 = { "lmnopqr" };
+काष्ठा s8 { अक्षर x[8]; } s8 = { "stuvwxyz" };
+काष्ठा s9 { अक्षर x[9]; } s9 = { "ABCDEFGHI" };
+काष्ठा s10 { अक्षर x[10]; } s10 = { "JKLMNOPQRS" };
+काष्ठा s11 { अक्षर x[11]; } s11 = { "TUVWXYZ0123" };
+काष्ठा s12 { अक्षर x[12]; } s12 = { "456789abcdef" };
+काष्ठा s13 { अक्षर x[13]; } s13 = { "ghijklmnopqrs" };
+काष्ठा s14 { अक्षर x[14]; } s14 = { "tuvwxyzABCDEFG" };
+काष्ठा s15 { अक्षर x[15]; } s15 = { "HIJKLMNOPQRSTUV" };
+काष्ठा s16 { अक्षर x[16]; } s16 = { "WXYZ0123456789ab" };
+काष्ठा s17 { अक्षर x[17]; } s17 = { "cdefghijklmnopqrs" };
 
-struct hfa11 { float a; } hfa11 = { 11.1 };
-struct hfa12 { float a, b; } hfa12 = { 12.1, 12.2 };
-struct hfa13 { float a, b, c; } hfa13 = { 13.1, 13.2, 13.3 };
-struct hfa14 { float a, b, c, d; } hfa14 = { 14.1, 14.2, 14.3, 14.4 };
+काष्ठा hfa11 { भग्न a; } hfa11 = { 11.1 };
+काष्ठा hfa12 { भग्न a, b; } hfa12 = { 12.1, 12.2 };
+काष्ठा hfa13 { भग्न a, b, c; } hfa13 = { 13.1, 13.2, 13.3 };
+काष्ठा hfa14 { भग्न a, b, c, d; } hfa14 = { 14.1, 14.2, 14.3, 14.4 };
 
-struct hfa21 { double a; } hfa21 = { 21.1 };
-struct hfa22 { double a, b; } hfa22 = { 22.1, 22.2 };
-struct hfa23 { double a, b, c; } hfa23 = { 23.1, 23.2, 23.3 };
-struct hfa24 { double a, b, c, d; } hfa24 = { 24.1, 24.2, 24.3, 24.4 };
+काष्ठा hfa21 { द्विगुन a; } hfa21 = { 21.1 };
+काष्ठा hfa22 { द्विगुन a, b; } hfa22 = { 22.1, 22.2 };
+काष्ठा hfa23 { द्विगुन a, b, c; } hfa23 = { 23.1, 23.2, 23.3 };
+काष्ठा hfa24 { द्विगुन a, b, c, d; } hfa24 = { 24.1, 24.2, 24.3, 24.4 };
 
-struct hfa31 { long double a; } hfa31 = { 31.1 };
-struct hfa32 { long double a, b; } hfa32 = { 32.1, 32.2 };
-struct hfa33 { long double a, b, c; } hfa33 = { 33.1, 33.2, 33.3 };
-struct hfa34 { long double a, b, c, d; } hfa34 = { 34.1, 34.2, 34.3, 34.4 };
+काष्ठा hfa31 { दीर्घ द्विगुन a; } hfa31 = { 31.1 };
+काष्ठा hfa32 { दीर्घ द्विगुन a, b; } hfa32 = { 32.1, 32.2 };
+काष्ठा hfa33 { दीर्घ द्विगुन a, b, c; } hfa33 = { 33.1, 33.2, 33.3 };
+काष्ठा hfa34 { दीर्घ द्विगुन a, b, c, d; } hfa34 = { 34.1, 34.2, 34.3, 34.4 };
 
-struct empty { };
+काष्ठा empty { };
 /* Keep the top-level offsets at zero without changing the type into a union. */
-struct hfae12 { struct empty e; struct hfa12 h; } hfae12 = { { }, { 112.1, 112.2 } };
-struct hfae22 { struct empty e; struct hfa22 h; } hfae22 = { { }, { 122.1, 122.2 } };
+काष्ठा hfae12 { काष्ठा empty e; काष्ठा hfa12 h; } hfae12 = { { }, { 112.1, 112.2 } };
+काष्ठा hfae22 { काष्ठा empty e; काष्ठा hfa22 h; } hfae22 = { { }, { 122.1, 122.2 } };
 
-void fa_s1(struct s1 a) { printf("%.1s\n", a.x); }
-void fa_s2(struct s2 a) { printf("%.2s\n", a.x); }
-void fa_s3(struct s3 a) { printf("%.3s\n", a.x); }
-void fa_s4(struct s4 a) { printf("%.4s\n", a.x); }
-void fa_s5(struct s5 a) { printf("%.5s\n", a.x); }
-void fa_s6(struct s6 a) { printf("%.6s\n", a.x); }
-void fa_s7(struct s7 a) { printf("%.7s\n", a.x); }
-void fa_s8(struct s8 a) { printf("%.8s\n", a.x); }
-void fa_s9(struct s9 a) { printf("%.9s\n", a.x); }
-void fa_s10(struct s10 a) { printf("%.10s\n", a.x); }
-void fa_s11(struct s11 a) { printf("%.11s\n", a.x); }
-void fa_s12(struct s12 a) { printf("%.12s\n", a.x); }
-void fa_s13(struct s13 a) { printf("%.13s\n", a.x); }
-void fa_s14(struct s14 a) { printf("%.14s\n", a.x); }
-void fa_s15(struct s15 a) { printf("%.15s\n", a.x); }
-void fa_s16(struct s16 a) { printf("%.16s\n", a.x); }
-void fa_s17(struct s17 a) { printf("%.17s\n", a.x); }
+व्योम fa_s1(काष्ठा s1 a) { म_लिखो("%.1s\n", a.x); }
+व्योम fa_s2(काष्ठा s2 a) { म_लिखो("%.2s\n", a.x); }
+व्योम fa_s3(काष्ठा s3 a) { म_लिखो("%.3s\n", a.x); }
+व्योम fa_s4(काष्ठा s4 a) { म_लिखो("%.4s\n", a.x); }
+व्योम fa_s5(काष्ठा s5 a) { म_लिखो("%.5s\n", a.x); }
+व्योम fa_s6(काष्ठा s6 a) { म_लिखो("%.6s\n", a.x); }
+व्योम fa_s7(काष्ठा s7 a) { म_लिखो("%.7s\n", a.x); }
+व्योम fa_s8(काष्ठा s8 a) { म_लिखो("%.8s\n", a.x); }
+व्योम fa_s9(काष्ठा s9 a) { म_लिखो("%.9s\n", a.x); }
+व्योम fa_s10(काष्ठा s10 a) { म_लिखो("%.10s\n", a.x); }
+व्योम fa_s11(काष्ठा s11 a) { म_लिखो("%.11s\n", a.x); }
+व्योम fa_s12(काष्ठा s12 a) { म_लिखो("%.12s\n", a.x); }
+व्योम fa_s13(काष्ठा s13 a) { म_लिखो("%.13s\n", a.x); }
+व्योम fa_s14(काष्ठा s14 a) { म_लिखो("%.14s\n", a.x); }
+व्योम fa_s15(काष्ठा s15 a) { म_लिखो("%.15s\n", a.x); }
+व्योम fa_s16(काष्ठा s16 a) { म_लिखो("%.16s\n", a.x); }
+व्योम fa_s17(काष्ठा s17 a) { म_लिखो("%.17s\n", a.x); }
 
-void fa_hfa11(struct hfa11 a)
-{ printf("%.1f\n", a.a); }
-void fa_hfa12(struct hfa12 a)
-{ printf("%.1f %.1f\n", a.a, a.a); }
-void fa_hfa13(struct hfa13 a)
-{ printf("%.1f %.1f %.1f\n", a.a, a.b, a.c); }
-void fa_hfa14(struct hfa14 a)
-{ printf("%.1f %.1f %.1f %.1f\n", a.a, a.b, a.c, a.d); }
+व्योम fa_hfa11(काष्ठा hfa11 a)
+{ म_लिखो("%.1f\n", a.a); }
+व्योम fa_hfa12(काष्ठा hfa12 a)
+{ म_लिखो("%.1f %.1f\n", a.a, a.a); }
+व्योम fa_hfa13(काष्ठा hfa13 a)
+{ म_लिखो("%.1f %.1f %.1f\n", a.a, a.b, a.c); }
+व्योम fa_hfa14(काष्ठा hfa14 a)
+{ म_लिखो("%.1f %.1f %.1f %.1f\n", a.a, a.b, a.c, a.d); }
 
-void fa_hfa21(struct hfa21 a)
-{ printf("%.1f\n", a.a); }
-void fa_hfa22(struct hfa22 a)
-{ printf("%.1f %.1f\n", a.a, a.a); }
-void fa_hfa23(struct hfa23 a)
-{ printf("%.1f %.1f %.1f\n", a.a, a.b, a.c); }
-void fa_hfa24(struct hfa24 a)
-{ printf("%.1f %.1f %.1f %.1f\n", a.a, a.b, a.c, a.d); }
+व्योम fa_hfa21(काष्ठा hfa21 a)
+{ म_लिखो("%.1f\n", a.a); }
+व्योम fa_hfa22(काष्ठा hfa22 a)
+{ म_लिखो("%.1f %.1f\n", a.a, a.a); }
+व्योम fa_hfa23(काष्ठा hfa23 a)
+{ म_लिखो("%.1f %.1f %.1f\n", a.a, a.b, a.c); }
+व्योम fa_hfa24(काष्ठा hfa24 a)
+{ म_लिखो("%.1f %.1f %.1f %.1f\n", a.a, a.b, a.c, a.d); }
 
-void fa_hfa31(struct hfa31 a)
-{ printf("%.1Lf\n", a.a); }
-void fa_hfa32(struct hfa32 a)
-{ printf("%.1Lf %.1Lf\n", a.a, a.a); }
-void fa_hfa33(struct hfa33 a)
-{ printf("%.1Lf %.1Lf %.1Lf\n", a.a, a.b, a.c); }
-void fa_hfa34(struct hfa34 a)
-{ printf("%.1Lf %.1Lf %.1Lf %.1Lf\n", a.a, a.b, a.c, a.d); }
-void fa_hfae12(struct hfae12 a)
-{ printf("%.1f %.1f\n", a.h.a, a.h.b); }
-void fa_hfae22(struct hfae22 a)
-{ printf("%.1f %.1f\n", a.h.a, a.h.b); }
+व्योम fa_hfa31(काष्ठा hfa31 a)
+{ म_लिखो("%.1Lf\n", a.a); }
+व्योम fa_hfa32(काष्ठा hfa32 a)
+{ म_लिखो("%.1Lf %.1Lf\n", a.a, a.a); }
+व्योम fa_hfa33(काष्ठा hfa33 a)
+{ म_लिखो("%.1Lf %.1Lf %.1Lf\n", a.a, a.b, a.c); }
+व्योम fa_hfa34(काष्ठा hfa34 a)
+{ म_लिखो("%.1Lf %.1Lf %.1Lf %.1Lf\n", a.a, a.b, a.c, a.d); }
+व्योम fa_hfae12(काष्ठा hfae12 a)
+{ म_लिखो("%.1f %.1f\n", a.h.a, a.h.b); }
+व्योम fa_hfae22(काष्ठा hfae22 a)
+{ म_लिखो("%.1f %.1f\n", a.h.a, a.h.b); }
 
-void fa1(struct s8 a, struct s9 b, struct s10 c, struct s11 d,
-         struct s12 e, struct s13 f)
+व्योम fa1(काष्ठा s8 a, काष्ठा s9 b, काष्ठा s10 c, काष्ठा s11 d,
+         काष्ठा s12 e, काष्ठा s13 f)
 {
-    printf("%.3s %.3s %.3s %.3s %.3s %.3s\n", a.x, b.x, c.x, d.x, e.x, f.x);
+    म_लिखो("%.3s %.3s %.3s %.3s %.3s %.3s\n", a.x, b.x, c.x, d.x, e.x, f.x);
 }
 
-void fa2(struct s9 a, struct s10 b, struct s11 c, struct s12 d,
-         struct s13 e, struct s14 f)
+व्योम fa2(काष्ठा s9 a, काष्ठा s10 b, काष्ठा s11 c, काष्ठा s12 d,
+         काष्ठा s13 e, काष्ठा s14 f)
 {
-    printf("%.3s %.3s %.3s %.3s %.3s %.3s\n", a.x, b.x, c.x, d.x, e.x, f.x);
+    म_लिखो("%.3s %.3s %.3s %.3s %.3s %.3s\n", a.x, b.x, c.x, d.x, e.x, f.x);
 }
 
-void fa3(struct hfa14 a, struct hfa23 b, struct hfa32 c)
+व्योम fa3(काष्ठा hfa14 a, काष्ठा hfa23 b, काष्ठा hfa32 c)
 {
-    printf("%.1f %.1f %.1f %.1f %.1Lf %.1Lf\n",
+    म_लिखो("%.1f %.1f %.1f %.1f %.1Lf %.1Lf\n",
            a.a, a.d, b.a, b.c, c.a, c.b);
 }
 
-void fa4(struct s1 a, struct hfa14 b, struct s2 c, struct hfa24 d,
-         struct s3 e, struct hfa34 f)
+व्योम fa4(काष्ठा s1 a, काष्ठा hfa14 b, काष्ठा s2 c, काष्ठा hfa24 d,
+         काष्ठा s3 e, काष्ठा hfa34 f)
 {
-    printf("%.1s %.1f %.1f %.2s %.1f %.1f %.3s %.1Lf %.1Lf\n",
+    म_लिखो("%.1s %.1f %.1f %.2s %.1f %.1f %.3s %.1Lf %.1Lf\n",
            a.x, b.a, b.d, c.x, d.a, d.d, e.x, f.a, f.d);
 }
 
-void arg(void)
+व्योम arg(व्योम)
 {
-    printf("Arguments:\n");
+    म_लिखो("Arguments:\n");
     fa_s1(s1);
     fa_s2(s2);
     fa_s3(s3);
@@ -157,188 +157,188 @@ void arg(void)
     fa4(s1, hfa14, s2, hfa24, s3, hfa34);
 }
 
-struct s1 fr_s1(void) { return s1; }
-struct s2 fr_s2(void) { return s2; }
-struct s3 fr_s3(void) { return s3; }
-struct s4 fr_s4(void) { return s4; }
-struct s5 fr_s5(void) { return s5; }
-struct s6 fr_s6(void) { return s6; }
-struct s7 fr_s7(void) { return s7; }
-struct s8 fr_s8(void) { return s8; }
-struct s9 fr_s9(void) { return s9; }
-struct s10 fr_s10(void) { return s10; }
-struct s11 fr_s11(void) { return s11; }
-struct s12 fr_s12(void) { return s12; }
-struct s13 fr_s13(void) { return s13; }
-struct s14 fr_s14(void) { return s14; }
-struct s15 fr_s15(void) { return s15; }
-struct s16 fr_s16(void) { return s16; }
-struct s17 fr_s17(void) { return s17; }
+काष्ठा s1 fr_s1(व्योम) { वापस s1; }
+काष्ठा s2 fr_s2(व्योम) { वापस s2; }
+काष्ठा s3 fr_s3(व्योम) { वापस s3; }
+काष्ठा s4 fr_s4(व्योम) { वापस s4; }
+काष्ठा s5 fr_s5(व्योम) { वापस s5; }
+काष्ठा s6 fr_s6(व्योम) { वापस s6; }
+काष्ठा s7 fr_s7(व्योम) { वापस s7; }
+काष्ठा s8 fr_s8(व्योम) { वापस s8; }
+काष्ठा s9 fr_s9(व्योम) { वापस s9; }
+काष्ठा s10 fr_s10(व्योम) { वापस s10; }
+काष्ठा s11 fr_s11(व्योम) { वापस s11; }
+काष्ठा s12 fr_s12(व्योम) { वापस s12; }
+काष्ठा s13 fr_s13(व्योम) { वापस s13; }
+काष्ठा s14 fr_s14(व्योम) { वापस s14; }
+काष्ठा s15 fr_s15(व्योम) { वापस s15; }
+काष्ठा s16 fr_s16(व्योम) { वापस s16; }
+काष्ठा s17 fr_s17(व्योम) { वापस s17; }
 
-struct hfa11 fr_hfa11(void) { return hfa11; }
-struct hfa12 fr_hfa12(void) { return hfa12; }
-struct hfa13 fr_hfa13(void) { return hfa13; }
-struct hfa14 fr_hfa14(void) { return hfa14; }
+काष्ठा hfa11 fr_hfa11(व्योम) { वापस hfa11; }
+काष्ठा hfa12 fr_hfa12(व्योम) { वापस hfa12; }
+काष्ठा hfa13 fr_hfa13(व्योम) { वापस hfa13; }
+काष्ठा hfa14 fr_hfa14(व्योम) { वापस hfa14; }
 
-struct hfa21 fr_hfa21(void) { return hfa21; }
-struct hfa22 fr_hfa22(void) { return hfa22; }
-struct hfa23 fr_hfa23(void) { return hfa23; }
-struct hfa24 fr_hfa24(void) { return hfa24; }
+काष्ठा hfa21 fr_hfa21(व्योम) { वापस hfa21; }
+काष्ठा hfa22 fr_hfa22(व्योम) { वापस hfa22; }
+काष्ठा hfa23 fr_hfa23(व्योम) { वापस hfa23; }
+काष्ठा hfa24 fr_hfa24(व्योम) { वापस hfa24; }
 
-struct hfa31 fr_hfa31(void) { return hfa31; }
-struct hfa32 fr_hfa32(void) { return hfa32; }
-struct hfa33 fr_hfa33(void) { return hfa33; }
-struct hfa34 fr_hfa34(void) { return hfa34; }
-struct hfae12 fr_hfae12(void) { return hfae12; }
-struct hfae22 fr_hfae22(void) { return hfae22; }
+काष्ठा hfa31 fr_hfa31(व्योम) { वापस hfa31; }
+काष्ठा hfa32 fr_hfa32(व्योम) { वापस hfa32; }
+काष्ठा hfa33 fr_hfa33(व्योम) { वापस hfa33; }
+काष्ठा hfa34 fr_hfa34(व्योम) { वापस hfa34; }
+काष्ठा hfae12 fr_hfae12(व्योम) { वापस hfae12; }
+काष्ठा hfae22 fr_hfae22(व्योम) { वापस hfae22; }
 
-void ret(void)
+व्योम ret(व्योम)
 {
-    struct s1 t1 = fr_s1();
-    struct s2 t2 = fr_s2();
-    struct s3 t3 = fr_s3();
-    struct s4 t4 = fr_s4();
-    struct s5 t5 = fr_s5();
-    struct s6 t6 = fr_s6();
-    struct s7 t7 = fr_s7();
-    struct s8 t8 = fr_s8();
-    struct s9 t9 = fr_s9();
-    struct s10 t10 = fr_s10();
-    struct s11 t11 = fr_s11();
-    struct s12 t12 = fr_s12();
-    struct s13 t13 = fr_s13();
-    struct s14 t14 = fr_s14();
-    struct s15 t15 = fr_s15();
-    struct s16 t16 = fr_s16();
-    struct s17 t17 = fr_s17();
-    printf("Return values:\n");
-    printf("%.1s\n", t1.x);
-    printf("%.2s\n", t2.x);
-    printf("%.3s\n", t3.x);
-    printf("%.4s\n", t4.x);
-    printf("%.5s\n", t5.x);
-    printf("%.6s\n", t6.x);
-    printf("%.7s\n", t7.x);
-    printf("%.8s\n", t8.x);
-    printf("%.9s\n", t9.x);
-    printf("%.10s\n", t10.x);
-    printf("%.11s\n", t11.x);
-    printf("%.12s\n", t12.x);
-    printf("%.13s\n", t13.x);
-    printf("%.14s\n", t14.x);
-    printf("%.15s\n", t15.x);
-    printf("%.16s\n", t16.x);
-    printf("%.17s\n", t17.x);
-    printf("%.1f\n", fr_hfa11().a);
-    printf("%.1f %.1f\n", fr_hfa12().a, fr_hfa12().b);
-    printf("%.1f %.1f\n", fr_hfa13().a, fr_hfa13().c);
-    printf("%.1f %.1f\n", fr_hfa14().a, fr_hfa14().d);
-    printf("%.1f\n", fr_hfa21().a);
-    printf("%.1f %.1f\n", fr_hfa22().a, fr_hfa22().b);
-    printf("%.1f %.1f\n", fr_hfa23().a, fr_hfa23().c);
-    printf("%.1f %.1f\n", fr_hfa24().a, fr_hfa24().d);
-    printf("%.1Lf\n", fr_hfa31().a);
-    printf("%.1Lf %.1Lf\n", fr_hfa32().a, fr_hfa32().b);
-    printf("%.1Lf %.1Lf\n", fr_hfa33().a, fr_hfa33().c);
-    printf("%.1Lf %.1Lf\n", fr_hfa34().a, fr_hfa34().d);
-    printf("%.1f %.1f\n", fr_hfae12().h.a, fr_hfae12().h.b);
-    printf("%.1f %.1f\n", fr_hfae22().h.a, fr_hfae22().h.b);
+    काष्ठा s1 t1 = fr_s1();
+    काष्ठा s2 t2 = fr_s2();
+    काष्ठा s3 t3 = fr_s3();
+    काष्ठा s4 t4 = fr_s4();
+    काष्ठा s5 t5 = fr_s5();
+    काष्ठा s6 t6 = fr_s6();
+    काष्ठा s7 t7 = fr_s7();
+    काष्ठा s8 t8 = fr_s8();
+    काष्ठा s9 t9 = fr_s9();
+    काष्ठा s10 t10 = fr_s10();
+    काष्ठा s11 t11 = fr_s11();
+    काष्ठा s12 t12 = fr_s12();
+    काष्ठा s13 t13 = fr_s13();
+    काष्ठा s14 t14 = fr_s14();
+    काष्ठा s15 t15 = fr_s15();
+    काष्ठा s16 t16 = fr_s16();
+    काष्ठा s17 t17 = fr_s17();
+    म_लिखो("Return values:\n");
+    म_लिखो("%.1s\n", t1.x);
+    म_लिखो("%.2s\n", t2.x);
+    म_लिखो("%.3s\n", t3.x);
+    म_लिखो("%.4s\n", t4.x);
+    म_लिखो("%.5s\n", t5.x);
+    म_लिखो("%.6s\n", t6.x);
+    म_लिखो("%.7s\n", t7.x);
+    म_लिखो("%.8s\n", t8.x);
+    म_लिखो("%.9s\n", t9.x);
+    म_लिखो("%.10s\n", t10.x);
+    म_लिखो("%.11s\n", t11.x);
+    म_लिखो("%.12s\n", t12.x);
+    म_लिखो("%.13s\n", t13.x);
+    म_लिखो("%.14s\n", t14.x);
+    म_लिखो("%.15s\n", t15.x);
+    म_लिखो("%.16s\n", t16.x);
+    म_लिखो("%.17s\n", t17.x);
+    म_लिखो("%.1f\n", fr_hfa11().a);
+    म_लिखो("%.1f %.1f\n", fr_hfa12().a, fr_hfa12().b);
+    म_लिखो("%.1f %.1f\n", fr_hfa13().a, fr_hfa13().c);
+    म_लिखो("%.1f %.1f\n", fr_hfa14().a, fr_hfa14().d);
+    म_लिखो("%.1f\n", fr_hfa21().a);
+    म_लिखो("%.1f %.1f\n", fr_hfa22().a, fr_hfa22().b);
+    म_लिखो("%.1f %.1f\n", fr_hfa23().a, fr_hfa23().c);
+    म_लिखो("%.1f %.1f\n", fr_hfa24().a, fr_hfa24().d);
+    म_लिखो("%.1Lf\n", fr_hfa31().a);
+    म_लिखो("%.1Lf %.1Lf\n", fr_hfa32().a, fr_hfa32().b);
+    म_लिखो("%.1Lf %.1Lf\n", fr_hfa33().a, fr_hfa33().c);
+    म_लिखो("%.1Lf %.1Lf\n", fr_hfa34().a, fr_hfa34().d);
+    म_लिखो("%.1f %.1f\n", fr_hfae12().h.a, fr_hfae12().h.b);
+    म_लिखो("%.1f %.1f\n", fr_hfae22().h.a, fr_hfae22().h.b);
 }
 
-void*
-va_arg_with_struct_ptr(va_list ap) {
+व्योम*
+va_arg_with_struct_ptr(बहु_सूची ap) {
         /*
          * This was a BUG identified with FFTW-3.3.8 on arm64.
          * The test case only checks it compiles.
          */
-        struct X { int _x; };
-        struct X *x = va_arg(ap, struct X *);
-        return x;
+        काष्ठा X { पूर्णांक _x; };
+        काष्ठा X *x = बहु_तर्क(ap, काष्ठा X *);
+        वापस x;
 }
 
-int match(const char **s, const char *f)
+पूर्णांक match(स्थिर अक्षर **s, स्थिर अक्षर *f)
 {
-    const char *p = *s;
-    for (p = *s; *f && *f == *p; f++, p++)
+    स्थिर अक्षर *p = *s;
+    क्रम (p = *s; *f && *f == *p; f++, p++)
         ;
-    if (!*f) {
+    अगर (!*f) {
         *s = p - 1;
-        return 1;
+        वापस 1;
     }
-    return 0;
+    वापस 0;
 }
 
-void myprintf(const char *format, ...)
+व्योम myprintf(स्थिर अक्षर *format, ...)
 {
-    const char *s;
-    va_list ap;
-    va_start(ap, format);
-    for (s = format; *s; s++) {
-        if (match(&s, "%7s")) {
-            struct s7 t7 = va_arg(ap, struct s7);
-            printf("%.7s", t7.x);
+    स्थिर अक्षर *s;
+    बहु_सूची ap;
+    बहु_शुरू(ap, format);
+    क्रम (s = format; *s; s++) {
+        अगर (match(&s, "%7s")) {
+            काष्ठा s7 t7 = बहु_तर्क(ap, काष्ठा s7);
+            म_लिखो("%.7s", t7.x);
         }
-        else if (match(&s, "%9s")) {
-            struct s9 t9 = va_arg(ap, struct s9);
-            printf("%.9s", t9.x);
+        अन्यथा अगर (match(&s, "%9s")) {
+            काष्ठा s9 t9 = बहु_तर्क(ap, काष्ठा s9);
+            म_लिखो("%.9s", t9.x);
         }
-        else if (match(&s, "%hfa11")) {
-            struct hfa11 x = va_arg(ap, struct hfa11);
-            printf("%.1f,%.1f", x.a, x.a);
+        अन्यथा अगर (match(&s, "%hfa11")) {
+            काष्ठा hfa11 x = बहु_तर्क(ap, काष्ठा hfa11);
+            म_लिखो("%.1f,%.1f", x.a, x.a);
         }
-        else if (match(&s, "%hfa12")) {
-            struct hfa12 x = va_arg(ap, struct hfa12);
-            printf("%.1f,%.1f", x.a, x.b);
+        अन्यथा अगर (match(&s, "%hfa12")) {
+            काष्ठा hfa12 x = बहु_तर्क(ap, काष्ठा hfa12);
+            म_लिखो("%.1f,%.1f", x.a, x.b);
         }
-        else if (match(&s, "%hfa13")) {
-            struct hfa13 x = va_arg(ap, struct hfa13);
-            printf("%.1f,%.1f", x.a, x.c);
+        अन्यथा अगर (match(&s, "%hfa13")) {
+            काष्ठा hfa13 x = बहु_तर्क(ap, काष्ठा hfa13);
+            म_लिखो("%.1f,%.1f", x.a, x.c);
         }
-        else if (match(&s, "%hfa14")) {
-            struct hfa14 x = va_arg(ap, struct hfa14);
-            printf("%.1f,%.1f", x.a, x.d);
+        अन्यथा अगर (match(&s, "%hfa14")) {
+            काष्ठा hfa14 x = बहु_तर्क(ap, काष्ठा hfa14);
+            म_लिखो("%.1f,%.1f", x.a, x.d);
         }
-        else if (match(&s, "%hfa21")) {
-            struct hfa21 x = va_arg(ap, struct hfa21);
-            printf("%.1f,%.1f", x.a, x.a);
+        अन्यथा अगर (match(&s, "%hfa21")) {
+            काष्ठा hfa21 x = बहु_तर्क(ap, काष्ठा hfa21);
+            म_लिखो("%.1f,%.1f", x.a, x.a);
         }
-        else if (match(&s, "%hfa22")) {
-            struct hfa22 x = va_arg(ap, struct hfa22);
-            printf("%.1f,%.1f", x.a, x.b);
+        अन्यथा अगर (match(&s, "%hfa22")) {
+            काष्ठा hfa22 x = बहु_तर्क(ap, काष्ठा hfa22);
+            म_लिखो("%.1f,%.1f", x.a, x.b);
         }
-        else if (match(&s, "%hfa23")) {
-            struct hfa23 x = va_arg(ap, struct hfa23);
-            printf("%.1f,%.1f", x.a, x.c);
+        अन्यथा अगर (match(&s, "%hfa23")) {
+            काष्ठा hfa23 x = बहु_तर्क(ap, काष्ठा hfa23);
+            म_लिखो("%.1f,%.1f", x.a, x.c);
         }
-        else if (match(&s, "%hfa24")) {
-            struct hfa24 x = va_arg(ap, struct hfa24);
-            printf("%.1f,%.1f", x.a, x.d);
+        अन्यथा अगर (match(&s, "%hfa24")) {
+            काष्ठा hfa24 x = बहु_तर्क(ap, काष्ठा hfa24);
+            म_लिखो("%.1f,%.1f", x.a, x.d);
         }
-        else if (match(&s, "%hfa31")) {
-            struct hfa31 x = va_arg(ap, struct hfa31);
-            printf("%.1Lf,%.1Lf", x.a, x.a);
+        अन्यथा अगर (match(&s, "%hfa31")) {
+            काष्ठा hfa31 x = बहु_तर्क(ap, काष्ठा hfa31);
+            म_लिखो("%.1Lf,%.1Lf", x.a, x.a);
         }
-        else if (match(&s, "%hfa32")) {
-            struct hfa32 x = va_arg(ap, struct hfa32);
-            printf("%.1Lf,%.1Lf", x.a, x.b);
+        अन्यथा अगर (match(&s, "%hfa32")) {
+            काष्ठा hfa32 x = बहु_तर्क(ap, काष्ठा hfa32);
+            म_लिखो("%.1Lf,%.1Lf", x.a, x.b);
         }
-        else if (match(&s, "%hfa33")) {
-            struct hfa33 x = va_arg(ap, struct hfa33);
-            printf("%.1Lf,%.1Lf", x.a, x.c);
+        अन्यथा अगर (match(&s, "%hfa33")) {
+            काष्ठा hfa33 x = बहु_तर्क(ap, काष्ठा hfa33);
+            म_लिखो("%.1Lf,%.1Lf", x.a, x.c);
         }
-        else if (match(&s, "%hfa34")) {
-            struct hfa34 x = va_arg(ap, struct hfa34);
-            printf("%.1Lf,%.1Lf", x.a, x.d);
+        अन्यथा अगर (match(&s, "%hfa34")) {
+            काष्ठा hfa34 x = बहु_तर्क(ap, काष्ठा hfa34);
+            म_लिखो("%.1Lf,%.1Lf", x.a, x.d);
         }
-        else
-            putchar(*s);
+        अन्यथा
+            अक्षर_दो(*s);
     }
-    putchar('\n');
+    अक्षर_दो('\n');
 }
 
-void stdarg(void)
+व्योम stdarg(व्योम)
 {
-    printf("stdarg:\n");
+    म_लिखो("stdarg:\n");
     myprintf("%9s %9s %9s %9s %9s %9s", s9, s9, s9, s9, s9, s9);
     myprintf("%7s %9s %9s %9s %9s %9s", s7, s9, s9, s9, s9, s9);
 
@@ -406,14 +406,14 @@ void stdarg(void)
              hfa14, hfa12, hfa11, hfa11, hfa11, hfa11);
 }
 
-void pll(unsigned long long x)
+व्योम pll(अचिन्हित दीर्घ दीर्घ x)
 {
-    printf("%llx\n", x);
+    म_लिखो("%llx\n", x);
 }
 
-void movi(void)
+व्योम movi(व्योम)
 {
-    printf("MOVI:\n");
+    म_लिखो("MOVI:\n");
     pll(0);
     pll(0xabcd);
     pll(0xabcd0000);
@@ -456,49 +456,49 @@ void movi(void)
     pll(0xabcdef0123456789);
 }
 
-static uint32_t addip0(uint32_t x) { return x + 0; }
-static uint64_t sublp0(uint64_t x) { return x - 0; }
-static uint32_t addip123(uint32_t x) { return x + 123; }
-static uint64_t addlm123(uint64_t x) { return x + -123; }
-static uint64_t sublp4095(uint64_t x) { return x - 4095; }
-static uint32_t subim503808(uint32_t x) { return x - -503808; }
-static uint64_t addp12345(uint64_t x) { return x + 12345; }
-static uint32_t subp12345(uint32_t x) { return x - 12345; }
+अटल uint32_t addip0(uint32_t x) { वापस x + 0; }
+अटल uint64_t sublp0(uint64_t x) { वापस x - 0; }
+अटल uint32_t addip123(uint32_t x) { वापस x + 123; }
+अटल uint64_t addlm123(uint64_t x) { वापस x + -123; }
+अटल uint64_t sublp4095(uint64_t x) { वापस x - 4095; }
+अटल uint32_t subim503808(uint32_t x) { वापस x - -503808; }
+अटल uint64_t addp12345(uint64_t x) { वापस x + 12345; }
+अटल uint32_t subp12345(uint32_t x) { वापस x - 12345; }
 
-static uint32_t mvni(uint32_t x) { return 0xffffffff - x; }
-static uint64_t negl(uint64_t x) { return 0 - x; }
-static uint32_t rsbi123(uint32_t x) { return 123 - x; }
-static uint64_t rsbl123(uint64_t x) { return 123 - x; }
+अटल uint32_t mvni(uint32_t x) { वापस 0xffffffff - x; }
+अटल uint64_t negl(uint64_t x) { वापस 0 - x; }
+अटल uint32_t rsbi123(uint32_t x) { वापस 123 - x; }
+अटल uint64_t rsbl123(uint64_t x) { वापस 123 - x; }
 
-static uint32_t andi0(uint32_t x) { return x & 0; }
-static uint64_t andlm1(uint64_t x) { return x & -1; }
-static uint64_t orrl0(uint64_t x) { return x | 0; }
-static uint32_t orrim1(uint32_t x) { return x | -1; }
-static uint32_t eori0(uint32_t x) { return x ^ 0; }
-static uint64_t eorlm1(uint64_t x) { return x ^ -1; }
-static uint32_t and0xf0(uint32_t x) { return x & 0xf0; }
-static uint64_t orr0xf0(uint64_t x) { return x | 0xf0; }
-static uint64_t eor0xf0(uint64_t x) { return x ^ 0xf0; }
+अटल uint32_t andi0(uint32_t x) { वापस x & 0; }
+अटल uint64_t andlm1(uint64_t x) { वापस x & -1; }
+अटल uint64_t orrl0(uint64_t x) { वापस x | 0; }
+अटल uint32_t orrim1(uint32_t x) { वापस x | -1; }
+अटल uint32_t eori0(uint32_t x) { वापस x ^ 0; }
+अटल uint64_t eorlm1(uint64_t x) { वापस x ^ -1; }
+अटल uint32_t and0xf0(uint32_t x) { वापस x & 0xf0; }
+अटल uint64_t orr0xf0(uint64_t x) { वापस x | 0xf0; }
+अटल uint64_t eor0xf0(uint64_t x) { वापस x ^ 0xf0; }
 
-static uint32_t lsli0(uint32_t x) { return x << 0; }
-static uint32_t lsri0(uint32_t x) { return x >> 0; }
-static int64_t asrl0(int64_t x) { return x >> 0; }
-static uint32_t lsli1(uint32_t x) { return x << 1; }
-static uint32_t lsli31(uint32_t x) { return x << 31; }
-static uint64_t lsll1(uint64_t x) { return x << 1; }
-static uint64_t lsll63(uint64_t x) { return x << 63; }
-static uint32_t lsri1(uint32_t x) { return x >> 1; }
-static uint32_t lsri31(uint32_t x) { return x >> 31; }
-static uint64_t lsrl1(uint64_t x) { return x >> 1; }
-static uint64_t lsrl63(uint64_t x) { return x >> 63; }
-static int32_t asri1(int32_t x) { return x >> 1; }
-static int32_t asri31(int32_t x) { return x >> 31; }
-static int64_t asrl1(int64_t x) { return x >> 1; }
-static int64_t asrl63(int64_t x) { return x >> 63; }
+अटल uint32_t lsli0(uint32_t x) { वापस x << 0; }
+अटल uint32_t lsri0(uint32_t x) { वापस x >> 0; }
+अटल int64_t asrl0(int64_t x) { वापस x >> 0; }
+अटल uint32_t lsli1(uint32_t x) { वापस x << 1; }
+अटल uint32_t lsli31(uint32_t x) { वापस x << 31; }
+अटल uint64_t lsll1(uint64_t x) { वापस x << 1; }
+अटल uint64_t lsll63(uint64_t x) { वापस x << 63; }
+अटल uint32_t lsri1(uint32_t x) { वापस x >> 1; }
+अटल uint32_t lsri31(uint32_t x) { वापस x >> 31; }
+अटल uint64_t lsrl1(uint64_t x) { वापस x >> 1; }
+अटल uint64_t lsrl63(uint64_t x) { वापस x >> 63; }
+अटल int32_t asri1(int32_t x) { वापस x >> 1; }
+अटल int32_t asri31(int32_t x) { वापस x >> 31; }
+अटल int64_t asrl1(int64_t x) { वापस x >> 1; }
+अटल int64_t asrl63(int64_t x) { वापस x >> 63; }
 
-void opi(void)
+व्योम opi(व्योम)
 {
-    int x = 1000;
+    पूर्णांक x = 1000;
     pll(addip0(x));
     pll(sublp0(x));
     pll(addip123(x));
@@ -537,7 +537,7 @@ void opi(void)
     pll(asrl63(x));
 }
 
-void pcs(void)
+व्योम pcs(व्योम)
 {
     arg();
     ret();
@@ -546,8 +546,8 @@ void pcs(void)
     opi();
 }
 
-int main()
+पूर्णांक मुख्य()
 {
     pcs();
-    return 0;
+    वापस 0;
 }

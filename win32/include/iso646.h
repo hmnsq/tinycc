@@ -8,22 +8,22 @@
  * ISO C Standard:  7.9  Alternative spellings  <iso646.h>
  */
 
-#ifndef _ISO646_H_
-#define _ISO646_H_
+#अगर_अघोषित _ISO646_H_
+#घोषणा _ISO646_H_
 
-#define and     &&
-#define and_eq  &=
-#define bitand  &
-#define bitor   |
-#define compl   ~
-#define not     !
-#define not_eq  !=
-#define or      ||
-#define or_eq   |=
-#define xor     ^
-#define xor_eq  ^=
+#घोषणा and     &&
+#घोषणा and_eq  &=
+#घोषणा bitand  &
+#घोषणा bitor   |
+#घोषणा compl   ~
+#घोषणा not     !
+#घोषणा not_eq  !=
+#घोषणा or      ||
+#घोषणा or_eq   |=
+#घोषणा xor     ^
+#घोषणा xor_eq  ^=
 
-#endif /* _ISO646_H_ */
+#पूर्ण_अगर /* _ISO646_H_ */
 
 
 

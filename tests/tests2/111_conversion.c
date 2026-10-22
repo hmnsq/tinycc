@@ -1,24 +1,24 @@
-#include <stdio.h>
+#समावेश <stdio.h>
 
-union u {
-    unsigned long ul;
-    long double ld;
+जोड़ u {
+    अचिन्हित दीर्घ ul;
+    दीर्घ द्विगुन ld;
 };
 
-void
-conv (union u *p)
+व्योम
+conv (जोड़ u *p)
 {
-    p->ul = (unsigned int) p->ld;
+    p->ul = (अचिन्हित पूर्णांक) p->ld;
 }
 
-int main (void)
+पूर्णांक मुख्य (व्योम)
 {
-    union u v;
-    double d = 1234567890.0;
+    जोड़ u v;
+    द्विगुन d = 1234567890.0;
 
     v.ld = 42;
     conv (&v);
-    printf ("%lu\n", v.ul);
-    printf ("%llu\n", (unsigned long long)d);
-    return 0;
+    म_लिखो ("%lu\n", v.ul);
+    म_लिखो ("%llu\n", (अचिन्हित दीर्घ दीर्घ)d);
+    वापस 0;
 }

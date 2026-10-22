@@ -1,12 +1,12 @@
-#include <stdio.h>	// printf()
+#समावेश <stdio.h>	// printf()
 
-#define CAT2(a,b) a##b
-#define CAT(a,b) CAT2(a,b)
-#define AB(x) CAT(x,y)
+#घोषणा CAT2(a,b) a##b
+#घोषणा CAT(a,b) CAT2(a,b)
+#घोषणा AB(x) CAT(x,y)
 
-int main(void)
+पूर्णांक मुख्य(व्योम)
 {
-  int xy = 42;
-  printf("%d\n", CAT(A,B)(x));
-  return 0;
+  पूर्णांक xy = 42;
+  म_लिखो("%d\n", CAT(A,B)(x));
+  वापस 0;
 }

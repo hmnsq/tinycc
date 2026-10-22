@@ -1,143 +1,143 @@
-#ifdef TARGET_DEFS_ONLY
+#अगर_घोषित TARGET_DEFS_ONLY
 
-#define EM_TCC_TARGET EM_X86_64
+#घोषणा EM_TCC_TARGET EM_X86_64
 
 /* relocation type for 32 bit data relocation */
-#define R_DATA_32   R_X86_64_32S
-#define R_DATA_PTR  R_X86_64_64
-#define R_JMP_SLOT  R_X86_64_JUMP_SLOT
-#define R_GLOB_DAT  R_X86_64_GLOB_DAT
-#define R_COPY      R_X86_64_COPY
-#define R_RELATIVE  R_X86_64_RELATIVE
+#घोषणा R_तथ्य_32   R_X86_64_32S
+#घोषणा R_तथ्य_PTR  R_X86_64_64
+#घोषणा R_JMP_SLOT  R_X86_64_JUMP_SLOT
+#घोषणा R_GLOB_DAT  R_X86_64_GLOB_DAT
+#घोषणा R_COPY      R_X86_64_COPY
+#घोषणा R_RELATIVE  R_X86_64_RELATIVE
 
-#define R_NUM       R_X86_64_NUM
+#घोषणा R_अंक       R_X86_64_अंक
 
-#define ELF_START_ADDR 0x400000
-#define ELF_PAGE_SIZE  0x1000
+#घोषणा ELF_START_ADDR 0x400000
+#घोषणा ELF_PAGE_आकार  0x1000
 
-#define PCRELATIVE_DLLPLT 1
-#define RELOCATE_DLLPLT 1
+#घोषणा PCRELATIVE_DLLPLT 1
+#घोषणा RELOCATE_DLLPLT 1
 
-#else /* !TARGET_DEFS_ONLY */
+#अन्यथा /* !TARGET_DEFS_ONLY */
 
-#include "tcc.h"
+#समावेश "tcc.h"
 
-#ifdef NEED_RELOC_TYPE
+#अगर_घोषित NEED_RELOC_TYPE
 /* Returns 1 for a code relocation, 0 for a data relocation. For unknown
    relocations, returns -1. */
-ST_FUNC int code_reloc (int reloc_type)
+ST_FUNC पूर्णांक code_reloc (पूर्णांक reloc_type)
 {
-    switch (reloc_type) {
-        case R_X86_64_32:
-        case R_X86_64_32S:
-        case R_X86_64_64:
-        case R_X86_64_GOTPC32:
-        case R_X86_64_GOTPC64:
-        case R_X86_64_GOTPCREL:
-        case R_X86_64_GOTPCRELX:
-        case R_X86_64_REX_GOTPCRELX:
-        case R_X86_64_GOTTPOFF:
-        case R_X86_64_GOT32:
-        case R_X86_64_GOT64:
-        case R_X86_64_GLOB_DAT:
-        case R_X86_64_COPY:
-        case R_X86_64_RELATIVE:
-        case R_X86_64_GOTOFF64:
-        case R_X86_64_TLSGD:
-        case R_X86_64_TLSLD:
-        case R_X86_64_DTPOFF32:
-        case R_X86_64_TPOFF32:
-        case R_X86_64_DTPOFF64:
-        case R_X86_64_TPOFF64:
-            return 0;
+    चयन (reloc_type) {
+        हाल R_X86_64_32:
+        हाल R_X86_64_32S:
+        हाल R_X86_64_64:
+        हाल R_X86_64_GOTPC32:
+        हाल R_X86_64_GOTPC64:
+        हाल R_X86_64_GOTPCREL:
+        हाल R_X86_64_GOTPCRELX:
+        हाल R_X86_64_REX_GOTPCRELX:
+        हाल R_X86_64_GOTTPOFF:
+        हाल R_X86_64_GOT32:
+        हाल R_X86_64_GOT64:
+        हाल R_X86_64_GLOB_DAT:
+        हाल R_X86_64_COPY:
+        हाल R_X86_64_RELATIVE:
+        हाल R_X86_64_GOTOFF64:
+        हाल R_X86_64_TLSGD:
+        हाल R_X86_64_TLSLD:
+        हाल R_X86_64_DTPOFF32:
+        हाल R_X86_64_TPOFF32:
+        हाल R_X86_64_DTPOFF64:
+        हाल R_X86_64_TPOFF64:
+            वापस 0;
 
-        case R_X86_64_PC32:
-        case R_X86_64_PC64:
-        case R_X86_64_PLT32:
-        case R_X86_64_PLTOFF64:
-        case R_X86_64_JUMP_SLOT:
-            return 1;
+        हाल R_X86_64_PC32:
+        हाल R_X86_64_PC64:
+        हाल R_X86_64_PLT32:
+        हाल R_X86_64_PLTOFF64:
+        हाल R_X86_64_JUMP_SLOT:
+            वापस 1;
     }
-    return -1;
+    वापस -1;
 }
 
 /* Returns an enumerator to describe whether and when the relocation needs a
    GOT and/or PLT entry to be created. See tcc.h for a description of the
    different values. */
-ST_FUNC int gotplt_entry_type (int reloc_type)
+ST_FUNC पूर्णांक gotplt_entry_type (पूर्णांक reloc_type)
 {
-    switch (reloc_type) {
-        case R_X86_64_GLOB_DAT:
-        case R_X86_64_JUMP_SLOT:
-        case R_X86_64_COPY:
-        case R_X86_64_RELATIVE:
-            return NO_GOTPLT_ENTRY;
+    चयन (reloc_type) {
+        हाल R_X86_64_GLOB_DAT:
+        हाल R_X86_64_JUMP_SLOT:
+        हाल R_X86_64_COPY:
+        हाल R_X86_64_RELATIVE:
+            वापस NO_GOTPLT_ENTRY;
 
 	/* The following relocs wouldn't normally need GOT or PLT
 	   slots, but we need them for simplicity in the link
 	   editor part.  See our caller for comments.  */
-        case R_X86_64_32:
-        case R_X86_64_32S:
-        case R_X86_64_64:
-        case R_X86_64_PC32:
-        case R_X86_64_PC64:
-            return AUTO_GOTPLT_ENTRY;
+        हाल R_X86_64_32:
+        हाल R_X86_64_32S:
+        हाल R_X86_64_64:
+        हाल R_X86_64_PC32:
+        हाल R_X86_64_PC64:
+            वापस AUTO_GOTPLT_ENTRY;
 
-        case R_X86_64_GOTTPOFF:
-            return BUILD_GOT_ONLY;
+        हाल R_X86_64_GOTTPOFF:
+            वापस BUILD_GOT_ONLY;
 
-        case R_X86_64_GOT32:
-        case R_X86_64_GOT64:
-        case R_X86_64_GOTPC32:
-        case R_X86_64_GOTPC64:
-        case R_X86_64_GOTOFF64:
-        case R_X86_64_GOTPCREL:
-        case R_X86_64_GOTPCRELX:
-        case R_X86_64_TLSGD:
-        case R_X86_64_TLSLD:
-        case R_X86_64_DTPOFF32:
-        case R_X86_64_DTPOFF64:
-        case R_X86_64_REX_GOTPCRELX:
-        case R_X86_64_PLT32:
-        case R_X86_64_PLTOFF64:
-            return ALWAYS_GOTPLT_ENTRY;
+        हाल R_X86_64_GOT32:
+        हाल R_X86_64_GOT64:
+        हाल R_X86_64_GOTPC32:
+        हाल R_X86_64_GOTPC64:
+        हाल R_X86_64_GOTOFF64:
+        हाल R_X86_64_GOTPCREL:
+        हाल R_X86_64_GOTPCRELX:
+        हाल R_X86_64_TLSGD:
+        हाल R_X86_64_TLSLD:
+        हाल R_X86_64_DTPOFF32:
+        हाल R_X86_64_DTPOFF64:
+        हाल R_X86_64_REX_GOTPCRELX:
+        हाल R_X86_64_PLT32:
+        हाल R_X86_64_PLTOFF64:
+            वापस ALWAYS_GOTPLT_ENTRY;
 
-        case R_X86_64_TPOFF32:
-        case R_X86_64_TPOFF64:
-            return NO_GOTPLT_ENTRY;
+        हाल R_X86_64_TPOFF32:
+        हाल R_X86_64_TPOFF64:
+            वापस NO_GOTPLT_ENTRY;
     }
 
-    return -1;
+    वापस -1;
 }
 
-#ifdef NEED_BUILD_GOT
-ST_FUNC unsigned create_plt_entry(TCCState *s1, unsigned got_offset, struct sym_attr *attr)
+#अगर_घोषित NEED_BUILD_GOT
+ST_FUNC अचिन्हित create_plt_entry(TCCState *s1, अचिन्हित got_offset, काष्ठा sym_attr *attr)
 {
     Section *plt = s1->plt;
     uint8_t *p;
-    int modrm;
-    unsigned plt_offset, relofs;
+    पूर्णांक modrm;
+    अचिन्हित plt_offset, relofs;
 
     modrm = 0x25;
 
     /* empty PLT: create PLT0 entry that pushes the library identifier
        (GOT + PTR_SIZE) and jumps to ld.so resolution routine
        (GOT + 2 * PTR_SIZE) */
-    if (plt->data_offset == 0) {
+    अगर (plt->तथ्य_offset == 0) {
         p = section_ptr_add(plt, 16);
         p[0] = 0xff; /* pushl got + PTR_SIZE */
         p[1] = modrm + 0x10;
-        write32le(p + 2, PTR_SIZE);
+        write32le(p + 2, PTR_आकार);
         p[6] = 0xff; /* jmp *(got + PTR_SIZE * 2) */
         p[7] = modrm;
-        write32le(p + 8, PTR_SIZE * 2);
+        write32le(p + 8, PTR_आकार * 2);
     }
-    plt_offset = plt->data_offset;
+    plt_offset = plt->तथ्य_offset;
 
     /* The PLT slot refers to the relocation entry it needs via offset.
        The reloc entry is created below, so its offset is the current
        data_offset */
-    relofs = s1->plt->reloc ? s1->plt->reloc->data_offset : 0;
+    relofs = s1->plt->reloc ? s1->plt->reloc->तथ्य_offset : 0;
 
     /* Jump to GOT entry where ld.so initially put the address of ip + 4 */
     p = section_ptr_add(plt, 16);
@@ -146,266 +146,266 @@ ST_FUNC unsigned create_plt_entry(TCCState *s1, unsigned got_offset, struct sym_
     write32le(p + 2, got_offset);
     p[6] = 0x68; /* push $xxx */
     /* On x86-64, the relocation is referred to by _index_ */
-    write32le(p + 7, relofs / sizeof (ElfW_Rel) - 1);
+    write32le(p + 7, relofs / माप (ElfW_Rel) - 1);
     p[11] = 0xe9; /* jmp plt_start */
-    write32le(p + 12, -(plt->data_offset));
-    return plt_offset;
+    write32le(p + 12, -(plt->तथ्य_offset));
+    वापस plt_offset;
 }
 
 /* relocate the PLT: compute addresses and offsets in the PLT now that final
    address for PLT and GOT are known (see fill_program_header) */
-ST_FUNC void relocate_plt(TCCState *s1)
+ST_FUNC व्योम relocate_plt(TCCState *s1)
 {
     uint8_t *p, *p_end;
 
-    if (!s1->plt)
-      return;
+    अगर (!s1->plt)
+      वापस;
 
-    p = s1->plt->data;
-    p_end = p + s1->plt->data_offset;
+    p = s1->plt->तथ्य;
+    p_end = p + s1->plt->तथ्य_offset;
 
-    if (p < p_end) {
-        int x = s1->got->sh_addr - s1->plt->sh_addr - 6;
+    अगर (p < p_end) {
+        पूर्णांक x = s1->got->sh_addr - s1->plt->sh_addr - 6;
         add32le(p + 2, x);
         add32le(p + 8, x - 6);
         p += 16;
-        while (p < p_end) {
-            add32le(p + 2, x + (s1->plt->data - p));
+        जबतक (p < p_end) {
+            add32le(p + 2, x + (s1->plt->तथ्य - p));
             p += 16;
         }
     }
 
-    if (s1->plt->reloc) {
+    अगर (s1->plt->reloc) {
         ElfW_Rel *rel;
-        int x = s1->plt->sh_addr + 16 + 6;
-        p = s1->got->data;
+        पूर्णांक x = s1->plt->sh_addr + 16 + 6;
+        p = s1->got->तथ्य;
         for_each_elem(s1->plt->reloc, 0, rel, ElfW_Rel) {
             write64le(p + rel->r_offset, x);
             x += 16;
         }
     }
 }
-#endif
-#endif
+#पूर्ण_अगर
+#पूर्ण_अगर
 
-ST_FUNC void relocate(TCCState *s1, ElfW_Rel *rel, int type, unsigned char *ptr, addr_t addr, addr_t val)
+ST_FUNC व्योम relocate(TCCState *s1, ElfW_Rel *rel, पूर्णांक type, अचिन्हित अक्षर *ptr, addr_t addr, addr_t val)
 {
-    int sym_index, esym_index;
+    पूर्णांक sym_सूचकांक, esym_सूचकांक;
 
-    sym_index = ELFW(R_SYM)(rel->r_info);
+    sym_सूचकांक = ELFW(R_SYM)(rel->r_info);
 
-    switch (type) {
-        case R_X86_64_64:
-            if (s1->output_type & TCC_OUTPUT_DYN) {
-                esym_index = get_sym_attr(s1, sym_index, 0)->dyn_index;
+    चयन (type) {
+        हाल R_X86_64_64:
+            अगर (s1->output_type & TCC_OUTPUT_DYN) {
+                esym_सूचकांक = get_sym_attr(s1, sym_सूचकांक, 0)->dyn_सूचकांक;
                 qrel->r_offset = rel->r_offset;
-                if (esym_index) {
-                    qrel->r_info = ELFW(R_INFO)(esym_index, R_X86_64_64);
+                अगर (esym_सूचकांक) {
+                    qrel->r_info = ELFW(R_INFO)(esym_सूचकांक, R_X86_64_64);
                     qrel->r_addend = rel->r_addend;
                     qrel++;
-                    break;
-                } else {
+                    अवरोध;
+                } अन्यथा {
                     qrel->r_info = ELFW(R_INFO)(0, R_X86_64_RELATIVE);
                     qrel->r_addend = read64le(ptr) + val;
                     qrel++;
                 }
             }
             add64le(ptr, val);
-            break;
-        case R_X86_64_32:
-        case R_X86_64_32S:
-            if (s1->output_type & TCC_OUTPUT_DYN) {
+            अवरोध;
+        हाल R_X86_64_32:
+        हाल R_X86_64_32S:
+            अगर (s1->output_type & TCC_OUTPUT_DYN) {
                 /* XXX: this logic may depend on TCC's codegen
                    now TCC uses R_X86_64_32 even for a 64bit pointer */
                 qrel->r_offset = rel->r_offset;
                 qrel->r_info = ELFW(R_INFO)(0, R_X86_64_RELATIVE);
                 /* Use sign extension! */
-                qrel->r_addend = (int)read32le(ptr) + val;
+                qrel->r_addend = (पूर्णांक)read32le(ptr) + val;
                 qrel++;
             }
-            if ((type == R_X86_64_32 ? val != (unsigned)val : val != (int)val)
+            अगर ((type == R_X86_64_32 ? val != (अचिन्हित)val : val != (पूर्णांक)val)
                 /* ignore relocation check for stab section */
-                && (stab_section == NULL ||
+                && (stab_section == शून्य ||
                     addr < stab_section->sh_addr ||
-                    addr >= (stab_section->sh_addr + stab_section->data_offset))) {
+                    addr >= (stab_section->sh_addr + stab_section->तथ्य_offset))) {
                 tcc_error_noabort("relocation 'R_X86_64_32[S]' out of range");
             }
             add32le(ptr, val);
-            break;
+            अवरोध;
 
-        case R_X86_64_PC32:
-            if (s1->output_type == TCC_OUTPUT_DLL) {
+        हाल R_X86_64_PC32:
+            अगर (s1->output_type == TCC_OUTPUT_DLL) {
                 /* DLL relocation */
-                esym_index = get_sym_attr(s1, sym_index, 0)->dyn_index;
-                if (esym_index) {
+                esym_सूचकांक = get_sym_attr(s1, sym_सूचकांक, 0)->dyn_सूचकांक;
+                अगर (esym_सूचकांक) {
                     qrel->r_offset = rel->r_offset;
-                    qrel->r_info = ELFW(R_INFO)(esym_index, R_X86_64_PC32);
+                    qrel->r_info = ELFW(R_INFO)(esym_सूचकांक, R_X86_64_PC32);
                     /* Use sign extension! */
-                    qrel->r_addend = (int)read32le(ptr) + rel->r_addend;
+                    qrel->r_addend = (पूर्णांक)read32le(ptr) + rel->r_addend;
                     qrel++;
-                    break;
+                    अवरोध;
                 }
             }
-            goto plt32pc32;
+            जाओ plt32pc32;
 
-        case R_X86_64_PLT32:
+        हाल R_X86_64_PLT32:
             /* fallthrough: val already holds the PLT slot address */
 
         plt32pc32:
         {
-            long long diff;
-            diff = (long long)val - addr;
-            if (diff < -2147483648LL || diff > 2147483647LL) {
-#ifdef TCC_TARGET_PE
+            दीर्घ दीर्घ diff;
+            diff = (दीर्घ दीर्घ)val - addr;
+            अगर (diff < -2147483648LL || diff > 2147483647LL) {
+#अगर_घोषित TCC_TARGET_PE
               /* ignore overflow with undefined weak symbols */
-              if (((ElfW(Sym)*)symtab_section->data)[sym_index].st_shndx != SHN_UNDEF)
-#endif
+              अगर (((ElfW(Sym)*)symtab_section->तथ्य)[sym_सूचकांक].st_shndx != SHN_UNDEF)
+#पूर्ण_अगर
                 tcc_error_noabort("relocation '%d' out of range", type);
             }
             add32le(ptr, diff);
         }
-            break;
+            अवरोध;
 
-        case R_X86_64_COPY:
-	    break;
+        हाल R_X86_64_COPY:
+	    अवरोध;
 
-        case R_X86_64_PLTOFF64:
+        हाल R_X86_64_PLTOFF64:
             add64le(ptr, val - s1->got->sh_addr + rel->r_addend);
-            break;
+            अवरोध;
 
-        case R_X86_64_PC64:
-            if (s1->output_type == TCC_OUTPUT_DLL) {
+        हाल R_X86_64_PC64:
+            अगर (s1->output_type == TCC_OUTPUT_DLL) {
                 /* DLL relocation */
-                esym_index = get_sym_attr(s1, sym_index, 0)->dyn_index;
-                if (esym_index) {
+                esym_सूचकांक = get_sym_attr(s1, sym_सूचकांक, 0)->dyn_सूचकांक;
+                अगर (esym_सूचकांक) {
                     qrel->r_offset = rel->r_offset;
-                    qrel->r_info = ELFW(R_INFO)(esym_index, R_X86_64_PC64);
+                    qrel->r_info = ELFW(R_INFO)(esym_सूचकांक, R_X86_64_PC64);
                     qrel->r_addend = read64le(ptr) + rel->r_addend;
                     qrel++;
-                    break;
+                    अवरोध;
                 }
             }
             add64le(ptr, val - addr);
-            break;
+            अवरोध;
 
-        case R_X86_64_GLOB_DAT:
-        case R_X86_64_JUMP_SLOT:
+        हाल R_X86_64_GLOB_DAT:
+        हाल R_X86_64_JUMP_SLOT:
             /* They don't need addend */
             write64le(ptr, val - rel->r_addend);
-            break;
-        case R_X86_64_GOTPCREL:
-        case R_X86_64_GOTPCRELX:
-        case R_X86_64_REX_GOTPCRELX:
+            अवरोध;
+        हाल R_X86_64_GOTPCREL:
+        हाल R_X86_64_GOTPCRELX:
+        हाल R_X86_64_REX_GOTPCRELX:
             add32le(ptr, s1->got->sh_addr - addr +
-                         get_sym_attr(s1, sym_index, 0)->got_offset - 4);
-            break;
-        case R_X86_64_GOTPC32:
+                         get_sym_attr(s1, sym_सूचकांक, 0)->got_offset - 4);
+            अवरोध;
+        हाल R_X86_64_GOTPC32:
             add32le(ptr, s1->got->sh_addr - addr + rel->r_addend);
-            break;
-        case R_X86_64_GOTPC64:
+            अवरोध;
+        हाल R_X86_64_GOTPC64:
             add64le(ptr, s1->got->sh_addr - addr + rel->r_addend);
-            break;
-        case R_X86_64_GOTTPOFF:
+            अवरोध;
+        हाल R_X86_64_GOTTPOFF:
             add32le(ptr, val - s1->got->sh_addr);
-            break;
-        case R_X86_64_GOT32:
+            अवरोध;
+        हाल R_X86_64_GOT32:
             /* we load the got offset */
-            add32le(ptr, get_sym_attr(s1, sym_index, 0)->got_offset);
-            break;
-        case R_X86_64_GOT64:
+            add32le(ptr, get_sym_attr(s1, sym_सूचकांक, 0)->got_offset);
+            अवरोध;
+        हाल R_X86_64_GOT64:
             /* we load the got offset */
-            add64le(ptr, get_sym_attr(s1, sym_index, 0)->got_offset);
-            break;
-        case R_X86_64_GOTOFF64:
+            add64le(ptr, get_sym_attr(s1, sym_सूचकांक, 0)->got_offset);
+            अवरोध;
+        हाल R_X86_64_GOTOFF64:
             add64le(ptr, val - s1->got->sh_addr);
-            break;
-        case R_X86_64_TLSGD:
+            अवरोध;
+        हाल R_X86_64_TLSGD:
             {
-                static const unsigned char expect[] = {
+                अटल स्थिर अचिन्हित अक्षर expect[] = {
                     /* .byte 0x66; lea 0(%rip),%rdi */
                     0x66, 0x48, 0x8d, 0x3d, 0x00, 0x00, 0x00, 0x00,
                     /* .word 0x6666; rex64; call __tls_get_addr@PLT */
                     0x66, 0x66, 0x48, 0xe8, 0x00, 0x00, 0x00, 0x00 };
-                static const unsigned char replace[] = {
+                अटल स्थिर अचिन्हित अक्षर replace[] = {
                     /* mov %fs:0,%rax */
                     0x64, 0x48, 0x8b, 0x04, 0x25, 0x00, 0x00, 0x00, 0x00,
                     /* lea -4(%rax),%rax */
                     0x48, 0x8d, 0x80, 0x00, 0x00, 0x00, 0x00 };
 
-                if (memcmp (ptr-4, expect, sizeof(expect)) == 0) {
+                अगर (स_भेद (ptr-4, expect, माप(expect)) == 0) {
                     ElfW(Sym) *sym;
                     Section *sec;
                     int32_t x;
 
-                    memcpy(ptr-4, replace, sizeof(replace));
+                    स_नकल(ptr-4, replace, माप(replace));
                     rel[1].r_info = ELFW(R_INFO)(0, R_X86_64_NONE);
-                    sym = &((ElfW(Sym) *)symtab_section->data)[sym_index];
+                    sym = &((ElfW(Sym) *)symtab_section->तथ्य)[sym_सूचकांक];
                     sec = s1->sections[sym->st_shndx];
-                    x = sym->st_value - sec->sh_addr - sec->data_offset;
+                    x = sym->st_मूल्य - sec->sh_addr - sec->तथ्य_offset;
                     add32le(ptr + 8, x);
                 }
-                else
+                अन्यथा
                     tcc_error_noabort("unexpected R_X86_64_TLSGD pattern");
             }
-            break;
-        case R_X86_64_TLSLD:
+            अवरोध;
+        हाल R_X86_64_TLSLD:
             {
-                static const unsigned char expect[] = {
+                अटल स्थिर अचिन्हित अक्षर expect[] = {
                     /* lea 0(%rip),%rdi */
                     0x48, 0x8d, 0x3d, 0x00, 0x00, 0x00, 0x00,
                     /* call __tls_get_addr@PLT */
                     0xe8, 0x00, 0x00, 0x00, 0x00 };
-                static const unsigned char replace[] = {
+                अटल स्थिर अचिन्हित अक्षर replace[] = {
                     /* data16 data16 data16 mov %fs:0,%rax */
                     0x66, 0x66, 0x66, 0x64, 0x48, 0x8b, 0x04, 0x25,
                     0x00, 0x00, 0x00, 0x00 };
 
-                if (memcmp (ptr-3, expect, sizeof(expect)) == 0) {
-                    memcpy(ptr-3, replace, sizeof(replace));
+                अगर (स_भेद (ptr-3, expect, माप(expect)) == 0) {
+                    स_नकल(ptr-3, replace, माप(replace));
                     rel[1].r_info = ELFW(R_INFO)(0, R_X86_64_NONE);
                 }
-                else
+                अन्यथा
                     tcc_error_noabort("unexpected R_X86_64_TLSLD pattern");
             }
-            break;
+            अवरोध;
 
-        case R_X86_64_DTPOFF32:
-        case R_X86_64_TPOFF32:
-        case R_X86_64_DTPOFF64:
-        case R_X86_64_TPOFF64:
+        हाल R_X86_64_DTPOFF32:
+        हाल R_X86_64_TPOFF32:
+        हाल R_X86_64_DTPOFF64:
+        हाल R_X86_64_TPOFF64:
             {
                 int32_t x;
-                if (s1->tls_end) {
+                अगर (s1->tls_end) {
                     x = val - s1->tls_end;
-                } else {
-                    ElfW(Sym) *sym = &((ElfW(Sym) *)symtab_section->data)[sym_index];
+                } अन्यथा {
+                    ElfW(Sym) *sym = &((ElfW(Sym) *)symtab_section->तथ्य)[sym_सूचकांक];
                     Section *sec = s1->sections[sym->st_shndx];
-                    x = val - sec->sh_addr - sec->data_offset;
+                    x = val - sec->sh_addr - sec->तथ्य_offset;
                 }
-                switch (type) {
-                case R_X86_64_DTPOFF64:
-                case R_X86_64_TPOFF64:
+                चयन (type) {
+                हाल R_X86_64_DTPOFF64:
+                हाल R_X86_64_TPOFF64:
                     add64le(ptr, x);
-                    break;
-                default:
+                    अवरोध;
+                शेष:
                     add32le(ptr, x);
-                    break;
+                    अवरोध;
                 }
             }
-            break;
-        case R_X86_64_NONE:
-            break;
-        case R_X86_64_RELATIVE:
-#ifdef TCC_TARGET_PE
+            अवरोध;
+        हाल R_X86_64_NONE:
+            अवरोध;
+        हाल R_X86_64_RELATIVE:
+#अगर_घोषित TCC_TARGET_PE
             add32le(ptr, val - s1->pe_imagebase);
-#endif
+#पूर्ण_अगर
             /* do nothing */
-            break;
-        default:
-            fprintf(stderr,"FIXME: handle reloc type %d at %x [%p] to %x\n",
-                type, (unsigned)addr, ptr, (unsigned)val);
-            break;
+            अवरोध;
+        शेष:
+            ख_लिखो(मानक_त्रुटि,"FIXME: handle reloc type %d at %x [%p] to %x\n",
+                type, (अचिन्हित)addr, ptr, (अचिन्हित)val);
+            अवरोध;
     }
 }
 
-#endif /* !TARGET_DEFS_ONLY */
+#पूर्ण_अगर /* !TARGET_DEFS_ONLY */

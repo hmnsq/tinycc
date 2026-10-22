@@ -3,83 +3,83 @@
  * This file is part of the w64 mingw-runtime package.
  * No warranty is given; refer to the file DISCLAIMER within this package.
  */
-#if !defined(_BASETYPS_H_)
-#define _BASETYPS_H_
+#अगर !defined(_BASETYPS_H_)
+#घोषणा _BASETYPS_H_
 
-#ifdef __cplusplus
-#define EXTERN_C extern "C"
-#else
-#define EXTERN_C extern
-#endif
+#अगर_घोषित __cplusplus
+#घोषणा EXTERN_C बाह्य "C"
+#अन्यथा
+#घोषणा EXTERN_C बाह्य
+#पूर्ण_अगर
 
-#define STDMETHODCALLTYPE WINAPI
-#define STDMETHODVCALLTYPE __cdecl
+#घोषणा STDMETHODCALLTYPE WINAPI
+#घोषणा STDMETHODVCALLTYPE __cdecl
 
-#define STDAPICALLTYPE WINAPI
-#define STDAPIVCALLTYPE __cdecl
+#घोषणा STDAPICALLTYPE WINAPI
+#घोषणा STDAPIVCALLTYPE __cdecl
 
-#define STDAPI EXTERN_C HRESULT WINAPI
-#define STDAPI_(type) EXTERN_C type WINAPI
+#घोषणा STDAPI EXTERN_C HRESULT WINAPI
+#घोषणा STDAPI_(type) EXTERN_C type WINAPI
 
-#define STDMETHODIMP HRESULT WINAPI
-#define STDMETHODIMP_(type) type WINAPI
+#घोषणा STDMETHODIMP HRESULT WINAPI
+#घोषणा STDMETHODIMP_(type) type WINAPI
 
-#define STDAPIV EXTERN_C HRESULT STDAPIVCALLTYPE
-#define STDAPIV_(type) EXTERN_C type STDAPIVCALLTYPE
+#घोषणा STDAPIV EXTERN_C HRESULT STDAPIVCALLTYPE
+#घोषणा STDAPIV_(type) EXTERN_C type STDAPIVCALLTYPE
 
-#define STDMETHODIMPV HRESULT STDMETHODVCALLTYPE
-#define STDMETHODIMPV_(type) type STDMETHODVCALLTYPE
+#घोषणा STDMETHODIMPV HRESULT STDMETHODVCALLTYPE
+#घोषणा STDMETHODIMPV_(type) type STDMETHODVCALLTYPE
 
-#if defined(__cplusplus) && !defined(CINTERFACE)
+#अगर defined(__cplusplus) && !defined(CINTERFACE)
 
-#define __STRUCT__ struct
-#define STDMETHOD(method) virtual HRESULT WINAPI method
-#define STDMETHOD_(type,method) virtual type WINAPI method
-#define STDMETHODV(method) virtual HRESULT STDMETHODVCALLTYPE method
-#define STDMETHODV_(type,method) virtual type STDMETHODVCALLTYPE method
-#define PURE = 0
-#define THIS_
-#define THIS void
-#define DECLARE_INTERFACE(iface) __STRUCT__ iface
-#define DECLARE_INTERFACE_(iface,baseiface) __STRUCT__ iface : public baseiface
-#else
+#घोषणा __STRUCT__ काष्ठा
+#घोषणा STDMETHOD(method) भव HRESULT WINAPI method
+#घोषणा STDMETHOD_(type,method) भव type WINAPI method
+#घोषणा STDMETHODV(method) भव HRESULT STDMETHODVCALLTYPE method
+#घोषणा STDMETHODV_(type,method) भव type STDMETHODVCALLTYPE method
+#घोषणा PURE = 0
+#घोषणा THIS_
+#घोषणा THIS व्योम
+#घोषणा DECLARE_INTERFACE(iface) __STRUCT__ iface
+#घोषणा DECLARE_INTERFACE_(iface,baseiface) __STRUCT__ iface : खुला baseiface
+#अन्यथा
 
-#ifndef __OBJC__
-#define interface struct
-#endif
+#अगर_अघोषित __OBJC__
+#घोषणा interface काष्ठा
+#पूर्ण_अगर
 
-#define STDMETHOD(method) HRESULT (WINAPI *method)
-#define STDMETHOD_(type,method) type (WINAPI *method)
-#define STDMETHODV(method) HRESULT (STDMETHODVCALLTYPE *method)
-#define STDMETHODV_(type,method) type (STDMETHODVCALLTYPE *method)
+#घोषणा STDMETHOD(method) HRESULT (WINAPI *method)
+#घोषणा STDMETHOD_(type,method) type (WINAPI *method)
+#घोषणा STDMETHODV(method) HRESULT (STDMETHODVCALLTYPE *method)
+#घोषणा STDMETHODV_(type,method) type (STDMETHODVCALLTYPE *method)
 
-#define PURE
-#define THIS_ INTERFACE *This,
-#define THIS INTERFACE *This
-#ifdef CONST_VTABLE
-#define DECLARE_INTERFACE(iface) typedef struct iface { \
-  const struct iface##Vtbl *lpVtbl; } iface; \
-  typedef const struct iface##Vtbl iface##Vtbl; \
-  const struct iface##Vtbl
-#else
-#define DECLARE_INTERFACE(iface) typedef struct iface { \
-    struct iface##Vtbl *lpVtbl; \
+#घोषणा PURE
+#घोषणा THIS_ INTERFACE *This,
+#घोषणा THIS INTERFACE *This
+#अगर_घोषित CONST_VTABLE
+#घोषणा DECLARE_INTERFACE(iface) प्रकार काष्ठा iface { \
+  स्थिर काष्ठा iface##Vtbl *lpVtbl; } iface; \
+  प्रकार स्थिर काष्ठा iface##Vtbl iface##Vtbl; \
+  स्थिर काष्ठा iface##Vtbl
+#अन्यथा
+#घोषणा DECLARE_INTERFACE(iface) प्रकार काष्ठा iface { \
+    काष्ठा iface##Vtbl *lpVtbl; \
   } iface; \
-  typedef struct iface##Vtbl iface##Vtbl; \
-  struct iface##Vtbl
-#endif
-#define DECLARE_INTERFACE_(iface,baseiface) DECLARE_INTERFACE(iface)
-#endif
+  प्रकार काष्ठा iface##Vtbl iface##Vtbl; \
+  काष्ठा iface##Vtbl
+#पूर्ण_अगर
+#घोषणा DECLARE_INTERFACE_(iface,baseiface) DECLARE_INTERFACE(iface)
+#पूर्ण_अगर
 
-#include <guiddef.h>
+#समावेश <guiddef.h>
 
-#ifndef _ERROR_STATUS_T_DEFINED
-#define _ERROR_STATUS_T_DEFINED
-typedef unsigned long error_status_t;
-#endif
+#अगर_अघोषित _ERROR_STATUS_T_DEFINED
+#घोषणा _ERROR_STATUS_T_DEFINED
+प्रकार अचिन्हित दीर्घ error_status_t;
+#पूर्ण_अगर
 
-#ifndef _WCHAR_T_DEFINED
-typedef unsigned short wchar_t;
-#define _WCHAR_T_DEFINED
-#endif
-#endif
+#अगर_अघोषित _WCHAR_T_DEFINED
+प्रकार अचिन्हित लघु ब_अक्षर_प्रकार;
+#घोषणा _WCHAR_T_DEFINED
+#पूर्ण_अगर
+#पूर्ण_अगर

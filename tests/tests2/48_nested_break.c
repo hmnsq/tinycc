@@ -1,26 +1,26 @@
-#include <stdio.h>
+#समावेश <stdio.h>
 
-int main()
+पूर्णांक मुख्य()
 {
-   int a;
-   char b;
+   पूर्णांक a;
+   अक्षर b;
 
    a = 0;
-   while (a < 2)
+   जबतक (a < 2)
    {
-      printf("%d", a++);
-      break;
+      म_लिखो("%d", a++);
+      अवरोध;
 
       b = 'A';
-      while (b < 'C')
+      जबतक (b < 'C')
       {
-         printf("%c", b++);
+         म_लिखो("%c", b++);
       }
-      printf("e");
+      म_लिखो("e");
    }
-   printf("\n");
+   म_लिखो("\n");
 
-   return 0;
+   वापस 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

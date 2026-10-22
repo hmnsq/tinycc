@@ -35,9 +35,9 @@
      DEF_ASM_OP0(iretq, 0x48cf)
      DEF_ASM_OP0(rsm, 0x0faa)
      DEF_ASM_OP0(hlt, 0xf4)
-     DEF_ASM_OP0(wait, 0x9b)
+     DEF_ASM_OP0(रुको, 0x9b)
      DEF_ASM_OP0(nop, 0x90)
-     DEF_ASM_OP0(pause, 0xf390)
+     DEF_ASM_OP0(छोड़ो, 0xf390)
      DEF_ASM_OP0(xlat, 0xd7)
 
     DEF_ASM_OP0L(vmcall, 0xc1, 0, OPC_0F01)
@@ -142,7 +142,7 @@ ALT(DEF_ASM_OP2(movzwl, 0x0fb7, 0, OPC_MODRM, OPT_REG16 | OPT_EA, OPT_REG32))
 ALT(DEF_ASM_OP2(movzwq, 0x0fb7, 0, OPC_MODRM, OPT_REG16 | OPT_EA, OPT_REG))
 
 ALT(DEF_ASM_OP1(pushq, 0x6a, 0, 0, OPT_IM8S))
-ALT(DEF_ASM_OP1(push, 0x6a, 0, 0, OPT_IM8S))
+ALT(DEF_ASM_OP1(धकेलो, 0x6a, 0, 0, OPT_IM8S))
 ALT(DEF_ASM_OP1(pushw, 0x666a, 0, 0, OPT_IM8S))
 ALT(DEF_ASM_OP1(pushw, 0x50, 0, OPC_REG | OPC_WLX, OPT_REG64))
 ALT(DEF_ASM_OP1(pushw, 0x50, 0, OPC_REG | OPC_WLX, OPT_REG16))
@@ -235,7 +235,7 @@ ALT(DEF_ASM_OP1(ljmp, 0xff, 5, OPC_MODRM, OPT_EA))
     DEF_ASM_OP1(ljmpw, 0x66ff, 5, OPC_MODRM, OPT_EA)
     DEF_ASM_OP1(ljmpl, 0xff, 5, OPC_MODRM, OPT_EA)
 
-ALT(DEF_ASM_OP1(int, 0xcd, 0, 0, OPT_IM8))
+ALT(DEF_ASM_OP1(पूर्णांक, 0xcd, 0, 0, OPT_IM8))
 ALT(DEF_ASM_OP1(seto, 0x0f90, 0, OPC_MODRM | OPC_TEST, OPT_REG8 | OPT_EA))
 ALT(DEF_ASM_OP1(setob, 0x0f90, 0, OPC_MODRM | OPC_TEST, OPT_REG8 | OPT_EA))
     DEF_ASM_OP2(enter, 0xc8, 0, 0, OPT_IM16, OPT_IM8)
@@ -301,7 +301,7 @@ ALT(DEF_ASM_OP1(fiadds, 0xde, 0, OPC_FARITH | OPC_MODRM, OPT_EA))
      DEF_ASM_OP0(fsin, 0xd9fe)
      DEF_ASM_OP0(fcos, 0xd9ff)
      DEF_ASM_OP0(fchs, 0xd9e0)
-     DEF_ASM_OP0(fabs, 0xd9e1)
+     DEF_ASM_OP0(भ_असल, 0xd9e1)
      DEF_ASM_OP0(fninit, 0xdbe3)
      DEF_ASM_OP0(fnclex, 0xdbe2)
      DEF_ASM_OP0(fnop, 0xd9d0)
@@ -551,9 +551,9 @@ ALT(DEF_ASM_OP2(cvtsd2si, 0xf20f2d, 0, OPC_MODRM | OPC_48, OPT_EA | OPT_SSE, OPT
 
     /* Control-Flow Enforcement */
     DEF_ASM_OP0L(endbr64, 0xf30f1e, 7, OPC_MODRM)
-#undef ALT
-#undef DEF_ASM_OP0
-#undef DEF_ASM_OP0L
-#undef DEF_ASM_OP1
-#undef DEF_ASM_OP2
-#undef DEF_ASM_OP3
+#अघोषित ALT
+#अघोषित DEF_ASM_OP0
+#अघोषित DEF_ASM_OP0L
+#अघोषित DEF_ASM_OP1
+#अघोषित DEF_ASM_OP2
+#अघोषित DEF_ASM_OP3

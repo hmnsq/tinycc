@@ -3,23 +3,23 @@
  * This file is part of the w64 mingw-runtime package.
  * No warranty is given; refer to the file DISCLAIMER within this package.
  */
-#ifndef _INC_SEARCH_S
-#define _INC_SEARCH_S
+#अगर_अघोषित INC_खोज_S
+#घोषणा INC_खोज_S
 
-#include <search.h>
+#समावेश <search.h>
 
-#if defined(MINGW_HAS_SECURE_API)
+#अगर defined(MINGW_HAS_SECURE_API)
 
-#ifdef __cplusplus
-extern "C" {
-#endif
+#अगर_घोषित __cplusplus
+बाह्य "C" {
+#पूर्ण_अगर
 
-  _CRTIMP void *__cdecl _lfind_s(const void *_Key,const void *_Base,unsigned int *_NumOfElements,size_t _SizeOfElements,int (__cdecl *_PtFuncCompare)(void *,const void *,const void *),void *_Context);
-  _CRTIMP void *__cdecl _lsearch_s(const void *_Key,void *_Base,unsigned int *_NumOfElements,size_t _SizeOfElements,int (__cdecl *_PtFuncCompare)(void *,const void *,const void *),void *_Context);
+  _CRTIMP व्योम *__cdecl _lfind_s(स्थिर व्योम *कुंजी_2,स्थिर व्योम *_Base,अचिन्हित पूर्णांक *अंक_Of_Elements,माप_प्रकार आकार_Of_Elements,पूर्णांक (__cdecl *_PtFuncCompare)(व्योम *,स्थिर व्योम *,स्थिर व्योम *),व्योम *_Context);
+  _CRTIMP व्योम *__cdecl _lsearch_s(स्थिर व्योम *कुंजी_2,व्योम *_Base,अचिन्हित पूर्णांक *अंक_Of_Elements,माप_प्रकार आकार_Of_Elements,पूर्णांक (__cdecl *_PtFuncCompare)(व्योम *,स्थिर व्योम *,स्थिर व्योम *),व्योम *_Context);
 
-#ifdef __cplusplus
+#अगर_घोषित __cplusplus
 }
-#endif
+#पूर्ण_अगर
 
-#endif
-#endif
+#पूर्ण_अगर
+#पूर्ण_अगर
