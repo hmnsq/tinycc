@@ -1,24 +1,24 @@
-#include <stdio.h>
+#अन्तर्भाव <stdio.h>
 
-union u {
+सङ्घ u {
     unsigned long ul;
-    long double ld;
+    long द्विगुण ld;
 };
 
-void
-conv (union u *p)
+शून्य
+conv (सङ्घ u *p)
 {
-    p->ul = (unsigned int) p->ld;
+    p->ul = (unsigned पूर्णाङ्क) p->ld;
 }
 
-int main (void)
+पूर्णाङ्क main (शून्य)
 {
-    union u v;
-    double d = 1234567890.0;
+    सङ्घ u v;
+    द्विगुण d = 1234567890.0;
 
     v.ld = 42;
     conv (&v);
     printf ("%lu\n", v.ul);
     printf ("%llu\n", (unsigned long long)d);
-    return 0;
+    प्रत्यागम 0;
 }
