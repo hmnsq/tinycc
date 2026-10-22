@@ -1,15 +1,15 @@
-#include <stdio.h>
+#अन्तर्भाव <stdio.h>
 
-void fred(void)
+शून्य fred(शून्य)
 {
    printf("yo\n");
 }
 
-int main()
+पूर्णाङ्क main()
 {
    fred();
 
-   return 0;
+   प्रत्यागम 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

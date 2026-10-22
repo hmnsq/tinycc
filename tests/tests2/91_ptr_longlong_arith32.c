@@ -1,9 +1,9 @@
-int printf(const char *, ...);
-char t[] = "012345678";
+पूर्णाङ्क printf(ध्रुव वर्ण *, ...);
+वर्ण t[] = "012345678";
 
-int main(void)
+पूर्णाङ्क main(शून्य)
 {
-    char *data = t;
+    वर्ण *data = t;
     unsigned long long r = 4;
     unsigned a = 5;
     unsigned long long b = 12;
@@ -11,5 +11,5 @@ int main(void)
     *(unsigned*)(data + r) += a - b;
 
     printf("data = \"%s\"\n", data);
-    return 0;
+    प्रत्यागम 0;
 }

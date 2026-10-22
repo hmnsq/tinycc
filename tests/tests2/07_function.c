@@ -1,26 +1,26 @@
-#include <stdio.h>
+#अन्तर्भाव <stdio.h>
 
-int myfunc(int x)
+पूर्णाङ्क myfunc(पूर्णाङ्क x)
 {
-   return x * x;
+   प्रत्यागम x * x;
 }
 
-void vfunc(int a)
+शून्य vfunc(पूर्णाङ्क a)
 {
    printf("a=%d\n", a);
 }
 
-void qfunc()
+शून्य qfunc()
 {
    printf("qfunc()\n");
 }
 
-void zfunc()
+शून्य zfunc()
 {
-	((void (*)(void))0) ();
+	((शून्य (*)(शून्य))0) ();
 }
 
-int main()
+पूर्णाङ्क main()
 {
    printf("%d\n", myfunc(3));
    printf("%d\n", myfunc(4));
@@ -29,7 +29,7 @@ int main()
 
    qfunc();
 
-   return 0;
+   प्रत्यागम 0;
 }
 
 // vim: set expandtab ts=4 sw=3 sts=3 tw=80 :
