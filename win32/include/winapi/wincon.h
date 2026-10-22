@@ -7,27 +7,27 @@
 #define _WINCON_
 
 #ifdef __cplusplus
-extern "C" {
+خارجي "C" {
 #endif
 
-  typedef struct _COORD {
+  تعريفنوع بنية _COORD {
     SHORT X;
     SHORT Y;
   } COORD,*PCOORD;
 
-  typedef struct _SMALL_RECT {
+  تعريفنوع بنية _SMALL_RECT {
     SHORT Left;
     SHORT Top;
     SHORT Right;
     SHORT Bottom;
   } SMALL_RECT,*PSMALL_RECT;
 
-  typedef struct _KEY_EVENT_RECORD {
+  تعريفنوع بنية _KEY_EVENT_RECORD {
     WINBOOL bKeyDown;
     WORD wRepeatCount;
     WORD wVirtualKeyCode;
     WORD wVirtualScanCode;
-    union {
+    اتحاد {
       WCHAR UnicodeChar;
       CHAR AsciiChar;
     } uChar;
@@ -51,7 +51,7 @@ extern "C" {
 #define NLS_IME_CONVERSION 0x800000
 #define NLS_IME_DISABLE 0x20000000
 
-  typedef struct _MOUSE_EVENT_RECORD {
+  تعريفنوع بنية _MOUSE_EVENT_RECORD {
     COORD dwMousePosition;
     DWORD dwButtonState;
     DWORD dwControlKeyState;
@@ -68,21 +68,21 @@ extern "C" {
 #define DOUBLE_CLICK 0x2
 #define MOUSE_WHEELED 0x4
 
-  typedef struct _WINDOW_BUFFER_SIZE_RECORD {
+  تعريفنوع بنية _WINDOW_BUFFER_SIZE_RECORD {
     COORD dwSize;
   } WINDOW_BUFFER_SIZE_RECORD,*PWINDOW_BUFFER_SIZE_RECORD;
 
-  typedef struct _MENU_EVENT_RECORD {
+  تعريفنوع بنية _MENU_EVENT_RECORD {
     UINT dwCommandId;
   } MENU_EVENT_RECORD,*PMENU_EVENT_RECORD;
 
-  typedef struct _FOCUS_EVENT_RECORD {
+  تعريفنوع بنية _FOCUS_EVENT_RECORD {
     WINBOOL bSetFocus;
   } FOCUS_EVENT_RECORD,*PFOCUS_EVENT_RECORD;
 
-  typedef struct _INPUT_RECORD {
+  تعريفنوع بنية _INPUT_RECORD {
     WORD EventType;
-    union {
+    اتحاد {
       KEY_EVENT_RECORD KeyEvent;
       MOUSE_EVENT_RECORD MouseEvent;
       WINDOW_BUFFER_SIZE_RECORD WindowBufferSizeEvent;
@@ -97,8 +97,8 @@ extern "C" {
 #define MENU_EVENT 0x8
 #define FOCUS_EVENT 0x10
 
-  typedef struct _CHAR_INFO {
-    union {
+  تعريفنوع بنية _CHAR_INFO {
+    اتحاد {
       WCHAR UnicodeChar;
       CHAR AsciiChar;
     } Char;
@@ -123,7 +123,7 @@ extern "C" {
 
 #define COMMON_LVB_SBCSDBCS 0x300
 
-  typedef struct _CONSOLE_SCREEN_BUFFER_INFO {
+  تعريفنوع بنية _CONSOLE_SCREEN_BUFFER_INFO {
     COORD dwSize;
     COORD dwCursorPosition;
     WORD wAttributes;
@@ -131,17 +131,17 @@ extern "C" {
     COORD dwMaximumWindowSize;
   } CONSOLE_SCREEN_BUFFER_INFO,*PCONSOLE_SCREEN_BUFFER_INFO;
 
-  typedef struct _CONSOLE_CURSOR_INFO {
+  تعريفنوع بنية _CONSOLE_CURSOR_INFO {
     DWORD dwSize;
     WINBOOL bVisible;
   } CONSOLE_CURSOR_INFO,*PCONSOLE_CURSOR_INFO;
 
-  typedef struct _CONSOLE_FONT_INFO {
+  تعريفنوع بنية _CONSOLE_FONT_INFO {
     DWORD nFont;
     COORD dwFontSize;
   } CONSOLE_FONT_INFO,*PCONSOLE_FONT_INFO;
 
-  typedef struct _CONSOLE_SELECTION_INFO {
+  تعريفنوع بنية _CONSOLE_SELECTION_INFO {
     DWORD dwFlags;
     COORD dwSelectionAnchor;
     SMALL_RECT srSelection;
@@ -153,7 +153,7 @@ extern "C" {
 #define CONSOLE_MOUSE_SELECTION 0x4
 #define CONSOLE_MOUSE_DOWN 0x8
 
-  typedef WINBOOL (WINAPI *PHANDLER_ROUTINE)(DWORD CtrlType);
+  تعريفنوع WINBOOL (WINAPI *PHANDLER_ROUTINE)(DWORD CtrlType);
 
 #define CTRL_C_EVENT 0
 #define CTRL_BREAK_EVENT 1
@@ -199,7 +199,7 @@ extern "C" {
 #define GetConsoleAliasExesLength GetConsoleAliasExesLengthW
 #define GetConsoleAliases GetConsoleAliasesW
 #define GetConsoleAliasExes GetConsoleAliasExesW
-#else
+#وإلا
 #define PeekConsoleInput PeekConsoleInputA
 #define ReadConsoleInput ReadConsoleInputA
 #define WriteConsoleInput WriteConsoleInputA

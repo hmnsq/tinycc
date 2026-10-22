@@ -29,25 +29,25 @@ THE SOFTWARE.*/
 #define LLONG_MAX 9223372036854775807LL
 #define LLONG_MIN (-9223372036854775807LL - 1)
 #define ULLONG_MAX 0xffffffffffffffffULL
-#else
-#include <limits.h>
+#وإلا
+#ضمن <limits.h>
 #endif
 
 /* We rely on the little endianness and EABI calling convention for this to
    work */
 
-typedef struct double_unsigned_struct {
+تعريفنوع بنية double_unsigned_struct {
     unsigned low;
     unsigned high;
 } double_unsigned_struct;
 
-typedef struct unsigned_int_struct {
+تعريفنوع بنية unsigned_int_struct {
     unsigned low;
-    int high;
+    صحيح high;
 } unsigned_int_struct;
 
 #define REGS_RETURN(name, type) \
-    static void name ## _return(type ret) {}
+    ساكن فراغ name ## _return(type ret) {}
 
 
 /* Float helper functions */
@@ -68,9 +68,9 @@ REGS_RETURN(double_unsigned_struct, double_unsigned_struct)
 
 /* float to [unsigned] long long conversion */
 #define DEFINE__AEABI_F2XLZ(name, with_sign)                                 \
-void __aeabi_ ## name(unsigned val)                                          \
+فراغ __aeabi_ ## name(unsigned val)                                          \
 {                                                                            \
-    int exp, high_shift, sign;                                               \
+    صحيح exp, high_shift, sign;                                               \
     double_unsigned_struct ret;                                              \
                                                                              \
     /* compute sign */                                                       \
@@ -82,42 +82,42 @@ void __aeabi_ ## name(unsigned val)                                          \
     exp -= ONE_EXP(FLOAT);                                                   \
                                                                              \
     /* undefined behavior if truncated value cannot be represented */        \
-    if (with_sign) {                                                         \
-        if (exp > 62) /* |val| too big, double cannot represent LLONG_MAX */ \
-            return;                                                          \
-    } else {                                                                 \
-        if ((sign && exp >= 0) || exp > 63) /* if val < 0 || val too big */  \
-            return;                                                          \
+    𐡄𐡍 (with_sign) {                                                         \
+        𐡄𐡍 (exp > 62) /* |val| too big, double cannot represent LLONG_MAX */ \
+            أرجع;                                                          \
+    } وإلا {                                                                 \
+        𐡄𐡍 ((sign && exp >= 0) || exp > 63) /* if val < 0 || val too big */  \
+            أرجع;                                                          \
     }                                                                        \
                                                                              \
     val &= (1 << FLOAT_FRAC_BITS) - 1;                                       \
-    if (exp >= 32) {                                                         \
+    𐡄𐡍 (exp >= 32) {                                                         \
         ret.high = 1 << (exp - 32);                                          \
-        if (exp - 32 >= FLOAT_FRAC_BITS) {                                   \
+        𐡄𐡍 (exp - 32 >= FLOAT_FRAC_BITS) {                                   \
             ret.high |= val << (exp - 32 - FLOAT_FRAC_BITS);                 \
             ret.low = 0;                                                     \
-        } else {                                                             \
+        } وإلا {                                                             \
             high_shift = FLOAT_FRAC_BITS - (exp - 32);                       \
             ret.high |= val >> high_shift;                                   \
             ret.low = val << (32 - high_shift);                              \
         }                                                                    \
-    } else {                                                                 \
+    } وإلا {                                                                 \
         ret.high = 0;                                                        \
         ret.low = 1 << exp;                                                  \
-        if (exp > FLOAT_FRAC_BITS)                                           \
+        𐡄𐡍 (exp > FLOAT_FRAC_BITS)                                           \
             ret.low |= val << (exp - FLOAT_FRAC_BITS);                       \
-        else                                                                 \
+        وإلا                                                                 \
             ret.low |= val >> (FLOAT_FRAC_BITS - exp);                       \
     }                                                                        \
                                                                              \
     /* encode negative integer using 2's complement */                       \
-    if (with_sign && sign) {                                                 \
+    𐡄𐡍 (with_sign && sign) {                                                 \
         ret.low = ~ret.low;                                                  \
         ret.high = ~ret.high;                                                \
-        if (ret.low == UINT_MAX) {                                           \
+        𐡄𐡍 (ret.low == UINT_MAX) {                                           \
             ret.low = 0;                                                     \
             ret.high++;                                                      \
-        } else                                                               \
+        } وإلا                                                               \
             ret.low++;                                                       \
     }                                                                        \
                                                                              \
@@ -132,14 +132,14 @@ DEFINE__AEABI_F2XLZ(f2lz, 1)
 
 /* double to [unsigned] long long conversion */
 #define DEFINE__AEABI_D2XLZ(name, with_sign)                                 \
-void __aeabi_ ## name(double_unsigned_struct val)                            \
+فراغ __aeabi_ ## name(double_unsigned_struct val)                            \
 {                                                                            \
-    int exp, high_shift, sign;                                               \
+    صحيح exp, high_shift, sign;                                               \
     double_unsigned_struct ret;                                              \
                                                                              \
-    if ((val.high & ~0x80000000) == 0 && val.low == 0) {                     \
+    𐡄𐡍 ((val.high & ~0x80000000) == 0 && val.low == 0) {                     \
         ret.low = ret.high = 0;                                              \
-        goto _ret_;                                                          \
+        اذهب _ret_;                                                          \
     }                                                                        \
                                                                              \
     /* compute sign */                                                       \
@@ -151,47 +151,47 @@ void __aeabi_ ## name(double_unsigned_struct val)                            \
     exp -= ONE_EXP(DOUBLE);                                                  \
                                                                              \
     /* undefined behavior if truncated value cannot be represented */        \
-    if (with_sign) {                                                         \
-        if (exp > 62) /* |val| too big, double cannot represent LLONG_MAX */ \
-            return;                                                          \
-    } else {                                                                 \
-        if ((sign && exp >= 0) || exp > 63) /* if val < 0 || val too big */  \
-            return;                                                          \
+    𐡄𐡍 (with_sign) {                                                         \
+        𐡄𐡍 (exp > 62) /* |val| too big, double cannot represent LLONG_MAX */ \
+            أرجع;                                                          \
+    } وإلا {                                                                 \
+        𐡄𐡍 ((sign && exp >= 0) || exp > 63) /* if val < 0 || val too big */  \
+            أرجع;                                                          \
     }                                                                        \
                                                                              \
     val.high &= (1 << (DOUBLE_FRAC_BITS - 32)) - 1;                          \
-    if (exp >= 32) {                                                         \
+    𐡄𐡍 (exp >= 32) {                                                         \
         ret.high = 1 << (exp - 32);                                          \
-        if (exp >= DOUBLE_FRAC_BITS) {                                       \
+        𐡄𐡍 (exp >= DOUBLE_FRAC_BITS) {                                       \
             high_shift = exp - DOUBLE_FRAC_BITS;                             \
             ret.high |= val.high << high_shift;                              \
             ret.high |= val.low >> (32 - high_shift);                        \
             ret.low = val.low << high_shift;                                 \
-        } else {                                                             \
+        } وإلا {                                                             \
             high_shift = DOUBLE_FRAC_BITS - exp;                             \
             ret.high |= val.high >> high_shift;                              \
             ret.low = val.high << (32 - high_shift);                         \
             ret.low |= val.low >> high_shift;                                \
         }                                                                    \
-    } else {                                                                 \
+    } وإلا {                                                                 \
         ret.high = 0;                                                        \
         ret.low = 1 << exp;                                                  \
-        if (exp > DOUBLE_FRAC_BITS - 32) {                                   \
+        𐡄𐡍 (exp > DOUBLE_FRAC_BITS - 32) {                                   \
             high_shift = exp - (DOUBLE_FRAC_BITS - 32);                      \
             ret.low |= val.high << high_shift;                               \
             ret.low |= val.low >> (32 - high_shift);                         \
-        } else                                                               \
+        } وإلا                                                               \
             ret.low |= val.high >> (DOUBLE_FRAC_BITS - 32 - exp);            \
     }                                                                        \
                                                                              \
     /* encode negative integer using 2's complement */                       \
-    if (with_sign && sign) {                                                 \
+    𐡄𐡍 (with_sign && sign) {                                                 \
         ret.low = ~ret.low;                                                  \
         ret.high = ~ret.high;                                                \
-        if (ret.low == UINT_MAX) {                                           \
+        𐡄𐡍 (ret.low == UINT_MAX) {                                           \
             ret.low = 0;                                                     \
             ret.high++;                                                      \
-        } else                                                               \
+        } وإلا                                                               \
             ret.low++;                                                       \
     }                                                                        \
                                                                              \
@@ -209,45 +209,45 @@ DEFINE__AEABI_D2XLZ(d2lz, 1)
 #define DEFINE__AEABI_XL2F(name, with_sign)                             \
 unsigned __aeabi_ ## name(unsigned long long v)                         \
 {                                                                       \
-    int s /* shift */, flb /* first lost bit */, sign = 0;              \
+    صحيح s /* shift */, flb /* first lost bit */, sign = 0;              \
     unsigned p = 0 /* power */, ret;                                    \
     double_unsigned_struct val;                                         \
                                                                         \
     /* fraction in negative float is encoded in 1's complement */       \
-    if (with_sign && (v & (1ULL << 63))) {                              \
+    𐡄𐡍 (with_sign && (v & (1ULL << 63))) {                              \
         sign = 1;                                                       \
         v = ~v + 1;                                                     \
     }                                                                   \
     val.low = v;                                                        \
     val.high = v >> 32;                                                 \
     /* fill fraction bits */                                            \
-    for (s = 31, p = 1 << 31; p && !(val.high & p); s--, p >>= 1);      \
-    if (p) {                                                            \
+    لكل (s = 31, p = 1 << 31; p && !(val.high & p); s--, p >>= 1);      \
+    𐡄𐡍 (p) {                                                            \
         ret = val.high & (p - 1);                                       \
-        if (s < FLOAT_FRAC_BITS) {                                      \
+        𐡄𐡍 (s < FLOAT_FRAC_BITS) {                                      \
             ret <<= FLOAT_FRAC_BITS - s;                                \
             ret |= val.low >> (32 - (FLOAT_FRAC_BITS - s));             \
             flb = (val.low >> (32 - (FLOAT_FRAC_BITS - s - 1))) & 1;    \
-        } else {                                                        \
+        } وإلا {                                                        \
             flb = (ret >> (s - FLOAT_FRAC_BITS - 1)) & 1;               \
             ret >>= s - FLOAT_FRAC_BITS;                                \
         }                                                               \
         s += 32;                                                        \
-    } else {                                                            \
-        for (s = 31, p = 1 << 31; p && !(val.low & p); s--, p >>= 1);   \
-        if (p) {                                                        \
+    } وإلا {                                                            \
+        لكل (s = 31, p = 1 << 31; p && !(val.low & p); s--, p >>= 1);   \
+        𐡄𐡍 (p) {                                                        \
             ret = val.low & (p - 1);                                    \
-            if (s <= FLOAT_FRAC_BITS) {                                 \
+            𐡄𐡍 (s <= FLOAT_FRAC_BITS) {                                 \
                 ret <<= FLOAT_FRAC_BITS - s;                            \
                 flb = 0;                                                \
-	    } else {                                                    \
+	    } وإلا {                                                    \
                 flb = (ret >> (s - FLOAT_FRAC_BITS - 1)) & 1;           \
                 ret >>= s - FLOAT_FRAC_BITS;                            \
 	    }                                                           \
-        } else                                                          \
-            return 0;                                                   \
+        } وإلا                                                          \
+            أرجع 0;                                                   \
     }                                                                   \
-    if (flb)                                                            \
+    𐡄𐡍 (flb)                                                            \
         ret++;                                                          \
                                                                         \
     /* fill exponent bits */                                            \
@@ -256,7 +256,7 @@ unsigned __aeabi_ ## name(unsigned long long v)                         \
     /* fill sign bit */                                                 \
     ret |= sign << 31;                                                  \
                                                                         \
-    return ret;                                                         \
+    أرجع ret;                                                         \
 }
 
 /* unsigned long long to float conversion */
@@ -267,14 +267,14 @@ DEFINE__AEABI_XL2F(l2f, 1)
 
 /* long long to double conversion */
 #define __AEABI_XL2D(name, with_sign)                                   \
-void __aeabi_ ## name(unsigned long long v)                             \
+فراغ __aeabi_ ## name(unsigned long long v)                             \
 {                                                                       \
-    int s /* shift */, high_shift, sign = 0;                            \
+    صحيح s /* shift */, high_shift, sign = 0;                            \
     unsigned tmp, p = 0;                                                \
     double_unsigned_struct val, ret;                                    \
                                                                         \
     /* fraction in negative float is encoded in 1's complement */       \
-    if (with_sign && (v & (1ULL << 63))) {                              \
+    𐡄𐡍 (with_sign && (v & (1ULL << 63))) {                              \
         sign = 1;                                                       \
         v = ~v + 1;                                                     \
     }                                                                   \
@@ -282,44 +282,44 @@ void __aeabi_ ## name(unsigned long long v)                             \
     val.high = v >> 32;                                                 \
                                                                         \
     /* fill fraction bits */                                            \
-    for (s = 31, p = 1 << 31; p && !(val.high & p); s--, p >>= 1);      \
-    if (p) {                                                            \
+    لكل (s = 31, p = 1 << 31; p && !(val.high & p); s--, p >>= 1);      \
+    𐡄𐡍 (p) {                                                            \
         tmp = val.high & (p - 1);                                       \
-        if (s < DOUBLE_FRAC_BITS - 32) {                                \
+        𐡄𐡍 (s < DOUBLE_FRAC_BITS - 32) {                                \
             high_shift = DOUBLE_FRAC_BITS - 32 - s;                     \
             ret.high = tmp << high_shift;                               \
             ret.high |= val.low >> (32 - high_shift);                   \
             ret.low = val.low << high_shift;                            \
-        } else {                                                        \
+        } وإلا {                                                        \
             high_shift = s - (DOUBLE_FRAC_BITS - 32);                   \
             ret.high = tmp >> high_shift;                               \
             ret.low = tmp << (32 - high_shift);                         \
             ret.low |= val.low >> high_shift;                           \
-            if ((val.low >> (high_shift - 1)) & 1) {                    \
-                if (ret.low == UINT_MAX) {                              \
+            𐡄𐡍 ((val.low >> (high_shift - 1)) & 1) {                    \
+                𐡄𐡍 (ret.low == UINT_MAX) {                              \
                     ret.high++;                                         \
                     ret.low = 0;                                        \
-		} else                                                  \
+		} وإلا                                                  \
                     ret.low++;                                          \
             }                                                           \
         }                                                               \
         s += 32;                                                        \
-    } else {                                                            \
-        for (s = 31, p = 1 << 31; p && !(val.low & p); s--, p >>= 1);   \
-        if (p) {                                                        \
+    } وإلا {                                                            \
+        لكل (s = 31, p = 1 << 31; p && !(val.low & p); s--, p >>= 1);   \
+        𐡄𐡍 (p) {                                                        \
             tmp = val.low & (p - 1);                                    \
-            if (s <= DOUBLE_FRAC_BITS - 32) {                           \
+            𐡄𐡍 (s <= DOUBLE_FRAC_BITS - 32) {                           \
                 high_shift = DOUBLE_FRAC_BITS - 32 - s;                 \
                 ret.high = tmp << high_shift;                           \
                 ret.low = 0;                                            \
-	    } else {                                                    \
+	    } وإلا {                                                    \
                 high_shift = s - (DOUBLE_FRAC_BITS - 32);               \
                 ret.high = tmp >> high_shift;                           \
                 ret.low = tmp << (32 - high_shift);                     \
             }                                                           \
-        } else {                                                        \
+        } وإلا {                                                        \
             ret.high = ret.low = 0;                                     \
-            goto _ret_;                                                 \
+            اذهب _ret_;                                                 \
         }                                                               \
     }                                                                   \
                                                                         \
@@ -339,35 +339,35 @@ __AEABI_XL2D(ul2d, 0)
 /* long long to double conversion */
 __AEABI_XL2D(l2d, 1)
 
-#if 1
+#𐡄𐡍 1
 /* Long long helper functions */
 
 /* TODO: add error in case of den == 0 (see §4.3.1 and §4.3.2) */
 
 #define define_aeabi_xdivmod_signed_type(basetype, type) \
-typedef struct type {                                    \
+تعريفنوع بنية type {                                    \
     basetype quot;                                       \
     unsigned basetype rem;                               \
 } type
 
 #define define_aeabi_xdivmod_unsigned_type(basetype, type) \
-typedef struct type {                                      \
+تعريفنوع بنية type {                                      \
     basetype quot;                                         \
     basetype rem;                                          \
 } type
 
 #define AEABI_UXDIVMOD(name,type, rettype, typemacro)                     \
-static inline rettype aeabi_ ## name (type num, type den)                 \
+ساكن مضمن rettype aeabi_ ## name (type num, type den)                 \
 {                                                                         \
     rettype ret;                                                          \
     type quot = 0;                                                        \
                                                                           \
     /* Increase quotient while it is less than numerator */               \
-    while (num >= den) {                                                  \
+    طالما (num >= den) {                                                  \
         type q = 1;                                                       \
                                                                           \
         /* Find closest power of two */                                   \
-        while ((q << 1) * den <= num && q * den <= typemacro ## _MAX / 2) \
+        طالما ((q << 1) * den <= num && q * den <= typemacro ## _MAX / 2) \
             q <<= 1;                                                      \
                                                                           \
         /* Compute difference between current quotient and numerator */   \
@@ -376,33 +376,33 @@ static inline rettype aeabi_ ## name (type num, type den)                 \
     }                                                                     \
     ret.quot = quot;                                                      \
     ret.rem = num;                                                        \
-    return ret;                                                           \
+    أرجع ret;                                                           \
 }
 
 #define __AEABI_XDIVMOD(name, type, uiname, rettype, urettype, typemacro)     \
-void __aeabi_ ## name(type numerator, type denominator)                       \
+فراغ __aeabi_ ## name(type numerator, type denominator)                       \
 {                                                                             \
     unsigned type num, den;                                                   \
     urettype uxdiv_ret;                                                       \
     rettype ret;                                                              \
                                                                               \
-    if (numerator >= 0)                                                       \
+    𐡄𐡍 (numerator >= 0)                                                       \
       num = numerator;                                                        \
-    else                                                                      \
+    وإلا                                                                      \
       num = 0 - numerator;                                                    \
-    if (denominator >= 0)                                                     \
+    𐡄𐡍 (denominator >= 0)                                                     \
       den = denominator;                                                      \
-    else                                                                      \
+    وإلا                                                                      \
       den = 0 - denominator;                                                  \
     uxdiv_ret = aeabi_ ## uiname(num, den);                                   \
     /* signs differ */                                                        \
-    if ((numerator & typemacro ## _MIN) != (denominator & typemacro ## _MIN)) \
+    𐡄𐡍 ((numerator & typemacro ## _MIN) != (denominator & typemacro ## _MIN)) \
         ret.quot = 0 - uxdiv_ret.quot;                                        \
-    else                                                                      \
+    وإلا                                                                      \
         ret.quot = uxdiv_ret.quot;                                            \
-    if (numerator < 0)                                                        \
+    𐡄𐡍 (numerator < 0)                                                        \
         ret.rem = 0 - uxdiv_ret.rem;                                          \
-    else                                                                      \
+    وإلا                                                                      \
         ret.rem = uxdiv_ret.rem;                                              \
                                                                               \
     rettype ## _return(ret);                                                  \
@@ -410,7 +410,7 @@ void __aeabi_ ## name(type numerator, type denominator)                       \
 
 define_aeabi_xdivmod_signed_type(long long, lldiv_t);
 define_aeabi_xdivmod_unsigned_type(unsigned long long, ulldiv_t);
-define_aeabi_xdivmod_signed_type(int, idiv_t);
+define_aeabi_xdivmod_signed_type(صحيح, idiv_t);
 define_aeabi_xdivmod_unsigned_type(unsigned, uidiv_t);
 
 REGS_RETURN(lldiv_t, lldiv_t)
@@ -422,25 +422,25 @@ AEABI_UXDIVMOD(uldivmod, unsigned long long, ulldiv_t, ULLONG)
 
 __AEABI_XDIVMOD(ldivmod, long long, uldivmod, lldiv_t, ulldiv_t, LLONG)
 
-void __aeabi_uldivmod(unsigned long long num, unsigned long long den)
+فراغ __aeabi_uldivmod(unsigned long long num, unsigned long long den)
 {
     ulldiv_t_return(aeabi_uldivmod(num, den));
 }
 
-void __aeabi_llsl(double_unsigned_struct val, int shift)
+فراغ __aeabi_llsl(double_unsigned_struct val, صحيح shift)
 {
     double_unsigned_struct ret;
 
-    if (shift >= 32) {
+    𐡄𐡍 (shift >= 32) {
         val.high = val.low;
         val.low = 0;
         shift -= 32;
     }
-    if (shift > 0) {
+    𐡄𐡍 (shift > 0) {
         ret.low = val.low << shift;
         ret.high = (val.high << shift) | (val.low >> (32 - shift));
         double_unsigned_struct_return(ret);
-	return;
+	أرجع;
     }
     double_unsigned_struct_return(val);
 }
@@ -448,25 +448,25 @@ void __aeabi_llsl(double_unsigned_struct val, int shift)
 #define aeabi_lsr(val, shift, fill, type)                          \
     type ## _struct ret;                                           \
                                                                    \
-    if (shift >= 32) {                                             \
+    𐡄𐡍 (shift >= 32) {                                             \
         val.low = val.high;                                        \
         val.high = fill;                                           \
         shift -= 32;                                               \
     }                                                              \
-    if (shift > 0) {                                               \
+    𐡄𐡍 (shift > 0) {                                               \
         ret.high = val.high >> shift;                              \
         ret.low = (val.high << (32 - shift)) | (val.low >> shift); \
         type ## _struct_return(ret);                               \
-	return;                                                    \
+	أرجع;                                                    \
     }                                                              \
     type ## _struct_return(val);
 
-void __aeabi_llsr(double_unsigned_struct val, int shift)
+فراغ __aeabi_llsr(double_unsigned_struct val, صحيح shift)
 {
     aeabi_lsr(val, shift, 0, double_unsigned);
 }
 
-void __aeabi_lasr(unsigned_int_struct val, int shift)
+فراغ __aeabi_lasr(unsigned_int_struct val, صحيح shift)
 {
     aeabi_lsr(val, shift, val.high >> 31, unsigned_int);
 }
@@ -474,86 +474,86 @@ void __aeabi_lasr(unsigned_int_struct val, int shift)
 
 /* Integer division functions */
 
-#if 0 /* very slow */
+#𐡄𐡍 0 /* very slow */
 AEABI_UXDIVMOD(uidivmod, unsigned, uidiv_t, UINT)
 
-int __aeabi_idiv(int numerator, int denominator)
+صحيح __aeabi_idiv(صحيح numerator, صحيح denominator)
 {
     unsigned num, den;
     uidiv_t ret;
 
-    if (numerator >= 0)
+    𐡄𐡍 (numerator >= 0)
         num = numerator;
-    else
+    وإلا
         num = 0 - numerator;
-    if (denominator >= 0)
+    𐡄𐡍 (denominator >= 0)
         den = denominator;
-    else
+    وإلا
         den = 0 - denominator;
     ret = aeabi_uidivmod(num, den);
-    if ((numerator & INT_MIN) != (denominator & INT_MIN)) /* signs differ */
+    𐡄𐡍 ((numerator & INT_MIN) != (denominator & INT_MIN)) /* signs differ */
         ret.quot *= -1;
-    return ret.quot;
+    أرجع ret.quot;
 }
 
 unsigned __aeabi_uidiv(unsigned num, unsigned den)
 {
-    return aeabi_uidivmod(num, den).quot;
+    أرجع aeabi_uidivmod(num, den).quot;
 }
 
-__AEABI_XDIVMOD(idivmod, int, uidivmod, idiv_t, uidiv_t, INT)
+__AEABI_XDIVMOD(idivmod, صحيح, uidivmod, idiv_t, uidiv_t, INT)
 
-void __aeabi_uidivmod(unsigned num, unsigned den)
+فراغ __aeabi_uidivmod(unsigned num, unsigned den)
 {
     uidiv_t_return(aeabi_uidivmod(num, den));
 }
-#else
+#وإلا
 # define UIDIVMOD_ASM 1
 #endif
 
 /* Some targets do not have all eabi calls (OpenBSD) */
-typedef __SIZE_TYPE__ size_t;
-extern void *memcpy(void *dest, const void *src, size_t n);
-extern void *memmove(void *dest, const void *src, size_t n);
-extern void *memset(void *s, int c, size_t n);
+تعريفنوع __SIZE_TYPE__ size_t;
+خارجي فراغ *memcpy(فراغ *dest, ثابت فراغ *src, size_t n);
+خارجي فراغ *memmove(فراغ *dest, ثابت فراغ *src, size_t n);
+خارجي فراغ *memset(فراغ *s, صحيح c, size_t n);
 
-void *
-__aeabi_memcpy (void *dest, const void *src, size_t n)
+فراغ *
+__aeabi_memcpy (فراغ *dest, ثابت فراغ *src, size_t n)
 {
-    return memcpy (dest, src, n);
+    أرجع memcpy (dest, src, n);
 }
 
-void *
-__aeabi_memmove (void *dest, const void *src, size_t n)
+فراغ *
+__aeabi_memmove (فراغ *dest, ثابت فراغ *src, size_t n)
 {
-    return memmove (dest, src, n);
+    أرجع memmove (dest, src, n);
 }
 
-void *
-__aeabi_memmove4 (void *dest, const void *src, size_t n)
+فراغ *
+__aeabi_memmove4 (فراغ *dest, ثابت فراغ *src, size_t n)
 {
-    return memmove (dest, src, n);
+    أرجع memmove (dest, src, n);
 }
 
-void *
-__aeabi_memmove8 (void *dest, const void *src, size_t n)
+فراغ *
+__aeabi_memmove8 (فراغ *dest, ثابت فراغ *src, size_t n)
 {
-    return memmove (dest, src, n);
+    أرجع memmove (dest, src, n);
 }
 
-void *
-__aeabi_memset (void *s, size_t n, int c)
+فراغ *
+__aeabi_memset (فراغ *s, size_t n, صحيح c)
 {
-    return memset (s, c, n);
+    أرجع memset (s, c, n);
 }
 
 /* ***************************************************************** */
-#if UIDIVMOD_ASM
-#include <config.h>
+#𐡄𐡍 UIDIVMOD_ASM
+#ضمن <config.h>
 __asm__(
    "\n  .global __aeabi_idiv, __aeabi_idivmod"
    "\n  .global __aeabi_uidiv, __aeabi_uidivmod"
-#if __ARM_FEATURE_IDIV
+#𐡄𐡍 __ARM_FEATURE_IDIV
    "\n__aeabi_idiv:"
    "\n__aeabi_idivmod:"
    "\n  mov     r2, r0"
@@ -567,7 +567,7 @@ __asm__(
    "\n  udiv    r0, r0, r1"
    "\n  mls     r1, r1, r0, r2"
    "\n  bx      lr"
-#else
+#وإلا
 /* Runtime ABI for the ARM Cortex-M0
  * idivmod.S: signed 32 bit division (quotient and remainder)
  *

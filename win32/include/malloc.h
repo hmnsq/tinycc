@@ -6,7 +6,7 @@
 #ifndef _MALLOC_H_
 #define _MALLOC_H_
 
-#include <_mingw.h>
+#ضمن <_mingw.h>
 
 #pragma pack(push,_CRT_PACKING)
 
@@ -15,17 +15,17 @@
 #endif
 
 #ifdef __cplusplus
-extern "C" {
+خارجي "C" {
 #endif
 
 #ifdef _WIN64
 #define _HEAP_MAXREQ 0xFFFFFFFFFFFFFFE0
-#else
+#وإلا
 #define _HEAP_MAXREQ 0xFFFFFFE0
 #endif
 
 #ifndef _STATIC_ASSERT
-#define _STATIC_ASSERT(expr) extern void __static_assert_t(int [(expr)?1:-1])
+#define _STATIC_ASSERT(expr) خارجي فراغ __static_assert_t(صحيح [(expr)?1:-1])
 #endif
 
 /* Return codes for _heapwalk()  */
@@ -43,45 +43,45 @@ extern "C" {
 #ifndef _HEAPINFO_DEFINED
 #define _HEAPINFO_DEFINED
  /* The structure used to walk through the heap with _heapwalk.  */
-  typedef struct _heapinfo {
-    int *_pentry;
+  تعريفنوع بنية _heapinfo {
+    صحيح *_pentry;
     size_t _size;
-    int _useflag;
+    صحيح _useflag;
   } _HEAPINFO;
 #endif
 
-  extern unsigned int _amblksiz;
+  خارجي unsigned صحيح _amblksiz;
 
 #define _mm_free(a) _aligned_free(a)
 #define _mm_malloc(a,b) _aligned_malloc(a,b)
 
 #ifndef _CRT_ALLOCATION_DEFINED
 #define _CRT_ALLOCATION_DEFINED
-  void *__cdecl calloc(size_t _NumOfElements,size_t _SizeOfElements);
-  void __cdecl free(void *_Memory);
-  void *__cdecl malloc(size_t _Size);
-  void *__cdecl realloc(void *_Memory,size_t _NewSize);
-  _CRTIMP void *__cdecl _recalloc(void *_Memory,size_t _Count,size_t _Size);
-  _CRTIMP void __cdecl _aligned_free(void *_Memory);
-  _CRTIMP void *__cdecl _aligned_malloc(size_t _Size,size_t _Alignment);
-  _CRTIMP void *__cdecl _aligned_offset_malloc(size_t _Size,size_t _Alignment,size_t _Offset);
-  _CRTIMP void *__cdecl _aligned_realloc(void *_Memory,size_t _Size,size_t _Alignment);
-  _CRTIMP void *__cdecl _aligned_recalloc(void *_Memory,size_t _Count,size_t _Size,size_t _Alignment);
-  _CRTIMP void *__cdecl _aligned_offset_realloc(void *_Memory,size_t _Size,size_t _Alignment,size_t _Offset);
-  _CRTIMP void *__cdecl _aligned_offset_recalloc(void *_Memory,size_t _Count,size_t _Size,size_t _Alignment,size_t _Offset);
+  فراغ *__cdecl calloc(size_t _NumOfElements,size_t _SizeOfElements);
+  فراغ __cdecl حرر(فراغ *_Memory);
+  فراغ *__cdecl malloc(size_t _Size);
+  فراغ *__cdecl realloc(فراغ *_Memory,size_t _NewSize);
+  _CRTIMP فراغ *__cdecl _recalloc(فراغ *_Memory,size_t _Count,size_t _Size);
+  _CRTIMP فراغ __cdecl _aligned_free(فراغ *_Memory);
+  _CRTIMP فراغ *__cdecl _aligned_malloc(size_t _Size,size_t _Alignment);
+  _CRTIMP فراغ *__cdecl _aligned_offset_malloc(size_t _Size,size_t _Alignment,size_t _Offset);
+  _CRTIMP فراغ *__cdecl _aligned_realloc(فراغ *_Memory,size_t _Size,size_t _Alignment);
+  _CRTIMP فراغ *__cdecl _aligned_recalloc(فراغ *_Memory,size_t _Count,size_t _Size,size_t _Alignment);
+  _CRTIMP فراغ *__cdecl _aligned_offset_realloc(فراغ *_Memory,size_t _Size,size_t _Alignment,size_t _Offset);
+  _CRTIMP فراغ *__cdecl _aligned_offset_recalloc(فراغ *_Memory,size_t _Count,size_t _Size,size_t _Alignment,size_t _Offset);
 #endif
 
 #define _MAX_WAIT_MALLOC_CRT 60000
 
-  _CRTIMP int __cdecl _resetstkoflw (void);
+  _CRTIMP صحيح __cdecl _resetstkoflw (فراغ);
   _CRTIMP unsigned long __cdecl _set_malloc_crt_max_wait(unsigned long _NewValue);
 
-  _CRTIMP void *__cdecl _expand(void *_Memory,size_t _NewSize);
-  _CRTIMP size_t __cdecl _msize(void *_Memory);
+  _CRTIMP فراغ *__cdecl _expand(فراغ *_Memory,size_t _NewSize);
+  _CRTIMP size_t __cdecl _msize(فراغ *_Memory);
 #ifdef __GNUC__
 #undef _alloca
 #define _alloca(x) __builtin_alloca((x))
-#else
+#وإلا
   /* tcc implements alloca internally and exposes it (since commit d778bde7).
   /* alloca is declared at include/stddef.h (which is distributed with tcc).
    */
@@ -90,35 +90,35 @@ extern "C" {
 #endif
 #define _alloca(x) alloca((x))
 #endif
-  _CRTIMP size_t __cdecl _get_sbh_threshold(void);
-  _CRTIMP int __cdecl _set_sbh_threshold(size_t _NewValue);
+  _CRTIMP size_t __cdecl _get_sbh_threshold(فراغ);
+  _CRTIMP صحيح __cdecl _set_sbh_threshold(size_t _NewValue);
   _CRTIMP errno_t __cdecl _set_amblksiz(size_t _Value);
   _CRTIMP errno_t __cdecl _get_amblksiz(size_t *_Value);
-  _CRTIMP int __cdecl _heapadd(void *_Memory,size_t _Size);
-  _CRTIMP int __cdecl _heapchk(void);
-  _CRTIMP int __cdecl _heapmin(void);
-  _CRTIMP int __cdecl _heapset(unsigned int _Fill);
-  _CRTIMP int __cdecl _heapwalk(_HEAPINFO *_EntryInfo);
+  _CRTIMP صحيح __cdecl _heapadd(فراغ *_Memory,size_t _Size);
+  _CRTIMP صحيح __cdecl _heapchk(فراغ);
+  _CRTIMP صحيح __cdecl _heapmin(فراغ);
+  _CRTIMP صحيح __cdecl _heapset(unsigned صحيح _Fill);
+  _CRTIMP صحيح __cdecl _heapwalk(_HEAPINFO *_EntryInfo);
   _CRTIMP size_t __cdecl _heapused(size_t *_Used,size_t *_Commit);
-  _CRTIMP intptr_t __cdecl _get_heap_handle(void);
+  _CRTIMP intptr_t __cdecl _get_heap_handle(فراغ);
 
 #define _ALLOCA_S_THRESHOLD 1024
 #define _ALLOCA_S_STACK_MARKER 0xCCCC
 #define _ALLOCA_S_HEAP_MARKER 0xDDDD
 
-#if(defined(_X86_) && !defined(__x86_64))
+#𐡄𐡍(defined(_X86_) && !defined(__x86_64))
 #define _ALLOCA_S_MARKER_SIZE 8
-#elif defined(__ia64__) || defined(__x86_64)
+#وإلاإذا defined(__ia64__) || defined(__x86_64)
 #define _ALLOCA_S_MARKER_SIZE 16
 #endif
 
-#if !defined(RC_INVOKED)
-  static __inline void *_MarkAllocaS(void *_Ptr,unsigned int _Marker) {
-    if(_Ptr) {
-      *((unsigned int*)_Ptr) = _Marker;
-      _Ptr = (char*)_Ptr + _ALLOCA_S_MARKER_SIZE;
+#𐡄𐡍 !defined(RC_INVOKED)
+  ساكن __inline فراغ *_MarkAllocaS(فراغ *_Ptr,unsigned صحيح _Marker) {
+    𐡄𐡍(_Ptr) {
+      *((unsigned صحيح*)_Ptr) = _Marker;
+      _Ptr = (حرف*)_Ptr + _ALLOCA_S_MARKER_SIZE;
     }
-    return _Ptr;
+    أرجع _Ptr;
   }
 #endif
 
@@ -132,16 +132,16 @@ extern "C" {
 
 #ifndef RC_INVOKED
 #undef _freea
-  static __inline void __cdecl _freea(void *_Memory) {
-    unsigned int _Marker;
-    if(_Memory) {
-      _Memory = (char*)_Memory - _ALLOCA_S_MARKER_SIZE;
-      _Marker = *(unsigned int *)_Memory;
-      if(_Marker==_ALLOCA_S_HEAP_MARKER) {
-	free(_Memory);
+  ساكن __inline فراغ __cdecl _freea(فراغ *_Memory) {
+    unsigned صحيح _Marker;
+    𐡄𐡍(_Memory) {
+      _Memory = (حرف*)_Memory - _ALLOCA_S_MARKER_SIZE;
+      _Marker = *(unsigned صحيح *)_Memory;
+      𐡄𐡍(_Marker==_ALLOCA_S_HEAP_MARKER) {
+	حرر(_Memory);
       }
 #ifdef _ASSERTE
-      else if(_Marker!=_ALLOCA_S_STACK_MARKER) {
+      وإلا 𐡄𐡍(_Marker!=_ALLOCA_S_STACK_MARKER) {
 	_ASSERTE(("Corrupted pointer passed to _freea",0));
       }
 #endif
@@ -159,7 +159,7 @@ extern "C" {
 #ifdef HEAPHOOK
 #ifndef _HEAPHOOK_DEFINED
 #define _HEAPHOOK_DEFINED
-  typedef int (__cdecl *_HEAPHOOK)(int,size_t,void *,void **);
+  تعريفنوع صحيح (__cdecl *_HEAPHOOK)(صحيح,size_t,فراغ *,فراغ **);
 #endif
 
   _CRTIMP _HEAPHOOK __cdecl _setheaphook(_HEAPHOOK _NewHook);
