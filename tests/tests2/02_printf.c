@@ -4,9 +4,9 @@ int main()
 {
    printf("Hello world\n");
 
-   int Count;
-   for (Count = -5; Count <= 5; Count++)
-      printf("Count = %d\n", Count);
+   int बिलांग_3;
+   for (बिलांग_3 = -5; बिलांग_3 <= 5; बिलांग_3++)
+      printf("Count = %d\n", बिलांग_3);
 
    printf("String 'hello', 'there' is '%s', '%s'\n", "hello", "there");
    printf("Character 'A' is '%c'\n", 65);

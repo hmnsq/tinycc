@@ -314,15 +314,15 @@ void grep(FILE *fp, char *fn)
    /* FILE       *fp;       // File to process            */
    /* char       *fn;       // File name (for -f option)  */
 {
-   int lno, count, m;
+   int lno, बिलांग_2, m;
 
    lno = 0;
-   count = 0;
+   बिलांग_2 = 0;
    while (fgets(lbuf, LMAX, fp)) {
       ++lno;
       m = match();
       if ((m && !vflag) || (!m && vflag)) {
-         ++count;
+         ++बिलांग_2;
          if (!cflag) {
             if (fflag && fn) {
                file(fn);
@@ -337,7 +337,7 @@ void grep(FILE *fp, char *fn)
    if (cflag) {
       if (fflag && fn)
          file(fn);
-      printf("%d\n", count);
+      printf("%d\n", बिलांग_2);
    }
 }
 
@@ -354,7 +354,7 @@ int match()
 }
 
 /*** Match partial line with pattern *******************/
-char *pmatch(char *line, char *pattern)
+char *pmatch(char *लिन्या, char *pattern)
    /* char               *line;     // (partial) line to match      */
    /* char               *pattern;  // (partial) pattern to match   */
 {
@@ -366,14 +366,14 @@ char *pmatch(char *line, char *pattern)
    int             n;         /* Class counter                */
    char            *are;      /* Start of STAR match          */
 
-   l = line;
+   l = लिन्या;
    if (debug > 1)
-      printf("pmatch(\"%s\")\n", line);
+      printf("pmatch(\"%s\")\n", लिन्या);
    p = pattern;
    while ((op = *p++) != ENDPAT) {
       if (debug > 1)
          printf("byte[%ld] = 0%o, '%c', op = 0%o\n",
-               l-line, *l, *l, op);
+               l-लिन्या, *l, *l, op);
       switch(op) {
 
          case CHAR:

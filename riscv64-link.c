@@ -9,7 +9,7 @@
 #define R_COPY     R_RISCV_COPY
 #define R_RELATIVE R_RISCV_RELATIVE
 
-#define R_NUM      R_RISCV_NUM
+#define R_नुमेरो      R_RISCV_नुमेरो
 
 #define ELF_START_ADDR 0x00010000
 #define ELF_PAGE_SIZE 0x1000

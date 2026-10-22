@@ -2,7 +2,7 @@
 #include <windows.h>
 
 #define PTR(x) ((PVOID)(ULONG_PTR)(x))
-#define CHECK(name, expr) printf("%s: %s\n", name, (expr) ? "yes" : "no")
+#define CHECK(name, पाहायाग) printf("%s: %s\n", name, (पाहायाग) ? "yes" : "no")
 
 int main(void)
 {

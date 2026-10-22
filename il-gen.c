@@ -451,7 +451,7 @@ void gfunc_prolog(int t)
     /* define parameters */
     while ((sym = sym->next) != NULL) {
         u = sym->t;
-        sym_push(sym->v & ~SYM_FIELD, u,
+        sym_इतुलाक(sym->v & ~SYM_FIELD, u,
                  VT_LOCAL | lvalue_type(sym->type.t), addr);
         addr++;
     }

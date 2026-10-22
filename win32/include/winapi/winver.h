@@ -130,14 +130,14 @@ extern "C" {
 #define GetFileVersionInfoSize GetFileVersionInfoSizeW
 #define GetFileVersionInfo GetFileVersionInfoW
 #define VerLanguageName VerLanguageNameW
-#define VerQueryValue VerQueryValueW
+#define Ver_Query_हालागा Ver_Query_हालागा_W
 #else
 #define VerFindFile VerFindFileA
 #define VerInstallFile VerInstallFileA
 #define GetFileVersionInfoSize GetFileVersionInfoSizeA
 #define GetFileVersionInfo GetFileVersionInfoA
 #define VerLanguageName VerLanguageNameA
-#define VerQueryValue VerQueryValueA
+#define Ver_Query_हालागा Ver_Query_हालागा_A
 #endif
 
   DWORD WINAPI VerFindFileA(DWORD uFlags,LPSTR szFileName,LPSTR szWinDir,LPSTR szAppDir,LPSTR szCurDir,PUINT lpuCurDirLen,LPSTR szDestDir,PUINT lpuDestDirLen);
@@ -150,8 +150,8 @@ extern "C" {
   WINBOOL WINAPI GetFileVersionInfoW(LPCWSTR lptstrFilename,DWORD dwHandle,DWORD dwLen,LPVOID lpData);
   DWORD WINAPI VerLanguageNameA(DWORD wLang,LPSTR szLang,DWORD nSize);
   DWORD WINAPI VerLanguageNameW(DWORD wLang,LPWSTR szLang,DWORD nSize);
-  WINBOOL WINAPI VerQueryValueA(const LPVOID pBlock,LPSTR lpSubBlock,LPVOID *lplpBuffer,PUINT puLen);
-  WINBOOL WINAPI VerQueryValueW(const LPVOID pBlock,LPWSTR lpSubBlock,LPVOID *lplpBuffer,PUINT puLen);
+  WINBOOL WINAPI Ver_Query_हालागा_A(const LPVOID pBlock,LPSTR lpSubBlock,LPVOID *lplpBuffer,PUINT puLen);
+  WINBOOL WINAPI Ver_Query_हालागा_W(const LPVOID pBlock,LPWSTR lpSubBlock,LPVOID *lplpBuffer,PUINT puLen);
 #endif
 
 #ifdef __cplusplus

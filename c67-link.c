@@ -10,7 +10,7 @@
 #define R_COPY      R_C60_COPY
 #define R_RELATIVE  R_C60_RELATIVE
 
-#define R_NUM       R_C60_NUM
+#define R_नुमेरो       R_C60_नुमेरो
 
 #define ELF_START_ADDR 0x00000400
 #define ELF_PAGE_SIZE  0x1000

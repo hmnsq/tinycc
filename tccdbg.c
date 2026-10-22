@@ -83,8 +83,8 @@ static const struct {
 
 /* dwarf debug */
 
-#define	DWARF_LINE_BASE				-5
-#define	DWARF_LINE_RANGE			14
+#define	DWARF_लिन्या_BASE				-5
+#define	DWARF_लिन्या_RANGE			14
 #define	DWARF_OPCODE_BASE			13
 
 #if defined TCC_TARGET_ARM64
@@ -129,13 +129,13 @@ static const unsigned char dwarf_abbrev_init[] = {
     DWARF_ABBREV_COMPILE_UNIT, DW_TAG_compile_unit, 1,
           DW_AT_producer, DW_FORM_strp,
           DW_AT_language, DW_FORM_data1,
-          DW_AT_name, DW_FORM_line_strp,
-          DW_AT_comp_dir, DW_FORM_line_strp,
-          DW_AT_low_pc, DW_FORM_addr,
+          DW_AT_name, DW_FORM_लिन्या_strp,
+          DW_AT_comp_dir, DW_FORM_लिन्या_strp,
+          DW_AT_माबाबा_pc, DW_FORM_addr,
 #if PTR_SIZE == 4
-          DW_AT_high_pc, DW_FORM_data4,
+          DW_AT_माताअस_pc, DW_FORM_data4,
 #else
-          DW_AT_high_pc, DW_FORM_data8,
+          DW_AT_माताअस_pc, DW_FORM_data8,
 #endif
           DW_AT_stmt_list, DW_FORM_sec_offset,
           0, 0,
@@ -147,7 +147,7 @@ static const unsigned char dwarf_abbrev_init[] = {
     DWARF_ABBREV_VARIABLE_EXTERNAL, DW_TAG_variable, 0,
           DW_AT_name, DW_FORM_strp,
           DW_AT_decl_file, DW_FORM_udata,
-          DW_AT_decl_line, DW_FORM_udata,
+          DW_AT_decl_लिन्या, DW_FORM_udata,
           DW_AT_type, DW_FORM_ref4,
           DW_AT_external, DW_FORM_flag,
           DW_AT_location, DW_FORM_exprloc,
@@ -155,7 +155,7 @@ static const unsigned char dwarf_abbrev_init[] = {
     DWARF_ABBREV_VARIABLE_STATIC, DW_TAG_variable, 0,
           DW_AT_name, DW_FORM_strp,
           DW_AT_decl_file, DW_FORM_udata,
-          DW_AT_decl_line, DW_FORM_udata,
+          DW_AT_decl_लिन्या, DW_FORM_udata,
           DW_AT_type, DW_FORM_ref4,
           DW_AT_location, DW_FORM_exprloc,
           0, 0,
@@ -184,16 +184,16 @@ static const unsigned char dwarf_abbrev_init[] = {
     DWARF_ABBREV_TYPEDEF, DW_TAG_typedef, 0,
           DW_AT_name, DW_FORM_strp,
           DW_AT_decl_file, DW_FORM_udata,
-          DW_AT_decl_line, DW_FORM_udata,
+          DW_AT_decl_लिन्या, DW_FORM_udata,
           DW_AT_type, DW_FORM_ref4,
           0, 0,
     DWARF_ABBREV_ENUMERATOR_SIGNED, DW_TAG_enumerator, 0,
           DW_AT_name, DW_FORM_strp,
-          DW_AT_const_value, DW_FORM_sdata,
+          DW_AT_const_हालागा, DW_FORM_sdata,
           0, 0,
     DWARF_ABBREV_ENUMERATOR_UNSIGNED, DW_TAG_enumerator, 0,
           DW_AT_name, DW_FORM_strp,
-          DW_AT_const_value, DW_FORM_udata,
+          DW_AT_const_हालागा, DW_FORM_udata,
           0, 0,
     DWARF_ABBREV_ENUMERATION_TYPE, DW_TAG_enumeration_type, 1,
           DW_AT_name, DW_FORM_strp,
@@ -201,20 +201,20 @@ static const unsigned char dwarf_abbrev_init[] = {
           DW_AT_byte_size, DW_FORM_data1,
           DW_AT_type, DW_FORM_ref4,
           DW_AT_decl_file, DW_FORM_udata,
-          DW_AT_decl_line, DW_FORM_udata,
+          DW_AT_decl_लिन्या, DW_FORM_udata,
           DW_AT_sibling, DW_FORM_ref4,
           0, 0,
     DWARF_ABBREV_MEMBER, DW_TAG_member, 0,
           DW_AT_name, DW_FORM_strp,
           DW_AT_decl_file, DW_FORM_udata,
-          DW_AT_decl_line, DW_FORM_udata,
+          DW_AT_decl_लिन्या, DW_FORM_udata,
           DW_AT_type, DW_FORM_ref4,
           DW_AT_data_member_location, DW_FORM_udata,
           0, 0,
     DWARF_ABBREV_MEMBER_BF, DW_TAG_member, 0,
           DW_AT_name, DW_FORM_strp,
           DW_AT_decl_file, DW_FORM_udata,
-          DW_AT_decl_line, DW_FORM_udata,
+          DW_AT_decl_लिन्या, DW_FORM_udata,
           DW_AT_type, DW_FORM_ref4,
           DW_AT_bit_size, DW_FORM_udata,
           DW_AT_data_bit_offset, DW_FORM_udata,
@@ -223,39 +223,39 @@ static const unsigned char dwarf_abbrev_init[] = {
           DW_AT_name, DW_FORM_strp,
           DW_AT_byte_size, DW_FORM_udata,
           DW_AT_decl_file, DW_FORM_udata,
-          DW_AT_decl_line, DW_FORM_udata,
+          DW_AT_decl_लिन्या, DW_FORM_udata,
           DW_AT_sibling, DW_FORM_ref4,
           0, 0,
     DWARF_ABBREV_STRUCTURE_EMPTY_TYPE, DW_TAG_structure_type, 0,
           DW_AT_name, DW_FORM_strp,
           DW_AT_byte_size, DW_FORM_udata,
           DW_AT_decl_file, DW_FORM_udata,
-          DW_AT_decl_line, DW_FORM_udata,
+          DW_AT_decl_लिन्या, DW_FORM_udata,
           0, 0,
     DWARF_ABBREV_UNION_TYPE, DW_TAG_union_type, 1,
           DW_AT_name, DW_FORM_strp,
           DW_AT_byte_size, DW_FORM_udata,
           DW_AT_decl_file, DW_FORM_udata,
-          DW_AT_decl_line, DW_FORM_udata,
+          DW_AT_decl_लिन्या, DW_FORM_udata,
           DW_AT_sibling, DW_FORM_ref4,
           0, 0,
     DWARF_ABBREV_UNION_EMPTY_TYPE, DW_TAG_union_type, 0,
           DW_AT_name, DW_FORM_strp,
           DW_AT_byte_size, DW_FORM_udata,
           DW_AT_decl_file, DW_FORM_udata,
-          DW_AT_decl_line, DW_FORM_udata,
+          DW_AT_decl_लिन्या, DW_FORM_udata,
           0, 0,
     DWARF_ABBREV_SUBPROGRAM_EXTERNAL, DW_TAG_subprogram, 1,
           DW_AT_external, DW_FORM_flag,
           DW_AT_name, DW_FORM_strp,
           DW_AT_decl_file, DW_FORM_udata,
-          DW_AT_decl_line, DW_FORM_udata,
+          DW_AT_decl_लिन्या, DW_FORM_udata,
           DW_AT_type, DW_FORM_ref4,
-          DW_AT_low_pc, DW_FORM_addr,
+          DW_AT_माबाबा_pc, DW_FORM_addr,
 #if PTR_SIZE == 4
-          DW_AT_high_pc, DW_FORM_data4,
+          DW_AT_माताअस_pc, DW_FORM_data4,
 #else
-          DW_AT_high_pc, DW_FORM_data8,
+          DW_AT_माताअस_pc, DW_FORM_data8,
 #endif
           DW_AT_sibling, DW_FORM_ref4,
 	  DW_AT_frame_base, DW_FORM_exprloc,
@@ -263,31 +263,31 @@ static const unsigned char dwarf_abbrev_init[] = {
     DWARF_ABBREV_SUBPROGRAM_STATIC, DW_TAG_subprogram, 1,
           DW_AT_name, DW_FORM_strp,
           DW_AT_decl_file, DW_FORM_udata,
-          DW_AT_decl_line, DW_FORM_udata,
+          DW_AT_decl_लिन्या, DW_FORM_udata,
           DW_AT_type, DW_FORM_ref4,
-          DW_AT_low_pc, DW_FORM_addr,
+          DW_AT_माबाबा_pc, DW_FORM_addr,
 #if PTR_SIZE == 4
-          DW_AT_high_pc, DW_FORM_data4,
+          DW_AT_माताअस_pc, DW_FORM_data4,
 #else
-          DW_AT_high_pc, DW_FORM_data8,
+          DW_AT_माताअस_pc, DW_FORM_data8,
 #endif
           DW_AT_sibling, DW_FORM_ref4,
 	  DW_AT_frame_base, DW_FORM_exprloc,
           0, 0,
     DWARF_ABBREV_LEXICAL_BLOCK, DW_TAG_lexical_block, 1,
-          DW_AT_low_pc, DW_FORM_addr,
+          DW_AT_माबाबा_pc, DW_FORM_addr,
 #if PTR_SIZE == 4
-          DW_AT_high_pc, DW_FORM_data4,
+          DW_AT_माताअस_pc, DW_FORM_data4,
 #else
-          DW_AT_high_pc, DW_FORM_data8,
+          DW_AT_माताअस_pc, DW_FORM_data8,
 #endif
           0, 0,
     DWARF_ABBREV_LEXICAL_EMPTY_BLOCK, DW_TAG_lexical_block, 0,
-          DW_AT_low_pc, DW_FORM_addr,
+          DW_AT_माबाबा_pc, DW_FORM_addr,
 #if PTR_SIZE == 4
-          DW_AT_high_pc, DW_FORM_data4,
+          DW_AT_माताअस_pc, DW_FORM_data4,
 #else
-          DW_AT_high_pc, DW_FORM_data8,
+          DW_AT_माताअस_pc, DW_FORM_data8,
 #endif
           0, 0,
     DWARF_ABBREV_SUBROUTINE_TYPE, DW_TAG_subroutine_type, 1,
@@ -303,7 +303,7 @@ static const unsigned char dwarf_abbrev_init[] = {
   0
 };
 
-static const unsigned char dwarf_line_opcodes[] = {
+static const unsigned char dwarf_लिन्या_opcodes[] = {
     0 ,1 ,1 ,1 ,1 ,0 ,0 ,0 ,1 ,0 ,0 ,1
 };
 
@@ -320,7 +320,7 @@ struct dwarf_str_hash {
 
 struct _tccdbg {
 
-    int last_line_num, new_file;
+    int last_लिन्या_नुमेरो, new_file;
     int section_sym;
 
     int debug_next_type;
@@ -350,23 +350,23 @@ struct _tccdbg {
         int n_sym;
         struct debug_sym {
             int type;
-            unsigned long value;
+            unsigned long हालागा;
             char *str;
             Section *sec;
             int sym_index;
             int info;
             int file;
-            int line;
+            int लिन्या;
         } *sym;
         struct _debug_info *child, *next, *last, *parent;
-    } *debug_info, *debug_info_root;
+    } *debug_info, *debug_info_उगात;
 
     struct {
         int info;
         int abbrev;
-        int line;
+        int लिन्या;
         int str;
-        int line_str;
+        int लिन्या_str;
     } dwarf_sym;
 
     struct {
@@ -378,24 +378,24 @@ struct _tccdbg {
             int dir_entry;
             char *name;
         } *filename_table;
-        int line_size;
-        int line_max_size;
-        unsigned char *line_data;
+        int लिन्या_size;
+        int लिन्या_max_size;
+        unsigned char *लिन्या_data;
         int cur_file;
         int last_file;
         int last_pc;
-        int last_line;
-    } dwarf_line;
+        int last_लिन्या;
+    } dwarf_लिन्या;
 
     struct {
         int start;
         Sym *func;
-        int line;
+        int लिन्या;
         int base_type_used[N_DEFAULT_DEBUG];
     } dwarf_info;
 
     struct dwarf_str_hash *dwarf_str[N_STR_HASH];
-    struct dwarf_str_hash *dwarf_line_str[N_STR_HASH];
+    struct dwarf_str_hash *dwarf_लिन्या_str[N_STR_HASH];
 
     /* test coverage */
     struct {
@@ -403,11 +403,11 @@ struct _tccdbg {
         unsigned long last_file_name;
         unsigned long last_func_name;
         int ind;
-        int line;
+        int लिन्या;
     } tcov_data;
 };
 
-#define last_line_num             s1->dState->last_line_num
+#define last_लिन्या_नुमेरो             s1->dState->last_लिन्या_नुमेरो
 #define new_file                  s1->dState->new_file
 #define section_sym               s1->dState->section_sym
 #define debug_next_type           s1->dState->debug_next_type
@@ -420,19 +420,19 @@ struct _tccdbg {
 #define n_debug_forw_hash_global  s1->dState->n_debug_forw_hash_global
 #define n_debug_forw_hash_local   s1->dState->n_debug_forw_hash_local
 #define debug_info                s1->dState->debug_info
-#define debug_info_root           s1->dState->debug_info_root
+#define debug_info_उगात           s1->dState->debug_info_उगात
 #define dwarf_sym                 s1->dState->dwarf_sym
-#define dwarf_line                s1->dState->dwarf_line
+#define dwarf_लिन्या                s1->dState->dwarf_लिन्या
 #define dwarf_info                s1->dState->dwarf_info
 #define dwarf_str                 s1->dState->dwarf_str
-#define dwarf_line_str            s1->dState->dwarf_line_str
+#define dwarf_लिन्या_str            s1->dState->dwarf_लिन्या_str
 #define tcov_data                 s1->dState->tcov_data
 
 #define	FDE_ENCODING        (DW_EH_PE_udata4 | DW_EH_PE_signed | DW_EH_PE_pcrel)
 
 /* ------------------------------------------------------------------------- */
 static int put_stabs(TCCState *s1, const char *str, int type, int other,
-    int desc, unsigned long value);
+    int desc, unsigned long हालागा);
 
 ST_FUNC void tcc_debug_new(TCCState *s1)
 {
@@ -467,7 +467,7 @@ ST_FUNC void tcc_debug_new(TCCState *s1)
 	    new_section(s1, ".debug_info", SHT_PROGBITS, shf);
         dwarf_abbrev_section =
 	    new_section(s1, ".debug_abbrev", SHT_PROGBITS, shf);
-        dwarf_line_section =
+        dwarf_लिन्या_section =
 	    new_section(s1, ".debug_line", SHT_PROGBITS, shf);
         dwarf_aranges_section =
 	    new_section(s1, ".debug_aranges", SHT_PROGBITS, shf);
@@ -479,14 +479,14 @@ ST_FUNC void tcc_debug_new(TCCState *s1)
 	dwarf_str_section->sh_entsize = 1;
 	dwarf_info_section->sh_addralign =
 	dwarf_abbrev_section->sh_addralign =
-	dwarf_line_section->sh_addralign =
+	dwarf_लिन्या_section->sh_addralign =
 	dwarf_aranges_section->sh_addralign =
 	dwarf_str_section->sh_addralign = 1;
 	if (s1->dwarf >= 5) {
-            dwarf_line_str_section =
+            dwarf_लिन्या_str_section =
 	        new_section(s1, ".debug_line_str", SHT_PROGBITS, shf);
-	    dwarf_line_str_section->sh_entsize = 1;
-	    dwarf_line_str_section->sh_addralign = 1;
+	    dwarf_लिन्या_str_section->sh_entsize = 1;
+	    dwarf_लिन्या_str_section->sh_addralign = 1;
 	}
         s1->dwhi = s1->nb_sections;
     }
@@ -494,7 +494,7 @@ ST_FUNC void tcc_debug_new(TCCState *s1)
     {
         stab_section = new_section(s1, ".stab", SHT_PROGBITS, shf);
         stab_section->sh_entsize = sizeof(Stab_Sym);
-        stab_section->sh_addralign = sizeof ((Stab_Sym*)0)->n_value;
+        stab_section->sh_addralign = sizeof ((Stab_Sym*)0)->n_हालागा;
         stab_section->link = new_section(s1, ".stabstr", SHT_STRTAB, shf);
         /* put first entry */
         put_stabs(s1, "", 0, 0, 0, 0);
@@ -503,7 +503,7 @@ ST_FUNC void tcc_debug_new(TCCState *s1)
 
 /* put stab debug information */
 static int put_stabs(TCCState *s1, const char *str, int type, int other, int desc,
-                      unsigned long value)
+                      unsigned long हालागा)
 {
     Stab_Sym *sym;
 
@@ -512,7 +512,7 @@ static int put_stabs(TCCState *s1, const char *str, int type, int other, int des
         && (offset = stab_section->data_offset)
         && (sym = (Stab_Sym*)(stab_section->data + offset) - 1)
         && sym->n_type == type
-        && sym->n_value == value) {
+        && sym->n_हालागा == हालागा) {
         /* just update line_number in previous entry */
         sym->n_desc = desc;
         return 0;
@@ -527,23 +527,23 @@ static int put_stabs(TCCState *s1, const char *str, int type, int other, int des
     sym->n_type = type;
     sym->n_other = other;
     sym->n_desc = desc;
-    sym->n_value = value;
+    sym->n_हालागा = हालागा;
     return 1;
 }
 
 static void put_stabs_r(TCCState *s1, const char *str, int type, int other, int desc,
-                        unsigned long value, Section *sec, int sym_index)
+                        unsigned long हालागा, Section *sec, int sym_index)
 {
-    if (put_stabs(s1, str, type, other, desc, value))
+    if (put_stabs(s1, str, type, other, desc, हालागा))
         put_elf_reloc(symtab_section, stab_section,
                       stab_section->data_offset - 4,
-                      sizeof ((Stab_Sym*)0)->n_value == PTR_SIZE ? R_DATA_PTR : R_DATA_32,
+                      sizeof ((Stab_Sym*)0)->n_हालागा == PTR_SIZE ? R_DATA_PTR : R_DATA_32,
                       sym_index);
 }
 
-static void put_stabn(TCCState *s1, int type, int other, int desc, int value)
+static void put_stabn(TCCState *s1, int type, int other, int desc, int हालागा)
 {
-    put_stabs(s1, NULL, type, other, desc, value);
+    put_stabs(s1, NULL, type, other, desc, हालागा);
 }
 
 /* ------------------------------------------------------------------------- */
@@ -561,7 +561,7 @@ static int dwarf_get_section_sym(Section *s)
     TCCState *s1 = s->s1;
     return put_elf_sym(symtab_section, 0, 0,
                        ELFW(ST_INFO)(STB_LOCAL, STT_SECTION), 0,
-                       s->sh_num, NULL);
+                       s->sh_नुमेरो, NULL);
 }
 
 static void dwarf_reloc(Section *s, int sym, int rel)
@@ -600,7 +600,7 @@ static void dwarf_string(Section *s, Section *dw, int sym, const char *str)
     char *ptr;
     struct dwarf_str_hash *new_hash;
     struct dwarf_str_hash **dw_hash =
-	dw == dwarf_str_section ? dwarf_str : dwarf_line_str;
+	dw == dwarf_str_section ? dwarf_str : dwarf_लिन्या_str;
 
     len = strlen(str) + 1;
     new_hash = dw_hash[hash];
@@ -646,21 +646,21 @@ static void dwarf_strp(Section *s, const char *str)
     dwarf_string(s, dwarf_str_section, dwarf_sym.str, str);
 }
 
-static void dwarf_line_strp(Section *s, const char *str)
+static void dwarf_लिन्या_strp(Section *s, const char *str)
 {
     TCCState *s1 = s->s1;
-    dwarf_string(s, dwarf_line_str_section, dwarf_sym.line_str, str);
+    dwarf_string(s, dwarf_लिन्या_str_section, dwarf_sym.लिन्या_str, str);
 }
 
-static void dwarf_line_op(TCCState *s1, unsigned char op)
+static void dwarf_लिन्या_op(TCCState *s1, unsigned char op)
 {
-    if (dwarf_line.line_size >= dwarf_line.line_max_size) {
-	dwarf_line.line_max_size += 1024;
-	dwarf_line.line_data =
-	    (unsigned char *)tcc_realloc(dwarf_line.line_data,
-					 dwarf_line.line_max_size);
+    if (dwarf_लिन्या.लिन्या_size >= dwarf_लिन्या.लिन्या_max_size) {
+	dwarf_लिन्या.लिन्या_max_size += 1024;
+	dwarf_लिन्या.लिन्या_data =
+	    (unsigned char *)tcc_realloc(dwarf_लिन्या.लिन्या_data,
+					 dwarf_लिन्या.लिन्या_max_size);
     }
-    dwarf_line.line_data[dwarf_line.line_size++] = op;
+    dwarf_लिन्या.लिन्या_data[dwarf_लिन्या.लिन्या_size++] = op;
 }
 
 static void dwarf_file(TCCState *s1)
@@ -670,16 +670,16 @@ static void dwarf_file(TCCState *s1)
     int index_offset = s1->dwarf < 5;
 
     if (!strcmp(file->filename, "<command line>")) {
-        dwarf_line.cur_file = 1;
+        dwarf_लिन्या.cur_file = 1;
 	return;
     }
     filename = strrchr(file->filename, '/');
     if (filename == NULL) {
-        for (i = 1; i < dwarf_line.filename_size; i++)
-            if (dwarf_line.filename_table[i].dir_entry == 0 &&
-		strcmp(dwarf_line.filename_table[i].name,
+        for (i = 1; i < dwarf_लिन्या.filename_size; i++)
+            if (dwarf_लिन्या.filename_table[i].dir_entry == 0 &&
+		strcmp(dwarf_लिन्या.filename_table[i].name,
 		       file->filename) == 0) {
-		    dwarf_line.cur_file = i + index_offset;
+		    dwarf_लिन्या.cur_file = i + index_offset;
 	            return;
 		}
 	i = -index_offset;
@@ -690,117 +690,117 @@ static void dwarf_file(TCCState *s1)
 	char *dir = file->filename;
 
 	*filename++ = '\0';
-        for (i = 0; i < dwarf_line.dir_size; i++)
-	    if (strcmp(dwarf_line.dir_table[i], dir) == 0) {
-		for (j = 1; j < dwarf_line.filename_size; j++)
-		    if (dwarf_line.filename_table[j].dir_entry - index_offset
+        for (i = 0; i < dwarf_लिन्या.dir_size; i++)
+	    if (strcmp(dwarf_लिन्या.dir_table[i], dir) == 0) {
+		for (j = 1; j < dwarf_लिन्या.filename_size; j++)
+		    if (dwarf_लिन्या.filename_table[j].dir_entry - index_offset
 			== i &&
-			strcmp(dwarf_line.filename_table[j].name,
+			strcmp(dwarf_लिन्या.filename_table[j].name,
 			       filename) == 0) {
 			*undo = '/';
-		        dwarf_line.cur_file = j + index_offset;
+		        dwarf_लिन्या.cur_file = j + index_offset;
 			return;
 		    }
 		break;
 	    }
-	if (i == dwarf_line.dir_size) {
-	    dwarf_line.dir_size++;
-	    dwarf_line.dir_table =
-                (char **) tcc_realloc(dwarf_line.dir_table,
-                                      dwarf_line.dir_size *
+	if (i == dwarf_लिन्या.dir_size) {
+	    dwarf_लिन्या.dir_size++;
+	    dwarf_लिन्या.dir_table =
+                (char **) tcc_realloc(dwarf_लिन्या.dir_table,
+                                      dwarf_लिन्या.dir_size *
                                       sizeof (char *));
-            dwarf_line.dir_table[i] = tcc_strdup(dir);
+            dwarf_लिन्या.dir_table[i] = tcc_strdup(dir);
 	}
 	*undo = '/';
     }
-    dwarf_line.filename_table =
+    dwarf_लिन्या.filename_table =
         (struct dwarf_filename_struct *)
-        tcc_realloc(dwarf_line.filename_table,
-                    (dwarf_line.filename_size + 1) *
+        tcc_realloc(dwarf_लिन्या.filename_table,
+                    (dwarf_लिन्या.filename_size + 1) *
                     sizeof (struct dwarf_filename_struct));
-    dwarf_line.filename_table[dwarf_line.filename_size].dir_entry =
+    dwarf_लिन्या.filename_table[dwarf_लिन्या.filename_size].dir_entry =
 	i + index_offset;
-    dwarf_line.filename_table[dwarf_line.filename_size].name =
+    dwarf_लिन्या.filename_table[dwarf_लिन्या.filename_size].name =
         tcc_strdup(filename);
-    dwarf_line.cur_file = dwarf_line.filename_size++ + index_offset;
+    dwarf_लिन्या.cur_file = dwarf_लिन्या.filename_size++ + index_offset;
     return;
 }
 
 #if 0
-static int dwarf_uleb128_size (unsigned long long value)
+static int dwarf_uleb128_size (unsigned long long हालागा)
 {
     int size =  0;
 
     do {
-        value >>= 7;
+        हालागा >>= 7;
         size++;
-    } while (value != 0);
+    } while (हालागा != 0);
     return size;
 }
 #endif
 
-static int dwarf_sleb128_size (long long value)
+static int dwarf_sleb128_size (long long हालागा)
 {
     int size =  0;
-    long long end = value >> 63;
+    long long end = हालागा >> 63;
     unsigned char last = end & 0x40;
     unsigned char byte;
 
     do {
-        byte = value & 0x7f;
-        value >>= 7;
+        byte = हालागा & 0x7f;
+        हालागा >>= 7;
         size++;
-    } while (value != end || (byte & 0x40) != last);
+    } while (हालागा != end || (byte & 0x40) != last);
     return size;
 }
 
-static void dwarf_uleb128 (Section *s, unsigned long long value)
+static void dwarf_uleb128 (Section *s, unsigned long long हालागा)
 {
     do {
-        unsigned char byte = value & 0x7f;
+        unsigned char byte = हालागा & 0x7f;
 
-        value >>= 7;
-        dwarf_data1(s, byte | (value ? 0x80 : 0));
-    } while (value != 0);
+        हालागा >>= 7;
+        dwarf_data1(s, byte | (हालागा ? 0x80 : 0));
+    } while (हालागा != 0);
 }
 
-static void dwarf_sleb128 (Section *s, long long value)
+static void dwarf_sleb128 (Section *s, long long हालागा)
 {
     int more;
-    long long end = value >> 63;
+    long long end = हालागा >> 63;
     unsigned char last = end & 0x40;
 
     do {
-        unsigned char byte = value & 0x7f;
+        unsigned char byte = हालागा & 0x7f;
 
-        value >>= 7;
-	more = value != end || (byte & 0x40) != last;
+        हालागा >>= 7;
+	more = हालागा != end || (byte & 0x40) != last;
         dwarf_data1(s, byte | (0x80 * more));
     } while (more);
 }
 
-static void dwarf_uleb128_op (TCCState *s1, unsigned long long value)
+static void dwarf_uleb128_op (TCCState *s1, unsigned long long हालागा)
 {
     do {
-        unsigned char byte = value & 0x7f;
+        unsigned char byte = हालागा & 0x7f;
 
-        value >>= 7;
-        dwarf_line_op(s1, byte | (value ? 0x80 : 0));
-    } while (value != 0);
+        हालागा >>= 7;
+        dwarf_लिन्या_op(s1, byte | (हालागा ? 0x80 : 0));
+    } while (हालागा != 0);
 }
 
-static void dwarf_sleb128_op (TCCState *s1, long long value)
+static void dwarf_sleb128_op (TCCState *s1, long long हालागा)
 {
     int more;
-    long long end = value >> 63;
+    long long end = हालागा >> 63;
     unsigned char last = end & 0x40;
 
     do {
-        unsigned char byte = value & 0x7f;
+        unsigned char byte = हालागा & 0x7f;
 
-        value >>= 7;
-        more = value != end || (byte & 0x40) != last;
-        dwarf_line_op(s1, byte | (0x80 * more));
+        हालागा >>= 7;
+        more = हालागा != end || (byte & 0x40) != last;
+        dwarf_लिन्या_op(s1, byte | (0x80 * more));
     } while (more);
 }
 
@@ -1004,23 +1004,23 @@ ST_FUNC void tcc_eh_frame_end(TCCState *s1)
     dwarf_data4(eh_frame_section, 0);
 }
 
-struct eh_search_table {
+struct eh_हानाप_table {
     uint32_t pc_offset;
     uint32_t fde_offset;
 };
 
 static int sort_eh_table(const void *a, const void *b)
 {
-    uint32_t pc1 = ((const struct eh_search_table *)a)->pc_offset;
-    uint32_t pc2 = ((const struct eh_search_table *)b)->pc_offset;
+    uint32_t pc1 = ((const struct eh_हानाप_table *)a)->pc_offset;
+    uint32_t pc2 = ((const struct eh_हानाप_table *)b)->pc_offset;
 
     return pc1 < pc2 ? -1 : pc1 > pc2 ? 1 : 0;
 }
 
 ST_FUNC void tcc_eh_frame_hdr(TCCState *s1, int final)
 {
-    int count = 0, offset;
-    unsigned long count_offset, tab_offset;
+    int बिलांग_2 = 0, offset;
+    unsigned long बिलांग_offset, tab_offset;
     unsigned char *ln, *end;
     unsigned int last_cie_offset = 0xffffffff;
 
@@ -1043,8 +1043,8 @@ ST_FUNC void tcc_eh_frame_hdr(TCCState *s1, int final)
              eh_frame_hdr_section->sh_addr -
              eh_frame_hdr_section->data_offset;
     dwarf_data4(eh_frame_hdr_section, offset); // eh_frame_ptr
-    // Count
-    count_offset = eh_frame_hdr_section->data_offset;
+    //बिलांग
+    बिलांग_offset = eh_frame_hdr_section->data_offset;
     dwarf_data4(eh_frame_hdr_section, 0);
     tab_offset = eh_frame_hdr_section->data_offset;
     ln = eh_frame_section->data;
@@ -1082,7 +1082,7 @@ ST_FUNC void tcc_eh_frame_hdr(TCCState *s1, int final)
 	    else
 		goto next;
 	}
-	count++;
+	बिलांग_2++;
 	fde_offset = eh_frame_section->sh_addr +
 		     (fde - eh_frame_section->data) -
 		     eh_frame_hdr_section->sh_addr;
@@ -1092,9 +1092,9 @@ ST_FUNC void tcc_eh_frame_hdr(TCCState *s1, int final)
 next:
 	ln += length + 4;
     }
-    add32le(eh_frame_hdr_section->data + count_offset, count);
-    qsort(eh_frame_hdr_section->data + tab_offset, count,
-	  sizeof(struct eh_search_table), sort_eh_table);
+    add32le(eh_frame_hdr_section->data + बिलांग_offset, बिलांग_2);
+    qsort(eh_frame_hdr_section->data + tab_offset, बिलांग_2,
+	  sizeof(struct eh_हानाप_table), sort_eh_table);
 }
 #endif
 
@@ -1119,9 +1119,9 @@ ST_FUNC void tcc_debug_start(TCCState *s1)
            to make them disassemble again when crt1.o had a '$d' before */
         put_elf_sym(symtab_section, text_section->data_offset, 0,
             ELFW(ST_INFO)(STB_LOCAL, STT_NOTYPE), 0,
-            text_section->sh_num, "$a");
+            text_section->sh_नुमेरो, "$a");
 
-        new_file = last_line_num = 0;
+        new_file = last_लिन्या_नुमेरो = 0;
         debug_next_type = N_DEFAULT_DEBUG;
         debug_hash_global = NULL;
         debug_hash_local = NULL;
@@ -1151,7 +1151,7 @@ ST_FUNC void tcc_debug_start(TCCState *s1)
     	        while (*ptr) {
     	            ptr += 3;
     	            while (*ptr) {
-    	                if (ptr[1] == DW_FORM_line_strp)
+    	                if (ptr[1] == DW_FORM_लिन्या_strp)
     		            ptr[1] = DW_FORM_strp;
 		        if (s1->dwarf < 4) {
 			    /* These are compatable for DW_TAG_compile_unit
@@ -1171,13 +1171,13 @@ ST_FUNC void tcc_debug_start(TCCState *s1)
 
             dwarf_sym.info = dwarf_get_section_sym(dwarf_info_section);
             dwarf_sym.abbrev = dwarf_get_section_sym(dwarf_abbrev_section);
-            dwarf_sym.line = dwarf_get_section_sym(dwarf_line_section);
+            dwarf_sym.लिन्या = dwarf_get_section_sym(dwarf_लिन्या_section);
             dwarf_sym.str = dwarf_get_section_sym(dwarf_str_section);
             if (tcc_state->dwarf >= 5)
-    	        dwarf_sym.line_str = dwarf_get_section_sym(dwarf_line_str_section);
+    	        dwarf_sym.लिन्या_str = dwarf_get_section_sym(dwarf_लिन्या_str_section);
             else {
-    	        dwarf_line_str_section = dwarf_str_section;
-                dwarf_sym.line_str = dwarf_sym.str;
+    	        dwarf_लिन्या_str_section = dwarf_str_section;
+                dwarf_sym.लिन्या_str = dwarf_sym.str;
             }
             section_sym = dwarf_get_section_sym(text_section);
 
@@ -1200,8 +1200,8 @@ ST_FUNC void tcc_debug_start(TCCState *s1)
             dwarf_data1(dwarf_info_section, DWARF_ABBREV_COMPILE_UNIT);
             dwarf_strp(dwarf_info_section, "tcc " TCC_VERSION);
             dwarf_data1(dwarf_info_section, s1->cversion == 201112 ? DW_LANG_C11 : DW_LANG_C99);
-            dwarf_line_strp(dwarf_info_section, filename);
-            dwarf_line_strp(dwarf_info_section, buf);
+            dwarf_लिन्या_strp(dwarf_info_section, filename);
+            dwarf_लिन्या_strp(dwarf_info_section, buf);
             dwarf_reloc(dwarf_info_section, section_sym, R_DATA_PTR);
 #if PTR_SIZE == 4
             dwarf_data4(dwarf_info_section, ind); // low pc
@@ -1210,63 +1210,63 @@ ST_FUNC void tcc_debug_start(TCCState *s1)
             dwarf_data8(dwarf_info_section, ind); // low pc
             dwarf_data8(dwarf_info_section, 0); // high pc
 #endif
-            dwarf_reloc(dwarf_info_section, dwarf_sym.line, R_DATA_32DW);
-            dwarf_data4(dwarf_info_section, dwarf_line_section->data_offset); // stmt_list
+            dwarf_reloc(dwarf_info_section, dwarf_sym.लिन्या, R_DATA_32DW);
+            dwarf_data4(dwarf_info_section, dwarf_लिन्या_section->data_offset); // stmt_list
 
             /* dwarf_line */
-            dwarf_line.start = dwarf_line_section->data_offset;
-            dwarf_data4(dwarf_line_section, 0); // length
-            dwarf_data2(dwarf_line_section, s1->dwarf); // version
+            dwarf_लिन्या.start = dwarf_लिन्या_section->data_offset;
+            dwarf_data4(dwarf_लिन्या_section, 0); // length
+            dwarf_data2(dwarf_लिन्या_section, s1->dwarf); // version
             if (s1->dwarf >= 5) {
-                dwarf_data1(dwarf_line_section, PTR_SIZE); // address size
-                dwarf_data1(dwarf_line_section, 0); // segment selector
+                dwarf_data1(dwarf_लिन्या_section, PTR_SIZE); // address size
+                dwarf_data1(dwarf_लिन्या_section, 0); // segment selector
             }
-            dwarf_data4(dwarf_line_section, 0); // prologue Length
-            dwarf_data1(dwarf_line_section, DWARF_MIN_INSTR_LEN);
+            dwarf_data4(dwarf_लिन्या_section, 0); // prologue Length
+            dwarf_data1(dwarf_लिन्या_section, DWARF_MIN_INSTR_LEN);
             if (s1->dwarf >= 4)
-                dwarf_data1(dwarf_line_section, 1); // maximum ops per instruction
-            dwarf_data1(dwarf_line_section, 1); // Initial value of 'is_stmt'
-            dwarf_data1(dwarf_line_section, DWARF_LINE_BASE);
-            dwarf_data1(dwarf_line_section, DWARF_LINE_RANGE);
-            dwarf_data1(dwarf_line_section, DWARF_OPCODE_BASE);
-            ptr = section_ptr_add(dwarf_line_section, sizeof(dwarf_line_opcodes));
-            memcpy(ptr, dwarf_line_opcodes, sizeof(dwarf_line_opcodes));
+                dwarf_data1(dwarf_लिन्या_section, 1); // maximum ops per instruction
+            dwarf_data1(dwarf_लिन्या_section, 1); // Initial value of 'is_stmt'
+            dwarf_data1(dwarf_लिन्या_section, DWARF_लिन्या_BASE);
+            dwarf_data1(dwarf_लिन्या_section, DWARF_लिन्या_RANGE);
+            dwarf_data1(dwarf_लिन्या_section, DWARF_OPCODE_BASE);
+            ptr = section_ptr_add(dwarf_लिन्या_section, sizeof(dwarf_लिन्या_opcodes));
+            memcpy(ptr, dwarf_लिन्या_opcodes, sizeof(dwarf_लिन्या_opcodes));
 	    undo = strrchr(filename, '/');
 	    if (undo)
 		*undo = 0;
-            dwarf_line.dir_size = 1 + (undo != NULL);
-            dwarf_line.dir_table = (char **) tcc_malloc(sizeof (char *) *
-							dwarf_line.dir_size);
-            dwarf_line.dir_table[0] = tcc_strdup(buf);
+            dwarf_लिन्या.dir_size = 1 + (undo != NULL);
+            dwarf_लिन्या.dir_table = (char **) tcc_malloc(sizeof (char *) *
+							dwarf_लिन्या.dir_size);
+            dwarf_लिन्या.dir_table[0] = tcc_strdup(buf);
 	    if (undo)
-                dwarf_line.dir_table[1] = tcc_strdup(filename);
-            dwarf_line.filename_size = 2;
-            dwarf_line.filename_table =
+                dwarf_लिन्या.dir_table[1] = tcc_strdup(filename);
+            dwarf_लिन्या.filename_size = 2;
+            dwarf_लिन्या.filename_table =
     	        (struct dwarf_filename_struct *)
     	        tcc_malloc(2*sizeof (struct dwarf_filename_struct));
-            dwarf_line.filename_table[0].dir_entry = 0;
+            dwarf_लिन्या.filename_table[0].dir_entry = 0;
 	    if (undo) {
-                dwarf_line.filename_table[0].name = tcc_strdup(undo + 1);
-                dwarf_line.filename_table[1].dir_entry = 1;
-                dwarf_line.filename_table[1].name = tcc_strdup(undo + 1);
+                dwarf_लिन्या.filename_table[0].name = tcc_strdup(undo + 1);
+                dwarf_लिन्या.filename_table[1].dir_entry = 1;
+                dwarf_लिन्या.filename_table[1].name = tcc_strdup(undo + 1);
 		*undo = '/';
 	    }
 	    else {
-                dwarf_line.filename_table[0].name = tcc_strdup(filename);
-                dwarf_line.filename_table[1].dir_entry = 0;
-                dwarf_line.filename_table[1].name = tcc_strdup(filename);
+                dwarf_लिन्या.filename_table[0].name = tcc_strdup(filename);
+                dwarf_लिन्या.filename_table[1].dir_entry = 0;
+                dwarf_लिन्या.filename_table[1].name = tcc_strdup(filename);
 	    }
-            dwarf_line.line_size = dwarf_line.line_max_size = 0;
-            dwarf_line.line_data = NULL;
-            dwarf_line.cur_file = 1;
-            dwarf_line.last_file = 0;
-            dwarf_line.last_pc = 0;
-            dwarf_line.last_line = 1;
-            dwarf_line_op(s1, 0); // extended
+            dwarf_लिन्या.लिन्या_size = dwarf_लिन्या.लिन्या_max_size = 0;
+            dwarf_लिन्या.लिन्या_data = NULL;
+            dwarf_लिन्या.cur_file = 1;
+            dwarf_लिन्या.last_file = 0;
+            dwarf_लिन्या.last_pc = 0;
+            dwarf_लिन्या.last_लिन्या = 1;
+            dwarf_लिन्या_op(s1, 0); // extended
             dwarf_uleb128_op(s1, 1 + PTR_SIZE); // extended size
-            dwarf_line_op(s1, DW_LNE_set_address);
+            dwarf_लिन्या_op(s1, DW_LNE_set_address);
             for (i = 0; i < PTR_SIZE; i++)
-    	        dwarf_line_op(s1, 0);
+    	        dwarf_लिन्या_op(s1, 0);
             memset(&dwarf_info.base_type_used, 0, sizeof(dwarf_info.base_type_used));
         }
         else
@@ -1275,7 +1275,7 @@ ST_FUNC void tcc_debug_start(TCCState *s1)
             pstrcat(buf, sizeof(buf), "/");
             section_sym = put_elf_sym(symtab_section, 0, 0,
                                       ELFW(ST_INFO)(STB_LOCAL, STT_SECTION), 0,
-                                      text_section->sh_num, NULL);
+                                      text_section->sh_नुमेरो, NULL);
             put_stabs_r(s1, buf, N_SO, 0, 0,
                         text_section->data_offset, text_section, section_sym);
             put_stabs_r(s1, filename, N_SO, 0, 0,
@@ -1297,7 +1297,7 @@ ST_FUNC void tcc_debug_end(TCCState *s1)
     if (!s1->do_debug || debug_next_type == 0)
         return;
 
-    if (debug_info_root)
+    if (debug_info_उगात)
         tcc_debug_funcend(s1, 0); /* free stuff in case of errors */
 
     if (s1->dwarf) {
@@ -1344,65 +1344,65 @@ ST_FUNC void tcc_debug_end(TCCState *s1)
 
 	/* dwarf_line */
 	if (s1->dwarf >= 5) {
-	    dwarf_data1(dwarf_line_section, 1); /* col */
-	    dwarf_uleb128(dwarf_line_section, DW_LNCT_path);
-	    dwarf_uleb128(dwarf_line_section, DW_FORM_line_strp);
-	    dwarf_uleb128(dwarf_line_section, dwarf_line.dir_size);
-	    for (i = 0; i < dwarf_line.dir_size; i++)
-	        dwarf_line_strp(dwarf_line_section, dwarf_line.dir_table[i]);
-	    dwarf_data1(dwarf_line_section, 2); /* col */
-	    dwarf_uleb128(dwarf_line_section, DW_LNCT_path);
-	    dwarf_uleb128(dwarf_line_section, DW_FORM_line_strp);
-	    dwarf_uleb128(dwarf_line_section, DW_LNCT_directory_index);
-	    dwarf_uleb128(dwarf_line_section, DW_FORM_udata);
-	    dwarf_uleb128(dwarf_line_section, dwarf_line.filename_size);
-	    for (i = 0; i < dwarf_line.filename_size; i++) {
-	        dwarf_line_strp(dwarf_line_section,
-				dwarf_line.filename_table[i].name);
-	        dwarf_uleb128(dwarf_line_section,
-			      dwarf_line.filename_table[i].dir_entry);
+	    dwarf_data1(dwarf_लिन्या_section, 1); /* col */
+	    dwarf_uleb128(dwarf_लिन्या_section, DW_LNCT_path);
+	    dwarf_uleb128(dwarf_लिन्या_section, DW_FORM_लिन्या_strp);
+	    dwarf_uleb128(dwarf_लिन्या_section, dwarf_लिन्या.dir_size);
+	    for (i = 0; i < dwarf_लिन्या.dir_size; i++)
+	        dwarf_लिन्या_strp(dwarf_लिन्या_section, dwarf_लिन्या.dir_table[i]);
+	    dwarf_data1(dwarf_लिन्या_section, 2); /* col */
+	    dwarf_uleb128(dwarf_लिन्या_section, DW_LNCT_path);
+	    dwarf_uleb128(dwarf_लिन्या_section, DW_FORM_लिन्या_strp);
+	    dwarf_uleb128(dwarf_लिन्या_section, DW_LNCT_directory_index);
+	    dwarf_uleb128(dwarf_लिन्या_section, DW_FORM_udata);
+	    dwarf_uleb128(dwarf_लिन्या_section, dwarf_लिन्या.filename_size);
+	    for (i = 0; i < dwarf_लिन्या.filename_size; i++) {
+	        dwarf_लिन्या_strp(dwarf_लिन्या_section,
+				dwarf_लिन्या.filename_table[i].name);
+	        dwarf_uleb128(dwarf_लिन्या_section,
+			      dwarf_लिन्या.filename_table[i].dir_entry);
 	    }
 	}
 	else {
 	    int len;
 
-	    for (i = 0; i < dwarf_line.dir_size; i++) {
-	        len = strlen(dwarf_line.dir_table[i]) + 1;
-	        ptr = section_ptr_add(dwarf_line_section, len);
-	        memmove(ptr, dwarf_line.dir_table[i], len);
+	    for (i = 0; i < dwarf_लिन्या.dir_size; i++) {
+	        len = strlen(dwarf_लिन्या.dir_table[i]) + 1;
+	        ptr = section_ptr_add(dwarf_लिन्या_section, len);
+	        memmove(ptr, dwarf_लिन्या.dir_table[i], len);
 	    }
-	    dwarf_data1(dwarf_line_section, 0); /* end dir */
-	    for (i = 0; i < dwarf_line.filename_size; i++) {
-	        len = strlen(dwarf_line.filename_table[i].name) + 1;
-	        ptr = section_ptr_add(dwarf_line_section, len);
-	        memmove(ptr, dwarf_line.filename_table[i].name, len);
-	        dwarf_uleb128(dwarf_line_section,
-			      dwarf_line.filename_table[i].dir_entry);
-	        dwarf_uleb128(dwarf_line_section, 0); /* time */
-	        dwarf_uleb128(dwarf_line_section, 0); /* size */
+	    dwarf_data1(dwarf_लिन्या_section, 0); /* end dir */
+	    for (i = 0; i < dwarf_लिन्या.filename_size; i++) {
+	        len = strlen(dwarf_लिन्या.filename_table[i].name) + 1;
+	        ptr = section_ptr_add(dwarf_लिन्या_section, len);
+	        memmove(ptr, dwarf_लिन्या.filename_table[i].name, len);
+	        dwarf_uleb128(dwarf_लिन्या_section,
+			      dwarf_लिन्या.filename_table[i].dir_entry);
+	        dwarf_uleb128(dwarf_लिन्या_section, 0); /* time */
+	        dwarf_uleb128(dwarf_लिन्या_section, 0); /* size */
 	    }
-	    dwarf_data1(dwarf_line_section, 0); /* end file */
+	    dwarf_data1(dwarf_लिन्या_section, 0); /* end file */
 	}
-	for (i = 0; i < dwarf_line.dir_size; i++)
-	    tcc_free(dwarf_line.dir_table[i]);
-	tcc_free(dwarf_line.dir_table);
-	for (i = 0; i < dwarf_line.filename_size; i++)
-	    tcc_free(dwarf_line.filename_table[i].name);
-	tcc_free(dwarf_line.filename_table);
+	for (i = 0; i < dwarf_लिन्या.dir_size; i++)
+	    tcc_free(dwarf_लिन्या.dir_table[i]);
+	tcc_free(dwarf_लिन्या.dir_table);
+	for (i = 0; i < dwarf_लिन्या.filename_size; i++)
+	    tcc_free(dwarf_लिन्या.filename_table[i].name);
+	tcc_free(dwarf_लिन्या.filename_table);
 
-	dwarf_line_op(s1, 0); // extended
+	dwarf_लिन्या_op(s1, 0); // extended
 	dwarf_uleb128_op(s1, 1); // extended size
-	dwarf_line_op(s1, DW_LNE_end_sequence);
+	dwarf_लिन्या_op(s1, DW_LNE_end_sequence);
 	i = (s1->dwarf >= 5) * 2;
-	write32le(&dwarf_line_section->data[dwarf_line.start + 6 + i],
-		  dwarf_line_section->data_offset - dwarf_line.start - (10 + i));
-	section_ptr_add(dwarf_line_section, 3);
-	dwarf_reloc(dwarf_line_section, section_sym, R_DATA_PTR);
-	ptr = section_ptr_add(dwarf_line_section, dwarf_line.line_size - 3);
-	memmove(ptr - 3, dwarf_line.line_data, dwarf_line.line_size);
-	tcc_free(dwarf_line.line_data);
-	write32le(dwarf_line_section->data + dwarf_line.start,
-		  dwarf_line_section->data_offset - dwarf_line.start - 4);
+	write32le(&dwarf_लिन्या_section->data[dwarf_लिन्या.start + 6 + i],
+		  dwarf_लिन्या_section->data_offset - dwarf_लिन्या.start - (10 + i));
+	section_ptr_add(dwarf_लिन्या_section, 3);
+	dwarf_reloc(dwarf_लिन्या_section, section_sym, R_DATA_PTR);
+	ptr = section_ptr_add(dwarf_लिन्या_section, dwarf_लिन्या.लिन्या_size - 3);
+	memmove(ptr - 3, dwarf_लिन्या.लिन्या_data, dwarf_लिन्या.लिन्या_size);
+	tcc_free(dwarf_लिन्या.लिन्या_data);
+	write32le(dwarf_लिन्या_section->data + dwarf_लिन्या.start,
+		  dwarf_लिन्या_section->data_offset - dwarf_लिन्या.start - 4);
     }
     else
     {
@@ -1410,7 +1410,7 @@ ST_FUNC void tcc_debug_end(TCCState *s1)
                     text_section->data_offset, text_section, section_sym);
     }
     free_str (dwarf_str);
-    free_str (dwarf_line_str);
+    free_str (dwarf_लिन्या_str);
     tcc_free (debug_forw_hash_global);
     tcc_free (debug_forw_hash_local);
     tcc_free(debug_hash_global);
@@ -1425,7 +1425,7 @@ static BufferedFile* put_new_file(TCCState *s1)
     if (f->filename[0] == ':')
         f = f->prev;
     if (f && new_file) {
-        new_file = last_line_num = 0;
+        new_file = last_लिन्या_नुमेरो = 0;
         if (s1->dwarf)
             dwarf_file(s1);
         else
@@ -1469,7 +1469,7 @@ ST_FUNC void tcc_debug_eincl(TCCState *s1)
 }
 
 /* generate line number info */
-ST_FUNC void tcc_debug_line(TCCState *s1)
+ST_FUNC void tcc_debug_लिन्या(TCCState *s1)
 {
     BufferedFile *f;
 
@@ -1480,62 +1480,62 @@ ST_FUNC void tcc_debug_line(TCCState *s1)
     f = put_new_file(s1);
     if (!f)
         return;
-    if (last_line_num == f->line_num)
+    if (last_लिन्या_नुमेरो == f->लिन्या_नुमेरो)
         return;
-    last_line_num = f->line_num;
+    last_लिन्या_नुमेरो = f->लिन्या_नुमेरो;
 
     if (s1->dwarf) {
-	int len_pc = (ind - dwarf_line.last_pc) / DWARF_MIN_INSTR_LEN;
-	int len_line = f->line_num - dwarf_line.last_line;
-	int n = len_pc * DWARF_LINE_RANGE + len_line + DWARF_OPCODE_BASE - DWARF_LINE_BASE;
+	int len_pc = (ind - dwarf_लिन्या.last_pc) / DWARF_MIN_INSTR_LEN;
+	int len_लिन्या = f->लिन्या_नुमेरो - dwarf_लिन्या.last_लिन्या;
+	int n = len_pc * DWARF_लिन्या_RANGE + len_लिन्या + DWARF_OPCODE_BASE - DWARF_लिन्या_BASE;
 
-	if (dwarf_line.cur_file != dwarf_line.last_file) {
-	    dwarf_line.last_file = dwarf_line.cur_file;
-	    dwarf_line_op(s1, DW_LNS_set_file);
-	    dwarf_uleb128_op(s1, dwarf_line.cur_file);
+	if (dwarf_लिन्या.cur_file != dwarf_लिन्या.last_file) {
+	    dwarf_लिन्या.last_file = dwarf_लिन्या.cur_file;
+	    dwarf_लिन्या_op(s1, DW_LNS_set_file);
+	    dwarf_uleb128_op(s1, dwarf_लिन्या.cur_file);
 	}
 	if (len_pc &&
-	    len_line >= DWARF_LINE_BASE && len_line <= (DWARF_OPCODE_BASE + DWARF_LINE_BASE) &&
+	    len_लिन्या >= DWARF_लिन्या_BASE && len_लिन्या <= (DWARF_OPCODE_BASE + DWARF_लिन्या_BASE) &&
 	    n >= DWARF_OPCODE_BASE && n <= 255)
-            dwarf_line_op(s1, n);
+            dwarf_लिन्या_op(s1, n);
 	else {
 	    if (len_pc) {
-	        n = len_pc * DWARF_LINE_RANGE + 0 + DWARF_OPCODE_BASE - DWARF_LINE_BASE;
+	        n = len_pc * DWARF_लिन्या_RANGE + 0 + DWARF_OPCODE_BASE - DWARF_लिन्या_BASE;
 	        if (n >= DWARF_OPCODE_BASE && n <= 255)
-                    dwarf_line_op(s1, n);
+                    dwarf_लिन्या_op(s1, n);
 		else {
-	            dwarf_line_op(s1, DW_LNS_advance_pc);
+	            dwarf_लिन्या_op(s1, DW_LNS_advance_pc);
 		    dwarf_uleb128_op(s1, len_pc);
 		}
 	    }
-	    if (len_line) {
-	        n = 0 * DWARF_LINE_RANGE + len_line + DWARF_OPCODE_BASE - DWARF_LINE_BASE;
-	        if (len_line >= DWARF_LINE_BASE && len_line <= (DWARF_OPCODE_BASE + DWARF_LINE_BASE) &&
+	    if (len_लिन्या) {
+	        n = 0 * DWARF_लिन्या_RANGE + len_लिन्या + DWARF_OPCODE_BASE - DWARF_लिन्या_BASE;
+	        if (len_लिन्या >= DWARF_लिन्या_BASE && len_लिन्या <= (DWARF_OPCODE_BASE + DWARF_लिन्या_BASE) &&
 		    n >= DWARF_OPCODE_BASE && n <= 255)
-	            dwarf_line_op(s1, n);
+	            dwarf_लिन्या_op(s1, n);
 		else {
-	            dwarf_line_op(s1, DW_LNS_advance_line);
-		    dwarf_sleb128_op(s1, len_line);
+	            dwarf_लिन्या_op(s1, DW_LNS_advance_लिन्या);
+		    dwarf_sleb128_op(s1, len_लिन्या);
                     /* advance by nothing */
-	            dwarf_line_op(s1, DWARF_OPCODE_BASE - DWARF_LINE_BASE);
+	            dwarf_लिन्या_op(s1, DWARF_OPCODE_BASE - DWARF_लिन्या_BASE);
 		}
 	    }
 	}
-	dwarf_line.last_pc = ind;
-	dwarf_line.last_line = f->line_num;
+	dwarf_लिन्या.last_pc = ind;
+	dwarf_लिन्या.last_लिन्या = f->लिन्या_नुमेरो;
     }
     else
     {
 	if (func_ind != -1) {
-            put_stabn(s1, N_SLINE, 0, f->line_num, ind - func_ind);
+            put_stabn(s1, N_SLINE, 0, f->लिन्या_नुमेरो, ind - func_ind);
         } else {
             /* from tcc_assemble */
-            put_stabs_r(s1, NULL, N_SLINE, 0, f->line_num, ind, text_section, section_sym);
+            put_stabs_r(s1, NULL, N_SLINE, 0, f->लिन्या_नुमेरो, ind, text_section, section_sym);
         }
     }
 }
 
-static void tcc_debug_stabs (TCCState *s1, const char *str, int type, unsigned long value,
+static void tcc_debug_stabs (TCCState *s1, const char *str, int type, unsigned long हालागा,
                              Section *sec, int sym_index, int info)
 {
     struct debug_sym *s;
@@ -1547,18 +1547,18 @@ static void tcc_debug_stabs (TCCState *s1, const char *str, int type, unsigned l
                                              (debug_info->n_sym + 1));
         s = debug_info->sym + debug_info->n_sym++;
         s->type = type;
-        s->value = value;
+        s->हालागा = हालागा;
         s->str = tcc_strdup(str);
         s->sec = sec;
         s->sym_index = sym_index;
         s->info = info;
-        s->file = dwarf_line.cur_file;
-        s->line = file->line_num;
+        s->file = dwarf_लिन्या.cur_file;
+        s->लिन्या = file->लिन्या_नुमेरो;
     }
     else if (sec)
-        put_stabs_r (s1, str, type, 0, 0, value, sec, sym_index);
+        put_stabs_r (s1, str, type, 0, 0, हालागा, sec, sym_index);
     else
-        put_stabs (s1, str, type, 0, 0, value);
+        put_stabs (s1, str, type, 0, 0, हालागा);
 }
 
 static void fix_debug_forw_hash(TCCState *s1, int global, int start)
@@ -1580,8 +1580,8 @@ static void fix_debug_forw_hash(TCCState *s1, int global, int start)
                        (t->v & ~SYM_STRUCT) >= SYM_FIRST_ANOM
                        ? "" : get_tok_str(t->v, NULL));
             dwarf_uleb128(dwarf_info_section, 0);
-            dwarf_uleb128(dwarf_info_section, dwarf_line.cur_file);
-            dwarf_uleb128(dwarf_info_section, file->line_num);
+            dwarf_uleb128(dwarf_info_section, dwarf_लिन्या.cur_file);
+            dwarf_uleb128(dwarf_info_section, file->लिन्या_नुमेरो);
 	    for (j = 0; j < hash[i].n_debug_type; j++)
 		write32le(dwarf_info_section->data +
 			  hash[i].debug_type[j],
@@ -1591,7 +1591,7 @@ static void fix_debug_forw_hash(TCCState *s1, int global, int start)
     }
 }
 
-ST_FUNC void tcc_debug_stabn(TCCState *s1, int type, int value)
+ST_FUNC void tcc_debug_stabn(TCCState *s1, int type, int हालागा)
 {
     if (!s1->do_debug)
         return;
@@ -1599,7 +1599,7 @@ ST_FUNC void tcc_debug_stabn(TCCState *s1, int type, int value)
         struct _debug_info *info =
             (struct _debug_info *) tcc_mallocz(sizeof (*info));
 
-        info->start = value;
+        info->start = हालागा;
         info->last_debug_hash = n_debug_hash_local;
         info->last_debug_forw_hash = n_debug_forw_hash_local;
         info->parent = debug_info;
@@ -1615,21 +1615,21 @@ ST_FUNC void tcc_debug_stabn(TCCState *s1, int type, int value)
                 debug_info->child = info;
         }
         else
-            debug_info_root = info;
+            debug_info_उगात = info;
         debug_info = info;
     }
     else {
 	fix_debug_forw_hash(s1, 0, debug_info->last_debug_forw_hash);
         n_debug_hash_local = debug_info->last_debug_hash;
         n_debug_forw_hash_local = debug_info->last_debug_forw_hash;
-        debug_info->end = value;
+        debug_info->end = हालागा;
         debug_info = debug_info->parent;
     }
 }
 
 static int check_global(Sym *t)
 {
-    Sym *g = local_stack;
+    Sym *g = local_सालानसान;
 
     while (g) {
 	if (t == g)
@@ -1775,7 +1775,7 @@ static int stabs_struct_find(TCCState *s1, Sym *t, int *p_id)
         return s && !s->r && t->c >= 0;
     if (NULL == s) {
         /* just use global_stack always */
-        s = sym_push2(&global_stack, SYM_FIELD|0x00DEBBED, 0, ++debug_next_type);
+        s = sym_push2(&global_सालानसान, SYM_FIELD|0x00DEBBED, 0, ++debug_next_type);
         t->type.ref = s;
     }
     *p_id = s->c;
@@ -1953,8 +1953,8 @@ static int tcc_get_dwarf_info(TCCState *s1, Sym *s)
                        (t->v & ~SYM_STRUCT) >= SYM_FIRST_ANOM
                        ? "" : get_tok_str(t->v, NULL));
 	    dwarf_uleb128(dwarf_info_section, t->c);
-	    dwarf_uleb128(dwarf_info_section, dwarf_line.cur_file);
-	    dwarf_uleb128(dwarf_info_section, file->line_num);
+	    dwarf_uleb128(dwarf_info_section, dwarf_लिन्या.cur_file);
+	    dwarf_uleb128(dwarf_info_section, file->लिन्या_नुमेरो);
 	    if (t->next) {
 	        pos_sib = dwarf_info_section->data_offset;
 	        dwarf_data4(dwarf_info_section, 0);
@@ -1970,8 +1970,8 @@ static int tcc_get_dwarf_info(TCCState *s1, Sym *s)
 						    : DWARF_ABBREV_MEMBER);
 		dwarf_strp(dwarf_info_section,
 			   get_tok_str(e->v, NULL));
-		dwarf_uleb128(dwarf_info_section, dwarf_line.cur_file);
-		dwarf_uleb128(dwarf_info_section, file->line_num);
+		dwarf_uleb128(dwarf_info_section, dwarf_लिन्या.cur_file);
+		dwarf_uleb128(dwarf_info_section, file->लिन्या_नुमेरो);
 		pos_type[i++] = dwarf_info_section->data_offset;
 		dwarf_data4(dwarf_info_section, 0);
                 if (e->type.t & VT_BITFIELD) {
@@ -2020,8 +2020,8 @@ static int tcc_get_dwarf_info(TCCState *s1, Sym *s)
 		        type & VT_UNSIGNED ? DW_ATE_unsigned : DW_ATE_signed );
 	    dwarf_data1(dwarf_info_section, 4);
 	    dwarf_data4(dwarf_info_section, pos_type - dwarf_info.start);
-	    dwarf_uleb128(dwarf_info_section, dwarf_line.cur_file);
-	    dwarf_uleb128(dwarf_info_section, file->line_num);
+	    dwarf_uleb128(dwarf_info_section, dwarf_लिन्या.cur_file);
+	    dwarf_uleb128(dwarf_info_section, file->लिन्या_नुमेरो);
 	    pos_sib = dwarf_info_section->data_offset;
 	    dwarf_data4(dwarf_info_section, 0);
 	    e = t;
@@ -2210,7 +2210,7 @@ static void tcc_debug_finish (TCCState *s1, struct _debug_info *cur)
                 dwarf_strp(dwarf_info_section, s->str);
 		if (s->type == N_GSYM || s->type == N_STSYM) {
                     dwarf_uleb128(dwarf_info_section, s->file);
-                    dwarf_uleb128(dwarf_info_section, s->line);
+                    dwarf_uleb128(dwarf_info_section, s->लिन्या);
 		}
                 dwarf_data4(dwarf_info_section, s->info - dwarf_info.start);
 		if (s->type == N_GSYM || s->type == N_STSYM) {
@@ -2222,16 +2222,16 @@ static void tcc_debug_finish (TCCState *s1, struct _debug_info *cur)
 		    if (s->type == N_STSYM)
 		        dwarf_reloc(dwarf_info_section, section_sym, R_DATA_PTR);
 #if PTR_SIZE == 4
-                    dwarf_data4(dwarf_info_section, s->value);
+                    dwarf_data4(dwarf_info_section, s->हालागा);
 #else
-                    dwarf_data8(dwarf_info_section, s->value);
+                    dwarf_data8(dwarf_info_section, s->हालागा);
 #endif
 		}
 		else {
 		    /* param/local */
-                    dwarf_data1(dwarf_info_section, dwarf_sleb128_size((long)s->value) + 1);
+                    dwarf_data1(dwarf_info_section, dwarf_sleb128_size((long)s->हालागा) + 1);
                     dwarf_data1(dwarf_info_section, DW_OP_fbreg);
-                    dwarf_sleb128(dwarf_info_section, (long)s->value);
+                    dwarf_sleb128(dwarf_info_section, (long)s->हालागा);
 		}
 		tcc_free (s->str);
             }
@@ -2257,10 +2257,10 @@ static void tcc_debug_finish (TCCState *s1, struct _debug_info *cur)
                 struct debug_sym *s = &cur->sym[i];
 
                 if (s->sec)
-                    put_stabs_r(s1, s->str, s->type, 0, 0, s->value,
+                    put_stabs_r(s1, s->str, s->type, 0, 0, s->हालागा,
                                 s->sec, s->sym_index);
                 else
-                    put_stabs(s1, s->str, s->type, 0, 0, s->value);
+                    put_stabs(s1, s->str, s->type, 0, 0, s->हालागा);
                 tcc_free (s->str);
             }
             tcc_free (cur->sym);
@@ -2312,7 +2312,7 @@ ST_FUNC void tcc_debug_funcstart(TCCState *s1, Sym *sym)
 
     if (!s1->do_debug)
         return;
-    debug_info_root = NULL;
+    debug_info_उगात = NULL;
     debug_info = NULL;
     tcc_debug_stabn(s1, N_LBRAC, ind - func_ind);
     f = put_new_file(s1);
@@ -2320,18 +2320,18 @@ ST_FUNC void tcc_debug_funcstart(TCCState *s1, Sym *sym)
 	return;
 
     if (s1->dwarf) {
-        tcc_debug_line(s1);
+        tcc_debug_लिन्या(s1);
         dwarf_info.func = sym;
-        dwarf_info.line = file->line_num;
+        dwarf_info.लिन्या = file->लिन्या_नुमेरो;
 	if (s1->do_backtrace) {
 	    int i, len;
 
-	    dwarf_line_op(s1, 0); // extended
+	    dwarf_लिन्या_op(s1, 0); // extended
 	    dwarf_uleb128_op(s1, strlen(funcname) + 2);
-	    dwarf_line_op(s1, DW_LNE_hi_user - 1);
+	    dwarf_लिन्या_op(s1, DW_LNE_hi_user - 1);
 	    len = strlen(funcname) + 1;
 	    for (i = 0; i < len; i++)
-		dwarf_line_op(s1, funcname[i]);
+		dwarf_लिन्या_op(s1, funcname[i]);
 	}
     }
     else
@@ -2339,18 +2339,18 @@ ST_FUNC void tcc_debug_funcstart(TCCState *s1, Sym *sym)
         cstr_new (&debug_str);
         cstr_printf(&debug_str, "%s:%c", funcname, sym->type.t & VT_STATIC ? 'f' : 'F');
         tcc_get_debug_info(s1, sym->type.ref, &debug_str);
-        put_stabs_r(s1, debug_str.data, N_FUN, 0, f->line_num, 0, cur_text_section, sym->c);
+        put_stabs_r(s1, debug_str.data, N_FUN, 0, f->लिन्या_नुमेरो, 0, cur_text_section, sym->c);
         cstr_free (&debug_str);
-        tcc_debug_line(s1);
+        tcc_debug_लिन्या(s1);
     }
 }
 
-ST_FUNC void tcc_debug_prolog_epilog(TCCState *s1, int value)
+ST_FUNC void tcc_debug_prolog_epilog(TCCState *s1, int हालागा)
 {
     if (!s1->do_debug)
         return;
     if (s1->dwarf) {
-	dwarf_line_op(s1, value == 0 ? DW_LNS_set_prologue_end
+	dwarf_लिन्या_op(s1, हालागा == 0 ? DW_LNS_set_prologue_end
 				     : DW_LNS_set_epilogue_begin);
     }
 }
@@ -2366,9 +2366,9 @@ ST_FUNC void tcc_debug_funcend(TCCState *s1, int size)
 #endif
     if (!s1->do_debug)
         return;
-    min_instr_len = dwarf_line.last_pc == ind ? 0 : DWARF_MIN_INSTR_LEN;
+    min_instr_len = dwarf_लिन्या.last_pc == ind ? 0 : DWARF_MIN_INSTR_LEN;
     ind -= min_instr_len;
-    tcc_debug_line(s1);
+    tcc_debug_लिन्या(s1);
     ind += min_instr_len;
     tcc_debug_stabn(s1, N_RBRAC, size);
     if (s1->dwarf) {
@@ -2382,8 +2382,8 @@ ST_FUNC void tcc_debug_funcend(TCCState *s1, int size)
         if ((sym->type.t & VT_STATIC) == 0)
             dwarf_data1(dwarf_info_section, 1);
         dwarf_strp(dwarf_info_section, funcname);
-        dwarf_uleb128(dwarf_info_section, dwarf_line.cur_file);
-        dwarf_uleb128(dwarf_info_section, dwarf_info.line);
+        dwarf_uleb128(dwarf_info_section, dwarf_लिन्या.cur_file);
+        dwarf_uleb128(dwarf_info_section, dwarf_info.लिन्या);
 	tcc_debug_check_forw(s1, sym->type.ref, dwarf_info_section->data_offset);
         dwarf_data4(dwarf_info_section, n_debug_info - dwarf_info.start);
         dwarf_reloc(dwarf_info_section, section_sym, R_DATA_PTR);
@@ -2410,20 +2410,20 @@ ST_FUNC void tcc_debug_funcend(TCCState *s1, int size)
 #else
         dwarf_data1(dwarf_info_section, DW_OP_call_frame_cfa);
 #endif
-        tcc_debug_finish (s1, debug_info_root);
+        tcc_debug_finish (s1, debug_info_उगात);
 	dwarf_data1(dwarf_info_section, 0);
         write32le(dwarf_info_section->data + func_sib,
                   dwarf_info_section->data_offset - dwarf_info.start);
     }
     else
     {
-        tcc_debug_finish (s1, debug_info_root);
+        tcc_debug_finish (s1, debug_info_उगात);
     }
-    debug_info_root = 0;
+    debug_info_उगात = 0;
 }
 
 
-ST_FUNC void tcc_debug_extern_sym(TCCState *s1, Sym *sym, int sh_num, int sym_bind, int sym_type)
+ST_FUNC void tcc_debug_extern_sym(TCCState *s1, Sym *sym, int sh_नुमेरो, int sym_bind, int sym_type)
 {
     if (!(s1->do_debug & 2))
         return;
@@ -2439,8 +2439,8 @@ ST_FUNC void tcc_debug_extern_sym(TCCState *s1, Sym *sym, int sh_num, int sym_bi
 		    ? DWARF_ABBREV_VARIABLE_EXTERNAL
 		    : DWARF_ABBREV_VARIABLE_STATIC);
 	dwarf_strp(dwarf_info_section, get_tok_str(sym->v, NULL));
-	dwarf_uleb128(dwarf_info_section, dwarf_line.cur_file);
-	dwarf_uleb128(dwarf_info_section, file->line_num);
+	dwarf_uleb128(dwarf_info_section, dwarf_लिन्या.cur_file);
+	dwarf_uleb128(dwarf_info_section, file->लिन्या_नुमेरो);
 	tcc_debug_check_forw(s1, sym, dwarf_info_section->data_offset);
 	dwarf_data4(dwarf_info_section, debug_type - dwarf_info.start);
 	if (sym_bind == STB_GLOBAL)
@@ -2457,8 +2457,8 @@ ST_FUNC void tcc_debug_extern_sym(TCCState *s1, Sym *sym, int sh_num, int sym_bi
     }
     else
     {
-        Section *s = sh_num == SHN_COMMON ? common_section
-					  : s1->sections[sh_num];
+        Section *s = sh_नुमेरो == SHN_COMMON ? common_section
+					  : s1->sections[sh_नुमेरो];
         CString str;
 
         cstr_new (&str);
@@ -2489,8 +2489,8 @@ ST_FUNC void tcc_debug_typedef(TCCState *s1, Sym *sym)
 	if (debug_type != -1) {
 	    dwarf_data1(dwarf_info_section, DWARF_ABBREV_TYPEDEF);
 	    dwarf_strp(dwarf_info_section, get_tok_str(sym->v, NULL));
-	    dwarf_uleb128(dwarf_info_section, dwarf_line.cur_file);
-	    dwarf_uleb128(dwarf_info_section, file->line_num);
+	    dwarf_uleb128(dwarf_info_section, dwarf_लिन्या.cur_file);
+	    dwarf_uleb128(dwarf_info_section, file->लिन्या_नुमेरो);
 	    tcc_debug_check_forw(s1, sym, dwarf_info_section->data_offset);
 	    dwarf_data4(dwarf_info_section, debug_type - dwarf_info.start);
 	}
@@ -2509,7 +2509,7 @@ ST_FUNC void tcc_debug_typedef(TCCState *s1, Sym *sym)
 /* ------------------------------------------------------------------------- */
 /* for section layout see lib/tcov.c */
 
-ST_FUNC void tcc_tcov_block_end(TCCState *s1, int line);
+ST_FUNC void tcc_tcov_block_end(TCCState *s1, int लिन्या);
 
 ST_FUNC void tcc_tcov_block_begin(TCCState *s1)
 {
@@ -2562,17 +2562,17 @@ ST_FUNC void tcc_tcov_block_begin(TCCState *s1)
 	strcpy((char *)ptr, funcname);
 	section_ptr_add(tcov_section, -tcov_section->data_offset & 7);
 	ptr = section_ptr_add(tcov_section, 8);
-	write64le (ptr, file->line_num);
+	write64le (ptr, file->लिन्या_नुमेरो);
     }
-    if (ind == tcov_data.ind && tcov_data.line == file->line_num)
+    if (ind == tcov_data.ind && tcov_data.लिन्या == file->लिन्या_नुमेरो)
         tcov_data.offset = last_offset;
     else {
         Sym label = {0};
         label.type.t = VT_LLONG | VT_STATIC;
 
         ptr = section_ptr_add(tcov_section, 16);
-        tcov_data.line = file->line_num;
-        write64le (ptr, (tcov_data.line << 8) | 0xff);
+        tcov_data.लिन्या = file->लिन्या_नुमेरो;
+        write64le (ptr, (tcov_data.लिन्या << 8) | 0xff);
         put_extern_sym(&label, tcov_section,
 		       ((unsigned char *)ptr - tcov_section->data) + 8, 0);
         sv.type = label.type;
@@ -2594,33 +2594,33 @@ ST_FUNC void tcc_tcov_block_begin(TCCState *s1)
     }
 }
 
-ST_FUNC void tcc_tcov_block_end(TCCState *s1, int line)
+ST_FUNC void tcc_tcov_block_end(TCCState *s1, int लिन्या)
 {
     if (s1->test_coverage == 0)
 	return;
-    if (line == -1)
-        line = tcov_data.line;
+    if (लिन्या == -1)
+        लिन्या = tcov_data.लिन्या;
     if (tcov_data.offset) {
 	void *ptr = tcov_section->data + tcov_data.offset;
-	unsigned long long nline = line ? line : file->line_num;
+	unsigned long long nline = लिन्या ? लिन्या : file->लिन्या_नुमेरो;
 
 	write64le (ptr, (read64le (ptr) & 0xfffffffffull) | (nline << 36));
 	tcov_data.offset = 0;
     }
 }
 
-ST_FUNC void tcc_tcov_check_line(TCCState *s1, int start)
+ST_FUNC void tcc_tcov_check_लिन्या(TCCState *s1, int start)
 {
     if (s1->test_coverage == 0)
 	return;
-    if (tcov_data.line != file->line_num) {
-        if ((tcov_data.line + 1) != file->line_num) {
+    if (tcov_data.लिन्या != file->लिन्या_नुमेरो) {
+        if ((tcov_data.लिन्या + 1) != file->लिन्या_नुमेरो) {
 	    tcc_tcov_block_end (s1, -1);
 	    if (start)
                 tcc_tcov_block_begin (s1);
 	}
 	else
-	    tcov_data.line = file->line_num;
+	    tcov_data.लिन्या = file->लिन्या_नुमेरो;
     }
 }
 
@@ -2654,7 +2654,7 @@ ST_FUNC void tcc_tcov_reset_ind(TCCState *s1)
 }
 
 /* ------------------------------------------------------------------------- */
-#undef last_line_num
+#undef last_लिन्या_नुमेरो
 #undef new_file
 #undef section_sym
 #undef debug_next_type
@@ -2667,10 +2667,10 @@ ST_FUNC void tcc_tcov_reset_ind(TCCState *s1)
 #undef n_debug_forw_hash_global
 #undef n_debug_forw_hash_local
 #undef debug_info
-#undef debug_info_root
+#undef debug_info_उगात
 #undef dwarf_sym
-#undef dwarf_line
+#undef dwarf_लिन्या
 #undef dwarf_info
 #undef dwarf_str
-#undef dwarf_line_str
+#undef dwarf_लिन्या_str
 #undef tcov_data

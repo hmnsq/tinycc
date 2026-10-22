@@ -263,7 +263,7 @@ struct lineno
 #define  C_FCN           101   /* ".bf" or ".ef" */
 #define  C_EOS           102   /* end of structure */
 #define  C_FILE          103   /* file name */
-#define  C_LINE          104   /* dummy sclass for line number entry */
+#define  C_लिन्या          104   /* dummy sclass for line number entry */
 #define  C_ALIAS         105   /* duplicate tag */
 #define  C_HIDDEN        106   /* special storage class for external */
                                /* symbols in dmert public libraries  */
@@ -289,7 +289,7 @@ struct syment
                 } _n_n;
                 char            *_n_nptr[2];    /* allows for overlaying */
         } _n;
-        long                    n_value;        /* value of symbol */
+        long                    n_हालागा;        /* value of symbol */
         short                   n_scnum;        /* section number */
         unsigned short          n_type;         /* type and derived type */
         char                    n_sclass;       /* storage class */

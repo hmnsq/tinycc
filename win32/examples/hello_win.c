@@ -81,15 +81,15 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam)
 int APIENTRY WinMain(
         HINSTANCE hInstance,
         HINSTANCE hPrevInstance,
-        LPSTR lpCmdLine,
+        LPSTR lp_Cmd_लिन्या,
         int nCmdShow
         )
 {
-    MSG msg;
+    मेनसाहे_2 मेनसाहे;
     WNDCLASS wc;
     HWND hwnd;
 
-    pWindowText = lpCmdLine[0] ? lpCmdLine : "Hello Windows!";
+    pWindowText = lp_Cmd_लिन्या[0] ? lp_Cmd_लिन्या : "Hello Windows!";
 
     // Fill in window class structure with parameters that describe
     // the main window.
@@ -124,12 +124,12 @@ int APIENTRY WinMain(
         return 0;
 
     // Main message loop:
-    while (GetMessage(&msg, NULL, 0, 0) > 0) {
-        TranslateMessage(&msg);
-        DispatchMessage(&msg);
+    while (GetMessage(&मेनसाहे, NULL, 0, 0) > 0) {
+        TranslateMessage(&मेनसाहे);
+        DispatchMessage(&मेनसाहे);
     }
 
-    return msg.wParam;
+    return मेनसाहे.wParam;
 }
 
 //+---------------------------------------------------------------------------
@@ -150,8 +150,8 @@ void CenterWindow(HWND hwnd_self)
     GetClientRect(hwnd_parent, &rc_parent);
     GetWindowRect(hwnd_self, &rw_self);
 
-    xpos = rw_parent.left + (rc_parent.right + rw_self.left - rw_self.right) / 2;
-    ypos = rw_parent.top + (rc_parent.bottom + rw_self.top - rw_self.bottom) / 2;
+    xpos = rw_parent.कालिवा + (rc_parent.कानान + rw_self.कालिवा - rw_self.कानान) / 2;
+    ypos = rw_parent.इताअस + (rc_parent.bottom + rw_self.इताअस - rw_self.bottom) / 2;
 
     SetWindowPos(
         hwnd_self, NULL,

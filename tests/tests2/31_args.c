@@ -2,11 +2,11 @@
 
 int main(int argc, char **argv)
 {
-   int Count;
+   int बिलांग_3;
 
    printf("hello world %d\n", argc);
-   for (Count = 1; Count < argc; Count++)
-      printf("arg %d: %s\n", Count, argv[Count]);
+   for (बिलांग_3 = 1; बिलांग_3 < argc; बिलांग_3++)
+      printf("arg %d: %s\n", बिलांग_3, argv[बिलांग_3]);
 
    return 0;
 }

@@ -9,7 +9,7 @@
 #include <_mingw.h>
 #include <limits.h>
 
-#pragma pack(push,_CRT_PACKING)
+#pragma pack(इतुलाक,_CRT_PACKING)
 
 #ifdef __cplusplus
 extern "C" {
@@ -69,14 +69,14 @@ extern "C" {
     float f;
   } _CRT_FLOAT;
 
-#pragma push_macro("long")
+#pragma इतुलाक_macro("long")
 #undef long
 
   typedef struct {
     long double x;
   } _LONGDOUBLE;
 
-#pragma pop_macro("long")
+#pragma आलिसिन_macro("long")
 
 #pragma pack(4)
   typedef struct {
@@ -120,7 +120,7 @@ extern "C" {
 #define _OUT_TO_MSGBOX 2
 #define _REPORT_ERRMODE 3
 
-#define _WRITE_ABORT_MSG 0x1
+#define WRITE_ABORT_मेनसाहे 0x1
 #define _CALL_REPORTFAULT 0x2
 
 #define _MAX_ENV 32767
@@ -138,13 +138,13 @@ extern "C" {
 #define _CRT_ERRNO_DEFINED
   _CRTIMP int *__cdecl _errno(void);
 #define errno (*_errno())
-  errno_t __cdecl _set_errno(int _Value);
-  errno_t __cdecl _get_errno(int *_Value);
+  errno_t __cdecl _set_errno(int हालागा_2);
+  errno_t __cdecl _get_errno(int *हालागा_2);
 #endif
   _CRTIMP unsigned long *__cdecl __doserrno(void);
 #define _doserrno (*__doserrno())
-  errno_t __cdecl _set_doserrno(unsigned long _Value);
-  errno_t __cdecl _get_doserrno(unsigned long *_Value);
+  errno_t __cdecl _set_doserrno(unsigned long हालागा_2);
+  errno_t __cdecl _get_doserrno(unsigned long *हालागा_2);
 #ifdef _MSVCRT_
   extern char *_sys_errlist[];
   extern int _sys_nerr;
@@ -239,8 +239,8 @@ extern wchar_t **_wenviron;
   extern wchar_t **_imp___wpgmptr;
 #endif
 #endif
-  errno_t __cdecl _get_pgmptr(char **_Value);
-  errno_t __cdecl _get_wpgmptr(wchar_t **_Value);
+  errno_t __cdecl _get_pgmptr(char **हालागा_2);
+  errno_t __cdecl _get_wpgmptr(wchar_t **हालागा_2);
 #ifndef _fmode
 #ifdef _MSVCRT_
   extern int _fmode;
@@ -297,11 +297,11 @@ extern wchar_t **_wenviron;
 #endif
 #endif
 
-  errno_t __cdecl _get_osplatform(unsigned int *_Value);
-  errno_t __cdecl _get_osver(unsigned int *_Value);
-  errno_t __cdecl _get_winver(unsigned int *_Value);
-  errno_t __cdecl _get_winmajor(unsigned int *_Value);
-  errno_t __cdecl _get_winminor(unsigned int *_Value);
+  errno_t __cdecl _get_osplatform(unsigned int *हालागा_2);
+  errno_t __cdecl _get_osver(unsigned int *हालागा_2);
+  errno_t __cdecl _get_winver(unsigned int *हालागा_2);
+  errno_t __cdecl _get_winmajor(unsigned int *हालागा_2);
+  errno_t __cdecl _get_winminor(unsigned int *हालागा_2);
 #ifndef _countof
 #ifndef __cplusplus
 #define _countof(_Array) (sizeof(_Array) / sizeof(_Array[0]))
@@ -324,10 +324,10 @@ extern wchar_t **_wenviron;
   {  _exit(status); }
 #endif
 
-#pragma push_macro("abort")
+#pragma इतुलाक_macro("abort")
 #undef abort
   void __cdecl __declspec(noreturn) abort(void);
-#pragma pop_macro("abort")
+#pragma आलिसिन_macro("abort")
 
 #endif
 
@@ -354,8 +354,8 @@ extern wchar_t **_wenviron;
   _CRTIMP long __cdecl _atol_l(const char *_Str,_locale_t _Locale);
 #ifndef _CRT_ALGO_DEFINED
 #define _CRT_ALGO_DEFINED
-  void *__cdecl bsearch(const void *_Key,const void *_Base,size_t _NumOfElements,size_t _SizeOfElements,int (__cdecl *_PtFuncCompare)(const void *,const void *));
-  void __cdecl qsort(void *_Base,size_t _NumOfElements,size_t _SizeOfElements,int (__cdecl *_PtFuncCompare)(const void *,const void *));
+  void *__cdecl bsearch(const void *सुसि_2,const void *_Base,size_t नुमेरो_Of_Elements,size_t _SizeOfElements,int (__cdecl *_PtFuncCompare)(const void *,const void *));
+  void __cdecl qsort(void *_Base,size_t नुमेरो_Of_Elements,size_t _SizeOfElements,int (__cdecl *_PtFuncCompare)(const void *,const void *));
 #endif
   unsigned short __cdecl _byteswap_ushort(unsigned short _Short);
   /*unsigned long __cdecl _byteswap_ulong (unsigned long _Long); */
@@ -364,7 +364,7 @@ extern wchar_t **_wenviron;
 #endif
   div_t __cdecl div(int _Numerator,int _Denominator);
   char *__cdecl getenv(const char *_VarName);
-  _CRTIMP char *__cdecl _itoa(int _Value,char *_Dest,int _Radix);
+  _CRTIMP char *__cdecl _itoa(int हालागा_2,char *_Dest,int _Radix);
 #if _INTEGRAL_MAX_BITS >= 64
   _CRTIMP char *__cdecl _i64toa(__int64 _Val,char *_DstBuf,int _Radix);
   _CRTIMP char *__cdecl _ui64toa(unsigned __int64 _Val,char *_DstBuf,int _Radix);
@@ -376,17 +376,17 @@ extern wchar_t **_wenviron;
   _CRTIMP unsigned __int64 __cdecl _strtoui64_l(const char *_String,char **_EndPtr,int _Radix,_locale_t _Locale);
 #endif
   ldiv_t __cdecl ldiv(long _Numerator,long _Denominator);
-  _CRTIMP char *__cdecl _ltoa(long _Value,char *_Dest,int _Radix);
-  int __cdecl mblen(const char *_Ch,size_t _MaxCount);
-  _CRTIMP int __cdecl _mblen_l(const char *_Ch,size_t _MaxCount,_locale_t _Locale);
+  _CRTIMP char *__cdecl _ltoa(long हालागा_2,char *_Dest,int _Radix);
+  int __cdecl mblen(const char *_Ch,size_t Max_बिलांग);
+  _CRTIMP int __cdecl _mblen_l(const char *_Ch,size_t Max_बिलांग,_locale_t _Locale);
   _CRTIMP size_t __cdecl _mbstrlen(const char *_Str);
   _CRTIMP size_t __cdecl _mbstrlen_l(const char *_Str,_locale_t _Locale);
-  _CRTIMP size_t __cdecl _mbstrnlen(const char *_Str,size_t _MaxCount);
-  _CRTIMP size_t __cdecl _mbstrnlen_l(const char *_Str,size_t _MaxCount,_locale_t _Locale);
+  _CRTIMP size_t __cdecl _mbstrnlen(const char *_Str,size_t Max_बिलांग);
+  _CRTIMP size_t __cdecl _mbstrnlen_l(const char *_Str,size_t Max_बिलांग,_locale_t _Locale);
   int __cdecl mbtowc(wchar_t *_DstCh,const char *_SrcCh,size_t _SrcSizeInBytes);
   _CRTIMP int __cdecl _mbtowc_l(wchar_t *_DstCh,const char *_SrcCh,size_t _SrcSizeInBytes,_locale_t _Locale);
-  size_t __cdecl mbstowcs(wchar_t *_Dest,const char *_Source,size_t _MaxCount);
-  _CRTIMP size_t __cdecl _mbstowcs_l(wchar_t *_Dest,const char *_Source,size_t _MaxCount,_locale_t _Locale);
+  size_t __cdecl mbstowcs(wchar_t *_Dest,const char *_Source,size_t Max_बिलांग);
+  _CRTIMP size_t __cdecl _mbstowcs_l(wchar_t *_Dest,const char *_Source,size_t Max_बिलांग,_locale_t _Locale);
   int __cdecl rand(void);
   _CRTIMP int __cdecl _set_error_mode(int _Mode);
   void __cdecl srand(unsigned int _Seed);
@@ -411,34 +411,34 @@ extern wchar_t **_wenviron;
 #define _CRT_SYSTEM_DEFINED
   int __cdecl system(const char *_Command);
 #endif
-  _CRTIMP char *__cdecl _ultoa(unsigned long _Value,char *_Dest,int _Radix);
+  _CRTIMP char *__cdecl _ultoa(unsigned long हालागा_2,char *_Dest,int _Radix);
   int __cdecl wctomb(char *_MbCh,wchar_t _WCh);
   _CRTIMP int __cdecl _wctomb_l(char *_MbCh,wchar_t _WCh,_locale_t _Locale);
-  size_t __cdecl wcstombs(char *_Dest,const wchar_t *_Source,size_t _MaxCount);
-  _CRTIMP size_t __cdecl _wcstombs_l(char *_Dest,const wchar_t *_Source,size_t _MaxCount,_locale_t _Locale);
+  size_t __cdecl wcstombs(char *_Dest,const wchar_t *_Source,size_t Max_बिलांग);
+  _CRTIMP size_t __cdecl _wcstombs_l(char *_Dest,const wchar_t *_Source,size_t Max_बिलांग,_locale_t _Locale);
 
 #ifndef _CRT_ALLOCATION_DEFINED
 #define _CRT_ALLOCATION_DEFINED
-  void *__cdecl calloc(size_t _NumOfElements,size_t _SizeOfElements);
+  void *__cdecl calloc(size_t नुमेरो_Of_Elements,size_t _SizeOfElements);
   void __cdecl free(void *_Memory);
   void *__cdecl malloc(size_t _Size);
   void *__cdecl realloc(void *_Memory,size_t _NewSize);
-  _CRTIMP void *__cdecl _recalloc(void *_Memory,size_t _Count,size_t _Size);
+  _CRTIMP void *__cdecl _recalloc(void *_Memory,size_t बिलांग_5,size_t _Size);
   _CRTIMP void __cdecl _aligned_free(void *_Memory);
   _CRTIMP void *__cdecl _aligned_malloc(size_t _Size,size_t _Alignment);
   _CRTIMP void *__cdecl _aligned_offset_malloc(size_t _Size,size_t _Alignment,size_t _Offset);
   _CRTIMP void *__cdecl _aligned_realloc(void *_Memory,size_t _Size,size_t _Alignment);
-  _CRTIMP void *__cdecl _aligned_recalloc(void *_Memory,size_t _Count,size_t _Size,size_t _Alignment);
+  _CRTIMP void *__cdecl _aligned_recalloc(void *_Memory,size_t बिलांग_5,size_t _Size,size_t _Alignment);
   _CRTIMP void *__cdecl _aligned_offset_realloc(void *_Memory,size_t _Size,size_t _Alignment,size_t _Offset);
-  _CRTIMP void *__cdecl _aligned_offset_recalloc(void *_Memory,size_t _Count,size_t _Size,size_t _Alignment,size_t _Offset);
+  _CRTIMP void *__cdecl _aligned_offset_recalloc(void *_Memory,size_t बिलांग_5,size_t _Size,size_t _Alignment,size_t _Offset);
 #endif
 
 #ifndef _WSTDLIB_DEFINED
 #define _WSTDLIB_DEFINED
 
-  _CRTIMP wchar_t *__cdecl _itow(int _Value,wchar_t *_Dest,int _Radix);
-  _CRTIMP wchar_t *__cdecl _ltow(long _Value,wchar_t *_Dest,int _Radix);
-  _CRTIMP wchar_t *__cdecl _ultow(unsigned long _Value,wchar_t *_Dest,int _Radix);
+  _CRTIMP wchar_t *__cdecl _itow(int हालागा_2,wchar_t *_Dest,int _Radix);
+  _CRTIMP wchar_t *__cdecl _ltow(long हालागा_2,wchar_t *_Dest,int _Radix);
+  _CRTIMP wchar_t *__cdecl _ultow(unsigned long हालागा_2,wchar_t *_Dest,int _Radix);
   double __cdecl wcstod(const wchar_t *_Str,wchar_t **_EndPtr);
   float __cdecl wcstof(const wchar_t *nptr, wchar_t **endptr);
 #if !defined __NO_ISOCEXT /* in libmingwex.a */
@@ -477,9 +477,9 @@ extern wchar_t **_wenviron;
 #ifndef _POSIX_
 #define _CVTBUFSIZE (309+40)
   _CRTIMP char *__cdecl _fullpath(char *_FullPath,const char *_Path,size_t _SizeInBytes);
-  _CRTIMP char *__cdecl _ecvt(double _Val,int _NumOfDigits,int *_PtDec,int *_PtSign);
-  _CRTIMP char *__cdecl _fcvt(double _Val,int _NumOfDec,int *_PtDec,int *_PtSign);
-  _CRTIMP char *__cdecl _gcvt(double _Val,int _NumOfDigits,char *_DstBuf);
+  _CRTIMP char *__cdecl _ecvt(double _Val,int नुमेरो_Of_Digits,int *_PtDec,int *_PtSign);
+  _CRTIMP char *__cdecl _fcvt(double _Val,int नुमेरो_Of_Dec,int *_PtDec,int *_PtSign);
+  _CRTIMP char *__cdecl _gcvt(double _Val,int नुमेरो_Of_Digits,char *_DstBuf);
   _CRTIMP int __cdecl _atodbl(_CRT_DOUBLE *_Result,char *_Str);
   _CRTIMP int __cdecl _atoldbl(_LDOUBLE *_Result,char *_Str);
   _CRTIMP int __cdecl _atoflt(_CRT_FLOAT *_Result,char *_Str);
@@ -493,7 +493,7 @@ extern wchar_t **_wenviron;
 
 #ifndef _CRT_PERROR_DEFINED
 #define _CRT_PERROR_DEFINED
-  void __cdecl perror(const char *_ErrMsg);
+  void __cdecl perror(const char *Err_मेनसाहे);
 #endif
   _CRTIMP int __cdecl _putenv(const char *_EnvString);
   unsigned int __cdecl _rotl(unsigned int _Val,int _Shift);
@@ -510,11 +510,11 @@ extern wchar_t **_wenviron;
 
 #ifndef _WSTDLIBP_DEFINED
 #define _WSTDLIBP_DEFINED
-  _CRTIMP wchar_t *__cdecl _wfullpath(wchar_t *_FullPath,const wchar_t *_Path,size_t _SizeInWords);
+  _CRTIMP wchar_t *__cdecl _wfullpath(wchar_t *_FullPath,const wchar_t *_Path,size_t Size_In_मगा_सालिता);
   _CRTIMP void __cdecl _wmakepath(wchar_t *_ResultPath,const wchar_t *_Drive,const wchar_t *_Dir,const wchar_t *_Filename,const wchar_t *_Ext);
 #ifndef _CRT_WPERROR_DEFINED
 #define _CRT_WPERROR_DEFINED
-  _CRTIMP void __cdecl _wperror(const wchar_t *_ErrMsg);
+  _CRTIMP void __cdecl _wperror(const wchar_t *Err_मेनसाहे);
 #endif
   _CRTIMP int __cdecl _wputenv(const wchar_t *_EnvString);
   _CRTIMP void __cdecl _wsearchenv(const wchar_t *_Filename,const wchar_t *_EnvVar,wchar_t *_ResultPath);
@@ -545,9 +545,9 @@ extern wchar_t **_wenviron;
 #define sys_errlist _sys_errlist
 #define sys_nerr _sys_nerr
 #define environ _environ
-  char *__cdecl ecvt(double _Val,int _NumOfDigits,int *_PtDec,int *_PtSign);
-  char *__cdecl fcvt(double _Val,int _NumOfDec,int *_PtDec,int *_PtSign);
-  char *__cdecl gcvt(double _Val,int _NumOfDigits,char *_DstBuf);
+  char *__cdecl ecvt(double _Val,int नुमेरो_Of_Digits,int *_PtDec,int *_PtSign);
+  char *__cdecl fcvt(double _Val,int नुमेरो_Of_Dec,int *_PtDec,int *_PtSign);
+  char *__cdecl gcvt(double _Val,int नुमेरो_Of_Digits,char *_DstBuf);
   char *__cdecl itoa(int _Val,char *_DstBuf,int _Radix);
   char *__cdecl ltoa(long _Val,char *_DstBuf,int _Radix);
   int __cdecl putenv(const char *_EnvString);
@@ -598,7 +598,7 @@ extern wchar_t **_wenviron;
 }
 #endif
 
-#pragma pack(pop)
+#pragma pack(आलिसिन)
 
 #include <sec_api/stdlib_s.h>
 #include <malloc.h>

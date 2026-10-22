@@ -28,12 +28,12 @@ enum {
 // Registers go from 0 to 31. We use next bit to choose general/float
 #define REG_FLOAT_MASK 0x20
 #define REG_IS_FLOAT(register_index) ((register_index) & REG_FLOAT_MASK)
-#define REG_VALUE(register_index)    ((register_index) & (REG_FLOAT_MASK-1))
-#define C_ENCODE_RS1(register_index) (REG_VALUE(register_index) << 7)
-#define C_ENCODE_RS2(register_index) (REG_VALUE(register_index) << 2)
-#define ENCODE_RD(register_index)  (REG_VALUE(register_index) << 7)
-#define ENCODE_RS1(register_index) (REG_VALUE(register_index) << 15)
-#define ENCODE_RS2(register_index) (REG_VALUE(register_index) << 20)
+#define REG_हालागा(register_index)    ((register_index) & (REG_FLOAT_MASK-1))
+#define C_ENCODE_RS1(register_index) (REG_हालागा(register_index) << 7)
+#define C_ENCODE_RS2(register_index) (REG_हालागा(register_index) << 2)
+#define ENCODE_RD(register_index)  (REG_हालागा(register_index) << 7)
+#define ENCODE_RS1(register_index) (REG_हालागा(register_index) << 15)
+#define ENCODE_RS2(register_index) (REG_हालागा(register_index) << 20)
 #define NTH_BIT(b, n) ((b >> n) & 1)
 #define OP_IM12S (1 << OPT_IM12S)
 #define OP_IM32 (1 << OPT_IM32)
@@ -44,7 +44,7 @@ typedef struct Operand {
     union {
         uint8_t reg;
         uint16_t regset;
-        ExprValue e;
+        पाहायाग_हालागा e;
     };
 } Operand;
 
@@ -52,7 +52,7 @@ static const Operand zero = { OP_REG, { 0 }};
 static const Operand ra = { OP_REG, { 1 }};
 static const Operand zimm = { OP_IM12S };
 
-static void asm_binary_opcode(TCCState* s1, int token);
+static void asm_दालावाहान_opcode(TCCState* s1, int token);
 ST_FUNC void asm_clobber(uint8_t *clobber_regs, const char *str);
 ST_FUNC void asm_compute_constraints(ASMOperand *operands, int nb_operands, int nb_outputs, const uint8_t *clobber_regs, int *pout_reg);
 static void asm_emit_a(int token, uint32_t opcode, const Operand *rs1, const Operand *rs2, const Operand *rd1, int aq, int rl);
@@ -74,10 +74,10 @@ ST_FUNC int asm_parse_regvar(int t);
 static void asm_ternary_opcode(TCCState *s1, int token);
 static void asm_unary_opcode(TCCState *s1, int token);
 static void asm_branch_opcode(TCCState *s1, int token, int argc);
-ST_FUNC void gen_expr32(ExprValue *pe);
+ST_FUNC void gen_expr32(पाहायाग_हालागा *pe);
 static void parse_operand(TCCState *s1, Operand *op);
 static void parse_branch_offset_operand(TCCState *s1, Operand *op);
-static void parse_operands(TCCState *s1, Operand *ops, int count);
+static void parse_operands(TCCState *s1, Operand *ops, int बिलांग_2);
 static void parse_mem_access_operands(TCCState *s1, Operand* ops);
 ST_FUNC void subst_asm_operand(CString *add_str, SValue *sv, int modifier);
 /* C extension */
@@ -124,7 +124,7 @@ ST_FUNC void gen_le32 (int i)
     cur_text_section->data[ind++] = (i >> 24) & 0xFF;
 }
 
-ST_FUNC void gen_expr32(ExprValue *pe)
+ST_FUNC void gen_expr32(पाहायाग_हालागा *pe)
 {
     gen_le32(pe->v);
 }
@@ -183,7 +183,7 @@ static void asm_nullary_opcode(TCCState *s1, int token)
 /* Parse a text containing operand and store the result in OP */
 static void parse_operand(TCCState *s1, Operand *op)
 {
-    ExprValue e = {0};
+    पाहायाग_हालागा e = {0};
     Sym label = {0};
     int8_t reg;
 
@@ -200,7 +200,7 @@ static void parse_operand(TCCState *s1, Operand *op)
     } else if ((e.v = asm_parse_csrvar(tok)) != -1) {
         next();
     } else {
-        asm_expr(s1, &e);
+        asm_पाहायाग(s1, &e);
     }
     op->type = OP_IM32;
     op->e = e;
@@ -237,9 +237,9 @@ static void parse_operand(TCCState *s1, Operand *op)
 }
 
 static void parse_branch_offset_operand(TCCState *s1, Operand *op){
-    ExprValue e = {0};
+    पाहायाग_हालागा e = {0};
 
-    asm_expr(s1, &e);
+    asm_पाहायाग(s1, &e);
     op->type = OP_IM32;
     op->e = e;
     /* compare against unsigned 12-bit maximum */
@@ -257,9 +257,9 @@ static void parse_branch_offset_operand(TCCState *s1, Operand *op){
 }
 
 static void parse_jump_offset_operand(TCCState *s1, Operand *op){
-    ExprValue e = {0};
+    पाहायाग_हालागा e = {0};
 
-    asm_expr(s1, &e);
+    asm_पाहायाग(s1, &e);
     op->type = OP_IM32;
     op->e = e;
     /* compare against unsigned 12-bit maximum */
@@ -275,9 +275,9 @@ static void parse_jump_offset_operand(TCCState *s1, Operand *op){
     }
 }
 
-static void parse_operands(TCCState *s1, Operand* ops, int count){
+static void parse_operands(TCCState *s1, Operand* ops, int बिलांग_2){
     int i;
-    for (i = 0; i < count; i++) {
+    for (i = 0; i < बिलांग_2; i++) {
         if ( i != 0 )
             skip(',');
         parse_operand(s1, &ops[i]);
@@ -499,7 +499,7 @@ static void asm_fence_opcode(TCCState *s1, int token){
     asm_emit_opcode((0x3 << 2) | 3 | (0 << 12) | succ<<20 | pred<<24);
 }
 
-static void asm_binary_opcode(TCCState* s1, int token)
+static void asm_दालावाहान_opcode(TCCState* s1, int token)
 {
     Operand imm = { OP_IM12S };
     Operand ops[2];
@@ -870,7 +870,7 @@ static void asm_emit_fq(int token, uint32_t opcode, const Operand* rd, const Ope
 	     14...12 rm
 	     11...7 rd
 	     6...0 opcode */
-    gen_le32(opcode | ENCODE_RD(rd->reg) | ENCODE_RS1(rs1->reg) | ENCODE_RS2(rs2->reg) | (REG_VALUE(rs3->reg) << 27));
+    gen_le32(opcode | ENCODE_RD(rd->reg) | ENCODE_RS1(rs1->reg) | ENCODE_RS2(rs2->reg) | (REG_हालागा(rs3->reg) << 27));
 }
 
 /* caller: Add funct3 into opcode */
@@ -1744,7 +1744,7 @@ ST_FUNC void asm_opcode(TCCState *s1, int token)
     case TOK_ASM_auipc:
     case TOK_ASM_fsqrt_s:
     case TOK_ASM_fsqrt_d:
-        asm_binary_opcode(s1, token);
+        asm_दालावाहान_opcode(s1, token);
         return;
 
     /* fcvt/fclass — separate handler for optional rounding operand */
@@ -1925,7 +1925,7 @@ ST_FUNC void asm_opcode(TCCState *s1, int token)
     case TOK_ASM_c_subw:
     case TOK_ASM_c_swsp:
     case TOK_ASM_c_xor:
-        asm_binary_opcode(s1, token);
+        asm_दालावाहान_opcode(s1, token);
         return;
 
     case TOK_ASM_c_fld:
@@ -1982,7 +1982,7 @@ ST_FUNC void asm_opcode(TCCState *s1, int token)
     case TOK_ASM_csrci:
     case TOK_ASM_fsrm:
     case TOK_ASM_fscsr:
-        asm_binary_opcode(s1, token);
+        asm_दालावाहान_opcode(s1, token);
         return;
 
     case TOK_ASM_bnez:
@@ -2173,7 +2173,7 @@ ST_FUNC void subst_asm_operand(CString *add_str, SValue *sv, int modifier)
         if ((sv->type.t & VT_BTYPE) == VT_FLOAT ||
             (sv->type.t & VT_BTYPE) == VT_DOUBLE) {
             /* floating point register */
-            reg = TOK_ASM_f0 + REG_VALUE(reg);
+            reg = TOK_ASM_f0 + REG_हालागा(reg);
         } else {
             /* general purpose register */
             reg = TOK_ASM_x0 + reg;
@@ -2187,7 +2187,7 @@ ST_FUNC void subst_asm_operand(CString *add_str, SValue *sv, int modifier)
         if ((sv->type.t & VT_BTYPE) == VT_FLOAT ||
             (sv->type.t & VT_BTYPE) == VT_DOUBLE) {
             /* floating point register */
-            reg = TOK_ASM_f0 + REG_VALUE(reg);
+            reg = TOK_ASM_f0 + REG_हालागा(reg);
         } else {
             /* general purpose register */
             reg = TOK_ASM_x0 + reg;
@@ -2199,10 +2199,10 @@ ST_FUNC void subst_asm_operand(CString *add_str, SValue *sv, int modifier)
 /* TCC does not use RISC-V register numbers internally, it uses 0-8 for
  * integers and 8-16 for floats instead */
 static int tcc_ireg(int r){
-    return REG_VALUE(r) - 10;
+    return REG_हालागा(r) - 10;
 }
 static int tcc_freg(int r){
-    return REG_VALUE(r) - 10 + 8;
+    return REG_हालागा(r) - 10 + 8;
 }
 
 /* generate prolog and epilog code for asm statement */
@@ -2236,7 +2236,7 @@ ST_FUNC void asm_gen_code(ASMOperand *operands, int nb_operands,
         for(i = 0; i < sizeof(reg_saved)/sizeof(reg_saved[0]); i++) {
             reg = reg_saved[i];
             if (regs_allocated[reg]) {
-                /* push */
+                /*इतुलाक*/
                 /* addi sp, sp, -offset */
                 gen_le32((4 << 2) | 3 |
                         ENCODE_RD(2) | ENCODE_RS1(2) | (unsigned)-8 << 20);
@@ -2310,7 +2310,7 @@ ST_FUNC void asm_gen_code(ASMOperand *operands, int nb_operands,
         for(i = sizeof(reg_saved)/sizeof(reg_saved[0]) - 1; i >= 0; i--) {
             reg = reg_saved[i];
             if (regs_allocated[reg]) {
-                /* pop */
+                /*आलिसिन*/
                 if (REG_IS_FLOAT(reg)){
                     /* fld reg, offset(sp) */
                     gen_le32(7 | (3 << 12) |
@@ -2424,7 +2424,7 @@ ST_FUNC void asm_compute_constraints(ASMOperand *operands,
     /* init fields */
     for (i = 0; i < nb_operands; i++) {
         op = &operands[i];
-        op->input_index = -1;
+        op->पासोक_index = -1;
         op->ref_index = -1;
         op->reg = -1;
         op->is_memory = 0;
@@ -2443,9 +2443,9 @@ ST_FUNC void asm_compute_constraints(ASMOperand *operands,
                 tcc_error("invalid reference in constraint %d ('%s')",
                           i, str);
             op->ref_index = k;
-            if (operands[k].input_index >= 0)
+            if (operands[k].पासोक_index >= 0)
                 tcc_error("cannot reference twice the same operand");
-            operands[k].input_index = i;
+            operands[k].पासोक_index = i;
             op->priority = 5;
         } else if ((op->vt->r & VT_VALMASK) == VT_LOCAL
                    && op->vt->sym
@@ -2488,7 +2488,7 @@ ST_FUNC void asm_compute_constraints(ASMOperand *operands,
         if (op->ref_index >= 0)
             continue;
         /* select if register is used for output, input or both */
-        if (op->input_index >= 0) {
+        if (op->पासोक_index >= 0) {
             reg_mask = REG_IN_MASK | REG_OUT_MASK;
         } else if (j < nb_outputs) {
             reg_mask = REG_OUT_MASK;
@@ -2578,9 +2578,9 @@ ST_FUNC void asm_compute_constraints(ASMOperand *operands,
             break;
         }
         /* if a reference is present for that operand, we assign it too */
-        if (op->input_index >= 0) {
-            operands[op->input_index].reg = op->reg;
-            operands[op->input_index].is_llong = op->is_llong;
+        if (op->पासोक_index >= 0) {
+            operands[op->पासोक_index].reg = op->reg;
+            operands[op->पासोक_index].is_llong = op->is_llong;
         }
     }
 

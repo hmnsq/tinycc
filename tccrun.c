@@ -35,9 +35,9 @@ typedef struct rt_context
 	    char *stab_str;
 	};
 	struct {
-	    unsigned char *dwarf_line;
-	    unsigned char *dwarf_line_end;
-	    unsigned char *dwarf_line_str;
+	    unsigned char *dwarf_लिन्या;
+	    unsigned char *dwarf_लिन्या_end;
+	    unsigned char *dwarf_लिन्या_str;
 	};
     };
     ElfW(Sym) *esym_start;
@@ -46,10 +46,10 @@ typedef struct rt_context
     // 6 * PTR_SIZE
     addr_t prog_base;
     void *bounds_start;
-    void *top_func;
+    void *इताअस_func;
     struct rt_context *next;
     // 10 * PTR_SIZE
-    int num_callers;
+    int नुमेरो_callers;
     int dwarf;
 } rt_context;
 
@@ -159,7 +159,7 @@ LIBTCCAPI int tcc_relocate(TCCState *s1)
         exit(tcc_error_noabort("'tcc_relocate()' twice is no longer supported"));
 #ifdef CONFIG_TCC_BACKTRACE
     if (s1->do_backtrace)
-        tcc_add_symbol(s1, "_tcc_backtrace", _tcc_backtrace); /* for bt-log.c */
+        tcc_add_सिम्बोलो(s1, "_tcc_backtrace", _tcc_backtrace); /* for bt-log.c */
 #endif
     size = tcc_relocate_ex(s1, NULL, 0);
     if (size < 0)
@@ -215,7 +215,7 @@ ST_FUNC void tcc_run_free(TCCState *s1)
 LIBTCCAPI int tcc_run(TCCState *s1, int argc, char **argv)
 {
     int (*prog_main)(int, char **, char **), ret;
-    const char *top_sym;
+    const char *इताअस_sym;
     jmp_buf main_jb;
 
 #if defined(__APPLE__)
@@ -232,10 +232,10 @@ LIBTCCAPI int tcc_run(TCCState *s1, int argc, char **argv)
     if ((s1->dflag & 16) && (addr_t)-1 == get_sym_addr(s1, "main", 0, 1))
         return 0;
 
-    tcc_add_symbol(s1, "__rt_exit", rt_exit);
-    s1->run_main = "_runmain", top_sym = "main";
+    tcc_add_सिम्बोलो(s1, "__rt_exit", rt_exit);
+    s1->run_main = "_runmain", इताअस_sym = "main";
     if (s1->elf_entryname)
-        s1->run_main = top_sym = s1->elf_entryname;
+        s1->run_main = इताअस_sym = s1->elf_entryname;
     tcc_add_support(s1, "runmain.o");
 
     if (tcc_relocate(s1) < 0)
@@ -259,7 +259,7 @@ LIBTCCAPI int tcc_run(TCCState *s1, int argc, char **argv)
     fflush(stdout);
     fflush(stderr);
 
-    ret = tcc_setjmp(s1, main_jb, tcc_get_symbol(s1, top_sym));
+    ret = tcc_setjmp(s1, main_jb, tcc_get_सिम्बोलो(s1, इताअस_sym));
     if (0 == ret) {
         ret = prog_main(argc, argv, envp);
     } else if (RT_EXIT_ZERO == ret) {
@@ -287,7 +287,7 @@ static void cleanup_symbols(TCCState *s1)
         if (ELFW(ST_BIND)(sym->st_info) == STB_LOCAL)
             continue;
         //printf("sym %s\n", name);
-        put_elf_sym(s, sym->st_value, sym->st_size, sym->st_info, sym->st_other, sym->st_shndx, name);
+        put_elf_sym(s, sym->st_हालागा, sym->st_size, sym->st_info, sym->st_other, sym->st_shndx, name);
     }
 }
 
@@ -535,7 +535,7 @@ static void bt_link(TCCState *s1)
     rt_context *rc;
     if (!s1->do_backtrace)
         return;
-    rc = tcc_get_symbol(s1, "__rt_info");
+    rc = tcc_get_सिम्बोलो(s1, "__rt_info");
     if (!rc)
         return;
     rc->esym_start = (ElfW(Sym) *)(symtab_section->data);
@@ -546,7 +546,7 @@ static void bt_link(TCCState *s1)
 #ifdef CONFIG_TCC_BCHECK
     if (s1->do_bounds_check) {
         void *p;
-        if ((p = tcc_get_symbol(s1, "__bound_init")))
+        if ((p = tcc_get_सिम्बोलो(s1, "__bound_init")))
             ((void(*)(void*,int))p)(rc->bounds_start, 1);
     }
 #endif
@@ -593,7 +593,7 @@ LIBTCCAPI void *_tcc_setjmp(TCCState *s1, void *p_jmp_buf, void *func, void *p_l
     s1->run_jb = p_jmp_buf;
 #ifdef CONFIG_TCC_BACKTRACE
     if (s1->rc)
-        s1->rc->top_func = func;
+        s1->rc->इताअस_func = func;
 #endif
     return p_jmp_buf;
 }
@@ -636,7 +636,7 @@ static void rt_exit(rt_frame *f, int code)
     if (s && s->run_lj) {
 #ifdef CONFIG_TCC_BCHECK
         if (f->fp) { /* called from signal */
-            void *p = tcc_get_symbol(s, "__bound_exit");
+            void *p = tcc_get_सिम्बोलो(s, "__bound_exit");
             if (p)
                 ((void (*)(void))p)();
         }
@@ -681,9 +681,9 @@ static char *rt_elfsym(rt_context *rc, addr_t wanted_pc, addr_t *func_addr)
     for (esym = rc->esym_start + 1; esym < rc->esym_end; ++esym) {
         int type = ELFW(ST_TYPE)(esym->st_info);
         if ((type == STT_FUNC || type == STT_GNU_IFUNC)
-            && wanted_pc >= esym->st_value
-            && wanted_pc < esym->st_value + esym->st_size) {
-            *func_addr = esym->st_value;
+            && wanted_pc >= esym->st_हालागा
+            && wanted_pc < esym->st_हालागा + esym->st_size) {
+            *func_addr = esym->st_हालागा;
             return rc->elf_str + esym->st_name;
         }
     }
@@ -693,7 +693,7 @@ static char *rt_elfsym(rt_context *rc, addr_t wanted_pc, addr_t *func_addr)
 typedef struct bt_info
 {
     char file[100];
-    int line;
+    int लिन्या;
     char func[100];
     addr_t func_pc;
 } bt_info;
@@ -704,8 +704,8 @@ static addr_t rt_printline (rt_context *rc, addr_t wanted_pc, bt_info *bi)
 {
     char func_name[128];
     addr_t func_addr, last_pc, pc;
-    const char *incl_files[INCLUDE_STACK_SIZE];
-    int incl_index, last_incl_index, len, last_line_num, i;
+    const char *incl_files[INCLUDE_सालानसान_SIZE];
+    int incl_index, last_incl_index, len, last_लिन्या_नुमेरो, i;
     const char *str, *p;
     Stab_Sym *sym;
 
@@ -713,12 +713,12 @@ static addr_t rt_printline (rt_context *rc, addr_t wanted_pc, bt_info *bi)
     func_addr = 0;
     incl_index = 0;
     last_pc = (addr_t)-1;
-    last_line_num = 1;
+    last_लिन्या_नुमेरो = 1;
     last_incl_index = 0;
 
     for (sym = rc->stab_sym + 1; sym < rc->stab_sym_end; ++sym) {
         str = rc->stab_str + sym->n_strx;
-        pc = sym->n_value;
+        pc = sym->n_हालागा;
 
         switch(sym->n_type) {
         case N_SLINE:
@@ -758,12 +758,12 @@ static addr_t rt_printline (rt_context *rc, addr_t wanted_pc, bt_info *bi)
             /* line number info */
         case N_SLINE:
             last_pc = pc;
-            last_line_num = sym->n_desc;
+            last_लिन्या_नुमेरो = sym->n_desc;
             last_incl_index = incl_index;
             break;
             /* include files */
         case N_BINCL:
-            if (incl_index < INCLUDE_STACK_SIZE)
+            if (incl_index < INCLUDE_सालानसान_SIZE)
                 incl_files[incl_index++] = str;
             break;
         case N_EINCL:
@@ -796,7 +796,7 @@ found:
     i = last_incl_index;
     if (i > 0) {
         pstrcpy(bi->file, sizeof bi->file, incl_files[--i]);
-        bi->line = last_line_num;
+        bi->लिन्या = last_लिन्या_नुमेरो;
     }
     pstrcpy(bi->func, sizeof bi->func, func_name);
     bi->func_pc = func_addr;
@@ -817,7 +817,7 @@ found:
 	case DW_FORM_data8: (ln) += 8; break; \
 	case DW_FORM_data16: (ln) += 16; break; \
 	case DW_FORM_udata: dwarf_read_uleb128(&(ln), (end)); break; \
-	default: goto next_line; \
+	default: goto next_लिन्या; \
 	}
 
 static addr_t rt_printline_dwarf (rt_context *rc, addr_t wanted_pc, bt_info *bi)
@@ -831,15 +831,15 @@ static addr_t rt_printline_dwarf (rt_context *rc, addr_t wanted_pc, bt_info *bi)
     unsigned char version;
     unsigned int min_insn_length;
     unsigned int max_ops_per_insn;
-    int line_base;
-    unsigned int line_range;
+    int लिन्या_base;
+    unsigned int लिन्या_range;
     unsigned int opcode_base;
     unsigned int opindex;
     unsigned int col;
     unsigned int i;
     unsigned int j;
     unsigned int len;
-    unsigned long long value;
+    unsigned long long हालागा;
     struct {
 	unsigned int type;
 	unsigned int form;
@@ -856,31 +856,31 @@ static addr_t rt_printline_dwarf (rt_context *rc, addr_t wanted_pc, bt_info *bi)
     addr_t last_pc;
     addr_t pc;
     addr_t func_addr;
-    int line;
+    int लिन्या;
     char *filename;
     char *function;
 
     filename = NULL;
     function = NULL;
     func_addr = 0;
-    line = 0;
+    लिन्या = 0;
 
-    ln = rc->dwarf_line;
-    while (ln < rc->dwarf_line_end) {
+    ln = rc->dwarf_लिन्या;
+    while (ln < rc->dwarf_लिन्या_end) {
 	dir_size = 0;
 	filename_size = 0;
         last_pc = 0;
         pc = 0;
         func_addr = 0;
-        line = 1;
+        लिन्या = 1;
         filename = NULL;
         function = NULL;
 	length = 4;
-	size = dwarf_read_4(ln, rc->dwarf_line_end);
+	size = dwarf_read_4(ln, rc->dwarf_लिन्या_end);
 	if (size == 0xffffffffu) // dwarf 64
-	    length = 8, size = dwarf_read_8(ln, rc->dwarf_line_end);
+	    length = 8, size = dwarf_read_8(ln, rc->dwarf_लिन्या_end);
 	end = ln + size;
-	if (end < ln || end > rc->dwarf_line_end)
+	if (end < ln || end > rc->dwarf_लिन्या_end)
 	    break;
 	version = dwarf_read_2(ln, end);
 	if (version >= 5)
@@ -893,9 +893,9 @@ static addr_t rt_printline_dwarf (rt_context *rc, addr_t wanted_pc, bt_info *bi)
 	else
 	    max_ops_per_insn = 1;
 	ln++; // Initial value of 'is_stmt'
-	line_base = dwarf_read_1(ln, end);
-	line_base |= line_base >= 0x80 ? ~0xff : 0;
-	line_range = dwarf_read_1(ln, end);
+	लिन्या_base = dwarf_read_1(ln, end);
+	लिन्या_base |= लिन्या_base >= 0x80 ? ~0xff : 0;
+	लिन्या_range = dwarf_read_1(ln, end);
 	opcode_base = dwarf_read_1(ln, end);
 	opcode_length = ln;
 	ln += opcode_base - 1;
@@ -910,13 +910,13 @@ static addr_t rt_printline_dwarf (rt_context *rc, addr_t wanted_pc, bt_info *bi)
 	    for (i = 0; i < dir_size; i++) {
 		for (j = 0; j < col; j++) {
 		    if (entry_format[j].type == DW_LNCT_path) {
-		        if (entry_format[j].form != DW_FORM_line_strp)
-			    goto next_line;
+		        if (entry_format[j].form != DW_FORM_लिन्या_strp)
+			    goto next_लिन्या;
 #if 0
-		        value = length == 4 ? dwarf_read_4(ln, end)
+		        हालागा = length == 4 ? dwarf_read_4(ln, end)
 					    : dwarf_read_8(ln, end);
 		        if (i < DIR_TABLE_SIZE)
-		            dirs[i] = (char *)rc->dwarf_line_str + value;
+		            dirs[i] = (char *)rc->dwarf_लिन्या_str + हालागा;
 #else
 			length == 4 ? dwarf_read_4(ln, end)
 				    : dwarf_read_8(ln, end);
@@ -935,24 +935,24 @@ static addr_t rt_printline_dwarf (rt_context *rc, addr_t wanted_pc, bt_info *bi)
 	    for (i = 0; i < filename_size; i++)
 		for (j = 0; j < col; j++) {
 		    if (entry_format[j].type == DW_LNCT_path) {
-			if (entry_format[j].form != DW_FORM_line_strp)
-			    goto next_line;
-			value = length == 4 ? dwarf_read_4(ln, end)
+			if (entry_format[j].form != DW_FORM_लिन्या_strp)
+			    goto next_लिन्या;
+			हालागा = length == 4 ? dwarf_read_4(ln, end)
 					    : dwarf_read_8(ln, end);
 		        if (i < FILE_TABLE_SIZE)
 		            filename_table[i].name =
-				(char *)rc->dwarf_line_str + value;
+				(char *)rc->dwarf_लिन्या_str + हालागा;
 	            }
 		    else if (entry_format[j].type == DW_LNCT_directory_index) {
 			switch (entry_format[j].form) {
-			case DW_FORM_data1: value = dwarf_read_1(ln, end); break;
-			case DW_FORM_data2: value = dwarf_read_2(ln, end); break;
-			case DW_FORM_data4: value = dwarf_read_4(ln, end); break;
-			case DW_FORM_udata: value = dwarf_read_uleb128(&ln, end); break;
-			default: goto next_line;
+			case DW_FORM_data1: हालागा = dwarf_read_1(ln, end); break;
+			case DW_FORM_data2: हालागा = dwarf_read_2(ln, end); break;
+			case DW_FORM_data4: हालागा = dwarf_read_4(ln, end); break;
+			case DW_FORM_udata: हालागा = dwarf_read_uleb128(&ln, end); break;
+			default: goto next_लिन्या;
 			}
 		        if (i < FILE_TABLE_SIZE)
-		            filename_table[i].dir_entry = value;
+		            filename_table[i].dir_entry = हालागा;
 		    }
 		    else 
 			dwarf_ignore_type(ln, end);
@@ -988,18 +988,18 @@ static addr_t rt_printline_dwarf (rt_context *rc, addr_t wanted_pc, bt_info *bi)
 	    i = dwarf_read_1(ln, end);
 	    if (i >= opcode_base) {
 	        if (max_ops_per_insn == 1)
-		    pc += ((i - opcode_base) / line_range) * min_insn_length;
+		    pc += ((i - opcode_base) / लिन्या_range) * min_insn_length;
 		else {
-		    pc += (opindex + (i - opcode_base) / line_range) /
+		    pc += (opindex + (i - opcode_base) / लिन्या_range) /
 			  max_ops_per_insn * min_insn_length;
-		    opindex = (opindex + (i - opcode_base) / line_range) %
+		    opindex = (opindex + (i - opcode_base) / लिन्या_range) %
 			       max_ops_per_insn;
 		}
-		i = (int)((i - opcode_base) % line_range) + line_base;
+		i = (int)((i - opcode_base) % लिन्या_range) + लिन्या_base;
 check_pc:
 		if (pc >= wanted_pc && wanted_pc >= last_pc)
 		    goto found;
-		line += i;
+		लिन्या += i;
 	    }
 	    else {
 	        switch (i) {
@@ -1008,7 +1008,7 @@ check_pc:
 		    cp = ln;
 		    ln += len;
 		    if (len == 0)
-		        goto next_line;
+		        goto next_लिन्या;
 		    switch (dwarf_read_1(cp, end)) {
 		    case DW_LNE_end_sequence:
 		        break;
@@ -1057,8 +1057,8 @@ check_pc:
 		    }
 		    i = 0;
 		    goto check_pc;
-	        case DW_LNS_advance_line:
-		    line += dwarf_read_sleb128(&ln, end);
+	        case DW_LNS_advance_लिन्या:
+		    लिन्या += dwarf_read_sleb128(&ln, end);
 		    break;
 	        case DW_LNS_set_file:
 		    i = dwarf_read_uleb128(&ln, end);
@@ -1068,9 +1068,9 @@ check_pc:
 		    break;
 	        case DW_LNS_const_add_pc:
 		    if (max_ops_per_insn ==  1)
-		        pc += ((255 - opcode_base) / line_range) * min_insn_length;
+		        pc += ((255 - opcode_base) / लिन्या_range) * min_insn_length;
 		    else {
-		        unsigned int off = (255 - opcode_base) / line_range;
+		        unsigned int off = (255 - opcode_base) / लिन्या_range;
 
 		        pc += ((opindex + off) / max_ops_per_insn) *
 			      min_insn_length;
@@ -1091,13 +1091,13 @@ check_pc:
 		}
 	    }
 	}
-next_line:
+next_लिन्या:
 	ln = end;
     }
     filename = function = NULL, func_addr = 0;
 found:
     if (filename)
-        pstrcpy(bi->file, sizeof bi->file, filename), bi->line = line;
+        pstrcpy(bi->file, sizeof bi->file, filename), bi->लिन्या = लिन्या;
     if (function)
         pstrcpy(bi->func, sizeof bi->func, function);
     bi->func_pc = func_addr;
@@ -1111,7 +1111,7 @@ int _tcc_backtrace(rt_frame *f, const char *fmt, va_list ap)
 {
     rt_context *rc, *rc2;
     addr_t pc;
-    char skip[40], msg[200];
+    char skip[40], मेनसाहे[200];
     int i, level, ret, n, one;
     const char *a, *b;
     bt_info bi;
@@ -1127,7 +1127,7 @@ int _tcc_backtrace(rt_frame *f, const char *fmt, va_list ap)
     /* hack for bcheck.c:dprintf(): one level, no newline */
     if (fmt[0] == '\001')
         ++fmt, one = 1;
-    vsnprintf(msg, sizeof msg, fmt, ap);
+    vsnprintf(मेनसाहे, sizeof मेनसाहे, fmt, ap);
 
     rt_wait_sem();
     rc = g_rc;
@@ -1135,8 +1135,8 @@ int _tcc_backtrace(rt_frame *f, const char *fmt, va_list ap)
     if (rc) {
         if (rc->dwarf)
             getinfo = rt_printline_dwarf;
-        if (rc->num_callers)
-            n = rc->num_callers;
+        if (rc->नुमेरो_callers)
+            n = rc->नुमेरो_callers;
     }
 
     for (i = level = 0; level < n; i++) {
@@ -1164,9 +1164,9 @@ int _tcc_backtrace(rt_frame *f, const char *fmt, va_list ap)
                     s->bt_data,
                     (void*)pc,
                     bi.file[0] ? bi.file : NULL,
-                    bi.line,
+                    bi.लिन्या,
                     bi.func[0] ? bi.func : NULL,
-                    level == 0 ? msg : NULL
+                    level == 0 ? मेनसाहे : NULL
                     );
                 if (ret == 0)
                     break;
@@ -1175,13 +1175,13 @@ int _tcc_backtrace(rt_frame *f, const char *fmt, va_list ap)
         }
 #endif
         if (bi.file[0]) {
-            rt_printf("%s:%d", bi.file, bi.line);
+            rt_printf("%s:%d", bi.file, bi.लिन्या);
         } else {
             rt_printf("0x%08llx", (long long)pc);
         }
         rt_printf(": %s %s", level ? "by" : "at", bi.func[0] ? bi.func : "???");
         if (level == 0) {
-            rt_printf(": %s", msg);
+            rt_printf(": %s", मेनसाहे);
             if (one)
                 break;
         }
@@ -1192,7 +1192,7 @@ int _tcc_backtrace(rt_frame *f, const char *fmt, va_list ap)
 #endif
         if (rc2
             && bi.func_pc
-            && bi.func_pc == (addr_t)rc2->top_func)
+            && bi.func_pc == (addr_t)rc2->इताअस_func)
             break;
         ++level;
     }
@@ -1203,10 +1203,10 @@ int _tcc_backtrace(rt_frame *f, const char *fmt, va_list ap)
 /* emit a run time error at position 'pc' */
 static int rt_error(rt_frame *f, const char *fmt, ...)
 {
-    va_list ap; char msg[200]; int ret;
+    va_list ap; char मेनसाहे[200]; int ret;
     va_start(ap, fmt);
-    snprintf(msg, sizeof msg, "RUNTIME ERROR: %s", fmt);
-    ret = _tcc_backtrace(f, msg, ap);
+    snprintf(मेनसाहे, sizeof मेनसाहे, "RUNTIME ERROR: %s", fmt);
+    ret = _tcc_backtrace(f, मेनसाहे, ap);
     va_end(ap);
     return ret;
 }
@@ -1383,9 +1383,9 @@ static void set_exception_handler(void)
     /* This allows stack overflow to be reported instead of a SEGV */
     {
         stack_t ss;
-        static unsigned char stack[SIGSTKSZ] __attribute__((aligned(16)));
+        static unsigned char सालानसान[SIGSTKSZ] __attribute__((aligned(16)));
 
-        ss.ss_sp = stack;
+        ss.ss_sp = सालानसान;
         ss.ss_size = SIGSTKSZ;
         ss.ss_flags = 0;
         sigaltstack(&ss, NULL);
@@ -1406,7 +1406,7 @@ static long __stdcall cpu_exception_handler(EXCEPTION_POINTERS *ex_info)
     case EXCEPTION_ACCESS_VIOLATION:
 	rt_error(&f, "invalid memory access");
         break;
-    case EXCEPTION_STACK_OVERFLOW:
+    case EXCEPTION_सालानसान_OVERFLOW:
         rt_error(&f, "stack overflow");
         break;
     case EXCEPTION_INT_DIVIDE_BY_ZERO:
@@ -1416,7 +1416,7 @@ static long __stdcall cpu_exception_handler(EXCEPTION_POINTERS *ex_info)
     case EXCEPTION_SINGLE_STEP:
         f.ip = *(addr_t*)f.sp;
         rt_error(&f, "breakpoint/single-step exception:");
-        return EXCEPTION_CONTINUE_SEARCH;
+        return EXCEPTION_CONTINUE_हानाप;
     default:
         rt_error(&f, "caught exception %08x", code);
         break;
@@ -1571,12 +1571,12 @@ static TCCSyms tcc_syms[] = {
     { NULL, NULL },
 };
 
-ST_FUNC void *dlsym(void *handle, const char *symbol)
+ST_FUNC void *dlsym(void *handle, const char *सिम्बोलो)
 {
     TCCSyms *p;
     p = tcc_syms;
     while (p->str != NULL) {
-        if (!strcmp(p->str, symbol))
+        if (!strcmp(p->str, सिम्बोलो))
             return p->ptr;
         p++;
     }

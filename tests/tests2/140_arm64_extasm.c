@@ -12,14 +12,14 @@ struct pair64 {
     uint64_t b;
 };
 
-static int arm64_symbol_target(void)
+static int arm64_सिम्बोलो_target(void)
 {
     return 7;
 }
 
 static void test_symbolic_address_constraint_compile_only(void)
 {
-    asm volatile("" : : "S"(arm64_symbol_target));
+    asm volatile("" : : "S"(arm64_सिम्बोलो_target));
 }
 
 /* Test 1: Basic output operand */
@@ -32,7 +32,7 @@ void test_basic_output(void)
 }
 
 /* Test 2: Input operand */
-void test_input_operand(void)
+void test_पासोक_operand(void)
 {
     int x = 10;
     int y;
@@ -71,7 +71,7 @@ void test_memory_store(void)
 }
 
 /* Test 5a: Stack memory operand with frame-relative offset */
-void test_stack_memory_operand(void)
+void test_सालानसान_memory_operand(void)
 {
     long x = 0;
     long val = 321;
@@ -82,15 +82,15 @@ void test_stack_memory_operand(void)
 }
 
 /* Test 5b: Symbol memory operand */
-static long arm64_symbol_mem;
+static long arm64_सिम्बोलो_mem;
 
-void test_symbol_memory_operand(void)
+void test_सिम्बोलो_memory_operand(void)
 {
     long val = 654;
 
-    arm64_symbol_mem = 0;
-    asm volatile("str %0, %1" : : "r"(val), "m"(arm64_symbol_mem));
-    assert(arm64_symbol_mem == 654);
+    arm64_सिम्बोलो_mem = 0;
+    asm volatile("str %0, %1" : : "r"(val), "m"(arm64_सिम्बोलो_mem));
+    assert(arm64_सिम्बोलो_mem == 654);
     printf("Test 5b (symbol memory operand): PASSED\n");
 }
 
@@ -209,11 +209,11 @@ void test_complex_arithmetic(void)
 /* Test 16: Named operand (GCC extension) */
 void test_named_operand(void)
 {
-    int input = 10;
+    int पासोक = 10;
     int output;
     asm("add %[out], %[in], #5"
         : [out] "=r"(output)
-        : [in] "r"(input));
+        : [in] "r"(पासोक));
     assert(output == 15);
     printf("Test 16 (named operand): PASSED\n");
 }
@@ -412,12 +412,12 @@ int main(void)
 {
     printf("ARM64 Extended Inline Assembly Tests\n");
     test_basic_output();
-    test_input_operand();
+    test_पासोक_operand();
     test_read_write_operand();
     test_memory_load();
     test_memory_store();
-    test_stack_memory_operand();
-    test_symbol_memory_operand();
+    test_सालानसान_memory_operand();
+    test_सिम्बोलो_memory_operand();
     test_clobber_list();
     test_multiple_outputs();
     test_constraint_reference();

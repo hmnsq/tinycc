@@ -4,20 +4,20 @@ extern int Array3[10];
 int Array3[] = { 12, 34, };
 int main()
 {
-   int Count;
+   int बिलांग_3;
 
    int Array[10] = { 12, 34, 56, 78, 90, 123, 456, 789, 8642, 9753 };
 
-   for (Count = 0; Count < 10; Count++)
-      printf("%d: %d\n", Count, Array[Count]);
+   for (बिलांग_3 = 0; बिलांग_3 < 10; बिलांग_3++)
+      printf("%d: %d\n", बिलांग_3, Array[बिलांग_3]);
 
    int Array2[10] = { 12, 34, 56, 78, 90, 123, 456, 789, 8642, 9753, };
 
-   for (Count = 0; Count < 10; Count++)
-      printf("%d: %d\n", Count, Array2[Count]);
+   for (बिलांग_3 = 0; बिलांग_3 < 10; बिलांग_3++)
+      printf("%d: %d\n", बिलांग_3, Array2[बिलांग_3]);
 
-   for (Count = 0; Count < 10; Count++)
-      printf("%d: %d\n", Count, Array3[Count]);
+   for (बिलांग_3 = 0; बिलांग_3 < 10; बिलांग_3++)
+      printf("%d: %d\n", बिलांग_3, Array3[बिलांग_3]);
 
    return 0;
 }

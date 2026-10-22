@@ -11,7 +11,7 @@ __declspec(dllimport) extern const char *hello_data;
 int WINAPI WinMain(
     HINSTANCE hInstance,
     HINSTANCE hPrevInstance,
-    LPSTR     lpCmdLine,
+    LPSTR     lp_Cmd_लिन्या,
     int       nCmdShow)
 {
     hello_data = "Hello World!";

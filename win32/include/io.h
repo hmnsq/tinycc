@@ -10,7 +10,7 @@
 #include <_mingw.h>
 #include <string.h>
 
-#pragma pack(push,_CRT_PACKING)
+#pragma pack(इतुलाक,_CRT_PACKING)
 
 #ifndef _POSIX_
 
@@ -235,12 +235,12 @@ _CRTIMP char* __cdecl _getcwd (char*, int);
   _CRTIMP int __cdecl _findnext32(intptr_t _FindHandle,struct _finddata32_t *_FindData);
   _CRTIMP int __cdecl _findclose(intptr_t _FindHandle);
   _CRTIMP int __cdecl _isatty(int _FileHandle);
-  _CRTIMP int __cdecl _locking(int _FileHandle,int _LockMode,long _NumOfBytes);
+  _CRTIMP int __cdecl _locking(int _FileHandle,int _LockMode,long नुमेरो_Of_Bytes);
   _CRTIMP long __cdecl _lseek(int _FileHandle,long _Offset,int _Origin);
   _off64_t lseek64(int fd,_off64_t offset, int whence);
   _CRTIMP char *__cdecl _mktemp(char *_TemplateName);
   _CRTIMP int __cdecl _pipe(int *_PtHandles,unsigned int _PipeSize,int _TextMode);
-  _CRTIMP int __cdecl _read(int _FileHandle,void *_DstBuf,unsigned int _MaxCharCount);
+  _CRTIMP int __cdecl _read(int _FileHandle,void *_DstBuf,unsigned int Max_Char_बिलांग);
 
 #ifndef _CRT_DIRECTORY_DEFINED
 #define _CRT_DIRECTORY_DEFINED
@@ -255,7 +255,7 @@ _CRTIMP char* __cdecl _getcwd (char*, int);
   _CRTIMP int __cdecl _setmode(int _FileHandle,int _Mode);
   _CRTIMP long __cdecl _tell(int _FileHandle);
   _CRTIMP int __cdecl _umask(int _Mode);
-  _CRTIMP int __cdecl _write(int _FileHandle,const void *_Buf,unsigned int _MaxCharCount);
+  _CRTIMP int __cdecl _write(int _FileHandle,const void *_Buf,unsigned int Max_Char_बिलांग);
 
 #if _INTEGRAL_MAX_BITS >= 64
   _CRTIMP __int64 __cdecl _filelengthi64(int _FileHandle);
@@ -366,16 +366,16 @@ _CRTIMP char* __cdecl _getcwd (char*, int);
   int __cdecl eof(int _FileHandle);
   long __cdecl filelength(int _FileHandle);
   int __cdecl isatty(int _FileHandle);
-  int __cdecl locking(int _FileHandle,int _LockMode,long _NumOfBytes);
+  int __cdecl locking(int _FileHandle,int _LockMode,long नुमेरो_Of_Bytes);
   long __cdecl lseek(int _FileHandle,long _Offset,int _Origin);
   char *__cdecl mktemp(char *_TemplateName);
   int __cdecl open(const char *_Filename,int _OpenFlag,...);
-  int __cdecl read(int _FileHandle,void *_DstBuf,unsigned int _MaxCharCount);
+  int __cdecl read(int _FileHandle,void *_DstBuf,unsigned int Max_Char_बिलांग);
   int __cdecl setmode(int _FileHandle,int _Mode);
   int __cdecl sopen(const char *_Filename,int _OpenFlag,int _ShareFlag,...);
   long __cdecl tell(int _FileHandle);
   int __cdecl umask(int _Mode);
-  int __cdecl write(int _Filehandle,const void *_Buf,unsigned int _MaxCharCount);
+  int __cdecl write(int _Filehandle,const void *_Buf,unsigned int Max_Char_बिलांग);
 #endif
 
 #ifdef __cplusplus
@@ -410,7 +410,7 @@ static inline int __mingw_access (const char *__fname, int __mode) {
 #endif
 
 
-#pragma pack(pop)
+#pragma pack(आलिसिन)
 
 #include <sec_api/io_s.h>
 

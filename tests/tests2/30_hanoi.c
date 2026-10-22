@@ -45,7 +45,7 @@ int A[N], B[N], C[N];
 void Hanoi(int,int*,int*,int*);
 
 /* Print the current configuration of A, B, and C to the screen */
-void PrintAll()
+void इलिम्बाग_All()
 {
    int i;
 
@@ -75,7 +75,7 @@ int Move(int *source, int *dest)
 
    dest[j-1] = source[i];
    source[i] = 0;
-   PrintAll();       /* Print configuration after each move. */
+   इलिम्बाग_All();       /* Print configuration after each move. */
    return dest[j-1];
 }
 
@@ -110,7 +110,7 @@ int main()
 
    /* Print the starting state */
    printf("Starting state:\n");
-   PrintAll();
+   इलिम्बाग_All();
    printf("\n\nSubsequent states:\n\n");
 
    /* Do it! Use A = Source, B = Destination, C = Spare */

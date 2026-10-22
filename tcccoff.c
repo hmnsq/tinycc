@@ -36,19 +36,19 @@ SCNHDR section_header[MAXNSCNS];
 int nFuncs;
 char Func[MAX_FUNCS][MAX_FUNC_NAME_LENGTH];
 char AssociatedFile[MAX_FUNCS][MAX_FUNC_NAME_LENGTH];
-int LineNoFilePtr[MAX_FUNCS];
+int लिन्या_No_File_Ptr[MAX_FUNCS];
 int EndAddress[MAX_FUNCS];
-int LastLineNo[MAX_FUNCS];
+int Last_लिन्या_No[MAX_FUNCS];
 int FuncEntries[MAX_FUNCS];
 
 int OutputTheSection(Section * sect);
 short int GetCoffFlags(const char *s);
-void SortSymbolTable(TCCState *s1);
+void Sort_सिम्बोलो_Table(TCCState *s1);
 Section *FindSection(TCCState * s1, const char *sname);
 
 int C67_main_entry_point;
 
-int FindCoffSymbolIndex(TCCState * s1, const char *func_name);
+int Find_Coff_सिम्बोलो_Index(TCCState * s1, const char *func_name);
 int nb_syms;
 
 typedef struct {
@@ -95,7 +95,7 @@ ST_FUNC int tcc_output_coff(TCCState *s1, FILE *f)
     sbss = FindSection(s1, ".bss");
 
     nb_syms = symtab_section->data_offset / sizeof(Elf32_Sym);
-    coff_nb_syms = FindCoffSymbolIndex(s1, "XXXXXXXXXX1");
+    coff_nb_syms = Find_Coff_सिम्बोलो_Index(s1, "XXXXXXXXXX1");
 
     file_hdr.f_magic = COFF_C67_MAGIC;	/* magic number */
     file_hdr.f_timdat = 0;	/* time & date stamp */
@@ -200,8 +200,8 @@ ST_FUNC int tcc_output_coff(TCCState *s1, FILE *f)
 	    char func_name[MAX_FUNC_NAME_LENGTH],
 		last_func_name[MAX_FUNC_NAME_LENGTH];
 	    unsigned long func_addr, last_pc, pc;
-	    const char *incl_files[INCLUDE_STACK_SIZE];
-	    int incl_index, len, last_line_num;
+	    const char *incl_files[INCLUDE_सालानसान_SIZE];
+	    int incl_index, len, last_लिन्या_नुमेरो;
 	    const char *str, *p;
 
 	    coff_sec->s_lnnoptr = file_pointer;	/* file ptr to linno */
@@ -212,7 +212,7 @@ ST_FUNC int tcc_output_coff(TCCState *s1, FILE *f)
 	    incl_index = 0;
 	    last_func_name[0] = '\0';
 	    last_pc = 0xffffffff;
-	    last_line_num = 1;
+	    last_लिन्या_नुमेरो = 1;
 	    sym = (Stab_Sym *) stab_section->data + 1;
 	    sym_end =
 		(Stab_Sym *) (stab_section->data +
@@ -229,18 +229,18 @@ ST_FUNC int tcc_output_coff(TCCState *s1, FILE *f)
 			coff_sec->s_nlnno++;
 			file_pointer += LINESZ;
 
-			pc = sym->n_value + func_addr;
+			pc = sym->n_हालागा + func_addr;
 			func_name[0] = '\0';
 			func_addr = 0;
 			EndAddress[nFuncs] = pc;
 			FuncEntries[nFuncs] =
 			    (file_pointer -
-			     LineNoFilePtr[nFuncs]) / LINESZ - 1;
-			LastLineNo[nFuncs++] = last_line_num + 1;
+			     लिन्या_No_File_Ptr[nFuncs]) / LINESZ - 1;
+			Last_लिन्या_No[nFuncs++] = last_लिन्या_नुमेरो + 1;
 		    } else {
 			// beginning of function
 
-			LineNoFilePtr[nFuncs] = file_pointer;
+			लिन्या_No_File_Ptr[nFuncs] = file_pointer;
 			coff_sec->s_nlnno++;
 			file_pointer += LINESZ;
 
@@ -265,16 +265,16 @@ ST_FUNC int tcc_output_coff(TCCState *s1, FILE *f)
 			pstrcpy(AssociatedFile[nFuncs], sizeof(func_name),
 				incl_files[incl_index - 1]);
 
-			func_addr = sym->n_value;
+			func_addr = sym->n_हालागा;
 		    }
 		    break;
 
 		    /* line number info */
 		case N_SLINE:
-		    pc = sym->n_value + func_addr;
+		    pc = sym->n_हालागा + func_addr;
 
 		    last_pc = pc;
-		    last_line_num = sym->n_desc;
+		    last_लिन्या_नुमेरो = sym->n_desc;
 
 		    /* XXX: slow! */
 		    strcpy(last_func_name, func_name);
@@ -287,7 +287,7 @@ ST_FUNC int tcc_output_coff(TCCState *s1, FILE *f)
 		    str =
 			(const char *) stabstr_section->data + sym->n_strx;
 		  add_incl:
-		    if (incl_index < INCLUDE_STACK_SIZE) {
+		    if (incl_index < INCLUDE_सालानसान_SIZE) {
 			incl_files[incl_index++] = str;
 		    }
 		    break;
@@ -369,7 +369,7 @@ ST_FUNC int tcc_output_coff(TCCState *s1, FILE *f)
     // finally global symbols
 
     if (s1->do_debug)
-	SortSymbolTable(s1);
+	Sort_सिम्बोलो_Table(s1);
 
     // write line no data
 
@@ -384,18 +384,18 @@ ST_FUNC int tcc_output_coff(TCCState *s1, FILE *f)
 	    Stab_Sym *sym, *sym_end;
 	    char func_name[128], last_func_name[128];
 	    unsigned long func_addr, last_pc, pc;
-	    const char *incl_files[INCLUDE_STACK_SIZE];
-	    int incl_index, len, last_line_num;
+	    const char *incl_files[INCLUDE_सालानसान_SIZE];
+	    int incl_index, len, last_लिन्या_नुमेरो;
 	    const char *str, *p;
 
-	    LINENO CoffLineNo;
+	    LINENO Coff_लिन्या_No;
 
 	    func_name[0] = '\0';
 	    func_addr = 0;
 	    incl_index = 0;
 	    last_func_name[0] = '\0';
 	    last_pc = 0;
-	    last_line_num = 1;
+	    last_लिन्या_नुमेरो = 1;
 	    sym = (Stab_Sym *) stab_section->data + 1;
 	    sym_end =
 		(Stab_Sym *) (stab_section->data +
@@ -408,11 +408,11 @@ ST_FUNC int tcc_output_coff(TCCState *s1, FILE *f)
 		    if (sym->n_strx == 0) {
 			// end of function
 
-			CoffLineNo.l_addr.l_paddr = last_pc;
-			CoffLineNo.l_lnno = last_line_num + 1;
-			fwrite(&CoffLineNo, 6, 1, f);
+			Coff_लिन्या_No.l_addr.l_paddr = last_pc;
+			Coff_लिन्या_No.l_lnno = last_लिन्या_नुमेरो + 1;
+			fwrite(&Coff_लिन्या_No, 6, 1, f);
 
-			pc = sym->n_value + func_addr;
+			pc = sym->n_हालागा + func_addr;
 			func_name[0] = '\0';
 			func_addr = 0;
 		    } else {
@@ -433,23 +433,23 @@ ST_FUNC int tcc_output_coff(TCCState *s1, FILE *f)
 			    memcpy(func_name, str, len);
 			    func_name[len] = '\0';
 			}
-			func_addr = sym->n_value;
+			func_addr = sym->n_हालागा;
 			last_pc = func_addr;
-			last_line_num = -1;
+			last_लिन्या_नुमेरो = -1;
 
 			// output a function begin
 
-			CoffLineNo.l_addr.l_symndx =
-			    FindCoffSymbolIndex(s1, func_name);
-			CoffLineNo.l_lnno = 0;
+			Coff_लिन्या_No.l_addr.l_symndx =
+			    Find_Coff_सिम्बोलो_Index(s1, func_name);
+			Coff_लिन्या_No.l_lnno = 0;
 
-			fwrite(&CoffLineNo, 6, 1, f);
+			fwrite(&Coff_लिन्या_No, 6, 1, f);
 		    }
 		    break;
 
 		    /* line number info */
 		case N_SLINE:
-		    pc = sym->n_value + func_addr;
+		    pc = sym->n_हालागा + func_addr;
 
 
 		    /* XXX: slow! */
@@ -457,18 +457,18 @@ ST_FUNC int tcc_output_coff(TCCState *s1, FILE *f)
 
 		    // output a line reference
 
-		    CoffLineNo.l_addr.l_paddr = last_pc;
+		    Coff_लिन्या_No.l_addr.l_paddr = last_pc;
 
-		    if (last_line_num == -1) {
-			CoffLineNo.l_lnno = sym->n_desc;
+		    if (last_लिन्या_नुमेरो == -1) {
+			Coff_लिन्या_No.l_lnno = sym->n_desc;
 		    } else {
-			CoffLineNo.l_lnno = last_line_num + 1;
+			Coff_लिन्या_No.l_lnno = last_लिन्या_नुमेरो + 1;
 		    }
 
-		    fwrite(&CoffLineNo, 6, 1, f);
+		    fwrite(&Coff_लिन्या_No, 6, 1, f);
 
 		    last_pc = pc;
-		    last_line_num = sym->n_desc;
+		    last_लिन्या_नुमेरो = sym->n_desc;
 
 		    break;
 
@@ -477,7 +477,7 @@ ST_FUNC int tcc_output_coff(TCCState *s1, FILE *f)
 		    str =
 			(const char *) stabstr_section->data + sym->n_strx;
 		  add_incl2:
-		    if (incl_index < INCLUDE_STACK_SIZE) {
+		    if (incl_index < INCLUDE_सालानसान_SIZE) {
 			incl_files[incl_index++] = str;
 		    }
 		    break;
@@ -549,7 +549,7 @@ ST_FUNC int tcc_output_coff(TCCState *s1, FILE *f)
 
 	    if (p->st_info == 4) {
 		// put a filename symbol
-		csym.n_value = 33;	// ?????
+		csym.n_हालागा = 33;	// ?????
 		csym.n_scnum = N_DEBUG;
 		csym.n_type = 0;
 		csym.n_sclass = C_FILE;
@@ -570,7 +570,7 @@ ST_FUNC int tcc_output_coff(TCCState *s1, FILE *f)
 		}
 		// put a Function Name
 
-		csym.n_value = p->st_value;	// physical address
+		csym.n_हालागा = p->st_हालागा;	// physical address
 		csym.n_scnum = CoffTextSectionNo;
 		csym.n_type = MKTYPE(T_INT, DT_FCN, 0, 0, 0, 0, 0);
 		csym.n_sclass = C_EXT;
@@ -580,8 +580,8 @@ ST_FUNC int tcc_output_coff(TCCState *s1, FILE *f)
 		// now put aux info
 
 		auxfunc.tag = 0;
-		auxfunc.size = EndAddress[k] - p->st_value;
-		auxfunc.fileptr = LineNoFilePtr[k];
+		auxfunc.size = EndAddress[k] - p->st_हालागा;
+		auxfunc.fileptr = लिन्या_No_File_Ptr[k];
 		auxfunc.nextsym = n + 6;	// tktk
 		auxfunc.dummy = 0;
 		fwrite(&auxfunc, 18, 1, f);
@@ -589,7 +589,7 @@ ST_FUNC int tcc_output_coff(TCCState *s1, FILE *f)
 		// put a .bf
 
 		strcpy(csym._n._n_name, ".bf");
-		csym.n_value = p->st_value;	// physical address
+		csym.n_हालागा = p->st_हालागा;	// physical address
 		csym.n_scnum = CoffTextSectionNo;
 		csym.n_type = 0;
 		csym.n_sclass = C_FCN;
@@ -609,7 +609,7 @@ ST_FUNC int tcc_output_coff(TCCState *s1, FILE *f)
 		// put a .ef
 
 		strcpy(csym._n._n_name, ".ef");
-		csym.n_value = EndAddress[k];	// physical address  
+		csym.n_हालागा = EndAddress[k];	// physical address  
 		csym.n_scnum = CoffTextSectionNo;
 		csym.n_type = 0;
 		csym.n_sclass = C_FCN;
@@ -619,7 +619,7 @@ ST_FUNC int tcc_output_coff(TCCState *s1, FILE *f)
 		// now put aux info
 
 		auxef.dummy = 0;
-		auxef.lineno = LastLineNo[k];
+		auxef.lineno = Last_लिन्या_No[k];
 		auxef.dummy1 = 0;
 		auxef.dummy2 = 0;
 		auxef.dummy3 = 0;
@@ -652,7 +652,7 @@ ST_FUNC int tcc_output_coff(TCCState *s1, FILE *f)
 		}
 
 
-		csym.n_value = p->st_value;
+		csym.n_हालागा = p->st_हालागा;
 		csym.n_scnum = 2;
 		csym.n_numaux = 1;
 		fwrite(&csym, 18, 1, f);
@@ -693,7 +693,7 @@ ST_FUNC int tcc_output_coff(TCCState *s1, FILE *f)
 // group the symbols in order of filename, func1, func2, etc
 // finally global symbols
 
-void SortSymbolTable(TCCState *s1)
+void Sort_सिम्बोलो_Table(TCCState *s1)
 {
     int i, j, k, n = 0;
     Elf32_Sym *p, *p2, *NewTable;
@@ -773,7 +773,7 @@ void SortSymbolTable(TCCState *s1)
 }
 
 
-int FindCoffSymbolIndex(TCCState *s1, const char *func_name)
+int Find_Coff_सिम्बोलो_Index(TCCState *s1, const char *func_name)
 {
     int i, n = 0;
     Elf32_Sym *p;
@@ -936,7 +936,7 @@ ST_FUNC int tcc_load_coff(TCCState * s1, int fd)
 	    if (name[0] == '_' && strcmp(name, "_main") != 0)
 		name++;
 
-	    tcc_add_symbol(s1, name, (void*)(uintptr_t)csym.n_value);
+	    tcc_add_सिम्बोलो(s1, name, (void*)(uintptr_t)csym.n_हालागा);
 	}
 	// skip any aux records
 

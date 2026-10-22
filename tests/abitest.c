@@ -55,7 +55,7 @@ static int run_callback(const char *src, callback_type callback) {
   if (tcc_relocate(s) == -1)
     return -1;
   
-  ptr = tcc_get_symbol(s, "f");
+  ptr = tcc_get_सिम्बोलो(s, "f");
   if (!ptr)
     return -1;
   result = callback(ptr);

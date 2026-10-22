@@ -28,10 +28,10 @@ __CRT_INLINE __MINGW_ATTRIB_NORETURN void __cdecl _Exit(int status)
 {  _exit(status); }
 #endif
 
-#pragma push_macro("abort")
+#pragma इतुलाक_macro("abort")
 #undef abort
   void __cdecl __declspec(noreturn) abort(void);
-#pragma pop_macro("abort")
+#pragma आलिसिन_macro("abort")
 
 #endif
 
@@ -40,7 +40,7 @@ extern "C" {
 #endif
 
 
-extern void __cdecl _wassert(const wchar_t *_Message,const wchar_t *_File,unsigned _Line);
+extern void __cdecl _wassert(const wchar_t *_Message,const wchar_t *_File,unsigned लिन्या_2);
 extern void __cdecl _assert(const char *, const char *, unsigned);
 
 #ifdef __cplusplus

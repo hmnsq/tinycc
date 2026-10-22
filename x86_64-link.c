@@ -10,7 +10,7 @@
 #define R_COPY      R_X86_64_COPY
 #define R_RELATIVE  R_X86_64_RELATIVE
 
-#define R_NUM       R_X86_64_NUM
+#define R_नुमेरो       R_X86_64_नुमेरो
 
 #define ELF_START_ADDR 0x400000
 #define ELF_PAGE_SIZE  0x1000
@@ -341,7 +341,7 @@ ST_FUNC void relocate(TCCState *s1, ElfW_Rel *rel, int type, unsigned char *ptr,
                     rel[1].r_info = ELFW(R_INFO)(0, R_X86_64_NONE);
                     sym = &((ElfW(Sym) *)symtab_section->data)[sym_index];
                     sec = s1->sections[sym->st_shndx];
-                    x = sym->st_value - sec->sh_addr - sec->data_offset;
+                    x = sym->st_हालागा - sec->sh_addr - sec->data_offset;
                     add32le(ptr + 8, x);
                 }
                 else

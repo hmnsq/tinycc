@@ -60,7 +60,7 @@ extern "C" {
 #define C3_NONSPACING 0x0001
 #define C3_DIACRITIC 0x0002
 #define C3_VOWELMARK 0x0004
-#define C3_SYMBOL 0x0008
+#define C3_सिम्बोलो 0x0008
 
 #define C3_KATAKANA 0x0010
 #define C3_HIRAGANA 0x0020
@@ -122,7 +122,7 @@ extern "C" {
 #define CP_OEMCP 1
 #define CP_MACCP 2
 #define CP_THREAD_ACP 3
-#define CP_SYMBOL 42
+#define CP_सिम्बोलो 42
 
 #define CP_UTF7 65000
 #define CP_UTF8 65001
@@ -243,7 +243,7 @@ extern "C" {
 
 #define LOCALE_NOUSEROVERRIDE 0x80000000
 #define LOCALE_USE_CP_ACP 0x40000000
-#define LOCALE_RETURN_NUMBER 0x20000000
+#define LOCALE_RETURN_नुमेरो 0x20000000
 
 #define LOCALE_ILANGUAGE 0x00000001
 #define LOCALE_SLANGUAGE 0x00000002
@@ -380,7 +380,7 @@ extern "C" {
 
 #define CAL_NOUSEROVERRIDE LOCALE_NOUSEROVERRIDE
 #define CAL_USE_CP_ACP LOCALE_USE_CP_ACP
-#define CAL_RETURN_NUMBER LOCALE_RETURN_NUMBER
+#define CAL_RETURN_नुमेरो LOCALE_RETURN_नुमेरो
 
 #define CAL_ICALINTVALUE 0x00000001
 #define CAL_SCALNAME 0x00000002
@@ -502,7 +502,7 @@ extern "C" {
 #endif
 
   typedef struct _numberfmtA {
-    UINT NumDigits;
+    UINT नुमेरो_Digits;
     UINT LeadingZero;
     UINT Grouping;
     LPSTR lpDecimalSep;
@@ -511,7 +511,7 @@ extern "C" {
   } NUMBERFMTA,*LPNUMBERFMTA;
 
   typedef struct _numberfmtW {
-    UINT NumDigits;
+    UINT नुमेरो_Digits;
     UINT LeadingZero;
     UINT Grouping;
     LPWSTR lpDecimalSep;
@@ -528,25 +528,25 @@ extern "C" {
 #endif
 
   typedef struct _currencyfmtA {
-    UINT NumDigits;
+    UINT नुमेरो_Digits;
     UINT LeadingZero;
     UINT Grouping;
     LPSTR lpDecimalSep;
     LPSTR lpThousandSep;
     UINT NegativeOrder;
     UINT PositiveOrder;
-    LPSTR lpCurrencySymbol;
+    LPSTR lp_Currency_सिम्बोलो;
   } CURRENCYFMTA,*LPCURRENCYFMTA;
 
   typedef struct _currencyfmtW {
-    UINT NumDigits;
+    UINT नुमेरो_Digits;
     UINT LeadingZero;
     UINT Grouping;
     LPWSTR lpDecimalSep;
     LPWSTR lpThousandSep;
     UINT NegativeOrder;
     UINT PositiveOrder;
-    LPWSTR lpCurrencySymbol;
+    LPWSTR lp_Currency_सिम्बोलो;
   } CURRENCYFMTW,*LPCURRENCYFMTW;
 
 #ifdef UNICODE
@@ -648,7 +648,7 @@ extern "C" {
 #define SetCalendarInfo SetCalendarInfoW
 #define GetTimeFormat GetTimeFormatW
 #define GetDateFormat GetDateFormatW
-#define GetNumberFormat GetNumberFormatW
+#define Get_नुमेरो_Format Get_नुमेरो_Format_W
 #define GetCurrencyFormat GetCurrencyFormatW
 #define EnumCalendarInfo EnumCalendarInfoW
 #define EnumCalendarInfoEx EnumCalendarInfoExW
@@ -673,7 +673,7 @@ extern "C" {
 #define SetCalendarInfo SetCalendarInfoA
 #define GetTimeFormat GetTimeFormatA
 #define GetDateFormat GetDateFormatA
-#define GetNumberFormat GetNumberFormatA
+#define Get_नुमेरो_Format Get_नुमेरो_Format_A
 #define GetCurrencyFormat GetCurrencyFormatA
 #define EnumCalendarInfo EnumCalendarInfoA
 #define EnumCalendarInfoEx EnumCalendarInfoExA
@@ -708,18 +708,18 @@ extern "C" {
   WINBASEAPI int WINAPI GetLocaleInfoW(LCID Locale,LCTYPE LCType,LPWSTR lpLCData,int cchData);
   WINBASEAPI WINBOOL WINAPI SetLocaleInfoA(LCID Locale,LCTYPE LCType,LPCSTR lpLCData);
   WINBASEAPI WINBOOL WINAPI SetLocaleInfoW(LCID Locale,LCTYPE LCType,LPCWSTR lpLCData);
-  WINBASEAPI int WINAPI GetCalendarInfoA(LCID Locale,CALID Calendar,CALTYPE CalType,LPSTR lpCalData,int cchData,LPDWORD lpValue);
-  WINBASEAPI int WINAPI GetCalendarInfoW(LCID Locale,CALID Calendar,CALTYPE CalType,LPWSTR lpCalData,int cchData,LPDWORD lpValue);
+  WINBASEAPI int WINAPI GetCalendarInfoA(LCID Locale,CALID Calendar,CALTYPE CalType,LPSTR lpCalData,int cchData,LPDWORD lp_हालागा);
+  WINBASEAPI int WINAPI GetCalendarInfoW(LCID Locale,CALID Calendar,CALTYPE CalType,LPWSTR lpCalData,int cchData,LPDWORD lp_हालागा);
   WINBASEAPI WINBOOL WINAPI SetCalendarInfoA(LCID Locale,CALID Calendar,CALTYPE CalType,LPCSTR lpCalData);
   WINBASEAPI WINBOOL WINAPI SetCalendarInfoW(LCID Locale,CALID Calendar,CALTYPE CalType,LPCWSTR lpCalData);
   WINBASEAPI int WINAPI GetTimeFormatA(LCID Locale,DWORD dwFlags,CONST SYSTEMTIME *lpTime,LPCSTR lpFormat,LPSTR lpTimeStr,int cchTime);
   WINBASEAPI int WINAPI GetTimeFormatW(LCID Locale,DWORD dwFlags,CONST SYSTEMTIME *lpTime,LPCWSTR lpFormat,LPWSTR lpTimeStr,int cchTime);
   WINBASEAPI int WINAPI GetDateFormatA(LCID Locale,DWORD dwFlags,CONST SYSTEMTIME *lpDate,LPCSTR lpFormat,LPSTR lpDateStr,int cchDate);
   WINBASEAPI int WINAPI GetDateFormatW(LCID Locale,DWORD dwFlags,CONST SYSTEMTIME *lpDate,LPCWSTR lpFormat,LPWSTR lpDateStr,int cchDate);
-  WINBASEAPI int WINAPI GetNumberFormatA(LCID Locale,DWORD dwFlags,LPCSTR lpValue,CONST NUMBERFMTA *lpFormat,LPSTR lpNumberStr,int cchNumber);
-  WINBASEAPI int WINAPI GetNumberFormatW(LCID Locale,DWORD dwFlags,LPCWSTR lpValue,CONST NUMBERFMTW *lpFormat,LPWSTR lpNumberStr,int cchNumber);
-  WINBASEAPI int WINAPI GetCurrencyFormatA(LCID Locale,DWORD dwFlags,LPCSTR lpValue,CONST CURRENCYFMTA *lpFormat,LPSTR lpCurrencyStr,int cchCurrency);
-  WINBASEAPI int WINAPI GetCurrencyFormatW(LCID Locale,DWORD dwFlags,LPCWSTR lpValue,CONST CURRENCYFMTW *lpFormat,LPWSTR lpCurrencyStr,int cchCurrency);
+  WINBASEAPI int WINAPI Get_नुमेरो_Format_A(LCID Locale,DWORD dwFlags,LPCSTR lp_हालागा,CONST NUMBERFMTA *lpFormat,LPSTR lp_नुमेरो_Str,int cch_नुमेरो);
+  WINBASEAPI int WINAPI Get_नुमेरो_Format_W(LCID Locale,DWORD dwFlags,LPCWSTR lp_हालागा,CONST NUMBERFMTW *lpFormat,LPWSTR lp_नुमेरो_Str,int cch_नुमेरो);
+  WINBASEAPI int WINAPI GetCurrencyFormatA(LCID Locale,DWORD dwFlags,LPCSTR lp_हालागा,CONST CURRENCYFMTA *lpFormat,LPSTR lpCurrencyStr,int cchCurrency);
+  WINBASEAPI int WINAPI GetCurrencyFormatW(LCID Locale,DWORD dwFlags,LPCWSTR lp_हालागा,CONST CURRENCYFMTW *lpFormat,LPWSTR lpCurrencyStr,int cchCurrency);
   WINBASEAPI WINBOOL WINAPI EnumCalendarInfoA(CALINFO_ENUMPROCA lpCalInfoEnumProc,LCID Locale,CALID Calendar,CALTYPE CalType);
   WINBASEAPI WINBOOL WINAPI EnumCalendarInfoW(CALINFO_ENUMPROCW lpCalInfoEnumProc,LCID Locale,CALID Calendar,CALTYPE CalType);
   WINBASEAPI WINBOOL WINAPI EnumCalendarInfoExA(CALINFO_ENUMPROCEXA lpCalInfoEnumProcEx,LCID Locale,CALID Calendar,CALTYPE CalType);

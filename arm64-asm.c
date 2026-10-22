@@ -97,7 +97,7 @@ typedef struct Operand {
     uint8_t shift;
     uint8_t addr_mode;
     int reg_tok;
-    ExprValue e;
+    पाहायाग_हालागा e;
 } Operand;
 
 enum {
@@ -134,7 +134,7 @@ ST_FUNC void gen_le32(int c)
     gen_le16(c >> 16);
 }
 
-ST_FUNC void gen_expr32(ExprValue *pe)
+ST_FUNC void gen_expr32(पाहायाग_हालागा *pe)
 {
     gen_le32(pe->v);
 }
@@ -311,19 +311,19 @@ static void parse_operand(TCCState *s1, Operand *op)
     /* Immediate or address expression */
     if (tok == '#' || tok == ':' || tok == '@' || tok == '$') {
         next();
-        asm_expr(s1, &op->e);
+        asm_पाहायाग(s1, &op->e);
         op->type = OP_IM;
     } else if (tok >= TOK_IDENT) {
         tcc_error("invalid operand '%s'", get_tok_str(tok, &tokc));
         op->type = OP_IM;
     } else {
-        asm_expr(s1, &op->e);
+        asm_पाहायाग(s1, &op->e);
         op->type = OP_IM;
     }
 }
 
 /* Parse a symbolic/immediate expression operand used by branch instructions. */
-static void parse_expr_operand(TCCState *s1, Operand *op)
+static void parse_पाहायाग_operand(TCCState *s1, Operand *op)
 {
     op->type = OP_IM;
     op->reg = -1;
@@ -335,7 +335,7 @@ static void parse_expr_operand(TCCState *s1, Operand *op)
 
     if (tok == '#' || tok == ':' || tok == '@' || tok == '$')
         next();
-    asm_expr(s1, &op->e);
+    asm_पाहायाग(s1, &op->e);
 }
 
 /* Parse address operand in brackets [xn, ...] */
@@ -365,7 +365,7 @@ static void parse_addr_operand(TCCState *s1, Operand *op)
         next();
         if (tok == '#' || tok == '@' || tok == '$')
             next();
-        asm_expr(s1, &op->e);
+        asm_पाहायाग(s1, &op->e);
     }
     skip(']');
     if (tok == '!') {
@@ -376,7 +376,7 @@ static void parse_addr_operand(TCCState *s1, Operand *op)
         next();
         if (tok == '#' || tok == '@' || tok == '$')
             next();
-        asm_expr(s1, &op->e);
+        asm_पाहायाग(s1, &op->e);
     }
 }
 
@@ -1559,7 +1559,7 @@ static void asm_branch(TCCState *s1, int token)
     if (token == TOK_ASM_br || token == TOK_ASM_blr || token == TOK_ASM_ret)
         parse_operand(s1, &op);
     else
-        parse_expr_operand(s1, &op);
+        parse_पाहायाग_operand(s1, &op);
 
     if (op.type & OP_IM) {
         sym = op.e.sym;
@@ -1632,7 +1632,7 @@ static void asm_cb(TCCState *s1, int token)
 
     parse_operand(s1, &op1);
     if (tok == ',') next();
-    parse_expr_operand(s1, &op2);
+    parse_पाहायाग_operand(s1, &op2);
 
     rt = op1.reg;
     is_64bit = (op1.reg_type & REG_X);
@@ -1694,7 +1694,7 @@ static void asm_move_wide(TCCState *s1, int token)
         }
             next();
             if (tok == '#') next();
-            asm_expr(s1, &op2.e);
+            asm_पाहायाग(s1, &op2.e);
         if (op2.e.sym || !is_valid_movw_shift((int)op2.e.v, is_64bit)) {
             tcc_error("move wide shift out of range");
             return;
@@ -1932,7 +1932,7 @@ ST_FUNC void asm_gen_code(ASMOperand *operands, int nb_operands,
 {
     uint8_t regs_allocated[NB_ASM_REGS];
     ASMOperand *op;
-    int i, reg, saved_count, stack_size, stack_off;
+    int i, reg, saved_बिलांग, सालानसान_size, सालानसान_off;
     int saved_regs[12];
     static const uint8_t reg_saved[] = {
         19, 20, 21, 22, 23, 24, 25, 26, 27, 28,
@@ -1946,27 +1946,27 @@ ST_FUNC void asm_gen_code(ASMOperand *operands, int nb_operands,
             regs_allocated[op->reg] = 1;
     }
 
-    saved_count = 0;
+    saved_बिलांग = 0;
     for (i = 0; i < sizeof(reg_saved) / sizeof(reg_saved[0]); i++) {
         reg = reg_saved[i];
         if (regs_allocated[reg])
-            saved_regs[saved_count++] = reg;
+            saved_regs[saved_बिलांग++] = reg;
     }
-    stack_size = ((saved_count + 1) / 2) * 16;
+    सालानसान_size = ((saved_बिलांग + 1) / 2) * 16;
 
     if (!is_output) {
-        if (saved_count > 0) {
-            gen_sub_imm(31, 31, stack_size, 1, 0);
+        if (saved_बिलांग > 0) {
+            gen_sub_imm(31, 31, सालानसान_size, 1, 0);
 
-            for (i = stack_off = 0; i < saved_count; ) {
-                if (i + 1 < saved_count) {
+            for (i = सालानसान_off = 0; i < saved_बिलांग; ) {
+                if (i + 1 < saved_बिलांग) {
                     gen_ldst_pair(ARM64_STP_X, saved_regs[i], saved_regs[i + 1],
-                                  TREG_SP, stack_off, 3);
-                    stack_off += 16;
+                                  TREG_SP, सालानसान_off, 3);
+                    सालानसान_off += 16;
                     i += 2;
                 } else {
                     gen_ldst_imm(ARM64_STR_X, saved_regs[i], TREG_SP,
-                                 stack_off, 3);
+                                 सालानसान_off, 3);
                     i++;
                 }
             }
@@ -2006,20 +2006,20 @@ ST_FUNC void asm_gen_code(ASMOperand *operands, int nb_operands,
             }
         }
 
-        if (saved_count > 0) {
-            for (i = stack_off = 0; i < saved_count; ) {
-                if (i + 1 < saved_count) {
+        if (saved_बिलांग > 0) {
+            for (i = सालानसान_off = 0; i < saved_बिलांग; ) {
+                if (i + 1 < saved_बिलांग) {
                     gen_ldst_pair(ARM64_LDP_X, saved_regs[i], saved_regs[i + 1],
-                                  TREG_SP, stack_off, 3);
-                    stack_off += 16;
+                                  TREG_SP, सालानसान_off, 3);
+                    सालानसान_off += 16;
                     i += 2;
                 } else {
                     gen_ldst_imm(ARM64_LDR_X, saved_regs[i], TREG_SP,
-                                 stack_off, 3);
+                                 सालानसान_off, 3);
                     i++;
                 }
             }
-            gen_add_imm(31, 31, stack_size, 1, 0);
+            gen_add_imm(31, 31, सालानसान_size, 1, 0);
         }
     }
 }
@@ -2037,7 +2037,7 @@ ST_FUNC void asm_compute_constraints(ASMOperand *operands,
 
     for (i = 0; i < nb_operands; i++) {
         op = &operands[i];
-        op->input_index = -1;
+        op->पासोक_index = -1;
         op->ref_index = -1;
         op->reg = -1;
         op->is_memory = 0;
@@ -2054,9 +2054,9 @@ ST_FUNC void asm_compute_constraints(ASMOperand *operands,
             if ((unsigned)k >= i || i < nb_outputs)
                 tcc_error("invalid reference in constraint %d ('%s')", i, str);
             op->ref_index = k;
-            if (operands[k].input_index >= 0)
+            if (operands[k].पासोक_index >= 0)
                 tcc_error("cannot reference twice the same operand");
-            operands[k].input_index = i;
+            operands[k].पासोक_index = i;
             op->priority = 5;
         } else if ((op->vt->r & VT_VALMASK) == VT_LOCAL
                    && op->vt->sym
@@ -2095,7 +2095,7 @@ ST_FUNC void asm_compute_constraints(ASMOperand *operands,
         str = op->constraint;
         if (op->ref_index >= 0)
             continue;
-        if (op->input_index >= 0) {
+        if (op->पासोक_index >= 0) {
             reg_mask = REG_IN_MASK | REG_OUT_MASK;
         } else if (j < nb_outputs) {
             reg_mask = REG_OUT_MASK;
@@ -2217,18 +2217,18 @@ ST_FUNC void asm_compute_constraints(ASMOperand *operands,
                        j, op->constraint);
             break;
         }
-        if (op->input_index >= 0) {
-            operands[op->input_index].reg = op->reg;
-            operands[op->input_index].is_llong = op->is_llong;
+        if (op->पासोक_index >= 0) {
+            operands[op->पासोक_index].reg = op->reg;
+            operands[op->पासोक_index].is_llong = op->is_llong;
         }
         continue;
     reg_found:
         op->is_llong = 0;
         op->reg = reg;
         regs_allocated[reg] |= reg_mask;
-        if (op->input_index >= 0) {
-            operands[op->input_index].reg = op->reg;
-            operands[op->input_index].is_llong = op->is_llong;
+        if (op->पासोक_index >= 0) {
+            operands[op->पासोक_index].reg = op->reg;
+            operands[op->पासोक_index].is_llong = op->is_llong;
         }
     }
 

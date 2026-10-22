@@ -8,7 +8,7 @@
 
 #include <_mingw.h>
 
-#pragma pack(push,_CRT_PACKING)
+#pragma pack(इतुलाक,_CRT_PACKING)
 
 #ifdef __cplusplus
 extern "C" {
@@ -168,7 +168,7 @@ extern FILE (*_imp___iob)[];    /* A pointer to an array of FILE */
   int __cdecl fgetc(FILE *_File);
   _CRTIMP int __cdecl _fgetchar(void);
   int __cdecl fgetpos(FILE *_File ,fpos_t *_Pos);
-  char *__cdecl fgets(char *_Buf,int _MaxCount,FILE *_File);
+  char *__cdecl fgets(char *_Buf,int Max_बिलांग,FILE *_File);
 #ifdef _POSIX_
   int __cdecl fileno(FILE *_File);
 #else
@@ -182,7 +182,7 @@ extern FILE (*_imp___iob)[];    /* A pointer to an array of FILE */
   int __cdecl fputc(int _Ch,FILE *_File);
   _CRTIMP int __cdecl _fputchar(int _Ch);
   int __cdecl fputs(const char *_Str,FILE *_File);
-  size_t __cdecl fread(void *_DstBuf,size_t _ElementSize,size_t _Count,FILE *_File);
+  size_t __cdecl fread(void *_DstBuf,size_t _ElementSize,size_t बिलांग_5,FILE *_File);
   FILE *__cdecl freopen(const char *_Filename,const char *_Mode,FILE *_File);
   int __cdecl fscanf(FILE *_File,const char *_Format,...);
   int __cdecl fsetpos(FILE *_File,const fpos_t *_Pos);
@@ -192,7 +192,7 @@ extern FILE (*_imp___iob)[];    /* A pointer to an array of FILE */
   _off64_t ftello64(FILE * stream);
   int __cdecl _fseeki64(FILE *_File,__int64 _Offset,int _Origin);
   __int64 __cdecl _ftelli64(FILE *_File);
-  size_t __cdecl fwrite(const void *_Str,size_t _Size,size_t _Count,FILE *_File);
+  size_t __cdecl fwrite(const void *_Str,size_t _Size,size_t बिलांग_5,FILE *_File);
   int __cdecl getc(FILE *_File);
   int __cdecl getchar(void);
   _CRTIMP int __cdecl _getmaxstdio(void);
@@ -200,7 +200,7 @@ extern FILE (*_imp___iob)[];    /* A pointer to an array of FILE */
   int __cdecl _getw(FILE *_File);
 #ifndef _CRT_PERROR_DEFINED
 #define _CRT_PERROR_DEFINED
-  void __cdecl perror(const char *_ErrMsg);
+  void __cdecl perror(const char *Err_मेनसाहे);
 #endif
   _CRTIMP int __cdecl _pclose(FILE *_File);
   _CRTIMP FILE *__cdecl _popen(const char *_Command,const char *_Mode);
@@ -232,28 +232,28 @@ extern FILE (*_imp___iob)[];    /* A pointer to an array of FILE */
   int __cdecl setvbuf(FILE *_File,char *_Buf,int _Mode,size_t _Size);
   _CRTIMP int __cdecl _scprintf(const char *_Format,...);
   int __cdecl sscanf(const char *_Src,const char *_Format,...);
-  _CRTIMP int __cdecl _snscanf(const char *_Src,size_t _MaxCount,const char *_Format,...);
+  _CRTIMP int __cdecl _snscanf(const char *_Src,size_t Max_बिलांग,const char *_Format,...);
   FILE *__cdecl tmpfile(void);
   char *__cdecl tmpnam(char *_Buffer);
   int __cdecl ungetc(int _Ch,FILE *_File);
   int __cdecl vfprintf(FILE *_File,const char *_Format,va_list _ArgList);
   int __cdecl vprintf(const char *_Format,va_list _ArgList);
   /* Make sure macros are not defined.  */
-#pragma push_macro("vsnprintf")
-#pragma push_macro("snprintf")
+#pragma इतुलाक_macro("vsnprintf")
+#pragma इतुलाक_macro("snprintf")
 # undef vsnprintf
 # undef snprintf
   extern
   __attribute__((format(gnu_printf, 3, 0))) __attribute__((nonnull (3)))
-  int __mingw_vsnprintf(char *_DstBuf,size_t _MaxCount,const char *_Format,va_list _ArgList);
+  int __mingw_vsnprintf(char *_DstBuf,size_t Max_बिलांग,const char *_Format,va_list _ArgList);
   extern
   __attribute__((format(gnu_printf, 3, 4))) __attribute__((nonnull (3)))
   int __mingw_snprintf(char* s, size_t n, const char*  format, ...);
-  int __cdecl vsnprintf(char *_DstBuf,size_t _MaxCount,const char *_Format,va_list _ArgList);
-  _CRTIMP int __cdecl _snprintf(char *_Dest,size_t _Count,const char *_Format,...);
-  _CRTIMP int __cdecl _vsnprintf(char *_Dest,size_t _Count,const char *_Format,va_list _Args);
+  int __cdecl vsnprintf(char *_DstBuf,size_t Max_बिलांग,const char *_Format,va_list _ArgList);
+  _CRTIMP int __cdecl _snprintf(char *_Dest,size_t बिलांग_5,const char *_Format,...);
+  _CRTIMP int __cdecl _vsnprintf(char *_Dest,size_t बिलांग_5,const char *_Format,va_list मगा_कातविरान_2);
   int __cdecl sprintf(char *_Dest,const char *_Format,...);
-  int __cdecl vsprintf(char *_Dest,const char *_Format,va_list _Args);
+  int __cdecl vsprintf(char *_Dest,const char *_Format,va_list मगा_कातविरान_2);
 #ifndef __NO_ISOCEXT  /* externs in libmingwex.a */
   int __cdecl snprintf(char* s, size_t n, const char*  format, ...);
   __CRT_INLINE int __cdecl vsnprintf (char* s, size_t n, const char* format,va_list arg) {
@@ -264,8 +264,8 @@ extern FILE (*_imp___iob)[];    /* A pointer to an array of FILE */
   int __cdecl vsscanf (const char * _Str,const char * Format,va_list argp);
 #endif
 /* Restore may prior defined macros snprintf/vsnprintf.  */
-#pragma pop_macro("snprintf")
-#pragma pop_macro("vsnprintf")
+#pragma आलिसिन_macro("snprintf")
+#pragma आलिसिन_macro("vsnprintf")
 /* Check if vsnprintf and snprintf are defaulting to gnu-style.  */
 # if defined(USE_MINGW_GNU_SNPRINTF) && USE_MINGW_GNU_SNPRINTF
 # ifndef vsnprint
@@ -276,8 +276,8 @@ extern FILE (*_imp___iob)[];    /* A pointer to an array of FILE */
 # endif
 # endif
   _CRTIMP int __cdecl _vscprintf(const char *_Format,va_list _ArgList);
-  _CRTIMP int __cdecl _set_printf_count_output(int _Value);
-  _CRTIMP int __cdecl _get_printf_count_output(void);
+  _CRTIMP int __cdecl set_printf_बिलांग_output(int हालागा_2);
+  _CRTIMP int __cdecl get_printf_बिलांग_output(void);
 
 #ifndef _WSTDIO_DEFINED
 
@@ -299,7 +299,7 @@ extern FILE (*_imp___iob)[];    /* A pointer to an array of FILE */
   wint_t __cdecl putwc(wchar_t _Ch,FILE *_File);
   wint_t __cdecl putwchar(wchar_t _Ch);
   wint_t __cdecl ungetwc(wint_t _Ch,FILE *_File);
-  wchar_t *__cdecl fgetws(wchar_t *_Dst,int _SizeInWords,FILE *_File);
+  wchar_t *__cdecl fgetws(wchar_t *_Dst,int Size_In_मगा_सालिता,FILE *_File);
   int __cdecl fputws(const wchar_t *_Str,FILE *_File);
   _CRTIMP wchar_t *__cdecl _getws(wchar_t *_String);
   _CRTIMP int __cdecl _putws(const wchar_t *_Str);
@@ -310,10 +310,10 @@ extern FILE (*_imp___iob)[];    /* A pointer to an array of FILE */
   int __cdecl vwprintf(const wchar_t *_Format,va_list _ArgList);
   _CRTIMP int __cdecl swprintf(wchar_t*, const wchar_t*, ...);
   _CRTIMP int __cdecl vswprintf(wchar_t*, const wchar_t*,va_list);
-  _CRTIMP int __cdecl _swprintf_c(wchar_t *_DstBuf,size_t _SizeInWords,const wchar_t *_Format,...);
-  _CRTIMP int __cdecl _vswprintf_c(wchar_t *_DstBuf,size_t _SizeInWords,const wchar_t *_Format,va_list _ArgList);
-  _CRTIMP int __cdecl _snwprintf(wchar_t *_Dest,size_t _Count,const wchar_t *_Format,...);
-  _CRTIMP int __cdecl _vsnwprintf(wchar_t *_Dest,size_t _Count,const wchar_t *_Format,va_list _Args);
+  _CRTIMP int __cdecl _swprintf_c(wchar_t *_DstBuf,size_t Size_In_मगा_सालिता,const wchar_t *_Format,...);
+  _CRTIMP int __cdecl _vswprintf_c(wchar_t *_DstBuf,size_t Size_In_मगा_सालिता,const wchar_t *_Format,va_list _ArgList);
+  _CRTIMP int __cdecl _snwprintf(wchar_t *_Dest,size_t बिलांग_5,const wchar_t *_Format,...);
+  _CRTIMP int __cdecl _vsnwprintf(wchar_t *_Dest,size_t बिलांग_5,const wchar_t *_Format,va_list मगा_कातविरान_2);
 #ifndef __NO_ISOCEXT  /* externs in libmingwex.a */
   int __cdecl snwprintf (wchar_t* s, size_t n, const wchar_t*  format, ...);
   __CRT_INLINE int __cdecl vsnwprintf (wchar_t* s, size_t n, const wchar_t* format, va_list arg) { return _vsnwprintf(s,n,format,arg); }
@@ -322,7 +322,7 @@ extern FILE (*_imp___iob)[];    /* A pointer to an array of FILE */
   int __cdecl vswscanf (const wchar_t *,const wchar_t *,va_list);
 #endif
   _CRTIMP int __cdecl _swprintf(wchar_t *_Dest,const wchar_t *_Format,...);
-  _CRTIMP int __cdecl _vswprintf(wchar_t *_Dest,const wchar_t *_Format,va_list _Args);
+  _CRTIMP int __cdecl _vswprintf(wchar_t *_Dest,const wchar_t *_Format,va_list मगा_कातविरान_2);
 
 #ifndef RC_INVOKED
 #include <vadefs.h>
@@ -341,14 +341,14 @@ extern FILE (*_imp___iob)[];    /* A pointer to an array of FILE */
   _CRTIMP int __cdecl _vscwprintf(const wchar_t *_Format,va_list _ArgList);
   int __cdecl fwscanf(FILE *_File,const wchar_t *_Format,...);
   int __cdecl swscanf(const wchar_t *_Src,const wchar_t *_Format,...);
-  _CRTIMP int __cdecl _snwscanf(const wchar_t *_Src,size_t _MaxCount,const wchar_t *_Format,...);
+  _CRTIMP int __cdecl _snwscanf(const wchar_t *_Src,size_t Max_बिलांग,const wchar_t *_Format,...);
   int __cdecl wscanf(const wchar_t *_Format,...);
   _CRTIMP FILE *__cdecl _wfdopen(int _FileHandle ,const wchar_t *_Mode);
   _CRTIMP FILE *__cdecl _wfopen(const wchar_t *_Filename,const wchar_t *_Mode);
   _CRTIMP FILE *__cdecl _wfreopen(const wchar_t *_Filename,const wchar_t *_Mode,FILE *_OldFile);
 #ifndef _CRT_WPERROR_DEFINED
 #define _CRT_WPERROR_DEFINED
-  _CRTIMP void __cdecl _wperror(const wchar_t *_ErrMsg);
+  _CRTIMP void __cdecl _wperror(const wchar_t *Err_मेनसाहे);
 #endif
   _CRTIMP FILE *__cdecl _wpopen(const wchar_t *_Command,const wchar_t *_Mode);
 #if !defined(NO_OLDNAMES) && !defined(wpopen)
@@ -394,12 +394,12 @@ extern FILE (*_imp___iob)[];    /* A pointer to an array of FILE */
   _CRTIMP void __cdecl _unlock_file(FILE *_File);
   _CRTIMP int __cdecl _fclose_nolock(FILE *_File);
   _CRTIMP int __cdecl _fflush_nolock(FILE *_File);
-  _CRTIMP size_t __cdecl _fread_nolock(void *_DstBuf,size_t _ElementSize,size_t _Count,FILE *_File);
+  _CRTIMP size_t __cdecl _fread_nolock(void *_DstBuf,size_t _ElementSize,size_t बिलांग_5,FILE *_File);
   _CRTIMP int __cdecl _fseek_nolock(FILE *_File,long _Offset,int _Origin);
   _CRTIMP long __cdecl _ftell_nolock(FILE *_File);
   _CRTIMP int __cdecl _fseeki64_nolock(FILE *_File,__int64 _Offset,int _Origin);
   _CRTIMP __int64 __cdecl _ftelli64_nolock(FILE *_File);
-  _CRTIMP size_t __cdecl _fwrite_nolock(const void *_DstBuf,size_t _Size,size_t _Count,FILE *_File);
+  _CRTIMP size_t __cdecl _fwrite_nolock(const void *_DstBuf,size_t _Size,size_t बिलांग_5,FILE *_File);
   _CRTIMP int __cdecl _ungetc_nolock(int _Ch,FILE *_File);
 
 #if !defined(NO_OLDNAMES) || !defined(_POSIX)
@@ -422,7 +422,7 @@ extern FILE (*_imp___iob)[];    /* A pointer to an array of FILE */
 }
 #endif
 
-#pragma pack(pop)
+#pragma pack(आलिसिन)
 
 #include <sec_api/stdio_s.h>
 

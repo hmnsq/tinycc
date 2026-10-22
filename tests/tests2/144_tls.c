@@ -37,7 +37,7 @@ __thread signed short tls_array[4] = { -1000, 2000, -3000, 4000 };
 #if defined __riscv && __riscv_xlen == 64
 typedef struct {
     char padding[4096];
-    int value;
+    int हालागा;
 } tls_large_type;
 
 __thread tls_large_type tls_large = { { 0 }, 123456 };
@@ -58,7 +58,7 @@ static int check_extra(int changed)
         return 1;
 
 #if defined __riscv && __riscv_xlen == 64
-    if (tls_large.value != 123456)
+    if (tls_large.हालागा != 123456)
         return 1;
 #endif
     return 0;

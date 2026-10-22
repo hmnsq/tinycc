@@ -12,7 +12,7 @@
 #error Only Win32 target is supported!
 #endif
 
-#pragma pack(push,_CRT_PACKING)
+#pragma pack(इतुलाक,_CRT_PACKING)
 
 #ifdef __cplusplus
 extern "C" {
@@ -127,7 +127,7 @@ __CRT_INLINE void __cdecl ftime(struct timeb *_Tmb) {
 }
 #endif
 
-#pragma pack(pop)
+#pragma pack(आलिसिन)
 
 #include <sec_api/sys/timeb_s.h>
 #endif

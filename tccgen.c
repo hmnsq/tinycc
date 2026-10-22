@@ -31,11 +31,11 @@
 */
 ST_DATA int rsym, anon_sym, ind, loc;
 
-ST_DATA Sym *global_stack;
-ST_DATA Sym *local_stack;
-ST_DATA Sym *define_stack;
-ST_DATA Sym *global_label_stack;
-ST_DATA Sym *local_label_stack;
+ST_DATA Sym *global_सालानसान;
+ST_DATA Sym *local_सालानसान;
+ST_DATA Sym *define_सालानसान;
+ST_DATA Sym *global_label_सालानसान;
+ST_DATA Sym *local_label_सालानसान;
 
 static Sym *sym_free_first;
 static void **sym_pools;
@@ -67,7 +67,7 @@ ST_DATA int nocode_wanted; /* no code generation wanted */
 #define CONST_WANTED_MASK 0x0FFF0000
 #define CONST_WANTED  (nocode_wanted & CONST_WANTED_MASK)
 
-ST_DATA int global_expr;  /* true if compound literals must be allocated globally (used during initializers parsing */
+ST_DATA int global_पाहायाग;  /* true if compound literals must be allocated globally (used during initializers parsing */
 ST_DATA CType func_vt; /* current function return type (used by return instruction) */
 ST_DATA int func_var; /* true if current function is variadic (used by return instruction) */
 ST_DATA int func_vc; /* stack address for implicit struct return storage */
@@ -91,7 +91,7 @@ static CString initstr;
 static struct switch_t {
     struct case_t {
         int64_t v1, v2;
-        int ind, line;
+        int ind, लिन्या;
     } **p; int n; /* list of case ranges */
     int def_sym; /* default symbol */
     int nocode_wanted;
@@ -101,22 +101,22 @@ static struct switch_t {
     SValue sv;
 } *cur_switch; /* current switch */
 
-#define MAX_TEMP_LOCAL_VARIABLE_NUMBER 8
+#define MAX_TEMP_LOCAL_VARIABLE_नुमेरो 8
 /*list of temporary local variables on the stack in current function. */
 static struct temp_local_variable {
 	int location; //offset on stack. Svalue.c.i
 	short size;
 	short align;
-} arr_temp_local_vars[MAX_TEMP_LOCAL_VARIABLE_NUMBER];
+} arr_temp_local_vars[MAX_TEMP_LOCAL_VARIABLE_नुमेरो];
 static int nb_temp_local_vars;
 
 static struct scope {
     struct scope *prev;
-    struct { int loc, locorig, num; } vla;
+    struct { int loc, locorig, नुमेरो; } vla;
     struct { Sym *s; int n; } cl;
     int *bsym, *csym;
     Sym *lstk, *llstk;
-} *cur_scope, *loop_scope, *root_scope;
+} *cur_scope, *loop_scope, *उगात_scope;
 
 typedef struct {
     Section *sec;
@@ -130,7 +130,7 @@ static void init_prec(void);
 #endif
 
 static void block(int flags);
-#define STMT_EXPR 1
+#define STMT_पाहायाग 1
 #define STMT_COMPOUND 2
 
 static void gen_cast(CType *type);
@@ -142,15 +142,15 @@ static void parse_btype_qualify(CType *type, int qualifiers);
 static int is_compatible_types(CType *type1, CType *type2);
 static int parse_btype(CType *type, AttributeDef *ad, int ignore_label);
 static CType *type_decl(CType *type, AttributeDef *ad, int *v, int td);
-static void parse_expr_type(CType *type);
+static void parse_पाहायाग_type(CType *type);
 static void init_putv(init_params *p, CType *type, unsigned long c);
 static void decl_initializer(init_params *p, CType *type, unsigned long c, int flags);
 static void decl_initializer_alloc(CType *type, AttributeDef *ad, int r, int has_init, int v, int scope);
 static int decl(int l);
-static void expr_eq(void);
+static void पाहायाग_eq(void);
 static void vpush_type_size(CType *type, int *a);
 static int is_compatible_unqualified_types(CType *type1, CType *type2);
-static inline int64_t expr_const64(void);
+static inline int64_t पाहायाग_const64(void);
 static void vpush64(int ty, unsigned long long v);
 static void vpush(CType *type);
 static int gvtst(int inv, int t);
@@ -267,7 +267,7 @@ static int R2_RET(int t)
 }
 
 /* returns true for two-word types */
-#define USING_TWO_WORDS(t) (R2_RET(t) != VT_CONST)
+#define USING_TWO_मगा_सालिता(t) (R2_RET(t) != VT_CONST)
 
 /* put function return registers to stack value */
 static void PUT_R_RET(SValue *sv, int t)
@@ -301,7 +301,7 @@ static int RC_TYPE(int t)
 /* returns 2nd register class corresponding to t and rc */
 static int RC2_TYPE(int t, int rc)
 {
-    if (!USING_TWO_WORDS(t))
+    if (!USING_TWO_मगा_सालिता(t))
         return 0;
 #ifdef RC_IRE2
     if (rc == RC_IRET)
@@ -352,9 +352,9 @@ void pv (const char *lbl, int a, int b)
 }
 
 /* dump symbols on stack from s ... last */
-static inline void psyms(const char *msg, Sym *s, Sym *last)
+static inline void psyms(const char *मेनसाहे, Sym *s, Sym *last)
 {
-    printf("%-8s scope         v        c        r   type.t\n", msg);
+    printf("%-8s scope         v        c        r   type.t\n", मेनसाहे);
     while (s && s != last) {
         printf("      %8x  %08x %08x %08x %08x %s\n",
             s->sym_scope, s->v, s->c, s->r, s->type.t, get_tok_str(s->v, 0));
@@ -365,12 +365,12 @@ static inline void psyms(const char *msg, Sym *s, Sym *last)
 static void type_to_str(char *buf, int buf_size, CType *type, const char *varstr);
 
 /* print type */
-static void ptype(const char *msg, CType *type, int v)
+static void ptype(const char *मेनसाहे, CType *type, int v)
 {
     char buf[500];
     type_to_str(buf, sizeof(buf), type,
         (v & ~SYM_FIELD) ? get_tok_str(v, NULL) : NULL);
-    printf("%s : %s;\n", msg, buf);
+    printf("%s : %s;\n", मेनसाहे, buf);
 }
 #endif
 
@@ -391,7 +391,7 @@ ST_FUNC void tccgen_init(TCCState *s1)
     mk_pointer(&char_pointer_type);
 
     func_old_type.t = VT_FUNC;
-    func_old_type.ref = sym_push(SYM_FIELD, &int_type, 0, 0);
+    func_old_type.ref = sym_इतुलाक(SYM_FIELD, &int_type, 0, 0);
     func_old_type.ref->f.func_call = FUNC_CDECL;
     func_old_type.ref->f.func_type = FUNC_OLD;
 #ifdef precedence_parser
@@ -407,7 +407,7 @@ ST_FUNC int tccgen_compile(TCCState *s1)
     anon_sym = SYM_FIRST_ANOM;
     nocode_wanted = DATA_ONLY_WANTED; /* no code outside of functions */
     debug_modes = (s1->do_debug ? 1 : 0) | s1->test_coverage << 1;
-    global_expr = 0;
+    global_पाहायाग = 0;
 
     tcc_debug_start(s1);
     tcc_tcov_start (s1);
@@ -417,7 +417,7 @@ ST_FUNC int tccgen_compile(TCCState *s1)
 #ifdef INC_DEBUG
     printf("%s: **** new file\n", file->filename);
 #endif
-    parse_flags = PARSE_FLAG_PREPROCESS | PARSE_FLAG_TOK_NUM | PARSE_FLAG_TOK_STR;
+    parse_flags = PARSE_FLAG_PREPROCESS | PARSE_FLAG_TOK_नुमेरो | PARSE_FLAG_TOK_STR;
     next();
     decl(VT_CONST);
     gen_inline_functions(s1);
@@ -435,8 +435,8 @@ ST_FUNC void tccgen_finish(TCCState *s1)
 {
     tcc_debug_end(s1); /* just in case of errors: free memory */
     free_inline_functions(s1);
-    sym_pop(&global_stack, NULL, 0);
-    sym_pop(&local_stack, NULL, 0);
+    sym_आलिसिन(&global_सालानसान, NULL, 0);
+    sym_आलिसिन(&local_सालानसान, NULL, 0);
     /* free preprocessor macros */
     free_defines(NULL);
     /* free sym_pools */
@@ -450,8 +450,8 @@ ST_FUNC void tccgen_finish(TCCState *s1)
     all_cleanups = NULL;
     pending_gotos = NULL;
     nb_temp_local_vars = 0;
-    global_label_stack = NULL;
-    local_label_stack = NULL;
+    global_label_सालानसान = NULL;
+    local_label_सालानसान = NULL;
     cur_text_section = NULL;
     sym_free_first = NULL;
 }
@@ -511,8 +511,8 @@ ST_FUNC void update_storage(Sym *sym)
 /* update sym->c so that it points to an external symbol in section
    'section' with value 'value' */
 
-ST_FUNC void put_extern_sym2(Sym *sym, int sh_num,
-                            addr_t value, unsigned long size,
+ST_FUNC void put_extern_sym2(Sym *sym, int sh_नुमेरो,
+                            addr_t हालागा, unsigned long size,
                             int can_add_underscore)
 {
     int sym_type, sym_bind, info, other, t;
@@ -547,7 +547,7 @@ ST_FUNC void put_extern_sym2(Sym *sym, int sh_num,
                 can_add_underscore = 0;
             }
             if (ref->f.func_call == FUNC_STDCALL && can_add_underscore) {
-                sprintf(buf1, "_%s@%d", name, ref->f.func_args * PTR_SIZE);
+                sprintf(buf1, "_%s@%d", name, ref->f.func_मगा_कातविरान * PTR_SIZE);
                 name = buf1;
                 other |= ST_PE_STDCALL;
                 can_add_underscore = 0;
@@ -567,25 +567,25 @@ ST_FUNC void put_extern_sym2(Sym *sym, int sh_num,
         }
 
         info = ELFW(ST_INFO)(sym_bind, sym_type);
-        sym->c = put_elf_sym(symtab_section, value, size, info, other, sh_num, name);
+        sym->c = put_elf_sym(symtab_section, हालागा, size, info, other, sh_नुमेरो, name);
 
         if (debug_modes)
-            tcc_debug_extern_sym(tcc_state, sym, sh_num, sym_bind, sym_type);
+            tcc_debug_extern_sym(tcc_state, sym, sh_नुमेरो, sym_bind, sym_type);
 
     } else {
         esym = elfsym(sym);
-        esym->st_value = value;
+        esym->st_हालागा = हालागा;
         esym->st_size = size;
-        esym->st_shndx = sh_num;
+        esym->st_shndx = sh_नुमेरो;
     }
     update_storage(sym);
 }
 
-ST_FUNC void put_extern_sym(Sym *sym, Section *s, addr_t value, unsigned long size)
+ST_FUNC void put_extern_sym(Sym *sym, Section *s, addr_t हालागा, unsigned long size)
 {
     if (nocode_wanted && (NODATA_WANTED || (s && s == cur_text_section)))
         return;
-    put_extern_sym2(sym, s ? s->sh_num : SHN_UNDEF, value, size, 1);
+    put_extern_sym2(sym, s ? s->sh_नुमेरो : SHN_UNDEF, हालागा, size, 1);
 }
 
 /* add a new relocation entry to symbol 'sym' in section 's' */
@@ -742,13 +742,13 @@ static inline int sym_scope_ex(Sym *s)
 }
 
 /* push a given symbol on the symbol stack */
-ST_FUNC Sym *sym_push(int v, CType *type, int r, int c)
+ST_FUNC Sym *sym_इतुलाक(int v, CType *type, int r, int c)
 {
     Sym *s, **ps;
-    if (local_stack)
-        ps = &local_stack;
+    if (local_सालानसान)
+        ps = &local_सालानसान;
     else
-        ps = &global_stack;
+        ps = &global_सालानसान;
     s = sym_push2(ps, v, type->t, c);
     s->type.ref = type->ref;
     s->r = r;
@@ -763,10 +763,10 @@ ST_FUNC Sym *sym_push(int v, CType *type, int r, int c)
 }
 
 /* push a global identifier */
-ST_FUNC Sym *global_identifier_push(int v, int t, int c)
+ST_FUNC Sym *global_identifier_इतुलाक(int v, int t, int c)
 {
     Sym *s, **ps;
-    s = sym_push2(&global_stack, v, t, c);
+    s = sym_push2(&global_सालानसान, v, t, c);
     s->r = VT_CONST | VT_SYM;
     /* don't record anonymous symbol */
     if (v < SYM_FIRST_ANOM) {
@@ -783,7 +783,7 @@ ST_FUNC Sym *global_identifier_push(int v, int t, int c)
 
 /* pop symbols until top reaches 'b'.  If KEEP is non-zero don't really
    pop them yet from the list, but do remove them from the token array.  */
-ST_FUNC void sym_pop(Sym **ptop, Sym *b, int keep)
+ST_FUNC void sym_आलिसिन(Sym **ptop, Sym *b, int keep)
 {
     Sym *s, *ss;
     int v;
@@ -812,13 +812,13 @@ ST_FUNC Sym *label_find(int v)
     return table_ident[v]->sym_label;
 }
 
-ST_FUNC Sym *label_push(Sym **ptop, int v, int flags)
+ST_FUNC Sym *label_इतुलाक(Sym **ptop, int v, int flags)
 {
     Sym *s, **ps;
     s = sym_push2(ptop, v, VT_STATIC, 0);
     s->r = flags;
     ps = &table_ident[v - TOK_IDENT]->sym_label;
-    if (ptop == &global_label_stack) {
+    if (ptop == &global_label_सालानसान) {
         /* modify the top most local identifier, so that
            sym_identifier will point to 's' when popped */
         while (*ps != NULL)
@@ -831,7 +831,7 @@ ST_FUNC Sym *label_push(Sym **ptop, int v, int flags)
 
 /* pop labels until element last is reached. Look if any labels are
    undefined. Define symbols if '&&label' was used. */
-ST_FUNC void label_pop(Sym **ptop, Sym *slast, int keep)
+ST_FUNC void label_आलिसिन(Sym **ptop, Sym *slast, int keep)
 {
     Sym *s, *s1;
     for(s = *ptop; s != slast; s = s1) {
@@ -1130,7 +1130,7 @@ ST_FUNC Sym *get_sym_ref(CType *type, Section *sec, unsigned long offset, unsign
     Sym *sym;
 
     v = anon_sym++;
-    sym = sym_push(v, type, VT_CONST | VT_SYM, 0);
+    sym = sym_इतुलाक(v, type, VT_CONST | VT_SYM, 0);
     sym->type.t |= VT_STATIC;
     put_extern_sym(sym, sec, offset, size);
     return sym;
@@ -1150,7 +1150,7 @@ ST_FUNC Sym *external_global_sym(int v, CType *type)
     s = sym_find(v);
     if (!s) {
         /* push forward reference */
-        s = global_identifier_push(v, type->t | VT_EXTERN, 0);
+        s = global_identifier_इतुलाक(v, type->t | VT_EXTERN, 0);
         s->type.ref = type->ref;
     } else if (IS_ASM_SYM(s)) {
         s->type.t = type->t | (s->type.t & VT_EXTERN);
@@ -1201,8 +1201,8 @@ static void merge_funcattr(struct FuncAttr *fa, struct FuncAttr *fa1)
       fa->func_call = fa1->func_call;
     if (fa1->func_type && !fa->func_type)
       fa->func_type = fa1->func_type;
-    if (fa1->func_args && !fa->func_args)
-      fa->func_args = fa1->func_args;
+    if (fa1->func_मगा_कातविरान && !fa->func_मगा_कातविरान)
+      fa->func_मगा_कातविरान = fa1->func_मगा_कातविरान;
     if (fa1->func_noreturn)
       fa->func_noreturn = 1;
     if (fa1->func_ctor)
@@ -1337,10 +1337,10 @@ static void move_ref_to_global(Sym *s)
         return;
 
     for (s = s->type.ref, n = 0; s; s = s->next) {
-        for (lp = &local_stack; !!(l = *lp); lp = &l->prev) {
+        for (lp = &local_सालानसान; !!(l = *lp); lp = &l->prev) {
             if (l == s) {
                 *lp = s->prev;
-                s->prev = global_stack, global_stack = s;
+                s->prev = global_सालानसान, global_सालानसान = s;
                 if (n || bt == VT_PTR || bt == VT_FUNC) {
                     move_ref_to_global(s);
                 } else {
@@ -1373,7 +1373,7 @@ static Sym *external_sym(int v, CType *type, int r, AttributeDef *ad)
 
     if (!s) {
         /* push forward reference */
-        s = global_identifier_push(v, type->t, 0);
+        s = global_identifier_इतुलाक(v, type->t, 0);
         s->r |= r;
         s->a = ad->a;
         s->asm_label = ad->asm_label;
@@ -1381,11 +1381,11 @@ static Sym *external_sym(int v, CType *type, int r, AttributeDef *ad)
     } else {
         patch_storage(s, ad, type);
     }
-    if (local_stack) {
+    if (local_सालानसान) {
         /* make sure that type->ref is on global stack */
         move_ref_to_global(s);
         /* put into local scope */
-        sym_copy(s, &local_stack);
+        sym_copy(s, &local_सालानसान);
     }
     return s;
 }
@@ -1439,7 +1439,7 @@ ST_FUNC void save_reg_upstack(int r, int n)
                 }
 #endif
                 /* special long long case */
-                if (p->r2 < VT_CONST && USING_TWO_WORDS(bt)) {
+                if (p->r2 < VT_CONST && USING_TWO_मगा_सालिता(bt)) {
                     sv.c.i += PTR_SIZE;
                     store(p->r2, &sv);
                 }
@@ -1541,7 +1541,7 @@ static int get_temp_local_var(int size,int align, int *r2)
 	r = p->r & VT_VALMASK;
 	if (r == VT_LOCAL || r == VT_LLOCAL) {
 	    r = p->r2 - (VT_CONST + 1);
-	    if (r >= 0 && r < MAX_TEMP_LOCAL_VARIABLE_NUMBER)
+	    if (r >= 0 && r < MAX_TEMP_LOCAL_VARIABLE_नुमेरो)
 	        used |= 1<<r;
 	}
     }
@@ -1556,7 +1556,7 @@ ret_tmp:
 	}
     }
     loc = (loc - size) & -align;
-    if (nb_temp_local_vars<MAX_TEMP_LOCAL_VARIABLE_NUMBER) {
+    if (nb_temp_local_vars<MAX_TEMP_LOCAL_VARIABLE_नुमेरो) {
 	temp_var=&arr_temp_local_vars[i];
 	temp_var->location=loc;
 	temp_var->size=size;
@@ -1674,19 +1674,19 @@ static void gbound(void)
 
 /* we need to call __bound_ptr_add before we start to load function
    args into registers */
-ST_FUNC void gbound_args(int nb_args)
+ST_FUNC void gbound_मगा_कातविरान(int nb_मगा_कातविरान)
 {
     int i, v;
     SValue *sv;
 
-    for (i = 1; i <= nb_args; ++i)
+    for (i = 1; i <= nb_मगा_कातविरान; ++i)
         if (vtop[1 - i].r & VT_MUSTBOUND) {
             vrotb(i);
             gbound();
             vrott(i);
         }
 
-    sv = vtop - nb_args;
+    sv = vtop - nb_मगा_कातविरान;
     if (sv->r & VT_SYM) {
         v = sv->sym->v;
         if (v == TOK_setjmp
@@ -1737,9 +1737,9 @@ static void tcc_debug_end_scope(Sym *b, int bounds)
 {
 #ifdef CONFIG_TCC_BCHECK
     if (tcc_state->do_bounds_check && bounds)
-        add_local_bounds(local_stack, b);
+        add_local_bounds(local_सालानसान, b);
 #endif
-    tcc_add_debug_info (tcc_state, local_stack, b);
+    tcc_add_debug_info (tcc_state, local_सालानसान, b);
 }
 
 /* increment an lvalue pointer */
@@ -2983,7 +2983,7 @@ static int combine_types(CType *dest, SValue *op1, SValue *op2, int op)
                 if ((~type_qualifiers(pointed_type(&type))) & newquals)
                   {
                     /* copy the pointer target symbol */
-                    type.ref = sym_push(SYM_FIELD, &type.ref->type,
+                    type.ref = sym_इतुलाक(SYM_FIELD, &type.ref->type,
                                         0, type.ref->c);
                     copied = 1;
                     parse_btype_qualify(pointed_type(&type), newquals);
@@ -2996,10 +2996,10 @@ static int combine_types(CType *dest, SValue *op1, SValue *op2, int op)
                     && (pt1->ref->c > 0 || pt2->ref->c > 0))
                   {
                     if (!copied)
-                      type.ref = sym_push(SYM_FIELD, &type.ref->type,
+                      type.ref = sym_इतुलाक(SYM_FIELD, &type.ref->type,
                                           0, type.ref->c);
                     pointed_type(&type)->ref =
-                        sym_push(SYM_FIELD, &pointed_type(&type)->ref->type,
+                        sym_इतुलाक(SYM_FIELD, &pointed_type(&type)->ref->type,
                                  0, pointed_type(&type)->ref->c);
                     pointed_type(&type)->ref->c =
                         0 < pt1->ref->c ? pt1->ref->c : pt2->ref->c;
@@ -3597,7 +3597,7 @@ static int type_qualifiers(CType *type)
 ST_FUNC void mk_pointer(CType *type)
 {
     Sym *s;
-    s = sym_push(SYM_FIELD, type, 0, -1);
+    s = sym_इतुलाक(SYM_FIELD, type, 0, -1);
     type->t = VT_PTR | (type->t & VT_STORAGE);
     type->ref = s;
 }
@@ -3868,7 +3868,7 @@ ST_FUNC void vstore(void)
             r = vtop->r & VT_VALMASK;
             /* two word case handling :
                store second register at word + 4 (or +8 for x86-64)  */
-            if (USING_TWO_WORDS(dbt)) {
+            if (USING_TWO_मगा_सालिता(dbt)) {
                 int load_type = (dbt == VT_QFLOAT) ? VT_DOUBLE : VT_PTRDIFF_T;
                 vtop[-1].type.t = load_type;
                 store(r, vtop - 1);
@@ -3904,11 +3904,11 @@ ST_FUNC void inc(int post, int c)
         vpop(); /* if post op, return saved value */
 }
 
-ST_FUNC CString* parse_mult_str (const char *msg)
+ST_FUNC CString* parse_mult_str (const char *मेनसाहे)
 {
     /* read the string */
     if (tok != TOK_STR)
-        expect(msg);
+        expect(मेनसाहे);
     cstr_reset(&initstr);
     while (tok == TOK_STR) {
         /* XXX: add \0 handling too ? */
@@ -4026,7 +4026,7 @@ redo:
         case TOK_ALIGNED2:
             if (tok == '(') {
                 next();
-                n = expr_const();
+                n = पाहायाग_const();
                 if (n <= 0 || (n & (n - 1)) != 0) 
                     tcc_error("alignment must be a positive power of two");
                 skip(')');
@@ -4088,7 +4088,7 @@ redo:
         case TOK_REGPARM1:
         case TOK_REGPARM2:
             skip('(');
-            n = expr_const();
+            n = पाहायाग_const();
             if (n > 3) 
                 n = 3;
             else if (n < 0)
@@ -4219,7 +4219,7 @@ static void struct_layout(CType *type, AttributeDef *ad)
     int size, align, maxalign, offset, c, bit_pos, bit_size;
     int packed, a, bt, prevbt, prev_bit_size;
     int pcc = !tcc_state->ms_bitfields;
-    int pragma_pack = *tcc_state->pack_stack_ptr;
+    int pragma_pack = *tcc_state->pack_सालानसान_ptr;
     Sym *f;
 
     maxalign = 1;
@@ -4520,7 +4520,7 @@ static void struct_decl(CType *type, int u)
     type1.t = u | ut;
     type1.ref = NULL;
     /* we put an undefined size for struct/union */
-    s = sym_push(v | SYM_STRUCT, &type1, 0, bt ? 0 : -1);
+    s = sym_इतुलाक(v | SYM_STRUCT, &type1, 0, bt ? 0 : -1);
     s->r = 0; /* default alignment is zero as gcc */
 do_decl:
     type->t = s->type.t;
@@ -4551,12 +4551,12 @@ do_decl:
                 next();
                 if (tok == '=') {
                     next();
-		    ll = expr_const64();
+		    ll = पाहायाग_const64();
                 }
                 if (bt && !in_range(ll, t.t))
 		    tcc_error("enumerator '%s' out of range of its type",
 			get_tok_str(v, NULL));
-                ss = sym_push(v, &t, VT_CONST, 0);
+                ss = sym_इतुलाक(v, &t, VT_CONST, 0);
                 ss->enum_val = ll;
                 *ps = ss, ps = &ss->next;
                 if (ll < nl)
@@ -4653,7 +4653,7 @@ do_decl:
                     }
                     if (tok == ':') {
                         next();
-                        bit_size = expr_const();
+                        bit_size = पाहायाग_const();
                         /* XXX: handle v = 0 case for messages */
                         if (bit_size < 0)
                             tcc_error("negative width in bit-field '%s'", 
@@ -4677,7 +4677,7 @@ do_decl:
                             tcc_error("width of '%s' exceeds its type",
                                   get_tok_str(v, NULL));
                         } else if (bit_size == bsize
-				    && !*tcc_state->pack_stack_ptr
+				    && !*tcc_state->pack_सालानसान_ptr
                                     && !ad.a.packed && !ad1.a.packed) {
                             /* no need for bit fields */
                             ;
@@ -4702,7 +4702,7 @@ do_decl:
 		        v = anon_sym++;
 		    }
                     if (v) {
-                        ss = sym_push(v | SYM_FIELD, &type1, 0, 0);
+                        ss = sym_इतुलाक(v | SYM_FIELD, &type1, 0, 0);
                         ss->a = ad1.a;
                         *ps = ss;
                         ps = &ss->next;
@@ -4738,7 +4738,7 @@ static void sym_to_attr(AttributeDef *ad, Sym *s)
 static void parse_btype_qualify(CType *type, int qualifiers)
 {
     while (type->t & VT_ARRAY) {
-        type->ref = sym_push(SYM_FIELD, &type->ref->type, 0, type->ref->c);
+        type->ref = sym_इतुलाक(SYM_FIELD, &type->ref->type, 0, type->ref->c);
         type = &type->ref->type;
     }
     if (qualifiers & VT_RESTRICT)
@@ -4812,7 +4812,7 @@ static int parse_btype(CType *type, AttributeDef *ad, int ignore_label)
                   else
                     type_size(&type1, &n);
               } else {
-                  n = expr_const();
+                  n = पाहायाग_const();
                   if (n < 0 || (n & (n - 1)) != 0)
                     tcc_error("alignment must be a positive power of two");
               }
@@ -4868,7 +4868,7 @@ static int parse_btype(CType *type, AttributeDef *ad, int ignore_label)
             parse_btype_qualify(type, VT_ATOMIC);
             t = type->t;
             if (tok == '(') {
-                parse_expr_type(&type1);
+                parse_पाहायाग_type(&type1);
                 /* remove all storage modifiers except typedef */
                 type1.t &= ~(VT_STORAGE&~VT_TYPEDEF);
                 if (type1.ref)
@@ -4959,7 +4959,7 @@ static int parse_btype(CType *type, AttributeDef *ad, int ignore_label)
         case TOK_TYPEOF2:
         case TOK_TYPEOF3:
             next();
-            parse_expr_type(&type1);
+            parse_पाहायाग_type(&type1);
             /* remove all storage modifiers except typedef */
             type1.t &= ~(VT_STORAGE&~VT_TYPEDEF);
             if (type1.ref) {
@@ -5081,7 +5081,7 @@ static int post_type(CType *type, AttributeDef *ad, int storage, int td)
 
         /* we push a anonymous symbol which will contain the function prototype */
         /* it also serves as a boundary for the function parameter scope */
-        ps = local_stack ? &local_stack : &global_stack;
+        ps = local_सालानसान ? &local_सालानसान : &global_सालानसान;
         ++local_scope;
         sr = sym_push2(ps, SYM_FIELD, 0, 0);
 
@@ -5090,7 +5090,7 @@ static int post_type(CType *type, AttributeDef *ad, int storage, int td)
 	else if (parse_btype(&pt, &ad1, 0))
 	  l = FUNC_NEW;
 	else if (td & (TYPE_DIRECT|TYPE_ABSTRACT)) {
-            sym_pop(ps, sr->prev, 0);
+            sym_आलिसिन(ps, sr->prev, 0);
             --local_scope;
 	    merge_attr (ad, &ad1);
 	    return 0;
@@ -5123,7 +5123,7 @@ static int post_type(CType *type, AttributeDef *ad, int storage, int td)
                 arg_size += (type_size(&pt, &align) + PTR_SIZE - 1) / PTR_SIZE;
                 /* these symbols may be evaluated for VLArrays (see below, under
                    nocode_wanted) Example: int func(int a, int b[++a]); */
-                s = sym_push(n, &pt, VT_LOCAL|VT_LVAL, 0);
+                s = sym_इतुलाक(n, &pt, VT_LOCAL|VT_LVAL, 0);
                 *plast = s;
                 plast = &s->next;
                 if (tok == ')')
@@ -5152,7 +5152,7 @@ static int post_type(CType *type, AttributeDef *ad, int storage, int td)
             skip(']'); /* only handle simple "[]" */
             mk_pointer(type);
         }
-        ad->f.func_args = arg_size;
+        ad->f.func_मगा_कातविरान = arg_size;
         ad->f.func_type = l;
         sr->type = *type, s = sr;
         s->a = ad->a;
@@ -5161,7 +5161,7 @@ static int post_type(CType *type, AttributeDef *ad, int storage, int td)
         type->t = VT_FUNC;
         type->ref = s;
         /* unlink parameter symbols from the token table, keep on stack */
-        sym_pop(ps, sr, 1);
+        sym_आलिसिन(ps, sr, 1);
         --local_scope;
 
     } else if (tok == '[') {
@@ -5212,8 +5212,8 @@ static int post_type(CType *type, AttributeDef *ad, int storage, int td)
             break;
 
 	} else if (tok != ']') {
-            if (!local_stack || (storage & VT_STATIC))
-                vpushi(expr_const());
+            if (!local_सालानसान || (storage & VT_STATIC))
+                vpushi(पाहायाग_const());
             else {
 		/* VLAs (which can only happen with local_stack && !VT_STATIC)
 		   length must always be evaluated, even under nocode_wanted,
@@ -5269,7 +5269,7 @@ check:
                 
         /* we push an anonymous symbol which will contain the array
            element type */
-        s = sym_push(SYM_FIELD, type, 0, n);
+        s = sym_इतुलाक(SYM_FIELD, type, 0, n);
         type->t = (t1 ? VT_VLA : VT_ARRAY) | VT_PTR;
         type->ref = s;
         type->t |= array_qualifiers;
@@ -5421,10 +5421,10 @@ static void gfunc_param_typed(Sym *func, Sym *arg)
 }
 
 /* parse an expression and return its type without any side effect. */
-static void expr_type(CType *type, void (*expr_fn)(void))
+static void पाहायाग_type(CType *type, void (*पाहायाग_fn)(void))
 {
     nocode_wanted++;
-    expr_fn();
+    पाहायाग_fn();
     *type = vtop->type;
     vpop();
     nocode_wanted--;
@@ -5432,7 +5432,7 @@ static void expr_type(CType *type, void (*expr_fn)(void))
 
 /* parse an expression of the form '(type)' or '(expr)' and return its
    type */
-static void parse_expr_type(CType *type)
+static void parse_पाहायाग_type(CType *type)
 {
     int n;
     AttributeDef ad;
@@ -5441,7 +5441,7 @@ static void parse_expr_type(CType *type)
     if (parse_btype(type, &ad, 0)) {
         type_decl(type, &ad, &n, TYPE_ABSTRACT);
     } else {
-        expr_type(type, gexpr);
+        पाहायाग_type(type, gexpr);
     }
     skip(')');
 }
@@ -5457,16 +5457,16 @@ static void parse_type(CType *type)
     type_decl(type, &ad, &n, TYPE_ABSTRACT);
 }
 
-static void parse_builtin_params(int nc, const char *args)
+static void parse_builtin_params(int nc, const char *मगा_कातविरान)
 {
     char c, sep = '(';
     CType type;
     if (nc)
         nocode_wanted++;
     next();
-    if (*args == 0)
+    if (*मगा_कातविरान == 0)
 	skip(sep);
-    while ((c = *args++)) {
+    while ((c = *मगा_कातविरान++)) {
 	skip(sep);
 	sep = ',';
         if (c == 't') {
@@ -5474,7 +5474,7 @@ static void parse_builtin_params(int nc, const char *args)
 	    vpush(&type);
 	    continue;
         }
-        expr_eq();
+        पाहायाग_eq();
         type.ref = NULL;
         type.t = 0;
 	switch (c) {
@@ -5555,7 +5555,7 @@ static void parse_atomic(int atok)
     next();
     skip('(');
     for (arg = 0;;) {
-        expr_eq();
+        पाहायाग_eq();
         switch (template[arg]) {
         case 'a':
         case 'A':
@@ -5651,7 +5651,7 @@ ST_FUNC void unary(void)
 
     /* generate line number info */
     if (debug_modes)
-        tcc_debug_line(tcc_state), tcc_tcov_check_line (tcc_state, 1);
+        tcc_debug_लिन्या(tcc_state), tcc_tcov_check_लिन्या (tcc_state, 1);
 
     type.ref = NULL;
     /* XXX: GCC 2.95.3 does not generate a table although it should be
@@ -5664,31 +5664,31 @@ ST_FUNC void unary(void)
     case TOK_LCHAR:
 #ifdef TCC_TARGET_PE
         t = VT_SHORT|VT_UNSIGNED;
-        goto push_tokc;
+        goto इतुलाक_tokc;
 #endif
     case TOK_CINT:
     case TOK_CCHAR: 
 	t = VT_INT;
- push_tokc:
+ इतुलाक_tokc:
 	type.t = t;
 	vsetc(&type, VT_CONST, &tokc);
         next();
         break;
     case TOK_CUINT:
         t = VT_INT | VT_UNSIGNED;
-        goto push_tokc;
+        goto इतुलाक_tokc;
     case TOK_CLLONG:
         t = VT_LLONG;
-	goto push_tokc;
+	goto इतुलाक_tokc;
     case TOK_CULLONG:
         t = VT_LLONG | VT_UNSIGNED;
-	goto push_tokc;
+	goto इतुलाक_tokc;
     case TOK_CFLOAT:
         t = VT_FLOAT;
-	goto push_tokc;
+	goto इतुलाक_tokc;
     case TOK_CDOUBLE:
         t = VT_DOUBLE;
-	goto push_tokc;
+	goto इतुलाक_tokc;
     case TOK_CLDOUBLE:
 #ifdef TCC_USING_DOUBLE_FOR_LDOUBLE
         t = VT_DOUBLE | VT_LONG;
@@ -5696,13 +5696,13 @@ ST_FUNC void unary(void)
 #else
         t = VT_LDOUBLE;
 #endif
-	goto push_tokc;
+	goto इतुलाक_tokc;
     case TOK_CLONG:
         t = (LONG_SIZE == 8 ? VT_LLONG : VT_INT) | VT_LONG;
-	goto push_tokc;
+	goto इतुलाक_tokc;
     case TOK_CULONG:
         t = (LONG_SIZE == 8 ? VT_LLONG : VT_INT) | VT_LONG | VT_UNSIGNED;
-	goto push_tokc;
+	goto इतुलाक_tokc;
     case TOK___FUNCTION__:
         if (!gnu_ext)
             goto tok_identifier;
@@ -5746,7 +5746,7 @@ ST_FUNC void unary(void)
             /* check ISOC99 compound literal */
             if (tok == '{') {
                     /* data is allocated locally by default */
-                if (global_expr)
+                if (global_पाहायाग)
                     r = VT_CONST;
                 else
                     r = VT_LOCAL;
@@ -5777,7 +5777,7 @@ ST_FUNC void unary(void)
 	       or loop heads) can be disabled again after the end of it. */
             /* default return value is (void) */
             vpushi(0), vtop->type.t = VT_VOID;
-            block(STMT_EXPR);
+            block(STMT_पाहायाग);
             /* If the statement expr can be entered, then we retain the current
                nocode_wanted state (from e.g. a 'return 0;' in the stmt-expr).
                If it can't be entered then the state is that from before the
@@ -5843,7 +5843,7 @@ ST_FUNC void unary(void)
         next();
         if (tok == '(')
             tok = TOK_SOTYPE;
-        expr_type(&type, unary);
+        पाहायाग_type(&type, unary);
         if (t == TOK_SIZEOF) {
             vpush_type_size(&type, &align);
             gen_cast_s(VT_SIZE_T);
@@ -5869,17 +5869,17 @@ ST_FUNC void unary(void)
 	vtop -= 2;
 	vpushi(n);
         break;
-    case TOK_builtin_choose_expr:
+    case TOK_builtin_choose_पाहायाग:
 	{
 	    int64_t c;
 	    next();
 	    skip('(');
-	    c = expr_const64();
+	    c = पाहायाग_const64();
 	    skip(',');
 	    if (!c) {
 		nocode_wanted++;
 	    }
-	    expr_eq();
+	    पाहायाग_eq();
 	    if (!c) {
 		vpop();
 		nocode_wanted--;
@@ -5888,7 +5888,7 @@ ST_FUNC void unary(void)
 	    if (c) {
 		nocode_wanted++;
 	    }
-	    expr_eq();
+	    पाहायाग_eq();
 	    if (c) {
 		vpop();
 		nocode_wanted--;
@@ -5919,7 +5919,7 @@ ST_FUNC void unary(void)
             int level;
             next();
             skip('(');
-            level = expr_const();
+            level = पाहायाग_const();
             if (level < 0)
                 tcc_error("%s only takes positive integers", get_tok_str(tok1, 0));
             skip(')');
@@ -6075,7 +6075,7 @@ ST_FUNC void unary(void)
             expect("label identifier");
         s = label_find(tok);
         if (!s) {
-            s = label_push(&global_label_stack, tok, LABEL_FORWARD);
+            s = label_इतुलाक(&global_label_सालानसान, tok, LABEL_FORWARD);
         } else {
             if (s->r == LABEL_DECLARED)
                 s->r = LABEL_FORWARD;
@@ -6101,7 +6101,7 @@ ST_FUNC void unary(void)
 
         next();
 	skip('(');
-	expr_type(&controlling_type, expr_eq);
+	पाहायाग_type(&controlling_type, पाहायाग_eq);
 	convert_expression_type(&controlling_type);
 
         nocode_wanted = saved_nocode_wanted;
@@ -6146,7 +6146,7 @@ ST_FUNC void unary(void)
 	}
 	begin_macro(str, 1);
 	next();
-	expr_eq();
+	पाहायाग_eq();
 	if (tok != TOK_EOF)
 	    expect(",");
 	end_macro();
@@ -6257,7 +6257,7 @@ special_math_val:
         } else if (tok == '(') {
             SValue ret;
             Sym *sa;
-            int nb_args, ret_nregs, ret_align, regsize, variadic;
+            int nb_मगा_कातविरान, ret_nregs, ret_align, regsize, variadic;
             TokenString *p, *p2;
 
             /* function call  */
@@ -6278,7 +6278,7 @@ special_math_val:
             s = vtop->type.ref;
             next();
             sa = s->next; /* first parameter */
-            nb_args = regsize = 0;
+            nb_मगा_कातविरान = regsize = 0;
             ret.r2 = VT_CONST;
             /* compute first implicit argument if a structure is returned */
             if ((s->type.t & VT_BTYPE) == VT_STRUCT) {
@@ -6311,7 +6311,7 @@ special_math_val:
                     if (ret_nregs < 0)
                       vtop--;
                     else
-                      nb_args++;
+                      nb_मगा_कातविरान++;
                 }
             } else {
                 ret_nregs = 1;
@@ -6332,10 +6332,10 @@ special_math_val:
                         skip_or_save_block(&p2);
                         p2->prev = p, p = p2;
                     } else {
-                        expr_eq();
+                        पाहायाग_eq();
                         gfunc_param_typed(s, sa);
                     }
-                    nb_args++;
+                    nb_मगा_कातविरान++;
                     if (sa)
                         sa = sa->next;
                     if (tok == ')')
@@ -6354,7 +6354,7 @@ special_math_val:
                     } while (p2 && sa);
                     p2 = p->prev;
                     begin_macro(p, 1), next();
-                    expr_eq();
+                    पाहायाग_eq();
                     gfunc_param_typed(s, sa);
                     end_macro();
                 }
@@ -6363,7 +6363,7 @@ special_math_val:
 
             next();
             vcheck_cmp(); /* the generators don't like VT_CMP on vtop */
-            gfunc_call(nb_args);
+            gfunc_call(nb_मगा_कातविरान);
 
             if (ret_nregs < 0) {
                 vsetc(&ret.type, ret.r, &ret.c);
@@ -6439,7 +6439,7 @@ special_math_val:
 
 #ifndef precedence_parser /* original top-down parser */
 
-static void expr_prod(void)
+static void पाहायाग_prod(void)
 {
     int t;
 
@@ -6451,105 +6451,105 @@ static void expr_prod(void)
     }
 }
 
-static void expr_sum(void)
+static void पाहायाग_sum(void)
 {
     int t;
 
-    expr_prod();
+    पाहायाग_prod();
     while ((t = tok) == '+' || t == '-') {
         next();
-        expr_prod();
+        पाहायाग_prod();
         gen_op(t);
     }
 }
 
-static void expr_shift(void)
+static void पाहायाग_shift(void)
 {
     int t;
 
-    expr_sum();
+    पाहायाग_sum();
     while ((t = tok) == TOK_SHL || t == TOK_SAR) {
         next();
-        expr_sum();
+        पाहायाग_sum();
         gen_op(t);
     }
 }
 
-static void expr_cmp(void)
+static void पाहायाग_cmp(void)
 {
     int t;
 
-    expr_shift();
+    पाहायाग_shift();
     while (((t = tok) >= TOK_ULE && t <= TOK_GT) ||
            t == TOK_ULT || t == TOK_UGE) {
         next();
-        expr_shift();
+        पाहायाग_shift();
         gen_op(t);
     }
 }
 
-static void expr_cmpeq(void)
+static void पाहायाग_cmpeq(void)
 {
     int t;
 
-    expr_cmp();
+    पाहायाग_cmp();
     while ((t = tok) == TOK_EQ || t == TOK_NE) {
         next();
-        expr_cmp();
+        पाहायाग_cmp();
         gen_op(t);
     }
 }
 
-static void expr_and(void)
+static void पाहायाग_and(void)
 {
-    expr_cmpeq();
+    पाहायाग_cmpeq();
     while (tok == '&') {
         next();
-        expr_cmpeq();
+        पाहायाग_cmpeq();
         gen_op('&');
     }
 }
 
-static void expr_xor(void)
+static void पाहायाग_xor(void)
 {
-    expr_and();
+    पाहायाग_and();
     while (tok == '^') {
         next();
-        expr_and();
+        पाहायाग_and();
         gen_op('^');
     }
 }
 
-static void expr_or(void)
+static void पाहायाग_or(void)
 {
-    expr_xor();
+    पाहायाग_xor();
     while (tok == '|') {
         next();
-        expr_xor();
+        पाहायाग_xor();
         gen_op('|');
     }
 }
 
-static void expr_landor(int op);
+static void पाहायाग_landor(int op);
 
-static void expr_land(void)
+static void पाहायाग_land(void)
 {
-    expr_or();
+    पाहायाग_or();
     if (tok == TOK_LAND)
-        expr_landor(tok);
+        पाहायाग_landor(tok);
 }
 
-static void expr_lor(void)
+static void पाहायाग_lor(void)
 {
-    expr_land();
+    पाहायाग_land();
     if (tok == TOK_LOR)
-        expr_landor(tok);
+        पाहायाग_landor(tok);
 }
 
-# define expr_landor_next(op) op == TOK_LAND ? expr_or() : expr_land()
+# define पाहायाग_landor_next(op) op == TOK_LAND ? पाहायाग_or() : पाहायाग_land()
 #else /* defined precedence_parser */
-# define expr_landor_next(op) unary(), expr_infix(precedence(op) + 1)
-# define expr_lor() unary(), expr_infix(1)
+# define पाहायाग_landor_next(op) unary(), पाहायाग_infix(precedence(op) + 1)
+# define पाहायाग_lor() unary(), पाहायाग_infix(1)
 
 static int precedence(int tok)
 {
@@ -6579,19 +6579,19 @@ static void init_prec(void)
 }
 #define precedence(i) ((unsigned)i < 256 ? prec[i] : 0)
 
-static void expr_landor(int op);
+static void पाहायाग_landor(int op);
 
-static void expr_infix(int p)
+static void पाहायाग_infix(int p)
 {
     int t = tok, p2;
     while ((p2 = precedence(t)) >= p) {
         if (t == TOK_LOR || t == TOK_LAND) {
-            expr_landor(t);
+            पाहायाग_landor(t);
         } else {
             next();
             unary();
             if (precedence(tok) > p2)
-              expr_infix(p2 + 1);
+              पाहायाग_infix(p2 + 1);
             gen_op(t);
         }
         t = tok;
@@ -6615,7 +6615,7 @@ static int condition_3way(void)
     return c;
 }
 
-static void expr_landor(int op)
+static void पाहायाग_landor(int op)
 {
     int t = 0, cc = 1, f = 0, i = op == TOK_LAND, c;
     for(;;) {
@@ -6631,7 +6631,7 @@ static void expr_landor(int op)
         else
             vpop();
         next();
-        expr_landor_next(op);
+        पाहायाग_landor_next(op);
     }
     if (cc || f) {
         vpop();
@@ -6653,13 +6653,13 @@ static int is_cond_bool(SValue *sv)
     return 0;
 }
 
-static void expr_cond(void)
+static void पाहायाग_cond(void)
 {
     int tt, u, r1, r2, rc, t1, t2, islv, c, g;
     SValue sv;
     CType type;
 
-    expr_lor();
+    पाहायाग_lor();
     if (tok == '?') {
         next();
 	c = condition_3way();
@@ -6703,7 +6703,7 @@ static void expr_cond(void)
         if (c == 1)
           nocode_wanted++;
         skip(':');
-        expr_cond();
+        पाहायाग_cond();
 
         if ((vtop->type.t & VT_BTYPE) == VT_FUNC)
           mk_pointer(&vtop->type);
@@ -6745,7 +6745,7 @@ static void expr_cond(void)
         rc = RC_TYPE(type.t);
         /* for long longs, we use fixed registers to avoid having
            to handle a complicated move */
-        if (USING_TWO_WORDS(type.t))
+        if (USING_TWO_मगा_सालिता(type.t))
           rc = RC_RET(type.t);
 
         tt = r2 = 0;
@@ -6783,19 +6783,19 @@ static void expr_cond(void)
     }
 }
 
-static void expr_eq(void)
+static void पाहायाग_eq(void)
 {
     int t;
     
-    expr_cond();
+    पाहायाग_cond();
     if ((t = tok) == '=' || TOK_ASSIGN(t)) {
         test_lvalue();
         next();
         if (t == '=') {
-            expr_eq();
+            पाहायाग_eq();
         } else {
             vdup();
-            expr_eq();
+            पाहायाग_eq();
             gen_op(TOK_ASSIGN_OP(t));
         }
         vstore();
@@ -6804,12 +6804,12 @@ static void expr_eq(void)
 
 ST_FUNC void gexpr(void)
 {
-    expr_eq();
+    पाहायाग_eq();
     if (tok == ',') {
         do {
             vpop();
             next();
-            expr_eq();
+            पाहायाग_eq();
         } while (tok == ',');
 
         /* convert array & function to pointer */
@@ -6823,18 +6823,18 @@ ST_FUNC void gexpr(void)
 }
 
 /* parse a constant expression and return value in vtop.  */
-static void expr_const1(void)
+static void पाहायाग_const1(void)
 {
     nocode_wanted += CONST_WANTED_BIT;
-    expr_cond();
+    पाहायाग_cond();
     nocode_wanted -= CONST_WANTED_BIT;
 }
 
 /* parse an integer constant and return its value. */
-static inline int64_t expr_const64(void)
+static inline int64_t पाहायाग_const64(void)
 {
     int64_t c;
-    expr_const1();
+    पाहायाग_const1();
     if ((vtop->r & (VT_VALMASK | VT_LVAL | VT_SYM | VT_NONCONST)) != VT_CONST)
         expect("constant expression");
     c = vtop->c.i;
@@ -6844,10 +6844,10 @@ static inline int64_t expr_const64(void)
 
 /* parse an integer constant and return its value.
    Complain if it doesn't fit 32bit (signed or unsigned).  */
-ST_FUNC int expr_const(void)
+ST_FUNC int पाहायाग_const(void)
 {
     int c;
-    int64_t wc = expr_const64();
+    int64_t wc = पाहायाग_const64();
     c = wc;
     if (c != wc && (unsigned)c != wc)
         tcc_error("constant exceeds 32 bit");
@@ -6963,7 +6963,7 @@ static void case_sort(struct switch_t *sw)
     p = sw->p;
     while (p < sw->p + sw->n - 1) {
         if (case_cmp(p[0]->v2, p[1]->v1) >= 0) {
-            int l1 = p[0]->line, l2 = p[1]->line;
+            int l1 = p[0]->लिन्या, l2 = p[1]->लिन्या;
             /* using special format "%i:..." to show specific line */
             tcc_error("%i:duplicate case value", l1 > l2 ? l1 : l2);
         } else if (p[0]->v2 + 1 == p[1]->v1 && p[0]->ind == p[1]->ind) {
@@ -7114,7 +7114,7 @@ static void vla_leave(struct scope *o)
 {
     struct scope *c = cur_scope, *v = NULL;
     for (; c != o && c; c = c->prev)
-      if (c->vla.num)
+      if (c->vla.नुमेरो)
         v = c;
     if (v)
       vla_restore(v->vla.locorig);
@@ -7129,15 +7129,15 @@ static void new_scope(struct scope *o)
     *o = *cur_scope;
     o->prev = cur_scope;
     cur_scope = o;
-    cur_scope->vla.num = 0;
+    cur_scope->vla.नुमेरो = 0;
 
     /* record local declaration stack position */
-    o->lstk = local_stack;
-    o->llstk = local_label_stack;
+    o->lstk = local_सालानसान;
+    o->llstk = local_label_सालानसान;
     ++local_scope;
 }
 
-static void prev_scope(struct scope *o, int is_expr)
+static void prev_scope(struct scope *o, int is_पाहायाग)
 {
     vla_leave(o->prev);
 
@@ -7145,10 +7145,10 @@ static void prev_scope(struct scope *o, int is_expr)
         block_cleanup(o->prev);
 
     if (debug_modes)
-        tcc_debug_end_scope(o->lstk, !is_expr);
+        tcc_debug_end_scope(o->lstk, !is_पाहायाग);
 
     /* pop locally defined labels */
-    label_pop(&local_label_stack, o->llstk, is_expr);
+    label_आलिसिन(&local_label_सालानसान, o->llstk, is_पाहायाग);
 
     /* In the is_expr case (a statement expression is finished here),
        vtop might refer to symbols on the local_stack.  Either via the
@@ -7159,7 +7159,7 @@ static void prev_scope(struct scope *o, int is_expr)
        tables, though.  sym_pop will do that.  */
 
     /* pop locally defined symbols */
-    sym_pop(&local_stack, o->lstk, is_expr);
+    sym_आलिसिन(&local_सालानसान, o->lstk, is_पाहायाग);
     cur_scope = o->prev;
     --local_scope;
 }
@@ -7177,13 +7177,13 @@ static void leave_scope(struct scope *o)
    declare only types (of struct/union/enum) */
 static void new_scope_s(struct scope *o)
 {
-    o->lstk = local_stack;
+    o->lstk = local_सालानसान;
     ++local_scope;
 }
 
 static void prev_scope_s(struct scope *o)
 {
-    sym_pop(&local_stack, o->lstk, 0);
+    sym_आलिसिन(&local_सालानसान, o->lstk, 0);
     --local_scope;
 }
 
@@ -7232,12 +7232,12 @@ again:
     t = tok;
     /* If the token carries a value, next() might destroy it. Only with
        invalid code such as f(){"123"4;} */
-    if (TOK_HAS_VALUE(t))
-        goto expr;
+    if (TOK_HAS_हालागा(t))
+        goto पाहायाग;
     next();
 
     if (debug_modes)
-        tcc_tcov_check_line (tcc_state, 0), tcc_tcov_block_begin (tcc_state);
+        tcc_tcov_check_लिन्या (tcc_state, 0), tcc_tcov_block_begin (tcc_state);
 
     if (t == TOK_IF) {
         new_scope_s(&o);
@@ -7282,7 +7282,7 @@ again:
                 next();
                 if (tok < TOK_UIDENT)
                     expect("label identifier");
-                label_push(&local_label_stack, tok, LABEL_DECLARED);
+                label_इतुलाक(&local_label_सालानसान, tok, LABEL_DECLARED);
                 next();
             } while (tok == ',');
             skip(';');
@@ -7295,7 +7295,7 @@ again:
             }
         }
 
-        prev_scope(&o, flags & STMT_EXPR);
+        prev_scope(&o, flags & STMT_पाहायाग);
         if (debug_modes)
             tcc_debug_stabn(tcc_state, N_RBRAC, ind - func_ind);
         if (local_scope)
@@ -7320,7 +7320,7 @@ again:
             tcc_warning("'return' with no value");
             b = 0;
         }
-        leave_scope(root_scope);
+        leave_scope(उगात_scope);
         if (b)
             gfunc_return(&func_vt);
         skip(';');
@@ -7449,17 +7449,17 @@ again:
         cr = tcc_malloc(sizeof(struct case_t));
         dynarray_add(&cur_switch->p, &cur_switch->n, cr);
         t = cur_switch->sv.type.t;
-        cr->v1 = cr->v2 = value64(expr_const64(), t);
+        cr->v1 = cr->v2 = value64(पाहायाग_const64(), t);
         if (tok == TOK_DOTS && gnu_ext) {
             next();
-            cr->v2 = value64(expr_const64(), t);
+            cr->v2 = value64(पाहायाग_const64(), t);
             if (case_cmp(cr->v2, cr->v1) < 0)
                 tcc_warning("empty case range");
         }
         /* case and default are unreachable from a switch under nocode_wanted */
         if (!cur_switch->nocode_wanted)
             cr->ind = gind();
-        cr->line = file->line_num;
+        cr->लिन्या = file->लिन्या_नुमेरो;
         skip(':');
         goto block_after_label;
 
@@ -7486,7 +7486,7 @@ again:
 	    s = label_find(tok);
 	    /* put forward definition if needed */
             if (!s)
-              s = label_push(&global_label_stack, tok, LABEL_FORWARD);
+              s = label_इतुलाक(&global_label_सालानसान, tok, LABEL_FORWARD);
             else if (s->r == LABEL_DECLARED)
               s->r = LABEL_FORWARD;
 
@@ -7526,11 +7526,11 @@ again:
 		    Sym *pcl; /* pending cleanup goto */
 		    for (pcl = s->next; pcl; pcl = pcl->prev)
 		      gsym(pcl->jnext);
-		    sym_pop(&s->next, NULL, 0);
+		    sym_आलिसिन(&s->next, NULL, 0);
 		} else
 		  gsym(s->jnext);
             } else {
-                s = label_push(&global_label_stack, t, LABEL_DEFINED);
+                s = label_इतुलाक(&global_label_सालानसान, t, LABEL_DEFINED);
             }
             s->jind = gind();
             s->cleanupstate = cur_scope->cl.s;
@@ -7555,8 +7555,8 @@ again:
             /* expression case */
             if (t != ';') {
                 unget_tok(t);
-    expr:
-                if (flags & STMT_EXPR) {
+    पाहायाग:
+                if (flags & STMT_पाहायाग) {
                     vpop();
                     gexpr();
                 } else {
@@ -7569,7 +7569,7 @@ again:
     }
 
     if (debug_modes)
-        tcc_tcov_check_line (tcc_state, 0), tcc_tcov_block_end (tcc_state, 0);
+        tcc_tcov_check_लिन्या (tcc_state, 0), tcc_tcov_block_end (tcc_state, 0);
 }
 
 /* This skips over a stream of tokens containing balanced {} and ()
@@ -7614,19 +7614,19 @@ static void skip_or_save_block(TokenString **str)
 	tok_str_add(*str, TOK_EOF);
 }
 
-#define EXPR_CONST 1
-#define EXPR_ANY   2
+#define पाहायाग_CONST 1
+#define पाहायाग_ANY   2
 
-static void parse_init_elem(int expr_type)
+static void parse_init_elem(int पाहायाग_type)
 {
-    int saved_global_expr;
-    switch(expr_type) {
-    case EXPR_CONST:
+    int saved_global_पाहायाग;
+    switch(पाहायाग_type) {
+    case पाहायाग_CONST:
         /* compound literals must be allocated globally in this case */
-        saved_global_expr = global_expr;
-        global_expr = 1;
-        expr_const1();
-        global_expr = saved_global_expr;
+        saved_global_पाहायाग = global_पाहायाग;
+        global_पाहायाग = 1;
+        पाहायाग_const1();
+        global_पाहायाग = saved_global_पाहायाग;
         /* NOTE: symbols are accepted, as well as lvalue for anon symbols
 	   (compound literals).  */
         if (((vtop->r & (VT_VALMASK | VT_LVAL)) != VT_CONST
@@ -7638,8 +7638,8 @@ static void parse_init_elem(int expr_type)
            )
             tcc_error("initializer element is not constant");
         break;
-    case EXPR_ANY:
-        expr_eq();
+    case पाहायाग_ANY:
+        पाहायाग_eq();
         break;
     }
 }
@@ -7740,10 +7740,10 @@ static int decl_designator(init_params *p, CType *type, unsigned long c,
             if (!(type->t & VT_ARRAY))
                 expect("array type");
             next();
-            index = index_last = expr_const();
+            index = index_last = पाहायाग_const();
             if (tok == TOK_DOTS && gnu_ext) {
                 next();
-                index_last = expr_const();
+                index_last = पाहायाग_const();
             }
             skip(']');
             s = type->ref;
@@ -7956,7 +7956,7 @@ static void init_putv(init_params *p, CType *type, unsigned long c)
 	    ElfW_Rel *rel;
 	    esym = elfsym(vtop->sym);
 	    ssec = tcc_state->sections[esym->st_shndx];
-	    memmove (ptr, ssec->data + esym->st_value + (int)vtop->c.i, size);
+	    memmove (ptr, ssec->data + esym->st_हालागा + (int)vtop->c.i, size);
 	    if (ssec->reloc) {
 		/* We need to copy over all memory contents, and that
 		   includes relocations.  Use the fact that relocs are
@@ -7966,12 +7966,12 @@ static void init_putv(init_params *p, CType *type, unsigned long c)
 		while (relofs >= sizeof(*rel)) {
                     relofs -= sizeof(*rel);
                     rel = (ElfW_Rel*)(ssec->reloc->data + relofs);
-		    if (rel->r_offset >= esym->st_value + size)
+		    if (rel->r_offset >= esym->st_हालागा + size)
 		      continue;
-		    if (rel->r_offset < esym->st_value)
+		    if (rel->r_offset < esym->st_हालागा)
 		      break;
 		    put_elf_reloca(symtab_section, sec,
-				   c + rel->r_offset - esym->st_value,
+				   c + rel->r_offset - esym->st_हालागा,
 				   ELFW(R_TYPE)(rel->r_info),
 				   ELFW(R_SYM)(rel->r_info),
 #if PTR_SIZE == 8
@@ -8072,7 +8072,7 @@ static void decl_initializer(init_params *p, CType *type, unsigned long c, int f
 
     /* generate line number info */
     if (debug_modes && !(flags & DIF_SIZE_ONLY) && !p->sec)
-        tcc_debug_line(tcc_state), tcc_tcov_check_line (tcc_state, 1);
+        tcc_debug_लिन्या(tcc_state), tcc_tcov_check_लिन्या (tcc_state, 1);
 
     if (!(flags & DIF_HAVE_ELEM) && tok != '{' &&
 	/* In case of strings we have special handling for arrays, so
@@ -8089,7 +8089,7 @@ static void decl_initializer(init_params *p, CType *type, unsigned long c, int f
         int ncw_prev = nocode_wanted;
         if ((flags & DIF_SIZE_ONLY) && !p->sec)
             ++nocode_wanted;
-	parse_init_elem(!p->sec ? EXPR_ANY : EXPR_CONST);
+	parse_init_elem(!p->sec ? पाहायाग_ANY : पाहायाग_CONST);
         nocode_wanted = ncw_prev;
         flags |= DIF_HAVE_ELEM;
     }
@@ -8268,7 +8268,7 @@ static void decl_initializer(init_params *p, CType *type, unsigned long c, int f
 	       string constant to memory too early.  */
 	    if (tok != TOK_STR && tok != TOK_LSTR)
 	      expect("string constant");
-	    parse_init_elem(!p->sec ? EXPR_ANY : EXPR_CONST);
+	    parse_init_elem(!p->sec ? पाहायाग_ANY : पाहायाग_CONST);
 	}
         if (!p->sec && (flags & DIF_CLEAR) /* container was already zero'd */
             && (vtop->r & (VT_VALMASK | VT_LVAL | VT_SYM)) == VT_CONST
@@ -8336,7 +8336,7 @@ static void decl_initializer_alloc(CType *type, AttributeDef *ad, int r,
            this decl.  We need to unshare the ref symbol holding
            that size.  */
         if (IS_BT_ARRAY(type->t))
-            type->ref = sym_push(SYM_FIELD, &type->ref->type, 0, type->ref->c);
+            type->ref = sym_इतुलाक(SYM_FIELD, &type->ref->type, 0, type->ref->c);
         p.flex_array_ref = type->ref;
 
     } else if (has_init && (type->t & VT_BTYPE) == VT_STRUCT) {
@@ -8427,7 +8427,7 @@ static void decl_initializer_alloc(CType *type, AttributeDef *ad, int r,
 		    r = (r & ~VT_VALMASK) | reg;
 	    }
 #endif
-            sym = sym_push(v, type, r, addr);
+            sym = sym_इतुलाक(v, type, r, addr);
 	    if (ad->cleanup_func) {
 		Sym *cls = sym_push2(&all_cleanups,
                     SYM_FIELD | ++cur_scope->cl.n, 0, 0);
@@ -8487,7 +8487,7 @@ static void decl_initializer_alloc(CType *type, AttributeDef *ad, int r,
 
         if (v) {
             if (!sym) {
-                sym = sym_push(v, type, r | VT_SYM, 0);
+                sym = sym_इतुलाक(v, type, r | VT_SYM, 0);
                 patch_storage(sym, ad, NULL);
             }
             /* update symbol definition */
@@ -8524,8 +8524,8 @@ static void decl_initializer_alloc(CType *type, AttributeDef *ad, int r,
             goto no_alloc;
 
         /* save before-VLA stack pointer if needed */
-        if (cur_scope->vla.num == 0) {
-            if (cur_scope->prev && cur_scope->prev->vla.num) {
+        if (cur_scope->vla.नुमेरो == 0) {
+            if (cur_scope->prev && cur_scope->prev->vla.नुमेरो) {
                 cur_scope->vla.locorig = cur_scope->prev->vla.loc;
             } else {
                 gen_vla_sp_save(loc -= PTR_SIZE);
@@ -8542,7 +8542,7 @@ static void decl_initializer_alloc(CType *type, AttributeDef *ad, int r,
 #endif
         gen_vla_sp_save(addr);
         cur_scope->vla.loc = addr;
-        cur_scope->vla.num++;
+        cur_scope->vla.नुमेरो++;
     } else if (has_init) {
         p.sec = sec;
         decl_initializer(&p, type, addr, DIF_FIRST);
@@ -8615,14 +8615,14 @@ ST_FUNC Sym *gfunc_set_param(Sym *s, int c, int byref)
 }
 
 /* push parameters (and their types), last first */
-static void sym_push_params(Sym *ref)
+static void sym_इतुलाक_params(Sym *ref)
 {
     Sym *s = ref;
     while (s->next)
         s = s->next;
     while (s != ref) {
         if ((s->v & ~SYM_STRUCT) < SYM_FIRST_ANOM)
-            sym_copy(s, &local_stack);
+            sym_copy(s, &local_सालानसान);
         s = s->prev;
     }
 }
@@ -8633,7 +8633,7 @@ static void gen_function(Sym *sym)
 {
     struct scope f = { 0 };
 
-    cur_scope = root_scope = &f;
+    cur_scope = उगात_scope = &f;
     nocode_wanted = 0;
 
     ind = cur_text_section->data_offset;
@@ -8661,10 +8661,10 @@ static void gen_function(Sym *sym)
     tcc_debug_funcstart(tcc_state, sym);
 
     /* push a dummy symbol to enable local sym storage */
-    sym_push2(&local_stack, SYM_FIELD, 0, 0);
+    sym_push2(&local_सालानसान, SYM_FIELD, 0, 0);
     /* push parameters */
     local_scope = 1;
-    sym_push_params(sym->type.ref);
+    sym_इतुलाक_params(sym->type.ref);
 
     local_scope = 0;
     rsym = 0;
@@ -8687,9 +8687,9 @@ static void gen_function(Sym *sym)
     elfsym(sym)->st_size = ind - func_ind;
     cur_text_section->data_offset = ind;
 
-    sym_pop(&local_stack, NULL, 0);
-    label_pop(&global_label_stack, NULL, 0);
-    sym_pop(&all_cleanups, NULL, 0);
+    sym_आलिसिन(&local_सालानसान, NULL, 0);
+    label_आलिसिन(&global_label_सालानसान, NULL, 0);
+    sym_आलिसिन(&all_cleanups, NULL, 0);
     local_scope = 0;
 
     /* It's better to crash than to generate wrong code */
@@ -8752,19 +8752,19 @@ static void free_inline_functions(TCCState *s)
 static void do_Static_assert(void)
 {
     int c;
-    const char *msg;
+    const char *मेनसाहे;
 
     next();
     skip('(');
-    c = expr_const();
-    msg = "_Static_assert fail";
+    c = पाहायाग_const();
+    मेनसाहे = "_Static_assert fail";
     if (tok == ',') {
         next();
-        msg = parse_mult_str("string constant")->data;
+        मेनसाहे = parse_mult_str("string constant")->data;
     }
     skip(')');
     if (c == 0)
-        tcc_error("%s", msg);
+        tcc_error("%s", मेनसाहे);
     skip(';');
 }
 
@@ -8969,7 +8969,7 @@ static int decl(int l)
                                 get_tok_str(v, NULL));
                         sym->type = type;
                     } else {
-                        sym = sym_push(v, &type, 0, 0);
+                        sym = sym_इतुलाक(v, &type, 0, 0);
                     }
                     sym->a = ad.a;
                     if ((type.t & VT_BTYPE) == VT_FUNC)
@@ -9027,7 +9027,7 @@ static int decl(int l)
                         if (!esym)
                             tcc_error("unsupported forward __alias__ attribute");
                         put_extern_sym2(sym_find(v), esym->st_shndx,
-                                        esym->st_value, esym->st_size, 1);
+                                        esym->st_हालागा, esym->st_size, 1);
                     }
                 }
                 if (tok != ',') {

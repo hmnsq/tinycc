@@ -16,7 +16,7 @@
 typedef __SIZE_TYPE__ size_t;
 
 #define ATOMIC_GEN_OP(TYPE, MODE, NAME, OP, RET) \
-    TYPE __atomic_##NAME##_##MODE(volatile void *atom, TYPE value, int memorder) \
+    TYPE __atomic_##NAME##_##MODE(volatile void *atom, TYPE हालागा, int memorder) \
     { \
         TYPE xchg, cmp; \
         __atomic_load((TYPE *)atom, (TYPE *)&cmp, __ATOMIC_RELAXED); \
@@ -28,31 +28,31 @@ typedef __SIZE_TYPE__ size_t;
     }
 
 #define ATOMIC_EXCHANGE(TYPE, MODE) \
-    ATOMIC_GEN_OP(TYPE, MODE, exchange, value, cmp)
+    ATOMIC_GEN_OP(TYPE, MODE, exchange, हालागा, cmp)
 #define ATOMIC_ADD_FETCH(TYPE, MODE) \
-    ATOMIC_GEN_OP(TYPE, MODE, add_fetch, (cmp + value), xchg)
+    ATOMIC_GEN_OP(TYPE, MODE, add_fetch, (cmp + हालागा), xchg)
 #define ATOMIC_SUB_FETCH(TYPE, MODE) \
-    ATOMIC_GEN_OP(TYPE, MODE, sub_fetch, (cmp - value), xchg)
+    ATOMIC_GEN_OP(TYPE, MODE, sub_fetch, (cmp - हालागा), xchg)
 #define ATOMIC_AND_FETCH(TYPE, MODE) \
-    ATOMIC_GEN_OP(TYPE, MODE, and_fetch, (cmp & value), xchg)
+    ATOMIC_GEN_OP(TYPE, MODE, and_fetch, (cmp & हालागा), xchg)
 #define ATOMIC_OR_FETCH(TYPE, MODE) \
-    ATOMIC_GEN_OP(TYPE, MODE, or_fetch, (cmp | value), xchg)
+    ATOMIC_GEN_OP(TYPE, MODE, or_fetch, (cmp | हालागा), xchg)
 #define ATOMIC_XOR_FETCH(TYPE, MODE) \
-    ATOMIC_GEN_OP(TYPE, MODE, xor_fetch, (cmp ^ value), xchg)
+    ATOMIC_GEN_OP(TYPE, MODE, xor_fetch, (cmp ^ हालागा), xchg)
 #define ATOMIC_NAND_FETCH(TYPE, MODE) \
-    ATOMIC_GEN_OP(TYPE, MODE, nand_fetch, ~(cmp & value), xchg)
+    ATOMIC_GEN_OP(TYPE, MODE, nand_fetch, ~(cmp & हालागा), xchg)
 #define ATOMIC_FETCH_ADD(TYPE, MODE) \
-    ATOMIC_GEN_OP(TYPE, MODE, fetch_add, (cmp + value), cmp)
+    ATOMIC_GEN_OP(TYPE, MODE, fetch_add, (cmp + हालागा), cmp)
 #define ATOMIC_FETCH_SUB(TYPE, MODE) \
-    ATOMIC_GEN_OP(TYPE, MODE, fetch_sub, (cmp - value), cmp)
+    ATOMIC_GEN_OP(TYPE, MODE, fetch_sub, (cmp - हालागा), cmp)
 #define ATOMIC_FETCH_AND(TYPE, MODE) \
-    ATOMIC_GEN_OP(TYPE, MODE, fetch_and, (cmp & value), cmp)
+    ATOMIC_GEN_OP(TYPE, MODE, fetch_and, (cmp & हालागा), cmp)
 #define ATOMIC_FETCH_OR(TYPE, MODE) \
-    ATOMIC_GEN_OP(TYPE, MODE, fetch_or, (cmp | value), cmp)
+    ATOMIC_GEN_OP(TYPE, MODE, fetch_or, (cmp | हालागा), cmp)
 #define ATOMIC_FETCH_XOR(TYPE, MODE) \
-    ATOMIC_GEN_OP(TYPE, MODE, fetch_xor, (cmp ^ value), cmp)
+    ATOMIC_GEN_OP(TYPE, MODE, fetch_xor, (cmp ^ हालागा), cmp)
 #define ATOMIC_FETCH_NAND(TYPE, MODE) \
-    ATOMIC_GEN_OP(TYPE, MODE, fetch_nand, ~(cmp & value), cmp)
+    ATOMIC_GEN_OP(TYPE, MODE, fetch_nand, ~(cmp & हालागा), cmp)
 
 #define ATOMIC_GEN(TYPE, SIZE) \
     ATOMIC_EXCHANGE(TYPE, SIZE) \

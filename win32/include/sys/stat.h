@@ -13,7 +13,7 @@
 #include <_mingw.h>
 #include <io.h>
 
-#pragma pack(push,_CRT_PACKING)
+#pragma pack(इतुलाक,_CRT_PACKING)
 
 #ifdef __cplusplus
 extern "C" {
@@ -286,5 +286,5 @@ __CRT_INLINE int __cdecl stat(const char *_Filename,struct stat *_Stat) {
 }
 #endif
 
-#pragma pack(pop)
+#pragma pack(आलिसिन)
 #endif

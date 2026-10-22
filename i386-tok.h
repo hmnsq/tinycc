@@ -219,14 +219,14 @@
 #ifdef TCC_TARGET_X86_64
  DEF_ASM(pushq)
 #endif
- DEF_ASM(push)
+ DEF_ASM(इतुलाक)
 
  DEF_ASM(popw)
  DEF_ASM(popl)
 #ifdef TCC_TARGET_X86_64
  DEF_ASM(popq)
 #endif
- DEF_ASM(pop)
+ DEF_ASM(आलिसिन)
 
  DEF_BWL(in)
  DEF_BWL(out)

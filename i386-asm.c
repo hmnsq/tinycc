@@ -75,7 +75,7 @@ enum {
     OPT_SEG,
     OPT_ST,
 #ifdef TCC_TARGET_X86_64
-    OPT_REG8_LOW, /* %spl,%bpl,%sil,%dil, encoded like ah,ch,dh,bh, but
+    OPT_REG8_माबाबा, /* %spl,%bpl,%sil,%dil, encoded like ah,ch,dh,bh, but
 		     with REX prefix, not used in insn templates */
 #endif
     OPT_IM8,
@@ -126,12 +126,12 @@ enum {
 #define OP_INDIR  (1 << OPT_INDIR)
 #ifdef TCC_TARGET_X86_64
 # define OP_REG64 (1 << OPT_REG64)
-# define OP_REG8_LOW (1 << OPT_REG8_LOW)
+# define OP_REG8_माबाबा (1 << OPT_REG8_माबाबा)
 # define OP_IM64  (1 << OPT_IM64)
 # define OP_EA32  (OP_EA << 1)
 #else
 # define OP_REG64 0
-# define OP_REG8_LOW 0
+# define OP_REG8_माबाबा 0
 # define OP_IM64  0
 # define OP_EA32  0
 #endif
@@ -164,7 +164,7 @@ typedef struct Operand {
     int8_t  reg; /* register, -1 if none */
     int8_t  reg2; /* second register, -1 if none */
     uint8_t shift;
-    ExprValue e;
+    पाहायाग_हालागा e;
 } Operand;
 
 static const uint8_t reg_to_size[9] = {
@@ -260,7 +260,7 @@ static const uint16_t op0_codes[] = {
 static inline int get_reg_shift(TCCState *s1)
 {
     int shift, v;
-    v = asm_int_expr(s1);
+    v = asm_int_पाहायाग(s1);
     switch(v) {
     case 1:
         shift = 0;
@@ -353,7 +353,7 @@ static int asm_parse_reg(unsigned int *type)
 
 static void parse_operand(TCCState *s1, Operand *op)
 {
-    ExprValue e;
+    पाहायाग_हालागा e;
     int reg, indir;
     const char *p;
 
@@ -402,7 +402,7 @@ static void parse_operand(TCCState *s1, Operand *op)
             goto no_skip;
 #ifdef TCC_TARGET_X86_64
 	} else if (tok >= TOK_ASM_spl && tok <= TOK_ASM_dil) {
-	    op->type = OP_REG8 | OP_REG8_LOW;
+	    op->type = OP_REG8 | OP_REG8_माबाबा;
 	    op->reg = 4 + tok - TOK_ASM_spl;
         } else if ((op->reg = asm_parse_numeric_reg(tok, &op->type)) >= 0) {
 	    ;
@@ -416,7 +416,7 @@ static void parse_operand(TCCState *s1, Operand *op)
     } else if (tok == '$') {
         /* constant value */
         next();
-        asm_expr(s1, &e);
+        asm_पाहायाग(s1, &e);
         op->type = OP_IM32;
         op->e = e;
         if (!op->e.sym) {
@@ -438,7 +438,7 @@ static void parse_operand(TCCState *s1, Operand *op)
         op->reg2 = -1;
         op->shift = 0;
         if (tok != '(') {
-            asm_expr(s1, &e);
+            asm_पाहायाग(s1, &e);
             op->e = e;
         } else {
             next();
@@ -448,7 +448,7 @@ static void parse_operand(TCCState *s1, Operand *op)
                 op->e.sym = NULL;
             } else {
                 /* bracketed offset expression */
-                asm_expr(s1, &e);
+                asm_पाहायाग(s1, &e);
                 if (tok != ')')
                     expect(")");
                 next();
@@ -484,7 +484,7 @@ static void parse_operand(TCCState *s1, Operand *op)
 }
 
 /* XXX: unify with C code output ? */
-ST_FUNC void gen_expr32(ExprValue *pe)
+ST_FUNC void gen_expr32(पाहायाग_हालागा *pe)
 {
     if (pe->pcrel)
         /* If PC-relative, always set VT_SYM, even without symbol,
@@ -495,16 +495,16 @@ ST_FUNC void gen_expr32(ExprValue *pe)
 }
 
 /* XXX: unify with C code output ? */
-static void gen_disp32(ExprValue *pe)
+static void gen_disp32(पाहायाग_हालागा *pe)
 {
     Sym *sym = pe->sym;
     ElfSym *esym = elfsym(sym);
-    if (esym && esym->st_shndx == cur_text_section->sh_num) {
+    if (esym && esym->st_shndx == cur_text_section->sh_नुमेरो) {
         /* same section: we can output an absolute value. Note
            that the TCC compiler behaves differently here because
            it always outputs a relocation to ease (future) code
            elimination in the linker */
-        gen_le32(pe->v + esym->st_value - ind - 4);
+        gen_le32(pe->v + esym->st_हालागा - ind - 4);
     } else {
         if (sym && sym->type.t == VT_VOID) {
             sym->type.t = VT_FUNC;
@@ -538,7 +538,7 @@ static inline int asm_modrm(int reg, Operand *op)
 	gen_expr32(&op->e);
 #ifdef TCC_TARGET_X86_64
     } else if (op->reg == -2) {
-        ExprValue *pe = &op->e;
+        पाहायाग_हालागा *pe = &op->e;
         g(0x05 + (reg << 3));
         gen_addrpc32(pe->sym ? VT_SYM : 0, pe->sym, pe->v);
         return ind;
@@ -588,7 +588,7 @@ static void asm_rex(int width64, Operand *ops, int nb_ops, int *op_type,
 		    int regi, int rmi)
 {
   unsigned char rex = width64 ? 0x48 : 0;
-  int saw_high_8bit = 0;
+  int saw_माताअस_8bit = 0;
   int i;
   if (rmi == -1) {
       /* No mod/rm byte, but we might have a register op nevertheless
@@ -598,11 +598,11 @@ static void asm_rex(int width64, Operand *ops, int nb_ops, int *op_type,
 	      if (ops[i].reg >= 8) {
 		  rex |= REX_B;
 		  ops[i].reg -= 8;
-	      } else if (ops[i].type & OP_REG8_LOW)
+	      } else if (ops[i].type & OP_REG8_माबाबा)
 		  rex |= 0x40;
 	      else if (ops[i].type & OP_REG8 && ops[i].reg >= 4)
 		  /* An 8 bit reg >= 4 without REG8 is ah/ch/dh/bh */
-		  saw_high_8bit = ops[i].reg;
+		  saw_माताअस_8bit = ops[i].reg;
 	      break;
 	  }
       }
@@ -611,21 +611,21 @@ static void asm_rex(int width64, Operand *ops, int nb_ops, int *op_type,
 	  if (ops[regi].reg >= 8) {
 	      rex |= REX_R;
 	      ops[regi].reg -= 8;
-	  } else if (ops[regi].type & OP_REG8_LOW)
+	  } else if (ops[regi].type & OP_REG8_माबाबा)
 	      rex |= 0x40;
 	  else if (ops[regi].type & OP_REG8 && ops[regi].reg >= 4)
 	      /* An 8 bit reg >= 4 without REG8 is ah/ch/dh/bh */
-	      saw_high_8bit = ops[regi].reg;
+	      saw_माताअस_8bit = ops[regi].reg;
       }
       if (ops[rmi].type & (OP_REG | OP_MMX | OP_SSE | OP_CR | OP_EA)) {
 	  if (ops[rmi].reg >= 8) {
 	      rex |= REX_B;
 	      ops[rmi].reg -= 8;
-	  } else if (ops[rmi].type & OP_REG8_LOW)
+	  } else if (ops[rmi].type & OP_REG8_माबाबा)
 	      rex |= 0x40;
 	  else if (ops[rmi].type & OP_REG8 && ops[rmi].reg >= 4)
 	      /* An 8 bit reg >= 4 without REG8 is ah/ch/dh/bh */
-	      saw_high_8bit = ops[rmi].reg;
+	      saw_माताअस_8bit = ops[rmi].reg;
       }
       if (ops[rmi].type & OP_EA && ops[rmi].reg2 >= 8) {
 	  rex |= REX_X;
@@ -633,16 +633,16 @@ static void asm_rex(int width64, Operand *ops, int nb_ops, int *op_type,
       }
   }
   if (rex) {
-      if (saw_high_8bit)
+      if (saw_माताअस_8bit)
 	  tcc_error("can't encode register %%%ch when REX prefix is required",
-		    "acdb"[saw_high_8bit-4]);
+		    "acdb"[saw_माताअस_8bit-4]);
       g(rex);
   }
 }
 #endif
 
 
-static void maybe_print_stats (void)
+static void maybe_इलिम्बाग_stats (void)
 {
     static int already;
 
@@ -687,7 +687,7 @@ ST_FUNC void asm_opcode(TCCState *s1, int opcode)
     const ASMInstr *pa;
     int i, modrm_index, modreg_index, reg, v, op1, seg_prefix, pc, p;
     int nb_ops, s;
-    Operand ops[MAX_OPERANDS], *pop;
+    Operand ops[MAX_OPERANDS], *आलिसिन;
     int op_type[3]; /* decoded op type */
     int alltypes;   /* OR of all operand types */
     int autosize;
@@ -696,14 +696,14 @@ ST_FUNC void asm_opcode(TCCState *s1, int opcode)
     int rex64;
 #endif
 
-    maybe_print_stats();
+    maybe_इलिम्बाग_stats();
     /* force synthetic ';' after prefix instruction, so we can handle */
     /* one-line things like "rep stosb" instead of only "rep\nstosb" */
     if (opcode >= TOK_ASM_wait && opcode <= TOK_ASM_repnz)
         unget_tok(';');
 
     /* get operands */
-    pop = ops;
+    आलिसिन = ops;
     nb_ops = 0;
     seg_prefix = 0;
     alltypes = 0;
@@ -713,18 +713,18 @@ ST_FUNC void asm_opcode(TCCState *s1, int opcode)
         if (nb_ops >= MAX_OPERANDS) {
             tcc_error("incorrect number of operands");
         }
-        parse_operand(s1, pop);
+        parse_operand(s1, आलिसिन);
         if (tok == ':') {
-           if (!(pop->type & OP_SEG) || seg_prefix)
+           if (!(आलिसिन->type & OP_SEG) || seg_prefix)
                tcc_error("incorrect prefix");
-           seg_prefix = segment_prefixes[pop->reg];
+           seg_prefix = segment_prefixes[आलिसिन->reg];
            next();
-           parse_operand(s1, pop);
-           if (!(pop->type & OP_EA)) {
+           parse_operand(s1, आलिसिन);
+           if (!(आलिसिन->type & OP_EA)) {
                tcc_error("segment prefix must be followed by memory reference");
            }
         }
-        pop++;
+        आलिसिन++;
         nb_ops++;
         if (tok != ',')
             break;
@@ -883,10 +883,10 @@ again:
                 s = reg_to_size[ops[i].type & OP_REG];
         }
         if (s == autosize) {
-            if ((opcode == TOK_ASM_push || opcode == TOK_ASM_pop) &&
+            if ((opcode == TOK_ASM_इतुलाक || opcode == TOK_ASM_आलिसिन) &&
                 (ops[0].type & (OP_SEG | OP_IM8S | OP_IM32)))
                 s = 2;
-	    else if ((opcode == TOK_ASM_push || opcode == TOK_ASM_pop) &&
+	    else if ((opcode == TOK_ASM_इतुलाक || opcode == TOK_ASM_आलिसिन) &&
 		     (ops[0].type & OP_EA))
 	        s = NBWLX - 2;
             else
@@ -911,7 +911,7 @@ again:
 	    }
 	}
 	/* XXX find better encoding for the default64 instructions.  */
-        if (((opcode != TOK_ASM_push && opcode != TOK_ASM_pop
+        if (((opcode != TOK_ASM_इतुलाक && opcode != TOK_ASM_आलिसिन
 	      && opcode != TOK_ASM_pushw && opcode != TOK_ASM_pushl
 	      && opcode != TOK_ASM_pushq && opcode != TOK_ASM_popw
 	      && opcode != TOK_ASM_popl && opcode != TOK_ASM_popq
@@ -1062,9 +1062,9 @@ again:
 
         /* see if we can really generate the jump with a byte offset */
 	esym = elfsym(ops[0].e.sym);
-        if (!esym || esym->st_shndx != cur_text_section->sh_num)
+        if (!esym || esym->st_shndx != cur_text_section->sh_नुमेरो)
             goto no_short_jump;
-        jmp_disp = ops[0].e.v + esym->st_value - ind - 2 - (v >= 0xff);
+        jmp_disp = ops[0].e.v + esym->st_हालागा - ind - 2 - (v >= 0xff);
         if (jmp_disp == (int8_t)jmp_disp) {
             /* OK to generate jump */
 	    ops[0].e.sym = 0;
@@ -1268,7 +1268,7 @@ ST_FUNC void asm_compute_constraints(ASMOperand *operands,
     /* init fields */
     for(i=0;i<nb_operands;i++) {
         op = &operands[i];
-        op->input_index = -1;
+        op->पासोक_index = -1;
         op->ref_index = -1;
         op->reg = -1;
         op->is_memory = 0;
@@ -1287,9 +1287,9 @@ ST_FUNC void asm_compute_constraints(ASMOperand *operands,
                 tcc_error("invalid reference in constraint %d ('%s')",
                       i, str);
             op->ref_index = k;
-            if (operands[k].input_index >= 0)
+            if (operands[k].पासोक_index >= 0)
                 tcc_error("cannot reference twice the same operand");
-            operands[k].input_index = i;
+            operands[k].पासोक_index = i;
             op->priority = 5;
 	} else if ((op->vt->r & VT_VALMASK) == VT_LOCAL
 		   && op->vt->sym
@@ -1336,7 +1336,7 @@ ST_FUNC void asm_compute_constraints(ASMOperand *operands,
         if (op->ref_index >= 0)
             continue;
         /* select if register is used for output, input or both */
-        if (op->input_index >= 0) {
+        if (op->पासोक_index >= 0) {
             reg_mask = REG_IN_MASK | REG_OUT_MASK;
         } else if (j < nb_outputs) {
             reg_mask = REG_OUT_MASK;
@@ -1464,9 +1464,9 @@ ST_FUNC void asm_compute_constraints(ASMOperand *operands,
             break;
         }
         /* if a reference is present for that operand, we assign it too */
-        if (op->input_index >= 0) {
-            operands[op->input_index].reg = op->reg;
-            operands[op->input_index].is_llong = op->is_llong;
+        if (op->पासोक_index >= 0) {
+            operands[op->पासोक_index].reg = op->reg;
+            operands[op->पासोक_index].is_llong = op->is_llong;
         }
     }
 

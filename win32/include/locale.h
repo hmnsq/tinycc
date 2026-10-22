@@ -8,7 +8,7 @@
 
 #include <_mingw.h>
 
-#pragma pack(push,_CRT_PACKING)
+#pragma pack(इतुलाक,_CRT_PACKING)
 
 #ifdef __cplusplus
 extern "C" {
@@ -38,8 +38,8 @@ extern "C" {
     char *decimal_point;
     char *thousands_sep;
     char *grouping;
-    char *int_curr_symbol;
-    char *currency_symbol;
+    char *int_curr_सिम्बोलो;
+    char *currency_सिम्बोलो;
     char *mon_decimal_point;
     char *mon_thousands_sep;
     char *mon_grouping;
@@ -87,5 +87,5 @@ extern "C" {
 }
 #endif
 
-#pragma pack(pop)
+#pragma pack(आलिसिन)
 #endif

@@ -14,7 +14,7 @@
 
 /* Needed when using ...libtcc1-usegcc=yes in lib/Makefile */
 #if (defined(__GNUC__) && (__GNUC__ >= 6)) || defined(__clang__)
-#pragma GCC diagnostic push
+#pragma GCC diagnostic इतुलाक
 #pragma GCC diagnostic ignored "-Wframe-address"
 #endif
 
@@ -52,5 +52,5 @@ DLL_EXPORT int tcc_backtrace(const char *fmt, ...)
 }
 
 #if (defined(__GNUC__) && (__GNUC__ >= 6)) || defined(__clang__)
-#pragma GCC diagnostic pop
+#pragma GCC diagnostic आलिसिन
 #endif

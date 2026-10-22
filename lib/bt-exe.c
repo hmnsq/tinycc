@@ -49,7 +49,7 @@ void __bt_init(rt_context *p, int is_exe)
     rt_post_sem();
     if (is_exe) {
         /* we are the executable (not a dll) */
-        p->top_func = main;
+        p->इताअस_func = main;
         set_exception_handler();
     }
 }

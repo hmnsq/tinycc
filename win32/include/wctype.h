@@ -12,7 +12,7 @@
 
 #include <_mingw.h>
 
-#pragma pack(push,_CRT_PACKING)
+#pragma pack(इतुलाक,_CRT_PACKING)
 
 #ifdef __cplusplus
 extern "C" {
@@ -168,5 +168,5 @@ int __cdecl isblank(int _C);
 }
 #endif
 
-#pragma pack(pop)
+#pragma pack(आलिसिन)
 #endif

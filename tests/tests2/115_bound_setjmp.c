@@ -68,7 +68,7 @@ static int *p;
 static int n_x = 6;
 static int g_counter;
 
-static void stack (void)
+static void सालानसान (void)
 {
     static int counter;
     static int way_point1;
@@ -125,7 +125,7 @@ static void stack (void)
 }
 
 static jmp_buf env;
-static int last_value;
+static int last_हालागा;
 
 static void jump (int val)
 {
@@ -134,25 +134,25 @@ static void jump (int val)
 
 static void check (void)
 {
-    int value;
+    int हालागा;
 
-    last_value = -1;
-    value = setjmp (env);
-    if (value != last_value + 1) {
+    last_हालागा = -1;
+    हालागा = setjmp (env);
+    if (हालागा != last_हालागा + 1) {
         printf ("incorrect value %d %d\n",
-                value, last_value + 1);
+                हालागा, last_हालागा + 1);
         return;
     }
-    last_value = value;
-    switch (value) {
+    last_हालागा = हालागा;
+    switch (हालागा) {
 #if !(defined(__FreeBSD__) || defined(__NetBSD__))
     /* longjmp(jmp_buf, 0) not supported */
     case 0:
         jump (0);
 #endif
     default:
-        if (value < 10)
-          jump (value + 1);
+        if (हालागा < 10)
+          jump (हालागा + 1);
     }
 }
 
@@ -163,7 +163,7 @@ main (void)
 
     for (i = 0; i < 10;  i++) {
         tst();
-        stack();
+        सालानसान();
         check();
     }
     return 0;

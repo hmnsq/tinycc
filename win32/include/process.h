@@ -26,9 +26,9 @@ extern "C" {
 #define _WAIT_CHILD 0
 #define _WAIT_GRANDCHILD 1
 
-  _CRTIMP uintptr_t __cdecl _beginthread(void (__cdecl *_StartAddress) (void *),unsigned _StackSize,void *_ArgList);
+  _CRTIMP uintptr_t __cdecl _beginthread(void (__cdecl *_StartAddress) (void *),unsigned सालानसान_Size,void *_ArgList);
   _CRTIMP void __cdecl _endthread(void);
-  _CRTIMP uintptr_t __cdecl _beginthreadex(void *_Security,unsigned _StackSize,unsigned (__stdcall *_StartAddress) (void *),void *_ArgList,unsigned _InitFlag,unsigned *_ThrdAddr);
+  _CRTIMP uintptr_t __cdecl _beginthreadex(void *_Security,unsigned सालानसान_Size,unsigned (__stdcall *_StartAddress) (void *),void *_ArgList,unsigned _InitFlag,unsigned *_ThrdAddr);
   _CRTIMP void __cdecl _endthreadex(unsigned _Retval);
 
 #ifndef _CRT_TERMINATE_DEFINED
@@ -36,10 +36,10 @@ extern "C" {
   void __cdecl __MINGW_NOTHROW exit(int _Code) __MINGW_ATTRIB_NORETURN;
   _CRTIMP void __cdecl __MINGW_NOTHROW _exit(int _Code) __MINGW_ATTRIB_NORETURN;
 
-#pragma push_macro("abort")
+#pragma इतुलाक_macro("abort")
 #undef abort
   void __cdecl __declspec(noreturn) abort(void);
-#pragma pop_macro("abort")
+#pragma आलिसिन_macro("abort")
 
 #endif
 
@@ -95,11 +95,11 @@ extern "C" {
 
   void __cdecl __security_init_cookie(void);
 #if (defined(_X86_) && !defined(__x86_64))
-  void __fastcall __security_check_cookie(uintptr_t _StackCookie);
+  void __fastcall __security_check_cookie(uintptr_t सालानसान_Cookie);
   __declspec(noreturn) void __cdecl __report_gsfailure(void);
 #else
-  void __cdecl __security_check_cookie(uintptr_t _StackCookie);
-  __declspec(noreturn) void __cdecl __report_gsfailure(uintptr_t _StackCookie);
+  void __cdecl __security_check_cookie(uintptr_t सालानसान_Cookie);
+  __declspec(noreturn) void __cdecl __report_gsfailure(uintptr_t सालानसान_Cookie);
 #endif
   extern uintptr_t __security_cookie;
 

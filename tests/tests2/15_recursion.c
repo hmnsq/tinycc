@@ -10,10 +10,10 @@ int factorial(int i)
 
 int main()
 {
-   int Count;
+   int बिलांग_3;
 
-   for (Count = 1; Count <= 10; Count++)
-      printf("%d\n", factorial(Count));
+   for (बिलांग_3 = 1; बिलांग_3 <= 10; बिलांग_3++)
+      printf("%d\n", factorial(बिलांग_3));
 
    return 0;
 }

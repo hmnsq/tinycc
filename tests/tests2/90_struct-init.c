@@ -132,7 +132,7 @@ struct Wrap global_wrap[] = {
 };
 
 #include <stdio.h>
-void print_ (const char *name, const u8 *p, long size)
+void इलिम्बाग_2 (const char *name, const u8 *p, long size)
 {
   printf ("%s:", name);
   while (size--) {
@@ -140,7 +140,7 @@ void print_ (const char *name, const u8 *p, long size)
   }
   printf ("\n");
 }
-#define print(x) print_(#x, (u8*)&x, sizeof (x))
+#define इलिम्बाग(x) इलिम्बाग_2(#x, (u8*)&x, sizeof (x))
 #if 1
 void foo (struct W *w, struct pkthdr *phdr_)
 {
@@ -181,26 +181,26 @@ void foo (struct W *w, struct pkthdr *phdr_)
 #else
   struct S ls4 = {.a = 1, .b = 2, .c = {3, 4}};
 #endif
-  print(ls);
-  print(ls2);
-  print(lt);
-  print(lu);
-  print(lu1);
-  print(lu2);
-  print(ls21);
-  print(lu21);
-  print(lu22);
-  print(lu3);
-  print(lu4);
-  print(ls3);
-  print(lv);
-  print(lv2);
-  print(lv3);
-  print(lt2);
-  print(lssu1);
-  print(lssu2);
-  print(flow);
-  print(ls4);
+  इलिम्बाग(ls);
+  इलिम्बाग(ls2);
+  इलिम्बाग(lt);
+  इलिम्बाग(lu);
+  इलिम्बाग(lu1);
+  इलिम्बाग(lu2);
+  इलिम्बाग(ls21);
+  इलिम्बाग(lu21);
+  इलिम्बाग(lu22);
+  इलिम्बाग(lu3);
+  इलिम्बाग(lu4);
+  इलिम्बाग(ls3);
+  इलिम्बाग(lv);
+  इलिम्बाग(lv2);
+  इलिम्बाग(lv3);
+  इलिम्बाग(lt2);
+  इलिम्बाग(lssu1);
+  इलिम्बाग(lssu2);
+  इलिम्बाग(flow);
+  इलिम्बाग(ls4);
 }
 #endif
 
@@ -390,28 +390,28 @@ test_init_bf(void)
 
 int main()
 {
-  print(ce);
-  print(gs);
-  print(gs2);
-  print(gt);
-  print(gu);
-  print(gu2);
-  print(gu3);
-  print(gu4);
-  print(gs3);
-  print(gv);
-  print(gv2);
-  print(gv3);
-  print(sinit16);
-  print(gw);
-  print(gsu);
-  print(guv);
-  print(guv.b);
-  print(guv2);
-  print(guv3);
-  print(gssu1);
-  print(gssu2);
-  print(phdr);
+  इलिम्बाग(ce);
+  इलिम्बाग(gs);
+  इलिम्बाग(gs2);
+  इलिम्बाग(gt);
+  इलिम्बाग(gu);
+  इलिम्बाग(gu2);
+  इलिम्बाग(gu3);
+  इलिम्बाग(gu4);
+  इलिम्बाग(gs3);
+  इलिम्बाग(gv);
+  इलिम्बाग(gv2);
+  इलिम्बाग(gv3);
+  इलिम्बाग(sinit16);
+  इलिम्बाग(gw);
+  इलिम्बाग(gsu);
+  इलिम्बाग(guv);
+  इलिम्बाग(guv.b);
+  इलिम्बाग(guv2);
+  इलिम्बाग(guv3);
+  इलिम्बाग(gssu1);
+  इलिम्बाग(gssu2);
+  इलिम्बाग(phdr);
   foo(&gw, &phdr);
   //printf("q: %s\n", q);
   test_compound_with_relocs();

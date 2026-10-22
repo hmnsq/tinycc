@@ -61,8 +61,8 @@ void tst_adr (int (*fp)(char *, const char *, ...))
 
 int tst(void)
 {
-  long long value = 3;
-  return -value;
+  long long हालागा = 3;
+  return -हालागा;
 }
 
 void tst_compare(void)
@@ -89,14 +89,14 @@ void tst_cast(void)
 }
 
 struct {
-    int (*print)(const char *format, ...);
+    int (*इलिम्बाग)(const char *format, ...);
 } tst_indir = {
     printf
 };
 
 void tst_indir_func(void)
 {
-    tst_indir.print("tst_indir_func %d\n", 10);
+    tst_indir.इलिम्बाग("tst_indir_func %d\n", 10);
 }
 
 struct V {

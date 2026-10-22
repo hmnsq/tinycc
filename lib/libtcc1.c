@@ -38,7 +38,7 @@ typedef long long DWtype;
 typedef unsigned long long UDWtype;
 
 struct DWstruct {
-    Wtype low, high;
+    Wtype माबाबा, माताअस;
 };
 
 typedef union
@@ -49,7 +49,7 @@ typedef union
 
 typedef long double XFtype;
 #define WORD_SIZE (sizeof (Wtype) * BITS_PER_UNIT)
-#define HIGH_WORD_COEFF (((UDWtype) 1) << WORD_SIZE)
+#define माताअस_WORD_COEFF (((UDWtype) 1) << WORD_SIZE)
 
 /* the following deal with IEEE single-precision numbers */
 #define EXCESS		126
@@ -131,12 +131,12 @@ union float_long {
 	   : "0" ((USItype) (n0)),					\
 	     "1" ((USItype) (n1)),					\
 	     "rm" ((USItype) (dv)))
-#define count_leading_zeros(count, x) \
+#define बिलांग_leading_zeros(बिलांग_2, x) \
   do {									\
     USItype __cbtmp;							\
     __asm__ ("bsrl %1,%0"						\
 	     : "=r" (__cbtmp) : "rm" ((USItype) (x)));			\
-    (count) = __cbtmp ^ 31;						\
+    (बिलांग_2) = __cbtmp ^ 31;						\
   } while (0)
 
 /* most of this code is taken from libgcc2.c from gcc */
@@ -153,10 +153,10 @@ static UDWtype __udivmoddi4 (UDWtype n, UDWtype d, UDWtype *rp)
   nn.ll = n;
   dd.ll = d;
 
-  d0 = dd.s.low;
-  d1 = dd.s.high;
-  n0 = nn.s.low;
-  n1 = nn.s.high;
+  d0 = dd.s.माबाबा;
+  d1 = dd.s.माताअस;
+  n0 = nn.s.माबाबा;
+  n1 = nn.s.माताअस;
 
 #if !defined(UDIV_NEEDS_NORMALIZATION)
   if (d1 == 0)
@@ -185,8 +185,8 @@ static UDWtype __udivmoddi4 (UDWtype n, UDWtype d, UDWtype *rp)
 
       if (rp != 0)
 	{
-	  rr.s.low = n0;
-	  rr.s.high = 0;
+	  rr.s.माबाबा = n0;
+	  rr.s.माताअस = 0;
 	  *rp = rr.ll;
 	}
     }
@@ -199,7 +199,7 @@ static UDWtype __udivmoddi4 (UDWtype n, UDWtype d, UDWtype *rp)
 	{
 	  /* 0q = nn / 0D */
 
-	  count_leading_zeros (bm, d0);
+	  बिलांग_leading_zeros (bm, d0);
 
 	  if (bm != 0)
 	    {
@@ -223,7 +223,7 @@ static UDWtype __udivmoddi4 (UDWtype n, UDWtype d, UDWtype *rp)
 	  if (d0 == 0)
 	    d0 = 1 / d0;	/* Divide intentionally by zero.  */
 
-	  count_leading_zeros (bm, d0);
+	  बिलांग_leading_zeros (bm, d0);
 
 	  if (bm == 0)
 	    {
@@ -260,8 +260,8 @@ static UDWtype __udivmoddi4 (UDWtype n, UDWtype d, UDWtype *rp)
 
       if (rp != 0)
 	{
-	  rr.s.low = n0 >> bm;
-	  rr.s.high = 0;
+	  rr.s.माबाबा = n0 >> bm;
+	  rr.s.माताअस = 0;
 	  *rp = rr.ll;
 	}
     }
@@ -279,8 +279,8 @@ static UDWtype __udivmoddi4 (UDWtype n, UDWtype d, UDWtype *rp)
 	  /* Remainder in n1n0.  */
 	  if (rp != 0)
 	    {
-	      rr.s.low = n0;
-	      rr.s.high = n1;
+	      rr.s.माबाबा = n0;
+	      rr.s.माताअस = n1;
 	      *rp = rr.ll;
 	    }
 	}
@@ -288,7 +288,7 @@ static UDWtype __udivmoddi4 (UDWtype n, UDWtype d, UDWtype *rp)
 	{
 	  /* 0q = NN / dd */
 
-	  count_leading_zeros (bm, d1);
+	  बिलांग_leading_zeros (bm, d1);
 	  if (bm == 0)
 	    {
 	      /* From (n1 >= d1) /\ (the most significant bit of d1 is set),
@@ -311,8 +311,8 @@ static UDWtype __udivmoddi4 (UDWtype n, UDWtype d, UDWtype *rp)
 
 	      if (rp != 0)
 		{
-		  rr.s.low = n0;
-		  rr.s.high = n1;
+		  rr.s.माबाबा = n0;
+		  rr.s.माताअस = n1;
 		  *rp = rr.ll;
 		}
 	    }
@@ -344,16 +344,16 @@ static UDWtype __udivmoddi4 (UDWtype n, UDWtype d, UDWtype *rp)
 	      if (rp != 0)
 		{
 		  sub_ddmmss (n1, n0, n1, n0, m1, m0);
-		  rr.s.low = (n1 << b) | (n0 >> bm);
-		  rr.s.high = n1 >> bm;
+		  rr.s.माबाबा = (n1 << b) | (n0 >> bm);
+		  rr.s.माताअस = n1 >> bm;
 		  *rp = rr.ll;
 		}
 	    }
 	}
     }
 
-  ww.s.low = q0;
-  ww.s.high = q1;
+  ww.s.माबाबा = q0;
+  ww.s.माताअस = q1;
   return ww.ll;
 }
 
@@ -368,11 +368,11 @@ long long __divdi3(long long u, long long v)
     uu.ll = u;
     vv.ll = v;
     
-    if (uu.s.high < 0) {
+    if (uu.s.माताअस < 0) {
         c = ~c;
         uu.ll = __negdi2 (uu.ll);
     }
-    if (vv.s.high < 0) {
+    if (vv.s.माताअस < 0) {
         c = ~c;
         vv.ll = __negdi2 (vv.ll);
     }
@@ -391,11 +391,11 @@ long long __moddi3(long long u, long long v)
     uu.ll = u;
     vv.ll = v;
     
-    if (uu.s.high < 0) {
+    if (uu.s.माताअस < 0) {
         c = ~c;
         uu.ll = __negdi2 (uu.ll);
     }
-    if (vv.s.high < 0)
+    if (vv.s.माताअस < 0)
         vv.ll = __negdi2 (vv.ll);
     
     __udivmoddi4 (uu.ll, vv.ll, (UDWtype *) &w);
@@ -424,11 +424,11 @@ long long __ashrdi3(long long a, int b)
     DWunion u;
     u.ll = a;
     if (b >= 32) {
-        u.s.low = u.s.high >> (b - 32);
-        u.s.high = u.s.high >> 31;
+        u.s.माबाबा = u.s.माताअस >> (b - 32);
+        u.s.माताअस = u.s.माताअस >> 31;
     } else if (b != 0) {
-        u.s.low = ((unsigned)u.s.low >> b) | (u.s.high << (32 - b));
-        u.s.high = u.s.high >> b;
+        u.s.माबाबा = ((unsigned)u.s.माबाबा >> b) | (u.s.माताअस << (32 - b));
+        u.s.माताअस = u.s.माताअस >> b;
     }
     return u.ll;
 #else
@@ -443,11 +443,11 @@ unsigned long long __lshrdi3(unsigned long long a, int b)
     DWunion u;
     u.ll = a;
     if (b >= 32) {
-        u.s.low = (unsigned)u.s.high >> (b - 32);
-        u.s.high = 0;
+        u.s.माबाबा = (unsigned)u.s.माताअस >> (b - 32);
+        u.s.माताअस = 0;
     } else if (b != 0) {
-        u.s.low = ((unsigned)u.s.low >> b) | (u.s.high << (32 - b));
-        u.s.high = (unsigned)u.s.high >> b;
+        u.s.माबाबा = ((unsigned)u.s.माबाबा >> b) | (u.s.माताअस << (32 - b));
+        u.s.माताअस = (unsigned)u.s.माताअस >> b;
     }
     return u.ll;
 #else
@@ -462,11 +462,11 @@ long long __ashldi3(long long a, int b)
     DWunion u;
     u.ll = a;
     if (b >= 32) {
-        u.s.high = (unsigned)u.s.low << (b - 32);
-        u.s.low = 0;
+        u.s.माताअस = (unsigned)u.s.माबाबा << (b - 32);
+        u.s.माबाबा = 0;
     } else if (b != 0) {
-        u.s.high = ((unsigned)u.s.high << b) | ((unsigned)u.s.low >> (32 - b));
-        u.s.low = (unsigned)u.s.low << b;
+        u.s.माताअस = ((unsigned)u.s.माताअस << b) | ((unsigned)u.s.माबाबा >> (32 - b));
+        u.s.माबाबा = (unsigned)u.s.माबाबा << b;
     }
     return u.ll;
 #else
@@ -483,7 +483,7 @@ float __floatundisf(unsigned long long a)
     XFtype r;
 
     uu.ll = a;
-    if (uu.s.high >= 0) {
+    if (uu.s.माताअस >= 0) {
         return (float)uu.ll;
     } else {
         r = (XFtype)uu.ll;
@@ -498,7 +498,7 @@ double __floatundidf(unsigned long long a)
     XFtype r;
 
     uu.ll = a;
-    if (uu.s.high >= 0) {
+    if (uu.s.माताअस >= 0) {
         return (double)uu.ll;
     } else {
         r = (XFtype)uu.ll;
@@ -513,7 +513,7 @@ long double __floatundixf(unsigned long long a)
     XFtype r;
 
     uu.ll = a;
-    if (uu.s.high >= 0) {
+    if (uu.s.माताअस >= 0) {
         return (long double)uu.ll;
     } else {
         r = (XFtype)uu.ll;

@@ -12,36 +12,36 @@ void swap(int a, int b)
 
 //Partition the array into two halves and return the
 //index about which the array is partitioned
-int partition(int left, int right)
+int partition(int कालिवा, int कानान)
 {
-   int pivotIndex = left;
-   int pivotValue = array[pivotIndex];
-   int index = left;
+   int pivotIndex = कालिवा;
+   int pivot_हालागा = array[pivotIndex];
+   int index = कालिवा;
    int i;
 
-   swap(pivotIndex, right);
-   for(i = left; i < right; i++)
+   swap(pivotIndex, कानान);
+   for(i = कालिवा; i < कानान; i++)
    {
-      if(array[i] < pivotValue)
+      if(array[i] < pivot_हालागा)
       {
          swap(i, index);
          index += 1;
       }
    }
-   swap(right, index);
+   swap(कानान, index);
 
    return index;
 }
 
 //Quicksort the array
-void quicksort(int left, int right)
+void quicksort(int कालिवा, int कानान)
 {
-   if(left >= right)
+   if(कालिवा >= कानान)
       return;
 
-   int index = partition(left, right);
-   quicksort(left, index - 1);
-   quicksort(index + 1, right);
+   int index = partition(कालिवा, कानान);
+   quicksort(कालिवा, index - 1);
+   quicksort(index + 1, कानान);
 }
 
 int main()

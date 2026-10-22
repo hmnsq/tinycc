@@ -32,7 +32,7 @@
 typedef struct { int newmode; } _startupinfo;
 int __cdecl __tgetmainargs(int *pargc, _TCHAR ***pargv, _TCHAR ***penv, int globb, _startupinfo*);
 void __cdecl __set_app_type(int apptype);
-unsigned int __cdecl _controlfp(unsigned int new_value, unsigned int mask);
+unsigned int __cdecl _controlfp(unsigned int new_हालागा, unsigned int mask);
 extern int _tmain(int argc, _TCHAR * argv[], _TCHAR * env[]);
 
 #include "crtinit.c"

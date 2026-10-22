@@ -58,8 +58,8 @@ int main() {
 
     // Test 5: Pointer type operations
     {
-        int value = 100;
-        int* atomic_ptr = &value;
+        int हालागा = 100;
+        int* atomic_ptr = &हालागा;
         int* new_ptr = NULL;
         __atomic_store_n(&atomic_ptr, new_ptr, __ATOMIC_RELEASE);
         int* loaded_ptr = __atomic_load_n(&atomic_ptr, __ATOMIC_ACQUIRE);

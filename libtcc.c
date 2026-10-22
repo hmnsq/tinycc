@@ -182,12 +182,12 @@ ST_FUNC char *pstrcat(char *buf, size_t buf_size, const char *s)
     return buf;
 }
 
-ST_FUNC char *pstrncpy(char *out, size_t buf_size, const char *s, size_t num)
+ST_FUNC char *pstrncpy(char *out, size_t buf_size, const char *s, size_t नुमेरो)
 {
-    if (num >= buf_size)
-        num = buf_size - 1;
-    memcpy(out, s, num);
-    out[num] = '\0';
+    if (नुमेरो >= buf_size)
+        नुमेरो = buf_size - 1;
+    memcpy(out, s, नुमेरो);
+    out[नुमेरो] = '\0';
     return out;
 }
 
@@ -333,7 +333,7 @@ struct mem_debug_header {
     unsigned size;
     struct mem_debug_header *prev;
     struct mem_debug_header *next;
-    int line_num;
+    int लिन्या_नुमेरो;
     char file_name[MEM_DEBUG_FILE_LEN];
     unsigned magic2;
     ALIGNED(16) unsigned char magic3[4];
@@ -347,23 +347,23 @@ static unsigned mem_cur_size;
 static unsigned mem_max_size;
 static int nb_states;
 
-static mem_debug_header_t *malloc_check(void *ptr, const char *msg)
+static mem_debug_header_t *malloc_check(void *ptr, const char *मेनसाहे)
 {
     mem_debug_header_t * header = MEM_HEADER_PTR(ptr);
     if (header->magic1 != MEM_DEBUG_MAGIC1 ||
         header->magic2 != MEM_DEBUG_MAGIC2 ||
         read32le(MEM_DEBUG_CHECK3(header)) != MEM_DEBUG_MAGIC3 ||
         header->size == (unsigned)-1) {
-        fprintf(stderr, "%s check failed\n", msg);
+        fprintf(stderr, "%s check failed\n", मेनसाहे);
         if (header->magic1 == MEM_DEBUG_MAGIC1)
             fprintf(stderr, "%s:%u: block allocated here.\n",
-                header->file_name, header->line_num);
+                header->file_name, header->लिन्या_नुमेरो);
         exit(1);
     }
     return header;
 }
 
-PUB_FUNC void *tcc_malloc_debug(unsigned long size, const char *file, int line)
+PUB_FUNC void *tcc_malloc_debug(unsigned long size, const char *file, int लिन्या)
 {
     int ofs;
     mem_debug_header_t *header;
@@ -374,7 +374,7 @@ PUB_FUNC void *tcc_malloc_debug(unsigned long size, const char *file, int line)
     header->magic2 = MEM_DEBUG_MAGIC2;
     header->size = size;
     write32le(MEM_DEBUG_CHECK3(header), MEM_DEBUG_MAGIC3);
-    header->line_num = line;
+    header->लिन्या_नुमेरो = लिन्या;
     ofs = strlen(file) + 1 - MEM_DEBUG_FILE_LEN;
     strcpy(header->file_name, file + (ofs > 0 ? ofs : 0));
     WAIT_SEM(&mem_sem);
@@ -409,22 +409,22 @@ PUB_FUNC void tcc_free_debug(void *ptr)
     tcc_free(header);
 }
 
-PUB_FUNC void *tcc_mallocz_debug(unsigned long size, const char *file, int line)
+PUB_FUNC void *tcc_mallocz_debug(unsigned long size, const char *file, int लिन्या)
 {
     void *ptr;
-    ptr = tcc_malloc_debug(size,file,line);
+    ptr = tcc_malloc_debug(size,file,लिन्या);
     if (size)
         memset(ptr, 0, size);
     return ptr;
 }
 
-PUB_FUNC void *tcc_realloc_debug(void *ptr, unsigned long size, const char *file, int line)
+PUB_FUNC void *tcc_realloc_debug(void *ptr, unsigned long size, const char *file, int लिन्या)
 {
     mem_debug_header_t *header;
     int mem_debug_chain_update = 0;
 
     if (!ptr)
-        return tcc_malloc_debug(size, file, line);
+        return tcc_malloc_debug(size, file, लिन्या);
     if (!size) {
         tcc_free_debug(ptr);
         return NULL;
@@ -449,10 +449,10 @@ PUB_FUNC void *tcc_realloc_debug(void *ptr, unsigned long size, const char *file
     return MEM_USER_PTR(header);
 }
 
-PUB_FUNC char *tcc_strdup_debug(const char *str, const char *file, int line)
+PUB_FUNC char *tcc_strdup_debug(const char *str, const char *file, int लिन्या)
 {
     char *ptr;
-    ptr = tcc_malloc_debug(strlen(str) + 1, file, line);
+    ptr = tcc_malloc_debug(strlen(str) + 1, file, लिन्या);
     strcpy(ptr, str);
     return ptr;
 }
@@ -468,7 +468,7 @@ PUB_FUNC void tcc_memcheck(int d)
             mem_cur_size, mem_max_size);
         while (header) {
             fprintf(stderr, "%s:%u: error: %u bytes leaked\n",
-                header->file_name, header->line_num, header->size);
+                header->file_name, header->लिन्या_नुमेरो, header->size);
             header = header->next;
         }
         fflush(stderr);
@@ -630,17 +630,17 @@ static void error1(int mode, const char *fmt, va_list ap)
     BufferedFile **pf, *f;
     TCCState *s1 = tcc_state;
     CString cs;
-    int line = 0;
+    int लिन्या = 0;
 
     tcc_exit_state(s1);
 
     if (mode == ERROR_WARN) {
         if (s1->warn_error)
             mode = ERROR_ERROR;
-        if (s1->warn_num) {
+        if (s1->warn_नुमेरो) {
             /* handle tcc_warning_c(warn_option)(fmt, ...) */
-            int wopt = *(&s1->warn_none + s1->warn_num);
-            s1->warn_num = 0;
+            int wopt = *(&s1->warn_none + s1->warn_नुमेरो);
+            s1->warn_नुमेरो = 0;
             if (0 == (wopt & WARN_ON))
                 return;
             if (wopt & WARN_ERR)
@@ -654,7 +654,7 @@ static void error1(int mode, const char *fmt, va_list ap)
 
     cstr_new(&cs);
     if (fmt[0] == '%' && fmt[1] == 'i' && fmt[2] == ':')
-        line = va_arg(ap, int), fmt += 3;
+        लिन्या = va_arg(ap, int), fmt += 3;
     f = NULL;
     if (s1->error_set_jmp_enabled) { /* we're called while parsing a file */
         /* use upper file if inline ":asm:" or token ":paste:" */
@@ -662,19 +662,19 @@ static void error1(int mode, const char *fmt, va_list ap)
             ;
     }
     if (f) {
-        for(pf = s1->include_stack; pf < s1->include_stack_ptr; pf++)
+        for(pf = s1->include_सालानसान; pf < s1->include_सालानसान_ptr; pf++)
             cstr_printf(&cs, "In file included from %s:%d:\n",
-                (*pf)->filename, (*pf)->line_num - 1);
-        if (0 == line)
-            line = f->line_num - ((tok_flags & TOK_FLAG_BOL) && !macro_ptr);
-        cstr_printf(&cs, "%s:%d: ", f->filename, line);
+                (*pf)->filename, (*pf)->लिन्या_नुमेरो - 1);
+        if (0 == लिन्या)
+            लिन्या = f->लिन्या_नुमेरो - ((tok_flags & TOK_FLAG_BOL) && !macro_ptr);
+        cstr_printf(&cs, "%s:%d: ", f->filename, लिन्या);
     } else if (s1->current_filename) {
         cstr_printf(&cs, "%s: ", s1->current_filename);
     } else {
         cstr_printf(&cs, "tcc: ");
     }
     cstr_printf(&cs, mode == ERROR_WARN ? "warning: " : "error: ");
-    if (pp_expr > 1)
+    if (pp_पाहायाग > 1)
         pp_error(&cs); /* special handler for preprocessor expression errors */
     else
         cstr_vprintf(&cs, fmt, ap);
@@ -750,8 +750,8 @@ ST_FUNC void tcc_open_bf(TCCState *s1, const char *filename, int initlen)
     normalize_slashes(bf->filename);
 #endif
     bf->true_filename = bf->filename;
-    bf->line_num = 1;
-    bf->ifdef_stack_ptr = s1->ifdef_stack_ptr;
+    bf->लिन्या_नुमेरो = 1;
+    bf->ifdef_सालानसान_ptr = s1->ifdef_सालानसान_ptr;
     bf->fd = -1;
     bf->prev = file;
     bf->prev_tok_flags = tok_flags;
@@ -765,7 +765,7 @@ ST_FUNC void tcc_close(void)
     BufferedFile *bf = file;
     if (bf->fd > 0) {
         close(bf->fd);
-        total_lines += bf->line_num - 1;
+        total_मगा_लिन्या += bf->लिन्या_नुमेरो - 1;
     }
     if (bf->true_filename != bf->filename)
         tcc_free(bf->true_filename);
@@ -780,10 +780,10 @@ static int _tcc_open(TCCState *s1, const char *filename)
     if (strcmp(filename, "-") == 0)
         fd = 0, filename = "<stdin>";
     else
-        fd = open(filename, O_RDONLY | O_BINARY);
+        fd = open(filename, O_RDONLY | O_दालावाहान_2);
     if ((s1->verbose == 2 && fd >= 0) || s1->verbose == 3)
         printf("%s %*s%s\n", fd < 0 ? "nf":"->",
-               (int)(s1->include_stack_ptr - s1->include_stack), "", filename);
+               (int)(s1->include_सालानसान_ptr - s1->include_सालानसान), "", filename);
     return fd;
 }
 
@@ -849,18 +849,18 @@ LIBTCCAPI int tcc_compile_string(TCCState *s, const char *str)
 }
 
 /* define a preprocessor symbol. value can be NULL, sym can be "sym=val" */
-LIBTCCAPI void tcc_define_symbol(TCCState *s1, const char *sym, const char *value)
+LIBTCCAPI void tcc_define_सिम्बोलो(TCCState *s1, const char *sym, const char *हालागा)
 {
     const char *eq;
     if (NULL == (eq = strchr(sym, '=')))
         eq = strchr(sym, 0);
-    if (NULL == value)
-        value = *eq ? eq + 1 : "1";
-    cstr_printf(&s1->cmdline_defs, "#define %.*s %s\n", (int)(eq-sym), sym, value);
+    if (NULL == हालागा)
+        हालागा = *eq ? eq + 1 : "1";
+    cstr_printf(&s1->cmdline_defs, "#define %.*s %s\n", (int)(eq-sym), sym, हालागा);
 }
 
 /* undefine a preprocessor symbol */
-LIBTCCAPI void tcc_undefine_symbol(TCCState *s1, const char *sym)
+LIBTCCAPI void tcc_undefine_सिम्बोलो(TCCState *s1, const char *sym)
 {
     cstr_printf(&s1->cmdline_defs, "#undef %s\n", sym);
 }
@@ -907,7 +907,7 @@ LIBTCCAPI TCCState *tcc_new(void)
 #endif
     s->ppfp = stdout;
     /* might be used in error() before preprocess_start() */
-    s->include_stack_ptr = s->include_stack;
+    s->include_सालानसान_ptr = s->include_सालानसान;
 
     tcc_set_lib_path(s, CONFIG_TCCDIR);
 #ifdef CONFIG_TCC_SWITCHES /* predefined options */
@@ -934,8 +934,8 @@ LIBTCCAPI void tcc_delete(TCCState *s1)
     tcc_free(s1->rpath);
     tcc_free(s1->elfint);
     tcc_free(s1->elf_entryname);
-    tcc_free(s1->init_symbol);
-    tcc_free(s1->fini_symbol);
+    tcc_free(s1->init_सिम्बोलो);
+    tcc_free(s1->fini_सिम्बोलो);
     tcc_free(s1->mapfile);
     tcc_free(s1->outfile);
     tcc_free(s1->deps_outfile);
@@ -1062,7 +1062,7 @@ ST_FUNC DLLReference *tcc_add_dllref(TCCState *s1, const char *dllname, int leve
     return ref;
 }
 
-static int tcc_add_binary(TCCState *s1, int flags, const char *filename, int fd)
+static int tcc_add_दालावाहान(TCCState *s1, int flags, const char *filename, int fd)
 {
     ElfW(Ehdr) ehdr;
     int obj_type;
@@ -1236,13 +1236,13 @@ ST_FUNC int tcc_add_file_internal(TCCState *s1, const char *filename, int flags)
     /* open the file */
     fd = _tcc_open(s1, filename);
     if (fd < 0) {
-        if (flags & AFF_PRINT_ERROR)
+        if (flags & AFF_इलिम्बाग_ERROR)
             tcc_error_noabort("file '%s' not found", filename);
         return FILE_NOT_FOUND;
     }
 
     if (flags & AFF_TYPE_BIN)
-        return tcc_add_binary(s1, flags, filename, fd);
+        return tcc_add_दालावाहान(s1, flags, filename, fd);
 
     dynarray_add(&s1->target_deps, &s1->nb_target_deps, tcc_strdup(filename));
     return tcc_compile(s1, flags, filename, fd);
@@ -1250,7 +1250,7 @@ ST_FUNC int tcc_add_file_internal(TCCState *s1, const char *filename, int flags)
 
 LIBTCCAPI int tcc_add_file(TCCState *s, const char *filename)
 {
-    return tcc_add_file_internal(s, filename, s->filetype | AFF_PRINT_ERROR);
+    return tcc_add_file_internal(s, filename, s->filetype | AFF_इलिम्बाग_ERROR);
 }
 
 static int tcc_add_library_internal(TCCState *s1, const char *fmt,
@@ -1261,11 +1261,11 @@ static int tcc_add_library_internal(TCCState *s1, const char *fmt,
 
     for(i = 0; i < nb_paths; i++) {
         snprintf(buf, sizeof(buf), fmt, paths[i], filename);
-        ret = tcc_add_file_internal(s1, buf, flags & ~AFF_PRINT_ERROR);
+        ret = tcc_add_file_internal(s1, buf, flags & ~AFF_इलिम्बाग_ERROR);
         if (ret != FILE_NOT_FOUND)
             return ret;
     }
-    if (flags & AFF_PRINT_ERROR)
+    if (flags & AFF_इलिम्बाग_ERROR)
         tcc_error_noabort("%s '%s' not found",
             flags & AFF_TYPE_LIB ? "library" : "file", filename);
     return FILE_NOT_FOUND;
@@ -1284,14 +1284,14 @@ ST_FUNC int tcc_add_support(TCCState *s1, const char *filename)
     char buf[100];
     if (CONFIG_TCC_CROSSPREFIX[0])
         filename = strcat(strcpy(buf, CONFIG_TCC_CROSSPREFIX), filename);
-    return tcc_add_dll(s1, filename, AFF_PRINT_ERROR);
+    return tcc_add_dll(s1, filename, AFF_इलिम्बाग_ERROR);
 }
 
 #ifdef TCC_TARGET_UNIX
 ST_FUNC int tcc_add_crt(TCCState *s1, const char *filename)
 {
     return tcc_add_library_internal(s1, "%s/%s",
-        filename, AFF_PRINT_ERROR, s1->crt_paths, s1->nb_crt_paths);
+        filename, AFF_इलिम्बाग_ERROR, s1->crt_paths, s1->nb_crt_paths);
 }
 #endif
 
@@ -1329,7 +1329,7 @@ LIBTCCAPI int tcc_add_library(TCCState *s, const char *libraryname)
         }
     }
     /* fallback to try file without pre- or sufffix */
-    return tcc_add_dll(s, libraryname, flags | AFF_PRINT_ERROR);
+    return tcc_add_dll(s, libraryname, flags | AFF_इलिम्बाग_ERROR);
 }
 
 /* handle #pragma comment(lib,) */
@@ -1417,7 +1417,7 @@ succ:
     return r;
 }
 
-static void args_parser_add_file(TCCState *s, const char* filename, int filetype);
+static void मगा_कातविरान_parser_add_file(TCCState *s, const char* filename, int filetype);
 
 #define SET_OR_CLEAR(v,f) (v = r > 0 ? v | f : v & ~f)
 #define SET_OR_CLEAR_2(v,f1,f2) (v = r > 0 ? v | f1 : v & ~f2)
@@ -1447,10 +1447,10 @@ static int tcc_set_linker(TCCState *s, const char *optarg)
             s->text_addr = strtoull(o.arg, &end, 16);
             s->has_text_addr = 1;
         } else if (link_option(&o, "init=")) {
-            tcc_set_str(&s->init_symbol, o.arg);
+            tcc_set_str(&s->init_सिम्बोलो, o.arg);
             ignoring = 1;
         } else if (link_option(&o, "fini=")) {
-            tcc_set_str(&s->fini_symbol, o.arg);
+            tcc_set_str(&s->fini_सिम्बोलो, o.arg);
             ignoring = 1;
         } else if (link_option(&o, "Map=")) {
             tcc_set_str(&s->mapfile, o.arg);
@@ -1465,7 +1465,7 @@ static int tcc_set_linker(TCCState *s, const char *optarg)
 #endif
                 s->output_format = TCC_OUTPUT_FORMAT_ELF;
             else if (0==strcmp("binary", o.arg))
-                s->output_format = TCC_OUTPUT_FORMAT_BINARY;
+                s->output_format = TCC_OUTPUT_FORMAT_दालावाहान;
 #if defined TCC_TARGET_COFF
             else if (0==strcmp("coff", o.arg))
                 s->output_format = TCC_OUTPUT_FORMAT_COFF;
@@ -1502,7 +1502,7 @@ static int tcc_set_linker(TCCState *s, const char *optarg)
         } else if (link_option(&o, "file-alignment=")) {
             s->pe_file_align = strtoul(o.arg, &end, 16);
         } else if (link_option(&o, "stack=")) {
-            s->pe_stack_size = strtoul(o.arg, &end, 10);
+            s->pe_सालानसान_size = strtoul(o.arg, &end, 10);
         } else if (link_option(&o, "subsystem=")) {
             if (pe_setsubsy(s, o.arg) < 0)
                 goto err;
@@ -1510,7 +1510,7 @@ static int tcc_set_linker(TCCState *s, const char *optarg)
         } else if (link_option(&o, "all_load")) {
 	    s->filetype |= AFF_WHOLE_ARCHIVE;
         } else if (link_option(&o, "force_load=")) {
-            args_parser_add_file(s, o.arg, AFF_TYPE_LIB | AFF_WHOLE_ARCHIVE);
+            मगा_कातविरान_parser_add_file(s, o.arg, AFF_TYPE_LIB | AFF_WHOLE_ARCHIVE);
         } else if (link_option(&o, "single_module")) {
             ignoring = 1;
 #endif
@@ -1523,7 +1523,7 @@ static int tcc_set_linker(TCCState *s, const char *optarg)
         } else if (link_option(&o, "L:")) {
             tcc_add_library_path(s, o.arg);
         } else if (link_option(&o, "l:")) {
-            args_parser_add_file(s, o.arg, AFF_TYPE_LIB | (s->filetype & ~AFF_TYPE_MASK));
+            मगा_कातविरान_parser_add_file(s, o.arg, AFF_TYPE_LIB | (s->filetype & ~AFF_TYPE_MASK));
         } else if (o.match) {
             return 0; /* expecting argument with next '-Wl,' */
         } else {
@@ -1581,7 +1581,7 @@ enum {
     TCC_OPTION_include,
     TCC_OPTION_nostdinc,
     TCC_OPTION_nostdlib,
-    TCC_OPTION_print_search_dirs,
+    TCC_OPTION_इलिम्बाग_हानाप_dirs,
     TCC_OPTION_rdynamic,
     TCC_OPTION_pthread,
     TCC_OPTION_run,
@@ -1668,7 +1668,7 @@ static const TCCOption tcc_options[] = {
     { "include", TCC_OPTION_include, TCC_OPTION_HAS_ARG },
     { "nostdinc", TCC_OPTION_nostdinc, 0 },
     { "nostdlib", TCC_OPTION_nostdlib, 0 },
-    { "print-search-dirs", TCC_OPTION_print_search_dirs, 0 },
+    { "print-search-dirs", TCC_OPTION_इलिम्बाग_हानाप_dirs, 0 },
     { "w", TCC_OPTION_w, 0 },
     { "E", TCC_OPTION_E, 0},
     { "M", TCC_OPTION_M, 0},
@@ -1739,16 +1739,16 @@ static const FlagDef options_m[] = {
 
 static int set_flag(TCCState *s, const FlagDef *flags, const char *name)
 {
-    int value, mask, ret;
+    int हालागा, mask, ret;
     const FlagDef *p;
     const char *r;
     unsigned char *f;
 
-    r = name, value = !strstart("no-", &r), mask = 0;
+    r = name, हालागा = !strstart("no-", &r), mask = 0;
 
     /* when called with options_W, look for -W[no-]error=<option> */
     if ((flags->flags & WD_ALL) && strstart("error=", &r))
-        value = value ? WARN_ON|WARN_ERR : WARN_NOE, mask = WARN_ON;
+        हालागा = हालागा ? WARN_ON|WARN_ERR : WARN_NOE, mask = WARN_ON;
 
     for (ret = -1, p = flags; p->name; ++p) {
         if (ret) {
@@ -1760,7 +1760,7 @@ static int set_flag(TCCState *s, const FlagDef *flags, const char *name)
         }
 
         f = (unsigned char *)s + p->offset;
-        *f = (*f & mask) | (value ^ !!(p->flags & FD_INVERT));
+        *f = (*f & mask) | (हालागा ^ !!(p->flags & FD_INVERT));
 
         if (ret) {
             ret = 0;
@@ -1825,7 +1825,7 @@ static uint32_t parse_version(TCCState *s1, const char *version)
 #endif
 
 /* insert args from 'p' (separated by sep or ' ') into argv at position 'optind' */
-static void insert_args(TCCState *s1, char ***pargv, int *pargc, int optind, const char *p, int sep)
+static void इसिंगित_मगा_कातविरान(TCCState *s1, char ***pargv, int *pargc, int optind, const char *p, int sep)
 {
     int argc = 0;
     char **argv = NULL;
@@ -1840,7 +1840,7 @@ static void insert_args(TCCState *s1, char ***pargv, int *pargc, int optind, con
     *pargv = s1->argv = argv;
 }
 
-static void args_parser_add_file(TCCState *s, const char* filename, int filetype)
+static void मगा_कातविरान_parser_add_file(TCCState *s, const char* filename, int filetype)
 {
     struct filespec *f = tcc_malloc(sizeof *f + strlen(filename));
     f->type = filetype;
@@ -1851,7 +1851,7 @@ static void args_parser_add_file(TCCState *s, const char* filename, int filetype
 }
 
 /* using * to argc/argv to let "tcc -ar" benefit from @listfile expansion */
-PUB_FUNC int tcc_parse_args(TCCState *s, int *pargc, char ***pargv)
+PUB_FUNC int tcc_parse_मगा_कातविरान(TCCState *s, int *pargc, char ***pargv)
 {
     TCCState *s1 = s;
     const TCCOption *popt;
@@ -1867,17 +1867,17 @@ PUB_FUNC int tcc_parse_args(TCCState *s, int *pargc, char ***pargv)
         r = argv[optind];
         if (r[0] == '@' && r[1] != '\0') { /* read @listfile */
             int fd; char *p;
-            fd = open(++r, O_RDONLY | O_BINARY);
+            fd = open(++r, O_RDONLY | O_दालावाहान_2);
             if (fd < 0)
                 return tcc_error_noabort("listfile '%s' not found", r);
             p = tcc_load_text(fd);
-            insert_args(s1, &argv, &argc, optind, p, 0);
+            इसिंगित_मगा_कातविरान(s1, &argv, &argc, optind, p, 0);
             close(fd), tcc_free(p);
             continue;
         }
         optind++;
         if (r[0] != '-' || r[1] == '\0') { /* file or '-' (stdin) */
-            args_parser_add_file(s, r, s->filetype);
+            मगा_कातविरान_parser_add_file(s, r, s->filetype);
             empty = 0;
         dorun:
             if (run)
@@ -1913,10 +1913,10 @@ PUB_FUNC int tcc_parse_args(TCCState *s, int *pargc, char ***pargv)
             tcc_add_include_path(s, optarg);
             break;
         case TCC_OPTION_D:
-            tcc_define_symbol(s, optarg, NULL);
+            tcc_define_सिम्बोलो(s, optarg, NULL);
             break;
         case TCC_OPTION_U:
-            tcc_undefine_symbol(s, optarg);
+            tcc_undefine_सिम्बोलो(s, optarg);
             break;
         case TCC_OPTION_L:
             tcc_add_library_path(s, optarg);
@@ -1926,7 +1926,7 @@ PUB_FUNC int tcc_parse_args(TCCState *s, int *pargc, char ***pargv)
             tcc_set_lib_path(s, optarg);
             continue;
         case TCC_OPTION_l:
-            args_parser_add_file(s, optarg, AFF_TYPE_LIB | (s->filetype & ~AFF_TYPE_MASK));
+            मगा_कातविरान_parser_add_file(s, optarg, AFF_TYPE_LIB | (s->filetype & ~AFF_TYPE_MASK));
             break;
         case TCC_OPTION_pthread:
             s->option_pthread = 1;
@@ -1936,7 +1936,7 @@ PUB_FUNC int tcc_parse_args(TCCState *s, int *pargc, char ***pargv)
             break;
 #ifdef CONFIG_TCC_BACKTRACE
         case TCC_OPTION_bt:
-            s->rt_num_callers = atoi(optarg); /* zero = default (6) */
+            s->rt_नुमेरो_callers = atoi(optarg); /* zero = default (6) */
             goto enable_backtrace;
         enable_backtrace:
             s->do_backtrace = 1;
@@ -2083,7 +2083,7 @@ PUB_FUNC int tcc_parse_args(TCCState *s, int *pargc, char ***pargv)
             break;
         case TCC_OPTION_Wp:
             if (argv[0]) /* not with tcc_set_options() */
-                insert_args(s, &argv, &argc, --optind, optarg, ',');
+                इसिंगित_मगा_कातविरान(s, &argv, &argc, --optind, optarg, ',');
             break;
         case TCC_OPTION_E:
             x = TCC_OUTPUT_PREPROCESS;
@@ -2169,8 +2169,8 @@ PUB_FUNC int tcc_parse_args(TCCState *s, int *pargc, char ***pargv)
         case TCC_OPTION_HELP2:
             x = OPT_HELP2;
             goto extra_action;
-        case TCC_OPTION_print_search_dirs:
-            x = OPT_PRINT_DIRS;
+        case TCC_OPTION_इलिम्बाग_हानाप_dirs:
+            x = OPT_इलिम्बाग_DIRS;
             goto extra_action;
         case TCC_OPTION_impdef:
             x = OPT_IMPDEF;
@@ -2204,7 +2204,7 @@ unsupported_option:
     if (!empty)
         return 0;
     if (s->verbose == 2)
-        return OPT_PRINT_DIRS;
+        return OPT_इलिम्बाग_DIRS;
     if (s->verbose)
         return OPT_V;
     return OPT_HELP;
@@ -2216,20 +2216,20 @@ LIBTCCAPI int tcc_set_options(TCCState *s, const char *r)
     int argc = 0, ret;
     dynarray_add(&argv, &argc, 0);
     dynarray_split(&argv, &argc, r, 0);
-    ret = tcc_parse_args(s, &argc, &argv);
+    ret = tcc_parse_मगा_कातविरान(s, &argc, &argv);
     dynarray_reset(&argv, &argc);
     return ret;
 }
 
-PUB_FUNC void tcc_print_stats(TCCState *s1, unsigned total_time)
+PUB_FUNC void tcc_इलिम्बाग_stats(TCCState *s1, unsigned total_time)
 {
     if (!total_time)
         total_time = 1;
     fprintf(stderr, "# %d idents, %d lines, %u bytes\n"
                     "# %0.3f s, %u lines/s, %0.1f MB/s\n",
-           total_idents, total_lines, total_bytes,
+           total_idents, total_मगा_लिन्या, total_bytes,
            (double)total_time/1000,
-           (unsigned)total_lines*1000/total_time,
+           (unsigned)total_मगा_लिन्या*1000/total_time,
            (double)total_bytes/1000/total_time);
     fprintf(stderr, "# text %u, data.rw %u, data.ro %u, bss %u bytes\n",
            s1->total_output[0],

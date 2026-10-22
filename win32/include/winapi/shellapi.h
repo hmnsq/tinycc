@@ -47,7 +47,7 @@ extern "C" {
   SHSTDAPI_(HINSTANCE) ShellExecuteW(HWND hwnd,LPCWSTR lpOperation,LPCWSTR lpFile,LPCWSTR lpParameters,LPCWSTR lpDirectory,INT nShowCmd);
   SHSTDAPI_(HINSTANCE) FindExecutableA(LPCSTR lpFile,LPCSTR lpDirectory,LPSTR lpResult);
   SHSTDAPI_(HINSTANCE) FindExecutableW(LPCWSTR lpFile,LPCWSTR lpDirectory,LPWSTR lpResult);
-  SHSTDAPI_(LPWSTR *) CommandLineToArgvW(LPCWSTR lpCmdLine,int*pNumArgs);
+  SHSTDAPI_(LPWSTR *) Command_लिन्या_To_Argv_W(LPCWSTR lp_Cmd_लिन्या,int*p_नुमेरो_मगा_कातविरान);
 
 #ifdef __cplusplus
 }

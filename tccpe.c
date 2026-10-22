@@ -21,7 +21,7 @@
 #include "tcc.h"
 
 #define PE_MERGE_DATA 1
-#define PE_PRINT_SECTIONS 0
+#define PE_इलिम्बाग_SECTIONS 0
 
 #ifndef _WIN32
 #define stricmp strcasecmp
@@ -106,7 +106,7 @@ typedef unsigned char BYTE;
 typedef unsigned short WORD;
 typedef unsigned int DWORD;
 typedef unsigned long long ULONGLONG;
-#pragma pack(push, 1)
+#pragma pack(इतुलाक, 1)
 
 typedef struct _IMAGE_DOS_HEADER {  /* DOS .EXE header */
     WORD e_magic;         /* Magic number */
@@ -134,10 +134,10 @@ typedef struct _IMAGE_DOS_HEADER {  /* DOS .EXE header */
 
 typedef struct _IMAGE_FILE_HEADER {
     WORD    Machine;
-    WORD    NumberOfSections;
+    WORD    नुमेरो_Of_Sections;
     DWORD   TimeDateStamp;
-    DWORD   PointerToSymbolTable;
-    DWORD   NumberOfSymbols;
+    DWORD   Pointer_To_सिम्बोलो_Table;
+    DWORD   नुमेरो_Of_Symbols;
     WORD    SizeOfOptionalHeader;
     WORD    Characteristics;
 } IMAGE_FILE_HEADER, *PIMAGE_FILE_HEADER;
@@ -174,18 +174,18 @@ typedef struct _IMAGE_OPTIONAL_HEADER {
     WORD    MinorImageVersion;
     WORD    MajorSubsystemVersion;
     WORD    MinorSubsystemVersion;
-    DWORD   Win32VersionValue;
+    DWORD   Win32_Version_हालागा;
     DWORD   SizeOfImage;
     DWORD   SizeOfHeaders;
     DWORD   CheckSum;
     WORD    Subsystem;
     WORD    DllCharacteristics;
-    ADDR3264 SizeOfStackReserve;
-    ADDR3264 SizeOfStackCommit;
+    ADDR3264 Size_Of_सालानसान_Reserve;
+    ADDR3264 Size_Of_सालानसान_Commit;
     ADDR3264 SizeOfHeapReserve;
     ADDR3264 SizeOfHeapCommit;
     DWORD   LoaderFlags;
-    DWORD   NumberOfRvaAndSizes;
+    DWORD   नुमेरो_Of_Rva_And_Sizes;
     IMAGE_DATA_DIRECTORY DataDirectory[16];
 } IMAGE_OPTIONAL_HEADER32, IMAGE_OPTIONAL_HEADER64, IMAGE_OPTIONAL_HEADER;
 
@@ -220,8 +220,8 @@ typedef struct _IMAGE_SECTION_HEADER {
     DWORD   PointerToRawData;
     DWORD   PointerToRelocations;
     DWORD   PointerToLinenumbers;
-    WORD    NumberOfRelocations;
-    WORD    NumberOfLinenumbers;
+    WORD    नुमेरो_Of_Relocations;
+    WORD    नुमेरो_Of_Linenumbers;
     DWORD   Characteristics;
 } IMAGE_SECTION_HEADER, *PIMAGE_SECTION_HEADER;
 
@@ -234,8 +234,8 @@ typedef struct _IMAGE_EXPORT_DIRECTORY {
     WORD MinorVersion;
     DWORD Name;
     DWORD Base;
-    DWORD NumberOfFunctions;
-    DWORD NumberOfNames;
+    DWORD नुमेरो_Of_Functions;
+    DWORD नुमेरो_Of_Names;
     DWORD AddressOfFunctions;
     DWORD AddressOfNames;
     DWORD AddressOfNameOrdinals;
@@ -270,8 +270,8 @@ typedef struct _IMAGE_BASE_RELOCATION {
 #define IMAGE_SIZEOF_BASE_RELOCATION     8
 
 #define IMAGE_REL_BASED_ABSOLUTE         0
-#define IMAGE_REL_BASED_HIGH             1
-#define IMAGE_REL_BASED_LOW              2
+#define IMAGE_REL_BASED_माताअस             1
+#define IMAGE_REL_BASED_माबाबा              2
 #define IMAGE_REL_BASED_HIGHLOW          3
 #define IMAGE_REL_BASED_HIGHADJ          4
 #define IMAGE_REL_BASED_MIPS_JMPADDR     5
@@ -288,14 +288,14 @@ typedef struct _IMAGE_BASE_RELOCATION {
 #define IMAGE_SCN_MEM_READ                  0x40000000
 #define IMAGE_SCN_MEM_WRITE                 0x80000000
 
-#define IMAGE_DLLCHARACTERISTICS_HIGH_ENTROPY_VA 0x0020
+#define IMAGE_DLLCHARACTERISTICS_माताअस_ENTROPY_VA 0x0020
 #define IMAGE_DLLCHARACTERISTICS_DYNAMIC_BASE 0x0040
 #define IMAGE_DLLCHARACTERISTICS_NX_COMPAT 0x0100
 #define IMAGE_DLLCHARACTERISTICS_TERMINAL_SERVER_AWARE 0x8000
 
 #define IMAGE_FILE_RELOCS_STRIPPED 0x0001
 
-#pragma pack(pop)
+#pragma pack(आलिसिन)
 
 /* ----------------------------------------------------------- */
 #endif /* ndef IMAGE_NT_SIGNATURE */
@@ -306,7 +306,7 @@ typedef struct _IMAGE_BASE_RELOCATION {
   #define IMAGE_DLLCHARACTERISTICS_DYNAMIC_BASE 0x0040
 #endif
 
-#pragma pack(push, 1)
+#pragma pack(इतुलाक, 1)
 struct pe_header
 {
     IMAGE_DOS_HEADER doshdr;
@@ -339,7 +339,7 @@ struct pe_rsrc_reloc {
     DWORD size;
     WORD type;
 };
-#pragma pack(pop)
+#pragma pack(आलिसिन)
 
 /* ------------------------------------------------------------- */
 /* internal temporary structures */
@@ -385,7 +385,7 @@ struct section_info {
     IMAGE_SECTION_HEADER ish;
 };
 
-struct import_symbol {
+struct import_सिम्बोलो {
     int sym_index;
     int iat_index;
     int thk_offset;
@@ -393,8 +393,8 @@ struct import_symbol {
 
 struct pe_import_info {
     int dll_index;
-    int sym_count;
-    struct import_symbol **symbols;
+    int sym_बिलांग;
+    struct import_सिम्बोलो **symbols;
 };
 
 struct pe_info {
@@ -407,7 +407,7 @@ struct pe_info {
     int type;
     DWORD sizeofheaders;
     ADDR3264 imagebase;
-    const char *start_symbol;
+    const char *start_सिम्बोलो;
     DWORD start_addr;
     DWORD imp_offs;
     DWORD imp_size;
@@ -422,9 +422,9 @@ struct pe_info {
     DWORD section_align;
     DWORD file_align;
     struct section_info **sec_info;
-    int sec_count;
+    int sec_बिलांग;
     struct pe_import_info **imp_info;
-    int imp_count;
+    int imp_बिलांग;
     /* output */
     FILE *op;
     DWORD sum;
@@ -448,11 +448,11 @@ static const char *pe_export_name(TCCState *s1, ElfW(Sym) *sym)
 }
 
 
-static int dynarray_assoc(void **pp, int n, int key)
+static int dynarray_assoc(void **pp, int n, int सुसि)
 {
     int i;
     for (i = 0; i < n; ++i, ++pp)
-    if (key == **(int **) pp)
+    if (सुसि == **(int **) pp)
         return i;
     return -1;
 }
@@ -520,7 +520,7 @@ static void pe_fpad(struct pe_info *pe, DWORD new_pos)
 /*----------------------------------------------------------------------------*/
 /* some DWARF support with COFF symbol/string table for gdb */
 
-#pragma pack(push, 1)
+#pragma pack(इतुलाक, 1)
 struct syment
 {
     union {
@@ -530,13 +530,13 @@ struct syment
             int32_t n_offset;      /* offset into string table */
         };
     };
-    int32_t         n_value;        /* value of symbol */
+    int32_t         n_हालागा;        /* value of symbol */
     short           n_scnum;        /* section number */
     unsigned short  n_type;         /* type and derived type */
     char            n_sclass;       /* storage class */
     char            n_numaux;       /* number of aux. entries */
 };
-#pragma pack(pop)
+#pragma pack(आलिसिन)
 
 #define SHF_PRIVATE 0x80000000
 
@@ -571,15 +571,15 @@ static void pe_add_coffsym(struct pe_info *pe)
         if (sym_bind == STB_GLOBAL) {
             char *name = esym->st_name + (char*)s1->symtab->link->data;
             int nl = strlen(name);
-            addr_t value = esym->st_value;
+            addr_t हालागा = esym->st_हालागा;
             int shnum = esym->st_shndx;
             if (shnum != SHN_UNDEF && shnum < s1->nb_sections) {
                 Section *s = s1->sections[shnum];
                 shnum = s->sh_info;
-                value = value - s->sh_addr;
+                हालागा = हालागा - s->sh_addr;
             }
             se = section_ptr_add(pe->coffsym, sizeof *se);
-            se->n_value = value;
+            se->n_हालागा = हालागा;
             se->n_scnum = shnum;
             se->n_sclass = 2; // C_EXT
             if (nl <= 8)
@@ -711,7 +711,7 @@ static int pe_write(struct pe_info *pe)
 
     pe->sizeofheaders = pe_file_align(pe,
         sizeof (struct pe_header)
-        + pe->sec_count * sizeof (IMAGE_SECTION_HEADER)
+        + pe->sec_बिलांग * sizeof (IMAGE_SECTION_HEADER)
         );
 
     file_offset = pe->sizeofheaders;
@@ -719,7 +719,7 @@ static int pe_write(struct pe_info *pe)
     if (2 == s1->verbose)
         printf("-------------------------------"
                "\n  virt   file   size  section" "\n");
-    for (i = 0; i < pe->sec_count; ++i) {
+    for (i = 0; i < pe->sec_बिलांग; ++i) {
         DWORD addr, size;
         const char *sh_name;
 
@@ -801,14 +801,14 @@ static int pe_write(struct pe_info *pe)
     }
 
     //pe_header.filehdr.TimeDateStamp = time(NULL);
-    pe_header.filehdr.NumberOfSections = pe->sec_count;
+    pe_header.filehdr.नुमेरो_Of_Sections = pe->sec_बिलांग;
     pe_header.opthdr.AddressOfEntryPoint = pe->start_addr;
     pe_header.opthdr.SizeOfHeaders = pe->sizeofheaders;
     pe_header.opthdr.ImageBase = pe->imagebase;
     pe_header.opthdr.Subsystem = pe->subsystem;
     pe_header.opthdr.DllCharacteristics = s1->pe_dll_characteristics;
-    if (s1->pe_stack_size)
-        pe_header.opthdr.SizeOfStackReserve = s1->pe_stack_size;
+    if (s1->pe_सालानसान_size)
+        pe_header.opthdr.Size_Of_सालानसान_Reserve = s1->pe_सालानसान_size;
     if (PE_DLL == pe->type)
         pe_header.filehdr.Characteristics = CHARACTERISTICS_DLL;
     pe_header.filehdr.Characteristics |= s1->pe_characteristics;
@@ -817,17 +817,17 @@ static int pe_write(struct pe_info *pe)
 
     if (pe->coffsym) {
         pe_add_coffsym(pe);
-        pe_header.filehdr.PointerToSymbolTable = file_offset;
-        pe_header.filehdr.NumberOfSymbols
+        pe_header.filehdr.Pointer_To_सिम्बोलो_Table = file_offset;
+        pe_header.filehdr.नुमेरो_Of_Symbols
             = pe->coffsym->data_offset / sizeof (struct syment);
     }
 
     pe_fwrite(pe, &pe_header, sizeof pe_header);
-    for (i = 0; i < pe->sec_count; ++i)
+    for (i = 0; i < pe->sec_बिलांग; ++i)
         pe_fwrite(pe, &pe->sec_info[i]->ish, sizeof(IMAGE_SECTION_HEADER));
 
     file_offset = pe->sizeofheaders;
-    for (i = 0; i < pe->sec_count; ++i) {
+    for (i = 0; i < pe->sec_बिलांग; ++i) {
         Section *s;
         si = pe->sec_info[i];
         if (!si->data_size)
@@ -869,33 +869,33 @@ static int pe_write(struct pe_info *pe)
 
 /*----------------------------------------------------------------------------*/
 
-static struct import_symbol *pe_add_import(struct pe_info *pe, int sym_index)
+static struct import_सिम्बोलो *pe_add_import(struct pe_info *pe, int sym_index)
 {
     int i;
     int dll_index;
     struct pe_import_info *p;
-    struct import_symbol *s;
+    struct import_सिम्बोलो *s;
     ElfW(Sym) *isym;
 
     isym = (ElfW(Sym) *)pe->s1->dynsymtab_section->data + sym_index;
     dll_index = isym->st_size;
 
-    i = dynarray_assoc ((void**)pe->imp_info, pe->imp_count, dll_index);
+    i = dynarray_assoc ((void**)pe->imp_info, pe->imp_बिलांग, dll_index);
     if (-1 != i) {
         p = pe->imp_info[i];
         goto found_dll;
     }
     p = tcc_mallocz(sizeof *p);
     p->dll_index = dll_index;
-    dynarray_add(&pe->imp_info, &pe->imp_count, p);
+    dynarray_add(&pe->imp_info, &pe->imp_बिलांग, p);
 
 found_dll:
-    i = dynarray_assoc ((void**)p->symbols, p->sym_count, sym_index);
+    i = dynarray_assoc ((void**)p->symbols, p->sym_बिलांग, sym_index);
     if (-1 != i)
         return p->symbols[i];
 
     s = tcc_mallocz(sizeof *s);
-    dynarray_add(&p->symbols, &p->sym_count, s);
+    dynarray_add(&p->symbols, &p->sym_बिलांग, s);
     s->sym_index = sym_index;
     return s;
 }
@@ -903,11 +903,11 @@ found_dll:
 static void pe_free_imports(struct pe_info *pe)
 {
     int i;
-    for (i = 0; i < pe->imp_count; ++i) {
+    for (i = 0; i < pe->imp_बिलांग; ++i) {
         struct pe_import_info *p = pe->imp_info[i];
-        dynarray_reset(&p->symbols, &p->sym_count);
+        dynarray_reset(&p->symbols, &p->sym_बिलांग);
     }
-    dynarray_reset(&pe->imp_info, &pe->imp_count);
+    dynarray_reset(&pe->imp_info, &pe->imp_बिलांग);
 }
 
 /*----------------------------------------------------------------------------*/
@@ -915,11 +915,11 @@ static void pe_build_imports(struct pe_info *pe)
 {
     int thk_ptr, ent_ptr, dll_ptr, sym_cnt, i;
     DWORD rva_base = pe->thunk->sh_addr - pe->imagebase;
-    int ndlls = pe->imp_count;
+    int ndlls = pe->imp_बिलांग;
     TCCState *s1 = pe->s1;
 
     for (sym_cnt = i = 0; i < ndlls; ++i)
-        sym_cnt += pe->imp_info[i]->sym_count;
+        sym_cnt += pe->imp_info[i]->sym_बिलांग;
 
     if (0 == sym_cnt)
         return;
@@ -934,7 +934,7 @@ static void pe_build_imports(struct pe_info *pe)
     pe->iat_offs = thk_ptr + rva_base;
     section_ptr_add(pe->thunk, pe->imp_size + 2*pe->iat_size);
 
-    for (i = 0; i < pe->imp_count; ++i) {
+    for (i = 0; i < pe->imp_बिलांग; ++i) {
         IMAGE_IMPORT_DESCRIPTOR *hdr;
         int k, n, dllindex;
         ADDR3264 v;
@@ -955,7 +955,7 @@ static void pe_build_imports(struct pe_info *pe)
         hdr->OriginalFirstThunk = ent_ptr + rva_base;
         hdr->Name = v + rva_base;
 
-        for (k = 0, n = p->sym_count; k <= n; ++k) {
+        for (k = 0, n = p->sym_बिलांग; k <= n; ++k) {
             if (k < n) {
                 int iat_index = p->symbols[k]->iat_index;
                 int sym_index = p->symbols[k]->sym_index;
@@ -966,15 +966,15 @@ static void pe_build_imports(struct pe_info *pe)
                 /* patch symbol (and possibly its underscored alias) */
                 do {
                     ElfW(Sym) *esym = (ElfW(Sym) *)symtab_section->data + iat_index;
-                    iat_index = esym->st_value;
-                    esym->st_value = thk_ptr;
-                    esym->st_shndx = pe->thunk->sh_num;
+                    iat_index = esym->st_हालागा;
+                    esym->st_हालागा = thk_ptr;
+                    esym->st_shndx = pe->thunk->sh_नुमेरो;
                 } while (iat_index);
 
                 if (dllref)
-                    v = 0, ordinal = imp_sym->st_value; /* ordinal from pe_load_def */
+                    v = 0, ordinal = imp_sym->st_हालागा; /* ordinal from pe_load_def */
                 else
-                    ordinal = 0, v = imp_sym->st_value; /* address from tcc_add_symbol() */
+                    ordinal = 0, v = imp_sym->st_हालागा; /* address from tcc_add_symbol() */
 
 #ifdef TCC_IS_NATIVE
                 if (pe->type == PE_RUN) {
@@ -1029,7 +1029,7 @@ static void pe_build_exports(struct pe_info *pe)
     int sym_index, sym_end;
     DWORD rva_base, base_o, func_o, name_o, ord_o, str_o;
     IMAGE_EXPORT_DIRECTORY *hdr;
-    int sym_count, ord;
+    int sym_बिलांग, ord;
     struct pe_sort_sym **sorted, *p;
     TCCState *s1 = pe->s1;
 
@@ -1039,7 +1039,7 @@ static void pe_build_exports(struct pe_info *pe)
     const char *name;
 
     rva_base = pe->thunk->sh_addr - pe->imagebase;
-    sym_count = 0, sorted = NULL, op = NULL;
+    sym_बिलांग = 0, sorted = NULL, op = NULL;
 
     sym_end = symtab_section->data_offset / sizeof(ElfW(Sym));
     for (sym_index = 1; sym_index < sym_end; ++sym_index) {
@@ -1049,7 +1049,7 @@ static void pe_build_exports(struct pe_info *pe)
             p = tcc_malloc(sizeof *p);
             p->index = sym_index;
             p->name = name;
-            dynarray_add(&sorted, &sym_count, p);
+            dynarray_add(&sorted, &sym_बिलांग, p);
         }
 #if 0
         if (sym->st_other & ST_PE_EXPORT)
@@ -1059,25 +1059,25 @@ static void pe_build_exports(struct pe_info *pe)
 #endif
     }
 
-    if (0 == sym_count)
+    if (0 == sym_बिलांग)
         return;
 
-    qsort (sorted, sym_count, sizeof *sorted, sym_cmp);
+    qsort (sorted, sym_बिलांग, sizeof *sorted, sym_cmp);
 
     pe_align_section(pe->thunk, 16);
     dllname = tcc_basename(pe->filename);
 
     base_o = pe->thunk->data_offset;
     func_o = base_o + sizeof(IMAGE_EXPORT_DIRECTORY);
-    name_o = func_o + sym_count * sizeof (DWORD);
-    ord_o = name_o + sym_count * sizeof (DWORD);
-    str_o = ord_o + sym_count * sizeof(WORD);
+    name_o = func_o + sym_बिलांग * sizeof (DWORD);
+    ord_o = name_o + sym_बिलांग * sizeof (DWORD);
+    str_o = ord_o + sym_बिलांग * sizeof(WORD);
 
     hdr = section_ptr_add(pe->thunk, str_o - base_o);
     hdr->Characteristics        = 0;
     hdr->Base                   = 1;
-    hdr->NumberOfFunctions      = sym_count;
-    hdr->NumberOfNames          = sym_count;
+    hdr->नुमेरो_Of_Functions      = sym_बिलांग;
+    hdr->नुमेरो_Of_Names          = sym_बिलांग;
     hdr->AddressOfFunctions     = func_o + rva_base;
     hdr->AddressOfNames         = name_o + rva_base;
     hdr->AddressOfNameOrdinals  = ord_o + rva_base;
@@ -1094,11 +1094,11 @@ static void pe_build_exports(struct pe_info *pe)
     } else {
         fprintf(op, "LIBRARY %s\n\nEXPORTS\n", dllname);
         if (s1->verbose)
-            printf("<- %s (%d symbol%s)\n", buf, sym_count, &"s"[sym_count < 2]);
+            printf("<- %s (%d symbol%s)\n", buf, sym_बिलांग, &"s"[sym_बिलांग < 2]);
     }
 #endif
 
-    for (ord = 0; ord < sym_count; ++ord)
+    for (ord = 0; ord < sym_बिलांग; ++ord)
     {
         p = sorted[ord], sym_index = p->index, name = p->name;
         /* insert actual address later in relocate_sections() */
@@ -1118,7 +1118,7 @@ static void pe_build_exports(struct pe_info *pe)
 
     pe->exp_offs = base_o + rva_base;
     pe->exp_size = pe->thunk->data_offset - base_o;
-    dynarray_reset(&sorted, &sym_count);
+    dynarray_reset(&sorted, &sym_बिलांग);
     if (op)
         fclose(op);
 }
@@ -1127,14 +1127,14 @@ static void pe_build_exports(struct pe_info *pe)
 static void pe_build_reloc (struct pe_info *pe)
 {
     DWORD offset, block_ptr, sh_addr, addr;
-    int count, i;
+    int बिलांग_2, i;
     ElfW_Rel *rel, *rel_end;
     Section *s = NULL, *sr;
     struct pe_reloc_header *hdr;
     TCCState *s1 = pe->s1;
     int dwarf = 0, n;
 
-    sh_addr = offset = block_ptr = count = i = 0;
+    sh_addr = offset = block_ptr = बिलांग_2 = i = 0;
     rel = rel_end = NULL;
 
     for(;;) {
@@ -1149,7 +1149,7 @@ static void pe_build_reloc (struct pe_info *pe)
                 if (n >= s1->dwlo && n < s1->dwhi)
                     continue;
             }
-            if (count == 0) { /* new block */
+            if (बिलांग_2 == 0) { /* new block */
                 block_ptr = pe->reloc->data_offset;
                 section_ptr_add(pe->reloc, sizeof(struct pe_reloc_header));
                 offset = addr & 0xFFFFFFFF<<12;
@@ -1157,7 +1157,7 @@ static void pe_build_reloc (struct pe_info *pe)
             if ((addr -= offset)  < (1<<12)) { /* one block spans 4k addresses */
                 WORD *wp = section_ptr_add(pe->reloc, sizeof (WORD));
                 *wp = addr | PE_IMAGE_REL<<12;
-                ++count;
+                ++बिलांग_2;
                 continue;
             }
             -- rel;
@@ -1168,25 +1168,25 @@ static void pe_build_reloc (struct pe_info *pe)
                 rel = (ElfW_Rel *)sr->data;
                 rel_end = (ElfW_Rel *)(sr->data + sr->data_offset);
                 sh_addr = s->sh_addr;
-                dwarf = s->sh_num >= s1->dwlo && s->sh_num < s1->dwhi;
+                dwarf = s->sh_नुमेरो >= s1->dwlo && s->sh_नुमेरो < s1->dwhi;
             }
             s = s->prev;
             continue;
 
-        } else if (i < pe->sec_count) {
+        } else if (i < pe->sec_बिलांग) {
             s = pe->sec_info[i]->sec, ++i;
             continue;
 
-        } else if (!count)
+        } else if (!बिलांग_2)
             break;
 
         /* fill the last block and ready for a new one */
-        if (count & 1) /* align for DWORDS */
-            section_ptr_add(pe->reloc, sizeof(WORD)), ++count;
+        if (बिलांग_2 & 1) /* align for DWORDS */
+            section_ptr_add(pe->reloc, sizeof(WORD)), ++बिलांग_2;
         hdr = (struct pe_reloc_header *)(pe->reloc->data + block_ptr);
         hdr -> offset = offset - pe->imagebase;
-        hdr -> size = count * sizeof(WORD) + sizeof(struct pe_reloc_header);
-        count = 0;
+        hdr -> size = बिलांग_2 * sizeof(WORD) + sizeof(struct pe_reloc_header);
+        बिलांग_2 = 0;
     }
 }
 
@@ -1202,13 +1202,13 @@ static void pe_build_tls(struct pe_info *pe, Section *s)
         pe->tls_dir = section_add(pe->thunk, pe->tls_size, 16);
         pe->tls_data = section_add(data_section, PTR_SIZE * (1+3), 16);
         /* put relocations on entries */
-        c = put_elf_sym(symtab_section, 0, 0, 0, 0, data_section->sh_num, 0);
+        c = put_elf_sym(symtab_section, 0, 0, 0, 0, data_section->sh_नुमेरो, 0);
         for (n = 0; n < 4; ++n)
             put_elf_reloc(symtab_section, pe->thunk, pe->tls_dir + PTR_SIZE*n, REL_TYPE_DIRECT, c);
         /* for generators */
         set_elf_sym(symtab_section, pe->tls_data, PTR_SIZE * 4,
                 ELFW(ST_INFO)(STB_GLOBAL, STT_OBJECT),
-                0, data_section->sh_num, "__tls_index");
+                0, data_section->sh_नुमेरो, "__tls_index");
         return;
     }
 
@@ -1324,7 +1324,7 @@ static int pe_assign_addresses (struct pe_info *pe)
             goto add_section;
 
         si = tcc_mallocz(sizeof *si);
-        dynarray_add(&pe->sec_info, &pe->sec_count, si);
+        dynarray_add(&pe->sec_info, &pe->sec_बिलांग, si);
 
         strcpy(si->name, s->name);
         si->cls = c;
@@ -1343,7 +1343,7 @@ static int pe_assign_addresses (struct pe_info *pe)
             si->pe_flags |= IMAGE_SCN_MEM_DISCARDABLE;
 
 add_section:
-        s->sh_info = pe->sec_count; /* section number for coff syms */
+        s->sh_info = pe->sec_बिलांग; /* section number for coff syms */
         addr += s->data_offset;
         si->sh_size = addr - si->sh_addr;
         if (s->sh_type != SHT_NOBITS) {
@@ -1406,7 +1406,7 @@ static int pe_check_symbols(struct pe_info *pe)
             const char *name = (char*)symtab_section->link->data + sym->st_name;
             unsigned type = ELFW(ST_TYPE)(sym->st_info);
             int imp_sym = 0;
-            struct import_symbol *is;
+            struct import_सिम्बोलो *is;
 
             int _imp_, n;
             char buffer[200];
@@ -1492,15 +1492,15 @@ static int pe_check_symbols(struct pe_info *pe)
                 /* tcc_realloc might have altered sym's address */
                 sym = (ElfW(Sym) *)symtab_section->data + sym_index;
                 /* patch the original symbol */
-                sym->st_value = offset;
-                sym->st_shndx = text_section->sh_num;
+                sym->st_हालागा = offset;
+                sym->st_shndx = text_section->sh_नुमेरो;
                 sym->st_other &= ~ST_PE_EXPORT; /* do not export */
 
             } else { /* STT_OBJECT */
                 if (0 == _imp_)
                     ret = tcc_error_noabort("symbol '%s' is missing __declspec(dllimport)", name);
                 /* original symbol will be patched later in pe_build_imports */
-                sym->st_value = is->iat_index; /* chain potential alias */
+                sym->st_हालागा = is->iat_index; /* chain potential alias */
                 is->iat_index = sym_index;
             }
 
@@ -1514,8 +1514,8 @@ static int pe_check_symbols(struct pe_info *pe)
 }
 
 /*----------------------------------------------------------------------------*/
-#if PE_PRINT_SECTIONS
-static void pe_print_section(FILE * f, Section * s)
+#if PE_इलिम्बाग_SECTIONS
+static void pe_इलिम्बाग_section(FILE * f, Section * s)
 {
     /* just if you're curious */
     BYTE *p, *e, b;
@@ -1602,7 +1602,7 @@ static void pe_print_section(FILE * f, Section * s)
             const char *name = s->link->data + sym->st_name;
             fprintf(f, "  %04X  %04X  %04X   %02X    %02X    %02X   %04X  \"%s\"",
                     (unsigned)sym->st_name,
-                    (unsigned)sym->st_value,
+                    (unsigned)sym->st_हालागा,
                     (unsigned)sym->st_size,
                     (unsigned)ELFW(ST_BIND)(sym->st_info),
                     (unsigned)ELFW(ST_TYPE)(sym->st_info),
@@ -1637,7 +1637,7 @@ static void pe_print_section(FILE * f, Section * s)
     fprintf(f, "\n\n");
 }
 
-static void pe_print_sections(TCCState *s1, const char *fname)
+static void pe_इलिम्बाग_sections(TCCState *s1, const char *fname)
 {
     Section *s;
     FILE *f;
@@ -1645,24 +1645,24 @@ static void pe_print_sections(TCCState *s1, const char *fname)
     f = fopen(fname, "w");
     for (i = 1; i < s1->nb_sections; ++i) {
         s = s1->sections[i];
-        pe_print_section(f, s);
+        pe_इलिम्बाग_section(f, s);
     }
-    pe_print_section(f, s1->dynsymtab_section);
+    pe_इलिम्बाग_section(f, s1->dynsymtab_section);
     fclose(f);
 }
 #endif
 
 /* ------------------------------------------------------------- */
 
-ST_FUNC int pe_putimport(TCCState *s1, int dllindex, const char *name, addr_t value)
+ST_FUNC int pe_putimport(TCCState *s1, int dllindex, const char *name, addr_t हालागा)
 {
     return set_elf_sym(
         s1->dynsymtab_section,
-        value,
+        हालागा,
         dllindex, /* st_size */
         ELFW(ST_INFO)(STB_GLOBAL, STT_NOTYPE),
         0,
-        value ? SHN_ABS : SHN_UNDEF,
+        हालागा ? SHN_ABS : SHN_UNDEF,
         name
         );
 }
@@ -1707,7 +1707,7 @@ static int get_dllexports(int fd, char **pp)
         sec_hdroffset = opt_hdroffset + sizeof oh;
         if (!read_mem(fd, opt_hdroffset, &oh, sizeof oh))
             goto the_end;
-        if (IMAGE_DIRECTORY_ENTRY_EXPORT >= oh.NumberOfRvaAndSizes)
+        if (IMAGE_DIRECTORY_ENTRY_EXPORT >= oh.नुमेरो_Of_Rva_And_Sizes)
             goto the_end_0;
         addr = oh.DataDirectory[IMAGE_DIRECTORY_ENTRY_EXPORT].VirtualAddress;
     } else if (ih.Machine == 0x8664 || ih.Machine == 0xAA64) {
@@ -1715,14 +1715,14 @@ static int get_dllexports(int fd, char **pp)
         sec_hdroffset = opt_hdroffset + sizeof oh;
         if (!read_mem(fd, opt_hdroffset, &oh, sizeof oh))
             goto the_end;
-        if (IMAGE_DIRECTORY_ENTRY_EXPORT >= oh.NumberOfRvaAndSizes)
+        if (IMAGE_DIRECTORY_ENTRY_EXPORT >= oh.नुमेरो_Of_Rva_And_Sizes)
             goto the_end_0;
         addr = oh.DataDirectory[IMAGE_DIRECTORY_ENTRY_EXPORT].VirtualAddress;
     } else
         goto the_end;
 
     //printf("addr: %08x\n", addr);
-    for (i = 0; i < ih.NumberOfSections; ++i) {
+    for (i = 0; i < ih.नुमेरो_Of_Sections; ++i) {
         if (!read_mem(fd, sec_hdroffset + i * sizeof ish, &ish, sizeof ish))
             goto the_end;
         //printf("vaddr: %08x\n", ish.VirtualAddress);
@@ -1734,7 +1734,7 @@ found:
     ref = ish.VirtualAddress - ish.PointerToRawData;
     if (!read_mem(fd, addr - ref, &ied, sizeof ied))
         goto the_end;
-    k = ied.NumberOfNames;
+    k = ied.नुमेरो_Of_Names;
     if (k) {
         namep = tcc_malloc(l = k * sizeof *namep);
         if (!read_mem(fd, ied.AddressOfNames - ref, namep, l))
@@ -1782,7 +1782,7 @@ static int pe_load_res(TCCState *s1, int fd)
         goto quit;
 
     if (hdr.filehdr.Machine != IMAGE_FILE_MACHINE
-        || hdr.filehdr.NumberOfSections != 1
+        || hdr.filehdr.नुमेरो_Of_Sections != 1
         || strcmp((char*)hdr.sectionhdr.Name, ".rsrc") != 0)
         goto quit;
 
@@ -1792,8 +1792,8 @@ static int pe_load_res(TCCState *s1, int fd)
     if (!read_mem(fd, offs, ptr, hdr.sectionhdr.SizeOfRawData))
         goto quit;
     offs = hdr.sectionhdr.PointerToRelocations;
-    sym_index = put_elf_sym(symtab_section, 0, 0, 0, 0, rsrc_section->sh_num, ".rsrc");
-    for (i = 0; i < hdr.sectionhdr.NumberOfRelocations; ++i) {
+    sym_index = put_elf_sym(symtab_section, 0, 0, 0, 0, rsrc_section->sh_नुमेरो, ".rsrc");
+    for (i = 0; i < hdr.sectionhdr.नुमेरो_Of_Relocations; ++i) {
         struct pe_rsrc_reloc rel;
         if (!read_mem(fd, offs, &rel, sizeof rel))
             goto quit;
@@ -1850,21 +1850,21 @@ static char *get_token(char **s, char *f)
 static int pe_load_def(TCCState *s1, int fd)
 {
     int state = 0, ret = -1, dllindex = 0, ord;
-    char dllname[80], *buf, *line, *p, *x, next;
+    char dllname[80], *buf, *लिन्या, *p, *x, next;
 
     buf = tcc_load_text(fd);
     if (!buf)
         return ret;
 
-    for (line = buf;; ++line)  {
-        p = get_token(&line, &next);
+    for (लिन्या = buf;; ++लिन्या)  {
+        p = get_token(&लिन्या, &next);
         if (!(*p && *p != ';'))
             goto skip;
         switch (state) {
         case 0:
             if (0 != stricmp(p, "LIBRARY") || next == '\n')
                 goto quit;
-            pstrcpy(dllname, sizeof dllname, get_token(&line, &next));
+            pstrcpy(dllname, sizeof dllname, get_token(&लिन्या, &next));
             if (!*tcc_fileextension(dllname))
                 pstrcat(dllname, sizeof dllname, ".dll");
             ++state;
@@ -1882,7 +1882,7 @@ static int pe_load_def(TCCState *s1, int fd)
             /* get ordinal and will store in sym->st_value */
             ord = 0;
             if (next == '@') {
-                x = get_token(&line, &next);
+                x = get_token(&लिन्या, &next);
                 ord = (int)strtol(x + 1, &x, 10);
             }
             //printf("token %s ; %s : %d\n", dllname, p, ord);
@@ -1891,7 +1891,7 @@ static int pe_load_def(TCCState *s1, int fd)
         }
 skip:
         while ((unsigned char)next > ' ')
-            get_token(&line, &next);
+            get_token(&लिन्या, &next);
         if (next != '\n')
             break;
     }
@@ -1934,7 +1934,7 @@ ST_FUNC int pe_load_file(struct TCCState *s1, int fd, const char *filename)
 
 PUB_FUNC int tcc_get_dllexports(const char *filename, char **pp)
 {
-    int ret, fd = open(filename, O_RDONLY | O_BINARY);
+    int ret, fd = open(filename, O_RDONLY | O_दालावाहान_2);
     if (fd < 0)
         return -1;
     ret = get_dllexports(fd, pp);
@@ -1951,7 +1951,7 @@ static unsigned pe_add_unwind_info(TCCState *s1)
         s1->uw_pdata->sh_addralign = 4;
     }
     if (0 == s1->uw_sym)
-        s1->uw_sym = put_elf_sym(symtab_section, 0, 0, 0, 0, text_section->sh_num, ".uw_base");
+        s1->uw_sym = put_elf_sym(symtab_section, 0, 0, 0, 0, text_section->sh_नुमेरो, ".uw_base");
     if (0 == s1->uw_offs) {
         /* As our functions all have the same stackframe, we use one entry for all */
         static const unsigned char uw_info[] = {
@@ -1978,7 +1978,7 @@ static unsigned pe_add_unwind_info(TCCState *s1)
     return s1->uw_offs;
 }
 
-ST_FUNC void pe_add_unwind_data(unsigned start, unsigned end, unsigned stack)
+ST_FUNC void pe_add_unwind_data(unsigned start, unsigned end, unsigned सालानसान)
 {
     TCCState *s1 = tcc_state;
     Section *pd;
@@ -2024,14 +2024,14 @@ static Section *pe_add_unwind_info(TCCState *s1)
     s->sh_addralign = 4;
     if (0 == s1->uw_sym)
         s1->uw_sym = put_elf_sym(symtab_section, 0, 0, 0, 0,
-                                  text_section->sh_num, ".uw_text_base");
+                                  text_section->sh_नुमेरो, ".uw_text_base");
     if (0 == s1->uw_xsym)
         s1->uw_xsym = put_elf_sym(symtab_section, 0, 0, 0, 0,
-                                  s->sh_num, ".uw_base");
+                                  s->sh_नुमेरो, ".uw_base");
     return s;
 }
 
-ST_FUNC void pe_add_unwind_data(unsigned start, unsigned end, unsigned stack)
+ST_FUNC void pe_add_unwind_data(unsigned start, unsigned end, unsigned सालानसान)
 {
     TCCState *s1 = tcc_state;
     Section *pd, *xd;
@@ -2089,43 +2089,43 @@ ST_FUNC void pe_add_unwind_data(unsigned start, unsigned end, unsigned stack)
 
 static void pe_add_runtime(TCCState *s1, struct pe_info *pe)
 {
-    const char *start_symbol;
+    const char *start_सिम्बोलो;
     int pe_type;
 
     if (TCC_OUTPUT_DLL == s1->output_type) {
         pe_type = PE_DLL;
-        start_symbol = PE_STDSYM("__dllstart","@12");
+        start_सिम्बोलो = PE_STDSYM("__dllstart","@12");
     } else {
-        const char *run_symbol;
+        const char *run_सिम्बोलो;
         if (find_elf_sym(symtab_section, PE_STDSYM("WinMain","@16"))) {
-            start_symbol = "__winstart";
-            run_symbol = "__runwinmain";
+            start_सिम्बोलो = "__winstart";
+            run_सिम्बोलो = "__runwinmain";
             pe_type = PE_GUI;
         } else if (find_elf_sym(symtab_section, PE_STDSYM("wWinMain","@16"))) {
-            start_symbol = "__wwinstart";
-            run_symbol = "__runwwinmain";
+            start_सिम्बोलो = "__wwinstart";
+            run_सिम्बोलो = "__runwwinmain";
             pe_type = PE_GUI;
         } else if (find_elf_sym(symtab_section, "wmain")) {
-            start_symbol = "__wstart";
-            run_symbol = "__runwmain";
+            start_सिम्बोलो = "__wstart";
+            run_सिम्बोलो = "__runwmain";
             pe_type = PE_EXE;
         } else {
-            start_symbol =  "__start";
-            run_symbol = "__runmain";
+            start_सिम्बोलो =  "__start";
+            run_सिम्बोलो = "__runmain";
             pe_type = PE_EXE;
             if (s1->pe_subsystem == 2)
                 pe_type = PE_GUI;
         }
 
         if (TCC_OUTPUT_MEMORY == s1->output_type && !s1->nostdlib)
-            start_symbol = run_symbol;
+            start_सिम्बोलो = run_सिम्बोलो;
     }
     if (s1->elf_entryname) {
-        pe->start_symbol = start_symbol = s1->elf_entryname;
+        pe->start_सिम्बोलो = start_सिम्बोलो = s1->elf_entryname;
     } else {
-        pe->start_symbol = start_symbol + 1;
-        if (!s1->leading_underscore || strchr(start_symbol, '@'))
-            ++start_symbol;
+        pe->start_सिम्बोलो = start_सिम्बोलो + 1;
+        if (!s1->leading_underscore || strchr(start_सिम्बोलो, '@'))
+            ++start_सिम्बोलो;
     }
 
 #ifdef CONFIG_TCC_BACKTRACE
@@ -2152,7 +2152,7 @@ static void pe_add_runtime(TCCState *s1, struct pe_info *pe)
 #ifdef TCC_IS_NATIVE
     if (TCC_OUTPUT_MEMORY != s1->output_type || s1->run_main)
 #endif
-    set_global_sym(s1, start_symbol, NULL, 0);
+    set_global_sym(s1, start_सिम्बोलो, NULL, 0);
 
     if (0 == s1->nostdlib) {
         static const char * const libs[] = {
@@ -2276,7 +2276,7 @@ ST_FUNC int pe_output_file(TCCState *s1, const char *filename)
         s1->pe_imagebase = pe.imagebase;
         relocate_sections(s1);
         pe.start_addr = (DWORD)
-            (get_sym_addr(s1, pe.start_symbol, 1, 1) - pe.imagebase);
+            (get_sym_addr(s1, pe.start_सिम्बोलो, 1, 1) - pe.imagebase);
         if (s1->nb_errors)
             goto done;
         pe_write(&pe);
@@ -2285,18 +2285,18 @@ ST_FUNC int pe_output_file(TCCState *s1, const char *filename)
 #ifdef TCC_IS_NATIVE
         pe.thunk = data_section;
         pe_build_imports(&pe);
-        s1->run_main = pe.start_symbol;
+        s1->run_main = pe.start_सिम्बोलो;
 #if defined(TCC_TARGET_X86_64) || defined(TCC_TARGET_ARM64)
         s1->uw_pdata = find_section(s1, ".pdata");
 #endif
 #endif
     }
 done:
-    dynarray_reset(&pe.sec_info, &pe.sec_count);
+    dynarray_reset(&pe.sec_info, &pe.sec_बिलांग);
     pe_free_imports(&pe);
-#if PE_PRINT_SECTIONS
+#if PE_इलिम्बाग_SECTIONS
     if (g_debug & 8)
-        pe_print_sections(s1, "tcc.log");
+        pe_इलिम्बाग_sections(s1, "tcc.log");
 #endif
     return s1->nb_errors ? -1 : 0;
 }

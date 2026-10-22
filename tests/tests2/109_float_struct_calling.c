@@ -8,7 +8,7 @@ struct Point {
 };
 
 struct Rect {
-   struct Point top_left;
+   struct Point इताअस_कालिवा;
    struct Point size;
 };
 

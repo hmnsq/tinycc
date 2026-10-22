@@ -8,7 +8,7 @@
 
 #include <_mingw.h>
 
-#pragma pack(push,_CRT_PACKING)
+#pragma pack(इतुलाक,_CRT_PACKING)
 
 #ifdef __cplusplus
 extern "C" {
@@ -263,9 +263,9 @@ extern FILE (*_imp___iob)[];	/* A pointer to an array of FILE */
 #ifndef _WDIRECT_DEFINED
 #define _WDIRECT_DEFINED
 
-  _CRTIMP wchar_t *__cdecl _wgetcwd(wchar_t *_DstBuf,int _SizeInWords);
-  _CRTIMP wchar_t *__cdecl _wgetdcwd(int _Drive,wchar_t *_DstBuf,int _SizeInWords);
-  wchar_t *__cdecl _wgetdcwd_nolock(int _Drive,wchar_t *_DstBuf,int _SizeInWords);
+  _CRTIMP wchar_t *__cdecl _wgetcwd(wchar_t *_DstBuf,int Size_In_मगा_सालिता);
+  _CRTIMP wchar_t *__cdecl _wgetdcwd(int _Drive,wchar_t *_DstBuf,int Size_In_मगा_सालिता);
+  wchar_t *__cdecl _wgetdcwd_nolock(int _Drive,wchar_t *_DstBuf,int Size_In_मगा_सालिता);
   _CRTIMP int __cdecl _wchdir(const wchar_t *_Path);
   _CRTIMP int __cdecl _wmkdir(const wchar_t *_Path);
   _CRTIMP int __cdecl _wrmdir(const wchar_t *_Path);
@@ -568,7 +568,7 @@ extern FILE (*_imp___iob)[];	/* A pointer to an array of FILE */
   wint_t __cdecl putwc(wchar_t _Ch,FILE *_File);
   wint_t __cdecl putwchar(wchar_t _Ch);
   wint_t __cdecl ungetwc(wint_t _Ch,FILE *_File);
-  wchar_t *__cdecl fgetws(wchar_t *_Dst,int _SizeInWords,FILE *_File);
+  wchar_t *__cdecl fgetws(wchar_t *_Dst,int Size_In_मगा_सालिता,FILE *_File);
   int __cdecl fputws(const wchar_t *_Str,FILE *_File);
   _CRTIMP wchar_t *__cdecl _getws(wchar_t *_String);
   _CRTIMP int __cdecl _putws(const wchar_t *_Str);
@@ -579,10 +579,10 @@ extern FILE (*_imp___iob)[];	/* A pointer to an array of FILE */
   int __cdecl vwprintf(const wchar_t *_Format,va_list _ArgList);
   _CRTIMP int __cdecl swprintf(wchar_t*, const wchar_t*, ...);
   _CRTIMP int __cdecl vswprintf(wchar_t*, const wchar_t*,va_list);
-  _CRTIMP int __cdecl _swprintf_c(wchar_t *_DstBuf,size_t _SizeInWords,const wchar_t *_Format,...);
-  _CRTIMP int __cdecl _vswprintf_c(wchar_t *_DstBuf,size_t _SizeInWords,const wchar_t *_Format,va_list _ArgList);
-  _CRTIMP int __cdecl _snwprintf(wchar_t *_Dest,size_t _Count,const wchar_t *_Format,...);
-  _CRTIMP int __cdecl _vsnwprintf(wchar_t *_Dest,size_t _Count,const wchar_t *_Format,va_list _Args);
+  _CRTIMP int __cdecl _swprintf_c(wchar_t *_DstBuf,size_t Size_In_मगा_सालिता,const wchar_t *_Format,...);
+  _CRTIMP int __cdecl _vswprintf_c(wchar_t *_DstBuf,size_t Size_In_मगा_सालिता,const wchar_t *_Format,va_list _ArgList);
+  _CRTIMP int __cdecl _snwprintf(wchar_t *_Dest,size_t बिलांग_5,const wchar_t *_Format,...);
+  _CRTIMP int __cdecl _vsnwprintf(wchar_t *_Dest,size_t बिलांग_5,const wchar_t *_Format,va_list मगा_कातविरान_2);
 #ifndef __NO_ISOCEXT  /* externs in libmingwex.a */
   int __cdecl snwprintf (wchar_t *s, size_t n, const wchar_t * format, ...);
   __CRT_INLINE int __cdecl vsnwprintf (wchar_t *s, size_t n, const wchar_t *format, va_list arg) { return _vsnwprintf(s,n,format,arg); }
@@ -594,8 +594,8 @@ extern FILE (*_imp___iob)[];	/* A pointer to an array of FILE */
   _CRTIMP int __cdecl _wprintf_p(const wchar_t *_Format,...);
   _CRTIMP int __cdecl _vfwprintf_p(FILE *_File,const wchar_t *_Format,va_list _ArgList);
   _CRTIMP int __cdecl _vwprintf_p(const wchar_t *_Format,va_list _ArgList);
-  _CRTIMP int __cdecl _swprintf_p(wchar_t *_DstBuf,size_t _MaxCount,const wchar_t *_Format,...);
-  _CRTIMP int __cdecl _vswprintf_p(wchar_t *_DstBuf,size_t _MaxCount,const wchar_t *_Format,va_list _ArgList);
+  _CRTIMP int __cdecl _swprintf_p(wchar_t *_DstBuf,size_t Max_बिलांग,const wchar_t *_Format,...);
+  _CRTIMP int __cdecl _vswprintf_p(wchar_t *_DstBuf,size_t Max_बिलांग,const wchar_t *_Format,va_list _ArgList);
   _CRTIMP int __cdecl _scwprintf_p(const wchar_t *_Format,...);
   _CRTIMP int __cdecl _vscwprintf_p(const wchar_t *_Format,va_list _ArgList);
   _CRTIMP int __cdecl _wprintf_l(const wchar_t *_Format,_locale_t _Locale,...);
@@ -606,19 +606,19 @@ extern FILE (*_imp___iob)[];	/* A pointer to an array of FILE */
   _CRTIMP int __cdecl _fwprintf_p_l(FILE *_File,const wchar_t *_Format,_locale_t _Locale,...);
   _CRTIMP int __cdecl _vfwprintf_l(FILE *_File,const wchar_t *_Format,_locale_t _Locale,va_list _ArgList);
   _CRTIMP int __cdecl _vfwprintf_p_l(FILE *_File,const wchar_t *_Format,_locale_t _Locale,va_list _ArgList);
-  _CRTIMP int __cdecl _swprintf_c_l(wchar_t *_DstBuf,size_t _MaxCount,const wchar_t *_Format,_locale_t _Locale,...);
-  _CRTIMP int __cdecl _swprintf_p_l(wchar_t *_DstBuf,size_t _MaxCount,const wchar_t *_Format,_locale_t _Locale,...);
-  _CRTIMP int __cdecl _vswprintf_c_l(wchar_t *_DstBuf,size_t _MaxCount,const wchar_t *_Format,_locale_t _Locale,va_list _ArgList);
-  _CRTIMP int __cdecl _vswprintf_p_l(wchar_t *_DstBuf,size_t _MaxCount,const wchar_t *_Format,_locale_t _Locale,va_list _ArgList);
+  _CRTIMP int __cdecl _swprintf_c_l(wchar_t *_DstBuf,size_t Max_बिलांग,const wchar_t *_Format,_locale_t _Locale,...);
+  _CRTIMP int __cdecl _swprintf_p_l(wchar_t *_DstBuf,size_t Max_बिलांग,const wchar_t *_Format,_locale_t _Locale,...);
+  _CRTIMP int __cdecl _vswprintf_c_l(wchar_t *_DstBuf,size_t Max_बिलांग,const wchar_t *_Format,_locale_t _Locale,va_list _ArgList);
+  _CRTIMP int __cdecl _vswprintf_p_l(wchar_t *_DstBuf,size_t Max_बिलांग,const wchar_t *_Format,_locale_t _Locale,va_list _ArgList);
   _CRTIMP int __cdecl _scwprintf_l(const wchar_t *_Format,_locale_t _Locale,...);
   _CRTIMP int __cdecl _scwprintf_p_l(const wchar_t *_Format,_locale_t _Locale,...);
   _CRTIMP int __cdecl _vscwprintf_p_l(const wchar_t *_Format,_locale_t _Locale,va_list _ArgList);
-  _CRTIMP int __cdecl _snwprintf_l(wchar_t *_DstBuf,size_t _MaxCount,const wchar_t *_Format,_locale_t _Locale,...);
-  _CRTIMP int __cdecl _vsnwprintf_l(wchar_t *_DstBuf,size_t _MaxCount,const wchar_t *_Format,_locale_t _Locale,va_list _ArgList);
+  _CRTIMP int __cdecl _snwprintf_l(wchar_t *_DstBuf,size_t Max_बिलांग,const wchar_t *_Format,_locale_t _Locale,...);
+  _CRTIMP int __cdecl _vsnwprintf_l(wchar_t *_DstBuf,size_t Max_बिलांग,const wchar_t *_Format,_locale_t _Locale,va_list _ArgList);
   _CRTIMP int __cdecl _swprintf(wchar_t *_Dest,const wchar_t *_Format,...);
-  _CRTIMP int __cdecl _vswprintf(wchar_t *_Dest,const wchar_t *_Format,va_list _Args);
+  _CRTIMP int __cdecl _vswprintf(wchar_t *_Dest,const wchar_t *_Format,va_list मगा_कातविरान_2);
   _CRTIMP int __cdecl __swprintf_l(wchar_t *_Dest,const wchar_t *_Format,_locale_t _Plocinfo,...);
-  _CRTIMP int __cdecl __vswprintf_l(wchar_t *_Dest,const wchar_t *_Format,_locale_t _Plocinfo,va_list _Args);
+  _CRTIMP int __cdecl __vswprintf_l(wchar_t *_Dest,const wchar_t *_Format,_locale_t _Plocinfo,va_list मगा_कातविरान_2);
 #ifndef RC_INVOKED
 #include <vadefs.h>
 #endif
@@ -639,8 +639,8 @@ extern FILE (*_imp___iob)[];	/* A pointer to an array of FILE */
   _CRTIMP int __cdecl _fwscanf_l(FILE *_File,const wchar_t *_Format,_locale_t _Locale,...);
   int __cdecl swscanf(const wchar_t *_Src,const wchar_t *_Format,...);
   _CRTIMP int __cdecl _swscanf_l(const wchar_t *_Src,const wchar_t *_Format,_locale_t _Locale,...);
-  _CRTIMP int __cdecl _snwscanf(const wchar_t *_Src,size_t _MaxCount,const wchar_t *_Format,...);
-  _CRTIMP int __cdecl _snwscanf_l(const wchar_t *_Src,size_t _MaxCount,const wchar_t *_Format,_locale_t _Locale,...);
+  _CRTIMP int __cdecl _snwscanf(const wchar_t *_Src,size_t Max_बिलांग,const wchar_t *_Format,...);
+  _CRTIMP int __cdecl _snwscanf_l(const wchar_t *_Src,size_t Max_बिलांग,const wchar_t *_Format,_locale_t _Locale,...);
   int __cdecl wscanf(const wchar_t *_Format,...);
   _CRTIMP int __cdecl _wscanf_l(const wchar_t *_Format,_locale_t _Locale,...);
   _CRTIMP FILE *__cdecl _wfdopen(int _FileHandle ,const wchar_t *_Mode);
@@ -649,7 +649,7 @@ extern FILE (*_imp___iob)[];	/* A pointer to an array of FILE */
 
 #ifndef _CRT_WPERROR_DEFINED
 #define _CRT_WPERROR_DEFINED
-  _CRTIMP void __cdecl _wperror(const wchar_t *_ErrMsg);
+  _CRTIMP void __cdecl _wperror(const wchar_t *Err_मेनसाहे);
 #endif
   _CRTIMP FILE *__cdecl _wpopen(const wchar_t *_Command,const wchar_t *_Mode);
 #if !defined(NO_OLDNAMES) && !defined(wpopen)
@@ -680,9 +680,9 @@ extern FILE (*_imp___iob)[];	/* A pointer to an array of FILE */
 #ifndef _WSTDLIB_DEFINED
 #define _WSTDLIB_DEFINED
 
-  _CRTIMP wchar_t *__cdecl _itow(int _Value,wchar_t *_Dest,int _Radix);
-  _CRTIMP wchar_t *__cdecl _ltow(long _Value,wchar_t *_Dest,int _Radix);
-  _CRTIMP wchar_t *__cdecl _ultow(unsigned long _Value,wchar_t *_Dest,int _Radix);
+  _CRTIMP wchar_t *__cdecl _itow(int हालागा_2,wchar_t *_Dest,int _Radix);
+  _CRTIMP wchar_t *__cdecl _ltow(long हालागा_2,wchar_t *_Dest,int _Radix);
+  _CRTIMP wchar_t *__cdecl _ultow(unsigned long हालागा_2,wchar_t *_Dest,int _Radix);
   double __cdecl wcstod(const wchar_t *_Str,wchar_t **_EndPtr);
   _CRTIMP double __cdecl _wcstod_l(const wchar_t *_Str,wchar_t **_EndPtr,_locale_t _Locale);
   float __cdecl wcstof( const wchar_t *nptr, wchar_t **endptr);
@@ -721,11 +721,11 @@ extern FILE (*_imp___iob)[];	/* A pointer to an array of FILE */
 #ifndef _POSIX_
 #ifndef _WSTDLIBP_DEFINED
 #define _WSTDLIBP_DEFINED
-  _CRTIMP wchar_t *__cdecl _wfullpath(wchar_t *_FullPath,const wchar_t *_Path,size_t _SizeInWords);
+  _CRTIMP wchar_t *__cdecl _wfullpath(wchar_t *_FullPath,const wchar_t *_Path,size_t Size_In_मगा_सालिता);
   _CRTIMP void __cdecl _wmakepath(wchar_t *_ResultPath,const wchar_t *_Drive,const wchar_t *_Dir,const wchar_t *_Filename,const wchar_t *_Ext);
 #ifndef _CRT_WPERROR_DEFINED
 #define _CRT_WPERROR_DEFINED
-  _CRTIMP void __cdecl _wperror(const wchar_t *_ErrMsg);
+  _CRTIMP void __cdecl _wperror(const wchar_t *Err_मेनसाहे);
 #endif
   _CRTIMP int __cdecl _wputenv(const wchar_t *_EnvString);
   _CRTIMP void __cdecl _wsearchenv(const wchar_t *_Filename,const wchar_t *_EnvVar,wchar_t *_ResultPath);
@@ -742,45 +742,45 @@ extern FILE (*_imp___iob)[];	/* A pointer to an array of FILE */
   wchar_t *__cdecl wcscpy(wchar_t *_Dest,const wchar_t *_Source);
   size_t __cdecl wcscspn(const wchar_t *_Str,const wchar_t *_Control);
   size_t __cdecl wcslen(const wchar_t *_Str);
-  size_t __cdecl wcsnlen(const wchar_t *_Src,size_t _MaxCount);
-  wchar_t *__cdecl wcsncat(wchar_t *_Dest,const wchar_t *_Source,size_t _Count);
-  int __cdecl wcsncmp(const wchar_t *_Str1,const wchar_t *_Str2,size_t _MaxCount);
-  wchar_t *__cdecl wcsncpy(wchar_t *_Dest,const wchar_t *_Source,size_t _Count);
+  size_t __cdecl wcsnlen(const wchar_t *_Src,size_t Max_बिलांग);
+  wchar_t *__cdecl wcsncat(wchar_t *_Dest,const wchar_t *_Source,size_t बिलांग_5);
+  int __cdecl wcsncmp(const wchar_t *_Str1,const wchar_t *_Str2,size_t Max_बिलांग);
+  wchar_t *__cdecl wcsncpy(wchar_t *_Dest,const wchar_t *_Source,size_t बिलांग_5);
   _CONST_RETURN wchar_t *__cdecl wcspbrk(const wchar_t *_Str,const wchar_t *_Control);
   _CONST_RETURN wchar_t *__cdecl wcsrchr(const wchar_t *_Str,wchar_t _Ch);
   size_t __cdecl wcsspn(const wchar_t *_Str,const wchar_t *_Control);
   _CONST_RETURN wchar_t *__cdecl wcsstr(const wchar_t *_Str,const wchar_t *_SubStr);
   wchar_t *__cdecl wcstok(wchar_t *_Str,const wchar_t *_Delim);
-  _CRTIMP wchar_t *__cdecl _wcserror(int _ErrNum);
+  _CRTIMP wchar_t *__cdecl _wcserror(int Err_नुमेरो);
   _CRTIMP wchar_t *__cdecl __wcserror(const wchar_t *_Str);
   _CRTIMP int __cdecl _wcsicmp(const wchar_t *_Str1,const wchar_t *_Str2);
   _CRTIMP int __cdecl _wcsicmp_l(const wchar_t *_Str1,const wchar_t *_Str2,_locale_t _Locale);
-  _CRTIMP int __cdecl _wcsnicmp(const wchar_t *_Str1,const wchar_t *_Str2,size_t _MaxCount);
-  _CRTIMP int __cdecl _wcsnicmp_l(const wchar_t *_Str1,const wchar_t *_Str2,size_t _MaxCount,_locale_t _Locale);
-  _CRTIMP wchar_t *__cdecl _wcsnset(wchar_t *_Str,wchar_t _Val,size_t _MaxCount);
+  _CRTIMP int __cdecl _wcsnicmp(const wchar_t *_Str1,const wchar_t *_Str2,size_t Max_बिलांग);
+  _CRTIMP int __cdecl _wcsnicmp_l(const wchar_t *_Str1,const wchar_t *_Str2,size_t Max_बिलांग,_locale_t _Locale);
+  _CRTIMP wchar_t *__cdecl _wcsnset(wchar_t *_Str,wchar_t _Val,size_t Max_बिलांग);
   _CRTIMP wchar_t *__cdecl _wcsrev(wchar_t *_Str);
   _CRTIMP wchar_t *__cdecl _wcsset(wchar_t *_Str,wchar_t _Val);
   _CRTIMP wchar_t *__cdecl _wcslwr(wchar_t *_String);
   _CRTIMP wchar_t *_wcslwr_l(wchar_t *_String,_locale_t _Locale);
   _CRTIMP wchar_t *__cdecl _wcsupr(wchar_t *_String);
   _CRTIMP wchar_t *_wcsupr_l(wchar_t *_String,_locale_t _Locale);
-  size_t __cdecl wcsxfrm(wchar_t *_Dst,const wchar_t *_Src,size_t _MaxCount);
-  _CRTIMP size_t __cdecl _wcsxfrm_l(wchar_t *_Dst,const wchar_t *_Src,size_t _MaxCount,_locale_t _Locale);
+  size_t __cdecl wcsxfrm(wchar_t *_Dst,const wchar_t *_Src,size_t Max_बिलांग);
+  _CRTIMP size_t __cdecl _wcsxfrm_l(wchar_t *_Dst,const wchar_t *_Src,size_t Max_बिलांग,_locale_t _Locale);
   int __cdecl wcscoll(const wchar_t *_Str1,const wchar_t *_Str2);
   _CRTIMP int __cdecl _wcscoll_l(const wchar_t *_Str1,const wchar_t *_Str2,_locale_t _Locale);
   _CRTIMP int __cdecl _wcsicoll(const wchar_t *_Str1,const wchar_t *_Str2);
   _CRTIMP int __cdecl _wcsicoll_l(const wchar_t *_Str1,const wchar_t *_Str2,_locale_t _Locale);
-  _CRTIMP int __cdecl _wcsncoll(const wchar_t *_Str1,const wchar_t *_Str2,size_t _MaxCount);
-  _CRTIMP int __cdecl _wcsncoll_l(const wchar_t *_Str1,const wchar_t *_Str2,size_t _MaxCount,_locale_t _Locale);
-  _CRTIMP int __cdecl _wcsnicoll(const wchar_t *_Str1,const wchar_t *_Str2,size_t _MaxCount);
-  _CRTIMP int __cdecl _wcsnicoll_l(const wchar_t *_Str1,const wchar_t *_Str2,size_t _MaxCount,_locale_t _Locale);
+  _CRTIMP int __cdecl _wcsncoll(const wchar_t *_Str1,const wchar_t *_Str2,size_t Max_बिलांग);
+  _CRTIMP int __cdecl _wcsncoll_l(const wchar_t *_Str1,const wchar_t *_Str2,size_t Max_बिलांग,_locale_t _Locale);
+  _CRTIMP int __cdecl _wcsnicoll(const wchar_t *_Str1,const wchar_t *_Str2,size_t Max_बिलांग);
+  _CRTIMP int __cdecl _wcsnicoll_l(const wchar_t *_Str1,const wchar_t *_Str2,size_t Max_बिलांग,_locale_t _Locale);
 
 #ifndef	NO_OLDNAMES
   wchar_t *__cdecl wcsdup(const wchar_t *_Str);
 #define wcswcs wcsstr
   int __cdecl wcsicmp(const wchar_t *_Str1,const wchar_t *_Str2);
-  int __cdecl wcsnicmp(const wchar_t *_Str1,const wchar_t *_Str2,size_t _MaxCount);
-  wchar_t *__cdecl wcsnset(wchar_t *_Str,wchar_t _Val,size_t _MaxCount);
+  int __cdecl wcsnicmp(const wchar_t *_Str1,const wchar_t *_Str2,size_t Max_बिलांग);
+  wchar_t *__cdecl wcsnset(wchar_t *_Str,wchar_t _Val,size_t Max_बिलांग);
   wchar_t *__cdecl wcsrev(wchar_t *_Str);
   wchar_t *__cdecl wcsset(wchar_t *_Str,wchar_t _Val);
   wchar_t *__cdecl wcslwr(wchar_t *_Str);
@@ -809,8 +809,8 @@ extern FILE (*_imp___iob)[];	/* A pointer to an array of FILE */
 
   _CRTIMP wchar_t *__cdecl _wasctime(const struct tm *_Tm);
   _CRTIMP wchar_t *__cdecl _wctime32(const __time32_t *_Time);
-  size_t __cdecl wcsftime(wchar_t *_Buf,size_t _SizeInWords,const wchar_t *_Format,const struct tm *_Tm);
-  _CRTIMP size_t __cdecl _wcsftime_l(wchar_t *_Buf,size_t _SizeInWords,const wchar_t *_Format,const struct tm *_Tm,_locale_t _Locale);
+  size_t __cdecl wcsftime(wchar_t *_Buf,size_t Size_In_मगा_सालिता,const wchar_t *_Format,const struct tm *_Tm);
+  _CRTIMP size_t __cdecl _wcsftime_l(wchar_t *_Buf,size_t Size_In_मगा_सालिता,const wchar_t *_Format,const struct tm *_Tm,_locale_t _Locale);
   _CRTIMP wchar_t *__cdecl _wstrdate(wchar_t *_Buffer);
   _CRTIMP wchar_t *__cdecl _wstrtime(wchar_t *_Buffer);
 #if _INTEGRAL_MAX_BITS >= 64
@@ -833,9 +833,9 @@ __CRT_INLINE wchar_t *__cdecl _wctime(const time_t *_Time) { return _wctime64(_T
   wint_t __cdecl btowc(int);
   size_t __cdecl mbrlen(const char *_Ch,size_t _SizeInBytes,mbstate_t *_State);
   size_t __cdecl mbrtowc(wchar_t *_DstCh,const char *_SrcCh,size_t _SizeInBytes,mbstate_t *_State);
-  size_t __cdecl mbsrtowcs(wchar_t *_Dest,const char **_PSrc,size_t _Count,mbstate_t *_State);
+  size_t __cdecl mbsrtowcs(wchar_t *_Dest,const char **_PSrc,size_t बिलांग_5,mbstate_t *_State);
   size_t __cdecl wcrtomb(char *_Dest,wchar_t _Source,mbstate_t *_State);
-  size_t __cdecl wcsrtombs(char *_Dest,const wchar_t **_PSource,size_t _Count,mbstate_t *_State);
+  size_t __cdecl wcsrtombs(char *_Dest,const wchar_t **_PSource,size_t बिलांग_5,mbstate_t *_State);
   int __cdecl wctob(wint_t _WCh);
 
 #ifndef __NO_ISOCEXT /* these need static lib libmingwex.a */
@@ -848,8 +848,8 @@ __CRT_INLINE wchar_t *__cdecl _wctime(const time_t *_Time) { return _wctime64(_T
   unsigned long long __cdecl wcstoull(const wchar_t *nptr,wchar_t **endptr, int base);
 #endif /* __NO_ISOCEXT */
 
-  void *__cdecl memmove(void *_Dst,const void *_Src,size_t _MaxCount);
-  void *__cdecl memcpy(void *_Dst,const void *_Src,size_t _MaxCount);
+  void *__cdecl memmove(void *_Dst,const void *_Src,size_t Max_बिलांग);
+  void *__cdecl memcpy(void *_Dst,const void *_Src,size_t Max_बिलांग);
   __CRT_INLINE int __cdecl fwide(FILE *_F,int _M) { (void)_F; return (_M); }
   __CRT_INLINE int __cdecl mbsinit(const mbstate_t *_P) { return (!_P || *_P==0); }
   __CRT_INLINE _CONST_RETURN wchar_t *__cdecl wmemchr(const wchar_t *_S,wchar_t _C,size_t _N) { for (;0<_N;++_S,--_N) if (*_S==_C) return (_CONST_RETURN wchar_t *)(_S); return (0); }
@@ -867,7 +867,7 @@ __CRT_INLINE wchar_t *__cdecl _wctime(const time_t *_Time) { return _wctime64(_T
 }
 #endif
 
-#pragma pack(pop)
+#pragma pack(आलिसिन)
 
 #include <sec_api/wchar_s.h>
 #endif

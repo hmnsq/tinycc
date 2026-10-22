@@ -86,7 +86,7 @@ struct in6_addr {
 #define s6_addr _S6_un._S6_u8
 
 #define s6_bytes u.Byte
-#define s6_words u.Word
+#define s6_मगा_सालिता u.Word
 #endif
 
 typedef struct ipv6_mreq {
@@ -157,13 +157,13 @@ void IN6ADDR_SETLOOPBACK(struct sockaddr_in6 *);
 
 #ifndef __CRT__NO_INLINE
 WS2TCPIP_INLINE int IN6_ADDR_EQUAL(const struct in6_addr *a,const struct in6_addr *b) { return (memcmp(a,b,sizeof(struct in6_addr))==0); }
-WS2TCPIP_INLINE int IN6_IS_ADDR_UNSPECIFIED(const struct in6_addr *a) { return ((a->s6_words[0]==0) && (a->s6_words[1]==0) && (a->s6_words[2]==0) && (a->s6_words[3]==0) && (a->s6_words[4]==0) && (a->s6_words[5]==0) && (a->s6_words[6]==0) && (a->s6_words[7]==0)); }
-WS2TCPIP_INLINE int IN6_IS_ADDR_LOOPBACK(const struct in6_addr *a) { return ((a->s6_words[0]==0) && (a->s6_words[1]==0) && (a->s6_words[2]==0) && (a->s6_words[3]==0) && (a->s6_words[4]==0) && (a->s6_words[5]==0) && (a->s6_words[6]==0) && (a->s6_words[7]==0x0100)); }
+WS2TCPIP_INLINE int IN6_IS_ADDR_UNSPECIFIED(const struct in6_addr *a) { return ((a->s6_मगा_सालिता[0]==0) && (a->s6_मगा_सालिता[1]==0) && (a->s6_मगा_सालिता[2]==0) && (a->s6_मगा_सालिता[3]==0) && (a->s6_मगा_सालिता[4]==0) && (a->s6_मगा_सालिता[5]==0) && (a->s6_मगा_सालिता[6]==0) && (a->s6_मगा_सालिता[7]==0)); }
+WS2TCPIP_INLINE int IN6_IS_ADDR_LOOPBACK(const struct in6_addr *a) { return ((a->s6_मगा_सालिता[0]==0) && (a->s6_मगा_सालिता[1]==0) && (a->s6_मगा_सालिता[2]==0) && (a->s6_मगा_सालिता[3]==0) && (a->s6_मगा_सालिता[4]==0) && (a->s6_मगा_सालिता[5]==0) && (a->s6_मगा_सालिता[6]==0) && (a->s6_मगा_सालिता[7]==0x0100)); }
 WS2TCPIP_INLINE int IN6_IS_ADDR_MULTICAST(const struct in6_addr *a) { return (a->s6_bytes[0]==0xff); }
 WS2TCPIP_INLINE int IN6_IS_ADDR_LINKLOCAL(const struct in6_addr *a) { return ((a->s6_bytes[0]==0xfe) && ((a->s6_bytes[1] & 0xc0)==0x80)); }
 WS2TCPIP_INLINE int IN6_IS_ADDR_SITELOCAL(const struct in6_addr *a) { return ((a->s6_bytes[0]==0xfe) && ((a->s6_bytes[1] & 0xc0)==0xc0)); }
-WS2TCPIP_INLINE int IN6_IS_ADDR_V4MAPPED(const struct in6_addr *a) { return ((a->s6_words[0]==0) && (a->s6_words[1]==0) && (a->s6_words[2]==0) && (a->s6_words[3]==0) && (a->s6_words[4]==0) && (a->s6_words[5]==0xffff)); }
-WS2TCPIP_INLINE int IN6_IS_ADDR_V4COMPAT(const struct in6_addr *a) { return ((a->s6_words[0]==0) && (a->s6_words[1]==0) && (a->s6_words[2]==0) && (a->s6_words[3]==0) && (a->s6_words[4]==0) && (a->s6_words[5]==0) && !((a->s6_words[6]==0) && (a->s6_addr[14]==0) && ((a->s6_addr[15]==0) || (a->s6_addr[15]==1)))); }
+WS2TCPIP_INLINE int IN6_IS_ADDR_V4MAPPED(const struct in6_addr *a) { return ((a->s6_मगा_सालिता[0]==0) && (a->s6_मगा_सालिता[1]==0) && (a->s6_मगा_सालिता[2]==0) && (a->s6_मगा_सालिता[3]==0) && (a->s6_मगा_सालिता[4]==0) && (a->s6_मगा_सालिता[5]==0xffff)); }
+WS2TCPIP_INLINE int IN6_IS_ADDR_V4COMPAT(const struct in6_addr *a) { return ((a->s6_मगा_सालिता[0]==0) && (a->s6_मगा_सालिता[1]==0) && (a->s6_मगा_सालिता[2]==0) && (a->s6_मगा_सालिता[3]==0) && (a->s6_मगा_सालिता[4]==0) && (a->s6_मगा_सालिता[5]==0) && !((a->s6_मगा_सालिता[6]==0) && (a->s6_addr[14]==0) && ((a->s6_addr[15]==0) || (a->s6_addr[15]==1)))); }
 WS2TCPIP_INLINE int IN6_IS_ADDR_MC_NODELOCAL(const struct in6_addr *a) { return IN6_IS_ADDR_MULTICAST(a) && ((a->s6_bytes[1] & 0xf)==1); }
 WS2TCPIP_INLINE int IN6_IS_ADDR_MC_LINKLOCAL(const struct in6_addr *a) { return IN6_IS_ADDR_MULTICAST(a) && ((a->s6_bytes[1] & 0xf)==2); }
 WS2TCPIP_INLINE int IN6_IS_ADDR_MC_SITELOCAL(const struct in6_addr *a) { return IN6_IS_ADDR_MULTICAST(a) && ((a->s6_bytes[1] & 0xf)==5); }
@@ -289,13 +289,13 @@ extern "C" {
 #endif
 
   WINSOCK_API_LINKAGE int WSAAPI getaddrinfo(const char *nodename,const char *servname,const struct addrinfo *hints,struct addrinfo **res);
-  WINSOCK_API_LINKAGE int WSAAPI GetAddrInfoW(PCWSTR pNodeName,PCWSTR pServiceName,const ADDRINFOW *pHints,PADDRINFOW *ppResult);
+  WINSOCK_API_LINKAGE int WSAAPI GetAddrInfoW(PCWSTR p_बुहोल_Name,PCWSTR pServiceName,const ADDRINFOW *pHints,PADDRINFOW *ppResult);
 
 #define GetAddrInfoA getaddrinfo
 
 #if INCL_WINSOCK_API_TYPEDEFS
   typedef int (WSAAPI *LPFN_GETADDRINFO)(const char *nodename,const char *servname,const struct addrinfo *hints,struct addrinfo **res);
-  typedef int (WSAAPI *LPFN_GETADDRINFOW)(PCWSTR pNodeName,PCWSTR pServiceName,const ADDRINFOW *pHints,PADDRINFOW *ppResult);
+  typedef int (WSAAPI *LPFN_GETADDRINFOW)(PCWSTR p_बुहोल_Name,PCWSTR pServiceName,const ADDRINFOW *pHints,PADDRINFOW *ppResult);
 
 #define LPFN_GETADDRINFOA LPFN_GETADDRINFO
 
@@ -330,7 +330,7 @@ extern "C" {
 #endif
 #endif
 
-#pragma push_macro("socklen_t")
+#pragma इतुलाक_macro("socklen_t")
 #undef socklen_t
 
   typedef int socklen_t;
@@ -342,13 +342,13 @@ extern "C" {
 #endif
 
   WINSOCK_API_LINKAGE int WSAAPI getnameinfo(const struct sockaddr *sa,socklen_t salen,char *host,DWORD hostlen,char *serv,DWORD servlen,int flags);
-  WINSOCK_API_LINKAGE INT WSAAPI GetNameInfoW(const SOCKADDR *pSockaddr,socklen_t SockaddrLength,PWCHAR pNodeBuffer,DWORD NodeBufferSize,PWCHAR pServiceBuffer,DWORD ServiceBufferSize,INT Flags);
+  WINSOCK_API_LINKAGE INT WSAAPI GetNameInfoW(const SOCKADDR *pSockaddr,socklen_t SockaddrLength,PWCHAR p_बुहोल_Buffer,DWORD बुहोल_Buffer_Size,PWCHAR pServiceBuffer,DWORD ServiceBufferSize,INT Flags);
 
 #define GetNameInfoA getnameinfo
 
 #if INCL_WINSOCK_API_TYPEDEFS
   typedef int (WSAAPI *LPFN_GETNAMEINFO)(const struct sockaddr *sa,socklen_t salen,char *host,DWORD hostlen,char *serv,DWORD servlen,int flags);
-  typedef INT (WSAAPI *LPFN_GETNAMEINFOW)(const SOCKADDR *pSockaddr,socklen_t SockaddrLength,PWCHAR pNodeBuffer,DWORD NodeBufferSize,PWCHAR pServiceBuffer,DWORD ServiceBufferSize,INT Flags);
+  typedef INT (WSAAPI *LPFN_GETNAMEINFOW)(const SOCKADDR *pSockaddr,socklen_t SockaddrLength,PWCHAR p_बुहोल_Buffer,DWORD बुहोल_Buffer_Size,PWCHAR pServiceBuffer,DWORD ServiceBufferSize,INT Flags);
 
 #define LPFN_GETNAMEINFOA LPFN_GETNAMEINFO
 
@@ -359,7 +359,7 @@ extern "C" {
 #endif
 #endif
 
-#pragma pop_macro("socklen_t")
+#pragma आलिसिन_macro("socklen_t")
 
 #ifdef UNICODE
 #define gai_strerror gai_strerrorW

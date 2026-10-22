@@ -17,9 +17,9 @@
 
 #define check(x) ((x) ? (void)0 : check_fail(#x, __FILE__, __LINE__))
 
-void check_fail(const char *assertion, const char *file, unsigned int line)
+void check_fail(const char *assertion, const char *file, unsigned int लिन्या)
 {
-    printf("%s:%d: Check (%s) failed.", file, line, assertion);
+    printf("%s:%d: Check (%s) failed.", file, लिन्या, assertion);
     exit(1);
 }
 
@@ -69,10 +69,10 @@ u128_t copy_ild(long double f)
     return x;
 }
 
-long double make(int sgn, int exp, uint64_t high, uint64_t low)
+long double make(int sgn, int exp, uint64_t माताअस, uint64_t माबाबा)
 {
-    u128_t x = { low,
-                 (0x0000ffffffffffff & high) |
+    u128_t x = { माबाबा,
+                 (0x0000ffffffffffff & माताअस) |
                  (0x7fff000000000000 & (uint64_t)exp << 48) |
                  (0x8000000000000000 & (uint64_t)sgn << 63) };
     return copy_ldi(x);

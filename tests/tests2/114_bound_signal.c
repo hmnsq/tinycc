@@ -28,7 +28,7 @@ add (int n)
 }
 
 static void *
-high_load (void *unused)
+माताअस_load (void *unused)
 {
     while (run) {
         add(10);
@@ -87,7 +87,7 @@ static void child_handler(int sig)
 static unsigned getclock_ms(void)
 {
 #ifdef _WIN32
-    return GetTickCount();
+    return Get_Tick_बिलांग();
 #else
     struct timeval tv;
     gettimeofday(&tv, NULL);
@@ -117,7 +117,7 @@ main (void)
 
     sem_init (&sem, 0, 0);
     sem_init (&sem_child, 0, 0);
-    pthread_create(&id1, NULL, high_load, NULL);
+    pthread_create(&id1, NULL, माताअस_load, NULL);
     pthread_create(&id2, NULL, do_signal, NULL);
 #if !defined(__APPLE__)
     pthread_create(&id3, NULL, do_fork, NULL);

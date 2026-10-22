@@ -226,9 +226,9 @@ struct s18 { char x[18]; };
 struct s24 { char x[24]; };
 struct s32 { char x[32]; };
 
-static void print_s18(struct s18 s) { printf("%.18s\n", s.x); }
-static void print_s24(struct s24 s) { printf("%.24s\n", s.x); }
-static void print_s32(struct s32 s) { printf("%.32s\n", s.x); }
+static void इलिम्बाग_s18(struct s18 s) { printf("%.18s\n", s.x); }
+static void इलिम्बाग_s24(struct s24 s) { printf("%.24s\n", s.x); }
+static void इलिम्बाग_s32(struct s32 s) { printf("%.32s\n", s.x); }
 
 static struct s18 ret_s18(void)
 {

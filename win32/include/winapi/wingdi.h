@@ -98,22 +98,22 @@ extern "C" {
 #define TA_NOUPDATECP 0
 #define TA_UPDATECP 1
 
-#define TA_LEFT 0
-#define TA_RIGHT 2
+#define TA_कालिवा 0
+#define TA_कानान 2
 #define TA_CENTER 6
 
-#define TA_TOP 0
+#define TA_इताअस 0
 #define TA_BOTTOM 8
 #define TA_BASELINE 24
 #define TA_RTLREADING 256
 #define TA_MASK (TA_BASELINE+TA_CENTER+TA_UPDATECP+TA_RTLREADING)
 
 #define VTA_BASELINE TA_BASELINE
-#define VTA_LEFT TA_BOTTOM
-#define VTA_RIGHT TA_TOP
+#define VTA_कालिवा TA_BOTTOM
+#define VTA_कानान TA_इताअस
 #define VTA_CENTER TA_CENTER
-#define VTA_BOTTOM TA_RIGHT
-#define VTA_TOP TA_LEFT
+#define VTA_BOTTOM TA_कानान
+#define VTA_इताअस TA_कालिवा
 
 #define ETO_OPAQUE 0x0002
 #define ETO_CLIPPED 0x0004
@@ -309,7 +309,7 @@ extern "C" {
   typedef struct _PSINJECTDATA {
     DWORD DataBytes;
     WORD InjectionPoint;
-    WORD PageNumber;
+    WORD Page_नुमेरो;
   } PSINJECTDATA,*PPSINJECTDATA;
 
 #define PSINJECT_BEGINSTREAM 1
@@ -376,7 +376,7 @@ extern "C" {
 #define PSPROTOCOL_ASCII 0
 #define PSPROTOCOL_BCP 1
 #define PSPROTOCOL_TBCP 2
-#define PSPROTOCOL_BINARY 3
+#define PSPROTOCOL_दालावाहान 3
 
 #define QDI_SETDIBITS 1
 #define QDI_GETDIBITS 2
@@ -542,7 +542,7 @@ extern "C" {
     WORD bcWidth;
     WORD bcHeight;
     WORD bcPlanes;
-    WORD bcBitCount;
+    WORD bc_Bit_बिलांग;
   } BITMAPCOREHEADER,*LPBITMAPCOREHEADER,*PBITMAPCOREHEADER;
 
   typedef struct tagBITMAPINFOHEADER {
@@ -550,7 +550,7 @@ extern "C" {
     LONG biWidth;
     LONG biHeight;
     WORD biPlanes;
-    WORD biBitCount;
+    WORD bi_Bit_बिलांग;
     DWORD biCompression;
     DWORD biSizeImage;
     LONG biXPelsPerMeter;
@@ -564,7 +564,7 @@ extern "C" {
     LONG bV4Width;
     LONG bV4Height;
     WORD bV4Planes;
-    WORD bV4BitCount;
+    WORD b_V4_Bit_बिलांग;
     DWORD bV4V4Compression;
     DWORD bV4SizeImage;
     LONG bV4XPelsPerMeter;
@@ -587,7 +587,7 @@ extern "C" {
     LONG bV5Width;
     LONG bV5Height;
     WORD bV5Planes;
-    WORD bV5BitCount;
+    WORD b_V5_Bit_बिलांग;
     DWORD bV5Compression;
     DWORD bV5SizeImage;
     LONG bV5XPelsPerMeter;
@@ -933,7 +933,7 @@ extern "C" {
     UINT elpBrushStyle;
     COLORREF elpColor;
     ULONG_PTR elpHatch;
-    DWORD elpNumEntries;
+    DWORD elp_नुमेरो_Entries;
     DWORD elpStyleEntry[1];
   } EXTLOGPEN,*PEXTLOGPEN,*NPEXTLOGPEN,*LPEXTLOGPEN;
 
@@ -952,7 +952,7 @@ extern "C" {
 
   typedef struct tagLOGPALETTE {
     WORD palVersion;
-    WORD palNumEntries;
+    WORD pal_नुमेरो_Entries;
     PALETTEENTRY palPalEntry[1];
   } LOGPALETTE,*PLOGPALETTE,*NPLOGPALETTE,*LPLOGPALETTE;
 #endif
@@ -1083,7 +1083,7 @@ extern "C" {
 
 #define ANSI_CHARSET 0
 #define DEFAULT_CHARSET 1
-#define SYMBOL_CHARSET 2
+#define सिम्बोलो_CHARSET 2
 #define SHIFTJIS_CHARSET 128
 #define HANGEUL_CHARSET 129
 #define HANGUL_CHARSET 129
@@ -1118,7 +1118,7 @@ extern "C" {
 #define FS_WANSUNG 0x00080000L
 #define FS_CHINESETRAD 0x00100000L
 #define FS_JOHAB 0x00200000L
-#define FS_SYMBOL 0x80000000L
+#define FS_सिम्बोलो 0x80000000L
 
 #define FF_DONTCARE (0<<4)
 #define FF_ROMAN (1<<4)
@@ -1147,7 +1147,7 @@ extern "C" {
 #define FW_ULTRABOLD FW_EXTRABOLD
 #define FW_BLACK FW_HEAVY
 
-#define PANOSE_COUNT 10
+#define PANOSE_बिलांग 10
 #define PAN_FAMILYTYPE_INDEX 0
 #define PAN_SERIFSTYLE_INDEX 1
 #define PAN_WEIGHT_INDEX 2
@@ -1218,13 +1218,13 @@ extern "C" {
 #define PAN_PROP_MONOSPACED 9
 
 #define PAN_CONTRAST_NONE 2
-#define PAN_CONTRAST_VERY_LOW 3
-#define PAN_CONTRAST_LOW 4
-#define PAN_CONTRAST_MEDIUM_LOW 5
+#define PAN_CONTRAST_VERY_माबाबा 3
+#define PAN_CONTRAST_माबाबा 4
+#define PAN_CONTRAST_MEDIUM_माबाबा 5
 #define PAN_CONTRAST_MEDIUM 6
-#define PAN_CONTRAST_MEDIUM_HIGH 7
-#define PAN_CONTRAST_HIGH 8
-#define PAN_CONTRAST_VERY_HIGH 9
+#define PAN_CONTRAST_MEDIUM_माताअस 7
+#define PAN_CONTRAST_माताअस 8
+#define PAN_CONTRAST_VERY_माताअस 9
 
 #define PAN_STROKE_GRADUAL_DIAG 2
 #define PAN_STROKE_GRADUAL_TRAN 3
@@ -1263,15 +1263,15 @@ extern "C" {
 #define PAN_MIDLINE_STANDARD_TRIMMED 2
 #define PAN_MIDLINE_STANDARD_POINTED 3
 #define PAN_MIDLINE_STANDARD_SERIFED 4
-#define PAN_MIDLINE_HIGH_TRIMMED 5
-#define PAN_MIDLINE_HIGH_POINTED 6
-#define PAN_MIDLINE_HIGH_SERIFED 7
+#define PAN_MIDLINE_माताअस_TRIMMED 5
+#define PAN_MIDLINE_माताअस_POINTED 6
+#define PAN_MIDLINE_माताअस_SERIFED 7
 #define PAN_MIDLINE_CONSTANT_TRIMMED 8
 #define PAN_MIDLINE_CONSTANT_POINTED 9
 #define PAN_MIDLINE_CONSTANT_SERIFED 10
-#define PAN_MIDLINE_LOW_TRIMMED 11
-#define PAN_MIDLINE_LOW_POINTED 12
-#define PAN_MIDLINE_LOW_SERIFED 13
+#define PAN_MIDLINE_माबाबा_TRIMMED 11
+#define PAN_MIDLINE_माबाबा_POINTED 12
+#define PAN_MIDLINE_माबाबा_SERIFED 13
 
 #define PAN_XHEIGHT_CONSTANT_SMALL 2
 #define PAN_XHEIGHT_CONSTANT_STD 3
@@ -1619,7 +1619,7 @@ extern "C" {
         short dmScale;
         short dmCopies;
         short dmDefaultSource;
-        short dmPrintQuality;
+        short dm_इलिम्बाग_Quality;
       };
       struct {
         POINTL dmPosition;
@@ -1668,7 +1668,7 @@ extern "C" {
         short dmScale;
         short dmCopies;
         short dmDefaultSource;
-        short dmPrintQuality;
+        short dm_इलिम्बाग_Quality;
       };
       struct {
         POINTL dmPosition;
@@ -1876,7 +1876,7 @@ extern "C" {
 #define DMBIN_UPPER 1
 #define DMBIN_ONLYONE 1
 #define DMBIN_LOWER 2
-#define DMBIN_MIDDLE 3
+#define DMBIN_गित्ना 3
 #define DMBIN_MANUAL 4
 #define DMBIN_ENVELOPE 5
 #define DMBIN_ENVMANUAL 6
@@ -1892,9 +1892,9 @@ extern "C" {
 #define DMBIN_USER 256
 
 #define DMRES_DRAFT (-1)
-#define DMRES_LOW (-2)
+#define DMRES_माबाबा (-2)
 #define DMRES_MEDIUM (-3)
-#define DMRES_HIGH (-4)
+#define DMRES_माताअस (-4)
 
 #define DMCOLOR_MONOCHROME 1
 #define DMCOLOR_COLOR 2
@@ -1964,7 +1964,7 @@ extern "C" {
     CHAR DeviceString[128];
     DWORD StateFlags;
     CHAR DeviceID[128];
-    CHAR DeviceKey[128];
+    CHAR Device_सुसि[128];
   } DISPLAY_DEVICEA,*PDISPLAY_DEVICEA,*LPDISPLAY_DEVICEA;
   typedef struct _DISPLAY_DEVICEW {
     DWORD cb;
@@ -1972,7 +1972,7 @@ extern "C" {
     WCHAR DeviceString[128];
     DWORD StateFlags;
     WCHAR DeviceID[128];
-    WCHAR DeviceKey[128];
+    WCHAR Device_सुसि[128];
   } DISPLAY_DEVICEW,*PDISPLAY_DEVICEW,*LPDISPLAY_DEVICEW;
 #ifdef UNICODE
   typedef DISPLAY_DEVICEW DISPLAY_DEVICE;
@@ -2002,7 +2002,7 @@ extern "C" {
   typedef struct _RGNDATAHEADER {
     DWORD dwSize;
     DWORD iType;
-    DWORD nCount;
+    DWORD n_बिलांग;
     DWORD nRgnSize;
     RECT rcBound;
   } RGNDATAHEADER,*PRGNDATAHEADER;
@@ -2032,7 +2032,7 @@ extern "C" {
     UINT otmSize;
     TEXTMETRICA otmTextMetrics;
     BYTE otmFiller;
-    PANOSE otmPanoseNumber;
+    PANOSE otm_Panose_नुमेरो;
     UINT otmfsSelection;
     UINT otmfsType;
     int otmsCharSlopeRise;
@@ -2041,13 +2041,13 @@ extern "C" {
     UINT otmEMSquare;
     int otmAscent;
     int otmDescent;
-    UINT otmLineGap;
+    UINT otm_लिन्या_Gap;
     UINT otmsCapEmHeight;
     UINT otmsXHeight;
     RECT otmrcFontBox;
     int otmMacAscent;
     int otmMacDescent;
-    UINT otmMacLineGap;
+    UINT otm_Mac_लिन्या_Gap;
     UINT otmusMinimumPPEM;
     POINT otmptSubscriptSize;
     POINT otmptSubscriptOffset;
@@ -2067,7 +2067,7 @@ extern "C" {
     UINT otmSize;
     TEXTMETRICW otmTextMetrics;
     BYTE otmFiller;
-    PANOSE otmPanoseNumber;
+    PANOSE otm_Panose_नुमेरो;
     UINT otmfsSelection;
     UINT otmfsType;
     int otmsCharSlopeRise;
@@ -2076,13 +2076,13 @@ extern "C" {
     UINT otmEMSquare;
     int otmAscent;
     int otmDescent;
-    UINT otmLineGap;
+    UINT otm_लिन्या_Gap;
     UINT otmsCapEmHeight;
     UINT otmsXHeight;
     RECT otmrcFontBox;
     int otmMacAscent;
     int otmMacDescent;
-    UINT otmMacLineGap;
+    UINT otm_Mac_लिन्या_Gap;
     UINT otmusMinimumPPEM;
     POINT otmptSubscriptSize;
     POINT otmptSubscriptOffset;
@@ -2143,7 +2143,7 @@ extern "C" {
 
   typedef struct _FIXED {
     WORD fract;
-    short value;
+    short हालागा;
   } FIXED;
 
   typedef struct _MAT2 {
@@ -2174,7 +2174,7 @@ extern "C" {
 
 #define TT_POLYGON_TYPE 24
 
-#define TT_PRIM_LINE 1
+#define TT_PRIM_लिन्या 1
 #define TT_PRIM_QSPLINE 2
 #define TT_PRIM_CSPLINE 3
 
@@ -2391,7 +2391,7 @@ extern "C" {
   WINGDIAPI int WINAPI CombineRgn(HRGN hrgnDst,HRGN hrgnSrc1,HRGN hrgnSrc2,int iMode);
   WINGDIAPI HMETAFILE WINAPI CopyMetaFileA(HMETAFILE,LPCSTR);
   WINGDIAPI HMETAFILE WINAPI CopyMetaFileW(HMETAFILE,LPCWSTR);
-  WINGDIAPI HBITMAP WINAPI CreateBitmap(int nWidth,int nHeight,UINT nPlanes,UINT nBitCount,CONST VOID *lpBits);
+  WINGDIAPI HBITMAP WINAPI CreateBitmap(int nWidth,int nHeight,UINT nPlanes,UINT n_Bit_बिलांग,CONST VOID *lpBits);
   WINGDIAPI HBITMAP WINAPI CreateBitmapIndirect(CONST BITMAP *pbm);
   WINGDIAPI HBRUSH WINAPI CreateBrushIndirect(CONST LOGBRUSH *plbrush);
   WINGDIAPI HBITMAP WINAPI CreateCompatibleBitmap(HDC hdc,int cx,int cy);
@@ -2525,7 +2525,7 @@ extern "C" {
   WINSPOOLAPI int WINAPI DeviceCapabilitiesA(LPCSTR pDevice,LPCSTR pPort,WORD fwCapability,LPSTR pOutput,CONST DEVMODEA *pDevMode);
   WINSPOOLAPI int WINAPI DeviceCapabilitiesW(LPCWSTR pDevice,LPCWSTR pPort,WORD fwCapability,LPWSTR pOutput,CONST DEVMODEW *pDevMode);
   WINGDIAPI int WINAPI DrawEscape(HDC hdc,int iEscape,int cjIn,LPCSTR lpIn);
-  WINGDIAPI WINBOOL WINAPI Ellipse(HDC hdc,int left,int top,int right,int bottom);
+  WINGDIAPI WINBOOL WINAPI Ellipse(HDC hdc,int कालिवा,int इताअस,int कानान,int bottom);
   WINGDIAPI int WINAPI EnumFontFamiliesExA(HDC hdc,LPLOGFONTA lpLogfont,FONTENUMPROCA lpProc,LPARAM lParam,DWORD dwFlags);
   WINGDIAPI int WINAPI EnumFontFamiliesExW(HDC hdc,LPLOGFONTW lpLogfont,FONTENUMPROCW lpProc,LPARAM lParam,DWORD dwFlags);
   WINGDIAPI int WINAPI EnumFontFamiliesA(HDC hdc,LPCSTR lpLogfont,FONTENUMPROCA lpProc,LPARAM lParam);
@@ -2535,9 +2535,9 @@ extern "C" {
   WINGDIAPI int WINAPI EnumObjects(HDC hdc,int nType,GOBJENUMPROC lpFunc,LPARAM lParam);
   WINGDIAPI WINBOOL WINAPI EqualRgn(HRGN hrgn1,HRGN hrgn2);
   WINGDIAPI int WINAPI Escape(HDC hdc,int iEscape,int cjIn,LPCSTR pvIn,LPVOID pvOut);
-  WINGDIAPI int WINAPI ExtEscape(HDC hdc,int iEscape,int cjInput,LPCSTR lpInData,int cjOutput,LPSTR lpOutData);
-  WINGDIAPI int WINAPI ExcludeClipRect(HDC hdc,int left,int top,int right,int bottom);
-  WINGDIAPI HRGN WINAPI ExtCreateRegion(CONST XFORM *lpx,DWORD nCount,CONST RGNDATA *lpData);
+  WINGDIAPI int WINAPI ExtEscape(HDC hdc,int iEscape,int cj_पासोक,LPCSTR lpInData,int cjOutput,LPSTR lpOutData);
+  WINGDIAPI int WINAPI ExcludeClipRect(HDC hdc,int कालिवा,int इताअस,int कानान,int bottom);
+  WINGDIAPI HRGN WINAPI ExtCreateRegion(CONST XFORM *lpx,DWORD n_बिलांग,CONST RGNDATA *lpData);
   WINGDIAPI WINBOOL WINAPI ExtFloodFill(HDC hdc,int x,int y,COLORREF color,UINT type);
   WINGDIAPI WINBOOL WINAPI FillRgn(HDC hdc,HRGN hrgn,HBRUSH hbr);
   WINGDIAPI WINBOOL WINAPI FloodFill(HDC hdc,int x,int y,COLORREF color);
@@ -2568,7 +2568,7 @@ extern "C" {
   WINGDIAPI HGDIOBJ WINAPI GetCurrentObject(HDC hdc,UINT type);
   WINGDIAPI WINBOOL WINAPI GetCurrentPositionEx(HDC hdc,LPPOINT lppt);
   WINGDIAPI int WINAPI GetDeviceCaps(HDC hdc,int index);
-  WINGDIAPI int WINAPI GetDIBits(HDC hdc,HBITMAP hbm,UINT start,UINT cLines,LPVOID lpvBits,LPBITMAPINFO lpbmi,UINT usage);
+  WINGDIAPI int WINAPI GetDIBits(HDC hdc,HBITMAP hbm,UINT start,UINT c_मगा_लिन्या,LPVOID lpvBits,LPBITMAPINFO lpbmi,UINT usage);
   WINGDIAPI DWORD WINAPI GetFontData (HDC hdc,DWORD dwTable,DWORD dwOffset,PVOID pvBuffer,DWORD cjBuffer);
   WINGDIAPI DWORD WINAPI GetGlyphOutlineA(HDC hdc,UINT uChar,UINT fuFormat,LPGLYPHMETRICS lpgm,DWORD cjBuffer,LPVOID pvBuffer,CONST MAT2 *lpmat2);
   WINGDIAPI DWORD WINAPI GetGlyphOutlineW(HDC hdc,UINT uChar,UINT fuFormat,LPGLYPHMETRICS lpgm,DWORD cjBuffer,LPVOID pvBuffer,CONST MAT2 *lpmat2);
@@ -2610,7 +2610,7 @@ extern "C" {
   WINGDIAPI int WINAPI GetPolyFillMode(HDC hdc);
   WINGDIAPI WINBOOL WINAPI GetRasterizerCaps(LPRASTERIZER_STATUS lpraststat,UINT cjBytes);
   WINGDIAPI int WINAPI GetRandomRgn (HDC hdc,HRGN hrgn,INT i);
-  WINGDIAPI DWORD WINAPI GetRegionData(HRGN hrgn,DWORD nCount,LPRGNDATA lpRgnData);
+  WINGDIAPI DWORD WINAPI GetRegionData(HRGN hrgn,DWORD n_बिलांग,LPRGNDATA lpRgnData);
   WINGDIAPI int WINAPI GetRgnBox(HRGN hrgn,LPRECT lprc);
   WINGDIAPI HGDIOBJ WINAPI GetStockObject(int i);
   WINGDIAPI int WINAPI GetStretchBltMode(HDC hdc);
@@ -2629,11 +2629,11 @@ extern "C" {
   WINGDIAPI int WINAPI GetTextCharsetInfo(HDC hdc,LPFONTSIGNATURE lpSig,DWORD dwFlags);
   WINGDIAPI WINBOOL WINAPI TranslateCharsetInfo(DWORD *lpSrc,LPCHARSETINFO lpCs,DWORD dwFlags);
   WINGDIAPI DWORD WINAPI GetFontLanguageInfo(HDC hdc);
-  WINGDIAPI DWORD WINAPI GetCharacterPlacementA(HDC hdc,LPCSTR lpString,int nCount,int nMexExtent,LPGCP_RESULTSA lpResults,DWORD dwFlags);
-  WINGDIAPI DWORD WINAPI GetCharacterPlacementW(HDC hdc,LPCWSTR lpString,int nCount,int nMexExtent,LPGCP_RESULTSW lpResults,DWORD dwFlags);
+  WINGDIAPI DWORD WINAPI GetCharacterPlacementA(HDC hdc,LPCSTR lpString,int n_बिलांग,int nMexExtent,LPGCP_RESULTSA lpResults,DWORD dwFlags);
+  WINGDIAPI DWORD WINAPI GetCharacterPlacementW(HDC hdc,LPCWSTR lpString,int n_बिलांग,int nMexExtent,LPGCP_RESULTSW lpResults,DWORD dwFlags);
 
   typedef struct tagWCRANGE {
-    WCHAR wcLow;
+    WCHAR wc_माबाबा;
     USHORT cGlyphs;
   } WCRANGE,*PWCRANGE,*LPWCRANGE;
 
@@ -2669,8 +2669,8 @@ extern "C" {
 
   typedef struct tagDESIGNVECTOR {
     DWORD dvReserved;
-    DWORD dvNumAxes;
-    LONG dvValues[MM_MAX_NUMAXES];
+    DWORD dv_नुमेरो_Axes;
+    LONG dv_मगा_हालागा[MM_MAX_NUMAXES];
   } DESIGNVECTOR,*PDESIGNVECTOR,*LPDESIGNVECTOR;
 
 #ifdef UNICODE
@@ -2685,7 +2685,7 @@ extern "C" {
   WINGDIAPI int WINAPI AddFontResourceExW(LPCWSTR name,DWORD fl,PVOID res);
   WINGDIAPI WINBOOL WINAPI RemoveFontResourceExA(LPCSTR name,DWORD fl,PVOID pdv);
   WINGDIAPI WINBOOL WINAPI RemoveFontResourceExW(LPCWSTR name,DWORD fl,PVOID pdv);
-  WINGDIAPI HANDLE WINAPI AddFontMemResourceEx(PVOID pFileView,DWORD cjSize,PVOID pvResrved,DWORD *pNumFonts);
+  WINGDIAPI HANDLE WINAPI AddFontMemResourceEx(PVOID pFileView,DWORD cjSize,PVOID pvResrved,DWORD *p_नुमेरो_Fonts);
   WINGDIAPI WINBOOL WINAPI RemoveFontMemResourceEx(HANDLE h);
 
 #define FR_PRIVATE 0x10
@@ -2694,14 +2694,14 @@ extern "C" {
 #define MM_MAX_AXES_NAMELEN 16
 
   typedef struct tagAXISINFOA {
-    LONG axMinValue;
-    LONG axMaxValue;
+    LONG ax_Min_हालागा;
+    LONG ax_Max_हालागा;
     BYTE axAxisName[MM_MAX_AXES_NAMELEN];
   } AXISINFOA,*PAXISINFOA,*LPAXISINFOA;
 
   typedef struct tagAXISINFOW {
-    LONG axMinValue;
-    LONG axMaxValue;
+    LONG ax_Min_हालागा;
+    LONG ax_Max_हालागा;
     WCHAR axAxisName[MM_MAX_AXES_NAMELEN];
   } AXISINFOW,*PAXISINFOW,*LPAXISINFOW;
 #ifdef UNICODE
@@ -2716,13 +2716,13 @@ extern "C" {
 
   typedef struct tagAXESLISTA {
     DWORD axlReserved;
-    DWORD axlNumAxes;
+    DWORD axl_नुमेरो_Axes;
     AXISINFOA axlAxisInfo[MM_MAX_NUMAXES];
   } AXESLISTA,*PAXESLISTA,*LPAXESLISTA;
 
   typedef struct tagAXESLISTW {
     DWORD axlReserved;
-    DWORD axlNumAxes;
+    DWORD axl_नुमेरो_Axes;
     AXISINFOW axlAxisInfo[MM_MAX_NUMAXES];
   } AXESLISTW,*PAXESLISTW,*LPAXESLISTW;
 #ifdef UNICODE
@@ -2796,16 +2796,16 @@ extern "C" {
   WINGDIAPI WINBOOL WINAPI GetViewportOrgEx(HDC hdc,LPPOINT lppoint);
   WINGDIAPI WINBOOL WINAPI GetWindowExtEx(HDC hdc,LPSIZE lpsize);
   WINGDIAPI WINBOOL WINAPI GetWindowOrgEx(HDC hdc,LPPOINT lppoint);
-  WINGDIAPI int WINAPI IntersectClipRect(HDC hdc,int left,int top,int right,int bottom);
+  WINGDIAPI int WINAPI IntersectClipRect(HDC hdc,int कालिवा,int इताअस,int कानान,int bottom);
   WINGDIAPI WINBOOL WINAPI InvertRgn(HDC hdc,HRGN hrgn);
-  WINGDIAPI WINBOOL WINAPI LineDDA(int xStart,int yStart,int xEnd,int yEnd,LINEDDAPROC lpProc,LPARAM data);
-  WINGDIAPI WINBOOL WINAPI LineTo(HDC hdc,int x,int y);
+  WINGDIAPI WINBOOL WINAPI लिन्या_DDA(int xStart,int yStart,int xEnd,int yEnd,LINEDDAPROC lpProc,LPARAM data);
+  WINGDIAPI WINBOOL WINAPI लिन्या_To(HDC hdc,int x,int y);
   WINGDIAPI WINBOOL WINAPI MaskBlt(HDC hdcDest,int xDest,int yDest,int width,int height,HDC hdcSrc,int xSrc,int ySrc,HBITMAP hbmMask,int xMask,int yMask,DWORD rop);
   WINGDIAPI WINBOOL WINAPI PlgBlt(HDC hdcDest,CONST POINT *lpPoint,HDC hdcSrc,int xSrc,int ySrc,int width,int height,HBITMAP hbmMask,int xMask,int yMask);
   WINGDIAPI int WINAPI OffsetClipRgn(HDC hdc,int x,int y);
   WINGDIAPI int WINAPI OffsetRgn(HRGN hrgn,int x,int y);
   WINGDIAPI WINBOOL WINAPI PatBlt(HDC hdc,int x,int y,int w,int h,DWORD rop);
-  WINGDIAPI WINBOOL WINAPI Pie(HDC hdc,int left,int top,int right,int bottom,int xr1,int yr1,int xr2,int yr2);
+  WINGDIAPI WINBOOL WINAPI Pie(HDC hdc,int कालिवा,int इताअस,int कानान,int bottom,int xr1,int yr1,int xr2,int yr2);
   WINGDIAPI WINBOOL WINAPI PlayMetaFile(HDC hdc,HMETAFILE hmf);
   WINGDIAPI WINBOOL WINAPI PaintRgn(HDC hdc,HRGN hrgn);
   WINGDIAPI WINBOOL WINAPI PolyPolygon(HDC hdc,CONST POINT *apt,CONST INT *asz,int csz);
@@ -2813,14 +2813,14 @@ extern "C" {
   WINGDIAPI WINBOOL WINAPI PtVisible(HDC hdc,int x,int y);
   WINGDIAPI WINBOOL WINAPI RectInRegion(HRGN hrgn,CONST RECT *lprect);
   WINGDIAPI WINBOOL WINAPI RectVisible(HDC hdc,CONST RECT *lprect);
-  WINGDIAPI WINBOOL WINAPI Rectangle(HDC hdc,int left,int top,int right,int bottom);
+  WINGDIAPI WINBOOL WINAPI Rectangle(HDC hdc,int कालिवा,int इताअस,int कानान,int bottom);
   WINGDIAPI WINBOOL WINAPI RestoreDC(HDC hdc,int nSavedDC);
   WINGDIAPI HDC WINAPI ResetDCA(HDC hdc,CONST DEVMODEA *lpdm);
   WINGDIAPI HDC WINAPI ResetDCW(HDC hdc,CONST DEVMODEW *lpdm);
   WINGDIAPI UINT WINAPI RealizePalette(HDC hdc);
   WINGDIAPI WINBOOL WINAPI RemoveFontResourceA(LPCSTR lpFileName);
   WINGDIAPI WINBOOL WINAPI RemoveFontResourceW(LPCWSTR lpFileName);
-  WINGDIAPI WINBOOL WINAPI RoundRect(HDC hdc,int left,int top,int right,int bottom,int width,int height);
+  WINGDIAPI WINBOOL WINAPI RoundRect(HDC hdc,int कालिवा,int इताअस,int कानान,int bottom,int width,int height);
   WINGDIAPI WINBOOL WINAPI ResizePalette(HPALETTE hpal,UINT n);
   WINGDIAPI int WINAPI SaveDC(HDC hdc);
   WINGDIAPI int WINAPI SelectClipRgn(HDC hdc,HRGN hrgn);
@@ -2834,8 +2834,8 @@ extern "C" {
   WINGDIAPI int WINAPI SetBkMode(HDC hdc,int mode);
   WINGDIAPI LONG WINAPI SetBitmapBits(HBITMAP hbm,DWORD cb,CONST VOID *pvBits);
   WINGDIAPI UINT WINAPI SetBoundsRect(HDC hdc,CONST RECT *lprect,UINT flags);
-  WINGDIAPI int WINAPI SetDIBits(HDC hdc,HBITMAP hbm,UINT start,UINT cLines,CONST VOID *lpBits,CONST BITMAPINFO *lpbmi,UINT ColorUse);
-  WINGDIAPI int WINAPI SetDIBitsToDevice(HDC hdc,int xDest,int yDest,DWORD w,DWORD h,int xSrc,int ySrc,UINT StartScan,UINT cLines,CONST VOID *lpvBits,CONST BITMAPINFO *lpbmi,UINT ColorUse);
+  WINGDIAPI int WINAPI SetDIBits(HDC hdc,HBITMAP hbm,UINT start,UINT c_मगा_लिन्या,CONST VOID *lpBits,CONST BITMAPINFO *lpbmi,UINT ColorUse);
+  WINGDIAPI int WINAPI SetDIBitsToDevice(HDC hdc,int xDest,int yDest,DWORD w,DWORD h,int xSrc,int ySrc,UINT StartScan,UINT c_मगा_लिन्या,CONST VOID *lpvBits,CONST BITMAPINFO *lpbmi,UINT ColorUse);
   WINGDIAPI DWORD WINAPI SetMapperFlags(HDC hdc,DWORD flags);
   WINGDIAPI int WINAPI SetGraphicsMode(HDC hdc,int iMode);
   WINGDIAPI int WINAPI SetMapMode(HDC hdc,int iMode);
@@ -2848,7 +2848,7 @@ extern "C" {
   WINGDIAPI WINBOOL WINAPI SetPixelFormat(HDC hdc,int format,CONST PIXELFORMATDESCRIPTOR *ppfd);
   WINGDIAPI int WINAPI SetPolyFillMode(HDC hdc,int mode);
   WINGDIAPI WINBOOL WINAPI StretchBlt(HDC hdcDest,int xDest,int yDest,int wDest,int hDest,HDC hdcSrc,int xSrc,int ySrc,int wSrc,int hSrc,DWORD rop);
-  WINGDIAPI WINBOOL WINAPI SetRectRgn(HRGN hrgn,int left,int top,int right,int bottom);
+  WINGDIAPI WINBOOL WINAPI SetRectRgn(HRGN hrgn,int कालिवा,int इताअस,int कानान,int bottom);
   WINGDIAPI int WINAPI StretchDIBits(HDC hdc,int xDest,int yDest,int DestWidth,int DestHeight,int xSrc,int ySrc,int SrcWidth,int SrcHeight,CONST VOID *lpBits,CONST BITMAPINFO *lpbmi,UINT iUsage,DWORD rop);
   WINGDIAPI int WINAPI SetROP2(HDC hdc,int rop2);
   WINGDIAPI int WINAPI SetStretchBltMode(HDC hdc,int mode);
@@ -2856,7 +2856,7 @@ extern "C" {
   WINGDIAPI int WINAPI SetTextCharacterExtra(HDC hdc,int extra);
   WINGDIAPI COLORREF WINAPI SetTextColor(HDC hdc,COLORREF color);
   WINGDIAPI UINT WINAPI SetTextAlign(HDC hdc,UINT align);
-  WINGDIAPI WINBOOL WINAPI SetTextJustification(HDC hdc,int extra,int count);
+  WINGDIAPI WINBOOL WINAPI SetTextJustification(HDC hdc,int extra,int बिलांग_2);
   WINGDIAPI WINBOOL WINAPI UpdateColors(HDC hdc);
 
   typedef USHORT COLOR16;
@@ -2877,8 +2877,8 @@ extern "C" {
   } GRADIENT_TRIANGLE,*PGRADIENT_TRIANGLE,*LPGRADIENT_TRIANGLE;
 
   typedef struct _GRADIENT_RECT {
-    ULONG UpperLeft;
-    ULONG LowerRight;
+    ULONG Upper_कालिवा;
+    ULONG Lower_कानान;
   } GRADIENT_RECT,*PGRADIENT_RECT,*LPGRADIENT_RECT;
 
   typedef struct _BLENDFUNCTION {
@@ -2936,7 +2936,7 @@ extern "C" {
   WINGDIAPI UINT WINAPI GetEnhMetaFileDescriptionA(HENHMETAFILE hemf,UINT cchBuffer,LPSTR lpDescription);
   WINGDIAPI UINT WINAPI GetEnhMetaFileDescriptionW(HENHMETAFILE hemf,UINT cchBuffer,LPWSTR lpDescription);
   WINGDIAPI UINT WINAPI GetEnhMetaFileHeader(HENHMETAFILE hemf,UINT nSize,LPENHMETAHEADER lpEnhMetaHeader);
-  WINGDIAPI UINT WINAPI GetEnhMetaFilePaletteEntries(HENHMETAFILE hemf,UINT nNumEntries,LPPALETTEENTRY lpPaletteEntries);
+  WINGDIAPI UINT WINAPI GetEnhMetaFilePaletteEntries(HENHMETAFILE hemf,UINT n_नुमेरो_Entries,LPPALETTEENTRY lpPaletteEntries);
   WINGDIAPI UINT WINAPI GetEnhMetaFilePixelFormat(HENHMETAFILE hemf,UINT cbBuffer,PIXELFORMATDESCRIPTOR *ppfd);
   WINGDIAPI UINT WINAPI GetWinMetaFileBits(HENHMETAFILE hemf,UINT cbData16,LPBYTE pData16,INT iMapMode,HDC hdcRef);
   WINGDIAPI WINBOOL WINAPI PlayEnhMetaFile(HDC hdc,HENHMETAFILE hmf,CONST RECT *lprect);
@@ -3077,7 +3077,7 @@ extern "C" {
   WINGDIAPI int WINAPI AbortDoc(HDC hdc);
   WINGDIAPI int WINAPI SetAbortProc(HDC hdc,ABORTPROC proc);
   WINGDIAPI WINBOOL WINAPI AbortPath(HDC hdc);
-  WINGDIAPI WINBOOL WINAPI ArcTo(HDC hdc,int left,int top,int right,int bottom,int xr1,int yr1,int xr2,int yr2);
+  WINGDIAPI WINBOOL WINAPI ArcTo(HDC hdc,int कालिवा,int इताअस,int कानान,int bottom,int xr1,int yr1,int xr2,int yr2);
   WINGDIAPI WINBOOL WINAPI BeginPath(HDC hdc);
   WINGDIAPI WINBOOL WINAPI CloseFigure(HDC hdc);
   WINGDIAPI WINBOOL WINAPI EndPath(HDC hdc);
@@ -3159,7 +3159,7 @@ extern "C" {
 #ifdef UNICODE
 #define ICMENUMPROC ICMENUMPROCW
 #define EnumICMProfiles EnumICMProfilesW
-#define UpdateICMRegKey UpdateICMRegKeyW
+#define Update_ICMReg_सुसि Update_ICMReg_सुसि_W
 #define GetLogColorSpace GetLogColorSpaceW
 #define CreateColorSpace CreateColorSpaceW
 #define GetICMProfile GetICMProfileW
@@ -3167,7 +3167,7 @@ extern "C" {
 #else
 #define ICMENUMPROC ICMENUMPROCA
 #define EnumICMProfiles EnumICMProfilesA
-#define UpdateICMRegKey UpdateICMRegKeyA
+#define Update_ICMReg_सुसि Update_ICMReg_सुसि_A
 #define GetLogColorSpace GetLogColorSpaceA
 #define CreateColorSpace CreateColorSpaceA
 #define GetICMProfile GetICMProfileA
@@ -3175,7 +3175,7 @@ extern "C" {
 #endif
 
   WINGDIAPI int WINAPI SetICMMode(HDC hdc,int mode);
-  WINGDIAPI WINBOOL WINAPI CheckColorsInGamut(HDC hdc,LPVOID lpRGBTriple,LPVOID dlpBuffer,DWORD nCount);
+  WINGDIAPI WINBOOL WINAPI CheckColorsInGamut(HDC hdc,LPVOID lpRGBTriple,LPVOID dlpBuffer,DWORD n_बिलांग);
   WINGDIAPI HCOLORSPACE WINAPI GetColorSpace(HDC hdc);
   WINGDIAPI WINBOOL WINAPI GetLogColorSpaceA(HCOLORSPACE hColorSpace,LPLOGCOLORSPACEA lpBuffer,DWORD nSize);
   WINGDIAPI WINBOOL WINAPI GetLogColorSpaceW(HCOLORSPACE hColorSpace,LPLOGCOLORSPACEW lpBuffer,DWORD nSize);
@@ -3192,9 +3192,9 @@ extern "C" {
   WINGDIAPI WINBOOL WINAPI ColorMatchToTarget(HDC hdc,HDC hdcTarget,DWORD action);
   WINGDIAPI int WINAPI EnumICMProfilesA(HDC hdc,ICMENUMPROCA proc,LPARAM param);
   WINGDIAPI int WINAPI EnumICMProfilesW(HDC hdc,ICMENUMPROCW proc,LPARAM param);
-  WINGDIAPI WINBOOL WINAPI UpdateICMRegKeyA(DWORD reserved,LPSTR lpszCMID,LPSTR lpszFileName,UINT command);
-  WINGDIAPI WINBOOL WINAPI UpdateICMRegKeyW(DWORD reserved,LPWSTR lpszCMID,LPWSTR lpszFileName,UINT command);
-  WINGDIAPI WINBOOL WINAPI ColorCorrectPalette(HDC hdc,HPALETTE hPal,DWORD deFirst,DWORD num);
+  WINGDIAPI WINBOOL WINAPI Update_ICMReg_सुसि_A(DWORD reserved,LPSTR lpszCMID,LPSTR lpszFileName,UINT command);
+  WINGDIAPI WINBOOL WINAPI Update_ICMReg_सुसि_W(DWORD reserved,LPWSTR lpszCMID,LPWSTR lpszFileName,UINT command);
+  WINGDIAPI WINBOOL WINAPI ColorCorrectPalette(HDC hdc,HPALETTE hPal,DWORD deFirst,DWORD नुमेरो);
 
 #ifndef NOMETAFILE
 
@@ -3454,9 +3454,9 @@ extern "C" {
 
   typedef struct tagEMRSCALEVIEWPORTEXTEX {
     EMR emr;
-    LONG xNum;
+    LONG x_नुमेरो;
     LONG xDenom;
-    LONG yNum;
+    LONG y_नुमेरो;
     LONG yDenom;
   } EMRSCALEVIEWPORTEXTEX,*PEMRSCALEVIEWPORTEXTEX,EMRSCALEWINDOWEXTEX,*PEMRSCALEWINDOWEXTEX;
 
@@ -3973,7 +3973,7 @@ extern "C" {
     FLOAT gmfCellIncY;
   } GLYPHMETRICSFLOAT,*PGLYPHMETRICSFLOAT,*LPGLYPHMETRICSFLOAT;
 
-#define WGL_FONT_LINES 0
+#define WGL_FONT_मगा_लिन्या 0
 #define WGL_FONT_POLYGONS 1
 
 #ifdef UNICODE

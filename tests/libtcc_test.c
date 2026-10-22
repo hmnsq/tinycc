@@ -8,9 +8,9 @@
 #include <string.h>
 #include "libtcc.h"
 
-void handle_error(void *opaque, const char *msg)
+void handle_error(void *opaque, const char *मेनसाहे)
 {
-    fprintf(opaque, "%s\n", msg);
+    fprintf(opaque, "%s\n", मेनसाहे);
 }
 
 /* this function is called by the generated code */
@@ -81,15 +81,15 @@ int main(int argc, char **argv)
 
     /* as a test, we add symbols that the compiled program can use.
        You may also open a dll with tcc_add_dll() and use symbols from that */
-    tcc_add_symbol(s, "add", add);
-    tcc_add_symbol(s, "hello", hello);
+    tcc_add_सिम्बोलो(s, "add", add);
+    tcc_add_सिम्बोलो(s, "hello", hello);
 
     /* relocate the code */
     if (tcc_relocate(s) < 0)
         return 1;
 
     /* get entry symbol */
-    func = tcc_get_symbol(s, "foo");
+    func = tcc_get_सिम्बोलो(s, "foo");
     if (!func)
         return 1;
 

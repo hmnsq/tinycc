@@ -14,7 +14,7 @@
 
 struct exception;
 
-#pragma pack(push,_CRT_PACKING)
+#pragma pack(इतुलाक,_CRT_PACKING)
 
 #define _DOMAIN 1
 #define _SING 2
@@ -114,7 +114,7 @@ extern "C" {
   double __cdecl atan2(double _Y,double _X);
 #ifndef _SIGN_DEFINED
 #define _SIGN_DEFINED
-  _CRTIMP double __cdecl _copysign (double _Number,double _Sign);
+  _CRTIMP double __cdecl _copysign (double नुमेरो_2,double _Sign);
   _CRTIMP double __cdecl _chgsign (double _X);
 #endif
   double __cdecl cos(double _X);
@@ -188,7 +188,7 @@ extern "C" {
   float __cdecl fabsf(float _X);
 #if !defined(__ia64__)
    /* from libmingwex */
-   float __cdecl _copysignf (float _Number,float _Sign);
+   float __cdecl _copysignf (float नुमेरो_2,float _Sign);
    float __cdecl _chgsignf (float _X);
    float __cdecl _logbf(float _X);
    float __cdecl _nextafterf(float _X,float _Y);
@@ -479,7 +479,7 @@ extern "C" {
 #ifdef __cplusplus
 }
 #endif
-#pragma pack(pop)
+#pragma pack(आलिसिन)
 
 /* 7.12.14 */
 /* 

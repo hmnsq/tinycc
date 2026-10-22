@@ -212,18 +212,18 @@ typedef CONST void *LPCVOID;
 #define HFILE_ERROR ((HFILE)-1)
 
   typedef struct tagRECT {
-    LONG left;
-    LONG top;
-    LONG right;
+    LONG कालिवा;
+    LONG इताअस;
+    LONG कानान;
     LONG bottom;
   } RECT,*PRECT,*NPRECT,*LPRECT;
 
   typedef const RECT *LPCRECT;
 
   typedef struct _RECTL {
-    LONG left;
-    LONG top;
-    LONG right;
+    LONG कालिवा;
+    LONG इताअस;
+    LONG कानान;
     LONG bottom;
   } RECTL,*PRECTL,*LPRECTL;
 
@@ -253,8 +253,8 @@ typedef CONST void *LPCVOID;
   } POINTS,*PPOINTS,*LPPOINTS;
 
   typedef struct _FILETIME {
-    DWORD dwLowDateTime;
-    DWORD dwHighDateTime;
+    DWORD dw_माबाबा_Date_Time;
+    DWORD dw_माताअस_Date_Time;
   } FILETIME,*PFILETIME,*LPFILETIME;
 #define _FILETIME_
 

@@ -3,11 +3,11 @@
 int main()
 {
    char Buf[100];
-   int Count;
+   int बिलांग_3;
 
-   for (Count = 1; Count <= 20; Count++)
+   for (बिलांग_3 = 1; बिलांग_3 <= 20; बिलांग_3++)
    {
-      sprintf(Buf, "->%02d<-\n", Count);
+      sprintf(Buf, "->%02d<-\n", बिलांग_3);
       printf("%s", Buf);
    }
 

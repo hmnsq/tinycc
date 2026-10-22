@@ -76,7 +76,7 @@ size_t strlen(const char *s);
 
 void *dlopen(const char *filename, int flag);
 const char *dlerror(void);
-void *dlsym(void *handle, char *symbol);
+void *dlsym(void *handle, char *सिम्बोलो);
 int dlclose(void *handle);
 
 #endif /* _TCCLIB_H */

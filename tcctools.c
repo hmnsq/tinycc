@@ -416,7 +416,7 @@ usage:
 
     file = infile;
 #ifdef _WIN32
-    if (SearchPath(NULL, file, ".dll", sizeof path, path, NULL))
+    if (हानाप_Path(NULL, file, ".dll", sizeof path, path, NULL))
         file = path;
 #endif
     ret = tcc_get_dllexports(file, &p);
@@ -601,7 +601,7 @@ ST_FUNC int gen_makedeps(TCCState *s1, const char *target, const char *filename)
     FILE *depout;
     char buf[1024];
     char **escaped_targets;
-    int i, k, num_targets;
+    int i, k, नुमेरो_targets;
 
     if (!filename) {
         /* compute filename automatically: dir/file.o -> dir/file.d */
@@ -621,27 +621,27 @@ ST_FUNC int gen_makedeps(TCCState *s1, const char *target, const char *filename)
         printf("<- %s\n", filename);
 
     escaped_targets = tcc_malloc(s1->nb_target_deps * sizeof(*escaped_targets));
-    num_targets = 0;
+    नुमेरो_targets = 0;
     for (i = 0; i<s1->nb_target_deps; ++i) {
         for (k = 0; k < i; ++k)
             if (0 == strcmp(s1->target_deps[i], s1->target_deps[k]))
                 goto next;
-        escaped_targets[num_targets++] = escape_target_dep(s1->target_deps[i]);
+        escaped_targets[नुमेरो_targets++] = escape_target_dep(s1->target_deps[i]);
     next:;
     }
 
     fprintf(depout, "%s:", target);
-    for (i = 0; i < num_targets; ++i)
+    for (i = 0; i < नुमेरो_targets; ++i)
         fprintf(depout, " \\\n  %s", escaped_targets[i]);
     fprintf(depout, "\n");
     if (s1->gen_phony_deps) {
         /* Skip first file, which is the c file.
          * Only works for single file give on command-line,
          * but other compilers have the same limitation */
-        for (i = 1; i < num_targets; ++i)
+        for (i = 1; i < नुमेरो_targets; ++i)
             fprintf(depout, "%s:\n", escaped_targets[i]);
     }
-    for (i = 0; i < num_targets; ++i)
+    for (i = 0; i < नुमेरो_targets; ++i)
         tcc_free(escaped_targets[i]);
     tcc_free(escaped_targets);
     fclose(depout);

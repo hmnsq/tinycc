@@ -2,13 +2,13 @@
 
 int main()
 {
-   int Count = 0;
+   int बिलांग_3 = 0;
 
    for (;;)
    {
-      Count++;
-      printf("%d\n", Count);
-      if (Count >= 10)
+      बिलांग_3++;
+      printf("%d\n", बिलांग_3);
+      if (बिलांग_3 >= 10)
          break;
    }
 

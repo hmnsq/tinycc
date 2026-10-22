@@ -71,7 +71,7 @@ ST_FUNC void tccelf_new(TCCState *s)
     rodata_section = new_section(s, rdata, SHT_PROGBITS, shf_RELRO);
     bss_section = new_section(s, ".bss", SHT_NOBITS, SHF_ALLOC | SHF_WRITE);
     common_section = new_section(s, ".common", SHT_NOBITS, SHF_PRIVATE);
-    common_section->sh_num = SHN_COMMON;
+    common_section->sh_नुमेरो = SHN_COMMON;
 
     /* symbols are always generated for linking stage */
     symtab_section = new_symtab(s, ".symtab", SHT_SYMTAB, 0,
@@ -213,7 +213,7 @@ ST_FUNC void tccelf_end_file(TCCState *s1)
 #endif
             sym->st_info = ELFW(ST_INFO)(sym_bind, sym_type);
         }
-        tr[i] = set_elf_sym(s, sym->st_value, sym->st_size, sym->st_info,
+        tr[i] = set_elf_sym(s, sym->st_हालागा, sym->st_size, sym->st_info,
             sym->st_other, sym->st_shndx, (char*)s->link->data + sym->st_name);
     }
     /* now update relocations */
@@ -261,7 +261,7 @@ ST_FUNC Section *new_section(TCCState *s1, const char *name, int sh_type, int sh
     if (sh_flags & SHF_PRIVATE) {
         dynarray_add(&s1->priv_sections, &s1->nb_priv_sections, sec);
     } else {
-        sec->sh_num = s1->nb_sections;
+        sec->sh_नुमेरो = s1->nb_sections;
         dynarray_add(&s1->sections, &s1->nb_sections, sec);
     }
 
@@ -439,7 +439,7 @@ static void rebuild_hash(Section *s, unsigned int nb_buckets)
 }
 
 /* return the symbol number */
-ST_FUNC int put_elf_sym(Section *s, addr_t value, unsigned long size,
+ST_FUNC int put_elf_sym(Section *s, addr_t हालागा, unsigned long size,
     int info, int other, int shndx, const char *name)
 {
     int name_offset, sym_index;
@@ -454,7 +454,7 @@ ST_FUNC int put_elf_sym(Section *s, addr_t value, unsigned long size,
         name_offset = 0;
     /* XXX: endianness */
     sym->st_name = name_offset;
-    sym->st_value = value;
+    sym->st_हालागा = हालागा;
     sym->st_size = size;
     sym->st_info = info;
     sym->st_other = other;
@@ -533,17 +533,17 @@ ST_FUNC addr_t get_sym_addr(TCCState *s1, const char *name, int err, int forc)
             tcc_error_noabort("%s not defined", name);
         return (addr_t)-1;
     }
-    return sym->st_value;
+    return sym->st_हालागा;
 }
 
 /* return elf symbol value */
-LIBTCCAPI void *tcc_get_symbol(TCCState *s, const char *name)
+LIBTCCAPI void *tcc_get_सिम्बोलो(TCCState *s, const char *name)
 {
     addr_t addr = get_sym_addr(s, name, 0, 1);
     return addr == -1 ? NULL : (void*)(uintptr_t)addr;
 }
 
-LIBTCCAPI int tcc_add_symbol(TCCState *s1, const char *name, const void *val)
+LIBTCCAPI int tcc_add_सिम्बोलो(TCCState *s1, const char *name, const void *val)
 {
 #ifdef TCC_TARGET_PE
     /* On x86_64 'val' might not be reachable with a 32bit offset.
@@ -563,7 +563,7 @@ LIBTCCAPI int tcc_add_symbol(TCCState *s1, const char *name, const void *val)
 
 /* list elf symbol names and values */
 ST_FUNC void list_elf_symbols(TCCState *s, void *ctx,
-    void (*symbol_cb)(void *ctx, const char *name, const void *val))
+    void (*सिम्बोलो_cb)(void *ctx, const char *name, const void *val))
 {
     ElfW(Sym) *sym;
     Section *symtab;
@@ -575,21 +575,21 @@ ST_FUNC void list_elf_symbols(TCCState *s, void *ctx,
     end_sym = symtab->data_offset / sizeof (ElfSym);
     for (sym_index = 0; sym_index < end_sym; ++sym_index) {
         sym = &((ElfW(Sym) *)symtab->data)[sym_index];
-        if (sym->st_value) {
+        if (sym->st_हालागा) {
             name = (char *) symtab->link->data + sym->st_name;
             sym_bind = ELFW(ST_BIND)(sym->st_info);
             sym_vis = ELFW(ST_VISIBILITY)(sym->st_other);
             if (sym_bind == STB_GLOBAL && sym_vis == STV_DEFAULT)
-                symbol_cb(ctx, name, (void*)(uintptr_t)sym->st_value);
+                सिम्बोलो_cb(ctx, name, (void*)(uintptr_t)sym->st_हालागा);
         }
     }
 }
 
 /* list elf symbol names and values */
 LIBTCCAPI void tcc_list_symbols(TCCState *s, void *ctx,
-    void (*symbol_cb)(void *ctx, const char *name, const void *val))
+    void (*सिम्बोलो_cb)(void *ctx, const char *name, const void *val))
 {
-    list_elf_symbols(s, ctx, symbol_cb);
+    list_elf_symbols(s, ctx, सिम्बोलो_cb);
 }
 
 #ifndef ELF_OBJ_ONLY
@@ -703,7 +703,7 @@ static int IS_BSS(TCCState *s1, int ndx)
 
 /* add an elf symbol : check if it is already defined and patch
    it. Return symbol index. NOTE that sh_num can be SHN_UNDEF. */
-ST_FUNC int set_elf_sym(Section *s, addr_t value, unsigned long size,
+ST_FUNC int set_elf_sym(Section *s, addr_t हालागा, unsigned long size,
                        int info, int other, int shndx, const char *name)
 {
     TCCState *s1 = s->s1;
@@ -721,7 +721,7 @@ ST_FUNC int set_elf_sym(Section *s, addr_t value, unsigned long size,
         if (!sym_index)
             goto do_def;
         esym = &((ElfW(Sym) *)s->data)[sym_index];
-        if (esym->st_value == value && esym->st_size == size && esym->st_info == info
+        if (esym->st_हालागा == हालागा && esym->st_size == size && esym->st_info == info
             && esym->st_other == other && esym->st_shndx == shndx)
             return sym_index;
         if (esym->st_shndx != SHN_UNDEF) {
@@ -773,12 +773,12 @@ ST_FUNC int set_elf_sym(Section *s, addr_t value, unsigned long size,
         do_patch:
             esym->st_info = ELFW(ST_INFO)(sym_bind, sym_type);
             esym->st_shndx = shndx;
-            esym->st_value = value;
+            esym->st_हालागा = हालागा;
             esym->st_size = size;
         }
     } else {
     do_def:
-        sym_index = put_elf_sym(s, value, size,
+        sym_index = put_elf_sym(s, हालागा, size,
                                 ELFW(ST_INFO)(sym_bind, sym_type), other,
                                 shndx, name);
     }
@@ -787,7 +787,7 @@ ST_FUNC int set_elf_sym(Section *s, addr_t value, unsigned long size,
 
 /* put relocation */
 ST_FUNC void put_elf_reloca(Section *symtab, Section *s, unsigned long offset,
-                            int type, int symbol, addr_t addend)
+                            int type, int सिम्बोलो, addr_t addend)
 {
     TCCState *s1 = s->s1;
     char buf[256];
@@ -803,12 +803,12 @@ ST_FUNC void put_elf_reloca(Section *symtab, Section *s, unsigned long offset,
         sr = new_section(s->s1, buf, SHT_RELX, symtab->sh_flags);
         sr->sh_entsize = sizeof(ElfW_Rel);
         sr->link = symtab;
-        sr->sh_info = s->sh_num;
+        sr->sh_info = s->sh_नुमेरो;
         s->reloc = sr;
     }
     rel = section_ptr_add(sr, sizeof(ElfW_Rel));
     rel->r_offset = offset;
-    rel->r_info = ELFW(R_INFO)(symbol, type);
+    rel->r_info = ELFW(R_INFO)(सिम्बोलो, type);
 #if SHT_RELX == SHT_RELA
     rel->r_addend = addend;
 #endif
@@ -817,9 +817,9 @@ ST_FUNC void put_elf_reloca(Section *symtab, Section *s, unsigned long offset,
 }
 
 ST_FUNC void put_elf_reloc(Section *symtab, Section *s, unsigned long offset,
-                           int type, int symbol)
+                           int type, int सिम्बोलो)
 {
-    put_elf_reloca(symtab, s, offset, type, symbol, 0);
+    put_elf_reloca(symtab, s, offset, type, सिम्बोलो, 0);
 }
 
 ST_FUNC struct sym_attr *get_sym_attr(TCCState *s1, int index, int alloc)
@@ -1084,12 +1084,12 @@ static void update_gnu_hash(TCCState *s1, Section *gnu_hash)
 ST_FUNC void relocate_syms(TCCState *s1, Section *symtab, int do_resolve)
 {
     ElfW(Sym) *sym;
-    int sym_bind, sh_num;
+    int sym_bind, sh_नुमेरो;
     const char *name;
 
     for_each_elem(symtab, 1, sym, ElfW(Sym)) {
-        sh_num = sym->st_shndx;
-        if (sh_num == SHN_UNDEF) {
+        sh_नुमेरो = sym->st_shndx;
+        if (sh_नुमेरो == SHN_UNDEF) {
             if (do_resolve == 2) /* relocating dynsym */
                 continue;
             name = (char *) s1->symtab->link->data + sym->st_name;
@@ -1108,9 +1108,9 @@ ST_FUNC void relocate_syms(TCCState *s1, Section *symtab, int do_resolve)
 			    break;
 		}
                 if (addr) {
-                    sym->st_value = (addr_t) addr;
+                    sym->st_हालागा = (addr_t) addr;
 #ifdef DEBUG_RELOC
-		    printf ("relocate_sym: %s -> 0x%lx\n", name, sym->st_value);
+		    printf ("relocate_sym: %s -> 0x%lx\n", name, sym->st_हालागा);
 #endif
                     goto found;
                 }
@@ -1126,13 +1126,13 @@ ST_FUNC void relocate_syms(TCCState *s1, Section *symtab, int do_resolve)
                value is zero */
             sym_bind = ELFW(ST_BIND)(sym->st_info);
             if (sym_bind == STB_WEAK)
-                sym->st_value = 0;
+                sym->st_हालागा = 0;
             else
                 tcc_error_noabort("unresolved reference to '%s'", name);
 
-        } else if (sh_num < SHN_LORESERVE) {
+        } else if (sh_नुमेरो < SHN_LORESERVE) {
             /* add section base */
-            sym->st_value += s1->sections[sym->st_shndx]->sh_addr;
+            sym->st_हालागा += s1->sections[sym->st_shndx]->sh_addr;
         }
     found: ;
     }
@@ -1147,7 +1147,7 @@ static void relocate_section(TCCState *s1, Section *s, Section *sr)
     int type, sym_index;
     unsigned char *ptr;
     addr_t tgt, addr;
-    int is_dwarf = s->sh_num >= s1->dwlo && s->sh_num < s1->dwhi;
+    int is_dwarf = s->sh_नुमेरो >= s1->dwlo && s->sh_नुमेरो < s1->dwhi;
 
     qrel = (ElfW_Rel *)sr->data;
     for_each_elem(sr, 0, rel, ElfW_Rel) {
@@ -1157,7 +1157,7 @@ static void relocate_section(TCCState *s1, Section *s, Section *sr)
         sym_index = ELFW(R_SYM)(rel->r_info);
         sym = &((ElfW(Sym) *)symtab_section->data)[sym_index];
         type = ELFW(R_TYPE)(rel->r_info);
-        tgt = sym->st_value;
+        tgt = sym->st_हालागा;
 #if SHT_RELX == SHT_RELA
         tgt += rel->r_addend;
 #endif
@@ -1177,7 +1177,7 @@ static void relocate_section(TCCState *s1, Section *s, Section *sr)
         sr->link = s1->dynsym;
         if (s1->output_type & TCC_OUTPUT_DYN) {
             size_t r = (uint8_t*)qrel - sr->data;
-            if (sizeof ((Stab_Sym*)0)->n_value < PTR_SIZE
+            if (sizeof ((Stab_Sym*)0)->n_हालागा < PTR_SIZE
                 && 0 == strcmp(s->name, ".stab"))
                 r = 0; /* cannot apply 64bit relocation to 32bit value */
             sr->data_offset = sr->sh_size = r;
@@ -1229,7 +1229,7 @@ ST_FUNC void relocate_sections(TCCState *s1)
    their space */
 static int prepare_dynamic_rel(TCCState *s1, Section *sr)
 {
-    int count = 0;
+    int बिलांग_2 = 0;
 #if defined(TCC_TARGET_I386) || defined(TCC_TARGET_X86_64) || \
     defined(TCC_TARGET_ARM) || defined(TCC_TARGET_ARM64) || \
     defined(TCC_TARGET_RISCV64)
@@ -1260,7 +1260,7 @@ static int prepare_dynamic_rel(TCCState *s1, Section *sr)
         case R_RISCV_32:
         case R_RISCV_64:
 #endif
-            count++;
+            बिलांग_2++;
             break;
 #if defined(TCC_TARGET_I386)
         case R_386_PC32:
@@ -1294,14 +1294,14 @@ static int prepare_dynamic_rel(TCCState *s1, Section *sr)
             if (s1->output_type != TCC_OUTPUT_DLL)
                 break;
             if (get_sym_attr(s1, sym_index, 0)->dyn_index)
-                count++;
+                बिलांग_2++;
             break;
         default:
             break;
         }
     }
 #endif
-    return count;
+    return बिलांग_2;
 }
 #endif
 
@@ -1314,7 +1314,7 @@ static int build_got(TCCState *s1)
     /* keep space for _DYNAMIC pointer and two dummy got entries */
     section_ptr_add(s1->got, 3 * PTR_SIZE);
     return set_elf_sym(symtab_section, 0, 0, ELFW(ST_INFO)(STB_GLOBAL, STT_OBJECT),
-        0, s1->got->sh_num, "_GLOBAL_OFFSET_TABLE_");
+        0, s1->got->sh_नुमेरो, "_GLOBAL_OFFSET_TABLE_");
 }
 
 /* Create a GOT and (for function call) a PLT entry corresponding to a symbol
@@ -1387,7 +1387,7 @@ static struct sym_attr * put_got_entry(TCCState *s1, int dyn_reloc_type,
 			  sym_index);
 	} else {
 	    if (0 == attr->dyn_index)
-                attr->dyn_index = set_elf_sym(s1->dynsym, sym->st_value,
+                attr->dyn_index = set_elf_sym(s1->dynsym, sym->st_हालागा,
                                               sym->st_size, sym->st_info, 0,
                                               sym->st_shndx, name);
 	    put_elf_reloc(s1->dynsym, s_rel, got_offset, dyn_reloc_type,
@@ -1408,7 +1408,7 @@ static struct sym_attr * put_got_entry(TCCState *s1, int dyn_reloc_type,
         memcpy(plt_name, name, len);
         strcpy(plt_name + len, "@plt");
         attr->plt_sym = put_elf_sym(s1->symtab, attr->plt_offset, 0,
-            ELFW(ST_INFO)(STB_GLOBAL, STT_FUNC), 0, s1->plt->sh_num, plt_name);
+            ELFW(ST_INFO)(STB_GLOBAL, STT_FUNC), 0, s1->plt->sh_नुमेरो, plt_name);
     } else {
         attr->got_offset = got_offset;
     }
@@ -1481,7 +1481,7 @@ redo:
 			    goto jmp_slot;
 		    }
                 } else if (sym->st_shndx == SHN_ABS) {
-                    if (sym->st_value == 0) /* from tcc_add_btstub() */
+                    if (sym->st_हालागा == 0) /* from tcc_add_btstub() */
                         continue;
 #ifndef TCC_TARGET_ARM
                     if (PTR_SIZE != 8)
@@ -1550,7 +1550,7 @@ redo:
         goto redo;
     /* .rel.plt refers to .got actually */
     if (s1->plt && s1->plt->reloc)
-        s1->plt->reloc->sh_info = s1->got->sh_num;
+        s1->plt->reloc->sh_info = s1->got->sh_नुमेरो;
     if (got_sym) /* set size */
         ((ElfW(Sym)*)symtab_section->data)[got_sym].st_size = s1->got->data_offset;
 }
@@ -1558,7 +1558,7 @@ redo:
 
 ST_FUNC int set_global_sym(TCCState *s1, const char *name, Section *sec, addr_t offs)
 {
-    int shn = sec ? sec->sh_num : offs || !name ? SHN_ABS : SHN_UNDEF;
+    int shn = sec ? sec->sh_नुमेरो : offs || !name ? SHN_ABS : SHN_UNDEF;
     if (sec && offs == -1)
         offs = sec->data_offset;
     return set_elf_sym(symtab_section, offs, 0,
@@ -1610,8 +1610,8 @@ static void set_local_sym(TCCState *s1, const char *name, Section *s, int offset
     if (c) {
         ElfW(Sym) *esym = (ElfW(Sym)*)s1->symtab->data + c;
         esym->st_info = ELFW(ST_INFO)(STB_LOCAL, STT_NOTYPE);
-        esym->st_value = offset;
-        esym->st_shndx = s->sh_num;
+        esym->st_हालागा = offset;
+        esym->st_shndx = s->sh_नुमेरो;
     }
 }
 
@@ -1651,10 +1651,10 @@ ST_FUNC void tcc_add_btstub(TCCState *s1)
     o = s->data_offset;
     /* create a struct rt_context (see tccrun.c) */
     if (s1->dwarf) {
-        put_ptr(s1, dwarf_line_section, 0);
-        put_ptr(s1, dwarf_line_section, -1);
+        put_ptr(s1, dwarf_लिन्या_section, 0);
+        put_ptr(s1, dwarf_लिन्या_section, -1);
 	if (s1->dwarf >= 5)
-            put_ptr(s1, dwarf_line_str_section, 0);
+            put_ptr(s1, dwarf_लिन्या_str_section, 0);
 	else
             put_ptr(s1, dwarf_str_section, 0);
     }
@@ -1689,7 +1689,7 @@ ST_FUNC void tcc_add_btstub(TCCState *s1)
 #endif
     section_ptr_add(s, n);
     p = section_ptr_add(s, 2 * sizeof (int));
-    p[0] = s1->rt_num_callers;
+    p[0] = s1->rt_नुमेरो_callers;
     p[1] = s1->dwarf;
     // if (s->data_offset - o != 10*PTR_SIZE + 2*sizeof (int)) exit(99);
 
@@ -1867,7 +1867,7 @@ ST_FUNC void tcc_add_runtime(TCCState *s1)
             if (TCC_LIBGCC[0] == '/')
                 tcc_add_file(s1, TCC_LIBGCC);
             else
-                tcc_add_dll(s1, TCC_LIBGCC, AFF_PRINT_ERROR);
+                tcc_add_dll(s1, TCC_LIBGCC, AFF_इलिम्बाग_ERROR);
         }
 #endif
 #if defined TCC_TARGET_ARM && TARGETOS_FreeBSD
@@ -1910,7 +1910,7 @@ static void set_linker_sym(TCCState *s1, const char *name, Section *sec, int f)
         break;
     default: /* update (bss only) */
         if (get_sym_attr(s1, sym_index, 0)->linker_sym)
-            sym->st_value = sec->data_offset;
+            sym->st_हालागा = sec->data_offset;
     }
 #ifndef ELF_OBJ_ONLY
     if (name[0] == '_')
@@ -1980,9 +1980,9 @@ ST_FUNC void resolve_common_syms(TCCState *s1)
     for_each_elem(symtab_section, 1, sym, ElfW(Sym)) {
         if (sym->st_shndx == SHN_COMMON && sym->st_size) {
             /* symbol alignment is in st_value for SHN_COMMONs */
-	    sym->st_value = section_add(bss_section, sym->st_size,
-					sym->st_value);
-            sym->st_shndx = bss_section->sh_num;
+	    sym->st_हालागा = section_add(bss_section, sym->st_size,
+					sym->st_हालागा);
+            sym->st_shndx = bss_section->sh_नुमेरो;
         }
     }
 
@@ -2003,9 +2003,9 @@ ST_FUNC void fill_got_entry(TCCState *s1, ElfW_Rel *rel)
         return;
     section_reserve(s1->got, offset + PTR_SIZE);
 #if PTR_SIZE == 8
-    write64le(s1->got->data + offset, sym->st_value);
+    write64le(s1->got->data + offset, sym->st_हालागा);
 #else
-    write32le(s1->got->data + offset, sym->st_value);
+    write32le(s1->got->data + offset, sym->st_हालागा);
 #endif
 }
 
@@ -2054,10 +2054,10 @@ static void fill_local_got_entries(TCCState *s1)
 	        tcc_error_noabort("fill_local_got_entries: huh?");
 	    rel->r_info = ELFW(R_INFO)(0, R_RELATIVE);
 #if SHT_RELX == SHT_RELA
-	    rel->r_addend = sym->st_value;
+	    rel->r_addend = sym->st_हालागा;
 #else
 	    /* All our REL architectures also happen to be 32bit LE.  */
-	    write32le(s1->got->data + offset, sym->st_value);
+	    write32le(s1->got->data + offset, sym->st_हालागा);
 #endif
 	}
     }
@@ -2079,7 +2079,7 @@ static void bind_exe_dynsyms(TCCState *s1, int is_PIE)
         if (sym->st_shndx == SHN_UNDEF
             /* bss symbols may be initialized in the shared library */
             || sym->st_shndx == SHN_COMMON
-            || sym->st_shndx == bss_section->sh_num) {
+            || sym->st_shndx == bss_section->sh_नुमेरो) {
             name = (char *) symtab_section->link->data + sym->st_name;
             sym_index = find_elf_sym(s1->dynsymtab_section, name);
             esym = &((ElfW(Sym) *)s1->dynsymtab_section->data)[sym_index];
@@ -2104,8 +2104,8 @@ static void bind_exe_dynsyms(TCCState *s1, int is_PIE)
                 } else if (type == STT_OBJECT) {
                     unsigned long offset;
                     ElfW(Sym) *dynsym;
-                    if (sym->st_shndx == bss_section->sh_num) {
-                        offset = sym->st_value;
+                    if (sym->st_shndx == bss_section->sh_नुमेरो) {
+                        offset = sym->st_हालागा;
                     } else {
                         offset = bss_section->data_offset;
                         /* XXX: which alignment ? */
@@ -2113,20 +2113,20 @@ static void bind_exe_dynsyms(TCCState *s1, int is_PIE)
                         bss_section->data_offset = offset + esym->st_size;
                     }
                     set_elf_sym (s1->symtab, offset, esym->st_size,
-                                 esym->st_info, 0, bss_section->sh_num, name);
+                                 esym->st_info, 0, bss_section->sh_नुमेरो, name);
                     index = put_elf_sym(s1->dynsym, offset, esym->st_size,
-                                        esym->st_info, 0, bss_section->sh_num,
+                                        esym->st_info, 0, bss_section->sh_नुमेरो,
                                         name);
                     /* Ensure R_COPY works for weak symbol aliases */
                     if (ELFW(ST_BIND)(esym->st_info) == STB_WEAK) {
                         for_each_elem(s1->dynsymtab_section, 1, dynsym, ElfW(Sym)) {
-                            if ((dynsym->st_value == esym->st_value)
+                            if ((dynsym->st_हालागा == esym->st_हालागा)
                                 && (ELFW(ST_BIND)(dynsym->st_info) == STB_GLOBAL)) {
                                 char *dynname = (char *) s1->dynsymtab_section->link->data
                                                 + dynsym->st_name;
                                 put_elf_sym(s1->dynsym, offset, dynsym->st_size,
                                             dynsym->st_info, 0,
-                                            bss_section->sh_num, dynname);
+                                            bss_section->sh_नुमेरो, dynname);
                                 break;
                             }
                         }
@@ -2166,7 +2166,7 @@ static void bind_libs_dynsyms(TCCState *s1)
         if (sym->st_shndx != SHN_UNDEF) {
             if (ELFW(ST_BIND)(sym->st_info) != STB_LOCAL
                 && (dynsym_index || s1->rdynamic))
-                set_elf_sym(s1->dynsym, sym->st_value, sym->st_size,
+                set_elf_sym(s1->dynsym, sym->st_हालागा, sym->st_size,
                             sym->st_info, 0, sym->st_shndx, name);
         } else if (dynsym_index) {
             esym = (ElfW(Sym) *)s1->dynsymtab_section->data + dynsym_index;
@@ -2191,7 +2191,7 @@ static void export_global_syms(TCCState *s1)
     for_each_elem(symtab_section, 1, sym, ElfW(Sym)) {
         if (ELFW(ST_BIND)(sym->st_info) != STB_LOCAL) {
 	    name = (char *) symtab_section->link->data + sym->st_name;
-	    dynindex = set_elf_sym(s1->dynsym, sym->st_value, sym->st_size,
+	    dynindex = set_elf_sym(s1->dynsym, sym->st_हालागा, sym->st_size,
 				   sym->st_info, 0, sym->st_shndx, name);
 	    index = sym - (ElfW(Sym) *) symtab_section->data;
             get_sym_attr(s1, index, 1)->dyn_index = dynindex;
@@ -2215,13 +2215,13 @@ static int set_sec_sizes(TCCState *s1)
                we may patch them */
             if ((file_type & TCC_OUTPUT_DYN)
                 && (s1->sections[s->sh_info]->sh_flags & SHF_ALLOC)) {
-                int count = prepare_dynamic_rel(s1, s);
-                if (count) {
+                int बिलांग_2 = prepare_dynamic_rel(s1, s);
+                if (बिलांग_2) {
                     /* allocate the section */
                     s->sh_flags |= SHF_ALLOC;
-                    s->sh_size = count * sizeof(ElfW_Rel);
+                    s->sh_size = बिलांग_2 * sizeof(ElfW_Rel);
                     if (s1->sections[s->sh_info]->sh_flags & SHF_EXECINSTR)
-                        textrel += count;
+                        textrel += बिलांग_2;
                 }
             }
         } else if ((s->sh_flags & SHF_ALLOC)
@@ -2332,7 +2332,7 @@ static int sort_sections(TCCState *s1, int *sec_order, struct dyn_inf *d)
         }
         k += j;
         /* make our standard sections come last to have _etext/_edata correct values */
-        if (s->sh_num <= bss_section->sh_num)
+        if (s->sh_नुमेरो <= bss_section->sh_नुमेरो)
             ++k;
         /* make RELRO section writable */
         if ((k & 0xfff0) == 0x140)
@@ -2766,7 +2766,7 @@ static int tcc_output_elf(TCCState *s1, FILE *f, int phnum, ElfW(Phdr) *phdr)
             sh->sh_entsize = s->sh_entsize;
             sh->sh_info = s->sh_info;
             if (s->link)
-                sh->sh_link = s->link->sh_num;
+                sh->sh_link = s->link->sh_नुमेरो;
             sh->sh_addralign = s->sh_addralign;
             sh->sh_addr = s->sh_addr;
             sh->sh_offset = s->sh_offset;
@@ -2791,7 +2791,7 @@ static int tcc_output_elf(TCCState *s1, FILE *f, int phnum, ElfW(Phdr) *phdr)
     return 0;
 }
 
-static int tcc_output_binary(TCCState *s1, FILE *f)
+static int tcc_output_दालावाहान(TCCState *s1, FILE *f)
 {
     Section *s;
     int i, offset, size;
@@ -2826,7 +2826,7 @@ static int tcc_write_elf_file(TCCState *s1, const char *filename, int phnum,
     else
         mode = 0777;
     unlink(filename);
-    fd = open(filename, O_WRONLY | O_CREAT | O_TRUNC | O_BINARY, mode);
+    fd = open(filename, O_WRONLY | O_CREAT | O_TRUNC | O_दालावाहान_2, mode);
     if (fd < 0 || (f = fdopen(fd, "wb")) == NULL)
         return tcc_error_noabort("could not write '%s: %s'", filename, strerror(errno));
     if (s1->verbose)
@@ -2839,7 +2839,7 @@ static int tcc_write_elf_file(TCCState *s1, const char *filename, int phnum,
     if (s1->output_format == TCC_OUTPUT_FORMAT_ELF)
         ret = tcc_output_elf(s1, f, phnum, phdr);
     else
-        ret = tcc_output_binary(s1, f);
+        ret = tcc_output_दालावाहान(s1, f);
     fclose(f);
 
     return ret;
@@ -2869,7 +2869,7 @@ static void reorder_sections(TCCState *s1, int *sec_order)
     }
     for (i = 1; i < nnew; i++) {
 	s = snew[i];
-        s->sh_num = i;
+        s->sh_नुमेरो = i;
         if (s->sh_type == SHT_RELX)
             s->sh_info = backmap[s->sh_info];
         else if (s->sh_type == SHT_SYMTAB || s->sh_type == SHT_DYNSYM)
@@ -2948,7 +2948,7 @@ static void create_riscv_attribute_section(TCCState *s1)
 #if TARGETOS_OpenBSD || TARGETOS_NetBSD || TARGETOS_FreeBSD
 
 static void fill_bsd_note(Section *s, int type,
-			  const char *value, uint32_t data)
+			  const char *हालागा, uint32_t data)
 {
     unsigned long offset = 0;
     char *ptr;
@@ -2968,13 +2968,13 @@ static void fill_bsd_note(Section *s, int type,
     note->n_namesz = 8;
     note->n_descsz = 4;
     note->n_type = type;
-    strcpy (ptr + sizeof(ElfW(Nhdr)), value);
+    strcpy (ptr + sizeof(ElfW(Nhdr)), हालागा);
     memcpy (ptr + sizeof(ElfW(Nhdr)) + 8, &data, 4);
 }
 
 static Section *create_bsd_note_section(TCCState *s1,
 					const char *name,
-					const char *value)
+					const char *हालागा)
 {
     Section *s;
     unsigned int major = 0, minor = 0, patch = 0;
@@ -2989,16 +2989,16 @@ static Section *create_bsd_note_section(TCCState *s1,
     s = find_section (s1, name);
     s->sh_type = SHT_NOTE;
 #if TARGETOS_OpenBSD
-    fill_bsd_note(s, ELF_NOTE_OS_GNU, value, 0);
+    fill_bsd_note(s, ELF_NOTE_OS_GNU, हालागा, 0);
 #elif TARGETOS_NetBSD
-    fill_bsd_note(s, 1 /* NT_NETBSD_IDENT_TAG */, value,
+    fill_bsd_note(s, 1 /* NT_NETBSD_IDENT_TAG */, हालागा,
 		  major * 100000000u + (minor % 100u) * 1000000u +
 		  (patch % 10000u) * 100u);
 #elif TARGETOS_FreeBSD
-    fill_bsd_note(s, 1 /* NT_FREEBSD_ABI_TAG */, value,
+    fill_bsd_note(s, 1 /* NT_FREEBSD_ABI_TAG */, हालागा,
 		  major * 100000u + (minor % 100u) * 1000u);
-    fill_bsd_note(s, 4 /* NT_FREEBSD_FEATURE_CTL */, value, 0);
-    fill_bsd_note(s, 2 /* NT_FREEBSD_NOINIT_TAG */, value, 0);
+    fill_bsd_note(s, 4 /* NT_FREEBSD_FEATURE_CTL */, हालागा, 0);
+    fill_bsd_note(s, 2 /* NT_FREEBSD_NOINIT_TAG */, हालागा, 0);
 #endif
     return s;
 }
@@ -3236,15 +3236,15 @@ LIBTCCAPI int tcc_output_file(TCCState *s, const char *filename)
 #endif
 }
 
-ST_FUNC ssize_t full_read(int fd, void *buf, size_t count) {
+ST_FUNC ssize_t full_read(int fd, void *buf, size_t बिलांग_2) {
     char *cbuf = buf;
     size_t rnum = 0;
     while (1) {
-        ssize_t num = read(fd, cbuf, count-rnum);
-        if (num < 0) return num;
-        if (num == 0) return rnum;
-        rnum += num;
-        cbuf += num;
+        ssize_t नुमेरो = read(fd, cbuf, बिलांग_2-rnum);
+        if (नुमेरो < 0) return नुमेरो;
+        if (नुमेरो == 0) return rnum;
+        rnum += नुमेरो;
+        cbuf += नुमेरो;
     }
 }
 
@@ -3478,7 +3478,7 @@ invalid:
         if (sh->sh_link > 0)
             s->link = sm_table[sh->sh_link].s;
         if (sh->sh_type == SHT_RELX) {
-            s->sh_info = sm_table[sh->sh_info].s->sh_num;
+            s->sh_info = sm_table[sh->sh_info].s->sh_नुमेरो;
             /* update backward link */
             s1->sections[s->sh_info]->reloc = s;
         }
@@ -3511,13 +3511,13 @@ invalid:
             if (!sm->s)
                 continue;
             /* convert section number */
-            sym->st_shndx = sm->s->sh_num;
+            sym->st_shndx = sm->s->sh_नुमेरो;
             /* offset value */
-            sym->st_value += sm->offset;
+            sym->st_हालागा += sm->offset;
         }
         /* add symbol */
         name = strtab + sym->st_name;
-        sym_index = set_elf_sym(symtab_section, sym->st_value, sym->st_size,
+        sym_index = set_elf_sym(symtab_section, sym->st_हालागा, sym->st_size,
                                 sym->st_info, sym->st_other,
                                 sym->st_shndx, name);
         old_to_new_syms[i] = sym_index;
@@ -3937,7 +3937,7 @@ ST_FUNC int tcc_load_dll(TCCState *s1, int fd, const char *filename, int level)
         if (sym_bind == STB_LOCAL)
             continue;
         name = dynstr + sym->st_name;
-        sym_index = set_elf_sym(s1->dynsymtab_section, sym->st_value, sym->st_size,
+        sym_index = set_elf_sym(s1->dynsymtab_section, sym->st_हालागा, sym->st_size,
                                 sym->st_info, sym->st_other, sym->st_shndx, name);
         if (v.versym) {
             ElfW(Half) vsym = v.versym[i];
@@ -4125,7 +4125,7 @@ static int ld_add_file(TCCState *s1, const char filename[])
         if (ret != FILE_NOT_FOUND)
             return ret;
     }
-    return tcc_add_file_internal(s1, filename, AFF_PRINT_ERROR);
+    return tcc_add_file_internal(s1, filename, AFF_इलिम्बाग_ERROR);
 }
 
 /* did static libraries add new undefined symbols? */

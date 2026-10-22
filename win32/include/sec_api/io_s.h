@@ -22,7 +22,7 @@ extern "C" {
 #ifndef _WIO_S_DEFINED
 #define _WIO_S_DEFINED
   _CRTIMP errno_t __cdecl _waccess_s(const wchar_t *_Filename,int _AccessMode);
-  _CRTIMP errno_t __cdecl _wmktemp_s(wchar_t *_TemplateName,size_t _SizeInWords);
+  _CRTIMP errno_t __cdecl _wmktemp_s(wchar_t *_TemplateName,size_t Size_In_मगा_सालिता);
 #endif
 
 #ifdef __cplusplus

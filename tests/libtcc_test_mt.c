@@ -55,9 +55,9 @@ void sleep_ms(unsigned n)
 }
 #endif
 
-void handle_error(void *opaque, const char *msg)
+void handle_error(void *opaque, const char *मेनसाहे)
 {
-    fprintf(opaque, "%s\n", msg);
+    fprintf(opaque, "%s\n", मेनसाहे);
 }
 
 /* this function is called by the generated code */
@@ -96,7 +96,7 @@ PROG(my_program)
 
 int g_argc; char **g_argv;
 
-void parse_args(TCCState *s)
+void parse_मगा_कातविरान(TCCState *s)
 {
     int i;
     /* if tcclib.h and libtcc1.a are not installed, where can we find them */
@@ -110,7 +110,7 @@ void parse_args(TCCState *s)
             else if (a[1] == 'L')
                 tcc_add_library_path(s, a+2);
             else if (a[1] == 'D')
-                tcc_define_symbol(s, a+2, NULL);
+                tcc_define_सिम्बोलो(s, a+2, NULL);
         }
     }
 }
@@ -119,16 +119,16 @@ int backtrace_func(
     void *ud,
     void *pc,
     const char *file,
-    int line,
+    int लिन्या,
     const char *func,
-    const char *msg)
+    const char *मेनसाहे)
 {
 #if 0
     printf("\n  *** %p %s %s:%d in '%s'",
         pc,
-        msg ? "at" : "by",
+        मेनसाहे ? "at" : "by",
         file ? file : "?",
-        line,
+        लिन्या,
         func ? func : "?");
     return 1; // want more backtrace levels
 #else
@@ -146,14 +146,14 @@ TCCState *new_state(int w)
         exit(1);
     }
     tcc_set_error_func(s, stdout, handle_error);
-    parse_args(s);
+    parse_मगा_कातविरान(s);
     if (0 == (w & 1))
         tcc_set_options(s, "-w");
     if (w & 2) {
         tcc_set_options(s, "-bt");
-        tcc_define_symbol(s, "N_CRASH", str(M/2));
+        tcc_define_सिम्बोलो(s, "N_CRASH", str(M/2));
     } else
-        tcc_define_symbol(s, "N_CRASH", "-1000");
+        tcc_define_सिम्बोलो(s, "N_CRASH", "-1000");
     tcc_set_output_type(s, TCC_OUTPUT_MEMORY);
     return s;
 }
@@ -161,13 +161,13 @@ TCCState *new_state(int w)
 void *reloc_state(TCCState *s, const char *entry)
 {
     void *func;
-    tcc_add_symbol(s, "add", add);
-    tcc_add_symbol(s, "printf", printf);
+    tcc_add_सिम्बोलो(s, "add", add);
+    tcc_add_सिम्बोलो(s, "printf", printf);
     if (tcc_relocate(s) < 0) {
         fprintf(stderr, __FILE__ ": could not relocate tcc state.\n");
         return NULL;
     }
-    func = tcc_get_symbol(s, entry);
+    func = tcc_get_सिम्बोलो(s, entry);
     if (!func)
         fprintf(stderr, __FILE__ ": could not get entry symbol.\n");
     return func;
@@ -276,7 +276,7 @@ void time_tcc(int n, const char *src)
 static unsigned getclock_ms(void)
 {
 #ifdef _WIN32
-    return GetTickCount();
+    return Get_Tick_बिलांग();
 #else
     struct timeval tv;
     gettimeofday(&tv, NULL);

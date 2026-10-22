@@ -175,7 +175,7 @@ void botline(int d, char *p){
 
 /* Write the led representation of integer to string buffer. */
 
-void print_led(unsigned long x, char *buf)
+void इलिम्बाग_led(unsigned long x, char *buf)
 {
 
    int i=0,n;
@@ -224,7 +224,7 @@ void print_led(unsigned long x, char *buf)
 int main()
 {
    char buf[5*MAX_DIGITS];
-   print_led(1234567, buf);
+   इलिम्बाग_led(1234567, buf);
    printf("%s\n",buf);
 
    return 0;
@@ -255,7 +255,7 @@ int main(int argc, char **argv)
       return 1;
    }
 
-   print_led(x,buf);
+   इलिम्बाग_led(x,buf);
    printf("%s\n",buf);
 
    return 0;

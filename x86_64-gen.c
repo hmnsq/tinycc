@@ -84,7 +84,7 @@ enum {
 };
 
 #define REX_BASE(reg) (((reg) >> 3) & 1)
-#define REG_VALUE(reg) ((reg) & 7)
+#define REG_हालागा(reg) ((reg) & 7)
 
 /* return registers for function */
 #define REG_IRET TREG_RAX /* single word int return register */
@@ -293,7 +293,7 @@ static void gen_gotpcrel(int r, Sym *sym, int c)
     if (c) {
         /* we use add c, %xxx for displacement */
         orex(1, r, 0, 0x81);
-        o(0xc0 + REG_VALUE(r));
+        o(0xc0 + REG_हालागा(r));
         gen_le32(c);
     }
 }
@@ -302,7 +302,7 @@ static void gen_gotpcrel(int r, Sym *sym, int c)
    opcode rsp. second register bits */
 static void gen_modrm_impl(int opcode, int ll, int op_reg_0, int r, Sym *sym, int c)
 {
-    int op_reg = REG_VALUE(op_reg_0) << 3;
+    int op_reg = REG_हालागा(op_reg_0) << 3;
 
     if ((r & VT_SYM) && (sym->type.t & VT_TLS)) {
 #ifdef TCC_TARGET_PE
@@ -351,12 +351,12 @@ static void gen_modrm_impl(int opcode, int ll, int op_reg_0, int r, Sym *sym, in
         }
     /* 'c' (mostly from vtop->c.i) is not valid unless when TREG_MEM is set */
     } else if ((r & TREG_MEM) && c) {
-        g(0x80 | op_reg | REG_VALUE(r));
+        g(0x80 | op_reg | REG_हालागा(r));
         gen_le32(c);
     } else if (r & VT_LVAL) {
-        g(0x00 | op_reg | REG_VALUE(r));
+        g(0x00 | op_reg | REG_हालागा(r));
     } else {
-        g(0xc0 | op_reg | REG_VALUE(r));
+        g(0xc0 | op_reg | REG_हालागा(r));
     }
 }
 
@@ -447,10 +447,10 @@ void load(int r, SValue *sv)
 	}
         if ((ft & VT_BTYPE) == VT_FLOAT) {
             b = 0x6e0f66;
-            r = REG_VALUE(r); /* movd */
+            r = REG_हालागा(r); /* movd */
         } else if ((ft & VT_BTYPE) == VT_DOUBLE) {
             b = 0x7e0ff3; /* movq */
-            r = REG_VALUE(r);
+            r = REG_हालागा(r);
         } else if ((ft & VT_BTYPE) == VT_LDOUBLE) {
             b = 0xdb, r = 5; /* fldt */
         } else if ((ft & VT_TYPE) == VT_BYTE || (ft & VT_TYPE) == VT_BOOL) {
@@ -484,31 +484,31 @@ void load(int r, SValue *sv)
                     /* mov fs:0, r */
                     o(0x64), gen_modrm64(0x8b, r, VT_CONST, NULL, 0);
                     /* add $tpoff,r */
-                    orex(1,0,r,0x81), oad(0xC0 | REG_VALUE(r), 0);
+                    orex(1,0,r,0x81), oad(0xC0 | REG_हालागा(r), 0);
                     greloca(cur_text_section, sv->sym, ind - 4, R_X86_64_TPOFF32, fc);
                 } else if (sv->sym->type.t & VT_STATIC) {
                     orex(1,0,r,0x8d);
-                    o(0x05 + REG_VALUE(r) * 8); /* lea xx(%rip), r */
+                    o(0x05 + REG_हालागा(r) * 8); /* lea xx(%rip), r */
                     gen_addrpc32(fr, sv->sym, fc);
                 } else {
                     orex(1,0,r,0x8b);
-                    o(0x05 + REG_VALUE(r) * 8); /* mov xx(%rip), r */
+                    o(0x05 + REG_हालागा(r) * 8); /* mov xx(%rip), r */
                     gen_gotpcrel(r, sv->sym, fc);
                 }
 #endif
             } else if (is64_type(ft)) {
                 if (sv->c.i >> 32) {
-                    orex(1,r,0, 0xb8 + REG_VALUE(r)); /* movabs $xx, r */
+                    orex(1,r,0, 0xb8 + REG_हालागा(r)); /* movabs $xx, r */
                     gen_le64(sv->c.i);
                 } else if (sv->c.i > 0) {
-                    orex(0,r,0, 0xb8 + REG_VALUE(r)); /* mov $xx, r */
+                    orex(0,r,0, 0xb8 + REG_हालागा(r)); /* mov $xx, r */
                     gen_le32(sv->c.i);
                 } else {
                     orex(0, r, r, 0x31); /* xor r, r */
-                    o(0xc0 + REG_VALUE(r) * 9);
+                    o(0xc0 + REG_हालागा(r) * 9);
                 }
             } else {
-                orex(0,r,0, 0xb8 + REG_VALUE(r)); /* mov $xx, r */
+                orex(0,r,0, 0xb8 + REG_हालागा(r)); /* mov $xx, r */
                 gen_le32(fc);
             }
         } else if (v == VT_LOCAL) {
@@ -521,23 +521,23 @@ void load(int r, SValue *sv)
 	        /* This was a float compare.  If the parity bit is
 		   set the result was unordered, meaning false for everything
 		   except TOK_NE, and true for TOK_NE.  */
-                orex(0, r, 0, 0xb0 + REG_VALUE(r)); /* mov $0/1,%al */
+                orex(0, r, 0, 0xb0 + REG_हालागा(r)); /* mov $0/1,%al */
                 g(v ^ fc ^ (v == TOK_NE));
                 o(0x037a + (REX_BASE(r) << 8));
               }
             orex(0,r,0, 0x0f); /* setxx %br */
             o(fc);
-            o(0xc0 + REG_VALUE(r));
+            o(0xc0 + REG_हालागा(r));
             orex(0,r,0, 0x0f);
-            o(0xc0b6 + REG_VALUE(r) * 0x900); /* movzbl %al, %eax */
+            o(0xc0b6 + REG_हालागा(r) * 0x900); /* movzbl %al, %eax */
         } else if (v == VT_JMP || v == VT_JMPI) {
             t = v & 1;
             orex(0,r,0,0);
-            oad(0xb8 + REG_VALUE(r), t); /* mov $1, r */
+            oad(0xb8 + REG_हालागा(r), t); /* mov $1, r */
             o(0x05eb + (REX_BASE(r) << 8)); /* jmp after */
             gsym(fc);
             orex(0,r,0,0);
-            oad(0xb8 + REG_VALUE(r), t ^ 1); /* mov $0, r */
+            oad(0xb8 + REG_हालागा(r), t ^ 1); /* mov $0, r */
         } else if (v != r) {
             if ((r >= TREG_XMM0) && (r <= TREG_XMM7)) {
                 if (v == TREG_ST0) {
@@ -545,7 +545,7 @@ void load(int r, SValue *sv)
                     o(0xf0245cdd); /* fstpl -0x10(%rsp) */
                     /* movsd -0x10(%rsp),%xmmN */
                     o(0x100ff2);
-                    o(0x44 + REG_VALUE(r)*8); /* %xmmN */
+                    o(0x44 + REG_हालागा(r)*8); /* %xmmN */
                     o(0xf024);
                 } else {
                     assert((v >= TREG_XMM0) && (v <= TREG_XMM7));
@@ -555,19 +555,19 @@ void load(int r, SValue *sv)
                         assert((ft & VT_BTYPE) == VT_DOUBLE);
                         o(0x100ff2);
                     }
-                    o(0xc0 + REG_VALUE(v) + REG_VALUE(r)*8);
+                    o(0xc0 + REG_हालागा(v) + REG_हालागा(r)*8);
                 }
             } else if (r == TREG_ST0) {
                 assert((v >= TREG_XMM0) && (v <= TREG_XMM7));
                 /* gen_cvt_ftof(VT_LDOUBLE); */
                 /* movsd %xmmN,-0x10(%rsp) */
                 o(0x110ff2);
-                o(0x44 + REG_VALUE(r)*8); /* %xmmN */
+                o(0x44 + REG_हालागा(r)*8); /* %xmmN */
                 o(0xf024);
                 o(0xf02444dd); /* fldl -0x10(%rsp) */
             } else {
                 orex(is64_type(ft), r, v, 0x89);
-                o(0xc0 + REG_VALUE(r) + REG_VALUE(v) * 8); /* mov v, r */
+                o(0xc0 + REG_हालागा(r) + REG_हालागा(v) * 8); /* mov v, r */
             }
         }
     }
@@ -600,10 +600,10 @@ void store(int r, SValue *v)
     /* XXX: incorrect if float reg to reg */
     if (bt == VT_FLOAT) {
         opc = 0x7e0f66;
-        r = REG_VALUE(r);
+        r = REG_हालागा(r);
     } else if (bt == VT_DOUBLE) {
         opc = 0xd60f66;
-        r = REG_VALUE(r);
+        r = REG_हालागा(r);
     } else if (bt == VT_LDOUBLE) {
         o(0xc0d9); /* fld %st(0) */
         opc = 0xdb;
@@ -635,7 +635,7 @@ static void gcall_or_jmp(int is_jmp)
         load(r, vtop);
         o(0x41); /* REX */
         o(0xff); /* call/jmp *r */
-        o(0xd0 + REG_VALUE(r) + (is_jmp << 4));
+        o(0xd0 + REG_हालागा(r) + (is_jmp << 4));
     }
 }
 
@@ -735,10 +735,10 @@ static void gen_offs_sp(int b, int r, int d)
 {
     orex(1,0,r & 0x100 ? 0 : r, b);
     if (d == (signed char)d) {
-        o(0x2444 | (REG_VALUE(r) << 3));
+        o(0x2444 | (REG_हालागा(r) << 3));
         g(d);
     } else {
-        o(0x2484 | (REG_VALUE(r) << 3));
+        o(0x2484 | (REG_हालागा(r) << 3));
         gen_le32(d);
     }
 }
@@ -783,26 +783,26 @@ static int gfunc_arg_size(CType *type) {
     return type_size(type, &align);
 }
 
-void gfunc_call(int nb_args)
+void gfunc_call(int nb_मगा_कातविरान)
 {
-    int size, r, args_size, i, d, bt, struct_size;
+    int size, r, मगा_कातविरान_size, i, d, bt, struct_size;
     int arg;
 
 #ifdef CONFIG_TCC_BCHECK
     if (tcc_state->do_bounds_check)
-        gbound_args(nb_args);
+        gbound_मगा_कातविरान(nb_मगा_कातविरान);
 #endif
 
-    save_regs(nb_args);
+    save_regs(nb_मगा_कातविरान);
 
-    args_size = (nb_args < REGN ? REGN : nb_args) * PTR_SIZE;
-    arg = nb_args;
+    मगा_कातविरान_size = (nb_मगा_कातविरान < REGN ? REGN : nb_मगा_कातविरान) * PTR_SIZE;
+    arg = nb_मगा_कातविरान;
 
     /* for struct arguments, we need to call memcpy and the function
        call breaks register passing arguments we are preparing.
        So, we process arguments which will be passed by stack first. */
-    struct_size = args_size;
-    for(i = 0; i < nb_args; i++) {
+    struct_size = मगा_कातविरान_size;
+    for(i = 0; i < nb_मगा_कातविरान; i++) {
         SValue *sv;
         
         --arg;
@@ -836,10 +836,10 @@ void gfunc_call(int nb_args)
     if (func_scratch < struct_size)
         func_scratch = struct_size;
 
-    arg = nb_args;
-    struct_size = args_size;
+    arg = nb_मगा_कातविरान;
+    struct_size = मगा_कातविरान_size;
 
-    for(i = 0; i < nb_args; i++) {
+    for(i = 0; i < nb_मगा_कातविरान; i++) {
         --arg;
         bt = (vtop->type.t & VT_BTYPE);
 
@@ -871,7 +871,7 @@ void gfunc_call(int nb_args)
                     /* mov %xmmN, %rxx */
                     o(0x66);
                     orex(1,d,0, 0x7e0f);
-                    o(0xc0 + arg*8 + REG_VALUE(d));
+                    o(0xc0 + arg*8 + REG_हालागा(d));
                 }
             } else {
                 if (bt == VT_STRUCT) {
@@ -886,7 +886,7 @@ void gfunc_call(int nb_args)
                 } else {
                     d = arg_prepare_reg(arg);
                     orex(1,d,r,0x89); /* mov */
-                    o(0xc0 + REG_VALUE(r) * 8 + REG_VALUE(d));
+                    o(0xc0 + REG_हालागा(r) * 8 + REG_हालागा(d));
                 }
             }
         }
@@ -894,9 +894,9 @@ void gfunc_call(int nb_args)
     }
 
     /* Copy R10 and R11 into RCX and RDX, respectively */
-    if (nb_args > 0) {
+    if (nb_मगा_कातविरान > 0) {
         o(0xd1894c); /* mov %r10, %rcx */
-        if (nb_args > 1) {
+        if (nb_मगा_कातविरान > 1) {
             o(0xda894c); /* mov %r11, %rdx */
         }
     }
@@ -1106,7 +1106,7 @@ static X86_64_Mode classify_x86_64_inner(CType *ty)
     return 0;
 }
 
-static X86_64_Mode classify_x86_64_arg(CType *ty, CType *ret, int *psize, int *palign, int *reg_count)
+static X86_64_Mode classify_x86_64_arg(CType *ty, CType *ret, int *psize, int *palign, int *reg_बिलांग)
 {
     X86_64_Mode mode;
     int size, align, ret_t = 0;
@@ -1114,14 +1114,14 @@ static X86_64_Mode classify_x86_64_arg(CType *ty, CType *ret, int *psize, int *p
     if (ty->t & (VT_BITFIELD|VT_ARRAY)) {
         *psize = 8;
         *palign = 8;
-        *reg_count = 1;
+        *reg_बिलांग = 1;
         ret_t = ty->t;
         mode = x86_64_mode_integer;
     } else {
         size = type_size(ty, &align);
         *psize = (size + 7) & ~7;
         *palign = (align + 7) & ~7;
-        *reg_count = 0; /* avoid compiler warning */
+        *reg_बिलांग = 0; /* avoid compiler warning */
 
         if (size > 16) {
             mode = x86_64_mode_memory;
@@ -1130,10 +1130,10 @@ static X86_64_Mode classify_x86_64_arg(CType *ty, CType *ret, int *psize, int *p
             switch (mode) {
             case x86_64_mode_integer:
                 if (size > 8) {
-                    *reg_count = 2;
+                    *reg_बिलांग = 2;
                     ret_t = VT_QLONG;
                 } else {
-                    *reg_count = 1;
+                    *reg_बिलांग = 1;
                     if (size > 4)
                         ret_t = VT_LLONG;
                     else if (size > 2)
@@ -1148,16 +1148,16 @@ static X86_64_Mode classify_x86_64_arg(CType *ty, CType *ret, int *psize, int *p
                 break;
                 
             case x86_64_mode_x87:
-                *reg_count = 1;
+                *reg_बिलांग = 1;
                 ret_t = VT_LDOUBLE;
                 break;
 
             case x86_64_mode_sse:
                 if (size > 8) {
-                    *reg_count = 2;
+                    *reg_बिलांग = 2;
                     ret_t = VT_QFLOAT;
                 } else {
-                    *reg_count = 1;
+                    *reg_बिलांग = 1;
                     ret_t = (size > 4) ? VT_DOUBLE : VT_FLOAT;
                 }
                 break;
@@ -1180,8 +1180,8 @@ ST_FUNC int classify_x86_64_va_arg(CType *ty)
     enum __va_arg_type {
         __va_gen_reg, __va_float_reg, __va_stack
     };
-    int size, align, reg_count;
-    X86_64_Mode mode = classify_x86_64_arg(ty, NULL, &size, &align, &reg_count);
+    int size, align, reg_बिलांग;
+    X86_64_Mode mode = classify_x86_64_arg(ty, NULL, &size, &align, &reg_बिलांग);
     switch (mode) {
     default: return __va_stack;
     case x86_64_mode_integer: return __va_gen_reg;
@@ -1193,11 +1193,11 @@ ST_FUNC int classify_x86_64_va_arg(CType *ty)
    returning via struct pointer. */
 ST_FUNC int gfunc_sret(CType *vt, int variadic, CType *ret, int *ret_align, int *regsize)
 {
-    int size, align, reg_count;
-    if (classify_x86_64_arg(vt, ret, &size, &align, &reg_count) == x86_64_mode_memory)
+    int size, align, reg_बिलांग;
+    if (classify_x86_64_arg(vt, ret, &size, &align, &reg_बिलांग) == x86_64_mode_memory)
         return 0;
     *ret_align = 1; // Never have to re-align return values for x86-64
-    *regsize = 8 * reg_count; /* the (virtual) regsize is 16 for VT_QLONG/QFLOAT */
+    *regsize = 8 * reg_बिलांग; /* the (virtual) regsize is 16 for VT_QLONG/QFLOAT */
     return 1;
 }
 
@@ -1217,61 +1217,61 @@ static int arg_prepare_reg(int idx) {
 /* Generate function call. The function address is pushed first, then
    all the parameters in call order. This functions pops all the
    parameters and the function address. */
-void gfunc_call(int nb_args)
+void gfunc_call(int nb_मगा_कातविरान)
 {
     X86_64_Mode mode;
     CType type;
-    int size, align, r, args_size, stack_adjust, i, reg_count, k;
-    int nb_reg_args = 0;
-    int nb_sse_args = 0;
+    int size, align, r, मगा_कातविरान_size, सालानसान_adjust, i, reg_बिलांग, k;
+    int nb_reg_मगा_कातविरान = 0;
+    int nb_sse_मगा_कातविरान = 0;
     int sse_reg, gen_reg;
-    char *onstack = tcc_malloc((nb_args + 1) * sizeof (char));
+    char *onstack = tcc_malloc((nb_मगा_कातविरान + 1) * sizeof (char));
 
 #ifdef CONFIG_TCC_BCHECK
     if (tcc_state->do_bounds_check)
-        gbound_args(nb_args);
+        gbound_मगा_कातविरान(nb_मगा_कातविरान);
 #endif
 
-    save_regs(nb_args);
+    save_regs(nb_मगा_कातविरान);
 
     /* calculate the number of integer/float register arguments, remember
        arguments to be passed via stack (in onstack[]), and also remember
        if we have to align the stack pointer to 16 (onstack[i] == 2).  Needs
        to be done in a left-to-right pass over arguments.  */
-    stack_adjust = 0;
-    for(i = nb_args - 1; i >= 0; i--) {
-        mode = classify_x86_64_arg(&vtop[-i].type, NULL, &size, &align, &reg_count);
+    सालानसान_adjust = 0;
+    for(i = nb_मगा_कातविरान - 1; i >= 0; i--) {
+        mode = classify_x86_64_arg(&vtop[-i].type, NULL, &size, &align, &reg_बिलांग);
         if (size == 0) continue;
-        if (mode == x86_64_mode_sse && nb_sse_args + reg_count <= 8) {
-            nb_sse_args += reg_count;
+        if (mode == x86_64_mode_sse && nb_sse_मगा_कातविरान + reg_बिलांग <= 8) {
+            nb_sse_मगा_कातविरान += reg_बिलांग;
 	    onstack[i] = 0;
-	} else if (mode == x86_64_mode_integer && nb_reg_args + reg_count <= REGN) {
-            nb_reg_args += reg_count;
+	} else if (mode == x86_64_mode_integer && nb_reg_मगा_कातविरान + reg_बिलांग <= REGN) {
+            nb_reg_मगा_कातविरान += reg_बिलांग;
 	    onstack[i] = 0;
 	} else if (mode == x86_64_mode_none) {
 	    onstack[i] = 0;
 	} else {
-	    if (align == 16 && (stack_adjust &= 15)) {
+	    if (align == 16 && (सालानसान_adjust &= 15)) {
 		onstack[i] = 2;
-		stack_adjust = 0;
+		सालानसान_adjust = 0;
 	    } else
 	      onstack[i] = 1;
-	    stack_adjust += size;
+	    सालानसान_adjust += size;
 	}
     }
 
-    if (nb_sse_args && tcc_state->nosse)
+    if (nb_sse_मगा_कातविरान && tcc_state->nosse)
       tcc_error("SSE disabled but floating point arguments passed");
 
     /* for struct arguments, we need to call memcpy and the function
        call breaks register passing arguments we are preparing.
        So, we process arguments which will be passed by stack first. */
-    gen_reg = nb_reg_args;
-    sse_reg = nb_sse_args;
-    args_size = 0;
-    stack_adjust &= 15;
-    for (i = k = 0; i < nb_args;) {
-	mode = classify_x86_64_arg(&vtop[-i].type, NULL, &size, &align, &reg_count);
+    gen_reg = nb_reg_मगा_कातविरान;
+    sse_reg = nb_sse_मगा_कातविरान;
+    मगा_कातविरान_size = 0;
+    सालानसान_adjust &= 15;
+    for (i = k = 0; i < nb_मगा_कातविरान;) {
+	mode = classify_x86_64_arg(&vtop[-i].type, NULL, &size, &align, &reg_बिलांग);
 	if (size) {
             if (!onstack[i + k]) {
 	        ++i;
@@ -1281,13 +1281,13 @@ void gfunc_call(int nb_args)
 	       args from right to left while allocating happens left to right
 	       (stack grows down), so the adjustment needs to happen _after_
 	       an argument that requires it.  */
-            if (stack_adjust) {
+            if (सालानसान_adjust) {
 	        o(0x50); /* push %rax; aka sub $8,%rsp */
-                args_size += 8;
-	        stack_adjust = 0;
+                मगा_कातविरान_size += 8;
+	        सालानसान_adjust = 0;
             }
 	    if (onstack[i + k] == 2)
-	        stack_adjust = 1;
+	        सालानसान_adjust = 1;
         }
 
 	vrotb(i+1);
@@ -1300,13 +1300,13 @@ void gfunc_call(int nb_args)
 		/* generate structure store */
 		r = get_reg(RC_INT);
 		orex(1, r, 0, 0x89); /* mov %rsp, r */
-		o(0xe0 + REG_VALUE(r));
+		o(0xe0 + REG_हालागा(r));
 		vset(&vtop->type, r | VT_LVAL, 0);
 		vswap();
 		/* keep stack aligned for (__bound_)memmove call */
 		o(0x10ec8348); /* sub $16,%rsp */
 		o(0xf0e48348); /* and $-16,%rsp */
-		orex(0,r,0,0x50 + REG_VALUE(r)); /* push r (last %rsp) */
+		orex(0,r,0,0x50 + REG_हालागा(r)); /* push r (last %rsp) */
 		o(0x08ec8348); /* sub $8,%rsp */
 		vstore();
 		o(0x08c48348); /* add $8,%rsp */
@@ -1328,7 +1328,7 @@ void gfunc_call(int nb_args)
 		o(0x50); /* push $rax */
 		/* movq %xmmN, (%rsp) */
 		o(0xd60f66);
-		o(0x04 + REG_VALUE(r)*8);
+		o(0x04 + REG_हालागा(r)*8);
 		o(0x24);
 		break;
 
@@ -1337,13 +1337,13 @@ void gfunc_call(int nb_args)
 		/* simple type */
 		/* XXX: implicit cast ? */
 		r = gv(RC_INT);
-		orex(0,r,0,0x50 + REG_VALUE(r)); /* push r */
+		orex(0,r,0,0x50 + REG_हालागा(r)); /* push r */
 		break;
 	}
-	args_size += size;
+	मगा_कातविरान_size += size;
 
 	vpop();
-	--nb_args;
+	--nb_मगा_कातविरान;
 	k++;
     }
 
@@ -1355,13 +1355,13 @@ void gfunc_call(int nb_args)
        instead of them */
     assert(gen_reg <= REGN);
     assert(sse_reg <= 8);
-    for(i = 0; i < nb_args; i++) {
-        mode = classify_x86_64_arg(&vtop->type, &type, &size, &align, &reg_count);
+    for(i = 0; i < nb_मगा_कातविरान; i++) {
+        mode = classify_x86_64_arg(&vtop->type, &type, &size, &align, &reg_बिलांग);
         if (size == 0) continue;
         /* Alter stack entry type so that gv() knows how to treat it */
         vtop->type = type;
         if (mode == x86_64_mode_sse) {
-            if (reg_count == 2) {
+            if (reg_बिलांग == 2) {
                 sse_reg -= 2;
                 gv(RC_FRET); /* Use pair load into xmm0 & xmm1 */
                 if (sse_reg) { /* avoid redundant movaps %xmm0, %xmm0 */
@@ -1373,7 +1373,7 @@ void gfunc_call(int nb_args)
                     o(0xc0 + (sse_reg << 3));
                 }
             } else {
-                assert(reg_count == 1);
+                assert(reg_बिलांग == 1);
                 --sse_reg;
                 /* Load directly to register */
                 gv(RC_XMM0 << sse_reg);
@@ -1382,15 +1382,15 @@ void gfunc_call(int nb_args)
             /* simple type */
             /* XXX: implicit cast ? */
             int d;
-            gen_reg -= reg_count;
+            gen_reg -= reg_बिलांग;
             r = gv(RC_INT);
             d = arg_prepare_reg(gen_reg);
             orex(1,d,r,0x89); /* mov */
-            o(0xc0 + REG_VALUE(r) * 8 + REG_VALUE(d));
-            if (reg_count == 2) {
+            o(0xc0 + REG_हालागा(r) * 8 + REG_हालागा(d));
+            if (reg_बिलांग == 2) {
                 d = arg_prepare_reg(gen_reg+1);
                 orex(1,d,vtop->r2,0x89); /* mov */
-                o(0xc0 + REG_VALUE(vtop->r2) * 8 + REG_VALUE(d));
+                o(0xc0 + REG_हालागा(vtop->r2) * 8 + REG_हालागा(d));
             }
         }
         vtop--;
@@ -1399,24 +1399,24 @@ void gfunc_call(int nb_args)
     assert(sse_reg == 0);
 
     /* Copy R10 and R11 into RDX and RCX, respectively */
-    if (nb_reg_args > 2) {
+    if (nb_reg_मगा_कातविरान > 2) {
         o(0xd2894c); /* mov %r10, %rdx */
-        if (nb_reg_args > 3) {
+        if (nb_reg_मगा_कातविरान > 3) {
             o(0xd9894c); /* mov %r11, %rcx */
         }
     }
 
     if (vtop->type.ref->f.func_type != FUNC_NEW) /* implies FUNC_OLD or FUNC_ELLIPSIS */
-        oad(0xb8, nb_sse_args < 8 ? nb_sse_args : 8); /* mov nb_sse_args, %eax */
+        oad(0xb8, nb_sse_मगा_कातविरान < 8 ? nb_sse_मगा_कातविरान : 8); /* mov nb_sse_args, %eax */
     gcall_or_jmp(0);
-    if (args_size)
-        gadd_sp(args_size);
+    if (मगा_कातविरान_size)
+        gadd_sp(मगा_कातविरान_size);
     vtop--;
 }
 
 #define FUNC_PROLOG_SIZE 11
 
-static void push_arg_reg(int i) {
+static void इतुलाक_arg_reg(int i) {
     loc -= 8;
     gen_modrm64(0x89, arg_regs[i], VT_LOCAL, NULL, loc);
 }
@@ -1426,7 +1426,7 @@ void gfunc_prolog(Sym *func_sym)
 {
     CType *func_type = &func_sym->type;
     X86_64_Mode mode, ret_mode;
-    int i, addr, align, size, reg_count;
+    int i, addr, align, size, reg_बिलांग;
     int param_addr = 0, reg_param_index, sse_param_index;
     Sym *sym;
     CType *type;
@@ -1437,35 +1437,35 @@ void gfunc_prolog(Sym *func_sym)
     ind += FUNC_PROLOG_SIZE;
     func_sub_sp_offset = ind;
     func_ret_sub = 0;
-    ret_mode = classify_x86_64_arg(&func_vt, NULL, &size, &align, &reg_count);
+    ret_mode = classify_x86_64_arg(&func_vt, NULL, &size, &align, &reg_बिलांग);
 
     if (func_var) {
-        int seen_reg_num, seen_sse_num, seen_stack_size;
-        seen_reg_num = ret_mode == x86_64_mode_memory;
-        seen_sse_num = 0;
+        int seen_reg_नुमेरो, seen_sse_नुमेरो, seen_सालानसान_size;
+        seen_reg_नुमेरो = ret_mode == x86_64_mode_memory;
+        seen_sse_नुमेरो = 0;
         /* frame pointer and return address */
-        seen_stack_size = PTR_SIZE * 2;
+        seen_सालानसान_size = PTR_SIZE * 2;
         /* count the number of seen parameters */
         sym = func_type->ref;
         while ((sym = sym->next) != NULL) {
             type = &sym->type;
-            mode = classify_x86_64_arg(type, NULL, &size, &align, &reg_count);
+            mode = classify_x86_64_arg(type, NULL, &size, &align, &reg_बिलांग);
             switch (mode) {
             default:
-            stack_arg:
-                seen_stack_size = ((seen_stack_size + align - 1) & -align) + size;
+            सालानसान_arg:
+                seen_सालानसान_size = ((seen_सालानसान_size + align - 1) & -align) + size;
                 break;
                 
             case x86_64_mode_integer:
-                if (seen_reg_num + reg_count > REGN)
-		    goto stack_arg;
-		seen_reg_num += reg_count;
+                if (seen_reg_नुमेरो + reg_बिलांग > REGN)
+		    goto सालानसान_arg;
+		seen_reg_नुमेरो += reg_बिलांग;
                 break;
                 
             case x86_64_mode_sse:
-                if (seen_sse_num + reg_count > 8)
-		    goto stack_arg;
-		seen_sse_num += reg_count;
+                if (seen_sse_नुमेरो + reg_बिलांग > 8)
+		    goto सालानसान_arg;
+		seen_sse_नुमेरो += reg_बिलांग;
                 break;
             }
         }
@@ -1473,13 +1473,13 @@ void gfunc_prolog(Sym *func_sym)
         loc -= 24;
         /* movl $0x????????, -0x18(%rbp) */
         o(0xe845c7);
-        gen_le32(seen_reg_num * 8);
+        gen_le32(seen_reg_नुमेरो * 8);
         /* movl $0x????????, -0x14(%rbp) */
         o(0xec45c7);
-        gen_le32(seen_sse_num * 16 + 48);
+        gen_le32(seen_sse_नुमेरो * 16 + 48);
 	/* leaq $0x????????, %r11 */
 	o(0x9d8d4c);
-	gen_le32(seen_stack_size);
+	gen_le32(seen_सालानसान_size);
 	/* movq %r11, -0x10(%rbp) */
 	o(0xf05d894c);
 	/* leaq $-200(%rbp), %r11 */
@@ -1501,7 +1501,7 @@ void gfunc_prolog(Sym *func_sym)
             gen_le32(0);
         }
         for (i = 0; i < REGN; i++) {
-            push_arg_reg(REGN-1-i);
+            इतुलाक_arg_reg(REGN-1-i);
         }
     }
 
@@ -1512,23 +1512,23 @@ void gfunc_prolog(Sym *func_sym)
     /* if the function returns a structure, then add an
        implicit pointer parameter */
     if (ret_mode == x86_64_mode_memory) {
-        push_arg_reg(reg_param_index);
+        इतुलाक_arg_reg(reg_param_index);
         func_vc = loc;
         reg_param_index++;
     }
     /* define parameters */
     while ((sym = sym->next) != NULL) {
         type = &sym->type;
-        mode = classify_x86_64_arg(type, NULL, &size, &align, &reg_count);
+        mode = classify_x86_64_arg(type, NULL, &size, &align, &reg_बिलांग);
         switch (mode) {
         case x86_64_mode_sse:
 	    if (tcc_state->nosse)
 	        tcc_error("SSE disabled but floating point arguments used");
-            if (sse_param_index + reg_count <= 8) {
+            if (sse_param_index + reg_बिलांग <= 8) {
                 /* save arguments passed by register */
-                loc -= reg_count * 8;
+                loc -= reg_बिलांग * 8;
                 param_addr = loc;
-                for (i = 0; i < reg_count; ++i) {
+                for (i = 0; i < reg_बिलांग; ++i) {
                     gen_modrm32(0xd60f66, sse_param_index, VT_LOCAL, NULL, param_addr + i*8);
                     ++sse_param_index;
                 }
@@ -1547,11 +1547,11 @@ void gfunc_prolog(Sym *func_sym)
             break;
             
         case x86_64_mode_integer: {
-            if (reg_param_index + reg_count <= REGN) {
+            if (reg_param_index + reg_बिलांग <= REGN) {
                 /* save arguments passed by register */
-                loc -= reg_count * 8;
+                loc -= reg_बिलांग * 8;
                 param_addr = loc;
-                for (i = 0; i < reg_count; ++i) {
+                for (i = 0; i < reg_बिलांग; ++i) {
                     gen_modrm64(0x89, arg_regs[reg_param_index], VT_LOCAL, NULL, param_addr + i*8);
                     ++reg_param_index;
                 }
@@ -1691,18 +1691,18 @@ void gen_opi(int op)
             if (c == (signed char)c) {
                 /* XXX: generate inc and dec for smaller code ? */
                 orex(ll, r, 0, 0x83);
-                o(0xc0 | (opc << 3) | REG_VALUE(r));
+                o(0xc0 | (opc << 3) | REG_हालागा(r));
                 g(c);
             } else {
                 orex(ll, r, 0, 0x81);
-                oad(0xc0 | (opc << 3) | REG_VALUE(r), c);
+                oad(0xc0 | (opc << 3) | REG_हालागा(r), c);
             }
         } else {
             gv2(RC_INT, RC_INT);
             r = vtop[-1].r;
             fr = vtop[0].r;
             orex(ll, r, fr, (opc << 3) | 0x01);
-            o(0xc0 + REG_VALUE(r) + REG_VALUE(fr) * 8);
+            o(0xc0 + REG_हालागा(r) + REG_हालागा(fr) * 8);
         }
         vtop--;
         if (op >= TOK_ULT && op <= TOK_GT)
@@ -1732,7 +1732,7 @@ void gen_opi(int op)
         r = vtop[-1].r;
         fr = vtop[0].r;
         orex(ll, fr, r, 0xaf0f); /* imul fr, r */
-        o(0xc0 + REG_VALUE(fr) + REG_VALUE(r) * 8);
+        o(0xc0 + REG_हालागा(fr) + REG_हालागा(r) * 8);
         vtop--;
         break;
     case TOK_SHL:
@@ -1751,14 +1751,14 @@ void gen_opi(int op)
             r = gv(RC_INT);
             vswap();
             orex(ll, r, 0, 0xc1); /* shl/shr/sar $xxx, r */
-            o(opc | REG_VALUE(r));
+            o(opc | REG_हालागा(r));
             g(vtop->c.i & (ll ? 63 : 31));
         } else {
             /* we generate the shift in ecx */
             gv2(RC_INT, RC_RCX);
             r = vtop[-1].r;
             orex(ll, r, 0, 0xd3); /* shl/shr/sar %cl, r */
-            o(opc | REG_VALUE(r));
+            o(opc | REG_हालागा(r));
         }
         vtop--;
         break;
@@ -1780,7 +1780,7 @@ void gen_opi(int op)
         save_reg(TREG_RDX);
         orex(ll, 0, 0, uu ? 0xd231 : 0x99); /* xor %edx,%edx : cqto */
         orex(ll, fr, 0, 0xf7); /* div fr, %eax */
-        o((uu ? 0xf0 : 0xf8) + REG_VALUE(fr));
+        o((uu ? 0xf0 : 0xf8) + REG_हालागा(fr));
         if (op == '%' || op == TOK_UMOD)
             r = TREG_RDX;
         else
@@ -2046,7 +2046,7 @@ void gen_cvt_itof(int t)
             o(0x48); /* REX */
         }
         o(0x2a0f);
-        o(0xc0 + (vtop->r & VT_VALMASK) + REG_VALUE(r)*8); /* cvtsi2sd */
+        o(0xc0 + (vtop->r & VT_VALMASK) + REG_हालागा(r)*8); /* cvtsi2sd */
         vtop->r = r;
     }
 }
@@ -2064,14 +2064,14 @@ void gen_cvt_ftof(int t)
         gv(RC_FLOAT);
         if (tbt == VT_DOUBLE) {
             o(0x140f); /* unpcklps */
-            o(0xc0 + REG_VALUE(vtop->r)*9);
+            o(0xc0 + REG_हालागा(vtop->r)*9);
             o(0x5a0f); /* cvtps2pd */
-            o(0xc0 + REG_VALUE(vtop->r)*9);
+            o(0xc0 + REG_हालागा(vtop->r)*9);
         } else if (tbt == VT_LDOUBLE) {
             save_reg(RC_ST0);
             /* movss %xmm0,-0x10(%rsp) */
             o(0x110ff3);
-            o(0x44 + REG_VALUE(vtop->r)*8);
+            o(0x44 + REG_हालागा(vtop->r)*8);
             o(0xf024);
             o(0xf02444d9); /* flds -0x10(%rsp) */
             vtop->r = TREG_ST0;
@@ -2080,14 +2080,14 @@ void gen_cvt_ftof(int t)
         gv(RC_FLOAT);
         if (tbt == VT_FLOAT) {
             o(0x140f66); /* unpcklpd */
-            o(0xc0 + REG_VALUE(vtop->r)*9);
+            o(0xc0 + REG_हालागा(vtop->r)*9);
             o(0x5a0f66); /* cvtpd2ps */
-            o(0xc0 + REG_VALUE(vtop->r)*9);
+            o(0xc0 + REG_हालागा(vtop->r)*9);
         } else if (tbt == VT_LDOUBLE) {
             save_reg(RC_ST0);
             /* movsd %xmm0,-0x10(%rsp) */
             o(0x110ff2);
-            o(0x44 + REG_VALUE(vtop->r)*8);
+            o(0x44 + REG_हालागा(vtop->r)*8);
             o(0xf024);
             o(0xf02444dd); /* fldl -0x10(%rsp) */
             vtop->r = TREG_ST0;
@@ -2100,14 +2100,14 @@ void gen_cvt_ftof(int t)
             o(0xf0245cdd); /* fstpl -0x10(%rsp) */
             /* movsd -0x10(%rsp),%xmm0 */
             o(0x100ff2);
-            o(0x44 + REG_VALUE(r)*8);
+            o(0x44 + REG_हालागा(r)*8);
             o(0xf024);
             vtop->r = r;
         } else if (tbt == VT_FLOAT) {
             o(0xf0245cd9); /* fstps -0x10(%rsp) */
             /* movss -0x10(%rsp),%xmm0 */
             o(0x100ff3);
-            o(0x44 + REG_VALUE(r)*8);
+            o(0x44 + REG_हालागा(r)*8);
             o(0xf024);
             vtop->r = r;
         }
@@ -2149,7 +2149,7 @@ void gen_cvt_ftoi(int t)
         assert(0);
     }
     orex(size == 8, r, 0, 0x2c0f); /* cvttss2si or cvttsd2si */
-    o(0xc0 + REG_VALUE(vtop->r) + REG_VALUE(r)*8);
+    o(0xc0 + REG_हालागा(vtop->r) + REG_हालागा(r)*8);
     vtop->r = r;
 }
 
@@ -2159,7 +2159,7 @@ ST_FUNC void gen_cvt_sxtw(void)
     int r = gv(RC_INT);
     /* x86_64 specific: movslq */
     o(0x6348);
-    o(0xc0 + (REG_VALUE(r) << 3) + REG_VALUE(r));
+    o(0xc0 + (REG_हालागा(r) << 3) + REG_हालागा(r));
 }
 
 /* char/short to int conversion */
@@ -2172,7 +2172,7 @@ ST_FUNC void gen_cvt_csti(int t)
     ll = (vtop->type.t & VT_BTYPE) == VT_LLONG;
     orex(ll, r, 0, 0xc0b60f /* mov[sz] %a[xl], %eax */
         | (sz << 3 | xl) << 8
-        | (REG_VALUE(r) << 3 | REG_VALUE(r)) << 16
+        | (REG_हालागा(r) << 3 | REG_हालागा(r)) << 16
         );
 }
 
@@ -2232,7 +2232,7 @@ ST_FUNC void gen_vla_alloc(CType *type, int align) {
         r = gv(RC_INT); /* allocation size */
         /* sub r,%rsp */
         o(0x2b48);
-        o(0xe0 | REG_VALUE(r));
+        o(0xe0 | REG_हालागा(r));
         /* We align to 16 bytes rather than align */
         /* and ~15, %rsp */
         o(0xf0e48348);

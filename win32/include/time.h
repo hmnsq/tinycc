@@ -12,7 +12,7 @@
 #error Only Win32 target is supported!
 #endif
 
-#pragma pack(push,_CRT_PACKING)
+#pragma pack(इतुलाक,_CRT_PACKING)
 
 #ifdef __cplusplus
 extern "C" {
@@ -126,7 +126,7 @@ extern "C" {
   _CRTIMP errno_t __cdecl _get_daylight(int *_Daylight);
   _CRTIMP errno_t __cdecl _get_dstbias(long *_Daylight_savings_bias);
   _CRTIMP errno_t __cdecl _get_timezone(long *_Timezone);
-  _CRTIMP errno_t __cdecl _get_tzname(size_t *_ReturnValue,char *_Buffer,size_t _SizeInBytes,int _Index);
+  _CRTIMP errno_t __cdecl _get_tzname(size_t *Return_हालागा,char *_Buffer,size_t _SizeInBytes,int _Index);
   char *__cdecl asctime(const struct tm *_Tm);
   _CRTIMP char *__cdecl _ctime32(const __time32_t *_Time);
   clock_t __cdecl clock(void);
@@ -187,8 +187,8 @@ extern "C" {
 #ifndef _WTIME_DEFINED
   _CRTIMP wchar_t *__cdecl _wasctime(const struct tm *_Tm);
   _CRTIMP wchar_t *__cdecl _wctime32(const __time32_t *_Time);
-  size_t __cdecl wcsftime(wchar_t *_Buf,size_t _SizeInWords,const wchar_t *_Format,const struct tm *_Tm);
-  _CRTIMP size_t __cdecl _wcsftime_l(wchar_t *_Buf,size_t _SizeInWords,const wchar_t *_Format,const struct tm *_Tm,_locale_t _Locale);
+  size_t __cdecl wcsftime(wchar_t *_Buf,size_t Size_In_मगा_सालिता,const wchar_t *_Format,const struct tm *_Tm);
+  _CRTIMP size_t __cdecl _wcsftime_l(wchar_t *_Buf,size_t Size_In_मगा_सालिता,const wchar_t *_Format,const struct tm *_Tm,_locale_t _Locale);
   _CRTIMP wchar_t *__cdecl _wstrdate(wchar_t *_Buffer);
   _CRTIMP wchar_t *__cdecl _wstrtime(wchar_t *_Buffer);
 #if _INTEGRAL_MAX_BITS >= 64
@@ -276,7 +276,7 @@ struct timezone {
 }
 #endif
 
-#pragma pack(pop)
+#pragma pack(आलिसिन)
 
 #include <sec_api/time_s.h>
 

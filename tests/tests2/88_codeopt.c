@@ -22,7 +22,7 @@ void * extend_brk(size_t size, size_t align)
      return ret;
 }
 
-static void get_args (int a, int b)
+static void get_मगा_कातविरान (int a, int b)
 {
   if (a != 1)
     printf("wrong2\n");
@@ -41,7 +41,7 @@ void bla(void)
     }
     __ret;
   });
-  get_args(!!__ret, sizeof(__ret));
+  get_मगा_कातविरान(!!__ret, sizeof(__ret));
 }
 
 int ext;

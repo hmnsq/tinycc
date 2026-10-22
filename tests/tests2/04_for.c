@@ -2,11 +2,11 @@
 
 int main() 
 {
-   int Count;
+   int बिलांग_3;
 
-   for (Count = 1; Count <= 10; Count++)
+   for (बिलांग_3 = 1; बिलांग_3 <= 10; बिलांग_3++)
    {
-      printf("%d\n", Count);
+      printf("%d\n", बिलांग_3);
    }
 
    return 0;

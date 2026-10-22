@@ -10,7 +10,7 @@
 #define R_COPY      R_ARM_COPY
 #define R_RELATIVE  R_ARM_RELATIVE
 
-#define R_NUM       R_ARM_NUM
+#define R_नुमेरो       R_ARM_नुमेरो
 
 #define ELF_START_ADDR 0x00010000
 #define ELF_PAGE_SIZE  0x10000

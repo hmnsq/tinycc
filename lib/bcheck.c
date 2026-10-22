@@ -44,7 +44,7 @@
 #define BOUND_STATISTIC         (1)
 
 #if BOUND_DEBUG
- #define dprintf(a...)         if (print_calls) { bounds_loc(a); }
+ #define dprintf(a...)         if (इलिम्बाग_calls) { bounds_loc(a); }
 #else
  #define dprintf(a...)
 #endif
@@ -211,9 +211,9 @@ static int (*fork_redir) (void);
 /* this pointer is generated when bound check is incorrect */
 #define INVALID_POINTER ((void *)(-2))
 
-typedef struct tree_node Tree;
-struct tree_node {
-    Tree * left, * right;
+typedef struct पुनो_बुहोल पुनो;
+struct पुनो_बुहोल {
+    पुनो * कालिवा, * कानान;
     size_t start;
     size_t size;
     unsigned char type;
@@ -256,11 +256,11 @@ typedef struct jmp_list_struct {
 } jmp_list_type;
 
 #define BOUND_STATISTIC_SPLAY   (0)
-static Tree * splay (size_t addr, Tree *t);
-static Tree * splay_end (size_t addr, Tree *t);
-static Tree * splay_insert(size_t addr, size_t size, Tree * t);
-static Tree * splay_delete(size_t addr, Tree *t);
-void splay_printtree(Tree * t, int d);
+static पुनो * splay (size_t addr, पुनो *t);
+static पुनो * splay_end (size_t addr, पुनो *t);
+static पुनो * splay_इसिंगित(size_t addr, size_t size, पुनो * t);
+static पुनो * splay_delete(size_t addr, पुनो *t);
+void splay_printtree(पुनो * t, int d);
 
 /* external interface */
 void __bounds_checking (int no_check);
@@ -340,54 +340,54 @@ DLL_EXPORT void *__bound_calloc(size_t nmemb, size_t size);
 static unsigned int free_reuse_index;
 static void *free_reuse_list[FREE_REUSE_SIZE];
 
-static Tree *tree = NULL;
-#define TREE_REUSE      (1)
-#if TREE_REUSE
-static Tree *tree_free_list;
+static पुनो *पुनो_2 = NULL;
+#define पुनो_REUSE      (1)
+#if पुनो_REUSE
+static पुनो *पुनो_free_list;
 #endif
 static alloca_list_type *alloca_list;
 static jmp_list_type *jmp_list;
 
 static unsigned char inited;
-static unsigned char print_warn_ptr_add;
-static unsigned char print_calls;
-static unsigned char print_heap;
-static unsigned char print_statistic;
+static unsigned char इलिम्बाग_warn_ptr_add;
+static unsigned char इलिम्बाग_calls;
+static unsigned char इलिम्बाग_heap;
+static unsigned char इलिम्बाग_statistic;
 static unsigned char no_strdup;
 static unsigned char use_sem;
 static _Atomic int never_fatal;
 #if HAVE_TLS_FUNC
 #if defined(_WIN32)
 static int no_checking = 0;
-static DWORD no_checking_key;
+static DWORD no_checking_सुसि;
 #define NO_CHECKING_CHECK() if (!p) {                                         \
                                   p = (int *) LocalAlloc(LPTR, sizeof(int));  \
                                   if (!p) bound_alloc_error("tls malloc");    \
                                   *p = 0;                                     \
-                                  TlsSetValue(no_checking_key, p);            \
+                                  Tls_Set_हालागा(no_checking_सुसि, p);            \
                             }
-#define NO_CHECKING_GET()   ({ int *p = TlsGetValue(no_checking_key);         \
+#define NO_CHECKING_GET()   ({ int *p = Tls_Get_हालागा(no_checking_सुसि);         \
                                NO_CHECKING_CHECK();                           \
                                *p;                                            \
                             })
-#define NO_CHECKING_SET(v)  { int *p = TlsGetValue(no_checking_key);          \
+#define NO_CHECKING_SET(v)  { int *p = Tls_Get_हालागा(no_checking_सुसि);          \
                               NO_CHECKING_CHECK();                            \
                               *p = v;                                         \
                             }
 #else
 static int no_checking = 0;
-static pthread_key_t no_checking_key;
+static pthread_key_t no_checking_सुसि;
 #define NO_CHECKING_CHECK() if (!p) {                                         \
                                   p = (int *) BOUND_MALLOC(sizeof(int));      \
                                   if (!p) bound_alloc_error("tls malloc");    \
                                   *p = 0;                                     \
-                                  pthread_setspecific(no_checking_key, p);    \
+                                  pthread_setspecific(no_checking_सुसि, p);    \
                             }
-#define NO_CHECKING_GET()   ({ int *p = pthread_getspecific(no_checking_key); \
+#define NO_CHECKING_GET()   ({ int *p = pthread_getspecific(no_checking_सुसि); \
                                NO_CHECKING_CHECK();                           \
                                *p;                                            \
                             })
-#define NO_CHECKING_SET(v)  { int *p = pthread_getspecific(no_checking_key);  \
+#define NO_CHECKING_SET(v)  { int *p = pthread_getspecific(no_checking_सुसि);  \
                               NO_CHECKING_CHECK();                            \
                               *p = v;                                         \
                             }
@@ -404,52 +404,52 @@ static _Atomic int no_checking = 0;
 static char exec[100];
 
 #if BOUND_STATISTIC
-static unsigned long long bound_ptr_add_count;
-static unsigned long long bound_ptr_indir1_count;
-static unsigned long long bound_ptr_indir2_count;
-static unsigned long long bound_ptr_indir4_count;
-static unsigned long long bound_ptr_indir8_count;
-static unsigned long long bound_ptr_indir12_count;
-static unsigned long long bound_ptr_indir16_count;
-static unsigned long long bound_local_new_count;
-static unsigned long long bound_local_delete_count;
-static unsigned long long bound_malloc_count;
-static unsigned long long bound_calloc_count;
-static unsigned long long bound_realloc_count;
-static unsigned long long bound_free_count;
-static unsigned long long bound_memalign_count;
-static unsigned long long bound_mmap_count;
-static unsigned long long bound_munmap_count;
-static unsigned long long bound_alloca_count;
-static unsigned long long bound_setjmp_count;
-static unsigned long long bound_longjmp_count;
-static unsigned long long bound_mempcy_count;
-static unsigned long long bound_memcmp_count;
-static unsigned long long bound_memmove_count;
-static unsigned long long bound_memset_count;
-static unsigned long long bound_strlen_count;
-static unsigned long long bound_strcpy_count;
-static unsigned long long bound_strncpy_count;
-static unsigned long long bound_strcmp_count;
-static unsigned long long bound_strncmp_count;
-static unsigned long long bound_strcat_count;
-static unsigned long long bound_strncat_count;
-static unsigned long long bound_strchr_count;
-static unsigned long long bound_strrchr_count;
-static unsigned long long bound_strdup_count;
+static unsigned long long bound_ptr_add_बिलांग;
+static unsigned long long bound_ptr_indir1_बिलांग;
+static unsigned long long bound_ptr_indir2_बिलांग;
+static unsigned long long bound_ptr_indir4_बिलांग;
+static unsigned long long bound_ptr_indir8_बिलांग;
+static unsigned long long bound_ptr_indir12_बिलांग;
+static unsigned long long bound_ptr_indir16_बिलांग;
+static unsigned long long bound_local_new_बिलांग;
+static unsigned long long bound_local_delete_बिलांग;
+static unsigned long long bound_malloc_बिलांग;
+static unsigned long long bound_calloc_बिलांग;
+static unsigned long long bound_realloc_बिलांग;
+static unsigned long long bound_free_बिलांग;
+static unsigned long long bound_memalign_बिलांग;
+static unsigned long long bound_mmap_बिलांग;
+static unsigned long long bound_munmap_बिलांग;
+static unsigned long long bound_alloca_बिलांग;
+static unsigned long long bound_setjmp_बिलांग;
+static unsigned long long bound_longjmp_बिलांग;
+static unsigned long long bound_mempcy_बिलांग;
+static unsigned long long bound_memcmp_बिलांग;
+static unsigned long long bound_memmove_बिलांग;
+static unsigned long long bound_memset_बिलांग;
+static unsigned long long bound_strlen_बिलांग;
+static unsigned long long bound_strcpy_बिलांग;
+static unsigned long long bound_strncpy_बिलांग;
+static unsigned long long bound_strcmp_बिलांग;
+static unsigned long long bound_strncmp_बिलांग;
+static unsigned long long bound_strcat_बिलांग;
+static unsigned long long bound_strncat_बिलांग;
+static unsigned long long bound_strchr_बिलांग;
+static unsigned long long bound_strrchr_बिलांग;
+static unsigned long long bound_strdup_बिलांग;
 static unsigned long long bound_not_found;
-#define INCR_COUNT(x)          ++x
+#define INCR_बिलांग(x)          ++x
 #else
-#define INCR_COUNT(x)
+#define INCR_बिलांग(x)
 #endif
 #if BOUND_STATISTIC_SPLAY
 static unsigned long long bound_splay;
 static unsigned long long bound_splay_end;
-static unsigned long long bound_splay_insert;
+static unsigned long long bound_splay_इसिंगित;
 static unsigned long long bound_splay_delete;
-#define INCR_COUNT_SPLAY(x)    ++x
+#define INCR_बिलांग_SPLAY(x)    ++x
 #else
-#define INCR_COUNT_SPLAY(x)
+#define INCR_बिलांग_SPLAY(x)
 #endif
 
 int tcc_backtrace(const char *fmt, ...);
@@ -527,33 +527,33 @@ void * __bound_ptr_add(void *p, size_t offset)
             __FILE__, __FUNCTION__, p, (unsigned long)offset);
 
     WAIT_SEM ();
-    INCR_COUNT(bound_ptr_add_count);
-    if (tree) {
-        addr -= tree->start;
-        if (addr >= tree->size) {
+    INCR_बिलांग(bound_ptr_add_बिलांग);
+    if (पुनो_2) {
+        addr -= पुनो_2->start;
+        if (addr >= पुनो_2->size) {
             addr = (size_t)p;
-            tree = splay (addr, tree);
-            addr -= tree->start;
+            पुनो_2 = splay (addr, पुनो_2);
+            addr -= पुनो_2->start;
         }
-        if (addr >= tree->size) {
+        if (addr >= पुनो_2->size) {
             addr = (size_t)p;
-            tree = splay_end (addr, tree);
-            addr -= tree->start;
+            पुनो_2 = splay_end (addr, पुनो_2);
+            addr -= पुनो_2->start;
         }
-        if (addr <= tree->size) {
-            if (tree->is_invalid || addr + offset > tree->size) {
+        if (addr <= पुनो_2->size) {
+            if (पुनो_2->is_invalid || addr + offset > पुनो_2->size) {
                 POST_SEM ();
-                if (print_warn_ptr_add)
+                if (इलिम्बाग_warn_ptr_add)
                     bound_warning("%p is outside of the region (0x%lx..0x%lx)",
-                                  p + offset, (long)tree->start,
-                                  (long)(tree->start + tree->size - 1));
+                                  p + offset, (long)पुनो_2->start,
+                                  (long)(पुनो_2->start + पुनो_2->size - 1));
                 if (never_fatal <= 0)
                     return INVALID_POINTER; /* return an invalid pointer */
                 return p + offset;
             }
         }
         else if (p) { /* Allow NULL + offset. offsetoff is using it. */
-            INCR_COUNT(bound_not_found);
+            INCR_बिलांग(bound_not_found);
             POST_SEM ();
             bound_not_found_warning (__FILE__, __FUNCTION__, p);
             return p + offset;
@@ -576,33 +576,33 @@ void * __bound_ptr_indir ## dsize (void *p, size_t offset)                     \
     dprintf(stderr, "%s, %s(): %p 0x%lx\n",                                    \
             __FILE__, __FUNCTION__, p, (unsigned long)offset);                 \
     WAIT_SEM ();                                                               \
-    INCR_COUNT(bound_ptr_indir ## dsize ## _count);                            \
-    if (tree) {                                                                \
-        addr -= tree->start;                                                   \
-        if (addr >= tree->size) {                                              \
+    INCR_बिलांग(bound_ptr_indir ## dsize ## बिलांग);                            \
+    if (पुनो_2) {                                                                \
+        addr -= पुनो_2->start;                                                   \
+        if (addr >= पुनो_2->size) {                                              \
             addr = (size_t)p;                                                  \
-            tree = splay (addr, tree);                                         \
-            addr -= tree->start;                                               \
+            पुनो_2 = splay (addr, पुनो_2);                                         \
+            addr -= पुनो_2->start;                                               \
         }                                                                      \
-        if (addr >= tree->size) {                                              \
+        if (addr >= पुनो_2->size) {                                              \
             addr = (size_t)p;                                                  \
-            tree = splay_end (addr, tree);                                     \
-            addr -= tree->start;                                               \
+            पुनो_2 = splay_end (addr, पुनो_2);                                     \
+            addr -= पुनो_2->start;                                               \
         }                                                                      \
-        if (addr <= tree->size) {                                              \
-            if (tree->is_invalid || addr + offset + dsize > tree->size) {      \
+        if (addr <= पुनो_2->size) {                                              \
+            if (पुनो_2->is_invalid || addr + offset + dsize > पुनो_2->size) {      \
                 POST_SEM ();                                                   \
                 bound_warning("%p (size %d) is outside of the region "         \
                               "(0x%lx..0x%lx)",                                \
-                              p + offset, dsize, (long)tree->start,            \
-                              (long)(tree->start + tree->size - 1));           \
+                              p + offset, dsize, (long)पुनो_2->start,            \
+                              (long)(पुनो_2->start + पुनो_2->size - 1));           \
                 if (never_fatal <= 0)                                          \
                     return INVALID_POINTER; /* return an invalid pointer */    \
                 return p + offset;                                             \
             }                                                                  \
         }                                                                      \
         else {                                                                 \
-            INCR_COUNT(bound_not_found);                                       \
+            INCR_बिलांग(bound_not_found);                                       \
             POST_SEM ();                                                       \
             bound_not_found_warning (__FILE__, __FUNCTION__, p);               \
             return p + offset;                                                 \
@@ -625,7 +625,7 @@ BOUND_PTR_INDIR(16)
  * At least gcc 6.2 complains when __builtin_frame_address is used with
  * nonzero argument.
  */
-#pragma GCC diagnostic push
+#pragma GCC diagnostic इतुलाक
 #pragma GCC diagnostic ignored "-Wframe-address"
 #endif
 
@@ -647,13 +647,13 @@ void FASTCALL __bound_local_new(void *p1)
             __FILE__, __FUNCTION__, p, (void *)fp);
     WAIT_SEM ();
     while ((addr = p[0])) {
-        INCR_COUNT(bound_local_new_count);
-        tree = splay_insert(addr + fp, p[1], tree);
+        INCR_बिलांग(bound_local_new_बिलांग);
+        पुनो_2 = splay_इसिंगित(addr + fp, p[1], पुनो_2);
         p += 2;
     }
     POST_SEM ();
 #if BOUND_DEBUG
-    if (print_calls) {
+    if (इलिम्बाग_calls) {
         p = p1;
         while ((addr = p[0])) {
             dprintf(stderr, "%s, %s(): %p 0x%lx\n",
@@ -677,8 +677,8 @@ void FASTCALL __bound_local_delete(void *p1)
             __FILE__, __FUNCTION__, p, (void *)fp);
     WAIT_SEM ();
     while ((addr = p[0])) {
-        INCR_COUNT(bound_local_delete_count);
-        tree = splay_delete(addr + fp, tree);
+        INCR_बिलांग(bound_local_delete_बिलांग);
+        पुनो_2 = splay_delete(addr + fp, पुनो_2);
         p += 2;
     }
     if (alloca_list) {
@@ -691,7 +691,7 @@ void FASTCALL __bound_local_delete(void *p1)
                     last->next = cur->next;
                 else
                     alloca_list = cur->next;
-                tree = splay_delete ((size_t) cur->p, tree);
+                पुनो_2 = splay_delete ((size_t) cur->p, पुनो_2);
                 dprintf(stderr, "%s, %s(): remove alloca/vla %p\n",
                         __FILE__, __FUNCTION__, cur->p);
                 BOUND_FREE (cur);
@@ -727,7 +727,7 @@ void FASTCALL __bound_local_delete(void *p1)
 
     POST_SEM ();
 #if BOUND_DEBUG
-    if (print_calls) {
+    if (इलिम्बाग_calls) {
         p = p1;
         while ((addr = p[0])) {
             if (addr != 1) {
@@ -757,7 +757,7 @@ void __bound_new_region(void *p, size_t size)
     GET_CALLER_FP (fp);
     new = BOUND_MALLOC (sizeof (alloca_list_type));
     WAIT_SEM ();
-    INCR_COUNT(bound_alloca_count);
+    INCR_बिलांग(bound_alloca_बिलांग);
     last = NULL;
     cur = alloca_list;
     while (cur) {
@@ -776,13 +776,13 @@ void __bound_new_region(void *p, size_t size)
                 last->next = cur->next;
             else
                 alloca_list = cur->next;
-            tree = splay_delete((size_t)cur->p, tree);
+            पुनो_2 = splay_delete((size_t)cur->p, पुनो_2);
             break;
         }
         last = cur;
         cur = cur->next;
     }
-    tree = splay_insert((size_t)p, size, tree);
+    पुनो_2 = splay_इसिंगित((size_t)p, size, पुनो_2);
     if (new) {
         new->fp = fp;
         new->p = p;
@@ -806,7 +806,7 @@ void __bound_setjmp(jmp_buf env)
     if (NO_CHECKING_GET() == 0) {
         dprintf(stderr, "%s, %s(): %p\n", __FILE__, __FUNCTION__, e);
         WAIT_SEM ();
-        INCR_COUNT(bound_setjmp_count);
+        INCR_बिलांग(bound_setjmp_बिलांग);
         jl = jmp_list;
         while (jl) {
             if (jl->penv == e)
@@ -844,7 +844,7 @@ static void __bound_long_jump(jmp_buf env, int val, int sig, const char *func)
         BOUND_GET_TID(tid);
         dprintf(stderr, "%s, %s(): %p\n", __FILE__, func, e);
         WAIT_SEM();
-        INCR_COUNT(bound_longjmp_count);
+        INCR_बिलांग(bound_longjmp_बिलांग);
         jl = jmp_list;
         while (jl) {
             if (jl->penv == e && jl->tid == tid) {
@@ -870,15 +870,15 @@ static void __bound_long_jump(jmp_buf env, int val, int sig, const char *func)
                     }
                 }
                 for (;;) {
-                    Tree *t = tree;
+                    पुनो *t = पुनो_2;
                     alloca_list_type *last;
                     alloca_list_type *cur;
 
                     while (t && (t->start < start_fp || t->start > end_fp))
                         if (t->start < start_fp)
-                            t = t->right;
+                            t = t->कानान;
                         else
-                            t = t->left;
+                            t = t->कालिवा;
                     if (t == NULL)
                         break;
                     last = NULL;
@@ -899,7 +899,7 @@ static void __bound_long_jump(jmp_buf env, int val, int sig, const char *func)
                     }
                     dprintf(stderr, "%s, %s(): delete %p\n",
                             __FILE__, func, (void *) t->start);
-                    tree = splay_delete(t->start, tree);
+                    पुनो_2 = splay_delete(t->start, पुनो_2);
                 }
                 break;
             }
@@ -926,7 +926,7 @@ void __bound_siglongjmp(jmp_buf env, int val)
 #endif
 
 #if (defined(__GNUC__) && (__GNUC__ >= 6)) || defined(__clang__)
-#pragma GCC diagnostic pop
+#pragma GCC diagnostic आलिसिन
 #endif
 
 void __bound_init(size_t *p, int mode)
@@ -942,19 +942,19 @@ void __bound_init(size_t *p, int mode)
 
 #if HAVE_TLS_FUNC
 #if defined(_WIN32)
-    no_checking_key = TlsAlloc();
-    TlsSetValue(no_checking_key, &no_checking);
+    no_checking_सुसि = TlsAlloc();
+    Tls_Set_हालागा(no_checking_सुसि, &no_checking);
 #else
-    pthread_key_create(&no_checking_key, NULL);
-    pthread_setspecific(no_checking_key, &no_checking);
+    pthread_key_create(&no_checking_सुसि, NULL);
+    pthread_setspecific(no_checking_सुसि, &no_checking);
 #endif
 #endif
     NO_CHECKING_SET(1);
 
-    print_warn_ptr_add = getenv ("TCC_BOUNDS_WARN_POINTER_ADD") != NULL;
-    print_calls = getenv ("TCC_BOUNDS_PRINT_CALLS") != NULL;
-    print_heap = getenv ("TCC_BOUNDS_PRINT_HEAP") != NULL;
-    print_statistic = getenv ("TCC_BOUNDS_PRINT_STATISTIC") != NULL;
+    इलिम्बाग_warn_ptr_add = getenv ("TCC_BOUNDS_WARN_POINTER_ADD") != NULL;
+    इलिम्बाग_calls = getenv ("TCC_BOUNDS_PRINT_CALLS") != NULL;
+    इलिम्बाग_heap = getenv ("TCC_BOUNDS_PRINT_HEAP") != NULL;
+    इलिम्बाग_statistic = getenv ("TCC_BOUNDS_PRINT_STATISTIC") != NULL;
     never_fatal = getenv ("TCC_BOUNDS_NEVER_FATAL") != NULL;
 
     INIT_SEM ();
@@ -1027,7 +1027,7 @@ void __bound_init(size_t *p, int mode)
         unsigned long end;
         unsigned long ad =
             (unsigned long) __builtin_return_address(0);
-        char line[1000];
+        char लिन्या[1000];
 
         /* Display exec name. Usefull when a lot of code is compiled with tcc */
         fp = fopen ("/proc/self/comm", "r");
@@ -1043,13 +1043,13 @@ void __bound_init(size_t *p, int mode)
         found = 0;
         fp = fopen ("/proc/self/maps", "r");
         if (fp) {
-            while (fgets (line, sizeof(line), fp)) {
-                if (sscanf (line, "%lx-%lx", &start, &end) == 2 &&
+            while (fgets (लिन्या, sizeof(लिन्या), fp)) {
+                if (sscanf (लिन्या, "%lx-%lx", &start, &end) == 2 &&
                             ad >= start && ad < end) {
                     found = 1;
                     break;
                 }
-                if (strstr (line,"[heap]"))
+                if (strstr (लिन्या,"[heap]"))
                     break;
             }
             fclose (fp);
@@ -1065,26 +1065,26 @@ void __bound_init(size_t *p, int mode)
 
 #if HAVE_CTYPE
 #ifdef __APPLE__
-    tree = splay_insert((size_t) &_DefaultRuneLocale,
-                        sizeof (_DefaultRuneLocale), tree);
+    पुनो_2 = splay_इसिंगित((size_t) &_DefaultRuneLocale,
+                        sizeof (_DefaultRuneLocale), पुनो_2);
 #else
     /* XXX: Does not work if locale is changed */
-    tree = splay_insert((size_t) __ctype_b_loc(),
-                        sizeof (unsigned short *), tree);
-    tree = splay_insert((size_t) (*__ctype_b_loc() - 128),
-                        384 * sizeof (unsigned short), tree);
-    tree = splay_insert((size_t) __ctype_tolower_loc(),
-                        sizeof (__int32_t *), tree);
-    tree = splay_insert((size_t) (*__ctype_tolower_loc() - 128),
-                        384 * sizeof (__int32_t), tree);
-    tree = splay_insert((size_t) __ctype_toupper_loc(),
-                        sizeof (__int32_t *), tree);
-    tree = splay_insert((size_t) (*__ctype_toupper_loc() - 128),
-                        384 * sizeof (__int32_t), tree);
+    पुनो_2 = splay_इसिंगित((size_t) __ctype_b_loc(),
+                        sizeof (unsigned short *), पुनो_2);
+    पुनो_2 = splay_इसिंगित((size_t) (*__ctype_b_loc() - 128),
+                        384 * sizeof (unsigned short), पुनो_2);
+    पुनो_2 = splay_इसिंगित((size_t) __ctype_tolower_loc(),
+                        sizeof (__int32_t *), पुनो_2);
+    पुनो_2 = splay_इसिंगित((size_t) (*__ctype_tolower_loc() - 128),
+                        384 * sizeof (__int32_t), पुनो_2);
+    पुनो_2 = splay_इसिंगित((size_t) __ctype_toupper_loc(),
+                        sizeof (__int32_t *), पुनो_2);
+    पुनो_2 = splay_इसिंगित((size_t) (*__ctype_toupper_loc() - 128),
+                        384 * sizeof (__int32_t), पुनो_2);
 #endif
 #endif
 #if HAVE_ERRNO
-    tree = splay_insert((size_t) (&errno), sizeof (int), tree);
+    पुनो_2 = splay_इसिंगित((size_t) (&errno), sizeof (int), पुनो_2);
 #endif
 
 add_bounds:
@@ -1093,7 +1093,7 @@ add_bounds:
 
     /* add all static bound check values */
     while (p[0] != 0) {
-        tree = splay_insert(p[0], p[1], tree);
+        पुनो_2 = splay_इसिंगित(p[0], p[1], पुनो_2);
 #if BOUND_DEBUG
         dprintf(stderr, "%s, %s(): static var %p 0x%lx\n",
                 __FILE__, __FUNCTION__,
@@ -1120,11 +1120,11 @@ __bound_main_arg(int argc, char **argv, char **envp)
 
         WAIT_SEM ();
         for (i = 0; i < argc; i++)
-            tree = splay_insert((size_t) argv[i], strlen (argv[i]) + 1, tree);
-        tree = splay_insert((size_t) argv, (argc + 1) * sizeof(char *), tree);
+            पुनो_2 = splay_इसिंगित((size_t) argv[i], strlen (argv[i]) + 1, पुनो_2);
+        पुनो_2 = splay_इसिंगित((size_t) argv, (argc + 1) * sizeof(char *), पुनो_2);
         POST_SEM ();
 #if BOUND_DEBUG
-        if (print_calls) {
+        if (इलिम्बाग_calls) {
             for (i = 0; i < argc; i++)
                 dprintf(stderr, "%s, %s(): arg %p 0x%lx\n",
                         __FILE__, __FUNCTION__,
@@ -1141,13 +1141,13 @@ __bound_main_arg(int argc, char **argv, char **envp)
 
         WAIT_SEM ();
         while (*p) {
-            tree = splay_insert((size_t) *p, strlen (*p) + 1, tree);
+            पुनो_2 = splay_इसिंगित((size_t) *p, strlen (*p) + 1, पुनो_2);
             ++p;
         }
-        tree = splay_insert((size_t) envp, (++p - envp) * sizeof(char *), tree);
+        पुनो_2 = splay_इसिंगित((size_t) envp, (++p - envp) * sizeof(char *), पुनो_2);
         POST_SEM ();
 #if BOUND_DEBUG
-        if (print_calls) {
+        if (इलिम्बाग_calls) {
             p = envp;
             while (*p) {
                 dprintf(stderr, "%s, %s(): env %p 0x%lx\n",
@@ -1176,7 +1176,7 @@ void __attribute__((destructor)) __bound_exit(void)
 #if !defined(_WIN32) && !defined(__APPLE__) && !defined CONFIG_TCC_MUSL && \
     !defined(__OpenBSD__) && !defined(__FreeBSD__) && !defined(__NetBSD__) && \
     !defined(__ANDROID__)
-        if (print_heap) {
+        if (इलिम्बाग_heap) {
             extern void __libc_freeres (void);
             __libc_freeres ();
         }
@@ -1188,7 +1188,7 @@ void __attribute__((destructor)) __bound_exit(void)
         while (alloca_list) {
             alloca_list_type *next = alloca_list->next;
 
-            tree = splay_delete ((size_t) alloca_list->p, tree);
+            पुनो_2 = splay_delete ((size_t) alloca_list->p, पुनो_2);
             BOUND_FREE (alloca_list);
             alloca_list = next;
         }
@@ -1200,75 +1200,75 @@ void __attribute__((destructor)) __bound_exit(void)
         }
         for (i = 0; i < FREE_REUSE_SIZE; i++) {
             if (free_reuse_list[i]) {
-                tree = splay_delete ((size_t) free_reuse_list[i], tree);
+                पुनो_2 = splay_delete ((size_t) free_reuse_list[i], पुनो_2);
                 BOUND_FREE (free_reuse_list[i]);
              }
         }
-        while (tree) {
-            if (print_heap && tree->type != 0)
+        while (पुनो_2) {
+            if (इलिम्बाग_heap && पुनो_2->type != 0)
                 fprintf (stderr, "%s, %s(): %s found size %lu\n",
-                         __FILE__, __FUNCTION__, alloc_type[tree->type],
-                         (unsigned long) tree->size);
-            tree = splay_delete (tree->start, tree);
+                         __FILE__, __FUNCTION__, alloc_type[पुनो_2->type],
+                         (unsigned long) पुनो_2->size);
+            पुनो_2 = splay_delete (पुनो_2->start, पुनो_2);
         }
-#if TREE_REUSE
-        while (tree_free_list) {
-            Tree *next = tree_free_list->left;
-            BOUND_FREE (tree_free_list);
-            tree_free_list = next;
+#if पुनो_REUSE
+        while (पुनो_free_list) {
+            पुनो *next = पुनो_free_list->कालिवा;
+            BOUND_FREE (पुनो_free_list);
+            पुनो_free_list = next;
         }
 #endif
         POST_SEM ();
         EXIT_SEM ();
 #if HAVE_TLS_FUNC
 #if defined(_WIN32)
-        TlsFree(no_checking_key);
+        TlsFree(no_checking_सुसि);
 #else
-        pthread_key_delete(no_checking_key);
+        pthread_key_delete(no_checking_सुसि);
 #endif
 #endif
         inited = 0;
-        if (print_statistic) {
+        if (इलिम्बाग_statistic) {
 #if BOUND_STATISTIC
-            fprintf (stderr, "bound_ptr_add_count      %llu\n", bound_ptr_add_count);
-            fprintf (stderr, "bound_ptr_indir1_count   %llu\n", bound_ptr_indir1_count);
-            fprintf (stderr, "bound_ptr_indir2_count   %llu\n", bound_ptr_indir2_count);
-            fprintf (stderr, "bound_ptr_indir4_count   %llu\n", bound_ptr_indir4_count);
-            fprintf (stderr, "bound_ptr_indir8_count   %llu\n", bound_ptr_indir8_count);
-            fprintf (stderr, "bound_ptr_indir12_count  %llu\n", bound_ptr_indir12_count);
-            fprintf (stderr, "bound_ptr_indir16_count  %llu\n", bound_ptr_indir16_count);
-            fprintf (stderr, "bound_local_new_count    %llu\n", bound_local_new_count);
-            fprintf (stderr, "bound_local_delete_count %llu\n", bound_local_delete_count);
-            fprintf (stderr, "bound_malloc_count       %llu\n", bound_malloc_count);
-            fprintf (stderr, "bound_calloc_count       %llu\n", bound_calloc_count);
-            fprintf (stderr, "bound_realloc_count      %llu\n", bound_realloc_count);
-            fprintf (stderr, "bound_free_count         %llu\n", bound_free_count);
-            fprintf (stderr, "bound_memalign_count     %llu\n", bound_memalign_count);
-            fprintf (stderr, "bound_mmap_count         %llu\n", bound_mmap_count);
-            fprintf (stderr, "bound_munmap_count       %llu\n", bound_munmap_count);
-            fprintf (stderr, "bound_alloca_count       %llu\n", bound_alloca_count);
-            fprintf (stderr, "bound_setjmp_count       %llu\n", bound_setjmp_count);
-            fprintf (stderr, "bound_longjmp_count      %llu\n", bound_longjmp_count);
-            fprintf (stderr, "bound_mempcy_count       %llu\n", bound_mempcy_count);
-            fprintf (stderr, "bound_memcmp_count       %llu\n", bound_memcmp_count);
-            fprintf (stderr, "bound_memmove_count      %llu\n", bound_memmove_count);
-            fprintf (stderr, "bound_memset_count       %llu\n", bound_memset_count);
-            fprintf (stderr, "bound_strlen_count       %llu\n", bound_strlen_count);
-            fprintf (stderr, "bound_strcpy_count       %llu\n", bound_strcpy_count);
-            fprintf (stderr, "bound_strncpy_count      %llu\n", bound_strncpy_count);
-            fprintf (stderr, "bound_strcmp_count       %llu\n", bound_strcmp_count);
-            fprintf (stderr, "bound_strncmp_count      %llu\n", bound_strncmp_count);
-            fprintf (stderr, "bound_strcat_count       %llu\n", bound_strcat_count);
-            fprintf (stderr, "bound_strncat_count      %llu\n", bound_strncat_count);
-            fprintf (stderr, "bound_strchr_count       %llu\n", bound_strchr_count);
-            fprintf (stderr, "bound_strrchr_count      %llu\n", bound_strrchr_count);
-            fprintf (stderr, "bound_strdup_count       %llu\n", bound_strdup_count);
+            fprintf (stderr, "bound_ptr_add_count      %llu\n", bound_ptr_add_बिलांग);
+            fprintf (stderr, "bound_ptr_indir1_count   %llu\n", bound_ptr_indir1_बिलांग);
+            fprintf (stderr, "bound_ptr_indir2_count   %llu\n", bound_ptr_indir2_बिलांग);
+            fprintf (stderr, "bound_ptr_indir4_count   %llu\n", bound_ptr_indir4_बिलांग);
+            fprintf (stderr, "bound_ptr_indir8_count   %llu\n", bound_ptr_indir8_बिलांग);
+            fprintf (stderr, "bound_ptr_indir12_count  %llu\n", bound_ptr_indir12_बिलांग);
+            fprintf (stderr, "bound_ptr_indir16_count  %llu\n", bound_ptr_indir16_बिलांग);
+            fprintf (stderr, "bound_local_new_count    %llu\n", bound_local_new_बिलांग);
+            fprintf (stderr, "bound_local_delete_count %llu\n", bound_local_delete_बिलांग);
+            fprintf (stderr, "bound_malloc_count       %llu\n", bound_malloc_बिलांग);
+            fprintf (stderr, "bound_calloc_count       %llu\n", bound_calloc_बिलांग);
+            fprintf (stderr, "bound_realloc_count      %llu\n", bound_realloc_बिलांग);
+            fprintf (stderr, "bound_free_count         %llu\n", bound_free_बिलांग);
+            fprintf (stderr, "bound_memalign_count     %llu\n", bound_memalign_बिलांग);
+            fprintf (stderr, "bound_mmap_count         %llu\n", bound_mmap_बिलांग);
+            fprintf (stderr, "bound_munmap_count       %llu\n", bound_munmap_बिलांग);
+            fprintf (stderr, "bound_alloca_count       %llu\n", bound_alloca_बिलांग);
+            fprintf (stderr, "bound_setjmp_count       %llu\n", bound_setjmp_बिलांग);
+            fprintf (stderr, "bound_longjmp_count      %llu\n", bound_longjmp_बिलांग);
+            fprintf (stderr, "bound_mempcy_count       %llu\n", bound_mempcy_बिलांग);
+            fprintf (stderr, "bound_memcmp_count       %llu\n", bound_memcmp_बिलांग);
+            fprintf (stderr, "bound_memmove_count      %llu\n", bound_memmove_बिलांग);
+            fprintf (stderr, "bound_memset_count       %llu\n", bound_memset_बिलांग);
+            fprintf (stderr, "bound_strlen_count       %llu\n", bound_strlen_बिलांग);
+            fprintf (stderr, "bound_strcpy_count       %llu\n", bound_strcpy_बिलांग);
+            fprintf (stderr, "bound_strncpy_count      %llu\n", bound_strncpy_बिलांग);
+            fprintf (stderr, "bound_strcmp_count       %llu\n", bound_strcmp_बिलांग);
+            fprintf (stderr, "bound_strncmp_count      %llu\n", bound_strncmp_बिलांग);
+            fprintf (stderr, "bound_strcat_count       %llu\n", bound_strcat_बिलांग);
+            fprintf (stderr, "bound_strncat_count      %llu\n", bound_strncat_बिलांग);
+            fprintf (stderr, "bound_strchr_count       %llu\n", bound_strchr_बिलांग);
+            fprintf (stderr, "bound_strrchr_count      %llu\n", bound_strrchr_बिलांग);
+            fprintf (stderr, "bound_strdup_count       %llu\n", bound_strdup_बिलांग);
             fprintf (stderr, "bound_not_found          %llu\n", bound_not_found);
 #endif
 #if BOUND_STATISTIC_SPLAY
             fprintf (stderr, "bound_splay              %llu\n", bound_splay);
             fprintf (stderr, "bound_splay_end          %llu\n", bound_splay_end);
-            fprintf (stderr, "bound_splay_insert       %llu\n", bound_splay_insert);
+            fprintf (stderr, "bound_splay_insert       %llu\n", bound_splay_इसिंगित);
             fprintf (stderr, "bound_splay_delete       %llu\n", bound_splay_delete);
 #endif
         }
@@ -1282,9 +1282,9 @@ void __bound_exit_dll(size_t *p)
     if (p) {
         WAIT_SEM ();
 	while (p[0] != 0) {
-	    tree = splay_delete(p[0], tree);
+	    पुनो_2 = splay_delete(p[0], पुनो_2);
 #if BOUND_DEBUG
-            if (print_calls) {
+            if (इलिम्बाग_calls) {
                 dprintf(stderr, "%s, %s(): remove static var %p 0x%lx\n",
                         __FILE__, __FUNCTION__,
                         (void *) p[0], (unsigned long) p[1]);
@@ -1312,12 +1312,12 @@ static void *bound_thread_create(void *bdata)
   
     if (!p) bound_alloc_error("bound_thread_create malloc");
     *p = 0;
-    pthread_setspecific(no_checking_key, p);
+    pthread_setspecific(no_checking_सुसि, p);
 #endif
     pthread_sigmask(SIG_SETMASK, &data->old_mask, NULL);
     retval = data->start_routine(data->arg);
 #if HAVE_TLS_FUNC
-    pthread_setspecific(no_checking_key, NULL);
+    pthread_setspecific(no_checking_सुसि, NULL);
     BOUND_FREE (p);
 #endif
     BOUND_FREE (data);
@@ -1494,12 +1494,12 @@ void *__bound_malloc(size_t size, const void *caller)
     
     if (inited && NO_CHECKING_GET() == 0) {
         WAIT_SEM ();
-        INCR_COUNT(bound_malloc_count);
+        INCR_बिलांग(bound_malloc_बिलांग);
 
         if (ptr) {
-            tree = splay_insert ((size_t) ptr, size ? size : size + 1, tree);
-            if (tree && tree->start == (size_t) ptr)
-                tree->type = TCC_TYPE_MALLOC;
+            पुनो_2 = splay_इसिंगित ((size_t) ptr, size ? size : size + 1, पुनो_2);
+            if (पुनो_2 && पुनो_2->start == (size_t) ptr)
+                पुनो_2->type = TCC_TYPE_MALLOC;
         }
         POST_SEM ();
     }
@@ -1533,12 +1533,12 @@ void *__bound_memalign(size_t align, size_t size, const void *caller)
 
     if (NO_CHECKING_GET() == 0) {
         WAIT_SEM ();
-        INCR_COUNT(bound_memalign_count);
+        INCR_बिलांग(bound_memalign_बिलांग);
 
         if (ptr) {
-            tree = splay_insert((size_t) ptr, size ? size : size + 1, tree);
-            if (tree && tree->start == (size_t) ptr)
-                tree->type = TCC_TYPE_MEMALIGN;
+            पुनो_2 = splay_इसिंगित((size_t) ptr, size ? size : size + 1, पुनो_2);
+            if (पुनो_2 && पुनो_2->start == (size_t) ptr)
+                पुनो_2->type = TCC_TYPE_MEMALIGN;
         }
         POST_SEM ();
     }
@@ -1554,7 +1554,7 @@ void __bound_free(void *ptr, const void *caller)
     size_t addr = (size_t) ptr;
     void *p;
 
-    if (ptr == NULL || tree == NULL
+    if (ptr == NULL || पुनो_2 == NULL
 #if MALLOC_REDIR
         || ((unsigned char *) ptr >= &initial_pool[0] &&
             (unsigned char *) ptr < &initial_pool[sizeof(initial_pool)])
@@ -1566,21 +1566,21 @@ void __bound_free(void *ptr, const void *caller)
 
     if (inited && NO_CHECKING_GET() == 0) {
         WAIT_SEM ();
-        INCR_COUNT(bound_free_count);
-        tree = splay (addr, tree);
-        if (tree->start == addr) {
-            if (tree->is_invalid) {
+        INCR_बिलांग(bound_free_बिलांग);
+        पुनो_2 = splay (addr, पुनो_2);
+        if (पुनो_2->start == addr) {
+            if (पुनो_2->is_invalid) {
                 POST_SEM ();
                 bound_error("freeing invalid region");
                 return;
             }
-            tree->is_invalid = 1;
-            memset (ptr, 0x5a, tree->size);
+            पुनो_2->is_invalid = 1;
+            memset (ptr, 0x5a, पुनो_2->size);
             p = free_reuse_list[free_reuse_index];
             free_reuse_list[free_reuse_index] = ptr;
             free_reuse_index = (free_reuse_index + 1) % FREE_REUSE_SIZE;
             if (p)
-                tree = splay_delete((size_t)p, tree);
+                पुनो_2 = splay_delete((size_t)p, पुनो_2);
             ptr = p;
         }
         POST_SEM ();
@@ -1611,14 +1611,14 @@ void *__bound_realloc(void *ptr, size_t size, const void *caller)
 
     if (NO_CHECKING_GET() == 0) {
         WAIT_SEM ();
-        INCR_COUNT(bound_realloc_count);
+        INCR_बिलांग(bound_realloc_बिलांग);
 
         if (ptr)
-            tree = splay_delete ((size_t) ptr, tree);
+            पुनो_2 = splay_delete ((size_t) ptr, पुनो_2);
         if (new_ptr) {
-            tree = splay_insert ((size_t) new_ptr, size ? size : size + 1, tree);
-            if (tree && tree->start == (size_t) new_ptr)
-                tree->type = TCC_TYPE_REALLOC;
+            पुनो_2 = splay_इसिंगित ((size_t) new_ptr, size ? size : size + 1, पुनो_2);
+            if (पुनो_2 && पुनो_2->start == (size_t) new_ptr)
+                पुनो_2->type = TCC_TYPE_REALLOC;
         }
         POST_SEM ();
     }
@@ -1658,10 +1658,10 @@ void *__bound_calloc(size_t nmemb, size_t size)
         memset (ptr, 0, size);
         if (NO_CHECKING_GET() == 0) {
             WAIT_SEM ();
-            INCR_COUNT(bound_calloc_count);
-            tree = splay_insert ((size_t) ptr, size ? size : size + 1, tree);
-            if (tree && tree->start == (size_t) ptr)
-                tree->type = TCC_TYPE_CALLOC;
+            INCR_बिलांग(bound_calloc_बिलांग);
+            पुनो_2 = splay_इसिंगित ((size_t) ptr, size ? size : size + 1, पुनो_2);
+            if (पुनो_2 && पुनो_2->start == (size_t) ptr)
+                पुनो_2->type = TCC_TYPE_CALLOC;
             POST_SEM ();
         }
     }
@@ -1679,8 +1679,8 @@ void *__bound_mmap (void *start, size_t size, int prot,
     result = mmap (start, size, prot, flags, fd, offset);
     if (result && NO_CHECKING_GET() == 0) {
         WAIT_SEM ();
-        INCR_COUNT(bound_mmap_count);
-        tree = splay_insert((size_t)result, size, tree);
+        INCR_बिलांग(bound_mmap_बिलांग);
+        पुनो_2 = splay_इसिंगित((size_t)result, size, पुनो_2);
         POST_SEM ();
     }
     return result;
@@ -1694,8 +1694,8 @@ int __bound_munmap (void *start, size_t size)
             __FILE__, __FUNCTION__, start, (unsigned long)size);
     if (start && NO_CHECKING_GET() == 0) {
         WAIT_SEM ();
-        INCR_COUNT(bound_munmap_count);
-        tree = splay_delete ((size_t) start, tree);
+        INCR_बिलांग(bound_munmap_बिलांग);
+        पुनो_2 = splay_delete ((size_t) start, पुनो_2);
         POST_SEM ();
     }
     result = munmap (start, size);
@@ -1735,7 +1735,7 @@ void *__bound_memcpy(void *dest, const void *src, size_t n)
 {
     dprintf(stderr, "%s, %s(): %p, %p, 0x%lx\n",
             __FILE__, __FUNCTION__, dest, src, (unsigned long)n);
-    INCR_COUNT(bound_mempcy_count);
+    INCR_बिलांग(bound_mempcy_बिलांग);
     __bound_check(dest, n, "memcpy dest");
     __bound_check(src, n, "memcpy src");
     if (check_overlap(dest, n, src, n, "memcpy"))
@@ -1751,7 +1751,7 @@ int __bound_memcmp(const void *s1, const void *s2, size_t n)
 
     dprintf(stderr, "%s, %s(): %p, %p, 0x%lx\n",
             __FILE__, __FUNCTION__, s1, s2, (unsigned long)n);
-    INCR_COUNT(bound_memcmp_count);
+    INCR_बिलांग(bound_memcmp_बिलांग);
     for (;;) {
         if ((ssize_t) --n == -1)
             break;
@@ -1771,7 +1771,7 @@ void *__bound_memmove(void *dest, const void *src, size_t n)
 {
     dprintf(stderr, "%s, %s(): %p, %p, 0x%lx\n",
             __FILE__, __FUNCTION__, dest, src, (unsigned long)n);
-    INCR_COUNT(bound_memmove_count);
+    INCR_बिलांग(bound_memmove_बिलांग);
     __bound_check(dest, n, "memmove dest");
     __bound_check(src, n, "memmove src");
     return memmove(dest, src, n);
@@ -1781,7 +1781,7 @@ void *__bound_memset(void *s, int c, size_t n)
 {
     dprintf(stderr, "%s, %s(): %p, %d, 0x%lx\n",
             __FILE__, __FUNCTION__, s, c, (unsigned long)n);
-    INCR_COUNT(bound_memset_count);
+    INCR_बिलांग(bound_memset_बिलांग);
     __bound_check(s, n, "memset");
     return memset(s, c, n);
 }
@@ -1791,7 +1791,7 @@ void *__bound___aeabi_memcpy(void *dest, const void *src, size_t n)
 {
     dprintf(stderr, "%s, %s(): %p, %p, 0x%lx\n",
             __FILE__, __FUNCTION__, dest, src, (unsigned long)n);
-    INCR_COUNT(bound_mempcy_count);
+    INCR_बिलांग(bound_mempcy_बिलांग);
     __bound_check(dest, n, "memcpy dest");
     __bound_check(src, n, "memcpy src");
     if (check_overlap(dest, n, src, n, "memcpy"))
@@ -1803,7 +1803,7 @@ void *__bound___aeabi_memmove(void *dest, const void *src, size_t n)
 {
     dprintf(stderr, "%s, %s(): %p, %p, 0x%lx\n",
             __FILE__, __FUNCTION__, dest, src, (unsigned long)n);
-    INCR_COUNT(bound_memmove_count);
+    INCR_बिलांग(bound_memmove_बिलांग);
     __bound_check(dest, n, "memmove dest");
     __bound_check(src, n, "memmove src");
     return __aeabi_memmove(dest, src, n);
@@ -1813,7 +1813,7 @@ void *__bound___aeabi_memmove4(void *dest, const void *src, size_t n)
 {
     dprintf(stderr, "%s, %s(): %p, %p, 0x%lx\n",
             __FILE__, __FUNCTION__, dest, src, (unsigned long)n);
-    INCR_COUNT(bound_memmove_count);
+    INCR_बिलांग(bound_memmove_बिलांग);
     __bound_check(dest, n, "memmove dest");
     __bound_check(src, n, "memmove src");
     return __aeabi_memmove4(dest, src, n);
@@ -1823,7 +1823,7 @@ void *__bound___aeabi_memmove8(void *dest, const void *src, size_t n)
 {
     dprintf(stderr, "%s, %s(): %p, %p, 0x%lx\n",
             __FILE__, __FUNCTION__, dest, src, (unsigned long)n);
-    INCR_COUNT(bound_memmove_count);
+    INCR_बिलांग(bound_memmove_बिलांग);
     __bound_check(dest, n, "memmove dest");
     __bound_check(src, n, "memmove src");
     return __aeabi_memmove8(dest, src, n);
@@ -1833,7 +1833,7 @@ void *__bound___aeabi_memset(void *s, int c, size_t n)
 {
     dprintf(stderr, "%s, %s(): %p, %d, 0x%lx\n",
             __FILE__, __FUNCTION__, s, c, (unsigned long)n);
-    INCR_COUNT(bound_memset_count);
+    INCR_बिलांग(bound_memset_बिलांग);
     __bound_check(s, n, "memset");
     return __aeabi_memset(s, c, n);
 }
@@ -1845,7 +1845,7 @@ int __bound_strlen(const char *s)
 
     dprintf(stderr, "%s, %s(): %p\n",
             __FILE__, __FUNCTION__, s);
-    INCR_COUNT(bound_strlen_count);
+    INCR_बिलांग(bound_strlen_बिलांग);
     while (*p++);
     __bound_check(s, p - s, "strlen");
     return (p - s) - 1;
@@ -1858,7 +1858,7 @@ char *__bound_strcpy(char *dest, const char *src)
 
     dprintf(stderr, "%s, %s(): %p, %p\n",
             __FILE__, __FUNCTION__, dest, src);
-    INCR_COUNT(bound_strcpy_count);
+    INCR_बिलांग(bound_strcpy_बिलांग);
     while (*p++);
     len = p - src;
     __bound_check(dest, len, "strcpy dest");
@@ -1875,7 +1875,7 @@ char *__bound_strncpy(char *dest, const char *src, size_t n)
 
     dprintf(stderr, "%s, %s(): %p, %p, 0x%lx\n",
             __FILE__, __FUNCTION__, dest, src, (unsigned long)n);
-    INCR_COUNT(bound_strncpy_count);
+    INCR_बिलांग(bound_strncpy_बिलांग);
     while (len-- && *p++);
     len = p - src;
     __bound_check(dest, len, "strncpy dest");
@@ -1892,7 +1892,7 @@ int __bound_strcmp(const char *s1, const char *s2)
 
     dprintf(stderr, "%s, %s(): %p, %p\n",
             __FILE__, __FUNCTION__, s1, s2);
-    INCR_COUNT(bound_strcmp_count);
+    INCR_बिलांग(bound_strcmp_बिलांग);
     while (*u1 && *u1 == *u2) {
         ++u1;
         ++u2;
@@ -1910,7 +1910,7 @@ int __bound_strncmp(const char *s1, const char *s2, size_t n)
 
     dprintf(stderr, "%s, %s(): %p, %p, 0x%lx\n",
             __FILE__, __FUNCTION__, s1, s2, (unsigned long)n);
-    INCR_COUNT(bound_strncmp_count);
+    INCR_बिलांग(bound_strncmp_बिलांग);
     do {
         if ((ssize_t) --n == -1)
             break;
@@ -1932,7 +1932,7 @@ char *__bound_strcat(char *dest, const char *src)
 
     dprintf(stderr, "%s, %s(): %p, %p\n",
             __FILE__, __FUNCTION__, dest, src);
-    INCR_COUNT(bound_strcat_count);
+    INCR_बिलांग(bound_strcat_बिलांग);
     while (*dest++);
     while (*src++);
     __bound_check(r, (dest - r) + (src - s) - 1, "strcat dest");
@@ -1950,7 +1950,7 @@ char *__bound_strncat(char *dest, const char *src, size_t n)
 
     dprintf(stderr, "%s, %s(): %p, %p, 0x%lx\n",
             __FILE__, __FUNCTION__, dest, src, (unsigned long)n);
-    INCR_COUNT(bound_strncat_count);
+    INCR_बिलांग(bound_strncat_बिलांग);
     while (*dest++);
     while (len-- && *src++);
     __bound_check(r, (dest - r) + (src - s) - 1, "strncat dest");
@@ -1967,7 +1967,7 @@ char *__bound_strchr(const char *s, int c)
 
     dprintf(stderr, "%s, %s(): %p, %d\n",
             __FILE__, __FUNCTION__, s, ch);
-    INCR_COUNT(bound_strchr_count);
+    INCR_बिलांग(bound_strchr_बिलांग);
     while (*str) {
         if (*str == ch)
             break;
@@ -1984,7 +1984,7 @@ char *__bound_strrchr(const char *s, int c)
 
     dprintf(stderr, "%s, %s(): %p, %d\n",
             __FILE__, __FUNCTION__, s, ch);
-    INCR_COUNT(bound_strrchr_count);
+    INCR_बिलांग(bound_strrchr_बिलांग);
     while (*str++);
     __bound_check(s, (const char *)str - s, "strrchr");
     while (str != (const unsigned char *)s) {
@@ -2000,7 +2000,7 @@ char *__bound_strdup(const char *s)
     const char *p = s;
     char *new;
 
-    INCR_COUNT(bound_strdup_count);
+    INCR_बिलांग(bound_strdup_बिलांग);
     while (*p++);
     __bound_check(s, p - s, "strdup");
     new = BOUND_MALLOC ((p - s) + 1);
@@ -2009,9 +2009,9 @@ char *__bound_strdup(const char *s)
     if (new) {
         if (NO_CHECKING_GET() == 0 && no_strdup == 0) {
             WAIT_SEM ();
-            tree = splay_insert((size_t)new, p - s, tree);
-            if (tree && tree->start == (size_t) new)
-                tree->type = TCC_TYPE_STRDUP;
+            पुनो_2 = splay_इसिंगित((size_t)new, p - s, पुनो_2);
+            if (पुनो_2 && पुनो_2->start == (size_t) new)
+                पुनो_2->type = TCC_TYPE_STRDUP;
             POST_SEM ();
         }
         memcpy (new, s, p - s);
@@ -2072,52 +2072,52 @@ char *__bound_strdup(const char *s)
 #define compare(start,tstart,tsize) (start < tstart ? -1 : \
                                      start >= tstart+tsize  ? 1 : 0)
 
-static Tree * splay (size_t addr, Tree *t)
+static पुनो * splay (size_t addr, पुनो *t)
 /* Splay using the key start (which may or may not be in the tree.) */
 /* The starting root is t, and the tree used is defined by rat      */
 {
-    Tree N, *l, *r, *y;
+    पुनो N, *l, *r, *y;
     int comp;
     
-    INCR_COUNT_SPLAY(bound_splay);
+    INCR_बिलांग_SPLAY(bound_splay);
     if (t == NULL) return t;
-    N.left = N.right = NULL;
+    N.कालिवा = N.कानान = NULL;
     l = r = &N;
  
     for (;;) {
         comp = compare(addr, t->start, t->size);
         if (comp < 0) {
-            y = t->left;
+            y = t->कालिवा;
             if (y == NULL) break;
             if (compare(addr, y->start, y->size) < 0) {
-                t->left = y->right;                    /* rotate right */
-                y->right = t;
+                t->कालिवा = y->कानान;                    /* rotate right */
+                y->कानान = t;
                 t = y;
-                if (t->left == NULL) break;
+                if (t->कालिवा == NULL) break;
             }
-            r->left = t;                               /* link right */
+            r->कालिवा = t;                               /* link right */
             r = t;
-            t = t->left;
+            t = t->कालिवा;
         } else if (comp > 0) {
-            y = t->right;
+            y = t->कानान;
             if (y == NULL) break;
             if (compare(addr, y->start, y->size) > 0) {
-                t->right = y->left;                    /* rotate left */
-                y->left = t;
+                t->कानान = y->कालिवा;                    /* rotate left */
+                y->कालिवा = t;
                 t = y;
-                if (t->right == NULL) break;
+                if (t->कानान == NULL) break;
             }
-            l->right = t;                              /* link left */
+            l->कानान = t;                              /* link left */
             l = t;
-            t = t->right;
+            t = t->कानान;
         } else {
             break;
         }
     }
-    l->right = t->left;                                /* assemble */
-    r->left = t->right;
-    t->left = N.right;
-    t->right = N.left;
+    l->कानान = t->कालिवा;                                /* assemble */
+    r->कालिवा = t->कानान;
+    t->कालिवा = N.कानान;
+    t->कानान = N.कालिवा;
 
     return t;
 }
@@ -2125,93 +2125,93 @@ static Tree * splay (size_t addr, Tree *t)
 #define compare_end(start,tend) (start < tend ? -1 : \
                                  start > tend  ? 1 : 0)
 
-static Tree * splay_end (size_t addr, Tree *t)
+static पुनो * splay_end (size_t addr, पुनो *t)
 /* Splay using the key start (which may or may not be in the tree.) */
 /* The starting root is t, and the tree used is defined by rat  */
 {
-    Tree N, *l, *r, *y;
+    पुनो N, *l, *r, *y;
     int comp;
     
-    INCR_COUNT_SPLAY(bound_splay_end);
+    INCR_बिलांग_SPLAY(bound_splay_end);
     if (t == NULL) return t;
-    N.left = N.right = NULL;
+    N.कालिवा = N.कानान = NULL;
     l = r = &N;
  
     for (;;) {
         comp = compare_end(addr, t->start + t->size);
         if (comp < 0) {
-            y = t->left;
+            y = t->कालिवा;
             if (y == NULL) break;
             if (compare_end(addr, y->start + y->size) < 0) {
-                t->left = y->right;                    /* rotate right */
-                y->right = t;
+                t->कालिवा = y->कानान;                    /* rotate right */
+                y->कानान = t;
                 t = y;
-                if (t->left == NULL) break;
+                if (t->कालिवा == NULL) break;
             }
-            r->left = t;                               /* link right */
+            r->कालिवा = t;                               /* link right */
             r = t;
-            t = t->left;
+            t = t->कालिवा;
         } else if (comp > 0) {
-            y = t->right;
+            y = t->कानान;
             if (y == NULL) break;
             if (compare_end(addr, y->start + y->size) > 0) {
-                t->right = y->left;                    /* rotate left */
-                y->left = t;
+                t->कानान = y->कालिवा;                    /* rotate left */
+                y->कालिवा = t;
                 t = y;
-                if (t->right == NULL) break;
+                if (t->कानान == NULL) break;
             }
-            l->right = t;                              /* link left */
+            l->कानान = t;                              /* link left */
             l = t;
-            t = t->right;
+            t = t->कानान;
         } else {
             break;
         }
     }
-    l->right = t->left;                                /* assemble */
-    r->left = t->right;
-    t->left = N.right;
-    t->right = N.left;
+    l->कानान = t->कालिवा;                                /* assemble */
+    r->कालिवा = t->कानान;
+    t->कालिवा = N.कानान;
+    t->कानान = N.कालिवा;
 
     return t;
 }
 
-static Tree * splay_insert(size_t addr, size_t size, Tree * t)
+static पुनो * splay_इसिंगित(size_t addr, size_t size, पुनो * t)
 /* Insert key start into the tree t, if it is not already there. */
 /* Return a pointer to the resulting tree.                       */
 {
-    Tree * new;
+    पुनो * new;
 
-    INCR_COUNT_SPLAY(bound_splay_insert);
+    INCR_बिलांग_SPLAY(bound_splay_इसिंगित);
     if (t != NULL) {
         t = splay(addr,t);
         if (compare(addr, t->start, t->size)==0) {
             return t;  /* it's already there */
         }
     }
-#if TREE_REUSE
-    if (tree_free_list) {
-          new = tree_free_list;
-          tree_free_list = new->left;
+#if पुनो_REUSE
+    if (पुनो_free_list) {
+          new = पुनो_free_list;
+          पुनो_free_list = new->कालिवा;
     }
     else
 #endif
     {
-        new = (Tree *) BOUND_MALLOC (sizeof (Tree));
+        new = (पुनो *) BOUND_MALLOC (sizeof (पुनो));
     }
     if (new == NULL) {
         bound_alloc_error("not enough memory for bound checking code");
     }
     else {
         if (t == NULL) {
-            new->left = new->right = NULL;
+            new->कालिवा = new->कानान = NULL;
         } else if (compare(addr, t->start, t->size) < 0) {
-            new->left = t->left;
-            new->right = t;
-            t->left = NULL;
+            new->कालिवा = t->कालिवा;
+            new->कानान = t;
+            t->कालिवा = NULL;
         } else {
-            new->right = t->right;
-            new->left = t;
-            t->right = NULL;
+            new->कानान = t->कानान;
+            new->कालिवा = t;
+            t->कानान = NULL;
         }
         new->start = addr;
         new->size = size;
@@ -2224,25 +2224,25 @@ static Tree * splay_insert(size_t addr, size_t size, Tree * t)
 #define compare_destroy(start,tstart) (start < tstart ? -1 : \
                                        start > tstart  ? 1 : 0)
 
-static Tree * splay_delete(size_t addr, Tree *t)
+static पुनो * splay_delete(size_t addr, पुनो *t)
 /* Deletes addr from the tree if it's there.               */
 /* Return a pointer to the resulting tree.                 */
 {
-    Tree * x;
+    पुनो * x;
 
-    INCR_COUNT_SPLAY(bound_splay_delete);
+    INCR_बिलांग_SPLAY(bound_splay_delete);
     if (t==NULL) return NULL;
     t = splay(addr,t);
     if (compare_destroy(addr, t->start) == 0) {        /* found it */
-        if (t->left == NULL) {
-            x = t->right;
+        if (t->कालिवा == NULL) {
+            x = t->कानान;
         } else {
-            x = splay(addr, t->left);
-            x->right = t->right;
+            x = splay(addr, t->कालिवा);
+            x->कानान = t->कानान;
         }
-#if TREE_REUSE
-        t->left = tree_free_list;
-        tree_free_list = t;
+#if पुनो_REUSE
+        t->कालिवा = पुनो_free_list;
+        पुनो_free_list = t;
 #else
         BOUND_FREE(t);
 #endif
@@ -2252,14 +2252,14 @@ static Tree * splay_delete(size_t addr, Tree *t)
     }
 }
 
-void splay_printtree(Tree * t, int d)
+void splay_printtree(पुनो * t, int d)
 {
     int i;
     if (t == NULL) return;
-    splay_printtree(t->right, d+1);
+    splay_printtree(t->कानान, d+1);
     for (i=0; i<d; i++) fprintf(stderr," ");
     fprintf(stderr,"%p(0x%lx:%u:%u)\n",
             (void *) t->start, (unsigned long) t->size,
             (unsigned)t->type, (unsigned)t->is_invalid);
-    splay_printtree(t->left, d+1);
+    splay_printtree(t->कालिवा, d+1);
 }

@@ -209,23 +209,23 @@ static const char version[] =
     ")\n"
     ;
 
-static void print_dirs(const char *msg, char **paths, int nb_paths)
+static void इलिम्बाग_dirs(const char *मेनसाहे, char **paths, int nb_paths)
 {
     int i;
-    printf("%s:\n%s", msg, nb_paths ? "" : "  -\n");
+    printf("%s:\n%s", मेनसाहे, nb_paths ? "" : "  -\n");
     for(i = 0; i < nb_paths; i++)
         printf("  %s\n", paths[i]);
 }
 
-static void print_search_dirs(TCCState *s)
+static void इलिम्बाग_हानाप_dirs(TCCState *s)
 {
     printf("install: %s\n", s->tcc_lib_path);
     /* print_dirs("programs", NULL, 0); */
-    print_dirs("include", s->sysinclude_paths, s->nb_sysinclude_paths);
-    print_dirs("libraries", s->library_paths, s->nb_library_paths);
+    इलिम्बाग_dirs("include", s->sysinclude_paths, s->nb_sysinclude_paths);
+    इलिम्बाग_dirs("libraries", s->library_paths, s->nb_library_paths);
     printf("libtcc1:\n  %s/%s\n", s->library_paths[0], CONFIG_TCC_CROSSPREFIX TCC_LIBTCC1);
 #ifdef TCC_TARGET_UNIX
-    print_dirs("crt", s->crt_paths, s->nb_crt_paths);
+    इलिम्बाग_dirs("crt", s->crt_paths, s->nb_crt_paths);
     printf("elfinterp:\n  %s\n",  s->elfint);
 #endif
 }
@@ -278,7 +278,7 @@ static char *default_outputfile(TCCState *s, const char *first_file)
 static unsigned getclock_ms(void)
 {
 #ifdef _WIN32
-    return GetTickCount();
+    return Get_Tick_बिलांग();
 #else
     struct timeval tv;
     gettimeofday(&tv, NULL);
@@ -299,7 +299,7 @@ int main(int argc, char **argv)
 redo:
     argc = argc0, argv = argv0;
     s = s1 = tcc_new();
-    opt = tcc_parse_args(s, &argc, &argv);
+    opt = tcc_parse_मगा_कातविरान(s, &argc, &argv);
 
     if (n == 0) {
         ret = 0;
@@ -320,11 +320,11 @@ redo:
         if (opt == OPT_IMPDEF)
             ret = tcc_tool_impdef(argc, argv);
 #endif
-        if (opt == OPT_PRINT_DIRS) {
+        if (opt == OPT_इलिम्बाग_DIRS) {
             /* initialize search dirs */
             set_environment(s);
             tcc_set_output_type(s, TCC_OUTPUT_MEMORY);
-            print_search_dirs(s);
+            इलिम्बाग_हानाप_dirs(s);
         }
         if (opt) {
             if (opt < 0) err:
@@ -421,7 +421,7 @@ redo:
     } else if (n < s->nb_files)
         done = 0; /* compile more files with -c */
     else if (s->do_bench)
-        tcc_print_stats(s, end_time - start_time);
+        tcc_इलिम्बाग_stats(s, end_time - start_time);
 
     tcc_delete(s);
     if (!done)

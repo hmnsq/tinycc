@@ -16,33 +16,33 @@ extern "C" {
   } COORD,*PCOORD;
 
   typedef struct _SMALL_RECT {
-    SHORT Left;
-    SHORT Top;
-    SHORT Right;
+    SHORT कालिवा_2;
+    SHORT इताअस_2;
+    SHORT कानान_2;
     SHORT Bottom;
   } SMALL_RECT,*PSMALL_RECT;
 
-  typedef struct _KEY_EVENT_RECORD {
-    WINBOOL bKeyDown;
-    WORD wRepeatCount;
-    WORD wVirtualKeyCode;
+  typedef struct सुसि_EVENT_RECORD {
+    WINBOOL b_सुसि_Down;
+    WORD w_Repeat_बिलांग;
+    WORD w_Virtual_सुसि_Code;
     WORD wVirtualScanCode;
     union {
       WCHAR UnicodeChar;
       CHAR AsciiChar;
     } uChar;
-    DWORD dwControlKeyState;
-  } KEY_EVENT_RECORD,*PKEY_EVENT_RECORD;
+    DWORD dw_Control_सुसि_State;
+  } सुसि_EVENT_RECORD_2,*PKEY_EVENT_RECORD;
 
-#define RIGHT_ALT_PRESSED 0x1
-#define LEFT_ALT_PRESSED 0x2
-#define RIGHT_CTRL_PRESSED 0x4
-#define LEFT_CTRL_PRESSED 0x8
+#define कानान_ALT_PRESSED 0x1
+#define कालिवा_ALT_PRESSED 0x2
+#define कानान_CTRL_PRESSED 0x4
+#define कालिवा_CTRL_PRESSED 0x8
 #define SHIFT_PRESSED 0x10
 #define NUMLOCK_ON 0x20
 #define SCROLLLOCK_ON 0x40
 #define CAPSLOCK_ON 0x80
-#define ENHANCED_KEY 0x100
+#define ENHANCED_सुसि 0x100
 #define NLS_DBCSCHAR 0x10000
 #define NLS_ALPHANUMERIC 0x0
 #define NLS_KATAKANA 0x20000
@@ -54,15 +54,15 @@ extern "C" {
   typedef struct _MOUSE_EVENT_RECORD {
     COORD dwMousePosition;
     DWORD dwButtonState;
-    DWORD dwControlKeyState;
+    DWORD dw_Control_सुसि_State;
     DWORD dwEventFlags;
   } MOUSE_EVENT_RECORD,*PMOUSE_EVENT_RECORD;
 
-#define FROM_LEFT_1ST_BUTTON_PRESSED 0x1
+#define FROM_कालिवा_1_ST_BUTTON_PRESSED 0x1
 #define RIGHTMOST_BUTTON_PRESSED 0x2
-#define FROM_LEFT_2ND_BUTTON_PRESSED 0x4
-#define FROM_LEFT_3RD_BUTTON_PRESSED 0x8
-#define FROM_LEFT_4TH_BUTTON_PRESSED 0x10
+#define FROM_कालिवा_2_ND_BUTTON_PRESSED 0x4
+#define FROM_कालिवा_3_RD_BUTTON_PRESSED 0x8
+#define FROM_कालिवा_4_TH_BUTTON_PRESSED 0x10
 
 #define MOUSE_MOVED 0x1
 #define DOUBLE_CLICK 0x2
@@ -80,18 +80,18 @@ extern "C" {
     WINBOOL bSetFocus;
   } FOCUS_EVENT_RECORD,*PFOCUS_EVENT_RECORD;
 
-  typedef struct _INPUT_RECORD {
+  typedef struct पासोक_RECORD {
     WORD EventType;
     union {
-      KEY_EVENT_RECORD KeyEvent;
+      सुसि_EVENT_RECORD_2 सुसि_Event;
       MOUSE_EVENT_RECORD MouseEvent;
       WINDOW_BUFFER_SIZE_RECORD WindowBufferSizeEvent;
       MENU_EVENT_RECORD MenuEvent;
       FOCUS_EVENT_RECORD FocusEvent;
     } Event;
-  } INPUT_RECORD,*PINPUT_RECORD;
+  } पासोक_RECORD_2,*PINPUT_RECORD;
 
-#define KEY_EVENT 0x1
+#define सुसि_EVENT 0x1
 #define MOUSE_EVENT 0x2
 #define WINDOW_BUFFER_SIZE_EVENT 0x4
 #define MENU_EVENT 0x8
@@ -162,16 +162,16 @@ extern "C" {
 #define CTRL_LOGOFF_EVENT 5
 #define CTRL_SHUTDOWN_EVENT 6
 
-#define ENABLE_PROCESSED_INPUT 0x1
-#define ENABLE_LINE_INPUT 0x2
-#define ENABLE_ECHO_INPUT 0x4
-#define ENABLE_WINDOW_INPUT 0x8
-#define ENABLE_MOUSE_INPUT 0x10
-#define ENABLE_INSERT_MODE 0x20
+#define ENABLE_PROCESSED_पासोक 0x1
+#define ENABLE_लिन्या_पासोक 0x2
+#define ENABLE_ECHO_पासोक 0x4
+#define ENABLE_WINDOW_पासोक 0x8
+#define ENABLE_MOUSE_पासोक 0x10
+#define ENABLE_इसिंगित_MODE 0x20
 #define ENABLE_QUICK_EDIT_MODE 0x40
 #define ENABLE_EXTENDED_FLAGS 0x80
 #define ENABLE_AUTO_POSITION 0x100
-#define ENABLE_VIRTUAL_TERMINAL_INPUT 0x200
+#define ENABLE_VIRTUAL_TERMINAL_पासोक 0x200
 
 #define ENABLE_PROCESSED_OUTPUT 0x1
 #define ENABLE_WRAP_AT_EOL_OUTPUT 0x2
@@ -180,9 +180,9 @@ extern "C" {
 #define ENABLE_LVB_GRID_WORLDWIDE 0x10
 
 #ifdef UNICODE
-#define PeekConsoleInput PeekConsoleInputW
-#define ReadConsoleInput ReadConsoleInputW
-#define WriteConsoleInput WriteConsoleInputW
+#define Peek_Console_पासोक Peek_Console_पासोक_W
+#define Read_Console_पासोक Read_Console_पासोक_W
+#define Write_Console_पासोक Write_Console_पासोक_W
 #define ReadConsoleOutput ReadConsoleOutputW
 #define WriteConsoleOutput WriteConsoleOutputW
 #define ReadConsoleOutputCharacter ReadConsoleOutputCharacterW
@@ -200,9 +200,9 @@ extern "C" {
 #define GetConsoleAliases GetConsoleAliasesW
 #define GetConsoleAliasExes GetConsoleAliasExesW
 #else
-#define PeekConsoleInput PeekConsoleInputA
-#define ReadConsoleInput ReadConsoleInputA
-#define WriteConsoleInput WriteConsoleInputA
+#define Peek_Console_पासोक Peek_Console_पासोक_A
+#define Read_Console_पासोक Read_Console_पासोक_A
+#define Write_Console_पासोक Write_Console_पासोक_A
 #define ReadConsoleOutput ReadConsoleOutputA
 #define WriteConsoleOutput WriteConsoleOutputA
 #define ReadConsoleOutputCharacter ReadConsoleOutputCharacterA
@@ -221,37 +221,37 @@ extern "C" {
 #define GetConsoleAliasExes GetConsoleAliasExesA
 #endif
 
-  WINBASEAPI WINBOOL WINAPI PeekConsoleInputA(HANDLE hConsoleInput,PINPUT_RECORD lpBuffer,DWORD nLength,LPDWORD lpNumberOfEventsRead);
-  WINBASEAPI WINBOOL WINAPI PeekConsoleInputW(HANDLE hConsoleInput,PINPUT_RECORD lpBuffer,DWORD nLength,LPDWORD lpNumberOfEventsRead);
-  WINBASEAPI WINBOOL WINAPI ReadConsoleInputA(HANDLE hConsoleInput,PINPUT_RECORD lpBuffer,DWORD nLength,LPDWORD lpNumberOfEventsRead);
-  WINBASEAPI WINBOOL WINAPI ReadConsoleInputW(HANDLE hConsoleInput,PINPUT_RECORD lpBuffer,DWORD nLength,LPDWORD lpNumberOfEventsRead);
-  WINBASEAPI WINBOOL WINAPI WriteConsoleInputA(HANDLE hConsoleInput,CONST INPUT_RECORD *lpBuffer,DWORD nLength,LPDWORD lpNumberOfEventsWritten);
-  WINBASEAPI WINBOOL WINAPI WriteConsoleInputW(HANDLE hConsoleInput,CONST INPUT_RECORD *lpBuffer,DWORD nLength,LPDWORD lpNumberOfEventsWritten);
+  WINBASEAPI WINBOOL WINAPI Peek_Console_पासोक_A(HANDLE h_Console_पासोक,PINPUT_RECORD lpBuffer,DWORD nLength,LPDWORD lp_नुमेरो_Of_Events_Read);
+  WINBASEAPI WINBOOL WINAPI Peek_Console_पासोक_W(HANDLE h_Console_पासोक,PINPUT_RECORD lpBuffer,DWORD nLength,LPDWORD lp_नुमेरो_Of_Events_Read);
+  WINBASEAPI WINBOOL WINAPI Read_Console_पासोक_A(HANDLE h_Console_पासोक,PINPUT_RECORD lpBuffer,DWORD nLength,LPDWORD lp_नुमेरो_Of_Events_Read);
+  WINBASEAPI WINBOOL WINAPI Read_Console_पासोक_W(HANDLE h_Console_पासोक,PINPUT_RECORD lpBuffer,DWORD nLength,LPDWORD lp_नुमेरो_Of_Events_Read);
+  WINBASEAPI WINBOOL WINAPI Write_Console_पासोक_A(HANDLE h_Console_पासोक,CONST पासोक_RECORD_2 *lpBuffer,DWORD nLength,LPDWORD lp_नुमेरो_Of_Events_Written);
+  WINBASEAPI WINBOOL WINAPI Write_Console_पासोक_W(HANDLE h_Console_पासोक,CONST पासोक_RECORD_2 *lpBuffer,DWORD nLength,LPDWORD lp_नुमेरो_Of_Events_Written);
   WINBASEAPI WINBOOL WINAPI ReadConsoleOutputA(HANDLE hConsoleOutput,PCHAR_INFO lpBuffer,COORD dwBufferSize,COORD dwBufferCoord,PSMALL_RECT lpReadRegion);
   WINBASEAPI WINBOOL WINAPI ReadConsoleOutputW(HANDLE hConsoleOutput,PCHAR_INFO lpBuffer,COORD dwBufferSize,COORD dwBufferCoord,PSMALL_RECT lpReadRegion);
   WINBASEAPI WINBOOL WINAPI WriteConsoleOutputA(HANDLE hConsoleOutput,CONST CHAR_INFO *lpBuffer,COORD dwBufferSize,COORD dwBufferCoord,PSMALL_RECT lpWriteRegion);
   WINBASEAPI WINBOOL WINAPI WriteConsoleOutputW(HANDLE hConsoleOutput,CONST CHAR_INFO *lpBuffer,COORD dwBufferSize,COORD dwBufferCoord,PSMALL_RECT lpWriteRegion);
-  WINBASEAPI WINBOOL WINAPI ReadConsoleOutputCharacterA(HANDLE hConsoleOutput,LPSTR lpCharacter,DWORD nLength,COORD dwReadCoord,LPDWORD lpNumberOfCharsRead);
-  WINBASEAPI WINBOOL WINAPI ReadConsoleOutputCharacterW(HANDLE hConsoleOutput,LPWSTR lpCharacter,DWORD nLength,COORD dwReadCoord,LPDWORD lpNumberOfCharsRead);
-  WINBASEAPI WINBOOL WINAPI ReadConsoleOutputAttribute(HANDLE hConsoleOutput,LPWORD lpAttribute,DWORD nLength,COORD dwReadCoord,LPDWORD lpNumberOfAttrsRead);
-  WINBASEAPI WINBOOL WINAPI WriteConsoleOutputCharacterA(HANDLE hConsoleOutput,LPCSTR lpCharacter,DWORD nLength,COORD dwWriteCoord,LPDWORD lpNumberOfCharsWritten);
-  WINBASEAPI WINBOOL WINAPI WriteConsoleOutputCharacterW(HANDLE hConsoleOutput,LPCWSTR lpCharacter,DWORD nLength,COORD dwWriteCoord,LPDWORD lpNumberOfCharsWritten);
-  WINBASEAPI WINBOOL WINAPI WriteConsoleOutputAttribute(HANDLE hConsoleOutput,CONST WORD *lpAttribute,DWORD nLength,COORD dwWriteCoord,LPDWORD lpNumberOfAttrsWritten);
-  WINBASEAPI WINBOOL WINAPI FillConsoleOutputCharacterA(HANDLE hConsoleOutput,CHAR cCharacter,DWORD nLength,COORD dwWriteCoord,LPDWORD lpNumberOfCharsWritten);
-  WINBASEAPI WINBOOL WINAPI FillConsoleOutputCharacterW(HANDLE hConsoleOutput,WCHAR cCharacter,DWORD nLength,COORD dwWriteCoord,LPDWORD lpNumberOfCharsWritten);
-  WINBASEAPI WINBOOL WINAPI FillConsoleOutputAttribute(HANDLE hConsoleOutput,WORD wAttribute,DWORD nLength,COORD dwWriteCoord,LPDWORD lpNumberOfAttrsWritten);
+  WINBASEAPI WINBOOL WINAPI ReadConsoleOutputCharacterA(HANDLE hConsoleOutput,LPSTR lpCharacter,DWORD nLength,COORD dwReadCoord,LPDWORD lp_नुमेरो_Of_Chars_Read);
+  WINBASEAPI WINBOOL WINAPI ReadConsoleOutputCharacterW(HANDLE hConsoleOutput,LPWSTR lpCharacter,DWORD nLength,COORD dwReadCoord,LPDWORD lp_नुमेरो_Of_Chars_Read);
+  WINBASEAPI WINBOOL WINAPI ReadConsoleOutputAttribute(HANDLE hConsoleOutput,LPWORD lpAttribute,DWORD nLength,COORD dwReadCoord,LPDWORD lp_नुमेरो_Of_Attrs_Read);
+  WINBASEAPI WINBOOL WINAPI WriteConsoleOutputCharacterA(HANDLE hConsoleOutput,LPCSTR lpCharacter,DWORD nLength,COORD dwWriteCoord,LPDWORD lp_नुमेरो_Of_Chars_Written);
+  WINBASEAPI WINBOOL WINAPI WriteConsoleOutputCharacterW(HANDLE hConsoleOutput,LPCWSTR lpCharacter,DWORD nLength,COORD dwWriteCoord,LPDWORD lp_नुमेरो_Of_Chars_Written);
+  WINBASEAPI WINBOOL WINAPI WriteConsoleOutputAttribute(HANDLE hConsoleOutput,CONST WORD *lpAttribute,DWORD nLength,COORD dwWriteCoord,LPDWORD lp_नुमेरो_Of_Attrs_Written);
+  WINBASEAPI WINBOOL WINAPI FillConsoleOutputCharacterA(HANDLE hConsoleOutput,CHAR cCharacter,DWORD nLength,COORD dwWriteCoord,LPDWORD lp_नुमेरो_Of_Chars_Written);
+  WINBASEAPI WINBOOL WINAPI FillConsoleOutputCharacterW(HANDLE hConsoleOutput,WCHAR cCharacter,DWORD nLength,COORD dwWriteCoord,LPDWORD lp_नुमेरो_Of_Chars_Written);
+  WINBASEAPI WINBOOL WINAPI FillConsoleOutputAttribute(HANDLE hConsoleOutput,WORD wAttribute,DWORD nLength,COORD dwWriteCoord,LPDWORD lp_नुमेरो_Of_Attrs_Written);
   WINBASEAPI WINBOOL WINAPI GetConsoleMode(HANDLE hConsoleHandle,LPDWORD lpMode);
-  WINBASEAPI WINBOOL WINAPI GetNumberOfConsoleInputEvents(HANDLE hConsoleInput,LPDWORD lpNumberOfEvents);
+  WINBASEAPI WINBOOL WINAPI Get_नुमेरो_Of_Console_पासोक_Events(HANDLE h_Console_पासोक,LPDWORD lp_नुमेरो_Of_Events);
   WINBASEAPI WINBOOL WINAPI GetConsoleScreenBufferInfo(HANDLE hConsoleOutput,PCONSOLE_SCREEN_BUFFER_INFO lpConsoleScreenBufferInfo);
   WINBASEAPI COORD WINAPI GetLargestConsoleWindowSize(HANDLE hConsoleOutput);
   WINBASEAPI WINBOOL WINAPI GetConsoleCursorInfo(HANDLE hConsoleOutput,PCONSOLE_CURSOR_INFO lpConsoleCursorInfo);
   WINBASEAPI WINBOOL WINAPI GetCurrentConsoleFont(HANDLE hConsoleOutput,WINBOOL bMaximumWindow,PCONSOLE_FONT_INFO lpConsoleCurrentFont);
   WINBASEAPI COORD WINAPI GetConsoleFontSize(HANDLE hConsoleOutput,DWORD nFont);
   WINBASEAPI WINBOOL WINAPI GetConsoleSelectionInfo(PCONSOLE_SELECTION_INFO lpConsoleSelectionInfo);
-  WINBASEAPI WINBOOL WINAPI GetNumberOfConsoleMouseButtons(LPDWORD lpNumberOfMouseButtons);
+  WINBASEAPI WINBOOL WINAPI Get_नुमेरो_Of_Console_Mouse_Buttons(LPDWORD lp_नुमेरो_Of_Mouse_Buttons);
   WINBASEAPI WINBOOL WINAPI SetConsoleMode(HANDLE hConsoleHandle,DWORD dwMode);
   WINBASEAPI WINBOOL WINAPI SetConsoleActiveScreenBuffer(HANDLE hConsoleOutput);
-  WINBASEAPI WINBOOL WINAPI FlushConsoleInputBuffer(HANDLE hConsoleInput);
+  WINBASEAPI WINBOOL WINAPI Flush_Console_पासोक_Buffer(HANDLE h_Console_पासोक);
   WINBASEAPI WINBOOL WINAPI SetConsoleScreenBufferSize(HANDLE hConsoleOutput,COORD dwSize);
   WINBASEAPI WINBOOL WINAPI SetConsoleCursorPosition(HANDLE hConsoleOutput,COORD dwCursorPosition);
   WINBASEAPI WINBOOL WINAPI SetConsoleCursorInfo(HANDLE hConsoleOutput,CONST CONSOLE_CURSOR_INFO *lpConsoleCursorInfo);
@@ -271,10 +271,10 @@ extern "C" {
   WINBASEAPI DWORD WINAPI GetConsoleTitleW(LPWSTR lpConsoleTitle,DWORD nSize);
   WINBASEAPI WINBOOL WINAPI SetConsoleTitleA(LPCSTR lpConsoleTitle);
   WINBASEAPI WINBOOL WINAPI SetConsoleTitleW(LPCWSTR lpConsoleTitle);
-  WINBASEAPI WINBOOL WINAPI ReadConsoleA(HANDLE hConsoleInput,LPVOID lpBuffer,DWORD nNumberOfCharsToRead,LPDWORD lpNumberOfCharsRead,LPVOID lpReserved);
-  WINBASEAPI WINBOOL WINAPI ReadConsoleW(HANDLE hConsoleInput,LPVOID lpBuffer,DWORD nNumberOfCharsToRead,LPDWORD lpNumberOfCharsRead,LPVOID lpReserved);
-  WINBASEAPI WINBOOL WINAPI WriteConsoleA(HANDLE hConsoleOutput,CONST VOID *lpBuffer,DWORD nNumberOfCharsToWrite,LPDWORD lpNumberOfCharsWritten,LPVOID lpReserved);
-  WINBASEAPI WINBOOL WINAPI WriteConsoleW(HANDLE hConsoleOutput,CONST VOID *lpBuffer,DWORD nNumberOfCharsToWrite,LPDWORD lpNumberOfCharsWritten,LPVOID lpReserved);
+  WINBASEAPI WINBOOL WINAPI ReadConsoleA(HANDLE h_Console_पासोक,LPVOID lpBuffer,DWORD n_नुमेरो_Of_Chars_To_Read,LPDWORD lp_नुमेरो_Of_Chars_Read,LPVOID lpReserved);
+  WINBASEAPI WINBOOL WINAPI ReadConsoleW(HANDLE h_Console_पासोक,LPVOID lpBuffer,DWORD n_नुमेरो_Of_Chars_To_Read,LPDWORD lp_नुमेरो_Of_Chars_Read,LPVOID lpReserved);
+  WINBASEAPI WINBOOL WINAPI WriteConsoleA(HANDLE hConsoleOutput,CONST VOID *lpBuffer,DWORD n_नुमेरो_Of_Chars_To_Write,LPDWORD lp_नुमेरो_Of_Chars_Written,LPVOID lpReserved);
+  WINBASEAPI WINBOOL WINAPI WriteConsoleW(HANDLE hConsoleOutput,CONST VOID *lpBuffer,DWORD n_नुमेरो_Of_Chars_To_Write,LPDWORD lp_नुमेरो_Of_Chars_Written,LPVOID lpReserved);
 
 #define CONSOLE_TEXTMODE_BUFFER 1
 
@@ -289,7 +289,7 @@ extern "C" {
 
   WINBASEAPI WINBOOL WINAPI GetConsoleDisplayMode(LPDWORD lpModeFlags);
   WINBASEAPI HWND WINAPI GetConsoleWindow(VOID);
-  WINBASEAPI DWORD WINAPI GetConsoleProcessList(LPDWORD lpdwProcessList,DWORD dwProcessCount);
+  WINBASEAPI DWORD WINAPI GetConsoleProcessList(LPDWORD lpdwProcessList,DWORD dw_Process_बिलांग);
   WINBASEAPI WINBOOL WINAPI AddConsoleAliasA(LPSTR Source,LPSTR Target,LPSTR ExeName);
   WINBASEAPI WINBOOL WINAPI AddConsoleAliasW(LPWSTR Source,LPWSTR Target,LPWSTR ExeName);
   WINBASEAPI DWORD WINAPI GetConsoleAliasA(LPSTR Source,LPSTR TargetBuffer,DWORD TargetBufferLength,LPSTR ExeName);

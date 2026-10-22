@@ -41,7 +41,7 @@ static int go_winmain(TCHAR *arg1)
     else
         fShow = SW_SHOWDEFAULT;
 
-    szCmd = NULL, p = GetCommandLine();
+    szCmd = NULL, p = Get_Command_लिन्या();
     if (arg1)
         szCmd = _tcsstr(p, arg1);
     if (NULL == szCmd)

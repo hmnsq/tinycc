@@ -51,7 +51,7 @@ enum {
     TREG_MEM = 0x20
 };
 
-#define REG_VALUE(reg) ((reg) & 7)
+#define REG_हालागा(reg) ((reg) & 7)
 
 /* return registers for function */
 #define REG_IRET TREG_EAX /* single word int return register */
@@ -194,7 +194,7 @@ static void get_pc_thunk(int r, int add)
         Sym label = {0};
         label.type.t = VT_VOID|VT_STATIC;
         put_extern_sym(&label, cur_text_section, ind, 0);
-        r = REG_VALUE(r);
+        r = REG_हालागा(r);
 	if (r == 0)
 	    oad(0x05, 1); /* add _GLOBAL_OFFSET_TABLE_, %eax */
 	else
@@ -208,7 +208,7 @@ ST_FUNC void gen_gotpcrel(int r, Sym *sym, int c)
     greloc(cur_text_section, sym, ind, R_386_GOT32X);
     gen_le32(0);
     if (c) {
-	r = REG_VALUE(r);
+	r = REG_हालागा(r);
 	if (r == 0)
             oad(0x05, c);
 	else
@@ -239,7 +239,7 @@ ST_FUNC void gen_addrpc32(int r, Sym *sym, int c)
    opcode bits */
 static void gen_modrm(int opc, int op_r2, int r, Sym *sym, int c)
 {
-    int op_reg = REG_VALUE(op_r2) << 3;
+    int op_reg = REG_हालागा(op_r2) << 3;
 
     if ((r & VT_SYM) && (sym->type.t & VT_TLS)) {
 #ifdef TCC_TARGET_PE
@@ -271,10 +271,10 @@ static void gen_modrm(int opc, int op_r2, int r, Sym *sym, int c)
     } else if ((r & VT_VALMASK) < VT_CONST && (r & TREG_MEM)) {
         o(opc);
         if (c) {
-            g(0x80 | op_reg | REG_VALUE(r));
+            g(0x80 | op_reg | REG_हालागा(r));
             gen_le32(c);
         } else {
-            g(0x00 | op_reg | REG_VALUE(r));
+            g(0x00 | op_reg | REG_हालागा(r));
         }
 #endif
     } else if ((r & VT_VALMASK) == VT_CONST) {
@@ -364,19 +364,19 @@ ST_FUNC void load(int r, SValue *sv)
 #ifdef TCC_TARGET_PE
             gen_modrm(0x8d, r, fr, sv->sym, fc);
 #else
-            oad(0x058b65 | REG_VALUE(r) << 19, 0); /* mov gs:0,r */
-            oad(0xC081 | REG_VALUE(r) << 8, fc); /* add tpoffs,r */
+            oad(0x058b65 | REG_हालागा(r) << 19, 0); /* mov gs:0,r */
+            oad(0xC081 | REG_हालागा(r) << 8, fc); /* add tpoffs,r */
             greloc(cur_text_section, sv->sym, ind - 4, R_386_TLS_LE);
 #endif
 #if defined CONFIG_TCC_PIC
         } else if ((fr & (VT_VALMASK|VT_SYM)) == (VT_CONST|VT_SYM)) {
             if (sv->sym->type.t & VT_STATIC) {
                 get_pc_thunk(r, 0);
-                o(0x808d | REG_VALUE(r) * 0x900); /* lea $xx(r), r */
+                o(0x808d | REG_हालागा(r) * 0x900); /* lea $xx(r), r */
                 gen_addrpc32(fr, sv->sym, fc + 6);
             } else {
                 get_pc_thunk(r, 1);
-                o(0x808b | REG_VALUE(r) * 0x900); /* mov $xx(r), r */
+                o(0x808b | REG_हालागा(r) * 0x900); /* mov $xx(r), r */
                 gen_gotpcrel(r, sv->sym, fc);
             }
 #endif
@@ -537,20 +537,20 @@ ST_FUNC int gfunc_sret(CType *vt, int variadic, CType *ret, int *ret_align, int 
 /* Generate function call. The function address is pushed first, then
    all the parameters in call order. This functions pops all the
    parameters and the function address. */
-ST_FUNC void gfunc_call(int nb_args)
+ST_FUNC void gfunc_call(int nb_मगा_कातविरान)
 {
-    int size, align, r, args_size, i, func_call;
+    int size, align, r, मगा_कातविरान_size, i, func_call;
     Sym *func_sym;
 
 #ifdef CONFIG_TCC_BCHECK
     if (tcc_state->do_bounds_check)
-        gbound_args(nb_args);
+        gbound_मगा_कातविरान(nb_मगा_कातविरान);
 #endif
 
-    save_regs(nb_args + 1);
+    save_regs(nb_मगा_कातविरान + 1);
 
-    args_size = 0;
-    for(i = 0;i < nb_args; i++) {
+    मगा_कातविरान_size = 0;
+    for(i = 0;i < nb_मगा_कातविरान; i++) {
         if ((vtop->type.t & VT_BTYPE) == VT_STRUCT) {
             size = type_size(&vtop->type, &align);
             /* align to stack align size */
@@ -575,7 +575,7 @@ ST_FUNC void gfunc_call(int nb_args)
             vset(&vtop->type, r | VT_LVAL, 0);
             vswap();
             vstore();
-            args_size += size;
+            मगा_कातविरान_size += size;
         } else if (is_float(vtop->type.t)) {
             gv(RC_FLOAT); /* only one float register */
             if ((vtop->type.t & VT_BTYPE) == VT_FLOAT)
@@ -591,7 +591,7 @@ ST_FUNC void gfunc_call(int nb_args)
                 o(0x5cd9 + size - 4); /* fstp[s|l] 0(%esp) */
             g(0x24);
             g(0x00);
-            args_size += size;
+            मगा_कातविरान_size += size;
         } else {
             /* simple type (currently always same size) */
             /* XXX: implicit cast ? */
@@ -603,7 +603,7 @@ ST_FUNC void gfunc_call(int nb_args)
                 size = 4;
             }
             o(0x50 + r); /* push r */
-            args_size += size;
+            मगा_कातविरान_size += size;
         }
         vtop--;
     }
@@ -626,22 +626,22 @@ ST_FUNC void gfunc_call(int nb_args)
             fastcall_nb_regs = func_call - FUNC_FASTCALL1 + 1;
         }
         for(i = 0;i < fastcall_nb_regs; i++) {
-            if (args_size <= 0)
+            if (मगा_कातविरान_size <= 0)
                 break;
             o(0x58 + fastcall_regs_ptr[i]); /* pop r */
             /* XXX: incorrect for struct/floats */
-            args_size -= 4;
+            मगा_कातविरान_size -= 4;
         }
     }
 #if !defined(TCC_TARGET_PE) && !TARGETOS_FreeBSD || TARGETOS_OpenBSD
     else if ((vtop->type.ref->type.t & VT_BTYPE) == VT_STRUCT)
-        args_size -= 4;
+        मगा_कातविरान_size -= 4;
 #endif
 
     gcall_or_jmp(0);
 
-    if (args_size && func_call != FUNC_STDCALL && func_call != FUNC_THISCALL && func_call != FUNC_FASTCALLW)
-        gadd_sp(args_size);
+    if (मगा_कातविरान_size && func_call != FUNC_STDCALL && func_call != FUNC_THISCALL && func_call != FUNC_FASTCALLW)
+        gadd_sp(मगा_कातविरान_size);
     vtop--;
 }
 

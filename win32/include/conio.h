@@ -94,27 +94,27 @@ extern "C" {
   /* I/O intrin functions.  */
   __CRT_INLINE unsigned char __inbyte(unsigned short Port)
   {
-      unsigned char value;
+      unsigned char हालागा;
       __asm__ __volatile__ ("inb %w1,%b0"
-          : "=a" (value)
+          : "=a" (हालागा)
           : "Nd" (Port));
-      return value;
+      return हालागा;
   }
   __CRT_INLINE unsigned short __inword(unsigned short Port)
   {
-      unsigned short value;
+      unsigned short हालागा;
       __asm__ __volatile__ ("inw %w1,%w0"
-          : "=a" (value)
+          : "=a" (हालागा)
           : "Nd" (Port));
-      return value;
+      return हालागा;
   }
   __CRT_INLINE unsigned long __indword(unsigned short Port)
   {
-      unsigned long value;
+      unsigned long हालागा;
       __asm__ __volatile__ ("inl %w1,%0"
-          : "=a" (value)
+          : "=a" (हालागा)
           : "Nd" (Port));
-      return value;
+      return हालागा;
   }
   __CRT_INLINE void __outbyte(unsigned short Port,unsigned char Data)
   {
@@ -134,63 +134,63 @@ extern "C" {
           :
           : "a" (Data), "Nd" (Port));
   }
-  __CRT_INLINE void __inbytestring(unsigned short Port,unsigned char *Buffer,unsigned long Count)
+  __CRT_INLINE void __inbytestring(unsigned short Port,unsigned char *Buffer,unsigned long बिलांग_3)
   {
 	__asm__ __volatile__ (
 		"cld ; rep ; insb " 
-		: "=D" (Buffer), "=c" (Count)
-		: "d"(Port), "0"(Buffer), "1" (Count)
+		: "=D" (Buffer), "=c" (बिलांग_3)
+		: "d"(Port), "0"(Buffer), "1" (बिलांग_3)
 		);
   }
-  __CRT_INLINE void __inwordstring(unsigned short Port,unsigned short *Buffer,unsigned long Count)
+  __CRT_INLINE void __inwordstring(unsigned short Port,unsigned short *Buffer,unsigned long बिलांग_3)
   {
 	__asm__ __volatile__ (
 		"cld ; rep ; insw " 
-		: "=D" (Buffer), "=c" (Count)
-		: "d"(Port), "0"(Buffer), "1" (Count)
+		: "=D" (Buffer), "=c" (बिलांग_3)
+		: "d"(Port), "0"(Buffer), "1" (बिलांग_3)
 		);
   }
-  __CRT_INLINE void __indwordstring(unsigned short Port,unsigned long *Buffer,unsigned long Count)
+  __CRT_INLINE void __indwordstring(unsigned short Port,unsigned long *Buffer,unsigned long बिलांग_3)
   {
 	__asm__ __volatile__ (
 		"cld ; rep ; insl " 
-		: "=D" (Buffer), "=c" (Count)
-		: "d"(Port), "0"(Buffer), "1" (Count)
+		: "=D" (Buffer), "=c" (बिलांग_3)
+		: "d"(Port), "0"(Buffer), "1" (बिलांग_3)
 		);
   }
 
-  __CRT_INLINE void __outbytestring(unsigned short Port,unsigned char *Buffer,unsigned long Count)
+  __CRT_INLINE void __outbytestring(unsigned short Port,unsigned char *Buffer,unsigned long बिलांग_3)
   {
       __asm__ __volatile__ (
           "cld ; rep ; outsb " 
-          : "=S" (Buffer), "=c" (Count)
-          : "d"(Port), "0"(Buffer), "1" (Count)
+          : "=S" (Buffer), "=c" (बिलांग_3)
+          : "d"(Port), "0"(Buffer), "1" (बिलांग_3)
           );
   }
-  __CRT_INLINE void __outwordstring(unsigned short Port,unsigned short *Buffer,unsigned long Count)
+  __CRT_INLINE void __outwordstring(unsigned short Port,unsigned short *Buffer,unsigned long बिलांग_3)
   {
       __asm__ __volatile__ (
           "cld ; rep ; outsw " 
-          : "=S" (Buffer), "=c" (Count)
-          : "d"(Port), "0"(Buffer), "1" (Count)
+          : "=S" (Buffer), "=c" (बिलांग_3)
+          : "d"(Port), "0"(Buffer), "1" (बिलांग_3)
           );
   }
-  __CRT_INLINE void __outdwordstring(unsigned short Port,unsigned long *Buffer,unsigned long Count)
+  __CRT_INLINE void __outdwordstring(unsigned short Port,unsigned long *Buffer,unsigned long बिलांग_3)
   {
       __asm__ __volatile__ (
           "cld ; rep ; outsl " 
-          : "=S" (Buffer), "=c" (Count)
-          : "d"(Port), "0"(Buffer), "1" (Count)
+          : "=S" (Buffer), "=c" (बिलांग_3)
+          : "d"(Port), "0"(Buffer), "1" (बिलांग_3)
           );
   }
 
   __CRT_INLINE unsigned __int64 __readcr0(void)
   {
-      unsigned __int64 value;
+      unsigned __int64 हालागा;
       __asm__ __volatile__ (
           "mov %%cr0, %[value]" 
-          : [value] "=q" (value));
-      return value;
+          : [हालागा] "=q" (हालागा));
+      return हालागा;
   }
  
   /* Register sizes are different between 32/64 bit mode. So we have to do this for _WIN64 and _WIN32
@@ -208,11 +208,11 @@ extern "C" {
  
   __CRT_INLINE unsigned __int64 __readcr2(void)
   {
-      unsigned __int64 value;
+      unsigned __int64 हालागा;
       __asm__ __volatile__ (
           "mov %%cr2, %[value]" 
-          : [value] "=q" (value));
-      return value;
+          : [हालागा] "=q" (हालागा));
+      return हालागा;
   }
 
  __CRT_INLINE void __writecr2(unsigned __int64 Data)
@@ -226,11 +226,11 @@ extern "C" {
  
   __CRT_INLINE unsigned __int64 __readcr3(void)
   {
-      unsigned __int64 value;
+      unsigned __int64 हालागा;
       __asm__ __volatile__ (
           "mov %%cr3, %[value]" 
-          : [value] "=q" (value));
-      return value;
+          : [हालागा] "=q" (हालागा));
+      return हालागा;
   }
 
  __CRT_INLINE void __writecr3(unsigned __int64 Data)
@@ -244,11 +244,11 @@ extern "C" {
  
   __CRT_INLINE unsigned __int64 __readcr4(void)
   {
-      unsigned __int64 value;
+      unsigned __int64 हालागा;
       __asm__ __volatile__ (
           "mov %%cr4, %[value]" 
-          : [value] "=q" (value));
-      return value;
+          : [हालागा] "=q" (हालागा));
+      return हालागा;
   }
 
  __CRT_INLINE void __writecr4(unsigned __int64 Data)
@@ -262,11 +262,11 @@ extern "C" {
  
   __CRT_INLINE unsigned __int64 __readcr8(void)
   {
-      unsigned __int64 value;
+      unsigned __int64 हालागा;
       __asm__ __volatile__ (
           "mov %%cr8, %[value]" 
-          : [value] "=q" (value));
-      return value;
+          : [हालागा] "=q" (हालागा));
+      return हालागा;
   }
 
  __CRT_INLINE void __writecr8(unsigned __int64 Data)
@@ -291,11 +291,11 @@ extern "C" {
  
   __CRT_INLINE unsigned long __readcr2(void)
   {
-      unsigned long value;
+      unsigned long हालागा;
       __asm__ __volatile__ (
           "mov %%cr2, %[value]" 
-          : [value] "=q" (value));
-      return value;
+          : [हालागा] "=q" (हालागा));
+      return हालागा;
   }
 
  __CRT_INLINE void __writecr2(unsigned Data)
@@ -309,11 +309,11 @@ extern "C" {
  
   __CRT_INLINE unsigned long __readcr3(void)
   {
-      unsigned long value;
+      unsigned long हालागा;
       __asm__ __volatile__ (
           "mov %%cr3, %[value]" 
-          : [value] "=q" (value));
-      return value;
+          : [हालागा] "=q" (हालागा));
+      return हालागा;
   }
 
  __CRT_INLINE void __writecr3(unsigned Data)
@@ -327,11 +327,11 @@ extern "C" {
  
   __CRT_INLINE unsigned long __readcr4(void)
   {
-      unsigned long value;
+      unsigned long हालागा;
       __asm__ __volatile__ (
           "mov %%cr4, %[value]" 
-          : [value] "=q" (value));
-      return value;
+          : [हालागा] "=q" (हालागा));
+      return हालागा;
   }
 
  __CRT_INLINE void __writecr4(unsigned Data)
@@ -345,10 +345,10 @@ extern "C" {
  
  __CRT_INLINE unsigned long __readcr8(void)
  {
-   unsigned long value;      __asm__ __volatile__ (
+   unsigned long हालागा;      __asm__ __volatile__ (
           "mov %%cr8, %[value]" 
-          : [value] "=q" (value));
-     return value;
+          : [हालागा] "=q" (हालागा));
+     return हालागा;
  }
 
  __CRT_INLINE void __writecr8(unsigned Data)
@@ -372,9 +372,9 @@ extern "C" {
       return val1 | (val2 << 32);
   }
 
- __CRT_INLINE void __writemsr (unsigned long msr, unsigned __int64 Value)
+ __CRT_INLINE void __writemsr (unsigned long msr, unsigned __int64 हालागा_3)
  {
-    unsigned long val1 = Value, val2 = Value >> 32;
+    unsigned long val1 = हालागा_3, val2 = हालागा_3 >> 32;
    __asm__ __volatile__ (
        "wrmsr"
        :

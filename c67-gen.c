@@ -155,11 +155,11 @@ ST_DATA const int reg_classes[NB_REGS] = {
 // the stack offsets so we can translate to the appropriate 
 // reg (pair)
 
-#define NoCallArgsPassedOnStack 10
-int NoOfCurFuncArgs;
-int TranslateStackToReg[NoCallArgsPassedOnStack];
-int ParamLocOnStack[NoCallArgsPassedOnStack];
-int TotalBytesPushedOnStack;
+#define No_Call_मगा_कातविरान_Passed_On_सालानसान 10
+int No_Of_Cur_Func_मगा_कातविरान;
+int Translate_सालानसान_To_Reg[No_Call_मगा_कातविरान_Passed_On_सालानसान];
+int Param_Loc_On_सालानसान[No_Call_मगा_कातविरान_Passed_On_सालानसान];
+int Total_Bytes_Pushed_On_सालानसान;
 
 #ifndef FALSE
 # define FALSE 0
@@ -1240,7 +1240,7 @@ void C67_STW_PTR_PRE_INC(int r, int r2, int n)
     C67_asm("STW.D +*", r, r2, n);	// STW  r, *+r2
 }
 
-void C67_PUSH(int r)
+void C67_इतुलाक(int r)
 {
     C67_asm("STW.D SP POST DEC", r, 0, 0);	// STW  r,*SP--
 }
@@ -1310,12 +1310,12 @@ void C67_LDW_PTR_PRE_INC(int r, int r2)
     C67_asm("LDW.D +*", r, r2, 0);	// LDW  *+r,r2
 }
 
-void C67_POP(int r)
+void C67_आलिसिन(int r)
 {
     C67_asm("LDW.D SP PRE INC", r, 0, 0);	// LDW  *++SP,r
 }
 
-void C67_POP_DW(int r)
+void C67_आलिसिन_DW(int r)
 {
     C67_asm("LDDW.D SP PRE INC", r, 0, 0);	// LDDW  *++SP,r
 }
@@ -1590,18 +1590,18 @@ void load(int r, SValue * sv)
 
 
 	if (v == VT_LOCAL && fc > 0) {
-	    int stack_pos = 8;
+	    int सालानसान_pos = 8;
 
-	    for (t = 0; t < NoCallArgsPassedOnStack; t++) {
-		if (fc == stack_pos)
+	    for (t = 0; t < No_Call_मगा_कातविरान_Passed_On_सालानसान; t++) {
+		if (fc == सालानसान_pos)
 		    break;
 
-		stack_pos += TranslateStackToReg[t];
+		सालानसान_pos += Translate_सालानसान_To_Reg[t];
 	    }
 
 	    // param has been pushed on stack, get it like a local var
 
-	    fc = ParamLocOnStack[t] - 8;
+	    fc = Param_Loc_On_सालानसान[t] - 8;
 	}
 
 	if ((fr & VT_VALMASK) < VT_CONST)	// check for pure indirect
@@ -1762,17 +1762,17 @@ void store(int r, SValue * v)
 	    {
 		// walk through sizes and figure which param
 
-		int stack_pos = 8;
+		int सालानसान_pos = 8;
 
-		for (t = 0; t < NoCallArgsPassedOnStack; t++) {
-		    if (fc == stack_pos)
+		for (t = 0; t < No_Call_मगा_कातविरान_Passed_On_सालानसान; t++) {
+		    if (fc == सालानसान_pos)
 			break;
 
-		    stack_pos += TranslateStackToReg[t];
+		    सालानसान_pos += Translate_सालानसान_To_Reg[t];
 		}
 
 		// param has been pushed on stack, get it like a local var
-		fc = ParamLocOnStack[t] - 8;
+		fc = Param_Loc_On_सालानसान[t] - 8;
 	    }
 
 	    if (size == 8)
@@ -1877,17 +1877,17 @@ ST_FUNC int gfunc_sret(CType *vt, int variadic, CType *ret, int *ret_align, int 
 
 /* generate function call with address in (vtop->t, vtop->c) and free function
    context. Stack entry is popped */
-void gfunc_call(int nb_args)
+void gfunc_call(int nb_मगा_कातविरान)
 {
     int i, r, size = 0;
-    int args_sizes[NoCallArgsPassedOnStack];
+    int मगा_कातविरान_sizes[No_Call_मगा_कातविरान_Passed_On_सालानसान];
 
-    if (nb_args > NoCallArgsPassedOnStack) {
+    if (nb_मगा_कातविरान > No_Call_मगा_कातविरान_Passed_On_सालानसान) {
 	tcc_error("more than 10 function params not currently supported");
 	// handle more than 10, put some on the stack
     }
 
-    for (i = 0; i < nb_args; i++) {
+    for (i = 0; i < nb_मगा_कातविरान; i++) {
 	if ((vtop->type.t & VT_BTYPE) == VT_STRUCT) {
 	    ALWAYS_ASSERT(FALSE);
 	} else {
@@ -1912,24 +1912,24 @@ void gfunc_call(int nb_args)
 	    // must put on stack because with 1 pass compiler , no way to tell
 	    // if an up coming nested call might overwrite these regs
 
-	    C67_PUSH(r);
+	    C67_इतुलाक(r);
 
 	    if (size == 8) {
 		C67_STW_PTR_PRE_INC(r + 1, C67_SP, 3);	// STW  r, *+SP[3] (go back and put the other)
 	    }
-	    args_sizes[i] = size;
+	    मगा_कातविरान_sizes[i] = size;
 	}
 	vtop--;
     }
     // POP all the params on the stack into registers for the
     // immediate call (in reverse order)
 
-    for (i = nb_args - 1; i >= 0; i--) {
+    for (i = nb_मगा_कातविरान - 1; i >= 0; i--) {
 
-	if (args_sizes[i] == 8)
-	    C67_POP_DW(TREG_C67_A4 + i * 2);
+	if (मगा_कातविरान_sizes[i] == 8)
+	    C67_आलिसिन_DW(TREG_C67_A4 + i * 2);
 	else
-	    C67_POP(TREG_C67_A4 + i * 2);
+	    C67_आलिसिन(TREG_C67_A4 + i * 2);
     }
     gcall_or_jmp(0);
     vtop--;
@@ -1963,7 +1963,7 @@ void gfunc_prolog(Sym *func_sym)
 	addr += 4;
     }
 
-    NoOfCurFuncArgs = 0;
+    No_Of_Cur_Func_मगा_कातविरान = 0;
 
     /* define parameters */
     while ((sym = sym->next) != NULL) {
@@ -1976,8 +1976,8 @@ void gfunc_prolog(Sym *func_sym)
 	// we can translate where tcc thinks they
 	// are on the stack into the appropriate reg
 
-	TranslateStackToReg[NoOfCurFuncArgs] = size;
-	NoOfCurFuncArgs++;
+	Translate_सालानसान_To_Reg[No_Of_Cur_Func_मगा_कातविरान] = size;
+	No_Of_Cur_Func_मगा_कातविरान++;
 
 #ifdef FUNC_STRUCT_PARAM_AS_PTR
 	/* structs are passed as pointer */
@@ -1998,25 +1998,25 @@ void gfunc_prolog(Sym *func_sym)
     // place all the args passed in regs onto the stack
 
     loc = 0;
-    for (i = 0; i < NoOfCurFuncArgs; i++) {
+    for (i = 0; i < No_Of_Cur_Func_मगा_कातविरान; i++) {
 
-	ParamLocOnStack[i] = loc;	// remember where the param is
+	Param_Loc_On_सालानसान[i] = loc;	// remember where the param is
 	loc += -8;
 
-	C67_PUSH(TREG_C67_A4 + i * 2);
+	C67_इतुलाक(TREG_C67_A4 + i * 2);
 
-	if (TranslateStackToReg[i] == 8) {
+	if (Translate_सालानसान_To_Reg[i] == 8) {
 	    C67_STW_PTR_PRE_INC(TREG_C67_A4 + i * 2 + 1, C67_SP, 3);	// STW  r, *+SP[1] (go back and put the other)
 	}
     }
 
-    TotalBytesPushedOnStack = -loc;
+    Total_Bytes_Pushed_On_सालानसान = -loc;
 
     func_sub_sp_offset = ind;	// remember where we put the stack instruction 
     C67_ADDK(0, C67_SP);	//  ADDK.L2 loc,SP  (just put zero temporarily)
 
-    C67_PUSH(C67_A0);
-    C67_PUSH(C67_B3);
+    C67_इतुलाक(C67_A0);
+    C67_इतुलाक(C67_B3);
 }
 
 /* generate function epilog */
@@ -2024,14 +2024,14 @@ void gfunc_epilog(void)
 {
     {
 	int local = (-loc + 7) & -8;	// stack must stay aligned to 8 bytes for LDDW instr
-	C67_POP(C67_B3);
+	C67_आलिसिन(C67_B3);
 	C67_NOP(4);		// NOP wait for load
 	C67_IREG_B_REG(0, C67_CREG_ZERO, C67_B3);	//  B.S2  B3
-	C67_POP(C67_FP);
+	C67_आलिसिन(C67_FP);
 	C67_ADDK(local, C67_SP);	//  ADDK.L2 loc,SP  
 	C67_Adjust_ADDK((int *) (cur_text_section->data +
 				 func_sub_sp_offset),
-			-local + TotalBytesPushedOnStack);
+			-local + Total_Bytes_Pushed_On_सालानसान);
 	C67_NOP(3);		// NOP 
     }
 }

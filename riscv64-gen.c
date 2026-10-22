@@ -40,7 +40,7 @@
 #include <assert.h>
 
 #define UPPER(x)	(((unsigned)(x) + 0x800u) & 0xfffff000)
-#define LOW_OVERFLOW(x)	UPPER(x)
+#define माबाबा_OVERFLOW(x)	UPPER(x)
 #define SIGN7(x)	((((x) & 0xff) ^ 0x80) - 0x80)
 #define SIGN11(x)	((((x) & 0xfff) ^ 0x800) - 0x800)
 
@@ -140,14 +140,14 @@ static void ER(uint32_t opcode, uint32_t func3,
 static void EI(uint32_t opcode, uint32_t func3,
                uint32_t rd, uint32_t rs1, uint32_t imm)
 {
-    assert(! LOW_OVERFLOW(imm));
+    assert(! माबाबा_OVERFLOW(imm));
     EIu(opcode, func3, rd, rs1, imm);
 }
 
 static void ES(uint32_t opcode, uint32_t func3,
                uint32_t rs1, uint32_t rs2, uint32_t imm)
 {
-    assert(! LOW_OVERFLOW(imm));
+    assert(! माबाबा_OVERFLOW(imm));
     o(opcode | (func3 << 12) | ((imm & 0x1f) << 7) | (rs1 << 15)
       | (rs2 << 20) | ((imm >> 5) << 25));
 }
@@ -197,7 +197,7 @@ static int load_symofs(int r, SValue *sv, int forstore, int *new_fc)
                     R_RISCV_PCREL_HI20, sv->c.i);
             *new_fc = 0;
         } else {
-            if (LOW_OVERFLOW(fc)){
+            if (माबाबा_OVERFLOW(fc)){
               large_addend = 1;
             }
             greloca(cur_text_section, sv->sym, ind,
@@ -224,7 +224,7 @@ static int load_symofs(int r, SValue *sv, int forstore, int *new_fc)
         rr = 8; // s0
         if (fc != sv->c.i)
           tcc_error("unimp: store(giant local off) (0x%lx)", (long)sv->c.i);
-        if (LOW_OVERFLOW(fc)) {
+        if (माबाबा_OVERFLOW(fc)) {
             rr = is_ireg(r) ? ireg(r) : 5; // t0
             o(0x37 | (rr << 7) | UPPER(fc)); //lui RR, upper(fc)
             ER(0x33, 0, rr, rr, 8, 0); // add RR, RR, s0
@@ -305,9 +305,9 @@ ST_FUNC void load(int r, SValue *sv)
             if (is_dbl) {
                 load_large_constant(6, (int)val, (int)(val >> 32));
             } else {
-                if (LOW_OVERFLOW(fc))
+                if (माबाबा_OVERFLOW(fc))
                     o(0x37 | (6 << 7) | UPPER(fc)); // lui t1, upper
-                EI(0x13 | 8, 0, 6, LOW_OVERFLOW(fc) ? 6 : 0, SIGN11(fc)); // addiw t1,...
+                EI(0x13 | 8, 0, 6, माबाबा_OVERFLOW(fc) ? 6 : 0, SIGN11(fc)); // addiw t1,...
             }
             o(0x53 | (rr << 7) | (6 << 15) | ((unsigned)(0x78 | is_dbl) << 25));
             return;
@@ -331,7 +331,7 @@ ST_FUNC void load(int r, SValue *sv)
                 zext = 1;
             }
         }
-        if (LOW_OVERFLOW(fc))
+        if (माबाबा_OVERFLOW(fc))
             o(0x37 | (rr << 7) | UPPER(fc)), rb = rr; //lui RR, upper(fc)
         if (fc || (rr != rb) || do32bit || (fr & VT_SYM))
           EI(0x13 | do32bit, 0, rr, rb, SIGN11(fc)); // addi[w] R, x0|R, FC
@@ -584,28 +584,28 @@ static void reg_pass(CType *type, int *prc, int *fieldofs, int named)
     }
 }
 
-ST_FUNC void gfunc_call(int nb_args)
+ST_FUNC void gfunc_call(int nb_मगा_कातविरान)
 {
     int i, align, size, areg[2];
-    int *info = tcc_malloc((nb_args + 1) * sizeof (int));
-    int stack_adj = 0, tempspace = 0, stack_add, ofs, splitofs = 0;
-    int old = (vtop[-nb_args].type.ref->f.func_type == FUNC_OLD);
+    int *info = tcc_malloc((nb_मगा_कातविरान + 1) * sizeof (int));
+    int सालानसान_adj = 0, tempspace = 0, सालानसान_add, ofs, splitofs = 0;
+    int old = (vtop[-nb_मगा_कातविरान].type.ref->f.func_type == FUNC_OLD);
     SValue *sv;
     Sym *sa;
 
 #ifdef CONFIG_TCC_BCHECK
     int bc_save = tcc_state->do_bounds_check;
     if (tcc_state->do_bounds_check)
-        gbound_args(nb_args);
+        gbound_मगा_कातविरान(nb_मगा_कातविरान);
 #endif
 
     areg[0] = 0; /* int arg regs */
     areg[1] = 8; /* float arg regs */
-    sa = vtop[-nb_args].type.ref->next;
-    for (i = 0; i < nb_args; i++) {
+    sa = vtop[-nb_मगा_कातविरान].type.ref->next;
+    for (i = 0; i < nb_मगा_कातविरान; i++) {
         int nregs, byref = 0, tempofs;
         int prc[3], fieldofs[3];
-        sv = &vtop[1 + i - nb_args];
+        sv = &vtop[1 + i - nb_मगा_कातविरान];
         sv->type.t &= ~VT_ARRAY; // XXX this should be done in tccgen.c
         size = type_size(&sv->type, &align);
         if (size > 16) {
@@ -632,7 +632,7 @@ ST_FUNC void gfunc_call(int nb_args)
             info[i] = 32;
             if (align < XLEN)
               align = XLEN;
-            stack_adj += (size + align - 1) & -align;
+            सालानसान_adj += (size + align - 1) & -align;
             if (!old && !sa) /* one vararg on stack forces the rest on stack */
               areg[0] = 8, areg[1] = 16;
         } else {
@@ -645,7 +645,7 @@ ST_FUNC void gfunc_call(int nb_args)
                   info[i] |= (1 + areg[prc[2] - 1]++) << 7;
                 else {
                     info[i] |= 16;
-                    stack_adj += 8;
+                    सालानसान_adj += 8;
                 }
                 if (!byref) {
                     assert((fieldofs[2] >> 4) < 2048);
@@ -657,25 +657,25 @@ ST_FUNC void gfunc_call(int nb_args)
         if (sa)
           sa = sa->next;
     }
-    stack_adj = (stack_adj + 15) & -16;
+    सालानसान_adj = (सालानसान_adj + 15) & -16;
     tempspace = (tempspace + 15) & -16;
-    stack_add = stack_adj + tempspace;
+    सालानसान_add = सालानसान_adj + tempspace;
 
-    if (stack_add) {
-        if (stack_add >= 0x800) {
-            o(0x37 | (5 << 7) | UPPER(-stack_add)); //lui t0, upper(v)
-            EI(0x13, 0, 5, 5, SIGN11(-stack_add)); // addi t0, t0, lo(v)
+    if (सालानसान_add) {
+        if (सालानसान_add >= 0x800) {
+            o(0x37 | (5 << 7) | UPPER(-सालानसान_add)); //lui t0, upper(v)
+            EI(0x13, 0, 5, 5, SIGN11(-सालानसान_add)); // addi t0, t0, lo(v)
             ER(0x33, 0, 2, 2, 5, 0); // add sp, sp, t0
         }
         else
-            EI(0x13, 0, 2, 2, -stack_add);   // addi sp, sp, -adj
-        for (i = ofs = 0; i < nb_args; i++) {
+            EI(0x13, 0, 2, 2, -सालानसान_add);   // addi sp, sp, -adj
+        for (i = ofs = 0; i < nb_मगा_कातविरान; i++) {
             if (info[i] & (64 | 32)) {
-                vrotb(nb_args - i);
+                vrotb(nb_मगा_कातविरान - i);
                 size = type_size(&vtop->type, &align);
                 if (info[i] & 64) {
                     vset(&char_pointer_type, TREG_SP, 0);
-                    vpushi(stack_adj + (info[i] >> 7));
+                    vpushi(सालानसान_adj + (info[i] >> 7));
                     gen_op('+');
                     vpushv(vtop); // this replaces the old argument
                     vrott(3);
@@ -704,7 +704,7 @@ ST_FUNC void gfunc_call(int nb_args)
                     vtop->r = vtop->r2 = VT_CONST; // this arg is done
                     ofs += size;
                 }
-                vrott(nb_args - i);
+                vrott(nb_मगा_कातविरान - i);
             } else if (info[i] & 16) {
                 assert(!splitofs);
                 splitofs = ofs;
@@ -712,8 +712,8 @@ ST_FUNC void gfunc_call(int nb_args)
             }
         }
     }
-    for (i = 0; i < nb_args; i++) {
-        int ii = info[nb_args - 1 - i], r = ii, r2 = r;
+    for (i = 0; i < nb_मगा_कातविरान; i++) {
+        int ii = info[nb_मगा_कातविरान - 1 - i], r = ii, r2 = r;
         if (!(r & 32)) {
             CType origtype;
             int loadt;
@@ -729,7 +729,7 @@ ST_FUNC void gfunc_call(int nb_args)
             if (loadt == VT_STRUCT) {
                 loadt = (ii >> 12) & VT_BTYPE;
             }
-            if (info[nb_args - 1 - i] & 16) {
+            if (info[nb_मगा_कातविरान - 1 - i] & 16) {
                 assert(!r2);
                 r2 = 1 + TREG_RA;
             }
@@ -772,7 +772,7 @@ ST_FUNC void gfunc_call(int nb_args)
                 vtop--;
                 vtop->r2 = r2;
             }
-            if (info[nb_args - 1 - i] & 16) {
+            if (info[nb_मगा_कातविरान - 1 - i] & 16) {
                 ES(0x23, 3, 2, ireg(vtop->r2), splitofs); // sd t0, ofs(sp)
                 vtop->r2 = VT_CONST;
             } else if (loadt == VT_LDOUBLE && vtop->r2 != r2) {
@@ -786,23 +786,23 @@ done:
             vrott(i+1);
         }
     }
-    vrotb(nb_args + 1);
-    save_regs(nb_args + 1);
+    vrotb(nb_मगा_कातविरान + 1);
+    save_regs(nb_मगा_कातविरान + 1);
     gcall_or_jmp(1);
-    vtop -= nb_args + 1;
-    if (stack_add) {
-        if (stack_add >= 0x800) {
-            o(0x37 | (5 << 7) | UPPER(stack_add)); //lui t0, upper(v)
-            EI(0x13, 0, 5, 5, SIGN11(stack_add)); // addi t0, t0, lo(v)
+    vtop -= nb_मगा_कातविरान + 1;
+    if (सालानसान_add) {
+        if (सालानसान_add >= 0x800) {
+            o(0x37 | (5 << 7) | UPPER(सालानसान_add)); //lui t0, upper(v)
+            EI(0x13, 0, 5, 5, SIGN11(सालानसान_add)); // addi t0, t0, lo(v)
             ER(0x33, 0, 2, 2, 5, 0); // add sp, sp, t0
         }
         else
-            EI(0x13, 0, 2, 2, stack_add);      // addi sp, sp, adj
+            EI(0x13, 0, 2, 2, सालानसान_add);      // addi sp, sp, adj
    }
    tcc_free(info);
 }
 
-static int func_sub_sp_offset, num_va_regs, func_va_list_ofs;
+static int func_sub_sp_offset, नुमेरो_va_regs, func_va_list_ofs;
 
 ST_FUNC void gfunc_prolog(Sym *func_sym)
 {
@@ -869,11 +869,11 @@ ST_FUNC void gfunc_prolog(Sym *func_sym)
         gfunc_set_param(sym, param_addr, byref);
     }
     func_va_list_ofs = addr;
-    num_va_regs = 0;
+    नुमेरो_va_regs = 0;
     if (func_var) {
         for (; areg[0] < 8; areg[0]++) {
-            num_va_regs++;
-            ES(0x23, 3, 8, 10 + areg[0], -8 + num_va_regs * 8); // sd aX, loc(s0)
+            नुमेरो_va_regs++;
+            ES(0x23, 3, 8, 10 + areg[0], -8 + नुमेरो_va_regs * 8); // sd aX, loc(s0)
         }
     }
 #ifdef CONFIG_TCC_BCHECK
@@ -927,10 +927,10 @@ ST_FUNC void gfunc_epilog(void)
         gen_bounds_epilog();
 #endif
 
-    loc = (loc - num_va_regs * 8);
+    loc = (loc - नुमेरो_va_regs * 8);
     d = v = (-loc + 15) & -16;
 
-    EI(0x13, 0, 2, 8, num_va_regs * 8); // addi sp, s0, num_va_regs*8
+    EI(0x13, 0, 2, 8, नुमेरो_va_regs * 8); // addi sp, s0, num_va_regs*8
     EI(0x03, 3, 1, 8, -8); // ld ra, -8(s0)
     EI(0x03, 3, 8, 8, -16); // ld s0, -16(s0)
     EI(0x67, 0, 0, 1, 0); // jalr x0, 0(x1), aka ret
@@ -938,7 +938,7 @@ ST_FUNC void gfunc_epilog(void)
     large_ofs_ind = ind;
     if (v >= (1 << 11)) {
         d = 16;
-        EI(0x13, 0, 8, 2, d - num_va_regs * 8);      // addi s0, sp, d
+        EI(0x13, 0, 8, 2, d - नुमेरो_va_regs * 8);      // addi s0, sp, d
         o(0x37 | (5 << 7) | UPPER(v-16)); //lui t0, upper(v)
         EI(0x13, 0, 5, 5, SIGN11(v-16)); // addi t0, t0, lo(v)
         ER(0x33, 0, 2, 2, 5, 0x20); // sub sp, sp, t0
@@ -948,10 +948,10 @@ ST_FUNC void gfunc_epilog(void)
 
     ind = func_sub_sp_offset;
     EI(0x13, 0, 2, 2, -d);     // addi sp, sp, -d
-    ES(0x23, 3, 2, 1, d - 8 - num_va_regs * 8);  // sd ra, d-8(sp)
-    ES(0x23, 3, 2, 8, d - 16 - num_va_regs * 8); // sd s0, d-16(sp)
+    ES(0x23, 3, 2, 1, d - 8 - नुमेरो_va_regs * 8);  // sd ra, d-8(sp)
+    ES(0x23, 3, 2, 8, d - 16 - नुमेरो_va_regs * 8); // sd s0, d-16(sp)
     if (v < (1 << 11))
-      EI(0x13, 0, 8, 2, d - num_va_regs * 8);      // addi s0, sp, d
+      EI(0x13, 0, 8, 2, d - नुमेरो_va_regs * 8);      // addi s0, sp, d
     else
       gjmp_addr(large_ofs_ind);
     if ((ind - func_sub_sp_offset) != 5*4)
@@ -1043,7 +1043,7 @@ static void gen_opil(int op, int ll)
     ll = ll ? 0 : 8;
     if ((vtop->r & (VT_VALMASK | VT_LVAL | VT_SYM)) == VT_CONST) {
         int fc = vtop->c.i;
-        if (fc == vtop->c.i && !LOW_OVERFLOW(fc)) {
+        if (fc == vtop->c.i && !माबाबा_OVERFLOW(fc)) {
             int cll = 0;
             int m = ll ? 31 : 63;
             vswap();
@@ -1435,7 +1435,7 @@ ST_FUNC void ggoto(void)
 
 ST_FUNC void gen_vla_sp_save(int addr)
 {
-    if (LOW_OVERFLOW(addr)) {
+    if (माबाबा_OVERFLOW(addr)) {
 	o(0x37 | (5 << 7) | UPPER(addr)); //lui t0,upper(addr)
         ER(0x33, 0, 5, 5, 8, 0); // add t0, t0, s0
         ES(0x23, 3, 5, 2, SIGN11(addr)); // sd sp, fc(t0)
@@ -1446,7 +1446,7 @@ ST_FUNC void gen_vla_sp_save(int addr)
 
 ST_FUNC void gen_vla_sp_restore(int addr)
 {
-    if (LOW_OVERFLOW(addr)) {
+    if (माबाबा_OVERFLOW(addr)) {
 	o(0x37 | (5 << 7) | UPPER(addr)); //lui t0,upper(addr)
         ER(0x33, 0, 5, 5, 8, 0); // add t0, t0, s0
         EI(0x03, 3, 2, 5, SIGN11(addr)); // ld sp, fc(t0)

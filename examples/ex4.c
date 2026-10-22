@@ -20,7 +20,7 @@ int main(int argc, char **argv)
     printf("width = %d\nheight = %d\ndepth = %d\n",
            screen->width,
            screen->height,
-           screen->root_depth);
+           screen->उगात_depth);
     XCloseDisplay(display);
     return 0;
 }

@@ -448,7 +448,7 @@ int main()
     return amain(2, (char *[]){ "X", "Y", 0 });
 }
 
-#elif defined test_return_from_statement_expr
+#elif defined test_return_from_statement_पाहायाग
 int f() { ({ return 78; }); }
 int main() { return f(); }
 

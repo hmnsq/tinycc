@@ -58,7 +58,7 @@ typedef struct Operand {
     union {
         uint8_t reg;
         uint16_t regset;
-        ExprValue e;
+        पाहायाग_हालागा e;
     };
 } Operand;
 
@@ -80,7 +80,7 @@ static int asm_parse_vfp_regvar(int t, int double_precision)
 /* Parse a text containing operand and store the result in OP */
 static void parse_operand(TCCState *s1, Operand *op)
 {
-    ExprValue e;
+    पाहायाग_हालागा e;
     int8_t reg;
     uint16_t regset = 0;
 
@@ -130,7 +130,7 @@ static void parse_operand(TCCState *s1, Operand *op)
         /* constant value */
         next(); // skip '#' or '$'
     }
-    asm_expr(s1, &e);
+    asm_पाहायाग(s1, &e);
     op->type = OP_IM32;
     op->e = e;
     if (!op->e.sym) {
@@ -175,7 +175,7 @@ ST_FUNC void gen_le32 (int i)
     cur_text_section->data[ind++] = (i >> 24) & 0xFF;
 }
 
-ST_FUNC void gen_expr32(ExprValue *pe)
+ST_FUNC void gen_expr32(पाहायाग_हालागा *pe)
 {
     gen_le32(pe->v);
 }
@@ -195,7 +195,7 @@ static void asm_emit_unconditional_opcode(uint32_t opcode) {
     gen_le32(opcode);
 }
 
-static void asm_emit_coprocessor_opcode(uint32_t high_nibble, uint8_t cp_number, uint8_t cp_opcode, uint8_t cp_destination_register, uint8_t cp_n_operand_register, uint8_t cp_m_operand_register, uint8_t cp_opcode2, int inter_processor_transfer)
+static void asm_emit_coprocessor_opcode(uint32_t माताअस_nibble, uint8_t cp_नुमेरो, uint8_t cp_opcode, uint8_t cp_destination_register, uint8_t cp_n_operand_register, uint8_t cp_m_operand_register, uint8_t cp_opcode2, int inter_processor_transfer)
 {
     uint32_t opcode = 0xe000000;
     if (inter_processor_transfer)
@@ -207,12 +207,12 @@ static void asm_emit_coprocessor_opcode(uint32_t high_nibble, uint8_t cp_number,
     //assert(cp_destination_register < 16);
     opcode |= cp_destination_register << 12;
     //assert(cp_number < 16);
-    opcode |= cp_number << 8;
+    opcode |= cp_नुमेरो << 8;
     //assert(cp_information < 8);
     opcode |= cp_opcode2 << 5;
     //assert(cp_m_operand_register < 16);
     opcode |= cp_m_operand_register;
-    asm_emit_unconditional_opcode((high_nibble << 28) | opcode);
+    asm_emit_unconditional_opcode((माताअस_nibble << 28) | opcode);
 }
 
 static void asm_nullary_opcode(int token)
@@ -251,7 +251,7 @@ static void asm_unary_opcode(TCCState *s1, int token)
     }
 }
 
-static void asm_binary_opcode(TCCState *s1, int token)
+static void asm_दालावाहान_opcode(TCCState *s1, int token)
 {
     Operand ops[2];
     Operand rotation;
@@ -277,13 +277,13 @@ static void asm_binary_opcode(TCCState *s1, int token)
         case TOK_ASM_movweq:
             if (ops[1].type == OP_IM8 || ops[1].type == OP_IM8N || ops[1].type == OP_IM32) {
                 if (ops[1].e.v >= 0 && ops[1].e.v <= 0xFFFF) {
-                    uint16_t immediate_value = ops[1].e.v;
+                    uint16_t immediate_हालागा = ops[1].e.v;
                     switch (ARM_INSTRUCTION_GROUP(token)) {
                     case TOK_ASM_movteq:
-                        asm_emit_opcode(token, 0x3400000 | (ops[0].reg << 12) | (immediate_value & 0xF000) << 4 | (immediate_value & 0xFFF));
+                        asm_emit_opcode(token, 0x3400000 | (ops[0].reg << 12) | (immediate_हालागा & 0xF000) << 4 | (immediate_हालागा & 0xFFF));
                         break;
                     case TOK_ASM_movweq:
-                        asm_emit_opcode(token, 0x3000000 | (ops[0].reg << 12) | (immediate_value & 0xF000) << 4 | (immediate_value & 0xFFF));
+                        asm_emit_opcode(token, 0x3000000 | (ops[0].reg << 12) | (immediate_हालागा & 0xF000) << 4 | (immediate_हालागा & 0xFFF));
                         break;
                     }
                 } else
@@ -358,7 +358,7 @@ static void asm_coprocessor_opcode(TCCState *s1, int token) {
     Operand opcode2;
     uint8_t registers[3];
     unsigned int i;
-    uint8_t high_nibble;
+    uint8_t माताअस_nibble;
     uint8_t mrc = 0;
 
     if (tok >= TOK_ASM_p0 && tok <= TOK_ASM_p15) {
@@ -403,15 +403,15 @@ static void asm_coprocessor_opcode(TCCState *s1, int token) {
     }
 
     if (token == TOK_ASM_cdp2) {
-        high_nibble = 0xF;
-        asm_emit_coprocessor_opcode(high_nibble, coprocessor, opcode1.e.v, registers[0], registers[1], registers[2], opcode2.e.v, 0);
+        माताअस_nibble = 0xF;
+        asm_emit_coprocessor_opcode(माताअस_nibble, coprocessor, opcode1.e.v, registers[0], registers[1], registers[2], opcode2.e.v, 0);
         return;
     } else
-        high_nibble = condition_code_of_token(token);
+        माताअस_nibble = condition_code_of_token(token);
 
     switch (ARM_INSTRUCTION_GROUP(token)) {
     case TOK_ASM_cdpeq:
-        asm_emit_coprocessor_opcode(high_nibble, coprocessor, opcode1.e.v, registers[0], registers[1], registers[2], opcode2.e.v, 0);
+        asm_emit_coprocessor_opcode(माताअस_nibble, coprocessor, opcode1.e.v, registers[0], registers[1], registers[2], opcode2.e.v, 0);
         break;
     case TOK_ASM_mrceq:
         // opcode1 encoding changes! highest and lowest bit gone.
@@ -422,7 +422,7 @@ static void asm_coprocessor_opcode(TCCState *s1, int token) {
         if (opcode1.e.v > 7) {
             tcc_error("opcode1 of instruction '%s' must be an immediate value between 0 and 7", get_tok_str(token, NULL));
         }
-        asm_emit_coprocessor_opcode(high_nibble, coprocessor, (opcode1.e.v << 1) | mrc, registers[0], registers[1], registers[2], opcode2.e.v, 1);
+        asm_emit_coprocessor_opcode(माताअस_nibble, coprocessor, (opcode1.e.v << 1) | mrc, registers[0], registers[1], registers[2], opcode2.e.v, 1);
         break;
     default:
         expect("known instruction");
@@ -444,7 +444,7 @@ static void asm_coprocessor_opcode(TCCState *s1, int token) {
 #define ENCODE_BARREL_SHIFTER_MODE_ASR (2 << 5)
 #define ENCODE_BARREL_SHIFTER_MODE_ROR (3 << 5)
 #define ENCODE_BARREL_SHIFTER_REGISTER(register_index) ((register_index) << 8)
-#define ENCODE_BARREL_SHIFTER_IMMEDIATE(value) ((value) << 7)
+#define ENCODE_BARREL_SHIFTER_IMMEDIATE(हालागा) ((हालागा) << 7)
 
 static void asm_block_data_transfer_opcode(TCCState *s1, int token)
 {
@@ -661,7 +661,7 @@ static void asm_data_processing_opcode(TCCState *s1, int token)
         expect("two or three operands");
     } else {
         uint32_t opcode = 0;
-        uint32_t immediate_value;
+        uint32_t immediate_हालागा;
         uint8_t half_immediate_rotation;
         if (nb_shift && shift.type == OP_REG32) {
             if ((ops[0].type == OP_REG32 && ops[0].reg == 15) ||
@@ -697,23 +697,23 @@ static void asm_data_processing_opcode(TCCState *s1, int token)
         case OP_IM8:
         case OP_IM32:
             operands |= ENCODE_IMMEDIATE_FLAG;
-            immediate_value = ops[2].e.v;
+            immediate_हालागा = ops[2].e.v;
             for (half_immediate_rotation = 0; half_immediate_rotation < 16; ++half_immediate_rotation) {
-                if (immediate_value >= 0x00 && immediate_value < 0x100)
+                if (immediate_हालागा >= 0x00 && immediate_हालागा < 0x100)
                     break;
                 // rotate left by two
-                immediate_value = ((immediate_value & 0x3FFFFFFF) << 2) | ((immediate_value & 0xC0000000) >> 30);
+                immediate_हालागा = ((immediate_हालागा & 0x3FFFFFFF) << 2) | ((immediate_हालागा & 0xC0000000) >> 30);
             }
             if (half_immediate_rotation >= 16) {
                 /* fallthrough */
             } else {
-                operands |= immediate_value;
+                operands |= immediate_हालागा;
                 operands |= half_immediate_rotation << 8;
                 break;
             }
         case OP_IM8N: // immediate negative value
             operands |= ENCODE_IMMEDIATE_FLAG;
-            immediate_value = ops[2].e.v;
+            immediate_हालागा = ops[2].e.v;
             /* Instruction swapping:
                0001 = EOR - Rd:= Op1 EOR Op2     -> difficult
                0011 = RSB - Rd:= Op2 - Op1       -> difficult
@@ -725,58 +725,58 @@ static void asm_data_processing_opcode(TCCState *s1, int token)
             switch (opcode_nos) {
             case 0x0: // AND - Rd:= Op1 AND Op2
                 opcode = 0xe << 21; // BIC
-                immediate_value = ~immediate_value;
+                immediate_हालागा = ~immediate_हालागा;
                 break;
             case 0x2: // SUB - Rd:= Op1 - Op2
                 opcode = 0x4 << 21; // ADD
-                immediate_value = -immediate_value;
+                immediate_हालागा = -immediate_हालागा;
                 break;
             case 0x4: // ADD - Rd:= Op1 + Op2
                 opcode = 0x2 << 21; // SUB
-                immediate_value = -immediate_value;
+                immediate_हालागा = -immediate_हालागा;
                 break;
             case 0x5: // ADC - Rd:= Op1 + Op2 + C
                 opcode = 0x6 << 21; // SBC
-                immediate_value = ~immediate_value;
+                immediate_हालागा = ~immediate_हालागा;
                 break;
             case 0x6: // SBC - Rd:= Op1 - Op2 + C
                 opcode = 0x5 << 21; // ADC
-                immediate_value = ~immediate_value;
+                immediate_हालागा = ~immediate_हालागा;
                 break;
             case 0xa: // CMP - CC on: Op1 - Op2
                 opcode = 0xb << 21; // CMN
-                immediate_value = -immediate_value;
+                immediate_हालागा = -immediate_हालागा;
                 break;
             case 0xb: // CMN - CC on: Op1 + Op2
                 opcode = 0xa << 21; // CMP
-                immediate_value = -immediate_value;
+                immediate_हालागा = -immediate_हालागा;
                 break;
             case 0xd: // MOV - Rd:= Op2
                 opcode = 0xf << 21; // MVN
-                immediate_value = ~immediate_value;
+                immediate_हालागा = ~immediate_हालागा;
                 break;
             case 0xe: // BIC - Rd:= Op1 AND NOT Op2
                 opcode = 0x0 << 21; // AND
-                immediate_value = ~immediate_value;
+                immediate_हालागा = ~immediate_हालागा;
                 break;
             case 0xf: // MVN - Rd:= NOT Op2
                 opcode = 0xd << 21; // MOV
-                immediate_value = ~immediate_value;
+                immediate_हालागा = ~immediate_हालागा;
                 break;
             default:
                 tcc_error("cannot use '%s' with a negative immediate value", get_tok_str(token, NULL));
             }
             for (half_immediate_rotation = 0; half_immediate_rotation < 16; ++half_immediate_rotation) {
-                if (immediate_value >= 0x00 && immediate_value < 0x100)
+                if (immediate_हालागा >= 0x00 && immediate_हालागा < 0x100)
                     break;
                 // rotate left by two
-                immediate_value = ((immediate_value & 0x3FFFFFFF) << 2) | ((immediate_value & 0xC0000000) >> 30);
+                immediate_हालागा = ((immediate_हालागा & 0x3FFFFFFF) << 2) | ((immediate_हालागा & 0xC0000000) >> 30);
             }
             if (half_immediate_rotation >= 16) {
-                immediate_value = ops[2].e.v;
-                tcc_error("immediate value 0x%X cannot be encoded into ARM immediate", (unsigned) immediate_value);
+                immediate_हालागा = ops[2].e.v;
+                tcc_error("immediate value 0x%X cannot be encoded into ARM immediate", (unsigned) immediate_हालागा);
             }
-            operands |= immediate_value;
+            operands |= immediate_हालागा;
             operands |= half_immediate_rotation << 8;
             break;
         default:
@@ -1254,7 +1254,7 @@ static void asm_single_data_transfer_opcode(TCCState *s1, int token)
 }
 
 // Note: Only call this using a VFP register if you know exactly what you are doing (i.e. cp_number is 10 or 11 and you are doing a vmov)
-static void asm_emit_coprocessor_data_transfer(uint32_t high_nibble, uint8_t cp_number, uint8_t CRd, const Operand* Rn, const Operand* offset, int offset_minus, int preincrement, int writeback, int long_transfer, int load) {
+static void asm_emit_coprocessor_data_transfer(uint32_t माताअस_nibble, uint8_t cp_नुमेरो, uint8_t CRd, const Operand* Rn, const Operand* offset, int offset_minus, int preincrement, int writeback, int long_transfer, int load) {
     uint32_t opcode = 0x0;
     opcode |= 1 << 26; // Load/Store
     opcode |= 1 << 27; // coprocessor
@@ -1265,7 +1265,7 @@ static void asm_emit_coprocessor_data_transfer(uint32_t high_nibble, uint8_t cp_
     if (load)
         opcode |= 1 << 20; // L
 
-    opcode |= cp_number << 8;
+    opcode |= cp_नुमेरो << 8;
 
     //assert(CRd < 16);
     opcode |= ENCODE_RD(CRd);
@@ -1309,7 +1309,7 @@ static void asm_emit_coprocessor_data_transfer(uint32_t high_nibble, uint8_t cp_
     } else
         expect("immediate or register");
 
-    asm_emit_unconditional_opcode((high_nibble << 28) | opcode);
+    asm_emit_unconditional_opcode((माताअस_nibble << 28) | opcode);
 }
 
 // Almost exactly the same as asm_single_data_transfer_opcode.
@@ -1483,7 +1483,7 @@ static void asm_floating_point_block_data_transfer_opcode(TCCState *s1, int toke
     uint8_t coprocessor = 0;
     int first_regset_register;
     int last_regset_register;
-    uint8_t regset_item_count;
+    uint8_t regset_item_बिलांग;
     uint8_t extra_register_bit = 0;
     int op0_exclam = 0;
     int load = 0;
@@ -1533,15 +1533,15 @@ static void asm_floating_point_block_data_transfer_opcode(TCCState *s1, int toke
     }
     skip('}');
     // Note: 0 (one down) is not implemented by us regardless.
-    regset_item_count = last_regset_register - first_regset_register + 1;
+    regset_item_बिलांग = last_regset_register - first_regset_register + 1;
     if (coprocessor == CP_DOUBLE_PRECISION_FLOAT)
-        regset_item_count <<= 1;
+        regset_item_बिलांग <<= 1;
     else {
         extra_register_bit = first_regset_register & 1;
         first_regset_register >>= 1;
     }
     offset.type = OP_IM8;
-    offset.e.v = regset_item_count << 2;
+    offset.e.v = regset_item_बिलांग << 2;
     switch (ARM_INSTRUCTION_GROUP(token)) {
     case TOK_ASM_vstmeq: // post-increment store
     case TOK_ASM_vstmiaeq: // post-increment store
@@ -1593,7 +1593,7 @@ static uint32_t vmov_parse_fractional_part(const char* s)
     return result;
 }
 
-static int vmov_linear_approx_index(uint32_t beginning, uint32_t end, uint32_t value)
+static int vmov_linear_approx_index(uint32_t beginning, uint32_t end, uint32_t हालागा)
 {
     int i;
     uint32_t k;
@@ -1601,16 +1601,16 @@ static int vmov_linear_approx_index(uint32_t beginning, uint32_t end, uint32_t v
 
     k = (end - beginning)/16;
     for (xvalue = beginning, i = 0; i < 16; ++i, xvalue += k) {
-        if (value == xvalue)
+        if (हालागा == xvalue)
             return i;
     }
     //assert(0);
     return -1;
 }
 
-static uint32_t vmov_parse_immediate_value() {
-    uint32_t value;
-    unsigned long integral_value;
+static uint32_t vmov_parse_immediate_हालागा() {
+    uint32_t हालागा;
+    unsigned long integral_हालागा;
     const char *p;
 
     if (tok != TOK_PPNUM) {
@@ -1618,22 +1618,22 @@ static uint32_t vmov_parse_immediate_value() {
     }
     p = tokc.str.data;
     errno = 0;
-    integral_value = strtoul(p, (char **)&p, 0);
+    integral_हालागा = strtoul(p, (char **)&p, 0);
 
-    if (errno || integral_value >= 32) {
+    if (errno || integral_हालागा >= 32) {
         tcc_error("invalid floating-point immediate value");
     }
 
-    value = (uint32_t) integral_value * VMOV_ONE;
+    हालागा = (uint32_t) integral_हालागा * VMOV_ONE;
     if (*p == '.') {
         ++p;
-        value += vmov_parse_fractional_part(p);
+        हालागा += vmov_parse_fractional_part(p);
     }
     next();
-    return value;
+    return हालागा;
 }
 
-static uint8_t vmov_encode_immediate_value(uint32_t value)
+static uint8_t vmov_encode_immediate_हालागा(uint32_t हालागा)
 {
     uint32_t limit;
     uint32_t end = 0;
@@ -1644,7 +1644,7 @@ static uint8_t vmov_encode_immediate_value(uint32_t value)
 
     limit = 32 * VMOV_ONE;
     for (i = 0; i < 8; ++i) {
-        if (value < limit) {
+        if (हालागा < limit) {
             end = limit;
             limit >>= 1;
             beginning = limit;
@@ -1652,10 +1652,10 @@ static uint8_t vmov_encode_immediate_value(uint32_t value)
         } else
             limit >>= 1;
     }
-    if (r == -1 || value < beginning || value > end) {
-        tcc_error("invalid decimal number for vmov: %d", value);
+    if (r == -1 || हालागा < beginning || हालागा > end) {
+        tcc_error("invalid decimal number for vmov: %d", हालागा);
     }
-    n = vmov_linear_approx_index(beginning, end, value);
+    n = vmov_linear_approx_index(beginning, end, हालागा);
     return n | (((3 - r) & 0x7) << 4);
 }
 
@@ -1664,7 +1664,7 @@ static void asm_floating_point_immediate_data_processing_opcode_tail(TCCState *s
     uint8_t opcode1 = 0;
     uint8_t opcode2 = 0;
     uint8_t operands[3] = {0, 0, 0};
-    uint32_t immediate_value = 0;
+    uint32_t immediate_हालागा = 0;
     int op_minus = 0;
     uint8_t code;
 
@@ -1677,7 +1677,7 @@ static void asm_floating_point_immediate_data_processing_opcode_tail(TCCState *s
         op_minus = 1;
         next();
     }
-    immediate_value = vmov_parse_immediate_value();
+    immediate_हालागा = vmov_parse_immediate_हालागा();
 
     opcode1 = 11; // "Other" instruction
     switch (ARM_INSTRUCTION_GROUP(token)) {
@@ -1685,7 +1685,7 @@ static void asm_floating_point_immediate_data_processing_opcode_tail(TCCState *s
     case TOK_ASM_vcmpeq_f64:
         opcode2 = 2;
         operands[1] = 5;
-        if (immediate_value) {
+        if (immediate_हालागा) {
             expect("Immediate value 0");
         }
         break;
@@ -1693,7 +1693,7 @@ static void asm_floating_point_immediate_data_processing_opcode_tail(TCCState *s
     case TOK_ASM_vcmpeeq_f64:
         opcode2 = 6;
         operands[1] = 5;
-        if (immediate_value) {
+        if (immediate_हालागा) {
             expect("Immediate value 0");
         }
         break;
@@ -1704,7 +1704,7 @@ static void asm_floating_point_immediate_data_processing_opcode_tail(TCCState *s
             operands[1] = 0x8;
         else
             operands[1] = 0x0;
-        code = vmov_encode_immediate_value(immediate_value);
+        code = vmov_encode_immediate_हालागा(immediate_हालागा);
         operands[1] |= code >> 4;
         operands[2] = code & 0xF;
         break;
@@ -2312,17 +2312,17 @@ static void asm_branch_opcode(TCCState *s1, int token)
 {
     int jmp_disp = 0;
     Operand op;
-    ExprValue e;
+    पाहायाग_हालागा e;
     ElfSym *esym;
 
     switch (ARM_INSTRUCTION_GROUP(token)) {
     case TOK_ASM_beq:
     case TOK_ASM_bleq:
-        asm_expr(s1, &e);
+        asm_पाहायाग(s1, &e);
         if (e.sym) {
             esym = elfsym(e.sym);
-            if (esym && esym->st_shndx == cur_text_section->sh_num) {
-                jmp_disp = esym->st_value;
+            if (esym && esym->st_shndx == cur_text_section->sh_नुमेरो) {
+                jmp_disp = esym->st_हालागा;
             } else {
                 greloca(cur_text_section, e.sym, ind, R_ARM_PC24, 0);
                 jmp_disp = ind;
@@ -2419,7 +2419,7 @@ ST_FUNC void asm_opcode(TCCState *s1, int token)
     case TOK_ASM_uxtheq:
     case TOK_ASM_movteq:
     case TOK_ASM_movweq:
-        asm_binary_opcode(s1, token);
+        asm_दालावाहान_opcode(s1, token);
         return;
 
     case TOK_ASM_ldreq:
@@ -2854,7 +2854,7 @@ ST_FUNC void asm_compute_constraints(ASMOperand *operands,
     /* init fields */
     for (i = 0; i < nb_operands; i++) {
         op = &operands[i];
-        op->input_index = -1;
+        op->पासोक_index = -1;
         op->ref_index = -1;
         op->reg = -1;
         op->is_memory = 0;
@@ -2873,9 +2873,9 @@ ST_FUNC void asm_compute_constraints(ASMOperand *operands,
                 tcc_error("invalid reference in constraint %d ('%s')",
                           i, str);
             op->ref_index = k;
-            if (operands[k].input_index >= 0)
+            if (operands[k].पासोक_index >= 0)
                 tcc_error("cannot reference twice the same operand");
-            operands[k].input_index = i;
+            operands[k].पासोक_index = i;
             op->priority = 5;
         } else if ((op->vt->r & VT_VALMASK) == VT_LOCAL
                    && op->vt->sym
@@ -2922,7 +2922,7 @@ ST_FUNC void asm_compute_constraints(ASMOperand *operands,
         if (op->ref_index >= 0)
             continue;
         /* select if register is used for output, input or both */
-        if (op->input_index >= 0) {
+        if (op->पासोक_index >= 0) {
             reg_mask = REG_IN_MASK | REG_OUT_MASK;
         } else if (j < nb_outputs) {
             reg_mask = REG_OUT_MASK;
@@ -3012,9 +3012,9 @@ ST_FUNC void asm_compute_constraints(ASMOperand *operands,
             break;
         }
         /* if a reference is present for that operand, we assign it too */
-        if (op->input_index >= 0) {
-            operands[op->input_index].reg = op->reg;
-            operands[op->input_index].is_llong = op->is_llong;
+        if (op->पासोक_index >= 0) {
+            operands[op->पासोक_index].reg = op->reg;
+            operands[op->पासोक_index].is_llong = op->is_llong;
         }
     }
 

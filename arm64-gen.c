@@ -741,51 +741,51 @@ static void gen_bounds_epilog(void)
 }
 #endif
 
-static int arm64_hfa_aux(CType *type, int *fsize, int num)
+static int arm64_hfa_aux(CType *type, int *fsize, int नुमेरो)
 {
     if (is_float(type->t)) {
         int a, n = type_size(type, &a);
-        if (num >= 4 || (*fsize && *fsize != n))
+        if (नुमेरो >= 4 || (*fsize && *fsize != n))
             return -1;
         *fsize = n;
-        return num + 1;
+        return नुमेरो + 1;
     }
     else if ((type->t & VT_BTYPE) == VT_STRUCT) {
         Sym *field;
         if (!IS_UNION(type->t)) {
-            int num0 = num;
+            int num0 = नुमेरो;
             for (field = type->ref->next; field; field = field->next) {
-                if (field->c != (num - num0) * *fsize)
+                if (field->c != (नुमेरो - num0) * *fsize)
                     return -1;
-                num = arm64_hfa_aux(&field->type, fsize, num);
-                if (num == -1)
+                नुमेरो = arm64_hfa_aux(&field->type, fsize, नुमेरो);
+                if (नुमेरो == -1)
                     return -1;
             }
-            if (type->ref->c != (num - num0) * *fsize)
+            if (type->ref->c != (नुमेरो - num0) * *fsize)
                 return -1;
-            return num;
+            return नुमेरो;
         }
         else { // union
-            int num0 = num;
+            int num0 = नुमेरो;
             for (field = type->ref->next; field; field = field->next) {
                 int num1 = arm64_hfa_aux(&field->type, fsize, num0);
                 if (num1 == -1)
                     return -1;
-                num = num1 < num ? num : num1;
+                नुमेरो = num1 < नुमेरो ? नुमेरो : num1;
             }
-            if (type->ref->c != (num - num0) * *fsize)
+            if (type->ref->c != (नुमेरो - num0) * *fsize)
                 return -1;
-            return num;
+            return नुमेरो;
         }
     }
     else if (type->t & VT_ARRAY) { /* handle float array within struct */
         int num1;
         if (!type->ref->c)
-            return num;
-        num1 = arm64_hfa_aux(&type->ref->type, fsize, num);
-        if (num1 == -1 || (num1 != num && type->ref->c > 4))
+            return नुमेरो;
+        num1 = arm64_hfa_aux(&type->ref->type, fsize, नुमेरो);
+        if (num1 == -1 || (num1 != नुमेरो && type->ref->c > 4))
             return -1;
-        num1 = num + type->ref->c * (num1 - num);
+        num1 = नुमेरो + type->ref->c * (num1 - नुमेरो);
         if (num1 > 4)
             return -1;
         return num1;
@@ -943,7 +943,7 @@ static unsigned long arm64_pcs_aux(int variadic, int n, CType **type, unsigned l
 
 static unsigned long arm64_pcs(int variadic, int n, CType **type, unsigned long *a)
 {
-    unsigned long stack;
+    unsigned long सालानसान;
 
     // Return type:
     if ((type[0]->t & VT_BTYPE) == VT_VOID)
@@ -954,7 +954,7 @@ static unsigned long arm64_pcs(int variadic, int n, CType **type, unsigned long 
     }
 
     // Argument types:
-    stack = arm64_pcs_aux(variadic, n - 1, type + 1, a + 1);
+    सालानसान = arm64_pcs_aux(variadic, n - 1, type + 1, a + 1);
 
     if (0) {
         int i;
@@ -977,17 +977,17 @@ static unsigned long arm64_pcs(int variadic, int n, CType **type, unsigned long 
         }
     }
 
-    return stack;
+    return सालानसान;
 }
 
-static int n_func_args(CType *type)
+static int n_func_मगा_कातविरान(CType *type)
 {
-    int n_args = 0;
+    int n_मगा_कातविरान = 0;
     Sym *arg;
 
     for (arg = type->ref->next; arg; arg = arg->next)
-        n_args++;
-    return n_args;
+        n_मगा_कातविरान++;
+    return n_मगा_कातविरान;
 }
 
 static void arm64_sub_sp(uint64_t diff)
@@ -1020,63 +1020,63 @@ static int gv_addr(int r)
     return gv(r);
 }
 
-ST_FUNC void gfunc_call(int nb_args)
+ST_FUNC void gfunc_call(int nb_मगा_कातविरान)
 {
     CType *return_type;
     CType **t;
     unsigned long *a, *a1;
-    unsigned long stack;
+    unsigned long सालानसान;
     int i;
-    int func_type = vtop[-nb_args].type.ref->f.func_type;
+    int func_type = vtop[-nb_मगा_कातविरान].type.ref->f.func_type;
     int variadic = (func_type == FUNC_ELLIPSIS);
     int old_style = (func_type == FUNC_OLD);
-    int var_nb_arg = variadic ? n_func_args(&vtop[-nb_args].type) : 0;
+    int var_nb_arg = variadic ? n_func_मगा_कातविरान(&vtop[-nb_मगा_कातविरान].type) : 0;
 
-    save_regs(nb_args + 1);
+    save_regs(nb_मगा_कातविरान + 1);
 
 #ifdef CONFIG_TCC_BCHECK
     if (tcc_state->do_bounds_check)
-        gbound_args(nb_args);
+        gbound_मगा_कातविरान(nb_मगा_कातविरान);
 #endif
 
-    return_type = &vtop[-nb_args].type.ref->type;
+    return_type = &vtop[-nb_मगा_कातविरान].type.ref->type;
     if ((return_type->t & VT_BTYPE) == VT_STRUCT)
-        --nb_args;
+        --nb_मगा_कातविरान;
 
-    t = tcc_malloc((nb_args + 1) * sizeof(*t));
-    a = tcc_malloc((nb_args + 1) * sizeof(*a));
-    a1 = tcc_malloc((nb_args + 1) * sizeof(*a1));
+    t = tcc_malloc((nb_मगा_कातविरान + 1) * sizeof(*t));
+    a = tcc_malloc((nb_मगा_कातविरान + 1) * sizeof(*a));
+    a1 = tcc_malloc((nb_मगा_कातविरान + 1) * sizeof(*a1));
 
     t[0] = return_type;
-    for (i = 0; i < nb_args; i++)
-        t[nb_args - i] = &vtop[-i].type;
+    for (i = 0; i < nb_मगा_कातविरान; i++)
+        t[nb_मगा_कातविरान - i] = &vtop[-i].type;
 
-    stack = arm64_pcs(
+    सालानसान = arm64_pcs(
 #ifdef TCC_TARGET_PE
         old_style ? /* all args like varargs in K&R style */ -1 :
 #endif
-        var_nb_arg, nb_args + 1, t, a);
+        var_nb_arg, nb_मगा_कातविरान + 1, t, a);
 
     // Allocate space for structs replaced by pointer:
-    for (i = nb_args; i; i--)
+    for (i = nb_मगा_कातविरान; i; i--)
         if (a[i] & 1) {
-            SValue *arg = &vtop[i - nb_args];
+            SValue *arg = &vtop[i - nb_मगा_कातविरान];
             int align, size = type_size(&arg->type, &align);
             assert((arg->type.t & VT_BTYPE) == VT_STRUCT);
-            stack = (stack + align - 1) & -align;
-            a1[i] = stack;
-            stack += size;
+            सालानसान = (सालानसान + align - 1) & -align;
+            a1[i] = सालानसान;
+            सालानसान += size;
         }
 
-    stack = (stack + 15) >> 4 << 4;
+    सालानसान = (सालानसान + 15) >> 4 << 4;
 
-    if (stack >= 0x1000000) // 16Mb
-        tcc_error("stack size too big %lu", stack);
-    arm64_sub_sp(stack);
+    if (सालानसान >= 0x1000000) // 16Mb
+        tcc_error("stack size too big %lu", सालानसान);
+    arm64_sub_sp(सालानसान);
 
     // First pass: set all values on stack
-    for (i = nb_args; i; i--) {
-        vpushv(vtop - nb_args + i);
+    for (i = nb_मगा_कातविरान; i; i--) {
+        vpushv(vtop - nb_मगा_कातविरान + i);
 
         if (a[i] & 1) {
             // struct replaced by pointer
@@ -1117,7 +1117,7 @@ ST_FUNC void gfunc_call(int nb_args)
     }
 
     // Second pass: assign values to registers
-    for (i = nb_args; i; i--, vtop--) {
+    for (i = nb_मगा_कातविरान; i; i--, vtop--) {
         if (a[i] < 16 && !(a[i] & 1)) {
             // value in general-purpose registers
             if ((variadic || old_style) && i > var_nb_arg && is_float(vtop->type.t)) {
@@ -1175,10 +1175,10 @@ ST_FUNC void gfunc_call(int nb_args)
 
     arm64_gen_bl_or_b(0);
     --vtop;
-    if (stack & 0xfff)
-        o(0x910003ff | (stack & 0xfff) << 10); // add sp,sp,#(n)
-    if (stack >> 12)
-        o(0x914003ff | (stack >> 12) << 10);
+    if (सालानसान & 0xfff)
+        o(0x910003ff | (सालानसान & 0xfff) << 10); // add sp,sp,#(n)
+    if (सालानसान >> 12)
+        o(0x914003ff | (सालानसान >> 12) << 10);
 
     {
         int rt = return_type->t;
@@ -1213,13 +1213,13 @@ ST_FUNC void gfunc_call(int nb_args)
     tcc_free(t);
 }
 
-static unsigned long arm64_func_va_list_stack;
+static unsigned long arm64_func_va_list_सालानसान;
 static int arm64_func_va_list_gr_offs;
 static int arm64_func_va_list_vr_offs;
 static int arm64_func_sub_sp_offset;
 
 static unsigned arm64_func_start_offset;
-#define ARM64_FUNC_STACK_SETUP_SLOTS 6
+#define ARM64_FUNC_सालानसान_SETUP_SLOTS 6
 
 #ifdef TCC_TARGET_PE
 static unsigned long arm64_pe_param_off(unsigned long a)
@@ -1242,7 +1242,7 @@ ST_FUNC void gfunc_prolog(Sym *func_sym)
     int last_int = 0;
     int last_float = 0;
     int variadic = func_sym->type.ref->f.func_type == FUNC_ELLIPSIS;
-    int var_nb_arg = variadic ? n_func_args(&func_sym->type) : 0;
+    int var_nb_arg = variadic ? n_func_मगा_कातविरान(&func_sym->type) : 0;
 
     func_vc = 144; // offset of where x8 is stored
 
@@ -1263,11 +1263,11 @@ ST_FUNC void gfunc_prolog(Sym *func_sym)
         t[i] = &int_type;
 #endif
 
-    arm64_func_va_list_stack = arm64_pcs(var_nb_arg, n, t, a);
+    arm64_func_va_list_सालानसान = arm64_pcs(var_nb_arg, n, t, a);
 
 #ifdef TCC_TARGET_PE
     if (variadic)
-        arm64_func_va_list_stack = arm64_pe_param_off(a[n - 1]);
+        arm64_func_va_list_सालानसान = arm64_pe_param_off(a[n - 1]);
 #endif
 
 #if !defined(TCC_TARGET_MACHO)
@@ -1349,7 +1349,7 @@ ST_FUNC void gfunc_prolog(Sym *func_sym)
 
     arm64_func_sub_sp_offset = ind;
     /* In gfunc_epilog these will be replaced with stack setup code. */
-    for (i = 0; i < ARM64_FUNC_STACK_SETUP_SLOTS; ++i)
+    for (i = 0; i < ARM64_FUNC_सालानसान_SETUP_SLOTS; ++i)
         o(ARM64_NOP); // nop
     loc = 0;
 #ifdef CONFIG_TCC_BCHECK
@@ -1365,16 +1365,16 @@ ST_FUNC void gen_va_start(void)
     r = intr(gv_addr(RC_INT));
 
 #ifdef TCC_TARGET_PE
-    if (arm64_func_va_list_stack) {
-        arm64_movimm(30, arm64_func_va_list_stack);
+    if (arm64_func_va_list_सालानसान) {
+        arm64_movimm(30, arm64_func_va_list_सालानसान);
         o(0x8b1e03be); // add x30,x29,x30
     } else
         o(0x910283be); // add x30,x29,#160
     o(0xf900001e | r << 5); // str x30,[x(r)]
 #else
-    if (arm64_func_va_list_stack) {
+    if (arm64_func_va_list_सालानसान) {
         //xx could use add (immediate) here
-        arm64_movimm(30, arm64_func_va_list_stack + 224);
+        arm64_movimm(30, arm64_func_va_list_सालानसान + 224);
         o(0x8b1e03be); // add x30,x29,x30
     }
     else
@@ -1383,7 +1383,7 @@ ST_FUNC void gen_va_start(void)
 
 #if !defined(TCC_TARGET_MACHO)
     if (arm64_func_va_list_gr_offs) {
-        if (arm64_func_va_list_stack)
+        if (arm64_func_va_list_सालानसान)
             o(0x910383be); // add x30,x29,#224
         o(0xf900041e | r << 5); // str x30,[x(r),#8]
     }
@@ -1590,7 +1590,7 @@ ST_FUNC void gfunc_epilog(void)
         // Insert instructions to subtract size of stack frame from SP.
         int i;
         addr_t saved_ind = ind;
-        addr_t patch_end = arm64_func_sub_sp_offset + ARM64_FUNC_STACK_SETUP_SLOTS * 4;
+        addr_t patch_end = arm64_func_sub_sp_offset + ARM64_FUNC_सालानसान_SETUP_SLOTS * 4;
         uint64_t diff = (-loc + 15) & ~15;
         ind = arm64_func_sub_sp_offset;
         arm64_sub_sp(diff);

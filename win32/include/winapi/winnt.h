@@ -253,8 +253,8 @@ typedef DWORD LCID;
   __declspec(align(16))
 #endif
     typedef struct _FLOAT128 {
-      __int64 LowPart;
-      __int64 HighPart;
+      __int64 माबाबा_Part;
+      __int64 माताअस_Part;
   } FLOAT128;
 
   typedef FLOAT128 *PFLOAT128;
@@ -278,12 +278,12 @@ typedef DWORD LCID;
 
   typedef union _LARGE_INTEGER {
     struct {
-      DWORD LowPart;
-      LONG HighPart;
+      DWORD माबाबा_Part;
+      LONG माताअस_Part;
     };
     struct {
-      DWORD LowPart;
-      LONG HighPart;
+      DWORD माबाबा_Part;
+      LONG माताअस_Part;
     } u;
     LONGLONG QuadPart;
   } LARGE_INTEGER;
@@ -292,12 +292,12 @@ typedef DWORD LCID;
 
   typedef union _ULARGE_INTEGER {
     struct {
-      DWORD LowPart;
-      DWORD HighPart;
+      DWORD माबाबा_Part;
+      DWORD माताअस_Part;
     };
     struct {
-      DWORD LowPart;
-      DWORD HighPart;
+      DWORD माबाबा_Part;
+      DWORD माताअस_Part;
     } u;
     ULONGLONG QuadPart;
   } ULARGE_INTEGER;
@@ -305,8 +305,8 @@ typedef DWORD LCID;
   typedef ULARGE_INTEGER *PULARGE_INTEGER;
 
   typedef struct _LUID {
-    DWORD LowPart;
-    LONG HighPart;
+    DWORD माबाबा_Part;
+    LONG माताअस_Part;
   } LUID,*PLUID;
 
 #define _DWORDLONG_
@@ -343,10 +343,10 @@ typedef DWORD LCID;
 #define RotateRight8 _rotr8
 #define RotateRight16 _rotr16
 
-    unsigned char __cdecl _rotl8(unsigned char Value,unsigned char Shift);
-    unsigned short __cdecl _rotl16(unsigned short Value,unsigned char Shift);
-    unsigned char __cdecl _rotr8(unsigned char Value,unsigned char Shift);
-    unsigned short __cdecl _rotr16(unsigned short Value,unsigned char Shift);
+    unsigned char __cdecl _rotl8(unsigned char हालागा_3,unsigned char Shift);
+    unsigned short __cdecl _rotl16(unsigned short हालागा_3,unsigned char Shift);
+    unsigned char __cdecl _rotr8(unsigned char हालागा_3,unsigned char Shift);
+    unsigned short __cdecl _rotr16(unsigned short हालागा_3,unsigned char Shift);
 #endif
 
 #define RotateLeft32 _rotl
@@ -354,10 +354,10 @@ typedef DWORD LCID;
 #define RotateRight32 _rotr
 #define RotateRight64 _rotr64
 
-    unsigned int __cdecl _rotl(unsigned int Value,int Shift);
-    unsigned __int64 __cdecl _rotl64(unsigned __int64 Value,int Shift);
-    unsigned int __cdecl _rotr(unsigned int Value,int Shift);
-    unsigned __int64 __cdecl _rotr64(unsigned __int64 Value,int Shift);
+    unsigned int __cdecl _rotl(unsigned int हालागा_3,int Shift);
+    unsigned __int64 __cdecl _rotl64(unsigned __int64 हालागा_3,int Shift);
+    unsigned int __cdecl _rotr(unsigned int हालागा_3,int Shift);
+    unsigned __int64 __cdecl _rotr64(unsigned __int64 हालागा_3,int Shift);
 #ifdef __cplusplus
   }
 #endif
@@ -418,20 +418,20 @@ typedef DWORD LCID;
 #define RTL_FIELD_SIZE(type,field) (sizeof(((type *)0)->field))
 #define RTL_SIZEOF_THROUGH_FIELD(type,field) (FIELD_OFFSET(type,field) + RTL_FIELD_SIZE(type,field))
 #define RTL_CONTAINS_FIELD(Struct,Size,Field) ((((PCHAR)(&(Struct)->Field)) + sizeof((Struct)->Field)) <= (((PCHAR)(Struct))+(Size)))
-#define RTL_NUMBER_OF_V1(A) (sizeof(A)/sizeof((A)[0]))
-#define RTL_NUMBER_OF_V2(A) RTL_NUMBER_OF_V1(A)
+#define RTL_नुमेरो_OF_V1(A) (sizeof(A)/sizeof((A)[0]))
+#define RTL_नुमेरो_OF_V2(A) RTL_नुमेरो_OF_V1(A)
 
-#ifdef ENABLE_RTL_NUMBER_OF_V2
-#define RTL_NUMBER_OF(A) RTL_NUMBER_OF_V2(A)
+#ifdef ENABLE_RTL_नुमेरो_OF_V2
+#define RTL_नुमेरो_OF(A) RTL_नुमेरो_OF_V2(A)
 #else
-#define RTL_NUMBER_OF(A) RTL_NUMBER_OF_V1(A)
+#define RTL_नुमेरो_OF(A) RTL_नुमेरो_OF_V1(A)
 #endif
 
-#define ARRAYSIZE(A) RTL_NUMBER_OF_V2(A)
-#define _ARRAYSIZE(A) RTL_NUMBER_OF_V1(A)
+#define ARRAYSIZE(A) RTL_नुमेरो_OF_V2(A)
+#define _ARRAYSIZE(A) RTL_नुमेरो_OF_V1(A)
 
 #define RTL_FIELD_TYPE(type,field) (((type*)0)->field)
-#define RTL_NUMBER_OF_FIELD(type,field) (RTL_NUMBER_OF(RTL_FIELD_TYPE(type,field)))
+#define RTL_नुमेरो_OF_FIELD(type,field) (RTL_नुमेरो_OF(RTL_FIELD_TYPE(type,field)))
 #define RTL_PADDING_BETWEEN_FIELDS(T,F1,F2) ((FIELD_OFFSET(T,F2) > FIELD_OFFSET(T,F1)) ? (FIELD_OFFSET(T,F2) - FIELD_OFFSET(T,F1) - RTL_FIELD_SIZE(T,F1)) : (FIELD_OFFSET(T,F1) - FIELD_OFFSET(T,F2) - RTL_FIELD_SIZE(T,F2)))
 
 #ifdef __cplusplus
@@ -809,12 +809,12 @@ typedef DWORD LCID;
 #define STATUS_FLOAT_INEXACT_RESULT ((DWORD)0xC000008FL)
 #define STATUS_FLOAT_INVALID_OPERATION ((DWORD)0xC0000090L)
 #define STATUS_FLOAT_OVERFLOW ((DWORD)0xC0000091L)
-#define STATUS_FLOAT_STACK_CHECK ((DWORD)0xC0000092L)
+#define STATUS_FLOAT_सालानसान_CHECK ((DWORD)0xC0000092L)
 #define STATUS_FLOAT_UNDERFLOW ((DWORD)0xC0000093L)
 #define STATUS_INTEGER_DIVIDE_BY_ZERO ((DWORD)0xC0000094L)
 #define STATUS_INTEGER_OVERFLOW ((DWORD)0xC0000095L)
 #define STATUS_PRIVILEGED_INSTRUCTION ((DWORD)0xC0000096L)
-#define STATUS_STACK_OVERFLOW ((DWORD)0xC00000FDL)
+#define STATUS_सालानसान_OVERFLOW ((DWORD)0xC00000FDL)
 #define STATUS_CONTROL_C_EXIT ((DWORD)0xC000013AL)
 #define STATUS_FLOAT_MULTIPLE_FAULTS ((DWORD)0xC00002B4L)
 #define STATUS_FLOAT_MULTIPLE_TRAPS ((DWORD)0xC00002B5L)
@@ -824,7 +824,7 @@ typedef DWORD LCID;
 #endif
 
 #define MAXIMUM_WAIT_OBJECTS 64
-#define MAXIMUM_SUSPEND_COUNT MAXCHAR
+#define MAXIMUM_SUSPEND_बिलांग MAXCHAR
 
   typedef ULONG_PTR KSPIN_LOCK;
   typedef KSPIN_LOCK *PKSPIN_LOCK;
@@ -1031,36 +1031,36 @@ typedef DWORD LCID;
 	: "memory");
       return prev;
     }
-    __CRT_INLINE LONG InterlockedAnd(LONG volatile *Destination,LONG Value) {
+    __CRT_INLINE LONG InterlockedAnd(LONG volatile *Destination,LONG हालागा_3) {
       __asm__ __volatile__("lock ; andl %0,%1"
-	: :"r"(Value),"m"(*Destination)
+	: :"r"(हालागा_3),"m"(*Destination)
 	: "memory");
       return *Destination;
     }
-    __CRT_INLINE LONG InterlockedOr(LONG volatile *Destination,LONG Value) {
+    __CRT_INLINE LONG InterlockedOr(LONG volatile *Destination,LONG हालागा_3) {
       __asm__ __volatile__("lock ; orl %0,%1"
-	: : "r"(Value),"m"(*Destination) : "memory");
+	: : "r"(हालागा_3),"m"(*Destination) : "memory");
       return *Destination;
     }
-    __CRT_INLINE LONG InterlockedXor(LONG volatile *Destination,LONG Value) {
+    __CRT_INLINE LONG InterlockedXor(LONG volatile *Destination,LONG हालागा_3) {
       __asm__ __volatile__("lock ; xorl %0,%1"
-	: : "r"(Value),"m"(*Destination) : "memory");
+	: : "r"(हालागा_3),"m"(*Destination) : "memory");
       return *Destination;
     }
     //		$$$$
-    __CRT_INLINE LONG64 InterlockedAnd64(LONG64 volatile *Destination,LONG64 Value) {
+    __CRT_INLINE LONG64 InterlockedAnd64(LONG64 volatile *Destination,LONG64 हालागा_3) {
       __asm__ __volatile__("lock ; andq %0,%1"
-	: : "r"(Value),"m"(*Destination) : "memory");
+	: : "r"(हालागा_3),"m"(*Destination) : "memory");
       return *Destination;
     }
-    __CRT_INLINE LONG64 InterlockedOr64(LONG64 volatile *Destination,LONG64 Value) {
+    __CRT_INLINE LONG64 InterlockedOr64(LONG64 volatile *Destination,LONG64 हालागा_3) {
       __asm__ __volatile__("lock ; orq %0,%1"
-	: : "r"(Value),"m"(*Destination) : "memory");
+	: : "r"(हालागा_3),"m"(*Destination) : "memory");
       return *Destination;
     }
-    __CRT_INLINE LONG64 InterlockedXor64(LONG64 volatile *Destination,LONG64 Value) {
+    __CRT_INLINE LONG64 InterlockedXor64(LONG64 volatile *Destination,LONG64 हालागा_3) {
       __asm__ __volatile__("lock ; xorq %0,%1"
-	: : "r"(Value),"m"(*Destination) : "memory");
+	: : "r"(हालागा_3),"m"(*Destination) : "memory");
       return *Destination;
     }
     __CRT_INLINE LONG InterlockedIncrement(LONG volatile *Addend) {
@@ -1081,17 +1081,17 @@ typedef DWORD LCID;
 	:"m" (*Addend) : "memory");
       return (c != 0 ? 0 : (s != 0 ? -1 : 1));
     }
-    __CRT_INLINE LONG InterlockedExchange(LONG volatile *Target,LONG Value) {
+    __CRT_INLINE LONG InterlockedExchange(LONG volatile *Target,LONG हालागा_3) {
       __asm__ __volatile("lock ; xchgl %0,%1"
-	: "=r"(Value)
-	: "m"(*Target),"0"(Value)
+	: "=r"(हालागा_3)
+	: "m"(*Target),"0"(हालागा_3)
 	: "memory");
-      return Value;
+      return हालागा_3;
     }
-    LONG InterlockedExchangeAdd(LONG volatile *Addend,LONG Value);
+    LONG InterlockedExchangeAdd(LONG volatile *Addend,LONG हालागा_3);
 
 #ifndef _X86AMD64_
-    __CRT_INLINE LONG InterlockedAdd(LONG volatile *Addend,LONG Value) { return InterlockedExchangeAdd(Addend,Value) + Value; }
+    __CRT_INLINE LONG InterlockedAdd(LONG volatile *Addend,LONG हालागा_3) { return InterlockedExchangeAdd(Addend,हालागा_3) + हालागा_3; }
 #endif
     __CRT_INLINE LONG InterlockedCompareExchange(LONG volatile *Destination,LONG ExChange,LONG Comperand) {
       LONG prev;
@@ -1116,17 +1116,17 @@ typedef DWORD LCID;
 	:"m" (*Addend) : "memory");
       return (c != 0 ? 0 : (s != 0 ? -1 : 1));
     }
-    __CRT_INLINE LONG64 InterlockedExchange64(LONG64 volatile *Target,LONG64 Value) {
+    __CRT_INLINE LONG64 InterlockedExchange64(LONG64 volatile *Target,LONG64 हालागा_3) {
       __asm__ __volatile("lock ; xchgq %0,%1"
-	: "=r"(Value)
-	: "m"(*Target),"0"(Value)
+	: "=r"(हालागा_3)
+	: "m"(*Target),"0"(हालागा_3)
 	: "memory");
-      return Value;
+      return हालागा_3;
     }
-    LONG64 InterlockedExchangeAdd64(LONG64 volatile *Addend,LONG64 Value);
+    LONG64 InterlockedExchangeAdd64(LONG64 volatile *Addend,LONG64 हालागा_3);
 
 #ifndef _X86AMD64_
-    __CRT_INLINE LONG64 InterlockedAdd64(LONG64 volatile *Addend,LONG64 Value) { return InterlockedExchangeAdd64(Addend,Value) + Value; }
+    __CRT_INLINE LONG64 InterlockedAdd64(LONG64 volatile *Addend,LONG64 हालागा_3) { return InterlockedExchangeAdd64(Addend,हालागा_3) + हालागा_3; }
 #endif
 
     __CRT_INLINE LONG64 InterlockedCompareExchange64(LONG64 volatile *Destination,LONG64 ExChange,LONG64 Comperand) {
@@ -1139,15 +1139,15 @@ typedef DWORD LCID;
       __asm__ __volatile__("lock ; cmpxchgq %1,%2" : "=a" (prev) : "q" (ExChange),"m" (*Destination), "0" (Comperand) : "memory");
       return prev;
     }
-    __CRT_INLINE PVOID InterlockedExchangePointer(PVOID volatile *Target,PVOID Value) {
+    __CRT_INLINE PVOID InterlockedExchangePointer(PVOID volatile *Target,PVOID हालागा_3) {
       __asm__ __volatile("lock ; xchgq %0,%1"
-	: "=r"(Value)
-	: "m"(*Target),"0"(Value)
+	: "=r"(हालागा_3)
+	: "m"(*Target),"0"(हालागा_3)
 	: "memory");
-      return Value;
+      return हालागा_3;
     }
 
-#define CacheLineFlush(Address) _mm_clflush(Address)
+#define Cache_लिन्या_Flush(Address) _mm_clflush(Address)
 
     VOID _ReadWriteBarrier(VOID);
 
@@ -1163,7 +1163,7 @@ typedef DWORD LCID;
 
 #define YieldProcessor _mm_pause
 #define MemoryBarrier __faststorefence
-#define PreFetchCacheLine(l,a) _mm_prefetch((CHAR CONST *) a,l)
+#define Pre_Fetch_Cache_लिन्या(l,a) _mm_prefetch((CHAR CONST *) a,l)
 #define PrefetchForWrite(p) _m_prefetchw(p)
 #define ReadForWriteAccess(p) (_m_prefetchw(p),*(p))
 
@@ -1189,50 +1189,50 @@ typedef DWORD LCID;
 #define ReadTimeStampCounter() __rdtsc()
 
     DWORD64 __rdtsc(VOID);
-    VOID __movsb(PBYTE Destination,BYTE const *Source,SIZE_T Count);
-    VOID __movsw(PWORD Destination,WORD const *Source,SIZE_T Count);
-    VOID __movsd(PDWORD Destination,DWORD const *Source,SIZE_T Count);
-    VOID __movsq(PDWORD64 Destination,DWORD64 const *Source,SIZE_T Count);
-    VOID __stosb(PBYTE Destination,BYTE Value,SIZE_T Count);
-    VOID __stosw(PWORD Destination,WORD Value,SIZE_T Count);
-    VOID __stosd(PDWORD Destination,DWORD Value,SIZE_T Count);
-    VOID __stosq(PDWORD64 Destination,DWORD64 Value,SIZE_T Count);
+    VOID __movsb(PBYTE Destination,BYTE const *Source,SIZE_T बिलांग_3);
+    VOID __movsw(PWORD Destination,WORD const *Source,SIZE_T बिलांग_3);
+    VOID __movsd(PDWORD Destination,DWORD const *Source,SIZE_T बिलांग_3);
+    VOID __movsq(PDWORD64 Destination,DWORD64 const *Source,SIZE_T बिलांग_3);
+    VOID __stosb(PBYTE Destination,BYTE हालागा_3,SIZE_T बिलांग_3);
+    VOID __stosw(PWORD Destination,WORD हालागा_3,SIZE_T बिलांग_3);
+    VOID __stosd(PDWORD Destination,DWORD हालागा_3,SIZE_T बिलांग_3);
+    VOID __stosq(PDWORD64 Destination,DWORD64 हालागा_3,SIZE_T बिलांग_3);
 
-#define MultiplyHigh __mulh
-#define UnsignedMultiplyHigh __umulh
+#define Multiply_माताअस __mulh
+#define Unsigned_Multiply_माताअस __umulh
 
-    LONGLONG MultiplyHigh(LONGLONG Multiplier,LONGLONG Multiplicand);
-    ULONGLONG UnsignedMultiplyHigh(ULONGLONG Multiplier,ULONGLONG Multiplicand);
+    LONGLONG Multiply_माताअस(LONGLONG Multiplier,LONGLONG Multiplicand);
+    ULONGLONG Unsigned_Multiply_माताअस(ULONGLONG Multiplier,ULONGLONG Multiplicand);
 
 #define ShiftLeft128 __shiftleft128
 #define ShiftRight128 __shiftright128
 
-    DWORD64 ShiftLeft128(DWORD64 LowPart,DWORD64 HighPart,BYTE Shift);
-    DWORD64 ShiftRight128(DWORD64 LowPart,DWORD64 HighPart,BYTE Shift);
+    DWORD64 ShiftLeft128(DWORD64 माबाबा_Part,DWORD64 माताअस_Part,BYTE Shift);
+    DWORD64 ShiftRight128(DWORD64 माबाबा_Part,DWORD64 माताअस_Part,BYTE Shift);
 
 #define Multiply128 _mul128
 
-    LONG64 Multiply128(LONG64 Multiplier,LONG64 Multiplicand,LONG64 *HighProduct);
+    LONG64 Multiply128(LONG64 Multiplier,LONG64 Multiplicand,LONG64 *माताअस_Product);
 
 #define UnsignedMultiply128 _umul128
 
-    DWORD64 UnsignedMultiply128(DWORD64 Multiplier,DWORD64 Multiplicand,DWORD64 *HighProduct);
+    DWORD64 UnsignedMultiply128(DWORD64 Multiplier,DWORD64 Multiplicand,DWORD64 *माताअस_Product);
 
     __CRT_INLINE LONG64 MultiplyExtract128(LONG64 Multiplier,LONG64 Multiplicand,BYTE Shift) {
       LONG64 extractedProduct;
-      LONG64 highProduct;
-      LONG64 lowProduct;
-      lowProduct = Multiply128(Multiplier,Multiplicand,&highProduct);
-      extractedProduct = (LONG64)ShiftRight128((LONG64)lowProduct,(LONG64)highProduct,Shift);
+      LONG64 माताअस_Product_2;
+      LONG64 माबाबा_Product;
+      माबाबा_Product = Multiply128(Multiplier,Multiplicand,&माताअस_Product_2);
+      extractedProduct = (LONG64)ShiftRight128((LONG64)माबाबा_Product,(LONG64)माताअस_Product_2,Shift);
       return extractedProduct;
     }
 
     __CRT_INLINE DWORD64 UnsignedMultiplyExtract128(DWORD64 Multiplier,DWORD64 Multiplicand,BYTE Shift) {
       DWORD64 extractedProduct;
-      DWORD64 highProduct;
-      DWORD64 lowProduct;
-      lowProduct = UnsignedMultiply128(Multiplier,Multiplicand,&highProduct);
-      extractedProduct = ShiftRight128(lowProduct,highProduct,Shift);
+      DWORD64 माताअस_Product_2;
+      DWORD64 माबाबा_Product;
+      माबाबा_Product = UnsignedMultiply128(Multiplier,Multiplicand,&माताअस_Product_2);
+      extractedProduct = ShiftRight128(माबाबा_Product,माताअस_Product_2,Shift);
       return extractedProduct;
     }
 
@@ -1308,8 +1308,8 @@ typedef DWORD LCID;
 #define INITIAL_FPCSR 0x027f
 
   typedef struct DECLSPEC_ALIGN(16) _M128A {
-    ULONGLONG Low;
-    LONGLONG High;
+    ULONGLONG माबाबा_3;
+    LONGLONG माताअस_3;
   } M128A,*PM128A;
 
   typedef struct _XMM_SAVE_AREA32 {
@@ -1432,11 +1432,11 @@ typedef DWORD LCID;
    Add local helpers before relying on increment/decrement, add/exchange-add,
    bitwise, or 64-bit Interlocked forms on Windows ARM64 with TCC. */
 
-    __CRT_INLINE LONG InterlockedExchange(LONG volatile *Target,LONG Value) {
+    __CRT_INLINE LONG InterlockedExchange(LONG volatile *Target,LONG हालागा_3) {
       LONG Old;
       __atomic_load(Target,&Old,__TCC_WINNT_ATOMIC_SEQ_CST);
       __TCC_WINNT_MEMORY_BARRIER();
-      while (!__atomic_compare_exchange(Target,&Old,&Value,0,
+      while (!__atomic_compare_exchange(Target,&Old,&हालागा_3,0,
 	__TCC_WINNT_ATOMIC_SEQ_CST,__TCC_WINNT_ATOMIC_SEQ_CST))
 	;
       __TCC_WINNT_MEMORY_BARRIER();
@@ -1450,11 +1450,11 @@ typedef DWORD LCID;
       __TCC_WINNT_MEMORY_BARRIER();
       return Old;
     }
-    __CRT_INLINE PVOID __TCC_WINNT_InterlockedExchangePointer(PVOID volatile *Target,PVOID Value) {
+    __CRT_INLINE PVOID __TCC_WINNT_InterlockedExchangePointer(PVOID volatile *Target,PVOID हालागा_3) {
       PVOID Old;
       __atomic_load(Target,&Old,__TCC_WINNT_ATOMIC_SEQ_CST);
       __TCC_WINNT_MEMORY_BARRIER();
-      while (!__atomic_compare_exchange(Target,&Old,&Value,0,
+      while (!__atomic_compare_exchange(Target,&Old,&हालागा_3,0,
 	__TCC_WINNT_ATOMIC_SEQ_CST,__TCC_WINNT_ATOMIC_SEQ_CST))
 	;
       __TCC_WINNT_MEMORY_BARRIER();
@@ -1497,8 +1497,8 @@ typedef DWORD LCID;
 
   typedef union _ARM64_NT_NEON128 {
     struct {
-      ULONGLONG Low;
-      LONGLONG High;
+      ULONGLONG माबाबा_3;
+      LONGLONG माताअस_3;
     } DUMMYSTRUCTNAME;
     double D[2];
     float S[4];
@@ -1572,7 +1572,7 @@ typedef DWORD LCID;
 
 #if (defined _ARM64_ || defined _AMD64_) && !defined RC_INVOKED
   NTSYSAPI VOID __cdecl RtlRestoreContext (PCONTEXT ContextRecord,struct _EXCEPTION_RECORD *ExceptionRecord);
-  NTSYSAPI BOOLEAN __cdecl RtlAddFunctionTable(PRUNTIME_FUNCTION FunctionTable,DWORD EntryCount,DWORD64 BaseAddress);
+  NTSYSAPI BOOLEAN __cdecl RtlAddFunctionTable(PRUNTIME_FUNCTION FunctionTable,DWORD Entry_बिलांग,DWORD64 BaseAddress);
   NTSYSAPI BOOLEAN __cdecl RtlInstallFunctionTableCallback(DWORD64 TableIdentifier,DWORD64 BaseAddress,DWORD Length,PGET_RUNTIME_FUNCTION_CALLBACK Callback,PVOID Context,PCWSTR OutOfProcessCallbackDll);
   NTSYSAPI BOOLEAN __cdecl RtlDeleteFunctionTable(PRUNTIME_FUNCTION FunctionTable);
 #endif
@@ -1629,7 +1629,7 @@ typedef DWORD LCID;
   }
 #define YieldProcessor() __asm__ __volatile__("rep nop ");
 
-#define PreFetchCacheLine(l,a)
+#define Pre_Fetch_Cache_लिन्या(l,a)
 #define ReadForWriteAccess(p) (*(p))
 
 #define PF_TEMPORAL_LEVEL_1
@@ -1732,8 +1732,8 @@ typedef DWORD LCID;
 #define _LDT_ENTRY_DEFINED
 
     typedef struct _LDT_ENTRY {
-      WORD LimitLow;
-      WORD BaseLow;
+      WORD Limit_माबाबा;
+      WORD Base_माबाबा;
       union {
 	struct {
 	  BYTE BaseMid;
@@ -1753,7 +1753,7 @@ typedef DWORD LCID;
 	  DWORD Granularity : 1;
 	  DWORD BaseHi : 8;
 	} Bits;
-      } HighWord;
+      } माताअस_Word;
     } LDT_ENTRY,*PLDT_ENTRY;
 #endif
 
@@ -1803,16 +1803,16 @@ typedef DWORD LCID;
 
 #define YieldProcessor __yield
 #define MemoryBarrier __mf
-#define PreFetchCacheLine __lfetch
+#define Pre_Fetch_Cache_लिन्या __lfetch
 #define ReadForWriteAccess(p) (*(p))
 #define DbgRaiseAssertionFailure() __break(ASSERT_BREAKPOINT)
 
 #define PF_TEMPORAL_LEVEL_1 MD_LFHINT_NONE
 #define PF_NON_TEMPORAL_LEVEL_ALL MD_LFHINT_NTA
 
-#define UnsignedMultiplyHigh __UMULH
+#define Unsigned_Multiply_माताअस __UMULH
 
-    ULONGLONG UnsignedMultiplyHigh(ULONGLONG Multiplier,ULONGLONG Multiplicand);
+    ULONGLONG Unsigned_Multiply_माताअस(ULONGLONG Multiplier,ULONGLONG Multiplicand);
 #else
     struct _TEB *NtCurrentTeb(void);
 #endif
@@ -2072,7 +2072,7 @@ typedef DWORD LCID;
 
 #define OUT_OF_PROCESS_FUNCTION_TABLE_CALLBACK_EXPORT_NAME "OutOfProcessFunctionTableCallback"
 
-    BOOLEAN RtlAddFunctionTable(PRUNTIME_FUNCTION FunctionTable,DWORD EntryCount,ULONGLONG BaseAddress,ULONGLONG TargetGp);
+    BOOLEAN RtlAddFunctionTable(PRUNTIME_FUNCTION FunctionTable,DWORD Entry_बिलांग,ULONGLONG BaseAddress,ULONGLONG TargetGp);
     BOOLEAN RtlInstallFunctionTableCallback(DWORD64 TableIdentifier,DWORD64 BaseAddress,DWORD Length,DWORD64 TargetGp,PGET_RUNTIME_FUNCTION_CALLBACK Callback,PVOID Context,PCWSTR OutOfProcessCallbackDll);
     BOOLEAN RtlDeleteFunctionTable(PRUNTIME_FUNCTION FunctionTable);
     VOID RtlRestoreContext (PCONTEXT ContextRecord,struct _EXCEPTION_RECORD *ExceptionRecord);
@@ -2087,7 +2087,7 @@ typedef DWORD LCID;
       DWORD ExceptionFlags;
       struct _EXCEPTION_RECORD *ExceptionRecord;
       PVOID ExceptionAddress;
-      DWORD NumberParameters;
+      DWORD नुमेरो_Parameters;
       ULONG_PTR ExceptionInformation[EXCEPTION_MAXIMUM_PARAMETERS];
     } EXCEPTION_RECORD;
 
@@ -2098,7 +2098,7 @@ typedef DWORD LCID;
       DWORD ExceptionFlags;
       DWORD ExceptionRecord;
       DWORD ExceptionAddress;
-      DWORD NumberParameters;
+      DWORD नुमेरो_Parameters;
       DWORD ExceptionInformation[EXCEPTION_MAXIMUM_PARAMETERS];
     } EXCEPTION_RECORD32,*PEXCEPTION_RECORD32;
 
@@ -2107,7 +2107,7 @@ typedef DWORD LCID;
       DWORD ExceptionFlags;
       DWORD64 ExceptionRecord;
       DWORD64 ExceptionAddress;
-      DWORD NumberParameters;
+      DWORD नुमेरो_Parameters;
       DWORD __unusedAlignment;
       DWORD64 ExceptionInformation[EXCEPTION_MAXIMUM_PARAMETERS];
     } EXCEPTION_RECORD64,*PEXCEPTION_RECORD64;
@@ -2139,10 +2139,10 @@ typedef DWORD LCID;
 #define UNWIND_HISTORY_TABLE_LOCAL   2
 
   typedef struct _UNWIND_HISTORY_TABLE {
-    ULONG Count;
-    UCHAR Search;
-    ULONG64 LowAddress;
-    ULONG64 HighAddress;
+    ULONG बिलांग_3;
+    UCHAR हानाप;
+    ULONG64 माबाबा_Address;
+    ULONG64 माताअस_Address;
     UNWIND_HISTORY_TABLE_ENTRY Entry[UNWIND_HISTORY_TABLE_SIZE];
   } UNWIND_HISTORY_TABLE, *PUNWIND_HISTORY_TABLE;
 
@@ -2228,7 +2228,7 @@ typedef DWORD LCID;
 #ifndef SID_IDENTIFIER_AUTHORITY_DEFINED
 #define SID_IDENTIFIER_AUTHORITY_DEFINED
     typedef struct _SID_IDENTIFIER_AUTHORITY {
-      BYTE Value[6];
+      BYTE हालागा_3[6];
     } SID_IDENTIFIER_AUTHORITY,*PSID_IDENTIFIER_AUTHORITY;
 #endif
 
@@ -2236,7 +2236,7 @@ typedef DWORD LCID;
 #define SID_DEFINED
     typedef struct _SID {
       BYTE Revision;
-      BYTE SubAuthorityCount;
+      BYTE Sub_Authority_बिलांग;
       SID_IDENTIFIER_AUTHORITY IdentifierAuthority;
       DWORD SubAuthority[ANYSIZE_ARRAY];
     } SID,*PISID;
@@ -2284,7 +2284,7 @@ typedef DWORD LCID;
 #define SECURITY_BATCH_RID (0x00000003L)
 #define SECURITY_INTERACTIVE_RID (0x00000004L)
 #define SECURITY_LOGON_IDS_RID (0x00000005L)
-#define SECURITY_LOGON_IDS_RID_COUNT (3L)
+#define SECURITY_LOGON_IDS_RID_बिलांग (3L)
 #define SECURITY_SERVICE_RID (0x00000006L)
 #define SECURITY_ANONYMOUS_LOGON_RID (0x00000007L)
 #define SECURITY_PROXY_RID (0x00000008L)
@@ -2303,7 +2303,7 @@ typedef DWORD LCID;
 #define SECURITY_NETWORK_SERVICE_RID (0x00000014L)
 
 #define SECURITY_NT_NON_UNIQUE (0x00000015L)
-#define SECURITY_NT_NON_UNIQUE_SUB_AUTH_COUNT (3L)
+#define SECURITY_NT_NON_UNIQUE_SUB_AUTH_बिलांग (3L)
 
 #define SECURITY_ENTERPRISE_READONLY_CONTROLLERS_RID (0x00000016L)
 
@@ -2311,13 +2311,13 @@ typedef DWORD LCID;
 #define SECURITY_WRITE_RESTRICTED_CODE_RID (0x00000021L)
 
 #define SECURITY_PACKAGE_BASE_RID (0x00000040L)
-#define SECURITY_PACKAGE_RID_COUNT (2L)
+#define SECURITY_PACKAGE_RID_बिलांग (2L)
 #define SECURITY_PACKAGE_NTLM_RID (0x0000000AL)
 #define SECURITY_PACKAGE_SCHANNEL_RID (0x0000000EL)
 #define SECURITY_PACKAGE_DIGEST_RID (0x00000015L)
 
 #define SECURITY_SERVICE_ID_BASE_RID (0x00000050L)
-#define SECURITY_SERVICE_ID_RID_COUNT (6L)
+#define SECURITY_SERVICE_ID_RID_बिलांग (6L)
 
 #define SECURITY_RESERVED_ID_BASE_RID (0x00000051L)
 
@@ -2352,7 +2352,7 @@ typedef DWORD LCID;
 
 #define DOMAIN_ALIAS_RID_ACCOUNT_OPS (0x00000224L)
 #define DOMAIN_ALIAS_RID_SYSTEM_OPS (0x00000225L)
-#define DOMAIN_ALIAS_RID_PRINT_OPS (0x00000226L)
+#define DOMAIN_ALIAS_RID_इलिम्बाग_OPS (0x00000226L)
 #define DOMAIN_ALIAS_RID_BACKUP_OPS (0x00000227L)
 
 #define DOMAIN_ALIAS_RID_REPLICATOR (0x00000228L)
@@ -2376,9 +2376,9 @@ typedef DWORD LCID;
 
 #define SECURITY_MANDATORY_LABEL_AUTHORITY {0,0,0,0,0,16}
 #define SECURITY_MANDATORY_UNTRUSTED_RID (0x00000000L)
-#define SECURITY_MANDATORY_LOW_RID (0x00001000L)
+#define SECURITY_MANDATORY_माबाबा_RID (0x00001000L)
 #define SECURITY_MANDATORY_MEDIUM_RID (0x00002000L)
-#define SECURITY_MANDATORY_HIGH_RID (0x00003000L)
+#define SECURITY_MANDATORY_माताअस_RID (0x00003000L)
 #define SECURITY_MANDATORY_SYSTEM_RID (0x00004000L)
 #define SECURITY_MANDATORY_PROTECTED_PROCESS_RID (0x00005000L)
 
@@ -2387,7 +2387,7 @@ typedef DWORD LCID;
 #define MANDATORY_LEVEL_TO_MANDATORY_RID(IL) (IL * 0x1000)
 
     typedef enum {
-      WinNullSid = 0,WinWorldSid = 1,WinLocalSid = 2,WinCreatorOwnerSid = 3,WinCreatorGroupSid = 4,WinCreatorOwnerServerSid = 5,WinCreatorGroupServerSid = 6,WinNtAuthoritySid = 7,WinDialupSid = 8,WinNetworkSid = 9,WinBatchSid = 10,WinInteractiveSid = 11,WinServiceSid = 12,WinAnonymousSid = 13,WinProxySid = 14,WinEnterpriseControllersSid = 15,WinSelfSid = 16,WinAuthenticatedUserSid = 17,WinRestrictedCodeSid = 18,WinTerminalServerSid = 19,WinRemoteLogonIdSid = 20,WinLogonIdsSid = 21,WinLocalSystemSid = 22,WinLocalServiceSid = 23,WinNetworkServiceSid = 24,WinBuiltinDomainSid = 25,WinBuiltinAdministratorsSid = 26,WinBuiltinUsersSid = 27,WinBuiltinGuestsSid = 28,WinBuiltinPowerUsersSid = 29,WinBuiltinAccountOperatorsSid = 30,WinBuiltinSystemOperatorsSid = 31,WinBuiltinPrintOperatorsSid = 32,WinBuiltinBackupOperatorsSid = 33,WinBuiltinReplicatorSid = 34,WinBuiltinPreWindows2000CompatibleAccessSid = 35,WinBuiltinRemoteDesktopUsersSid = 36,WinBuiltinNetworkConfigurationOperatorsSid = 37,WinAccountAdministratorSid = 38,WinAccountGuestSid = 39,WinAccountKrbtgtSid = 40,WinAccountDomainAdminsSid = 41,WinAccountDomainUsersSid = 42,WinAccountDomainGuestsSid = 43,WinAccountComputersSid = 44,WinAccountControllersSid = 45,WinAccountCertAdminsSid = 46,WinAccountSchemaAdminsSid = 47,WinAccountEnterpriseAdminsSid = 48,WinAccountPolicyAdminsSid = 49,WinAccountRasAndIasServersSid = 50,WinNTLMAuthenticationSid = 51,WinDigestAuthenticationSid = 52,WinSChannelAuthenticationSid = 53,WinThisOrganizationSid = 54,WinOtherOrganizationSid = 55,WinBuiltinIncomingForestTrustBuildersSid = 56,WinBuiltinPerfMonitoringUsersSid = 57,WinBuiltinPerfLoggingUsersSid = 58,WinBuiltinAuthorizationAccessSid = 59,WinBuiltinTerminalServerLicenseServersSid = 60,WinBuiltinDCOMUsersSid = 61
+      WinNullSid = 0,WinWorldSid = 1,WinLocalSid = 2,WinCreatorOwnerSid = 3,WinCreatorGroupSid = 4,WinCreatorOwnerServerSid = 5,WinCreatorGroupServerSid = 6,WinNtAuthoritySid = 7,WinDialupSid = 8,WinNetworkSid = 9,WinBatchSid = 10,WinInteractiveSid = 11,WinServiceSid = 12,WinAnonymousSid = 13,WinProxySid = 14,WinEnterpriseControllersSid = 15,WinSelfSid = 16,WinAuthenticatedUserSid = 17,WinRestrictedCodeSid = 18,WinTerminalServerSid = 19,WinRemoteLogonIdSid = 20,WinLogonIdsSid = 21,WinLocalSystemSid = 22,WinLocalServiceSid = 23,WinNetworkServiceSid = 24,WinBuiltinDomainSid = 25,WinBuiltinAdministratorsSid = 26,WinBuiltinUsersSid = 27,WinBuiltinGuestsSid = 28,WinBuiltinPowerUsersSid = 29,WinBuiltinAccountOperatorsSid = 30,WinBuiltinSystemOperatorsSid = 31,Win_Builtin_इलिम्बाग_Operators_Sid = 32,WinBuiltinBackupOperatorsSid = 33,WinBuiltinReplicatorSid = 34,WinBuiltinPreWindows2000CompatibleAccessSid = 35,WinBuiltinRemoteDesktopUsersSid = 36,WinBuiltinNetworkConfigurationOperatorsSid = 37,WinAccountAdministratorSid = 38,WinAccountGuestSid = 39,WinAccountKrbtgtSid = 40,WinAccountDomainAdminsSid = 41,WinAccountDomainUsersSid = 42,WinAccountDomainGuestsSid = 43,WinAccountComputersSid = 44,WinAccountControllersSid = 45,WinAccountCertAdminsSid = 46,WinAccountSchemaAdminsSid = 47,WinAccountEnterpriseAdminsSid = 48,WinAccountPolicyAdminsSid = 49,WinAccountRasAndIasServersSid = 50,WinNTLMAuthenticationSid = 51,WinDigestAuthenticationSid = 52,WinSChannelAuthenticationSid = 53,WinThisOrganizationSid = 54,WinOtherOrganizationSid = 55,WinBuiltinIncomingForestTrustBuildersSid = 56,WinBuiltinPerfMonitoringUsersSid = 57,WinBuiltinPerfLoggingUsersSid = 58,WinBuiltinAuthorizationAccessSid = 59,WinBuiltinTerminalServerLicenseServersSid = 60,WinBuiltinDCOMUsersSid = 61
     } WELL_KNOWN_SID_TYPE;
 
 #define SYSTEM_LUID { 0x3E7,0x0 }
@@ -2420,7 +2420,7 @@ typedef DWORD LCID;
       BYTE AclRevision;
       BYTE Sbz1;
       WORD AclSize;
-      WORD AceCount;
+      WORD Ace_बिलांग;
       WORD Sbz2;
     } ACL;
     typedef ACL *PACL;
@@ -2620,7 +2620,7 @@ typedef DWORD LCID;
     typedef ACL_REVISION_INFORMATION *PACL_REVISION_INFORMATION;
 
     typedef struct _ACL_SIZE_INFORMATION {
-      DWORD AceCount;
+      DWORD Ace_बिलांग;
       DWORD AclBytesInUse;
       DWORD AclBytesFree;
     } ACL_SIZE_INFORMATION;
@@ -2700,7 +2700,7 @@ typedef DWORD LCID;
 #define PRIVILEGE_SET_ALL_NECESSARY (1)
 
     typedef struct _PRIVILEGE_SET {
-      DWORD PrivilegeCount;
+      DWORD Privilege_बिलांग;
       DWORD Control;
       LUID_AND_ATTRIBUTES Privilege[ANYSIZE_ARRAY];
     } PRIVILEGE_SET,*PPRIVILEGE_SET;
@@ -2709,7 +2709,7 @@ typedef DWORD LCID;
 #define SE_ASSIGNPRIMARYTOKEN_NAME TEXT("SeAssignPrimaryTokenPrivilege")
 #define SE_LOCK_MEMORY_NAME TEXT("SeLockMemoryPrivilege")
 #define SE_INCREASE_QUOTA_NAME TEXT("SeIncreaseQuotaPrivilege")
-#define SE_UNSOLICITED_INPUT_NAME TEXT("SeUnsolicitedInputPrivilege")
+#define SE_UNSOLICITED_पासोक_NAME TEXT("SeUnsolicitedInputPrivilege")
 #define SE_MACHINE_ACCOUNT_NAME TEXT("SeMachineAccountPrivilege")
 #define SE_TCB_NAME TEXT("SeTcbPrivilege")
 #define SE_SECURITY_NAME TEXT("SeSecurityPrivilege")
@@ -2779,12 +2779,12 @@ typedef DWORD LCID;
     } TOKEN_USER,*PTOKEN_USER;
 
     typedef struct _TOKEN_GROUPS {
-      DWORD GroupCount;
+      DWORD Group_बिलांग;
       SID_AND_ATTRIBUTES Groups[ANYSIZE_ARRAY];
     } TOKEN_GROUPS,*PTOKEN_GROUPS;
 
     typedef struct _TOKEN_PRIVILEGES {
-      DWORD PrivilegeCount;
+      DWORD Privilege_बिलांग;
       LUID_AND_ATTRIBUTES Privileges[ANYSIZE_ARRAY];
     } TOKEN_PRIVILEGES,*PTOKEN_PRIVILEGES;
 
@@ -2801,13 +2801,13 @@ typedef DWORD LCID;
     } TOKEN_DEFAULT_DACL,*PTOKEN_DEFAULT_DACL;
 
     typedef struct _TOKEN_GROUPS_AND_PRIVILEGES {
-      DWORD SidCount;
+      DWORD Sid_बिलांग;
       DWORD SidLength;
       PSID_AND_ATTRIBUTES Sids;
-      DWORD RestrictedSidCount;
+      DWORD Restricted_Sid_बिलांग;
       DWORD RestrictedSidLength;
       PSID_AND_ATTRIBUTES RestrictedSids;
-      DWORD PrivilegeCount;
+      DWORD Privilege_बिलांग;
       DWORD PrivilegeLength;
       PLUID_AND_ATTRIBUTES Privileges;
       LUID AuthenticationId;
@@ -2827,12 +2827,12 @@ typedef DWORD LCID;
     } TOKEN_AUDIT_POLICY_ELEMENT,*PTOKEN_AUDIT_POLICY_ELEMENT;
 
     typedef struct _TOKEN_AUDIT_POLICY {
-      DWORD PolicyCount;
+      DWORD Policy_बिलांग;
       TOKEN_AUDIT_POLICY_ELEMENT Policy[ANYSIZE_ARRAY];
     } TOKEN_AUDIT_POLICY,*PTOKEN_AUDIT_POLICY;
 
-#define PER_USER_AUDITING_POLICY_SIZE(p) (sizeof(TOKEN_AUDIT_POLICY) + (((p)->PolicyCount > ANYSIZE_ARRAY) ? (sizeof(TOKEN_AUDIT_POLICY_ELEMENT) *((p)->PolicyCount - ANYSIZE_ARRAY)) : 0))
-#define PER_USER_AUDITING_POLICY_SIZE_BY_COUNT(C) (sizeof(TOKEN_AUDIT_POLICY) + (((C) > ANYSIZE_ARRAY) ? (sizeof(TOKEN_AUDIT_POLICY_ELEMENT) *((C) - ANYSIZE_ARRAY)) : 0))
+#define PER_USER_AUDITING_POLICY_SIZE(p) (sizeof(TOKEN_AUDIT_POLICY) + (((p)->Policy_बिलांग > ANYSIZE_ARRAY) ? (sizeof(TOKEN_AUDIT_POLICY_ELEMENT) *((p)->Policy_बिलांग - ANYSIZE_ARRAY)) : 0))
+#define PER_USER_AUDITING_POLICY_SIZE_BY_बिलांग(C) (sizeof(TOKEN_AUDIT_POLICY) + (((C) > ANYSIZE_ARRAY) ? (sizeof(TOKEN_AUDIT_POLICY_ELEMENT) *((C) - ANYSIZE_ARRAY)) : 0))
 
 #define TOKEN_SOURCE_LENGTH 8
 
@@ -2849,8 +2849,8 @@ typedef DWORD LCID;
       SECURITY_IMPERSONATION_LEVEL ImpersonationLevel;
       DWORD DynamicCharged;
       DWORD DynamicAvailable;
-      DWORD GroupCount;
-      DWORD PrivilegeCount;
+      DWORD Group_बिलांग;
+      DWORD Privilege_बिलांग;
       LUID ModifiedId;
     } TOKEN_STATISTICS,*PTOKEN_STATISTICS;
 
@@ -2953,8 +2953,8 @@ typedef DWORD LCID;
 #define _NT_TIB_DEFINED
     typedef struct _NT_TIB {
       struct _EXCEPTION_REGISTRATION_RECORD *ExceptionList;
-      PVOID StackBase;
-      PVOID StackLimit;
+      PVOID सालानसान_Base;
+      PVOID सालानसान_Limit;
       PVOID SubSystemTib;
       union {
 	PVOID FiberData;
@@ -2968,8 +2968,8 @@ typedef DWORD LCID;
 
     typedef struct _NT_TIB32 {
       DWORD ExceptionList;
-      DWORD StackBase;
-      DWORD StackLimit;
+      DWORD सालानसान_Base;
+      DWORD सालानसान_Limit;
       DWORD SubSystemTib;
       union {
 	DWORD FiberData;
@@ -2981,8 +2981,8 @@ typedef DWORD LCID;
 
     typedef struct _NT_TIB64 {
       DWORD64 ExceptionList;
-      DWORD64 StackBase;
-      DWORD64 StackLimit;
+      DWORD64 सालानसान_Base;
+      DWORD64 सालानसान_Limit;
       DWORD64 SubSystemTib;
       union {
 	DWORD64 FiberData;
@@ -3031,12 +3031,12 @@ typedef DWORD LCID;
     } QUOTA_LIMITS_EX,*PQUOTA_LIMITS_EX;
 
     typedef struct _IO_COUNTERS {
-      ULONGLONG ReadOperationCount;
-      ULONGLONG WriteOperationCount;
-      ULONGLONG OtherOperationCount;
-      ULONGLONG ReadTransferCount;
-      ULONGLONG WriteTransferCount;
-      ULONGLONG OtherTransferCount;
+      ULONGLONG Read_Operation_बिलांग;
+      ULONGLONG Write_Operation_बिलांग;
+      ULONGLONG Other_Operation_बिलांग;
+      ULONGLONG Read_Transfer_बिलांग;
+      ULONGLONG Write_Transfer_बिलांग;
+      ULONGLONG Other_Transfer_बिलांग;
     } IO_COUNTERS;
     typedef IO_COUNTERS *PIO_COUNTERS;
 
@@ -3045,7 +3045,7 @@ typedef DWORD LCID;
       LARGE_INTEGER TotalKernelTime;
       LARGE_INTEGER ThisPeriodTotalUserTime;
       LARGE_INTEGER ThisPeriodTotalKernelTime;
-      DWORD TotalPageFaultCount;
+      DWORD Total_Page_Fault_बिलांग;
       DWORD TotalProcesses;
       DWORD ActiveProcesses;
       DWORD TotalTerminatedProcesses;
@@ -3073,8 +3073,8 @@ typedef DWORD LCID;
     } JOBOBJECT_EXTENDED_LIMIT_INFORMATION,*PJOBOBJECT_EXTENDED_LIMIT_INFORMATION;
 
     typedef struct _JOBOBJECT_BASIC_PROCESS_ID_LIST {
-      DWORD NumberOfAssignedProcesses;
-      DWORD NumberOfProcessIdsInList;
+      DWORD नुमेरो_Of_Assigned_Processes;
+      DWORD नुमेरो_Of_Process_Ids_In_List;
       ULONG_PTR ProcessIdList[1];
     } JOBOBJECT_BASIC_PROCESS_ID_LIST,*PJOBOBJECT_BASIC_PROCESS_ID_LIST;
 
@@ -3095,7 +3095,7 @@ typedef DWORD LCID;
     } JOBOBJECT_END_OF_JOB_TIME_INFORMATION,*PJOBOBJECT_END_OF_JOB_TIME_INFORMATION;
 
     typedef struct _JOBOBJECT_ASSOCIATE_COMPLETION_PORT {
-      PVOID CompletionKey;
+      PVOID Completion_सुसि;
       HANDLE CompletionPort;
     } JOBOBJECT_ASSOCIATE_COMPLETION_PORT,*PJOBOBJECT_ASSOCIATE_COMPLETION_PORT;
 
@@ -3111,15 +3111,15 @@ typedef DWORD LCID;
 #define JOB_OBJECT_TERMINATE_AT_END_OF_JOB 0
 #define JOB_OBJECT_POST_AT_END_OF_JOB 1
 
-#define JOB_OBJECT_MSG_END_OF_JOB_TIME 1
-#define JOB_OBJECT_MSG_END_OF_PROCESS_TIME 2
-#define JOB_OBJECT_MSG_ACTIVE_PROCESS_LIMIT 3
-#define JOB_OBJECT_MSG_ACTIVE_PROCESS_ZERO 4
-#define JOB_OBJECT_MSG_NEW_PROCESS 6
-#define JOB_OBJECT_MSG_EXIT_PROCESS 7
-#define JOB_OBJECT_MSG_ABNORMAL_EXIT_PROCESS 8
-#define JOB_OBJECT_MSG_PROCESS_MEMORY_LIMIT 9
-#define JOB_OBJECT_MSG_JOB_MEMORY_LIMIT 10
+#define JOB_OBJECT_मेनसाहे_END_OF_JOB_TIME 1
+#define JOB_OBJECT_मेनसाहे_END_OF_PROCESS_TIME 2
+#define JOB_OBJECT_मेनसाहे_ACTIVE_PROCESS_LIMIT 3
+#define JOB_OBJECT_मेनसाहे_ACTIVE_PROCESS_ZERO 4
+#define JOB_OBJECT_मेनसाहे_NEW_PROCESS 6
+#define JOB_OBJECT_मेनसाहे_EXIT_PROCESS 7
+#define JOB_OBJECT_मेनसाहे_ABNORMAL_EXIT_PROCESS 8
+#define JOB_OBJECT_मेनसाहे_PROCESS_MEMORY_LIMIT 9
+#define JOB_OBJECT_मेनसाहे_JOB_MEMORY_LIMIT 10
 
 #define JOB_OBJECT_LIMIT_WORKINGSET 0x00000001
 #define JOB_OBJECT_LIMIT_PROCESS_TIME 0x00000002
@@ -3196,7 +3196,7 @@ typedef DWORD LCID;
 #define TIME_ZONE_ID_DAYLIGHT 2
 
     typedef enum _LOGICAL_PROCESSOR_RELATIONSHIP {
-      RelationProcessorCore,RelationNumaNode,RelationCache
+      RelationProcessorCore,Relation_Numa_बुहोल,RelationCache
     } LOGICAL_PROCESSOR_RELATIONSHIP;
 
 #define LTP_PC_SMT 0x1
@@ -3210,7 +3210,7 @@ typedef DWORD LCID;
     typedef struct _CACHE_DESCRIPTOR {
       BYTE Level;
       BYTE Associativity;
-      WORD LineSize;
+      WORD लिन्या_Size;
       DWORD Size;
       PROCESSOR_CACHE_TYPE Type;
     } CACHE_DESCRIPTOR,*PCACHE_DESCRIPTOR;
@@ -3223,8 +3223,8 @@ typedef DWORD LCID;
 	  BYTE Flags;
 	} ProcessorCore;
 	struct {
-	  DWORD NodeNumber;
-	} NumaNode;
+	  DWORD बुहोल_नुमेरो;
+	} Numa_बुहोल;
 	CACHE_DESCRIPTOR Cache;
 	ULONGLONG Reserved[2];
       };
@@ -3341,7 +3341,7 @@ typedef DWORD LCID;
 #define MEM_PRIVATE 0x20000
 #define MEM_MAPPED 0x40000
 #define MEM_RESET 0x80000
-#define MEM_TOP_DOWN 0x100000
+#define MEM_इताअस_DOWN 0x100000
 #define MEM_WRITE_WATCH 0x200000
 #define MEM_PHYSICAL 0x400000
 #define MEM_LARGE_PAGES 0x20000000
@@ -3415,7 +3415,7 @@ typedef DWORD LCID;
 #define FILE_ACTION_RENAMED_NEW_NAME 0x00000005
 #define MAILSLOT_NO_MESSAGE ((DWORD)-1)
 #define MAILSLOT_WAIT_FOREVER ((DWORD)-1)
-#define FILE_CASE_SENSITIVE_SEARCH 0x00000001
+#define FILE_CASE_SENSITIVE_हानाप 0x00000001
 #define FILE_CASE_PRESERVED_NAMES 0x00000002
 #define FILE_UNICODE_ON_DISK 0x00000004
 #define FILE_PERSISTENT_ACLS 0x00000008
@@ -3558,9 +3558,9 @@ typedef DWORD LCID;
       SYSTEM_POWER_STATE MinSystemState;
     } SYSTEM_POWER_LEVEL,*PSYSTEM_POWER_LEVEL;
 
-#define NUM_DISCHARGE_POLICIES 4
+#define नुमेरो_DISCHARGE_POLICIES 4
 #define DISCHARGE_POLICY_CRITICAL 0
-#define DISCHARGE_POLICY_LOW 1
+#define DISCHARGE_POLICY_माबाबा 1
 
 #define PO_THROTTLE_NONE 0
 #define PO_THROTTLE_CONSTANT 1
@@ -3587,7 +3587,7 @@ typedef DWORD LCID;
       DWORD Spare3;
       DWORD DozeS4Timeout;
       DWORD BroadcastCapacityResolution;
-      SYSTEM_POWER_LEVEL DischargePolicy[NUM_DISCHARGE_POLICIES];
+      SYSTEM_POWER_LEVEL DischargePolicy[नुमेरो_DISCHARGE_POLICIES];
       DWORD VideoTimeout;
       BOOLEAN VideoDimDisplay;
       DWORD VideoReserved[3];
@@ -3617,7 +3617,7 @@ typedef DWORD LCID;
       BYTE Spare[3];
       DWORD DisableCStates:1;
       DWORD Reserved:31;
-      DWORD PolicyCount;
+      DWORD Policy_बिलांग;
       PROCESSOR_POWER_POLICY_INFO Policy[3];
     } PROCESSOR_POWER_POLICY,*PPROCESSOR_POWER_POLICY;
 
@@ -3654,15 +3654,15 @@ typedef DWORD LCID;
       BOOLEAN SystemBatteriesPresent;
       BOOLEAN BatteriesAreShortTerm;
       BATTERY_REPORTING_SCALE BatteryScale[3];
-      SYSTEM_POWER_STATE AcOnLineWake;
+      SYSTEM_POWER_STATE Ac_On_लिन्या_Wake;
       SYSTEM_POWER_STATE SoftLidWake;
       SYSTEM_POWER_STATE RtcWake;
       SYSTEM_POWER_STATE MinDeviceWakeState;
-      SYSTEM_POWER_STATE DefaultLowLatencyWake;
+      SYSTEM_POWER_STATE Default_माबाबा_Latency_Wake;
     } SYSTEM_POWER_CAPABILITIES,*PSYSTEM_POWER_CAPABILITIES;
 
     typedef struct {
-      BOOLEAN AcOnLine;
+      BOOLEAN Ac_On_लिन्या;
       BOOLEAN BatteryPresent;
       BOOLEAN Charging;
       BOOLEAN Discharging;
@@ -3717,7 +3717,7 @@ typedef DWORD LCID;
       WORD ne_flags;
       WORD ne_autodata;
       WORD ne_heap;
-      WORD ne_stack;
+      WORD ne_सालानसान;
       LONG ne_csip;
       LONG ne_sssp;
       WORD ne_cseg;
@@ -3798,10 +3798,10 @@ typedef DWORD LCID;
 
     typedef struct _IMAGE_FILE_HEADER {
       WORD Machine;
-      WORD NumberOfSections;
+      WORD नुमेरो_Of_Sections;
       DWORD TimeDateStamp;
-      DWORD PointerToSymbolTable;
-      DWORD NumberOfSymbols;
+      DWORD Pointer_To_सिम्बोलो_Table;
+      DWORD नुमेरो_Of_Symbols;
       WORD SizeOfOptionalHeader;
       WORD Characteristics;
     } IMAGE_FILE_HEADER,*PIMAGE_FILE_HEADER;
@@ -3810,7 +3810,7 @@ typedef DWORD LCID;
 
 #define IMAGE_FILE_RELOCS_STRIPPED 0x0001
 #define IMAGE_FILE_EXECUTABLE_IMAGE 0x0002
-#define IMAGE_FILE_LINE_NUMS_STRIPPED 0x0004
+#define IMAGE_FILE_लिन्या_NUMS_STRIPPED 0x0004
 #define IMAGE_FILE_LOCAL_SYMS_STRIPPED 0x0008
 #define IMAGE_FILE_AGGRESIVE_WS_TRIM 0x0010
 #define IMAGE_FILE_LARGE_ADDRESS_AWARE 0x0020
@@ -3882,18 +3882,18 @@ typedef DWORD LCID;
       WORD MinorImageVersion;
       WORD MajorSubsystemVersion;
       WORD MinorSubsystemVersion;
-      DWORD Win32VersionValue;
+      DWORD Win32_Version_हालागा;
       DWORD SizeOfImage;
       DWORD SizeOfHeaders;
       DWORD CheckSum;
       WORD Subsystem;
       WORD DllCharacteristics;
-      DWORD SizeOfStackReserve;
-      DWORD SizeOfStackCommit;
+      DWORD Size_Of_सालानसान_Reserve;
+      DWORD Size_Of_सालानसान_Commit;
       DWORD SizeOfHeapReserve;
       DWORD SizeOfHeapCommit;
       DWORD LoaderFlags;
-      DWORD NumberOfRvaAndSizes;
+      DWORD नुमेरो_Of_Rva_And_Sizes;
       IMAGE_DATA_DIRECTORY DataDirectory[IMAGE_NUMBEROF_DIRECTORY_ENTRIES];
     } IMAGE_OPTIONAL_HEADER32,*PIMAGE_OPTIONAL_HEADER32;
 
@@ -3910,7 +3910,7 @@ typedef DWORD LCID;
       DWORD BaseOfBss;
       DWORD GprMask;
       DWORD CprMask[4];
-      DWORD GpValue;
+      DWORD Gp_हालागा;
     } IMAGE_ROM_OPTIONAL_HEADER,*PIMAGE_ROM_OPTIONAL_HEADER;
 
     typedef struct _IMAGE_OPTIONAL_HEADER64 {
@@ -3931,18 +3931,18 @@ typedef DWORD LCID;
       WORD MinorImageVersion;
       WORD MajorSubsystemVersion;
       WORD MinorSubsystemVersion;
-      DWORD Win32VersionValue;
+      DWORD Win32_Version_हालागा;
       DWORD SizeOfImage;
       DWORD SizeOfHeaders;
       DWORD CheckSum;
       WORD Subsystem;
       WORD DllCharacteristics;
-      ULONGLONG SizeOfStackReserve;
-      ULONGLONG SizeOfStackCommit;
+      ULONGLONG Size_Of_सालानसान_Reserve;
+      ULONGLONG Size_Of_सालानसान_Commit;
       ULONGLONG SizeOfHeapReserve;
       ULONGLONG SizeOfHeapCommit;
       DWORD LoaderFlags;
-      DWORD NumberOfRvaAndSizes;
+      DWORD नुमेरो_Of_Rva_And_Sizes;
       IMAGE_DATA_DIRECTORY DataDirectory[IMAGE_NUMBEROF_DIRECTORY_ENTRIES];
     } IMAGE_OPTIONAL_HEADER64,*PIMAGE_OPTIONAL_HEADER64;
 
@@ -4008,7 +4008,7 @@ typedef DWORD LCID;
 #define IMAGE_SUBSYSTEM_EFI_ROM 13
 #define IMAGE_SUBSYSTEM_XBOX 14
 
-#define IMAGE_DLLCHARACTERISTICS_HIGH_ENTROPY_VA 0x0020
+#define IMAGE_DLLCHARACTERISTICS_माताअस_ENTROPY_VA 0x0020
 #define IMAGE_DLLCHARACTERISTICS_DYNAMIC_BASE 0x0040
 #define IMAGE_DLLCHARACTERISTICS_FORCE_INTEGRITY 0x0080
 #define IMAGE_DLLCHARACTERISTICS_NX_COMPAT 0x0100
@@ -4060,8 +4060,8 @@ typedef DWORD LCID;
       DWORD PointerToRawData;
       DWORD PointerToRelocations;
       DWORD PointerToLinenumbers;
-      WORD NumberOfRelocations;
-      WORD NumberOfLinenumbers;
+      WORD नुमेरो_Of_Relocations;
+      WORD नुमेरो_Of_Linenumbers;
       DWORD Characteristics;
     } IMAGE_SECTION_HEADER,*PIMAGE_SECTION_HEADER;
 
@@ -4114,7 +4114,7 @@ typedef DWORD LCID;
 
 #include "pshpack2.h"
 
-    typedef struct _IMAGE_SYMBOL {
+    typedef struct IMAGE_सिम्बोलो {
       union {
 	BYTE ShortName[8];
 	struct {
@@ -4123,15 +4123,15 @@ typedef DWORD LCID;
 	} Name;
 	DWORD LongName[2];
       } N;
-      DWORD Value;
-      SHORT SectionNumber;
+      DWORD हालागा_3;
+      SHORT Section_नुमेरो;
       WORD Type;
       BYTE StorageClass;
-      BYTE NumberOfAuxSymbols;
-    } IMAGE_SYMBOL;
-    typedef IMAGE_SYMBOL UNALIGNED *PIMAGE_SYMBOL;
+      BYTE नुमेरो_Of_Aux_Symbols;
+    } IMAGE_सिम्बोलो_2;
+    typedef IMAGE_सिम्बोलो_2 UNALIGNED *PIMAGE_सिम्बोलो;
 
-#define IMAGE_SIZEOF_SYMBOL 18
+#define IMAGE_SIZEOF_सिम्बोलो 18
 
 #define IMAGE_SYM_UNDEFINED (SHORT)0
 #define IMAGE_SYM_ABSOLUTE (SHORT)-1
@@ -4222,7 +4222,7 @@ typedef DWORD LCID;
 #define DECREF(x) ((((x)>>N_TSHIFT)&~N_BTMASK)|((x)&N_BTMASK))
 #endif
 
-    typedef union _IMAGE_AUX_SYMBOL {
+    typedef union IMAGE_AUX_सिम्बोलो {
       struct {
 	DWORD TagIndex;
 	union {
@@ -4244,35 +4244,35 @@ typedef DWORD LCID;
 	WORD TvIndex;
       } Sym;
       struct {
-	BYTE Name[IMAGE_SIZEOF_SYMBOL];
+	BYTE Name[IMAGE_SIZEOF_सिम्बोलो];
       } File;
       struct {
 	DWORD Length;
-	WORD NumberOfRelocations;
-	WORD NumberOfLinenumbers;
+	WORD नुमेरो_Of_Relocations;
+	WORD नुमेरो_Of_Linenumbers;
 	DWORD CheckSum;
-	SHORT Number;
+	SHORT नुमेरो_3;
 	BYTE Selection;
       } Section;
-    } IMAGE_AUX_SYMBOL;
-    typedef IMAGE_AUX_SYMBOL UNALIGNED *PIMAGE_AUX_SYMBOL;
+    } IMAGE_AUX_सिम्बोलो_2;
+    typedef IMAGE_AUX_सिम्बोलो_2 UNALIGNED *PIMAGE_AUX_सिम्बोलो;
 
-#define IMAGE_SIZEOF_AUX_SYMBOL 18
+#define IMAGE_SIZEOF_AUX_सिम्बोलो 18
 
-    typedef enum IMAGE_AUX_SYMBOL_TYPE {
-      IMAGE_AUX_SYMBOL_TYPE_TOKEN_DEF = 1
-    } IMAGE_AUX_SYMBOL_TYPE;
+    typedef enum IMAGE_AUX_सिम्बोलो_TYPE {
+      IMAGE_AUX_सिम्बोलो_TYPE_TOKEN_DEF = 1
+    } IMAGE_AUX_सिम्बोलो_TYPE;
 
 #include <pshpack2.h>
 
-    typedef struct IMAGE_AUX_SYMBOL_TOKEN_DEF {
+    typedef struct IMAGE_AUX_सिम्बोलो_TOKEN_DEF {
       BYTE bAuxType;
       BYTE bReserved;
-      DWORD SymbolTableIndex;
+      DWORD सिम्बोलो_Table_Index;
       BYTE rgbReserved[12];
-    } IMAGE_AUX_SYMBOL_TOKEN_DEF;
+    } IMAGE_AUX_सिम्बोलो_TOKEN_DEF;
 
-    typedef IMAGE_AUX_SYMBOL_TOKEN_DEF UNALIGNED *PIMAGE_AUX_SYMBOL_TOKEN_DEF;
+    typedef IMAGE_AUX_सिम्बोलो_TOKEN_DEF UNALIGNED *PIMAGE_AUX_सिम्बोलो_TOKEN_DEF;
 
 #include <poppack.h>
 
@@ -4284,16 +4284,16 @@ typedef DWORD LCID;
 #define IMAGE_COMDAT_SELECT_LARGEST 6
 #define IMAGE_COMDAT_SELECT_NEWEST 7
 
-#define IMAGE_WEAK_EXTERN_SEARCH_NOLIBRARY 1
-#define IMAGE_WEAK_EXTERN_SEARCH_LIBRARY 2
-#define IMAGE_WEAK_EXTERN_SEARCH_ALIAS 3
+#define IMAGE_WEAK_EXTERN_हानाप_NOLIBRARY 1
+#define IMAGE_WEAK_EXTERN_हानाप_LIBRARY 2
+#define IMAGE_WEAK_EXTERN_हानाप_ALIAS 3
 
     typedef struct _IMAGE_RELOCATION {
       union {
 	DWORD VirtualAddress;
-	DWORD RelocCount;
+	DWORD Reloc_बिलांग;
       };
-      DWORD SymbolTableIndex;
+      DWORD सिम्बोलो_Table_Index;
       WORD Type;
     } IMAGE_RELOCATION;
     typedef IMAGE_RELOCATION UNALIGNED *PIMAGE_RELOCATION;
@@ -4517,8 +4517,8 @@ typedef DWORD LCID;
 #define IMAGE_REL_M32R_SECREL32 0x000D
 #define IMAGE_REL_M32R_TOKEN 0x000E
 
-#define EXT_IMM64(Value,Address,Size,InstPos,ValPos) Value |= (((ULONGLONG)((*(Address) >> InstPos) & (((ULONGLONG)1 << Size) - 1))) << ValPos)
-#define INS_IMM64(Value,Address,Size,InstPos,ValPos) *(PDWORD)Address = (*(PDWORD)Address & ~(((1 << Size) - 1) << InstPos)) | ((DWORD)((((ULONGLONG)Value >> ValPos) & (((ULONGLONG)1 << Size) - 1))) << InstPos)
+#define EXT_IMM64(हालागा_3,Address,Size,InstPos,ValPos) हालागा_3 |= (((ULONGLONG)((*(Address) >> InstPos) & (((ULONGLONG)1 << Size) - 1))) << ValPos)
+#define INS_IMM64(हालागा_3,Address,Size,InstPos,ValPos) *(PDWORD)Address = (*(PDWORD)Address & ~(((1 << Size) - 1) << InstPos)) | ((DWORD)((((ULONGLONG)हालागा_3 >> ValPos) & (((ULONGLONG)1 << Size) - 1))) << InstPos)
 
 #define EMARCH_ENC_I17_IMM7B_INST_WORD_X 3
 #define EMARCH_ENC_I17_IMM7B_SIZE_X 7
@@ -4612,7 +4612,7 @@ typedef DWORD LCID;
 
     typedef struct _IMAGE_LINENUMBER {
       union {
-	DWORD SymbolTableIndex;
+	DWORD सिम्बोलो_Table_Index;
 	DWORD VirtualAddress;
       } Type;
       WORD Linenumber;
@@ -4633,8 +4633,8 @@ typedef DWORD LCID;
 #define IMAGE_SIZEOF_BASE_RELOCATION 8
 
 #define IMAGE_REL_BASED_ABSOLUTE 0
-#define IMAGE_REL_BASED_HIGH 1
-#define IMAGE_REL_BASED_LOW 2
+#define IMAGE_REL_BASED_माताअस 1
+#define IMAGE_REL_BASED_माबाबा 2
 #define IMAGE_REL_BASED_HIGHLOW 3
 #define IMAGE_REL_BASED_HIGHADJ 4
 #define IMAGE_REL_BASED_MIPS_JMPADDR 5
@@ -4668,8 +4668,8 @@ typedef DWORD LCID;
       WORD MinorVersion;
       DWORD Name;
       DWORD Base;
-      DWORD NumberOfFunctions;
-      DWORD NumberOfNames;
+      DWORD नुमेरो_Of_Functions;
+      DWORD नुमेरो_Of_Names;
       DWORD AddressOfFunctions;
       DWORD AddressOfNames;
       DWORD AddressOfNameOrdinals;
@@ -4768,7 +4768,7 @@ typedef DWORD LCID;
     typedef struct _IMAGE_BOUND_IMPORT_DESCRIPTOR {
       DWORD TimeDateStamp;
       WORD OffsetModuleName;
-      WORD NumberOfModuleForwarderRefs;
+      WORD नुमेरो_Of_Module_Forwarder_Refs;
     } IMAGE_BOUND_IMPORT_DESCRIPTOR,*PIMAGE_BOUND_IMPORT_DESCRIPTOR;
 
     typedef struct _IMAGE_BOUND_FORWARDER_REF {
@@ -4782,8 +4782,8 @@ typedef DWORD LCID;
       DWORD TimeDateStamp;
       WORD MajorVersion;
       WORD MinorVersion;
-      WORD NumberOfNamedEntries;
-      WORD NumberOfIdEntries;
+      WORD नुमेरो_Of_Named_Entries;
+      WORD नुमेरो_Of_Id_Entries;
     } IMAGE_RESOURCE_DIRECTORY,*PIMAGE_RESOURCE_DIRECTORY;
 
 #define IMAGE_RESOURCE_NAME_IS_STRING 0x80000000
@@ -4844,7 +4844,7 @@ typedef DWORD LCID;
       DWORD EditList;
       DWORD SecurityCookie;
       DWORD SEHandlerTable;
-      DWORD SEHandlerCount;
+      DWORD SEHandler_बिलांग;
     } IMAGE_LOAD_CONFIG_DIRECTORY32,*PIMAGE_LOAD_CONFIG_DIRECTORY32;
 
     typedef struct {
@@ -4867,7 +4867,7 @@ typedef DWORD LCID;
       ULONGLONG EditList;
       ULONGLONG SecurityCookie;
       ULONGLONG SEHandlerTable;
-      ULONGLONG SEHandlerCount;
+      ULONGLONG SEHandler_बिलांग;
     } IMAGE_LOAD_CONFIG_DIRECTORY64,*PIMAGE_LOAD_CONFIG_DIRECTORY64;
 
 #ifdef _WIN64
@@ -4939,9 +4939,9 @@ typedef DWORD LCID;
 #define IMAGE_DEBUG_TYPE_CLSID 11
 
     typedef struct _IMAGE_COFF_SYMBOLS_HEADER {
-      DWORD NumberOfSymbols;
-      DWORD LvaToFirstSymbol;
-      DWORD NumberOfLinenumbers;
+      DWORD नुमेरो_Of_Symbols;
+      DWORD Lva_To_First_सिम्बोलो;
+      DWORD नुमेरो_Of_Linenumbers;
       DWORD LvaToFirstLinenumber;
       DWORD RvaToFirstByteOfCode;
       DWORD RvaToLastByteOfCode;
@@ -5002,7 +5002,7 @@ typedef DWORD LCID;
       DWORD CheckSum;
       DWORD ImageBase;
       DWORD SizeOfImage;
-      DWORD NumberOfSections;
+      DWORD नुमेरो_Of_Sections;
       DWORD ExportedNamesSize;
       DWORD DebugDirectorySize;
       DWORD SectionAlignment;
@@ -5029,7 +5029,7 @@ typedef DWORD LCID;
 #define IMAGE_SEPARATE_DEBUG_MISMATCH 0x8000
 
     typedef struct _ImageArchitectureHeader {
-      unsigned int AmaskValue: 1;
+      unsigned int Amask_हालागा: 1;
       int Adummy1 :7;
       unsigned int AmaskShift: 8;
       int Adummy2 :16;
@@ -5098,7 +5098,7 @@ typedef DWORD LCID;
 
 #if defined (__x86_64)
     NTSYSAPI PRUNTIME_FUNCTION NTAPI RtlLookupFunctionEntry (DWORD64 ControlPc, PDWORD64 ImageBase, PUNWIND_HISTORY_TABLE HistoryTable);
-    NTSYSAPI VOID NTAPI RtlUnwindEx (PVOID TargetFrame, PVOID TargetIp, PEXCEPTION_RECORD ExceptionRecord, PVOID ReturnValue, PCONTEXT ContextRecord, PUNWIND_HISTORY_TABLE HistoryTable);
+    NTSYSAPI VOID NTAPI RtlUnwindEx (PVOID TargetFrame, PVOID TargetIp, PEXCEPTION_RECORD ExceptionRecord, PVOID Return_हालागा_2, PCONTEXT ContextRecord, PUNWIND_HISTORY_TABLE HistoryTable);
 #endif
 
 #include <string.h>
@@ -5141,8 +5141,8 @@ typedef DWORD LCID;
 
     NTSYSAPI VOID NTAPI RtlInitializeSListHead(PSLIST_HEADER ListHead);
     NTSYSAPI PSLIST_ENTRY NTAPI RtlFirstEntrySList(const SLIST_HEADER *ListHead);
-    NTSYSAPI PSLIST_ENTRY NTAPI RtlInterlockedPopEntrySList(PSLIST_HEADER ListHead);
-    NTSYSAPI PSLIST_ENTRY NTAPI RtlInterlockedPushEntrySList(PSLIST_HEADER ListHead,PSLIST_ENTRY ListEntry);
+    NTSYSAPI PSLIST_ENTRY NTAPI Rtl_Interlocked_आलिसिन_Entry_SList(PSLIST_HEADER ListHead);
+    NTSYSAPI PSLIST_ENTRY NTAPI Rtl_Interlocked_इतुलाक_Entry_SList(PSLIST_HEADER ListHead,PSLIST_ENTRY ListEntry);
     NTSYSAPI PSLIST_ENTRY NTAPI RtlInterlockedFlushSList(PSLIST_HEADER ListHead);
     NTSYSAPI WORD NTAPI RtlQueryDepthSList(PSLIST_HEADER ListHead);
 
@@ -5235,13 +5235,13 @@ typedef DWORD LCID;
 #define MESSAGE_RESOURCE_UNICODE 0x0001
 
     typedef struct _MESSAGE_RESOURCE_BLOCK {
-      DWORD LowId;
-      DWORD HighId;
+      DWORD माबाबा_Id;
+      DWORD माताअस_Id;
       DWORD OffsetToEntries;
     } MESSAGE_RESOURCE_BLOCK,*PMESSAGE_RESOURCE_BLOCK;
 
     typedef struct _MESSAGE_RESOURCE_DATA {
-      DWORD NumberOfBlocks;
+      DWORD नुमेरो_Of_Blocks;
       MESSAGE_RESOURCE_BLOCK Blocks[1];
     } MESSAGE_RESOURCE_DATA,*PMESSAGE_RESOURCE_DATA;
 
@@ -5249,7 +5249,7 @@ typedef DWORD LCID;
       DWORD dwOSVersionInfoSize;
       DWORD dwMajorVersion;
       DWORD dwMinorVersion;
-      DWORD dwBuildNumber;
+      DWORD dw_Build_नुमेरो;
       DWORD dwPlatformId;
       CHAR szCSDVersion[128];
     } OSVERSIONINFOA,*POSVERSIONINFOA,*LPOSVERSIONINFOA;
@@ -5258,7 +5258,7 @@ typedef DWORD LCID;
       DWORD dwOSVersionInfoSize;
       DWORD dwMajorVersion;
       DWORD dwMinorVersion;
-      DWORD dwBuildNumber;
+      DWORD dw_Build_नुमेरो;
       DWORD dwPlatformId;
       WCHAR szCSDVersion[128];
     } OSVERSIONINFOW,*POSVERSIONINFOW,*LPOSVERSIONINFOW,RTL_OSVERSIONINFOW,*PRTL_OSVERSIONINFOW;
@@ -5277,7 +5277,7 @@ typedef DWORD LCID;
       DWORD dwOSVersionInfoSize;
       DWORD dwMajorVersion;
       DWORD dwMinorVersion;
-      DWORD dwBuildNumber;
+      DWORD dw_Build_नुमेरो;
       DWORD dwPlatformId;
       CHAR szCSDVersion[128];
       WORD wServicePackMajor;
@@ -5291,7 +5291,7 @@ typedef DWORD LCID;
       DWORD dwOSVersionInfoSize;
       DWORD dwMajorVersion;
       DWORD dwMinorVersion;
-      DWORD dwBuildNumber;
+      DWORD dw_Build_नुमेरो;
       DWORD dwPlatformId;
       WCHAR szCSDVersion[128];
       WORD wServicePackMajor;
@@ -5319,7 +5319,7 @@ typedef DWORD LCID;
 #define VER_OR 7
 
 #define VER_CONDITION_MASK 7
-#define VER_NUM_BITS_PER_CONDITION_MASK 3
+#define VER_नुमेरो_BITS_PER_CONDITION_MASK 3
 
 #define VER_MINORVERSION 0x0000001
 #define VER_MAJORVERSION 0x0000002
@@ -5347,8 +5347,8 @@ typedef DWORD LCID;
       WORD CreatorBackTraceIndex;
       struct _RTL_CRITICAL_SECTION *CriticalSection;
       LIST_ENTRY ProcessLocksList;
-      DWORD EntryCount;
-      DWORD ContentionCount;
+      DWORD Entry_बिलांग;
+      DWORD Contention_बिलांग;
       DWORD Spare[2];
     } RTL_CRITICAL_SECTION_DEBUG,*PRTL_CRITICAL_SECTION_DEBUG,RTL_RESOURCE_DEBUG,*PRTL_RESOURCE_DEBUG;
 
@@ -5357,11 +5357,11 @@ typedef DWORD LCID;
 
     typedef struct _RTL_CRITICAL_SECTION {
       PRTL_CRITICAL_SECTION_DEBUG DebugInfo;
-      LONG LockCount;
-      LONG RecursionCount;
+      LONG Lock_बिलांग;
+      LONG Recursion_बिलांग;
       HANDLE OwningThread;
       HANDLE LockSemaphore;
-      ULONG_PTR SpinCount;
+      ULONG_PTR Spin_बिलांग;
     } RTL_CRITICAL_SECTION,*PRTL_CRITICAL_SECTION;
 
     typedef VOID (NTAPI *RTL_VERIFIER_DLL_LOAD_CALLBACK) (PWSTR DllName,PVOID DllBase,SIZE_T DllSize,PVOID Reserved);
@@ -5389,7 +5389,7 @@ typedef DWORD LCID;
       PWSTR VerifierImage;
       DWORD VerifierFlags;
       DWORD VerifierDebug;
-      PVOID RtlpGetStackTraceAddress;
+      PVOID Rtlp_Get_सालानसान_Trace_Address;
       PVOID RtlpDebugPageHeapCreate;
       PVOID RtlpDebugPageHeapDestroy;
       RTL_VERIFIER_NTDLLHEAPFREE_CALLBACK ProviderNtdllHeapFreeCallback;
@@ -5398,7 +5398,7 @@ typedef DWORD LCID;
 #define RTL_VRF_FLG_FULL_PAGE_HEAP 0x00000001
 #define RTL_VRF_FLG_RESERVED_DONOTUSE 0x00000002
 #define RTL_VRF_FLG_HANDLE_CHECKS 0x00000004
-#define RTL_VRF_FLG_STACK_CHECKS 0x00000008
+#define RTL_VRF_FLG_सालानसान_CHECKS 0x00000008
 #define RTL_VRF_FLG_APPCOMPAT_CHECKS 0x00000010
 #define RTL_VRF_FLG_TLS_CHECKS 0x00000020
 #define RTL_VRF_FLG_DIRTY_STACKS 0x00000040
@@ -5443,7 +5443,7 @@ typedef DWORD LCID;
 #define APPLICATION_VERIFIER_CORRUPTED_HEAP_LIST 0x0014
 
 #define APPLICATION_VERIFIER_TERMINATE_THREAD_CALL 0x0100
-#define APPLICATION_VERIFIER_STACK_OVERFLOW 0x0101
+#define APPLICATION_VERIFIER_सालानसान_OVERFLOW 0x0101
 #define APPLICATION_VERIFIER_INVALID_EXIT_PROCESS_CALL 0x0102
 
 #define APPLICATION_VERIFIER_EXIT_THREAD_OWNS_LOCK 0x0200
@@ -5453,8 +5453,8 @@ typedef DWORD LCID;
 #define APPLICATION_VERIFIER_LOCK_IN_FREED_MEMORY 0x0204
 #define APPLICATION_VERIFIER_LOCK_CORRUPTED 0x0205
 #define APPLICATION_VERIFIER_LOCK_INVALID_OWNER 0x0206
-#define APPLICATION_VERIFIER_LOCK_INVALID_RECURSION_COUNT 0x0207
-#define APPLICATION_VERIFIER_LOCK_INVALID_LOCK_COUNT 0x0208
+#define APPLICATION_VERIFIER_LOCK_INVALID_RECURSION_बिलांग 0x0207
+#define APPLICATION_VERIFIER_LOCK_INVALID_LOCK_बिलांग 0x0208
 #define APPLICATION_VERIFIER_LOCK_OVER_RELEASED 0x0209
 #define APPLICATION_VERIFIER_LOCK_NOT_INITIALIZED 0x0210
 #define APPLICATION_VERIFIER_LOCK_ALREADY_INITIALIZED 0x0211
@@ -5463,7 +5463,7 @@ typedef DWORD LCID;
 #define APPLICATION_VERIFIER_THREAD_NOT_LOCK_OWNER 0x0214
 
 #define APPLICATION_VERIFIER_INVALID_HANDLE 0x0300
-#define APPLICATION_VERIFIER_INVALID_TLS_VALUE 0x0301
+#define APPLICATION_VERIFIER_INVALID_TLS_हालागा 0x0301
 #define APPLICATION_VERIFIER_INCORRECT_WAIT_CALL 0x0302
 #define APPLICATION_VERIFIER_NULL_HANDLE 0x0303
 #define APPLICATION_VERIFIER_WAIT_IN_DLLMAIN 0x0304
@@ -5498,7 +5498,7 @@ typedef DWORD LCID;
 #define APPLICATION_VERIFIER_PROBE_INVALID_START_OR_SIZE 0x0607
 #define APPLICATION_VERIFIER_SIZE_HEAP_UNEXPECTED_EXCEPTION 0x0618
 
-#define VERIFIER_STOP(Code,Msg,P1,S1,P2,S2,P3,S3,P4,S4) { RtlApplicationVerifierStop ((Code),(Msg),(ULONG_PTR)(P1),(S1),(ULONG_PTR)(P2),(S2),(ULONG_PTR)(P3),(S3),(ULONG_PTR)(P4),(S4)); }
+#define VERIFIER_STOP(Code,मेनसाहे_3,P1,S1,P2,S2,P3,S3,P4,S4) { RtlApplicationVerifierStop ((Code),(मेनसाहे_3),(ULONG_PTR)(P1),(S1),(ULONG_PTR)(P2),(S2),(ULONG_PTR)(P3),(S3),(ULONG_PTR)(P4),(S4)); }
 
     VOID NTAPI RtlApplicationVerifierStop(ULONG_PTR Code,PSTR Message,ULONG_PTR Param1,PSTR Description1,ULONG_PTR Param2,PSTR Description2,ULONG_PTR Param3,PSTR Description3,ULONG_PTR Param4,PSTR Description4);
 
@@ -5517,8 +5517,8 @@ typedef DWORD LCID;
 
     NTSYSAPI DWORD NTAPI RtlSetHeapInformation(PVOID HeapHandle,HEAP_INFORMATION_CLASS HeapInformationClass,PVOID HeapInformation,SIZE_T HeapInformationLength);
     NTSYSAPI DWORD NTAPI RtlQueryHeapInformation(PVOID HeapHandle,HEAP_INFORMATION_CLASS HeapInformationClass,PVOID HeapInformation,SIZE_T HeapInformationLength,PSIZE_T ReturnLength);
-    DWORD NTAPI RtlMultipleAllocateHeap(PVOID HeapHandle,DWORD Flags,SIZE_T Size,DWORD Count,PVOID *Array);
-    DWORD NTAPI RtlMultipleFreeHeap(PVOID HeapHandle,DWORD Flags,DWORD Count,PVOID *Array);
+    DWORD NTAPI RtlMultipleAllocateHeap(PVOID HeapHandle,DWORD Flags,SIZE_T Size,DWORD बिलांग_3,PVOID *Array);
+    DWORD NTAPI RtlMultipleFreeHeap(PVOID HeapHandle,DWORD Flags,DWORD बिलांग_3,PVOID *Array);
 
 #define WT_EXECUTEDEFAULT 0x00000000
 #define WT_EXECUTEINIOTHREAD 0x00000001
@@ -5592,7 +5592,7 @@ typedef DWORD LCID;
       PCWSTR lpAssemblyManifestPath;
       PCWSTR lpAssemblyPolicyPath;
       PCWSTR lpAssemblyDirectoryName;
-      DWORD ulFileCount;
+      DWORD ul_File_बिलांग;
     } ACTIVATION_CONTEXT_ASSEMBLY_DETAILED_INFORMATION,*PACTIVATION_CONTEXT_ASSEMBLY_DETAILED_INFORMATION;
 
     typedef const struct _ACTIVATION_CONTEXT_ASSEMBLY_DETAILED_INFORMATION *PCACTIVATION_CONTEXT_ASSEMBLY_DETAILED_INFORMATION;
@@ -5600,15 +5600,15 @@ typedef DWORD LCID;
     typedef struct _ACTIVATION_CONTEXT_DETAILED_INFORMATION {
       DWORD dwFlags;
       DWORD ulFormatVersion;
-      DWORD ulAssemblyCount;
-      DWORD ulRootManifestPathType;
-      DWORD ulRootManifestPathChars;
-      DWORD ulRootConfigurationPathType;
-      DWORD ulRootConfigurationPathChars;
+      DWORD ul_Assembly_बिलांग;
+      DWORD ul_उगात_Manifest_Path_Type;
+      DWORD ul_उगात_Manifest_Path_Chars;
+      DWORD ul_उगात_Configuration_Path_Type;
+      DWORD ul_उगात_Configuration_Path_Chars;
       DWORD ulAppDirPathType;
       DWORD ulAppDirPathChars;
-      PCWSTR lpRootManifestPath;
-      PCWSTR lpRootConfigurationPath;
+      PCWSTR lp_उगात_Manifest_Path;
+      PCWSTR lp_उगात_Configuration_Path;
       PCWSTR lpAppDirPath;
     } ACTIVATION_CONTEXT_DETAILED_INFORMATION,*PACTIVATION_CONTEXT_DETAILED_INFORMATION;
 
@@ -5641,15 +5641,15 @@ typedef DWORD LCID;
     typedef struct _EVENTLOGRECORD {
       DWORD Length;
       DWORD Reserved;
-      DWORD RecordNumber;
+      DWORD Record_नुमेरो;
       DWORD TimeGenerated;
       DWORD TimeWritten;
       DWORD EventID;
       WORD EventType;
-      WORD NumStrings;
+      WORD नुमेरो_Strings;
       WORD EventCategory;
       WORD ReservedFlags;
-      DWORD ClosingRecordNumber;
+      DWORD Closing_Record_नुमेरो;
       DWORD StringOffset;
       DWORD UserSidLength;
       DWORD UserSidOffset;
@@ -5662,30 +5662,30 @@ typedef DWORD LCID;
     typedef struct _EVENTSFORLOGFILE{
       DWORD ulSize;
       WCHAR szLogicalLogFile[MAXLOGICALLOGNAMESIZE];
-      DWORD ulNumRecords;
+      DWORD ul_नुमेरो_Records;
       EVENTLOGRECORD pEventLogRecords[];
     } EVENTSFORLOGFILE,*PEVENTSFORLOGFILE;
 
     typedef struct _PACKEDEVENTINFO{
       DWORD ulSize;
-      DWORD ulNumEventsForLogFile;
+      DWORD ul_नुमेरो_Events_For_Log_File;
       DWORD ulOffsets[];
     } PACKEDEVENTINFO,*PPACKEDEVENTINFO;
 
-#define KEY_QUERY_VALUE (0x0001)
-#define KEY_SET_VALUE (0x0002)
-#define KEY_CREATE_SUB_KEY (0x0004)
-#define KEY_ENUMERATE_SUB_KEYS (0x0008)
-#define KEY_NOTIFY (0x0010)
-#define KEY_CREATE_LINK (0x0020)
-#define KEY_WOW64_32KEY (0x0200)
-#define KEY_WOW64_64KEY (0x0100)
-#define KEY_WOW64_RES (0x0300)
+#define सुसि_QUERY_हालागा (0x0001)
+#define सुसि_SET_हालागा (0x0002)
+#define सुसि_CREATE_SUB_सुसि (0x0004)
+#define सुसि_ENUMERATE_SUB_मगा_सुसि (0x0008)
+#define सुसि_NOTIFY (0x0010)
+#define सुसि_CREATE_LINK (0x0020)
+#define सुसि_WOW64_32_सुसि (0x0200)
+#define सुसि_WOW64_64_सुसि (0x0100)
+#define सुसि_WOW64_RES (0x0300)
 
-#define KEY_READ ((STANDARD_RIGHTS_READ | KEY_QUERY_VALUE | KEY_ENUMERATE_SUB_KEYS | KEY_NOTIFY) & (~SYNCHRONIZE))
-#define KEY_WRITE ((STANDARD_RIGHTS_WRITE | KEY_SET_VALUE | KEY_CREATE_SUB_KEY) & (~SYNCHRONIZE))
-#define KEY_EXECUTE ((KEY_READ) & (~SYNCHRONIZE))
-#define KEY_ALL_ACCESS ((STANDARD_RIGHTS_ALL | KEY_QUERY_VALUE | KEY_SET_VALUE | KEY_CREATE_SUB_KEY | KEY_ENUMERATE_SUB_KEYS | KEY_NOTIFY | KEY_CREATE_LINK) & (~SYNCHRONIZE))
+#define सुसि_READ ((STANDARD_RIGHTS_READ | सुसि_QUERY_हालागा | सुसि_ENUMERATE_SUB_मगा_सुसि | सुसि_NOTIFY) & (~SYNCHRONIZE))
+#define सुसि_WRITE ((STANDARD_RIGHTS_WRITE | सुसि_SET_हालागा | सुसि_CREATE_SUB_सुसि) & (~SYNCHRONIZE))
+#define सुसि_EXECUTE ((सुसि_READ) & (~SYNCHRONIZE))
+#define सुसि_ALL_ACCESS ((STANDARD_RIGHTS_ALL | सुसि_QUERY_हालागा | सुसि_SET_हालागा | सुसि_CREATE_SUB_सुसि | सुसि_ENUMERATE_SUB_मगा_सुसि | सुसि_NOTIFY | सुसि_CREATE_LINK) & (~SYNCHRONIZE))
 #define REG_OPTION_RESERVED (0x00000000L)
 
 #define REG_OPTION_NON_VOLATILE (0x00000000L)
@@ -5694,8 +5694,8 @@ typedef DWORD LCID;
 #define REG_OPTION_BACKUP_RESTORE (0x00000004L)
 #define REG_OPTION_OPEN_LINK (0x00000008L)
 #define REG_LEGAL_OPTION (REG_OPTION_RESERVED | REG_OPTION_NON_VOLATILE | REG_OPTION_VOLATILE | REG_OPTION_CREATE_LINK | REG_OPTION_BACKUP_RESTORE | REG_OPTION_OPEN_LINK)
-#define REG_CREATED_NEW_KEY (0x00000001L)
-#define REG_OPENED_EXISTING_KEY (0x00000002L)
+#define REG_CREATED_NEW_सुसि (0x00000001L)
+#define REG_OPENED_EXISTING_सुसि (0x00000002L)
 #define REG_STANDARD_FORMAT 1
 #define REG_LATEST_FORMAT 2
 #define REG_NO_COMPRESSION 4
@@ -5716,7 +5716,7 @@ typedef DWORD LCID;
 #define REG_SZ (1)
 #define REG_EXPAND_SZ (2)
 
-#define REG_BINARY (3)
+#define REG_दालावाहान (3)
 #define REG_DWORD (4)
 #define REG_DWORD_LITTLE_ENDIAN (4)
 #define REG_DWORD_BIG_ENDIAN (5)
@@ -5754,10 +5754,10 @@ typedef DWORD LCID;
 #define SERVICE_ERROR_SEVERE 0x00000002
 #define SERVICE_ERROR_CRITICAL 0x00000003
 
-    typedef enum _CM_SERVICE_NODE_TYPE {
+    typedef enum CM_SERVICE_बुहोल_TYPE {
       DriverType = SERVICE_KERNEL_DRIVER,FileSystemType = SERVICE_FILE_SYSTEM_DRIVER,Win32ServiceOwnProcess = SERVICE_WIN32_OWN_PROCESS,
       Win32ServiceShareProcess = SERVICE_WIN32_SHARE_PROCESS,AdapterType = SERVICE_ADAPTER,RecognizerType = SERVICE_RECOGNIZER_DRIVER
-    } SERVICE_NODE_TYPE;
+    } SERVICE_बुहोल_TYPE;
 
     typedef enum _CM_SERVICE_LOAD_TYPE {
       BootLoad = SERVICE_BOOT_START,SystemLoad = SERVICE_SYSTEM_START,AutoLoad = SERVICE_AUTO_START,DemandLoad = SERVICE_DEMAND_START,
@@ -5795,7 +5795,7 @@ typedef DWORD LCID;
 
     typedef struct _TAPE_WRITE_MARKS {
       DWORD Type;
-      DWORD Count;
+      DWORD बिलांग_3;
       BOOLEAN Immediate;
     } TAPE_WRITE_MARKS,*PTAPE_WRITE_MARKS;
 
@@ -5897,7 +5897,7 @@ typedef DWORD LCID;
 #define TAPE_DRIVE_WRITE_MARK_IMMED 0x90000000
 #define TAPE_DRIVE_FORMAT 0xA0000000
 #define TAPE_DRIVE_FORMAT_IMMEDIATE 0xC0000000
-#define TAPE_DRIVE_HIGH_FEATURES 0x80000000
+#define TAPE_DRIVE_माताअस_FEATURES 0x80000000
 
     typedef struct _TAPE_GET_DRIVE_PARAMETERS {
       BOOLEAN ECC;
@@ -5907,9 +5907,9 @@ typedef DWORD LCID;
       DWORD DefaultBlockSize;
       DWORD MaximumBlockSize;
       DWORD MinimumBlockSize;
-      DWORD MaximumPartitionCount;
-      DWORD FeaturesLow;
-      DWORD FeaturesHigh;
+      DWORD Maximum_Partition_बिलांग;
+      DWORD Features_माबाबा;
+      DWORD Features_माताअस;
       DWORD EOTWarningZoneSize;
     } TAPE_GET_DRIVE_PARAMETERS,*PTAPE_GET_DRIVE_PARAMETERS;
 
@@ -5925,7 +5925,7 @@ typedef DWORD LCID;
       LARGE_INTEGER Capacity;
       LARGE_INTEGER Remaining;
       DWORD BlockSize;
-      DWORD PartitionCount;
+      DWORD Partition_बिलांग;
       BOOLEAN WriteProtected;
     } TAPE_GET_MEDIA_PARAMETERS,*PTAPE_GET_MEDIA_PARAMETERS;
 
@@ -5939,7 +5939,7 @@ typedef DWORD LCID;
 
     typedef struct _TAPE_CREATE_PARTITION {
       DWORD Method;
-      DWORD Count;
+      DWORD बिलांग_3;
       DWORD Size;
     } TAPE_CREATE_PARTITION,*PTAPE_CREATE_PARTITION;
 

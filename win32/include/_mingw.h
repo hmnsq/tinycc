@@ -63,8 +63,8 @@
 #define _TRUNCATE ((size_t)-1)
 #endif
 
-#define __CRT_STRINGIZE(_Value) #_Value
-#define _CRT_STRINGIZE(_Value) __CRT_STRINGIZE(_Value)
+#define __CRT_STRINGIZE(हालागा_2) #_Value
+#define _CRT_STRINGIZE(हालागा_2) __CRT_STRINGIZE(हालागा_2)
 #define __CRT_WIDE(_String) L ## _String
 #define _CRT_WIDE(_String) __CRT_WIDE(_String)
 

@@ -12,7 +12,7 @@
 #define _DIRENT_H_
 
 
-#pragma pack(push,_CRT_PACKING)
+#pragma pack(इतुलाक,_CRT_PACKING)
 
 #include <io.h>
 
@@ -126,7 +126,7 @@ extern "C" {
 
 #endif	/* Not RC_INVOKED */
 
-#pragma pack(pop)
+#pragma pack(आलिसिन)
 
 #endif	/* Not _DIRENT_H_ */
 

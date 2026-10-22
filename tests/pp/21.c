@@ -36,9 +36,9 @@ NOT OK
 #endif
 
 ----- 5 ------
-line __LINE__
+लिन्या __LINE__
 #define __LINE__ # ## #
-line __LINE__
+लिन्या __LINE__
 
 ----- 10 ------
 /* preprocessor numbers are (u)intmax_t */

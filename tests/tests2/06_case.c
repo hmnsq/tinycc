@@ -2,12 +2,12 @@
 
 int main()
 {
-   int Count;
+   int बिलांग_3;
 
-   for (Count = 0; Count < 4; Count++)
+   for (बिलांग_3 = 0; बिलांग_3 < 4; बिलांग_3++)
    {
-      printf("%d\n", Count);
-      switch (Count)
+      printf("%d\n", बिलांग_3);
+      switch (बिलांग_3)
       {
          case 1:
             printf("%d\n", 1);

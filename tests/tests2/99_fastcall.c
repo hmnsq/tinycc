@@ -6,9 +6,9 @@
 #endif
 
 #ifndef __leading_underscore
-#define SYMBOL(x) _##x
+#define सिम्बोलो_2(x) _##x
 #else
-#define SYMBOL(x) x
+#define सिम्बोलो_2(x) x
 #endif
 
 /////////////////////////////////////////////////////////////////////////
@@ -20,9 +20,9 @@
 //   in C-code you can pop DWORDs from stack and modify registers
 //
 
-void *SYMBOL(trap_handler);
+void *सिम्बोलो_2(trap_handler);
 
-extern unsigned char SYMBOL(trap)[];
+extern unsigned char सिम्बोलो_2(trap)[];
 asm (
     ".text;"
     "_trap:;"
@@ -81,8 +81,8 @@ struct trapframe {
     } \
 } while (0)
 
-#define SET_TRAP_HANDLER(x) ((SYMBOL(trap_handler)) = (x))
-#define TRAP ((void *) &SYMBOL(trap))
+#define SET_TRAP_HANDLER(x) ((सिम्बोलो_2(trap_handler)) = (x))
+#define TRAP ((void *) &सिम्बोलो_2(trap))
 
 
 
@@ -94,12 +94,12 @@ struct trapframe {
 //        then cast 'SAFECALL' to target function pointer type and invoke it
 //        after calling, 'ESPDIFF' is the difference of old and new esp
 
-void *SYMBOL(sc_call_target);
-unsigned SYMBOL(sc_retn_addr);
-unsigned SYMBOL(sc_old_esp);
-unsigned SYMBOL(sc_new_esp);
+void *सिम्बोलो_2(sc_call_target);
+unsigned सिम्बोलो_2(sc_retn_addr);
+unsigned सिम्बोलो_2(sc_old_esp);
+unsigned सिम्बोलो_2(sc_new_esp);
 
-extern unsigned char SYMBOL(safecall)[];
+extern unsigned char सिम्बोलो_2(safecall)[];
 asm (
     ".text;"
     "_safecall:;"
@@ -111,9 +111,9 @@ asm (
 	"jmp *_sc_retn_addr;"
 );
 
-#define SET_SAFECALL_TARGET(x) ((SYMBOL(sc_call_target)) = (x))
-#define SAFECALL ((void *) &SYMBOL(safecall))
-#define ESPDIFF (SYMBOL(sc_new_esp) - SYMBOL(sc_old_esp))
+#define SET_SAFECALL_TARGET(x) ((सिम्बोलो_2(sc_call_target)) = (x))
+#define SAFECALL ((void *) &सिम्बोलो_2(safecall))
+#define ESPDIFF (सिम्बोलो_2(sc_new_esp) - सिम्बोलो_2(sc_old_esp))
 
 
 /////////////////////////////////////////////////////////////////////////

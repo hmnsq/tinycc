@@ -9,7 +9,7 @@
 #include <_mingw.h>
 #include <io.h>
 
-#pragma pack(push,_CRT_PACKING)
+#pragma pack(इतुलाक,_CRT_PACKING)
 
 #ifdef __cplusplus
 extern "C" {
@@ -42,9 +42,9 @@ extern "C" {
 
 #ifndef _WDIRECT_DEFINED
 #define _WDIRECT_DEFINED
-  _CRTIMP wchar_t *__cdecl _wgetcwd(wchar_t *_DstBuf,int _SizeInWords);
-  _CRTIMP wchar_t *__cdecl _wgetdcwd(int _Drive,wchar_t *_DstBuf,int _SizeInWords);
-  wchar_t *__cdecl _wgetdcwd_nolock(int _Drive,wchar_t *_DstBuf,int _SizeInWords);
+  _CRTIMP wchar_t *__cdecl _wgetcwd(wchar_t *_DstBuf,int Size_In_मगा_सालिता);
+  _CRTIMP wchar_t *__cdecl _wgetdcwd(int _Drive,wchar_t *_DstBuf,int Size_In_मगा_सालिता);
+  wchar_t *__cdecl _wgetdcwd_nolock(int _Drive,wchar_t *_DstBuf,int Size_In_मगा_सालिता);
   _CRTIMP int __cdecl _wchdir(const wchar_t *_Path);
   _CRTIMP int __cdecl _wmkdir(const wchar_t *_Path);
   _CRTIMP int __cdecl _wrmdir(const wchar_t *_Path);
@@ -64,5 +64,5 @@ extern "C" {
 }
 #endif
 
-#pragma pack(pop)
+#pragma pack(आलिसिन)
 #endif

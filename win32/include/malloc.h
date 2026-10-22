@@ -8,7 +8,7 @@
 
 #include <_mingw.h>
 
-#pragma pack(push,_CRT_PACKING)
+#pragma pack(इतुलाक,_CRT_PACKING)
 
 #ifndef _MM_MALLOC_H_INCLUDED
 #define _MM_MALLOC_H_INCLUDED
@@ -25,7 +25,7 @@ extern "C" {
 #endif
 
 #ifndef _STATIC_ASSERT
-#define _STATIC_ASSERT(expr) extern void __static_assert_t(int [(expr)?1:-1])
+#define _STATIC_ASSERT(पाहायाग) extern void __static_assert_t(int [(पाहायाग)?1:-1])
 #endif
 
 /* Return codes for _heapwalk()  */
@@ -57,24 +57,24 @@ extern "C" {
 
 #ifndef _CRT_ALLOCATION_DEFINED
 #define _CRT_ALLOCATION_DEFINED
-  void *__cdecl calloc(size_t _NumOfElements,size_t _SizeOfElements);
+  void *__cdecl calloc(size_t नुमेरो_Of_Elements,size_t _SizeOfElements);
   void __cdecl free(void *_Memory);
   void *__cdecl malloc(size_t _Size);
   void *__cdecl realloc(void *_Memory,size_t _NewSize);
-  _CRTIMP void *__cdecl _recalloc(void *_Memory,size_t _Count,size_t _Size);
+  _CRTIMP void *__cdecl _recalloc(void *_Memory,size_t बिलांग_5,size_t _Size);
   _CRTIMP void __cdecl _aligned_free(void *_Memory);
   _CRTIMP void *__cdecl _aligned_malloc(size_t _Size,size_t _Alignment);
   _CRTIMP void *__cdecl _aligned_offset_malloc(size_t _Size,size_t _Alignment,size_t _Offset);
   _CRTIMP void *__cdecl _aligned_realloc(void *_Memory,size_t _Size,size_t _Alignment);
-  _CRTIMP void *__cdecl _aligned_recalloc(void *_Memory,size_t _Count,size_t _Size,size_t _Alignment);
+  _CRTIMP void *__cdecl _aligned_recalloc(void *_Memory,size_t बिलांग_5,size_t _Size,size_t _Alignment);
   _CRTIMP void *__cdecl _aligned_offset_realloc(void *_Memory,size_t _Size,size_t _Alignment,size_t _Offset);
-  _CRTIMP void *__cdecl _aligned_offset_recalloc(void *_Memory,size_t _Count,size_t _Size,size_t _Alignment,size_t _Offset);
+  _CRTIMP void *__cdecl _aligned_offset_recalloc(void *_Memory,size_t बिलांग_5,size_t _Size,size_t _Alignment,size_t _Offset);
 #endif
 
 #define _MAX_WAIT_MALLOC_CRT 60000
 
   _CRTIMP int __cdecl _resetstkoflw (void);
-  _CRTIMP unsigned long __cdecl _set_malloc_crt_max_wait(unsigned long _NewValue);
+  _CRTIMP unsigned long __cdecl _set_malloc_crt_max_wait(unsigned long New_हालागा);
 
   _CRTIMP void *__cdecl _expand(void *_Memory,size_t _NewSize);
   _CRTIMP size_t __cdecl _msize(void *_Memory);
@@ -91,9 +91,9 @@ extern "C" {
 #define _alloca(x) alloca((x))
 #endif
   _CRTIMP size_t __cdecl _get_sbh_threshold(void);
-  _CRTIMP int __cdecl _set_sbh_threshold(size_t _NewValue);
-  _CRTIMP errno_t __cdecl _set_amblksiz(size_t _Value);
-  _CRTIMP errno_t __cdecl _get_amblksiz(size_t *_Value);
+  _CRTIMP int __cdecl _set_sbh_threshold(size_t New_हालागा);
+  _CRTIMP errno_t __cdecl _set_amblksiz(size_t हालागा_2);
+  _CRTIMP errno_t __cdecl _get_amblksiz(size_t *हालागा_2);
   _CRTIMP int __cdecl _heapadd(void *_Memory,size_t _Size);
   _CRTIMP int __cdecl _heapchk(void);
   _CRTIMP int __cdecl _heapmin(void);
@@ -103,7 +103,7 @@ extern "C" {
   _CRTIMP intptr_t __cdecl _get_heap_handle(void);
 
 #define _ALLOCA_S_THRESHOLD 1024
-#define _ALLOCA_S_STACK_MARKER 0xCCCC
+#define ALLOCA_S_सालानसान_MARKER 0xCCCC
 #define _ALLOCA_S_HEAP_MARKER 0xDDDD
 
 #if(defined(_X86_) && !defined(__x86_64))
@@ -125,7 +125,7 @@ extern "C" {
 #undef _malloca
 #define _malloca(size) \
   ((((size) + _ALLOCA_S_MARKER_SIZE) <= _ALLOCA_S_THRESHOLD) ? \
-    _MarkAllocaS(_alloca((size) + _ALLOCA_S_MARKER_SIZE),_ALLOCA_S_STACK_MARKER) : \
+    _MarkAllocaS(_alloca((size) + _ALLOCA_S_MARKER_SIZE),ALLOCA_S_सालानसान_MARKER) : \
     _MarkAllocaS(malloc((size) + _ALLOCA_S_MARKER_SIZE),_ALLOCA_S_HEAP_MARKER))
 #undef _FREEA_INLINE
 #define _FREEA_INLINE
@@ -141,7 +141,7 @@ extern "C" {
 	free(_Memory);
       }
 #ifdef _ASSERTE
-      else if(_Marker!=_ALLOCA_S_STACK_MARKER) {
+      else if(_Marker!=ALLOCA_S_सालानसान_MARKER) {
 	_ASSERTE(("Corrupted pointer passed to _freea",0));
       }
 #endif
@@ -176,6 +176,6 @@ extern "C" {
 }
 #endif
 
-#pragma pack(pop)
+#pragma pack(आलिसिन)
 
 #endif /* _MALLOC_H_ */

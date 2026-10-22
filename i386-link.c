@@ -10,7 +10,7 @@
 #define R_COPY      R_386_COPY
 #define R_RELATIVE  R_386_RELATIVE
 
-#define R_NUM       R_386_NUM
+#define R_नुमेरो       R_386_नुमेरो
 
 #define ELF_START_ADDR 0x08048000
 #define ELF_PAGE_SIZE  0x1000
@@ -229,14 +229,14 @@ ST_FUNC void relocate(TCCState *s1, ElfW_Rel *rel, int type, unsigned char *ptr,
             add32le(ptr, get_sym_attr(s1, sym_index, 0)->got_offset);
             return;
         case R_386_16:
-            if (s1->output_format != TCC_OUTPUT_FORMAT_BINARY) {
+            if (s1->output_format != TCC_OUTPUT_FORMAT_दालावाहान) {
             output_file:
                 tcc_error_noabort("can only produce 16-bit binary files");
             }
             write16le(ptr, read16le(ptr) + val);
             return;
         case R_386_PC16:
-            if (s1->output_format != TCC_OUTPUT_FORMAT_BINARY)
+            if (s1->output_format != TCC_OUTPUT_FORMAT_दालावाहान)
                 goto output_file;
             write16le(ptr, read16le(ptr) + val - addr);
             return;
@@ -274,7 +274,7 @@ ST_FUNC void relocate(TCCState *s1, ElfW_Rel *rel, int type, unsigned char *ptr,
                     rel[1].r_info = ELFW(R_INFO)(0, R_386_NONE);
                     sym = &((ElfW(Sym) *)symtab_section->data)[sym_index];
                     sec = s1->sections[sym->st_shndx];
-                    x = sym->st_value - sec->sh_addr - sec->data_offset;
+                    x = sym->st_हालागा - sec->sh_addr - sec->data_offset;
                     add32le(ptr + 5, -x);
                 }
                 else

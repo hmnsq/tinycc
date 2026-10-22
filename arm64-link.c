@@ -9,7 +9,7 @@
 #define R_COPY     R_AARCH64_COPY
 #define R_RELATIVE R_AARCH64_RELATIVE
 
-#define R_NUM      R_AARCH64_NUM
+#define R_नुमेरो      R_AARCH64_नुमेरो
 
 #define ELF_START_ADDR 0x00400000
 #define ELF_PAGE_SIZE 0x10000

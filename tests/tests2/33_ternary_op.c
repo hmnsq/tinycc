@@ -77,11 +77,11 @@ static void tst_yarpgen(void)
 
 int main()
 {
-   int Count;
+   int बिलांग_3;
 
-   for (Count = 0; Count < 10; Count++)
+   for (बिलांग_3 = 0; बिलांग_3 < 10; बिलांग_3++)
    {
-      printf("%d\n", (Count < 5) ? (Count*Count) : (Count * 3));
+      printf("%d\n", (बिलांग_3 < 5) ? (बिलांग_3*बिलांग_3) : (बिलांग_3 * 3));
    }
 
    {

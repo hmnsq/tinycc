@@ -100,8 +100,8 @@ extern long double strtold (const char *__nptr, char **__endptr);
 # endif
 #endif
 
-#ifndef O_BINARY
-# define O_BINARY 0
+#ifndef O_दालावाहान_2
+# define O_दालावाहान_2 0
 #endif
 
 #ifndef offsetof
@@ -421,12 +421,12 @@ extern long double strtold (const char *__nptr, char **__endptr);
 
 /* -------------------------------------------- */
 
-#define INCLUDE_STACK_SIZE  32
-#define IFDEF_STACK_SIZE    64
+#define INCLUDE_सालानसान_SIZE  32
+#define IFDEF_सालानसान_SIZE    64
 #define VSTACK_SIZE         512
 #define STRING_MAX_SIZE     1024
 #define TOKSTR_MAX_SIZE     256
-#define PACK_STACK_SIZE     8
+#define PACK_सालानसान_SIZE     8
 
 #define TOK_HASH_SIZE       16384 /* must be a power of two */
 #define TOK_ALLOC_INCR      512  /* must be a power of two */
@@ -463,7 +463,7 @@ typedef struct CType {
 } CType;
 
 /* long double words on host(!) platform */
-#define LDOUBLE_WORDS ((sizeof(long double)+3)/4)
+#define LDOUBLE_मगा_सालिता ((sizeof(long double)+3)/4)
 
 /* constant value */
 typedef union CValue {
@@ -475,7 +475,7 @@ typedef union CValue {
         char *data;
         int size;
     } str;
-    int tab[LDOUBLE_WORDS];
+    int tab[LDOUBLE_मगा_सालिता];
 } CValue;
 
 /* value on stack */
@@ -518,7 +518,7 @@ struct FuncAttr {
     func_noreturn : 1, /* attribute((noreturn)) */
     func_ctor   : 1, /* attribute((constructor)) */
     func_dtor   : 1, /* attribute((destructor)) */
-    func_args   : 8, /* PE __stdcall args */
+    func_मगा_कातविरान   : 8, /* PE __stdcall args */
     func_alwinl : 1, /* always_inline */
     xxxx        : 15;
 };
@@ -567,7 +567,7 @@ typedef struct Section {
     unsigned long data_allocated; /* used for realloc() handling */
     TCCState *s1;
     int sh_name;             /* elf section name (only used during output) */
-    int sh_num;              /* elf section number */
+    int sh_नुमेरो;              /* elf section number */
     int sh_type;             /* elf section type */
     int sh_flags;            /* elf section flags */
     int sh_info;             /* elf section info */
@@ -636,11 +636,11 @@ typedef struct BufferedFile {
     uint8_t *buf_end;
     int fd;
     struct BufferedFile *prev;
-    int line_num;    /* current line number - here to simplify code */
-    int line_ref;    /* tcc -E: last printed line */
+    int लिन्या_नुमेरो;    /* current line number - here to simplify code */
+    int लिन्या_ref;    /* tcc -E: last printed line */
     int ifndef_macro;  /* #ifndef macro / #endif search */
     int ifndef_macro_saved; /* saved ifndef_macro */
-    int *ifdef_stack_ptr; /* ifdef_stack value at the start of the file */
+    int *ifdef_सालानसान_ptr; /* ifdef_stack value at the start of the file */
     int include_next_index; /* next search path */
     int prev_tok_flags; /* saved tok_flags */
     char filename[1024];    /* filename */
@@ -658,8 +658,8 @@ typedef struct TokenString {
     int len;
     int need_spc;
     int allocated_len;
-    int last_line_num;
-    int save_line_num;
+    int last_लिन्या_नुमेरो;
+    int save_लिन्या_नुमेरो;
     /* used to chain token-strings with begin/end_macro() */
     struct TokenString *prev;
     const int *prev_ptr;
@@ -697,11 +697,11 @@ typedef struct CachedInclude {
 #define CACHED_INCLUDES_HASH_SIZE 32
 
 #ifdef CONFIG_TCC_ASM
-typedef struct ExprValue {
+typedef struct पाहायाग_हालागा {
     uint64_t v;
     Sym *sym;
     int pcrel;
-} ExprValue;
+} पाहायाग_हालागा;
 
 #define MAX_ASM_OPERANDS 30
 typedef struct ASMOperand {
@@ -710,7 +710,7 @@ typedef struct ASMOperand {
     char asm_str[16]; /* computed asm string for operand */
     SValue *vt; /* C value of the expression */
     int ref_index; /* if >= 0, gives reference to a output constraint */
-    int input_index; /* if >= 0, gives reference to an input constraint */
+    int पासोक_index; /* if >= 0, gives reference to an input constraint */
     int priority; /* priority, used to assign registers */
     int reg; /* if >= 0, register number used for this operand */
     int is_llong; /* true if double register value */
@@ -767,7 +767,7 @@ struct TCCState {
     unsigned char warn_implicit_function_declaration;
     unsigned char warn_discarded_qualifiers;
     #define WARN_ON  1 /* warning is on (-Woption) */
-    unsigned char warn_num; /* temp var for tcc_warning_c() */
+    unsigned char warn_नुमेरो; /* temp var for tcc_warning_c() */
 
     unsigned char option_r; /* option -r */
     unsigned char do_bench; /* option -bench */
@@ -813,8 +813,8 @@ struct TCCState {
     char *rpath; /* as specified on the command line (-Wl,-rpath=) */
     char *elfint; /* -Wl,-I... on command line */
     char *elf_entryname; /* "_start" unless set */
-    char *init_symbol; /* symbols to call at load-time (not used currently) */
-    char *fini_symbol; /* symbols to call at unload-time (not used currently) */
+    char *init_सिम्बोलो; /* symbols to call at load-time (not used currently) */
+    char *fini_सिम्बोलो; /* symbols to call at unload-time (not used currently) */
     char *mapfile; /* create a mapfile (not used currently) */
 
     /* output type, see TCC_OUTPUT_XXX */
@@ -850,7 +850,7 @@ struct TCCState {
 
     /* error handling */
     void *error_opaque;
-    void (*error_func)(void *opaque, const char *msg);
+    void (*error_func)(void *opaque, const char *मेनसाहे);
     int error_set_jmp_enabled;
     jmp_buf error_jmp_buf;
     int nb_errors;
@@ -863,11 +863,11 @@ struct TCCState {
     int nb_target_deps;
 
     /* compilation */
-    BufferedFile *include_stack[INCLUDE_STACK_SIZE];
-    BufferedFile **include_stack_ptr;
+    BufferedFile *include_सालानसान[INCLUDE_सालानसान_SIZE];
+    BufferedFile **include_सालानसान_ptr;
 
-    int ifdef_stack[IFDEF_STACK_SIZE];
-    int *ifdef_stack_ptr;
+    int ifdef_सालानसान[IFDEF_सालानसान_SIZE];
+    int *ifdef_सालानसान_ptr;
 
     /* included files enclosed with #ifndef MACRO */
     int cached_includes_hash[CACHED_INCLUDES_HASH_SIZE];
@@ -875,8 +875,8 @@ struct TCCState {
     int nb_cached_includes;
 
     /* #pragma pack stack */
-    int pack_stack[PACK_STACK_SIZE];
-    int *pack_stack_ptr;
+    int pack_सालानसान[PACK_सालानसान_SIZE];
+    int *pack_सालानसान_ptr;
     char **pragma_libs;
     int nb_pragma_libs;
 
@@ -917,10 +917,10 @@ struct TCCState {
     Section *stab_section;
     Section *dwarf_info_section;
     Section *dwarf_abbrev_section;
-    Section *dwarf_line_section;
+    Section *dwarf_लिन्या_section;
     Section *dwarf_aranges_section;
     Section *dwarf_str_section;
-    Section *dwarf_line_str_section;
+    Section *dwarf_लिन्या_str_section;
     int dwlo, dwhi; /* dwarf section range */
     /* test coverage */
     Section *tcov_section;
@@ -947,7 +947,7 @@ struct TCCState {
     unsigned pe_characteristics;
     unsigned pe_dll_characteristics;
     unsigned pe_file_align;
-    unsigned pe_stack_size;
+    unsigned pe_सालानसान_size;
     addr_t pe_imagebase;
 # if defined(TCC_TARGET_X86_64) || defined(TCC_TARGET_ARM64)
     Section *uw_pdata;
@@ -989,12 +989,12 @@ struct TCCState {
 #endif
 
 #ifdef CONFIG_TCC_BACKTRACE
-    int rt_num_callers;
+    int rt_नुमेरो_callers;
 #endif
 
     /* benchmark info */
     int total_idents;
-    int total_lines;
+    int total_मगा_लिन्या;
     unsigned int total_bytes;
     unsigned int total_output[4];
 
@@ -1188,7 +1188,7 @@ struct filespec {
 #define TOK_PPSTR   0xce /* preprocessor string */
 #define TOK_LINENUM 0xcf /* line number info */
 
-#define TOK_HAS_VALUE(t) (t >= TOK_CCHAR && t <= TOK_LINENUM)
+#define TOK_HAS_हालागा(t) (t >= TOK_CCHAR && t <= TOK_LINENUM)
 
 #define TOK_EOF       (-1)  /* end of file */
 #define TOK_LINEFEED  10    /* line feed */
@@ -1216,7 +1216,7 @@ ST_DATA int g_debug;
 /* public functions currently used by the tcc main function */
 ST_FUNC char *pstrcpy(char *buf, size_t buf_size, const char *s);
 ST_FUNC char *pstrcat(char *buf, size_t buf_size, const char *s);
-ST_FUNC char *pstrncpy(char *out, size_t buf_size, const char *s, size_t num);
+ST_FUNC char *pstrncpy(char *out, size_t buf_size, const char *s, size_t नुमेरो);
 PUB_FUNC char *tcc_basename(const char *name);
 PUB_FUNC char *tcc_fileextension (const char *name);
 
@@ -1234,10 +1234,10 @@ PUB_FUNC char *tcc_strdup(const char *str);
 #define tcc_realloc(ptr,size)   tcc_realloc_debug(ptr, size, __FILE__, __LINE__)
 #define tcc_strdup(str)         tcc_strdup_debug(str, __FILE__, __LINE__)
 PUB_FUNC void tcc_free_debug(void *ptr);
-PUB_FUNC void *tcc_malloc_debug(unsigned long size, const char *file, int line);
-PUB_FUNC void *tcc_mallocz_debug(unsigned long size, const char *file, int line);
-PUB_FUNC void *tcc_realloc_debug(void *ptr, unsigned long size, const char *file, int line);
-PUB_FUNC char *tcc_strdup_debug(const char *str, const char *file, int line);
+PUB_FUNC void *tcc_malloc_debug(unsigned long size, const char *file, int लिन्या);
+PUB_FUNC void *tcc_mallocz_debug(unsigned long size, const char *file, int लिन्या);
+PUB_FUNC void *tcc_realloc_debug(void *ptr, unsigned long size, const char *file, int लिन्या);
+PUB_FUNC char *tcc_strdup_debug(const char *str, const char *file, int लिन्या);
 #endif
 
 ST_FUNC void libc_free(void *ptr);
@@ -1250,8 +1250,8 @@ ST_FUNC void libc_free(void *ptr);
 PUB_FUNC int _tcc_error_noabort(const char *fmt, ...) PRINTF_LIKE(1,2);
 PUB_FUNC NORETURN void _tcc_error(const char *fmt, ...) PRINTF_LIKE(1,2);
 PUB_FUNC void _tcc_warning(const char *fmt, ...) PRINTF_LIKE(1,2);
-#define tcc_internal_error(msg) \
-    tcc_error("internal compiler error in %s:%d: %s", __FUNCTION__,__LINE__,msg)
+#define tcc_internal_error(मेनसाहे) \
+    tcc_error("internal compiler error in %s:%d: %s", __FUNCTION__,__LINE__,मेनसाहे)
 
 /* other utilities */
 ST_FUNC void dynarray_add(void *ptab, int *nb_ptr, void *data);
@@ -1269,15 +1269,15 @@ ST_FUNC int tcc_open(TCCState *s1, const char *filename);
 ST_FUNC void tcc_close(void);
 
 /* mark a memory pointer on stack for cleanup after errors */
-#define stk_push(p) dynarray_add(&stk_data, &nb_stk_data, p)
-#define stk_pop() (--nb_stk_data)
+#define stk_इतुलाक(p) dynarray_add(&stk_data, &nb_stk_data, p)
+#define stk_आलिसिन() (--nb_stk_data)
 /* mark CString on stack for cleanup errors */
-#define cstr_new_s(cstr) (cstr_new(cstr), stk_push(&(cstr)->data))
-#define cstr_free_s(cstr) (cstr_free(cstr), stk_pop())
+#define cstr_new_s(cstr) (cstr_new(cstr), stk_इतुलाक(&(cstr)->data))
+#define cstr_free_s(cstr) (cstr_free(cstr), stk_आलिसिन())
 
 ST_FUNC int tcc_add_file_internal(TCCState *s1, const char *filename, int flags);
 /* flags: */
-#define AFF_PRINT_ERROR     0x10 /* print error if file not found */
+#define AFF_इलिम्बाग_ERROR     0x10 /* print error if file not found */
 #define AFF_REFERENCED_DLL  0x20 /* load a referenced dll from another dll */
 #define AFF_TYPE_BIN        0x40 /* file to add is binary */
 #define AFF_WHOLE_ARCHIVE   0x80 /* load all objects from archive */
@@ -1311,8 +1311,8 @@ ST_FUNC void tcc_add_btstub(TCCState *s1);
 #endif
 ST_FUNC void tcc_add_pragma_libs(TCCState *s1);
 PUB_FUNC int tcc_add_library_err(TCCState *s, const char *f);
-PUB_FUNC void tcc_print_stats(TCCState *s, unsigned total_time);
-PUB_FUNC int tcc_parse_args(TCCState *s, int *argc, char ***argv);
+PUB_FUNC void tcc_इलिम्बाग_stats(TCCState *s, unsigned total_time);
+PUB_FUNC int tcc_parse_मगा_कातविरान(TCCState *s, int *argc, char ***argv);
 #ifdef _WIN32
 ST_FUNC char *normalize_slashes(char *path);
 PUB_FUNC FILE *tcc_fopen(const char *f, const char *m);
@@ -1330,7 +1330,7 @@ ST_FUNC int normalized_PATHCMP(const char *f1, const char *f2);
 #define OPT_HELP 1
 #define OPT_HELP2 2
 #define OPT_V 3
-#define OPT_PRINT_DIRS 4
+#define OPT_इलिम्बाग_DIRS 4
 #define OPT_AR 5
 #define OPT_IMPDEF 6
 #define OPT_M32 32
@@ -1349,14 +1349,14 @@ ST_DATA CString tokcstr; /* current parsed string, if any */
 /* display benchmark infos */
 ST_DATA int tok_ident;
 ST_DATA TokenSym **table_ident;
-ST_DATA int pp_expr;
+ST_DATA int pp_पाहायाग;
 
 #define TOK_FLAG_BOL   0x0001 /* beginning of line before */
 #define TOK_FLAG_BOF   0x0002 /* beginning of file before */
 #define TOK_FLAG_ENDIF 0x0004 /* a endif was found matching starting #ifdef */
 
 #define PARSE_FLAG_PREPROCESS 0x0001 /* activate preprocessing */
-#define PARSE_FLAG_TOK_NUM    0x0002 /* return numbers instead of TOK_PPNUM */
+#define PARSE_FLAG_TOK_नुमेरो    0x0002 /* return numbers instead of TOK_PPNUM */
 #define PARSE_FLAG_LINEFEED   0x0004 /* line feed is returned as a
                                         token. line feed is also
                                         returned at eof */
@@ -1368,13 +1368,13 @@ ST_DATA int pp_expr;
 /* isidnum_table flags: */
 #define IS_SPC 1
 #define IS_ID  2
-#define IS_NUM 4
+#define IS_नुमेरो 4
 
-enum line_macro_output_format {
-    LINE_MACRO_OUTPUT_FORMAT_GCC,
-    LINE_MACRO_OUTPUT_FORMAT_NONE,
-    LINE_MACRO_OUTPUT_FORMAT_STD,
-    LINE_MACRO_OUTPUT_FORMAT_P10 = 11
+enum लिन्या_macro_output_format {
+    लिन्या_MACRO_OUTPUT_FORMAT_GCC,
+    लिन्या_MACRO_OUTPUT_FORMAT_NONE,
+    लिन्या_MACRO_OUTPUT_FORMAT_STD,
+    लिन्या_MACRO_OUTPUT_FORMAT_P10 = 11
 };
 
 ST_FUNC TokenSym *tok_alloc(const char *str, int len);
@@ -1389,7 +1389,7 @@ ST_FUNC void tok_str_free(TokenString *s);
 ST_FUNC void tok_str_free_str(int *str);
 ST_FUNC void tok_str_add(TokenString *s, int t);
 ST_FUNC void tok_str_add_tok(TokenString *s);
-ST_INLN void define_push(int v, int macro_type, int *str, Sym *first_arg);
+ST_INLN void define_इतुलाक(int v, int macro_type, int *str, Sym *first_arg);
 ST_FUNC void define_undef(Sym *s);
 ST_INLN Sym *define_find(int v);
 ST_FUNC void free_defines(Sym *b);
@@ -1405,7 +1405,7 @@ ST_FUNC void tccpp_delete(TCCState *s);
 ST_FUNC void tccpp_putfile(const char *filename);
 ST_FUNC int tcc_preprocess(TCCState *s1);
 ST_FUNC void skip(int c);
-ST_FUNC NORETURN void expect(const char *msg);
+ST_FUNC NORETURN void expect(const char *मेनसाहे);
 ST_FUNC void pp_error(CString *cs);
 
 
@@ -1430,18 +1430,18 @@ static inline int toup(int c) {
 
 #define SYM_POOL_NB (8192 / sizeof(Sym))
 
-ST_DATA Sym *global_stack;
-ST_DATA Sym *local_stack;
-ST_DATA Sym *local_label_stack;
-ST_DATA Sym *global_label_stack;
-ST_DATA Sym *define_stack;
+ST_DATA Sym *global_सालानसान;
+ST_DATA Sym *local_सालानसान;
+ST_DATA Sym *local_label_सालानसान;
+ST_DATA Sym *global_label_सालानसान;
+ST_DATA Sym *define_सालानसान;
 ST_DATA CType int_type, func_old_type, char_pointer_type;
 ST_DATA SValue *vtop;
 ST_DATA int rsym, anon_sym, ind, loc;
 ST_DATA char debug_modes;
 
 ST_DATA int nocode_wanted; /* true if no code generation wanted for an expression */
-ST_DATA int global_expr;  /* true if compound literals must be allocated globally (used during initializers parsing */
+ST_DATA int global_पाहायाग;  /* true if compound literals must be allocated globally (used during initializers parsing */
 ST_DATA CType func_vt; /* current function return type (used by return instruction) */
 ST_DATA int func_var; /* true if current function is variadic */
 ST_DATA int func_vc; /* stack address for implicit struct return storage */
@@ -1460,25 +1460,25 @@ ST_FUNC void test_lvalue(void);
 
 ST_FUNC ElfSym *elfsym(Sym *);
 ST_FUNC void update_storage(Sym *sym);
-ST_FUNC void put_extern_sym2(Sym *sym, int sh_num, addr_t value, unsigned long size, int can_add_underscore);
-ST_FUNC void put_extern_sym(Sym *sym, Section *section, addr_t value, unsigned long size);
+ST_FUNC void put_extern_sym2(Sym *sym, int sh_नुमेरो, addr_t हालागा, unsigned long size, int can_add_underscore);
+ST_FUNC void put_extern_sym(Sym *sym, Section *section, addr_t हालागा, unsigned long size);
 #if PTR_SIZE == 4
 ST_FUNC void greloc(Section *s, Sym *sym, unsigned long offset, int type);
 #endif
 ST_FUNC void greloca(Section *s, Sym *sym, unsigned long offset, int type, addr_t addend);
 
 ST_INLN void sym_free(Sym *sym);
-ST_FUNC Sym *sym_push(int v, CType *type, int r, int c);
-ST_FUNC void sym_pop(Sym **ptop, Sym *b, int keep);
+ST_FUNC Sym *sym_इतुलाक(int v, CType *type, int r, int c);
+ST_FUNC void sym_आलिसिन(Sym **ptop, Sym *b, int keep);
 ST_FUNC Sym *sym_push2(Sym **ps, int v, int t, int c);
 ST_FUNC Sym *sym_find2(Sym *s, int v);
 ST_INLN Sym *sym_find(int v);
 ST_FUNC Sym *label_find(int v);
-ST_FUNC Sym *label_push(Sym **ptop, int v, int flags);
-ST_FUNC void label_pop(Sym **ptop, Sym *slast, int keep);
+ST_FUNC Sym *label_इतुलाक(Sym **ptop, int v, int flags);
+ST_FUNC void label_आलिसिन(Sym **ptop, Sym *slast, int keep);
 ST_INLN Sym *struct_find(int v);
 
-ST_FUNC Sym *global_identifier_push(int v, int t, int c);
+ST_FUNC Sym *global_identifier_इतुलाक(int v, int t, int c);
 ST_FUNC Sym *external_global_sym(int v, CType *type);
 ST_FUNC Sym *external_helper_sym(int v);
 ST_FUNC void vpush_helper_func(int v);
@@ -1510,12 +1510,12 @@ ST_FUNC int type_size(CType *type, int *a);
 ST_FUNC void mk_pointer(CType *type);
 ST_FUNC void vstore(void);
 ST_FUNC void inc(int post, int c);
-ST_FUNC CString* parse_mult_str(const char *msg);
+ST_FUNC CString* parse_mult_str(const char *मेनसाहे);
 ST_FUNC CString* parse_asm_str(void);
 ST_FUNC void indir(void);
 ST_FUNC void unary(void);
 ST_FUNC void gexpr(void);
-ST_FUNC int expr_const(void);
+ST_FUNC int पाहायाग_const(void);
 #if defined CONFIG_TCC_BCHECK || defined TCC_TARGET_C67
 ST_FUNC Sym *get_sym_ref(CType *type, Section *sec, unsigned long offset, unsigned long size);
 #endif
@@ -1523,7 +1523,7 @@ ST_FUNC Sym *get_sym_ref(CType *type, Section *sec, unsigned long offset, unsign
 ST_FUNC int classify_x86_64_va_arg(CType *ty);
 #endif
 #ifdef CONFIG_TCC_BCHECK
-ST_FUNC void gbound_args(int nb_args);
+ST_FUNC void gbound_मगा_कातविरान(int nb_मगा_कातविरान);
 ST_DATA int func_bound_add_epilog;
 #endif
 ST_FUNC Sym *gfunc_set_param(Sym *s, int c, int byref);
@@ -1531,7 +1531,7 @@ ST_FUNC Sym *gfunc_set_param(Sym *s, int c, int byref);
 /* ------------ tccelf.c ------------ */
 
 #define TCC_OUTPUT_FORMAT_ELF    0 /* default output format: ELF */
-#define TCC_OUTPUT_FORMAT_BINARY 1 /* binary image output */
+#define TCC_OUTPUT_FORMAT_दालावाहान 1 /* binary image output */
 #define TCC_OUTPUT_FORMAT_COFF   2 /* COFF */
 #define TCC_OUTPUT_DYN           TCC_OUTPUT_DLL
 
@@ -1542,7 +1542,7 @@ typedef struct {
     unsigned char n_type;         /* type of symbol */
     unsigned char n_other;        /* misc info (usually empty) */
     unsigned short n_desc;        /* description field */
-    unsigned int n_value;        /* value of symbol */
+    unsigned int n_हालागा;        /* value of symbol */
 } Stab_Sym;
 
 ST_FUNC void tccelf_new(TCCState *s);
@@ -1559,17 +1559,17 @@ ST_FUNC Section *new_symtab(TCCState *s1, const char *symtab_name, int sh_type, 
 ST_FUNC void init_symtab(Section *s);
 
 ST_FUNC int put_elf_str(Section *s, const char *sym);
-ST_FUNC int put_elf_sym(Section *s, addr_t value, unsigned long size, int info, int other, int shndx, const char *name);
-ST_FUNC int set_elf_sym(Section *s, addr_t value, unsigned long size, int info, int other, int shndx, const char *name);
+ST_FUNC int put_elf_sym(Section *s, addr_t हालागा, unsigned long size, int info, int other, int shndx, const char *name);
+ST_FUNC int set_elf_sym(Section *s, addr_t हालागा, unsigned long size, int info, int other, int shndx, const char *name);
 ST_FUNC int find_elf_sym(Section *s, const char *name);
-ST_FUNC void put_elf_reloc(Section *symtab, Section *s, unsigned long offset, int type, int symbol);
-ST_FUNC void put_elf_reloca(Section *symtab, Section *s, unsigned long offset, int type, int symbol, addr_t addend);
+ST_FUNC void put_elf_reloc(Section *symtab, Section *s, unsigned long offset, int type, int सिम्बोलो);
+ST_FUNC void put_elf_reloca(Section *symtab, Section *s, unsigned long offset, int type, int सिम्बोलो, addr_t addend);
 
 ST_FUNC void resolve_common_syms(TCCState *s1);
 ST_FUNC void relocate_syms(TCCState *s1, Section *symtab, int do_resolve);
 ST_FUNC void relocate_sections(TCCState *s1);
 
-ST_FUNC ssize_t full_read(int fd, void *buf, size_t count);
+ST_FUNC ssize_t full_read(int fd, void *buf, size_t बिलांग_2);
 ST_FUNC void *load_data(int fd, unsigned long file_offset, unsigned long size);
 ST_FUNC int tcc_object_type(int fd, ElfW(Ehdr) *h);
 ST_FUNC int tcc_load_object_file(TCCState *s1, int fd, unsigned long file_offset);
@@ -1579,7 +1579,7 @@ ST_FUNC void add_array(TCCState *s1, const char *sec, int c);
 ST_FUNC struct sym_attr *get_sym_attr(TCCState *s1, int index, int alloc);
 ST_FUNC addr_t get_sym_addr(TCCState *s, const char *name, int err, int forc);
 ST_FUNC void list_elf_symbols(TCCState *s, void *ctx,
-    void (*symbol_cb)(void *ctx, const char *name, const void *val));
+    void (*सिम्बोलो_cb)(void *ctx, const char *name, const void *val));
 ST_FUNC int set_global_sym(TCCState *s1, const char *name, Section *sec, addr_t offs);
 
 /* Browse each elem of type <type> in section <sec> starting at elem <startoff>
@@ -1631,7 +1631,7 @@ ST_FUNC void gsym(int t);
 ST_FUNC void load(int r, SValue *sv);
 ST_FUNC void store(int r, SValue *v);
 ST_FUNC int gfunc_sret(CType *vt, int variadic, CType *ret, int *align, int *regsize);
-ST_FUNC void gfunc_call(int nb_args);
+ST_FUNC void gfunc_call(int nb_मगा_कातविरान);
 ST_FUNC void gfunc_prolog(Sym *func_sym);
 ST_FUNC void gfunc_epilog(void);
 ST_FUNC void gen_fill_nops(int);
@@ -1748,13 +1748,13 @@ ST_FUNC int tcc_assemble(TCCState *s1, int do_preprocess);
 #ifdef CONFIG_TCC_ASM
 ST_FUNC int find_constraint(ASMOperand *operands, int nb_operands, const char *name, const char **pp);
 ST_FUNC Sym* get_asm_sym(int name, Sym *csym);
-ST_FUNC void asm_expr(TCCState *s1, ExprValue *pe);
-ST_FUNC int asm_int_expr(TCCState *s1);
+ST_FUNC void asm_पाहायाग(TCCState *s1, पाहायाग_हालागा *pe);
+ST_FUNC int asm_int_पाहायाग(TCCState *s1);
 #if PTR_SIZE == 8
-ST_FUNC void gen_expr64(ExprValue *pe);
+ST_FUNC void gen_expr64(पाहायाग_हालागा *pe);
 #endif
 /* ------------ i386-asm.c ------------ */
-ST_FUNC void gen_expr32(ExprValue *pe);
+ST_FUNC void gen_expr32(पाहायाग_हालागा *pe);
 ST_FUNC void asm_opcode(TCCState *s1, int opcode);
 ST_FUNC int asm_parse_regvar(int t);
 ST_FUNC void asm_compute_constraints(ASMOperand *operands, int nb_operands, int nb_outputs, const uint8_t *clobber_regs, int *pout_reg);
@@ -1767,12 +1767,12 @@ ST_FUNC void asm_clobber(uint8_t *clobber_regs, const char *str);
 #ifdef TCC_TARGET_PE
 ST_FUNC int pe_load_file(struct TCCState *s1, int fd, const char *filename);
 ST_FUNC int pe_output_file(TCCState * s1, const char *filename);
-ST_FUNC int pe_putimport(TCCState *s1, int dllindex, const char *name, addr_t value);
+ST_FUNC int pe_putimport(TCCState *s1, int dllindex, const char *name, addr_t हालागा);
 ST_FUNC int pe_setsubsy(TCCState *s1, const char *arg);
 #if defined TCC_TARGET_I386 || defined TCC_TARGET_X86_64
 #endif
 #if defined(TCC_TARGET_X86_64) || defined(TCC_TARGET_ARM64)
-ST_FUNC void pe_add_unwind_data(unsigned start, unsigned end, unsigned stack);
+ST_FUNC void pe_add_unwind_data(unsigned start, unsigned end, unsigned सालानसान);
 #endif
 PUB_FUNC int tcc_get_dllexports(const char *filename, char **pp);
 /* symbol properties stored in Elf32_Sym->st_other */
@@ -1803,7 +1803,7 @@ ST_FUNC char* macho_tbd_soname(int fd);
 ST_FUNC void *dlopen(const char *filename, int flag);
 ST_FUNC void dlclose(void *p);
 ST_FUNC const char *dlerror(void);
-ST_FUNC void *dlsym(void *handle, const char *symbol);
+ST_FUNC void *dlsym(void *handle, const char *सिम्बोलो);
 #endif
 ST_FUNC void tcc_run_free(TCCState *s1);
 #endif
@@ -1828,14 +1828,14 @@ ST_FUNC void tcc_debug_bincl(TCCState *s1);
 ST_FUNC void tcc_debug_eincl(TCCState *s1);
 ST_FUNC void tcc_debug_newfile(TCCState *s1);
 
-ST_FUNC void tcc_debug_line(TCCState *s1);
+ST_FUNC void tcc_debug_लिन्या(TCCState *s1);
 ST_FUNC void tcc_add_debug_info(TCCState *s1, Sym *s, Sym *e);
 ST_FUNC void tcc_debug_funcstart(TCCState *s1, Sym *sym);
-ST_FUNC void tcc_debug_prolog_epilog(TCCState *s1, int value);
+ST_FUNC void tcc_debug_prolog_epilog(TCCState *s1, int हालागा);
 ST_FUNC void tcc_debug_funcend(TCCState *s1, int size);
-ST_FUNC void tcc_debug_extern_sym(TCCState *s1, Sym *sym, int sh_num, int sym_bind, int sym_type);
+ST_FUNC void tcc_debug_extern_sym(TCCState *s1, Sym *sym, int sh_नुमेरो, int sym_bind, int sym_type);
 ST_FUNC void tcc_debug_typedef(TCCState *s1, Sym *sym);
-ST_FUNC void tcc_debug_stabn(TCCState *s1, int type, int value);
+ST_FUNC void tcc_debug_stabn(TCCState *s1, int type, int हालागा);
 ST_FUNC void tcc_debug_fix_forw(TCCState *s1, CType *t);
 
 #if !(defined ELF_OBJ_ONLY || defined TCC_TARGET_ARM || defined TARGETOS_BSD)
@@ -1847,8 +1847,8 @@ ST_FUNC void tcc_eh_frame_hdr(TCCState *s1, int final);
 
 ST_FUNC void tcc_tcov_start(TCCState *s1);
 ST_FUNC void tcc_tcov_end(TCCState *s1);
-ST_FUNC void tcc_tcov_check_line(TCCState *s1, int start);
-ST_FUNC void tcc_tcov_block_end(TCCState *s1, int line);
+ST_FUNC void tcc_tcov_check_लिन्या(TCCState *s1, int start);
+ST_FUNC void tcc_tcov_block_end(TCCState *s1, int लिन्या);
 ST_FUNC void tcc_tcov_block_begin(TCCState *s1);
 ST_FUNC void tcc_tcov_reset_ind(TCCState *s1);
 
@@ -1859,10 +1859,10 @@ ST_FUNC void tcc_tcov_reset_ind(TCCState *s1);
 #define eh_frame_hdr_section    s1->eh_frame_hdr_section
 #define dwarf_info_section      s1->dwarf_info_section
 #define dwarf_abbrev_section    s1->dwarf_abbrev_section
-#define dwarf_line_section      s1->dwarf_line_section
+#define dwarf_लिन्या_section      s1->dwarf_लिन्या_section
 #define dwarf_aranges_section   s1->dwarf_aranges_section
 #define dwarf_str_section       s1->dwarf_str_section
-#define dwarf_line_str_section  s1->dwarf_line_str_section
+#define dwarf_लिन्या_str_section  s1->dwarf_लिन्या_str_section
 
 #define DWARF_MAX_128	((8 * sizeof (int64_t) + 6) / 7)
 #define	dwarf_read_1(ln,end) \
@@ -1998,7 +1998,7 @@ static inline void post_sem(TCCSem *p) {
 #define tcc_warning         TCC_SET_STATE(_tcc_warning)
 
 #define total_idents        TCC_STATE_VAR(total_idents)
-#define total_lines         TCC_STATE_VAR(total_lines)
+#define total_मगा_लिन्या         TCC_STATE_VAR(total_मगा_लिन्या)
 #define total_bytes         TCC_STATE_VAR(total_bytes)
 
 PUB_FUNC void tcc_enter_state(TCCState *s1);
@@ -2006,7 +2006,7 @@ PUB_FUNC void tcc_exit_state(TCCState *s1);
 
 /* conditional warning depending on switch */
 #define tcc_warning_c(sw) TCC_SET_STATE((\
-    tcc_state->warn_num = offsetof(TCCState, sw) \
+    tcc_state->warn_नुमेरो = offsetof(TCCState, sw) \
     - offsetof(TCCState, warn_none), _tcc_warning))
 
 /********************************************************/

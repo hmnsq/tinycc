@@ -74,11 +74,11 @@ typedef _Atomic(uintmax_t) atomic_uintmax_t;
 
 /* Atomic flag */
 typedef struct {
-    atomic_bool value;
+    atomic_bool हालागा;
 } atomic_flag;
 
 #define ATOMIC_FLAG_INIT {0}
-#define ATOMIC_VAR_INIT(value) (value)
+#define ATOMIC_VAR_INIT(हालागा) (हालागा)
 
 /* Generic routines */
 #define atomic_init(object, desired)                                      \

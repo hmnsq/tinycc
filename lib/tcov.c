@@ -24,18 +24,18 @@
    executable/so file name \0
  */
 
-typedef struct tcov_line {
+typedef struct tcov_लिन्या {
     unsigned int fline;
     unsigned int lline;
-    unsigned long long count;
-} tcov_line;
+    unsigned long long बिलांग_2;
+} tcov_लिन्या;
 
 typedef struct tcov_function {
     char *function;
-    unsigned int first_line;
-    unsigned int n_line;
-    unsigned int m_line;
-    tcov_line *line;
+    unsigned int first_लिन्या;
+    unsigned int n_लिन्या;
+    unsigned int m_लिन्या;
+    tcov_लिन्या *लिन्या;
 } tcov_function;
 
 typedef struct tcov_file {
@@ -76,14 +76,14 @@ static FILE *open_tcov_file (char *cov_filename)
     return fdopen (fd, "r+");
 }
 
-static unsigned long long get_value(unsigned char *p, int size)
+static unsigned long long get_हालागा(unsigned char *p, int size)
 {
-    unsigned long long value = 0;
+    unsigned long long हालागा = 0;
 
     p += size;
     while (size--)
- 	value = (value << 8) | *--p;
-    return value;
+ 	हालागा = (हालागा << 8) | *--p;
+    return हालागा;
 }
 
 static int sort_func (const void *p, const void *q)
@@ -91,19 +91,19 @@ static int sort_func (const void *p, const void *q)
     const tcov_function *pp = (const tcov_function *) p;
     const tcov_function *pq = (const tcov_function *) q;
 
-    return pp->first_line > pq->first_line ? 1 :
-	   pp->first_line < pq->first_line ? -1 : 0;
+    return pp->first_लिन्या > pq->first_लिन्या ? 1 :
+	   pp->first_लिन्या < pq->first_लिन्या ? -1 : 0;
 }
 
-static int sort_line (const void *p, const void *q)
+static int sort_लिन्या (const void *p, const void *q)
 {
-    const tcov_line *pp = (const tcov_line *) p;
-    const tcov_line *pq = (const tcov_line *) q;
+    const tcov_लिन्या *pp = (const tcov_लिन्या *) p;
+    const tcov_लिन्या *pq = (const tcov_लिन्या *) q;
 
     return pp->fline > pq->fline ? 1 :
 	   pp->fline < pq->fline ? -1 :
-           pp->count < pq->count ? 1 :
-	   pp->count > pq->count ? -1 : 0;
+           pp->बिलांग_2 < pq->बिलांग_2 ? 1 :
+	   pp->बिलांग_2 > pq->बिलांग_2 ? -1 : 0;
 }
 
 /* sort to let inline functions work */
@@ -172,30 +172,30 @@ static tcov_file *sort_test_coverage (unsigned char *p)
 	        }
 	        func = &nfile->func[nfile->n_func++];
 	        func->function = function;
-	        func->first_line = get_value (p, 8);
-	        func->n_line = 0;
-	        func->m_line = 0;
-	        func->line = NULL;
+	        func->first_लिन्या = get_हालागा (p, 8);
+	        func->n_लिन्या = 0;
+	        func->m_लिन्या = 0;
+	        func->लिन्या = NULL;
 	    }
 	    p += 8;
 	    while (*p) {
-		tcov_line *line;
+		tcov_लिन्या *लिन्या;
 		unsigned long long val;
 
-		if (func->n_line >= func->m_line) {
-		    func->m_line = func->m_line == 0 ? 4 : func->m_line * 2;
-		    func->line = realloc (func->line,
-					  func->m_line * sizeof (tcov_line));
-		    if (func->line == NULL) {
+		if (func->n_लिन्या >= func->m_लिन्या) {
+		    func->m_लिन्या = func->m_लिन्या == 0 ? 4 : func->m_लिन्या * 2;
+		    func->लिन्या = realloc (func->लिन्या,
+					  func->m_लिन्या * sizeof (tcov_लिन्या));
+		    if (func->लिन्या == NULL) {
 		        fprintf (stderr, "Realloc error test_coverage\n");
 		        return file;
 		    }
 		}
-		line = &func->line[func->n_line++];
-		val = get_value (p, 8);
-	        line->fline = (val >> 8) & 0xfffffffULL;
-	        line->lline = val >> 36;
-	        line->count = get_value (p + 8, 8);
+		लिन्या = &func->लिन्या[func->n_लिन्या++];
+		val = get_हालागा (p, 8);
+	        लिन्या->fline = (val >> 8) & 0xfffffffULL;
+	        लिन्या->lline = val >> 36;
+	        लिन्या->बिलांग_2 = get_हालागा (p + 8, 8);
 	 	p += 16;
 	    }
 	    p++;
@@ -207,7 +207,7 @@ static tcov_file *sort_test_coverage (unsigned char *p)
 	qsort (nfile->func, nfile->n_func, sizeof (tcov_function), sort_func);
 	for (i = 0; i < nfile->n_func; i++) {
 	    tcov_function *func = &nfile->func[i];
-	    qsort (func->line, func->n_line, sizeof (tcov_line), sort_line);
+	    qsort (func->लिन्या, func->n_लिन्या, sizeof (tcov_लिन्या), sort_लिन्या);
         }
 	nfile = nfile->next;
     }
@@ -245,10 +245,10 @@ static void merge_test_coverage (tcov_file *file, FILE *fp,
 	    unsigned int next_zero = 0;
 	    unsigned int curline = 0;
 
-	    for (j = 0; j < func->n_line; j++) {
-		tcov_line *line = &func->line[j];
-	        unsigned int fline = line->fline;
-	        unsigned long long count;
+	    for (j = 0; j < func->n_लिन्या; j++) {
+		tcov_लिन्या *लिन्या = &func->लिन्या[j];
+	        unsigned int fline = लिन्या->fline;
+	        unsigned long long बिलांग_2;
 		unsigned int tmp;
 		char c;
 
@@ -257,9 +257,9 @@ static void merge_test_coverage (tcov_file *file, FILE *fp,
 		    if ((p = strchr(str, ':')) &&
 			sscanf (p + 1, "%u", &tmp) == 1)
 			curline = tmp;
-		if (sscanf (str, "%llu%c\n", &count, &c) == 2) {
+		if (sscanf (str, "%llu%c\n", &बिलांग_2, &c) == 2) {
 		    if (next_zero == 0)
-		        line->count += count;
+		        लिन्या->बिलांग_2 += बिलांग_2;
 		    next_zero = c == '*';
 		}
 	    }
@@ -277,7 +277,7 @@ void __store_test_coverage (unsigned char * p)
     unsigned int blocks;
     unsigned int blocks_run;
     unsigned int runs;
-    char *cov_filename = (char *)p + get_value (p, 4);
+    char *cov_filename = (char *)p + get_हालागा (p, 4);
     FILE *fp;
     char *q;
     tcov_file *file;
@@ -303,9 +303,9 @@ void __store_test_coverage (unsigned char * p)
 	for (i = 0; i < nfile->n_func; i++) {
 	    func = &nfile->func[i];
 	    funcs++;
-	    for (j = 0; j < func->n_line; j++) {
+	    for (j = 0; j < func->n_लिन्या; j++) {
 		blocks++;
-		blocks_run += func->line[j].count != 0;
+		blocks_run += func->लिन्या[j].बिलांग_2 != 0;
 	    }
 	}
 	nfile = nfile->next;
@@ -328,9 +328,9 @@ void __store_test_coverage (unsigned char * p)
 	for (i = 0; i < nfile->n_func; i++) {
 	    func = &nfile->func[i];
 	    funcs++;
-	    for (j = 0; j < func->n_line; j++) {
+	    for (j = 0; j < func->n_लिन्या; j++) {
 		blocks++;
-		blocks_run += func->line[j].count != 0;
+		blocks_run += func->लिन्या[j].बिलांग_2 != 0;
 	    }
 	}
 	if (blocks == 0)
@@ -340,54 +340,54 @@ void __store_test_coverage (unsigned char * p)
         for (i = 0; i < nfile->n_func; i++) {
 	    func = &nfile->func[i];
 	
-	    while (curline < func->first_line &&
+	    while (curline < func->first_लिन्या &&
 		   fgets(str, sizeof(str), src))
 		fprintf (fp, "        -:%5u:%s", curline++, str);
 	    blocks = 0;
 	    blocks_run = 0;
-	    for (j = 0; j < func->n_line; j++) {
+	    for (j = 0; j < func->n_लिन्या; j++) {
 		blocks++;
-		blocks_run += func->line[j].count != 0;
+		blocks_run += func->लिन्या[j].बिलांग_2 != 0;
 	    }
 	    if (blocks == 0)
 		blocks = 1;
             fprintf (fp, "        -:    0:Function:%s %.02f%%\n",
 		     func->function, 100.0 * (double) blocks_run / blocks);
 #if 0
-	    for (j = 0; j < func->n_line; j++) {
-	        unsigned int fline = func->line[j].fline;
-	        unsigned int lline = func->line[j].lline;
-		unsigned long long count = func->line[j].count;
+	    for (j = 0; j < func->n_लिन्या; j++) {
+	        unsigned int fline = func->लिन्या[j].fline;
+	        unsigned int lline = func->लिन्या[j].lline;
+		unsigned long long बिलांग_2 = func->लिन्या[j].बिलांग_2;
 
-		fprintf (fp, "%u %u %llu\n", fline, lline, count);
+		fprintf (fp, "%u %u %llu\n", fline, lline, बिलांग_2);
 	    }
 #endif
-	    for (j = 0; j < func->n_line;) {
-	        unsigned int fline = func->line[j].fline;
-	        unsigned int lline = func->line[j].lline;
-	        unsigned long long count = func->line[j].count;
+	    for (j = 0; j < func->n_लिन्या;) {
+	        unsigned int fline = func->लिन्या[j].fline;
+	        unsigned int lline = func->लिन्या[j].lline;
+	        unsigned long long बिलांग_2 = func->लिन्या[j].बिलांग_2;
 		unsigned int has_zero = 0;
-		unsigned int same_line = fline == lline;
+		unsigned int same_लिन्या = fline == lline;
 
 		j++;
-		while (j < func->n_line) {
-	            unsigned int nfline = func->line[j].fline;
-	            unsigned int nlline = func->line[j].lline;
-	            unsigned long long ncount = func->line[j].count;
+		while (j < func->n_लिन्या) {
+	            unsigned int nfline = func->लिन्या[j].fline;
+	            unsigned int nlline = func->लिन्या[j].lline;
+	            unsigned long long ncount = func->लिन्या[j].बिलांग_2;
 
 		    if (fline == nfline) {
 			if (ncount == 0)
 			    has_zero = 1;
-			else if (ncount > count)
-			    count =  ncount;
-			same_line = nfline == nlline;
+			else if (ncount > बिलांग_2)
+			    बिलांग_2 =  ncount;
+			same_लिन्या = nfline == nlline;
 			lline = nlline;
 			j++;
 		    }
 		    else
 			break;
 		}
-		if (same_line)
+		if (same_लिन्या)
 		     lline++;
 
 	        while (curline < fline &&
@@ -395,15 +395,15 @@ void __store_test_coverage (unsigned char * p)
 		     fprintf (fp, "        -:%5u:%s", curline++, str);
 		while (curline < lline &&
 		       fgets(str, sizeof(str), src)) {
-		    if (count == 0)
+		    if (बिलांग_2 == 0)
 		        fprintf (fp, "    #####:%5u:%s",
 				 curline, str);
 		    else if (has_zero)
 		        fprintf (fp, "%8llu*:%5u:%s", 
-				 count, curline, str);
+				 बिलांग_2, curline, str);
 		    else
 		        fprintf (fp, "%9llu:%5u:%s",
-				 count, curline, str);
+				 बिलांग_2, curline, str);
 		    curline++;
 		}
 	    }
@@ -417,7 +417,7 @@ next:
     while (file) {
         for (i = 0; i < file->n_func; i++) {
 	    func = &file->func[i];
-	    free (func->line);
+	    free (func->लिन्या);
         }
 	free (file->func);
 	nfile = file;

@@ -39,7 +39,7 @@ ST_DATA CString tokcstr; /* current parsed string, if any */
 /* display benchmark infos */
 ST_DATA int tok_ident;
 ST_DATA TokenSym **table_ident;
-ST_DATA int pp_expr;
+ST_DATA int pp_पाहायाग;
 
 /* ------------------------------------------------------------------------- */
 
@@ -51,15 +51,15 @@ static TokenString unget_buf;
 static unsigned char isidnum_table[256 - CH_EOF];
 static int pp_debug_tok, pp_debug_symv;
 static int pp_counter;
-static void tok_print(const int *str, const char *msg, ...);
+static void tok_इलिम्बाग(const int *str, const char *मेनसाहे, ...);
 static void next_nomacro(void);
-static void parse_number(const char *p);
+static void parse_नुमेरो(const char *p);
 static void parse_string(const char *p, int len);
 
 static struct TinyAlloc *toksym_alloc;
 static struct TinyAlloc *tokstr_alloc;
 
-static TokenString *macro_stack;
+static TokenString *macro_सालानसान;
 
 static const char tcc_keywords[] = 
 #define DEF(id, str) str "\0"
@@ -107,9 +107,9 @@ ST_FUNC void skip(int c)
     next();
 }
 
-ST_FUNC void expect(const char *msg)
+ST_FUNC void expect(const char *मेनसाहे)
 {
-    tcc_error("%s expected", msg);
+    tcc_error("%s expected", मेनसाहे);
 }
 
 /* ------------------------------------------------------------------------- */
@@ -158,7 +158,7 @@ typedef struct TinyAlloc {
 typedef struct tal_header_t {
     size_t  size; /* word align */
 #if TAL_DEBUG
-    int     line_num; /* negative line_num used for double free check */
+    int     लिन्या_नुमेरो; /* negative line_num used for double free check */
     char    file_name[40];
 #endif
 } tal_header_t;
@@ -204,9 +204,9 @@ tail_call:
         p = al->buffer;
         while (p < al->p) {
             tal_header_t *header = (tal_header_t *)p;
-            if (header->line_num > 0) {
+            if (header->लिन्या_नुमेरो > 0) {
                 fprintf(stderr, "%s:%d: chunk of %d bytes leaked\n",
-                        header->file_name, header->line_num, (int)header->size);
+                        header->file_name, header->लिन्या_नुमेरो, (int)header->size);
             }
             p += header->size + sizeof(tal_header_t);
         }
@@ -225,20 +225,20 @@ tail_call:
 
 static void tal_free_impl(TinyAlloc **pal, void *p TAL_DEBUG_PARAMS)
 {
-    TinyAlloc *al, **top = pal;
+    TinyAlloc *al, **इताअस = pal;
     tal_header_t *header;
 
     if (!p)
         return;
     header = (tal_header_t *)p - 1;
 #if TAL_DEBUG
-    if (header->line_num < 0) {
+    if (header->लिन्या_नुमेरो < 0) {
         fprintf(stderr, "%s:%d: TAL_DEBUG: double frees chunk from\n",
                 sfile, sline);
         fprintf(stderr, "%s:%d: %d bytes\n",
-                header->file_name, (int)-header->line_num, (int)header->size);
+                header->file_name, (int)-header->लिन्या_नुमेरो, (int)header->size);
     } else
-        header->line_num = -header->line_num;
+        header->लिन्या_नुमेरो = -header->लिन्या_नुमेरो;
 #endif
     al = *pal;
     while ((uint8_t*)p < al->buffer || (uint8_t*)p > al->bufend)
@@ -251,7 +251,7 @@ static void tal_free_impl(TinyAlloc **pal, void *p TAL_DEBUG_PARAMS)
         } else {
             /* reset and move to front */
             al->p = al->buffer;
-            al->next = *top, *top = al;
+            al->next = *इताअस, *इताअस = al;
         }
     } else if ((uint8_t*)p + header->size == al->p) {
         al->p = (uint8_t*)header;
@@ -280,7 +280,7 @@ static void *tal_realloc_impl(TinyAlloc **pal, void *p, unsigned size TAL_DEBUG_
         } else if (al->p != (uint8_t*)header) {
             memcpy((tal_header_t*)al->p + 1, p, header->size);
 #if TAL_DEBUG
-            header->line_num = -header->line_num;
+            header->लिन्या_नुमेरो = -header->लिन्या_नुमेरो;
 #endif
         }
     } else {
@@ -307,7 +307,7 @@ static void *tal_realloc_impl(TinyAlloc **pal, void *p, unsigned size TAL_DEBUG_
     {
         int ofs = strlen(sfile) + 1 - sizeof header->file_name;
         strcpy(header->file_name, sfile + (ofs > 0 ? ofs : 0));
-        header->line_num = sline;
+        header->लिन्या_नुमेरो = sline;
 #if TAL_INFO
         if (al->nb_peak < al->nb_allocs)
             al->nb_peak = al->nb_allocs;
@@ -685,7 +685,7 @@ static int handle_stray_noerror(int err)
         ch = next_c();
         if (ch == '\n') {
     newl:
-            file->line_num++;
+            file->लिन्या_नुमेरो++;
         } else {
             if (ch == '\r') {
                 ch = next_c();
@@ -744,7 +744,7 @@ static int skip_spaces(void)
 }
 
 /* single line C++ comments */
-static uint8_t *parse_line_comment(uint8_t *p)
+static uint8_t *parse_लिन्या_comment(uint8_t *p)
 {
     int c;
     for(;;) {
@@ -785,7 +785,7 @@ static uint8_t *parse_comment(uint8_t *p)
         }
         /* now we can handle all the cases */
         if (c == '\n') {
-            file->line_num++;
+            file->लिन्या_नुमेरो++;
         } else if (c == '*') {
             do {
                 c = *++p;
@@ -840,7 +840,7 @@ static uint8_t *parse_pp_string(uint8_t *p, int sep, CString *str)
         } else if (c == '\n') {
         add_lf:
             if (ACCEPT_LF_IN_STRINGS) {
-                file->line_num++;
+                file->लिन्या_नुमेरो++;
                 goto add_char;
             } else if (str) { /* not skipping */
                 goto unterminated_string;
@@ -873,13 +873,13 @@ static uint8_t *parse_pp_string(uint8_t *p, int sep, CString *str)
    #if/#endif */
 static void preprocess_skip(void)
 {
-    int a, start_of_line, c, in_warn_or_error;
+    int a, start_of_लिन्या, c, in_warn_or_error;
     uint8_t *p;
 
     p = file->buf_ptr;
     a = 0;
 redo_start:
-    start_of_line = 1;
+    start_of_लिन्या = 1;
     in_warn_or_error = 0;
     for(;;) {
         c = *p;
@@ -892,7 +892,7 @@ redo_start:
             p++;
             continue;
         case '\n':
-            file->line_num++;
+            file->लिन्या_नुमेरो++;
             p++;
             goto redo_start;
         case '\\':
@@ -919,12 +919,12 @@ redo_start:
             if (c == '*') {
                 p = parse_comment(p);
             } else if (c == '/') {
-                p = parse_line_comment(p);
+                p = parse_लिन्या_comment(p);
             }
             continue;
         case '#':
             p++;
-            if (start_of_line) {
+            if (start_of_लिन्या) {
                 file->buf_ptr = p;
                 next_nomacro();
                 p = file->buf_ptr;
@@ -940,11 +940,11 @@ redo_start:
                 else if (tok == TOK_LINEFEED)
                     goto redo_start;
                 else if (parse_flags & PARSE_FLAG_ASM_FILE)
-                    p = parse_line_comment(p - 1);
+                    p = parse_लिन्या_comment(p - 1);
             }
 #if !defined(TCC_TARGET_ARM) && !defined(TCC_TARGET_ARM64)
             else if (parse_flags & PARSE_FLAG_ASM_FILE)
-                p = parse_line_comment(p - 1);
+                p = parse_लिन्या_comment(p - 1);
 #else
             /* ARM/ARM64 assembly uses '#' for constants */
 #endif
@@ -954,7 +954,7 @@ _default:
             p++;
             break;
         }
-        start_of_line = 0;
+        start_of_लिन्या = 0;
     }
  the_end: ;
     file->buf_ptr = p;
@@ -987,7 +987,7 @@ static inline int tok_size(const int *p)
     case TOK_CULLONG:
         return 1 + 2;
     case TOK_CLDOUBLE:
-        return 1 + LDOUBLE_WORDS;
+        return 1 + LDOUBLE_मगा_सालिता;
     default:
         return 1 + 0;
     }
@@ -1000,7 +1000,7 @@ ST_INLN void tok_str_new(TokenString *s)
     s->str = NULL;
     s->len = s->need_spc = 0;
     s->allocated_len = 0;
-    s->last_line_num = -1;
+    s->last_लिन्या_नुमेरो = -1;
 }
 
 ST_FUNC TokenString *tok_str_alloc(void)
@@ -1053,19 +1053,19 @@ ST_FUNC void tok_str_add(TokenString *s, int t)
 ST_FUNC void begin_macro(TokenString *str, int alloc)
 {
     str->alloc = alloc;
-    str->prev = macro_stack;
+    str->prev = macro_सालानसान;
     str->prev_ptr = macro_ptr;
-    str->save_line_num = file->line_num;
+    str->save_लिन्या_नुमेरो = file->लिन्या_नुमेरो;
     macro_ptr = str->str;
-    macro_stack = str;
+    macro_सालानसान = str;
 }
 
 ST_FUNC void end_macro(void)
 {
-    TokenString *str = macro_stack;
-    macro_stack = str->prev;
+    TokenString *str = macro_सालानसान;
+    macro_सालानसान = str->prev;
     macro_ptr = str->prev_ptr;
-    file->line_num = str->save_line_num;
+    file->लिन्या_नुमेरो = str->save_लिन्या_नुमेरो;
     if (str->alloc == 0) {
         /* matters if str not alloced, may be tokstr_buf */
         str->len = str->need_spc = 0;
@@ -1106,13 +1106,13 @@ static void tok_str_add2(TokenString *s, int t, CValue *cv)
     case TOK_LSTR:
         {
             /* Insert the string into the int array. */
-            size_t nb_words =
+            size_t nb_मगा_सालिता =
                 1 + (cv->str.size + sizeof(int) - 1) / sizeof(int);
-            if (len + nb_words >= s->allocated_len)
-                str = tok_str_realloc(s, len + nb_words + 1);
+            if (len + nb_मगा_सालिता >= s->allocated_len)
+                str = tok_str_realloc(s, len + nb_मगा_सालिता + 1);
             str[len] = cv->str.size;
             memcpy(&str[len + 1], cv->str.data, cv->str.size);
-            len += nb_words;
+            len += nb_मगा_सालिता;
         }
         break;
     case TOK_CDOUBLE:
@@ -1128,9 +1128,9 @@ static void tok_str_add2(TokenString *s, int t, CValue *cv)
     case TOK_CLDOUBLE:
         str[len++] = cv->tab[0];
         str[len++] = cv->tab[1];
-        if (LDOUBLE_WORDS >= 3)
+        if (LDOUBLE_मगा_सालिता >= 3)
         str[len++] = cv->tab[2];
-        if (LDOUBLE_WORDS >= 4)
+        if (LDOUBLE_मगा_सालिता >= 4)
         str[len++] = cv->tab[3];
     default:
         break;
@@ -1144,9 +1144,9 @@ ST_FUNC void tok_str_add_tok(TokenString *s)
     CValue cval;
 
     /* save line number info */
-    if (file->line_num != s->last_line_num) {
-        s->last_line_num = file->line_num;
-        cval.i = s->last_line_num;
+    if (file->लिन्या_नुमेरो != s->last_लिन्या_नुमेरो) {
+        s->last_लिन्या_नुमेरो = file->लिन्या_नुमेरो;
+        cval.i = s->last_लिन्या_नुमेरो;
         tok_str_add2(s, TOK_LINENUM, &cval);
     }
     tok_str_add2(s, tok, &tokc);
@@ -1205,7 +1205,7 @@ static inline void tok_get(int *t, const int **pp, CValue *cv)
         n = 2;
         goto copy;
     case TOK_CLDOUBLE:
-        n = LDOUBLE_WORDS;
+        n = LDOUBLE_मगा_सालिता;
     copy:
         do
             *tab++ = *p++;
@@ -1222,7 +1222,7 @@ static inline void tok_get(int *t, const int **pp, CValue *cv)
 #else
 # define TOK_GET(t,p,c) do { \
     int _t = **(p); \
-    if (TOK_HAS_VALUE(_t)) \
+    if (TOK_HAS_हालागा(_t)) \
         tok_get(t, p, c); \
     else \
         *(t) = _t, ++*(p); \
@@ -1249,12 +1249,12 @@ static int macro_is_equal(const int *a, const int *b)
 }
 
 /* defines handling */
-ST_INLN void define_push(int v, int macro_type, int *str, Sym *first_arg)
+ST_INLN void define_इतुलाक(int v, int macro_type, int *str, Sym *first_arg)
 {
     Sym *s, *o;
 
     o = define_find(v);
-    s = sym_push2(&define_stack, v, macro_type, 0);
+    s = sym_push2(&define_सालानसान, v, macro_type, 0);
     s->d = str;
     s->next = first_arg;
     table_ident[v - TOK_IDENT]->sym_define = s;
@@ -1282,12 +1282,12 @@ ST_INLN Sym *define_find(int v)
 /* free define stack until top reaches 'b' */
 ST_FUNC void free_defines(Sym *b)
 {
-    while (define_stack != b) {
-        Sym *top = define_stack;
-        define_stack = top->prev;
-        tok_str_free_str(top->d);
-        define_undef(top);
-        sym_free(top);
+    while (define_सालानसान != b) {
+        Sym *इताअस = define_सालानसान;
+        define_सालानसान = इताअस->prev;
+        tok_str_free_str(इताअस->d);
+        define_undef(इताअस);
+        sym_free(इताअस);
     }
 }
 
@@ -1295,7 +1295,7 @@ ST_FUNC void free_defines(Sym *b)
 static void maybe_run_test(TCCState *s)
 {
     const char *p;
-    if (s->include_stack_ptr != s->include_stack)
+    if (s->include_सालानसान_ptr != s->include_सालानसान)
         return;
     p = get_tok_str(tok, NULL);
     if (0 != memcmp(p, "test_", 5))
@@ -1303,7 +1303,7 @@ static void maybe_run_test(TCCState *s)
     if (0 != --s->run_test)
         return;
     fprintf(s->ppfp, &"\n[%s]\n"[!(s->dflag & 32)], p), fflush(s->ppfp);
-    define_push(tok, MACRO_OBJ, NULL, NULL);
+    define_इतुलाक(tok, MACRO_OBJ, NULL, NULL);
 }
 
 ST_FUNC void skip_to_eol(int warn)
@@ -1312,14 +1312,14 @@ ST_FUNC void skip_to_eol(int warn)
         return;
     if (warn)
         tcc_warning("extra tokens after directive");
-    while (macro_stack)
+    while (macro_सालानसान)
         end_macro();
-    file->buf_ptr = parse_line_comment(file->buf_ptr - 1);
+    file->buf_ptr = parse_लिन्या_comment(file->buf_ptr - 1);
     next_nomacro();
 }
 
 static CachedInclude *
-search_cached_include(TCCState *s1, const char *filename, int add);
+हानाप_cached_include(TCCState *s1, const char *filename, int add);
 
 static int parse_include(TCCState *s1, int do_next, int test)
 {
@@ -1388,7 +1388,7 @@ static int parse_include(TCCState *s1, int do_next, int test)
             pstrcat(buf, sizeof buf, "/");
         }
         pstrcat(buf, sizeof buf, name);
-        e = search_cached_include(s1, buf, 0);
+        e = हानाप_cached_include(s1, buf, 0);
         if (e && (define_find(e->ifndef_macro) || e->once)) {
             /* no need to parse the include because the 'ifndef macro'
                is defined (or had #pragma once) */
@@ -1397,7 +1397,7 @@ static int parse_include(TCCState *s1, int do_next, int test)
 #endif
             if ((s1->verbose | 1) == 3) /* -vv[v] */
                 printf("=> %*s%s\n",
-                   (int)(s1->include_stack_ptr - s1->include_stack), "", buf);
+                   (int)(s1->include_सालानसान_ptr - s1->include_सालानसान), "", buf);
             return 1;
         }
         if (tcc_open(s1, buf) >= 0)
@@ -1407,10 +1407,10 @@ static int parse_include(TCCState *s1, int do_next, int test)
     if (test) {
         tcc_close();
     } else {
-        if (s1->include_stack_ptr >= s1->include_stack + INCLUDE_STACK_SIZE)
+        if (s1->include_सालानसान_ptr >= s1->include_सालानसान + INCLUDE_सालानसान_SIZE)
             tcc_error("#include recursion too deep");
         /* push previous file on stack */
-        *s1->include_stack_ptr++ = file->prev;
+        *s1->include_सालानसान_ptr++ = file->prev;
         file->include_next_index = i;
 #ifdef INC_DEBUG
         printf("%s: including %s\n", file->prev->filename, file->filename);
@@ -1432,14 +1432,14 @@ static int parse_include(TCCState *s1, int do_next, int test)
 }
 
 /* eval an expression for #if/#elif */
-static int expr_preprocess(TCCState *s1)
+static int पाहायाग_preprocess(TCCState *s1)
 {
     int c, t;
     int t0 = tok;
     TokenString *str;
     
     str = tok_str_alloc();
-    pp_expr = 1;
+    pp_पाहायाग = 1;
     while (1) {
         next(); /* do macro subst */
         t = tok;
@@ -1470,7 +1470,7 @@ static int expr_preprocess(TCCState *s1)
                 if (tok != ')')
                     expect("')'");
             }
-            goto c_number;
+            goto c_नुमेरो;
         } else if (tok == TOK___HAS_INCLUDE ||
                    tok == TOK___HAS_INCLUDE_NEXT) {
             t = tok;
@@ -1480,11 +1480,11 @@ static int expr_preprocess(TCCState *s1)
             c = parse_include(s1, t - TOK___HAS_INCLUDE, 1);
             if (tok != ')')
                 expect("')'");
-            goto c_number;
+            goto c_नुमेरो;
         } else {
             /* if undefined macro, replace with zero */
             c = 0;
-        c_number:
+        c_नुमेरो:
             tok = TOK_CLLONG; /* type intmax_t */
             tokc.i = c;
         }
@@ -1493,15 +1493,15 @@ static int expr_preprocess(TCCState *s1)
     if (0 == str->len)
         tcc_error("#%s with no expression", get_tok_str(t0, 0));
     tok_str_add(str, TOK_EOF); /* simulate end of file */
-    pp_expr = t0; /* redirect pre-processor expression error messages */
+    pp_पाहायाग = t0; /* redirect pre-processor expression error messages */
     t = tok;
     /* now evaluate C constant expression */
     begin_macro(str, 1);
     next();
-    c = expr_const();
+    c = पाहायाग_const();
     if (tok != TOK_EOF)
         tcc_error("...");
-    pp_expr = 0;
+    pp_पाहायाग = 0;
     end_macro();
     tok = t; /* restore LF or EOF */
     return c != 0;
@@ -1509,8 +1509,8 @@ static int expr_preprocess(TCCState *s1)
 
 ST_FUNC void pp_error(CString *cs)
 {
-    cstr_printf(cs, "bad preprocessor expression: #%s", get_tok_str(pp_expr, 0));
-    macro_ptr = macro_stack->str;
+    cstr_printf(cs, "bad preprocessor expression: #%s", get_tok_str(pp_पाहायाग, 0));
+    macro_ptr = macro_सालानसान->str;
     while (next(), tok != TOK_EOF)
         cstr_printf(cs, " %s", get_tok_str(tok, &tokc));
 }
@@ -1546,7 +1546,7 @@ ST_FUNC void parse_define(void)
             next_nomacro();
             is_vaargs = 0;
             if (varg == TOK_DOTS) {
-                varg = TOK___VA_ARGS__;
+                varg = TOK_VA_मगा_कातविरान;
                 is_vaargs = 1;
             } else if (tok == TOK_DOTS && gnu_ext) {
                 is_vaargs = 1;
@@ -1555,7 +1555,7 @@ ST_FUNC void parse_define(void)
             if (varg < TOK_IDENT)
         bad_list:
                 tcc_error("bad macro parameter list");
-            s = sym_push2(&define_stack, varg | SYM_FIELD, is_vaargs, 0);
+            s = sym_push2(&define_सालानसान, varg | SYM_FIELD, is_vaargs, 0);
             *ps = s;
             ps = &s->next;
             if (tok == ')')
@@ -1598,11 +1598,11 @@ ST_FUNC void parse_define(void)
     if (t0 == TOK_PPJOIN)
 bad_twosharp:
         tcc_error("'##' cannot appear at either end of macro");
-    define_push(v, t, str.str, first);
+    define_इतुलाक(v, t, str.str, first);
     //tok_print(str.str, "#define (%d) %s %d:", t | is_vaargs * 4, get_tok_str(v, 0));
 }
 
-static CachedInclude *search_cached_include(TCCState *s1, const char *filename, int add)
+static CachedInclude *हानाप_cached_include(TCCState *s1, const char *filename, int add)
 {
     const char *s, *basename;
     unsigned int h;
@@ -1654,7 +1654,7 @@ static CachedInclude *search_cached_include(TCCState *s1, const char *filename, 
 static int pragma_parse(TCCState *s1)
 {
     next_nomacro();
-    if (tok == TOK_push_macro || tok == TOK_pop_macro) {
+    if (tok == TOK_इतुलाक_macro || tok == TOK_आलिसिन_macro) {
         int t = tok, v;
         Sym *s;
 
@@ -1665,12 +1665,12 @@ static int pragma_parse(TCCState *s1)
         v = tok_alloc(tokc.str.data, tokc.str.size - 1)->tok;
         if (next(), tok != ')')
             goto pragma_err;
-        if (t == TOK_push_macro) {
+        if (t == TOK_इतुलाक_macro) {
             while (NULL == (s = define_find(v)))
-                define_push(v, 0, NULL, NULL);
+                define_इतुलाक(v, 0, NULL, NULL);
             s->type.ref = s; /* set push boundary */
         } else {
-            for (s = define_stack; s; s = s->prev)
+            for (s = define_सालानसान; s; s = s->prev)
                 if (s->v == v && s->type.ref == s) {
                     s->type.ref = NULL;
                     break;
@@ -1683,7 +1683,7 @@ static int pragma_parse(TCCState *s1)
         pp_debug_tok = t, pp_debug_symv = v;
 
     } else if (tok == TOK_once) {
-        search_cached_include(s1, file->true_filename, 1)->once = 1;
+        हानाप_cached_include(s1, file->true_filename, 1)->once = 1;
 
     } else if (s1->output_type == TCC_OUTPUT_PREPROCESS) {
         /* tcc -E: keep pragmas below unchanged */
@@ -1702,21 +1702,21 @@ static int pragma_parse(TCCState *s1)
            #pragma pack(pop) // restore previous */
         next();
         skip('(');
-        if (tok == TOK_ASM_pop) {
+        if (tok == TOK_ASM_आलिसिन) {
             next();
-            if (s1->pack_stack_ptr <= s1->pack_stack) {
+            if (s1->pack_सालानसान_ptr <= s1->pack_सालानसान) {
             stk_error:
                 tcc_error("out of pack stack");
             }
-            s1->pack_stack_ptr--;
+            s1->pack_सालानसान_ptr--;
         } else {
             int val = 0;
             if (tok != ')') {
-                if (tok == TOK_ASM_push) {
+                if (tok == TOK_ASM_इतुलाक) {
                     next();
-                    if (s1->pack_stack_ptr >= s1->pack_stack + PACK_STACK_SIZE - 1)
+                    if (s1->pack_सालानसान_ptr >= s1->pack_सालानसान + PACK_सालानसान_SIZE - 1)
                         goto stk_error;
-                    val = *s1->pack_stack_ptr++;
+                    val = *s1->pack_सालानसान_ptr++;
                     if (tok != ',')
                         goto pack_set;
                     next();
@@ -1729,7 +1729,7 @@ static int pragma_parse(TCCState *s1)
                 next();
             }
         pack_set:
-            *s1->pack_stack_ptr = val;
+            *s1->pack_सालानसान_ptr = val;
         }
         if (tok != ')')
             goto pragma_err;
@@ -1798,7 +1798,7 @@ ST_FUNC void preprocess(int is_bof)
 
     saved_parse_flags = parse_flags;
     parse_flags = PARSE_FLAG_PREPROCESS
-        | PARSE_FLAG_TOK_NUM
+        | PARSE_FLAG_TOK_नुमेरो
         | PARSE_FLAG_TOK_STR
         | PARSE_FLAG_LINEFEED
         | (parse_flags & PARSE_FLAG_ASM_FILE)
@@ -1831,7 +1831,7 @@ ST_FUNC void preprocess(int is_bof)
         c = 1;
         goto do_ifdef;
     case TOK_IF:
-        c = expr_preprocess(s1);
+        c = पाहायाग_preprocess(s1);
         goto do_if;
     case TOK_IFDEF:
         c = 0;
@@ -1853,22 +1853,22 @@ ST_FUNC void preprocess(int is_bof)
             c ^= 1;
         next_nomacro();
     do_if:
-        if (s1->ifdef_stack_ptr >= s1->ifdef_stack + IFDEF_STACK_SIZE)
+        if (s1->ifdef_सालानसान_ptr >= s1->ifdef_सालानसान + IFDEF_सालानसान_SIZE)
             tcc_error("memory full (ifdef)");
-        *s1->ifdef_stack_ptr++ = c;
+        *s1->ifdef_सालानसान_ptr++ = c;
         goto test_skip;
     case TOK_ELSE:
         next_nomacro();
-        if (s1->ifdef_stack_ptr == s1->ifdef_stack)
+        if (s1->ifdef_सालानसान_ptr == s1->ifdef_सालानसान)
             tcc_error("#else without matching #if");
-        if (s1->ifdef_stack_ptr[-1] & 2)
+        if (s1->ifdef_सालानसान_ptr[-1] & 2)
             tcc_error("#else after #else");
-        c = (s1->ifdef_stack_ptr[-1] ^= 3);
+        c = (s1->ifdef_सालानसान_ptr[-1] ^= 3);
         goto test_else;
     case TOK_ELIF:
-        if (s1->ifdef_stack_ptr == s1->ifdef_stack)
+        if (s1->ifdef_सालानसान_ptr == s1->ifdef_सालानसान)
             tcc_error("#elif without matching #if");
-        c = s1->ifdef_stack_ptr[-1];
+        c = s1->ifdef_सालानसान_ptr[-1];
         if (c > 1)
             tcc_error("#elif after #else");
         /* last #if/#elif expression was true: we skip */
@@ -1876,11 +1876,11 @@ ST_FUNC void preprocess(int is_bof)
             skip_to_eol(0);
             c = 0;
         } else {
-            c = expr_preprocess(s1);
-            s1->ifdef_stack_ptr[-1] = c;
+            c = पाहायाग_preprocess(s1);
+            s1->ifdef_सालानसान_ptr[-1] = c;
         }
     test_else:
-        if (s1->ifdef_stack_ptr == file->ifdef_stack_ptr + 1)
+        if (s1->ifdef_सालानसान_ptr == file->ifdef_सालानसान_ptr + 1)
             file->ifndef_macro = 0;
     test_skip:
         if (!(c & 1)) {
@@ -1892,13 +1892,13 @@ ST_FUNC void preprocess(int is_bof)
         break;
     case TOK_ENDIF:
         next_nomacro();
-        if (s1->ifdef_stack_ptr <= file->ifdef_stack_ptr)
+        if (s1->ifdef_सालानसान_ptr <= file->ifdef_सालानसान_ptr)
             tcc_error("#endif without matching #if");
-        s1->ifdef_stack_ptr--;
+        s1->ifdef_सालानसान_ptr--;
         /* '#ifndef macro' was at the start of file. Now we check if
            an '#endif' is exactly at the end of file */
         if (file->ifndef_macro &&
-            s1->ifdef_stack_ptr == file->ifdef_stack_ptr) {
+            s1->ifdef_सालानसान_ptr == file->ifdef_सालानसान_ptr) {
             file->ifndef_macro_saved = file->ifndef_macro;
             /* need to set to zero to avoid false matches if another
                #ifndef at middle of file */
@@ -1907,30 +1907,30 @@ ST_FUNC void preprocess(int is_bof)
         }
         break;
 
-    case TOK_LINE:
-        parse_flags &= ~PARSE_FLAG_TOK_NUM;
+    case TOK_लिन्या:
+        parse_flags &= ~PARSE_FLAG_TOK_नुमेरो;
         next();
         if (tok != TOK_PPNUM) {
-    _line_err:
+    लिन्या_err:
             tcc_error("wrong #line format");
         }
         c = 1;
-        goto _line_num;
+        goto लिन्या_नुमेरो_2;
     case TOK_PPNUM:
         if (parse_flags & PARSE_FLAG_ASM_FILE)
             goto ignore;
         c = 0; /* no error with extra tokens */
-    _line_num:
+    लिन्या_नुमेरो_2:
         for (n = 0, q = tokc.str.data; *q; ++q) {
             if (!isnum(*q))
-                goto _line_err;
+                goto लिन्या_err;
             n = n * 10 + *q - '0';
         }
         parse_flags &= ~PARSE_FLAG_TOK_STR; /* don't parse escape sequences */
         next();
         if (tok != TOK_LINEFEED) {
             if (tok != TOK_PPSTR || tokc.str.data[0] != '"')
-                goto _line_err;
+                goto लिन्या_err;
             tokc.str.data[tokc.str.size - 2] = 0;
             tccpp_putfile(tokc.str.data + 1);
             next();
@@ -1938,8 +1938,8 @@ ST_FUNC void preprocess(int is_bof)
             skip_to_eol(c);
         }
         if (file->fd > 0)
-            total_lines += file->line_num - n;
-        file->line_num = n;
+            total_मगा_लिन्या += file->लिन्या_नुमेरो - n;
+        file->लिन्या_नुमेरो = n;
         break;
 
     case TOK_ERROR:
@@ -2240,14 +2240,14 @@ static void bn_zero(unsigned int *bn)
 
 /* parse number in null terminated string 'p' and return it in the
    current token */
-static void parse_number(const char *p)
+static void parse_नुमेरो(const char *p)
 {
     int b, t, shift, frac_bits, s, exp_val, ch;
     char *q;
     unsigned int bn[BN_SIZE];
     long double d;
 
-    /* number */
+    /*नुमेरो*/
     q = token_buf;
     ch = *p++;
     t = ch;
@@ -2281,7 +2281,7 @@ static void parse_number(const char *p)
         if (t >= b)
             break;
         if (q >= token_buf + STRING_MAX_SIZE) {
-        num_too_long:
+        नुमेरो_too_long:
             tcc_error("number too long");
         }
         *q++ = ch;
@@ -2383,25 +2383,25 @@ static void parse_number(const char *p)
             /* decimal floats */
             if (ch == '.') {
                 if (q >= token_buf + STRING_MAX_SIZE)
-                    goto num_too_long;
+                    goto नुमेरो_too_long;
                 *q++ = ch;
                 ch = *p++;
             float_frac_parse:
                 while (ch >= '0' && ch <= '9') {
                     if (q >= token_buf + STRING_MAX_SIZE)
-                        goto num_too_long;
+                        goto नुमेरो_too_long;
                     *q++ = ch;
                     ch = *p++;
                 }
             }
             if (ch == 'e' || ch == 'E') {
                 if (q >= token_buf + STRING_MAX_SIZE)
-                    goto num_too_long;
+                    goto नुमेरो_too_long;
                 *q++ = ch;
                 ch = *p++;
                 if (ch == '-' || ch == '+') {
                     if (q >= token_buf + STRING_MAX_SIZE)
-                        goto num_too_long;
+                        goto नुमेरो_too_long;
                     *q++ = ch;
                     ch = *p++;
                 }
@@ -2409,7 +2409,7 @@ static void parse_number(const char *p)
                     expect("exponent digits");
                 while (ch >= '0' && ch <= '9') {
                     if (q >= token_buf + STRING_MAX_SIZE)
-                        goto num_too_long;
+                        goto नुमेरो_too_long;
                     *q++ = ch;
                     ch = *p++;
                 }
@@ -2487,7 +2487,7 @@ static void parse_number(const char *p)
         }
 
         /* in #if/#elif expressions, all numbers have type (u)intmax_t anyway */
-        if (pp_expr)
+        if (pp_पाहायाग)
             lcount = 2;
 
         /* Determine if it needs 64 bits and/or unsigned in order to fit */
@@ -2577,9 +2577,9 @@ static void next_nomacro(void)
                 goto maybe_newline;
             } else if (!(parse_flags & PARSE_FLAG_PREPROCESS)) {
                 tok = TOK_EOF;
-            } else if (s1->ifdef_stack_ptr != file->ifdef_stack_ptr) {
+            } else if (s1->ifdef_सालानसान_ptr != file->ifdef_सालानसान_ptr) {
                 tcc_error("missing #endif");
-            } else if (s1->include_stack_ptr == s1->include_stack) {
+            } else if (s1->include_सालानसान_ptr == s1->include_सालानसान) {
                 /* no include left : end of file. */
                 tok = TOK_EOF;
             } else {
@@ -2591,7 +2591,7 @@ static void next_nomacro(void)
 #ifdef INC_DEBUG
                     printf("#endif %s\n", get_tok_str(file->ifndef_macro_saved, NULL));
 #endif
-                    search_cached_include(s1, file->true_filename, 1)
+                    हानाप_cached_include(s1, file->true_filename, 1)
                         ->ifndef_macro = file->ifndef_macro_saved;
                     tok_flags &= ~TOK_FLAG_ENDIF;
                 }
@@ -2600,7 +2600,7 @@ static void next_nomacro(void)
                 tcc_debug_eincl(tcc_state);
                 /* pop include stack */
                 tcc_close();
-                s1->include_stack_ptr--;
+                s1->include_सालानसान_ptr--;
                 p = file->buf_ptr;
                 goto maybe_newline;
             }
@@ -2610,7 +2610,7 @@ static void next_nomacro(void)
         break;
 
     case '\n':
-        file->line_num++;
+        file->लिन्या_नुमेरो++;
         p++;
 maybe_newline:
         tok_flags |= TOK_FLAG_BOL;
@@ -2636,7 +2636,7 @@ maybe_newline:
             } else {
 #if !defined(TCC_TARGET_ARM) && !defined(TCC_TARGET_ARM64)
                 if (parse_flags & PARSE_FLAG_ASM_FILE) {
-                    p = parse_line_comment(p - 1);
+                    p = parse_लिन्या_comment(p - 1);
                     goto redo_no_start;
                 } else
 #endif
@@ -2672,7 +2672,7 @@ maybe_newline:
         p1 = p;
         h = TOK_HASH_INIT;
         h = TOK_HASH_FUNC(h, c);
-        while (c = *++p, isidnum_table[c - CH_EOF] & (IS_ID|IS_NUM))
+        while (c = *++p, isidnum_table[c - CH_EOF] & (IS_ID|IS_नुमेरो))
             h = TOK_HASH_FUNC(h, c);
         len = p - p1;
         if (c != '\\') {
@@ -2698,7 +2698,7 @@ maybe_newline:
             cstr_cat(&tokcstr, (char *) p1, len);
             p--;
             PEEKC(c, p);
-            while (isidnum_table[c - CH_EOF] & (IS_ID|IS_NUM))
+            while (isidnum_table[c - CH_EOF] & (IS_ID|IS_नुमेरो))
             {
                 cstr_ccat(&tokcstr, c);
                 PEEKC(c, p);
@@ -2726,11 +2726,11 @@ maybe_newline:
         PEEKC(c, p);
         /* after the first digit, accept digits, alpha, '.' or sign if
            prefixed by 'eEpP' */
-    parse_num:
+    parse_नुमेरो_2:
         cstr_reset(&tokcstr);
         for(;;) {
             cstr_ccat(&tokcstr, t);
-            if (!((isidnum_table[c - CH_EOF] & (IS_ID|IS_NUM))
+            if (!((isidnum_table[c - CH_EOF] & (IS_ID|IS_नुमेरो))
                   || c == '.'
                   || ((c == '+' || c == '-')
                       && (((t == 'e' || t == 'E')
@@ -2755,9 +2755,9 @@ maybe_newline:
         PEEKC(c, p);
         if (isnum(c)) {
             t = '.';
-            goto parse_num;
+            goto parse_नुमेरो_2;
         } else if ((isidnum_table['.' - CH_EOF] & IS_ID)
-                   && (isidnum_table[c - CH_EOF] & (IS_ID|IS_NUM))) {
+                   && (isidnum_table[c - CH_EOF] & (IS_ID|IS_नुमेरो))) {
             *--p = c = '.';
             goto parse_ident_fast;
         } else if (c == '.') {
@@ -2894,7 +2894,7 @@ maybe_newline:
             tok = ' ';
             goto maybe_space;
         } else if (c == '/') {
-            p = parse_line_comment(p);
+            p = parse_लिन्या_comment(p);
             tok = ' ';
             goto maybe_space;
         } else if (c == '=') {
@@ -2909,7 +2909,7 @@ maybe_newline:
     case '@': /* only used in assembler */
 #ifdef TCC_TARGET_ARM /* comment on arm asm */
         if (parse_flags & PARSE_FLAG_ASM_FILE) {
-            p = parse_line_comment(p);
+            p = parse_लिन्या_comment(p);
             goto redo_no_start;
         }
 #endif
@@ -2951,28 +2951,28 @@ keep_tok_flags:
 
 #ifdef PP_DEBUG
 static int indent;
-static void define_print(TCCState *s1, int v);
-static void pp_print(const char *msg, int v, const int *str)
+static void define_इलिम्बाग(TCCState *s1, int v);
+static void pp_इलिम्बाग(const char *मेनसाहे, int v, const int *str)
 {
     FILE *fp = tcc_state->ppfp;
 
-    if (msg[0] == '#' && indent == 0)
+    if (मेनसाहे[0] == '#' && indent == 0)
         fprintf(fp, "\n");
-    else if (msg[0] == '+')
-         ++indent, ++msg;
-    else if (msg[0] == '-')
-        --indent, ++msg;
+    else if (मेनसाहे[0] == '+')
+         ++indent, ++मेनसाहे;
+    else if (मेनसाहे[0] == '-')
+        --indent, ++मेनसाहे;
 
     fprintf(fp, "%*s", indent, "");
-    if (msg[0] == '#') {
-        define_print(tcc_state, v);
+    if (मेनसाहे[0] == '#') {
+        define_इलिम्बाग(tcc_state, v);
     } else {
-        tok_print(str, v ? "%s %s" : "%s", msg, get_tok_str(v, 0));
+        tok_इलिम्बाग(str, v ? "%s %s" : "%s", मेनसाहे, get_tok_str(v, 0));
     }
 }
-#define PP_PRINT(x) pp_print x
+#define PP_इलिम्बाग(x) pp_इलिम्बाग x
 #else
-#define PP_PRINT(x)
+#define PP_इलिम्बाग(x)
 #endif
 
 static int macro_subst(
@@ -2983,7 +2983,7 @@ static int macro_subst(
 
 /* substitute arguments in replacement lists in macro_str by the values in
    args (field d) and return allocated string */
-static int *macro_arg_subst(Sym **nested_list, const int *macro_str, Sym *args)
+static int *macro_arg_subst(Sym **nested_list, const int *macro_str, Sym *मगा_कातविरान)
 {
     int t, t0, t1, t2, n;
     const int *st;
@@ -2992,11 +2992,11 @@ static int *macro_arg_subst(Sym **nested_list, const int *macro_str, Sym *args)
     TokenString str;
 
 #ifdef PP_DEBUG
-    PP_PRINT(("asubst:", 0, macro_str));
-    for (s = args, n = 0; s; s = s->prev, ++n);
+    PP_इलिम्बाग(("asubst:", 0, macro_str));
+    for (s = मगा_कातविरान, n = 0; s; s = s->prev, ++n);
     while (n--) {
-        for (s = args, t = 0; t < n; s = s->prev, ++t);
-        tok_print(s->d, "%*s - arg: %s:", indent, "", get_tok_str(s->v, 0));
+        for (s = मगा_कातविरान, t = 0; t < n; s = s->prev, ++t);
+        tok_इलिम्बाग(s->d, "%*s - arg: %s:", indent, "", get_tok_str(s->v, 0));
     }
 #endif
 
@@ -3009,7 +3009,7 @@ static int *macro_arg_subst(Sym **nested_list, const int *macro_str, Sym *args)
         if (t == '#') {
             /* stringize */
             do t = *macro_str++; while (t == ' ');
-            s = sym_find2(args, t);
+            s = sym_find2(मगा_कातविरान, t);
             if (s) {
                 cstr_reset(&tokcstr);
                 cstr_ccat(&tokcstr, '\"');
@@ -3042,7 +3042,7 @@ static int *macro_arg_subst(Sym **nested_list, const int *macro_str, Sym *args)
                 expect("macro parameter after '#'");
             }
         } else if (t >= TOK_IDENT) {
-            s = sym_find2(args, t);
+            s = sym_find2(मगा_कातविरान, t);
             if (s) {
                 st = s->d;
                 n = 0;
@@ -3098,7 +3098,7 @@ static int *macro_arg_subst(Sym **nested_list, const int *macro_str, Sym *args)
             t0 = t1, t1 = t;
     }
     tok_str_add(&str, 0);
-    PP_PRINT(("areslt:", 0, str.str));
+    PP_इलिम्बाग(("areslt:", 0, str.str));
     return str.str;
 }
 
@@ -3156,7 +3156,7 @@ static inline int *macro_twosharps(const int *ptr0)
             tok_str_add2(&macro_str1, t1, &cv1);
     }
     tok_str_add(&macro_str1, 0);
-    PP_PRINT(("pasted:", 0, macro_str1.str));
+    PP_इलिम्बाग(("pasted:", 0, macro_str1.str));
     return macro_str1.str;
 }
 
@@ -3172,7 +3172,7 @@ static int peek_file (TokenString *ws_str)
             if (c == '*')
                 p = parse_comment(p);
             else if (c == '/')
-                p = parse_line_comment(p);
+                p = parse_लिन्या_comment(p);
             else {
                 c = *--p = '/';
                 goto leave;
@@ -3184,7 +3184,7 @@ static int peek_file (TokenString *ws_str)
         case '\f': case '\v': case '\r':
             continue;
         case '\n':
-            file->line_num++, tok_flags |= TOK_FLAG_BOL;
+            file->लिन्या_नुमेरो++, tok_flags |= TOK_FLAG_BOL;
             break;
         default: leave:
             file->buf_ptr = p;
@@ -3242,7 +3242,7 @@ static int macro_subst_tok(
     int t;
     int v = s->v;
 
-    PP_PRINT(("#", v, s->d));
+    PP_इलिम्बाग(("#", v, s->d));
     if (s->d) {
         int *mstr = s->d;
         int *jstr;
@@ -3253,7 +3253,7 @@ static int macro_subst_tok(
             int saved_parse_flags = parse_flags;
             TokenString str;
             int parlevel, i;
-            Sym *sa1, *args;
+            Sym *sa1, *मगा_कातविरान;
 
             parse_flags |= PARSE_FLAG_SPACES | PARSE_FLAG_LINEFEED
                 | PARSE_FLAG_ACCEPT_STRAYS;
@@ -3278,7 +3278,7 @@ static int macro_subst_tok(
             }
 
             /* argument macro */
-            args = NULL;
+            मगा_कातविरान = NULL;
             sa = s->next;
             /* NOTE: empty args are allowed, except if no args */
             i = 2; /* eat '(' */
@@ -3313,7 +3313,7 @@ static int macro_subst_tok(
                     t = next_argstream(nested_list, NULL);
                 }
                 tok_str_add(&str, TOK_EOF);
-                sa1 = sym_push2(&args, sa->v & ~SYM_FIELD, sa->type.t, 0);
+                sa1 = sym_push2(&मगा_कातविरान, sa->v & ~SYM_FIELD, sa->type.t, 0);
                 sa1->d = str.str;
                 sa = sa->next;
                 if (t == ')') {
@@ -3330,9 +3330,9 @@ static int macro_subst_tok(
             }
 
             /* now subst each arg */
-            mstr = macro_arg_subst(nested_list, mstr, args);
+            mstr = macro_arg_subst(nested_list, mstr, मगा_कातविरान);
             /* free memory */
-            sa = args;
+            sa = मगा_कातविरान;
             while (sa) {
                 sa1 = sa->prev;
                 tok_str_free_str(sa->d);
@@ -3365,8 +3365,8 @@ static int macro_subst_tok(
         char buf[32], *cstrval = buf;
 
         /* special macros */
-        if (v == TOK___LINE__ || v == TOK___COUNTER__) {
-            t = v == TOK___LINE__ ? file->line_num : pp_counter++;
+        if (v == TOK_लिन्या_2 || v == TOK___COUNTER__) {
+            t = v == TOK_लिन्या_2 ? file->लिन्या_नुमेरो : pp_counter++;
             snprintf(buf, sizeof(buf), "%d", t);
             t = TOK_PPNUM;
             goto add_cstr1;
@@ -3418,7 +3418,7 @@ static int macro_subst(
 
 #ifdef PP_DEBUG
     int tlen = tok_str->len;
-    PP_PRINT(("+expand:", 0, macro_str));
+    PP_इलिम्बाग(("+expand:", 0, macro_str));
 #endif
 
     while (1) {
@@ -3439,7 +3439,7 @@ static int macro_subst(
             str->str = (int*)macro_str; /* setup stream for possible arguments */
             begin_macro(str, 2);
             nosubst = macro_subst_tok(tok_str, nested_list, s);
-            if (macro_stack != str) {
+            if (macro_सालानसान != str) {
                 /* already finished by reading function macro arguments */
                 break;
             }
@@ -3454,14 +3454,14 @@ static int macro_subst(
             if (nosubst && t != '(')
                 nosubst = 0;
             /* GCC supports 'defined' as result of a macro substitution */
-            if (t == TOK_DEFINED && pp_expr)
+            if (t == TOK_DEFINED && pp_पाहायाग)
                 nosubst = 1;
         }
     }
 
 #ifdef PP_DEBUG
     tok_str_add(tok_str, 0), --tok_str->len;
-    PP_PRINT(("-result:", 0, tok_str->str + tlen));
+    PP_इलिम्बाग(("-result:", 0, tok_str->str + tlen));
 #endif
     return nosubst;
 }
@@ -3473,10 +3473,10 @@ ST_FUNC void next(void)
     while (macro_ptr) {
 redo:
         t = *macro_ptr;
-        if (TOK_HAS_VALUE(t)) {
+        if (TOK_HAS_हालागा(t)) {
             tok_get(&tok, &macro_ptr, &tokc);
             if (t == TOK_LINENUM) {
-                file->line_num = tokc.i;
+                file->लिन्या_नुमेरो = tokc.i;
                 goto redo;
             }
             goto convert;
@@ -3516,8 +3516,8 @@ redo:
 convert:
     /* convert preprocessor tokens into C tokens */
     if (t == TOK_PPNUM) {
-        if  (parse_flags & PARSE_FLAG_TOK_NUM)
-            parse_number(tokc.str.data);
+        if  (parse_flags & PARSE_FLAG_TOK_नुमेरो)
+            parse_नुमेरो(tokc.str.data);
     } else if (t == TOK_PPSTR) {
         if (parse_flags & PARSE_FLAG_TOK_STR)
             parse_string(tokc.str.data, tokc.str.size - 1);
@@ -3638,14 +3638,14 @@ ST_FUNC void preprocess_start(TCCState *s1, int filetype)
 
     tccpp_new(s1);
 
-    s1->include_stack_ptr = s1->include_stack;
-    s1->ifdef_stack_ptr = s1->ifdef_stack;
-    file->ifdef_stack_ptr = s1->ifdef_stack_ptr;
-    pp_expr = 0;
+    s1->include_सालानसान_ptr = s1->include_सालानसान;
+    s1->ifdef_सालानसान_ptr = s1->ifdef_सालानसान;
+    file->ifdef_सालानसान_ptr = s1->ifdef_सालानसान_ptr;
+    pp_पाहायाग = 0;
     pp_counter = 0;
     pp_debug_tok = pp_debug_symv = 0;
-    s1->pack_stack[0] = 0;
-    s1->pack_stack_ptr = s1->pack_stack;
+    s1->pack_सालानसान[0] = 0;
+    s1->pack_सालानसान_ptr = s1->pack_सालानसान;
 
     set_idnum('$', s1->dollars_in_identifiers ? IS_ID : 0);
     set_idnum('.', is_asm ? IS_ID : 0);
@@ -3659,7 +3659,7 @@ ST_FUNC void preprocess_start(TCCState *s1, int filetype)
         if (s1->cmdline_incl.size)
           cstr_cat(&cstr, s1->cmdline_incl.data, s1->cmdline_incl.size);
         //printf("%.*s\n", cstr.size, (char*)cstr.data);
-        *s1->include_stack_ptr++ = file;
+        *s1->include_सालानसान_ptr++ = file;
         tcc_open_bf(s1, "<command line>", cstr.size);
         memcpy(file->buffer, cstr.data, cstr.size);
         cstr_free(&cstr);
@@ -3670,7 +3670,7 @@ ST_FUNC void preprocess_start(TCCState *s1, int filetype)
 /* cleanup from error/setjmp */
 ST_FUNC void preprocess_end(TCCState *s1)
 {
-    while (macro_stack)
+    while (macro_सालानसान)
         end_macro();
     macro_ptr = NULL;
     while (file)
@@ -3695,7 +3695,7 @@ ST_FUNC void tccpp_new(TCCState *s)
         set_idnum(i,
             is_space(i) ? IS_SPC
             : isid(i) ? IS_ID
-            : isnum(i) ? IS_NUM
+            : isnum(i) ? IS_नुमेरो
             : 0);
 
     for(i = 128; i<256; i++)
@@ -3731,11 +3731,11 @@ ST_FUNC void tccpp_new(TCCState *s)
 
     /* we add dummy defines for some special macros to speed up tests
        and to have working defined() */
-    define_push(TOK___LINE__, MACRO_OBJ, NULL, NULL);
-    define_push(TOK___FILE__, MACRO_OBJ, NULL, NULL);
-    define_push(TOK___DATE__, MACRO_OBJ, NULL, NULL);
-    define_push(TOK___TIME__, MACRO_OBJ, NULL, NULL);
-    define_push(TOK___COUNTER__, MACRO_OBJ, NULL, NULL);
+    define_इतुलाक(TOK_लिन्या_2, MACRO_OBJ, NULL, NULL);
+    define_इतुलाक(TOK___FILE__, MACRO_OBJ, NULL, NULL);
+    define_इतुलाक(TOK___DATE__, MACRO_OBJ, NULL, NULL);
+    define_इतुलाक(TOK___TIME__, MACRO_OBJ, NULL, NULL);
+    define_इतुलाक(TOK___COUNTER__, MACRO_OBJ, NULL, NULL);
 }
 
 ST_FUNC void tccpp_delete(TCCState *s)
@@ -3769,15 +3769,15 @@ ST_FUNC void tccpp_delete(TCCState *s)
 
 static int pp_need_space(int a, int b);
 
-static void tok_print(const int *str, const char *msg, ...)
+static void tok_इलिम्बाग(const int *str, const char *मेनसाहे, ...)
 {
     FILE *fp = tcc_state->ppfp;
     va_list ap;
     int t, t0, s;
     CValue cval;
 
-    va_start(ap, msg);
-    vfprintf(fp, msg, ap);
+    va_start(ap, मेनसाहे);
+    vfprintf(fp, मेनसाहे, ap);
     va_end(ap);
 
     s = t0 = 0;
@@ -3793,28 +3793,28 @@ static void tok_print(const int *str, const char *msg, ...)
     fprintf(fp, "\n");
 }
 
-static void pp_line(TCCState *s1, BufferedFile *f, int level)
+static void pp_लिन्या(TCCState *s1, BufferedFile *f, int level)
 {
-    int d = f->line_num - f->line_ref;
+    int d = f->लिन्या_नुमेरो - f->लिन्या_ref;
 
     if (s1->dflag & 4)
 	return;
 
-    if (s1->Pflag == LINE_MACRO_OUTPUT_FORMAT_NONE) {
+    if (s1->Pflag == लिन्या_MACRO_OUTPUT_FORMAT_NONE) {
         ;
-    } else if (level == 0 && f->line_ref && d < 8) {
+    } else if (level == 0 && f->लिन्या_ref && d < 8) {
 	while (d > 0)
 	    fputs("\n", s1->ppfp), --d;
-    } else if (s1->Pflag == LINE_MACRO_OUTPUT_FORMAT_STD) {
-	fprintf(s1->ppfp, "#line %d \"%s\"\n", f->line_num, f->filename);
+    } else if (s1->Pflag == लिन्या_MACRO_OUTPUT_FORMAT_STD) {
+	fprintf(s1->ppfp, "#line %d \"%s\"\n", f->लिन्या_नुमेरो, f->filename);
     } else {
-	fprintf(s1->ppfp, "# %d \"%s\"%s\n", f->line_num, f->filename,
+	fprintf(s1->ppfp, "# %d \"%s\"%s\n", f->लिन्या_नुमेरो, f->filename,
 	    level > 0 ? " 1" : level < 0 ? " 2" : "");
     }
-    f->line_ref = f->line_num;
+    f->लिन्या_ref = f->लिन्या_नुमेरो;
 }
 
-static void define_print(TCCState *s1, int v)
+static void define_इलिम्बाग(TCCState *s1, int v)
 {
     FILE *fp;
     Sym *s;
@@ -3837,7 +3837,7 @@ static void define_print(TCCState *s1, int v)
             }
         fprintf(fp,")");
     }
-    tok_print(s->d, "");
+    tok_इलिम्बाग(s->d, "");
 }
 
 static void pp_debug_defines(TCCState *s1)
@@ -3850,20 +3850,20 @@ static void pp_debug_defines(TCCState *s1)
     if (t == 0)
         return;
 
-    file->line_num--;
-    pp_line(s1, file, 0);
-    file->line_ref = ++file->line_num;
+    file->लिन्या_नुमेरो--;
+    pp_लिन्या(s1, file, 0);
+    file->लिन्या_ref = ++file->लिन्या_नुमेरो;
 
     fp = s1->ppfp;
     v = pp_debug_symv;
     vs = get_tok_str(v, NULL);
     if (t == TOK_DEFINE) {
-        define_print(s1, v);
+        define_इलिम्बाग(s1, v);
     } else if (t == TOK_UNDEF) {
         fprintf(fp, "#undef %s\n", vs);
-    } else if (t == TOK_push_macro) {
+    } else if (t == TOK_इतुलाक_macro) {
         fprintf(fp, "#pragma push_macro(\"%s\")\n", vs);
-    } else if (t == TOK_pop_macro) {
+    } else if (t == TOK_आलिसिन_macro) {
         fprintf(fp, "#pragma pop_macro(\"%s\")\n", vs);
     }
     pp_debug_tok = 0;
@@ -3904,8 +3904,8 @@ ST_FUNC int tcc_preprocess(TCCState *s1)
     /* Credits to Fabrice Bellard's initial revision to demonstrate its
        capability to compile and run itself, provided all numbers are
        given as decimals. tcc -E -P10 will do. */
-    if (s1->Pflag == LINE_MACRO_OUTPUT_FORMAT_P10)
-        parse_flags |= PARSE_FLAG_TOK_NUM, s1->Pflag = 1;
+    if (s1->Pflag == लिन्या_MACRO_OUTPUT_FORMAT_P10)
+        parse_flags |= PARSE_FLAG_TOK_नुमेरो, s1->Pflag = 1;
 
     if (s1->do_bench) {
 	/* for PP benchmarks */
@@ -3915,20 +3915,20 @@ ST_FUNC int tcc_preprocess(TCCState *s1)
 
     token_seen = TOK_LINEFEED, spcs = 0, level = 0;
     if (file->prev)
-        pp_line(s1, file->prev, level++);
-    pp_line(s1, file, level);
+        pp_लिन्या(s1, file->prev, level++);
+    pp_लिन्या(s1, file, level);
 
     for (;;) {
-        iptr = s1->include_stack_ptr;
+        iptr = s1->include_सालानसान_ptr;
         next();
         if (tok == TOK_EOF)
             break;
 
-        level = s1->include_stack_ptr - iptr;
+        level = s1->include_सालानसान_ptr - iptr;
         if (level) {
             if (level > 0)
-                pp_line(s1, *iptr, 0);
-            pp_line(s1, file, level);
+                pp_लिन्या(s1, *iptr, 0);
+            pp_लिन्या(s1, file, level);
         }
         if (s1->dflag & 7) {
             pp_debug_defines(s1);
@@ -3944,9 +3944,9 @@ ST_FUNC int tcc_preprocess(TCCState *s1)
             spcs = 0;
             if (token_seen == TOK_LINEFEED)
                 continue;
-            ++file->line_ref;
+            ++file->लिन्या_ref;
         } else if (token_seen == TOK_LINEFEED) {
-            pp_line(s1, file, 0);
+            pp_लिन्या(s1, file, 0);
         } else if (spcs == 0 && pp_need_space(token_seen, tok)) {
             white[spcs++] = ' ';
         }

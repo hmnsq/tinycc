@@ -7,7 +7,7 @@
 #include <stdio.h>
 #include <string.h>
 
-#define LOOP_COUNT 1000
+#define LOOP_बिलांग 1000
 #define ARRAY_SIZE 100
 
 /* Overwrite a VLA. This will overwrite the return address if SP is incorrect */
@@ -17,26 +17,26 @@ void smash(char *p, int n) {
 
 int test1(int n) {
   int i;
-  char *array_ptrs[LOOP_COUNT];
+  char *array_ptrs[LOOP_बिलांग];
   
-  for (i = 0; i < LOOP_COUNT; ++i) {
+  for (i = 0; i < LOOP_बिलांग; ++i) {
     char test[n];
     smash(test, n);
     array_ptrs[i] = test;
   }
   
-  return (array_ptrs[0]-array_ptrs[LOOP_COUNT-1] < n) ? 0 : 1;
+  return (array_ptrs[0]-array_ptrs[LOOP_बिलांग-1] < n) ? 0 : 1;
 }
 
 /* ensure goto does not circumvent array free */
 int test2(int n) {
-  char *array_ptrs[LOOP_COUNT];
+  char *array_ptrs[LOOP_बिलांग];
 
   int i = 0;
 loop:;
   char test[n];
   smash(test, n);
-  if (i >= LOOP_COUNT)
+  if (i >= LOOP_बिलांग)
     goto end;
   array_ptrs[i] = test;
   ++i;
@@ -46,7 +46,7 @@ end:
   smash(test, n);
   char test2[n];
   smash(test2, n);
-  return (array_ptrs[0] - array_ptrs[LOOP_COUNT-1] < n) ? 0 : 1;
+  return (array_ptrs[0] - array_ptrs[LOOP_बिलांग-1] < n) ? 0 : 1;
 }
 
 int test3(int n) {

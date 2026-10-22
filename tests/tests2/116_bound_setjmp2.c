@@ -8,13 +8,13 @@
 #endif
 
 #define	SIZE	10
-#define	COUNT	10
+#define	बिलांग_4	10
 
 #define TST   int i, a[2], b[2];                \
               for (i = 0; i < 2; i++) a[i] = 0; \
               for (i = 0; i < 2; i++) b[i] = 0
 
-static int count[SIZE];
+static int बिलांग_2[SIZE];
 
 static void tst1 (jmp_buf loc)
 {
@@ -37,13 +37,13 @@ static void *tst (void * index)
     int i = *(int *) index;
     static int v[SIZE];
 
-    for (v[i] = 0; v[i] < COUNT; v[i]++) {
+    for (v[i] = 0; v[i] < बिलांग_4; v[i]++) {
         if (setjmp (loc) == 0) {
             TST;
             tst2(loc);
         }
         else {
-            count[i]++;
+            बिलांग_2[i]++;
         }
         i = *(int *) index;
     }
@@ -77,8 +77,8 @@ main (void)
 #endif
     }
     for (i = 0; i < SIZE; i++) {
-        if (count[i] != COUNT)
-            printf ("error: %d %d\n", i, count[i]);
+        if (बिलांग_2[i] != बिलांग_4)
+            printf ("error: %d %d\n", i, बिलांग_2[i]);
     }
     return 0;
 }

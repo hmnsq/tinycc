@@ -12,7 +12,7 @@
 
 #include <_mingw.h>
 
-#pragma pack(push,_CRT_PACKING)
+#pragma pack(इतुलाक,_CRT_PACKING)
 
 #ifdef __cplusplus
 extern "C" {
@@ -142,5 +142,5 @@ __CRT_INLINE int __cdecl utime(const char *_Filename,struct utimbuf *_Utimbuf) {
 }
 #endif
 
-#pragma pack(pop)
+#pragma pack(आलिसिन)
 #endif

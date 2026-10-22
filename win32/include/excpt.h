@@ -8,7 +8,7 @@
 
 #include <_mingw.h>
 
-#pragma pack(push,_CRT_PACKING)
+#pragma pack(इतुलाक,_CRT_PACKING)
 
 #ifdef __cplusplus
 extern "C" {
@@ -20,7 +20,7 @@ extern "C" {
 #define EXCEPTION_DISPOSITION   int
 #endif
 #define ExceptionContinueExecution 0
-#define ExceptionContinueSearch 1
+#define Exception_Continue_हानाप 1
 #define ExceptionNestedException 2
 #define ExceptionCollidedUnwind 3
 
@@ -36,7 +36,7 @@ extern "C" {
   struct _CONTEXT;
   struct _DISPATCHER_CONTEXT;
 
-  _CRTIMP EXCEPTION_DISPOSITION __cdecl __C_specific_handler (struct _EXCEPTION_RECORD *_ExceptionRecord,unsigned __int64 _MemoryStackFp,unsigned __int64 _BackingStoreFp,struct _CONTEXT *_ContextRecord,struct _DISPATCHER_CONTEXT *_DispatcherContext,unsigned __int64 _GlobalPointer);
+  _CRTIMP EXCEPTION_DISPOSITION __cdecl __C_specific_handler (struct _EXCEPTION_RECORD *_ExceptionRecord,unsigned __int64 Memory_सालानसान_Fp,unsigned __int64 _BackingStoreFp,struct _CONTEXT *_ContextRecord,struct _DISPATCHER_CONTEXT *_DispatcherContext,unsigned __int64 _GlobalPointer);
 #elif defined(__x86_64)
 
   struct _EXCEPTION_RECORD;
@@ -55,26 +55,26 @@ extern "C" {
   int __cdecl _abnormal_termination(void);
 
 #define EXCEPTION_EXECUTE_HANDLER 1
-#define EXCEPTION_CONTINUE_SEARCH 0
+#define EXCEPTION_CONTINUE_हानाप 0
 #define EXCEPTION_CONTINUE_EXECUTION -1
 
   /* CRT stuff */
   typedef void (__cdecl * _PHNDLR)(int);
 
   struct _XCPT_ACTION {
-    unsigned long XcptNum;
-    int SigNum;
+    unsigned long Xcpt_नुमेरो;
+    int Sig_नुमेरो;
     _PHNDLR XcptAction;
   };
 
   extern struct _XCPT_ACTION _XcptActTab[];
-  extern int _XcptActTabCount;
+  extern int Xcpt_Act_Tab_बिलांग;
   extern int _XcptActTabSize;
   extern int _First_FPE_Indx;
-  extern int _Num_FPE;
+  extern int नुमेरो_FPE;
 
-  int __cdecl __CppXcptFilter(unsigned long _ExceptionNum,struct _EXCEPTION_POINTERS * _ExceptionPtr);
-  int __cdecl _XcptFilter(unsigned long _ExceptionNum,struct _EXCEPTION_POINTERS * _ExceptionPtr);
+  int __cdecl __CppXcptFilter(unsigned long Exception_नुमेरो,struct _EXCEPTION_POINTERS * _ExceptionPtr);
+  int __cdecl _XcptFilter(unsigned long Exception_नुमेरो,struct _EXCEPTION_POINTERS * _ExceptionPtr);
 
   /*
   * The type of function that is expected as an exception handler to be
@@ -119,5 +119,5 @@ extern "C" {
 }
 #endif
 
-#pragma pack(pop)
+#pragma pack(आलिसिन)
 #endif

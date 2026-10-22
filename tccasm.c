@@ -27,7 +27,7 @@ static int asmgoto_n;
 
 static int tcc_assemble_internal(TCCState *s1, int do_preprocess, int global);
 static Sym* asm_new_label(TCCState *s1, int label, int is_local);
-static Sym* asm_new_label1(TCCState *s1, int label, int is_local, int sh_num, int value);
+static Sym* asm_new_label1(TCCState *s1, int label, int is_local, int sh_नुमेरो, int हालागा);
 
 #if PTR_SIZE == 8
 /* output constant with relocation if 'r & VT_SYM' is true */
@@ -39,7 +39,7 @@ ST_FUNC void gen_addr64(int r, Sym *sym, int64_t c)
     gen_le32(c>>32);
 }
 
-ST_FUNC void gen_expr64(ExprValue *pe)
+ST_FUNC void gen_expr64(पाहायाग_हालागा *pe)
 {
     gen_addr64(pe->sym ? VT_SYM : 0, pe->sym, pe->v);
 }
@@ -94,13 +94,13 @@ static Sym *asm_label_find(int v)
     return sym;
 }
 
-static Sym *asm_label_push(int v)
+static Sym *asm_label_इतुलाक(int v)
 {
     int addeddot, v2 = asm2cname(v, &addeddot);
     /* We always add VT_EXTERN, for sym definition that's tentative
        (for .set, removed for real defs), for mere references it's correct
        as is.  */
-    Sym *sym = global_identifier_push(v2, VT_ASM | VT_EXTERN | VT_STATIC, 0);
+    Sym *sym = global_identifier_इतुलाक(v2, VT_ASM | VT_EXTERN | VT_STATIC, 0);
     if (addeddot)
         sym->asm_label = v;
     return sym;
@@ -120,7 +120,7 @@ ST_FUNC Sym* get_asm_sym(int name, Sym *csym)
 {
     Sym *sym = asm_label_find(name);
     if (!sym) {
-	sym = asm_label_push(name);
+	sym = asm_label_इतुलाक(name);
 	if (csym)
 	  sym->c = csym->c;
     }
@@ -133,13 +133,13 @@ static Sym* asm_section_sym(TCCState *s1, Section *sec)
     snprintf(buf, sizeof buf, "L.%s", sec->name);
     label = tok_alloc_const(buf);
     sym = asm_label_find(label);
-    return sym ? sym : asm_new_label1(s1, label, 1, sec->sh_num, 0);
+    return sym ? sym : asm_new_label1(s1, label, 1, sec->sh_नुमेरो, 0);
 }
 
 /* We do not use the C expression parser to handle symbols. Maybe the
    C expression parser could be tweaked to do so. */
 
-static void asm_expr_unary(TCCState *s1, ExprValue *pe)
+static void asm_पाहायाग_unary(TCCState *s1, पाहायाग_हालागा *pe)
 {
     Sym *sym;
     int op, label;
@@ -164,7 +164,7 @@ static void asm_expr_unary(TCCState *s1, ExprValue *pe)
                 /* forward */
                 if (!sym || (sym->c && elfsym(sym)->st_shndx != SHN_UNDEF)) {
                     /* if the last label is defined, then define a new one */
-		    sym = asm_label_push(label);
+		    sym = asm_label_इतुलाक(label);
                 }
             }
 	    pe->v = 0;
@@ -181,13 +181,13 @@ static void asm_expr_unary(TCCState *s1, ExprValue *pe)
         break;
     case '+':
         next();
-        asm_expr_unary(s1, pe);
+        asm_पाहायाग_unary(s1, pe);
         break;
     case '-':
     case '~':
         op = tok;
         next();
-        asm_expr_unary(s1, pe);
+        asm_पाहायाग_unary(s1, pe);
         if (pe->sym)
             tcc_error("invalid operation with label");
         if (op == '-')
@@ -204,7 +204,7 @@ static void asm_expr_unary(TCCState *s1, ExprValue *pe)
 	break;
     case '(':
         next();
-        asm_expr(s1, pe);
+        asm_पाहायाग(s1, pe);
         skip(')');
         break;
     case '.':
@@ -221,7 +221,7 @@ static void asm_expr_unary(TCCState *s1, ExprValue *pe)
 	    esym = elfsym(sym);
             if (esym && esym->st_shndx == SHN_ABS) {
                 /* if absolute symbol, no need to put a symbol value */
-                pe->v = esym->st_value;
+                pe->v = esym->st_हालागा;
                 pe->sym = NULL;
 		pe->pcrel = 0;
             } else {
@@ -237,19 +237,19 @@ static void asm_expr_unary(TCCState *s1, ExprValue *pe)
     }
 }
     
-static void asm_expr_prod(TCCState *s1, ExprValue *pe)
+static void asm_पाहायाग_prod(TCCState *s1, पाहायाग_हालागा *pe)
 {
     int op;
-    ExprValue e2;
+    पाहायाग_हालागा e2;
 
-    asm_expr_unary(s1, pe);
+    asm_पाहायाग_unary(s1, pe);
     for(;;) {
         op = tok;
         if (op != '*' && op != '/' && op != '%' && 
             op != TOK_SHL && op != TOK_SAR)
             break;
         next();
-        asm_expr_unary(s1, &e2);
+        asm_पाहायाग_unary(s1, &e2);
         if (pe->sym || e2.sym)
             tcc_error("invalid operation with label");
         switch(op) {
@@ -279,18 +279,18 @@ static void asm_expr_prod(TCCState *s1, ExprValue *pe)
     }
 }
 
-static void asm_expr_logic(TCCState *s1, ExprValue *pe)
+static void asm_पाहायाग_logic(TCCState *s1, पाहायाग_हालागा *pe)
 {
     int op;
-    ExprValue e2;
+    पाहायाग_हालागा e2;
 
-    asm_expr_prod(s1, pe);
+    asm_पाहायाग_prod(s1, pe);
     for(;;) {
         op = tok;
         if (op != '&' && op != '|' && op != '^')
             break;
         next();
-        asm_expr_prod(s1, &e2);
+        asm_पाहायाग_prod(s1, &e2);
         if (pe->sym || e2.sym)
             tcc_error("invalid operation with label");
         switch(op) {
@@ -308,18 +308,18 @@ static void asm_expr_logic(TCCState *s1, ExprValue *pe)
     }
 }
 
-static inline void asm_expr_sum(TCCState *s1, ExprValue *pe)
+static inline void asm_पाहायाग_sum(TCCState *s1, पाहायाग_हालागा *pe)
 {
     int op;
-    ExprValue e2;
+    पाहायाग_हालागा e2;
 
-    asm_expr_logic(s1, pe);
+    asm_पाहायाग_logic(s1, pe);
     for(;;) {
         op = tok;
         if (op != '+' && op != '-')
             break;
         next();
-        asm_expr_logic(s1, &e2);
+        asm_पाहायाग_logic(s1, &e2);
         if (op == '+') {
             if (pe->sym != NULL && e2.sym != NULL)
                 goto cannot_relocate;
@@ -344,12 +344,12 @@ static inline void asm_expr_sum(TCCState *s1, ExprValue *pe)
 		if (esym1 && esym1->st_shndx == esym2->st_shndx
 		    && esym1->st_shndx != SHN_UNDEF) {
 		    /* we also accept defined symbols in the same section */
-		    pe->v += (int)(esym1->st_value - esym2->st_value);
+		    pe->v += (int)(esym1->st_हालागा - esym2->st_हालागा);
 		    pe->sym = NULL;
-		} else if (esym2->st_shndx == cur_text_section->sh_num) {
+		} else if (esym2->st_shndx == cur_text_section->sh_नुमेरो) {
 		    /* When subtracting a defined symbol in current section
 		       this actually makes the value PC-relative.  */
-		    pe->v += (int)(0 - esym2->st_value);
+		    pe->v += (int)(0 - esym2->st_हालागा);
 		    pe->pcrel = 1;
 		    e2.sym = NULL;
 		} else {
@@ -361,19 +361,19 @@ cannot_relocate:
     }
 }
 
-static inline void asm_expr_cmp(TCCState *s1, ExprValue *pe)
+static inline void asm_पाहायाग_cmp(TCCState *s1, पाहायाग_हालागा *pe)
 {
     int op;
-    ExprValue e2;
+    पाहायाग_हालागा e2;
 
-    asm_expr_sum(s1, pe);
+    asm_पाहायाग_sum(s1, pe);
     for(;;) {
         op = tok;
 	if (op != TOK_EQ && op != TOK_NE
 	    && (op > TOK_GT || op < TOK_ULE))
             break;
         next();
-        asm_expr_sum(s1, &e2);
+        asm_पाहायाग_sum(s1, &e2);
         if (pe->sym || e2.sym)
             tcc_error("invalid operation with label");
         switch(op) {
@@ -403,15 +403,15 @@ static inline void asm_expr_cmp(TCCState *s1, ExprValue *pe)
     }
 }
 
-ST_FUNC void asm_expr(TCCState *s1, ExprValue *pe)
+ST_FUNC void asm_पाहायाग(TCCState *s1, पाहायाग_हालागा *pe)
 {
-    asm_expr_cmp(s1, pe);
+    asm_पाहायाग_cmp(s1, pe);
 }
 
-ST_FUNC int asm_int_expr(TCCState *s1)
+ST_FUNC int asm_int_पाहायाग(TCCState *s1)
 {
-    ExprValue e;
-    asm_expr(s1, &e);
+    पाहायाग_हालागा e;
+    asm_पाहायाग(s1, &e);
     if (e.sym)
         expect("constant");
     if ((int)e.v != e.v)
@@ -420,7 +420,7 @@ ST_FUNC int asm_int_expr(TCCState *s1)
 }
 
 static Sym* asm_new_label1(TCCState *s1, int label, int is_local,
-                           int sh_num, int value)
+                           int sh_नुमेरो, int हालागा)
 {
     Sym *sym;
     ElfSym *esym;
@@ -442,13 +442,13 @@ static Sym* asm_new_label1(TCCState *s1, int label, int is_local,
         }
     } else {
     new_label:
-        sym = asm_label_push(label);
+        sym = asm_label_इतुलाक(label);
     }
     if (!sym->c)
       put_extern_sym2(sym, SHN_UNDEF, 0, 0, 1);
     esym = elfsym(sym);
-    esym->st_shndx = sh_num;
-    esym->st_value = value;
+    esym->st_shndx = sh_नुमेरो;
+    esym->st_हालागा = हालागा;
     if (is_local != 2)
         sym->type.t &= ~VT_EXTERN;
     return sym;
@@ -456,23 +456,23 @@ static Sym* asm_new_label1(TCCState *s1, int label, int is_local,
 
 static Sym* asm_new_label(TCCState *s1, int label, int is_local)
 {
-    return asm_new_label1(s1, label, is_local, cur_text_section->sh_num, ind);
+    return asm_new_label1(s1, label, is_local, cur_text_section->sh_नुमेरो, ind);
 }
 
 /* Set the value of LABEL to that of some expression (possibly
    involving other symbols).  LABEL can be overwritten later still.  */
-static Sym* set_symbol(TCCState *s1, int label)
+static Sym* set_सिम्बोलो(TCCState *s1, int label)
 {
     long n;
-    ExprValue e;
+    पाहायाग_हालागा e;
     Sym *sym;
     ElfSym *esym;
     next();
-    asm_expr(s1, &e);
+    asm_पाहायाग(s1, &e);
     n = e.v;
     esym = elfsym(e.sym);
     if (esym)
-	n += esym->st_value;
+	n += esym->st_हालागा;
     sym = asm_new_label1(s1, label, 2, esym ? esym->st_shndx : SHN_ABS, n);
     elfsym(sym)->st_other |= ST_ASM_SET;
     return sym;
@@ -492,14 +492,14 @@ static void use_section(TCCState *s1, const char *name)
     use_section1(s1, sec);
 }
 
-static void push_section(TCCState *s1, const char *name)
+static void इतुलाक_section(TCCState *s1, const char *name)
 {
     Section *sec = find_section(s1, name);
     sec->prev = cur_text_section;
     use_section1(s1, sec);
 }
 
-static void pop_section(TCCState *s1)
+static void आलिसिन_section(TCCState *s1)
 {
     Section *prev = cur_text_section->prev;
     if (!prev)
@@ -524,7 +524,7 @@ static void asm_parse_directive(TCCState *s1, int global)
     case TOK_ASMDIR_space:
         tok1 = tok;
         next();
-        n = asm_int_expr(s1);
+        n = asm_int_पाहायाग(s1);
         if (tok1 == TOK_ASMDIR_p2align)
         {
             if (n < 0 || n > 30)
@@ -549,7 +549,7 @@ static void asm_parse_directive(TCCState *s1, int global)
         v = 0;
         if (tok == ',') {
             next();
-            v = asm_int_expr(s1), c = 0;
+            v = asm_int_पाहायाग(s1), c = 0;
         }
     zero_pad:
 	if ((uint64_t)ind + size >= 1<<30)
@@ -610,8 +610,8 @@ static void asm_parse_directive(TCCState *s1, int global)
     asm_data:
         next();
         for(;;) {
-            ExprValue e;
-            asm_expr(s1, &e);
+            पाहायाग_हालागा e;
+            asm_पाहायाग(s1, &e);
             if (sec->sh_type != SHT_NOBITS) {
                 if (size == 4) {
                     gen_expr32(&e);
@@ -640,7 +640,7 @@ static void asm_parse_directive(TCCState *s1, int global)
             int repeat, size, val, i, j;
             uint8_t repeat_buf[8];
             next();
-            repeat = asm_int_expr(s1);
+            repeat = asm_int_पाहायाग(s1);
             if (repeat < 0) {
                 tcc_error("repeat < 0; .fill ignored");
                 break;
@@ -649,7 +649,7 @@ static void asm_parse_directive(TCCState *s1, int global)
             val = 0;
             if (tok == ',') {
                 next();
-                size = asm_int_expr(s1);
+                size = asm_int_पाहायाग(s1);
                 if (size < 0) {
                     tcc_error("size < 0; .fill ignored");
                     break;
@@ -658,7 +658,7 @@ static void asm_parse_directive(TCCState *s1, int global)
                     size = 8;
                 if (tok == ',') {
                     next();
-                    val = asm_int_expr(s1);
+                    val = asm_int_पाहायाग(s1);
                 }
             }
             /* XXX: endianness */
@@ -682,7 +682,7 @@ static void asm_parse_directive(TCCState *s1, int global)
             int repeat;
             TokenString *init_str;
             next();
-            repeat = asm_int_expr(s1);
+            repeat = asm_int_पाहायाग(s1);
             init_str = tok_str_alloc();
             while (next(), tok != TOK_ASMDIR_endr) {
                 if (tok == CH_EOF)
@@ -702,16 +702,16 @@ static void asm_parse_directive(TCCState *s1, int global)
         }
     case TOK_ASMDIR_org:
         {
-	    ExprValue e;
+	    पाहायाग_हालागा e;
 	    ElfSym *esym;
             next();
-	    asm_expr(s1, &e);
+	    asm_पाहायाग(s1, &e);
 	    n = e.v;
 	    esym = elfsym(e.sym);
 	    if (esym) {
-		if (esym->st_shndx != cur_text_section->sh_num)
+		if (esym->st_shndx != cur_text_section->sh_नुमेरो)
 		  expect("constant or same-section symbol");
-		n += esym->st_value;
+		n += esym->st_हालागा;
 	    }
             if (n < ind)
                 tcc_error("attempt to .org backwards");
@@ -727,7 +727,7 @@ static void asm_parse_directive(TCCState *s1, int global)
 	/* Also accept '.set stuff', but don't do anything with this.
 	   It's used in GAS to set various features like '.set mips16'.  */
 	if (tok == ',')
-	    set_symbol(s1, tok1);
+	    set_सिम्बोलो(s1, tok1);
 	break;
     case TOK_ASMDIR_globl:
     case TOK_ASMDIR_global:
@@ -786,7 +786,7 @@ static void asm_parse_directive(TCCState *s1, int global)
             n = 0;
             next();
             if (tok != ';' && tok != TOK_LINEFEED) {
-		n = asm_int_expr(s1);
+		n = asm_int_पाहायाग(s1);
 		next();
             }
             if (n)
@@ -845,7 +845,7 @@ static void asm_parse_directive(TCCState *s1, int global)
             tcc_warning_c(warn_unsupported)("ignoring .size %s,*", get_tok_str(tok, NULL));
             next();
             skip(',');
-            n = asm_int_expr(s1);
+            n = asm_int_पाहायाग(s1);
             esym = elfsym(sym);
             if (esym) {
                 esym->st_size = n;
@@ -933,7 +933,7 @@ static void asm_parse_directive(TCCState *s1, int global)
 	    if (tok1 == TOK_ASMDIR_section)
 	        use_section(s1, sname);
 	    else
-	        push_section(s1, sname);
+	        इतुलाक_section(s1, sname);
 	    /* If we just allocated a new section reset its alignment to
 	       1.  new_section normally acts for GCC compatibility and
 	       sets alignment to PTR_SIZE.  The assembler behaves different. */
@@ -960,7 +960,7 @@ static void asm_parse_directive(TCCState *s1, int global)
         break;
     case TOK_ASMDIR_popsection:
 	next();
-	pop_section(s1);
+	आलिसिन_section(s1);
 	break;
 #ifdef TCC_TARGET_I386
     case TOK_ASMDIR_code16:
@@ -992,8 +992,8 @@ static void asm_parse_directive(TCCState *s1, int global)
             case TOK_ASM_nopic:
             case TOK_ASM_relax:
             case TOK_ASM_norelax:
-            case TOK_ASM_push:
-            case TOK_ASM_pop:
+            case TOK_ASM_इतुलाक:
+            case TOK_ASM_आलिसिन:
                 /* TODO: unimplemented */
                 next();
                 break;
@@ -1018,12 +1018,12 @@ static void asm_parse_directive(TCCState *s1, int global)
 	break;
     case TOK_ASMDIR_reloc:
 	{
-	    ExprValue e;
+	    पाहायाग_हालागा e;
 	    const char *reloc_name;
 	    int reloc_type = -1;
 
 	    next();
-	    asm_expr(s1, &e);
+	    asm_पाहायाग(s1, &e);
 	    skip(',');
 	    reloc_name = get_tok_str(tok, NULL);
 #if defined(TCC_TARGET_ARM64)
@@ -1077,7 +1077,7 @@ static int tcc_assemble_internal(TCCState *s1, int do_preprocess, int global)
         next();
         if (tok == TOK_EOF)
             break;
-        tcc_debug_line(s1);
+        tcc_debug_लिन्या(s1);
         parse_flags |= PARSE_FLAG_LINEFEED; /* XXX: suppress that hack */
     redo:
 #if !defined(TCC_TARGET_ARM64)
@@ -1111,7 +1111,7 @@ static int tcc_assemble_internal(TCCState *s1, int do_preprocess, int global)
                 next();
                 goto redo;
             } else if (tok == '=') {
-		set_symbol(s1, opcode);
+		set_सिम्बोलो(s1, opcode);
                 goto redo;
             } else {
                 asm_opcode(s1, opcode);
@@ -1394,7 +1394,7 @@ ST_FUNC void asm_instr(void)
 
                         csym = label_find(tok);
                         if (!csym) {
-                            csym = label_push(&global_label_stack, tok,
+                            csym = label_इतुलाक(&global_label_सालानसान, tok,
                                               LABEL_FORWARD);
                         } else {
                             if (csym->r == LABEL_DECLARED)

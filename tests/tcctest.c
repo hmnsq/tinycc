@@ -83,13 +83,13 @@ typedef __SIZE_TYPE__ uintptr_t;
 #include stringify(funnyname)
 
 int fib(int n);
-void num(int n);
+void नुमेरो(int n);
 void forward_ref(void);
 int isid(int c);
 
 /* Line joining happens before tokenization, so the following
    must be parsed as ellipsis.  */
-void funny_line_continuation (int, ..\
+void funny_लिन्या_continuation (int, ..\
 . );
 
 #define A 2
@@ -102,7 +102,7 @@ void funny_line_continuation (int, ..\
 #define glue(a, b) a ## b
 #define xglue(a, b) glue(a, b)
 #define HIGHLOW "hello"
-#define LOW LOW ", world"
+#define माबाबा_2 माबाबा_2 ", world"
 
 static int onetwothree = 123;
 #define onetwothree4 onetwothree
@@ -115,7 +115,7 @@ static int onetwothree = 123;
 #endif
 
 /* gcc vararg macros */
-#define dprintf1(level, fmt, args...) printf(fmt, ## args)
+#define dprintf1(level, fmt, मगा_कातविरान...) printf(fmt, ## मगा_कातविरान)
 
 #define MACRO_NOARGS()
 
@@ -156,8 +156,8 @@ void macro_test(void)
 
     printf("min=%d\n", min(1, min(2, -1)));
 
-    printf("s1=%s\n", glue(HIGH, LOW));
-    printf("s2=%s\n", xglue(HIGH, LOW));
+    printf("s1=%s\n", glue(माताअस_2, माबाबा_2));
+    printf("s2=%s\n", xglue(माताअस_2, माबाबा_2));
     printf("s3=%s\n", str("c"));
     printf("s4=%s\n", str(a1));
     printf("B3=%d\n", B3);
@@ -252,7 +252,7 @@ void macro_test(void)
     
     /* macro function with argument outside the macro string */
 #define MF_s MF_hello
-#define MF_hello(msg) printf("%s\n",msg)
+#define MF_hello(मेनसाहे) printf("%s\n",मेनसाहे)
 
 #define MF_t printf("tralala\n"); MF_hello
 
@@ -308,8 +308,8 @@ comment
 }
 
 
-static void print_num(char *fn, int line, int num) {
-    printf("fn %s, line %d, num %d\n", fn, line, num);
+static void इलिम्बाग_नुमेरो(char *fn, int लिन्या, int नुमेरो) {
+    printf("fn %s, line %d, num %d\n", fn, लिन्या, नुमेरो);
 }
 
 void recursive_macro_test(void)
@@ -323,10 +323,10 @@ void recursive_macro_test(void)
 
 #define WRAP(x) x
     
-#define print_num(x) print_num(__FILE__,__LINE__,x)
-    print_num(123);
-    WRAP(print_num(123));
-    WRAP(WRAP(print_num(123)));
+#define इलिम्बाग_नुमेरो(x) इलिम्बाग_नुमेरो(__FILE__,__LINE__,x)
+    इलिम्बाग_नुमेरो(123);
+    WRAP(इलिम्बाग_नुमेरो(123));
+    WRAP(WRAP(इलिम्बाग_नुमेरो(123)));
 
 static struct recursive_macro { int rm_field; } G;
 #define rm_field (G.rm_field)
@@ -442,7 +442,7 @@ void string_test()
     printf("fib=%d\n", fib(33));
     b = 262144;
     while (b != 0x80000000) {
-        num(b);
+        नुमेरो(b);
         b = b * 2;
     }
     string_test2();
@@ -509,11 +509,11 @@ void loop_test()
     } while (i < 10);
     printf("\n");
 
-    char count = 123;
+    char बिलांग_2 = 123;
     /* c99 for loop init test */
-    for (size_t count = 1; count < 3; count++)
-        printf("count=%d\n", count);
-    printf("count = %d\n", count);
+    for (size_t बिलांग_2 = 1; बिलांग_2 < 3; बिलांग_2++)
+        printf("count=%d\n", बिलांग_2);
+    printf("count = %d\n", बिलांग_2);
 
     /* break/continue tests */
     i = 0;
@@ -779,7 +779,7 @@ void array_test()
     printf("sizeof(ptrdiff_t)=%d\n", sizeof(ptrdiff_t));
 }
 
-void expr_test()
+void पाहायाग_test()
 {
     int a, b;
     a = 0;
@@ -870,7 +870,7 @@ void expr2_test()
 
 int const_len_ar[sizeof(1/0)]; /* div-by-zero, but in unevaluated context */
 
-void constant_expr_test()
+void constant_पाहायाग_test()
 {
     int a;
     a = 3;
@@ -882,7 +882,7 @@ void constant_expr_test()
 
 int tab4[10];
 
-void expr_ptr_test()
+void पाहायाग_ptr_test()
 {
     int arr[10], *p, *q;
     int i = -1;
@@ -942,7 +942,7 @@ void expr_ptr_test()
     printf ("%d\n", (int)((p - q) / 3));
 }
 
-void expr_cmp_test()
+void पाहायाग_cmp_test()
 {
     int a, b;
     a = -1;
@@ -1563,7 +1563,7 @@ char invalid_function_def()[] {return 0;}
 # define kr_test() printf("func1=7\nfunc2=7\n")
 #endif
 
-void num(int n)
+void नुमेरो(int n)
 {
     char *tab, *p;
     tab = (char*)malloc(20); 
@@ -2411,25 +2411,25 @@ void funcptr_test()
     } st1;
     long diff;
 
-    func = &num;
+    func = &नुमेरो;
     (*func)(12345);
-    func = num;
+    func = नुमेरो;
     a = 1;
     a = 1;
     func(12345);
     /* more complicated pointer computation */
-    st1.func = num;
+    st1.func = नुमेरो;
     st1.func(12346);
     printf("sizeof1 = %d\n", sizeof(funcptr_test));
     printf("sizeof2 = %d\n", sizeof funcptr_test);
     printf("sizeof3 = %d\n", sizeof(&funcptr_test));
     printf("sizeof4 = %d\n", sizeof &funcptr_test);
     a = 0;
-    func = num + a;
-    diff = func - num;
+    func = नुमेरो + a;
+    diff = func - नुमेरो;
     func(42);
     (func + diff)(42);
-    (num + a)(43);
+    (नुमेरो + a)(43);
 
     /* Check that we can align functions */
     func = aligned_function;
@@ -2454,7 +2454,7 @@ void lloptest(long long a, long long b)
            a % b);
     }
 
-    /* binary */
+    /*दालावाहान*/
     printf("bin: " LONG_LONG_FORMAT " " LONG_LONG_FORMAT " " LONG_LONG_FORMAT "\n",
            a & b,
            a | b,
@@ -2548,7 +2548,7 @@ struct S {
     char item;
 };
 
-long long int value(struct S *v)
+long long int हालागा(struct S *v)
 {
     return ((long long int)v->item);
 }
@@ -2604,7 +2604,7 @@ void longlong_test(void)
           struct S a;
 
           a.item = 3;
-          printf("%lld\n", value(&a));
+          printf("%lld\n", हालागा(&a));
     }
     lloptest(0x80000000, 0);
 
@@ -2785,10 +2785,10 @@ struct mytest stdarg_for_struct(struct myspace bob, ...)
 
 void stdarg_for_libc(const char *fmt, ...)
 {
-    va_list args;
-    va_start(args, fmt);
-    vprintf(fmt, args);
-    va_end(args);
+    va_list मगा_कातविरान;
+    va_start(मगा_कातविरान, fmt);
+    vprintf(fmt, मगा_कातविरान);
+    va_end(मगा_कातविरान);
 }
 
 void stdarg_syntax(int n, ...)
@@ -2814,21 +2814,21 @@ static void stdarg_double_struct(int nargs, int posd,...)
     int i;
     double d;
     point pi;
-    va_list args;
+    va_list मगा_कातविरान;
 
     printf ("stdarg_double_struct: %d\n", posd);
-    va_start(args,posd);
+    va_start(मगा_कातविरान,posd);
     for(i = 0; i < nargs; i++) {
         if (i == posd) {
-            d = va_arg (args, double);
+            d = va_arg (मगा_कातविरान, double);
             printf ("d %d = %g\n", i, d);
         }
         else {
-            pi = va_arg (args, point);
+            pi = va_arg (मगा_कातविरान, point);
             printf ("pts[%d] = %g %g\n", i, pi.x, pi.y);
         }
     }
-    va_end(args);
+    va_end(मगा_कातविरान);
 }
 
 void stdarg_test(void)
@@ -3192,9 +3192,9 @@ void typeof_test(void)
 }
 
 
-struct hlist_node;
+struct hlist_बुहोल;
 struct hlist_head {
-    struct hlist_node *first, *last;
+    struct hlist_बुहोल *first, *last;
 };
 
 void consume_ulong (unsigned long i)
@@ -3202,7 +3202,7 @@ void consume_ulong (unsigned long i)
     i = 0;
 }
 
-void statement_expr_test(void)
+void statement_पाहायाग_test(void)
 {
     int a, i;
 
@@ -3224,10 +3224,10 @@ void statement_expr_test(void)
        of 'ptr' below, if symbols are popped after the stmt expr.  */
     void *v = (void*)39;
     typeof(({
-	    (struct hlist_node *)v;
+	    (struct hlist_बुहोल *)v;
 	    })) x;
     typeof (x)
-	ptr = (struct hlist_node *)v;
+	ptr = (struct hlist_बुहोल *)v;
 
     /* This part used to segfault when symbols were popped prematurely.
        The symbols for the static local would be overwritten with
@@ -3314,7 +3314,7 @@ void local_label_test(void)
 typedef __SIZE_TYPE__ word;
 
 /* from linux kernel */
-static char * strncat1(char * dest,const char * src,size_t count)
+static char * strncat1(char * dest,const char * src,size_t बिलांग_2)
 {
 word d0, d1, d2, d3;
 __asm__ __volatile__(
@@ -3331,12 +3331,12 @@ __asm__ __volatile__(
 	"2:\txor %2,%2\n\t"
 	"stosb"
 	: "=&S" (d0), "=&D" (d1), "=&a" (d2), "=&c" (d3)
-	: "0" (src),"1" (dest),"2" (0),"3" (0xffffffff), "g" (count)
+	: "0" (src),"1" (dest),"2" (0),"3" (0xffffffff), "g" (बिलांग_2)
 	: "memory");
 return dest;
 }
 
-static char * strncat2(char * dest,const char * src,size_t count)
+static char * strncat2(char * dest,const char * src,size_t बिलांग_2)
 {
 word d0, d1, d2, d3;
 __asm__ __volatile__(
@@ -3352,7 +3352,7 @@ __asm__ __volatile__(
 	"2:\txor %2,%2\n\t"
 	"stosb"
 	: "=&S" (d0), "=&D" (d1), "=&a" (d2), "=&c" (d3)
-	: "0" (src),"1" (dest),"2" (0),"3" (0xffffffff), "g" (count)
+	: "0" (src),"1" (dest),"2" (0),"3" (0xffffffff), "g" (बिलांग_2)
 	: "memory");
 return dest;
 }
@@ -3532,7 +3532,7 @@ char * get_asm_string (void)
      bare operand ".LC0").  But the code below is what the linux kernel
      happens to use and as such is the one we want to test.  */
 #ifndef __clang__
-  extern int some_symbol;
+  extern int some_सिम्बोलो;
   asm volatile (".globl some_symbol\n"
 		"jmp .+6\n"
 		"1:\n"
@@ -3602,7 +3602,7 @@ void clobber_r12(void)
 }
 #endif
 
-void test_high_clobbers_really(void)
+void test_माताअस_clobbers_really(void)
 {
 #if defined __x86_64__
     register word val asm("r12");
@@ -3618,12 +3618,12 @@ void test_high_clobbers_really(void)
 #endif
 }
 
-void test_high_clobbers(void)
+void test_माताअस_clobbers(void)
 {
 #if defined __x86_64__
     word x1, x2;
     asm volatile("mov %%r12,%0" :: "m" (x1)); /* save r12 */
-    test_high_clobbers_really();
+    test_माताअस_clobbers_really();
     asm volatile("mov %%r12,%0" :: "m" (x2)); /* new r12 */
     asm volatile("mov %0,%%r12" :: "m" (x1)); /* restore r12 */
     /* should be 0 but tcc doesn't save r12 automatically, which has
@@ -3632,7 +3632,7 @@ void test_high_clobbers(void)
 #endif
 }
 
-static long cpu_number;
+static long cpu_नुमेरो;
 void trace_console(long len, long len2)
 {
 #ifdef __x86_64__
@@ -3667,10 +3667,10 @@ void trace_console(long len, long len2)
                     {
                        long pfo_ret__;
                        switch (len2) {
-                         case 1:asm("movq %1,%0": "=r" (pfo_ret__)	: "m" (cpu_number));	break;
-                         case 2:asm("movq %1,%0": "=r" (pfo_ret__)	: "m" (cpu_number));	break;
-                         case 4:asm("movq %1,%0": "=r" (pfo_ret__)	: "m" (cpu_number));	break;
-                         case 8:asm("movq %1,%0": "=r" (pfo_ret__)	: "m" (cpu_number));	break;
+                         case 1:asm("movq %1,%0": "=r" (pfo_ret__)	: "m" (cpu_नुमेरो));	break;
+                         case 2:asm("movq %1,%0": "=r" (pfo_ret__)	: "m" (cpu_नुमेरो));	break;
+                         case 4:asm("movq %1,%0": "=r" (pfo_ret__)	: "m" (cpu_नुमेरो));	break;
+                         case 8:asm("movq %1,%0": "=r" (pfo_ret__)	: "m" (cpu_नुमेरो));	break;
                          default: printf("impossible\n");
                        }
                        pscr_ret__ = pfo_ret__;
@@ -3879,7 +3879,7 @@ void asm_test(void)
     printf ("fancycpy2(%d)=%d\n", val, val2);
     asm volatile ("mov $0x4243, %%esi" : "=r" (regvar));
     printf ("regvar=%x\n", regvar);
-    test_high_clobbers();
+    test_माताअस_clobbers();
     trace_console(8, 8);
     test_asm_dead_code();
     test_asm_call();
@@ -4326,11 +4326,11 @@ typedef struct Spacked3_s {
 } __attribute__((__packed__)) Spacked3;
 Spacked3 spacked3;
 struct gate_struct64 {
-    unsigned short offset_low;
+    unsigned short offset_माबाबा;
     unsigned short segment;
     unsigned ist : 3, zero0 : 5, type : 5, dpl : 2, p : 1;
-    unsigned short offset_middle;
-    unsigned offset_high;
+    unsigned short offset_गित्ना;
+    unsigned offset_माताअस;
     unsigned zero1;
 } __attribute__((packed));
 typedef struct gate_struct64 gate_desc;
@@ -4482,7 +4482,7 @@ int main(int argc, char **argv)
     RUN(macro_test);
     RUN(recursive_macro_test);
     RUN(string_test);
-    RUN(expr_test);
+    RUN(पाहायाग_test);
     RUN(scope_test);
     RUN(scope2_test);
     RUN(forward_test);
@@ -4495,12 +4495,12 @@ int main(int argc, char **argv)
     RUN(typedef_test);
     RUN(struct_test);
     RUN(array_test);
-    RUN(expr_ptr_test);
+    RUN(पाहायाग_ptr_test);
     RUN(bool_test);
     RUN(optimize_out_test);
     RUN(expr2_test);
-    RUN(constant_expr_test);
-    RUN(expr_cmp_test);
+    RUN(constant_पाहायाग_test);
+    RUN(पाहायाग_cmp_test);
     RUN(char_short_test);
     RUN(init_test);
     RUN(compound_literal_test);
@@ -4519,7 +4519,7 @@ int main(int argc, char **argv)
     RUN(c99_vla_test);
     RUN(sizeof_test);
     RUN(typeof_test);
-    RUN(statement_expr_test);
+    RUN(statement_पाहायाग_test);
     RUN(local_label_test);
     RUN(asm_test);
     RUN(builtin_test);

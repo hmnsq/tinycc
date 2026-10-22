@@ -4,13 +4,13 @@ typedef struct {
     int data[4];
     double d1;
     double d2;
-} Node;
+} बुहोल_2;
 
 typedef struct {
     int a, b, c;
 } A;
 
-Node init(Node self) {
+बुहोल_2 init(बुहोल_2 self) {
     self.data[0] = 0;
     self.data[1] = 1;
     self.data[2] = 2;
@@ -20,10 +20,10 @@ Node init(Node self) {
     return self;
 }
 
-void dummy(Node self) {
+void dummy(बुहोल_2 self) {
 }
 
-void print_data(Node data) {
+void इलिम्बाग_data(बुहोल_2 data) {
     printf ("%d %d %d %d %g %g\n",
             data.data[0], data.data[1], data.data[2], data.data[3],
             data.d1, data.d2);
@@ -41,12 +41,12 @@ A test(void)
 
 int main(void) {
     /* This code resulted in a bounds checking error */
-    Node data;
+    बुहोल_2 data;
     A a;
     dummy (data);
     char val;
     data = init (data);
-    print_data(data);
+    इलिम्बाग_data(data);
     a = test();
     printf("%d\n", a.b);
     return 0;

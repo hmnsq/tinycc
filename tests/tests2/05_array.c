@@ -2,17 +2,17 @@
 
 int main() 
 {
-   int Count;
+   int बिलांग_3;
    int Array[10];
 
-   for (Count = 1; Count <= 10; Count++)
+   for (बिलांग_3 = 1; बिलांग_3 <= 10; बिलांग_3++)
    {
-      Array[Count-1] = Count * Count;
+      Array[बिलांग_3-1] = बिलांग_3 * बिलांग_3;
    }
 
-   for (Count = 0; Count < 10; Count++)
+   for (बिलांग_3 = 0; बिलांग_3 < 10; बिलांग_3++)
    {
-      printf("%d\n", Array[Count]);
+      printf("%d\n", Array[बिलांग_3]);
    }
 
    return 0;

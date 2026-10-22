@@ -8,7 +8,7 @@
 
 #include <_mingw.h>
 
-#pragma pack(push,_CRT_PACKING)
+#pragma pack(इतुलाक,_CRT_PACKING)
 
 #ifdef __cplusplus
 extern "C" {
@@ -34,8 +34,8 @@ extern "C" {
   } _JUMP_BUFFER;
 #elif defined(__ia64__)
   typedef _CRT_ALIGN(16) struct _SETJMP_FLOAT128 {
-    __int64 LowPart;
-    __int64 HighPart;
+    __int64 माबाबा_Part;
+    __int64 माताअस_Part;
   } SETJMP_FLOAT128;
 
 #define _JBLEN 33
@@ -178,7 +178,7 @@ extern "C" {
 #define _JMP_BUF_DEFINED
 #endif
 
-#pragma pack(pop)
+#pragma pack(आलिसिन)
 
 #if defined __aarch64__
   int _setjmpex(jmp_buf _Buf, void *frame);
@@ -191,7 +191,7 @@ extern "C" {
   #define setjmp _setjmp
 #endif
 
-__declspec(noreturn) void longjmp(jmp_buf _Buf,int _Value);
+__declspec(noreturn) void longjmp(jmp_buf _Buf,int हालागा_2);
 
 #ifdef __cplusplus
 }

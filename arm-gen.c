@@ -192,9 +192,9 @@ ST_FUNC void arm_init(struct TCCState *s)
     float_type.t = VT_FLOAT;
     double_type.t = VT_DOUBLE;
     func_float_type.t = VT_FUNC;
-    func_float_type.ref = sym_push(SYM_FIELD, &float_type, FUNC_CDECL, FUNC_OLD);
+    func_float_type.ref = sym_इतुलाक(SYM_FIELD, &float_type, FUNC_CDECL, FUNC_OLD);
     func_double_type.t = VT_FUNC;
-    func_double_type.ref = sym_push(SYM_FIELD, &double_type, FUNC_CDECL, FUNC_OLD);
+    func_double_type.ref = sym_इतुलाक(SYM_FIELD, &double_type, FUNC_CDECL, FUNC_OLD);
 
     float_abi = s->float_abi;
 #ifndef TCC_ARM_HARDFLOAT
@@ -529,7 +529,7 @@ static int negcc(int cc)
 
 /* Load value into register r.
    Use relative/got addressing to avoid setting DT_TEXTREL */
-static void load_value(SValue *sv, int r)
+static void load_हालागा(SValue *sv, int r)
 {
 #if CONFIG_TCC_CPUVER >= 7
     if (!(sv->r & VT_SYM)) {
@@ -670,14 +670,14 @@ void load(int r, SValue *sv)
     if (v == VT_CONST) {
       op=stuff_const(0xE3A00000|(intr(r)<<12),sv->c.i);
       if (fr & VT_SYM || !op)
-	load_value(sv, r);
+	load_हालागा(sv, r);
       else
         o(op);
       return;
     } else if (v == VT_LOCAL) {
       op=stuff_const(0xE28B0000|(intr(r)<<12),sv->c.i);
       if (fr & VT_SYM || !op) {
-	load_value(sv, r);
+	load_हालागा(sv, r);
 	o(0xE08B0000|(intr(r)<<12)|intr(r));
       } else
 	o(op);
@@ -819,7 +819,7 @@ static void gcall_or_jmp(int is_jmp)
 	    o(x|(is_jmp?0xE0000000:0xE1000000));
 	} else {
 	    r = TREG_LR;
-	    load_value(vtop, r);
+	    load_हालागा(vtop, r);
 	    if(is_jmp)
 	        o(0xE1A0F000 | intr(r)); // mov pc, r
 	    else
@@ -1038,7 +1038,7 @@ ST_FUNC int gfunc_sret(CType *vt, int variadic, CType *ret, int *ret_align, int 
    - VFP_STRUCT_CLASS must come after VFP_CLASS.
    See the comment for the main loop in copy_params() for the reason. */
 enum reg_class {
-	STACK_CLASS = 0,
+	सालानसान_CLASS = 0,
 	CORE_STRUCT_CLASS,
 	VFP_CLASS,
 	VFP_STRUCT_CLASS,
@@ -1084,7 +1084,7 @@ static void add_param_plan(struct plan* plan, int cls, int start, int end, SValu
    Note: this function allocated an array in plan->pplans with tcc_malloc. It
    is the responsibility of the caller to free this array once used (ie not
    before copy_params). */
-static int assign_regs(int nb_args, int float_abi, struct plan *plan, int *todo)
+static int assign_regs(int nb_मगा_कातविरान, int float_abi, struct plan *plan, int *todo)
 {
   int i, size, align;
   int ncrn /* next core register number */, nsaa /* next stacked argument address*/;
@@ -1093,7 +1093,7 @@ static int assign_regs(int nb_args, int float_abi, struct plan *plan, int *todo)
   ncrn = nsaa = 0;
   *todo = 0;
 
-  for(i = nb_args; i-- ;) {
+  for(i = nb_मगा_कातविरान; i-- ;) {
     int j, start_vfpreg = 0;
     CType type = vtop[-i].type;
     type.t &= ~VT_ARRAY;
@@ -1153,7 +1153,7 @@ static int assign_regs(int nb_args, int float_abi, struct plan *plan, int *todo)
       }
     }
     nsaa = (nsaa + (align - 1)) & ~(align - 1);
-    add_param_plan(plan, STACK_CLASS, nsaa, nsaa + size, &vtop[-i]);
+    add_param_plan(plan, सालानसान_CLASS, nsaa, nsaa + size, &vtop[-i]);
     nsaa += size; /* size already rounded up before */
   }
   return nsaa;
@@ -1167,7 +1167,7 @@ static int assign_regs(int nb_args, int float_abi, struct plan *plan, int *todo)
    todo: a bitmap indicating what core reg will hold a parameter
 
    Returns the number of SValue added by this function on the value stack */
-static int copy_params(int nb_args, struct plan *plan, int todo)
+static int copy_params(int nb_मगा_कातविरान, struct plan *plan, int todo)
 {
   int size, align, r, i, nb_extra_sval = 0;
   struct param_plan *pplan;
@@ -1199,7 +1199,7 @@ again:
       vpushv(pplan->sval);
       pplan->sval->r = pplan->sval->r2 = VT_CONST; /* disable entry */
       switch(i) {
-        case STACK_CLASS:
+        case सालानसान_CLASS:
         case CORE_STRUCT_CLASS:
         case VFP_STRUCT_CLASS:
           if ((pplan->sval->type.t & VT_BTYPE) == VT_STRUCT) {
@@ -1207,7 +1207,7 @@ again:
             size = type_size(&pplan->sval->type, &align);
             /* align to stack align size */
             size = (size + 3) & ~3;
-            if (i == STACK_CLASS && pplan->prev)
+            if (i == सालानसान_CLASS && pplan->prev)
               padding = pplan->start - pplan->prev->end;
             size += padding; /* Add padding if any */
             /* allocate the necessary size on stack */
@@ -1273,7 +1273,7 @@ again:
               r = gv(RC_INT);
               o(0xE52D0004|(intr(r)<<12)); /* push r */
             }
-            if (i == STACK_CLASS && pplan->prev)
+            if (i == सालानसान_CLASS && pplan->prev)
               gadd_sp(pplan->prev->end - pplan->start); /* Add padding if any */
           }
           break;
@@ -1332,9 +1332,9 @@ again:
 /* Generate function call. The function address is pushed first, then
    all the parameters in call order. This functions pops all the
    parameters and the function address. */
-void gfunc_call(int nb_args)
+void gfunc_call(int nb_मगा_कातविरान)
 {
-  int args_size;
+  int मगा_कातविरान_size;
   int def_float_abi = float_abi;
   int todo;
   struct plan plan;
@@ -1344,40 +1344,40 @@ void gfunc_call(int nb_args)
 
 #ifdef CONFIG_TCC_BCHECK
   if (tcc_state->do_bounds_check)
-    gbound_args(nb_args);
+    gbound_मगा_कातविरान(nb_मगा_कातविरान);
 #endif
 
-  save_regs(nb_args + 1);
+  save_regs(nb_मगा_कातविरान + 1);
 
 #ifdef TCC_ARM_EABI
   if (float_abi == ARM_HARD_FLOAT) {
-    variadic = (vtop[-nb_args].type.ref->f.func_type == FUNC_ELLIPSIS);
-    if (variadic || floats_in_core_regs(&vtop[-nb_args]))
+    variadic = (vtop[-nb_मगा_कातविरान].type.ref->f.func_type == FUNC_ELLIPSIS);
+    if (variadic || floats_in_core_regs(&vtop[-nb_मगा_कातविरान]))
       float_abi = ARM_SOFTFP_FLOAT;
   }
 #endif
 
   memset(&plan, 0, sizeof plan);
-  if (nb_args)
-    plan.pplans = tcc_malloc(nb_args * sizeof(*plan.pplans));
+  if (nb_मगा_कातविरान)
+    plan.pplans = tcc_malloc(nb_मगा_कातविरान * sizeof(*plan.pplans));
 
-  args_size = assign_regs(nb_args, float_abi, &plan, &todo);
+  मगा_कातविरान_size = assign_regs(nb_मगा_कातविरान, float_abi, &plan, &todo);
 
 #ifdef TCC_ARM_EABI
-  if (args_size & 7) { /* Stack must be 8 byte aligned at fct call for EABI */
-    args_size = (args_size + 7) & ~7;
+  if (मगा_कातविरान_size & 7) { /* Stack must be 8 byte aligned at fct call for EABI */
+    मगा_कातविरान_size = (मगा_कातविरान_size + 7) & ~7;
     o(0xE24DD004); /* sub sp, sp, #4 */
   }
 #endif
 
-  nb_args += copy_params(nb_args, &plan, todo);
+  nb_मगा_कातविरान += copy_params(nb_मगा_कातविरान, &plan, todo);
   tcc_free(plan.pplans);
 
   /* Move fct SValue on top as required by gcall_or_jmp */
-  vrotb(nb_args + 1);
+  vrotb(nb_मगा_कातविरान + 1);
   gcall_or_jmp(0);
-  if (args_size)
-      gadd_sp(args_size); /* pop all parameters passed on the stack */
+  if (मगा_कातविरान_size)
+      gadd_sp(मगा_कातविरान_size); /* pop all parameters passed on the stack */
 #if defined(TCC_ARM_EABI) && defined(TCC_ARM_VFP)
   if(float_abi == ARM_SOFTFP_FLOAT && is_float(vtop->type.ref->type.t)) {
     if((vtop->type.ref->type.t & VT_BTYPE) == VT_FLOAT) {
@@ -1388,7 +1388,7 @@ void gfunc_call(int nb_args)
     }
   }
 #endif
-  vtop -= nb_args + 1; /* Pop all params and fct address from value stack */
+  vtop -= nb_मगा_कातविरान + 1; /* Pop all params and fct address from value stack */
   leaffunc = 0; /* we are calling a function, so we aren't in a leaf function */
   float_abi = def_float_abi;
 }
@@ -1471,7 +1471,7 @@ void gfunc_prolog(Sym *func_sym)
       if (fpn >= 0)
         addr = fpn * 4;
       else
-        goto from_stack;
+        goto from_सालानसान;
     } else
 #endif
     if (pn < 4) {
@@ -1484,7 +1484,7 @@ void gfunc_prolog(Sym *func_sym)
         sn = (pn - 4);
     } else {
 #ifdef TCC_ARM_EABI
-from_stack:
+from_सालानसान:
         sn = (sn + (align-1)/4) & -(align/4);
 #endif
       addr = (n + nf + sn) * 4;

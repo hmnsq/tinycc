@@ -37,13 +37,13 @@ THE SOFTWARE.*/
    work */
 
 typedef struct double_unsigned_struct {
-    unsigned low;
-    unsigned high;
+    unsigned माबाबा;
+    unsigned माताअस;
 } double_unsigned_struct;
 
 typedef struct unsigned_int_struct {
-    unsigned low;
-    int high;
+    unsigned माबाबा;
+    int माताअस;
 } unsigned_int_struct;
 
 #define REGS_RETURN(name, type) \
@@ -70,7 +70,7 @@ REGS_RETURN(double_unsigned_struct, double_unsigned_struct)
 #define DEFINE__AEABI_F2XLZ(name, with_sign)                                 \
 void __aeabi_ ## name(unsigned val)                                          \
 {                                                                            \
-    int exp, high_shift, sign;                                               \
+    int exp, माताअस_shift, sign;                                               \
     double_unsigned_struct ret;                                              \
                                                                              \
     /* compute sign */                                                       \
@@ -92,33 +92,33 @@ void __aeabi_ ## name(unsigned val)                                          \
                                                                              \
     val &= (1 << FLOAT_FRAC_BITS) - 1;                                       \
     if (exp >= 32) {                                                         \
-        ret.high = 1 << (exp - 32);                                          \
+        ret.माताअस = 1 << (exp - 32);                                          \
         if (exp - 32 >= FLOAT_FRAC_BITS) {                                   \
-            ret.high |= val << (exp - 32 - FLOAT_FRAC_BITS);                 \
-            ret.low = 0;                                                     \
+            ret.माताअस |= val << (exp - 32 - FLOAT_FRAC_BITS);                 \
+            ret.माबाबा = 0;                                                     \
         } else {                                                             \
-            high_shift = FLOAT_FRAC_BITS - (exp - 32);                       \
-            ret.high |= val >> high_shift;                                   \
-            ret.low = val << (32 - high_shift);                              \
+            माताअस_shift = FLOAT_FRAC_BITS - (exp - 32);                       \
+            ret.माताअस |= val >> माताअस_shift;                                   \
+            ret.माबाबा = val << (32 - माताअस_shift);                              \
         }                                                                    \
     } else {                                                                 \
-        ret.high = 0;                                                        \
-        ret.low = 1 << exp;                                                  \
+        ret.माताअस = 0;                                                        \
+        ret.माबाबा = 1 << exp;                                                  \
         if (exp > FLOAT_FRAC_BITS)                                           \
-            ret.low |= val << (exp - FLOAT_FRAC_BITS);                       \
+            ret.माबाबा |= val << (exp - FLOAT_FRAC_BITS);                       \
         else                                                                 \
-            ret.low |= val >> (FLOAT_FRAC_BITS - exp);                       \
+            ret.माबाबा |= val >> (FLOAT_FRAC_BITS - exp);                       \
     }                                                                        \
                                                                              \
     /* encode negative integer using 2's complement */                       \
     if (with_sign && sign) {                                                 \
-        ret.low = ~ret.low;                                                  \
-        ret.high = ~ret.high;                                                \
-        if (ret.low == UINT_MAX) {                                           \
-            ret.low = 0;                                                     \
-            ret.high++;                                                      \
+        ret.माबाबा = ~ret.माबाबा;                                                  \
+        ret.माताअस = ~ret.माताअस;                                                \
+        if (ret.माबाबा == UINT_MAX) {                                           \
+            ret.माबाबा = 0;                                                     \
+            ret.माताअस++;                                                      \
         } else                                                               \
-            ret.low++;                                                       \
+            ret.माबाबा++;                                                       \
     }                                                                        \
                                                                              \
     double_unsigned_struct_return(ret);                                      \
@@ -134,19 +134,19 @@ DEFINE__AEABI_F2XLZ(f2lz, 1)
 #define DEFINE__AEABI_D2XLZ(name, with_sign)                                 \
 void __aeabi_ ## name(double_unsigned_struct val)                            \
 {                                                                            \
-    int exp, high_shift, sign;                                               \
+    int exp, माताअस_shift, sign;                                               \
     double_unsigned_struct ret;                                              \
                                                                              \
-    if ((val.high & ~0x80000000) == 0 && val.low == 0) {                     \
-        ret.low = ret.high = 0;                                              \
+    if ((val.माताअस & ~0x80000000) == 0 && val.माबाबा == 0) {                     \
+        ret.माबाबा = ret.माताअस = 0;                                              \
         goto _ret_;                                                          \
     }                                                                        \
                                                                              \
     /* compute sign */                                                       \
-    sign = val.high >> 31;                                                   \
+    sign = val.माताअस >> 31;                                                   \
                                                                              \
     /* compute real exponent */                                              \
-    exp = (val.high >> (DOUBLE_FRAC_BITS - 32));                             \
+    exp = (val.माताअस >> (DOUBLE_FRAC_BITS - 32));                             \
     exp &= (1 << DOUBLE_EXP_BITS) - 1;                                       \
     exp -= ONE_EXP(DOUBLE);                                                  \
                                                                              \
@@ -159,40 +159,40 @@ void __aeabi_ ## name(double_unsigned_struct val)                            \
             return;                                                          \
     }                                                                        \
                                                                              \
-    val.high &= (1 << (DOUBLE_FRAC_BITS - 32)) - 1;                          \
+    val.माताअस &= (1 << (DOUBLE_FRAC_BITS - 32)) - 1;                          \
     if (exp >= 32) {                                                         \
-        ret.high = 1 << (exp - 32);                                          \
+        ret.माताअस = 1 << (exp - 32);                                          \
         if (exp >= DOUBLE_FRAC_BITS) {                                       \
-            high_shift = exp - DOUBLE_FRAC_BITS;                             \
-            ret.high |= val.high << high_shift;                              \
-            ret.high |= val.low >> (32 - high_shift);                        \
-            ret.low = val.low << high_shift;                                 \
+            माताअस_shift = exp - DOUBLE_FRAC_BITS;                             \
+            ret.माताअस |= val.माताअस << माताअस_shift;                              \
+            ret.माताअस |= val.माबाबा >> (32 - माताअस_shift);                        \
+            ret.माबाबा = val.माबाबा << माताअस_shift;                                 \
         } else {                                                             \
-            high_shift = DOUBLE_FRAC_BITS - exp;                             \
-            ret.high |= val.high >> high_shift;                              \
-            ret.low = val.high << (32 - high_shift);                         \
-            ret.low |= val.low >> high_shift;                                \
+            माताअस_shift = DOUBLE_FRAC_BITS - exp;                             \
+            ret.माताअस |= val.माताअस >> माताअस_shift;                              \
+            ret.माबाबा = val.माताअस << (32 - माताअस_shift);                         \
+            ret.माबाबा |= val.माबाबा >> माताअस_shift;                                \
         }                                                                    \
     } else {                                                                 \
-        ret.high = 0;                                                        \
-        ret.low = 1 << exp;                                                  \
+        ret.माताअस = 0;                                                        \
+        ret.माबाबा = 1 << exp;                                                  \
         if (exp > DOUBLE_FRAC_BITS - 32) {                                   \
-            high_shift = exp - (DOUBLE_FRAC_BITS - 32);                      \
-            ret.low |= val.high << high_shift;                               \
-            ret.low |= val.low >> (32 - high_shift);                         \
+            माताअस_shift = exp - (DOUBLE_FRAC_BITS - 32);                      \
+            ret.माबाबा |= val.माताअस << माताअस_shift;                               \
+            ret.माबाबा |= val.माबाबा >> (32 - माताअस_shift);                         \
         } else                                                               \
-            ret.low |= val.high >> (DOUBLE_FRAC_BITS - 32 - exp);            \
+            ret.माबाबा |= val.माताअस >> (DOUBLE_FRAC_BITS - 32 - exp);            \
     }                                                                        \
                                                                              \
     /* encode negative integer using 2's complement */                       \
     if (with_sign && sign) {                                                 \
-        ret.low = ~ret.low;                                                  \
-        ret.high = ~ret.high;                                                \
-        if (ret.low == UINT_MAX) {                                           \
-            ret.low = 0;                                                     \
-            ret.high++;                                                      \
+        ret.माबाबा = ~ret.माबाबा;                                                  \
+        ret.माताअस = ~ret.माताअस;                                                \
+        if (ret.माबाबा == UINT_MAX) {                                           \
+            ret.माबाबा = 0;                                                     \
+            ret.माताअस++;                                                      \
         } else                                                               \
-            ret.low++;                                                       \
+            ret.माबाबा++;                                                       \
     }                                                                        \
                                                                              \
 _ret_:                                                                       \
@@ -218,25 +218,25 @@ unsigned __aeabi_ ## name(unsigned long long v)                         \
         sign = 1;                                                       \
         v = ~v + 1;                                                     \
     }                                                                   \
-    val.low = v;                                                        \
-    val.high = v >> 32;                                                 \
+    val.माबाबा = v;                                                        \
+    val.माताअस = v >> 32;                                                 \
     /* fill fraction bits */                                            \
-    for (s = 31, p = 1 << 31; p && !(val.high & p); s--, p >>= 1);      \
+    for (s = 31, p = 1 << 31; p && !(val.माताअस & p); s--, p >>= 1);      \
     if (p) {                                                            \
-        ret = val.high & (p - 1);                                       \
+        ret = val.माताअस & (p - 1);                                       \
         if (s < FLOAT_FRAC_BITS) {                                      \
             ret <<= FLOAT_FRAC_BITS - s;                                \
-            ret |= val.low >> (32 - (FLOAT_FRAC_BITS - s));             \
-            flb = (val.low >> (32 - (FLOAT_FRAC_BITS - s - 1))) & 1;    \
+            ret |= val.माबाबा >> (32 - (FLOAT_FRAC_BITS - s));             \
+            flb = (val.माबाबा >> (32 - (FLOAT_FRAC_BITS - s - 1))) & 1;    \
         } else {                                                        \
             flb = (ret >> (s - FLOAT_FRAC_BITS - 1)) & 1;               \
             ret >>= s - FLOAT_FRAC_BITS;                                \
         }                                                               \
         s += 32;                                                        \
     } else {                                                            \
-        for (s = 31, p = 1 << 31; p && !(val.low & p); s--, p >>= 1);   \
+        for (s = 31, p = 1 << 31; p && !(val.माबाबा & p); s--, p >>= 1);   \
         if (p) {                                                        \
-            ret = val.low & (p - 1);                                    \
+            ret = val.माबाबा & (p - 1);                                    \
             if (s <= FLOAT_FRAC_BITS) {                                 \
                 ret <<= FLOAT_FRAC_BITS - s;                            \
                 flb = 0;                                                \
@@ -269,7 +269,7 @@ DEFINE__AEABI_XL2F(l2f, 1)
 #define __AEABI_XL2D(name, with_sign)                                   \
 void __aeabi_ ## name(unsigned long long v)                             \
 {                                                                       \
-    int s /* shift */, high_shift, sign = 0;                            \
+    int s /* shift */, माताअस_shift, sign = 0;                            \
     unsigned tmp, p = 0;                                                \
     double_unsigned_struct val, ret;                                    \
                                                                         \
@@ -278,56 +278,56 @@ void __aeabi_ ## name(unsigned long long v)                             \
         sign = 1;                                                       \
         v = ~v + 1;                                                     \
     }                                                                   \
-    val.low = v;                                                        \
-    val.high = v >> 32;                                                 \
+    val.माबाबा = v;                                                        \
+    val.माताअस = v >> 32;                                                 \
                                                                         \
     /* fill fraction bits */                                            \
-    for (s = 31, p = 1 << 31; p && !(val.high & p); s--, p >>= 1);      \
+    for (s = 31, p = 1 << 31; p && !(val.माताअस & p); s--, p >>= 1);      \
     if (p) {                                                            \
-        tmp = val.high & (p - 1);                                       \
+        tmp = val.माताअस & (p - 1);                                       \
         if (s < DOUBLE_FRAC_BITS - 32) {                                \
-            high_shift = DOUBLE_FRAC_BITS - 32 - s;                     \
-            ret.high = tmp << high_shift;                               \
-            ret.high |= val.low >> (32 - high_shift);                   \
-            ret.low = val.low << high_shift;                            \
+            माताअस_shift = DOUBLE_FRAC_BITS - 32 - s;                     \
+            ret.माताअस = tmp << माताअस_shift;                               \
+            ret.माताअस |= val.माबाबा >> (32 - माताअस_shift);                   \
+            ret.माबाबा = val.माबाबा << माताअस_shift;                            \
         } else {                                                        \
-            high_shift = s - (DOUBLE_FRAC_BITS - 32);                   \
-            ret.high = tmp >> high_shift;                               \
-            ret.low = tmp << (32 - high_shift);                         \
-            ret.low |= val.low >> high_shift;                           \
-            if ((val.low >> (high_shift - 1)) & 1) {                    \
-                if (ret.low == UINT_MAX) {                              \
-                    ret.high++;                                         \
-                    ret.low = 0;                                        \
+            माताअस_shift = s - (DOUBLE_FRAC_BITS - 32);                   \
+            ret.माताअस = tmp >> माताअस_shift;                               \
+            ret.माबाबा = tmp << (32 - माताअस_shift);                         \
+            ret.माबाबा |= val.माबाबा >> माताअस_shift;                           \
+            if ((val.माबाबा >> (माताअस_shift - 1)) & 1) {                    \
+                if (ret.माबाबा == UINT_MAX) {                              \
+                    ret.माताअस++;                                         \
+                    ret.माबाबा = 0;                                        \
 		} else                                                  \
-                    ret.low++;                                          \
+                    ret.माबाबा++;                                          \
             }                                                           \
         }                                                               \
         s += 32;                                                        \
     } else {                                                            \
-        for (s = 31, p = 1 << 31; p && !(val.low & p); s--, p >>= 1);   \
+        for (s = 31, p = 1 << 31; p && !(val.माबाबा & p); s--, p >>= 1);   \
         if (p) {                                                        \
-            tmp = val.low & (p - 1);                                    \
+            tmp = val.माबाबा & (p - 1);                                    \
             if (s <= DOUBLE_FRAC_BITS - 32) {                           \
-                high_shift = DOUBLE_FRAC_BITS - 32 - s;                 \
-                ret.high = tmp << high_shift;                           \
-                ret.low = 0;                                            \
+                माताअस_shift = DOUBLE_FRAC_BITS - 32 - s;                 \
+                ret.माताअस = tmp << माताअस_shift;                           \
+                ret.माबाबा = 0;                                            \
 	    } else {                                                    \
-                high_shift = s - (DOUBLE_FRAC_BITS - 32);               \
-                ret.high = tmp >> high_shift;                           \
-                ret.low = tmp << (32 - high_shift);                     \
+                माताअस_shift = s - (DOUBLE_FRAC_BITS - 32);               \
+                ret.माताअस = tmp >> माताअस_shift;                           \
+                ret.माबाबा = tmp << (32 - माताअस_shift);                     \
             }                                                           \
         } else {                                                        \
-            ret.high = ret.low = 0;                                     \
+            ret.माताअस = ret.माबाबा = 0;                                     \
             goto _ret_;                                                 \
         }                                                               \
     }                                                                   \
                                                                         \
     /* fill exponent bits */                                            \
-    ret.high |= (s + ONE_EXP(DOUBLE)) << (DOUBLE_FRAC_BITS - 32);       \
+    ret.माताअस |= (s + ONE_EXP(DOUBLE)) << (DOUBLE_FRAC_BITS - 32);       \
                                                                         \
     /* fill sign bit */                                                 \
-    ret.high |= sign << 31;                                             \
+    ret.माताअस |= sign << 31;                                             \
                                                                         \
 _ret_:                                                                  \
     double_unsigned_struct_return(ret);                                 \
@@ -357,44 +357,44 @@ typedef struct type {                                      \
 } type
 
 #define AEABI_UXDIVMOD(name,type, rettype, typemacro)                     \
-static inline rettype aeabi_ ## name (type num, type den)                 \
+static inline rettype aeabi_ ## name (type नुमेरो, type den)                 \
 {                                                                         \
     rettype ret;                                                          \
     type quot = 0;                                                        \
                                                                           \
     /* Increase quotient while it is less than numerator */               \
-    while (num >= den) {                                                  \
+    while (नुमेरो >= den) {                                                  \
         type q = 1;                                                       \
                                                                           \
         /* Find closest power of two */                                   \
-        while ((q << 1) * den <= num && q * den <= typemacro ## _MAX / 2) \
+        while ((q << 1) * den <= नुमेरो && q * den <= typemacro ## _MAX / 2) \
             q <<= 1;                                                      \
                                                                           \
         /* Compute difference between current quotient and numerator */   \
-        num -= q * den;                                                   \
+        नुमेरो -= q * den;                                                   \
         quot += q;                                                        \
     }                                                                     \
     ret.quot = quot;                                                      \
-    ret.rem = num;                                                        \
+    ret.rem = नुमेरो;                                                        \
     return ret;                                                           \
 }
 
 #define __AEABI_XDIVMOD(name, type, uiname, rettype, urettype, typemacro)     \
 void __aeabi_ ## name(type numerator, type denominator)                       \
 {                                                                             \
-    unsigned type num, den;                                                   \
+    unsigned type नुमेरो, den;                                                   \
     urettype uxdiv_ret;                                                       \
     rettype ret;                                                              \
                                                                               \
     if (numerator >= 0)                                                       \
-      num = numerator;                                                        \
+      नुमेरो = numerator;                                                        \
     else                                                                      \
-      num = 0 - numerator;                                                    \
+      नुमेरो = 0 - numerator;                                                    \
     if (denominator >= 0)                                                     \
       den = denominator;                                                      \
     else                                                                      \
       den = 0 - denominator;                                                  \
-    uxdiv_ret = aeabi_ ## uiname(num, den);                                   \
+    uxdiv_ret = aeabi_ ## uiname(नुमेरो, den);                                   \
     /* signs differ */                                                        \
     if ((numerator & typemacro ## _MIN) != (denominator & typemacro ## _MIN)) \
         ret.quot = 0 - uxdiv_ret.quot;                                        \
@@ -422,9 +422,9 @@ AEABI_UXDIVMOD(uldivmod, unsigned long long, ulldiv_t, ULLONG)
 
 __AEABI_XDIVMOD(ldivmod, long long, uldivmod, lldiv_t, ulldiv_t, LLONG)
 
-void __aeabi_uldivmod(unsigned long long num, unsigned long long den)
+void __aeabi_uldivmod(unsigned long long नुमेरो, unsigned long long den)
 {
-    ulldiv_t_return(aeabi_uldivmod(num, den));
+    ulldiv_t_return(aeabi_uldivmod(नुमेरो, den));
 }
 
 void __aeabi_llsl(double_unsigned_struct val, int shift)
@@ -432,13 +432,13 @@ void __aeabi_llsl(double_unsigned_struct val, int shift)
     double_unsigned_struct ret;
 
     if (shift >= 32) {
-        val.high = val.low;
-        val.low = 0;
+        val.माताअस = val.माबाबा;
+        val.माबाबा = 0;
         shift -= 32;
     }
     if (shift > 0) {
-        ret.low = val.low << shift;
-        ret.high = (val.high << shift) | (val.low >> (32 - shift));
+        ret.माबाबा = val.माबाबा << shift;
+        ret.माताअस = (val.माताअस << shift) | (val.माबाबा >> (32 - shift));
         double_unsigned_struct_return(ret);
 	return;
     }
@@ -449,13 +449,13 @@ void __aeabi_llsl(double_unsigned_struct val, int shift)
     type ## _struct ret;                                           \
                                                                    \
     if (shift >= 32) {                                             \
-        val.low = val.high;                                        \
-        val.high = fill;                                           \
+        val.माबाबा = val.माताअस;                                        \
+        val.माताअस = fill;                                           \
         shift -= 32;                                               \
     }                                                              \
     if (shift > 0) {                                               \
-        ret.high = val.high >> shift;                              \
-        ret.low = (val.high << (32 - shift)) | (val.low >> shift); \
+        ret.माताअस = val.माताअस >> shift;                              \
+        ret.माबाबा = (val.माताअस << (32 - shift)) | (val.माबाबा >> shift); \
         type ## _struct_return(ret);                               \
 	return;                                                    \
     }                                                              \
@@ -468,7 +468,7 @@ void __aeabi_llsr(double_unsigned_struct val, int shift)
 
 void __aeabi_lasr(unsigned_int_struct val, int shift)
 {
-    aeabi_lsr(val, shift, val.high >> 31, unsigned_int);
+    aeabi_lsr(val, shift, val.माताअस >> 31, unsigned_int);
 }
 
 
@@ -479,33 +479,33 @@ AEABI_UXDIVMOD(uidivmod, unsigned, uidiv_t, UINT)
 
 int __aeabi_idiv(int numerator, int denominator)
 {
-    unsigned num, den;
+    unsigned नुमेरो, den;
     uidiv_t ret;
 
     if (numerator >= 0)
-        num = numerator;
+        नुमेरो = numerator;
     else
-        num = 0 - numerator;
+        नुमेरो = 0 - numerator;
     if (denominator >= 0)
         den = denominator;
     else
         den = 0 - denominator;
-    ret = aeabi_uidivmod(num, den);
+    ret = aeabi_uidivmod(नुमेरो, den);
     if ((numerator & INT_MIN) != (denominator & INT_MIN)) /* signs differ */
         ret.quot *= -1;
     return ret.quot;
 }
 
-unsigned __aeabi_uidiv(unsigned num, unsigned den)
+unsigned __aeabi_uidiv(unsigned नुमेरो, unsigned den)
 {
-    return aeabi_uidivmod(num, den).quot;
+    return aeabi_uidivmod(नुमेरो, den).quot;
 }
 
 __AEABI_XDIVMOD(idivmod, int, uidivmod, idiv_t, uidiv_t, INT)
 
-void __aeabi_uidivmod(unsigned num, unsigned den)
+void __aeabi_uidivmod(unsigned नुमेरो, unsigned den)
 {
-    uidiv_t_return(aeabi_uidivmod(num, den));
+    uidiv_t_return(aeabi_uidivmod(नुमेरो, den));
 }
 #else
 # define UIDIVMOD_ASM 1

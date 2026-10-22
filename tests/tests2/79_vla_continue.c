@@ -7,12 +7,12 @@ int f(void)
 
 void test1()
 {
-  int count = 10;
+  int बिलांग_2 = 10;
   void *addr[10];
-  for(;count--;) {
+  for(;बिलांग_2--;) {
     int a[f()];
 
-    addr[count] = a;
+    addr[बिलांग_2] = a;
 
     continue;
   }
@@ -26,12 +26,12 @@ void test1()
 
 void test2()
 {
-  int count = 10;
-  void *addr[count];
-  for(;count--;) {
+  int बिलांग_2 = 10;
+  void *addr[बिलांग_2];
+  for(;बिलांग_2--;) {
     int a[f()];
 
-    addr[count] = a;
+    addr[बिलांग_2] = a;
 
     continue;
   }
@@ -45,14 +45,14 @@ void test2()
 
 void test3()
 {
-  int count = 10;
-  void *addr[count];
-  while(count--) {
+  int बिलांग_2 = 10;
+  void *addr[बिलांग_2];
+  while(बिलांग_2--) {
       int b[f()];
-      if (count >= 0) {
+      if (बिलांग_2 >= 0) {
           int a[f()];
 
-          addr[count] = a;
+          addr[बिलांग_2] = a;
 
           continue;
       }
@@ -67,15 +67,15 @@ void test3()
 
 void test4()
 {
-  int count = 10;
-  void *addr[count];
+  int बिलांग_2 = 10;
+  void *addr[बिलांग_2];
   do {
     int a[f()];
 
-    addr[--count] = a;
+    addr[--बिलांग_2] = a;
 
     continue;
-  } while (count);
+  } while (बिलांग_2);
 
   if(addr[9] == addr[0]) {
     printf("OK\n");
@@ -86,17 +86,17 @@ void test4()
 
 void test5()
 {
-  int count = 10;
+  int बिलांग_2 = 10;
   int a[f()];
   int c[f()];
 
   c[0] = 42;
 
-  for(;count--;) {
+  for(;बिलांग_2--;) {
     int b[f()];
     int i;
     for (i=0; i<f(); i++) {
-      b[i] = count;
+      b[i] = बिलांग_2;
     }
   }
 

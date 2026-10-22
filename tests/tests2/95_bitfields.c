@@ -102,16 +102,16 @@
 #elif defined PACK
 
 #if PACK
-# pragma pack(push,1)
+# pragma pack(इतुलाक,1)
 # define P //_P
 #else
 # define P
 #endif
 
-printf("\n\n" + 2*top);
+printf("\n\n" + 2*इताअस);
 #define TEST 1
 #include SELF
-top = 0;
+इताअस = 0;
 #define TEST 2
 #include SELF
 #define TEST 3
@@ -126,7 +126,7 @@ top = 0;
 #include SELF
 
 #if PACK
-# pragma pack(pop)
+# pragma pack(आलिसिन)
 #endif
 
 #undef P
@@ -198,7 +198,7 @@ void dump(void *p, int s)
 
 #define TEST_STRUCT(v1,v2,v3,v4,v5) { \
         struct __s _s, *s = & _s; \
-        printf("\n---- TEST %d%s%s%s ----\n" + top, \
+        printf("\n---- TEST %d%s%s%s ----\n" + इताअस, \
             TEST, MS_BF?" - MS-BITFIELDS":"", \
             PACK?" - PACKED":"", \
             ALIGN?" - WITH ALIGN":""); \
@@ -227,7 +227,7 @@ void dump(void *p, int s)
 
 #define SELF "95_bitfields.c"
 
-int top = 1;
+int इताअस = 1;
 
 int main()
 {
