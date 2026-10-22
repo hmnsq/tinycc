@@ -3,55 +3,55 @@
 
 #define N 20
 
-int nb_num;
-int tab[N];
-int stack_ptr;
-int stack_op[N];
-int stack_res[60];
-int result;
+ကိန်းပြည့် nb_num;
+ကိန်းပြည့် tab[N];
+ကိန်းပြည့် stack_ptr;
+ကိန်းပြည့် stack_op[N];
+ကိန်းပြည့် stack_res[60];
+ကိန်းပြည့် result;
 
-int find(int n, int i1, int a, int b, int op)
+ကိန်းပြည့် find(ကိန်းပြည့် n, ကိန်းပြည့် i1, ကိန်းပြည့် a, ကိန်းပြည့် b, ကိန်းပြည့် op)
 {
-    int i, j;
-    int c;
+    ကိန်းပြည့် i, j;
+    ကိန်းပြည့် c;
 
-    if (stack_ptr >= 0) {
+    အကယ်၍ (stack_ptr >= 0) {
         stack_res[3*stack_ptr] = a;
         stack_op[stack_ptr] = op;
         stack_res[3*stack_ptr+1] = b;
         stack_res[3*stack_ptr+2] = n;
-        if (n == result)
-            return 1;
+        အကယ်၍ (n == result)
+            ပြန်ပေး 1;
         tab[i1] = n;
     }
 
-    for(i=0;i<nb_num;i++) {
-        for(j=i+1;j<nb_num;j++) {
+    အတွက်(i=0;i<nb_num;i++) {
+        အတွက်(j=i+1;j<nb_num;j++) {
             a = tab[i];
             b = tab[j];
-            if (a != 0 && b != 0) {
+            အကယ်၍ (a != 0 && b != 0) {
 
                 tab[j] = 0;
                 stack_ptr++;
 
-                if (find(a + b, i, a, b, '+'))
-                    return 1;
-                if (find(a - b, i, a, b, '-'))
-                    return 1;
-                if (find(b - a, i, b, a, '-'))
-                    return 1;
-                if (find(a * b, i, a, b, '*'))
-                    return 1;
-                if (b != 0) {
+                အကယ်၍ (find(a + b, i, a, b, '+'))
+                    ပြန်ပေး 1;
+                အကယ်၍ (find(a - b, i, a, b, '-'))
+                    ပြန်ပေး 1;
+                အကယ်၍ (find(b - a, i, b, a, '-'))
+                    ပြန်ပေး 1;
+                အကယ်၍ (find(a * b, i, a, b, '*'))
+                    ပြန်ပေး 1;
+                အကယ်၍ (b != 0) {
                     c = a / b;
-                    if (find(c, i, a, b, '/'))
-                        return 1;
+                    အကယ်၍ (find(c, i, a, b, '/'))
+                        ပြန်ပေး 1;
                 }
 
-                if (a != 0) {
+                အကယ်၍ (a != 0) {
                     c = b / a;
-                    if (find(c, i, b, a, '/'))
-                        return 1;
+                    အကယ်၍ (find(c, i, b, a, '/'))
+                        ပြန်ပေး 1;
                 }
 
                 stack_ptr--;
@@ -61,14 +61,14 @@ int find(int n, int i1, int a, int b, int op)
         }
     }
 
-    return 0;
+    ပြန်ပေး 0;
 }
 
-int main(int argc, char **argv)
+ကိန်းပြည့် main(ကိန်းပြည့် argc, var_na **argv)
 {
-    int i, res, p;
+    ကိန်းပြည့် i, res, p;
 
-    if (argc < 3) {
+    အကယ်၍ (argc < 3) {
         printf("usage: %s: result numbers...\n"
                "Try to find result from numbers with the 4 basic operations.\n", argv[0]);
         exit(1);
@@ -78,21 +78,21 @@ int main(int argc, char **argv)
     result = atoi(argv[p]);
     printf("result=%d\n", result);
     nb_num = 0;
-    for(i=p+1;i<argc;i++) {
+    အတွက်(i=p+1;i<argc;i++) {
         tab[nb_num++] = atoi(argv[i]);
     }
 
     stack_ptr = -1;
     res = find(0, 0, 0, 0, ' ');
-    if (res) {
-        for(i=0;i<=stack_ptr;i++) {
+    အကယ်၍ (res) {
+        အတွက်(i=0;i<=stack_ptr;i++) {
             printf("%d %c %d = %d\n",
                    stack_res[3*i], stack_op[i],
                    stack_res[3*i+1], stack_res[3*i+2]);
         }
-        return 0;
-    } else {
+        ပြန်ပေး 0;
+    } မဟုတ်ပါက {
         printf("Impossible\n");
-        return 1;
+        ပြန်ပေး 1;
     }
 }

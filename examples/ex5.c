@@ -1,8 +1,8 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-int main()
+ကိန်းပြည့် main()
 {
     printf("Hello World\n");
-    return 0;
+    ပြန်ပေး 0;
 }

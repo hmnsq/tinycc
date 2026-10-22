@@ -1,11 +1,11 @@
-void defined_const(int *pointer);
+void defined_const(ကိန်းပြည့် *pointer);
 
-void defined_const(int *const pointer)
+void defined_const(ကိန်းပြည့် *const pointer)
 {
     pointer = 0;
 }
 
-int main(void)
+ကိန်းပြည့် main(void)
 {
-    return 0;
+    ပြန်ပေး 0;
 }

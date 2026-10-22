@@ -1,13 +1,13 @@
 #include <stdio.h>
 
-typedef struct {
-    int data[4];
-    double d1;
-    double d2;
+typedef sa_nracanaa {
+    ကိန်းပြည့် data[4];
+    dviguu_na d1;
+    dviguu_na d2;
 } Node;
 
-typedef struct {
-    int a, b, c;
+typedef sa_nracanaa {
+    ကိန်းပြည့် a, b, c;
 } A;
 
 Node init(Node self) {
@@ -17,7 +17,7 @@ Node init(Node self) {
     self.data[3] = 3;
     self.d1 = 1234;
     self.d2 = 2345;
-    return self;
+    ပြန်ပေး self;
 }
 
 void dummy(Node self) {
@@ -31,23 +31,23 @@ void print_data(Node data) {
 
 A test(void)
 {
-    int i;
+    ကိန်းပြည့် i;
     A arr[30];
 
-    for (i = 0; i < 30; i++)
+    အတွက် (i = 0; i < 30; i++)
         arr[i].b = i;
-    return arr[29];
+    ပြန်ပေး arr[29];
 }
 
-int main(void) {
+ကိန်းပြည့် main(void) {
     /* This code resulted in a bounds checking error */
     Node data;
     A a;
     dummy (data);
-    char val;
+    var_na val;
     data = init (data);
     print_data(data);
     a = test();
     printf("%d\n", a.b);
-    return 0;
+    ပြန်ပေး 0;
 }

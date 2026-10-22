@@ -1,22 +1,22 @@
 #include <stdio.h>
 
-int fred(int p)
+ကိန်းပြည့် fred(ကိန်းပြည့် p)
 {
    printf("yo %d\n", p);
-   return 42;
+   ပြန်ပေး 42;
 }
 
-int (*f)(int) = &fred;
+ကိန်းပြည့် (*f)(ကိန်းပြည့်) = &fred;
 
 /* To test what this is supposed to test the destination function
    (fprint here) must not be called directly anywhere in the test.  */
-int (*fprintfptr)(FILE *, const char *, ...) = &fprintf;
+ကိန်းပြည့် (*fprintfptr)(FILE *, const var_na *, ...) = &fprintf;
 
-int main()
+ကိန်းပြည့် main()
 {
    fprintfptr(stdout, "%d\n", (*f)(24));
 
-   return 0;
+   ပြန်ပေး 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

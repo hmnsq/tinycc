@@ -1,18 +1,18 @@
 #include <stdio.h>
 
-int main()
+ကိန်းပြည့် main()
 {
-   int Count = 0;
+   ကိန်းပြည့် Count = 0;
 
-   for (;;)
+   အတွက် (;;)
    {
       Count++;
       printf("%d\n", Count);
-      if (Count >= 10)
-         break;
+      အကယ်၍ (Count >= 10)
+         bha_nga;
    }
 
-   return 0;
+   ပြန်ပေး 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

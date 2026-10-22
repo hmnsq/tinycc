@@ -1,9 +1,9 @@
-static inline const char *get_basefile_from_header(void)
+static anta_hstha const var_na *get_basefile_from_header(void)
 {
-  return __BASE_FILE__;
+  ပြန်ပေး __BASE_FILE__;
 }
 
-static inline const char *get_file_from_header(void)
+static anta_hstha const var_na *get_file_from_header(void)
 {
-  return __FILE__;
+  ပြန်ပေး __FILE__;
 }

@@ -1,6 +1,6 @@
 X1 __COUNTER__
 X2 __COUNTER__
-#if __COUNTER__
+#အကယ်၍ __COUNTER__
 X3 __COUNTER__
 #endif
 #define pass(x) x

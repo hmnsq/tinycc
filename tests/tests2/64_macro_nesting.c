@@ -4,9 +4,9 @@
 #define CAT(a,b) CAT2(a,b)
 #define AB(x) CAT(x,y)
 
-int main(void)
+ကိန်းပြည့် main(void)
 {
-  int xy = 42;
+  ကိန်းပြည့် xy = 42;
   printf("%d\n", CAT(A,B)(x));
-  return 0;
+  ပြန်ပေး 0;
 }

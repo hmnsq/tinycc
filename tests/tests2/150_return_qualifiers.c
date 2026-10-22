@@ -1,30 +1,30 @@
-const int const_return(void);
-volatile int volatile_return(void);
-int *restrict restrict_return(void);
+const ကိန်းပြည့် const_return(void);
+ca_ncala ကိန်းပြည့် volatile_return(void);
+ကိန်းပြည့် *restrict restrict_return(void);
 
-_Static_assert(__builtin_types_compatible_p(__typeof__(const_return()) *, int *),
+_Static_assert(__builtin_types_compatible_p(__typeof__(const_return()) *, ကိန်းပြည့် *),
                "const is removed from a return type");
-_Static_assert(__builtin_types_compatible_p(__typeof__(volatile_return()) *, int *),
+_Static_assert(__builtin_types_compatible_p(__typeof__(volatile_return()) *, ကိန်းပြည့် *),
                "volatile is removed from a return type");
-_Static_assert(__builtin_types_compatible_p(__typeof__(restrict_return()) *, int **),
+_Static_assert(__builtin_types_compatible_p(__typeof__(restrict_return()) *, ကိန်းပြည့် **),
                "restrict is removed from a return type");
 
-int const_return(void)
+ကိန်းပြည့် const_return(void)
 {
-   return 0;
+   ပြန်ပေး 0;
 }
 
-int volatile_return(void)
+ကိန်းပြည့် volatile_return(void)
 {
-   return 0;
+   ပြန်ပေး 0;
 }
 
-int *restrict_return(void)
+ကိန်းပြည့် *restrict_return(void)
 {
-   return 0;
+   ပြန်ပေး 0;
 }
 
-int main(void)
+ကိန်းပြည့် main(void)
 {
-   return 0;
+   ပြန်ပေး 0;
 }

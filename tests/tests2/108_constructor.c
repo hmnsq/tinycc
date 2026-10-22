@@ -1,4 +1,4 @@
-extern int write (int fd, void *buf, int len);
+extern ကိန်းပြည့် write (ကိန်းပြည့် fd, void *buf, ကိန်းပြည့် len);
 
 static void __attribute__ ((constructor))
 testc (void)
@@ -12,9 +12,9 @@ testd (void)
   write (1, "destructor\n", 11);
 }
 
-int
+ကိန်းပြည့်
 main (void)
 {
   write (1, "main\n", 5);
-  return 0;
+  ပြန်ပေး 0;
 }

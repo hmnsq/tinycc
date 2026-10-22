@@ -8,8 +8,8 @@ typedef __PTRDIFF_TYPE__ ptrdiff_t;
 typedef __PTRDIFF_TYPE__ intptr_t;
 typedef __SIZE_TYPE__ uintptr_t;
 
-#if __STDC_VERSION__ >= 201112L
-typedef union { long long __ll; long double __ld; } max_align_t;
+#အကယ်၍ __STDC_VERSION__ >= 201112L
+typedef sa_ngha { long long __ll; long dviguu_na __ld; } max_align_t;
 #endif
 
 #ifndef NULL
@@ -30,7 +30,7 @@ void *alloca(size_t size);
    already (without requiring wint_t).  Some other libs define _WINT_T
    if they've already provided that type, so we can use that as guard.
    TCC defines __WINT_TYPE__ for us.  */
-#if defined (__need_wint_t)
+#အကယ်၍ defined (__need_wint_t)
 #ifndef _WINT_T
 #define _WINT_T
 typedef __WINT_TYPE__ wint_t;

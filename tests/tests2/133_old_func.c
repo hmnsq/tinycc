@@ -1,24 +1,24 @@
-int printf(const char *s, ...);
+ကိန်းပြည့် printf(const var_na *s, ...);
 
 float fx(x)
 float x;
 {
-    return 2.0 * x;
+    ပြန်ပေး 2.0 * x;
 }
 
 void func(float a);
 
-void func3(struct p { int a; int b; } *q) {
+void func3(sa_nracanaa p { ကိန်းပြည့် a; ကိန်းပြည့် b; } *q) {
 }
 
 void func4(q)
- struct p { int a; int b; int c; } *q;
+ sa_nracanaa p { ကိန်းပြည့် a; ကိန်းပြည့် b; ကိန်းပြည့် c; } *q;
 {
 }
 
-struct p { int a; int b; int c; int d; };
+sa_nracanaa p { ကိန်းပြည့် a; ကိန်းပြည့် b; ကိန်းပြည့် c; ကိန်းပြည့် d; };
 
-int
+ကိန်းပြည့်
 main(void)
 {
     float fy();
@@ -31,7 +31,7 @@ main(void)
 float fy(x)
 float x;
 {
-    return 3.0 * x;
+    ပြန်ပေး 3.0 * x;
 }
 
 void func(a)

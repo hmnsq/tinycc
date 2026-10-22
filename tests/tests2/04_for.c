@@ -1,15 +1,15 @@
 #include <stdio.h>
 
-int main() 
+ကိန်းပြည့် main() 
 {
-   int Count;
+   ကိန်းပြည့် Count;
 
-   for (Count = 1; Count <= 10; Count++)
+   အတွက် (Count = 1; Count <= 10; Count++)
    {
       printf("%d\n", Count);
    }
 
-   return 0;
+   ပြန်ပေး 0;
 }
 
 // vim: set expandtab ts=4 sw=3 sts=3 tw=80 :

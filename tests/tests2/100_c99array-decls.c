@@ -1,31 +1,31 @@
-void foo(int [5]);
-void fooc(int x[const 5]);
-void foos(int x[static 5]);
-void foov(int x[volatile 5]);
-void foor(int x[restrict 5]);
-void fooc(int [const 5]);
-void foos(int [static 5]);
-void foov(int [volatile 5]);
-void foor(int [restrict 5]);
-void fooc(int (* const x));
-void foos(int *x);
-void foov(int * volatile x);
-void foor(int * restrict x);
-void fooc(int x[volatile 5])
+void foo(ကိန်းပြည့် [5]);
+void fooc(ကိန်းပြည့် x[const 5]);
+void foos(ကိန်းပြည့် x[static 5]);
+void foov(ကိန်းပြည့် x[ca_ncala 5]);
+void foor(ကိန်းပြည့် x[restrict 5]);
+void fooc(ကိန်းပြည့် [const 5]);
+void foos(ကိန်းပြည့် [static 5]);
+void foov(ကိန်းပြည့် [ca_ncala 5]);
+void foor(ကိန်းပြည့် [restrict 5]);
+void fooc(ကိန်းပြည့် (* const x));
+void foos(ကိန်းပြည့် *x);
+void foov(ကိန်းပြည့် * ca_ncala x);
+void foor(ကိန်းပြည့် * restrict x);
+void fooc(ကိန်းပြည့် x[ca_ncala 5])
 {
   x[3] = 42;
 #ifdef INVALID
   x = 0;
 #endif
 }
-void foovm(int x[const *]);
-void foovm(int * const x);
+void foovm(ကိန်းပြည့် x[const *]);
+void foovm(ကိန်းပြည့် * const x);
 
-typedef int *pointer_array[2];
-typedef int *restrict restricted_pointer;
+typedef ကိန်းပြည့် *pointer_array[2];
+typedef ကိန်းပြည့် *restrict restricted_pointer;
 typedef restrict pointer_array restricted_pointer_array;
 
-_Static_assert(!__builtin_types_compatible_p(int **,
+_Static_assert(!__builtin_types_compatible_p(ကိန်းပြည့် **,
                                              restricted_pointer *),
                "nested restrict qualifier is retained");
 _Static_assert(__builtin_types_compatible_p(restricted_pointer_array,
@@ -33,7 +33,7 @@ _Static_assert(__builtin_types_compatible_p(restricted_pointer_array,
                "restrict can qualify an array of pointer types");
 
 restricted_pointer *restricted_pp;
-int **unrestricted_pp;
+ကိန်းပြည့် **unrestricted_pp;
 
 _Static_assert(__builtin_types_compatible_p(
                    __typeof__(1 ? restricted_pp : unrestricted_pp),
@@ -41,14 +41,14 @@ _Static_assert(__builtin_types_compatible_p(
                "conditional expression combines restrict qualifiers");
 
 #ifdef INVALID
-void wrongc(int x[3][const 4]);
-void wrongvm(int x[static *]);
-void foovm(int x[const *])
+void wrongc(ကိန်းပြည့် x[3][const 4]);
+void wrongvm(ကိန်းပြည့် x[static *]);
+void foovm(ကိန်းပြည့် x[const *])
 {
   x[2] = 1;
 }
 #endif
-int main()
+ကိန်းပြည့် main()
 {
-  return 0;
+  ပြန်ပေး 0;
 }

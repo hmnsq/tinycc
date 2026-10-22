@@ -3,9 +3,9 @@
 A rettrue(bla) B
 TRACE(
       ARG_1,
-#if rettrue(bla)
+#အကယ်၍ rettrue(bla)
       ARG_2,
-#else
+#မဟုတ်ပါက
       ARG_2_wrong,
 #endif
       ARG_3

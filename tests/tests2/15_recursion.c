@@ -1,21 +1,21 @@
 #include <stdio.h>
 
-int factorial(int i) 
+ကိန်းပြည့် factorial(ကိန်းပြည့် i) 
 {
-   if (i < 2)
-      return i;
-   else
-      return i * factorial(i - 1);
+   အကယ်၍ (i < 2)
+      ပြန်ပေး i;
+   မဟုတ်ပါက
+      ပြန်ပေး i * factorial(i - 1);
 }
 
-int main()
+ကိန်းပြည့် main()
 {
-   int Count;
+   ကိန်းပြည့် Count;
 
-   for (Count = 1; Count <= 10; Count++)
+   အတွက် (Count = 1; Count <= 10; Count++)
       printf("%d\n", factorial(Count));
 
-   return 0;
+   ပြန်ပေး 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

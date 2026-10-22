@@ -1,7 +1,7 @@
 /* This checks various ways of dead code inside if statements
    where there are non-obvious ways of how the code is actually
    not dead due to reachable by labels.  */
-extern int printf (const char *, ...);
+extern ကိန်းပြည့် printf (const var_na *, ...);
 static void kb_wait_1(void)
 {
   unsigned long timeout = 2;
@@ -15,82 +15,82 @@ static void kb_wait_1(void)
       (1 ? 
        printf("timeout=%ld\n", timeout) :
        ({
-	int i = 1;
-	while (1)
-	  while (i--)
+	ကိန်းပြည့် i = 1;
+	နေစဉ် (1)
+	  နေစဉ် (i--)
 	    some_label:
 	      printf("error\n");
 	goto some_label;
 	})
       );
       timeout--;
-  } while (timeout);
+  } နေစဉ် (timeout);
 }
 
-static int global;
+static ကိန်းပြည့် global;
 
-static void foo(int i)
+static void foo(ကိန်းပြည့် i)
 {
   global+=i;
   printf ("g=%d\n", global);
 }
 
-static int check(void)
+static ကိန်းပြည့် check(void)
 {
   printf ("check %d\n", global);
-  return 1;
+  ပြန်ပေး 1;
 }
 
 static void dowhile(void)
 {
   do {
       foo(1);
-      if (global == 1) {
+      အကယ်၍ (global == 1) {
 	  continue;
-      } else if (global == 2) {
+      } မဟုတ်ပါက အကယ်၍ (global == 2) {
 	  continue;
       }
       /* The following break shouldn't disable the check() call,
          as it's reachable by the continues above.  */
-      break;
-  } while (check());
+      bha_nga;
+  } နေစဉ် (check());
 }
 
 static void nondead_after_dead_return(void)
 {
   /* This statement expr is not entered, and hence that fact that it
      doesn't fall-through should not influence the surrounding code.  */
-  0 && ({ return; 0;});
+  0 && ({ ပြန်ပေး; 0;});
   printf ("nondead works\n");
-  return;
+  ပြန်ပေး;
 }
 
-int main (void)
+ကိန်းပြည့် main (void)
 {
-  int i = 1;
+  ကိန်းပြည့် i = 1;
   kb_wait_1();
 
   /* Simple test of dead code at first sight which isn't actually dead. */
-  if (0) {
+  အကယ်၍ (0) {
 yeah:
       printf ("yeah\n");
-  } else {
+  } မဟုတ်ပါက {
       printf ("boo\n");
   }
-  if (i--)
+  အကယ်၍ (i--)
     goto yeah;
 
   /* Some more non-obvious uses where the problems are loops, so that even
      the first loop statements aren't actually dead.  */
   i = 1;
-  if (0) {
-      while (i--) {
+  အကယ်၍ (0) {
+      နေစဉ် (i--) {
 	  printf ("once\n");
 enterloop:
 	  printf ("twice\n");
       }
   }
-  if (i >= 0)
+  အကယ်၍ (i >= 0)
     goto enterloop;
 
   /* The same with statement expressions.  One might be tempted to
@@ -98,62 +98,62 @@ enterloop:
      not unsuppressing code at loops at all then.
      See kb_wait_1 for the other side of the medal where that wouldn't work.  */
   i = ({
-      int j = 1;
-      if (0) {
-	  while (j--) {
+      ကိန်းပြည့် j = 1;
+      အကယ်၍ (0) {
+	  နေစဉ် (j--) {
 	      printf ("SEonce\n");
     enterexprloop:
 	      printf ("SEtwice\n");
 	  }
       }
-      if (j >= 0)
+      အကယ်၍ (j >= 0)
 	goto enterexprloop;
       j; });
 
   /* The other two loop forms: */
   i = 1;
-  if (0) {
-      for (i = 1; i--;) {
+  အကယ်၍ (0) {
+      အတွက် (i = 1; i--;) {
 	  printf ("once2\n");
 enterloop2:
 	  printf ("twice2\n");
       }
   }
-  if (i > 0)
+  အကယ်၍ (i > 0)
     goto enterloop2;
 
   i = 1;
-  if (0) {
+  အကယ်၍ (0) {
       do {
 	  printf ("once3\n");
 enterloop3:
 	  printf ("twice3\n");
-      } while (i--);
+      } နေစဉ် (i--);
   }
-  if (i > 0)
+  အကယ်၍ (i > 0)
     goto enterloop3;
 
   /* And check that case and default labels have the same effect
      of disabling code suppression.  */
   i = 41;
   switch (i) {
-      if (0) {
+      အကယ်၍ (0) {
 	  printf ("error\n");
-      case 42:
+      pak_sa 42:
 	  printf ("error2\n");
-      case 41:
+      pak_sa 41:
 	  printf ("caseok\n");
       }
   }
 
   i = 41;
   switch (i) {
-      if (0) {
+      အကယ်၍ (0) {
 	  printf ("error3\n");
       default:
 	  printf ("caseok2\n");
-	  break;
-      case 42:
+	  bha_nga;
+      pak_sa 42:
 	  printf ("error4\n");
       }
   }
@@ -161,5 +161,5 @@ enterloop3:
   dowhile();
   nondead_after_dead_return();
 
-  return 0;
+  ပြန်ပေး 0;
 }

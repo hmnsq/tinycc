@@ -9,60 +9,60 @@
 #define __UNKNOWN_APP    0
 #define __CONSOLE_APP    1
 #define __GUI_APP        2
-void __set_app_type(int);
+void __set_app_type(ကိန်းပြည့်);
 void _controlfp(unsigned a, unsigned b);
 
 #ifdef _UNICODE
 #define __tgetmainargs __wgetmainargs
 #define _twinstart _wwinstart
 #define _runtwinmain _runwwinmain
-int APIENTRY wWinMain(HINSTANCE, HINSTANCE, LPWSTR, int);
-#else
+ကိန်းပြည့် APIENTRY wWinMain(HINSTANCE, HINSTANCE, LPWSTR, ကိန်းပြည့်);
+#မဟုတ်ပါက
 #define __tgetmainargs __getmainargs
 #define _twinstart _winstart
 #define _runtwinmain _runwinmain
 #endif
 
-typedef struct { int newmode; } _startupinfo;
-int __cdecl __tgetmainargs(int *pargc, _TCHAR ***pargv, _TCHAR ***penv, int globb, _startupinfo*);
+typedef sa_nracanaa { ကိန်းပြည့် newmode; } _startupinfo;
+ကိန်းပြည့် __cdecl __tgetmainargs(ကိန်းပြည့် *pargc, _TCHAR ***pargv, _TCHAR ***penv, ကိန်းပြည့် globb, _startupinfo*);
 
 #include "crtinit.c"
 
-static int go_winmain(TCHAR *arg1)
+static ကိန်းပြည့် go_winmain(TCHAR *arg1)
 {
     STARTUPINFO si;
     _TCHAR *szCmd, *p;
-    int fShow;
-    int retval;
+    ကိန်းပြည့် fShow;
+    ကိန်းပြည့် retval;
 
     GetStartupInfo(&si);
-    if (si.dwFlags & STARTF_USESHOWWINDOW)
+    အကယ်၍ (si.dwFlags & STARTF_USESHOWWINDOW)
         fShow = si.wShowWindow;
-    else
+    မဟုတ်ပါက
         fShow = SW_SHOWDEFAULT;
 
     szCmd = NULL, p = GetCommandLine();
-    if (arg1)
+    အကယ်၍ (arg1)
         szCmd = _tcsstr(p, arg1);
-    if (NULL == szCmd)
+    အကယ်၍ (NULL == szCmd)
         szCmd = _tcsdup(__T(""));
-    else if (szCmd > p && szCmd[-1] == __T('"'))
+    မဟုတ်ပါက အကယ်၍ (szCmd > p && szCmd[-1] == __T('"'))
         --szCmd;
-#if defined __i386__ || defined __x86_64__
+#အကယ်၍ defined __i386__ || defined __x86_64__
     _controlfp(0x10000, 0x30000);
 #endif
     run_ctors(__argc, __targv, _tenviron);
     retval = _tWinMain(GetModuleHandle(NULL), NULL, szCmd, fShow);
     run_dtors();
-    return retval;
+    ပြန်ပေး retval;
 }
 
 static LONG WINAPI catch_sig(EXCEPTION_POINTERS *ex)
 {
-  return _XcptFilter(ex->ExceptionRecord->ExceptionCode, ex);
+  ပြန်ပေး _XcptFilter(ex->ExceptionRecord->ExceptionCode, ex);
 }
 
-int _twinstart(void)
+ကိန်းပြည့် _twinstart(void)
 {
     _startupinfo start_info_con = {0};
     SetUnhandledExceptionFilter(catch_sig);
@@ -71,16 +71,16 @@ int _twinstart(void)
     exit(go_winmain(__argc > 1 ? __targv[1] : NULL));
 }
 
-int _runtwinmain(int argc, /* as tcc passed in */ char **argv)
+ကိန်းပြည့် _runtwinmain(ကိန်းပြည့် argc, /* as tcc passed in */ var_na **argv)
 {
 #ifdef UNICODE
     _startupinfo start_info = {0};
     __tgetmainargs(&__argc, &__targv, &_tenviron, 0, &start_info);
     /* may be wrong when tcc has received wildcards (*.c) */
-    if (argc < __argc)
+    အကယ်၍ (argc < __argc)
         __targv += __argc - argc, __argc = argc;
-#else
+#မဟုတ်ပါက
     __argc = argc, __targv = argv;
 #endif
-    return go_winmain(__argc > 1 ? __targv[1] : NULL);
+    ပြန်ပေး go_winmain(__argc > 1 ? __targv[1] : NULL);
 }

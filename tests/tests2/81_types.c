@@ -1,55 +1,55 @@
 /* The following are all valid decls, even though some subtypes
    are incomplete.  */
-enum E *e;
-const enum E *e1;
-enum E const *e2;
-struct S *s;
-const struct S *s1;
-struct S const *s2;
+ga_nanaa E *e;
+const ga_nanaa E *e1;
+ga_nanaa E const *e2;
+sa_nracanaa S *s;
+const sa_nracanaa S *s1;
+sa_nracanaa S const *s2;
 
 /* Various strangely looking declarators, which are all valid
    and have to map to the same numbered typedefs. */
-typedef int (*fptr1)();
-int f1 (int (), int);
-typedef int (*fptr2)(int x);
-int f2 (int (int x), int);
-typedef int (*fptr3)(int);
-int f3 (int (int), int);
-typedef int (*fptr4[4])(int);
-int f4 (int (*[4])(int), int);
-typedef int (*fptr5)(fptr1);
-int f5 (int (int()), fptr1);
-int f1 (fptr1 fp, int i)
+typedef ကိန်းပြည့် (*fptr1)();
+ကိန်းပြည့် f1 (ကိန်းပြည့် (), ကိန်းပြည့်);
+typedef ကိန်းပြည့် (*fptr2)(ကိန်းပြည့် x);
+ကိန်းပြည့် f2 (ကိန်းပြည့် (ကိန်းပြည့် x), ကိန်းပြည့်);
+typedef ကိန်းပြည့် (*fptr3)(ကိန်းပြည့်);
+ကိန်းပြည့် f3 (ကိန်းပြည့် (ကိန်းပြည့်), ကိန်းပြည့်);
+typedef ကိန်းပြည့် (*fptr4[4])(ကိန်းပြည့်);
+ကိန်းပြည့် f4 (ကိန်းပြည့် (*[4])(ကိန်းပြည့်), ကိန်းပြည့်);
+typedef ကိန်းပြည့် (*fptr5)(fptr1);
+ကိန်းပြည့် f5 (ကိန်းပြည့် (ကိန်းပြည့်()), fptr1);
+ကိန်းပြည့် f1 (fptr1 fp, ကိန်းပြည့် i)
 {
-  return (*fp)(i);
+  ပြန်ပေး (*fp)(i);
 }
-int f2 (fptr2 fp, int i)
+ကိန်းပြည့် f2 (fptr2 fp, ကိန်းပြည့် i)
 {
-  return (*fp)(i);
+  ပြန်ပေး (*fp)(i);
 }
-int f3 (fptr3 fp, int i)
+ကိန်းပြည့် f3 (fptr3 fp, ကိန်းပြည့် i)
 {
-  return (*fp)(i);
+  ပြန်ပေး (*fp)(i);
 }
-int f4 (fptr4 fp, int i)
+ကိန်းပြည့် f4 (fptr4 fp, ကိန်းပြည့် i)
 {
-  return (*fp[i])(i);
+  ပြန်ပေး (*fp[i])(i);
 }
-int f5 (fptr5 fp, fptr1 i)
+ကိန်းပြည့် f5 (fptr5 fp, fptr1 i)
 {
-  return fp(i);
+  ပြန်ပေး fp(i);
 }
-typedef int intx4[4];
-int f8 (intx4, int);
-int f8 (int ([4]), int);
-int f8 (int y[4], int i)
+typedef ကိန်းပြည့် intx4[4];
+ကိန်းပြည့် f8 (intx4, ကိန်းပြည့်);
+ကိန်းပြည့် f8 (ကိန်းပြည့် ([4]), ကိန်းပြည့်);
+ကိန်းပြည့် f8 (ကိန်းပြည့် y[4], ကိန်းပြည့် i)
 {
-  return y[i];
+  ပြန်ပေး y[i];
 }
-int f9 (int (*)(int), int);
-int f9 (int ((int)), int);
-int f9 (int f(int), int i)
+ကိန်းပြည့် f9 (ကိန်းပြည့် (*)(ကိန်းပြည့်), ကိန်းပြည့်);
+ကိန်းပြည့် f9 (ကိန်းပြည့် ((ကိန်းပြည့်)), ကိန်းပြည့်);
+ကိန်းပြည့် f9 (ကိန်းပြည့် f(ကိန်းပြည့်), ကိန်းပြည့် i)
 {
-  return f(i);
+  ပြန်ပေး f(i);
 }
-int main () { return 0; }
+ကိန်းပြည့် main () { ပြန်ပေး 0; }

@@ -1,18 +1,18 @@
 #include <stdio.h>
 
-int main() 
+ကိန်းပြည့် main() 
 {
-   int a;
+   ကိန်းပြည့် a;
    a = 42;
    printf("%d\n", a);
 
-   int b = 64;
+   ကိန်းပြည့် b = 64;
    printf("%d\n", b);
 
-   int c = 12, d = 34;
+   ကိန်းပြည့် c = 12, d = 34;
    printf("%d, %d\n", c, d);
 
-   return 0;
+   ပြန်ပေး 0;
 }
 
 // vim: set expandtab ts=4 sw=3 sts=3 tw=80 :

@@ -8,17 +8,17 @@
 
 #include <stralign.h>
 
-#if defined(MINGW_HAS_SECURE_API)
+#အကယ်၍ defined(MINGW_HAS_SECURE_API)
 
 #ifdef __cplusplus
 extern "C" {
 #endif
 
-#if !defined(I_X86_) && defined(_WSTRING_S_DEFINED)
-#if defined(__cplusplus) && defined(_WConst_Return)
+#အကယ်၍ !defined(I_X86_) && defined(_WSTRING_S_DEFINED)
+#အကယ်၍ defined(__cplusplus) && defined(_WConst_Return)
   static __inline PUWSTR ua_wcscpy_s(PUWSTR Destination,size_t DestinationSize,PCUWSTR Source) {
-    if(WSTR_ALIGNED(Source) && WSTR_ALIGNED(Destination)) return (wcscpy_s((PWSTR)Destination,DestinationSize,(PCWSTR)Source)==0 ? Destination : NULL);
-    return uaw_wcscpy((PCUWSTR)String,Character);
+    အကယ်၍(WSTR_ALIGNED(Source) && WSTR_ALIGNED(Destination)) ပြန်ပေး (wcscpy_s((PWSTR)Destination,DestinationSize,(PCWSTR)Source)==0 ? Destination : NULL);
+    ပြန်ပေး uaw_wcscpy((PCUWSTR)String,Character);
   }
 #endif
 #endif

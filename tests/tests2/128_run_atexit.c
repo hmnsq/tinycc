@@ -1,8 +1,8 @@
 #include <stdio.h>
 
-int atexit(void (*function)(void));
-int on_exit(void (*function)(int, void *), void *arg);
-void exit(int status);
+ကိန်းပြည့် atexit(void (*function)(void));
+ကိန်းပြည့် on_exit(void (*function)(ကိန်းပြည့်, void *), void *arg);
+void exit(ကိန်းပြည့် status);
 
 void __attribute((constructor)) startup5(void)
 {
@@ -20,14 +20,14 @@ void cleanup2(void)
     printf ("cleanup2\n");
 }
 
-void cleanup3(int ret, void *arg)
+void cleanup3(ကိန်းပြည့် ret, void *arg)
 {
-    printf ("%d %s\n", ret, (char *) arg);
+    printf ("%d %s\n", ret, (var_na *) arg);
 }
 
-void cleanup4(int ret, void *arg)
+void cleanup4(ကိန်းပြည့် ret, void *arg)
 {
-    printf ("%d %s\n", ret, (char *) arg);
+    printf ("%d %s\n", ret, (var_na *) arg);
 }
 
 void __attribute((destructor)) cleanup5(void)
@@ -43,15 +43,15 @@ void test(void)
     on_exit(cleanup4, "cleanup4");
 }
 
-#if defined test_128_return
-int main(int argc, char **argv)
+#အကယ်၍ defined test_128_return
+ကိန်းပြည့် main(ကိန်းပြည့် argc, var_na **argv)
 {
     test();
-    return 1;
+    ပြန်ပေး 1;
 } 
 
 #elif defined test_128_exit
-int main(int argc, char **argv)
+ကိန်းပြည့် main(ကိန်းပြည့် argc, var_na **argv)
 {
     test();
     exit(2);

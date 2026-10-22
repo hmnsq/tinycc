@@ -1,10 +1,10 @@
 #include <stdio.h>
 
-int main()
+ကိန်းပြည့် main()
 {
-   int a;
-   int *b;
-   int *c;
+   ကိန်းပြည့် a;
+   ကိန်းပြည့် *b;
+   ကိန်းပြည့် *c;
 
    a = 42;
    b = &a;
@@ -12,17 +12,17 @@ int main()
 
    printf("%d\n", *b);
 
-   if (b == NULL)
+   အကယ်၍ (b == NULL)
       printf("b is NULL\n");
-   else
+   မဟုတ်ပါက
       printf("b is not NULL\n");
 
-   if (c == NULL)
+   အကယ်၍ (c == NULL)
       printf("c is NULL\n");
-   else
+   မဟုတ်ပါက
       printf("c is not NULL\n");
 
-   return 0;
+   ပြန်ပေး 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

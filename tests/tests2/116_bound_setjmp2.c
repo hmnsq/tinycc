@@ -1,20 +1,20 @@
 #include <stdio.h>
 #include <string.h>
 #include <setjmp.h>
-#if !defined(_WIN32)
+#အကယ်၍ !defined(_WIN32)
 #include <pthread.h>
-#else
+#မဟုတ်ပါက
 #include <windows.h>
 #endif
 
 #define	SIZE	10
 #define	COUNT	10
 
-#define TST   int i, a[2], b[2];                \
-              for (i = 0; i < 2; i++) a[i] = 0; \
-              for (i = 0; i < 2; i++) b[i] = 0
+#define TST   ကိန်းပြည့် i, a[2], b[2];                \
+              အတွက် (i = 0; i < 2; i++) a[i] = 0; \
+              အတွက် (i = 0; i < 2; i++) b[i] = 0
 
-static int count[SIZE];
+static ကိန်းပြည့် count[SIZE];
 
 static void tst1 (jmp_buf loc)
 {
@@ -34,51 +34,51 @@ static void tst2(jmp_buf loc)
 static void *tst (void * index)
 {
     jmp_buf loc;
-    int i = *(int *) index;
-    static int v[SIZE];
+    ကိန်းပြည့် i = *(ကိန်းပြည့် *) index;
+    static ကိန်းပြည့် v[SIZE];
 
-    for (v[i] = 0; v[i] < COUNT; v[i]++) {
-        if (setjmp (loc) == 0) {
+    အတွက် (v[i] = 0; v[i] < COUNT; v[i]++) {
+        အကယ်၍ (setjmp (loc) == 0) {
             TST;
             tst2(loc);
         }
-        else {
+        မဟုတ်ပါက {
             count[i]++;
         }
-        i = *(int *) index;
+        i = *(ကိန်းပြည့် *) index;
     }
-    return NULL;
+    ပြန်ပေး NULL;
 }
 
-int
+ကိန်းပြည့်
 main (void)
 {
-    int i;
-#if !defined(_WIN32)
+    ကိန်းပြည့် i;
+#အကယ်၍ !defined(_WIN32)
     pthread_t id[SIZE];
-#else
+#မဟုတ်ပါက
     HANDLE id[SIZE];
 #endif
-    int index[SIZE];
+    ကိန်းပြည့် index[SIZE];
 
-    for (i = 0; i < SIZE; i++) {
+    အတွက် (i = 0; i < SIZE; i++) {
         index[i] = i;
-#if !defined(_WIN32)
+#အကယ်၍ !defined(_WIN32)
         pthread_create (&id[i], NULL, tst, (void *) &index[i]);
-#else
+#မဟုတ်ပါက
         id[i] = CreateThread(NULL, 8192, (LPTHREAD_START_ROUTINE) tst, (void *) &index[i], 0, NULL);
 #endif
     }
-    for (i = 0; i < SIZE; i++) {
-#if !defined(_WIN32)
+    အတွက် (i = 0; i < SIZE; i++) {
+#အကယ်၍ !defined(_WIN32)
         pthread_join (id[i], NULL);
-#else
+#မဟုတ်ပါက
         WaitForSingleObject(id[i], INFINITE);
 #endif
     }
-    for (i = 0; i < SIZE; i++) {
-        if (count[i] != COUNT)
+    အတွက် (i = 0; i < SIZE; i++) {
+        အကယ်၍ (count[i] != COUNT)
             printf ("error: %d %d\n", i, count[i]);
     }
-    return 0;
+    ပြန်ပေး 0;
 }

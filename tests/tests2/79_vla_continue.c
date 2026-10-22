@@ -1,56 +1,56 @@
 #include <stdio.h>
 
-int f(void)
+ကိန်းပြည့် f(void)
 {
-  return 5;
+  ပြန်ပေး 5;
 }
 
 void test1()
 {
-  int count = 10;
+  ကိန်းပြည့် count = 10;
   void *addr[10];
-  for(;count--;) {
-    int a[f()];
+  အတွက်(;count--;) {
+    ကိန်းပြည့် a[f()];
 
     addr[count] = a;
 
     continue;
   }
 
-  if(addr[9] == addr[0]) {
+  အကယ်၍(addr[9] == addr[0]) {
     printf("OK\n");
-  } else {
+  } မဟုတ်ပါက {
     printf("NOT OK\n");
   }
 }
 
 void test2()
 {
-  int count = 10;
+  ကိန်းပြည့် count = 10;
   void *addr[count];
-  for(;count--;) {
-    int a[f()];
+  အတွက်(;count--;) {
+    ကိန်းပြည့် a[f()];
 
     addr[count] = a;
 
     continue;
   }
 
-  if(addr[9] == addr[0]) {
+  အကယ်၍(addr[9] == addr[0]) {
     printf("OK\n");
-  } else {
+  } မဟုတ်ပါက {
     printf("NOT OK\n");
   }
 }
 
 void test3()
 {
-  int count = 10;
+  ကိန်းပြည့် count = 10;
   void *addr[count];
-  while(count--) {
-      int b[f()];
-      if (count >= 0) {
-          int a[f()];
+  နေစဉ်(count--) {
+      ကိန်းပြည့် b[f()];
+      အကယ်၍ (count >= 0) {
+          ကိန်းပြည့် a[f()];
 
           addr[count] = a;
 
@@ -58,56 +58,56 @@ void test3()
       }
   }
 
-  if(addr[9] == addr[0]) {
+  အကယ်၍(addr[9] == addr[0]) {
     printf("OK\n");
-  } else {
+  } မဟုတ်ပါက {
     printf("NOT OK\n");
   }
 }
 
 void test4()
 {
-  int count = 10;
+  ကိန်းပြည့် count = 10;
   void *addr[count];
   do {
-    int a[f()];
+    ကိန်းပြည့် a[f()];
 
     addr[--count] = a;
 
     continue;
-  } while (count);
+  } နေစဉ် (count);
 
-  if(addr[9] == addr[0]) {
+  အကယ်၍(addr[9] == addr[0]) {
     printf("OK\n");
-  } else {
+  } မဟုတ်ပါက {
     printf("NOT OK\n");
   }
 }
 
 void test5()
 {
-  int count = 10;
-  int a[f()];
-  int c[f()];
+  ကိန်းပြည့် count = 10;
+  ကိန်းပြည့် a[f()];
+  ကိန်းပြည့် c[f()];
 
   c[0] = 42;
 
-  for(;count--;) {
-    int b[f()];
-    int i;
-    for (i=0; i<f(); i++) {
+  အတွက်(;count--;) {
+    ကိန်းပြည့် b[f()];
+    ကိန်းပြည့် i;
+    အတွက် (i=0; i<f(); i++) {
       b[i] = count;
     }
   }
 
-  if (c[0] == 42) {
+  အကယ်၍ (c[0] == 42) {
     printf("OK\n");
-  } else {
+  } မဟုတ်ပါက {
     printf("NOT OK\n");
   }
 }
 
-int main(void)
+ကိန်းပြည့် main(void)
 {
   test1();
   test2();
@@ -115,5 +115,5 @@ int main(void)
   test4();
   test5();
 
-  return 0;
+  ပြန်ပေး 0;
 }

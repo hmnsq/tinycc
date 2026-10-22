@@ -1,21 +1,21 @@
 #include <stdio.h>
 
-int main()
+ကိန်းပြည့် main()
 {
-   int a = 1;
+   ကိန်းပြည့် a = 1;
 
-   if (a)
+   အကယ်၍ (a)
       printf("a is true\n");
-   else
+   မဟုတ်ပါက
       printf("a is false\n");
 
-   int b = 0;
-   if (b)
+   ကိန်းပြည့် b = 0;
+   အကယ်၍ (b)
       printf("b is true\n");
-   else
+   မဟုတ်ပါက
       printf("b is false\n");
 
-   return 0;
+   ပြန်ပေး 0;
 }
 
 // vim: set expandtab ts=4 sw=3 sts=3 tw=80 :

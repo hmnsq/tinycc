@@ -1,9 +1,9 @@
-int printf(const char *, ...);
-char t[] = "012345678";
+ကိန်းပြည့် printf(const var_na *, ...);
+var_na t[] = "012345678";
 
-int main(void)
+ကိန်းပြည့် main(void)
 {
-    char *data = t;
+    var_na *data = t;
     unsigned long long r = 4;
     unsigned a = 5;
     unsigned long long b = 12;
@@ -11,5 +11,5 @@ int main(void)
     *(unsigned*)(data + r) += a - b;
 
     printf("data = \"%s\"\n", data);
-    return 0;
+    ပြန်ပေး 0;
 }

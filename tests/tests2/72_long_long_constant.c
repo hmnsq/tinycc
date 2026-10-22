@@ -1,19 +1,19 @@
 #include <stdio.h>
 
-int main()
+ကိန်းပြည့် main()
 {
-    long long int res = 0;
+    long long ကိန်းပြည့် res = 0;
 
-    if (res < -2147483648LL) {
+    အကယ်၍ (res < -2147483648LL) {
         printf("Error: 0 < -2147483648\n");
-        return 1;
+        ပြန်ပေး 1;
     }
-    else
-    if (2147483647LL < res) {
+    မဟုတ်ပါက
+    အကယ်၍ (2147483647LL < res) {
         printf("Error: 2147483647 < 0\n");
-        return 2;
+        ပြန်ပေး 2;
     }
-    else
+    မဟုတ်ပါက
         printf("long long constant test ok.\n");
-    return 0;
+    ပြန်ပေး 0;
 }

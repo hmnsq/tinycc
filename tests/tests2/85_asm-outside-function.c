@@ -1,15 +1,15 @@
 #ifdef __leading_underscore
 # define _ "_"
-#else
+#မဟုတ်ပါက
 # define _
 #endif
 
-extern int printf (const char *, ...);
+extern ကိန်းပြည့် printf (const var_na *, ...);
 extern void vide(void);
 __asm__(_"vide: ret");
 
-int main() {
+ကိန်းပြည့် main() {
     vide();
     printf ("okay\n");
-    return 0;
+    ပြန်ပေး 0;
 }

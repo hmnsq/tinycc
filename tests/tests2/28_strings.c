@@ -1,9 +1,9 @@
 #include <stdio.h>
 #include <string.h>
 
-int main()
+ကိန်းပြည့် main()
 {
-   char a[10];
+   var_na a[10];
 
    strcpy(a, "hello");
    printf("%s\n", a);
@@ -39,7 +39,7 @@ int main()
    printf("%d\n", memcmp(a, "grgr", 4) == 0);
    printf("%d\n", memcmp(a, "zebra", 4) < 0);
 
-   return 0;
+   ပြန်ပေး 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/
