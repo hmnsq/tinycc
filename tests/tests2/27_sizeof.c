@@ -1,9 +1,9 @@
 #include <stdio.h>
 
-int main()
+số_nguyên main()
 {
    char a;
-   int b;
+   số_nguyên b;
    double c;
 
    printf("%d\n", sizeof(a));
@@ -12,7 +12,7 @@ int main()
 
    printf("%d\n", sizeof(!a));
 
-   return 0;
+   trả_về 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

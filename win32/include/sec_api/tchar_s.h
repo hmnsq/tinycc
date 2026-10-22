@@ -8,7 +8,7 @@
 
 #include <tchar.h>
 
-#if defined(MINGW_HAS_SECURE_API)
+#nếu defined(MINGW_HAS_SECURE_API)
 
 #ifdef __cplusplus
 extern "C" {
@@ -107,7 +107,7 @@ extern "C" {
 #define _wcsnset_s_l(_Destination,_Destination_size_chars,_Value,_Count,_Locale) (_wcsnset_s(_Destination,_Destination_size_chars,_Value,_Count))
 #define _wcsset_s_l(_Destination,_Destination_size_chars,_Value,_Locale) (_wcsset_s(_Destination,_Destination_size_chars,_Value))
 
-#else
+#không_thì
 
 #define _tprintf_s printf_s
 #define _tprintf_s_l _printf_s_l
@@ -208,7 +208,7 @@ extern "C" {
 
 #define _tccpy_s _mbccpy_s
 #define _tccpy_s_l _mbccpy_s_l
-#else
+#không_thì
 
   _CRTIMP char *__cdecl _tcsncat_s(char *_Dst,size_t _DstSizeInChars,const char *_Src,size_t _MaxCount);
   _CRTIMP char *__cdecl _tcsncat_s_l(char *_Dst,size_t _DstSizeInChars,const char *_Src,size_t _MaxCount,_locale_t _Locale);
@@ -216,8 +216,8 @@ extern "C" {
   _CRTIMP char *__cdecl _tcsncpy_s_l(char *_Dst,size_t _DstSizeInChars,const char *_Src,size_t _MaxCount,_locale_t _Locale);
   _CRTIMP char *__cdecl _tcstok_s(char *_Str,const char *_Delim,char **_Context);
   _CRTIMP char *__cdecl _tcstok_s_l(char *_Str,const char *_Delim,char **_Context,_locale_t _Locale);
-  _CRTIMP errno_t __cdecl _tcsset_s(char *_Str,size_t _SizeInChars,unsigned int _Val);
-  _CRTIMP errno_t __cdecl _tcsset_s_l(char *_Str,size_t _SizeInChars,unsigned int,_locale_t _Locale);
+  _CRTIMP errno_t __cdecl _tcsset_s(char *_Str,size_t _SizeInChars,unsigned số_nguyên _Val);
+  _CRTIMP errno_t __cdecl _tcsset_s_l(char *_Str,size_t _SizeInChars,unsigned số_nguyên,_locale_t _Locale);
   _CRTIMP char *__cdecl _tcsnccat_s(char *_Dst,size_t _DstSizeInChars,const char *_Src,size_t _MaxCount);
   _CRTIMP char *__cdecl _tcsnccat_s_l(char *_Dst,size_t _DstSizeInChars,const char *_Src,size_t _MaxCount,_locale_t _Locale);
   _CRTIMP char *__cdecl _tcsnccpy_s(char *_Dst,size_t _DstSizeInChars,const char *_Src,size_t _MaxCount);
@@ -229,7 +229,7 @@ extern "C" {
 
 #endif
 
-#else
+#không_thì
 
 #define _tcsncat_s strncat_s
 #define _tcsncat_s_l _strncat_s_l

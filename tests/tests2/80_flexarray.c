@@ -3,24 +3,24 @@ struct wchar {
     char *data; char mem[];
 };
 struct wint {
-    char *data; int mem[];
+    char *data; số_nguyên mem[];
 };
-int f1char (void) {
+số_nguyên f1char (void) {
     char s[9]="nonono";
     struct wchar q = {"bugs"};
-    return !s[0];
+    trả_về !s[0];
 }
-int f1int (void) {
+số_nguyên f1int (void) {
     char s[9]="nonono";
     struct wint q = {"bugs"};
-    return !s[0];
+    trả_về !s[0];
 }
-int empty[] = {}; // GNU extension
-int main (void) {
+số_nguyên empty[] = {}; // GNU extension
+số_nguyên main (void) {
    char s[9]="nonono";
    static struct wchar q = {"bugs", {'c'}};
    //printf ("tcc has %s %s\n", s, q.data);
-   if (f1char() || f1int())
+   nếu (f1char() || f1int())
      printf ("bla\n");
-   return !s[0];
+   trả_về !s[0];
 }

@@ -1,21 +1,21 @@
 #include <stdio.h>
 
-int main()
+số_nguyên main()
 {
-   int a = 1;
+   số_nguyên a = 1;
 
-   if (a)
+   nếu (a)
       printf("a is true\n");
-   else
+   không_thì
       printf("a is false\n");
 
-   int b = 0;
-   if (b)
+   số_nguyên b = 0;
+   nếu (b)
       printf("b is true\n");
-   else
+   không_thì
       printf("b is false\n");
 
-   return 0;
+   trả_về 0;
 }
 
 // vim: set expandtab ts=4 sw=3 sts=3 tw=80 :

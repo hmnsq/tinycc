@@ -1,15 +1,15 @@
 #ifdef __leading_underscore
 # define _ "_"
-#else
+#không_thì
 # define _
 #endif
 
-extern int printf (const char *, ...);
+extern số_nguyên printf (const char *, ...);
 extern void vide(void);
 __asm__(_"vide: ret");
 
-int main() {
+số_nguyên main() {
     vide();
     printf ("okay\n");
-    return 0;
+    trả_về 0;
 }

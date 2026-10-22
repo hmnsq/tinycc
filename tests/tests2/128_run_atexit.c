@@ -1,8 +1,8 @@
 #include <stdio.h>
 
-int atexit(void (*function)(void));
-int on_exit(void (*function)(int, void *), void *arg);
-void exit(int status);
+số_nguyên atexit(void (*function)(void));
+số_nguyên on_exit(void (*function)(số_nguyên, void *), void *arg);
+void exit(số_nguyên status);
 
 void __attribute((constructor)) startup5(void)
 {
@@ -20,12 +20,12 @@ void cleanup2(void)
     printf ("cleanup2\n");
 }
 
-void cleanup3(int ret, void *arg)
+void cleanup3(số_nguyên ret, void *arg)
 {
     printf ("%d %s\n", ret, (char *) arg);
 }
 
-void cleanup4(int ret, void *arg)
+void cleanup4(số_nguyên ret, void *arg)
 {
     printf ("%d %s\n", ret, (char *) arg);
 }
@@ -43,15 +43,15 @@ void test(void)
     on_exit(cleanup4, "cleanup4");
 }
 
-#if defined test_128_return
-int main(int argc, char **argv)
+#nếu defined test_128_return
+số_nguyên main(số_nguyên argc, char **argv)
 {
     test();
-    return 1;
+    trả_về 1;
 } 
 
 #elif defined test_128_exit
-int main(int argc, char **argv)
+số_nguyên main(số_nguyên argc, char **argv)
 {
     test();
     exit(2);

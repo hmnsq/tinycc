@@ -5,88 +5,88 @@
 /* P0.4 + P1.4: riscv64 asm pseudo-instructions test.
    Exercises neg/negw, sext.w, fmv.s/d, fneg.s/d.  */
 
-int test_neg(int x)
+số_nguyên test_neg(số_nguyên x)
 {
-    int r;
+    số_nguyên r;
     asm("neg %0, %1" : "=r"(r) : "r"(x));
-    return r;
+    trả_về r;
 }
 
 long long test_negw(long long x)
 {
-    int r;
-    asm("negw %0, %1" : "=r"(r) : "r"((int)x));
-    return (long long)r;
+    số_nguyên r;
+    asm("negw %0, %1" : "=r"(r) : "r"((số_nguyên)x));
+    trả_về (long long)r;
 }
 
-long long test_sextw(int x)
+long long test_sextw(số_nguyên x)
 {
     long long r;
     asm("sext.w %0, %1" : "=r"(r) : "r"(x));
-    return r;
+    trả_về r;
 }
 
 float test_fmv_s(float a)
 {
     float r;
     asm("fmv.s %0, %1" : "=f"(r) : "f"(a));
-    return r;
+    trả_về r;
 }
 
 float test_fneg_s(float a)
 {
     float r;
     asm("fneg.s %0, %1" : "=f"(r) : "f"(a));
-    return r;
+    trả_về r;
 }
 
 double test_fmv_d(double a)
 {
     double r;
     asm("fmv.d %0, %1" : "=f"(r) : "f"(a));
-    return r;
+    trả_về r;
 }
 
 double test_fneg_d(double a)
 {
     double r;
     asm("fneg.d %0, %1" : "=f"(r) : "f"(a));
-    return r;
+    trả_về r;
 }
 
-int test_pseudo(void)
+số_nguyên test_pseudo(void)
 {
-    int ok = 1;
+    số_nguyên ok = 1;
 
-    if (test_neg(42) != -42) {
+    nếu (test_neg(42) != -42) {
         printf("FAIL: neg\n");
         ok = 0;
     }
-    if (test_negw(100) != -100) {
+    nếu (test_negw(100) != -100) {
         printf("FAIL: negw\n");
         ok = 0;
     }
-    if (test_sextw(0x80000000) != 0xffffffff80000000LL) {
+    nếu (test_sextw(0x80000000) != 0xffffffff80000000LL) {
         printf("FAIL: sext.w\n");
         ok = 0;
     }
-    if (test_fmv_s(3.14f) != 3.14f) {
+    nếu (test_fmv_s(3.14f) != 3.14f) {
         printf("FAIL: fmv.s\n");
         ok = 0;
     }
-    if (test_fneg_s(3.14f) != -3.14f) {
+    nếu (test_fneg_s(3.14f) != -3.14f) {
         printf("FAIL: fneg.s\n");
         ok = 0;
     }
-    if (test_fmv_d(2.718281828) != 2.718281828) {
+    nếu (test_fmv_d(2.718281828) != 2.718281828) {
         printf("FAIL: fmv.d\n");
         ok = 0;
     }
-    if (test_fneg_d(2.718281828) != -2.718281828) {
+    nếu (test_fneg_d(2.718281828) != -2.718281828) {
         printf("FAIL: fneg.d\n");
         ok = 0;
     }
-    return ok;
+    trả_về ok;
 }
 
 /* P1.1: riscv64 inline asm with 64-bit immediate (li).
@@ -97,40 +97,40 @@ long long test_li_small(void)
 {
     long long r;
     asm("li %0, 42" : "=r"(r));
-    return r;
+    trả_về r;
 }
 
 long long test_li_large(void)
 {
     long long r;
     asm("li %0, 0x123456789ABCDEF0" : "=r"(r));
-    return r;
+    trả_về r;
 }
 
 long long test_li_negative(void)
 {
     long long r;
     asm("li %0, -1" : "=r"(r));
-    return r;
+    trả_về r;
 }
 
-int test_ll(void)
+số_nguyên test_ll(void)
 {
-    int ok = 1;
+    số_nguyên ok = 1;
 
-    if (test_li_small() != 42) {
+    nếu (test_li_small() != 42) {
         printf("FAIL: li small\n");
         ok = 0;
     }
-    if (test_li_large() != 0x123456789ABCDEF0LL) {
+    nếu (test_li_large() != 0x123456789ABCDEF0LL) {
         printf("FAIL: li large\n");
         ok = 0;
     }
-    if (test_li_negative() != -1) {
+    nếu (test_li_negative() != -1) {
         printf("FAIL: li negative\n");
         ok = 0;
     }
-    return ok;
+    trả_về ok;
 }
 
 /* P1.3: riscv64 F/D extension arithmetic instructions.
@@ -140,102 +140,102 @@ float test_fadd_s(float a, float b)
 {
     float r;
     asm("fadd.s %0, %1, %2" : "=f"(r) : "f"(a), "f"(b));
-    return r;
+    trả_về r;
 }
 
 float test_fsub_s(float a, float b)
 {
     float r;
     asm("fsub.s %0, %1, %2" : "=f"(r) : "f"(a), "f"(b));
-    return r;
+    trả_về r;
 }
 
 float test_fmul_s(float a, float b)
 {
     float r;
     asm("fmul.s %0, %1, %2" : "=f"(r) : "f"(a), "f"(b));
-    return r;
+    trả_về r;
 }
 
 float test_fdiv_s(float a, float b)
 {
     float r;
     asm("fdiv.s %0, %1, %2" : "=f"(r) : "f"(a), "f"(b));
-    return r;
+    trả_về r;
 }
 
 double test_fadd_d(double a, double b)
 {
     double r;
     asm("fadd.d %0, %1, %2" : "=f"(r) : "f"(a), "f"(b));
-    return r;
+    trả_về r;
 }
 
 double test_fsub_d(double a, double b)
 {
     double r;
     asm("fsub.d %0, %1, %2" : "=f"(r) : "f"(a), "f"(b));
-    return r;
+    trả_về r;
 }
 
 double test_fmul_d(double a, double b)
 {
     double r;
     asm("fmul.d %0, %1, %2" : "=f"(r) : "f"(a), "f"(b));
-    return r;
+    trả_về r;
 }
 
 double test_fdiv_d(double a, double b)
 {
     double r;
     asm("fdiv.d %0, %1, %2" : "=f"(r) : "f"(a), "f"(b));
-    return r;
+    trả_về r;
 }
 
-int test_farith(void)
+số_nguyên test_farith(void)
 {
-    int ok = 1;
+    số_nguyên ok = 1;
 
-    if (test_fadd_s(1.5f, 2.5f) != 4.0f) {
+    nếu (test_fadd_s(1.5f, 2.5f) != 4.0f) {
         printf("FAIL: fadd.s\n");
         ok = 0;
     }
-    if (test_fsub_s(5.0f, 2.0f) != 3.0f) {
+    nếu (test_fsub_s(5.0f, 2.0f) != 3.0f) {
         printf("FAIL: fsub.s\n");
         ok = 0;
     }
-    if (test_fmul_s(3.0f, 4.0f) != 12.0f) {
+    nếu (test_fmul_s(3.0f, 4.0f) != 12.0f) {
         printf("FAIL: fmul.s\n");
         ok = 0;
     }
-    if (test_fdiv_s(12.0f, 4.0f) != 3.0f) {
+    nếu (test_fdiv_s(12.0f, 4.0f) != 3.0f) {
         printf("FAIL: fdiv.s\n");
         ok = 0;
     }
 
-    if (test_fadd_d(1.5, 2.5) != 4.0) {
+    nếu (test_fadd_d(1.5, 2.5) != 4.0) {
         printf("FAIL: fadd.d\n");
         ok = 0;
     }
-    if (test_fsub_d(5.0, 2.0) != 3.0) {
+    nếu (test_fsub_d(5.0, 2.0) != 3.0) {
         printf("FAIL: fsub.d\n");
         ok = 0;
     }
-    if (test_fmul_d(3.0, 4.0) != 12.0) {
+    nếu (test_fmul_d(3.0, 4.0) != 12.0) {
         printf("FAIL: fmul.d\n");
         ok = 0;
     }
-    if (test_fdiv_d(12.0, 4.0) != 3.0) {
+    nếu (test_fdiv_d(12.0, 4.0) != 3.0) {
         printf("FAIL: fdiv.d\n");
         ok = 0;
     }
-    return ok;
+    trả_về ok;
 }
 
-int csr_pseudo_main(void)
+số_nguyên csr_pseudo_main(void)
 {
-    int ok = 1;
-    int old, tmp;
+    số_nguyên ok = 1;
+    số_nguyên old, tmp;
 
     asm volatile("csrr %0, 0x003" : "=r"(old));
 
@@ -245,31 +245,31 @@ int csr_pseudo_main(void)
     asm volatile("csrw 0x003, %0" : : "r"(0xE0));
     asm volatile("csrr %0, 0x003" : "=r"(tmp));
     printf("csrw: wrote e0 got %x\n", (unsigned)tmp);
-    if (tmp != 0xE0) { printf("FAIL: csrw\n"); ok = 0; }
+    nếu (tmp != 0xE0) { printf("FAIL: csrw\n"); ok = 0; }
     asm volatile("csrw 0x003, %0" : : "r"(old));
 
     asm volatile("csrwi 0x003, 0x10");
     asm volatile("csrr %0, 0x003" : "=r"(tmp));
     printf("csrwi: wrote 0x10 got %x\n", (unsigned)tmp);
-    if (tmp != 0x10) { printf("FAIL: csrwi\n"); ok = 0; }
+    nếu (tmp != 0x10) { printf("FAIL: csrwi\n"); ok = 0; }
     asm volatile("csrw 0x003, %0" : : "r"(old));
 
     asm volatile("csrsi 0x003, 0x03");
     asm volatile("csrr %0, 0x003" : "=r"(tmp));
     printf("csrsi: old|3=%x\n", (unsigned)tmp);
-    if ((old | 0x03) != tmp) { printf("FAIL: csrsi\n"); ok = 0; }
+    nếu ((old | 0x03) != tmp) { printf("FAIL: csrsi\n"); ok = 0; }
     asm volatile("csrw 0x003, %0" : : "r"(old));
 
     asm volatile("csrci 0x003, 0x03");
     asm volatile("csrr %0, 0x003" : "=r"(tmp));
     printf("csrci: old&~3=%x\n", (unsigned)tmp);
-    if ((old & ~0x03) != tmp) { printf("FAIL: csrci\n"); ok = 0; }
+    nếu ((old & ~0x03) != tmp) { printf("FAIL: csrci\n"); ok = 0; }
     asm volatile("csrw 0x003, %0" : : "r"(old));
 
-    return ok;
+    trả_về ok;
 }
 
-int fp_cmp_cvt_main(void)
+số_nguyên fp_cmp_cvt_main(void)
 {
     /* F/D comparison (use raw regs to avoid inline asm float→int bug) */
     asm volatile("feq.s a0, fa0, fa1");
@@ -292,12 +292,12 @@ int fp_cmp_cvt_main(void)
     asm volatile("fclass.s a0, fa0");
     asm volatile("fclass.d a0, fa0");
 
-    return 1;
+    trả_về 1;
 }
 
-int amo_main(void)
+số_nguyên amo_main(void)
 {
-    int x = 0, r;
+    số_nguyên x = 0, r;
     long long xd = 0xCAFEBABECAFEBABELL, rd, val = 0xDEADBEEFDEADBEEFLL;
     asm("amoadd.w %0, %2, (%1)" : "=r"(r) : "r"(&x), "r"(val));
     asm("amoswap.w %0, %2, (%1)" : "=r"(r) : "r"(&x), "r"(val));
@@ -321,22 +321,22 @@ int amo_main(void)
     asm("amomaxu.w.aqrl %0, %2, (%1)" : "=r"(r) : "r"(&x), "r"(val));
     asm("amomin.w.rl %0, %2, (%1)" : "=r"(r) : "r"(&x), "r"(val));
     asm("amominu.d.aq %0, %2, (%1)" : "=r"(rd) : "r"(&xd), "r"(val));
-    return 1;
+    trả_về 1;
 }
 
-int fcvt_round_main(void)
+số_nguyên fcvt_round_main(void)
 {
     asm volatile("fcvt.w.s a0, fa0, rne");
     asm volatile("fcvt.w.s a0, fa0, rtz");
     asm volatile("fcvt.w.s a0, fa0, rup");
     asm volatile("fcvt.w.d a0, fa0, rne");
     asm volatile("fcvt.w.d a0, fa0, rtz");
-    return 1;
+    trả_về 1;
 }
 
-int main()
+số_nguyên main()
 {
-    int ok = 1;
+    số_nguyên ok = 1;
     ok &= test_pseudo();
     ok &= test_ll();
     ok &= test_farith();
@@ -345,11 +345,11 @@ int main()
     ok &= amo_main();
     ok &= fcvt_round_main();
     printf("%s\n", ok ? "PASS" : "FAIL");
-    return !ok;
+    trả_về !ok;
 }
 
-#else
-int main()
+#không_thì
+số_nguyên main()
 {
     printf("SKIP\n");
 }

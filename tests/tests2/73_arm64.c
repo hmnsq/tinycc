@@ -157,40 +157,40 @@ void arg(void)
     fa4(s1, hfa14, s2, hfa24, s3, hfa34);
 }
 
-struct s1 fr_s1(void) { return s1; }
-struct s2 fr_s2(void) { return s2; }
-struct s3 fr_s3(void) { return s3; }
-struct s4 fr_s4(void) { return s4; }
-struct s5 fr_s5(void) { return s5; }
-struct s6 fr_s6(void) { return s6; }
-struct s7 fr_s7(void) { return s7; }
-struct s8 fr_s8(void) { return s8; }
-struct s9 fr_s9(void) { return s9; }
-struct s10 fr_s10(void) { return s10; }
-struct s11 fr_s11(void) { return s11; }
-struct s12 fr_s12(void) { return s12; }
-struct s13 fr_s13(void) { return s13; }
-struct s14 fr_s14(void) { return s14; }
-struct s15 fr_s15(void) { return s15; }
-struct s16 fr_s16(void) { return s16; }
-struct s17 fr_s17(void) { return s17; }
+struct s1 fr_s1(void) { trả_về s1; }
+struct s2 fr_s2(void) { trả_về s2; }
+struct s3 fr_s3(void) { trả_về s3; }
+struct s4 fr_s4(void) { trả_về s4; }
+struct s5 fr_s5(void) { trả_về s5; }
+struct s6 fr_s6(void) { trả_về s6; }
+struct s7 fr_s7(void) { trả_về s7; }
+struct s8 fr_s8(void) { trả_về s8; }
+struct s9 fr_s9(void) { trả_về s9; }
+struct s10 fr_s10(void) { trả_về s10; }
+struct s11 fr_s11(void) { trả_về s11; }
+struct s12 fr_s12(void) { trả_về s12; }
+struct s13 fr_s13(void) { trả_về s13; }
+struct s14 fr_s14(void) { trả_về s14; }
+struct s15 fr_s15(void) { trả_về s15; }
+struct s16 fr_s16(void) { trả_về s16; }
+struct s17 fr_s17(void) { trả_về s17; }
 
-struct hfa11 fr_hfa11(void) { return hfa11; }
-struct hfa12 fr_hfa12(void) { return hfa12; }
-struct hfa13 fr_hfa13(void) { return hfa13; }
-struct hfa14 fr_hfa14(void) { return hfa14; }
+struct hfa11 fr_hfa11(void) { trả_về hfa11; }
+struct hfa12 fr_hfa12(void) { trả_về hfa12; }
+struct hfa13 fr_hfa13(void) { trả_về hfa13; }
+struct hfa14 fr_hfa14(void) { trả_về hfa14; }
 
-struct hfa21 fr_hfa21(void) { return hfa21; }
-struct hfa22 fr_hfa22(void) { return hfa22; }
-struct hfa23 fr_hfa23(void) { return hfa23; }
-struct hfa24 fr_hfa24(void) { return hfa24; }
+struct hfa21 fr_hfa21(void) { trả_về hfa21; }
+struct hfa22 fr_hfa22(void) { trả_về hfa22; }
+struct hfa23 fr_hfa23(void) { trả_về hfa23; }
+struct hfa24 fr_hfa24(void) { trả_về hfa24; }
 
-struct hfa31 fr_hfa31(void) { return hfa31; }
-struct hfa32 fr_hfa32(void) { return hfa32; }
-struct hfa33 fr_hfa33(void) { return hfa33; }
-struct hfa34 fr_hfa34(void) { return hfa34; }
-struct hfae12 fr_hfae12(void) { return hfae12; }
-struct hfae22 fr_hfae22(void) { return hfae22; }
+struct hfa31 fr_hfa31(void) { trả_về hfa31; }
+struct hfa32 fr_hfa32(void) { trả_về hfa32; }
+struct hfa33 fr_hfa33(void) { trả_về hfa33; }
+struct hfa34 fr_hfa34(void) { trả_về hfa34; }
+struct hfae12 fr_hfae12(void) { trả_về hfae12; }
+struct hfae22 fr_hfae22(void) { trả_về hfae22; }
 
 void ret(void)
 {
@@ -251,21 +251,21 @@ va_arg_with_struct_ptr(va_list ap) {
          * This was a BUG identified with FFTW-3.3.8 on arm64.
          * The test case only checks it compiles.
          */
-        struct X { int _x; };
+        struct X { số_nguyên _x; };
         struct X *x = va_arg(ap, struct X *);
-        return x;
+        trả_về x;
 }
 
-int match(const char **s, const char *f)
+số_nguyên match(const char **s, const char *f)
 {
     const char *p = *s;
-    for (p = *s; *f && *f == *p; f++, p++)
+    cho (p = *s; *f && *f == *p; f++, p++)
         ;
-    if (!*f) {
+    nếu (!*f) {
         *s = p - 1;
-        return 1;
+        trả_về 1;
     }
-    return 0;
+    trả_về 0;
 }
 
 void myprintf(const char *format, ...)
@@ -273,64 +273,64 @@ void myprintf(const char *format, ...)
     const char *s;
     va_list ap;
     va_start(ap, format);
-    for (s = format; *s; s++) {
-        if (match(&s, "%7s")) {
+    cho (s = format; *s; s++) {
+        nếu (match(&s, "%7s")) {
             struct s7 t7 = va_arg(ap, struct s7);
             printf("%.7s", t7.x);
         }
-        else if (match(&s, "%9s")) {
+        không_thì nếu (match(&s, "%9s")) {
             struct s9 t9 = va_arg(ap, struct s9);
             printf("%.9s", t9.x);
         }
-        else if (match(&s, "%hfa11")) {
+        không_thì nếu (match(&s, "%hfa11")) {
             struct hfa11 x = va_arg(ap, struct hfa11);
             printf("%.1f,%.1f", x.a, x.a);
         }
-        else if (match(&s, "%hfa12")) {
+        không_thì nếu (match(&s, "%hfa12")) {
             struct hfa12 x = va_arg(ap, struct hfa12);
             printf("%.1f,%.1f", x.a, x.b);
         }
-        else if (match(&s, "%hfa13")) {
+        không_thì nếu (match(&s, "%hfa13")) {
             struct hfa13 x = va_arg(ap, struct hfa13);
             printf("%.1f,%.1f", x.a, x.c);
         }
-        else if (match(&s, "%hfa14")) {
+        không_thì nếu (match(&s, "%hfa14")) {
             struct hfa14 x = va_arg(ap, struct hfa14);
             printf("%.1f,%.1f", x.a, x.d);
         }
-        else if (match(&s, "%hfa21")) {
+        không_thì nếu (match(&s, "%hfa21")) {
             struct hfa21 x = va_arg(ap, struct hfa21);
             printf("%.1f,%.1f", x.a, x.a);
         }
-        else if (match(&s, "%hfa22")) {
+        không_thì nếu (match(&s, "%hfa22")) {
             struct hfa22 x = va_arg(ap, struct hfa22);
             printf("%.1f,%.1f", x.a, x.b);
         }
-        else if (match(&s, "%hfa23")) {
+        không_thì nếu (match(&s, "%hfa23")) {
             struct hfa23 x = va_arg(ap, struct hfa23);
             printf("%.1f,%.1f", x.a, x.c);
         }
-        else if (match(&s, "%hfa24")) {
+        không_thì nếu (match(&s, "%hfa24")) {
             struct hfa24 x = va_arg(ap, struct hfa24);
             printf("%.1f,%.1f", x.a, x.d);
         }
-        else if (match(&s, "%hfa31")) {
+        không_thì nếu (match(&s, "%hfa31")) {
             struct hfa31 x = va_arg(ap, struct hfa31);
             printf("%.1Lf,%.1Lf", x.a, x.a);
         }
-        else if (match(&s, "%hfa32")) {
+        không_thì nếu (match(&s, "%hfa32")) {
             struct hfa32 x = va_arg(ap, struct hfa32);
             printf("%.1Lf,%.1Lf", x.a, x.b);
         }
-        else if (match(&s, "%hfa33")) {
+        không_thì nếu (match(&s, "%hfa33")) {
             struct hfa33 x = va_arg(ap, struct hfa33);
             printf("%.1Lf,%.1Lf", x.a, x.c);
         }
-        else if (match(&s, "%hfa34")) {
+        không_thì nếu (match(&s, "%hfa34")) {
             struct hfa34 x = va_arg(ap, struct hfa34);
             printf("%.1Lf,%.1Lf", x.a, x.d);
         }
-        else
+        không_thì
             putchar(*s);
     }
     putchar('\n');
@@ -456,49 +456,49 @@ void movi(void)
     pll(0xabcdef0123456789);
 }
 
-static uint32_t addip0(uint32_t x) { return x + 0; }
-static uint64_t sublp0(uint64_t x) { return x - 0; }
-static uint32_t addip123(uint32_t x) { return x + 123; }
-static uint64_t addlm123(uint64_t x) { return x + -123; }
-static uint64_t sublp4095(uint64_t x) { return x - 4095; }
-static uint32_t subim503808(uint32_t x) { return x - -503808; }
-static uint64_t addp12345(uint64_t x) { return x + 12345; }
-static uint32_t subp12345(uint32_t x) { return x - 12345; }
+static uint32_t addip0(uint32_t x) { trả_về x + 0; }
+static uint64_t sublp0(uint64_t x) { trả_về x - 0; }
+static uint32_t addip123(uint32_t x) { trả_về x + 123; }
+static uint64_t addlm123(uint64_t x) { trả_về x + -123; }
+static uint64_t sublp4095(uint64_t x) { trả_về x - 4095; }
+static uint32_t subim503808(uint32_t x) { trả_về x - -503808; }
+static uint64_t addp12345(uint64_t x) { trả_về x + 12345; }
+static uint32_t subp12345(uint32_t x) { trả_về x - 12345; }
 
-static uint32_t mvni(uint32_t x) { return 0xffffffff - x; }
-static uint64_t negl(uint64_t x) { return 0 - x; }
-static uint32_t rsbi123(uint32_t x) { return 123 - x; }
-static uint64_t rsbl123(uint64_t x) { return 123 - x; }
+static uint32_t mvni(uint32_t x) { trả_về 0xffffffff - x; }
+static uint64_t negl(uint64_t x) { trả_về 0 - x; }
+static uint32_t rsbi123(uint32_t x) { trả_về 123 - x; }
+static uint64_t rsbl123(uint64_t x) { trả_về 123 - x; }
 
-static uint32_t andi0(uint32_t x) { return x & 0; }
-static uint64_t andlm1(uint64_t x) { return x & -1; }
-static uint64_t orrl0(uint64_t x) { return x | 0; }
-static uint32_t orrim1(uint32_t x) { return x | -1; }
-static uint32_t eori0(uint32_t x) { return x ^ 0; }
-static uint64_t eorlm1(uint64_t x) { return x ^ -1; }
-static uint32_t and0xf0(uint32_t x) { return x & 0xf0; }
-static uint64_t orr0xf0(uint64_t x) { return x | 0xf0; }
-static uint64_t eor0xf0(uint64_t x) { return x ^ 0xf0; }
+static uint32_t andi0(uint32_t x) { trả_về x & 0; }
+static uint64_t andlm1(uint64_t x) { trả_về x & -1; }
+static uint64_t orrl0(uint64_t x) { trả_về x | 0; }
+static uint32_t orrim1(uint32_t x) { trả_về x | -1; }
+static uint32_t eori0(uint32_t x) { trả_về x ^ 0; }
+static uint64_t eorlm1(uint64_t x) { trả_về x ^ -1; }
+static uint32_t and0xf0(uint32_t x) { trả_về x & 0xf0; }
+static uint64_t orr0xf0(uint64_t x) { trả_về x | 0xf0; }
+static uint64_t eor0xf0(uint64_t x) { trả_về x ^ 0xf0; }
 
-static uint32_t lsli0(uint32_t x) { return x << 0; }
-static uint32_t lsri0(uint32_t x) { return x >> 0; }
-static int64_t asrl0(int64_t x) { return x >> 0; }
-static uint32_t lsli1(uint32_t x) { return x << 1; }
-static uint32_t lsli31(uint32_t x) { return x << 31; }
-static uint64_t lsll1(uint64_t x) { return x << 1; }
-static uint64_t lsll63(uint64_t x) { return x << 63; }
-static uint32_t lsri1(uint32_t x) { return x >> 1; }
-static uint32_t lsri31(uint32_t x) { return x >> 31; }
-static uint64_t lsrl1(uint64_t x) { return x >> 1; }
-static uint64_t lsrl63(uint64_t x) { return x >> 63; }
-static int32_t asri1(int32_t x) { return x >> 1; }
-static int32_t asri31(int32_t x) { return x >> 31; }
-static int64_t asrl1(int64_t x) { return x >> 1; }
-static int64_t asrl63(int64_t x) { return x >> 63; }
+static uint32_t lsli0(uint32_t x) { trả_về x << 0; }
+static uint32_t lsri0(uint32_t x) { trả_về x >> 0; }
+static int64_t asrl0(int64_t x) { trả_về x >> 0; }
+static uint32_t lsli1(uint32_t x) { trả_về x << 1; }
+static uint32_t lsli31(uint32_t x) { trả_về x << 31; }
+static uint64_t lsll1(uint64_t x) { trả_về x << 1; }
+static uint64_t lsll63(uint64_t x) { trả_về x << 63; }
+static uint32_t lsri1(uint32_t x) { trả_về x >> 1; }
+static uint32_t lsri31(uint32_t x) { trả_về x >> 31; }
+static uint64_t lsrl1(uint64_t x) { trả_về x >> 1; }
+static uint64_t lsrl63(uint64_t x) { trả_về x >> 63; }
+static int32_t asri1(int32_t x) { trả_về x >> 1; }
+static int32_t asri31(int32_t x) { trả_về x >> 31; }
+static int64_t asrl1(int64_t x) { trả_về x >> 1; }
+static int64_t asrl63(int64_t x) { trả_về x >> 63; }
 
 void opi(void)
 {
-    int x = 1000;
+    số_nguyên x = 1000;
     pll(addip0(x));
     pll(sublp0(x));
     pll(addip123(x));
@@ -546,8 +546,8 @@ void pcs(void)
     opi();
 }
 
-int main()
+số_nguyên main()
 {
     pcs();
-    return 0;
+    trả_về 0;
 }

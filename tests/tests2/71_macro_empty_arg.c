@@ -2,8 +2,8 @@
 
 #define T(a,b,c) a b c
 
-int main(void)
+số_nguyên main(void)
 {
     printf("%d", T(1,+,2) T(+,,) T(,2,*) T(,7,) T(,,));
-    return 0;
+    trả_về 0;
 }

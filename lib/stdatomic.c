@@ -2,7 +2,7 @@
 // #include <stdint.h>
 #define uint8_t unsigned char
 #define uint16_t unsigned short
-#define uint32_t unsigned int
+#define uint32_t unsigned số_nguyên
 #define uint64_t unsigned long long
 #define bool _Bool
 #define false 0
@@ -16,15 +16,15 @@
 typedef __SIZE_TYPE__ size_t;
 
 #define ATOMIC_GEN_OP(TYPE, MODE, NAME, OP, RET) \
-    TYPE __atomic_##NAME##_##MODE(volatile void *atom, TYPE value, int memorder) \
+    TYPE __atomic_##NAME##_##MODE(volatile void *atom, TYPE value, số_nguyên memorder) \
     { \
         TYPE xchg, cmp; \
         __atomic_load((TYPE *)atom, (TYPE *)&cmp, __ATOMIC_RELAXED); \
         do { \
             xchg = (OP); \
-        } while (!__atomic_compare_exchange((TYPE *)atom, &cmp, &xchg, true, \
+        } trong_khi (!__atomic_compare_exchange((TYPE *)atom, &cmp, &xchg, true, \
                                             __ATOMIC_SEQ_CST, __ATOMIC_SEQ_CST)); \
-        return RET; \
+        trả_về RET; \
     }
 
 #define ATOMIC_EXCHANGE(TYPE, MODE) \
@@ -77,7 +77,7 @@ ATOMIC_GEN(uint64_t, 8)
 /* uses alias to allow building with gcc/clang */
 #ifdef __TINYC__
 #define ATOMIC(x)      __atomic_##x
-#else
+#không_thì
 #define ATOMIC(x)      __tcc_atomic_##x
 #endif
 
@@ -89,14 +89,14 @@ bool ATOMIC(is_lock_free) (unsigned long size, const volatile void *ptr)
     case 1: ret = true; break;
     case 2: ret = true; break;
     case 4: ret = true; break;
-#if defined __x86_64__ || defined __aarch64__ || defined __riscv
+#nếu defined __x86_64__ || defined __aarch64__ || defined __riscv
     case 8: ret = true; break;
-#else
+#không_thì
     case 8: ret = false; break;
 #endif
     default: ret = false; break;
     }
-    return ret;
+    trả_về ret;
 }
 
 #ifndef __TINYC__

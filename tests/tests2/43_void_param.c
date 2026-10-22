@@ -5,11 +5,11 @@ void fred(void)
    printf("yo\n");
 }
 
-int main()
+số_nguyên main()
 {
    fred();
 
-   return 0;
+   trả_về 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

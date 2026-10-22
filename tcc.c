@@ -23,7 +23,7 @@
 #endif
 
 #include "tcc.h"
-#if ONE_SOURCE
+#nếu ONE_SOURCE
 # include "libtcc.c"
 #endif
 #include "tcctools.c"
@@ -79,7 +79,7 @@ static const char help[] =
     "  -M[M]D       generate make dependency file [ignore system files]\n"
     "  -M[M]        as above but no other output\n"
     "  -MF file     specify dependency file name\n"
-#if defined(TCC_TARGET_I386) || defined(TCC_TARGET_X86_64)
+#nếu defined(TCC_TARGET_I386) || defined(TCC_TARGET_X86_64)
     "  -m32/64      defer to i386/x86_64 cross compiler\n"
 #endif
     "Tools:\n"
@@ -150,13 +150,13 @@ static const char help2[] =
     "  -oformat=[pe-* binary]        set executable output format\n"
     "Predefined macros:\n"
     "  tcc -E -dM - < nul\n"
-#else
+#không_thì
     "  -rpath=                       set dynamic library search path\n"
     "  -enable-new-dtags             set DT_RUNPATH instead of DT_RPATH\n"
     "  -soname=                      set DT_SONAME elf tag\n"
-#if defined(TCC_TARGET_MACHO)
+#nếu defined(TCC_TARGET_MACHO)
     "  -install_name=                set DT_SONAME elf tag (soname macOS alias)\n"
-#else
+#không_thì
     "  -Ipath, -dynamic-linker=path  set ELF interpreter to path\n"
 #endif
     "  -Bsymbolic                    set DT_SYMBOLIC elf tag\n"
@@ -203,17 +203,17 @@ static const char version[] =
         " OpenBSD"
 #elif TARGETOS_NetBSD
         " NetBSD"
-#else
+#không_thì
         " Linux"
 #endif
     ")\n"
     ;
 
-static void print_dirs(const char *msg, char **paths, int nb_paths)
+static void print_dirs(const char *msg, char **paths, số_nguyên nb_paths)
 {
-    int i;
+    số_nguyên i;
     printf("%s:\n%s", msg, nb_paths ? "" : "  -\n");
-    for(i = 0; i < nb_paths; i++)
+    cho(i = 0; i < nb_paths; i++)
         printf("  %s\n", paths[i]);
 }
 
@@ -235,15 +235,15 @@ static void set_environment(TCCState *s)
     char * path;
 
     path = getenv("C_INCLUDE_PATH");
-    if(path != NULL) {
+    nếu(path != NULL) {
         tcc_add_sysinclude_path(s, path);
     }
     path = getenv("CPATH");
-    if(path != NULL) {
+    nếu(path != NULL) {
         tcc_add_include_path(s, path);
     }
     path = getenv("LIBRARY_PATH");
-    if(path != NULL) {
+    nếu(path != NULL) {
         tcc_add_library_path(s, path);
     }
 }
@@ -254,45 +254,45 @@ static char *default_outputfile(TCCState *s, const char *first_file)
     char *ext;
     const char *name = "a";
 
-    if (first_file && strcmp(first_file, "-"))
+    nếu (first_file && strcmp(first_file, "-"))
         name = tcc_basename(first_file);
-    if (strlen(name) + 4 >= sizeof buf)
+    nếu (strlen(name) + 4 >= sizeof buf)
         name = "a";
     strcpy(buf, name);
     ext = tcc_fileextension(buf);
 #ifdef TCC_TARGET_PE
-    if (s->output_type == TCC_OUTPUT_DLL)
+    nếu (s->output_type == TCC_OUTPUT_DLL)
         strcpy(ext, ".dll");
-    else
-    if (s->output_type == TCC_OUTPUT_EXE)
+    không_thì
+    nếu (s->output_type == TCC_OUTPUT_EXE)
         strcpy(ext, ".exe");
-    else
+    không_thì
 #endif
-    if ((s->just_deps || s->output_type == TCC_OUTPUT_OBJ) && !s->option_r && *ext)
+    nếu ((s->just_deps || s->output_type == TCC_OUTPUT_OBJ) && !s->option_r && *ext)
         strcpy(ext, ".o");
-    else
+    không_thì
         strcpy(buf, "a.out");
-    return tcc_strdup(buf);
+    trả_về tcc_strdup(buf);
 }
 
 static unsigned getclock_ms(void)
 {
 #ifdef _WIN32
-    return GetTickCount();
-#else
+    trả_về GetTickCount();
+#không_thì
     struct timeval tv;
     gettimeofday(&tv, NULL);
-    return tv.tv_sec*1000 + (tv.tv_usec+500)/1000;
+    trả_về tv.tv_sec*1000 + (tv.tv_usec+500)/1000;
 #endif
 }
 
-int main(int argc, char **argv)
+số_nguyên main(số_nguyên argc, char **argv)
 {
     TCCState *s, *s1;
-    int ret, opt, n = 0, t = 0, done;
+    số_nguyên ret, opt, n = 0, t = 0, done;
     unsigned start_time = 0, end_time = 0;
     const char *first_file;
-    int argc0 = argc;
+    số_nguyên argc0 = argc;
     char **argv0 = argv;
     FILE *ppfp = NULL;
 
@@ -301,132 +301,132 @@ redo:
     s = s1 = tcc_new();
     opt = tcc_parse_args(s, &argc, &argv);
 
-    if (n == 0) {
+    nếu (n == 0) {
         ret = 0;
-        if (opt == OPT_HELP) {
+        nếu (opt == OPT_HELP) {
             fputs(help, stdout);
-            if (s->verbose)
+            nếu (s->verbose)
                 goto help2;
-        } else if (opt == OPT_HELP2) {
+        } không_thì nếu (opt == OPT_HELP2) {
             help2: fputs(help2, stdout);
-        } else if (opt == OPT_M32 || opt == OPT_M64) {
+        } không_thì nếu (opt == OPT_M32 || opt == OPT_M64) {
             ret = tcc_tool_cross(argv, opt);
-        } else if (s->verbose)
+        } không_thì nếu (s->verbose)
             printf("%s", version);
 
-        if (opt == OPT_AR)
+        nếu (opt == OPT_AR)
             ret = tcc_tool_ar(argc, argv);
 #ifdef TCC_TARGET_PE
-        if (opt == OPT_IMPDEF)
+        nếu (opt == OPT_IMPDEF)
             ret = tcc_tool_impdef(argc, argv);
 #endif
-        if (opt == OPT_PRINT_DIRS) {
+        nếu (opt == OPT_PRINT_DIRS) {
             /* initialize search dirs */
             set_environment(s);
             tcc_set_output_type(s, TCC_OUTPUT_MEMORY);
             print_search_dirs(s);
         }
-        if (opt) {
-            if (opt < 0) err:
+        nếu (opt) {
+            nếu (opt < 0) err:
                 ret = 1;
             tcc_delete(s);
-            return ret;
+            trả_về ret;
         }
-        if (s->nb_files == 0) {
+        nếu (s->nb_files == 0) {
             tcc_error_noabort("no input files");
-        } else if (s->output_type == TCC_OUTPUT_PREPROCESS) {
-            if (s->outfile && 0!=strcmp("-",s->outfile)) {
+        } không_thì nếu (s->output_type == TCC_OUTPUT_PREPROCESS) {
+            nếu (s->outfile && 0!=strcmp("-",s->outfile)) {
                 ppfp = tcc_fopen(s->outfile, "wb");
-                if (!ppfp)
+                nếu (!ppfp)
                     tcc_error_noabort("could not write '%s'", s->outfile);
             }
-        } else if (s->output_type == TCC_OUTPUT_OBJ && !s->option_r) {
-            if (s->nb_libraries)
+        } không_thì nếu (s->output_type == TCC_OUTPUT_OBJ && !s->option_r) {
+            nếu (s->nb_libraries)
                 tcc_error_noabort("cannot specify libraries with -c");
-            else if (s->nb_files > 1 && s->outfile)
+            không_thì nếu (s->nb_files > 1 && s->outfile)
                 tcc_error_noabort("cannot specify output file with -c many files");
         }
-        if (s->nb_errors)
+        nếu (s->nb_errors)
             goto err;
-        if (s->do_bench)
+        nếu (s->do_bench)
             start_time = getclock_ms();
     }
 
     set_environment(s);
-    if (s->output_type == 0)
+    nếu (s->output_type == 0)
         s->output_type = TCC_OUTPUT_EXE;
     ret = tcc_set_output_type(s, s->output_type);
-    if (ppfp)
+    nếu (ppfp)
         s->ppfp = ppfp;
 
-    if ((s->output_type == TCC_OUTPUT_MEMORY
+    nếu ((s->output_type == TCC_OUTPUT_MEMORY
       || s->output_type == TCC_OUTPUT_PREPROCESS)
         && (s->dflag & 16)) { /* -dt option */
-        if (t)
+        nếu (t)
             s->dflag |= 32;
         s->run_test = ++t;
-        if (n)
+        nếu (n)
             --n;
     }
 
     /* compile or add each files or library */
     first_file = NULL;
-    while (0 == ret) {
+    trong_khi (0 == ret) {
         struct filespec *f = s->files[n];
         s->filetype = f->type;
-        if (f->type & AFF_TYPE_LIB) {
+        nếu (f->type & AFF_TYPE_LIB) {
             ret = tcc_add_library(s, f->name);
-        } else {
-            if (1 == s->verbose)
+        } không_thì {
+            nếu (1 == s->verbose)
                 printf("-> %s\n", f->name);
-            if (!first_file)
+            nếu (!first_file)
                 first_file = f->name;
             ret = tcc_add_file(s, f->name);
         }
-        if (++n == s->nb_files)
+        nếu (++n == s->nb_files)
             break;
-        if (s->output_type == TCC_OUTPUT_OBJ && !s->option_r)
+        nếu (s->output_type == TCC_OUTPUT_OBJ && !s->option_r)
             break;
     }
 
-    if (s->do_bench)
+    nếu (s->do_bench)
         end_time = getclock_ms();
 
-    if (s->run_test) {
+    nếu (s->run_test) {
         t = 0;
-    } else if (s->output_type == TCC_OUTPUT_PREPROCESS) {
+    } không_thì nếu (s->output_type == TCC_OUTPUT_PREPROCESS) {
         ;
-    } else if (0 == ret) {
-        if (s->output_type == TCC_OUTPUT_MEMORY) {
+    } không_thì nếu (0 == ret) {
+        nếu (s->output_type == TCC_OUTPUT_MEMORY) {
 #ifdef TCC_IS_NATIVE
             ret = tcc_run(s, argc, argv);
 #endif
-        } else {
-            if (!s->outfile)
+        } không_thì {
+            nếu (!s->outfile)
                 s->outfile = default_outputfile(s, first_file);
-            if (!s->just_deps)
+            nếu (!s->just_deps)
                 ret = tcc_output_file(s, s->outfile);
-            if (!ret && s->gen_deps)
+            nếu (!ret && s->gen_deps)
                 gen_makedeps(s, s->outfile, s->deps_outfile);
         }
     }
 
     done = 1;
-    if (t)
+    nếu (t)
         done = 0; /* run more tests with -dt -run */
-    else if (ret) {
-        if (s->nb_errors)
+    không_thì nếu (ret) {
+        nếu (s->nb_errors)
             ret = 1;
         /* else keep the original exit code from tcc_run() */
-    } else if (n < s->nb_files)
+    } không_thì nếu (n < s->nb_files)
         done = 0; /* compile more files with -c */
-    else if (s->do_bench)
+    không_thì nếu (s->do_bench)
         tcc_print_stats(s, end_time - start_time);
 
     tcc_delete(s);
-    if (!done)
+    nếu (!done)
         goto redo;
-    if (ppfp)
+    nếu (ppfp)
         tcc_fclose(ppfp);
-    return ret;
+    trả_về ret;
 }

@@ -1,13 +1,13 @@
 #include <stdio.h>
 #include <assert.h>
 
-#if !(defined( _WIN32) || (defined(__FreeBSD__) && defined(__i386__)))
+#nếu !(defined( _WIN32) || (defined(__FreeBSD__) && defined(__i386__)))
 #define __fastcall __attribute((fastcall))
 #endif
 
 #ifndef __leading_underscore
 #define SYMBOL(x) _##x
-#else
+#không_thì
 #define SYMBOL(x) x
 #endif
 
@@ -62,7 +62,7 @@ struct trapframe {
 #define RETN(x) do { \
     M_DWORD(R_ESP + (x)) = M_DWORD(R_ESP); \
     R_ESP += (x); \
-} while (0)
+} trong_khi (0)
 
 #define DUMP() do { \
     unsigned i; \
@@ -76,10 +76,10 @@ struct trapframe {
     printf("EDI: %08X\n", R_EDI); \
     printf("\n"); \
     printf("[RETADDR]: %08X\n", M_DWORD(R_ESP)); \
-    for (i = 1; i <= 8; i++) { \
+    cho (i = 1; i <= 8; i++) { \
         printf("[ARG%4d]: %08X\n", i, ARG(i)); \
     } \
-} while (0)
+} trong_khi (0)
 
 #define SET_TRAP_HANDLER(x) ((SYMBOL(trap_handler)) = (x))
 #define TRAP ((void *) &SYMBOL(trap))
@@ -194,39 +194,39 @@ void test_fastcall_invoke()
 //////////                TEST FUNCTION CODE GENERATION
 /////////////////////////////////////////////////////////////////////////
 
-int __fastcall check_fastcall_espdiff_0(void)
+số_nguyên __fastcall check_fastcall_espdiff_0(void)
 {
-    return 0;
+    trả_về 0;
 }
 
-int __fastcall check_fastcall_espdiff_1(int a)
+số_nguyên __fastcall check_fastcall_espdiff_1(số_nguyên a)
 {
-    return a;
+    trả_về a;
 }
 
-int __fastcall check_fastcall_espdiff_2(int a, int b)
+số_nguyên __fastcall check_fastcall_espdiff_2(số_nguyên a, số_nguyên b)
 {
-    return a + b;
+    trả_về a + b;
 }
 
-int __fastcall check_fastcall_espdiff_3(int a, int b, int c)
+số_nguyên __fastcall check_fastcall_espdiff_3(số_nguyên a, số_nguyên b, số_nguyên c)
 {
-    return a + b + c;
+    trả_về a + b + c;
 }
 
-int __fastcall check_fastcall_espdiff_4(int a, int b, int c, int d)
+số_nguyên __fastcall check_fastcall_espdiff_4(số_nguyên a, số_nguyên b, số_nguyên c, số_nguyên d)
 {
-    return a + b + c + d;
+    trả_về a + b + c + d;
 }
 
-int __fastcall check_fastcall_espdiff_5(int a, int b, int c, int d, int e)
+số_nguyên __fastcall check_fastcall_espdiff_5(số_nguyên a, số_nguyên b, số_nguyên c, số_nguyên d, số_nguyên e)
 {
-    return a + b + c + d + e;
+    trả_về a + b + c + d + e;
 }
 
 void test_fastcall_espdiff()
 {
-    int x;
+    số_nguyên x;
     SET_SAFECALL_TARGET(check_fastcall_espdiff_0);
     x = ((typeof(&check_fastcall_espdiff_0))SAFECALL)();
     assert(x == 0);
@@ -258,19 +258,19 @@ void test_fastcall_espdiff()
     assert(ESPDIFF == 3*4);
 }
 
-int main()
+số_nguyên main()
 {
 #define N 10000
-    int i;
+    số_nguyên i;
 
-    for (i = 1; i <= N; i++) {
+    cho (i = 1; i <= N; i++) {
         test_fastcall_espdiff();
     }
 
-    for (i = 1; i <= N; i++) {
+    cho (i = 1; i <= N; i++) {
         test_fastcall_invoke();
     }
 
     puts("TEST OK");
-    return 0;
+    trả_về 0;
 }

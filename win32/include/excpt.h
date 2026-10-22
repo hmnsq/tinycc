@@ -17,14 +17,14 @@ extern "C" {
   struct _EXCEPTION_POINTERS;
 
 #ifndef EXCEPTION_DISPOSITION
-#define EXCEPTION_DISPOSITION   int
+#define EXCEPTION_DISPOSITION   số_nguyên
 #endif
 #define ExceptionContinueExecution 0
 #define ExceptionContinueSearch 1
 #define ExceptionNestedException 2
 #define ExceptionCollidedUnwind 3
 
-#if (defined(_X86_) && !defined(__x86_64))
+#nếu (defined(_X86_) && !defined(__x86_64))
   struct _EXCEPTION_RECORD;
   struct _CONTEXT;
 
@@ -52,29 +52,29 @@ extern "C" {
 
   unsigned long __cdecl _exception_code(void);
   void *__cdecl _exception_info(void);
-  int __cdecl _abnormal_termination(void);
+  số_nguyên __cdecl _abnormal_termination(void);
 
 #define EXCEPTION_EXECUTE_HANDLER 1
 #define EXCEPTION_CONTINUE_SEARCH 0
 #define EXCEPTION_CONTINUE_EXECUTION -1
 
   /* CRT stuff */
-  typedef void (__cdecl * _PHNDLR)(int);
+  typedef void (__cdecl * _PHNDLR)(số_nguyên);
 
   struct _XCPT_ACTION {
     unsigned long XcptNum;
-    int SigNum;
+    số_nguyên SigNum;
     _PHNDLR XcptAction;
   };
 
   extern struct _XCPT_ACTION _XcptActTab[];
-  extern int _XcptActTabCount;
-  extern int _XcptActTabSize;
-  extern int _First_FPE_Indx;
-  extern int _Num_FPE;
+  extern số_nguyên _XcptActTabCount;
+  extern số_nguyên _XcptActTabSize;
+  extern số_nguyên _First_FPE_Indx;
+  extern số_nguyên _Num_FPE;
 
-  int __cdecl __CppXcptFilter(unsigned long _ExceptionNum,struct _EXCEPTION_POINTERS * _ExceptionPtr);
-  int __cdecl _XcptFilter(unsigned long _ExceptionNum,struct _EXCEPTION_POINTERS * _ExceptionPtr);
+  số_nguyên __cdecl __CppXcptFilter(unsigned long _ExceptionNum,struct _EXCEPTION_POINTERS * _ExceptionPtr);
+  số_nguyên __cdecl _XcptFilter(unsigned long _ExceptionNum,struct _EXCEPTION_POINTERS * _ExceptionPtr);
 
   /*
   * The type of function that is expected as an exception handler to be
@@ -96,7 +96,7 @@ extern "C" {
   typedef PEXCEPTION_REGISTRATION PEXCEPTION_REGISTRATION_RECORD;
 #endif
 
-#if (defined(_X86_) && !defined(__x86_64))
+#nếu (defined(_X86_) && !defined(__x86_64))
 #define __try1(pHandler) \
   __asm__ ("pushl %0;pushl %%fs:0;movl %%esp,%%fs:0;" : : "g" (pHandler));
 
@@ -110,7 +110,7 @@ extern "C" {
 #define	__except1	\
   __asm__ ("movq (%%rsp),%%rax;movq %%rax,%%gs:0;addq $16,%%rsp;" \
   : : : "%rax");
-#else
+#không_thì
 #define __try1(pHandler)
 #define __except1
 #endif

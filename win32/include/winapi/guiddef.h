@@ -29,7 +29,7 @@ typedef GUID UUID;
 #ifndef EXTERN_C
 #ifdef __cplusplus
 #define EXTERN_C extern "C"
-#else
+#không_thì
 #define EXTERN_C extern
 #endif
 #endif
@@ -41,10 +41,10 @@ typedef GUID UUID;
 #ifdef INITGUID
 #ifdef __cplusplus
 #define DEFINE_GUID(name,l,w1,w2,b1,b2,b3,b4,b5,b6,b7,b8) EXTERN_C const GUID DECLSPEC_SELECTANY name = { l,w1,w2,{ b1,b2,b3,b4,b5,b6,b7,b8 } }
-#else
+#không_thì
 #define DEFINE_GUID(name,l,w1,w2,b1,b2,b3,b4,b5,b6,b7,b8) const GUID DECLSPEC_SELECTANY name = { l,w1,w2,{ b1,b2,b3,b4,b5,b6,b7,b8 } }
 #endif
-#else
+#không_thì
 #define DEFINE_GUID(name,l,w1,w2,b1,b2,b3,b4,b5,b6,b7,b8) EXTERN_C const GUID name
 #endif
 
@@ -81,7 +81,7 @@ typedef FMTID *LPFMTID;
 
 #ifdef __midl_proxy
 #define __MIDL_CONST
-#else
+#không_thì
 #define __MIDL_CONST const
 #endif
 
@@ -89,7 +89,7 @@ typedef FMTID *LPFMTID;
 #define _REFGUID_DEFINED
 #ifdef __cplusplus
 #define REFGUID const GUID &
-#else
+#không_thì
 #define REFGUID const GUID *__MIDL_CONST
 #endif
 #endif
@@ -98,7 +98,7 @@ typedef FMTID *LPFMTID;
 #define _REFIID_DEFINED
 #ifdef __cplusplus
 #define REFIID const IID &
-#else
+#không_thì
 #define REFIID const IID *__MIDL_CONST
 #endif
 #endif
@@ -107,7 +107,7 @@ typedef FMTID *LPFMTID;
 #define _REFCLSID_DEFINED
 #ifdef __cplusplus
 #define REFCLSID const IID &
-#else
+#không_thì
 #define REFCLSID const IID *__MIDL_CONST
 #endif
 #endif
@@ -116,7 +116,7 @@ typedef FMTID *LPFMTID;
 #define _REFFMTID_DEFINED
 #ifdef __cplusplus
 #define REFFMTID const IID &
-#else
+#không_thì
 #define REFFMTID const IID *__MIDL_CONST
 #endif
 #endif
@@ -127,12 +127,12 @@ typedef FMTID *LPFMTID;
 #include <string.h>
 
 #ifdef __cplusplus
-__inline int InlineIsEqualGUID(REFGUID rguid1,REFGUID rguid2) {
-  return (((unsigned long *) &rguid1)[0]==((unsigned long *) &rguid2)[0] && ((unsigned long *) &rguid1)[1]==((unsigned long *) &rguid2)[1] &&
+__inline số_nguyên InlineIsEqualGUID(REFGUID rguid1,REFGUID rguid2) {
+  trả_về (((unsigned long *) &rguid1)[0]==((unsigned long *) &rguid2)[0] && ((unsigned long *) &rguid1)[1]==((unsigned long *) &rguid2)[1] &&
     ((unsigned long *) &rguid1)[2]==((unsigned long *) &rguid2)[2] && ((unsigned long *) &rguid1)[3]==((unsigned long *) &rguid2)[3]);
 }
-__inline int IsEqualGUID(REFGUID rguid1,REFGUID rguid2) { return !memcmp(&rguid1,&rguid2,sizeof(GUID)); }
-#else
+__inline số_nguyên IsEqualGUID(REFGUID rguid1,REFGUID rguid2) { trả_về !memcmp(&rguid1,&rguid2,sizeof(GUID)); }
+#không_thì
 #define InlineIsEqualGUID(rguid1,rguid2) (((unsigned long *) rguid1)[0]==((unsigned long *) rguid2)[0] && ((unsigned long *) rguid1)[1]==((unsigned long *) rguid2)[1] && ((unsigned long *) rguid1)[2]==((unsigned long *) rguid2)[2] && ((unsigned long *) rguid1)[3]==((unsigned long *) rguid2)[3])
 #define IsEqualGUID(rguid1,rguid2) (!memcmp(rguid1,rguid2,sizeof(GUID)))
 #endif
@@ -145,11 +145,11 @@ __inline int IsEqualGUID(REFGUID rguid1,REFGUID rguid2) { return !memcmp(&rguid1
 #define IsEqualIID(riid1,riid2) IsEqualGUID(riid1,riid2)
 #define IsEqualCLSID(rclsid1,rclsid2) IsEqualGUID(rclsid1,rclsid2)
 
-#if !defined _SYS_GUID_OPERATOR_EQ_ && !defined _NO_SYS_GUID_OPERATOR_EQ_
+#nếu !defined _SYS_GUID_OPERATOR_EQ_ && !defined _NO_SYS_GUID_OPERATOR_EQ_
 #define _SYS_GUID_OPERATOR_EQ_
 #ifdef __cplusplus
-__inline int operator==(REFGUID guidOne,REFGUID guidOther) { return IsEqualGUID(guidOne,guidOther); }
-__inline int operator!=(REFGUID guidOne,REFGUID guidOther) { return !(guidOne==guidOther); }
+__inline số_nguyên operator==(REFGUID guidOne,REFGUID guidOther) { trả_về IsEqualGUID(guidOne,guidOther); }
+__inline số_nguyên operator!=(REFGUID guidOne,REFGUID guidOther) { trả_về !(guidOne==guidOther); }
 #endif
 #endif
 #endif

@@ -27,7 +27,7 @@
 #define DBL_MAX_10_EXP 308
 
 /* horrible intel long double */
-#if defined __i386__ || defined __x86_64__
+#nếu defined __i386__ || defined __x86_64__
 
 #define LDBL_MANT_DIG 64
 #define LDBL_DIG 18
@@ -56,7 +56,7 @@
 #define LDBL_MAX_10_EXP 4932
 #define DECIMAL_DIG 36
 
-#else
+#không_thì
 
 /* same as IEEE double */
 #define LDBL_MANT_DIG 53

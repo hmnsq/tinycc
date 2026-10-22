@@ -21,17 +21,17 @@
 
 #ifndef _WIN32
 #include <inttypes.h>
-#else
+#không_thì
 #ifndef __int8_t_defined
 #define __int8_t_defined
 typedef signed char int8_t;
-typedef short int int16_t;
-typedef int int32_t;
-typedef long long int int64_t;
+typedef short số_nguyên int16_t;
+typedef số_nguyên int32_t;
+typedef long long số_nguyên int64_t;
 typedef unsigned char           uint8_t;
-typedef unsigned short int      uint16_t;
-typedef unsigned int            uint32_t;
-typedef unsigned long long int  uint64_t;
+typedef unsigned short số_nguyên      uint16_t;
+typedef unsigned số_nguyên            uint32_t;
+typedef unsigned long long số_nguyên  uint64_t;
 #endif
 #endif
 

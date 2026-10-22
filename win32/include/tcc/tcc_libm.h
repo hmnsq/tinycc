@@ -46,41 +46,41 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 /* fpclassify */
 
-__CRT_INLINE int __cdecl __fpclassify (double x) {
+__CRT_INLINE số_nguyên __cdecl __fpclassify (double x) {
   union {double f; uint64_t i;} u = {.f = x};
-  int e = u.i>>52 & 0x7ff;
-  if (!e) return u.i<<1 ? FP_SUBNORMAL : FP_ZERO;
-  if (e==0x7ff) return u.i<<12 ? FP_NAN : FP_INFINITE;
-  return FP_NORMAL;
+  số_nguyên e = u.i>>52 & 0x7ff;
+  nếu (!e) trả_về u.i<<1 ? FP_SUBNORMAL : FP_ZERO;
+  nếu (e==0x7ff) trả_về u.i<<12 ? FP_NAN : FP_INFINITE;
+  trả_về FP_NORMAL;
 }
 
-__CRT_INLINE int __cdecl __fpclassifyf (float x) {
+__CRT_INLINE số_nguyên __cdecl __fpclassifyf (float x) {
   union {float f; uint32_t i;} u = {.f = x};
-  int e = u.i>>23 & 0xff;
-  if (!e) return u.i<<1 ? FP_SUBNORMAL : FP_ZERO;
-  if (e==0xff) return u.i<<9 ? FP_NAN : FP_INFINITE;
-  return FP_NORMAL;
+  số_nguyên e = u.i>>23 & 0xff;
+  nếu (!e) trả_về u.i<<1 ? FP_SUBNORMAL : FP_ZERO;
+  nếu (e==0xff) trả_về u.i<<9 ? FP_NAN : FP_INFINITE;
+  trả_về FP_NORMAL;
 }
 
-__CRT_INLINE int __cdecl __fpclassifyl (long double x) {
-  return __fpclassify(x);
+__CRT_INLINE số_nguyên __cdecl __fpclassifyl (long double x) {
+  trả_về __fpclassify(x);
 }
 
 
 /* signbit */
 
-__CRT_INLINE int __cdecl __signbit (double x) {
+__CRT_INLINE số_nguyên __cdecl __signbit (double x) {
   union {double f; uint64_t i;} u = {.f = x};
-  return u.i>>63;
+  trả_về u.i>>63;
 }
 
-__CRT_INLINE int __cdecl __signbitf (float x) {
+__CRT_INLINE số_nguyên __cdecl __signbitf (float x) {
   union {float f; uint32_t i; } u = {.f = x};
-  return u.i>>31;
+  trả_về u.i>>31;
 }
 
-__CRT_INLINE int __cdecl __signbitl (long double x) {
-  return __signbit(x);
+__CRT_INLINE số_nguyên __cdecl __signbitl (long double x) {
+  trả_về __signbit(x);
 }
 
 
@@ -92,15 +92,15 @@ __CRT_INLINE int __cdecl __signbitl (long double x) {
                          x < y ? x : y)
 
 __CRT_INLINE double __cdecl fmin (double x, double y) {
-  return TCCFP_FMIN_EVAL;
+  trả_về TCCFP_FMIN_EVAL;
 }
 
 __CRT_INLINE float __cdecl fminf (float x, float y) {
-  return TCCFP_FMIN_EVAL;
+  trả_về TCCFP_FMIN_EVAL;
 }
 
 __CRT_INLINE long double __cdecl fminl (long double x, long double y) {
-  return TCCFP_FMIN_EVAL;
+  trả_về TCCFP_FMIN_EVAL;
 }
 
 #define TCCFP_FMAX_EVAL (isnan(x) ? y :                                      \
@@ -109,15 +109,15 @@ __CRT_INLINE long double __cdecl fminl (long double x, long double y) {
                          x < y ? y : x)
 
 __CRT_INLINE double __cdecl fmax (double x, double y) {
-  return TCCFP_FMAX_EVAL;
+  trả_về TCCFP_FMAX_EVAL;
 }
 
 __CRT_INLINE float __cdecl fmaxf (float x, float y) {
-  return TCCFP_FMAX_EVAL;
+  trả_về TCCFP_FMAX_EVAL;
 }
 
 __CRT_INLINE long double __cdecl fmaxl (long double x, long double y) {
-  return TCCFP_FMAX_EVAL;
+  trả_về TCCFP_FMAX_EVAL;
 }
 
 
@@ -126,57 +126,57 @@ __CRT_INLINE long double __cdecl fmaxl (long double x, long double y) {
 #define TCCFP_FORCE_EVAL(x) do {  \
   volatile typeof(x) __x;         \
   __x = (x);                      \
-} while(0)
+} trong_khi(0)
 
 __CRT_INLINE double __cdecl round (double x) {
   union {double f; uint64_t i;} u = {.f = x};
-  int e = u.i >> 52 & 0x7ff;
+  số_nguyên e = u.i >> 52 & 0x7ff;
   double y;
 
-  if (e >= 0x3ff+52)
-    return x;
-  if (u.i >> 63)
+  nếu (e >= 0x3ff+52)
+    trả_về x;
+  nếu (u.i >> 63)
     x = -x;
-  if (e < 0x3ff-1) {
+  nếu (e < 0x3ff-1) {
     /* raise inexact if x!=0 */
     TCCFP_FORCE_EVAL(x + 0x1p52);
-    return 0*u.f;
+    trả_về 0*u.f;
   }
   y = (double)(x + 0x1p52) - 0x1p52 - x;
   y = y + x - (y > 0.5) + (y <= -0.5); /* branchless */
-  return (u.i >> 63) ? -y : y;
+  trả_về (u.i >> 63) ? -y : y;
 }
 
 __CRT_INLINE long __cdecl lround (double x) {
-  return round(x);
+  trả_về round(x);
 }
 
 __CRT_INLINE long long __cdecl llround (double x) {
-  return round(x);
+  trả_về round(x);
 }
 
 __CRT_INLINE float __cdecl roundf (float x) {
-  return round(x);
+  trả_về round(x);
 }
 
 __CRT_INLINE long __cdecl lroundf (float x) {
-  return round(x);
+  trả_về round(x);
 }
 
 __CRT_INLINE long long __cdecl llroundf (float x) {
-  return round(x);
+  trả_về round(x);
 }
 
 __CRT_INLINE long double __cdecl roundl (long double x) {
-  return round(x);
+  trả_về round(x);
 }
 
 __CRT_INLINE long __cdecl lroundl (long double x) {
-  return round(x);
+  trả_về round(x);
 }
 
 __CRT_INLINE long long __cdecl llroundl (long double x) {
-  return round(x);
+  trả_về round(x);
 }
 
 
@@ -186,80 +186,80 @@ __CRT_INLINE double __cdecl asinh(double x) {
   union {double f; uint64_t i;} u = {.f = x};
   unsigned e = u.i >> 52 & 0x7ff, s = u.i >> 63;
   u.i &= -1ull / 2, x = u.f;
-  if (e >= 0x3ff + 26) x = log(x) + 0.693147180559945309;
-  else if (e >= 0x3ff + 1) x = log(2*x + 1 / (sqrt(x*x + 1) + x)); /* |x|>=2 */
-  else if (e >= 0x3ff - 26) x = log1p(x + x*x / (sqrt(x*x + 1) + 1));
-  else TCCFP_FORCE_EVAL(x + 0x1p120f);
-  return s ? -x : x;
+  nếu (e >= 0x3ff + 26) x = log(x) + 0.693147180559945309;
+  không_thì nếu (e >= 0x3ff + 1) x = log(2*x + 1 / (sqrt(x*x + 1) + x)); /* |x|>=2 */
+  không_thì nếu (e >= 0x3ff - 26) x = log1p(x + x*x / (sqrt(x*x + 1) + 1));
+  không_thì TCCFP_FORCE_EVAL(x + 0x1p120f);
+  trả_về s ? -x : x;
 }
 
 __CRT_INLINE double __cdecl acosh(double x) {
   union {double f; uint64_t i;} u = {.f = x};
   unsigned e = u.i >> 52 & 0x7ff;
-  if (e < 0x3ff + 1) return --x, log1p(x + sqrt(x*x + 2*x)); /* |x|<2 */
-  if (e < 0x3ff + 26) return log(2*x - 1 / (x + sqrt(x*x - 1)));
-  return log(x) + 0.693147180559945309;
+  nếu (e < 0x3ff + 1) trả_về --x, log1p(x + sqrt(x*x + 2*x)); /* |x|<2 */
+  nếu (e < 0x3ff + 26) trả_về log(2*x - 1 / (x + sqrt(x*x - 1)));
+  trả_về log(x) + 0.693147180559945309;
 }
 
 __CRT_INLINE double __cdecl atanh(double x) {
   union {double f; uint64_t i;} u = {.f = x};
   unsigned e = u.i >> 52 & 0x7ff, s = u.i >> 63;
   u.i &= -1ull / 2, x = u.f;
-  if (e < 0x3ff - 1) {
-    if (e < 0x3ff - 32) { if (e == 0) TCCFP_FORCE_EVAL((float)x); }
-    else x = 0.5 * log1p(2*x + 2*x*x / (1 - x)); /* |x| < 0.5 */
-  } else x = 0.5 * log1p(2*(x / (1 - x))); /* avoid overflow */
-  return s ? -x : x;
+  nếu (e < 0x3ff - 1) {
+    nếu (e < 0x3ff - 32) { nếu (e == 0) TCCFP_FORCE_EVAL((float)x); }
+    không_thì x = 0.5 * log1p(2*x + 2*x*x / (1 - x)); /* |x| < 0.5 */
+  } không_thì x = 0.5 * log1p(2*(x / (1 - x))); /* avoid overflow */
+  trả_về s ? -x : x;
 }
 
 /* MUSL scalbn */
 
-__CRT_INLINE double __cdecl scalbn(double x, int n) {
+__CRT_INLINE double __cdecl scalbn(double x, số_nguyên n) {
   union {double f; uint64_t i;} u;
-  if (n > 1023) {
+  nếu (n > 1023) {
     x *= 0x1p1023, n -= 1023;
-    if (n > 1023) {
+    nếu (n > 1023) {
       x *= 0x1p1023, n -= 1023;
-      if (n > 1023) n = 1023;
+      nếu (n > 1023) n = 1023;
     }
-  } else if (n < -1022) {
+  } không_thì nếu (n < -1022) {
     x *= 0x1p-1022 * 0x1p53, n += 1022 - 53;
-    if (n < -1022) {
+    nếu (n < -1022) {
       x *= 0x1p-1022 * 0x1p53, n += 1022 - 53;
-      if (n < -1022) n = -1022;
+      nếu (n < -1022) n = -1022;
     }
   }
   u.i = (0x3ffull + n) << 52;
-  return x * u.f;
+  trả_về x * u.f;
 }
 
 /* MUSL: Override msvcrt frexp(): 4.5x speedup! */
 
-__CRT_INLINE double __cdecl frexp(double x, int *e) {
+__CRT_INLINE double __cdecl frexp(double x, số_nguyên *e) {
   union {double f; uint64_t i;} u = {.f = x};
-  int ee = u.i>>52 & 0x7ff;
-  if (!ee) {
-    if (x) x = frexp(x*0x1p64, e), *e -= 64;
-    else *e = 0;
-    return x;
-  } else if (ee == 0x7ff)
-    return x;
+  số_nguyên ee = u.i>>52 & 0x7ff;
+  nếu (!ee) {
+    nếu (x) x = frexp(x*0x1p64, e), *e -= 64;
+    không_thì *e = 0;
+    trả_về x;
+  } không_thì nếu (ee == 0x7ff)
+    trả_về x;
   *e = ee - 0x3fe;
   u.i &= 0x800fffffffffffffull;
   u.i |= 0x3fe0000000000000ull;
-  return u.f;
+  trả_về u.f;
 }
 
 /* MUSL nan */
 
 __CRT_INLINE double __cdecl nan(const char* s) {
-  return NAN;
+  trả_về NAN;
 }
 __CRT_INLINE float __cdecl nanf(const char* s) {
-  return NAN;
+  trả_về NAN;
 }
 __CRT_INLINE long double __cdecl nanl(const char* s) {
-  return NAN;
+  trả_về NAN;
 }
 
 
@@ -274,40 +274,40 @@ __CRT_INLINE long double __cdecl nanl(const char* s) {
  * In <stdlib.h>: lldiv().
  */
 
-__CRT_INLINE float __cdecl scalbnf(float x, int n) {
-  return scalbn(x, n);
+__CRT_INLINE float __cdecl scalbnf(float x, số_nguyên n) {
+  trả_về scalbn(x, n);
 }
-__CRT_INLINE long double __cdecl scalbnl(long double x, int n) {
-  return scalbn(x, n);
+__CRT_INLINE long double __cdecl scalbnl(long double x, số_nguyên n) {
+  trả_về scalbn(x, n);
 }
 
 __CRT_INLINE double __cdecl scalbln(double x, long n) {
-  return scalbn(x, n);
+  trả_về scalbn(x, n);
 }
 __CRT_INLINE float __cdecl scalblnf(float x, long n) {
-  return scalbn(x, n);
+  trả_về scalbn(x, n);
 }
 __CRT_INLINE long double __cdecl scalblnl(long double x, long n) {
-  return scalbn(x, n);
+  trả_về scalbn(x, n);
 }
 
 /* Override msvcrt ldexp(): 7.3x speedup! */
 
-__CRT_INLINE double __cdecl ldexp(double x, int expn) {
-  return scalbn(x, expn);
+__CRT_INLINE double __cdecl ldexp(double x, số_nguyên expn) {
+  trả_về scalbn(x, expn);
 }
-__CRT_INLINE float __cdecl ldexpf(float x, int expn) {
-  return scalbn(x, expn);
+__CRT_INLINE float __cdecl ldexpf(float x, số_nguyên expn) {
+  trả_về scalbn(x, expn);
 }
-__CRT_INLINE long double __cdecl ldexpl(long double x, int expn) {
-  return scalbn(x, expn);
+__CRT_INLINE long double __cdecl ldexpl(long double x, số_nguyên expn) {
+  trả_về scalbn(x, expn);
 }
 
-__CRT_INLINE float __cdecl frexpf(float x, int *y) {
-  return frexp(x, y);
+__CRT_INLINE float __cdecl frexpf(float x, số_nguyên *y) {
+  trả_về frexp(x, y);
 }
-__CRT_INLINE long double __cdecl frexpl (long double x, int* y) {
-  return frexp(x, y);
+__CRT_INLINE long double __cdecl frexpl (long double x, số_nguyên* y) {
+  trả_về frexp(x, y);
 }
 
 
@@ -317,7 +317,7 @@ double retval;
     "fldl    %1\n"
     "frndint   \n"
     "fstpl    %0\n" : "=m" (retval) : "m" (x));
-  return retval;
+  trả_về retval;
 }
 
 __CRT_INLINE float __cdecl rintf(float x) {
@@ -326,10 +326,10 @@ __CRT_INLINE float __cdecl rintf(float x) {
     "flds    %1\n"
     "frndint   \n"
     "fstps    %0\n" : "=m" (retval) : "m" (x));
-   return retval;
+   trả_về retval;
 }
 __CRT_INLINE long double __cdecl rintl (long double x) {
-  return rint(x);
+  trả_về rint(x);
 }
 
 
@@ -339,7 +339,7 @@ __CRT_INLINE long __cdecl lrint(double x) {
   __asm__ __volatile__
     ("fldl   %1\n"
      "fistpl %0"  : "=m" (retval) : "m" (x));
-  return retval;
+  trả_về retval;
 }
 
 __CRT_INLINE long __cdecl lrintf(float x) {
@@ -347,11 +347,11 @@ __CRT_INLINE long __cdecl lrintf(float x) {
   __asm__ __volatile__
     ("flds   %1\n"
      "fistpl %0"  : "=m" (retval) : "m" (x));
-  return retval;
+  trả_về retval;
 }
 
 __CRT_INLINE long __cdecl lrintl (long double x) {
-  return lrint(x);
+  trả_về lrint(x);
 }
 
 
@@ -360,7 +360,7 @@ long long retval;
   __asm__ __volatile__
     ("fldl    %1\n"
      "fistpll %0"  : "=m" (retval) : "m" (x));
-  return retval;
+  trả_về retval;
 }
 
 __CRT_INLINE long long __cdecl llrintf(float x) {
@@ -368,11 +368,11 @@ __CRT_INLINE long long __cdecl llrintf(float x) {
   __asm__ __volatile__
     ("flds   %1\n"
      "fistpll %0"  : "=m" (retval) : "m" (x));
-  return retval;
+  trả_về retval;
 }
 
 __CRT_INLINE long long __cdecl llrintl (long double x) {
-  return llrint(x);
+  trả_về llrint(x);
 }
 
 
@@ -388,177 +388,177 @@ __CRT_INLINE double __cdecl trunc(double _x) {
            "frndint;"
            "fstpl  %0;" : "=m" (retval)  : "m" (_x)); /* round towards zero */
   __asm__ ("fldcw %0;" : : "m" (saved_cw) ); /* restore saved control word */
-  return retval;
+  trả_về retval;
 }
 
 __CRT_INLINE float __cdecl truncf(float x) {
-  return (float) ((intptr_t) x);
+  trả_về (float) ((intptr_t) x);
 }
 __CRT_INLINE long double __cdecl truncl(long double x) {
-  return trunc(x);
+  trả_về trunc(x);
 }
 
 
 __CRT_INLINE long double __cdecl nextafterl(long double x, long double to) {
-  return nextafter(x, to);
+  trả_về nextafter(x, to);
 }
 
 __CRT_INLINE double __cdecl nexttoward(double x, long double to) {
-  return nextafter(x, to);
+  trả_về nextafter(x, to);
 }
 __CRT_INLINE float __cdecl nexttowardf(float x, long double to) {
-  return nextafterf(x, to);
+  trả_về nextafterf(x, to);
 }
 __CRT_INLINE long double __cdecl nexttowardl(long double x, long double to) {
-  return nextafter(x, to);
+  trả_về nextafter(x, to);
 }
 
 /* Override msvcrt fabs(): 6.3x speedup! */
 
 __CRT_INLINE double __cdecl fabs(double x) {
-  return x < 0 ? -x : x;
+  trả_về x < 0 ? -x : x;
 }
 __CRT_INLINE float __cdecl fabsf(float x) {
-  return x < 0 ? -x : x;
+  trả_về x < 0 ? -x : x;
 }
 __CRT_INLINE long double __cdecl fabsl(long double x) {
-  return x < 0 ? -x : x;
+  trả_về x < 0 ? -x : x;
 }
 
 
-#if defined(_WIN32) && !defined(_WIN64) && !defined(__ia64__)
-  __CRT_INLINE float acosf(float x) { return acos(x); }
-  __CRT_INLINE float asinf(float x) { return asin(x); }
-  __CRT_INLINE float atanf(float x) { return atan(x); }
-  __CRT_INLINE float atan2f(float x, float y) { return atan2(x, y); }
-  __CRT_INLINE float ceilf(float x) { return ceil(x); }
-  __CRT_INLINE float cosf(float x) { return cos(x); }
-  __CRT_INLINE float coshf(float x) { return cosh(x); }
-  __CRT_INLINE float expf(float x) { return exp(x); }
-  __CRT_INLINE float floorf(float x) { return floor(x); }
-  __CRT_INLINE float fmodf(float x, float y) { return fmod(x, y); }
-  __CRT_INLINE float logf(float x) { return log(x); }
-  __CRT_INLINE float logbf(float x) { return logb(x); }
-  __CRT_INLINE float log10f(float x) { return log10(x); }
-  __CRT_INLINE float modff(float x, float *y) { double di, df = modf(x, &di); *y = di; return df; }
-  __CRT_INLINE float powf(float x, float y) { return pow(x, y); }
-  __CRT_INLINE float sinf(float x) { return sin(x); }
-  __CRT_INLINE float sinhf(float x) { return sinh(x); }
-  __CRT_INLINE float sqrtf(float x) { return sqrt(x); }
-  __CRT_INLINE float tanf(float x) { return tan(x); }
-  __CRT_INLINE float tanhf(float x) { return tanh(x); }
+#nếu defined(_WIN32) && !defined(_WIN64) && !defined(__ia64__)
+  __CRT_INLINE float acosf(float x) { trả_về acos(x); }
+  __CRT_INLINE float asinf(float x) { trả_về asin(x); }
+  __CRT_INLINE float atanf(float x) { trả_về atan(x); }
+  __CRT_INLINE float atan2f(float x, float y) { trả_về atan2(x, y); }
+  __CRT_INLINE float ceilf(float x) { trả_về ceil(x); }
+  __CRT_INLINE float cosf(float x) { trả_về cos(x); }
+  __CRT_INLINE float coshf(float x) { trả_về cosh(x); }
+  __CRT_INLINE float expf(float x) { trả_về exp(x); }
+  __CRT_INLINE float floorf(float x) { trả_về floor(x); }
+  __CRT_INLINE float fmodf(float x, float y) { trả_về fmod(x, y); }
+  __CRT_INLINE float logf(float x) { trả_về log(x); }
+  __CRT_INLINE float logbf(float x) { trả_về logb(x); }
+  __CRT_INLINE float log10f(float x) { trả_về log10(x); }
+  __CRT_INLINE float modff(float x, float *y) { double di, df = modf(x, &di); *y = di; trả_về df; }
+  __CRT_INLINE float powf(float x, float y) { trả_về pow(x, y); }
+  __CRT_INLINE float sinf(float x) { trả_về sin(x); }
+  __CRT_INLINE float sinhf(float x) { trả_về sinh(x); }
+  __CRT_INLINE float sqrtf(float x) { trả_về sqrt(x); }
+  __CRT_INLINE float tanf(float x) { trả_về tan(x); }
+  __CRT_INLINE float tanhf(float x) { trả_về tanh(x); }
 #endif
-__CRT_INLINE float __cdecl asinhf(float x) { return asinh(x); }
-__CRT_INLINE float __cdecl acoshf(float x) { return acosh(x); }
-__CRT_INLINE float __cdecl atanhf(float x) { return atanh(x); }
+__CRT_INLINE float __cdecl asinhf(float x) { trả_về asinh(x); }
+__CRT_INLINE float __cdecl acoshf(float x) { trả_về acosh(x); }
+__CRT_INLINE float __cdecl atanhf(float x) { trả_về atanh(x); }
 
-__CRT_INLINE long double __cdecl asinhl(long double x) { return asinh(x); }
-__CRT_INLINE long double __cdecl acoshl(long double x) { return acosh(x); }
-__CRT_INLINE long double __cdecl atanhl(long double x) { return atanh(x); }
-__CRT_INLINE long double __cdecl asinl(long double x) { return asin(x); }
-__CRT_INLINE long double __cdecl acosl(long double x) { return acos(x); }
-__CRT_INLINE long double __cdecl atanl(long double x) { return atan(x); }
-__CRT_INLINE long double __cdecl ceill(long double x) { return ceil(x); }
-__CRT_INLINE long double __cdecl coshl(long double x) { return cosh(x); }
-__CRT_INLINE long double __cdecl cosl(long double x) { return cos(x); }
-__CRT_INLINE long double __cdecl expl(long double x) { return exp(x); }
-__CRT_INLINE long double __cdecl floorl(long double x) { return floor(x); }
-__CRT_INLINE long double __cdecl fmodl(long double x, long double y) { return fmod(x, y); }
-__CRT_INLINE long double __cdecl hypotl(long double x, long double y) { return hypot(x, y); }
-__CRT_INLINE long double __cdecl logl(long double x) { return log(x); }
-__CRT_INLINE long double __cdecl logbl(long double x) { return logb(x); }
-__CRT_INLINE long double __cdecl log10l(long double x) { return log10(x); }
-__CRT_INLINE long double __cdecl modfl(long double x, long double* y) { double y1 = *y; x = modf(x, &y1); *y = y1; return x; }
-__CRT_INLINE long double __cdecl powl(long double x, long double y) { return pow(x, y); }
-__CRT_INLINE long double __cdecl sinhl(long double x) { return sinh(x); }
-__CRT_INLINE long double __cdecl sinl(long double x) { return sin(x); }
-__CRT_INLINE long double __cdecl sqrtl(long double x) { return sqrt(x); }
-__CRT_INLINE long double __cdecl tanhl(long double x) { return tanh(x); }
-__CRT_INLINE long double __cdecl tanl(long double x) { return tan(x); }
+__CRT_INLINE long double __cdecl asinhl(long double x) { trả_về asinh(x); }
+__CRT_INLINE long double __cdecl acoshl(long double x) { trả_về acosh(x); }
+__CRT_INLINE long double __cdecl atanhl(long double x) { trả_về atanh(x); }
+__CRT_INLINE long double __cdecl asinl(long double x) { trả_về asin(x); }
+__CRT_INLINE long double __cdecl acosl(long double x) { trả_về acos(x); }
+__CRT_INLINE long double __cdecl atanl(long double x) { trả_về atan(x); }
+__CRT_INLINE long double __cdecl ceill(long double x) { trả_về ceil(x); }
+__CRT_INLINE long double __cdecl coshl(long double x) { trả_về cosh(x); }
+__CRT_INLINE long double __cdecl cosl(long double x) { trả_về cos(x); }
+__CRT_INLINE long double __cdecl expl(long double x) { trả_về exp(x); }
+__CRT_INLINE long double __cdecl floorl(long double x) { trả_về floor(x); }
+__CRT_INLINE long double __cdecl fmodl(long double x, long double y) { trả_về fmod(x, y); }
+__CRT_INLINE long double __cdecl hypotl(long double x, long double y) { trả_về hypot(x, y); }
+__CRT_INLINE long double __cdecl logl(long double x) { trả_về log(x); }
+__CRT_INLINE long double __cdecl logbl(long double x) { trả_về logb(x); }
+__CRT_INLINE long double __cdecl log10l(long double x) { trả_về log10(x); }
+__CRT_INLINE long double __cdecl modfl(long double x, long double* y) { double y1 = *y; x = modf(x, &y1); *y = y1; trả_về x; }
+__CRT_INLINE long double __cdecl powl(long double x, long double y) { trả_về pow(x, y); }
+__CRT_INLINE long double __cdecl sinhl(long double x) { trả_về sinh(x); }
+__CRT_INLINE long double __cdecl sinl(long double x) { trả_về sin(x); }
+__CRT_INLINE long double __cdecl sqrtl(long double x) { trả_về sqrt(x); }
+__CRT_INLINE long double __cdecl tanhl(long double x) { trả_về tanh(x); }
+__CRT_INLINE long double __cdecl tanl(long double x) { trả_về tan(x); }
 
 /* Following are accurate, but much shorter implementations than MUSL lib. */
 
 __CRT_INLINE double __cdecl log1p(double x) {
   double u = 1.0 + x;
-  return u == 1.0 ? x : log(u)*(x / (u - 1.0));
+  trả_về u == 1.0 ? x : log(u)*(x / (u - 1.0));
 }
 __CRT_INLINE float __cdecl log1pf(float x) {
   float u = 1.0f + x;
-  return u == 1.0f ? x : logf(u)*(x / (u - 1.0f));
+  trả_về u == 1.0f ? x : logf(u)*(x / (u - 1.0f));
 }
 __CRT_INLINE long double __cdecl log1pl(long double x) {
-  return log1p(x);
+  trả_về log1p(x);
 }
 
 
 __CRT_INLINE double __cdecl expm1(double x) {
-  if (x > 0.0024 || x < -0.0024) return exp(x) - 1.0;
-  return x*(1.0 + 0.5*x*(1.0 + (1/3.0)*x*(1.0 + 0.25*x*(1.0 + 0.2*x))));
+  nếu (x > 0.0024 || x < -0.0024) trả_về exp(x) - 1.0;
+  trả_về x*(1.0 + 0.5*x*(1.0 + (1/3.0)*x*(1.0 + 0.25*x*(1.0 + 0.2*x))));
 }
 __CRT_INLINE float __cdecl expm1f(float x) {
-  if (x > 0.085f || x < -0.085f) return expf(x) - 1.0f;
-  return x*(1.0f + 0.5f*x*(1.0f + (1/3.0f)*x*(1.0f + 0.25f*x)));
+  nếu (x > 0.085f || x < -0.085f) trả_về expf(x) - 1.0f;
+  trả_về x*(1.0f + 0.5f*x*(1.0f + (1/3.0f)*x*(1.0f + 0.25f*x)));
 }
 __CRT_INLINE long double __cdecl expm1l(long double x) {
-  return expm1(x);
+  trả_về expm1(x);
 }
 
 
 __CRT_INLINE double __cdecl cbrt(double x) {
-  return x < 0.0 ? -pow(-x, 1/3.0) : pow(x, 1/3.0);
+  trả_về x < 0.0 ? -pow(-x, 1/3.0) : pow(x, 1/3.0);
 }
 __CRT_INLINE float __cdecl cbrtf(float x) {
-  return x < 0.0f ? -pow(-x, 1/3.0) : pow(x, 1/3.0);
+  trả_về x < 0.0f ? -pow(-x, 1/3.0) : pow(x, 1/3.0);
 }
 __CRT_INLINE long double __cdecl cbrtl(long double x) {
-  return cbrt(x);
+  trả_về cbrt(x);
 }
 
 
 __CRT_INLINE double __cdecl log2(double x) {
-  return log(x) * 1.442695040888963407;
+  trả_về log(x) * 1.442695040888963407;
 }
 __CRT_INLINE float __cdecl log2f(float x) {
-  return log(x) * 1.442695040888963407;
+  trả_về log(x) * 1.442695040888963407;
 }
 __CRT_INLINE long double __cdecl log2l(long double x) {
-  return log(x) * 1.442695040888963407;
+  trả_về log(x) * 1.442695040888963407;
 }
 
 
 __CRT_INLINE double __cdecl exp2(double x) {
-  return exp(x * 0.693147180559945309);
+  trả_về exp(x * 0.693147180559945309);
 }
 __CRT_INLINE float __cdecl exp2f(float x) {
-  return exp(x * 0.693147180559945309);
+  trả_về exp(x * 0.693147180559945309);
 }
 __CRT_INLINE long double __cdecl exp2l(long double x) {
-  return exp(x * 0.693147180559945309);
+  trả_về exp(x * 0.693147180559945309);
 }
 
 
-__CRT_INLINE int __cdecl ilogb(double x) {
-  return (int) logb(x);
+__CRT_INLINE số_nguyên __cdecl ilogb(double x) {
+  trả_về (số_nguyên) logb(x);
 }
-__CRT_INLINE int __cdecl ilogbf(float x) {
-  return (int) logbf(x);
+__CRT_INLINE số_nguyên __cdecl ilogbf(float x) {
+  trả_về (số_nguyên) logbf(x);
 }
-__CRT_INLINE int __cdecl ilogbl(long double x) {
-  return (int) logb(x);
+__CRT_INLINE số_nguyên __cdecl ilogbl(long double x) {
+  trả_về (số_nguyên) logb(x);
 }
 
 
 __CRT_INLINE double __cdecl fdim(double x, double y) {
-  if (isnan(x) || isnan(y)) return NAN;
-  return x > y ? x - y : 0;
+  nếu (isnan(x) || isnan(y)) trả_về NAN;
+  trả_về x > y ? x - y : 0;
 }
 __CRT_INLINE float __cdecl fdimf(float x, float y) {
-  if (isnan(x) || isnan(y)) return NAN;
-  return x > y ? x - y : 0;
+  nếu (isnan(x) || isnan(y)) trả_về NAN;
+  trả_về x > y ? x - y : 0;
 }
 __CRT_INLINE long double __cdecl fdiml(long double x, long double y) {
-  if (isnan(x) || isnan(y)) return NAN;
-  return x > y ? x - y : 0;
+  nếu (isnan(x) || isnan(y)) trả_về NAN;
+  trả_về x > y ? x - y : 0;
 }
 
 
@@ -569,50 +569,50 @@ __CRT_INLINE long double __cdecl fdiml(long double x, long double y) {
 
 __CRT_INLINE double __cdecl tgamma(double x) {
   double m = 1.0, t = 3.14159265358979323;
-  if (x == floor(x)) {
-    if (x == 0) return INFINITY;
-    if (x < 0) return NAN;
-    if (x < 26) { for (double k = 2; k < x; ++k) m *= k; return m; }
+  nếu (x == floor(x)) {
+    nếu (x == 0) trả_về INFINITY;
+    nếu (x < 0) trả_về NAN;
+    nếu (x < 26) { cho (double k = 2; k < x; ++k) m *= k; trả_về m; }
   }
-  if (x < 0.5)
-    return t / (sin(t*x)*tgamma(1.0 - x));
-  if (x > 12.0)
-    return exp(lgamma(x));
+  nếu (x < 0.5)
+    trả_về t / (sin(t*x)*tgamma(1.0 - x));
+  nếu (x > 12.0)
+    trả_về exp(lgamma(x));
 
   static const double c[8] = {676.5203681218851, -1259.1392167224028,
                               771.32342877765313, -176.61502916214059,
                               12.507343278686905, -0.13857109526572012,
                               9.9843695780195716e-6, 1.5056327351493116e-7};
   m = 0.99999999999980993, t = x + 6.5; /* x-1+8-.5 */
-  for (int k = 0; k < 8; ++k) m += c[k] / (x + k);
-  return 2.50662827463100050 * pow(t, x - 0.5)*exp(-t)*m; /* C=sqrt(2pi) */
+  cho (số_nguyên k = 0; k < 8; ++k) m += c[k] / (x + k);
+  trả_về 2.50662827463100050 * pow(t, x - 0.5)*exp(-t)*m; /* C=sqrt(2pi) */
 }
 
 
 __CRT_INLINE double __cdecl lgamma(double x) {
-  if (x < 12.0) {
-    if (x <= 0.0 && x == floor(x)) return INFINITY;
+  nếu (x < 12.0) {
+    nếu (x <= 0.0 && x == floor(x)) trả_về INFINITY;
     x = tgamma(x);
-    return log(x < 0.0 ? -x : x);
+    trả_về log(x < 0.0 ? -x : x);
   }
   static const double c[7] = {1.0/12.0, -1.0/360.0, 1.0/1260.0, -1.0/1680.0,
                               1.0/1188.0, -691.0/360360.0, 1.0/156.0};
   double m = -3617.0/122400.0, t = 1.0 / (x*x);
-  for (int k = 6; k >= 0; --k) m = m*t + c[k];
-  return (x - 0.5)*log(x) - x + 0.918938533204672742 + m / x; /* C=log(2pi)/2 */
+  cho (số_nguyên k = 6; k >= 0; --k) m = m*t + c[k];
+  trả_về (x - 0.5)*log(x) - x + 0.918938533204672742 + m / x; /* C=log(2pi)/2 */
 }
 
 __CRT_INLINE float __cdecl tgammaf(float x) {
-  return tgamma(x);
+  trả_về tgamma(x);
 }
 __CRT_INLINE float __cdecl lgammaf(float x) {
-  return lgamma(x);
+  trả_về lgamma(x);
 }
 __CRT_INLINE long double __cdecl tgammal(long double x) {
-  return tgamma(x);
+  trả_về tgamma(x);
 }
 __CRT_INLINE long double __cdecl lgammal(long double x) {
-  return lgamma(x);
+  trả_về lgamma(x);
 }
 
 #endif /* _TCC_LIBM_H_ */

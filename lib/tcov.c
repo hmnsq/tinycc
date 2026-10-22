@@ -5,7 +5,7 @@
 #ifndef _WIN32
 #include <unistd.h>
 #include <errno.h>
-#else
+#không_thì
 #include <windows.h>
 #include <io.h>
 #endif
@@ -25,30 +25,30 @@
  */
 
 typedef struct tcov_line {
-    unsigned int fline;
-    unsigned int lline;
+    unsigned số_nguyên fline;
+    unsigned số_nguyên lline;
     unsigned long long count;
 } tcov_line;
 
 typedef struct tcov_function {
     char *function;
-    unsigned int first_line;
-    unsigned int n_line;
-    unsigned int m_line;
+    unsigned số_nguyên first_line;
+    unsigned số_nguyên n_line;
+    unsigned số_nguyên m_line;
     tcov_line *line;
 } tcov_function;
 
 typedef struct tcov_file {
     char *filename;
-    unsigned int n_func;
-    unsigned int m_func;
+    unsigned số_nguyên n_func;
+    unsigned số_nguyên m_func;
     tcov_function *func;
     struct tcov_file *next;
 } tcov_file;
 
 static FILE *open_tcov_file (char *cov_filename)
 {
-    int fd;
+    số_nguyên fd;
 #ifndef _WIN32
     struct flock lock;
 
@@ -59,13 +59,13 @@ static FILE *open_tcov_file (char *cov_filename)
     lock.l_pid = getpid ();
 #endif
     fd = open (cov_filename, O_RDWR | O_CREAT, 0666);
-    if (fd < 0)
-	return NULL;
+    nếu (fd < 0)
+	trả_về NULL;
   
 #ifndef _WIN32
-    while (fcntl (fd, F_SETLKW, &lock) && errno == EINTR)
+    trong_khi (fcntl (fd, F_SETLKW, &lock) && errno == EINTR)
         continue;
-#else
+#không_thì
     {
         OVERLAPPED overlapped = { 0 };
         LockFileEx((HANDLE)_get_osfhandle(fd), LOCKFILE_EXCLUSIVE_LOCK,
@@ -73,34 +73,34 @@ static FILE *open_tcov_file (char *cov_filename)
     }
 #endif
 
-    return fdopen (fd, "r+");
+    trả_về fdopen (fd, "r+");
 }
 
-static unsigned long long get_value(unsigned char *p, int size)
+static unsigned long long get_value(unsigned char *p, số_nguyên size)
 {
     unsigned long long value = 0;
 
     p += size;
-    while (size--)
+    trong_khi (size--)
  	value = (value << 8) | *--p;
-    return value;
+    trả_về value;
 }
 
-static int sort_func (const void *p, const void *q)
+static số_nguyên sort_func (const void *p, const void *q)
 {
     const tcov_function *pp = (const tcov_function *) p;
     const tcov_function *pq = (const tcov_function *) q;
 
-    return pp->first_line > pq->first_line ? 1 :
+    trả_về pp->first_line > pq->first_line ? 1 :
 	   pp->first_line < pq->first_line ? -1 : 0;
 }
 
-static int sort_line (const void *p, const void *q)
+static số_nguyên sort_line (const void *p, const void *q)
 {
     const tcov_line *pp = (const tcov_line *) p;
     const tcov_line *pq = (const tcov_line *) q;
 
-    return pp->fline > pq->fline ? 1 :
+    trả_về pp->fline > pq->fline ? 1 :
 	   pp->fline < pq->fline ? -1 :
            pp->count < pq->count ? 1 :
 	   pp->count > pq->count ? -1 : 0;
@@ -109,65 +109,65 @@ static int sort_line (const void *p, const void *q)
 /* sort to let inline functions work */
 static tcov_file *sort_test_coverage (unsigned char *p)
 {
-    int i, j, k;
+    số_nguyên i, j, k;
     unsigned char *start = p;
     tcov_file *file = NULL;
     tcov_file *nfile;
 
     p += 4;
-    while (*p) {
+    trong_khi (*p) {
         char *filename = (char *)p;
 	size_t len = strlen (filename);
 
 	nfile = file;
-	while (nfile) {
-	    if (strcmp (nfile->filename, filename) == 0)
+	trong_khi (nfile) {
+	    nếu (strcmp (nfile->filename, filename) == 0)
 		break;
 	    nfile = nfile->next;
 	}
-	if (nfile == NULL) {
+	nếu (nfile == NULL) {
 	    nfile = malloc (sizeof(tcov_file));
-	    if (nfile == NULL) {
+	    nếu (nfile == NULL) {
 	        fprintf (stderr, "Malloc error test_coverage\n");
-	        return file;
+	        trả_về file;
     	    }
 	    nfile->filename = filename;
 	    nfile->n_func = 0;
 	    nfile->m_func = 0;
 	    nfile->func = NULL;
 	    nfile->next = NULL;
-	    if (file == NULL)
+	    nếu (file == NULL)
 	        file = nfile;
-	    else {
+	    không_thì {
 		tcov_file *lfile = file;
 
-	        while (lfile->next)
+	        trong_khi (lfile->next)
 		    lfile = lfile->next;
 		lfile->next = nfile;
 	    }
 	}
 	p += len + 1;
-	while (*p) {
-	    int i;
+	trong_khi (*p) {
+	    số_nguyên i;
 	    char *function = (char *)p;
 	    tcov_function *func;
 
 	    p += strlen (function) + 1;
 	    p += -(p - start) & 7;
-	    for (i = 0; i < nfile->n_func; i++) {
+	    cho (i = 0; i < nfile->n_func; i++) {
 		func = &nfile->func[i];
-		if (strcmp (func->function, function) == 0)
+		nếu (strcmp (func->function, function) == 0)
 		    break;
 	    }
-	    if (i == nfile->n_func) {
-	        if (nfile->n_func >= nfile->m_func) {
+	    nếu (i == nfile->n_func) {
+	        nếu (nfile->n_func >= nfile->m_func) {
 		    nfile->m_func = nfile->m_func == 0 ? 4 : nfile->m_func * 2;
 		    nfile->func = realloc (nfile->func,
 					   nfile->m_func *
 					   sizeof (tcov_function));
-		    if (nfile->func == NULL) {
+		    nếu (nfile->func == NULL) {
 		        fprintf (stderr, "Realloc error test_coverage\n");
-		        return file;
+		        trả_về file;
 		    }
 	        }
 	        func = &nfile->func[nfile->n_func++];
@@ -178,17 +178,17 @@ static tcov_file *sort_test_coverage (unsigned char *p)
 	        func->line = NULL;
 	    }
 	    p += 8;
-	    while (*p) {
+	    trong_khi (*p) {
 		tcov_line *line;
 		unsigned long long val;
 
-		if (func->n_line >= func->m_line) {
+		nếu (func->n_line >= func->m_line) {
 		    func->m_line = func->m_line == 0 ? 4 : func->m_line * 2;
 		    func->line = realloc (func->line,
 					  func->m_line * sizeof (tcov_line));
-		    if (func->line == NULL) {
+		    nếu (func->line == NULL) {
 		        fprintf (stderr, "Realloc error test_coverage\n");
-		        return file;
+		        trả_về file;
 		    }
 		}
 		line = &func->line[func->n_line++];
@@ -203,62 +203,62 @@ static tcov_file *sort_test_coverage (unsigned char *p)
 	p++;
     }
     nfile = file;
-    while (nfile) {
+    trong_khi (nfile) {
 	qsort (nfile->func, nfile->n_func, sizeof (tcov_function), sort_func);
-	for (i = 0; i < nfile->n_func; i++) {
+	cho (i = 0; i < nfile->n_func; i++) {
 	    tcov_function *func = &nfile->func[i];
 	    qsort (func->line, func->n_line, sizeof (tcov_line), sort_line);
         }
 	nfile = nfile->next;
     }
-    return file;
+    trả_về file;
 }
 
 /* merge with previous tcov file */
 static void merge_test_coverage (tcov_file *file, FILE *fp,
-				 unsigned int *pruns)
+				 unsigned số_nguyên *pruns)
 {
-    unsigned int runs;
+    unsigned số_nguyên runs;
     char *p;
     char str[10000];
     
     *pruns = 1;
-    if (fp == NULL)
-        return;
-    if (fgets(str, sizeof(str), fp) &&
+    nếu (fp == NULL)
+        trả_về;
+    nếu (fgets(str, sizeof(str), fp) &&
         (p = strrchr (str, ':')) &&
         (sscanf (p + 1, "%u", &runs) == 1)) 
         *pruns = runs + 1;
-    while (file) {
-	int i;
+    trong_khi (file) {
+	số_nguyên i;
 	size_t len = strlen (file->filename);
 
-	while (fgets(str, sizeof(str), fp) &&
+	trong_khi (fgets(str, sizeof(str), fp) &&
 	       (p = strstr(str, "0:File:")) == NULL) {}
-        if ((p = strstr(str, "0:File:")) == NULL ||
+        nếu ((p = strstr(str, "0:File:")) == NULL ||
 	    strncmp (p + strlen("0:File:"), file->filename, len) != 0 ||
 	    p[strlen("0:File:") + len] != ' ')
 	    break;
-	for (i = 0; i < file->n_func; i++) {
-	    int j;
+	cho (i = 0; i < file->n_func; i++) {
+	    số_nguyên j;
 	    tcov_function *func = &file->func[i];
-	    unsigned int next_zero = 0;
-	    unsigned int curline = 0;
+	    unsigned số_nguyên next_zero = 0;
+	    unsigned số_nguyên curline = 0;
 
-	    for (j = 0; j < func->n_line; j++) {
+	    cho (j = 0; j < func->n_line; j++) {
 		tcov_line *line = &func->line[j];
-	        unsigned int fline = line->fline;
+	        unsigned số_nguyên fline = line->fline;
 	        unsigned long long count;
-		unsigned int tmp;
+		unsigned số_nguyên tmp;
 		char c;
 
-		while (curline < fline &&
+		trong_khi (curline < fline &&
 		       fgets(str, sizeof(str), fp))
-		    if ((p = strchr(str, ':')) &&
+		    nếu ((p = strchr(str, ':')) &&
 			sscanf (p + 1, "%u", &tmp) == 1)
 			curline = tmp;
-		if (sscanf (str, "%llu%c\n", &count, &c) == 2) {
-		    if (next_zero == 0)
+		nếu (sscanf (str, "%llu%c\n", &count, &c) == 2) {
+		    nếu (next_zero == 0)
 		        line->count += count;
 		    next_zero = c == '*';
 		}
@@ -271,12 +271,12 @@ static void merge_test_coverage (tcov_file *file, FILE *fp,
 /* store tcov data in file */
 void __store_test_coverage (unsigned char * p)
 {
-    int i, j;
-    unsigned int files;
-    unsigned int funcs;
-    unsigned int blocks;
-    unsigned int blocks_run;
-    unsigned int runs;
+    số_nguyên i, j;
+    unsigned số_nguyên files;
+    unsigned số_nguyên funcs;
+    unsigned số_nguyên blocks;
+    unsigned số_nguyên blocks_run;
+    unsigned số_nguyên runs;
     char *cov_filename = (char *)p + get_value (p, 4);
     FILE *fp;
     char *q;
@@ -285,9 +285,9 @@ void __store_test_coverage (unsigned char * p)
     tcov_function *func;
 
     fp = open_tcov_file (cov_filename);
-    if (fp == NULL) {
+    nếu (fp == NULL) {
 	fprintf (stderr, "Cannot create coverage file: %s\n", cov_filename);
-	return;
+	trả_về;
     }
     file = sort_test_coverage (p);
     merge_test_coverage (file, fp, &runs);
@@ -298,124 +298,124 @@ void __store_test_coverage (unsigned char * p)
     blocks = 0;
     blocks_run = 0;
     nfile = file;
-    while (nfile) {
+    trong_khi (nfile) {
 	files++;
-	for (i = 0; i < nfile->n_func; i++) {
+	cho (i = 0; i < nfile->n_func; i++) {
 	    func = &nfile->func[i];
 	    funcs++;
-	    for (j = 0; j < func->n_line; j++) {
+	    cho (j = 0; j < func->n_line; j++) {
 		blocks++;
 		blocks_run += func->line[j].count != 0;
 	    }
 	}
 	nfile = nfile->next;
     }
-    if (blocks == 0)
+    nếu (blocks == 0)
 	blocks = 1;
     fprintf (fp, "        -:    0:All:%s Files:%u Functions:%u %.02f%%\n",
 	     cov_filename, files, funcs, 100.0 * (double) blocks_run / blocks);
     nfile = file;
-    while (nfile) {
+    trong_khi (nfile) {
 	FILE *src = fopen (nfile->filename, "r");
-	unsigned int curline = 1;
+	unsigned số_nguyên curline = 1;
 	char str[10000];
 
-        if (src == NULL)
+        nếu (src == NULL)
 	     goto next;
 	funcs = 0;
 	blocks = 0;
 	blocks_run = 0;
-	for (i = 0; i < nfile->n_func; i++) {
+	cho (i = 0; i < nfile->n_func; i++) {
 	    func = &nfile->func[i];
 	    funcs++;
-	    for (j = 0; j < func->n_line; j++) {
+	    cho (j = 0; j < func->n_line; j++) {
 		blocks++;
 		blocks_run += func->line[j].count != 0;
 	    }
 	}
-	if (blocks == 0)
+	nếu (blocks == 0)
 	    blocks = 1;
         fprintf (fp, "        -:    0:File:%s Functions:%u %.02f%%\n",
 		 nfile->filename, funcs, 100.0 * (double) blocks_run / blocks);
-        for (i = 0; i < nfile->n_func; i++) {
+        cho (i = 0; i < nfile->n_func; i++) {
 	    func = &nfile->func[i];
 	
-	    while (curline < func->first_line &&
+	    trong_khi (curline < func->first_line &&
 		   fgets(str, sizeof(str), src))
 		fprintf (fp, "        -:%5u:%s", curline++, str);
 	    blocks = 0;
 	    blocks_run = 0;
-	    for (j = 0; j < func->n_line; j++) {
+	    cho (j = 0; j < func->n_line; j++) {
 		blocks++;
 		blocks_run += func->line[j].count != 0;
 	    }
-	    if (blocks == 0)
+	    nếu (blocks == 0)
 		blocks = 1;
             fprintf (fp, "        -:    0:Function:%s %.02f%%\n",
 		     func->function, 100.0 * (double) blocks_run / blocks);
-#if 0
-	    for (j = 0; j < func->n_line; j++) {
-	        unsigned int fline = func->line[j].fline;
-	        unsigned int lline = func->line[j].lline;
+#nếu 0
+	    cho (j = 0; j < func->n_line; j++) {
+	        unsigned số_nguyên fline = func->line[j].fline;
+	        unsigned số_nguyên lline = func->line[j].lline;
 		unsigned long long count = func->line[j].count;
 
 		fprintf (fp, "%u %u %llu\n", fline, lline, count);
 	    }
 #endif
-	    for (j = 0; j < func->n_line;) {
-	        unsigned int fline = func->line[j].fline;
-	        unsigned int lline = func->line[j].lline;
+	    cho (j = 0; j < func->n_line;) {
+	        unsigned số_nguyên fline = func->line[j].fline;
+	        unsigned số_nguyên lline = func->line[j].lline;
 	        unsigned long long count = func->line[j].count;
-		unsigned int has_zero = 0;
-		unsigned int same_line = fline == lline;
+		unsigned số_nguyên has_zero = 0;
+		unsigned số_nguyên same_line = fline == lline;
 
 		j++;
-		while (j < func->n_line) {
-	            unsigned int nfline = func->line[j].fline;
-	            unsigned int nlline = func->line[j].lline;
+		trong_khi (j < func->n_line) {
+	            unsigned số_nguyên nfline = func->line[j].fline;
+	            unsigned số_nguyên nlline = func->line[j].lline;
 	            unsigned long long ncount = func->line[j].count;
 
-		    if (fline == nfline) {
-			if (ncount == 0)
+		    nếu (fline == nfline) {
+			nếu (ncount == 0)
 			    has_zero = 1;
-			else if (ncount > count)
+			không_thì nếu (ncount > count)
 			    count =  ncount;
 			same_line = nfline == nlline;
 			lline = nlline;
 			j++;
 		    }
-		    else
+		    không_thì
 			break;
 		}
-		if (same_line)
+		nếu (same_line)
 		     lline++;
 
-	        while (curline < fline &&
+	        trong_khi (curline < fline &&
 		       fgets(str, sizeof(str), src))
 		     fprintf (fp, "        -:%5u:%s", curline++, str);
-		while (curline < lline &&
+		trong_khi (curline < lline &&
 		       fgets(str, sizeof(str), src)) {
-		    if (count == 0)
+		    nếu (count == 0)
 		        fprintf (fp, "    #####:%5u:%s",
 				 curline, str);
-		    else if (has_zero)
+		    không_thì nếu (has_zero)
 		        fprintf (fp, "%8llu*:%5u:%s", 
 				 count, curline, str);
-		    else
+		    không_thì
 		        fprintf (fp, "%9llu:%5u:%s",
 				 count, curline, str);
 		    curline++;
 		}
 	    }
 	}
-	while (fgets(str, sizeof(str), src))
+	trong_khi (fgets(str, sizeof(str), src))
 	    fprintf (fp, "        -:%5u:%s", curline++, str);
 	fclose (src);
 next:
 	nfile = nfile->next;
     }
-    while (file) {
-        for (i = 0; i < file->n_func; i++) {
+    trong_khi (file) {
+        cho (i = 0; i < file->n_func; i++) {
 	    func = &file->func[i];
 	    free (func->line);
         }

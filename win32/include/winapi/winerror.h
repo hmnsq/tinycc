@@ -1974,8 +1974,8 @@
 #define _HRESULT_DEFINED
 typedef long HRESULT;
 #endif
-__CRT_INLINE HRESULT HRESULT_FROM_WIN32(long x) { return x <= 0 ? (HRESULT)x : (HRESULT) (((x) & 0x0000FFFF) | (FACILITY_WIN32 << 16) | 0x80000000);}
-#else
+__CRT_INLINE HRESULT HRESULT_FROM_WIN32(long x) { trả_về x <= 0 ? (HRESULT)x : (HRESULT) (((x) & 0x0000FFFF) | (FACILITY_WIN32 << 16) | 0x80000000);}
+#không_thì
 #define HRESULT_FROM_WIN32(x) __HRESULT_FROM_WIN32(x)
 #endif
 #define HRESULT_FROM_NT(x) ((HRESULT) ((x) | FACILITY_NT_BIT))
@@ -1984,7 +1984,7 @@ __CRT_INLINE HRESULT HRESULT_FROM_WIN32(long x) { return x <= 0 ? (HRESULT)x : (
 #define PropagateResult(hrPrevious,scBase) ((HRESULT) scBase)
 #ifdef RC_INVOKED
 #define _HRESULT_TYPEDEF_(_sc) _sc
-#else
+#không_thì
 #define _HRESULT_TYPEDEF_(_sc) ((HRESULT)_sc)
 #endif
 #define NOERROR 0

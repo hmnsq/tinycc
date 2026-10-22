@@ -1,17 +1,17 @@
 #include <stdio.h>
 
-int main()
+số_nguyên main()
 {
    char Buf[100];
-   int Count;
+   số_nguyên Count;
 
-   for (Count = 1; Count <= 20; Count++)
+   cho (Count = 1; Count <= 20; Count++)
    {
       sprintf(Buf, "->%02d<-\n", Count);
       printf("%s", Buf);
    }
 
-   return 0;
+   trả_về 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

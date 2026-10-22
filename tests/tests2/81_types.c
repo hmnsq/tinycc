@@ -9,47 +9,47 @@ struct S const *s2;
 
 /* Various strangely looking declarators, which are all valid
    and have to map to the same numbered typedefs. */
-typedef int (*fptr1)();
-int f1 (int (), int);
-typedef int (*fptr2)(int x);
-int f2 (int (int x), int);
-typedef int (*fptr3)(int);
-int f3 (int (int), int);
-typedef int (*fptr4[4])(int);
-int f4 (int (*[4])(int), int);
-typedef int (*fptr5)(fptr1);
-int f5 (int (int()), fptr1);
-int f1 (fptr1 fp, int i)
+typedef số_nguyên (*fptr1)();
+số_nguyên f1 (số_nguyên (), số_nguyên);
+typedef số_nguyên (*fptr2)(số_nguyên x);
+số_nguyên f2 (số_nguyên (số_nguyên x), số_nguyên);
+typedef số_nguyên (*fptr3)(số_nguyên);
+số_nguyên f3 (số_nguyên (số_nguyên), số_nguyên);
+typedef số_nguyên (*fptr4[4])(số_nguyên);
+số_nguyên f4 (số_nguyên (*[4])(số_nguyên), số_nguyên);
+typedef số_nguyên (*fptr5)(fptr1);
+số_nguyên f5 (số_nguyên (số_nguyên()), fptr1);
+số_nguyên f1 (fptr1 fp, số_nguyên i)
 {
-  return (*fp)(i);
+  trả_về (*fp)(i);
 }
-int f2 (fptr2 fp, int i)
+số_nguyên f2 (fptr2 fp, số_nguyên i)
 {
-  return (*fp)(i);
+  trả_về (*fp)(i);
 }
-int f3 (fptr3 fp, int i)
+số_nguyên f3 (fptr3 fp, số_nguyên i)
 {
-  return (*fp)(i);
+  trả_về (*fp)(i);
 }
-int f4 (fptr4 fp, int i)
+số_nguyên f4 (fptr4 fp, số_nguyên i)
 {
-  return (*fp[i])(i);
+  trả_về (*fp[i])(i);
 }
-int f5 (fptr5 fp, fptr1 i)
+số_nguyên f5 (fptr5 fp, fptr1 i)
 {
-  return fp(i);
+  trả_về fp(i);
 }
-typedef int intx4[4];
-int f8 (intx4, int);
-int f8 (int ([4]), int);
-int f8 (int y[4], int i)
+typedef số_nguyên intx4[4];
+số_nguyên f8 (intx4, số_nguyên);
+số_nguyên f8 (số_nguyên ([4]), số_nguyên);
+số_nguyên f8 (số_nguyên y[4], số_nguyên i)
 {
-  return y[i];
+  trả_về y[i];
 }
-int f9 (int (*)(int), int);
-int f9 (int ((int)), int);
-int f9 (int f(int), int i)
+số_nguyên f9 (số_nguyên (*)(số_nguyên), số_nguyên);
+số_nguyên f9 (số_nguyên ((số_nguyên)), số_nguyên);
+số_nguyên f9 (số_nguyên f(số_nguyên), số_nguyên i)
 {
-  return f(i);
+  trả_về f(i);
 }
-int main () { return 0; }
+số_nguyên main () { trả_về 0; }

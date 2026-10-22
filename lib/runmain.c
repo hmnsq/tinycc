@@ -3,17 +3,17 @@
 
 #ifdef __leading_underscore
 # define _(s) s
-#else
+#không_thì
 # define _(s) _##s
 #endif
 
 #ifndef _WIN32
-extern void (*_(_init_array_start)[]) (int argc, char **argv, char **envp);
-extern void (*_(_init_array_end)[]) (int argc, char **argv, char **envp);
-static void run_ctors(int argc, char **argv, char **env)
+extern void (*_(_init_array_start)[]) (số_nguyên argc, char **argv, char **envp);
+extern void (*_(_init_array_end)[]) (số_nguyên argc, char **argv, char **envp);
+static void run_ctors(số_nguyên argc, char **argv, char **env)
 {
-    int i = 0;
-    while (&_(_init_array_start)[i] != _(_init_array_end))
+    số_nguyên i = 0;
+    trong_khi (&_(_init_array_start)[i] != _(_init_array_end))
         (*_(_init_array_start)[i++])(argc, argv, env);
 }
 #endif
@@ -22,46 +22,46 @@ extern void (*_(_fini_array_start)[]) (void);
 extern void (*_(_fini_array_end)[]) (void);
 static void run_dtors(void)
 {
-    int i = 0;
-    while (&_(_fini_array_end)[i] != _(_fini_array_start))
+    số_nguyên i = 0;
+    trong_khi (&_(_fini_array_end)[i] != _(_fini_array_start))
         (*_(_fini_array_end)[--i])();
 }
 
 static void *rt_exitfunc[32];
 static void *rt_exitarg[32];
-static int __rt_nr_exit;
+static số_nguyên __rt_nr_exit;
 
-void __run_on_exit(int ret)
+void __run_on_exit(số_nguyên ret)
 {
-    int n = __rt_nr_exit;
-    while (n)
-	--n, ((void(*)(int,void*))rt_exitfunc[n])(ret, rt_exitarg[n]);
+    số_nguyên n = __rt_nr_exit;
+    trong_khi (n)
+	--n, ((void(*)(số_nguyên,void*))rt_exitfunc[n])(ret, rt_exitarg[n]);
 }
 
-int on_exit(void *function, void *arg)
+số_nguyên on_exit(void *function, void *arg)
 {
-    int n = __rt_nr_exit;
-    if (n < 32) {
+    số_nguyên n = __rt_nr_exit;
+    nếu (n < 32) {
 	rt_exitfunc[n] = function;
 	rt_exitarg[n] = arg;
         __rt_nr_exit = n + 1;
-        return 0;
+        trả_về 0;
     }
-    return 1;
+    trả_về 1;
 }
 
-int atexit(void (*function)(void))
+số_nguyên atexit(void (*function)(void))
 {
-    return on_exit(function, 0);
+    trả_về on_exit(function, 0);
 }
 
 typedef struct rt_frame {
     void *ip, *fp, *sp;
 } rt_frame;
 
-__attribute__((noreturn)) void __rt_exit(rt_frame *, int);
+__attribute__((noreturn)) void __rt_exit(rt_frame *, số_nguyên);
 
-void exit(int code)
+void exit(số_nguyên code)
 {
     rt_frame f;
     run_dtors();
@@ -72,15 +72,15 @@ void exit(int code)
 }
 
 #ifndef _WIN32
-int main(int, char**, char**);
+số_nguyên main(số_nguyên, char**, char**);
 
-int _runmain(int argc, char **argv, char **envp)
+số_nguyên _runmain(số_nguyên argc, char **argv, char **envp)
 {
-    int ret;
+    số_nguyên ret;
     run_ctors(argc, argv, envp);
     ret = main(argc, argv, envp);
     run_dtors();
     __run_on_exit(ret);
-    return ret;
+    trả_về ret;
 }
 #endif

@@ -1,11 +1,11 @@
-void defined_const(int *pointer);
+void defined_const(số_nguyên *pointer);
 
-void defined_const(int *const pointer)
+void defined_const(số_nguyên *const pointer)
 {
     pointer = 0;
 }
 
-int main(void)
+số_nguyên main(void)
 {
-    return 0;
+    trả_về 0;
 }

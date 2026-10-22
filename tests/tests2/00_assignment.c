@@ -1,18 +1,18 @@
 #include <stdio.h>
 
-int main() 
+số_nguyên main() 
 {
-   int a;
+   số_nguyên a;
    a = 42;
    printf("%d\n", a);
 
-   int b = 64;
+   số_nguyên b = 64;
    printf("%d\n", b);
 
-   int c = 12, d = 34;
+   số_nguyên c = 12, d = 34;
    printf("%d, %d\n", c, d);
 
-   return 0;
+   trả_về 0;
 }
 
 // vim: set expandtab ts=4 sw=3 sts=3 tw=80 :

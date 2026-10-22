@@ -1,18 +1,18 @@
 #include <stdio.h>
 
-int main()
+số_nguyên main()
 {
-   int a;
+   số_nguyên a;
    char b;
 
    a = 0;
-   while (a < 2)
+   trong_khi (a < 2)
    {
       printf("%d", a++);
       break;
 
       b = 'A';
-      while (b < 'C')
+      trong_khi (b < 'C')
       {
          printf("%c", b++);
       }
@@ -20,7 +20,7 @@ int main()
    }
    printf("\n");
 
-   return 0;
+   trả_về 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

@@ -1,30 +1,30 @@
-const int const_return(void);
-volatile int volatile_return(void);
-int *restrict restrict_return(void);
+const số_nguyên const_return(void);
+volatile số_nguyên volatile_return(void);
+số_nguyên *restrict restrict_return(void);
 
-_Static_assert(__builtin_types_compatible_p(__typeof__(const_return()) *, int *),
+_Static_assert(__builtin_types_compatible_p(__typeof__(const_return()) *, số_nguyên *),
                "const is removed from a return type");
-_Static_assert(__builtin_types_compatible_p(__typeof__(volatile_return()) *, int *),
+_Static_assert(__builtin_types_compatible_p(__typeof__(volatile_return()) *, số_nguyên *),
                "volatile is removed from a return type");
-_Static_assert(__builtin_types_compatible_p(__typeof__(restrict_return()) *, int **),
+_Static_assert(__builtin_types_compatible_p(__typeof__(restrict_return()) *, số_nguyên **),
                "restrict is removed from a return type");
 
-int const_return(void)
+số_nguyên const_return(void)
 {
-   return 0;
+   trả_về 0;
 }
 
-int volatile_return(void)
+số_nguyên volatile_return(void)
 {
-   return 0;
+   trả_về 0;
 }
 
-int *restrict_return(void)
+số_nguyên *restrict_return(void)
 {
-   return 0;
+   trả_về 0;
 }
 
-int main(void)
+số_nguyên main(void)
 {
-   return 0;
+   trả_về 0;
 }

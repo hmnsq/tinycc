@@ -30,29 +30,29 @@ enum cplus_tree_code {
   LAST_CPLUS_TREE_CODE
 };
 
-extern int printf(const char *, ...);
-int blah(){return 0;}
+extern số_nguyên printf(const char *, ...);
+số_nguyên blah(){trả_về 0;}
 
-int convert_like_real (tree convs)
+số_nguyên convert_like_real (tree convs)
 {
   switch (((enum tree_code) (convs)->common.code))
     {
     case AMBIG_CONV: /* This has bit 7 set, which must not be the sign
 			bit in tree_common.code, i.e. the bitfield must
 			be somehow marked unsigned.  */
-      return blah();
+      trả_về blah();
     default:
       break;
     };
    printf("unsigned enum bit-fields broken\n");
-   return 0;
+   trả_về 0;
 }
 
-int main()
+số_nguyên main()
 {
   union tree_node convs;
 
   convs.common.code = AMBIG_CONV;
   convert_like_real (&convs);
-  return 0;
+  trả_về 0;
 }

@@ -1,10 +1,10 @@
 #include <stdio.h>
 
-int main()
+số_nguyên main()
 {
-   int a;
-   int *b;
-   int *c;
+   số_nguyên a;
+   số_nguyên *b;
+   số_nguyên *c;
 
    a = 42;
    b = &a;
@@ -12,17 +12,17 @@ int main()
 
    printf("%d\n", *b);
 
-   if (b == NULL)
+   nếu (b == NULL)
       printf("b is NULL\n");
-   else
+   không_thì
       printf("b is not NULL\n");
 
-   if (c == NULL)
+   nếu (c == NULL)
       printf("c is NULL\n");
-   else
+   không_thì
       printf("c is not NULL\n");
 
-   return 0;
+   trả_về 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

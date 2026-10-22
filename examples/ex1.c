@@ -1,8 +1,8 @@
 #!/usr/local/bin/tcc -run
 #include <tcclib.h>
 
-int main()
+số_nguyên main()
 {
     printf("Hello World\n");
-    return 0;
+    trả_về 0;
 }

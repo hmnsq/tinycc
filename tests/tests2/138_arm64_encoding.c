@@ -7,12 +7,12 @@
 
 /* ---- shift-by-immediate helpers ---- */
 
-static uint32_t lsl32(uint32_t x, int n) { return x << n; }
-static uint32_t lsr32(uint32_t x, int n) { return x >> n; }
-static int32_t  asr32(int32_t  x, int n) { return x >> n; }
-static uint64_t lsl64(uint64_t x, int n) { return x << n; }
-static uint64_t lsr64(uint64_t x, int n) { return x >> n; }
-static int64_t  asr64(int64_t  x, int n) { return x >> n; }
+static uint32_t lsl32(uint32_t x, số_nguyên n) { trả_về x << n; }
+static uint32_t lsr32(uint32_t x, số_nguyên n) { trả_về x >> n; }
+static int32_t  asr32(int32_t  x, số_nguyên n) { trả_về x >> n; }
+static uint64_t lsl64(uint64_t x, số_nguyên n) { trả_về x << n; }
+static uint64_t lsr64(uint64_t x, số_nguyên n) { trả_về x >> n; }
+static int64_t  asr64(int64_t  x, số_nguyên n) { trả_về x >> n; }
 
 static void test_shifts(void)
 {
@@ -86,18 +86,18 @@ static void test_ldp_stp(void)
 
 /* ---- CBZ / CBNZ via C patterns ---- */
 
-static const char *cbz_test(int x)
+static const char *cbz_test(số_nguyên x)
 {
-    if (x == 0)
-        return "zero";
-    return "nonzero";
+    nếu (x == 0)
+        trả_về "zero";
+    trả_về "nonzero";
 }
 
-static const char *cbnz_test(int x)
+static const char *cbnz_test(số_nguyên x)
 {
-    if (x != 0)
-        return "nonzero";
-    return "zero";
+    nếu (x != 0)
+        trả_về "nonzero";
+    trả_về "zero";
 }
 
 static void test_cond_branches(void)
@@ -111,10 +111,10 @@ static void test_cond_branches(void)
 
 /* ---- conditional compare patterns (CCMP/CCMN) ---- */
 
-static int cond_select(int a, int b)
+static số_nguyên cond_select(số_nguyên a, số_nguyên b)
 {
     /* TCC should generate csel or equivalent */
-    return a > b ? a : b;
+    trả_về a > b ? a : b;
 }
 
 static void test_cond_select(void)
@@ -130,7 +130,7 @@ static void test_cond_select(void)
 
 static void test_sysregs(void)
 {
-    unsigned int fpcr, fpsr;
+    unsigned số_nguyên fpcr, fpsr;
 
     printf("sysregs:\n");
 
@@ -147,7 +147,7 @@ static void test_sysregs(void)
 
     /* Read back and verify */
     {
-        unsigned int check;
+        unsigned số_nguyên check;
         __asm__ volatile ("mrs %0, fpcr" : "=r"(check));
         printf("%s\n", check == fpcr ? "ok" : "fail");
     }
@@ -181,7 +181,7 @@ static int64_t mov_x0_x1(int64_t x)
 {
     register int64_t r __asm__("x0") = x;
     __asm__ volatile ("" : "=r"(r) : "0"(r));
-    return r;
+    trả_về r;
 }
 
 static void test_mov_reg(void)
@@ -197,13 +197,13 @@ struct large { int64_t a, b, c, d; };
 
 static int64_t sum_large(struct large s)
 {
-    return s.a + s.b + s.c + s.d;
+    trả_về s.a + s.b + s.c + s.d;
 }
 
 static struct large make_large(int64_t a, int64_t b, int64_t c, int64_t d)
 {
     struct large s = { a, b, c, d };
-    return s;
+    trả_về s;
 }
 
 static void test_large_structs(void)
@@ -233,19 +233,19 @@ static void print_s32(struct s32 s) { printf("%.32s\n", s.x); }
 static struct s18 ret_s18(void)
 {
     struct s18 s = { "123456789012345678" };
-    return s;
+    trả_về s;
 }
 
 static struct s24 ret_s24(void)
 {
     struct s24 s = { "123456789012345678901234" };
-    return s;
+    trả_về s;
 }
 
 static struct s32 ret_s32(void)
 {
     struct s32 s = { "12345678901234567890123456789012" };
-    return s;
+    trả_về s;
 }
 
 static void test_boundary_structs(void)
@@ -263,7 +263,7 @@ static void test_boundary_structs(void)
     printf("%.32s\n", c.x);
 }
 
-int main(void)
+số_nguyên main(void)
 {
     test_shifts();
     test_ldr_str();
@@ -276,5 +276,5 @@ int main(void)
     test_mov_reg();
     test_large_structs();
     test_boundary_structs();
-    return 0;
+    trả_về 0;
 }

@@ -33,60 +33,60 @@ SCNHDR section_header[MAXNSCNS];
 #define MAX_FUNCS 1000
 #define MAX_FUNC_NAME_LENGTH 128
 
-int nFuncs;
+số_nguyên nFuncs;
 char Func[MAX_FUNCS][MAX_FUNC_NAME_LENGTH];
 char AssociatedFile[MAX_FUNCS][MAX_FUNC_NAME_LENGTH];
-int LineNoFilePtr[MAX_FUNCS];
-int EndAddress[MAX_FUNCS];
-int LastLineNo[MAX_FUNCS];
-int FuncEntries[MAX_FUNCS];
+số_nguyên LineNoFilePtr[MAX_FUNCS];
+số_nguyên EndAddress[MAX_FUNCS];
+số_nguyên LastLineNo[MAX_FUNCS];
+số_nguyên FuncEntries[MAX_FUNCS];
 
-int OutputTheSection(Section * sect);
-short int GetCoffFlags(const char *s);
+số_nguyên OutputTheSection(Section * sect);
+short số_nguyên GetCoffFlags(const char *s);
 void SortSymbolTable(TCCState *s1);
 Section *FindSection(TCCState * s1, const char *sname);
 
-int C67_main_entry_point;
+số_nguyên C67_main_entry_point;
 
-int FindCoffSymbolIndex(TCCState * s1, const char *func_name);
-int nb_syms;
+số_nguyên FindCoffSymbolIndex(TCCState * s1, const char *func_name);
+số_nguyên nb_syms;
 
 typedef struct {
     long tag;
     long size;
     long fileptr;
     long nextsym;
-    short int dummy;
+    short số_nguyên dummy;
 } AUXFUNC;
 
 typedef struct {
     long regmask;
     unsigned short lineno;
     unsigned short nentries;
-    int localframe;
-    int nextentry;
-    short int dummy;
+    số_nguyên localframe;
+    số_nguyên nextentry;
+    short số_nguyên dummy;
 } AUXBF;
 
 typedef struct {
     long dummy;
     unsigned short lineno;
     unsigned short dummy1;
-    int dummy2;
-    int dummy3;
+    số_nguyên dummy2;
+    số_nguyên dummy3;
     unsigned short dummy4;
 } AUXEF;
 
-ST_FUNC int tcc_output_coff(TCCState *s1, FILE *f)
+ST_FUNC số_nguyên tcc_output_coff(TCCState *s1, FILE *f)
 {
     Section *tcc_sect;
     SCNHDR *coff_sec;
-    int file_pointer;
+    số_nguyên file_pointer;
     char *Coff_str_table, *pCoff_str_table;
-    int CoffTextSectionNo, coff_nb_syms;
+    số_nguyên CoffTextSectionNo, coff_nb_syms;
     FILHDR file_hdr;		/* FILE HEADER STRUCTURE              */
     Section *stext, *sdata, *sbss;
-    int i, NSectionsToOutput = 0;
+    số_nguyên i, NSectionsToOutput = 0;
 
     Coff_str_table = pCoff_str_table = NULL;
 
@@ -119,14 +119,14 @@ ST_FUNC int tcc_output_coff(TCCState *s1, FILE *f)
 
     CoffTextSectionNo = -1;
 
-    for (i = 1; i < s1->nb_sections; i++) {
+    cho (i = 1; i < s1->nb_sections; i++) {
 	coff_sec = &section_header[i];
 	tcc_sect = s1->sections[i];
 
-	if (OutputTheSection(tcc_sect)) {
+	nếu (OutputTheSection(tcc_sect)) {
 	    NSectionsToOutput++;
 
-	    if (CoffTextSectionNo == -1 && tcc_sect == stext)
+	    nếu (CoffTextSectionNo == -1 && tcc_sect == stext)
 		CoffTextSectionNo = NSectionsToOutput;	// rem which coff sect number the .text sect is
 
 	    strcpy(coff_sec->s_name, tcc_sect->name);	/* section name */
@@ -152,11 +152,11 @@ ST_FUNC int tcc_output_coff(TCCState *s1, FILE *f)
     // for the raw data
 
 
-    for (i = 1; i < s1->nb_sections; i++) {
+    cho (i = 1; i < s1->nb_sections; i++) {
 	coff_sec = &section_header[i];
 	tcc_sect = s1->sections[i];
 
-	if (OutputTheSection(tcc_sect)) {
+	nếu (OutputTheSection(tcc_sect)) {
 	    // put raw data
 	    coff_sec->s_scnptr = file_pointer;	/* file ptr to raw data for section */
 	    file_pointer += coff_sec->s_size;
@@ -166,13 +166,13 @@ ST_FUNC int tcc_output_coff(TCCState *s1, FILE *f)
     // now loop through and determine file pointer locations
     // for the relocation data
 
-    for (i = 1; i < s1->nb_sections; i++) {
+    cho (i = 1; i < s1->nb_sections; i++) {
 	coff_sec = &section_header[i];
 	tcc_sect = s1->sections[i];
 
-	if (OutputTheSection(tcc_sect)) {
+	nếu (OutputTheSection(tcc_sect)) {
 	    // put relocations data
-	    if (coff_sec->s_nreloc > 0) {
+	    nếu (coff_sec->s_nreloc > 0) {
 		coff_sec->s_relptr = file_pointer;	/* file ptr to relocation */
 		file_pointer += coff_sec->s_nreloc * sizeof(struct reloc);
 	    }
@@ -182,14 +182,14 @@ ST_FUNC int tcc_output_coff(TCCState *s1, FILE *f)
     // now loop through and determine file pointer locations
     // for the line number data
 
-    for (i = 1; i < s1->nb_sections; i++) {
+    cho (i = 1; i < s1->nb_sections; i++) {
 	coff_sec = &section_header[i];
 	tcc_sect = s1->sections[i];
 
 	coff_sec->s_nlnno = 0;
 	coff_sec->s_lnnoptr = 0;
 
-	if (s1->do_debug && tcc_sect == stext) {
+	nếu (s1->do_debug && tcc_sect == stext) {
 	    // count how many line nos data
 
 	    // also find association between source file name and function
@@ -201,7 +201,7 @@ ST_FUNC int tcc_output_coff(TCCState *s1, FILE *f)
 		last_func_name[MAX_FUNC_NAME_LENGTH];
 	    unsigned long func_addr, last_pc, pc;
 	    const char *incl_files[INCLUDE_STACK_SIZE];
-	    int incl_index, len, last_line_num;
+	    số_nguyên incl_index, len, last_line_num;
 	    const char *str, *p;
 
 	    coff_sec->s_lnnoptr = file_pointer;	/* file ptr to linno */
@@ -219,11 +219,11 @@ ST_FUNC int tcc_output_coff(TCCState *s1, FILE *f)
 			      stab_section->data_offset);
 
 	    nFuncs = 0;
-	    while (sym < sym_end) {
+	    trong_khi (sym < sym_end) {
 		switch (sym->n_type) {
 		    /* function start or end */
 		case N_FUN:
-		    if (sym->n_strx == 0) {
+		    nếu (sym->n_strx == 0) {
 			// end of function
 
 			coff_sec->s_nlnno++;
@@ -237,7 +237,7 @@ ST_FUNC int tcc_output_coff(TCCState *s1, FILE *f)
 			    (file_pointer -
 			     LineNoFilePtr[nFuncs]) / LINESZ - 1;
 			LastLineNo[nFuncs++] = last_line_num + 1;
-		    } else {
+		    } không_thì {
 			// beginning of function
 
 			LineNoFilePtr[nFuncs] = file_pointer;
@@ -249,12 +249,12 @@ ST_FUNC int tcc_output_coff(TCCState *s1, FILE *f)
 			    sym->n_strx;
 
 			p = strchr(str, ':');
-			if (!p) {
+			nếu (!p) {
 			    pstrcpy(func_name, sizeof(func_name), str);
 			    pstrcpy(Func[nFuncs], sizeof(func_name), str);
-			} else {
+			} không_thì {
 			    len = p - str;
-			    if (len > sizeof(func_name) - 1)
+			    nếu (len > sizeof(func_name) - 1)
 				len = sizeof(func_name) - 1;
 			    memcpy(func_name, str, len);
 			    memcpy(Func[nFuncs], str, len);
@@ -287,24 +287,24 @@ ST_FUNC int tcc_output_coff(TCCState *s1, FILE *f)
 		    str =
 			(const char *) stabstr_section->data + sym->n_strx;
 		  add_incl:
-		    if (incl_index < INCLUDE_STACK_SIZE) {
+		    nếu (incl_index < INCLUDE_STACK_SIZE) {
 			incl_files[incl_index++] = str;
 		    }
 		    break;
 		case N_EINCL:
-		    if (incl_index > 1)
+		    nếu (incl_index > 1)
 			incl_index--;
 		    break;
 		case N_SO:
-		    if (sym->n_strx == 0) {
+		    nếu (sym->n_strx == 0) {
 			incl_index = 0;	/* end of translation unit */
-		    } else {
+		    } không_thì {
 			str =
 			    (const char *) stabstr_section->data +
 			    sym->n_strx;
 			/* do not add path */
 			len = strlen(str);
-			if (len > 0 && str[len - 1] != '/')
+			nếu (len > 0 && str[len - 1] != '/')
 			    goto add_incl;
 		    }
 		    break;
@@ -317,9 +317,9 @@ ST_FUNC int tcc_output_coff(TCCState *s1, FILE *f)
 
     file_hdr.f_symptr = file_pointer;	/* file pointer to symtab */
 
-    if (s1->do_debug)
+    nếu (s1->do_debug)
 	file_hdr.f_nsyms = coff_nb_syms;	/* number of symtab entries */
-    else
+    không_thì
 	file_hdr.f_nsyms = 0;
 
     file_pointer += file_hdr.f_nsyms * SYMNMLEN;
@@ -331,33 +331,33 @@ ST_FUNC int tcc_output_coff(TCCState *s1, FILE *f)
     fwrite(&o_filehdr, sizeof(o_filehdr), 1, f);
 
     // write section headers
-    for (i = 1; i < s1->nb_sections; i++) {
+    cho (i = 1; i < s1->nb_sections; i++) {
 	coff_sec = &section_header[i];
 	tcc_sect = s1->sections[i];
 
-	if (OutputTheSection(tcc_sect)) {
+	nếu (OutputTheSection(tcc_sect)) {
 	    fwrite(coff_sec, sizeof(SCNHDR), 1, f);
 	}
     }
 
     // write raw data
-    for (i = 1; i < s1->nb_sections; i++) {
+    cho (i = 1; i < s1->nb_sections; i++) {
 	coff_sec = &section_header[i];
 	tcc_sect = s1->sections[i];
 
-	if (OutputTheSection(tcc_sect)) {
+	nếu (OutputTheSection(tcc_sect)) {
 	    fwrite(tcc_sect->data, tcc_sect->data_offset, 1, f);
 	}
     }
 
     // write relocation data
-    for (i = 1; i < s1->nb_sections; i++) {
+    cho (i = 1; i < s1->nb_sections; i++) {
 	coff_sec = &section_header[i];
 	tcc_sect = s1->sections[i];
 
-	if (OutputTheSection(tcc_sect)) {
+	nếu (OutputTheSection(tcc_sect)) {
 	    // put relocations data
-	    if (coff_sec->s_nreloc > 0) {
+	    nếu (coff_sec->s_nreloc > 0) {
 		fwrite(tcc_sect->reloc,
 		       coff_sec->s_nreloc * sizeof(struct reloc), 1, f);
 	    }
@@ -368,16 +368,16 @@ ST_FUNC int tcc_output_coff(TCCState *s1, FILE *f)
     // group the symbols in order of filename, func1, func2, etc
     // finally global symbols
 
-    if (s1->do_debug)
+    nếu (s1->do_debug)
 	SortSymbolTable(s1);
 
     // write line no data
 
-    for (i = 1; i < s1->nb_sections; i++) {
+    cho (i = 1; i < s1->nb_sections; i++) {
 	coff_sec = &section_header[i];
 	tcc_sect = s1->sections[i];
 
-	if (s1->do_debug && tcc_sect == stext) {
+	nếu (s1->do_debug && tcc_sect == stext) {
 	    // count how many line nos data
 
 
@@ -385,7 +385,7 @@ ST_FUNC int tcc_output_coff(TCCState *s1, FILE *f)
 	    char func_name[128], last_func_name[128];
 	    unsigned long func_addr, last_pc, pc;
 	    const char *incl_files[INCLUDE_STACK_SIZE];
-	    int incl_index, len, last_line_num;
+	    số_nguyên incl_index, len, last_line_num;
 	    const char *str, *p;
 
 	    LINENO CoffLineNo;
@@ -401,11 +401,11 @@ ST_FUNC int tcc_output_coff(TCCState *s1, FILE *f)
 		(Stab_Sym *) (stab_section->data +
 			      stab_section->data_offset);
 
-	    while (sym < sym_end) {
+	    trong_khi (sym < sym_end) {
 		switch (sym->n_type) {
 		    /* function start or end */
 		case N_FUN:
-		    if (sym->n_strx == 0) {
+		    nếu (sym->n_strx == 0) {
 			// end of function
 
 			CoffLineNo.l_addr.l_paddr = last_pc;
@@ -415,7 +415,7 @@ ST_FUNC int tcc_output_coff(TCCState *s1, FILE *f)
 			pc = sym->n_value + func_addr;
 			func_name[0] = '\0';
 			func_addr = 0;
-		    } else {
+		    } không_thì {
 			// beginning of function
 
 			str =
@@ -424,11 +424,11 @@ ST_FUNC int tcc_output_coff(TCCState *s1, FILE *f)
 
 
 			p = strchr(str, ':');
-			if (!p) {
+			nếu (!p) {
 			    pstrcpy(func_name, sizeof(func_name), str);
-			} else {
+			} không_thì {
 			    len = p - str;
-			    if (len > sizeof(func_name) - 1)
+			    nếu (len > sizeof(func_name) - 1)
 				len = sizeof(func_name) - 1;
 			    memcpy(func_name, str, len);
 			    func_name[len] = '\0';
@@ -459,9 +459,9 @@ ST_FUNC int tcc_output_coff(TCCState *s1, FILE *f)
 
 		    CoffLineNo.l_addr.l_paddr = last_pc;
 
-		    if (last_line_num == -1) {
+		    nếu (last_line_num == -1) {
 			CoffLineNo.l_lnno = sym->n_desc;
-		    } else {
+		    } không_thì {
 			CoffLineNo.l_lnno = last_line_num + 1;
 		    }
 
@@ -477,24 +477,24 @@ ST_FUNC int tcc_output_coff(TCCState *s1, FILE *f)
 		    str =
 			(const char *) stabstr_section->data + sym->n_strx;
 		  add_incl2:
-		    if (incl_index < INCLUDE_STACK_SIZE) {
+		    nếu (incl_index < INCLUDE_STACK_SIZE) {
 			incl_files[incl_index++] = str;
 		    }
 		    break;
 		case N_EINCL:
-		    if (incl_index > 1)
+		    nếu (incl_index > 1)
 			incl_index--;
 		    break;
 		case N_SO:
-		    if (sym->n_strx == 0) {
+		    nếu (sym->n_strx == 0) {
 			incl_index = 0;	/* end of translation unit */
-		    } else {
+		    } không_thì {
 			str =
 			    (const char *) stabstr_section->data +
 			    sym->n_strx;
 			/* do not add path */
 			len = strlen(str);
-			if (len > 0 && str[len - 1] != '/')
+			nếu (len > 0 && str[len - 1] != '/')
 			    goto add_incl2;
 		    }
 		    break;
@@ -505,17 +505,17 @@ ST_FUNC int tcc_output_coff(TCCState *s1, FILE *f)
     }
 
     // write symbol table
-    if (s1->do_debug) {
-	int k;
+    nếu (s1->do_debug) {
+	số_nguyên k;
 	struct syment csym;
 	AUXFUNC auxfunc;
 	AUXBF auxbf;
 	AUXEF auxef;
-	int i;
+	số_nguyên i;
 	Elf32_Sym *p;
 	const char *name;
-	int nstr;
-	int n = 0;
+	số_nguyên nstr;
+	số_nguyên n = 0;
 
 	Coff_str_table = (char *) tcc_malloc(MAX_STR_TABLE);
 	pCoff_str_table = Coff_str_table;
@@ -524,17 +524,17 @@ ST_FUNC int tcc_output_coff(TCCState *s1, FILE *f)
 	p = (Elf32_Sym *) symtab_section->data;
 
 
-	for (i = 0; i < nb_syms; i++) {
+	cho (i = 0; i < nb_syms; i++) {
 
 	    name = symtab_section->link->data + p->st_name;
 
-	    for (k = 0; k < 8; k++)
+	    cho (k = 0; k < 8; k++)
 		csym._n._n_name[k] = 0;
 
-	    if (strlen(name) <= 8) {
+	    nếu (strlen(name) <= 8) {
 		strcpy(csym._n._n_name, name);
-	    } else {
-		if (pCoff_str_table - Coff_str_table + strlen(name) >
+	    } không_thì {
+		nếu (pCoff_str_table - Coff_str_table + strlen(name) >
 		    MAX_STR_TABLE - 1)
 		    tcc_error("String table too large");
 
@@ -547,7 +547,7 @@ ST_FUNC int tcc_output_coff(TCCState *s1, FILE *f)
 		nstr++;
 	    }
 
-	    if (p->st_info == 4) {
+	    nếu (p->st_info == 4) {
 		// put a filename symbol
 		csym.n_value = 33;	// ?????
 		csym.n_scnum = N_DEBUG;
@@ -557,15 +557,15 @@ ST_FUNC int tcc_output_coff(TCCState *s1, FILE *f)
 		fwrite(&csym, 18, 1, f);
 		n++;
 
-	    } else if (p->st_info == 0x12) {
+	    } không_thì nếu (p->st_info == 0x12) {
 		// find the function data
 
-		for (k = 0; k < nFuncs; k++) {
-		    if (strcmp(name, Func[k]) == 0)
+		cho (k = 0; k < nFuncs; k++) {
+		    nếu (strcmp(name, Func[k]) == 0)
 			break;
 		}
 
-		if (k >= nFuncs) {
+		nếu (k >= nFuncs) {
 		    tcc_error("debug info can't find function: %s", name);
 		}
 		// put a Function Name
@@ -628,25 +628,25 @@ ST_FUNC int tcc_output_coff(TCCState *s1, FILE *f)
 
 		n += 6;
 
-	    } else {
+	    } không_thì {
 		// try an put some type info
 
-		if ((p->st_other & VT_BTYPE) == VT_DOUBLE) {
+		nếu ((p->st_other & VT_BTYPE) == VT_DOUBLE) {
 		    csym.n_type = T_DOUBLE;	// int
 		    csym.n_sclass = C_EXT;
-		} else if ((p->st_other & VT_BTYPE) == VT_FLOAT) {
+		} không_thì nếu ((p->st_other & VT_BTYPE) == VT_FLOAT) {
 		    csym.n_type = T_FLOAT;
 		    csym.n_sclass = C_EXT;
-		} else if ((p->st_other & VT_BTYPE) == VT_INT) {
+		} không_thì nếu ((p->st_other & VT_BTYPE) == VT_INT) {
 		    csym.n_type = T_INT;	// int
 		    csym.n_sclass = C_EXT;
-		} else if ((p->st_other & VT_BTYPE) == VT_SHORT) {
+		} không_thì nếu ((p->st_other & VT_BTYPE) == VT_SHORT) {
 		    csym.n_type = T_SHORT;
 		    csym.n_sclass = C_EXT;
-		} else if ((p->st_other & VT_BTYPE) == VT_BYTE) {
+		} không_thì nếu ((p->st_other & VT_BTYPE) == VT_BYTE) {
 		    csym.n_type = T_CHAR;
 		    csym.n_sclass = C_EXT;
-		} else {
+		} không_thì {
 		    csym.n_type = T_INT;	// just mark as a label
 		    csym.n_sclass = C_LABEL;
 		}
@@ -672,7 +672,7 @@ ST_FUNC int tcc_output_coff(TCCState *s1, FILE *f)
 	}
     }
 
-    if (s1->do_debug) {
+    nếu (s1->do_debug) {
 	// write string table
 
 	// first write the size
@@ -685,7 +685,7 @@ ST_FUNC int tcc_output_coff(TCCState *s1, FILE *f)
 	tcc_free(Coff_str_table);
     }
 
-    return 0;
+    trả_về 0;
 }
 
 
@@ -695,7 +695,7 @@ ST_FUNC int tcc_output_coff(TCCState *s1, FILE *f)
 
 void SortSymbolTable(TCCState *s1)
 {
-    int i, j, k, n = 0;
+    số_nguyên i, j, k, n = 0;
     Elf32_Sym *p, *p2, *NewTable;
     char *name, *name2;
 
@@ -708,8 +708,8 @@ void SortSymbolTable(TCCState *s1)
     // then scan the whole symbol list and copy any function
     // symbols that match the file association
 
-    for (i = 0; i < nb_syms; i++) {
-	if (p->st_info == 4) {
+    cho (i = 0; i < nb_syms; i++) {
+	nếu (p->st_info == 4) {
 	    name = (char *) symtab_section->link->data + p->st_name;
 
 	    // this is a file symbol, copy it over
@@ -718,8 +718,8 @@ void SortSymbolTable(TCCState *s1)
 
 	    p2 = (Elf32_Sym *) symtab_section->data;
 
-	    for (j = 0; j < nb_syms; j++) {
-		if (p2->st_info == 0x12) {
+	    cho (j = 0; j < nb_syms; j++) {
+		nếu (p2->st_info == 0x12) {
 		    // this is a func symbol
 
 		    name2 =
@@ -727,16 +727,16 @@ void SortSymbolTable(TCCState *s1)
 
 		    // find the function data index
 
-		    for (k = 0; k < nFuncs; k++) {
-			if (strcmp(name2, Func[k]) == 0)
+		    cho (k = 0; k < nFuncs; k++) {
+			nếu (strcmp(name2, Func[k]) == 0)
 			    break;
 		    }
 
-		    if (k >= nFuncs) {
+		    nếu (k >= nFuncs) {
                         tcc_error("debug (sort) info can't find function: %s", name2);
 		    }
 
-		    if (strcmp(AssociatedFile[k], name) == 0) {
+		    nếu (strcmp(AssociatedFile[k], name) == 0) {
 			// yes they match copy it over
 
 			NewTable[n++] = *p2;
@@ -752,20 +752,20 @@ void SortSymbolTable(TCCState *s1)
     // copy all the rest over (all except file and funcs)
 
     p = (Elf32_Sym *) symtab_section->data;
-    for (i = 0; i < nb_syms; i++) {
-	if (p->st_info != 4 && p->st_info != 0x12) {
+    cho (i = 0; i < nb_syms; i++) {
+	nếu (p->st_info != 4 && p->st_info != 0x12) {
 	    NewTable[n++] = *p;
 	}
 	p++;
     }
 
-    if (n != nb_syms)
+    nếu (n != nb_syms)
 	tcc_error("Internal Compiler error, debug info");
 
     // copy it all back
 
     p = (Elf32_Sym *) symtab_section->data;
-    for (i = 0; i < nb_syms; i++) {
+    cho (i = 0; i < nb_syms; i++) {
 	*p++ = NewTable[i];
     }
 
@@ -773,25 +773,25 @@ void SortSymbolTable(TCCState *s1)
 }
 
 
-int FindCoffSymbolIndex(TCCState *s1, const char *func_name)
+số_nguyên FindCoffSymbolIndex(TCCState *s1, const char *func_name)
 {
-    int i, n = 0;
+    số_nguyên i, n = 0;
     Elf32_Sym *p;
     char *name;
 
     p = (Elf32_Sym *) symtab_section->data;
 
-    for (i = 0; i < nb_syms; i++) {
+    cho (i = 0; i < nb_syms; i++) {
 
 	name = (char *) symtab_section->link->data + p->st_name;
 
-	if (p->st_info == 4) {
+	nếu (p->st_info == 4) {
 	    // put a filename symbol
 	    n++;
-	} else if (p->st_info == 0x12) {
+	} không_thì nếu (p->st_info == 0x12) {
 
-	    if (strcmp(func_name, name) == 0)
-		return n;
+	    nếu (strcmp(func_name, name) == 0)
+		trả_về n;
 
 	    n += 6;
 
@@ -807,115 +807,115 @@ int FindCoffSymbolIndex(TCCState *s1, const char *func_name)
 
 	    // now put aux info
 
-	} else {
+	} không_thì {
 	    n += 2;
 	}
 
 	p++;
     }
 
-    return n;			// total number of symbols
+    trả_về n;			// total number of symbols
 }
 
-int OutputTheSection(Section * sect)
+số_nguyên OutputTheSection(Section * sect)
 {
     const char *s = sect->name;
 
-    if (!strcmp(s, ".text"))
-	return 1;
-    else if (!strcmp(s, ".data"))
-	return 1;
-    else
-	return 0;
+    nếu (!strcmp(s, ".text"))
+	trả_về 1;
+    không_thì nếu (!strcmp(s, ".data"))
+	trả_về 1;
+    không_thì
+	trả_về 0;
 }
 
-short int GetCoffFlags(const char *s)
+short số_nguyên GetCoffFlags(const char *s)
 {
-    if (!strcmp(s, ".text"))
-	return STYP_TEXT | STYP_DATA | STYP_ALIGN | 0x400;
-    else if (!strcmp(s, ".data"))
-	return STYP_DATA;
-    else if (!strcmp(s, ".bss"))
-	return STYP_BSS;
-    else if (!strcmp(s, ".stack"))
-	return STYP_BSS | STYP_ALIGN | 0x200;
-    else if (!strcmp(s, ".cinit"))
-	return STYP_COPY | STYP_DATA | STYP_ALIGN | 0x200;
-    else
-	return 0;
+    nếu (!strcmp(s, ".text"))
+	trả_về STYP_TEXT | STYP_DATA | STYP_ALIGN | 0x400;
+    không_thì nếu (!strcmp(s, ".data"))
+	trả_về STYP_DATA;
+    không_thì nếu (!strcmp(s, ".bss"))
+	trả_về STYP_BSS;
+    không_thì nếu (!strcmp(s, ".stack"))
+	trả_về STYP_BSS | STYP_ALIGN | 0x200;
+    không_thì nếu (!strcmp(s, ".cinit"))
+	trả_về STYP_COPY | STYP_DATA | STYP_ALIGN | 0x200;
+    không_thì
+	trả_về 0;
 }
 
 Section *FindSection(TCCState * s1, const char *sname)
 {
     Section *s;
-    int i;
+    số_nguyên i;
 
-    for (i = 1; i < s1->nb_sections; i++) {
+    cho (i = 1; i < s1->nb_sections; i++) {
 	s = s1->sections[i];
 
-	if (!strcmp(sname, s->name))
-	    return s;
+	nếu (!strcmp(sname, s->name))
+	    trả_về s;
     }
 
     tcc_error("could not find section %s", sname);
-    return 0;
+    trả_về 0;
 }
 
-ST_FUNC int tcc_load_coff(TCCState * s1, int fd)
+ST_FUNC số_nguyên tcc_load_coff(TCCState * s1, số_nguyên fd)
 {
 // tktk TokenSym *ts;
 
     FILE *f;
-    unsigned int str_size;
+    unsigned số_nguyên str_size;
     char *Coff_str_table, *name;
-    int i, k;
+    số_nguyên i, k;
     struct syment csym;
     char name2[9];
     FILHDR file_hdr;		/* FILE HEADER STRUCTURE              */
 
     f = fdopen(fd, "rb");
-    if (!f) {
+    nếu (!f) {
 	tcc_error("Unable to open .out file for input");
     }
 
-    if (fread(&file_hdr, FILHSZ, 1, f) != 1)
+    nếu (fread(&file_hdr, FILHSZ, 1, f) != 1)
 	tcc_error("error reading .out file for input");
 
-    if (fread(&o_filehdr, sizeof(o_filehdr), 1, f) != 1)
+    nếu (fread(&o_filehdr, sizeof(o_filehdr), 1, f) != 1)
 	tcc_error("error reading .out file for input");
 
     // first read the string table
 
-    if (fseek(f, file_hdr.f_symptr + file_hdr.f_nsyms * SYMESZ, SEEK_SET))
+    nếu (fseek(f, file_hdr.f_symptr + file_hdr.f_nsyms * SYMESZ, SEEK_SET))
 	tcc_error("error reading .out file for input");
 
-    if (fread(&str_size, sizeof(int), 1, f) != 1)
+    nếu (fread(&str_size, sizeof(số_nguyên), 1, f) != 1)
 	tcc_error("error reading .out file for input");
 
 
     Coff_str_table = (char *) tcc_malloc(str_size);
 
-    if (fread(Coff_str_table, str_size - 4, 1, f) != 1)
+    nếu (fread(Coff_str_table, str_size - 4, 1, f) != 1)
 	tcc_error("error reading .out file for input");
 
     // read/process all the symbols
 
     // seek back to symbols
 
-    if (fseek(f, file_hdr.f_symptr, SEEK_SET))
+    nếu (fseek(f, file_hdr.f_symptr, SEEK_SET))
 	tcc_error("error reading .out file for input");
 
-    for (i = 0; i < file_hdr.f_nsyms; i++) {
-	if (fread(&csym, SYMESZ, 1, f) != 1)
+    cho (i = 0; i < file_hdr.f_nsyms; i++) {
+	nếu (fread(&csym, SYMESZ, 1, f) != 1)
 	    tcc_error("error reading .out file for input");
 
-	if (csym._n._n_n._n_zeroes == 0) {
+	nếu (csym._n._n_n._n_zeroes == 0) {
 	    name = Coff_str_table + csym._n._n_n._n_offset - 4;
-	} else {
+	} không_thì {
 	    name = csym._n._n_name;
 
-	    if (name[7] != 0) {
-		for (k = 0; k < 8; k++)
+	    nếu (name[7] != 0) {
+		cho (k = 0; k < 8; k++)
 		    name2[k] = name[k];
 
 		name2[8] = 0;
@@ -926,26 +926,26 @@ ST_FUNC int tcc_load_coff(TCCState * s1, int fd)
 //              if (strcmp("_DAC_Buffer",name)==0)  // tktk
 //                      name[0]=0;
 
-	if (((csym.n_type & 0x30) == 0x20 && csym.n_sclass == 0x2) || ((csym.n_type & 0x30) == 0x30 && csym.n_sclass == 0x2) || (csym.n_type == 0x4 && csym.n_sclass == 0x2) || (csym.n_type == 0x8 && csym.n_sclass == 0x2) ||	// structures
+	nếu (((csym.n_type & 0x30) == 0x20 && csym.n_sclass == 0x2) || ((csym.n_type & 0x30) == 0x30 && csym.n_sclass == 0x2) || (csym.n_type == 0x4 && csym.n_sclass == 0x2) || (csym.n_type == 0x8 && csym.n_sclass == 0x2) ||	// structures
 	    (csym.n_type == 0x18 && csym.n_sclass == 0x2) ||	// pointer to structure
 	    (csym.n_type == 0x7 && csym.n_sclass == 0x2) ||	// doubles
 	    (csym.n_type == 0x6 && csym.n_sclass == 0x2))	// floats
 	{
 	    // strip off any leading underscore (except for other main routine)
 
-	    if (name[0] == '_' && strcmp(name, "_main") != 0)
+	    nếu (name[0] == '_' && strcmp(name, "_main") != 0)
 		name++;
 
 	    tcc_add_symbol(s1, name, (void*)(uintptr_t)csym.n_value);
 	}
 	// skip any aux records
 
-	if (csym.n_numaux == 1) {
-	    if (fread(&csym, SYMESZ, 1, f) != 1)
+	nếu (csym.n_numaux == 1) {
+	    nếu (fread(&csym, SYMESZ, 1, f) != 1)
 		tcc_error("error reading .out file for input");
 	    i++;
 	}
     }
 
-    return 0;
+    trả_về 0;
 }

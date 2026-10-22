@@ -1,18 +1,18 @@
 #include <stdio.h>
 
-int main()
+số_nguyên main()
 {
-   int Count = 0;
+   số_nguyên Count = 0;
 
-   for (;;)
+   cho (;;)
    {
       Count++;
       printf("%d\n", Count);
-      if (Count >= 10)
+      nếu (Count >= 10)
          break;
    }
 
-   return 0;
+   trả_về 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

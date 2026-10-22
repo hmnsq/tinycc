@@ -1,19 +1,19 @@
 #include <stdio.h>
 
-int main()
+số_nguyên main()
 {
-    long long int res = 0;
+    long long số_nguyên res = 0;
 
-    if (res < -2147483648LL) {
+    nếu (res < -2147483648LL) {
         printf("Error: 0 < -2147483648\n");
-        return 1;
+        trả_về 1;
     }
-    else
-    if (2147483647LL < res) {
+    không_thì
+    nếu (2147483647LL < res) {
         printf("Error: 2147483647 < 0\n");
-        return 2;
+        trả_về 2;
     }
-    else
+    không_thì
         printf("long long constant test ok.\n");
-    return 0;
+    trả_về 0;
 }

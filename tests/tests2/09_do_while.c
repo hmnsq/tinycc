@@ -1,10 +1,10 @@
 #include <stdio.h>
 
-int main()
+số_nguyên main()
 {
-   int a;
-   int p;
-   int t;
+   số_nguyên a;
+   số_nguyên p;
+   số_nguyên t;
 
    a = 1;
    p = 0;
@@ -16,9 +16,9 @@ int main()
       t = a;
       a = t + p;
       p = t;
-   } while (a < 100);
+   } trong_khi (a < 100);
 
-   return 0;
+   trả_về 0;
 }
 
 // vim: set expandtab ts=4 sw=3 sts=3 tw=80 :

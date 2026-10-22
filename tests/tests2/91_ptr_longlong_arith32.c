@@ -1,7 +1,7 @@
-int printf(const char *, ...);
+số_nguyên printf(const char *, ...);
 char t[] = "012345678";
 
-int main(void)
+số_nguyên main(void)
 {
     char *data = t;
     unsigned long long r = 4;
@@ -11,5 +11,5 @@ int main(void)
     *(unsigned*)(data + r) += a - b;
 
     printf("data = \"%s\"\n", data);
-    return 0;
+    trả_về 0;
 }

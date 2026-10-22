@@ -17,26 +17,26 @@ static void bt_init_pe_prog_base(rt_context *p)
     MEMORY_BASIC_INFORMATION mbi;
     addr_t imagebase;
 
-    if (!p->prog_base)
-        return;
-    if (!VirtualQuery(p, &mbi, sizeof(mbi)) || !mbi.AllocationBase)
-        return;
+    nếu (!p->prog_base)
+        trả_về;
+    nếu (!VirtualQuery(p, &mbi, sizeof(mbi)) || !mbi.AllocationBase)
+        trả_về;
     imagebase = (addr_t)mbi.AllocationBase - p->prog_base;
     p->prog_base = (addr_t)mbi.AllocationBase - (imagebase & 0xffffffffu);
 }
 #endif
 
 __declspec(dllexport)
-void __bt_init(rt_context *p, int is_exe)
+void __bt_init(rt_context *p, số_nguyên is_exe)
 {
-    __attribute__((weak)) int main();
-    __attribute__((weak)) void __bound_init(void*, int);
+    __attribute__((weak)) số_nguyên main();
+    __attribute__((weak)) void __bound_init(void*, số_nguyên);
 
     //fprintf(stderr, "__bt_init %d %p %p %p\n", is_exe, p, p->stab_sym, p->bounds_start), fflush(stderr);
 
     /* call __bound_init here due to redirection of sigaction */
     /* needed to add global symbols */
-    if (p->bounds_start)
+    nếu (p->bounds_start)
 	__bound_init(p->bounds_start, -1);
 
 #ifdef _WIN64
@@ -47,7 +47,7 @@ void __bt_init(rt_context *p, int is_exe)
     rt_wait_sem();
     p->next = g_rc, g_rc = p;
     rt_post_sem();
-    if (is_exe) {
+    nếu (is_exe) {
         /* we are the executable (not a dll) */
         p->top_func = main;
         set_exception_handler();
@@ -62,13 +62,13 @@ void __bt_exit(rt_context *p)
 
     //fprintf(stderr, "__bt_exit %d %p\n", !!p->top_func, p);
 
-    if (p->bounds_start)
+    nếu (p->bounds_start)
 	__bound_exit_dll(p->bounds_start);
 
     /* remove from chain */
     rt_wait_sem();
-    for (pp = &g_rc; rc = *pp, rc; pp = &rc->next)
-        if (rc == p) {
+    cho (pp = &g_rc; rc = *pp, rc; pp = &rc->next)
+        nếu (rc == p) {
             *pp = rc->next;
             break;
         }
@@ -78,10 +78,10 @@ void __bt_exit(rt_context *p)
 /* copy a string and truncate it. */
 ST_FUNC char *pstrcpy(char *buf, size_t buf_size, const char *s)
 {
-    int l = strlen(s);
-    if (l >= buf_size)
+    số_nguyên l = strlen(s);
+    nếu (l >= buf_size)
         l = buf_size - 1;
     memcpy(buf, s, l);
     buf[l] = 0;
-    return buf;
+    trả_về buf;
 }

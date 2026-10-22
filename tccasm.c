@@ -23,17 +23,17 @@
 #ifdef CONFIG_TCC_ASM
 
 static Section *last_text_section; /* to handle .previous asm directive */
-static int asmgoto_n;
+static số_nguyên asmgoto_n;
 
-static int tcc_assemble_internal(TCCState *s1, int do_preprocess, int global);
-static Sym* asm_new_label(TCCState *s1, int label, int is_local);
-static Sym* asm_new_label1(TCCState *s1, int label, int is_local, int sh_num, int value);
+static số_nguyên tcc_assemble_internal(TCCState *s1, số_nguyên do_preprocess, số_nguyên global);
+static Sym* asm_new_label(TCCState *s1, số_nguyên label, số_nguyên is_local);
+static Sym* asm_new_label1(TCCState *s1, số_nguyên label, số_nguyên is_local, số_nguyên sh_num, số_nguyên value);
 
-#if PTR_SIZE == 8
+#nếu PTR_SIZE == 8
 /* output constant with relocation if 'r & VT_SYM' is true */
-ST_FUNC void gen_addr64(int r, Sym *sym, int64_t c)
+ST_FUNC void gen_addr64(số_nguyên r, Sym *sym, int64_t c)
 {
-    if (r & VT_SYM)
+    nếu (r & VT_SYM)
         greloca(cur_text_section, sym, ind, R_DATA_PTR, c), c=0;
     gen_le32(c);
     gen_le32(c>>32);
@@ -45,16 +45,16 @@ ST_FUNC void gen_expr64(ExprValue *pe)
 }
 #endif
 
-static int asm_get_prefix_name(TCCState *s1, const char *prefix, unsigned int n)
+static số_nguyên asm_get_prefix_name(TCCState *s1, const char *prefix, unsigned số_nguyên n)
 {
     char buf[64];
     snprintf(buf, sizeof(buf), "%s%u", prefix, n);
-    return tok_alloc_const(buf);
+    trả_về tok_alloc_const(buf);
 }
 
-ST_FUNC int asm_get_local_label_name(TCCState *s1, unsigned int n)
+ST_FUNC số_nguyên asm_get_local_label_name(TCCState *s1, unsigned số_nguyên n)
 {
-    return asm_get_prefix_name(s1, "L..", n);
+    trả_về asm_get_prefix_name(s1, "L..", n);
 }
 
 /* If a C name has an _ prepended then only asm labels that start
@@ -63,47 +63,47 @@ ST_FUNC int asm_get_local_label_name(TCCState *s1, unsigned int n)
    the global C symbol table to track ASM names as well, so we need to
    transform those into ones that don't conflict with a C name,
    so prepend a '.' for them, but force the ELF asm name to be set.  */
-static int asm2cname(int v, int *addeddot)
+static số_nguyên asm2cname(số_nguyên v, số_nguyên *addeddot)
 {
     const char *name;
     *addeddot = 0;
-    if (!tcc_state->leading_underscore)
-      return v;
+    nếu (!tcc_state->leading_underscore)
+      trả_về v;
     name = get_tok_str(v, NULL);
-    if (!name)
-      return v;
-    if (name[0] == '_') {
+    nếu (!name)
+      trả_về v;
+    nếu (name[0] == '_') {
         v = tok_alloc_const(name + 1);
-    } else if (!strchr(name, '.')) {
+    } không_thì nếu (!strchr(name, '.')) {
         char newname[256];
         snprintf(newname, sizeof newname, ".%s", name);
         v = tok_alloc_const(newname);
         *addeddot = 1;
     }
-    return v;
+    trả_về v;
 }
 
-static Sym *asm_label_find(int v)
+static Sym *asm_label_find(số_nguyên v)
 {
     Sym *sym;
-    int addeddot;
+    số_nguyên addeddot;
     v = asm2cname(v, &addeddot);
     sym = sym_find(v);
-    while (sym && sym->sym_scope && !(sym->type.t & VT_STATIC))
+    trong_khi (sym && sym->sym_scope && !(sym->type.t & VT_STATIC))
         sym = sym->prev_tok;
-    return sym;
+    trả_về sym;
 }
 
-static Sym *asm_label_push(int v)
+static Sym *asm_label_push(số_nguyên v)
 {
-    int addeddot, v2 = asm2cname(v, &addeddot);
+    số_nguyên addeddot, v2 = asm2cname(v, &addeddot);
     /* We always add VT_EXTERN, for sym definition that's tentative
        (for .set, removed for real defs), for mere references it's correct
        as is.  */
     Sym *sym = global_identifier_push(v2, VT_ASM | VT_EXTERN | VT_STATIC, 0);
-    if (addeddot)
+    nếu (addeddot)
         sym->asm_label = v;
-    return sym;
+    trả_về sym;
 }
 
 /* Return a symbol we can use inside the assembler, having name NAME.
@@ -116,24 +116,24 @@ static Sym *asm_label_push(int v)
    are anonymous in C, in this case CSYM can be used to transfer
    all information from that symbol to the (possibly newly created)
    asm symbol.  */
-ST_FUNC Sym* get_asm_sym(int name, Sym *csym)
+ST_FUNC Sym* get_asm_sym(số_nguyên name, Sym *csym)
 {
     Sym *sym = asm_label_find(name);
-    if (!sym) {
+    nếu (!sym) {
 	sym = asm_label_push(name);
-	if (csym)
+	nếu (csym)
 	  sym->c = csym->c;
     }
-    return sym;
+    trả_về sym;
 }
 
 static Sym* asm_section_sym(TCCState *s1, Section *sec)
 {
-    char buf[100]; int label; Sym *sym;
+    char buf[100]; số_nguyên label; Sym *sym;
     snprintf(buf, sizeof buf, "L.%s", sec->name);
     label = tok_alloc_const(buf);
     sym = asm_label_find(label);
-    return sym ? sym : asm_new_label1(s1, label, 1, sec->sh_num, 0);
+    trả_về sym ? sym : asm_new_label1(s1, label, 1, sec->sh_num, 0);
 }
 
 /* We do not use the C expression parser to handle symbols. Maybe the
@@ -142,7 +142,7 @@ static Sym* asm_section_sym(TCCState *s1, Section *sec)
 static void asm_expr_unary(TCCState *s1, ExprValue *pe)
 {
     Sym *sym;
-    int op, label;
+    số_nguyên op, label;
     uint64_t n;
     const char *p;
 
@@ -150,19 +150,19 @@ static void asm_expr_unary(TCCState *s1, ExprValue *pe)
     case TOK_PPNUM:
         p = tokc.str.data;
         n = strtoull(p, (char **)&p, 0);
-        if (*p == 'b' || *p == 'f') {
+        nếu (*p == 'b' || *p == 'f') {
             /* backward or forward label */
             label = asm_get_local_label_name(s1, n);
             sym = asm_label_find(label);
-            if (*p == 'b') {
+            nếu (*p == 'b') {
                 /* backward : find the last corresponding defined label */
-                if (sym && (!sym->c || elfsym(sym)->st_shndx == SHN_UNDEF))
+                nếu (sym && (!sym->c || elfsym(sym)->st_shndx == SHN_UNDEF))
                     sym = sym->prev_tok;
-                if (!sym)
-                    tcc_error("local label '%d' not found backward", (int)n);
-            } else {
+                nếu (!sym)
+                    tcc_error("local label '%d' not found backward", (số_nguyên)n);
+            } không_thì {
                 /* forward */
-                if (!sym || (sym->c && elfsym(sym)->st_shndx != SHN_UNDEF)) {
+                nếu (!sym || (sym->c && elfsym(sym)->st_shndx != SHN_UNDEF)) {
                     /* if the last label is defined, then define a new one */
 		    sym = asm_label_push(label);
                 }
@@ -170,11 +170,11 @@ static void asm_expr_unary(TCCState *s1, ExprValue *pe)
 	    pe->v = 0;
 	    pe->sym = sym;
 	    pe->pcrel = 0;
-        } else if (*p == '\0') {
+        } không_thì nếu (*p == '\0') {
             pe->v = n;
             pe->sym = NULL;
 	    pe->pcrel = 0;
-        } else {
+        } không_thì {
             tcc_error("invalid number syntax");
         }
         next();
@@ -188,11 +188,11 @@ static void asm_expr_unary(TCCState *s1, ExprValue *pe)
         op = tok;
         next();
         asm_expr_unary(s1, pe);
-        if (pe->sym)
+        nếu (pe->sym)
             tcc_error("invalid operation with label");
-        if (op == '-')
+        nếu (op == '-')
             pe->v = -pe->v;
-        else
+        không_thì
             pe->v = ~pe->v;
         break;
     case TOK_CCHAR:
@@ -214,23 +214,23 @@ static void asm_expr_unary(TCCState *s1, ExprValue *pe)
         next();
         break;
     default:
-        if (tok >= TOK_IDENT) {
+        nếu (tok >= TOK_IDENT) {
 	    ElfSym *esym;
             /* label case : if the label was not found, add one */
 	    sym = get_asm_sym(tok, NULL);
 	    esym = elfsym(sym);
-            if (esym && esym->st_shndx == SHN_ABS) {
+            nếu (esym && esym->st_shndx == SHN_ABS) {
                 /* if absolute symbol, no need to put a symbol value */
                 pe->v = esym->st_value;
                 pe->sym = NULL;
 		pe->pcrel = 0;
-            } else {
+            } không_thì {
                 pe->v = 0;
                 pe->sym = sym;
 		pe->pcrel = 0;
             }
             next();
-        } else {
+        } không_thì {
             tcc_error("bad expression syntax [%s]", get_tok_str(tok, &tokc));
         }
         break;
@@ -239,32 +239,32 @@ static void asm_expr_unary(TCCState *s1, ExprValue *pe)
     
 static void asm_expr_prod(TCCState *s1, ExprValue *pe)
 {
-    int op;
+    số_nguyên op;
     ExprValue e2;
 
     asm_expr_unary(s1, pe);
-    for(;;) {
+    cho(;;) {
         op = tok;
-        if (op != '*' && op != '/' && op != '%' && 
+        nếu (op != '*' && op != '/' && op != '%' && 
             op != TOK_SHL && op != TOK_SAR)
             break;
         next();
         asm_expr_unary(s1, &e2);
-        if (pe->sym || e2.sym)
+        nếu (pe->sym || e2.sym)
             tcc_error("invalid operation with label");
         switch(op) {
         case '*':
             pe->v *= e2.v;
             break;
         case '/':  
-            if (e2.v == 0) {
+            nếu (e2.v == 0) {
             div_error:
                 tcc_error("division by zero");
             }
             pe->v /= e2.v;
             break;
         case '%':  
-            if (e2.v == 0)
+            nếu (e2.v == 0)
                 goto div_error;
             pe->v %= e2.v;
             break;
@@ -281,17 +281,17 @@ static void asm_expr_prod(TCCState *s1, ExprValue *pe)
 
 static void asm_expr_logic(TCCState *s1, ExprValue *pe)
 {
-    int op;
+    số_nguyên op;
     ExprValue e2;
 
     asm_expr_prod(s1, pe);
-    for(;;) {
+    cho(;;) {
         op = tok;
-        if (op != '&' && op != '|' && op != '^')
+        nếu (op != '&' && op != '|' && op != '^')
             break;
         next();
         asm_expr_prod(s1, &e2);
-        if (pe->sym || e2.sym)
+        nếu (pe->sym || e2.sym)
             tcc_error("invalid operation with label");
         switch(op) {
         case '&':
@@ -310,49 +310,49 @@ static void asm_expr_logic(TCCState *s1, ExprValue *pe)
 
 static inline void asm_expr_sum(TCCState *s1, ExprValue *pe)
 {
-    int op;
+    số_nguyên op;
     ExprValue e2;
 
     asm_expr_logic(s1, pe);
-    for(;;) {
+    cho(;;) {
         op = tok;
-        if (op != '+' && op != '-')
+        nếu (op != '+' && op != '-')
             break;
         next();
         asm_expr_logic(s1, &e2);
-        if (op == '+') {
-            if (pe->sym != NULL && e2.sym != NULL)
+        nếu (op == '+') {
+            nếu (pe->sym != NULL && e2.sym != NULL)
                 goto cannot_relocate;
             pe->v += e2.v;
-            if (pe->sym == NULL && e2.sym != NULL)
+            nếu (pe->sym == NULL && e2.sym != NULL)
                 pe->sym = e2.sym;
-        } else {
+        } không_thì {
             pe->v -= e2.v;
             /* NOTE: we are less powerful than gas in that case
                because we store only one symbol in the expression */
-	    if (!e2.sym) {
+	    nếu (!e2.sym) {
 		/* OK */
-	    } else if (pe->sym == e2.sym) { 
+	    } không_thì nếu (pe->sym == e2.sym) { 
 		/* OK */
 		pe->sym = NULL; /* same symbols can be subtracted to NULL */
-	    } else {
+	    } không_thì {
 		ElfSym *esym1, *esym2;
 		esym1 = elfsym(pe->sym);
 		esym2 = elfsym(e2.sym);
-		if (!esym2)
+		nếu (!esym2)
 		    goto cannot_relocate;
-		if (esym1 && esym1->st_shndx == esym2->st_shndx
+		nếu (esym1 && esym1->st_shndx == esym2->st_shndx
 		    && esym1->st_shndx != SHN_UNDEF) {
 		    /* we also accept defined symbols in the same section */
-		    pe->v += (int)(esym1->st_value - esym2->st_value);
+		    pe->v += (số_nguyên)(esym1->st_value - esym2->st_value);
 		    pe->sym = NULL;
-		} else if (esym2->st_shndx == cur_text_section->sh_num) {
+		} không_thì nếu (esym2->st_shndx == cur_text_section->sh_num) {
 		    /* When subtracting a defined symbol in current section
 		       this actually makes the value PC-relative.  */
-		    pe->v += (int)(0 - esym2->st_value);
+		    pe->v += (số_nguyên)(0 - esym2->st_value);
 		    pe->pcrel = 1;
 		    e2.sym = NULL;
-		} else {
+		} không_thì {
 cannot_relocate:
 		    tcc_error("invalid operation with label");
 		}
@@ -363,18 +363,18 @@ cannot_relocate:
 
 static inline void asm_expr_cmp(TCCState *s1, ExprValue *pe)
 {
-    int op;
+    số_nguyên op;
     ExprValue e2;
 
     asm_expr_sum(s1, pe);
-    for(;;) {
+    cho(;;) {
         op = tok;
-	if (op != TOK_EQ && op != TOK_NE
+	nếu (op != TOK_EQ && op != TOK_NE
 	    && (op > TOK_GT || op < TOK_ULE))
             break;
         next();
         asm_expr_sum(s1, &e2);
-        if (pe->sym || e2.sym)
+        nếu (pe->sym || e2.sym)
             tcc_error("invalid operation with label");
         switch(op) {
 	case TOK_EQ:
@@ -408,60 +408,60 @@ ST_FUNC void asm_expr(TCCState *s1, ExprValue *pe)
     asm_expr_cmp(s1, pe);
 }
 
-ST_FUNC int asm_int_expr(TCCState *s1)
+ST_FUNC số_nguyên asm_int_expr(TCCState *s1)
 {
     ExprValue e;
     asm_expr(s1, &e);
-    if (e.sym)
+    nếu (e.sym)
         expect("constant");
-    if ((int)e.v != e.v)
+    nếu ((số_nguyên)e.v != e.v)
 	tcc_error("integer out of range %lld", (long long)e.v);
-    return e.v;
+    trả_về e.v;
 }
 
-static Sym* asm_new_label1(TCCState *s1, int label, int is_local,
-                           int sh_num, int value)
+static Sym* asm_new_label1(TCCState *s1, số_nguyên label, số_nguyên is_local,
+                           số_nguyên sh_num, số_nguyên value)
 {
     Sym *sym;
     ElfSym *esym;
 
     sym = asm_label_find(label);
-    if (sym) {
+    nếu (sym) {
 	esym = elfsym(sym);
 	/* A VT_EXTERN symbol, even if it has a section is considered
 	   overridable.  This is how we "define" .set targets.  Real
 	   definitions won't have VT_EXTERN set.  */
-        if (esym && esym->st_shndx != SHN_UNDEF) {
+        nếu (esym && esym->st_shndx != SHN_UNDEF) {
             /* the label is already defined */
-            if (IS_ASM_SYM(sym)
+            nếu (IS_ASM_SYM(sym)
                 && (is_local == 1 || (sym->type.t & VT_EXTERN)))
                 goto new_label;
-            if (!(sym->type.t & VT_EXTERN))
+            nếu (!(sym->type.t & VT_EXTERN))
                 tcc_error("assembler label '%s' already defined",
                           get_tok_str(label, NULL));
         }
-    } else {
+    } không_thì {
     new_label:
         sym = asm_label_push(label);
     }
-    if (!sym->c)
+    nếu (!sym->c)
       put_extern_sym2(sym, SHN_UNDEF, 0, 0, 1);
     esym = elfsym(sym);
     esym->st_shndx = sh_num;
     esym->st_value = value;
-    if (is_local != 2)
+    nếu (is_local != 2)
         sym->type.t &= ~VT_EXTERN;
-    return sym;
+    trả_về sym;
 }
 
-static Sym* asm_new_label(TCCState *s1, int label, int is_local)
+static Sym* asm_new_label(TCCState *s1, số_nguyên label, số_nguyên is_local)
 {
-    return asm_new_label1(s1, label, is_local, cur_text_section->sh_num, ind);
+    trả_về asm_new_label1(s1, label, is_local, cur_text_section->sh_num, ind);
 }
 
 /* Set the value of LABEL to that of some expression (possibly
    involving other symbols).  LABEL can be overwritten later still.  */
-static Sym* set_symbol(TCCState *s1, int label)
+static Sym* set_symbol(TCCState *s1, số_nguyên label)
 {
     long n;
     ExprValue e;
@@ -471,11 +471,11 @@ static Sym* set_symbol(TCCState *s1, int label)
     asm_expr(s1, &e);
     n = e.v;
     esym = elfsym(e.sym);
-    if (esym)
+    nếu (esym)
 	n += esym->st_value;
     sym = asm_new_label1(s1, label, 2, esym ? esym->st_shndx : SHN_ABS, n);
     elfsym(sym)->st_other |= ST_ASM_SET;
-    return sym;
+    trả_về sym;
 }
 
 static void use_section1(TCCState *s1, Section *sec)
@@ -502,15 +502,15 @@ static void push_section(TCCState *s1, const char *name)
 static void pop_section(TCCState *s1)
 {
     Section *prev = cur_text_section->prev;
-    if (!prev)
+    nếu (!prev)
         tcc_error(".popsection without .pushsection");
     cur_text_section->prev = NULL;
     use_section1(s1, prev);
 }
 
-static void asm_parse_directive(TCCState *s1, int global)
+static void asm_parse_directive(TCCState *s1, số_nguyên global)
 {
-    int n, offset, v, size, tok1, c;
+    số_nguyên n, offset, v, size, tok1, c;
     Section *sec;
     uint8_t *ptr;
 
@@ -525,37 +525,37 @@ static void asm_parse_directive(TCCState *s1, int global)
         tok1 = tok;
         next();
         n = asm_int_expr(s1);
-        if (tok1 == TOK_ASMDIR_p2align)
+        nếu (tok1 == TOK_ASMDIR_p2align)
         {
-            if (n < 0 || n > 30)
+            nếu (n < 0 || n > 30)
                 tcc_error("invalid p2align, must be between 0 and 30");
             n = 1 << n;
             tok1 = TOK_ASMDIR_align;
         }
-        if (tok1 == TOK_ASMDIR_align || tok1 == TOK_ASMDIR_balign) {
-            if (n <= 0 || (n & (n-1)) != 0)
+        nếu (tok1 == TOK_ASMDIR_align || tok1 == TOK_ASMDIR_balign) {
+            nếu (n <= 0 || (n & (n-1)) != 0)
                 tcc_error("alignment must be a positive power of two");
             offset = (ind + n - 1) & -n;
             size = offset - ind;
             /* the section must have a compatible alignment */
-            if (sec->sh_addralign < n)
+            nếu (sec->sh_addralign < n)
                 sec->sh_addralign = n;
             c = sec->sh_flags & SHF_EXECINSTR;
-        } else {
-	    if (n < 0)
+        } không_thì {
+	    nếu (n < 0)
 	        n = 0;
             size = n, c = 0;
         }
         v = 0;
-        if (tok == ',') {
+        nếu (tok == ',') {
             next();
             v = asm_int_expr(s1), c = 0;
         }
     zero_pad:
-	if ((uint64_t)ind + size >= 1<<30)
+	nếu ((uint64_t)ind + size >= 1<<30)
 	    tcc_error("too much data");
-        if (sec->sh_type != SHT_NOBITS) {
-            if (c) {
+        nếu (sec->sh_type != SHT_NOBITS) {
+            nếu (c) {
                 gen_fill_nops(size);
                 break;
             }
@@ -566,32 +566,32 @@ static void asm_parse_directive(TCCState *s1, int global)
         ind += size;
         break;
     case TOK_ASMDIR_quad:
-#if PTR_SIZE == 8
+#nếu PTR_SIZE == 8
 	size = 8;
 	goto asm_data;
-#else
+#không_thì
         next();
-        for(;;) {
+        cho(;;) {
             uint64_t vl;
             const char *p;
 
             p = tokc.str.data;
-            if (tok != TOK_PPNUM) {
+            nếu (tok != TOK_PPNUM) {
             error_constant:
                 tcc_error("64 bit constant");
             }
             vl = strtoll(p, (char **)&p, 0);
-            if (*p != '\0')
+            nếu (*p != '\0')
                 goto error_constant;
             next();
-            if (sec->sh_type != SHT_NOBITS) {
+            nếu (sec->sh_type != SHT_NOBITS) {
                 /* XXX: endianness */
                 gen_le32(vl);
                 gen_le32(vl >> 32);
-            } else {
+            } không_thì {
                 ind += 8;
             }
-            if (tok != ',')
+            nếu (tok != ',')
                 break;
             next();
         }
@@ -609,54 +609,54 @@ static void asm_parse_directive(TCCState *s1, int global)
         size = 4;
     asm_data:
         next();
-        for(;;) {
+        cho(;;) {
             ExprValue e;
             asm_expr(s1, &e);
-            if (sec->sh_type != SHT_NOBITS) {
-                if (size == 4) {
+            nếu (sec->sh_type != SHT_NOBITS) {
+                nếu (size == 4) {
                     gen_expr32(&e);
-#if PTR_SIZE == 8
-		} else if (size == 8) {
+#nếu PTR_SIZE == 8
+		} không_thì nếu (size == 8) {
 		    gen_expr64(&e);
 #endif
-                } else {
-                    if (e.sym)
+                } không_thì {
+                    nếu (e.sym)
                         expect("constant");
-                    if (size == 1)
+                    nếu (size == 1)
                         g(e.v);
-                    else
+                    không_thì
                         gen_le16(e.v);
                 }
-            } else {
+            } không_thì {
                 ind += size;
             }
-            if (tok != ',')
+            nếu (tok != ',')
                 break;
             next();
         }
         break;
     case TOK_ASMDIR_fill:
         {
-            int repeat, size, val, i, j;
+            số_nguyên repeat, size, val, i, j;
             uint8_t repeat_buf[8];
             next();
             repeat = asm_int_expr(s1);
-            if (repeat < 0) {
+            nếu (repeat < 0) {
                 tcc_error("repeat < 0; .fill ignored");
                 break;
             }
             size = 1;
             val = 0;
-            if (tok == ',') {
+            nếu (tok == ',') {
                 next();
                 size = asm_int_expr(s1);
-                if (size < 0) {
+                nếu (size < 0) {
                     tcc_error("size < 0; .fill ignored");
                     break;
                 }
-                if (size > 8)
+                nếu (size > 8)
                     size = 8;
-                if (tok == ',') {
+                nếu (tok == ',') {
                     next();
                     val = asm_int_expr(s1);
                 }
@@ -670,8 +670,8 @@ static void asm_parse_directive(TCCState *s1, int global)
             repeat_buf[5] = 0;
             repeat_buf[6] = 0;
             repeat_buf[7] = 0;
-            for(i = 0; i < repeat; i++) {
-                for(j = 0; j < size; j++) {
+            cho(i = 0; i < repeat; i++) {
+                cho(j = 0; j < size; j++) {
                     g(repeat_buf[j]);
                 }
             }
@@ -679,19 +679,19 @@ static void asm_parse_directive(TCCState *s1, int global)
         break;
     case TOK_ASMDIR_rept:
         {
-            int repeat;
+            số_nguyên repeat;
             TokenString *init_str;
             next();
             repeat = asm_int_expr(s1);
             init_str = tok_str_alloc();
-            while (next(), tok != TOK_ASMDIR_endr) {
-                if (tok == CH_EOF)
+            trong_khi (next(), tok != TOK_ASMDIR_endr) {
+                nếu (tok == CH_EOF)
                     tcc_error("we at end of file, .endr not found");
                 tok_str_add_tok(init_str);
             }
             tok_str_add(init_str, TOK_EOF);
             begin_macro(init_str, 1);
-            while (repeat-- > 0) {
+            trong_khi (repeat-- > 0) {
                 tcc_assemble_internal(s1, (parse_flags & PARSE_FLAG_PREPROCESS),
 				      global);
                 macro_ptr = init_str->str;
@@ -708,12 +708,12 @@ static void asm_parse_directive(TCCState *s1, int global)
 	    asm_expr(s1, &e);
 	    n = e.v;
 	    esym = elfsym(e.sym);
-	    if (esym) {
-		if (esym->st_shndx != cur_text_section->sh_num)
+	    nếu (esym) {
+		nếu (esym->st_shndx != cur_text_section->sh_num)
 		  expect("constant or same-section symbol");
 		n += esym->st_value;
 	    }
-            if (n < ind)
+            nếu (n < ind)
                 tcc_error("attempt to .org backwards");
             v = c = 0;
             size = n - ind;
@@ -726,7 +726,7 @@ static void asm_parse_directive(TCCState *s1, int global)
 	next();
 	/* Also accept '.set stuff', but don't do anything with this.
 	   It's used in GAS to set various features like '.set mips16'.  */
-	if (tok == ',')
+	nếu (tok == ',')
 	    set_symbol(s1, tok1);
 	break;
     case TOK_ASMDIR_globl:
@@ -737,41 +737,41 @@ static void asm_parse_directive(TCCState *s1, int global)
 	do { 
             Sym *sym;
             next();
-	    if (tok < TOK_IDENT)
+	    nếu (tok < TOK_IDENT)
 		expect("identifier");
             sym = get_asm_sym(tok, NULL);
-	    if (tok1 != TOK_ASMDIR_hidden)
+	    nếu (tok1 != TOK_ASMDIR_hidden)
                 sym->type.t &= ~VT_STATIC;
-            if (tok1 == TOK_ASMDIR_weak)
+            nếu (tok1 == TOK_ASMDIR_weak)
                 sym->a.weak = 1;
-	    else if (tok1 == TOK_ASMDIR_hidden)
+	    không_thì nếu (tok1 == TOK_ASMDIR_hidden)
 	        sym->a.visibility = STV_HIDDEN;
             update_storage(sym);
             next();
-	} while (tok == ',');
+	} trong_khi (tok == ',');
 	break;
     case TOK_ASMDIR_string:
     case TOK_ASMDIR_ascii:
     case TOK_ASMDIR_asciz:
         {
             const char *p;
-            int i, size, t;
+            số_nguyên i, size, t;
 
             t = tok;
             next();
-            for(;;) {
-                if (tok != TOK_STR)
+            cho(;;) {
+                nếu (tok != TOK_STR)
                     expect("string constant");
                 p = tokc.str.data;
                 size = tokc.str.size;
-                if (t == TOK_ASMDIR_ascii && size > 0)
+                nếu (t == TOK_ASMDIR_ascii && size > 0)
                     size--;
-                for(i = 0; i < size; i++)
+                cho(i = 0; i < size; i++)
                     g(p[i]);
                 next();
-                if (tok == ',') {
+                nếu (tok == ',') {
                     next();
-                } else if (tok != TOK_STR) {
+                } không_thì nếu (tok != TOK_STR) {
                     break;
                 }
             }
@@ -785,13 +785,13 @@ static void asm_parse_directive(TCCState *s1, int global)
             tok1 = tok;
             n = 0;
             next();
-            if (tok != ';' && tok != TOK_LINEFEED) {
+            nếu (tok != ';' && tok != TOK_LINEFEED) {
 		n = asm_int_expr(s1);
 		next();
             }
-            if (n)
+            nếu (n)
                 sprintf(sname, "%s%d", get_tok_str(tok1, NULL), n);
-            else
+            không_thì
                 sprintf(sname, "%s", get_tok_str(tok1, NULL));
             use_section(s1, sname);
 	}
@@ -801,14 +801,14 @@ static void asm_parse_directive(TCCState *s1, int global)
             const char *p;
             parse_flags &= ~PARSE_FLAG_TOK_STR;
             next();
-            if (tok == TOK_PPNUM)
+            nếu (tok == TOK_PPNUM)
                 next();
-            if (tok == TOK_PPSTR && tokc.str.data[0] == '"') {
+            nếu (tok == TOK_PPSTR && tokc.str.data[0] == '"') {
                 tokc.str.data[tokc.str.size - 2] = 0;
                 p = tokc.str.data + 1;
-            } else if (tok >= TOK_IDENT) {
+            } không_thì nếu (tok >= TOK_IDENT) {
                 p = get_tok_str(tok, &tokc);
-            } else {
+            } không_thì {
                 skip_to_eol(0);
                 break;
             }
@@ -822,9 +822,9 @@ static void asm_parse_directive(TCCState *s1, int global)
 
             ident[0] = '\0';
             next();
-            if (tok == TOK_STR)
+            nếu (tok == TOK_STR)
                 pstrcat(ident, sizeof(ident), tokc.str.data);
-            else
+            không_thì
                 pstrcat(ident, sizeof(ident), get_tok_str(tok, &tokc));
             tcc_warning_c(warn_unsupported)("ignoring .ident %s", ident);
             next();
@@ -836,10 +836,10 @@ static void asm_parse_directive(TCCState *s1, int global)
             ElfSym *esym;
 
             next();
-	    if (tok < TOK_IDENT)
+	    nếu (tok < TOK_IDENT)
 		expect("identifier");
             sym = asm_label_find(tok);
-            if (!sym)
+            nếu (!sym)
                 tcc_error("label not found: %s", get_tok_str(tok, NULL));
             /* XXX .size name,label2-label1 */
             tcc_warning_c(warn_unsupported)("ignoring .size %s,*", get_tok_str(tok, NULL));
@@ -847,7 +847,7 @@ static void asm_parse_directive(TCCState *s1, int global)
             skip(',');
             n = asm_int_expr(s1);
             esym = elfsym(sym);
-            if (esym) {
+            nếu (esym) {
                 esym->st_size = n;
             }
         }
@@ -856,35 +856,35 @@ static void asm_parse_directive(TCCState *s1, int global)
         { 
             Sym *sym;
             const char *newtype;
-            int st_type;
+            số_nguyên st_type;
 
             next();
-	    if (tok < TOK_IDENT)
+	    nếu (tok < TOK_IDENT)
 		expect("identifier");
             sym = get_asm_sym(tok, NULL);
             next();
             skip(',');
-            if (tok == TOK_STR) {
+            nếu (tok == TOK_STR) {
                 newtype = tokc.str.data;
-            } else {
-                if (tok == '@' || tok == '%')
+            } không_thì {
+                nếu (tok == '@' || tok == '%')
                     next();
                 newtype = get_tok_str(tok, NULL);
             }
 
-            if (!strcmp(newtype, "function") || !strcmp(newtype, "STT_FUNC")) {
-                if (IS_ASM_SYM(sym))
+            nếu (!strcmp(newtype, "function") || !strcmp(newtype, "STT_FUNC")) {
+                nếu (IS_ASM_SYM(sym))
                     sym->type.t |= VT_ASM_FUNC;
                 st_type = STT_FUNC;
             set_st_type:
-                if (sym->c) {
+                nếu (sym->c) {
                     ElfSym *esym = elfsym(sym);
                     esym->st_info = ELFW(ST_INFO)(ELFW(ST_BIND)(esym->st_info), st_type);
                 }
-            } else if (!strcmp(newtype, "object") || !strcmp(newtype, "STT_OBJECT")) {
+            } không_thì nếu (!strcmp(newtype, "object") || !strcmp(newtype, "STT_OBJECT")) {
                 st_type = STT_OBJECT;
                 goto set_st_type;
-            } else
+            } không_thì
                 tcc_warning_c(warn_unsupported)("change type of '%s' from 0x%x to '%s' ignored",
                     get_tok_str(sym->v, NULL), sym->type.t, newtype);
 
@@ -895,53 +895,53 @@ static void asm_parse_directive(TCCState *s1, int global)
     case TOK_ASMDIR_section:
         {
             char sname[256];
-	    int old_nb_section = s1->nb_sections;
-            int flags = SHF_ALLOC;
+	    số_nguyên old_nb_section = s1->nb_sections;
+            số_nguyên flags = SHF_ALLOC;
 
 	    tok1 = tok;
             /* XXX: support more options */
             next();
             sname[0] = '\0';
-            while (tok != ';' && tok != TOK_LINEFEED && tok != ',') {
-                if (tok == TOK_STR)
+            trong_khi (tok != ';' && tok != TOK_LINEFEED && tok != ',') {
+                nếu (tok == TOK_STR)
                     pstrcat(sname, sizeof(sname), tokc.str.data);
-                else
+                không_thì
                     pstrcat(sname, sizeof(sname), get_tok_str(tok, NULL));
                 next();
             }
-            if (tok == ',') {
+            nếu (tok == ',') {
                 const char *p;
                 /* skip section options */
                 next();
-                if (tok != TOK_STR)
+                nếu (tok != TOK_STR)
                     expect("string constant");
-                for (p = tokc.str.data; *p; ++p) {
-                    if (*p == 'w')
+                cho (p = tokc.str.data; *p; ++p) {
+                    nếu (*p == 'w')
                         flags |= SHF_WRITE;
-                    if (*p == 'x')
+                    nếu (*p == 'x')
                         flags |= SHF_EXECINSTR;
                 }
                 next();
-                if (tok == ',') {
+                nếu (tok == ',') {
                     next();
-                    if (tok == '@' || tok == '%')
+                    nếu (tok == '@' || tok == '%')
                         next();
                     next();
                 }
             }
             last_text_section = cur_text_section;
-	    if (tok1 == TOK_ASMDIR_section)
+	    nếu (tok1 == TOK_ASMDIR_section)
 	        use_section(s1, sname);
-	    else
+	    không_thì
 	        push_section(s1, sname);
 	    /* If we just allocated a new section reset its alignment to
 	       1.  new_section normally acts for GCC compatibility and
 	       sets alignment to PTR_SIZE.  The assembler behaves different. */
-	    if (old_nb_section != s1->nb_sections) {
+	    nếu (old_nb_section != s1->nb_sections) {
 	        cur_text_section->sh_addralign = 1;
                 /* Make .init and .fini sections executable by default.
                    GAS does so, too, and musl relies on it. */
-                if (!strcmp(sname, ".init") || !strcmp(sname, ".fini"))
+                nếu (!strcmp(sname, ".init") || !strcmp(sname, ".fini"))
                     flags |= SHF_EXECINSTR;
 	        cur_text_section->sh_flags = flags;
             }
@@ -951,7 +951,7 @@ static void asm_parse_directive(TCCState *s1, int global)
         { 
             Section *sec;
             next();
-            if (!last_text_section)
+            nếu (!last_text_section)
                 tcc_error("no previous section referenced");
             sec = cur_text_section;
             use_section1(s1, last_text_section);
@@ -976,7 +976,7 @@ static void asm_parse_directive(TCCState *s1, int global)
         }
         break;
 #endif
-#if PTR_SIZE == 8
+#nếu PTR_SIZE == 8
     /* added for compatibility with GAS */
     case TOK_ASMDIR_code64:
         next();
@@ -1020,36 +1020,36 @@ static void asm_parse_directive(TCCState *s1, int global)
 	{
 	    ExprValue e;
 	    const char *reloc_name;
-	    int reloc_type = -1;
+	    số_nguyên reloc_type = -1;
 
 	    next();
 	    asm_expr(s1, &e);
 	    skip(',');
 	    reloc_name = get_tok_str(tok, NULL);
-#if defined(TCC_TARGET_ARM64)
-	    if (!strcmp(reloc_name, "R_AARCH64_CALL26"))
+#nếu defined(TCC_TARGET_ARM64)
+	    nếu (!strcmp(reloc_name, "R_AARCH64_CALL26"))
 	        reloc_type = R_AARCH64_CALL26;
 #elif defined(TCC_TARGET_RISCV64)
-	    if (!strcmp(reloc_name, "R_RISCV_CALL") || !strcmp(reloc_name, "R_RISCV_CALL_PLT"))
+	    nếu (!strcmp(reloc_name, "R_RISCV_CALL") || !strcmp(reloc_name, "R_RISCV_CALL_PLT"))
 	        reloc_type = R_RISCV_CALL;
-	    else if (!strcmp(reloc_name, "R_RISCV_BRANCH"))
+	    không_thì nếu (!strcmp(reloc_name, "R_RISCV_BRANCH"))
 	        reloc_type = R_RISCV_BRANCH;
-	    else if (!strcmp(reloc_name, "R_RISCV_JAL"))
+	    không_thì nếu (!strcmp(reloc_name, "R_RISCV_JAL"))
 	        reloc_type = R_RISCV_JAL;
-	    else if (!strcmp(reloc_name, "R_RISCV_PCREL_HI20"))
+	    không_thì nếu (!strcmp(reloc_name, "R_RISCV_PCREL_HI20"))
 	        reloc_type = R_RISCV_PCREL_HI20;
-	    else if (!strcmp(reloc_name, "R_RISCV_PCREL_LO12_I"))
+	    không_thì nếu (!strcmp(reloc_name, "R_RISCV_PCREL_LO12_I"))
 	        reloc_type = R_RISCV_PCREL_LO12_I;
-	    else if (!strcmp(reloc_name, "R_RISCV_PCREL_LO12_S"))
+	    không_thì nếu (!strcmp(reloc_name, "R_RISCV_PCREL_LO12_S"))
 	        reloc_type = R_RISCV_PCREL_LO12_S;
-	    else if (!strcmp(reloc_name, "R_RISCV_32_PCREL"))
+	    không_thì nếu (!strcmp(reloc_name, "R_RISCV_32_PCREL"))
 	        reloc_type = R_RISCV_32_PCREL;
-	    else if (!strcmp(reloc_name, "R_RISCV_32"))
+	    không_thì nếu (!strcmp(reloc_name, "R_RISCV_32"))
 	        reloc_type = R_RISCV_32;
-	    else if (!strcmp(reloc_name, "R_RISCV_64"))
+	    không_thì nếu (!strcmp(reloc_name, "R_RISCV_64"))
 	        reloc_type = R_RISCV_64;
 #endif
-	    if (reloc_type < 0)
+	    nếu (reloc_type < 0)
 	        tcc_error("unimp: reloc '%s' unknown", reloc_name);
 	    next();
 	    skip(',');
@@ -1065,72 +1065,72 @@ static void asm_parse_directive(TCCState *s1, int global)
 
 
 /* assemble a file */
-static int tcc_assemble_internal(TCCState *s1, int do_preprocess, int global)
+static số_nguyên tcc_assemble_internal(TCCState *s1, số_nguyên do_preprocess, số_nguyên global)
 {
-    int opcode;
-    int saved_parse_flags = parse_flags;
+    số_nguyên opcode;
+    số_nguyên saved_parse_flags = parse_flags;
 
     parse_flags = PARSE_FLAG_ASM_FILE | PARSE_FLAG_TOK_STR;
-    if (do_preprocess)
+    nếu (do_preprocess)
         parse_flags |= PARSE_FLAG_PREPROCESS;
-    for(;;) {
+    cho(;;) {
         next();
-        if (tok == TOK_EOF)
+        nếu (tok == TOK_EOF)
             break;
         tcc_debug_line(s1);
         parse_flags |= PARSE_FLAG_LINEFEED; /* XXX: suppress that hack */
     redo:
-#if !defined(TCC_TARGET_ARM64)
-        if (tok == '#') {
+#nếu !defined(TCC_TARGET_ARM64)
+        nếu (tok == '#') {
             /* horrible gas comment */
-            while (tok != TOK_LINEFEED)
+            trong_khi (tok != TOK_LINEFEED)
                 next();
-        } else
+        } không_thì
 #endif
-        if (tok >= TOK_ASMDIR_FIRST && tok <= TOK_ASMDIR_LAST) {
+        nếu (tok >= TOK_ASMDIR_FIRST && tok <= TOK_ASMDIR_LAST) {
             asm_parse_directive(s1, global);
-        } else if (tok == TOK_PPNUM) {
+        } không_thì nếu (tok == TOK_PPNUM) {
             const char *p;
-            int n;
+            số_nguyên n;
             p = tokc.str.data;
             n = strtoul(p, (char **)&p, 10);
-            if (*p != '\0')
+            nếu (*p != '\0')
                 expect("':'");
             /* new local label */
             asm_new_label(s1, asm_get_local_label_name(s1, n), 1);
             next();
             skip(':');
             goto redo;
-        } else if (tok >= TOK_IDENT) {
+        } không_thì nếu (tok >= TOK_IDENT) {
             /* instruction or label */
             opcode = tok;
             next();
-            if (tok == ':') {
+            nếu (tok == ':') {
                 /* new label */
                 asm_new_label(s1, opcode, 0);
                 next();
                 goto redo;
-            } else if (tok == '=') {
+            } không_thì nếu (tok == '=') {
 		set_symbol(s1, opcode);
                 goto redo;
-            } else {
+            } không_thì {
                 asm_opcode(s1, opcode);
             }
         }
         /* end of line */
-        if (tok != ';' && tok != TOK_LINEFEED)
+        nếu (tok != ';' && tok != TOK_LINEFEED)
             expect("end of line");
         parse_flags &= ~PARSE_FLAG_LINEFEED; /* XXX: suppress that hack */
     }
 
     parse_flags = saved_parse_flags;
-    return 0;
+    trả_về 0;
 }
 
 /* Assemble the current file */
-ST_FUNC int tcc_assemble(TCCState *s1, int do_preprocess)
+ST_FUNC số_nguyên tcc_assemble(TCCState *s1, số_nguyên do_preprocess)
 {
-    int ret;
+    số_nguyên ret;
     tcc_debug_start(s1);
     /* default section is text */
     cur_text_section = text_section;
@@ -1139,7 +1139,7 @@ ST_FUNC int tcc_assemble(TCCState *s1, int do_preprocess)
     ret = tcc_assemble_internal(s1, do_preprocess, 1);
     cur_text_section->data_offset = ind;
     tcc_debug_end(s1);
-    return ret;
+    trả_về ret;
 }
 
 /********************************************************************/
@@ -1147,12 +1147,12 @@ ST_FUNC int tcc_assemble(TCCState *s1, int do_preprocess)
 
 /* assemble the string 'str' in the current C compilation unit without
    C preprocessing. */
-static void tcc_assemble_inline(TCCState *s1, const char *str, int len, int global)
+static void tcc_assemble_inline(TCCState *s1, const char *str, số_nguyên len, số_nguyên global)
 {
-    const int *saved_macro_ptr = macro_ptr;
-    int dotid = set_idnum('.', IS_ID);
-#if !defined(TCC_TARGET_RISCV64) && !defined(TCC_TARGET_X86_64)
-    int dolid = set_idnum('$', 0);
+    const số_nguyên *saved_macro_ptr = macro_ptr;
+    số_nguyên dotid = set_idnum('.', IS_ID);
+#nếu !defined(TCC_TARGET_RISCV64) && !defined(TCC_TARGET_X86_64)
+    số_nguyên dolid = set_idnum('$', 0);
 #endif
 
     tcc_open_bf(s1, ":asm:", len);
@@ -1161,7 +1161,7 @@ static void tcc_assemble_inline(TCCState *s1, const char *str, int len, int glob
     tcc_assemble_internal(s1, 0, global);
     tcc_close();
 
-#if !defined(TCC_TARGET_RISCV64) && !defined(TCC_TARGET_X86_64)
+#nếu !defined(TCC_TARGET_RISCV64) && !defined(TCC_TARGET_X86_64)
     set_idnum('$', dolid);
 #endif
     set_idnum('.', dotid);
@@ -1171,60 +1171,60 @@ static void tcc_assemble_inline(TCCState *s1, const char *str, int len, int glob
 /* find a constraint by its number or id (gcc 3 extended
    syntax). return -1 if not found. Return in *pp in char after the
    constraint */
-ST_FUNC int find_constraint(ASMOperand *operands, int nb_operands, 
+ST_FUNC số_nguyên find_constraint(ASMOperand *operands, số_nguyên nb_operands, 
                            const char *name, const char **pp)
 {
-    int index;
+    số_nguyên index;
     TokenSym *ts;
     const char *p;
 
-    if (isnum(*name)) {
+    nếu (isnum(*name)) {
         index = 0;
-        while (isnum(*name)) {
+        trong_khi (isnum(*name)) {
             index = (index * 10) + (*name) - '0';
             name++;
         }
-        if ((unsigned)index >= nb_operands)
+        nếu ((unsigned)index >= nb_operands)
             index = -1;
-    } else if (*name == '[') {
+    } không_thì nếu (*name == '[') {
         name++;
         p = strchr(name, ']');
-        if (p) {
+        nếu (p) {
             ts = tok_alloc(name, p - name);
-            for(index = 0; index < nb_operands; index++) {
-                if (operands[index].id == ts->tok)
+            cho(index = 0; index < nb_operands; index++) {
+                nếu (operands[index].id == ts->tok)
                     goto found;
             }
             index = -1;
         found:
             name = p + 1;
-        } else {
+        } không_thì {
             index = -1;
         }
-    } else {
+    } không_thì {
         index = -1;
     }
-    if (pp)
+    nếu (pp)
         *pp = name;
-    return index;
+    trả_về index;
 }
 
-static void subst_asm_operands(ASMOperand *operands, int nb_operands, 
+static void subst_asm_operands(ASMOperand *operands, số_nguyên nb_operands, 
                                CString *out_str, const char *str)
 {
-    int c, index, modifier;
+    số_nguyên c, index, modifier;
     ASMOperand *op;
     SValue sv;
 
-    for(;;) {
+    cho(;;) {
         c = *str++;
-        if (c == '%') {
-            if (*str == '%') {
+        nếu (c == '%') {
+            nếu (*str == '%') {
                 str++;
                 goto add_char;
             }
             modifier = 0;
-            if (*str == 'c' || *str == 'n' ||
+            nếu (*str == 'c' || *str == 'n' ||
                 *str == 'b' || *str == 'w' || *str == 'h' || *str == 'k' ||
 		*str == 'q' || *str == 'l' ||
 #ifdef TCC_TARGET_ARM64
@@ -1238,50 +1238,50 @@ static void subst_asm_operands(ASMOperand *operands, int nb_operands,
 		*str == 'P')
                 modifier = *str++;
             index = find_constraint(operands, nb_operands, str, &str);
-            if (index < 0)
+            nếu (index < 0)
         error:
                 tcc_error("invalid operand reference after %%");
             op = &operands[index];
-            if (modifier == 'l') {
+            nếu (modifier == 'l') {
                 cstr_cat(out_str, get_tok_str(op->is_label, NULL), -1);
-            } else {
-		if (op->vt == NULL)
+            } không_thì {
+		nếu (op->vt == NULL)
 		    goto error;
                 sv = *op->vt;
-                if (op->reg >= 0) {
+                nếu (op->reg >= 0) {
                     sv.r = op->reg;
-                    if (op->is_memory)
+                    nếu (op->is_memory)
                       sv.r |= VT_LVAL;
                 }
                 subst_asm_operand(out_str, &sv, modifier);
             }
-        } else {
+        } không_thì {
         add_char:
             cstr_ccat(out_str, c);
-            if (c == '\0')
+            nếu (c == '\0')
                 break;
         }
     }
 }
 
 
-static void parse_asm_operands(ASMOperand *operands, int *nb_operands_ptr,
-                               int is_output)
+static void parse_asm_operands(ASMOperand *operands, số_nguyên *nb_operands_ptr,
+                               số_nguyên is_output)
 {
     ASMOperand *op;
-    int nb_operands;
+    số_nguyên nb_operands;
     char* astr;
 
-    if (tok != ':') {
+    nếu (tok != ':') {
         nb_operands = *nb_operands_ptr;
-        for(;;) {
-            if (nb_operands >= MAX_ASM_OPERANDS)
+        cho(;;) {
+            nếu (nb_operands >= MAX_ASM_OPERANDS)
                 tcc_error("too many asm operands");
             op = &operands[nb_operands++];
             op->id = 0;
-            if (tok == '[') {
+            nếu (tok == '[') {
                 next();
-                if (tok < TOK_IDENT)
+                nếu (tok < TOK_IDENT)
                     expect("identifier");
                 op->id = tok;
                 next();
@@ -1291,15 +1291,15 @@ static void parse_asm_operands(ASMOperand *operands, int *nb_operands_ptr,
             pstrcpy(op->constraint, sizeof op->constraint, astr);
             skip('(');
             gexpr();
-            if (is_output) {
-                if (!(vtop->type.t & VT_ARRAY))
+            nếu (is_output) {
+                nếu (!(vtop->type.t & VT_ARRAY))
                     test_lvalue();
-            } else {
+            } không_thì {
                 /* we want to avoid LLOCAL case, except when the 'm'
                    constraint is used. Note that it may come from
                    register storage, so we need to convert (reg)
                    case */
-                if ((vtop->r & VT_LVAL) &&
+                nếu ((vtop->r & VT_LVAL) &&
                     ((vtop->r & VT_VALMASK) == VT_LLOCAL ||
                      (vtop->r & VT_VALMASK) < VT_CONST) &&
                     !strchr(op->constraint, 'm')
@@ -1313,9 +1313,9 @@ static void parse_asm_operands(ASMOperand *operands, int *nb_operands_ptr,
             }
             op->vt = vtop;
             skip(')');
-            if (tok == ',') {
+            nếu (tok == ',') {
                 next();
-            } else {
+            } không_thì {
                 break;
             }
         }
@@ -1329,13 +1329,13 @@ ST_FUNC void asm_instr(void)
     CString astr, *astr1;
 
     ASMOperand operands[MAX_ASM_OPERANDS];
-    int nb_outputs, nb_operands, i, must_subst, out_reg, nb_labels;
+    số_nguyên nb_outputs, nb_operands, i, must_subst, out_reg, nb_labels;
     uint8_t clobber_regs[NB_ASM_REGS];
     Section *sec;
 
     /* since we always generate the asm() instruction, we can ignore
        volatile */
-    while (tok == TOK_VOLATILE1 || tok == TOK_VOLATILE2 || tok == TOK_VOLATILE3
+    trong_khi (tok == TOK_VOLATILE1 || tok == TOK_VOLATILE2 || tok == TOK_VOLATILE3
            || tok == TOK_GOTO) {
         next();
     }
@@ -1349,66 +1349,66 @@ ST_FUNC void asm_instr(void)
     nb_labels = 0;
     must_subst = 0;
     memset(clobber_regs, 0, sizeof(clobber_regs));
-    if (tok == ':') {
+    nếu (tok == ':') {
         next();
         must_subst = 1;
         /* output args */
         parse_asm_operands(operands, &nb_operands, 1);
         nb_outputs = nb_operands;
-        if (tok == ':') {
+        nếu (tok == ':') {
             next();
-            if (tok != ')') {
+            nếu (tok != ')') {
                 /* input args */
                 parse_asm_operands(operands, &nb_operands, 0);
-                if (tok == ':') {
+                nếu (tok == ':') {
                     /* clobber list */
                     /* XXX: handle registers */
                     next();
-                    for(;;) {
-                        if (tok == ':')
+                    cho(;;) {
+                        nếu (tok == ':')
                           break;
-                        if (tok != TOK_STR)
+                        nếu (tok != TOK_STR)
                             expect("string constant");
                         asm_clobber(clobber_regs, tokc.str.data);
                         next();
-                        if (tok == ',') {
+                        nếu (tok == ',') {
                             next();
-                        } else {
+                        } không_thì {
                             break;
                         }
                     }
                 }
-                if (tok == ':') {
+                nếu (tok == ':') {
                     /* goto labels */
                     next();
-                    for (;;) {
+                    cho (;;) {
                         Sym *csym;
-                        int asmname;
-                        if (nb_operands + nb_labels >= MAX_ASM_OPERANDS)
+                        số_nguyên asmname;
+                        nếu (nb_operands + nb_labels >= MAX_ASM_OPERANDS)
                           tcc_error("too many asm operands");
-                        if (tok < TOK_UIDENT)
+                        nếu (tok < TOK_UIDENT)
                           expect("label identifier");
 			memset(operands + nb_operands + nb_labels, 0,
 			       sizeof(operands[0]));
                         operands[nb_operands + nb_labels++].id = tok;
 
                         csym = label_find(tok);
-                        if (!csym) {
+                        nếu (!csym) {
                             csym = label_push(&global_label_stack, tok,
                                               LABEL_FORWARD);
-                        } else {
-                            if (csym->r == LABEL_DECLARED)
+                        } không_thì {
+                            nếu (csym->r == LABEL_DECLARED)
                               csym->r = LABEL_FORWARD;
                         }
                         next();
                         asmname = asm_get_prefix_name(tcc_state, "LG.",
                                                       ++asmgoto_n);
-                        if (!csym->c)
+                        nếu (!csym->c)
                           put_extern_sym2(csym, SHN_UNDEF, 0, 0, 1);
                         get_asm_sym(asmname, csym);
                         operands[nb_operands + nb_labels - 1].is_label = asmname;
 
-                        if (tok != ',')
+                        nếu (tok != ',')
                           break;
                         next();
                     }
@@ -1419,7 +1419,7 @@ ST_FUNC void asm_instr(void)
     skip(')');
     /* NOTE: we do not eat the ';' so that we can restore the current
        token after the assembler parsing */
-    if (tok != ';')
+    nếu (tok != ';')
         expect("';'");
     
     /* save all values in the memory */
@@ -1434,7 +1434,7 @@ ST_FUNC void asm_instr(void)
 #ifdef ASM_DEBUG
     printf("asm: \"%s\"\n", (char *)astr.data);
 #endif
-    if (must_subst) {
+    nếu (must_subst) {
         cstr_reset(astr1);
         cstr_cat(astr1, astr.data, astr.size);
         cstr_reset(&astr);
@@ -1455,7 +1455,7 @@ ST_FUNC void asm_instr(void)
     /* assemble the string with tcc internal assembler */
     tcc_assemble_inline(tcc_state, astr.data, astr.size - 1, 0);
     cstr_free_s(&astr);
-    if (sec != cur_text_section) {
+    nếu (sec != cur_text_section) {
         tcc_warning("inline asm tries to change current section");
         use_section1(tcc_state, sec);
     }
@@ -1468,7 +1468,7 @@ ST_FUNC void asm_instr(void)
                  clobber_regs, out_reg);
     
     /* free everything */
-    for(i=0;i<nb_operands;i++) {
+    cho(i=0;i<nb_operands;i++) {
         vpop();
     }
 
@@ -1477,7 +1477,7 @@ ST_FUNC void asm_instr(void)
 ST_FUNC void asm_global_instr(void)
 {
     CString *astr;
-    int saved_nocode_wanted = nocode_wanted;
+    số_nguyên saved_nocode_wanted = nocode_wanted;
 
     /* Global asm blocks are always emitted.  */
     nocode_wanted = 0;
@@ -1486,7 +1486,7 @@ ST_FUNC void asm_global_instr(void)
     skip(')');
     /* NOTE: we do not eat the ';' so that we can restore the current
        token after the assembler parsing */
-    if (tok != ';')
+    nếu (tok != ';')
         expect("';'");
     
 #ifdef ASM_DEBUG
@@ -1507,8 +1507,8 @@ ST_FUNC void asm_global_instr(void)
 }
 
 /********************************************************/
-#else
-ST_FUNC int tcc_assemble(TCCState *s1, int do_preprocess)
+#không_thì
+ST_FUNC số_nguyên tcc_assemble(TCCState *s1, số_nguyên do_preprocess)
 {
     tcc_error("asm not supported");
 }

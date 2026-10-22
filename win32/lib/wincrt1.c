@@ -9,60 +9,60 @@
 #define __UNKNOWN_APP    0
 #define __CONSOLE_APP    1
 #define __GUI_APP        2
-void __set_app_type(int);
+void __set_app_type(số_nguyên);
 void _controlfp(unsigned a, unsigned b);
 
 #ifdef _UNICODE
 #define __tgetmainargs __wgetmainargs
 #define _twinstart _wwinstart
 #define _runtwinmain _runwwinmain
-int APIENTRY wWinMain(HINSTANCE, HINSTANCE, LPWSTR, int);
-#else
+số_nguyên APIENTRY wWinMain(HINSTANCE, HINSTANCE, LPWSTR, số_nguyên);
+#không_thì
 #define __tgetmainargs __getmainargs
 #define _twinstart _winstart
 #define _runtwinmain _runwinmain
 #endif
 
-typedef struct { int newmode; } _startupinfo;
-int __cdecl __tgetmainargs(int *pargc, _TCHAR ***pargv, _TCHAR ***penv, int globb, _startupinfo*);
+typedef struct { số_nguyên newmode; } _startupinfo;
+số_nguyên __cdecl __tgetmainargs(số_nguyên *pargc, _TCHAR ***pargv, _TCHAR ***penv, số_nguyên globb, _startupinfo*);
 
 #include "crtinit.c"
 
-static int go_winmain(TCHAR *arg1)
+static số_nguyên go_winmain(TCHAR *arg1)
 {
     STARTUPINFO si;
     _TCHAR *szCmd, *p;
-    int fShow;
-    int retval;
+    số_nguyên fShow;
+    số_nguyên retval;
 
     GetStartupInfo(&si);
-    if (si.dwFlags & STARTF_USESHOWWINDOW)
+    nếu (si.dwFlags & STARTF_USESHOWWINDOW)
         fShow = si.wShowWindow;
-    else
+    không_thì
         fShow = SW_SHOWDEFAULT;
 
     szCmd = NULL, p = GetCommandLine();
-    if (arg1)
+    nếu (arg1)
         szCmd = _tcsstr(p, arg1);
-    if (NULL == szCmd)
+    nếu (NULL == szCmd)
         szCmd = _tcsdup(__T(""));
-    else if (szCmd > p && szCmd[-1] == __T('"'))
+    không_thì nếu (szCmd > p && szCmd[-1] == __T('"'))
         --szCmd;
-#if defined __i386__ || defined __x86_64__
+#nếu defined __i386__ || defined __x86_64__
     _controlfp(0x10000, 0x30000);
 #endif
     run_ctors(__argc, __targv, _tenviron);
     retval = _tWinMain(GetModuleHandle(NULL), NULL, szCmd, fShow);
     run_dtors();
-    return retval;
+    trả_về retval;
 }
 
 static LONG WINAPI catch_sig(EXCEPTION_POINTERS *ex)
 {
-  return _XcptFilter(ex->ExceptionRecord->ExceptionCode, ex);
+  trả_về _XcptFilter(ex->ExceptionRecord->ExceptionCode, ex);
 }
 
-int _twinstart(void)
+số_nguyên _twinstart(void)
 {
     _startupinfo start_info_con = {0};
     SetUnhandledExceptionFilter(catch_sig);
@@ -71,16 +71,16 @@ int _twinstart(void)
     exit(go_winmain(__argc > 1 ? __targv[1] : NULL));
 }
 
-int _runtwinmain(int argc, /* as tcc passed in */ char **argv)
+số_nguyên _runtwinmain(số_nguyên argc, /* as tcc passed in */ char **argv)
 {
 #ifdef UNICODE
     _startupinfo start_info = {0};
     __tgetmainargs(&__argc, &__targv, &_tenviron, 0, &start_info);
     /* may be wrong when tcc has received wildcards (*.c) */
-    if (argc < __argc)
+    nếu (argc < __argc)
         __targv += __argc - argc, __argc = argc;
-#else
+#không_thì
     __argc = argc, __targv = argv;
 #endif
-    return go_winmain(__argc > 1 ? __targv[1] : NULL);
+    trả_về go_winmain(__argc > 1 ? __targv[1] : NULL);
 }

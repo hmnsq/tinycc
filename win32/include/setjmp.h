@@ -14,10 +14,10 @@
 extern "C" {
 #endif
 
-#if (defined(_X86_) && !defined(__x86_64))
+#nếu (defined(_X86_) && !defined(__x86_64))
 
 #define _JBLEN 16
-#define _JBTYPE int
+#define _JBTYPE số_nguyên
 
   typedef struct __JUMP_BUFFER {
     unsigned long Ebp;
@@ -127,7 +127,7 @@ extern "C" {
 #elif defined(_ARM_)
 
 #define _JBLEN 28
-#define _JBTYPE int
+#define _JBTYPE số_nguyên
 
   typedef struct __JUMP_BUFFER {
     unsigned long Frame;
@@ -169,9 +169,9 @@ extern "C" {
     unsigned long Fpsr;
     double D[8];
   } _JUMP_BUFFER;
-#else
+#không_thì
 #define _JBLEN 1
-#define _JBTYPE int
+#define _JBTYPE số_nguyên
 #endif
 #ifndef _JMP_BUF_DEFINED
   typedef _JBTYPE jmp_buf[_JBLEN];
@@ -180,18 +180,18 @@ extern "C" {
 
 #pragma pack(pop)
 
-#if defined __aarch64__
-  int _setjmpex(jmp_buf _Buf, void *frame);
+#nếu defined __aarch64__
+  số_nguyên _setjmpex(jmp_buf _Buf, void *frame);
   #define setjmp(BUF) _setjmpex((BUF), (char*)__builtin_frame_address(0) + 224)
 #elif defined __x86_64__
-  int _setjmp(jmp_buf _Buf, void *frame);
+  số_nguyên _setjmp(jmp_buf _Buf, void *frame);
   #define setjmp(BUF) _setjmp((BUF), __builtin_frame_address(0))
-#else /* __i386__ */
-  int _setjmp(jmp_buf _Buf);
+#không_thì /* __i386__ */
+  số_nguyên _setjmp(jmp_buf _Buf);
   #define setjmp _setjmp
 #endif
 
-__declspec(noreturn) void longjmp(jmp_buf _Buf,int _Value);
+__declspec(noreturn) void longjmp(jmp_buf _Buf,số_nguyên _Value);
 
 #ifdef __cplusplus
 }

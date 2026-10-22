@@ -1,22 +1,22 @@
 #ifdef _WIN32
 #include <windows.h>
 typedef HANDLE pthread_t;
-int pthread_create(pthread_t *p, void *x, void *fn, void *args)
+số_nguyên pthread_create(pthread_t *p, void *x, void *fn, void *args)
 {
     DWORD tid;
     *p = CreateThread(NULL, 0, fn, args, 0, &tid);
-    return *p ? 0 : -1;
+    trả_về *p ? 0 : -1;
 }
-int pthread_join(pthread_t h, void **ret)
+số_nguyên pthread_join(pthread_t h, void **ret)
 {
     DWORD r;
     WaitForSingleObject(h, INFINITE);
     GetExitCodeThread(h, &r);
     CloseHandle(h);
-    if (ret)
+    nếu (ret)
         *ret = (void*)(size_t)r;
-    return 0;
+    trả_về 0;
 }
-#else
+#không_thì
 #include <pthread.h>
 #endif

@@ -1,24 +1,24 @@
-int printf(const char *s, ...);
+số_nguyên printf(const char *s, ...);
 
 float fx(x)
 float x;
 {
-    return 2.0 * x;
+    trả_về 2.0 * x;
 }
 
 void func(float a);
 
-void func3(struct p { int a; int b; } *q) {
+void func3(struct p { số_nguyên a; số_nguyên b; } *q) {
 }
 
 void func4(q)
- struct p { int a; int b; int c; } *q;
+ struct p { số_nguyên a; số_nguyên b; số_nguyên c; } *q;
 {
 }
 
-struct p { int a; int b; int c; int d; };
+struct p { số_nguyên a; số_nguyên b; số_nguyên c; số_nguyên d; };
 
-int
+số_nguyên
 main(void)
 {
     float fy();
@@ -31,7 +31,7 @@ main(void)
 float fy(x)
 float x;
 {
-    return 3.0 * x;
+    trả_về 3.0 * x;
 }
 
 void func(a)

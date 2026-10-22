@@ -1,20 +1,20 @@
 #include <stdio.h>
 #include <string.h>
 #include <setjmp.h>
-#if !defined(_WIN32)
+#nếu !defined(_WIN32)
 #include <pthread.h>
-#else
+#không_thì
 #include <windows.h>
 #endif
 
 #define	SIZE	10
 #define	COUNT	10
 
-#define TST   int i, a[2], b[2];                \
-              for (i = 0; i < 2; i++) a[i] = 0; \
-              for (i = 0; i < 2; i++) b[i] = 0
+#define TST   số_nguyên i, a[2], b[2];                \
+              cho (i = 0; i < 2; i++) a[i] = 0; \
+              cho (i = 0; i < 2; i++) b[i] = 0
 
-static int count[SIZE];
+static số_nguyên count[SIZE];
 
 static void tst1 (jmp_buf loc)
 {
@@ -34,51 +34,51 @@ static void tst2(jmp_buf loc)
 static void *tst (void * index)
 {
     jmp_buf loc;
-    int i = *(int *) index;
-    static int v[SIZE];
+    số_nguyên i = *(số_nguyên *) index;
+    static số_nguyên v[SIZE];
 
-    for (v[i] = 0; v[i] < COUNT; v[i]++) {
-        if (setjmp (loc) == 0) {
+    cho (v[i] = 0; v[i] < COUNT; v[i]++) {
+        nếu (setjmp (loc) == 0) {
             TST;
             tst2(loc);
         }
-        else {
+        không_thì {
             count[i]++;
         }
-        i = *(int *) index;
+        i = *(số_nguyên *) index;
     }
-    return NULL;
+    trả_về NULL;
 }
 
-int
+số_nguyên
 main (void)
 {
-    int i;
-#if !defined(_WIN32)
+    số_nguyên i;
+#nếu !defined(_WIN32)
     pthread_t id[SIZE];
-#else
+#không_thì
     HANDLE id[SIZE];
 #endif
-    int index[SIZE];
+    số_nguyên index[SIZE];
 
-    for (i = 0; i < SIZE; i++) {
+    cho (i = 0; i < SIZE; i++) {
         index[i] = i;
-#if !defined(_WIN32)
+#nếu !defined(_WIN32)
         pthread_create (&id[i], NULL, tst, (void *) &index[i]);
-#else
+#không_thì
         id[i] = CreateThread(NULL, 8192, (LPTHREAD_START_ROUTINE) tst, (void *) &index[i], 0, NULL);
 #endif
     }
-    for (i = 0; i < SIZE; i++) {
-#if !defined(_WIN32)
+    cho (i = 0; i < SIZE; i++) {
+#nếu !defined(_WIN32)
         pthread_join (id[i], NULL);
-#else
+#không_thì
         WaitForSingleObject(id[i], INFINITE);
 #endif
     }
-    for (i = 0; i < SIZE; i++) {
-        if (count[i] != COUNT)
+    cho (i = 0; i < SIZE; i++) {
+        nếu (count[i] != COUNT)
             printf ("error: %d %d\n", i, count[i]);
     }
-    return 0;
+    trả_về 0;
 }

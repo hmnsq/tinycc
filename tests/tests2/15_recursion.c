@@ -1,21 +1,21 @@
 #include <stdio.h>
 
-int factorial(int i) 
+số_nguyên factorial(số_nguyên i) 
 {
-   if (i < 2)
-      return i;
-   else
-      return i * factorial(i - 1);
+   nếu (i < 2)
+      trả_về i;
+   không_thì
+      trả_về i * factorial(i - 1);
 }
 
-int main()
+số_nguyên main()
 {
-   int Count;
+   số_nguyên Count;
 
-   for (Count = 1; Count <= 10; Count++)
+   cho (Count = 1; Count <= 10; Count++)
       printf("%d\n", factorial(Count));
 
-   return 0;
+   trả_về 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

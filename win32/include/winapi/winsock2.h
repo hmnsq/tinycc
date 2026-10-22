@@ -26,7 +26,7 @@
 #ifndef WINSOCK_API_LINKAGE
 #ifdef DECLSPEC_IMPORT
 #define WINSOCK_API_LINKAGE DECLSPEC_IMPORT
-#else
+#không_thì
 #define WINSOCK_API_LINKAGE
 #endif
 #endif
@@ -39,7 +39,7 @@ extern "C" {
 #define _WINSOCK_SOCKET_DEFINED
   typedef unsigned char u_char;
   typedef unsigned short u_short;
-  typedef unsigned int u_int;
+  typedef unsigned số_nguyên u_int;
   typedef unsigned long u_long;
   __MINGW_EXTENSION typedef unsigned __int64 u_int64;
   typedef INT_PTR SOCKET;
@@ -54,10 +54,10 @@ extern "C" {
     SOCKET fd_array[FD_SETSIZE];
   } fd_set;
 
-  extern int WINAPI __WSAFDIsSet(SOCKET,fd_set *);
+  extern số_nguyên WINAPI __WSAFDIsSet(SOCKET,fd_set *);
 
-#define FD_CLR(fd,set) do { u_int __i; for(__i = 0;__i < ((fd_set *)(set))->fd_count;__i++) { if (((fd_set *)(set))->fd_array[__i]==fd) { while (__i < ((fd_set *)(set))->fd_count-1) { ((fd_set *)(set))->fd_array[__i] = ((fd_set *)(set))->fd_array[__i+1]; __i++; } ((fd_set *)(set))->fd_count--; break; } } } while(0)
-#define FD_SET(fd,set) do { u_int __i; for(__i = 0;__i < ((fd_set *)(set))->fd_count;__i++) { if (((fd_set *)(set))->fd_array[__i]==(fd)) { break; } } if (__i==((fd_set *)(set))->fd_count) { if (((fd_set *)(set))->fd_count < FD_SETSIZE) { ((fd_set *)(set))->fd_array[__i] = (fd); ((fd_set *)(set))->fd_count++; } } } while(0)
+#define FD_CLR(fd,set) do { u_int __i; cho(__i = 0;__i < ((fd_set *)(set))->fd_count;__i++) { nếu (((fd_set *)(set))->fd_array[__i]==fd) { trong_khi (__i < ((fd_set *)(set))->fd_count-1) { ((fd_set *)(set))->fd_array[__i] = ((fd_set *)(set))->fd_array[__i+1]; __i++; } ((fd_set *)(set))->fd_count--; break; } } } trong_khi(0)
+#define FD_SET(fd,set) do { u_int __i; cho(__i = 0;__i < ((fd_set *)(set))->fd_count;__i++) { nếu (((fd_set *)(set))->fd_array[__i]==(fd)) { break; } } nếu (__i==((fd_set *)(set))->fd_count) { nếu (((fd_set *)(set))->fd_count < FD_SETSIZE) { ((fd_set *)(set))->fd_array[__i] = (fd); ((fd_set *)(set))->fd_count++; } } } trong_khi(0)
 #define FD_ZERO(set) (((fd_set *)(set))->fd_count=0)
 #define FD_ISSET(fd,set) __WSAFDIsSet((SOCKET)(fd),(fd_set *)(set))
 
@@ -116,7 +116,7 @@ extern "C" {
 #ifdef _WIN64
     char *s_proto;
     short s_port;
-#else
+#không_thì
     short s_port;
     char *s_proto;
 #endif
@@ -254,7 +254,7 @@ extern "C" {
     char *lpVendorInfo;
     char szDescription[WSADESCRIPTION_LEN+1];
     char szSystemStatus[WSASYS_STATUS_LEN+1];
-#else
+#không_thì
     char szDescription[WSADESCRIPTION_LEN+1];
     char szSystemStatus[WSASYS_STATUS_LEN+1];
     unsigned short iMaxSockets;
@@ -284,8 +284,8 @@ extern "C" {
 #define SO_LINGER 0x0080
 #define SO_OOBINLINE 0x0100
 
-#define SO_DONTLINGER (int)(~SO_LINGER)
-#define SO_EXCLUSIVEADDRUSE ((int)(~SO_REUSEADDR))
+#define SO_DONTLINGER (số_nguyên)(~SO_LINGER)
+#define SO_EXCLUSIVEADDRUSE ((số_nguyên)(~SO_REUSEADDR))
 
 #define SO_SNDBUF 0x1001
 #define SO_RCVBUF 0x1002
@@ -303,7 +303,7 @@ extern "C" {
 #define SO_PROTOCOL_INFOW 0x2005
 #ifdef UNICODE
 #define SO_PROTOCOL_INFO SO_PROTOCOL_INFOW
-#else
+#không_thì
 #define SO_PROTOCOL_INFO SO_PROTOCOL_INFOA
 #endif
 #define PVD_CONFIG 0x3001
@@ -603,7 +603,7 @@ extern "C" {
 #define WSANO_ADDRESS WSANO_DATA
 #define NO_ADDRESS WSANO_ADDRESS
 
-#if 0
+#nếu 0
 #define EWOULDBLOCK WSAEWOULDBLOCK
 #define EINPROGRESS WSAEINPROGRESS
 #define EALREADY WSAEALREADY
@@ -685,14 +685,14 @@ extern "C" {
 #define SD_SEND 0x01
 #define SD_BOTH 0x02
 
-  typedef unsigned int GROUP;
+  typedef unsigned số_nguyên GROUP;
 
 #define SG_UNCONSTRAINED_GROUP 0x01
 #define SG_CONSTRAINED_GROUP 0x02
 
   typedef struct _WSANETWORKEVENTS {
     long lNetworkEvents;
-    int iErrorCode[FD_MAX_EVENTS];
+    số_nguyên iErrorCode[FD_MAX_EVENTS];
   } WSANETWORKEVENTS,*LPWSANETWORKEVENTS;
 
 #ifndef GUID_DEFINED
@@ -705,7 +705,7 @@ extern "C" {
 #define LAYERED_PROTOCOL 0
 
   typedef struct _WSAPROTOCOLCHAIN {
-    int ChainLen;
+    số_nguyên ChainLen;
 
     DWORD ChainEntries[MAX_PROTOCOL_CHAIN];
   } WSAPROTOCOLCHAIN,*LPWSAPROTOCOLCHAIN;
@@ -721,15 +721,15 @@ extern "C" {
     GUID ProviderId;
     DWORD dwCatalogEntryId;
     WSAPROTOCOLCHAIN ProtocolChain;
-    int iVersion;
-    int iAddressFamily;
-    int iMaxSockAddr;
-    int iMinSockAddr;
-    int iSocketType;
-    int iProtocol;
-    int iProtocolMaxOffset;
-    int iNetworkByteOrder;
-    int iSecurityScheme;
+    số_nguyên iVersion;
+    số_nguyên iAddressFamily;
+    số_nguyên iMaxSockAddr;
+    số_nguyên iMinSockAddr;
+    số_nguyên iSocketType;
+    số_nguyên iProtocol;
+    số_nguyên iProtocolMaxOffset;
+    số_nguyên iNetworkByteOrder;
+    số_nguyên iSecurityScheme;
     DWORD dwMessageSize;
     DWORD dwProviderReserved;
     CHAR szProtocol[WSAPROTOCOL_LEN+1];
@@ -743,15 +743,15 @@ extern "C" {
     GUID ProviderId;
     DWORD dwCatalogEntryId;
     WSAPROTOCOLCHAIN ProtocolChain;
-    int iVersion;
-    int iAddressFamily;
-    int iMaxSockAddr;
-    int iMinSockAddr;
-    int iSocketType;
-    int iProtocol;
-    int iProtocolMaxOffset;
-    int iNetworkByteOrder;
-    int iSecurityScheme;
+    số_nguyên iVersion;
+    số_nguyên iAddressFamily;
+    số_nguyên iMaxSockAddr;
+    số_nguyên iMinSockAddr;
+    số_nguyên iSocketType;
+    số_nguyên iProtocol;
+    số_nguyên iProtocolMaxOffset;
+    số_nguyên iNetworkByteOrder;
+    số_nguyên iSecurityScheme;
     DWORD dwMessageSize;
     DWORD dwProviderReserved;
     WCHAR szProtocol[WSAPROTOCOL_LEN+1];
@@ -759,7 +759,7 @@ extern "C" {
 #ifdef UNICODE
   typedef WSAPROTOCOL_INFOW WSAPROTOCOL_INFO;
   typedef LPWSAPROTOCOL_INFOW LPWSAPROTOCOL_INFO;
-#else
+#không_thì
   typedef WSAPROTOCOL_INFOA WSAPROTOCOL_INFO;
   typedef LPWSAPROTOCOL_INFOA LPWSAPROTOCOL_INFO;
 #endif
@@ -834,7 +834,7 @@ extern "C" {
 #define SIO_QUERY_TARGET_PNP_HANDLE _WSAIOR(IOC_WS2,24)
 #define SIO_ADDRESS_LIST_SORT _WSAIORW(IOC_WS2,25)
 
-  typedef int (CALLBACK *LPCONDITIONPROC)(LPWSABUF lpCallerId,LPWSABUF lpCallerData,LPQOS lpSQOS,LPQOS lpGQOS,LPWSABUF lpCalleeId,LPWSABUF lpCalleeData,GROUP *g,DWORD_PTR dwCallbackData);
+  typedef số_nguyên (CALLBACK *LPCONDITIONPROC)(LPWSABUF lpCallerId,LPWSABUF lpCallerData,LPQOS lpSQOS,LPQOS lpGQOS,LPWSABUF lpCalleeId,LPWSABUF lpCalleeData,GROUP *g,DWORD_PTR dwCallbackData);
   typedef void (CALLBACK *LPWSAOVERLAPPED_COMPLETION_ROUTINE)(DWORD dwError,DWORD cbTransferred,LPWSAOVERLAPPED lpOverlapped,DWORD dwFlags);
 
 #define SIO_NSP_NOTIFY_CHANGE _WSAIOW(IOC_WS2,25)
@@ -943,7 +943,7 @@ extern "C" {
 #define SERVICE_TYPE_VALUE_TCPPORT SERVICE_TYPE_VALUE_TCPPORTW
 #define SERVICE_TYPE_VALUE_UDPPORT SERVICE_TYPE_VALUE_UDPPORTW
 #define SERVICE_TYPE_VALUE_OBJECTID SERVICE_TYPE_VALUE_OBJECTIDW
-#else
+#không_thì
 
 #define SERVICE_TYPE_VALUE_SAPID SERVICE_TYPE_VALUE_SAPIDA
 #define SERVICE_TYPE_VALUE_TCPPORT SERVICE_TYPE_VALUE_TCPPORTA
@@ -1026,7 +1026,7 @@ extern "C" {
   typedef WSAQUERYSETW WSAQUERYSET;
   typedef PWSAQUERYSETW PWSAQUERYSET;
   typedef LPWSAQUERYSETW LPWSAQUERYSET;
-#else
+#không_thì
   typedef WSAQUERYSETA WSAQUERYSET;
   typedef PWSAQUERYSETA PWSAQUERYSET;
   typedef LPWSAQUERYSETA LPWSAQUERYSET;
@@ -1079,7 +1079,7 @@ extern "C" {
   typedef WSANSCLASSINFOW WSANSCLASSINFO;
   typedef PWSANSCLASSINFOW PWSANSCLASSINFO;
   typedef LPWSANSCLASSINFOW LPWSANSCLASSINFO;
-#else
+#không_thì
   typedef WSANSCLASSINFOA WSANSCLASSINFO;
   typedef PWSANSCLASSINFOA PWSANSCLASSINFO;
   typedef LPWSANSCLASSINFOA LPWSANSCLASSINFO;
@@ -1103,7 +1103,7 @@ extern "C" {
   typedef WSASERVICECLASSINFOW WSASERVICECLASSINFO;
   typedef PWSASERVICECLASSINFOW PWSASERVICECLASSINFO;
   typedef LPWSASERVICECLASSINFOW LPWSASERVICECLASSINFO;
-#else
+#không_thì
   typedef WSASERVICECLASSINFOA WSASERVICECLASSINFO;
   typedef PWSASERVICECLASSINFOA PWSASERVICECLASSINFO;
   typedef LPWSASERVICECLASSINFOA LPWSASERVICECLASSINFO;
@@ -1129,13 +1129,13 @@ extern "C" {
   typedef WSANAMESPACE_INFOW WSANAMESPACE_INFO;
   typedef PWSANAMESPACE_INFOW PWSANAMESPACE_INFO;
   typedef LPWSANAMESPACE_INFOW LPWSANAMESPACE_INFO;
-#else
+#không_thì
   typedef WSANAMESPACE_INFOA WSANAMESPACE_INFO;
   typedef PWSANAMESPACE_INFOA PWSANAMESPACE_INFO;
   typedef LPWSANAMESPACE_INFOA LPWSANAMESPACE_INFO;
 #endif
 
-#if INCL_WINSOCK_API_TYPEDEFS
+#nếu INCL_WINSOCK_API_TYPEDEFS
 #ifdef UNICODE
 #define LPFN_WSADUPLICATESOCKET LPFN_WSADUPLICATESOCKETW
 #define LPFN_WSAENUMPROTOCOLS LPFN_WSAENUMPROTOCOLSW
@@ -1149,7 +1149,7 @@ extern "C" {
 #define LPFN_WSAENUMNAMESPACEPROVIDERS LPFN_WSAENUMNAMESPACEPROVIDERSW
 #define LPFN_WSAGETSERVICECLASSNAMEBYCLASSID LPFN_WSAGETSERVICECLASSNAMEBYCLASSIDW
 #define LPFN_WSASETSERVICE LPFN_WSASETSERVICEW
-#else
+#không_thì
 #define LPFN_WSADUPLICATESOCKET LPFN_WSADUPLICATESOCKETA
 #define LPFN_WSAENUMPROTOCOLS LPFN_WSAENUMPROTOCOLSA
 #define LPFN_WSASOCKET LPFN_WSASOCKETA
@@ -1164,80 +1164,80 @@ extern "C" {
 #define LPFN_WSASETSERVICE LPFN_WSASETSERVICEA
 #endif
 
-  typedef SOCKET (WSAAPI *LPFN_ACCEPT)(SOCKET s,struct sockaddr *addr,int *addrlen);
-  typedef int (WSAAPI *LPFN_BIND)(SOCKET s,const struct sockaddr *name,int namelen);
-  typedef int (WSAAPI *LPFN_CLOSESOCKET)(SOCKET s);
-  typedef int (WSAAPI *LPFN_CONNECT)(SOCKET s,const struct sockaddr *name,int namelen);
-  typedef int (WSAAPI *LPFN_IOCTLSOCKET)(SOCKET s,long cmd,u_long *argp);
-  typedef int (WSAAPI *LPFN_GETPEERNAME)(SOCKET s,struct sockaddr *name,int *namelen);
-  typedef int (WSAAPI *LPFN_GETSOCKNAME)(SOCKET s,struct sockaddr *name,int *namelen);
-  typedef int (WSAAPI *LPFN_GETSOCKOPT)(SOCKET s,int level,int optname,char *optval,int *optlen);
+  typedef SOCKET (WSAAPI *LPFN_ACCEPT)(SOCKET s,struct sockaddr *addr,số_nguyên *addrlen);
+  typedef số_nguyên (WSAAPI *LPFN_BIND)(SOCKET s,const struct sockaddr *name,số_nguyên namelen);
+  typedef số_nguyên (WSAAPI *LPFN_CLOSESOCKET)(SOCKET s);
+  typedef số_nguyên (WSAAPI *LPFN_CONNECT)(SOCKET s,const struct sockaddr *name,số_nguyên namelen);
+  typedef số_nguyên (WSAAPI *LPFN_IOCTLSOCKET)(SOCKET s,long cmd,u_long *argp);
+  typedef số_nguyên (WSAAPI *LPFN_GETPEERNAME)(SOCKET s,struct sockaddr *name,số_nguyên *namelen);
+  typedef số_nguyên (WSAAPI *LPFN_GETSOCKNAME)(SOCKET s,struct sockaddr *name,số_nguyên *namelen);
+  typedef số_nguyên (WSAAPI *LPFN_GETSOCKOPT)(SOCKET s,số_nguyên level,số_nguyên optname,char *optval,số_nguyên *optlen);
   typedef u_long (WSAAPI *LPFN_HTONL)(u_long hostlong);
   typedef u_short (WSAAPI *LPFN_HTONS)(u_short hostshort);
   typedef unsigned long (WSAAPI *LPFN_INET_ADDR)(const char *cp);
   typedef char *(WSAAPI *LPFN_INET_NTOA)(struct in_addr in);
-  typedef int (WSAAPI *LPFN_LISTEN)(SOCKET s,int backlog);
+  typedef số_nguyên (WSAAPI *LPFN_LISTEN)(SOCKET s,số_nguyên backlog);
   typedef u_long (WSAAPI *LPFN_NTOHL)(u_long netlong);
   typedef u_short (WSAAPI *LPFN_NTOHS)(u_short netshort);
-  typedef int (WSAAPI *LPFN_RECV)(SOCKET s,char *buf,int len,int flags);
-  typedef int (WSAAPI *LPFN_RECVFROM)(SOCKET s,char *buf,int len,int flags,struct sockaddr *from,int *fromlen);
-  typedef int (WSAAPI *LPFN_SELECT)(int nfds,fd_set *readfds,fd_set *writefds,fd_set *exceptfds,const struct timeval *timeout);
-  typedef int (WSAAPI *LPFN_SEND)(SOCKET s,const char *buf,int len,int flags);
-  typedef int (WSAAPI *LPFN_SENDTO)(SOCKET s,const char *buf,int len,int flags,const struct sockaddr *to,int tolen);
-  typedef int (WSAAPI *LPFN_SETSOCKOPT)(SOCKET s,int level,int optname,const char *optval,int optlen);
-  typedef int (WSAAPI *LPFN_SHUTDOWN)(SOCKET s,int how);
-  typedef SOCKET (WSAAPI *LPFN_SOCKET)(int af,int type,int protocol);
-  typedef struct hostent *(WSAAPI *LPFN_GETHOSTBYADDR)(const char *addr,int len,int type);
+  typedef số_nguyên (WSAAPI *LPFN_RECV)(SOCKET s,char *buf,số_nguyên len,số_nguyên flags);
+  typedef số_nguyên (WSAAPI *LPFN_RECVFROM)(SOCKET s,char *buf,số_nguyên len,số_nguyên flags,struct sockaddr *from,số_nguyên *fromlen);
+  typedef số_nguyên (WSAAPI *LPFN_SELECT)(số_nguyên nfds,fd_set *readfds,fd_set *writefds,fd_set *exceptfds,const struct timeval *timeout);
+  typedef số_nguyên (WSAAPI *LPFN_SEND)(SOCKET s,const char *buf,số_nguyên len,số_nguyên flags);
+  typedef số_nguyên (WSAAPI *LPFN_SENDTO)(SOCKET s,const char *buf,số_nguyên len,số_nguyên flags,const struct sockaddr *to,số_nguyên tolen);
+  typedef số_nguyên (WSAAPI *LPFN_SETSOCKOPT)(SOCKET s,số_nguyên level,số_nguyên optname,const char *optval,số_nguyên optlen);
+  typedef số_nguyên (WSAAPI *LPFN_SHUTDOWN)(SOCKET s,số_nguyên how);
+  typedef SOCKET (WSAAPI *LPFN_SOCKET)(số_nguyên af,số_nguyên type,số_nguyên protocol);
+  typedef struct hostent *(WSAAPI *LPFN_GETHOSTBYADDR)(const char *addr,số_nguyên len,số_nguyên type);
   typedef struct hostent *(WSAAPI *LPFN_GETHOSTBYNAME)(const char *name);
-  typedef int (WSAAPI *LPFN_GETHOSTNAME)(char *name,int namelen);
-  typedef struct servent *(WSAAPI *LPFN_GETSERVBYPORT)(int port,const char *proto);
+  typedef số_nguyên (WSAAPI *LPFN_GETHOSTNAME)(char *name,số_nguyên namelen);
+  typedef struct servent *(WSAAPI *LPFN_GETSERVBYPORT)(số_nguyên port,const char *proto);
   typedef struct servent *(WSAAPI *LPFN_GETSERVBYNAME)(const char *name,const char *proto);
-  typedef struct protoent *(WSAAPI *LPFN_GETPROTOBYNUMBER)(int number);
+  typedef struct protoent *(WSAAPI *LPFN_GETPROTOBYNUMBER)(số_nguyên number);
   typedef struct protoent *(WSAAPI *LPFN_GETPROTOBYNAME)(const char *name);
-  typedef int (WSAAPI *LPFN_WSASTARTUP)(WORD wVersionRequested,LPWSADATA lpWSAData);
-  typedef int (WSAAPI *LPFN_WSACLEANUP)(void);
-  typedef void (WSAAPI *LPFN_WSASETLASTERROR)(int iError);
-  typedef int (WSAAPI *LPFN_WSAGETLASTERROR)(void);
+  typedef số_nguyên (WSAAPI *LPFN_WSASTARTUP)(WORD wVersionRequested,LPWSADATA lpWSAData);
+  typedef số_nguyên (WSAAPI *LPFN_WSACLEANUP)(void);
+  typedef void (WSAAPI *LPFN_WSASETLASTERROR)(số_nguyên iError);
+  typedef số_nguyên (WSAAPI *LPFN_WSAGETLASTERROR)(void);
   typedef WINBOOL (WSAAPI *LPFN_WSAISBLOCKING)(void);
-  typedef int (WSAAPI *LPFN_WSAUNHOOKBLOCKINGHOOK)(void);
+  typedef số_nguyên (WSAAPI *LPFN_WSAUNHOOKBLOCKINGHOOK)(void);
   typedef FARPROC (WSAAPI *LPFN_WSASETBLOCKINGHOOK)(FARPROC lpBlockFunc);
-  typedef int (WSAAPI *LPFN_WSACANCELBLOCKINGCALL)(void);
-  typedef HANDLE (WSAAPI *LPFN_WSAASYNCGETSERVBYNAME)(HWND hWnd,u_int wMsg,const char *name,const char *proto,char *buf,int buflen);
-  typedef HANDLE (WSAAPI *LPFN_WSAASYNCGETSERVBYPORT)(HWND hWnd,u_int wMsg,int port,const char *proto,char *buf,int buflen);
-  typedef HANDLE (WSAAPI *LPFN_WSAASYNCGETPROTOBYNAME)(HWND hWnd,u_int wMsg,const char *name,char *buf,int buflen);
-  typedef HANDLE (WSAAPI *LPFN_WSAASYNCGETPROTOBYNUMBER)(HWND hWnd,u_int wMsg,int number,char *buf,int buflen);
-  typedef HANDLE (WSAAPI *LPFN_WSAASYNCGETHOSTBYNAME)(HWND hWnd,u_int wMsg,const char *name,char *buf,int buflen);
-  typedef HANDLE (WSAAPI *LPFN_WSAASYNCGETHOSTBYADDR)(HWND hWnd,u_int wMsg,const char *addr,int len,int type,char *buf,int buflen);
-  typedef int (WSAAPI *LPFN_WSACANCELASYNCREQUEST)(HANDLE hAsyncTaskHandle);
-  typedef int (WSAAPI *LPFN_WSAASYNCSELECT)(SOCKET s,HWND hWnd,u_int wMsg,long lEvent);
+  typedef số_nguyên (WSAAPI *LPFN_WSACANCELBLOCKINGCALL)(void);
+  typedef HANDLE (WSAAPI *LPFN_WSAASYNCGETSERVBYNAME)(HWND hWnd,u_int wMsg,const char *name,const char *proto,char *buf,số_nguyên buflen);
+  typedef HANDLE (WSAAPI *LPFN_WSAASYNCGETSERVBYPORT)(HWND hWnd,u_int wMsg,số_nguyên port,const char *proto,char *buf,số_nguyên buflen);
+  typedef HANDLE (WSAAPI *LPFN_WSAASYNCGETPROTOBYNAME)(HWND hWnd,u_int wMsg,const char *name,char *buf,số_nguyên buflen);
+  typedef HANDLE (WSAAPI *LPFN_WSAASYNCGETPROTOBYNUMBER)(HWND hWnd,u_int wMsg,số_nguyên number,char *buf,số_nguyên buflen);
+  typedef HANDLE (WSAAPI *LPFN_WSAASYNCGETHOSTBYNAME)(HWND hWnd,u_int wMsg,const char *name,char *buf,số_nguyên buflen);
+  typedef HANDLE (WSAAPI *LPFN_WSAASYNCGETHOSTBYADDR)(HWND hWnd,u_int wMsg,const char *addr,số_nguyên len,số_nguyên type,char *buf,số_nguyên buflen);
+  typedef số_nguyên (WSAAPI *LPFN_WSACANCELASYNCREQUEST)(HANDLE hAsyncTaskHandle);
+  typedef số_nguyên (WSAAPI *LPFN_WSAASYNCSELECT)(SOCKET s,HWND hWnd,u_int wMsg,long lEvent);
   typedef SOCKET (WSAAPI *LPFN_WSAACCEPT)(SOCKET s,struct sockaddr *addr,LPINT addrlen,LPCONDITIONPROC lpfnCondition,DWORD_PTR dwCallbackData);
   typedef WINBOOL (WSAAPI *LPFN_WSACLOSEEVENT)(WSAEVENT hEvent);
-  typedef int (WSAAPI *LPFN_WSACONNECT)(SOCKET s,const struct sockaddr *name,int namelen,LPWSABUF lpCallerData,LPWSABUF lpCalleeData,LPQOS lpSQOS,LPQOS lpGQOS);
+  typedef số_nguyên (WSAAPI *LPFN_WSACONNECT)(SOCKET s,const struct sockaddr *name,số_nguyên namelen,LPWSABUF lpCallerData,LPWSABUF lpCalleeData,LPQOS lpSQOS,LPQOS lpGQOS);
   typedef WSAEVENT (WSAAPI *LPFN_WSACREATEEVENT)(void);
-  typedef int (WSAAPI *LPFN_WSADUPLICATESOCKETA)(SOCKET s,DWORD dwProcessId,LPWSAPROTOCOL_INFOA lpProtocolInfo);
-  typedef int (WSAAPI *LPFN_WSADUPLICATESOCKETW)(SOCKET s,DWORD dwProcessId,LPWSAPROTOCOL_INFOW lpProtocolInfo);
-  typedef int (WSAAPI *LPFN_WSAENUMNETWORKEVENTS)(SOCKET s,WSAEVENT hEventObject,LPWSANETWORKEVENTS lpNetworkEvents);
-  typedef int (WSAAPI *LPFN_WSAENUMPROTOCOLSA)(LPINT lpiProtocols,LPWSAPROTOCOL_INFOA lpProtocolBuffer,LPDWORD lpdwBufferLength);
-  typedef int (WSAAPI *LPFN_WSAENUMPROTOCOLSW)(LPINT lpiProtocols,LPWSAPROTOCOL_INFOW lpProtocolBuffer,LPDWORD lpdwBufferLength);
-  typedef int (WSAAPI *LPFN_WSAEVENTSELECT)(SOCKET s,WSAEVENT hEventObject,long lNetworkEvents);
+  typedef số_nguyên (WSAAPI *LPFN_WSADUPLICATESOCKETA)(SOCKET s,DWORD dwProcessId,LPWSAPROTOCOL_INFOA lpProtocolInfo);
+  typedef số_nguyên (WSAAPI *LPFN_WSADUPLICATESOCKETW)(SOCKET s,DWORD dwProcessId,LPWSAPROTOCOL_INFOW lpProtocolInfo);
+  typedef số_nguyên (WSAAPI *LPFN_WSAENUMNETWORKEVENTS)(SOCKET s,WSAEVENT hEventObject,LPWSANETWORKEVENTS lpNetworkEvents);
+  typedef số_nguyên (WSAAPI *LPFN_WSAENUMPROTOCOLSA)(LPINT lpiProtocols,LPWSAPROTOCOL_INFOA lpProtocolBuffer,LPDWORD lpdwBufferLength);
+  typedef số_nguyên (WSAAPI *LPFN_WSAENUMPROTOCOLSW)(LPINT lpiProtocols,LPWSAPROTOCOL_INFOW lpProtocolBuffer,LPDWORD lpdwBufferLength);
+  typedef số_nguyên (WSAAPI *LPFN_WSAEVENTSELECT)(SOCKET s,WSAEVENT hEventObject,long lNetworkEvents);
   typedef WINBOOL (WSAAPI *LPFN_WSAGETOVERLAPPEDRESULT)(SOCKET s,LPWSAOVERLAPPED lpOverlapped,LPDWORD lpcbTransfer,WINBOOL fWait,LPDWORD lpdwFlags);
   typedef WINBOOL (WSAAPI *LPFN_WSAGETQOSBYNAME)(SOCKET s,LPWSABUF lpQOSName,LPQOS lpQOS);
-  typedef int (WSAAPI *LPFN_WSAHTONL)(SOCKET s,u_long hostlong,u_long *lpnetlong);
-  typedef int (WSAAPI *LPFN_WSAHTONS)(SOCKET s,u_short hostshort,u_short *lpnetshort);
-  typedef int (WSAAPI *LPFN_WSAIOCTL)(SOCKET s,DWORD dwIoControlCode,LPVOID lpvInBuffer,DWORD cbInBuffer,LPVOID lpvOutBuffer,DWORD cbOutBuffer,LPDWORD lpcbBytesReturned,LPWSAOVERLAPPED lpOverlapped,LPWSAOVERLAPPED_COMPLETION_ROUTINE lpCompletionRoutine);
-  typedef SOCKET (WSAAPI *LPFN_WSAJOINLEAF)(SOCKET s,const struct sockaddr *name,int namelen,LPWSABUF lpCallerData,LPWSABUF lpCalleeData,LPQOS lpSQOS,LPQOS lpGQOS,DWORD dwFlags);
-  typedef int (WSAAPI *LPFN_WSANTOHL)(SOCKET s,u_long netlong,u_long *lphostlong);
-  typedef int (WSAAPI *LPFN_WSANTOHS)(SOCKET s,u_short netshort,u_short *lphostshort);
-  typedef int (WSAAPI *LPFN_WSARECV)(SOCKET s,LPWSABUF lpBuffers,DWORD dwBufferCount,LPDWORD lpNumberOfBytesRecvd,LPDWORD lpFlags,LPWSAOVERLAPPED lpOverlapped,LPWSAOVERLAPPED_COMPLETION_ROUTINE lpCompletionRoutine);
-  typedef int (WSAAPI *LPFN_WSARECVDISCONNECT)(SOCKET s,LPWSABUF lpInboundDisconnectData);
-  typedef int (WSAAPI *LPFN_WSARECVFROM)(SOCKET s,LPWSABUF lpBuffers,DWORD dwBufferCount,LPDWORD lpNumberOfBytesRecvd,LPDWORD lpFlags,struct sockaddr *lpFrom,LPINT lpFromlen,LPWSAOVERLAPPED lpOverlapped,LPWSAOVERLAPPED_COMPLETION_ROUTINE lpCompletionRoutine);
+  typedef số_nguyên (WSAAPI *LPFN_WSAHTONL)(SOCKET s,u_long hostlong,u_long *lpnetlong);
+  typedef số_nguyên (WSAAPI *LPFN_WSAHTONS)(SOCKET s,u_short hostshort,u_short *lpnetshort);
+  typedef số_nguyên (WSAAPI *LPFN_WSAIOCTL)(SOCKET s,DWORD dwIoControlCode,LPVOID lpvInBuffer,DWORD cbInBuffer,LPVOID lpvOutBuffer,DWORD cbOutBuffer,LPDWORD lpcbBytesReturned,LPWSAOVERLAPPED lpOverlapped,LPWSAOVERLAPPED_COMPLETION_ROUTINE lpCompletionRoutine);
+  typedef SOCKET (WSAAPI *LPFN_WSAJOINLEAF)(SOCKET s,const struct sockaddr *name,số_nguyên namelen,LPWSABUF lpCallerData,LPWSABUF lpCalleeData,LPQOS lpSQOS,LPQOS lpGQOS,DWORD dwFlags);
+  typedef số_nguyên (WSAAPI *LPFN_WSANTOHL)(SOCKET s,u_long netlong,u_long *lphostlong);
+  typedef số_nguyên (WSAAPI *LPFN_WSANTOHS)(SOCKET s,u_short netshort,u_short *lphostshort);
+  typedef số_nguyên (WSAAPI *LPFN_WSARECV)(SOCKET s,LPWSABUF lpBuffers,DWORD dwBufferCount,LPDWORD lpNumberOfBytesRecvd,LPDWORD lpFlags,LPWSAOVERLAPPED lpOverlapped,LPWSAOVERLAPPED_COMPLETION_ROUTINE lpCompletionRoutine);
+  typedef số_nguyên (WSAAPI *LPFN_WSARECVDISCONNECT)(SOCKET s,LPWSABUF lpInboundDisconnectData);
+  typedef số_nguyên (WSAAPI *LPFN_WSARECVFROM)(SOCKET s,LPWSABUF lpBuffers,DWORD dwBufferCount,LPDWORD lpNumberOfBytesRecvd,LPDWORD lpFlags,struct sockaddr *lpFrom,LPINT lpFromlen,LPWSAOVERLAPPED lpOverlapped,LPWSAOVERLAPPED_COMPLETION_ROUTINE lpCompletionRoutine);
   typedef WINBOOL (WSAAPI *LPFN_WSARESETEVENT)(WSAEVENT hEvent);
-  typedef int (WSAAPI *LPFN_WSASEND)(SOCKET s,LPWSABUF lpBuffers,DWORD dwBufferCount,LPDWORD lpNumberOfBytesSent,DWORD dwFlags,LPWSAOVERLAPPED lpOverlapped,LPWSAOVERLAPPED_COMPLETION_ROUTINE lpCompletionRoutine);
-  typedef int (WSAAPI *LPFN_WSASENDDISCONNECT)(SOCKET s,LPWSABUF lpOutboundDisconnectData);
-  typedef int (WSAAPI *LPFN_WSASENDTO)(SOCKET s,LPWSABUF lpBuffers,DWORD dwBufferCount,LPDWORD lpNumberOfBytesSent,DWORD dwFlags,const struct sockaddr *lpTo,int iTolen,LPWSAOVERLAPPED lpOverlapped,LPWSAOVERLAPPED_COMPLETION_ROUTINE lpCompletionRoutine);
+  typedef số_nguyên (WSAAPI *LPFN_WSASEND)(SOCKET s,LPWSABUF lpBuffers,DWORD dwBufferCount,LPDWORD lpNumberOfBytesSent,DWORD dwFlags,LPWSAOVERLAPPED lpOverlapped,LPWSAOVERLAPPED_COMPLETION_ROUTINE lpCompletionRoutine);
+  typedef số_nguyên (WSAAPI *LPFN_WSASENDDISCONNECT)(SOCKET s,LPWSABUF lpOutboundDisconnectData);
+  typedef số_nguyên (WSAAPI *LPFN_WSASENDTO)(SOCKET s,LPWSABUF lpBuffers,DWORD dwBufferCount,LPDWORD lpNumberOfBytesSent,DWORD dwFlags,const struct sockaddr *lpTo,số_nguyên iTolen,LPWSAOVERLAPPED lpOverlapped,LPWSAOVERLAPPED_COMPLETION_ROUTINE lpCompletionRoutine);
   typedef WINBOOL (WSAAPI *LPFN_WSASETEVENT)(WSAEVENT hEvent);
-  typedef SOCKET (WSAAPI *LPFN_WSASOCKETA)(int af,int type,int protocol,LPWSAPROTOCOL_INFOA lpProtocolInfo,GROUP g,DWORD dwFlags);
-  typedef SOCKET (WSAAPI *LPFN_WSASOCKETW)(int af,int type,int protocol,LPWSAPROTOCOL_INFOW lpProtocolInfo,GROUP g,DWORD dwFlags);
+  typedef SOCKET (WSAAPI *LPFN_WSASOCKETA)(số_nguyên af,số_nguyên type,số_nguyên protocol,LPWSAPROTOCOL_INFOA lpProtocolInfo,GROUP g,DWORD dwFlags);
+  typedef SOCKET (WSAAPI *LPFN_WSASOCKETW)(số_nguyên af,số_nguyên type,số_nguyên protocol,LPWSAPROTOCOL_INFOW lpProtocolInfo,GROUP g,DWORD dwFlags);
   typedef DWORD (WSAAPI *LPFN_WSAWAITFORMULTIPLEEVENTS)(DWORD cEvents,const WSAEVENT *lphEvents,WINBOOL fWaitAll,DWORD dwTimeout,WINBOOL fAlertable);
   typedef INT (WSAAPI *LPFN_WSAADDRESSTOSTRINGA)(LPSOCKADDR lpsaAddress,DWORD dwAddressLength,LPWSAPROTOCOL_INFOA lpProtocolInfo,LPSTR lpszAddressString,LPDWORD lpdwAddressStringLength);
   typedef INT (WSAAPI *LPFN_WSAADDRESSTOSTRINGW)(LPSOCKADDR lpsaAddress,DWORD dwAddressLength,LPWSAPROTOCOL_INFOW lpProtocolInfo,LPWSTR lpszAddressString,LPDWORD lpdwAddressStringLength);
@@ -1276,7 +1276,7 @@ extern "C" {
 #define WSAEnumNameSpaceProviders WSAEnumNameSpaceProvidersW
 #define WSAGetServiceClassNameByClassId WSAGetServiceClassNameByClassIdW
 #define WSASetService WSASetServiceW
-#else
+#không_thì
 #define WSADuplicateSocket WSADuplicateSocketA
 #define WSAEnumProtocols WSAEnumProtocolsA
 #define WSASocket WSASocketA
@@ -1291,80 +1291,80 @@ extern "C" {
 #define WSASetService WSASetServiceA
 #endif
 
-  WINSOCK_API_LINKAGE SOCKET WSAAPI accept(SOCKET s,struct sockaddr *addr,int *addrlen);
-  WINSOCK_API_LINKAGE int WSAAPI bind(SOCKET s,const struct sockaddr *name,int namelen);
-  WINSOCK_API_LINKAGE int WSAAPI closesocket(SOCKET s);
-  WINSOCK_API_LINKAGE int WSAAPI connect(SOCKET s,const struct sockaddr *name,int namelen);
-  WINSOCK_API_LINKAGE int WSAAPI ioctlsocket(SOCKET s,long cmd,u_long *argp);
-  WINSOCK_API_LINKAGE int WSAAPI getpeername(SOCKET s,struct sockaddr *name,int *namelen);
-  WINSOCK_API_LINKAGE int WSAAPI getsockname(SOCKET s,struct sockaddr *name,int *namelen);
-  WINSOCK_API_LINKAGE int WSAAPI getsockopt(SOCKET s,int level,int optname,char *optval,int *optlen);
+  WINSOCK_API_LINKAGE SOCKET WSAAPI accept(SOCKET s,struct sockaddr *addr,số_nguyên *addrlen);
+  WINSOCK_API_LINKAGE số_nguyên WSAAPI bind(SOCKET s,const struct sockaddr *name,số_nguyên namelen);
+  WINSOCK_API_LINKAGE số_nguyên WSAAPI closesocket(SOCKET s);
+  WINSOCK_API_LINKAGE số_nguyên WSAAPI connect(SOCKET s,const struct sockaddr *name,số_nguyên namelen);
+  WINSOCK_API_LINKAGE số_nguyên WSAAPI ioctlsocket(SOCKET s,long cmd,u_long *argp);
+  WINSOCK_API_LINKAGE số_nguyên WSAAPI getpeername(SOCKET s,struct sockaddr *name,số_nguyên *namelen);
+  WINSOCK_API_LINKAGE số_nguyên WSAAPI getsockname(SOCKET s,struct sockaddr *name,số_nguyên *namelen);
+  WINSOCK_API_LINKAGE số_nguyên WSAAPI getsockopt(SOCKET s,số_nguyên level,số_nguyên optname,char *optval,số_nguyên *optlen);
   WINSOCK_API_LINKAGE u_long WSAAPI htonl(u_long hostlong);
   WINSOCK_API_LINKAGE u_short WSAAPI htons(u_short hostshort);
   WINSOCK_API_LINKAGE unsigned long WSAAPI inet_addr(const char *cp);
   WINSOCK_API_LINKAGE char *WSAAPI inet_ntoa(struct in_addr in);
-  WINSOCK_API_LINKAGE int WSAAPI listen(SOCKET s,int backlog);
+  WINSOCK_API_LINKAGE số_nguyên WSAAPI listen(SOCKET s,số_nguyên backlog);
   WINSOCK_API_LINKAGE u_long WSAAPI ntohl(u_long netlong);
   WINSOCK_API_LINKAGE u_short WSAAPI ntohs(u_short netshort);
-  WINSOCK_API_LINKAGE int WSAAPI recv(SOCKET s,char *buf,int len,int flags);
-  WINSOCK_API_LINKAGE int WSAAPI recvfrom(SOCKET s,char *buf,int len,int flags,struct sockaddr *from,int *fromlen);
-  WINSOCK_API_LINKAGE int WSAAPI select(int nfds,fd_set *readfds,fd_set *writefds,fd_set *exceptfds,const struct timeval *timeout);
-  WINSOCK_API_LINKAGE int WSAAPI send(SOCKET s,const char *buf,int len,int flags);
-  WINSOCK_API_LINKAGE int WSAAPI sendto(SOCKET s,const char *buf,int len,int flags,const struct sockaddr *to,int tolen);
-  WINSOCK_API_LINKAGE int WSAAPI setsockopt(SOCKET s,int level,int optname,const char *optval,int optlen);
-  WINSOCK_API_LINKAGE int WSAAPI shutdown(SOCKET s,int how);
-  WINSOCK_API_LINKAGE SOCKET WSAAPI socket(int af,int type,int protocol);
-  WINSOCK_API_LINKAGE struct hostent *WSAAPI gethostbyaddr(const char *addr,int len,int type);
+  WINSOCK_API_LINKAGE số_nguyên WSAAPI recv(SOCKET s,char *buf,số_nguyên len,số_nguyên flags);
+  WINSOCK_API_LINKAGE số_nguyên WSAAPI recvfrom(SOCKET s,char *buf,số_nguyên len,số_nguyên flags,struct sockaddr *from,số_nguyên *fromlen);
+  WINSOCK_API_LINKAGE số_nguyên WSAAPI select(số_nguyên nfds,fd_set *readfds,fd_set *writefds,fd_set *exceptfds,const struct timeval *timeout);
+  WINSOCK_API_LINKAGE số_nguyên WSAAPI send(SOCKET s,const char *buf,số_nguyên len,số_nguyên flags);
+  WINSOCK_API_LINKAGE số_nguyên WSAAPI sendto(SOCKET s,const char *buf,số_nguyên len,số_nguyên flags,const struct sockaddr *to,số_nguyên tolen);
+  WINSOCK_API_LINKAGE số_nguyên WSAAPI setsockopt(SOCKET s,số_nguyên level,số_nguyên optname,const char *optval,số_nguyên optlen);
+  WINSOCK_API_LINKAGE số_nguyên WSAAPI shutdown(SOCKET s,số_nguyên how);
+  WINSOCK_API_LINKAGE SOCKET WSAAPI socket(số_nguyên af,số_nguyên type,số_nguyên protocol);
+  WINSOCK_API_LINKAGE struct hostent *WSAAPI gethostbyaddr(const char *addr,số_nguyên len,số_nguyên type);
   WINSOCK_API_LINKAGE struct hostent *WSAAPI gethostbyname(const char *name);
-  WINSOCK_API_LINKAGE int WSAAPI gethostname(char *name,int namelen);
-  WINSOCK_API_LINKAGE struct servent *WSAAPI getservbyport(int port,const char *proto);
+  WINSOCK_API_LINKAGE số_nguyên WSAAPI gethostname(char *name,số_nguyên namelen);
+  WINSOCK_API_LINKAGE struct servent *WSAAPI getservbyport(số_nguyên port,const char *proto);
   WINSOCK_API_LINKAGE struct servent *WSAAPI getservbyname(const char *name,const char *proto);
-  WINSOCK_API_LINKAGE struct protoent *WSAAPI getprotobynumber(int number);
+  WINSOCK_API_LINKAGE struct protoent *WSAAPI getprotobynumber(số_nguyên number);
   WINSOCK_API_LINKAGE struct protoent *WSAAPI getprotobyname(const char *name);
-  WINSOCK_API_LINKAGE int WSAAPI WSAStartup(WORD wVersionRequested,LPWSADATA lpWSAData);
-  WINSOCK_API_LINKAGE int WSAAPI WSACleanup(void);
-  WINSOCK_API_LINKAGE void WSAAPI WSASetLastError(int iError);
-  WINSOCK_API_LINKAGE int WSAAPI WSAGetLastError(void);
+  WINSOCK_API_LINKAGE số_nguyên WSAAPI WSAStartup(WORD wVersionRequested,LPWSADATA lpWSAData);
+  WINSOCK_API_LINKAGE số_nguyên WSAAPI WSACleanup(void);
+  WINSOCK_API_LINKAGE void WSAAPI WSASetLastError(số_nguyên iError);
+  WINSOCK_API_LINKAGE số_nguyên WSAAPI WSAGetLastError(void);
   WINSOCK_API_LINKAGE WINBOOL WSAAPI WSAIsBlocking(void);
-  WINSOCK_API_LINKAGE int WSAAPI WSAUnhookBlockingHook(void);
+  WINSOCK_API_LINKAGE số_nguyên WSAAPI WSAUnhookBlockingHook(void);
   WINSOCK_API_LINKAGE FARPROC WSAAPI WSASetBlockingHook(FARPROC lpBlockFunc);
-  WINSOCK_API_LINKAGE int WSAAPI WSACancelBlockingCall(void);
-  WINSOCK_API_LINKAGE HANDLE WSAAPI WSAAsyncGetServByName(HWND hWnd,u_int wMsg,const char *name,const char *proto,char *buf,int buflen);
-  WINSOCK_API_LINKAGE HANDLE WSAAPI WSAAsyncGetServByPort(HWND hWnd,u_int wMsg,int port,const char *proto,char *buf,int buflen);
-  WINSOCK_API_LINKAGE HANDLE WSAAPI WSAAsyncGetProtoByName(HWND hWnd,u_int wMsg,const char *name,char *buf,int buflen);
-  WINSOCK_API_LINKAGE HANDLE WSAAPI WSAAsyncGetProtoByNumber(HWND hWnd,u_int wMsg,int number,char *buf,int buflen);
-  WINSOCK_API_LINKAGE HANDLE WSAAPI WSAAsyncGetHostByName(HWND hWnd,u_int wMsg,const char *name,char *buf,int buflen);
-  WINSOCK_API_LINKAGE HANDLE WSAAPI WSAAsyncGetHostByAddr(HWND hWnd,u_int wMsg,const char *addr,int len,int type,char *buf,int buflen);
-  WINSOCK_API_LINKAGE int WSAAPI WSACancelAsyncRequest(HANDLE hAsyncTaskHandle);
-  WINSOCK_API_LINKAGE int WSAAPI WSAAsyncSelect(SOCKET s,HWND hWnd,u_int wMsg,long lEvent);
+  WINSOCK_API_LINKAGE số_nguyên WSAAPI WSACancelBlockingCall(void);
+  WINSOCK_API_LINKAGE HANDLE WSAAPI WSAAsyncGetServByName(HWND hWnd,u_int wMsg,const char *name,const char *proto,char *buf,số_nguyên buflen);
+  WINSOCK_API_LINKAGE HANDLE WSAAPI WSAAsyncGetServByPort(HWND hWnd,u_int wMsg,số_nguyên port,const char *proto,char *buf,số_nguyên buflen);
+  WINSOCK_API_LINKAGE HANDLE WSAAPI WSAAsyncGetProtoByName(HWND hWnd,u_int wMsg,const char *name,char *buf,số_nguyên buflen);
+  WINSOCK_API_LINKAGE HANDLE WSAAPI WSAAsyncGetProtoByNumber(HWND hWnd,u_int wMsg,số_nguyên number,char *buf,số_nguyên buflen);
+  WINSOCK_API_LINKAGE HANDLE WSAAPI WSAAsyncGetHostByName(HWND hWnd,u_int wMsg,const char *name,char *buf,số_nguyên buflen);
+  WINSOCK_API_LINKAGE HANDLE WSAAPI WSAAsyncGetHostByAddr(HWND hWnd,u_int wMsg,const char *addr,số_nguyên len,số_nguyên type,char *buf,số_nguyên buflen);
+  WINSOCK_API_LINKAGE số_nguyên WSAAPI WSACancelAsyncRequest(HANDLE hAsyncTaskHandle);
+  WINSOCK_API_LINKAGE số_nguyên WSAAPI WSAAsyncSelect(SOCKET s,HWND hWnd,u_int wMsg,long lEvent);
   WINSOCK_API_LINKAGE SOCKET WSAAPI WSAAccept(SOCKET s,struct sockaddr *addr,LPINT addrlen,LPCONDITIONPROC lpfnCondition,DWORD_PTR dwCallbackData);
   WINSOCK_API_LINKAGE WINBOOL WSAAPI WSACloseEvent(WSAEVENT hEvent);
-  WINSOCK_API_LINKAGE int WSAAPI WSAConnect(SOCKET s,const struct sockaddr *name,int namelen,LPWSABUF lpCallerData,LPWSABUF lpCalleeData,LPQOS lpSQOS,LPQOS lpGQOS);
+  WINSOCK_API_LINKAGE số_nguyên WSAAPI WSAConnect(SOCKET s,const struct sockaddr *name,số_nguyên namelen,LPWSABUF lpCallerData,LPWSABUF lpCalleeData,LPQOS lpSQOS,LPQOS lpGQOS);
   WINSOCK_API_LINKAGE WSAEVENT WSAAPI WSACreateEvent(void);
-  WINSOCK_API_LINKAGE int WSAAPI WSADuplicateSocketA(SOCKET s,DWORD dwProcessId,LPWSAPROTOCOL_INFOA lpProtocolInfo);
-  WINSOCK_API_LINKAGE int WSAAPI WSADuplicateSocketW(SOCKET s,DWORD dwProcessId,LPWSAPROTOCOL_INFOW lpProtocolInfo);
-  WINSOCK_API_LINKAGE int WSAAPI WSAEnumNetworkEvents(SOCKET s,WSAEVENT hEventObject,LPWSANETWORKEVENTS lpNetworkEvents);
-  WINSOCK_API_LINKAGE int WSAAPI WSAEnumProtocolsA(LPINT lpiProtocols,LPWSAPROTOCOL_INFOA lpProtocolBuffer,LPDWORD lpdwBufferLength);
-  WINSOCK_API_LINKAGE int WSAAPI WSAEnumProtocolsW(LPINT lpiProtocols,LPWSAPROTOCOL_INFOW lpProtocolBuffer,LPDWORD lpdwBufferLength);
-  WINSOCK_API_LINKAGE int WSAAPI WSAEventSelect(SOCKET s,WSAEVENT hEventObject,long lNetworkEvents);
+  WINSOCK_API_LINKAGE số_nguyên WSAAPI WSADuplicateSocketA(SOCKET s,DWORD dwProcessId,LPWSAPROTOCOL_INFOA lpProtocolInfo);
+  WINSOCK_API_LINKAGE số_nguyên WSAAPI WSADuplicateSocketW(SOCKET s,DWORD dwProcessId,LPWSAPROTOCOL_INFOW lpProtocolInfo);
+  WINSOCK_API_LINKAGE số_nguyên WSAAPI WSAEnumNetworkEvents(SOCKET s,WSAEVENT hEventObject,LPWSANETWORKEVENTS lpNetworkEvents);
+  WINSOCK_API_LINKAGE số_nguyên WSAAPI WSAEnumProtocolsA(LPINT lpiProtocols,LPWSAPROTOCOL_INFOA lpProtocolBuffer,LPDWORD lpdwBufferLength);
+  WINSOCK_API_LINKAGE số_nguyên WSAAPI WSAEnumProtocolsW(LPINT lpiProtocols,LPWSAPROTOCOL_INFOW lpProtocolBuffer,LPDWORD lpdwBufferLength);
+  WINSOCK_API_LINKAGE số_nguyên WSAAPI WSAEventSelect(SOCKET s,WSAEVENT hEventObject,long lNetworkEvents);
   WINSOCK_API_LINKAGE WINBOOL WSAAPI WSAGetOverlappedResult(SOCKET s,LPWSAOVERLAPPED lpOverlapped,LPDWORD lpcbTransfer,WINBOOL fWait,LPDWORD lpdwFlags);
   WINSOCK_API_LINKAGE WINBOOL WSAAPI WSAGetQOSByName(SOCKET s,LPWSABUF lpQOSName,LPQOS lpQOS);
-  WINSOCK_API_LINKAGE int WSAAPI WSAHtonl(SOCKET s,u_long hostlong,u_long *lpnetlong);
-  WINSOCK_API_LINKAGE int WSAAPI WSAHtons(SOCKET s,u_short hostshort,u_short *lpnetshort);
-  WINSOCK_API_LINKAGE int WSAAPI WSAIoctl(SOCKET s,DWORD dwIoControlCode,LPVOID lpvInBuffer,DWORD cbInBuffer,LPVOID lpvOutBuffer,DWORD cbOutBuffer,LPDWORD lpcbBytesReturned,LPWSAOVERLAPPED lpOverlapped,LPWSAOVERLAPPED_COMPLETION_ROUTINE lpCompletionRoutine);
-  WINSOCK_API_LINKAGE SOCKET WSAAPI WSAJoinLeaf(SOCKET s,const struct sockaddr *name,int namelen,LPWSABUF lpCallerData,LPWSABUF lpCalleeData,LPQOS lpSQOS,LPQOS lpGQOS,DWORD dwFlags);
-  WINSOCK_API_LINKAGE int WSAAPI WSANtohl(SOCKET s,u_long netlong,u_long *lphostlong);
-  WINSOCK_API_LINKAGE int WSAAPI WSANtohs(SOCKET s,u_short netshort,u_short *lphostshort);
-  WINSOCK_API_LINKAGE int WSAAPI WSARecv(SOCKET s,LPWSABUF lpBuffers,DWORD dwBufferCount,LPDWORD lpNumberOfBytesRecvd,LPDWORD lpFlags,LPWSAOVERLAPPED lpOverlapped,LPWSAOVERLAPPED_COMPLETION_ROUTINE lpCompletionRoutine);
-  WINSOCK_API_LINKAGE int WSAAPI WSARecvDisconnect(SOCKET s,LPWSABUF lpInboundDisconnectData);
-  WINSOCK_API_LINKAGE int WSAAPI WSARecvFrom(SOCKET s,LPWSABUF lpBuffers,DWORD dwBufferCount,LPDWORD lpNumberOfBytesRecvd,LPDWORD lpFlags,struct sockaddr *lpFrom,LPINT lpFromlen,LPWSAOVERLAPPED lpOverlapped,LPWSAOVERLAPPED_COMPLETION_ROUTINE lpCompletionRoutine);
+  WINSOCK_API_LINKAGE số_nguyên WSAAPI WSAHtonl(SOCKET s,u_long hostlong,u_long *lpnetlong);
+  WINSOCK_API_LINKAGE số_nguyên WSAAPI WSAHtons(SOCKET s,u_short hostshort,u_short *lpnetshort);
+  WINSOCK_API_LINKAGE số_nguyên WSAAPI WSAIoctl(SOCKET s,DWORD dwIoControlCode,LPVOID lpvInBuffer,DWORD cbInBuffer,LPVOID lpvOutBuffer,DWORD cbOutBuffer,LPDWORD lpcbBytesReturned,LPWSAOVERLAPPED lpOverlapped,LPWSAOVERLAPPED_COMPLETION_ROUTINE lpCompletionRoutine);
+  WINSOCK_API_LINKAGE SOCKET WSAAPI WSAJoinLeaf(SOCKET s,const struct sockaddr *name,số_nguyên namelen,LPWSABUF lpCallerData,LPWSABUF lpCalleeData,LPQOS lpSQOS,LPQOS lpGQOS,DWORD dwFlags);
+  WINSOCK_API_LINKAGE số_nguyên WSAAPI WSANtohl(SOCKET s,u_long netlong,u_long *lphostlong);
+  WINSOCK_API_LINKAGE số_nguyên WSAAPI WSANtohs(SOCKET s,u_short netshort,u_short *lphostshort);
+  WINSOCK_API_LINKAGE số_nguyên WSAAPI WSARecv(SOCKET s,LPWSABUF lpBuffers,DWORD dwBufferCount,LPDWORD lpNumberOfBytesRecvd,LPDWORD lpFlags,LPWSAOVERLAPPED lpOverlapped,LPWSAOVERLAPPED_COMPLETION_ROUTINE lpCompletionRoutine);
+  WINSOCK_API_LINKAGE số_nguyên WSAAPI WSARecvDisconnect(SOCKET s,LPWSABUF lpInboundDisconnectData);
+  WINSOCK_API_LINKAGE số_nguyên WSAAPI WSARecvFrom(SOCKET s,LPWSABUF lpBuffers,DWORD dwBufferCount,LPDWORD lpNumberOfBytesRecvd,LPDWORD lpFlags,struct sockaddr *lpFrom,LPINT lpFromlen,LPWSAOVERLAPPED lpOverlapped,LPWSAOVERLAPPED_COMPLETION_ROUTINE lpCompletionRoutine);
   WINSOCK_API_LINKAGE WINBOOL WSAAPI WSAResetEvent(WSAEVENT hEvent);
-  WINSOCK_API_LINKAGE int WSAAPI WSASend(SOCKET s,LPWSABUF lpBuffers,DWORD dwBufferCount,LPDWORD lpNumberOfBytesSent,DWORD dwFlags,LPWSAOVERLAPPED lpOverlapped,LPWSAOVERLAPPED_COMPLETION_ROUTINE lpCompletionRoutine);
-  WINSOCK_API_LINKAGE int WSAAPI WSASendDisconnect(SOCKET s,LPWSABUF lpOutboundDisconnectData);
-  WINSOCK_API_LINKAGE int WSAAPI WSASendTo(SOCKET s,LPWSABUF lpBuffers,DWORD dwBufferCount,LPDWORD lpNumberOfBytesSent,DWORD dwFlags,const struct sockaddr *lpTo,int iTolen,LPWSAOVERLAPPED lpOverlapped,LPWSAOVERLAPPED_COMPLETION_ROUTINE lpCompletionRoutine);
+  WINSOCK_API_LINKAGE số_nguyên WSAAPI WSASend(SOCKET s,LPWSABUF lpBuffers,DWORD dwBufferCount,LPDWORD lpNumberOfBytesSent,DWORD dwFlags,LPWSAOVERLAPPED lpOverlapped,LPWSAOVERLAPPED_COMPLETION_ROUTINE lpCompletionRoutine);
+  WINSOCK_API_LINKAGE số_nguyên WSAAPI WSASendDisconnect(SOCKET s,LPWSABUF lpOutboundDisconnectData);
+  WINSOCK_API_LINKAGE số_nguyên WSAAPI WSASendTo(SOCKET s,LPWSABUF lpBuffers,DWORD dwBufferCount,LPDWORD lpNumberOfBytesSent,DWORD dwFlags,const struct sockaddr *lpTo,số_nguyên iTolen,LPWSAOVERLAPPED lpOverlapped,LPWSAOVERLAPPED_COMPLETION_ROUTINE lpCompletionRoutine);
   WINSOCK_API_LINKAGE WINBOOL WSAAPI WSASetEvent(WSAEVENT hEvent);
-  WINSOCK_API_LINKAGE SOCKET WSAAPI WSASocketA(int af,int type,int protocol,LPWSAPROTOCOL_INFOA lpProtocolInfo,GROUP g,DWORD dwFlags);
-  WINSOCK_API_LINKAGE SOCKET WSAAPI WSASocketW(int af,int type,int protocol,LPWSAPROTOCOL_INFOW lpProtocolInfo,GROUP g,DWORD dwFlags);
+  WINSOCK_API_LINKAGE SOCKET WSAAPI WSASocketA(số_nguyên af,số_nguyên type,số_nguyên protocol,LPWSAPROTOCOL_INFOA lpProtocolInfo,GROUP g,DWORD dwFlags);
+  WINSOCK_API_LINKAGE SOCKET WSAAPI WSASocketW(số_nguyên af,số_nguyên type,số_nguyên protocol,LPWSAPROTOCOL_INFOW lpProtocolInfo,GROUP g,DWORD dwFlags);
   WINSOCK_API_LINKAGE DWORD WSAAPI WSAWaitForMultipleEvents(DWORD cEvents,const WSAEVENT *lphEvents,WINBOOL fWaitAll,DWORD dwTimeout,WINBOOL fAlertable);
   WINSOCK_API_LINKAGE INT WSAAPI WSAAddressToStringA(LPSOCKADDR lpsaAddress,DWORD dwAddressLength,LPWSAPROTOCOL_INFOA lpProtocolInfo,LPSTR lpszAddressString,LPDWORD lpdwAddressStringLength);
   WINSOCK_API_LINKAGE INT WSAAPI WSAAddressToStringW(LPSOCKADDR lpsaAddress,DWORD dwAddressLength,LPWSAPROTOCOL_INFOW lpProtocolInfo,LPWSTR lpszAddressString,LPDWORD lpdwAddressStringLength);
@@ -1448,7 +1448,7 @@ typedef struct pollfd {
         SHORT  revents;
 } WSAPOLLFD, *PWSAPOLLFD, FAR *LPWSAPOLLFD;
 
-WINSOCK_API_LINKAGE int WSAAPI WSAPoll(LPWSAPOLLFD fdArray, ULONG fds, INT timeout);
+WINSOCK_API_LINKAGE số_nguyên WSAAPI WSAPoll(LPWSAPOLLFD fdArray, ULONG fds, INT timeout);
 /* #endif // (_WIN32_WINNT >= 0x0600) */
 
 #ifdef __cplusplus

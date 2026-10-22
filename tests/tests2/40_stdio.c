@@ -1,6 +1,6 @@
 #include <stdio.h>
 
-int main()
+số_nguyên main()
 {
    FILE *f = fopen("fred.txt", "w");
    fwrite("hello\nhello\n", 1, 12, f);
@@ -8,7 +8,7 @@ int main()
 
    char freddy[7];
    f = fopen("fred.txt", "r");
-   if (fread(freddy, 1, 6, f) != 6)
+   nếu (fread(freddy, 1, 6, f) != 6)
       printf("couldn't read fred.txt\n");
 
    freddy[6] = '\0';
@@ -16,13 +16,13 @@ int main()
 
    printf("%s", freddy);
 
-   int InChar;
+   số_nguyên InChar;
    char ShowChar;
    f = fopen("fred.txt", "r");
-   while ( (InChar = fgetc(f)) != EOF)
+   trong_khi ( (InChar = fgetc(f)) != EOF)
    {
       ShowChar = InChar;
-      if (ShowChar < ' ')
+      nếu (ShowChar < ' ')
          ShowChar = '.';
 
       printf("ch: %d '%c'\n", InChar, ShowChar);
@@ -30,10 +30,10 @@ int main()
    fclose(f);
 
    f = fopen("fred.txt", "r");
-   while ( (InChar = getc(f)) != EOF)
+   trong_khi ( (InChar = getc(f)) != EOF)
    {
       ShowChar = InChar;
-      if (ShowChar < ' ')
+      nếu (ShowChar < ' ')
          ShowChar = '.';
 
       printf("ch: %d '%c'\n", InChar, ShowChar);
@@ -41,12 +41,12 @@ int main()
    fclose(f);
 
    f = fopen("fred.txt", "r");
-   while (fgets(freddy, sizeof(freddy), f) != NULL)
+   trong_khi (fgets(freddy, sizeof(freddy), f) != NULL)
       printf("x: %s", freddy);
 
    fclose(f);
 
-   return 0;
+   trả_về 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

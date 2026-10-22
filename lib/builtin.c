@@ -2,7 +2,7 @@
 #ifdef __TINYC__
 #define	BUILTIN(x)	__builtin_##x
 #define	BUILTINN(x)	"__builtin_" # x
-#else
+#không_thì
 #define	BUILTIN(x)	__tcc_builtin_##x
 #define	BUILTINN(x)	"__tcc_builtin_" # x
 #endif
@@ -40,20 +40,20 @@ static const unsigned char table_2_64[] = {
 };
 
 #define FFSI(x) \
-    return table_1_32[((x & -x) * 0x077cb531u) >> 27] + (x != 0);
+    trả_về table_1_32[((x & -x) * 0x077cb531u) >> 27] + (x != 0);
 #define FFSL(x) \
-    return table_1_64[((x & -x) * 0x022fdd63cc95386dull) >> 58] + (x != 0);
+    trả_về table_1_64[((x & -x) * 0x022fdd63cc95386dull) >> 58] + (x != 0);
 #define CTZI(x) \
-    return table_1_32[((x & -x) * 0x077cb531u) >> 27];
+    trả_về table_1_32[((x & -x) * 0x077cb531u) >> 27];
 #define CTZL(x) \
-    return table_1_64[((x & -x) * 0x022fdd63cc95386dull) >> 58];
+    trả_về table_1_64[((x & -x) * 0x022fdd63cc95386dull) >> 58];
 #define CLZI(x)   \
     x |= x >> 1;  \
     x |= x >> 2;  \
     x |= x >> 4;  \
     x |= x >> 8;  \
     x |= x >> 16; \
-    return table_2_32[(x * 0x07c4acddu) >> 27];
+    trả_về table_2_32[(x * 0x07c4acddu) >> 27];
 #define CLZL(x)   \
     x |= x >> 1;  \
     x |= x >> 2;  \
@@ -61,79 +61,79 @@ static const unsigned char table_2_64[] = {
     x |= x >> 8;  \
     x |= x >> 16; \
     x |= x >> 32; \
-    return table_2_64[x * 0x03f79d71b4cb0a89ull >> 58];
+    trả_về table_2_64[x * 0x03f79d71b4cb0a89ull >> 58];
 #define POPCOUNTI(x, m)                                                   \
     x = x - ((x >> 1) & 0x55555555);                                      \
     x = (x & 0x33333333) + ((x >> 2) & 0x33333333);                       \
     x = (x + (x >> 4)) & 0xf0f0f0f;                                       \
-    return ((x * 0x01010101) >> 24) & m; 
+    trả_về ((x * 0x01010101) >> 24) & m; 
 #define POPCOUNTL(x, m)                                                   \
     x = x - ((x >> 1) & 0x5555555555555555ull);                           \
     x = (x & 0x3333333333333333ull) + ((x >> 2) & 0x3333333333333333ull); \
     x = (x + (x >> 4)) & 0xf0f0f0f0f0f0f0full;                            \
-    return ((x * 0x0101010101010101ull) >> 56) & m;
+    trả_về ((x * 0x0101010101010101ull) >> 56) & m;
 
 /* Returns one plus the index of the least significant 1-bit of x,
    or if x is zero, returns zero. */
-int BUILTIN(ffs) (int x) { FFSI(x) }
-int BUILTIN(ffsll) (long long x) { FFSL(x) }
-#if __SIZEOF_LONG__ == 4
-int BUILTIN(ffsl) (long x) __attribute__((alias(BUILTINN(ffs))));
-#else
-int BUILTIN(ffsl) (long x) __attribute__((alias(BUILTINN(ffsll))));
+số_nguyên BUILTIN(ffs) (số_nguyên x) { FFSI(x) }
+số_nguyên BUILTIN(ffsll) (long long x) { FFSL(x) }
+#nếu __SIZEOF_LONG__ == 4
+số_nguyên BUILTIN(ffsl) (long x) __attribute__((alias(BUILTINN(ffs))));
+#không_thì
+số_nguyên BUILTIN(ffsl) (long x) __attribute__((alias(BUILTINN(ffsll))));
 #endif
 
 /* Returns the number of leading 0-bits in x, starting at the most significant
    bit position. If x is 0, the result is undefined.  */
-int BUILTIN(clz) (unsigned int x) { CLZI(x) }
-int BUILTIN(clzll) (unsigned long long x) { CLZL(x) }
-#if __SIZEOF_LONG__ == 4
-int BUILTIN(clzl) (unsigned long x) __attribute__((alias(BUILTINN(clz))));
-#else
-int BUILTIN(clzl) (unsigned long x) __attribute__((alias(BUILTINN(clzll))));
+số_nguyên BUILTIN(clz) (unsigned số_nguyên x) { CLZI(x) }
+số_nguyên BUILTIN(clzll) (unsigned long long x) { CLZL(x) }
+#nếu __SIZEOF_LONG__ == 4
+số_nguyên BUILTIN(clzl) (unsigned long x) __attribute__((alias(BUILTINN(clz))));
+#không_thì
+số_nguyên BUILTIN(clzl) (unsigned long x) __attribute__((alias(BUILTINN(clzll))));
 #endif
 
 /* Returns the number of trailing 0-bits in x, starting at the least
    significant bit position. If x is 0, the result is undefined. */
-int BUILTIN(ctz) (unsigned int x) { CTZI(x) }
-int BUILTIN(ctzll) (unsigned long long x) { CTZL(x) }
-#if __SIZEOF_LONG__ == 4
-int BUILTIN(ctzl) (unsigned long x) __attribute__((alias(BUILTINN(ctz))));
-#else
-int BUILTIN(ctzl) (unsigned long x) __attribute__((alias(BUILTINN(ctzll))));
+số_nguyên BUILTIN(ctz) (unsigned số_nguyên x) { CTZI(x) }
+số_nguyên BUILTIN(ctzll) (unsigned long long x) { CTZL(x) }
+#nếu __SIZEOF_LONG__ == 4
+số_nguyên BUILTIN(ctzl) (unsigned long x) __attribute__((alias(BUILTINN(ctz))));
+#không_thì
+số_nguyên BUILTIN(ctzl) (unsigned long x) __attribute__((alias(BUILTINN(ctzll))));
 #endif
 
 /* Returns the number of leading redundant sign bits in x, i.e. the number
    of bits following the most significant bit that are identical to it.
    There are no special cases for 0 or other values. */
-int BUILTIN(clrsb) (int x) { if (x < 0) x = ~x; x <<= 1; CLZI(x) }
-int BUILTIN(clrsbll) (long long x) { if (x < 0) x = ~x; x <<= 1; CLZL(x) }
-#if __SIZEOF_LONG__ == 4
-int BUILTIN(clrsbl) (long x) __attribute__((alias(BUILTINN(clrsb))));
-#else
-int BUILTIN(clrsbl) (long x) __attribute__((alias(BUILTINN(clrsbll))));
+số_nguyên BUILTIN(clrsb) (số_nguyên x) { nếu (x < 0) x = ~x; x <<= 1; CLZI(x) }
+số_nguyên BUILTIN(clrsbll) (long long x) { nếu (x < 0) x = ~x; x <<= 1; CLZL(x) }
+#nếu __SIZEOF_LONG__ == 4
+số_nguyên BUILTIN(clrsbl) (long x) __attribute__((alias(BUILTINN(clrsb))));
+#không_thì
+số_nguyên BUILTIN(clrsbl) (long x) __attribute__((alias(BUILTINN(clrsbll))));
 #endif
 
 /* Returns the number of 1-bits in x.*/
-int BUILTIN(popcount) (unsigned int x) { POPCOUNTI(x, 0x3f) }
-int BUILTIN(popcountll) (unsigned long long x) { POPCOUNTL(x, 0x7f) }
-#if __SIZEOF_LONG__ == 4
-int BUILTIN(popcountl) (unsigned long x) __attribute__((alias(BUILTINN(popcount))));
-#else
-int BUILTIN(popcountl ) (unsigned long x) __attribute__((alias(BUILTINN(popcountll))));
+số_nguyên BUILTIN(popcount) (unsigned số_nguyên x) { POPCOUNTI(x, 0x3f) }
+số_nguyên BUILTIN(popcountll) (unsigned long long x) { POPCOUNTL(x, 0x7f) }
+#nếu __SIZEOF_LONG__ == 4
+số_nguyên BUILTIN(popcountl) (unsigned long x) __attribute__((alias(BUILTINN(popcount))));
+#không_thì
+số_nguyên BUILTIN(popcountl ) (unsigned long x) __attribute__((alias(BUILTINN(popcountll))));
 #endif
 
 /* Returns the parity of x, i.e. the number of 1-bits in x modulo 2. */
-int BUILTIN(parity) (unsigned int x) { POPCOUNTI(x, 0x01) }
-int BUILTIN(parityll) (unsigned long long x) { POPCOUNTL(x, 0x01) }
-#if __SIZEOF_LONG__ == 4
-int BUILTIN(parityl) (unsigned long x) __attribute__((alias(BUILTINN(parity))));
-#else
-int BUILTIN(parityl) (unsigned long x) __attribute__((alias(BUILTINN(parityll))));
+số_nguyên BUILTIN(parity) (unsigned số_nguyên x) { POPCOUNTI(x, 0x01) }
+số_nguyên BUILTIN(parityll) (unsigned long long x) { POPCOUNTL(x, 0x01) }
+#nếu __SIZEOF_LONG__ == 4
+số_nguyên BUILTIN(parityl) (unsigned long x) __attribute__((alias(BUILTINN(parity))));
+#không_thì
+số_nguyên BUILTIN(parityl) (unsigned long x) __attribute__((alias(BUILTINN(parityll))));
 #endif
 
 #ifndef __TINYC__
-#if defined(__GNUC__) && (__GNUC__ >= 6)
+#nếu defined(__GNUC__) && (__GNUC__ >= 6)
 /* gcc overrides alias from __builtin_ffs... to ffs.. so use assembly code */
 __asm__(".globl  __builtin_ffs");
 __asm__(".set __builtin_ffs,__tcc_builtin_ffs");
@@ -141,24 +141,24 @@ __asm__(".globl  __builtin_ffsl");
 __asm__(".set __builtin_ffsl,__tcc_builtin_ffsl");
 __asm__(".globl  __builtin_ffsll");
 __asm__(".set __builtin_ffsll,__tcc_builtin_ffsll");
-#else
-int __builtin_ffs(int x) __attribute__((alias("__tcc_builtin_ffs")));
-int __builtin_ffsl(long x) __attribute__((alias("__tcc_builtin_ffsl")));
-int __builtin_ffsll(long long x) __attribute__((alias("__tcc_builtin_ffsll")));
+#không_thì
+số_nguyên __builtin_ffs(số_nguyên x) __attribute__((alias("__tcc_builtin_ffs")));
+số_nguyên __builtin_ffsl(long x) __attribute__((alias("__tcc_builtin_ffsl")));
+số_nguyên __builtin_ffsll(long long x) __attribute__((alias("__tcc_builtin_ffsll")));
 #endif
-int __builtin_clz(unsigned int x) __attribute__((alias("__tcc_builtin_clz")));
-int __builtin_clzl(unsigned long x) __attribute__((alias("__tcc_builtin_clzl")));
-int __builtin_clzll(unsigned long long x) __attribute__((alias("__tcc_builtin_clzll")));
-int __builtin_ctz(unsigned int x) __attribute__((alias("__tcc_builtin_ctz")));
-int __builtin_ctzl(unsigned long x) __attribute__((alias("__tcc_builtin_ctzl")));
-int __builtin_ctzll(unsigned long long x) __attribute__((alias("__tcc_builtin_ctzll")));
-int __builtin_clrsb(int x) __attribute__((alias("__tcc_builtin_clrsb")));
-int __builtin_clrsbl(long x) __attribute__((alias("__tcc_builtin_clrsbl")));
-int __builtin_clrsbll(long long x) __attribute__((alias("__tcc_builtin_clrsbll")));
-int __builtin_popcount(unsigned int x) __attribute__((alias("__tcc_builtin_popcount")));
-int __builtin_popcountl(unsigned long x) __attribute__((alias("__tcc_builtin_popcountl")));
-int __builtin_popcountll(unsigned long long x) __attribute__((alias("__tcc_builtin_popcountll")));
-int __builtin_parity(unsigned int x) __attribute__((alias("__tcc_builtin_parity")));
-int __builtin_parityl(unsigned long x) __attribute__((alias("__tcc_builtin_parityl")));
-int __builtin_parityll(unsigned long long x) __attribute__((alias("__tcc_builtin_parityll")));
+số_nguyên __builtin_clz(unsigned số_nguyên x) __attribute__((alias("__tcc_builtin_clz")));
+số_nguyên __builtin_clzl(unsigned long x) __attribute__((alias("__tcc_builtin_clzl")));
+số_nguyên __builtin_clzll(unsigned long long x) __attribute__((alias("__tcc_builtin_clzll")));
+số_nguyên __builtin_ctz(unsigned số_nguyên x) __attribute__((alias("__tcc_builtin_ctz")));
+số_nguyên __builtin_ctzl(unsigned long x) __attribute__((alias("__tcc_builtin_ctzl")));
+số_nguyên __builtin_ctzll(unsigned long long x) __attribute__((alias("__tcc_builtin_ctzll")));
+số_nguyên __builtin_clrsb(số_nguyên x) __attribute__((alias("__tcc_builtin_clrsb")));
+số_nguyên __builtin_clrsbl(long x) __attribute__((alias("__tcc_builtin_clrsbl")));
+số_nguyên __builtin_clrsbll(long long x) __attribute__((alias("__tcc_builtin_clrsbll")));
+số_nguyên __builtin_popcount(unsigned số_nguyên x) __attribute__((alias("__tcc_builtin_popcount")));
+số_nguyên __builtin_popcountl(unsigned long x) __attribute__((alias("__tcc_builtin_popcountl")));
+số_nguyên __builtin_popcountll(unsigned long long x) __attribute__((alias("__tcc_builtin_popcountll")));
+số_nguyên __builtin_parity(unsigned số_nguyên x) __attribute__((alias("__tcc_builtin_parity")));
+số_nguyên __builtin_parityl(unsigned long x) __attribute__((alias("__tcc_builtin_parityl")));
+số_nguyên __builtin_parityll(unsigned long long x) __attribute__((alias("__tcc_builtin_parityll")));
 #endif

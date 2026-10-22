@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <string.h>
 
-int main()
+số_nguyên main()
 {
    char a[10];
 
@@ -39,7 +39,7 @@ int main()
    printf("%d\n", memcmp(a, "grgr", 4) == 0);
    printf("%d\n", memcmp(a, "zebra", 4) < 0);
 
-   return 0;
+   trả_về 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/
