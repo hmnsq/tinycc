@@ -6,32 +6,32 @@
 #ifndef _INC_STRING_S
 #define _INC_STRING_S
 
-#include <string.h>
+#अन्तर्भाव <string.h>
 
-#if defined(MINGW_HAS_SECURE_API)
+#यदि defined(MINGW_HAS_SECURE_API)
 
 #ifdef __cplusplus
-extern "C" {
+बाह्य "C" {
 #endif
 
-  _CRTIMP errno_t __cdecl _strset_s(char *_Dst,size_t _DstSize,int _Value);
-  _CRTIMP errno_t __cdecl _strerror_s(char *_Buf,size_t _SizeInBytes,const char *_ErrMsg);
-  _CRTIMP errno_t __cdecl _strlwr_s(char *_Str,size_t _Size);
-  _CRTIMP errno_t __cdecl _strlwr_s_l(char *_Str,size_t _Size,_locale_t _Locale);
-  _CRTIMP errno_t __cdecl _strnset_s(char *_Str,size_t _Size,int _Val,size_t _MaxCount);
-  _CRTIMP errno_t __cdecl _strupr_s(char *_Str,size_t _Size);
-  _CRTIMP errno_t __cdecl _strupr_s_l(char *_Str,size_t _Size,_locale_t _Locale);
+  _CRTIMP errno_t __cdecl _strset_s(वर्ण *_Dst,माप_प्रकार _DstSize,पूर्णाङ्क मूल्य_2);
+  _CRTIMP errno_t __cdecl _strerror_s(वर्ण *_Buf,माप_प्रकार _SizeInBytes,ध्रुव वर्ण *Err_संदेश);
+  _CRTIMP errno_t __cdecl _strlwr_s(वर्ण *_Str,माप_प्रकार _Size);
+  _CRTIMP errno_t __cdecl _strlwr_s_l(वर्ण *_Str,माप_प्रकार _Size,_locale_t _Locale);
+  _CRTIMP errno_t __cdecl _strnset_s(वर्ण *_Str,माप_प्रकार _Size,पूर्णाङ्क _Val,माप_प्रकार Max_गिनती);
+  _CRTIMP errno_t __cdecl _strupr_s(वर्ण *_Str,माप_प्रकार _Size);
+  _CRTIMP errno_t __cdecl _strupr_s_l(वर्ण *_Str,माप_प्रकार _Size,_locale_t _Locale);
 #ifndef _WSTRING_S_DEFINED
 #define _WSTRING_S_DEFINED
-  _CRTIMP wchar_t *__cdecl wcstok_s(wchar_t *_Str,const wchar_t *_Delim,wchar_t **_Context);
-  _CRTIMP errno_t __cdecl _wcserror_s(wchar_t *_Buf,size_t _SizeInWords,int _ErrNum);
-  _CRTIMP errno_t __cdecl __wcserror_s(wchar_t *_Buffer,size_t _SizeInWords,const wchar_t *_ErrMsg);
-  _CRTIMP errno_t __cdecl _wcsnset_s(wchar_t *_Dst,size_t _DstSizeInWords,wchar_t _Val,size_t _MaxCount);
-  _CRTIMP errno_t __cdecl _wcsset_s(wchar_t *_Str,size_t _SizeInWords,wchar_t _Val);
-  _CRTIMP errno_t __cdecl _wcslwr_s(wchar_t *_Str,size_t _SizeInWords);
-  _CRTIMP errno_t __cdecl _wcslwr_s_l(wchar_t *_Str,size_t _SizeInWords,_locale_t _Locale);
-  _CRTIMP errno_t __cdecl _wcsupr_s(wchar_t *_Str,size_t _Size);
-  _CRTIMP errno_t __cdecl _wcsupr_s_l(wchar_t *_Str,size_t _Size,_locale_t _Locale);
+  _CRTIMP ब_अक्षर_प्रकार *__cdecl wcstok_s(ब_अक्षर_प्रकार *_Str,ध्रुव ब_अक्षर_प्रकार *_Delim,ब_अक्षर_प्रकार **_Context);
+  _CRTIMP errno_t __cdecl _wcserror_s(ब_अक्षर_प्रकार *_Buf,माप_प्रकार Size_In_शब्दगण,पूर्णाङ्क Err_अंक);
+  _CRTIMP errno_t __cdecl __wcserror_s(ब_अक्षर_प्रकार *_Buffer,माप_प्रकार Size_In_शब्दगण,ध्रुव ब_अक्षर_प्रकार *Err_संदेश);
+  _CRTIMP errno_t __cdecl _wcsnset_s(ब_अक्षर_प्रकार *_Dst,माप_प्रकार Dst_Size_In_शब्दगण,ब_अक्षर_प्रकार _Val,माप_प्रकार Max_गिनती);
+  _CRTIMP errno_t __cdecl _wcsset_s(ब_अक्षर_प्रकार *_Str,माप_प्रकार Size_In_शब्दगण,ब_अक्षर_प्रकार _Val);
+  _CRTIMP errno_t __cdecl _wcslwr_s(ब_अक्षर_प्रकार *_Str,माप_प्रकार Size_In_शब्दगण);
+  _CRTIMP errno_t __cdecl _wcslwr_s_l(ब_अक्षर_प्रकार *_Str,माप_प्रकार Size_In_शब्दगण,_locale_t _Locale);
+  _CRTIMP errno_t __cdecl _wcsupr_s(ब_अक्षर_प्रकार *_Str,माप_प्रकार _Size);
+  _CRTIMP errno_t __cdecl _wcsupr_s_l(ब_अक्षर_प्रकार *_Str,माप_प्रकार _Size,_locale_t _Locale);
 #endif
 
 #ifdef __cplusplus

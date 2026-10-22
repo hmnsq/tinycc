@@ -1,34 +1,34 @@
-#include <stdio.h>
+#अन्तर्भाव <stdio.h>
 
-int main()
+पूर्णाङ्क main()
 {
-   printf("#include test\n");
+   म_लिखो("#include test\n");
 
-#if 1
-#if 0
-   printf("a\n");
-#else
-   printf("b\n");
+#यदि 1
+#यदि 0
+   म_लिखो("a\n");
+#अन्यथा
+   म_लिखो("b\n");
 #endif
-#else
-#if 0
-   printf("c\n");
-#else
-   printf("d\n");
+#अन्यथा
+#यदि 0
+   म_लिखो("c\n");
+#अन्यथा
+   म_लिखो("d\n");
 #endif
 #endif
 
-#if 0
-#if 1
-   printf("e\n");
-#else
-   printf("f\n");
+#यदि 0
+#यदि 1
+   म_लिखो("e\n");
+#अन्यथा
+   म_लिखो("f\n");
 #endif
-#else
-#if 1
-   printf("g\n");
-#else
-   printf("h\n");
+#अन्यथा
+#यदि 1
+   म_लिखो("g\n");
+#अन्यथा
+   म_लिखो("h\n");
 #endif
 #endif
 
@@ -36,50 +36,50 @@ int main()
 
 #ifdef DEF
 #ifdef DEF
-   printf("i\n");
-#else
-   printf("j\n");
+   म_लिखो("i\n");
+#अन्यथा
+   म_लिखो("j\n");
 #endif
-#else
+#अन्यथा
 #ifdef DEF
-   printf("k\n");
-#else
-   printf("l\n");
+   म_लिखो("k\n");
+#अन्यथा
+   म_लिखो("l\n");
 #endif
 #endif
 
 #ifndef DEF
 #ifndef DEF
-   printf("m\n");
-#else
-   printf("n\n");
+   म_लिखो("m\n");
+#अन्यथा
+   म_लिखो("n\n");
 #endif
-#else
+#अन्यथा
 #ifndef DEF
-   printf("o\n");
-#else
-   printf("p\n");
+   म_लिखो("o\n");
+#अन्यथा
+   म_लिखो("p\n");
 #endif
 #endif
 
 #define ONE 1
 #define ZERO 0
 
-#if ONE
-#if ZERO
-   printf("q\n");
-#else
-   printf("r\n");
+#यदि ONE
+#यदि ZERO
+   म_लिखो("q\n");
+#अन्यथा
+   म_लिखो("r\n");
 #endif
-#else
-#if ZERO
-   printf("s\n");
-#else
-   printf("t\n");
+#अन्यथा
+#यदि ZERO
+   म_लिखो("s\n");
+#अन्यथा
+   म_लिखो("t\n");
 #endif
 #endif
 
-   return 0;
+   प्रत्यागम 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

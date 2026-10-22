@@ -34,7 +34,7 @@
      DEF_ASM_OP0(rsm, 0x0faa)
      DEF_ASM_OP0(hlt, 0xf4)
      DEF_ASM_OP0(nop, 0x90)
-     DEF_ASM_OP0(pause, 0xf390)
+     DEF_ASM_OP0(छोड़ो, 0xf390)
      DEF_ASM_OP0(xlat, 0xd7)
 
     /* Control-Flow Enforcement */
@@ -82,7 +82,7 @@ ALT(DEF_ASM_OP2(tzcntw, 0xf30fbc, 0, OPC_MODRM | OPC_WLX, OPT_REGW | OPT_EA, OPT
 ALT(DEF_ASM_OP2(lzcntw, 0xf30fbd, 0, OPC_MODRM | OPC_WLX, OPT_REGW | OPT_EA, OPT_REGW))
 
      /* prefixes */
-     DEF_ASM_OP0(wait, 0x9b)
+     DEF_ASM_OP0(रुको, 0x9b)
      DEF_ASM_OP0(fwait, 0x9b)
      DEF_ASM_OP0(aword, 0x67)
      DEF_ASM_OP0(addr16, 0x67)
@@ -217,7 +217,7 @@ ALT(DEF_ASM_OP1(lcall, 0xff, 3, OPC_MODRM, OPT_EA))
 ALT(DEF_ASM_OP2(ljmp, 0xea, 0, 0, OPT_IM16, OPT_IM32))
 ALT(DEF_ASM_OP1(ljmp, 0xff, 5, OPC_MODRM, OPT_EA))
 
-ALT(DEF_ASM_OP1(int, 0xcd, 0, 0, OPT_IM8))
+ALT(DEF_ASM_OP1(पूर्णाङ्क, 0xcd, 0, 0, OPT_IM8))
 ALT(DEF_ASM_OP1(seto, 0x0f90, 0, OPC_MODRM | OPC_TEST, OPT_REG8 | OPT_EA))
 ALT(DEF_ASM_OP1(setob, 0x0f90, 0, OPC_MODRM | OPC_TEST, OPT_REG8 | OPT_EA))
     DEF_ASM_OP2(enter, 0xc8, 0, 0, OPT_IM16, OPT_IM8)
@@ -283,7 +283,7 @@ ALT(DEF_ASM_OP1(fiadds, 0xde, 0, OPC_FARITH | OPC_MODRM, OPT_EA))
      DEF_ASM_OP0(fsin, 0xd9fe)
      DEF_ASM_OP0(fcos, 0xd9ff)
      DEF_ASM_OP0(fchs, 0xd9e0)
-     DEF_ASM_OP0(fabs, 0xd9e1)
+     DEF_ASM_OP0(भ_असल, 0xd9e1)
      DEF_ASM_OP0(fninit, 0xdbe3)
      DEF_ASM_OP0(fnclex, 0xdbe2)
      DEF_ASM_OP0(fnop, 0xd9d0)

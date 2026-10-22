@@ -1,18 +1,18 @@
-#include <stdio.h>
+#अन्तर्भाव <stdio.h>
 
-int main()
+पूर्णाङ्क main()
 {
-   char a;
-   int b;
-   double c;
+   वर्ण a;
+   पूर्णाङ्क b;
+   द्विगुण c;
 
-   printf("%d\n", sizeof(a));
-   printf("%d\n", sizeof(b));
-   printf("%d\n", sizeof(c));
+   म_लिखो("%d\n", परिमाण(a));
+   म_लिखो("%d\n", परिमाण(b));
+   म_लिखो("%d\n", परिमाण(c));
 
-   printf("%d\n", sizeof(!a));
+   म_लिखो("%d\n", परिमाण(!a));
 
-   return 0;
+   प्रत्यागम 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

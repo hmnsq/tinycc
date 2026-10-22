@@ -5,19 +5,19 @@
 #ifndef _TGMATH_H
 #define _TGMATH_H
 
-#include <math.h>
+#अन्तर्भाव <math.h>
 
 #ifndef __cplusplus
 #define __tgmath_real(x, F) \
-  _Generic ((x), float: F##f, long double: F##l, default: F)(x)
+  _Generic ((x), भिन्न: F##f, दीर्घ द्विगुण: F##l, स्वभाव: F)(x)
 #define __tgmath_real_2_1(x, y, F) \
-  _Generic ((x), float: F##f, long double: F##l, default: F)(x, y)
+  _Generic ((x), भिन्न: F##f, दीर्घ द्विगुण: F##l, स्वभाव: F)(x, y)
 #define __tgmath_real_2(x, y, F) \
-  _Generic ((x)+(y), float: F##f, long double: F##l, default: F)(x, y)
+  _Generic ((x)+(y), भिन्न: F##f, दीर्घ द्विगुण: F##l, स्वभाव: F)(x, y)
 #define __tgmath_real_3_2(x, y, z, F) \
-  _Generic ((x)+(y), float: F##f, long double: F##l, default: F)(x, y, z)
+  _Generic ((x)+(y), भिन्न: F##f, दीर्घ द्विगुण: F##l, स्वभाव: F)(x, y, z)
 #define __tgmath_real_3(x, y, z, F) \
-  _Generic ((x)+(y)+(z), float: F##f, long double: F##l, default: F)(x, y, z)
+  _Generic ((x)+(y)+(z), भिन्न: F##f, दीर्घ द्विगुण: F##l, स्वभाव: F)(x, y, z)
 
 /* Functions defined in both <math.h> and <complex.h> (7.22p4) */
 #define acos(z)          __tgmath_real(z, acos)
@@ -34,25 +34,25 @@
 #define tanh(z)          __tgmath_real(z, tanh)
 #define exp(z)           __tgmath_real(z, exp)
 #define log(z)           __tgmath_real(z, log)
-#define pow(z1,z2)       __tgmath_real_2(z1, z2, pow)
-#define sqrt(z)          __tgmath_real(z, sqrt)
-#define fabs(z)          __tgmath_real(z, fabs)
+#define घात(z1,z2)       __tgmath_real_2(z1, z2, घात)
+#define वर्ग_मूल(z)          __tgmath_real(z, वर्ग_मूल)
+#define भ_असल(z)          __tgmath_real(z, भ_असल)
 
 /* Functions defined in <math.h> only (7.22p5) */
 #define atan2(x,y)       __tgmath_real_2(x, y, atan2)
 #define cbrt(x)          __tgmath_real(x, cbrt)
-#define ceil(x)          __tgmath_real(x, ceil)
+#define उच्चमान(x)          __tgmath_real(x, उच्चमान)
 #define copysign(x,y)    __tgmath_real_2(x, y, copysign)
 #define erf(x)           __tgmath_real(x, erf)
 #define erfc(x)          __tgmath_real(x, erfc)
 #define exp2(x)          __tgmath_real(x, exp2)
 #define expm1(x)         __tgmath_real(x, expm1)
 #define fdim(x,y)        __tgmath_real_2(x, y, fdim)
-#define floor(x)         __tgmath_real(x, floor)
+#define न्यूनमान(x)         __tgmath_real(x, न्यूनमान)
 #define fma(x,y,z)       __tgmath_real_3(x, y, z, fma)
 #define fmax(x,y)        __tgmath_real_2(x, y, fmax)
 #define fmin(x,y)        __tgmath_real_2(x, y, fmin)
-#define fmod(x,y)        __tgmath_real_2(x, y, fmod)
+#define भ_शेष(x,y)        __tgmath_real_2(x, y, भ_शेष)
 #define frexp(x,y)       __tgmath_real_2_1(x, y, frexp)
 #define hypot(x,y)       __tgmath_real_2(x, y, hypot)
 #define ilogb(x)         __tgmath_real(x, ilogb)

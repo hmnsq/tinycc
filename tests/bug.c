@@ -1,35 +1,35 @@
-#include <stdio.h>
-#include <stdarg.h>
+#अन्तर्भाव <stdio.h>
+#अन्तर्भाव <stdarg.h>
 
-int compile_errors(void)
+पूर्णाङ्क compile_errors(शून्य)
 {
-#if TEST == 1
+#यदि TEST == 1
   {
     /* Not constant */
-    static int i = (&"Foobar"[1] - &"Foobar"[0]);
+    स्थिर पूर्णाङ्क i = (&"Foobar"[1] - &"Foobar"[0]);
   }
 #endif
-#if TEST == 2
+#यदि TEST == 2
   {
     /* Not constant */
-    struct{int c;}v;
-    static long i=((char*)&(v.c)-(char*)&v);
+    संरचना{पूर्णाङ्क c;}v;
+    स्थिर दीर्घ i=((वर्ण*)&(v.c)-(वर्ण*)&v);
   }
 #endif
-#if TEST == 3
+#यदि TEST == 3
   {
     /* Not constant */
-    static const short ar[] = { &&l1 - &&l1, &&l2 - &&l1 };
-    void *p = &&l1 + ar[0];
-    goto *p;
-   l1: return 1;
-   l2: return 2;
+    स्थिर ध्रुव लघु ar[] = { &&l1 - &&l1, &&l2 - &&l1 };
+    शून्य *p = &&l1 + ar[0];
+    गच्छ *p;
+   l1: प्रत्यागम 1;
+   l2: प्रत्यागम 2;
   }
 #endif
-  return 0;
+  प्रत्यागम 0;
 }
 
-int
-main(void)
+पूर्णाङ्क
+main(शून्य)
 {
 }

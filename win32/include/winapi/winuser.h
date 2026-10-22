@@ -9,68 +9,68 @@
 #define WINUSERAPI DECLSPEC_IMPORT
 
 #ifdef __cplusplus
-extern "C" {
+बाह्य "C" {
 #endif
 
 #ifndef WINVER
 #define WINVER 0x0502
 #endif
 
-#include <stdarg.h>
+#अन्तर्भाव <stdarg.h>
 
 #ifndef NOUSER
-  typedef HANDLE HDWP;
-  typedef VOID MENUTEMPLATEA;
-  typedef VOID MENUTEMPLATEW;
-  typedef PVOID LPMENUTEMPLATEA;
-  typedef PVOID LPMENUTEMPLATEW;
+  प्रकारनिर्देश HANDLE HDWP;
+  प्रकारनिर्देश VOID MENUTEMPLATEA;
+  प्रकारनिर्देश VOID MENUTEMPLATEW;
+  प्रकारनिर्देश PVOID LPMENUTEMPLATEA;
+  प्रकारनिर्देश PVOID LPMENUTEMPLATEW;
 
 #ifdef UNICODE
-  typedef MENUTEMPLATEW MENUTEMPLATE;
-  typedef LPMENUTEMPLATEW LPMENUTEMPLATE;
-#else
-  typedef MENUTEMPLATEA MENUTEMPLATE;
-  typedef LPMENUTEMPLATEA LPMENUTEMPLATE;
+  प्रकारनिर्देश MENUTEMPLATEW MENUTEMPLATE;
+  प्रकारनिर्देश LPMENUTEMPLATEW LPMENUTEMPLATE;
+#अन्यथा
+  प्रकारनिर्देश MENUTEMPLATEA MENUTEMPLATE;
+  प्रकारनिर्देश LPMENUTEMPLATEA LPMENUTEMPLATE;
 #endif
 
-  typedef LRESULT (CALLBACK *WNDPROC)(HWND,UINT,WPARAM,LPARAM);
-  typedef INT_PTR (CALLBACK *DLGPROC)(HWND,UINT,WPARAM,LPARAM);
-  typedef VOID (CALLBACK *TIMERPROC)(HWND,UINT,UINT_PTR,DWORD);
-  typedef WINBOOL (CALLBACK *GRAYSTRINGPROC)(HDC,LPARAM,int);
-  typedef WINBOOL (CALLBACK *WNDENUMPROC)(HWND,LPARAM);
-  typedef LRESULT (CALLBACK *HOOKPROC)(int code,WPARAM wParam,LPARAM lParam);
-  typedef VOID (CALLBACK *SENDASYNCPROC)(HWND,UINT,ULONG_PTR,LRESULT);
-  typedef WINBOOL (CALLBACK *PROPENUMPROCA)(HWND,LPCSTR,HANDLE);
-  typedef WINBOOL (CALLBACK *PROPENUMPROCW)(HWND,LPCWSTR,HANDLE);
-  typedef WINBOOL (CALLBACK *PROPENUMPROCEXA)(HWND,LPSTR,HANDLE,ULONG_PTR);
-  typedef WINBOOL (CALLBACK *PROPENUMPROCEXW)(HWND,LPWSTR,HANDLE,ULONG_PTR);
-  typedef int (CALLBACK *EDITWORDBREAKPROCA)(LPSTR lpch,int ichCurrent,int cch,int code);
-  typedef int (CALLBACK *EDITWORDBREAKPROCW)(LPWSTR lpch,int ichCurrent,int cch,int code);
-  typedef WINBOOL (CALLBACK *DRAWSTATEPROC)(HDC hdc,LPARAM lData,WPARAM wData,int cx,int cy);
+  प्रकारनिर्देश LRESULT (CALLBACK *WNDPROC)(HWND,UINT,WPARAM,LPARAM);
+  प्रकारनिर्देश INT_PTR (CALLBACK *DLGPROC)(HWND,UINT,WPARAM,LPARAM);
+  प्रकारनिर्देश VOID (CALLBACK *TIMERPROC)(HWND,UINT,UINT_PTR,DWORD);
+  प्रकारनिर्देश WINBOOL (CALLBACK *GRAYSTRINGPROC)(HDC,LPARAM,पूर्णाङ्क);
+  प्रकारनिर्देश WINBOOL (CALLBACK *WNDENUMPROC)(HWND,LPARAM);
+  प्रकारनिर्देश LRESULT (CALLBACK *HOOKPROC)(पूर्णाङ्क code,WPARAM wParam,LPARAM lParam);
+  प्रकारनिर्देश VOID (CALLBACK *SENDASYNCPROC)(HWND,UINT,ULONG_PTR,LRESULT);
+  प्रकारनिर्देश WINBOOL (CALLBACK *PROPENUMPROCA)(HWND,LPCSTR,HANDLE);
+  प्रकारनिर्देश WINBOOL (CALLBACK *PROPENUMPROCW)(HWND,LPCWSTR,HANDLE);
+  प्रकारनिर्देश WINBOOL (CALLBACK *PROPENUMPROCEXA)(HWND,LPSTR,HANDLE,ULONG_PTR);
+  प्रकारनिर्देश WINBOOL (CALLBACK *PROPENUMPROCEXW)(HWND,LPWSTR,HANDLE,ULONG_PTR);
+  प्रकारनिर्देश पूर्णाङ्क (CALLBACK *EDITWORDBREAKPROCA)(LPSTR lpch,पूर्णाङ्क ichCurrent,पूर्णाङ्क cch,पूर्णाङ्क code);
+  प्रकारनिर्देश पूर्णाङ्क (CALLBACK *EDITWORDBREAKPROCW)(LPWSTR lpch,पूर्णाङ्क ichCurrent,पूर्णाङ्क cch,पूर्णाङ्क code);
+  प्रकारनिर्देश WINBOOL (CALLBACK *DRAWSTATEPROC)(HDC hdc,LPARAM lData,WPARAM wData,पूर्णाङ्क cx,पूर्णाङ्क cy);
 
 #ifdef UNICODE
-  typedef PROPENUMPROCW PROPENUMPROC;
-  typedef PROPENUMPROCEXW PROPENUMPROCEX;
-  typedef EDITWORDBREAKPROCW EDITWORDBREAKPROC;
-#else
-  typedef PROPENUMPROCA PROPENUMPROC;
-  typedef PROPENUMPROCEXA PROPENUMPROCEX;
-  typedef EDITWORDBREAKPROCA EDITWORDBREAKPROC;
+  प्रकारनिर्देश PROPENUMPROCW PROPENUMPROC;
+  प्रकारनिर्देश PROPENUMPROCEXW PROPENUMPROCEX;
+  प्रकारनिर्देश EDITWORDBREAKPROCW EDITWORDBREAKPROC;
+#अन्यथा
+  प्रकारनिर्देश PROPENUMPROCA PROPENUMPROC;
+  प्रकारनिर्देश PROPENUMPROCEXA PROPENUMPROCEX;
+  प्रकारनिर्देश EDITWORDBREAKPROCA EDITWORDBREAKPROC;
 #endif
 
-  typedef WINBOOL (CALLBACK *NAMEENUMPROCA)(LPSTR,LPARAM);
-  typedef WINBOOL (CALLBACK *NAMEENUMPROCW)(LPWSTR,LPARAM);
-  typedef NAMEENUMPROCA WINSTAENUMPROCA;
-  typedef NAMEENUMPROCA DESKTOPENUMPROCA;
-  typedef NAMEENUMPROCW WINSTAENUMPROCW;
-  typedef NAMEENUMPROCW DESKTOPENUMPROCW;
+  प्रकारनिर्देश WINBOOL (CALLBACK *NAMEENUMPROCA)(LPSTR,LPARAM);
+  प्रकारनिर्देश WINBOOL (CALLBACK *NAMEENUMPROCW)(LPWSTR,LPARAM);
+  प्रकारनिर्देश NAMEENUMPROCA WINSTAENUMPROCA;
+  प्रकारनिर्देश NAMEENUMPROCA DESKTOPENUMPROCA;
+  प्रकारनिर्देश NAMEENUMPROCW WINSTAENUMPROCW;
+  प्रकारनिर्देश NAMEENUMPROCW DESKTOPENUMPROCW;
 
 #ifdef UNICODE
-  typedef WINSTAENUMPROCW WINSTAENUMPROC;
-  typedef DESKTOPENUMPROCW DESKTOPENUMPROC;
-#else
-  typedef WINSTAENUMPROCA WINSTAENUMPROC;
-  typedef DESKTOPENUMPROCA DESKTOPENUMPROC;
+  प्रकारनिर्देश WINSTAENUMPROCW WINSTAENUMPROC;
+  प्रकारनिर्देश DESKTOPENUMPROCW DESKTOPENUMPROC;
+#अन्यथा
+  प्रकारनिर्देश WINSTAENUMPROCA WINSTAENUMPROC;
+  प्रकारनिर्देश DESKTOPENUMPROCA DESKTOPENUMPROC;
 #endif
 
 #define IS_INTRESOURCE(_r) ((((ULONG_PTR)(_r)) >> 16)==0)
@@ -78,7 +78,7 @@ extern "C" {
 #define MAKEINTRESOURCEW(i) ((LPWSTR)((ULONG_PTR)((WORD)(i))))
 #ifdef UNICODE
 #define MAKEINTRESOURCE MAKEINTRESOURCEW
-#else
+#अन्यथा
 #define MAKEINTRESOURCE MAKEINTRESOURCEA
 #endif
 
@@ -113,7 +113,7 @@ extern "C" {
 #define ISOLATIONAWARE_NOSTATICIMPORT_MANIFEST_RESOURCE_ID 3
 #define MINIMUM_RESERVED_MANIFEST_RESOURCE_ID 1
 #define MAXIMUM_RESERVED_MANIFEST_RESOURCE_ID 16
-#else
+#अन्यथा
 #define RT_MANIFEST MAKEINTRESOURCE(24)
 #define CREATEPROCESS_MANIFEST_RESOURCE_ID MAKEINTRESOURCE(1)
 #define ISOLATIONAWARE_MANIFEST_RESOURCE_ID MAKEINTRESOURCE(2)
@@ -126,15 +126,15 @@ extern "C" {
 #ifdef UNICODE
 #define wvsprintf wvsprintfW
 #define wsprintf wsprintfW
-#else
+#अन्यथा
 #define wvsprintf wvsprintfA
 #define wsprintf wsprintfA
 #endif
 
-  WINUSERAPI int WINAPI wvsprintfA(LPSTR,LPCSTR,va_list arglist);
-  WINUSERAPI int WINAPI wvsprintfW(LPWSTR,LPCWSTR,va_list arglist);
-  WINUSERAPI int WINAPIV wsprintfA(LPSTR,LPCSTR,...);
-  WINUSERAPI int WINAPIV wsprintfW(LPWSTR,LPCWSTR,...);
+  WINUSERAPI पूर्णाङ्क WINAPI wvsprintfA(LPSTR,LPCSTR,बहु_सूची arglist);
+  WINUSERAPI पूर्णाङ्क WINAPI wvsprintfW(LPWSTR,LPCWSTR,बहु_सूची arglist);
+  WINUSERAPI पूर्णाङ्क WINAPIV wsprintfA(LPSTR,LPCSTR,...);
+  WINUSERAPI पूर्णाङ्क WINAPIV wsprintfW(LPWSTR,LPCWSTR,...);
 
 #define SETWALLPAPER_DEFAULT ((LPWSTR)-1)
 
@@ -154,10 +154,10 @@ extern "C" {
 #define SB_PAGERIGHT 3
 #define SB_THUMBPOSITION 4
 #define SB_THUMBTRACK 5
-#define SB_TOP 6
-#define SB_LEFT 6
+#define SB_शीर्ष 6
+#define SB_बायाँ 6
 #define SB_BOTTOM 7
-#define SB_RIGHT 7
+#define SB_दायाँ 7
 #define SB_ENDSCROLL 8
 #endif
 
@@ -241,15 +241,15 @@ extern "C" {
 #define VK_NEXT 0x22
 #define VK_END 0x23
 #define VK_HOME 0x24
-#define VK_LEFT 0x25
+#define VK_बायाँ 0x25
 #define VK_UP 0x26
-#define VK_RIGHT 0x27
+#define VK_दायाँ 0x27
 #define VK_DOWN 0x28
 #define VK_SELECT 0x29
 #define VK_PRINT 0x2A
 #define VK_EXECUTE 0x2B
 #define VK_SNAPSHOT 0x2C
-#define VK_INSERT 0x2D
+#define VK_जोड़ो 0x2D
 #define VK_DELETE 0x2E
 #define VK_HELP 0x2F
 
@@ -315,7 +315,7 @@ extern "C" {
 #define VK_BROWSER_FORWARD 0xA7
 #define VK_BROWSER_REFRESH 0xA8
 #define VK_BROWSER_STOP 0xA9
-#define VK_BROWSER_SEARCH 0xAA
+#define VK_BROWSER_खोज 0xAA
 #define VK_BROWSER_FAVORITES 0xAB
 #define VK_BROWSER_HOME 0xAC
 #define VK_VOLUME_MUTE 0xAD
@@ -417,30 +417,30 @@ extern "C" {
 #define HCBT_SYSCOMMAND 8
 #define HCBT_SETFOCUS 9
 
-  typedef struct tagCBT_CREATEWNDA {
-    struct tagCREATESTRUCTA *lpcs;
-    HWND hwndInsertAfter;
+  प्रकारनिर्देश संरचना tagCBT_CREATEWNDA {
+    संरचना tagCREATESTRUCTA *lpcs;
+    HWND hwnd_जोड़ो_After;
   } CBT_CREATEWNDA,*LPCBT_CREATEWNDA;
 
-  typedef struct tagCBT_CREATEWNDW {
-    struct tagCREATESTRUCTW *lpcs;
-    HWND hwndInsertAfter;
+  प्रकारनिर्देश संरचना tagCBT_CREATEWNDW {
+    संरचना tagCREATESTRUCTW *lpcs;
+    HWND hwnd_जोड़ो_After;
   } CBT_CREATEWNDW,*LPCBT_CREATEWNDW;
 #ifdef UNICODE
-  typedef CBT_CREATEWNDW CBT_CREATEWND;
-  typedef LPCBT_CREATEWNDW LPCBT_CREATEWND;
-#else
-  typedef CBT_CREATEWNDA CBT_CREATEWND;
-  typedef LPCBT_CREATEWNDA LPCBT_CREATEWND;
+  प्रकारनिर्देश CBT_CREATEWNDW CBT_CREATEWND;
+  प्रकारनिर्देश LPCBT_CREATEWNDW LPCBT_CREATEWND;
+#अन्यथा
+  प्रकारनिर्देश CBT_CREATEWNDA CBT_CREATEWND;
+  प्रकारनिर्देश LPCBT_CREATEWNDA LPCBT_CREATEWND;
 #endif
 
-  typedef struct tagCBTACTIVATESTRUCT
+  प्रकारनिर्देश संरचना tagCBTACTIVATESTRUCT
   {
     WINBOOL fMouse;
     HWND hWndActive;
   } CBTACTIVATESTRUCT,*LPCBTACTIVATESTRUCT;
 
-  typedef struct tagWTSSESSION_NOTIFICATION {
+  प्रकारनिर्देश संरचना tagWTSSESSION_NOTIFICATION {
     DWORD cbSize;
     DWORD dwSessionId;
 
@@ -491,7 +491,7 @@ extern "C" {
 #define APPCOMMAND_BROWSER_FORWARD 2
 #define APPCOMMAND_BROWSER_REFRESH 3
 #define APPCOMMAND_BROWSER_STOP 4
-#define APPCOMMAND_BROWSER_SEARCH 5
+#define APPCOMMAND_BROWSER_खोज 5
 #define APPCOMMAND_BROWSER_FAVORITES 6
 #define APPCOMMAND_BROWSER_HOME 7
 #define APPCOMMAND_VOLUME_MUTE 8
@@ -541,39 +541,39 @@ extern "C" {
 #define APPCOMMAND_MEDIA_CHANNEL_DOWN 52
 
 #define FAPPCOMMAND_MOUSE 0x8000
-#define FAPPCOMMAND_KEY 0
+#define FAPPCOMMAND_कुंजी 0
 #define FAPPCOMMAND_OEM 0x1000
 #define FAPPCOMMAND_MASK 0xF000
 
-#define GET_APPCOMMAND_LPARAM(lParam) ((short)(HIWORD(lParam) & ~FAPPCOMMAND_MASK))
+#define GET_APPCOMMAND_LPARAM(lParam) ((लघु)(HIWORD(lParam) & ~FAPPCOMMAND_MASK))
 #define GET_DEVICE_LPARAM(lParam) ((WORD)(HIWORD(lParam) & FAPPCOMMAND_MASK))
 #define GET_MOUSEORKEY_LPARAM GET_DEVICE_LPARAM
 #define GET_FLAGS_LPARAM(lParam) (LOWORD(lParam))
 #define GET_KEYSTATE_LPARAM(lParam) GET_FLAGS_LPARAM(lParam)
 
-  typedef struct {
+  प्रकारनिर्देश संरचना {
     HWND hwnd;
     RECT rc;
   } SHELLHOOKINFO,*LPSHELLHOOKINFO;
 
-  typedef struct tagEVENTMSG {
+  प्रकारनिर्देश संरचना tagEVENTMSG {
     UINT message;
     UINT paramL;
     UINT paramH;
-    DWORD time;
+    DWORD समय;
     HWND hwnd;
   } EVENTMSG,*PEVENTMSGMSG,*NPEVENTMSGMSG,*LPEVENTMSGMSG;
 
-  typedef struct tagEVENTMSG *PEVENTMSG,*NPEVENTMSG,*LPEVENTMSG;
+  प्रकारनिर्देश संरचना tagEVENTMSG *PEVENTMSG,*NPEVENTMSG,*LPEVENTMSG;
 
-  typedef struct tagCWPSTRUCT {
+  प्रकारनिर्देश संरचना tagCWPSTRUCT {
     LPARAM lParam;
     WPARAM wParam;
     UINT message;
     HWND hwnd;
   } CWPSTRUCT,*PCWPSTRUCT,*NPCWPSTRUCT,*LPCWPSTRUCT;
 
-  typedef struct tagCWPRETSTRUCT {
+  प्रकारनिर्देश संरचना tagCWPRETSTRUCT {
     LRESULT lResult;
     LPARAM lParam;
     WPARAM wParam;
@@ -588,31 +588,31 @@ extern "C" {
 
 #define LLMHF_INJECTED 0x00000001
 
-  typedef struct tagKBDLLHOOKSTRUCT {
+  प्रकारनिर्देश संरचना tagKBDLLHOOKSTRUCT {
     DWORD vkCode;
     DWORD scanCode;
     DWORD flags;
-    DWORD time;
+    DWORD समय;
     ULONG_PTR dwExtraInfo;
   } KBDLLHOOKSTRUCT,*LPKBDLLHOOKSTRUCT,*PKBDLLHOOKSTRUCT;
 
-  typedef struct tagMSLLHOOKSTRUCT {
+  प्रकारनिर्देश संरचना tagMSLLHOOKSTRUCT {
     POINT pt;
     DWORD mouseData;
     DWORD flags;
-    DWORD time;
+    DWORD समय;
     ULONG_PTR dwExtraInfo;
   } MSLLHOOKSTRUCT,*LPMSLLHOOKSTRUCT,*PMSLLHOOKSTRUCT;
 
-  typedef struct tagDEBUGHOOKINFO {
+  प्रकारनिर्देश संरचना tagDEBUGHOOKINFO {
     DWORD idThread;
     DWORD idThreadInstaller;
     LPARAM lParam;
     WPARAM wParam;
-    int code;
+    पूर्णाङ्क code;
   } DEBUGHOOKINFO,*PDEBUGHOOKINFO,*NPDEBUGHOOKINFO,*LPDEBUGHOOKINFO;
 
-  typedef struct tagMOUSEHOOKSTRUCT {
+  प्रकारनिर्देश संरचना tagMOUSEHOOKSTRUCT {
     POINT pt;
     HWND hwnd;
     UINT wHitTestCode;
@@ -620,17 +620,17 @@ extern "C" {
   } MOUSEHOOKSTRUCT,*LPMOUSEHOOKSTRUCT,*PMOUSEHOOKSTRUCT;
 
 #ifdef __cplusplus
-  typedef struct tagMOUSEHOOKSTRUCTEX : public tagMOUSEHOOKSTRUCT {
+  प्रकारनिर्देश संरचना tagMOUSEHOOKSTRUCTEX : सार्वजनिक tagMOUSEHOOKSTRUCT {
     DWORD mouseData;
   } MOUSEHOOKSTRUCTEX,*LPMOUSEHOOKSTRUCTEX,*PMOUSEHOOKSTRUCTEX;
-#else
-  typedef struct tagMOUSEHOOKSTRUCTEX {
+#अन्यथा
+  प्रकारनिर्देश संरचना tagMOUSEHOOKSTRUCTEX {
     MOUSEHOOKSTRUCT _unnamed;
     DWORD mouseData;
   } MOUSEHOOKSTRUCTEX,*LPMOUSEHOOKSTRUCTEX,*PMOUSEHOOKSTRUCTEX;
 #endif
 
-  typedef struct tagHARDWAREHOOKSTRUCT {
+  प्रकारनिर्देश संरचना tagHARDWAREHOOKSTRUCT {
     HWND hwnd;
     UINT message;
     WPARAM wParam;
@@ -659,7 +659,7 @@ extern "C" {
 #ifdef UNICODE
 #define LoadKeyboardLayout LoadKeyboardLayoutW
 #define GetKeyboardLayoutName GetKeyboardLayoutNameW
-#else
+#अन्यथा
 #define LoadKeyboardLayout LoadKeyboardLayoutA
 #define GetKeyboardLayoutName GetKeyboardLayoutNameA
 #endif
@@ -667,24 +667,24 @@ extern "C" {
   WINUSERAPI HKL WINAPI LoadKeyboardLayoutA(LPCSTR pwszKLID,UINT Flags);
   WINUSERAPI HKL WINAPI LoadKeyboardLayoutW(LPCWSTR pwszKLID,UINT Flags);
   WINUSERAPI HKL WINAPI ActivateKeyboardLayout(HKL hkl,UINT Flags);
-  WINUSERAPI int WINAPI ToUnicodeEx(UINT wVirtKey,UINT wScanCode,CONST BYTE *lpKeyState,LPWSTR pwszBuff,int cchBuff,UINT wFlags,HKL dwhkl);
+  WINUSERAPI पूर्णाङ्क WINAPI ToUnicodeEx(UINT w_Virt_कुंजी,UINT wScanCode,CONST BYTE *lp_कुंजी_State,LPWSTR pwszBuff,पूर्णाङ्क cchBuff,UINT wFlags,HKL dwhkl);
   WINUSERAPI WINBOOL WINAPI UnloadKeyboardLayout(HKL hkl);
   WINUSERAPI WINBOOL WINAPI GetKeyboardLayoutNameA(LPSTR pwszKLID);
   WINUSERAPI WINBOOL WINAPI GetKeyboardLayoutNameW(LPWSTR pwszKLID);
-  WINUSERAPI int WINAPI GetKeyboardLayoutList(int nBuff,HKL *lpList);
+  WINUSERAPI पूर्णाङ्क WINAPI GetKeyboardLayoutList(पूर्णाङ्क nBuff,HKL *lpList);
   WINUSERAPI HKL WINAPI GetKeyboardLayout(DWORD idThread);
 
-  typedef struct tagMOUSEMOVEPOINT {
-    int x;
-    int y;
-    DWORD time;
+  प्रकारनिर्देश संरचना tagMOUSEMOVEPOINT {
+    पूर्णाङ्क x;
+    पूर्णाङ्क y;
+    DWORD समय;
     ULONG_PTR dwExtraInfo;
   } MOUSEMOVEPOINT,*PMOUSEMOVEPOINT,*LPMOUSEMOVEPOINT;
 
 #define GMMP_USE_DISPLAY_POINTS 1
-#define GMMP_USE_HIGH_RESOLUTION_POINTS 2
+#define GMMP_USE_ऊपरी_RESOLUTION_POINTS 2
 
-  WINUSERAPI int WINAPI GetMouseMovePointsEx(UINT cbSize,LPMOUSEMOVEPOINT lppt,LPMOUSEMOVEPOINT lpptBuf,int nBufPoints,DWORD resolution);
+  WINUSERAPI पूर्णाङ्क WINAPI GetMouseMovePointsEx(UINT cbSize,LPMOUSEMOVEPOINT lppt,LPMOUSEMOVEPOINT lpptBuf,पूर्णाङ्क nBufPoints,DWORD resolution);
 
 #ifndef NODESKTOP
 
@@ -704,7 +704,7 @@ extern "C" {
 #ifndef NOGDI
 #ifdef UNICODE
 #define CreateDesktop CreateDesktopW
-#else
+#अन्यथा
 #define CreateDesktop CreateDesktopA
 #endif
 
@@ -716,14 +716,14 @@ extern "C" {
 #ifdef UNICODE
 #define OpenDesktop OpenDesktopW
 #define EnumDesktops EnumDesktopsW
-#else
+#अन्यथा
 #define OpenDesktop OpenDesktopA
 #define EnumDesktops EnumDesktopsA
 #endif
 
   WINUSERAPI HDESK WINAPI OpenDesktopA(LPCSTR lpszDesktop,DWORD dwFlags,WINBOOL fInherit,ACCESS_MASK dwDesiredAccess);
   WINUSERAPI HDESK WINAPI OpenDesktopW(LPCWSTR lpszDesktop,DWORD dwFlags,WINBOOL fInherit,ACCESS_MASK dwDesiredAccess);
-  WINUSERAPI HDESK WINAPI OpenInputDesktop(DWORD dwFlags,WINBOOL fInherit,ACCESS_MASK dwDesiredAccess);
+  WINUSERAPI HDESK WINAPI Open_निवेश_Desktop(DWORD dwFlags,WINBOOL fInherit,ACCESS_MASK dwDesiredAccess);
   WINUSERAPI WINBOOL WINAPI EnumDesktopsA(HWINSTA hwinsta,DESKTOPENUMPROCA lpEnumFunc,LPARAM lParam);
   WINUSERAPI WINBOOL WINAPI EnumDesktopsW(HWINSTA hwinsta,DESKTOPENUMPROCW lpEnumFunc,LPARAM lParam);
   WINUSERAPI WINBOOL WINAPI EnumDesktopWindows(HDESK hDesktop,WNDENUMPROC lpfn,LPARAM lParam);
@@ -753,7 +753,7 @@ extern "C" {
 #define CreateWindowStation CreateWindowStationW
 #define OpenWindowStation OpenWindowStationW
 #define EnumWindowStations EnumWindowStationsW
-#else
+#अन्यथा
 #define CreateWindowStation CreateWindowStationA
 #define OpenWindowStation OpenWindowStationA
 #define EnumWindowStations EnumWindowStationsA
@@ -779,7 +779,7 @@ extern "C" {
 #define UOI_TYPE 3
 #define UOI_USER_SID 4
 
-  typedef struct tagUSEROBJECTFLAGS {
+  प्रकारनिर्देश संरचना tagUSEROBJECTFLAGS {
     WINBOOL fInherit;
     WINBOOL fReserved;
     DWORD dwFlags;
@@ -788,23 +788,23 @@ extern "C" {
 #ifdef UNICODE
 #define GetUserObjectInformation GetUserObjectInformationW
 #define SetUserObjectInformation SetUserObjectInformationW
-#else
+#अन्यथा
 #define GetUserObjectInformation GetUserObjectInformationA
 #define SetUserObjectInformation SetUserObjectInformationA
 #endif
 
-  WINUSERAPI WINBOOL WINAPI GetUserObjectInformationA(HANDLE hObj,int nIndex,PVOID pvInfo,DWORD nLength,LPDWORD lpnLengthNeeded);
-  WINUSERAPI WINBOOL WINAPI GetUserObjectInformationW(HANDLE hObj,int nIndex,PVOID pvInfo,DWORD nLength,LPDWORD lpnLengthNeeded);
-  WINUSERAPI WINBOOL WINAPI SetUserObjectInformationA(HANDLE hObj,int nIndex,PVOID pvInfo,DWORD nLength);
-  WINUSERAPI WINBOOL WINAPI SetUserObjectInformationW(HANDLE hObj,int nIndex,PVOID pvInfo,DWORD nLength);
+  WINUSERAPI WINBOOL WINAPI GetUserObjectInformationA(HANDLE hObj,पूर्णाङ्क nIndex,PVOID pvInfo,DWORD nLength,LPDWORD lpnLengthNeeded);
+  WINUSERAPI WINBOOL WINAPI GetUserObjectInformationW(HANDLE hObj,पूर्णाङ्क nIndex,PVOID pvInfo,DWORD nLength,LPDWORD lpnLengthNeeded);
+  WINUSERAPI WINBOOL WINAPI SetUserObjectInformationA(HANDLE hObj,पूर्णाङ्क nIndex,PVOID pvInfo,DWORD nLength);
+  WINUSERAPI WINBOOL WINAPI SetUserObjectInformationW(HANDLE hObj,पूर्णाङ्क nIndex,PVOID pvInfo,DWORD nLength);
 #endif
 
-  typedef struct tagWNDCLASSEXA {
+  प्रकारनिर्देश संरचना tagWNDCLASSEXA {
     UINT cbSize;
     UINT style;
     WNDPROC lpfnWndProc;
-    int cbClsExtra;
-    int cbWndExtra;
+    पूर्णाङ्क cbClsExtra;
+    पूर्णाङ्क cbWndExtra;
     HINSTANCE hInstance;
     HICON hIcon;
     HCURSOR hCursor;
@@ -814,12 +814,12 @@ extern "C" {
     HICON hIconSm;
   } WNDCLASSEXA,*PWNDCLASSEXA,*NPWNDCLASSEXA,*LPWNDCLASSEXA;
 
-  typedef struct tagWNDCLASSEXW {
+  प्रकारनिर्देश संरचना tagWNDCLASSEXW {
     UINT cbSize;
     UINT style;
     WNDPROC lpfnWndProc;
-    int cbClsExtra;
-    int cbWndExtra;
+    पूर्णाङ्क cbClsExtra;
+    पूर्णाङ्क cbWndExtra;
     HINSTANCE hInstance;
     HICON hIcon;
     HCURSOR hCursor;
@@ -831,22 +831,22 @@ extern "C" {
   } WNDCLASSEXW,*PWNDCLASSEXW,*NPWNDCLASSEXW,*LPWNDCLASSEXW;
 
 #ifdef UNICODE
-  typedef WNDCLASSEXW WNDCLASSEX;
-  typedef PWNDCLASSEXW PWNDCLASSEX;
-  typedef NPWNDCLASSEXW NPWNDCLASSEX;
-  typedef LPWNDCLASSEXW LPWNDCLASSEX;
-#else
-  typedef WNDCLASSEXA WNDCLASSEX;
-  typedef PWNDCLASSEXA PWNDCLASSEX;
-  typedef NPWNDCLASSEXA NPWNDCLASSEX;
-  typedef LPWNDCLASSEXA LPWNDCLASSEX;
+  प्रकारनिर्देश WNDCLASSEXW WNDCLASSEX;
+  प्रकारनिर्देश PWNDCLASSEXW PWNDCLASSEX;
+  प्रकारनिर्देश NPWNDCLASSEXW NPWNDCLASSEX;
+  प्रकारनिर्देश LPWNDCLASSEXW LPWNDCLASSEX;
+#अन्यथा
+  प्रकारनिर्देश WNDCLASSEXA WNDCLASSEX;
+  प्रकारनिर्देश PWNDCLASSEXA PWNDCLASSEX;
+  प्रकारनिर्देश NPWNDCLASSEXA NPWNDCLASSEX;
+  प्रकारनिर्देश LPWNDCLASSEXA LPWNDCLASSEX;
 #endif
 
-  typedef struct tagWNDCLASSA {
+  प्रकारनिर्देश संरचना tagWNDCLASSA {
     UINT style;
     WNDPROC lpfnWndProc;
-    int cbClsExtra;
-    int cbWndExtra;
+    पूर्णाङ्क cbClsExtra;
+    पूर्णाङ्क cbWndExtra;
     HINSTANCE hInstance;
     HICON hIcon;
     HCURSOR hCursor;
@@ -855,11 +855,11 @@ extern "C" {
     LPCSTR lpszClassName;
   } WNDCLASSA,*PWNDCLASSA,*NPWNDCLASSA,*LPWNDCLASSA;
 
-  typedef struct tagWNDCLASSW {
+  प्रकारनिर्देश संरचना tagWNDCLASSW {
     UINT style;
     WNDPROC lpfnWndProc;
-    int cbClsExtra;
-    int cbWndExtra;
+    पूर्णाङ्क cbClsExtra;
+    पूर्णाङ्क cbWndExtra;
     HINSTANCE hInstance;
     HICON hIcon;
     HCURSOR hCursor;
@@ -869,33 +869,33 @@ extern "C" {
   } WNDCLASSW,*PWNDCLASSW,*NPWNDCLASSW,*LPWNDCLASSW;
 
 #ifdef UNICODE
-  typedef WNDCLASSW WNDCLASS;
-  typedef PWNDCLASSW PWNDCLASS;
-  typedef NPWNDCLASSW NPWNDCLASS;
-  typedef LPWNDCLASSW LPWNDCLASS;
-#else
-  typedef WNDCLASSA WNDCLASS;
-  typedef PWNDCLASSA PWNDCLASS;
-  typedef NPWNDCLASSA NPWNDCLASS;
-  typedef LPWNDCLASSA LPWNDCLASS;
+  प्रकारनिर्देश WNDCLASSW WNDCLASS;
+  प्रकारनिर्देश PWNDCLASSW PWNDCLASS;
+  प्रकारनिर्देश NPWNDCLASSW NPWNDCLASS;
+  प्रकारनिर्देश LPWNDCLASSW LPWNDCLASS;
+#अन्यथा
+  प्रकारनिर्देश WNDCLASSA WNDCLASS;
+  प्रकारनिर्देश PWNDCLASSA PWNDCLASS;
+  प्रकारनिर्देश NPWNDCLASSA NPWNDCLASS;
+  प्रकारनिर्देश LPWNDCLASSA LPWNDCLASS;
 #endif
 
   WINUSERAPI WINBOOL WINAPI IsHungAppWindow(HWND hwnd);
   WINUSERAPI VOID WINAPI DisableProcessWindowsGhosting(VOID);
 
 #ifndef NOMSG
-  typedef struct tagMSG {
+  प्रकारनिर्देश संरचना tag_संदेश {
     HWND hwnd;
     UINT message;
     WPARAM wParam;
     LPARAM lParam;
-    DWORD time;
+    DWORD समय;
     POINT pt;
-  } MSG,*PMSG,*NPMSG,*LPMSG;
+  } संदेश_2,*PMSG,*NPMSG,*LPMSG;
 
 #define POINTSTOPOINT(pt,pts) { (pt).x = (LONG)(SHORT)LOWORD(*(LONG*)&pts); (pt).y = (LONG)(SHORT)HIWORD(*(LONG*)&pts); }
 
-#define POINTTOPOINTS(pt) (MAKELONG((short)((pt).x),(short)((pt).y)))
+#define POINTTOPOINTS(pt) (MAKELONG((लघु)((pt).x),(लघु)((pt).y)))
 #define MAKEWPARAM(l,h) ((WPARAM)(DWORD)MAKELONG(l,h))
 #define MAKELPARAM(l,h) ((LPARAM)(DWORD)MAKELONG(l,h))
 #define MAKELRESULT(l,h) ((LRESULT)(DWORD)MAKELONG(l,h))
@@ -1001,7 +1001,7 @@ extern "C" {
 
 #define WM_GETMINMAXINFO 0x0024
 
-  typedef struct tagMINMAXINFO {
+  प्रकारनिर्देश संरचना tagMINMAXINFO {
     POINT ptReserved;
     POINT ptMaxSize;
     POINT ptMaxPosition;
@@ -1043,13 +1043,13 @@ extern "C" {
 #define WM_COPYDATA 0x004A
 #define WM_CANCELJOURNAL 0x004B
 
-  typedef struct tagCOPYDATASTRUCT {
+  प्रकारनिर्देश संरचना tagCOPYDATASTRUCT {
     ULONG_PTR dwData;
     DWORD cbData;
     PVOID lpData;
   } COPYDATASTRUCT,*PCOPYDATASTRUCT;
 
-  typedef struct tagMDINEXTMENU {
+  प्रकारनिर्देश संरचना tagMDINEXTMENU {
     HMENU hmenuIn;
     HMENU hmenuNext;
     HWND hwndNext;
@@ -1099,7 +1099,7 @@ extern "C" {
 #define WM_NCXBUTTONDOWN 0x00AB
 #define WM_NCXBUTTONUP 0x00AC
 #define WM_NCXBUTTONDBLCLK 0x00AD
-#define WM_INPUT 0x00FF
+#define WM_निवेश 0x00FF
 #define WM_KEYFIRST 0x0100
 #define WM_KEYDOWN 0x0100
 #define WM_KEYUP 0x0101
@@ -1177,12 +1177,12 @@ extern "C" {
 #define WM_MOUSELAST 0x020E
 
 #define WHEEL_DELTA 120
-#define GET_WHEEL_DELTA_WPARAM(wParam) ((short)HIWORD(wParam))
+#define GET_WHEEL_DELTA_WPARAM(wParam) ((लघु)HIWORD(wParam))
 
-#define WHEEL_PAGESCROLL (UINT_MAX)
+#define WHEEL_PAGESCROLL (अच_पूर्णांक_उच्च)
 
 #define GET_KEYSTATE_WPARAM(wParam) (LOWORD(wParam))
-#define GET_NCHITTEST_WPARAM(wParam) ((short)LOWORD(wParam))
+#define GET_NCHITTEST_WPARAM(wParam) ((लघु)LOWORD(wParam))
 #define GET_XBUTTON_WPARAM(wParam) (HIWORD(wParam))
 
 #define XBUTTON1 0x0001
@@ -1290,9 +1290,9 @@ extern "C" {
 #define WM_APP 0x8000
 #define WM_USER 0x0400
 
-#define WMSZ_LEFT 1
-#define WMSZ_RIGHT 2
-#define WMSZ_TOP 3
+#define WMSZ_बायाँ 1
+#define WMSZ_दायाँ 2
+#define WMSZ_शीर्ष 3
 #define WMSZ_TOPLEFT 4
 #define WMSZ_TOPRIGHT 5
 #define WMSZ_BOTTOM 6
@@ -1348,7 +1348,7 @@ extern "C" {
 
 #ifdef UNICODE
 #define RegisterWindowMessage RegisterWindowMessageW
-#else
+#अन्यथा
 #define RegisterWindowMessage RegisterWindowMessageA
 #endif
 
@@ -1367,17 +1367,17 @@ extern "C" {
 #define SIZEZOOMSHOW SIZE_MAXSHOW
 #define SIZEZOOMHIDE SIZE_MAXHIDE
 
-  typedef struct tagWINDOWPOS {
+  प्रकारनिर्देश संरचना tagWINDOWPOS {
     HWND hwnd;
-    HWND hwndInsertAfter;
-    int x;
-    int y;
-    int cx;
-    int cy;
+    HWND hwnd_जोड़ो_After;
+    पूर्णाङ्क x;
+    पूर्णाङ्क y;
+    पूर्णाङ्क cx;
+    पूर्णाङ्क cy;
     UINT flags;
   } WINDOWPOS,*LPWINDOWPOS,*PWINDOWPOS;
 
-  typedef struct tagNCCALCSIZE_PARAMS {
+  प्रकारनिर्देश संरचना tagNCCALCSIZE_PARAMS {
     RECT rgrc[3];
     PWINDOWPOS lppos;
   } NCCALCSIZE_PARAMS,*LPNCCALCSIZE_PARAMS;
@@ -1412,7 +1412,7 @@ extern "C" {
 #define HOVER_DEFAULT 0xFFFFFFFF
 #endif
 
-  typedef struct tagTRACKMOUSEEVENT {
+  प्रकारनिर्देश संरचना tagTRACKMOUSEEVENT {
     DWORD cbSize;
     DWORD dwFlags;
     HWND hwndTrack;
@@ -1462,8 +1462,8 @@ extern "C" {
 #define WS_EX_WINDOWEDGE 0x00000100L
 #define WS_EX_CLIENTEDGE 0x00000200L
 #define WS_EX_CONTEXTHELP 0x00000400L
-#define WS_EX_RIGHT 0x00001000L
-#define WS_EX_LEFT 0x00000000L
+#define WS_EX_दायाँ 0x00001000L
+#define WS_EX_बायाँ 0x00000000L
 #define WS_EX_RTLREADING 0x00002000L
 #define WS_EX_LTRREADING 0x00000000L
 #define WS_EX_LEFTSCROLLBAR 0x00004000L
@@ -1516,25 +1516,25 @@ extern "C" {
 #define EDGE_ETCHED (BDR_SUNKENOUTER | BDR_RAISEDINNER)
 #define EDGE_BUMP (BDR_RAISEDOUTER | BDR_SUNKENINNER)
 
-#define BF_LEFT 0x0001
-#define BF_TOP 0x0002
-#define BF_RIGHT 0x0004
+#define BF_बायाँ 0x0001
+#define BF_शीर्ष 0x0002
+#define BF_दायाँ 0x0004
 #define BF_BOTTOM 0x0008
 
-#define BF_TOPLEFT (BF_TOP | BF_LEFT)
-#define BF_TOPRIGHT (BF_TOP | BF_RIGHT)
-#define BF_BOTTOMLEFT (BF_BOTTOM | BF_LEFT)
-#define BF_BOTTOMRIGHT (BF_BOTTOM | BF_RIGHT)
-#define BF_RECT (BF_LEFT | BF_TOP | BF_RIGHT | BF_BOTTOM)
+#define BF_TOPLEFT (BF_शीर्ष | BF_बायाँ)
+#define BF_TOPRIGHT (BF_शीर्ष | BF_दायाँ)
+#define BF_BOTTOMLEFT (BF_BOTTOM | BF_बायाँ)
+#define BF_BOTTOMRIGHT (BF_BOTTOM | BF_दायाँ)
+#define BF_RECT (BF_बायाँ | BF_शीर्ष | BF_दायाँ | BF_BOTTOM)
 
 #define BF_DIAGONAL 0x0010
 
-#define BF_DIAGONAL_ENDTOPRIGHT (BF_DIAGONAL | BF_TOP | BF_RIGHT)
-#define BF_DIAGONAL_ENDTOPLEFT (BF_DIAGONAL | BF_TOP | BF_LEFT)
-#define BF_DIAGONAL_ENDBOTTOMLEFT (BF_DIAGONAL | BF_BOTTOM | BF_LEFT)
-#define BF_DIAGONAL_ENDBOTTOMRIGHT (BF_DIAGONAL | BF_BOTTOM | BF_RIGHT)
+#define BF_DIAGONAL_ENDTOPRIGHT (BF_DIAGONAL | BF_शीर्ष | BF_दायाँ)
+#define BF_DIAGONAL_ENDTOPLEFT (BF_DIAGONAL | BF_शीर्ष | BF_बायाँ)
+#define BF_DIAGONAL_ENDBOTTOMLEFT (BF_DIAGONAL | BF_BOTTOM | BF_बायाँ)
+#define BF_DIAGONAL_ENDBOTTOMRIGHT (BF_DIAGONAL | BF_BOTTOM | BF_दायाँ)
 
-#define BF_MIDDLE 0x0800
+#define BF_मध्य 0x0800
 #define BF_SOFT 0x1000
 #define BF_ADJUST 0x2000
 #define BF_FLAT 0x4000
@@ -1599,7 +1599,7 @@ extern "C" {
 #define IDANI_OPEN 1
 #define IDANI_CAPTION 3
 
-  WINUSERAPI WINBOOL WINAPI DrawAnimatedRects(HWND hwnd,int idAni,CONST RECT *lprcFrom,CONST RECT *lprcTo);
+  WINUSERAPI WINBOOL WINAPI DrawAnimatedRects(HWND hwnd,पूर्णाङ्क idAni,CONST RECT *lprcFrom,CONST RECT *lprcTo);
 
 #ifndef NOCLIPBOARD
 
@@ -1641,13 +1641,13 @@ extern "C" {
 #define FCONTROL 0x08
 #define FALT 0x10
 
-  typedef struct tagACCEL {
+  प्रकारनिर्देश संरचना tagACCEL {
     BYTE fVirt;
-    WORD key;
+    WORD कुंजी;
     WORD cmd;
   } ACCEL,*LPACCEL;
 
-  typedef struct tagPAINTSTRUCT {
+  प्रकारनिर्देश संरचना tagPAINTSTRUCT {
     HDC hdc;
     WINBOOL fErase;
     RECT rcPaint;
@@ -1656,30 +1656,30 @@ extern "C" {
     BYTE rgbReserved[32];
   } PAINTSTRUCT,*PPAINTSTRUCT,*NPPAINTSTRUCT,*LPPAINTSTRUCT;
 
-  typedef struct tagCREATESTRUCTA {
+  प्रकारनिर्देश संरचना tagCREATESTRUCTA {
     LPVOID lpCreateParams;
     HINSTANCE hInstance;
     HMENU hMenu;
     HWND hwndParent;
-    int cy;
-    int cx;
-    int y;
-    int x;
+    पूर्णाङ्क cy;
+    पूर्णाङ्क cx;
+    पूर्णाङ्क y;
+    पूर्णाङ्क x;
     LONG style;
     LPCSTR lpszName;
     LPCSTR lpszClass;
     DWORD dwExStyle;
   } CREATESTRUCTA,*LPCREATESTRUCTA;
 
-  typedef struct tagCREATESTRUCTW {
+  प्रकारनिर्देश संरचना tagCREATESTRUCTW {
     LPVOID lpCreateParams;
     HINSTANCE hInstance;
     HMENU hMenu;
     HWND hwndParent;
-    int cy;
-    int cx;
-    int y;
-    int x;
+    पूर्णाङ्क cy;
+    पूर्णाङ्क cx;
+    पूर्णाङ्क y;
+    पूर्णाङ्क x;
     LONG style;
     LPCWSTR lpszName;
     LPCWSTR lpszClass;
@@ -1687,14 +1687,14 @@ extern "C" {
   } CREATESTRUCTW,*LPCREATESTRUCTW;
 
 #ifdef UNICODE
-  typedef CREATESTRUCTW CREATESTRUCT;
-  typedef LPCREATESTRUCTW LPCREATESTRUCT;
-#else
-  typedef CREATESTRUCTA CREATESTRUCT;
-  typedef LPCREATESTRUCTA LPCREATESTRUCT;
+  प्रकारनिर्देश CREATESTRUCTW CREATESTRUCT;
+  प्रकारनिर्देश LPCREATESTRUCTW LPCREATESTRUCT;
+#अन्यथा
+  प्रकारनिर्देश CREATESTRUCTA CREATESTRUCT;
+  प्रकारनिर्देश LPCREATESTRUCTA LPCREATESTRUCT;
 #endif
 
-  typedef struct tagWINDOWPLACEMENT {
+  प्रकारनिर्देश संरचना tagWINDOWPLACEMENT {
     UINT length;
     UINT flags;
     UINT showCmd;
@@ -1702,21 +1702,21 @@ extern "C" {
     POINT ptMaxPosition;
     RECT rcNormalPosition;
   } WINDOWPLACEMENT;
-  typedef WINDOWPLACEMENT *PWINDOWPLACEMENT,*LPWINDOWPLACEMENT;
+  प्रकारनिर्देश WINDOWPLACEMENT *PWINDOWPLACEMENT,*LPWINDOWPLACEMENT;
 
 #define WPF_SETMINPOSITION 0x0001
 #define WPF_RESTORETOMAXIMIZED 0x0002
 #define WPF_ASYNCWINDOWPLACEMENT 0x0004
 
-  typedef struct tagNMHDR {
+  प्रकारनिर्देश संरचना tagNMHDR {
     HWND hwndFrom;
     UINT_PTR idFrom;
     UINT code;
   } NMHDR;
 
-  typedef NMHDR *LPNMHDR;
+  प्रकारनिर्देश NMHDR *LPNMHDR;
 
-  typedef struct tagSTYLESTRUCT {
+  प्रकारनिर्देश संरचना tagSTYLESTRUCT {
     DWORD styleOld;
     DWORD styleNew;
   } STYLESTRUCT,*LPSTYLESTRUCT;
@@ -1743,7 +1743,7 @@ extern "C" {
 #define ODS_NOACCEL 0x0100
 #define ODS_NOFOCUSRECT 0x0200
 
-  typedef struct tagMEASUREITEMSTRUCT {
+  प्रकारनिर्देश संरचना tagMEASUREITEMSTRUCT {
     UINT CtlType;
     UINT CtlID;
     UINT itemID;
@@ -1752,7 +1752,7 @@ extern "C" {
     ULONG_PTR itemData;
   } MEASUREITEMSTRUCT,*PMEASUREITEMSTRUCT,*LPMEASUREITEMSTRUCT;
 
-  typedef struct tagDRAWITEMSTRUCT {
+  प्रकारनिर्देश संरचना tagDRAWITEMSTRUCT {
     UINT CtlType;
     UINT CtlID;
     UINT itemID;
@@ -1764,7 +1764,7 @@ extern "C" {
     ULONG_PTR itemData;
   } DRAWITEMSTRUCT,*PDRAWITEMSTRUCT,*LPDRAWITEMSTRUCT;
 
-  typedef struct tagDELETEITEMSTRUCT {
+  प्रकारनिर्देश संरचना tagDELETEITEMSTRUCT {
     UINT CtlType;
     UINT CtlID;
     UINT itemID;
@@ -1772,7 +1772,7 @@ extern "C" {
     ULONG_PTR itemData;
   } DELETEITEMSTRUCT,*PDELETEITEMSTRUCT,*LPDELETEITEMSTRUCT;
 
-  typedef struct tagCOMPAREITEMSTRUCT {
+  प्रकारनिर्देश संरचना tagCOMPAREITEMSTRUCT {
     UINT CtlType;
     UINT CtlID;
     HWND hwndItem;
@@ -1788,32 +1788,32 @@ extern "C" {
 #define GetMessage GetMessageW
 #define DispatchMessage DispatchMessageW
 #define PeekMessage PeekMessageW
-#else
+#अन्यथा
 #define GetMessage GetMessageA
 #define DispatchMessage DispatchMessageA
 #define PeekMessage PeekMessageA
 #endif
 
-  WINUSERAPI WINBOOL WINAPI GetMessageA(LPMSG lpMsg,HWND hWnd,UINT wMsgFilterMin,UINT wMsgFilterMax);
-  WINUSERAPI WINBOOL WINAPI GetMessageW(LPMSG lpMsg,HWND hWnd,UINT wMsgFilterMin,UINT wMsgFilterMax);
-  WINUSERAPI WINBOOL WINAPI TranslateMessage(CONST MSG *lpMsg);
-  WINUSERAPI LRESULT WINAPI DispatchMessageA(CONST MSG *lpMsg);
-  WINUSERAPI LRESULT WINAPI DispatchMessageW(CONST MSG *lpMsg);
-  WINUSERAPI WINBOOL WINAPI SetMessageQueue(int cMessagesMax);
-  WINUSERAPI WINBOOL WINAPI PeekMessageA(LPMSG lpMsg,HWND hWnd,UINT wMsgFilterMin,UINT wMsgFilterMax,UINT wRemoveMsg);
-  WINUSERAPI WINBOOL WINAPI PeekMessageW(LPMSG lpMsg,HWND hWnd,UINT wMsgFilterMin,UINT wMsgFilterMax,UINT wRemoveMsg);
+  WINUSERAPI WINBOOL WINAPI GetMessageA(LPMSG lp_संदेश,HWND hWnd,UINT w_संदेश_Filter_Min,UINT w_संदेश_Filter_Max);
+  WINUSERAPI WINBOOL WINAPI GetMessageW(LPMSG lp_संदेश,HWND hWnd,UINT w_संदेश_Filter_Min,UINT w_संदेश_Filter_Max);
+  WINUSERAPI WINBOOL WINAPI TranslateMessage(CONST संदेश_2 *lp_संदेश);
+  WINUSERAPI LRESULT WINAPI DispatchMessageA(CONST संदेश_2 *lp_संदेश);
+  WINUSERAPI LRESULT WINAPI DispatchMessageW(CONST संदेश_2 *lp_संदेश);
+  WINUSERAPI WINBOOL WINAPI SetMessageQueue(पूर्णाङ्क cMessagesMax);
+  WINUSERAPI WINBOOL WINAPI PeekMessageA(LPMSG lp_संदेश,HWND hWnd,UINT w_संदेश_Filter_Min,UINT w_संदेश_Filter_Max,UINT w_Remove_संदेश);
+  WINUSERAPI WINBOOL WINAPI PeekMessageW(LPMSG lp_संदेश,HWND hWnd,UINT w_संदेश_Filter_Min,UINT w_संदेश_Filter_Max,UINT w_Remove_संदेश);
 
 #define PM_NOREMOVE 0x0000
 #define PM_REMOVE 0x0001
 #define PM_NOYIELD 0x0002
-#define PM_QS_INPUT (QS_INPUT << 16)
+#define PM_QS_निवेश (QS_निवेश << 16)
 #define PM_QS_POSTMESSAGE ((QS_POSTMESSAGE | QS_HOTKEY | QS_TIMER) << 16)
 #define PM_QS_PAINT (QS_PAINT << 16)
 #define PM_QS_SENDMESSAGE (QS_SENDMESSAGE << 16)
 #endif
 
-  WINUSERAPI WINBOOL WINAPI RegisterHotKey(HWND hWnd,int id,UINT fsModifiers,UINT vk);
-  WINUSERAPI WINBOOL WINAPI UnregisterHotKey(HWND hWnd,int id);
+  WINUSERAPI WINBOOL WINAPI Register_Hot_कुंजी(HWND hWnd,पूर्णाङ्क id,UINT fsModifiers,UINT vk);
+  WINUSERAPI WINBOOL WINAPI Unregister_Hot_कुंजी(HWND hWnd,पूर्णाङ्क id);
 
 #define MOD_ALT 0x0001
 #define MOD_CONTROL 0x0002
@@ -1848,7 +1848,7 @@ extern "C" {
 #define SendMessageTimeout SendMessageTimeoutW
 #define SendNotifyMessage SendNotifyMessageW
 #define SendMessageCallback SendMessageCallbackW
-#else
+#अन्यथा
 #define SendMessage SendMessageA
 #define SendMessageTimeout SendMessageTimeoutA
 #define SendNotifyMessage SendNotifyMessageA
@@ -1862,16 +1862,16 @@ extern "C" {
   WINUSERAPI LPARAM WINAPI GetMessageExtraInfo(VOID);
   WINUSERAPI WINBOOL WINAPI IsWow64Message(VOID);
   WINUSERAPI LPARAM WINAPI SetMessageExtraInfo(LPARAM lParam);
-  WINUSERAPI LRESULT WINAPI SendMessageA(HWND hWnd,UINT Msg,WPARAM wParam,LPARAM lParam);
-  WINUSERAPI LRESULT WINAPI SendMessageW(HWND hWnd,UINT Msg,WPARAM wParam,LPARAM lParam);
-  WINUSERAPI LRESULT WINAPI SendMessageTimeoutA(HWND hWnd,UINT Msg,WPARAM wParam,LPARAM lParam,UINT fuFlags,UINT uTimeout,PDWORD_PTR lpdwResult);
-  WINUSERAPI LRESULT WINAPI SendMessageTimeoutW(HWND hWnd,UINT Msg,WPARAM wParam,LPARAM lParam,UINT fuFlags,UINT uTimeout,PDWORD_PTR lpdwResult);
-  WINUSERAPI WINBOOL WINAPI SendNotifyMessageA(HWND hWnd,UINT Msg,WPARAM wParam,LPARAM lParam);
-  WINUSERAPI WINBOOL WINAPI SendNotifyMessageW(HWND hWnd,UINT Msg,WPARAM wParam,LPARAM lParam);
-  WINUSERAPI WINBOOL WINAPI SendMessageCallbackA(HWND hWnd,UINT Msg,WPARAM wParam,LPARAM lParam,SENDASYNCPROC lpResultCallBack,ULONG_PTR dwData);
-  WINUSERAPI WINBOOL WINAPI SendMessageCallbackW(HWND hWnd,UINT Msg,WPARAM wParam,LPARAM lParam,SENDASYNCPROC lpResultCallBack,ULONG_PTR dwData);
+  WINUSERAPI LRESULT WINAPI SendMessageA(HWND hWnd,UINT संदेश_3,WPARAM wParam,LPARAM lParam);
+  WINUSERAPI LRESULT WINAPI SendMessageW(HWND hWnd,UINT संदेश_3,WPARAM wParam,LPARAM lParam);
+  WINUSERAPI LRESULT WINAPI SendMessageTimeoutA(HWND hWnd,UINT संदेश_3,WPARAM wParam,LPARAM lParam,UINT fuFlags,UINT uTimeout,PDWORD_PTR lpdwResult);
+  WINUSERAPI LRESULT WINAPI SendMessageTimeoutW(HWND hWnd,UINT संदेश_3,WPARAM wParam,LPARAM lParam,UINT fuFlags,UINT uTimeout,PDWORD_PTR lpdwResult);
+  WINUSERAPI WINBOOL WINAPI SendNotifyMessageA(HWND hWnd,UINT संदेश_3,WPARAM wParam,LPARAM lParam);
+  WINUSERAPI WINBOOL WINAPI SendNotifyMessageW(HWND hWnd,UINT संदेश_3,WPARAM wParam,LPARAM lParam);
+  WINUSERAPI WINBOOL WINAPI SendMessageCallbackA(HWND hWnd,UINT संदेश_3,WPARAM wParam,LPARAM lParam,SENDASYNCPROC lpResultCallBack,ULONG_PTR dwData);
+  WINUSERAPI WINBOOL WINAPI SendMessageCallbackW(HWND hWnd,UINT संदेश_3,WPARAM wParam,LPARAM lParam,SENDASYNCPROC lpResultCallBack,ULONG_PTR dwData);
 
-  typedef struct {
+  प्रकारनिर्देश संरचना {
     UINT cbSize;
     HDESK hdesk;
     HWND hwnd;
@@ -1881,15 +1881,15 @@ extern "C" {
 #ifdef UNICODE
 #define BroadcastSystemMessageEx BroadcastSystemMessageExW
 #define BroadcastSystemMessage BroadcastSystemMessageW
-#else
+#अन्यथा
 #define BroadcastSystemMessageEx BroadcastSystemMessageExA
 #define BroadcastSystemMessage BroadcastSystemMessageA
 #endif
 
-  WINUSERAPI long WINAPI BroadcastSystemMessageExA(DWORD flags,LPDWORD lpInfo,UINT Msg,WPARAM wParam,LPARAM lParam,PBSMINFO pbsmInfo);
-  WINUSERAPI long WINAPI BroadcastSystemMessageExW(DWORD flags,LPDWORD lpInfo,UINT Msg,WPARAM wParam,LPARAM lParam,PBSMINFO pbsmInfo);
-  WINUSERAPI long WINAPI BroadcastSystemMessageA(DWORD flags,LPDWORD lpInfo,UINT Msg,WPARAM wParam,LPARAM lParam);
-  WINUSERAPI long WINAPI BroadcastSystemMessageW(DWORD flags,LPDWORD lpInfo,UINT Msg,WPARAM wParam,LPARAM lParam);
+  WINUSERAPI दीर्घ WINAPI BroadcastSystemMessageExA(DWORD flags,LPDWORD lpInfo,UINT संदेश_3,WPARAM wParam,LPARAM lParam,PBSMINFO pbsmInfo);
+  WINUSERAPI दीर्घ WINAPI BroadcastSystemMessageExW(DWORD flags,LPDWORD lpInfo,UINT संदेश_3,WPARAM wParam,LPARAM lParam,PBSMINFO pbsmInfo);
+  WINUSERAPI दीर्घ WINAPI BroadcastSystemMessageA(DWORD flags,LPDWORD lpInfo,UINT संदेश_3,WPARAM wParam,LPARAM lParam);
+  WINUSERAPI दीर्घ WINAPI BroadcastSystemMessageW(DWORD flags,LPDWORD lpInfo,UINT संदेश_3,WPARAM wParam,LPARAM lParam);
 
 #define BSM_ALLCOMPONENTS 0x00000000
 #define BSM_VXDS 0x00000001
@@ -1912,8 +1912,8 @@ extern "C" {
 
 #define BROADCAST_QUERY_DENY 0x424D5144
 
-  typedef PVOID HDEVNOTIFY;
-  typedef HDEVNOTIFY *PHDEVNOTIFY;
+  प्रकारनिर्देश PVOID HDEVNOTIFY;
+  प्रकारनिर्देश HDEVNOTIFY *PHDEVNOTIFY;
 
 #define DEVICE_NOTIFY_WINDOW_HANDLE 0x00000000
 #define DEVICE_NOTIFY_SERVICE_HANDLE 0x00000001
@@ -1931,7 +1931,7 @@ extern "C" {
 #define GetClassInfo GetClassInfoW
 #define RegisterClassEx RegisterClassExW
 #define GetClassInfoEx GetClassInfoExW
-#else
+#अन्यथा
 #define RegisterDeviceNotification RegisterDeviceNotificationA
 #define PostMessage PostMessageA
 #define PostThreadMessage PostThreadMessageA
@@ -1948,25 +1948,25 @@ extern "C" {
   WINUSERAPI HDEVNOTIFY WINAPI RegisterDeviceNotificationA(HANDLE hRecipient,LPVOID NotificationFilter,DWORD Flags);
   WINUSERAPI HDEVNOTIFY WINAPI RegisterDeviceNotificationW(HANDLE hRecipient,LPVOID NotificationFilter,DWORD Flags);
   WINUSERAPI WINBOOL WINAPI UnregisterDeviceNotification(HDEVNOTIFY Handle);
-  WINUSERAPI WINBOOL WINAPI PostMessageA(HWND hWnd,UINT Msg,WPARAM wParam,LPARAM lParam);
-  WINUSERAPI WINBOOL WINAPI PostMessageW(HWND hWnd,UINT Msg,WPARAM wParam,LPARAM lParam);
-  WINUSERAPI WINBOOL WINAPI PostThreadMessageA(DWORD idThread,UINT Msg,WPARAM wParam,LPARAM lParam);
-  WINUSERAPI WINBOOL WINAPI PostThreadMessageW(DWORD idThread,UINT Msg,WPARAM wParam,LPARAM lParam);
-#define PostAppMessageA(idThread,wMsg,wParam,lParam) PostThreadMessageA((DWORD)idThread,wMsg,wParam,lParam)
-#define PostAppMessageW(idThread,wMsg,wParam,lParam) PostThreadMessageW((DWORD)idThread,wMsg,wParam,lParam)
+  WINUSERAPI WINBOOL WINAPI PostMessageA(HWND hWnd,UINT संदेश_3,WPARAM wParam,LPARAM lParam);
+  WINUSERAPI WINBOOL WINAPI PostMessageW(HWND hWnd,UINT संदेश_3,WPARAM wParam,LPARAM lParam);
+  WINUSERAPI WINBOOL WINAPI PostThreadMessageA(DWORD idThread,UINT संदेश_3,WPARAM wParam,LPARAM lParam);
+  WINUSERAPI WINBOOL WINAPI PostThreadMessageW(DWORD idThread,UINT संदेश_3,WPARAM wParam,LPARAM lParam);
+#define PostAppMessageA(idThread,w_संदेश,wParam,lParam) PostThreadMessageA((DWORD)idThread,w_संदेश,wParam,lParam)
+#define PostAppMessageW(idThread,w_संदेश,wParam,lParam) PostThreadMessageW((DWORD)idThread,w_संदेश,wParam,lParam)
 
 #define HWND_BROADCAST ((HWND)0xffff)
 #define HWND_MESSAGE ((HWND)-3)
 
-  WINUSERAPI WINBOOL WINAPI AttachThreadInput(DWORD idAttach,DWORD idAttachTo,WINBOOL fAttach);
+  WINUSERAPI WINBOOL WINAPI Attach_Thread_निवेश(DWORD idAttach,DWORD idAttachTo,WINBOOL fAttach);
   WINUSERAPI WINBOOL WINAPI ReplyMessage(LRESULT lResult);
   WINUSERAPI WINBOOL WINAPI WaitMessage(VOID);
-  WINUSERAPI DWORD WINAPI WaitForInputIdle(HANDLE hProcess,DWORD dwMilliseconds);
-  WINUSERAPI LRESULT WINAPI DefWindowProcA(HWND hWnd,UINT Msg,WPARAM wParam,LPARAM lParam);
-  WINUSERAPI LRESULT WINAPI DefWindowProcW(HWND hWnd,UINT Msg,WPARAM wParam,LPARAM lParam);
-  WINUSERAPI VOID WINAPI PostQuitMessage(int nExitCode);
-  WINUSERAPI LRESULT WINAPI CallWindowProcA(WNDPROC lpPrevWndFunc,HWND hWnd,UINT Msg,WPARAM wParam,LPARAM lParam);
-  WINUSERAPI LRESULT WINAPI CallWindowProcW(WNDPROC lpPrevWndFunc,HWND hWnd,UINT Msg,WPARAM wParam,LPARAM lParam);
+  WINUSERAPI DWORD WINAPI Wait_For_निवेश_Idle(HANDLE hProcess,DWORD dwMilliseconds);
+  WINUSERAPI LRESULT WINAPI DefWindowProcA(HWND hWnd,UINT संदेश_3,WPARAM wParam,LPARAM lParam);
+  WINUSERAPI LRESULT WINAPI DefWindowProcW(HWND hWnd,UINT संदेश_3,WPARAM wParam,LPARAM lParam);
+  WINUSERAPI VOID WINAPI PostQuitMessage(पूर्णाङ्क nExitCode);
+  WINUSERAPI LRESULT WINAPI CallWindowProcA(WNDPROC lpPrevWndFunc,HWND hWnd,UINT संदेश_3,WPARAM wParam,LPARAM lParam);
+  WINUSERAPI LRESULT WINAPI CallWindowProcW(WNDPROC lpPrevWndFunc,HWND hWnd,UINT संदेश_3,WPARAM wParam,LPARAM lParam);
   WINUSERAPI WINBOOL WINAPI InSendMessage(VOID);
   WINUSERAPI DWORD WINAPI InSendMessageEx(LPVOID lpReserved);
 
@@ -1989,54 +1989,54 @@ extern "C" {
   WINUSERAPI WINBOOL WINAPI GetClassInfoExA(HINSTANCE hInstance,LPCSTR lpszClass,LPWNDCLASSEXA lpwcx);
   WINUSERAPI WINBOOL WINAPI GetClassInfoExW(HINSTANCE hInstance,LPCWSTR lpszClass,LPWNDCLASSEXW lpwcx);
 
-#define CW_USEDEFAULT ((int)0x80000000)
+#define CW_USEDEFAULT ((पूर्णाङ्क)0x80000000)
 
 #define HWND_DESKTOP ((HWND)0)
 
-  typedef BOOLEAN (WINAPI *PREGISTERCLASSNAMEW)(LPCWSTR);
+  प्रकारनिर्देश BOOLEAN (WINAPI *PREGISTERCLASSNAMEW)(LPCWSTR);
 
 #ifdef UNICODE
 #define CreateWindowEx CreateWindowExW
 #define CreateWindow CreateWindowW
-#else
+#अन्यथा
 #define CreateWindowEx CreateWindowExA
 #define CreateWindow CreateWindowA
 #endif
 
-  WINUSERAPI HWND WINAPI CreateWindowExA(DWORD dwExStyle,LPCSTR lpClassName,LPCSTR lpWindowName,DWORD dwStyle,int X,int Y,int nWidth,int nHeight,HWND hWndParent,HMENU hMenu,HINSTANCE hInstance,LPVOID lpParam);
-  WINUSERAPI HWND WINAPI CreateWindowExW(DWORD dwExStyle,LPCWSTR lpClassName,LPCWSTR lpWindowName,DWORD dwStyle,int X,int Y,int nWidth,int nHeight,HWND hWndParent,HMENU hMenu,HINSTANCE hInstance,LPVOID lpParam);
+  WINUSERAPI HWND WINAPI CreateWindowExA(DWORD dwExStyle,LPCSTR lpClassName,LPCSTR lpWindowName,DWORD dwStyle,पूर्णाङ्क X,पूर्णाङ्क Y,पूर्णाङ्क nWidth,पूर्णाङ्क nHeight,HWND hWndParent,HMENU hMenu,HINSTANCE hInstance,LPVOID lpParam);
+  WINUSERAPI HWND WINAPI CreateWindowExW(DWORD dwExStyle,LPCWSTR lpClassName,LPCWSTR lpWindowName,DWORD dwStyle,पूर्णाङ्क X,पूर्णाङ्क Y,पूर्णाङ्क nWidth,पूर्णाङ्क nHeight,HWND hWndParent,HMENU hMenu,HINSTANCE hInstance,LPVOID lpParam);
 #define CreateWindowA(lpClassName,lpWindowName,dwStyle,x,y,nWidth,nHeight,hWndParent,hMenu,hInstance,lpParam) CreateWindowExA(0L,lpClassName,lpWindowName,dwStyle,x,y,nWidth,nHeight,hWndParent,hMenu,hInstance,lpParam)
 #define CreateWindowW(lpClassName,lpWindowName,dwStyle,x,y,nWidth,nHeight,hWndParent,hMenu,hInstance,lpParam) CreateWindowExW(0L,lpClassName,lpWindowName,dwStyle,x,y,nWidth,nHeight,hWndParent,hMenu,hInstance,lpParam)
   WINUSERAPI WINBOOL WINAPI IsWindow(HWND hWnd);
   WINUSERAPI WINBOOL WINAPI IsMenu(HMENU hMenu);
   WINUSERAPI WINBOOL WINAPI IsChild(HWND hWndParent,HWND hWnd);
   WINUSERAPI WINBOOL WINAPI DestroyWindow(HWND hWnd);
-  WINUSERAPI WINBOOL WINAPI ShowWindow(HWND hWnd,int nCmdShow);
+  WINUSERAPI WINBOOL WINAPI ShowWindow(HWND hWnd,पूर्णाङ्क nCmdShow);
   WINUSERAPI WINBOOL WINAPI AnimateWindow(HWND hWnd,DWORD dwTime,DWORD dwFlags);
 
-#if defined(_WINGDI_) && !defined(NOGDI)
-  WINUSERAPI WINBOOL WINAPI UpdateLayeredWindow(HWND hWnd,HDC hdcDst,POINT *pptDst,SIZE *psize,HDC hdcSrc,POINT *pptSrc,COLORREF crKey,BLENDFUNCTION *pblend,DWORD dwFlags);
+#यदि defined(_WINGDI_) && !defined(NOGDI)
+  WINUSERAPI WINBOOL WINAPI UpdateLayeredWindow(HWND hWnd,HDC hdcDst,POINT *pptDst,SIZE *psize,HDC hdcSrc,POINT *pptSrc,COLORREF cr_कुंजी,BLENDFUNCTION *pblend,DWORD dwFlags);
 
-  typedef struct tagUPDATELAYEREDWINDOWINFO {
+  प्रकारनिर्देश संरचना tagUPDATELAYEREDWINDOWINFO {
     DWORD cbSize;
     HDC hdcDst;
     POINT CONST *pptDst;
     SIZE CONST *psize;
     HDC hdcSrc;
     POINT CONST *pptSrc;
-    COLORREF crKey;
+    COLORREF cr_कुंजी;
     BLENDFUNCTION CONST *pblend;
     DWORD dwFlags;
     RECT CONST *prcDirty;
   } UPDATELAYEREDWINDOWINFO,*PUPDATELAYEREDWINDOWINFO;
 
   WINUSERAPI WINBOOL WINAPI UpdateLayeredWindowIndirect(HWND hWnd,UPDATELAYEREDWINDOWINFO CONST *pULWInfo);
-  WINUSERAPI WINBOOL WINAPI GetLayeredWindowAttributes(HWND hwnd,COLORREF *pcrKey,BYTE *pbAlpha,DWORD *pdwFlags);
+  WINUSERAPI WINBOOL WINAPI GetLayeredWindowAttributes(HWND hwnd,COLORREF *pcr_कुंजी,BYTE *pbAlpha,DWORD *pdwFlags);
 
 #define PW_CLIENTONLY 0x00000001
 
   WINUSERAPI WINBOOL WINAPI PrintWindow(HWND hwnd,HDC hdcBlt,UINT nFlags);
-  WINUSERAPI WINBOOL WINAPI SetLayeredWindowAttributes(HWND hwnd,COLORREF crKey,BYTE bAlpha,DWORD dwFlags);
+  WINUSERAPI WINBOOL WINAPI SetLayeredWindowAttributes(HWND hwnd,COLORREF cr_कुंजी,BYTE bAlpha,DWORD dwFlags);
 
 #define LWA_COLORKEY 0x00000001
 #define LWA_ALPHA 0x00000002
@@ -2047,14 +2047,14 @@ extern "C" {
 
 #define ULW_EX_NORESIZE 0x00000008
 
-  WINUSERAPI WINBOOL WINAPI ShowWindowAsync(HWND hWnd,int nCmdShow);
+  WINUSERAPI WINBOOL WINAPI ShowWindowAsync(HWND hWnd,पूर्णाङ्क nCmdShow);
   WINUSERAPI WINBOOL WINAPI FlashWindow(HWND hWnd,WINBOOL bInvert);
 
-  typedef struct {
+  प्रकारनिर्देश संरचना {
     UINT cbSize;
     HWND hwnd;
     DWORD dwFlags;
-    UINT uCount;
+    UINT u_गिनती;
     DWORD dwTimeout;
   } FLASHWINFO,*PFLASHWINFO;
 
@@ -2070,21 +2070,21 @@ extern "C" {
   WINUSERAPI WINBOOL WINAPI ShowOwnedPopups(HWND hWnd,WINBOOL fShow);
   WINUSERAPI WINBOOL WINAPI OpenIcon(HWND hWnd);
   WINUSERAPI WINBOOL WINAPI CloseWindow(HWND hWnd);
-  WINUSERAPI WINBOOL WINAPI MoveWindow(HWND hWnd,int X,int Y,int nWidth,int nHeight,WINBOOL bRepaint);
-  WINUSERAPI WINBOOL WINAPI SetWindowPos(HWND hWnd,HWND hWndInsertAfter,int X,int Y,int cx,int cy,UINT uFlags);
+  WINUSERAPI WINBOOL WINAPI MoveWindow(HWND hWnd,पूर्णाङ्क X,पूर्णाङ्क Y,पूर्णाङ्क nWidth,पूर्णाङ्क nHeight,WINBOOL bRepaint);
+  WINUSERAPI WINBOOL WINAPI SetWindowPos(HWND hWnd,HWND h_Wnd_जोड़ो_After,पूर्णाङ्क X,पूर्णाङ्क Y,पूर्णाङ्क cx,पूर्णाङ्क cy,UINT uFlags);
   WINUSERAPI WINBOOL WINAPI GetWindowPlacement(HWND hWnd,WINDOWPLACEMENT *lpwndpl);
   WINUSERAPI WINBOOL WINAPI SetWindowPlacement(HWND hWnd,CONST WINDOWPLACEMENT *lpwndpl);
 
 #ifndef NODEFERWINDOWPOS
-  WINUSERAPI HDWP WINAPI BeginDeferWindowPos(int nNumWindows);
-  WINUSERAPI HDWP WINAPI DeferWindowPos(HDWP hWinPosInfo,HWND hWnd,HWND hWndInsertAfter,int x,int y,int cx,int cy,UINT uFlags);
+  WINUSERAPI HDWP WINAPI BeginDeferWindowPos(पूर्णाङ्क n_अंक_Windows);
+  WINUSERAPI HDWP WINAPI DeferWindowPos(HDWP hWinPosInfo,HWND hWnd,HWND h_Wnd_जोड़ो_After,पूर्णाङ्क x,पूर्णाङ्क y,पूर्णाङ्क cx,पूर्णाङ्क cy,UINT uFlags);
   WINUSERAPI WINBOOL WINAPI EndDeferWindowPos(HDWP hWinPosInfo);
 #endif
 
   WINUSERAPI WINBOOL WINAPI IsWindowVisible(HWND hWnd);
   WINUSERAPI WINBOOL WINAPI IsIconic(HWND hWnd);
   WINUSERAPI WINBOOL WINAPI AnyPopup(VOID);
-  WINUSERAPI WINBOOL WINAPI BringWindowToTop(HWND hWnd);
+  WINUSERAPI WINBOOL WINAPI Bring_Window_To_शीर्ष(HWND hWnd);
   WINUSERAPI WINBOOL WINAPI IsZoomed(HWND hWnd);
 
 #define SWP_NOSIZE 0x0001
@@ -2104,72 +2104,72 @@ extern "C" {
 #define SWP_DEFERERASE 0x2000
 #define SWP_ASYNCWINDOWPOS 0x4000
 
-#define HWND_TOP ((HWND)0)
+#define HWND_शीर्ष ((HWND)0)
 #define HWND_BOTTOM ((HWND)1)
 #define HWND_TOPMOST ((HWND)-1)
 #define HWND_NOTOPMOST ((HWND)-2)
 
 #ifndef NOCTLMGR
 
-#include <pshpack2.h>
+#अन्तर्भाव <pshpack2.h>
 
-  typedef struct {
+  प्रकारनिर्देश संरचना {
     DWORD style;
     DWORD dwExtendedStyle;
     WORD cdit;
-    short x;
-    short y;
-    short cx;
-    short cy;
+    लघु x;
+    लघु y;
+    लघु cx;
+    लघु cy;
   } DLGTEMPLATE;
 
-  typedef DLGTEMPLATE *LPDLGTEMPLATEA;
-  typedef DLGTEMPLATE *LPDLGTEMPLATEW;
+  प्रकारनिर्देश DLGTEMPLATE *LPDLGTEMPLATEA;
+  प्रकारनिर्देश DLGTEMPLATE *LPDLGTEMPLATEW;
 
 #ifdef UNICODE
-  typedef LPDLGTEMPLATEW LPDLGTEMPLATE;
-#else
-  typedef LPDLGTEMPLATEA LPDLGTEMPLATE;
+  प्रकारनिर्देश LPDLGTEMPLATEW LPDLGTEMPLATE;
+#अन्यथा
+  प्रकारनिर्देश LPDLGTEMPLATEA LPDLGTEMPLATE;
 #endif
 
-  typedef CONST DLGTEMPLATE *LPCDLGTEMPLATEA;
-  typedef CONST DLGTEMPLATE *LPCDLGTEMPLATEW;
+  प्रकारनिर्देश CONST DLGTEMPLATE *LPCDLGTEMPLATEA;
+  प्रकारनिर्देश CONST DLGTEMPLATE *LPCDLGTEMPLATEW;
 
 #ifdef UNICODE
-  typedef LPCDLGTEMPLATEW LPCDLGTEMPLATE;
-#else
-  typedef LPCDLGTEMPLATEA LPCDLGTEMPLATE;
+  प्रकारनिर्देश LPCDLGTEMPLATEW LPCDLGTEMPLATE;
+#अन्यथा
+  प्रकारनिर्देश LPCDLGTEMPLATEA LPCDLGTEMPLATE;
 #endif
 
-  typedef struct {
+  प्रकारनिर्देश संरचना {
     DWORD style;
     DWORD dwExtendedStyle;
-    short x;
-    short y;
-    short cx;
-    short cy;
+    लघु x;
+    लघु y;
+    लघु cx;
+    लघु cy;
     WORD id;
   } DLGITEMTEMPLATE;
 
-  typedef DLGITEMTEMPLATE *PDLGITEMTEMPLATEA;
-  typedef DLGITEMTEMPLATE *PDLGITEMTEMPLATEW;
+  प्रकारनिर्देश DLGITEMTEMPLATE *PDLGITEMTEMPLATEA;
+  प्रकारनिर्देश DLGITEMTEMPLATE *PDLGITEMTEMPLATEW;
 
 #ifdef UNICODE
-  typedef PDLGITEMTEMPLATEW PDLGITEMTEMPLATE;
-#else
-  typedef PDLGITEMTEMPLATEA PDLGITEMTEMPLATE;
+  प्रकारनिर्देश PDLGITEMTEMPLATEW PDLGITEMTEMPLATE;
+#अन्यथा
+  प्रकारनिर्देश PDLGITEMTEMPLATEA PDLGITEMTEMPLATE;
 #endif
 
-  typedef DLGITEMTEMPLATE *LPDLGITEMTEMPLATEA;
-  typedef DLGITEMTEMPLATE *LPDLGITEMTEMPLATEW;
+  प्रकारनिर्देश DLGITEMTEMPLATE *LPDLGITEMTEMPLATEA;
+  प्रकारनिर्देश DLGITEMTEMPLATE *LPDLGITEMTEMPLATEW;
 
 #ifdef UNICODE
-  typedef LPDLGITEMTEMPLATEW LPDLGITEMTEMPLATE;
-#else
-  typedef LPDLGITEMTEMPLATEA LPDLGITEMTEMPLATE;
+  प्रकारनिर्देश LPDLGITEMTEMPLATEW LPDLGITEMTEMPLATE;
+#अन्यथा
+  प्रकारनिर्देश LPDLGITEMTEMPLATEA LPDLGITEMTEMPLATE;
 #endif
 
-#include <poppack.h>
+#अन्तर्भाव <poppack.h>
 
 #ifdef UNICODE
 #define CreateDialogParam CreateDialogParamW
@@ -2184,7 +2184,7 @@ extern "C" {
 #define GetDlgItemText GetDlgItemTextW
 #define SendDlgItemMessage SendDlgItemMessageW
 #define DefDlgProc DefDlgProcW
-#else
+#अन्यथा
 #define CreateDialogParam CreateDialogParamA
 #define CreateDialogIndirectParam CreateDialogIndirectParamA
 #define CreateDialog CreateDialogA
@@ -2216,24 +2216,24 @@ extern "C" {
 #define DialogBoxIndirectA(hInstance,lpTemplate,hWndParent,lpDialogFunc) DialogBoxIndirectParamA(hInstance,lpTemplate,hWndParent,lpDialogFunc,0L)
 #define DialogBoxIndirectW(hInstance,lpTemplate,hWndParent,lpDialogFunc) DialogBoxIndirectParamW(hInstance,lpTemplate,hWndParent,lpDialogFunc,0L)
   WINUSERAPI WINBOOL WINAPI EndDialog(HWND hDlg,INT_PTR nResult);
-  WINUSERAPI HWND WINAPI GetDlgItem(HWND hDlg,int nIDDlgItem);
-  WINUSERAPI WINBOOL WINAPI SetDlgItemInt(HWND hDlg,int nIDDlgItem,UINT uValue,WINBOOL bSigned);
-  WINUSERAPI UINT WINAPI GetDlgItemInt(HWND hDlg,int nIDDlgItem,WINBOOL *lpTranslated,WINBOOL bSigned);
-  WINUSERAPI WINBOOL WINAPI SetDlgItemTextA(HWND hDlg,int nIDDlgItem,LPCSTR lpString);
-  WINUSERAPI WINBOOL WINAPI SetDlgItemTextW(HWND hDlg,int nIDDlgItem,LPCWSTR lpString);
-  WINUSERAPI UINT WINAPI GetDlgItemTextA(HWND hDlg,int nIDDlgItem,LPSTR lpString,int cchMax);
-  WINUSERAPI UINT WINAPI GetDlgItemTextW(HWND hDlg,int nIDDlgItem,LPWSTR lpString,int cchMax);
-  WINUSERAPI WINBOOL WINAPI CheckDlgButton(HWND hDlg,int nIDButton,UINT uCheck);
-  WINUSERAPI WINBOOL WINAPI CheckRadioButton(HWND hDlg,int nIDFirstButton,int nIDLastButton,int nIDCheckButton);
-  WINUSERAPI UINT WINAPI IsDlgButtonChecked(HWND hDlg,int nIDButton);
-  WINUSERAPI LRESULT WINAPI SendDlgItemMessageA(HWND hDlg,int nIDDlgItem,UINT Msg,WPARAM wParam,LPARAM lParam);
-  WINUSERAPI LRESULT WINAPI SendDlgItemMessageW(HWND hDlg,int nIDDlgItem,UINT Msg,WPARAM wParam,LPARAM lParam);
+  WINUSERAPI HWND WINAPI GetDlgItem(HWND hDlg,पूर्णाङ्क nIDDlgItem);
+  WINUSERAPI WINBOOL WINAPI SetDlgItemInt(HWND hDlg,पूर्णाङ्क nIDDlgItem,UINT u_मूल्य,WINBOOL bSigned);
+  WINUSERAPI UINT WINAPI GetDlgItemInt(HWND hDlg,पूर्णाङ्क nIDDlgItem,WINBOOL *lpTranslated,WINBOOL bSigned);
+  WINUSERAPI WINBOOL WINAPI SetDlgItemTextA(HWND hDlg,पूर्णाङ्क nIDDlgItem,LPCSTR lpString);
+  WINUSERAPI WINBOOL WINAPI SetDlgItemTextW(HWND hDlg,पूर्णाङ्क nIDDlgItem,LPCWSTR lpString);
+  WINUSERAPI UINT WINAPI GetDlgItemTextA(HWND hDlg,पूर्णाङ्क nIDDlgItem,LPSTR lpString,पूर्णाङ्क cchMax);
+  WINUSERAPI UINT WINAPI GetDlgItemTextW(HWND hDlg,पूर्णाङ्क nIDDlgItem,LPWSTR lpString,पूर्णाङ्क cchMax);
+  WINUSERAPI WINBOOL WINAPI CheckDlgButton(HWND hDlg,पूर्णाङ्क nIDButton,UINT uCheck);
+  WINUSERAPI WINBOOL WINAPI CheckRadioButton(HWND hDlg,पूर्णाङ्क nIDFirstButton,पूर्णाङ्क nIDLastButton,पूर्णाङ्क nIDCheckButton);
+  WINUSERAPI UINT WINAPI IsDlgButtonChecked(HWND hDlg,पूर्णाङ्क nIDButton);
+  WINUSERAPI LRESULT WINAPI SendDlgItemMessageA(HWND hDlg,पूर्णाङ्क nIDDlgItem,UINT संदेश_3,WPARAM wParam,LPARAM lParam);
+  WINUSERAPI LRESULT WINAPI SendDlgItemMessageW(HWND hDlg,पूर्णाङ्क nIDDlgItem,UINT संदेश_3,WPARAM wParam,LPARAM lParam);
   WINUSERAPI HWND WINAPI GetNextDlgGroupItem(HWND hDlg,HWND hCtl,WINBOOL bPrevious);
   WINUSERAPI HWND WINAPI GetNextDlgTabItem(HWND hDlg,HWND hCtl,WINBOOL bPrevious);
-  WINUSERAPI int WINAPI GetDlgCtrlID(HWND hWnd);
-  WINUSERAPI long WINAPI GetDialogBaseUnits(VOID);
-  WINUSERAPI LRESULT WINAPI DefDlgProcA(HWND hDlg,UINT Msg,WPARAM wParam,LPARAM lParam);
-  WINUSERAPI LRESULT WINAPI DefDlgProcW(HWND hDlg,UINT Msg,WPARAM wParam,LPARAM lParam);
+  WINUSERAPI पूर्णाङ्क WINAPI GetDlgCtrlID(HWND hWnd);
+  WINUSERAPI दीर्घ WINAPI GetDialogBaseUnits(VOID);
+  WINUSERAPI LRESULT WINAPI DefDlgProcA(HWND hDlg,UINT संदेश_3,WPARAM wParam,LPARAM lParam);
+  WINUSERAPI LRESULT WINAPI DefDlgProcW(HWND hDlg,UINT संदेश_3,WPARAM wParam,LPARAM lParam);
 
 #define DLGWINDOWEXTRA 30
 #endif
@@ -2241,13 +2241,13 @@ extern "C" {
 #ifndef NOMSG
 
 #ifdef UNICODE
-#define CallMsgFilter CallMsgFilterW
-#else
-#define CallMsgFilter CallMsgFilterA
+#define Call_संदेश_Filter Call_संदेश_Filter_W
+#अन्यथा
+#define Call_संदेश_Filter Call_संदेश_Filter_A
 #endif
 
-  WINUSERAPI WINBOOL WINAPI CallMsgFilterA(LPMSG lpMsg,int nCode);
-  WINUSERAPI WINBOOL WINAPI CallMsgFilterW(LPMSG lpMsg,int nCode);
+  WINUSERAPI WINBOOL WINAPI Call_संदेश_Filter_A(LPMSG lp_संदेश,पूर्णाङ्क nCode);
+  WINUSERAPI WINBOOL WINAPI Call_संदेश_Filter_W(LPMSG lp_संदेश,पूर्णाङ्क nCode);
 #endif
 
 #ifndef NOCLIPBOARD
@@ -2255,14 +2255,14 @@ extern "C" {
 #ifdef UNICODE
 #define RegisterClipboardFormat RegisterClipboardFormatW
 #define GetClipboardFormatName GetClipboardFormatNameW
-#else
+#अन्यथा
 #define RegisterClipboardFormat RegisterClipboardFormatA
 #define GetClipboardFormatName GetClipboardFormatNameA
 #endif
 
   WINUSERAPI WINBOOL WINAPI OpenClipboard(HWND hWndNewOwner);
   WINUSERAPI WINBOOL WINAPI CloseClipboard(VOID);
-  WINUSERAPI DWORD WINAPI GetClipboardSequenceNumber(VOID);
+  WINUSERAPI DWORD WINAPI Get_Clipboard_Sequence_संख्या(VOID);
   WINUSERAPI HWND WINAPI GetClipboardOwner(VOID);
   WINUSERAPI HWND WINAPI SetClipboardViewer(HWND hWndNewViewer);
   WINUSERAPI HWND WINAPI GetClipboardViewer(VOID);
@@ -2271,13 +2271,13 @@ extern "C" {
   WINUSERAPI HANDLE WINAPI GetClipboardData(UINT uFormat);
   WINUSERAPI UINT WINAPI RegisterClipboardFormatA(LPCSTR lpszFormat);
   WINUSERAPI UINT WINAPI RegisterClipboardFormatW(LPCWSTR lpszFormat);
-  WINUSERAPI int WINAPI CountClipboardFormats(VOID);
+  WINUSERAPI पूर्णाङ्क WINAPI गिनती_Clipboard_Formats(VOID);
   WINUSERAPI UINT WINAPI EnumClipboardFormats(UINT format);
-  WINUSERAPI int WINAPI GetClipboardFormatNameA(UINT format,LPSTR lpszFormatName,int cchMaxCount);
-  WINUSERAPI int WINAPI GetClipboardFormatNameW(UINT format,LPWSTR lpszFormatName,int cchMaxCount);
+  WINUSERAPI पूर्णाङ्क WINAPI GetClipboardFormatNameA(UINT format,LPSTR lpszFormatName,पूर्णाङ्क cch_Max_गिनती);
+  WINUSERAPI पूर्णाङ्क WINAPI GetClipboardFormatNameW(UINT format,LPWSTR lpszFormatName,पूर्णाङ्क cch_Max_गिनती);
   WINUSERAPI WINBOOL WINAPI EmptyClipboard(VOID);
   WINUSERAPI WINBOOL WINAPI IsClipboardFormatAvailable(UINT format);
-  WINUSERAPI int WINAPI GetPriorityClipboardFormat(UINT *paFormatPriorityList,int cFormats);
+  WINUSERAPI पूर्णाङ्क WINAPI GetPriorityClipboardFormat(UINT *paFormatPriorityList,पूर्णाङ्क cFormats);
   WINUSERAPI HWND WINAPI GetOpenClipboardWindow(VOID);
 #endif
 
@@ -2292,7 +2292,7 @@ extern "C" {
 #define CharLowerBuff CharLowerBuffW
 #define CharNext CharNextW
 #define CharPrev CharPrevW
-#else
+#अन्यथा
 #define CharToOem CharToOemA
 #define OemToChar OemToCharA
 #define CharToOemBuff CharToOemBuffA
@@ -2346,7 +2346,7 @@ extern "C" {
 #define IsCharAlphaNumeric IsCharAlphaNumericW
 #define IsCharUpper IsCharUpperW
 #define IsCharLower IsCharLowerW
-#else
+#अन्यथा
 #define IsCharAlpha IsCharAlphaA
 #define IsCharAlphaNumeric IsCharAlphaNumericA
 #define IsCharUpper IsCharUpperA
@@ -2364,34 +2364,34 @@ extern "C" {
 #endif
 
 #ifdef UNICODE
-#define GetKeyNameText GetKeyNameTextW
-#define VkKeyScan VkKeyScanW
-#define VkKeyScanEx VkKeyScanExW
-#else
-#define GetKeyNameText GetKeyNameTextA
-#define VkKeyScan VkKeyScanA
-#define VkKeyScanEx VkKeyScanExA
+#define Get_कुंजी_Name_Text Get_कुंजी_Name_Text_W
+#define Vk_कुंजी_Scan Vk_कुंजी_Scan_W
+#define Vk_कुंजी_Scan_Ex Vk_कुंजी_Scan_Ex_W
+#अन्यथा
+#define Get_कुंजी_Name_Text Get_कुंजी_Name_Text_A
+#define Vk_कुंजी_Scan Vk_कुंजी_Scan_A
+#define Vk_कुंजी_Scan_Ex Vk_कुंजी_Scan_Ex_A
 #endif
 
   WINUSERAPI HWND WINAPI SetFocus(HWND hWnd);
   WINUSERAPI HWND WINAPI GetActiveWindow(VOID);
   WINUSERAPI HWND WINAPI GetFocus(VOID);
   WINUSERAPI UINT WINAPI GetKBCodePage(VOID);
-  WINUSERAPI SHORT WINAPI GetKeyState(int nVirtKey);
-  WINUSERAPI SHORT WINAPI GetAsyncKeyState(int vKey);
-  WINUSERAPI WINBOOL WINAPI GetKeyboardState(PBYTE lpKeyState);
-  WINUSERAPI WINBOOL WINAPI SetKeyboardState(LPBYTE lpKeyState);
-  WINUSERAPI int WINAPI GetKeyNameTextA(LONG lParam,LPSTR lpString,int cchSize);
-  WINUSERAPI int WINAPI GetKeyNameTextW(LONG lParam,LPWSTR lpString,int cchSize);
-  WINUSERAPI int WINAPI GetKeyboardType(int nTypeFlag);
-  WINUSERAPI int WINAPI ToAscii(UINT uVirtKey,UINT uScanCode,CONST BYTE *lpKeyState,LPWORD lpChar,UINT uFlags);
-  WINUSERAPI int WINAPI ToAsciiEx(UINT uVirtKey,UINT uScanCode,CONST BYTE *lpKeyState,LPWORD lpChar,UINT uFlags,HKL dwhkl);
-  WINUSERAPI int WINAPI ToUnicode(UINT wVirtKey,UINT wScanCode,CONST BYTE *lpKeyState,LPWSTR pwszBuff,int cchBuff,UINT wFlags);
-  WINUSERAPI DWORD WINAPI OemKeyScan(WORD wOemChar);
-  WINUSERAPI SHORT WINAPI VkKeyScanA(CHAR ch);
-  WINUSERAPI SHORT WINAPI VkKeyScanW(WCHAR ch);
-  WINUSERAPI SHORT WINAPI VkKeyScanExA(CHAR ch,HKL dwhkl);
-  WINUSERAPI SHORT WINAPI VkKeyScanExW(WCHAR ch,HKL dwhkl);
+  WINUSERAPI SHORT WINAPI Get_कुंजी_State(पूर्णाङ्क n_Virt_कुंजी);
+  WINUSERAPI SHORT WINAPI Get_Async_कुंजी_State(पूर्णाङ्क v_कुंजी);
+  WINUSERAPI WINBOOL WINAPI GetKeyboardState(PBYTE lp_कुंजी_State);
+  WINUSERAPI WINBOOL WINAPI SetKeyboardState(LPBYTE lp_कुंजी_State);
+  WINUSERAPI पूर्णाङ्क WINAPI Get_कुंजी_Name_Text_A(LONG lParam,LPSTR lpString,पूर्णाङ्क cchSize);
+  WINUSERAPI पूर्णाङ्क WINAPI Get_कुंजी_Name_Text_W(LONG lParam,LPWSTR lpString,पूर्णाङ्क cchSize);
+  WINUSERAPI पूर्णाङ्क WINAPI GetKeyboardType(पूर्णाङ्क nTypeFlag);
+  WINUSERAPI पूर्णाङ्क WINAPI ToAscii(UINT u_Virt_कुंजी,UINT uScanCode,CONST BYTE *lp_कुंजी_State,LPWORD lpChar,UINT uFlags);
+  WINUSERAPI पूर्णाङ्क WINAPI ToAsciiEx(UINT u_Virt_कुंजी,UINT uScanCode,CONST BYTE *lp_कुंजी_State,LPWORD lpChar,UINT uFlags,HKL dwhkl);
+  WINUSERAPI पूर्णाङ्क WINAPI ToUnicode(UINT w_Virt_कुंजी,UINT wScanCode,CONST BYTE *lp_कुंजी_State,LPWSTR pwszBuff,पूर्णाङ्क cchBuff,UINT wFlags);
+  WINUSERAPI DWORD WINAPI Oem_कुंजी_Scan(WORD wOemChar);
+  WINUSERAPI SHORT WINAPI Vk_कुंजी_Scan_A(CHAR ch);
+  WINUSERAPI SHORT WINAPI Vk_कुंजी_Scan_W(WCHAR ch);
+  WINUSERAPI SHORT WINAPI Vk_कुंजी_Scan_Ex_A(CHAR ch,HKL dwhkl);
+  WINUSERAPI SHORT WINAPI Vk_कुंजी_Scan_Ex_W(WCHAR ch,HKL dwhkl);
 
 #define KEYEVENTF_EXTENDEDKEY 0x0001
 #define KEYEVENTF_KEYUP 0x0002
@@ -2415,75 +2415,75 @@ extern "C" {
 
   WINUSERAPI VOID WINAPI mouse_event(DWORD dwFlags,DWORD dx,DWORD dy,DWORD dwData,ULONG_PTR dwExtraInfo);
 
-  typedef struct tagMOUSEINPUT {
+  प्रकारनिर्देश संरचना tagMOUSEINPUT {
     LONG dx;
     LONG dy;
     DWORD mouseData;
     DWORD dwFlags;
-    DWORD time;
+    DWORD समय;
     ULONG_PTR dwExtraInfo;
   } MOUSEINPUT,*PMOUSEINPUT,*LPMOUSEINPUT;
 
-  typedef struct tagKEYBDINPUT {
+  प्रकारनिर्देश संरचना tagKEYBDINPUT {
     WORD wVk;
     WORD wScan;
     DWORD dwFlags;
-    DWORD time;
+    DWORD समय;
     ULONG_PTR dwExtraInfo;
   } KEYBDINPUT,*PKEYBDINPUT,*LPKEYBDINPUT;
 
-  typedef struct tagHARDWAREINPUT {
-    DWORD uMsg;
+  प्रकारनिर्देश संरचना tagHARDWAREINPUT {
+    DWORD u_संदेश;
     WORD wParamL;
     WORD wParamH;
   } HARDWAREINPUT,*PHARDWAREINPUT,*LPHARDWAREINPUT;
 
-#define INPUT_MOUSE 0
-#define INPUT_KEYBOARD 1
-#define INPUT_HARDWARE 2
+#define निवेश_MOUSE 0
+#define निवेश_KEYBOARD 1
+#define निवेश_HARDWARE 2
 
-  typedef struct tagINPUT {
+  प्रकारनिर्देश संरचना tag_निवेश {
     DWORD type;
-    union {
+    सङ्घ {
       MOUSEINPUT mi;
       KEYBDINPUT ki;
       HARDWAREINPUT hi;
     };
-  } INPUT,*PINPUT,*LPINPUT;
+  } निवेश_2,*PINPUT,*LPINPUT;
 
-  WINUSERAPI UINT WINAPI SendInput(UINT cInputs,LPINPUT pInputs,int cbSize);
+  WINUSERAPI UINT WINAPI Send_निवेश(UINT cInputs,LPINPUT pInputs,पूर्णाङ्क cbSize);
 
-  typedef struct tagLASTINPUTINFO {
+  प्रकारनिर्देश संरचना tagLASTINPUTINFO {
     UINT cbSize;
     DWORD dwTime;
   } LASTINPUTINFO,*PLASTINPUTINFO;
 
 #ifdef UNICODE
-#define MapVirtualKey MapVirtualKeyW
-#define MapVirtualKeyEx MapVirtualKeyExW
-#else
-#define MapVirtualKey MapVirtualKeyA
-#define MapVirtualKeyEx MapVirtualKeyExA
+#define Map_Virtual_कुंजी Map_Virtual_कुंजी_W
+#define Map_Virtual_कुंजी_Ex Map_Virtual_कुंजी_Ex_W
+#अन्यथा
+#define Map_Virtual_कुंजी Map_Virtual_कुंजी_A
+#define Map_Virtual_कुंजी_Ex Map_Virtual_कुंजी_Ex_A
 #endif
 
-  WINUSERAPI WINBOOL WINAPI GetLastInputInfo(PLASTINPUTINFO plii);
-  WINUSERAPI UINT WINAPI MapVirtualKeyA(UINT uCode,UINT uMapType);
-  WINUSERAPI UINT WINAPI MapVirtualKeyW(UINT uCode,UINT uMapType);
-  WINUSERAPI UINT WINAPI MapVirtualKeyExA(UINT uCode,UINT uMapType,HKL dwhkl);
-  WINUSERAPI UINT WINAPI MapVirtualKeyExW(UINT uCode,UINT uMapType,HKL dwhkl);
-  WINUSERAPI WINBOOL WINAPI GetInputState(VOID);
+  WINUSERAPI WINBOOL WINAPI Get_Last_निवेश_Info(PLASTINPUTINFO plii);
+  WINUSERAPI UINT WINAPI Map_Virtual_कुंजी_A(UINT uCode,UINT uMapType);
+  WINUSERAPI UINT WINAPI Map_Virtual_कुंजी_W(UINT uCode,UINT uMapType);
+  WINUSERAPI UINT WINAPI Map_Virtual_कुंजी_Ex_A(UINT uCode,UINT uMapType,HKL dwhkl);
+  WINUSERAPI UINT WINAPI Map_Virtual_कुंजी_Ex_W(UINT uCode,UINT uMapType,HKL dwhkl);
+  WINUSERAPI WINBOOL WINAPI Get_निवेश_State(VOID);
   WINUSERAPI DWORD WINAPI GetQueueStatus(UINT flags);
   WINUSERAPI HWND WINAPI GetCapture(VOID);
   WINUSERAPI HWND WINAPI SetCapture(HWND hWnd);
   WINUSERAPI WINBOOL WINAPI ReleaseCapture(VOID);
-  WINUSERAPI DWORD WINAPI MsgWaitForMultipleObjects(DWORD nCount,CONST HANDLE *pHandles,WINBOOL fWaitAll,DWORD dwMilliseconds,DWORD dwWakeMask);
-  WINUSERAPI DWORD WINAPI MsgWaitForMultipleObjectsEx(DWORD nCount,CONST HANDLE *pHandles,DWORD dwMilliseconds,DWORD dwWakeMask,DWORD dwFlags);
+  WINUSERAPI DWORD WINAPI संदेश_Wait_For_Multiple_Objects(DWORD n_गिनती,CONST HANDLE *pHandles,WINBOOL fWaitAll,DWORD dwMilliseconds,DWORD dwWakeMask);
+  WINUSERAPI DWORD WINAPI संदेश_Wait_For_Multiple_Objects_Ex(DWORD n_गिनती,CONST HANDLE *pHandles,DWORD dwMilliseconds,DWORD dwWakeMask,DWORD dwFlags);
 
 #define MWMO_WAITALL 0x0001
 #define MWMO_ALERTABLE 0x0002
 #define MWMO_INPUTAVAILABLE 0x0004
 
-#define QS_KEY 0x0001
+#define QS_कुंजी 0x0001
 #define QS_MOUSEMOVE 0x0002
 #define QS_MOUSEBUTTON 0x0004
 #define QS_POSTMESSAGE 0x0008
@@ -2494,9 +2494,9 @@ extern "C" {
 #define QS_ALLPOSTMESSAGE 0x0100
 #define QS_RAWINPUT 0x0400
 #define QS_MOUSE (QS_MOUSEMOVE | QS_MOUSEBUTTON)
-#define QS_INPUT (QS_MOUSE | QS_KEY | QS_RAWINPUT)
-#define QS_ALLEVENTS (QS_INPUT | QS_POSTMESSAGE | QS_TIMER | QS_PAINT | QS_HOTKEY)
-#define QS_ALLINPUT (QS_INPUT | QS_POSTMESSAGE | QS_TIMER | QS_PAINT | QS_HOTKEY | QS_SENDMESSAGE)
+#define QS_निवेश (QS_MOUSE | QS_कुंजी | QS_RAWINPUT)
+#define QS_ALLEVENTS (QS_निवेश | QS_POSTMESSAGE | QS_TIMER | QS_PAINT | QS_HOTKEY)
+#define QS_ALLINPUT (QS_निवेश | QS_POSTMESSAGE | QS_TIMER | QS_PAINT | QS_HOTKEY | QS_SENDMESSAGE)
 
 #define USER_TIMER_MAXIMUM 0x7FFFFFFF
 #define USER_TIMER_MINIMUM 0x0000000A
@@ -2505,7 +2505,7 @@ extern "C" {
 #define LoadAccelerators LoadAcceleratorsW
 #define CreateAcceleratorTable CreateAcceleratorTableW
 #define CopyAcceleratorTable CopyAcceleratorTableW
-#else
+#अन्यथा
 #define LoadAccelerators LoadAcceleratorsA
 #define CreateAcceleratorTable CreateAcceleratorTableA
 #define CopyAcceleratorTable CopyAcceleratorTableA
@@ -2518,22 +2518,22 @@ extern "C" {
   WINUSERAPI WINBOOL WINAPI IsWindowEnabled(HWND hWnd);
   WINUSERAPI HACCEL WINAPI LoadAcceleratorsA(HINSTANCE hInstance,LPCSTR lpTableName);
   WINUSERAPI HACCEL WINAPI LoadAcceleratorsW(HINSTANCE hInstance,LPCWSTR lpTableName);
-  WINUSERAPI HACCEL WINAPI CreateAcceleratorTableA(LPACCEL paccel,int cAccel);
-  WINUSERAPI HACCEL WINAPI CreateAcceleratorTableW(LPACCEL paccel,int cAccel);
+  WINUSERAPI HACCEL WINAPI CreateAcceleratorTableA(LPACCEL paccel,पूर्णाङ्क cAccel);
+  WINUSERAPI HACCEL WINAPI CreateAcceleratorTableW(LPACCEL paccel,पूर्णाङ्क cAccel);
   WINUSERAPI WINBOOL WINAPI DestroyAcceleratorTable(HACCEL hAccel);
-  WINUSERAPI int WINAPI CopyAcceleratorTableA(HACCEL hAccelSrc,LPACCEL lpAccelDst,int cAccelEntries);
-  WINUSERAPI int WINAPI CopyAcceleratorTableW(HACCEL hAccelSrc,LPACCEL lpAccelDst,int cAccelEntries);
+  WINUSERAPI पूर्णाङ्क WINAPI CopyAcceleratorTableA(HACCEL hAccelSrc,LPACCEL lpAccelDst,पूर्णाङ्क cAccelEntries);
+  WINUSERAPI पूर्णाङ्क WINAPI CopyAcceleratorTableW(HACCEL hAccelSrc,LPACCEL lpAccelDst,पूर्णाङ्क cAccelEntries);
 
 #ifndef NOMSG
 
 #ifdef UNICODE
 #define TranslateAccelerator TranslateAcceleratorW
-#else
+#अन्यथा
 #define TranslateAccelerator TranslateAcceleratorA
 #endif
 
-  WINUSERAPI int WINAPI TranslateAcceleratorA(HWND hWnd,HACCEL hAccTable,LPMSG lpMsg);
-  WINUSERAPI int WINAPI TranslateAcceleratorW(HWND hWnd,HACCEL hAccTable,LPMSG lpMsg);
+  WINUSERAPI पूर्णाङ्क WINAPI TranslateAcceleratorA(HWND hWnd,HACCEL hAccTable,LPMSG lp_संदेश);
+  WINUSERAPI पूर्णाङ्क WINAPI TranslateAcceleratorW(HWND hWnd,HACCEL hAccTable,LPMSG lp_संदेश);
 #endif
 
 #ifndef NOSYSMETRICS
@@ -2636,7 +2636,7 @@ extern "C" {
 #define SM_REMOTECONTROL 0x2001
 #define SM_CARETBLINKINGENABLED 0x2002
 
-  WINUSERAPI int WINAPI GetSystemMetrics(int nIndex);
+  WINUSERAPI पूर्णाङ्क WINAPI GetSystemMetrics(पूर्णाङ्क nIndex);
 #endif
 
 #ifndef NOMENUS
@@ -2646,15 +2646,15 @@ extern "C" {
 #define LoadMenuIndirect LoadMenuIndirectW
 #define ChangeMenu ChangeMenuW
 #define GetMenuString GetMenuStringW
-#define InsertMenu InsertMenuW
+#define जोड़ो_Menu जोड़ो_Menu_W
 #define AppendMenu AppendMenuW
 #define ModifyMenu ModifyMenuW
-#else
+#अन्यथा
 #define LoadMenu LoadMenuA
 #define LoadMenuIndirect LoadMenuIndirectA
 #define ChangeMenu ChangeMenuA
 #define GetMenuString GetMenuStringA
-#define InsertMenu InsertMenuA
+#define जोड़ो_Menu जोड़ो_Menu_A
 #define AppendMenu AppendMenuA
 #define ModifyMenu ModifyMenuA
 #endif
@@ -2665,11 +2665,11 @@ extern "C" {
   WINUSERAPI HMENU WINAPI LoadMenuIndirectW(CONST MENUTEMPLATEW *lpMenuTemplate);
   WINUSERAPI HMENU WINAPI GetMenu(HWND hWnd);
   WINUSERAPI WINBOOL WINAPI SetMenu(HWND hWnd,HMENU hMenu);
-  WINUSERAPI WINBOOL WINAPI ChangeMenuA(HMENU hMenu,UINT cmd,LPCSTR lpszNewItem,UINT cmdInsert,UINT flags);
-  WINUSERAPI WINBOOL WINAPI ChangeMenuW(HMENU hMenu,UINT cmd,LPCWSTR lpszNewItem,UINT cmdInsert,UINT flags);
+  WINUSERAPI WINBOOL WINAPI ChangeMenuA(HMENU hMenu,UINT cmd,LPCSTR lpszNewItem,UINT cmd_जोड़ो,UINT flags);
+  WINUSERAPI WINBOOL WINAPI ChangeMenuW(HMENU hMenu,UINT cmd,LPCWSTR lpszNewItem,UINT cmd_जोड़ो,UINT flags);
   WINUSERAPI WINBOOL WINAPI HiliteMenuItem(HWND hWnd,HMENU hMenu,UINT uIDHiliteItem,UINT uHilite);
-  WINUSERAPI int WINAPI GetMenuStringA(HMENU hMenu,UINT uIDItem,LPSTR lpString,int cchMax,UINT flags);
-  WINUSERAPI int WINAPI GetMenuStringW(HMENU hMenu,UINT uIDItem,LPWSTR lpString,int cchMax,UINT flags);
+  WINUSERAPI पूर्णाङ्क WINAPI GetMenuStringA(HMENU hMenu,UINT uIDItem,LPSTR lpString,पूर्णाङ्क cchMax,UINT flags);
+  WINUSERAPI पूर्णाङ्क WINAPI GetMenuStringW(HMENU hMenu,UINT uIDItem,LPWSTR lpString,पूर्णाङ्क cchMax,UINT flags);
   WINUSERAPI UINT WINAPI GetMenuState(HMENU hMenu,UINT uId,UINT uFlags);
   WINUSERAPI WINBOOL WINAPI DrawMenuBar(HWND hWnd);
 
@@ -2681,11 +2681,11 @@ extern "C" {
   WINUSERAPI WINBOOL WINAPI DestroyMenu(HMENU hMenu);
   WINUSERAPI DWORD WINAPI CheckMenuItem(HMENU hMenu,UINT uIDCheckItem,UINT uCheck);
   WINUSERAPI WINBOOL WINAPI EnableMenuItem(HMENU hMenu,UINT uIDEnableItem,UINT uEnable);
-  WINUSERAPI HMENU WINAPI GetSubMenu(HMENU hMenu,int nPos);
-  WINUSERAPI UINT WINAPI GetMenuItemID(HMENU hMenu,int nPos);
-  WINUSERAPI int WINAPI GetMenuItemCount(HMENU hMenu);
-  WINUSERAPI WINBOOL WINAPI InsertMenuA(HMENU hMenu,UINT uPosition,UINT uFlags,UINT_PTR uIDNewItem,LPCSTR lpNewItem);
-  WINUSERAPI WINBOOL WINAPI InsertMenuW(HMENU hMenu,UINT uPosition,UINT uFlags,UINT_PTR uIDNewItem,LPCWSTR lpNewItem);
+  WINUSERAPI HMENU WINAPI GetSubMenu(HMENU hMenu,पूर्णाङ्क nPos);
+  WINUSERAPI UINT WINAPI GetMenuItemID(HMENU hMenu,पूर्णाङ्क nPos);
+  WINUSERAPI पूर्णाङ्क WINAPI Get_Menu_Item_गिनती(HMENU hMenu);
+  WINUSERAPI WINBOOL WINAPI जोड़ो_Menu_A(HMENU hMenu,UINT uPosition,UINT uFlags,UINT_PTR uIDNewItem,LPCSTR lpNewItem);
+  WINUSERAPI WINBOOL WINAPI जोड़ो_Menu_W(HMENU hMenu,UINT uPosition,UINT uFlags,UINT_PTR uIDNewItem,LPCWSTR lpNewItem);
   WINUSERAPI WINBOOL WINAPI AppendMenuA(HMENU hMenu,UINT uFlags,UINT_PTR uIDNewItem,LPCSTR lpNewItem);
   WINUSERAPI WINBOOL WINAPI AppendMenuW(HMENU hMenu,UINT uFlags,UINT_PTR uIDNewItem,LPCWSTR lpNewItem);
   WINUSERAPI WINBOOL WINAPI ModifyMenuA(HMENU hMnu,UINT uPosition,UINT uFlags,UINT_PTR uIDNewItem,LPCSTR lpNewItem);
@@ -2694,21 +2694,21 @@ extern "C" {
   WINUSERAPI WINBOOL WINAPI DeleteMenu(HMENU hMenu,UINT uPosition,UINT uFlags);
   WINUSERAPI WINBOOL WINAPI SetMenuItemBitmaps(HMENU hMenu,UINT uPosition,UINT uFlags,HBITMAP hBitmapUnchecked,HBITMAP hBitmapChecked);
   WINUSERAPI LONG WINAPI GetMenuCheckMarkDimensions(VOID);
-  WINUSERAPI WINBOOL WINAPI TrackPopupMenu(HMENU hMenu,UINT uFlags,int x,int y,int nReserved,HWND hWnd,CONST RECT *prcRect);
+  WINUSERAPI WINBOOL WINAPI TrackPopupMenu(HMENU hMenu,UINT uFlags,पूर्णाङ्क x,पूर्णाङ्क y,पूर्णाङ्क nReserved,HWND hWnd,CONST RECT *prcRect);
 
 #define MNC_IGNORE 0
 #define MNC_CLOSE 1
 #define MNC_EXECUTE 2
 #define MNC_SELECT 3
 
-  typedef struct tagTPMPARAMS {
+  प्रकारनिर्देश संरचना tagTPMPARAMS {
     UINT cbSize;
     RECT rcExclude;
   } TPMPARAMS;
 
-  typedef TPMPARAMS *LPTPMPARAMS;
+  प्रकारनिर्देश TPMPARAMS *LPTPMPARAMS;
 
-  WINUSERAPI WINBOOL WINAPI TrackPopupMenuEx(HMENU,UINT,int,int,HWND,LPTPMPARAMS);
+  WINUSERAPI WINBOOL WINAPI TrackPopupMenuEx(HMENU,UINT,पूर्णाङ्क,पूर्णाङ्क,HWND,LPTPMPARAMS);
 
 #define MNS_NOCHECK 0x80000000
 #define MNS_MODELESS 0x40000000
@@ -2724,7 +2724,7 @@ extern "C" {
 #define MIM_STYLE 0x00000010
 #define MIM_APPLYTOSUBMENUS 0x80000000
 
-  typedef struct tagMENUINFO {
+  प्रकारनिर्देश संरचना tagMENUINFO {
     DWORD cbSize;
     DWORD fMask;
     DWORD dwStyle;
@@ -2734,7 +2734,7 @@ extern "C" {
     ULONG_PTR dwMenuData;
   } MENUINFO,*LPMENUINFO;
 
-  typedef MENUINFO CONST *LPCMENUINFO;
+  प्रकारनिर्देश MENUINFO CONST *LPCMENUINFO;
 
   WINUSERAPI WINBOOL WINAPI GetMenuInfo(HMENU,LPMENUINFO);
   WINUSERAPI WINBOOL WINAPI SetMenuInfo(HMENU,LPCMENUINFO);
@@ -2743,7 +2743,7 @@ extern "C" {
 #define MND_CONTINUE 0
 #define MND_ENDMENU 1
 
-  typedef struct tagMENUGETOBJECTINFO {
+  प्रकारनिर्देश संरचना tagMENUGETOBJECTINFO {
     DWORD dwFlags;
     UINT uPos;
     HMENU hmenu;
@@ -2780,7 +2780,7 @@ extern "C" {
 #define HBMMENU_POPUP_MAXIMIZE ((HBITMAP) 10)
 #define HBMMENU_POPUP_MINIMIZE ((HBITMAP) 11)
 
-  typedef struct tagMENUITEMINFOA {
+  प्रकारनिर्देश संरचना tagMENUITEMINFOA {
     UINT cbSize;
     UINT fMask;
     UINT fType;
@@ -2795,7 +2795,7 @@ extern "C" {
     HBITMAP hbmpItem;
   } MENUITEMINFOA,*LPMENUITEMINFOA;
 
-  typedef struct tagMENUITEMINFOW {
+  प्रकारनिर्देश संरचना tagMENUITEMINFOW {
     UINT cbSize;
     UINT fMask;
     UINT fType;
@@ -2811,32 +2811,32 @@ extern "C" {
   } MENUITEMINFOW,*LPMENUITEMINFOW;
 
 #ifdef UNICODE
-  typedef MENUITEMINFOW MENUITEMINFO;
-  typedef LPMENUITEMINFOW LPMENUITEMINFO;
-#else
-  typedef MENUITEMINFOA MENUITEMINFO;
-  typedef LPMENUITEMINFOA LPMENUITEMINFO;
+  प्रकारनिर्देश MENUITEMINFOW MENUITEMINFO;
+  प्रकारनिर्देश LPMENUITEMINFOW LPMENUITEMINFO;
+#अन्यथा
+  प्रकारनिर्देश MENUITEMINFOA MENUITEMINFO;
+  प्रकारनिर्देश LPMENUITEMINFOA LPMENUITEMINFO;
 #endif
-  typedef MENUITEMINFOA CONST *LPCMENUITEMINFOA;
-  typedef MENUITEMINFOW CONST *LPCMENUITEMINFOW;
+  प्रकारनिर्देश MENUITEMINFOA CONST *LPCMENUITEMINFOA;
+  प्रकारनिर्देश MENUITEMINFOW CONST *LPCMENUITEMINFOW;
 #ifdef UNICODE
-  typedef LPCMENUITEMINFOW LPCMENUITEMINFO;
-#else
-  typedef LPCMENUITEMINFOA LPCMENUITEMINFO;
+  प्रकारनिर्देश LPCMENUITEMINFOW LPCMENUITEMINFO;
+#अन्यथा
+  प्रकारनिर्देश LPCMENUITEMINFOA LPCMENUITEMINFO;
 #endif
 
 #ifdef UNICODE
-#define InsertMenuItem InsertMenuItemW
+#define जोड़ो_Menu_Item जोड़ो_Menu_Item_W
 #define GetMenuItemInfo GetMenuItemInfoW
 #define SetMenuItemInfo SetMenuItemInfoW
-#else
-#define InsertMenuItem InsertMenuItemA
+#अन्यथा
+#define जोड़ो_Menu_Item जोड़ो_Menu_Item_A
 #define GetMenuItemInfo GetMenuItemInfoA
 #define SetMenuItemInfo SetMenuItemInfoA
 #endif
 
-  WINUSERAPI WINBOOL WINAPI InsertMenuItemA(HMENU hmenu,UINT item,WINBOOL fByPosition,LPCMENUITEMINFOA lpmi);
-  WINUSERAPI WINBOOL WINAPI InsertMenuItemW(HMENU hmenu,UINT item,WINBOOL fByPosition,LPCMENUITEMINFOW lpmi);
+  WINUSERAPI WINBOOL WINAPI जोड़ो_Menu_Item_A(HMENU hmenu,UINT item,WINBOOL fByPosition,LPCMENUITEMINFOA lpmi);
+  WINUSERAPI WINBOOL WINAPI जोड़ो_Menu_Item_W(HMENU hmenu,UINT item,WINBOOL fByPosition,LPCMENUITEMINFOW lpmi);
   WINUSERAPI WINBOOL WINAPI GetMenuItemInfoA(HMENU hmenu,UINT item,WINBOOL fByPosition,LPMENUITEMINFOA lpmii);
   WINUSERAPI WINBOOL WINAPI GetMenuItemInfoW(HMENU hmenu,UINT item,WINBOOL fByPosition,LPMENUITEMINFOW lpmii);
   WINUSERAPI WINBOOL WINAPI SetMenuItemInfoA(HMENU hmenu,UINT item,WINBOOL fByPositon,LPCMENUITEMINFOA lpmii);
@@ -2848,7 +2848,7 @@ extern "C" {
   WINUSERAPI UINT WINAPI GetMenuDefaultItem(HMENU hMenu,UINT fByPos,UINT gmdiFlags);
   WINUSERAPI WINBOOL WINAPI SetMenuDefaultItem(HMENU hMenu,UINT uItem,UINT fByPos);
   WINUSERAPI WINBOOL WINAPI GetMenuItemRect(HWND hWnd,HMENU hMenu,UINT uItem,LPRECT lprcItem);
-  WINUSERAPI int WINAPI MenuItemFromPoint(HWND hWnd,HMENU hMenu,POINT ptScreen);
+  WINUSERAPI पूर्णाङ्क WINAPI MenuItemFromPoint(HWND hWnd,HMENU hMenu,POINT ptScreen);
 
 #define TPM_LEFTBUTTON 0x0000L
 #define TPM_RIGHTBUTTON 0x0002L
@@ -2872,7 +2872,7 @@ extern "C" {
 #define TPM_LAYOUTRTL 0x8000L
 #endif
 
-  typedef struct tagDROPSTRUCT {
+  प्रकारनिर्देश संरचना tagDROPSTRUCT {
     HWND hwndSource;
     HWND hwndSink;
     DWORD wFmt;
@@ -2893,14 +2893,14 @@ extern "C" {
 
   WINUSERAPI DWORD WINAPI DragObject(HWND hwndParent,HWND hwndFrom,UINT fmt,ULONG_PTR data,HCURSOR hcur);
   WINUSERAPI WINBOOL WINAPI DragDetect(HWND hwnd,POINT pt);
-  WINUSERAPI WINBOOL WINAPI DrawIcon(HDC hDC,int X,int Y,HICON hIcon);
+  WINUSERAPI WINBOOL WINAPI DrawIcon(HDC hDC,पूर्णाङ्क X,पूर्णाङ्क Y,HICON hIcon);
 
 #ifndef NODRAWTEXT
 
-#define DT_TOP 0x00000000
-#define DT_LEFT 0x00000000
+#define DT_शीर्ष 0x00000000
+#define DT_बायाँ 0x00000000
 #define DT_CENTER 0x00000001
-#define DT_RIGHT 0x00000002
+#define DT_दायाँ 0x00000002
 #define DT_VCENTER 0x00000004
 #define DT_BOTTOM 0x00000008
 #define DT_WORDBREAK 0x00000010
@@ -2923,26 +2923,26 @@ extern "C" {
 #define DT_HIDEPREFIX 0x00100000
 #define DT_PREFIXONLY 0x00200000
 
-  typedef struct tagDRAWTEXTPARAMS {
+  प्रकारनिर्देश संरचना tagDRAWTEXTPARAMS {
     UINT cbSize;
-    int iTabLength;
-    int iLeftMargin;
-    int iRightMargin;
+    पूर्णाङ्क iTabLength;
+    पूर्णाङ्क i_बायाँ_Margin;
+    पूर्णाङ्क i_दायाँ_Margin;
     UINT uiLengthDrawn;
   } DRAWTEXTPARAMS,*LPDRAWTEXTPARAMS;
 
 #ifdef UNICODE
 #define DrawText DrawTextW
 #define DrawTextEx DrawTextExW
-#else
+#अन्यथा
 #define DrawText DrawTextA
 #define DrawTextEx DrawTextExA
 #endif
 
-  WINUSERAPI int WINAPI DrawTextA(HDC hdc,LPCSTR lpchText,int cchText,LPRECT lprc,UINT format);
-  WINUSERAPI int WINAPI DrawTextW(HDC hdc,LPCWSTR lpchText,int cchText,LPRECT lprc,UINT format);
-  WINUSERAPI int WINAPI DrawTextExA(HDC hdc,LPSTR lpchText,int cchText,LPRECT lprc,UINT format,LPDRAWTEXTPARAMS lpdtp);
-  WINUSERAPI int WINAPI DrawTextExW(HDC hdc,LPWSTR lpchText,int cchText,LPRECT lprc,UINT format,LPDRAWTEXTPARAMS lpdtp);
+  WINUSERAPI पूर्णाङ्क WINAPI DrawTextA(HDC hdc,LPCSTR lpchText,पूर्णाङ्क cchText,LPRECT lprc,UINT format);
+  WINUSERAPI पूर्णाङ्क WINAPI DrawTextW(HDC hdc,LPCWSTR lpchText,पूर्णाङ्क cchText,LPRECT lprc,UINT format);
+  WINUSERAPI पूर्णाङ्क WINAPI DrawTextExA(HDC hdc,LPSTR lpchText,पूर्णाङ्क cchText,LPRECT lprc,UINT format,LPDRAWTEXTPARAMS lpdtp);
+  WINUSERAPI पूर्णाङ्क WINAPI DrawTextExW(HDC hdc,LPWSTR lpchText,पूर्णाङ्क cchText,LPRECT lprc,UINT format,LPDRAWTEXTPARAMS lpdtp);
 #endif
 
 #ifdef UNICODE
@@ -2950,15 +2950,15 @@ extern "C" {
 #define DrawState DrawStateW
 #define TabbedTextOut TabbedTextOutW
 #define GetTabbedTextExtent GetTabbedTextExtentW
-#else
+#अन्यथा
 #define GrayString GrayStringA
 #define DrawState DrawStateA
 #define TabbedTextOut TabbedTextOutA
 #define GetTabbedTextExtent GetTabbedTextExtentA
 #endif
 
-  WINUSERAPI WINBOOL WINAPI GrayStringA(HDC hDC,HBRUSH hBrush,GRAYSTRINGPROC lpOutputFunc,LPARAM lpData,int nCount,int X,int Y,int nWidth,int nHeight);
-  WINUSERAPI WINBOOL WINAPI GrayStringW(HDC hDC,HBRUSH hBrush,GRAYSTRINGPROC lpOutputFunc,LPARAM lpData,int nCount,int X,int Y,int nWidth,int nHeight);
+  WINUSERAPI WINBOOL WINAPI GrayStringA(HDC hDC,HBRUSH hBrush,GRAYSTRINGPROC lpOutputFunc,LPARAM lpData,पूर्णाङ्क n_गिनती,पूर्णाङ्क X,पूर्णाङ्क Y,पूर्णाङ्क nWidth,पूर्णाङ्क nHeight);
+  WINUSERAPI WINBOOL WINAPI GrayStringW(HDC hDC,HBRUSH hBrush,GRAYSTRINGPROC lpOutputFunc,LPARAM lpData,पूर्णाङ्क n_गिनती,पूर्णाङ्क X,पूर्णाङ्क Y,पूर्णाङ्क nWidth,पूर्णाङ्क nHeight);
 
 #define DST_COMPLEX 0x0000
 #define DST_TEXT 0x0001
@@ -2972,14 +2972,14 @@ extern "C" {
 #define DSS_MONO 0x0080
 #define DSS_HIDEPREFIX 0x0200
 #define DSS_PREFIXONLY 0x0400
-#define DSS_RIGHT 0x8000
+#define DSS_दायाँ 0x8000
 
-  WINUSERAPI WINBOOL WINAPI DrawStateA(HDC hdc,HBRUSH hbrFore,DRAWSTATEPROC qfnCallBack,LPARAM lData,WPARAM wData,int x,int y,int cx,int cy,UINT uFlags);
-  WINUSERAPI WINBOOL WINAPI DrawStateW(HDC hdc,HBRUSH hbrFore,DRAWSTATEPROC qfnCallBack,LPARAM lData,WPARAM wData,int x,int y,int cx,int cy,UINT uFlags);
-  WINUSERAPI LONG WINAPI TabbedTextOutA(HDC hdc,int x,int y,LPCSTR lpString,int chCount,int nTabPositions,CONST INT *lpnTabStopPositions,int nTabOrigin);
-  WINUSERAPI LONG WINAPI TabbedTextOutW(HDC hdc,int x,int y,LPCWSTR lpString,int chCount,int nTabPositions,CONST INT *lpnTabStopPositions,int nTabOrigin);
-  WINUSERAPI DWORD WINAPI GetTabbedTextExtentA(HDC hdc,LPCSTR lpString,int chCount,int nTabPositions,CONST INT *lpnTabStopPositions);
-  WINUSERAPI DWORD WINAPI GetTabbedTextExtentW(HDC hdc,LPCWSTR lpString,int chCount,int nTabPositions,CONST INT *lpnTabStopPositions);
+  WINUSERAPI WINBOOL WINAPI DrawStateA(HDC hdc,HBRUSH hbrFore,DRAWSTATEPROC qfnCallBack,LPARAM lData,WPARAM wData,पूर्णाङ्क x,पूर्णाङ्क y,पूर्णाङ्क cx,पूर्णाङ्क cy,UINT uFlags);
+  WINUSERAPI WINBOOL WINAPI DrawStateW(HDC hdc,HBRUSH hbrFore,DRAWSTATEPROC qfnCallBack,LPARAM lData,WPARAM wData,पूर्णाङ्क x,पूर्णाङ्क y,पूर्णाङ्क cx,पूर्णाङ्क cy,UINT uFlags);
+  WINUSERAPI LONG WINAPI TabbedTextOutA(HDC hdc,पूर्णाङ्क x,पूर्णाङ्क y,LPCSTR lpString,पूर्णाङ्क ch_गिनती,पूर्णाङ्क nTabPositions,CONST INT *lpnTabStopPositions,पूर्णाङ्क nTabOrigin);
+  WINUSERAPI LONG WINAPI TabbedTextOutW(HDC hdc,पूर्णाङ्क x,पूर्णाङ्क y,LPCWSTR lpString,पूर्णाङ्क ch_गिनती,पूर्णाङ्क nTabPositions,CONST INT *lpnTabStopPositions,पूर्णाङ्क nTabOrigin);
+  WINUSERAPI DWORD WINAPI GetTabbedTextExtentA(HDC hdc,LPCSTR lpString,पूर्णाङ्क ch_गिनती,पूर्णाङ्क nTabPositions,CONST INT *lpnTabStopPositions);
+  WINUSERAPI DWORD WINAPI GetTabbedTextExtentW(HDC hdc,LPCWSTR lpString,पूर्णाङ्क ch_गिनती,पूर्णाङ्क nTabPositions,CONST INT *lpnTabStopPositions);
   WINUSERAPI WINBOOL WINAPI UpdateWindow(HWND hWnd);
   WINUSERAPI HWND WINAPI SetActiveWindow(HWND hWnd);
   WINUSERAPI HWND WINAPI GetForegroundWindow(VOID);
@@ -3014,15 +3014,15 @@ extern "C" {
 #define DCX_VALIDATE 0x00200000L
 
   WINUSERAPI HDC WINAPI GetWindowDC(HWND hWnd);
-  WINUSERAPI int WINAPI ReleaseDC(HWND hWnd,HDC hDC);
+  WINUSERAPI पूर्णाङ्क WINAPI ReleaseDC(HWND hWnd,HDC hDC);
   WINUSERAPI HDC WINAPI BeginPaint(HWND hWnd,LPPAINTSTRUCT lpPaint);
   WINUSERAPI WINBOOL WINAPI EndPaint(HWND hWnd,CONST PAINTSTRUCT *lpPaint);
   WINUSERAPI WINBOOL WINAPI GetUpdateRect(HWND hWnd,LPRECT lpRect,WINBOOL bErase);
-  WINUSERAPI int WINAPI GetUpdateRgn(HWND hWnd,HRGN hRgn,WINBOOL bErase);
-  WINUSERAPI int WINAPI SetWindowRgn(HWND hWnd,HRGN hRgn,WINBOOL bRedraw);
-  WINUSERAPI int WINAPI GetWindowRgn(HWND hWnd,HRGN hRgn);
-  WINUSERAPI int WINAPI GetWindowRgnBox(HWND hWnd,LPRECT lprc);
-  WINUSERAPI int WINAPI ExcludeUpdateRgn(HDC hDC,HWND hWnd);
+  WINUSERAPI पूर्णाङ्क WINAPI GetUpdateRgn(HWND hWnd,HRGN hRgn,WINBOOL bErase);
+  WINUSERAPI पूर्णाङ्क WINAPI SetWindowRgn(HWND hWnd,HRGN hRgn,WINBOOL bRedraw);
+  WINUSERAPI पूर्णाङ्क WINAPI GetWindowRgn(HWND hWnd,HRGN hRgn);
+  WINUSERAPI पूर्णाङ्क WINAPI GetWindowRgnBox(HWND hWnd,LPRECT lprc);
+  WINUSERAPI पूर्णाङ्क WINAPI ExcludeUpdateRgn(HDC hDC,HWND hWnd);
   WINUSERAPI WINBOOL WINAPI InvalidateRect(HWND hWnd,CONST RECT *lpRect,WINBOOL bErase);
   WINUSERAPI WINBOOL WINAPI ValidateRect(HWND hWnd,CONST RECT *lpRect);
   WINUSERAPI WINBOOL WINAPI InvalidateRgn(HWND hWnd,HRGN hRgn,WINBOOL bErase);
@@ -3047,9 +3047,9 @@ extern "C" {
 #define RDW_NOFRAME 0x0800
 
   WINUSERAPI WINBOOL WINAPI LockWindowUpdate(HWND hWndLock);
-  WINUSERAPI WINBOOL WINAPI ScrollWindow(HWND hWnd,int XAmount,int YAmount,CONST RECT *lpRect,CONST RECT *lpClipRect);
-  WINUSERAPI WINBOOL WINAPI ScrollDC(HDC hDC,int dx,int dy,CONST RECT *lprcScroll,CONST RECT *lprcClip,HRGN hrgnUpdate,LPRECT lprcUpdate);
-  WINUSERAPI int WINAPI ScrollWindowEx(HWND hWnd,int dx,int dy,CONST RECT *prcScroll,CONST RECT *prcClip,HRGN hrgnUpdate,LPRECT prcUpdate,UINT flags);
+  WINUSERAPI WINBOOL WINAPI ScrollWindow(HWND hWnd,पूर्णाङ्क XAmount,पूर्णाङ्क YAmount,CONST RECT *lpRect,CONST RECT *lpClipRect);
+  WINUSERAPI WINBOOL WINAPI ScrollDC(HDC hDC,पूर्णाङ्क dx,पूर्णाङ्क dy,CONST RECT *lprcScroll,CONST RECT *lprcClip,HRGN hrgnUpdate,LPRECT lprcUpdate);
+  WINUSERAPI पूर्णाङ्क WINAPI ScrollWindowEx(HWND hWnd,पूर्णाङ्क dx,पूर्णाङ्क dy,CONST RECT *prcScroll,CONST RECT *prcClip,HRGN hrgnUpdate,LPRECT prcUpdate,UINT flags);
 
 #define SW_SCROLLCHILDREN 0x0001
 #define SW_INVALIDATE 0x0002
@@ -3057,24 +3057,24 @@ extern "C" {
 #define SW_SMOOTHSCROLL 0x0010
 
 #ifndef NOSCROLL
-  WINUSERAPI int WINAPI SetScrollPos(HWND hWnd,int nBar,int nPos,WINBOOL bRedraw);
-  WINUSERAPI int WINAPI GetScrollPos(HWND hWnd,int nBar);
-  WINUSERAPI WINBOOL WINAPI SetScrollRange(HWND hWnd,int nBar,int nMinPos,int nMaxPos,WINBOOL bRedraw);
-  WINUSERAPI WINBOOL WINAPI GetScrollRange(HWND hWnd,int nBar,LPINT lpMinPos,LPINT lpMaxPos);
-  WINUSERAPI WINBOOL WINAPI ShowScrollBar(HWND hWnd,int wBar,WINBOOL bShow);
+  WINUSERAPI पूर्णाङ्क WINAPI SetScrollPos(HWND hWnd,पूर्णाङ्क nBar,पूर्णाङ्क nPos,WINBOOL bRedraw);
+  WINUSERAPI पूर्णाङ्क WINAPI GetScrollPos(HWND hWnd,पूर्णाङ्क nBar);
+  WINUSERAPI WINBOOL WINAPI SetScrollRange(HWND hWnd,पूर्णाङ्क nBar,पूर्णाङ्क nMinPos,पूर्णाङ्क nMaxPos,WINBOOL bRedraw);
+  WINUSERAPI WINBOOL WINAPI GetScrollRange(HWND hWnd,पूर्णाङ्क nBar,LPINT lpMinPos,LPINT lpMaxPos);
+  WINUSERAPI WINBOOL WINAPI ShowScrollBar(HWND hWnd,पूर्णाङ्क wBar,WINBOOL bShow);
   WINUSERAPI WINBOOL WINAPI EnableScrollBar(HWND hWnd,UINT wSBflags,UINT wArrows);
 
 #define ESB_ENABLE_BOTH 0x0000
 #define ESB_DISABLE_BOTH 0x0003
 
-#define ESB_DISABLE_LEFT 0x0001
-#define ESB_DISABLE_RIGHT 0x0002
+#define ESB_DISABLE_बायाँ 0x0001
+#define ESB_DISABLE_दायाँ 0x0002
 
 #define ESB_DISABLE_UP 0x0001
 #define ESB_DISABLE_DOWN 0x0002
 
-#define ESB_DISABLE_LTUP ESB_DISABLE_LEFT
-#define ESB_DISABLE_RTDN ESB_DISABLE_RIGHT
+#define ESB_DISABLE_LTUP ESB_DISABLE_बायाँ
+#define ESB_DISABLE_RTDN ESB_DISABLE_दायाँ
 #endif
 
 #ifdef UNICODE
@@ -3086,7 +3086,7 @@ extern "C" {
 #define SetWindowText SetWindowTextW
 #define GetWindowText GetWindowTextW
 #define GetWindowTextLength GetWindowTextLengthW
-#else
+#अन्यथा
 #define SetProp SetPropA
 #define GetProp GetPropA
 #define RemoveProp RemovePropA
@@ -3103,16 +3103,16 @@ extern "C" {
   WINUSERAPI HANDLE WINAPI GetPropW(HWND hWnd,LPCWSTR lpString);
   WINUSERAPI HANDLE WINAPI RemovePropA(HWND hWnd,LPCSTR lpString);
   WINUSERAPI HANDLE WINAPI RemovePropW(HWND hWnd,LPCWSTR lpString);
-  WINUSERAPI int WINAPI EnumPropsExA(HWND hWnd,PROPENUMPROCEXA lpEnumFunc,LPARAM lParam);
-  WINUSERAPI int WINAPI EnumPropsExW(HWND hWnd,PROPENUMPROCEXW lpEnumFunc,LPARAM lParam);
-  WINUSERAPI int WINAPI EnumPropsA(HWND hWnd,PROPENUMPROCA lpEnumFunc);
-  WINUSERAPI int WINAPI EnumPropsW(HWND hWnd,PROPENUMPROCW lpEnumFunc);
+  WINUSERAPI पूर्णाङ्क WINAPI EnumPropsExA(HWND hWnd,PROPENUMPROCEXA lpEnumFunc,LPARAM lParam);
+  WINUSERAPI पूर्णाङ्क WINAPI EnumPropsExW(HWND hWnd,PROPENUMPROCEXW lpEnumFunc,LPARAM lParam);
+  WINUSERAPI पूर्णाङ्क WINAPI EnumPropsA(HWND hWnd,PROPENUMPROCA lpEnumFunc);
+  WINUSERAPI पूर्णाङ्क WINAPI EnumPropsW(HWND hWnd,PROPENUMPROCW lpEnumFunc);
   WINUSERAPI WINBOOL WINAPI SetWindowTextA(HWND hWnd,LPCSTR lpString);
   WINUSERAPI WINBOOL WINAPI SetWindowTextW(HWND hWnd,LPCWSTR lpString);
-  WINUSERAPI int WINAPI GetWindowTextA(HWND hWnd,LPSTR lpString,int nMaxCount);
-  WINUSERAPI int WINAPI GetWindowTextW(HWND hWnd,LPWSTR lpString,int nMaxCount);
-  WINUSERAPI int WINAPI GetWindowTextLengthA(HWND hWnd);
-  WINUSERAPI int WINAPI GetWindowTextLengthW(HWND hWnd);
+  WINUSERAPI पूर्णाङ्क WINAPI GetWindowTextA(HWND hWnd,LPSTR lpString,पूर्णाङ्क n_Max_गिनती);
+  WINUSERAPI पूर्णाङ्क WINAPI GetWindowTextW(HWND hWnd,LPWSTR lpString,पूर्णाङ्क n_Max_गिनती);
+  WINUSERAPI पूर्णाङ्क WINAPI GetWindowTextLengthA(HWND hWnd);
+  WINUSERAPI पूर्णाङ्क WINAPI GetWindowTextLengthW(HWND hWnd);
   WINUSERAPI WINBOOL WINAPI GetClientRect(HWND hWnd,LPRECT lpRect);
   WINUSERAPI WINBOOL WINAPI GetWindowRect(HWND hWnd,LPRECT lpRect);
   WINUSERAPI WINBOOL WINAPI AdjustWindowRect(LPRECT lpRect,DWORD dwStyle,WINBOOL bMenu);
@@ -3121,10 +3121,10 @@ extern "C" {
 #define HELPINFO_WINDOW 0x0001
 #define HELPINFO_MENUITEM 0x0002
 
-  typedef struct tagHELPINFO {
+  प्रकारनिर्देश संरचना tagHELPINFO {
     UINT cbSize;
-    int iContextType;
-    int iCtrlId;
+    पूर्णाङ्क iContextType;
+    पूर्णाङ्क iCtrlId;
     HANDLE hItemHandle;
     DWORD_PTR dwContextId;
     POINT MousePos;
@@ -3165,7 +3165,7 @@ extern "C" {
 #define MB_SETFOREGROUND 0x00010000L
 #define MB_DEFAULT_DESKTOP_ONLY 0x00020000L
 #define MB_TOPMOST 0x00040000L
-#define MB_RIGHT 0x00080000L
+#define MB_दायाँ 0x00080000L
 #define MB_RTLREADING 0x00100000L
 #define MB_SERVICE_NOTIFICATION 0x00200000L
 #define MB_SERVICE_NOTIFICATION_NT3X 0x00040000L
@@ -3178,19 +3178,19 @@ extern "C" {
 #ifdef UNICODE
 #define MessageBox MessageBoxW
 #define MessageBoxEx MessageBoxExW
-#else
+#अन्यथा
 #define MessageBox MessageBoxA
 #define MessageBoxEx MessageBoxExA
 #endif
 
-  WINUSERAPI int WINAPI MessageBoxA(HWND hWnd,LPCSTR lpText,LPCSTR lpCaption,UINT uType);
-  WINUSERAPI int WINAPI MessageBoxW(HWND hWnd,LPCWSTR lpText,LPCWSTR lpCaption,UINT uType);
-  WINUSERAPI int WINAPI MessageBoxExA(HWND hWnd,LPCSTR lpText,LPCSTR lpCaption,UINT uType,WORD wLanguageId);
-  WINUSERAPI int WINAPI MessageBoxExW(HWND hWnd,LPCWSTR lpText,LPCWSTR lpCaption,UINT uType,WORD wLanguageId);
+  WINUSERAPI पूर्णाङ्क WINAPI MessageBoxA(HWND hWnd,LPCSTR lpText,LPCSTR lpCaption,UINT uType);
+  WINUSERAPI पूर्णाङ्क WINAPI MessageBoxW(HWND hWnd,LPCWSTR lpText,LPCWSTR lpCaption,UINT uType);
+  WINUSERAPI पूर्णाङ्क WINAPI MessageBoxExA(HWND hWnd,LPCSTR lpText,LPCSTR lpCaption,UINT uType,WORD wLanguageId);
+  WINUSERAPI पूर्णाङ्क WINAPI MessageBoxExW(HWND hWnd,LPCWSTR lpText,LPCWSTR lpCaption,UINT uType,WORD wLanguageId);
 
-  typedef VOID (CALLBACK *MSGBOXCALLBACK)(LPHELPINFO lpHelpInfo);
+  प्रकारनिर्देश VOID (CALLBACK *MSGBOXCALLBACK)(LPHELPINFO lpHelpInfo);
 
-  typedef struct tagMSGBOXPARAMSA {
+  प्रकारनिर्देश संरचना tagMSGBOXPARAMSA {
     UINT cbSize;
     HWND hwndOwner;
     HINSTANCE hInstance;
@@ -3199,11 +3199,11 @@ extern "C" {
     DWORD dwStyle;
     LPCSTR lpszIcon;
     DWORD_PTR dwContextHelpId;
-    MSGBOXCALLBACK lpfnMsgBoxCallback;
+    MSGBOXCALLBACK lpfn_संदेश_Box_Callback;
     DWORD dwLanguageId;
   } MSGBOXPARAMSA,*PMSGBOXPARAMSA,*LPMSGBOXPARAMSA;
 
-  typedef struct tagMSGBOXPARAMSW {
+  प्रकारनिर्देश संरचना tagMSGBOXPARAMSW {
     UINT cbSize;
     HWND hwndOwner;
     HINSTANCE hInstance;
@@ -3212,49 +3212,49 @@ extern "C" {
     DWORD dwStyle;
     LPCWSTR lpszIcon;
     DWORD_PTR dwContextHelpId;
-    MSGBOXCALLBACK lpfnMsgBoxCallback;
+    MSGBOXCALLBACK lpfn_संदेश_Box_Callback;
     DWORD dwLanguageId;
   } MSGBOXPARAMSW,*PMSGBOXPARAMSW,*LPMSGBOXPARAMSW;
 
 #ifdef UNICODE
-  typedef MSGBOXPARAMSW MSGBOXPARAMS;
-  typedef PMSGBOXPARAMSW PMSGBOXPARAMS;
-  typedef LPMSGBOXPARAMSW LPMSGBOXPARAMS;
-#else
-  typedef MSGBOXPARAMSA MSGBOXPARAMS;
-  typedef PMSGBOXPARAMSA PMSGBOXPARAMS;
-  typedef LPMSGBOXPARAMSA LPMSGBOXPARAMS;
+  प्रकारनिर्देश MSGBOXPARAMSW MSGBOXPARAMS;
+  प्रकारनिर्देश PMSGBOXPARAMSW PMSGBOXPARAMS;
+  प्रकारनिर्देश LPMSGBOXPARAMSW LPMSGBOXPARAMS;
+#अन्यथा
+  प्रकारनिर्देश MSGBOXPARAMSA MSGBOXPARAMS;
+  प्रकारनिर्देश PMSGBOXPARAMSA PMSGBOXPARAMS;
+  प्रकारनिर्देश LPMSGBOXPARAMSA LPMSGBOXPARAMS;
 #endif
 
 #ifdef UNICODE
 #define MessageBoxIndirect MessageBoxIndirectW
-#else
+#अन्यथा
 #define MessageBoxIndirect MessageBoxIndirectA
 #endif
 
-  WINUSERAPI int WINAPI MessageBoxIndirectA(CONST MSGBOXPARAMSA *lpmbp);
-  WINUSERAPI int WINAPI MessageBoxIndirectW(CONST MSGBOXPARAMSW *lpmbp);
+  WINUSERAPI पूर्णाङ्क WINAPI MessageBoxIndirectA(CONST MSGBOXPARAMSA *lpmbp);
+  WINUSERAPI पूर्णाङ्क WINAPI MessageBoxIndirectW(CONST MSGBOXPARAMSW *lpmbp);
   WINUSERAPI WINBOOL WINAPI MessageBeep(UINT uType);
 #endif
 
-  WINUSERAPI int WINAPI ShowCursor(WINBOOL bShow);
-  WINUSERAPI WINBOOL WINAPI SetCursorPos(int X,int Y);
+  WINUSERAPI पूर्णाङ्क WINAPI ShowCursor(WINBOOL bShow);
+  WINUSERAPI WINBOOL WINAPI SetCursorPos(पूर्णाङ्क X,पूर्णाङ्क Y);
   WINUSERAPI HCURSOR WINAPI SetCursor(HCURSOR hCursor);
   WINUSERAPI WINBOOL WINAPI GetCursorPos(LPPOINT lpPoint);
   WINUSERAPI WINBOOL WINAPI ClipCursor(CONST RECT *lpRect);
   WINUSERAPI WINBOOL WINAPI GetClipCursor(LPRECT lpRect);
   WINUSERAPI HCURSOR WINAPI GetCursor(VOID);
-  WINUSERAPI WINBOOL WINAPI CreateCaret(HWND hWnd,HBITMAP hBitmap,int nWidth,int nHeight);
+  WINUSERAPI WINBOOL WINAPI CreateCaret(HWND hWnd,HBITMAP hBitmap,पूर्णाङ्क nWidth,पूर्णाङ्क nHeight);
   WINUSERAPI UINT WINAPI GetCaretBlinkTime(VOID);
   WINUSERAPI WINBOOL WINAPI SetCaretBlinkTime(UINT uMSeconds);
   WINUSERAPI WINBOOL WINAPI DestroyCaret(VOID);
   WINUSERAPI WINBOOL WINAPI HideCaret(HWND hWnd);
   WINUSERAPI WINBOOL WINAPI ShowCaret(HWND hWnd);
-  WINUSERAPI WINBOOL WINAPI SetCaretPos(int X,int Y);
+  WINUSERAPI WINBOOL WINAPI SetCaretPos(पूर्णाङ्क X,पूर्णाङ्क Y);
   WINUSERAPI WINBOOL WINAPI GetCaretPos(LPPOINT lpPoint);
   WINUSERAPI WINBOOL WINAPI ClientToScreen(HWND hWnd,LPPOINT lpPoint);
   WINUSERAPI WINBOOL WINAPI ScreenToClient(HWND hWnd,LPPOINT lpPoint);
-  WINUSERAPI int WINAPI MapWindowPoints(HWND hWndFrom,HWND hWndTo,LPPOINT lpPoints,UINT cPoints);
+  WINUSERAPI पूर्णाङ्क WINAPI MapWindowPoints(HWND hWndFrom,HWND hWndTo,LPPOINT lpPoints,UINT cPoints);
   WINUSERAPI HWND WINAPI WindowFromPoint(POINT Point);
   WINUSERAPI HWND WINAPI ChildWindowFromPoint(HWND hWndParent,POINT Point);
 
@@ -3316,23 +3316,23 @@ extern "C" {
 #define COLOR_3DHILIGHT COLOR_BTNHIGHLIGHT
 #define COLOR_BTNHILIGHT COLOR_BTNHIGHLIGHT
 
-  WINUSERAPI DWORD WINAPI GetSysColor(int nIndex);
-  WINUSERAPI HBRUSH WINAPI GetSysColorBrush(int nIndex);
-  WINUSERAPI WINBOOL WINAPI SetSysColors(int cElements,CONST INT *lpaElements,CONST COLORREF *lpaRgbValues);
+  WINUSERAPI DWORD WINAPI GetSysColor(पूर्णाङ्क nIndex);
+  WINUSERAPI HBRUSH WINAPI GetSysColorBrush(पूर्णाङ्क nIndex);
+  WINUSERAPI WINBOOL WINAPI SetSysColors(पूर्णाङ्क cElements,CONST INT *lpaElements,CONST COLORREF *lpa_Rgb_मूल्यावली);
 #endif
 
   WINUSERAPI WINBOOL WINAPI DrawFocusRect(HDC hDC,CONST RECT *lprc);
-  WINUSERAPI int WINAPI FillRect(HDC hDC,CONST RECT *lprc,HBRUSH hbr);
-  WINUSERAPI int WINAPI FrameRect(HDC hDC,CONST RECT *lprc,HBRUSH hbr);
+  WINUSERAPI पूर्णाङ्क WINAPI FillRect(HDC hDC,CONST RECT *lprc,HBRUSH hbr);
+  WINUSERAPI पूर्णाङ्क WINAPI FrameRect(HDC hDC,CONST RECT *lprc,HBRUSH hbr);
   WINUSERAPI WINBOOL WINAPI InvertRect(HDC hDC,CONST RECT *lprc);
-  WINUSERAPI WINBOOL WINAPI SetRect(LPRECT lprc,int xLeft,int yTop,int xRight,int yBottom);
+  WINUSERAPI WINBOOL WINAPI SetRect(LPRECT lprc,पूर्णाङ्क x_बायाँ,पूर्णाङ्क y_शीर्ष,पूर्णाङ्क x_दायाँ,पूर्णाङ्क yBottom);
   WINUSERAPI WINBOOL WINAPI SetRectEmpty(LPRECT lprc);
   WINUSERAPI WINBOOL WINAPI CopyRect(LPRECT lprcDst,CONST RECT *lprcSrc);
-  WINUSERAPI WINBOOL WINAPI InflateRect(LPRECT lprc,int dx,int dy);
+  WINUSERAPI WINBOOL WINAPI InflateRect(LPRECT lprc,पूर्णाङ्क dx,पूर्णाङ्क dy);
   WINUSERAPI WINBOOL WINAPI IntersectRect(LPRECT lprcDst,CONST RECT *lprcSrc1,CONST RECT *lprcSrc2);
   WINUSERAPI WINBOOL WINAPI UnionRect(LPRECT lprcDst,CONST RECT *lprcSrc1,CONST RECT *lprcSrc2);
   WINUSERAPI WINBOOL WINAPI SubtractRect(LPRECT lprcDst,CONST RECT *lprcSrc1,CONST RECT *lprcSrc2);
-  WINUSERAPI WINBOOL WINAPI OffsetRect(LPRECT lprc,int dx,int dy);
+  WINUSERAPI WINBOOL WINAPI OffsetRect(LPRECT lprc,पूर्णाङ्क dx,पूर्णाङ्क dy);
   WINUSERAPI WINBOOL WINAPI IsRectEmpty(CONST RECT *lprc);
   WINUSERAPI WINBOOL WINAPI EqualRect(CONST RECT *lprc1,CONST RECT *lprc2);
   WINUSERAPI WINBOOL WINAPI PtInRect(CONST RECT *lprc,POINT pt);
@@ -3342,38 +3342,38 @@ extern "C" {
 #ifdef UNICODE
 #define GetWindowLong GetWindowLongW
 #define SetWindowLong SetWindowLongW
-#else
+#अन्यथा
 #define GetWindowLong GetWindowLongA
 #define SetWindowLong SetWindowLongA
 #endif
 
-  WINUSERAPI WORD WINAPI GetWindowWord(HWND hWnd,int nIndex);
-  WINUSERAPI WORD WINAPI SetWindowWord(HWND hWnd,int nIndex,WORD wNewWord);
-  WINUSERAPI LONG WINAPI GetWindowLongA(HWND hWnd,int nIndex);
-  WINUSERAPI LONG WINAPI GetWindowLongW(HWND hWnd,int nIndex);
-  WINUSERAPI LONG WINAPI SetWindowLongA(HWND hWnd,int nIndex,LONG dwNewLong);
-  WINUSERAPI LONG WINAPI SetWindowLongW(HWND hWnd,int nIndex,LONG dwNewLong);
+  WINUSERAPI WORD WINAPI GetWindowWord(HWND hWnd,पूर्णाङ्क nIndex);
+  WINUSERAPI WORD WINAPI SetWindowWord(HWND hWnd,पूर्णाङ्क nIndex,WORD wNewWord);
+  WINUSERAPI LONG WINAPI GetWindowLongA(HWND hWnd,पूर्णाङ्क nIndex);
+  WINUSERAPI LONG WINAPI GetWindowLongW(HWND hWnd,पूर्णाङ्क nIndex);
+  WINUSERAPI LONG WINAPI SetWindowLongA(HWND hWnd,पूर्णाङ्क nIndex,LONG dwNewLong);
+  WINUSERAPI LONG WINAPI SetWindowLongW(HWND hWnd,पूर्णाङ्क nIndex,LONG dwNewLong);
 
 #ifdef _WIN64
 
 #ifdef UNICODE
 #define GetWindowLongPtr GetWindowLongPtrW
 #define SetWindowLongPtr SetWindowLongPtrW
-#else
+#अन्यथा
 #define GetWindowLongPtr GetWindowLongPtrA
 #define SetWindowLongPtr SetWindowLongPtrA
 #endif
 
-  WINUSERAPI LONG_PTR WINAPI GetWindowLongPtrA(HWND hWnd,int nIndex);
-  WINUSERAPI LONG_PTR WINAPI GetWindowLongPtrW(HWND hWnd,int nIndex);
-  WINUSERAPI LONG_PTR WINAPI SetWindowLongPtrA(HWND hWnd,int nIndex,LONG_PTR dwNewLong);
-  WINUSERAPI LONG_PTR WINAPI SetWindowLongPtrW(HWND hWnd,int nIndex,LONG_PTR dwNewLong);
-#else
+  WINUSERAPI LONG_PTR WINAPI GetWindowLongPtrA(HWND hWnd,पूर्णाङ्क nIndex);
+  WINUSERAPI LONG_PTR WINAPI GetWindowLongPtrW(HWND hWnd,पूर्णाङ्क nIndex);
+  WINUSERAPI LONG_PTR WINAPI SetWindowLongPtrA(HWND hWnd,पूर्णाङ्क nIndex,LONG_PTR dwNewLong);
+  WINUSERAPI LONG_PTR WINAPI SetWindowLongPtrW(HWND hWnd,पूर्णाङ्क nIndex,LONG_PTR dwNewLong);
+#अन्यथा
 
 #ifdef UNICODE
 #define GetWindowLongPtr GetWindowLongPtrW
 #define SetWindowLongPtr SetWindowLongPtrW
-#else
+#अन्यथा
 #define GetWindowLongPtr GetWindowLongPtrA
 #define SetWindowLongPtr SetWindowLongPtrA
 #endif
@@ -3387,37 +3387,37 @@ extern "C" {
 #ifdef UNICODE
 #define GetClassLong GetClassLongW
 #define SetClassLong SetClassLongW
-#else
+#अन्यथा
 #define GetClassLong GetClassLongA
 #define SetClassLong SetClassLongA
 #endif
 
-  WINUSERAPI WORD WINAPI GetClassWord(HWND hWnd,int nIndex);
-  WINUSERAPI WORD WINAPI SetClassWord(HWND hWnd,int nIndex,WORD wNewWord);
-  WINUSERAPI DWORD WINAPI GetClassLongA(HWND hWnd,int nIndex);
-  WINUSERAPI DWORD WINAPI GetClassLongW(HWND hWnd,int nIndex);
-  WINUSERAPI DWORD WINAPI SetClassLongA(HWND hWnd,int nIndex,LONG dwNewLong);
-  WINUSERAPI DWORD WINAPI SetClassLongW(HWND hWnd,int nIndex,LONG dwNewLong);
+  WINUSERAPI WORD WINAPI GetClassWord(HWND hWnd,पूर्णाङ्क nIndex);
+  WINUSERAPI WORD WINAPI SetClassWord(HWND hWnd,पूर्णाङ्क nIndex,WORD wNewWord);
+  WINUSERAPI DWORD WINAPI GetClassLongA(HWND hWnd,पूर्णाङ्क nIndex);
+  WINUSERAPI DWORD WINAPI GetClassLongW(HWND hWnd,पूर्णाङ्क nIndex);
+  WINUSERAPI DWORD WINAPI SetClassLongA(HWND hWnd,पूर्णाङ्क nIndex,LONG dwNewLong);
+  WINUSERAPI DWORD WINAPI SetClassLongW(HWND hWnd,पूर्णाङ्क nIndex,LONG dwNewLong);
 
 #ifdef _WIN64
 
 #ifdef UNICODE
 #define GetClassLongPtr GetClassLongPtrW
 #define SetClassLongPtr SetClassLongPtrW
-#else
+#अन्यथा
 #define GetClassLongPtr GetClassLongPtrA
 #define SetClassLongPtr SetClassLongPtrA
 #endif
 
-  WINUSERAPI ULONG_PTR WINAPI GetClassLongPtrA(HWND hWnd,int nIndex);
-  WINUSERAPI ULONG_PTR WINAPI GetClassLongPtrW(HWND hWnd,int nIndex);
-  WINUSERAPI ULONG_PTR WINAPI SetClassLongPtrA(HWND hWnd,int nIndex,LONG_PTR dwNewLong);
-  WINUSERAPI ULONG_PTR WINAPI SetClassLongPtrW(HWND hWnd,int nIndex,LONG_PTR dwNewLong);
-#else
+  WINUSERAPI ULONG_PTR WINAPI GetClassLongPtrA(HWND hWnd,पूर्णाङ्क nIndex);
+  WINUSERAPI ULONG_PTR WINAPI GetClassLongPtrW(HWND hWnd,पूर्णाङ्क nIndex);
+  WINUSERAPI ULONG_PTR WINAPI SetClassLongPtrA(HWND hWnd,पूर्णाङ्क nIndex,LONG_PTR dwNewLong);
+  WINUSERAPI ULONG_PTR WINAPI SetClassLongPtrW(HWND hWnd,पूर्णाङ्क nIndex,LONG_PTR dwNewLong);
+#अन्यथा
 #ifdef UNICODE
 #define GetClassLongPtr GetClassLongPtrW
 #define SetClassLongPtr SetClassLongPtrW
-#else
+#अन्यथा
 #define GetClassLongPtr GetClassLongPtrA
 #define SetClassLongPtr SetClassLongPtrA
 #endif
@@ -3433,7 +3433,7 @@ extern "C" {
 #define FindWindow FindWindowW
 #define FindWindowEx FindWindowExW
 #define GetClassName GetClassNameW
-#else
+#अन्यथा
 #define FindWindow FindWindowA
 #define FindWindowEx FindWindowExA
 #define GetClassName GetClassNameA
@@ -3457,18 +3457,18 @@ extern "C" {
 
 #define EnumTaskWindows(hTask,lpfn,lParam) EnumThreadWindows(HandleToUlong(hTask),lpfn,lParam)
 
-  WINUSERAPI int WINAPI GetClassNameA(HWND hWnd,LPSTR lpClassName,int nMaxCount);
-  WINUSERAPI int WINAPI GetClassNameW(HWND hWnd,LPWSTR lpClassName,int nMaxCount);
-  WINUSERAPI HWND WINAPI GetTopWindow(HWND hWnd);
+  WINUSERAPI पूर्णाङ्क WINAPI GetClassNameA(HWND hWnd,LPSTR lpClassName,पूर्णाङ्क n_Max_गिनती);
+  WINUSERAPI पूर्णाङ्क WINAPI GetClassNameW(HWND hWnd,LPWSTR lpClassName,पूर्णाङ्क n_Max_गिनती);
+  WINUSERAPI HWND WINAPI Get_शीर्ष_Window(HWND hWnd);
 
 #define GetNextWindow(hWnd,wCmd) GetWindow(hWnd,wCmd)
-#define GetSysModalWindow() (NULL)
-#define SetSysModalWindow(hWnd) (NULL)
+#define GetSysModalWindow() (रिक्त)
+#define SetSysModalWindow(hWnd) (रिक्त)
 
   WINUSERAPI DWORD WINAPI GetWindowThreadProcessId(HWND hWnd,LPDWORD lpdwProcessId);
   WINUSERAPI WINBOOL WINAPI IsGUIThread(WINBOOL bConvert);
 
-#define GetWindowTask(hWnd) ((HANDLE)(DWORD_PTR)GetWindowThreadProcessId(hWnd,NULL))
+#define GetWindowTask(hWnd) ((HANDLE)(DWORD_PTR)GetWindowThreadProcessId(hWnd,रिक्त))
 
   WINUSERAPI HWND WINAPI GetLastActivePopup(HWND hWnd);
 
@@ -3488,24 +3488,24 @@ extern "C" {
 #ifdef UNICODE
 #define SetWindowsHook SetWindowsHookW
 #define SetWindowsHookEx SetWindowsHookExW
-#else
+#अन्यथा
 #define SetWindowsHook SetWindowsHookA
 #define SetWindowsHookEx SetWindowsHookExA
 #endif
 
-  WINUSERAPI HHOOK WINAPI SetWindowsHookA(int nFilterType,HOOKPROC pfnFilterProc);
-  WINUSERAPI HHOOK WINAPI SetWindowsHookW(int nFilterType,HOOKPROC pfnFilterProc);
-  WINUSERAPI WINBOOL WINAPI UnhookWindowsHook(int nCode,HOOKPROC pfnFilterProc);
-  WINUSERAPI HHOOK WINAPI SetWindowsHookExA(int idHook,HOOKPROC lpfn,HINSTANCE hmod,DWORD dwThreadId);
-  WINUSERAPI HHOOK WINAPI SetWindowsHookExW(int idHook,HOOKPROC lpfn,HINSTANCE hmod,DWORD dwThreadId);
+  WINUSERAPI HHOOK WINAPI SetWindowsHookA(पूर्णाङ्क nFilterType,HOOKPROC pfnFilterProc);
+  WINUSERAPI HHOOK WINAPI SetWindowsHookW(पूर्णाङ्क nFilterType,HOOKPROC pfnFilterProc);
+  WINUSERAPI WINBOOL WINAPI UnhookWindowsHook(पूर्णाङ्क nCode,HOOKPROC pfnFilterProc);
+  WINUSERAPI HHOOK WINAPI SetWindowsHookExA(पूर्णाङ्क idHook,HOOKPROC lpfn,HINSTANCE hmod,DWORD dwThreadId);
+  WINUSERAPI HHOOK WINAPI SetWindowsHookExW(पूर्णाङ्क idHook,HOOKPROC lpfn,HINSTANCE hmod,DWORD dwThreadId);
   WINUSERAPI WINBOOL WINAPI UnhookWindowsHookEx(HHOOK hhk);
-  WINUSERAPI LRESULT WINAPI CallNextHookEx(HHOOK hhk,int nCode,WPARAM wParam,LPARAM lParam);
+  WINUSERAPI LRESULT WINAPI CallNextHookEx(HHOOK hhk,पूर्णाङ्क nCode,WPARAM wParam,LPARAM lParam);
 #define DefHookProc(nCode,wParam,lParam,phhk) CallNextHookEx(*phhk,nCode,wParam,lParam)
 #endif
 
 #ifndef NOMENUS
 
-#define MF_INSERT 0x00000000L
+#define MF_जोड़ो 0x00000000L
 #define MF_CHANGE 0x00000080L
 #define MF_APPEND 0x00000100L
 #define MF_DELETE 0x00000200L
@@ -3555,12 +3555,12 @@ extern "C" {
 
   WINUSERAPI WINBOOL WINAPI CheckMenuRadioItem(HMENU hmenu,UINT first,UINT last,UINT check,UINT flags);
 
-  typedef struct {
-    WORD versionNumber;
+  प्रकारनिर्देश संरचना {
+    WORD version_संख्या;
     WORD offset;
   } MENUITEMTEMPLATEHEADER,*PMENUITEMTEMPLATEHEADER;
 
-  typedef struct {
+  प्रकारनिर्देश संरचना {
     WORD mtOption;
     WORD mtID;
     WCHAR mtString[1];
@@ -3598,7 +3598,7 @@ extern "C" {
 #define LoadBitmap LoadBitmapW
 #define LoadCursor LoadCursorW
 #define LoadCursorFromFile LoadCursorFromFileW
-#else
+#अन्यथा
 #define LoadBitmap LoadBitmapA
 #define LoadCursor LoadCursorA
 #define LoadCursorFromFile LoadCursorFromFileA
@@ -3610,7 +3610,7 @@ extern "C" {
   WINUSERAPI HCURSOR WINAPI LoadCursorW(HINSTANCE hInstance,LPCWSTR lpCursorName);
   WINUSERAPI HCURSOR WINAPI LoadCursorFromFileA(LPCSTR lpFileName);
   WINUSERAPI HCURSOR WINAPI LoadCursorFromFileW(LPCWSTR lpFileName);
-  WINUSERAPI HCURSOR WINAPI CreateCursor(HINSTANCE hInst,int xHotSpot,int yHotSpot,int nWidth,int nHeight,CONST VOID *pvANDPlane,CONST VOID *pvXORPlane);
+  WINUSERAPI HCURSOR WINAPI CreateCursor(HINSTANCE hInst,पूर्णाङ्क xHotSpot,पूर्णाङ्क yHotSpot,पूर्णाङ्क nWidth,पूर्णाङ्क nHeight,CONST VOID *pvANDPlane,CONST VOID *pvXORPlane);
   WINUSERAPI WINBOOL WINAPI DestroyCursor(HCURSOR hCursor);
 
 #define CopyCursor(pcur) ((HCURSOR)CopyIcon((HICON)(pcur)))
@@ -3634,40 +3634,40 @@ extern "C" {
 
   WINUSERAPI WINBOOL WINAPI SetSystemCursor(HCURSOR hcur,DWORD id);
 
-  typedef struct _ICONINFO {
+  प्रकारनिर्देश संरचना _ICONINFO {
     WINBOOL fIcon;
     DWORD xHotspot;
     DWORD yHotspot;
     HBITMAP hbmMask;
     HBITMAP hbmColor;
   } ICONINFO;
-  typedef ICONINFO *PICONINFO;
+  प्रकारनिर्देश ICONINFO *PICONINFO;
 
 #ifdef UNICODE
 #define LoadIcon LoadIconW
 #define PrivateExtractIcons PrivateExtractIconsW
-#else
+#अन्यथा
 #define LoadIcon LoadIconA
 #define PrivateExtractIcons PrivateExtractIconsA
 #endif
 
   WINUSERAPI HICON WINAPI LoadIconA(HINSTANCE hInstance,LPCSTR lpIconName);
   WINUSERAPI HICON WINAPI LoadIconW(HINSTANCE hInstance,LPCWSTR lpIconName);
-  WINUSERAPI UINT WINAPI PrivateExtractIconsA(LPCSTR szFileName,int nIconIndex,int cxIcon,int cyIcon,HICON *phicon,UINT *piconid,UINT nIcons,UINT flags);
-  WINUSERAPI UINT WINAPI PrivateExtractIconsW(LPCWSTR szFileName,int nIconIndex,int cxIcon,int cyIcon,HICON *phicon,UINT *piconid,UINT nIcons,UINT flags);
-  WINUSERAPI HICON WINAPI CreateIcon(HINSTANCE hInstance,int nWidth,int nHeight,BYTE cPlanes,BYTE cBitsPixel,CONST BYTE *lpbANDbits,CONST BYTE *lpbXORbits);
+  WINUSERAPI UINT WINAPI PrivateExtractIconsA(LPCSTR szFileName,पूर्णाङ्क nIconIndex,पूर्णाङ्क cxIcon,पूर्णाङ्क cyIcon,HICON *phicon,UINT *piconid,UINT nIcons,UINT flags);
+  WINUSERAPI UINT WINAPI PrivateExtractIconsW(LPCWSTR szFileName,पूर्णाङ्क nIconIndex,पूर्णाङ्क cxIcon,पूर्णाङ्क cyIcon,HICON *phicon,UINT *piconid,UINT nIcons,UINT flags);
+  WINUSERAPI HICON WINAPI CreateIcon(HINSTANCE hInstance,पूर्णाङ्क nWidth,पूर्णाङ्क nHeight,BYTE cPlanes,BYTE cBitsPixel,CONST BYTE *lpbANDbits,CONST BYTE *lpbXORbits);
   WINUSERAPI WINBOOL WINAPI DestroyIcon(HICON hIcon);
-  WINUSERAPI int WINAPI LookupIconIdFromDirectory(PBYTE presbits,WINBOOL fIcon);
-  WINUSERAPI int WINAPI LookupIconIdFromDirectoryEx(PBYTE presbits,WINBOOL fIcon,int cxDesired,int cyDesired,UINT Flags);
+  WINUSERAPI पूर्णाङ्क WINAPI LookupIconIdFromDirectory(PBYTE presbits,WINBOOL fIcon);
+  WINUSERAPI पूर्णाङ्क WINAPI LookupIconIdFromDirectoryEx(PBYTE presbits,WINBOOL fIcon,पूर्णाङ्क cxDesired,पूर्णाङ्क cyDesired,UINT Flags);
   WINUSERAPI HICON WINAPI CreateIconFromResource(PBYTE presbits,DWORD dwResSize,WINBOOL fIcon,DWORD dwVer);
-  WINUSERAPI HICON WINAPI CreateIconFromResourceEx(PBYTE presbits,DWORD dwResSize,WINBOOL fIcon,DWORD dwVer,int cxDesired,int cyDesired,UINT Flags);
+  WINUSERAPI HICON WINAPI CreateIconFromResourceEx(PBYTE presbits,DWORD dwResSize,WINBOOL fIcon,DWORD dwVer,पूर्णाङ्क cxDesired,पूर्णाङ्क cyDesired,UINT Flags);
 
-  typedef struct tagCURSORSHAPE {
-    int xHotSpot;
-    int yHotSpot;
-    int cx;
-    int cy;
-    int cbWidth;
+  प्रकारनिर्देश संरचना tagCURSORSHAPE {
+    पूर्णाङ्क xHotSpot;
+    पूर्णाङ्क yHotSpot;
+    पूर्णाङ्क cx;
+    पूर्णाङ्क cy;
+    पूर्णाङ्क cbWidth;
     BYTE Planes;
     BYTE BitsPixel;
   } CURSORSHAPE,*LPCURSORSHAPE;
@@ -3693,13 +3693,13 @@ extern "C" {
 
 #ifdef UNICODE
 #define LoadImage LoadImageW
-#else
+#अन्यथा
 #define LoadImage LoadImageA
 #endif
 
-  WINUSERAPI HANDLE WINAPI LoadImageA(HINSTANCE hInst,LPCSTR name,UINT type,int cx,int cy,UINT fuLoad);
-  WINUSERAPI HANDLE WINAPI LoadImageW(HINSTANCE hInst,LPCWSTR name,UINT type,int cx,int cy,UINT fuLoad);
-  WINUSERAPI HANDLE WINAPI CopyImage(HANDLE h,UINT type,int cx,int cy,UINT flags);
+  WINUSERAPI HANDLE WINAPI LoadImageA(HINSTANCE hInst,LPCSTR name,UINT type,पूर्णाङ्क cx,पूर्णाङ्क cy,UINT fuLoad);
+  WINUSERAPI HANDLE WINAPI LoadImageW(HINSTANCE hInst,LPCWSTR name,UINT type,पूर्णाङ्क cx,पूर्णाङ्क cy,UINT fuLoad);
+  WINUSERAPI HANDLE WINAPI CopyImage(HANDLE h,UINT type,पूर्णाङ्क cx,पूर्णाङ्क cy,UINT flags);
 
 #define DI_MASK 0x0001
 #define DI_IMAGE 0x0002
@@ -3708,7 +3708,7 @@ extern "C" {
 #define DI_DEFAULTSIZE 0x0008
 #define DI_NOMIRROR 0x0010
 
-  WINUSERAPI WINBOOL WINAPI DrawIconEx(HDC hdc,int xLeft,int yTop,HICON hIcon,int cxWidth,int cyWidth,UINT istepIfAniCur,HBRUSH hbrFlickerFreeDraw,UINT diFlags);
+  WINUSERAPI WINBOOL WINAPI DrawIconEx(HDC hdc,पूर्णाङ्क x_बायाँ,पूर्णाङ्क y_शीर्ष,HICON hIcon,पूर्णाङ्क cxWidth,पूर्णाङ्क cyWidth,UINT istepIfAniCur,HBRUSH hbrFlickerFreeDraw,UINT diFlags);
   WINUSERAPI HICON WINAPI CreateIconIndirect(PICONINFO piconinfo);
   WINUSERAPI HICON WINAPI CopyIcon(HICON hIcon);
   WINUSERAPI WINBOOL WINAPI GetIconInfo(HICON hIcon,PICONINFO piconinfo);
@@ -3793,7 +3793,7 @@ extern "C" {
 #define IDI_EXCLAMATION 32515
 #define IDI_ASTERISK 32516
 #define IDI_WINLOGO 32517
-#else
+#अन्यथा
 #define IDI_APPLICATION MAKEINTRESOURCE(32512)
 #define IDI_HAND MAKEINTRESOURCE(32513)
 #define IDI_QUESTION MAKEINTRESOURCE(32514)
@@ -3809,12 +3809,12 @@ extern "C" {
 
 #ifdef UNICODE
 #define LoadString LoadStringW
-#else
+#अन्यथा
 #define LoadString LoadStringA
 #endif
 
-  WINUSERAPI int WINAPI LoadStringA(HINSTANCE hInstance,UINT uID,LPSTR lpBuffer,int cchBufferMax);
-  WINUSERAPI int WINAPI LoadStringW(HINSTANCE hInstance,UINT uID,LPWSTR lpBuffer,int cchBufferMax);
+  WINUSERAPI पूर्णाङ्क WINAPI LoadStringA(HINSTANCE hInstance,UINT uID,LPSTR lpBuffer,पूर्णाङ्क cchBufferMax);
+  WINUSERAPI पूर्णाङ्क WINAPI LoadStringW(HINSTANCE hInstance,UINT uID,LPWSTR lpBuffer,पूर्णाङ्क cchBufferMax);
 
 #define IDOK 1
 #define IDCANCEL 2
@@ -3835,9 +3835,9 @@ extern "C" {
 #ifndef NOCTLMGR
 
 #ifndef NOWINSTYLES
-#define ES_LEFT 0x0000L
+#define ES_बायाँ 0x0000L
 #define ES_CENTER 0x0001L
-#define ES_RIGHT 0x0002L
+#define ES_दायाँ 0x0002L
 #define ES_MULTILINE 0x0004L
 #define ES_UPPERCASE 0x0008L
 #define ES_LOWERCASE 0x0010L
@@ -3848,7 +3848,7 @@ extern "C" {
 #define ES_OEMCONVERT 0x0400L
 #define ES_READONLY 0x0800L
 #define ES_WANTRETURN 0x1000L
-#define ES_NUMBER 0x2000L
+#define ES_संख्या 0x2000L
 #endif
 
 #define EN_SETFOCUS 0x0100
@@ -3915,8 +3915,8 @@ extern "C" {
 #define EM_GETIMESTATUS 0x00D9
 #endif
 
-#define WB_LEFT 0
-#define WB_RIGHT 1
+#define WB_बायाँ 0
+#define WB_दायाँ 1
 #define WB_ISDELIMITER 2
 
 #define BS_PUSHBUTTON 0x00000000L
@@ -3936,10 +3936,10 @@ extern "C" {
 #define BS_TEXT 0x00000000L
 #define BS_ICON 0x00000040L
 #define BS_BITMAP 0x00000080L
-#define BS_LEFT 0x00000100L
-#define BS_RIGHT 0x00000200L
+#define BS_बायाँ 0x00000100L
+#define BS_दायाँ 0x00000200L
 #define BS_CENTER 0x00000300L
-#define BS_TOP 0x00000400L
+#define BS_शीर्ष 0x00000400L
 #define BS_BOTTOM 0x00000800L
 #define BS_VCENTER 0x00000C00L
 #define BS_PUSHLIKE 0x00001000L
@@ -3975,9 +3975,9 @@ extern "C" {
 #define BST_PUSHED 0x0004
 #define BST_FOCUS 0x0008
 
-#define SS_LEFT 0x00000000L
+#define SS_बायाँ 0x00000000L
 #define SS_CENTER 0x00000001L
-#define SS_RIGHT 0x00000002L
+#define SS_दायाँ 0x00000002L
 #define SS_ICON 0x00000003L
 #define SS_BLACKRECT 0x00000004L
 #define SS_GRAYRECT 0x00000005L
@@ -4035,19 +4035,19 @@ extern "C" {
 #endif
 
 #define DWLP_MSGRESULT 0
-#define DWLP_DLGPROC DWLP_MSGRESULT + sizeof(LRESULT)
-#define DWLP_USER DWLP_DLGPROC + sizeof(DLGPROC)
+#define DWLP_DLGPROC DWLP_MSGRESULT + परिमाण(LRESULT)
+#define DWLP_USER DWLP_DLGPROC + परिमाण(DLGPROC)
 
 #ifndef NOMSG
 
 #ifdef UNICODE
 #define IsDialogMessage IsDialogMessageW
-#else
+#अन्यथा
 #define IsDialogMessage IsDialogMessageA
 #endif
 
-  WINUSERAPI WINBOOL WINAPI IsDialogMessageA(HWND hDlg,LPMSG lpMsg);
-  WINUSERAPI WINBOOL WINAPI IsDialogMessageW(HWND hDlg,LPMSG lpMsg);
+  WINUSERAPI WINBOOL WINAPI IsDialogMessageA(HWND hDlg,LPMSG lp_संदेश);
+  WINUSERAPI WINBOOL WINAPI IsDialogMessageW(HWND hDlg,LPMSG lp_संदेश);
 #endif
 
 #ifdef UNICODE
@@ -4055,7 +4055,7 @@ extern "C" {
 #define DlgDirSelectEx DlgDirSelectExW
 #define DlgDirListComboBox DlgDirListComboBoxW
 #define DlgDirSelectComboBoxEx DlgDirSelectComboBoxExW
-#else
+#अन्यथा
 #define DlgDirList DlgDirListA
 #define DlgDirSelectEx DlgDirSelectExA
 #define DlgDirListComboBox DlgDirListComboBoxA
@@ -4063,8 +4063,8 @@ extern "C" {
 #endif
 
   WINUSERAPI WINBOOL WINAPI MapDialogRect(HWND hDlg,LPRECT lpRect);
-  WINUSERAPI int WINAPI DlgDirListA(HWND hDlg,LPSTR lpPathSpec,int nIDListBox,int nIDStaticPath,UINT uFileType);
-  WINUSERAPI int WINAPI DlgDirListW(HWND hDlg,LPWSTR lpPathSpec,int nIDListBox,int nIDStaticPath,UINT uFileType);
+  WINUSERAPI पूर्णाङ्क WINAPI DlgDirListA(HWND hDlg,LPSTR lpPathSpec,पूर्णाङ्क nIDListBox,पूर्णाङ्क nIDStaticPath,UINT uFileType);
+  WINUSERAPI पूर्णाङ्क WINAPI DlgDirListW(HWND hDlg,LPWSTR lpPathSpec,पूर्णाङ्क nIDListBox,पूर्णाङ्क nIDStaticPath,UINT uFileType);
 
 #define DDL_READWRITE 0x0000
 #define DDL_READONLY 0x0001
@@ -4077,12 +4077,12 @@ extern "C" {
 #define DDL_DRIVES 0x4000
 #define DDL_EXCLUSIVE 0x8000
 
-  WINUSERAPI WINBOOL WINAPI DlgDirSelectExA(HWND hwndDlg,LPSTR lpString,int chCount,int idListBox);
-  WINUSERAPI WINBOOL WINAPI DlgDirSelectExW(HWND hwndDlg,LPWSTR lpString,int chCount,int idListBox);
-  WINUSERAPI int WINAPI DlgDirListComboBoxA(HWND hDlg,LPSTR lpPathSpec,int nIDComboBox,int nIDStaticPath,UINT uFiletype);
-  WINUSERAPI int WINAPI DlgDirListComboBoxW(HWND hDlg,LPWSTR lpPathSpec,int nIDComboBox,int nIDStaticPath,UINT uFiletype);
-  WINUSERAPI WINBOOL WINAPI DlgDirSelectComboBoxExA(HWND hwndDlg,LPSTR lpString,int cchOut,int idComboBox);
-  WINUSERAPI WINBOOL WINAPI DlgDirSelectComboBoxExW(HWND hwndDlg,LPWSTR lpString,int cchOut,int idComboBox);
+  WINUSERAPI WINBOOL WINAPI DlgDirSelectExA(HWND hwndDlg,LPSTR lpString,पूर्णाङ्क ch_गिनती,पूर्णाङ्क idListBox);
+  WINUSERAPI WINBOOL WINAPI DlgDirSelectExW(HWND hwndDlg,LPWSTR lpString,पूर्णाङ्क ch_गिनती,पूर्णाङ्क idListBox);
+  WINUSERAPI पूर्णाङ्क WINAPI DlgDirListComboBoxA(HWND hDlg,LPSTR lpPathSpec,पूर्णाङ्क nIDComboBox,पूर्णाङ्क nIDStaticPath,UINT uFiletype);
+  WINUSERAPI पूर्णाङ्क WINAPI DlgDirListComboBoxW(HWND hDlg,LPWSTR lpPathSpec,पूर्णाङ्क nIDComboBox,पूर्णाङ्क nIDStaticPath,UINT uFiletype);
+  WINUSERAPI WINBOOL WINAPI DlgDirSelectComboBoxExA(HWND hwndDlg,LPSTR lpString,पूर्णाङ्क cchOut,पूर्णाङ्क idComboBox);
+  WINUSERAPI WINBOOL WINAPI DlgDirSelectComboBoxExW(HWND hwndDlg,LPWSTR lpString,पूर्णाङ्क cchOut,पूर्णाङ्क idComboBox);
 
 #define DS_ABSALIGN 0x01L
 #define DS_SYSMODAL 0x02L
@@ -4102,7 +4102,7 @@ extern "C" {
 
 #define DS_SHELLFONT (DS_SETFONT | DS_FIXEDSYS)
 
-#if(_WIN32_WCE >= 0x0500)
+#यदि(_WIN32_WCE >= 0x0500)
 #define DS_USEPIXELS 0x8000L
 #endif
 
@@ -4179,7 +4179,7 @@ extern "C" {
 #define LB_SETCOUNT 0x01A7
 #define LB_INITSTORAGE 0x01A8
 #define LB_ITEMFROMPOINT 0x01A9
-#if(_WIN32_WCE >= 0x0400)
+#यदि(_WIN32_WCE >= 0x0400)
 #define LB_MULTIPLEADDSTRING 0x01B1
 #endif
 #define LB_GETLISTBOXINFO 0x01B2
@@ -4276,7 +4276,7 @@ extern "C" {
 #define CB_GETDROPPEDWIDTH 0x015f
 #define CB_SETDROPPEDWIDTH 0x0160
 #define CB_INITSTORAGE 0x0161
-#if(_WIN32_WCE >= 0x0400)
+#यदि(_WIN32_WCE >= 0x0400)
 #define CB_MULTIPLEADDSTRING 0x0163
 #endif
 #define CB_GETCOMBOBOXINFO 0x0164
@@ -4315,19 +4315,19 @@ extern "C" {
 #define SIF_TRACKPOS 0x0010
 #define SIF_ALL (SIF_RANGE | SIF_PAGE | SIF_POS | SIF_TRACKPOS)
 
-  typedef struct tagSCROLLINFO {
+  प्रकारनिर्देश संरचना tagSCROLLINFO {
     UINT cbSize;
     UINT fMask;
-    int nMin;
-    int nMax;
+    पूर्णाङ्क nMin;
+    पूर्णाङ्क nMax;
     UINT nPage;
-    int nPos;
-    int nTrackPos;
+    पूर्णाङ्क nPos;
+    पूर्णाङ्क nTrackPos;
   } SCROLLINFO,*LPSCROLLINFO;
-  typedef SCROLLINFO CONST *LPCSCROLLINFO;
+  प्रकारनिर्देश SCROLLINFO CONST *LPCSCROLLINFO;
 
-  WINUSERAPI int WINAPI SetScrollInfo(HWND hwnd,int nBar,LPCSCROLLINFO lpsi,WINBOOL redraw);
-  WINUSERAPI WINBOOL WINAPI GetScrollInfo(HWND hwnd,int nBar,LPSCROLLINFO lpsi);
+  WINUSERAPI पूर्णाङ्क WINAPI SetScrollInfo(HWND hwnd,पूर्णाङ्क nBar,LPCSCROLLINFO lpsi,WINBOOL redraw);
+  WINUSERAPI WINBOOL WINAPI GetScrollInfo(HWND hwnd,पूर्णाङ्क nBar,LPSCROLLINFO lpsi);
 #endif
 #endif
 
@@ -4340,39 +4340,39 @@ extern "C" {
 #define MDITILE_SKIPDISABLED 0x0002
 #define MDITILE_ZORDER 0x0004
 
-  typedef struct tagMDICREATESTRUCTA {
+  प्रकारनिर्देश संरचना tagMDICREATESTRUCTA {
     LPCSTR szClass;
     LPCSTR szTitle;
     HANDLE hOwner;
-    int x;
-    int y;
-    int cx;
-    int cy;
+    पूर्णाङ्क x;
+    पूर्णाङ्क y;
+    पूर्णाङ्क cx;
+    पूर्णाङ्क cy;
     DWORD style;
     LPARAM lParam;
   } MDICREATESTRUCTA,*LPMDICREATESTRUCTA;
 
-  typedef struct tagMDICREATESTRUCTW {
+  प्रकारनिर्देश संरचना tagMDICREATESTRUCTW {
     LPCWSTR szClass;
     LPCWSTR szTitle;
     HANDLE hOwner;
-    int x;
-    int y;
-    int cx;
-    int cy;
+    पूर्णाङ्क x;
+    पूर्णाङ्क y;
+    पूर्णाङ्क cx;
+    पूर्णाङ्क cy;
     DWORD style;
     LPARAM lParam;
   } MDICREATESTRUCTW,*LPMDICREATESTRUCTW;
 
 #ifdef UNICODE
-  typedef MDICREATESTRUCTW MDICREATESTRUCT;
-  typedef LPMDICREATESTRUCTW LPMDICREATESTRUCT;
-#else
-  typedef MDICREATESTRUCTA MDICREATESTRUCT;
-  typedef LPMDICREATESTRUCTA LPMDICREATESTRUCT;
+  प्रकारनिर्देश MDICREATESTRUCTW MDICREATESTRUCT;
+  प्रकारनिर्देश LPMDICREATESTRUCTW LPMDICREATESTRUCT;
+#अन्यथा
+  प्रकारनिर्देश MDICREATESTRUCTA MDICREATESTRUCT;
+  प्रकारनिर्देश LPMDICREATESTRUCTA LPMDICREATESTRUCT;
 #endif
 
-  typedef struct tagCLIENTCREATESTRUCT {
+  प्रकारनिर्देश संरचना tagCLIENTCREATESTRUCT {
     HANDLE hWindowMenu;
     UINT idFirstChild;
   } CLIENTCREATESTRUCT,*LPCLIENTCREATESTRUCT;
@@ -4381,82 +4381,82 @@ extern "C" {
 #define DefFrameProc DefFrameProcW
 #define DefMDIChildProc DefMDIChildProcW
 #define CreateMDIWindow CreateMDIWindowW
-#else
+#अन्यथा
 #define DefFrameProc DefFrameProcA
 #define DefMDIChildProc DefMDIChildProcA
 #define CreateMDIWindow CreateMDIWindowA
 #endif
 
-  WINUSERAPI LRESULT WINAPI DefFrameProcA(HWND hWnd,HWND hWndMDIClient,UINT uMsg,WPARAM wParam,LPARAM lParam);
-  WINUSERAPI LRESULT WINAPI DefFrameProcW(HWND hWnd,HWND hWndMDIClient,UINT uMsg,WPARAM wParam,LPARAM lParam);
-  WINUSERAPI LRESULT WINAPI DefMDIChildProcA(HWND hWnd,UINT uMsg,WPARAM wParam,LPARAM lParam);
-  WINUSERAPI LRESULT WINAPI DefMDIChildProcW(HWND hWnd,UINT uMsg,WPARAM wParam,LPARAM lParam);
+  WINUSERAPI LRESULT WINAPI DefFrameProcA(HWND hWnd,HWND hWndMDIClient,UINT u_संदेश,WPARAM wParam,LPARAM lParam);
+  WINUSERAPI LRESULT WINAPI DefFrameProcW(HWND hWnd,HWND hWndMDIClient,UINT u_संदेश,WPARAM wParam,LPARAM lParam);
+  WINUSERAPI LRESULT WINAPI DefMDIChildProcA(HWND hWnd,UINT u_संदेश,WPARAM wParam,LPARAM lParam);
+  WINUSERAPI LRESULT WINAPI DefMDIChildProcW(HWND hWnd,UINT u_संदेश,WPARAM wParam,LPARAM lParam);
 
 #ifndef NOMSG
-  WINUSERAPI WINBOOL WINAPI TranslateMDISysAccel(HWND hWndClient,LPMSG lpMsg);
+  WINUSERAPI WINBOOL WINAPI TranslateMDISysAccel(HWND hWndClient,LPMSG lp_संदेश);
 #endif
 
   WINUSERAPI UINT WINAPI ArrangeIconicWindows(HWND hWnd);
-  WINUSERAPI HWND WINAPI CreateMDIWindowA(LPCSTR lpClassName,LPCSTR lpWindowName,DWORD dwStyle,int X,int Y,int nWidth,int nHeight,HWND hWndParent,HINSTANCE hInstance,LPARAM lParam);
-  WINUSERAPI HWND WINAPI CreateMDIWindowW(LPCWSTR lpClassName,LPCWSTR lpWindowName,DWORD dwStyle,int X,int Y,int nWidth,int nHeight,HWND hWndParent,HINSTANCE hInstance,LPARAM lParam);
-  WINUSERAPI WORD WINAPI TileWindows(HWND hwndParent,UINT wHow,CONST RECT *lpRect,UINT cKids,const HWND *lpKids);
-  WINUSERAPI WORD WINAPI CascadeWindows(HWND hwndParent,UINT wHow,CONST RECT *lpRect,UINT cKids,const HWND *lpKids);
+  WINUSERAPI HWND WINAPI CreateMDIWindowA(LPCSTR lpClassName,LPCSTR lpWindowName,DWORD dwStyle,पूर्णाङ्क X,पूर्णाङ्क Y,पूर्णाङ्क nWidth,पूर्णाङ्क nHeight,HWND hWndParent,HINSTANCE hInstance,LPARAM lParam);
+  WINUSERAPI HWND WINAPI CreateMDIWindowW(LPCWSTR lpClassName,LPCWSTR lpWindowName,DWORD dwStyle,पूर्णाङ्क X,पूर्णाङ्क Y,पूर्णाङ्क nWidth,पूर्णाङ्क nHeight,HWND hWndParent,HINSTANCE hInstance,LPARAM lParam);
+  WINUSERAPI WORD WINAPI TileWindows(HWND hwndParent,UINT wHow,CONST RECT *lpRect,UINT cKids,ध्रुव HWND *lpKids);
+  WINUSERAPI WORD WINAPI CascadeWindows(HWND hwndParent,UINT wHow,CONST RECT *lpRect,UINT cKids,ध्रुव HWND *lpKids);
 #endif
 #endif
 
 #ifndef NOHELP
 
-  typedef DWORD HELPPOLY;
-  typedef struct tagMULTIKEYHELPA {
+  प्रकारनिर्देश DWORD HELPPOLY;
+  प्रकारनिर्देश संरचना tagMULTIKEYHELPA {
     DWORD mkSize;
     CHAR mkKeylist;
     CHAR szKeyphrase[1];
   } MULTIKEYHELPA,*PMULTIKEYHELPA,*LPMULTIKEYHELPA;
 
-  typedef struct tagMULTIKEYHELPW {
+  प्रकारनिर्देश संरचना tagMULTIKEYHELPW {
     DWORD mkSize;
     WCHAR mkKeylist;
     WCHAR szKeyphrase[1];
   } MULTIKEYHELPW,*PMULTIKEYHELPW,*LPMULTIKEYHELPW;
 
 #ifdef UNICODE
-  typedef MULTIKEYHELPW MULTIKEYHELP;
-  typedef PMULTIKEYHELPW PMULTIKEYHELP;
-  typedef LPMULTIKEYHELPW LPMULTIKEYHELP;
-#else
-  typedef MULTIKEYHELPA MULTIKEYHELP;
-  typedef PMULTIKEYHELPA PMULTIKEYHELP;
-  typedef LPMULTIKEYHELPA LPMULTIKEYHELP;
+  प्रकारनिर्देश MULTIKEYHELPW MULTIKEYHELP;
+  प्रकारनिर्देश PMULTIKEYHELPW PMULTIKEYHELP;
+  प्रकारनिर्देश LPMULTIKEYHELPW LPMULTIKEYHELP;
+#अन्यथा
+  प्रकारनिर्देश MULTIKEYHELPA MULTIKEYHELP;
+  प्रकारनिर्देश PMULTIKEYHELPA PMULTIKEYHELP;
+  प्रकारनिर्देश LPMULTIKEYHELPA LPMULTIKEYHELP;
 #endif
 
-  typedef struct tagHELPWININFOA {
-    int wStructSize;
-    int x;
-    int y;
-    int dx;
-    int dy;
-    int wMax;
+  प्रकारनिर्देश संरचना tagHELPWININFOA {
+    पूर्णाङ्क wStructSize;
+    पूर्णाङ्क x;
+    पूर्णाङ्क y;
+    पूर्णाङ्क dx;
+    पूर्णाङ्क dy;
+    पूर्णाङ्क wMax;
     CHAR rgchMember[2];
   } HELPWININFOA,*PHELPWININFOA,*LPHELPWININFOA;
 
-  typedef struct tagHELPWININFOW {
-    int wStructSize;
-    int x;
-    int y;
-    int dx;
-    int dy;
-    int wMax;
+  प्रकारनिर्देश संरचना tagHELPWININFOW {
+    पूर्णाङ्क wStructSize;
+    पूर्णाङ्क x;
+    पूर्णाङ्क y;
+    पूर्णाङ्क dx;
+    पूर्णाङ्क dy;
+    पूर्णाङ्क wMax;
     WCHAR rgchMember[2];
   } HELPWININFOW,*PHELPWININFOW,*LPHELPWININFOW;
 
 #ifdef UNICODE
-  typedef HELPWININFOW HELPWININFO;
-  typedef PHELPWININFOW PHELPWININFO;
-  typedef LPHELPWININFOW LPHELPWININFO;
-#else
-  typedef HELPWININFOA HELPWININFO;
-  typedef PHELPWININFOA PHELPWININFO;
-  typedef LPHELPWININFOA LPHELPWININFO;
+  प्रकारनिर्देश HELPWININFOW HELPWININFO;
+  प्रकारनिर्देश PHELPWININFOW PHELPWININFO;
+  प्रकारनिर्देश LPHELPWININFOW LPHELPWININFO;
+#अन्यथा
+  प्रकारनिर्देश HELPWININFOA HELPWININFO;
+  प्रकारनिर्देश PHELPWININFOA PHELPWININFO;
+  प्रकारनिर्देश LPHELPWININFOA LPHELPWININFO;
 #endif
 
 #define HELP_CONTEXT 0x0001L
@@ -4468,7 +4468,7 @@ extern "C" {
 #define HELP_SETCONTENTS 0x0005L
 #define HELP_CONTEXTPOPUP 0x0008L
 #define HELP_FORCEFILE 0x0009L
-#define HELP_KEY 0x0101L
+#define HELP_कुंजी 0x0101L
 #define HELP_COMMAND 0x0102L
 #define HELP_PARTIALKEY 0x0105L
 #define HELP_MULTIKEY 0x0201L
@@ -4491,7 +4491,7 @@ extern "C" {
 
 #ifdef UNICODE
 #define WinHelp WinHelpW
-#else
+#अन्यथा
 #define WinHelp WinHelpA
 #endif
 
@@ -4695,50 +4695,50 @@ extern "C" {
 #define METRICS_USEDEFAULT -1
 #ifdef _WINGDI_
 #ifndef NOGDI
-  typedef struct tagNONCLIENTMETRICSA {
+  प्रकारनिर्देश संरचना tagNONCLIENTMETRICSA {
     UINT cbSize;
-    int iBorderWidth;
-    int iScrollWidth;
-    int iScrollHeight;
-    int iCaptionWidth;
-    int iCaptionHeight;
+    पूर्णाङ्क iBorderWidth;
+    पूर्णाङ्क iScrollWidth;
+    पूर्णाङ्क iScrollHeight;
+    पूर्णाङ्क iCaptionWidth;
+    पूर्णाङ्क iCaptionHeight;
     LOGFONTA lfCaptionFont;
-    int iSmCaptionWidth;
-    int iSmCaptionHeight;
+    पूर्णाङ्क iSmCaptionWidth;
+    पूर्णाङ्क iSmCaptionHeight;
     LOGFONTA lfSmCaptionFont;
-    int iMenuWidth;
-    int iMenuHeight;
+    पूर्णाङ्क iMenuWidth;
+    पूर्णाङ्क iMenuHeight;
     LOGFONTA lfMenuFont;
     LOGFONTA lfStatusFont;
     LOGFONTA lfMessageFont;
   } NONCLIENTMETRICSA,*PNONCLIENTMETRICSA,*LPNONCLIENTMETRICSA;
 
-  typedef struct tagNONCLIENTMETRICSW {
+  प्रकारनिर्देश संरचना tagNONCLIENTMETRICSW {
     UINT cbSize;
-    int iBorderWidth;
-    int iScrollWidth;
-    int iScrollHeight;
-    int iCaptionWidth;
-    int iCaptionHeight;
+    पूर्णाङ्क iBorderWidth;
+    पूर्णाङ्क iScrollWidth;
+    पूर्णाङ्क iScrollHeight;
+    पूर्णाङ्क iCaptionWidth;
+    पूर्णाङ्क iCaptionHeight;
     LOGFONTW lfCaptionFont;
-    int iSmCaptionWidth;
-    int iSmCaptionHeight;
+    पूर्णाङ्क iSmCaptionWidth;
+    पूर्णाङ्क iSmCaptionHeight;
     LOGFONTW lfSmCaptionFont;
-    int iMenuWidth;
-    int iMenuHeight;
+    पूर्णाङ्क iMenuWidth;
+    पूर्णाङ्क iMenuHeight;
     LOGFONTW lfMenuFont;
     LOGFONTW lfStatusFont;
     LOGFONTW lfMessageFont;
   } NONCLIENTMETRICSW,*PNONCLIENTMETRICSW,*LPNONCLIENTMETRICSW;
 
 #ifdef UNICODE
-  typedef NONCLIENTMETRICSW NONCLIENTMETRICS;
-  typedef PNONCLIENTMETRICSW PNONCLIENTMETRICS;
-  typedef LPNONCLIENTMETRICSW LPNONCLIENTMETRICS;
-#else
-  typedef NONCLIENTMETRICSA NONCLIENTMETRICS;
-  typedef PNONCLIENTMETRICSA PNONCLIENTMETRICS;
-  typedef LPNONCLIENTMETRICSA LPNONCLIENTMETRICS;
+  प्रकारनिर्देश NONCLIENTMETRICSW NONCLIENTMETRICS;
+  प्रकारनिर्देश PNONCLIENTMETRICSW PNONCLIENTMETRICS;
+  प्रकारनिर्देश LPNONCLIENTMETRICSW LPNONCLIENTMETRICS;
+#अन्यथा
+  प्रकारनिर्देश NONCLIENTMETRICSA NONCLIENTMETRICS;
+  प्रकारनिर्देश PNONCLIENTMETRICSA PNONCLIENTMETRICS;
+  प्रकारनिर्देश LPNONCLIENTMETRICSA LPNONCLIENTMETRICS;
 #endif
 #endif
 #endif
@@ -4751,56 +4751,56 @@ extern "C" {
 #define ARW_STARTRIGHT 0x0001L
 #define ARW_STARTTOP 0x0002L
 
-#define ARW_LEFT 0x0000L
-#define ARW_RIGHT 0x0000L
+#define ARW_बायाँ 0x0000L
+#define ARW_दायाँ 0x0000L
 #define ARW_UP 0x0004L
 #define ARW_DOWN 0x0004L
 #define ARW_HIDE 0x0008L
 
-  typedef struct tagMINIMIZEDMETRICS {
+  प्रकारनिर्देश संरचना tagMINIMIZEDMETRICS {
     UINT cbSize;
-    int iWidth;
-    int iHorzGap;
-    int iVertGap;
-    int iArrange;
+    पूर्णाङ्क iWidth;
+    पूर्णाङ्क iHorzGap;
+    पूर्णाङ्क iVertGap;
+    पूर्णाङ्क iArrange;
   } MINIMIZEDMETRICS,*PMINIMIZEDMETRICS,*LPMINIMIZEDMETRICS;
 
 #ifdef _WINGDI_
 #ifndef NOGDI
-  typedef struct tagICONMETRICSA {
+  प्रकारनिर्देश संरचना tagICONMETRICSA {
     UINT cbSize;
-    int iHorzSpacing;
-    int iVertSpacing;
-    int iTitleWrap;
+    पूर्णाङ्क iHorzSpacing;
+    पूर्णाङ्क iVertSpacing;
+    पूर्णाङ्क iTitleWrap;
     LOGFONTA lfFont;
   } ICONMETRICSA,*PICONMETRICSA,*LPICONMETRICSA;
 
-  typedef struct tagICONMETRICSW {
+  प्रकारनिर्देश संरचना tagICONMETRICSW {
     UINT cbSize;
-    int iHorzSpacing;
-    int iVertSpacing;
-    int iTitleWrap;
+    पूर्णाङ्क iHorzSpacing;
+    पूर्णाङ्क iVertSpacing;
+    पूर्णाङ्क iTitleWrap;
     LOGFONTW lfFont;
   } ICONMETRICSW,*PICONMETRICSW,*LPICONMETRICSW;
 
 #ifdef UNICODE
-  typedef ICONMETRICSW ICONMETRICS;
-  typedef PICONMETRICSW PICONMETRICS;
-  typedef LPICONMETRICSW LPICONMETRICS;
-#else
-  typedef ICONMETRICSA ICONMETRICS;
-  typedef PICONMETRICSA PICONMETRICS;
-  typedef LPICONMETRICSA LPICONMETRICS;
+  प्रकारनिर्देश ICONMETRICSW ICONMETRICS;
+  प्रकारनिर्देश PICONMETRICSW PICONMETRICS;
+  प्रकारनिर्देश LPICONMETRICSW LPICONMETRICS;
+#अन्यथा
+  प्रकारनिर्देश ICONMETRICSA ICONMETRICS;
+  प्रकारनिर्देश PICONMETRICSA PICONMETRICS;
+  प्रकारनिर्देश LPICONMETRICSA LPICONMETRICS;
 #endif
 #endif
 #endif
 
-  typedef struct tagANIMATIONINFO {
+  प्रकारनिर्देश संरचना tagANIMATIONINFO {
     UINT cbSize;
-    int iMinAnimate;
+    पूर्णाङ्क iMinAnimate;
   } ANIMATIONINFO,*LPANIMATIONINFO;
 
-  typedef struct tagSERIALKEYSA {
+  प्रकारनिर्देश संरचना tagSERIALKEYSA {
     UINT cbSize;
     DWORD dwFlags;
     LPSTR lpszActivePort;
@@ -4810,7 +4810,7 @@ extern "C" {
     UINT iActive;
   } SERIALKEYSA,*LPSERIALKEYSA;
 
-  typedef struct tagSERIALKEYSW {
+  प्रकारनिर्देश संरचना tagSERIALKEYSW {
     UINT cbSize;
     DWORD dwFlags;
     LPWSTR lpszActivePort;
@@ -4821,35 +4821,35 @@ extern "C" {
   } SERIALKEYSW,*LPSERIALKEYSW;
 
 #ifdef UNICODE
-  typedef SERIALKEYSW SERIALKEYS;
-  typedef LPSERIALKEYSW LPSERIALKEYS;
-#else
-  typedef SERIALKEYSA SERIALKEYS;
-  typedef LPSERIALKEYSA LPSERIALKEYS;
+  प्रकारनिर्देश SERIALKEYSW SERIALKEYS;
+  प्रकारनिर्देश LPSERIALKEYSW LPSERIALKEYS;
+#अन्यथा
+  प्रकारनिर्देश SERIALKEYSA SERIALKEYS;
+  प्रकारनिर्देश LPSERIALKEYSA LPSERIALKEYS;
 #endif
 
 #define SERKF_SERIALKEYSON 0x00000001
 #define SERKF_AVAILABLE 0x00000002
 #define SERKF_INDICATOR 0x00000004
 
-  typedef struct tagHIGHCONTRASTA {
+  प्रकारनिर्देश संरचना tagHIGHCONTRASTA {
     UINT cbSize;
     DWORD dwFlags;
     LPSTR lpszDefaultScheme;
   } HIGHCONTRASTA,*LPHIGHCONTRASTA;
 
-  typedef struct tagHIGHCONTRASTW {
+  प्रकारनिर्देश संरचना tagHIGHCONTRASTW {
     UINT cbSize;
     DWORD dwFlags;
     LPWSTR lpszDefaultScheme;
   } HIGHCONTRASTW,*LPHIGHCONTRASTW;
 
 #ifdef UNICODE
-  typedef HIGHCONTRASTW HIGHCONTRAST;
-  typedef LPHIGHCONTRASTW LPHIGHCONTRAST;
-#else
-  typedef HIGHCONTRASTA HIGHCONTRAST;
-  typedef LPHIGHCONTRASTA LPHIGHCONTRAST;
+  प्रकारनिर्देश HIGHCONTRASTW HIGHCONTRAST;
+  प्रकारनिर्देश LPHIGHCONTRASTW LPHIGHCONTRAST;
+#अन्यथा
+  प्रकारनिर्देश HIGHCONTRASTA HIGHCONTRAST;
+  प्रकारनिर्देश LPHIGHCONTRASTA LPHIGHCONTRAST;
 #endif
 
 #define HCF_HIGHCONTRASTON 0x00000001
@@ -4891,7 +4891,7 @@ extern "C" {
 #define EnumDisplaySettings EnumDisplaySettingsW
 #define EnumDisplaySettingsEx EnumDisplaySettingsExW
 #define EnumDisplayDevices EnumDisplayDevicesW
-#else
+#अन्यथा
 #define ChangeDisplaySettings ChangeDisplaySettingsA
 #define ChangeDisplaySettingsEx ChangeDisplaySettingsExA
 #define EnumDisplaySettings EnumDisplaySettingsA
@@ -4907,21 +4907,21 @@ extern "C" {
 #define ENUM_CURRENT_SETTINGS ((DWORD)-1)
 #define ENUM_REGISTRY_SETTINGS ((DWORD)-2)
 
-  WINUSERAPI WINBOOL WINAPI EnumDisplaySettingsA(LPCSTR lpszDeviceName,DWORD iModeNum,LPDEVMODEA lpDevMode);
-  WINUSERAPI WINBOOL WINAPI EnumDisplaySettingsW(LPCWSTR lpszDeviceName,DWORD iModeNum,LPDEVMODEW lpDevMode);
-  WINUSERAPI WINBOOL WINAPI EnumDisplaySettingsExA(LPCSTR lpszDeviceName,DWORD iModeNum,LPDEVMODEA lpDevMode,DWORD dwFlags);
-  WINUSERAPI WINBOOL WINAPI EnumDisplaySettingsExW(LPCWSTR lpszDeviceName,DWORD iModeNum,LPDEVMODEW lpDevMode,DWORD dwFlags);
+  WINUSERAPI WINBOOL WINAPI EnumDisplaySettingsA(LPCSTR lpszDeviceName,DWORD i_Mode_अंक,LPDEVMODEA lpDevMode);
+  WINUSERAPI WINBOOL WINAPI EnumDisplaySettingsW(LPCWSTR lpszDeviceName,DWORD i_Mode_अंक,LPDEVMODEW lpDevMode);
+  WINUSERAPI WINBOOL WINAPI EnumDisplaySettingsExA(LPCSTR lpszDeviceName,DWORD i_Mode_अंक,LPDEVMODEA lpDevMode,DWORD dwFlags);
+  WINUSERAPI WINBOOL WINAPI EnumDisplaySettingsExW(LPCWSTR lpszDeviceName,DWORD i_Mode_अंक,LPDEVMODEW lpDevMode,DWORD dwFlags);
 
 #define EDS_RAWMODE 0x00000002
 
-  WINUSERAPI WINBOOL WINAPI EnumDisplayDevicesA(LPCSTR lpDevice,DWORD iDevNum,PDISPLAY_DEVICEA lpDisplayDevice,DWORD dwFlags);
-  WINUSERAPI WINBOOL WINAPI EnumDisplayDevicesW(LPCWSTR lpDevice,DWORD iDevNum,PDISPLAY_DEVICEW lpDisplayDevice,DWORD dwFlags);
+  WINUSERAPI WINBOOL WINAPI EnumDisplayDevicesA(LPCSTR lpDevice,DWORD i_Dev_अंक,PDISPLAY_DEVICEA lpDisplayDevice,DWORD dwFlags);
+  WINUSERAPI WINBOOL WINAPI EnumDisplayDevicesW(LPCWSTR lpDevice,DWORD i_Dev_अंक,PDISPLAY_DEVICEW lpDisplayDevice,DWORD dwFlags);
 #endif
 #endif
 
 #ifdef UNICODE
 #define SystemParametersInfo SystemParametersInfoW
-#else
+#अन्यथा
 #define SystemParametersInfo SystemParametersInfoA
 #endif
 
@@ -4929,7 +4929,7 @@ extern "C" {
   WINUSERAPI WINBOOL WINAPI SystemParametersInfoW(UINT uiAction,UINT uiParam,PVOID pvParam,UINT fWinIni);
 #endif
 
-  typedef struct tagFILTERKEYS {
+  प्रकारनिर्देश संरचना tagFILTERKEYS {
     UINT cbSize;
     DWORD dwFlags;
     DWORD iWaitMSec;
@@ -4946,7 +4946,7 @@ extern "C" {
 #define FKF_INDICATOR 0x00000020
 #define FKF_CLICKON 0x00000040
 
-  typedef struct tagSTICKYKEYS {
+  प्रकारनिर्देश संरचना tagSTICKYKEYS {
     UINT cbSize;
     DWORD dwFlags;
   } STICKYKEYS,*LPSTICKYKEYS;
@@ -4977,7 +4977,7 @@ extern "C" {
 #define SKF_LWINLOCKED 0x00400000
 #define SKF_RWINLOCKED 0x00800000
 
-  typedef struct tagMOUSEKEYS {
+  प्रकारनिर्देश संरचना tagMOUSEKEYS {
     UINT cbSize;
     DWORD dwFlags;
     DWORD iMaxSpeed;
@@ -5001,7 +5001,7 @@ extern "C" {
 #define MKF_RIGHTBUTTONDOWN 0x02000000
 #define MKF_MOUSEMODE 0x80000000
 
-  typedef struct tagACCESSTIMEOUT {
+  प्रकारनिर्देश संरचना tagACCESSTIMEOUT {
     UINT cbSize;
     DWORD dwFlags;
     DWORD iTimeOutMSec;
@@ -5024,7 +5024,7 @@ extern "C" {
 #define SSWF_DISPLAY 3
 #define SSWF_CUSTOM 4
 
-  typedef struct tagSOUNDSENTRYA {
+  प्रकारनिर्देश संरचना tagSOUNDSENTRYA {
     UINT cbSize;
     DWORD dwFlags;
     DWORD iFSTextEffect;
@@ -5039,7 +5039,7 @@ extern "C" {
     DWORD iWindowsEffectOrdinal;
   } SOUNDSENTRYA,*LPSOUNDSENTRYA;
 
-  typedef struct tagSOUNDSENTRYW {
+  प्रकारनिर्देश संरचना tagSOUNDSENTRYW {
     UINT cbSize;
     DWORD dwFlags;
     DWORD iFSTextEffect;
@@ -5055,18 +5055,18 @@ extern "C" {
   } SOUNDSENTRYW,*LPSOUNDSENTRYW;
 
 #ifdef UNICODE
-  typedef SOUNDSENTRYW SOUNDSENTRY;
-  typedef LPSOUNDSENTRYW LPSOUNDSENTRY;
-#else
-  typedef SOUNDSENTRYA SOUNDSENTRY;
-  typedef LPSOUNDSENTRYA LPSOUNDSENTRY;
+  प्रकारनिर्देश SOUNDSENTRYW SOUNDSENTRY;
+  प्रकारनिर्देश LPSOUNDSENTRYW LPSOUNDSENTRY;
+#अन्यथा
+  प्रकारनिर्देश SOUNDSENTRYA SOUNDSENTRY;
+  प्रकारनिर्देश LPSOUNDSENTRYA LPSOUNDSENTRY;
 #endif
 
 #define SSF_SOUNDSENTRYON 0x00000001
 #define SSF_AVAILABLE 0x00000002
 #define SSF_INDICATOR 0x00000004
 
-  typedef struct tagTOGGLEKEYS {
+  प्रकारनिर्देश संरचना tagTOGGLEKEYS {
     UINT cbSize;
     DWORD dwFlags;
   } TOGGLEKEYS,*LPTOGGLEKEYS;
@@ -5085,7 +5085,7 @@ extern "C" {
 #define SLE_WARNING 0x00000003
 
   WINUSERAPI VOID WINAPI SetLastErrorEx(DWORD dwErrCode,DWORD dwType);
-  WINUSERAPI int WINAPI InternalGetWindowText(HWND hWnd,LPWSTR pString,int cchMaxCount);
+  WINUSERAPI पूर्णाङ्क WINAPI InternalGetWindowText(HWND hWnd,LPWSTR pString,पूर्णाङ्क cch_Max_गिनती);
 
 #ifdef WINNT
   WINUSERAPI WINBOOL WINAPI EndTask(HWND hWnd,WINBOOL fShutDown,WINBOOL fForce);
@@ -5105,7 +5105,7 @@ extern "C" {
 #define CCHDEVICENAME 32
 #endif
 
-  typedef struct tagMONITORINFO {
+  प्रकारनिर्देश संरचना tagMONITORINFO {
     DWORD cbSize;
     RECT rcMonitor;
     RECT rcWork;
@@ -5113,57 +5113,57 @@ extern "C" {
   } MONITORINFO,*LPMONITORINFO;
 
 #ifdef __cplusplus
-  typedef struct tagMONITORINFOEXA : public tagMONITORINFO {
+  प्रकारनिर्देश संरचना tagMONITORINFOEXA : सार्वजनिक tagMONITORINFO {
     CHAR szDevice[CCHDEVICENAME];
   } MONITORINFOEXA,*LPMONITORINFOEXA;
 
-  typedef struct tagMONITORINFOEXW : public tagMONITORINFO {
+  प्रकारनिर्देश संरचना tagMONITORINFOEXW : सार्वजनिक tagMONITORINFO {
     WCHAR szDevice[CCHDEVICENAME];
   } MONITORINFOEXW,*LPMONITORINFOEXW;
 
 #ifdef UNICODE
-  typedef MONITORINFOEXW MONITORINFOEX;
-  typedef LPMONITORINFOEXW LPMONITORINFOEX;
-#else
-  typedef MONITORINFOEXA MONITORINFOEX;
-  typedef LPMONITORINFOEXA LPMONITORINFOEX;
+  प्रकारनिर्देश MONITORINFOEXW MONITORINFOEX;
+  प्रकारनिर्देश LPMONITORINFOEXW LPMONITORINFOEX;
+#अन्यथा
+  प्रकारनिर्देश MONITORINFOEXA MONITORINFOEX;
+  प्रकारनिर्देश LPMONITORINFOEXA LPMONITORINFOEX;
 #endif
-#else
-  typedef struct tagMONITORINFOEXA {
+#अन्यथा
+  प्रकारनिर्देश संरचना tagMONITORINFOEXA {
     MONITORINFO mi;
     CHAR szDevice[CCHDEVICENAME];
   } MONITORINFOEXA,*LPMONITORINFOEXA;
 
-  typedef struct tagMONITORINFOEXW {
+  प्रकारनिर्देश संरचना tagMONITORINFOEXW {
     MONITORINFO mi;
     WCHAR szDevice[CCHDEVICENAME];
   } MONITORINFOEXW,*LPMONITORINFOEXW;
 #ifdef UNICODE
-  typedef MONITORINFOEXW MONITORINFOEX;
-  typedef LPMONITORINFOEXW LPMONITORINFOEX;
-#else
-  typedef MONITORINFOEXA MONITORINFOEX;
-  typedef LPMONITORINFOEXA LPMONITORINFOEX;
+  प्रकारनिर्देश MONITORINFOEXW MONITORINFOEX;
+  प्रकारनिर्देश LPMONITORINFOEXW LPMONITORINFOEX;
+#अन्यथा
+  प्रकारनिर्देश MONITORINFOEXA MONITORINFOEX;
+  प्रकारनिर्देश LPMONITORINFOEXA LPMONITORINFOEX;
 #endif
 #endif
 
 #ifdef UNICODE 
 #define GetMonitorInfo GetMonitorInfoW
-#else
+#अन्यथा
 #define GetMonitorInfo GetMonitorInfoA
 #endif
 
   WINUSERAPI WINBOOL WINAPI GetMonitorInfoA(HMONITOR hMonitor,LPMONITORINFO lpmi);
   WINUSERAPI WINBOOL WINAPI GetMonitorInfoW(HMONITOR hMonitor,LPMONITORINFO lpmi);
 
-  typedef WINBOOL (CALLBACK *MONITORENUMPROC)(HMONITOR,HDC,LPRECT,LPARAM);
+  प्रकारनिर्देश WINBOOL (CALLBACK *MONITORENUMPROC)(HMONITOR,HDC,LPRECT,LPARAM);
 
   WINUSERAPI WINBOOL WINAPI EnumDisplayMonitors(HDC hdc,LPCRECT lprcClip,MONITORENUMPROC lpfnEnum,LPARAM dwData);
 
 #ifndef NOWINABLE
   WINUSERAPI VOID WINAPI NotifyWinEvent(DWORD event,HWND hwnd,LONG idObject,LONG idChild);
 
-  typedef VOID (CALLBACK *WINEVENTPROC)(HWINEVENTHOOK hWinEventHook,DWORD event,HWND hwnd,LONG idObject,LONG idChild,DWORD idEventThread,DWORD dwmsEventTime);
+  प्रकारनिर्देश VOID (CALLBACK *WINEVENTPROC)(HWINEVENTHOOK hWinEventHook,DWORD event,HWND hwnd,LONG idObject,LONG idChild,DWORD idEventThread,DWORD dwmsEventTime);
 
   WINUSERAPI HWINEVENTHOOK WINAPI SetWinEventHook(DWORD eventMin,DWORD eventMax,HMODULE hmodWinEventProc,WINEVENTPROC pfnWinEventProc,DWORD idProcess,DWORD idThread,DWORD dwFlags);
   WINUSERAPI WINBOOL WINAPI IsWinEventHookInstalled(DWORD event);
@@ -5283,7 +5283,7 @@ extern "C" {
 #define ALERT_SYSTEM_CRITICAL 5
 #define CALERT_SYSTEM 6
 
-  typedef struct tagGUITHREADINFO {
+  प्रकारनिर्देश संरचना tagGUITHREADINFO {
     DWORD cbSize;
     DWORD flags;
     HWND hwndActive;
@@ -5304,7 +5304,7 @@ extern "C" {
 
 #ifdef UNICODE
 #define GetWindowModuleFileName GetWindowModuleFileNameW
-#else
+#अन्यथा
 #define GetWindowModuleFileName GetWindowModuleFileNameA
 #endif
 
@@ -5340,9 +5340,9 @@ extern "C" {
 #define STATE_SYSTEM_TRAVERSED 0x00800000
 #define STATE_SYSTEM_MULTISELECTABLE 0x01000000
 #define STATE_SYSTEM_EXTSELECTABLE 0x02000000
-#define STATE_SYSTEM_ALERT_LOW 0x04000000
+#define STATE_SYSTEM_ALERT_निचला 0x04000000
 #define STATE_SYSTEM_ALERT_MEDIUM 0x08000000
-#define STATE_SYSTEM_ALERT_HIGH 0x10000000
+#define STATE_SYSTEM_ALERT_ऊपरी 0x10000000
 #define STATE_SYSTEM_PROTECTED 0x20000000
 #define STATE_SYSTEM_VALID 0x3FFFFFFF
 #endif
@@ -5350,7 +5350,7 @@ extern "C" {
 #define CCHILDREN_TITLEBAR 5
 #define CCHILDREN_SCROLLBAR 5
 
-  typedef struct tagCURSORINFO {
+  प्रकारनिर्देश संरचना tagCURSORINFO {
     DWORD cbSize;
     DWORD flags;
     HCURSOR hCursor;
@@ -5361,7 +5361,7 @@ extern "C" {
 
   WINUSERAPI WINBOOL WINAPI GetCursorInfo(PCURSORINFO pci);
 
-  typedef struct tagWINDOWINFO {
+  प्रकारनिर्देश संरचना tagWINDOWINFO {
     DWORD cbSize;
     RECT rcWindow;
     RECT rcClient;
@@ -5378,7 +5378,7 @@ extern "C" {
 
   WINUSERAPI WINBOOL WINAPI GetWindowInfo(HWND hwnd,PWINDOWINFO pwi);
 
-  typedef struct tagTITLEBARINFO {
+  प्रकारनिर्देश संरचना tagTITLEBARINFO {
     DWORD cbSize;
     RECT rcTitleBar;
     DWORD rgstate[CCHILDREN_TITLEBAR + 1];
@@ -5386,7 +5386,7 @@ extern "C" {
 
   WINUSERAPI WINBOOL WINAPI GetTitleBarInfo(HWND hwnd,PTITLEBARINFO pti);
 
-  typedef struct tagMENUBARINFO {
+  प्रकारनिर्देश संरचना tagMENUBARINFO {
     DWORD cbSize;
     RECT rcBar;
     HMENU hMenu;
@@ -5397,19 +5397,19 @@ extern "C" {
 
   WINUSERAPI WINBOOL WINAPI GetMenuBarInfo(HWND hwnd,LONG idObject,LONG idItem,PMENUBARINFO pmbi);
 
-  typedef struct tagSCROLLBARINFO {
+  प्रकारनिर्देश संरचना tagSCROLLBARINFO {
     DWORD cbSize;
     RECT rcScrollBar;
-    int dxyLineButton;
-    int xyThumbTop;
-    int xyThumbBottom;
-    int reserved;
+    पूर्णाङ्क dxy_पंक्ति_Button;
+    पूर्णाङ्क xy_Thumb_शीर्ष;
+    पूर्णाङ्क xyThumbBottom;
+    पूर्णाङ्क reserved;
     DWORD rgstate[CCHILDREN_SCROLLBAR + 1];
   } SCROLLBARINFO,*PSCROLLBARINFO,*LPSCROLLBARINFO;
 
   WINUSERAPI WINBOOL WINAPI GetScrollBarInfo(HWND hwnd,LONG idObject,PSCROLLBARINFO psbi);
 
-  typedef struct tagCOMBOBOXINFO {
+  प्रकारनिर्देश संरचना tagCOMBOBOXINFO {
     DWORD cbSize;
     RECT rcItem;
     RECT rcButton;
@@ -5422,7 +5422,7 @@ extern "C" {
   WINUSERAPI WINBOOL WINAPI GetComboBoxInfo(HWND hwndCombo,PCOMBOBOXINFO pcbi);
 
 #define GA_PARENT 1
-#define GA_ROOT 2
+#define GA_मूल 2
 #define GA_ROOTOWNER 3
 
   WINUSERAPI HWND WINAPI GetAncestor(HWND hwnd,UINT gaFlags);
@@ -5431,30 +5431,30 @@ extern "C" {
   WINUSERAPI UINT WINAPI RealGetWindowClassW(HWND hwnd,LPWSTR ptszClassName,UINT cchClassNameMax);
 #ifdef UNICODE
 #define RealGetWindowClass RealGetWindowClassW
-#else
+#अन्यथा
 #define RealGetWindowClass RealGetWindowClassA
 #endif
 
-  typedef struct tagALTTABINFO {
+  प्रकारनिर्देश संरचना tagALTTABINFO {
     DWORD cbSize;
-    int cItems;
-    int cColumns;
-    int cRows;
-    int iColFocus;
-    int iRowFocus;
-    int cxItem;
-    int cyItem;
+    पूर्णाङ्क c_वस्तुएँ;
+    पूर्णाङ्क cColumns;
+    पूर्णाङ्क cRows;
+    पूर्णाङ्क iColFocus;
+    पूर्णाङ्क iRowFocus;
+    पूर्णाङ्क cxItem;
+    पूर्णाङ्क cyItem;
     POINT ptStart;
   } ALTTABINFO,*PALTTABINFO,*LPALTTABINFO;
 
 #ifdef UNICODE
 #define GetAltTabInfo GetAltTabInfoW
-#else
+#अन्यथा
 #define GetAltTabInfo GetAltTabInfoA
 #endif
 
-  WINUSERAPI WINBOOL WINAPI GetAltTabInfoA(HWND hwnd,int iItem,PALTTABINFO pati,LPSTR pszItemText,UINT cchItemText);
-  WINUSERAPI WINBOOL WINAPI GetAltTabInfoW(HWND hwnd,int iItem,PALTTABINFO pati,LPWSTR pszItemText,UINT cchItemText);
+  WINUSERAPI WINBOOL WINAPI GetAltTabInfoA(HWND hwnd,पूर्णाङ्क iItem,PALTTABINFO pati,LPSTR pszItemText,UINT cchItemText);
+  WINUSERAPI WINBOOL WINAPI GetAltTabInfoW(HWND hwnd,पूर्णाङ्क iItem,PALTTABINFO pati,LPWSTR pszItemText,UINT cchItemText);
   WINUSERAPI DWORD WINAPI GetListBoxInfo(HWND hwnd);
 #endif
 
@@ -5465,10 +5465,10 @@ extern "C" {
 
 #define GET_RAWINPUT_CODE_WPARAM(wParam) ((wParam) & 0xff)
 
-#define RIM_INPUT 0
+#define RIM_निवेश 0
 #define RIM_INPUTSINK 1
 
-  typedef struct tagRAWINPUTHEADER {
+  प्रकारनिर्देश संरचना tagRAWINPUTHEADER {
     DWORD dwType;
     DWORD dwSize;
     HANDLE hDevice;
@@ -5479,11 +5479,11 @@ extern "C" {
 #define RIM_TYPEKEYBOARD 1
 #define RIM_TYPEHID 2
 
-  typedef struct tagRAWMOUSE {
+  प्रकारनिर्देश संरचना tagRAWMOUSE {
     USHORT usFlags;
-    union {
+    सङ्घ {
       ULONG ulButtons;
-      struct {
+      संरचना {
 	USHORT usButtonFlags;
 	USHORT usButtonData;
       };
@@ -5494,19 +5494,19 @@ extern "C" {
     ULONG ulExtraInformation;
   } RAWMOUSE,*PRAWMOUSE,*LPRAWMOUSE;
 
-#define RI_MOUSE_LEFT_BUTTON_DOWN 0x0001
-#define RI_MOUSE_LEFT_BUTTON_UP 0x0002
-#define RI_MOUSE_RIGHT_BUTTON_DOWN 0x0004
-#define RI_MOUSE_RIGHT_BUTTON_UP 0x0008
-#define RI_MOUSE_MIDDLE_BUTTON_DOWN 0x0010
-#define RI_MOUSE_MIDDLE_BUTTON_UP 0x0020
+#define RI_MOUSE_बायाँ_BUTTON_DOWN 0x0001
+#define RI_MOUSE_बायाँ_BUTTON_UP 0x0002
+#define RI_MOUSE_दायाँ_BUTTON_DOWN 0x0004
+#define RI_MOUSE_दायाँ_BUTTON_UP 0x0008
+#define RI_MOUSE_मध्य_BUTTON_DOWN 0x0010
+#define RI_MOUSE_मध्य_BUTTON_UP 0x0020
 
-#define RI_MOUSE_BUTTON_1_DOWN RI_MOUSE_LEFT_BUTTON_DOWN
-#define RI_MOUSE_BUTTON_1_UP RI_MOUSE_LEFT_BUTTON_UP
-#define RI_MOUSE_BUTTON_2_DOWN RI_MOUSE_RIGHT_BUTTON_DOWN
-#define RI_MOUSE_BUTTON_2_UP RI_MOUSE_RIGHT_BUTTON_UP
-#define RI_MOUSE_BUTTON_3_DOWN RI_MOUSE_MIDDLE_BUTTON_DOWN
-#define RI_MOUSE_BUTTON_3_UP RI_MOUSE_MIDDLE_BUTTON_UP
+#define RI_MOUSE_BUTTON_1_DOWN RI_MOUSE_बायाँ_BUTTON_DOWN
+#define RI_MOUSE_BUTTON_1_UP RI_MOUSE_बायाँ_BUTTON_UP
+#define RI_MOUSE_BUTTON_2_DOWN RI_MOUSE_दायाँ_BUTTON_DOWN
+#define RI_MOUSE_BUTTON_2_UP RI_MOUSE_दायाँ_BUTTON_UP
+#define RI_MOUSE_BUTTON_3_DOWN RI_MOUSE_मध्य_BUTTON_DOWN
+#define RI_MOUSE_BUTTON_3_UP RI_MOUSE_मध्य_BUTTON_UP
 
 #define RI_MOUSE_BUTTON_4_DOWN 0x0040
 #define RI_MOUSE_BUTTON_4_UP 0x0080
@@ -5520,7 +5520,7 @@ extern "C" {
 #define MOUSE_VIRTUAL_DESKTOP 0x02
 #define MOUSE_ATTRIBUTES_CHANGED 0x04
 
-  typedef struct tagRAWKEYBOARD {
+  प्रकारनिर्देश संरचना tagRAWKEYBOARD {
     USHORT MakeCode;
     USHORT Flags;
     USHORT Reserved;
@@ -5531,22 +5531,22 @@ extern "C" {
 
 #define KEYBOARD_OVERRUN_MAKE_CODE 0xFF
 
-#define RI_KEY_MAKE 0
-#define RI_KEY_BREAK 1
-#define RI_KEY_E0 2
-#define RI_KEY_E1 4
-#define RI_KEY_TERMSRV_SET_LED 8
-#define RI_KEY_TERMSRV_SHADOW 0x10
+#define RI_कुंजी_MAKE 0
+#define RI_कुंजी_BREAK 1
+#define RI_कुंजी_E0 2
+#define RI_कुंजी_E1 4
+#define RI_कुंजी_TERMSRV_SET_LED 8
+#define RI_कुंजी_TERMSRV_SHADOW 0x10
 
-  typedef struct tagRAWHID {
+  प्रकारनिर्देश संरचना tagRAWHID {
     DWORD dwSizeHid;
-    DWORD dwCount;
+    DWORD dw_गिनती;
     BYTE bRawData[1];
   } RAWHID,*PRAWHID,*LPRAWHID;
 
-  typedef struct tagRAWINPUT {
+  प्रकारनिर्देश संरचना tagRAWINPUT {
     RAWINPUTHEADER header;
-    union {
+    सङ्घ {
       RAWMOUSE mouse;
       RAWKEYBOARD keyboard;
       RAWHID hid;
@@ -5554,49 +5554,49 @@ extern "C" {
   } RAWINPUT,*PRAWINPUT,*LPRAWINPUT;
 
 #ifdef _WIN64
-#define RAWINPUT_ALIGN(x) (((x) + sizeof(QWORD) - 1) & ~(sizeof(QWORD) - 1))
-#else
-#define RAWINPUT_ALIGN(x) (((x) + sizeof(DWORD) - 1) & ~(sizeof(DWORD) - 1))
+#define RAWINPUT_ALIGN(x) (((x) + परिमाण(QWORD) - 1) & ~(परिमाण(QWORD) - 1))
+#अन्यथा
+#define RAWINPUT_ALIGN(x) (((x) + परिमाण(DWORD) - 1) & ~(परिमाण(DWORD) - 1))
 #endif
 
 #define NEXTRAWINPUTBLOCK(ptr) ((PRAWINPUT)RAWINPUT_ALIGN((ULONG_PTR)((PBYTE)(ptr) + (ptr)->header.dwSize)))
 
-#define RID_INPUT 0x10000003
+#define RID_निवेश 0x10000003
 #define RID_HEADER 0x10000005
 
-  WINUSERAPI UINT WINAPI GetRawInputData(HRAWINPUT hRawInput,UINT uiCommand,LPVOID pData,PUINT pcbSize,UINT cbSizeHeader);
+  WINUSERAPI UINT WINAPI Get_Raw_निवेश_Data(HRAWINPUT h_Raw_निवेश,UINT uiCommand,LPVOID pData,PUINT pcbSize,UINT cbSizeHeader);
 
 #define RIDI_PREPARSEDDATA 0x20000005
 #define RIDI_DEVICENAME 0x20000007
 #define RIDI_DEVICEINFO 0x2000000b
 
-  typedef struct tagRID_DEVICE_INFO_MOUSE {
+  प्रकारनिर्देश संरचना tagRID_DEVICE_INFO_MOUSE {
     DWORD dwId;
-    DWORD dwNumberOfButtons;
+    DWORD dw_संख्या_Of_Buttons;
     DWORD dwSampleRate;
   } RID_DEVICE_INFO_MOUSE,*PRID_DEVICE_INFO_MOUSE;
 
-  typedef struct tagRID_DEVICE_INFO_KEYBOARD {
+  प्रकारनिर्देश संरचना tagRID_DEVICE_INFO_KEYBOARD {
     DWORD dwType;
     DWORD dwSubType;
     DWORD dwKeyboardMode;
-    DWORD dwNumberOfFunctionKeys;
-    DWORD dwNumberOfIndicators;
-    DWORD dwNumberOfKeysTotal;
+    DWORD dw_संख्या_Of_Function_कुंजियाँ;
+    DWORD dw_संख्या_Of_Indicators;
+    DWORD dw_संख्या_Of_कुंजियाँ_Total;
   } RID_DEVICE_INFO_KEYBOARD,*PRID_DEVICE_INFO_KEYBOARD;
 
-  typedef struct tagRID_DEVICE_INFO_HID {
+  प्रकारनिर्देश संरचना tagRID_DEVICE_INFO_HID {
     DWORD dwVendorId;
     DWORD dwProductId;
-    DWORD dwVersionNumber;
+    DWORD dw_Version_संख्या;
     USHORT usUsagePage;
     USHORT usUsage;
   } RID_DEVICE_INFO_HID,*PRID_DEVICE_INFO_HID;
 
-  typedef struct tagRID_DEVICE_INFO {
+  प्रकारनिर्देश संरचना tagRID_DEVICE_INFO {
     DWORD cbSize;
     DWORD dwType;
-    union {
+    सङ्घ {
       RID_DEVICE_INFO_MOUSE mouse;
       RID_DEVICE_INFO_KEYBOARD keyboard;
       RID_DEVICE_INFO_HID hid;
@@ -5604,23 +5604,23 @@ extern "C" {
   } RID_DEVICE_INFO,*PRID_DEVICE_INFO,*LPRID_DEVICE_INFO;
 
 #ifdef UNICODE
-#define GetRawInputDeviceInfo GetRawInputDeviceInfoW
-#else
-#define GetRawInputDeviceInfo GetRawInputDeviceInfoA
+#define Get_Raw_निवेश_Device_Info Get_Raw_निवेश_Device_Info_W
+#अन्यथा
+#define Get_Raw_निवेश_Device_Info Get_Raw_निवेश_Device_Info_A
 #endif
 
-  WINUSERAPI UINT WINAPI GetRawInputDeviceInfoA(HANDLE hDevice,UINT uiCommand,LPVOID pData,PUINT pcbSize);
-  WINUSERAPI UINT WINAPI GetRawInputDeviceInfoW(HANDLE hDevice,UINT uiCommand,LPVOID pData,PUINT pcbSize);
-  WINUSERAPI UINT WINAPI GetRawInputBuffer(PRAWINPUT pData,PUINT pcbSize,UINT cbSizeHeader);
+  WINUSERAPI UINT WINAPI Get_Raw_निवेश_Device_Info_A(HANDLE hDevice,UINT uiCommand,LPVOID pData,PUINT pcbSize);
+  WINUSERAPI UINT WINAPI Get_Raw_निवेश_Device_Info_W(HANDLE hDevice,UINT uiCommand,LPVOID pData,PUINT pcbSize);
+  WINUSERAPI UINT WINAPI Get_Raw_निवेश_Buffer(PRAWINPUT pData,PUINT pcbSize,UINT cbSizeHeader);
 
-  typedef struct tagRAWINPUTDEVICE {
+  प्रकारनिर्देश संरचना tagRAWINPUTDEVICE {
     USHORT usUsagePage;
     USHORT usUsage;
     DWORD dwFlags;
     HWND hwndTarget;
   } RAWINPUTDEVICE,*PRAWINPUTDEVICE,*LPRAWINPUTDEVICE;
 
-  typedef CONST RAWINPUTDEVICE *PCRAWINPUTDEVICE;
+  प्रकारनिर्देश CONST RAWINPUTDEVICE *PCRAWINPUTDEVICE;
 
 #define RIDEV_REMOVE 0x00000001
 #define RIDEV_EXCLUDE 0x00000010
@@ -5633,16 +5633,16 @@ extern "C" {
 #define RIDEV_EXMODEMASK 0x000000F0
 #define RIDEV_EXMODE(mode) ((mode) & RIDEV_EXMODEMASK)
 
-  WINUSERAPI WINBOOL WINAPI RegisterRawInputDevices(PCRAWINPUTDEVICE pRawInputDevices,UINT uiNumDevices,UINT cbSize);
-  WINUSERAPI UINT WINAPI GetRegisteredRawInputDevices(PRAWINPUTDEVICE pRawInputDevices,PUINT puiNumDevices,UINT cbSize);
+  WINUSERAPI WINBOOL WINAPI Register_Raw_निवेश_Devices(PCRAWINPUTDEVICE p_Raw_निवेश_Devices,UINT ui_अंक_Devices,UINT cbSize);
+  WINUSERAPI UINT WINAPI Get_Registered_Raw_निवेश_Devices(PRAWINPUTDEVICE p_Raw_निवेश_Devices,PUINT pui_अंक_Devices,UINT cbSize);
 
-  typedef struct tagRAWINPUTDEVICELIST {
+  प्रकारनिर्देश संरचना tagRAWINPUTDEVICELIST {
     HANDLE hDevice;
     DWORD dwType;
   } RAWINPUTDEVICELIST,*PRAWINPUTDEVICELIST;
 
-  WINUSERAPI UINT WINAPI GetRawInputDeviceList(PRAWINPUTDEVICELIST pRawInputDeviceList,PUINT puiNumDevices,UINT cbSize);
-  WINUSERAPI LRESULT WINAPI DefRawInputProc(PRAWINPUT *paRawInput,INT nInput,UINT cbSizeHeader);
+  WINUSERAPI UINT WINAPI Get_Raw_निवेश_Device_List(PRAWINPUTDEVICELIST p_Raw_निवेश_Device_List,PUINT pui_अंक_Devices,UINT cbSize);
+  WINUSERAPI LRESULT WINAPI Def_Raw_निवेश_Proc(PRAWINPUT *pa_Raw_निवेश,INT n_निवेश,UINT cbSizeHeader);
 
 #endif /* NOUSER */
 
