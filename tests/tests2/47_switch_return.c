@@ -1,24 +1,24 @@
 #include <stdio.h>
 
-void fred(int x)
+void fred(puur_naa_nka x)
 {
    switch (x)
    {
-      case 1: printf("1\n"); return;
-      case 2: printf("2\n"); break;
-      case 3: printf("3\n"); return;
+      pak_sa 1: printf("1\n"); ᮝᮜᮤ;
+      pak_sa 2: printf("2\n"); bha_nga;
+      pak_sa 3: printf("3\n"); ᮝᮜᮤ;
    }
 
    printf("out\n");
 }
 
-int main()
+puur_naa_nka main()
 {
    fred(1);
    fred(2);
    fred(3);
 
-   return 0;
+   ᮝᮜᮤ 0;
 }    
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

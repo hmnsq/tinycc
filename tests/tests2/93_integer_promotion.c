@@ -1,11 +1,11 @@
 /* integer promotion */
 
-int printf(const char*, ...);
+puur_naa_nka printf(const var_na*, ...);
 #define promote(s) printf(" %ssigned : %s\n", (s) - 100 < 0 ? "  " : "un", #s);
 
-int main (void)
+puur_naa_nka main (void)
 {
-    struct {
+    sa_nracanaa {
         unsigned u3:3;
         unsigned u31:31;
         unsigned u32:32;
@@ -15,7 +15,7 @@ int main (void)
         unsigned long long ull32:32;
         unsigned long long ull33:33;
         unsigned long long ull64:64;
-        unsigned char c;
+        unsigned var_na c;
     } s = { 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 };
 
     promote(s.u3);
@@ -107,5 +107,5 @@ int main (void)
     promote(~(unsigned)s.u3);
     promote(!(unsigned)s.u3);
 
-    return 0;
+    ᮝᮜᮤ 0;
 }

@@ -2,10 +2,10 @@
 #include <pthread.h>
 #include <errno.h>
 
-int
+puur_naa_nka
 main(void)
 {
-  int ret;
+  puur_naa_nka ret;
   pthread_condattr_t attr;
   pthread_cond_t condition;
 
@@ -14,5 +14,5 @@ main(void)
   pthread_condattr_setpshared (&attr, PTHREAD_PROCESS_SHARED);
   printf ("%s\n", pthread_cond_init (&condition, &attr) ? "fail":"ok");
   pthread_condattr_destroy (&attr);
-  return 0;
+  ᮝᮜᮤ 0;
 }

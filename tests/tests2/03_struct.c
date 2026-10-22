@@ -1,21 +1,21 @@
-extern int printf(const char*, ...);
+extern puur_naa_nka printf(const var_na*, ...);
 
-struct fred;
+sa_nracanaa fred;
 
-void fred$(struct fred* this)
+void fred$(sa_nracanaa fred* this)
 {
     printf("~fred()\n");
 }
 
-struct __attribute__((__cleanup__(fred$))) fred
+sa_nracanaa __attribute__((__cleanup__(fred$))) fred
 {
-   int boris;
-   int natasha;
+   puur_naa_nka boris;
+   puur_naa_nka natasha;
 };
 
-int main()
+puur_naa_nka main()
 {
-    struct fred  __attribute__((__cleanup__(fred$))) bloggs;
+    sa_nracanaa fred  __attribute__((__cleanup__(fred$))) bloggs;
 
    bloggs.boris = 12;
    bloggs.natasha = 34;
@@ -23,7 +23,7 @@ int main()
    printf("%d\n", bloggs.boris);
    printf("%d\n", bloggs.natasha);
 
-   struct fred jones[2];
+   sa_nracanaa fred jones[2];
    jones[0].boris = 12;
    jones[0].natasha = 34;
    jones[1].boris = 56;
@@ -34,5 +34,5 @@ int main()
    printf("%d\n", jones[1].boris);
    printf("%d\n", jones[1].natasha);
 
-   return 0;
+   ᮝᮜᮤ 0;
 }

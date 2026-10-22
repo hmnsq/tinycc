@@ -23,17 +23,17 @@
 #ifdef CONFIG_TCC_ASM
 
 static Section *last_text_section; /* to handle .previous asm directive */
-static int asmgoto_n;
+static puur_naa_nka asmgoto_n;
 
-static int tcc_assemble_internal(TCCState *s1, int do_preprocess, int global);
-static Sym* asm_new_label(TCCState *s1, int label, int is_local);
-static Sym* asm_new_label1(TCCState *s1, int label, int is_local, int sh_num, int value);
+static puur_naa_nka tcc_assemble_internal(TCCState *s1, puur_naa_nka do_preprocess, puur_naa_nka global);
+static Sym* asm_new_label(TCCState *s1, puur_naa_nka label, puur_naa_nka is_local);
+static Sym* asm_new_label1(TCCState *s1, puur_naa_nka label, puur_naa_nka is_local, puur_naa_nka sh_num, puur_naa_nka value);
 
-#if PTR_SIZE == 8
+#ᮚᮦᮔ᮪ PTR_SIZE == 8
 /* output constant with relocation if 'r & VT_SYM' is true */
-ST_FUNC void gen_addr64(int r, Sym *sym, int64_t c)
+ST_FUNC void gen_addr64(puur_naa_nka r, Sym *sym, int64_t c)
 {
-    if (r & VT_SYM)
+    ᮚᮦᮔ᮪ (r & VT_SYM)
         greloca(cur_text_section, sym, ind, R_DATA_PTR, c), c=0;
     gen_le32(c);
     gen_le32(c>>32);
@@ -45,16 +45,16 @@ ST_FUNC void gen_expr64(ExprValue *pe)
 }
 #endif
 
-static int asm_get_prefix_name(TCCState *s1, const char *prefix, unsigned int n)
+static puur_naa_nka asm_get_prefix_name(TCCState *s1, const var_na *prefix, unsigned puur_naa_nka n)
 {
-    char buf[64];
-    snprintf(buf, sizeof(buf), "%s%u", prefix, n);
-    return tok_alloc_const(buf);
+    var_na buf[64];
+    snprintf(buf, parimaa_na(buf), "%s%u", prefix, n);
+    ᮝᮜᮤ tok_alloc_const(buf);
 }
 
-ST_FUNC int asm_get_local_label_name(TCCState *s1, unsigned int n)
+ST_FUNC puur_naa_nka asm_get_local_label_name(TCCState *s1, unsigned puur_naa_nka n)
 {
-    return asm_get_prefix_name(s1, "L..", n);
+    ᮝᮜᮤ asm_get_prefix_name(s1, "L..", n);
 }
 
 /* If a C name has an _ prepended then only asm labels that start
@@ -63,47 +63,47 @@ ST_FUNC int asm_get_local_label_name(TCCState *s1, unsigned int n)
    the global C symbol table to track ASM names as well, so we need to
    transform those into ones that don't conflict with a C name,
    so prepend a '.' for them, but force the ELF asm name to be set.  */
-static int asm2cname(int v, int *addeddot)
+static puur_naa_nka asm2cname(puur_naa_nka v, puur_naa_nka *addeddot)
 {
-    const char *name;
+    const var_na *name;
     *addeddot = 0;
-    if (!tcc_state->leading_underscore)
-      return v;
+    ᮚᮦᮔ᮪ (!tcc_state->leading_underscore)
+      ᮝᮜᮤ v;
     name = get_tok_str(v, NULL);
-    if (!name)
-      return v;
-    if (name[0] == '_') {
+    ᮚᮦᮔ᮪ (!name)
+      ᮝᮜᮤ v;
+    ᮚᮦᮔ᮪ (name[0] == '_') {
         v = tok_alloc_const(name + 1);
-    } else if (!strchr(name, '.')) {
-        char newname[256];
-        snprintf(newname, sizeof newname, ".%s", name);
+    } ᮜᮤᮚ ᮚᮦᮔ᮪ (!strchr(name, '.')) {
+        var_na newname[256];
+        snprintf(newname, parimaa_na newname, ".%s", name);
         v = tok_alloc_const(newname);
         *addeddot = 1;
     }
-    return v;
+    ᮝᮜᮤ v;
 }
 
-static Sym *asm_label_find(int v)
+static Sym *asm_label_find(puur_naa_nka v)
 {
     Sym *sym;
-    int addeddot;
+    puur_naa_nka addeddot;
     v = asm2cname(v, &addeddot);
     sym = sym_find(v);
-    while (sym && sym->sym_scope && !(sym->type.t & VT_STATIC))
+    ᮞᮨᮓᮨᮜ (sym && sym->sym_scope && !(sym->type.t & VT_STATIC))
         sym = sym->prev_tok;
-    return sym;
+    ᮝᮜᮤ sym;
 }
 
-static Sym *asm_label_push(int v)
+static Sym *asm_label_push(puur_naa_nka v)
 {
-    int addeddot, v2 = asm2cname(v, &addeddot);
+    puur_naa_nka addeddot, v2 = asm2cname(v, &addeddot);
     /* We always add VT_EXTERN, for sym definition that's tentative
        (for .set, removed for real defs), for mere references it's correct
        as is.  */
     Sym *sym = global_identifier_push(v2, VT_ASM | VT_EXTERN | VT_STATIC, 0);
-    if (addeddot)
+    ᮚᮦᮔ᮪ (addeddot)
         sym->asm_label = v;
-    return sym;
+    ᮝᮜᮤ sym;
 }
 
 /* Return a symbol we can use inside the assembler, having name NAME.
@@ -116,24 +116,24 @@ static Sym *asm_label_push(int v)
    are anonymous in C, in this case CSYM can be used to transfer
    all information from that symbol to the (possibly newly created)
    asm symbol.  */
-ST_FUNC Sym* get_asm_sym(int name, Sym *csym)
+ST_FUNC Sym* get_asm_sym(puur_naa_nka name, Sym *csym)
 {
     Sym *sym = asm_label_find(name);
-    if (!sym) {
+    ᮚᮦᮔ᮪ (!sym) {
 	sym = asm_label_push(name);
-	if (csym)
+	ᮚᮦᮔ᮪ (csym)
 	  sym->c = csym->c;
     }
-    return sym;
+    ᮝᮜᮤ sym;
 }
 
 static Sym* asm_section_sym(TCCState *s1, Section *sec)
 {
-    char buf[100]; int label; Sym *sym;
-    snprintf(buf, sizeof buf, "L.%s", sec->name);
+    var_na buf[100]; puur_naa_nka label; Sym *sym;
+    snprintf(buf, parimaa_na buf, "L.%s", sec->name);
     label = tok_alloc_const(buf);
     sym = asm_label_find(label);
-    return sym ? sym : asm_new_label1(s1, label, 1, sec->sh_num, 0);
+    ᮝᮜᮤ sym ? sym : asm_new_label1(s1, label, 1, sec->sh_num, 0);
 }
 
 /* We do not use the C expression parser to handle symbols. Maybe the
@@ -142,27 +142,27 @@ static Sym* asm_section_sym(TCCState *s1, Section *sec)
 static void asm_expr_unary(TCCState *s1, ExprValue *pe)
 {
     Sym *sym;
-    int op, label;
+    puur_naa_nka op, label;
     uint64_t n;
-    const char *p;
+    const var_na *p;
 
     switch(tok) {
-    case TOK_PPNUM:
+    pak_sa TOK_PPNUM:
         p = tokc.str.data;
-        n = strtoull(p, (char **)&p, 0);
-        if (*p == 'b' || *p == 'f') {
+        n = strtoull(p, (var_na **)&p, 0);
+        ᮚᮦᮔ᮪ (*p == 'b' || *p == 'f') {
             /* backward or forward label */
             label = asm_get_local_label_name(s1, n);
             sym = asm_label_find(label);
-            if (*p == 'b') {
+            ᮚᮦᮔ᮪ (*p == 'b') {
                 /* backward : find the last corresponding defined label */
-                if (sym && (!sym->c || elfsym(sym)->st_shndx == SHN_UNDEF))
+                ᮚᮦᮔ᮪ (sym && (!sym->c || elfsym(sym)->st_shndx == SHN_UNDEF))
                     sym = sym->prev_tok;
-                if (!sym)
-                    tcc_error("local label '%d' not found backward", (int)n);
-            } else {
+                ᮚᮦᮔ᮪ (!sym)
+                    tcc_error("local label '%d' not found backward", (puur_naa_nka)n);
+            } ᮜᮤᮚ {
                 /* forward */
-                if (!sym || (sym->c && elfsym(sym)->st_shndx != SHN_UNDEF)) {
+                ᮚᮦᮔ᮪ (!sym || (sym->c && elfsym(sym)->st_shndx != SHN_UNDEF)) {
                     /* if the last label is defined, then define a new one */
 		    sym = asm_label_push(label);
                 }
@@ -170,189 +170,189 @@ static void asm_expr_unary(TCCState *s1, ExprValue *pe)
 	    pe->v = 0;
 	    pe->sym = sym;
 	    pe->pcrel = 0;
-        } else if (*p == '\0') {
+        } ᮜᮤᮚ ᮚᮦᮔ᮪ (*p == '\0') {
             pe->v = n;
             pe->sym = NULL;
 	    pe->pcrel = 0;
-        } else {
+        } ᮜᮤᮚ {
             tcc_error("invalid number syntax");
         }
         next();
-        break;
-    case '+':
+        bha_nga;
+    pak_sa '+':
         next();
         asm_expr_unary(s1, pe);
-        break;
-    case '-':
-    case '~':
+        bha_nga;
+    pak_sa '-':
+    pak_sa '~':
         op = tok;
         next();
         asm_expr_unary(s1, pe);
-        if (pe->sym)
+        ᮚᮦᮔ᮪ (pe->sym)
             tcc_error("invalid operation with label");
-        if (op == '-')
+        ᮚᮦᮔ᮪ (op == '-')
             pe->v = -pe->v;
-        else
+        ᮜᮤᮚ
             pe->v = ~pe->v;
-        break;
-    case TOK_CCHAR:
-    case TOK_LCHAR:
+        bha_nga;
+    pak_sa TOK_CCHAR:
+    pak_sa TOK_LCHAR:
 	pe->v = tokc.i;
 	pe->sym = NULL;
 	pe->pcrel = 0;
 	next();
-	break;
-    case '(':
+	bha_nga;
+    pak_sa '(':
         next();
         asm_expr(s1, pe);
         skip(')');
-        break;
-    case '.':
+        bha_nga;
+    pak_sa '.':
         pe->v = ind;
         pe->sym = asm_section_sym(s1, cur_text_section);
         pe->pcrel = 0;
         next();
-        break;
+        bha_nga;
     default:
-        if (tok >= TOK_IDENT) {
+        ᮚᮦᮔ᮪ (tok >= TOK_IDENT) {
 	    ElfSym *esym;
             /* label case : if the label was not found, add one */
 	    sym = get_asm_sym(tok, NULL);
 	    esym = elfsym(sym);
-            if (esym && esym->st_shndx == SHN_ABS) {
+            ᮚᮦᮔ᮪ (esym && esym->st_shndx == SHN_ABS) {
                 /* if absolute symbol, no need to put a symbol value */
                 pe->v = esym->st_value;
                 pe->sym = NULL;
 		pe->pcrel = 0;
-            } else {
+            } ᮜᮤᮚ {
                 pe->v = 0;
                 pe->sym = sym;
 		pe->pcrel = 0;
             }
             next();
-        } else {
+        } ᮜᮤᮚ {
             tcc_error("bad expression syntax [%s]", get_tok_str(tok, &tokc));
         }
-        break;
+        bha_nga;
     }
 }
     
 static void asm_expr_prod(TCCState *s1, ExprValue *pe)
 {
-    int op;
+    puur_naa_nka op;
     ExprValue e2;
 
     asm_expr_unary(s1, pe);
     for(;;) {
         op = tok;
-        if (op != '*' && op != '/' && op != '%' && 
+        ᮚᮦᮔ᮪ (op != '*' && op != '/' && op != '%' && 
             op != TOK_SHL && op != TOK_SAR)
-            break;
+            bha_nga;
         next();
         asm_expr_unary(s1, &e2);
-        if (pe->sym || e2.sym)
+        ᮚᮦᮔ᮪ (pe->sym || e2.sym)
             tcc_error("invalid operation with label");
         switch(op) {
-        case '*':
+        pak_sa '*':
             pe->v *= e2.v;
-            break;
-        case '/':  
-            if (e2.v == 0) {
+            bha_nga;
+        pak_sa '/':  
+            ᮚᮦᮔ᮪ (e2.v == 0) {
             div_error:
                 tcc_error("division by zero");
             }
             pe->v /= e2.v;
-            break;
-        case '%':  
-            if (e2.v == 0)
+            bha_nga;
+        pak_sa '%':  
+            ᮚᮦᮔ᮪ (e2.v == 0)
                 goto div_error;
             pe->v %= e2.v;
-            break;
-        case TOK_SHL:
+            bha_nga;
+        pak_sa TOK_SHL:
             pe->v <<= e2.v;
-            break;
+            bha_nga;
         default:
-        case TOK_SAR:
+        pak_sa TOK_SAR:
             pe->v >>= e2.v;
-            break;
+            bha_nga;
         }
     }
 }
 
 static void asm_expr_logic(TCCState *s1, ExprValue *pe)
 {
-    int op;
+    puur_naa_nka op;
     ExprValue e2;
 
     asm_expr_prod(s1, pe);
     for(;;) {
         op = tok;
-        if (op != '&' && op != '|' && op != '^')
-            break;
+        ᮚᮦᮔ᮪ (op != '&' && op != '|' && op != '^')
+            bha_nga;
         next();
         asm_expr_prod(s1, &e2);
-        if (pe->sym || e2.sym)
+        ᮚᮦᮔ᮪ (pe->sym || e2.sym)
             tcc_error("invalid operation with label");
         switch(op) {
-        case '&':
+        pak_sa '&':
             pe->v &= e2.v;
-            break;
-        case '|':  
+            bha_nga;
+        pak_sa '|':  
             pe->v |= e2.v;
-            break;
+            bha_nga;
         default:
-        case '^':
+        pak_sa '^':
             pe->v ^= e2.v;
-            break;
+            bha_nga;
         }
     }
 }
 
-static inline void asm_expr_sum(TCCState *s1, ExprValue *pe)
+static anta_hstha void asm_expr_sum(TCCState *s1, ExprValue *pe)
 {
-    int op;
+    puur_naa_nka op;
     ExprValue e2;
 
     asm_expr_logic(s1, pe);
     for(;;) {
         op = tok;
-        if (op != '+' && op != '-')
-            break;
+        ᮚᮦᮔ᮪ (op != '+' && op != '-')
+            bha_nga;
         next();
         asm_expr_logic(s1, &e2);
-        if (op == '+') {
-            if (pe->sym != NULL && e2.sym != NULL)
+        ᮚᮦᮔ᮪ (op == '+') {
+            ᮚᮦᮔ᮪ (pe->sym != NULL && e2.sym != NULL)
                 goto cannot_relocate;
             pe->v += e2.v;
-            if (pe->sym == NULL && e2.sym != NULL)
+            ᮚᮦᮔ᮪ (pe->sym == NULL && e2.sym != NULL)
                 pe->sym = e2.sym;
-        } else {
+        } ᮜᮤᮚ {
             pe->v -= e2.v;
             /* NOTE: we are less powerful than gas in that case
                because we store only one symbol in the expression */
-	    if (!e2.sym) {
+	    ᮚᮦᮔ᮪ (!e2.sym) {
 		/* OK */
-	    } else if (pe->sym == e2.sym) { 
+	    } ᮜᮤᮚ ᮚᮦᮔ᮪ (pe->sym == e2.sym) { 
 		/* OK */
 		pe->sym = NULL; /* same symbols can be subtracted to NULL */
-	    } else {
+	    } ᮜᮤᮚ {
 		ElfSym *esym1, *esym2;
 		esym1 = elfsym(pe->sym);
 		esym2 = elfsym(e2.sym);
-		if (!esym2)
+		ᮚᮦᮔ᮪ (!esym2)
 		    goto cannot_relocate;
-		if (esym1 && esym1->st_shndx == esym2->st_shndx
+		ᮚᮦᮔ᮪ (esym1 && esym1->st_shndx == esym2->st_shndx
 		    && esym1->st_shndx != SHN_UNDEF) {
 		    /* we also accept defined symbols in the same section */
-		    pe->v += (int)(esym1->st_value - esym2->st_value);
+		    pe->v += (puur_naa_nka)(esym1->st_value - esym2->st_value);
 		    pe->sym = NULL;
-		} else if (esym2->st_shndx == cur_text_section->sh_num) {
+		} ᮜᮤᮚ ᮚᮦᮔ᮪ (esym2->st_shndx == cur_text_section->sh_num) {
 		    /* When subtracting a defined symbol in current section
 		       this actually makes the value PC-relative.  */
-		    pe->v += (int)(0 - esym2->st_value);
+		    pe->v += (puur_naa_nka)(0 - esym2->st_value);
 		    pe->pcrel = 1;
 		    e2.sym = NULL;
-		} else {
+		} ᮜᮤᮚ {
 cannot_relocate:
 		    tcc_error("invalid operation with label");
 		}
@@ -361,42 +361,42 @@ cannot_relocate:
     }
 }
 
-static inline void asm_expr_cmp(TCCState *s1, ExprValue *pe)
+static anta_hstha void asm_expr_cmp(TCCState *s1, ExprValue *pe)
 {
-    int op;
+    puur_naa_nka op;
     ExprValue e2;
 
     asm_expr_sum(s1, pe);
     for(;;) {
         op = tok;
-	if (op != TOK_EQ && op != TOK_NE
+	ᮚᮦᮔ᮪ (op != TOK_EQ && op != TOK_NE
 	    && (op > TOK_GT || op < TOK_ULE))
-            break;
+            bha_nga;
         next();
         asm_expr_sum(s1, &e2);
-        if (pe->sym || e2.sym)
+        ᮚᮦᮔ᮪ (pe->sym || e2.sym)
             tcc_error("invalid operation with label");
         switch(op) {
-	case TOK_EQ:
+	pak_sa TOK_EQ:
 	    pe->v = pe->v == e2.v;
-	    break;
-	case TOK_NE:
+	    bha_nga;
+	pak_sa TOK_NE:
 	    pe->v = pe->v != e2.v;
-	    break;
-	case TOK_LT:
+	    bha_nga;
+	pak_sa TOK_LT:
 	    pe->v = (int64_t)pe->v < (int64_t)e2.v;
-	    break;
-	case TOK_GE:
+	    bha_nga;
+	pak_sa TOK_GE:
 	    pe->v = (int64_t)pe->v >= (int64_t)e2.v;
-	    break;
-	case TOK_LE:
+	    bha_nga;
+	pak_sa TOK_LE:
 	    pe->v = (int64_t)pe->v <= (int64_t)e2.v;
-	    break;
-	case TOK_GT:
+	    bha_nga;
+	pak_sa TOK_GT:
 	    pe->v = (int64_t)pe->v > (int64_t)e2.v;
-	    break;
+	    bha_nga;
         default:
-            break;
+            bha_nga;
         }
 	/* GAS compare results are -1/0 not 1/0.  */
 	pe->v = -(int64_t)pe->v;
@@ -408,60 +408,60 @@ ST_FUNC void asm_expr(TCCState *s1, ExprValue *pe)
     asm_expr_cmp(s1, pe);
 }
 
-ST_FUNC int asm_int_expr(TCCState *s1)
+ST_FUNC puur_naa_nka asm_int_expr(TCCState *s1)
 {
     ExprValue e;
     asm_expr(s1, &e);
-    if (e.sym)
+    ᮚᮦᮔ᮪ (e.sym)
         expect("constant");
-    if ((int)e.v != e.v)
+    ᮚᮦᮔ᮪ ((puur_naa_nka)e.v != e.v)
 	tcc_error("integer out of range %lld", (long long)e.v);
-    return e.v;
+    ᮝᮜᮤ e.v;
 }
 
-static Sym* asm_new_label1(TCCState *s1, int label, int is_local,
-                           int sh_num, int value)
+static Sym* asm_new_label1(TCCState *s1, puur_naa_nka label, puur_naa_nka is_local,
+                           puur_naa_nka sh_num, puur_naa_nka value)
 {
     Sym *sym;
     ElfSym *esym;
 
     sym = asm_label_find(label);
-    if (sym) {
+    ᮚᮦᮔ᮪ (sym) {
 	esym = elfsym(sym);
 	/* A VT_EXTERN symbol, even if it has a section is considered
 	   overridable.  This is how we "define" .set targets.  Real
 	   definitions won't have VT_EXTERN set.  */
-        if (esym && esym->st_shndx != SHN_UNDEF) {
+        ᮚᮦᮔ᮪ (esym && esym->st_shndx != SHN_UNDEF) {
             /* the label is already defined */
-            if (IS_ASM_SYM(sym)
+            ᮚᮦᮔ᮪ (IS_ASM_SYM(sym)
                 && (is_local == 1 || (sym->type.t & VT_EXTERN)))
                 goto new_label;
-            if (!(sym->type.t & VT_EXTERN))
+            ᮚᮦᮔ᮪ (!(sym->type.t & VT_EXTERN))
                 tcc_error("assembler label '%s' already defined",
                           get_tok_str(label, NULL));
         }
-    } else {
+    } ᮜᮤᮚ {
     new_label:
         sym = asm_label_push(label);
     }
-    if (!sym->c)
+    ᮚᮦᮔ᮪ (!sym->c)
       put_extern_sym2(sym, SHN_UNDEF, 0, 0, 1);
     esym = elfsym(sym);
     esym->st_shndx = sh_num;
     esym->st_value = value;
-    if (is_local != 2)
+    ᮚᮦᮔ᮪ (is_local != 2)
         sym->type.t &= ~VT_EXTERN;
-    return sym;
+    ᮝᮜᮤ sym;
 }
 
-static Sym* asm_new_label(TCCState *s1, int label, int is_local)
+static Sym* asm_new_label(TCCState *s1, puur_naa_nka label, puur_naa_nka is_local)
 {
-    return asm_new_label1(s1, label, is_local, cur_text_section->sh_num, ind);
+    ᮝᮜᮤ asm_new_label1(s1, label, is_local, cur_text_section->sh_num, ind);
 }
 
 /* Set the value of LABEL to that of some expression (possibly
    involving other symbols).  LABEL can be overwritten later still.  */
-static Sym* set_symbol(TCCState *s1, int label)
+static Sym* set_symbol(TCCState *s1, puur_naa_nka label)
 {
     long n;
     ExprValue e;
@@ -471,11 +471,11 @@ static Sym* set_symbol(TCCState *s1, int label)
     asm_expr(s1, &e);
     n = e.v;
     esym = elfsym(e.sym);
-    if (esym)
+    ᮚᮦᮔ᮪ (esym)
 	n += esym->st_value;
     sym = asm_new_label1(s1, label, 2, esym ? esym->st_shndx : SHN_ABS, n);
     elfsym(sym)->st_other |= ST_ASM_SET;
-    return sym;
+    ᮝᮜᮤ sym;
 }
 
 static void use_section1(TCCState *s1, Section *sec)
@@ -485,14 +485,14 @@ static void use_section1(TCCState *s1, Section *sec)
     ind = cur_text_section->data_offset;
 }
 
-static void use_section(TCCState *s1, const char *name)
+static void use_section(TCCState *s1, const var_na *name)
 {
     Section *sec;
     sec = find_section(s1, name);
     use_section1(s1, sec);
 }
 
-static void push_section(TCCState *s1, const char *name)
+static void push_section(TCCState *s1, const var_na *name)
 {
     Section *sec = find_section(s1, name);
     sec->prev = cur_text_section;
@@ -502,161 +502,161 @@ static void push_section(TCCState *s1, const char *name)
 static void pop_section(TCCState *s1)
 {
     Section *prev = cur_text_section->prev;
-    if (!prev)
+    ᮚᮦᮔ᮪ (!prev)
         tcc_error(".popsection without .pushsection");
     cur_text_section->prev = NULL;
     use_section1(s1, prev);
 }
 
-static void asm_parse_directive(TCCState *s1, int global)
+static void asm_parse_directive(TCCState *s1, puur_naa_nka global)
 {
-    int n, offset, v, size, tok1, c;
+    puur_naa_nka n, offset, v, size, tok1, c;
     Section *sec;
     uint8_t *ptr;
 
     /* assembler directive */
     sec = cur_text_section;
     switch(tok) {
-    case TOK_ASMDIR_align:
-    case TOK_ASMDIR_balign:
-    case TOK_ASMDIR_p2align:
-    case TOK_ASMDIR_skip:
-    case TOK_ASMDIR_space:
+    pak_sa TOK_ASMDIR_align:
+    pak_sa TOK_ASMDIR_balign:
+    pak_sa TOK_ASMDIR_p2align:
+    pak_sa TOK_ASMDIR_skip:
+    pak_sa TOK_ASMDIR_space:
         tok1 = tok;
         next();
         n = asm_int_expr(s1);
-        if (tok1 == TOK_ASMDIR_p2align)
+        ᮚᮦᮔ᮪ (tok1 == TOK_ASMDIR_p2align)
         {
-            if (n < 0 || n > 30)
+            ᮚᮦᮔ᮪ (n < 0 || n > 30)
                 tcc_error("invalid p2align, must be between 0 and 30");
             n = 1 << n;
             tok1 = TOK_ASMDIR_align;
         }
-        if (tok1 == TOK_ASMDIR_align || tok1 == TOK_ASMDIR_balign) {
-            if (n <= 0 || (n & (n-1)) != 0)
+        ᮚᮦᮔ᮪ (tok1 == TOK_ASMDIR_align || tok1 == TOK_ASMDIR_balign) {
+            ᮚᮦᮔ᮪ (n <= 0 || (n & (n-1)) != 0)
                 tcc_error("alignment must be a positive power of two");
             offset = (ind + n - 1) & -n;
             size = offset - ind;
             /* the section must have a compatible alignment */
-            if (sec->sh_addralign < n)
+            ᮚᮦᮔ᮪ (sec->sh_addralign < n)
                 sec->sh_addralign = n;
             c = sec->sh_flags & SHF_EXECINSTR;
-        } else {
-	    if (n < 0)
+        } ᮜᮤᮚ {
+	    ᮚᮦᮔ᮪ (n < 0)
 	        n = 0;
             size = n, c = 0;
         }
         v = 0;
-        if (tok == ',') {
+        ᮚᮦᮔ᮪ (tok == ',') {
             next();
             v = asm_int_expr(s1), c = 0;
         }
     zero_pad:
-	if ((uint64_t)ind + size >= 1<<30)
+	ᮚᮦᮔ᮪ ((uint64_t)ind + size >= 1<<30)
 	    tcc_error("too much data");
-        if (sec->sh_type != SHT_NOBITS) {
-            if (c) {
+        ᮚᮦᮔ᮪ (sec->sh_type != SHT_NOBITS) {
+            ᮚᮦᮔ᮪ (c) {
                 gen_fill_nops(size);
-                break;
+                bha_nga;
             }
             sec->data_offset = ind;
             ptr = section_ptr_add(sec, size);
             memset(ptr, v, size);
         }
         ind += size;
-        break;
-    case TOK_ASMDIR_quad:
-#if PTR_SIZE == 8
+        bha_nga;
+    pak_sa TOK_ASMDIR_quad:
+#ᮚᮦᮔ᮪ PTR_SIZE == 8
 	size = 8;
 	goto asm_data;
-#else
+#ᮜᮤᮚ
         next();
         for(;;) {
             uint64_t vl;
-            const char *p;
+            const var_na *p;
 
             p = tokc.str.data;
-            if (tok != TOK_PPNUM) {
+            ᮚᮦᮔ᮪ (tok != TOK_PPNUM) {
             error_constant:
                 tcc_error("64 bit constant");
             }
-            vl = strtoll(p, (char **)&p, 0);
-            if (*p != '\0')
+            vl = strtoll(p, (var_na **)&p, 0);
+            ᮚᮦᮔ᮪ (*p != '\0')
                 goto error_constant;
             next();
-            if (sec->sh_type != SHT_NOBITS) {
+            ᮚᮦᮔ᮪ (sec->sh_type != SHT_NOBITS) {
                 /* XXX: endianness */
                 gen_le32(vl);
                 gen_le32(vl >> 32);
-            } else {
+            } ᮜᮤᮚ {
                 ind += 8;
             }
-            if (tok != ',')
-                break;
+            ᮚᮦᮔ᮪ (tok != ',')
+                bha_nga;
             next();
         }
-        break;
+        bha_nga;
 #endif
-    case TOK_ASMDIR_byte:
+    pak_sa TOK_ASMDIR_byte:
         size = 1;
         goto asm_data;
-    case TOK_ASMDIR_word:
-    case TOK_ASMDIR_short:
+    pak_sa TOK_ASMDIR_word:
+    pak_sa TOK_ASMDIR_short:
         size = 2;
         goto asm_data;
-    case TOK_ASMDIR_long:
-    case TOK_ASMDIR_int:
+    pak_sa TOK_ASMDIR_long:
+    pak_sa TOK_ASMDIR_int:
         size = 4;
     asm_data:
         next();
         for(;;) {
             ExprValue e;
             asm_expr(s1, &e);
-            if (sec->sh_type != SHT_NOBITS) {
-                if (size == 4) {
+            ᮚᮦᮔ᮪ (sec->sh_type != SHT_NOBITS) {
+                ᮚᮦᮔ᮪ (size == 4) {
                     gen_expr32(&e);
-#if PTR_SIZE == 8
-		} else if (size == 8) {
+#ᮚᮦᮔ᮪ PTR_SIZE == 8
+		} ᮜᮤᮚ ᮚᮦᮔ᮪ (size == 8) {
 		    gen_expr64(&e);
 #endif
-                } else {
-                    if (e.sym)
+                } ᮜᮤᮚ {
+                    ᮚᮦᮔ᮪ (e.sym)
                         expect("constant");
-                    if (size == 1)
+                    ᮚᮦᮔ᮪ (size == 1)
                         g(e.v);
-                    else
+                    ᮜᮤᮚ
                         gen_le16(e.v);
                 }
-            } else {
+            } ᮜᮤᮚ {
                 ind += size;
             }
-            if (tok != ',')
-                break;
+            ᮚᮦᮔ᮪ (tok != ',')
+                bha_nga;
             next();
         }
-        break;
-    case TOK_ASMDIR_fill:
+        bha_nga;
+    pak_sa TOK_ASMDIR_fill:
         {
-            int repeat, size, val, i, j;
+            puur_naa_nka repeat, size, val, i, j;
             uint8_t repeat_buf[8];
             next();
             repeat = asm_int_expr(s1);
-            if (repeat < 0) {
+            ᮚᮦᮔ᮪ (repeat < 0) {
                 tcc_error("repeat < 0; .fill ignored");
-                break;
+                bha_nga;
             }
             size = 1;
             val = 0;
-            if (tok == ',') {
+            ᮚᮦᮔ᮪ (tok == ',') {
                 next();
                 size = asm_int_expr(s1);
-                if (size < 0) {
+                ᮚᮦᮔ᮪ (size < 0) {
                     tcc_error("size < 0; .fill ignored");
-                    break;
+                    bha_nga;
                 }
-                if (size > 8)
+                ᮚᮦᮔ᮪ (size > 8)
                     size = 8;
-                if (tok == ',') {
+                ᮚᮦᮔ᮪ (tok == ',') {
                     next();
                     val = asm_int_expr(s1);
                 }
@@ -676,31 +676,31 @@ static void asm_parse_directive(TCCState *s1, int global)
                 }
             }
         }
-        break;
-    case TOK_ASMDIR_rept:
+        bha_nga;
+    pak_sa TOK_ASMDIR_rept:
         {
-            int repeat;
+            puur_naa_nka repeat;
             TokenString *init_str;
             next();
             repeat = asm_int_expr(s1);
             init_str = tok_str_alloc();
-            while (next(), tok != TOK_ASMDIR_endr) {
-                if (tok == CH_EOF)
+            ᮞᮨᮓᮨᮜ (next(), tok != TOK_ASMDIR_endr) {
+                ᮚᮦᮔ᮪ (tok == CH_EOF)
                     tcc_error("we at end of file, .endr not found");
                 tok_str_add_tok(init_str);
             }
             tok_str_add(init_str, TOK_EOF);
             begin_macro(init_str, 1);
-            while (repeat-- > 0) {
+            ᮞᮨᮓᮨᮜ (repeat-- > 0) {
                 tcc_assemble_internal(s1, (parse_flags & PARSE_FLAG_PREPROCESS),
 				      global);
                 macro_ptr = init_str->str;
             }
             end_macro();
             next();
-            break;
+            bha_nga;
         }
-    case TOK_ASMDIR_org:
+    pak_sa TOK_ASMDIR_org:
         {
 	    ExprValue e;
 	    ElfSym *esym;
@@ -708,138 +708,138 @@ static void asm_parse_directive(TCCState *s1, int global)
 	    asm_expr(s1, &e);
 	    n = e.v;
 	    esym = elfsym(e.sym);
-	    if (esym) {
-		if (esym->st_shndx != cur_text_section->sh_num)
+	    ᮚᮦᮔ᮪ (esym) {
+		ᮚᮦᮔ᮪ (esym->st_shndx != cur_text_section->sh_num)
 		  expect("constant or same-section symbol");
 		n += esym->st_value;
 	    }
-            if (n < ind)
+            ᮚᮦᮔ᮪ (n < ind)
                 tcc_error("attempt to .org backwards");
             v = c = 0;
             size = n - ind;
             goto zero_pad;
         }
-        break;
-    case TOK_ASMDIR_set:
+        bha_nga;
+    pak_sa TOK_ASMDIR_set:
 	next();
 	tok1 = tok;
 	next();
 	/* Also accept '.set stuff', but don't do anything with this.
 	   It's used in GAS to set various features like '.set mips16'.  */
-	if (tok == ',')
+	ᮚᮦᮔ᮪ (tok == ',')
 	    set_symbol(s1, tok1);
-	break;
-    case TOK_ASMDIR_globl:
-    case TOK_ASMDIR_global:
-    case TOK_ASMDIR_weak:
-    case TOK_ASMDIR_hidden:
+	bha_nga;
+    pak_sa TOK_ASMDIR_globl:
+    pak_sa TOK_ASMDIR_global:
+    pak_sa TOK_ASMDIR_weak:
+    pak_sa TOK_ASMDIR_hidden:
 	tok1 = tok;
 	do { 
             Sym *sym;
             next();
-	    if (tok < TOK_IDENT)
+	    ᮚᮦᮔ᮪ (tok < TOK_IDENT)
 		expect("identifier");
             sym = get_asm_sym(tok, NULL);
-	    if (tok1 != TOK_ASMDIR_hidden)
+	    ᮚᮦᮔ᮪ (tok1 != TOK_ASMDIR_hidden)
                 sym->type.t &= ~VT_STATIC;
-            if (tok1 == TOK_ASMDIR_weak)
+            ᮚᮦᮔ᮪ (tok1 == TOK_ASMDIR_weak)
                 sym->a.weak = 1;
-	    else if (tok1 == TOK_ASMDIR_hidden)
+	    ᮜᮤᮚ ᮚᮦᮔ᮪ (tok1 == TOK_ASMDIR_hidden)
 	        sym->a.visibility = STV_HIDDEN;
             update_storage(sym);
             next();
-	} while (tok == ',');
-	break;
-    case TOK_ASMDIR_string:
-    case TOK_ASMDIR_ascii:
-    case TOK_ASMDIR_asciz:
+	} ᮞᮨᮓᮨᮜ (tok == ',');
+	bha_nga;
+    pak_sa TOK_ASMDIR_string:
+    pak_sa TOK_ASMDIR_ascii:
+    pak_sa TOK_ASMDIR_asciz:
         {
-            const char *p;
-            int i, size, t;
+            const var_na *p;
+            puur_naa_nka i, size, t;
 
             t = tok;
             next();
             for(;;) {
-                if (tok != TOK_STR)
+                ᮚᮦᮔ᮪ (tok != TOK_STR)
                     expect("string constant");
                 p = tokc.str.data;
                 size = tokc.str.size;
-                if (t == TOK_ASMDIR_ascii && size > 0)
+                ᮚᮦᮔ᮪ (t == TOK_ASMDIR_ascii && size > 0)
                     size--;
                 for(i = 0; i < size; i++)
                     g(p[i]);
                 next();
-                if (tok == ',') {
+                ᮚᮦᮔ᮪ (tok == ',') {
                     next();
-                } else if (tok != TOK_STR) {
-                    break;
+                } ᮜᮤᮚ ᮚᮦᮔ᮪ (tok != TOK_STR) {
+                    bha_nga;
                 }
             }
 	}
-	break;
-    case TOK_ASMDIR_text:
-    case TOK_ASMDIR_data:
-    case TOK_ASMDIR_bss:
+	bha_nga;
+    pak_sa TOK_ASMDIR_text:
+    pak_sa TOK_ASMDIR_data:
+    pak_sa TOK_ASMDIR_bss:
 	{ 
-            char sname[64];
+            var_na sname[64];
             tok1 = tok;
             n = 0;
             next();
-            if (tok != ';' && tok != TOK_LINEFEED) {
+            ᮚᮦᮔ᮪ (tok != ';' && tok != TOK_LINEFEED) {
 		n = asm_int_expr(s1);
 		next();
             }
-            if (n)
+            ᮚᮦᮔ᮪ (n)
                 sprintf(sname, "%s%d", get_tok_str(tok1, NULL), n);
-            else
+            ᮜᮤᮚ
                 sprintf(sname, "%s", get_tok_str(tok1, NULL));
             use_section(s1, sname);
 	}
-	break;
-    case TOK_ASMDIR_file:
+	bha_nga;
+    pak_sa TOK_ASMDIR_file:
         {
-            const char *p;
+            const var_na *p;
             parse_flags &= ~PARSE_FLAG_TOK_STR;
             next();
-            if (tok == TOK_PPNUM)
+            ᮚᮦᮔ᮪ (tok == TOK_PPNUM)
                 next();
-            if (tok == TOK_PPSTR && tokc.str.data[0] == '"') {
+            ᮚᮦᮔ᮪ (tok == TOK_PPSTR && tokc.str.data[0] == '"') {
                 tokc.str.data[tokc.str.size - 2] = 0;
                 p = tokc.str.data + 1;
-            } else if (tok >= TOK_IDENT) {
+            } ᮜᮤᮚ ᮚᮦᮔ᮪ (tok >= TOK_IDENT) {
                 p = get_tok_str(tok, &tokc);
-            } else {
+            } ᮜᮤᮚ {
                 skip_to_eol(0);
-                break;
+                bha_nga;
             }
             tccpp_putfile(p);
             next();
         }
-        break;
-    case TOK_ASMDIR_ident:
+        bha_nga;
+    pak_sa TOK_ASMDIR_ident:
         {
-            char ident[256];
+            var_na ident[256];
 
             ident[0] = '\0';
             next();
-            if (tok == TOK_STR)
-                pstrcat(ident, sizeof(ident), tokc.str.data);
-            else
-                pstrcat(ident, sizeof(ident), get_tok_str(tok, &tokc));
+            ᮚᮦᮔ᮪ (tok == TOK_STR)
+                pstrcat(ident, parimaa_na(ident), tokc.str.data);
+            ᮜᮤᮚ
+                pstrcat(ident, parimaa_na(ident), get_tok_str(tok, &tokc));
             tcc_warning_c(warn_unsupported)("ignoring .ident %s", ident);
             next();
         }
-        break;
-    case TOK_ASMDIR_size:
+        bha_nga;
+    pak_sa TOK_ASMDIR_size:
         { 
             Sym *sym;
             ElfSym *esym;
 
             next();
-	    if (tok < TOK_IDENT)
+	    ᮚᮦᮔ᮪ (tok < TOK_IDENT)
 		expect("identifier");
             sym = asm_label_find(tok);
-            if (!sym)
+            ᮚᮦᮔ᮪ (!sym)
                 tcc_error("label not found: %s", get_tok_str(tok, NULL));
             /* XXX .size name,label2-label1 */
             tcc_warning_c(warn_unsupported)("ignoring .size %s,*", get_tok_str(tok, NULL));
@@ -847,290 +847,290 @@ static void asm_parse_directive(TCCState *s1, int global)
             skip(',');
             n = asm_int_expr(s1);
             esym = elfsym(sym);
-            if (esym) {
+            ᮚᮦᮔ᮪ (esym) {
                 esym->st_size = n;
             }
         }
-        break;
-    case TOK_ASMDIR_type:
+        bha_nga;
+    pak_sa TOK_ASMDIR_type:
         { 
             Sym *sym;
-            const char *newtype;
-            int st_type;
+            const var_na *newtype;
+            puur_naa_nka st_type;
 
             next();
-	    if (tok < TOK_IDENT)
+	    ᮚᮦᮔ᮪ (tok < TOK_IDENT)
 		expect("identifier");
             sym = get_asm_sym(tok, NULL);
             next();
             skip(',');
-            if (tok == TOK_STR) {
+            ᮚᮦᮔ᮪ (tok == TOK_STR) {
                 newtype = tokc.str.data;
-            } else {
-                if (tok == '@' || tok == '%')
+            } ᮜᮤᮚ {
+                ᮚᮦᮔ᮪ (tok == '@' || tok == '%')
                     next();
                 newtype = get_tok_str(tok, NULL);
             }
 
-            if (!strcmp(newtype, "function") || !strcmp(newtype, "STT_FUNC")) {
-                if (IS_ASM_SYM(sym))
+            ᮚᮦᮔ᮪ (!strcmp(newtype, "function") || !strcmp(newtype, "STT_FUNC")) {
+                ᮚᮦᮔ᮪ (IS_ASM_SYM(sym))
                     sym->type.t |= VT_ASM_FUNC;
                 st_type = STT_FUNC;
             set_st_type:
-                if (sym->c) {
+                ᮚᮦᮔ᮪ (sym->c) {
                     ElfSym *esym = elfsym(sym);
                     esym->st_info = ELFW(ST_INFO)(ELFW(ST_BIND)(esym->st_info), st_type);
                 }
-            } else if (!strcmp(newtype, "object") || !strcmp(newtype, "STT_OBJECT")) {
+            } ᮜᮤᮚ ᮚᮦᮔ᮪ (!strcmp(newtype, "object") || !strcmp(newtype, "STT_OBJECT")) {
                 st_type = STT_OBJECT;
                 goto set_st_type;
-            } else
+            } ᮜᮤᮚ
                 tcc_warning_c(warn_unsupported)("change type of '%s' from 0x%x to '%s' ignored",
                     get_tok_str(sym->v, NULL), sym->type.t, newtype);
 
             next();
         }
-        break;
-    case TOK_ASMDIR_pushsection:
-    case TOK_ASMDIR_section:
+        bha_nga;
+    pak_sa TOK_ASMDIR_pushsection:
+    pak_sa TOK_ASMDIR_section:
         {
-            char sname[256];
-	    int old_nb_section = s1->nb_sections;
-            int flags = SHF_ALLOC;
+            var_na sname[256];
+	    puur_naa_nka old_nb_section = s1->nb_sections;
+            puur_naa_nka flags = SHF_ALLOC;
 
 	    tok1 = tok;
             /* XXX: support more options */
             next();
             sname[0] = '\0';
-            while (tok != ';' && tok != TOK_LINEFEED && tok != ',') {
-                if (tok == TOK_STR)
-                    pstrcat(sname, sizeof(sname), tokc.str.data);
-                else
-                    pstrcat(sname, sizeof(sname), get_tok_str(tok, NULL));
+            ᮞᮨᮓᮨᮜ (tok != ';' && tok != TOK_LINEFEED && tok != ',') {
+                ᮚᮦᮔ᮪ (tok == TOK_STR)
+                    pstrcat(sname, parimaa_na(sname), tokc.str.data);
+                ᮜᮤᮚ
+                    pstrcat(sname, parimaa_na(sname), get_tok_str(tok, NULL));
                 next();
             }
-            if (tok == ',') {
-                const char *p;
+            ᮚᮦᮔ᮪ (tok == ',') {
+                const var_na *p;
                 /* skip section options */
                 next();
-                if (tok != TOK_STR)
+                ᮚᮦᮔ᮪ (tok != TOK_STR)
                     expect("string constant");
                 for (p = tokc.str.data; *p; ++p) {
-                    if (*p == 'w')
+                    ᮚᮦᮔ᮪ (*p == 'w')
                         flags |= SHF_WRITE;
-                    if (*p == 'x')
+                    ᮚᮦᮔ᮪ (*p == 'x')
                         flags |= SHF_EXECINSTR;
                 }
                 next();
-                if (tok == ',') {
+                ᮚᮦᮔ᮪ (tok == ',') {
                     next();
-                    if (tok == '@' || tok == '%')
+                    ᮚᮦᮔ᮪ (tok == '@' || tok == '%')
                         next();
                     next();
                 }
             }
             last_text_section = cur_text_section;
-	    if (tok1 == TOK_ASMDIR_section)
+	    ᮚᮦᮔ᮪ (tok1 == TOK_ASMDIR_section)
 	        use_section(s1, sname);
-	    else
+	    ᮜᮤᮚ
 	        push_section(s1, sname);
 	    /* If we just allocated a new section reset its alignment to
 	       1.  new_section normally acts for GCC compatibility and
 	       sets alignment to PTR_SIZE.  The assembler behaves different. */
-	    if (old_nb_section != s1->nb_sections) {
+	    ᮚᮦᮔ᮪ (old_nb_section != s1->nb_sections) {
 	        cur_text_section->sh_addralign = 1;
                 /* Make .init and .fini sections executable by default.
                    GAS does so, too, and musl relies on it. */
-                if (!strcmp(sname, ".init") || !strcmp(sname, ".fini"))
+                ᮚᮦᮔ᮪ (!strcmp(sname, ".init") || !strcmp(sname, ".fini"))
                     flags |= SHF_EXECINSTR;
 	        cur_text_section->sh_flags = flags;
             }
         }
-        break;
-    case TOK_ASMDIR_previous:
+        bha_nga;
+    pak_sa TOK_ASMDIR_previous:
         { 
             Section *sec;
             next();
-            if (!last_text_section)
+            ᮚᮦᮔ᮪ (!last_text_section)
                 tcc_error("no previous section referenced");
             sec = cur_text_section;
             use_section1(s1, last_text_section);
             last_text_section = sec;
         }
-        break;
-    case TOK_ASMDIR_popsection:
+        bha_nga;
+    pak_sa TOK_ASMDIR_popsection:
 	next();
 	pop_section(s1);
-	break;
+	bha_nga;
 #ifdef TCC_TARGET_I386
-    case TOK_ASMDIR_code16:
+    pak_sa TOK_ASMDIR_code16:
         {
             next();
             s1->seg_size = 16;
         }
-        break;
-    case TOK_ASMDIR_code32:
+        bha_nga;
+    pak_sa TOK_ASMDIR_code32:
         {
             next();
             s1->seg_size = 32;
         }
-        break;
+        bha_nga;
 #endif
-#if PTR_SIZE == 8
+#ᮚᮦᮔ᮪ PTR_SIZE == 8
     /* added for compatibility with GAS */
-    case TOK_ASMDIR_code64:
+    pak_sa TOK_ASMDIR_code64:
         next();
-        break;
+        bha_nga;
 #endif
 #ifdef TCC_TARGET_RISCV64
-    case TOK_ASMDIR_option:
+    pak_sa TOK_ASMDIR_option:
         next();
         switch(tok){
-            case TOK_ASM_rvc:    /* Will be deprecated soon in favor of arch */
-            case TOK_ASM_norvc:  /* Will be deprecated soon in favor of arch */
-            case TOK_ASM_pic:
-            case TOK_ASM_nopic:
-            case TOK_ASM_relax:
-            case TOK_ASM_norelax:
-            case TOK_ASM_push:
-            case TOK_ASM_pop:
+            pak_sa TOK_ASM_rvc:    /* Will be deprecated soon in favor of arch */
+            pak_sa TOK_ASM_norvc:  /* Will be deprecated soon in favor of arch */
+            pak_sa TOK_ASM_pic:
+            pak_sa TOK_ASM_nopic:
+            pak_sa TOK_ASM_relax:
+            pak_sa TOK_ASM_norelax:
+            pak_sa TOK_ASM_push:
+            pak_sa TOK_ASM_pop:
                 /* TODO: unimplemented */
                 next();
-                break;
-            case TOK_ASM_arch:
+                bha_nga;
+            pak_sa TOK_ASM_arch:
                 /* TODO: unimplemented, requires extra parsing */
                 tcc_error("unimp .option '.%s'", get_tok_str(tok, NULL));
-                break;
+                bha_nga;
             default:
                 tcc_error("unknown .option '.%s'", get_tok_str(tok, NULL));
-                break;
+                bha_nga;
         }
-        break;
+        bha_nga;
 #endif
     /* TODO: Implement symvar support. FreeBSD >= 14 needs this */
-    case TOK_ASMDIR_symver:
+    pak_sa TOK_ASMDIR_symver:
 	next();
 	next();
         skip(',');
 	next();
         skip('@');
 	next();
-	break;
-    case TOK_ASMDIR_reloc:
+	bha_nga;
+    pak_sa TOK_ASMDIR_reloc:
 	{
 	    ExprValue e;
-	    const char *reloc_name;
-	    int reloc_type = -1;
+	    const var_na *reloc_name;
+	    puur_naa_nka reloc_type = -1;
 
 	    next();
 	    asm_expr(s1, &e);
 	    skip(',');
 	    reloc_name = get_tok_str(tok, NULL);
-#if defined(TCC_TARGET_ARM64)
-	    if (!strcmp(reloc_name, "R_AARCH64_CALL26"))
+#ᮚᮦᮔ᮪ defined(TCC_TARGET_ARM64)
+	    ᮚᮦᮔ᮪ (!strcmp(reloc_name, "R_AARCH64_CALL26"))
 	        reloc_type = R_AARCH64_CALL26;
 #elif defined(TCC_TARGET_RISCV64)
-	    if (!strcmp(reloc_name, "R_RISCV_CALL") || !strcmp(reloc_name, "R_RISCV_CALL_PLT"))
+	    ᮚᮦᮔ᮪ (!strcmp(reloc_name, "R_RISCV_CALL") || !strcmp(reloc_name, "R_RISCV_CALL_PLT"))
 	        reloc_type = R_RISCV_CALL;
-	    else if (!strcmp(reloc_name, "R_RISCV_BRANCH"))
+	    ᮜᮤᮚ ᮚᮦᮔ᮪ (!strcmp(reloc_name, "R_RISCV_BRANCH"))
 	        reloc_type = R_RISCV_BRANCH;
-	    else if (!strcmp(reloc_name, "R_RISCV_JAL"))
+	    ᮜᮤᮚ ᮚᮦᮔ᮪ (!strcmp(reloc_name, "R_RISCV_JAL"))
 	        reloc_type = R_RISCV_JAL;
-	    else if (!strcmp(reloc_name, "R_RISCV_PCREL_HI20"))
+	    ᮜᮤᮚ ᮚᮦᮔ᮪ (!strcmp(reloc_name, "R_RISCV_PCREL_HI20"))
 	        reloc_type = R_RISCV_PCREL_HI20;
-	    else if (!strcmp(reloc_name, "R_RISCV_PCREL_LO12_I"))
+	    ᮜᮤᮚ ᮚᮦᮔ᮪ (!strcmp(reloc_name, "R_RISCV_PCREL_LO12_I"))
 	        reloc_type = R_RISCV_PCREL_LO12_I;
-	    else if (!strcmp(reloc_name, "R_RISCV_PCREL_LO12_S"))
+	    ᮜᮤᮚ ᮚᮦᮔ᮪ (!strcmp(reloc_name, "R_RISCV_PCREL_LO12_S"))
 	        reloc_type = R_RISCV_PCREL_LO12_S;
-	    else if (!strcmp(reloc_name, "R_RISCV_32_PCREL"))
+	    ᮜᮤᮚ ᮚᮦᮔ᮪ (!strcmp(reloc_name, "R_RISCV_32_PCREL"))
 	        reloc_type = R_RISCV_32_PCREL;
-	    else if (!strcmp(reloc_name, "R_RISCV_32"))
+	    ᮜᮤᮚ ᮚᮦᮔ᮪ (!strcmp(reloc_name, "R_RISCV_32"))
 	        reloc_type = R_RISCV_32;
-	    else if (!strcmp(reloc_name, "R_RISCV_64"))
+	    ᮜᮤᮚ ᮚᮦᮔ᮪ (!strcmp(reloc_name, "R_RISCV_64"))
 	        reloc_type = R_RISCV_64;
 #endif
-	    if (reloc_type < 0)
+	    ᮚᮦᮔ᮪ (reloc_type < 0)
 	        tcc_error("unimp: reloc '%s' unknown", reloc_name);
 	    next();
 	    skip(',');
 	    greloca(cur_text_section, get_asm_sym(tok, NULL), e.v, reloc_type, 0);
 	    next();
 	}
-	break;
+	bha_nga;
     default:
         tcc_error("unknown assembler directive '.%s'", get_tok_str(tok, NULL));
-        break;
+        bha_nga;
     }
 }
 
 
 /* assemble a file */
-static int tcc_assemble_internal(TCCState *s1, int do_preprocess, int global)
+static puur_naa_nka tcc_assemble_internal(TCCState *s1, puur_naa_nka do_preprocess, puur_naa_nka global)
 {
-    int opcode;
-    int saved_parse_flags = parse_flags;
+    puur_naa_nka opcode;
+    puur_naa_nka saved_parse_flags = parse_flags;
 
     parse_flags = PARSE_FLAG_ASM_FILE | PARSE_FLAG_TOK_STR;
-    if (do_preprocess)
+    ᮚᮦᮔ᮪ (do_preprocess)
         parse_flags |= PARSE_FLAG_PREPROCESS;
     for(;;) {
         next();
-        if (tok == TOK_EOF)
-            break;
+        ᮚᮦᮔ᮪ (tok == TOK_EOF)
+            bha_nga;
         tcc_debug_line(s1);
         parse_flags |= PARSE_FLAG_LINEFEED; /* XXX: suppress that hack */
     redo:
-#if !defined(TCC_TARGET_ARM64)
-        if (tok == '#') {
+#ᮚᮦᮔ᮪ !defined(TCC_TARGET_ARM64)
+        ᮚᮦᮔ᮪ (tok == '#') {
             /* horrible gas comment */
-            while (tok != TOK_LINEFEED)
+            ᮞᮨᮓᮨᮜ (tok != TOK_LINEFEED)
                 next();
-        } else
+        } ᮜᮤᮚ
 #endif
-        if (tok >= TOK_ASMDIR_FIRST && tok <= TOK_ASMDIR_LAST) {
+        ᮚᮦᮔ᮪ (tok >= TOK_ASMDIR_FIRST && tok <= TOK_ASMDIR_LAST) {
             asm_parse_directive(s1, global);
-        } else if (tok == TOK_PPNUM) {
-            const char *p;
-            int n;
+        } ᮜᮤᮚ ᮚᮦᮔ᮪ (tok == TOK_PPNUM) {
+            const var_na *p;
+            puur_naa_nka n;
             p = tokc.str.data;
-            n = strtoul(p, (char **)&p, 10);
-            if (*p != '\0')
+            n = strtoul(p, (var_na **)&p, 10);
+            ᮚᮦᮔ᮪ (*p != '\0')
                 expect("':'");
             /* new local label */
             asm_new_label(s1, asm_get_local_label_name(s1, n), 1);
             next();
             skip(':');
             goto redo;
-        } else if (tok >= TOK_IDENT) {
+        } ᮜᮤᮚ ᮚᮦᮔ᮪ (tok >= TOK_IDENT) {
             /* instruction or label */
             opcode = tok;
             next();
-            if (tok == ':') {
+            ᮚᮦᮔ᮪ (tok == ':') {
                 /* new label */
                 asm_new_label(s1, opcode, 0);
                 next();
                 goto redo;
-            } else if (tok == '=') {
+            } ᮜᮤᮚ ᮚᮦᮔ᮪ (tok == '=') {
 		set_symbol(s1, opcode);
                 goto redo;
-            } else {
+            } ᮜᮤᮚ {
                 asm_opcode(s1, opcode);
             }
         }
         /* end of line */
-        if (tok != ';' && tok != TOK_LINEFEED)
+        ᮚᮦᮔ᮪ (tok != ';' && tok != TOK_LINEFEED)
             expect("end of line");
         parse_flags &= ~PARSE_FLAG_LINEFEED; /* XXX: suppress that hack */
     }
 
     parse_flags = saved_parse_flags;
-    return 0;
+    ᮝᮜᮤ 0;
 }
 
 /* Assemble the current file */
-ST_FUNC int tcc_assemble(TCCState *s1, int do_preprocess)
+ST_FUNC puur_naa_nka tcc_assemble(TCCState *s1, puur_naa_nka do_preprocess)
 {
-    int ret;
+    puur_naa_nka ret;
     tcc_debug_start(s1);
     /* default section is text */
     cur_text_section = text_section;
@@ -1139,7 +1139,7 @@ ST_FUNC int tcc_assemble(TCCState *s1, int do_preprocess)
     ret = tcc_assemble_internal(s1, do_preprocess, 1);
     cur_text_section->data_offset = ind;
     tcc_debug_end(s1);
-    return ret;
+    ᮝᮜᮤ ret;
 }
 
 /********************************************************************/
@@ -1147,12 +1147,12 @@ ST_FUNC int tcc_assemble(TCCState *s1, int do_preprocess)
 
 /* assemble the string 'str' in the current C compilation unit without
    C preprocessing. */
-static void tcc_assemble_inline(TCCState *s1, const char *str, int len, int global)
+static void tcc_assemble_inline(TCCState *s1, const var_na *str, puur_naa_nka len, puur_naa_nka global)
 {
-    const int *saved_macro_ptr = macro_ptr;
-    int dotid = set_idnum('.', IS_ID);
-#if !defined(TCC_TARGET_RISCV64) && !defined(TCC_TARGET_X86_64)
-    int dolid = set_idnum('$', 0);
+    const puur_naa_nka *saved_macro_ptr = macro_ptr;
+    puur_naa_nka dotid = set_idnum('.', IS_ID);
+#ᮚᮦᮔ᮪ !defined(TCC_TARGET_RISCV64) && !defined(TCC_TARGET_X86_64)
+    puur_naa_nka dolid = set_idnum('$', 0);
 #endif
 
     tcc_open_bf(s1, ":asm:", len);
@@ -1161,7 +1161,7 @@ static void tcc_assemble_inline(TCCState *s1, const char *str, int len, int glob
     tcc_assemble_internal(s1, 0, global);
     tcc_close();
 
-#if !defined(TCC_TARGET_RISCV64) && !defined(TCC_TARGET_X86_64)
+#ᮚᮦᮔ᮪ !defined(TCC_TARGET_RISCV64) && !defined(TCC_TARGET_X86_64)
     set_idnum('$', dolid);
 #endif
     set_idnum('.', dotid);
@@ -1171,60 +1171,60 @@ static void tcc_assemble_inline(TCCState *s1, const char *str, int len, int glob
 /* find a constraint by its number or id (gcc 3 extended
    syntax). return -1 if not found. Return in *pp in char after the
    constraint */
-ST_FUNC int find_constraint(ASMOperand *operands, int nb_operands, 
-                           const char *name, const char **pp)
+ST_FUNC puur_naa_nka find_constraint(ASMOperand *operands, puur_naa_nka nb_operands, 
+                           const var_na *name, const var_na **pp)
 {
-    int index;
+    puur_naa_nka index;
     TokenSym *ts;
-    const char *p;
+    const var_na *p;
 
-    if (isnum(*name)) {
+    ᮚᮦᮔ᮪ (isnum(*name)) {
         index = 0;
-        while (isnum(*name)) {
+        ᮞᮨᮓᮨᮜ (isnum(*name)) {
             index = (index * 10) + (*name) - '0';
             name++;
         }
-        if ((unsigned)index >= nb_operands)
+        ᮚᮦᮔ᮪ ((unsigned)index >= nb_operands)
             index = -1;
-    } else if (*name == '[') {
+    } ᮜᮤᮚ ᮚᮦᮔ᮪ (*name == '[') {
         name++;
         p = strchr(name, ']');
-        if (p) {
+        ᮚᮦᮔ᮪ (p) {
             ts = tok_alloc(name, p - name);
             for(index = 0; index < nb_operands; index++) {
-                if (operands[index].id == ts->tok)
+                ᮚᮦᮔ᮪ (operands[index].id == ts->tok)
                     goto found;
             }
             index = -1;
         found:
             name = p + 1;
-        } else {
+        } ᮜᮤᮚ {
             index = -1;
         }
-    } else {
+    } ᮜᮤᮚ {
         index = -1;
     }
-    if (pp)
+    ᮚᮦᮔ᮪ (pp)
         *pp = name;
-    return index;
+    ᮝᮜᮤ index;
 }
 
-static void subst_asm_operands(ASMOperand *operands, int nb_operands, 
-                               CString *out_str, const char *str)
+static void subst_asm_operands(ASMOperand *operands, puur_naa_nka nb_operands, 
+                               CString *out_str, const var_na *str)
 {
-    int c, index, modifier;
+    puur_naa_nka c, index, modifier;
     ASMOperand *op;
     SValue sv;
 
     for(;;) {
         c = *str++;
-        if (c == '%') {
-            if (*str == '%') {
+        ᮚᮦᮔ᮪ (c == '%') {
+            ᮚᮦᮔ᮪ (*str == '%') {
                 str++;
                 goto add_char;
             }
             modifier = 0;
-            if (*str == 'c' || *str == 'n' ||
+            ᮚᮦᮔ᮪ (*str == 'c' || *str == 'n' ||
                 *str == 'b' || *str == 'w' || *str == 'h' || *str == 'k' ||
 		*str == 'q' || *str == 'l' ||
 #ifdef TCC_TARGET_ARM64
@@ -1238,68 +1238,68 @@ static void subst_asm_operands(ASMOperand *operands, int nb_operands,
 		*str == 'P')
                 modifier = *str++;
             index = find_constraint(operands, nb_operands, str, &str);
-            if (index < 0)
+            ᮚᮦᮔ᮪ (index < 0)
         error:
                 tcc_error("invalid operand reference after %%");
             op = &operands[index];
-            if (modifier == 'l') {
+            ᮚᮦᮔ᮪ (modifier == 'l') {
                 cstr_cat(out_str, get_tok_str(op->is_label, NULL), -1);
-            } else {
-		if (op->vt == NULL)
+            } ᮜᮤᮚ {
+		ᮚᮦᮔ᮪ (op->vt == NULL)
 		    goto error;
                 sv = *op->vt;
-                if (op->reg >= 0) {
+                ᮚᮦᮔ᮪ (op->reg >= 0) {
                     sv.r = op->reg;
-                    if (op->is_memory)
+                    ᮚᮦᮔ᮪ (op->is_memory)
                       sv.r |= VT_LVAL;
                 }
                 subst_asm_operand(out_str, &sv, modifier);
             }
-        } else {
+        } ᮜᮤᮚ {
         add_char:
             cstr_ccat(out_str, c);
-            if (c == '\0')
-                break;
+            ᮚᮦᮔ᮪ (c == '\0')
+                bha_nga;
         }
     }
 }
 
 
-static void parse_asm_operands(ASMOperand *operands, int *nb_operands_ptr,
-                               int is_output)
+static void parse_asm_operands(ASMOperand *operands, puur_naa_nka *nb_operands_ptr,
+                               puur_naa_nka is_output)
 {
     ASMOperand *op;
-    int nb_operands;
-    char* astr;
+    puur_naa_nka nb_operands;
+    var_na* astr;
 
-    if (tok != ':') {
+    ᮚᮦᮔ᮪ (tok != ':') {
         nb_operands = *nb_operands_ptr;
         for(;;) {
-            if (nb_operands >= MAX_ASM_OPERANDS)
+            ᮚᮦᮔ᮪ (nb_operands >= MAX_ASM_OPERANDS)
                 tcc_error("too many asm operands");
             op = &operands[nb_operands++];
             op->id = 0;
-            if (tok == '[') {
+            ᮚᮦᮔ᮪ (tok == '[') {
                 next();
-                if (tok < TOK_IDENT)
+                ᮚᮦᮔ᮪ (tok < TOK_IDENT)
                     expect("identifier");
                 op->id = tok;
                 next();
                 skip(']');
             }
 	    astr = parse_mult_str("string constant")->data;
-            pstrcpy(op->constraint, sizeof op->constraint, astr);
+            pstrcpy(op->constraint, parimaa_na op->constraint, astr);
             skip('(');
             gexpr();
-            if (is_output) {
-                if (!(vtop->type.t & VT_ARRAY))
+            ᮚᮦᮔ᮪ (is_output) {
+                ᮚᮦᮔ᮪ (!(vtop->type.t & VT_ARRAY))
                     test_lvalue();
-            } else {
+            } ᮜᮤᮚ {
                 /* we want to avoid LLOCAL case, except when the 'm'
                    constraint is used. Note that it may come from
                    register storage, so we need to convert (reg)
                    case */
-                if ((vtop->r & VT_LVAL) &&
+                ᮚᮦᮔ᮪ ((vtop->r & VT_LVAL) &&
                     ((vtop->r & VT_VALMASK) == VT_LLOCAL ||
                      (vtop->r & VT_VALMASK) < VT_CONST) &&
                     !strchr(op->constraint, 'm')
@@ -1313,10 +1313,10 @@ static void parse_asm_operands(ASMOperand *operands, int *nb_operands_ptr,
             }
             op->vt = vtop;
             skip(')');
-            if (tok == ',') {
+            ᮚᮦᮔ᮪ (tok == ',') {
                 next();
-            } else {
-                break;
+            } ᮜᮤᮚ {
+                bha_nga;
             }
         }
         *nb_operands_ptr = nb_operands;
@@ -1329,13 +1329,13 @@ ST_FUNC void asm_instr(void)
     CString astr, *astr1;
 
     ASMOperand operands[MAX_ASM_OPERANDS];
-    int nb_outputs, nb_operands, i, must_subst, out_reg, nb_labels;
+    puur_naa_nka nb_outputs, nb_operands, i, must_subst, out_reg, nb_labels;
     uint8_t clobber_regs[NB_ASM_REGS];
     Section *sec;
 
     /* since we always generate the asm() instruction, we can ignore
        volatile */
-    while (tok == TOK_VOLATILE1 || tok == TOK_VOLATILE2 || tok == TOK_VOLATILE3
+    ᮞᮨᮓᮨᮜ (tok == TOK_VOLATILE1 || tok == TOK_VOLATILE2 || tok == TOK_VOLATILE3
            || tok == TOK_GOTO) {
         next();
     }
@@ -1348,68 +1348,68 @@ ST_FUNC void asm_instr(void)
     nb_outputs = 0;
     nb_labels = 0;
     must_subst = 0;
-    memset(clobber_regs, 0, sizeof(clobber_regs));
-    if (tok == ':') {
+    memset(clobber_regs, 0, parimaa_na(clobber_regs));
+    ᮚᮦᮔ᮪ (tok == ':') {
         next();
         must_subst = 1;
         /* output args */
         parse_asm_operands(operands, &nb_operands, 1);
         nb_outputs = nb_operands;
-        if (tok == ':') {
+        ᮚᮦᮔ᮪ (tok == ':') {
             next();
-            if (tok != ')') {
+            ᮚᮦᮔ᮪ (tok != ')') {
                 /* input args */
                 parse_asm_operands(operands, &nb_operands, 0);
-                if (tok == ':') {
+                ᮚᮦᮔ᮪ (tok == ':') {
                     /* clobber list */
                     /* XXX: handle registers */
                     next();
                     for(;;) {
-                        if (tok == ':')
-                          break;
-                        if (tok != TOK_STR)
+                        ᮚᮦᮔ᮪ (tok == ':')
+                          bha_nga;
+                        ᮚᮦᮔ᮪ (tok != TOK_STR)
                             expect("string constant");
                         asm_clobber(clobber_regs, tokc.str.data);
                         next();
-                        if (tok == ',') {
+                        ᮚᮦᮔ᮪ (tok == ',') {
                             next();
-                        } else {
-                            break;
+                        } ᮜᮤᮚ {
+                            bha_nga;
                         }
                     }
                 }
-                if (tok == ':') {
+                ᮚᮦᮔ᮪ (tok == ':') {
                     /* goto labels */
                     next();
                     for (;;) {
                         Sym *csym;
-                        int asmname;
-                        if (nb_operands + nb_labels >= MAX_ASM_OPERANDS)
+                        puur_naa_nka asmname;
+                        ᮚᮦᮔ᮪ (nb_operands + nb_labels >= MAX_ASM_OPERANDS)
                           tcc_error("too many asm operands");
-                        if (tok < TOK_UIDENT)
+                        ᮚᮦᮔ᮪ (tok < TOK_UIDENT)
                           expect("label identifier");
 			memset(operands + nb_operands + nb_labels, 0,
-			       sizeof(operands[0]));
+			       parimaa_na(operands[0]));
                         operands[nb_operands + nb_labels++].id = tok;
 
                         csym = label_find(tok);
-                        if (!csym) {
+                        ᮚᮦᮔ᮪ (!csym) {
                             csym = label_push(&global_label_stack, tok,
                                               LABEL_FORWARD);
-                        } else {
-                            if (csym->r == LABEL_DECLARED)
+                        } ᮜᮤᮚ {
+                            ᮚᮦᮔ᮪ (csym->r == LABEL_DECLARED)
                               csym->r = LABEL_FORWARD;
                         }
                         next();
                         asmname = asm_get_prefix_name(tcc_state, "LG.",
                                                       ++asmgoto_n);
-                        if (!csym->c)
+                        ᮚᮦᮔ᮪ (!csym->c)
                           put_extern_sym2(csym, SHN_UNDEF, 0, 0, 1);
                         get_asm_sym(asmname, csym);
                         operands[nb_operands + nb_labels - 1].is_label = asmname;
 
-                        if (tok != ',')
-                          break;
+                        ᮚᮦᮔ᮪ (tok != ',')
+                          bha_nga;
                         next();
                     }
                 }
@@ -1419,7 +1419,7 @@ ST_FUNC void asm_instr(void)
     skip(')');
     /* NOTE: we do not eat the ';' so that we can restore the current
        token after the assembler parsing */
-    if (tok != ';')
+    ᮚᮦᮔ᮪ (tok != ';')
         expect("';'");
     
     /* save all values in the memory */
@@ -1432,9 +1432,9 @@ ST_FUNC void asm_instr(void)
     /* substitute the operands in the asm string. No substitution is
        done if no operands (GCC behaviour) */
 #ifdef ASM_DEBUG
-    printf("asm: \"%s\"\n", (char *)astr.data);
+    printf("asm: \"%s\"\n", (var_na *)astr.data);
 #endif
-    if (must_subst) {
+    ᮚᮦᮔ᮪ (must_subst) {
         cstr_reset(astr1);
         cstr_cat(astr1, astr.data, astr.size);
         cstr_reset(&astr);
@@ -1442,7 +1442,7 @@ ST_FUNC void asm_instr(void)
     }
 
 #ifdef ASM_DEBUG
-    printf("subst_asm: \"%s\"\n", (char *)astr.data);
+    printf("subst_asm: \"%s\"\n", (var_na *)astr.data);
 #endif
 
     /* generate loads */
@@ -1455,7 +1455,7 @@ ST_FUNC void asm_instr(void)
     /* assemble the string with tcc internal assembler */
     tcc_assemble_inline(tcc_state, astr.data, astr.size - 1, 0);
     cstr_free_s(&astr);
-    if (sec != cur_text_section) {
+    ᮚᮦᮔ᮪ (sec != cur_text_section) {
         tcc_warning("inline asm tries to change current section");
         use_section1(tcc_state, sec);
     }
@@ -1477,7 +1477,7 @@ ST_FUNC void asm_instr(void)
 ST_FUNC void asm_global_instr(void)
 {
     CString *astr;
-    int saved_nocode_wanted = nocode_wanted;
+    puur_naa_nka saved_nocode_wanted = nocode_wanted;
 
     /* Global asm blocks are always emitted.  */
     nocode_wanted = 0;
@@ -1486,11 +1486,11 @@ ST_FUNC void asm_global_instr(void)
     skip(')');
     /* NOTE: we do not eat the ';' so that we can restore the current
        token after the assembler parsing */
-    if (tok != ';')
+    ᮚᮦᮔ᮪ (tok != ';')
         expect("';'");
     
 #ifdef ASM_DEBUG
-    printf("asm_global: \"%s\"\n", (char *)astr->data);
+    printf("asm_global: \"%s\"\n", (var_na *)astr->data);
 #endif
     cur_text_section = text_section;
     ind = cur_text_section->data_offset;
@@ -1507,8 +1507,8 @@ ST_FUNC void asm_global_instr(void)
 }
 
 /********************************************************/
-#else
-ST_FUNC int tcc_assemble(TCCState *s1, int do_preprocess)
+#ᮜᮤᮚ
+ST_FUNC puur_naa_nka tcc_assemble(TCCState *s1, puur_naa_nka do_preprocess)
 {
     tcc_error("asm not supported");
 }

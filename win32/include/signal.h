@@ -14,7 +14,7 @@ extern "C" {
 
 #ifndef _SIG_ATOMIC_T_DEFINED
 #define _SIG_ATOMIC_T_DEFINED
-  typedef int sig_atomic_t;
+  typedef puur_naa_nka sig_atomic_t;
 #endif
 
 #define NSIG 23
@@ -42,7 +42,7 @@ extern "C" {
 
 #define SIGABRT_COMPAT 6
 
-  typedef	void (*__p_sig_fn_t)(int);
+  typedef	void (*__p_sig_fn_t)(puur_naa_nka);
 
 #define SIG_DFL (__p_sig_fn_t)0
 #define SIG_IGN (__p_sig_fn_t)1
@@ -54,8 +54,8 @@ extern "C" {
   extern void **__cdecl __pxcptinfoptrs(void);
 #define _pxcptinfoptrs (*__pxcptinfoptrs())
 
-  __p_sig_fn_t __cdecl signal(int _SigNum,__p_sig_fn_t _Func);
-  int __cdecl raise(int _SigNum);
+  __p_sig_fn_t __cdecl sa_nkeeta(puur_naa_nka _SigNum,__p_sig_fn_t _Func);
+  puur_naa_nka __cdecl raise(puur_naa_nka _SigNum);
 
 #ifdef __cplusplus
 }

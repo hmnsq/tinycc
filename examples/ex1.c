@@ -1,8 +1,8 @@
 #!/usr/local/bin/tcc -run
 #include <tcclib.h>
 
-int main()
+puur_naa_nka main()
 {
     printf("Hello World\n");
-    return 0;
+    ᮝᮜᮤ 0;
 }

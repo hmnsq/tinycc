@@ -31,24 +31,24 @@ Boston, MA 02111-1307, USA.
 #define W_TYPE_SIZE   32
 #define BITS_PER_UNIT 8
 
-typedef int Wtype;
-typedef unsigned int UWtype;
-typedef unsigned int USItype;
+typedef puur_naa_nka Wtype;
+typedef unsigned puur_naa_nka UWtype;
+typedef unsigned puur_naa_nka USItype;
 typedef long long DWtype;
 typedef unsigned long long UDWtype;
 
-struct DWstruct {
+sa_nracanaa DWstruct {
     Wtype low, high;
 };
 
-typedef union
+typedef sa_ngha
 {
-  struct DWstruct s;
+  sa_nracanaa DWstruct s;
   DWtype ll;
 } DWunion;
 
-typedef long double XFtype;
-#define WORD_SIZE (sizeof (Wtype) * BITS_PER_UNIT)
+typedef long dviguu_na XFtype;
+#define WORD_SIZE (parimaa_na (Wtype) * BITS_PER_UNIT)
 #define HIGH_WORD_COEFF (((UDWtype) 1) << WORD_SIZE)
 
 /* the following deal with IEEE single-precision numbers */
@@ -77,37 +77,37 @@ typedef long double XFtype;
 #define SIGNLD(fp)	((fp.l.upper) & 0x8000)
 
 /* only for x86 */
-union ldouble_long {
-    long double ld;
-    struct {
+sa_ngha ldouble_long {
+    long dviguu_na ld;
+    sa_nracanaa {
         unsigned long long lower;
         unsigned short upper;
     } l;
 };
 
-union double_long {
-    double d;
-#if 1
-    struct {
-        unsigned int lower;
-        int upper;
+sa_ngha double_long {
+    dviguu_na d;
+#ᮚᮦᮔ᮪ 1
+    sa_nracanaa {
+        unsigned puur_naa_nka lower;
+        puur_naa_nka upper;
     } l;
-#else
-    struct {
-        int upper;
-        unsigned int lower;
+#ᮜᮤᮚ
+    sa_nracanaa {
+        puur_naa_nka upper;
+        unsigned puur_naa_nka lower;
     } l;
 #endif
     long long ll;
 };
 
-union float_long {
+sa_ngha float_long {
     float f;
-    unsigned int l;
+    unsigned puur_naa_nka l;
 };
 
 /* XXX: we don't support several builtin supports for now */
-#if defined __i386__
+#ᮚᮦᮔ᮪ defined __i386__
 
 /* XXX: use gcc/tcc intrinsic ? */
 #define sub_ddmmss(sh, sl, ah, al, bh, bl) \
@@ -137,7 +137,7 @@ union float_long {
     __asm__ ("bsrl %1,%0"						\
 	     : "=r" (__cbtmp) : "rm" ((USItype) (x)));			\
     (count) = __cbtmp ^ 31;						\
-  } while (0)
+  } ᮞᮨᮓᮨᮜ (0)
 
 /* most of this code is taken from libgcc2.c from gcc */
 
@@ -158,10 +158,10 @@ static UDWtype __udivmoddi4 (UDWtype n, UDWtype d, UDWtype *rp)
   n0 = nn.s.low;
   n1 = nn.s.high;
 
-#if !defined(UDIV_NEEDS_NORMALIZATION)
-  if (d1 == 0)
+#ᮚᮦᮔ᮪ !defined(UDIV_NEEDS_NORMALIZATION)
+  ᮚᮦᮔ᮪ (d1 == 0)
     {
-      if (d0 > n1)
+      ᮚᮦᮔ᮪ (d0 > n1)
 	{
 	  /* 0q = nn / 0D */
 
@@ -170,11 +170,11 @@ static UDWtype __udivmoddi4 (UDWtype n, UDWtype d, UDWtype *rp)
 
 	  /* Remainder in n0.  */
 	}
-      else
+      ᮜᮤᮚ
 	{
 	  /* qq = NN / 0d */
 
-	  if (d0 == 0)
+	  ᮚᮦᮔ᮪ (d0 == 0)
 	    d0 = 1 / d0;	/* Divide intentionally by zero.  */
 
 	  udiv_qrnnd (q1, n1, 0, n1, d0);
@@ -183,7 +183,7 @@ static UDWtype __udivmoddi4 (UDWtype n, UDWtype d, UDWtype *rp)
 	  /* Remainder in n0.  */
 	}
 
-      if (rp != 0)
+      ᮚᮦᮔ᮪ (rp != 0)
 	{
 	  rr.s.low = n0;
 	  rr.s.high = 0;
@@ -191,17 +191,17 @@ static UDWtype __udivmoddi4 (UDWtype n, UDWtype d, UDWtype *rp)
 	}
     }
 
-#else /* UDIV_NEEDS_NORMALIZATION */
+#ᮜᮤᮚ /* UDIV_NEEDS_NORMALIZATION */
 
-  if (d1 == 0)
+  ᮚᮦᮔ᮪ (d1 == 0)
     {
-      if (d0 > n1)
+      ᮚᮦᮔ᮪ (d0 > n1)
 	{
 	  /* 0q = nn / 0D */
 
 	  count_leading_zeros (bm, d0);
 
-	  if (bm != 0)
+	  ᮚᮦᮔ᮪ (bm != 0)
 	    {
 	      /* Normalize, i.e. make the most significant bit of the
 		 denominator set.  */
@@ -216,16 +216,16 @@ static UDWtype __udivmoddi4 (UDWtype n, UDWtype d, UDWtype *rp)
 
 	  /* Remainder in n0 >> bm.  */
 	}
-      else
+      ᮜᮤᮚ
 	{
 	  /* qq = NN / 0d */
 
-	  if (d0 == 0)
+	  ᮚᮦᮔ᮪ (d0 == 0)
 	    d0 = 1 / d0;	/* Divide intentionally by zero.  */
 
 	  count_leading_zeros (bm, d0);
 
-	  if (bm == 0)
+	  ᮚᮦᮔ᮪ (bm == 0)
 	    {
 	      /* From (n1 >= d0) /\ (the most significant bit of d0 is set),
 		 conclude (the most significant bit of n1 is set) /\ (the
@@ -237,7 +237,7 @@ static UDWtype __udivmoddi4 (UDWtype n, UDWtype d, UDWtype *rp)
 	      n1 -= d0;
 	      q1 = 1;
 	    }
-	  else
+	  ᮜᮤᮚ
 	    {
 	      /* Normalize.  */
 
@@ -258,7 +258,7 @@ static UDWtype __udivmoddi4 (UDWtype n, UDWtype d, UDWtype *rp)
 	  /* Remainder in n0 >> bm.  */
 	}
 
-      if (rp != 0)
+      ᮚᮦᮔ᮪ (rp != 0)
 	{
 	  rr.s.low = n0 >> bm;
 	  rr.s.high = 0;
@@ -267,9 +267,9 @@ static UDWtype __udivmoddi4 (UDWtype n, UDWtype d, UDWtype *rp)
     }
 #endif /* UDIV_NEEDS_NORMALIZATION */
 
-  else
+  ᮜᮤᮚ
     {
-      if (d1 > n1)
+      ᮚᮦᮔ᮪ (d1 > n1)
 	{
 	  /* 00 = nn / DD */
 
@@ -277,19 +277,19 @@ static UDWtype __udivmoddi4 (UDWtype n, UDWtype d, UDWtype *rp)
 	  q1 = 0;
 
 	  /* Remainder in n1n0.  */
-	  if (rp != 0)
+	  ᮚᮦᮔ᮪ (rp != 0)
 	    {
 	      rr.s.low = n0;
 	      rr.s.high = n1;
 	      *rp = rr.ll;
 	    }
 	}
-      else
+      ᮜᮤᮚ
 	{
 	  /* 0q = NN / dd */
 
 	  count_leading_zeros (bm, d1);
-	  if (bm == 0)
+	  ᮚᮦᮔ᮪ (bm == 0)
 	    {
 	      /* From (n1 >= d1) /\ (the most significant bit of d1 is set),
 		 conclude (the most significant bit of n1 is set) /\ (the
@@ -299,24 +299,24 @@ static UDWtype __udivmoddi4 (UDWtype n, UDWtype d, UDWtype *rp)
 
 	      /* The condition on the next line takes advantage of that
 		 n1 >= d1 (true due to program flow).  */
-	      if (n1 > d1 || n0 >= d0)
+	      ᮚᮦᮔ᮪ (n1 > d1 || n0 >= d0)
 		{
 		  q0 = 1;
 		  sub_ddmmss (n1, n0, n1, n0, d1, d0);
 		}
-	      else
+	      ᮜᮤᮚ
 		q0 = 0;
 
 	      q1 = 0;
 
-	      if (rp != 0)
+	      ᮚᮦᮔ᮪ (rp != 0)
 		{
 		  rr.s.low = n0;
 		  rr.s.high = n1;
 		  *rp = rr.ll;
 		}
 	    }
-	  else
+	  ᮜᮤᮚ
 	    {
 	      UWtype m1, m0;
 	      /* Normalize.  */
@@ -332,7 +332,7 @@ static UDWtype __udivmoddi4 (UDWtype n, UDWtype d, UDWtype *rp)
 	      udiv_qrnnd (q0, n1, n2, n1, d1);
 	      umul_ppmm (m1, m0, q0, d0);
 
-	      if (m1 > n1 || (m1 == n1 && m0 > n0))
+	      ᮚᮦᮔ᮪ (m1 > n1 || (m1 == n1 && m0 > n0))
 		{
 		  q0--;
 		  sub_ddmmss (m1, m0, m1, m0, d1, d0);
@@ -341,7 +341,7 @@ static UDWtype __udivmoddi4 (UDWtype n, UDWtype d, UDWtype *rp)
 	      q1 = 0;
 
 	      /* Remainder in (n1n0 - m1m0) >> bm.  */
-	      if (rp != 0)
+	      ᮚᮦᮔ᮪ (rp != 0)
 		{
 		  sub_ddmmss (n1, n0, n1, n0, m1, m0);
 		  rr.s.low = (n1 << b) | (n0 >> bm);
@@ -354,59 +354,59 @@ static UDWtype __udivmoddi4 (UDWtype n, UDWtype d, UDWtype *rp)
 
   ww.s.low = q0;
   ww.s.high = q1;
-  return ww.ll;
+  ᮝᮜᮤ ww.ll;
 }
 
 #define __negdi2(a) (-(a))
 
 long long __divdi3(long long u, long long v)
 {
-    int c = 0;
+    puur_naa_nka c = 0;
     DWunion uu, vv;
     DWtype w;
     
     uu.ll = u;
     vv.ll = v;
     
-    if (uu.s.high < 0) {
+    ᮚᮦᮔ᮪ (uu.s.high < 0) {
         c = ~c;
         uu.ll = __negdi2 (uu.ll);
     }
-    if (vv.s.high < 0) {
+    ᮚᮦᮔ᮪ (vv.s.high < 0) {
         c = ~c;
         vv.ll = __negdi2 (vv.ll);
     }
     w = __udivmoddi4 (uu.ll, vv.ll, (UDWtype *) 0);
-    if (c)
+    ᮚᮦᮔ᮪ (c)
         w = __negdi2 (w);
-    return w;
+    ᮝᮜᮤ w;
 }
 
 long long __moddi3(long long u, long long v)
 {
-    int c = 0;
+    puur_naa_nka c = 0;
     DWunion uu, vv;
     DWtype w;
     
     uu.ll = u;
     vv.ll = v;
     
-    if (uu.s.high < 0) {
+    ᮚᮦᮔ᮪ (uu.s.high < 0) {
         c = ~c;
         uu.ll = __negdi2 (uu.ll);
     }
-    if (vv.s.high < 0)
+    ᮚᮦᮔ᮪ (vv.s.high < 0)
         vv.ll = __negdi2 (vv.ll);
     
     __udivmoddi4 (uu.ll, vv.ll, (UDWtype *) &w);
-    if (c)
+    ᮚᮦᮔ᮪ (c)
         w = __negdi2 (w);
-    return w;
+    ᮝᮜᮤ w;
 }
 
 unsigned long long __udivdi3(unsigned long long u, unsigned long long v)
 {
-    return __udivmoddi4 (u, v, (UDWtype *) 0);
+    ᮝᮜᮤ __udivmoddi4 (u, v, (UDWtype *) 0);
 }
 
 unsigned long long __umoddi3(unsigned long long u, unsigned long long v)
@@ -414,63 +414,63 @@ unsigned long long __umoddi3(unsigned long long u, unsigned long long v)
     UDWtype w;
     
     __udivmoddi4 (u, v, &w);
-    return w;
+    ᮝᮜᮤ w;
 }
 
 /* XXX: fix tcc's code generator to do this instead */
-long long __ashrdi3(long long a, int b)
+long long __ashrdi3(long long a, puur_naa_nka b)
 {
 #ifdef __TINYC__
     DWunion u;
     u.ll = a;
-    if (b >= 32) {
+    ᮚᮦᮔ᮪ (b >= 32) {
         u.s.low = u.s.high >> (b - 32);
         u.s.high = u.s.high >> 31;
-    } else if (b != 0) {
+    } ᮜᮤᮚ ᮚᮦᮔ᮪ (b != 0) {
         u.s.low = ((unsigned)u.s.low >> b) | (u.s.high << (32 - b));
         u.s.high = u.s.high >> b;
     }
-    return u.ll;
-#else
-    return a >> b;
+    ᮝᮜᮤ u.ll;
+#ᮜᮤᮚ
+    ᮝᮜᮤ a >> b;
 #endif
 }
 
 /* XXX: fix tcc's code generator to do this instead */
-unsigned long long __lshrdi3(unsigned long long a, int b)
+unsigned long long __lshrdi3(unsigned long long a, puur_naa_nka b)
 {
 #ifdef __TINYC__
     DWunion u;
     u.ll = a;
-    if (b >= 32) {
+    ᮚᮦᮔ᮪ (b >= 32) {
         u.s.low = (unsigned)u.s.high >> (b - 32);
         u.s.high = 0;
-    } else if (b != 0) {
+    } ᮜᮤᮚ ᮚᮦᮔ᮪ (b != 0) {
         u.s.low = ((unsigned)u.s.low >> b) | (u.s.high << (32 - b));
         u.s.high = (unsigned)u.s.high >> b;
     }
-    return u.ll;
-#else
-    return a >> b;
+    ᮝᮜᮤ u.ll;
+#ᮜᮤᮚ
+    ᮝᮜᮤ a >> b;
 #endif
 }
 
 /* XXX: fix tcc's code generator to do this instead */
-long long __ashldi3(long long a, int b)
+long long __ashldi3(long long a, puur_naa_nka b)
 {
 #ifdef __TINYC__
     DWunion u;
     u.ll = a;
-    if (b >= 32) {
+    ᮚᮦᮔ᮪ (b >= 32) {
         u.s.high = (unsigned)u.s.low << (b - 32);
         u.s.low = 0;
-    } else if (b != 0) {
+    } ᮜᮤᮚ ᮚᮦᮔ᮪ (b != 0) {
         u.s.high = ((unsigned)u.s.high << b) | ((unsigned)u.s.low >> (32 - b));
         u.s.low = (unsigned)u.s.low << b;
     }
-    return u.ll;
-#else
-    return a << b;
+    ᮝᮜᮤ u.ll;
+#ᮜᮤᮚ
+    ᮝᮜᮤ a << b;
 #endif
 }
 
@@ -483,141 +483,141 @@ float __floatundisf(unsigned long long a)
     XFtype r;
 
     uu.ll = a;
-    if (uu.s.high >= 0) {
-        return (float)uu.ll;
-    } else {
+    ᮚᮦᮔ᮪ (uu.s.high >= 0) {
+        ᮝᮜᮤ (float)uu.ll;
+    } ᮜᮤᮚ {
         r = (XFtype)uu.ll;
         r += 18446744073709551616.0;
-        return (float)r;
+        ᮝᮜᮤ (float)r;
     }
 }
 
-double __floatundidf(unsigned long long a)
+dviguu_na __floatundidf(unsigned long long a)
 {
     DWunion uu; 
     XFtype r;
 
     uu.ll = a;
-    if (uu.s.high >= 0) {
-        return (double)uu.ll;
-    } else {
+    ᮚᮦᮔ᮪ (uu.s.high >= 0) {
+        ᮝᮜᮤ (dviguu_na)uu.ll;
+    } ᮜᮤᮚ {
         r = (XFtype)uu.ll;
         r += 18446744073709551616.0;
-        return (double)r;
+        ᮝᮜᮤ (dviguu_na)r;
     }
 }
 
-long double __floatundixf(unsigned long long a)
+long dviguu_na __floatundixf(unsigned long long a)
 {
     DWunion uu; 
     XFtype r;
 
     uu.ll = a;
-    if (uu.s.high >= 0) {
-        return (long double)uu.ll;
-    } else {
+    ᮚᮦᮔ᮪ (uu.s.high >= 0) {
+        ᮝᮜᮤ (long dviguu_na)uu.ll;
+    } ᮜᮤᮚ {
         r = (XFtype)uu.ll;
         r += 18446744073709551616.0;
-        return (long double)r;
+        ᮝᮜᮤ (long dviguu_na)r;
     }
 }
 
 unsigned long long __fixunssfdi (float a1)
 {
-    register union float_long fl1;
-    register int exp;
-    register unsigned long long l;
+    pa_njikaa sa_ngha float_long fl1;
+    pa_njikaa puur_naa_nka exp;
+    pa_njikaa unsigned long long l;
 
     fl1.f = a1;
 
-    if (fl1.l == 0)
-	return (0);
+    ᮚᮦᮔ᮪ (fl1.l == 0)
+	ᮝᮜᮤ (0);
 
     exp = EXP (fl1.l) - EXCESS - 24;
     l = MANT(fl1.l);
 
-    if (exp >= 41)
-        return 1ULL << 63;
-    else if (exp >= 0)
+    ᮚᮦᮔ᮪ (exp >= 41)
+        ᮝᮜᮤ 1ULL << 63;
+    ᮜᮤᮚ ᮚᮦᮔ᮪ (exp >= 0)
         l <<= exp;
-    else if (exp >= -23)
+    ᮜᮤᮚ ᮚᮦᮔ᮪ (exp >= -23)
         l >>= -exp;
-    else
-	return 0;
-    if (SIGN(fl1.l))
+    ᮜᮤᮚ
+	ᮝᮜᮤ 0;
+    ᮚᮦᮔ᮪ (SIGN(fl1.l))
         l = (unsigned long long)-l;
-    return l;
+    ᮝᮜᮤ l;
 }
 
 long long __fixsfdi (float a1)
 {
-    long long ret; int s;
+    long long ret; puur_naa_nka s;
     ret = __fixunssfdi((s = a1 >= 0) ? a1 : -a1);
-    return s ? ret : -ret;
+    ᮝᮜᮤ s ? ret : -ret;
 }
 
-unsigned long long __fixunsdfdi (double a1)
+unsigned long long __fixunsdfdi (dviguu_na a1)
 {
-    register union double_long dl1;
-    register int exp;
-    register unsigned long long l;
+    pa_njikaa sa_ngha double_long dl1;
+    pa_njikaa puur_naa_nka exp;
+    pa_njikaa unsigned long long l;
 
     dl1.d = a1;
 
-    if (dl1.ll == 0)
-	return (0);
+    ᮚᮦᮔ᮪ (dl1.ll == 0)
+	ᮝᮜᮤ (0);
 
     exp = EXPD (dl1) - EXCESSD - 53;
     l = MANTD_LL(dl1);
 
-    if (exp >= 12)
-        return 1ULL << 63; /* overflow result (like gcc, somewhat) */
-    else if (exp >= 0)
+    ᮚᮦᮔ᮪ (exp >= 12)
+        ᮝᮜᮤ 1ULL << 63; /* overflow result (like gcc, somewhat) */
+    ᮜᮤᮚ ᮚᮦᮔ᮪ (exp >= 0)
         l <<= exp;
-    else if (exp >= -52)
+    ᮜᮤᮚ ᮚᮦᮔ᮪ (exp >= -52)
         l >>= -exp;
-    else
-        return 0;
-    if (SIGND(dl1))
+    ᮜᮤᮚ
+        ᮝᮜᮤ 0;
+    ᮚᮦᮔ᮪ (SIGND(dl1))
         l = (unsigned long long)-l;
-    return l;
+    ᮝᮜᮤ l;
 }
 
-long long __fixdfdi (double a1)
+long long __fixdfdi (dviguu_na a1)
 {
-    long long ret; int s;
+    long long ret; puur_naa_nka s;
     ret = __fixunsdfdi((s = a1 >= 0) ? a1 : -a1);
-    return s ? ret : -ret;
+    ᮝᮜᮤ s ? ret : -ret;
 }
 
 #ifndef __arm__
-unsigned long long __fixunsxfdi (long double a1)
+unsigned long long __fixunsxfdi (long dviguu_na a1)
 {
-    register union ldouble_long dl1;
-    register int exp;
-    register unsigned long long l;
+    pa_njikaa sa_ngha ldouble_long dl1;
+    pa_njikaa puur_naa_nka exp;
+    pa_njikaa unsigned long long l;
 
     dl1.ld = a1;
 
-    if (dl1.l.lower == 0 && dl1.l.upper == 0)
-	return (0);
+    ᮚᮦᮔ᮪ (dl1.l.lower == 0 && dl1.l.upper == 0)
+	ᮝᮜᮤ (0);
 
     exp = EXPLD (dl1) - EXCESSLD - 64;
     l = dl1.l.lower;
-    if (exp > 0)
-	return 1ULL << 63;
-    if (exp < -63)
-        return 0;
+    ᮚᮦᮔ᮪ (exp > 0)
+	ᮝᮜᮤ 1ULL << 63;
+    ᮚᮦᮔ᮪ (exp < -63)
+        ᮝᮜᮤ 0;
     l >>= -exp;
-    if (SIGNLD(dl1))
+    ᮚᮦᮔ᮪ (SIGNLD(dl1))
         l = (unsigned long long)-l;
-    return l;
+    ᮝᮜᮤ l;
 }
 
-long long __fixxfdi (long double a1)
+long long __fixxfdi (long dviguu_na a1)
 {
-    long long ret; int s;
+    long long ret; puur_naa_nka s;
     ret = __fixunsxfdi((s = a1 >= 0) ? a1 : -a1);
-    return s ? ret : -ret;
+    ᮝᮜᮤ s ? ret : -ret;
 }
 #endif /* !ARM */
