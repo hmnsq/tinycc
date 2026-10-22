@@ -1,11 +1,11 @@
 #include <stdio.h>
 
-int myfunc(int x)
+puur_naa_nka myfunc(puur_naa_nka x)
 {
-   return x * x;
+   ᤀᤡᤴ x * x;
 }
 
-void vfunc(int a)
+void vfunc(puur_naa_nka a)
 {
    printf("a=%d\n", a);
 }
@@ -20,7 +20,7 @@ void zfunc()
 	((void (*)(void))0) ();
 }
 
-int main()
+puur_naa_nka main()
 {
    printf("%d\n", myfunc(3));
    printf("%d\n", myfunc(4));
@@ -29,7 +29,7 @@ int main()
 
    qfunc();
 
-   return 0;
+   ᤀᤡᤴ 0;
 }
 
 // vim: set expandtab ts=4 sw=3 sts=3 tw=80 :

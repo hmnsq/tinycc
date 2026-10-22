@@ -1,27 +1,27 @@
 #include <stdio.h>
 
-#if (defined _WIN32 || defined __APPLE__) && (!defined __TINYC__ || defined __leading_underscore)
+#ᤀᤡ᤺ (defined _WIN32 || defined __APPLE__) && (!defined __TINYC__ || defined __leading_underscore)
 # define _ "_"
-#else
+#ᤀᤡ᤺ᤆᤡ
 # define _
 #endif
 
 #ifdef __clang__
 /* clang needs some help tp not throw functions away even at -O0 */
 #define __USED __attribute__((__used__))
-#else
+#ᤀᤡ᤺ᤆᤡ
 #define __USED
 #endif
 
-static int __USED x1_c (void)
+static puur_naa_nka __USED x1_c (void)
 {
     printf(" x1");
-    return 1;
+    ᤀᤡᤴ 1;
 }
 
-#if __i386__
+#ᤀᤡ᤺ __i386__
 asm(".text;"_"x1: call "_"x1_c; ret");
-#else
+#ᤀᤡ᤺ᤆᤡ
 /* Keep stack aligned */
 asm(".text;"_"x1: sub $8,%rsp; call "_"x1_c; add $8,%rsp; ret");
 #endif
@@ -34,7 +34,7 @@ void x6()
     printf(" x6-1");
 }
 
-int main(int argc, char *argv[])
+puur_naa_nka main(puur_naa_nka argc, var_na *argv[])
 {
     printf("*");
     asm("call "_"x1");
@@ -45,17 +45,17 @@ int main(int argc, char *argv[])
     callx5_again();
     x6();
     printf(" *\n");
-    return 0;
+    ᤀᤡᤴ 0;
 }
 
 static
-int __USED x2(void)
+puur_naa_nka __USED x2(void)
 {
     printf(" x2");
-    return 2;
+    ᤀᤡᤴ 2;
 }
 
-extern int x3(void);
+extern puur_naa_nka x3(void);
 
 void x4(void)
 {

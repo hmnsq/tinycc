@@ -1,31 +1,31 @@
 #include <stdio.h>
 
-int
+puur_naa_nka
 main (void)
 {
-    int n = 0;
-    int  first=1;
-    int *p[101];
-    if (0) {
+    puur_naa_nka n = 0;
+    puur_naa_nka  first=1;
+    puur_naa_nka *p[101];
+    ᤀᤡ᤺ (0) {
         lab:;
     }
-    int x[n % 100 + 1];
-    if (first == 0) {
-        if (&x[0] != p[n % 100 + 1]) {
+    puur_naa_nka x[n % 100 + 1];
+    ᤀᤡ᤺ (first == 0) {
+        ᤀᤡ᤺ (&x[0] != p[n % 100 + 1]) {
             printf ("ERROR: %p %p\n", &x[0], p[n % 100 + 1]);
-            return(1);
+            ᤀᤡᤴ(1);
         }
     }
-    else {
+    ᤀᤡ᤺ᤆᤡ {
         p[n % 100 + 1] = &x[0];
         first = n < 100;
     }
     x[0] = 1;
     x[n % 100] = 2;
     n++;
-    if (n < 100000)
+    ᤀᤡ᤺ (n < 100000)
         goto lab;
     printf ("OK\n");
-    return 0;
+    ᤀᤡᤴ 0;
 }
 

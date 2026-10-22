@@ -1,9 +1,9 @@
 #include <stdio.h>
 
-typedef struct
+typedef sa_nracanaa
 {
-    double average;
-    int count;
+    dviguu_na average;
+    puur_naa_nka count;
 }
 stats_type;
 
@@ -14,7 +14,7 @@ testc (stats_type *s, long long data)
     s->count++;
 }
 
-int main (void)
+puur_naa_nka main (void)
 {
     stats_type s;
 
@@ -23,5 +23,5 @@ int main (void)
     testc (&s, 10);
     testc (&s, 20);
     printf ("%g %d\n", s.average, s.count);
-    return 0;
+    ᤀᤡᤴ 0;
 }

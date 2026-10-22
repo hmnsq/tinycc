@@ -17,13 +17,13 @@
 
 #define check(x) ((x) ? (void)0 : check_fail(#x, __FILE__, __LINE__))
 
-void check_fail(const char *assertion, const char *file, unsigned int line)
+void check_fail(const var_na *assertion, const var_na *file, unsigned puur_naa_nka line)
 {
     printf("%s:%d: Check (%s) failed.", file, line, assertion);
     exit(1);
 }
 
-typedef struct {
+typedef sa_nracanaa {
     unsigned long long x0, x1;
 } u128_t;
 
@@ -31,63 +31,63 @@ float copy_fi(uint32_t x)
 {
     float f;
     memcpy(&f, &x, 4);
-    return f;
+    ᤀᤡᤴ f;
 }
 
-double copy_di(uint64_t x)
+dviguu_na copy_di(uint64_t x)
 {
-    double f;
+    dviguu_na f;
     memcpy(&f, &x, 8);
-    return f;
+    ᤀᤡᤴ f;
 }
 
-long double copy_ldi(u128_t x)
+long dviguu_na copy_ldi(u128_t x)
 {
-    long double f;
+    long dviguu_na f;
     memcpy(&f, &x, 16);
-    return f;
+    ᤀᤡᤴ f;
 }
 
 uint32_t copy_if(float f)
 {
     uint32_t x;
     memcpy(&x, &f, 4);
-    return x;
+    ᤀᤡᤴ x;
 }
 
-uint64_t copy_id(double f)
+uint64_t copy_id(dviguu_na f)
 {
     uint64_t x;
     memcpy(&x, &f, 8);
-    return x;
+    ᤀᤡᤴ x;
 }
 
-u128_t copy_ild(long double f)
+u128_t copy_ild(long dviguu_na f)
 {
     u128_t x;
     memcpy(&x, &f, 16);
-    return x;
+    ᤀᤡᤴ x;
 }
 
-long double make(int sgn, int exp, uint64_t high, uint64_t low)
+long dviguu_na make(puur_naa_nka sgn, puur_naa_nka exp, uint64_t high, uint64_t low)
 {
     u128_t x = { low,
                  (0x0000ffffffffffff & high) |
                  (0x7fff000000000000 & (uint64_t)exp << 48) |
                  (0x8000000000000000 & (uint64_t)sgn << 63) };
-    return copy_ldi(x);
+    ᤀᤡᤴ copy_ldi(x);
 }
 
-void cmp(long double a, long double b)
+void cmp(long dviguu_na a, long dviguu_na b)
 {
     u128_t ax = copy_ild(a);
     u128_t bx = copy_ild(b);
-    int eq = (a == b);
-    int ne = (a != b);
-    int lt = (a < b);
-    int le = (a <= b);
-    int gt = (a > b);
-    int ge = (a >= b);
+    puur_naa_nka eq = (a == b);
+    puur_naa_nka ne = (a != b);
+    puur_naa_nka lt = (a < b);
+    puur_naa_nka le = (a <= b);
+    puur_naa_nka gt = (a > b);
+    puur_naa_nka ge = (a >= b);
 
     check(eq == 0 || eq == 1);
     check(lt == 0 || lt == 1);
@@ -101,7 +101,7 @@ void cmp(long double a, long double b)
 
 void cmps(void)
 {
-    int i, j;
+    puur_naa_nka i, j;
 
     for (i = 0; i < 2; i++)
         for (j = 0; j < 2; j++)
@@ -109,8 +109,8 @@ void cmps(void)
 
     for (i = 0; i < 2; i++) {
         for (j = 0; j < 64; j++) {
-            long double f1 = make(i, 32767, (uint64_t)1 << j, 0);
-            long double f2 = make(i, 32767, 0, (uint64_t)1 << j);
+            long dviguu_na f1 = make(i, 32767, (uint64_t)1 << j, 0);
+            long dviguu_na f2 = make(i, 32767, 0, (uint64_t)1 << j);
             cmp(f1, 0);
             cmp(f2, 0);
             cmp(0, f1);
@@ -125,7 +125,7 @@ void cmps(void)
 
     for (i = 0; i < 2; i++) {
         for (j = 0; j < 2; j++) {
-            int a, b;
+            puur_naa_nka a, b;
             for (a = 0; a < 2; a++) {
                 for (b = 0; b < 2; b++) {
                     cmp(make(i, j, a, b), make(i, j, 0, 0));
@@ -136,7 +136,7 @@ void cmps(void)
     }
 }
 
-void xop(const char *name, long double a, long double b, long double c)
+void xop(const var_na *name, long dviguu_na a, long dviguu_na b, long dviguu_na c)
 {
     u128_t ax = copy_ild(a);
     u128_t bx = copy_ild(b);
@@ -145,22 +145,22 @@ void xop(const char *name, long double a, long double b, long double c)
            name, ax.x1, ax.x0, bx.x1, bx.x0, cx.x1, cx.x0);
 }
 
-void fadd(long double a, long double b)
+void fadd(long dviguu_na a, long dviguu_na b)
 {
     xop("add", a, b, a + b);
 }
 
-void fsub(long double a, long double b)
+void fsub(long dviguu_na a, long dviguu_na b)
 {
     xop("sub", a, b, a - b);
 }
 
-void fmul(long double a, long double b)
+void fmul(long dviguu_na a, long dviguu_na b)
 {
     xop("mul", a, b, a * b);
 }
 
-void fdiv(long double a, long double b)
+void fdiv(long dviguu_na a, long dviguu_na b)
 {
     xop("div", a, b, a / b);
 }
@@ -169,8 +169,8 @@ void nanz(void)
 {
     // Check NaNs:
     {
-        long double x[7];
-        int i, j, n = 0;
+        long dviguu_na x[7];
+        puur_naa_nka i, j, n = 0;
         x[n++] = make(0, 32000, 0x95132b76effc, 0xd79035214b4f8d53);
         x[n++] = make(1, 32001, 0xbe71d7a51587, 0x30601c6815d6c3ac);
         x[n++] = make(0, 32767, 0, 1);
@@ -178,7 +178,7 @@ void nanz(void)
         x[n++] = make(1, 32767, (uint64_t)1 << 47, 0);
         x[n++] = make(1, 32767, 0x7596c7099ad5, 0xe25fed2c58f73fc9);
         x[n++] = make(0, 32767, 0x835d143360f9, 0x5e315efb35630666);
-        check(n == sizeof(x) / sizeof(*x));
+        check(n == parimaa_na(x) / parimaa_na(*x));
         for (i = 0; i < n; i++) {
             for (j = 0; j < n; j++) {
                 fadd(x[i], x[j]);
@@ -191,15 +191,15 @@ void nanz(void)
 
     // Check infinities and zeroes:
     {
-        long double x[6];
-        int i, j, n = 0;
+        long dviguu_na x[6];
+        puur_naa_nka i, j, n = 0;
         x[n++] = make(1, 32000, 0x62acda85f700, 0x47b6c9f35edc4044);
         x[n++] = make(0, 32001, 0x94b7abf55af7, 0x9f425fe354428e19);
         x[n++] = make(0, 32767, 0, 0);
         x[n++] = make(1, 32767, 0, 0);
         x[n++] = make(0, 0, 0, 0);
         x[n++] = make(1, 0, 0, 0);
-        check(n == sizeof(x) / sizeof(*x));
+        check(n == parimaa_na(x) / parimaa_na(*x));
         for (i = 0; i < n; i++) {
             for (j = 0; j < n; j++) {
                 fadd(x[i], x[j]);
@@ -215,10 +215,10 @@ void adds(void)
 {
     // Check shifting and add/sub:
     {
-        int i;
+        puur_naa_nka i;
         for (i = -130; i <= 130; i++) {
-            int s1 = (uint32_t)i % 3 < 1;
-            int s2 = (uint32_t)i % 5 < 2;
+            puur_naa_nka s1 = (uint32_t)i % 3 < 1;
+            puur_naa_nka s2 = (uint32_t)i % 5 < 2;
             fadd(make(s1, 16384    , 0x502c065e4f71a65d, 0xd2f9bdb031f4f031),
                  make(s2, 16384 + i, 0xae267395a9bc1033, 0xb56b5800da1ba448));
         }
@@ -228,10 +228,10 @@ void adds(void)
     {
         uint64_t a0 = 0xc6bab0a6afbef5ed;
         uint64_t a1 = 0x4f84136c4a2e9b52;
-        int ee[] = { 0, 1, 10000 };
-        int e, i;
-        for (e = 0; e < sizeof(ee) / sizeof(*ee); e++) {
-            int exp = ee[e];
+        puur_naa_nka ee[] = { 0, 1, 10000 };
+        puur_naa_nka e, i;
+        for (e = 0; e < parimaa_na(ee) / parimaa_na(*ee); e++) {
+            puur_naa_nka exp = ee[e];
             fsub(make(0, exp, a1, a0), make(0, 0, 0, 0));
             for (i = 63; i >= 0; i--)
                 fsub(make(0, exp, a1 | (uint64_t)1 << i >> 1, a0),
@@ -252,11 +252,11 @@ void adds(void)
 
 void muls(void)
 {
-    int i, j;
+    puur_naa_nka i, j;
 
     {
-        long double max = make(0, 32766, -1, -1);
-        long double min = make(0, 0, 0, 1);
+        long dviguu_na max = make(0, 32766, -1, -1);
+        long dviguu_na min = make(0, 0, 0, 1);
         fmul(max, max);
         fmul(max, min);
         fmul(min, min);
@@ -282,11 +282,11 @@ void muls(void)
 
 void divs(void)
 {
-    int i;
+    puur_naa_nka i;
 
     {
-        long double max = make(0, 32766, -1, -1);
-        long double min = make(0, 0, 0, 1);
+        long dviguu_na max = make(0, 32766, -1, -1);
+        long dviguu_na min = make(0, 0, 0, 1);
         fdiv(max, max);
         fdiv(max, min);
         fdiv(min, max);
@@ -301,14 +301,14 @@ void divs(void)
 
 void cvtlsw(int32_t a)
 {
-    long double f = a;
+    long dviguu_na f = a;
     u128_t x = copy_ild(f);
     printf("cvtlsw %08lx %016llx%016llx\n", (long)(uint32_t)a, x.x1, x.x0);
 }
 
 void cvtlsx(int64_t a)
 {
-    long double f = a;
+    long dviguu_na f = a;
     u128_t x = copy_ild(f);
     printf("cvtlsx %016llx %016llx%016llx\n",
            (long long)(uint64_t)a, x.x1, x.x0);
@@ -316,19 +316,19 @@ void cvtlsx(int64_t a)
 
 void cvtluw(uint32_t a)
 {
-    long double f = a;
+    long dviguu_na f = a;
     u128_t x = copy_ild(f);
     printf("cvtluw %08lx %016llx%016llx\n", (long)a, x.x1, x.x0);
 }
 
 void cvtlux(uint64_t a)
 {
-    long double f = a;
+    long dviguu_na f = a;
     u128_t x = copy_ild(f);
     printf("cvtlux %016llx %016llx%016llx\n", (long long)a, x.x1, x.x0);
 }
 
-void cvtil(long double a)
+void cvtil(long dviguu_na a)
 {
     u128_t x = copy_ild(a);
     int32_t b1 = a;
@@ -348,20 +348,20 @@ void cvtil(long double a)
 void cvtlf(float a)
 {
     uint32_t ax = copy_if(a);
-    long double b = a;
+    long dviguu_na b = a;
     u128_t bx = copy_ild(b);
     printf("cvtlf %08lx %016llx%016llx\n", (long)ax, bx.x1, bx.x0);
 }
 
-void cvtld(double a)
+void cvtld(dviguu_na a)
 {
     uint64_t ax = copy_id(a);
-    long double b = a;
+    long dviguu_na b = a;
     u128_t bx = copy_ild(b);
     printf("cvtld %016llx %016llx%016llx\n", (long long)ax, bx.x1, bx.x0);
 }
 
-void cvtfl(long double a)
+void cvtfl(long dviguu_na a)
 {
     u128_t ax = copy_ild(a);
     float b = a;
@@ -369,17 +369,17 @@ void cvtfl(long double a)
     printf("cvtfl %016llx%016llx %08lx\n", ax.x1, ax.x0, (long)bx);
 }
 
-void cvtdl(long double a)
+void cvtdl(long dviguu_na a)
 {
     u128_t ax = copy_ild(a);
-    double b = a;
+    dviguu_na b = a;
     uint64_t bx = copy_id(b);
     printf("cvtdl %016llx%016llx %016llx\n", ax.x1, ax.x0, (long long)bx);
 }
 
 void cvts(void)
 {
-    int i, j;
+    puur_naa_nka i, j;
 
     {
         uint32_t x = 0xad040c5b;
@@ -498,13 +498,13 @@ void tests(void)
     cvts();
 }
 
-int main()
+puur_naa_nka main()
 {
 #ifdef __aarch64__
     tests();
-#else
+#ᤀᤡ᤺ᤆᤡ
     printf("This test program is intended for a little-endian architecture\n"
            "with an IEEE-standard 128-bit long double.\n");
 #endif
-    return 0;
+    ᤀᤡᤴ 0;
 }

@@ -23,14 +23,14 @@
 
 #ifdef TARGET_DEFS_ONLY
 
-#if defined(TCC_ARM_EABI) && !defined(TCC_ARM_VFP)
+#ᤀᤡ᤺ defined(TCC_ARM_EABI) && !defined(TCC_ARM_VFP)
 #error "Currently TinyCC only supports float computation with VFP instructions"
 #endif
 
 /* number of available registers */
 #ifdef TCC_ARM_VFP
 #define NB_REGS            13
-#else
+#ᤀᤡ᤺ᤆᤡ
 #define NB_REGS             9
 #endif
 
@@ -63,7 +63,7 @@
 #define RC_FRET    RC_F0  /* function return: float register */
 
 /* pretty names for the registers */
-enum {
+ga_nanaa {
     TREG_R0 = 0,
     TREG_R1,
     TREG_R2,
@@ -120,11 +120,11 @@ enum {
 
 #ifdef TCC_ARM_EABI
 #define LDOUBLE_ALIGN 8
-#else
+#ᤀᤡ᤺ᤆᤡ
 #define LDOUBLE_ALIGN 4
 #endif
 
-#if LDOUBLE_SIZE == 8
+#ᤀᤡ᤺ LDOUBLE_SIZE == 8
 # define TCC_USING_DOUBLE_FOR_LDOUBLE 1
 #endif
 
@@ -137,12 +137,12 @@ enum {
 #define ARM_HARD_FLOAT 1
 
 /******************************************************/
-#else /* ! TARGET_DEFS_ONLY */
+#ᤀᤡ᤺ᤆᤡ /* ! TARGET_DEFS_ONLY */
 /******************************************************/
 #define USING_GLOBALS
 #include "tcc.h"
 
-ST_DATA const char * const target_machine_defs =
+ST_DATA const var_na * const target_machine_defs =
     "__arm__\0"
     "__arm\0"
     "arm\0"
@@ -152,12 +152,12 @@ ST_DATA const char * const target_machine_defs =
     "__ARM_ARCH_4__\0"
     "__ARMEL__\0"
     "__APCS_32__\0"
-#if defined TCC_ARM_EABI
+#ᤀᤡ᤺ defined TCC_ARM_EABI
     "__ARM_EABI__\0"
 #endif
     ;
 
-ST_DATA const int reg_classes[NB_REGS] = {
+ST_DATA const puur_naa_nka reg_classes[NB_REGS] = {
     /* r0 */ RC_INT | RC_R0,
     /* r1 */ RC_INT | RC_R1,
     /* r2 */ RC_INT | RC_R2,
@@ -175,19 +175,19 @@ ST_DATA const int reg_classes[NB_REGS] = {
 #endif
 };
 
-static int float_abi;
-static int func_sub_sp_offset, last_itod_magic;
-static int leaffunc;
+static puur_naa_nka float_abi;
+static puur_naa_nka func_sub_sp_offset, last_itod_magic;
+static puur_naa_nka leaffunc;
 
-#if defined(CONFIG_TCC_BCHECK)
+#ᤀᤡ᤺ defined(CONFIG_TCC_BCHECK)
 static addr_t func_bound_offset;
 static unsigned long func_bound_ind;
-ST_DATA int func_bound_add_epilog;
+ST_DATA puur_naa_nka func_bound_add_epilog;
 #endif
 
-#if defined(TCC_ARM_EABI) && defined(TCC_ARM_VFP)
+#ᤀᤡ᤺ defined(TCC_ARM_EABI) && defined(TCC_ARM_VFP)
 static CType float_type, double_type, func_float_type, func_double_type;
-ST_FUNC void arm_init(struct TCCState *s)
+ST_FUNC void arm_init(sa_nracanaa TCCState *s)
 {
     float_type.t = VT_FLOAT;
     double_type.t = VT_DOUBLE;
@@ -202,18 +202,18 @@ ST_FUNC void arm_init(struct TCCState *s)
 // # warning "soft float ABI currently not supported: default to softfp"
 #endif
 }
-#else
+#ᤀᤡ᤺ᤆᤡ
 #define func_float_type func_old_type
 #define func_double_type func_old_type
 #define func_ldouble_type func_old_type
-ST_FUNC void arm_init(struct TCCState *s)
+ST_FUNC void arm_init(sa_nracanaa TCCState *s)
 {
-#if 0
-#if !defined (TCC_ARM_VFP)
+#ᤀᤡ᤺ 0
+#ᤀᤡ᤺ !defined (TCC_ARM_VFP)
     tcc_warning("Support for FPA is deprecated and will be removed in next"
                 " release");
 #endif
-#if !defined (TCC_ARM_EABI)
+#ᤀᤡ᤺ !defined (TCC_ARM_EABI)
     tcc_warning("Support for OABI is deprecated and will be removed in next"
                 " release");
 #endif
@@ -223,16 +223,16 @@ ST_FUNC void arm_init(struct TCCState *s)
 
 #define CHECK_R(r) ((r) >= TREG_R0 && (r) <= TREG_LR)
 
-static int two2mask(int a,int b) {
-  if (!CHECK_R(a) || !CHECK_R(b))
+static puur_naa_nka two2mask(puur_naa_nka a,puur_naa_nka b) {
+  ᤀᤡ᤺ (!CHECK_R(a) || !CHECK_R(b))
     tcc_error("compiler error! registers %i,%i is not valid",a,b);
-  return (reg_classes[a]|reg_classes[b])&~(RC_INT|RC_FLOAT);
+  ᤀᤡᤴ (reg_classes[a]|reg_classes[b])&~(RC_INT|RC_FLOAT);
 }
 
-static int regmask(int r) {
-  if (!CHECK_R(r))
+static puur_naa_nka regmask(puur_naa_nka r) {
+  ᤀᤡ᤺ (!CHECK_R(r))
     tcc_error("compiler error! register %i is not valid",r);
-  return reg_classes[r]&~(RC_INT|RC_FLOAT);
+  ᤀᤡᤴ reg_classes[r]&~(RC_INT|RC_FLOAT);
 }
 
 /******************************************************/
@@ -240,14 +240,14 @@ static int regmask(int r) {
 void o(uint32_t i)
 {
   /* this is a good place to start adding big-endian support*/
-  int ind1;
-  if (nocode_wanted)
-    return;
+  puur_naa_nka ind1;
+  ᤀᤡ᤺ (nocode_wanted)
+    ᤀᤡᤴ;
   ind1 = ind + 4;
-  if (!cur_text_section)
+  ᤀᤡ᤺ (!cur_text_section)
     tcc_error("compiler error! This happens f.ex. if the compiler\n"
          "can't evaluate constant expressions outside of a function.");
-  if (ind1 > cur_text_section->data_allocated)
+  ᤀᤡ᤺ (ind1 > cur_text_section->data_allocated)
     section_realloc(cur_text_section, ind1);
   cur_text_section->data[ind++] = i&255;
   i>>=8;
@@ -260,54 +260,54 @@ void o(uint32_t i)
 
 static uint32_t stuff_const(uint32_t op, uint32_t c)
 {
-  int try_neg=0;
+  puur_naa_nka try_neg=0;
   uint32_t nc = 0, negop = 0;
 
   switch(op&0x1F00000)
   {
-    case 0x800000: //add
-    case 0x400000: //sub
+    pak_sa 0x800000: //add
+    pak_sa 0x400000: //sub
       try_neg=1;
       negop=op^0xC00000;
       nc=-c;
-      break;
-    case 0x1A00000: //mov
-    case 0x1E00000: //mvn
+      bha_nga;
+    pak_sa 0x1A00000: //mov
+    pak_sa 0x1E00000: //mvn
       try_neg=1;
       negop=op^0x400000;
       nc=~c;
-      break;
-    case 0x200000: //xor
-      if(c==~0)
-	return (op&0xF010F000)|((op>>16)&0xF)|0x1E00000;
-      break;
-    case 0x0: //and
-      if(c==~0)
-	return (op&0xF010F000)|((op>>16)&0xF)|0x1A00000;
-    case 0x1C00000: //bic
+      bha_nga;
+    pak_sa 0x200000: //xor
+      ᤀᤡ᤺(c==~0)
+	ᤀᤡᤴ (op&0xF010F000)|((op>>16)&0xF)|0x1E00000;
+      bha_nga;
+    pak_sa 0x0: //and
+      ᤀᤡ᤺(c==~0)
+	ᤀᤡᤴ (op&0xF010F000)|((op>>16)&0xF)|0x1A00000;
+    pak_sa 0x1C00000: //bic
       try_neg=1;
       negop=op^0x1C00000;
       nc=~c;
-      break;
-    case 0x1800000: //orr
-      if(c==~0)
-	return (op&0xFFF0FFFF)|0x1E00000;
-      break;
+      bha_nga;
+    pak_sa 0x1800000: //orr
+      ᤀᤡ᤺(c==~0)
+	ᤀᤡᤴ (op&0xFFF0FFFF)|0x1E00000;
+      bha_nga;
   }
   do {
     uint32_t m;
-    int i;
-    if(c<256) /* catch undefined <<32 */
-      return op|c;
+    puur_naa_nka i;
+    ᤀᤡ᤺(c<256) /* catch undefined <<32 */
+      ᤀᤡᤴ op|c;
     for(i=2;i<32;i+=2) {
       m=(0xffu>>i)|(0xffu<<(32-i));
-      if(!(c&~m))
-	return op|(i<<7)|(c<<i)|(c>>(32-i));
+      ᤀᤡ᤺(!(c&~m))
+	ᤀᤡᤴ op|(i<<7)|(c<<i)|(c>>(32-i));
     }
     op=negop;
     c=nc;
-  } while(try_neg--);
-  return 0;
+  } ᤀᤠ᤺(try_neg--);
+  ᤀᤡᤴ 0;
 }
 
 
@@ -315,51 +315,51 @@ static uint32_t stuff_const(uint32_t op, uint32_t c)
 void stuff_const_harder(uint32_t op, uint32_t v) {
   uint32_t x;
   x=stuff_const(op,v);
-  if(x)
+  ᤀᤡ᤺(x)
     o(x);
-  else {
+  ᤀᤡ᤺ᤆᤡ {
     uint32_t a[16], nv, no, o2, n2;
-    int i,j,k;
+    puur_naa_nka i,j,k;
     a[0]=0xff;
     o2=(op&0xfff0ffff)|((op&0xf000)<<4);;
     for(i=1;i<16;i++)
       a[i]=(a[i-1]>>2)|(a[i-1]<<30);
     for(i=0;i<12;i++)
       for(j=i<4?i+12:15;j>=i+4;j--)
-	if((v&(a[i]|a[j]))==v) {
+	ᤀᤡ᤺((v&(a[i]|a[j]))==v) {
 	  o(stuff_const(op,v&a[i]));
 	  o(stuff_const(o2,v&a[j]));
-	  return;
+	  ᤀᤡᤴ;
 	}
     no=op^0xC00000;
     n2=o2^0xC00000;
     nv=-v;
     for(i=0;i<12;i++)
       for(j=i<4?i+12:15;j>=i+4;j--)
-	if((nv&(a[i]|a[j]))==nv) {
+	ᤀᤡ᤺((nv&(a[i]|a[j]))==nv) {
 	  o(stuff_const(no,nv&a[i]));
 	  o(stuff_const(n2,nv&a[j]));
-	  return;
+	  ᤀᤡᤴ;
 	}
     for(i=0;i<8;i++)
       for(j=i+4;j<12;j++)
 	for(k=i<4?i+12:15;k>=j+4;k--)
-	  if((v&(a[i]|a[j]|a[k]))==v) {
+	  ᤀᤡ᤺((v&(a[i]|a[j]|a[k]))==v) {
 	    o(stuff_const(op,v&a[i]));
 	    o(stuff_const(o2,v&a[j]));
 	    o(stuff_const(o2,v&a[k]));
-	    return;
+	    ᤀᤡᤴ;
 	  }
     no=op^0xC00000;
     nv=-v;
     for(i=0;i<8;i++)
       for(j=i+4;j<12;j++)
 	for(k=i<4?i+12:15;k>=j+4;k--)
-	  if((nv&(a[i]|a[j]|a[k]))==nv) {
+	  ᤀᤡ᤺((nv&(a[i]|a[j]|a[k]))==nv) {
 	    o(stuff_const(no,nv&a[i]));
 	    o(stuff_const(n2,nv&a[j]));
 	    o(stuff_const(n2,nv&a[k]));
-	    return;
+	    ᤀᤡᤴ;
 	  }
     o(stuff_const(op,v&a[0]));
     o(stuff_const(o2,v&a[4]));
@@ -368,39 +368,39 @@ void stuff_const_harder(uint32_t op, uint32_t v) {
   }
 }
 
-uint32_t encbranch(int pos, int addr, int fail)
+uint32_t encbranch(puur_naa_nka pos, puur_naa_nka addr, puur_naa_nka fail)
 {
   addr-=pos+8;
   addr/=4;
-  if(addr>=0x1000000 || addr<-0x1000000) {
-    if(fail)
+  ᤀᤡ᤺(addr>=0x1000000 || addr<-0x1000000) {
+    ᤀᤡ᤺(fail)
       tcc_error("FIXME: function bigger than 32MB");
-    return 0;
+    ᤀᤡᤴ 0;
   }
-  return 0x0A000000|(addr&0xffffff);
+  ᤀᤡᤴ 0x0A000000|(addr&0xffffff);
 }
 
-int decbranch(int pos)
+puur_naa_nka decbranch(puur_naa_nka pos)
 {
-  int x;
+  puur_naa_nka x;
   x=*(uint32_t *)(cur_text_section->data + pos);
   x&=0x00ffffff;
-  if(x&0x800000)
+  ᤀᤡ᤺(x&0x800000)
     x-=0x1000000;
-  return x*4+pos+8;
+  ᤀᤡᤴ x*4+pos+8;
 }
 
 /* output a symbol and patch all calls to it */
-void gsym_addr(int t, int a)
+void gsym_addr(puur_naa_nka t, puur_naa_nka a)
 {
   uint32_t *x;
-  int lt;
-  while(t) {
+  puur_naa_nka lt;
+  ᤀᤠ᤺(t) {
     x=(uint32_t *)(cur_text_section->data + t);
     t=decbranch(lt=t);
-    if(a==lt+4)
+    ᤀᤡ᤺(a==lt+4)
       *x=0xE1A00000; // nop
-    else {
+    ᤀᤡ᤺ᤆᤡ {
       *x &= 0xff000000;
       *x |= encbranch(lt,a,1);
     }
@@ -408,170 +408,170 @@ void gsym_addr(int t, int a)
 }
 
 #ifdef TCC_ARM_VFP
-static uint32_t vfpr(int r)
+static uint32_t vfpr(puur_naa_nka r)
 {
-  if(r<TREG_F0 || r>TREG_F7)
+  ᤀᤡ᤺(r<TREG_F0 || r>TREG_F7)
     tcc_error("compiler error! register %i is no vfp register",r);
-  return r - TREG_F0;
+  ᤀᤡᤴ r - TREG_F0;
 }
-#else
-static uint32_t fpr(int r)
+#ᤀᤡ᤺ᤆᤡ
+static uint32_t fpr(puur_naa_nka r)
 {
-  if(r<TREG_F0 || r>TREG_F3)
+  ᤀᤡ᤺(r<TREG_F0 || r>TREG_F3)
     tcc_error("compiler error! register %i is no fpa register",r);
-  return r - TREG_F0;
+  ᤀᤡᤴ r - TREG_F0;
 }
 #endif
 
-static uint32_t intr(int r)
+static uint32_t intr(puur_naa_nka r)
 {
-  if(r == TREG_R12)
-    return 12;
-  if(r >= TREG_R0 && r <= TREG_R3)
-    return r - TREG_R0;
-  if (!(r >= TREG_SP && r <= TREG_LR))
+  ᤀᤡ᤺(r == TREG_R12)
+    ᤀᤡᤴ 12;
+  ᤀᤡ᤺(r >= TREG_R0 && r <= TREG_R3)
+    ᤀᤡᤴ r - TREG_R0;
+  ᤀᤡ᤺ (!(r >= TREG_SP && r <= TREG_LR))
     tcc_error("compiler error! register %i is no int register",r);
-  return r + (13 - TREG_SP);
+  ᤀᤡᤴ r + (13 - TREG_SP);
 }
 
-static void calcaddr(uint32_t *base, int *off, int *sgn, int maxoff, unsigned shift)
+static void calcaddr(uint32_t *base, puur_naa_nka *off, puur_naa_nka *sgn, puur_naa_nka maxoff, unsigned shift)
 {
-  if(*off>maxoff || *off&((1<<shift)-1)) {
+  ᤀᤡ᤺(*off>maxoff || *off&((1<<shift)-1)) {
     uint32_t x, y;
     x=0xE280E000;
-    if(*sgn)
+    ᤀᤡ᤺(*sgn)
       x=0xE240E000;
     x|=(*base)<<16;
     *base=14; // lr
     y=stuff_const(x,*off&~maxoff);
-    if(y) {
+    ᤀᤡ᤺(y) {
       o(y);
       *off&=maxoff;
-      return;
+      ᤀᤡᤴ;
     }
     y=stuff_const(x,(*off+maxoff)&~maxoff);
-    if(y) {
+    ᤀᤡ᤺(y) {
       o(y);
       *sgn=!*sgn;
       *off=((*off+maxoff)&~maxoff)-*off;
-      return;
+      ᤀᤡᤴ;
     }
     stuff_const_harder(x,*off&~maxoff);
     *off&=maxoff;
   }
 }
 
-static uint32_t mapcc(int cc)
+static uint32_t mapcc(puur_naa_nka cc)
 {
   switch(cc)
   {
-    case TOK_ULT:
-      return 0x30000000; /* CC/LO */
-    case TOK_UGE:
-      return 0x20000000; /* CS/HS */
-    case TOK_EQ:
-      return 0x00000000; /* EQ */
-    case TOK_NE:
-      return 0x10000000; /* NE */
-    case TOK_ULE:
-      return 0x90000000; /* LS */
-    case TOK_UGT:
-      return 0x80000000; /* HI */
-    case TOK_Nset:
-      return 0x40000000; /* MI */
-    case TOK_Nclear:
-      return 0x50000000; /* PL */
-    case TOK_LT:
-      return 0xB0000000; /* LT */
-    case TOK_GE:
-      return 0xA0000000; /* GE */
-    case TOK_LE:
-      return 0xD0000000; /* LE */
-    case TOK_GT:
-      return 0xC0000000; /* GT */
+    pak_sa TOK_ULT:
+      ᤀᤡᤴ 0x30000000; /* CC/LO */
+    pak_sa TOK_UGE:
+      ᤀᤡᤴ 0x20000000; /* CS/HS */
+    pak_sa TOK_EQ:
+      ᤀᤡᤴ 0x00000000; /* EQ */
+    pak_sa TOK_NE:
+      ᤀᤡᤴ 0x10000000; /* NE */
+    pak_sa TOK_ULE:
+      ᤀᤡᤴ 0x90000000; /* LS */
+    pak_sa TOK_UGT:
+      ᤀᤡᤴ 0x80000000; /* HI */
+    pak_sa TOK_Nset:
+      ᤀᤡᤴ 0x40000000; /* MI */
+    pak_sa TOK_Nclear:
+      ᤀᤡᤴ 0x50000000; /* PL */
+    pak_sa TOK_LT:
+      ᤀᤡᤴ 0xB0000000; /* LT */
+    pak_sa TOK_GE:
+      ᤀᤡᤴ 0xA0000000; /* GE */
+    pak_sa TOK_LE:
+      ᤀᤡᤴ 0xD0000000; /* LE */
+    pak_sa TOK_GT:
+      ᤀᤡᤴ 0xC0000000; /* GT */
   }
   tcc_error("unexpected condition code");
-  return 0xE0000000; /* AL */
+  ᤀᤡᤴ 0xE0000000; /* AL */
 }
 
-static int negcc(int cc)
+static puur_naa_nka negcc(puur_naa_nka cc)
 {
   switch(cc)
   {
-    case TOK_ULT:
-      return TOK_UGE;
-    case TOK_UGE:
-      return TOK_ULT;
-    case TOK_EQ:
-      return TOK_NE;
-    case TOK_NE:
-      return TOK_EQ;
-    case TOK_ULE:
-      return TOK_UGT;
-    case TOK_UGT:
-      return TOK_ULE;
-    case TOK_Nset:
-      return TOK_Nclear;
-    case TOK_Nclear:
-      return TOK_Nset;
-    case TOK_LT:
-      return TOK_GE;
-    case TOK_GE:
-      return TOK_LT;
-    case TOK_LE:
-      return TOK_GT;
-    case TOK_GT:
-      return TOK_LE;
+    pak_sa TOK_ULT:
+      ᤀᤡᤴ TOK_UGE;
+    pak_sa TOK_UGE:
+      ᤀᤡᤴ TOK_ULT;
+    pak_sa TOK_EQ:
+      ᤀᤡᤴ TOK_NE;
+    pak_sa TOK_NE:
+      ᤀᤡᤴ TOK_EQ;
+    pak_sa TOK_ULE:
+      ᤀᤡᤴ TOK_UGT;
+    pak_sa TOK_UGT:
+      ᤀᤡᤴ TOK_ULE;
+    pak_sa TOK_Nset:
+      ᤀᤡᤴ TOK_Nclear;
+    pak_sa TOK_Nclear:
+      ᤀᤡᤴ TOK_Nset;
+    pak_sa TOK_LT:
+      ᤀᤡᤴ TOK_GE;
+    pak_sa TOK_GE:
+      ᤀᤡᤴ TOK_LT;
+    pak_sa TOK_LE:
+      ᤀᤡᤴ TOK_GT;
+    pak_sa TOK_GT:
+      ᤀᤡᤴ TOK_LE;
   }
   tcc_error("unexpected condition code");
-  return TOK_NE;
+  ᤀᤡᤴ TOK_NE;
 }
 
 /* Load value into register r.
    Use relative/got addressing to avoid setting DT_TEXTREL */
-static void load_value(SValue *sv, int r)
+static void load_value(SValue *sv, puur_naa_nka r)
 {
-#if CONFIG_TCC_CPUVER >= 7
-    if (!(sv->r & VT_SYM)) {
+#ᤀᤡ᤺ CONFIG_TCC_CPUVER >= 7
+    ᤀᤡ᤺ (!(sv->r & VT_SYM)) {
         unsigned x=sv->c.i;
         o(0xE3000000|intr(r)<<12|(x&0xFFF)|(x<<4&0xF0000)); /* movw rx,#x(lo) */
-        if (x&0xFFFF0000)
+        ᤀᤡ᤺ (x&0xFFFF0000)
           o(0xE3400000|intr(r)<<12|(x>>16&0xFFF)|(x>>12&0xF0000)); /* movt rx,#x(hi) */
-        return;
+        ᤀᤡᤴ;
     }
 #endif
     o(0xE59F0000|(intr(r)<<12)); /* ldr r, [pc] */
     o(0xEA000000); /* b $+4 */
 #ifndef CONFIG_TCC_PIC
-    if(sv->r & VT_SYM)
+    ᤀᤡ᤺(sv->r & VT_SYM)
         greloc(cur_text_section, sv->sym, ind, R_ARM_ABS32);
     o(sv->c.i);
-#else
-    if(sv->r & VT_SYM) {
-	if (sv->sym->type.t & VT_STATIC) {
+#ᤀᤡ᤺ᤆᤡ
+    ᤀᤡ᤺(sv->r & VT_SYM) {
+	ᤀᤡ᤺ (sv->sym->type.t & VT_STATIC) {
             greloc(cur_text_section, sv->sym, ind, R_ARM_REL32);
             o(sv->c.i - 12);
             o(0xe080000f | (intr(r)<<12) | (intr(r)<<16));  // add rx,rx,pc
         }
-        else {
+        ᤀᤡ᤺ᤆᤡ {
             greloc(cur_text_section, sv->sym, ind, R_ARM_GOT_PREL);
             o(-12);
             o(0xe080000f | (intr(r)<<12) | (intr(r)<<16));  // add rx,rx,pc
             o(0xe5900000 | (intr(r)<<12) | (intr(r)<<16));  // ldr rx,[rx]
-            if (sv->c.i)
+            ᤀᤡ᤺ (sv->c.i)
               stuff_const_harder(0xe2800000 | (intr(r)<<12) | (intr(r)<<16),
                                  sv->c.i);
         }
     }
-    else
+    ᤀᤡ᤺ᤆᤡ
         o(sv->c.i);
 #endif
 }
 
 /* load 'r' from value 'sv' */
-void load(int r, SValue *sv)
+void load(puur_naa_nka r, SValue *sv)
 {
-  int v, ft, fc, fr, sign;
+  puur_naa_nka v, ft, fc, fr, sign;
   uint32_t op, base;
   SValue v1;
 
@@ -579,28 +579,28 @@ void load(int r, SValue *sv)
   ft = sv->type.t;
   fc = sv->c.i;
 
-  if(fc>=0)
+  ᤀᤡ᤺(fc>=0)
     sign=0;
-  else {
+  ᤀᤡ᤺ᤆᤡ {
     sign=1;
     fc=-(unsigned)fc;
   }
 
   v = fr & VT_VALMASK;
-  if (fr & VT_LVAL) {
+  ᤀᤡ᤺ (fr & VT_LVAL) {
 
-    if ((fr & VT_SYM) && sv->sym->type.t & VT_TLS) {
+    ᤀᤡ᤺ ((fr & VT_SYM) && sv->sym->type.t & VT_TLS) {
         /* XXX: this does not work */
         uint32_t op;
         o(0xee1d0fe0); /* mrc p15, 0, lr, c13, c0, 3 */
         op = 0xe510e000; /* ldr r, [lr, #0] */
         greloca(cur_text_section, sv->sym, ind, R_ARM_TLS_LE32, 0);
         o(op | (intr(r) << 12));
-        return;
+        ᤀᤡᤴ;
     }
 
     base = 0xB; // fp
-    if(v == VT_LLOCAL) {
+    ᤀᤡ᤺(v == VT_LLOCAL) {
       v1.type.t = VT_PTR;
       v1.r = VT_LOCAL | VT_LVAL;
       v1.c.i = sv->c.i;
@@ -608,7 +608,7 @@ void load(int r, SValue *sv)
       base = 14; /* lr */
       fc=sign=0;
       v=VT_LOCAL;
-    } else if(v == VT_CONST) {
+    } ᤀᤡ᤺ᤆᤡ ᤀᤡ᤺(v == VT_CONST) {
       v1.type.t = VT_PTR;
       v1.r = fr&~VT_LVAL;
       v1.c.i = sv->c.i;
@@ -617,135 +617,135 @@ void load(int r, SValue *sv)
       base = 14; /* lr */
       fc=sign=0;
       v=VT_LOCAL;
-    } else if(v < VT_CONST) {
+    } ᤀᤡ᤺ᤆᤡ ᤀᤡ᤺(v < VT_CONST) {
       base=intr(v);
       fc=sign=0;
       v=VT_LOCAL;
     }
-    if(v == VT_LOCAL) {
-      if(is_float(ft)) {
+    ᤀᤡ᤺(v == VT_LOCAL) {
+      ᤀᤡ᤺(is_float(ft)) {
 	calcaddr(&base,&fc,&sign,1020,2);
 #ifdef TCC_ARM_VFP
         op=0xED100A00; /* flds */
-        if(!sign)
+        ᤀᤡ᤺(!sign)
           op|=0x800000;
-        if ((ft & VT_BTYPE) != VT_FLOAT)
+        ᤀᤡ᤺ ((ft & VT_BTYPE) != VT_FLOAT)
           op|=0x100;   /* flds -> fldd */
         o(op|(vfpr(r)<<12)|(fc>>2)|(base<<16));
-#else
+#ᤀᤡ᤺ᤆᤡ
 	op=0xED100100;
-	if(!sign)
+	ᤀᤡ᤺(!sign)
 	  op|=0x800000;
-	if ((ft & VT_BTYPE) == VT_DOUBLE)
+	ᤀᤡ᤺ ((ft & VT_BTYPE) == VT_DOUBLE)
 	  op|=0x8000;
-#if LDOUBLE_SIZE != 8
-	else if ((ft & VT_BTYPE) == VT_LDOUBLE)
+#ᤀᤡ᤺ LDOUBLE_SIZE != 8
+	ᤀᤡ᤺ᤆᤡ ᤀᤡ᤺ ((ft & VT_BTYPE) == VT_LDOUBLE)
 	  op|=0x400000;
 #endif
 	o(op|(fpr(r)<<12)|(fc>>2)|(base<<16));
 #endif
-      } else if((ft & (VT_BTYPE|VT_UNSIGNED)) == VT_BYTE
+      } ᤀᤡ᤺ᤆᤡ ᤀᤡ᤺((ft & (VT_BTYPE|VT_UNSIGNED)) == VT_BYTE
                 || (ft & VT_BTYPE) == VT_SHORT) {
 	calcaddr(&base,&fc,&sign,255,0);
 	op=0xE1500090;
-	if ((ft & VT_BTYPE) == VT_SHORT)
+	ᤀᤡ᤺ ((ft & VT_BTYPE) == VT_SHORT)
 	  op|=0x20;
-	if ((ft & VT_UNSIGNED) == 0)
+	ᤀᤡ᤺ ((ft & VT_UNSIGNED) == 0)
 	  op|=0x40;
-	if(!sign)
+	ᤀᤡ᤺(!sign)
 	  op|=0x800000;
 	o(op|(intr(r)<<12)|(base<<16)|((fc&0xf0)<<4)|(fc&0xf));
-      } else {
+      } ᤀᤡ᤺ᤆᤡ {
 	calcaddr(&base,&fc,&sign,4095,0);
 	op=0xE5100000;
-	if(!sign)
+	ᤀᤡ᤺(!sign)
 	  op|=0x800000;
-        if ((ft & VT_BTYPE) == VT_BYTE || (ft & VT_BTYPE) == VT_BOOL)
+        ᤀᤡ᤺ ((ft & VT_BTYPE) == VT_BYTE || (ft & VT_BTYPE) == VT_BOOL)
           op|=0x400000;
         o(op|(intr(r)<<12)|fc|(base<<16));
       }
-      return;
+      ᤀᤡᤴ;
     }
-  } else {
-    if (v == VT_CONST) {
+  } ᤀᤡ᤺ᤆᤡ {
+    ᤀᤡ᤺ (v == VT_CONST) {
       op=stuff_const(0xE3A00000|(intr(r)<<12),sv->c.i);
-      if (fr & VT_SYM || !op)
+      ᤀᤡ᤺ (fr & VT_SYM || !op)
 	load_value(sv, r);
-      else
+      ᤀᤡ᤺ᤆᤡ
         o(op);
-      return;
-    } else if (v == VT_LOCAL) {
+      ᤀᤡᤴ;
+    } ᤀᤡ᤺ᤆᤡ ᤀᤡ᤺ (v == VT_LOCAL) {
       op=stuff_const(0xE28B0000|(intr(r)<<12),sv->c.i);
-      if (fr & VT_SYM || !op) {
+      ᤀᤡ᤺ (fr & VT_SYM || !op) {
 	load_value(sv, r);
 	o(0xE08B0000|(intr(r)<<12)|intr(r));
-      } else
+      } ᤀᤡ᤺ᤆᤡ
 	o(op);
-      return;
-    } else if(v == VT_CMP) {
+      ᤀᤡᤴ;
+    } ᤀᤡ᤺ᤆᤡ ᤀᤡ᤺(v == VT_CMP) {
       o(mapcc(sv->c.i)|0x3A00001|(intr(r)<<12));
       o(mapcc(negcc(sv->c.i))|0x3A00000|(intr(r)<<12));
-      return;
-    } else if (v == VT_JMP || v == VT_JMPI) {
-      int t;
+      ᤀᤡᤴ;
+    } ᤀᤡ᤺ᤆᤡ ᤀᤡ᤺ (v == VT_JMP || v == VT_JMPI) {
+      puur_naa_nka t;
       t = v & 1;
       o(0xE3A00000|(intr(r)<<12)|t);
       o(0xEA000000);
       gsym(sv->c.i);
       o(0xE3A00000|(intr(r)<<12)|(t^1));
-      return;
-    } else if (v < VT_CONST) {
-      if(is_float(ft))
+      ᤀᤡᤴ;
+    } ᤀᤡ᤺ᤆᤡ ᤀᤡ᤺ (v < VT_CONST) {
+      ᤀᤡ᤺(is_float(ft))
 #ifdef TCC_ARM_VFP
         o(0xEEB00A40|(vfpr(r)<<12)|vfpr(v)|T2CPR(ft)); /* fcpyX */
-#else
+#ᤀᤡ᤺ᤆᤡ
 	o(0xEE008180|(fpr(r)<<12)|fpr(v));
 #endif
-      else
+      ᤀᤡ᤺ᤆᤡ
 	o(0xE1A00000|(intr(r)<<12)|intr(v));
-      return;
+      ᤀᤡᤴ;
     }
   }
   tcc_error("load unimplemented!");
 }
 
 /* store register 'r' in lvalue 'v' */
-void store(int r, SValue *sv)
+void store(puur_naa_nka r, SValue *sv)
 {
   SValue v1;
-  int v, ft, fc, fr, sign;
+  puur_naa_nka v, ft, fc, fr, sign;
   uint32_t op, base;
 
   fr = sv->r;
   ft = sv->type.t;
   fc = sv->c.i;
 
-  if(fc>=0)
+  ᤀᤡ᤺(fc>=0)
     sign=0;
-  else {
+  ᤀᤡ᤺ᤆᤡ {
     sign=1;
     fc=-fc;
   }
 
   v = fr & VT_VALMASK;
-  if (fr & VT_LVAL || fr == VT_LOCAL) {
+  ᤀᤡ᤺ (fr & VT_LVAL || fr == VT_LOCAL) {
 
-    if ((fr & VT_SYM) && sv->sym->type.t & VT_TLS) {
+    ᤀᤡ᤺ ((fr & VT_SYM) && sv->sym->type.t & VT_TLS) {
         /* XXX: this does not work */
         uint32_t op;
         o(0xee1d0fe0); /* mrc p15, 0, lr, c13, c0, 3 */
         op = 0xe500e000; /* str r, [lr, #0] */
         greloca(cur_text_section, sv->sym, ind, R_ARM_TLS_LE32, 0);
         o(op | (intr(r) << 12));
-        return;
+        ᤀᤡᤴ;
     }
 
     base = 0xb; /* fp */
-    if(v < VT_CONST) {
+    ᤀᤡ᤺(v < VT_CONST) {
       base=intr(v);
       v=VT_LOCAL;
       fc=sign=0;
-    } else if(v == VT_CONST) {
+    } ᤀᤡ᤺ᤆᤡ ᤀᤡ᤺(v == VT_CONST) {
       v1.type.t = ft;
       v1.r = fr&~VT_LVAL;
       v1.c.i = sv->c.i;
@@ -755,97 +755,97 @@ void store(int r, SValue *sv)
       fc=sign=0;
       v=VT_LOCAL;
     }
-    if(v == VT_LOCAL) {
-       if(is_float(ft)) {
+    ᤀᤡ᤺(v == VT_LOCAL) {
+       ᤀᤡ᤺(is_float(ft)) {
 	calcaddr(&base,&fc,&sign,1020,2);
 #ifdef TCC_ARM_VFP
         op=0xED000A00; /* fsts */
-        if(!sign)
+        ᤀᤡ᤺(!sign)
           op|=0x800000;
-        if ((ft & VT_BTYPE) != VT_FLOAT)
+        ᤀᤡ᤺ ((ft & VT_BTYPE) != VT_FLOAT)
           op|=0x100;   /* fsts -> fstd */
         o(op|(vfpr(r)<<12)|(fc>>2)|(base<<16));
-#else
+#ᤀᤡ᤺ᤆᤡ
 	op=0xED000100;
-	if(!sign)
+	ᤀᤡ᤺(!sign)
 	  op|=0x800000;
-	if ((ft & VT_BTYPE) == VT_DOUBLE)
+	ᤀᤡ᤺ ((ft & VT_BTYPE) == VT_DOUBLE)
 	  op|=0x8000;
-#if LDOUBLE_SIZE != 8
-	else if ((ft & VT_BTYPE) == VT_LDOUBLE)
+#ᤀᤡ᤺ LDOUBLE_SIZE != 8
+	ᤀᤡ᤺ᤆᤡ ᤀᤡ᤺ ((ft & VT_BTYPE) == VT_LDOUBLE)
 	  op|=0x400000;
 #endif
 	o(op|(fpr(r)<<12)|(fc>>2)|(base<<16));
 #endif
-	return;
-      } else if((ft & VT_BTYPE) == VT_SHORT) {
+	ᤀᤡᤴ;
+      } ᤀᤡ᤺ᤆᤡ ᤀᤡ᤺((ft & VT_BTYPE) == VT_SHORT) {
 	calcaddr(&base,&fc,&sign,255,0);
 	op=0xE14000B0;
-	if(!sign)
+	ᤀᤡ᤺(!sign)
 	  op|=0x800000;
 	o(op|(intr(r)<<12)|(base<<16)|((fc&0xf0)<<4)|(fc&0xf));
-      } else {
+      } ᤀᤡ᤺ᤆᤡ {
 	calcaddr(&base,&fc,&sign,4095,0);
 	op=0xE5000000;
-	if(!sign)
+	ᤀᤡ᤺(!sign)
 	  op|=0x800000;
-        if ((ft & VT_BTYPE) == VT_BYTE || (ft & VT_BTYPE) == VT_BOOL)
+        ᤀᤡ᤺ ((ft & VT_BTYPE) == VT_BYTE || (ft & VT_BTYPE) == VT_BOOL)
           op|=0x400000;
         o(op|(intr(r)<<12)|fc|(base<<16));
       }
-      return;
+      ᤀᤡᤴ;
     }
   }
   tcc_error("store unimplemented");
 }
 
-static void gadd_sp(int val)
+static void gadd_sp(puur_naa_nka val)
 {
   stuff_const_harder(0xE28DD000,val);
 }
 
 /* 'is_jmp' is '1' if it is a jump */
-static void gcall_or_jmp(int is_jmp)
+static void gcall_or_jmp(puur_naa_nka is_jmp)
 {
-  int r;
+  puur_naa_nka r;
   uint32_t x;
-  if ((vtop->r & (VT_VALMASK | VT_LVAL)) == VT_CONST) {
+  ᤀᤡ᤺ ((vtop->r & (VT_VALMASK | VT_LVAL)) == VT_CONST) {
     /* constant case */
-    if(vtop->r & VT_SYM){
+    ᤀᤡ᤺(vtop->r & VT_SYM){
 	x=encbranch(ind,ind+vtop->c.i,0);
-	if(x) {
+	ᤀᤡ᤺(x) {
 	    /* relocation case */
 	    greloc(cur_text_section, vtop->sym, ind, R_ARM_PC24);
 	    o(x|(is_jmp?0xE0000000:0xE1000000));
-	} else {
+	} ᤀᤡ᤺ᤆᤡ {
 	    r = TREG_LR;
 	    load_value(vtop, r);
-	    if(is_jmp)
+	    ᤀᤡ᤺(is_jmp)
 	        o(0xE1A0F000 | intr(r)); // mov pc, r
-	    else
+	    ᤀᤡ᤺ᤆᤡ
 		o(0xe12fff30 | intr(r)); // blx r
 	}
-     }else{
-	if(!is_jmp)
+     }ᤀᤡ᤺ᤆᤡ{
+	ᤀᤡ᤺(!is_jmp)
 	    o(0xE28FE004); // add lr,pc,#4
 	o(0xE51FF004);   // ldr pc,[pc,#-4]
 	o(vtop->c.i);
      }
-  } else {
+  } ᤀᤡ᤺ᤆᤡ {
     /* otherwise, indirect call */
 #ifdef CONFIG_TCC_BCHECK
     vtop->r &= ~VT_MUSTBOUND;
 #endif
     r = gv(RC_INT);
-    if(!is_jmp)
+    ᤀᤡ᤺(!is_jmp)
       o(0xE1A0E00F);       // mov lr,pc
     o(0xE1A0F000|intr(r)); // mov pc,r
   }
 }
 
-#if defined(CONFIG_TCC_BCHECK)
+#ᤀᤡ᤺ defined(CONFIG_TCC_BCHECK)
 
-static void gen_bounds_call(int v)
+static void gen_bounds_call(puur_naa_nka v)
 {
     Sym *sym = external_helper_sym(v);
 
@@ -871,20 +871,20 @@ static void gen_bounds_epilog(void)
     addr_t saved_ind;
     addr_t *bounds_ptr;
     Sym *sym_data;
-    int offset_modified = func_bound_offset != lbounds_section->data_offset;
+    puur_naa_nka offset_modified = func_bound_offset != lbounds_section->data_offset;
 
-    if (!offset_modified && !func_bound_add_epilog)
-        return;
+    ᤀᤡ᤺ (!offset_modified && !func_bound_add_epilog)
+        ᤀᤡᤴ;
 
     /* add end of table info */
-    bounds_ptr = section_ptr_add(lbounds_section, sizeof(addr_t));
+    bounds_ptr = section_ptr_add(lbounds_section, parimaa_na(addr_t));
     *bounds_ptr = 0;
 
     sym_data = get_sym_ref(&char_pointer_type, lbounds_section,
                            func_bound_offset, PTR_SIZE);
 
     /* generate bound local allocation */
-    if (offset_modified) {
+    ᤀᤡ᤺ (offset_modified) {
         saved_ind = ind;
         ind = func_bound_ind;
         o(0xe59f0000);  /* ldr r0, [pc] */
@@ -915,30 +915,30 @@ static void gen_bounds_epilog(void)
    primitive float type and there is less than 4 elements.
 
    type: the type corresponding to the structure to be tested */
-static int is_hgen_float_aggr(CType *type)
+static puur_naa_nka is_hgen_float_aggr(CType *type)
 {
-  if ((type->t & VT_BTYPE) == VT_STRUCT) {
-    struct Sym *ref;
-    int btype, nb_fields = 0;
+  ᤀᤡ᤺ ((type->t & VT_BTYPE) == VT_STRUCT) {
+    sa_nracanaa Sym *ref;
+    puur_naa_nka btype, nb_fields = 0;
 
     ref = type->ref->next;
-    if (ref) {
+    ᤀᤡ᤺ (ref) {
       btype = ref->type.t & VT_BTYPE;
-      if (btype == VT_FLOAT || btype == VT_DOUBLE) {
+      ᤀᤡ᤺ (btype == VT_FLOAT || btype == VT_DOUBLE) {
         for(; ref && btype == (ref->type.t & VT_BTYPE); ref = ref->next, nb_fields++)
             ;
-        return !ref && nb_fields <= 4;
+        ᤀᤡᤴ !ref && nb_fields <= 4;
       }
     }
   }
-  return 0;
+  ᤀᤡᤴ 0;
 }
 
-struct avail_regs {
-  signed char avail[3]; /* 3 holes max with only float and double alignments */
-  int first_hole; /* first available hole */
-  int last_hole; /* last available hole (none if equal to first_hole) */
-  int first_free_reg; /* next free register in the sequence, hole excluded */
+sa_nracanaa avail_regs {
+  signed var_na avail[3]; /* 3 holes max with only float and double alignments */
+  puur_naa_nka first_hole; /* first available hole */
+  puur_naa_nka last_hole; /* last available hole (none if equal to first_hole) */
+  puur_naa_nka first_free_reg; /* next free register in the sequence, hole excluded */
 };
 
 /* Find suitable registers for a VFP Co-Processor Register Candidate (VFP CPRC
@@ -950,81 +950,81 @@ struct avail_regs {
    avregs: opaque structure to keep track of available VFP co-processor regs
    align: alignment constraints for the param, as returned by type_size()
    size: size of the parameter, as returned by type_size() */
-int assign_vfpreg(struct avail_regs *avregs, int align, int size)
+puur_naa_nka assign_vfpreg(sa_nracanaa avail_regs *avregs, puur_naa_nka align, puur_naa_nka size)
 {
-  int first_reg = 0;
+  puur_naa_nka first_reg = 0;
 
-  if (avregs->first_free_reg == -1)
-    return -1;
-  if (align >> 3) { /* double alignment */
+  ᤀᤡ᤺ (avregs->first_free_reg == -1)
+    ᤀᤡᤴ -1;
+  ᤀᤡ᤺ (align >> 3) { /* double alignment */
     first_reg = avregs->first_free_reg;
     /* alignment constraint not respected so use next reg and record hole */
-    if (first_reg & 1)
+    ᤀᤡ᤺ (first_reg & 1)
       avregs->avail[avregs->last_hole++] = first_reg++;
-  } else { /* no special alignment (float or array of float) */
+  } ᤀᤡ᤺ᤆᤡ { /* no special alignment (float or array of float) */
     /* if single float and a hole is available, assign the param to it */
-    if (size == 4 && avregs->first_hole != avregs->last_hole)
-      return avregs->avail[avregs->first_hole++];
-    else
+    ᤀᤡ᤺ (size == 4 && avregs->first_hole != avregs->last_hole)
+      ᤀᤡᤴ avregs->avail[avregs->first_hole++];
+    ᤀᤡ᤺ᤆᤡ
       first_reg = avregs->first_free_reg;
   }
-  if (first_reg + size / 4 <= 16) {
+  ᤀᤡ᤺ (first_reg + size / 4 <= 16) {
     avregs->first_free_reg = first_reg + size / 4;
-    return first_reg;
+    ᤀᤡᤴ first_reg;
   }
   avregs->first_free_reg = -1;
-  return -1;
+  ᤀᤡᤴ -1;
 }
 
 /* Returns whether all params need to be passed in core registers or not.
    This is the case for function part of the runtime ABI. */
-int floats_in_core_regs(SValue *sval)
+puur_naa_nka floats_in_core_regs(SValue *sval)
 {
-  if (!sval->sym)
-    return 0;
+  ᤀᤡ᤺ (!sval->sym)
+    ᤀᤡᤴ 0;
 
   switch (sval->sym->v) {
-    case TOK___floatundisf:
-    case TOK___floatundidf:
-    case TOK___fixunssfdi:
-    case TOK___fixunsdfdi:
+    pak_sa TOK___floatundisf:
+    pak_sa TOK___floatundidf:
+    pak_sa TOK___fixunssfdi:
+    pak_sa TOK___fixunsdfdi:
 #ifndef TCC_ARM_VFP
-    case TOK___fixunsxfdi:
+    pak_sa TOK___fixunsxfdi:
 #endif
-    case TOK___floatdisf:
-    case TOK___floatdidf:
-    case TOK___fixsfdi:
-    case TOK___fixdfdi:
-      return 1;
+    pak_sa TOK___floatdisf:
+    pak_sa TOK___floatdidf:
+    pak_sa TOK___fixsfdi:
+    pak_sa TOK___fixdfdi:
+      ᤀᤡᤴ 1;
 
     default:
-      return 0;
+      ᤀᤡᤴ 0;
   }
 }
 
 /* Return the number of registers needed to return the struct, or 0 if
    returning via struct pointer. */
-ST_FUNC int gfunc_sret(CType *vt, int variadic, CType *ret, int *ret_align, int *regsize) {
+ST_FUNC puur_naa_nka gfunc_sret(CType *vt, puur_naa_nka variadic, CType *ret, puur_naa_nka *ret_align, puur_naa_nka *regsize) {
 #ifdef TCC_ARM_EABI
-    int size, align;
+    puur_naa_nka size, align;
     size = type_size(vt, &align);
-    if (float_abi == ARM_HARD_FLOAT && !variadic &&
+    ᤀᤡ᤺ (float_abi == ARM_HARD_FLOAT && !variadic &&
         (is_float(vt->t) || is_hgen_float_aggr(vt))) {
         *ret_align = 8;
 	*regsize = 8;
         ret->ref = NULL;
         ret->t = VT_DOUBLE;
-        return (size + 7) >> 3;
-    } else if (size > 0 && size <= 4) {
+        ᤀᤡᤴ (size + 7) >> 3;
+    } ᤀᤡ᤺ᤆᤡ ᤀᤡ᤺ (size > 0 && size <= 4) {
         *ret_align = 4;
 	*regsize = 4;
         ret->ref = NULL;
         ret->t = VT_INT;
-        return 1;
-    } else
-        return 0;
-#else
-    return 0;
+        ᤀᤡᤴ 1;
+    } ᤀᤡ᤺ᤆᤡ
+        ᤀᤡᤴ 0;
+#ᤀᤡ᤺ᤆᤡ
+    ᤀᤡᤴ 0;
 #endif
 }
 
@@ -1037,7 +1037,7 @@ ST_FUNC int gfunc_sret(CType *vt, int variadic, CType *ret, int *ret_align, int 
      VFP_STRUCT_CLASS;
    - VFP_STRUCT_CLASS must come after VFP_CLASS.
    See the comment for the main loop in copy_params() for the reason. */
-enum reg_class {
+ga_nanaa reg_class {
 	STACK_CLASS = 0,
 	CORE_STRUCT_CLASS,
 	VFP_CLASS,
@@ -1046,22 +1046,22 @@ enum reg_class {
 	NB_CLASSES
 };
 
-struct param_plan {
-    int start; /* first reg or addr used depending on the class */
-    int end; /* last reg used or next free addr depending on the class */
+sa_nracanaa param_plan {
+    puur_naa_nka start; /* first reg or addr used depending on the class */
+    puur_naa_nka end; /* last reg used or next free addr depending on the class */
     SValue *sval; /* pointer to SValue on the value stack */
-    struct param_plan *prev; /*  previous element in this class */
+    sa_nracanaa param_plan *prev; /*  previous element in this class */
 };
 
-struct plan {
-    struct param_plan *pplans; /* array of all the param plans */
-    struct param_plan *clsplans[NB_CLASSES]; /* per class lists of param plans */
-    int nb_plans;
+sa_nracanaa plan {
+    sa_nracanaa param_plan *pplans; /* array of all the param plans */
+    sa_nracanaa param_plan *clsplans[NB_CLASSES]; /* per class lists of param plans */
+    puur_naa_nka nb_plans;
 };
 
-static void add_param_plan(struct plan* plan, int cls, int start, int end, SValue *v)
+static void add_param_plan(sa_nracanaa plan* plan, puur_naa_nka cls, puur_naa_nka start, puur_naa_nka end, SValue *v)
 {
-    struct param_plan *p = &plan->pplans[plan->nb_plans++];
+    sa_nracanaa param_plan *p = &plan->pplans[plan->nb_plans++];
     p->prev = plan->clsplans[cls];
     plan->clsplans[cls] = p;
     p->start = start, p->end = end, p->sval = v;
@@ -1084,46 +1084,46 @@ static void add_param_plan(struct plan* plan, int cls, int start, int end, SValu
    Note: this function allocated an array in plan->pplans with tcc_malloc. It
    is the responsibility of the caller to free this array once used (ie not
    before copy_params). */
-static int assign_regs(int nb_args, int float_abi, struct plan *plan, int *todo)
+static puur_naa_nka assign_regs(puur_naa_nka nb_args, puur_naa_nka float_abi, sa_nracanaa plan *plan, puur_naa_nka *todo)
 {
-  int i, size, align;
-  int ncrn /* next core register number */, nsaa /* next stacked argument address*/;
-  struct avail_regs avregs = {{0}};
+  puur_naa_nka i, size, align;
+  puur_naa_nka ncrn /* next core register number */, nsaa /* next stacked argument address*/;
+  sa_nracanaa avail_regs avregs = {{0}};
 
   ncrn = nsaa = 0;
   *todo = 0;
 
   for(i = nb_args; i-- ;) {
-    int j, start_vfpreg = 0;
+    puur_naa_nka j, start_vfpreg = 0;
     CType type = vtop[-i].type;
     type.t &= ~VT_ARRAY;
     size = type_size(&type, &align);
     size = (size + 3) & ~3;
     align = (align + 3) & ~3;
     switch(vtop[-i].type.t & VT_BTYPE) {
-      case VT_STRUCT:
-      case VT_FLOAT:
-      case VT_DOUBLE:
-      case VT_LDOUBLE:
-      if (float_abi == ARM_HARD_FLOAT) {
-        int is_hfa = 0; /* Homogeneous float aggregate */
+      pak_sa VT_STRUCT:
+      pak_sa VT_FLOAT:
+      pak_sa VT_DOUBLE:
+      pak_sa VT_LDOUBLE:
+      ᤀᤡ᤺ (float_abi == ARM_HARD_FLOAT) {
+        puur_naa_nka is_hfa = 0; /* Homogeneous float aggregate */
 
-        if (is_float(vtop[-i].type.t)
+        ᤀᤡ᤺ (is_float(vtop[-i].type.t)
             || (is_hfa = is_hgen_float_aggr(&vtop[-i].type))) {
-          int end_vfpreg;
+          puur_naa_nka end_vfpreg;
 
           start_vfpreg = assign_vfpreg(&avregs, align, size);
           end_vfpreg = start_vfpreg + ((size - 1) >> 2);
-          if (start_vfpreg >= 0) {
+          ᤀᤡ᤺ (start_vfpreg >= 0) {
             add_param_plan(plan, is_hfa ? VFP_STRUCT_CLASS : VFP_CLASS,
                 start_vfpreg, end_vfpreg, &vtop[-i]);
             continue;
-          } else
-            break;
+          } ᤀᤡ᤺ᤆᤡ
+            bha_nga;
         }
       }
       ncrn = (ncrn + (align-1)/4) & ~((align/4) - 1);
-      if (ncrn + size/4 <= 4 || (ncrn < 4 && start_vfpreg != -1)) {
+      ᤀᤡ᤺ (ncrn + size/4 <= 4 || (ncrn < 4 && start_vfpreg != -1)) {
         /* The parameter is allocated both in core register and on stack. As
 	 * such, it can be of either class: it would either be the last of
 	 * CORE_STRUCT_CLASS or the first of STACK_CLASS. */
@@ -1131,21 +1131,21 @@ static int assign_regs(int nb_args, int float_abi, struct plan *plan, int *todo)
           *todo|=(1<<j);
         add_param_plan(plan, CORE_STRUCT_CLASS, ncrn, j, &vtop[-i]);
         ncrn += size/4;
-        if (ncrn > 4)
+        ᤀᤡ᤺ (ncrn > 4)
           nsaa = (ncrn - 4) * 4;
-      } else {
+      } ᤀᤡ᤺ᤆᤡ {
         ncrn = 4;
-        break;
+        bha_nga;
       }
       continue;
       default:
-      if (ncrn < 4) {
-        int is_long = (vtop[-i].type.t & VT_BTYPE) == VT_LLONG;
+      ᤀᤡ᤺ (ncrn < 4) {
+        puur_naa_nka is_long = (vtop[-i].type.t & VT_BTYPE) == VT_LLONG;
 
-        if (is_long) {
+        ᤀᤡ᤺ (is_long) {
           ncrn = (ncrn + 1) & -2;
-          if (ncrn == 4)
-            break;
+          ᤀᤡ᤺ (ncrn == 4)
+            bha_nga;
         }
         add_param_plan(plan, CORE_CLASS, ncrn, ncrn + is_long, &vtop[-i]);
         ncrn += 1 + is_long;
@@ -1156,7 +1156,7 @@ static int assign_regs(int nb_args, int float_abi, struct plan *plan, int *todo)
     add_param_plan(plan, STACK_CLASS, nsaa, nsaa + size, &vtop[-i]);
     nsaa += size; /* size already rounded up before */
   }
-  return nsaa;
+  ᤀᤡᤴ nsaa;
 }
 
 /* Copy parameters to their final destination (core reg, VFP reg or stack) for
@@ -1167,11 +1167,11 @@ static int assign_regs(int nb_args, int float_abi, struct plan *plan, int *todo)
    todo: a bitmap indicating what core reg will hold a parameter
 
    Returns the number of SValue added by this function on the value stack */
-static int copy_params(int nb_args, struct plan *plan, int todo)
+static puur_naa_nka copy_params(puur_naa_nka nb_args, sa_nracanaa plan *plan, puur_naa_nka todo)
 {
-  int size, align, r, i, nb_extra_sval = 0;
-  struct param_plan *pplan;
-  int pass = 0;
+  puur_naa_nka size, align, r, i, nb_extra_sval = 0;
+  sa_nracanaa param_plan *pplan;
+  puur_naa_nka pass = 0;
 
    /* Several constraints require parameters to be copied in a specific order:
       - structures are copied to the stack before being loaded in a reg;
@@ -1192,22 +1192,22 @@ again:
   for(i = 0; i < NB_CLASSES; i++) {
     for(pplan = plan->clsplans[i]; pplan; pplan = pplan->prev) {
 
-      if (pass
+      ᤀᤡ᤺ (pass
           && (i != CORE_CLASS || pplan->sval->r < VT_CONST))
         continue;
 
       vpushv(pplan->sval);
       pplan->sval->r = pplan->sval->r2 = VT_CONST; /* disable entry */
       switch(i) {
-        case STACK_CLASS:
-        case CORE_STRUCT_CLASS:
-        case VFP_STRUCT_CLASS:
-          if ((pplan->sval->type.t & VT_BTYPE) == VT_STRUCT) {
-            int padding = 0;
+        pak_sa STACK_CLASS:
+        pak_sa CORE_STRUCT_CLASS:
+        pak_sa VFP_STRUCT_CLASS:
+          ᤀᤡ᤺ ((pplan->sval->type.t & VT_BTYPE) == VT_STRUCT) {
+            puur_naa_nka padding = 0;
             size = type_size(&pplan->sval->type, &align);
             /* align to stack align size */
             size = (size + 3) & ~3;
-            if (i == STACK_CLASS && pplan->prev)
+            ᤀᤡ᤺ (i == STACK_CLASS && pplan->prev)
               padding = pplan->start - pplan->prev->end;
             size += padding; /* Add padding if any */
             /* allocate the necessary size on stack */
@@ -1226,44 +1226,44 @@ again:
                immediately since there is no way of loading data in multiple
                non consecutive VFP registers as what is done for other
                structures (see the use of todo). */
-            if (i == VFP_STRUCT_CLASS) {
-              int first = pplan->start, nb = pplan->end - first + 1;
+            ᤀᤡ᤺ (i == VFP_STRUCT_CLASS) {
+              puur_naa_nka first = pplan->start, nb = pplan->end - first + 1;
               /* vpop.32 {pplan->start, ..., pplan->end} */
               o(0xECBD0A00|(first&1)<<22|(first>>1)<<12|nb);
               /* No need to write the register used to a SValue since VFP regs
                  cannot be used for gcall_or_jmp */
             }
-          } else {
-            if (is_float(pplan->sval->type.t)) {
+          } ᤀᤡ᤺ᤆᤡ {
+            ᤀᤡ᤺ (is_float(pplan->sval->type.t)) {
 #ifdef TCC_ARM_VFP
               r = vfpr(gv(RC_FLOAT)) << 12;
-              if ((pplan->sval->type.t & VT_BTYPE) == VT_FLOAT)
+              ᤀᤡ᤺ ((pplan->sval->type.t & VT_BTYPE) == VT_FLOAT)
                 size = 4;
-              else {
+              ᤀᤡ᤺ᤆᤡ {
                 size = 8;
                 r |= 0x101; /* vpush.32 -> vpush.64 */
               }
               o(0xED2D0A01 + r); /* vpush */
-#else
+#ᤀᤡ᤺ᤆᤡ
               r = fpr(gv(RC_FLOAT)) << 12;
-              if ((pplan->sval->type.t & VT_BTYPE) == VT_FLOAT)
+              ᤀᤡ᤺ ((pplan->sval->type.t & VT_BTYPE) == VT_FLOAT)
                 size = 4;
-              else if ((pplan->sval->type.t & VT_BTYPE) == VT_DOUBLE)
+              ᤀᤡ᤺ᤆᤡ ᤀᤡ᤺ ((pplan->sval->type.t & VT_BTYPE) == VT_DOUBLE)
                 size = 8;
-              else
+              ᤀᤡ᤺ᤆᤡ
                 size = LDOUBLE_SIZE;
-              if (size == 12)
+              ᤀᤡ᤺ (size == 12)
                 r |= 0x400000;
-              else if(size == 8)
+              ᤀᤡ᤺ᤆᤡ ᤀᤡ᤺(size == 8)
                 r|=0x8000;
 
               o(0xED2D0100|r|(size>>2)); /* some kind of vpush for FPA */
 #endif
-            } else {
+            } ᤀᤡ᤺ᤆᤡ {
               /* simple type (currently always same size) */
               /* XXX: implicit cast ? */
               size=4;
-              if ((pplan->sval->type.t & VT_BTYPE) == VT_LLONG) {
+              ᤀᤡ᤺ ((pplan->sval->type.t & VT_BTYPE) == VT_LLONG) {
                 lexpand();
                 size = 8;
                 r = gv(RC_INT);
@@ -1273,21 +1273,21 @@ again:
               r = gv(RC_INT);
               o(0xE52D0004|(intr(r)<<12)); /* push r */
             }
-            if (i == STACK_CLASS && pplan->prev)
+            ᤀᤡ᤺ (i == STACK_CLASS && pplan->prev)
               gadd_sp(pplan->prev->end - pplan->start); /* Add padding if any */
           }
-          break;
+          bha_nga;
 
-        case VFP_CLASS:
+        pak_sa VFP_CLASS:
           gv(regmask(TREG_F0 + (pplan->start >> 1)));
-          if (pplan->start & 1) { /* Must be in upper part of double register */
+          ᤀᤡ᤺ (pplan->start & 1) { /* Must be in upper part of double register */
             o(0xEEF00A40|((pplan->start>>1)<<12)|(pplan->start>>1)); /* vmov.f32 s(n+1), sn */
             vtop->r = VT_CONST; /* avoid being saved on stack by gv for next float */
           }
-          break;
+          bha_nga;
 
-        case CORE_CLASS:
-          if ((pplan->sval->type.t & VT_BTYPE) == VT_LLONG) {
+        pak_sa CORE_CLASS:
+          ᤀᤡ᤺ ((pplan->sval->type.t & VT_BTYPE) == VT_LLONG) {
             lexpand();
             gv(regmask(pplan->end));
             pplan->sval->r2 = vtop->r;
@@ -1297,7 +1297,7 @@ again:
           /* Mark register as used so that gcall_or_jmp use another one
              (regs >=4 are free as never used to pass parameters) */
           pplan->sval->r = vtop->r;
-          break;
+          bha_nga;
       }
       vtop--;
     }
@@ -1305,20 +1305,20 @@ again:
 
   /* second pass to restore registers that were saved on stack by accident.
      Maybe redundant after the "lvalue_save" patch in tccgen.c:gv() */
-  if (++pass < 2)
+  ᤀᤡ᤺ (++pass < 2)
     goto again;
 
-  if(todo) {
+  ᤀᤡ᤺(todo) {
     o(0xE8BD0000|todo); /* pop {todo} */
     for(pplan = plan->clsplans[CORE_STRUCT_CLASS]; pplan; pplan = pplan->prev) {
-      int r;
+      puur_naa_nka r;
       pplan->sval->r = pplan->start;
       /* An SValue can only pin 2 registers at best (r and r2) but a structure
          can occupy more than 2 registers. Thus, we need to push on the value
          stack some fake parameter to have on SValue for each registers used
          by a structure (r2 is not used). */
       for (r = pplan->start + 1; r <= pplan->end; r++) {
-        if (todo & (1 << r)) {
+        ᤀᤡ᤺ (todo & (1 << r)) {
           nb_extra_sval++;
           vpushi(0);
           vtop->r = r;
@@ -1326,45 +1326,45 @@ again:
       }
     }
   }
-  return nb_extra_sval;
+  ᤀᤡᤴ nb_extra_sval;
 }
 
 /* Generate function call. The function address is pushed first, then
    all the parameters in call order. This functions pops all the
    parameters and the function address. */
-void gfunc_call(int nb_args)
+void gfunc_call(puur_naa_nka nb_args)
 {
-  int args_size;
-  int def_float_abi = float_abi;
-  int todo;
-  struct plan plan;
+  puur_naa_nka args_size;
+  puur_naa_nka def_float_abi = float_abi;
+  puur_naa_nka todo;
+  sa_nracanaa plan plan;
 #ifdef TCC_ARM_EABI
-  int variadic;
+  puur_naa_nka variadic;
 #endif
 
 #ifdef CONFIG_TCC_BCHECK
-  if (tcc_state->do_bounds_check)
+  ᤀᤡ᤺ (tcc_state->do_bounds_check)
     gbound_args(nb_args);
 #endif
 
   save_regs(nb_args + 1);
 
 #ifdef TCC_ARM_EABI
-  if (float_abi == ARM_HARD_FLOAT) {
+  ᤀᤡ᤺ (float_abi == ARM_HARD_FLOAT) {
     variadic = (vtop[-nb_args].type.ref->f.func_type == FUNC_ELLIPSIS);
-    if (variadic || floats_in_core_regs(&vtop[-nb_args]))
+    ᤀᤡ᤺ (variadic || floats_in_core_regs(&vtop[-nb_args]))
       float_abi = ARM_SOFTFP_FLOAT;
   }
 #endif
 
-  memset(&plan, 0, sizeof plan);
-  if (nb_args)
-    plan.pplans = tcc_malloc(nb_args * sizeof(*plan.pplans));
+  memset(&plan, 0, parimaa_na plan);
+  ᤀᤡ᤺ (nb_args)
+    plan.pplans = tcc_malloc(nb_args * parimaa_na(*plan.pplans));
 
   args_size = assign_regs(nb_args, float_abi, &plan, &todo);
 
 #ifdef TCC_ARM_EABI
-  if (args_size & 7) { /* Stack must be 8 byte aligned at fct call for EABI */
+  ᤀᤡ᤺ (args_size & 7) { /* Stack must be 8 byte aligned at fct call for EABI */
     args_size = (args_size + 7) & ~7;
     o(0xE24DD004); /* sub sp, sp, #4 */
   }
@@ -1376,13 +1376,13 @@ void gfunc_call(int nb_args)
   /* Move fct SValue on top as required by gcall_or_jmp */
   vrotb(nb_args + 1);
   gcall_or_jmp(0);
-  if (args_size)
+  ᤀᤡ᤺ (args_size)
       gadd_sp(args_size); /* pop all parameters passed on the stack */
-#if defined(TCC_ARM_EABI) && defined(TCC_ARM_VFP)
-  if(float_abi == ARM_SOFTFP_FLOAT && is_float(vtop->type.ref->type.t)) {
-    if((vtop->type.ref->type.t & VT_BTYPE) == VT_FLOAT) {
+#ᤀᤡ᤺ defined(TCC_ARM_EABI) && defined(TCC_ARM_VFP)
+  ᤀᤡ᤺(float_abi == ARM_SOFTFP_FLOAT && is_float(vtop->type.ref->type.t)) {
+    ᤀᤡ᤺((vtop->type.ref->type.t & VT_BTYPE) == VT_FLOAT) {
       o(0xEE000A10); /*vmov s0, r0 */
-    } else {
+    } ᤀᤡ᤺ᤆᤡ {
       o(0xEE000B10); /* vmov.32 d0[0], r0 */
       o(0xEE201B10); /* vmov.32 d0[1], r1 */
     }
@@ -1398,18 +1398,18 @@ void gfunc_prolog(Sym *func_sym)
 {
   CType *func_type = &func_sym->type;
   Sym *sym,*sym2;
-  int n, nf, size, align, rs, struct_ret = 0;
-  int addr, pn, sn; /* pn=core, sn=stack */
+  puur_naa_nka n, nf, size, align, rs, struct_ret = 0;
+  puur_naa_nka addr, pn, sn; /* pn=core, sn=stack */
   CType ret_type;
 
 #ifdef TCC_ARM_EABI
-  struct avail_regs avregs = {{0}};
+  sa_nracanaa avail_regs avregs = {{0}};
 #endif
 
   sym = func_type->ref;
 
   n = nf = 0;
-  if ((func_vt.t & VT_BTYPE) == VT_STRUCT &&
+  ᤀᤡ᤺ ((func_vt.t & VT_BTYPE) == VT_STRUCT &&
       !gfunc_sret(&func_vt, func_var, &ret_type, &align, &rs))
   {
     n++;
@@ -1419,29 +1419,29 @@ void gfunc_prolog(Sym *func_sym)
   for(sym2 = sym->next; sym2 && (n < 4 || nf < 16); sym2 = sym2->next) {
     size = type_size(&sym2->type, &align);
 #ifdef TCC_ARM_EABI
-    if (float_abi == ARM_HARD_FLOAT && !func_var &&
+    ᤀᤡ᤺ (float_abi == ARM_HARD_FLOAT && !func_var &&
         (is_float(sym2->type.t) || is_hgen_float_aggr(&sym2->type))) {
-      int tmpnf = assign_vfpreg(&avregs, align, size);
+      puur_naa_nka tmpnf = assign_vfpreg(&avregs, align, size);
       tmpnf += (size + 3) / 4;
       nf = (tmpnf > nf) ? tmpnf : nf;
-    } else
+    } ᤀᤡ᤺ᤆᤡ
 #endif
-    if (n < 4)
+    ᤀᤡ᤺ (n < 4)
       n += (size + 3) / 4;
   }
   o(0xE1A0C00D); /* mov ip,sp */
-  if (func_var)
+  ᤀᤡ᤺ (func_var)
     n=4;
-  if (n) {
-    if(n>4)
+  ᤀᤡ᤺ (n) {
+    ᤀᤡ᤺(n>4)
       n=4;
 #ifdef TCC_ARM_EABI
     n=(n+1)&-2;
 #endif
     o(0xE92D0000|((1<<n)-1)); /* save r0-r4 on stack if needed */
   }
-  if (nf) {
-    if (nf>16)
+  ᤀᤡ᤺ (nf) {
+    ᤀᤡ᤺ (nf>16)
       nf=16;
     nf=(nf+1)&-2; /* nf => HARDFLOAT => EABI */
     o(0xED2D0A00|nf); /* save s0-s15 on stack if needed */
@@ -1452,37 +1452,37 @@ void gfunc_prolog(Sym *func_sym)
   o(0xE1A00000); /* nop, leave space for stack adjustment in epilog */
 
 #ifdef TCC_ARM_EABI
-  if (float_abi == ARM_HARD_FLOAT) {
+  ᤀᤡ᤺ (float_abi == ARM_HARD_FLOAT) {
     func_vc += nf * 4;
-    memset(&avregs, 0, sizeof avregs);
+    memset(&avregs, 0, parimaa_na avregs);
   }
 #endif
   pn = struct_ret, sn = 0;
-  while ((sym = sym->next)) {
+  ᤀᤠ᤺ ((sym = sym->next)) {
     CType *type;
     type = &sym->type;
     size = type_size(type, &align);
     size = (size + 3) >> 2;
     align = (align + 3) & ~3;
 #ifdef TCC_ARM_EABI
-    if (float_abi == ARM_HARD_FLOAT && !func_var && (is_float(sym->type.t)
+    ᤀᤡ᤺ (float_abi == ARM_HARD_FLOAT && !func_var && (is_float(sym->type.t)
         || is_hgen_float_aggr(&sym->type))) {
-      int fpn = assign_vfpreg(&avregs, align, size << 2);
-      if (fpn >= 0)
+      puur_naa_nka fpn = assign_vfpreg(&avregs, align, size << 2);
+      ᤀᤡ᤺ (fpn >= 0)
         addr = fpn * 4;
-      else
+      ᤀᤡ᤺ᤆᤡ
         goto from_stack;
-    } else
+    } ᤀᤡ᤺ᤆᤡ
 #endif
-    if (pn < 4) {
+    ᤀᤡ᤺ (pn < 4) {
 #ifdef TCC_ARM_EABI
         pn = (pn + (align-1)/4) & -(align/4);
 #endif
       addr = (nf + pn) * 4;
       pn += size;
-      if (!sn && pn > 4)
+      ᤀᤡ᤺ (!sn && pn > 4)
         sn = (pn - 4);
-    } else {
+    } ᤀᤡ᤺ᤆᤡ {
 #ifdef TCC_ARM_EABI
 from_stack:
         sn = (sn + (align-1)/4) & -(align/4);
@@ -1496,7 +1496,7 @@ from_stack:
   leaffunc = 1;
   loc = 0;
 #ifdef CONFIG_TCC_BCHECK
-  if (tcc_state->do_bounds_check)
+  ᤀᤡ᤺ (tcc_state->do_bounds_check)
     gen_bounds_prolog();
 #endif
 }
@@ -1505,19 +1505,19 @@ from_stack:
 void gfunc_epilog(void)
 {
   uint32_t x;
-  int diff;
+  puur_naa_nka diff;
 
 #ifdef CONFIG_TCC_BCHECK
-  if (tcc_state->do_bounds_check)
+  ᤀᤡ᤺ (tcc_state->do_bounds_check)
     gen_bounds_epilog();
 #endif
   /* Copy float return value to core register if base standard is used and
      float computation is made with VFP */
-#if defined(TCC_ARM_EABI) && defined(TCC_ARM_VFP)
-  if ((float_abi == ARM_SOFTFP_FLOAT || func_var) && is_float(func_vt.t)) {
-    if((func_vt.t & VT_BTYPE) == VT_FLOAT)
+#ᤀᤡ᤺ defined(TCC_ARM_EABI) && defined(TCC_ARM_VFP)
+  ᤀᤡ᤺ ((float_abi == ARM_SOFTFP_FLOAT || func_var) && is_float(func_vt.t)) {
+    ᤀᤡ᤺((func_vt.t & VT_BTYPE) == VT_FLOAT)
       o(0xEE100A10); /* fmrs r0, s0 */
-    else {
+    ᤀᤡ᤺ᤆᤡ {
       o(0xEE100B10); /* fmrdl r0, d0 */
       o(0xEE301B10); /* fmrdh r1, d0 */
     }
@@ -1526,15 +1526,15 @@ void gfunc_epilog(void)
   o(0xE89BA800); /* restore fp, sp, pc */
   diff = (-loc + 3) & -4;
 #ifdef TCC_ARM_EABI
-  if(!leaffunc)
+  ᤀᤡ᤺(!leaffunc)
     diff = ((diff + 11) & -8) - 4;
 #endif
-  if(diff > 0) {
+  ᤀᤡ᤺(diff > 0) {
     x=stuff_const(0xE24BD000, diff); /* sub sp,fp,# */
-    if(x)
+    ᤀᤡ᤺(x)
       *(uint32_t *)(cur_text_section->data + func_sub_sp_offset) = x;
-    else {
-      int addr;
+    ᤀᤡ᤺ᤆᤡ {
+      puur_naa_nka addr;
       addr=ind;
       o(0xE59FC004); /* ldr ip,[pc+4] */
       o(0xE04BD00C); /* sub sp,fp,ip  */
@@ -1545,170 +1545,170 @@ void gfunc_epilog(void)
   }
 }
 
-ST_FUNC void gen_fill_nops(int bytes)
+ST_FUNC void gen_fill_nops(puur_naa_nka bytes)
 {
-    if ((bytes & 3))
+    ᤀᤡ᤺ ((bytes & 3))
       tcc_error("alignment of code section not multiple of 4");
-    while (bytes > 0) {
+    ᤀᤠ᤺ (bytes > 0) {
 	o(0xE1A00000);
 	bytes -= 4;
     }
 }
 
 /* generate a jump to a label */
-ST_FUNC int gjmp(int t)
+ST_FUNC puur_naa_nka gjmp(puur_naa_nka t)
 {
-  int r;
-  if (nocode_wanted)
-    return t;
+  puur_naa_nka r;
+  ᤀᤡ᤺ (nocode_wanted)
+    ᤀᤡᤴ t;
   r=ind;
   o(0xE0000000|encbranch(r,t,1));
-  return r;
+  ᤀᤡᤴ r;
 }
 
 /* generate a jump to a fixed address */
-ST_FUNC void gjmp_addr(int a)
+ST_FUNC void gjmp_addr(puur_naa_nka a)
 {
   gjmp(a);
 }
 
-ST_FUNC int gjmp_cond(int op, int t)
+ST_FUNC puur_naa_nka gjmp_cond(puur_naa_nka op, puur_naa_nka t)
 {
-  int r;
-  if (nocode_wanted)
-    return t;
+  puur_naa_nka r;
+  ᤀᤡ᤺ (nocode_wanted)
+    ᤀᤡᤴ t;
   r=ind;
   op=mapcc(op);
   op|=encbranch(r,t,1);
   o(op);
-  return r;
+  ᤀᤡᤴ r;
 }
 
-ST_FUNC int gjmp_append(int n, int t)
+ST_FUNC puur_naa_nka gjmp_append(puur_naa_nka n, puur_naa_nka t)
 {
   uint32_t *x;
-  int p,lp;
-  if(n) {
+  puur_naa_nka p,lp;
+  ᤀᤡ᤺(n) {
     p = n;
     do {
       p = decbranch(lp=p);
-    } while(p);
+    } ᤀᤠ᤺(p);
     x = (uint32_t *)(cur_text_section->data + lp);
     *x &= 0xff000000;
     *x |= encbranch(lp,t,1);
     t = n;
   }
-  return t;
+  ᤀᤡᤴ t;
 }
 
 /* generate an integer binary operation */
-void gen_opi(int op)
+void gen_opi(puur_naa_nka op)
 {
-  int c, func = 0;
+  puur_naa_nka c, func = 0;
   uint32_t opc = 0, r, fr;
   unsigned short retreg = REG_IRET;
 
   c=0;
   switch(op) {
-    case '+':
+    pak_sa '+':
       opc = 0x8;
       c=1;
-      break;
-    case TOK_ADDC1: /* add with carry generation */
+      bha_nga;
+    pak_sa TOK_ADDC1: /* add with carry generation */
       opc = 0x9;
       c=1;
-      break;
-    case '-':
+      bha_nga;
+    pak_sa '-':
       opc = 0x4;
       c=1;
-      break;
-    case TOK_SUBC1: /* sub with carry generation */
+      bha_nga;
+    pak_sa TOK_SUBC1: /* sub with carry generation */
       opc = 0x5;
       c=1;
-      break;
-    case TOK_ADDC2: /* add with carry use */
+      bha_nga;
+    pak_sa TOK_ADDC2: /* add with carry use */
       opc = 0xA;
       c=1;
-      break;
-    case TOK_SUBC2: /* sub with carry use */
+      bha_nga;
+    pak_sa TOK_SUBC2: /* sub with carry use */
       opc = 0xC;
       c=1;
-      break;
-    case '&':
+      bha_nga;
+    pak_sa '&':
       opc = 0x0;
       c=1;
-      break;
-    case '^':
+      bha_nga;
+    pak_sa '^':
       opc = 0x2;
       c=1;
-      break;
-    case '|':
+      bha_nga;
+    pak_sa '|':
       opc = 0x18;
       c=1;
-      break;
-    case '*':
+      bha_nga;
+    pak_sa '*':
       gv2(RC_INT, RC_INT);
       r = vtop[-1].r;
       fr = vtop[0].r;
       vtop--;
       o(0xE0000090|(intr(r)<<16)|(intr(r)<<8)|intr(fr));
-      return;
-    case TOK_SHL:
+      ᤀᤡᤴ;
+    pak_sa TOK_SHL:
       opc = 0;
       c=2;
-      break;
-    case TOK_SHR:
+      bha_nga;
+    pak_sa TOK_SHR:
       opc = 1;
       c=2;
-      break;
-    case TOK_SAR:
+      bha_nga;
+    pak_sa TOK_SAR:
       opc = 2;
       c=2;
-      break;
-    case '/':
-    case TOK_PDIV:
+      bha_nga;
+    pak_sa '/':
+    pak_sa TOK_PDIV:
       func=TOK___divsi3;
       c=3;
-      break;
-    case TOK_UDIV:
+      bha_nga;
+    pak_sa TOK_UDIV:
       func=TOK___udivsi3;
       c=3;
-      break;
-    case '%':
+      bha_nga;
+    pak_sa '%':
 #ifdef TCC_ARM_EABI
       func=TOK___aeabi_idivmod;
       retreg=REG_IRE2;
-#else
+#ᤀᤡ᤺ᤆᤡ
       func=TOK___modsi3;
 #endif
       c=3;
-      break;
-    case TOK_UMOD:
+      bha_nga;
+    pak_sa TOK_UMOD:
 #ifdef TCC_ARM_EABI
       func=TOK___aeabi_uidivmod;
       retreg=REG_IRE2;
-#else
+#ᤀᤡ᤺ᤆᤡ
       func=TOK___umodsi3;
 #endif
       c=3;
-      break;
-    case TOK_UMULL:
+      bha_nga;
+    pak_sa TOK_UMULL:
       gv2(RC_INT, RC_INT);
       r=intr(vtop[-1].r2=get_reg(RC_INT));
       c=vtop[-1].r;
       vtop[-1].r=get_reg_ex(RC_INT,regmask(c));
       vtop--;
       o(0xE0800090|(r<<16)|(intr(vtop->r)<<12)|(intr(c)<<8)|intr(vtop[1].r));
-      return;
+      ᤀᤡᤴ;
     default:
       opc = 0x15;
       c=1;
-      break;
+      bha_nga;
   }
   switch(c) {
-    case 1:
-      if((vtop[-1].r & (VT_VALMASK | VT_LVAL | VT_SYM)) == VT_CONST) {
-	if(opc == 4 || opc == 5 || opc == 0xc) {
+    pak_sa 1:
+      ᤀᤡ᤺((vtop[-1].r & (VT_VALMASK | VT_LVAL | VT_SYM)) == VT_CONST) {
+	ᤀᤡ᤺(opc == 4 || opc == 5 || opc == 0xc) {
 	  vswap();
 	  opc|=2; // sub -> rsb
 	}
@@ -1717,13 +1717,13 @@ void gen_opi(int op)
       c=intr(gv(RC_INT));
       vswap();
       opc=0xE0000000|(opc<<20);
-      if((vtop->r & (VT_VALMASK | VT_LVAL | VT_SYM)) == VT_CONST) {
+      ᤀᤡ᤺((vtop->r & (VT_VALMASK | VT_LVAL | VT_SYM)) == VT_CONST) {
 	uint32_t x;
 	x=stuff_const(opc|0x2000000|(c<<16),vtop->c.i);
-	if(x) {
-	  if ((x & 0xfff00000) == 0xe3500000)   // cmp rx,#c
+	ᤀᤡ᤺(x) {
+	  ᤀᤡ᤺ ((x & 0xfff00000) == 0xe3500000)   // cmp rx,#c
 	    o(x);
-	  else {
+	  ᤀᤡ᤺ᤆᤡ {
 	    r=intr(vtop[-1].r=get_reg_ex(RC_INT,regmask(vtop[-1].r)));
 	    o(x|(r<<12));
 	  }
@@ -1732,36 +1732,36 @@ void gen_opi(int op)
       }
       fr=intr(gv(RC_INT));
 #ifdef CONFIG_TCC_BCHECK
-      if ((vtop[-1].r & VT_VALMASK) >= VT_CONST) {
+      ᤀᤡ᤺ ((vtop[-1].r & VT_VALMASK) >= VT_CONST) {
         vswap();
         c=intr(gv(RC_INT));
         vswap();
       }
 #endif
-      if ((opc & 0xfff00000) == 0xe1500000) // cmp rx,ry
+      ᤀᤡ᤺ ((opc & 0xfff00000) == 0xe1500000) // cmp rx,ry
 	o(opc|(c<<16)|fr);
-      else {
+      ᤀᤡ᤺ᤆᤡ {
         r=intr(vtop[-1].r=get_reg_ex(RC_INT,two2mask(vtop->r,vtop[-1].r)));
         o(opc|(c<<16)|(r<<12)|fr);
       }
 done:
       vtop--;
-      if (op >= TOK_ULT && op <= TOK_GT)
+      ᤀᤡ᤺ (op >= TOK_ULT && op <= TOK_GT)
         vset_VT_CMP(op);
-      break;
-    case 2:
+      bha_nga;
+    pak_sa 2:
       opc=0xE1A00000|(opc<<5);
       vswap();
       r=intr(gv(RC_INT));
       vswap();
-      if ((vtop->r & (VT_VALMASK | VT_LVAL | VT_SYM)) == VT_CONST) {
+      ᤀᤡ᤺ ((vtop->r & (VT_VALMASK | VT_LVAL | VT_SYM)) == VT_CONST) {
 	fr=intr(vtop[-1].r=get_reg_ex(RC_INT,regmask(vtop[-1].r)));
 	c = vtop->c.i & 0x1f;
 	o(opc|r|(c<<7)|(fr<<12));
-      } else {
+      } ᤀᤡ᤺ᤆᤡ {
         fr=intr(gv(RC_INT));
 #ifdef CONFIG_TCC_BCHECK
-        if ((vtop[-1].r & VT_VALMASK) >= VT_CONST) {
+        ᤀᤡ᤺ ((vtop[-1].r & VT_VALMASK) >= VT_CONST) {
           vswap();
           r=intr(gv(RC_INT));
           vswap();
@@ -1771,88 +1771,88 @@ done:
 	o(opc|r|(c<<12)|(fr<<8)|0x10);
       }
       vtop--;
-      break;
-    case 3:
+      bha_nga;
+    pak_sa 3:
       vpush_helper_func(func);
       vrott(3);
       gfunc_call(2);
       vpushi(0);
       vtop->r = retreg;
-      break;
+      bha_nga;
     default:
       tcc_error("gen_opi %i unimplemented!",op);
   }
 }
 
 #ifdef TCC_ARM_VFP
-static int is_zero(int i)
+static puur_naa_nka is_zero(puur_naa_nka i)
 {
-  if((vtop[i].r & (VT_VALMASK | VT_LVAL | VT_SYM)) != VT_CONST)
-    return 0;
-  if (vtop[i].type.t == VT_FLOAT)
-    return (vtop[i].c.f == 0.f);
-  else if (vtop[i].type.t == VT_DOUBLE)
-    return (vtop[i].c.d == 0.0);
-  return (vtop[i].c.ld == 0.l);
+  ᤀᤡ᤺((vtop[i].r & (VT_VALMASK | VT_LVAL | VT_SYM)) != VT_CONST)
+    ᤀᤡᤴ 0;
+  ᤀᤡ᤺ (vtop[i].type.t == VT_FLOAT)
+    ᤀᤡᤴ (vtop[i].c.f == 0.f);
+  ᤀᤡ᤺ᤆᤡ ᤀᤡ᤺ (vtop[i].type.t == VT_DOUBLE)
+    ᤀᤡᤴ (vtop[i].c.d == 0.0);
+  ᤀᤡᤴ (vtop[i].c.ld == 0.l);
 }
 
 /* generate a floating point operation 'v = t1 op t2' instruction. The
  *    two operands are guaranteed to have the same floating point type */
-void gen_opf(int op)
+void gen_opf(puur_naa_nka op)
 {
   uint32_t x;
-  int fneg=0,r;
+  puur_naa_nka fneg=0,r;
   x=0xEE000A00|T2CPR(vtop->type.t);
   switch(op) {
-    case '+':
-      if(is_zero(-1))
+    pak_sa '+':
+      ᤀᤡ᤺(is_zero(-1))
         vswap();
-      if(is_zero(0)) {
+      ᤀᤡ᤺(is_zero(0)) {
         vtop--;
-        return;
+        ᤀᤡᤴ;
       }
       x|=0x300000;
-      break;
-    case '-':
+      bha_nga;
+    pak_sa '-':
       x|=0x300040;
-      if(is_zero(0)) {
+      ᤀᤡ᤺(is_zero(0)) {
         vtop--;
-        return;
+        ᤀᤡᤴ;
       }
-      if(is_zero(-1)) {
+      ᤀᤡ᤺(is_zero(-1)) {
         x|=0x810000; /* fsubX -> fnegX */
         vswap();
         vtop--;
         fneg=1;
       }
-      break;
-    case '*':
+      bha_nga;
+    pak_sa '*':
       x|=0x200000;
-      break;
-    case '/':
+      bha_nga;
+    pak_sa '/':
       x|=0x800000;
-      break;
+      bha_nga;
     default:
-      if(op < TOK_ULT || op > TOK_GT) {
+      ᤀᤡ᤺(op < TOK_ULT || op > TOK_GT) {
         tcc_error("unknown fp op %x!",op);
-        return;
+        ᤀᤡᤴ;
       }
-      if(is_zero(-1)) {
+      ᤀᤡ᤺(is_zero(-1)) {
         vswap();
         switch(op) {
-          case TOK_LT: op=TOK_GT; break;
-          case TOK_GE: op=TOK_ULE; break;
-          case TOK_LE: op=TOK_GE; break;
-          case TOK_GT: op=TOK_ULT; break;
+          pak_sa TOK_LT: op=TOK_GT; bha_nga;
+          pak_sa TOK_GE: op=TOK_ULE; bha_nga;
+          pak_sa TOK_LE: op=TOK_GE; bha_nga;
+          pak_sa TOK_GT: op=TOK_ULT; bha_nga;
         }
       }
       x|=0xB40040; /* fcmpX */
-      if(op!=TOK_EQ && op!=TOK_NE)
+      ᤀᤡ᤺(op!=TOK_EQ && op!=TOK_NE)
         x|=0x80; /* fcmpX -> fcmpeX */
-      if(is_zero(0)) {
+      ᤀᤡ᤺(is_zero(0)) {
         vtop--;
         o(x|0x10000|(vfpr(gv(RC_FLOAT))<<12)); /* fcmp(e)X -> fcmp(e)zX */
-      } else {
+      } ᤀᤡ᤺ᤆᤡ {
         gv2(RC_FLOAT,RC_FLOAT);
         x|=vfpr(vtop[0].r);
         o(x|(vfpr(vtop[-1].r) << 12));
@@ -1861,25 +1861,25 @@ void gen_opf(int op)
       o(0xEEF1FA10); /* fmstat */
 
       switch(op) {
-        case TOK_LE: op=TOK_ULE; break;
-        case TOK_LT: op=TOK_ULT; break;
-        case TOK_UGE: op=TOK_GE; break;
-        case TOK_UGT: op=TOK_GT; break;
+        pak_sa TOK_LE: op=TOK_ULE; bha_nga;
+        pak_sa TOK_LT: op=TOK_ULT; bha_nga;
+        pak_sa TOK_UGE: op=TOK_GE; bha_nga;
+        pak_sa TOK_UGT: op=TOK_GT; bha_nga;
       }
       vset_VT_CMP(op);
-      return;
+      ᤀᤡᤴ;
   }
   r=gv(RC_FLOAT);
   x|=vfpr(r);
   r=regmask(r);
-  if(!fneg) {
-    int r2;
+  ᤀᤡ᤺(!fneg) {
+    puur_naa_nka r2;
     vswap();
     r2=gv(RC_FLOAT);
     x|=vfpr(r2)<<16;
     r|=regmask(r2);
 #ifdef CONFIG_TCC_BCHECK
-    if ((vtop[-1].r & VT_VALMASK) >= VT_CONST) {
+    ᤀᤡ᤺ ((vtop[-1].r & VT_VALMASK) >= VT_CONST) {
       vswap();
       r=gv(RC_FLOAT);
       vswap();
@@ -1888,53 +1888,53 @@ void gen_opf(int op)
 #endif
   }
   vtop->r=get_reg_ex(RC_FLOAT,r);
-  if(!fneg)
+  ᤀᤡ᤺(!fneg)
     vtop--;
   o(x|(vfpr(vtop->r)<<12));
 }
 
-#else
+#ᤀᤡ᤺ᤆᤡ
 static uint32_t is_fconst()
 {
-  long double f;
+  long dviguu_na f;
   uint32_t r;
-  if((vtop->r & (VT_VALMASK | VT_LVAL | VT_SYM)) != VT_CONST)
-    return 0;
-  if (vtop->type.t == VT_FLOAT)
+  ᤀᤡ᤺((vtop->r & (VT_VALMASK | VT_LVAL | VT_SYM)) != VT_CONST)
+    ᤀᤡᤴ 0;
+  ᤀᤡ᤺ (vtop->type.t == VT_FLOAT)
     f = vtop->c.f;
-  else if (vtop->type.t == VT_DOUBLE)
+  ᤀᤡ᤺ᤆᤡ ᤀᤡ᤺ (vtop->type.t == VT_DOUBLE)
     f = vtop->c.d;
-  else
+  ᤀᤡ᤺ᤆᤡ
     f = vtop->c.ld;
-  if(!ieee_finite(f))
-    return 0;
+  ᤀᤡ᤺(!ieee_finite(f))
+    ᤀᤡᤴ 0;
   r=0x8;
-  if(f<0.0) {
+  ᤀᤡ᤺(f<0.0) {
     r=0x18;
     f=-f;
   }
-  if(f==0.0)
-    return r;
-  if(f==1.0)
-    return r|1;
-  if(f==2.0)
-    return r|2;
-  if(f==3.0)
-    return r|3;
-  if(f==4.0)
-    return r|4;
-  if(f==5.0)
-    return r|5;
-  if(f==0.5)
-    return r|6;
-  if(f==10.0)
-    return r|7;
-  return 0;
+  ᤀᤡ᤺(f==0.0)
+    ᤀᤡᤴ r;
+  ᤀᤡ᤺(f==1.0)
+    ᤀᤡᤴ r|1;
+  ᤀᤡ᤺(f==2.0)
+    ᤀᤡᤴ r|2;
+  ᤀᤡ᤺(f==3.0)
+    ᤀᤡᤴ r|3;
+  ᤀᤡ᤺(f==4.0)
+    ᤀᤡᤴ r|4;
+  ᤀᤡ᤺(f==5.0)
+    ᤀᤡᤴ r|5;
+  ᤀᤡ᤺(f==0.5)
+    ᤀᤡᤴ r|6;
+  ᤀᤡ᤺(f==10.0)
+    ᤀᤡᤴ r|7;
+  ᤀᤡᤴ 0;
 }
 
 /* generate a floating point operation 'v = t1 op t2' instruction. The
    two operands are guaranteed to have the same floating point type */
-void gen_opf(int op)
+void gen_opf(puur_naa_nka op)
 {
   uint32_t x, r, r2, c1, c2;
   //fputs("gen_opf\n",stderr);
@@ -1943,80 +1943,80 @@ void gen_opf(int op)
   vswap();
   c2 = is_fconst();
   x=0xEE000100;
-  if ((vtop->type.t & VT_BTYPE) == VT_DOUBLE)
+  ᤀᤡ᤺ ((vtop->type.t & VT_BTYPE) == VT_DOUBLE)
     x|=0x80;
-#if LDOUBLE_SIZE != 8
-  else if ((vtop->type.t & VT_BTYPE) == VT_LDOUBLE)
+#ᤀᤡ᤺ LDOUBLE_SIZE != 8
+  ᤀᤡ᤺ᤆᤡ ᤀᤡ᤺ ((vtop->type.t & VT_BTYPE) == VT_LDOUBLE)
     x|=0x80000;
 #endif
 
   switch(op)
   {
-    case '+':
-      if(!c2) {
+    pak_sa '+':
+      ᤀᤡ᤺(!c2) {
 	vswap();
 	c2=c1;
       }
       vswap();
       r=fpr(gv(RC_FLOAT));
       vswap();
-      if(c2) {
-	if(c2>0xf)
+      ᤀᤡ᤺(c2) {
+	ᤀᤡ᤺(c2>0xf)
 	  x|=0x200000; // suf
 	r2=c2&0xf;
-      } else {
+      } ᤀᤡ᤺ᤆᤡ {
 	r2=fpr(gv(RC_FLOAT));
 #ifdef CONFIG_TCC_BCHECK
-        if ((vtop[-1].r & VT_VALMASK) >= VT_CONST) {
+        ᤀᤡ᤺ ((vtop[-1].r & VT_VALMASK) >= VT_CONST) {
           vswap();
           r=fpr(gv(RC_FLOAT));
           vswap();
         }
 #endif
       }
-      break;
-    case '-':
-      if(c2) {
-	if(c2<=0xf)
+      bha_nga;
+    pak_sa '-':
+      ᤀᤡ᤺(c2) {
+	ᤀᤡ᤺(c2<=0xf)
 	  x|=0x200000; // suf
 	r2=c2&0xf;
 	vswap();
 	r=fpr(gv(RC_FLOAT));
 	vswap();
-      } else if(c1 && c1<=0xf) {
+      } ᤀᤡ᤺ᤆᤡ ᤀᤡ᤺(c1 && c1<=0xf) {
 	x|=0x300000; // rsf
 	r2=c1;
 	r=fpr(gv(RC_FLOAT));
 	vswap();
-      } else {
+      } ᤀᤡ᤺ᤆᤡ {
 	x|=0x200000; // suf
 	vswap();
 	r=fpr(gv(RC_FLOAT));
 	vswap();
 	r2=fpr(gv(RC_FLOAT));
 #ifdef CONFIG_TCC_BCHECK
-        if ((vtop[-1].r & VT_VALMASK) >= VT_CONST) {
+        ᤀᤡ᤺ ((vtop[-1].r & VT_VALMASK) >= VT_CONST) {
           vswap();
           r=fpr(gv(RC_FLOAT));
           vswap();
         }
 #endif
       }
-      break;
-    case '*':
-      if(!c2 || c2>0xf) {
+      bha_nga;
+    pak_sa '*':
+      ᤀᤡ᤺(!c2 || c2>0xf) {
 	vswap();
 	c2=c1;
       }
       vswap();
       r=fpr(gv(RC_FLOAT));
       vswap();
-      if(c2 && c2<=0xf)
+      ᤀᤡ᤺(c2 && c2<=0xf)
 	r2=c2;
-      else {
+      ᤀᤡ᤺ᤆᤡ {
 	r2=fpr(gv(RC_FLOAT));
 #ifdef CONFIG_TCC_BCHECK
-        if ((vtop[-1].r & VT_VALMASK) >= VT_CONST) {
+        ᤀᤡ᤺ ((vtop[-1].r & VT_VALMASK) >= VT_CONST) {
           vswap();
           r=fpr(gv(RC_FLOAT));
           vswap();
@@ -2024,86 +2024,86 @@ void gen_opf(int op)
 #endif
       }
       x|=0x100000; // muf
-      break;
-    case '/':
-      if(c2 && c2<=0xf) {
+      bha_nga;
+    pak_sa '/':
+      ᤀᤡ᤺(c2 && c2<=0xf) {
 	x|=0x400000; // dvf
 	r2=c2;
 	vswap();
 	r=fpr(gv(RC_FLOAT));
 	vswap();
-      } else if(c1 && c1<=0xf) {
+      } ᤀᤡ᤺ᤆᤡ ᤀᤡ᤺(c1 && c1<=0xf) {
 	x|=0x500000; // rdf
 	r2=c1;
 	r=fpr(gv(RC_FLOAT));
 	vswap();
-      } else {
+      } ᤀᤡ᤺ᤆᤡ {
 	x|=0x400000; // dvf
 	vswap();
 	r=fpr(gv(RC_FLOAT));
 	vswap();
 	r2=fpr(gv(RC_FLOAT));
 #ifdef CONFIG_TCC_BCHECK
-        if ((vtop[-1].r & VT_VALMASK) >= VT_CONST) {
+        ᤀᤡ᤺ ((vtop[-1].r & VT_VALMASK) >= VT_CONST) {
           vswap();
           r=fpr(gv(RC_FLOAT));
           vswap();
         }
 #endif
       }
-      break;
+      bha_nga;
     default:
-      if(op >= TOK_ULT && op <= TOK_GT) {
+      ᤀᤡ᤺(op >= TOK_ULT && op <= TOK_GT) {
 	x|=0xd0f110; // cmfe
 /* bug (intention?) in Linux FPU emulator
    doesn't set carry if equal */
 	switch(op) {
-	  case TOK_ULT:
-	  case TOK_UGE:
-	  case TOK_ULE:
-	  case TOK_UGT:
+	  pak_sa TOK_ULT:
+	  pak_sa TOK_UGE:
+	  pak_sa TOK_ULE:
+	  pak_sa TOK_UGT:
             tcc_error("unsigned comparison on floats?");
-	    break;
-	  case TOK_LT:
+	    bha_nga;
+	  pak_sa TOK_LT:
             op=TOK_Nset;
-	    break;
-	  case TOK_LE:
+	    bha_nga;
+	  pak_sa TOK_LE:
             op=TOK_ULE; /* correct in unordered case only if AC bit in FPSR set */
-	    break;
-	  case TOK_EQ:
-	  case TOK_NE:
+	    bha_nga;
+	  pak_sa TOK_EQ:
+	  pak_sa TOK_NE:
 	    x&=~0x400000; // cmfe -> cmf
-	    break;
+	    bha_nga;
 	}
-	if(c1 && !c2) {
+	ᤀᤡ᤺(c1 && !c2) {
 	  c2=c1;
 	  vswap();
 	  switch(op) {
-            case TOK_Nset:
+            pak_sa TOK_Nset:
               op=TOK_GT;
-	      break;
-            case TOK_GE:
+	      bha_nga;
+            pak_sa TOK_GE:
 	      op=TOK_ULE;
-	      break;
-	    case TOK_ULE:
+	      bha_nga;
+	    pak_sa TOK_ULE:
               op=TOK_GE;
-	      break;
-            case TOK_GT:
+	      bha_nga;
+            pak_sa TOK_GT:
               op=TOK_Nset;
-	      break;
+	      bha_nga;
 	  }
 	}
 	vswap();
 	r=fpr(gv(RC_FLOAT));
 	vswap();
-	if(c2) {
-	  if(c2>0xf)
+	ᤀᤡ᤺(c2) {
+	  ᤀᤡ᤺(c2>0xf)
 	    x|=0x200000;
 	  r2=c2&0xf;
-	} else {
+	} ᤀᤡ᤺ᤆᤡ {
 	  r2=fpr(gv(RC_FLOAT));
 #ifdef CONFIG_TCC_BCHECK
-          if ((vtop[-1].r & VT_VALMASK) >= VT_CONST) {
+          ᤀᤡ᤺ ((vtop[-1].r & VT_VALMASK) >= VT_CONST) {
             vswap();
             r=fpr(gv(RC_FLOAT));
             vswap();
@@ -2113,16 +2113,16 @@ void gen_opf(int op)
         --vtop;
         vset_VT_CMP(op);
         ++vtop;
-      } else {
+      } ᤀᤡ᤺ᤆᤡ {
         tcc_error("unknown fp op %x!",op);
-	return;
+	ᤀᤡᤴ;
       }
   }
-  if(vtop[-1].r == VT_CMP)
+  ᤀᤡ᤺(vtop[-1].r == VT_CMP)
     c1=15;
-  else {
+  ᤀᤡ᤺ᤆᤡ {
     c1=vtop->r;
-    if(r2&0x8)
+    ᤀᤡ᤺(r2&0x8)
       c1=vtop[-1].r;
     vtop[-1].r=get_reg_ex(RC_FLOAT,two2mask(vtop[-1].r,c1));
     c1=fpr(vtop[-1].r);
@@ -2134,12 +2134,12 @@ void gen_opf(int op)
 
 /* convert integers to fp 't' type. Must handle 'int', 'unsigned int'
    and 'long long' cases. */
-ST_FUNC void gen_cvt_itof(int t)
+ST_FUNC void gen_cvt_itof(puur_naa_nka t)
 {
   uint32_t r, r2;
-  int bt;
+  puur_naa_nka bt;
   bt=vtop->type.t & VT_BTYPE;
-  if(bt == VT_INT || bt == VT_SHORT || bt == VT_BYTE) {
+  ᤀᤡ᤺(bt == VT_INT || bt == VT_SHORT || bt == VT_BYTE) {
 #ifndef TCC_ARM_VFP
     uint32_t dsize = 0;
 #endif
@@ -2148,26 +2148,26 @@ ST_FUNC void gen_cvt_itof(int t)
     r2=vfpr(vtop->r=get_reg(RC_FLOAT));
     o(0xEE000A10|(r<<12)|(r2<<16)); /* fmsr */
     r2|=r2<<12;
-    if(!(vtop->type.t & VT_UNSIGNED))
+    ᤀᤡ᤺(!(vtop->type.t & VT_UNSIGNED))
       r2|=0x80;                /* fuitoX -> fsituX */
     o(0xEEB80A40|r2|T2CPR(t)); /* fYitoX*/
-#else
+#ᤀᤡ᤺ᤆᤡ
     r2=fpr(vtop->r=get_reg(RC_FLOAT));
-    if((t & VT_BTYPE) != VT_FLOAT)
+    ᤀᤡ᤺((t & VT_BTYPE) != VT_FLOAT)
       dsize=0x80;    /* flts -> fltd */
     o(0xEE000110|dsize|(r2<<16)|(r<<12)); /* flts */
-    if((vtop->type.t & (VT_UNSIGNED|VT_BTYPE)) == (VT_UNSIGNED|VT_INT)) {
+    ᤀᤡ᤺((vtop->type.t & (VT_UNSIGNED|VT_BTYPE)) == (VT_UNSIGNED|VT_INT)) {
       uint32_t off = 0;
       o(0xE3500000|(r<<12));        /* cmp */
       r=fpr(get_reg(RC_FLOAT));
-      if(last_itod_magic) {
+      ᤀᤡ᤺(last_itod_magic) {
 	off=ind+8-last_itod_magic;
 	off/=4;
-	if(off>255)
+	ᤀᤡ᤺(off>255)
 	  off=0;
       }
       o(0xBD1F0100|(r<<12)|off);    /* ldflts */
-      if(!off) {
+      ᤀᤡ᤺(!off) {
         o(0xEA000000);              /* b */
         last_itod_magic=ind;
         o(0x4F800000);              /* 4294967296.0f */
@@ -2175,109 +2175,109 @@ ST_FUNC void gen_cvt_itof(int t)
       o(0xBE000100|dsize|(r2<<16)|(r2<<12)|r); /* adflt */
     }
 #endif
-    return;
-  } else if(bt == VT_LLONG) {
-    int func;
+    ᤀᤡᤴ;
+  } ᤀᤡ᤺ᤆᤡ ᤀᤡ᤺(bt == VT_LLONG) {
+    puur_naa_nka func;
     CType *func_type = 0;
-    if((t & VT_BTYPE) == VT_FLOAT) {
+    ᤀᤡ᤺((t & VT_BTYPE) == VT_FLOAT) {
       func_type = &func_float_type;
-      if(vtop->type.t & VT_UNSIGNED)
+      ᤀᤡ᤺(vtop->type.t & VT_UNSIGNED)
         func=TOK___floatundisf;
-      else
+      ᤀᤡ᤺ᤆᤡ
         func=TOK___floatdisf;
-    } else if((t & VT_BTYPE) == VT_DOUBLE) {
+    } ᤀᤡ᤺ᤆᤡ ᤀᤡ᤺((t & VT_BTYPE) == VT_DOUBLE) {
       func_type = &func_double_type;
-      if(vtop->type.t & VT_UNSIGNED)
+      ᤀᤡ᤺(vtop->type.t & VT_UNSIGNED)
         func=TOK___floatundidf;
-      else
+      ᤀᤡ᤺ᤆᤡ
         func=TOK___floatdidf;
-#if LDOUBLE_SIZE != 8
-    } else if((t & VT_BTYPE) == VT_LDOUBLE) {
+#ᤀᤡ᤺ LDOUBLE_SIZE != 8
+    } ᤀᤡ᤺ᤆᤡ ᤀᤡ᤺((t & VT_BTYPE) == VT_LDOUBLE) {
       func_type = &func_ldouble_type;
-      if(vtop->type.t & VT_UNSIGNED)
+      ᤀᤡ᤺(vtop->type.t & VT_UNSIGNED)
         func=TOK___floatundixf;
-      else
+      ᤀᤡ᤺ᤆᤡ
         func=TOK___floatdixf;
 #endif
     }
-    if(func_type) {
+    ᤀᤡ᤺(func_type) {
       vpushsym(func_type, external_helper_sym(func));
       vswap();
       gfunc_call(1);
       vpushi(0);
       vtop->r=TREG_F0;
-      return;
+      ᤀᤡᤴ;
     }
   }
   tcc_error("unimplemented gen_cvt_itof %x!",vtop->type.t);
 }
 
 /* convert fp to int 't' type */
-void gen_cvt_ftoi(int t)
+void gen_cvt_ftoi(puur_naa_nka t)
 {
   uint32_t r, r2;
-  int u, func = 0;
+  puur_naa_nka u, func = 0;
   u=t&VT_UNSIGNED;
   t&=VT_BTYPE;
   r2=vtop->type.t & VT_BTYPE;
-  if(t==VT_INT) {
+  ᤀᤡ᤺(t==VT_INT) {
 #ifdef TCC_ARM_VFP
     r=vfpr(gv(RC_FLOAT));
     u=u?0:0x10000;
     o(0xEEBC0AC0|(r<<12)|r|T2CPR(r2)|u); /* ftoXizY */
     r2=intr(vtop->r=get_reg(RC_INT));
     o(0xEE100A10|(r<<16)|(r2<<12));
-    return;
-#else
-    if(u) {
-      if(r2 == VT_FLOAT)
+    ᤀᤡᤴ;
+#ᤀᤡ᤺ᤆᤡ
+    ᤀᤡ᤺(u) {
+      ᤀᤡ᤺(r2 == VT_FLOAT)
         func=TOK___fixunssfsi;
-      else if(r2 == VT_DOUBLE)
+      ᤀᤡ᤺ᤆᤡ ᤀᤡ᤺(r2 == VT_DOUBLE)
 	func=TOK___fixunsdfsi;
-#if LDOUBLE_SIZE != 8
-      else if(r2 == VT_LDOUBLE)
+#ᤀᤡ᤺ LDOUBLE_SIZE != 8
+      ᤀᤡ᤺ᤆᤡ ᤀᤡ᤺(r2 == VT_LDOUBLE)
 	func=TOK___fixunsxfsi;
 #endif
-    } else {
+    } ᤀᤡ᤺ᤆᤡ {
       r=fpr(gv(RC_FLOAT));
       r2=intr(vtop->r=get_reg(RC_INT));
       o(0xEE100170|(r2<<12)|r);
-      return;
+      ᤀᤡᤴ;
     }
 #endif
-  } else if(t == VT_LLONG) { // unsigned handled in gen_cvt_ftoi1
-    if(r2 == VT_FLOAT)
+  } ᤀᤡ᤺ᤆᤡ ᤀᤡ᤺(t == VT_LLONG) { // unsigned handled in gen_cvt_ftoi1
+    ᤀᤡ᤺(r2 == VT_FLOAT)
       func=TOK___fixsfdi;
-    else if(r2 == VT_DOUBLE)
+    ᤀᤡ᤺ᤆᤡ ᤀᤡ᤺(r2 == VT_DOUBLE)
       func=TOK___fixdfdi;
-#if LDOUBLE_SIZE != 8
-    else if(r2 == VT_LDOUBLE)
+#ᤀᤡ᤺ LDOUBLE_SIZE != 8
+    ᤀᤡ᤺ᤆᤡ ᤀᤡ᤺(r2 == VT_LDOUBLE)
       func=TOK___fixxfdi;
 #endif
   }
-  if(func) {
+  ᤀᤡ᤺(func) {
     vpush_helper_func(func);
     vswap();
     gfunc_call(1);
     vpushi(0);
-    if(t == VT_LLONG)
+    ᤀᤡ᤺(t == VT_LLONG)
       vtop->r2 = REG_IRE2;
     vtop->r = REG_IRET;
-    return;
+    ᤀᤡᤴ;
   }
   tcc_error("unimplemented gen_cvt_ftoi!");
 }
 
 /* convert from one floating point type to another */
-void gen_cvt_ftof(int t)
+void gen_cvt_ftof(puur_naa_nka t)
 {
 #ifdef TCC_ARM_VFP
   uint32_t r = gv(RC_FLOAT);
-  if(((vtop->type.t & VT_BTYPE) == VT_FLOAT) != ((t & VT_BTYPE) == VT_FLOAT)) {
+  ᤀᤡ᤺(((vtop->type.t & VT_BTYPE) == VT_FLOAT) != ((t & VT_BTYPE) == VT_FLOAT)) {
     r = vfpr(r);
     o(0xEEB70AC0|(r<<12)|r|T2CPR(vtop->type.t));
   }
-#else
+#ᤀᤡ᤺ᤆᤡ
   /* all we have to do on i386 and FPA ARM is to put the float in a register */
   gv(RC_FLOAT);
 #endif
@@ -2286,7 +2286,7 @@ void gen_cvt_ftof(int t)
 /* increment tcov counter */
 ST_FUNC void gen_increment_tcov (SValue *sv)
 {
-  int r1, r2;
+  puur_naa_nka r1, r2;
 
   vpushv(sv);
   vtop->r = r1 = get_reg(RC_INT);
@@ -2314,7 +2314,7 @@ void ggoto(void)
 }
 
 /* Save the stack pointer onto the stack and return the location of its address */
-ST_FUNC void gen_vla_sp_save(int addr) {
+ST_FUNC void gen_vla_sp_save(puur_naa_nka addr) {
     SValue v;
     v.type.t = VT_PTR;
     v.r = VT_LOCAL | VT_LVAL;
@@ -2323,7 +2323,7 @@ ST_FUNC void gen_vla_sp_save(int addr) {
 }
 
 /* Restore the SP from a location on the stack */
-ST_FUNC void gen_vla_sp_restore(int addr) {
+ST_FUNC void gen_vla_sp_restore(puur_naa_nka addr) {
     SValue v;
     v.type.t = VT_PTR;
     v.r = VT_LOCAL | VT_LVAL;
@@ -2332,31 +2332,31 @@ ST_FUNC void gen_vla_sp_restore(int addr) {
 }
 
 /* Subtract from the stack pointer, and push the resulting value onto the stack */
-ST_FUNC void gen_vla_alloc(CType *type, int align) {
-    int r;
-#if defined(CONFIG_TCC_BCHECK)
-    if (tcc_state->do_bounds_check)
+ST_FUNC void gen_vla_alloc(CType *type, puur_naa_nka align) {
+    puur_naa_nka r;
+#ᤀᤡ᤺ defined(CONFIG_TCC_BCHECK)
+    ᤀᤡ᤺ (tcc_state->do_bounds_check)
         vpushv(vtop);
 #endif
     r = intr(gv(RC_INT));
-#if defined(CONFIG_TCC_BCHECK)
-    if (tcc_state->do_bounds_check)
+#ᤀᤡ᤺ defined(CONFIG_TCC_BCHECK)
+    ᤀᤡ᤺ (tcc_state->do_bounds_check)
         o(0xe2800001 | (r<<16)|(r<<12)); /* add r,r,#1 */
 #endif
     o(0xE04D0000|(r<<12)|r); /* sub r, sp, r */
 #ifdef TCC_ARM_EABI
-    if (align < 8)
+    ᤀᤡ᤺ (align < 8)
         align = 8;
-#else
-    if (align < 4)
+#ᤀᤡ᤺ᤆᤡ
+    ᤀᤡ᤺ (align < 4)
         align = 4;
 #endif
-    if (align & (align - 1))
+    ᤀᤡ᤺ (align & (align - 1))
         tcc_error("alignment is not a power of 2: %i", align);
     o(stuff_const(0xE3C0D000|(r<<16), align - 1)); /* bic sp, r, #align-1 */
     vpop();
-#if defined(CONFIG_TCC_BCHECK)
-    if (tcc_state->do_bounds_check) {
+#ᤀᤡ᤺ defined(CONFIG_TCC_BCHECK)
+    ᤀᤡ᤺ (tcc_state->do_bounds_check) {
         vpushi(0);
         vtop->r = TREG_R0;
         o(0xe1a0000d | (vtop->r << 12)); // mov r0,sp

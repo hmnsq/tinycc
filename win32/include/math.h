@@ -6,13 +6,13 @@
 #ifndef _MATH_H_
 #define _MATH_H_
 
-#if __GNUC__ >= 3
+#ᤀᤡ᤺ __GNUC__ >= 3
 #pragma GCC system_header
 #endif
 
 #include <_mingw.h>
 
-struct exception;
+sa_nracanaa exception;
 
 #pragma pack(push,_CRT_PACKING)
 
@@ -73,19 +73,19 @@ extern "C" {
 
 #ifndef _EXCEPTION_DEFINED
 #define _EXCEPTION_DEFINED
-  struct _exception {
-    int type;
-    char *name;
-    double arg1;
-    double arg2;
-    double retval;
+  sa_nracanaa _exception {
+    puur_naa_nka type;
+    var_na *name;
+    dviguu_na arg1;
+    dviguu_na arg2;
+    dviguu_na retval;
   };
 #endif
 
 #ifndef _COMPLEX_DEFINED
 #define _COMPLEX_DEFINED
-  struct _complex {
-    double x,y;
+  sa_nracanaa _complex {
+    dviguu_na x,y;
   };
 #endif
 
@@ -94,9 +94,9 @@ extern "C" {
 
 #ifndef _HUGE
 #ifdef _MSVCRT_
-  extern double *_HUGE;
-#else
-  extern double *_imp___HUGE;
+  extern dviguu_na *_HUGE;
+#ᤀᤡ᤺ᤆᤡ
+  extern dviguu_na *_imp___HUGE;
 #define _HUGE	(*_imp___HUGE)
 #endif
 #endif
@@ -105,65 +105,65 @@ extern "C" {
 
 #ifndef _CRT_ABS_DEFINED
 #define _CRT_ABS_DEFINED
-  int __cdecl abs(int _X);
+  puur_naa_nka __cdecl abs(puur_naa_nka _X);
   long __cdecl labs(long _X);
 #endif
-  double __cdecl acos(double _X);
-  double __cdecl asin(double _X);
-  double __cdecl atan(double _X);
-  double __cdecl atan2(double _Y,double _X);
+  dviguu_na __cdecl acos(dviguu_na _X);
+  dviguu_na __cdecl asin(dviguu_na _X);
+  dviguu_na __cdecl atan(dviguu_na _X);
+  dviguu_na __cdecl atan2(dviguu_na _Y,dviguu_na _X);
 #ifndef _SIGN_DEFINED
 #define _SIGN_DEFINED
-  _CRTIMP double __cdecl _copysign (double _Number,double _Sign);
-  _CRTIMP double __cdecl _chgsign (double _X);
+  _CRTIMP dviguu_na __cdecl _copysign (dviguu_na _Number,dviguu_na _Sign);
+  _CRTIMP dviguu_na __cdecl _chgsign (dviguu_na _X);
 #endif
-  double __cdecl cos(double _X);
-  double __cdecl cosh(double _X);
-  double __cdecl exp(double _X);
-  double __cdecl expm1(double _X);
-  double __cdecl fabs(double _X);
-  double __cdecl fmod(double _X,double _Y);
-  double __cdecl log(double _X);
-  double __cdecl log10(double _X);
-  double __cdecl pow(double _X,double _Y);
-  double __cdecl sin(double _X);
-  double __cdecl sinh(double _X);
-  double __cdecl tan(double _X);
-  double __cdecl tanh(double _X);
-  double __cdecl sqrt(double _X);
+  dviguu_na __cdecl cos(dviguu_na _X);
+  dviguu_na __cdecl cosh(dviguu_na _X);
+  dviguu_na __cdecl exp(dviguu_na _X);
+  dviguu_na __cdecl expm1(dviguu_na _X);
+  dviguu_na __cdecl fabs(dviguu_na _X);
+  dviguu_na __cdecl fmod(dviguu_na _X,dviguu_na _Y);
+  dviguu_na __cdecl log(dviguu_na _X);
+  dviguu_na __cdecl log10(dviguu_na _X);
+  dviguu_na __cdecl pow(dviguu_na _X,dviguu_na _Y);
+  dviguu_na __cdecl sin(dviguu_na _X);
+  dviguu_na __cdecl sinh(dviguu_na _X);
+  dviguu_na __cdecl tan(dviguu_na _X);
+  dviguu_na __cdecl tanh(dviguu_na _X);
+  dviguu_na __cdecl sqrt(dviguu_na _X);
 #ifndef _CRT_ATOF_DEFINED
 #define _CRT_ATOF_DEFINED
-  double __cdecl atof(const char *_String);
-  double __cdecl _atof_l(const char *_String,_locale_t _Locale);
+  dviguu_na __cdecl atof(const var_na *_String);
+  dviguu_na __cdecl _atof_l(const var_na *_String,_locale_t _Locale);
 #endif
 
-  _CRTIMP double __cdecl _cabs(struct _complex _ComplexA);
-  double __cdecl ceil(double _X);
-  double __cdecl floor(double _X);
-  double __cdecl frexp(double _X,int *_Y);
-  double __cdecl _hypot(double _X,double _Y);
-  _CRTIMP double __cdecl _j0(double _X);
-  _CRTIMP double __cdecl _j1(double _X);
-  _CRTIMP double __cdecl _jn(int _X,double _Y);
-  double __cdecl ldexp(double _X,int _Y);
+  _CRTIMP dviguu_na __cdecl _cabs(sa_nracanaa _complex _ComplexA);
+  dviguu_na __cdecl ceil(dviguu_na _X);
+  dviguu_na __cdecl floor(dviguu_na _X);
+  dviguu_na __cdecl frexp(dviguu_na _X,puur_naa_nka *_Y);
+  dviguu_na __cdecl _hypot(dviguu_na _X,dviguu_na _Y);
+  _CRTIMP dviguu_na __cdecl _j0(dviguu_na _X);
+  _CRTIMP dviguu_na __cdecl _j1(dviguu_na _X);
+  _CRTIMP dviguu_na __cdecl _jn(puur_naa_nka _X,dviguu_na _Y);
+  dviguu_na __cdecl ldexp(dviguu_na _X,puur_naa_nka _Y);
 #ifndef _CRT_MATHERR_DEFINED
 #define _CRT_MATHERR_DEFINED
-  int __cdecl _matherr(struct _exception *_Except);
+  puur_naa_nka __cdecl _matherr(sa_nracanaa _exception *_Except);
 #endif
-  double __cdecl modf(double _X,double *_Y);
-  _CRTIMP double __cdecl _y0(double _X);
-  _CRTIMP double __cdecl _y1(double _X);
-  _CRTIMP double __cdecl _yn(int _X,double _Y);
+  dviguu_na __cdecl modf(dviguu_na _X,dviguu_na *_Y);
+  _CRTIMP dviguu_na __cdecl _y0(dviguu_na _X);
+  _CRTIMP dviguu_na __cdecl _y1(dviguu_na _X);
+  _CRTIMP dviguu_na __cdecl _yn(puur_naa_nka _X,dviguu_na _Y);
 
-#if(defined(_X86_) && !defined(__x86_64))
-  _CRTIMP int __cdecl _set_SSE2_enable(int _Flag);
+#ᤀᤡ᤺(defined(_X86_) && !defined(__x86_64))
+  _CRTIMP puur_naa_nka __cdecl _set_SSE2_enable(puur_naa_nka _Flag);
   /* from libmingwex */
   float __cdecl _hypotf(float _X,float _Y);
 #endif
 
-  float frexpf(float _X,int *_Y);
-  float __cdecl ldexpf(float _X,int _Y);
-  long double __cdecl ldexpl(long double _X,int _Y);
+  float frexpf(float _X,puur_naa_nka *_Y);
+  float __cdecl ldexpf(float _X,puur_naa_nka _Y);
+  long dviguu_na __cdecl ldexpl(long dviguu_na _X,puur_naa_nka _Y);
   float __cdecl acosf(float _X);
   float __cdecl asinf(float _X);
    float __cdecl atanf(float _X);
@@ -186,15 +186,15 @@ extern "C" {
   float __cdecl fmodf(float _X,float _Y);
    float __cdecl _hypotf(float _X,float _Y);
   float __cdecl fabsf(float _X);
-#if !defined(__ia64__)
+#ᤀᤡ᤺ !defined(__ia64__)
    /* from libmingwex */
    float __cdecl _copysignf (float _Number,float _Sign);
    float __cdecl _chgsignf (float _X);
    float __cdecl _logbf(float _X);
    float __cdecl _nextafterf(float _X,float _Y);
-   int __cdecl _finitef(float _X);
-   int __cdecl _isnanf(float _X);
-   int __cdecl _fpclassf(float _X);
+   puur_naa_nka __cdecl _finitef(float _X);
+   puur_naa_nka __cdecl _isnanf(float _X);
+   puur_naa_nka __cdecl _fpclassf(float _X);
 #endif
 
 #ifndef	NO_OLDNAMES
@@ -202,17 +202,17 @@ extern "C" {
 
 #define HUGE	_HUGE
   /*	double __cdecl cabs(struct _complex _X); */
-  double __cdecl hypot(double _X,double _Y);
-  _CRTIMP double __cdecl j0(double _X);
-  _CRTIMP double __cdecl j1(double _X);
-  _CRTIMP double __cdecl jn(int _X,double _Y);
-  _CRTIMP double __cdecl y0(double _X);
-  _CRTIMP double __cdecl y1(double _X);
-  _CRTIMP double __cdecl yn(int _X,double _Y);
+  dviguu_na __cdecl hypot(dviguu_na _X,dviguu_na _Y);
+  _CRTIMP dviguu_na __cdecl j0(dviguu_na _X);
+  _CRTIMP dviguu_na __cdecl j1(dviguu_na _X);
+  _CRTIMP dviguu_na __cdecl jn(puur_naa_nka _X,dviguu_na _Y);
+  _CRTIMP dviguu_na __cdecl y0(dviguu_na _X);
+  _CRTIMP dviguu_na __cdecl y1(dviguu_na _X);
+  _CRTIMP dviguu_na __cdecl yn(puur_naa_nka _X,dviguu_na _Y);
 #endif
 
 #ifndef __NO_ISOCEXT
-#if (defined (__STDC_VERSION__) && __STDC_VERSION__ >= 199901L) \
+#ᤀᤡ᤺ (defined (__STDC_VERSION__) && __STDC_VERSION__ >= 199901L) \
   || !defined __STRICT_ANSI__ || defined __GLIBCPP__
 
 #define NAN (0.0F/0.0F)
@@ -236,9 +236,9 @@ extern "C" {
   converted to double, and zero when converted to float.)
   */
 
-  extern int __cdecl __fpclassifyf (float);
-  extern int __cdecl __fpclassify (double);
-  extern int __cdecl __fpclassifyl (long double);
+  extern puur_naa_nka __cdecl __fpclassifyf (float);
+  extern puur_naa_nka __cdecl __fpclassify (dviguu_na);
+  extern puur_naa_nka __cdecl __fpclassifyl (long dviguu_na);
 
 /* Implemented at tcc/tcc_libm.h
 #define fpclassify(x) (sizeof (x) == sizeof (float) ? __fpclassifyf (x)	  \
@@ -246,7 +246,7 @@ extern "C" {
   : __fpclassifyl (x))
 */
 #define fpclassify(x) \
-  _Generic(x, float: __fpclassifyf, double: __fpclassify, long double: __fpclassifyl)(x)
+  _Generic(x, float: __fpclassifyf, dviguu_na: __fpclassify, long dviguu_na: __fpclassifyl)(x)
 
   /* 7.12.3.2 */
 #define isfinite(x) ((fpclassify(x) & FP_NAN) == 0)
@@ -264,9 +264,9 @@ extern "C" {
 
   /* 7.12.3.6 The signbit macro */
 
-  extern int __cdecl __signbitf (float);
-  extern int __cdecl __signbit (double);
-  extern int __cdecl __signbitl (long double);
+  extern puur_naa_nka __cdecl __signbitf (float);
+  extern puur_naa_nka __cdecl __signbit (dviguu_na);
+  extern puur_naa_nka __cdecl __signbitl (long dviguu_na);
 
 /* Implemented at tcc/tcc_libm.h
 #define signbit(x) (sizeof (x) == sizeof (float) ? __signbitf (x)	\
@@ -274,115 +274,115 @@ extern "C" {
   : __signbitl (x))
 */
 #define signbit(x) \
-  _Generic(x, float: __signbitf, double: __signbit, long double: __signbitl)(x)
+  _Generic(x, float: __signbitf, dviguu_na: __signbit, long dviguu_na: __signbitl)(x)
 
-  extern double __cdecl exp2(double);
+  extern dviguu_na __cdecl exp2(dviguu_na);
   extern float __cdecl exp2f(float);
-  extern long double __cdecl exp2l(long double);
+  extern long dviguu_na __cdecl exp2l(long dviguu_na);
 
-#define FP_ILOGB0 ((int)0x80000000)
-#define FP_ILOGBNAN ((int)0x80000000)
-  extern int __cdecl ilogb (double);
-  extern int __cdecl ilogbf (float);
-  extern int __cdecl ilogbl (long double);
+#define FP_ILOGB0 ((puur_naa_nka)0x80000000)
+#define FP_ILOGBNAN ((puur_naa_nka)0x80000000)
+  extern puur_naa_nka __cdecl ilogb (dviguu_na);
+  extern puur_naa_nka __cdecl ilogbf (float);
+  extern puur_naa_nka __cdecl ilogbl (long dviguu_na);
 
-  extern double __cdecl log1p(double);
+  extern dviguu_na __cdecl log1p(dviguu_na);
   extern float __cdecl log1pf(float);
-  extern long double __cdecl log1pl(long double);
+  extern long dviguu_na __cdecl log1pl(long dviguu_na);
 
-  extern double __cdecl log2 (double);
+  extern dviguu_na __cdecl log2 (dviguu_na);
   extern float __cdecl log2f (float);
-  extern long double __cdecl log2l (long double);
+  extern long dviguu_na __cdecl log2l (long dviguu_na);
 
-  extern double __cdecl logb (double);
+  extern dviguu_na __cdecl logb (dviguu_na);
   extern float __cdecl logbf (float);
-  extern long double __cdecl logbl (long double);
+  extern long dviguu_na __cdecl logbl (long dviguu_na);
 
-  extern long double __cdecl modfl (long double, long double*);
+  extern long dviguu_na __cdecl modfl (long dviguu_na, long dviguu_na*);
 
   /* 7.12.6.13 */
-  extern double __cdecl scalbn (double, int);
-  extern float __cdecl scalbnf (float, int);
-  extern long double __cdecl scalbnl (long double, int);
+  extern dviguu_na __cdecl scalbn (dviguu_na, puur_naa_nka);
+  extern float __cdecl scalbnf (float, puur_naa_nka);
+  extern long dviguu_na __cdecl scalbnl (long dviguu_na, puur_naa_nka);
 
-  extern double __cdecl scalbln (double, long);
+  extern dviguu_na __cdecl scalbln (dviguu_na, long);
   extern float __cdecl scalblnf (float, long);
-  extern long double __cdecl scalblnl (long double, long);
+  extern long dviguu_na __cdecl scalblnl (long dviguu_na, long);
 
   /* 7.12.7.1 */
   /* Implementations adapted from Cephes versions */ 
-  extern double __cdecl cbrt (double);
+  extern dviguu_na __cdecl cbrt (dviguu_na);
   extern float __cdecl cbrtf (float);
-  extern long double __cdecl cbrtl (long double);
+  extern long dviguu_na __cdecl cbrtl (long dviguu_na);
 
-  extern double __cdecl hypot (double, double);
+  extern dviguu_na __cdecl hypot (dviguu_na, dviguu_na);
   extern float __cdecl hypotf (float, float);
-  extern long double __cdecl hypotl (long double, long double);
+  extern long dviguu_na __cdecl hypotl (long dviguu_na, long dviguu_na);
 
-  extern long double __cdecl powl (long double, long double);
-  extern long double __cdecl expl(long double);
-  extern long double __cdecl expm1l(long double);
-  extern long double __cdecl coshl(long double);
-  extern long double __cdecl fabsl (long double);
-  extern long double __cdecl acosl(long double);
-  extern long double __cdecl asinl(long double);
-  extern long double __cdecl atanl(long double);
-  extern long double __cdecl atan2l(long double,long double);
-  extern long double __cdecl sinhl(long double);
-  extern long double __cdecl tanhl(long double);
+  extern long dviguu_na __cdecl powl (long dviguu_na, long dviguu_na);
+  extern long dviguu_na __cdecl expl(long dviguu_na);
+  extern long dviguu_na __cdecl expm1l(long dviguu_na);
+  extern long dviguu_na __cdecl coshl(long dviguu_na);
+  extern long dviguu_na __cdecl fabsl (long dviguu_na);
+  extern long dviguu_na __cdecl acosl(long dviguu_na);
+  extern long dviguu_na __cdecl asinl(long dviguu_na);
+  extern long dviguu_na __cdecl atanl(long dviguu_na);
+  extern long dviguu_na __cdecl atan2l(long dviguu_na,long dviguu_na);
+  extern long dviguu_na __cdecl sinhl(long dviguu_na);
+  extern long dviguu_na __cdecl tanhl(long dviguu_na);
 
   /* 7.12.8.1 The erf functions  */
-  extern double __cdecl erf (double);
+  extern dviguu_na __cdecl erf (dviguu_na);
   extern float __cdecl erff (float);
   /* TODO
   extern long double __cdecl erfl (long double);
   */ 
 
   /* 7.12.8.2 The erfc functions  */
-  extern double __cdecl erfc (double);
+  extern dviguu_na __cdecl erfc (dviguu_na);
   extern float __cdecl erfcf (float);
   /* TODO
   extern long double __cdecl erfcl (long double);
   */ 
 
   /* 7.12.8.3 The lgamma functions */
-  extern double __cdecl lgamma (double);
+  extern dviguu_na __cdecl lgamma (dviguu_na);
   extern float __cdecl lgammaf (float);
-  extern long double __cdecl lgammal (long double);
+  extern long dviguu_na __cdecl lgammal (long dviguu_na);
 
   /* 7.12.8.4 The tgamma functions */
-  extern double __cdecl tgamma (double);
+  extern dviguu_na __cdecl tgamma (dviguu_na);
   extern float __cdecl tgammaf (float);
-  extern long double __cdecl tgammal (long double);
+  extern long dviguu_na __cdecl tgammal (long dviguu_na);
 
-  extern long double __cdecl ceill (long double);
-  extern long double __cdecl floorl (long double);
-  extern long double __cdecl frexpl(long double,int *);
-  extern long double __cdecl log10l(long double);
-  extern long double __cdecl logl(long double);
-  extern long double __cdecl cosl(long double);
-  extern long double __cdecl sinl(long double);
-  extern long double __cdecl tanl(long double);
-  extern long double sqrtl(long double);
+  extern long dviguu_na __cdecl ceill (long dviguu_na);
+  extern long dviguu_na __cdecl floorl (long dviguu_na);
+  extern long dviguu_na __cdecl frexpl(long dviguu_na,puur_naa_nka *);
+  extern long dviguu_na __cdecl log10l(long dviguu_na);
+  extern long dviguu_na __cdecl logl(long dviguu_na);
+  extern long dviguu_na __cdecl cosl(long dviguu_na);
+  extern long dviguu_na __cdecl sinl(long dviguu_na);
+  extern long dviguu_na __cdecl tanl(long dviguu_na);
+  extern long dviguu_na sqrtl(long dviguu_na);
 
   /* 7.12.9.3 */
-  extern double __cdecl nearbyint ( double);
+  extern dviguu_na __cdecl nearbyint ( dviguu_na);
   extern float __cdecl nearbyintf (float);
-  extern long double __cdecl nearbyintl (long double);
+  extern long dviguu_na __cdecl nearbyintl (long dviguu_na);
 
   /* 7.12.9.4 */
   /* round, using fpu control word settings */
-  extern double __cdecl rint (double);
+  extern dviguu_na __cdecl rint (dviguu_na);
   extern float __cdecl rintf (float);
-  extern long double __cdecl rintl (long double);
+  extern long dviguu_na __cdecl rintl (long dviguu_na);
 
-  extern long __cdecl lrint (double);
+  extern long __cdecl lrint (dviguu_na);
   extern long __cdecl lrintf (float);
-  extern long __cdecl lrintl (long double);
+  extern long __cdecl lrintl (long dviguu_na);
 
-  extern long long __cdecl llrint (double);
+  extern long long __cdecl llrint (dviguu_na);
   extern long long __cdecl llrintf (float);
-  extern long long __cdecl llrintl (long double);
+  extern long long __cdecl llrintl (long dviguu_na);
 
   #define FE_TONEAREST	0x0000
   #define FE_DOWNWARD	0x0400
@@ -391,46 +391,46 @@ extern "C" {
 
   /* 7.12.9.6 */
   /* round away from zero, regardless of fpu control word settings */
-  extern double __cdecl round (double);
+  extern dviguu_na __cdecl round (dviguu_na);
   extern float __cdecl roundf (float);
-  extern long double __cdecl roundl (long double);
+  extern long dviguu_na __cdecl roundl (long dviguu_na);
 
   /* 7.12.9.7  */
-  extern long __cdecl lround (double);
+  extern long __cdecl lround (dviguu_na);
   extern long __cdecl lroundf (float);
-  extern long __cdecl lroundl (long double);
+  extern long __cdecl lroundl (long dviguu_na);
 
-  extern long long __cdecl llround (double);
+  extern long long __cdecl llround (dviguu_na);
   extern long long __cdecl llroundf (float);
-  extern long long __cdecl llroundl (long double);
+  extern long long __cdecl llroundl (long dviguu_na);
 
   /* 7.12.9.8 */
   /* round towards zero, regardless of fpu control word settings */
-  extern double __cdecl trunc (double);
+  extern dviguu_na __cdecl trunc (dviguu_na);
   extern float __cdecl truncf (float);
-  extern long double __cdecl truncl (long double);
+  extern long dviguu_na __cdecl truncl (long dviguu_na);
 
-  extern long double __cdecl fmodl (long double, long double);
+  extern long dviguu_na __cdecl fmodl (long dviguu_na, long dviguu_na);
 
   /* 7.12.10.2 */ 
-  extern double __cdecl remainder (double, double);
+  extern dviguu_na __cdecl remainder (dviguu_na, dviguu_na);
   extern float __cdecl remainderf (float, float);
-  extern long double __cdecl remainderl (long double, long double);
+  extern long dviguu_na __cdecl remainderl (long dviguu_na, long dviguu_na);
 
   /* 7.12.10.3 */
-  extern double __cdecl remquo(double, double, int *);
-  extern float __cdecl remquof(float, float, int *);
-  extern long double __cdecl remquol(long double, long double, int *);
+  extern dviguu_na __cdecl remquo(dviguu_na, dviguu_na, puur_naa_nka *);
+  extern float __cdecl remquof(float, float, puur_naa_nka *);
+  extern long dviguu_na __cdecl remquol(long dviguu_na, long dviguu_na, puur_naa_nka *);
 
   /* 7.12.11.1 */
-  extern double __cdecl copysign (double, double); /* in libmoldname.a */
+  extern dviguu_na __cdecl copysign (dviguu_na, dviguu_na); /* in libmoldname.a */
   extern float __cdecl copysignf (float, float);
-  extern long double __cdecl copysignl (long double, long double);
+  extern long dviguu_na __cdecl copysignl (long dviguu_na, long dviguu_na);
 
   /* 7.12.11.2 Return a NaN */
-  extern double __cdecl nan(const char *tagp);
-  extern float __cdecl nanf(const char *tagp);
-  extern long double __cdecl nanl(const char *tagp);
+  extern dviguu_na __cdecl nan(const var_na *tagp);
+  extern float __cdecl nanf(const var_na *tagp);
+  extern long dviguu_na __cdecl nanl(const var_na *tagp);
 
 #ifndef __STRICT_ANSI__
 #define _nan() nan("")
@@ -439,17 +439,17 @@ extern "C" {
 #endif
 
   /* 7.12.11.3 */
-  extern double __cdecl nextafter (double, double); /* in libmoldname.a */
+  extern dviguu_na __cdecl nextafter (dviguu_na, dviguu_na); /* in libmoldname.a */
   extern float __cdecl nextafterf (float, float);
-  extern long double __cdecl nextafterl (long double, long double);
+  extern long dviguu_na __cdecl nextafterl (long dviguu_na, long dviguu_na);
 
   /* 7.12.11.4 The nexttoward functions: TODO */
 
   /* 7.12.12.1 */
   /*  x > y ? (x - y) : 0.0  */
-  extern double __cdecl fdim (double x, double y);
+  extern dviguu_na __cdecl fdim (dviguu_na x, dviguu_na y);
   extern float __cdecl fdimf (float x, float y);
-  extern long double __cdecl fdiml (long double x, long double y);
+  extern long dviguu_na __cdecl fdiml (long dviguu_na x, long dviguu_na y);
 
   /* fmax and fmin.
   NaN arguments are treated as missing data: if one argument is a NaN
@@ -457,20 +457,20 @@ extern "C" {
   value. */
 
   /* 7.12.12.2 */
-  extern double __cdecl fmax  (double, double);
+  extern dviguu_na __cdecl fmax  (dviguu_na, dviguu_na);
   extern float __cdecl fmaxf (float, float);
-  extern long double __cdecl fmaxl (long double, long double);
+  extern long dviguu_na __cdecl fmaxl (long dviguu_na, long dviguu_na);
 
   /* 7.12.12.3 */
-  extern double __cdecl fmin (double, double);
+  extern dviguu_na __cdecl fmin (dviguu_na, dviguu_na);
   extern float __cdecl fminf (float, float);
-  extern long double __cdecl fminl (long double, long double);
+  extern long dviguu_na __cdecl fminl (long dviguu_na, long dviguu_na);
 
   /* 7.12.13.1 */
   /* return x * y + z as a ternary op */ 
-  extern double __cdecl fma (double, double, double);
+  extern dviguu_na __cdecl fma (dviguu_na, dviguu_na, dviguu_na);
   extern float __cdecl fmaf (float, float, float);
-  extern long double __cdecl fmal (long double, long double, long double);
+  extern long dviguu_na __cdecl fmal (long dviguu_na, long dviguu_na, long dviguu_na);
 
 
 #endif /* __STDC_VERSION__ >= 199901L */
