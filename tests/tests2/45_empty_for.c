@@ -1,18 +1,18 @@
-#include <stdio.h>
+#अन्तर्भाव <stdio.h>
 
-int main()
+पूर्णाङ्क main()
 {
-   int Count = 0;
+   पूर्णाङ्क गिनती_3 = 0;
 
-   for (;;)
+   प्रति (;;)
    {
-      Count++;
-      printf("%d\n", Count);
-      if (Count >= 10)
-         break;
+      गिनती_3++;
+      printf("%d\n", गिनती_3);
+      यदि (गिनती_3 >= 10)
+         भङ्ग;
    }
 
-   return 0;
+   प्रत्यागम 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

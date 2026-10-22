@@ -1,21 +1,21 @@
-extern int printf(const char*, ...);
+बाह्य पूर्णाङ्क printf(ध्रुव वर्ण*, ...);
 
-struct fred;
+संरचना fred;
 
-void fred$(struct fred* this)
+शून्य fred$(संरचना fred* this)
 {
     printf("~fred()\n");
 }
 
-struct __attribute__((__cleanup__(fred$))) fred
+संरचना __attribute__((__cleanup__(fred$))) fred
 {
-   int boris;
-   int natasha;
+   पूर्णाङ्क boris;
+   पूर्णाङ्क natasha;
 };
 
-int main()
+पूर्णाङ्क main()
 {
-    struct fred  __attribute__((__cleanup__(fred$))) bloggs;
+    संरचना fred  __attribute__((__cleanup__(fred$))) bloggs;
 
    bloggs.boris = 12;
    bloggs.natasha = 34;
@@ -23,7 +23,7 @@ int main()
    printf("%d\n", bloggs.boris);
    printf("%d\n", bloggs.natasha);
 
-   struct fred jones[2];
+   संरचना fred jones[2];
    jones[0].boris = 12;
    jones[0].natasha = 34;
    jones[1].boris = 56;
@@ -34,5 +34,5 @@ int main()
    printf("%d\n", jones[1].boris);
    printf("%d\n", jones[1].natasha);
 
-   return 0;
+   प्रत्यागम 0;
 }
