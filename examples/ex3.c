@@ -1,23 +1,23 @@
-#include <tcclib.h>
+#ضمن <tcclib.h>
 
-int fib(int n)
+صحيح fib(صحيح n)
 {
-    if (n <= 2)
-        return 1;
-    else
-        return fib(n-1) + fib(n-2);
+    إذا (n <= 2)
+        أرجع 1;
+    وإلا
+        أرجع fib(n-1) + fib(n-2);
 }
 
-int main(int argc, char **argv)
+صحيح main(صحيح argc, حرف **argv)
 {
-    int n;
-    if (argc < 2) {
+    صحيح n;
+    إذا (argc < 2) {
         printf("usage: fib n\n"
                "Compute nth Fibonacci number\n");
-        return 1;
+        أرجع 1;
     }
 
     n = atoi(argv[1]);
     printf("fib(%d) = %d\n", n, fib(n));
-    return 0;
+    أرجع 0;
 }
