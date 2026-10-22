@@ -1,17 +1,17 @@
-#include <stdio.h>
+#ضمن <stdio.h>
 
-int main()
+صحيح main()
 {
-   char Buf[100];
-   int Count;
+   حرف Buf[100];
+   صحيح گنتی_3;
 
-   for (Count = 1; Count <= 20; Count++)
+   لكل (گنتی_3 = 1; گنتی_3 <= 20; گنتی_3++)
    {
-      sprintf(Buf, "->%02d<-\n", Count);
+      sprintf(Buf, "->%02d<-\n", گنتی_3);
       printf("%s", Buf);
    }
 
-   return 0;
+   أرجع 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/
