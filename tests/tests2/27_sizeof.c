@@ -1,18 +1,18 @@
-#include <stdio.h>
+#شامل <stdio.h>
 
-int main()
+صحیح اصلی()
 {
-   char a;
-   int b;
-   double c;
+   نویسه a;
+   صحیح b;
+   دوگانه c;
 
-   printf("%d\n", sizeof(a));
-   printf("%d\n", sizeof(b));
-   printf("%d\n", sizeof(c));
+   printf("%d\n", اندازه(a));
+   printf("%d\n", اندازه(b));
+   printf("%d\n", اندازه(c));
 
-   printf("%d\n", sizeof(!a));
+   printf("%d\n", اندازه(!a));
 
-   return 0;
+   بازگشت 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

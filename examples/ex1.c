@@ -1,8 +1,8 @@
 #!/usr/local/bin/tcc -run
-#include <tcclib.h>
+#شامل <tcclib.h>
 
-int main()
+صحیح اصلی()
 {
     printf("Hello World\n");
-    return 0;
+    بازگشت 0;
 }

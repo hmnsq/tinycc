@@ -1,21 +1,21 @@
-#include <stdio.h>
+#شامل <stdio.h>
 
-void charfunc(char a)
+تهی charfunc(نویسه a)
 {
    printf("char: %c\n", a);
 }
 
-void intfunc(int a)
+تهی intfunc(صحیح a)
 {
    printf("int: %d\n", a);
 }
 
-void floatfunc(float a)
+تهی floatfunc(اعشاری a)
 {
    printf("float: %f\n", a);
 }
 
-int main()
+صحیح اصلی()
 {
    charfunc('a');
    charfunc(98);
@@ -33,22 +33,22 @@ int main()
    /* printf("%c %d %f\n", 97, 98, 99); */
    /* printf("%c %d %f\n", 97.0, 98.0, 99.0); */
 
-   char b = 97;
-   char c = 97.0;
+   نویسه b = 97;
+   نویسه c = 97.0;
 
    printf("%d %d\n", b, c);
 
-   int d = 'a';
-   int e = 97.0;
+   صحیح d = 'a';
+   صحیح e = 97.0;
 
    printf("%d %d\n", d, e);
 
-   float f = 'a';
-   float g = 97;
+   اعشاری f = 'a';
+   اعشاری g = 97;
 
    printf("%f %f\n", f, g);
 
-   return 0;
+   بازگشت 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

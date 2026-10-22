@@ -1,18 +1,18 @@
-#include <stdio.h>
+#شامل <stdio.h>
 
-int main() 
+صحیح اصلی() 
 {
-   int a;
+   صحیح a;
    a = 42;
    printf("%d\n", a);
 
-   int b = 64;
+   صحیح b = 64;
    printf("%d\n", b);
 
-   int c = 12, d = 34;
+   صحیح c = 12, d = 34;
    printf("%d, %d\n", c, d);
 
-   return 0;
+   بازگشت 0;
 }
 
 // vim: set expandtab ts=4 sw=3 sts=3 tw=80 :

@@ -7,76 +7,76 @@
 #ifndef _TCCLIB_H
 #define _TCCLIB_H
 
-#include <stddef.h>
-#include <stdarg.h>
+#شامل <stddef.h>
+#شامل <stdarg.h>
 
 /* stdlib.h */
-void *calloc(size_t nmemb, size_t size);
-void *malloc(size_t size);
-void free(void *ptr);
-void *realloc(void *ptr, size_t size);
-int atoi(const char *nptr);
-long int strtol(const char *nptr, char **endptr, int base);
-unsigned long int strtoul(const char *nptr, char **endptr, int base);
-void exit(int);
-void *alloca(size_t);
+تهی *calloc(size_t nmemb, size_t size);
+تهی *malloc(size_t size);
+تهی آزاد(تهی *ptr);
+تهی *realloc(تهی *ptr, size_t size);
+صحیح atoi(ثابت نویسه *nptr);
+long صحیح strtol(ثابت نویسه *nptr, نویسه **endptr, صحیح base);
+unsigned long صحیح strtoul(ثابت نویسه *nptr, نویسه **endptr, صحیح base);
+تهی exit(صحیح);
+تهی *alloca(size_t);
 
 /* stdio.h */
-typedef struct __FILE FILE;
+تعریفنوع ساختار __FILE FILE;
 #define EOF (-1)
-extern FILE *stdin;
-extern FILE *stdout;
-extern FILE *stderr;
-FILE *fopen(const char *path, const char *mode);
-FILE *fdopen(int fildes, const char *mode);
-FILE *freopen(const  char *path, const char *mode, FILE *stream);
-int fclose(FILE *stream);
-size_t  fread(void *ptr, size_t size, size_t nmemb, FILE *stream);
-size_t  fwrite(void *ptr, size_t size, size_t nmemb, FILE *stream);
-int fgetc(FILE *stream);
-char *fgets(char *s, int size, FILE *stream);
-int getc(FILE *stream);
-int getchar(void);
-char *gets(char *s);
-int ungetc(int c, FILE *stream);
-int fflush(FILE *stream);
-int puts(const char *s);
-int putchar (int c);
+بیرونی FILE *stdin;
+بیرونی FILE *stdout;
+بیرونی FILE *stderr;
+FILE *fopen(ثابت نویسه *path, ثابت نویسه *mode);
+FILE *fdopen(صحیح fildes, ثابت نویسه *mode);
+FILE *freopen(ثابت  نویسه *path, ثابت نویسه *mode, FILE *stream);
+صحیح fclose(FILE *stream);
+size_t  fread(تهی *ptr, size_t size, size_t nmemb, FILE *stream);
+size_t  fwrite(تهی *ptr, size_t size, size_t nmemb, FILE *stream);
+صحیح fgetc(FILE *stream);
+نویسه *fgets(نویسه *s, صحیح size, FILE *stream);
+صحیح getc(FILE *stream);
+صحیح getchar(تهی);
+نویسه *gets(نویسه *s);
+صحیح ungetc(صحیح c, FILE *stream);
+صحیح fflush(FILE *stream);
+صحیح puts(ثابت نویسه *s);
+صحیح putchar (صحیح c);
 
-int printf(const char *format, ...);
-int fprintf(FILE *stream, const char *format, ...);
-int sprintf(char *str, const char *format, ...);
-int snprintf(char *str, size_t size, const  char  *format, ...);
-int asprintf(char **strp, const char *format, ...);
-int dprintf(int fd, const char *format, ...);
-int vprintf(const char *format, va_list ap);
-int vfprintf(FILE  *stream,  const  char *format, va_list ap);
-int vsprintf(char *str, const char *format, va_list ap);
-int vsnprintf(char *str, size_t size, const char  *format, va_list ap);
-int vasprintf(char  **strp,  const  char *format, va_list ap);
-int vdprintf(int fd, const char *format, va_list ap);
+صحیح printf(ثابت نویسه *format, ...);
+صحیح fprintf(FILE *stream, ثابت نویسه *format, ...);
+صحیح sprintf(نویسه *str, ثابت نویسه *format, ...);
+صحیح snprintf(نویسه *str, size_t size, ثابت  نویسه  *format, ...);
+صحیح asprintf(نویسه **strp, ثابت نویسه *format, ...);
+صحیح dprintf(صحیح fd, ثابت نویسه *format, ...);
+صحیح vprintf(ثابت نویسه *format, va_list ap);
+صحیح vfprintf(FILE  *stream,  ثابت  نویسه *format, va_list ap);
+صحیح vsprintf(نویسه *str, ثابت نویسه *format, va_list ap);
+صحیح vsnprintf(نویسه *str, size_t size, ثابت نویسه  *format, va_list ap);
+صحیح vasprintf(نویسه  **strp,  ثابت  نویسه *format, va_list ap);
+صحیح vdprintf(صحیح fd, ثابت نویسه *format, va_list ap);
 
-void perror(const char *s);
+تهی perror(ثابت نویسه *s);
 
 /* string.h */
-char *strcat(char *dest, const char *src);
-char *strchr(const char *s, int c);
-char *strrchr(const char *s, int c);
-char *strcpy(char *dest, const char *src);
-void *memcpy(void *dest, const void *src, size_t n);
-void *memmove(void *dest, const void *src, size_t n);
-void *memset(void *s, int c, size_t n);
-char *strdup(const char *s);
-size_t strlen(const char *s);
+نویسه *strcat(نویسه *dest, ثابت نویسه *src);
+نویسه *strchr(ثابت نویسه *s, صحیح c);
+نویسه *strrchr(ثابت نویسه *s, صحیح c);
+نویسه *strcpy(نویسه *dest, ثابت نویسه *src);
+تهی *memcpy(تهی *dest, ثابت تهی *src, size_t n);
+تهی *memmove(تهی *dest, ثابت تهی *src, size_t n);
+تهی *memset(تهی *s, صحیح c, size_t n);
+نویسه *strdup(ثابت نویسه *s);
+size_t strlen(ثابت نویسه *s);
 
 /* dlfcn.h */
 #define RTLD_LAZY       0x001
 #define RTLD_NOW        0x002
 #define RTLD_GLOBAL     0x100
 
-void *dlopen(const char *filename, int flag);
-const char *dlerror(void);
-void *dlsym(void *handle, char *symbol);
-int dlclose(void *handle);
+تهی *dlopen(ثابت نویسه *filename, صحیح flag);
+ثابت نویسه *dlerror(تهی);
+تهی *dlsym(تهی *handle, نویسه *نماد);
+صحیح dlclose(تهی *handle);
 
 #endif /* _TCCLIB_H */

@@ -23,21 +23,21 @@
 
 #define _GNU_SOURCE
 #define _DARWIN_C_SOURCE
-#include "config.h"
+#شامل "config.h"
 
-#include <stdarg.h>
-#include <stdlib.h>
-#include <stdio.h>
+#شامل <stdarg.h>
+#شامل <stdlib.h>
+#شامل <stdio.h>
 /* gnu headers use to #define __attribute__ to empty for non-gcc compilers */
 #ifdef __TINYC__
 # undef __attribute__
 #endif
-#include <string.h>
-#include <errno.h>
-#include <math.h>
-#include <fcntl.h>
-#include <setjmp.h>
-#include <time.h>
+#شامل <string.h>
+#شامل <errno.h>
+#شامل <math.h>
+#شامل <fcntl.h>
+#شامل <setjmp.h>
+#شامل <time.h>
 
 #ifndef _WIN32
 # include <unistd.h>
@@ -46,8 +46,8 @@
 #  include <dlfcn.h>
 # endif
 /* XXX: need to define this to use them in non ISOC99 context */
-extern float strtof (const char *__nptr, char **__endptr);
-extern long double strtold (const char *__nptr, char **__endptr);
+بیرونی اعشاری strtof (ثابت نویسه *__nptr, نویسه **__endptr);
+بیرونی long دوگانه strtold (ثابت نویسه *__nptr, نویسه **__endptr);
 #endif
 
 #ifdef _WIN32
@@ -62,12 +62,12 @@ extern long double strtold (const char *__nptr, char **__endptr);
 # ifndef _MSC_VER
 #  include <stdint.h>
 # endif
-# define inline __inline
+# define درونخطی __inline
 # define snprintf _snprintf
 # define vsnprintf _vsnprintf
 # ifndef __GNUC__
-#  define strtold (long double)strtod
-#  define strtof (float)strtod
+#  define strtold (long دوگانه)strtod
+#  define strtof (اعشاری)strtod
 #  define strtoll _strtoi64
 #  define strtoull _strtoui64
 # endif
@@ -92,7 +92,7 @@ extern long double strtold (const char *__nptr, char **__endptr);
 #   define __x86_64__ 1
 #  endif
 # endif
-# if defined(_M_ARM64) && !defined(__aarch64__)
+# اگر defined(_M_ARM64) && !defined(__aarch64__)
 #  define __aarch64__ 1
 # endif
 # ifndef va_copy
@@ -100,27 +100,27 @@ extern long double strtold (const char *__nptr, char **__endptr);
 # endif
 #endif
 
-#ifndef O_BINARY
-# define O_BINARY 0
+#ifndef O_دودویی_2
+# define O_دودویی_2 0
 #endif
 
 #ifndef offsetof
 #ifdef __clang__ // clang -fsanitize compains about: NULL+value
 #define offsetof(type, field) __builtin_offsetof(type, field)
-#else
+#وگرنه
 #define offsetof(type, field) ((size_t) &((type *)0)->field)
 #endif
 #endif
 
 #ifndef countof
-#define countof(tab) (sizeof(tab) / sizeof((tab)[0]))
+#define countof(tab) (اندازه(tab) / اندازه((tab)[0]))
 #endif
 
 #ifdef _MSC_VER
 # define NORETURN __declspec(noreturn)
 # define ALIGNED(x) __declspec(align(x))
 # define PRINTF_LIKE(x,y)
-#else
+#وگرنه
 # define NORETURN __attribute__((noreturn))
 # define ALIGNED(x) __attribute__((aligned(x)))
 # define PRINTF_LIKE(x,y) __attribute__ ((format (printf, (x), (y))))
@@ -131,7 +131,7 @@ extern long double strtold (const char *__nptr, char **__endptr);
 # define IS_ABSPATH(p) (IS_DIRSEP(p[0]) || (p[0] && p[1] == ':' && IS_DIRSEP(p[2])))
 # define PATHCMP stricmp
 # define PATHSEP ";"
-#else
+#وگرنه
 # define IS_DIRSEP(c) (c == '/')
 # define IS_ABSPATH(p) IS_DIRSEP(p[0])
 # define PATHCMP strcmp
@@ -160,10 +160,10 @@ extern long double strtold (const char *__nptr, char **__endptr);
 /* #define TCC_TARGET_RISCV64 *//* risc-v code generator */
 
 /* default target is I386 */
-#if !defined(TCC_TARGET_I386) && !defined(TCC_TARGET_ARM) && \
+#اگر !defined(TCC_TARGET_I386) && !defined(TCC_TARGET_ARM) && \
     !defined(TCC_TARGET_ARM64) && !defined(TCC_TARGET_C67) && \
     !defined(TCC_TARGET_X86_64) && !defined(TCC_TARGET_RISCV64)
-# if defined __x86_64__
+# اگر defined __x86_64__
 #  define TCC_TARGET_X86_64
 # elif defined __arm__
 #  define TCC_TARGET_ARM
@@ -174,7 +174,7 @@ extern long double strtold (const char *__nptr, char **__endptr);
 #  define TCC_TARGET_ARM64
 # elif defined __riscv
 #  define TCC_TARGET_RISCV64
-# else
+# وگرنه
 #  define TCC_TARGET_I386
 # endif
 # ifdef _WIN32
@@ -186,9 +186,9 @@ extern long double strtold (const char *__nptr, char **__endptr);
 #endif
 
 /* only native compiler supports -run */
-#if defined _WIN32 == defined TCC_TARGET_PE \
+#اگر defined _WIN32 == defined TCC_TARGET_PE \
     && defined __APPLE__ == defined TCC_TARGET_MACHO
-# if defined __i386__ && defined TCC_TARGET_I386
+# اگر defined __i386__ && defined TCC_TARGET_I386
 #  define TCC_IS_NATIVE
 # elif defined __x86_64__ && defined TCC_TARGET_X86_64
 #  define TCC_IS_NATIVE
@@ -201,42 +201,42 @@ extern long double strtold (const char *__nptr, char **__endptr);
 # endif
 #endif
 
-#if defined CONFIG_TCC_BACKTRACE && CONFIG_TCC_BACKTRACE==0
+#اگر defined CONFIG_TCC_BACKTRACE && CONFIG_TCC_BACKTRACE==0
 # undef CONFIG_TCC_BACKTRACE
-#else
+#وگرنه
 # define CONFIG_TCC_BACKTRACE 1 /* enable builtin stack backtraces */
 #endif
 
-#if defined CONFIG_TCC_BCHECK && CONFIG_TCC_BCHECK==0
+#اگر defined CONFIG_TCC_BCHECK && CONFIG_TCC_BCHECK==0
 #  undef CONFIG_TCC_BCHECK
-#else
+#وگرنه
 #  define CONFIG_TCC_BCHECK 1 /* enable bound checking code */
 #endif
 
-#if defined CONFIG_NEW_MACHO && CONFIG_NEW_MACHO==0
+#اگر defined CONFIG_NEW_MACHO && CONFIG_NEW_MACHO==0
 #  undef CONFIG_NEW_MACHO
-#else
+#وگرنه
 #  define CONFIG_NEW_MACHO 1 /* enable new macho code */
 #endif
 
-#if defined TARGETOS_OpenBSD \
+#اگر defined TARGETOS_OpenBSD \
     || defined TARGETOS_FreeBSD \
     || defined TARGETOS_NetBSD \
     || defined TARGETOS_FreeBSD_kernel
 # define TARGETOS_BSD 1
-#elif !(defined TCC_TARGET_PE || defined TCC_TARGET_MACHO)
+#وگرنهاگر !(defined TCC_TARGET_PE || defined TCC_TARGET_MACHO)
 # define TARGETOS_Linux 1 /* for tccdefs_.h */
 #endif
 
-#if defined TCC_TARGET_PE || defined TCC_TARGET_MACHO
+#اگر defined TCC_TARGET_PE || defined TCC_TARGET_MACHO
 # define ELF_OBJ_ONLY /* create elf .o but native executables */
-#else
+#وگرنه
 # define TCC_TARGET_UNIX 1
 #endif
 
 /* No ten-byte long doubles on window and macos except in
    cross-compilers made by a mingw-GCC */
-#if defined TCC_TARGET_PE \
+#اگر defined TCC_TARGET_PE \
     || (defined TCC_TARGET_MACHO && defined TCC_TARGET_ARM64)
 # define TCC_USING_DOUBLE_FOR_LDOUBLE 1
 #endif
@@ -256,14 +256,14 @@ extern long double strtold (const char *__nptr, char **__endptr);
 # define CONFIG_SYSROOT ""
 #endif
 
-#if !defined CONFIG_TCCDIR && !defined _WIN32
+#اگر !defined CONFIG_TCCDIR && !defined _WIN32
 # define CONFIG_TCCDIR "/usr/local/lib/tcc"
 #endif
 
 #ifdef CONFIG_TRIPLET
 # define USE_TRIPLET(s) s "/" CONFIG_TRIPLET
 # define ALSO_TRIPLET(s) USE_TRIPLET(s) PATHSEP s
-#else
+#وگرنه
 # define USE_TRIPLET(s) s
 # define ALSO_TRIPLET(s) s
 #endif
@@ -278,10 +278,10 @@ extern long double strtold (const char *__nptr, char **__endptr);
 
 /* system include paths */
 #ifndef CONFIG_TCC_SYSINCLUDEPATHS
-# if defined TCC_TARGET_PE || defined _WIN32
+# اگر defined TCC_TARGET_PE || defined _WIN32
 #  define CONFIG_TCC_SYSINCLUDEPATHS \
     "{B}/include" PATHSEP "{B}/include/winapi"
-# else
+# وگرنه
 #  define CONFIG_TCC_SYSINCLUDEPATHS \
     "{B}/include" PATHSEP ALSO_TRIPLET(CONFIG_SYSROOT "/usr/include")
 # endif
@@ -289,10 +289,10 @@ extern long double strtold (const char *__nptr, char **__endptr);
 
 /* library search paths */
 #ifndef CONFIG_TCC_LIBPATHS
-# if defined TCC_TARGET_PE || defined _WIN32
+# اگر defined TCC_TARGET_PE || defined _WIN32
 #  define CONFIG_TCC_LIBPATHS \
     "{B}/lib"
-# else
+# وگرنه
 #  define CONFIG_TCC_LIBPATHS \
     "{B}" PATHSEP ALSO_TRIPLET(CONFIG_SYSROOT "/usr/lib")
 # endif
@@ -300,7 +300,7 @@ extern long double strtold (const char *__nptr, char **__endptr);
 
 /* name of ELF interpreter */
 #ifndef CONFIG_TCC_ELFINTERP
-# if defined __GNU__
+# اگر defined __GNU__
 #  define CONFIG_TCC_ELFINTERP "/lib/ld.so"
 # elif defined(TCC_TARGET_PE)
 #  define CONFIG_TCC_ELFINTERP "-"
@@ -313,7 +313,7 @@ extern long double strtold (const char *__nptr, char **__endptr);
 # elif defined(TCC_TARGET_ARM)
 #  define CONFIG_TCC_ELFINTERP "/lib/ld-linux.so.3"
 #  define CONFIG_TCC_ELFINTERP_ARMHF "/lib/ld-linux-armhf.so.3"
-# else
+# وگرنه
 #  define CONFIG_TCC_ELFINTERP "/lib/ld-linux.so.2"
 # endif
 #endif
@@ -330,10 +330,10 @@ extern long double strtold (const char *__nptr, char **__endptr);
 
 /* -------------------------------------------- */
 
-#include "libtcc.h"
-#include "elf.h"
-#include "stab.h"
-#include "dwarf.h"
+#شامل "libtcc.h"
+#شامل "elf.h"
+#شامل "stab.h"
+#شامل "dwarf.h"
 
 /* -------------------------------------------- */
 
@@ -345,19 +345,19 @@ extern long double strtold (const char *__nptr, char **__endptr);
 # define ONE_SOURCE 0
 #endif
 
-#if ONE_SOURCE
-#define ST_INLN static inline
-#define ST_FUNC static
-#define ST_DATA static
-#else
+#اگر ONE_SOURCE
+#define ST_INLN ایستا درونخطی
+#define ST_FUNC ایستا
+#define ST_DATA ایستا
+#وگرنه
 #define ST_INLN
 #define ST_FUNC
-#define ST_DATA extern
+#define ST_DATA بیرونی
 #endif
 
 #ifdef TCC_PROFILE /* profile all functions */
-# define static
-# define inline
+# define ایستا
+# define درونخطی
 #endif
 
 /* -------------------------------------------- */
@@ -367,41 +367,41 @@ extern long double strtold (const char *__nptr, char **__endptr);
 #ifdef TCC_TARGET_I386
 # include "i386-gen.c"
 # include "i386-link.c"
-#elif defined TCC_TARGET_X86_64
+#وگرنهاگر defined TCC_TARGET_X86_64
 # include "x86_64-gen.c"
 # include "x86_64-link.c"
-#elif defined TCC_TARGET_ARM
+#وگرنهاگر defined TCC_TARGET_ARM
 # include "arm-gen.c"
 # include "arm-link.c"
 # include "arm-asm.c"
-#elif defined TCC_TARGET_ARM64
+#وگرنهاگر defined TCC_TARGET_ARM64
 # include "arm64-gen.c"
 # include "arm64-link.c"
 # include "arm64-asm.c"
-#elif defined TCC_TARGET_C67
+#وگرنهاگر defined TCC_TARGET_C67
 # define TCC_TARGET_COFF
 # include "coff.h"
 # include "c67-gen.c"
 # include "c67-link.c"
-#elif defined(TCC_TARGET_RISCV64)
+#وگرنهاگر defined(TCC_TARGET_RISCV64)
 # include "riscv64-gen.c"
 # include "riscv64-link.c"
 # include "riscv64-asm.c"
-#else
+#وگرنه
 #error unknown target
 #endif
 #undef TARGET_DEFS_ONLY
 
 /* -------------------------------------------- */
 
-#if PTR_SIZE == 8
+#اگر PTR_SIZE == 8
 # define ELFCLASSW ELFCLASS64
 # define ElfW(type) Elf##64##_##type
 # define ELFW(type) ELF##64##_##type
 # define ElfW_Rel ElfW(Rela)
 # define SHT_RELX SHT_RELA
 # define REL_SECTION_FMT ".rela%s"
-#else
+#وگرنه
 # define ELFCLASSW ELFCLASS32
 # define ElfW(type) Elf##32##_##type
 # define ELFW(type) ELF##32##_##type
@@ -413,90 +413,90 @@ extern long double strtold (const char *__nptr, char **__endptr);
 #define addr_t ElfW(Addr)
 #define ElfSym ElfW(Sym)
 
-#if PTR_SIZE == 8 && !defined TCC_TARGET_PE
+#اگر PTR_SIZE == 8 && !defined TCC_TARGET_PE
 # define LONG_SIZE 8
-#else
+#وگرنه
 # define LONG_SIZE 4
 #endif
 
 /* -------------------------------------------- */
 
-#define INCLUDE_STACK_SIZE  32
-#define IFDEF_STACK_SIZE    64
+#define INCLUDE_پشته_SIZE  32
+#define IFDEF_پشته_SIZE    64
 #define VSTACK_SIZE         512
 #define STRING_MAX_SIZE     1024
 #define TOKSTR_MAX_SIZE     256
-#define PACK_STACK_SIZE     8
+#define PACK_پشته_SIZE     8
 
 #define TOK_HASH_SIZE       16384 /* must be a power of two */
 #define TOK_ALLOC_INCR      512  /* must be a power of two */
 #define TOK_MAX_SIZE        4 /* token max size in int unit when stored in string */
 
 /* token symbol management */
-typedef struct TokenSym {
-    struct TokenSym *hash_next;
-    struct Sym *sym_define; /* direct pointer to define */
-    struct Sym *sym_label; /* direct pointer to label */
-    struct Sym *sym_struct; /* direct pointer to structure */
-    struct Sym *sym_identifier; /* direct pointer to identifier */
-    int tok; /* token number */
-    int len;
-    char str[1];
+تعریفنوع ساختار TokenSym {
+    ساختار TokenSym *hash_next;
+    ساختار Sym *sym_define; /* direct pointer to define */
+    ساختار Sym *sym_label; /* direct pointer to label */
+    ساختار Sym *sym_struct; /* direct pointer to structure */
+    ساختار Sym *sym_identifier; /* direct pointer to identifier */
+    صحیح tok; /* token number */
+    صحیح len;
+    نویسه str[1];
 } TokenSym;
 
 #ifdef TCC_TARGET_PE
-typedef unsigned short nwchar_t;
-#else
-typedef int nwchar_t;
+تعریفنوع unsigned short nwchar_t;
+#وگرنه
+تعریفنوع صحیح nwchar_t;
 #endif
 
-typedef struct CString {
-    int size; /* size in bytes */
-    int size_allocated;
-    char *data; /* nwchar_t* in cases */
+تعریفنوع ساختار CString {
+    صحیح size; /* size in bytes */
+    صحیح size_allocated;
+    نویسه *data; /* nwchar_t* in cases */
 } CString;
 
 /* type definition */
-typedef struct CType {
-    int t;
-    struct Sym *ref;
+تعریفنوع ساختار CType {
+    صحیح t;
+    ساختار Sym *ref;
 } CType;
 
 /* long double words on host(!) platform */
-#define LDOUBLE_WORDS ((sizeof(long double)+3)/4)
+#define LDOUBLE_واژگان ((اندازه(long دوگانه)+3)/4)
 
 /* constant value */
-typedef union CValue {
-    long double ld;
-    double d;
-    float f;
+تعریفنوع اجتماع CValue {
+    long دوگانه ld;
+    دوگانه d;
+    اعشاری f;
     uint64_t i;
-    struct {
-        char *data;
-        int size;
+    ساختار {
+        نویسه *data;
+        صحیح size;
     } str;
-    int tab[LDOUBLE_WORDS];
+    صحیح tab[LDOUBLE_واژگان];
 } CValue;
 
 /* value on stack */
-typedef struct SValue {
+تعریفنوع ساختار SValue {
     CType type;      /* type */
     unsigned short r;      /* register + flags */
     unsigned short r2;     /* second register, used for 'long long'
                               type. If not used, set to VT_CONST */
-    union {
-      struct { int jtrue, jfalse; }; /* forward jmps */
+    اجتماع {
+      ساختار { صحیح jtrue, jfalse; }; /* forward jmps */
       CValue c;         /* constant, if VT_CONST */
     };
-    union {
-      struct { unsigned short cmp_op, cmp_r; }; /* VT_CMP operation */
-      struct Sym *sym;  /* symbol, if (VT_SYM | VT_CONST), or if */
+    اجتماع {
+      ساختار { unsigned short cmp_op, cmp_r; }; /* VT_CMP operation */
+      ساختار Sym *sym;  /* symbol, if (VT_SYM | VT_CONST), or if */
     };                  /* result of unary() for an identifier. */
 
 } SValue;
 
 /* symbol attributes */
-struct SymAttr {
+ساختار SymAttr {
     unsigned short
     aligned     : 5, /* alignment as log2+1 (0 == unspecified) */
     packed      : 1,
@@ -511,7 +511,7 @@ struct SymAttr {
 };
 
 /* function attributes or temporary attributes for parsing */
-struct FuncAttr {
+ساختار FuncAttr {
     unsigned
     func_call   : 3, /* calling convention (0..5), see below */
     func_type   : 2, /* FUNC_OLD/NEW/ELLIPSIS */
@@ -524,71 +524,71 @@ struct FuncAttr {
 };
 
 /* symbol management */
-typedef struct Sym {
-    int v; /* symbol token */
+تعریفنوع ساختار Sym {
+    صحیح v; /* symbol token */
     unsigned short r; /* associated register or VT_CONST/VT_LOCAL and LVAL type */
-    struct SymAttr a; /* symbol attributes */
-    union {
-        struct {
-            int c; /* associated number or Elf symbol index */
-            union {
-                int sym_scope; /* scope level for locals */
-                int jnext; /* next jump label */
-                int jind; /* label position */
-                struct FuncAttr f; /* function attributes */
-                int auxtype; /* bitfield access type */
+    ساختار SymAttr a; /* symbol attributes */
+    اجتماع {
+        ساختار {
+            صحیح c; /* associated number or Elf symbol index */
+            اجتماع {
+                صحیح sym_scope; /* scope level for locals */
+                صحیح jnext; /* next jump label */
+                صحیح jind; /* label position */
+                ساختار FuncAttr f; /* function attributes */
+                صحیح auxtype; /* bitfield access type */
             };
         };
         long long enum_val; /* enum constant if IS_ENUM_VAL */
-        int *d; /* define token stream */
-        struct Sym *cleanup_func;
+        صحیح *d; /* define token stream */
+        ساختار Sym *cleanup_func;
     };
 
     CType type; /* associated type */
-    union {
-        struct Sym *next; /* next related symbol (for fields and anoms) */
-        int *e; /* expanded token stream with preprocessor macros */
-        int asm_label; /* associated asm label */
-        struct Sym *cleanupstate; /* in defined labels */
-        int *vla_array_str; /* vla array code */
+    اجتماع {
+        ساختار Sym *next; /* next related symbol (for fields and anoms) */
+        صحیح *e; /* expanded token stream with preprocessor macros */
+        صحیح asm_label; /* associated asm label */
+        ساختار Sym *cleanupstate; /* in defined labels */
+        صحیح *vla_array_str; /* vla array code */
     };
-    struct Sym *prev; /* prev symbol in stack */
-    union {
-        struct Sym *prev_tok; /* previous symbol for this token */
-        struct Sym *cleanup_sym; /* symbol from __attribute__((cleanup())) */
-        struct Sym *cleanup_label; /* label in 'pending_gotos' chain */
+    ساختار Sym *prev; /* prev symbol in stack */
+    اجتماع {
+        ساختار Sym *prev_tok; /* previous symbol for this token */
+        ساختار Sym *cleanup_sym; /* symbol from __attribute__((cleanup())) */
+        ساختار Sym *cleanup_label; /* label in 'pending_gotos' chain */
     };
 } Sym;
 
 /* section definition */
-typedef struct Section {
+تعریفنوع ساختار Section {
     unsigned long data_offset; /* current data offset */
-    unsigned char *data;       /* section data */
+    unsigned نویسه *data;       /* section data */
     unsigned long data_allocated; /* used for realloc() handling */
     TCCState *s1;
-    int sh_name;             /* elf section name (only used during output) */
-    int sh_num;              /* elf section number */
-    int sh_type;             /* elf section type */
-    int sh_flags;            /* elf section flags */
-    int sh_info;             /* elf section info */
-    int sh_addralign;        /* elf section alignment */
-    int sh_entsize;          /* elf entry size */
+    صحیح sh_name;             /* elf section name (only used during output) */
+    صحیح sh_رقم;              /* elf section number */
+    صحیح sh_type;             /* elf section type */
+    صحیح sh_flags;            /* elf section flags */
+    صحیح sh_info;             /* elf section info */
+    صحیح sh_addralign;        /* elf section alignment */
+    صحیح sh_entsize;          /* elf entry size */
     unsigned long sh_size;   /* section size (only used during output) */
     addr_t sh_addr;          /* address at which the section is relocated */
     unsigned long sh_offset; /* file offset */
-    int nb_hashed_syms;      /* used to resize the hash table */
-    struct Section *link;    /* link to another section */
-    struct Section *reloc;   /* corresponding section for relocation, if any */
-    struct Section *hash;    /* hash table for symbols */
-    struct Section *prev;    /* previous section on section stack */
-    char name[1];           /* section name */
+    صحیح nb_hashed_syms;      /* used to resize the hash table */
+    ساختار Section *link;    /* link to another section */
+    ساختار Section *reloc;   /* corresponding section for relocation, if any */
+    ساختار Section *hash;    /* hash table for symbols */
+    ساختار Section *prev;    /* previous section on section stack */
+    نویسه name[1];           /* section name */
 } Section;
 
-typedef struct DLLReference {
-    int level;
-    void *handle;
-    unsigned char found, index;
-    char name[1];
+تعریفنوع ساختار DLLReference {
+    صحیح level;
+    تهی *handle;
+    unsigned نویسه found, index;
+    نویسه name[1];
 } DLLReference;
 
 /* -------------------------------------------------- */
@@ -631,217 +631,217 @@ typedef struct DLLReference {
 
 #define IO_BUF_SIZE 8192
 
-typedef struct BufferedFile {
+تعریفنوع ساختار BufferedFile {
     uint8_t *buf_ptr;
     uint8_t *buf_end;
-    int fd;
-    struct BufferedFile *prev;
-    int line_num;    /* current line number - here to simplify code */
-    int line_ref;    /* tcc -E: last printed line */
-    int ifndef_macro;  /* #ifndef macro / #endif search */
-    int ifndef_macro_saved; /* saved ifndef_macro */
-    int *ifdef_stack_ptr; /* ifdef_stack value at the start of the file */
-    int include_next_index; /* next search path */
-    int prev_tok_flags; /* saved tok_flags */
-    char filename[1024];    /* filename */
-    char *true_filename; /* filename not modified by # line directive */
-    unsigned char unget[4];
-    unsigned char buffer[1]; /* extra size for CH_EOB char */
+    صحیح fd;
+    ساختار BufferedFile *prev;
+    صحیح سطر_رقم;    /* current line number - here to simplify code */
+    صحیح سطر_ref;    /* tcc -E: last printed line */
+    صحیح ifndef_macro;  /* #ifndef macro / #endif search */
+    صحیح ifndef_macro_saved; /* saved ifndef_macro */
+    صحیح *ifdef_پشته_ptr; /* ifdef_stack value at the start of the file */
+    صحیح include_next_index; /* next search path */
+    صحیح prev_tok_flags; /* saved tok_flags */
+    نویسه filename[1024];    /* filename */
+    نویسه *true_filename; /* filename not modified by # line directive */
+    unsigned نویسه unget[4];
+    unsigned نویسه buffer[1]; /* extra size for CH_EOB char */
 } BufferedFile;
 
 #define CH_EOB   '\\'       /* end of buffer or '\0' char in file */
 #define CH_EOF   (-1)   /* end of file */
 
 /* used to record tokens */
-typedef struct TokenString {
-    int *str;
-    int len;
-    int need_spc;
-    int allocated_len;
-    int last_line_num;
-    int save_line_num;
+تعریفنوع ساختار TokenString {
+    صحیح *str;
+    صحیح len;
+    صحیح need_spc;
+    صحیح allocated_len;
+    صحیح last_سطر_رقم;
+    صحیح save_سطر_رقم;
     /* used to chain token-strings with begin/end_macro() */
-    struct TokenString *prev;
-    const int *prev_ptr;
-    char alloc;
+    ساختار TokenString *prev;
+    ثابت صحیح *prev_ptr;
+    نویسه alloc;
 } TokenString;
 
 /* GNUC attribute definition */
-typedef struct AttributeDef {
-    struct SymAttr a;
-    struct FuncAttr f;
-    struct Section *section;
+تعریفنوع ساختار AttributeDef {
+    ساختار SymAttr a;
+    ساختار FuncAttr f;
+    ساختار Section *section;
     Sym *cleanup_func;
-    int alias_target; /* token */
-    int asm_label; /* associated asm label */
-    char attr_mode; /* __attribute__((__mode__(...))) */
-    char new_section; /* section is new */
+    صحیح alias_target; /* token */
+    صحیح asm_label; /* associated asm label */
+    نویسه attr_mode; /* __attribute__((__mode__(...))) */
+    نویسه new_section; /* section is new */
 } AttributeDef;
 
 /* inline functions */
-typedef struct InlineFunc {
+تعریفنوع ساختار InlineFunc {
     TokenString *func_str;
     Sym *sym;
-    char filename[1];
+    نویسه filename[1];
 } InlineFunc;
 
 /* include file cache, used to find files faster and also to eliminate
    inclusion if the include file is protected by #ifndef ... #endif */
-typedef struct CachedInclude {
-    int ifndef_macro;
-    int once;
-    int hash_next; /* -1 if none */
-    char filename[1]; /* path specified in #include */
+تعریفنوع ساختار CachedInclude {
+    صحیح ifndef_macro;
+    صحیح once;
+    صحیح hash_next; /* -1 if none */
+    نویسه filename[1]; /* path specified in #include */
 } CachedInclude;
 
 #define CACHED_INCLUDES_HASH_SIZE 32
 
 #ifdef CONFIG_TCC_ASM
-typedef struct ExprValue {
+تعریفنوع ساختار عبارت_مقدار {
     uint64_t v;
     Sym *sym;
-    int pcrel;
-} ExprValue;
+    صحیح pcrel;
+} عبارت_مقدار;
 
 #define MAX_ASM_OPERANDS 30
-typedef struct ASMOperand {
-    int id; /* GCC 3 optional identifier (0 if number only supported) */
-    char constraint[16];
-    char asm_str[16]; /* computed asm string for operand */
+تعریفنوع ساختار ASMOperand {
+    صحیح id; /* GCC 3 optional identifier (0 if number only supported) */
+    نویسه constraint[16];
+    نویسه asm_str[16]; /* computed asm string for operand */
     SValue *vt; /* C value of the expression */
-    int ref_index; /* if >= 0, gives reference to a output constraint */
-    int input_index; /* if >= 0, gives reference to an input constraint */
-    int priority; /* priority, used to assign registers */
-    int reg; /* if >= 0, register number used for this operand */
-    int is_llong; /* true if double register value */
-    int is_memory; /* true if memory operand */
-    int is_rw;     /* for '+' modifier */
-    int is_label;  /* for asm goto */
+    صحیح ref_index; /* if >= 0, gives reference to a output constraint */
+    صحیح درون_داد_index; /* if >= 0, gives reference to an input constraint */
+    صحیح priority; /* priority, used to assign registers */
+    صحیح reg; /* if >= 0, register number used for this operand */
+    صحیح is_llong; /* true if double register value */
+    صحیح is_memory; /* true if memory operand */
+    صحیح is_rw;     /* for '+' modifier */
+    صحیح is_label;  /* for asm goto */
 } ASMOperand;
 #endif
 
 /* extra symbol attributes (not in symbol table) */
-struct sym_attr {
+ساختار sym_attr {
     unsigned got_offset;
     unsigned plt_offset;
-    int plt_sym;
-    int dyn_index;
-    unsigned char linker_sym:1;
+    صحیح plt_sym;
+    صحیح dyn_index;
+    unsigned نویسه linker_sym:1;
 #ifdef TCC_TARGET_ARM
-    unsigned char plt_thumb_stub:1;
+    unsigned نویسه plt_thumb_stub:1;
 #endif
 };
 
-struct TCCState {
-    unsigned char verbose; /* if true, display some information during compilation */
-    unsigned char nostdinc; /* if true, no standard headers are added */
-    unsigned char nostdlib; /* if true, no standard libraries are added */
-    unsigned char nostdlib_paths; /* if true, the default paths are not searched for libraries */
-    unsigned char nocommon; /* if true, do not use common symbols for .bss data */
-    unsigned char static_link; /* if true, static linking is performed */
-    unsigned char rdynamic; /* if true, all symbols are exported */
-    unsigned char symbolic; /* if true, resolve symbols in the current module first */
-    unsigned char znodelete; /* Set DF_1_NODELETE in dynamic section */
-    unsigned char filetype; /* file type for compilation (NONE,C,ASM) */
-    unsigned char optimize; /* only to #define __OPTIMIZE__ */
-    unsigned char option_pthread; /* -pthread option */
-    unsigned char enable_new_dtags; /* -Wl,--enable-new-dtags */
-    unsigned int  cversion; /* supported C ISO version, 199901 (the default), 201112, ... */
+ساختار TCCState {
+    unsigned نویسه verbose; /* if true, display some information during compilation */
+    unsigned نویسه nostdinc; /* if true, no standard headers are added */
+    unsigned نویسه nostdlib; /* if true, no standard libraries are added */
+    unsigned نویسه nostdlib_paths; /* if true, the default paths are not searched for libraries */
+    unsigned نویسه nocommon; /* if true, do not use common symbols for .bss data */
+    unsigned نویسه static_link; /* if true, static linking is performed */
+    unsigned نویسه rdynamic; /* if true, all symbols are exported */
+    unsigned نویسه symbolic; /* if true, resolve symbols in the current module first */
+    unsigned نویسه znodelete; /* Set DF_1_NODELETE in dynamic section */
+    unsigned نویسه filetype; /* file type for compilation (NONE,C,ASM) */
+    unsigned نویسه optimize; /* only to #define __OPTIMIZE__ */
+    unsigned نویسه option_pthread; /* -pthread option */
+    unsigned نویسه enable_new_dtags; /* -Wl,--enable-new-dtags */
+    unsigned صحیح  cversion; /* supported C ISO version, 199901 (the default), 201112, ... */
 
     /* C language options */
-    unsigned char char_is_unsigned;
-    unsigned char leading_underscore;
-    unsigned char ms_extensions; /* allow nested named struct w/o identifier behave like unnamed */
-    unsigned char dollars_in_identifiers;  /* allows '$' char in identifiers */
-    unsigned char ms_bitfields; /* if true, emulate MS algorithm for aligning bitfields */
-    unsigned char reverse_funcargs; /* if true, evaluate last function arg first */
-    unsigned char gnu89_inline; /* treat 'extern inline' like 'static inline' */
-    unsigned char unwind_tables; /* create eh_frame section */
+    unsigned نویسه char_is_unsigned;
+    unsigned نویسه leading_underscore;
+    unsigned نویسه ms_extensions; /* allow nested named struct w/o identifier behave like unnamed */
+    unsigned نویسه dollars_in_identifiers;  /* allows '$' char in identifiers */
+    unsigned نویسه ms_bitfields; /* if true, emulate MS algorithm for aligning bitfields */
+    unsigned نویسه reverse_funcargs; /* if true, evaluate last function arg first */
+    unsigned نویسه gnu89_inline; /* treat 'extern inline' like 'static inline' */
+    unsigned نویسه unwind_tables; /* create eh_frame section */
 
     /* warning switches */
-    unsigned char warn_none;
-    unsigned char warn_all;
-    unsigned char warn_error;
-    unsigned char warn_write_strings;
-    unsigned char warn_unsupported;
-    unsigned char warn_implicit_function_declaration;
-    unsigned char warn_discarded_qualifiers;
+    unsigned نویسه warn_none;
+    unsigned نویسه warn_all;
+    unsigned نویسه warn_error;
+    unsigned نویسه warn_write_strings;
+    unsigned نویسه warn_unsupported;
+    unsigned نویسه warn_implicit_function_declaration;
+    unsigned نویسه warn_discarded_qualifiers;
     #define WARN_ON  1 /* warning is on (-Woption) */
-    unsigned char warn_num; /* temp var for tcc_warning_c() */
+    unsigned نویسه warn_رقم; /* temp var for tcc_warning_c() */
 
-    unsigned char option_r; /* option -r */
-    unsigned char do_bench; /* option -bench */
-    unsigned char just_deps; /* option -M  */
-    unsigned char gen_deps; /* option -MD  */
-    unsigned char include_sys_deps; /* option -MD  */
-    unsigned char gen_phony_deps; /* option -MP */
+    unsigned نویسه option_r; /* option -r */
+    unsigned نویسه do_bench; /* option -bench */
+    unsigned نویسه just_deps; /* option -M  */
+    unsigned نویسه gen_deps; /* option -MD  */
+    unsigned نویسه include_sys_deps; /* option -MD  */
+    unsigned نویسه gen_phony_deps; /* option -MP */
 
     /* compile with debug symbol (and use them if error during execution) */
-    unsigned char do_debug;
-    unsigned char dwarf;
-    unsigned char do_backtrace;
+    unsigned نویسه do_debug;
+    unsigned نویسه dwarf;
+    unsigned نویسه do_backtrace;
 #ifdef CONFIG_TCC_BCHECK
     /* compile with built-in memory and bounds checker */
-    unsigned char do_bounds_check;
+    unsigned نویسه do_bounds_check;
 #endif
-    unsigned char test_coverage;  /* generate test coverage code */
+    unsigned نویسه test_coverage;  /* generate test coverage code */
 
     /* use GNU C extensions */
-    unsigned char gnu_ext;
+    unsigned نویسه gnu_ext;
     /* use TinyCC extensions */
-    unsigned char tcc_ext;
+    unsigned نویسه tcc_ext;
 
-    unsigned char dflag; /* -dX value */
-    unsigned char Pflag; /* -P switch (LINE_MACRO_OUTPUT_FORMAT) */
+    unsigned نویسه dflag; /* -dX value */
+    unsigned نویسه Pflag; /* -P switch (LINE_MACRO_OUTPUT_FORMAT) */
 
 #ifdef TCC_TARGET_X86_64
-    unsigned char nosse; /* For -mno-sse support. */
+    unsigned نویسه nosse; /* For -mno-sse support. */
 #endif
 #ifdef TCC_TARGET_ARM
-    unsigned char float_abi; /* float ABI of the generated code*/
+    unsigned نویسه float_abi; /* float ABI of the generated code*/
 #endif
 
-    unsigned char has_text_addr;
+    unsigned نویسه has_text_addr;
     addr_t text_addr; /* address of text section */
     unsigned section_align; /* section alignment */
 #ifdef TCC_TARGET_I386
-    int seg_size; /* 32. Can be 16 with i386 assembler (.code16) */
+    صحیح seg_size; /* 32. Can be 16 with i386 assembler (.code16) */
 #endif
 
-    char *tcc_lib_path; /* CONFIG_TCCDIR or -B option */
-    char *soname; /* as specified on the command line (-soname) */
-    char *rpath; /* as specified on the command line (-Wl,-rpath=) */
-    char *elfint; /* -Wl,-I... on command line */
-    char *elf_entryname; /* "_start" unless set */
-    char *init_symbol; /* symbols to call at load-time (not used currently) */
-    char *fini_symbol; /* symbols to call at unload-time (not used currently) */
-    char *mapfile; /* create a mapfile (not used currently) */
+    نویسه *tcc_lib_path; /* CONFIG_TCCDIR or -B option */
+    نویسه *soname; /* as specified on the command line (-soname) */
+    نویسه *rpath; /* as specified on the command line (-Wl,-rpath=) */
+    نویسه *elfint; /* -Wl,-I... on command line */
+    نویسه *elf_entryname; /* "_start" unless set */
+    نویسه *init_نماد; /* symbols to call at load-time (not used currently) */
+    نویسه *fini_نماد; /* symbols to call at unload-time (not used currently) */
+    نویسه *mapfile; /* create a mapfile (not used currently) */
 
     /* output type, see TCC_OUTPUT_XXX */
-    int output_type;
+    صحیح output_type;
     /* output format, see TCC_OUTPUT_FORMAT_xxx */
-    int output_format;
+    صحیح output_format;
     /* nth test to run with -dt -run */
-    int run_test;
+    صحیح run_test;
 
     /* array of all loaded dlls (including those referenced by loaded dlls) */
     DLLReference **loaded_dlls;
-    int nb_loaded_dlls;
+    صحیح nb_loaded_dlls;
 
     /* include paths */
-    char **include_paths;
-    int nb_include_paths;
+    نویسه **include_paths;
+    صحیح nb_include_paths;
 
-    char **sysinclude_paths;
-    int nb_sysinclude_paths;
+    نویسه **sysinclude_paths;
+    صحیح nb_sysinclude_paths;
 
     /* library paths */
-    char **library_paths;
-    int nb_library_paths;
+    نویسه **library_paths;
+    صحیح nb_library_paths;
 
     /* crt?.o object path */
-    char **crt_paths;
-    int nb_crt_paths;
+    نویسه **crt_paths;
+    صحیح nb_crt_paths;
 
     /* -D / -U options */
     CString cmdline_defs;
@@ -849,48 +849,48 @@ struct TCCState {
     CString cmdline_incl;
 
     /* error handling */
-    void *error_opaque;
-    void (*error_func)(void *opaque, const char *msg);
-    int error_set_jmp_enabled;
+    تهی *error_opaque;
+    تهی (*error_func)(تهی *opaque, ثابت نویسه *پیام);
+    صحیح error_set_jmp_enabled;
     jmp_buf error_jmp_buf;
-    int nb_errors;
+    صحیح nb_errors;
 
     /* output file for preprocessing (-E) */
     FILE *ppfp;
 
     /* for -MD/-MF: collected dependencies for this compilation */
-    char **target_deps;
-    int nb_target_deps;
+    نویسه **target_deps;
+    صحیح nb_target_deps;
 
     /* compilation */
-    BufferedFile *include_stack[INCLUDE_STACK_SIZE];
-    BufferedFile **include_stack_ptr;
+    BufferedFile *include_پشته[INCLUDE_پشته_SIZE];
+    BufferedFile **include_پشته_ptr;
 
-    int ifdef_stack[IFDEF_STACK_SIZE];
-    int *ifdef_stack_ptr;
+    صحیح ifdef_پشته[IFDEF_پشته_SIZE];
+    صحیح *ifdef_پشته_ptr;
 
     /* included files enclosed with #ifndef MACRO */
-    int cached_includes_hash[CACHED_INCLUDES_HASH_SIZE];
+    صحیح cached_includes_hash[CACHED_INCLUDES_HASH_SIZE];
     CachedInclude **cached_includes;
-    int nb_cached_includes;
+    صحیح nb_cached_includes;
 
     /* #pragma pack stack */
-    int pack_stack[PACK_STACK_SIZE];
-    int *pack_stack_ptr;
-    char **pragma_libs;
-    int nb_pragma_libs;
+    صحیح pack_پشته[PACK_پشته_SIZE];
+    صحیح *pack_پشته_ptr;
+    نویسه **pragma_libs;
+    صحیح nb_pragma_libs;
 
     /* inline functions are stored as token lists and compiled last
        only if referenced */
-    struct InlineFunc **inline_fns;
-    int nb_inline_fns;
+    ساختار InlineFunc **inline_fns;
+    صحیح nb_inline_fns;
 
     /* sections */
     Section **sections;
-    int nb_sections; /* number of sections, including first dummy section */
+    صحیح nb_sections; /* number of sections, including first dummy section */
 
     Section **priv_sections;
-    int nb_priv_sections; /* number of private sections */
+    صحیح nb_priv_sections; /* number of private sections */
 
     /* predefined sections */
     Section *text_section, *data_section, *rodata_section, *bss_section;
@@ -902,7 +902,7 @@ struct TCCState {
     Section *lbounds_section; /* contains local data bound description */
 #endif
     /* symbol section */
-    union { Section *symtab_section, *symtab; }; /* historical alias */
+    اجتماع { Section *symtab_section, *symtab; }; /* historical alias */
     /* temporary dynamic symbol sections (for dll loading) */
     Section *dynsymtab_section;
     /* exported dynamic symbol section */
@@ -917,19 +917,19 @@ struct TCCState {
     Section *stab_section;
     Section *dwarf_info_section;
     Section *dwarf_abbrev_section;
-    Section *dwarf_line_section;
+    Section *dwarf_سطر_section;
     Section *dwarf_aranges_section;
     Section *dwarf_str_section;
-    Section *dwarf_line_str_section;
-    int dwlo, dwhi; /* dwarf section range */
+    Section *dwarf_سطر_str_section;
+    صحیح dwlo, dwhi; /* dwarf section range */
     /* test coverage */
     Section *tcov_section;
     /* debug state */
-    struct _tccdbg *dState;
+    ساختار _tccdbg *dState;
 
     /* extra attributes (eg. GOT/PLT value) for symtab symbols */
-    struct sym_attr *sym_attrs;
-    int nb_sym_attrs;
+    ساختار sym_attr *sym_attrs;
+    صحیح nb_sym_attrs;
     /* ptr to next reloc entry reused */
     ElfW_Rel *qrel;
     #define qrel s1->qrel
@@ -937,89 +937,89 @@ struct TCCState {
     addr_t tls_start, tls_end;
 
 #ifdef TCC_TARGET_RISCV64
-    struct pcrel_hi { addr_t addr, val; } **pcrel_hi_entries;
-    int nb_pcrel_hi_entries;
+    ساختار pcrel_hi { addr_t addr, val; } **pcrel_hi_entries;
+    صحیح nb_pcrel_hi_entries;
 #endif
 
 #ifdef TCC_TARGET_PE
     /* PE info */
-    int pe_subsystem;
+    صحیح pe_subsystem;
     unsigned pe_characteristics;
     unsigned pe_dll_characteristics;
     unsigned pe_file_align;
-    unsigned pe_stack_size;
+    unsigned pe_پشته_size;
     addr_t pe_imagebase;
-# if defined(TCC_TARGET_X86_64) || defined(TCC_TARGET_ARM64)
+# اگر defined(TCC_TARGET_X86_64) || defined(TCC_TARGET_ARM64)
     Section *uw_pdata;
-    int uw_sym;
-    int uw_xsym;
+    صحیح uw_sym;
+    صحیح uw_xsym;
     unsigned uw_offs;
 # endif
 #endif
 
-#if defined TCC_TARGET_MACHO
-    char *install_name;
+#اگر defined TCC_TARGET_MACHO
+    نویسه *install_name;
     uint32_t compatibility_version;
     uint32_t current_version;
 #endif
 
 #ifndef ELF_OBJ_ONLY
-    int nb_sym_versions;
-    struct sym_version *sym_versions;
-    int nb_sym_to_version;
-    int *sym_to_version;
-    int dt_verneednum;
+    صحیح nb_sym_versions;
+    ساختار sym_version *sym_versions;
+    صحیح nb_sym_to_version;
+    صحیح *sym_to_version;
+    صحیح dt_verneednum;
     Section *versym_section;
     Section *verneed_section;
 #endif
 
 #ifdef TCC_IS_NATIVE
-    const char *run_main; /* entry for tcc_run() */
-    void *run_ptr; /* runtime_memory */
+    ثابت نویسه *run_main; /* entry for tcc_run() */
+    تهی *run_ptr; /* runtime_memory */
     unsigned run_size; /* size of runtime_memory  */
-    const char *run_stdin; /* custom stdin file for run_main */
+    ثابت نویسه *run_stdin; /* custom stdin file for run_main */
 #ifdef _WIN64
-    void *run_function_table; /* unwind data */
+    تهی *run_function_table; /* unwind data */
 #endif
-    struct TCCState *next;
-    struct rt_context *rc; /* pointer to backtrace info block */
-    void *run_lj, *run_jb; /* sj/lj for tcc_setjmp()/tcc_run() */
+    ساختار TCCState *next;
+    ساختار rt_context *rc; /* pointer to backtrace info block */
+    تهی *run_lj, *run_jb; /* sj/lj for tcc_setjmp()/tcc_run() */
     TCCBtFunc *bt_func;
-    void *bt_data;
+    تهی *bt_data;
 #endif
 
 #ifdef CONFIG_TCC_BACKTRACE
-    int rt_num_callers;
+    صحیح rt_رقم_callers;
 #endif
 
     /* benchmark info */
-    int total_idents;
-    int total_lines;
-    unsigned int total_bytes;
-    unsigned int total_output[4];
+    صحیح total_idents;
+    صحیح total_سطرها;
+    unsigned صحیح total_bytes;
+    unsigned صحیح total_output[4];
 
     /* used by tcc_load_ldscript */
-    unsigned char *ld_p; /* text pointer */
+    unsigned نویسه *ld_p; /* text pointer */
 
     /* for warnings/errors for object files */
-    const char *current_filename;
+    ثابت نویسه *current_filename;
 
     /* used by main and tcc_parse_args only */
-    struct filespec **files; /* files seen on command line */
-    int nb_files; /* number thereof */
-    int nb_libraries; /* number of libs thereof */
-    char *outfile; /* output filename */
-    char *deps_outfile; /* option -MF */
-    int argc;
-    char **argv;
+    ساختار filespec **files; /* files seen on command line */
+    صحیح nb_files; /* number thereof */
+    صحیح nb_libraries; /* number of libs thereof */
+    نویسه *outfile; /* output filename */
+    نویسه *deps_outfile; /* option -MF */
+    صحیح argc;
+    نویسه **argv;
     /* -Wl options */
-    char **link_argv;
-    int link_argc, link_optind;
+    نویسه **link_argv;
+    صحیح link_argc, link_optind;
 };
 
-struct filespec {
-    char type;
-    char name[1];
+ساختار filespec {
+    نویسه type;
+    نویسه name[1];
 };
 
 /* The current value can be: */
@@ -1188,7 +1188,7 @@ struct filespec {
 #define TOK_PPSTR   0xce /* preprocessor string */
 #define TOK_LINENUM 0xcf /* line number info */
 
-#define TOK_HAS_VALUE(t) (t >= TOK_CCHAR && t <= TOK_LINENUM)
+#define TOK_HAS_مقدار(t) (t >= TOK_CCHAR && t <= TOK_LINENUM)
 
 #define TOK_EOF       (-1)  /* end of file */
 #define TOK_LINEFEED  10    /* line feed */
@@ -1196,10 +1196,10 @@ struct filespec {
 /* all identifiers and strings have token above that */
 #define TOK_IDENT 256
 
-enum tcc_token {
+شمارش tcc_token {
     TOK_LAST = TOK_IDENT - 1
 #define DEF(id, str) ,id
-#include "tcctok.h"
+#شامل "tcctok.h"
 #undef DEF
 };
 
@@ -1208,24 +1208,24 @@ enum tcc_token {
 
 /* ------------ libtcc.c ------------ */
 
-ST_DATA struct TCCState *tcc_state;
-ST_DATA void** stk_data;
-ST_DATA int nb_stk_data;
-ST_DATA int g_debug;
+ST_DATA ساختار TCCState *tcc_state;
+ST_DATA تهی** stk_data;
+ST_DATA صحیح nb_stk_data;
+ST_DATA صحیح g_debug;
 
 /* public functions currently used by the tcc main function */
-ST_FUNC char *pstrcpy(char *buf, size_t buf_size, const char *s);
-ST_FUNC char *pstrcat(char *buf, size_t buf_size, const char *s);
-ST_FUNC char *pstrncpy(char *out, size_t buf_size, const char *s, size_t num);
-PUB_FUNC char *tcc_basename(const char *name);
-PUB_FUNC char *tcc_fileextension (const char *name);
+ST_FUNC نویسه *pstrcpy(نویسه *buf, size_t buf_size, ثابت نویسه *s);
+ST_FUNC نویسه *pstrcat(نویسه *buf, size_t buf_size, ثابت نویسه *s);
+ST_FUNC نویسه *pstrncpy(نویسه *out, size_t buf_size, ثابت نویسه *s, size_t رقم);
+PUB_FUNC نویسه *tcc_basename(ثابت نویسه *name);
+PUB_FUNC نویسه *tcc_fileextension (ثابت نویسه *name);
 
 /* all allocations - even MEM_DEBUG - use these */
-PUB_FUNC void tcc_free(void *ptr);
-PUB_FUNC void *tcc_malloc(unsigned long size);
-PUB_FUNC void *tcc_mallocz(unsigned long size);
-PUB_FUNC void *tcc_realloc(void *ptr, unsigned long size);
-PUB_FUNC char *tcc_strdup(const char *str);
+PUB_FUNC تهی tcc_free(تهی *ptr);
+PUB_FUNC تهی *tcc_malloc(unsigned long size);
+PUB_FUNC تهی *tcc_mallocz(unsigned long size);
+PUB_FUNC تهی *tcc_realloc(تهی *ptr, unsigned long size);
+PUB_FUNC نویسه *tcc_strdup(ثابت نویسه *str);
 
 #ifdef MEM_DEBUG
 #define tcc_free(ptr)           tcc_free_debug(ptr)
@@ -1233,49 +1233,49 @@ PUB_FUNC char *tcc_strdup(const char *str);
 #define tcc_mallocz(size)       tcc_mallocz_debug(size, __FILE__, __LINE__)
 #define tcc_realloc(ptr,size)   tcc_realloc_debug(ptr, size, __FILE__, __LINE__)
 #define tcc_strdup(str)         tcc_strdup_debug(str, __FILE__, __LINE__)
-PUB_FUNC void tcc_free_debug(void *ptr);
-PUB_FUNC void *tcc_malloc_debug(unsigned long size, const char *file, int line);
-PUB_FUNC void *tcc_mallocz_debug(unsigned long size, const char *file, int line);
-PUB_FUNC void *tcc_realloc_debug(void *ptr, unsigned long size, const char *file, int line);
-PUB_FUNC char *tcc_strdup_debug(const char *str, const char *file, int line);
+PUB_FUNC تهی tcc_free_debug(تهی *ptr);
+PUB_FUNC تهی *tcc_malloc_debug(unsigned long size, ثابت نویسه *file, صحیح سطر);
+PUB_FUNC تهی *tcc_mallocz_debug(unsigned long size, ثابت نویسه *file, صحیح سطر);
+PUB_FUNC تهی *tcc_realloc_debug(تهی *ptr, unsigned long size, ثابت نویسه *file, صحیح سطر);
+PUB_FUNC نویسه *tcc_strdup_debug(ثابت نویسه *str, ثابت نویسه *file, صحیح سطر);
 #endif
 
-ST_FUNC void libc_free(void *ptr);
+ST_FUNC تهی libc_free(تهی *ptr);
 /* defined to be not used */
-#define free(p) use_tcc_free(p)
+#define آزاد(p) use_tcc_free(p)
 #define malloc(s) use_tcc_malloc(s)
 #define realloc(p, s) use_tcc_realloc(p, s)
 #undef strdup
 #define strdup(s) use_tcc_strdup(s)
-PUB_FUNC int _tcc_error_noabort(const char *fmt, ...) PRINTF_LIKE(1,2);
-PUB_FUNC NORETURN void _tcc_error(const char *fmt, ...) PRINTF_LIKE(1,2);
-PUB_FUNC void _tcc_warning(const char *fmt, ...) PRINTF_LIKE(1,2);
-#define tcc_internal_error(msg) \
-    tcc_error("internal compiler error in %s:%d: %s", __FUNCTION__,__LINE__,msg)
+PUB_FUNC صحیح _tcc_error_noabort(ثابت نویسه *fmt, ...) PRINTF_LIKE(1,2);
+PUB_FUNC NORETURN تهی _tcc_error(ثابت نویسه *fmt, ...) PRINTF_LIKE(1,2);
+PUB_FUNC تهی _tcc_warning(ثابت نویسه *fmt, ...) PRINTF_LIKE(1,2);
+#define tcc_internal_error(پیام) \
+    tcc_error("internal compiler error in %s:%d: %s", __FUNCTION__,__LINE__,پیام)
 
 /* other utilities */
-ST_FUNC void dynarray_add(void *ptab, int *nb_ptr, void *data);
-ST_FUNC void dynarray_reset(void *pp, int *n);
-ST_INLN void cstr_ccat(CString *cstr, int ch);
-ST_FUNC void cstr_cat(CString *cstr, const char *str, int len);
-ST_FUNC void cstr_wccat(CString *cstr, int ch);
-ST_FUNC void cstr_new(CString *cstr);
-ST_FUNC void cstr_free(CString *cstr);
-ST_FUNC int cstr_printf(CString *cs, const char *fmt, ...) PRINTF_LIKE(2,3);
-ST_FUNC int cstr_vprintf(CString *cstr, const char *fmt, va_list ap);
-ST_FUNC void cstr_reset(CString *cstr);
-ST_FUNC void tcc_open_bf(TCCState *s1, const char *filename, int initlen);
-ST_FUNC int tcc_open(TCCState *s1, const char *filename);
-ST_FUNC void tcc_close(void);
+ST_FUNC تهی dynarray_add(تهی *ptab, صحیح *nb_ptr, تهی *data);
+ST_FUNC تهی dynarray_reset(تهی *pp, صحیح *n);
+ST_INLN تهی cstr_ccat(CString *cstr, صحیح ch);
+ST_FUNC تهی cstr_cat(CString *cstr, ثابت نویسه *str, صحیح len);
+ST_FUNC تهی cstr_wccat(CString *cstr, صحیح ch);
+ST_FUNC تهی cstr_new(CString *cstr);
+ST_FUNC تهی cstr_free(CString *cstr);
+ST_FUNC صحیح cstr_printf(CString *cs, ثابت نویسه *fmt, ...) PRINTF_LIKE(2,3);
+ST_FUNC صحیح cstr_vprintf(CString *cstr, ثابت نویسه *fmt, va_list ap);
+ST_FUNC تهی cstr_reset(CString *cstr);
+ST_FUNC تهی tcc_open_bf(TCCState *s1, ثابت نویسه *filename, صحیح initlen);
+ST_FUNC صحیح tcc_open(TCCState *s1, ثابت نویسه *filename);
+ST_FUNC تهی tcc_close(تهی);
 
 /* mark a memory pointer on stack for cleanup after errors */
-#define stk_push(p) dynarray_add(&stk_data, &nb_stk_data, p)
-#define stk_pop() (--nb_stk_data)
+#define stk_افزودن(p) dynarray_add(&stk_data, &nb_stk_data, p)
+#define stk_برداشت() (--nb_stk_data)
 /* mark CString on stack for cleanup errors */
-#define cstr_new_s(cstr) (cstr_new(cstr), stk_push(&(cstr)->data))
-#define cstr_free_s(cstr) (cstr_free(cstr), stk_pop())
+#define cstr_new_s(cstr) (cstr_new(cstr), stk_افزودن(&(cstr)->data))
+#define cstr_free_s(cstr) (cstr_free(cstr), stk_برداشت())
 
-ST_FUNC int tcc_add_file_internal(TCCState *s1, const char *filename, int flags);
+ST_FUNC صحیح tcc_add_file_internal(TCCState *s1, ثابت نویسه *filename, صحیح flags);
 /* flags: */
 #define AFF_PRINT_ERROR     0x10 /* print error if file not found */
 #define AFF_REFERENCED_DLL  0x20 /* load a referenced dll from another dll */
@@ -1299,32 +1299,32 @@ ST_FUNC int tcc_add_file_internal(TCCState *s1, const char *filename, int flags)
 #define FILE_NOT_RECOGNIZED -3 /* unrecognized file type */
 
 #ifndef ELF_OBJ_ONLY
-ST_FUNC int tcc_add_crt(TCCState *s, const char *filename);
+ST_FUNC صحیح tcc_add_crt(TCCState *s, ثابت نویسه *filename);
 #endif
-ST_FUNC int tcc_add_dll(TCCState *s, const char *filename, int flags);
-ST_FUNC int tcc_add_support(TCCState *s1, const char *filename);
+ST_FUNC صحیح tcc_add_dll(TCCState *s, ثابت نویسه *filename, صحیح flags);
+ST_FUNC صحیح tcc_add_support(TCCState *s1, ثابت نویسه *filename);
 #ifdef CONFIG_TCC_BCHECK
-ST_FUNC void tcc_add_bcheck(TCCState *s1);
+ST_FUNC تهی tcc_add_bcheck(TCCState *s1);
 #endif
 #ifdef CONFIG_TCC_BACKTRACE
-ST_FUNC void tcc_add_btstub(TCCState *s1);
+ST_FUNC تهی tcc_add_btstub(TCCState *s1);
 #endif
-ST_FUNC void tcc_add_pragma_libs(TCCState *s1);
-PUB_FUNC int tcc_add_library_err(TCCState *s, const char *f);
-PUB_FUNC void tcc_print_stats(TCCState *s, unsigned total_time);
-PUB_FUNC int tcc_parse_args(TCCState *s, int *argc, char ***argv);
+ST_FUNC تهی tcc_add_pragma_libs(TCCState *s1);
+PUB_FUNC صحیح tcc_add_library_err(TCCState *s, ثابت نویسه *f);
+PUB_FUNC تهی tcc_print_stats(TCCState *s, unsigned total_time);
+PUB_FUNC صحیح tcc_parse_args(TCCState *s, صحیح *argc, نویسه ***argv);
 #ifdef _WIN32
-ST_FUNC char *normalize_slashes(char *path);
-PUB_FUNC FILE *tcc_fopen(const char *f, const char *m);
-PUB_FUNC int tcc_fclose(FILE *f);
-#else
+ST_FUNC نویسه *normalize_slashes(نویسه *path);
+PUB_FUNC FILE *tcc_fopen(ثابت نویسه *f, ثابت نویسه *m);
+PUB_FUNC صحیح tcc_fclose(FILE *f);
+#وگرنه
 # define tcc_fopen fopen
 # define tcc_fclose fclose
 #endif
-ST_FUNC DLLReference *tcc_add_dllref(TCCState *s1, const char *dllname, int level);
-ST_FUNC char *tcc_load_text(int fd);
+ST_FUNC DLLReference *tcc_add_dllref(TCCState *s1, ثابت نویسه *dllname, صحیح level);
+ST_FUNC نویسه *tcc_load_text(صحیح fd);
 /* for #pragma once */
-ST_FUNC int normalized_PATHCMP(const char *f1, const char *f2);
+ST_FUNC صحیح normalized_PATHCMP(ثابت نویسه *f1, ثابت نویسه *f2);
 
 /* tcc_parse_args return codes: */
 #define OPT_HELP 1
@@ -1338,25 +1338,25 @@ ST_FUNC int normalized_PATHCMP(const char *f1, const char *f2);
 
 /* ------------ tccpp.c ------------ */
 
-ST_DATA struct BufferedFile *file;
-ST_DATA int tok;
+ST_DATA ساختار BufferedFile *file;
+ST_DATA صحیح tok;
 ST_DATA CValue tokc;
-ST_DATA const int *macro_ptr;
-ST_DATA int parse_flags;
-ST_DATA int tok_flags;
+ST_DATA ثابت صحیح *macro_ptr;
+ST_DATA صحیح parse_flags;
+ST_DATA صحیح tok_flags;
 ST_DATA CString tokcstr; /* current parsed string, if any */
 
 /* display benchmark infos */
-ST_DATA int tok_ident;
+ST_DATA صحیح tok_ident;
 ST_DATA TokenSym **table_ident;
-ST_DATA int pp_expr;
+ST_DATA صحیح pp_عبارت;
 
 #define TOK_FLAG_BOL   0x0001 /* beginning of line before */
 #define TOK_FLAG_BOF   0x0002 /* beginning of file before */
 #define TOK_FLAG_ENDIF 0x0004 /* a endif was found matching starting #ifdef */
 
 #define PARSE_FLAG_PREPROCESS 0x0001 /* activate preprocessing */
-#define PARSE_FLAG_TOK_NUM    0x0002 /* return numbers instead of TOK_PPNUM */
+#define PARSE_FLAG_TOK_رقم    0x0002 /* return numbers instead of TOK_PPNUM */
 #define PARSE_FLAG_LINEFEED   0x0004 /* line feed is returned as a
                                         token. line feed is also
                                         returned at eof */
@@ -1368,367 +1368,367 @@ ST_DATA int pp_expr;
 /* isidnum_table flags: */
 #define IS_SPC 1
 #define IS_ID  2
-#define IS_NUM 4
+#define IS_رقم 4
 
-enum line_macro_output_format {
-    LINE_MACRO_OUTPUT_FORMAT_GCC,
-    LINE_MACRO_OUTPUT_FORMAT_NONE,
-    LINE_MACRO_OUTPUT_FORMAT_STD,
-    LINE_MACRO_OUTPUT_FORMAT_P10 = 11
+شمارش سطر_macro_output_format {
+    سطر_MACRO_OUTPUT_FORMAT_GCC,
+    سطر_MACRO_OUTPUT_FORMAT_NONE,
+    سطر_MACRO_OUTPUT_FORMAT_STD,
+    سطر_MACRO_OUTPUT_FORMAT_P10 = 11
 };
 
-ST_FUNC TokenSym *tok_alloc(const char *str, int len);
-ST_FUNC int tok_alloc_const(const char *str);
-ST_FUNC const char *get_tok_str(int v, CValue *cv);
-ST_FUNC void begin_macro(TokenString *str, int alloc);
-ST_FUNC void end_macro(void);
-ST_FUNC int set_idnum(int c, int val);
-ST_INLN void tok_str_new(TokenString *s);
-ST_FUNC TokenString *tok_str_alloc(void);
-ST_FUNC void tok_str_free(TokenString *s);
-ST_FUNC void tok_str_free_str(int *str);
-ST_FUNC void tok_str_add(TokenString *s, int t);
-ST_FUNC void tok_str_add_tok(TokenString *s);
-ST_INLN void define_push(int v, int macro_type, int *str, Sym *first_arg);
-ST_FUNC void define_undef(Sym *s);
-ST_INLN Sym *define_find(int v);
-ST_FUNC void free_defines(Sym *b);
-ST_FUNC void parse_define(void);
-ST_FUNC void skip_to_eol(int warn);
-ST_FUNC void preprocess(int is_bof);
-ST_FUNC void next(void);
-ST_INLN void unget_tok(int last_tok);
-ST_FUNC void preprocess_start(TCCState *s1, int filetype);
-ST_FUNC void preprocess_end(TCCState *s1);
-ST_FUNC void tccpp_new(TCCState *s);
-ST_FUNC void tccpp_delete(TCCState *s);
-ST_FUNC void tccpp_putfile(const char *filename);
-ST_FUNC int tcc_preprocess(TCCState *s1);
-ST_FUNC void skip(int c);
-ST_FUNC NORETURN void expect(const char *msg);
-ST_FUNC void pp_error(CString *cs);
+ST_FUNC TokenSym *tok_alloc(ثابت نویسه *str, صحیح len);
+ST_FUNC صحیح tok_alloc_const(ثابت نویسه *str);
+ST_FUNC ثابت نویسه *get_tok_str(صحیح v, CValue *cv);
+ST_FUNC تهی begin_macro(TokenString *str, صحیح alloc);
+ST_FUNC تهی end_macro(تهی);
+ST_FUNC صحیح set_idnum(صحیح c, صحیح val);
+ST_INLN تهی tok_str_new(TokenString *s);
+ST_FUNC TokenString *tok_str_alloc(تهی);
+ST_FUNC تهی tok_str_free(TokenString *s);
+ST_FUNC تهی tok_str_free_str(صحیح *str);
+ST_FUNC تهی tok_str_add(TokenString *s, صحیح t);
+ST_FUNC تهی tok_str_add_tok(TokenString *s);
+ST_INLN تهی define_افزودن(صحیح v, صحیح macro_type, صحیح *str, Sym *first_arg);
+ST_FUNC تهی define_undef(Sym *s);
+ST_INLN Sym *define_find(صحیح v);
+ST_FUNC تهی free_defines(Sym *b);
+ST_FUNC تهی parse_define(تهی);
+ST_FUNC تهی skip_to_eol(صحیح warn);
+ST_FUNC تهی preprocess(صحیح is_bof);
+ST_FUNC تهی next(تهی);
+ST_INLN تهی unget_tok(صحیح last_tok);
+ST_FUNC تهی preprocess_start(TCCState *s1, صحیح filetype);
+ST_FUNC تهی preprocess_end(TCCState *s1);
+ST_FUNC تهی tccpp_new(TCCState *s);
+ST_FUNC تهی tccpp_delete(TCCState *s);
+ST_FUNC تهی tccpp_putfile(ثابت نویسه *filename);
+ST_FUNC صحیح tcc_preprocess(TCCState *s1);
+ST_FUNC تهی skip(صحیح c);
+ST_FUNC NORETURN تهی expect(ثابت نویسه *پیام);
+ST_FUNC تهی pp_error(CString *cs);
 
 
 /* space excluding newline */
-static inline int is_space(int ch) {
-    return ch == ' ' || ch == '\t' || ch == '\v' || ch == '\f' || ch == '\r';
+ایستا درونخطی صحیح is_space(صحیح ch) {
+    بازگشت ch == ' ' || ch == '\t' || ch == '\v' || ch == '\f' || ch == '\r';
 }
-static inline int isid(int c) {
-    return (c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z') || c == '_';
+ایستا درونخطی صحیح isid(صحیح c) {
+    بازگشت (c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z') || c == '_';
 }
-static inline int isnum(int c) {
-    return c >= '0' && c <= '9';
+ایستا درونخطی صحیح isnum(صحیح c) {
+    بازگشت c >= '0' && c <= '9';
 }
-static inline int isoct(int c) {
-    return c >= '0' && c <= '7';
+ایستا درونخطی صحیح isoct(صحیح c) {
+    بازگشت c >= '0' && c <= '7';
 }
-static inline int toup(int c) {
-    return (c >= 'a' && c <= 'z') ? c - 'a' + 'A' : c;
+ایستا درونخطی صحیح toup(صحیح c) {
+    بازگشت (c >= 'a' && c <= 'z') ? c - 'a' + 'A' : c;
 }
 
 /* ------------ tccgen.c ------------ */
 
-#define SYM_POOL_NB (8192 / sizeof(Sym))
+#define SYM_POOL_NB (8192 / اندازه(Sym))
 
-ST_DATA Sym *global_stack;
-ST_DATA Sym *local_stack;
-ST_DATA Sym *local_label_stack;
-ST_DATA Sym *global_label_stack;
-ST_DATA Sym *define_stack;
+ST_DATA Sym *global_پشته;
+ST_DATA Sym *local_پشته;
+ST_DATA Sym *local_label_پشته;
+ST_DATA Sym *global_label_پشته;
+ST_DATA Sym *define_پشته;
 ST_DATA CType int_type, func_old_type, char_pointer_type;
 ST_DATA SValue *vtop;
-ST_DATA int rsym, anon_sym, ind, loc;
-ST_DATA char debug_modes;
+ST_DATA صحیح rsym, anon_sym, ind, loc;
+ST_DATA نویسه debug_modes;
 
-ST_DATA int nocode_wanted; /* true if no code generation wanted for an expression */
-ST_DATA int global_expr;  /* true if compound literals must be allocated globally (used during initializers parsing */
+ST_DATA صحیح nocode_wanted; /* true if no code generation wanted for an expression */
+ST_DATA صحیح global_عبارت;  /* true if compound literals must be allocated globally (used during initializers parsing */
 ST_DATA CType func_vt; /* current function return type (used by return instruction) */
-ST_DATA int func_var; /* true if current function is variadic */
-ST_DATA int func_vc; /* stack address for implicit struct return storage */
-ST_DATA int func_ind; /* function start address */
-ST_DATA const char *funcname;
+ST_DATA صحیح func_var; /* true if current function is variadic */
+ST_DATA صحیح func_vc; /* stack address for implicit struct return storage */
+ST_DATA صحیح func_ind; /* function start address */
+ST_DATA ثابت نویسه *funcname;
 
-ST_FUNC void tccgen_init(TCCState *s1);
-ST_FUNC int tccgen_compile(TCCState *s1);
-ST_FUNC void tccgen_finish(TCCState *s1);
-ST_FUNC void check_vstack(void);
+ST_FUNC تهی tccgen_init(TCCState *s1);
+ST_FUNC صحیح tccgen_compile(TCCState *s1);
+ST_FUNC تهی tccgen_finish(TCCState *s1);
+ST_FUNC تهی check_vstack(تهی);
 
-ST_INLN int is_float(int t);
-ST_FUNC int ieee_finite(double d);
-ST_FUNC int exact_log2p1(int i);
-ST_FUNC void test_lvalue(void);
+ST_INLN صحیح is_float(صحیح t);
+ST_FUNC صحیح ieee_finite(دوگانه d);
+ST_FUNC صحیح exact_log2p1(صحیح i);
+ST_FUNC تهی test_lvalue(تهی);
 
 ST_FUNC ElfSym *elfsym(Sym *);
-ST_FUNC void update_storage(Sym *sym);
-ST_FUNC void put_extern_sym2(Sym *sym, int sh_num, addr_t value, unsigned long size, int can_add_underscore);
-ST_FUNC void put_extern_sym(Sym *sym, Section *section, addr_t value, unsigned long size);
-#if PTR_SIZE == 4
-ST_FUNC void greloc(Section *s, Sym *sym, unsigned long offset, int type);
+ST_FUNC تهی update_storage(Sym *sym);
+ST_FUNC تهی put_extern_sym2(Sym *sym, صحیح sh_رقم, addr_t مقدار, unsigned long size, صحیح can_add_underscore);
+ST_FUNC تهی put_extern_sym(Sym *sym, Section *section, addr_t مقدار, unsigned long size);
+#اگر PTR_SIZE == 4
+ST_FUNC تهی greloc(Section *s, Sym *sym, unsigned long offset, صحیح type);
 #endif
-ST_FUNC void greloca(Section *s, Sym *sym, unsigned long offset, int type, addr_t addend);
+ST_FUNC تهی greloca(Section *s, Sym *sym, unsigned long offset, صحیح type, addr_t addend);
 
-ST_INLN void sym_free(Sym *sym);
-ST_FUNC Sym *sym_push(int v, CType *type, int r, int c);
-ST_FUNC void sym_pop(Sym **ptop, Sym *b, int keep);
-ST_FUNC Sym *sym_push2(Sym **ps, int v, int t, int c);
-ST_FUNC Sym *sym_find2(Sym *s, int v);
-ST_INLN Sym *sym_find(int v);
-ST_FUNC Sym *label_find(int v);
-ST_FUNC Sym *label_push(Sym **ptop, int v, int flags);
-ST_FUNC void label_pop(Sym **ptop, Sym *slast, int keep);
-ST_INLN Sym *struct_find(int v);
+ST_INLN تهی sym_free(Sym *sym);
+ST_FUNC Sym *sym_افزودن(صحیح v, CType *type, صحیح r, صحیح c);
+ST_FUNC تهی sym_برداشت(Sym **ptop, Sym *b, صحیح keep);
+ST_FUNC Sym *sym_push2(Sym **ps, صحیح v, صحیح t, صحیح c);
+ST_FUNC Sym *sym_find2(Sym *s, صحیح v);
+ST_INLN Sym *sym_find(صحیح v);
+ST_FUNC Sym *label_find(صحیح v);
+ST_FUNC Sym *label_افزودن(Sym **ptop, صحیح v, صحیح flags);
+ST_FUNC تهی label_برداشت(Sym **ptop, Sym *slast, صحیح keep);
+ST_INLN Sym *struct_find(صحیح v);
 
-ST_FUNC Sym *global_identifier_push(int v, int t, int c);
-ST_FUNC Sym *external_global_sym(int v, CType *type);
-ST_FUNC Sym *external_helper_sym(int v);
-ST_FUNC void vpush_helper_func(int v);
-ST_FUNC void vset(CType *type, int r, int v);
-ST_FUNC void vset_VT_CMP(int op);
-ST_FUNC void vpushi(int v);
-ST_FUNC void vpushv(SValue *v);
-ST_FUNC void vpushsym(CType *type, Sym *sym);
-ST_FUNC void vswap(void);
-ST_FUNC void vrott(int n);
-ST_FUNC void vrotb(int n);
-ST_FUNC void vrev(int n);
-ST_FUNC void vpop(void);
-#if PTR_SIZE == 4
-ST_FUNC void lexpand(void);
+ST_FUNC Sym *global_identifier_افزودن(صحیح v, صحیح t, صحیح c);
+ST_FUNC Sym *external_global_sym(صحیح v, CType *type);
+ST_FUNC Sym *external_helper_sym(صحیح v);
+ST_FUNC تهی vpush_helper_func(صحیح v);
+ST_FUNC تهی vset(CType *type, صحیح r, صحیح v);
+ST_FUNC تهی vset_VT_CMP(صحیح op);
+ST_FUNC تهی vpushi(صحیح v);
+ST_FUNC تهی vpushv(SValue *v);
+ST_FUNC تهی vpushsym(CType *type, Sym *sym);
+ST_FUNC تهی vswap(تهی);
+ST_FUNC تهی vrott(صحیح n);
+ST_FUNC تهی vrotb(صحیح n);
+ST_FUNC تهی vrev(صحیح n);
+ST_FUNC تهی vpop(تهی);
+#اگر PTR_SIZE == 4
+ST_FUNC تهی lexpand(تهی);
 #endif
 #ifdef TCC_TARGET_ARM
-ST_FUNC int get_reg_ex(int rc, int rc2);
+ST_FUNC صحیح get_reg_ex(صحیح rc, صحیح rc2);
 #endif
-ST_FUNC void save_reg(int r);
-ST_FUNC void save_reg_upstack(int r, int n);
-ST_FUNC int get_reg(int rc);
-ST_FUNC void save_regs(int n);
-ST_FUNC void gaddrof(void);
-ST_FUNC int gv(int rc);
-ST_FUNC void gv2(int rc1, int rc2);
-ST_FUNC void gen_op(int op);
-ST_FUNC int type_size(CType *type, int *a);
-ST_FUNC void mk_pointer(CType *type);
-ST_FUNC void vstore(void);
-ST_FUNC void inc(int post, int c);
-ST_FUNC CString* parse_mult_str(const char *msg);
-ST_FUNC CString* parse_asm_str(void);
-ST_FUNC void indir(void);
-ST_FUNC void unary(void);
-ST_FUNC void gexpr(void);
-ST_FUNC int expr_const(void);
-#if defined CONFIG_TCC_BCHECK || defined TCC_TARGET_C67
+ST_FUNC تهی save_reg(صحیح r);
+ST_FUNC تهی save_reg_upstack(صحیح r, صحیح n);
+ST_FUNC صحیح get_reg(صحیح rc);
+ST_FUNC تهی save_regs(صحیح n);
+ST_FUNC تهی gaddrof(تهی);
+ST_FUNC صحیح gv(صحیح rc);
+ST_FUNC تهی gv2(صحیح rc1, صحیح rc2);
+ST_FUNC تهی gen_op(صحیح op);
+ST_FUNC صحیح type_size(CType *type, صحیح *a);
+ST_FUNC تهی mk_pointer(CType *type);
+ST_FUNC تهی vstore(تهی);
+ST_FUNC تهی inc(صحیح post, صحیح c);
+ST_FUNC CString* parse_mult_str(ثابت نویسه *پیام);
+ST_FUNC CString* parse_asm_str(تهی);
+ST_FUNC تهی indir(تهی);
+ST_FUNC تهی unary(تهی);
+ST_FUNC تهی gexpr(تهی);
+ST_FUNC صحیح عبارت_const(تهی);
+#اگر defined CONFIG_TCC_BCHECK || defined TCC_TARGET_C67
 ST_FUNC Sym *get_sym_ref(CType *type, Section *sec, unsigned long offset, unsigned long size);
 #endif
-#if defined TCC_TARGET_X86_64 && !defined TCC_TARGET_PE
-ST_FUNC int classify_x86_64_va_arg(CType *ty);
+#اگر defined TCC_TARGET_X86_64 && !defined TCC_TARGET_PE
+ST_FUNC صحیح classify_x86_64_va_arg(CType *ty);
 #endif
 #ifdef CONFIG_TCC_BCHECK
-ST_FUNC void gbound_args(int nb_args);
-ST_DATA int func_bound_add_epilog;
+ST_FUNC تهی gbound_args(صحیح nb_args);
+ST_DATA صحیح func_bound_add_epilog;
 #endif
-ST_FUNC Sym *gfunc_set_param(Sym *s, int c, int byref);
+ST_FUNC Sym *gfunc_set_param(Sym *s, صحیح c, صحیح byref);
 
 /* ------------ tccelf.c ------------ */
 
 #define TCC_OUTPUT_FORMAT_ELF    0 /* default output format: ELF */
-#define TCC_OUTPUT_FORMAT_BINARY 1 /* binary image output */
+#define TCC_OUTPUT_FORMAT_دودویی 1 /* binary image output */
 #define TCC_OUTPUT_FORMAT_COFF   2 /* COFF */
 #define TCC_OUTPUT_DYN           TCC_OUTPUT_DLL
 
 #define ARMAG  "!<arch>\n"    /* For COFF and a.out archives */
 
-typedef struct {
-    unsigned int n_strx;         /* index into string table of name */
-    unsigned char n_type;         /* type of symbol */
-    unsigned char n_other;        /* misc info (usually empty) */
+تعریفنوع ساختار {
+    unsigned صحیح n_strx;         /* index into string table of name */
+    unsigned نویسه n_type;         /* type of symbol */
+    unsigned نویسه n_other;        /* misc info (usually empty) */
     unsigned short n_desc;        /* description field */
-    unsigned int n_value;        /* value of symbol */
+    unsigned صحیح n_مقدار;        /* value of symbol */
 } Stab_Sym;
 
-ST_FUNC void tccelf_new(TCCState *s);
-ST_FUNC void tccelf_delete(TCCState *s);
-ST_FUNC void tccelf_begin_file(TCCState *s1);
-ST_FUNC void tccelf_end_file(TCCState *s1);
-ST_FUNC Section *new_section(TCCState *s1, const char *name, int sh_type, int sh_flags);
-ST_FUNC void section_realloc(Section *sec, unsigned long new_size);
-ST_FUNC size_t section_add(Section *sec, addr_t size, int align);
-ST_FUNC void *section_ptr_add(Section *sec, addr_t size);
-ST_FUNC Section *find_section(TCCState *s1, const char *name);
-ST_FUNC void free_section(Section *s);
-ST_FUNC Section *new_symtab(TCCState *s1, const char *symtab_name, int sh_type, int sh_flags, const char *strtab_name, const char *hash_name, int hash_sh_flags);
-ST_FUNC void init_symtab(Section *s);
+ST_FUNC تهی tccelf_new(TCCState *s);
+ST_FUNC تهی tccelf_delete(TCCState *s);
+ST_FUNC تهی tccelf_begin_file(TCCState *s1);
+ST_FUNC تهی tccelf_end_file(TCCState *s1);
+ST_FUNC Section *new_section(TCCState *s1, ثابت نویسه *name, صحیح sh_type, صحیح sh_flags);
+ST_FUNC تهی section_realloc(Section *sec, unsigned long new_size);
+ST_FUNC size_t section_add(Section *sec, addr_t size, صحیح align);
+ST_FUNC تهی *section_ptr_add(Section *sec, addr_t size);
+ST_FUNC Section *find_section(TCCState *s1, ثابت نویسه *name);
+ST_FUNC تهی free_section(Section *s);
+ST_FUNC Section *new_symtab(TCCState *s1, ثابت نویسه *symtab_name, صحیح sh_type, صحیح sh_flags, ثابت نویسه *strtab_name, ثابت نویسه *hash_name, صحیح hash_sh_flags);
+ST_FUNC تهی init_symtab(Section *s);
 
-ST_FUNC int put_elf_str(Section *s, const char *sym);
-ST_FUNC int put_elf_sym(Section *s, addr_t value, unsigned long size, int info, int other, int shndx, const char *name);
-ST_FUNC int set_elf_sym(Section *s, addr_t value, unsigned long size, int info, int other, int shndx, const char *name);
-ST_FUNC int find_elf_sym(Section *s, const char *name);
-ST_FUNC void put_elf_reloc(Section *symtab, Section *s, unsigned long offset, int type, int symbol);
-ST_FUNC void put_elf_reloca(Section *symtab, Section *s, unsigned long offset, int type, int symbol, addr_t addend);
+ST_FUNC صحیح put_elf_str(Section *s, ثابت نویسه *sym);
+ST_FUNC صحیح put_elf_sym(Section *s, addr_t مقدار, unsigned long size, صحیح info, صحیح other, صحیح shndx, ثابت نویسه *name);
+ST_FUNC صحیح set_elf_sym(Section *s, addr_t مقدار, unsigned long size, صحیح info, صحیح other, صحیح shndx, ثابت نویسه *name);
+ST_FUNC صحیح find_elf_sym(Section *s, ثابت نویسه *name);
+ST_FUNC تهی put_elf_reloc(Section *symtab, Section *s, unsigned long offset, صحیح type, صحیح نماد);
+ST_FUNC تهی put_elf_reloca(Section *symtab, Section *s, unsigned long offset, صحیح type, صحیح نماد, addr_t addend);
 
-ST_FUNC void resolve_common_syms(TCCState *s1);
-ST_FUNC void relocate_syms(TCCState *s1, Section *symtab, int do_resolve);
-ST_FUNC void relocate_sections(TCCState *s1);
+ST_FUNC تهی resolve_common_syms(TCCState *s1);
+ST_FUNC تهی relocate_syms(TCCState *s1, Section *symtab, صحیح do_resolve);
+ST_FUNC تهی relocate_sections(TCCState *s1);
 
-ST_FUNC ssize_t full_read(int fd, void *buf, size_t count);
-ST_FUNC void *load_data(int fd, unsigned long file_offset, unsigned long size);
-ST_FUNC int tcc_object_type(int fd, ElfW(Ehdr) *h);
-ST_FUNC int tcc_load_object_file(TCCState *s1, int fd, unsigned long file_offset);
-ST_FUNC int tcc_load_archive(TCCState *s1, int fd, int alacarte);
-ST_FUNC void add_array(TCCState *s1, const char *sec, int c);
+ST_FUNC ssize_t full_read(صحیح fd, تهی *buf, size_t شمار_2);
+ST_FUNC تهی *load_data(صحیح fd, unsigned long file_offset, unsigned long size);
+ST_FUNC صحیح tcc_object_type(صحیح fd, ElfW(Ehdr) *h);
+ST_FUNC صحیح tcc_load_object_file(TCCState *s1, صحیح fd, unsigned long file_offset);
+ST_FUNC صحیح tcc_load_archive(TCCState *s1, صحیح fd, صحیح alacarte);
+ST_FUNC تهی add_array(TCCState *s1, ثابت نویسه *sec, صحیح c);
 
-ST_FUNC struct sym_attr *get_sym_attr(TCCState *s1, int index, int alloc);
-ST_FUNC addr_t get_sym_addr(TCCState *s, const char *name, int err, int forc);
-ST_FUNC void list_elf_symbols(TCCState *s, void *ctx,
-    void (*symbol_cb)(void *ctx, const char *name, const void *val));
-ST_FUNC int set_global_sym(TCCState *s1, const char *name, Section *sec, addr_t offs);
+ST_FUNC ساختار sym_attr *get_sym_attr(TCCState *s1, صحیح index, صحیح alloc);
+ST_FUNC addr_t get_sym_addr(TCCState *s, ثابت نویسه *name, صحیح err, صحیح forc);
+ST_FUNC تهی list_elf_symbols(TCCState *s, تهی *ctx,
+    تهی (*نماد_cb)(تهی *ctx, ثابت نویسه *name, ثابت تهی *val));
+ST_FUNC صحیح set_global_sym(TCCState *s1, ثابت نویسه *name, Section *sec, addr_t offs);
 
 /* Browse each elem of type <type> in section <sec> starting at elem <startoff>
    using variable <elem> */
 #define for_each_elem(sec, startoff, elem, type) \
-    for (elem = (type *) sec->data + startoff; \
+    برای (elem = (type *) sec->data + startoff; \
          elem < (type *) (sec->data + sec->data_offset); elem++)
 
 #ifndef ELF_OBJ_ONLY
-ST_FUNC int tcc_load_dll(TCCState *s1, int fd, const char *filename, int level);
-ST_FUNC int tcc_load_ldscript(TCCState *s1, int fd);
-ST_FUNC void tccelf_add_crtbegin(TCCState *s1);
-ST_FUNC void tccelf_add_crtend(TCCState *s1);
+ST_FUNC صحیح tcc_load_dll(TCCState *s1, صحیح fd, ثابت نویسه *filename, صحیح level);
+ST_FUNC صحیح tcc_load_ldscript(TCCState *s1, صحیح fd);
+ST_FUNC تهی tccelf_add_crtbegin(TCCState *s1);
+ST_FUNC تهی tccelf_add_crtend(TCCState *s1);
 #endif
 #ifndef TCC_TARGET_PE
-ST_FUNC void tcc_add_runtime(TCCState *s1);
+ST_FUNC تهی tcc_add_runtime(TCCState *s1);
 #endif
 
 /* ------------ xxx-link.c ------------ */
 
 #ifndef TCC_TARGET_PE
-ST_FUNC int code_reloc (int reloc_type);
-ST_FUNC int gotplt_entry_type (int reloc_type);
+ST_FUNC صحیح code_reloc (صحیح reloc_type);
+ST_FUNC صحیح gotplt_entry_type (صحیح reloc_type);
 /* Whether to generate a GOT/PLT entry and when. NO_GOTPLT_ENTRY is first so
    that unknown relocation don't create a GOT or PLT entry */
-enum gotplt_entry {
+شمارش gotplt_entry {
     NO_GOTPLT_ENTRY,	/* never generate (eg. GLOB_DAT & JMP_SLOT relocs) */
     BUILD_GOT_ONLY,	/* only build GOT (eg. TPOFF relocs) */
     AUTO_GOTPLT_ENTRY,	/* generate if sym is UNDEF */
     ALWAYS_GOTPLT_ENTRY	/* always generate (eg. PLTOFF relocs) */
 };
 #define NEED_RELOC_TYPE
-#if !defined TCC_TARGET_MACHO || defined TCC_IS_NATIVE
-ST_FUNC unsigned create_plt_entry(TCCState *s1, unsigned got_offset, struct sym_attr *attr);
-ST_FUNC void relocate_plt(TCCState *s1);
-ST_FUNC void build_got_entries(TCCState *s1, int got_sym); /* in tccelf.c */
+#اگر !defined TCC_TARGET_MACHO || defined TCC_IS_NATIVE
+ST_FUNC unsigned create_plt_entry(TCCState *s1, unsigned got_offset, ساختار sym_attr *attr);
+ST_FUNC تهی relocate_plt(TCCState *s1);
+ST_FUNC تهی build_got_entries(TCCState *s1, صحیح got_sym); /* in tccelf.c */
 #define NEED_BUILD_GOT
 #endif
 #endif
 
-ST_FUNC void relocate(TCCState *s1, ElfW_Rel *rel, int type, unsigned char *ptr, addr_t addr, addr_t val);
+ST_FUNC تهی relocate(TCCState *s1, ElfW_Rel *rel, صحیح type, unsigned نویسه *ptr, addr_t addr, addr_t val);
 
 /* ------------ xxx-gen.c ------------ */
-ST_DATA const char * const target_machine_defs;
-ST_DATA const int reg_classes[NB_REGS];
+ST_DATA ثابت نویسه * ثابت target_machine_defs;
+ST_DATA ثابت صحیح reg_classes[NB_REGS];
 
-ST_FUNC void gsym_addr(int t, int a);
-ST_FUNC void gsym(int t);
-ST_FUNC void load(int r, SValue *sv);
-ST_FUNC void store(int r, SValue *v);
-ST_FUNC int gfunc_sret(CType *vt, int variadic, CType *ret, int *align, int *regsize);
-ST_FUNC void gfunc_call(int nb_args);
-ST_FUNC void gfunc_prolog(Sym *func_sym);
-ST_FUNC void gfunc_epilog(void);
-ST_FUNC void gen_fill_nops(int);
-ST_FUNC int gjmp(int t);
-ST_FUNC void gjmp_addr(int a);
-ST_FUNC int gjmp_cond(int op, int t);
-ST_FUNC int gjmp_append(int n, int t);
-ST_FUNC void gen_opi(int op);
-ST_FUNC void gen_opf(int op);
-ST_FUNC void gen_cvt_ftoi(int t);
-ST_FUNC void gen_cvt_itof(int t);
-ST_FUNC void gen_cvt_ftof(int t);
-ST_FUNC void ggoto(void);
+ST_FUNC تهی gsym_addr(صحیح t, صحیح a);
+ST_FUNC تهی gsym(صحیح t);
+ST_FUNC تهی load(صحیح r, SValue *sv);
+ST_FUNC تهی store(صحیح r, SValue *v);
+ST_FUNC صحیح gfunc_sret(CType *vt, صحیح variadic, CType *ret, صحیح *align, صحیح *regsize);
+ST_FUNC تهی gfunc_call(صحیح nb_args);
+ST_FUNC تهی gfunc_prolog(Sym *func_sym);
+ST_FUNC تهی gfunc_epilog(تهی);
+ST_FUNC تهی gen_fill_nops(صحیح);
+ST_FUNC صحیح gjmp(صحیح t);
+ST_FUNC تهی gjmp_addr(صحیح a);
+ST_FUNC صحیح gjmp_cond(صحیح op, صحیح t);
+ST_FUNC صحیح gjmp_append(صحیح n, صحیح t);
+ST_FUNC تهی gen_opi(صحیح op);
+ST_FUNC تهی gen_opf(صحیح op);
+ST_FUNC تهی gen_cvt_ftoi(صحیح t);
+ST_FUNC تهی gen_cvt_itof(صحیح t);
+ST_FUNC تهی gen_cvt_ftof(صحیح t);
+ST_FUNC تهی ggoto(تهی);
 #ifndef TCC_TARGET_C67
-ST_FUNC void o(unsigned int c);
+ST_FUNC تهی o(unsigned صحیح c);
 #endif
-ST_FUNC void gen_vla_sp_save(int addr);
-ST_FUNC void gen_vla_sp_restore(int addr);
-ST_FUNC void gen_vla_alloc(CType *type, int align);
+ST_FUNC تهی gen_vla_sp_save(صحیح addr);
+ST_FUNC تهی gen_vla_sp_restore(صحیح addr);
+ST_FUNC تهی gen_vla_alloc(CType *type, صحیح align);
 
-static inline uint16_t read16le(unsigned char *p) {
-    return p[0] | (uint16_t)p[1] << 8;
+ایستا درونخطی uint16_t read16le(unsigned نویسه *p) {
+    بازگشت p[0] | (uint16_t)p[1] << 8;
 }
-static inline void write16le(unsigned char *p, uint16_t x) {
+ایستا درونخطی تهی write16le(unsigned نویسه *p, uint16_t x) {
     p[0] = x & 255;  p[1] = x >> 8 & 255;
 }
-static inline uint32_t read32le(unsigned char *p) {
-  return read16le(p) | (uint32_t)read16le(p + 2) << 16;
+ایستا درونخطی uint32_t read32le(unsigned نویسه *p) {
+  بازگشت read16le(p) | (uint32_t)read16le(p + 2) << 16;
 }
-static inline void write32le(unsigned char *p, uint32_t x) {
+ایستا درونخطی تهی write32le(unsigned نویسه *p, uint32_t x) {
     write16le(p, x);  write16le(p + 2, x >> 16);
 }
-static inline void add32le(unsigned char *p, int32_t x) {
+ایستا درونخطی تهی add32le(unsigned نویسه *p, int32_t x) {
     write32le(p, read32le(p) + x);
 }
-static inline uint64_t read64le(unsigned char *p) {
-  return read32le(p) | (uint64_t)read32le(p + 4) << 32;
+ایستا درونخطی uint64_t read64le(unsigned نویسه *p) {
+  بازگشت read32le(p) | (uint64_t)read32le(p + 4) << 32;
 }
-static inline void write64le(unsigned char *p, uint64_t x) {
+ایستا درونخطی تهی write64le(unsigned نویسه *p, uint64_t x) {
     write32le(p, x);  write32le(p + 4, x >> 32);
 }
-static inline void add64le(unsigned char *p, int64_t x) {
+ایستا درونخطی تهی add64le(unsigned نویسه *p, int64_t x) {
     write64le(p, read64le(p) + x);
 }
 /* ------------ i386-gen.c ------------ */
-#if defined TCC_TARGET_I386 || defined TCC_TARGET_X86_64 || defined TCC_TARGET_ARM
-ST_FUNC void g(int c);
-ST_FUNC void gen_le16(int c);
-ST_FUNC void gen_le32(int c);
+#اگر defined TCC_TARGET_I386 || defined TCC_TARGET_X86_64 || defined TCC_TARGET_ARM
+ST_FUNC تهی g(صحیح c);
+ST_FUNC تهی gen_le16(صحیح c);
+ST_FUNC تهی gen_le32(صحیح c);
 #endif
-#if defined TCC_TARGET_I386 || defined TCC_TARGET_X86_64
-ST_FUNC void gen_addr32(int r, Sym *sym, int c);
-ST_FUNC void gen_addrpc32(int r, Sym *sym, int c);
-ST_FUNC void gen_cvt_csti(int t);
-ST_FUNC void gen_increment_tcov (SValue *sv);
+#اگر defined TCC_TARGET_I386 || defined TCC_TARGET_X86_64
+ST_FUNC تهی gen_addr32(صحیح r, Sym *sym, صحیح c);
+ST_FUNC تهی gen_addrpc32(صحیح r, Sym *sym, صحیح c);
+ST_FUNC تهی gen_cvt_csti(صحیح t);
+ST_FUNC تهی gen_increment_tcov (SValue *sv);
 #endif
 
 /* ------------ x86_64-gen.c ------------ */
 #ifdef TCC_TARGET_X86_64
-ST_FUNC void gen_opl(int op);
+ST_FUNC تهی gen_opl(صحیح op);
 #ifdef TCC_TARGET_PE
-ST_FUNC void gen_vla_result(int addr);
+ST_FUNC تهی gen_vla_result(صحیح addr);
 #endif
-ST_FUNC void gen_cvt_sxtw(void);
-ST_FUNC void gen_cvt_csti(int t);
+ST_FUNC تهی gen_cvt_sxtw(تهی);
+ST_FUNC تهی gen_cvt_csti(صحیح t);
 #endif
 
 /* ------------ arm-gen.c ------------ */
 #ifdef TCC_TARGET_ARM
-#if defined(TCC_ARM_EABI) && !defined(CONFIG_TCC_ELFINTERP)
-PUB_FUNC const char *default_elfinterp(struct TCCState *s);
+#اگر defined(TCC_ARM_EABI) && !defined(CONFIG_TCC_ELFINTERP)
+PUB_FUNC ثابت نویسه *default_elfinterp(ساختار TCCState *s);
 #endif
-ST_FUNC void arm_init(struct TCCState *s);
-ST_FUNC void gen_increment_tcov (SValue *sv);
+ST_FUNC تهی arm_init(ساختار TCCState *s);
+ST_FUNC تهی gen_increment_tcov (SValue *sv);
 #endif
 
 /* ------------ arm64-gen.c ------------ */
 #ifdef TCC_TARGET_ARM64
-ST_FUNC void gen_opl(int op);
-ST_FUNC void gfunc_return(CType *func_type);
-ST_FUNC void gen_va_start(void);
-ST_FUNC void gen_va_arg(CType *t);
-ST_FUNC void gen_clear_cache(void);
-ST_FUNC void gen_cvt_sxtw(void);
-ST_FUNC void gen_cvt_csti(int t);
-ST_FUNC void gen_increment_tcov (SValue *sv);
+ST_FUNC تهی gen_opl(صحیح op);
+ST_FUNC تهی gfunc_return(CType *func_type);
+ST_FUNC تهی gen_va_start(تهی);
+ST_FUNC تهی gen_va_arg(CType *t);
+ST_FUNC تهی gen_clear_cache(تهی);
+ST_FUNC تهی gen_cvt_sxtw(تهی);
+ST_FUNC تهی gen_cvt_csti(صحیح t);
+ST_FUNC تهی gen_increment_tcov (SValue *sv);
 #endif
 
 /* ------------ riscv64-gen.c ------------ */
 #ifdef TCC_TARGET_RISCV64
-ST_FUNC void gen_opl(int op);
-ST_FUNC void gen_va_start(void);
-ST_FUNC void arch_transfer_ret_regs(int);
-ST_FUNC void gen_cvt_sxtw(void);
-ST_FUNC void gen_cvt_csti(int t);
-ST_FUNC void gen_increment_tcov (SValue *sv);
-ST_FUNC void gen_clear_cache(void);
+ST_FUNC تهی gen_opl(صحیح op);
+ST_FUNC تهی gen_va_start(تهی);
+ST_FUNC تهی arch_transfer_ret_regs(صحیح);
+ST_FUNC تهی gen_cvt_sxtw(تهی);
+ST_FUNC تهی gen_cvt_csti(صحیح t);
+ST_FUNC تهی gen_increment_tcov (SValue *sv);
+ST_FUNC تهی gen_clear_cache(تهی);
 #endif
 
 /* ------------ c67-gen.c ------------ */
@@ -1737,44 +1737,44 @@ ST_FUNC void gen_clear_cache(void);
 
 /* ------------ tcccoff.c ------------ */
 #ifdef TCC_TARGET_COFF
-ST_FUNC int tcc_output_coff(TCCState *s1, FILE *f);
-ST_FUNC int tcc_load_coff(TCCState * s1, int fd);
+ST_FUNC صحیح tcc_output_coff(TCCState *s1, FILE *f);
+ST_FUNC صحیح tcc_load_coff(TCCState * s1, صحیح fd);
 #endif
 
 /* ------------ tccasm.c ------------ */
-ST_FUNC void asm_instr(void);
-ST_FUNC void asm_global_instr(void);
-ST_FUNC int tcc_assemble(TCCState *s1, int do_preprocess);
+ST_FUNC تهی asm_instr(تهی);
+ST_FUNC تهی asm_global_instr(تهی);
+ST_FUNC صحیح tcc_assemble(TCCState *s1, صحیح do_preprocess);
 #ifdef CONFIG_TCC_ASM
-ST_FUNC int find_constraint(ASMOperand *operands, int nb_operands, const char *name, const char **pp);
-ST_FUNC Sym* get_asm_sym(int name, Sym *csym);
-ST_FUNC void asm_expr(TCCState *s1, ExprValue *pe);
-ST_FUNC int asm_int_expr(TCCState *s1);
-#if PTR_SIZE == 8
-ST_FUNC void gen_expr64(ExprValue *pe);
+ST_FUNC صحیح find_constraint(ASMOperand *operands, صحیح nb_operands, ثابت نویسه *name, ثابت نویسه **pp);
+ST_FUNC Sym* get_asm_sym(صحیح name, Sym *csym);
+ST_FUNC تهی asm_عبارت(TCCState *s1, عبارت_مقدار *pe);
+ST_FUNC صحیح asm_int_عبارت(TCCState *s1);
+#اگر PTR_SIZE == 8
+ST_FUNC تهی gen_expr64(عبارت_مقدار *pe);
 #endif
 /* ------------ i386-asm.c ------------ */
-ST_FUNC void gen_expr32(ExprValue *pe);
-ST_FUNC void asm_opcode(TCCState *s1, int opcode);
-ST_FUNC int asm_parse_regvar(int t);
-ST_FUNC void asm_compute_constraints(ASMOperand *operands, int nb_operands, int nb_outputs, const uint8_t *clobber_regs, int *pout_reg);
-ST_FUNC void subst_asm_operand(CString *add_str, SValue *sv, int modifier);
-ST_FUNC void asm_gen_code(ASMOperand *operands, int nb_operands, int nb_outputs, int is_output, uint8_t *clobber_regs, int out_reg);
-ST_FUNC void asm_clobber(uint8_t *clobber_regs, const char *str);
+ST_FUNC تهی gen_expr32(عبارت_مقدار *pe);
+ST_FUNC تهی asm_opcode(TCCState *s1, صحیح opcode);
+ST_FUNC صحیح asm_parse_regvar(صحیح t);
+ST_FUNC تهی asm_compute_constraints(ASMOperand *operands, صحیح nb_operands, صحیح nb_outputs, ثابت uint8_t *clobber_regs, صحیح *pout_reg);
+ST_FUNC تهی subst_asm_operand(CString *add_str, SValue *sv, صحیح modifier);
+ST_FUNC تهی asm_gen_code(ASMOperand *operands, صحیح nb_operands, صحیح nb_outputs, صحیح is_output, uint8_t *clobber_regs, صحیح out_reg);
+ST_FUNC تهی asm_clobber(uint8_t *clobber_regs, ثابت نویسه *str);
 #endif
 
 /* ------------ tccpe.c -------------- */
 #ifdef TCC_TARGET_PE
-ST_FUNC int pe_load_file(struct TCCState *s1, int fd, const char *filename);
-ST_FUNC int pe_output_file(TCCState * s1, const char *filename);
-ST_FUNC int pe_putimport(TCCState *s1, int dllindex, const char *name, addr_t value);
-ST_FUNC int pe_setsubsy(TCCState *s1, const char *arg);
-#if defined TCC_TARGET_I386 || defined TCC_TARGET_X86_64
+ST_FUNC صحیح pe_load_file(ساختار TCCState *s1, صحیح fd, ثابت نویسه *filename);
+ST_FUNC صحیح pe_output_file(TCCState * s1, ثابت نویسه *filename);
+ST_FUNC صحیح pe_putimport(TCCState *s1, صحیح dllindex, ثابت نویسه *name, addr_t مقدار);
+ST_FUNC صحیح pe_setsubsy(TCCState *s1, ثابت نویسه *arg);
+#اگر defined TCC_TARGET_I386 || defined TCC_TARGET_X86_64
 #endif
-#if defined(TCC_TARGET_X86_64) || defined(TCC_TARGET_ARM64)
-ST_FUNC void pe_add_unwind_data(unsigned start, unsigned end, unsigned stack);
+#اگر defined(TCC_TARGET_X86_64) || defined(TCC_TARGET_ARM64)
+ST_FUNC تهی pe_add_unwind_data(unsigned start, unsigned end, unsigned پشته);
 #endif
-PUB_FUNC int tcc_get_dllexports(const char *filename, char **pp);
+PUB_FUNC صحیح tcc_get_dllexports(ثابت نویسه *filename, نویسه **pp);
 /* symbol properties stored in Elf32_Sym->st_other */
 # define ST_PE_EXPORT 0x10
 # define ST_PE_IMPORT 0x20
@@ -1784,12 +1784,12 @@ PUB_FUNC int tcc_get_dllexports(const char *filename, char **pp);
 
 /* ------------ tccmacho.c ----------------- */
 #ifdef TCC_TARGET_MACHO
-ST_FUNC int macho_output_file(TCCState * s1, const char *filename);
-ST_FUNC int macho_load_dll(TCCState *s1, int fd, const char *filename, int lev);
-ST_FUNC int macho_load_tbd(TCCState *s1, int fd, const char *filename, int lev);
+ST_FUNC صحیح macho_output_file(TCCState * s1, ثابت نویسه *filename);
+ST_FUNC صحیح macho_load_dll(TCCState *s1, صحیح fd, ثابت نویسه *filename, صحیح lev);
+ST_FUNC صحیح macho_load_tbd(TCCState *s1, صحیح fd, ثابت نویسه *filename, صحیح lev);
 #ifdef TCC_IS_NATIVE
-ST_FUNC void tcc_add_macos_sdkpath(TCCState* s);
-ST_FUNC char* macho_tbd_soname(int fd);
+ST_FUNC تهی tcc_add_macos_sdkpath(TCCState* s);
+ST_FUNC نویسه* macho_tbd_soname(صحیح fd);
 #endif
 #endif
 /* ------------ tccrun.c ----------------- */
@@ -1798,59 +1798,59 @@ ST_FUNC char* macho_tbd_soname(int fd);
 #define RTLD_LAZY       0x001
 #define RTLD_NOW        0x002
 #define RTLD_GLOBAL     0x100
-#define RTLD_DEFAULT    NULL
+#define RTLD_DEFAULT    پوچ
 /* dummy function for profiling */
-ST_FUNC void *dlopen(const char *filename, int flag);
-ST_FUNC void dlclose(void *p);
-ST_FUNC const char *dlerror(void);
-ST_FUNC void *dlsym(void *handle, const char *symbol);
+ST_FUNC تهی *dlopen(ثابت نویسه *filename, صحیح flag);
+ST_FUNC تهی dlclose(تهی *p);
+ST_FUNC ثابت نویسه *dlerror(تهی);
+ST_FUNC تهی *dlsym(تهی *handle, ثابت نویسه *نماد);
 #endif
-ST_FUNC void tcc_run_free(TCCState *s1);
+ST_FUNC تهی tcc_run_free(TCCState *s1);
 #endif
 
 /* ------------ tcctools.c ----------------- */
-#if 0 /* included in tcc.c */
-ST_FUNC int tcc_tool_ar(TCCState *s, int argc, char **argv);
+#اگر 0 /* included in tcc.c */
+ST_FUNC صحیح tcc_tool_ar(TCCState *s, صحیح argc, نویسه **argv);
 #ifdef TCC_TARGET_PE
-ST_FUNC int tcc_tool_impdef(TCCState *s, int argc, char **argv);
+ST_FUNC صحیح tcc_tool_impdef(TCCState *s, صحیح argc, نویسه **argv);
 #endif
-ST_FUNC int tcc_tool_cross(TCCState *s, char **argv, int option);
-ST_FUNC int gen_makedeps(TCCState *s, const char *target, const char *filename);
+ST_FUNC صحیح tcc_tool_cross(TCCState *s, نویسه **argv, صحیح option);
+ST_FUNC صحیح gen_makedeps(TCCState *s, ثابت نویسه *target, ثابت نویسه *filename);
 #endif
 
 /* ------------ tccdbg.c ------------ */
 
-ST_FUNC void tcc_debug_new(TCCState *s);
+ST_FUNC تهی tcc_debug_new(TCCState *s);
 
-ST_FUNC void tcc_debug_start(TCCState *s1);
-ST_FUNC void tcc_debug_end(TCCState *s1);
-ST_FUNC void tcc_debug_bincl(TCCState *s1);
-ST_FUNC void tcc_debug_eincl(TCCState *s1);
-ST_FUNC void tcc_debug_newfile(TCCState *s1);
+ST_FUNC تهی tcc_debug_start(TCCState *s1);
+ST_FUNC تهی tcc_debug_end(TCCState *s1);
+ST_FUNC تهی tcc_debug_bincl(TCCState *s1);
+ST_FUNC تهی tcc_debug_eincl(TCCState *s1);
+ST_FUNC تهی tcc_debug_newfile(TCCState *s1);
 
-ST_FUNC void tcc_debug_line(TCCState *s1);
-ST_FUNC void tcc_add_debug_info(TCCState *s1, Sym *s, Sym *e);
-ST_FUNC void tcc_debug_funcstart(TCCState *s1, Sym *sym);
-ST_FUNC void tcc_debug_prolog_epilog(TCCState *s1, int value);
-ST_FUNC void tcc_debug_funcend(TCCState *s1, int size);
-ST_FUNC void tcc_debug_extern_sym(TCCState *s1, Sym *sym, int sh_num, int sym_bind, int sym_type);
-ST_FUNC void tcc_debug_typedef(TCCState *s1, Sym *sym);
-ST_FUNC void tcc_debug_stabn(TCCState *s1, int type, int value);
-ST_FUNC void tcc_debug_fix_forw(TCCState *s1, CType *t);
+ST_FUNC تهی tcc_debug_سطر(TCCState *s1);
+ST_FUNC تهی tcc_add_debug_info(TCCState *s1, Sym *s, Sym *e);
+ST_FUNC تهی tcc_debug_funcstart(TCCState *s1, Sym *sym);
+ST_FUNC تهی tcc_debug_prolog_epilog(TCCState *s1, صحیح مقدار);
+ST_FUNC تهی tcc_debug_funcend(TCCState *s1, صحیح size);
+ST_FUNC تهی tcc_debug_extern_sym(TCCState *s1, Sym *sym, صحیح sh_رقم, صحیح sym_bind, صحیح sym_type);
+ST_FUNC تهی tcc_debug_typedef(TCCState *s1, Sym *sym);
+ST_FUNC تهی tcc_debug_stabn(TCCState *s1, صحیح type, صحیح مقدار);
+ST_FUNC تهی tcc_debug_fix_forw(TCCState *s1, CType *t);
 
-#if !(defined ELF_OBJ_ONLY || defined TCC_TARGET_ARM || defined TARGETOS_BSD)
-ST_FUNC void tcc_eh_frame_start(TCCState *s1);
-ST_FUNC void tcc_eh_frame_end(TCCState *s1);
-ST_FUNC void tcc_eh_frame_hdr(TCCState *s1, int final);
+#اگر !(defined ELF_OBJ_ONLY || defined TCC_TARGET_ARM || defined TARGETOS_BSD)
+ST_FUNC تهی tcc_eh_frame_start(TCCState *s1);
+ST_FUNC تهی tcc_eh_frame_end(TCCState *s1);
+ST_FUNC تهی tcc_eh_frame_hdr(TCCState *s1, صحیح final);
 #define TCC_EH_FRAME 1
 #endif
 
-ST_FUNC void tcc_tcov_start(TCCState *s1);
-ST_FUNC void tcc_tcov_end(TCCState *s1);
-ST_FUNC void tcc_tcov_check_line(TCCState *s1, int start);
-ST_FUNC void tcc_tcov_block_end(TCCState *s1, int line);
-ST_FUNC void tcc_tcov_block_begin(TCCState *s1);
-ST_FUNC void tcc_tcov_reset_ind(TCCState *s1);
+ST_FUNC تهی tcc_tcov_start(TCCState *s1);
+ST_FUNC تهی tcc_tcov_end(TCCState *s1);
+ST_FUNC تهی tcc_tcov_check_سطر(TCCState *s1, صحیح start);
+ST_FUNC تهی tcc_tcov_block_end(TCCState *s1, صحیح سطر);
+ST_FUNC تهی tcc_tcov_block_begin(TCCState *s1);
+ST_FUNC تهی tcc_tcov_reset_ind(TCCState *s1);
 
 #define stab_section            s1->stab_section
 #define stabstr_section         stab_section->link
@@ -1859,12 +1859,12 @@ ST_FUNC void tcc_tcov_reset_ind(TCCState *s1);
 #define eh_frame_hdr_section    s1->eh_frame_hdr_section
 #define dwarf_info_section      s1->dwarf_info_section
 #define dwarf_abbrev_section    s1->dwarf_abbrev_section
-#define dwarf_line_section      s1->dwarf_line_section
+#define dwarf_سطر_section      s1->dwarf_سطر_section
 #define dwarf_aranges_section   s1->dwarf_aranges_section
 #define dwarf_str_section       s1->dwarf_str_section
-#define dwarf_line_str_section  s1->dwarf_line_str_section
+#define dwarf_سطر_str_section  s1->dwarf_سطر_str_section
 
-#define DWARF_MAX_128	((8 * sizeof (int64_t) + 6) / 7)
+#define DWARF_MAX_128	((8 * اندازه (int64_t) + 6) / 7)
 #define	dwarf_read_1(ln,end) \
 	((ln) < (end) ? *(ln)++ : 0)
 #define	dwarf_read_2(ln,end) \
@@ -1873,44 +1873,44 @@ ST_FUNC void tcc_tcov_reset_ind(TCCState *s1);
 	((ln) + 3 < (end) ? read32le(((ln)+=4) - 4) : 0)
 #define	dwarf_read_8(ln,end) \
 	((ln) + 7 < (end) ? read64le(((ln)+=8) - 8) : 0)
-static inline uint64_t
-dwarf_read_uleb128(unsigned char **ln, unsigned char *end)
+ایستا درونخطی uint64_t
+dwarf_read_uleb128(unsigned نویسه **ln, unsigned نویسه *end)
 {
-    unsigned char *cp = *ln;
+    unsigned نویسه *cp = *ln;
     uint64_t retval = 0;
-    int i;
-    for (i = 0; i < DWARF_MAX_128; i++) {
+    صحیح i;
+    برای (i = 0; i < DWARF_MAX_128; i++) {
 	uint64_t byte = dwarf_read_1(cp, end);
         retval |= (byte & 0x7f) << (i * 7);
-	if ((byte & 0x80) == 0)
-	    break;
+	اگر ((byte & 0x80) == 0)
+	    بشکن;
     }
     *ln = cp;
-    return retval;
+    بازگشت retval;
 }
-static inline int64_t
-dwarf_read_sleb128(unsigned char **ln, unsigned char *end)
+ایستا درونخطی int64_t
+dwarf_read_sleb128(unsigned نویسه **ln, unsigned نویسه *end)
 {
-    unsigned char *cp = *ln;
+    unsigned نویسه *cp = *ln;
     int64_t retval = 0;
-    int i;
-    for (i = 0; i < DWARF_MAX_128; i++) {
+    صحیح i;
+    برای (i = 0; i < DWARF_MAX_128; i++) {
 	uint64_t byte = dwarf_read_1(cp, end);
         retval |= (byte & 0x7f) << (i * 7);
-	if ((byte & 0x80) == 0) {
-	    if ((byte & 0x40) && (i + 1) * 7 < 64)
+	اگر ((byte & 0x80) == 0) {
+	    اگر ((byte & 0x40) && (i + 1) * 7 < 64)
 		retval |= (uint64_t)-1LL << ((i + 1) * 7);
-	    break;
+	    بشکن;
 	}
     }
     *ln = cp;
-    return retval;
+    بازگشت retval;
 }
 
 /* default dwarf version for "-gdwarf" */
 #ifdef TCC_TARGET_MACHO
 # define DEFAULT_DWARF_VERSION 2
-#else
+#وگرنه
 # define DEFAULT_DWARF_VERSION 5
 #endif
 
@@ -1919,56 +1919,56 @@ dwarf_read_sleb128(unsigned char **ln, unsigned char *end)
 # define CONFIG_DWARF_VERSION 0
 #endif
 
-#if defined TCC_TARGET_X86_64
+#اگر defined TCC_TARGET_X86_64
 # define R_DATA_32DW R_X86_64_32
-#else
+#وگرنه
 # define R_DATA_32DW R_DATA_32
 #endif
 
 /********************************************************/
-#if CONFIG_TCC_SEMLOCK
-#if defined _WIN32
-typedef struct { volatile LONG init; CRITICAL_SECTION cs; } TCCSem;
-static inline void wait_sem(TCCSem *p) {
-    if (InterlockedCompareExchange(&p->init, 1, 0) == 0) {
+#اگر CONFIG_TCC_SEMLOCK
+#اگر defined _WIN32
+تعریفنوع ساختار { فرار LONG init; CRITICAL_SECTION cs; } TCCSem;
+ایستا درونخطی تهی wait_sem(TCCSem *p) {
+    اگر (InterlockedCompareExchange(&p->init, 1, 0) == 0) {
         InitializeCriticalSection(&p->cs);
         InterlockedExchange(&p->init, 2);
-    } else {
-        while (InterlockedCompareExchange(&p->init, 2, 2) != 2)
+    } وگرنه {
+        وقتی (InterlockedCompareExchange(&p->init, 2, 2) != 2)
             Sleep(0);
     }
     EnterCriticalSection(&p->cs);
 }
-static inline void post_sem(TCCSem *p) {
+ایستا درونخطی تهی post_sem(TCCSem *p) {
     LeaveCriticalSection(&p->cs);
 }
-#elif defined __APPLE__
-#include <dispatch/dispatch.h>
-typedef struct { int init; dispatch_semaphore_t sem; } TCCSem;
-static inline void wait_sem(TCCSem *p) {
-    if (!p->init)
+#وگرنهاگر defined __APPLE__
+#شامل <dispatch/dispatch.h>
+تعریفنوع ساختار { صحیح init; dispatch_semaphore_t sem; } TCCSem;
+ایستا درونخطی تهی wait_sem(TCCSem *p) {
+    اگر (!p->init)
         p->sem = dispatch_semaphore_create(1), p->init = 1;
     dispatch_semaphore_wait(p->sem, DISPATCH_TIME_FOREVER);
 }
-static inline void post_sem(TCCSem *p) {
+ایستا درونخطی تهی post_sem(TCCSem *p) {
     dispatch_semaphore_signal(p->sem);
 }
-#else
-#include <semaphore.h>
-typedef struct { int init; sem_t sem; } TCCSem;
-static inline void wait_sem(TCCSem *p) {
-    if (!p->init)
+#وگرنه
+#شامل <semaphore.h>
+تعریفنوع ساختار { صحیح init; sem_t sem; } TCCSem;
+ایستا درونخطی تهی wait_sem(TCCSem *p) {
+    اگر (!p->init)
         sem_init(&p->sem, 0, 1), p->init = 1;
-    while (sem_wait(&p->sem) < 0 && errno == EINTR);
+    وقتی (sem_wait(&p->sem) < 0 && errno == EINTR);
 }
-static inline void post_sem(TCCSem *p) {
+ایستا درونخطی تهی post_sem(TCCSem *p) {
     sem_post(&p->sem);
 }
 #endif
 #define TCC_SEM(s) TCCSem s
 #define WAIT_SEM wait_sem
 #define POST_SEM post_sem
-#else
+#وگرنه
 #define TCC_SEM(s)
 #define WAIT_SEM(p)
 #define POST_SEM(p)
@@ -1976,9 +1976,9 @@ static inline void post_sem(TCCSem *p) {
 
 /********************************************************/
 #undef ST_DATA
-#if ONE_SOURCE
-#define ST_DATA static
-#else
+#اگر ONE_SOURCE
+#define ST_DATA ایستا
+#وگرنه
 #define ST_DATA
 #endif
 /********************************************************/
@@ -1998,15 +1998,15 @@ static inline void post_sem(TCCSem *p) {
 #define tcc_warning         TCC_SET_STATE(_tcc_warning)
 
 #define total_idents        TCC_STATE_VAR(total_idents)
-#define total_lines         TCC_STATE_VAR(total_lines)
+#define total_سطرها         TCC_STATE_VAR(total_سطرها)
 #define total_bytes         TCC_STATE_VAR(total_bytes)
 
-PUB_FUNC void tcc_enter_state(TCCState *s1);
-PUB_FUNC void tcc_exit_state(TCCState *s1);
+PUB_FUNC تهی tcc_enter_state(TCCState *s1);
+PUB_FUNC تهی tcc_exit_state(TCCState *s1);
 
 /* conditional warning depending on switch */
 #define tcc_warning_c(sw) TCC_SET_STATE((\
-    tcc_state->warn_num = offsetof(TCCState, sw) \
+    tcc_state->warn_رقم = offsetof(TCCState, sw) \
     - offsetof(TCCState, warn_none), _tcc_warning))
 
 /********************************************************/
@@ -2020,7 +2020,7 @@ PUB_FUNC void tcc_exit_state(TCCState *s1);
 # define TCC_SET_STATE(fn) fn
 # undef USING_GLOBALS
 # undef _tcc_error
-#else
+#وگرنه
 # define TCC_STATE_VAR(sym) s1->sym
 # define TCC_SET_STATE(fn) (tcc_enter_state(s1),fn)
 # define _tcc_error use_tcc_error_noabort

@@ -1,16 +1,16 @@
-#include <stdio.h>
+#شامل <stdio.h>
 
-int main()
+صحیح اصلی()
 {
-   int a;
-   int p;
-   int t;
+   صحیح a;
+   صحیح p;
+   صحیح t;
 
    a = 1;
    p = 0;
    t = 0;
 
-   while (a < 100)
+   وقتی (a < 100)
    {
       printf("%d\n", a);
       t = a;
@@ -18,7 +18,7 @@ int main()
       p = t;
    }
 
-   return 0;
+   بازگشت 0;
 }
 
 // vim: set expandtab ts=4 sw=3 sts=3 tw=80 :

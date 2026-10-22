@@ -1,12 +1,12 @@
-extern int printf (const char *, ...);
-extern void target(void);
-extern void alias_for_target(void);
-extern void asm_for_target(void);
-extern int g_int, alias_int;
+بیرونی صحیح printf (ثابت نویسه *, ...);
+بیرونی تهی target(تهی);
+بیرونی تهی alias_for_target(تهی);
+بیرونی تهی asm_for_target(تهی);
+بیرونی صحیح g_int, alias_int;
 
-void inunit2(void);
+تهی inunit2(تهی);
 
-void inunit2(void)
+تهی inunit2(تهی)
 {
   printf("in unit2:\n");
   target();

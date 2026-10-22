@@ -1,28 +1,28 @@
-#include <stdio.h>
-#include <string.h>
-#include <setjmp.h>
-#if !defined(_WIN32)
-#include <pthread.h>
-#else
-#include <windows.h>
+#شامل <stdio.h>
+#شامل <string.h>
+#شامل <setjmp.h>
+#اگر !defined(_WIN32)
+#شامل <pthread.h>
+#وگرنه
+#شامل <windows.h>
 #endif
 
 #define	SIZE	10
-#define	COUNT	10
+#define	شمار_4	10
 
-#define TST   int i, a[2], b[2];                \
-              for (i = 0; i < 2; i++) a[i] = 0; \
-              for (i = 0; i < 2; i++) b[i] = 0
+#define TST   صحیح i, a[2], b[2];                \
+              برای (i = 0; i < 2; i++) a[i] = 0; \
+              برای (i = 0; i < 2; i++) b[i] = 0
 
-static int count[SIZE];
+ایستا صحیح شمار_2[SIZE];
 
-static void tst1 (jmp_buf loc)
+ایستا تهی tst1 (jmp_buf loc)
 {
     TST;
     longjmp(loc, 1);
 }
 
-static void tst2(jmp_buf loc)
+ایستا تهی tst2(jmp_buf loc)
 {
     jmp_buf jmp;
 
@@ -31,54 +31,54 @@ static void tst2(jmp_buf loc)
     tst1(loc);
 }
 
-static void *tst (void * index)
+ایستا تهی *tst (تهی * index)
 {
     jmp_buf loc;
-    int i = *(int *) index;
-    static int v[SIZE];
+    صحیح i = *(صحیح *) index;
+    ایستا صحیح v[SIZE];
 
-    for (v[i] = 0; v[i] < COUNT; v[i]++) {
-        if (setjmp (loc) == 0) {
+    برای (v[i] = 0; v[i] < شمار_4; v[i]++) {
+        اگر (setjmp (loc) == 0) {
             TST;
             tst2(loc);
         }
-        else {
-            count[i]++;
+        وگرنه {
+            شمار_2[i]++;
         }
-        i = *(int *) index;
+        i = *(صحیح *) index;
     }
-    return NULL;
+    بازگشت پوچ;
 }
 
-int
-main (void)
+صحیح
+اصلی (تهی)
 {
-    int i;
-#if !defined(_WIN32)
+    صحیح i;
+#اگر !defined(_WIN32)
     pthread_t id[SIZE];
-#else
+#وگرنه
     HANDLE id[SIZE];
 #endif
-    int index[SIZE];
+    صحیح index[SIZE];
 
-    for (i = 0; i < SIZE; i++) {
+    برای (i = 0; i < SIZE; i++) {
         index[i] = i;
-#if !defined(_WIN32)
-        pthread_create (&id[i], NULL, tst, (void *) &index[i]);
-#else
-        id[i] = CreateThread(NULL, 8192, (LPTHREAD_START_ROUTINE) tst, (void *) &index[i], 0, NULL);
+#اگر !defined(_WIN32)
+        pthread_create (&id[i], پوچ, tst, (تهی *) &index[i]);
+#وگرنه
+        id[i] = CreateThread(پوچ, 8192, (LPTHREAD_START_ROUTINE) tst, (تهی *) &index[i], 0, پوچ);
 #endif
     }
-    for (i = 0; i < SIZE; i++) {
-#if !defined(_WIN32)
-        pthread_join (id[i], NULL);
-#else
+    برای (i = 0; i < SIZE; i++) {
+#اگر !defined(_WIN32)
+        pthread_join (id[i], پوچ);
+#وگرنه
         WaitForSingleObject(id[i], INFINITE);
 #endif
     }
-    for (i = 0; i < SIZE; i++) {
-        if (count[i] != COUNT)
-            printf ("error: %d %d\n", i, count[i]);
+    برای (i = 0; i < SIZE; i++) {
+        اگر (شمار_2[i] != شمار_4)
+            printf ("error: %d %d\n", i, شمار_2[i]);
     }
-    return 0;
+    بازگشت 0;
 }

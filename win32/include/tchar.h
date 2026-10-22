@@ -3,7 +3,7 @@
  * This file is part of the w64 mingw-runtime package.
  * No warranty is given; refer to the file DISCLAIMER within this package.
  */
-#include <_mingw.h>
+#شامل <_mingw.h>
 
 #ifndef _INC_TCHAR
 #define _INC_TCHAR
@@ -13,7 +13,7 @@
 #endif
 
 #ifdef __cplusplus
-extern "C" {
+بیرونی "C" {
 #endif
 
 #define _ftcscat _tcscat
@@ -70,9 +70,9 @@ extern "C" {
 
 #ifndef _CONST_RETURN
 #ifdef __cplusplus
-#define _CONST_RETURN const
+#define _CONST_RETURN ثابت
 #define _CRT_CONST_CORRECT_OVERLOADS
-#else
+#وگرنه
 #define _CONST_RETURN
 #endif
 #endif
@@ -85,31 +85,31 @@ extern "C" {
 }
 #endif
 
-#include <wchar.h>
+#شامل <wchar.h>
 
 #ifdef __cplusplus
-extern "C" {
+بیرونی "C" {
 #endif
 
 #ifndef _WCTYPE_T_DEFINED
 #define _WCTYPE_T_DEFINED
-  typedef unsigned short wint_t;
-  typedef unsigned short wctype_t;
+  تعریفنوع unsigned short wint_t;
+  تعریفنوع unsigned short wctype_t;
 #endif
 
 #ifndef __TCHAR_DEFINED
 #define __TCHAR_DEFINED
-  typedef wchar_t _TCHAR;
-  typedef wchar_t _TSCHAR;
-  typedef wchar_t _TUCHAR;
-  typedef wchar_t _TXCHAR;
-  typedef wint_t _TINT;
+  تعریفنوع wchar_t _TCHAR;
+  تعریفنوع wchar_t _TSCHAR;
+  تعریفنوع wchar_t _TUCHAR;
+  تعریفنوع wchar_t _TXCHAR;
+  تعریفنوع wint_t _TINT;
 #endif
 
 #ifndef _TCHAR_DEFINED
 #define _TCHAR_DEFINED
 #ifndef	NO_OLDNAMES
-  typedef wchar_t TCHAR;
+  تعریفنوع wchar_t TCHAR;
 #endif
 #endif
 
@@ -386,7 +386,7 @@ extern "C" {
 #define _tcsclen wcslen
 #define _tcscnlen wcsnlen
 #define _tcsclen_l(_String,_Locale) wcslen(_String)
-#define _tcscnlen_l(_String,_Max_count,_Locale) wcsnlen_l((_String),(_Max_count))
+#define _tcscnlen_l(_String,Max_شمار_2,_Locale) wcsnlen_l((_String),(Max_شمار_2))
 #define _tcsnccat wcsncat
 #define _tcsnccat_l _wcsncat_l
 #define _tcsnccpy wcsncpy
@@ -446,18 +446,18 @@ extern "C" {
 #define _istleadbyte(_Char) (0)
 #define _istleadbyte_l(_Char,_Locale) (0)
 
-#define _wcsdec(_cpc1,_cpc2) ((_cpc1)>=(_cpc2) ? NULL : (_cpc2)-1)
+#define _wcsdec(_cpc1,_cpc2) ((_cpc1)>=(_cpc2) ? پوچ : (_cpc2)-1)
 #define _wcsinc(_pc) ((_pc)+1)
-#define _wcsnextc(_cpc) ((unsigned int) *(_cpc))
+#define _wcsnextc(_cpc) ((unsigned صحیح) *(_cpc))
 #define _wcsninc(_pc,_sz) (((_pc)+(_sz)))
-  _CRTIMP size_t __cdecl __wcsncnt(const wchar_t *_Str,size_t _MaxCount);
+  _CRTIMP size_t __cdecl __wcsncnt(ثابت wchar_t *_Str,size_t Max_شمار);
 #define _wcsncnt(_cpc,_sz) (__wcsncnt(_cpc,_sz))
-#define _wcsspnp(_cpc1,_cpc2) (!_cpc1 ? NULL : ((*((_cpc1)+wcsspn(_cpc1,_cpc2))) ? ((_cpc1)+wcsspn(_cpc1,_cpc2)) : NULL))
-#define _wcsncpy_l(_Destination,_Source,_Count,_Locale) (wcsncpy(_Destination,_Source,_Count))
-#define _wcsncat_l(_Destination,_Source,_Count,_Locale) (wcsncat(_Destination,_Source,_Count))
+#define _wcsspnp(_cpc1,_cpc2) (!_cpc1 ? پوچ : ((*((_cpc1)+wcsspn(_cpc1,_cpc2))) ? ((_cpc1)+wcsspn(_cpc1,_cpc2)) : پوچ))
+#define _wcsncpy_l(_Destination,_Source,شمار_5,_Locale) (wcsncpy(_Destination,_Source,شمار_5))
+#define _wcsncat_l(_Destination,_Source,شمار_5,_Locale) (wcsncat(_Destination,_Source,شمار_5))
 #define _wcstok_l(_String,_Delimiters,_Locale) (wcstok(_String,_Delimiters))
-#define _wcsnset_l(_Destination,_Value,_Count,_Locale) (_wcsnset(_Destination,_Value,_Count))
-#define _wcsset_l(_Destination,_Value,_Locale) (_wcsset(_Destination,_Value))
+#define _wcsnset_l(_Destination,مقدار_2,شمار_5,_Locale) (_wcsnset(_Destination,مقدار_2,شمار_5))
+#define _wcsset_l(_Destination,مقدار_2,_Locale) (_wcsset(_Destination,مقدار_2))
 
   /* dirent structures and functions */
 #define _tdirent	_wdirent
@@ -469,27 +469,27 @@ extern "C" {
 #define _ttelldir	_wtelldir
 #define _tseekdir	_wseekdir
 
-#else
+#وگرنه
 
 #ifdef __cplusplus
 }
 #endif
 
-#include <string.h>
+#شامل <string.h>
 
 #ifdef __cplusplus
-extern "C" {
+بیرونی "C" {
 #endif
 
 #define _TEOF EOF
 
 #define __T(x) x
 
-#define _tmain main
+#define _tmain اصلی
 #define _tWinMain WinMain
 #ifdef _POSIX_
 #define _tenviron environ
-#else
+#وگرنه
 #define _tenviron _environ
 #endif
 #define __targv __argv
@@ -614,7 +614,7 @@ extern "C" {
 #define _tcscpy strcpy
 #define _tcsdup _strdup
 #define _tcslen strlen
-#if 0
+#اگر 0
 #define _tcsnlen strnlen
 #endif
 #define _tcsxfrm strxfrm
@@ -672,7 +672,7 @@ extern "C" {
 
 #ifdef _POSIX_
 #define _tfdopen fdopen
-#else
+#وگرنه
 #define _tfdopen _fdopen
 #endif
 #define _tfsopen _fsopen
@@ -702,7 +702,7 @@ extern "C" {
 #ifdef _POSIX_
 #define _topen open
 #define _taccess access
-#else
+#وگرنه
 #define _topen _open
 #define _taccess _access
 #endif
@@ -740,24 +740,24 @@ extern "C" {
 }
 #endif
 
-#include <mbstring.h>
+#شامل <mbstring.h>
 
 #ifdef __cplusplus
-extern "C" {
+بیرونی "C" {
 #endif
 
 #ifndef __TCHAR_DEFINED
-  typedef char _TCHAR;
-  typedef signed char _TSCHAR;
-  typedef unsigned char _TUCHAR;
-  typedef unsigned char _TXCHAR;
-  typedef unsigned int _TINT;
+  تعریفنوع نویسه _TCHAR;
+  تعریفنوع signed نویسه _TSCHAR;
+  تعریفنوع unsigned نویسه _TUCHAR;
+  تعریفنوع unsigned نویسه _TXCHAR;
+  تعریفنوع unsigned صحیح _TINT;
 #define __TCHAR_DEFINED
 #endif
 
 #ifndef _TCHAR_DEFINED
 #ifndef	NO_OLDNAMES
-  typedef char TCHAR;
+  تعریفنوع نویسه TCHAR;
 #endif
 #define _TCHAR_DEFINED
 #endif
@@ -833,76 +833,76 @@ extern "C" {
 #define _tclen _mbclen
 #define _tccpy _mbccpy
 #define _tccpy_l _mbccpy_l
-#else
+#وگرنه
 
-  _CRTIMP _CONST_RETURN char *__cdecl _tcschr(const char *_Str,unsigned int _Val);
-  _CRTIMP size_t __cdecl _tcscspn(const char *_Str,const char *_Control);
-  _CRTIMP char *__cdecl _tcsncat(char *_Dst,const char *_Src,size_t _MaxCount);
-  _CRTIMP char *__cdecl _tcsncat_l(char *_Dst,const char *_Src,size_t _MaxCount,_locale_t _Locale);
-  _CRTIMP char *__cdecl _tcsncpy(char *_Dst,const char *_Src,size_t _MaxCount);
-  _CRTIMP char *__cdecl _tcsncpy_l(char *_Dst,const char *_Src,size_t _MaxCount,_locale_t _Locale);
-  _CRTIMP _CONST_RETURN char *__cdecl _tcspbrk(const char *_Str,const char *_Control);
-  _CRTIMP _CONST_RETURN char *__cdecl _tcsrchr(const char *_Str,unsigned int _Ch);
-  _CRTIMP size_t __cdecl _tcsspn(const char *_Str,const char *_Control);
-  _CRTIMP _CONST_RETURN char *__cdecl _tcsstr(const char *_Str,const char *_Substr);
-  _CRTIMP char *__cdecl _tcstok(char *_Str,const char *_Delim);
-  _CRTIMP char *__cdecl _tcstok_l(char *_Str,const char *_Delim,_locale_t _Locale);
-  _CRTIMP char *__cdecl _tcsnset(char *_Str,unsigned int _Val,size_t _MaxCount);
-  _CRTIMP char *__cdecl _tcsrev(char *_Str);
-  _CRTIMP char *__cdecl _tcsset(char *_Str,unsigned int _Val);
-  _CRTIMP char *__cdecl _tcsset_l(char *_Str,unsigned int _Val,_locale_t _Locale);
-  _CRTIMP int __cdecl _tcscmp(const char *_Str1,const char *_Str);
-  _CRTIMP int __cdecl _tcsicmp(const char *_Str1,const char *_Str2);
-  _CRTIMP int __cdecl _tcsicmp_l(const char *_Str1,const char *_Str2,_locale_t _Locale);
-  _CRTIMP int __cdecl _tcsnccmp(const char *_Str1,const char *_Str2,size_t _MaxCount);
-  _CRTIMP int __cdecl _tcsncmp(const char *_Str1,const char *_Str2,size_t _MaxCount);
-  _CRTIMP int __cdecl _tcsncicmp(const char *_Str1,const char *_Str2,size_t _MaxCount);
-  _CRTIMP int __cdecl _tcsncicmp_l(const char *_Str1,const char *_Str2,size_t _MaxCount,_locale_t _Locale);
-  _CRTIMP int __cdecl _tcsnicmp(const char *_Str1,const char *_Str2,size_t _MaxCount);
-  _CRTIMP int __cdecl _tcsnicmp_l(const char *_Str1,const char *_Str2,size_t _MaxCount,_locale_t _Locale);
-  _CRTIMP int __cdecl _tcscoll(const char *_Str1,const char *_Str2);
-  _CRTIMP int __cdecl _tcscoll_l(const char *_Str1,const char *_Str2,_locale_t _Locale);
-  _CRTIMP int __cdecl _tcsicoll(const char *_Str1,const char *_Str2);
-  _CRTIMP int __cdecl _tcsicoll_l(const char *_Str1,const char *_Str2,_locale_t _Locale);
-  _CRTIMP int __cdecl _tcsnccoll(const char *_Str1,const char *_Str2,size_t _MaxCount);
-  _CRTIMP int __cdecl _tcsnccoll_l(const char *_Str1,const char *_Str2,size_t _MaxCount,_locale_t _Locale);
-  _CRTIMP int __cdecl _tcsncoll(const char *_Str1,const char *_Str2,size_t _MaxCount);
-  _CRTIMP int __cdecl _tcsncoll_l(const char *_Str1,const char *_Str2,size_t _MaxCount,_locale_t _Locale);
-  _CRTIMP int __cdecl _tcsncicoll(const char *_Str1,const char *_Str2,size_t _MaxCount);
-  _CRTIMP int __cdecl _tcsncicoll_l(const char *_Str1,const char *_Str2,size_t _MaxCount,_locale_t _Locale);
-  _CRTIMP int __cdecl _tcsnicoll(const char *_Str1,const char *_Str2,size_t _MaxCount);
-  _CRTIMP int __cdecl _tcsnicoll_l(const char *_Str1,const char *_Str2,size_t _MaxCount,_locale_t _Locale);
-  _CRTIMP size_t __cdecl _tcsclen(const char *_Str);
-  _CRTIMP size_t __cdecl _tcscnlen(const char *_Str,size_t _MaxCount);
-  _CRTIMP size_t __cdecl _tcsclen_l(const char *_Str,_locale_t _Locale);
-  _CRTIMP size_t __cdecl _tcscnlen_l(const char *_Str,size_t _MaxCount,_locale_t _Locale);
-  _CRTIMP char *__cdecl _tcsnccat(char *_Dst,const char *_Src,size_t _MaxCount);
-  _CRTIMP char *__cdecl _tcsnccat_l(char *_Dst,const char *_Src,size_t _MaxCount,_locale_t _Locale);
-  _CRTIMP char *__cdecl _tcsnccpy(char *_Dst,const char *_Src,size_t _MaxCount);
-  _CRTIMP char *__cdecl _tcsnccpy_l(char *_Dst,const char *_Src,size_t _MaxCount,_locale_t _Locale);
-  _CRTIMP char *__cdecl _tcsncset(char *_Str,unsigned int _Val,size_t _MaxCount);
-  _CRTIMP char *__cdecl _tcsdec(const char *_Start,const char *_Pos);
-  _CRTIMP char *__cdecl _tcsinc(const char *_Ptr);
-  _CRTIMP size_t __cdecl _tcsnbcnt(const char *_Str,size_t _MaxCount);
-  _CRTIMP size_t __cdecl _tcsnccnt(const char *_Str,size_t _MaxCount);
-  _CRTIMP unsigned int __cdecl _tcsnextc (const char *_Str);
-  _CRTIMP char *__cdecl _tcsninc(const char *_Ptr,size_t _Count);
-  _CRTIMP char *__cdecl _tcsspnp(const char *_Str1,const char *_Str2);
-  _CRTIMP char *__cdecl _tcslwr(char *_Str);
-  _CRTIMP char *__cdecl _tcslwr_l(char *_Str,_locale_t _Locale);
-  _CRTIMP char *__cdecl _tcsupr(char *_Str);
-  _CRTIMP char *__cdecl _tcsupr_l(char *_Str,_locale_t _Locale);
-  _CRTIMP size_t __cdecl _tclen(const char *_Str);
-  _CRTIMP void __cdecl _tccpy(char *_DstCh,const char *_SrcCh);
+  _CRTIMP _CONST_RETURN نویسه *__cdecl _tcschr(ثابت نویسه *_Str,unsigned صحیح _Val);
+  _CRTIMP size_t __cdecl _tcscspn(ثابت نویسه *_Str,ثابت نویسه *_Control);
+  _CRTIMP نویسه *__cdecl _tcsncat(نویسه *_Dst,ثابت نویسه *_Src,size_t Max_شمار);
+  _CRTIMP نویسه *__cdecl _tcsncat_l(نویسه *_Dst,ثابت نویسه *_Src,size_t Max_شمار,_locale_t _Locale);
+  _CRTIMP نویسه *__cdecl _tcsncpy(نویسه *_Dst,ثابت نویسه *_Src,size_t Max_شمار);
+  _CRTIMP نویسه *__cdecl _tcsncpy_l(نویسه *_Dst,ثابت نویسه *_Src,size_t Max_شمار,_locale_t _Locale);
+  _CRTIMP _CONST_RETURN نویسه *__cdecl _tcspbrk(ثابت نویسه *_Str,ثابت نویسه *_Control);
+  _CRTIMP _CONST_RETURN نویسه *__cdecl _tcsrchr(ثابت نویسه *_Str,unsigned صحیح _Ch);
+  _CRTIMP size_t __cdecl _tcsspn(ثابت نویسه *_Str,ثابت نویسه *_Control);
+  _CRTIMP _CONST_RETURN نویسه *__cdecl _tcsstr(ثابت نویسه *_Str,ثابت نویسه *_Substr);
+  _CRTIMP نویسه *__cdecl _tcstok(نویسه *_Str,ثابت نویسه *_Delim);
+  _CRTIMP نویسه *__cdecl _tcstok_l(نویسه *_Str,ثابت نویسه *_Delim,_locale_t _Locale);
+  _CRTIMP نویسه *__cdecl _tcsnset(نویسه *_Str,unsigned صحیح _Val,size_t Max_شمار);
+  _CRTIMP نویسه *__cdecl _tcsrev(نویسه *_Str);
+  _CRTIMP نویسه *__cdecl _tcsset(نویسه *_Str,unsigned صحیح _Val);
+  _CRTIMP نویسه *__cdecl _tcsset_l(نویسه *_Str,unsigned صحیح _Val,_locale_t _Locale);
+  _CRTIMP صحیح __cdecl _tcscmp(ثابت نویسه *_Str1,ثابت نویسه *_Str);
+  _CRTIMP صحیح __cdecl _tcsicmp(ثابت نویسه *_Str1,ثابت نویسه *_Str2);
+  _CRTIMP صحیح __cdecl _tcsicmp_l(ثابت نویسه *_Str1,ثابت نویسه *_Str2,_locale_t _Locale);
+  _CRTIMP صحیح __cdecl _tcsnccmp(ثابت نویسه *_Str1,ثابت نویسه *_Str2,size_t Max_شمار);
+  _CRTIMP صحیح __cdecl _tcsncmp(ثابت نویسه *_Str1,ثابت نویسه *_Str2,size_t Max_شمار);
+  _CRTIMP صحیح __cdecl _tcsncicmp(ثابت نویسه *_Str1,ثابت نویسه *_Str2,size_t Max_شمار);
+  _CRTIMP صحیح __cdecl _tcsncicmp_l(ثابت نویسه *_Str1,ثابت نویسه *_Str2,size_t Max_شمار,_locale_t _Locale);
+  _CRTIMP صحیح __cdecl _tcsnicmp(ثابت نویسه *_Str1,ثابت نویسه *_Str2,size_t Max_شمار);
+  _CRTIMP صحیح __cdecl _tcsnicmp_l(ثابت نویسه *_Str1,ثابت نویسه *_Str2,size_t Max_شمار,_locale_t _Locale);
+  _CRTIMP صحیح __cdecl _tcscoll(ثابت نویسه *_Str1,ثابت نویسه *_Str2);
+  _CRTIMP صحیح __cdecl _tcscoll_l(ثابت نویسه *_Str1,ثابت نویسه *_Str2,_locale_t _Locale);
+  _CRTIMP صحیح __cdecl _tcsicoll(ثابت نویسه *_Str1,ثابت نویسه *_Str2);
+  _CRTIMP صحیح __cdecl _tcsicoll_l(ثابت نویسه *_Str1,ثابت نویسه *_Str2,_locale_t _Locale);
+  _CRTIMP صحیح __cdecl _tcsnccoll(ثابت نویسه *_Str1,ثابت نویسه *_Str2,size_t Max_شمار);
+  _CRTIMP صحیح __cdecl _tcsnccoll_l(ثابت نویسه *_Str1,ثابت نویسه *_Str2,size_t Max_شمار,_locale_t _Locale);
+  _CRTIMP صحیح __cdecl _tcsncoll(ثابت نویسه *_Str1,ثابت نویسه *_Str2,size_t Max_شمار);
+  _CRTIMP صحیح __cdecl _tcsncoll_l(ثابت نویسه *_Str1,ثابت نویسه *_Str2,size_t Max_شمار,_locale_t _Locale);
+  _CRTIMP صحیح __cdecl _tcsncicoll(ثابت نویسه *_Str1,ثابت نویسه *_Str2,size_t Max_شمار);
+  _CRTIMP صحیح __cdecl _tcsncicoll_l(ثابت نویسه *_Str1,ثابت نویسه *_Str2,size_t Max_شمار,_locale_t _Locale);
+  _CRTIMP صحیح __cdecl _tcsnicoll(ثابت نویسه *_Str1,ثابت نویسه *_Str2,size_t Max_شمار);
+  _CRTIMP صحیح __cdecl _tcsnicoll_l(ثابت نویسه *_Str1,ثابت نویسه *_Str2,size_t Max_شمار,_locale_t _Locale);
+  _CRTIMP size_t __cdecl _tcsclen(ثابت نویسه *_Str);
+  _CRTIMP size_t __cdecl _tcscnlen(ثابت نویسه *_Str,size_t Max_شمار);
+  _CRTIMP size_t __cdecl _tcsclen_l(ثابت نویسه *_Str,_locale_t _Locale);
+  _CRTIMP size_t __cdecl _tcscnlen_l(ثابت نویسه *_Str,size_t Max_شمار,_locale_t _Locale);
+  _CRTIMP نویسه *__cdecl _tcsnccat(نویسه *_Dst,ثابت نویسه *_Src,size_t Max_شمار);
+  _CRTIMP نویسه *__cdecl _tcsnccat_l(نویسه *_Dst,ثابت نویسه *_Src,size_t Max_شمار,_locale_t _Locale);
+  _CRTIMP نویسه *__cdecl _tcsnccpy(نویسه *_Dst,ثابت نویسه *_Src,size_t Max_شمار);
+  _CRTIMP نویسه *__cdecl _tcsnccpy_l(نویسه *_Dst,ثابت نویسه *_Src,size_t Max_شمار,_locale_t _Locale);
+  _CRTIMP نویسه *__cdecl _tcsncset(نویسه *_Str,unsigned صحیح _Val,size_t Max_شمار);
+  _CRTIMP نویسه *__cdecl _tcsdec(ثابت نویسه *_Start,ثابت نویسه *_Pos);
+  _CRTIMP نویسه *__cdecl _tcsinc(ثابت نویسه *_Ptr);
+  _CRTIMP size_t __cdecl _tcsnbcnt(ثابت نویسه *_Str,size_t Max_شمار);
+  _CRTIMP size_t __cdecl _tcsnccnt(ثابت نویسه *_Str,size_t Max_شمار);
+  _CRTIMP unsigned صحیح __cdecl _tcsnextc (ثابت نویسه *_Str);
+  _CRTIMP نویسه *__cdecl _tcsninc(ثابت نویسه *_Ptr,size_t شمار_5);
+  _CRTIMP نویسه *__cdecl _tcsspnp(ثابت نویسه *_Str1,ثابت نویسه *_Str2);
+  _CRTIMP نویسه *__cdecl _tcslwr(نویسه *_Str);
+  _CRTIMP نویسه *__cdecl _tcslwr_l(نویسه *_Str,_locale_t _Locale);
+  _CRTIMP نویسه *__cdecl _tcsupr(نویسه *_Str);
+  _CRTIMP نویسه *__cdecl _tcsupr_l(نویسه *_Str,_locale_t _Locale);
+  _CRTIMP size_t __cdecl _tclen(ثابت نویسه *_Str);
+  _CRTIMP تهی __cdecl _tccpy(نویسه *_DstCh,ثابت نویسه *_SrcCh);
 
 #ifdef __cplusplus
 #ifndef _CPP_TCHAR_INLINES_DEFINED
 #define _CPP_TCHAR_INLINES_DEFINED
-  extern "C++" {
-    extern inline char *__cdecl _tcschr(char *_S,unsigned int _C) { return ((char *)_tcschr((const char *)_S,_C)); }
-    extern inline char *__cdecl _tcspbrk(char *_S,const char *_P) { return ((char *)_tcspbrk((const char *)_S,_P)); }
-    extern inline char *__cdecl _tcsrchr(char *_S,unsigned int _C) { return ((char *)_tcsrchr((const char *)_S,_C)); }
-    extern inline char *__cdecl _tcsstr(char *_S,const char *_P) { return ((char *)_tcsstr((const char *)_S,_P)); }
+  بیرونی "C++" {
+    بیرونی درونخطی نویسه *__cdecl _tcschr(نویسه *_S,unsigned صحیح _C) { بازگشت ((نویسه *)_tcschr((ثابت نویسه *)_S,_C)); }
+    بیرونی درونخطی نویسه *__cdecl _tcspbrk(نویسه *_S,ثابت نویسه *_P) { بازگشت ((نویسه *)_tcspbrk((ثابت نویسه *)_S,_P)); }
+    بیرونی درونخطی نویسه *__cdecl _tcsrchr(نویسه *_S,unsigned صحیح _C) { بازگشت ((نویسه *)_tcsrchr((ثابت نویسه *)_S,_C)); }
+    بیرونی درونخطی نویسه *__cdecl _tcsstr(نویسه *_S,ثابت نویسه *_P) { بازگشت ((نویسه *)_tcsstr((ثابت نویسه *)_S,_P)); }
   }
 #endif
 #endif
@@ -939,21 +939,21 @@ extern "C" {
 #define _istlead _ismbblead
 #define _istleadbyte isleadbyte
 #define _istleadbyte_l _isleadbyte_l
-#else
+#وگرنه
 
 #ifndef __TCHAR_DEFINED
 #define __TCHAR_DEFINED
-  typedef char _TCHAR;
-  typedef signed char _TSCHAR;
-  typedef unsigned char _TUCHAR;
-  typedef char _TXCHAR;
-  typedef int _TINT;
+  تعریفنوع نویسه _TCHAR;
+  تعریفنوع signed نویسه _TSCHAR;
+  تعریفنوع unsigned نویسه _TUCHAR;
+  تعریفنوع نویسه _TXCHAR;
+  تعریفنوع صحیح _TINT;
 #endif
 
 #ifndef _TCHAR_DEFINED
 #define _TCHAR_DEFINED
 #ifndef	NO_OLDNAMES
-  typedef char TCHAR;
+  تعریفنوع نویسه TCHAR;
 #endif
 #endif
 
@@ -1001,7 +1001,7 @@ extern "C" {
 #define _tcsclen strlen
 #define _tcscnlen strnlen
 #define _tcsclen_l(_String,_Locale) strlen(_String)
-#define _tcscnlen_l(_String,_Max_count,_Locale) strnlen_l((_String),(_Max_count))
+#define _tcscnlen_l(_String,Max_شمار_2,_Locale) strnlen_l((_String),(Max_شمار_2))
 #define _tcsnccat strncat
 #define _tcsnccat_l _strncat_l
 #define _tcsnccpy strncpy
@@ -1029,7 +1029,7 @@ extern "C" {
 
 #define _tclen(_pc) (1)
 #define _tccpy(_pc1,_cpc2) (*(_pc1) = *(_cpc2))
-#define _tccmp(_cpc1,_cpc2) (((unsigned char)*(_cpc1))-((unsigned char)*(_cpc2)))
+#define _tccmp(_cpc1,_cpc2) (((unsigned نویسه)*(_cpc1))-((unsigned نویسه)*(_cpc2)))
 
   /* dirent structures and functions */
 #define _tdirent	dirent
@@ -1067,27 +1067,27 @@ extern "C" {
 
 #define _istlegal(_c) (1)
 
-#ifndef NULL
+#ifndef پوچ
 #ifdef __cplusplus
-#define NULL 0
-#else
-#define NULL ((void *)0)
+#define پوچ 0
+#وگرنه
+#define پوچ ((تهی *)0)
 #endif
 #endif
 
-#define _strdec(_cpc1,_cpc2) ((_cpc1)>=(_cpc2) ? NULL : (_cpc2)-1)
+#define _strdec(_cpc1,_cpc2) ((_cpc1)>=(_cpc2) ? پوچ : (_cpc2)-1)
 #define _strinc(_pc) ((_pc)+1)
-#define _strnextc(_cpc) ((unsigned int) *(const unsigned char *)(_cpc))
+#define _strnextc(_cpc) ((unsigned صحیح) *(ثابت unsigned نویسه *)(_cpc))
 #define _strninc(_pc,_sz) (((_pc)+(_sz)))
-  _CRTIMP size_t __cdecl __strncnt(const char *_Str,size_t _Cnt);
+  _CRTIMP size_t __cdecl __strncnt(ثابت نویسه *_Str,size_t _Cnt);
 #define _strncnt(_cpc,_sz) (__strncnt(_cpc,_sz))
-#define _strspnp(_cpc1,_cpc2) (!_cpc1 ? NULL : ((*((_cpc1)+strspn(_cpc1,_cpc2))) ? ((_cpc1)+strspn(_cpc1,_cpc2)) : NULL))
+#define _strspnp(_cpc1,_cpc2) (!_cpc1 ? پوچ : ((*((_cpc1)+strspn(_cpc1,_cpc2))) ? ((_cpc1)+strspn(_cpc1,_cpc2)) : پوچ))
 
-#define _strncpy_l(_Destination,_Source,_Count,_Locale) (strncpy(_Destination,_Source,_Count))
-#define _strncat_l(_Destination,_Source,_Count,_Locale) (strncat(_Destination,_Source,_Count))
+#define _strncpy_l(_Destination,_Source,شمار_5,_Locale) (strncpy(_Destination,_Source,شمار_5))
+#define _strncat_l(_Destination,_Source,شمار_5,_Locale) (strncat(_Destination,_Source,شمار_5))
 #define _strtok_l(_String,_Delimiters,_Locale) (strtok(_String,_Delimiters))
-#define _strnset_l(_Destination,_Value,_Count,_Locale) (_strnset(_Destination,_Value,_Count))
-#define _strset_l(_Destination,_Value,_Locale) (_strset(_Destination,_Value))
+#define _strnset_l(_Destination,مقدار_2,شمار_5,_Locale) (_strnset(_Destination,مقدار_2,شمار_5))
+#define _strset_l(_Destination,مقدار_2,_Locale) (_strset(_Destination,مقدار_2))
 #endif
 #endif
 
@@ -1098,5 +1098,5 @@ extern "C" {
 }
 #endif
 
-#include <sec_api/tchar_s.h>
+#شامل <sec_api/tchar_s.h>
 #endif

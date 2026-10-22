@@ -1,21 +1,21 @@
-#include <stdio.h>
+#شامل <stdio.h>
 
-int main()
+صحیح اصلی()
 {
-   int a = 1;
+   صحیح a = 1;
 
-   if (a)
+   اگر (a)
       printf("a is true\n");
-   else
+   وگرنه
       printf("a is false\n");
 
-   int b = 0;
-   if (b)
+   صحیح b = 0;
+   اگر (b)
       printf("b is true\n");
-   else
+   وگرنه
       printf("b is false\n");
 
-   return 0;
+   بازگشت 0;
 }
 
 // vim: set expandtab ts=4 sw=3 sts=3 tw=80 :

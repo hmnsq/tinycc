@@ -1,13 +1,13 @@
-#include <stdio.h>
-#include <string.h>
+#شامل <stdio.h>
+#شامل <string.h>
 
-int main()
+صحیح اصلی()
 {
-   char a[10];
+   نویسه a[10];
    strcpy(a, "abcdef");
    printf("%s\n", &a[1]);
 
-   return 0;
+   بازگشت 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

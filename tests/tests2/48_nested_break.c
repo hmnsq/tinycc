@@ -1,18 +1,18 @@
-#include <stdio.h>
+#شامل <stdio.h>
 
-int main()
+صحیح اصلی()
 {
-   int a;
-   char b;
+   صحیح a;
+   نویسه b;
 
    a = 0;
-   while (a < 2)
+   وقتی (a < 2)
    {
       printf("%d", a++);
-      break;
+      بشکن;
 
       b = 'A';
-      while (b < 'C')
+      وقتی (b < 'C')
       {
          printf("%c", b++);
       }
@@ -20,7 +20,7 @@ int main()
    }
    printf("\n");
 
-   return 0;
+   بازگشت 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

@@ -1,41 +1,41 @@
-int printf(const char *s, ...);
+صحیح printf(ثابت نویسه *s, ...);
 
-float fx(x)
-float x;
+اعشاری fx(x)
+اعشاری x;
 {
-    return 2.0 * x;
+    بازگشت 2.0 * x;
 }
 
-void func(float a);
+تهی func(اعشاری a);
 
-void func3(struct p { int a; int b; } *q) {
+تهی func3(ساختار p { صحیح a; صحیح b; } *q) {
 }
 
-void func4(q)
- struct p { int a; int b; int c; } *q;
+تهی func4(q)
+ ساختار p { صحیح a; صحیح b; صحیح c; } *q;
 {
 }
 
-struct p { int a; int b; int c; int d; };
+ساختار p { صحیح a; صحیح b; صحیح c; صحیح d; };
 
-int
-main(void)
+صحیح
+اصلی(تهی)
 {
-    float fy();
+    اعشاری fy();
 
     printf("%g %g\n", fx(2.0), fy(10.0));
     printf("%g %g\n", fx(2.0f), fy(10.0f));
     func(1);
 }
 
-float fy(x)
-float x;
+اعشاری fy(x)
+اعشاری x;
 {
-    return 3.0 * x;
+    بازگشت 3.0 * x;
 }
 
-void func(a)
-float a;
+تهی func(a)
+اعشاری a;
 {
     printf("%g\n", a);
 }

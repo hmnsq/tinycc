@@ -3,56 +3,56 @@
    when stored into/loaded from a 8 bit bit-field of enum type (which
    itself is implementation defined, so isn't necessarily supported by all
    other compilers).  */
-enum tree_code {
+شمارش درخت_code {
   SOME_CODE = 148, /* has bit 7 set, and hence all further enum values as well */
-  LAST_AND_UNUSED_TREE_CODE
+  LAST_AND_UNUSED_درخت_CODE
 };
-typedef union tree_node *tree;
-struct tree_common
+تعریفنوع اجتماع گره_درخت *درخت_2;
+ساختار درخت_common
 {
-  union tree_node *chain;
-  union tree_node *type;
-  enum tree_code code : 8;
+  اجتماع گره_درخت *chain;
+  اجتماع گره_درخت *type;
+  شمارش درخت_code code : 8;
   unsigned side_effects_flag : 1;
 };
-union tree_node
+اجتماع گره_درخت
 {
-  struct tree_common common;
+  ساختار درخت_common common;
  };
-enum c_tree_code {
-  C_DUMMY_TREE_CODE = LAST_AND_UNUSED_TREE_CODE,
-  STMT_EXPR,
-  LAST_C_TREE_CODE
+شمارش c_درخت_code {
+  C_DUMMY_درخت_CODE = LAST_AND_UNUSED_درخت_CODE,
+  STMT_عبارت,
+  LAST_C_درخت_CODE
 };
-enum cplus_tree_code {
-  CP_DUMMY_TREE_CODE = LAST_C_TREE_CODE,
+شمارش cplus_درخت_code {
+  CP_DUMMY_درخت_CODE = LAST_C_درخت_CODE,
   AMBIG_CONV,
-  LAST_CPLUS_TREE_CODE
+  LAST_CPLUS_درخت_CODE
 };
 
-extern int printf(const char *, ...);
-int blah(){return 0;}
+بیرونی صحیح printf(ثابت نویسه *, ...);
+صحیح blah(){بازگشت 0;}
 
-int convert_like_real (tree convs)
+صحیح convert_like_real (درخت_2 convs)
 {
-  switch (((enum tree_code) (convs)->common.code))
+  انتخاب (((شمارش درخت_code) (convs)->common.code))
     {
-    case AMBIG_CONV: /* This has bit 7 set, which must not be the sign
+    حالت AMBIG_CONV: /* This has bit 7 set, which must not be the sign
 			bit in tree_common.code, i.e. the bitfield must
 			be somehow marked unsigned.  */
-      return blah();
-    default:
-      break;
+      بازگشت blah();
+    پیشفرض:
+      بشکن;
     };
    printf("unsigned enum bit-fields broken\n");
-   return 0;
+   بازگشت 0;
 }
 
-int main()
+صحیح اصلی()
 {
-  union tree_node convs;
+  اجتماع گره_درخت convs;
 
   convs.common.code = AMBIG_CONV;
   convert_like_real (&convs);
-  return 0;
+  بازگشت 0;
 }

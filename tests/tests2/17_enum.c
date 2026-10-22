@@ -1,6 +1,6 @@
-#include <stdio.h>
+#شامل <stdio.h>
 
-enum fred
+شمارش fred
 {
    a,
    b,
@@ -19,42 +19,42 @@ enum fred
 /* Strict ISO C doesn't allow this kind of forward declaration of
    enums, but GCC accepts it (and gives only pedantic warning), and
    it occurs in the wild.  */
-enum efoo;
-struct Sforward_use {
-    int (*fmember) (enum efoo x);
+شمارش efoo;
+ساختار Sforward_use {
+    صحیح (*fmember) (شمارش efoo x);
 };
 
-extern enum efoo it_real_fn(void);
-enum efoo {
+بیرونی شمارش efoo it_real_fn(تهی);
+شمارش efoo {
   ONE,
   TWO,
 };
-struct S2 {
-  enum efoo (*f2) (void);
+ساختار S2 {
+  شمارش efoo (*f2) (تهی);
 };
-void should_compile(struct S2 *s)
+تهی should_compile(ساختار S2 *s)
 {
   s->f2 = it_real_fn;
 }
 
-enum efoo it_real_fn(void)
+شمارش efoo it_real_fn(تهی)
 {
-  return TWO;
+  بازگشت TWO;
 }
 
-static unsigned int deref_uintptr(unsigned int *p)
+ایستا unsigned صحیح deref_uintptr(unsigned صحیح *p)
 {
-  return *p;
+  بازگشت *p;
 }
 
-enum Epositive {
+شمارش Epositive {
     epos_one, epos_two
 };
 
-int main()
+صحیح اصلی()
 {
-   enum fred frod;
-   enum Epositive epos = epos_two;
+   شمارش fred frod;
+   شمارش Epositive epos = epos_two;
 
    printf("%d %d %d %d %d %d %d %d\n", a, b, c, d, e, f, g, h);
    /* printf("%d\n", frod); */
@@ -66,7 +66,7 @@ int main()
    /* Following should compile without warning.  */
    printf ("enum to int: %u\n", deref_uintptr(&epos));
 
-   return 0;
+   بازگشت 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

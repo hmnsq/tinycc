@@ -1,33 +1,33 @@
-#include <stdio.h>
+#شامل <stdio.h>
 
-int main()
+صحیح اصلی()
 {
-   int x = 'a';
-   char y = x;
+   صحیح x = 'a';
+   نویسه y = x;
 
-   char *a = "hello";
+   نویسه *a = "hello";
 
    printf("%s\n", a);
 
-   int c;
+   صحیح c;
    c = *a;
 
-   char *b;
-   for (b = a; *b != 0; b++)
+   نویسه *b;
+   برای (b = a; *b != 0; b++)
       printf("%c: %d\n", *b, *b);
 
-   char destarray[10];
-   char *dest = &destarray[0];
-   char *src = a;
+   نویسه destarray[10];
+   نویسه *dest = &destarray[0];
+   نویسه *src = a;
 
-   while (*src != 0)
+   وقتی (*src != 0)
       *dest++ = *src++;
 
    *dest = 0;
 
    printf("copied string is %s\n", destarray);
 
-   return 0;
+   بازگشت 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

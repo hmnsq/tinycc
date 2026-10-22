@@ -1,24 +1,24 @@
-#include <stdio.h>
+#شامل <stdio.h>
 
-void fred(int x)
+تهی fred(صحیح x)
 {
-   switch (x)
+   انتخاب (x)
    {
-      case 1: printf("1\n"); return;
-      case 2: printf("2\n"); break;
-      case 3: printf("3\n"); return;
+      حالت 1: printf("1\n"); بازگشت;
+      حالت 2: printf("2\n"); بشکن;
+      حالت 3: printf("3\n"); بازگشت;
    }
 
    printf("out\n");
 }
 
-int main()
+صحیح اصلی()
 {
    fred(1);
    fred(2);
    fred(3);
 
-   return 0;
+   بازگشت 0;
 }    
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

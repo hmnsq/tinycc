@@ -1,113 +1,113 @@
-#include <stdio.h>
+#شامل <stdio.h>
 
-int f(void)
+صحیح f(تهی)
 {
-  return 5;
+  بازگشت 5;
 }
 
-void test1()
+تهی test1()
 {
-  int count = 10;
-  void *addr[10];
-  for(;count--;) {
-    int a[f()];
+  صحیح شمار_2 = 10;
+  تهی *addr[10];
+  برای(;شمار_2--;) {
+    صحیح a[f()];
 
-    addr[count] = a;
+    addr[شمار_2] = a;
 
-    continue;
+    ادامه;
   }
 
-  if(addr[9] == addr[0]) {
+  اگر(addr[9] == addr[0]) {
     printf("OK\n");
-  } else {
+  } وگرنه {
     printf("NOT OK\n");
   }
 }
 
-void test2()
+تهی test2()
 {
-  int count = 10;
-  void *addr[count];
-  for(;count--;) {
-    int a[f()];
+  صحیح شمار_2 = 10;
+  تهی *addr[شمار_2];
+  برای(;شمار_2--;) {
+    صحیح a[f()];
 
-    addr[count] = a;
+    addr[شمار_2] = a;
 
-    continue;
+    ادامه;
   }
 
-  if(addr[9] == addr[0]) {
+  اگر(addr[9] == addr[0]) {
     printf("OK\n");
-  } else {
+  } وگرنه {
     printf("NOT OK\n");
   }
 }
 
-void test3()
+تهی test3()
 {
-  int count = 10;
-  void *addr[count];
-  while(count--) {
-      int b[f()];
-      if (count >= 0) {
-          int a[f()];
+  صحیح شمار_2 = 10;
+  تهی *addr[شمار_2];
+  وقتی(شمار_2--) {
+      صحیح b[f()];
+      اگر (شمار_2 >= 0) {
+          صحیح a[f()];
 
-          addr[count] = a;
+          addr[شمار_2] = a;
 
-          continue;
+          ادامه;
       }
   }
 
-  if(addr[9] == addr[0]) {
+  اگر(addr[9] == addr[0]) {
     printf("OK\n");
-  } else {
+  } وگرنه {
     printf("NOT OK\n");
   }
 }
 
-void test4()
+تهی test4()
 {
-  int count = 10;
-  void *addr[count];
-  do {
-    int a[f()];
+  صحیح شمار_2 = 10;
+  تهی *addr[شمار_2];
+  انجامبده {
+    صحیح a[f()];
 
-    addr[--count] = a;
+    addr[--شمار_2] = a;
 
-    continue;
-  } while (count);
+    ادامه;
+  } وقتی (شمار_2);
 
-  if(addr[9] == addr[0]) {
+  اگر(addr[9] == addr[0]) {
     printf("OK\n");
-  } else {
+  } وگرنه {
     printf("NOT OK\n");
   }
 }
 
-void test5()
+تهی test5()
 {
-  int count = 10;
-  int a[f()];
-  int c[f()];
+  صحیح شمار_2 = 10;
+  صحیح a[f()];
+  صحیح c[f()];
 
   c[0] = 42;
 
-  for(;count--;) {
-    int b[f()];
-    int i;
-    for (i=0; i<f(); i++) {
-      b[i] = count;
+  برای(;شمار_2--;) {
+    صحیح b[f()];
+    صحیح i;
+    برای (i=0; i<f(); i++) {
+      b[i] = شمار_2;
     }
   }
 
-  if (c[0] == 42) {
+  اگر (c[0] == 42) {
     printf("OK\n");
-  } else {
+  } وگرنه {
     printf("NOT OK\n");
   }
 }
 
-int main(void)
+صحیح اصلی(تهی)
 {
   test1();
   test2();
@@ -115,5 +115,5 @@ int main(void)
   test4();
   test5();
 
-  return 0;
+  بازگشت 0;
 }

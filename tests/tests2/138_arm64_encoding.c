@@ -2,19 +2,19 @@
    Exercises shift-by-immediate, load/store addressing modes,
    conditional branches, and system register access. */
 
-#include <stdio.h>
-#include <stdint.h>
+#شامل <stdio.h>
+#شامل <stdint.h>
 
 /* ---- shift-by-immediate helpers ---- */
 
-static uint32_t lsl32(uint32_t x, int n) { return x << n; }
-static uint32_t lsr32(uint32_t x, int n) { return x >> n; }
-static int32_t  asr32(int32_t  x, int n) { return x >> n; }
-static uint64_t lsl64(uint64_t x, int n) { return x << n; }
-static uint64_t lsr64(uint64_t x, int n) { return x >> n; }
-static int64_t  asr64(int64_t  x, int n) { return x >> n; }
+ایستا uint32_t lsl32(uint32_t x, صحیح n) { بازگشت x << n; }
+ایستا uint32_t lsr32(uint32_t x, صحیح n) { بازگشت x >> n; }
+ایستا int32_t  asr32(int32_t  x, صحیح n) { بازگشت x >> n; }
+ایستا uint64_t lsl64(uint64_t x, صحیح n) { بازگشت x << n; }
+ایستا uint64_t lsr64(uint64_t x, صحیح n) { بازگشت x >> n; }
+ایستا int64_t  asr64(int64_t  x, صحیح n) { بازگشت x >> n; }
 
-static void test_shifts(void)
+ایستا تهی test_shifts(تهی)
 {
     printf("shift-imm:\n");
     printf("%x\n", lsl32(1, 0));
@@ -34,7 +34,7 @@ static void test_shifts(void)
 
 /* ---- load/store with various addressing modes ---- */
 
-static void test_ldr_str(void)
+ایستا تهی test_ldr_str(تهی)
 {
     int64_t buf[4] = { 0x1122334455667788LL, 0x99AABBCCDDEEFF00LL,
                        0x0F1E2D3C4B5A6978LL, 0x0000000000000001LL };
@@ -69,7 +69,7 @@ static void test_ldr_str(void)
 
 /* ---- STP/LDP (store/load pair) ---- */
 
-static void test_ldp_stp(void)
+ایستا تهی test_ldp_stp(تهی)
 {
     int64_t src[2] = { 0xAAAABBBBCCCCDDDDLL, 0x1111222233334444LL };
     int64_t dst[2];
@@ -86,21 +86,21 @@ static void test_ldp_stp(void)
 
 /* ---- CBZ / CBNZ via C patterns ---- */
 
-static const char *cbz_test(int x)
+ایستا ثابت نویسه *cbz_test(صحیح x)
 {
-    if (x == 0)
-        return "zero";
-    return "nonzero";
+    اگر (x == 0)
+        بازگشت "zero";
+    بازگشت "nonzero";
 }
 
-static const char *cbnz_test(int x)
+ایستا ثابت نویسه *cbnz_test(صحیح x)
 {
-    if (x != 0)
-        return "nonzero";
-    return "zero";
+    اگر (x != 0)
+        بازگشت "nonzero";
+    بازگشت "zero";
 }
 
-static void test_cond_branches(void)
+ایستا تهی test_cond_branches(تهی)
 {
     printf("cbz-cbnz:\n");
     printf("%s\n", cbz_test(0));
@@ -111,13 +111,13 @@ static void test_cond_branches(void)
 
 /* ---- conditional compare patterns (CCMP/CCMN) ---- */
 
-static int cond_select(int a, int b)
+ایستا صحیح cond_select(صحیح a, صحیح b)
 {
     /* TCC should generate csel or equivalent */
-    return a > b ? a : b;
+    بازگشت a > b ? a : b;
 }
 
-static void test_cond_select(void)
+ایستا تهی test_cond_select(تهی)
 {
     printf("csel:\n");
     printf("%d\n", cond_select(5, 10));
@@ -128,63 +128,63 @@ static void test_cond_select(void)
 
 /* ---- MRS/MSR system registers (FPCR/FPSR) ---- */
 
-static void test_sysregs(void)
+ایستا تهی test_sysregs(تهی)
 {
-    unsigned int fpcr, fpsr;
+    unsigned صحیح fpcr, fpsr;
 
     printf("sysregs:\n");
 
     /* Read FPCR */
-    __asm__ volatile ("mrs %0, fpcr" : "=r"(fpcr));
+    __asm__ فرار ("mrs %0, fpcr" : "=r"(fpcr));
     printf("%u\n", fpcr & 0x0F);
 
     /* Read FPSR */
-    __asm__ volatile ("mrs %0, fpsr" : "=r"(fpsr));
+    __asm__ فرار ("mrs %0, fpsr" : "=r"(fpsr));
     printf("%u\n", fpsr);
 
     /* Write/restore FPCR (should be same value) */
-    __asm__ volatile ("msr fpcr, %0" : : "r"(fpcr));
+    __asm__ فرار ("msr fpcr, %0" : : "r"(fpcr));
 
     /* Read back and verify */
     {
-        unsigned int check;
-        __asm__ volatile ("mrs %0, fpcr" : "=r"(check));
+        unsigned صحیح check;
+        __asm__ فرار ("mrs %0, fpcr" : "=r"(check));
         printf("%s\n", check == fpcr ? "ok" : "fail");
     }
 }
 
 /* ---- NOP encoding (should not crash) ---- */
 
-static void test_nop(void)
+ایستا تهی test_nop(تهی)
 {
     printf("nop:\n");
-    __asm__ volatile ("nop");
-    __asm__ volatile ("nop");
-    __asm__ volatile ("nop");
+    __asm__ فرار ("nop");
+    __asm__ فرار ("nop");
+    __asm__ فرار ("nop");
     printf("ok\n");
 }
 
 /* ---- barrier instructions ---- */
 
-static void test_barriers(void)
+ایستا تهی test_barriers(تهی)
 {
     printf("barriers:\n");
-    __asm__ volatile ("dmb sy");
-    __asm__ volatile ("dsb sy");
-    __asm__ volatile ("isb");
+    __asm__ فرار ("dmb sy");
+    __asm__ فرار ("dsb sy");
+    __asm__ فرار ("isb");
     printf("ok\n");
 }
 
 /* ---- MOV (register) patterns ---- */
 
-static int64_t mov_x0_x1(int64_t x)
+ایستا int64_t mov_x0_x1(int64_t x)
 {
-    register int64_t r __asm__("x0") = x;
-    __asm__ volatile ("" : "=r"(r) : "0"(r));
-    return r;
+    ثبات int64_t r __asm__("x0") = x;
+    __asm__ فرار ("" : "=r"(r) : "0"(r));
+    بازگشت r;
 }
 
-static void test_mov_reg(void)
+ایستا تهی test_mov_reg(تهی)
 {
     printf("mov-reg:\n");
     printf("%lld\n", (long long)mov_x0_x1(42));
@@ -193,23 +193,23 @@ static void test_mov_reg(void)
 
 /* ---- large struct passing (reference semantics) ---- */
 
-struct large { int64_t a, b, c, d; };
+ساختار large { int64_t a, b, c, d; };
 
-static int64_t sum_large(struct large s)
+ایستا int64_t sum_large(ساختار large s)
 {
-    return s.a + s.b + s.c + s.d;
+    بازگشت s.a + s.b + s.c + s.d;
 }
 
-static struct large make_large(int64_t a, int64_t b, int64_t c, int64_t d)
+ایستا ساختار large make_large(int64_t a, int64_t b, int64_t c, int64_t d)
 {
-    struct large s = { a, b, c, d };
-    return s;
+    ساختار large s = { a, b, c, d };
+    بازگشت s;
 }
 
-static void test_large_structs(void)
+ایستا تهی test_large_structs(تهی)
 {
-    struct large s = { 1, 2, 3, 4 };
-    struct large t;
+    ساختار large s = { 1, 2, 3, 4 };
+    ساختار large t;
 
     printf("large-struct:\n");
     printf("%lld\n", (long long)sum_large(s));
@@ -222,37 +222,37 @@ static void test_large_structs(void)
 
 /* ---- boundary-sized structs ---- */
 
-struct s18 { char x[18]; };
-struct s24 { char x[24]; };
-struct s32 { char x[32]; };
+ساختار s18 { نویسه x[18]; };
+ساختار s24 { نویسه x[24]; };
+ساختار s32 { نویسه x[32]; };
 
-static void print_s18(struct s18 s) { printf("%.18s\n", s.x); }
-static void print_s24(struct s24 s) { printf("%.24s\n", s.x); }
-static void print_s32(struct s32 s) { printf("%.32s\n", s.x); }
+ایستا تهی print_s18(ساختار s18 s) { printf("%.18s\n", s.x); }
+ایستا تهی print_s24(ساختار s24 s) { printf("%.24s\n", s.x); }
+ایستا تهی print_s32(ساختار s32 s) { printf("%.32s\n", s.x); }
 
-static struct s18 ret_s18(void)
+ایستا ساختار s18 ret_s18(تهی)
 {
-    struct s18 s = { "123456789012345678" };
-    return s;
+    ساختار s18 s = { "123456789012345678" };
+    بازگشت s;
 }
 
-static struct s24 ret_s24(void)
+ایستا ساختار s24 ret_s24(تهی)
 {
-    struct s24 s = { "123456789012345678901234" };
-    return s;
+    ساختار s24 s = { "123456789012345678901234" };
+    بازگشت s;
 }
 
-static struct s32 ret_s32(void)
+ایستا ساختار s32 ret_s32(تهی)
 {
-    struct s32 s = { "12345678901234567890123456789012" };
-    return s;
+    ساختار s32 s = { "12345678901234567890123456789012" };
+    بازگشت s;
 }
 
-static void test_boundary_structs(void)
+ایستا تهی test_boundary_structs(تهی)
 {
-    struct s18 a;
-    struct s24 b;
-    struct s32 c;
+    ساختار s18 a;
+    ساختار s24 b;
+    ساختار s32 c;
 
     printf("boundary-structs:\n");
     a = ret_s18();
@@ -263,7 +263,7 @@ static void test_boundary_structs(void)
     printf("%.32s\n", c.x);
 }
 
-int main(void)
+صحیح اصلی(تهی)
 {
     test_shifts();
     test_ldr_str();
@@ -276,5 +276,5 @@ int main(void)
     test_mov_reg();
     test_large_structs();
     test_boundary_structs();
-    return 0;
+    بازگشت 0;
 }

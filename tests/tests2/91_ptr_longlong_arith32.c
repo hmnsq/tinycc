@@ -1,9 +1,9 @@
-int printf(const char *, ...);
-char t[] = "012345678";
+صحیح printf(ثابت نویسه *, ...);
+نویسه t[] = "012345678";
 
-int main(void)
+صحیح اصلی(تهی)
 {
-    char *data = t;
+    نویسه *data = t;
     unsigned long long r = 4;
     unsigned a = 5;
     unsigned long long b = 12;
@@ -11,5 +11,5 @@ int main(void)
     *(unsigned*)(data + r) += a - b;
 
     printf("data = \"%s\"\n", data);
-    return 0;
+    بازگشت 0;
 }

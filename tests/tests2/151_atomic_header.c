@@ -1,38 +1,38 @@
-#include <stdatomic.h>
-#include <stdio.h>
+#شامل <stdatomic.h>
+#شامل <stdio.h>
 
-static int value_calls;
-static int order_calls;
+ایستا صحیح مقدار_calls;
+ایستا صحیح order_calls;
 
-static int next_value(void)
+ایستا صحیح next_مقدار(تهی)
 {
-    ++value_calls;
-    return 42;
+    ++مقدار_calls;
+    بازگشت 42;
 }
 
-static int next_order(void)
+ایستا صحیح next_order(تهی)
 {
     ++order_calls;
-    return __ATOMIC_SEQ_CST;
+    بازگشت __ATOMIC_SEQ_CST;
 }
 
-int main(void)
+صحیح اصلی(تهی)
 {
-    int values[2] = {7, 8};
-    int index = 0;
-    int value = 1;
-    volatile int vol = 0;
-    int *pointer = &value;
-    void (*signal_fence)(memory_order) = &atomic_signal_fence;
+    صحیح مقادیر[2] = {7, 8};
+    صحیح index = 0;
+    صحیح مقدار = 1;
+    فرار صحیح vol = 0;
+    صحیح *pointer = &مقدار;
+    تهی (*signal_fence)(memory_order) = &atomic_signal_fence;
 
-    __atomic_store_n(&values[index++], next_value(), next_order());
-    printf("%d %d %d %d %d\n", index, value_calls, order_calls,
-           values[0], values[1]);
-    __atomic_store_n(&value, value + 1, __ATOMIC_RELAXED);
-    printf("%d\n", value);
+    __atomic_store_n(&مقادیر[index++], next_مقدار(), next_order());
+    printf("%d %d %d %d %d\n", index, مقدار_calls, order_calls,
+           مقادیر[0], مقادیر[1]);
+    __atomic_store_n(&مقدار, مقدار + 1, __ATOMIC_RELAXED);
+    printf("%d\n", مقدار);
     __atomic_store_n(&vol, 13, __ATOMIC_RELEASE);
     printf("%d\n", __atomic_load_n(&vol, __ATOMIC_ACQUIRE));
-    __atomic_store_n(&pointer, &values[0], __ATOMIC_RELEASE);
+    __atomic_store_n(&pointer, &مقادیر[0], __ATOMIC_RELEASE);
     printf("%d\n", *__atomic_load_n(&pointer, __ATOMIC_ACQUIRE));
 
     atomic_signal_fence(memory_order_acquire);
@@ -41,5 +41,5 @@ int main(void)
     atomic_thread_fence(memory_order_seq_cst);
     __atomic_thread_fence(__ATOMIC_SEQ_CST);
     puts("ok");
-    return 0;
+    بازگشت 0;
 }

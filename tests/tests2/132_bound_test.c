@@ -1,37 +1,37 @@
-#include <stdio.h>
-#include <float.h>
+#شامل <stdio.h>
+#شامل <float.h>
 
-union ieee_double_extract
+اجتماع ieee_double_extract
 {
-    struct {
-        unsigned int manl:32;
-        unsigned int manh:20;
-        unsigned int exp:11;
-        unsigned int sig:1;
+    ساختار {
+        unsigned صحیح manl:32;
+        unsigned صحیح manh:20;
+        unsigned صحیح exp:11;
+        unsigned صحیح sig:1;
     } s;
-    double d;
+    دوگانه d;
 };
 
-double scale(double d)
+دوگانه scale(دوگانه d)
 {
-    union ieee_double_extract x;
+    اجتماع ieee_double_extract x;
 
     x.d = d;
     x.d *= 1000;
-    return x.d;
+    بازگشت x.d;
 }
 
-void mul(double *p)
+تهی mul(دوگانه *p)
 {
     *p *= 2.0;
 }
 
-int
-main(void)
+صحیح
+اصلی(تهی)
 {
-    double d = 4.0;
+    دوگانه d = 4.0;
     printf("%g\n", scale(42));
     mul(&d);
     printf("%g\n", d);
-    return 0;
+    بازگشت 0;
 }

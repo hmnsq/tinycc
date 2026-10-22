@@ -1,1 +1,1 @@
-#include <sys/unistd.h>
+#شامل <sys/unistd.h>

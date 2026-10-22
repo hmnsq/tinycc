@@ -1,33 +1,33 @@
-#include <stdio.h>
+#شامل <stdio.h>
 
-int main()
+صحیح اصلی()
 {
    printf("#include test\n");
 
-#if 1
-#if 0
+#اگر 1
+#اگر 0
    printf("a\n");
-#else
+#وگرنه
    printf("b\n");
 #endif
-#else
-#if 0
+#وگرنه
+#اگر 0
    printf("c\n");
-#else
+#وگرنه
    printf("d\n");
 #endif
 #endif
 
-#if 0
-#if 1
+#اگر 0
+#اگر 1
    printf("e\n");
-#else
+#وگرنه
    printf("f\n");
 #endif
-#else
-#if 1
+#وگرنه
+#اگر 1
    printf("g\n");
-#else
+#وگرنه
    printf("h\n");
 #endif
 #endif
@@ -37,13 +37,13 @@ int main()
 #ifdef DEF
 #ifdef DEF
    printf("i\n");
-#else
+#وگرنه
    printf("j\n");
 #endif
-#else
+#وگرنه
 #ifdef DEF
    printf("k\n");
-#else
+#وگرنه
    printf("l\n");
 #endif
 #endif
@@ -51,13 +51,13 @@ int main()
 #ifndef DEF
 #ifndef DEF
    printf("m\n");
-#else
+#وگرنه
    printf("n\n");
 #endif
-#else
+#وگرنه
 #ifndef DEF
    printf("o\n");
-#else
+#وگرنه
    printf("p\n");
 #endif
 #endif
@@ -65,21 +65,21 @@ int main()
 #define ONE 1
 #define ZERO 0
 
-#if ONE
-#if ZERO
+#اگر ONE
+#اگر ZERO
    printf("q\n");
-#else
+#وگرنه
    printf("r\n");
 #endif
-#else
-#if ZERO
+#وگرنه
+#اگر ZERO
    printf("s\n");
-#else
+#وگرنه
    printf("t\n");
 #endif
 #endif
 
-   return 0;
+   بازگشت 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

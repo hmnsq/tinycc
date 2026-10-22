@@ -1,17 +1,17 @@
-#include <stdio.h>
+#شامل <stdio.h>
 
-enum fred { a, b, c };
+شمارش fred { a, b, c };
 
-int main()
+صحیح اصلی()
 {
    printf("a=%d\n", a);
    printf("b=%d\n", b);
    printf("c=%d\n", c);
 
-   enum fred d;
+   شمارش fred d;
 
-   typedef enum { e, f, g } h;
-   typedef enum { i, j, k } m;
+   تعریفنوع شمارش { e, f, g } h;
+   تعریفنوع شمارش { i, j, k } m;
 
    printf("e=%d\n", e);
    printf("f=%d\n", f);
@@ -21,7 +21,7 @@ int main()
    printf("j=%d\n", j);
    printf("k=%d\n", k);
 
-   return 0;
+   بازگشت 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

@@ -1,32 +1,32 @@
-#include <stdio.h>
+#شامل <stdio.h>
 
-int main()
+صحیح اصلی()
 {
-   int a[4][4];
-   int b = 0;
-   int x;
-   int y;
+   صحیح a[4][4];
+   صحیح b = 0;
+   صحیح x;
+   صحیح y;
 
-   for (x = 0; x < 4; x++)
+   برای (x = 0; x < 4; x++)
    {
-      for (y = 0; y < 4; y++)
+      برای (y = 0; y < 4; y++)
       {
          b++;
          a[x][y] = b;
       }
    }
 
-   for (x = 0; x < 4; x++)
+   برای (x = 0; x < 4; x++)
    {
       printf("x=%d: ", x);
-      for (y = 0; y < 4; y++)
+      برای (y = 0; y < 4; y++)
       {
          printf("%d ", a[x][y]);
       }
       printf("\n");
    }
 
-   return 0;
+   بازگشت 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

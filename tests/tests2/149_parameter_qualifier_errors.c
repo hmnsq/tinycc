@@ -1,11 +1,11 @@
-void defined_const(int *pointer);
+تهی defined_const(صحیح *pointer);
 
-void defined_const(int *const pointer)
+تهی defined_const(صحیح *ثابت pointer)
 {
     pointer = 0;
 }
 
-int main(void)
+صحیح اصلی(تهی)
 {
-    return 0;
+    بازگشت 0;
 }

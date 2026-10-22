@@ -3,26 +3,26 @@
  *
  * libtcc can be useful to use tcc as a "backend" for a code generator.
  */
-#include <stdlib.h>
-#include <stdio.h>
-#include <string.h>
-#include "libtcc.h"
+#شامل <stdlib.h>
+#شامل <stdio.h>
+#شامل <string.h>
+#شامل "libtcc.h"
 
-void handle_error(void *opaque, const char *msg)
+تهی handle_error(تهی *opaque, ثابت نویسه *پیام)
 {
-    fprintf(opaque, "%s\n", msg);
+    fprintf(opaque, "%s\n", پیام);
 }
 
 /* this function is called by the generated code */
-int add(int a, int b)
+صحیح add(صحیح a, صحیح b)
 {
-    return a + b;
+    بازگشت a + b;
 }
 
 /* this strinc is referenced by the generated code */
-const char hello[] = "Hello World!";
+ثابت نویسه hello[] = "Hello World!";
 
-char my_program[] =
+نویسه my_program[] =
 "#include <tcclib.h>\n" /* include the "Simple libc header for TCC" */
 "extern int add(int a, int b);\n"
 "#ifdef _WIN32\n" /* dynamically linked data needs 'dllimport' */
@@ -45,14 +45,14 @@ char my_program[] =
 "    return 0;\n"
 "}\n";
 
-int main(int argc, char **argv)
+صحیح اصلی(صحیح argc, نویسه **argv)
 {
     TCCState *s;
-    int i;
-    int (*func)(int);
+    صحیح i;
+    صحیح (*func)(صحیح);
 
     s = tcc_new();
-    if (!s) {
+    اگر (!s) {
         fprintf(stderr, "Could not create tcc state\n");
         exit(1);
     }
@@ -61,14 +61,14 @@ int main(int argc, char **argv)
     tcc_set_error_func(s, stderr, handle_error);
 
     /* if tcclib.h and libtcc1.a are not installed, where can we find them */
-    for (i = 1; i < argc; ++i) {
-        char *a = argv[i];
-        if (a[0] == '-') {
-            if (a[1] == 'B')
+    برای (i = 1; i < argc; ++i) {
+        نویسه *a = argv[i];
+        اگر (a[0] == '-') {
+            اگر (a[1] == 'B')
                 tcc_set_lib_path(s, a+2);
-            else if (a[1] == 'I')
+            وگرنه اگر (a[1] == 'I')
                 tcc_add_include_path(s, a+2);
-            else if (a[1] == 'L')
+            وگرنه اگر (a[1] == 'L')
                 tcc_add_library_path(s, a+2);
         }
     }
@@ -76,22 +76,22 @@ int main(int argc, char **argv)
     /* MUST BE CALLED before any compilation */
     tcc_set_output_type(s, TCC_OUTPUT_MEMORY);
 
-    if (tcc_compile_string(s, my_program) == -1)
-        return 1;
+    اگر (tcc_compile_string(s, my_program) == -1)
+        بازگشت 1;
 
     /* as a test, we add symbols that the compiled program can use.
        You may also open a dll with tcc_add_dll() and use symbols from that */
-    tcc_add_symbol(s, "add", add);
-    tcc_add_symbol(s, "hello", hello);
+    tcc_add_نماد(s, "add", add);
+    tcc_add_نماد(s, "hello", hello);
 
     /* relocate the code */
-    if (tcc_relocate(s) < 0)
-        return 1;
+    اگر (tcc_relocate(s) < 0)
+        بازگشت 1;
 
     /* get entry symbol */
-    func = tcc_get_symbol(s, "foo");
-    if (!func)
-        return 1;
+    func = tcc_get_نماد(s, "foo");
+    اگر (!func)
+        بازگشت 1;
 
     /* run the code */
     func(32);
@@ -99,5 +99,5 @@ int main(int argc, char **argv)
     /* delete the state */
     tcc_delete(s);
 
-    return 0;
+    بازگشت 0;
 }

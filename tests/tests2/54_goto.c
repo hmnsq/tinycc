@@ -1,24 +1,24 @@
-#include <stdio.h>
+#شامل <stdio.h>
 
-void fred()
+تهی fred()
 {
    printf("In fred()\n");
-   goto done;
+   برو done;
    printf("In middle\n");
 done:
    printf("At end\n");
 }
 
-void joe()
+تهی joe()
 {
-   int b = 5678;
+   صحیح b = 5678;
 
    printf("In joe()\n");
 
    {
-      int c = 1234;
+      صحیح c = 1234;
       printf("c = %d\n", c);
-      goto outer;
+      برو outer;
       printf("uh-oh\n");
    }
 
@@ -27,15 +27,15 @@ outer:
    printf("done\n");
 }
 
-void henry()
+تهی henry()
 {
-   int a;
+   صحیح a;
 
    printf("In henry()\n");
-   goto inner;
+   برو inner;
 
    {
-      int b;
+      صحیح b;
 inner:    
       b = 1234;
       printf("b = %d\n", b);
@@ -44,13 +44,13 @@ inner:
    printf("done\n");
 }
 
-int main()
+صحیح اصلی()
 {
    fred();
    joe();
    henry();
 
-   return 0;
+   بازگشت 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

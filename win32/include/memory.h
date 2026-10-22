@@ -6,10 +6,10 @@
 #ifndef _INC_MEMORY
 #define _INC_MEMORY
 
-#include <_mingw.h>
+#شامل <_mingw.h>
 
 #ifdef __cplusplus
-extern "C" {
+بیرونی "C" {
 #endif
 
 #ifndef _CONST_RETURN
@@ -20,17 +20,17 @@ extern "C" {
 
 #ifndef _CRT_MEMORY_DEFINED
 #define _CRT_MEMORY_DEFINED
-  _CRTIMP void *__cdecl _memccpy(void *_Dst,const void *_Src,int _Val,size_t _MaxCount);
-  _CONST_RETURN void *__cdecl memchr(const void *_Buf ,int _Val,size_t _MaxCount);
-  _CRTIMP int __cdecl _memicmp(const void *_Buf1,const void *_Buf2,size_t _Size);
-  _CRTIMP int __cdecl _memicmp_l(const void *_Buf1,const void *_Buf2,size_t _Size,_locale_t _Locale);
-  int __cdecl memcmp(const void *_Buf1,const void *_Buf2,size_t _Size);
-  void *__cdecl memcpy(void *_Dst,const void *_Src,size_t _Size);
-  void *__cdecl memset(void *_Dst,int _Val,size_t _Size);
+  _CRTIMP تهی *__cdecl _memccpy(تهی *_Dst,ثابت تهی *_Src,صحیح _Val,size_t Max_شمار);
+  _CONST_RETURN تهی *__cdecl memchr(ثابت تهی *_Buf ,صحیح _Val,size_t Max_شمار);
+  _CRTIMP صحیح __cdecl _memicmp(ثابت تهی *_Buf1,ثابت تهی *_Buf2,size_t _Size);
+  _CRTIMP صحیح __cdecl _memicmp_l(ثابت تهی *_Buf1,ثابت تهی *_Buf2,size_t _Size,_locale_t _Locale);
+  صحیح __cdecl memcmp(ثابت تهی *_Buf1,ثابت تهی *_Buf2,size_t _Size);
+  تهی *__cdecl memcpy(تهی *_Dst,ثابت تهی *_Src,size_t _Size);
+  تهی *__cdecl memset(تهی *_Dst,صحیح _Val,size_t _Size);
 
 #ifndef	NO_OLDNAMES
-  void *__cdecl memccpy(void *_Dst,const void *_Src,int _Val,size_t _Size);
-  int __cdecl memicmp(const void *_Buf1,const void *_Buf2,size_t _Size);
+  تهی *__cdecl memccpy(تهی *_Dst,ثابت تهی *_Src,صحیح _Val,size_t _Size);
+  صحیح __cdecl memicmp(ثابت تهی *_Buf1,ثابت تهی *_Buf2,size_t _Size);
 #endif
 #endif
 

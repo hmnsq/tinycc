@@ -19,7 +19,7 @@
  */
 
 #define USING_GLOBALS
-#include "tcc.h"
+#شامل "tcc.h"
 
 /********************************************************/
 /* global variables */
@@ -29,33 +29,33 @@
    rsym: return symbol
    anon_sym: anonymous symbol index
 */
-ST_DATA int rsym, anon_sym, ind, loc;
+ST_DATA صحیح rsym, anon_sym, ind, loc;
 
-ST_DATA Sym *global_stack;
-ST_DATA Sym *local_stack;
-ST_DATA Sym *define_stack;
-ST_DATA Sym *global_label_stack;
-ST_DATA Sym *local_label_stack;
+ST_DATA Sym *global_پشته;
+ST_DATA Sym *local_پشته;
+ST_DATA Sym *define_پشته;
+ST_DATA Sym *global_label_پشته;
+ST_DATA Sym *local_label_پشته;
 
-static Sym *sym_free_first;
-static void **sym_pools;
-static int nb_sym_pools;
+ایستا Sym *sym_free_first;
+ایستا تهی **sym_pools;
+ایستا صحیح nb_sym_pools;
 
-static Sym *all_cleanups, *pending_gotos;
-static int local_scope;
-ST_DATA char debug_modes;
+ایستا Sym *all_cleanups, *pending_gotos;
+ایستا صحیح local_scope;
+ST_DATA نویسه debug_modes;
 
 ST_DATA SValue *vtop;
-static SValue _vstack[1 + VSTACK_SIZE];
+ایستا SValue _vstack[1 + VSTACK_SIZE];
 #define vstack (_vstack + 1)
 
-ST_DATA int nocode_wanted; /* no code generation wanted */
+ST_DATA صحیح nocode_wanted; /* no code generation wanted */
 #define NODATA_WANTED (nocode_wanted > 0) /* no static data output wanted either */
 #define DATA_ONLY_WANTED 0x80000000 /* ON outside of functions and for static initializers */
 
 /* no code output after unconditional jumps such as with if (0) ... */
 #define CODE_OFF_BIT 0x20000000
-#define CODE_OFF() if(!nocode_wanted)(nocode_wanted |= CODE_OFF_BIT)
+#define CODE_OFF() اگر(!nocode_wanted)(nocode_wanted |= CODE_OFF_BIT)
 #define CODE_ON() (nocode_wanted &= ~CODE_OFF_BIT)
 
 /* no code output when parsing sizeof()/typeof() etc. (using nocode_wanted++/--) */
@@ -67,137 +67,137 @@ ST_DATA int nocode_wanted; /* no code generation wanted */
 #define CONST_WANTED_MASK 0x0FFF0000
 #define CONST_WANTED  (nocode_wanted & CONST_WANTED_MASK)
 
-ST_DATA int global_expr;  /* true if compound literals must be allocated globally (used during initializers parsing */
+ST_DATA صحیح global_عبارت;  /* true if compound literals must be allocated globally (used during initializers parsing */
 ST_DATA CType func_vt; /* current function return type (used by return instruction) */
-ST_DATA int func_var; /* true if current function is variadic (used by return instruction) */
-ST_DATA int func_vc; /* stack address for implicit struct return storage */
-ST_DATA int func_ind; /* function start address */
-static int func_old;
-ST_DATA const char *funcname;
+ST_DATA صحیح func_var; /* true if current function is variadic (used by return instruction) */
+ST_DATA صحیح func_vc; /* stack address for implicit struct return storage */
+ST_DATA صحیح func_ind; /* function start address */
+ایستا صحیح func_old;
+ST_DATA ثابت نویسه *funcname;
 ST_DATA CType int_type, func_old_type, char_type, char_pointer_type;
-static CString initstr;
+ایستا CString initstr;
 
-#if PTR_SIZE == 4
+#اگر PTR_SIZE == 4
 #define VT_SIZE_T (VT_INT | VT_UNSIGNED)
 #define VT_PTRDIFF_T VT_INT
-#elif LONG_SIZE == 4
+#وگرنهاگر LONG_SIZE == 4
 #define VT_SIZE_T (VT_LLONG | VT_UNSIGNED)
 #define VT_PTRDIFF_T VT_LLONG
-#else
+#وگرنه
 #define VT_SIZE_T (VT_LONG | VT_LLONG | VT_UNSIGNED)
 #define VT_PTRDIFF_T (VT_LONG | VT_LLONG)
 #endif
 
-static struct switch_t {
-    struct case_t {
+ایستا ساختار switch_t {
+    ساختار case_t {
         int64_t v1, v2;
-        int ind, line;
-    } **p; int n; /* list of case ranges */
-    int def_sym; /* default symbol */
-    int nocode_wanted;
-    int *bsym;
-    struct scope *scope;
-    struct switch_t *prev;
+        صحیح ind, سطر;
+    } **p; صحیح n; /* list of case ranges */
+    صحیح def_sym; /* default symbol */
+    صحیح nocode_wanted;
+    صحیح *bsym;
+    ساختار scope *scope;
+    ساختار switch_t *prev;
     SValue sv;
 } *cur_switch; /* current switch */
 
-#define MAX_TEMP_LOCAL_VARIABLE_NUMBER 8
+#define MAX_TEMP_LOCAL_VARIABLE_عدد 8
 /*list of temporary local variables on the stack in current function. */
-static struct temp_local_variable {
-	int location; //offset on stack. Svalue.c.i
+ایستا ساختار temp_local_variable {
+	صحیح location; //offset on stack. Svalue.c.i
 	short size;
 	short align;
-} arr_temp_local_vars[MAX_TEMP_LOCAL_VARIABLE_NUMBER];
-static int nb_temp_local_vars;
+} arr_temp_local_vars[MAX_TEMP_LOCAL_VARIABLE_عدد];
+ایستا صحیح nb_temp_local_vars;
 
-static struct scope {
-    struct scope *prev;
-    struct { int loc, locorig, num; } vla;
-    struct { Sym *s; int n; } cl;
-    int *bsym, *csym;
+ایستا ساختار scope {
+    ساختار scope *prev;
+    ساختار { صحیح loc, locorig, رقم; } vla;
+    ساختار { Sym *s; صحیح n; } cl;
+    صحیح *bsym, *csym;
     Sym *lstk, *llstk;
-} *cur_scope, *loop_scope, *root_scope;
+} *cur_scope, *loop_scope, *ریشه_scope;
 
-typedef struct {
+تعریفنوع ساختار {
     Section *sec;
-    int local_offset;
+    صحیح local_offset;
     Sym *flex_array_ref;
 } init_params;
 
-#if 1
+#اگر 1
 #define precedence_parser
-static void init_prec(void);
+ایستا تهی init_prec(تهی);
 #endif
 
-static void block(int flags);
-#define STMT_EXPR 1
+ایستا تهی block(صحیح flags);
+#define STMT_عبارت 1
 #define STMT_COMPOUND 2
 
-static void gen_cast(CType *type);
-static void gen_cast_s(int t);
-static inline CType *pointed_type(CType *type);
-static void check_restrict_type(CType *type);
-static int type_qualifiers(CType *type);
-static void parse_btype_qualify(CType *type, int qualifiers);
-static int is_compatible_types(CType *type1, CType *type2);
-static int parse_btype(CType *type, AttributeDef *ad, int ignore_label);
-static CType *type_decl(CType *type, AttributeDef *ad, int *v, int td);
-static void parse_expr_type(CType *type);
-static void init_putv(init_params *p, CType *type, unsigned long c);
-static void decl_initializer(init_params *p, CType *type, unsigned long c, int flags);
-static void decl_initializer_alloc(CType *type, AttributeDef *ad, int r, int has_init, int v, int scope);
-static int decl(int l);
-static void expr_eq(void);
-static void vpush_type_size(CType *type, int *a);
-static int is_compatible_unqualified_types(CType *type1, CType *type2);
-static inline int64_t expr_const64(void);
-static void vpush64(int ty, unsigned long long v);
-static void vpush(CType *type);
-static int gvtst(int inv, int t);
-static void gen_inline_functions(TCCState *s);
-static void free_inline_functions(TCCState *s);
-static void skip_or_save_block(TokenString **str);
-static void gv_dup(void);
-static int get_temp_local_var(int size,int align,int *r2);
-static void cast_error(CType *st, CType *dt);
-static void end_switch(void);
-static void do_Static_assert(void);
+ایستا تهی gen_cast(CType *type);
+ایستا تهی gen_cast_s(صحیح t);
+ایستا درونخطی CType *pointed_type(CType *type);
+ایستا تهی check_restrict_type(CType *type);
+ایستا صحیح type_qualifiers(CType *type);
+ایستا تهی parse_btype_qualify(CType *type, صحیح qualifiers);
+ایستا صحیح is_compatible_types(CType *type1, CType *type2);
+ایستا صحیح parse_btype(CType *type, AttributeDef *ad, صحیح ignore_label);
+ایستا CType *type_decl(CType *type, AttributeDef *ad, صحیح *v, صحیح td);
+ایستا تهی parse_عبارت_type(CType *type);
+ایستا تهی init_putv(init_params *p, CType *type, unsigned long c);
+ایستا تهی decl_initializer(init_params *p, CType *type, unsigned long c, صحیح flags);
+ایستا تهی decl_initializer_alloc(CType *type, AttributeDef *ad, صحیح r, صحیح has_init, صحیح v, صحیح scope);
+ایستا صحیح decl(صحیح l);
+ایستا تهی عبارت_eq(تهی);
+ایستا تهی vpush_type_size(CType *type, صحیح *a);
+ایستا صحیح is_compatible_unqualified_types(CType *type1, CType *type2);
+ایستا درونخطی int64_t عبارت_const64(تهی);
+ایستا تهی vpush64(صحیح ty, unsigned long long v);
+ایستا تهی vpush(CType *type);
+ایستا صحیح gvtst(صحیح inv, صحیح t);
+ایستا تهی gen_inline_functions(TCCState *s);
+ایستا تهی free_inline_functions(TCCState *s);
+ایستا تهی skip_or_save_block(TokenString **str);
+ایستا تهی gv_dup(تهی);
+ایستا صحیح get_temp_local_var(صحیح size,صحیح align,صحیح *r2);
+ایستا تهی cast_error(CType *st, CType *dt);
+ایستا تهی end_switch(تهی);
+ایستا تهی do_Static_assert(تهی);
 
 /* ------------------------------------------------------------------------- */
 /* Automagical code suppression */
 
 /* Clear 'nocode_wanted' at forward label if it was used */
-ST_FUNC void gsym(int t)
+ST_FUNC تهی gsym(صحیح t)
 {
-  if (t) {
+  اگر (t) {
     gsym_addr(t, ind);
     CODE_ON();
   }
 }
 
 /* Clear 'nocode_wanted' if current pc is a label */
-static int gind()
+ایستا صحیح gind()
 {
-  int t = ind;
+  صحیح t = ind;
   CODE_ON();
-  if (debug_modes)
+  اگر (debug_modes)
     tcc_tcov_block_begin(tcc_state);
-  return t;
+  بازگشت t;
 }
 
 /* Set 'nocode_wanted' after unconditional (backwards) jump */
-static void gjmp_addr_acs(int t)
+ایستا تهی gjmp_addr_acs(صحیح t)
 {
   gjmp_addr(t);
   CODE_OFF();
 }
 
 /* Set 'nocode_wanted' after unconditional (forwards) jump */
-static int gjmp_acs(int t)
+ایستا صحیح gjmp_acs(صحیح t)
 {
   t = gjmp(t);
   CODE_OFF();
-  return t;
+  بازگشت t;
 }
 
 /* These are #undef'd at the end of this file */
@@ -205,27 +205,27 @@ static int gjmp_acs(int t)
 #define gjmp gjmp_acs
 /* ------------------------------------------------------------------------- */
 
-ST_INLN int is_float(int t)
+ST_INLN صحیح is_float(صحیح t)
 {
-    int bt = t & VT_BTYPE;
-    return bt == VT_LDOUBLE
+    صحیح bt = t & VT_BTYPE;
+    بازگشت bt == VT_LDOUBLE
         || bt == VT_DOUBLE
         || bt == VT_FLOAT
         || bt == VT_QFLOAT;
 }
 
-static inline int is_integer_btype(int bt)
+ایستا درونخطی صحیح is_integer_btype(صحیح bt)
 {
-    return bt == VT_BYTE
+    بازگشت bt == VT_BYTE
         || bt == VT_BOOL
         || bt == VT_SHORT
         || bt == VT_INT
         || bt == VT_LLONG;
 }
 
-static int btype_size(int bt)
+ایستا صحیح btype_size(صحیح bt)
 {
-    return bt == VT_BYTE || bt == VT_BOOL ? 1 :
+    بازگشت bt == VT_BYTE || bt == VT_BOOL ? 1 :
         bt == VT_SHORT ? 2 :
         bt == VT_INT ? 4 :
         bt == VT_LLONG ? 8 :
@@ -233,165 +233,165 @@ static int btype_size(int bt)
 }
 
 /* returns function return register from type */
-static int R_RET(int t)
+ایستا صحیح R_RET(صحیح t)
 {
-    if (!is_float(t))
-        return REG_IRET;
+    اگر (!is_float(t))
+        بازگشت REG_IRET;
 #ifdef TCC_TARGET_X86_64
-    if ((t & VT_BTYPE) == VT_LDOUBLE)
-        return TREG_ST0;
-#elif defined TCC_TARGET_RISCV64
-    if ((t & VT_BTYPE) == VT_LDOUBLE)
-        return REG_IRET;
+    اگر ((t & VT_BTYPE) == VT_LDOUBLE)
+        بازگشت TREG_ST0;
+#وگرنهاگر defined TCC_TARGET_RISCV64
+    اگر ((t & VT_BTYPE) == VT_LDOUBLE)
+        بازگشت REG_IRET;
 #endif
-    return REG_FRET;
+    بازگشت REG_FRET;
 }
 
 /* returns 2nd function return register, if any */
-static int R2_RET(int t)
+ایستا صحیح R2_RET(صحیح t)
 {
     t &= VT_BTYPE;
-#if PTR_SIZE == 4
-    if (t == VT_LLONG)
-        return REG_IRE2;
-#elif defined TCC_TARGET_X86_64
-    if (t == VT_QLONG)
-        return REG_IRE2;
-    if (t == VT_QFLOAT)
-        return REG_FRE2;
-#elif defined TCC_TARGET_RISCV64
-    if (t == VT_LDOUBLE)
-        return REG_IRE2;
+#اگر PTR_SIZE == 4
+    اگر (t == VT_LLONG)
+        بازگشت REG_IRE2;
+#وگرنهاگر defined TCC_TARGET_X86_64
+    اگر (t == VT_QLONG)
+        بازگشت REG_IRE2;
+    اگر (t == VT_QFLOAT)
+        بازگشت REG_FRE2;
+#وگرنهاگر defined TCC_TARGET_RISCV64
+    اگر (t == VT_LDOUBLE)
+        بازگشت REG_IRE2;
 #endif
-    return VT_CONST;
+    بازگشت VT_CONST;
 }
 
 /* returns true for two-word types */
-#define USING_TWO_WORDS(t) (R2_RET(t) != VT_CONST)
+#define USING_TWO_واژگان(t) (R2_RET(t) != VT_CONST)
 
 /* put function return registers to stack value */
-static void PUT_R_RET(SValue *sv, int t)
+ایستا تهی PUT_R_RET(SValue *sv, صحیح t)
 {
     sv->r = R_RET(t), sv->r2 = R2_RET(t);
 }
 
 /* returns function return register class for type t */
-static int RC_RET(int t)
+ایستا صحیح RC_RET(صحیح t)
 {
-    return reg_classes[R_RET(t)] & ~(RC_FLOAT | RC_INT);
+    بازگشت reg_classes[R_RET(t)] & ~(RC_FLOAT | RC_INT);
 }
 
 /* returns generic register class for type t */
-static int RC_TYPE(int t)
+ایستا صحیح RC_TYPE(صحیح t)
 {
-    if (!is_float(t))
-        return RC_INT;
+    اگر (!is_float(t))
+        بازگشت RC_INT;
 #ifdef TCC_TARGET_X86_64
-    if ((t & VT_BTYPE) == VT_LDOUBLE)
-        return RC_ST0;
-    if ((t & VT_BTYPE) == VT_QFLOAT)
-        return RC_FRET;
-#elif defined TCC_TARGET_RISCV64
-    if ((t & VT_BTYPE) == VT_LDOUBLE)
-        return RC_INT;
+    اگر ((t & VT_BTYPE) == VT_LDOUBLE)
+        بازگشت RC_ST0;
+    اگر ((t & VT_BTYPE) == VT_QFLOAT)
+        بازگشت RC_FRET;
+#وگرنهاگر defined TCC_TARGET_RISCV64
+    اگر ((t & VT_BTYPE) == VT_LDOUBLE)
+        بازگشت RC_INT;
 #endif
-    return RC_FLOAT;
+    بازگشت RC_FLOAT;
 }
 
 /* returns 2nd register class corresponding to t and rc */
-static int RC2_TYPE(int t, int rc)
+ایستا صحیح RC2_TYPE(صحیح t, صحیح rc)
 {
-    if (!USING_TWO_WORDS(t))
-        return 0;
+    اگر (!USING_TWO_واژگان(t))
+        بازگشت 0;
 #ifdef RC_IRE2
-    if (rc == RC_IRET)
-        return RC_IRE2;
+    اگر (rc == RC_IRET)
+        بازگشت RC_IRE2;
 #endif
 #ifdef RC_FRE2
-    if (rc == RC_FRET)
-        return RC_FRE2;
+    اگر (rc == RC_FRET)
+        بازگشت RC_FRE2;
 #endif
-    if (rc & RC_FLOAT)
-        return RC_FLOAT;
-    return RC_INT;
+    اگر (rc & RC_FLOAT)
+        بازگشت RC_FLOAT;
+    بازگشت RC_INT;
 }
 
 /* we use our own 'finite' function to avoid potential problems with
    non standard math libs */
 /* XXX: endianness dependent */
-ST_FUNC int ieee_finite(double d)
+ST_FUNC صحیح ieee_finite(دوگانه d)
 {
-    int p[4];
-    memcpy(p, &d, sizeof(double));
-    return ((unsigned)((p[1] | 0x800fffff) + 1)) >> 31;
+    صحیح p[4];
+    memcpy(p, &d, اندازه(دوگانه));
+    بازگشت ((unsigned)((p[1] | 0x800fffff) + 1)) >> 31;
 }
 
-ST_FUNC void test_lvalue(void)
+ST_FUNC تهی test_lvalue(تهی)
 {
-    if (!(vtop->r & VT_LVAL))
+    اگر (!(vtop->r & VT_LVAL))
         expect("lvalue");
 }
 
-ST_FUNC void check_vstack(void)
+ST_FUNC تهی check_vstack(تهی)
 {
-    if (vtop != vstack - 1)
+    اگر (vtop != vstack - 1)
         tcc_error("internal compiler error: vstack leak (%d)",
-                  (int)(vtop - vstack + 1));
+                  (صحیح)(vtop - vstack + 1));
 }
 
-#if 0
+#اگر 0
 /* dump 'b' vstack entries starting with 'a'  */
-void pv (const char *lbl, int a, int b)
+تهی pv (ثابت نویسه *lbl, صحیح a, صحیح b)
 {
-    int i;
-    for (i = a; i < a + b; ++i) {
+    صحیح i;
+    برای (i = a; i < a + b; ++i) {
         SValue *p = &vtop[-i];
         printf("%s vtop[-%d] : type.t:%04x  r:%04x  r2:%04x  c.i:%d\n",
-            lbl, i, p->type.t, p->r, p->r2, (int)p->c.i);
+            lbl, i, p->type.t, p->r, p->r2, (صحیح)p->c.i);
     }
 }
 
 /* dump symbols on stack from s ... last */
-static inline void psyms(const char *msg, Sym *s, Sym *last)
+ایستا درونخطی تهی psyms(ثابت نویسه *پیام, Sym *s, Sym *last)
 {
-    printf("%-8s scope         v        c        r   type.t\n", msg);
-    while (s && s != last) {
+    printf("%-8s scope         v        c        r   type.t\n", پیام);
+    وقتی (s && s != last) {
         printf("      %8x  %08x %08x %08x %08x %s\n",
             s->sym_scope, s->v, s->c, s->r, s->type.t, get_tok_str(s->v, 0));
         s = s->prev;
     }
 }
 
-static void type_to_str(char *buf, int buf_size, CType *type, const char *varstr);
+ایستا تهی type_to_str(نویسه *buf, صحیح buf_size, CType *type, ثابت نویسه *varstr);
 
 /* print type */
-static void ptype(const char *msg, CType *type, int v)
+ایستا تهی ptype(ثابت نویسه *پیام, CType *type, صحیح v)
 {
-    char buf[500];
-    type_to_str(buf, sizeof(buf), type,
-        (v & ~SYM_FIELD) ? get_tok_str(v, NULL) : NULL);
-    printf("%s : %s;\n", msg, buf);
+    نویسه buf[500];
+    type_to_str(buf, اندازه(buf), type,
+        (v & ~SYM_FIELD) ? get_tok_str(v, پوچ) : پوچ);
+    printf("%s : %s;\n", پیام, buf);
 }
 #endif
 
 /* ------------------------------------------------------------------------- */
 /* initialize vstack and types.  This must be done also for tcc -E */
-ST_FUNC void tccgen_init(TCCState *s1)
+ST_FUNC تهی tccgen_init(TCCState *s1)
 {
     vtop = vstack - 1;
-    memset(vtop, 0, sizeof *vtop);
+    memset(vtop, 0, اندازه *vtop);
 
     /* define some often used types */
     int_type.t = VT_INT;
 
     char_type.t = VT_BYTE;
-    if (s1->char_is_unsigned)
+    اگر (s1->char_is_unsigned)
         char_type.t |= VT_UNSIGNED;
     char_pointer_type = char_type;
     mk_pointer(&char_pointer_type);
 
     func_old_type.t = VT_FUNC;
-    func_old_type.ref = sym_push(SYM_FIELD, &int_type, 0, 0);
+    func_old_type.ref = sym_افزودن(SYM_FIELD, &int_type, 0, 0);
     func_old_type.ref->f.func_call = FUNC_CDECL;
     func_old_type.ref->f.func_type = FUNC_OLD;
 #ifdef precedence_parser
@@ -400,14 +400,14 @@ ST_FUNC void tccgen_init(TCCState *s1)
     cstr_new(&initstr);
 }
 
-ST_FUNC int tccgen_compile(TCCState *s1)
+ST_FUNC صحیح tccgen_compile(TCCState *s1)
 {
     funcname = "";
     func_ind = -1;
     anon_sym = SYM_FIRST_ANOM;
     nocode_wanted = DATA_ONLY_WANTED; /* no code outside of functions */
     debug_modes = (s1->do_debug ? 1 : 0) | s1->test_coverage << 1;
-    global_expr = 0;
+    global_عبارت = 0;
 
     tcc_debug_start(s1);
     tcc_tcov_start (s1);
@@ -417,88 +417,88 @@ ST_FUNC int tccgen_compile(TCCState *s1)
 #ifdef INC_DEBUG
     printf("%s: **** new file\n", file->filename);
 #endif
-    parse_flags = PARSE_FLAG_PREPROCESS | PARSE_FLAG_TOK_NUM | PARSE_FLAG_TOK_STR;
+    parse_flags = PARSE_FLAG_PREPROCESS | PARSE_FLAG_TOK_رقم | PARSE_FLAG_TOK_STR;
     next();
     decl(VT_CONST);
     gen_inline_functions(s1);
     check_vstack();
     /* end of translation unit info */
-#if TCC_EH_FRAME
+#اگر TCC_EH_FRAME
     tcc_eh_frame_end(s1);
 #endif
     tcc_debug_end(s1);
     tcc_tcov_end(s1);
-    return 0;
+    بازگشت 0;
 }
 
-ST_FUNC void tccgen_finish(TCCState *s1)
+ST_FUNC تهی tccgen_finish(TCCState *s1)
 {
     tcc_debug_end(s1); /* just in case of errors: free memory */
     free_inline_functions(s1);
-    sym_pop(&global_stack, NULL, 0);
-    sym_pop(&local_stack, NULL, 0);
+    sym_برداشت(&global_پشته, پوچ, 0);
+    sym_برداشت(&local_پشته, پوچ, 0);
     /* free preprocessor macros */
-    free_defines(NULL);
+    free_defines(پوچ);
     /* free sym_pools */
     dynarray_reset(&sym_pools, &nb_sym_pools);
     cstr_free(&initstr);
     dynarray_reset(&stk_data, &nb_stk_data);
-    while (cur_switch)
+    وقتی (cur_switch)
         end_switch();
     local_scope = 0;
-    loop_scope = NULL;
-    all_cleanups = NULL;
-    pending_gotos = NULL;
+    loop_scope = پوچ;
+    all_cleanups = پوچ;
+    pending_gotos = پوچ;
     nb_temp_local_vars = 0;
-    global_label_stack = NULL;
-    local_label_stack = NULL;
-    cur_text_section = NULL;
-    sym_free_first = NULL;
+    global_label_پشته = پوچ;
+    local_label_پشته = پوچ;
+    cur_text_section = پوچ;
+    sym_free_first = پوچ;
 }
 
 /* ------------------------------------------------------------------------- */
 ST_FUNC ElfSym *elfsym(Sym *s)
 {
-  if (!s || !s->c)
-    return NULL;
-  return &((ElfSym *)symtab_section->data)[s->c];
+  اگر (!s || !s->c)
+    بازگشت پوچ;
+  بازگشت &((ElfSym *)symtab_section->data)[s->c];
 }
 
 /* apply storage attributes to Elf symbol */
-ST_FUNC void update_storage(Sym *sym)
+ST_FUNC تهی update_storage(Sym *sym)
 {
     ElfSym *esym;
-    int sym_bind, old_sym_bind;
+    صحیح sym_bind, old_sym_bind;
 
     esym = elfsym(sym);
-    if (!esym)
-        return;
+    اگر (!esym)
+        بازگشت;
 
-    if (sym->a.visibility)
+    اگر (sym->a.visibility)
         esym->st_other = (esym->st_other & ~ELFW(ST_VISIBILITY)(-1))
             | sym->a.visibility;
 
-    if (sym->type.t & (VT_STATIC | VT_INLINE))
+    اگر (sym->type.t & (VT_STATIC | VT_INLINE))
         sym_bind = STB_LOCAL;
-    else if (sym->a.weak)
+    وگرنه اگر (sym->a.weak)
         sym_bind = STB_WEAK;
-    else
+    وگرنه
         sym_bind = STB_GLOBAL;
     old_sym_bind = ELFW(ST_BIND)(esym->st_info);
-    if (sym_bind != old_sym_bind) {
+    اگر (sym_bind != old_sym_bind) {
         esym->st_info = ELFW(ST_INFO)(sym_bind, ELFW(ST_TYPE)(esym->st_info));
     }
 
 #ifdef TCC_TARGET_PE
-    if (sym->a.dllimport)
+    اگر (sym->a.dllimport)
         esym->st_other |= ST_PE_IMPORT;
-    if (sym->a.dllexport)
+    اگر (sym->a.dllexport)
         esym->st_other |= ST_PE_EXPORT;
 #endif
 
-#if 0
+#اگر 0
     printf("storage %s: bind=%c vis=%d exp=%d imp=%d\n",
-        get_tok_str(sym->v, NULL),
+        get_tok_str(sym->v, پوچ),
         sym_bind == STB_WEAK ? 'w' : sym_bind == STB_LOCAL ? 'l' : 'g',
         sym->a.visibility,
         sym->a.dllexport,
@@ -511,42 +511,42 @@ ST_FUNC void update_storage(Sym *sym)
 /* update sym->c so that it points to an external symbol in section
    'section' with value 'value' */
 
-ST_FUNC void put_extern_sym2(Sym *sym, int sh_num,
-                            addr_t value, unsigned long size,
-                            int can_add_underscore)
+ST_FUNC تهی put_extern_sym2(Sym *sym, صحیح sh_رقم,
+                            addr_t مقدار, unsigned long size,
+                            صحیح can_add_underscore)
 {
-    int sym_type, sym_bind, info, other, t;
+    صحیح sym_type, sym_bind, info, other, t;
     ElfSym *esym;
-    const char *name;
-    char buf1[256];
+    ثابت نویسه *name;
+    نویسه buf1[256];
 
-    if (!sym->c) {
-        name = get_tok_str(sym->v, NULL);
+    اگر (!sym->c) {
+        name = get_tok_str(sym->v, پوچ);
         t = sym->type.t;
-        if ((t & VT_BTYPE) == VT_FUNC) {
+        اگر ((t & VT_BTYPE) == VT_FUNC) {
             sym_type = STT_FUNC;
-        } else if ((t & VT_BTYPE) == VT_VOID) {
+        } وگرنه اگر ((t & VT_BTYPE) == VT_VOID) {
             sym_type = STT_NOTYPE;
-            if (IS_ASM_FUNC(t))
+            اگر (IS_ASM_FUNC(t))
                 sym_type = STT_FUNC;
-        } else if (t & VT_TLS) {
+        } وگرنه اگر (t & VT_TLS) {
             sym_type = STT_TLS;
-        } else {
+        } وگرنه {
             sym_type = STT_OBJECT;
         }
-        if (t & (VT_STATIC | VT_INLINE))
+        اگر (t & (VT_STATIC | VT_INLINE))
             sym_bind = STB_LOCAL;
-        else
+        وگرنه
             sym_bind = STB_GLOBAL;
         other = 0;
 
 #ifdef TCC_TARGET_PE
-        if (sym_type == STT_FUNC && sym->type.ref) {
+        اگر (sym_type == STT_FUNC && sym->type.ref) {
             Sym *ref = sym->type.ref;
-            if (ref->a.nodecorate) {
+            اگر (ref->a.nodecorate) {
                 can_add_underscore = 0;
             }
-            if (ref->f.func_call == FUNC_STDCALL && can_add_underscore) {
+            اگر (ref->f.func_call == FUNC_STDCALL && can_add_underscore) {
                 sprintf(buf1, "_%s@%d", name, ref->f.func_args * PTR_SIZE);
                 name = buf1;
                 other |= ST_PE_STDCALL;
@@ -555,57 +555,57 @@ ST_FUNC void put_extern_sym2(Sym *sym, int sh_num,
         }
 #endif
 
-        if (sym->asm_label) {
-            name = get_tok_str(sym->asm_label, NULL);
+        اگر (sym->asm_label) {
+            name = get_tok_str(sym->asm_label, پوچ);
             can_add_underscore = 0;
         }
 
-        if (tcc_state->leading_underscore && can_add_underscore) {
+        اگر (tcc_state->leading_underscore && can_add_underscore) {
             buf1[0] = '_';
-            pstrcpy(buf1 + 1, sizeof(buf1) - 1, name);
+            pstrcpy(buf1 + 1, اندازه(buf1) - 1, name);
             name = buf1;
         }
 
         info = ELFW(ST_INFO)(sym_bind, sym_type);
-        sym->c = put_elf_sym(symtab_section, value, size, info, other, sh_num, name);
+        sym->c = put_elf_sym(symtab_section, مقدار, size, info, other, sh_رقم, name);
 
-        if (debug_modes)
-            tcc_debug_extern_sym(tcc_state, sym, sh_num, sym_bind, sym_type);
+        اگر (debug_modes)
+            tcc_debug_extern_sym(tcc_state, sym, sh_رقم, sym_bind, sym_type);
 
-    } else {
+    } وگرنه {
         esym = elfsym(sym);
-        esym->st_value = value;
+        esym->st_مقدار = مقدار;
         esym->st_size = size;
-        esym->st_shndx = sh_num;
+        esym->st_shndx = sh_رقم;
     }
     update_storage(sym);
 }
 
-ST_FUNC void put_extern_sym(Sym *sym, Section *s, addr_t value, unsigned long size)
+ST_FUNC تهی put_extern_sym(Sym *sym, Section *s, addr_t مقدار, unsigned long size)
 {
-    if (nocode_wanted && (NODATA_WANTED || (s && s == cur_text_section)))
-        return;
-    put_extern_sym2(sym, s ? s->sh_num : SHN_UNDEF, value, size, 1);
+    اگر (nocode_wanted && (NODATA_WANTED || (s && s == cur_text_section)))
+        بازگشت;
+    put_extern_sym2(sym, s ? s->sh_رقم : SHN_UNDEF, مقدار, size, 1);
 }
 
 /* add a new relocation entry to symbol 'sym' in section 's' */
-ST_FUNC void greloca(Section *s, Sym *sym, unsigned long offset, int type,
+ST_FUNC تهی greloca(Section *s, Sym *sym, unsigned long offset, صحیح type,
                      addr_t addend)
 {
-    int c = 0;
+    صحیح c = 0;
 
-    if (nocode_wanted && s == cur_text_section)
-        return;
+    اگر (nocode_wanted && s == cur_text_section)
+        بازگشت;
 
-    if (sym) {
-        if (0 == sym->c) {
-            put_extern_sym(sym, NULL, 0, 0);
-            if (sym->sym_scope
+    اگر (sym) {
+        اگر (0 == sym->c) {
+            put_extern_sym(sym, پوچ, 0, 0);
+            اگر (sym->sym_scope
                 && (sym->type.t & (VT_STATIC|VT_EXTERN)) == (VT_STATIC|VT_EXTERN)) {
                 /* when a local function declaraion redeclares a global static one
                    then tccelf would not resolve them to the same symbol. */
                 Sym *s = sym;
-                while (s->prev_tok)
+                وقتی (s->prev_tok)
                     s = s->prev_tok;
                 s->c = sym->c;
             }
@@ -617,8 +617,8 @@ ST_FUNC void greloca(Section *s, Sym *sym, unsigned long offset, int type,
     put_elf_reloca(symtab_section, s, offset, type, c, addend);
 }
 
-#if PTR_SIZE == 4
-ST_FUNC void greloc(Section *s, Sym *sym, unsigned long offset, int type)
+#اگر PTR_SIZE == 4
+ST_FUNC تهی greloc(Section *s, Sym *sym, unsigned long offset, صحیح type)
 {
     greloca(s, sym, offset, type, 0);
 }
@@ -626,242 +626,242 @@ ST_FUNC void greloc(Section *s, Sym *sym, unsigned long offset, int type)
 
 /* ------------------------------------------------------------------------- */
 /* symbol allocator */
-static Sym *__sym_malloc(void)
+ایستا Sym *__sym_malloc(تهی)
 {
     Sym *sym_pool, *sym, *last_sym;
-    int i;
+    صحیح i;
 
-    sym_pool = tcc_malloc(SYM_POOL_NB * sizeof(Sym));
+    sym_pool = tcc_malloc(SYM_POOL_NB * اندازه(Sym));
     dynarray_add(&sym_pools, &nb_sym_pools, sym_pool);
 
     last_sym = sym_free_first;
     sym = sym_pool;
-    for(i = 0; i < SYM_POOL_NB; i++) {
+    برای(i = 0; i < SYM_POOL_NB; i++) {
         sym->next = last_sym;
         last_sym = sym;
         sym++;
     }
     sym_free_first = last_sym;
-    return last_sym;
+    بازگشت last_sym;
 }
 
-static inline Sym *sym_malloc(void)
+ایستا درونخطی Sym *sym_malloc(تهی)
 {
     Sym *sym;
 #ifndef SYM_DEBUG
     sym = sym_free_first;
-    if (!sym)
+    اگر (!sym)
         sym = __sym_malloc();
     sym_free_first = sym->next;
-    return sym;
-#else
-    sym = tcc_malloc(sizeof(Sym));
-    return sym;
+    بازگشت sym;
+#وگرنه
+    sym = tcc_malloc(اندازه(Sym));
+    بازگشت sym;
 #endif
 }
 
-ST_INLN void sym_free(Sym *sym)
+ST_INLN تهی sym_free(Sym *sym)
 {
 #ifndef SYM_DEBUG
     sym->next = sym_free_first;
     sym_free_first = sym;
-#else
+#وگرنه
     tcc_free(sym);
 #endif
 }
 
 /* push, without hashing */
-ST_FUNC Sym *sym_push2(Sym **ps, int v, int t, int c)
+ST_FUNC Sym *sym_push2(Sym **ps, صحیح v, صحیح t, صحیح c)
 {
     Sym *s;
 
     s = sym_malloc();
-    memset(s, 0, sizeof *s);
+    memset(s, 0, اندازه *s);
     s->v = v;
     s->type.t = t;
     s->c = c;
     /* add in stack */
     s->prev = *ps;
     *ps = s;
-    return s;
+    بازگشت s;
 }
 
 /* find a symbol and return its associated structure. 's' is the top
    of the symbol stack */
-ST_FUNC Sym *sym_find2(Sym *s, int v)
+ST_FUNC Sym *sym_find2(Sym *s, صحیح v)
 {
-    while (s) {
-        if (s->v == v)
-            return s;
+    وقتی (s) {
+        اگر (s->v == v)
+            بازگشت s;
         s = s->prev;
     }
-    return NULL;
+    بازگشت پوچ;
 }
 
 /* structure lookup */
-ST_INLN Sym *struct_find(int v)
+ST_INLN Sym *struct_find(صحیح v)
 {
     v -= TOK_IDENT;
-    if ((unsigned)v >= (unsigned)(tok_ident - TOK_IDENT))
-        return NULL;
-    return table_ident[v]->sym_struct;
+    اگر ((unsigned)v >= (unsigned)(tok_ident - TOK_IDENT))
+        بازگشت پوچ;
+    بازگشت table_ident[v]->sym_struct;
 }
 
 /* find an identifier */
-ST_INLN Sym *sym_find(int v)
+ST_INLN Sym *sym_find(صحیح v)
 {
     v -= TOK_IDENT;
-    if ((unsigned)v >= (unsigned)(tok_ident - TOK_IDENT))
-        return NULL;
-    return table_ident[v]->sym_identifier;
+    اگر ((unsigned)v >= (unsigned)(tok_ident - TOK_IDENT))
+        بازگشت پوچ;
+    بازگشت table_ident[v]->sym_identifier;
 }
 
 /* make sym in-/visible to the parser */
-static inline void sym_link(Sym *s, int yes)
+ایستا درونخطی تهی sym_link(Sym *s, صحیح yes)
 {
     TokenSym *ts = table_ident[(s->v & ~SYM_STRUCT) - TOK_IDENT];
     Sym **ps;
-    if (s->v & SYM_STRUCT)
+    اگر (s->v & SYM_STRUCT)
         ps = &ts->sym_struct;
-    else
+    وگرنه
         ps = &ts->sym_identifier;
-    if (yes) {
+    اگر (yes) {
         s->prev_tok = *ps, *ps = s;
         s->sym_scope = local_scope;
-    } else {
+    } وگرنه {
         *ps = s->prev_tok;
     }
 }
 
-static inline int sym_scope_ex(Sym *s)
+ایستا درونخطی صحیح sym_scope_ex(Sym *s)
 {
     /* enums have 'sym_scope' overwritten by 'enum_val' */
-    return IS_ENUM_VAL (s->type.t)
+    بازگشت IS_ENUM_VAL (s->type.t)
         ? s->type.ref->sym_scope
         : s->sym_scope;
 }
 
 /* push a given symbol on the symbol stack */
-ST_FUNC Sym *sym_push(int v, CType *type, int r, int c)
+ST_FUNC Sym *sym_افزودن(صحیح v, CType *type, صحیح r, صحیح c)
 {
     Sym *s, **ps;
-    if (local_stack)
-        ps = &local_stack;
-    else
-        ps = &global_stack;
+    اگر (local_پشته)
+        ps = &local_پشته;
+    وگرنه
+        ps = &global_پشته;
     s = sym_push2(ps, v, type->t, c);
     s->type.ref = type->ref;
     s->r = r;
     /* don't record fields or anonymous symbols */
-    if ((v & ~SYM_STRUCT) < SYM_FIRST_ANOM) {
+    اگر ((v & ~SYM_STRUCT) < SYM_FIRST_ANOM) {
         /* record symbol in token array */
         sym_link(s, 1);
-        if (s->prev_tok && sym_scope_ex(s->prev_tok) == local_scope)
-            tcc_error("redeclaration of '%s'", get_tok_str(s->v, NULL));
+        اگر (s->prev_tok && sym_scope_ex(s->prev_tok) == local_scope)
+            tcc_error("redeclaration of '%s'", get_tok_str(s->v, پوچ));
     }
-    return s;
+    بازگشت s;
 }
 
 /* push a global identifier */
-ST_FUNC Sym *global_identifier_push(int v, int t, int c)
+ST_FUNC Sym *global_identifier_افزودن(صحیح v, صحیح t, صحیح c)
 {
     Sym *s, **ps;
-    s = sym_push2(&global_stack, v, t, c);
+    s = sym_push2(&global_پشته, v, t, c);
     s->r = VT_CONST | VT_SYM;
     /* don't record anonymous symbol */
-    if (v < SYM_FIRST_ANOM) {
+    اگر (v < SYM_FIRST_ANOM) {
         ps = &table_ident[v - TOK_IDENT]->sym_identifier;
         /* modify the top most local identifier, so that sym_identifier will
            point to 's' when popped; happens when called from inline asm */
-        while (*ps != NULL && (*ps)->sym_scope)
+        وقتی (*ps != پوچ && (*ps)->sym_scope)
             ps = &(*ps)->prev_tok;
         s->prev_tok = *ps;
         *ps = s;
     }
-    return s;
+    بازگشت s;
 }
 
 /* pop symbols until top reaches 'b'.  If KEEP is non-zero don't really
    pop them yet from the list, but do remove them from the token array.  */
-ST_FUNC void sym_pop(Sym **ptop, Sym *b, int keep)
+ST_FUNC تهی sym_برداشت(Sym **ptop, Sym *b, صحیح keep)
 {
     Sym *s, *ss;
-    int v;
+    صحیح v;
 
     s = *ptop;
-    while(s != b) {
+    وقتی(s != b) {
         ss = s->prev;
         v = s->v;
         /* remove symbol in token array */
-        if ((v & ~SYM_STRUCT) < SYM_FIRST_ANOM)
+        اگر ((v & ~SYM_STRUCT) < SYM_FIRST_ANOM)
             sym_link(s, 0);
-	if (!keep)
+	اگر (!keep)
 	    sym_free(s);
         s = ss;
     }
-    if (!keep)
+    اگر (!keep)
 	*ptop = b;
 }
 
 /* label lookup */
-ST_FUNC Sym *label_find(int v)
+ST_FUNC Sym *label_find(صحیح v)
 {
     v -= TOK_IDENT;
-    if ((unsigned)v >= (unsigned)(tok_ident - TOK_IDENT))
-        return NULL;
-    return table_ident[v]->sym_label;
+    اگر ((unsigned)v >= (unsigned)(tok_ident - TOK_IDENT))
+        بازگشت پوچ;
+    بازگشت table_ident[v]->sym_label;
 }
 
-ST_FUNC Sym *label_push(Sym **ptop, int v, int flags)
+ST_FUNC Sym *label_افزودن(Sym **ptop, صحیح v, صحیح flags)
 {
     Sym *s, **ps;
     s = sym_push2(ptop, v, VT_STATIC, 0);
     s->r = flags;
     ps = &table_ident[v - TOK_IDENT]->sym_label;
-    if (ptop == &global_label_stack) {
+    اگر (ptop == &global_label_پشته) {
         /* modify the top most local identifier, so that
            sym_identifier will point to 's' when popped */
-        while (*ps != NULL)
+        وقتی (*ps != پوچ)
             ps = &(*ps)->prev_tok;
     }
     s->prev_tok = *ps;
     *ps = s;
-    return s;
+    بازگشت s;
 }
 
 /* pop labels until element last is reached. Look if any labels are
    undefined. Define symbols if '&&label' was used. */
-ST_FUNC void label_pop(Sym **ptop, Sym *slast, int keep)
+ST_FUNC تهی label_برداشت(Sym **ptop, Sym *slast, صحیح keep)
 {
     Sym *s, *s1;
-    for(s = *ptop; s != slast; s = s1) {
+    برای(s = *ptop; s != slast; s = s1) {
         s1 = s->prev;
-        if (s->r == LABEL_DECLARED) {
-            tcc_warning_c(warn_all)("label '%s' declared but not used", get_tok_str(s->v, NULL));
-        } else if (s->r == LABEL_FORWARD) {
+        اگر (s->r == LABEL_DECLARED) {
+            tcc_warning_c(warn_all)("label '%s' declared but not used", get_tok_str(s->v, پوچ));
+        } وگرنه اگر (s->r == LABEL_FORWARD) {
                 tcc_error("label '%s' used but not defined",
-                      get_tok_str(s->v, NULL));
-        } else {
-            if (s->c) {
+                      get_tok_str(s->v, پوچ));
+        } وگرنه {
+            اگر (s->c) {
                 /* define corresponding symbol. A size of
                    1 is put. */
                 put_extern_sym(s, cur_text_section, s->jind, 1);
             }
         }
         /* remove label */
-        if (s->r != LABEL_GONE)
+        اگر (s->r != LABEL_GONE)
             table_ident[s->v - TOK_IDENT]->sym_label = s->prev_tok;
-        if (!keep)
+        اگر (!keep)
             sym_free(s);
-        else
+        وگرنه
             s->r = LABEL_GONE;
     }
-    if (!keep)
+    اگر (!keep)
         *ptop = slast;
 }
 
 /* ------------------------------------------------------------------------- */
-static void vcheck_cmp(void)
+ایستا تهی vcheck_cmp(تهی)
 {
     /* cannot let cpu flags if other instruction are generated. Also
        avoid leaving VT_JMP anywhere except on the top of the stack
@@ -881,13 +881,13 @@ static void vcheck_cmp(void)
        actually clear it at the gsym() in load()/VT_JMP in the
        generator backends */
 
-    if (vtop->r == VT_CMP && 0 == (nocode_wanted & ~CODE_OFF_BIT))
+    اگر (vtop->r == VT_CMP && 0 == (nocode_wanted & ~CODE_OFF_BIT))
         gv(RC_INT);
 }
 
-static void vsetc(CType *type, int r, CValue *vc)
+ایستا تهی vsetc(CType *type, صحیح r, CValue *vc)
 {
-    if (vtop >= vstack + (VSTACK_SIZE - 1))
+    اگر (vtop >= vstack + (VSTACK_SIZE - 1))
         tcc_error("memory full (vstack)");
     vcheck_cmp();
     vtop++;
@@ -895,10 +895,10 @@ static void vsetc(CType *type, int r, CValue *vc)
     vtop->r = r;
     vtop->r2 = VT_CONST;
     vtop->c = *vc;
-    vtop->sym = NULL;
+    vtop->sym = پوچ;
 }
 
-ST_FUNC void vswap(void)
+ST_FUNC تهی vswap(تهی)
 {
     SValue tmp;
 
@@ -909,17 +909,17 @@ ST_FUNC void vswap(void)
 }
 
 /* pop stack value */
-ST_FUNC void vpop(void)
+ST_FUNC تهی vpop(تهی)
 {
-    int v;
+    صحیح v;
     v = vtop->r & VT_VALMASK;
-#if defined(TCC_TARGET_I386) || defined(TCC_TARGET_X86_64)
+#اگر defined(TCC_TARGET_I386) || defined(TCC_TARGET_X86_64)
     /* for x86, we need to pop the FP stack */
-    if (v == TREG_ST0) {
+    اگر (v == TREG_ST0) {
         o(0xd8dd); /* fstp %st(0) */
-    } else
+    } وگرنه
 #endif
-    if (v == VT_CMP) {
+    اگر (v == VT_CMP) {
         /* need to put correct jump if && or || without test */
         gsym(vtop->jtrue);
         gsym(vtop->jfalse);
@@ -928,99 +928,99 @@ ST_FUNC void vpop(void)
 }
 
 /* push constant of type "type" with useless value */
-static void vpush(CType *type)
+ایستا تهی vpush(CType *type)
 {
     vset(type, VT_CONST, 0);
 }
 
 /* push arbitrary 64bit constant */
-static void vpush64(int ty, unsigned long long v)
+ایستا تهی vpush64(صحیح ty, unsigned long long v)
 {
     CValue cval;
     CType ctype;
     ctype.t = ty;
-    ctype.ref = NULL;
+    ctype.ref = پوچ;
     cval.i = v;
     vsetc(&ctype, VT_CONST, &cval);
 }
 
 /* push integer constant */
-ST_FUNC void vpushi(int v)
+ST_FUNC تهی vpushi(صحیح v)
 {
     vpush64(VT_INT, v);
 }
 
 /* push a pointer sized constant */
-static void vpushs(addr_t v)
+ایستا تهی vpushs(addr_t v)
 {
     vpush64(VT_SIZE_T, v);
 }
 
 /* push long long constant */
-static inline void vpushll(long long v)
+ایستا درونخطی تهی vpushll(long long v)
 {
     vpush64(VT_LLONG, v);
 }
 
-ST_FUNC void vset(CType *type, int r, int v)
+ST_FUNC تهی vset(CType *type, صحیح r, صحیح v)
 {
     CValue cval;
     cval.i = v;
     vsetc(type, r, &cval);
 }
 
-static void vseti(int r, int v)
+ایستا تهی vseti(صحیح r, صحیح v)
 {
     CType type;
     type.t = VT_INT;
-    type.ref = NULL;
+    type.ref = پوچ;
     vset(&type, r, v);
 }
 
-ST_FUNC void vpushv(SValue *v)
+ST_FUNC تهی vpushv(SValue *v)
 {
-    if (vtop >= vstack + (VSTACK_SIZE - 1))
+    اگر (vtop >= vstack + (VSTACK_SIZE - 1))
         tcc_error("memory full (vstack)");
     vtop++;
     *vtop = *v;
 }
 
-static void vdup(void)
+ایستا تهی vdup(تهی)
 {
     vpushv(vtop);
 }
 
 /* rotate the stack element at position n-1 to the top */
-ST_FUNC void vrotb(int n)
+ST_FUNC تهی vrotb(صحیح n)
 {
     SValue tmp;
-    if (--n < 1)
-        return;
+    اگر (--n < 1)
+        بازگشت;
     vcheck_cmp();
     tmp = vtop[-n];
-    memmove(vtop - n, vtop - n + 1, sizeof *vtop * n);
+    memmove(vtop - n, vtop - n + 1, اندازه *vtop * n);
     vtop[0] = tmp;
 }
 
 /* rotate the top stack element into position n-1 */
-ST_FUNC void vrott(int n)
+ST_FUNC تهی vrott(صحیح n)
 {
     SValue tmp;
-    if (--n < 1)
-        return;
+    اگر (--n < 1)
+        بازگشت;
     vcheck_cmp();
     tmp = vtop[0];
-    memmove(vtop - n + 1, vtop - n, sizeof *vtop * n);
+    memmove(vtop - n + 1, vtop - n, اندازه *vtop * n);
     vtop[-n] = tmp;
 }
 
 /* reverse order of the the first n stack elements */
-ST_FUNC void vrev(int n)
+ST_FUNC تهی vrev(صحیح n)
 {
-    int i;
+    صحیح i;
     SValue tmp;
     vcheck_cmp();
-    for (i = 0, n = -n; i > ++n; --i)
+    برای (i = 0, n = -n; i > ++n; --i)
         tmp = vtop[i], vtop[i] = vtop[n], vtop[n] = tmp;
 }
 
@@ -1028,7 +1028,7 @@ ST_FUNC void vrev(int n)
 /* vtop->r = VT_CMP means CPU-flags have been set from comparison or test. */
 
 /* called from generators to set the result from relational ops  */
-ST_FUNC void vset_VT_CMP(int op)
+ST_FUNC تهی vset_VT_CMP(صحیح op)
 {
     vtop->r = VT_CMP;
     vtop->cmp_op = op;
@@ -1037,33 +1037,33 @@ ST_FUNC void vset_VT_CMP(int op)
 }
 
 /* called once before asking generators to load VT_CMP to a register */
-static void vset_VT_JMP(void)
+ایستا تهی vset_VT_JMP(تهی)
 {
-    int op = vtop->cmp_op;
+    صحیح op = vtop->cmp_op;
 
-    if (vtop->jtrue || vtop->jfalse) {
-        int origt = vtop->type.t;
+    اگر (vtop->jtrue || vtop->jfalse) {
+        صحیح origt = vtop->type.t;
         /* we need to jump to 'mov $0,%R' or 'mov $1,%R' */
-        int inv = op & (op < 2); /* small optimization */
+        صحیح inv = op & (op < 2); /* small optimization */
         vseti(VT_JMP+inv, gvtst(inv, 0));
         vtop->type.t |= origt & (VT_UNSIGNED | VT_DEFSIGN);
-    } else {
+    } وگرنه {
         /* otherwise convert flags (rsp. 0/1) to register */
         vtop->c.i = op;
-        if (op < 2) /* doesn't seem to happen */
+        اگر (op < 2) /* doesn't seem to happen */
             vtop->r = VT_CONST;
     }
 }
 
 /* Set CPU Flags, doesn't yet jump */
-static void gvtst_set(int inv, int t)
+ایستا تهی gvtst_set(صحیح inv, صحیح t)
 {
-    int *p;
+    صحیح *p;
 
-    if (vtop->r != VT_CMP) {
+    اگر (vtop->r != VT_CMP) {
         vpushi(0);
         gen_op(TOK_NE);
-        if (vtop->r != VT_CMP) /* must be VT_CONST then */
+        اگر (vtop->r != VT_CMP) /* must be VT_CONST then */
             vset_VT_CMP(vtop->c.i != 0);
     }
 
@@ -1074,40 +1074,40 @@ static void gvtst_set(int inv, int t)
 /* Generate value test
  *
  * Generate a test for any value (jump, comparison and integers) */
-static int gvtst(int inv, int t)
+ایستا صحیح gvtst(صحیح inv, صحیح t)
 {
-    int op, x, u;
+    صحیح op, x, u;
 
     gvtst_set(inv, t);
     t = vtop->jtrue, u = vtop->jfalse;
-    if (inv)
+    اگر (inv)
         x = u, u = t, t = x;
     op = vtop->cmp_op;
 
     /* jump to the wanted target */
-    if (op > 1)
+    اگر (op > 1)
         t = gjmp_cond(op ^ inv, t);
-    else if (op != inv)
+    وگرنه اگر (op != inv)
         t = gjmp(t);
     /* resolve complementary jumps to here */
     gsym(u);
 
     vtop--;
-    return t;
+    بازگشت t;
 }
 
 /* generate a zero or nozero test */
-static void gen_test_zero(int op)
+ایستا تهی gen_test_zero(صحیح op)
 {
-    if (vtop->r == VT_CMP) {
-        int j;
-        if (op == TOK_EQ) {
+    اگر (vtop->r == VT_CMP) {
+        صحیح j;
+        اگر (op == TOK_EQ) {
             j = vtop->jfalse;
             vtop->jfalse = vtop->jtrue;
             vtop->jtrue = j;
             vtop->cmp_op ^= 1;
         }
-    } else {
+    } وگرنه {
         vpushi(0);
         gen_op(op);
     }
@@ -1115,7 +1115,7 @@ static void gen_test_zero(int op)
 
 /* ------------------------------------------------------------------------- */
 /* push a symbol value of TYPE */
-ST_FUNC void vpushsym(CType *type, Sym *sym)
+ST_FUNC تهی vpushsym(CType *type, Sym *sym)
 {
     CValue cval;
     cval.i = 0;
@@ -1126,65 +1126,65 @@ ST_FUNC void vpushsym(CType *type, Sym *sym)
 /* Return a static symbol pointing to a section */
 ST_FUNC Sym *get_sym_ref(CType *type, Section *sec, unsigned long offset, unsigned long size)
 {
-    int v;
+    صحیح v;
     Sym *sym;
 
     v = anon_sym++;
-    sym = sym_push(v, type, VT_CONST | VT_SYM, 0);
+    sym = sym_افزودن(v, type, VT_CONST | VT_SYM, 0);
     sym->type.t |= VT_STATIC;
     put_extern_sym(sym, sec, offset, size);
-    return sym;
+    بازگشت sym;
 }
 
 /* push a reference to a section offset by adding a dummy symbol */
-static void vpush_ref(CType *type, Section *sec, unsigned long offset, unsigned long size)
+ایستا تهی vpush_ref(CType *type, Section *sec, unsigned long offset, unsigned long size)
 {
     vpushsym(type, get_sym_ref(type, sec, offset, size));  
 }
 
 /* define a new external reference to a symbol 'v' of type 'u' */
-ST_FUNC Sym *external_global_sym(int v, CType *type)
+ST_FUNC Sym *external_global_sym(صحیح v, CType *type)
 {
     Sym *s;
 
     s = sym_find(v);
-    if (!s) {
+    اگر (!s) {
         /* push forward reference */
-        s = global_identifier_push(v, type->t | VT_EXTERN, 0);
+        s = global_identifier_افزودن(v, type->t | VT_EXTERN, 0);
         s->type.ref = type->ref;
-    } else if (IS_ASM_SYM(s)) {
+    } وگرنه اگر (IS_ASM_SYM(s)) {
         s->type.t = type->t | (s->type.t & VT_EXTERN);
         s->type.ref = type->ref;
         update_storage(s);
     }
-    return s;
+    بازگشت s;
 }
 
 /* create an external reference with no specific type similar to asm labels.
    This avoids type conflicts if the symbol is used from C too */
-ST_FUNC Sym *external_helper_sym(int v)
+ST_FUNC Sym *external_helper_sym(صحیح v)
 {
-    CType ct = { VT_ASM_FUNC, NULL };
-    return external_global_sym(v, &ct);
+    CType ct = { VT_ASM_FUNC, پوچ };
+    بازگشت external_global_sym(v, &ct);
 }
 
 /* push a reference to an helper function (such as memmove) */
-ST_FUNC void vpush_helper_func(int v)
+ST_FUNC تهی vpush_helper_func(صحیح v)
 {
     vpushsym(&func_old_type, external_helper_sym(v));
 }
 
 /* Merge symbol attributes.  */
-static void merge_symattr(struct SymAttr *sa, struct SymAttr *sa1)
+ایستا تهی merge_symattr(ساختار SymAttr *sa, ساختار SymAttr *sa1)
 {
-    if (sa1->aligned && !sa->aligned)
+    اگر (sa1->aligned && !sa->aligned)
       sa->aligned = sa1->aligned;
     sa->packed |= sa1->packed;
     sa->weak |= sa1->weak;
     sa->nodebug |= sa1->nodebug;
-    if (sa1->visibility != STV_DEFAULT) {
-	int vis = sa->visibility;
-	if (vis == STV_DEFAULT
+    اگر (sa1->visibility != STV_DEFAULT) {
+	صحیح vis = sa->visibility;
+	اگر (vis == STV_DEFAULT
 	    || vis > sa1->visibility)
 	  vis = sa1->visibility;
 	sa->visibility = vis;
@@ -1195,266 +1195,266 @@ static void merge_symattr(struct SymAttr *sa, struct SymAttr *sa1)
 }
 
 /* Merge function attributes.  */
-static void merge_funcattr(struct FuncAttr *fa, struct FuncAttr *fa1)
+ایستا تهی merge_funcattr(ساختار FuncAttr *fa, ساختار FuncAttr *fa1)
 {
-    if (fa1->func_call && !fa->func_call)
+    اگر (fa1->func_call && !fa->func_call)
       fa->func_call = fa1->func_call;
-    if (fa1->func_type && !fa->func_type)
+    اگر (fa1->func_type && !fa->func_type)
       fa->func_type = fa1->func_type;
-    if (fa1->func_args && !fa->func_args)
+    اگر (fa1->func_args && !fa->func_args)
       fa->func_args = fa1->func_args;
-    if (fa1->func_noreturn)
+    اگر (fa1->func_noreturn)
       fa->func_noreturn = 1;
-    if (fa1->func_ctor)
+    اگر (fa1->func_ctor)
       fa->func_ctor = 1;
-    if (fa1->func_dtor)
+    اگر (fa1->func_dtor)
       fa->func_dtor = 1;
 }
 
 /* Merge attributes.  */
-static void merge_attr(AttributeDef *ad, AttributeDef *ad1)
+ایستا تهی merge_attr(AttributeDef *ad, AttributeDef *ad1)
 {
     merge_symattr(&ad->a, &ad1->a);
     merge_funcattr(&ad->f, &ad1->f);
 
-    if (ad1->section)
+    اگر (ad1->section)
       ad->section = ad1->section;
-    if (ad1->alias_target)
+    اگر (ad1->alias_target)
       ad->alias_target = ad1->alias_target;
-    if (ad1->asm_label)
+    اگر (ad1->asm_label)
       ad->asm_label = ad1->asm_label;
-    if (ad1->attr_mode)
+    اگر (ad1->attr_mode)
       ad->attr_mode = ad1->attr_mode;
 }
 
 /* Merge some type attributes.  */
-static void patch_type(Sym *sym, CType *type)
+ایستا تهی patch_type(Sym *sym, CType *type)
 {
-    if (!(type->t & VT_EXTERN) || IS_ENUM_VAL(sym->type.t)) {
-        if (!(sym->type.t & VT_EXTERN))
-            tcc_error("redefinition of '%s'", get_tok_str(sym->v, NULL));
+    اگر (!(type->t & VT_EXTERN) || IS_ENUM_VAL(sym->type.t)) {
+        اگر (!(sym->type.t & VT_EXTERN))
+            tcc_error("redefinition of '%s'", get_tok_str(sym->v, پوچ));
         sym->type.t &= ~VT_EXTERN;
     }
 
-    if (IS_ASM_SYM(sym)) {
+    اگر (IS_ASM_SYM(sym)) {
         /* stay static if both are static */
         sym->type.t = type->t & (sym->type.t | ~VT_STATIC);
         sym->type.ref = type->ref;
-        if ((type->t & VT_BTYPE) != VT_FUNC && !(type->t & VT_ARRAY))
+        اگر ((type->t & VT_BTYPE) != VT_FUNC && !(type->t & VT_ARRAY))
             sym->r |= VT_LVAL;
     }
 
-    if (!is_compatible_types(&sym->type, type)) {
+    اگر (!is_compatible_types(&sym->type, type)) {
         tcc_error("incompatible types for redefinition of '%s'",
-                  get_tok_str(sym->v, NULL));
+                  get_tok_str(sym->v, پوچ));
 
-    } else if ((sym->type.t & VT_BTYPE) == VT_FUNC) {
-        int static_proto = sym->type.t & VT_STATIC;
-        int ft1 = sym->type.ref->f.func_type;
-        int ft2 = type->ref->f.func_type;
+    } وگرنه اگر ((sym->type.t & VT_BTYPE) == VT_FUNC) {
+        صحیح static_proto = sym->type.t & VT_STATIC;
+        صحیح ft1 = sym->type.ref->f.func_type;
+        صحیح ft2 = type->ref->f.func_type;
 
         /* warn if static follows non-static function declaration */
-        if ((type->t & VT_STATIC) && !static_proto
+        اگر ((type->t & VT_STATIC) && !static_proto
             /* XXX this test for inline shouldn't be here.  Until we
                implement gnu-inline mode again it silences a warning for
                mingw caused by our workarounds.  */
             && !((type->t | sym->type.t) & VT_INLINE))
             tcc_warning("static storage ignored for redefinition of '%s'",
-                get_tok_str(sym->v, NULL));
+                get_tok_str(sym->v, پوچ));
 
         /* set 'inline' if both agree or if one has static */
-        if ((type->t | sym->type.t) & VT_INLINE) {
-            if (!((type->t ^ sym->type.t) & VT_INLINE)
+        اگر ((type->t | sym->type.t) & VT_INLINE) {
+            اگر (!((type->t ^ sym->type.t) & VT_INLINE)
              || ((type->t | sym->type.t) & VT_STATIC))
                 static_proto |= VT_INLINE;
         }
 
-        if (0 == (type->t & VT_EXTERN)) {
-            struct FuncAttr f = sym->type.ref->f;
+        اگر (0 == (type->t & VT_EXTERN)) {
+            ساختار FuncAttr f = sym->type.ref->f;
             /* put complete type, use static from prototype */
             sym->type.t = (type->t & ~(VT_STATIC|VT_INLINE)) | static_proto;
-            if (ft1 != FUNC_OLD)
+            اگر (ft1 != FUNC_OLD)
                 type->ref->f.func_type = ft1;
             sym->type.ref = type->ref;
             merge_funcattr(&sym->type.ref->f, &f);
-        } else {
+        } وگرنه {
             sym->type.t &= ~VT_INLINE | static_proto;
-            if (ft1 == FUNC_OLD && ft2 != FUNC_OLD)
+            اگر (ft1 == FUNC_OLD && ft2 != FUNC_OLD)
                 sym->type.ref = type->ref;
         }
 
-    } else {
-        if ((sym->type.t & VT_ARRAY) && type->ref->c >= 0) {
+    } وگرنه {
+        اگر ((sym->type.t & VT_ARRAY) && type->ref->c >= 0) {
             /* set array size if it was omitted in extern declaration */
             sym->type.ref->c = type->ref->c;
         }
-        if ((type->t ^ sym->type.t) & VT_STATIC)
+        اگر ((type->t ^ sym->type.t) & VT_STATIC)
             tcc_warning("storage mismatch for redefinition of '%s'",
-                get_tok_str(sym->v, NULL));
+                get_tok_str(sym->v, پوچ));
     }
 }
 
 /* Merge some storage attributes.  */
-static void patch_storage(Sym *sym, AttributeDef *ad, CType *type)
+ایستا تهی patch_storage(Sym *sym, AttributeDef *ad, CType *type)
 {
-    if (type)
+    اگر (type)
         patch_type(sym, type);
 
 #ifdef TCC_TARGET_PE
-    if (sym->a.dllimport != ad->a.dllimport)
+    اگر (sym->a.dllimport != ad->a.dllimport)
         tcc_error("incompatible dll linkage for redefinition of '%s'",
-            get_tok_str(sym->v, NULL));
+            get_tok_str(sym->v, پوچ));
 #endif
     merge_symattr(&sym->a, &ad->a);
-    if (ad->asm_label)
+    اگر (ad->asm_label)
         sym->asm_label = ad->asm_label;
     update_storage(sym);
 }
 
 /* copy sym to other stack */
-static Sym *sym_copy(Sym *s0, Sym **ps)
+ایستا Sym *sym_copy(Sym *s0, Sym **ps)
 {
     Sym *s;
     s = sym_malloc(), *s = *s0;
     s->prev = *ps, *ps = s;
-    if ((s->v & ~SYM_STRUCT) < SYM_FIRST_ANOM)
+    اگر ((s->v & ~SYM_STRUCT) < SYM_FIRST_ANOM)
         sym_link(s, 1);
-    return s;
+    بازگشت s;
 }
 
 /* Symbol 's' was locally declared 'extern' (or as function), and is
    on global_stack.  Now must copy its 'ref' to global_stack too */
-static void move_ref_to_global(Sym *s)
+ایستا تهی move_ref_to_global(Sym *s)
 {
     Sym *l, **lp;
-    int n, bt;
+    صحیح n, bt;
 
     bt = s->type.t & VT_BTYPE;
-    if (!(bt == VT_PTR
+    اگر (!(bt == VT_PTR
        || bt == VT_FUNC
        || bt == VT_STRUCT
        || IS_ENUM(s->type.t)))
-        return;
+        بازگشت;
 
-    for (s = s->type.ref, n = 0; s; s = s->next) {
-        for (lp = &local_stack; !!(l = *lp); lp = &l->prev) {
-            if (l == s) {
+    برای (s = s->type.ref, n = 0; s; s = s->next) {
+        برای (lp = &local_پشته; !!(l = *lp); lp = &l->prev) {
+            اگر (l == s) {
                 *lp = s->prev;
-                s->prev = global_stack, global_stack = s;
-                if (n || bt == VT_PTR || bt == VT_FUNC) {
+                s->prev = global_پشته, global_پشته = s;
+                اگر (n || bt == VT_PTR || bt == VT_FUNC) {
                     move_ref_to_global(s);
-                } else {
-                    if ((s->v & ~SYM_STRUCT) < SYM_FIRST_ANOM) {
+                } وگرنه {
+                    اگر ((s->v & ~SYM_STRUCT) < SYM_FIRST_ANOM) {
                         /* copy struct/enum tag to local scope */
                         s->v |= SYM_FIELD;
                         l = sym_copy(s, lp);
                         l->v &= ~SYM_FIELD;
                     }
                 }
-                if (bt != VT_PTR)
+                اگر (bt != VT_PTR)
                     n = 1;
-                break;
+                بشکن;
             }
         }
-        if (n == 0) /* no next (VT_PTR) or ref not on local_stack */
-            break;
+        اگر (n == 0) /* no next (VT_PTR) or ref not on local_stack */
+            بشکن;
     }
 }
 
 /* define a new external reference to a symbol 'v' */
-static Sym *external_sym(int v, CType *type, int r, AttributeDef *ad)
+ایستا Sym *external_sym(صحیح v, CType *type, صحیح r, AttributeDef *ad)
 {
     Sym *s;
 
     /* look for global symbol */
     s = sym_find(v);
-    while (s && s->sym_scope)
+    وقتی (s && s->sym_scope)
         s = s->prev_tok;
 
-    if (!s) {
+    اگر (!s) {
         /* push forward reference */
-        s = global_identifier_push(v, type->t, 0);
+        s = global_identifier_افزودن(v, type->t, 0);
         s->r |= r;
         s->a = ad->a;
         s->asm_label = ad->asm_label;
         s->type.ref = type->ref;
-    } else {
+    } وگرنه {
         patch_storage(s, ad, type);
     }
-    if (local_stack) {
+    اگر (local_پشته) {
         /* make sure that type->ref is on global stack */
         move_ref_to_global(s);
         /* put into local scope */
-        sym_copy(s, &local_stack);
+        sym_copy(s, &local_پشته);
     }
-    return s;
+    بازگشت s;
 }
 
 /* save registers up to (vtop - n) stack entry */
-ST_FUNC void save_regs(int n)
+ST_FUNC تهی save_regs(صحیح n)
 {
     SValue *p, *p1;
-    for(p = vstack, p1 = vtop - n; p <= p1; p++)
+    برای(p = vstack, p1 = vtop - n; p <= p1; p++)
         save_reg(p->r);
 }
 
 /* save r to the memory stack, and mark it as being free */
-ST_FUNC void save_reg(int r)
+ST_FUNC تهی save_reg(صحیح r)
 {
     save_reg_upstack(r, 0);
 }
 
 /* save r to the memory stack, and mark it as being free,
    if seen up to (vtop - n) stack entry */
-ST_FUNC void save_reg_upstack(int r, int n)
+ST_FUNC تهی save_reg_upstack(صحیح r, صحیح n)
 {
-    int l, size, align, bt, r2;
+    صحیح l, size, align, bt, r2;
     SValue *p, *p1, sv;
 
-    if ((r &= VT_VALMASK) >= VT_CONST)
-        return;
-    if (nocode_wanted)
-        return;
+    اگر ((r &= VT_VALMASK) >= VT_CONST)
+        بازگشت;
+    اگر (nocode_wanted)
+        بازگشت;
     l = r2 = 0;
-    for(p = vstack, p1 = vtop - n; p <= p1; p++) {
-        if ((p->r & VT_VALMASK) == r || p->r2 == r) {
+    برای(p = vstack, p1 = vtop - n; p <= p1; p++) {
+        اگر ((p->r & VT_VALMASK) == r || p->r2 == r) {
             /* must save value on stack if not already done */
-            if (!l) {
+            اگر (!l) {
                 bt = p->type.t & VT_BTYPE;
-                if (bt == VT_VOID)
-                    continue;
-                if ((p->r & VT_LVAL) || bt == VT_FUNC)
+                اگر (bt == VT_VOID)
+                    ادامه;
+                اگر ((p->r & VT_LVAL) || bt == VT_FUNC)
                     bt = VT_PTR;
                 sv.type.t = bt;
                 size = type_size(&sv.type, &align);
                 l = get_temp_local_var(size, align, &r2);
                 sv.r = VT_LOCAL | VT_LVAL;
                 sv.c.i = l;
-		sv.sym = NULL;
+		sv.sym = پوچ;
                 store(p->r & VT_VALMASK, &sv);
-#if defined(TCC_TARGET_I386) || defined(TCC_TARGET_X86_64)
+#اگر defined(TCC_TARGET_I386) || defined(TCC_TARGET_X86_64)
                 /* x86 specific: need to pop fp register ST0 if saved */
-                if (r == TREG_ST0) {
+                اگر (r == TREG_ST0) {
                     o(0xd8dd); /* fstp %st(0) */
                 }
 #endif
                 /* special long long case */
-                if (p->r2 < VT_CONST && USING_TWO_WORDS(bt)) {
+                اگر (p->r2 < VT_CONST && USING_TWO_واژگان(bt)) {
                     sv.c.i += PTR_SIZE;
                     store(p->r2, &sv);
                 }
             }
             /* mark that stack entry as being saved on the stack */
-            if (p->r & VT_LVAL) {
+            اگر (p->r & VT_LVAL) {
                 /* also clear the bounded flag because the
                    relocation address of the function was stored in
                    p->c.i */
                 p->r = (p->r & ~(VT_VALMASK | VT_BOUNDED)) | VT_LLOCAL;
-            } else {
+            } وگرنه {
                 p->r = VT_LVAL | VT_LOCAL;
                 p->type.t &= ~VT_ARRAY; /* cannot combine VT_LVAL with VT_ARRAY */
             }
-            p->sym = NULL;
+            p->sym = پوچ;
             p->r2 = r2;
             p->c.i = l;
         }
@@ -1464,45 +1464,45 @@ ST_FUNC void save_reg_upstack(int r, int n)
 #ifdef TCC_TARGET_ARM
 /* find a register of class 'rc2' with at most one reference on stack.
  * If none, call get_reg(rc) */
-ST_FUNC int get_reg_ex(int rc, int rc2)
+ST_FUNC صحیح get_reg_ex(صحیح rc, صحیح rc2)
 {
-    int r;
+    صحیح r;
     SValue *p;
     
-    for(r=0;r<NB_REGS;r++) {
-        if (reg_classes[r] & rc2) {
-            int n;
+    برای(r=0;r<NB_REGS;r++) {
+        اگر (reg_classes[r] & rc2) {
+            صحیح n;
             n=0;
-            for(p = vstack; p <= vtop; p++) {
-                if ((p->r & VT_VALMASK) == r ||
+            برای(p = vstack; p <= vtop; p++) {
+                اگر ((p->r & VT_VALMASK) == r ||
                     p->r2 == r)
                     n++;
             }
-            if (n <= 1)
-                return r;
+            اگر (n <= 1)
+                بازگشت r;
         }
     }
-    return get_reg(rc);
+    بازگشت get_reg(rc);
 }
 #endif
 
 /* find a free register of class 'rc'. If none, save one register */
-ST_FUNC int get_reg(int rc)
+ST_FUNC صحیح get_reg(صحیح rc)
 {
-    int r;
+    صحیح r;
     SValue *p;
 
     /* find a free register */
-    for(r=0;r<NB_REGS;r++) {
-        if (reg_classes[r] & rc) {
-            if (nocode_wanted)
-                return r;
-            for(p=vstack;p<=vtop;p++) {
-                if ((p->r & VT_VALMASK) == r ||
+    برای(r=0;r<NB_REGS;r++) {
+        اگر (reg_classes[r] & rc) {
+            اگر (nocode_wanted)
+                بازگشت r;
+            برای(p=vstack;p<=vtop;p++) {
+                اگر ((p->r & VT_VALMASK) == r ||
                     p->r2 == r)
-                    goto notfound;
+                    برو notfound;
             }
-            return r;
+            بازگشت r;
         }
     notfound: ;
     }
@@ -1510,74 +1510,74 @@ ST_FUNC int get_reg(int rc)
     /* no register left : free the first one on the stack (VERY
        IMPORTANT to start from the bottom to ensure that we don't
        spill registers used in gen_opi()) */
-    for(p=vstack;p<=vtop;p++) {
+    برای(p=vstack;p<=vtop;p++) {
         /* look at second register (if long long) */
         r = p->r2;
-        if (r < VT_CONST && (reg_classes[r] & rc))
-            goto save_found;
+        اگر (r < VT_CONST && (reg_classes[r] & rc))
+            برو save_found;
         r = p->r & VT_VALMASK;
-        if (r < VT_CONST && (reg_classes[r] & rc)) {
+        اگر (r < VT_CONST && (reg_classes[r] & rc)) {
         save_found:
             save_reg(r);
-            return r;
+            بازگشت r;
         }
     }
     /* Should never comes here */
-    return -1;
+    بازگشت -1;
 }
 
 /* find a free temporary local variable (return the offset on stack) match
    size and align. If none, add new temporary stack variable */
-static int get_temp_local_var(int size,int align, int *r2)
+ایستا صحیح get_temp_local_var(صحیح size,صحیح align, صحیح *r2)
 {
-    int i;
-    struct temp_local_variable *temp_var;
+    صحیح i;
+    ساختار temp_local_variable *temp_var;
     SValue *p;
-    int r;
+    صحیح r;
     unsigned used = 0;
 
     /* mark locations that are still in use */
-    for (p = vstack; p <= vtop; p++) {
+    برای (p = vstack; p <= vtop; p++) {
 	r = p->r & VT_VALMASK;
-	if (r == VT_LOCAL || r == VT_LLOCAL) {
+	اگر (r == VT_LOCAL || r == VT_LLOCAL) {
 	    r = p->r2 - (VT_CONST + 1);
-	    if (r >= 0 && r < MAX_TEMP_LOCAL_VARIABLE_NUMBER)
+	    اگر (r >= 0 && r < MAX_TEMP_LOCAL_VARIABLE_عدد)
 	        used |= 1<<r;
 	}
     }
-    for (i=0;i<nb_temp_local_vars;i++) {
+    برای (i=0;i<nb_temp_local_vars;i++) {
 	temp_var=&arr_temp_local_vars[i];
-	if(!(used & 1<<i)
+	اگر(!(used & 1<<i)
 	 && temp_var->size>=size
 	 && temp_var->align>=align) {
 ret_tmp:
 	    *r2 = (VT_CONST + 1) + i;
-	    return temp_var->location;
+	    بازگشت temp_var->location;
 	}
     }
     loc = (loc - size) & -align;
-    if (nb_temp_local_vars<MAX_TEMP_LOCAL_VARIABLE_NUMBER) {
+    اگر (nb_temp_local_vars<MAX_TEMP_LOCAL_VARIABLE_عدد) {
 	temp_var=&arr_temp_local_vars[i];
 	temp_var->location=loc;
 	temp_var->size=size;
 	temp_var->align=align;
 	nb_temp_local_vars++;
-	goto ret_tmp;
+	برو ret_tmp;
     }
     *r2 = VT_CONST;
-    return loc;
+    بازگشت loc;
 }
 
 /* move register 's' (of type 't') to 'r', and flush previous value of r to memory
    if needed */
-static void move_reg(int r, int s, int t)
+ایستا تهی move_reg(صحیح r, صحیح s, صحیح t)
 {
     SValue sv;
 
-    if (r != s) {
+    اگر (r != s) {
         save_reg(r);
         sv.type.t = t;
-        sv.type.ref = NULL;
+        sv.type.ref = پوچ;
         sv.r = s;
         sv.c.i = 0;
         load(r, &sv);
@@ -1585,20 +1585,20 @@ static void move_reg(int r, int s, int t)
 }
 
 /* get address of vtop (vtop MUST BE an lvalue) */
-ST_FUNC void gaddrof(void)
+ST_FUNC تهی gaddrof(تهی)
 {
     vtop->r &= ~VT_LVAL;
     /* tricky: if saved lvalue, then we can go back to lvalue */
-    if ((vtop->r & VT_VALMASK) == VT_LLOCAL)
+    اگر ((vtop->r & VT_VALMASK) == VT_LLOCAL)
         vtop->r = (vtop->r & ~VT_VALMASK) | VT_LOCAL | VT_LVAL;
 }
 
 #ifdef CONFIG_TCC_BCHECK
 /* generate a bounded pointer addition */
-static void gen_bounded_ptr_add(void)
+ایستا تهی gen_bounded_ptr_add(تهی)
 {
-    int save = (vtop[-1].r & VT_VALMASK) == VT_LOCAL;
-    if (save) {
+    صحیح save = (vtop[-1].r & VT_VALMASK) == VT_LOCAL;
+    اگر (save) {
       vpushv(&vtop[-1]);
       vrott(3);
     }
@@ -1609,39 +1609,39 @@ static void gen_bounded_ptr_add(void)
     vpushi(0);
     /* returned pointer is in REG_IRET */
     vtop->r = REG_IRET | VT_BOUNDED;
-    if (nocode_wanted)
-        return;
+    اگر (nocode_wanted)
+        بازگشت;
     /* relocation offset of the bounding function call point */
-    vtop->c.i = (cur_text_section->reloc->data_offset - sizeof(ElfW_Rel));
+    vtop->c.i = (cur_text_section->reloc->data_offset - اندازه(ElfW_Rel));
 }
 
 /* patch pointer addition in vtop so that pointer dereferencing is
    also tested */
-static void gen_bounded_ptr_deref(void)
+ایستا تهی gen_bounded_ptr_deref(تهی)
 {
     addr_t func;
-    int size, align;
+    صحیح size, align;
     ElfW_Rel *rel;
     Sym *sym;
 
-    if (nocode_wanted)
-        return;
+    اگر (nocode_wanted)
+        بازگشت;
 
     size = type_size(&vtop->type, &align);
-    switch(size) {
-    case  1: func = TOK___bound_ptr_indir1; break;
-    case  2: func = TOK___bound_ptr_indir2; break;
-    case  4: func = TOK___bound_ptr_indir4; break;
-    case  8: func = TOK___bound_ptr_indir8; break;
-    case 12: func = TOK___bound_ptr_indir12; break;
-    case 16: func = TOK___bound_ptr_indir16; break;
-    default:
+    انتخاب(size) {
+    حالت  1: func = TOK___bound_ptr_indir1; بشکن;
+    حالت  2: func = TOK___bound_ptr_indir2; بشکن;
+    حالت  4: func = TOK___bound_ptr_indir4; بشکن;
+    حالت  8: func = TOK___bound_ptr_indir8; بشکن;
+    حالت 12: func = TOK___bound_ptr_indir12; بشکن;
+    حالت 16: func = TOK___bound_ptr_indir16; بشکن;
+    پیشفرض:
         /* may happen with struct member access */
-        return;
+        بازگشت;
     }
     sym = external_helper_sym(func);
-    if (!sym->c)
-        put_extern_sym(sym, NULL, 0, 0);
+    اگر (!sym->c)
+        put_extern_sym(sym, پوچ, 0, 0);
     /* patch relocation */
     /* XXX: find a better solution ? */
     rel = (ElfW_Rel *)(cur_text_section->reloc->data + vtop->c.i);
@@ -1649,15 +1649,15 @@ static void gen_bounded_ptr_deref(void)
 }
 
 /* generate lvalue bound code */
-static void gbound(void)
+ایستا تهی gbound(تهی)
 {
     CType type1;
 
     vtop->r &= ~VT_MUSTBOUND;
     /* if lvalue, then use checking code before dereferencing */
-    if (vtop->r & VT_LVAL) {
+    اگر (vtop->r & VT_LVAL) {
         /* if not VT_BOUNDED value, then make one */
-        if (!(vtop->r & VT_BOUNDED)) {
+        اگر (!(vtop->r & VT_BOUNDED)) {
             /* must save type because we must set it to int to get pointer */
             type1 = vtop->type;
             vtop->type.t = VT_PTR;
@@ -1674,22 +1674,22 @@ static void gbound(void)
 
 /* we need to call __bound_ptr_add before we start to load function
    args into registers */
-ST_FUNC void gbound_args(int nb_args)
+ST_FUNC تهی gbound_args(صحیح nb_args)
 {
-    int i, v;
+    صحیح i, v;
     SValue *sv;
 
-    for (i = 1; i <= nb_args; ++i)
-        if (vtop[1 - i].r & VT_MUSTBOUND) {
+    برای (i = 1; i <= nb_args; ++i)
+        اگر (vtop[1 - i].r & VT_MUSTBOUND) {
             vrotb(i);
             gbound();
             vrott(i);
         }
 
     sv = vtop - nb_args;
-    if (sv->r & VT_SYM) {
+    اگر (sv->r & VT_SYM) {
         v = sv->sym->v;
-        if (v == TOK_setjmp
+        اگر (v == TOK_setjmp
           || v == TOK__setjmp
 #ifndef TCC_TARGET_PE
           || v == TOK_sigsetjmp
@@ -1701,29 +1701,29 @@ ST_FUNC void gbound_args(int nb_args)
             gfunc_call(1);
             func_bound_add_epilog = 1;
         }
-        if (v == TOK_alloca)
+        اگر (v == TOK_alloca)
             func_bound_add_epilog = 1;
-#if TARGETOS_NetBSD
-        if (v == TOK_longjmp) /* undo rename to __longjmp14 */
+#اگر TARGETOS_NetBSD
+        اگر (v == TOK_longjmp) /* undo rename to __longjmp14 */
             sv->sym->asm_label = TOK___bound_longjmp;
 #endif
     }
 }
 
 /* Add bounds for local symbols from S to E (via ->prev) */
-static void add_local_bounds(Sym *s, Sym *e)
+ایستا تهی add_local_bounds(Sym *s, Sym *e)
 {
-    for (; s != e; s = s->prev) {
-        if (!s->v || (s->r & VT_VALMASK) != VT_LOCAL)
-          continue;
+    برای (; s != e; s = s->prev) {
+        اگر (!s->v || (s->r & VT_VALMASK) != VT_LOCAL)
+          ادامه;
         /* Add arrays/structs/unions because we always take address */
-        if ((s->type.t & VT_ARRAY)
+        اگر ((s->type.t & VT_ARRAY)
             || (s->type.t & VT_BTYPE) == VT_STRUCT
             || s->a.addrtaken) {
             /* add local bound info */
-            int align, size = type_size(&s->type, &align);
+            صحیح align, size = type_size(&s->type, &align);
             addr_t *bounds_ptr = section_ptr_add(lbounds_section,
-                                                 2 * sizeof(addr_t));
+                                                 2 * اندازه(addr_t));
             bounds_ptr[0] = s->c;
             bounds_ptr[1] = size;
         }
@@ -1733,19 +1733,19 @@ static void add_local_bounds(Sym *s, Sym *e)
 
 /* add debug info for locals or function parameters, optionally
    register bounds */
-static void tcc_debug_end_scope(Sym *b, int bounds)
+ایستا تهی tcc_debug_end_scope(Sym *b, صحیح bounds)
 {
 #ifdef CONFIG_TCC_BCHECK
-    if (tcc_state->do_bounds_check && bounds)
-        add_local_bounds(local_stack, b);
+    اگر (tcc_state->do_bounds_check && bounds)
+        add_local_bounds(local_پشته, b);
 #endif
-    tcc_add_debug_info (tcc_state, local_stack, b);
+    tcc_add_debug_info (tcc_state, local_پشته, b);
 }
 
 /* increment an lvalue pointer */
-static void incr_offset(int offset)
+ایستا تهی incr_offset(صحیح offset)
 {
-    int t = vtop->type.t;
+    صحیح t = vtop->type.t;
     gaddrof(); /* remove VT_LVAL */
     vtop->type.t = VT_PTRDIFF_T; /* set scalar type */
     vpushs(offset);
@@ -1754,39 +1754,39 @@ static void incr_offset(int offset)
     vtop->type.t = t;
 }
 
-static void incr_bf_adr(int o)
+ایستا تهی incr_bf_adr(صحیح o)
 {
     vtop->type.t = VT_BYTE | VT_UNSIGNED;
     incr_offset(o);
 }
 
 /* single-byte load mode for packed or otherwise unaligned bitfields */
-static void load_packed_bf(CType *type, int bit_pos, int bit_size)
+ایستا تهی load_packed_bf(CType *type, صحیح bit_pos, صحیح bit_size)
 {
-    int n, o, bits;
+    صحیح n, o, bits;
     save_reg_upstack(vtop->r, 1);
     vpush64(type->t & VT_BTYPE, 0); // B X
     bits = 0, o = bit_pos >> 3, bit_pos &= 7;
-    do {
+    انجامبده {
         vswap(); // X B
         incr_bf_adr(o);
         vdup(); // X B B
         n = 8 - bit_pos;
-        if (n > bit_size)
+        اگر (n > bit_size)
             n = bit_size;
-        if (bit_pos)
+        اگر (bit_pos)
             vpushi(bit_pos), gen_op(TOK_SHR), bit_pos = 0; // X B Y
-        if (n < 8)
+        اگر (n < 8)
             vpushi((1 << n) - 1), gen_op('&');
         gen_cast(type);
-        if (bits)
+        اگر (bits)
             vpushi(bits), gen_op(TOK_SHL);
         vrotb(3); // B Y X
         gen_op('|'); // B X
         bits += n, bit_size -= n, o = 1;
-    } while (bit_size);
+    } وقتی (bit_size);
     vswap(), vpop();
-    if (!(type->t & VT_UNSIGNED)) {
+    اگر (!(type->t & VT_UNSIGNED)) {
         n = ((type->t & VT_BTYPE) == VT_LLONG ? 64 : 32) - bits;
         vpushi(n), gen_op(TOK_SHL);
         vpushi(n), gen_op(TOK_SAR);
@@ -1794,26 +1794,26 @@ static void load_packed_bf(CType *type, int bit_pos, int bit_size)
 }
 
 /* single-byte store mode for packed or otherwise unaligned bitfields */
-static void store_packed_bf(int bit_pos, int bit_size)
+ایستا تهی store_packed_bf(صحیح bit_pos, صحیح bit_size)
 {
-    int bits, n, o, m, c;
+    صحیح bits, n, o, m, c;
     c = (vtop->r & (VT_VALMASK | VT_LVAL | VT_SYM)) == VT_CONST;
     vswap(); // X B
     save_reg_upstack(vtop->r, 1);
     bits = 0, o = bit_pos >> 3, bit_pos &= 7;
-    do {
+    انجامبده {
         incr_bf_adr(o); // X B
         vswap(); //B X
         c ? vdup() : gv_dup(); // B V X
         vrott(3); // X B V
-        if (bits)
+        اگر (bits)
             vpushi(bits), gen_op(TOK_SHR);
-        if (bit_pos)
+        اگر (bit_pos)
             vpushi(bit_pos), gen_op(TOK_SHL);
         n = 8 - bit_pos;
-        if (n > bit_size)
+        اگر (n > bit_size)
             n = bit_size;
-        if (n < 8) {
+        اگر (n < 8) {
             m = ((1 << n) - 1) << bit_pos;
             vpushi(m), gen_op('&'); // X B V1
             vpushv(vtop-1); // X B V1 B
@@ -1824,33 +1824,33 @@ static void store_packed_bf(int bit_pos, int bit_size)
         vdup(), vtop[-1] = vtop[-2]; // X B B V2
         vstore(), vpop(); // X B
         bits += n, bit_size -= n, bit_pos = 0, o = 1;
-    } while (bit_size);
+    } وقتی (bit_size);
     vpop(), vpop();
 }
 
-static int adjust_bf(SValue *sv, int bit_pos, int bit_size)
+ایستا صحیح adjust_bf(SValue *sv, صحیح bit_pos, صحیح bit_size)
 {
-    int t;
-    if (0 == sv->type.ref)
-        return 0;
+    صحیح t;
+    اگر (0 == sv->type.ref)
+        بازگشت 0;
     t = sv->type.ref->auxtype;
-    if (t != -1 && t != VT_STRUCT) {
+    اگر (t != -1 && t != VT_STRUCT) {
         sv->type.t = (sv->type.t & ~(VT_BTYPE | VT_LONG)) | t;
         sv->r |= VT_LVAL;
     }
-    return t;
+    بازگشت t;
 }
 
 /* store vtop a register belonging to class 'rc'. lvalues are
    converted to values. Cannot be used if cannot be converted to
    register value (such as structures). */
-ST_FUNC int gv(int rc)
+ST_FUNC صحیح gv(صحیح rc)
 {
-    int r, r2, r_ok, r2_ok, rc2, bt;
-    int bit_pos, bit_size, size, align;
+    صحیح r, r2, r_ok, r2_ok, rc2, bt;
+    صحیح bit_pos, bit_size, size, align;
 
     /* NOTE: get_reg can modify vstack[] */
-    if (vtop->type.t & VT_BITFIELD) {
+    اگر (vtop->type.t & VT_BITFIELD) {
         CType type;
 
         bit_pos = BIT_POS(vtop->type.t);
@@ -1858,22 +1858,22 @@ ST_FUNC int gv(int rc)
         /* remove bit field info to avoid loops */
         vtop->type.t &= ~VT_STRUCT_MASK;
 
-        type.ref = NULL;
+        type.ref = پوچ;
         type.t = vtop->type.t & VT_UNSIGNED;
-        if ((vtop->type.t & VT_BTYPE) == VT_BOOL)
+        اگر ((vtop->type.t & VT_BTYPE) == VT_BOOL)
             type.t |= VT_UNSIGNED;
 
         r = adjust_bf(vtop, bit_pos, bit_size);
 
-        if ((vtop->type.t & VT_BTYPE) == VT_LLONG)
+        اگر ((vtop->type.t & VT_BTYPE) == VT_LLONG)
             type.t |= VT_LLONG;
-        else
+        وگرنه
             type.t |= VT_INT;
 
-        if (r == VT_STRUCT) {
+        اگر (r == VT_STRUCT) {
             load_packed_bf(&type, bit_pos, bit_size);
-        } else {
-            int bits = (type.t & VT_BTYPE) == VT_LLONG ? 64 : 32;
+        } وگرنه {
+            صحیح bits = (type.t & VT_BTYPE) == VT_LLONG ? 64 : 32;
             /* cast to int to propagate signedness in following ops */
             gen_cast(&type);
             /* generate shifts */
@@ -1884,15 +1884,15 @@ ST_FUNC int gv(int rc)
             gen_op(TOK_SAR);
         }
         r = gv(rc);
-    } else {
-        if (is_float(vtop->type.t) && 
+    } وگرنه {
+        اگر (is_float(vtop->type.t) && 
             (vtop->r & (VT_VALMASK | VT_LVAL)) == VT_CONST) {
             /* CPUs usually cannot use float constants, so we store them
                generically in data segment */
             init_params p = { rodata_section };
             unsigned long offset;
             size = type_size(&vtop->type, &align);
-            if (NODATA_WANTED)
+            اگر (NODATA_WANTED)
                 size = 0, align = 1;
             offset = section_add(p.sec, size, align);
             vpush_ref(&vtop->type, p.sec, offset, size);
@@ -1901,17 +1901,17 @@ ST_FUNC int gv(int rc)
 	    vtop->r |= VT_LVAL;
         }
 #ifdef CONFIG_TCC_BCHECK
-        if (vtop->r & VT_MUSTBOUND) 
+        اگر (vtop->r & VT_MUSTBOUND) 
             gbound();
 #endif
 
         bt = vtop->type.t & VT_BTYPE;
-        if (bt == VT_VOID || bt == VT_STRUCT) /* should not happen */
-            return vtop->r;
+        اگر (bt == VT_VOID || bt == VT_STRUCT) /* should not happen */
+            بازگشت vtop->r;
 
 #ifdef TCC_TARGET_RISCV64
         /* XXX mega hack */
-        if (bt == VT_LDOUBLE && rc == RC_FLOAT)
+        اگر (bt == VT_LDOUBLE && rc == RC_FLOAT)
           rc = RC_INT;
 #endif
         rc2 = RC2_TYPE(bt, rc);
@@ -1924,33 +1924,33 @@ ST_FUNC int gv(int rc)
         r_ok = !(vtop->r & VT_LVAL) && (r < VT_CONST) && (reg_classes[r] & rc);
         r2_ok = !rc2 || ((vtop->r2 < VT_CONST) && (reg_classes[vtop->r2] & rc2));
 
-        if (!r_ok || !r2_ok) {
+        اگر (!r_ok || !r2_ok) {
 
-            if (!r_ok) {
-                if (1 /* we can 'mov (r),r' in cases */
+            اگر (!r_ok) {
+                اگر (1 /* we can 'mov (r),r' in cases */
                     && r < VT_CONST
                     && (reg_classes[r] & rc)
                     && !rc2
                     )
                     save_reg_upstack(r, 1);
-                else
+                وگرنه
                     r = get_reg(rc);
             }
 
-            if (rc2) {
-                int load_type = (bt == VT_QFLOAT) ? VT_DOUBLE : VT_PTRDIFF_T;
-                int original_type = vtop->type.t;
+            اگر (rc2) {
+                صحیح load_type = (bt == VT_QFLOAT) ? VT_DOUBLE : VT_PTRDIFF_T;
+                صحیح original_type = vtop->type.t;
 
                 /* two register type load :
                    expand to two words temporarily */
-                if ((vtop->r & (VT_VALMASK | VT_LVAL)) == VT_CONST) {
+                اگر ((vtop->r & (VT_VALMASK | VT_LVAL)) == VT_CONST) {
                     /* load constant */
                     unsigned long long ll = vtop->c.i;
                     vtop->c.i = ll; /* first word */
                     load(r, vtop);
                     vtop->r = r; /* save register value */
                     vpushi(ll >> 32); /* second word */
-                } else if (vtop->r & VT_LVAL) {
+                } وگرنه اگر (vtop->r & VT_LVAL) {
                     /* We do not want to modifier the long long pointer here.
                        So we save any other instances down the stack */
                     save_reg_upstack(vtop->r, 1);
@@ -1961,12 +1961,12 @@ ST_FUNC int gv(int rc)
                     vtop[-1].r = r; /* save register value */
                     /* increment pointer to get second word */
                     incr_offset(PTR_SIZE);
-                } else {
+                } وگرنه {
                     /* move registers */
-                    if (!r_ok)
+                    اگر (!r_ok)
                         load(r, vtop);
-                    if (r2_ok && vtop->r2 < VT_CONST)
-                        goto done;
+                    اگر (r2_ok && vtop->r2 < VT_CONST)
+                        برو done;
                     vdup();
                     vtop[-1].r = r; /* save register value */
                     vtop->r = vtop[-1].r2;
@@ -1980,8 +1980,8 @@ ST_FUNC int gv(int rc)
                 vtop->r2 = r2;
             done:
                 vtop->type.t = original_type;
-            } else {
-                if (vtop->r == VT_CMP)
+            } وگرنه {
+                اگر (vtop->r == VT_CMP)
                     vset_VT_JMP();
                 /* one register type load */
                 load(r, vtop);
@@ -1990,56 +1990,56 @@ ST_FUNC int gv(int rc)
         vtop->r = r;
 #ifdef TCC_TARGET_C67
         /* uses register pairs for doubles */
-        if (bt == VT_DOUBLE)
+        اگر (bt == VT_DOUBLE)
             vtop->r2 = r+1;
 #endif
     }
-    return r;
+    بازگشت r;
 }
 
 /* generate vtop[-1] and vtop[0] in resp. classes rc1 and rc2 */
-ST_FUNC void gv2(int rc1, int rc2)
+ST_FUNC تهی gv2(صحیح rc1, صحیح rc2)
 {
     /* generate more generic register first. But VT_JMP or VT_CMP
        values must be generated first in all cases to avoid possible
        reload errors */
-    if (vtop->r != VT_CMP && rc1 <= rc2) {
+    اگر (vtop->r != VT_CMP && rc1 <= rc2) {
         vswap();
         gv(rc1);
         vswap();
         gv(rc2);
         /* test if reload is needed for first register */
-        if ((vtop[-1].r & VT_VALMASK) >= VT_CONST) {
+        اگر ((vtop[-1].r & VT_VALMASK) >= VT_CONST) {
             vswap();
             gv(rc1);
             vswap();
         }
-    } else {
+    } وگرنه {
         gv(rc2);
         vswap();
         gv(rc1);
         vswap();
         /* test if reload is needed for first register */
-        if ((vtop[0].r & VT_VALMASK) >= VT_CONST) {
+        اگر ((vtop[0].r & VT_VALMASK) >= VT_CONST) {
             gv(rc2);
         }
     }
 }
 
-#if PTR_SIZE == 4
+#اگر PTR_SIZE == 4
 /* expand 64bit on stack in two ints */
-ST_FUNC void lexpand(void)
+ST_FUNC تهی lexpand(تهی)
 {
-    int u, v;
+    صحیح u, v;
     u = vtop->type.t & (VT_DEFSIGN | VT_UNSIGNED);
     v = vtop->r & (VT_VALMASK | VT_LVAL);
-    if (v == VT_CONST) {
+    اگر (v == VT_CONST) {
         vdup();
         vtop[0].c.i >>= 32;
-    } else if (v == (VT_LVAL|VT_CONST) || v == (VT_LVAL|VT_LOCAL)) {
+    } وگرنه اگر (v == (VT_LVAL|VT_CONST) || v == (VT_LVAL|VT_LOCAL)) {
         vdup();
         vtop[0].c.i += 4;
-    } else {
+    } وگرنه {
         gv(RC_INT);
         vdup();
         vtop[0].r = vtop[-1].r2;
@@ -2049,9 +2049,9 @@ ST_FUNC void lexpand(void)
 }
 #endif
 
-#if PTR_SIZE == 4
+#اگر PTR_SIZE == 4
 /* build a long long from two ints */
-static void lbuild(int t)
+ایستا تهی lbuild(صحیح t)
 {
     gv2(RC_INT, RC_INT);
     vtop[-1].r2 = vtop[0].r;
@@ -2062,14 +2062,14 @@ static void lbuild(int t)
 
 /* convert stack entry to register and duplicate its value in another
    register */
-static void gv_dup(void)
+ایستا تهی gv_dup(تهی)
 {
-    int t, rc, r;
+    صحیح t, rc, r;
 
     t = vtop->type.t;
-#if PTR_SIZE == 4
-    if ((t & VT_BTYPE) == VT_LLONG) {
-        if (t & VT_BITFIELD) {
+#اگر PTR_SIZE == 4
+    اگر ((t & VT_BTYPE) == VT_LLONG) {
+        اگر (t & VT_BITFIELD) {
             gv(RC_INT);
             t = vtop->type.t;
         }
@@ -2086,7 +2086,7 @@ static void gv_dup(void)
         vswap();
         lbuild(t);
         vswap();
-        return;
+        بازگشت;
     }
 #endif
     /* duplicate value */
@@ -2098,28 +2098,28 @@ static void gv_dup(void)
     vtop->r = r;
 }
 
-#if PTR_SIZE == 4
+#اگر PTR_SIZE == 4
 /* generate CPU independent (unsigned) long long operations */
-static void gen_opl(int op)
+ایستا تهی gen_opl(صحیح op)
 {
-    int t, a, b, op1, c, i;
-    int func;
+    صحیح t, a, b, op1, c, i;
+    صحیح func;
     unsigned short reg_iret = REG_IRET;
     unsigned short reg_lret = REG_IRE2;
     SValue tmp;
 
-    switch(op) {
-    case '/':
-    case TOK_PDIV:
+    انتخاب(op) {
+    حالت '/':
+    حالت TOK_PDIV:
         func = TOK___divdi3;
-        goto gen_func;
-    case TOK_UDIV:
+        برو gen_func;
+    حالت TOK_UDIV:
         func = TOK___udivdi3;
-        goto gen_func;
-    case '%':
+        برو gen_func;
+    حالت '%':
         func = TOK___moddi3;
-        goto gen_mod_func;
-    case TOK_UMOD:
+        برو gen_mod_func;
+    حالت TOK_UMOD:
         func = TOK___umoddi3;
     gen_mod_func:
 #ifdef TCC_ARM_EABI
@@ -2134,13 +2134,13 @@ static void gen_opl(int op)
         vpushi(0);
         vtop->r = reg_iret;
         vtop->r2 = reg_lret;
-        break;
-    case '^':
-    case '&':
-    case '|':
-    case '*':
-    case '+':
-    case '-':
+        بشکن;
+    حالت '^':
+    حالت '&':
+    حالت '|':
+    حالت '*':
+    حالت '+':
+    حالت '-':
         //pv("gen_opl A",0,2);
         t = vtop->type.t;
         vswap();
@@ -2157,13 +2157,13 @@ static void gen_opl(int op)
         vswap();
         /* stack: H1 H2 L1 L2 */
         //pv("gen_opl B",0,4);
-        if (op == '*') {
+        اگر (op == '*') {
             vpushv(vtop - 1);
             vpushv(vtop - 1);
             gen_op(TOK_UMULL);
             lexpand();
             /* stack: H1 H2 L1 L2 ML MH */
-            for(i=0;i<4;i++)
+            برای(i=0;i<4;i++)
                 vrotb(6);
             /* stack: ML MH H1 H2 L1 L2 */
             tmp = vtop[0];
@@ -2177,18 +2177,18 @@ static void gen_opl(int op)
             /* stack: ML MH M1 M2 */
             gen_op('+');
             gen_op('+');
-        } else if (op == '+' || op == '-') {
+        } وگرنه اگر (op == '+' || op == '-') {
             /* XXX: add non carry method too (for MIPS or alpha) */
-            if (op == '+')
+            اگر (op == '+')
                 op1 = TOK_ADDC1;
-            else
+            وگرنه
                 op1 = TOK_SUBC1;
             gen_op(op1);
             /* stack: H1 H2 (L1 op L2) */
             vrotb(3);
             vrotb(3);
             gen_op(op1 + 1); /* TOK_xxxC2 */
-        } else {
+        } وگرنه {
             gen_op(op);
             /* stack: H1 H2 (L1 op L2) */
             vrotb(3);
@@ -2199,39 +2199,39 @@ static void gen_opl(int op)
         }
         /* stack: L H */
         lbuild(t);
-        break;
-    case TOK_SAR:
-    case TOK_SHR:
-    case TOK_SHL:
-        if ((vtop->r & (VT_VALMASK | VT_LVAL | VT_SYM)) == VT_CONST) {
+        بشکن;
+    حالت TOK_SAR:
+    حالت TOK_SHR:
+    حالت TOK_SHL:
+        اگر ((vtop->r & (VT_VALMASK | VT_LVAL | VT_SYM)) == VT_CONST) {
             t = vtop[-1].type.t;
             vswap();
             lexpand();
             vrotb(3);
             /* stack: L H shift */
-            c = (int)vtop->c.i;
+            c = (صحیح)vtop->c.i;
             /* constant: simpler */
             /* NOTE: all comments are for SHL. the other cases are
                done by swapping words */
             vpop();
-            if (op != TOK_SHL)
+            اگر (op != TOK_SHL)
                 vswap();
-            if (c >= 32) {
+            اگر (c >= 32) {
                 /* stack: L H */
                 vpop();
-                if (c > 32) {
+                اگر (c > 32) {
                     vpushi(c - 32);
                     gen_op(op);
                 }
-                if (op != TOK_SAR) {
+                اگر (op != TOK_SAR) {
                     vpushi(0);
-                } else {
+                } وگرنه {
                     gv_dup();
                     vpushi(31);
                     gen_op(TOK_SAR);
                 }
                 vswap();
-            } else {
+            } وگرنه {
                 vswap();
                 gv_dup();
                 /* stack: H L L */
@@ -2239,38 +2239,38 @@ static void gen_opl(int op)
                 gen_op(op);
                 vswap();
                 vpushi(32 - c);
-                if (op == TOK_SHL)
+                اگر (op == TOK_SHL)
                     gen_op(TOK_SHR);
-                else
+                وگرنه
                     gen_op(TOK_SHL);
                 vrotb(3);
                 /* stack: L L H */
                 vpushi(c);
-                if (op == TOK_SHL)
+                اگر (op == TOK_SHL)
                     gen_op(TOK_SHL);
-                else
+                وگرنه
                     gen_op(TOK_SHR);
                 gen_op('|');
             }
-            if (op != TOK_SHL)
+            اگر (op != TOK_SHL)
                 vswap();
             lbuild(t);
-        } else {
+        } وگرنه {
             /* XXX: should provide a faster fallback on x86 ? */
-            switch(op) {
-            case TOK_SAR:
+            انتخاب(op) {
+            حالت TOK_SAR:
                 func = TOK___ashrdi3;
-                goto gen_func;
-            case TOK_SHR:
+                برو gen_func;
+            حالت TOK_SHR:
                 func = TOK___lshrdi3;
-                goto gen_func;
-            case TOK_SHL:
+                برو gen_func;
+            حالت TOK_SHL:
                 func = TOK___ashldi3;
-                goto gen_func;
+                برو gen_func;
             }
         }
-        break;
-    default:
+        بشکن;
+    پیشفرض:
         /* compare operations */
         t = vtop->type.t;
         vswap();
@@ -2282,7 +2282,7 @@ static void gen_opl(int op)
         vtop[-1] = vtop[-2];
         vtop[-2] = tmp;
         /* stack: L1 L2 H1 H2 */
-        if (!cur_switch || cur_switch->bsym) {
+        اگر (!cur_switch || cur_switch->bsym) {
             /* avoid differnt registers being saved in branches.
                This is not needed when comparing switch cases */
             save_regs(4);
@@ -2291,22 +2291,22 @@ static void gen_opl(int op)
         op1 = op;
         /* when values are equal, we need to compare low words. since
            the jump is inverted, we invert the test too. */
-        if (op1 == TOK_LT)
+        اگر (op1 == TOK_LT)
             op1 = TOK_LE;
-        else if (op1 == TOK_GT)
+        وگرنه اگر (op1 == TOK_GT)
             op1 = TOK_GE;
-        else if (op1 == TOK_ULT)
+        وگرنه اگر (op1 == TOK_ULT)
             op1 = TOK_ULE;
-        else if (op1 == TOK_UGT)
+        وگرنه اگر (op1 == TOK_UGT)
             op1 = TOK_UGE;
         a = 0;
         b = 0;
         gen_op(op1);
-        if (op == TOK_NE) {
+        اگر (op == TOK_NE) {
             b = gvtst(0, 0);
-        } else {
+        } وگرنه {
             a = gvtst(1, 0);
-            if (op != TOK_EQ) {
+            اگر (op != TOK_EQ) {
                 /* generate non equal test */
                 vpushi(0);
                 vset_VT_CMP(TOK_NE);
@@ -2315,139 +2315,139 @@ static void gen_opl(int op)
         }
         /* compare low. Always unsigned */
         op1 = op;
-        if (op1 == TOK_LT)
+        اگر (op1 == TOK_LT)
             op1 = TOK_ULT;
-        else if (op1 == TOK_LE)
+        وگرنه اگر (op1 == TOK_LE)
             op1 = TOK_ULE;
-        else if (op1 == TOK_GT)
+        وگرنه اگر (op1 == TOK_GT)
             op1 = TOK_UGT;
-        else if (op1 == TOK_GE)
+        وگرنه اگر (op1 == TOK_GE)
             op1 = TOK_UGE;
         gen_op(op1);
-#if 0//def TCC_TARGET_I386
-        if (op == TOK_NE) { gsym(b); break; }
-        if (op == TOK_EQ) { gsym(a); break; }
+#اگر 0//def TCC_TARGET_I386
+        اگر (op == TOK_NE) { gsym(b); بشکن; }
+        اگر (op == TOK_EQ) { gsym(a); بشکن; }
 #endif
         gvtst_set(1, a);
         gvtst_set(0, b);
-        break;
+        بشکن;
     }
 }
 #endif
 
 /* normalize values */
-static uint64_t value64(uint64_t l1, int t)
+ایستا uint64_t value64(uint64_t l1, صحیح t)
 {
-    if ((t & VT_BTYPE) == VT_LLONG
+    اگر ((t & VT_BTYPE) == VT_LLONG
         || (PTR_SIZE == 8 && (t & VT_BTYPE) == VT_PTR))
-        return l1;
-    else if (t & VT_UNSIGNED)
-        return (uint32_t)l1;
-    else
-        return (uint32_t)l1 | -(l1 & 0x80000000);
+        بازگشت l1;
+    وگرنه اگر (t & VT_UNSIGNED)
+        بازگشت (uint32_t)l1;
+    وگرنه
+        بازگشت (uint32_t)l1 | -(l1 & 0x80000000);
 }
 
-static uint64_t gen_opic_sdiv(uint64_t a, uint64_t b)
+ایستا uint64_t gen_opic_sdiv(uint64_t a, uint64_t b)
 {
     uint64_t x = (a >> 63 ? -a : a) / (b >> 63 ? -b : b);
-    return (a ^ b) >> 63 ? -x : x;
+    بازگشت (a ^ b) >> 63 ? -x : x;
 }
 
-static int gen_opic_lt(uint64_t a, uint64_t b)
+ایستا صحیح gen_opic_lt(uint64_t a, uint64_t b)
 {
-    return (a ^ (uint64_t)1 << 63) < (b ^ (uint64_t)1 << 63);
+    بازگشت (a ^ (uint64_t)1 << 63) < (b ^ (uint64_t)1 << 63);
 }
 
 /* handle integer constant optimizations and various machine
    independent opt */
-static void gen_opic(int op)
+ایستا تهی gen_opic(صحیح op)
 {
     SValue *v1 = vtop - 1;
     SValue *v2 = vtop;
-    int t1 = v1->type.t & VT_BTYPE;
-    int t2 = v2->type.t & VT_BTYPE;
-    int c1 = (v1->r & (VT_VALMASK | VT_LVAL | VT_SYM)) == VT_CONST;
-    int c2 = (v2->r & (VT_VALMASK | VT_LVAL | VT_SYM)) == VT_CONST;
+    صحیح t1 = v1->type.t & VT_BTYPE;
+    صحیح t2 = v2->type.t & VT_BTYPE;
+    صحیح c1 = (v1->r & (VT_VALMASK | VT_LVAL | VT_SYM)) == VT_CONST;
+    صحیح c2 = (v2->r & (VT_VALMASK | VT_LVAL | VT_SYM)) == VT_CONST;
     uint64_t l1 = c1 ? value64(v1->c.i, v1->type.t) : 0;
     uint64_t l2 = c2 ? value64(v2->c.i, v2->type.t) : 0;
-    int shm = (t1 == VT_LLONG) ? 63 : 31;
-    int r;
+    صحیح shm = (t1 == VT_LLONG) ? 63 : 31;
+    صحیح r;
 
-    if (c1 && c2) {
-        switch(op) {
-        case '+': l1 += l2; break;
-        case '-': l1 -= l2; break;
-        case '&': l1 &= l2; break;
-        case '^': l1 ^= l2; break;
-        case '|': l1 |= l2; break;
-        case '*': l1 *= l2; break;
+    اگر (c1 && c2) {
+        انتخاب(op) {
+        حالت '+': l1 += l2; بشکن;
+        حالت '-': l1 -= l2; بشکن;
+        حالت '&': l1 &= l2; بشکن;
+        حالت '^': l1 ^= l2; بشکن;
+        حالت '|': l1 |= l2; بشکن;
+        حالت '*': l1 *= l2; بشکن;
 
-        case TOK_PDIV:
-        case '/':
-        case '%':
-        case TOK_UDIV:
-        case TOK_UMOD:
+        حالت TOK_PDIV:
+        حالت '/':
+        حالت '%':
+        حالت TOK_UDIV:
+        حالت TOK_UMOD:
             /* if division by zero, generate explicit division */
-            if (l2 == 0) {
-                if (CONST_WANTED && !NOEVAL_WANTED)
+            اگر (l2 == 0) {
+                اگر (CONST_WANTED && !NOEVAL_WANTED)
                     tcc_error("division by zero in constant");
-                goto general_case;
+                برو general_case;
             }
-            switch(op) {
-            default: l1 = gen_opic_sdiv(l1, l2); break;
-            case '%': l1 = l1 - l2 * gen_opic_sdiv(l1, l2); break;
-            case TOK_UDIV: l1 = l1 / l2; break;
-            case TOK_UMOD: l1 = l1 % l2; break;
+            انتخاب(op) {
+            پیشفرض: l1 = gen_opic_sdiv(l1, l2); بشکن;
+            حالت '%': l1 = l1 - l2 * gen_opic_sdiv(l1, l2); بشکن;
+            حالت TOK_UDIV: l1 = l1 / l2; بشکن;
+            حالت TOK_UMOD: l1 = l1 % l2; بشکن;
             }
-            break;
-        case TOK_SHL: l1 <<= (l2 & shm); break;
-        case TOK_SHR: l1 >>= (l2 & shm); break;
-        case TOK_SAR:
+            بشکن;
+        حالت TOK_SHL: l1 <<= (l2 & shm); بشکن;
+        حالت TOK_SHR: l1 >>= (l2 & shm); بشکن;
+        حالت TOK_SAR:
             l1 = (l1 >> 63) ? ~(~l1 >> (l2 & shm)) : l1 >> (l2 & shm);
-            break;
+            بشکن;
             /* tests */
-        case TOK_ULT: l1 = l1 < l2; break;
-        case TOK_UGE: l1 = l1 >= l2; break;
-        case TOK_EQ: l1 = l1 == l2; break;
-        case TOK_NE: l1 = l1 != l2; break;
-        case TOK_ULE: l1 = l1 <= l2; break;
-        case TOK_UGT: l1 = l1 > l2; break;
-        case TOK_LT: l1 = gen_opic_lt(l1, l2); break;
-        case TOK_GE: l1 = !gen_opic_lt(l1, l2); break;
-        case TOK_LE: l1 = !gen_opic_lt(l2, l1); break;
-        case TOK_GT: l1 = gen_opic_lt(l2, l1); break;
+        حالت TOK_ULT: l1 = l1 < l2; بشکن;
+        حالت TOK_UGE: l1 = l1 >= l2; بشکن;
+        حالت TOK_EQ: l1 = l1 == l2; بشکن;
+        حالت TOK_NE: l1 = l1 != l2; بشکن;
+        حالت TOK_ULE: l1 = l1 <= l2; بشکن;
+        حالت TOK_UGT: l1 = l1 > l2; بشکن;
+        حالت TOK_LT: l1 = gen_opic_lt(l1, l2); بشکن;
+        حالت TOK_GE: l1 = !gen_opic_lt(l1, l2); بشکن;
+        حالت TOK_LE: l1 = !gen_opic_lt(l2, l1); بشکن;
+        حالت TOK_GT: l1 = gen_opic_lt(l2, l1); بشکن;
             /* logical */
-        case TOK_LAND: l1 = l1 && l2; break;
-        case TOK_LOR: l1 = l1 || l2; break;
-        default:
-            goto general_case;
+        حالت TOK_LAND: l1 = l1 && l2; بشکن;
+        حالت TOK_LOR: l1 = l1 || l2; بشکن;
+        پیشفرض:
+            برو general_case;
         }
         v1->c.i = value64(l1, v1->type.t);
         v1->r |= v2->r & VT_NONCONST;
         vtop--;
-    } else {
+    } وگرنه {
         /* if commutative ops, put c2 as constant */
-        if (c1 && (op == '+' || op == '&' || op == '^' || 
+        اگر (c1 && (op == '+' || op == '&' || op == '^' || 
                    op == '|' || op == '*' || op == TOK_EQ || op == TOK_NE)) {
             vswap();
             c2 = c1; //c = c1, c1 = c2, c2 = c;
             l2 = l1; //l = l1, l1 = l2, l2 = l;
         }
-        if (c1 && ((l1 == 0 &&
+        اگر (c1 && ((l1 == 0 &&
                     (op == TOK_SHL || op == TOK_SHR || op == TOK_SAR)) ||
                    (l1 == -1 && op == TOK_SAR))) {
             /* treat (0 << x), (0 >> x) and (-1 >> x) as constant */
             vpop();
-        } else if (c2 && ((l2 == 0 && (op == '&' || op == '*')) ||
+        } وگرنه اگر (c2 && ((l2 == 0 && (op == '&' || op == '*')) ||
                           (op == '|' &&
                             (l2 == -1 || (l2 == 0xFFFFFFFF && t2 != VT_LLONG))) ||
                           (l2 == 1 && (op == '%' || op == TOK_UMOD)))) {
             /* treat (x & 0), (x * 0), (x | -1) and (x % 1) as constant */
-            if (l2 == 1)
+            اگر (l2 == 1)
                 vtop->c.i = 0;
             vswap();
             vtop--;
-        } else if (c2 && (((op == '*' || op == '/' || op == TOK_UDIV ||
+        } وگرنه اگر (c2 && (((op == '*' || op == '/' || op == TOK_UDIV ||
                           op == TOK_PDIV) &&
                            l2 == 1) ||
                           ((op == '+' || op == '-' || op == '|' || op == '^' ||
@@ -2457,83 +2457,83 @@ static void gen_opic(int op)
                             (l2 == -1 || (l2 == 0xFFFFFFFF && t2 != VT_LLONG))))) {
             /* filter out NOP operations like x*1, x-0, x&-1... */
             vtop--;
-        } else if (c2 && (op == '*' || op == TOK_PDIV || op == TOK_UDIV || op == TOK_UMOD)) {
+        } وگرنه اگر (c2 && (op == '*' || op == TOK_PDIV || op == TOK_UDIV || op == TOK_UMOD)) {
             /* try to use shifts instead of muls or divs */
-            if (l2 > 0 && (l2 & (l2 - 1)) == 0) {
-                int n = -1;
-                if (op == TOK_UMOD) {
+            اگر (l2 > 0 && (l2 & (l2 - 1)) == 0) {
+                صحیح n = -1;
+                اگر (op == TOK_UMOD) {
                     vtop->c.i = l2 - 1;
                     op = '&';
-                    goto general_case;
+                    برو general_case;
                 }
-                while (l2) {
+                وقتی (l2) {
                     l2 >>= 1;
                     n++;
                 }
                 vtop->c.i = n;
-                if (op == '*')
+                اگر (op == '*')
                     op = TOK_SHL;
-                else if (op == TOK_PDIV)
+                وگرنه اگر (op == TOK_PDIV)
                     op = TOK_SAR;
-                else
+                وگرنه
                     op = TOK_SHR;
             }
-            goto general_case;
-        } else if (c2 && (op == '+' || op == '-') &&
+            برو general_case;
+        } وگرنه اگر (c2 && (op == '+' || op == '-') &&
                    (r = vtop[-1].r & (VT_VALMASK | VT_LVAL | VT_SYM),
                     r == (VT_CONST | VT_SYM) || r == VT_LOCAL)) {
             /* symbol + constant case */
-            if (op == '-')
+            اگر (op == '-')
                 l2 = -l2;
 	    l2 += vtop[-1].c.i;
 	    /* The backends can't always deal with addends to symbols
 	       larger than +-1<<31.  Don't construct such.  */
-	    if ((int)l2 != l2)
-	        goto general_case;
+	    اگر ((صحیح)l2 != l2)
+	        برو general_case;
             vtop--;
             vtop->c.i = l2;
-        } else {
+        } وگرنه {
         general_case:
                 /* call low level op generator */
-                if (t1 == VT_LLONG || t2 == VT_LLONG ||
+                اگر (t1 == VT_LLONG || t2 == VT_LLONG ||
                     (PTR_SIZE == 8 && (t1 == VT_PTR || t2 == VT_PTR)))
                     gen_opl(op);
-                else
+                وگرنه
                     gen_opi(op);
         }
-        if (vtop->r == VT_CONST)
+        اگر (vtop->r == VT_CONST)
             vtop->r |= VT_NONCONST; /* is const, but only by optimization */
     }
 }
 
-#if defined TCC_TARGET_X86_64 || defined TCC_TARGET_I386 || defined TCC_TARGET_ARM64
+#اگر defined TCC_TARGET_X86_64 || defined TCC_TARGET_I386 || defined TCC_TARGET_ARM64
 # define gen_negf gen_opf
-#elif defined TCC_TARGET_ARM
-void gen_negf(int op)
+#وگرنهاگر defined TCC_TARGET_ARM
+تهی gen_negf(صحیح op)
 {
     /* arm will detect 0-x and replace by vneg */
     vpushi(0), vswap(), gen_op('-');
 }
-#else
+#وگرنه
 /* XXX: implement in gen_opf() for other backends too */
-void gen_negf(int op)
+تهی gen_negf(صحیح op)
 {
     /* In IEEE negate(x) isn't subtract(0,x).  Without NaNs it's
        subtract(-0, x), but with them it's really a sign flip
        operation.  We implement this with bit manipulation and have
        to do some type reinterpretation for this, which TCC can do
        only via memory.  */
-    int align, size, bt;
+    صحیح align, size, bt;
     size = type_size(&vtop->type, &align);
     bt = vtop->type.t & VT_BTYPE;
-#if defined TCC_TARGET_X86_64 || defined TCC_TARGET_I386
+#اگر defined TCC_TARGET_X86_64 || defined TCC_TARGET_I386
     /* sizeof long double is 12 or 16 here, but it's really the 80bit
        extended float format.  */
-    if (bt == VT_LDOUBLE)
+    اگر (bt == VT_LDOUBLE)
         size = 10;
 #endif
-    if (nocode_wanted) /* save_reg() wont work */
-        goto gv2;
+    اگر (nocode_wanted) /* save_reg() wont work */
+        برو gv2;
     save_reg(gv(RC_TYPE(bt)));
     vdup();
     incr_bf_adr(size - 1);
@@ -2548,106 +2548,106 @@ gv2:
 #endif
 
 /* generate a floating point operation with constant propagation */
-static void gen_opif(int op)
+ایستا تهی gen_opif(صحیح op)
 {
-    int c1, c2, i, bt;
+    صحیح c1, c2, i, bt;
     SValue *v1, *v2;
-#if defined _MSC_VER && defined __x86_64__
+#اگر defined _MSC_VER && defined __x86_64__
     /* avoid bad optimization with f1 -= f2 for f1:-0.0, f2:0.0 */
-    volatile
+    فرار
 #endif
-    long double f1, f2;
+    long دوگانه f1, f2;
 
     v1 = vtop - 1;
     v2 = vtop;
-    if (op == TOK_NEG)
+    اگر (op == TOK_NEG)
         v1 = v2;
     bt = v1->type.t & VT_BTYPE;
 
     /* currently, we cannot do computations with forward symbols */
     c1 = (v1->r & (VT_VALMASK | VT_LVAL | VT_SYM)) == VT_CONST;
     c2 = (v2->r & (VT_VALMASK | VT_LVAL | VT_SYM)) == VT_CONST;
-    if (c1 && c2) {
-        if (bt == VT_FLOAT) {
+    اگر (c1 && c2) {
+        اگر (bt == VT_FLOAT) {
             f1 = v1->c.f;
             f2 = v2->c.f;
-        } else if (bt == VT_DOUBLE) {
+        } وگرنه اگر (bt == VT_DOUBLE) {
             f1 = v1->c.d;
             f2 = v2->c.d;
-        } else {
+        } وگرنه {
             f1 = v1->c.ld;
             f2 = v2->c.ld;
         }
         /* NOTE: we only do constant propagation if finite number (not
            NaN or infinity) (ANSI spec) */
-        if (!(ieee_finite(f1) || !ieee_finite(f2)) && !CONST_WANTED)
-            goto general_case;
-        switch(op) {
-        case '+': f1 += f2; break;
-        case '-': f1 -= f2; break;
-        case '*': f1 *= f2; break;
-        case '/': 
-            if (f2 == 0.0) {
-                union { float f; unsigned u; } x1, x2, y;
+        اگر (!(ieee_finite(f1) || !ieee_finite(f2)) && !CONST_WANTED)
+            برو general_case;
+        انتخاب(op) {
+        حالت '+': f1 += f2; بشکن;
+        حالت '-': f1 -= f2; بشکن;
+        حالت '*': f1 *= f2; بشکن;
+        حالت '/': 
+            اگر (f2 == 0.0) {
+                اجتماع { اعشاری f; unsigned u; } x1, x2, y;
 		/* If not in initializer we need to potentially generate
 		   FP exceptions at runtime, otherwise we want to fold.  */
-                if (!CONST_WANTED)
-                    goto general_case;
+                اگر (!CONST_WANTED)
+                    برو general_case;
                 /* the run-time result of 0.0/0.0 on x87, also of other compilers
                    when used to compile the f1 /= f2 below, would be -nan */
                 x1.f = f1, x2.f = f2;
-                if (f1 == 0.0)
+                اگر (f1 == 0.0)
                     y.u = 0x7fc00000; /* nan */
-                else
+                وگرنه
                     y.u = 0x7f800000; /* infinity */
                 y.u |= (x1.u ^ x2.u) & 0x80000000; /* set sign */
                 f1 = y.f;
-                break;
+                بشکن;
             }
             f1 /= f2;
-            break;
-        case TOK_NEG:
+            بشکن;
+        حالت TOK_NEG:
             f1 = -f1;
-            goto unary_result;
-        case TOK_EQ:
+            برو unary_result;
+        حالت TOK_EQ:
             i = f1 == f2;
 	make_int:
             vtop -= 2;
             vpushi(i);
-            return;
-        case TOK_NE:
+            بازگشت;
+        حالت TOK_NE:
             i = f1 != f2;
-	    goto make_int;
-        case TOK_LT:
+	    برو make_int;
+        حالت TOK_LT:
             i = f1 < f2;
-	    goto make_int;
-        case TOK_GE:
+	    برو make_int;
+        حالت TOK_GE:
             i = f1 >= f2;
-	    goto make_int;
-        case TOK_LE:
+	    برو make_int;
+        حالت TOK_LE:
             i = f1 <= f2;
-	    goto make_int;
-        case TOK_GT:
+	    برو make_int;
+        حالت TOK_GT:
             i = f1 > f2;
-	    goto make_int;
-        default:
-            goto general_case;
+	    برو make_int;
+        پیشفرض:
+            برو general_case;
         }
         vtop--;
     unary_result:
         /* XXX: overflow test ? */
-        if (bt == VT_FLOAT) {
+        اگر (bt == VT_FLOAT) {
             v1->c.f = f1;
-        } else if (bt == VT_DOUBLE) {
+        } وگرنه اگر (bt == VT_DOUBLE) {
             v1->c.d = f1;
-        } else {
+        } وگرنه {
             v1->c.ld = f1;
         }
-    } else {
+    } وگرنه {
     general_case:
-        if (op == TOK_NEG) {
+        اگر (op == TOK_NEG) {
             gen_negf(op);
-        } else {
+        } وگرنه {
             gen_opf(op);
         }
     }
@@ -2657,35 +2657,35 @@ static void gen_opif(int op)
    printed in the type */
 /* XXX: union */
 /* XXX: add array and function pointers */
-static void type_to_str(char *buf, int buf_size,
-                 CType *type, const char *varstr)
+ایستا تهی type_to_str(نویسه *buf, صحیح buf_size,
+                 CType *type, ثابت نویسه *varstr)
 {
-    int bt, v, t;
+    صحیح bt, v, t;
     Sym *s, *sa;
-    char buf1[256];
-    const char *tstr;
+    نویسه buf1[256];
+    ثابت نویسه *tstr;
 
     t = type->t;
     bt = t & VT_BTYPE;
     buf[0] = '\0';
 
-    if (t & VT_EXTERN)
+    اگر (t & VT_EXTERN)
         pstrcat(buf, buf_size, "extern ");
-    if (t & VT_STATIC)
+    اگر (t & VT_STATIC)
         pstrcat(buf, buf_size, "static ");
-    if (t & VT_TYPEDEF)
+    اگر (t & VT_TYPEDEF)
         pstrcat(buf, buf_size, "typedef ");
-    if (t & VT_INLINE)
+    اگر (t & VT_INLINE)
         pstrcat(buf, buf_size, "inline ");
-    if (bt != VT_PTR) {
-        if (t & VT_RESTRICT)
+    اگر (bt != VT_PTR) {
+        اگر (t & VT_RESTRICT)
             pstrcat(buf, buf_size, "restrict ");
-        if (t & VT_VOLATILE)
+        اگر (t & VT_VOLATILE)
             pstrcat(buf, buf_size, "volatile ");
-        if (t & VT_CONSTANT)
+        اگر (t & VT_CONSTANT)
             pstrcat(buf, buf_size, "const ");
     }
-    if (((t & VT_DEFSIGN) && bt == VT_BYTE)
+    اگر (((t & VT_DEFSIGN) && bt == VT_BYTE)
         || ((t & VT_UNSIGNED)
             && (bt == VT_SHORT || bt == VT_INT || bt == VT_LLONG)
             && !IS_ENUM(t)
@@ -2695,134 +2695,134 @@ static void type_to_str(char *buf, int buf_size,
     buf_size -= strlen(buf);
     buf += strlen(buf);
 
-    switch(bt) {
-    case VT_VOID:
+    انتخاب(bt) {
+    حالت VT_VOID:
         tstr = "void";
-        goto add_tstr;
-    case VT_BOOL:
+        برو add_tstr;
+    حالت VT_BOOL:
         tstr = "_Bool";
-        goto add_tstr;
-    case VT_BYTE:
+        برو add_tstr;
+    حالت VT_BYTE:
         tstr = "char";
-        goto add_tstr;
-    case VT_SHORT:
+        برو add_tstr;
+    حالت VT_SHORT:
         tstr = "short";
-        goto add_tstr;
-    case VT_INT:
+        برو add_tstr;
+    حالت VT_INT:
         tstr = "int";
-        goto maybe_long;
-    case VT_LLONG:
+        برو maybe_long;
+    حالت VT_LLONG:
         tstr = "long long";
     maybe_long:
-        if (t & VT_LONG)
+        اگر (t & VT_LONG)
             tstr = "long";
-        if (!IS_ENUM(t))
-            goto add_tstr;
+        اگر (!IS_ENUM(t))
+            برو add_tstr;
         tstr = "enum ";
-        goto tstruct;
-    case VT_FLOAT:
+        برو tstruct;
+    حالت VT_FLOAT:
         tstr = "float";
-        goto add_tstr;
-    case VT_DOUBLE:
+        برو add_tstr;
+    حالت VT_DOUBLE:
         tstr = "double";
-        if (!(t & VT_LONG))
-            goto add_tstr;
-    case VT_LDOUBLE:
+        اگر (!(t & VT_LONG))
+            برو add_tstr;
+    حالت VT_LDOUBLE:
         tstr = "long double";
     add_tstr:
         pstrcat(buf, buf_size, tstr);
-        break;
-    case VT_STRUCT:
+        بشکن;
+    حالت VT_STRUCT:
         tstr = "struct ";
-        if (IS_UNION(t))
+        اگر (IS_UNION(t))
             tstr = "union ";
     tstruct:
         pstrcat(buf, buf_size, tstr);
         v = type->ref->v & ~SYM_STRUCT;
-        if (v >= SYM_FIRST_ANOM)
+        اگر (v >= SYM_FIRST_ANOM)
             pstrcat(buf, buf_size, "<anonymous>");
-        else
-            pstrcat(buf, buf_size, get_tok_str(v, NULL));
-        break;
-    case VT_FUNC:
+        وگرنه
+            pstrcat(buf, buf_size, get_tok_str(v, پوچ));
+        بشکن;
+    حالت VT_FUNC:
         s = type->ref;
         buf1[0]=0;
-        if (varstr && '*' == *varstr) {
-            pstrcat(buf1, sizeof(buf1), "(");
-            pstrcat(buf1, sizeof(buf1), varstr);
-            pstrcat(buf1, sizeof(buf1), ")");
+        اگر (varstr && '*' == *varstr) {
+            pstrcat(buf1, اندازه(buf1), "(");
+            pstrcat(buf1, اندازه(buf1), varstr);
+            pstrcat(buf1, اندازه(buf1), ")");
         }
-        pstrcat(buf1, sizeof(buf1), "(");
+        pstrcat(buf1, اندازه(buf1), "(");
         sa = s->next;
-        while (sa != NULL) {
-            char buf2[256];
-            type_to_str(buf2, sizeof(buf2), &sa->type, NULL);
-            pstrcat(buf1, sizeof(buf1), buf2);
+        وقتی (sa != پوچ) {
+            نویسه buf2[256];
+            type_to_str(buf2, اندازه(buf2), &sa->type, پوچ);
+            pstrcat(buf1, اندازه(buf1), buf2);
             sa = sa->next;
-            if (sa)
-                pstrcat(buf1, sizeof(buf1), ", ");
+            اگر (sa)
+                pstrcat(buf1, اندازه(buf1), ", ");
         }
-        if (s->f.func_type == FUNC_ELLIPSIS)
-            pstrcat(buf1, sizeof(buf1), ", ...");
-        pstrcat(buf1, sizeof(buf1), ")");
+        اگر (s->f.func_type == FUNC_ELLIPSIS)
+            pstrcat(buf1, اندازه(buf1), ", ...");
+        pstrcat(buf1, اندازه(buf1), ")");
         type_to_str(buf, buf_size, &s->type, buf1);
-        goto no_var;
-    case VT_PTR:
+        برو no_var;
+    حالت VT_PTR:
         s = type->ref;
-        if (t & (VT_ARRAY|VT_VLA)) {
-            if (varstr && '*' == *varstr)
-                snprintf(buf1, sizeof(buf1), "(%s)[%d]", varstr, s->c);
-            else
-                snprintf(buf1, sizeof(buf1), "%s[%d]", varstr ? varstr : "", s->c);
+        اگر (t & (VT_ARRAY|VT_VLA)) {
+            اگر (varstr && '*' == *varstr)
+                snprintf(buf1, اندازه(buf1), "(%s)[%d]", varstr, s->c);
+            وگرنه
+                snprintf(buf1, اندازه(buf1), "%s[%d]", varstr ? varstr : "", s->c);
             type_to_str(buf, buf_size, &s->type, buf1);
-            goto no_var;
+            برو no_var;
         }
-        pstrcpy(buf1, sizeof(buf1), "*");
-        if (t & VT_RESTRICT)
-            pstrcat(buf1, sizeof(buf1), "restrict ");
-        if (t & VT_CONSTANT)
-            pstrcat(buf1, sizeof(buf1), "const ");
-        if (t & VT_VOLATILE)
-            pstrcat(buf1, sizeof(buf1), "volatile ");
-        if (varstr)
-            pstrcat(buf1, sizeof(buf1), varstr);
+        pstrcpy(buf1, اندازه(buf1), "*");
+        اگر (t & VT_RESTRICT)
+            pstrcat(buf1, اندازه(buf1), "restrict ");
+        اگر (t & VT_CONSTANT)
+            pstrcat(buf1, اندازه(buf1), "const ");
+        اگر (t & VT_VOLATILE)
+            pstrcat(buf1, اندازه(buf1), "volatile ");
+        اگر (varstr)
+            pstrcat(buf1, اندازه(buf1), varstr);
         type_to_str(buf, buf_size, &s->type, buf1);
-        goto no_var;
+        برو no_var;
     }
-    if (varstr) {
+    اگر (varstr) {
         pstrcat(buf, buf_size, " ");
         pstrcat(buf, buf_size, varstr);
     }
  no_var: ;
 }
 
-static void type_incompatibility_error(CType* st, CType* dt, const char* fmt)
+ایستا تهی type_incompatibility_error(CType* st, CType* dt, ثابت نویسه* fmt)
 {
-    char buf1[256], buf2[256];
-    type_to_str(buf1, sizeof(buf1), st, NULL);
-    type_to_str(buf2, sizeof(buf2), dt, NULL);
+    نویسه buf1[256], buf2[256];
+    type_to_str(buf1, اندازه(buf1), st, پوچ);
+    type_to_str(buf2, اندازه(buf2), dt, پوچ);
     tcc_error(fmt, buf1, buf2);
 }
 
-static void type_incompatibility_warning(CType* st, CType* dt, const char* fmt)
+ایستا تهی type_incompatibility_warning(CType* st, CType* dt, ثابت نویسه* fmt)
 {
-    char buf1[256], buf2[256];
-    type_to_str(buf1, sizeof(buf1), st, NULL);
-    type_to_str(buf2, sizeof(buf2), dt, NULL);
+    نویسه buf1[256], buf2[256];
+    type_to_str(buf1, اندازه(buf1), st, پوچ);
+    type_to_str(buf2, اندازه(buf2), dt, پوچ);
     tcc_warning(fmt, buf1, buf2);
 }
 
-static int pointed_size(CType *type)
+ایستا صحیح pointed_size(CType *type)
 {
-    int align;
-    return type_size(pointed_type(type), &align);
+    صحیح align;
+    بازگشت type_size(pointed_type(type), &align);
 }
 
-static inline int is_null_pointer(SValue *p)
+ایستا درونخطی صحیح is_null_pointer(SValue *p)
 {
-    if ((p->r & (VT_VALMASK | VT_LVAL | VT_SYM | VT_NONCONST)) != VT_CONST)
-        return 0;
-    return ((p->type.t & VT_BTYPE) == VT_INT && (uint32_t)p->c.i == 0) ||
+    اگر ((p->r & (VT_VALMASK | VT_LVAL | VT_SYM | VT_NONCONST)) != VT_CONST)
+        بازگشت 0;
+    بازگشت ((p->type.t & VT_BTYPE) == VT_INT && (uint32_t)p->c.i == 0) ||
         ((p->type.t & VT_BTYPE) == VT_LLONG && p->c.i == 0) ||
         ((p->type.t & VT_BTYPE) == VT_PTR &&
          (PTR_SIZE == 4 ? (uint32_t)p->c.i == 0 : p->c.i == 0) &&
@@ -2832,83 +2832,83 @@ static inline int is_null_pointer(SValue *p)
 }
 
 /* compare function types. OLD functions match any new functions */
-static int is_compatible_func(CType *type1, CType *type2)
+ایستا صحیح is_compatible_func(CType *type1, CType *type2)
 {
     Sym *s1, *s2;
 
     s1 = type1->ref;
     s2 = type2->ref;
-    if (s1->f.func_call != s2->f.func_call)
-        return 0;
-    if (s1->f.func_type != s2->f.func_type
+    اگر (s1->f.func_call != s2->f.func_call)
+        بازگشت 0;
+    اگر (s1->f.func_type != s2->f.func_type
         && s1->f.func_type != FUNC_OLD
         && s2->f.func_type != FUNC_OLD)
-        return 0;
-    for (;;) {
-        if (!is_compatible_unqualified_types(&s1->type, &s2->type))
-            return 0;
-        if (s1->f.func_type == FUNC_OLD || s2->f.func_type == FUNC_OLD )
-            return 1;
+        بازگشت 0;
+    برای (;;) {
+        اگر (!is_compatible_unqualified_types(&s1->type, &s2->type))
+            بازگشت 0;
+        اگر (s1->f.func_type == FUNC_OLD || s2->f.func_type == FUNC_OLD )
+            بازگشت 1;
         s1 = s1->next;
         s2 = s2->next;
-        if (!s1)
-            return !s2;
-        if (!s2)
-            return 0;
+        اگر (!s1)
+            بازگشت !s2;
+        اگر (!s2)
+            بازگشت 0;
     }
 }
 
 /* return true if type1 and type2 are the same.  If unqualified is
    true, qualifiers on the types are ignored.
  */
-static int compare_types(CType *type1, CType *type2, int unqualified)
+ایستا صحیح compare_types(CType *type1, CType *type2, صحیح unqualified)
 {
-    int bt1, t1, t2;
+    صحیح bt1, t1, t2;
 
-    if (IS_ENUM(type1->t)) {
-        if (IS_ENUM(type2->t))
-            return type1->ref == type2->ref;
+    اگر (IS_ENUM(type1->t)) {
+        اگر (IS_ENUM(type2->t))
+            بازگشت type1->ref == type2->ref;
         type1 = &type1->ref->type;
-    } else if (IS_ENUM(type2->t))
+    } وگرنه اگر (IS_ENUM(type2->t))
         type2 = &type2->ref->type;
 
     t1 = type1->t & VT_TYPE;
     t2 = type2->t & VT_TYPE;
-    if (unqualified) {
+    اگر (unqualified) {
         /* strip qualifiers before comparing */
         t1 &= ~VT_QUAL;
         t2 &= ~VT_QUAL;
     }
 
     /* Default Vs explicit signedness only matters for char */
-    if ((t1 & VT_BTYPE) != VT_BYTE) {
+    اگر ((t1 & VT_BTYPE) != VT_BYTE) {
         t1 &= ~VT_DEFSIGN;
         t2 &= ~VT_DEFSIGN;
     }
     /* XXX: bitfields ? */
-    if (t1 != t2)
-        return 0;
+    اگر (t1 != t2)
+        بازگشت 0;
 
-    if ((t1 & VT_ARRAY)
+    اگر ((t1 & VT_ARRAY)
         && !(type1->ref->c < 0
           || type2->ref->c < 0
           || type1->ref->c == type2->ref->c))
-            return 0;
+            بازگشت 0;
 
     /* test more complicated cases */
     bt1 = t1 & VT_BTYPE;
-    if (bt1 == VT_PTR) {
+    اگر (bt1 == VT_PTR) {
         type1 = pointed_type(type1);
         type2 = pointed_type(type2);
-        if (unqualified && (t1 & VT_ARRAY))
-            return compare_types(type1, type2, 1);
-        return is_compatible_types(type1, type2);
-    } else if (bt1 == VT_STRUCT) {
-        return (type1->ref == type2->ref);
-    } else if (bt1 == VT_FUNC) {
-        return is_compatible_func(type1, type2);
-    } else {
-        return 1;
+        اگر (unqualified && (t1 & VT_ARRAY))
+            بازگشت compare_types(type1, type2, 1);
+        بازگشت is_compatible_types(type1, type2);
+    } وگرنه اگر (bt1 == VT_STRUCT) {
+        بازگشت (type1->ref == type2->ref);
+    } وگرنه اگر (bt1 == VT_FUNC) {
+        بازگشت is_compatible_func(type1, type2);
+    } وگرنه {
+        بازگشت 1;
     }
 }
 
@@ -2917,14 +2917,14 @@ static int compare_types(CType *type1, CType *type2, int unqualified)
 
 /* Check if OP1 and OP2 can be "combined" with operation OP, the combined
    type is stored in DEST if non-null (except for pointer plus/minus) . */
-static int combine_types(CType *dest, SValue *op1, SValue *op2, int op)
+ایستا صحیح combine_types(CType *dest, SValue *op1, SValue *op2, صحیح op)
 {
     CType *type1, *type2, type;
-    int t1, t2, bt1, bt2;
-    int ret = 1;
+    صحیح t1, t2, bt1, bt2;
+    صحیح ret = 1;
 
     /* for shifts, 'combine' only left operand */
-    if (op == SHIFT_OP)
+    اگر (op == SHIFT_OP)
         op2 = op1;
 
     type1 = &op1->type, type2 = &op2->type;
@@ -2932,130 +2932,130 @@ static int combine_types(CType *dest, SValue *op1, SValue *op2, int op)
     bt1 = t1 & VT_BTYPE, bt2 = t2 & VT_BTYPE;
 
     type.t = VT_VOID;
-    type.ref = NULL;
+    type.ref = پوچ;
 
-    if (bt1 == VT_VOID || bt2 == VT_VOID) {
-        if (op != '?')
+    اگر (bt1 == VT_VOID || bt2 == VT_VOID) {
+        اگر (op != '?')
             tcc_error("operation on void value");
         /* NOTE: as an extension, we accept void on only one side */
         type.t = VT_VOID;
-    } else if (bt1 == VT_PTR || bt2 == VT_PTR) {
-        if (op == '+') {
-          if (!is_integer_btype(bt1 == VT_PTR ? bt2 : bt1))
+    } وگرنه اگر (bt1 == VT_PTR || bt2 == VT_PTR) {
+        اگر (op == '+') {
+          اگر (!is_integer_btype(bt1 == VT_PTR ? bt2 : bt1))
             ret = 0;
         }
         /* http://port70.net/~nsz/c/c99/n1256.html#6.5.15p6 */
         /* If one is a null ptr constant the result type is the other.  */
-        else if (is_null_pointer (op2)) type = *type1;
-        else if (is_null_pointer (op1)) type = *type2;
-        else if (bt1 != bt2) {
+        وگرنه اگر (is_null_pointer (op2)) type = *type1;
+        وگرنه اگر (is_null_pointer (op1)) type = *type2;
+        وگرنه اگر (bt1 != bt2) {
             /* accept comparison or cond-expr between pointer and integer
                with a warning */
-            if ((op == '?' || op == CMP_OP)
+            اگر ((op == '?' || op == CMP_OP)
                 && (is_integer_btype(bt1) || is_integer_btype(bt2)))
               tcc_warning("pointer/integer mismatch in %s",
                           op == '?' ? "conditional expression" : "comparison");
-            else if (op != '-' || !is_integer_btype(bt2))
+            وگرنه اگر (op != '-' || !is_integer_btype(bt2))
               ret = 0;
             type = *(bt1 == VT_PTR ? type1 : type2);
-        } else {
+        } وگرنه {
             CType *pt1 = pointed_type(type1);
             CType *pt2 = pointed_type(type2);
-            int pbt1 = pt1->t & VT_BTYPE;
-            int pbt2 = pt2->t & VT_BTYPE;
-            int newquals, copied = 0;
-            if (pbt1 != VT_VOID && pbt2 != VT_VOID
+            صحیح pbt1 = pt1->t & VT_BTYPE;
+            صحیح pbt2 = pt2->t & VT_BTYPE;
+            صحیح newquals, copied = 0;
+            اگر (pbt1 != VT_VOID && pbt2 != VT_VOID
                 && !compare_types(pt1, pt2, 1/*unqualif*/)) {
-                if (op != '?' && op != CMP_OP)
+                اگر (op != '?' && op != CMP_OP)
                   ret = 0;
-                else
+                وگرنه
                   type_incompatibility_warning(type1, type2,
                     op == '?'
                      ? "pointer type mismatch in conditional expression ('%s' and '%s')"
                      : "pointer type mismatch in comparison('%s' and '%s')");
             }
-            if (op == '?') {
+            اگر (op == '?') {
                 /* pointers to void get preferred, otherwise the
                    pointed to types minus qualifs should be compatible */
                 type = *((pbt1 == VT_VOID) ? type1 : type2);
                 /* combine qualifs */
                 newquals = type_qualifiers(pt1) | type_qualifiers(pt2);
-                if ((~type_qualifiers(pointed_type(&type))) & newquals)
+                اگر ((~type_qualifiers(pointed_type(&type))) & newquals)
                   {
                     /* copy the pointer target symbol */
-                    type.ref = sym_push(SYM_FIELD, &type.ref->type,
+                    type.ref = sym_افزودن(SYM_FIELD, &type.ref->type,
                                         0, type.ref->c);
                     copied = 1;
                     parse_btype_qualify(pointed_type(&type), newquals);
                   }
                 /* pointers to incomplete arrays get converted to
                    pointers to completed ones if possible */
-                if (pt1->t & VT_ARRAY
+                اگر (pt1->t & VT_ARRAY
                     && pt2->t & VT_ARRAY
                     && pointed_type(&type)->ref->c < 0
                     && (pt1->ref->c > 0 || pt2->ref->c > 0))
                   {
-                    if (!copied)
-                      type.ref = sym_push(SYM_FIELD, &type.ref->type,
+                    اگر (!copied)
+                      type.ref = sym_افزودن(SYM_FIELD, &type.ref->type,
                                           0, type.ref->c);
                     pointed_type(&type)->ref =
-                        sym_push(SYM_FIELD, &pointed_type(&type)->ref->type,
+                        sym_افزودن(SYM_FIELD, &pointed_type(&type)->ref->type,
                                  0, pointed_type(&type)->ref->c);
                     pointed_type(&type)->ref->c =
                         0 < pt1->ref->c ? pt1->ref->c : pt2->ref->c;
                   }
             }
         }
-        if (op == CMP_OP)
+        اگر (op == CMP_OP)
           type.t = VT_SIZE_T;
-    } else if (bt1 == VT_STRUCT || bt2 == VT_STRUCT) {
-        if (op != '?' || !compare_types(type1, type2, 1))
+    } وگرنه اگر (bt1 == VT_STRUCT || bt2 == VT_STRUCT) {
+        اگر (op != '?' || !compare_types(type1, type2, 1))
           ret = 0;
         type = *type1;
-    } else if (is_float(bt1) || is_float(bt2)) {
-        if (bt1 == VT_LDOUBLE || bt2 == VT_LDOUBLE) {
+    } وگرنه اگر (is_float(bt1) || is_float(bt2)) {
+        اگر (bt1 == VT_LDOUBLE || bt2 == VT_LDOUBLE) {
             type.t = VT_LDOUBLE;
-        } else if (bt1 == VT_DOUBLE || bt2 == VT_DOUBLE) {
+        } وگرنه اگر (bt1 == VT_DOUBLE || bt2 == VT_DOUBLE) {
             type.t = VT_DOUBLE;
-        } else {
+        } وگرنه {
             type.t = VT_FLOAT;
         }
-    } else if (bt1 == VT_LLONG || bt2 == VT_LLONG) {
+    } وگرنه اگر (bt1 == VT_LLONG || bt2 == VT_LLONG) {
         /* cast to biggest op */
         type.t = VT_LLONG | VT_LONG;
-        if (bt1 == VT_LLONG)
+        اگر (bt1 == VT_LLONG)
           type.t &= t1;
-        if (bt2 == VT_LLONG)
+        اگر (bt2 == VT_LLONG)
           type.t &= t2;
         /* convert to unsigned if it does not fit in a long long */
-        if ((t1 & (VT_BTYPE | VT_UNSIGNED)) == (VT_LLONG | VT_UNSIGNED) ||
+        اگر ((t1 & (VT_BTYPE | VT_UNSIGNED)) == (VT_LLONG | VT_UNSIGNED) ||
             (t2 & (VT_BTYPE | VT_UNSIGNED)) == (VT_LLONG | VT_UNSIGNED))
           type.t |= VT_UNSIGNED;
-    } else {
+    } وگرنه {
         /* integer operations */
         type.t = VT_INT | (VT_LONG & (t1 | t2));
         /* convert to unsigned if it does not fit in an integer */
-        if (((t1 & (VT_BTYPE | VT_UNSIGNED)) == (VT_INT | VT_UNSIGNED)
+        اگر (((t1 & (VT_BTYPE | VT_UNSIGNED)) == (VT_INT | VT_UNSIGNED)
                 && (!(t1 & VT_BITFIELD) || BIT_SIZE(t1) == 32))
          || ((t2 & (VT_BTYPE | VT_UNSIGNED)) == (VT_INT | VT_UNSIGNED)
                 && (!(t2 & VT_BITFIELD) || BIT_SIZE(t2) == 32)))
           type.t |= VT_UNSIGNED;
     }
-    if (dest)
+    اگر (dest)
       *dest = type;
-    return ret;
+    بازگشت ret;
 }
 
 /* generic gen_op: handles types problems */
-ST_FUNC void gen_op(int op)
+ST_FUNC تهی gen_op(صحیح op)
 {
-    int t1, t2, bt1, bt2, t;
+    صحیح t1, t2, bt1, bt2, t;
     CType type1, combtype;
-    int op_class = op;
+    صحیح op_class = op;
 
-    if (op == TOK_SHR || op == TOK_SAR || op == TOK_SHL)
+    اگر (op == TOK_SHR || op == TOK_SAR || op == TOK_SHL)
         op_class = SHIFT_OP;
-    else if (TOK_ISCOND(op)) /* == != > ... */
+    وگرنه اگر (TOK_ISCOND(op)) /* == != > ... */
         op_class = CMP_OP;
 
 redo:
@@ -3064,31 +3064,31 @@ redo:
     bt1 = t1 & VT_BTYPE;
     bt2 = t2 & VT_BTYPE;
         
-    if (bt1 == VT_FUNC || bt2 == VT_FUNC) {
-	if (bt2 == VT_FUNC) {
+    اگر (bt1 == VT_FUNC || bt2 == VT_FUNC) {
+	اگر (bt2 == VT_FUNC) {
 	    mk_pointer(&vtop->type);
 	    gaddrof();
 	}
-	if (bt1 == VT_FUNC) {
+	اگر (bt1 == VT_FUNC) {
 	    vswap();
 	    mk_pointer(&vtop->type);
 	    gaddrof();
 	    vswap();
 	}
-	goto redo;
-    } else if (!combine_types(&combtype, vtop - 1, vtop, op_class)) {
+	برو redo;
+    } وگرنه اگر (!combine_types(&combtype, vtop - 1, vtop, op_class)) {
 op_err:
         tcc_error("invalid operand types for binary operation");
-    } else if (bt1 == VT_PTR || bt2 == VT_PTR) {
+    } وگرنه اگر (bt1 == VT_PTR || bt2 == VT_PTR) {
         /* at least one operand is a pointer */
         /* relational op: must be both pointers */
-        int align;
-        if (op_class == CMP_OP)
-            goto std_op;
+        صحیح align;
+        اگر (op_class == CMP_OP)
+            برو std_op;
         /* if both pointers, then it must be the '-' op */
-        if (bt1 == VT_PTR && bt2 == VT_PTR) {
-            if (op != '-')
-                goto op_err;
+        اگر (bt1 == VT_PTR && bt2 == VT_PTR) {
+            اگر (op != '-')
+                برو op_err;
             vpush_type_size(pointed_type(&vtop[-1].type), &align);
             vtop->type.t &= ~VT_UNSIGNED;
             vrott(3);
@@ -3096,18 +3096,18 @@ op_err:
             vtop->type.t = VT_PTRDIFF_T;
             vswap();
             gen_op(TOK_PDIV);
-        } else {
+        } وگرنه {
             /* exactly one pointer : must be '+' or '-'. */
-            if (op != '-' && op != '+')
-                goto op_err;
+            اگر (op != '-' && op != '+')
+                برو op_err;
             /* Put pointer as first operand */
-            if (bt2 == VT_PTR) {
+            اگر (bt2 == VT_PTR) {
                 vswap();
                 t = t1, t1 = t2, t2 = t;
                 bt2 = bt1;
             }
-#if PTR_SIZE == 4
-            if (bt2 == VT_LLONG)
+#اگر PTR_SIZE == 4
+            اگر (bt2 == VT_LLONG)
                 /* XXX: truncate here because gen_opl can't handle ptr + long long */
                 gen_cast_s(VT_INT);
 #endif
@@ -3116,16 +3116,16 @@ op_err:
             vtop->type.t &= ~VT_UNSIGNED;
             gen_op('*');
 #ifdef CONFIG_TCC_BCHECK
-            if (tcc_state->do_bounds_check && !CONST_WANTED) {
+            اگر (tcc_state->do_bounds_check && !CONST_WANTED) {
                 /* if bounded pointers, we generate a special code to
                    test bounds */
-                if (op == '-') {
+                اگر (op == '-') {
                     vpushi(0);
                     vswap();
                     gen_op('-');
                 }
                 gen_bounded_ptr_add();
-            } else
+            } وگرنه
 #endif
             {
                 gen_opic(op);
@@ -3134,277 +3134,277 @@ op_err:
             /* put again type if gen_opic() swaped operands */
             vtop->type = type1;
         }
-    } else {
+    } وگرنه {
         /* floats can only be used for a few operations */
-        if (is_float(combtype.t)
+        اگر (is_float(combtype.t)
             && op != '+' && op != '-' && op != '*' && op != '/'
             && op_class != CMP_OP) {
-            goto op_err;
+            برو op_err;
         }
     std_op:
         t = t2 = combtype.t;
         /* special case for shifts and long long: we keep the shift as
            an integer */
-        if (op_class == SHIFT_OP)
+        اگر (op_class == SHIFT_OP)
             t2 = VT_INT;
         /* XXX: currently, some unsigned operations are explicit, so
            we modify them here */
-        if (t & VT_UNSIGNED) {
-            if (op == TOK_SAR)
+        اگر (t & VT_UNSIGNED) {
+            اگر (op == TOK_SAR)
                 op = TOK_SHR;
-            else if (op == '/')
+            وگرنه اگر (op == '/')
                 op = TOK_UDIV;
-            else if (op == '%')
+            وگرنه اگر (op == '%')
                 op = TOK_UMOD;
-            else if (op == TOK_LT)
+            وگرنه اگر (op == TOK_LT)
                 op = TOK_ULT;
-            else if (op == TOK_GT)
+            وگرنه اگر (op == TOK_GT)
                 op = TOK_UGT;
-            else if (op == TOK_LE)
+            وگرنه اگر (op == TOK_LE)
                 op = TOK_ULE;
-            else if (op == TOK_GE)
+            وگرنه اگر (op == TOK_GE)
                 op = TOK_UGE;
         }
         vswap();
         gen_cast_s(t);
         vswap();
         gen_cast_s(t2);
-        if (is_float(t))
+        اگر (is_float(t))
             gen_opif(op);
-        else
+        وگرنه
             gen_opic(op);
-        if (op_class == CMP_OP) {
+        اگر (op_class == CMP_OP) {
             /* relational op: the result is an int */
             vtop->type.t = VT_INT;
-        } else {
+        } وگرنه {
             vtop->type.t = t;
         }
     }
     // Make sure that we have converted to an rvalue:
-    if (vtop->r & VT_LVAL)
+    اگر (vtop->r & VT_LVAL)
         gv(RC_TYPE(vtop->type.t));
 }
 
-#if defined TCC_TARGET_ARM64 || defined TCC_TARGET_RISCV64 || defined TCC_TARGET_ARM
+#اگر defined TCC_TARGET_ARM64 || defined TCC_TARGET_RISCV64 || defined TCC_TARGET_ARM
 #define gen_cvt_itof1 gen_cvt_itof
-#else
+#وگرنه
 /* generic itof for unsigned long long case */
-static void gen_cvt_itof1(int t)
+ایستا تهی gen_cvt_itof1(صحیح t)
 {
-    if ((vtop->type.t & (VT_BTYPE | VT_UNSIGNED)) == 
+    اگر ((vtop->type.t & (VT_BTYPE | VT_UNSIGNED)) == 
         (VT_LLONG | VT_UNSIGNED)) {
 
-        if (t == VT_FLOAT)
+        اگر (t == VT_FLOAT)
             vpush_helper_func(TOK___floatundisf);
-#if LDOUBLE_SIZE != 8
-        else if (t == VT_LDOUBLE)
+#اگر LDOUBLE_SIZE != 8
+        وگرنه اگر (t == VT_LDOUBLE)
             vpush_helper_func(TOK___floatundixf);
 #endif
-        else
+        وگرنه
             vpush_helper_func(TOK___floatundidf);
         vrott(2);
         gfunc_call(1);
         vpushi(0);
         PUT_R_RET(vtop, t);
-    } else {
+    } وگرنه {
         gen_cvt_itof(t);
     }
 }
 #endif
 
-#if defined TCC_TARGET_ARM64 || defined TCC_TARGET_RISCV64
+#اگر defined TCC_TARGET_ARM64 || defined TCC_TARGET_RISCV64
 #define gen_cvt_ftoi1 gen_cvt_ftoi
-#else
+#وگرنه
 /* generic ftoi for unsigned long long case */
-static void gen_cvt_ftoi1(int t)
+ایستا تهی gen_cvt_ftoi1(صحیح t)
 {
-    int st;
-    if (t == (VT_LLONG | VT_UNSIGNED)) {
+    صحیح st;
+    اگر (t == (VT_LLONG | VT_UNSIGNED)) {
         /* not handled natively */
         st = vtop->type.t & VT_BTYPE;
-        if (st == VT_FLOAT)
+        اگر (st == VT_FLOAT)
             vpush_helper_func(TOK___fixunssfdi);
-#if LDOUBLE_SIZE != 8
-        else if (st == VT_LDOUBLE)
+#اگر LDOUBLE_SIZE != 8
+        وگرنه اگر (st == VT_LDOUBLE)
             vpush_helper_func(TOK___fixunsxfdi);
 #endif
-        else
+        وگرنه
             vpush_helper_func(TOK___fixunsdfdi);
         vrott(2);
         gfunc_call(1);
         vpushi(0);
         PUT_R_RET(vtop, t);
-    } else {
+    } وگرنه {
         gen_cvt_ftoi(t);
     }
 }
 #endif
 
 /* special delayed cast for char/short */
-static void force_charshort_cast(void)
+ایستا تهی force_charshort_cast(تهی)
 {
-    int sbt = BFGET(vtop->r, VT_MUSTCAST) == 2 ? VT_LLONG : VT_INT;
-    int dbt = vtop->type.t;
+    صحیح sbt = BFGET(vtop->r, VT_MUSTCAST) == 2 ? VT_LLONG : VT_INT;
+    صحیح dbt = vtop->type.t;
     vtop->r &= ~VT_MUSTCAST;
     vtop->type.t = sbt;
     gen_cast_s(dbt == VT_BOOL ? VT_BYTE|VT_UNSIGNED : dbt);
     vtop->type.t = dbt;
 }
 
-static void gen_cast_s(int t)
+ایستا تهی gen_cast_s(صحیح t)
 {
     CType type;
     type.t = t;
-    type.ref = NULL;
+    type.ref = پوچ;
     gen_cast(&type);
 }
 
 /* cast 'vtop' to 'type'. Casting to bitfields is forbidden. */
-static void gen_cast(CType *type)
+ایستا تهی gen_cast(CType *type)
 {
-    int sbt, dbt, sf, df, c;
-    int dbt_bt, sbt_bt, ds, ss, bits, trunc;
+    صحیح sbt, dbt, sf, df, c;
+    صحیح dbt_bt, sbt_bt, ds, ss, bits, trunc;
 
     /* special delayed cast for char/short */
-    if (vtop->r & VT_MUSTCAST)
+    اگر (vtop->r & VT_MUSTCAST)
         force_charshort_cast();
 
     /* bitfields first get cast to ints */
-    if (vtop->type.t & VT_BITFIELD)
+    اگر (vtop->type.t & VT_BITFIELD)
         gv(RC_INT);
 
-    if (IS_ENUM(type->t) && type->ref->c < 0)
+    اگر (IS_ENUM(type->t) && type->ref->c < 0)
         tcc_error("cast to incomplete type");
 
     dbt = type->t & (VT_BTYPE | VT_UNSIGNED);
     sbt = vtop->type.t & (VT_BTYPE | VT_UNSIGNED);
-    if (sbt == VT_FUNC)
+    اگر (sbt == VT_FUNC)
         sbt = VT_PTR;
 
 again:
-    if (sbt != dbt) {
+    اگر (sbt != dbt) {
         sf = is_float(sbt);
         df = is_float(dbt);
         dbt_bt = dbt & VT_BTYPE;
         sbt_bt = sbt & VT_BTYPE;
-        if (dbt_bt == VT_VOID) {
+        اگر (dbt_bt == VT_VOID) {
             /* do not confuse backends with VT_VOID in registers */
             vpop(), vpushi(0);
-            goto done;
+            برو done;
         }
-        if (sbt_bt == VT_VOID) {
+        اگر (sbt_bt == VT_VOID) {
 error:
             cast_error(&vtop->type, type);
         }
 
         c = (vtop->r & (VT_VALMASK | VT_LVAL | VT_SYM)) == VT_CONST;
-        if (c) {
+        اگر (c) {
             /* constant case: we can do it now */
             /* XXX: in ISOC, cannot do it if error in convert */
-            if (sbt == VT_FLOAT)
+            اگر (sbt == VT_FLOAT)
                 vtop->c.ld = vtop->c.f;
-            else if (sbt == VT_DOUBLE)
+            وگرنه اگر (sbt == VT_DOUBLE)
                 vtop->c.ld = vtop->c.d;
 
-            if (df) {
-                if (sbt_bt == VT_LLONG) {
-                    if ((sbt & VT_UNSIGNED) || !(vtop->c.i >> 63))
+            اگر (df) {
+                اگر (sbt_bt == VT_LLONG) {
+                    اگر ((sbt & VT_UNSIGNED) || !(vtop->c.i >> 63))
                         vtop->c.ld = vtop->c.i;
-                    else
-                        vtop->c.ld = -(long double)-vtop->c.i;
-                } else if(!sf) {
-                    if ((sbt & VT_UNSIGNED) || !(vtop->c.i >> 31))
+                    وگرنه
+                        vtop->c.ld = -(long دوگانه)-vtop->c.i;
+                } وگرنه اگر(!sf) {
+                    اگر ((sbt & VT_UNSIGNED) || !(vtop->c.i >> 31))
                         vtop->c.ld = (uint32_t)vtop->c.i;
-                    else
-                        vtop->c.ld = -(long double)-(uint32_t)vtop->c.i;
+                    وگرنه
+                        vtop->c.ld = -(long دوگانه)-(uint32_t)vtop->c.i;
                 }
 
-                if (dbt == VT_FLOAT)
-                    vtop->c.f = (float)vtop->c.ld;
-                else if (dbt == VT_DOUBLE)
-                    vtop->c.d = (double)vtop->c.ld;
-            } else if (sf && dbt == VT_BOOL) {
+                اگر (dbt == VT_FLOAT)
+                    vtop->c.f = (اعشاری)vtop->c.ld;
+                وگرنه اگر (dbt == VT_DOUBLE)
+                    vtop->c.d = (دوگانه)vtop->c.ld;
+            } وگرنه اگر (sf && dbt == VT_BOOL) {
                 vtop->c.i = (vtop->c.ld != 0);
-            } else {
-                if(sf) {
-                    if (dbt & VT_UNSIGNED)
+            } وگرنه {
+                اگر(sf) {
+                    اگر (dbt & VT_UNSIGNED)
                         vtop->c.i = (uint64_t)vtop->c.ld;
-                    else
+                    وگرنه
                         vtop->c.i = (int64_t)vtop->c.ld;
                 }
-                else if (sbt_bt == VT_LLONG || (PTR_SIZE == 8 && sbt == VT_PTR))
+                وگرنه اگر (sbt_bt == VT_LLONG || (PTR_SIZE == 8 && sbt == VT_PTR))
                     ;
-                else if (sbt & VT_UNSIGNED)
+                وگرنه اگر (sbt & VT_UNSIGNED)
                     vtop->c.i = (uint32_t)vtop->c.i;
-                else
+                وگرنه
                     vtop->c.i = ((uint32_t)vtop->c.i | -(vtop->c.i & 0x80000000));
 
-                if (dbt_bt == VT_LLONG || (PTR_SIZE == 8 && dbt == VT_PTR))
+                اگر (dbt_bt == VT_LLONG || (PTR_SIZE == 8 && dbt == VT_PTR))
                     ;
-                else if (dbt == VT_BOOL)
+                وگرنه اگر (dbt == VT_BOOL)
                     vtop->c.i = (vtop->c.i != 0);
-                else {
+                وگرنه {
                     uint32_t m = dbt_bt == VT_BYTE ? 0xff :
                                  dbt_bt == VT_SHORT ? 0xffff :
                                   0xffffffff;
                     vtop->c.i &= m;
-                    if (!(dbt & VT_UNSIGNED))
+                    اگر (!(dbt & VT_UNSIGNED))
                         vtop->c.i |= -(vtop->c.i & ((m >> 1) + 1));
                 }
             }
-            goto done;
+            برو done;
 
-        } else if (dbt == VT_BOOL
+        } وگرنه اگر (dbt == VT_BOOL
             && (vtop->r & (VT_VALMASK | VT_LVAL | VT_SYM))
                 == (VT_CONST | VT_SYM)) {
             /* addresses are considered non-zero (see tcctest.c:sinit23) */
             vtop->r = VT_CONST;
             vtop->c.i = 1;
-            goto done;
+            برو done;
         }
 
         /* cannot generate code for global or static initializers */
-        if (nocode_wanted & DATA_ONLY_WANTED) {
-            if (df)
+        اگر (nocode_wanted & DATA_ONLY_WANTED) {
+            اگر (df)
                 vtop->r = get_reg(RC_FLOAT); /* don't confuse backends */
-            goto done;
+            برو done;
         }
 
         /* non constant case: generate code */
-        if (dbt == VT_BOOL) {
+        اگر (dbt == VT_BOOL) {
             gen_test_zero(TOK_NE);
-            goto done;
+            برو done;
         }
 
-        if (sf || df) {
-            if (sf && df) {
+        اگر (sf || df) {
+            اگر (sf && df) {
                 /* convert from fp to fp */
                 gen_cvt_ftof(dbt);
-            } else if (df) {
+            } وگرنه اگر (df) {
                 /* convert int to fp */
                 gen_cvt_itof1(dbt);
-            } else {
+            } وگرنه {
                 /* convert fp to int */
                 sbt = dbt;
-                if (dbt_bt != VT_LLONG && dbt_bt != VT_INT)
+                اگر (dbt_bt != VT_LLONG && dbt_bt != VT_INT)
                     sbt = VT_INT;
                 gen_cvt_ftoi1(sbt);
-                goto again; /* may need char/short cast */
+                برو again; /* may need char/short cast */
             }
-            goto done;
+            برو done;
         }
 
         ds = btype_size(dbt_bt);
         ss = btype_size(sbt_bt);
-        if (ds == 0 || ss == 0)
-            goto error;
+        اگر (ds == 0 || ss == 0)
+            برو error;
 
         /* same size and no sign conversion needed */
-        if (ds == ss && ds >= 4)
-            goto done;
-        if (dbt_bt == VT_PTR || sbt_bt == VT_PTR) {
+        اگر (ds == ss && ds >= 4)
+            برو done;
+        اگر (dbt_bt == VT_PTR || sbt_bt == VT_PTR) {
             tcc_warning("cast between pointer and integer of different size");
-            if (sbt_bt == VT_PTR) {
+            اگر (sbt_bt == VT_PTR) {
                 /* put integer type to allow logical operations below */
                 vtop->type.t = (PTR_SIZE == 8 ? VT_LLONG : VT_INT);
             }
@@ -3415,72 +3415,72 @@ error:
            change the type and read it still later. */
         #define ALLOW_SUBTYPE_ACCESS 1
 
-        if (ALLOW_SUBTYPE_ACCESS && (vtop->r & VT_LVAL)) {
+        اگر (ALLOW_SUBTYPE_ACCESS && (vtop->r & VT_LVAL)) {
             /* value still in memory */
-            if (ds <= ss)
-                goto done;
+            اگر (ds <= ss)
+                برو done;
             /* ss <= 4 here */
-            if (ds <= 4 && !(dbt == (VT_SHORT | VT_UNSIGNED) && sbt == VT_BYTE)) {
+            اگر (ds <= 4 && !(dbt == (VT_SHORT | VT_UNSIGNED) && sbt == VT_BYTE)) {
                 gv(RC_INT);
-                goto done; /* no 64bit envolved */
+                برو done; /* no 64bit envolved */
             }
         }
         gv(RC_INT);
 
         trunc = 0;
-#if PTR_SIZE == 4
-        if (ds == 8) {
+#اگر PTR_SIZE == 4
+        اگر (ds == 8) {
             /* generate high word */
-            if (sbt & VT_UNSIGNED) {
+            اگر (sbt & VT_UNSIGNED) {
                 vpushi(0);
                 gv(RC_INT);
-            } else {
+            } وگرنه {
                 gv_dup();
                 vpushi(31);
                 gen_op(TOK_SAR);
             }
             lbuild(dbt);
-        } else if (ss == 8) {
+        } وگرنه اگر (ss == 8) {
             /* from long long: just take low order word */
             lexpand();
             vpop();
         }
         ss = 4;
 
-#elif PTR_SIZE == 8
-        if (ds == 8) {
+#وگرنهاگر PTR_SIZE == 8
+        اگر (ds == 8) {
             /* need to convert from 32bit to 64bit */
-            if (sbt & VT_UNSIGNED) {
-#if defined(TCC_TARGET_RISCV64)
+            اگر (sbt & VT_UNSIGNED) {
+#اگر defined(TCC_TARGET_RISCV64)
                 /* RISC-V keeps 32bit vals in registers sign-extended.
                    So here we need a zero-extension.  */
                 trunc = 32;
-#else
-                goto done;
+#وگرنه
+                برو done;
 #endif
-            } else {
+            } وگرنه {
                 gen_cvt_sxtw();
-                goto done;
+                برو done;
             }
             ss = ds, ds = 4, dbt = sbt;
-        } else if (ss == 8) {
+        } وگرنه اگر (ss == 8) {
             /* RISC-V keeps 32bit vals in registers sign-extended.
                So here we need a sign-extension for signed types and
                zero-extension. for unsigned types. */
-#if !defined(TCC_TARGET_RISCV64)
+#اگر !defined(TCC_TARGET_RISCV64)
             trunc = 32; /* zero upper 32 bits for non RISC-V targets */
 #endif
-        } else {
+        } وگرنه {
             ss = 4;
         }
 #endif
 
-        if (ds >= ss)
-            goto done;
-#if defined TCC_TARGET_I386 || defined TCC_TARGET_X86_64 || defined TCC_TARGET_ARM64 || defined TCC_TARGET_RISCV64
-    if (ss == 4) {
+        اگر (ds >= ss)
+            برو done;
+#اگر defined TCC_TARGET_I386 || defined TCC_TARGET_X86_64 || defined TCC_TARGET_ARM64 || defined TCC_TARGET_RISCV64
+    اگر (ss == 4) {
         gen_cvt_csti(dbt);
-        goto done;
+        برو done;
     }
 #endif
         bits = (ss - ds) * 8;
@@ -3499,105 +3499,105 @@ done:
 }
 
 /* return type size as known at compile time. Put alignment at 'a' */
-ST_FUNC int type_size(CType *type, int *a)
+ST_FUNC صحیح type_size(CType *type, صحیح *a)
 {
     Sym *s;
-    int bt;
+    صحیح bt;
 
     bt = type->t & VT_BTYPE;
-    if (bt == VT_STRUCT) {
+    اگر (bt == VT_STRUCT) {
         /* struct/union */
         s = type->ref;
         *a = s->r;
-        return s->c;
-    } else if (bt == VT_PTR) {
-        if (type->t & VT_ARRAY) {
-            int ts;
+        بازگشت s->c;
+    } وگرنه اگر (bt == VT_PTR) {
+        اگر (type->t & VT_ARRAY) {
+            صحیح ts;
             s = type->ref;
             ts = type_size(&s->type, a);
-            if (s->c < 0)
-                return s->c;
-            return ts * s->c;
-        } else {
+            اگر (s->c < 0)
+                بازگشت s->c;
+            بازگشت ts * s->c;
+        } وگرنه {
             *a = PTR_SIZE;
-            return PTR_SIZE;
+            بازگشت PTR_SIZE;
         }
-    } else if (IS_ENUM(type->t) && type->ref->c < 0) {
+    } وگرنه اگر (IS_ENUM(type->t) && type->ref->c < 0) {
         *a = 0;
-        return -1; /* incomplete enum */
-    } else if (bt == VT_LDOUBLE) {
+        بازگشت -1; /* incomplete enum */
+    } وگرنه اگر (bt == VT_LDOUBLE) {
         *a = LDOUBLE_ALIGN;
-        return LDOUBLE_SIZE;
-    } else if (bt == VT_DOUBLE || bt == VT_LLONG) {
-#if (defined TCC_TARGET_I386 && !defined TCC_TARGET_PE) \
+        بازگشت LDOUBLE_SIZE;
+    } وگرنه اگر (bt == VT_DOUBLE || bt == VT_LLONG) {
+#اگر (defined TCC_TARGET_I386 && !defined TCC_TARGET_PE) \
  || (defined TCC_TARGET_ARM && !defined TCC_ARM_EABI)
         *a = 4;
-#else
+#وگرنه
         *a = 8;
 #endif
-        return 8;
-    } else if (bt == VT_INT || bt == VT_FLOAT) {
+        بازگشت 8;
+    } وگرنه اگر (bt == VT_INT || bt == VT_FLOAT) {
         *a = 4;
-        return 4;
-    } else if (bt == VT_SHORT) {
+        بازگشت 4;
+    } وگرنه اگر (bt == VT_SHORT) {
         *a = 2;
-        return 2;
-    } else if (bt == VT_QLONG || bt == VT_QFLOAT) {
+        بازگشت 2;
+    } وگرنه اگر (bt == VT_QLONG || bt == VT_QFLOAT) {
         *a = 8;
-        return 16;
-    } else {
+        بازگشت 16;
+    } وگرنه {
         /* char, void, function, _Bool */
         *a = 1;
-        return 1;
+        بازگشت 1;
     }
 }
 
 /* push type size as known at runtime time on top of value stack. Put
    alignment at 'a' */
-static void vpush_type_size(CType *type, int *a)
+ایستا تهی vpush_type_size(CType *type, صحیح *a)
 {
-    if (type->t & VT_VLA) {
+    اگر (type->t & VT_VLA) {
         type_size(&type->ref->type, a);
         vset(&int_type, VT_LOCAL|VT_LVAL, type->ref->c);
-    } else {
-        int size = type_size(type, a);
-        if (size < 0)
+    } وگرنه {
+        صحیح size = type_size(type, a);
+        اگر (size < 0)
             tcc_error("unknown type size");
         vpushs(size);
     }
 }
 
 /* return the pointed type of t */
-static inline CType *pointed_type(CType *type)
+ایستا درونخطی CType *pointed_type(CType *type)
 {
-    return &type->ref->type;
+    بازگشت &type->ref->type;
 }
 
-static void check_restrict_type(CType *type)
+ایستا تهی check_restrict_type(CType *type)
 {
-    while ((type->t & VT_BTYPE) == VT_PTR) {
-        if ((type->t & VT_RESTRICT)
+    وقتی ((type->t & VT_BTYPE) == VT_PTR) {
+        اگر ((type->t & VT_RESTRICT)
             && (pointed_type(type)->t & VT_BTYPE) == VT_FUNC)
             tcc_error("restrict-qualified type must be a pointer to object or incomplete type");
         type = pointed_type(type);
     }
-    if (type->t & VT_RESTRICT)
+    اگر (type->t & VT_RESTRICT)
         tcc_error("restrict-qualified type must be a pointer to object or incomplete type");
 }
 
 /* Array qualifiers are represented on the element type. */
-static int type_qualifiers(CType *type)
+ایستا صحیح type_qualifiers(CType *type)
 {
-    while (type->t & VT_ARRAY)
+    وقتی (type->t & VT_ARRAY)
         type = pointed_type(type);
-    return type->t & VT_QUAL;
+    بازگشت type->t & VT_QUAL;
 }
 
 /* modify type so that its it is a pointer to type. */
-ST_FUNC void mk_pointer(CType *type)
+ST_FUNC تهی mk_pointer(CType *type)
 {
     Sym *s;
-    s = sym_push(SYM_FIELD, type, 0, -1);
+    s = sym_افزودن(SYM_FIELD, type, 0, -1);
     type->t = VT_PTR | (type->t & VT_STORAGE);
     type->ref = s;
 }
@@ -3605,72 +3605,72 @@ ST_FUNC void mk_pointer(CType *type)
 /* return true if type1 and type2 are exactly the same (including
    qualifiers). 
 */
-static int is_compatible_types(CType *type1, CType *type2)
+ایستا صحیح is_compatible_types(CType *type1, CType *type2)
 {
-    return compare_types(type1,type2,0);
+    بازگشت compare_types(type1,type2,0);
 }
 
 /* return true if type1 and type2 are the same (ignoring qualifiers).
 */
-static int is_compatible_unqualified_types(CType *type1, CType *type2)
+ایستا صحیح is_compatible_unqualified_types(CType *type1, CType *type2)
 {
-    return compare_types(type1,type2,1);
+    بازگشت compare_types(type1,type2,1);
 }
 
-static void cast_error(CType *st, CType *dt)
+ایستا تهی cast_error(CType *st, CType *dt)
 {
     type_incompatibility_error(st, dt, "cannot convert '%s' to '%s'");
 }
 
 /* verify type compatibility to store vtop in 'dt' type */
-static void verify_assign_cast(CType *dt)
+ایستا تهی verify_assign_cast(CType *dt)
 {
     CType *st, *type1, *type2;
-    int dbt, sbt, qualwarn, lvl;
+    صحیح dbt, sbt, qualwarn, lvl;
 
     st = &vtop->type; /* source type */
     dbt = dt->t & VT_BTYPE;
     sbt = st->t & VT_BTYPE;
-    if (dt->t & VT_CONSTANT)
+    اگر (dt->t & VT_CONSTANT)
         tcc_warning("assignment of read-only location");
-    switch(dbt) {
-    case VT_VOID:
-        if (sbt != dbt)
+    انتخاب(dbt) {
+    حالت VT_VOID:
+        اگر (sbt != dbt)
             tcc_error("assignment to void expression");
-        break;
-    case VT_PTR:
+        بشکن;
+    حالت VT_PTR:
         /* special cases for pointers */
         /* '0' can also be a pointer */
-        if (is_null_pointer(vtop))
-            break;
+        اگر (is_null_pointer(vtop))
+            بشکن;
         /* accept implicit pointer to integer cast with warning */
-        if (is_integer_btype(sbt)) {
+        اگر (is_integer_btype(sbt)) {
             tcc_warning("assignment makes pointer from integer without a cast");
-            break;
+            بشکن;
         }
         type1 = pointed_type(dt);
-        if (sbt == VT_PTR)
+        اگر (sbt == VT_PTR)
             type2 = pointed_type(st);
-        else if (sbt == VT_FUNC)
+        وگرنه اگر (sbt == VT_FUNC)
             type2 = st; /* a function is implicitly a function pointer */
-        else
-            goto error;
-        if (is_compatible_types(type1, type2))
-            break;
-        for (qualwarn = lvl = 0;; ++lvl) {
-            if ((type2->t & ~type1->t) & VT_QUAL)
+        وگرنه
+            برو error;
+        اگر (is_compatible_types(type1, type2))
+            بشکن;
+        برای (qualwarn = lvl = 0;; ++lvl) {
+            اگر ((type2->t & ~type1->t) & VT_QUAL)
                 qualwarn = 1;
             dbt = type1->t & (VT_BTYPE|VT_LONG);
             sbt = type2->t & (VT_BTYPE|VT_LONG);
-            if (dbt != VT_PTR || sbt != VT_PTR)
-                break;
+            اگر (dbt != VT_PTR || sbt != VT_PTR)
+                بشکن;
             type1 = pointed_type(type1);
             type2 = pointed_type(type2);
         }
-        if (!is_compatible_unqualified_types(type1, type2)) {
-            if ((dbt == VT_VOID || sbt == VT_VOID) && lvl == 0) {
+        اگر (!is_compatible_unqualified_types(type1, type2)) {
+            اگر ((dbt == VT_VOID || sbt == VT_VOID) && lvl == 0) {
                 /* void * can match anything */
-            } else if (dbt == sbt
+            } وگرنه اگر (dbt == sbt
                 && is_integer_btype(sbt & VT_BTYPE)
                 && IS_ENUM(type1->t) + IS_ENUM(type2->t)
                     + !!((type1->t ^ type2->t) & VT_UNSIGNED) < 2) {
@@ -3678,59 +3678,59 @@ static void verify_assign_cast(CType *dt)
 		   in pointer target signedness.  Do warn for different
 		   base types, though, in particular for unsigned enums
 		   and signed int targets.  */
-            } else {
+            } وگرنه {
                 tcc_warning("assignment from incompatible pointer type");
-                break;
+                بشکن;
             }
         }
-        if (qualwarn)
+        اگر (qualwarn)
             tcc_warning_c(warn_discarded_qualifiers)("assignment discards qualifiers from pointer target type");
-        break;
-    case VT_BYTE:
-    case VT_SHORT:
-    case VT_INT:
-    case VT_LLONG:
-        if (sbt == VT_PTR || sbt == VT_FUNC) {
+        بشکن;
+    حالت VT_BYTE:
+    حالت VT_SHORT:
+    حالت VT_INT:
+    حالت VT_LLONG:
+        اگر (sbt == VT_PTR || sbt == VT_FUNC) {
             tcc_warning("assignment makes integer from pointer without a cast");
-        } else if (sbt == VT_STRUCT) {
-            goto case_VT_STRUCT;
+        } وگرنه اگر (sbt == VT_STRUCT) {
+            برو case_VT_STRUCT;
         }
         /* XXX: more tests */
-        break;
-    case VT_STRUCT:
+        بشکن;
+    حالت VT_STRUCT:
     case_VT_STRUCT:
-        if (!is_compatible_unqualified_types(dt, st)) {
+        اگر (!is_compatible_unqualified_types(dt, st)) {
     error:
             cast_error(st, dt);
         }
-        break;
+        بشکن;
     }
 }
 
-static void gen_assign_cast(CType *dt)
+ایستا تهی gen_assign_cast(CType *dt)
 {
     verify_assign_cast(dt);
     gen_cast(dt);
 }
 
 /* store vtop in lvalue pushed on stack */
-ST_FUNC void vstore(void)
+ST_FUNC تهی vstore(تهی)
 {
-    int sbt, dbt, ft, r, size, align, bit_size, bit_pos, delayed_cast;
+    صحیح sbt, dbt, ft, r, size, align, bit_size, bit_pos, delayed_cast;
 
     ft = vtop[-1].type.t;
     sbt = vtop->type.t & VT_BTYPE;
     dbt = ft & VT_BTYPE;
     verify_assign_cast(&vtop[-1].type);
 
-    if (sbt == VT_STRUCT) {
+    اگر (sbt == VT_STRUCT) {
         /* if structure, only generate pointer */
         /* structure assignment : generate memcpy */
         size = type_size(&vtop->type, &align);
         /* destination, keep on stack() as result */
         vpushv(vtop - 1);
 #ifdef CONFIG_TCC_BCHECK
-        if (vtop->r & VT_MUSTBOUND)
+        اگر (vtop->r & VT_MUSTBOUND)
             gbound(); /* check would be wrong after gaddrof() */
 #endif
         vtop->type.t = VT_PTR;
@@ -3738,38 +3738,38 @@ ST_FUNC void vstore(void)
         /* source */
         vswap();
 #ifdef CONFIG_TCC_BCHECK
-        if (vtop->r & VT_MUSTBOUND)
+        اگر (vtop->r & VT_MUSTBOUND)
             gbound();
 #endif
         vtop->type.t = VT_PTR;
         gaddrof();
 
 #ifdef TCC_TARGET_NATIVE_STRUCT_COPY
-        if (1
+        اگر (1
 #ifdef CONFIG_TCC_BCHECK
             && !tcc_state->do_bounds_check
 #endif
             ) {
             gen_struct_copy(size);
-        } else
+        } وگرنه
 #endif
         {
             /* type size */
             vpushi(size);
             /* Use memmove, rather than memcpy, as dest and src may be same: */
 #ifdef TCC_ARM_EABI
-            if(!(align & 7))
+            اگر(!(align & 7))
                 vpush_helper_func(TOK_memmove8);
-            else if(!(align & 3))
+            وگرنه اگر(!(align & 3))
                 vpush_helper_func(TOK_memmove4);
-            else
+            وگرنه
 #endif
             vpush_helper_func(TOK_memmove);
             vrott(4);
             gfunc_call(3);
         }
 
-    } else if (ft & VT_BITFIELD) {
+    } وگرنه اگر (ft & VT_BITFIELD) {
         /* bitfield store handling */
 
         /* save lvalue as expression result (example: s.b = s.a = n;) */
@@ -3780,24 +3780,24 @@ ST_FUNC void vstore(void)
         /* remove bit field info to avoid loops */
         vtop[-1].type.t = ft & ~VT_STRUCT_MASK;
 
-        if (dbt == VT_BOOL) {
+        اگر (dbt == VT_BOOL) {
             gen_cast(&vtop[-1].type);
             vtop[-1].type.t = (vtop[-1].type.t & ~VT_BTYPE) | (VT_BYTE | VT_UNSIGNED);
         }
         r = adjust_bf(vtop - 1, bit_pos, bit_size);
-        if (dbt != VT_BOOL) {
+        اگر (dbt != VT_BOOL) {
             gen_cast(&vtop[-1].type);
             dbt = vtop[-1].type.t & VT_BTYPE;
         }
-        if (r == VT_STRUCT) {
+        اگر (r == VT_STRUCT) {
             store_packed_bf(bit_pos, bit_size);
-        } else {
+        } وگرنه {
             unsigned long long mask = (1ULL << bit_size) - 1;
-            if (dbt != VT_BOOL) {
+            اگر (dbt != VT_BOOL) {
                 /* mask source */
-                if (dbt == VT_LLONG)
+                اگر (dbt == VT_LLONG)
                     vpushll(mask);
-                else
+                وگرنه
                     vpushi((unsigned)mask);
                 gen_op('&');
             }
@@ -3809,9 +3809,9 @@ ST_FUNC void vstore(void)
             vdup();
             vrott(3);
             /* load destination, mask and or with source */
-            if (dbt == VT_LLONG)
+            اگر (dbt == VT_LLONG)
                 vpushll(~(mask << bit_pos));
-            else
+            وگرنه
                 vpushi(~((unsigned)mask << bit_pos));
             gen_op('&');
             gen_op('|');
@@ -3820,26 +3820,26 @@ ST_FUNC void vstore(void)
             /* ... and discard */
             vpop();
         }
-    } else if (dbt == VT_VOID) {
+    } وگرنه اگر (dbt == VT_VOID) {
         --vtop;
-    } else {
+    } وگرنه {
             /* optimize char/short casts */
             delayed_cast = 0;
-            if ((dbt == VT_BYTE || dbt == VT_SHORT)
+            اگر ((dbt == VT_BYTE || dbt == VT_SHORT)
                 && is_integer_btype(sbt)
                 ) {
-                if ((vtop->r & VT_MUSTCAST)
+                اگر ((vtop->r & VT_MUSTCAST)
                     && btype_size(dbt) > btype_size(sbt)
                     )
                     force_charshort_cast();
                 delayed_cast = 1;
-            } else {
+            } وگرنه {
                 gen_cast(&vtop[-1].type);
             }
 
 #ifdef CONFIG_TCC_BCHECK
             /* bound check case */
-            if (vtop[-1].r & VT_MUSTBOUND) {
+            اگر (vtop[-1].r & VT_MUSTBOUND) {
                 vswap();
                 gbound();
                 vswap();
@@ -3847,20 +3847,20 @@ ST_FUNC void vstore(void)
 #endif
             gv(RC_TYPE(dbt)); /* generate value */
 
-            if (delayed_cast) {
+            اگر (delayed_cast) {
                 vtop->r |= BFVAL(VT_MUSTCAST, (sbt == VT_LLONG) + 1);
                 //tcc_warning("deley cast %x -> %x", sbt, dbt);
                 vtop->type.t = ft & VT_TYPE;
             }
 
             /* if lvalue was saved on stack, must read it */
-            if ((vtop[-1].r & VT_VALMASK) == VT_LLOCAL) {
+            اگر ((vtop[-1].r & VT_VALMASK) == VT_LLOCAL) {
                 SValue sv;
                 r = get_reg(RC_INT);
                 sv.type.t = VT_PTRDIFF_T;
                 sv.r = VT_LOCAL | VT_LVAL;
                 sv.c.i = vtop[-1].c.i;
-		sv.sym = NULL;
+		sv.sym = پوچ;
                 load(r, &sv);
                 vtop[-1].r = r | VT_LVAL;
             }
@@ -3868,8 +3868,8 @@ ST_FUNC void vstore(void)
             r = vtop->r & VT_VALMASK;
             /* two word case handling :
                store second register at word + 4 (or +8 for x86-64)  */
-            if (USING_TWO_WORDS(dbt)) {
-                int load_type = (dbt == VT_QFLOAT) ? VT_DOUBLE : VT_PTRDIFF_T;
+            اگر (USING_TWO_واژگان(dbt)) {
+                صحیح load_type = (dbt == VT_QFLOAT) ? VT_DOUBLE : VT_PTRDIFF_T;
                 vtop[-1].type.t = load_type;
                 store(r, vtop - 1);
                 vswap();
@@ -3877,7 +3877,7 @@ ST_FUNC void vstore(void)
                 vswap();
                 /* XXX: it works because r2 is spilled last ! */
                 store(vtop->r2, vtop - 1);
-            } else {
+            } وگرنه {
                 /* single word */
                 store(r, vtop - 1);
             }
@@ -3887,11 +3887,11 @@ ST_FUNC void vstore(void)
 }
 
 /* post defines POST/PRE add. c is the token ++ or -- */
-ST_FUNC void inc(int post, int c)
+ST_FUNC تهی inc(صحیح post, صحیح c)
 {
     test_lvalue();
     vdup(); /* save lvalue */
-    if (post) {
+    اگر (post) {
         gv_dup(); /* duplicate value */
         vrotb(3);
         vrotb(3);
@@ -3900,326 +3900,326 @@ ST_FUNC void inc(int post, int c)
     vpushi(c - TOK_MID); 
     gen_op('+');
     vstore(); /* store value */
-    if (post)
+    اگر (post)
         vpop(); /* if post op, return saved value */
 }
 
-ST_FUNC CString* parse_mult_str (const char *msg)
+ST_FUNC CString* parse_mult_str (ثابت نویسه *پیام)
 {
     /* read the string */
-    if (tok != TOK_STR)
-        expect(msg);
+    اگر (tok != TOK_STR)
+        expect(پیام);
     cstr_reset(&initstr);
-    while (tok == TOK_STR) {
+    وقتی (tok == TOK_STR) {
         /* XXX: add \0 handling too ? */
         cstr_cat(&initstr, tokc.str.data, -1);
         next();
     }
     cstr_ccat(&initstr, '\0');
-    return &initstr;
+    بازگشت &initstr;
 }
 
 /* If I is >= 1 and a power of two, returns log2(i)+1.
    If I is 0 returns 0.  */
-ST_FUNC int exact_log2p1(int i)
+ST_FUNC صحیح exact_log2p1(صحیح i)
 {
-  int ret;
-  if (!i)
-    return 0;
-  for (ret = 1; i >= 1 << 8; ret += 8)
+  صحیح ret;
+  اگر (!i)
+    بازگشت 0;
+  برای (ret = 1; i >= 1 << 8; ret += 8)
     i >>= 8;
-  if (i >= 1 << 4)
+  اگر (i >= 1 << 4)
     ret += 4, i >>= 4;
-  if (i >= 1 << 2)
+  اگر (i >= 1 << 2)
     ret += 2, i >>= 2;
-  if (i >= 1 << 1)
+  اگر (i >= 1 << 1)
     ret++;
-  return ret;
+  بازگشت ret;
 }
 
 /* Parse __attribute__((...)) GNUC extension. */
-static void parse_attribute(AttributeDef *ad)
+ایستا تهی parse_attribute(AttributeDef *ad)
 {
-    int t, n;
-    char *astr;
+    صحیح t, n;
+    نویسه *astr;
     AttributeDef ad_tmp;
     
 redo:
-    if (tok != TOK_ATTRIBUTE1 && tok != TOK_ATTRIBUTE2)
-        return;
-    if (NULL == ad) /* skip over / ignore attributes */
+    اگر (tok != TOK_ATTRIBUTE1 && tok != TOK_ATTRIBUTE2)
+        بازگشت;
+    اگر (پوچ == ad) /* skip over / ignore attributes */
         ad = &ad_tmp;
 
     next();
     skip('(');
     skip('(');
-    while (tok != ')') {
-        if (tok < TOK_IDENT)
+    وقتی (tok != ')') {
+        اگر (tok < TOK_IDENT)
             expect("attribute name");
         t = tok;
         next();
-        switch(t) {
-	case TOK_CLEANUP1:
-	case TOK_CLEANUP2:
+        انتخاب(t) {
+	حالت TOK_CLEANUP1:
+	حالت TOK_CLEANUP2:
 	{
 	    Sym *s;
 
 	    skip('(');
 	    s = sym_find(tok);
-	    if (!s) {
+	    اگر (!s) {
 	        tcc_warning_c(warn_implicit_function_declaration)(
                     "implicit declaration of function '%s'", get_tok_str(tok, &tokc));
 	        s = external_global_sym(tok, &func_old_type);
-            } else if ((s->type.t & VT_BTYPE) != VT_FUNC)
+            } وگرنه اگر ((s->type.t & VT_BTYPE) != VT_FUNC)
                 tcc_error("'%s' is not declared as function", get_tok_str(tok, &tokc));
 	    ad->cleanup_func = s;
 	    next();
             skip(')');
-	    break;
+	    بشکن;
 	}
-        case TOK_CONSTRUCTOR1:
-        case TOK_CONSTRUCTOR2:
+        حالت TOK_CONSTRUCTOR1:
+        حالت TOK_CONSTRUCTOR2:
             ad->f.func_ctor = 1;
-            break;
-        case TOK_DESTRUCTOR1:
-        case TOK_DESTRUCTOR2:
+            بشکن;
+        حالت TOK_DESTRUCTOR1:
+        حالت TOK_DESTRUCTOR2:
             ad->f.func_dtor = 1;
-            break;
-        case TOK_ALWAYS_INLINE1:
-        case TOK_ALWAYS_INLINE2:
+            بشکن;
+        حالت TOK_ALWAYS_INLINE1:
+        حالت TOK_ALWAYS_INLINE2:
             ad->f.func_alwinl = 1;
-            break;
-        case TOK_SECTION1:
-        case TOK_SECTION2:
+            بشکن;
+        حالت TOK_SECTION1:
+        حالت TOK_SECTION2:
             skip('(');
 	    astr = parse_mult_str("section name")->data;
             n = tcc_state->nb_sections;
             ad->section = find_section(tcc_state, astr);
             ad->new_section = n < tcc_state->nb_sections;
             skip(')');
-            break;
-        case TOK_ALIAS1:
-        case TOK_ALIAS2:
+            بشکن;
+        حالت TOK_ALIAS1:
+        حالت TOK_ALIAS2:
             skip('(');
 	    astr = parse_mult_str("alias(\"target\")")->data;
             /* save string as token, for later */
             ad->alias_target = tok_alloc_const(astr);
             skip(')');
-            break;
-	case TOK_VISIBILITY1:
-	case TOK_VISIBILITY2:
+            بشکن;
+	حالت TOK_VISIBILITY1:
+	حالت TOK_VISIBILITY2:
             skip('(');
 	    astr = parse_mult_str("visibility(\"default|hidden|internal|protected\")")->data;
-	    if (!strcmp (astr, "default"))
+	    اگر (!strcmp (astr, "default"))
 	        ad->a.visibility = STV_DEFAULT;
-	    else if (!strcmp (astr, "hidden"))
+	    وگرنه اگر (!strcmp (astr, "hidden"))
 	        ad->a.visibility = STV_HIDDEN;
-	    else if (!strcmp (astr, "internal"))
+	    وگرنه اگر (!strcmp (astr, "internal"))
 	        ad->a.visibility = STV_INTERNAL;
-	    else if (!strcmp (astr, "protected"))
+	    وگرنه اگر (!strcmp (astr, "protected"))
 	        ad->a.visibility = STV_PROTECTED;
-	    else
+	    وگرنه
                 expect("visibility(\"default|hidden|internal|protected\")");
             skip(')');
-            break;
-        case TOK_ALIGNED1:
-        case TOK_ALIGNED2:
-            if (tok == '(') {
+            بشکن;
+        حالت TOK_ALIGNED1:
+        حالت TOK_ALIGNED2:
+            اگر (tok == '(') {
                 next();
-                n = expr_const();
-                if (n <= 0 || (n & (n - 1)) != 0) 
+                n = عبارت_const();
+                اگر (n <= 0 || (n & (n - 1)) != 0) 
                     tcc_error("alignment must be a positive power of two");
                 skip(')');
-            } else {
+            } وگرنه {
                 n = MAX_ALIGN;
             }
             ad->a.aligned = exact_log2p1(n);
-	    if (n != 1 << (ad->a.aligned - 1))
+	    اگر (n != 1 << (ad->a.aligned - 1))
 	      tcc_error("alignment of %d is larger than implemented", n);
-            break;
-        case TOK_PACKED1:
-        case TOK_PACKED2:
+            بشکن;
+        حالت TOK_PACKED1:
+        حالت TOK_PACKED2:
             ad->a.packed = 1;
-            break;
-        case TOK_WEAK1:
-        case TOK_WEAK2:
+            بشکن;
+        حالت TOK_WEAK1:
+        حالت TOK_WEAK2:
             ad->a.weak = 1;
-            break;
-        case TOK_NODEBUG1:
-        case TOK_NODEBUG2:
+            بشکن;
+        حالت TOK_NODEBUG1:
+        حالت TOK_NODEBUG2:
             ad->a.nodebug = 1;
-            break;
-        case TOK_USED1:
-        case TOK_USED2:
-        case TOK_UNUSED1:
-        case TOK_UNUSED2:
+            بشکن;
+        حالت TOK_USED1:
+        حالت TOK_USED2:
+        حالت TOK_UNUSED1:
+        حالت TOK_UNUSED2:
             /* currently, no need to handle it because tcc does not
                track used/unused objects */
-            break;
-        case TOK_CONST1:
-        case TOK_CONST2:
-        case TOK_CONST3:
-        case TOK_PURE1:
-        case TOK_PURE2:
+            بشکن;
+        حالت TOK_CONST1:
+        حالت TOK_CONST2:
+        حالت TOK_CONST3:
+        حالت TOK_PURE1:
+        حالت TOK_PURE2:
 	    /* ignored */
-            break;
-        case TOK_NOINLINE:
+            بشکن;
+        حالت TOK_NOINLINE:
 	    /* ignored */
-	    break;
-        case TOK_FORMAT1:
-        case TOK_FORMAT2:
+	    بشکن;
+        حالت TOK_FORMAT1:
+        حالت TOK_FORMAT2:
 	    /* ignored */
-            goto skip_param;
-        case TOK_NORETURN1:
-        case TOK_NORETURN2:
+            برو skip_param;
+        حالت TOK_NORETURN1:
+        حالت TOK_NORETURN2:
             ad->f.func_noreturn = 1;
-            break;
-        case TOK_CDECL1:
-        case TOK_CDECL2:
-        case TOK_CDECL3:
+            بشکن;
+        حالت TOK_CDECL1:
+        حالت TOK_CDECL2:
+        حالت TOK_CDECL3:
             ad->f.func_call = FUNC_CDECL;
-            break;
-        case TOK_STDCALL1:
-        case TOK_STDCALL2:
-        case TOK_STDCALL3:
+            بشکن;
+        حالت TOK_STDCALL1:
+        حالت TOK_STDCALL2:
+        حالت TOK_STDCALL3:
             ad->f.func_call = FUNC_STDCALL;
-            break;
+            بشکن;
 #ifdef TCC_TARGET_I386
-        case TOK_REGPARM1:
-        case TOK_REGPARM2:
+        حالت TOK_REGPARM1:
+        حالت TOK_REGPARM2:
             skip('(');
-            n = expr_const();
-            if (n > 3) 
+            n = عبارت_const();
+            اگر (n > 3) 
                 n = 3;
-            else if (n < 0)
+            وگرنه اگر (n < 0)
                 n = 0;
-            if (n > 0)
+            اگر (n > 0)
                 ad->f.func_call = FUNC_FASTCALL1 + n - 1;
             skip(')');
-            break;
-        case TOK_FASTCALL1:
-        case TOK_FASTCALL2:
-        case TOK_FASTCALL3:
+            بشکن;
+        حالت TOK_FASTCALL1:
+        حالت TOK_FASTCALL2:
+        حالت TOK_FASTCALL3:
             ad->f.func_call = FUNC_FASTCALLW;
-            break;
-        case TOK_THISCALL1:
-        case TOK_THISCALL2:
-        case TOK_THISCALL3:
+            بشکن;
+        حالت TOK_THISCALL1:
+        حالت TOK_THISCALL2:
+        حالت TOK_THISCALL3:
             ad->f.func_call = FUNC_THISCALL;
-            break;
+            بشکن;
 #endif
-        case TOK_MODE:
+        حالت TOK_MODE:
             skip('(');
-            switch(tok) {
-                case TOK_MODE_DI:
+            انتخاب(tok) {
+                حالت TOK_MODE_DI:
                     ad->attr_mode = VT_LLONG + 1;
-                    break;
-                case TOK_MODE_QI:
+                    بشکن;
+                حالت TOK_MODE_QI:
                     ad->attr_mode = VT_BYTE + 1;
-                    break;
-                case TOK_MODE_HI:
+                    بشکن;
+                حالت TOK_MODE_HI:
                     ad->attr_mode = VT_SHORT + 1;
-                    break;
-                case TOK_MODE_SI:
-                case TOK_MODE_word:
+                    بشکن;
+                حالت TOK_MODE_SI:
+                حالت TOK_MODE_word:
                     ad->attr_mode = VT_INT + 1;
-                    break;
-                default:
-                    tcc_warning("__mode__(%s) not supported\n", get_tok_str(tok, NULL));
-                    break;
+                    بشکن;
+                پیشفرض:
+                    tcc_warning("__mode__(%s) not supported\n", get_tok_str(tok, پوچ));
+                    بشکن;
             }
             next();
             skip(')');
-            break;
-        case TOK_DLLEXPORT:
+            بشکن;
+        حالت TOK_DLLEXPORT:
             ad->a.dllexport = 1;
-            break;
-        case TOK_NODECORATE:
+            بشکن;
+        حالت TOK_NODECORATE:
             ad->a.nodecorate = 1;
-            break;
-        case TOK_DLLIMPORT:
+            بشکن;
+        حالت TOK_DLLIMPORT:
             ad->a.dllimport = 1;
-            break;
-        default:
-            tcc_warning_c(warn_unsupported)("'%s' attribute ignored", get_tok_str(t, NULL));
+            بشکن;
+        پیشفرض:
+            tcc_warning_c(warn_unsupported)("'%s' attribute ignored", get_tok_str(t, پوچ));
             /* skip parameters */
 skip_param:
-            if (tok == '(') {
-                int parenthesis = 0;
-                do {
-                    if (tok == '(') 
+            اگر (tok == '(') {
+                صحیح parenthesis = 0;
+                انجامبده {
+                    اگر (tok == '(') 
                         parenthesis++;
-                    else if (tok == ')') 
+                    وگرنه اگر (tok == ')') 
                         parenthesis--;
                     next();
-                } while (parenthesis && tok != -1);
+                } وقتی (parenthesis && tok != -1);
             }
-            break;
+            بشکن;
         }
-        if (tok != ',')
-            break;
+        اگر (tok != ',')
+            بشکن;
         next();
     }
     skip(')');
     skip(')');
-    goto redo;
+    برو redo;
 }
 
-static Sym * find_field (CType *type, int v, int *cumofs)
+ایستا Sym * find_field (CType *type, صحیح v, صحیح *cumofs)
 {
     Sym *s = type->ref;
-    int v1 = v | SYM_FIELD;
-    if (!(v & SYM_FIELD)) { /* top-level call */
-        if ((type->t & VT_BTYPE) != VT_STRUCT)
+    صحیح v1 = v | SYM_FIELD;
+    اگر (!(v & SYM_FIELD)) { /* top-level call */
+        اگر ((type->t & VT_BTYPE) != VT_STRUCT)
             expect("struct or union");
-        if (v < TOK_UIDENT)
+        اگر (v < TOK_UIDENT)
             expect("field name");
-        if (s->c < 0)
+        اگر (s->c < 0)
             tcc_error("dereferencing incomplete type '%s'",
                 get_tok_str(s->v & ~SYM_STRUCT, 0));
     }
-    while ((s = s->next) != NULL) {
-        if (s->v == v1) {
+    وقتی ((s = s->next) != پوچ) {
+        اگر (s->v == v1) {
             *cumofs = s->c;
-            return s;
+            بازگشت s;
         }
-        if ((s->type.t & VT_BTYPE) == VT_STRUCT
+        اگر ((s->type.t & VT_BTYPE) == VT_STRUCT
           && s->v >= (SYM_FIRST_ANOM | SYM_FIELD)) {
             /* try to find field in anonymous sub-struct/union */
             Sym *ret = find_field (&s->type, v1, cumofs);
-            if (ret) {
+            اگر (ret) {
                 *cumofs += s->c;
-                return ret;
+                بازگشت ret;
             }
         }
     }
-    if (!(v & SYM_FIELD))
-        tcc_error("field not found: %s", get_tok_str(v, NULL));
-    return s;
+    اگر (!(v & SYM_FIELD))
+        tcc_error("field not found: %s", get_tok_str(v, پوچ));
+    بازگشت s;
 }
 
-static void check_fields (CType *type, int check)
+ایستا تهی check_fields (CType *type, صحیح check)
 {
     Sym *s = type->ref;
 
-    while ((s = s->next) != NULL) {
-        int v = s->v & ~SYM_FIELD;
-        if (v < SYM_FIRST_ANOM) {
+    وقتی ((s = s->next) != پوچ) {
+        صحیح v = s->v & ~SYM_FIELD;
+        اگر (v < SYM_FIRST_ANOM) {
             TokenSym *ts = table_ident[v - TOK_IDENT];
-            if (check && (ts->tok & SYM_FIELD))
-                tcc_error("duplicate member '%s'", get_tok_str(v, NULL));
+            اگر (check && (ts->tok & SYM_FIELD))
+                tcc_error("duplicate member '%s'", get_tok_str(v, پوچ));
             ts->tok ^= SYM_FIELD;
-        } else if ((s->type.t & VT_BTYPE) == VT_STRUCT)
+        } وگرنه اگر ((s->type.t & VT_BTYPE) == VT_STRUCT)
             check_fields (&s->type, check);
     }
 }
 
-static void struct_layout(CType *type, AttributeDef *ad)
+ایستا تهی struct_layout(CType *type, AttributeDef *ad)
 {
-    int size, align, maxalign, offset, c, bit_pos, bit_size;
-    int packed, a, bt, prevbt, prev_bit_size;
-    int pcc = !tcc_state->ms_bitfields;
-    int pragma_pack = *tcc_state->pack_stack_ptr;
+    صحیح size, align, maxalign, offset, c, bit_pos, bit_size;
+    صحیح packed, a, bt, prevbt, prev_bit_size;
+    صحیح pcc = !tcc_state->ms_bitfields;
+    صحیح pragma_pack = *tcc_state->pack_پشته_ptr;
     Sym *f;
 
     maxalign = 1;
@@ -4231,97 +4231,97 @@ static void struct_layout(CType *type, AttributeDef *ad)
 
 //#define BF_DEBUG
 
-    for (f = type->ref->next; f; f = f->next) {
-        if (f->type.t & VT_BITFIELD)
+    برای (f = type->ref->next; f; f = f->next) {
+        اگر (f->type.t & VT_BITFIELD)
             bit_size = BIT_SIZE(f->type.t);
-        else
+        وگرنه
             bit_size = -1;
         size = type_size(&f->type, &align);
         a = f->a.aligned ? 1 << (f->a.aligned - 1) : 0;
         packed = 0;
 
-        if (pcc && bit_size == 0) {
+        اگر (pcc && bit_size == 0) {
             /* in pcc mode, packing does not affect zero-width bitfields */
 
-        } else {
+        } وگرنه {
             /* in pcc mode, attribute packed overrides if set. */
-            if (pcc && (f->a.packed || ad->a.packed))
+            اگر (pcc && (f->a.packed || ad->a.packed))
                 align = packed = 1;
 
             /* pragma pack overrides align if lesser and packs bitfields always */
-            if (pragma_pack) {
+            اگر (pragma_pack) {
                 packed = 1;
-                if (pragma_pack < align)
+                اگر (pragma_pack < align)
                     align = pragma_pack;
                 /* in pcc mode pragma pack also overrides individual align */
-                if (pcc && pragma_pack < a)
+                اگر (pcc && pragma_pack < a)
                     a = 0;
             }
         }
         /* some individual align was specified */
-        if (a)
+        اگر (a)
             align = a;
 
-        if (type->ref->type.t == VT_UNION) {
-	    if (pcc && bit_size >= 0)
+        اگر (type->ref->type.t == VT_UNION) {
+	    اگر (pcc && bit_size >= 0)
 	        size = (bit_size + 7) >> 3;
 	    offset = 0;
-	    if (size > c)
+	    اگر (size > c)
 	        c = size;
 
-	} else if (bit_size < 0) {
-            if (pcc)
+	} وگرنه اگر (bit_size < 0) {
+            اگر (pcc)
                 c += (bit_pos + 7) >> 3;
 	    c = (c + align - 1) & -align;
 	    offset = c;
-	    if (size > 0)
+	    اگر (size > 0)
 	        c += size;
 	    bit_pos = 0;
 	    prevbt = VT_STRUCT;
 	    prev_bit_size = 0;
 
-	} else {
+	} وگرنه {
 	    /* A bit-field.  Layout is more complicated.  There are two
 	       options: PCC (GCC) compatible and MS compatible */
-            if (pcc) {
+            اگر (pcc) {
 		/* In PCC layout a bit-field is placed adjacent to the
                    preceding bit-fields, except if:
                    - it has zero-width
                    - an individual alignment was given
                    - it would overflow its base type container and
                      there is no packing */
-                if (bit_size == 0) {
+                اگر (bit_size == 0) {
             new_field:
 		    c = (c + ((bit_pos + 7) >> 3) + align - 1) & -align;
 		    bit_pos = 0;
-                } else if (f->a.aligned) {
-                    goto new_field;
-                } else if (!packed) {
-                    int a8 = align * 8;
-	            int ofs = ((c * 8 + bit_pos) % a8 + bit_size + a8 - 1) / a8;
-                    if (ofs > size / align)
-                        goto new_field;
+                } وگرنه اگر (f->a.aligned) {
+                    برو new_field;
+                } وگرنه اگر (!packed) {
+                    صحیح a8 = align * 8;
+	            صحیح ofs = ((c * 8 + bit_pos) % a8 + bit_size + a8 - 1) / a8;
+                    اگر (ofs > size / align)
+                        برو new_field;
                 }
 
                 /* in pcc mode, long long bitfields have type int if they fit */
-                if (size == 8 && bit_size <= 32)
+                اگر (size == 8 && bit_size <= 32)
                     f->type.t = (f->type.t & ~VT_BTYPE) | VT_INT, size = 4;
 
-                while (bit_pos >= align * 8)
+                وقتی (bit_pos >= align * 8)
                     c += align, bit_pos -= align * 8;
                 offset = c;
 
 		/* In PCC layout named bit-fields influence the alignment
 		   of the containing struct using the base types alignment,
 		   except for packed fields (which here have correct align).  */
-		if (f->v & SYM_FIRST_ANOM
+		اگر (f->v & SYM_FIRST_ANOM
                     // && bit_size // ??? gcc on ARM/rpi does that
                     )
 		    align = 1;
 
-	    } else {
+	    } وگرنه {
 		bt = f->type.t & VT_BTYPE;
-		if ((bit_pos + bit_size > size * 8)
+		اگر ((bit_pos + bit_size > size * 8)
                     || (bit_size > 0) == (bt != prevbt)
                     ) {
 		    c = (c + align - 1) & -align;
@@ -4331,14 +4331,14 @@ static void struct_layout(CType *type, AttributeDef *ad)
 		       at least as many bits as the underlying type.
 		       To start a new run it's also required that this
 		       or the last bit-field had non-zero width.  */
-		    if (bit_size || prev_bit_size)
+		    اگر (bit_size || prev_bit_size)
 		        c += size;
 		}
 		/* In MS layout the records alignment is normally
 		   influenced by the field, except for a zero-width
 		   field at the start of a run (but by further zero-width
 		   fields it is again).  */
-		if (bit_size == 0 && prevbt != bt)
+		اگر (bit_size == 0 && prevbt != bt)
 		    align = 1;
 		prevbt = bt;
                 prev_bit_size = bit_size;
@@ -4348,13 +4348,13 @@ static void struct_layout(CType *type, AttributeDef *ad)
 		        | (bit_pos << VT_STRUCT_SHIFT);
 	    bit_pos += bit_size;
 	}
-	if (align > maxalign)
+	اگر (align > maxalign)
 	    maxalign = align;
 
 #ifdef BF_DEBUG
 	printf("set field %s offset %-2d size %-2d align %-2d",
-	       get_tok_str(f->v & ~SYM_FIELD, NULL), offset, size, align);
-	if (f->type.t & VT_BITFIELD) {
+	       get_tok_str(f->v & ~SYM_FIELD, پوچ), offset, size, align);
+	اگر (f->type.t & VT_BITFIELD) {
 	    printf(" pos %-2d bits %-2d",
                     BIT_POS(f->type.t),
                     BIT_SIZE(f->type.t)
@@ -4367,19 +4367,19 @@ static void struct_layout(CType *type, AttributeDef *ad)
 	f->r = 0;
     }
 
-    if (pcc)
+    اگر (pcc)
         c += (bit_pos + 7) >> 3;
 
     /* store size and alignment */
     a = bt = ad->a.aligned ? 1 << (ad->a.aligned - 1) : 1;
-    if (a < maxalign)
+    اگر (a < maxalign)
         a = maxalign;
     type->ref->r = a;
-    if (pragma_pack && pragma_pack < maxalign && 0 == pcc) {
+    اگر (pragma_pack && pragma_pack < maxalign && 0 == pcc) {
         /* can happen if individual align for some member was given.  In
            this case MSVC ignores maxalign when aligning the size */
         a = pragma_pack;
-        if (a < bt)
+        اگر (a < bt)
             a = bt;
     }
     c = (c + a - 1) & -a;
@@ -4390,51 +4390,51 @@ static void struct_layout(CType *type, AttributeDef *ad)
 #endif
 
     /* check whether we can access bitfields by their type */
-    for (f = type->ref->next; f; f = f->next) {
-        int s, px, cx, c0;
+    برای (f = type->ref->next; f; f = f->next) {
+        صحیح s, px, cx, c0;
         CType t;
 
-        if (0 == (f->type.t & VT_BITFIELD))
-            continue;
+        اگر (0 == (f->type.t & VT_BITFIELD))
+            ادامه;
         f->type.ref = f;
         f->auxtype = -1;
         bit_size = BIT_SIZE(f->type.t);
-        if (bit_size == 0)
-            continue;
+        اگر (bit_size == 0)
+            ادامه;
         bit_pos = BIT_POS(f->type.t);
         size = type_size(&f->type, &align);
 
-        if (bit_pos + bit_size <= size * 8 && f->c + size <= c
+        اگر (bit_pos + bit_size <= size * 8 && f->c + size <= c
 #ifdef TCC_TARGET_ARM
             && !(f->c & (align - 1))
 #endif
             )
-            continue;
+            ادامه;
 
         /* try to access the field using a different type */
         c0 = -1, s = align = 1;
         t.t = VT_BYTE;
-        for (;;) {
+        برای (;;) {
             px = f->c * 8 + bit_pos;
             cx = (px >> 3) & -align;
             px = px - (cx << 3);
-            if (c0 == cx)
-                break;
+            اگر (c0 == cx)
+                بشکن;
             s = (px + bit_size + 7) >> 3;
-            if (s > 4) {
+            اگر (s > 4) {
                 t.t = VT_LLONG;
-            } else if (s > 2) {
+            } وگرنه اگر (s > 2) {
                 t.t = VT_INT;
-            } else if (s > 1) {
+            } وگرنه اگر (s > 1) {
                 t.t = VT_SHORT;
-            } else {
+            } وگرنه {
                 t.t = VT_BYTE;
             }
             s = type_size(&t, &align);
             c0 = cx;
         }
 
-        if (px + bit_size <= s * 8 && cx + s <= c
+        اگر (px + bit_size <= s * 8 && cx + s <= c
 #ifdef TCC_TARGET_ARM
             && !(cx & (align - 1))
 #endif
@@ -4444,159 +4444,159 @@ static void struct_layout(CType *type, AttributeDef *ad)
             bit_pos = px;
 	    f->type.t = (f->type.t & ~(0x3f << VT_STRUCT_SHIFT))
 		        | (bit_pos << VT_STRUCT_SHIFT);
-            if (s != size)
+            اگر (s != size)
                 f->auxtype = t.t;
 #ifdef BF_DEBUG
             printf("FIX field %s offset %-2d size %-2d align %-2d "
                 "pos %-2d bits %-2d\n",
-                get_tok_str(f->v & ~SYM_FIELD, NULL),
+                get_tok_str(f->v & ~SYM_FIELD, پوچ),
                 cx, s, align, px, bit_size);
 #endif
-        } else {
+        } وگرنه {
             /* fall back to load/store single-byte wise */
             f->auxtype = VT_STRUCT;
 #ifdef BF_DEBUG
             printf("FIX field %s : load byte-wise\n",
-                 get_tok_str(f->v & ~SYM_FIELD, NULL));
+                 get_tok_str(f->v & ~SYM_FIELD, پوچ));
 #endif
         }
     }
 }
 
 /* Does 'n' fit into integer type 't' ? */
-static int in_range(long long n, int t)
+ایستا صحیح in_range(long long n, صحیح t)
 {
     unsigned long long m = (1ULL << (btype_size(t & VT_BTYPE) * 8 - 1)) - 1;
-    if (t & VT_UNSIGNED)
-        return n <= (m << 1) + 1;
-    return n >= -(long long)m - 1 && n <= (long long)m;
+    اگر (t & VT_UNSIGNED)
+        بازگشت n <= (m << 1) + 1;
+    بازگشت n >= -(long long)m - 1 && n <= (long long)m;
 }
 
 /* enum/struct/union declaration. u is VT_ENUM/VT_STRUCT/VT_UNION */
-static void struct_decl(CType *type, int u)
+ایستا تهی struct_decl(CType *type, صحیح u)
 {
-    int v, c, size, align, flexible;
-    int bit_size, bsize, bt, ut;
+    صحیح v, c, size, align, flexible;
+    صحیح bit_size, bsize, bt, ut;
     Sym *s, *ss, **ps;
     AttributeDef ad, ad1;
     CType type1, btype;
 
-    memset(&ad, 0, sizeof ad);
+    memset(&ad, 0, اندازه ad);
     next();
     parse_attribute(&ad);
 
     v = 0;
-    if (tok >= TOK_IDENT) /* struct/enum tag */
+    اگر (tok >= TOK_IDENT) /* struct/enum tag */
         v = tok, next();
 
     bt = ut = 0;
-    if (u == VT_ENUM) {
+    اگر (u == VT_ENUM) {
         ut = VT_INT;
-        if (tok == ':') { /* C2x enum : <type> ... */
+        اگر (tok == ':') { /* C2x enum : <type> ... */
             next();
-            if (!parse_btype(&btype, &ad1, 0)
+            اگر (!parse_btype(&btype, &ad1, 0)
              || !is_integer_btype(btype.t & VT_BTYPE))
                 expect("enum type");
             bt = ut = btype.t & (VT_BTYPE|VT_LONG|VT_UNSIGNED|VT_DEFSIGN);
         }
     }
 
-    if (v) {
+    اگر (v) {
         /* struct already defined ? return it */
         s = struct_find(v);
-        if (s && (s->sym_scope == local_scope || (tok != '{' && tok != ';'))) {
-            if (u == s->type.t)
-                goto do_decl;
-            if (u == VT_ENUM && IS_ENUM(s->type.t)) /* XXX: check integral types */
-                goto do_decl;
-            tcc_error("redeclaration of '%s'", get_tok_str(v, NULL));
+        اگر (s && (s->sym_scope == local_scope || (tok != '{' && tok != ';'))) {
+            اگر (u == s->type.t)
+                برو do_decl;
+            اگر (u == VT_ENUM && IS_ENUM(s->type.t)) /* XXX: check integral types */
+                برو do_decl;
+            tcc_error("redeclaration of '%s'", get_tok_str(v, پوچ));
         }
-    } else {
-        if (tok != '{')
+    } وگرنه {
+        اگر (tok != '{')
             expect("struct/union/enum name");
         v = anon_sym++;
     }
     /* Record the original enum/struct/union token.  */
     type1.t = u | ut;
-    type1.ref = NULL;
+    type1.ref = پوچ;
     /* we put an undefined size for struct/union */
-    s = sym_push(v | SYM_STRUCT, &type1, 0, bt ? 0 : -1);
+    s = sym_افزودن(v | SYM_STRUCT, &type1, 0, bt ? 0 : -1);
     s->r = 0; /* default alignment is zero as gcc */
 do_decl:
     type->t = s->type.t;
     type->ref = s;
 
-    if (tok == '{') {
+    اگر (tok == '{') {
         next();
-        if (s->c != -1
+        اگر (s->c != -1
             && !(u == VT_ENUM && s->c == 0)) /* not yet defined typed enum */
             tcc_error("struct/union/enum already defined");
         s->c = -2;
         /* cannot be empty */
         /* non empty enums are not allowed */
         ps = &s->next;
-        if (u == VT_ENUM) {
+        اگر (u == VT_ENUM) {
             long long ll = 0, pl = 0, nl = 0;
 	    CType t;
             t.ref = s;
             s->sym_scope = local_scope; /* anonymous symbol won't have set */
             /* enum symbols have static storage */
             t.t = VT_INT|VT_STATIC|VT_ENUM_VAL;
-            if (bt)
+            اگر (bt)
                 t.t = bt|VT_STATIC|VT_ENUM_VAL;
-            for(;;) {
+            برای(;;) {
                 v = tok;
-                if (v < TOK_UIDENT)
+                اگر (v < TOK_UIDENT)
                     expect("identifier");
                 next();
-                if (tok == '=') {
+                اگر (tok == '=') {
                     next();
-		    ll = expr_const64();
+		    ll = عبارت_const64();
                 }
-                if (bt && !in_range(ll, t.t))
+                اگر (bt && !in_range(ll, t.t))
 		    tcc_error("enumerator '%s' out of range of its type",
-			get_tok_str(v, NULL));
-                ss = sym_push(v, &t, VT_CONST, 0);
+			get_tok_str(v, پوچ));
+                ss = sym_افزودن(v, &t, VT_CONST, 0);
                 ss->enum_val = ll;
                 *ps = ss, ps = &ss->next;
-                if (ll < nl)
+                اگر (ll < nl)
                     nl = ll;
-                if (ll > pl)
+                اگر (ll > pl)
                     pl = ll;
-                if (tok != ',')
-                    break;
+                اگر (tok != ',')
+                    بشکن;
                 next();
                 ll++;
                 /* NOTE: we accept a trailing comma */
-                if (tok == '}')
-                    break;
+                اگر (tok == '}')
+                    بشکن;
             }
             skip('}');
 
-            if (bt) {
+            اگر (bt) {
                 t.t = bt;
                 s->c = 2;
-                goto enum_done;
+                برو enum_done;
             }
 
             /* set integral type of the enum */
             t.t = VT_INT;
-            if (nl >= 0) {
-                if (pl != (unsigned)pl)
+            اگر (nl >= 0) {
+                اگر (pl != (unsigned)pl)
                     t.t = (LONG_SIZE==8 ? VT_LLONG|VT_LONG : VT_LLONG);
                 t.t |= VT_UNSIGNED;
-            } else if (pl != (int)pl || nl != (int)nl)
+            } وگرنه اگر (pl != (صحیح)pl || nl != (صحیح)nl)
                 t.t = (LONG_SIZE==8 ? VT_LLONG|VT_LONG : VT_LLONG);
 
             /* set type for enum members */
-            for (ss = s->next; ss; ss = ss->next) {
+            برای (ss = s->next; ss; ss = ss->next) {
                 ll = ss->enum_val;
-                if (ll == (int)ll) /* default is int if it fits */
-                    continue;
-                if (t.t & VT_UNSIGNED) {
+                اگر (ll == (صحیح)ll) /* default is int if it fits */
+                    ادامه;
+                اگر (t.t & VT_UNSIGNED) {
                     ss->type.t |= VT_UNSIGNED;
-                    if (ll == (unsigned)ll)
-                        continue;
+                    اگر (ll == (unsigned)ll)
+                        ادامه;
                 }
                 ss->type.t = (ss->type.t & ~VT_BTYPE)
                     | (LONG_SIZE==8 ? VT_LLONG|VT_LONG : VT_LLONG);
@@ -4605,129 +4605,129 @@ do_decl:
         enum_done:
             s->type.t = type->t = t.t | VT_ENUM;
 
-        } else {
+        } وگرنه {
             c = 0;
             flexible = 0;
-            while (tok != '}') {
-                if (!parse_btype(&btype, &ad1, 0)) {
-                    if (tok == TOK_STATIC_ASSERT) {
+            وقتی (tok != '}') {
+                اگر (!parse_btype(&btype, &ad1, 0)) {
+                    اگر (tok == TOK_STATIC_ASSERT) {
                         do_Static_assert();
-                        continue;
+                        ادامه;
                     }
 		    skip(';');
-		    continue;
+		    ادامه;
 		}
-                while (1) {
-		    if (flexible)
+                وقتی (1) {
+		    اگر (flexible)
 		        tcc_error("flexible array member '%s' not at the end of struct",
-                              get_tok_str(v, NULL));
+                              get_tok_str(v, پوچ));
                     bit_size = -1;
                     v = 0;
                     type1 = btype;
-                    if (tok != ':') {
-			if (tok != ';')
+                    اگر (tok != ':') {
+			اگر (tok != ';')
                             type_decl(&type1, &ad1, &v, TYPE_DIRECT);
-                        if (v == 0) {
-                    	    if ((type1.t & VT_BTYPE) != VT_STRUCT)
+                        اگر (v == 0) {
+                    	    اگر ((type1.t & VT_BTYPE) != VT_STRUCT)
                         	expect("identifier");
-                    	    else {
-				int v = btype.ref->v;
-				if ((v & ~SYM_STRUCT) < SYM_FIRST_ANOM) {
-				    if (tcc_state->ms_extensions == 0)
+                    	    وگرنه {
+				صحیح v = btype.ref->v;
+				اگر ((v & ~SYM_STRUCT) < SYM_FIRST_ANOM) {
+				    اگر (tcc_state->ms_extensions == 0)
                         		expect("identifier");
 				}
                     	    }
                         }
-                        if (type_size(&type1, &align) < 0) {
-			    if ((u == VT_STRUCT) && (type1.t & VT_ARRAY) && c)
+                        اگر (type_size(&type1, &align) < 0) {
+			    اگر ((u == VT_STRUCT) && (type1.t & VT_ARRAY) && c)
 			        flexible = 1;
-			    else
+			    وگرنه
 			        tcc_error("field '%s' has incomplete type",
-                                      get_tok_str(v, NULL));
+                                      get_tok_str(v, پوچ));
                         }
-                        if ((type1.t & VT_BTYPE) == VT_FUNC ||
+                        اگر ((type1.t & VT_BTYPE) == VT_FUNC ||
 			    (type1.t & VT_BTYPE) == VT_VOID ||
                             (type1.t & VT_STORAGE))
                             tcc_error("invalid type for '%s'", 
-                                  get_tok_str(v, NULL));
+                                  get_tok_str(v, پوچ));
                     }
-                    if (tok == ':') {
+                    اگر (tok == ':') {
                         next();
-                        bit_size = expr_const();
+                        bit_size = عبارت_const();
                         /* XXX: handle v = 0 case for messages */
-                        if (bit_size < 0)
+                        اگر (bit_size < 0)
                             tcc_error("negative width in bit-field '%s'", 
-                                  get_tok_str(v, NULL));
-                        if (v && bit_size == 0)
+                                  get_tok_str(v, پوچ));
+                        اگر (v && bit_size == 0)
                             tcc_error("zero width for bit-field '%s'", 
-                                  get_tok_str(v, NULL));
+                                  get_tok_str(v, پوچ));
 			parse_attribute(&ad1);
                     }
                     size = type_size(&type1, &align);
-                    if (bit_size >= 0) {
+                    اگر (bit_size >= 0) {
                         bt = type1.t & VT_BTYPE;
-                        if (bt != VT_INT && 
+                        اگر (bt != VT_INT && 
                             bt != VT_BYTE && 
                             bt != VT_SHORT &&
                             bt != VT_BOOL &&
                             bt != VT_LLONG)
                             tcc_error("bitfields must have scalar type");
                         bsize = size * 8;
-                        if (bit_size > bsize) {
+                        اگر (bit_size > bsize) {
                             tcc_error("width of '%s' exceeds its type",
-                                  get_tok_str(v, NULL));
-                        } else if (bit_size == bsize
-				    && !*tcc_state->pack_stack_ptr
+                                  get_tok_str(v, پوچ));
+                        } وگرنه اگر (bit_size == bsize
+				    && !*tcc_state->pack_پشته_ptr
                                     && !ad.a.packed && !ad1.a.packed) {
                             /* no need for bit fields */
                             ;
-                        } else if (bit_size == 64) {
+                        } وگرنه اگر (bit_size == 64) {
                             tcc_error("field width 64 not implemented");
-                        } else {
+                        } وگرنه {
                             type1.t = (type1.t & ~VT_STRUCT_MASK)
                                 | VT_BITFIELD
                                 | ((unsigned)bit_size << (VT_STRUCT_SHIFT + 6));
                         }
                     }
-                    if (v != 0 || (type1.t & VT_BTYPE) == VT_STRUCT) {
+                    اگر (v != 0 || (type1.t & VT_BTYPE) == VT_STRUCT) {
                         /* Remember we've seen a real field to check
 			   for placement of flexible array member. */
 			c = 1;
                     }
 		    /* If member is a struct or bit-field, enforce
 		       placing into the struct (as anonymous).  */
-                    if (v == 0 &&
+                    اگر (v == 0 &&
 			((type1.t & VT_BTYPE) == VT_STRUCT ||
 			 bit_size >= 0)) {
 		        v = anon_sym++;
 		    }
-                    if (v) {
-                        ss = sym_push(v | SYM_FIELD, &type1, 0, 0);
+                    اگر (v) {
+                        ss = sym_افزودن(v | SYM_FIELD, &type1, 0, 0);
                         ss->a = ad1.a;
                         *ps = ss;
                         ps = &ss->next;
                     }
-                    if (tok == ';' || tok == TOK_EOF)
-                        break;
+                    اگر (tok == ';' || tok == TOK_EOF)
+                        بشکن;
                     skip(',');
                 }
                 skip(';');
             }
             skip('}');
 	    parse_attribute(&ad);
-            if (ad.cleanup_func) {
+            اگر (ad.cleanup_func) {
                 tcc_warning("attribute '__cleanup__' ignored on type");
             }
 	    check_fields(type, 1);
 	    check_fields(type, 0);
             struct_layout(type, &ad);
         }
-        if (debug_modes)
+        اگر (debug_modes)
             tcc_debug_fix_forw(tcc_state, type);
     }
 }
 
-static void sym_to_attr(AttributeDef *ad, Sym *s)
+ایستا تهی sym_to_attr(AttributeDef *ad, Sym *s)
 {
     merge_symattr(&ad->a, &s->a);
     merge_funcattr(&ad->f, &s->f);
@@ -4735,13 +4735,13 @@ static void sym_to_attr(AttributeDef *ad, Sym *s)
 
 /* Add type qualifiers to a type. If the type is an array then the qualifiers
    are added to the element type, copied because it could be a typedef. */
-static void parse_btype_qualify(CType *type, int qualifiers)
+ایستا تهی parse_btype_qualify(CType *type, صحیح qualifiers)
 {
-    while (type->t & VT_ARRAY) {
-        type->ref = sym_push(SYM_FIELD, &type->ref->type, 0, type->ref->c);
+    وقتی (type->t & VT_ARRAY) {
+        type->ref = sym_افزودن(SYM_FIELD, &type->ref->type, 0, type->ref->c);
         type = &type->ref->type;
     }
-    if (qualifiers & VT_RESTRICT)
+    اگر (qualifiers & VT_RESTRICT)
         check_restrict_type(type);
     type->t |= qualifiers;
 }
@@ -4749,310 +4749,310 @@ static void parse_btype_qualify(CType *type, int qualifiers)
 /* return 0 if no type declaration. otherwise, return the basic type
    and skip it. 
  */
-static int parse_btype(CType *type, AttributeDef *ad, int ignore_label)
+ایستا صحیح parse_btype(CType *type, AttributeDef *ad, صحیح ignore_label)
 {
-    int t, u, bt, st, type_found, typespec_found, g, n;
+    صحیح t, u, bt, st, type_found, typespec_found, g, n;
     Sym *s;
     CType type1;
 
-    memset(ad, 0, sizeof(AttributeDef));
+    memset(ad, 0, اندازه(AttributeDef));
     type_found = 0;
     typespec_found = 0;
     t = VT_INT;
     bt = st = -1;
-    type->ref = NULL;
+    type->ref = پوچ;
 
-    while(1) {
-        switch(tok) {
-        case TOK_EXTENSION:
+    وقتی(1) {
+        انتخاب(tok) {
+        حالت TOK_EXTENSION:
             /* currently, we really ignore extension */
             next();
-            continue;
+            ادامه;
 
             /* basic types */
-        case TOK_CHAR:
+        حالت TOK_CHAR:
             u = VT_BYTE;
         basic_type:
             next();
         basic_type1:
-            if (u == VT_SHORT || u == VT_LONG) {
-                if (st != -1 || (bt != -1 && bt != VT_INT))
+            اگر (u == VT_SHORT || u == VT_LONG) {
+                اگر (st != -1 || (bt != -1 && bt != VT_INT))
                     tmbt: tcc_error("too many basic types");
                 st = u;
-            } else {
-                if (bt != -1 || (st != -1 && u != VT_INT))
-                    goto tmbt;
-                if ((t & VT_DEFSIGN) && (u == VT_VOID || u > VT_LLONG))
-                    goto tmbt;
+            } وگرنه {
+                اگر (bt != -1 || (st != -1 && u != VT_INT))
+                    برو tmbt;
+                اگر ((t & VT_DEFSIGN) && (u == VT_VOID || u > VT_LLONG))
+                    برو tmbt;
                 bt = u;
             }
-            if (u != VT_INT)
+            اگر (u != VT_INT)
                 t = (t & ~(VT_BTYPE|VT_LONG)) | u;
             typespec_found = 1;
-            break;
-        case TOK_VOID:
+            بشکن;
+        حالت TOK_VOID:
             u = VT_VOID;
-            goto basic_type;
-        case TOK_SHORT:
+            برو basic_type;
+        حالت TOK_SHORT:
             u = VT_SHORT;
-            goto basic_type;
-        case TOK_INT:
+            برو basic_type;
+        حالت TOK_INT:
             u = VT_INT;
-            goto basic_type;
-        case TOK_ALIGNAS:
-            { int n;
+            برو basic_type;
+        حالت TOK_ALIGNAS:
+            { صحیح n;
               AttributeDef ad1;
               next();
               skip('(');
-              memset(&ad1, 0, sizeof(AttributeDef));
-              if (parse_btype(&type1, &ad1, 0)) {
+              memset(&ad1, 0, اندازه(AttributeDef));
+              اگر (parse_btype(&type1, &ad1, 0)) {
                   type_decl(&type1, &ad1, &n, TYPE_ABSTRACT);
-                  if (ad1.a.aligned)
+                  اگر (ad1.a.aligned)
                     n = 1 << (ad1.a.aligned - 1);
-                  else
+                  وگرنه
                     type_size(&type1, &n);
-              } else {
-                  n = expr_const();
-                  if (n < 0 || (n & (n - 1)) != 0)
+              } وگرنه {
+                  n = عبارت_const();
+                  اگر (n < 0 || (n & (n - 1)) != 0)
                     tcc_error("alignment must be a positive power of two");
               }
               skip(')');
               ad->a.aligned = exact_log2p1(n);
             }
-            continue;
-        case TOK_LONG:
-            if ((t & VT_BTYPE) == VT_DOUBLE) {
+            ادامه;
+        حالت TOK_LONG:
+            اگر ((t & VT_BTYPE) == VT_DOUBLE) {
                 t = (t & ~(VT_BTYPE|VT_LONG)) | VT_LDOUBLE;
-            } else if ((t & (VT_BTYPE|VT_LONG)) == VT_LONG) {
+            } وگرنه اگر ((t & (VT_BTYPE|VT_LONG)) == VT_LONG) {
                 t = (t & ~(VT_BTYPE|VT_LONG)) | VT_LLONG;
-            } else {
+            } وگرنه {
                 u = VT_LONG;
-                goto basic_type;
+                برو basic_type;
             }
             next();
-            break;
-        case TOK_BOOL:
+            بشکن;
+        حالت TOK_BOOL:
             u = VT_BOOL;
-            goto basic_type;
-        case TOK_COMPLEX:
+            برو basic_type;
+        حالت TOK_COMPLEX:
             tcc_error("_Complex is not yet supported");
-        case TOK_FLOAT:
+        حالت TOK_FLOAT:
             u = VT_FLOAT;
-            goto basic_type;
-        case TOK_DOUBLE:
-            if ((t & (VT_BTYPE|VT_LONG)) == VT_LONG) {
+            برو basic_type;
+        حالت TOK_DOUBLE:
+            اگر ((t & (VT_BTYPE|VT_LONG)) == VT_LONG) {
                 t = (t & ~(VT_BTYPE|VT_LONG)) | VT_LDOUBLE;
-            } else {
+            } وگرنه {
                 u = VT_DOUBLE;
-                goto basic_type;
+                برو basic_type;
             }
             next();
-            break;
-        case TOK_ENUM:
+            بشکن;
+        حالت TOK_ENUM:
             struct_decl(&type1, VT_ENUM);
         basic_type2:
             u = type1.t;
             type->ref = type1.ref;
-            goto basic_type1;
-        case TOK_STRUCT:
+            برو basic_type1;
+        حالت TOK_STRUCT:
             struct_decl(&type1, VT_STRUCT);
-            goto basic_type2;
-        case TOK_UNION:
+            برو basic_type2;
+        حالت TOK_UNION:
             struct_decl(&type1, VT_UNION);
-            goto basic_type2;
+            برو basic_type2;
 
             /* type modifiers */
-        case TOK__Atomic:
+        حالت TOK__Atomic:
             next();
             type->t = t;
             parse_btype_qualify(type, VT_ATOMIC);
             t = type->t;
-            if (tok == '(') {
-                parse_expr_type(&type1);
+            اگر (tok == '(') {
+                parse_عبارت_type(&type1);
                 /* remove all storage modifiers except typedef */
                 type1.t &= ~(VT_STORAGE&~VT_TYPEDEF);
-                if (type1.ref)
+                اگر (type1.ref)
                     sym_to_attr(ad, type1.ref);
-                goto basic_type2;
+                برو basic_type2;
             }
-            break;
-        case TOK_CONST1:
-        case TOK_CONST2:
-        case TOK_CONST3:
+            بشکن;
+        حالت TOK_CONST1:
+        حالت TOK_CONST2:
+        حالت TOK_CONST3:
             type->t = t;
             parse_btype_qualify(type, VT_CONSTANT);
             t = type->t;
             next();
-            break;
-        case TOK_VOLATILE1:
-        case TOK_VOLATILE2:
-        case TOK_VOLATILE3:
+            بشکن;
+        حالت TOK_VOLATILE1:
+        حالت TOK_VOLATILE2:
+        حالت TOK_VOLATILE3:
             type->t = t;
             parse_btype_qualify(type, VT_VOLATILE);
             t = type->t;
             next();
-            break;
-        case TOK_SIGNED1:
-        case TOK_SIGNED2:
-        case TOK_SIGNED3:
-            if ((t & (VT_DEFSIGN|VT_UNSIGNED)) == (VT_DEFSIGN|VT_UNSIGNED))
+            بشکن;
+        حالت TOK_SIGNED1:
+        حالت TOK_SIGNED2:
+        حالت TOK_SIGNED3:
+            اگر ((t & (VT_DEFSIGN|VT_UNSIGNED)) == (VT_DEFSIGN|VT_UNSIGNED))
                 tcc_error("signed and unsigned modifier");
             t |= VT_DEFSIGN;
             next();
             typespec_found = 1;
-            break;
-        case TOK_RESTRICT1:
-        case TOK_RESTRICT2:
-        case TOK_RESTRICT3:
+            بشکن;
+        حالت TOK_RESTRICT1:
+        حالت TOK_RESTRICT2:
+        حالت TOK_RESTRICT3:
             t |= VT_RESTRICT;
             next();
-            break;
-        case TOK_REGISTER:
-        case TOK_AUTO:
+            بشکن;
+        حالت TOK_REGISTER:
+        حالت TOK_AUTO:
             next();
-            break;
-        case TOK_UNSIGNED:
-            if ((t & (VT_DEFSIGN|VT_UNSIGNED)) == VT_DEFSIGN)
+            بشکن;
+        حالت TOK_UNSIGNED:
+            اگر ((t & (VT_DEFSIGN|VT_UNSIGNED)) == VT_DEFSIGN)
                 tcc_error("signed and unsigned modifier");
             t |= VT_DEFSIGN | VT_UNSIGNED;
             next();
             typespec_found = 1;
-            break;
+            بشکن;
 
             /* storage */
-        case TOK_EXTERN:
+        حالت TOK_EXTERN:
             g = VT_EXTERN;
-            goto storage;
-        case TOK_STATIC:
+            برو storage;
+        حالت TOK_STATIC:
             g = VT_STATIC;
-            goto storage;
-        case TOK_TYPEDEF:
+            برو storage;
+        حالت TOK_TYPEDEF:
             g = VT_TYPEDEF;
-            goto storage;
+            برو storage;
        storage:
-            if (t & (VT_EXTERN|VT_STATIC|VT_TYPEDEF) & ~g)
+            اگر (t & (VT_EXTERN|VT_STATIC|VT_TYPEDEF) & ~g)
                 tcc_error("multiple storage classes");
             t |= g;
             next();
-            break;
-        case TOK_INLINE1:
-        case TOK_INLINE2:
-        case TOK_INLINE3:
+            بشکن;
+        حالت TOK_INLINE1:
+        حالت TOK_INLINE2:
+        حالت TOK_INLINE3:
             t |= VT_INLINE;
             next();
-            break;
-        case TOK_NORETURN3:
+            بشکن;
+        حالت TOK_NORETURN3:
             next();
             ad->f.func_noreturn = 1;
-            break;
+            بشکن;
             /* GNUC attribute */
-        case TOK_ATTRIBUTE1:
-        case TOK_ATTRIBUTE2:
+        حالت TOK_ATTRIBUTE1:
+        حالت TOK_ATTRIBUTE2:
             parse_attribute(ad);
-            if (ad->attr_mode) {
+            اگر (ad->attr_mode) {
                 u = ad->attr_mode -1;
                 t = (t & ~(VT_BTYPE|VT_LONG)) | u;
             }
-            continue;
+            ادامه;
             /* GNUC typeof */
-        case TOK_TYPEOF1:
-        case TOK_TYPEOF2:
-        case TOK_TYPEOF3:
+        حالت TOK_TYPEOF1:
+        حالت TOK_TYPEOF2:
+        حالت TOK_TYPEOF3:
             next();
-            parse_expr_type(&type1);
+            parse_عبارت_type(&type1);
             /* remove all storage modifiers except typedef */
             type1.t &= ~(VT_STORAGE&~VT_TYPEDEF);
-            if (type1.ref) {
+            اگر (type1.ref) {
                 sym_to_attr(ad, type1.ref);
-                if (type1.t & VT_ARRAY)
+                اگر (type1.t & VT_ARRAY)
                     type1.t |= VT_BT_ARRAY;
             }
-            goto basic_type2;
-        case TOK_THREAD_LOCAL:
-        case TOK___thread:
-            if (t & VT_TLS)
+            برو basic_type2;
+        حالت TOK_THREAD_LOCAL:
+        حالت TOK___thread:
+            اگر (t & VT_TLS)
                 tcc_error("multiple thread-local storage specifiers");
             t |= VT_TLS;
             next();
-            break;
-        default:
-            if (typespec_found)
-                goto the_end;
+            بشکن;
+        پیشفرض:
+            اگر (typespec_found)
+                برو the_end;
             s = sym_find(tok);
-            if (!s || !(s->type.t & VT_TYPEDEF))
-                goto the_end;
+            اگر (!s || !(s->type.t & VT_TYPEDEF))
+                برو the_end;
 
             n = tok, next();
-            if (tok == ':' && ignore_label) {
+            اگر (tok == ':' && ignore_label) {
                 /* ignore if it's a label */
                 unget_tok(n);
-                goto the_end;
+                برو the_end;
             }
 
             t &= ~(VT_BTYPE|VT_LONG);
             u = t & ~VT_QUAL, t ^= u;
             type->t = (s->type.t & ~VT_TYPEDEF) | u;
             type->ref = s->type.ref;
-            if (t)
+            اگر (t)
                 parse_btype_qualify(type, t);
             t = type->t;
-            if (t & VT_ARRAY)
+            اگر (t & VT_ARRAY)
                 t |= VT_BT_ARRAY;
             /* get attributes from typedef */
             sym_to_attr(ad, s);
             typespec_found = 1;
             st = bt = -2;
-            break;
+            بشکن;
         }
         type_found = 1;
     }
 the_end:
-    if (tcc_state->char_is_unsigned) {
-        if ((t & (VT_DEFSIGN|VT_BTYPE)) == VT_BYTE)
+    اگر (tcc_state->char_is_unsigned) {
+        اگر ((t & (VT_DEFSIGN|VT_BTYPE)) == VT_BYTE)
             t |= VT_UNSIGNED;
     }
     /* VT_LONG is used just as a modifier for VT_INT / VT_LLONG */
     bt = t & (VT_BTYPE|VT_LONG);
-    if (bt == VT_LONG)
+    اگر (bt == VT_LONG)
         t |= LONG_SIZE == 8 ? VT_LLONG : VT_INT;
 #ifdef TCC_USING_DOUBLE_FOR_LDOUBLE
-    if (bt == VT_LDOUBLE)
+    اگر (bt == VT_LDOUBLE)
         t = (t & ~(VT_BTYPE|VT_LONG)) | (VT_DOUBLE|VT_LONG);
 #endif
     type->t = t;
     check_restrict_type(type);
-    return type_found;
+    بازگشت type_found;
 }
 
 /* convert a function parameter type (array to pointer and function to
    function pointer) */
-static inline void convert_parameter_type(CType *pt)
+ایستا درونخطی تهی convert_parameter_type(CType *pt)
 {
     /* array must be transformed to pointer according to ANSI C */
     pt->t &= ~(VT_ARRAY | VT_VLA);
-    if ((pt->t & VT_BTYPE) == VT_FUNC) {
+    اگر ((pt->t & VT_BTYPE) == VT_FUNC) {
         mk_pointer(pt);
     }
 }
 
 /* apply the conversions required for an expression value */
-static inline void convert_expression_type(CType *pt)
+ایستا درونخطی تهی convert_expression_type(CType *pt)
 {
     pt->t &= ~VT_QUAL;
     convert_parameter_type(pt);
 }
 
-ST_FUNC CString* parse_asm_str(void)
+ST_FUNC CString* parse_asm_str(تهی)
 {
     skip('(');
-    return parse_mult_str("string constant");
+    بازگشت parse_mult_str("string constant");
 }
 
 /* Parse an asm label and return the token */
-static int asm_label_instr(void)
+ایستا صحیح asm_label_instr(تهی)
 {
-    int v;
-    char *astr;
+    صحیح v;
+    نویسه *astr;
 
     next();
     astr = parse_asm_str()->data;
@@ -5061,83 +5061,83 @@ static int asm_label_instr(void)
     printf("asm_alias: \"%s\"\n", astr);
 #endif
     v = tok_alloc_const(astr);
-    return v;
+    بازگشت v;
 }
 
-static int post_type(CType *type, AttributeDef *ad, int storage, int td)
+ایستا صحیح post_type(CType *type, AttributeDef *ad, صحیح storage, صحیح td)
 {
-    int n, l, t1, arg_size, align;
+    صحیح n, l, t1, arg_size, align;
     Sym **plast, *s, *first, **ps, *sr;
     AttributeDef ad1;
     CType pt;
-    TokenString *vla_array_tok = NULL;
-    int *vla_array_str = NULL;
+    TokenString *vla_array_tok = پوچ;
+    صحیح *vla_array_str = پوچ;
 
-    if (tok == '(') {
+    اگر (tok == '(') {
         /* function type, or recursive declarator (return if so) */
         next();
-	if (TYPE_DIRECT == (td & (TYPE_DIRECT|TYPE_ABSTRACT)))
-	  return 0;
+	اگر (TYPE_DIRECT == (td & (TYPE_DIRECT|TYPE_ABSTRACT)))
+	  بازگشت 0;
 
         /* we push a anonymous symbol which will contain the function prototype */
         /* it also serves as a boundary for the function parameter scope */
-        ps = local_stack ? &local_stack : &global_stack;
+        ps = local_پشته ? &local_پشته : &global_پشته;
         ++local_scope;
         sr = sym_push2(ps, SYM_FIELD, 0, 0);
 
-	if (tok == ')')
+	اگر (tok == ')')
 	  l = 0;
-	else if (parse_btype(&pt, &ad1, 0))
+	وگرنه اگر (parse_btype(&pt, &ad1, 0))
 	  l = FUNC_NEW;
-	else if (td & (TYPE_DIRECT|TYPE_ABSTRACT)) {
-            sym_pop(ps, sr->prev, 0);
+	وگرنه اگر (td & (TYPE_DIRECT|TYPE_ABSTRACT)) {
+            sym_برداشت(ps, sr->prev, 0);
             --local_scope;
 	    merge_attr (ad, &ad1);
-	    return 0;
-	} else
+	    بازگشت 0;
+	} وگرنه
 	  l = FUNC_OLD;
 
-        first = NULL;
+        first = پوچ;
         plast = &first;
         arg_size = 0;
-        if (l) {
-            for(;;) {
+        اگر (l) {
+            برای(;;) {
                 /* read param name and compute offset */
-                if (l != FUNC_OLD) {
-                    if ((pt.t & VT_BTYPE) == VT_VOID && tok == ')')
-                        break;
+                اگر (l != FUNC_OLD) {
+                    اگر ((pt.t & VT_BTYPE) == VT_VOID && tok == ')')
+                        بشکن;
                     type_decl(&pt, &ad1, &n, TYPE_DIRECT | TYPE_ABSTRACT | TYPE_PARAM);
-                    if ((pt.t & VT_BTYPE) == VT_VOID)
+                    اگر ((pt.t & VT_BTYPE) == VT_VOID)
                         tcc_error("parameter declared as void");
-                    if (n == 0 || (td & TYPE_PARAM))
+                    اگر (n == 0 || (td & TYPE_PARAM))
                         n |= SYM_FIELD;
-                } else {
+                } وگرنه {
                     n = tok;
                     pt.t = VT_INT | VT_EXTERN; /* default type */
-                    pt.ref = NULL;
+                    pt.ref = پوچ;
                     next();
                 }
-                if (n < TOK_UIDENT)
+                اگر (n < TOK_UIDENT)
                     expect("identifier");
                 convert_parameter_type(&pt);
                 arg_size += (type_size(&pt, &align) + PTR_SIZE - 1) / PTR_SIZE;
                 /* these symbols may be evaluated for VLArrays (see below, under
                    nocode_wanted) Example: int func(int a, int b[++a]); */
-                s = sym_push(n, &pt, VT_LOCAL|VT_LVAL, 0);
+                s = sym_افزودن(n, &pt, VT_LOCAL|VT_LVAL, 0);
                 *plast = s;
                 plast = &s->next;
-                if (tok == ')')
-                    break;
+                اگر (tok == ')')
+                    بشکن;
                 skip(',');
-                if (l == FUNC_NEW && tok == TOK_DOTS) {
+                اگر (l == FUNC_NEW && tok == TOK_DOTS) {
                     l = FUNC_ELLIPSIS;
                     next();
-                    break;
+                    بشکن;
                 }
-		if (l == FUNC_NEW && !parse_btype(&pt, &ad1, 0))
+		اگر (l == FUNC_NEW && !parse_btype(&pt, &ad1, 0))
 		    tcc_error("invalid type");
             }
-        } else
+        } وگرنه
             /* if no parameters, then old type prototype */
             l = FUNC_OLD;
         skip(')');
@@ -5147,7 +5147,7 @@ static int post_type(CType *type, AttributeDef *ad, int storage, int td)
         /* some ancient pre-K&R C allows a function to return an array
            and the array brackets to be put after the arguments, such 
            that "int c()[]" means something like "int[] c()" */
-        if (tok == '[') {
+        اگر (tok == '[') {
             next();
             skip(']'); /* only handle simple "[]" */
             mk_pointer(type);
@@ -5161,41 +5161,41 @@ static int post_type(CType *type, AttributeDef *ad, int storage, int td)
         type->t = VT_FUNC;
         type->ref = s;
         /* unlink parameter symbols from the token table, keep on stack */
-        sym_pop(ps, sr, 1);
+        sym_برداشت(ps, sr, 1);
         --local_scope;
 
-    } else if (tok == '[') {
-	int saved_nocode_wanted = nocode_wanted;
-        int array_qualifiers = 0;
+    } وگرنه اگر (tok == '[') {
+	صحیح saved_nocode_wanted = nocode_wanted;
+        صحیح array_qualifiers = 0;
         /* array definition */
         next();
         n = -1;
         t1 = 0;
-        if (td & TYPE_PARAM) while (1) {
+        اگر (td & TYPE_PARAM) وقتی (1) {
 	    /* XXX The optional type-quals and static should only be accepted
 	       in parameter decls.  The '*' as well, and then even only
 	       in prototypes (not function defs).  */
-	    switch (tok) {
-	    case TOK_CONST1: case TOK_CONST2: case TOK_CONST3:
+	    انتخاب (tok) {
+	    حالت TOK_CONST1: حالت TOK_CONST2: حالت TOK_CONST3:
 		array_qualifiers |= VT_CONSTANT;
 		next();
-		continue;
-	    case TOK_VOLATILE1: case TOK_VOLATILE2: case TOK_VOLATILE3:
+		ادامه;
+	    حالت TOK_VOLATILE1: حالت TOK_VOLATILE2: حالت TOK_VOLATILE3:
 		array_qualifiers |= VT_VOLATILE;
 		next();
-		continue;
-	    case TOK_RESTRICT1: case TOK_RESTRICT2: case TOK_RESTRICT3:
+		ادامه;
+	    حالت TOK_RESTRICT1: حالت TOK_RESTRICT2: حالت TOK_RESTRICT3:
 		array_qualifiers |= VT_RESTRICT;
 		next();
-		continue;
-	    case TOK_STATIC:
-	    case '*':
+		ادامه;
+	    حالت TOK_STATIC:
+	    حالت '*':
 		next();
-		continue;
-	    default:
-		break;
+		ادامه;
+	    پیشفرض:
+		بشکن;
 	    }
-            if (tok != ']') {
+            اگر (tok != ']') {
 		/* Code generation is not done now but has to be done
 		   at start of function. Save code here for later use. */
 	        nocode_wanted = 1;
@@ -5207,14 +5207,14 @@ static int post_type(CType *type, AttributeDef *ad, int storage, int td)
 	        gexpr();
 		end_macro();
 		next();
-		goto check;
+		برو check;
             }
-            break;
+            بشکن;
 
-	} else if (tok != ']') {
-            if (!local_stack || (storage & VT_STATIC))
-                vpushi(expr_const());
-            else {
+	} وگرنه اگر (tok != ']') {
+            اگر (!local_پشته || (storage & VT_STATIC))
+                vpushi(عبارت_const());
+            وگرنه {
 		/* VLAs (which can only happen with local_stack && !VT_STATIC)
 		   length must always be evaluated, even under nocode_wanted,
 		   so that its size slot is initialized (e.g. under sizeof
@@ -5223,12 +5223,12 @@ static int post_type(CType *type, AttributeDef *ad, int storage, int td)
 		gexpr();
 	    }
 check:
-            if ((vtop->r & (VT_VALMASK | VT_LVAL | VT_SYM)) == VT_CONST) {
+            اگر ((vtop->r & (VT_VALMASK | VT_LVAL | VT_SYM)) == VT_CONST) {
                 n = vtop->c.i;
-                if (n < 0)
+                اگر (n < 0)
                     tcc_error("invalid array size");
-            } else {
-                if (!is_integer_btype(vtop->type.t & VT_BTYPE))
+            } وگرنه {
+                اگر (!is_integer_btype(vtop->type.t & VT_BTYPE))
                     tcc_error("size of variable length array should be an integer");
                 n = 0;
                 t1 = VT_VLA;
@@ -5238,20 +5238,20 @@ check:
         /* parse next post type */
         post_type(type, ad, storage, (td & ~(TYPE_DIRECT|TYPE_ABSTRACT)) | TYPE_NEST);
 
-        if ((type->t & VT_BTYPE) == VT_FUNC)
+        اگر ((type->t & VT_BTYPE) == VT_FUNC)
             tcc_error("declaration of an array of functions");
-        if ((type->t & VT_BTYPE) == VT_VOID
+        اگر ((type->t & VT_BTYPE) == VT_VOID
             || type_size(type, &align) < 0)
             tcc_error("declaration of an array of incomplete type elements");
 
         t1 |= type->t & VT_VLA;
 
-        if (t1 & VT_VLA) {
-            if (n < 0) {
-		if  (td & TYPE_NEST)
+        اگر (t1 & VT_VLA) {
+            اگر (n < 0) {
+		اگر  (td & TYPE_NEST)
                     tcc_error("need explicit inner array size in VLAs");
 	    }
-	    else {
+	    وگرنه {
                 loc -= type_size(&int_type, &align);
                 loc &= -align;
                 n = loc;
@@ -5263,26 +5263,26 @@ check:
                 vstore();
 	    }
         }
-        if (n != -1)
+        اگر (n != -1)
             vpop();
 	nocode_wanted = saved_nocode_wanted;
                 
         /* we push an anonymous symbol which will contain the array
            element type */
-        s = sym_push(SYM_FIELD, type, 0, n);
+        s = sym_افزودن(SYM_FIELD, type, 0, n);
         type->t = (t1 ? VT_VLA : VT_ARRAY) | VT_PTR;
         type->ref = s;
         type->t |= array_qualifiers;
 
-        if (vla_array_str) {
+        اگر (vla_array_str) {
             /* for function args, the top dimension is converted to pointer */
-	    if ((t1 & VT_VLA) && (td & TYPE_NEST))
+	    اگر ((t1 & VT_VLA) && (td & TYPE_NEST))
 	        s->vla_array_str = vla_array_str;
-	    else
+	    وگرنه
 	        tok_str_free_str(vla_array_str);
 	}
     }
-    return 1;
+    بازگشت 1;
 }
 
 /* Parse a type declarator (except basic type), and return the type
@@ -5292,56 +5292,56 @@ check:
    type_decl().  If this (possibly abstract) declarator is a pointer chain
    it returns the innermost pointed to type (equals *type, but is a different
    pointer), otherwise returns type itself, that's used for recursive calls.  */
-static CType *type_decl(CType *type, AttributeDef *ad, int *v, int td)
+ایستا CType *type_decl(CType *type, AttributeDef *ad, صحیح *v, صحیح td)
 {
     CType *post, *ret;
-    int qualifiers, storage;
+    صحیح qualifiers, storage;
 
     /* recursive type, remove storage bits first, apply them later again */
     storage = type->t & VT_STORAGE;
     type->t &= ~VT_STORAGE;
     post = ret = type;
 
-    while (tok == '*') {
+    وقتی (tok == '*') {
         qualifiers = 0;
     redo:
         next();
-        switch(tok) {
-        case TOK__Atomic:
+        انتخاب(tok) {
+        حالت TOK__Atomic:
             qualifiers |= VT_ATOMIC;
-            goto redo;
-        case TOK_CONST1:
-        case TOK_CONST2:
-        case TOK_CONST3:
+            برو redo;
+        حالت TOK_CONST1:
+        حالت TOK_CONST2:
+        حالت TOK_CONST3:
             qualifiers |= VT_CONSTANT;
-            goto redo;
-        case TOK_VOLATILE1:
-        case TOK_VOLATILE2:
-        case TOK_VOLATILE3:
+            برو redo;
+        حالت TOK_VOLATILE1:
+        حالت TOK_VOLATILE2:
+        حالت TOK_VOLATILE3:
             qualifiers |= VT_VOLATILE;
-            goto redo;
-        case TOK_RESTRICT1:
-        case TOK_RESTRICT2:
-        case TOK_RESTRICT3:
+            برو redo;
+        حالت TOK_RESTRICT1:
+        حالت TOK_RESTRICT2:
+        حالت TOK_RESTRICT3:
             qualifiers |= VT_RESTRICT;
-            goto redo;
+            برو redo;
 	/* XXX: clarify attribute handling */
-	case TOK_ATTRIBUTE1:
-	case TOK_ATTRIBUTE2:
+	حالت TOK_ATTRIBUTE1:
+	حالت TOK_ATTRIBUTE2:
 	    parse_attribute(ad);
-	    break;
+	    بشکن;
         }
         mk_pointer(type);
         type->t |= qualifiers;
-	if (ret == type)
+	اگر (ret == type)
 	    /* innermost pointed to type is the one for the first derivation */
 	    ret = pointed_type(type);
     }
 
-    if (tok == '(') {
+    اگر (tok == '(') {
 	/* This is possibly a parameter type list for abstract declarators
 	   ('int ()'), use post_type for testing this.  */
-	if (!post_type(type, ad, 0, td)) {
+	اگر (!post_type(type, ad, 0, td)) {
 	    /* It's not, so it's a nested declarator, and the post operations
 	       apply to the innermost pointed to type (if any).  */
 	    /* XXX: this is not correct to modify 'ad' at this point, but
@@ -5349,15 +5349,15 @@ static CType *type_decl(CType *type, AttributeDef *ad, int *v, int td)
 	    parse_attribute(ad);
 	    post = type_decl(type, ad, v, td);
 	    skip(')');
-	} else
-	  goto abstract;
-    } else if (tok >= TOK_IDENT && (td & TYPE_DIRECT)) {
+	} وگرنه
+	  برو abstract;
+    } وگرنه اگر (tok >= TOK_IDENT && (td & TYPE_DIRECT)) {
 	/* type identifier */
 	*v = tok;
 	next();
-    } else {
+    } وگرنه {
   abstract:
-	if (!(td & TYPE_ABSTRACT))
+	اگر (!(td & TYPE_ABSTRACT))
 	  expect("identifier");
 	*v = 0;
     }
@@ -5366,54 +5366,54 @@ static CType *type_decl(CType *type, AttributeDef *ad, int *v, int td)
     check_restrict_type(type);
     parse_attribute(ad);
     type->t |= storage;
-    return ret;
+    بازگشت ret;
 }
 
 /* indirection with full error checking and bound check */
-ST_FUNC void indir(void)
+ST_FUNC تهی indir(تهی)
 {
-    if ((vtop->type.t & VT_BTYPE) != VT_PTR) {
-        if ((vtop->type.t & VT_BTYPE) == VT_FUNC)
-            return;
+    اگر ((vtop->type.t & VT_BTYPE) != VT_PTR) {
+        اگر ((vtop->type.t & VT_BTYPE) == VT_FUNC)
+            بازگشت;
         expect("pointer");
     }
-    if (vtop->r & VT_LVAL)
+    اگر (vtop->r & VT_LVAL)
         gv(RC_INT);
     vtop->type = *pointed_type(&vtop->type);
     /* Arrays and functions are never lvalues */
-    if (!(vtop->type.t & (VT_ARRAY | VT_VLA))
+    اگر (!(vtop->type.t & (VT_ARRAY | VT_VLA))
         && (vtop->type.t & VT_BTYPE) != VT_FUNC) {
         vtop->r |= VT_LVAL;
         /* if bound checking, the referenced pointer must be checked */
 #ifdef CONFIG_TCC_BCHECK
-        if (tcc_state->do_bounds_check)
+        اگر (tcc_state->do_bounds_check)
             vtop->r |= VT_MUSTBOUND;
 #endif
     }
 }
 
 /* pass a parameter to a function and do type checking and casting */
-static void gfunc_param_typed(Sym *func, Sym *arg)
+ایستا تهی gfunc_param_typed(Sym *func, Sym *arg)
 {
-    int func_type;
+    صحیح func_type;
     CType type;
 
     func_type = func->f.func_type;
-    if (func_type == FUNC_OLD ||
-        (func_type == FUNC_ELLIPSIS && arg == NULL)) {
+    اگر (func_type == FUNC_OLD ||
+        (func_type == FUNC_ELLIPSIS && arg == پوچ)) {
         /* default casting : only need to convert float to double */
-        if ((vtop->type.t & VT_BTYPE) == VT_FLOAT) {
+        اگر ((vtop->type.t & VT_BTYPE) == VT_FLOAT) {
             gen_cast_s(VT_DOUBLE);
-        } else if (vtop->type.t & VT_BITFIELD) {
+        } وگرنه اگر (vtop->type.t & VT_BITFIELD) {
             type.t = vtop->type.t & (VT_BTYPE | VT_UNSIGNED);
 	    type.ref = vtop->type.ref;
             gen_cast(&type);
-        } else if (vtop->r & VT_MUSTCAST) {
+        } وگرنه اگر (vtop->r & VT_MUSTCAST) {
             force_charshort_cast();
         }
-    } else if (arg == NULL) {
+    } وگرنه اگر (arg == پوچ) {
         tcc_error("too many arguments to function");
-    } else {
+    } وگرنه {
         type = arg->type;
         type.t &= ~VT_CONSTANT; /* need to do that to avoid false warning */
         gen_assign_cast(&type);
@@ -5421,10 +5421,10 @@ static void gfunc_param_typed(Sym *func, Sym *arg)
 }
 
 /* parse an expression and return its type without any side effect. */
-static void expr_type(CType *type, void (*expr_fn)(void))
+ایستا تهی عبارت_type(CType *type, تهی (*عبارت_fn)(تهی))
 {
     nocode_wanted++;
-    expr_fn();
+    عبارت_fn();
     *type = vtop->type;
     vpop();
     nocode_wanted--;
@@ -5432,89 +5432,89 @@ static void expr_type(CType *type, void (*expr_fn)(void))
 
 /* parse an expression of the form '(type)' or '(expr)' and return its
    type */
-static void parse_expr_type(CType *type)
+ایستا تهی parse_عبارت_type(CType *type)
 {
-    int n;
+    صحیح n;
     AttributeDef ad;
 
     skip('(');
-    if (parse_btype(type, &ad, 0)) {
+    اگر (parse_btype(type, &ad, 0)) {
         type_decl(type, &ad, &n, TYPE_ABSTRACT);
-    } else {
-        expr_type(type, gexpr);
+    } وگرنه {
+        عبارت_type(type, gexpr);
     }
     skip(')');
 }
 
-static void parse_type(CType *type)
+ایستا تهی parse_type(CType *type)
 {
     AttributeDef ad;
-    int n;
+    صحیح n;
 
-    if (!parse_btype(type, &ad, 0)) {
+    اگر (!parse_btype(type, &ad, 0)) {
         expect("type");
     }
     type_decl(type, &ad, &n, TYPE_ABSTRACT);
 }
 
-static void parse_builtin_params(int nc, const char *args)
+ایستا تهی parse_builtin_params(صحیح nc, ثابت نویسه *args)
 {
-    char c, sep = '(';
+    نویسه c, sep = '(';
     CType type;
-    if (nc)
+    اگر (nc)
         nocode_wanted++;
     next();
-    if (*args == 0)
+    اگر (*args == 0)
 	skip(sep);
-    while ((c = *args++)) {
+    وقتی ((c = *args++)) {
 	skip(sep);
 	sep = ',';
-        if (c == 't') {
+        اگر (c == 't') {
             parse_type(&type);
 	    vpush(&type);
-	    continue;
+	    ادامه;
         }
-        expr_eq();
-        type.ref = NULL;
+        عبارت_eq();
+        type.ref = پوچ;
         type.t = 0;
-	switch (c) {
-	    case 'e':
-		continue;
-	    case 'V':
+	انتخاب (c) {
+	    حالت 'e':
+		ادامه;
+	    حالت 'V':
                 type.t = VT_CONSTANT;
-	    case 'v':
+	    حالت 'v':
                 type.t |= VT_VOID;
                 mk_pointer (&type);
-                break;
-	    case 'S':
+                بشکن;
+	    حالت 'S':
                 type.t = VT_CONSTANT;
-	    case 's':
+	    حالت 's':
                 type.t |= char_type.t;
                 mk_pointer (&type);
-                break;
-	    case 'i':
+                بشکن;
+	    حالت 'i':
                 type.t = VT_INT;
-                break;
-	    case 'l':
+                بشکن;
+	    حالت 'l':
                 type.t = VT_SIZE_T;
-                break;
-	    default:
-                break;
+                بشکن;
+	    پیشفرض:
+                بشکن;
 	}
         gen_assign_cast(&type);
     }
     skip(')');
-    if (nc)
+    اگر (nc)
         nocode_wanted--;
 }
 
-static void parse_atomic(int atok)
+ایستا تهی parse_atomic(صحیح atok)
 {
-    int size, align, arg, t, save = 0;
+    صحیح size, align, arg, t, save = 0;
     CType *atom, *atom_ptr, ct = {0};
     SValue store;
-    char buf[40];
-    static const char *const templates[] = {
+    نویسه buf[40];
+    ایستا ثابت نویسه *ثابت templates[] = {
         /*
          * Each entry consists of callback and function template.
          * The template represents argument types and return type.
@@ -5548,23 +5548,23 @@ static void parse_atomic(int atok)
         /* __atomic_and_fetch */        "avm.v",
         /* __atomic_nand_fetch */       "avm.v"
     };
-    const char *template = templates[(atok - TOK___atomic_store)];
+    ثابت نویسه *template = templates[(atok - TOK___atomic_store)];
 
-    atom = atom_ptr = NULL;
+    atom = atom_ptr = پوچ;
     size = 0; /* pacify compiler */
     next();
     skip('(');
-    for (arg = 0;;) {
-        expr_eq();
-        switch (template[arg]) {
-        case 'a':
-        case 'A':
+    برای (arg = 0;;) {
+        عبارت_eq();
+        انتخاب (template[arg]) {
+        حالت 'a':
+        حالت 'A':
             atom_ptr = &vtop->type;
-            if ((atom_ptr->t & VT_BTYPE) != VT_PTR)
+            اگر ((atom_ptr->t & VT_BTYPE) != VT_PTR)
                 expect("pointer");
             atom = pointed_type(atom_ptr);
             size = type_size(atom, &align);
-            if (size > 8
+            اگر (size > 8
                 || (size & (size - 1))
                 || (atok > TOK___atomic_compare_exchange
                     && (0 == btype_size(atom->t & VT_BTYPE)
@@ -5573,49 +5573,49 @@ static void parse_atomic(int atok)
             /* GCC does not care either: */
             /* if (!(atom->t & VT_ATOMIC))
                 tcc_warning("pointer target declaration is missing '_Atomic'"); */
-            break;
+            بشکن;
 
-        case 'p':
-            if ((vtop->type.t & VT_BTYPE) != VT_PTR
+        حالت 'p':
+            اگر ((vtop->type.t & VT_BTYPE) != VT_PTR
              || type_size(pointed_type(&vtop->type), &align) != size)
                 tcc_error("pointer target type mismatch in argument %d", arg + 1);
             gen_assign_cast(atom_ptr);
-            break;
-        case 'v':
+            بشکن;
+        حالت 'v':
             gen_assign_cast(atom);
-            break;
-        case 'l':
+            بشکن;
+        حالت 'l':
             indir();
             gen_assign_cast(atom);
-            break;
-        case 's':
+            بشکن;
+        حالت 's':
             save = 1;
             indir();
             store = *vtop;
             vpop();
-            break;
-        case 'm':
+            بشکن;
+        حالت 'm':
             gen_assign_cast(&int_type);
-            break;
-        case 'b':
+            بشکن;
+        حالت 'b':
             ct.t = VT_BOOL;
             gen_assign_cast(&ct);
-            break;
+            بشکن;
         }
-        if ('.' == template[++arg])
-            break;
+        اگر ('.' == template[++arg])
+            بشکن;
         skip(',');
     }
     skip(')');
 
     ct.t = VT_VOID;
-    switch (template[arg + 1]) {
-    case 'b':
+    انتخاب (template[arg + 1]) {
+    حالت 'b':
         ct.t = VT_BOOL;
-        break;
-    case 'v':
+        بشکن;
+    حالت 'v':
         ct = *atom;
-        break;
+        بشکن;
     }
 
     sprintf(buf, "%s_%d", get_tok_str(atok, 0), size);
@@ -5626,15 +5626,15 @@ static void parse_atomic(int atok)
     vpush(&ct);
     PUT_R_RET(vtop, ct.t);
     t = ct.t & VT_BTYPE;
-    if (t == VT_BYTE || t == VT_SHORT || t == VT_BOOL) {
+    اگر (t == VT_BYTE || t == VT_SHORT || t == VT_BOOL) {
 #ifdef PROMOTE_RET
         vtop->r |= BFVAL(VT_MUSTCAST, 1);
-#else
+#وگرنه
         vtop->type.t = VT_INT;
 #endif
     }
     gen_cast(&ct);
-    if (save) {
+    اگر (save) {
         vpush(&ct);
         *vtop = store;
         vswap();
@@ -5642,131 +5642,131 @@ static void parse_atomic(int atok)
     }
 }
 
-ST_FUNC void unary(void)
+ST_FUNC تهی unary(تهی)
 {
-    int n, t, align, size, r;
+    صحیح n, t, align, size, r;
     CType type;
     Sym *s;
     AttributeDef ad;
 
     /* generate line number info */
-    if (debug_modes)
-        tcc_debug_line(tcc_state), tcc_tcov_check_line (tcc_state, 1);
+    اگر (debug_modes)
+        tcc_debug_سطر(tcc_state), tcc_tcov_check_سطر (tcc_state, 1);
 
-    type.ref = NULL;
+    type.ref = پوچ;
     /* XXX: GCC 2.95.3 does not generate a table although it should be
        better here */
  tok_next:
-    switch(tok) {
-    case TOK_EXTENSION:
+    انتخاب(tok) {
+    حالت TOK_EXTENSION:
         next();
-        goto tok_next;
-    case TOK_LCHAR:
+        برو tok_next;
+    حالت TOK_LCHAR:
 #ifdef TCC_TARGET_PE
         t = VT_SHORT|VT_UNSIGNED;
-        goto push_tokc;
+        برو افزودن_tokc;
 #endif
-    case TOK_CINT:
-    case TOK_CCHAR: 
+    حالت TOK_CINT:
+    حالت TOK_CCHAR: 
 	t = VT_INT;
- push_tokc:
+ افزودن_tokc:
 	type.t = t;
 	vsetc(&type, VT_CONST, &tokc);
         next();
-        break;
-    case TOK_CUINT:
+        بشکن;
+    حالت TOK_CUINT:
         t = VT_INT | VT_UNSIGNED;
-        goto push_tokc;
-    case TOK_CLLONG:
+        برو افزودن_tokc;
+    حالت TOK_CLLONG:
         t = VT_LLONG;
-	goto push_tokc;
-    case TOK_CULLONG:
+	برو افزودن_tokc;
+    حالت TOK_CULLONG:
         t = VT_LLONG | VT_UNSIGNED;
-	goto push_tokc;
-    case TOK_CFLOAT:
+	برو افزودن_tokc;
+    حالت TOK_CFLOAT:
         t = VT_FLOAT;
-	goto push_tokc;
-    case TOK_CDOUBLE:
+	برو افزودن_tokc;
+    حالت TOK_CDOUBLE:
         t = VT_DOUBLE;
-	goto push_tokc;
-    case TOK_CLDOUBLE:
+	برو افزودن_tokc;
+    حالت TOK_CLDOUBLE:
 #ifdef TCC_USING_DOUBLE_FOR_LDOUBLE
         t = VT_DOUBLE | VT_LONG;
         tokc.d = tokc.ld;
-#else
+#وگرنه
         t = VT_LDOUBLE;
 #endif
-	goto push_tokc;
-    case TOK_CLONG:
+	برو افزودن_tokc;
+    حالت TOK_CLONG:
         t = (LONG_SIZE == 8 ? VT_LLONG : VT_INT) | VT_LONG;
-	goto push_tokc;
-    case TOK_CULONG:
+	برو افزودن_tokc;
+    حالت TOK_CULONG:
         t = (LONG_SIZE == 8 ? VT_LLONG : VT_INT) | VT_LONG | VT_UNSIGNED;
-	goto push_tokc;
-    case TOK___FUNCTION__:
-        if (!gnu_ext)
-            goto tok_identifier;
+	برو افزودن_tokc;
+    حالت TOK___FUNCTION__:
+        اگر (!gnu_ext)
+            برو tok_identifier;
         /* fall thru */
-    case TOK___FUNC__:
+    حالت TOK___FUNC__:
         tok = TOK_STR;
         cstr_reset(&tokcstr);
         cstr_cat(&tokcstr, funcname, 0);
         tokc.str.size = tokcstr.size;
         tokc.str.data = tokcstr.data;
-        goto case_TOK_STR;
-    case TOK_LSTR:
+        برو case_TOK_STR;
+    حالت TOK_LSTR:
 #ifdef TCC_TARGET_PE
         t = VT_SHORT | VT_UNSIGNED;
-#else
+#وگرنه
         t = VT_INT;
 #endif
-        goto str_init;
-    case TOK_STR:
+        برو str_init;
+    حالت TOK_STR:
     case_TOK_STR:
         /* string parsing */
         t = char_type.t;
     str_init:
-        if (tcc_state->warn_write_strings & WARN_ON)
+        اگر (tcc_state->warn_write_strings & WARN_ON)
             t |= VT_CONSTANT;
         type.t = t;
         mk_pointer(&type);
         type.t |= VT_ARRAY;
-        memset(&ad, 0, sizeof(AttributeDef));
+        memset(&ad, 0, اندازه(AttributeDef));
         ad.section = rodata_section;
         decl_initializer_alloc(&type, &ad, VT_CONST, 2, 0, 0);
-        break;
-    case TOK_SOTYPE:
-    case '(':
+        بشکن;
+    حالت TOK_SOTYPE:
+    حالت '(':
         t = tok;
         next();
         /* cast ? */
-        if (parse_btype(&type, &ad, 0)) {
+        اگر (parse_btype(&type, &ad, 0)) {
             type_decl(&type, &ad, &n, TYPE_ABSTRACT);
             skip(')');
             /* check ISOC99 compound literal */
-            if (tok == '{') {
+            اگر (tok == '{') {
                     /* data is allocated locally by default */
-                if (global_expr)
+                اگر (global_عبارت)
                     r = VT_CONST;
-                else
+                وگرنه
                     r = VT_LOCAL;
                 /* all except arrays are lvalues */
-                if (!(type.t & VT_ARRAY))
+                اگر (!(type.t & VT_ARRAY))
                     r |= VT_LVAL;
-                memset(&ad, 0, sizeof(AttributeDef));
+                memset(&ad, 0, اندازه(AttributeDef));
                 decl_initializer_alloc(&type, &ad, r, 1, 0, 0);
-            } else if (t == TOK_SOTYPE) { /* from sizeof/alignof (...) */
+            } وگرنه اگر (t == TOK_SOTYPE) { /* from sizeof/alignof (...) */
                 vpush(&type);
-                return;
-            } else {
+                بازگشت;
+            } وگرنه {
                 unary();
                 gen_cast(&type);
             }
-        } else if (tok == '{') {
-	    int saved_nocode_wanted = nocode_wanted;
-            if (CONST_WANTED && !NOEVAL_WANTED)
+        } وگرنه اگر (tok == '{') {
+	    صحیح saved_nocode_wanted = nocode_wanted;
+            اگر (CONST_WANTED && !NOEVAL_WANTED)
                 expect("constant");
-            if (0 == local_scope)
+            اگر (0 == local_scope)
                 tcc_error("statement expression outside of function");
             /* save all registers */
             save_regs(0);
@@ -5777,25 +5777,25 @@ ST_FUNC void unary(void)
 	       or loop heads) can be disabled again after the end of it. */
             /* default return value is (void) */
             vpushi(0), vtop->type.t = VT_VOID;
-            block(STMT_EXPR);
+            block(STMT_عبارت);
             /* If the statement expr can be entered, then we retain the current
                nocode_wanted state (from e.g. a 'return 0;' in the stmt-expr).
                If it can't be entered then the state is that from before the
                statement expression.  */
-            if (saved_nocode_wanted)
+            اگر (saved_nocode_wanted)
               nocode_wanted = saved_nocode_wanted;
             skip(')');
-        } else {
+        } وگرنه {
             gexpr();
             skip(')');
         }
-        break;
-    case '*':
+        بشکن;
+    حالت '*':
         next();
         unary();
         indir();
-        break;
-    case '&':
+        بشکن;
+    حالت '&':
         next();
         unary();
         /* functions names must be treated as function pointers,
@@ -5803,130 +5803,130 @@ ST_FUNC void unary(void)
            functions are not lvalues, we only have to handle it
            there and in function calls. */
         /* arrays can also be used although they are not lvalues */
-        if ((vtop->type.t & VT_BTYPE) != VT_FUNC &&
+        اگر ((vtop->type.t & VT_BTYPE) != VT_FUNC &&
             !(vtop->type.t & (VT_ARRAY | VT_VLA)))
             test_lvalue();
-        if (vtop->sym)
+        اگر (vtop->sym)
           vtop->sym->a.addrtaken = 1;
         mk_pointer(&vtop->type);
         gaddrof();
-        break;
-    case '!':
+        بشکن;
+    حالت '!':
         next();
         unary();
         gen_test_zero(TOK_EQ);
-        break;
-    case '~':
+        بشکن;
+    حالت '~':
         next();
         unary();
         vpushi(-1);
         gen_op('^');
-        break;
-    case '+':
+        بشکن;
+    حالت '+':
         next();
         unary();
-        if ((vtop->type.t & VT_BTYPE) == VT_PTR)
+        اگر ((vtop->type.t & VT_BTYPE) == VT_PTR)
             tcc_error("pointer not accepted for unary plus");
         /* In order to force cast, we add zero, except for floating point
 	   where we really need an noop (otherwise -0.0 will be transformed
 	   into +0.0).  */
-	if (!is_float(vtop->type.t)) {
+	اگر (!is_float(vtop->type.t)) {
 	    vpushi(0);
 	    gen_op('+');
 	}
-        break;
-    case TOK_SIZEOF:
-    case TOK_ALIGNOF1:
-    case TOK_ALIGNOF2:
-    case TOK_ALIGNOF3:
+        بشکن;
+    حالت TOK_SIZEOF:
+    حالت TOK_ALIGNOF1:
+    حالت TOK_ALIGNOF2:
+    حالت TOK_ALIGNOF3:
         t = tok;
         next();
-        if (tok == '(')
+        اگر (tok == '(')
             tok = TOK_SOTYPE;
-        expr_type(&type, unary);
-        if (t == TOK_SIZEOF) {
+        عبارت_type(&type, unary);
+        اگر (t == TOK_SIZEOF) {
             vpush_type_size(&type, &align);
             gen_cast_s(VT_SIZE_T);
-        } else {
+        } وگرنه {
             type_size(&type, &align);
-            s = NULL;
-            if (vtop[1].r & VT_SYM)
+            s = پوچ;
+            اگر (vtop[1].r & VT_SYM)
                 s = vtop[1].sym; /* hack: accessing previous vtop */
-            if (s && s->a.aligned)
+            اگر (s && s->a.aligned)
                 align = 1 << (s->a.aligned - 1);
             vpushs(align);
         }
-        break;
+        بشکن;
 
-    case TOK_builtin_expect:
+    حالت TOK_builtin_expect:
 	/* __builtin_expect is a no-op for now */
 	parse_builtin_params(0, "ee");
 	vpop();
-        break;
-    case TOK_builtin_types_compatible_p:
+        بشکن;
+    حالت TOK_builtin_types_compatible_p:
 	parse_builtin_params(0, "tt");
 	n = compare_types(&vtop[-1].type, &vtop[0].type, 1);
 	vtop -= 2;
 	vpushi(n);
-        break;
-    case TOK_builtin_choose_expr:
+        بشکن;
+    حالت TOK_builtin_choose_عبارت:
 	{
 	    int64_t c;
 	    next();
 	    skip('(');
-	    c = expr_const64();
+	    c = عبارت_const64();
 	    skip(',');
-	    if (!c) {
+	    اگر (!c) {
 		nocode_wanted++;
 	    }
-	    expr_eq();
-	    if (!c) {
+	    عبارت_eq();
+	    اگر (!c) {
 		vpop();
 		nocode_wanted--;
 	    }
 	    skip(',');
-	    if (c) {
+	    اگر (c) {
 		nocode_wanted++;
 	    }
-	    expr_eq();
-	    if (c) {
+	    عبارت_eq();
+	    اگر (c) {
 		vpop();
 		nocode_wanted--;
 	    }
 	    skip(')');
 	}
-        break;
-    case TOK_builtin_constant_p:
+        بشکن;
+    حالت TOK_builtin_constant_p:
 	parse_builtin_params(1, "e");
 	n = 1;
-	if ((vtop->r & (VT_VALMASK | VT_LVAL)) != VT_CONST
+	اگر ((vtop->r & (VT_VALMASK | VT_LVAL)) != VT_CONST
 	    || ((vtop->r & VT_SYM) && vtop->sym->a.addrtaken)
 	    )
 	    n = 0;
 	vtop--;
 	vpushi(n);
-        break;
-    case TOK_builtin_unreachable:
+        بشکن;
+    حالت TOK_builtin_unreachable:
 	parse_builtin_params(0, ""); /* just skip '()' */
         type.t = VT_VOID;
         vpush(&type);
         CODE_OFF();
-        break;
-    case TOK_builtin_frame_address:
-    case TOK_builtin_return_address:
+        بشکن;
+    حالت TOK_builtin_frame_address:
+    حالت TOK_builtin_return_address:
         {
-            int tok1 = tok;
-            int level;
+            صحیح tok1 = tok;
+            صحیح level;
             next();
             skip('(');
-            level = expr_const();
-            if (level < 0)
+            level = عبارت_const();
+            اگر (level < 0)
                 tcc_error("%s only takes positive integers", get_tok_str(tok1, 0));
             skip(')');
             type.t = VT_VOID;
             mk_pointer(&type);
             vset(&type, VT_LOCAL, 0);       /* local frame */
-            while (level--) {
+            وقتی (level--) {
 #ifdef TCC_TARGET_RISCV64
                 vpushi(2*PTR_SIZE);
                 gen_op('-');
@@ -5934,15 +5934,15 @@ ST_FUNC void unary(void)
                 mk_pointer(&vtop->type);
                 indir();                    /* -> parent frame */
             }
-            if (tok1 == TOK_builtin_return_address) {
+            اگر (tok1 == TOK_builtin_return_address) {
                 // assume return address is just above frame pointer on stack
 #ifdef TCC_TARGET_ARM
                 vpushi(2*PTR_SIZE);
                 gen_op('+');
-#elif defined TCC_TARGET_RISCV64
+#وگرنهاگر defined TCC_TARGET_RISCV64
                 vpushi(PTR_SIZE);
                 gen_op('-');
-#else
+#وگرنه
                 vpushi(PTR_SIZE);
                 gen_op('+');
 #endif
@@ -5950,178 +5950,178 @@ ST_FUNC void unary(void)
                 indir();
             }
         }
-        break;
+        بشکن;
 #ifdef TCC_TARGET_RISCV64
-    case TOK_builtin_va_start:
+    حالت TOK_builtin_va_start:
         parse_builtin_params(0, "ee");
         r = vtop->r & VT_VALMASK;
-        if (r == VT_LLOCAL)
+        اگر (r == VT_LLOCAL)
             r = VT_LOCAL;
-        if (r != VT_LOCAL)
+        اگر (r != VT_LOCAL)
             tcc_error("__builtin_va_start expects a local variable");
         gen_va_start();
 	vstore();
-        break;
+        بشکن;
 #endif
 #ifdef TCC_TARGET_X86_64
 #ifdef TCC_TARGET_PE
-    case TOK_builtin_va_start:
+    حالت TOK_builtin_va_start:
 	parse_builtin_params(0, "ee");
         r = vtop->r & VT_VALMASK;
-        if (r == VT_LLOCAL)
+        اگر (r == VT_LLOCAL)
             r = VT_LOCAL;
-        if (r != VT_LOCAL)
+        اگر (r != VT_LOCAL)
             tcc_error("__builtin_va_start expects a local variable");
         vtop->r = r;
 	vtop->type = char_pointer_type;
 	vtop->c.i += 8;
 	vstore();
-        break;
-#else
-    case TOK_builtin_va_arg_types:
+        بشکن;
+#وگرنه
+    حالت TOK_builtin_va_arg_types:
 	parse_builtin_params(0, "t");
 	vpushi(classify_x86_64_va_arg(&vtop->type));
 	vswap();
 	vpop();
-	break;
+	بشکن;
 #endif
 #endif
 
 #ifdef TCC_TARGET_ARM64
-    case TOK_builtin_va_start: {
+    حالت TOK_builtin_va_start: {
 	parse_builtin_params(0, "ee");
         //xx check types
         gen_va_start();
         vpushi(0);
         vtop->type.t = VT_VOID;
-        break;
+        بشکن;
     }
-    case TOK_builtin_va_arg: {
+    حالت TOK_builtin_va_arg: {
 	parse_builtin_params(0, "et");
 	type = vtop->type;
 	vpop();
         //xx check types
         gen_va_arg(&type);
         vtop->type = type;
-        break;
+        بشکن;
     }
 #endif
 #ifdef TCC_TARGET_ARM64
-    case TOK___arm64_clear_cache: {
+    حالت TOK___arm64_clear_cache: {
 	parse_builtin_params(0, "ee");
         gen_clear_cache();
         vpushi(0);
         vtop->type.t = VT_VOID;
-        break;
+        بشکن;
     }
 #endif
 #ifdef TCC_TARGET_RISCV64
-    case TOK___riscv64_clear_cache: {
+    حالت TOK___riscv64_clear_cache: {
 	parse_builtin_params(0, "ee");
 	vpop();
 	vpop();
         gen_clear_cache();
         vpushi(0);
         vtop->type.t = VT_VOID;
-        break;
+        بشکن;
     }
 #endif
 
     /* atomic operations */
-    case TOK___atomic_store:
-    case TOK___atomic_load:
-    case TOK___atomic_exchange:
-    case TOK___atomic_compare_exchange:
-    case TOK___atomic_fetch_add:
-    case TOK___atomic_fetch_sub:
-    case TOK___atomic_fetch_or:
-    case TOK___atomic_fetch_xor:
-    case TOK___atomic_fetch_and:
-    case TOK___atomic_fetch_nand:
-    case TOK___atomic_add_fetch:
-    case TOK___atomic_sub_fetch:
-    case TOK___atomic_or_fetch:
-    case TOK___atomic_xor_fetch:
-    case TOK___atomic_and_fetch:
-    case TOK___atomic_nand_fetch:
+    حالت TOK___atomic_store:
+    حالت TOK___atomic_load:
+    حالت TOK___atomic_exchange:
+    حالت TOK___atomic_compare_exchange:
+    حالت TOK___atomic_fetch_add:
+    حالت TOK___atomic_fetch_sub:
+    حالت TOK___atomic_fetch_or:
+    حالت TOK___atomic_fetch_xor:
+    حالت TOK___atomic_fetch_and:
+    حالت TOK___atomic_fetch_nand:
+    حالت TOK___atomic_add_fetch:
+    حالت TOK___atomic_sub_fetch:
+    حالت TOK___atomic_or_fetch:
+    حالت TOK___atomic_xor_fetch:
+    حالت TOK___atomic_and_fetch:
+    حالت TOK___atomic_nand_fetch:
         parse_atomic(tok);
-        break;
+        بشکن;
 
     /* pre operations */
-    case TOK_INC:
-    case TOK_DEC:
+    حالت TOK_INC:
+    حالت TOK_DEC:
         t = tok;
         next();
         unary();
         inc(0, t);
-        break;
-    case '-':
+        بشکن;
+    حالت '-':
         next();
         unary();
-	if (is_float(vtop->type.t)) {
+	اگر (is_float(vtop->type.t)) {
             gen_opif(TOK_NEG);
-	} else {
+	} وگرنه {
             vpushi(0);
             vswap();
             gen_op('-');
         }
-        break;
-    case TOK_LAND:
-        if (!gnu_ext)
-            goto tok_identifier;
+        بشکن;
+    حالت TOK_LAND:
+        اگر (!gnu_ext)
+            برو tok_identifier;
         next();
         /* allow to take the address of a label */
-        if (tok < TOK_UIDENT)
+        اگر (tok < TOK_UIDENT)
             expect("label identifier");
         s = label_find(tok);
-        if (!s) {
-            s = label_push(&global_label_stack, tok, LABEL_FORWARD);
-        } else {
-            if (s->r == LABEL_DECLARED)
+        اگر (!s) {
+            s = label_افزودن(&global_label_پشته, tok, LABEL_FORWARD);
+        } وگرنه {
+            اگر (s->r == LABEL_DECLARED)
                 s->r = LABEL_FORWARD;
         }
-        if ((s->type.t & VT_BTYPE) != VT_PTR) {
+        اگر ((s->type.t & VT_BTYPE) != VT_PTR) {
             s->type.t = VT_VOID;
             mk_pointer(&s->type);
             s->type.t |= VT_STATIC;
         }
         vpushsym(&s->type, s);
         next();
-        break;
+        بشکن;
 
-    case TOK_GENERIC:
+    حالت TOK_GENERIC:
     {
 	CType controlling_type;
-	int has_default = 0;
-	int has_match = 0;
-	int learn = 0;
-	TokenString *str = NULL;
-	int saved_nocode_wanted = nocode_wanted;
+	صحیح has_default = 0;
+	صحیح has_match = 0;
+	صحیح learn = 0;
+	TokenString *str = پوچ;
+	صحیح saved_nocode_wanted = nocode_wanted;
         nocode_wanted &= ~CONST_WANTED_MASK;
 
         next();
 	skip('(');
-	expr_type(&controlling_type, expr_eq);
+	عبارت_type(&controlling_type, عبارت_eq);
 	convert_expression_type(&controlling_type);
 
         nocode_wanted = saved_nocode_wanted;
 
-        for (;;) {
+        برای (;;) {
 	    learn = 0;
 	    skip(',');
-	    if (tok == TOK_DEFAULT) {
-		if (has_default)
+	    اگر (tok == TOK_DEFAULT) {
+		اگر (has_default)
 		    tcc_error("too many 'default'");
 		has_default = 1;
-		if (!has_match)
+		اگر (!has_match)
 		    learn = 1;
 		next();
-	    } else {
-		int v;
+	    } وگرنه {
+		صحیح v;
 		parse_btype(&type, &ad, 0);
 		type_decl(&type, &ad, &v, TYPE_ABSTRACT);
-		if (compare_types(&controlling_type, &type, 0)) {
-		    if (has_match) {
+		اگر (compare_types(&controlling_type, &type, 0)) {
+		    اگر (has_match) {
 		      tcc_error("type match twice");
 		    }
 		    has_match = 1;
@@ -6129,59 +6129,59 @@ ST_FUNC void unary(void)
 		}
 	    }
 	    skip(':');
-	    if (learn) {
-		if (str)
+	    اگر (learn) {
+		اگر (str)
 		    tok_str_free(str);
 		skip_or_save_block(&str);
-	    } else {
-		skip_or_save_block(NULL);
+	    } وگرنه {
+		skip_or_save_block(پوچ);
 	    }
-	    if (tok == ')')
-		break;
+	    اگر (tok == ')')
+		بشکن;
 	}
-	if (!str) {
-	    char buf[60];
-	    type_to_str(buf, sizeof buf, &controlling_type, NULL);
+	اگر (!str) {
+	    نویسه buf[60];
+	    type_to_str(buf, اندازه buf, &controlling_type, پوچ);
 	    tcc_error("type '%s' does not match any association", buf);
 	}
 	begin_macro(str, 1);
 	next();
-	expr_eq();
-	if (tok != TOK_EOF)
+	عبارت_eq();
+	اگر (tok != TOK_EOF)
 	    expect(",");
 	end_macro();
         next();
-	break;
+	بشکن;
     }
     // special qnan , snan and infinity values
-    case TOK___NAN__:
+    حالت TOK___NAN__:
         n = 0x7fc00000;
 special_math_val:
 	vpushi(n);
 	vtop->type.t = VT_FLOAT;
         next();
-        break;
-    case TOK___SNAN__:
+        بشکن;
+    حالت TOK___SNAN__:
 	n = 0x7f800001;
-	goto special_math_val;
-    case TOK___INF__:
+	برو special_math_val;
+    حالت TOK___INF__:
 	n = 0x7f800000;
-	goto special_math_val;
+	برو special_math_val;
 
-    default:
+    پیشفرض:
     tok_identifier:
-        if (tok < TOK_UIDENT)
+        اگر (tok < TOK_UIDENT)
             tcc_error("expression expected before '%s'", get_tok_str(tok, &tokc));
         t = tok;
         next();
         s = sym_find(t);
-        if (!s || IS_ASM_SYM(s)) {
-            const char *name = get_tok_str(t, NULL);
-            if (tok != '(')
+        اگر (!s || IS_ASM_SYM(s)) {
+            ثابت نویسه *name = get_tok_str(t, پوچ);
+            اگر (tok != '(')
                 tcc_error("'%s' undeclared", name);
             /* for simple function calls, we tolerate undeclared
                external reference to int() function */
-            if (!func_old)
+            اگر (!func_old)
             tcc_warning_c(warn_implicit_function_declaration)(
                 "implicit declaration of function '%s'", name);
             s = external_global_sym(t, &func_old_type);
@@ -6190,7 +6190,7 @@ special_math_val:
         r = s->r;
         /* A symbol that has a register is a local register variable,
            which starts out as VT_LOCAL value.  */
-        if ((r & VT_VALMASK) < VT_CONST)
+        اگر ((r & VT_VALMASK) < VT_CONST)
             r = (r & ~VT_VALMASK) | VT_LOCAL;
 
         vset(&s->type, r, s->c);
@@ -6199,30 +6199,30 @@ special_math_val:
 	   regvars.  */
 	vtop->sym = s;
 
-        if (r & VT_SYM) {
+        اگر (r & VT_SYM) {
             vtop->c.i = 0;
 #ifdef TCC_TARGET_PE
-            if (s->a.dllimport) {
+            اگر (s->a.dllimport) {
                 mk_pointer(&vtop->type);
                 vtop->r |= VT_LVAL;
                 indir();
             }
 #endif
-        } else if (r == VT_CONST && IS_ENUM_VAL(s->type.t)) {
+        } وگرنه اگر (r == VT_CONST && IS_ENUM_VAL(s->type.t)) {
             vtop->c.i = s->enum_val;
         }
-        break;
+        بشکن;
     }
     
     /* post operations */
-    while (1) {
-        if (tok == TOK_INC || tok == TOK_DEC) {
+    وقتی (1) {
+        اگر (tok == TOK_INC || tok == TOK_DEC) {
             inc(1, tok);
             next();
-        } else if (tok == '.' || tok == TOK_ARROW) {
-            int qualifiers, cumofs;
+        } وگرنه اگر (tok == '.' || tok == TOK_ARROW) {
+            صحیح qualifiers, cumofs;
             /* field */ 
-            if (tok == TOK_ARROW) 
+            اگر (tok == TOK_ARROW) 
                 indir();
             qualifiers = vtop->type.t & VT_QUAL;
             test_lvalue();
@@ -6236,42 +6236,42 @@ special_math_val:
             gen_op('+');
             /* change type to field type, and set to lvalue */
             vtop->type = s->type;
-            if (qualifiers)
+            اگر (qualifiers)
                 parse_btype_qualify(&vtop->type, qualifiers);
             /* an array is never an lvalue */
-            if (!(vtop->type.t & VT_ARRAY)) {
+            اگر (!(vtop->type.t & VT_ARRAY)) {
                 vtop->r |= VT_LVAL;
 #ifdef CONFIG_TCC_BCHECK
                 /* if bound checking, the referenced pointer must be checked */
-                if (tcc_state->do_bounds_check)
+                اگر (tcc_state->do_bounds_check)
                     vtop->r |= VT_MUSTBOUND;
 #endif
             }
             next();
-        } else if (tok == '[') {
+        } وگرنه اگر (tok == '[') {
             next();
             gexpr();
             gen_op('+');
             indir();
             skip(']');
-        } else if (tok == '(') {
+        } وگرنه اگر (tok == '(') {
             SValue ret;
             Sym *sa;
-            int nb_args, ret_nregs, ret_align, regsize, variadic;
+            صحیح nb_args, ret_nregs, ret_align, regsize, variadic;
             TokenString *p, *p2;
 
             /* function call  */
-            if ((vtop->type.t & VT_BTYPE) != VT_FUNC) {
+            اگر ((vtop->type.t & VT_BTYPE) != VT_FUNC) {
                 /* pointer test (no array accepted) */
-                if ((vtop->type.t & (VT_BTYPE | VT_ARRAY)) == VT_PTR) {
+                اگر ((vtop->type.t & (VT_BTYPE | VT_ARRAY)) == VT_PTR) {
                     vtop->type = *pointed_type(&vtop->type);
-                    if ((vtop->type.t & VT_BTYPE) != VT_FUNC)
-                        goto error_func;
-                } else {
+                    اگر ((vtop->type.t & VT_BTYPE) != VT_FUNC)
+                        برو error_func;
+                } وگرنه {
                 error_func:
                     expect("function pointer");
                 }
-            } else {
+            } وگرنه {
                 vtop->r &= ~VT_LVAL; /* no lvalue */
             }
             /* get return type */
@@ -6281,11 +6281,11 @@ special_math_val:
             nb_args = regsize = 0;
             ret.r2 = VT_CONST;
             /* compute first implicit argument if a structure is returned */
-            if ((s->type.t & VT_BTYPE) == VT_STRUCT) {
+            اگر ((s->type.t & VT_BTYPE) == VT_STRUCT) {
                 variadic = (s->f.func_type == FUNC_ELLIPSIS);
                 ret_nregs = gfunc_sret(&s->type, variadic, &ret.type,
                                        &ret_align, &regsize);
-                if (ret_nregs <= 0) {
+                اگر (ret_nregs <= 0) {
                     /* get some space for the returned structure */
                     size = type_size(&s->type, &align);
 #ifdef TCC_TARGET_ARM64
@@ -6293,8 +6293,8 @@ special_math_val:
                    It is much easier to write it to memory if we know
                    that we are allowed to write some extra bytes, so
                    round the allocated space up to a power of 2: */
-                if (size < 16)
-                    while (size & (size - 1))
+                اگر (size < 16)
+                    وقتی (size & (size - 1))
                         size = (size | (size - 1)) + 1;
 #endif
                     loc = (loc - size) & -align;
@@ -6304,57 +6304,57 @@ special_math_val:
                        problems */
                     vseti(VT_LOCAL, loc);
 #ifdef CONFIG_TCC_BCHECK
-                    if (tcc_state->do_bounds_check)
+                    اگر (tcc_state->do_bounds_check)
                         --loc;
 #endif
                     ret.c = vtop->c;
-                    if (ret_nregs < 0)
+                    اگر (ret_nregs < 0)
                       vtop--;
-                    else
+                    وگرنه
                       nb_args++;
                 }
-            } else {
+            } وگرنه {
                 ret_nregs = 1;
                 ret.type = s->type;
             }
 
-            if (ret_nregs > 0) {
+            اگر (ret_nregs > 0) {
                 /* return in register */
                 ret.c.i = 0;
                 PUT_R_RET(&ret, ret.type.t);
             }
 
-            p = NULL;
-            if (tok != ')') {
+            p = پوچ;
+            اگر (tok != ')') {
                 r = tcc_state->reverse_funcargs;
-                for(;;) {
-                    if (r) {
+                برای(;;) {
+                    اگر (r) {
                         skip_or_save_block(&p2);
                         p2->prev = p, p = p2;
-                    } else {
-                        expr_eq();
+                    } وگرنه {
+                        عبارت_eq();
                         gfunc_param_typed(s, sa);
                     }
                     nb_args++;
-                    if (sa)
+                    اگر (sa)
                         sa = sa->next;
-                    if (tok == ')')
-                        break;
+                    اگر (tok == ')')
+                        بشکن;
                     skip(',');
                 }
             }
-            if (sa)
+            اگر (sa)
                 tcc_error("too few arguments to function");
 
-            if (p) { /* with reverse_funcargs */
-                for (n = 0; p; p = p2, ++n) {
+            اگر (p) { /* with reverse_funcargs */
+                برای (n = 0; p; p = p2, ++n) {
                     p2 = p, sa = s;
-                    do {
+                    انجامبده {
                         sa = sa->next, p2 = p2->prev;
-                    } while (p2 && sa);
+                    } وقتی (p2 && sa);
                     p2 = p->prev;
                     begin_macro(p, 1), next();
-                    expr_eq();
+                    عبارت_eq();
                     gfunc_param_typed(s, sa);
                     end_macro();
                 }
@@ -6365,48 +6365,48 @@ special_math_val:
             vcheck_cmp(); /* the generators don't like VT_CMP on vtop */
             gfunc_call(nb_args);
 
-            if (ret_nregs < 0) {
+            اگر (ret_nregs < 0) {
                 vsetc(&ret.type, ret.r, &ret.c);
 #ifdef TCC_TARGET_RISCV64
                 arch_transfer_ret_regs(1);
 #endif
-            } else {
+            } وگرنه {
                 /* return value */
                 n = ret_nregs;
-                while (n > 1) {
-                    int rc = reg_classes[ret.r] & ~(RC_INT | RC_FLOAT);
+                وقتی (n > 1) {
+                    صحیح rc = reg_classes[ret.r] & ~(RC_INT | RC_FLOAT);
                     /* We assume that when a structure is returned in multiple
                        registers, their classes are consecutive values of the
                        suite s(n) = 2^n */
                     rc <<= --n;
-                    for (r = 0; r < NB_REGS; ++r)
-                        if (reg_classes[r] & rc)
-                            break;
+                    برای (r = 0; r < NB_REGS; ++r)
+                        اگر (reg_classes[r] & rc)
+                            بشکن;
                     vsetc(&ret.type, r, &ret.c);
                 }
                 vsetc(&ret.type, ret.r, &ret.c);
                 vtop->r2 = ret.r2;
 
                 /* handle packed struct return */
-                if (((s->type.t & VT_BTYPE) == VT_STRUCT) && ret_nregs) {
-                    int addr, offset;
+                اگر (((s->type.t & VT_BTYPE) == VT_STRUCT) && ret_nregs) {
+                    صحیح addr, offset;
 
                     size = type_size(&s->type, &align);
                     /* We're writing whole regs often, make sure there's enough
                        space.  Assume register size is power of 2.  */
                     size = (size + regsize - 1) & -regsize;
-                    if (ret_align > align)
+                    اگر (ret_align > align)
                         align = ret_align;
                     loc = (loc - size) & -align;
                     addr = loc;
                     offset = 0;
-                    for (;;) {
+                    برای (;;) {
                         vset(&ret.type, VT_LOCAL | VT_LVAL, addr + offset);
                         vswap();
                         vstore();
                         vtop--;
-                        if (--ret_nregs == 0)
-                          break;
+                        اگر (--ret_nregs == 0)
+                          بشکن;
                         offset += regsize;
                     }
                     vset(&s->type, VT_LOCAL | VT_LVAL, addr);
@@ -6418,180 +6418,180 @@ special_math_val:
                    matter we expect things to be already promoted to int,
                    but not larger.  */
                 t = s->type.t & VT_BTYPE;
-                if (t == VT_BYTE || t == VT_SHORT || t == VT_BOOL) {
+                اگر (t == VT_BYTE || t == VT_SHORT || t == VT_BOOL) {
 #ifdef PROMOTE_RET
                     vtop->r |= BFVAL(VT_MUSTCAST, 1);
-#else
+#وگرنه
                     vtop->type.t = VT_INT;
 #endif
                 }
             }
-            if (s->f.func_noreturn) {
-                if (debug_modes)
+            اگر (s->f.func_noreturn) {
+                اگر (debug_modes)
 	            tcc_tcov_block_end(tcc_state, -1);
                 CODE_OFF();
 	    }
-        } else {
-            break;
+        } وگرنه {
+            بشکن;
         }
     }
 }
 
 #ifndef precedence_parser /* original top-down parser */
 
-static void expr_prod(void)
+ایستا تهی عبارت_prod(تهی)
 {
-    int t;
+    صحیح t;
 
     unary();
-    while ((t = tok) == '*' || t == '/' || t == '%') {
+    وقتی ((t = tok) == '*' || t == '/' || t == '%') {
         next();
         unary();
         gen_op(t);
     }
 }
 
-static void expr_sum(void)
+ایستا تهی عبارت_sum(تهی)
 {
-    int t;
+    صحیح t;
 
-    expr_prod();
-    while ((t = tok) == '+' || t == '-') {
+    عبارت_prod();
+    وقتی ((t = tok) == '+' || t == '-') {
         next();
-        expr_prod();
+        عبارت_prod();
         gen_op(t);
     }
 }
 
-static void expr_shift(void)
+ایستا تهی عبارت_shift(تهی)
 {
-    int t;
+    صحیح t;
 
-    expr_sum();
-    while ((t = tok) == TOK_SHL || t == TOK_SAR) {
+    عبارت_sum();
+    وقتی ((t = tok) == TOK_SHL || t == TOK_SAR) {
         next();
-        expr_sum();
+        عبارت_sum();
         gen_op(t);
     }
 }
 
-static void expr_cmp(void)
+ایستا تهی عبارت_cmp(تهی)
 {
-    int t;
+    صحیح t;
 
-    expr_shift();
-    while (((t = tok) >= TOK_ULE && t <= TOK_GT) ||
+    عبارت_shift();
+    وقتی (((t = tok) >= TOK_ULE && t <= TOK_GT) ||
            t == TOK_ULT || t == TOK_UGE) {
         next();
-        expr_shift();
+        عبارت_shift();
         gen_op(t);
     }
 }
 
-static void expr_cmpeq(void)
+ایستا تهی عبارت_cmpeq(تهی)
 {
-    int t;
+    صحیح t;
 
-    expr_cmp();
-    while ((t = tok) == TOK_EQ || t == TOK_NE) {
+    عبارت_cmp();
+    وقتی ((t = tok) == TOK_EQ || t == TOK_NE) {
         next();
-        expr_cmp();
+        عبارت_cmp();
         gen_op(t);
     }
 }
 
-static void expr_and(void)
+ایستا تهی عبارت_and(تهی)
 {
-    expr_cmpeq();
-    while (tok == '&') {
+    عبارت_cmpeq();
+    وقتی (tok == '&') {
         next();
-        expr_cmpeq();
+        عبارت_cmpeq();
         gen_op('&');
     }
 }
 
-static void expr_xor(void)
+ایستا تهی عبارت_xor(تهی)
 {
-    expr_and();
-    while (tok == '^') {
+    عبارت_and();
+    وقتی (tok == '^') {
         next();
-        expr_and();
+        عبارت_and();
         gen_op('^');
     }
 }
 
-static void expr_or(void)
+ایستا تهی عبارت_or(تهی)
 {
-    expr_xor();
-    while (tok == '|') {
+    عبارت_xor();
+    وقتی (tok == '|') {
         next();
-        expr_xor();
+        عبارت_xor();
         gen_op('|');
     }
 }
 
-static void expr_landor(int op);
+ایستا تهی عبارت_landor(صحیح op);
 
-static void expr_land(void)
+ایستا تهی عبارت_land(تهی)
 {
-    expr_or();
-    if (tok == TOK_LAND)
-        expr_landor(tok);
+    عبارت_or();
+    اگر (tok == TOK_LAND)
+        عبارت_landor(tok);
 }
 
-static void expr_lor(void)
+ایستا تهی عبارت_lor(تهی)
 {
-    expr_land();
-    if (tok == TOK_LOR)
-        expr_landor(tok);
+    عبارت_land();
+    اگر (tok == TOK_LOR)
+        عبارت_landor(tok);
 }
 
-# define expr_landor_next(op) op == TOK_LAND ? expr_or() : expr_land()
-#else /* defined precedence_parser */
-# define expr_landor_next(op) unary(), expr_infix(precedence(op) + 1)
-# define expr_lor() unary(), expr_infix(1)
+# define عبارت_landor_next(op) op == TOK_LAND ? عبارت_or() : عبارت_land()
+#وگرنه /* defined precedence_parser */
+# define عبارت_landor_next(op) unary(), عبارت_infix(precedence(op) + 1)
+# define عبارت_lor() unary(), عبارت_infix(1)
 
-static int precedence(int tok)
+ایستا صحیح precedence(صحیح tok)
 {
-    switch (tok) {
-        case TOK_LOR: return 1;
-        case TOK_LAND: return 2;
-	case '|': return 3;
-	case '^': return 4;
-	case '&': return 5;
-	case TOK_EQ: case TOK_NE: return 6;
- relat: case TOK_ULT: case TOK_UGE: return 7;
-	case TOK_SHL: case TOK_SAR: return 8;
-	case '+': case '-': return 9;
-	case '*': case '/': case '%': return 10;
-	default:
-	    if (tok >= TOK_ULE && tok <= TOK_GT)
-	        goto relat;
-	    return 0;
+    انتخاب (tok) {
+        حالت TOK_LOR: بازگشت 1;
+        حالت TOK_LAND: بازگشت 2;
+	حالت '|': بازگشت 3;
+	حالت '^': بازگشت 4;
+	حالت '&': بازگشت 5;
+	حالت TOK_EQ: حالت TOK_NE: بازگشت 6;
+ relat: حالت TOK_ULT: حالت TOK_UGE: بازگشت 7;
+	حالت TOK_SHL: حالت TOK_SAR: بازگشت 8;
+	حالت '+': حالت '-': بازگشت 9;
+	حالت '*': حالت '/': حالت '%': بازگشت 10;
+	پیشفرض:
+	    اگر (tok >= TOK_ULE && tok <= TOK_GT)
+	        برو relat;
+	    بازگشت 0;
     }
 }
-static unsigned char prec[256];
-static void init_prec(void)
+ایستا unsigned نویسه prec[256];
+ایستا تهی init_prec(تهی)
 {
-    int i;
-    for (i = 0; i < 256; i++)
+    صحیح i;
+    برای (i = 0; i < 256; i++)
 	prec[i] = precedence(i);
 }
 #define precedence(i) ((unsigned)i < 256 ? prec[i] : 0)
 
-static void expr_landor(int op);
+ایستا تهی عبارت_landor(صحیح op);
 
-static void expr_infix(int p)
+ایستا تهی عبارت_infix(صحیح p)
 {
-    int t = tok, p2;
-    while ((p2 = precedence(t)) >= p) {
-        if (t == TOK_LOR || t == TOK_LAND) {
-            expr_landor(t);
-        } else {
+    صحیح t = tok, p2;
+    وقتی ((p2 = precedence(t)) >= p) {
+        اگر (t == TOK_LOR || t == TOK_LAND) {
+            عبارت_landor(t);
+        } وگرنه {
             next();
             unary();
-            if (precedence(tok) > p2)
-              expr_infix(p2 + 1);
+            اگر (precedence(tok) > p2)
+              عبارت_infix(p2 + 1);
             gen_op(t);
         }
         t = tok;
@@ -6602,77 +6602,77 @@ static void expr_infix(int p)
 /* Assuming vtop is a value used in a conditional context
    (i.e. compared with zero) return 0 if it's false, 1 if
    true and -1 if it can't be statically determined.  */
-static int condition_3way(void)
+ایستا صحیح condition_3way(تهی)
 {
-    int c = -1;
-    if ((vtop->r & (VT_VALMASK | VT_LVAL)) == VT_CONST &&
+    صحیح c = -1;
+    اگر ((vtop->r & (VT_VALMASK | VT_LVAL)) == VT_CONST &&
 	(!(vtop->r & VT_SYM) || !vtop->sym->a.weak)) {
 	vdup();
         gen_cast_s(VT_BOOL);
 	c = vtop->c.i;
 	vpop();
     }
-    return c;
+    بازگشت c;
 }
 
-static void expr_landor(int op)
+ایستا تهی عبارت_landor(صحیح op)
 {
-    int t = 0, cc = 1, f = 0, i = op == TOK_LAND, c;
-    for(;;) {
+    صحیح t = 0, cc = 1, f = 0, i = op == TOK_LAND, c;
+    برای(;;) {
         c = f ? i : condition_3way();
-        if (c < 0)
+        اگر (c < 0)
             save_regs(1), cc = 0;
-        else if (c != i)
+        وگرنه اگر (c != i)
             nocode_wanted++, f = 1;
-        if (tok != op)
-            break;
-        if (c < 0)
+        اگر (tok != op)
+            بشکن;
+        اگر (c < 0)
             t = gvtst(i, t);
-        else
+        وگرنه
             vpop();
         next();
-        expr_landor_next(op);
+        عبارت_landor_next(op);
     }
-    if (cc || f) {
+    اگر (cc || f) {
         vpop();
         vpushi(i ^ f);
         gsym(t);
         nocode_wanted -= f;
-    } else {
+    } وگرنه {
         gvtst_set(i, t);
     }
 }
 
-static int is_cond_bool(SValue *sv)
+ایستا صحیح is_cond_bool(SValue *sv)
 {
-    if ((sv->r & (VT_VALMASK | VT_LVAL | VT_SYM)) == VT_CONST
+    اگر ((sv->r & (VT_VALMASK | VT_LVAL | VT_SYM)) == VT_CONST
         && (sv->type.t & VT_BTYPE) == VT_INT)
-        return (unsigned)sv->c.i < 2;
-    if (sv->r == VT_CMP)
-        return 1;
-    return 0;
+        بازگشت (unsigned)sv->c.i < 2;
+    اگر (sv->r == VT_CMP)
+        بازگشت 1;
+    بازگشت 0;
 }
 
-static void expr_cond(void)
+ایستا تهی عبارت_cond(تهی)
 {
-    int tt, u, r1, r2, rc, t1, t2, islv, c, g;
+    صحیح tt, u, r1, r2, rc, t1, t2, islv, c, g;
     SValue sv;
     CType type;
 
-    expr_lor();
-    if (tok == '?') {
+    عبارت_lor();
+    اگر (tok == '?') {
         next();
 	c = condition_3way();
         g = (tok == ':' && gnu_ext);
         tt = 0;
-        if (!g) {
-            if (c < 0) {
+        اگر (!g) {
+            اگر (c < 0) {
                 save_regs(1);
                 tt = gvtst(1, 0);
-            } else {
+            } وگرنه {
                 vpop();
             }
-        } else if (c < 0) {
+        } وگرنه اگر (c < 0) {
             /* needed to avoid having different registers saved in
                each branch */
             save_regs(1);
@@ -6680,40 +6680,40 @@ static void expr_cond(void)
             tt = gvtst(0, 0);
         }
 
-        if (c == 0)
+        اگر (c == 0)
           nocode_wanted++;
-        if (!g)
+        اگر (!g)
           gexpr();
 
-        if ((vtop->type.t & VT_BTYPE) == VT_FUNC)
+        اگر ((vtop->type.t & VT_BTYPE) == VT_FUNC)
           mk_pointer(&vtop->type);
         sv = *vtop; /* save value to handle it later */
         vtop--; /* no vpop so that FP stack is not flushed */
 
-        if (g) {
+        اگر (g) {
             u = tt;
-        } else if (c < 0) {
+        } وگرنه اگر (c < 0) {
             u = gjmp(0);
             gsym(tt);
-        } else
+        } وگرنه
           u = 0;
 
-        if (c == 0)
+        اگر (c == 0)
           nocode_wanted--;
-        if (c == 1)
+        اگر (c == 1)
           nocode_wanted++;
         skip(':');
-        expr_cond();
+        عبارت_cond();
 
-        if ((vtop->type.t & VT_BTYPE) == VT_FUNC)
+        اگر ((vtop->type.t & VT_BTYPE) == VT_FUNC)
           mk_pointer(&vtop->type);
 
         /* cast operands to correct type according to ISOC rules */
-        if (!combine_types(&type, &sv, vtop, '?'))
+        اگر (!combine_types(&type, &sv, vtop, '?'))
           type_incompatibility_error(&sv.type, &vtop->type,
             "type mismatch in conditional expression (have '%s' and '%s')");
 
-        if (c < 0 && is_cond_bool(vtop) && is_cond_bool(&sv)) {
+        اگر (c < 0 && is_cond_bool(vtop) && is_cond_bool(&sv)) {
             /* optimize "if (f ? a > b : c || d) ..." for example, where normally
                "a < b" and "c || d" would be forced to "(int)0/1" first, whereas
                this code jumps directly to the if's then/else branches. */
@@ -6726,7 +6726,7 @@ static void expr_cond(void)
             gvtst_set(1, t2);
             gen_cast(&type);
             //  tcc_warning("two conditions expr_cond");
-            return;
+            بازگشت;
         }
 
         /* keep structs lvalue by transforming `(expr ? a : b)` to `*(expr ? &a : &b)` so
@@ -6734,9 +6734,9 @@ static void expr_cond(void)
         islv = VT_STRUCT == (type.t & VT_BTYPE);
 
         /* now we convert second operand */
-        if (c != 1) {
+        اگر (c != 1) {
             gen_cast(&type);
-            if (islv) {
+            اگر (islv) {
                 mk_pointer(&vtop->type);
                 gaddrof();
             }
@@ -6745,32 +6745,32 @@ static void expr_cond(void)
         rc = RC_TYPE(type.t);
         /* for long longs, we use fixed registers to avoid having
            to handle a complicated move */
-        if (USING_TWO_WORDS(type.t))
+        اگر (USING_TWO_واژگان(type.t))
           rc = RC_RET(type.t);
 
         tt = r2 = 0;
-        if (c < 0) {
-            if (type.t != VT_VOID)
+        اگر (c < 0) {
+            اگر (type.t != VT_VOID)
                 r2 = gv(rc);
             tt = gjmp(0);
         }
         gsym(u);
-        if (c == 1)
+        اگر (c == 1)
           nocode_wanted--;
 
         /* this is horrible, but we must also convert first
            operand */
-        if (c != 0) {
+        اگر (c != 0) {
             *vtop = sv;
             gen_cast(&type);
-            if (islv) {
+            اگر (islv) {
                 mk_pointer(&vtop->type);
                 gaddrof();
             }
         }
 
-        if (c < 0) {
-            if (type.t != VT_VOID) {
+        اگر (c < 0) {
+            اگر (type.t != VT_VOID) {
                 r1 = gv(rc);
                 move_reg(r2, r1, islv ? VT_PTR : type.t);
                 vtop->r = r2;
@@ -6778,98 +6778,98 @@ static void expr_cond(void)
             gsym(tt);
         }
 
-        if (islv)
+        اگر (islv)
           indir();
     }
 }
 
-static void expr_eq(void)
+ایستا تهی عبارت_eq(تهی)
 {
-    int t;
+    صحیح t;
     
-    expr_cond();
-    if ((t = tok) == '=' || TOK_ASSIGN(t)) {
+    عبارت_cond();
+    اگر ((t = tok) == '=' || TOK_ASSIGN(t)) {
         test_lvalue();
         next();
-        if (t == '=') {
-            expr_eq();
-        } else {
+        اگر (t == '=') {
+            عبارت_eq();
+        } وگرنه {
             vdup();
-            expr_eq();
+            عبارت_eq();
             gen_op(TOK_ASSIGN_OP(t));
         }
         vstore();
     }
 }
 
-ST_FUNC void gexpr(void)
+ST_FUNC تهی gexpr(تهی)
 {
-    expr_eq();
-    if (tok == ',') {
-        do {
+    عبارت_eq();
+    اگر (tok == ',') {
+        انجامبده {
             vpop();
             next();
-            expr_eq();
-        } while (tok == ',');
+            عبارت_eq();
+        } وقتی (tok == ',');
 
         /* convert array & function to pointer */
         convert_expression_type(&vtop->type);
 
         /* make builtin_constant_p((1,2)) return 0 (like on gcc) */
-        if ((vtop->r & VT_VALMASK) == VT_CONST && nocode_wanted && !CONST_WANTED)
-            if (vtop->type.t != VT_VOID && (vtop->type.t & VT_BTYPE) != VT_STRUCT)
+        اگر ((vtop->r & VT_VALMASK) == VT_CONST && nocode_wanted && !CONST_WANTED)
+            اگر (vtop->type.t != VT_VOID && (vtop->type.t & VT_BTYPE) != VT_STRUCT)
                 gv(RC_TYPE(vtop->type.t));
     }
 }
 
 /* parse a constant expression and return value in vtop.  */
-static void expr_const1(void)
+ایستا تهی عبارت_const1(تهی)
 {
     nocode_wanted += CONST_WANTED_BIT;
-    expr_cond();
+    عبارت_cond();
     nocode_wanted -= CONST_WANTED_BIT;
 }
 
 /* parse an integer constant and return its value. */
-static inline int64_t expr_const64(void)
+ایستا درونخطی int64_t عبارت_const64(تهی)
 {
     int64_t c;
-    expr_const1();
-    if ((vtop->r & (VT_VALMASK | VT_LVAL | VT_SYM | VT_NONCONST)) != VT_CONST)
+    عبارت_const1();
+    اگر ((vtop->r & (VT_VALMASK | VT_LVAL | VT_SYM | VT_NONCONST)) != VT_CONST)
         expect("constant expression");
     c = vtop->c.i;
     vpop();
-    return c;
+    بازگشت c;
 }
 
 /* parse an integer constant and return its value.
    Complain if it doesn't fit 32bit (signed or unsigned).  */
-ST_FUNC int expr_const(void)
+ST_FUNC صحیح عبارت_const(تهی)
 {
-    int c;
-    int64_t wc = expr_const64();
+    صحیح c;
+    int64_t wc = عبارت_const64();
     c = wc;
-    if (c != wc && (unsigned)c != wc)
+    اگر (c != wc && (unsigned)c != wc)
         tcc_error("constant exceeds 32 bit");
-    return c;
+    بازگشت c;
 }
 
 /* ------------------------------------------------------------------------- */
 /* return from function */
 
 #ifndef TCC_TARGET_ARM64
-static void gfunc_return(CType *func_type)
+ایستا تهی gfunc_return(CType *func_type)
 {
-    if ((func_type->t & VT_BTYPE) == VT_STRUCT) {
+    اگر ((func_type->t & VT_BTYPE) == VT_STRUCT) {
         CType type, ret_type;
-        int ret_align, ret_nregs, regsize;
+        صحیح ret_align, ret_nregs, regsize;
         ret_nregs = gfunc_sret(func_type, func_var, &ret_type,
                                &ret_align, &regsize);
-        if (ret_nregs < 0) {
+        اگر (ret_nregs < 0) {
 #ifdef TCC_TARGET_RISCV64
             arch_transfer_ret_regs(0);
 #endif
-        } else if (0 == ret_nregs) {
+        } وگرنه اگر (0 == ret_nregs) {
             /* if returning structure, must copy it to implicit
                first pointer arg location */
             type = *func_type;
@@ -6879,18 +6879,18 @@ static void gfunc_return(CType *func_type)
             vswap();
             /* copy structure value to pointer */
             vstore();
-        } else {
+        } وگرنه {
             /* returning structure packed into registers */
-            int size, addr, align, rc, n;
+            صحیح size, addr, align, rc, n;
             size = type_size(func_type,&align);
-            if (ret_nregs * regsize > size ||
+            اگر (ret_nregs * regsize > size ||
 		((align & (ret_align - 1))
                  && ((vtop->r & VT_VALMASK) < VT_CONST /* pointer to struct */
                      || (vtop->c.i & (ret_align - 1))
                      ))) {
-		if (ret_nregs * regsize > size)
+		اگر (ret_nregs * regsize > size)
 		    size = ret_nregs * regsize;
-		if (ret_align > align)
+		اگر (ret_align > align)
 		    align = ret_align;
                 loc = (loc - size) & -align;
                 addr = loc;
@@ -6904,7 +6904,7 @@ static void gfunc_return(CType *func_type)
             vtop->type = ret_type;
             rc = RC_RET(ret_type.t);
             //printf("struct return: n:%d t:%02x rc:%02x\n", ret_nregs, ret_type.t, rc);
-            for (n = ret_nregs; --n > 0;) {
+            برای (n = ret_nregs; --n > 0;) {
                 vdup();
                 gv(rc);
                 vswap();
@@ -6917,23 +6917,23 @@ static void gfunc_return(CType *func_type)
             gv(rc);
             vtop -= ret_nregs - 1;
         }
-    } else {
+    } وگرنه {
         gv(RC_RET(func_type->t));
     }
     vtop--; /* NOT vpop() because on x86 it would flush the fp stack */
 }
 #endif
 
-static void check_func_return(void)
+ایستا تهی check_func_return(تهی)
 {
-    if ((func_vt.t & VT_BTYPE) == VT_VOID)
-        return;
-    if ((!strcmp(funcname, "main") || func_old)
+    اگر ((func_vt.t & VT_BTYPE) == VT_VOID)
+        بازگشت;
+    اگر ((!strcmp(funcname, "main") || func_old)
         && (func_vt.t & VT_BTYPE) == VT_INT) {
         /* main returns 0 by default */
         vpushi(0);
         gfunc_return(&func_vt);
-    } else {
+    } وگرنه {
         tcc_warning("function might return no value: '%s'", funcname);
     }
 }
@@ -6941,63 +6941,63 @@ static void check_func_return(void)
 /* ------------------------------------------------------------------------- */
 /* switch/case */
 
-static int case_cmp(uint64_t a, uint64_t b)
+ایستا صحیح case_cmp(uint64_t a, uint64_t b)
 {
-    if (cur_switch->sv.type.t & VT_UNSIGNED)
-        return a < b ? -1 : a > b;
-    else
-        return (int64_t)a < (int64_t)b ? -1 : (int64_t)a > (int64_t)b;
+    اگر (cur_switch->sv.type.t & VT_UNSIGNED)
+        بازگشت a < b ? -1 : a > b;
+    وگرنه
+        بازگشت (int64_t)a < (int64_t)b ? -1 : (int64_t)a > (int64_t)b;
 }
 
-static int case_cmp_qs(const void *pa, const void *pb)
+ایستا صحیح case_cmp_qs(ثابت تهی *pa, ثابت تهی *pb)
 {
-    return case_cmp((*(struct case_t**)pa)->v1, (*(struct case_t**)pb)->v1);
+    بازگشت case_cmp((*(ساختار case_t**)pa)->v1, (*(ساختار case_t**)pb)->v1);
 }
 
-static void case_sort(struct switch_t *sw)
+ایستا تهی case_sort(ساختار switch_t *sw)
 {
-    struct case_t **p;
-    if (sw->n < 2)
-        return;
-    qsort(sw->p, sw->n, sizeof *sw->p, case_cmp_qs);
+    ساختار case_t **p;
+    اگر (sw->n < 2)
+        بازگشت;
+    qsort(sw->p, sw->n, اندازه *sw->p, case_cmp_qs);
     p = sw->p;
-    while (p < sw->p + sw->n - 1) {
-        if (case_cmp(p[0]->v2, p[1]->v1) >= 0) {
-            int l1 = p[0]->line, l2 = p[1]->line;
+    وقتی (p < sw->p + sw->n - 1) {
+        اگر (case_cmp(p[0]->v2, p[1]->v1) >= 0) {
+            صحیح l1 = p[0]->سطر, l2 = p[1]->سطر;
             /* using special format "%i:..." to show specific line */
             tcc_error("%i:duplicate case value", l1 > l2 ? l1 : l2);
-        } else if (p[0]->v2 + 1 == p[1]->v1 && p[0]->ind == p[1]->ind) {
+        } وگرنه اگر (p[0]->v2 + 1 == p[1]->v1 && p[0]->ind == p[1]->ind) {
             /* treat "case 1: case 2: case 3:" like "case 1 ... 3: */
             p[1]->v1 = p[0]->v1;
             tcc_free(p[0]);
-            memmove(p, p + 1, (--sw->n - (p - sw->p)) * sizeof *p);
-        } else
+            memmove(p, p + 1, (--sw->n - (p - sw->p)) * اندازه *p);
+        } وگرنه
             ++p;
     }
 }
 
-static int gcase(struct case_t **base, int len, int dsym)
+ایستا صحیح gcase(ساختار case_t **base, صحیح len, صحیح dsym)
 {
-    struct case_t *p;
-    int t, l2, e;
+    ساختار case_t *p;
+    صحیح t, l2, e;
 
     t = vtop->type.t & VT_BTYPE;
-    if (t != VT_LLONG)
+    اگر (t != VT_LLONG)
         t = VT_INT;
-    while (len) {
+    وقتی (len) {
         /* binary search while len > 8, else linear */
         l2 = len > 8 ? len/2 : 0;
         p = base[l2];
         vdup(), vpush64(t, p->v2);
-        if (l2 == 0 && p->v1 == p->v2) {
+        اگر (l2 == 0 && p->v1 == p->v2) {
             gen_op(TOK_EQ); /* jmp to case when equal */
             gsym_addr(gvtst(0, 0), p->ind);
-        } else {
+        } وگرنه {
             /* case v1 ... v2 */
             gen_op(TOK_GT); /* jmp over when > V2 */
-            if (len == 1) /* last case test jumps to default when false */
+            اگر (len == 1) /* last case test jumps to default when false */
                 dsym = gvtst(0, dsym), e = 0;
-            else
+            وگرنه
                 e = gvtst(0, 0);
             vdup(), vpush64(t, p->v1);
             gen_op(TOK_GE); /* jmp to case when >= V1 */
@@ -7008,12 +7008,12 @@ static int gcase(struct case_t **base, int len, int dsym)
         ++l2, base += l2, len -= l2;
     }
     /* jump automagically will suppress more jumps */
-    return gjmp(dsym);
+    بازگشت gjmp(dsym);
 }
 
-static void end_switch(void)
+ایستا تهی end_switch(تهی)
 {
-    struct switch_t *sw = cur_switch;
+    ساختار switch_t *sw = cur_switch;
     dynarray_reset(&sw->p, &sw->n);
     cur_switch = sw->prev;
     tcc_free(sw);
@@ -7023,13 +7023,13 @@ static void end_switch(void)
 /* __attribute__((cleanup(fn))) */
 
 /* protect symbol lvalues from further modification  */
-static void save_lvalues(void)
+ایستا تهی save_lvalues(تهی)
 {
     SValue *sv = vtop;
-    while (sv >= vstack) {
-        if (sv->sym && (sv->r & VT_LVAL)) {
-            int align, size = type_size(&sv->type, &align);
-            int r2, l = get_temp_local_var(size, align, &r2);
+    وقتی (sv >= vstack) {
+        اگر (sv->sym && (sv->r & VT_LVAL)) {
+            صحیح align, size = type_size(&sv->type, &align);
+            صحیح r2, l = get_temp_local_var(size, align, &r2);
             vset(&sv->type, VT_LOCAL | VT_LVAL, l), vtop->r2 = r2;
             vpushv(sv), *sv = vtop[-1], vstore(), --vtop;
         }
@@ -7037,10 +7037,10 @@ static void save_lvalues(void)
     }
 }
 
-static void try_call_scope_cleanup(Sym *stop)
+ایستا تهی try_call_scope_cleanup(Sym *stop)
 {
     Sym *cls = cur_scope->cl.s;
-    for (; cls != stop; cls = cls->next) {
+    برای (; cls != stop; cls = cls->next) {
 	Sym *fs = cls->cleanup_func;
 	Sym *vs = cls->cleanup_sym;
 	save_lvalues();
@@ -7054,44 +7054,44 @@ static void try_call_scope_cleanup(Sym *stop)
 }
 
 
-static void try_call_cleanup_goto(Sym *cleanupstate)
+ایستا تهی try_call_cleanup_goto(Sym *cleanupstate)
 {
     Sym *oc, *cc;
-    int ocd, ccd;
+    صحیح ocd, ccd;
 
-    if (!cur_scope->cl.s)
-	return;
+    اگر (!cur_scope->cl.s)
+	بازگشت;
 
     /* search NCA of both cleanup chains given parents and initial depth */
     ocd = cleanupstate ? cleanupstate->v & ~SYM_FIELD : 0;
-    for (ccd = cur_scope->cl.n, oc = cleanupstate; ocd > ccd; --ocd, oc = oc->next)
+    برای (ccd = cur_scope->cl.n, oc = cleanupstate; ocd > ccd; --ocd, oc = oc->next)
       ;
-    for (cc = cur_scope->cl.s; ccd > ocd; --ccd, cc = cc->next)
+    برای (cc = cur_scope->cl.s; ccd > ocd; --ccd, cc = cc->next)
       ;
-    for (; cc != oc; cc = cc->next, oc = oc->next, --ccd)
+    برای (; cc != oc; cc = cc->next, oc = oc->next, --ccd)
       ;
 
     try_call_scope_cleanup(cc);
 }
 
 /* call 'func' for each __attribute__((cleanup(func))) */
-static void block_cleanup(struct scope *o)
+ایستا تهی block_cleanup(ساختار scope *o)
 {
-    int jmp = 0;
+    صحیح jmp = 0;
     Sym *g, **pg;
-    for (pg = &pending_gotos; (g = *pg) && g->c > o->cl.n;) {
-        if (g->cleanup_label->r & LABEL_FORWARD) {
+    برای (pg = &pending_gotos; (g = *pg) && g->c > o->cl.n;) {
+        اگر (g->cleanup_label->r & LABEL_FORWARD) {
             Sym *pcl = g->next;
-            if (!jmp)
+            اگر (!jmp)
                 jmp = gjmp(0);
             gsym(pcl->jnext);
             try_call_scope_cleanup(o->cl.s);
             pcl->jnext = gjmp(0);
-            if (!o->cl.n)
-                goto remove_pending;
+            اگر (!o->cl.n)
+                برو remove_pending;
             g->c = o->cl.n;
             pg = &g->prev;
-        } else {
+        } وگرنه {
     remove_pending:
             *pg = g->prev;
             sym_free(g);
@@ -7104,51 +7104,51 @@ static void block_cleanup(struct scope *o)
 /* ------------------------------------------------------------------------- */
 /* VLA */
 
-static void vla_restore(int loc)
+ایستا تهی vla_restore(صحیح loc)
 {
-    if (loc)
+    اگر (loc)
         gen_vla_sp_restore(loc);
 }
 
-static void vla_leave(struct scope *o)
+ایستا تهی vla_leave(ساختار scope *o)
 {
-    struct scope *c = cur_scope, *v = NULL;
-    for (; c != o && c; c = c->prev)
-      if (c->vla.num)
+    ساختار scope *c = cur_scope, *v = پوچ;
+    برای (; c != o && c; c = c->prev)
+      اگر (c->vla.رقم)
         v = c;
-    if (v)
+    اگر (v)
       vla_restore(v->vla.locorig);
 }
 
 /* ------------------------------------------------------------------------- */
 /* local scopes */
 
-static void new_scope(struct scope *o)
+ایستا تهی new_scope(ساختار scope *o)
 {
     /* copy and link previous scope */
     *o = *cur_scope;
     o->prev = cur_scope;
     cur_scope = o;
-    cur_scope->vla.num = 0;
+    cur_scope->vla.رقم = 0;
 
     /* record local declaration stack position */
-    o->lstk = local_stack;
-    o->llstk = local_label_stack;
+    o->lstk = local_پشته;
+    o->llstk = local_label_پشته;
     ++local_scope;
 }
 
-static void prev_scope(struct scope *o, int is_expr)
+ایستا تهی prev_scope(ساختار scope *o, صحیح is_عبارت)
 {
     vla_leave(o->prev);
 
-    if (o->cl.s != o->prev->cl.s)
+    اگر (o->cl.s != o->prev->cl.s)
         block_cleanup(o->prev);
 
-    if (debug_modes)
-        tcc_debug_end_scope(o->lstk, !is_expr);
+    اگر (debug_modes)
+        tcc_debug_end_scope(o->lstk, !is_عبارت);
 
     /* pop locally defined labels */
-    label_pop(&local_label_stack, o->llstk, is_expr);
+    label_برداشت(&local_label_پشته, o->llstk, is_عبارت);
 
     /* In the is_expr case (a statement expression is finished here),
        vtop might refer to symbols on the local_stack.  Either via the
@@ -7159,105 +7159,105 @@ static void prev_scope(struct scope *o, int is_expr)
        tables, though.  sym_pop will do that.  */
 
     /* pop locally defined symbols */
-    sym_pop(&local_stack, o->lstk, is_expr);
+    sym_برداشت(&local_پشته, o->lstk, is_عبارت);
     cur_scope = o->prev;
     --local_scope;
 }
 
 /* leave a scope via break/continue(/goto) */
-static void leave_scope(struct scope *o)
+ایستا تهی leave_scope(ساختار scope *o)
 {
-    if (!o)
-        return;
+    اگر (!o)
+        بازگشت;
     try_call_scope_cleanup(o->cl.s);
     vla_leave(o);
 }
 
 /* short versiona for scopes with 'if/do/while/switch' which can
    declare only types (of struct/union/enum) */
-static void new_scope_s(struct scope *o)
+ایستا تهی new_scope_s(ساختار scope *o)
 {
-    o->lstk = local_stack;
+    o->lstk = local_پشته;
     ++local_scope;
 }
 
-static void prev_scope_s(struct scope *o)
+ایستا تهی prev_scope_s(ساختار scope *o)
 {
-    sym_pop(&local_stack, o->lstk, 0);
+    sym_برداشت(&local_پشته, o->lstk, 0);
     --local_scope;
 }
 
 /* ------------------------------------------------------------------------- */
 /* call block from 'for do while' loops */
 
-static void lblock(int *bsym, int *csym)
+ایستا تهی lblock(صحیح *bsym, صحیح *csym)
 {
-    struct scope *lo = loop_scope, *co = cur_scope;
-    int *b = co->bsym, *c = co->csym;
-    if (csym) {
+    ساختار scope *lo = loop_scope, *co = cur_scope;
+    صحیح *b = co->bsym, *c = co->csym;
+    اگر (csym) {
         co->csym = csym;
         loop_scope = co;
     }
     co->bsym = bsym;
     block(0);
     co->bsym = b;
-    if (csym) {
+    اگر (csym) {
         co->csym = c;
         loop_scope = lo;
     }
 }
 
 /* c2y if/switch declaration */
-static void gexpr_decl(void)
+ایستا تهی gexpr_decl(تهی)
 {
-    int v = decl(VT_JMP);
-    if (v > 1 && tok != ';') {
+    صحیح v = decl(VT_JMP);
+    اگر (v > 1 && tok != ';') {
         Sym *s = sym_find(v);
         vset(&s->type, s->r, (s->r & VT_SYM) ? 0 : s->c);
         vtop->sym = s;
-    } else {
-        if (v)
+    } وگرنه {
+        اگر (v)
             skip(';');
         gexpr();
     }
 }
 
-static void block(int flags)
+ایستا تهی block(صحیح flags)
 {
-    int a, b, c, d, e, t;
-    struct scope o;
+    صحیح a, b, c, d, e, t;
+    ساختار scope o;
     Sym *s;
 
 again:
     t = tok;
     /* If the token carries a value, next() might destroy it. Only with
        invalid code such as f(){"123"4;} */
-    if (TOK_HAS_VALUE(t))
-        goto expr;
+    اگر (TOK_HAS_مقدار(t))
+        برو عبارت;
     next();
 
-    if (debug_modes)
-        tcc_tcov_check_line (tcc_state, 0), tcc_tcov_block_begin (tcc_state);
+    اگر (debug_modes)
+        tcc_tcov_check_سطر (tcc_state, 0), tcc_tcov_block_begin (tcc_state);
 
-    if (t == TOK_IF) {
+    اگر (t == TOK_IF) {
         new_scope_s(&o);
         skip('(');
         gexpr_decl();
         a = gvtst(1, 0);
         skip(')');
         block(0);
-        if (tok == TOK_ELSE) {
+        اگر (tok == TOK_ELSE) {
             d = gjmp(0);
             gsym(a);
             next();
             block(0);
             gsym(d); /* patch else jmp */
-        } else {
+        } وگرنه {
             gsym(a);
         }
         prev_scope_s(&o);
 
-    } else if (t == TOK_WHILE) {
+    } وگرنه اگر (t == TOK_WHILE) {
         new_scope_s(&o);
         d = gind();
         skip('(');
@@ -7271,92 +7271,92 @@ again:
         gsym(a);
         prev_scope_s(&o);
 
-    } else if (t == '{') {
-        if (debug_modes)
+    } وگرنه اگر (t == '{') {
+        اگر (debug_modes)
             tcc_debug_stabn(tcc_state, N_LBRAC, ind - func_ind);
         new_scope(&o);
 
         /* handle local labels declarations */
-        while (tok == TOK_LABEL) {
-            do {
+        وقتی (tok == TOK_LABEL) {
+            انجامبده {
                 next();
-                if (tok < TOK_UIDENT)
+                اگر (tok < TOK_UIDENT)
                     expect("label identifier");
-                label_push(&local_label_stack, tok, LABEL_DECLARED);
+                label_افزودن(&local_label_پشته, tok, LABEL_DECLARED);
                 next();
-            } while (tok == ',');
+            } وقتی (tok == ',');
             skip(';');
         }
 
-        while (tok != '}') {
+        وقتی (tok != '}') {
 	    decl(VT_LOCAL);
-            if (tok != '}') {
+            اگر (tok != '}') {
                 block(flags | STMT_COMPOUND);
             }
         }
 
-        prev_scope(&o, flags & STMT_EXPR);
-        if (debug_modes)
+        prev_scope(&o, flags & STMT_عبارت);
+        اگر (debug_modes)
             tcc_debug_stabn(tcc_state, N_RBRAC, ind - func_ind);
-        if (local_scope)
+        اگر (local_scope)
             next();
-        else if (!nocode_wanted)
+        وگرنه اگر (!nocode_wanted)
             check_func_return();
 
-    } else if (t == TOK_RETURN) {
+    } وگرنه اگر (t == TOK_RETURN) {
         b = (func_vt.t & VT_BTYPE) != VT_VOID;
-        if (tok != ';') {
+        اگر (tok != ';') {
             gexpr();
-            if (b) {
+            اگر (b) {
                 gen_assign_cast(&func_vt);
-            } else {
-                if (vtop->type.t != VT_VOID)
+            } وگرنه {
+                اگر (vtop->type.t != VT_VOID)
                     tcc_warning("void function returns a value");
                 vtop--;
             }
-        } else if (b && func_old && (func_vt.t & VT_BTYPE) == VT_INT) {
+        } وگرنه اگر (b && func_old && (func_vt.t & VT_BTYPE) == VT_INT) {
             vpushi(0);
-        } else if (b) {
+        } وگرنه اگر (b) {
             tcc_warning("'return' with no value");
             b = 0;
         }
-        leave_scope(root_scope);
-        if (b)
+        leave_scope(ریشه_scope);
+        اگر (b)
             gfunc_return(&func_vt);
         skip(';');
         /* jump unless last stmt in top-level block */
-        if (tok != '}' || local_scope != 1)
+        اگر (tok != '}' || local_scope != 1)
             rsym = gjmp(rsym);
-        if (debug_modes)
+        اگر (debug_modes)
 	    tcc_tcov_block_end (tcc_state, -1);
         CODE_OFF();
 
-    } else if (t == TOK_BREAK) {
+    } وگرنه اگر (t == TOK_BREAK) {
         /* compute jump */
-        if (!cur_scope->bsym)
+        اگر (!cur_scope->bsym)
             tcc_error("cannot break");
-        if (cur_switch && cur_scope->bsym == cur_switch->bsym)
+        اگر (cur_switch && cur_scope->bsym == cur_switch->bsym)
             leave_scope(cur_switch->scope);
-        else
+        وگرنه
             leave_scope(loop_scope);
         *cur_scope->bsym = gjmp(*cur_scope->bsym);
         skip(';');
 
-    } else if (t == TOK_CONTINUE) {
+    } وگرنه اگر (t == TOK_CONTINUE) {
         /* compute jump */
-        if (!cur_scope->csym)
+        اگر (!cur_scope->csym)
             tcc_error("cannot continue");
         leave_scope(loop_scope);
         *cur_scope->csym = gjmp(*cur_scope->csym);
         skip(';');
 
-    } else if (t == TOK_FOR) {
+    } وگرنه اگر (t == TOK_FOR) {
         new_scope(&o);
 
         skip('(');
-        if (tok != ';') {
+        اگر (tok != ';') {
             /* c99 for-loop init decl? */
-            if (!decl(VT_JMP)) {
+            اگر (!decl(VT_JMP)) {
                 /* no, regular for-loop init expr */
                 gexpr();
                 vpop();
@@ -7365,12 +7365,12 @@ again:
         skip(';');
         a = b = 0;
         c = d = gind();
-        if (tok != ';') {
+        اگر (tok != ';') {
             gexpr();
             a = gvtst(1, 0);
         }
         skip(';');
-        if (tok != ')') {
+        اگر (tok != ')') {
             e = gjmp(0);
             d = gind();
             gexpr();
@@ -7385,7 +7385,7 @@ again:
         gsym(a);
         prev_scope(&o, 0);
 
-    } else if (t == TOK_DO) {
+    } وگرنه اگر (t == TOK_DO) {
         new_scope_s(&o);
         a = b = 0;
         d = gind();
@@ -7401,10 +7401,10 @@ again:
         gsym(a);
         prev_scope_s(&o);
 
-    } else if (t == TOK_SWITCH) {
-        struct switch_t *sw;
+    } وگرنه اگر (t == TOK_SWITCH) {
+        ساختار switch_t *sw;
 
-        sw = tcc_mallocz(sizeof *sw);
+        sw = tcc_mallocz(اندازه *sw);
         sw->bsym = &a;
         sw->scope = cur_scope;
         sw->prev = cur_switch;
@@ -7414,152 +7414,152 @@ again:
         new_scope_s(&o);
         skip('(');
         gexpr_decl();
-        if (!is_integer_btype(vtop->type.t & VT_BTYPE))
+        اگر (!is_integer_btype(vtop->type.t & VT_BTYPE))
             tcc_error("switch value not an integer");
         skip(')');
         sw->sv = *vtop--; /* save switch value */
         a = 0;
         b = gjmp(0); /* jump to first case */
-        lblock(&a, NULL);
+        lblock(&a, پوچ);
         a = gjmp(a); /* add implicit break */
         /* case lookup */
         gsym(b);
         prev_scope_s(&o);
-        if (sw->nocode_wanted)
-            goto skip_switch;
+        اگر (sw->nocode_wanted)
+            برو skip_switch;
         case_sort(sw);
-        sw->bsym = NULL; /* marker for 32bit:gen_opl() */
+        sw->bsym = پوچ; /* marker for 32bit:gen_opl() */
         vpushv(&sw->sv);
         gv(RC_INT);
         d = gcase(sw->p, sw->n, 0);
         vpop();
-        if (sw->def_sym)
+        اگر (sw->def_sym)
             gsym_addr(d, sw->def_sym);
-        else
+        وگرنه
             gsym(d);
     skip_switch:
         /* break label */
         gsym(a);
         end_switch();
 
-    } else if (t == TOK_CASE) {
-        struct case_t *cr;
-        if (!cur_switch)
+    } وگرنه اگر (t == TOK_CASE) {
+        ساختار case_t *cr;
+        اگر (!cur_switch)
             expect("switch");
-        cr = tcc_malloc(sizeof(struct case_t));
+        cr = tcc_malloc(اندازه(ساختار case_t));
         dynarray_add(&cur_switch->p, &cur_switch->n, cr);
         t = cur_switch->sv.type.t;
-        cr->v1 = cr->v2 = value64(expr_const64(), t);
-        if (tok == TOK_DOTS && gnu_ext) {
+        cr->v1 = cr->v2 = value64(عبارت_const64(), t);
+        اگر (tok == TOK_DOTS && gnu_ext) {
             next();
-            cr->v2 = value64(expr_const64(), t);
-            if (case_cmp(cr->v2, cr->v1) < 0)
+            cr->v2 = value64(عبارت_const64(), t);
+            اگر (case_cmp(cr->v2, cr->v1) < 0)
                 tcc_warning("empty case range");
         }
         /* case and default are unreachable from a switch under nocode_wanted */
-        if (!cur_switch->nocode_wanted)
+        اگر (!cur_switch->nocode_wanted)
             cr->ind = gind();
-        cr->line = file->line_num;
+        cr->سطر = file->سطر_رقم;
         skip(':');
-        goto block_after_label;
+        برو block_after_label;
 
-    } else if (t == TOK_DEFAULT) {
-        if (!cur_switch)
+    } وگرنه اگر (t == TOK_DEFAULT) {
+        اگر (!cur_switch)
             expect("switch");
-        if (cur_switch->def_sym)
+        اگر (cur_switch->def_sym)
             tcc_error("too many 'default'");
         cur_switch->def_sym = cur_switch->nocode_wanted ? -1 : gind();
         skip(':');
-        goto block_after_label;
+        برو block_after_label;
 
-    } else if (t == TOK_GOTO) {
+    } وگرنه اگر (t == TOK_GOTO) {
         vla_restore(cur_scope->vla.locorig);
-        if (tok == '*' && gnu_ext) {
+        اگر (tok == '*' && gnu_ext) {
             /* computed goto */
             next();
             gexpr();
-            if ((vtop->type.t & VT_BTYPE) != VT_PTR)
+            اگر ((vtop->type.t & VT_BTYPE) != VT_PTR)
                 expect("pointer");
             ggoto();
 
-        } else if (tok >= TOK_UIDENT) {
+        } وگرنه اگر (tok >= TOK_UIDENT) {
 	    s = label_find(tok);
 	    /* put forward definition if needed */
-            if (!s)
-              s = label_push(&global_label_stack, tok, LABEL_FORWARD);
-            else if (s->r == LABEL_DECLARED)
+            اگر (!s)
+              s = label_افزودن(&global_label_پشته, tok, LABEL_FORWARD);
+            وگرنه اگر (s->r == LABEL_DECLARED)
               s->r = LABEL_FORWARD;
 
-	    if (s->r & LABEL_FORWARD) {
+	    اگر (s->r & LABEL_FORWARD) {
 		/* start new goto chain for cleanups, linked via label->next */
-		if (cur_scope->cl.s && !nocode_wanted) {
+		اگر (cur_scope->cl.s && !nocode_wanted) {
                     sym_push2(&pending_gotos, SYM_FIELD, 0, cur_scope->cl.n);
                     pending_gotos->cleanup_label = s;
                     s = sym_push2(&s->next, SYM_FIELD, 0, 0);
                     pending_gotos->next = s;
                 }
 		s->jnext = gjmp(s->jnext);
-	    } else {
+	    } وگرنه {
 		try_call_cleanup_goto(s->cleanupstate);
 		gjmp_addr(s->jind);
 	    }
 	    next();
 
-        } else {
+        } وگرنه {
             expect("label identifier");
         }
         skip(';');
 
-    } else if (t == TOK_ASM1 || t == TOK_ASM2 || t == TOK_ASM3) {
+    } وگرنه اگر (t == TOK_ASM1 || t == TOK_ASM2 || t == TOK_ASM3) {
         asm_instr();
 
-    } else {
-        if (tok == ':' && t >= TOK_UIDENT) {
+    } وگرنه {
+        اگر (tok == ':' && t >= TOK_UIDENT) {
             /* label case */
 	    next();
             s = label_find(t);
-            if (s) {
-                if (s->r == LABEL_DEFINED)
-                    tcc_error("duplicate label '%s'", get_tok_str(s->v, NULL));
+            اگر (s) {
+                اگر (s->r == LABEL_DEFINED)
+                    tcc_error("duplicate label '%s'", get_tok_str(s->v, پوچ));
                 s->r = LABEL_DEFINED;
-		if (s->next) {
+		اگر (s->next) {
 		    Sym *pcl; /* pending cleanup goto */
-		    for (pcl = s->next; pcl; pcl = pcl->prev)
+		    برای (pcl = s->next; pcl; pcl = pcl->prev)
 		      gsym(pcl->jnext);
-		    sym_pop(&s->next, NULL, 0);
-		} else
+		    sym_برداشت(&s->next, پوچ, 0);
+		} وگرنه
 		  gsym(s->jnext);
-            } else {
-                s = label_push(&global_label_stack, t, LABEL_DEFINED);
+            } وگرنه {
+                s = label_افزودن(&global_label_پشته, t, LABEL_DEFINED);
             }
             s->jind = gind();
             s->cleanupstate = cur_scope->cl.s;
 
     block_after_label:
             /* Accept attributes after labels (e.g. 'unused') */
-            parse_attribute(NULL);
+            parse_attribute(پوچ);
 
-            if (debug_modes)
+            اگر (debug_modes)
                 tcc_tcov_reset_ind(tcc_state);
             vla_restore(cur_scope->vla.loc);
 
-            if (tok != '}') {
-                if (0 == (flags & STMT_COMPOUND))
-                    goto again;
+            اگر (tok != '}') {
+                اگر (0 == (flags & STMT_COMPOUND))
+                    برو again;
                 /* C23: insert implicit null-statement whithin compound statement */
-            } else {
+            } وگرنه {
                 /* we accept this, but it is a mistake */
                 tcc_warning_c(warn_all)("deprecated use of label at end of compound statement");
             }
-        } else {
+        } وگرنه {
             /* expression case */
-            if (t != ';') {
+            اگر (t != ';') {
                 unget_tok(t);
-    expr:
-                if (flags & STMT_EXPR) {
+    عبارت:
+                اگر (flags & STMT_عبارت) {
                     vpop();
                     gexpr();
-                } else {
+                } وگرنه {
                     gexpr();
                     vpop();
                 }
@@ -7568,8 +7568,8 @@ again:
         }
     }
 
-    if (debug_modes)
-        tcc_tcov_check_line (tcc_state, 0), tcc_tcov_block_end (tcc_state, 0);
+    اگر (debug_modes)
+        tcc_tcov_check_سطر (tcc_state, 0), tcc_tcov_block_end (tcc_state, 0);
 }
 
 /* This skips over a stream of tokens containing balanced {} and ()
@@ -7577,59 +7577,59 @@ again:
    with a '{').  If STR then allocates and stores the skipped tokens
    in *STR.  This doesn't check if () and {} are nested correctly,
    i.e. "({)}" is accepted.  */
-static void skip_or_save_block(TokenString **str)
+ایستا تهی skip_or_save_block(TokenString **str)
 {
-    int braces = tok == '{';
-    int level = 0;
-    if (str)
+    صحیح braces = tok == '{';
+    صحیح level = 0;
+    اگر (str)
       *str = tok_str_alloc();
 
-    while (1) {
-	int t = tok;
-        if (level == 0
+    وقتی (1) {
+	صحیح t = tok;
+        اگر (level == 0
             && (t == ','
              || t == ';'
              || t == '}'
              || t == ')'
              || t == ']'))
-             break;
-	if (t == TOK_EOF) {
-	     if (str || level > 0)
+             بشکن;
+	اگر (t == TOK_EOF) {
+	     اگر (str || level > 0)
 	       tcc_error("unexpected end of file");
-	     else
-	       break;
+	     وگرنه
+	       بشکن;
 	}
-	if (str)
+	اگر (str)
 	  tok_str_add_tok(*str);
 	next();
-	if (t == '{' || t == '(' || t == '[') {
+	اگر (t == '{' || t == '(' || t == '[') {
 	    level++;
-	} else if (t == '}' || t == ')' || t == ']') {
+	} وگرنه اگر (t == '}' || t == ')' || t == ']') {
 	    level--;
-	    if (level == 0 && braces && t == '}')
-	      break;
+	    اگر (level == 0 && braces && t == '}')
+	      بشکن;
 	}
     }
-    if (str)
+    اگر (str)
 	tok_str_add(*str, TOK_EOF);
 }
 
-#define EXPR_CONST 1
-#define EXPR_ANY   2
+#define عبارت_CONST 1
+#define عبارت_ANY   2
 
-static void parse_init_elem(int expr_type)
+ایستا تهی parse_init_elem(صحیح عبارت_type)
 {
-    int saved_global_expr;
-    switch(expr_type) {
-    case EXPR_CONST:
+    صحیح saved_global_عبارت;
+    انتخاب(عبارت_type) {
+    حالت عبارت_CONST:
         /* compound literals must be allocated globally in this case */
-        saved_global_expr = global_expr;
-        global_expr = 1;
-        expr_const1();
-        global_expr = saved_global_expr;
+        saved_global_عبارت = global_عبارت;
+        global_عبارت = 1;
+        عبارت_const1();
+        global_عبارت = saved_global_عبارت;
         /* NOTE: symbols are accepted, as well as lvalue for anon symbols
 	   (compound literals).  */
-        if (((vtop->r & (VT_VALMASK | VT_LVAL)) != VT_CONST
+        اگر (((vtop->r & (VT_VALMASK | VT_LVAL)) != VT_CONST
              && ((vtop->r & (VT_SYM|VT_LVAL)) != (VT_SYM|VT_LVAL)
                  || vtop->sym->v < SYM_FIRST_ANOM))
 #ifdef TCC_TARGET_PE
@@ -7637,36 +7637,36 @@ static void parse_init_elem(int expr_type)
 #endif
            )
             tcc_error("initializer element is not constant");
-        break;
-    case EXPR_ANY:
-        expr_eq();
-        break;
+        بشکن;
+    حالت عبارت_ANY:
+        عبارت_eq();
+        بشکن;
     }
 }
 
-#if 1
-static void init_assert(init_params *p, int offset)
+#اگر 1
+ایستا تهی init_assert(init_params *p, صحیح offset)
 {
-    if (p->sec ? !NODATA_WANTED && offset > p->sec->data_offset
+    اگر (p->sec ? !NODATA_WANTED && offset > p->sec->data_offset
                : !nocode_wanted && offset > p->local_offset)
         tcc_internal_error("initializer overflow");
 }
-#else
+#وگرنه
 #define init_assert(sec, offset)
 #endif
 
 /* put zeros for variable based init */
-static void init_putz(init_params *p, unsigned long c, int size)
+ایستا تهی init_putz(init_params *p, unsigned long c, صحیح size)
 {
     init_assert(p, c + size);
-    if (p->sec) {
+    اگر (p->sec) {
         /* nothing to do because globals are already set to zero */
-    } else {
+    } وگرنه {
         vpush_helper_func(TOK_memset);
         vseti(VT_LOCAL, c);
         vpushi(0);
         vpushs(size);
-#if defined TCC_TARGET_ARM && defined TCC_ARM_EABI
+#اگر defined TCC_TARGET_ARM && defined TCC_ARM_EABI
         vswap();  /* using __aeabi_memset(void*, size_t, int) */
 #endif
         gfunc_call(3);
@@ -7680,31 +7680,31 @@ static void init_putz(init_params *p, unsigned long c, int size)
 
 /* delete relocations for specified range c ... c + size. Unfortunatly
    in very special cases, relocations may occur unordered */
-static void decl_design_delrels(Section *sec, int c, int size)
+ایستا تهی decl_design_delrels(Section *sec, صحیح c, صحیح size)
 {
     ElfW_Rel *rel, *rel2, *rel_end;
-    if (!sec || !sec->reloc)
-        return;
+    اگر (!sec || !sec->reloc)
+        بازگشت;
     rel = rel2 = (ElfW_Rel*)sec->reloc->data;
     rel_end = (ElfW_Rel*)(sec->reloc->data + sec->reloc->data_offset);
-    while (rel < rel_end) {
-        if (rel->r_offset >= c && rel->r_offset < c + size) {
-            sec->reloc->data_offset -= sizeof *rel;
-        } else {
-            if (rel2 != rel)
-                memcpy(rel2, rel, sizeof *rel);
+    وقتی (rel < rel_end) {
+        اگر (rel->r_offset >= c && rel->r_offset < c + size) {
+            sec->reloc->data_offset -= اندازه *rel;
+        } وگرنه {
+            اگر (rel2 != rel)
+                memcpy(rel2, rel, اندازه *rel);
             ++rel2;
         }
         ++rel;
     }
 }
 
-static void decl_design_flex(init_params *p, Sym *ref, int index)
+ایستا تهی decl_design_flex(init_params *p, Sym *ref, صحیح index)
 {
-    if (ref == p->flex_array_ref) {
-        if (index >= ref->c)
+    اگر (ref == p->flex_array_ref) {
+        اگر (index >= ref->c)
             ref->c = index + 1;
-    } else if (ref->c < 0 && index >= 0)
+    } وگرنه اگر (ref->c < 0 && index >= 0)
         tcc_error("flexible array has zero size in this context");
 }
 
@@ -7714,120 +7714,120 @@ static void decl_design_flex(init_params *p, Sym *ref, int index)
    index.  'flags' is as in decl_initializer.
    'al' contains the already initialized length of the
    current container (starting at c).  This returns the new length of that.  */
-static int decl_designator(init_params *p, CType *type, unsigned long c,
-                           Sym **cur_field, int flags, int al)
+ایستا صحیح decl_designator(init_params *p, CType *type, unsigned long c,
+                           Sym **cur_field, صحیح flags, صحیح al)
 {
     Sym *s, *f;
-    int index, index_last, align, l, nb_elems, elem_size;
+    صحیح index, index_last, align, l, nb_elems, elem_size;
     unsigned long corig = c;
 
     elem_size = 0;
     nb_elems = 1;
 
-    if (flags & DIF_HAVE_ELEM)
-        goto no_designator;
+    اگر (flags & DIF_HAVE_ELEM)
+        برو no_designator;
 
-    if (gnu_ext && tok >= TOK_UIDENT) {
+    اگر (gnu_ext && tok >= TOK_UIDENT) {
         l = tok, next();
-        if (tok == ':')
-            goto struct_field;
+        اگر (tok == ':')
+            برو struct_field;
         unget_tok(l);
     }
 
     /* NOTE: we only support ranges for last designator */
-    while (nb_elems == 1 && (tok == '[' || tok == '.')) {
-        if (tok == '[') {
-            if (!(type->t & VT_ARRAY))
+    وقتی (nb_elems == 1 && (tok == '[' || tok == '.')) {
+        اگر (tok == '[') {
+            اگر (!(type->t & VT_ARRAY))
                 expect("array type");
             next();
-            index = index_last = expr_const();
-            if (tok == TOK_DOTS && gnu_ext) {
+            index = index_last = عبارت_const();
+            اگر (tok == TOK_DOTS && gnu_ext) {
                 next();
-                index_last = expr_const();
+                index_last = عبارت_const();
             }
             skip(']');
             s = type->ref;
             decl_design_flex(p, s, index_last);
-            if (index < 0 || index_last >= s->c || index_last < index)
+            اگر (index < 0 || index_last >= s->c || index_last < index)
 	        tcc_error("index exceeds array bounds or range is empty");
-            if (cur_field)
+            اگر (cur_field)
 		(*cur_field)->c = index_last;
             type = pointed_type(type);
             elem_size = type_size(type, &align);
             c += index * elem_size;
             nb_elems = index_last - index + 1;
-        } else {
-            int cumofs;
+        } وگرنه {
+            صحیح cumofs;
             next();
             l = tok;
         struct_field:
             next();
 	    f = find_field(type, l, &cumofs);
-            if (cur_field)
+            اگر (cur_field)
                 *cur_field = f;
 	    type = &f->type;
             c += cumofs;
         }
-        cur_field = NULL;
+        cur_field = پوچ;
     }
-    if (!cur_field) {
-        if (tok == '=') {
+    اگر (!cur_field) {
+        اگر (tok == '=') {
             next();
-        } else if (!gnu_ext) {
+        } وگرنه اگر (!gnu_ext) {
 	    expect("=");
         }
-    } else {
+    } وگرنه {
     no_designator:
-        if (type->t & VT_ARRAY) {
+        اگر (type->t & VT_ARRAY) {
 	    index = (*cur_field)->c;
             s = type->ref;
             decl_design_flex(p, s, index);
-            if (index >= s->c)
+            اگر (index >= s->c)
                 tcc_error("too many initializers");
             type = pointed_type(type);
             elem_size = type_size(type, &align);
             c += index * elem_size;
-        } else {
+        } وگرنه {
             f = *cur_field;
 	    /* Skip bitfield padding. Also with size 32 and 64. */
-	    while (f && (f->v & SYM_FIRST_ANOM) &&
+	    وقتی (f && (f->v & SYM_FIRST_ANOM) &&
 		   is_integer_btype(f->type.t & VT_BTYPE))
 	        *cur_field = f = f->next;
-            if (!f)
+            اگر (!f)
                 tcc_error("too many initializers");
 	    type = &f->type;
             c += f->c;
         }
     }
 
-    if (!elem_size) /* for structs */
+    اگر (!elem_size) /* for structs */
         elem_size = type_size(type, &align);
 
     /* Using designators the same element can be initialized more
        than once.  In that case we need to delete possibly already
        existing relocations. */
-    if (!(flags & DIF_SIZE_ONLY) && c - corig < al) {
+    اگر (!(flags & DIF_SIZE_ONLY) && c - corig < al) {
         decl_design_delrels(p->sec, c, elem_size * nb_elems);
         flags &= ~DIF_CLEAR; /* mark stack dirty too */
     }
 
     decl_initializer(p, type, c, flags & ~DIF_FIRST);
 
-    if (!(flags & DIF_SIZE_ONLY) && nb_elems > 1) {
+    اگر (!(flags & DIF_SIZE_ONLY) && nb_elems > 1) {
         Sym aref = {0};
         CType t1;
-        int i;
-        if (p->sec || (type->t & VT_ARRAY)) {
+        صحیح i;
+        اگر (p->sec || (type->t & VT_ARRAY)) {
             /* make init_putv/vstore believe it were a struct */
             aref.c = elem_size;
             t1.t = VT_STRUCT, t1.ref = &aref;
             type = &t1;
         }
-        if (p->sec)
+        اگر (p->sec)
             vpush_ref(type, p->sec, c, elem_size);
-        else
+        وگرنه
 	    vset(type, VT_LOCAL|VT_LVAL, c);
-        for (i = 1; i < nb_elems; i++) {
+        برای (i = 1; i < nb_elems; i++) {
             vdup();
             init_putv(p, type, c + elem_size * i);
 	}
@@ -7835,83 +7835,83 @@ static int decl_designator(init_params *p, CType *type, unsigned long c,
     }
 
     c += nb_elems * elem_size;
-    if (c - corig > al)
+    اگر (c - corig > al)
       al = c - corig;
-    return al;
+    بازگشت al;
 }
 
-static void write_ldouble(unsigned char *d, void *s)
+ایستا تهی write_ldouble(unsigned نویسه *d, تهی *s)
 {
     //printf("long double %Lf\n", *(long double*)s);
 #ifdef TCC_CROSS_TEST
-    if (LDOUBLE_SIZE >= 10) {
-        double b = *(long double*)s;
+    اگر (LDOUBLE_SIZE >= 10) {
+        دوگانه b = *(long دوگانه*)s;
         s = &b;
-#else
-    if (sizeof (long double) == 8 && LDOUBLE_SIZE >= 10) {
+#وگرنه
+    اگر (اندازه (long دوگانه) == 8 && LDOUBLE_SIZE >= 10) {
 #endif
         /* our 'long double' is a double really (_WIN32, __APPLE__) */
         uint64_t m = *(uint64_t*)s;
-        int e = m >> 48;
-        int f = e >> 4 & 0x7FF;
+        صحیح e = m >> 48;
+        صحیح f = e >> 4 & 0x7FF;
         m <<= 11;
-        if (0 == f) {
-            if (0 == m)
-                goto set;
-            for (f = 1; !(m & 1ULL<<63); --f)
+        اگر (0 == f) {
+            اگر (0 == m)
+                برو set;
+            برای (f = 1; !(m & 1ULL<<63); --f)
                 m <<= 1;
         }
-        if (f == 0x7ff)
+        اگر (f == 0x7ff)
             f = 0x43FF;
         e = (e & 0x8000) | (f + 0x3C00);
         m |= 1ULL<<63;
     set:
-    #if (defined TCC_TARGET_I386 || defined TCC_TARGET_X86_64)
+    #اگر (defined TCC_TARGET_I386 || defined TCC_TARGET_X86_64)
         /* double -> extended */
         write64le(d, m);
         write16le(d+8, e);
-    #elif LDOUBLE_SIZE == 16
+    #وگرنهاگر LDOUBLE_SIZE == 16
         /* double -> quad */
         write64le(d+6, m << 1);
         write16le(d+14, e);
     #endif
         ;
-    } else {
-    #if LDOUBLE_SIZE == 8
+    } وگرنه {
+    #اگر LDOUBLE_SIZE == 8
         /* long double -> double */
-        double b = *(long double*)s;
+        دوگانه b = *(long دوگانه*)s;
         memcpy(d, &b, 8);
-    #elif (__i386__ || __x86_64__) && (defined TCC_TARGET_I386 || defined TCC_TARGET_X86_64)
+    #وگرنهاگر (__i386__ || __x86_64__) && (defined TCC_TARGET_I386 || defined TCC_TARGET_X86_64)
         /* extended -> extended */
         memcpy(d, s, 10);
-    #elif (__i386__ || __x86_64__) && (defined TCC_TARGET_ARM64 || defined TCC_TARGET_RISCV64)
+    #وگرنهاگر (__i386__ || __x86_64__) && (defined TCC_TARGET_ARM64 || defined TCC_TARGET_RISCV64)
         /* extended -> quad */
         uint64_t m = *(uint64_t*)s;
-        int e = *(uint16_t*)((char*)s + 8);
+        صحیح e = *(uint16_t*)((نویسه*)s + 8);
         write64le(d+6, m << 1);
         write16le(d+14, e);
-    #elif (__aarch64__ || __riscv) && (defined TCC_TARGET_I386 || defined TCC_TARGET_X86_64)
+    #وگرنهاگر (__aarch64__ || __riscv) && (defined TCC_TARGET_I386 || defined TCC_TARGET_X86_64)
         /* quad -> extended */
-        uint64_t m = read64le((char*)s + 6);
-        int e = read16le((char*)s + 14);
+        uint64_t m = read64le((نویسه*)s + 6);
+        صحیح e = read16le((نویسه*)s + 14);
         (e & 0x7fff) && (m & 1) && 0 == ++m && ++e;
         write64le(d, m >> 1 | ((e & 0x7fff) ? 1ULL<<63 : 0));
         write16le(d+8, e);
-    #else
+    #وگرنه
         /* unknown */
-        if (sizeof (long double) == LDOUBLE_SIZE)
+        اگر (اندازه (long دوگانه) == LDOUBLE_SIZE)
             memcpy(d, s, LDOUBLE_SIZE);
     #endif
     }
 }
 
 /* store a value or an expression directly in global data or in local array */
-static void init_putv(init_params *p, CType *type, unsigned long c)
+ایستا تهی init_putv(init_params *p, CType *type, unsigned long c)
 {
-    int bt;
-    void *ptr;
+    صحیح bt;
+    تهی *ptr;
     CType dtype;
-    int size, align;
+    صحیح size, align;
     Section *sec = p->sec;
     uint64_t val;
 
@@ -7919,17 +7919,17 @@ static void init_putv(init_params *p, CType *type, unsigned long c)
     dtype.t &= ~VT_CONSTANT; /* need to do that to avoid false warning */
 
     size = type_size(type, &align);
-    if (type->t & VT_BITFIELD)
+    اگر (type->t & VT_BITFIELD)
         size = (BIT_POS(type->t) + BIT_SIZE(type->t) + 7) / 8;
     init_assert(p, c + size);
 
-    if (sec) {
+    اگر (sec) {
         /* XXX: not portable */
         /* XXX: generate error if incorrect relocation */
         gen_assign_cast(&dtype);
         bt = type->t & VT_BTYPE;
 
-        if ((vtop->r & VT_SYM)
+        اگر ((vtop->r & VT_SYM)
             && bt != VT_PTR
             && (bt != (PTR_SIZE == 8 ? VT_LLONG : VT_INT)
                 || (type->t & VT_BITFIELD))
@@ -7937,15 +7937,15 @@ static void init_putv(init_params *p, CType *type, unsigned long c)
             )
             tcc_error("initializer element is not computable at load time");
 
-        if (NODATA_WANTED) {
+        اگر (NODATA_WANTED) {
             vtop--;
-            return;
+            بازگشت;
         }
 
         ptr = sec->data + c;
         val = vtop->c.i;
 
-	if ((vtop->r & (VT_SYM|VT_CONST)) == (VT_SYM|VT_CONST)
+	اگر ((vtop->r & (VT_SYM|VT_CONST)) == (VT_SYM|VT_CONST)
             && vtop->sym->v >= SYM_FIRST_ANOM
             && ((vtop->r & VT_LVAL) /* compound literal */
                 || bt == VT_STRUCT /* designator */
@@ -7956,100 +7956,100 @@ static void init_putv(init_params *p, CType *type, unsigned long c)
 	    ElfW_Rel *rel;
 	    esym = elfsym(vtop->sym);
 	    ssec = tcc_state->sections[esym->st_shndx];
-	    memmove (ptr, ssec->data + esym->st_value + (int)vtop->c.i, size);
-	    if (ssec->reloc) {
+	    memmove (ptr, ssec->data + esym->st_مقدار + (صحیح)vtop->c.i, size);
+	    اگر (ssec->reloc) {
 		/* We need to copy over all memory contents, and that
 		   includes relocations.  Use the fact that relocs are
 		   created it order, so look from the end of relocs
 		   until we hit one before the copied region.  */
                 unsigned long relofs = ssec->reloc->data_offset;
-		while (relofs >= sizeof(*rel)) {
-                    relofs -= sizeof(*rel);
+		وقتی (relofs >= اندازه(*rel)) {
+                    relofs -= اندازه(*rel);
                     rel = (ElfW_Rel*)(ssec->reloc->data + relofs);
-		    if (rel->r_offset >= esym->st_value + size)
-		      continue;
-		    if (rel->r_offset < esym->st_value)
-		      break;
+		    اگر (rel->r_offset >= esym->st_مقدار + size)
+		      ادامه;
+		    اگر (rel->r_offset < esym->st_مقدار)
+		      بشکن;
 		    put_elf_reloca(symtab_section, sec,
-				   c + rel->r_offset - esym->st_value,
+				   c + rel->r_offset - esym->st_مقدار,
 				   ELFW(R_TYPE)(rel->r_info),
 				   ELFW(R_SYM)(rel->r_info),
-#if PTR_SIZE == 8
+#اگر PTR_SIZE == 8
 				   rel->r_addend
-#else
+#وگرنه
 				   0
 #endif
 				  );
 		}
 	    }
-	} else {
-            if (type->t & VT_BITFIELD) {
-                int bit_pos, bit_size, bits, n;
-                unsigned char *p, v, m;
+	} وگرنه {
+            اگر (type->t & VT_BITFIELD) {
+                صحیح bit_pos, bit_size, bits, n;
+                unsigned نویسه *p, v, m;
                 bit_pos = BIT_POS(vtop->type.t);
                 bit_size = BIT_SIZE(vtop->type.t);
-                p = (unsigned char*)ptr + (bit_pos >> 3);
+                p = (unsigned نویسه*)ptr + (bit_pos >> 3);
                 bit_pos &= 7, bits = 0;
-                while (bit_size) {
+                وقتی (bit_size) {
                     n = 8 - bit_pos;
-                    if (n > bit_size)
+                    اگر (n > bit_size)
                         n = bit_size;
                     v = val >> bits << bit_pos;
                     m = ((1 << n) - 1) << bit_pos;
                     *p = (*p & ~m) | (v & m);
                     bits += n, bit_size -= n, bit_pos = 0, ++p;
                 }
-            } else
-            switch(bt) {
-	    case VT_BOOL:
-		*(char *)ptr = val != 0;
-                break;
-	    case VT_BYTE:
-		*(char *)ptr = val;
-		break;
-	    case VT_SHORT:
+            } وگرنه
+            انتخاب(bt) {
+	    حالت VT_BOOL:
+		*(نویسه *)ptr = val != 0;
+                بشکن;
+	    حالت VT_BYTE:
+		*(نویسه *)ptr = val;
+		بشکن;
+	    حالت VT_SHORT:
                 write16le(ptr, val);
-		break;
-	    case VT_FLOAT:
+		بشکن;
+	    حالت VT_FLOAT:
                 write32le(ptr, val);
-		break;
-	    case VT_DOUBLE:
+		بشکن;
+	    حالت VT_DOUBLE:
                 write64le(ptr, val);
-		break;
-	    case VT_LDOUBLE:
+		بشکن;
+	    حالت VT_LDOUBLE:
                 write_ldouble(ptr, &vtop->c.ld);
-		break;
+		بشکن;
 
-#if PTR_SIZE == 8
+#اگر PTR_SIZE == 8
             /* intptr_t may need a reloc too, see tcctest.c:relocation_test() */
-	    case VT_LLONG:
-	    case VT_PTR:
-	        if (vtop->r & VT_SYM)
+	    حالت VT_LLONG:
+	    حالت VT_PTR:
+	        اگر (vtop->r & VT_SYM)
 	          greloca(sec, vtop->sym, c, R_DATA_PTR, val);
-	        else
+	        وگرنه
 	          write64le(ptr, val);
-	        break;
-            case VT_INT:
+	        بشکن;
+            حالت VT_INT:
                 write32le(ptr, val);
-                break;
-#else
-	    case VT_LLONG:
+                بشکن;
+#وگرنه
+	    حالت VT_LLONG:
                 write64le(ptr, val);
-                break;
-            case VT_PTR:
-            case VT_INT:
-	        if (vtop->r & VT_SYM)
+                بشکن;
+            حالت VT_PTR:
+            حالت VT_INT:
+	        اگر (vtop->r & VT_SYM)
 	          greloc(sec, vtop->sym, c, R_DATA_PTR);
 	        write32le(ptr, val);
-	        break;
+	        بشکن;
 #endif
-	    default:
+	    پیشفرض:
                 //tcc_internal_error("unexpected type");
-                break;
+                بشکن;
 	    }
 	}
         vtop--;
-    } else {
+    } وگرنه {
         vset(&dtype, VT_LOCAL|VT_LVAL, c);
         vswap();
         vstore();
@@ -8062,19 +8062,19 @@ static void init_putv(init_params *p, CType *type, unsigned long c)
    allocation. 'flags & DIF_FIRST' is true if array '{' must be read (multi
    dimension implicit array init handling). 'flags & DIF_SIZE_ONLY' is true if
    size only evaluation is wanted (only for arrays). */
-static void decl_initializer(init_params *p, CType *type, unsigned long c, int flags)
+ایستا تهی decl_initializer(init_params *p, CType *type, unsigned long c, صحیح flags)
 {
-    int len, n, no_oblock, i;
-    int size1, align1;
+    صحیح len, n, no_oblock, i;
+    صحیح size1, align1;
     Sym *s, *f;
     Sym indexsym;
     CType *t1;
 
     /* generate line number info */
-    if (debug_modes && !(flags & DIF_SIZE_ONLY) && !p->sec)
-        tcc_debug_line(tcc_state), tcc_tcov_check_line (tcc_state, 1);
+    اگر (debug_modes && !(flags & DIF_SIZE_ONLY) && !p->sec)
+        tcc_debug_سطر(tcc_state), tcc_tcov_check_سطر (tcc_state, 1);
 
-    if (!(flags & DIF_HAVE_ELEM) && tok != '{' &&
+    اگر (!(flags & DIF_HAVE_ELEM) && tok != '{' &&
 	/* In case of strings we have special handling for arrays, so
 	   don't consume them as initializer value (which would commit them
 	   to some anonymous symbol).  */
@@ -8086,17 +8086,17 @@ static void decl_initializer(init_params *p, CType *type, unsigned long c, int f
                it for compatibility below */
             || (type->t & VT_BTYPE) == VT_STRUCT)
         ) {
-        int ncw_prev = nocode_wanted;
-        if ((flags & DIF_SIZE_ONLY) && !p->sec)
+        صحیح ncw_prev = nocode_wanted;
+        اگر ((flags & DIF_SIZE_ONLY) && !p->sec)
             ++nocode_wanted;
-	parse_init_elem(!p->sec ? EXPR_ANY : EXPR_CONST);
+	parse_init_elem(!p->sec ? عبارت_ANY : عبارت_CONST);
         nocode_wanted = ncw_prev;
         flags |= DIF_HAVE_ELEM;
     }
 
-    if (type->t & VT_ARRAY) {
+    اگر (type->t & VT_ARRAY) {
         no_oblock = 1;
-        if (((flags & DIF_FIRST) && tok != TOK_LSTR && tok != TOK_STR) ||
+        اگر (((flags & DIF_FIRST) && tok != TOK_LSTR && tok != TOK_STR) ||
             tok == '{') {
             skip('{');
             no_oblock = 0;
@@ -8109,75 +8109,75 @@ static void decl_initializer(init_params *p, CType *type, unsigned long c, int f
 
         /* only parse strings here if correct type (otherwise: handle
            them as ((w)char *) expressions */
-        if ((tok == TOK_LSTR && 
+        اگر ((tok == TOK_LSTR && 
 #ifdef TCC_TARGET_PE
              (t1->t & VT_BTYPE) == VT_SHORT && (t1->t & VT_UNSIGNED)
-#else
+#وگرنه
              (t1->t & VT_BTYPE) == VT_INT
 #endif
             ) || (tok == TOK_STR && (t1->t & VT_BTYPE) == VT_BYTE)) {
 	    len = 0;
             cstr_reset(&initstr);
-            if (size1 != (tok == TOK_STR ? 1 : sizeof(nwchar_t)))
+            اگر (size1 != (tok == TOK_STR ? 1 : اندازه(nwchar_t)))
               tcc_error("unhandled string literal merging");
-            while (tok == TOK_STR || tok == TOK_LSTR) {
-                if (initstr.size)
+            وقتی (tok == TOK_STR || tok == TOK_LSTR) {
+                اگر (initstr.size)
                   initstr.size -= size1;
-                if (tok == TOK_STR)
+                اگر (tok == TOK_STR)
                   len += tokc.str.size;
-                else
-                  len += tokc.str.size / sizeof(nwchar_t);
+                وگرنه
+                  len += tokc.str.size / اندازه(nwchar_t);
                 len--;
                 cstr_cat(&initstr, tokc.str.data, tokc.str.size);
                 next();
             }
-            if (tok != ')' && tok != '}' && tok != ',' && tok != ';'
+            اگر (tok != ')' && tok != '}' && tok != ',' && tok != ';'
                 && tok != TOK_EOF) {
                 /* Not a lone literal but part of a bigger expression.  */
                 unget_tok(size1 == 1 ? TOK_STR : TOK_LSTR);
                 tokc.str.size = initstr.size;
                 tokc.str.data = initstr.data;
-                goto do_init_array;
+                برو do_init_array;
             }
 
             decl_design_flex(p, s, len);
-            if (!(flags & DIF_SIZE_ONLY)) {
-                int nb = n, ch;
-                if (len < nb)
+            اگر (!(flags & DIF_SIZE_ONLY)) {
+                صحیح nb = n, ch;
+                اگر (len < nb)
                     nb = len;
-                if (len > nb)
+                اگر (len > nb)
                   tcc_warning("initializer-string for array is too long");
                 /* in order to go faster for common case (char
                    string in global variable, we handle it
                    specifically */
-                if (p->sec && size1 == 1) {
+                اگر (p->sec && size1 == 1) {
                     init_assert(p, c + nb);
-                    if (!NODATA_WANTED)
+                    اگر (!NODATA_WANTED)
                       memcpy(p->sec->data + c, initstr.data, nb);
-                } else {
-                    for(i=0;i<n;i++) {
-                        if (i >= nb) {
+                } وگرنه {
+                    برای(i=0;i<n;i++) {
+                        اگر (i >= nb) {
                           /* only add trailing zero if enough storage (no
                              warning in this case since it is standard) */
-                          if (flags & DIF_CLEAR)
-                            break;
-                          if (n - i >= 4) {
+                          اگر (flags & DIF_CLEAR)
+                            بشکن;
+                          اگر (n - i >= 4) {
                             init_putz(p, c + i * size1, (n - i) * size1);
-                            break;
+                            بشکن;
                           }
                           ch = 0;
-                        } else if (size1 == 1)
-                          ch = ((unsigned char *)initstr.data)[i];
-                        else
+                        } وگرنه اگر (size1 == 1)
+                          ch = ((unsigned نویسه *)initstr.data)[i];
+                        وگرنه
                           ch = ((nwchar_t *)initstr.data)[i];
                         vpushi(ch);
                         init_putv(p, t1, c + i * size1);
                     }
                 }
             }
-            if (tok == ',' && !no_oblock) /* static const char s[] = { "123", }; */
+            اگر (tok == ',' && !no_oblock) /* static const char s[] = { "123", }; */
                 next();
-        } else {
+        } وگرنه {
 
           do_init_array:
 	    indexsym.c = 0;
@@ -8185,7 +8185,7 @@ static void decl_initializer(init_params *p, CType *type, unsigned long c, int f
 
           do_init_list:
             /* zero memory once in advance */
-            if (!(flags & (DIF_CLEAR | DIF_SIZE_ONLY))) {
+            اگر (!(flags & (DIF_CLEAR | DIF_SIZE_ONLY))) {
                 init_putz(p, c, n*size1);
                 flags |= DIF_CLEAR;
             }
@@ -8195,43 +8195,43 @@ static void decl_initializer(init_params *p, CType *type, unsigned long c, int f
                it's size is zero.  We won't enter the loop, so set the size
                now.  */
             decl_design_flex(p, s, len - 1);
-	    while (tok != '}' || (flags & DIF_HAVE_ELEM)) {
+	    وقتی (tok != '}' || (flags & DIF_HAVE_ELEM)) {
 		len = decl_designator(p, type, c, &f, flags, len);
 		flags &= ~DIF_HAVE_ELEM;
-		if (type->t & VT_ARRAY) {
+		اگر (type->t & VT_ARRAY) {
 		    ++indexsym.c;
 		    /* special test for multi dimensional arrays (may not
 		       be strictly correct if designators are used at the
 		       same time) */
-		    if (no_oblock && len >= n*size1)
-		        break;
-		} else {
-		    if (s->type.t == VT_UNION)
-		        f = NULL;
-		    else
+		    اگر (no_oblock && len >= n*size1)
+		        بشکن;
+		} وگرنه {
+		    اگر (s->type.t == VT_UNION)
+		        f = پوچ;
+		    وگرنه
 		        f = f->next;
-		    if (no_oblock && f == NULL)
-		        break;
+		    اگر (no_oblock && f == پوچ)
+		        بشکن;
 		}
 
-		if (tok == '}')
-		    break;
+		اگر (tok == '}')
+		    بشکن;
 		skip(',');
 	    }
         }
-        if (!no_oblock)
+        اگر (!no_oblock)
             skip('}');
 
-    } else if ((flags & DIF_HAVE_ELEM)
+    } وگرنه اگر ((flags & DIF_HAVE_ELEM)
         /* Use i_c_parameter_t, to strip toplevel qualifiers.
            The source type might have VT_CONSTANT set, which is
            of course assignable to non-const elements.  */
             && is_compatible_unqualified_types(type, &vtop->type)) {
-        goto one_elem;
+        برو one_elem;
 
-    } else if ((type->t & VT_BTYPE) == VT_STRUCT) {
+    } وگرنه اگر ((type->t & VT_BTYPE) == VT_STRUCT) {
         no_oblock = 1;
-        if ((flags & DIF_FIRST) || tok == '{') {
+        اگر ((flags & DIF_FIRST) || tok == '{') {
             skip('{');
             no_oblock = 0;
         }
@@ -8239,16 +8239,16 @@ static void decl_initializer(init_params *p, CType *type, unsigned long c, int f
         f = s->next;
         n = s->c;
         size1 = 1;
-	goto do_init_list;
+	برو do_init_list;
 
-    } else if (tok == '{') {
-        if (flags & DIF_HAVE_ELEM)
+    } وگرنه اگر (tok == '{') {
+        اگر (flags & DIF_HAVE_ELEM)
           skip(';');
         next();
         decl_initializer(p, type, c, flags & ~DIF_HAVE_ELEM);
         skip('}');
 
-    } else one_elem: if ((flags & DIF_SIZE_ONLY)) {
+    } وگرنه one_elem: اگر ((flags & DIF_SIZE_ONLY)) {
 	/* If we supported only ISO C we wouldn't have to accept calling
 	   this on anything than an array if DIF_SIZE_ONLY (and even then
 	   only on the outermost level, so no recursion would be needed),
@@ -8256,27 +8256,27 @@ static void decl_initializer(init_params *p, CType *type, unsigned long c, int f
 	   But GNU C supports it, so we need to recurse even into
 	   subfields of structs and arrays when DIF_SIZE_ONLY is set.  */
         /* just skip expression */
-        if (flags & DIF_HAVE_ELEM)
+        اگر (flags & DIF_HAVE_ELEM)
             vpop();
-        else
-            skip_or_save_block(NULL);
+        وگرنه
+            skip_or_save_block(پوچ);
 
-    } else {
-	if (!(flags & DIF_HAVE_ELEM)) {
+    } وگرنه {
+	اگر (!(flags & DIF_HAVE_ELEM)) {
 	    /* This should happen only when we haven't parsed
 	       the init element above for fear of committing a
 	       string constant to memory too early.  */
-	    if (tok != TOK_STR && tok != TOK_LSTR)
+	    اگر (tok != TOK_STR && tok != TOK_LSTR)
 	      expect("string constant");
-	    parse_init_elem(!p->sec ? EXPR_ANY : EXPR_CONST);
+	    parse_init_elem(!p->sec ? عبارت_ANY : عبارت_CONST);
 	}
-        if (!p->sec && (flags & DIF_CLEAR) /* container was already zero'd */
+        اگر (!p->sec && (flags & DIF_CLEAR) /* container was already zero'd */
             && (vtop->r & (VT_VALMASK | VT_LVAL | VT_SYM)) == VT_CONST
             && vtop->c.i == 0
             && btype_size(type->t & VT_BTYPE) /* not for fp constants */
             )
             vpop();
-        else
+        وگرنه
             init_putv(p, type, c);
     }
 }
@@ -8288,63 +8288,63 @@ static void decl_initializer(init_params *p, CType *type, unsigned long c, int f
    are parsed. If 'v' is zero, then a reference to the new object
    is put in the value stack. If 'has_init' is 2, a special parsing
    is done to handle string constants. */
-static void decl_initializer_alloc(CType *type, AttributeDef *ad, int r, 
-                                   int has_init, int v, int scope)
+ایستا تهی decl_initializer_alloc(CType *type, AttributeDef *ad, صحیح r, 
+                                   صحیح has_init, صحیح v, صحیح scope)
 {
-    int size, align, addr;
-    TokenString *init_str = NULL;
+    صحیح size, align, addr;
+    TokenString *init_str = پوچ;
 
     Section *sec;
     Sym *flexible_array;
-    Sym *sym = NULL;
-    int saved_nocode_wanted = nocode_wanted;
+    Sym *sym = پوچ;
+    صحیح saved_nocode_wanted = nocode_wanted;
 #ifdef CONFIG_TCC_BCHECK
-    int bcheck = tcc_state->do_bounds_check && !NODATA_WANTED;
+    صحیح bcheck = tcc_state->do_bounds_check && !NODATA_WANTED;
 #endif
     init_params p = {0};
 
-    if (scope == VT_CONST) {
+    اگر (scope == VT_CONST) {
         /* see if a global symbol was already defined */
         sym = sym_find(v);
-        if (sym) {
+        اگر (sym) {
             patch_storage(sym, ad, type);
             /* we accept several definitions of the same global variable. */
-            if (!has_init && sym->c && elfsym(sym)->st_shndx != SHN_UNDEF)
-                return;
+            اگر (!has_init && sym->c && elfsym(sym)->st_shndx != SHN_UNDEF)
+                بازگشت;
             type = &sym->type;
         }
     }
 
     /* Always allocate static or global variables */
-    if (v && (r & VT_VALMASK) == VT_CONST)
+    اگر (v && (r & VT_VALMASK) == VT_CONST)
         nocode_wanted |= DATA_ONLY_WANTED;
 
-    flexible_array = NULL;
+    flexible_array = پوچ;
     size = type_size(type, &align);
 
     /* exactly one flexible array may be initialized, either the
        toplevel array or the last member of the toplevel struct */
 
-    if (size < 0) {
+    اگر (size < 0) {
         // error out except for top-level incomplete arrays
         // (arrays of incomplete types are handled in array parsing)
-        if (!(type->t & VT_ARRAY))
+        اگر (!(type->t & VT_ARRAY))
             tcc_error("initialization of incomplete type");
         /* If the base type itself was an array type of unspecified
            size (like in 'typedef int arr[]; arr x = {1};') then
            we will overwrite the unknown size by the real one for
            this decl.  We need to unshare the ref symbol holding
            that size.  */
-        if (IS_BT_ARRAY(type->t))
-            type->ref = sym_push(SYM_FIELD, &type->ref->type, 0, type->ref->c);
+        اگر (IS_BT_ARRAY(type->t))
+            type->ref = sym_افزودن(SYM_FIELD, &type->ref->type, 0, type->ref->c);
         p.flex_array_ref = type->ref;
 
-    } else if (has_init && (type->t & VT_BTYPE) == VT_STRUCT) {
+    } وگرنه اگر (has_init && (type->t & VT_BTYPE) == VT_STRUCT) {
         Sym *field = type->ref->next;
-        if (field) {
-            while (field->next)
+        اگر (field) {
+            وقتی (field->next)
                 field = field->next;
-            if (field->type.t & VT_ARRAY && field->type.ref->c < 0) {
+            اگر (field->type.t & VT_ARRAY && field->type.ref->c < 0) {
                 flexible_array = field;
                 p.flex_array_ref = field->type.ref;
                 size = -1;
@@ -8352,19 +8352,19 @@ static void decl_initializer_alloc(CType *type, AttributeDef *ad, int r,
         }
     }
 
-    if (size < 0) {
+    اگر (size < 0) {
         /* If unknown size, do a dry-run 1st pass */
-        if (!has_init)
-            goto err_size;
-        if (has_init == 2) {
+        اگر (!has_init)
+            برو err_size;
+        اگر (has_init == 2) {
             /* only get strings */
             init_str = tok_str_alloc();
-            while (tok == TOK_STR || tok == TOK_LSTR) {
+            وقتی (tok == TOK_STR || tok == TOK_LSTR) {
                 tok_str_add_tok(init_str);
                 next();
             }
             tok_str_add(init_str, TOK_EOF);
-        } else
+        } وگرنه
             skip_or_save_block(&init_str);
         unget_tok(0);
 
@@ -8378,33 +8378,33 @@ static void decl_initializer_alloc(CType *type, AttributeDef *ad, int r,
 
         /* if still unknown size, error */
         size = type_size(type, &align);
-        if (size < 0)
+        اگر (size < 0)
     err_size:
             tcc_error("unknown type size");
 
         /* If there's a flex member and it was used in the initializer
            adjust size.  */
-        if (flexible_array && flexible_array->type.ref->c > 0)
+        اگر (flexible_array && flexible_array->type.ref->c > 0)
             size += flexible_array->type.ref->c
                     * pointed_size(&flexible_array->type);
     }
 
     /* take into account specified alignment if bigger */
-    if (ad->a.aligned) {
-	int speca = 1 << (ad->a.aligned - 1);
-        if (speca > align)
+    اگر (ad->a.aligned) {
+	صحیح speca = 1 << (ad->a.aligned - 1);
+        اگر (speca > align)
             align = speca;
-    } else if (ad->a.packed) {
+    } وگرنه اگر (ad->a.packed) {
         align = 1;
     }
 
-    if (!v && NODATA_WANTED)
+    اگر (!v && NODATA_WANTED)
         size = 0, align = 1;
 
-    if ((r & VT_VALMASK) == VT_LOCAL) {
-        sec = NULL;
+    اگر ((r & VT_VALMASK) == VT_LOCAL) {
+        sec = پوچ;
 #ifdef CONFIG_TCC_BCHECK
-        if (bcheck && v) {
+        اگر (bcheck && v) {
             /* add padding between stack variables for bound checking */
             loc -= align;
         }
@@ -8413,22 +8413,22 @@ static void decl_initializer_alloc(CType *type, AttributeDef *ad, int r,
         addr = loc;
         p.local_offset = addr + size;
 #ifdef CONFIG_TCC_BCHECK
-        if (bcheck && v) {
+        اگر (bcheck && v) {
             /* add padding between stack variables for bound checking */
             loc -= align;
         }
 #endif
-        if (v) {
+        اگر (v) {
             /* local variable */
 #ifdef CONFIG_TCC_ASM
-	    if (ad->asm_label) {
-		int reg = asm_parse_regvar(ad->asm_label);
-		if (reg >= 0)
+	    اگر (ad->asm_label) {
+		صحیح reg = asm_parse_regvar(ad->asm_label);
+		اگر (reg >= 0)
 		    r = (r & ~VT_VALMASK) | reg;
 	    }
 #endif
-            sym = sym_push(v, type, r, addr);
-	    if (ad->cleanup_func) {
+            sym = sym_افزودن(v, type, r, addr);
+	    اگر (ad->cleanup_func) {
 		Sym *cls = sym_push2(&all_cleanups,
                     SYM_FIELD | ++cur_scope->cl.n, 0, 0);
 		cls->cleanup_sym = sym;
@@ -8438,61 +8438,61 @@ static void decl_initializer_alloc(CType *type, AttributeDef *ad, int r,
 	    }
 
             sym->a = ad->a;
-        } else {
+        } وگرنه {
             /* push local reference */
             vset(type, r, addr);
         }
-    } else {
+    } وگرنه {
         CType *tp = type;
-        int is_const;
+        صحیح is_const;
 
-        while ((tp->t & (VT_BTYPE|VT_ARRAY)) == (VT_PTR|VT_ARRAY))
+        وقتی ((tp->t & (VT_BTYPE|VT_ARRAY)) == (VT_PTR|VT_ARRAY))
             tp = &tp->ref->type;
         is_const = tp->t & VT_CONSTANT;
 
         /* allocate symbol in corresponding section */
         sec = ad->section;
-        if (!sec) {
-            if (type->t & VT_TLS) {
+        اگر (!sec) {
+            اگر (type->t & VT_TLS) {
                 sec = find_section(tcc_state, has_init ? ".tdata" : ".tbss");
                 sec->sh_flags = SHF_ALLOC | SHF_WRITE | SHF_TLS;
                 sec->sh_type = has_init ? SHT_PROGBITS : SHT_NOBITS;
-            } else if (is_const) {
+            } وگرنه اگر (is_const) {
 		sec = rodata_section;
-            } else if (has_init) {
+            } وگرنه اگر (has_init) {
 		sec = data_section;
                 /*if (g_debug & 4)
                     tcc_warning("rw data: %s", get_tok_str(v, 0));*/
-            } else if (tcc_state->nocommon)
+            } وگرنه اگر (tcc_state->nocommon)
                 sec = bss_section;
-        } else if (ad->new_section) {
+        } وگرنه اگر (ad->new_section) {
             /* XXX: DWIM logic: set section flags according to first usage */
-            if (!is_const) {
+            اگر (!is_const) {
                 sec->sh_flags |= SHF_WRITE;
-                if (!has_init)
+                اگر (!has_init)
                     sec->sh_type = SHT_NOBITS;
             }
         }
 
 #ifdef CONFIG_TCC_BCHECK
-        if (bcheck)
+        اگر (bcheck)
             size = size + 1; /* add padding */
 #endif
-        if (sec) {
+        اگر (sec) {
 	    addr = section_add(sec, size, align);
-        } else {
+        } وگرنه {
             addr = align; /* SHN_COMMON is special, symbol value is align */
 	    sec = common_section;
         }
 
-        if (v) {
-            if (!sym) {
-                sym = sym_push(v, type, r | VT_SYM, 0);
-                patch_storage(sym, ad, NULL);
+        اگر (v) {
+            اگر (!sym) {
+                sym = sym_افزودن(v, type, r | VT_SYM, 0);
+                patch_storage(sym, ad, پوچ);
             }
             /* update symbol definition */
 	    put_extern_sym(sym, sec, addr, size);
-        } else {
+        } وگرنه {
             /* push global reference */
             vpush_ref(type, sec, addr, size);
             sym = vtop->sym;
@@ -8502,32 +8502,32 @@ static void decl_initializer_alloc(CType *type, AttributeDef *ad, int r,
 #ifdef CONFIG_TCC_BCHECK
         /* handles bounds now because the symbol must be defined
            before for the relocation */
-        if (bcheck) {
+        اگر (bcheck) {
             addr_t *bounds_ptr;
 
             greloca(bounds_section, sym, bounds_section->data_offset, R_DATA_PTR, 0);
             /* then add global bound info */
-            bounds_ptr = section_ptr_add(bounds_section, 2 * sizeof(addr_t));
+            bounds_ptr = section_ptr_add(bounds_section, 2 * اندازه(addr_t));
             bounds_ptr[0] = 0; /* relocated */
             bounds_ptr[1] = size - 1;
         }
 #endif
     }
 
-    if (type->t & VT_VLA) {
-        int a;
+    اگر (type->t & VT_VLA) {
+        صحیح a;
 
-        if (has_init)
+        اگر (has_init)
             tcc_error("variable length array cannot be initialized");
 
-        if (NODATA_WANTED)
-            goto no_alloc;
+        اگر (NODATA_WANTED)
+            برو no_alloc;
 
         /* save before-VLA stack pointer if needed */
-        if (cur_scope->vla.num == 0) {
-            if (cur_scope->prev && cur_scope->prev->vla.num) {
+        اگر (cur_scope->vla.رقم == 0) {
+            اگر (cur_scope->prev && cur_scope->prev->vla.رقم) {
                 cur_scope->vla.locorig = cur_scope->prev->vla.loc;
-            } else {
+            } وگرنه {
                 gen_vla_sp_save(loc -= PTR_SIZE);
                 cur_scope->vla.locorig = loc;
             }
@@ -8535,26 +8535,26 @@ static void decl_initializer_alloc(CType *type, AttributeDef *ad, int r,
 
         vpush_type_size(type, &a);
         gen_vla_alloc(type, a);
-#if defined TCC_TARGET_PE && defined TCC_TARGET_X86_64
+#اگر defined TCC_TARGET_PE && defined TCC_TARGET_X86_64
         /* on _WIN64, because of the function args scratch area, the
            result of alloca differs from RSP and is returned in RAX.  */
         gen_vla_result(addr), addr = (loc -= PTR_SIZE);
 #endif
         gen_vla_sp_save(addr);
         cur_scope->vla.loc = addr;
-        cur_scope->vla.num++;
-    } else if (has_init) {
+        cur_scope->vla.رقم++;
+    } وگرنه اگر (has_init) {
         p.sec = sec;
         decl_initializer(&p, type, addr, DIF_FIRST);
         /* patch flexible array member size back to -1, */
         /* for possible subsequent similar declarations */
-        if (flexible_array)
+        اگر (flexible_array)
             flexible_array->type.ref->c = -1;
     }
 
  no_alloc:
     /* restore parse state if needed */
-    if (init_str) {
+    اگر (init_str) {
         end_macro();
         next();
     }
@@ -8563,15 +8563,15 @@ static void decl_initializer_alloc(CType *type, AttributeDef *ad, int r,
 }
 
 /* generate vla code saved in post_type() */
-static void func_vla_arg_code(Sym *arg)
+ایستا تهی func_vla_arg_code(Sym *arg)
 {
-    int align;
-    TokenString *vla_array_tok = NULL;
+    صحیح align;
+    TokenString *vla_array_tok = پوچ;
 
-    if (arg->type.ref)
+    اگر (arg->type.ref)
         func_vla_arg_code(arg->type.ref);
 
-    if ((arg->type.t & VT_VLA) && arg->type.ref->vla_array_str) {
+    اگر ((arg->type.t & VT_VLA) && arg->type.ref->vla_array_str) {
 	loc -= type_size(&int_type, &align);
 	loc &= -align;
 	arg->type.ref->c = loc;
@@ -8593,57 +8593,57 @@ static void func_vla_arg_code(Sym *arg)
     }
 }
 
-static void func_vla_arg(Sym *sym)
+ایستا تهی func_vla_arg(Sym *sym)
 {
     Sym *arg;
 
-    for (arg = sym->type.ref->next; arg; arg = arg->next)
-        if ((arg->type.t & VT_BTYPE) == VT_PTR && (arg->type.ref->type.t & VT_VLA))
+    برای (arg = sym->type.ref->next; arg; arg = arg->next)
+        اگر ((arg->type.t & VT_BTYPE) == VT_PTR && (arg->type.ref->type.t & VT_VLA))
             func_vla_arg_code(arg->type.ref);
 }
 
 /* set the local stack address for function parameter from gfunc_prolog() */
-ST_FUNC Sym *gfunc_set_param(Sym *s, int c, int byref)
+ST_FUNC Sym *gfunc_set_param(Sym *s, صحیح c, صحیح byref)
 {
     s = sym_find(s->v);
-    if (!s) /* unnamed parameters, not enabled */
-        return NULL;
+    اگر (!s) /* unnamed parameters, not enabled */
+        بازگشت پوچ;
     s->c = c;
-    if (byref)
+    اگر (byref)
         s->r = VT_LLOCAL | VT_LVAL; /* otherwise VT_LOCAL */
-    return s;
+    بازگشت s;
 }
 
 /* push parameters (and their types), last first */
-static void sym_push_params(Sym *ref)
+ایستا تهی sym_افزودن_params(Sym *ref)
 {
     Sym *s = ref;
-    while (s->next)
+    وقتی (s->next)
         s = s->next;
-    while (s != ref) {
-        if ((s->v & ~SYM_STRUCT) < SYM_FIRST_ANOM)
-            sym_copy(s, &local_stack);
+    وقتی (s != ref) {
+        اگر ((s->v & ~SYM_STRUCT) < SYM_FIRST_ANOM)
+            sym_copy(s, &local_پشته);
         s = s->prev;
     }
 }
 
 /* parse a function defined by symbol 'sym' and generate its code in
    'cur_text_section' */
-static void gen_function(Sym *sym)
+ایستا تهی gen_function(Sym *sym)
 {
-    struct scope f = { 0 };
+    ساختار scope f = { 0 };
 
-    cur_scope = root_scope = &f;
+    cur_scope = ریشه_scope = &f;
     nocode_wanted = 0;
 
     ind = cur_text_section->data_offset;
-    if (sym->a.aligned) {
+    اگر (sym->a.aligned) {
 	size_t newoff = section_add(cur_text_section, 0,
 				    1 << (sym->a.aligned - 1));
 	gen_fill_nops(newoff - ind);
     }
 
-    funcname = get_tok_str(sym->v, NULL);
+    funcname = get_tok_str(sym->v, پوچ);
     func_ind = ind;
     func_vt = sym->type.ref->type;
     func_var = sym->type.ref->f.func_type == FUNC_ELLIPSIS;
@@ -8652,19 +8652,19 @@ static void gen_function(Sym *sym)
     /* NOTE: we patch the symbol size later */
     put_extern_sym(sym, cur_text_section, ind, 0);
 
-    if (sym->type.ref->f.func_ctor)
+    اگر (sym->type.ref->f.func_ctor)
         add_array (tcc_state, ".init_array", sym->c);
-    if (sym->type.ref->f.func_dtor)
+    اگر (sym->type.ref->f.func_dtor)
         add_array (tcc_state, ".fini_array", sym->c);
 
     /* put debug symbol */
     tcc_debug_funcstart(tcc_state, sym);
 
     /* push a dummy symbol to enable local sym storage */
-    sym_push2(&local_stack, SYM_FIELD, 0, 0);
+    sym_push2(&local_پشته, SYM_FIELD, 0, 0);
     /* push parameters */
     local_scope = 1;
-    sym_push_params(sym->type.ref);
+    sym_افزودن_params(sym->type.ref);
 
     local_scope = 0;
     rsym = 0;
@@ -8676,7 +8676,7 @@ static void gen_function(Sym *sym)
     block(0);
     gsym(rsym);
     nocode_wanted = 0;
-    tcc_debug_end_scope(NULL, !func_var);
+    tcc_debug_end_scope(پوچ, !func_var);
     tcc_debug_prolog_epilog(tcc_state, 1);
     gfunc_epilog();
 
@@ -8687,13 +8687,13 @@ static void gen_function(Sym *sym)
     elfsym(sym)->st_size = ind - func_ind;
     cur_text_section->data_offset = ind;
 
-    sym_pop(&local_stack, NULL, 0);
-    label_pop(&global_label_stack, NULL, 0);
-    sym_pop(&all_cleanups, NULL, 0);
+    sym_برداشت(&local_پشته, پوچ, 0);
+    label_برداشت(&global_label_پشته, پوچ, 0);
+    sym_برداشت(&all_cleanups, پوچ, 0);
     local_scope = 0;
 
     /* It's better to crash than to generate wrong code */
-    cur_text_section = NULL;
+    cur_text_section = پوچ;
     funcname = ""; /* for safety */
     func_vt.t = VT_VOID; /* for safety */
     func_var = 0; /* for safety */
@@ -8706,23 +8706,23 @@ static void gen_function(Sym *sym)
     next();
 }
 
-static void gen_inline_functions(TCCState *s)
+ایستا تهی gen_inline_functions(TCCState *s)
 {
     Sym *sym;
-    int inline_generated, i;
-    struct InlineFunc *fn;
+    صحیح inline_generated, i;
+    ساختار InlineFunc *fn;
 
     tcc_open_bf(s, ":inline:", 0);
     /* iterate while inline function are referenced */
-    do {
+    انجامبده {
         inline_generated = 0;
-        for (i = 0; i < s->nb_inline_fns; ++i) {
+        برای (i = 0; i < s->nb_inline_fns; ++i) {
             fn = s->inline_fns[i];
             sym = fn->sym;
-            if (sym && (sym->c || !(sym->type.t & VT_INLINE))) {
+            اگر (sym && (sym->c || !(sym->type.t & VT_INLINE))) {
                 /* the function was used or forced (and then not internal):
                    generate its code and convert it to a normal function */
-                fn->sym = NULL;
+                fn->sym = پوچ;
                 tccpp_putfile(fn->filename);
                 begin_macro(fn->func_str, 1);
                 next();
@@ -8733,57 +8733,57 @@ static void gen_inline_functions(TCCState *s)
                 inline_generated = 1;
             }
         }
-    } while (inline_generated);
+    } وقتی (inline_generated);
     tcc_close();
 }
 
-static void free_inline_functions(TCCState *s)
+ایستا تهی free_inline_functions(TCCState *s)
 {
-    int i;
+    صحیح i;
     /* free tokens of unused inline functions */
-    for (i = 0; i < s->nb_inline_fns; ++i) {
-        struct InlineFunc *fn = s->inline_fns[i];
-        if (fn->sym)
+    برای (i = 0; i < s->nb_inline_fns; ++i) {
+        ساختار InlineFunc *fn = s->inline_fns[i];
+        اگر (fn->sym)
             tok_str_free(fn->func_str);
     }
     dynarray_reset(&s->inline_fns, &s->nb_inline_fns);
 }
 
-static void do_Static_assert(void)
+ایستا تهی do_Static_assert(تهی)
 {
-    int c;
-    const char *msg;
+    صحیح c;
+    ثابت نویسه *پیام;
 
     next();
     skip('(');
-    c = expr_const();
-    msg = "_Static_assert fail";
-    if (tok == ',') {
+    c = عبارت_const();
+    پیام = "_Static_assert fail";
+    اگر (tok == ',') {
         next();
-        msg = parse_mult_str("string constant")->data;
+        پیام = parse_mult_str("string constant")->data;
     }
     skip(')');
-    if (c == 0)
-        tcc_error("%s", msg);
+    اگر (c == 0)
+        tcc_error("%s", پیام);
     skip(';');
 }
 
 #ifdef TCC_TARGET_PE
-static void pe_check_linkage(CType *type, AttributeDef *ad)
+ایستا تهی pe_check_linkage(CType *type, AttributeDef *ad)
 {
-    if (!ad->a.dllimport && !ad->a.dllexport)
-        return;
-    if (type->t & VT_STATIC)
+    اگر (!ad->a.dllimport && !ad->a.dllexport)
+        بازگشت;
+    اگر (type->t & VT_STATIC)
         tcc_error("cannot have dll linkage with static");
-    if (type->t & VT_TYPEDEF) {
-        const char *m = ad->a.dllimport ? "im" : "ex";
+    اگر (type->t & VT_TYPEDEF) {
+        ثابت نویسه *m = ad->a.dllimport ? "im" : "ex";
         tcc_warning("'dll%sport' attribute ignored for typedef", m);
         ad->a.dllimport = 0;
         ad->a.dllexport = 0;
-    } else if (ad->a.dllimport) {
-        if ((type->t & VT_BTYPE) == VT_FUNC)
+    } وگرنه اگر (ad->a.dllimport) {
+        اگر ((type->t & VT_BTYPE) == VT_FUNC)
             ad->a.dllimport = 0;
-        else
+        وگرنه
             type->t |= VT_EXTERN;
     }
 }
@@ -8792,102 +8792,102 @@ static void pe_check_linkage(CType *type, AttributeDef *ad)
 /* 'l' is VT_LOCAL or VT_CONST to define default storage type
    or VT_CMP if parsing old style parameter list
    or VT_JMP if parsing c99 for decl: for (int i = 0, ...) */
-static int decl(int l)
+ایستا صحیح decl(صحیح l)
 {
-    int v, has_init, r, oldint;
+    صحیح v, has_init, r, oldint;
     CType type, btype;
     Sym *sym, *sa;
     AttributeDef ad, adbase;
     ElfSym *esym;
 
-    while (1) {
+    وقتی (1) {
 
         oldint = 0;
-        if (!parse_btype(&btype, &adbase, l == VT_LOCAL)) {
-            if (l == VT_JMP)
-                return 0;
+        اگر (!parse_btype(&btype, &adbase, l == VT_LOCAL)) {
+            اگر (l == VT_JMP)
+                بازگشت 0;
             /* skip redundant ';' if not in old parameter decl scope */
-            if (tok == ';' && l != VT_CMP) {
+            اگر (tok == ';' && l != VT_CMP) {
                 next();
-                continue;
+                ادامه;
             }
-            if (tok == TOK_STATIC_ASSERT) {
+            اگر (tok == TOK_STATIC_ASSERT) {
                 do_Static_assert();
-                continue;
+                ادامه;
             }
-            if (l != VT_CONST)
-                break;
-            if (tok == TOK_ASM1 || tok == TOK_ASM2 || tok == TOK_ASM3) {
+            اگر (l != VT_CONST)
+                بشکن;
+            اگر (tok == TOK_ASM1 || tok == TOK_ASM2 || tok == TOK_ASM3) {
                 /* global asm block */
                 asm_global_instr();
-                continue;
+                ادامه;
             }
-            if (tok >= TOK_UIDENT) {
+            اگر (tok >= TOK_UIDENT) {
                /* special test for old K&R protos without explicit int
                   type. Only accepted when defining global data */
                 btype.t = VT_INT;
                 oldint = 1;
-            } else {
-                if (tok != TOK_EOF)
+            } وگرنه {
+                اگر (tok != TOK_EOF)
                     expect("declaration");
-                break;
+                بشکن;
             }
         }
 
-        if (tok == ';') {
-            if ((btype.t & VT_BTYPE) == VT_STRUCT
+        اگر (tok == ';') {
+            اگر ((btype.t & VT_BTYPE) == VT_STRUCT
                 && (btype.ref->v & ~SYM_STRUCT) < SYM_FIRST_ANOM)
                 ; /* struct decl with named tag */
-            else if (IS_ENUM(btype.t))
+            وگرنه اگر (IS_ENUM(btype.t))
                 ; /* enum decl */
-            else
+            وگرنه
                 tcc_warning("useless type defines no instances");
-            if (l == VT_JMP)
-                return 1;
+            اگر (l == VT_JMP)
+                بازگشت 1;
             next();
-            continue;
+            ادامه;
         }
 
-        while (1) { /* iterate thru each declaration */
+        وقتی (1) { /* iterate thru each declaration */
             type = btype;
 	    ad = adbase;
             type_decl(&type, &ad, &v, l == VT_CMP ? TYPE_DIRECT | TYPE_PARAM : TYPE_DIRECT);
             /*ptype("decl", &type, v);*/
-            if ((type.t & VT_BTYPE) == VT_FUNC) {
-                if ((type.t & VT_STATIC) && (l != VT_CONST))
+            اگر ((type.t & VT_BTYPE) == VT_FUNC) {
+                اگر ((type.t & VT_STATIC) && (l != VT_CONST))
                     tcc_error("function without file scope cannot be static");
                 /* if old style function prototype, we accept a
                    declaration list */
                 sym = type.ref;
-                if (sym->f.func_type == FUNC_OLD && l == VT_CONST) {
+                اگر (sym->f.func_type == FUNC_OLD && l == VT_CONST) {
                     func_vt = type;
 		    ++local_scope;
                     decl(VT_CMP);
 		    --local_scope;
                 }
-                if ((type.t & (VT_EXTERN|VT_INLINE)) == (VT_EXTERN|VT_INLINE)) {
+                اگر ((type.t & (VT_EXTERN|VT_INLINE)) == (VT_EXTERN|VT_INLINE)) {
                     /* always_inline functions must be handled as if they
                        don't generate multiple global defs, even if extern
                        inline, i.e. GNU inline semantics for those.  Rewrite
                        them into static inline.  */
-                    if (tcc_state->gnu89_inline || sym->f.func_alwinl)
+                    اگر (tcc_state->gnu89_inline || sym->f.func_alwinl)
                         type.t = (type.t & ~VT_EXTERN) | VT_STATIC;
-                    else
+                    وگرنه
                         type.t &= ~VT_INLINE; /* always compile otherwise */
                 }
 
-            } else if (oldint) {
+            } وگرنه اگر (oldint) {
                 tcc_warning("type defaults to int");
             }
 
-            if (gnu_ext && (tok == TOK_ASM1 || tok == TOK_ASM2 || tok == TOK_ASM3)) {
+            اگر (gnu_ext && (tok == TOK_ASM1 || tok == TOK_ASM2 || tok == TOK_ASM3)) {
                 ad.asm_label = asm_label_instr();
                 /* parse one last attribute list, after asm label */
                 parse_attribute(&ad);
-            #if 0
+            #اگر 0
                 /* gcc does not allow __asm__("label") with function definition,
                    but why not ... */
-                if (tok == '{')
+                اگر (tok == '{')
                     expect(";");
             #endif
             }
@@ -8895,10 +8895,10 @@ static int decl(int l)
 #ifdef TCC_TARGET_PE
             pe_check_linkage(&type, &ad);
 #endif
-            if (tok == '{') {
-                if (l != VT_CONST)
+            اگر (tok == '{') {
+                اگر (l != VT_CONST)
                     tcc_error("cannot use local functions");
-                if ((type.t & VT_BTYPE) != VT_FUNC)
+                اگر ((type.t & VT_BTYPE) != VT_FUNC)
                     expect("function definition");
 
                 /* apply post-declaraton attributes */
@@ -8909,10 +8909,10 @@ static int decl(int l)
 
                 /* reject abstract declarators in function definition
                    make old-style float params double */
-                for (sa = sym->type.ref; (sa = sa->next) != NULL;) {
-                    if (!(sa->v & ~SYM_FIELD))
+                برای (sa = sym->type.ref; (sa = sa->next) != پوچ;) {
+                    اگر (!(sa->v & ~SYM_FIELD))
                         expect("identifier");
-                    if (sa->type.t == VT_FLOAT
+                    اگر (sa->type.t == VT_FLOAT
                         && sym->type.ref->f.func_type == FUNC_OLD) {
                         sa->type.t = VT_DOUBLE;
                     }
@@ -8921,79 +8921,79 @@ static int decl(int l)
                 /* static inline functions are just recorded as a kind
                    of macro. Their code will be emitted at the end of
                    the compilation unit only if they are used */
-                if (sym->type.t & VT_INLINE) {
-                    struct InlineFunc *fn;
-                    fn = tcc_malloc(sizeof *fn + strlen(file->filename));
+                اگر (sym->type.t & VT_INLINE) {
+                    ساختار InlineFunc *fn;
+                    fn = tcc_malloc(اندازه *fn + strlen(file->filename));
                     strcpy(fn->filename, file->filename);
                     fn->sym = sym;
                     dynarray_add(&tcc_state->inline_fns,
 				 &tcc_state->nb_inline_fns, fn);
                     skip_or_save_block(&fn->func_str);
-                } else {
+                } وگرنه {
                     /* compute text section */
                     cur_text_section = text_section;
-                    if (ad.section) {
+                    اگر (ad.section) {
                         cur_text_section = ad.section;
-                        if (ad.new_section)
+                        اگر (ad.new_section)
                             ad.section->sh_flags = text_section->sh_flags;
                     }
                     gen_function(sym);
                 }
-                break;
-            } else {
+                بشکن;
+            } وگرنه {
                 has_init = 0;
-		if (l == VT_CMP) {
+		اگر (l == VT_CMP) {
 		    /* find parameter in function parameter list */
-		    for (sym = func_vt.ref->next; sym; sym = sym->next)
-			if ((sym->v & ~SYM_FIELD) == v)
-			    goto found;
+		    برای (sym = func_vt.ref->next; sym; sym = sym->next)
+			اگر ((sym->v & ~SYM_FIELD) == v)
+			    برو found;
 		    tcc_error("declaration for parameter '%s' but no such parameter",
-			      get_tok_str(v, NULL));
+			      get_tok_str(v, پوچ));
                 found:
-		    if (type.t & VT_STORAGE) /* 'register' is okay */
+		    اگر (type.t & VT_STORAGE) /* 'register' is okay */
 		        tcc_error("storage class specified for '%s'",
-				  get_tok_str(v, NULL));
-		    if (!(sym->type.t & VT_EXTERN))
+				  get_tok_str(v, پوچ));
+		    اگر (!(sym->type.t & VT_EXTERN))
 		        tcc_error("redefinition of parameter '%s'",
-				  get_tok_str(v, NULL));
+				  get_tok_str(v, پوچ));
 		    convert_parameter_type(&type);
 		    sym->type = type;
-		} else if (type.t & VT_TYPEDEF) {
+		} وگرنه اگر (type.t & VT_TYPEDEF) {
                     /* save typedefed type  */
                     /* XXX: test storage specifiers ? */
                     sym = sym_find(v);
-                    if (sym && sym->sym_scope == local_scope) {
-                        if (!is_compatible_types(&sym->type, &type)
+                    اگر (sym && sym->sym_scope == local_scope) {
+                        اگر (!is_compatible_types(&sym->type, &type)
                             || !(sym->type.t & VT_TYPEDEF))
                             tcc_error("incompatible redefinition of '%s'",
-                                get_tok_str(v, NULL));
+                                get_tok_str(v, پوچ));
                         sym->type = type;
-                    } else {
-                        sym = sym_push(v, &type, 0, 0);
+                    } وگرنه {
+                        sym = sym_افزودن(v, &type, 0, 0);
                     }
                     sym->a = ad.a;
-                    if ((type.t & VT_BTYPE) == VT_FUNC)
+                    اگر ((type.t & VT_BTYPE) == VT_FUNC)
                       merge_funcattr(&sym->type.ref->f, &ad.f);
-                    if (debug_modes)
+                    اگر (debug_modes)
                         tcc_debug_typedef (tcc_state, sym);
-		} else if ((type.t & VT_BTYPE) == VT_VOID
+		} وگرنه اگر ((type.t & VT_BTYPE) == VT_VOID
 			   && !(type.t & VT_EXTERN)) {
 		    tcc_error("declaration of void object");
-                } else {
+                } وگرنه {
                     r = 0;
-                    if ((type.t & VT_BTYPE) == VT_FUNC) {
+                    اگر ((type.t & VT_BTYPE) == VT_FUNC) {
                         /* external function definition */
                         /* specific case for func_call attribute */
                         merge_funcattr(&type.ref->f, &ad.f);
-                    } else if (!(type.t & VT_ARRAY)) {
+                    } وگرنه اگر (!(type.t & VT_ARRAY)) {
                         /* not lvalue if array */
                         r |= VT_LVAL;
                     }
 
-                    if (tok == '=')
+                    اگر (tok == '=')
                         has_init = 1;
 
-                    if (((type.t & VT_EXTERN) && (!has_init || l != VT_CONST))
+                    اگر (((type.t & VT_EXTERN) && (!has_init || l != VT_CONST))
 		        || (type.t & VT_BTYPE) == VT_FUNC
                         /* as with GCC, uninitialized global arrays with no size
                            are considered extern: */
@@ -9003,44 +9003,44 @@ static int decl(int l)
                         /* external variable or function */
                         type.t |= VT_EXTERN;
                         external_sym(v, &type, r, &ad);
-                    } else {
-                        if (l == VT_CONST || (type.t & VT_STATIC))
+                    } وگرنه {
+                        اگر (l == VT_CONST || (type.t & VT_STATIC))
                             r |= VT_CONST;
-                        else
+                        وگرنه
                             r |= VT_LOCAL;
                         type.t &= ~VT_EXTERN;
-                        if (has_init)
+                        اگر (has_init)
                             next();
-                        else if (l == VT_CONST)
+                        وگرنه اگر (l == VT_CONST)
                             /* uninitialized global variables may be overridden */
                             type.t |= VT_EXTERN;
                         decl_initializer_alloc(&type, &ad, r, has_init, v, l);
                     }
 
-                    if (ad.alias_target && l == VT_CONST) {
+                    اگر (ad.alias_target && l == VT_CONST) {
                         /* Aliases need to be emitted when their target symbol
                            is emitted, even if perhaps unreferenced.
                            We only support the case where the base is already
                            defined, otherwise we would need deferring to emit
                            the aliases until the end of the compile unit.  */
                         esym = elfsym(sym_find(ad.alias_target));
-                        if (!esym)
+                        اگر (!esym)
                             tcc_error("unsupported forward __alias__ attribute");
                         put_extern_sym2(sym_find(v), esym->st_shndx,
-                                        esym->st_value, esym->st_size, 1);
+                                        esym->st_مقدار, esym->st_size, 1);
                     }
                 }
-                if (tok != ',') {
-                    if (l == VT_JMP)
-                        return has_init ? v : 1;
+                اگر (tok != ',') {
+                    اگر (l == VT_JMP)
+                        بازگشت has_init ? v : 1;
                     skip(';');
-                    break;
+                    بشکن;
                 }
                 next();
             }
         }
     }
-    return 0;
+    بازگشت 0;
 }
 
 /* ------------------------------------------------------------------------- */

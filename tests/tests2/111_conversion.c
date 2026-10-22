@@ -1,24 +1,24 @@
-#include <stdio.h>
+#شامل <stdio.h>
 
-union u {
+اجتماع u {
     unsigned long ul;
-    long double ld;
+    long دوگانه ld;
 };
 
-void
-conv (union u *p)
+تهی
+conv (اجتماع u *p)
 {
-    p->ul = (unsigned int) p->ld;
+    p->ul = (unsigned صحیح) p->ld;
 }
 
-int main (void)
+صحیح اصلی (تهی)
 {
-    union u v;
-    double d = 1234567890.0;
+    اجتماع u v;
+    دوگانه d = 1234567890.0;
 
     v.ld = 42;
     conv (&v);
     printf ("%lu\n", v.ul);
     printf ("%llu\n", (unsigned long long)d);
-    return 0;
+    بازگشت 0;
 }

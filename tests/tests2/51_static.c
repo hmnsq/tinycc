@@ -1,17 +1,17 @@
-#include <stdio.h>
+#شامل <stdio.h>
 
-static int fred = 1234;
-static int joe;
+ایستا صحیح fred = 1234;
+ایستا صحیح joe;
 
-void henry()
+تهی henry()
 {
-   static int fred = 4567;
+   ایستا صحیح fred = 4567;
 
    printf("%d\n", fred);
    fred++;
 }
 
-int main()
+صحیح اصلی()
 {
    printf("%d\n", fred);
    henry();
@@ -24,7 +24,7 @@ int main()
    printf("%d\n", fred);
    printf("%d\n", joe);
 
-   return 0;
+   بازگشت 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

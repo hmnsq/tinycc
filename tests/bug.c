@@ -1,35 +1,35 @@
-#include <stdio.h>
-#include <stdarg.h>
+#شامل <stdio.h>
+#شامل <stdarg.h>
 
-int compile_errors(void)
+صحیح compile_errors(تهی)
 {
-#if TEST == 1
+#اگر TEST == 1
   {
     /* Not constant */
-    static int i = (&"Foobar"[1] - &"Foobar"[0]);
+    ایستا صحیح i = (&"Foobar"[1] - &"Foobar"[0]);
   }
 #endif
-#if TEST == 2
+#اگر TEST == 2
   {
     /* Not constant */
-    struct{int c;}v;
-    static long i=((char*)&(v.c)-(char*)&v);
+    ساختار{صحیح c;}v;
+    ایستا long i=((نویسه*)&(v.c)-(نویسه*)&v);
   }
 #endif
-#if TEST == 3
+#اگر TEST == 3
   {
     /* Not constant */
-    static const short ar[] = { &&l1 - &&l1, &&l2 - &&l1 };
-    void *p = &&l1 + ar[0];
-    goto *p;
-   l1: return 1;
-   l2: return 2;
+    ایستا ثابت short ar[] = { &&l1 - &&l1, &&l2 - &&l1 };
+    تهی *p = &&l1 + ar[0];
+    برو *p;
+   l1: بازگشت 1;
+   l2: بازگشت 2;
   }
 #endif
-  return 0;
+  بازگشت 0;
 }
 
-int
-main(void)
+صحیح
+اصلی(تهی)
 {
 }

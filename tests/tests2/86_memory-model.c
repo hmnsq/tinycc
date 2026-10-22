@@ -1,38 +1,38 @@
-#include <stdio.h>
+#شامل <stdio.h>
 
-int
-main()
+صحیح
+اصلی()
 {
-#if defined(__LLP64__)
-	if (sizeof(short) == 2
-	    && sizeof(int) == 4
-	    && sizeof(long int) == 4
-	    && sizeof(long long int) == 8
-	    && sizeof(void*) == 8) {
-		(void)printf("Ok\n");
-	} else {
-		(void)printf("KO __LLP64__\n");
+#اگر defined(__LLP64__)
+	اگر (اندازه(short) == 2
+	    && اندازه(صحیح) == 4
+	    && اندازه(long صحیح) == 4
+	    && اندازه(long long صحیح) == 8
+	    && اندازه(تهی*) == 8) {
+		(تهی)printf("Ok\n");
+	} وگرنه {
+		(تهی)printf("KO __LLP64__\n");
 	}
-#elif defined(__LP64__)
-	if (sizeof(short) == 2
-	    && sizeof(int) == 4
-	    && sizeof(long int) == 8
-	    && sizeof(long long int) == 8
-	    && sizeof(void*) == 8) {
-		(void)printf("Ok\n");
-	} else {
-		(void)printf("KO __LP64__\n");
+#وگرنهاگر defined(__LP64__)
+	اگر (اندازه(short) == 2
+	    && اندازه(صحیح) == 4
+	    && اندازه(long صحیح) == 8
+	    && اندازه(long long صحیح) == 8
+	    && اندازه(تهی*) == 8) {
+		(تهی)printf("Ok\n");
+	} وگرنه {
+		(تهی)printf("KO __LP64__\n");
 	}
-#elif defined(__ILP32__)
-	if (sizeof(short) == 2
-	    && sizeof(int) == 4
-	    && sizeof(long int) == 4
-	    && sizeof(void*) == 4) {
-		(void)printf("Ok\n");
-	} else {
-		(void)printf("KO __ILP32__\n");
+#وگرنهاگر defined(__ILP32__)
+	اگر (اندازه(short) == 2
+	    && اندازه(صحیح) == 4
+	    && اندازه(long صحیح) == 4
+	    && اندازه(تهی*) == 4) {
+		(تهی)printf("Ok\n");
+	} وگرنه {
+		(تهی)printf("KO __ILP32__\n");
 	}
-#else
-	(void)printf("KO no __*LP*__ defined.\n");
+#وگرنه
+	(تهی)printf("KO no __*LP*__ defined.\n");
 #endif
 }

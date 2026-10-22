@@ -1,123 +1,123 @@
 // This program is designed to test some arm64-specific things, such as the
 // calling convention, but should give the same results on any architecture.
 
-#include <stdarg.h>
-#include <stdint.h>
-#include <stdio.h>
+#شامل <stdarg.h>
+#شامل <stdint.h>
+#شامل <stdio.h>
 
-struct s1 { char x[1]; } s1 = { "0" };
-struct s2 { char x[2]; } s2 = { "12" };
-struct s3 { char x[3]; } s3 = { "345" };
-struct s4 { char x[4]; } s4 = { "6789" };
-struct s5 { char x[5]; } s5 = { "abcde" };
-struct s6 { char x[6]; } s6 = { "fghijk" };
-struct s7 { char x[7]; } s7 = { "lmnopqr" };
-struct s8 { char x[8]; } s8 = { "stuvwxyz" };
-struct s9 { char x[9]; } s9 = { "ABCDEFGHI" };
-struct s10 { char x[10]; } s10 = { "JKLMNOPQRS" };
-struct s11 { char x[11]; } s11 = { "TUVWXYZ0123" };
-struct s12 { char x[12]; } s12 = { "456789abcdef" };
-struct s13 { char x[13]; } s13 = { "ghijklmnopqrs" };
-struct s14 { char x[14]; } s14 = { "tuvwxyzABCDEFG" };
-struct s15 { char x[15]; } s15 = { "HIJKLMNOPQRSTUV" };
-struct s16 { char x[16]; } s16 = { "WXYZ0123456789ab" };
-struct s17 { char x[17]; } s17 = { "cdefghijklmnopqrs" };
+ساختار s1 { نویسه x[1]; } s1 = { "0" };
+ساختار s2 { نویسه x[2]; } s2 = { "12" };
+ساختار s3 { نویسه x[3]; } s3 = { "345" };
+ساختار s4 { نویسه x[4]; } s4 = { "6789" };
+ساختار s5 { نویسه x[5]; } s5 = { "abcde" };
+ساختار s6 { نویسه x[6]; } s6 = { "fghijk" };
+ساختار s7 { نویسه x[7]; } s7 = { "lmnopqr" };
+ساختار s8 { نویسه x[8]; } s8 = { "stuvwxyz" };
+ساختار s9 { نویسه x[9]; } s9 = { "ABCDEFGHI" };
+ساختار s10 { نویسه x[10]; } s10 = { "JKLMNOPQRS" };
+ساختار s11 { نویسه x[11]; } s11 = { "TUVWXYZ0123" };
+ساختار s12 { نویسه x[12]; } s12 = { "456789abcdef" };
+ساختار s13 { نویسه x[13]; } s13 = { "ghijklmnopqrs" };
+ساختار s14 { نویسه x[14]; } s14 = { "tuvwxyzABCDEFG" };
+ساختار s15 { نویسه x[15]; } s15 = { "HIJKLMNOPQRSTUV" };
+ساختار s16 { نویسه x[16]; } s16 = { "WXYZ0123456789ab" };
+ساختار s17 { نویسه x[17]; } s17 = { "cdefghijklmnopqrs" };
 
-struct hfa11 { float a; } hfa11 = { 11.1 };
-struct hfa12 { float a, b; } hfa12 = { 12.1, 12.2 };
-struct hfa13 { float a, b, c; } hfa13 = { 13.1, 13.2, 13.3 };
-struct hfa14 { float a, b, c, d; } hfa14 = { 14.1, 14.2, 14.3, 14.4 };
+ساختار hfa11 { اعشاری a; } hfa11 = { 11.1 };
+ساختار hfa12 { اعشاری a, b; } hfa12 = { 12.1, 12.2 };
+ساختار hfa13 { اعشاری a, b, c; } hfa13 = { 13.1, 13.2, 13.3 };
+ساختار hfa14 { اعشاری a, b, c, d; } hfa14 = { 14.1, 14.2, 14.3, 14.4 };
 
-struct hfa21 { double a; } hfa21 = { 21.1 };
-struct hfa22 { double a, b; } hfa22 = { 22.1, 22.2 };
-struct hfa23 { double a, b, c; } hfa23 = { 23.1, 23.2, 23.3 };
-struct hfa24 { double a, b, c, d; } hfa24 = { 24.1, 24.2, 24.3, 24.4 };
+ساختار hfa21 { دوگانه a; } hfa21 = { 21.1 };
+ساختار hfa22 { دوگانه a, b; } hfa22 = { 22.1, 22.2 };
+ساختار hfa23 { دوگانه a, b, c; } hfa23 = { 23.1, 23.2, 23.3 };
+ساختار hfa24 { دوگانه a, b, c, d; } hfa24 = { 24.1, 24.2, 24.3, 24.4 };
 
-struct hfa31 { long double a; } hfa31 = { 31.1 };
-struct hfa32 { long double a, b; } hfa32 = { 32.1, 32.2 };
-struct hfa33 { long double a, b, c; } hfa33 = { 33.1, 33.2, 33.3 };
-struct hfa34 { long double a, b, c, d; } hfa34 = { 34.1, 34.2, 34.3, 34.4 };
+ساختار hfa31 { long دوگانه a; } hfa31 = { 31.1 };
+ساختار hfa32 { long دوگانه a, b; } hfa32 = { 32.1, 32.2 };
+ساختار hfa33 { long دوگانه a, b, c; } hfa33 = { 33.1, 33.2, 33.3 };
+ساختار hfa34 { long دوگانه a, b, c, d; } hfa34 = { 34.1, 34.2, 34.3, 34.4 };
 
-struct empty { };
+ساختار empty { };
 /* Keep the top-level offsets at zero without changing the type into a union. */
-struct hfae12 { struct empty e; struct hfa12 h; } hfae12 = { { }, { 112.1, 112.2 } };
-struct hfae22 { struct empty e; struct hfa22 h; } hfae22 = { { }, { 122.1, 122.2 } };
+ساختار hfae12 { ساختار empty e; ساختار hfa12 h; } hfae12 = { { }, { 112.1, 112.2 } };
+ساختار hfae22 { ساختار empty e; ساختار hfa22 h; } hfae22 = { { }, { 122.1, 122.2 } };
 
-void fa_s1(struct s1 a) { printf("%.1s\n", a.x); }
-void fa_s2(struct s2 a) { printf("%.2s\n", a.x); }
-void fa_s3(struct s3 a) { printf("%.3s\n", a.x); }
-void fa_s4(struct s4 a) { printf("%.4s\n", a.x); }
-void fa_s5(struct s5 a) { printf("%.5s\n", a.x); }
-void fa_s6(struct s6 a) { printf("%.6s\n", a.x); }
-void fa_s7(struct s7 a) { printf("%.7s\n", a.x); }
-void fa_s8(struct s8 a) { printf("%.8s\n", a.x); }
-void fa_s9(struct s9 a) { printf("%.9s\n", a.x); }
-void fa_s10(struct s10 a) { printf("%.10s\n", a.x); }
-void fa_s11(struct s11 a) { printf("%.11s\n", a.x); }
-void fa_s12(struct s12 a) { printf("%.12s\n", a.x); }
-void fa_s13(struct s13 a) { printf("%.13s\n", a.x); }
-void fa_s14(struct s14 a) { printf("%.14s\n", a.x); }
-void fa_s15(struct s15 a) { printf("%.15s\n", a.x); }
-void fa_s16(struct s16 a) { printf("%.16s\n", a.x); }
-void fa_s17(struct s17 a) { printf("%.17s\n", a.x); }
+تهی fa_s1(ساختار s1 a) { printf("%.1s\n", a.x); }
+تهی fa_s2(ساختار s2 a) { printf("%.2s\n", a.x); }
+تهی fa_s3(ساختار s3 a) { printf("%.3s\n", a.x); }
+تهی fa_s4(ساختار s4 a) { printf("%.4s\n", a.x); }
+تهی fa_s5(ساختار s5 a) { printf("%.5s\n", a.x); }
+تهی fa_s6(ساختار s6 a) { printf("%.6s\n", a.x); }
+تهی fa_s7(ساختار s7 a) { printf("%.7s\n", a.x); }
+تهی fa_s8(ساختار s8 a) { printf("%.8s\n", a.x); }
+تهی fa_s9(ساختار s9 a) { printf("%.9s\n", a.x); }
+تهی fa_s10(ساختار s10 a) { printf("%.10s\n", a.x); }
+تهی fa_s11(ساختار s11 a) { printf("%.11s\n", a.x); }
+تهی fa_s12(ساختار s12 a) { printf("%.12s\n", a.x); }
+تهی fa_s13(ساختار s13 a) { printf("%.13s\n", a.x); }
+تهی fa_s14(ساختار s14 a) { printf("%.14s\n", a.x); }
+تهی fa_s15(ساختار s15 a) { printf("%.15s\n", a.x); }
+تهی fa_s16(ساختار s16 a) { printf("%.16s\n", a.x); }
+تهی fa_s17(ساختار s17 a) { printf("%.17s\n", a.x); }
 
-void fa_hfa11(struct hfa11 a)
+تهی fa_hfa11(ساختار hfa11 a)
 { printf("%.1f\n", a.a); }
-void fa_hfa12(struct hfa12 a)
+تهی fa_hfa12(ساختار hfa12 a)
 { printf("%.1f %.1f\n", a.a, a.a); }
-void fa_hfa13(struct hfa13 a)
+تهی fa_hfa13(ساختار hfa13 a)
 { printf("%.1f %.1f %.1f\n", a.a, a.b, a.c); }
-void fa_hfa14(struct hfa14 a)
+تهی fa_hfa14(ساختار hfa14 a)
 { printf("%.1f %.1f %.1f %.1f\n", a.a, a.b, a.c, a.d); }
 
-void fa_hfa21(struct hfa21 a)
+تهی fa_hfa21(ساختار hfa21 a)
 { printf("%.1f\n", a.a); }
-void fa_hfa22(struct hfa22 a)
+تهی fa_hfa22(ساختار hfa22 a)
 { printf("%.1f %.1f\n", a.a, a.a); }
-void fa_hfa23(struct hfa23 a)
+تهی fa_hfa23(ساختار hfa23 a)
 { printf("%.1f %.1f %.1f\n", a.a, a.b, a.c); }
-void fa_hfa24(struct hfa24 a)
+تهی fa_hfa24(ساختار hfa24 a)
 { printf("%.1f %.1f %.1f %.1f\n", a.a, a.b, a.c, a.d); }
 
-void fa_hfa31(struct hfa31 a)
+تهی fa_hfa31(ساختار hfa31 a)
 { printf("%.1Lf\n", a.a); }
-void fa_hfa32(struct hfa32 a)
+تهی fa_hfa32(ساختار hfa32 a)
 { printf("%.1Lf %.1Lf\n", a.a, a.a); }
-void fa_hfa33(struct hfa33 a)
+تهی fa_hfa33(ساختار hfa33 a)
 { printf("%.1Lf %.1Lf %.1Lf\n", a.a, a.b, a.c); }
-void fa_hfa34(struct hfa34 a)
+تهی fa_hfa34(ساختار hfa34 a)
 { printf("%.1Lf %.1Lf %.1Lf %.1Lf\n", a.a, a.b, a.c, a.d); }
-void fa_hfae12(struct hfae12 a)
+تهی fa_hfae12(ساختار hfae12 a)
 { printf("%.1f %.1f\n", a.h.a, a.h.b); }
-void fa_hfae22(struct hfae22 a)
+تهی fa_hfae22(ساختار hfae22 a)
 { printf("%.1f %.1f\n", a.h.a, a.h.b); }
 
-void fa1(struct s8 a, struct s9 b, struct s10 c, struct s11 d,
-         struct s12 e, struct s13 f)
+تهی fa1(ساختار s8 a, ساختار s9 b, ساختار s10 c, ساختار s11 d,
+         ساختار s12 e, ساختار s13 f)
 {
     printf("%.3s %.3s %.3s %.3s %.3s %.3s\n", a.x, b.x, c.x, d.x, e.x, f.x);
 }
 
-void fa2(struct s9 a, struct s10 b, struct s11 c, struct s12 d,
-         struct s13 e, struct s14 f)
+تهی fa2(ساختار s9 a, ساختار s10 b, ساختار s11 c, ساختار s12 d,
+         ساختار s13 e, ساختار s14 f)
 {
     printf("%.3s %.3s %.3s %.3s %.3s %.3s\n", a.x, b.x, c.x, d.x, e.x, f.x);
 }
 
-void fa3(struct hfa14 a, struct hfa23 b, struct hfa32 c)
+تهی fa3(ساختار hfa14 a, ساختار hfa23 b, ساختار hfa32 c)
 {
     printf("%.1f %.1f %.1f %.1f %.1Lf %.1Lf\n",
            a.a, a.d, b.a, b.c, c.a, c.b);
 }
 
-void fa4(struct s1 a, struct hfa14 b, struct s2 c, struct hfa24 d,
-         struct s3 e, struct hfa34 f)
+تهی fa4(ساختار s1 a, ساختار hfa14 b, ساختار s2 c, ساختار hfa24 d,
+         ساختار s3 e, ساختار hfa34 f)
 {
     printf("%.1s %.1f %.1f %.2s %.1f %.1f %.3s %.1Lf %.1Lf\n",
            a.x, b.a, b.d, c.x, d.a, d.d, e.x, f.a, f.d);
 }
 
-void arg(void)
+تهی arg(تهی)
 {
     printf("Arguments:\n");
     fa_s1(s1);
@@ -157,60 +157,60 @@ void arg(void)
     fa4(s1, hfa14, s2, hfa24, s3, hfa34);
 }
 
-struct s1 fr_s1(void) { return s1; }
-struct s2 fr_s2(void) { return s2; }
-struct s3 fr_s3(void) { return s3; }
-struct s4 fr_s4(void) { return s4; }
-struct s5 fr_s5(void) { return s5; }
-struct s6 fr_s6(void) { return s6; }
-struct s7 fr_s7(void) { return s7; }
-struct s8 fr_s8(void) { return s8; }
-struct s9 fr_s9(void) { return s9; }
-struct s10 fr_s10(void) { return s10; }
-struct s11 fr_s11(void) { return s11; }
-struct s12 fr_s12(void) { return s12; }
-struct s13 fr_s13(void) { return s13; }
-struct s14 fr_s14(void) { return s14; }
-struct s15 fr_s15(void) { return s15; }
-struct s16 fr_s16(void) { return s16; }
-struct s17 fr_s17(void) { return s17; }
+ساختار s1 fr_s1(تهی) { بازگشت s1; }
+ساختار s2 fr_s2(تهی) { بازگشت s2; }
+ساختار s3 fr_s3(تهی) { بازگشت s3; }
+ساختار s4 fr_s4(تهی) { بازگشت s4; }
+ساختار s5 fr_s5(تهی) { بازگشت s5; }
+ساختار s6 fr_s6(تهی) { بازگشت s6; }
+ساختار s7 fr_s7(تهی) { بازگشت s7; }
+ساختار s8 fr_s8(تهی) { بازگشت s8; }
+ساختار s9 fr_s9(تهی) { بازگشت s9; }
+ساختار s10 fr_s10(تهی) { بازگشت s10; }
+ساختار s11 fr_s11(تهی) { بازگشت s11; }
+ساختار s12 fr_s12(تهی) { بازگشت s12; }
+ساختار s13 fr_s13(تهی) { بازگشت s13; }
+ساختار s14 fr_s14(تهی) { بازگشت s14; }
+ساختار s15 fr_s15(تهی) { بازگشت s15; }
+ساختار s16 fr_s16(تهی) { بازگشت s16; }
+ساختار s17 fr_s17(تهی) { بازگشت s17; }
 
-struct hfa11 fr_hfa11(void) { return hfa11; }
-struct hfa12 fr_hfa12(void) { return hfa12; }
-struct hfa13 fr_hfa13(void) { return hfa13; }
-struct hfa14 fr_hfa14(void) { return hfa14; }
+ساختار hfa11 fr_hfa11(تهی) { بازگشت hfa11; }
+ساختار hfa12 fr_hfa12(تهی) { بازگشت hfa12; }
+ساختار hfa13 fr_hfa13(تهی) { بازگشت hfa13; }
+ساختار hfa14 fr_hfa14(تهی) { بازگشت hfa14; }
 
-struct hfa21 fr_hfa21(void) { return hfa21; }
-struct hfa22 fr_hfa22(void) { return hfa22; }
-struct hfa23 fr_hfa23(void) { return hfa23; }
-struct hfa24 fr_hfa24(void) { return hfa24; }
+ساختار hfa21 fr_hfa21(تهی) { بازگشت hfa21; }
+ساختار hfa22 fr_hfa22(تهی) { بازگشت hfa22; }
+ساختار hfa23 fr_hfa23(تهی) { بازگشت hfa23; }
+ساختار hfa24 fr_hfa24(تهی) { بازگشت hfa24; }
 
-struct hfa31 fr_hfa31(void) { return hfa31; }
-struct hfa32 fr_hfa32(void) { return hfa32; }
-struct hfa33 fr_hfa33(void) { return hfa33; }
-struct hfa34 fr_hfa34(void) { return hfa34; }
-struct hfae12 fr_hfae12(void) { return hfae12; }
-struct hfae22 fr_hfae22(void) { return hfae22; }
+ساختار hfa31 fr_hfa31(تهی) { بازگشت hfa31; }
+ساختار hfa32 fr_hfa32(تهی) { بازگشت hfa32; }
+ساختار hfa33 fr_hfa33(تهی) { بازگشت hfa33; }
+ساختار hfa34 fr_hfa34(تهی) { بازگشت hfa34; }
+ساختار hfae12 fr_hfae12(تهی) { بازگشت hfae12; }
+ساختار hfae22 fr_hfae22(تهی) { بازگشت hfae22; }
 
-void ret(void)
+تهی ret(تهی)
 {
-    struct s1 t1 = fr_s1();
-    struct s2 t2 = fr_s2();
-    struct s3 t3 = fr_s3();
-    struct s4 t4 = fr_s4();
-    struct s5 t5 = fr_s5();
-    struct s6 t6 = fr_s6();
-    struct s7 t7 = fr_s7();
-    struct s8 t8 = fr_s8();
-    struct s9 t9 = fr_s9();
-    struct s10 t10 = fr_s10();
-    struct s11 t11 = fr_s11();
-    struct s12 t12 = fr_s12();
-    struct s13 t13 = fr_s13();
-    struct s14 t14 = fr_s14();
-    struct s15 t15 = fr_s15();
-    struct s16 t16 = fr_s16();
-    struct s17 t17 = fr_s17();
+    ساختار s1 t1 = fr_s1();
+    ساختار s2 t2 = fr_s2();
+    ساختار s3 t3 = fr_s3();
+    ساختار s4 t4 = fr_s4();
+    ساختار s5 t5 = fr_s5();
+    ساختار s6 t6 = fr_s6();
+    ساختار s7 t7 = fr_s7();
+    ساختار s8 t8 = fr_s8();
+    ساختار s9 t9 = fr_s9();
+    ساختار s10 t10 = fr_s10();
+    ساختار s11 t11 = fr_s11();
+    ساختار s12 t12 = fr_s12();
+    ساختار s13 t13 = fr_s13();
+    ساختار s14 t14 = fr_s14();
+    ساختار s15 t15 = fr_s15();
+    ساختار s16 t16 = fr_s16();
+    ساختار s17 t17 = fr_s17();
     printf("Return values:\n");
     printf("%.1s\n", t1.x);
     printf("%.2s\n", t2.x);
@@ -245,98 +245,98 @@ void ret(void)
     printf("%.1f %.1f\n", fr_hfae22().h.a, fr_hfae22().h.b);
 }
 
-void*
+تهی*
 va_arg_with_struct_ptr(va_list ap) {
         /*
          * This was a BUG identified with FFTW-3.3.8 on arm64.
          * The test case only checks it compiles.
          */
-        struct X { int _x; };
-        struct X *x = va_arg(ap, struct X *);
-        return x;
+        ساختار X { صحیح _x; };
+        ساختار X *x = va_arg(ap, ساختار X *);
+        بازگشت x;
 }
 
-int match(const char **s, const char *f)
+صحیح match(ثابت نویسه **s, ثابت نویسه *f)
 {
-    const char *p = *s;
-    for (p = *s; *f && *f == *p; f++, p++)
+    ثابت نویسه *p = *s;
+    برای (p = *s; *f && *f == *p; f++, p++)
         ;
-    if (!*f) {
+    اگر (!*f) {
         *s = p - 1;
-        return 1;
+        بازگشت 1;
     }
-    return 0;
+    بازگشت 0;
 }
 
-void myprintf(const char *format, ...)
+تهی myprintf(ثابت نویسه *format, ...)
 {
-    const char *s;
+    ثابت نویسه *s;
     va_list ap;
     va_start(ap, format);
-    for (s = format; *s; s++) {
-        if (match(&s, "%7s")) {
-            struct s7 t7 = va_arg(ap, struct s7);
+    برای (s = format; *s; s++) {
+        اگر (match(&s, "%7s")) {
+            ساختار s7 t7 = va_arg(ap, ساختار s7);
             printf("%.7s", t7.x);
         }
-        else if (match(&s, "%9s")) {
-            struct s9 t9 = va_arg(ap, struct s9);
+        وگرنه اگر (match(&s, "%9s")) {
+            ساختار s9 t9 = va_arg(ap, ساختار s9);
             printf("%.9s", t9.x);
         }
-        else if (match(&s, "%hfa11")) {
-            struct hfa11 x = va_arg(ap, struct hfa11);
+        وگرنه اگر (match(&s, "%hfa11")) {
+            ساختار hfa11 x = va_arg(ap, ساختار hfa11);
             printf("%.1f,%.1f", x.a, x.a);
         }
-        else if (match(&s, "%hfa12")) {
-            struct hfa12 x = va_arg(ap, struct hfa12);
+        وگرنه اگر (match(&s, "%hfa12")) {
+            ساختار hfa12 x = va_arg(ap, ساختار hfa12);
             printf("%.1f,%.1f", x.a, x.b);
         }
-        else if (match(&s, "%hfa13")) {
-            struct hfa13 x = va_arg(ap, struct hfa13);
+        وگرنه اگر (match(&s, "%hfa13")) {
+            ساختار hfa13 x = va_arg(ap, ساختار hfa13);
             printf("%.1f,%.1f", x.a, x.c);
         }
-        else if (match(&s, "%hfa14")) {
-            struct hfa14 x = va_arg(ap, struct hfa14);
+        وگرنه اگر (match(&s, "%hfa14")) {
+            ساختار hfa14 x = va_arg(ap, ساختار hfa14);
             printf("%.1f,%.1f", x.a, x.d);
         }
-        else if (match(&s, "%hfa21")) {
-            struct hfa21 x = va_arg(ap, struct hfa21);
+        وگرنه اگر (match(&s, "%hfa21")) {
+            ساختار hfa21 x = va_arg(ap, ساختار hfa21);
             printf("%.1f,%.1f", x.a, x.a);
         }
-        else if (match(&s, "%hfa22")) {
-            struct hfa22 x = va_arg(ap, struct hfa22);
+        وگرنه اگر (match(&s, "%hfa22")) {
+            ساختار hfa22 x = va_arg(ap, ساختار hfa22);
             printf("%.1f,%.1f", x.a, x.b);
         }
-        else if (match(&s, "%hfa23")) {
-            struct hfa23 x = va_arg(ap, struct hfa23);
+        وگرنه اگر (match(&s, "%hfa23")) {
+            ساختار hfa23 x = va_arg(ap, ساختار hfa23);
             printf("%.1f,%.1f", x.a, x.c);
         }
-        else if (match(&s, "%hfa24")) {
-            struct hfa24 x = va_arg(ap, struct hfa24);
+        وگرنه اگر (match(&s, "%hfa24")) {
+            ساختار hfa24 x = va_arg(ap, ساختار hfa24);
             printf("%.1f,%.1f", x.a, x.d);
         }
-        else if (match(&s, "%hfa31")) {
-            struct hfa31 x = va_arg(ap, struct hfa31);
+        وگرنه اگر (match(&s, "%hfa31")) {
+            ساختار hfa31 x = va_arg(ap, ساختار hfa31);
             printf("%.1Lf,%.1Lf", x.a, x.a);
         }
-        else if (match(&s, "%hfa32")) {
-            struct hfa32 x = va_arg(ap, struct hfa32);
+        وگرنه اگر (match(&s, "%hfa32")) {
+            ساختار hfa32 x = va_arg(ap, ساختار hfa32);
             printf("%.1Lf,%.1Lf", x.a, x.b);
         }
-        else if (match(&s, "%hfa33")) {
-            struct hfa33 x = va_arg(ap, struct hfa33);
+        وگرنه اگر (match(&s, "%hfa33")) {
+            ساختار hfa33 x = va_arg(ap, ساختار hfa33);
             printf("%.1Lf,%.1Lf", x.a, x.c);
         }
-        else if (match(&s, "%hfa34")) {
-            struct hfa34 x = va_arg(ap, struct hfa34);
+        وگرنه اگر (match(&s, "%hfa34")) {
+            ساختار hfa34 x = va_arg(ap, ساختار hfa34);
             printf("%.1Lf,%.1Lf", x.a, x.d);
         }
-        else
+        وگرنه
             putchar(*s);
     }
     putchar('\n');
 }
 
-void stdarg(void)
+تهی stdarg(تهی)
 {
     printf("stdarg:\n");
     myprintf("%9s %9s %9s %9s %9s %9s", s9, s9, s9, s9, s9, s9);
@@ -406,12 +406,12 @@ void stdarg(void)
              hfa14, hfa12, hfa11, hfa11, hfa11, hfa11);
 }
 
-void pll(unsigned long long x)
+تهی pll(unsigned long long x)
 {
     printf("%llx\n", x);
 }
 
-void movi(void)
+تهی movi(تهی)
 {
     printf("MOVI:\n");
     pll(0);
@@ -456,49 +456,49 @@ void movi(void)
     pll(0xabcdef0123456789);
 }
 
-static uint32_t addip0(uint32_t x) { return x + 0; }
-static uint64_t sublp0(uint64_t x) { return x - 0; }
-static uint32_t addip123(uint32_t x) { return x + 123; }
-static uint64_t addlm123(uint64_t x) { return x + -123; }
-static uint64_t sublp4095(uint64_t x) { return x - 4095; }
-static uint32_t subim503808(uint32_t x) { return x - -503808; }
-static uint64_t addp12345(uint64_t x) { return x + 12345; }
-static uint32_t subp12345(uint32_t x) { return x - 12345; }
+ایستا uint32_t addip0(uint32_t x) { بازگشت x + 0; }
+ایستا uint64_t sublp0(uint64_t x) { بازگشت x - 0; }
+ایستا uint32_t addip123(uint32_t x) { بازگشت x + 123; }
+ایستا uint64_t addlm123(uint64_t x) { بازگشت x + -123; }
+ایستا uint64_t sublp4095(uint64_t x) { بازگشت x - 4095; }
+ایستا uint32_t subim503808(uint32_t x) { بازگشت x - -503808; }
+ایستا uint64_t addp12345(uint64_t x) { بازگشت x + 12345; }
+ایستا uint32_t subp12345(uint32_t x) { بازگشت x - 12345; }
 
-static uint32_t mvni(uint32_t x) { return 0xffffffff - x; }
-static uint64_t negl(uint64_t x) { return 0 - x; }
-static uint32_t rsbi123(uint32_t x) { return 123 - x; }
-static uint64_t rsbl123(uint64_t x) { return 123 - x; }
+ایستا uint32_t mvni(uint32_t x) { بازگشت 0xffffffff - x; }
+ایستا uint64_t negl(uint64_t x) { بازگشت 0 - x; }
+ایستا uint32_t rsbi123(uint32_t x) { بازگشت 123 - x; }
+ایستا uint64_t rsbl123(uint64_t x) { بازگشت 123 - x; }
 
-static uint32_t andi0(uint32_t x) { return x & 0; }
-static uint64_t andlm1(uint64_t x) { return x & -1; }
-static uint64_t orrl0(uint64_t x) { return x | 0; }
-static uint32_t orrim1(uint32_t x) { return x | -1; }
-static uint32_t eori0(uint32_t x) { return x ^ 0; }
-static uint64_t eorlm1(uint64_t x) { return x ^ -1; }
-static uint32_t and0xf0(uint32_t x) { return x & 0xf0; }
-static uint64_t orr0xf0(uint64_t x) { return x | 0xf0; }
-static uint64_t eor0xf0(uint64_t x) { return x ^ 0xf0; }
+ایستا uint32_t andi0(uint32_t x) { بازگشت x & 0; }
+ایستا uint64_t andlm1(uint64_t x) { بازگشت x & -1; }
+ایستا uint64_t orrl0(uint64_t x) { بازگشت x | 0; }
+ایستا uint32_t orrim1(uint32_t x) { بازگشت x | -1; }
+ایستا uint32_t eori0(uint32_t x) { بازگشت x ^ 0; }
+ایستا uint64_t eorlm1(uint64_t x) { بازگشت x ^ -1; }
+ایستا uint32_t and0xf0(uint32_t x) { بازگشت x & 0xf0; }
+ایستا uint64_t orr0xf0(uint64_t x) { بازگشت x | 0xf0; }
+ایستا uint64_t eor0xf0(uint64_t x) { بازگشت x ^ 0xf0; }
 
-static uint32_t lsli0(uint32_t x) { return x << 0; }
-static uint32_t lsri0(uint32_t x) { return x >> 0; }
-static int64_t asrl0(int64_t x) { return x >> 0; }
-static uint32_t lsli1(uint32_t x) { return x << 1; }
-static uint32_t lsli31(uint32_t x) { return x << 31; }
-static uint64_t lsll1(uint64_t x) { return x << 1; }
-static uint64_t lsll63(uint64_t x) { return x << 63; }
-static uint32_t lsri1(uint32_t x) { return x >> 1; }
-static uint32_t lsri31(uint32_t x) { return x >> 31; }
-static uint64_t lsrl1(uint64_t x) { return x >> 1; }
-static uint64_t lsrl63(uint64_t x) { return x >> 63; }
-static int32_t asri1(int32_t x) { return x >> 1; }
-static int32_t asri31(int32_t x) { return x >> 31; }
-static int64_t asrl1(int64_t x) { return x >> 1; }
-static int64_t asrl63(int64_t x) { return x >> 63; }
+ایستا uint32_t lsli0(uint32_t x) { بازگشت x << 0; }
+ایستا uint32_t lsri0(uint32_t x) { بازگشت x >> 0; }
+ایستا int64_t asrl0(int64_t x) { بازگشت x >> 0; }
+ایستا uint32_t lsli1(uint32_t x) { بازگشت x << 1; }
+ایستا uint32_t lsli31(uint32_t x) { بازگشت x << 31; }
+ایستا uint64_t lsll1(uint64_t x) { بازگشت x << 1; }
+ایستا uint64_t lsll63(uint64_t x) { بازگشت x << 63; }
+ایستا uint32_t lsri1(uint32_t x) { بازگشت x >> 1; }
+ایستا uint32_t lsri31(uint32_t x) { بازگشت x >> 31; }
+ایستا uint64_t lsrl1(uint64_t x) { بازگشت x >> 1; }
+ایستا uint64_t lsrl63(uint64_t x) { بازگشت x >> 63; }
+ایستا int32_t asri1(int32_t x) { بازگشت x >> 1; }
+ایستا int32_t asri31(int32_t x) { بازگشت x >> 31; }
+ایستا int64_t asrl1(int64_t x) { بازگشت x >> 1; }
+ایستا int64_t asrl63(int64_t x) { بازگشت x >> 63; }
 
-void opi(void)
+تهی opi(تهی)
 {
-    int x = 1000;
+    صحیح x = 1000;
     pll(addip0(x));
     pll(sublp0(x));
     pll(addip123(x));
@@ -537,7 +537,7 @@ void opi(void)
     pll(asrl63(x));
 }
 
-void pcs(void)
+تهی pcs(تهی)
 {
     arg();
     ret();
@@ -546,8 +546,8 @@ void pcs(void)
     opi();
 }
 
-int main()
+صحیح اصلی()
 {
     pcs();
-    return 0;
+    بازگشت 0;
 }

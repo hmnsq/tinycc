@@ -6,18 +6,18 @@
 #ifndef _INC_DIRECT
 #define _INC_DIRECT
 
-#include <_mingw.h>
-#include <io.h>
+#شامل <_mingw.h>
+#شامل <io.h>
 
-#pragma pack(push,_CRT_PACKING)
+#pragma pack(افزودن,_CRT_PACKING)
 
 #ifdef __cplusplus
-extern "C" {
+بیرونی "C" {
 #endif
 
 #ifndef _DISKFREE_T_DEFINED
 #define _DISKFREE_T_DEFINED
-  struct _diskfree_t {
+  ساختار _diskfree_t {
     unsigned total_clusters;
     unsigned avail_clusters;
     unsigned sectors_per_cluster;
@@ -25,44 +25,44 @@ extern "C" {
   };
 #endif
 
-  _CRTIMP char *__cdecl _getcwd(char *_DstBuf,int _SizeInBytes);
-  _CRTIMP char *__cdecl _getdcwd(int _Drive,char *_DstBuf,int _SizeInBytes);
-  char *__cdecl _getdcwd_nolock(int _Drive,char *_DstBuf,int _SizeInBytes);
-  _CRTIMP int __cdecl _chdir(const char *_Path);
-  _CRTIMP int __cdecl _mkdir(const char *_Path);
-  _CRTIMP int __cdecl _rmdir(const char *_Path);
-  _CRTIMP int __cdecl _chdrive(int _Drive);
-  _CRTIMP int __cdecl _getdrive(void);
-  _CRTIMP unsigned long __cdecl _getdrives(void);
+  _CRTIMP نویسه *__cdecl _getcwd(نویسه *_DstBuf,صحیح _SizeInBytes);
+  _CRTIMP نویسه *__cdecl _getdcwd(صحیح _Drive,نویسه *_DstBuf,صحیح _SizeInBytes);
+  نویسه *__cdecl _getdcwd_nolock(صحیح _Drive,نویسه *_DstBuf,صحیح _SizeInBytes);
+  _CRTIMP صحیح __cdecl _chdir(ثابت نویسه *_Path);
+  _CRTIMP صحیح __cdecl _mkdir(ثابت نویسه *_Path);
+  _CRTIMP صحیح __cdecl _rmdir(ثابت نویسه *_Path);
+  _CRTIMP صحیح __cdecl _chdrive(صحیح _Drive);
+  _CRTIMP صحیح __cdecl _getdrive(تهی);
+  _CRTIMP unsigned long __cdecl _getdrives(تهی);
 
 #ifndef _GETDISKFREE_DEFINED
 #define _GETDISKFREE_DEFINED
-  _CRTIMP unsigned __cdecl _getdiskfree(unsigned _Drive,struct _diskfree_t *_DiskFree);
+  _CRTIMP unsigned __cdecl _getdiskfree(unsigned _Drive,ساختار _diskfree_t *_DiskFree);
 #endif
 
 #ifndef _WDIRECT_DEFINED
 #define _WDIRECT_DEFINED
-  _CRTIMP wchar_t *__cdecl _wgetcwd(wchar_t *_DstBuf,int _SizeInWords);
-  _CRTIMP wchar_t *__cdecl _wgetdcwd(int _Drive,wchar_t *_DstBuf,int _SizeInWords);
-  wchar_t *__cdecl _wgetdcwd_nolock(int _Drive,wchar_t *_DstBuf,int _SizeInWords);
-  _CRTIMP int __cdecl _wchdir(const wchar_t *_Path);
-  _CRTIMP int __cdecl _wmkdir(const wchar_t *_Path);
-  _CRTIMP int __cdecl _wrmdir(const wchar_t *_Path);
+  _CRTIMP wchar_t *__cdecl _wgetcwd(wchar_t *_DstBuf,صحیح Size_In_واژگان);
+  _CRTIMP wchar_t *__cdecl _wgetdcwd(صحیح _Drive,wchar_t *_DstBuf,صحیح Size_In_واژگان);
+  wchar_t *__cdecl _wgetdcwd_nolock(صحیح _Drive,wchar_t *_DstBuf,صحیح Size_In_واژگان);
+  _CRTIMP صحیح __cdecl _wchdir(ثابت wchar_t *_Path);
+  _CRTIMP صحیح __cdecl _wmkdir(ثابت wchar_t *_Path);
+  _CRTIMP صحیح __cdecl _wrmdir(ثابت wchar_t *_Path);
 #endif
 
 #ifndef	NO_OLDNAMES
 
 #define diskfree_t _diskfree_t
 
-  char *__cdecl getcwd(char *_DstBuf,int _SizeInBytes);
-  int __cdecl chdir(const char *_Path);
-  int __cdecl mkdir(const char *_Path);
-  int __cdecl rmdir(const char *_Path);
+  نویسه *__cdecl getcwd(نویسه *_DstBuf,صحیح _SizeInBytes);
+  صحیح __cdecl chdir(ثابت نویسه *_Path);
+  صحیح __cdecl mkdir(ثابت نویسه *_Path);
+  صحیح __cdecl rmdir(ثابت نویسه *_Path);
 #endif
 
 #ifdef __cplusplus
 }
 #endif
 
-#pragma pack(pop)
+#pragma pack(برداشت)
 #endif

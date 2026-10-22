@@ -1,28 +1,28 @@
-#include <stdio.h>
+#شامل <stdio.h>
 
-int main()
+صحیح اصلی()
 {
-   int a;
-   int *b;
-   int *c;
+   صحیح a;
+   صحیح *b;
+   صحیح *c;
 
    a = 42;
    b = &a;
-   c = NULL;
+   c = پوچ;
 
    printf("%d\n", *b);
 
-   if (b == NULL)
+   اگر (b == پوچ)
       printf("b is NULL\n");
-   else
+   وگرنه
       printf("b is not NULL\n");
 
-   if (c == NULL)
+   اگر (c == پوچ)
       printf("c is NULL\n");
-   else
+   وگرنه
       printf("c is not NULL\n");
 
-   return 0;
+   بازگشت 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

@@ -1,21 +1,21 @@
-#include <stdio.h>
+#شامل <stdio.h>
 
-int factorial(int i) 
+صحیح factorial(صحیح i) 
 {
-   if (i < 2)
-      return i;
-   else
-      return i * factorial(i - 1);
+   اگر (i < 2)
+      بازگشت i;
+   وگرنه
+      بازگشت i * factorial(i - 1);
 }
 
-int main()
+صحیح اصلی()
 {
-   int Count;
+   صحیح شمار_3;
 
-   for (Count = 1; Count <= 10; Count++)
-      printf("%d\n", factorial(Count));
+   برای (شمار_3 = 1; شمار_3 <= 10; شمار_3++)
+      printf("%d\n", factorial(شمار_3));
 
-   return 0;
+   بازگشت 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

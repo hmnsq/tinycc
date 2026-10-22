@@ -1,16 +1,16 @@
 //#include <stdio.h>
-extern int printf(const char *, ...);
+بیرونی صحیح printf(ثابت نویسه *, ...);
 
-int main()
+صحیح اصلی()
 {
-   int a;
-   int b;
-   int c;
-   int d;
-   int e;
-   int f;
-   int x;
-   int y;
+   صحیح a;
+   صحیح b;
+   صحیح c;
+   صحیح d;
+   صحیح e;
+   صحیح f;
+   صحیح x;
+   صحیح y;
 
    a = 12;
    b = 34;
@@ -35,7 +35,7 @@ int main()
    printf("%d\n", (4 << 4));
    printf("%d\n", (64 >> 4));
 
-   return 0;
+   بازگشت 0;
 }
 
 // vim: set expandtab ts=4 sw=3 sts=3 tw=80 :

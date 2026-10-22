@@ -10,15 +10,15 @@
 #error Only Win32 target is supported!
 #endif
 
-#include <_mingw.h>
+#شامل <_mingw.h>
 
 #ifndef __TINYC__ /* gr */
 #ifdef _USE_32BIT_TIME_T
 #ifdef _WIN64
 #undef _USE_32BIT_TIME_T
 #endif
-#else
-#if _INTEGRAL_MAX_BITS < 64
+#وگرنه
+#اگر _INTEGRAL_MAX_BITS < 64
 #define _USE_32BIT_TIME_T
 #endif
 #endif
@@ -26,60 +26,60 @@
 
 #ifndef _TIME32_T_DEFINED
 #define _TIME32_T_DEFINED
-typedef long __time32_t;
+تعریفنوع long __time32_t;
 #endif
 
 #ifndef _TIME64_T_DEFINED
 #define _TIME64_T_DEFINED
-#if _INTEGRAL_MAX_BITS >= 64
-typedef __int64 __time64_t;
+#اگر _INTEGRAL_MAX_BITS >= 64
+تعریفنوع __int64 __time64_t;
 #endif
 #endif
 
 #ifndef _TIME_T_DEFINED
 #define _TIME_T_DEFINED
 #ifdef _USE_32BIT_TIME_T
-typedef __time32_t time_t;
-#else
-typedef __time64_t time_t;
+تعریفنوع __time32_t time_t;
+#وگرنه
+تعریفنوع __time64_t time_t;
 #endif
 #endif
 
 #ifndef _INO_T_DEFINED
 #define _INO_T_DEFINED
-typedef unsigned short _ino_t;
+تعریفنوع unsigned short _ino_t;
 #ifndef	NO_OLDNAMES
-typedef unsigned short ino_t;
+تعریفنوع unsigned short ino_t;
 #endif
 #endif
 
 #ifndef _DEV_T_DEFINED
 #define _DEV_T_DEFINED
-typedef unsigned int _dev_t;
+تعریفنوع unsigned صحیح _dev_t;
 #ifndef	NO_OLDNAMES
-typedef unsigned int dev_t;
+تعریفنوع unsigned صحیح dev_t;
 #endif
 #endif
 
 #ifndef _PID_T_
 #define	_PID_T_
 #ifndef _WIN64
-typedef int	_pid_t;
-#else
-typedef __int64	_pid_t;
+تعریفنوع صحیح	_pid_t;
+#وگرنه
+تعریفنوع __int64	_pid_t;
 #endif
 
 #ifndef	NO_OLDNAMES
-typedef _pid_t	pid_t;
+تعریفنوع _pid_t	pid_t;
 #endif
 #endif	/* Not _PID_T_ */
 
 #ifndef _MODE_T_
 #define	_MODE_T_
-typedef unsigned short _mode_t;
+تعریفنوع unsigned short _mode_t;
 
 #ifndef	NO_OLDNAMES
-typedef _mode_t	mode_t;
+تعریفنوع _mode_t	mode_t;
 #endif
 #endif	/* Not _MODE_T_ */
 
@@ -87,36 +87,36 @@ typedef _mode_t	mode_t;
 #define _OFF_T_DEFINED
 #ifndef _OFF_T_
 #define _OFF_T_
-  typedef long _off_t;
-#if !defined(NO_OLDNAMES) || defined(_POSIX)
-  typedef long off_t;
+  تعریفنوع long _off_t;
+#اگر !defined(NO_OLDNAMES) || defined(_POSIX)
+  تعریفنوع long off_t;
 #endif
 #endif
 #endif
 
 #ifndef _OFF64_T_DEFINED
 #define _OFF64_T_DEFINED
-  typedef long long _off64_t;
-#if !defined(NO_OLDNAMES) || defined(_POSIX)
-  typedef long long off64_t;
+  تعریفنوع long long _off64_t;
+#اگر !defined(NO_OLDNAMES) || defined(_POSIX)
+  تعریفنوع long long off64_t;
 #endif
 #endif
 
 /* required by (unbundled) unistd.h for usleep arg type */
 #ifndef __NO_ISOCEXT
-typedef unsigned int useconds_t;
+تعریفنوع unsigned صحیح useconds_t;
 #endif
 
 #ifndef _TIMESPEC_DEFINED
 #define _TIMESPEC_DEFINED
-struct timespec {
+ساختار timespec {
   time_t  tv_sec;   /* Seconds */
   long    tv_nsec;  /* Nanoseconds */
 };
 
-struct itimerspec {
-  struct timespec  it_interval;  /* Timer period */
-  struct timespec  it_value;     /* Timer expiration */
+ساختار itimerspec {
+  ساختار timespec  it_interval;  /* Timer period */
+  ساختار timespec  it_value;     /* Timer expiration */
 };
 #endif
 

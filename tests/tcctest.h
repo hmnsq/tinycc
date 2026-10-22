@@ -1,9 +1,9 @@
-static inline const char *get_basefile_from_header(void)
+ایستا درونخطی ثابت نویسه *get_basefile_from_header(تهی)
 {
-  return __BASE_FILE__;
+  بازگشت __BASE_FILE__;
 }
 
-static inline const char *get_file_from_header(void)
+ایستا درونخطی ثابت نویسه *get_file_from_header(تهی)
 {
-  return __FILE__;
+  بازگشت __FILE__;
 }

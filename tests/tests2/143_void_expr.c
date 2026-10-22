@@ -1,17 +1,17 @@
-#include <stdio.h>
+#شامل <stdio.h>
 
-static void f(int x)
+ایستا تهی f(صحیح x)
 {
      printf("f(%d)\n", x);
 }
 
-int main(void)
+صحیح اصلی(تهی)
 {
-     int count = 0, i = 0;
-     for (; i < 3; ++i) {
+     صحیح شمار_2 = 0, i = 0;
+     برای (; i < 3; ++i) {
          printf("%d\n", i);
-         (void)(i || (f(i), ++count));
+         (تهی)(i || (f(i), ++شمار_2));
      }
-     printf("count %d\n", count);
-     return count == 1 ? 0 : 1;
+     printf("count %d\n", شمار_2);
+     بازگشت شمار_2 == 1 ? 0 : 1;
 }

@@ -6,55 +6,55 @@
 #ifndef __ASSERT_H_
 #define __ASSERT_H_
 
-#include <_mingw.h>
+#شامل <_mingw.h>
 #ifdef __cplusplus
-#include <stdlib.h>
+#شامل <stdlib.h>
 #endif
 
 #ifdef NDEBUG
-#ifndef assert
-#define assert(_Expression) ((void)0)
+#ifndef أكد
+#define أكد(_Expression) ((تهی)0)
 #endif
-#else
+#وگرنه
 
 #ifndef _CRT_TERMINATE_DEFINED
 #define _CRT_TERMINATE_DEFINED
-  void __cdecl __MINGW_NOTHROW exit(int _Code) __MINGW_ATTRIB_NORETURN;
- _CRTIMP void __cdecl __MINGW_NOTHROW _exit(int _Code) __MINGW_ATTRIB_NORETURN;
-#if !defined __NO_ISOCEXT /* extern stub in static libmingwex.a */
+  تهی __cdecl __MINGW_NOTHROW exit(صحیح _Code) __MINGW_ATTRIB_NORETURN;
+ _CRTIMP تهی __cdecl __MINGW_NOTHROW _exit(صحیح _Code) __MINGW_ATTRIB_NORETURN;
+#اگر !defined __NO_ISOCEXT /* extern stub in static libmingwex.a */
 /* C99 function name */
-void __cdecl _Exit(int) __MINGW_ATTRIB_NORETURN;
-__CRT_INLINE __MINGW_ATTRIB_NORETURN void __cdecl _Exit(int status)
+تهی __cdecl _Exit(صحیح) __MINGW_ATTRIB_NORETURN;
+__CRT_INLINE __MINGW_ATTRIB_NORETURN تهی __cdecl _Exit(صحیح status)
 {  _exit(status); }
 #endif
 
-#pragma push_macro("abort")
+#pragma افزودن_macro("abort")
 #undef abort
-  void __cdecl __declspec(noreturn) abort(void);
-#pragma pop_macro("abort")
+  تهی __cdecl __declspec(noreturn) abort(تهی);
+#pragma برداشت_macro("abort")
 
 #endif
 
 #ifdef __cplusplus
-extern "C" {
+بیرونی "C" {
 #endif
 
 
-extern void __cdecl _wassert(const wchar_t *_Message,const wchar_t *_File,unsigned _Line);
-extern void __cdecl _assert(const char *, const char *, unsigned);
+بیرونی تهی __cdecl _wassert(ثابت wchar_t *_Message,ثابت wchar_t *_File,unsigned سطر_2);
+بیرونی تهی __cdecl _assert(ثابت نویسه *, ثابت نویسه *, unsigned);
 
 #ifdef __cplusplus
 }
 #endif
 
-#ifndef assert
+#ifndef أكد
 //#define assert(_Expression) (void)((!!(_Expression)) || (_wassert(_CRT_WIDE(#_Expression),_CRT_WIDE(__FILE__),__LINE__),0))
-#define assert(e) ((e) ? (void)0 : _assert(#e, __FILE__, __LINE__))
+#define أكد(e) ((e) ? (تهی)0 : _assert(#e, __FILE__, __LINE__))
 #endif
 
 #endif
 
-#if (__STDC_VERSION__ >= 201112L) && !defined(static_assert)
+#اگر (__STDC_VERSION__ >= 201112L) && !defined(static_assert)
 /* C11, section 7.2: The macro static_assert expands to _Static_assert. */
 #define static_assert(exp, str) _Static_assert(exp, str) 
 #endif

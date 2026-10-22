@@ -1,10 +1,10 @@
-#include <stdio.h>
+#شامل <stdio.h>
 
 /* This was first introduced to test the ARM port */
 
 #define UINT_MAX ((unsigned) -1)
 
-int main()
+صحیح اصلی()
 {
     printf("18/21=%u\n", 18/21);
     printf("18%%21=%u\n", 18%21);
@@ -66,5 +66,5 @@ int main()
     printf("-(UINT_MAX/2+3)/-2=%u\n", (0-(UINT_MAX/2+3))/-2);
     printf("-(UINT_MAX/2+3)%%-2=%u\n", (0-(UINT_MAX/2+3))%-2);
 
-    return 0;
+    بازگشت 0;
 }

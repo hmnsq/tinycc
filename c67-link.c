@@ -10,7 +10,7 @@
 #define R_COPY      R_C60_COPY
 #define R_RELATIVE  R_C60_RELATIVE
 
-#define R_NUM       R_C60_NUM
+#define R_رقم       R_C60_رقم
 
 #define ELF_START_ADDR 0x00000400
 #define ELF_PAGE_SIZE  0x1000
@@ -18,107 +18,107 @@
 #define PCRELATIVE_DLLPLT 0
 #define RELOCATE_DLLPLT 0
 
-#else /* !TARGET_DEFS_ONLY */
+#وگرنه /* !TARGET_DEFS_ONLY */
 
-#include "tcc.h"
+#شامل "tcc.h"
 
 /* Returns 1 for a code relocation, 0 for a data relocation. For unknown
    relocations, returns -1. */
-ST_FUNC int code_reloc (int reloc_type)
+ST_FUNC صحیح code_reloc (صحیح reloc_type)
 {
-    switch (reloc_type) {
-        case R_C60_32:
-	case R_C60LO16:
-	case R_C60HI16:
-        case R_C60_GOT32:
-        case R_C60_GOTOFF:
-        case R_C60_GOTPC:
-        case R_C60_COPY:
-            return 0;
+    انتخاب (reloc_type) {
+        حالت R_C60_32:
+	حالت R_C60LO16:
+	حالت R_C60HI16:
+        حالت R_C60_GOT32:
+        حالت R_C60_GOTOFF:
+        حالت R_C60_GOTPC:
+        حالت R_C60_COPY:
+            بازگشت 0;
 
-        case R_C60_PLT32:
-            return 1;
+        حالت R_C60_PLT32:
+            بازگشت 1;
     }
-    return -1;
+    بازگشت -1;
 }
 
 /* Returns an enumerator to describe whether and when the relocation needs a
    GOT and/or PLT entry to be created. See tcc.h for a description of the
    different values. */
-ST_FUNC int gotplt_entry_type (int reloc_type)
+ST_FUNC صحیح gotplt_entry_type (صحیح reloc_type)
 {
-    switch (reloc_type) {
-        case R_C60_32:
-	case R_C60LO16:
-	case R_C60HI16:
-        case R_C60_COPY:
-            return NO_GOTPLT_ENTRY;
+    انتخاب (reloc_type) {
+        حالت R_C60_32:
+	حالت R_C60LO16:
+	حالت R_C60HI16:
+        حالت R_C60_COPY:
+            بازگشت NO_GOTPLT_ENTRY;
 
-        case R_C60_GOTOFF:
-        case R_C60_GOTPC:
-            return BUILD_GOT_ONLY;
+        حالت R_C60_GOTOFF:
+        حالت R_C60_GOTPC:
+            بازگشت BUILD_GOT_ONLY;
 
-        case R_C60_PLT32:
-        case R_C60_GOT32:
-            return ALWAYS_GOTPLT_ENTRY;
+        حالت R_C60_PLT32:
+        حالت R_C60_GOT32:
+            بازگشت ALWAYS_GOTPLT_ENTRY;
     }
-    return -1;
+    بازگشت -1;
 }
 
-ST_FUNC unsigned create_plt_entry(TCCState *s1, unsigned got_offset, struct sym_attr *attr)
+ST_FUNC unsigned create_plt_entry(TCCState *s1, unsigned got_offset, ساختار sym_attr *attr)
 {
     tcc_error_noabort("C67 got not implemented");
-    return 0;
+    بازگشت 0;
 }
 
 /* relocate the PLT: compute addresses and offsets in the PLT now that final
    address for PLT and GOT are known (see fill_program_header) */
-ST_FUNC void relocate_plt(TCCState *s1)
+ST_FUNC تهی relocate_plt(TCCState *s1)
 {
     uint8_t *p, *p_end;
 
-    if (!s1->plt)
-      return;
+    اگر (!s1->plt)
+      بازگشت;
 
     p = s1->plt->data;
     p_end = p + s1->plt->data_offset;
 
-    if (p < p_end) {
+    اگر (p < p_end) {
         /* XXX: TODO */
-        while (p < p_end) {
+        وقتی (p < p_end) {
             /* XXX: TODO */
         }
    }
 }
 
-ST_FUNC void relocate(TCCState *s1, ElfW_Rel *rel, int type, unsigned char *ptr, addr_t addr, addr_t val)
+ST_FUNC تهی relocate(TCCState *s1, ElfW_Rel *rel, صحیح type, unsigned نویسه *ptr, addr_t addr, addr_t val)
 {
-    switch(type) {
-        case R_C60_32:
-            *(int *)ptr += val;
-            break;
-        case R_C60LO16:
+    انتخاب(type) {
+        حالت R_C60_32:
+            *(صحیح *)ptr += val;
+            بشکن;
+        حالت R_C60LO16:
             {
                 uint32_t orig;
 
                 /* put the low 16 bits of the absolute address add to what is
                    already there */
-                orig  =   ((*(int *)(ptr  )) >> 7) & 0xffff;
-                orig |=  (((*(int *)(ptr+4)) >> 7) & 0xffff) << 16;
+                orig  =   ((*(صحیح *)(ptr  )) >> 7) & 0xffff;
+                orig |=  (((*(صحیح *)(ptr+4)) >> 7) & 0xffff) << 16;
 
                 /* patch both at once - assumes always in pairs Low - High */
-                *(int *) ptr    = (*(int *) ptr    & (~(0xffff << 7)) ) |
+                *(صحیح *) ptr    = (*(صحیح *) ptr    & (~(0xffff << 7)) ) |
                                    (((val+orig)      & 0xffff) << 7);
-                *(int *)(ptr+4) = (*(int *)(ptr+4) & (~(0xffff << 7)) ) |
+                *(صحیح *)(ptr+4) = (*(صحیح *)(ptr+4) & (~(0xffff << 7)) ) |
                                   ((((val+orig)>>16) & 0xffff) << 7);
             }
-            break;
-        case R_C60HI16:
-            break;
-        default:
+            بشکن;
+        حالت R_C60HI16:
+            بشکن;
+        پیشفرض:
             fprintf(stderr,"FIXME: handle reloc type %x at %x [%p] to %x\n",
                     type, (unsigned) addr, ptr, (unsigned) val);
-            break;
+            بشکن;
     }
 }
 

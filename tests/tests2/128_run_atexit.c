@@ -1,41 +1,41 @@
-#include <stdio.h>
+#شامل <stdio.h>
 
-int atexit(void (*function)(void));
-int on_exit(void (*function)(int, void *), void *arg);
-void exit(int status);
+صحیح atexit(تهی (*function)(تهی));
+صحیح on_exit(تهی (*function)(صحیح, تهی *), تهی *arg);
+تهی exit(صحیح status);
 
-void __attribute((constructor)) startup5(void)
+تهی __attribute((constructor)) startup5(تهی)
 {
     printf ("startup5\n");
 }
 
-void cleanup1(void)
+تهی cleanup1(تهی)
 {
     printf ("cleanup1\n");
     fflush(stdout);
 }
 
-void cleanup2(void)
+تهی cleanup2(تهی)
 {
     printf ("cleanup2\n");
 }
 
-void cleanup3(int ret, void *arg)
+تهی cleanup3(صحیح ret, تهی *arg)
 {
-    printf ("%d %s\n", ret, (char *) arg);
+    printf ("%d %s\n", ret, (نویسه *) arg);
 }
 
-void cleanup4(int ret, void *arg)
+تهی cleanup4(صحیح ret, تهی *arg)
 {
-    printf ("%d %s\n", ret, (char *) arg);
+    printf ("%d %s\n", ret, (نویسه *) arg);
 }
 
-void __attribute((destructor)) cleanup5(void)
+تهی __attribute((destructor)) cleanup5(تهی)
 {
     printf ("cleanup5\n");
 }
 
-void test(void)
+تهی test(تهی)
 {
     atexit(cleanup1);
     atexit(cleanup2);
@@ -43,15 +43,15 @@ void test(void)
     on_exit(cleanup4, "cleanup4");
 }
 
-#if defined test_128_return
-int main(int argc, char **argv)
+#اگر defined test_128_return
+صحیح اصلی(صحیح argc, نویسه **argv)
 {
     test();
-    return 1;
+    بازگشت 1;
 } 
 
-#elif defined test_128_exit
-int main(int argc, char **argv)
+#وگرنهاگر defined test_128_exit
+صحیح اصلی(صحیح argc, نویسه **argv)
 {
     test();
     exit(2);

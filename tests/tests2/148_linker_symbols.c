@@ -1,6 +1,6 @@
-int printf(const char *, ...);
+صحیح printf(ثابت نویسه *, ...);
 
-#define assert(x) ((x) \
+#define أكد(x) ((x) \
     ? (printf(" 1 (%s)\n",#x),1) \
     : (printf("%s:%d: error: (%s)\n",__FILE__,__LINE__,#x),0))
 
@@ -8,145 +8,145 @@ int printf(const char *, ...);
 #define SO 200
 
 /* ------------------------------------------------------ */
-#if TEST-O == 1
-extern char etext[], _etext[];
-extern char edata[], _edata[];
-extern char end[], _end[];
-int check_linker_symbols(void)
+#اگر TEST-O == 1
+بیرونی نویسه etext[], _etext[];
+بیرونی نویسه edata[], _edata[];
+بیرونی نویسه end[], _end[];
+صحیح check_linker_symbols(تهی)
 {
-    int errors = 0;
-    errors += !assert(etext == _etext);
-    errors += !assert(edata == _edata);
-    errors += !assert(end == _end);
-    return errors;
+    صحیح errors = 0;
+    errors += !أكد(etext == _etext);
+    errors += !أكد(edata == _edata);
+    errors += !أكد(end == _end);
+    بازگشت errors;
 }
 
-#elif TEST-MAIN == 1
-int check_linker_symbols(void);
-int main(void)
+#وگرنهاگر TEST-MAIN == 1
+صحیح check_linker_symbols(تهی);
+صحیح اصلی(تهی)
 {
     printf("linker symbols test\n");
-    assert(check_linker_symbols() == 0);
+    أكد(check_linker_symbols() == 0);
 }
 
 /* ------------------------------------------------------ */
-#elif TEST-SO == 2
-extern char etext[], edata[], end[];
-void get_dso_end(char **p)
+#وگرنهاگر TEST-SO == 2
+بیرونی نویسه etext[], edata[], end[];
+تهی get_dso_end(نویسه **p)
 {
     p[0] = etext;
     p[1] = edata;
     p[2] = end;
 }
 
-#elif TEST-MAIN == 2
-extern char _etext[], _edata[], _end[];
-extern void get_dso_end(char **);
-static int fill_data = 123;
-static int fill_bss;
+#وگرنهاگر TEST-MAIN == 2
+بیرونی نویسه _etext[], _edata[], _end[];
+بیرونی تهی get_dso_end(نویسه **);
+ایستا صحیح fill_data = 123;
+ایستا صحیح fill_bss;
 
-int main(void)
+صحیح اصلی(تهی)
 {
-    char *p[3];
+    نویسه *p[3];
     printf("DSO linker symbols test\n");
     get_dso_end(p);
-    assert(p[0] == _etext) || printf("-- %p %p\n", p[0], _etext);
-    assert(p[1] == _edata) || printf("-- %p %p\n", p[1], _edata);
-    assert(p[2] == _end)   || printf("-- %p %p\n", p[2], _end);
+    أكد(p[0] == _etext) || printf("-- %p %p\n", p[0], _etext);
+    أكد(p[1] == _edata) || printf("-- %p %p\n", p[1], _edata);
+    أكد(p[2] == _end)   || printf("-- %p %p\n", p[2], _end);
 }
 
 /* ------------------------------------------------------ */
-#elif TEST-MAIN == 3
+#وگرنهاگر TEST-MAIN == 3
 
-int etext(void) { return 1; }
-int edata(void) { return 2; }
-int end(void) { return 3; }
-int main(void)
+صحیح etext(تهی) { بازگشت 1; }
+صحیح edata(تهی) { بازگشت 2; }
+صحیح end(تهی) { بازگشت 3; }
+صحیح اصلی(تهی)
 {
     printf("user definition test\n");
-    assert(etext() + edata() + end() == 6);
+    أكد(etext() + edata() + end() == 6);
 }
 
 /* ------------------------------------------------------ */
-#elif TEST-SO == 4
-unsigned char copy_reloc_data[257];
+#وگرنهاگر TEST-SO == 4
+unsigned نویسه copy_reloc_data[257];
 
-#elif TEST-MAIN == 4
-extern unsigned char copy_reloc_data[257];
-extern char end[], _end[];
+#وگرنهاگر TEST-MAIN == 4
+بیرونی unsigned نویسه copy_reloc_data[257];
+بیرونی نویسه end[], _end[];
 
-int main(void)
+صحیح اصلی(تهی)
 {
     unsigned long data_end;
     printf("end copy relocation test\n");
     copy_reloc_data[256] = 42;
-    data_end = (unsigned long)(copy_reloc_data + sizeof copy_reloc_data);
-    assert(end == _end);
-    assert((unsigned long)end >= data_end);
-    assert(copy_reloc_data[256] == 42);
+    data_end = (unsigned long)(copy_reloc_data + اندازه copy_reloc_data);
+    أكد(end == _end);
+    أكد((unsigned long)end >= data_end);
+    أكد(copy_reloc_data[256] == 42);
 }
 
 /* ------------------------------------------------------ */
-#elif TEST-O == 5
-void __attribute__((section(".text.linker_test"), noinline, used))
-linker_test_text(void)
+#وگرنهاگر TEST-O == 5
+تهی __attribute__((section(".text.linker_test"), noinline, used))
+linker_test_text(تهی)
 {
 }
 __attribute__((section(".bss.linker_test"), used))
-unsigned char linker_test_bss[257];
+unsigned نویسه linker_test_bss[257];
 
 __attribute__((section(".data.linker_test"), used))
-unsigned char linker_test_data[23] = { 1 };
+unsigned نویسه linker_test_data[23] = { 1 };
 
-#elif TEST-MAIN == 5
-extern void linker_test_text(void);
-extern unsigned char linker_test_data[23];
-extern unsigned char linker_test_bss[257];
-extern char etext[], _etext[];
-extern char edata[], _edata[];
-extern char end[], _end[];
+#وگرنهاگر TEST-MAIN == 5
+بیرونی تهی linker_test_text(تهی);
+بیرونی unsigned نویسه linker_test_data[23];
+بیرونی unsigned نویسه linker_test_bss[257];
+بیرونی نویسه etext[], _etext[];
+بیرونی نویسه edata[], _edata[];
+بیرونی نویسه end[], _end[];
 
-int main(void)
+صحیح اصلی(تهی)
 {
-    char* text_addr = (void*)linker_test_text;
-    char* data_end = linker_test_data + sizeof linker_test_data;
-    char* bss_end = linker_test_bss + sizeof linker_test_bss;
+    نویسه* text_addr = (تهی*)linker_test_text;
+    نویسه* data_end = linker_test_data + اندازه linker_test_data;
+    نویسه* bss_end = linker_test_bss + اندازه linker_test_bss;
 
     printf("linker boundary test\n");
     linker_test_data[22] = 42;
     linker_test_bss[256] = 42;
-    assert(linker_test_bss > linker_test_data);
-    assert(etext == _etext);
-    assert(edata == _edata);
-    assert(end == _end);
-    assert(etext >= text_addr);
-    assert(edata >= data_end);
-    assert(end >= bss_end);
-    assert(linker_test_data[22] == 42);
-    assert(linker_test_bss[256] == 42);
+    أكد(linker_test_bss > linker_test_data);
+    أكد(etext == _etext);
+    أكد(edata == _edata);
+    أكد(end == _end);
+    أكد(etext >= text_addr);
+    أكد(edata >= data_end);
+    أكد(end >= bss_end);
+    أكد(linker_test_data[22] == 42);
+    أكد(linker_test_bss[256] == 42);
 }
 
 /* ------------------------------------------------------ */
-#elif TEST-SO == 6
-int end;
-int eight = 8;
-int nine;
-int dso_add() { return end + eight + nine; }
+#وگرنهاگر TEST-SO == 6
+صحیح end;
+صحیح eight = 8;
+صحیح nine;
+صحیح dso_add() { بازگشت end + eight + nine; }
 
-#elif TEST-MAIN == 6
-int end = 7;
-int eight;
-int nine = 9;
-int dso_add();
-int main()
+#وگرنهاگر TEST-MAIN == 6
+صحیح end = 7;
+صحیح eight;
+صحیح nine = 9;
+صحیح dso_add();
+صحیح اصلی()
 {
-    int sum;
+    صحیح sum;
     printf("DSO initialized data test\n");
     sum = dso_add();
-    assert(end == 7);
-    assert(eight == 8);
-    assert(nine == 9);
-    assert(sum == 24) || printf("-- %d + %d + %d = %d\n", end, eight, nine, sum);
+    أكد(end == 7);
+    أكد(eight == 8);
+    أكد(nine == 9);
+    أكد(sum == 24) || printf("-- %d + %d + %d = %d\n", end, eight, nine, sum);
 }
 
 /* ------------------------------------------------------ */

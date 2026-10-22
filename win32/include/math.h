@@ -6,15 +6,15 @@
 #ifndef _MATH_H_
 #define _MATH_H_
 
-#if __GNUC__ >= 3
+#اگر __GNUC__ >= 3
 #pragma GCC system_header
 #endif
 
-#include <_mingw.h>
+#شامل <_mingw.h>
 
-struct exception;
+ساختار exception;
 
-#pragma pack(push,_CRT_PACKING)
+#pragma pack(افزودن,_CRT_PACKING)
 
 #define _DOMAIN 1
 #define _SING 2
@@ -68,24 +68,24 @@ struct exception;
 #endif
 
 #ifdef __cplusplus
-extern "C" {
+بیرونی "C" {
 #endif
 
 #ifndef _EXCEPTION_DEFINED
 #define _EXCEPTION_DEFINED
-  struct _exception {
-    int type;
-    char *name;
-    double arg1;
-    double arg2;
-    double retval;
+  ساختار _exception {
+    صحیح type;
+    نویسه *name;
+    دوگانه arg1;
+    دوگانه arg2;
+    دوگانه retval;
   };
 #endif
 
 #ifndef _COMPLEX_DEFINED
 #define _COMPLEX_DEFINED
-  struct _complex {
-    double x,y;
+  ساختار _complex {
+    دوگانه x,y;
   };
 #endif
 
@@ -94,9 +94,9 @@ extern "C" {
 
 #ifndef _HUGE
 #ifdef _MSVCRT_
-  extern double *_HUGE;
-#else
-  extern double *_imp___HUGE;
+  بیرونی دوگانه *_HUGE;
+#وگرنه
+  بیرونی دوگانه *_imp___HUGE;
 #define _HUGE	(*_imp___HUGE)
 #endif
 #endif
@@ -105,96 +105,96 @@ extern "C" {
 
 #ifndef _CRT_ABS_DEFINED
 #define _CRT_ABS_DEFINED
-  int __cdecl abs(int _X);
+  صحیح __cdecl abs(صحیح _X);
   long __cdecl labs(long _X);
 #endif
-  double __cdecl acos(double _X);
-  double __cdecl asin(double _X);
-  double __cdecl atan(double _X);
-  double __cdecl atan2(double _Y,double _X);
+  دوگانه __cdecl acos(دوگانه _X);
+  دوگانه __cdecl asin(دوگانه _X);
+  دوگانه __cdecl atan(دوگانه _X);
+  دوگانه __cdecl atan2(دوگانه _Y,دوگانه _X);
 #ifndef _SIGN_DEFINED
 #define _SIGN_DEFINED
-  _CRTIMP double __cdecl _copysign (double _Number,double _Sign);
-  _CRTIMP double __cdecl _chgsign (double _X);
+  _CRTIMP دوگانه __cdecl _copysign (دوگانه عدد,دوگانه _Sign);
+  _CRTIMP دوگانه __cdecl _chgsign (دوگانه _X);
 #endif
-  double __cdecl cos(double _X);
-  double __cdecl cosh(double _X);
-  double __cdecl exp(double _X);
-  double __cdecl expm1(double _X);
-  double __cdecl fabs(double _X);
-  double __cdecl fmod(double _X,double _Y);
-  double __cdecl log(double _X);
-  double __cdecl log10(double _X);
-  double __cdecl pow(double _X,double _Y);
-  double __cdecl sin(double _X);
-  double __cdecl sinh(double _X);
-  double __cdecl tan(double _X);
-  double __cdecl tanh(double _X);
-  double __cdecl sqrt(double _X);
+  دوگانه __cdecl cos(دوگانه _X);
+  دوگانه __cdecl cosh(دوگانه _X);
+  دوگانه __cdecl exp(دوگانه _X);
+  دوگانه __cdecl expm1(دوگانه _X);
+  دوگانه __cdecl fabs(دوگانه _X);
+  دوگانه __cdecl fmod(دوگانه _X,دوگانه _Y);
+  دوگانه __cdecl log(دوگانه _X);
+  دوگانه __cdecl log10(دوگانه _X);
+  دوگانه __cdecl pow(دوگانه _X,دوگانه _Y);
+  دوگانه __cdecl sin(دوگانه _X);
+  دوگانه __cdecl sinh(دوگانه _X);
+  دوگانه __cdecl tan(دوگانه _X);
+  دوگانه __cdecl tanh(دوگانه _X);
+  دوگانه __cdecl sqrt(دوگانه _X);
 #ifndef _CRT_ATOF_DEFINED
 #define _CRT_ATOF_DEFINED
-  double __cdecl atof(const char *_String);
-  double __cdecl _atof_l(const char *_String,_locale_t _Locale);
+  دوگانه __cdecl atof(ثابت نویسه *_String);
+  دوگانه __cdecl _atof_l(ثابت نویسه *_String,_locale_t _Locale);
 #endif
 
-  _CRTIMP double __cdecl _cabs(struct _complex _ComplexA);
-  double __cdecl ceil(double _X);
-  double __cdecl floor(double _X);
-  double __cdecl frexp(double _X,int *_Y);
-  double __cdecl _hypot(double _X,double _Y);
-  _CRTIMP double __cdecl _j0(double _X);
-  _CRTIMP double __cdecl _j1(double _X);
-  _CRTIMP double __cdecl _jn(int _X,double _Y);
-  double __cdecl ldexp(double _X,int _Y);
+  _CRTIMP دوگانه __cdecl _cabs(ساختار _complex _ComplexA);
+  دوگانه __cdecl ceil(دوگانه _X);
+  دوگانه __cdecl floor(دوگانه _X);
+  دوگانه __cdecl frexp(دوگانه _X,صحیح *_Y);
+  دوگانه __cdecl _hypot(دوگانه _X,دوگانه _Y);
+  _CRTIMP دوگانه __cdecl _j0(دوگانه _X);
+  _CRTIMP دوگانه __cdecl _j1(دوگانه _X);
+  _CRTIMP دوگانه __cdecl _jn(صحیح _X,دوگانه _Y);
+  دوگانه __cdecl ldexp(دوگانه _X,صحیح _Y);
 #ifndef _CRT_MATHERR_DEFINED
 #define _CRT_MATHERR_DEFINED
-  int __cdecl _matherr(struct _exception *_Except);
+  صحیح __cdecl _matherr(ساختار _exception *_Except);
 #endif
-  double __cdecl modf(double _X,double *_Y);
-  _CRTIMP double __cdecl _y0(double _X);
-  _CRTIMP double __cdecl _y1(double _X);
-  _CRTIMP double __cdecl _yn(int _X,double _Y);
+  دوگانه __cdecl modf(دوگانه _X,دوگانه *_Y);
+  _CRTIMP دوگانه __cdecl _y0(دوگانه _X);
+  _CRTIMP دوگانه __cdecl _y1(دوگانه _X);
+  _CRTIMP دوگانه __cdecl _yn(صحیح _X,دوگانه _Y);
 
-#if(defined(_X86_) && !defined(__x86_64))
-  _CRTIMP int __cdecl _set_SSE2_enable(int _Flag);
+#اگر(defined(_X86_) && !defined(__x86_64))
+  _CRTIMP صحیح __cdecl _set_SSE2_enable(صحیح _Flag);
   /* from libmingwex */
-  float __cdecl _hypotf(float _X,float _Y);
+  اعشاری __cdecl _hypotf(اعشاری _X,اعشاری _Y);
 #endif
 
-  float frexpf(float _X,int *_Y);
-  float __cdecl ldexpf(float _X,int _Y);
-  long double __cdecl ldexpl(long double _X,int _Y);
-  float __cdecl acosf(float _X);
-  float __cdecl asinf(float _X);
-   float __cdecl atanf(float _X);
-   float __cdecl atan2f(float _X,float _Y);
-   float __cdecl cosf(float _X);
-   float __cdecl sinf(float _X);
-   float __cdecl tanf(float _X);
-   float __cdecl coshf(float _X);
-   float __cdecl sinhf(float _X);
-   float __cdecl tanhf(float _X);
-   float __cdecl expf(float _X);
-   float __cdecl expm1f(float _X);
-   float __cdecl logf(float _X);
-   float __cdecl log10f(float _X);
-   float __cdecl modff(float _X,float *_Y);
-   float __cdecl powf(float _X,float _Y);
-   float __cdecl sqrtf(float _X);
-   float __cdecl ceilf(float _X);
-   float __cdecl floorf(float _X);
-  float __cdecl fmodf(float _X,float _Y);
-   float __cdecl _hypotf(float _X,float _Y);
-  float __cdecl fabsf(float _X);
-#if !defined(__ia64__)
+  اعشاری frexpf(اعشاری _X,صحیح *_Y);
+  اعشاری __cdecl ldexpf(اعشاری _X,صحیح _Y);
+  long دوگانه __cdecl ldexpl(long دوگانه _X,صحیح _Y);
+  اعشاری __cdecl acosf(اعشاری _X);
+  اعشاری __cdecl asinf(اعشاری _X);
+   اعشاری __cdecl atanf(اعشاری _X);
+   اعشاری __cdecl atan2f(اعشاری _X,اعشاری _Y);
+   اعشاری __cdecl cosf(اعشاری _X);
+   اعشاری __cdecl sinf(اعشاری _X);
+   اعشاری __cdecl tanf(اعشاری _X);
+   اعشاری __cdecl coshf(اعشاری _X);
+   اعشاری __cdecl sinhf(اعشاری _X);
+   اعشاری __cdecl tanhf(اعشاری _X);
+   اعشاری __cdecl expf(اعشاری _X);
+   اعشاری __cdecl expm1f(اعشاری _X);
+   اعشاری __cdecl logf(اعشاری _X);
+   اعشاری __cdecl log10f(اعشاری _X);
+   اعشاری __cdecl modff(اعشاری _X,اعشاری *_Y);
+   اعشاری __cdecl powf(اعشاری _X,اعشاری _Y);
+   اعشاری __cdecl sqrtf(اعشاری _X);
+   اعشاری __cdecl ceilf(اعشاری _X);
+   اعشاری __cdecl floorf(اعشاری _X);
+  اعشاری __cdecl fmodf(اعشاری _X,اعشاری _Y);
+   اعشاری __cdecl _hypotf(اعشاری _X,اعشاری _Y);
+  اعشاری __cdecl fabsf(اعشاری _X);
+#اگر !defined(__ia64__)
    /* from libmingwex */
-   float __cdecl _copysignf (float _Number,float _Sign);
-   float __cdecl _chgsignf (float _X);
-   float __cdecl _logbf(float _X);
-   float __cdecl _nextafterf(float _X,float _Y);
-   int __cdecl _finitef(float _X);
-   int __cdecl _isnanf(float _X);
-   int __cdecl _fpclassf(float _X);
+   اعشاری __cdecl _copysignf (اعشاری عدد,اعشاری _Sign);
+   اعشاری __cdecl _chgsignf (اعشاری _X);
+   اعشاری __cdecl _logbf(اعشاری _X);
+   اعشاری __cdecl _nextafterf(اعشاری _X,اعشاری _Y);
+   صحیح __cdecl _finitef(اعشاری _X);
+   صحیح __cdecl _isnanf(اعشاری _X);
+   صحیح __cdecl _fpclassf(اعشاری _X);
 #endif
 
 #ifndef	NO_OLDNAMES
@@ -202,17 +202,17 @@ extern "C" {
 
 #define HUGE	_HUGE
   /*	double __cdecl cabs(struct _complex _X); */
-  double __cdecl hypot(double _X,double _Y);
-  _CRTIMP double __cdecl j0(double _X);
-  _CRTIMP double __cdecl j1(double _X);
-  _CRTIMP double __cdecl jn(int _X,double _Y);
-  _CRTIMP double __cdecl y0(double _X);
-  _CRTIMP double __cdecl y1(double _X);
-  _CRTIMP double __cdecl yn(int _X,double _Y);
+  دوگانه __cdecl hypot(دوگانه _X,دوگانه _Y);
+  _CRTIMP دوگانه __cdecl j0(دوگانه _X);
+  _CRTIMP دوگانه __cdecl j1(دوگانه _X);
+  _CRTIMP دوگانه __cdecl jn(صحیح _X,دوگانه _Y);
+  _CRTIMP دوگانه __cdecl y0(دوگانه _X);
+  _CRTIMP دوگانه __cdecl y1(دوگانه _X);
+  _CRTIMP دوگانه __cdecl yn(صحیح _X,دوگانه _Y);
 #endif
 
 #ifndef __NO_ISOCEXT
-#if (defined (__STDC_VERSION__) && __STDC_VERSION__ >= 199901L) \
+#اگر (defined (__STDC_VERSION__) && __STDC_VERSION__ >= 199901L) \
   || !defined __STRICT_ANSI__ || defined __GLIBCPP__
 
 #define NAN (0.0F/0.0F)
@@ -236,9 +236,9 @@ extern "C" {
   converted to double, and zero when converted to float.)
   */
 
-  extern int __cdecl __fpclassifyf (float);
-  extern int __cdecl __fpclassify (double);
-  extern int __cdecl __fpclassifyl (long double);
+  بیرونی صحیح __cdecl __fpclassifyf (اعشاری);
+  بیرونی صحیح __cdecl __fpclassify (دوگانه);
+  بیرونی صحیح __cdecl __fpclassifyl (long دوگانه);
 
 /* Implemented at tcc/tcc_libm.h
 #define fpclassify(x) (sizeof (x) == sizeof (float) ? __fpclassifyf (x)	  \
@@ -246,7 +246,7 @@ extern "C" {
   : __fpclassifyl (x))
 */
 #define fpclassify(x) \
-  _Generic(x, float: __fpclassifyf, double: __fpclassify, long double: __fpclassifyl)(x)
+  _Generic(x, اعشاری: __fpclassifyf, دوگانه: __fpclassify, long دوگانه: __fpclassifyl)(x)
 
   /* 7.12.3.2 */
 #define isfinite(x) ((fpclassify(x) & FP_NAN) == 0)
@@ -264,9 +264,9 @@ extern "C" {
 
   /* 7.12.3.6 The signbit macro */
 
-  extern int __cdecl __signbitf (float);
-  extern int __cdecl __signbit (double);
-  extern int __cdecl __signbitl (long double);
+  بیرونی صحیح __cdecl __signbitf (اعشاری);
+  بیرونی صحیح __cdecl __signbit (دوگانه);
+  بیرونی صحیح __cdecl __signbitl (long دوگانه);
 
 /* Implemented at tcc/tcc_libm.h
 #define signbit(x) (sizeof (x) == sizeof (float) ? __signbitf (x)	\
@@ -274,115 +274,115 @@ extern "C" {
   : __signbitl (x))
 */
 #define signbit(x) \
-  _Generic(x, float: __signbitf, double: __signbit, long double: __signbitl)(x)
+  _Generic(x, اعشاری: __signbitf, دوگانه: __signbit, long دوگانه: __signbitl)(x)
 
-  extern double __cdecl exp2(double);
-  extern float __cdecl exp2f(float);
-  extern long double __cdecl exp2l(long double);
+  بیرونی دوگانه __cdecl exp2(دوگانه);
+  بیرونی اعشاری __cdecl exp2f(اعشاری);
+  بیرونی long دوگانه __cdecl exp2l(long دوگانه);
 
-#define FP_ILOGB0 ((int)0x80000000)
-#define FP_ILOGBNAN ((int)0x80000000)
-  extern int __cdecl ilogb (double);
-  extern int __cdecl ilogbf (float);
-  extern int __cdecl ilogbl (long double);
+#define FP_ILOGB0 ((صحیح)0x80000000)
+#define FP_ILOGBNAN ((صحیح)0x80000000)
+  بیرونی صحیح __cdecl ilogb (دوگانه);
+  بیرونی صحیح __cdecl ilogbf (اعشاری);
+  بیرونی صحیح __cdecl ilogbl (long دوگانه);
 
-  extern double __cdecl log1p(double);
-  extern float __cdecl log1pf(float);
-  extern long double __cdecl log1pl(long double);
+  بیرونی دوگانه __cdecl log1p(دوگانه);
+  بیرونی اعشاری __cdecl log1pf(اعشاری);
+  بیرونی long دوگانه __cdecl log1pl(long دوگانه);
 
-  extern double __cdecl log2 (double);
-  extern float __cdecl log2f (float);
-  extern long double __cdecl log2l (long double);
+  بیرونی دوگانه __cdecl log2 (دوگانه);
+  بیرونی اعشاری __cdecl log2f (اعشاری);
+  بیرونی long دوگانه __cdecl log2l (long دوگانه);
 
-  extern double __cdecl logb (double);
-  extern float __cdecl logbf (float);
-  extern long double __cdecl logbl (long double);
+  بیرونی دوگانه __cdecl logb (دوگانه);
+  بیرونی اعشاری __cdecl logbf (اعشاری);
+  بیرونی long دوگانه __cdecl logbl (long دوگانه);
 
-  extern long double __cdecl modfl (long double, long double*);
+  بیرونی long دوگانه __cdecl modfl (long دوگانه, long دوگانه*);
 
   /* 7.12.6.13 */
-  extern double __cdecl scalbn (double, int);
-  extern float __cdecl scalbnf (float, int);
-  extern long double __cdecl scalbnl (long double, int);
+  بیرونی دوگانه __cdecl scalbn (دوگانه, صحیح);
+  بیرونی اعشاری __cdecl scalbnf (اعشاری, صحیح);
+  بیرونی long دوگانه __cdecl scalbnl (long دوگانه, صحیح);
 
-  extern double __cdecl scalbln (double, long);
-  extern float __cdecl scalblnf (float, long);
-  extern long double __cdecl scalblnl (long double, long);
+  بیرونی دوگانه __cdecl scalbln (دوگانه, long);
+  بیرونی اعشاری __cdecl scalblnf (اعشاری, long);
+  بیرونی long دوگانه __cdecl scalblnl (long دوگانه, long);
 
   /* 7.12.7.1 */
   /* Implementations adapted from Cephes versions */ 
-  extern double __cdecl cbrt (double);
-  extern float __cdecl cbrtf (float);
-  extern long double __cdecl cbrtl (long double);
+  بیرونی دوگانه __cdecl cbrt (دوگانه);
+  بیرونی اعشاری __cdecl cbrtf (اعشاری);
+  بیرونی long دوگانه __cdecl cbrtl (long دوگانه);
 
-  extern double __cdecl hypot (double, double);
-  extern float __cdecl hypotf (float, float);
-  extern long double __cdecl hypotl (long double, long double);
+  بیرونی دوگانه __cdecl hypot (دوگانه, دوگانه);
+  بیرونی اعشاری __cdecl hypotf (اعشاری, اعشاری);
+  بیرونی long دوگانه __cdecl hypotl (long دوگانه, long دوگانه);
 
-  extern long double __cdecl powl (long double, long double);
-  extern long double __cdecl expl(long double);
-  extern long double __cdecl expm1l(long double);
-  extern long double __cdecl coshl(long double);
-  extern long double __cdecl fabsl (long double);
-  extern long double __cdecl acosl(long double);
-  extern long double __cdecl asinl(long double);
-  extern long double __cdecl atanl(long double);
-  extern long double __cdecl atan2l(long double,long double);
-  extern long double __cdecl sinhl(long double);
-  extern long double __cdecl tanhl(long double);
+  بیرونی long دوگانه __cdecl powl (long دوگانه, long دوگانه);
+  بیرونی long دوگانه __cdecl expl(long دوگانه);
+  بیرونی long دوگانه __cdecl expm1l(long دوگانه);
+  بیرونی long دوگانه __cdecl coshl(long دوگانه);
+  بیرونی long دوگانه __cdecl fabsl (long دوگانه);
+  بیرونی long دوگانه __cdecl acosl(long دوگانه);
+  بیرونی long دوگانه __cdecl asinl(long دوگانه);
+  بیرونی long دوگانه __cdecl atanl(long دوگانه);
+  بیرونی long دوگانه __cdecl atan2l(long دوگانه,long دوگانه);
+  بیرونی long دوگانه __cdecl sinhl(long دوگانه);
+  بیرونی long دوگانه __cdecl tanhl(long دوگانه);
 
   /* 7.12.8.1 The erf functions  */
-  extern double __cdecl erf (double);
-  extern float __cdecl erff (float);
+  بیرونی دوگانه __cdecl erf (دوگانه);
+  بیرونی اعشاری __cdecl erff (اعشاری);
   /* TODO
   extern long double __cdecl erfl (long double);
   */ 
 
   /* 7.12.8.2 The erfc functions  */
-  extern double __cdecl erfc (double);
-  extern float __cdecl erfcf (float);
+  بیرونی دوگانه __cdecl erfc (دوگانه);
+  بیرونی اعشاری __cdecl erfcf (اعشاری);
   /* TODO
   extern long double __cdecl erfcl (long double);
   */ 
 
   /* 7.12.8.3 The lgamma functions */
-  extern double __cdecl lgamma (double);
-  extern float __cdecl lgammaf (float);
-  extern long double __cdecl lgammal (long double);
+  بیرونی دوگانه __cdecl lgamma (دوگانه);
+  بیرونی اعشاری __cdecl lgammaf (اعشاری);
+  بیرونی long دوگانه __cdecl lgammal (long دوگانه);
 
   /* 7.12.8.4 The tgamma functions */
-  extern double __cdecl tgamma (double);
-  extern float __cdecl tgammaf (float);
-  extern long double __cdecl tgammal (long double);
+  بیرونی دوگانه __cdecl tgamma (دوگانه);
+  بیرونی اعشاری __cdecl tgammaf (اعشاری);
+  بیرونی long دوگانه __cdecl tgammal (long دوگانه);
 
-  extern long double __cdecl ceill (long double);
-  extern long double __cdecl floorl (long double);
-  extern long double __cdecl frexpl(long double,int *);
-  extern long double __cdecl log10l(long double);
-  extern long double __cdecl logl(long double);
-  extern long double __cdecl cosl(long double);
-  extern long double __cdecl sinl(long double);
-  extern long double __cdecl tanl(long double);
-  extern long double sqrtl(long double);
+  بیرونی long دوگانه __cdecl ceill (long دوگانه);
+  بیرونی long دوگانه __cdecl floorl (long دوگانه);
+  بیرونی long دوگانه __cdecl frexpl(long دوگانه,صحیح *);
+  بیرونی long دوگانه __cdecl log10l(long دوگانه);
+  بیرونی long دوگانه __cdecl logl(long دوگانه);
+  بیرونی long دوگانه __cdecl cosl(long دوگانه);
+  بیرونی long دوگانه __cdecl sinl(long دوگانه);
+  بیرونی long دوگانه __cdecl tanl(long دوگانه);
+  بیرونی long دوگانه sqrtl(long دوگانه);
 
   /* 7.12.9.3 */
-  extern double __cdecl nearbyint ( double);
-  extern float __cdecl nearbyintf (float);
-  extern long double __cdecl nearbyintl (long double);
+  بیرونی دوگانه __cdecl nearbyint ( دوگانه);
+  بیرونی اعشاری __cdecl nearbyintf (اعشاری);
+  بیرونی long دوگانه __cdecl nearbyintl (long دوگانه);
 
   /* 7.12.9.4 */
   /* round, using fpu control word settings */
-  extern double __cdecl rint (double);
-  extern float __cdecl rintf (float);
-  extern long double __cdecl rintl (long double);
+  بیرونی دوگانه __cdecl rint (دوگانه);
+  بیرونی اعشاری __cdecl rintf (اعشاری);
+  بیرونی long دوگانه __cdecl rintl (long دوگانه);
 
-  extern long __cdecl lrint (double);
-  extern long __cdecl lrintf (float);
-  extern long __cdecl lrintl (long double);
+  بیرونی long __cdecl lrint (دوگانه);
+  بیرونی long __cdecl lrintf (اعشاری);
+  بیرونی long __cdecl lrintl (long دوگانه);
 
-  extern long long __cdecl llrint (double);
-  extern long long __cdecl llrintf (float);
-  extern long long __cdecl llrintl (long double);
+  بیرونی long long __cdecl llrint (دوگانه);
+  بیرونی long long __cdecl llrintf (اعشاری);
+  بیرونی long long __cdecl llrintl (long دوگانه);
 
   #define FE_TONEAREST	0x0000
   #define FE_DOWNWARD	0x0400
@@ -391,46 +391,46 @@ extern "C" {
 
   /* 7.12.9.6 */
   /* round away from zero, regardless of fpu control word settings */
-  extern double __cdecl round (double);
-  extern float __cdecl roundf (float);
-  extern long double __cdecl roundl (long double);
+  بیرونی دوگانه __cdecl round (دوگانه);
+  بیرونی اعشاری __cdecl roundf (اعشاری);
+  بیرونی long دوگانه __cdecl roundl (long دوگانه);
 
   /* 7.12.9.7  */
-  extern long __cdecl lround (double);
-  extern long __cdecl lroundf (float);
-  extern long __cdecl lroundl (long double);
+  بیرونی long __cdecl lround (دوگانه);
+  بیرونی long __cdecl lroundf (اعشاری);
+  بیرونی long __cdecl lroundl (long دوگانه);
 
-  extern long long __cdecl llround (double);
-  extern long long __cdecl llroundf (float);
-  extern long long __cdecl llroundl (long double);
+  بیرونی long long __cdecl llround (دوگانه);
+  بیرونی long long __cdecl llroundf (اعشاری);
+  بیرونی long long __cdecl llroundl (long دوگانه);
 
   /* 7.12.9.8 */
   /* round towards zero, regardless of fpu control word settings */
-  extern double __cdecl trunc (double);
-  extern float __cdecl truncf (float);
-  extern long double __cdecl truncl (long double);
+  بیرونی دوگانه __cdecl trunc (دوگانه);
+  بیرونی اعشاری __cdecl truncf (اعشاری);
+  بیرونی long دوگانه __cdecl truncl (long دوگانه);
 
-  extern long double __cdecl fmodl (long double, long double);
+  بیرونی long دوگانه __cdecl fmodl (long دوگانه, long دوگانه);
 
   /* 7.12.10.2 */ 
-  extern double __cdecl remainder (double, double);
-  extern float __cdecl remainderf (float, float);
-  extern long double __cdecl remainderl (long double, long double);
+  بیرونی دوگانه __cdecl remainder (دوگانه, دوگانه);
+  بیرونی اعشاری __cdecl remainderf (اعشاری, اعشاری);
+  بیرونی long دوگانه __cdecl remainderl (long دوگانه, long دوگانه);
 
   /* 7.12.10.3 */
-  extern double __cdecl remquo(double, double, int *);
-  extern float __cdecl remquof(float, float, int *);
-  extern long double __cdecl remquol(long double, long double, int *);
+  بیرونی دوگانه __cdecl remquo(دوگانه, دوگانه, صحیح *);
+  بیرونی اعشاری __cdecl remquof(اعشاری, اعشاری, صحیح *);
+  بیرونی long دوگانه __cdecl remquol(long دوگانه, long دوگانه, صحیح *);
 
   /* 7.12.11.1 */
-  extern double __cdecl copysign (double, double); /* in libmoldname.a */
-  extern float __cdecl copysignf (float, float);
-  extern long double __cdecl copysignl (long double, long double);
+  بیرونی دوگانه __cdecl copysign (دوگانه, دوگانه); /* in libmoldname.a */
+  بیرونی اعشاری __cdecl copysignf (اعشاری, اعشاری);
+  بیرونی long دوگانه __cdecl copysignl (long دوگانه, long دوگانه);
 
   /* 7.12.11.2 Return a NaN */
-  extern double __cdecl nan(const char *tagp);
-  extern float __cdecl nanf(const char *tagp);
-  extern long double __cdecl nanl(const char *tagp);
+  بیرونی دوگانه __cdecl nan(ثابت نویسه *tagp);
+  بیرونی اعشاری __cdecl nanf(ثابت نویسه *tagp);
+  بیرونی long دوگانه __cdecl nanl(ثابت نویسه *tagp);
 
 #ifndef __STRICT_ANSI__
 #define _nan() nan("")
@@ -439,17 +439,17 @@ extern "C" {
 #endif
 
   /* 7.12.11.3 */
-  extern double __cdecl nextafter (double, double); /* in libmoldname.a */
-  extern float __cdecl nextafterf (float, float);
-  extern long double __cdecl nextafterl (long double, long double);
+  بیرونی دوگانه __cdecl nextafter (دوگانه, دوگانه); /* in libmoldname.a */
+  بیرونی اعشاری __cdecl nextafterf (اعشاری, اعشاری);
+  بیرونی long دوگانه __cdecl nextafterl (long دوگانه, long دوگانه);
 
   /* 7.12.11.4 The nexttoward functions: TODO */
 
   /* 7.12.12.1 */
   /*  x > y ? (x - y) : 0.0  */
-  extern double __cdecl fdim (double x, double y);
-  extern float __cdecl fdimf (float x, float y);
-  extern long double __cdecl fdiml (long double x, long double y);
+  بیرونی دوگانه __cdecl fdim (دوگانه x, دوگانه y);
+  بیرونی اعشاری __cdecl fdimf (اعشاری x, اعشاری y);
+  بیرونی long دوگانه __cdecl fdiml (long دوگانه x, long دوگانه y);
 
   /* fmax and fmin.
   NaN arguments are treated as missing data: if one argument is a NaN
@@ -457,20 +457,20 @@ extern "C" {
   value. */
 
   /* 7.12.12.2 */
-  extern double __cdecl fmax  (double, double);
-  extern float __cdecl fmaxf (float, float);
-  extern long double __cdecl fmaxl (long double, long double);
+  بیرونی دوگانه __cdecl fmax  (دوگانه, دوگانه);
+  بیرونی اعشاری __cdecl fmaxf (اعشاری, اعشاری);
+  بیرونی long دوگانه __cdecl fmaxl (long دوگانه, long دوگانه);
 
   /* 7.12.12.3 */
-  extern double __cdecl fmin (double, double);
-  extern float __cdecl fminf (float, float);
-  extern long double __cdecl fminl (long double, long double);
+  بیرونی دوگانه __cdecl fmin (دوگانه, دوگانه);
+  بیرونی اعشاری __cdecl fminf (اعشاری, اعشاری);
+  بیرونی long دوگانه __cdecl fminl (long دوگانه, long دوگانه);
 
   /* 7.12.13.1 */
   /* return x * y + z as a ternary op */ 
-  extern double __cdecl fma (double, double, double);
-  extern float __cdecl fmaf (float, float, float);
-  extern long double __cdecl fmal (long double, long double, long double);
+  بیرونی دوگانه __cdecl fma (دوگانه, دوگانه, دوگانه);
+  بیرونی اعشاری __cdecl fmaf (اعشاری, اعشاری, اعشاری);
+  بیرونی long دوگانه __cdecl fmal (long دوگانه, long دوگانه, long دوگانه);
 
 
 #endif /* __STDC_VERSION__ >= 199901L */
@@ -479,7 +479,7 @@ extern "C" {
 #ifdef __cplusplus
 }
 #endif
-#pragma pack(pop)
+#pragma pack(برداشت)
 
 /* 7.12.14 */
 /* 
@@ -491,7 +491,7 @@ extern "C" {
  */
 
 /* Mini libm (inline __fpclassify*, __signbit* and variants) */
-#include "tcc/tcc_libm.h"
+#شامل "tcc/tcc_libm.h"
 
 #endif /* End _MATH_H_ */
 

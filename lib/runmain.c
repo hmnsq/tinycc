@@ -3,65 +3,65 @@
 
 #ifdef __leading_underscore
 # define _(s) s
-#else
+#وگرنه
 # define _(s) _##s
 #endif
 
 #ifndef _WIN32
-extern void (*_(_init_array_start)[]) (int argc, char **argv, char **envp);
-extern void (*_(_init_array_end)[]) (int argc, char **argv, char **envp);
-static void run_ctors(int argc, char **argv, char **env)
+بیرونی تهی (*_(_init_array_start)[]) (صحیح argc, نویسه **argv, نویسه **envp);
+بیرونی تهی (*_(_init_array_end)[]) (صحیح argc, نویسه **argv, نویسه **envp);
+ایستا تهی run_ctors(صحیح argc, نویسه **argv, نویسه **env)
 {
-    int i = 0;
-    while (&_(_init_array_start)[i] != _(_init_array_end))
+    صحیح i = 0;
+    وقتی (&_(_init_array_start)[i] != _(_init_array_end))
         (*_(_init_array_start)[i++])(argc, argv, env);
 }
 #endif
 
-extern void (*_(_fini_array_start)[]) (void);
-extern void (*_(_fini_array_end)[]) (void);
-static void run_dtors(void)
+بیرونی تهی (*_(_fini_array_start)[]) (تهی);
+بیرونی تهی (*_(_fini_array_end)[]) (تهی);
+ایستا تهی run_dtors(تهی)
 {
-    int i = 0;
-    while (&_(_fini_array_end)[i] != _(_fini_array_start))
+    صحیح i = 0;
+    وقتی (&_(_fini_array_end)[i] != _(_fini_array_start))
         (*_(_fini_array_end)[--i])();
 }
 
-static void *rt_exitfunc[32];
-static void *rt_exitarg[32];
-static int __rt_nr_exit;
+ایستا تهی *rt_exitfunc[32];
+ایستا تهی *rt_exitarg[32];
+ایستا صحیح __rt_nr_exit;
 
-void __run_on_exit(int ret)
+تهی __run_on_exit(صحیح ret)
 {
-    int n = __rt_nr_exit;
-    while (n)
-	--n, ((void(*)(int,void*))rt_exitfunc[n])(ret, rt_exitarg[n]);
+    صحیح n = __rt_nr_exit;
+    وقتی (n)
+	--n, ((تهی(*)(صحیح,تهی*))rt_exitfunc[n])(ret, rt_exitarg[n]);
 }
 
-int on_exit(void *function, void *arg)
+صحیح on_exit(تهی *function, تهی *arg)
 {
-    int n = __rt_nr_exit;
-    if (n < 32) {
+    صحیح n = __rt_nr_exit;
+    اگر (n < 32) {
 	rt_exitfunc[n] = function;
 	rt_exitarg[n] = arg;
         __rt_nr_exit = n + 1;
-        return 0;
+        بازگشت 0;
     }
-    return 1;
+    بازگشت 1;
 }
 
-int atexit(void (*function)(void))
+صحیح atexit(تهی (*function)(تهی))
 {
-    return on_exit(function, 0);
+    بازگشت on_exit(function, 0);
 }
 
-typedef struct rt_frame {
-    void *ip, *fp, *sp;
+تعریفنوع ساختار rt_frame {
+    تهی *ip, *fp, *sp;
 } rt_frame;
 
-__attribute__((noreturn)) void __rt_exit(rt_frame *, int);
+__attribute__((noreturn)) تهی __rt_exit(rt_frame *, صحیح);
 
-void exit(int code)
+تهی exit(صحیح code)
 {
     rt_frame f;
     run_dtors();
@@ -72,15 +72,15 @@ void exit(int code)
 }
 
 #ifndef _WIN32
-int main(int, char**, char**);
+صحیح اصلی(صحیح, نویسه**, نویسه**);
 
-int _runmain(int argc, char **argv, char **envp)
+صحیح _runmain(صحیح argc, نویسه **argv, نویسه **envp)
 {
-    int ret;
+    صحیح ret;
     run_ctors(argc, argv, envp);
-    ret = main(argc, argv, envp);
+    ret = اصلی(argc, argv, envp);
     run_dtors();
     __run_on_exit(ret);
-    return ret;
+    بازگشت ret;
 }
 #endif

@@ -1,25 +1,25 @@
-#include <stdio.h>
+#شامل <stdio.h>
 
 /* This test segfaults as of April 27, 2015. */
-void f1(int argc)
+تهی f1(صحیح argc)
 {
-  char test[argc];
-  if(0)
+  نویسه test[argc];
+  اگر(0)
   label:
     printf("boom!\n");
-  if(argc-- == 0)
-    return;
-  goto label;
+  اگر(argc-- == 0)
+    بازگشت;
+  برو label;
 }
 
 /* This segfaulted on 2015-11-19. */
-void f2(void)
+تهی f2(تهی)
 {
-    goto start;
+    برو start;
     {
-        int a[1 && 1]; /* not a variable-length array */
-        int b[1 || 1]; /* not a variable-length array */
-        int c[1 ? 1 : 1]; /* not a variable-length array */
+        صحیح a[1 && 1]; /* not a variable-length array */
+        صحیح b[1 || 1]; /* not a variable-length array */
+        صحیح c[1 ? 1 : 1]; /* not a variable-length array */
     start:
         a[0] = 0;
         b[0] = 0;
@@ -27,7 +27,7 @@ void f2(void)
     }
 }
 
-void f3(void)
+تهی f3(تهی)
 {
     printf("%d\n", 0 ? printf("x1\n") : 11);
     printf("%d\n", 1 ? 12 : printf("x2\n"));
@@ -35,11 +35,11 @@ void f3(void)
     printf("%d\n", 1 || printf("x4\n"));
 }
 
-int main()
+صحیح اصلی()
 {
   f1(2);
   f2();
   f3();
 
-  return 0;
+  بازگشت 0;
 }

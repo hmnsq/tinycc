@@ -1,31 +1,31 @@
-#include <stdio.h>
+#شامل <stdio.h>
 
-int
-main (void)
+صحیح
+اصلی (تهی)
 {
-    int n = 0;
-    int  first=1;
-    int *p[101];
-    if (0) {
+    صحیح n = 0;
+    صحیح  first=1;
+    صحیح *p[101];
+    اگر (0) {
         lab:;
     }
-    int x[n % 100 + 1];
-    if (first == 0) {
-        if (&x[0] != p[n % 100 + 1]) {
+    صحیح x[n % 100 + 1];
+    اگر (first == 0) {
+        اگر (&x[0] != p[n % 100 + 1]) {
             printf ("ERROR: %p %p\n", &x[0], p[n % 100 + 1]);
-            return(1);
+            بازگشت(1);
         }
     }
-    else {
+    وگرنه {
         p[n % 100 + 1] = &x[0];
         first = n < 100;
     }
     x[0] = 1;
     x[n % 100] = 2;
     n++;
-    if (n < 100000)
-        goto lab;
+    اگر (n < 100000)
+        برو lab;
     printf ("OK\n");
-    return 0;
+    بازگشت 0;
 }
 

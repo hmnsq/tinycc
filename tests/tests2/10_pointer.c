@@ -1,17 +1,17 @@
-#include <stdio.h>
+#شامل <stdio.h>
 
-struct ziggy
+ساختار ziggy
 {
-   int a;
-   int b;
-   int c;
+   صحیح a;
+   صحیح b;
+   صحیح c;
 } bolshevic;
 
-int main()
+صحیح اصلی()
 {
-   int a;
-   int *b;
-   int c;
+   صحیح a;
+   صحیح *b;
+   صحیح c;
 
    a = 42;
    b = &a;
@@ -25,7 +25,7 @@ int main()
    printf("bolshevic.b = %d\n", bolshevic.b);
    printf("bolshevic.c = %d\n", bolshevic.c);
 
-   struct ziggy *tsar = &bolshevic;
+   ساختار ziggy *tsar = &bolshevic;
 
    printf("tsar->a = %d\n", tsar->a);
    printf("tsar->b = %d\n", tsar->b);
@@ -34,7 +34,7 @@ int main()
    b = &(bolshevic.b);
    printf("bolshevic.b = %d\n", *b);
 
-   return 0;
+   بازگشت 0;
 }
 
 // vim: set expandtab ts=4 sw=3 sts=3 tw=80 :
