@@ -6,18 +6,18 @@
 #ifndef _INC_DIRECT
 #define _INC_DIRECT
 
-#include <_mingw.h>
-#include <io.h>
+#અન્તર્ભાવ <_mingw.h>
+#અન્તર્ભાવ <io.h>
 
-#pragma pack(push,_CRT_PACKING)
+#pragma pack(ધકેલો,_CRT_PACKING)
 
 #ifdef __cplusplus
-extern "C" {
+બાહ્ય "C" {
 #endif
 
 #ifndef _DISKFREE_T_DEFINED
 #define _DISKFREE_T_DEFINED
-  struct _diskfree_t {
+  સંરચના _diskfree_t {
     unsigned total_clusters;
     unsigned avail_clusters;
     unsigned sectors_per_cluster;
@@ -25,44 +25,44 @@ extern "C" {
   };
 #endif
 
-  _CRTIMP char *__cdecl _getcwd(char *_DstBuf,int _SizeInBytes);
-  _CRTIMP char *__cdecl _getdcwd(int _Drive,char *_DstBuf,int _SizeInBytes);
-  char *__cdecl _getdcwd_nolock(int _Drive,char *_DstBuf,int _SizeInBytes);
-  _CRTIMP int __cdecl _chdir(const char *_Path);
-  _CRTIMP int __cdecl _mkdir(const char *_Path);
-  _CRTIMP int __cdecl _rmdir(const char *_Path);
-  _CRTIMP int __cdecl _chdrive(int _Drive);
-  _CRTIMP int __cdecl _getdrive(void);
-  _CRTIMP unsigned long __cdecl _getdrives(void);
+  _CRTIMP અક્ષર *__cdecl _getcwd(અક્ષર *_DstBuf,પૂર્ણાંક _SizeInBytes);
+  _CRTIMP અક્ષર *__cdecl _getdcwd(પૂર્ણાંક _Drive,અક્ષર *_DstBuf,પૂર્ણાંક _SizeInBytes);
+  અક્ષર *__cdecl _getdcwd_nolock(પૂર્ણાંક _Drive,અક્ષર *_DstBuf,પૂર્ણાંક _SizeInBytes);
+  _CRTIMP પૂર્ણાંક __cdecl _chdir(અચલ અક્ષર *_Path);
+  _CRTIMP પૂર્ણાંક __cdecl _mkdir(અચલ અક્ષર *_Path);
+  _CRTIMP પૂર્ણાંક __cdecl _rmdir(અચલ અક્ષર *_Path);
+  _CRTIMP પૂર્ણાંક __cdecl _chdrive(પૂર્ણાંક _Drive);
+  _CRTIMP પૂર્ણાંક __cdecl _getdrive(શૂન્ય);
+  _CRTIMP unsigned long __cdecl _getdrives(શૂન્ય);
 
 #ifndef _GETDISKFREE_DEFINED
 #define _GETDISKFREE_DEFINED
-  _CRTIMP unsigned __cdecl _getdiskfree(unsigned _Drive,struct _diskfree_t *_DiskFree);
+  _CRTIMP unsigned __cdecl _getdiskfree(unsigned _Drive,સંરચના _diskfree_t *_DiskFree);
 #endif
 
 #ifndef _WDIRECT_DEFINED
 #define _WDIRECT_DEFINED
-  _CRTIMP wchar_t *__cdecl _wgetcwd(wchar_t *_DstBuf,int _SizeInWords);
-  _CRTIMP wchar_t *__cdecl _wgetdcwd(int _Drive,wchar_t *_DstBuf,int _SizeInWords);
-  wchar_t *__cdecl _wgetdcwd_nolock(int _Drive,wchar_t *_DstBuf,int _SizeInWords);
-  _CRTIMP int __cdecl _wchdir(const wchar_t *_Path);
-  _CRTIMP int __cdecl _wmkdir(const wchar_t *_Path);
-  _CRTIMP int __cdecl _wrmdir(const wchar_t *_Path);
+  _CRTIMP wchar_t *__cdecl _wgetcwd(wchar_t *_DstBuf,પૂર્ણાંક Size_In_શબ્દો);
+  _CRTIMP wchar_t *__cdecl _wgetdcwd(પૂર્ણાંક _Drive,wchar_t *_DstBuf,પૂર્ણાંક Size_In_શબ્દો);
+  wchar_t *__cdecl _wgetdcwd_nolock(પૂર્ણાંક _Drive,wchar_t *_DstBuf,પૂર્ણાંક Size_In_શબ્દો);
+  _CRTIMP પૂર્ણાંક __cdecl _wchdir(અચલ wchar_t *_Path);
+  _CRTIMP પૂર્ણાંક __cdecl _wmkdir(અચલ wchar_t *_Path);
+  _CRTIMP પૂર્ણાંક __cdecl _wrmdir(અચલ wchar_t *_Path);
 #endif
 
 #ifndef	NO_OLDNAMES
 
 #define diskfree_t _diskfree_t
 
-  char *__cdecl getcwd(char *_DstBuf,int _SizeInBytes);
-  int __cdecl chdir(const char *_Path);
-  int __cdecl mkdir(const char *_Path);
-  int __cdecl rmdir(const char *_Path);
+  અક્ષર *__cdecl getcwd(અક્ષર *_DstBuf,પૂર્ણાંક _SizeInBytes);
+  પૂર્ણાંક __cdecl chdir(અચલ અક્ષર *_Path);
+  પૂર્ણાંક __cdecl mkdir(અચલ અક્ષર *_Path);
+  પૂર્ણાંક __cdecl rmdir(અચલ અક્ષર *_Path);
 #endif
 
 #ifdef __cplusplus
 }
 #endif
 
-#pragma pack(pop)
+#pragma pack(કાઢો)
 #endif

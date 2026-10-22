@@ -11,4 +11,4 @@ X171 pass(x pass(##) y)
 
 #define Y(x) Z(x)
 #define X Y
-X180 return X(X(1));
+X180 પાછા X(X(1));

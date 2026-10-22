@@ -1,28 +1,28 @@
-#include <stdio.h>
+#અન્તર્ભાવ <stdio.h>
 
-int main()
+પૂર્ણાંક મુખ્ય()
 {
-   int a;
-   int *b;
-   int *c;
+   પૂર્ણાંક a;
+   પૂર્ણાંક *b;
+   પૂર્ણાંક *c;
 
    a = 42;
    b = &a;
-   c = NULL;
+   c = ખાલી;
 
    printf("%d\n", *b);
 
-   if (b == NULL)
+   જો (b == ખાલી)
       printf("b is NULL\n");
-   else
+   નહીંતર
       printf("b is not NULL\n");
 
-   if (c == NULL)
+   જો (c == ખાલી)
       printf("c is NULL\n");
-   else
+   નહીંતર
       printf("c is not NULL\n");
 
-   return 0;
+   પાછા 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

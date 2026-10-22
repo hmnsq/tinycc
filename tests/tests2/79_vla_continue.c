@@ -1,113 +1,113 @@
-#include <stdio.h>
+#અન્તર્ભાવ <stdio.h>
 
-int f(void)
+પૂર્ણાંક f(શૂન્ય)
 {
-  return 5;
+  પાછા 5;
 }
 
-void test1()
+શૂન્ય test1()
 {
-  int count = 10;
-  void *addr[10];
-  for(;count--;) {
-    int a[f()];
+  પૂર્ણાંક ગણતરી_2 = 10;
+  શૂન્ય *addr[10];
+  માટે(;ગણતરી_2--;) {
+    પૂર્ણાંક a[f()];
 
-    addr[count] = a;
+    addr[ગણતરી_2] = a;
 
-    continue;
+    ચાલુ;
   }
 
-  if(addr[9] == addr[0]) {
+  જો(addr[9] == addr[0]) {
     printf("OK\n");
-  } else {
+  } નહીંતર {
     printf("NOT OK\n");
   }
 }
 
-void test2()
+શૂન્ય test2()
 {
-  int count = 10;
-  void *addr[count];
-  for(;count--;) {
-    int a[f()];
+  પૂર્ણાંક ગણતરી_2 = 10;
+  શૂન્ય *addr[ગણતરી_2];
+  માટે(;ગણતરી_2--;) {
+    પૂર્ણાંક a[f()];
 
-    addr[count] = a;
+    addr[ગણતરી_2] = a;
 
-    continue;
+    ચાલુ;
   }
 
-  if(addr[9] == addr[0]) {
+  જો(addr[9] == addr[0]) {
     printf("OK\n");
-  } else {
+  } નહીંતર {
     printf("NOT OK\n");
   }
 }
 
-void test3()
+શૂન્ય test3()
 {
-  int count = 10;
-  void *addr[count];
-  while(count--) {
-      int b[f()];
-      if (count >= 0) {
-          int a[f()];
+  પૂર્ણાંક ગણતરી_2 = 10;
+  શૂન્ય *addr[ગણતરી_2];
+  જ્યારે(ગણતરી_2--) {
+      પૂર્ણાંક b[f()];
+      જો (ગણતરી_2 >= 0) {
+          પૂર્ણાંક a[f()];
 
-          addr[count] = a;
+          addr[ગણતરી_2] = a;
 
-          continue;
+          ચાલુ;
       }
   }
 
-  if(addr[9] == addr[0]) {
+  જો(addr[9] == addr[0]) {
     printf("OK\n");
-  } else {
+  } નહીંતર {
     printf("NOT OK\n");
   }
 }
 
-void test4()
+શૂન્ય test4()
 {
-  int count = 10;
-  void *addr[count];
-  do {
-    int a[f()];
+  પૂર્ણાંક ગણતરી_2 = 10;
+  શૂન્ય *addr[ગણતરી_2];
+  કરો {
+    પૂર્ણાંક a[f()];
 
-    addr[--count] = a;
+    addr[--ગણતરી_2] = a;
 
-    continue;
-  } while (count);
+    ચાલુ;
+  } જ્યારે (ગણતરી_2);
 
-  if(addr[9] == addr[0]) {
+  જો(addr[9] == addr[0]) {
     printf("OK\n");
-  } else {
+  } નહીંતર {
     printf("NOT OK\n");
   }
 }
 
-void test5()
+શૂન્ય test5()
 {
-  int count = 10;
-  int a[f()];
-  int c[f()];
+  પૂર્ણાંક ગણતરી_2 = 10;
+  પૂર્ણાંક a[f()];
+  પૂર્ણાંક c[f()];
 
   c[0] = 42;
 
-  for(;count--;) {
-    int b[f()];
-    int i;
-    for (i=0; i<f(); i++) {
-      b[i] = count;
+  માટે(;ગણતરી_2--;) {
+    પૂર્ણાંક b[f()];
+    પૂર્ણાંક i;
+    માટે (i=0; i<f(); i++) {
+      b[i] = ગણતરી_2;
     }
   }
 
-  if (c[0] == 42) {
+  જો (c[0] == 42) {
     printf("OK\n");
-  } else {
+  } નહીંતર {
     printf("NOT OK\n");
   }
 }
 
-int main(void)
+પૂર્ણાંક મુખ્ય(શૂન્ય)
 {
   test1();
   test2();
@@ -115,5 +115,5 @@ int main(void)
   test4();
   test5();
 
-  return 0;
+  પાછા 0;
 }

@@ -7,46 +7,46 @@ each of the operands. The type of the result is that of the promoted
 left operand."
 */
 
-#include <stdio.h>
+#અન્તર્ભાવ <stdio.h>
 
-#define PTYPE(M) ((M) < 0 || -(M) < 0 ? -1 : 1) * (int) sizeof((M)+0)
+#define PTYPE(M) ((M) < 0 || -(M) < 0 ? -1 : 1) * (પૂર્ણાંક) કદ((M)+0)
 #define CHECK(X,T) check(#X, PTYPE(X), PTYPE((X) << (T) 1))
-#define TEST1(X,T) do { CHECK(X,T); CHECK(X,unsigned T); } while (0)
+#define TEST1(X,T) કરો { CHECK(X,T); CHECK(X,unsigned T); } જ્યારે (0)
 #define TEST2(X)                 \
-  do                             \
+  કરો                             \
     {                            \
       TEST1((X),short);          \
-      TEST1((X),int);            \
+      TEST1((X),પૂર્ણાંક);            \
       TEST1((X),long);           \
       TEST1((X),long long);      \
     }                            \
-  while (0)
-#define TEST3(X,T) do { TEST2((T)(X)); TEST2((unsigned T)(X)); } while (0)
+  જ્યારે (0)
+#define TEST3(X,T) કરો { TEST2((T)(X)); TEST2((unsigned T)(X)); } જ્યારે (0)
 #define TEST4(X)                 \
-  do                             \
+  કરો                             \
     {                            \
       TEST3((X),short);          \
-      TEST3((X),int);            \
+      TEST3((X),પૂર્ણાંક);            \
       TEST3((X),long);           \
       TEST3((X),long long);      \
     }                            \
- while (0)
+ જ્યારે (0)
 
-static int debug, nfailed = 0;
+સ્થિર પૂર્ણાંક debug, nfailed = 0;
 
-static void check (const char *s, int arg1, int shift)
+સ્થિર શૂન્ય check (અચલ અક્ષર *s, પૂર્ણાંક arg1, પૂર્ણાંક shift)
 {
-  int failed = arg1 != shift;
-  if (debug || failed)
+  પૂર્ણાંક failed = arg1 != shift;
+  જો (debug || failed)
     printf ("%s %d %d\n", s, arg1, shift);
   nfailed += failed;
 }
 
-int main (int argc, char **argv)
+પૂર્ણાંક મુખ્ય (પૂર્ણાંક argc, અક્ષર **argv)
 {
   debug = argc > 1;
   TEST4(1);
   TEST4(-1);
   printf ("%d test(s) failed\n", nfailed);
-  return nfailed != 0;
+  પાછા nfailed != 0;
 }

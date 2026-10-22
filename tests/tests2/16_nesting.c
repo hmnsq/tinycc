@@ -1,21 +1,21 @@
-#include <stdio.h>
+#અન્તર્ભાવ <stdio.h>
 
-int main()
+પૂર્ણાંક મુખ્ય()
 {
-   int x, y, z;
+   પૂર્ણાંક x, y, z;
 
-   for (x = 0; x < 2; x++)
+   માટે (x = 0; x < 2; x++)
    {
-      for (y = 0; y < 3; y++)
+      માટે (y = 0; y < 3; y++)
       {
-         for (z = 0; z < 3; z++)
+         માટે (z = 0; z < 3; z++)
          {
             printf("%d %d %d\n", x, y, z);
          }
       }
    }
 
-   return 0;
+   પાછા 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

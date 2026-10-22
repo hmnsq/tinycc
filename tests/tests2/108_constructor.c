@@ -1,20 +1,20 @@
-extern int write (int fd, void *buf, int len);
+બાહ્ય પૂર્ણાંક લિખ (પૂર્ણાંક fd, શૂન્ય *buf, પૂર્ણાંક len);
 
-static void __attribute__ ((constructor))
-testc (void)
+સ્થિર શૂન્ય __attribute__ ((constructor))
+testc (શૂન્ય)
 {
-  write (1, "constructor\n", 12);
+  લિખ (1, "constructor\n", 12);
 }
 
-static void __attribute__ ((destructor))
-testd (void)
+સ્થિર શૂન્ય __attribute__ ((destructor))
+testd (શૂન્ય)
 {
-  write (1, "destructor\n", 11);
+  લિખ (1, "destructor\n", 11);
 }
 
-int
-main (void)
+પૂર્ણાંક
+મુખ્ય (શૂન્ય)
 {
-  write (1, "main\n", 5);
-  return 0;
+  લિખ (1, "main\n", 5);
+  પાછા 0;
 }

@@ -1,15 +1,15 @@
-#include <stdio.h>
+#અન્તર્ભાવ <stdio.h>
 
-int main() 
+પૂર્ણાંક મુખ્ય() 
 {
-   int Count;
+   પૂર્ણાંક ગણતરી_3;
 
-   for (Count = 1; Count <= 10; Count++)
+   માટે (ગણતરી_3 = 1; ગણતરી_3 <= 10; ગણતરી_3++)
    {
-      printf("%d\n", Count);
+      printf("%d\n", ગણતરી_3);
    }
 
-   return 0;
+   પાછા 0;
 }
 
 // vim: set expandtab ts=4 sw=3 sts=3 tw=80 :

@@ -1,9 +1,9 @@
-int printf(const char *, ...);
-char t[] = "012345678";
+પૂર્ણાંક printf(અચલ અક્ષર *, ...);
+અક્ષર t[] = "012345678";
 
-int main(void)
+પૂર્ણાંક મુખ્ય(શૂન્ય)
 {
-    char *data = t;
+    અક્ષર *data = t;
     unsigned long long r = 4;
     unsigned a = 5;
     unsigned long long b = 12;
@@ -11,5 +11,5 @@ int main(void)
     *(unsigned*)(data + r) += a - b;
 
     printf("data = \"%s\"\n", data);
-    return 0;
+    પાછા 0;
 }

@@ -1,21 +1,21 @@
-#include <stdio.h>
+#અન્તર્ભાવ <stdio.h>
 
-int factorial(int i) 
+પૂર્ણાંક factorial(પૂર્ણાંક i) 
 {
-   if (i < 2)
-      return i;
-   else
-      return i * factorial(i - 1);
+   જો (i < 2)
+      પાછા i;
+   નહીંતર
+      પાછા i * factorial(i - 1);
 }
 
-int main()
+પૂર્ણાંક મુખ્ય()
 {
-   int Count;
+   પૂર્ણાંક ગણતરી_3;
 
-   for (Count = 1; Count <= 10; Count++)
-      printf("%d\n", factorial(Count));
+   માટે (ગણતરી_3 = 1; ગણતરી_3 <= 10; ગણતરી_3++)
+      printf("%d\n", factorial(ગણતરી_3));
 
-   return 0;
+   પાછા 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

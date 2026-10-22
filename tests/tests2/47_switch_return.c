@@ -1,24 +1,24 @@
-#include <stdio.h>
+#અન્તર્ભાવ <stdio.h>
 
-void fred(int x)
+શૂન્ય fred(પૂર્ણાંક x)
 {
-   switch (x)
+   પસંદગી (x)
    {
-      case 1: printf("1\n"); return;
-      case 2: printf("2\n"); break;
-      case 3: printf("3\n"); return;
+      સ્થિતિ 1: printf("1\n"); પાછા;
+      સ્થિતિ 2: printf("2\n"); તોડો;
+      સ્થિતિ 3: printf("3\n"); પાછા;
    }
 
    printf("out\n");
 }
 
-int main()
+પૂર્ણાંક મુખ્ય()
 {
    fred(1);
    fred(2);
    fred(3);
 
-   return 0;
+   પાછા 0;
 }    
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

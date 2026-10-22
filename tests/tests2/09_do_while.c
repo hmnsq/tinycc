@@ -1,24 +1,24 @@
-#include <stdio.h>
+#અન્તર્ભાવ <stdio.h>
 
-int main()
+પૂર્ણાંક મુખ્ય()
 {
-   int a;
-   int p;
-   int t;
+   પૂર્ણાંક a;
+   પૂર્ણાંક p;
+   પૂર્ણાંક t;
 
    a = 1;
    p = 0;
    t = 0;
 
-   do
+   કરો
    {
       printf("%d\n", a);
       t = a;
       a = t + p;
       p = t;
-   } while (a < 100);
+   } જ્યારે (a < 100);
 
-   return 0;
+   પાછા 0;
 }
 
 // vim: set expandtab ts=4 sw=3 sts=3 tw=80 :

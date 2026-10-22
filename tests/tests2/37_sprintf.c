@@ -1,17 +1,17 @@
-#include <stdio.h>
+#અન્તર્ભાવ <stdio.h>
 
-int main()
+પૂર્ણાંક મુખ્ય()
 {
-   char Buf[100];
-   int Count;
+   અક્ષર Buf[100];
+   પૂર્ણાંક ગણતરી_3;
 
-   for (Count = 1; Count <= 20; Count++)
+   માટે (ગણતરી_3 = 1; ગણતરી_3 <= 20; ગણતરી_3++)
    {
-      sprintf(Buf, "->%02d<-\n", Count);
+      sprintf(Buf, "->%02d<-\n", ગણતરી_3);
       printf("%s", Buf);
    }
 
-   return 0;
+   પાછા 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

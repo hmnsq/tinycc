@@ -1,21 +1,21 @@
-extern int printf(const char*, ...);
+બાહ્ય પૂર્ણાંક printf(અચલ અક્ષર*, ...);
 
-struct fred;
+સંરચના fred;
 
-void fred$(struct fred* this)
+શૂન્ય fred$(સંરચના fred* this)
 {
     printf("~fred()\n");
 }
 
-struct __attribute__((__cleanup__(fred$))) fred
+સંરચના __attribute__((__cleanup__(fred$))) fred
 {
-   int boris;
-   int natasha;
+   પૂર્ણાંક boris;
+   પૂર્ણાંક natasha;
 };
 
-int main()
+પૂર્ણાંક મુખ્ય()
 {
-    struct fred  __attribute__((__cleanup__(fred$))) bloggs;
+    સંરચના fred  __attribute__((__cleanup__(fred$))) bloggs;
 
    bloggs.boris = 12;
    bloggs.natasha = 34;
@@ -23,7 +23,7 @@ int main()
    printf("%d\n", bloggs.boris);
    printf("%d\n", bloggs.natasha);
 
-   struct fred jones[2];
+   સંરચના fred jones[2];
    jones[0].boris = 12;
    jones[0].natasha = 34;
    jones[1].boris = 56;
@@ -34,5 +34,5 @@ int main()
    printf("%d\n", jones[1].boris);
    printf("%d\n", jones[1].natasha);
 
-   return 0;
+   પાછા 0;
 }

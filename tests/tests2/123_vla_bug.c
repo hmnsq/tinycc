@@ -1,40 +1,40 @@
-typedef __SIZE_TYPE__ size_t;
-extern int printf(const char*, ...);
-extern size_t strlen(const char*);
-char str[] = "blabla";
-int g;
-int main()
+પ્રકારવ્યાખ્યા __SIZE_TYPE__ size_t;
+બાહ્ય પૂર્ણાંક printf(અચલ અક્ષર*, ...);
+બાહ્ય size_t strlen(અચલ અક્ષર*);
+અક્ષર str[] = "blabla";
+પૂર્ણાંક g;
+પૂર્ણાંક મુખ્ય()
 {
   //char helpme[strlen(str) + 1];
-  int i = 0;
-#if 0
-  if (g) {
-      char buf[strlen(str) + 10];
+  પૂર્ણાંક i = 0;
+#જો 0
+  જો (g) {
+      અક્ષર buf[strlen(str) + 10];
       buf[0] = 0;
   }
 alabel:
   printf("default: i = %d\n", i);
-#else
-  for (i = 0; i < 5; i++) {
-      switch (i) {
-      case 10:
-          if (g) {
-              char buf[strlen(str) + 10];
+#નહીંતર
+  માટે (i = 0; i < 5; i++) {
+      પસંદગી (i) {
+      સ્થિતિ 10:
+          જો (g) {
+              અક્ષર buf[strlen(str) + 10];
               buf[0] = 0;
-              goto do_cmd;
+              જાઓ do_cmd;
           }
-          break;
-      case 1:
+          તોડો;
+      સ્થિતિ 1:
           printf("reached 3\n");
     do_cmd:
           printf("after do_cmd");
-          break;
-      default:
+          તોડો;
+      મૂળભૂત:
           g++;
           printf("default: i = %d\n", i);
-          break;
+          તોડો;
       }
   }
 #endif
-  return 0;
+  પાછા 0;
 }

@@ -10,12 +10,12 @@
 #error Only Win32 target is supported!
 #endif
 
-#include <_mingw.h>
+#અન્તર્ભાવ <_mingw.h>
 
-#pragma pack(push,_CRT_PACKING)
+#pragma pack(ધકેલો,_CRT_PACKING)
 
 #ifdef __cplusplus
-extern "C" {
+બાહ્ય "C" {
 #endif
 
 #ifndef _CRTIMP
@@ -23,7 +23,7 @@ extern "C" {
 #endif
 
 #ifndef _WCHAR_T_DEFINED
-  typedef unsigned short wchar_t;
+  પ્રકારવ્યાખ્યા unsigned short wchar_t;
 #define _WCHAR_T_DEFINED
 #endif
 
@@ -32,8 +32,8 @@ extern "C" {
 #ifdef _WIN64
 #undef _USE_32BIT_TIME_T
 #endif
-#else
-#if _INTEGRAL_MAX_BITS < 64
+#નહીંતર
+#જો _INTEGRAL_MAX_BITS < 64
 #define _USE_32BIT_TIME_T
 #endif
 #endif
@@ -41,98 +41,98 @@ extern "C" {
 
 #ifndef _TIME32_T_DEFINED
 #define _TIME32_T_DEFINED
-  typedef long __time32_t;
+  પ્રકારવ્યાખ્યા long __time32_t;
 #endif
 
 #ifndef _TIME64_T_DEFINED
 #define _TIME64_T_DEFINED
-#if _INTEGRAL_MAX_BITS >= 64
-  typedef __int64 __time64_t;
+#જો _INTEGRAL_MAX_BITS >= 64
+  પ્રકારવ્યાખ્યા __int64 __time64_t;
 #endif
 #endif
 
 #ifndef _TIME_T_DEFINED
 #define _TIME_T_DEFINED
 #ifdef _USE_32BIT_TIME_T
-  typedef __time32_t time_t;
-#else
-  typedef __time64_t time_t;
+  પ્રકારવ્યાખ્યા __time32_t time_t;
+#નહીંતર
+  પ્રકારવ્યાખ્યા __time64_t time_t;
 #endif
 #endif
 
 #ifndef _UTIMBUF_DEFINED
 #define _UTIMBUF_DEFINED
 
-  struct _utimbuf {
+  સંરચના _utimbuf {
     time_t actime;
     time_t modtime;
   };
 
-  struct __utimbuf32 {
+  સંરચના __utimbuf32 {
     __time32_t actime;
     __time32_t modtime;
   };
 
-#if _INTEGRAL_MAX_BITS >= 64
-  struct __utimbuf64 {
+#જો _INTEGRAL_MAX_BITS >= 64
+  સંરચના __utimbuf64 {
     __time64_t actime;
     __time64_t modtime;
   };
 #endif
 
 #ifndef	NO_OLDNAMES
-  struct utimbuf {
+  સંરચના utimbuf {
     time_t actime;
     time_t modtime;
   };
 
-  struct utimbuf32 {
+  સંરચના utimbuf32 {
     __time32_t actime;
     __time32_t modtime;
   };
 #endif
 #endif
 
-  _CRTIMP int __cdecl _utime32(const char *_Filename,struct __utimbuf32 *_Time);
-  _CRTIMP int __cdecl _futime32(int _FileDes,struct __utimbuf32 *_Time);
-  _CRTIMP int __cdecl _wutime32(const wchar_t *_Filename,struct __utimbuf32 *_Time);
-#if _INTEGRAL_MAX_BITS >= 64
-  _CRTIMP int __cdecl _utime64(const char *_Filename,struct __utimbuf64 *_Time);
-  _CRTIMP int __cdecl _futime64(int _FileDes,struct __utimbuf64 *_Time);
-  _CRTIMP int __cdecl _wutime64(const wchar_t *_Filename,struct __utimbuf64 *_Time);
+  _CRTIMP પૂર્ણાંક __cdecl _utime32(અચલ અક્ષર *_Filename,સંરચના __utimbuf32 *_Time);
+  _CRTIMP પૂર્ણાંક __cdecl _futime32(પૂર્ણાંક _FileDes,સંરચના __utimbuf32 *_Time);
+  _CRTIMP પૂર્ણાંક __cdecl _wutime32(અચલ wchar_t *_Filename,સંરચના __utimbuf32 *_Time);
+#જો _INTEGRAL_MAX_BITS >= 64
+  _CRTIMP પૂર્ણાંક __cdecl _utime64(અચલ અક્ષર *_Filename,સંરચના __utimbuf64 *_Time);
+  _CRTIMP પૂર્ણાંક __cdecl _futime64(પૂર્ણાંક _FileDes,સંરચના __utimbuf64 *_Time);
+  _CRTIMP પૂર્ણાંક __cdecl _wutime64(અચલ wchar_t *_Filename,સંરચના __utimbuf64 *_Time);
 #endif
 
 #ifndef RC_INVOKED
 #ifdef _USE_32BIT_TIME_T
-__CRT_INLINE int __cdecl _utime(const char *_Filename,struct _utimbuf *_Utimbuf) {
-  return _utime32(_Filename,(struct __utimbuf32 *)_Utimbuf);
+__CRT_INLINE પૂર્ણાંક __cdecl _utime(અચલ અક્ષર *_Filename,સંરચના _utimbuf *_Utimbuf) {
+  પાછા _utime32(_Filename,(સંરચના __utimbuf32 *)_Utimbuf);
 }
-__CRT_INLINE int __cdecl _futime(int _Desc,struct _utimbuf *_Utimbuf) {
-  return _futime32(_Desc,(struct __utimbuf32 *)_Utimbuf);
+__CRT_INLINE પૂર્ણાંક __cdecl _futime(પૂર્ણાંક _Desc,સંરચના _utimbuf *_Utimbuf) {
+  પાછા _futime32(_Desc,(સંરચના __utimbuf32 *)_Utimbuf);
 }
-__CRT_INLINE int __cdecl _wutime(const wchar_t *_Filename,struct _utimbuf *_Utimbuf) {
-  return _wutime32(_Filename,(struct __utimbuf32 *)_Utimbuf);
+__CRT_INLINE પૂર્ણાંક __cdecl _wutime(અચલ wchar_t *_Filename,સંરચના _utimbuf *_Utimbuf) {
+  પાછા _wutime32(_Filename,(સંરચના __utimbuf32 *)_Utimbuf);
 }
-#else
-__CRT_INLINE int __cdecl _utime(const char *_Filename,struct _utimbuf *_Utimbuf) {
-  return _utime64(_Filename,(struct __utimbuf64 *)_Utimbuf);
+#નહીંતર
+__CRT_INLINE પૂર્ણાંક __cdecl _utime(અચલ અક્ષર *_Filename,સંરચના _utimbuf *_Utimbuf) {
+  પાછા _utime64(_Filename,(સંરચના __utimbuf64 *)_Utimbuf);
 }
-__CRT_INLINE int __cdecl _futime(int _Desc,struct _utimbuf *_Utimbuf) {
-  return _futime64(_Desc,(struct __utimbuf64 *)_Utimbuf);
+__CRT_INLINE પૂર્ણાંક __cdecl _futime(પૂર્ણાંક _Desc,સંરચના _utimbuf *_Utimbuf) {
+  પાછા _futime64(_Desc,(સંરચના __utimbuf64 *)_Utimbuf);
 }
-__CRT_INLINE int __cdecl _wutime(const wchar_t *_Filename,struct _utimbuf *_Utimbuf) {
-  return _wutime64(_Filename,(struct __utimbuf64 *)_Utimbuf);
+__CRT_INLINE પૂર્ણાંક __cdecl _wutime(અચલ wchar_t *_Filename,સંરચના _utimbuf *_Utimbuf) {
+  પાછા _wutime64(_Filename,(સંરચના __utimbuf64 *)_Utimbuf);
 }
 #endif
 
 #ifndef	NO_OLDNAMES
 #ifdef _USE_32BIT_TIME_T
-__CRT_INLINE int __cdecl utime(const char *_Filename,struct utimbuf *_Utimbuf) {
-  return _utime32(_Filename,(struct __utimbuf32 *)_Utimbuf);
+__CRT_INLINE પૂર્ણાંક __cdecl utime(અચલ અક્ષર *_Filename,સંરચના utimbuf *_Utimbuf) {
+  પાછા _utime32(_Filename,(સંરચના __utimbuf32 *)_Utimbuf);
 }
-#else
-__CRT_INLINE int __cdecl utime(const char *_Filename,struct utimbuf *_Utimbuf) {
-  return _utime64(_Filename,(struct __utimbuf64 *)_Utimbuf);
+#નહીંતર
+__CRT_INLINE પૂર્ણાંક __cdecl utime(અચલ અક્ષર *_Filename,સંરચના utimbuf *_Utimbuf) {
+  પાછા _utime64(_Filename,(સંરચના __utimbuf64 *)_Utimbuf);
 }
 #endif
 #endif
@@ -142,5 +142,5 @@ __CRT_INLINE int __cdecl utime(const char *_Filename,struct utimbuf *_Utimbuf) {
 }
 #endif
 
-#pragma pack(pop)
+#pragma pack(કાઢો)
 #endif

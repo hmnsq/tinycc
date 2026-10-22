@@ -1,24 +1,24 @@
-#include <stdio.h>
+#અન્તર્ભાવ <stdio.h>
 
-void fred()
+શૂન્ય fred()
 {
    printf("In fred()\n");
-   goto done;
+   જાઓ done;
    printf("In middle\n");
 done:
    printf("At end\n");
 }
 
-void joe()
+શૂન્ય joe()
 {
-   int b = 5678;
+   પૂર્ણાંક b = 5678;
 
    printf("In joe()\n");
 
    {
-      int c = 1234;
+      પૂર્ણાંક c = 1234;
       printf("c = %d\n", c);
-      goto outer;
+      જાઓ outer;
       printf("uh-oh\n");
    }
 
@@ -27,15 +27,15 @@ outer:
    printf("done\n");
 }
 
-void henry()
+શૂન્ય henry()
 {
-   int a;
+   પૂર્ણાંક a;
 
    printf("In henry()\n");
-   goto inner;
+   જાઓ inner;
 
    {
-      int b;
+      પૂર્ણાંક b;
 inner:    
       b = 1234;
       printf("b = %d\n", b);
@@ -44,13 +44,13 @@ inner:
    printf("done\n");
 }
 
-int main()
+પૂર્ણાંક મુખ્ય()
 {
    fred();
    joe();
    henry();
 
-   return 0;
+   પાછા 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

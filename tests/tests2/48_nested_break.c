@@ -1,18 +1,18 @@
-#include <stdio.h>
+#અન્તર્ભાવ <stdio.h>
 
-int main()
+પૂર્ણાંક મુખ્ય()
 {
-   int a;
-   char b;
+   પૂર્ણાંક a;
+   અક્ષર b;
 
    a = 0;
-   while (a < 2)
+   જ્યારે (a < 2)
    {
       printf("%d", a++);
-      break;
+      તોડો;
 
       b = 'A';
-      while (b < 'C')
+      જ્યારે (b < 'C')
       {
          printf("%c", b++);
       }
@@ -20,7 +20,7 @@ int main()
    }
    printf("\n");
 
-   return 0;
+   પાછા 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

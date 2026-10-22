@@ -5,38 +5,38 @@
 #define CONFIG_TCC_BACKTRACE_ONLY
 #define ONE_SOURCE 0
 #define pstrcpy tcc_pstrcpy
-#include "../tccrun.c"
+#અન્તર્ભાવ "../tccrun.c"
 
 #ifndef _WIN32
 # define __declspec(n)
 #endif
 
 #ifdef _WIN64
-static void bt_init_pe_prog_base(rt_context *p)
+સ્થિર શૂન્ય bt_init_pe_prog_base(rt_context *p)
 {
     MEMORY_BASIC_INFORMATION mbi;
     addr_t imagebase;
 
-    if (!p->prog_base)
-        return;
-    if (!VirtualQuery(p, &mbi, sizeof(mbi)) || !mbi.AllocationBase)
-        return;
+    જો (!p->prog_base)
+        પાછા;
+    જો (!VirtualQuery(p, &mbi, કદ(mbi)) || !mbi.AllocationBase)
+        પાછા;
     imagebase = (addr_t)mbi.AllocationBase - p->prog_base;
     p->prog_base = (addr_t)mbi.AllocationBase - (imagebase & 0xffffffffu);
 }
 #endif
 
 __declspec(dllexport)
-void __bt_init(rt_context *p, int is_exe)
+શૂન્ય __bt_init(rt_context *p, પૂર્ણાંક is_exe)
 {
-    __attribute__((weak)) int main();
-    __attribute__((weak)) void __bound_init(void*, int);
+    __attribute__((weak)) પૂર્ણાંક મુખ્ય();
+    __attribute__((weak)) શૂન્ય __bound_init(શૂન્ય*, પૂર્ણાંક);
 
     //fprintf(stderr, "__bt_init %d %p %p %p\n", is_exe, p, p->stab_sym, p->bounds_start), fflush(stderr);
 
     /* call __bound_init here due to redirection of sigaction */
     /* needed to add global symbols */
-    if (p->bounds_start)
+    જો (p->bounds_start)
 	__bound_init(p->bounds_start, -1);
 
 #ifdef _WIN64
@@ -47,41 +47,41 @@ void __bt_init(rt_context *p, int is_exe)
     rt_wait_sem();
     p->next = g_rc, g_rc = p;
     rt_post_sem();
-    if (is_exe) {
+    જો (is_exe) {
         /* we are the executable (not a dll) */
-        p->top_func = main;
+        p->ટોચ_func = મુખ્ય;
         set_exception_handler();
     }
 }
 
 __declspec(dllexport)
-void __bt_exit(rt_context *p)
+શૂન્ય __bt_exit(rt_context *p)
 {
-    struct rt_context *rc, **pp;
-    __attribute__((weak)) void __bound_exit_dll(void*);
+    સંરચના rt_context *rc, **pp;
+    __attribute__((weak)) શૂન્ય __bound_exit_dll(શૂન્ય*);
 
     //fprintf(stderr, "__bt_exit %d %p\n", !!p->top_func, p);
 
-    if (p->bounds_start)
+    જો (p->bounds_start)
 	__bound_exit_dll(p->bounds_start);
 
     /* remove from chain */
     rt_wait_sem();
-    for (pp = &g_rc; rc = *pp, rc; pp = &rc->next)
-        if (rc == p) {
+    માટે (pp = &g_rc; rc = *pp, rc; pp = &rc->next)
+        જો (rc == p) {
             *pp = rc->next;
-            break;
+            તોડો;
         }
     rt_post_sem();
 }
 
 /* copy a string and truncate it. */
-ST_FUNC char *pstrcpy(char *buf, size_t buf_size, const char *s)
+ST_FUNC અક્ષર *pstrcpy(અક્ષર *buf, size_t buf_size, અચલ અક્ષર *s)
 {
-    int l = strlen(s);
-    if (l >= buf_size)
+    પૂર્ણાંક l = strlen(s);
+    જો (l >= buf_size)
         l = buf_size - 1;
     memcpy(buf, s, l);
     buf[l] = 0;
-    return buf;
+    પાછા buf;
 }

@@ -1,8 +1,8 @@
 #!/usr/local/bin/tcc -run
-#include <tcclib.h>
+#અન્તર્ભાવ <tcclib.h>
 
-int main()
+પૂર્ણાંક મુખ્ય()
 {
     printf("Hello World\n");
-    return 0;
+    પાછા 0;
 }

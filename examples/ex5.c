@@ -1,8 +1,8 @@
-#include <stdlib.h>
-#include <stdio.h>
+#અન્તર્ભાવ <stdlib.h>
+#અન્તર્ભાવ <stdio.h>
 
-int main()
+પૂર્ણાંક મુખ્ય()
 {
     printf("Hello World\n");
-    return 0;
+    પાછા 0;
 }

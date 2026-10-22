@@ -3,13 +3,13 @@
  * This file is part of the w64 mingw-runtime package.
  * No warranty is given; refer to the file DISCLAIMER within this package.
  */
-#if !defined(_BASETYPS_H_)
+#જો !defined(_BASETYPS_H_)
 #define _BASETYPS_H_
 
 #ifdef __cplusplus
-#define EXTERN_C extern "C"
-#else
-#define EXTERN_C extern
+#define EXTERN_C બાહ્ય "C"
+#નહીંતર
+#define EXTERN_C બાહ્ય
 #endif
 
 #define STDMETHODCALLTYPE WINAPI
@@ -30,22 +30,22 @@
 #define STDMETHODIMPV HRESULT STDMETHODVCALLTYPE
 #define STDMETHODIMPV_(type) type STDMETHODVCALLTYPE
 
-#if defined(__cplusplus) && !defined(CINTERFACE)
+#જો defined(__cplusplus) && !defined(CINTERFACE)
 
-#define __STRUCT__ struct
-#define STDMETHOD(method) virtual HRESULT WINAPI method
-#define STDMETHOD_(type,method) virtual type WINAPI method
-#define STDMETHODV(method) virtual HRESULT STDMETHODVCALLTYPE method
-#define STDMETHODV_(type,method) virtual type STDMETHODVCALLTYPE method
+#define __STRUCT__ સંરચના
+#define STDMETHOD(method) આભાસી HRESULT WINAPI method
+#define STDMETHOD_(type,method) આભાસી type WINAPI method
+#define STDMETHODV(method) આભાસી HRESULT STDMETHODVCALLTYPE method
+#define STDMETHODV_(type,method) આભાસી type STDMETHODVCALLTYPE method
 #define PURE = 0
 #define THIS_
-#define THIS void
+#define THIS શૂન્ય
 #define DECLARE_INTERFACE(iface) __STRUCT__ iface
-#define DECLARE_INTERFACE_(iface,baseiface) __STRUCT__ iface : public baseiface
-#else
+#define DECLARE_INTERFACE_(iface,baseiface) __STRUCT__ iface : જાહેર baseiface
+#નહીંતર
 
 #ifndef __OBJC__
-#define interface struct
+#define interface સંરચના
 #endif
 
 #define STDMETHOD(method) HRESULT (WINAPI *method)
@@ -57,29 +57,29 @@
 #define THIS_ INTERFACE *This,
 #define THIS INTERFACE *This
 #ifdef CONST_VTABLE
-#define DECLARE_INTERFACE(iface) typedef struct iface { \
-  const struct iface##Vtbl *lpVtbl; } iface; \
-  typedef const struct iface##Vtbl iface##Vtbl; \
-  const struct iface##Vtbl
-#else
-#define DECLARE_INTERFACE(iface) typedef struct iface { \
-    struct iface##Vtbl *lpVtbl; \
+#define DECLARE_INTERFACE(iface) પ્રકારવ્યાખ્યા સંરચના iface { \
+  અચલ સંરચના iface##Vtbl *lpVtbl; } iface; \
+  પ્રકારવ્યાખ્યા અચલ સંરચના iface##Vtbl iface##Vtbl; \
+  અચલ સંરચના iface##Vtbl
+#નહીંતર
+#define DECLARE_INTERFACE(iface) પ્રકારવ્યાખ્યા સંરચના iface { \
+    સંરચના iface##Vtbl *lpVtbl; \
   } iface; \
-  typedef struct iface##Vtbl iface##Vtbl; \
-  struct iface##Vtbl
+  પ્રકારવ્યાખ્યા સંરચના iface##Vtbl iface##Vtbl; \
+  સંરચના iface##Vtbl
 #endif
 #define DECLARE_INTERFACE_(iface,baseiface) DECLARE_INTERFACE(iface)
 #endif
 
-#include <guiddef.h>
+#અન્તર્ભાવ <guiddef.h>
 
 #ifndef _ERROR_STATUS_T_DEFINED
 #define _ERROR_STATUS_T_DEFINED
-typedef unsigned long error_status_t;
+પ્રકારવ્યાખ્યા unsigned long error_status_t;
 #endif
 
 #ifndef _WCHAR_T_DEFINED
-typedef unsigned short wchar_t;
+પ્રકારવ્યાખ્યા unsigned short wchar_t;
 #define _WCHAR_T_DEFINED
 #endif
 #endif

@@ -1,18 +1,18 @@
-#include <stdio.h>
+#અન્તર્ભાવ <stdio.h>
 
-int main()
+પૂર્ણાંક મુખ્ય()
 {
-   int Count = 0;
+   પૂર્ણાંક ગણતરી_3 = 0;
 
-   for (;;)
+   માટે (;;)
    {
-      Count++;
-      printf("%d\n", Count);
-      if (Count >= 10)
-         break;
+      ગણતરી_3++;
+      printf("%d\n", ગણતરી_3);
+      જો (ગણતરી_3 >= 10)
+         તોડો;
    }
 
-   return 0;
+   પાછા 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

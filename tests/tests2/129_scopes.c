@@ -1,179 +1,179 @@
-int printf(const char*, ...);
+પૂર્ણાંક printf(અચલ અક્ષર*, ...);
 
 #define myassert(x) \
     printf("%s:%d: %s : \"%s\"\n", __FILE__,__LINE__,(x)?"ok":"error",#x)
 
-enum{ in = 0};
+ગણના{ in = 0};
 
-int main_1(){
+પૂર્ણાંક main_1(){
     {
         myassert(!in);
-        if(sizeof(enum{in=1})) myassert(in);
+        જો(કદ(ગણના{in=1})) myassert(in);
         myassert(!in); //OOPS
     }
     {
         myassert(!in);
-        switch(sizeof(enum{in=1})) { default: myassert(in); }
+        પસંદગી(કદ(ગણના{in=1})) { મૂળભૂત: myassert(in); }
         myassert(!in); //OOPS
     }
     {
         myassert(!in);
-        while(sizeof(enum{in=1})) { myassert(in); break; }
+        જ્યારે(કદ(ગણના{in=1})) { myassert(in); તોડો; }
         myassert(!in); //OOPS
     }
     {
         myassert(!in);
-        do{ myassert(!in);}while(0*sizeof(enum{in=1}));
+        કરો{ myassert(!in);}જ્યારે(0*કદ(ગણના{in=1}));
         myassert(!in); //OOPS
     }
 
     {
         myassert(!in);
-        for(sizeof(enum{in=1});;){ myassert(in); break; }
+        માટે(કદ(ગણના{in=1});;){ myassert(in); તોડો; }
         myassert(!in); //OK
     }
     {
         myassert(!in);
-        for(;;sizeof(enum{in=1})){ myassert(in); break; }
+        માટે(;;કદ(ગણના{in=1})){ myassert(in); તોડો; }
         myassert(!in); //OK
     }
     {
         myassert(!in);
-        for(;sizeof(enum{in=1});){ myassert(in); break; }
+        માટે(;કદ(ગણના{in=1});){ myassert(in); તોડો; }
         myassert(!in); //OK
     }
-    return 0;
+    પાછા 0;
 }
 
 /* --------------------------------------------- */
-int main_2()
+પૂર્ણાંક main_2()
 {
-  char c = 'a';
-  void func1(char c); /* param 'c' must not shadow local 'c' */
+  અક્ષર c = 'a';
+  શૂન્ય func1(અક્ષર c); /* param 'c' must not shadow local 'c' */
   func1(c);
-  return 0;
+  પાછા 0;
 }
 
-void func1(char c)
+શૂન્ય func1(અક્ષર c)
 {
     myassert(c == 'a');
 }
 
-struct st { int a; };
+સંરચના st { પૂર્ણાંક a; };
 
 /* --------------------------------------------- */
-int main_3()
+પૂર્ણાંક main_3()
 {
-  struct st func(void);
-  struct st st = func(); /* not an 'incompatible redefinition' */
+  સંરચના st func(શૂન્ય);
+  સંરચના st st = func(); /* not an 'incompatible redefinition' */
   myassert(st.a == 10);
-  return 0;
+  પાછા 0;
 }
 
-struct st func(void)
+સંરચના st func(શૂન્ય)
 {
-  struct st st = { 10 };
-  return st;
+  સંરચના st st = { 10 };
+  પાછા st;
 }
 
 /* --------------------------------------------- */
 /* func* 'md' must not be shadowed by param 'md' */
-static void f4(char *(*md)(char *md))
+સ્થિર શૂન્ય f4(અક્ષર *(*md)(અક્ષર *md))
 {
    (*md)("test");
 }
-static char *a4(char *a)
+સ્થિર અક્ષર *a4(અક્ષર *a)
 {
-    int strcmp();
+    પૂર્ણાંક strcmp();
     myassert(!strcmp(a, "test"));
-    return a;
+    પાછા a;
 }
 
-int main_4()
+પૂર્ણાંક main_4()
 {
     f4(a4);
-    return 0;
+    પાછા 0;
 }
 
 /* --------------------------------------------- */
-int a5[3], b5[];
-int f5(void);
-int main_5()
+પૂર્ણાંક a5[3], b5[];
+પૂર્ણાંક f5(શૂન્ય);
+પૂર્ણાંક main_5()
 {
-    extern int a5[3], b5[3];
+    બાહ્ય પૂર્ણાંક a5[3], b5[3];
     a5[2]=10, b5[2]=4;
     myassert(f5() == 10 + 4);
-    return 0;
+    પાછા 0;
 }
-int f5(void)
+પૂર્ણાંક f5(શૂન્ય)
 {
-    return a5[2]+b5[2];
+    પાછા a5[2]+b5[2];
 }
-int b5[3];
+પૂર્ણાંક b5[3];
 
 /* --------------------------------------------- */
-static int f6(int);
-int i6 = 11;
+સ્થિર પૂર્ણાંક f6(પૂર્ણાંક);
+પૂર્ણાંક i6 = 11;
 
-int main_6()
+પૂર્ણાંક main_6()
 {
     {
-        int i6 = 33, f6 = 44;
+        પૂર્ણાંક i6 = 33, f6 = 44;
         myassert(i6 == 33 && f6 == 44);
         {
-            int f6(int);
-            extern int i6;
+            પૂર્ણાંક f6(પૂર્ણાંક);
+            બાહ્ય પૂર્ણાંક i6;
             myassert(i6 == 11 && f6(22) == 22);
         }
         myassert(i6 == 33 && f6 == 44);
     }
     myassert(i6 == 11 && f6(22) == 22);
-    return 0;
+    પાછા 0;
 }
 
-int f6(int x)
+પૂર્ણાંક f6(પૂર્ણાંક x)
 {
-    return x;
+    પાછા x;
 }
 
 /* --------------------------------------------- */
 
-#if defined __TINYC__ \
+#જો defined __TINYC__ \
     ? !defined __leading_underscore \
     : !(defined __APPLE__ || defined _WIN32)
 # define _
-#else
+#નહીંતર
 # define _ "_"
 #endif
 
-struct xx7 { int a, b; };
+સંરચના xx7 { પૂર્ણાંક a, b; };
 
-void f7()
+શૂન્ય f7()
 {
-    struct xx7 { int c; } x;
+    સંરચના xx7 { પૂર્ણાંક c; } x;
     {
-        extern struct xx7 { int a, b; } x __asm__(_"z7");
+        બાહ્ય સંરચના xx7 { પૂર્ણાંક a, b; } x __asm__(_"z7");
         x.a = 12;
-        struct xx7 y = { 0,0 };
+        સંરચના xx7 y = { 0,0 };
     }
-    struct xx7 y = { 90 };
+    સંરચના xx7 y = { 90 };
     x.c = 78;
     printf("xx7 (1) : %d %d\n", x.c, y.c);
 }
 
-int main_7()
+પૂર્ણાંક main_7()
 {
     f7();
-    extern struct xx7 y __asm__(_"z7");
+    બાહ્ય સંરચના xx7 y __asm__(_"z7");
     printf("xx7 (2) : %d %d\n", y.a, y.b);
-    return 0;
+    પાછા 0;
 }
 
 
-struct xx7 z7 = { 0, 34 };
+સંરચના xx7 z7 = { 0, 34 };
 
 /* --------------------------------------------- */
-int main()
+પૂર્ણાંક મુખ્ય()
 {
     main_1();
     main_2();
@@ -182,5 +182,5 @@ int main()
     main_5();
     main_6();
     main_7();
-    return 0;
+    પાછા 0;
 }

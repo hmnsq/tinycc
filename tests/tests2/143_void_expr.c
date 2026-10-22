@@ -1,17 +1,17 @@
-#include <stdio.h>
+#અન્તર્ભાવ <stdio.h>
 
-static void f(int x)
+સ્થિર શૂન્ય f(પૂર્ણાંક x)
 {
      printf("f(%d)\n", x);
 }
 
-int main(void)
+પૂર્ણાંક મુખ્ય(શૂન્ય)
 {
-     int count = 0, i = 0;
-     for (; i < 3; ++i) {
+     પૂર્ણાંક ગણતરી_2 = 0, i = 0;
+     માટે (; i < 3; ++i) {
          printf("%d\n", i);
-         (void)(i || (f(i), ++count));
+         (શૂન્ય)(i || (f(i), ++ગણતરી_2));
      }
-     printf("count %d\n", count);
-     return count == 1 ? 0 : 1;
+     printf("count %d\n", ગણતરી_2);
+     પાછા ગણતરી_2 == 1 ? 0 : 1;
 }

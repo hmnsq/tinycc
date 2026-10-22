@@ -1,31 +1,31 @@
-#include <stdio.h>
+#અન્તર્ભાવ <stdio.h>
 
-int
-main (void)
+પૂર્ણાંક
+મુખ્ય (શૂન્ય)
 {
-    int n = 0;
-    int  first=1;
-    int *p[101];
-    if (0) {
+    પૂર્ણાંક n = 0;
+    પૂર્ણાંક  first=1;
+    પૂર્ણાંક *p[101];
+    જો (0) {
         lab:;
     }
-    int x[n % 100 + 1];
-    if (first == 0) {
-        if (&x[0] != p[n % 100 + 1]) {
+    પૂર્ણાંક x[n % 100 + 1];
+    જો (first == 0) {
+        જો (&x[0] != p[n % 100 + 1]) {
             printf ("ERROR: %p %p\n", &x[0], p[n % 100 + 1]);
-            return(1);
+            પાછા(1);
         }
     }
-    else {
+    નહીંતર {
         p[n % 100 + 1] = &x[0];
         first = n < 100;
     }
     x[0] = 1;
     x[n % 100] = 2;
     n++;
-    if (n < 100000)
-        goto lab;
+    જો (n < 100000)
+        જાઓ lab;
     printf ("OK\n");
-    return 0;
+    પાછા 0;
 }
 

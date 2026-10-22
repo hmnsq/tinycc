@@ -1,26 +1,26 @@
-#include <stdio.h>
+#અન્તર્ભાવ <stdio.h>
 
-int myfunc(int x)
+પૂર્ણાંક myfunc(પૂર્ણાંક x)
 {
-   return x * x;
+   પાછા x * x;
 }
 
-void vfunc(int a)
+શૂન્ય vfunc(પૂર્ણાંક a)
 {
    printf("a=%d\n", a);
 }
 
-void qfunc()
+શૂન્ય qfunc()
 {
    printf("qfunc()\n");
 }
 
-void zfunc()
+શૂન્ય zfunc()
 {
-	((void (*)(void))0) ();
+	((શૂન્ય (*)(શૂન્ય))0) ();
 }
 
-int main()
+પૂર્ણાંક મુખ્ય()
 {
    printf("%d\n", myfunc(3));
    printf("%d\n", myfunc(4));
@@ -29,7 +29,7 @@ int main()
 
    qfunc();
 
-   return 0;
+   પાછા 0;
 }
 
 // vim: set expandtab ts=4 sw=3 sts=3 tw=80 :

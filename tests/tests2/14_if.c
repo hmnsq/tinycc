@@ -1,21 +1,21 @@
-#include <stdio.h>
+#અન્તર્ભાવ <stdio.h>
 
-int main()
+પૂર્ણાંક મુખ્ય()
 {
-   int a = 1;
+   પૂર્ણાંક a = 1;
 
-   if (a)
+   જો (a)
       printf("a is true\n");
-   else
+   નહીંતર
       printf("a is false\n");
 
-   int b = 0;
-   if (b)
+   પૂર્ણાંક b = 0;
+   જો (b)
       printf("b is true\n");
-   else
+   નહીંતર
       printf("b is false\n");
 
-   return 0;
+   પાછા 0;
 }
 
 // vim: set expandtab ts=4 sw=3 sts=3 tw=80 :

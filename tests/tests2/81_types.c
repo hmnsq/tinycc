@@ -1,55 +1,55 @@
 /* The following are all valid decls, even though some subtypes
    are incomplete.  */
-enum E *e;
-const enum E *e1;
-enum E const *e2;
-struct S *s;
-const struct S *s1;
-struct S const *s2;
+ગણના E *e;
+અચલ ગણના E *e1;
+ગણના E અચલ *e2;
+સંરચના S *s;
+અચલ સંરચના S *s1;
+સંરચના S અચલ *s2;
 
 /* Various strangely looking declarators, which are all valid
    and have to map to the same numbered typedefs. */
-typedef int (*fptr1)();
-int f1 (int (), int);
-typedef int (*fptr2)(int x);
-int f2 (int (int x), int);
-typedef int (*fptr3)(int);
-int f3 (int (int), int);
-typedef int (*fptr4[4])(int);
-int f4 (int (*[4])(int), int);
-typedef int (*fptr5)(fptr1);
-int f5 (int (int()), fptr1);
-int f1 (fptr1 fp, int i)
+પ્રકારવ્યાખ્યા પૂર્ણાંક (*fptr1)();
+પૂર્ણાંક f1 (પૂર્ણાંક (), પૂર્ણાંક);
+પ્રકારવ્યાખ્યા પૂર્ણાંક (*fptr2)(પૂર્ણાંક x);
+પૂર્ણાંક f2 (પૂર્ણાંક (પૂર્ણાંક x), પૂર્ણાંક);
+પ્રકારવ્યાખ્યા પૂર્ણાંક (*fptr3)(પૂર્ણાંક);
+પૂર્ણાંક f3 (પૂર્ણાંક (પૂર્ણાંક), પૂર્ણાંક);
+પ્રકારવ્યાખ્યા પૂર્ણાંક (*fptr4[4])(પૂર્ણાંક);
+પૂર્ણાંક f4 (પૂર્ણાંક (*[4])(પૂર્ણાંક), પૂર્ણાંક);
+પ્રકારવ્યાખ્યા પૂર્ણાંક (*fptr5)(fptr1);
+પૂર્ણાંક f5 (પૂર્ણાંક (પૂર્ણાંક()), fptr1);
+પૂર્ણાંક f1 (fptr1 fp, પૂર્ણાંક i)
 {
-  return (*fp)(i);
+  પાછા (*fp)(i);
 }
-int f2 (fptr2 fp, int i)
+પૂર્ણાંક f2 (fptr2 fp, પૂર્ણાંક i)
 {
-  return (*fp)(i);
+  પાછા (*fp)(i);
 }
-int f3 (fptr3 fp, int i)
+પૂર્ણાંક f3 (fptr3 fp, પૂર્ણાંક i)
 {
-  return (*fp)(i);
+  પાછા (*fp)(i);
 }
-int f4 (fptr4 fp, int i)
+પૂર્ણાંક f4 (fptr4 fp, પૂર્ણાંક i)
 {
-  return (*fp[i])(i);
+  પાછા (*fp[i])(i);
 }
-int f5 (fptr5 fp, fptr1 i)
+પૂર્ણાંક f5 (fptr5 fp, fptr1 i)
 {
-  return fp(i);
+  પાછા fp(i);
 }
-typedef int intx4[4];
-int f8 (intx4, int);
-int f8 (int ([4]), int);
-int f8 (int y[4], int i)
+પ્રકારવ્યાખ્યા પૂર્ણાંક intx4[4];
+પૂર્ણાંક f8 (intx4, પૂર્ણાંક);
+પૂર્ણાંક f8 (પૂર્ણાંક ([4]), પૂર્ણાંક);
+પૂર્ણાંક f8 (પૂર્ણાંક y[4], પૂર્ણાંક i)
 {
-  return y[i];
+  પાછા y[i];
 }
-int f9 (int (*)(int), int);
-int f9 (int ((int)), int);
-int f9 (int f(int), int i)
+પૂર્ણાંક f9 (પૂર્ણાંક (*)(પૂર્ણાંક), પૂર્ણાંક);
+પૂર્ણાંક f9 (પૂર્ણાંક ((પૂર્ણાંક)), પૂર્ણાંક);
+પૂર્ણાંક f9 (પૂર્ણાંક f(પૂર્ણાંક), પૂર્ણાંક i)
 {
-  return f(i);
+  પાછા f(i);
 }
-int main () { return 0; }
+પૂર્ણાંક મુખ્ય () { પાછા 0; }

@@ -6,19 +6,19 @@
 #ifndef _INC_DOS
 #define _INC_DOS
 
-#include <_mingw.h>
-#include <io.h>
+#અન્તર્ભાવ <_mingw.h>
+#અન્તર્ભાવ <io.h>
 
-#pragma pack(push,_CRT_PACKING)
+#pragma pack(ધકેલો,_CRT_PACKING)
 
 #ifdef __cplusplus
-extern "C" {
+બાહ્ય "C" {
 #endif
 
 #ifndef _DISKFREE_T_DEFINED
 #define _DISKFREE_T_DEFINED
 
-  struct _diskfree_t {
+  સંરચના _diskfree_t {
     unsigned total_clusters;
     unsigned avail_clusters;
     unsigned sectors_per_cluster;
@@ -35,12 +35,12 @@ extern "C" {
 
 #ifndef _GETDISKFREE_DEFINED
 #define _GETDISKFREE_DEFINED
-  _CRTIMP unsigned __cdecl _getdiskfree(unsigned _Drive,struct _diskfree_t *_DiskFree);
+  _CRTIMP unsigned __cdecl _getdiskfree(unsigned _Drive,સંરચના _diskfree_t *_DiskFree);
 #endif
 
-#if (defined(_X86_) && !defined(__x86_64))
-  void __cdecl _disable(void);
-  void __cdecl _enable(void);
+#જો (defined(_X86_) && !defined(__x86_64))
+  શૂન્ય __cdecl _disable(શૂન્ય);
+  શૂન્ય __cdecl _enable(શૂન્ય);
 #endif
 
 #ifndef	NO_OLDNAMES
@@ -51,5 +51,5 @@ extern "C" {
 }
 #endif
 
-#pragma pack(pop)
+#pragma pack(કાઢો)
 #endif

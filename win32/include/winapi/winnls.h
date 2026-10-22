@@ -7,7 +7,7 @@
 #define _WINNLS_
 
 #ifdef __cplusplus
-extern "C" {
+બાહ્ય "C" {
 #endif
 
 #ifndef NONLS
@@ -60,7 +60,7 @@ extern "C" {
 #define C3_NONSPACING 0x0001
 #define C3_DIACRITIC 0x0002
 #define C3_VOWELMARK 0x0004
-#define C3_SYMBOL 0x0008
+#define C3_પ્રતીક 0x0008
 
 #define C3_KATAKANA 0x0010
 #define C3_HIRAGANA 0x0020
@@ -122,7 +122,7 @@ extern "C" {
 #define CP_OEMCP 1
 #define CP_MACCP 2
 #define CP_THREAD_ACP 3
-#define CP_SYMBOL 42
+#define CP_પ્રતીક 42
 
 #define CP_UTF7 65000
 #define CP_UTF8 65001
@@ -243,7 +243,7 @@ extern "C" {
 
 #define LOCALE_NOUSEROVERRIDE 0x80000000
 #define LOCALE_USE_CP_ACP 0x40000000
-#define LOCALE_RETURN_NUMBER 0x20000000
+#define LOCALE_RETURN_સંખ્યા 0x20000000
 
 #define LOCALE_ILANGUAGE 0x00000001
 #define LOCALE_SLANGUAGE 0x00000002
@@ -380,7 +380,7 @@ extern "C" {
 
 #define CAL_NOUSEROVERRIDE LOCALE_NOUSEROVERRIDE
 #define CAL_USE_CP_ACP LOCALE_USE_CP_ACP
-#define CAL_RETURN_NUMBER LOCALE_RETURN_NUMBER
+#define CAL_RETURN_સંખ્યા LOCALE_RETURN_સંખ્યા
 
 #define CAL_ICALINTVALUE 0x00000001
 #define CAL_SCALNAME 0x00000002
@@ -464,18 +464,18 @@ extern "C" {
 #define LGRPID_GEORGIAN 0x0010
 #define LGRPID_ARMENIAN 0x0011
 
-  typedef DWORD LGRPID;
-  typedef DWORD LCTYPE;
-  typedef DWORD CALTYPE;
-  typedef DWORD CALID;
+  પ્રકારવ્યાખ્યા DWORD LGRPID;
+  પ્રકારવ્યાખ્યા DWORD LCTYPE;
+  પ્રકારવ્યાખ્યા DWORD CALTYPE;
+  પ્રકારવ્યાખ્યા DWORD CALID;
 
-  typedef struct _cpinfo {
+  પ્રકારવ્યાખ્યા સંરચના _cpinfo {
     UINT MaxCharSize;
     BYTE DefaultChar[MAX_DEFAULTCHAR];
     BYTE LeadByte[MAX_LEADBYTES];
   } CPINFO,*LPCPINFO;
 
-  typedef struct _cpinfoexA {
+  પ્રકારવ્યાખ્યા સંરચના _cpinfoexA {
     UINT MaxCharSize;
     BYTE DefaultChar[MAX_DEFAULTCHAR];
     BYTE LeadByte[MAX_LEADBYTES];
@@ -484,7 +484,7 @@ extern "C" {
     CHAR CodePageName[MAX_PATH];
   } CPINFOEXA,*LPCPINFOEXA;
 
-  typedef struct _cpinfoexW {
+  પ્રકારવ્યાખ્યા સંરચના _cpinfoexW {
     UINT MaxCharSize;
     BYTE DefaultChar[MAX_DEFAULTCHAR];
     BYTE LeadByte[MAX_LEADBYTES];
@@ -494,15 +494,15 @@ extern "C" {
   } CPINFOEXW,*LPCPINFOEXW;
 
 #ifdef UNICODE
-  typedef CPINFOEXW CPINFOEX;
-  typedef LPCPINFOEXW LPCPINFOEX;
-#else
-  typedef CPINFOEXA CPINFOEX;
-  typedef LPCPINFOEXA LPCPINFOEX;
+  પ્રકારવ્યાખ્યા CPINFOEXW CPINFOEX;
+  પ્રકારવ્યાખ્યા LPCPINFOEXW LPCPINFOEX;
+#નહીંતર
+  પ્રકારવ્યાખ્યા CPINFOEXA CPINFOEX;
+  પ્રકારવ્યાખ્યા LPCPINFOEXA LPCPINFOEX;
 #endif
 
-  typedef struct _numberfmtA {
-    UINT NumDigits;
+  પ્રકારવ્યાખ્યા સંરચના _numberfmtA {
+    UINT અંક_Digits;
     UINT LeadingZero;
     UINT Grouping;
     LPSTR lpDecimalSep;
@@ -510,8 +510,8 @@ extern "C" {
     UINT NegativeOrder;
   } NUMBERFMTA,*LPNUMBERFMTA;
 
-  typedef struct _numberfmtW {
-    UINT NumDigits;
+  પ્રકારવ્યાખ્યા સંરચના _numberfmtW {
+    UINT અંક_Digits;
     UINT LeadingZero;
     UINT Grouping;
     LPWSTR lpDecimalSep;
@@ -520,71 +520,71 @@ extern "C" {
   } NUMBERFMTW,*LPNUMBERFMTW;
 
 #ifdef UNICODE
-  typedef NUMBERFMTW NUMBERFMT;
-  typedef LPNUMBERFMTW LPNUMBERFMT;
-#else
-  typedef NUMBERFMTA NUMBERFMT;
-  typedef LPNUMBERFMTA LPNUMBERFMT;
+  પ્રકારવ્યાખ્યા NUMBERFMTW NUMBERFMT;
+  પ્રકારવ્યાખ્યા LPNUMBERFMTW LPNUMBERFMT;
+#નહીંતર
+  પ્રકારવ્યાખ્યા NUMBERFMTA NUMBERFMT;
+  પ્રકારવ્યાખ્યા LPNUMBERFMTA LPNUMBERFMT;
 #endif
 
-  typedef struct _currencyfmtA {
-    UINT NumDigits;
+  પ્રકારવ્યાખ્યા સંરચના _currencyfmtA {
+    UINT અંક_Digits;
     UINT LeadingZero;
     UINT Grouping;
     LPSTR lpDecimalSep;
     LPSTR lpThousandSep;
     UINT NegativeOrder;
     UINT PositiveOrder;
-    LPSTR lpCurrencySymbol;
+    LPSTR lp_Currency_પ્રતીક;
   } CURRENCYFMTA,*LPCURRENCYFMTA;
 
-  typedef struct _currencyfmtW {
-    UINT NumDigits;
+  પ્રકારવ્યાખ્યા સંરચના _currencyfmtW {
+    UINT અંક_Digits;
     UINT LeadingZero;
     UINT Grouping;
     LPWSTR lpDecimalSep;
     LPWSTR lpThousandSep;
     UINT NegativeOrder;
     UINT PositiveOrder;
-    LPWSTR lpCurrencySymbol;
+    LPWSTR lp_Currency_પ્રતીક;
   } CURRENCYFMTW,*LPCURRENCYFMTW;
 
 #ifdef UNICODE
-  typedef CURRENCYFMTW CURRENCYFMT;
-  typedef LPCURRENCYFMTW LPCURRENCYFMT;
-#else
-  typedef CURRENCYFMTA CURRENCYFMT;
-  typedef LPCURRENCYFMTA LPCURRENCYFMT;
+  પ્રકારવ્યાખ્યા CURRENCYFMTW CURRENCYFMT;
+  પ્રકારવ્યાખ્યા LPCURRENCYFMTW LPCURRENCYFMT;
+#નહીંતર
+  પ્રકારવ્યાખ્યા CURRENCYFMTA CURRENCYFMT;
+  પ્રકારવ્યાખ્યા LPCURRENCYFMTA LPCURRENCYFMT;
 #endif
 
-  enum SYSNLS_FUNCTION {
+  ગણના SYSNLS_FUNCTION {
     COMPARE_STRING = 0x0001
   };
 
-  typedef DWORD NLS_FUNCTION;
+  પ્રકારવ્યાખ્યા DWORD NLS_FUNCTION;
 
-  typedef struct _nlsversioninfo{
+  પ્રકારવ્યાખ્યા સંરચના _nlsversioninfo{
     DWORD dwNLSVersionInfoSize;
     DWORD dwNLSVersion;
     DWORD dwDefinedVersion;
   } NLSVERSIONINFO,*LPNLSVERSIONINFO;
 
-  typedef LONG GEOID;
-  typedef DWORD GEOTYPE;
-  typedef DWORD GEOCLASS;
+  પ્રકારવ્યાખ્યા LONG GEOID;
+  પ્રકારવ્યાખ્યા DWORD GEOTYPE;
+  પ્રકારવ્યાખ્યા DWORD GEOCLASS;
 
 #define GEOID_NOT_AVAILABLE -1
 
-  enum SYSGEOTYPE {
+  ગણના SYSGEOTYPE {
     GEO_NATION = 0x0001,GEO_LATITUDE = 0x0002,GEO_LONGITUDE = 0x0003,GEO_ISO2 = 0x0004,GEO_ISO3 = 0x0005,GEO_RFC1766 = 0x0006,GEO_LCID = 0x0007,
     GEO_FRIENDLYNAME= 0x0008,GEO_OFFICIALNAME= 0x0009,GEO_TIMEZONES = 0x000A,GEO_OFFICIALLANGUAGES = 0x000B
   };
 
-  enum SYSGEOCLASS {
+  ગણના SYSGEOCLASS {
     GEOCLASS_NATION = 16,GEOCLASS_REGION = 14
   };
   
-  typedef enum  _NORM_FORM  {
+  પ્રકારવ્યાખ્યા ગણના  _NORM_FORM  {
   NormalizationOther   = 0,
   NormalizationC       = 0x1,
   NormalizationD       = 0x2,
@@ -592,27 +592,27 @@ extern "C" {
   NormalizationKD      = 0x6 
 } NORM_FORM;
 
-  typedef WINBOOL (CALLBACK *LANGUAGEGROUP_ENUMPROCA)(LGRPID,LPSTR,LPSTR,DWORD,LONG_PTR);
-  typedef WINBOOL (CALLBACK *LANGGROUPLOCALE_ENUMPROCA)(LGRPID,LCID,LPSTR,LONG_PTR);
-  typedef WINBOOL (CALLBACK *UILANGUAGE_ENUMPROCA)(LPSTR,LONG_PTR);
-  typedef WINBOOL (CALLBACK *LOCALE_ENUMPROCA)(LPSTR);
-  typedef WINBOOL (CALLBACK *CODEPAGE_ENUMPROCA)(LPSTR);
-  typedef WINBOOL (CALLBACK *DATEFMT_ENUMPROCA)(LPSTR);
-  typedef WINBOOL (CALLBACK *DATEFMT_ENUMPROCEXA)(LPSTR,CALID);
-  typedef WINBOOL (CALLBACK *TIMEFMT_ENUMPROCA)(LPSTR);
-  typedef WINBOOL (CALLBACK *CALINFO_ENUMPROCA)(LPSTR);
-  typedef WINBOOL (CALLBACK *CALINFO_ENUMPROCEXA)(LPSTR,CALID);
-  typedef WINBOOL (CALLBACK *LANGUAGEGROUP_ENUMPROCW)(LGRPID,LPWSTR,LPWSTR,DWORD,LONG_PTR);
-  typedef WINBOOL (CALLBACK *LANGGROUPLOCALE_ENUMPROCW)(LGRPID,LCID,LPWSTR,LONG_PTR);
-  typedef WINBOOL (CALLBACK *UILANGUAGE_ENUMPROCW)(LPWSTR,LONG_PTR);
-  typedef WINBOOL (CALLBACK *LOCALE_ENUMPROCW)(LPWSTR);
-  typedef WINBOOL (CALLBACK *CODEPAGE_ENUMPROCW)(LPWSTR);
-  typedef WINBOOL (CALLBACK *DATEFMT_ENUMPROCW)(LPWSTR);
-  typedef WINBOOL (CALLBACK *DATEFMT_ENUMPROCEXW)(LPWSTR,CALID);
-  typedef WINBOOL (CALLBACK *TIMEFMT_ENUMPROCW)(LPWSTR);
-  typedef WINBOOL (CALLBACK *CALINFO_ENUMPROCW)(LPWSTR);
-  typedef WINBOOL (CALLBACK *CALINFO_ENUMPROCEXW)(LPWSTR,CALID);
-  typedef WINBOOL (CALLBACK *GEO_ENUMPROC)(GEOID);
+  પ્રકારવ્યાખ્યા WINBOOL (CALLBACK *LANGUAGEGROUP_ENUMPROCA)(LGRPID,LPSTR,LPSTR,DWORD,LONG_PTR);
+  પ્રકારવ્યાખ્યા WINBOOL (CALLBACK *LANGGROUPLOCALE_ENUMPROCA)(LGRPID,LCID,LPSTR,LONG_PTR);
+  પ્રકારવ્યાખ્યા WINBOOL (CALLBACK *UILANGUAGE_ENUMPROCA)(LPSTR,LONG_PTR);
+  પ્રકારવ્યાખ્યા WINBOOL (CALLBACK *LOCALE_ENUMPROCA)(LPSTR);
+  પ્રકારવ્યાખ્યા WINBOOL (CALLBACK *CODEPAGE_ENUMPROCA)(LPSTR);
+  પ્રકારવ્યાખ્યા WINBOOL (CALLBACK *DATEFMT_ENUMPROCA)(LPSTR);
+  પ્રકારવ્યાખ્યા WINBOOL (CALLBACK *DATEFMT_ENUMPROCEXA)(LPSTR,CALID);
+  પ્રકારવ્યાખ્યા WINBOOL (CALLBACK *TIMEFMT_ENUMPROCA)(LPSTR);
+  પ્રકારવ્યાખ્યા WINBOOL (CALLBACK *CALINFO_ENUMPROCA)(LPSTR);
+  પ્રકારવ્યાખ્યા WINBOOL (CALLBACK *CALINFO_ENUMPROCEXA)(LPSTR,CALID);
+  પ્રકારવ્યાખ્યા WINBOOL (CALLBACK *LANGUAGEGROUP_ENUMPROCW)(LGRPID,LPWSTR,LPWSTR,DWORD,LONG_PTR);
+  પ્રકારવ્યાખ્યા WINBOOL (CALLBACK *LANGGROUPLOCALE_ENUMPROCW)(LGRPID,LCID,LPWSTR,LONG_PTR);
+  પ્રકારવ્યાખ્યા WINBOOL (CALLBACK *UILANGUAGE_ENUMPROCW)(LPWSTR,LONG_PTR);
+  પ્રકારવ્યાખ્યા WINBOOL (CALLBACK *LOCALE_ENUMPROCW)(LPWSTR);
+  પ્રકારવ્યાખ્યા WINBOOL (CALLBACK *CODEPAGE_ENUMPROCW)(LPWSTR);
+  પ્રકારવ્યાખ્યા WINBOOL (CALLBACK *DATEFMT_ENUMPROCW)(LPWSTR);
+  પ્રકારવ્યાખ્યા WINBOOL (CALLBACK *DATEFMT_ENUMPROCEXW)(LPWSTR,CALID);
+  પ્રકારવ્યાખ્યા WINBOOL (CALLBACK *TIMEFMT_ENUMPROCW)(LPWSTR);
+  પ્રકારવ્યાખ્યા WINBOOL (CALLBACK *CALINFO_ENUMPROCW)(LPWSTR);
+  પ્રકારવ્યાખ્યા WINBOOL (CALLBACK *CALINFO_ENUMPROCEXW)(LPWSTR,CALID);
+  પ્રકારવ્યાખ્યા WINBOOL (CALLBACK *GEO_ENUMPROC)(GEOID);
 
 #ifdef UNICODE
 #define LANGUAGEGROUP_ENUMPROC LANGUAGEGROUP_ENUMPROCW
@@ -625,7 +625,7 @@ extern "C" {
 #define TIMEFMT_ENUMPROC TIMEFMT_ENUMPROCW
 #define CALINFO_ENUMPROC CALINFO_ENUMPROCW
 #define CALINFO_ENUMPROCEX CALINFO_ENUMPROCEXW
-#else
+#નહીંતર
 #define LANGUAGEGROUP_ENUMPROC LANGUAGEGROUP_ENUMPROCA
 #define LANGGROUPLOCALE_ENUMPROC LANGGROUPLOCALE_ENUMPROCA
 #define UILANGUAGE_ENUMPROC UILANGUAGE_ENUMPROCA
@@ -648,7 +648,7 @@ extern "C" {
 #define SetCalendarInfo SetCalendarInfoW
 #define GetTimeFormat GetTimeFormatW
 #define GetDateFormat GetDateFormatW
-#define GetNumberFormat GetNumberFormatW
+#define Get_સંખ્યા_Format Get_સંખ્યા_Format_W
 #define GetCurrencyFormat GetCurrencyFormatW
 #define EnumCalendarInfo EnumCalendarInfoW
 #define EnumCalendarInfoEx EnumCalendarInfoExW
@@ -663,7 +663,7 @@ extern "C" {
 #define EnumUILanguages EnumUILanguagesW
 #define EnumSystemLocales EnumSystemLocalesW
 #define EnumSystemCodePages EnumSystemCodePagesW
-#else
+#નહીંતર
 #define GetCPInfoEx GetCPInfoExA
 #define CompareString CompareStringA
 #define LCMapString LCMapStringA
@@ -673,7 +673,7 @@ extern "C" {
 #define SetCalendarInfo SetCalendarInfoA
 #define GetTimeFormat GetTimeFormatA
 #define GetDateFormat GetDateFormatA
-#define GetNumberFormat GetNumberFormatA
+#define Get_સંખ્યા_Format Get_સંખ્યા_Format_A
 #define GetCurrencyFormat GetCurrencyFormatA
 #define EnumCalendarInfo EnumCalendarInfoA
 #define EnumCalendarInfoEx EnumCalendarInfoExA
@@ -691,35 +691,35 @@ extern "C" {
 #endif
 
   WINBASEAPI WINBOOL WINAPI IsValidCodePage(UINT CodePage);
-  WINBASEAPI UINT WINAPI GetACP(void);
-  WINBASEAPI UINT WINAPI GetOEMCP(void);
+  WINBASEAPI UINT WINAPI GetACP(શૂન્ય);
+  WINBASEAPI UINT WINAPI GetOEMCP(શૂન્ય);
   WINBASEAPI WINBOOL WINAPI GetCPInfo(UINT CodePage,LPCPINFO lpCPInfo);
   WINBASEAPI WINBOOL WINAPI GetCPInfoExA(UINT CodePage,DWORD dwFlags,LPCPINFOEXA lpCPInfoEx);
   WINBASEAPI WINBOOL WINAPI GetCPInfoExW(UINT CodePage,DWORD dwFlags,LPCPINFOEXW lpCPInfoEx);
   WINBASEAPI WINBOOL WINAPI IsDBCSLeadByte(BYTE TestChar);
   WINBASEAPI WINBOOL WINAPI IsDBCSLeadByteEx(UINT CodePage,BYTE TestChar);
-  WINBASEAPI int WINAPI MultiByteToWideChar(UINT CodePage,DWORD dwFlags,LPCSTR lpMultiByteStr,int cbMultiByte,LPWSTR lpWideCharStr,int cchWideChar);
-  WINBASEAPI int WINAPI WideCharToMultiByte(UINT CodePage,DWORD dwFlags,LPCWSTR lpWideCharStr,int cchWideChar,LPSTR lpMultiByteStr,int cbMultiByte,LPCSTR lpDefaultChar,LPBOOL lpUsedDefaultChar);
-  WINBASEAPI int WINAPI CompareStringA(LCID Locale,DWORD dwCmpFlags,LPCSTR lpString1,int cchCount1,LPCSTR lpString2,int cchCount2);
-  WINBASEAPI int WINAPI CompareStringW(LCID Locale,DWORD dwCmpFlags,LPCWSTR lpString1,int cchCount1,LPCWSTR lpString2,int cchCount2);
-  WINBASEAPI int WINAPI LCMapStringA(LCID Locale,DWORD dwMapFlags,LPCSTR lpSrcStr,int cchSrc,LPSTR lpDestStr,int cchDest);
-  WINBASEAPI int WINAPI LCMapStringW(LCID Locale,DWORD dwMapFlags,LPCWSTR lpSrcStr,int cchSrc,LPWSTR lpDestStr,int cchDest);
-  WINBASEAPI int WINAPI GetLocaleInfoA(LCID Locale,LCTYPE LCType,LPSTR lpLCData,int cchData);
-  WINBASEAPI int WINAPI GetLocaleInfoW(LCID Locale,LCTYPE LCType,LPWSTR lpLCData,int cchData);
+  WINBASEAPI પૂર્ણાંક WINAPI MultiByteToWideChar(UINT CodePage,DWORD dwFlags,LPCSTR lpMultiByteStr,પૂર્ણાંક cbMultiByte,LPWSTR lpWideCharStr,પૂર્ણાંક cchWideChar);
+  WINBASEAPI પૂર્ણાંક WINAPI WideCharToMultiByte(UINT CodePage,DWORD dwFlags,LPCWSTR lpWideCharStr,પૂર્ણાંક cchWideChar,LPSTR lpMultiByteStr,પૂર્ણાંક cbMultiByte,LPCSTR lpDefaultChar,LPBOOL lpUsedDefaultChar);
+  WINBASEAPI પૂર્ણાંક WINAPI CompareStringA(LCID Locale,DWORD dwCmpFlags,LPCSTR lpString1,પૂર્ણાંક cchCount1,LPCSTR lpString2,પૂર્ણાંક cchCount2);
+  WINBASEAPI પૂર્ણાંક WINAPI CompareStringW(LCID Locale,DWORD dwCmpFlags,LPCWSTR lpString1,પૂર્ણાંક cchCount1,LPCWSTR lpString2,પૂર્ણાંક cchCount2);
+  WINBASEAPI પૂર્ણાંક WINAPI LCMapStringA(LCID Locale,DWORD dwMapFlags,LPCSTR lpSrcStr,પૂર્ણાંક cchSrc,LPSTR lpDestStr,પૂર્ણાંક cchDest);
+  WINBASEAPI પૂર્ણાંક WINAPI LCMapStringW(LCID Locale,DWORD dwMapFlags,LPCWSTR lpSrcStr,પૂર્ણાંક cchSrc,LPWSTR lpDestStr,પૂર્ણાંક cchDest);
+  WINBASEAPI પૂર્ણાંક WINAPI GetLocaleInfoA(LCID Locale,LCTYPE LCType,LPSTR lpLCData,પૂર્ણાંક cchData);
+  WINBASEAPI પૂર્ણાંક WINAPI GetLocaleInfoW(LCID Locale,LCTYPE LCType,LPWSTR lpLCData,પૂર્ણાંક cchData);
   WINBASEAPI WINBOOL WINAPI SetLocaleInfoA(LCID Locale,LCTYPE LCType,LPCSTR lpLCData);
   WINBASEAPI WINBOOL WINAPI SetLocaleInfoW(LCID Locale,LCTYPE LCType,LPCWSTR lpLCData);
-  WINBASEAPI int WINAPI GetCalendarInfoA(LCID Locale,CALID Calendar,CALTYPE CalType,LPSTR lpCalData,int cchData,LPDWORD lpValue);
-  WINBASEAPI int WINAPI GetCalendarInfoW(LCID Locale,CALID Calendar,CALTYPE CalType,LPWSTR lpCalData,int cchData,LPDWORD lpValue);
+  WINBASEAPI પૂર્ણાંક WINAPI GetCalendarInfoA(LCID Locale,CALID Calendar,CALTYPE CalType,LPSTR lpCalData,પૂર્ણાંક cchData,LPDWORD lp_કિંમત);
+  WINBASEAPI પૂર્ણાંક WINAPI GetCalendarInfoW(LCID Locale,CALID Calendar,CALTYPE CalType,LPWSTR lpCalData,પૂર્ણાંક cchData,LPDWORD lp_કિંમત);
   WINBASEAPI WINBOOL WINAPI SetCalendarInfoA(LCID Locale,CALID Calendar,CALTYPE CalType,LPCSTR lpCalData);
   WINBASEAPI WINBOOL WINAPI SetCalendarInfoW(LCID Locale,CALID Calendar,CALTYPE CalType,LPCWSTR lpCalData);
-  WINBASEAPI int WINAPI GetTimeFormatA(LCID Locale,DWORD dwFlags,CONST SYSTEMTIME *lpTime,LPCSTR lpFormat,LPSTR lpTimeStr,int cchTime);
-  WINBASEAPI int WINAPI GetTimeFormatW(LCID Locale,DWORD dwFlags,CONST SYSTEMTIME *lpTime,LPCWSTR lpFormat,LPWSTR lpTimeStr,int cchTime);
-  WINBASEAPI int WINAPI GetDateFormatA(LCID Locale,DWORD dwFlags,CONST SYSTEMTIME *lpDate,LPCSTR lpFormat,LPSTR lpDateStr,int cchDate);
-  WINBASEAPI int WINAPI GetDateFormatW(LCID Locale,DWORD dwFlags,CONST SYSTEMTIME *lpDate,LPCWSTR lpFormat,LPWSTR lpDateStr,int cchDate);
-  WINBASEAPI int WINAPI GetNumberFormatA(LCID Locale,DWORD dwFlags,LPCSTR lpValue,CONST NUMBERFMTA *lpFormat,LPSTR lpNumberStr,int cchNumber);
-  WINBASEAPI int WINAPI GetNumberFormatW(LCID Locale,DWORD dwFlags,LPCWSTR lpValue,CONST NUMBERFMTW *lpFormat,LPWSTR lpNumberStr,int cchNumber);
-  WINBASEAPI int WINAPI GetCurrencyFormatA(LCID Locale,DWORD dwFlags,LPCSTR lpValue,CONST CURRENCYFMTA *lpFormat,LPSTR lpCurrencyStr,int cchCurrency);
-  WINBASEAPI int WINAPI GetCurrencyFormatW(LCID Locale,DWORD dwFlags,LPCWSTR lpValue,CONST CURRENCYFMTW *lpFormat,LPWSTR lpCurrencyStr,int cchCurrency);
+  WINBASEAPI પૂર્ણાંક WINAPI GetTimeFormatA(LCID Locale,DWORD dwFlags,CONST SYSTEMTIME *lpTime,LPCSTR lpFormat,LPSTR lpTimeStr,પૂર્ણાંક cchTime);
+  WINBASEAPI પૂર્ણાંક WINAPI GetTimeFormatW(LCID Locale,DWORD dwFlags,CONST SYSTEMTIME *lpTime,LPCWSTR lpFormat,LPWSTR lpTimeStr,પૂર્ણાંક cchTime);
+  WINBASEAPI પૂર્ણાંક WINAPI GetDateFormatA(LCID Locale,DWORD dwFlags,CONST SYSTEMTIME *lpDate,LPCSTR lpFormat,LPSTR lpDateStr,પૂર્ણાંક cchDate);
+  WINBASEAPI પૂર્ણાંક WINAPI GetDateFormatW(LCID Locale,DWORD dwFlags,CONST SYSTEMTIME *lpDate,LPCWSTR lpFormat,LPWSTR lpDateStr,પૂર્ણાંક cchDate);
+  WINBASEAPI પૂર્ણાંક WINAPI Get_સંખ્યા_Format_A(LCID Locale,DWORD dwFlags,LPCSTR lp_કિંમત,CONST NUMBERFMTA *lpFormat,LPSTR lp_સંખ્યા_Str,પૂર્ણાંક cch_સંખ્યા);
+  WINBASEAPI પૂર્ણાંક WINAPI Get_સંખ્યા_Format_W(LCID Locale,DWORD dwFlags,LPCWSTR lp_કિંમત,CONST NUMBERFMTW *lpFormat,LPWSTR lp_સંખ્યા_Str,પૂર્ણાંક cch_સંખ્યા);
+  WINBASEAPI પૂર્ણાંક WINAPI GetCurrencyFormatA(LCID Locale,DWORD dwFlags,LPCSTR lp_કિંમત,CONST CURRENCYFMTA *lpFormat,LPSTR lpCurrencyStr,પૂર્ણાંક cchCurrency);
+  WINBASEAPI પૂર્ણાંક WINAPI GetCurrencyFormatW(LCID Locale,DWORD dwFlags,LPCWSTR lp_કિંમત,CONST CURRENCYFMTW *lpFormat,LPWSTR lpCurrencyStr,પૂર્ણાંક cchCurrency);
   WINBASEAPI WINBOOL WINAPI EnumCalendarInfoA(CALINFO_ENUMPROCA lpCalInfoEnumProc,LCID Locale,CALID Calendar,CALTYPE CalType);
   WINBASEAPI WINBOOL WINAPI EnumCalendarInfoW(CALINFO_ENUMPROCW lpCalInfoEnumProc,LCID Locale,CALID Calendar,CALTYPE CalType);
   WINBASEAPI WINBOOL WINAPI EnumCalendarInfoExA(CALINFO_ENUMPROCEXA lpCalInfoEnumProcEx,LCID Locale,CALID Calendar,CALTYPE CalType);
@@ -734,26 +734,26 @@ extern "C" {
   WINBASEAPI WINBOOL WINAPI GetNLSVersion(NLS_FUNCTION Function,LCID Locale,LPNLSVERSIONINFO lpVersionInformation);
   WINBASEAPI WINBOOL WINAPI IsNLSDefinedString(NLS_FUNCTION Function,DWORD dwFlags,LPNLSVERSIONINFO lpVersionInformation,LPCWSTR lpString,INT cchStr);
   WINBASEAPI WINBOOL WINAPI IsValidLocale(LCID Locale,DWORD dwFlags);
-  WINBASEAPI int WINAPI GetGeoInfoA(GEOID Location,GEOTYPE GeoType,LPSTR lpGeoData,int cchData,LANGID LangId);
-  WINBASEAPI int WINAPI GetGeoInfoW(GEOID Location,GEOTYPE GeoType,LPWSTR lpGeoData,int cchData,LANGID LangId);
+  WINBASEAPI પૂર્ણાંક WINAPI GetGeoInfoA(GEOID Location,GEOTYPE GeoType,LPSTR lpGeoData,પૂર્ણાંક cchData,LANGID LangId);
+  WINBASEAPI પૂર્ણાંક WINAPI GetGeoInfoW(GEOID Location,GEOTYPE GeoType,LPWSTR lpGeoData,પૂર્ણાંક cchData,LANGID LangId);
   WINBASEAPI WINBOOL WINAPI EnumSystemGeoID(GEOCLASS GeoClass,GEOID ParentGeoId,GEO_ENUMPROC lpGeoEnumProc);
   WINBASEAPI GEOID WINAPI GetUserGeoID(GEOCLASS GeoClass);
   WINBASEAPI WINBOOL WINAPI SetUserGeoID(GEOID GeoId);
   WINBASEAPI LCID WINAPI ConvertDefaultLocale(LCID Locale);
-  WINBASEAPI LCID WINAPI GetThreadLocale(void);
+  WINBASEAPI LCID WINAPI GetThreadLocale(શૂન્ય);
   WINBASEAPI WINBOOL WINAPI SetThreadLocale(LCID Locale);
-  WINBASEAPI LANGID WINAPI GetSystemDefaultUILanguage(void);
-  WINBASEAPI LANGID WINAPI GetUserDefaultUILanguage(void);
-  WINBASEAPI LANGID WINAPI GetSystemDefaultLangID(void);
-  WINBASEAPI LANGID WINAPI GetUserDefaultLangID(void);
-  WINBASEAPI LCID WINAPI GetSystemDefaultLCID(void);
-  WINBASEAPI LCID WINAPI GetUserDefaultLCID(void);
-  WINBASEAPI WINBOOL WINAPI GetStringTypeExA(LCID Locale,DWORD dwInfoType,LPCSTR lpSrcStr,int cchSrc,LPWORD lpCharType);
-  WINBASEAPI WINBOOL WINAPI GetStringTypeExW(LCID Locale,DWORD dwInfoType,LPCWSTR lpSrcStr,int cchSrc,LPWORD lpCharType);
-  WINBASEAPI WINBOOL WINAPI GetStringTypeA(LCID Locale,DWORD dwInfoType,LPCSTR lpSrcStr,int cchSrc,LPWORD lpCharType);
-  WINBASEAPI WINBOOL WINAPI GetStringTypeW(DWORD dwInfoType,LPCWSTR lpSrcStr,int cchSrc,LPWORD lpCharType);
-  WINBASEAPI int WINAPI FoldStringA(DWORD dwMapFlags,LPCSTR lpSrcStr,int cchSrc,LPSTR lpDestStr,int cchDest);
-  WINBASEAPI int WINAPI FoldStringW(DWORD dwMapFlags,LPCWSTR lpSrcStr,int cchSrc,LPWSTR lpDestStr,int cchDest);
+  WINBASEAPI LANGID WINAPI GetSystemDefaultUILanguage(શૂન્ય);
+  WINBASEAPI LANGID WINAPI GetUserDefaultUILanguage(શૂન્ય);
+  WINBASEAPI LANGID WINAPI GetSystemDefaultLangID(શૂન્ય);
+  WINBASEAPI LANGID WINAPI GetUserDefaultLangID(શૂન્ય);
+  WINBASEAPI LCID WINAPI GetSystemDefaultLCID(શૂન્ય);
+  WINBASEAPI LCID WINAPI GetUserDefaultLCID(શૂન્ય);
+  WINBASEAPI WINBOOL WINAPI GetStringTypeExA(LCID Locale,DWORD dwInfoType,LPCSTR lpSrcStr,પૂર્ણાંક cchSrc,LPWORD lpCharType);
+  WINBASEAPI WINBOOL WINAPI GetStringTypeExW(LCID Locale,DWORD dwInfoType,LPCWSTR lpSrcStr,પૂર્ણાંક cchSrc,LPWORD lpCharType);
+  WINBASEAPI WINBOOL WINAPI GetStringTypeA(LCID Locale,DWORD dwInfoType,LPCSTR lpSrcStr,પૂર્ણાંક cchSrc,LPWORD lpCharType);
+  WINBASEAPI WINBOOL WINAPI GetStringTypeW(DWORD dwInfoType,LPCWSTR lpSrcStr,પૂર્ણાંક cchSrc,LPWORD lpCharType);
+  WINBASEAPI પૂર્ણાંક WINAPI FoldStringA(DWORD dwMapFlags,LPCSTR lpSrcStr,પૂર્ણાંક cchSrc,LPSTR lpDestStr,પૂર્ણાંક cchDest);
+  WINBASEAPI પૂર્ણાંક WINAPI FoldStringW(DWORD dwMapFlags,LPCWSTR lpSrcStr,પૂર્ણાંક cchSrc,LPWSTR lpDestStr,પૂર્ણાંક cchDest);
   WINBASEAPI WINBOOL WINAPI EnumSystemLanguageGroupsA(LANGUAGEGROUP_ENUMPROCA lpLanguageGroupEnumProc,DWORD dwFlags,LONG_PTR lParam);
   WINBASEAPI WINBOOL WINAPI EnumSystemLanguageGroupsW(LANGUAGEGROUP_ENUMPROCW lpLanguageGroupEnumProc,DWORD dwFlags,LONG_PTR lParam);
   WINBASEAPI WINBOOL WINAPI EnumLanguageGroupLocalesA(LANGGROUPLOCALE_ENUMPROCA lpLangGroupLocaleEnumProc,LGRPID LanguageGroup,DWORD dwFlags,LONG_PTR lParam);
@@ -764,11 +764,11 @@ extern "C" {
   WINBASEAPI WINBOOL WINAPI EnumSystemLocalesW(LOCALE_ENUMPROCW lpLocaleEnumProc,DWORD dwFlags);
   WINBASEAPI WINBOOL WINAPI EnumSystemCodePagesA(CODEPAGE_ENUMPROCA lpCodePageEnumProc,DWORD dwFlags);
   WINBASEAPI WINBOOL WINAPI EnumSystemCodePagesW(CODEPAGE_ENUMPROCW lpCodePageEnumProc,DWORD dwFlags);
-  WINBASEAPI WINBOOL WINAPI IsNormalizedString(NORM_FORM NormForm,LPCWSTR lpString,int cwLength);
-  WINBASEAPI int WINAPI NormalizeString(NORM_FORM NormForm,LPCWSTR lpSrcString,int cwSrcLength,LPWSTR lpDstString,int cwDstLength);
-  WINBASEAPI int WINAPI IdnToAscii(DWORD dwFlags,LPCWSTR lpUnicodeCharStr,int cchUnicodeChar,LPWSTR lpASCIICharStr,int cchASCIIChar);
-  WINBASEAPI int WINAPI IdnToNameprepUnicode(DWORD dwFlags,LPCWSTR lpUnicodeCharStr,int cchUnicodeChar,LPWSTR lpNameprepCharStr,int cchNameprepChar);
-  WINBASEAPI int WINAPI IdnToUnicode(DWORD dwFlags,LPCWSTR lpASCIICharStr,int cchASCIIChar,LPWSTR lpUnicodeCharStr,int cchUnicodeChar);
+  WINBASEAPI WINBOOL WINAPI IsNormalizedString(NORM_FORM NormForm,LPCWSTR lpString,પૂર્ણાંક cwLength);
+  WINBASEAPI પૂર્ણાંક WINAPI NormalizeString(NORM_FORM NormForm,LPCWSTR lpSrcString,પૂર્ણાંક cwSrcLength,LPWSTR lpDstString,પૂર્ણાંક cwDstLength);
+  WINBASEAPI પૂર્ણાંક WINAPI IdnToAscii(DWORD dwFlags,LPCWSTR lpUnicodeCharStr,પૂર્ણાંક cchUnicodeChar,LPWSTR lpASCIICharStr,પૂર્ણાંક cchASCIIChar);
+  WINBASEAPI પૂર્ણાંક WINAPI IdnToNameprepUnicode(DWORD dwFlags,LPCWSTR lpUnicodeCharStr,પૂર્ણાંક cchUnicodeChar,LPWSTR lpNameprepCharStr,પૂર્ણાંક cchNameprepChar);
+  WINBASEAPI પૂર્ણાંક WINAPI IdnToUnicode(DWORD dwFlags,LPCWSTR lpASCIICharStr,પૂર્ણાંક cchASCIIChar,LPWSTR lpUnicodeCharStr,પૂર્ણાંક cchUnicodeChar);
 
 #endif
 

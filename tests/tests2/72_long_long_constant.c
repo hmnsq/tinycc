@@ -1,19 +1,19 @@
-#include <stdio.h>
+#અન્તર્ભાવ <stdio.h>
 
-int main()
+પૂર્ણાંક મુખ્ય()
 {
-    long long int res = 0;
+    long long પૂર્ણાંક res = 0;
 
-    if (res < -2147483648LL) {
+    જો (res < -2147483648LL) {
         printf("Error: 0 < -2147483648\n");
-        return 1;
+        પાછા 1;
     }
-    else
-    if (2147483647LL < res) {
+    નહીંતર
+    જો (2147483647LL < res) {
         printf("Error: 2147483647 < 0\n");
-        return 2;
+        પાછા 2;
     }
-    else
+    નહીંતર
         printf("long long constant test ok.\n");
-    return 0;
+    પાછા 0;
 }

@@ -1,9 +1,9 @@
-#include <stdio.h>
+#અન્તર્ભાવ <stdio.h>
 
 #define T(a,b,c) a b c
 
-int main(void)
+પૂર્ણાંક મુખ્ય(શૂન્ય)
 {
     printf("%d", T(1,+,2) T(+,,) T(,2,*) T(,7,) T(,,));
-    return 0;
+    પાછા 0;
 }

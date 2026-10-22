@@ -1,29 +1,29 @@
-#include <stdio.h>
+#અન્તર્ભાવ <stdio.h>
 
-int main()
+પૂર્ણાંક મુખ્ય()
 {
-   int Count;
+   પૂર્ણાંક ગણતરી_3;
 
-   for (Count = 0; Count < 4; Count++)
+   માટે (ગણતરી_3 = 0; ગણતરી_3 < 4; ગણતરી_3++)
    {
-      printf("%d\n", Count);
-      switch (Count)
+      printf("%d\n", ગણતરી_3);
+      પસંદગી (ગણતરી_3)
       {
-         case 1:
+         સ્થિતિ 1:
             printf("%d\n", 1);
-            break;
+            તોડો;
 
-         case 2:
+         સ્થિતિ 2:
             printf("%d\n", 2);
-            break;
+            તોડો;
 
-         default:
+         મૂળભૂત:
             printf("%d\n", 0);
-            break;
+            તોડો;
       }
    }
 
-   return 0;
+   પાછા 0;
 }
 
 // vim: set expandtab ts=4 sw=3 sts=3 tw=80 :

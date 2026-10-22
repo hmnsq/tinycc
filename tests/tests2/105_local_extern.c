@@ -1,12 +1,12 @@
-extern int printf(const char *, ...);
-void f(void);
-void bar(void) { void f(void); f(); }
-void foo(void) { extern void f(void); f(); }
-void f(void) { printf("f\n"); }
+બાહ્ય પૂર્ણાંક printf(અચલ અક્ષર *, ...);
+શૂન્ય f(શૂન્ય);
+શૂન્ય bar(શૂન્ય) { શૂન્ય f(શૂન્ય); f(); }
+શૂન્ય foo(શૂન્ય) { બાહ્ય શૂન્ય f(શૂન્ય); f(); }
+શૂન્ય f(શૂન્ય) { printf("f\n"); }
 
-int main()
+પૂર્ણાંક મુખ્ય()
 {
   bar();
   foo();
-  return 0;
+  પાછા 0;
 }

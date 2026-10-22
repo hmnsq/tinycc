@@ -1,35 +1,35 @@
-#include <stdio.h>
-#include <stdarg.h>
+#અન્તર્ભાવ <stdio.h>
+#અન્તર્ભાવ <stdarg.h>
 
-int compile_errors(void)
+પૂર્ણાંક compile_errors(શૂન્ય)
 {
-#if TEST == 1
+#જો TEST == 1
   {
     /* Not constant */
-    static int i = (&"Foobar"[1] - &"Foobar"[0]);
+    સ્થિર પૂર્ણાંક i = (&"Foobar"[1] - &"Foobar"[0]);
   }
 #endif
-#if TEST == 2
+#જો TEST == 2
   {
     /* Not constant */
-    struct{int c;}v;
-    static long i=((char*)&(v.c)-(char*)&v);
+    સંરચના{પૂર્ણાંક c;}v;
+    સ્થિર long i=((અક્ષર*)&(v.c)-(અક્ષર*)&v);
   }
 #endif
-#if TEST == 3
+#જો TEST == 3
   {
     /* Not constant */
-    static const short ar[] = { &&l1 - &&l1, &&l2 - &&l1 };
-    void *p = &&l1 + ar[0];
-    goto *p;
-   l1: return 1;
-   l2: return 2;
+    સ્થિર અચલ short ar[] = { &&l1 - &&l1, &&l2 - &&l1 };
+    શૂન્ય *p = &&l1 + ar[0];
+    જાઓ *p;
+   l1: પાછા 1;
+   l2: પાછા 2;
   }
 #endif
-  return 0;
+  પાછા 0;
 }
 
-int
-main(void)
+પૂર્ણાંક
+મુખ્ય(શૂન્ય)
 {
 }

@@ -6,21 +6,21 @@
 #ifndef _WS2TCPIP_H
 #define _WS2TCPIP_H
 
-#if __GNUC__ >=3
+#જો __GNUC__ >=3
 #pragma GCC system_header
 #endif
 
-#include <ws2ipdef.h>
+#અન્તર્ભાવ <ws2ipdef.h>
 
-struct ip_msfilter {
-  struct in_addr imsf_multiaddr;
-  struct in_addr imsf_interface;
+સંરચના ip_msfilter {
+  સંરચના in_addr imsf_multiaddr;
+  સંરચના in_addr imsf_interface;
   u_long imsf_fmode;
   u_long imsf_numsrc;
-  struct in_addr imsf_slist[1];
+  સંરચના in_addr imsf_slist[1];
 };
 
-#define IP_MSFILTER_SIZE(numsrc) (sizeof(struct ip_msfilter)-sizeof(struct in_addr) + (numsrc)*sizeof(struct in_addr))
+#define IP_MSFILTER_SIZE(numsrc) (કદ(સંરચના ip_msfilter)-કદ(સંરચના in_addr) + (numsrc)*કદ(સંરચના in_addr))
 
 #define MCAST_INCLUDE 0
 #define MCAST_EXCLUDE 1
@@ -72,8 +72,8 @@ struct ip_msfilter {
 
 #ifndef s6_addr
 
-struct in6_addr {
-  __MINGW_EXTENSION union {
+સંરચના in6_addr {
+  __MINGW_EXTENSION સંઘ {
     u_char Byte[16];
     u_short Word[8];
   } u;
@@ -86,48 +86,48 @@ struct in6_addr {
 #define s6_addr _S6_un._S6_u8
 
 #define s6_bytes u.Byte
-#define s6_words u.Word
+#define s6_શબ્દો u.Word
 #endif
 
-typedef struct ipv6_mreq {
-  struct in6_addr ipv6mr_multiaddr;
-  unsigned int ipv6mr_interface;
+પ્રકારવ્યાખ્યા સંરચના ipv6_mreq {
+  સંરચના in6_addr ipv6mr_multiaddr;
+  unsigned પૂર્ણાંક ipv6mr_interface;
 } IPV6_MREQ;
 
-struct sockaddr_in6_old {
+સંરચના sockaddr_in6_old {
   short sin6_family;
   u_short sin6_port;
   u_long sin6_flowinfo;
-  struct in6_addr sin6_addr;
+  સંરચના in6_addr sin6_addr;
 };
 
-struct sockaddr_in6 {
+સંરચના sockaddr_in6 {
   short sin6_family;
   u_short sin6_port;
   u_long sin6_flowinfo;
-  struct in6_addr sin6_addr;
+  સંરચના in6_addr sin6_addr;
   u_long sin6_scope_id;
 };
 
-typedef struct in6_addr IN6_ADDR;
-typedef struct in6_addr *PIN6_ADDR;
-typedef struct in6_addr *LPIN6_ADDR;
+પ્રકારવ્યાખ્યા સંરચના in6_addr IN6_ADDR;
+પ્રકારવ્યાખ્યા સંરચના in6_addr *PIN6_ADDR;
+પ્રકારવ્યાખ્યા સંરચના in6_addr *LPIN6_ADDR;
 
-typedef struct sockaddr_in6 SOCKADDR_IN6;
-typedef struct sockaddr_in6 *PSOCKADDR_IN6;
-typedef struct sockaddr_in6 *LPSOCKADDR_IN6;
+પ્રકારવ્યાખ્યા સંરચના sockaddr_in6 SOCKADDR_IN6;
+પ્રકારવ્યાખ્યા સંરચના sockaddr_in6 *PSOCKADDR_IN6;
+પ્રકારવ્યાખ્યા સંરચના sockaddr_in6 *LPSOCKADDR_IN6;
 
-#define SS_PORT(ssp) (((struct sockaddr_in*)(ssp))->sin_port)
+#define SS_PORT(ssp) (((સંરચના sockaddr_in*)(ssp))->sin_port)
 
 #define IN6ADDR_ANY_INIT { 0 }
 #define IN6ADDR_LOOPBACK_INIT { 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1 }
 
 #ifdef __cplusplus
-extern "C" {
+બાહ્ય "C" {
 #endif
 
-  extern const struct in6_addr in6addr_any;
-  extern const struct in6_addr in6addr_loopback;
+  બાહ્ય અચલ સંરચના in6_addr in6addr_any;
+  બાહ્ય અચલ સંરચના in6_addr in6addr_loopback;
 
 #ifdef __cplusplus
 }
@@ -135,55 +135,55 @@ extern "C" {
 
 #define WS2TCPIP_INLINE __CRT_INLINE
 
-int IN6_ADDR_EQUAL(const struct in6_addr *,const struct in6_addr *);
-int IN6_IS_ADDR_UNSPECIFIED(const struct in6_addr *);
-int IN6_IS_ADDR_LOOPBACK(const struct in6_addr *);
-int IN6_IS_ADDR_MULTICAST(const struct in6_addr *);
-int IN6_IS_ADDR_LINKLOCAL(const struct in6_addr *);
-int IN6_IS_ADDR_SITELOCAL(const struct in6_addr *);
-int IN6_IS_ADDR_V4MAPPED(const struct in6_addr *);
-int IN6_IS_ADDR_V4COMPAT(const struct in6_addr *);
-int IN6_IS_ADDR_MC_NODELOCAL(const struct in6_addr *);
-int IN6_IS_ADDR_MC_LINKLOCAL(const struct in6_addr *);
-int IN6_IS_ADDR_MC_SITELOCAL(const struct in6_addr *);
-int IN6_IS_ADDR_MC_ORGLOCAL(const struct in6_addr *);
-int IN6_IS_ADDR_MC_GLOBAL(const struct in6_addr *);
-int IN6ADDR_ISANY(const struct sockaddr_in6 *);
-int IN6ADDR_ISLOOPBACK(const struct sockaddr_in6 *);
-void IN6_SET_ADDR_UNSPECIFIED(struct in6_addr *);
-void IN6_SET_ADDR_LOOPBACK(struct in6_addr *);
-void IN6ADDR_SETANY(struct sockaddr_in6 *);
-void IN6ADDR_SETLOOPBACK(struct sockaddr_in6 *);
+પૂર્ણાંક IN6_ADDR_EQUAL(અચલ સંરચના in6_addr *,અચલ સંરચના in6_addr *);
+પૂર્ણાંક IN6_IS_ADDR_UNSPECIFIED(અચલ સંરચના in6_addr *);
+પૂર્ણાંક IN6_IS_ADDR_LOOPBACK(અચલ સંરચના in6_addr *);
+પૂર્ણાંક IN6_IS_ADDR_MULTICAST(અચલ સંરચના in6_addr *);
+પૂર્ણાંક IN6_IS_ADDR_LINKLOCAL(અચલ સંરચના in6_addr *);
+પૂર્ણાંક IN6_IS_ADDR_SITELOCAL(અચલ સંરચના in6_addr *);
+પૂર્ણાંક IN6_IS_ADDR_V4MAPPED(અચલ સંરચના in6_addr *);
+પૂર્ણાંક IN6_IS_ADDR_V4COMPAT(અચલ સંરચના in6_addr *);
+પૂર્ણાંક IN6_IS_ADDR_MC_NODELOCAL(અચલ સંરચના in6_addr *);
+પૂર્ણાંક IN6_IS_ADDR_MC_LINKLOCAL(અચલ સંરચના in6_addr *);
+પૂર્ણાંક IN6_IS_ADDR_MC_SITELOCAL(અચલ સંરચના in6_addr *);
+પૂર્ણાંક IN6_IS_ADDR_MC_ORGLOCAL(અચલ સંરચના in6_addr *);
+પૂર્ણાંક IN6_IS_ADDR_MC_GLOBAL(અચલ સંરચના in6_addr *);
+પૂર્ણાંક IN6ADDR_ISANY(અચલ સંરચના sockaddr_in6 *);
+પૂર્ણાંક IN6ADDR_ISLOOPBACK(અચલ સંરચના sockaddr_in6 *);
+શૂન્ય IN6_SET_ADDR_UNSPECIFIED(સંરચના in6_addr *);
+શૂન્ય IN6_SET_ADDR_LOOPBACK(સંરચના in6_addr *);
+શૂન્ય IN6ADDR_SETANY(સંરચના sockaddr_in6 *);
+શૂન્ય IN6ADDR_SETLOOPBACK(સંરચના sockaddr_in6 *);
 
 #ifndef __CRT__NO_INLINE
-WS2TCPIP_INLINE int IN6_ADDR_EQUAL(const struct in6_addr *a,const struct in6_addr *b) { return (memcmp(a,b,sizeof(struct in6_addr))==0); }
-WS2TCPIP_INLINE int IN6_IS_ADDR_UNSPECIFIED(const struct in6_addr *a) { return ((a->s6_words[0]==0) && (a->s6_words[1]==0) && (a->s6_words[2]==0) && (a->s6_words[3]==0) && (a->s6_words[4]==0) && (a->s6_words[5]==0) && (a->s6_words[6]==0) && (a->s6_words[7]==0)); }
-WS2TCPIP_INLINE int IN6_IS_ADDR_LOOPBACK(const struct in6_addr *a) { return ((a->s6_words[0]==0) && (a->s6_words[1]==0) && (a->s6_words[2]==0) && (a->s6_words[3]==0) && (a->s6_words[4]==0) && (a->s6_words[5]==0) && (a->s6_words[6]==0) && (a->s6_words[7]==0x0100)); }
-WS2TCPIP_INLINE int IN6_IS_ADDR_MULTICAST(const struct in6_addr *a) { return (a->s6_bytes[0]==0xff); }
-WS2TCPIP_INLINE int IN6_IS_ADDR_LINKLOCAL(const struct in6_addr *a) { return ((a->s6_bytes[0]==0xfe) && ((a->s6_bytes[1] & 0xc0)==0x80)); }
-WS2TCPIP_INLINE int IN6_IS_ADDR_SITELOCAL(const struct in6_addr *a) { return ((a->s6_bytes[0]==0xfe) && ((a->s6_bytes[1] & 0xc0)==0xc0)); }
-WS2TCPIP_INLINE int IN6_IS_ADDR_V4MAPPED(const struct in6_addr *a) { return ((a->s6_words[0]==0) && (a->s6_words[1]==0) && (a->s6_words[2]==0) && (a->s6_words[3]==0) && (a->s6_words[4]==0) && (a->s6_words[5]==0xffff)); }
-WS2TCPIP_INLINE int IN6_IS_ADDR_V4COMPAT(const struct in6_addr *a) { return ((a->s6_words[0]==0) && (a->s6_words[1]==0) && (a->s6_words[2]==0) && (a->s6_words[3]==0) && (a->s6_words[4]==0) && (a->s6_words[5]==0) && !((a->s6_words[6]==0) && (a->s6_addr[14]==0) && ((a->s6_addr[15]==0) || (a->s6_addr[15]==1)))); }
-WS2TCPIP_INLINE int IN6_IS_ADDR_MC_NODELOCAL(const struct in6_addr *a) { return IN6_IS_ADDR_MULTICAST(a) && ((a->s6_bytes[1] & 0xf)==1); }
-WS2TCPIP_INLINE int IN6_IS_ADDR_MC_LINKLOCAL(const struct in6_addr *a) { return IN6_IS_ADDR_MULTICAST(a) && ((a->s6_bytes[1] & 0xf)==2); }
-WS2TCPIP_INLINE int IN6_IS_ADDR_MC_SITELOCAL(const struct in6_addr *a) { return IN6_IS_ADDR_MULTICAST(a) && ((a->s6_bytes[1] & 0xf)==5); }
-WS2TCPIP_INLINE int IN6_IS_ADDR_MC_ORGLOCAL(const struct in6_addr *a) { return IN6_IS_ADDR_MULTICAST(a) && ((a->s6_bytes[1] & 0xf)==8); }
-WS2TCPIP_INLINE int IN6_IS_ADDR_MC_GLOBAL(const struct in6_addr *a) { return IN6_IS_ADDR_MULTICAST(a) && ((a->s6_bytes[1] & 0xf)==0xe); }
-WS2TCPIP_INLINE int IN6ADDR_ISANY(const struct sockaddr_in6 *a) { return ((a->sin6_family==AF_INET6) && IN6_IS_ADDR_UNSPECIFIED(&a->sin6_addr)); }
-WS2TCPIP_INLINE int IN6ADDR_ISLOOPBACK(const struct sockaddr_in6 *a) { return ((a->sin6_family==AF_INET6) && IN6_IS_ADDR_LOOPBACK(&a->sin6_addr)); }
-WS2TCPIP_INLINE void IN6_SET_ADDR_UNSPECIFIED(struct in6_addr *a) { memset(a->s6_bytes,0,sizeof(struct in6_addr)); }
-WS2TCPIP_INLINE void IN6_SET_ADDR_LOOPBACK(struct in6_addr *a) {
-  memset(a->s6_bytes,0,sizeof(struct in6_addr));
+WS2TCPIP_INLINE પૂર્ણાંક IN6_ADDR_EQUAL(અચલ સંરચના in6_addr *a,અચલ સંરચના in6_addr *b) { પાછા (memcmp(a,b,કદ(સંરચના in6_addr))==0); }
+WS2TCPIP_INLINE પૂર્ણાંક IN6_IS_ADDR_UNSPECIFIED(અચલ સંરચના in6_addr *a) { પાછા ((a->s6_શબ્દો[0]==0) && (a->s6_શબ્દો[1]==0) && (a->s6_શબ્દો[2]==0) && (a->s6_શબ્દો[3]==0) && (a->s6_શબ્દો[4]==0) && (a->s6_શબ્દો[5]==0) && (a->s6_શબ્દો[6]==0) && (a->s6_શબ્દો[7]==0)); }
+WS2TCPIP_INLINE પૂર્ણાંક IN6_IS_ADDR_LOOPBACK(અચલ સંરચના in6_addr *a) { પાછા ((a->s6_શબ્દો[0]==0) && (a->s6_શબ્દો[1]==0) && (a->s6_શબ્દો[2]==0) && (a->s6_શબ્દો[3]==0) && (a->s6_શબ્દો[4]==0) && (a->s6_શબ્દો[5]==0) && (a->s6_શબ્દો[6]==0) && (a->s6_શબ્દો[7]==0x0100)); }
+WS2TCPIP_INLINE પૂર્ણાંક IN6_IS_ADDR_MULTICAST(અચલ સંરચના in6_addr *a) { પાછા (a->s6_bytes[0]==0xff); }
+WS2TCPIP_INLINE પૂર્ણાંક IN6_IS_ADDR_LINKLOCAL(અચલ સંરચના in6_addr *a) { પાછા ((a->s6_bytes[0]==0xfe) && ((a->s6_bytes[1] & 0xc0)==0x80)); }
+WS2TCPIP_INLINE પૂર્ણાંક IN6_IS_ADDR_SITELOCAL(અચલ સંરચના in6_addr *a) { પાછા ((a->s6_bytes[0]==0xfe) && ((a->s6_bytes[1] & 0xc0)==0xc0)); }
+WS2TCPIP_INLINE પૂર્ણાંક IN6_IS_ADDR_V4MAPPED(અચલ સંરચના in6_addr *a) { પાછા ((a->s6_શબ્દો[0]==0) && (a->s6_શબ્દો[1]==0) && (a->s6_શબ્દો[2]==0) && (a->s6_શબ્દો[3]==0) && (a->s6_શબ્દો[4]==0) && (a->s6_શબ્દો[5]==0xffff)); }
+WS2TCPIP_INLINE પૂર્ણાંક IN6_IS_ADDR_V4COMPAT(અચલ સંરચના in6_addr *a) { પાછા ((a->s6_શબ્દો[0]==0) && (a->s6_શબ્દો[1]==0) && (a->s6_શબ્દો[2]==0) && (a->s6_શબ્દો[3]==0) && (a->s6_શબ્દો[4]==0) && (a->s6_શબ્દો[5]==0) && !((a->s6_શબ્દો[6]==0) && (a->s6_addr[14]==0) && ((a->s6_addr[15]==0) || (a->s6_addr[15]==1)))); }
+WS2TCPIP_INLINE પૂર્ણાંક IN6_IS_ADDR_MC_NODELOCAL(અચલ સંરચના in6_addr *a) { પાછા IN6_IS_ADDR_MULTICAST(a) && ((a->s6_bytes[1] & 0xf)==1); }
+WS2TCPIP_INLINE પૂર્ણાંક IN6_IS_ADDR_MC_LINKLOCAL(અચલ સંરચના in6_addr *a) { પાછા IN6_IS_ADDR_MULTICAST(a) && ((a->s6_bytes[1] & 0xf)==2); }
+WS2TCPIP_INLINE પૂર્ણાંક IN6_IS_ADDR_MC_SITELOCAL(અચલ સંરચના in6_addr *a) { પાછા IN6_IS_ADDR_MULTICAST(a) && ((a->s6_bytes[1] & 0xf)==5); }
+WS2TCPIP_INLINE પૂર્ણાંક IN6_IS_ADDR_MC_ORGLOCAL(અચલ સંરચના in6_addr *a) { પાછા IN6_IS_ADDR_MULTICAST(a) && ((a->s6_bytes[1] & 0xf)==8); }
+WS2TCPIP_INLINE પૂર્ણાંક IN6_IS_ADDR_MC_GLOBAL(અચલ સંરચના in6_addr *a) { પાછા IN6_IS_ADDR_MULTICAST(a) && ((a->s6_bytes[1] & 0xf)==0xe); }
+WS2TCPIP_INLINE પૂર્ણાંક IN6ADDR_ISANY(અચલ સંરચના sockaddr_in6 *a) { પાછા ((a->sin6_family==AF_INET6) && IN6_IS_ADDR_UNSPECIFIED(&a->sin6_addr)); }
+WS2TCPIP_INLINE પૂર્ણાંક IN6ADDR_ISLOOPBACK(અચલ સંરચના sockaddr_in6 *a) { પાછા ((a->sin6_family==AF_INET6) && IN6_IS_ADDR_LOOPBACK(&a->sin6_addr)); }
+WS2TCPIP_INLINE શૂન્ય IN6_SET_ADDR_UNSPECIFIED(સંરચના in6_addr *a) { memset(a->s6_bytes,0,કદ(સંરચના in6_addr)); }
+WS2TCPIP_INLINE શૂન્ય IN6_SET_ADDR_LOOPBACK(સંરચના in6_addr *a) {
+  memset(a->s6_bytes,0,કદ(સંરચના in6_addr));
   a->s6_bytes[15] = 1;
 }
-WS2TCPIP_INLINE void IN6ADDR_SETANY(struct sockaddr_in6 *a) {
+WS2TCPIP_INLINE શૂન્ય IN6ADDR_SETANY(સંરચના sockaddr_in6 *a) {
   a->sin6_family = AF_INET6;
   a->sin6_port = 0;
   a->sin6_flowinfo = 0;
   IN6_SET_ADDR_UNSPECIFIED(&a->sin6_addr);
   a->sin6_scope_id = 0;
 }
-WS2TCPIP_INLINE void IN6ADDR_SETLOOPBACK(struct sockaddr_in6 *a) {
+WS2TCPIP_INLINE શૂન્ય IN6ADDR_SETLOOPBACK(સંરચના sockaddr_in6 *a) {
   a->sin6_family = AF_INET6;
   a->sin6_port = 0;
   a->sin6_flowinfo = 0;
@@ -192,20 +192,20 @@ WS2TCPIP_INLINE void IN6ADDR_SETLOOPBACK(struct sockaddr_in6 *a) {
 }
 #endif /* !__CRT__NO_INLINE */
 
-typedef union sockaddr_gen {
-  struct sockaddr Address;
-  struct sockaddr_in AddressIn;
-  struct sockaddr_in6_old AddressIn6;
+પ્રકારવ્યાખ્યા સંઘ sockaddr_gen {
+  સંરચના sockaddr Address;
+  સંરચના sockaddr_in AddressIn;
+  સંરચના sockaddr_in6_old AddressIn6;
 } sockaddr_gen;
 
-typedef struct _INTERFACE_INFO {
+પ્રકારવ્યાખ્યા સંરચના _INTERFACE_INFO {
   u_long iiFlags;
   sockaddr_gen iiAddress;
   sockaddr_gen iiBroadcastAddress;
   sockaddr_gen iiNetmask;
 } INTERFACE_INFO,*LPINTERFACE_INFO;
 
-typedef struct _INTERFACE_INFO_EX {
+પ્રકારવ્યાખ્યા સંરચના _INTERFACE_INFO_EX {
   u_long iiFlags;
   SOCKET_ADDRESS iiAddress;
   SOCKET_ADDRESS iiBroadcastAddress;
@@ -218,19 +218,19 @@ typedef struct _INTERFACE_INFO_EX {
 #define IFF_POINTTOPOINT 0x00000008
 #define IFF_MULTICAST 0x00000010
 
-typedef struct in_pktinfo {
+પ્રકારવ્યાખ્યા સંરચના in_pktinfo {
   IN_ADDR ipi_addr;
   UINT ipi_ifindex;
 } IN_PKTINFO;
 
-C_ASSERT(sizeof(IN_PKTINFO)==8);
+C_ASSERT(કદ(IN_PKTINFO)==8);
 
-typedef struct in6_pktinfo {
+પ્રકારવ્યાખ્યા સંરચના in6_pktinfo {
   IN6_ADDR ipi6_addr;
   UINT ipi6_ifindex;
 } IN6_PKTINFO;
 
-C_ASSERT(sizeof(IN6_PKTINFO)==20);
+C_ASSERT(કદ(IN6_PKTINFO)==20);
 
 #define EAI_AGAIN WSATRY_AGAIN
 #define EAI_BADFLAGS WSAEINVAL
@@ -244,133 +244,133 @@ C_ASSERT(sizeof(IN6_PKTINFO)==20);
 
 #define EAI_NODATA EAI_NONAME
 
-typedef struct addrinfo {
-  int ai_flags;
-  int ai_family;
-  int ai_socktype;
-  int ai_protocol;
+પ્રકારવ્યાખ્યા સંરચના addrinfo {
+  પૂર્ણાંક ai_flags;
+  પૂર્ણાંક ai_family;
+  પૂર્ણાંક ai_socktype;
+  પૂર્ણાંક ai_protocol;
   size_t ai_addrlen;
-  char *ai_canonname;
-  struct sockaddr *ai_addr;
-  struct addrinfo *ai_next;
+  અક્ષર *ai_canonname;
+  સંરચના sockaddr *ai_addr;
+  સંરચના addrinfo *ai_next;
 } ADDRINFOA,*PADDRINFOA;
 
-typedef struct addrinfoW {
-  int ai_flags;
-  int ai_family;
-  int ai_socktype;
-  int ai_protocol;
+પ્રકારવ્યાખ્યા સંરચના addrinfoW {
+  પૂર્ણાંક ai_flags;
+  પૂર્ણાંક ai_family;
+  પૂર્ણાંક ai_socktype;
+  પૂર્ણાંક ai_protocol;
   size_t ai_addrlen;
   PWSTR ai_canonname;
-  struct sockaddr *ai_addr;
-  struct addrinfoW *ai_next;
+  સંરચના sockaddr *ai_addr;
+  સંરચના addrinfoW *ai_next;
 } ADDRINFOW,*PADDRINFOW;
 
 #ifdef UNICODE
-typedef ADDRINFOW ADDRINFOT,*PADDRINFOT;
-#else
-typedef ADDRINFOA ADDRINFOT,*PADDRINFOT;
+પ્રકારવ્યાખ્યા ADDRINFOW ADDRINFOT,*PADDRINFOT;
+#નહીંતર
+પ્રકારવ્યાખ્યા ADDRINFOA ADDRINFOT,*PADDRINFOT;
 #endif
 
-typedef ADDRINFOA ADDRINFO,*LPADDRINFO;
+પ્રકારવ્યાખ્યા ADDRINFOA ADDRINFO,*LPADDRINFO;
 
 #define AI_PASSIVE 0x1
 #define AI_CANONNAME 0x2
 #define AI_NUMERICHOST 0x4
 
 #ifdef __cplusplus
-extern "C" {
+બાહ્ય "C" {
 #endif
 
 #ifdef UNICODE
 #define GetAddrInfo GetAddrInfoW
-#else
+#નહીંતર
 #define GetAddrInfo GetAddrInfoA
 #endif
 
-  WINSOCK_API_LINKAGE int WSAAPI getaddrinfo(const char *nodename,const char *servname,const struct addrinfo *hints,struct addrinfo **res);
-  WINSOCK_API_LINKAGE int WSAAPI GetAddrInfoW(PCWSTR pNodeName,PCWSTR pServiceName,const ADDRINFOW *pHints,PADDRINFOW *ppResult);
+  WINSOCK_API_LINKAGE પૂર્ણાંક WSAAPI getaddrinfo(અચલ અક્ષર *nodename,અચલ અક્ષર *servname,અચલ સંરચના addrinfo *hints,સંરચના addrinfo **res);
+  WINSOCK_API_LINKAGE પૂર્ણાંક WSAAPI GetAddrInfoW(PCWSTR p_ગાંઠ_Name,PCWSTR pServiceName,અચલ ADDRINFOW *pHints,PADDRINFOW *ppResult);
 
 #define GetAddrInfoA getaddrinfo
 
-#if INCL_WINSOCK_API_TYPEDEFS
-  typedef int (WSAAPI *LPFN_GETADDRINFO)(const char *nodename,const char *servname,const struct addrinfo *hints,struct addrinfo **res);
-  typedef int (WSAAPI *LPFN_GETADDRINFOW)(PCWSTR pNodeName,PCWSTR pServiceName,const ADDRINFOW *pHints,PADDRINFOW *ppResult);
+#જો INCL_WINSOCK_API_TYPEDEFS
+  પ્રકારવ્યાખ્યા પૂર્ણાંક (WSAAPI *LPFN_GETADDRINFO)(અચલ અક્ષર *nodename,અચલ અક્ષર *servname,અચલ સંરચના addrinfo *hints,સંરચના addrinfo **res);
+  પ્રકારવ્યાખ્યા પૂર્ણાંક (WSAAPI *LPFN_GETADDRINFOW)(PCWSTR p_ગાંઠ_Name,PCWSTR pServiceName,અચલ ADDRINFOW *pHints,PADDRINFOW *ppResult);
 
 #define LPFN_GETADDRINFOA LPFN_GETADDRINFO
 
 #ifdef UNICODE
 #define LPFN_GETADDRINFOT LPFN_GETADDRINFOW
-#else
+#નહીંતર
 #define LPFN_GETADDRINFOT LPFN_GETADDRINFOA
 #endif
 #endif
 
 #ifdef UNICODE
 #define FreeAddrInfo FreeAddrInfoW
-#else
+#નહીંતર
 #define FreeAddrInfo FreeAddrInfoA
 #endif
 
-  WINSOCK_API_LINKAGE void WSAAPI freeaddrinfo(LPADDRINFO pAddrInfo);
-  WINSOCK_API_LINKAGE void WSAAPI FreeAddrInfoW(PADDRINFOW pAddrInfo);
+  WINSOCK_API_LINKAGE શૂન્ય WSAAPI freeaddrinfo(LPADDRINFO pAddrInfo);
+  WINSOCK_API_LINKAGE શૂન્ય WSAAPI FreeAddrInfoW(PADDRINFOW pAddrInfo);
 
 #define FreeAddrInfoA freeaddrinfo
 
-#if INCL_WINSOCK_API_TYPEDEFS
-  typedef void (WSAAPI *LPFN_FREEADDRINFO)(struct addrinfo *ai);
-  typedef void (WSAAPI *LPFN_FREEADDRINFOW)(PADDRINFOW pAddrInfo);
+#જો INCL_WINSOCK_API_TYPEDEFS
+  પ્રકારવ્યાખ્યા શૂન્ય (WSAAPI *LPFN_FREEADDRINFO)(સંરચના addrinfo *ai);
+  પ્રકારવ્યાખ્યા શૂન્ય (WSAAPI *LPFN_FREEADDRINFOW)(PADDRINFOW pAddrInfo);
 
 #define LPFN_FREEADDRINFOA LPFN_FREEADDRINFO
 
 #ifdef UNICODE
 #define LPFN_FREEADDRINFOT LPFN_FREEADDRINFOW
-#else
+#નહીંતર
 #define LPFN_FREEADDRINFOT LPFN_FREEADDRINFOA
 #endif
 #endif
 
-#pragma push_macro("socklen_t")
+#pragma ધકેલો_macro("socklen_t")
 #undef socklen_t
 
-  typedef int socklen_t;
+  પ્રકારવ્યાખ્યા પૂર્ણાંક socklen_t;
 
 #ifdef UNICODE
 #define GetNameInfo GetNameInfoW
-#else
+#નહીંતર
 #define GetNameInfo GetNameInfoA
 #endif
 
-  WINSOCK_API_LINKAGE int WSAAPI getnameinfo(const struct sockaddr *sa,socklen_t salen,char *host,DWORD hostlen,char *serv,DWORD servlen,int flags);
-  WINSOCK_API_LINKAGE INT WSAAPI GetNameInfoW(const SOCKADDR *pSockaddr,socklen_t SockaddrLength,PWCHAR pNodeBuffer,DWORD NodeBufferSize,PWCHAR pServiceBuffer,DWORD ServiceBufferSize,INT Flags);
+  WINSOCK_API_LINKAGE પૂર્ણાંક WSAAPI getnameinfo(અચલ સંરચના sockaddr *sa,socklen_t salen,અક્ષર *host,DWORD hostlen,અક્ષર *serv,DWORD servlen,પૂર્ણાંક flags);
+  WINSOCK_API_LINKAGE INT WSAAPI GetNameInfoW(અચલ SOCKADDR *pSockaddr,socklen_t SockaddrLength,PWCHAR p_ગાંઠ_Buffer,DWORD ગાંઠ_Buffer_Size,PWCHAR pServiceBuffer,DWORD ServiceBufferSize,INT Flags);
 
 #define GetNameInfoA getnameinfo
 
-#if INCL_WINSOCK_API_TYPEDEFS
-  typedef int (WSAAPI *LPFN_GETNAMEINFO)(const struct sockaddr *sa,socklen_t salen,char *host,DWORD hostlen,char *serv,DWORD servlen,int flags);
-  typedef INT (WSAAPI *LPFN_GETNAMEINFOW)(const SOCKADDR *pSockaddr,socklen_t SockaddrLength,PWCHAR pNodeBuffer,DWORD NodeBufferSize,PWCHAR pServiceBuffer,DWORD ServiceBufferSize,INT Flags);
+#જો INCL_WINSOCK_API_TYPEDEFS
+  પ્રકારવ્યાખ્યા પૂર્ણાંક (WSAAPI *LPFN_GETNAMEINFO)(અચલ સંરચના sockaddr *sa,socklen_t salen,અક્ષર *host,DWORD hostlen,અક્ષર *serv,DWORD servlen,પૂર્ણાંક flags);
+  પ્રકારવ્યાખ્યા INT (WSAAPI *LPFN_GETNAMEINFOW)(અચલ SOCKADDR *pSockaddr,socklen_t SockaddrLength,PWCHAR p_ગાંઠ_Buffer,DWORD ગાંઠ_Buffer_Size,PWCHAR pServiceBuffer,DWORD ServiceBufferSize,INT Flags);
 
 #define LPFN_GETNAMEINFOA LPFN_GETNAMEINFO
 
 #ifdef UNICODE
 #define LPFN_GETNAMEINFOT LPFN_GETNAMEINFOW
-#else
+#નહીંતર
 #define LPFN_GETNAMEINFOT LPFN_GETNAMEINFOA
 #endif
 #endif
 
-#pragma pop_macro("socklen_t")
+#pragma કાઢો_macro("socklen_t")
 
 #ifdef UNICODE
 #define gai_strerror gai_strerrorW
-#else
+#નહીંતર
 #define gai_strerror gai_strerrorA
 #endif
 
 #define GAI_STRERROR_BUFFER_SIZE 1024
 
-char *gai_strerrorA (int);
-WCHAR *gai_strerrorW(int);
+અક્ષર *gai_strerrorA (પૂર્ણાંક);
+WCHAR *gai_strerrorW(પૂર્ણાંક);
 
 #define NI_MAXHOST 1025
 #define NI_MAXSERV 32

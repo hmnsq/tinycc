@@ -6,10 +6,10 @@
 #ifndef _BASETSD_H_
 #define _BASETSD_H_
 
-#if (defined(__x86_64) || defined(__ia64__)) && !defined(RC_INVOKED)
-typedef unsigned __int64 POINTER_64_INT;
-#else
-typedef unsigned long POINTER_64_INT;
+#જો (defined(__x86_64) || defined(__ia64__)) && !defined(RC_INVOKED)
+પ્રકારવ્યાખ્યા unsigned __int64 POINTER_64_INT;
+#નહીંતર
+પ્રકારવ્યાખ્યા unsigned long POINTER_64_INT;
 #endif
 
 #define POINTER_32
@@ -17,79 +17,79 @@ typedef unsigned long POINTER_64_INT;
 #define FIRMWARE_PTR
 
 #ifdef __cplusplus
-extern "C" {
+બાહ્ય "C" {
 #endif
 
-  typedef signed char INT8,*PINT8;
-  typedef signed short INT16,*PINT16;
-  typedef signed int INT32,*PINT32;
-  typedef signed __int64 INT64,*PINT64;
-  typedef unsigned char UINT8,*PUINT8;
-  typedef unsigned short UINT16,*PUINT16;
-  typedef unsigned int UINT32,*PUINT32;
-  typedef unsigned __int64 UINT64,*PUINT64;
-  typedef signed int LONG32,*PLONG32;
-  typedef unsigned int ULONG32,*PULONG32;
-  typedef unsigned int DWORD32,*PDWORD32;
+  પ્રકારવ્યાખ્યા signed અક્ષર INT8,*PINT8;
+  પ્રકારવ્યાખ્યા signed short INT16,*PINT16;
+  પ્રકારવ્યાખ્યા signed પૂર્ણાંક INT32,*PINT32;
+  પ્રકારવ્યાખ્યા signed __int64 INT64,*PINT64;
+  પ્રકારવ્યાખ્યા unsigned અક્ષર UINT8,*PUINT8;
+  પ્રકારવ્યાખ્યા unsigned short UINT16,*PUINT16;
+  પ્રકારવ્યાખ્યા unsigned પૂર્ણાંક UINT32,*PUINT32;
+  પ્રકારવ્યાખ્યા unsigned __int64 UINT64,*PUINT64;
+  પ્રકારવ્યાખ્યા signed પૂર્ણાંક LONG32,*PLONG32;
+  પ્રકારવ્યાખ્યા unsigned પૂર્ણાંક ULONG32,*PULONG32;
+  પ્રકારવ્યાખ્યા unsigned પૂર્ણાંક DWORD32,*PDWORD32;
 
 #ifndef _W64
 #define _W64
 #endif
 
 #ifdef _WIN64
-  typedef __int64 INT_PTR,*PINT_PTR;
-  typedef unsigned __int64 UINT_PTR,*PUINT_PTR;
-  typedef __int64 LONG_PTR,*PLONG_PTR;
-  typedef unsigned __int64 ULONG_PTR,*PULONG_PTR;
+  પ્રકારવ્યાખ્યા __int64 INT_PTR,*PINT_PTR;
+  પ્રકારવ્યાખ્યા unsigned __int64 UINT_PTR,*PUINT_PTR;
+  પ્રકારવ્યાખ્યા __int64 LONG_PTR,*PLONG_PTR;
+  પ્રકારવ્યાખ્યા unsigned __int64 ULONG_PTR,*PULONG_PTR;
 #define __int3264 __int64
-#else
-  typedef int INT_PTR,*PINT_PTR;
-  typedef unsigned int UINT_PTR,*PUINT_PTR;
-  typedef long LONG_PTR,*PLONG_PTR;
-  typedef unsigned long ULONG_PTR,*PULONG_PTR;
+#નહીંતર
+  પ્રકારવ્યાખ્યા પૂર્ણાંક INT_PTR,*PINT_PTR;
+  પ્રકારવ્યાખ્યા unsigned પૂર્ણાંક UINT_PTR,*PUINT_PTR;
+  પ્રકારવ્યાખ્યા long LONG_PTR,*PLONG_PTR;
+  પ્રકારવ્યાખ્યા unsigned long ULONG_PTR,*PULONG_PTR;
 #define __int3264 __int32
 #endif
 
 #ifdef _WIN64
 #define ADDRESS_TAG_BIT 0x40000000000ULL
-  typedef __int64 SHANDLE_PTR;
-  typedef unsigned __int64 HANDLE_PTR;
-  typedef unsigned int UHALF_PTR,*PUHALF_PTR;
-  typedef int HALF_PTR,*PHALF_PTR;
+  પ્રકારવ્યાખ્યા __int64 SHANDLE_PTR;
+  પ્રકારવ્યાખ્યા unsigned __int64 HANDLE_PTR;
+  પ્રકારવ્યાખ્યા unsigned પૂર્ણાંક UHALF_PTR,*PUHALF_PTR;
+  પ્રકારવ્યાખ્યા પૂર્ણાંક HALF_PTR,*PHALF_PTR;
 
-  static __inline unsigned long HandleToULong(const void *h) { return((unsigned long) (ULONG_PTR) h); }
-  static __inline long HandleToLong(const void *h) { return((long) (LONG_PTR) h); }
-  static __inline void *ULongToHandle(const unsigned long h) { return((void *) (UINT_PTR) h); }
-  static __inline void *LongToHandle(const long h) { return((void *) (INT_PTR) h); }
-  static __inline unsigned long PtrToUlong(const void *p) { return((unsigned long) (ULONG_PTR) p); }
-  static __inline unsigned int PtrToUint(const void *p) { return((unsigned int) (UINT_PTR) p); }
-  static __inline unsigned short PtrToUshort(const void *p) { return((unsigned short) (unsigned long) (ULONG_PTR) p); }
-  static __inline long PtrToLong(const void *p) { return((long) (LONG_PTR) p); }
-  static __inline int PtrToInt(const void *p) { return((int) (INT_PTR) p); }
-  static __inline short PtrToShort(const void *p) { return((short) (long) (LONG_PTR) p); }
-  static __inline void *IntToPtr(const int i) { return((void *)(INT_PTR)i); }
-  static __inline void *UIntToPtr(const unsigned int ui) { return((void *)(UINT_PTR)ui); }
-  static __inline void *LongToPtr(const long l) { return((void *)(LONG_PTR)l); }
-  static __inline void *ULongToPtr(const unsigned long ul) { return((void *)(ULONG_PTR)ul); }
+  સ્થિર __inline unsigned long HandleToULong(અચલ શૂન્ય *h) { પાછા((unsigned long) (ULONG_PTR) h); }
+  સ્થિર __inline long HandleToLong(અચલ શૂન્ય *h) { પાછા((long) (LONG_PTR) h); }
+  સ્થિર __inline શૂન્ય *ULongToHandle(અચલ unsigned long h) { પાછા((શૂન્ય *) (UINT_PTR) h); }
+  સ્થિર __inline શૂન્ય *LongToHandle(અચલ long h) { પાછા((શૂન્ય *) (INT_PTR) h); }
+  સ્થિર __inline unsigned long PtrToUlong(અચલ શૂન્ય *p) { પાછા((unsigned long) (ULONG_PTR) p); }
+  સ્થિર __inline unsigned પૂર્ણાંક PtrToUint(અચલ શૂન્ય *p) { પાછા((unsigned પૂર્ણાંક) (UINT_PTR) p); }
+  સ્થિર __inline unsigned short PtrToUshort(અચલ શૂન્ય *p) { પાછા((unsigned short) (unsigned long) (ULONG_PTR) p); }
+  સ્થિર __inline long PtrToLong(અચલ શૂન્ય *p) { પાછા((long) (LONG_PTR) p); }
+  સ્થિર __inline પૂર્ણાંક PtrToInt(અચલ શૂન્ય *p) { પાછા((પૂર્ણાંક) (INT_PTR) p); }
+  સ્થિર __inline short PtrToShort(અચલ શૂન્ય *p) { પાછા((short) (long) (LONG_PTR) p); }
+  સ્થિર __inline શૂન્ય *IntToPtr(અચલ પૂર્ણાંક i) { પાછા((શૂન્ય *)(INT_PTR)i); }
+  સ્થિર __inline શૂન્ય *UIntToPtr(અચલ unsigned પૂર્ણાંક ui) { પાછા((શૂન્ય *)(UINT_PTR)ui); }
+  સ્થિર __inline શૂન્ય *LongToPtr(અચલ long l) { પાછા((શૂન્ય *)(LONG_PTR)l); }
+  સ્થિર __inline શૂન્ય *ULongToPtr(અચલ unsigned long ul) { પાછા((શૂન્ય *)(ULONG_PTR)ul); }
 
-#define PtrToPtr64(p) ((void *) p)
-#define Ptr64ToPtr(p) ((void *) p)
+#define PtrToPtr64(p) ((શૂન્ય *) p)
+#define Ptr64ToPtr(p) ((શૂન્ય *) p)
 #define HandleToHandle64(h) (PtrToPtr64(h))
 #define Handle64ToHandle(h) (Ptr64ToPtr(h))
 
-  static __inline void *Ptr32ToPtr(const void *p) { return (void *)p; }
-  static __inline void *Handle32ToHandle(const void *h) { return((void *) h); }
-  static __inline void *PtrToPtr32(const void *p) { return((void *) (ULONG_PTR) p); }
+  સ્થિર __inline શૂન્ય *Ptr32ToPtr(અચલ શૂન્ય *p) { પાછા (શૂન્ય *)p; }
+  સ્થિર __inline શૂન્ય *Handle32ToHandle(અચલ શૂન્ય *h) { પાછા((શૂન્ય *) h); }
+  સ્થિર __inline શૂન્ય *PtrToPtr32(અચલ શૂન્ય *p) { પાછા((શૂન્ય *) (ULONG_PTR) p); }
 
 #define HandleToHandle32(h) (PtrToPtr32(h))
-#else
+#નહીંતર
 
 #define ADDRESS_TAG_BIT 0x80000000UL
 
-  typedef unsigned short UHALF_PTR,*PUHALF_PTR;
-  typedef short HALF_PTR,*PHALF_PTR;
-  typedef long SHANDLE_PTR;
-  typedef unsigned long HANDLE_PTR;
+  પ્રકારવ્યાખ્યા unsigned short UHALF_PTR,*PUHALF_PTR;
+  પ્રકારવ્યાખ્યા short HALF_PTR,*PHALF_PTR;
+  પ્રકારવ્યાખ્યા long SHANDLE_PTR;
+  પ્રકારવ્યાખ્યા unsigned long HANDLE_PTR;
 
 #define HandleToULong(h) ((ULONG)(ULONG_PTR)(h))
 #define HandleToLong(h) ((LONG)(LONG_PTR) (h))
@@ -101,19 +101,19 @@ extern "C" {
 #define PtrToInt(p) ((INT)(INT_PTR) (p))
 #define PtrToUshort(p) ((unsigned short)(ULONG_PTR)(p))
 #define PtrToShort(p) ((short)(LONG_PTR)(p))
-#define IntToPtr(i) ((VOID *)(INT_PTR)((int)i))
-#define UIntToPtr(ui) ((VOID *)(UINT_PTR)((unsigned int)ui))
+#define IntToPtr(i) ((VOID *)(INT_PTR)((પૂર્ણાંક)i))
+#define UIntToPtr(ui) ((VOID *)(UINT_PTR)((unsigned પૂર્ણાંક)ui))
 #define LongToPtr(l) ((VOID *)(LONG_PTR)((long)l))
 #define ULongToPtr(ul) ((VOID *)(ULONG_PTR)((unsigned long)ul))
 
-  static __inline void *PtrToPtr64(const void *p) { return((void *) (ULONG_PTR)p); }
-  static __inline void *Ptr64ToPtr(const void *p) { return((void *) (ULONG_PTR) p); }
-  static __inline void *HandleToHandle64(const void *h) { return((void *) h); }
-  static __inline void *Handle64ToHandle(const void *h) { return((void *) (ULONG_PTR) h); }
+  સ્થિર __inline શૂન્ય *PtrToPtr64(અચલ શૂન્ય *p) { પાછા((શૂન્ય *) (ULONG_PTR)p); }
+  સ્થિર __inline શૂન્ય *Ptr64ToPtr(અચલ શૂન્ય *p) { પાછા((શૂન્ય *) (ULONG_PTR) p); }
+  સ્થિર __inline શૂન્ય *HandleToHandle64(અચલ શૂન્ય *h) { પાછા((શૂન્ય *) h); }
+  સ્થિર __inline શૂન્ય *Handle64ToHandle(અચલ શૂન્ય *h) { પાછા((શૂન્ય *) (ULONG_PTR) h); }
 
-#define Ptr32ToPtr(p) ((void *) p)
+#define Ptr32ToPtr(p) ((શૂન્ય *) p)
 #define Handle32ToHandle(h) (Ptr32ToPtr(h))
-#define PtrToPtr32(p) ((void *) p)
+#define PtrToPtr32(p) ((શૂન્ય *) p)
 #define HandleToHandle32(h) (PtrToPtr32(h))
 #endif
 
@@ -134,14 +134,14 @@ extern "C" {
 #define MAXHALF_PTR ((HALF_PTR)(MAXUHALF_PTR >> 1))
 #define MINHALF_PTR (~MAXHALF_PTR)
 
-  typedef ULONG_PTR SIZE_T,*PSIZE_T;
-  typedef LONG_PTR SSIZE_T,*PSSIZE_T;
-  typedef ULONG_PTR DWORD_PTR,*PDWORD_PTR;
-  typedef __int64 LONG64,*PLONG64;
-  typedef unsigned __int64 ULONG64,*PULONG64;
-  typedef unsigned __int64 DWORD64,*PDWORD64;
-  typedef ULONG_PTR KAFFINITY;
-  typedef KAFFINITY *PKAFFINITY;
+  પ્રકારવ્યાખ્યા ULONG_PTR SIZE_T,*PSIZE_T;
+  પ્રકારવ્યાખ્યા LONG_PTR SSIZE_T,*PSSIZE_T;
+  પ્રકારવ્યાખ્યા ULONG_PTR DWORD_PTR,*PDWORD_PTR;
+  પ્રકારવ્યાખ્યા __int64 LONG64,*PLONG64;
+  પ્રકારવ્યાખ્યા unsigned __int64 ULONG64,*PULONG64;
+  પ્રકારવ્યાખ્યા unsigned __int64 DWORD64,*PDWORD64;
+  પ્રકારવ્યાખ્યા ULONG_PTR KAFFINITY;
+  પ્રકારવ્યાખ્યા KAFFINITY *PKAFFINITY;
 
 #ifdef __cplusplus
 }

@@ -1,41 +1,41 @@
-#include <stdio.h>
+#અન્તર્ભાવ <stdio.h>
 
-int atexit(void (*function)(void));
-int on_exit(void (*function)(int, void *), void *arg);
-void exit(int status);
+પૂર્ણાંક atexit(શૂન્ય (*function)(શૂન્ય));
+પૂર્ણાંક on_exit(શૂન્ય (*function)(પૂર્ણાંક, શૂન્ય *), શૂન્ય *arg);
+શૂન્ય exit(પૂર્ણાંક status);
 
-void __attribute((constructor)) startup5(void)
+શૂન્ય __attribute((constructor)) startup5(શૂન્ય)
 {
     printf ("startup5\n");
 }
 
-void cleanup1(void)
+શૂન્ય cleanup1(શૂન્ય)
 {
     printf ("cleanup1\n");
     fflush(stdout);
 }
 
-void cleanup2(void)
+શૂન્ય cleanup2(શૂન્ય)
 {
     printf ("cleanup2\n");
 }
 
-void cleanup3(int ret, void *arg)
+શૂન્ય cleanup3(પૂર્ણાંક ret, શૂન્ય *arg)
 {
-    printf ("%d %s\n", ret, (char *) arg);
+    printf ("%d %s\n", ret, (અક્ષર *) arg);
 }
 
-void cleanup4(int ret, void *arg)
+શૂન્ય cleanup4(પૂર્ણાંક ret, શૂન્ય *arg)
 {
-    printf ("%d %s\n", ret, (char *) arg);
+    printf ("%d %s\n", ret, (અક્ષર *) arg);
 }
 
-void __attribute((destructor)) cleanup5(void)
+શૂન્ય __attribute((destructor)) cleanup5(શૂન્ય)
 {
     printf ("cleanup5\n");
 }
 
-void test(void)
+શૂન્ય test(શૂન્ય)
 {
     atexit(cleanup1);
     atexit(cleanup2);
@@ -43,15 +43,15 @@ void test(void)
     on_exit(cleanup4, "cleanup4");
 }
 
-#if defined test_128_return
-int main(int argc, char **argv)
+#જો defined test_128_return
+પૂર્ણાંક મુખ્ય(પૂર્ણાંક argc, અક્ષર **argv)
 {
     test();
-    return 1;
+    પાછા 1;
 } 
 
-#elif defined test_128_exit
-int main(int argc, char **argv)
+#અથવાજો defined test_128_exit
+પૂર્ણાંક મુખ્ય(પૂર્ણાંક argc, અક્ષર **argv)
 {
     test();
     exit(2);

@@ -6,7 +6,7 @@
 #ifndef _FENV_H_
 #define _FENV_H_
 
-#include <_mingw.h>
+#અન્તર્ભાવ <_mingw.h>
 
 /* FPU status word exception flags */
 #define FE_INVALID	0x01
@@ -38,13 +38,13 @@
   either set or clear. fexcept_t could be  structure that holds more
   info about the fp environment.
 */
-typedef unsigned short fexcept_t;
+પ્રકારવ્યાખ્યા unsigned short fexcept_t;
 
 /* This 32-byte struct represents the entire floating point
    environment as stored by fnstenv or fstenv, augmented by
    the  contents of the MXCSR register, as stored by stmxcsr
    (if CPU supports it). */
-typedef struct
+પ્રકારવ્યાખ્યા સંરચના
 {
   unsigned short __control_word;
   unsigned short __unused0;
@@ -52,13 +52,13 @@ typedef struct
   unsigned short __unused1;
   unsigned short __tag_word;
   unsigned short __unused2;  
-  unsigned int	 __ip_offset;    /* instruction pointer offset */
+  unsigned પૂર્ણાંક	 __ip_offset;    /* instruction pointer offset */
   unsigned short __ip_selector;  
   unsigned short __opcode;
-  unsigned int	 __data_offset;
+  unsigned પૂર્ણાંક	 __data_offset;
   unsigned short __data_selector;  
   unsigned short __unused3;
-  unsigned int   __mxcsr; /* contents of the MXCSR register  */
+  unsigned પૂર્ણાંક   __mxcsr; /* contents of the MXCSR register  */
 } fenv_t;
 
 
@@ -66,39 +66,39 @@ typedef struct
   different fp environments */
   
 /* The default Intel x87 floating point environment (64-bit mantissa) */
-#define FE_PC64_ENV ((const fenv_t *)-1)
+#define FE_PC64_ENV ((અચલ fenv_t *)-1)
 
 /* The floating point environment set by MSVCRT _fpreset (53-bit mantissa) */
-#define FE_PC53_ENV ((const fenv_t *)-2)
+#define FE_PC53_ENV ((અચલ fenv_t *)-2)
 
 /* The FE_DFL_ENV macro is required by standard.
   fesetenv will use the environment set at app startup.*/
-#define FE_DFL_ENV ((const fenv_t *) 0)
+#define FE_DFL_ENV ((અચલ fenv_t *) 0)
 
 #ifdef __cplusplus
-extern "C" {
+બાહ્ય "C" {
 #endif
 
 /*TODO: Some of these could be inlined */
 /* 7.6.2 Exception */
 
-extern int __cdecl feclearexcept (int);
-extern int __cdecl fegetexceptflag (fexcept_t * flagp, int excepts);
-extern int __cdecl feraiseexcept (int excepts );
-extern int __cdecl fesetexceptflag (const fexcept_t *, int);
-extern int __cdecl fetestexcept (int excepts);
+બાહ્ય પૂર્ણાંક __cdecl feclearexcept (પૂર્ણાંક);
+બાહ્ય પૂર્ણાંક __cdecl fegetexceptflag (fexcept_t * flagp, પૂર્ણાંક excepts);
+બાહ્ય પૂર્ણાંક __cdecl feraiseexcept (પૂર્ણાંક excepts );
+બાહ્ય પૂર્ણાંક __cdecl fesetexceptflag (અચલ fexcept_t *, પૂર્ણાંક);
+બાહ્ય પૂર્ણાંક __cdecl fetestexcept (પૂર્ણાંક excepts);
 
 /* 7.6.3 Rounding */
 
-extern int __cdecl fegetround (void);
-extern int __cdecl fesetround (int mode);
+બાહ્ય પૂર્ણાંક __cdecl fegetround (શૂન્ય);
+બાહ્ય પૂર્ણાંક __cdecl fesetround (પૂર્ણાંક mode);
 
 /* 7.6.4 Environment */
 
-extern int __cdecl fegetenv(fenv_t * envp);
-extern int __cdecl fesetenv(const fenv_t * );
-extern int __cdecl feupdateenv(const fenv_t *);
-extern int __cdecl feholdexcept(fenv_t *);
+બાહ્ય પૂર્ણાંક __cdecl fegetenv(fenv_t * envp);
+બાહ્ય પૂર્ણાંક __cdecl fesetenv(અચલ fenv_t * );
+બાહ્ય પૂર્ણાંક __cdecl feupdateenv(અચલ fenv_t *);
+બાહ્ય પૂર્ણાંક __cdecl feholdexcept(fenv_t *);
 
 #ifdef __cplusplus
 }

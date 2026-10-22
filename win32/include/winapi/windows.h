@@ -14,15 +14,15 @@
 #define WINVER 0x0502
 #endif
 
-#include <_mingw.h>
+#અન્તર્ભાવ <_mingw.h>
 
 #ifndef _INC_WINDOWS
 #define _INC_WINDOWS
 
-#if defined(RC_INVOKED) && !defined(NOWINRES)
+#જો defined(RC_INVOKED) && !defined(NOWINRES)
 
-#include <winresrc.h>
-#else
+#અન્તર્ભાવ <winresrc.h>
+#નહીંતર
 
 #ifdef RC_INVOKED
 #define NOATOM
@@ -44,62 +44,62 @@
 #define NOMCX
 #endif
 
-#if !defined(I_X86_) && !defined(_IA64_) && !defined(_AMD64_) && (defined(_X86_) && !defined(__x86_64))
+#જો !defined(I_X86_) && !defined(_IA64_) && !defined(_AMD64_) && (defined(_X86_) && !defined(__x86_64))
 #define I_X86_
 #endif
 
-#if !defined(I_X86_) && !defined(_IA64_) && !defined(_AMD64_) && defined(__x86_64)
+#જો !defined(I_X86_) && !defined(_IA64_) && !defined(_AMD64_) && defined(__x86_64)
 #define _AMD64_
 #endif
 
-#if !defined(I_X86_) && !(defined(_X86_) && !defined(__x86_64)) && !defined(_AMD64_) && defined(__ia64__)
-#if !defined(_IA64_)
+#જો !defined(I_X86_) && !(defined(_X86_) && !defined(__x86_64)) && !defined(_AMD64_) && defined(__ia64__)
+#જો !defined(_IA64_)
 #define _IA64_
 #endif
 #endif
 
 #ifndef RC_INVOKED
-#include <excpt.h>
-#include <stdarg.h>
+#અન્તર્ભાવ <excpt.h>
+#અન્તર્ભાવ <stdarg.h>
 #endif
 
-#include <windef.h>
-#include <winbase.h>
-#include <wingdi.h>
-#include <winuser.h>
-#include <winnls.h>
-#include <wincon.h>
-#include <winver.h>
-#include <winreg.h>
+#અન્તર્ભાવ <windef.h>
+#અન્તર્ભાવ <winbase.h>
+#અન્તર્ભાવ <wingdi.h>
+#અન્તર્ભાવ <winuser.h>
+#અન્તર્ભાવ <winnls.h>
+#અન્તર્ભાવ <wincon.h>
+#અન્તર્ભાવ <winver.h>
+#અન્તર્ભાવ <winreg.h>
 //gr #include <winnetwk.h>
 
 #ifndef WIN32_LEAN_AND_MEAN
-#include <cderr.h>
-#include <dde.h>
-#include <ddeml.h>
-#include <dlgs.h>
-#include <lzexpand.h>
-#include <mmsystem.h>
-#include <nb30.h>
-#include <rpc.h>
-#include <shellapi.h>
-#include <winperf.h>
-#include <winsock.h>
+#અન્તર્ભાવ <cderr.h>
+#અન્તર્ભાવ <dde.h>
+#અન્તર્ભાવ <ddeml.h>
+#અન્તર્ભાવ <dlgs.h>
+#અન્તર્ભાવ <lzexpand.h>
+#અન્તર્ભાવ <mmsystem.h>
+#અન્તર્ભાવ <nb30.h>
+#અન્તર્ભાવ <rpc.h>
+#અન્તર્ભાવ <shellapi.h>
+#અન્તર્ભાવ <winperf.h>
+#અન્તર્ભાવ <winsock.h>
 #ifndef NOCRYPT
-#include <wincrypt.h>
-#include <winefs.h>
-#include <winscard.h>
+#અન્તર્ભાવ <wincrypt.h>
+#અન્તર્ભાવ <winefs.h>
+#અન્તર્ભાવ <winscard.h>
 #endif
 
 #ifndef NOUSER
 #ifndef NOGDI
-#include <winspool.h>
+#અન્તર્ભાવ <winspool.h>
 #ifdef INC_OLE1
-#include <ole.h>
-#else
-#include <ole2.h>
+#અન્તર્ભાવ <ole.h>
+#નહીંતર
+#અન્તર્ભાવ <ole2.h>
 #endif
-#include <commdlg.h>
+#અન્તર્ભાવ <commdlg.h>
 #endif
 #endif
 #endif
@@ -107,19 +107,19 @@
 //gr #include <stralign.h>
 
 #ifdef INC_OLE2
-#include <ole2.h>
+#અન્તર્ભાવ <ole2.h>
 #endif
 
 #ifndef NOSERVICE
-#include <winsvc.h>
+#અન્તર્ભાવ <winsvc.h>
 #endif
 
 #ifndef NOMCX
-#include <mcx.h>
+#અન્તર્ભાવ <mcx.h>
 #endif
 
 #ifndef NOIME
-#include <imm.h>
+#અન્તર્ભાવ <imm.h>
 #endif
 
 #endif

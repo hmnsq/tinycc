@@ -1,11 +1,11 @@
-#include <stdio.h>
-#include <pthread.h>
-#include <errno.h>
+#અન્તર્ભાવ <stdio.h>
+#અન્તર્ભાવ <pthread.h>
+#અન્તર્ભાવ <errno.h>
 
-int
-main(void)
+પૂર્ણાંક
+મુખ્ય(શૂન્ય)
 {
-  int ret;
+  પૂર્ણાંક ret;
   pthread_condattr_t attr;
   pthread_cond_t condition;
 
@@ -14,5 +14,5 @@ main(void)
   pthread_condattr_setpshared (&attr, PTHREAD_PROCESS_SHARED);
   printf ("%s\n", pthread_cond_init (&condition, &attr) ? "fail":"ok");
   pthread_condattr_destroy (&attr);
-  return 0;
+  પાછા 0;
 }

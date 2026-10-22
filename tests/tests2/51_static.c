@@ -1,17 +1,17 @@
-#include <stdio.h>
+#અન્તર્ભાવ <stdio.h>
 
-static int fred = 1234;
-static int joe;
+સ્થિર પૂર્ણાંક fred = 1234;
+સ્થિર પૂર્ણાંક joe;
 
-void henry()
+શૂન્ય henry()
 {
-   static int fred = 4567;
+   સ્થિર પૂર્ણાંક fred = 4567;
 
    printf("%d\n", fred);
    fred++;
 }
 
-int main()
+પૂર્ણાંક મુખ્ય()
 {
    printf("%d\n", fred);
    henry();
@@ -24,7 +24,7 @@ int main()
    printf("%d\n", fred);
    printf("%d\n", joe);
 
-   return 0;
+   પાછા 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

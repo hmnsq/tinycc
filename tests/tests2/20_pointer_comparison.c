@@ -1,11 +1,11 @@
-#include <stdio.h>
+#અન્તર્ભાવ <stdio.h>
 
-int main()
+પૂર્ણાંક મુખ્ય()
 {
-   int a;
-   int b;
-   int *d;
-   int *e;
+   પૂર્ણાંક a;
+   પૂર્ણાંક b;
+   પૂર્ણાંક *d;
+   પૂર્ણાંક *e;
    d = &a;
    e = &b;
    a = 12;
@@ -18,7 +18,7 @@ int main()
    printf("%d\n", d == e);
    printf("%d\n", d != e);
 
-   return 0;
+   પાછા 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

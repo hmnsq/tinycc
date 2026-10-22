@@ -1,30 +1,30 @@
-int printf(const char*, ...);
+પૂર્ણાંક printf(અચલ અક્ષર*, ...);
 
-int main()
+પૂર્ણાંક મુખ્ય()
 {
-    char a;
+    અક્ષર a;
     short b;
 
-    printf("sizeof a : %d %d\n", sizeof(char), sizeof(a));
-    printf("sizeof b : %d %d\n", sizeof(short), sizeof(b));
+    printf("sizeof a : %d %d\n", કદ(અક્ષર), કદ(a));
+    printf("sizeof b : %d %d\n", કદ(short), કદ(b));
 
-    int ii[] = {}; /* gnu extension, size = 0 */
-    printf("sizeof ii : %d\n", sizeof ii);
+    પૂર્ણાંક ii[] = {}; /* gnu extension, size = 0 */
+    printf("sizeof ii : %d\n", કદ ii);
 
-    int kk[] = { 1 };
-    printf("sizeof kk : %d\n", sizeof kk);
+    પૂર્ણાંક kk[] = { 1 };
+    printf("sizeof kk : %d\n", કદ kk);
 
-    char cc[] = "12";
-    printf("sizeof cc : %d\n", sizeof cc);
+    અક્ષર cc[] = "12";
+    printf("sizeof cc : %d\n", કદ cc);
 
     __WCHAR_TYPE__ ll[] = L"12345";
-    printf("len-of ll : %d\n", sizeof ll / sizeof ll[0]);
+    printf("len-of ll : %d\n", કદ ll / કદ ll[0]);
 
-    static struct {
-        int a,b,c;
-        int d[];
+    સ્થિર સંરચના {
+        પૂર્ણાંક a,b,c;
+        પૂર્ણાંક d[];
     } ss[] = {{ 1, 2, 3, {} }};
-    printf("sizeof ss : %d\n", sizeof ss);
+    printf("sizeof ss : %d\n", કદ ss);
 
-    return 0;
+    પાછા 0;
 }

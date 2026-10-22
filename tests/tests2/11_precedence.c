@@ -1,16 +1,16 @@
 //#include <stdio.h>
-extern int printf(const char *, ...);
+બાહ્ય પૂર્ણાંક printf(અચલ અક્ષર *, ...);
 
-int main()
+પૂર્ણાંક મુખ્ય()
 {
-   int a;
-   int b;
-   int c;
-   int d;
-   int e;
-   int f;
-   int x;
-   int y;
+   પૂર્ણાંક a;
+   પૂર્ણાંક b;
+   પૂર્ણાંક c;
+   પૂર્ણાંક d;
+   પૂર્ણાંક e;
+   પૂર્ણાંક f;
+   પૂર્ણાંક x;
+   પૂર્ણાંક y;
 
    a = 12;
    b = 34;
@@ -35,7 +35,7 @@ int main()
    printf("%d\n", (4 << 4));
    printf("%d\n", (64 >> 4));
 
-   return 0;
+   પાછા 0;
 }
 
 // vim: set expandtab ts=4 sw=3 sts=3 tw=80 :

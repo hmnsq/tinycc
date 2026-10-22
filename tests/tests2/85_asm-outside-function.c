@@ -1,15 +1,15 @@
 #ifdef __leading_underscore
 # define _ "_"
-#else
+#નહીંતર
 # define _
 #endif
 
-extern int printf (const char *, ...);
-extern void vide(void);
+બાહ્ય પૂર્ણાંક printf (અચલ અક્ષર *, ...);
+બાહ્ય શૂન્ય vide(શૂન્ય);
 __asm__(_"vide: ret");
 
-int main() {
+પૂર્ણાંક મુખ્ય() {
     vide();
     printf ("okay\n");
-    return 0;
+    પાછા 0;
 }

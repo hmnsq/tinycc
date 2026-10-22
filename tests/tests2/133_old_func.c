@@ -1,41 +1,41 @@
-int printf(const char *s, ...);
+પૂર્ણાંક printf(અચલ અક્ષર *s, ...);
 
-float fx(x)
-float x;
+દશાંશ fx(x)
+દશાંશ x;
 {
-    return 2.0 * x;
+    પાછા 2.0 * x;
 }
 
-void func(float a);
+શૂન્ય func(દશાંશ a);
 
-void func3(struct p { int a; int b; } *q) {
+શૂન્ય func3(સંરચના p { પૂર્ણાંક a; પૂર્ણાંક b; } *q) {
 }
 
-void func4(q)
- struct p { int a; int b; int c; } *q;
+શૂન્ય func4(q)
+ સંરચના p { પૂર્ણાંક a; પૂર્ણાંક b; પૂર્ણાંક c; } *q;
 {
 }
 
-struct p { int a; int b; int c; int d; };
+સંરચના p { પૂર્ણાંક a; પૂર્ણાંક b; પૂર્ણાંક c; પૂર્ણાંક d; };
 
-int
-main(void)
+પૂર્ણાંક
+મુખ્ય(શૂન્ય)
 {
-    float fy();
+    દશાંશ fy();
 
     printf("%g %g\n", fx(2.0), fy(10.0));
     printf("%g %g\n", fx(2.0f), fy(10.0f));
     func(1);
 }
 
-float fy(x)
-float x;
+દશાંશ fy(x)
+દશાંશ x;
 {
-    return 3.0 * x;
+    પાછા 3.0 * x;
 }
 
-void func(a)
-float a;
+શૂન્ય func(a)
+દશાંશ a;
 {
     printf("%g\n", a);
 }

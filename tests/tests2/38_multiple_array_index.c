@@ -1,32 +1,32 @@
-#include <stdio.h>
+#અન્તર્ભાવ <stdio.h>
 
-int main()
+પૂર્ણાંક મુખ્ય()
 {
-   int a[4][4];
-   int b = 0;
-   int x;
-   int y;
+   પૂર્ણાંક a[4][4];
+   પૂર્ણાંક b = 0;
+   પૂર્ણાંક x;
+   પૂર્ણાંક y;
 
-   for (x = 0; x < 4; x++)
+   માટે (x = 0; x < 4; x++)
    {
-      for (y = 0; y < 4; y++)
+      માટે (y = 0; y < 4; y++)
       {
          b++;
          a[x][y] = b;
       }
    }
 
-   for (x = 0; x < 4; x++)
+   માટે (x = 0; x < 4; x++)
    {
       printf("x=%d: ", x);
-      for (y = 0; y < 4; y++)
+      માટે (y = 0; y < 4; y++)
       {
          printf("%d ", a[x][y]);
       }
       printf("\n");
    }
 
-   return 0;
+   પાછા 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

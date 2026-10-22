@@ -1,11 +1,11 @@
-void defined_const(int *pointer);
+શૂન્ય defined_const(પૂર્ણાંક *pointer);
 
-void defined_const(int *const pointer)
+શૂન્ય defined_const(પૂર્ણાંક *અચલ pointer)
 {
     pointer = 0;
 }
 
-int main(void)
+પૂર્ણાંક મુખ્ય(શૂન્ય)
 {
-    return 0;
+    પાછા 0;
 }

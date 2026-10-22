@@ -1,18 +1,18 @@
-#include <stdio.h>
+#અન્તર્ભાવ <stdio.h>
 
-int fred()
+પૂર્ણાંક fred()
 {
    printf("fred\n");
-   return 0;
+   પાછા 0;
 }
 
-int joe()
+પૂર્ણાંક joe()
 {
    printf("joe\n");
-   return 1;
+   પાછા 1;
 }
 
-int main()
+પૂર્ણાંક મુખ્ય()
 {
    printf("%d\n", fred() && joe());
    printf("%d\n", fred() || joe());
@@ -23,7 +23,7 @@ int main()
    printf("%d\n", joe() && (0 + fred()));
    printf("%d\n", joe() || (1 + fred()));
 
-   return 0;
+   પાછા 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

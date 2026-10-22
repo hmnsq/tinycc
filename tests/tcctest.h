@@ -1,9 +1,9 @@
-static inline const char *get_basefile_from_header(void)
+સ્થિર અંતઃરેખ અચલ અક્ષર *get_basefile_from_header(શૂન્ય)
 {
-  return __BASE_FILE__;
+  પાછા __BASE_FILE__;
 }
 
-static inline const char *get_file_from_header(void)
+સ્થિર અંતઃરેખ અચલ અક્ષર *get_file_from_header(શૂન્ય)
 {
-  return __FILE__;
+  પાછા __FILE__;
 }

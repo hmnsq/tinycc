@@ -1,24 +1,24 @@
-#include <stdio.h>
+#અન્તર્ભાવ <stdio.h>
 
-union u {
+સંઘ u {
     unsigned long ul;
-    long double ld;
+    long દ્વિગુણ ld;
 };
 
-void
-conv (union u *p)
+શૂન્ય
+conv (સંઘ u *p)
 {
-    p->ul = (unsigned int) p->ld;
+    p->ul = (unsigned પૂર્ણાંક) p->ld;
 }
 
-int main (void)
+પૂર્ણાંક મુખ્ય (શૂન્ય)
 {
-    union u v;
-    double d = 1234567890.0;
+    સંઘ u v;
+    દ્વિગુણ d = 1234567890.0;
 
     v.ld = 42;
     conv (&v);
     printf ("%lu\n", v.ul);
     printf ("%llu\n", (unsigned long long)d);
-    return 0;
+    પાછા 0;
 }

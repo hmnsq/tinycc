@@ -1,14 +1,14 @@
-#include <stdio.h>
+#અન્તર્ભાવ <stdio.h>
 
-int main(int argc, char **argv)
+પૂર્ણાંક મુખ્ય(પૂર્ણાંક argc, અક્ષર **argv)
 {
-   int Count;
+   પૂર્ણાંક ગણતરી_3;
 
    printf("hello world %d\n", argc);
-   for (Count = 1; Count < argc; Count++)
-      printf("arg %d: %s\n", Count, argv[Count]);
+   માટે (ગણતરી_3 = 1; ગણતરી_3 < argc; ગણતરી_3++)
+      printf("arg %d: %s\n", ગણતરી_3, argv[ગણતરી_3]);
 
-   return 0;
+   પાછા 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

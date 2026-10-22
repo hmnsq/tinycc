@@ -1,14 +1,14 @@
-#include <stdio.h>
+#અન્તર્ભાવ <stdio.h>
 
-int main()
+પૂર્ણાંક મુખ્ય()
 {
    FILE *f = fopen("fred.txt", "w");
    fwrite("hello\nhello\n", 1, 12, f);
    fclose(f);
 
-   char freddy[7];
+   અક્ષર freddy[7];
    f = fopen("fred.txt", "r");
-   if (fread(freddy, 1, 6, f) != 6)
+   જો (fread(freddy, 1, 6, f) != 6)
       printf("couldn't read fred.txt\n");
 
    freddy[6] = '\0';
@@ -16,13 +16,13 @@ int main()
 
    printf("%s", freddy);
 
-   int InChar;
-   char ShowChar;
+   પૂર્ણાંક InChar;
+   અક્ષર ShowChar;
    f = fopen("fred.txt", "r");
-   while ( (InChar = fgetc(f)) != EOF)
+   જ્યારે ( (InChar = fgetc(f)) != EOF)
    {
       ShowChar = InChar;
-      if (ShowChar < ' ')
+      જો (ShowChar < ' ')
          ShowChar = '.';
 
       printf("ch: %d '%c'\n", InChar, ShowChar);
@@ -30,10 +30,10 @@ int main()
    fclose(f);
 
    f = fopen("fred.txt", "r");
-   while ( (InChar = getc(f)) != EOF)
+   જ્યારે ( (InChar = getc(f)) != EOF)
    {
       ShowChar = InChar;
-      if (ShowChar < ' ')
+      જો (ShowChar < ' ')
          ShowChar = '.';
 
       printf("ch: %d '%c'\n", InChar, ShowChar);
@@ -41,12 +41,12 @@ int main()
    fclose(f);
 
    f = fopen("fred.txt", "r");
-   while (fgets(freddy, sizeof(freddy), f) != NULL)
+   જ્યારે (fgets(freddy, કદ(freddy), f) != ખાલી)
       printf("x: %s", freddy);
 
    fclose(f);
 
-   return 0;
+   પાછા 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

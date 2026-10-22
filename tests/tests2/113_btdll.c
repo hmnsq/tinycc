@@ -1,4 +1,4 @@
-int tcc_backtrace(const char*, ...);
+પૂર્ણાંક tcc_backtrace(અચલ અક્ષર*, ...);
 #define hello() \
     tcc_backtrace("hello from %s() / %s:%d",__FUNCTION__,__FILE__,__LINE__)
 
@@ -6,38 +6,38 @@ int tcc_backtrace(const char*, ...);
 # define __declspec(n)
 #endif
 
-#if DLL==1
-__declspec(dllexport) int f_1()
+#જો DLL==1
+__declspec(dllexport) પૂર્ણાંક f_1()
 {
     hello();
-    return 0;
+    પાછા 0;
 }
 
 
-#elif DLL==2
-__declspec(dllexport) int f_2()
+#અથવાજો DLL==2
+__declspec(dllexport) પૂર્ણાંક f_2()
 {
     hello();
-    return 0;
+    પાછા 0;
 }
 
 
-#else
+#નહીંતર
 
-int f_1();
-int f_2();
-int f_main()
+પૂર્ણાંક f_1();
+પૂર્ણાંક f_2();
+પૂર્ણાંક f_main()
 {
     hello();
-    return 0;
+    પાછા 0;
 }
 
-int main ()
+પૂર્ણાંક મુખ્ય ()
 {
     f_1();
     f_2();
     f_main();
-    return 0;
+    પાછા 0;
 }
 
 #endif
