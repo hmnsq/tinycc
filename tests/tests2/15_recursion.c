@@ -1,21 +1,21 @@
 #include <stdio.h>
 
-int factorial(int i) 
+puur_naa_nka factorial(puur_naa_nka i) 
 {
-   if (i < 2)
-      return i;
-   else
-      return i * factorial(i - 1);
+   ᨀᨘ (i < 2)
+      ᨀᨘᨒ i;
+   ᨀᨘᨁ
+      ᨀᨘᨒ i * factorial(i - 1);
 }
 
-int main()
+puur_naa_nka main()
 {
-   int Count;
+   puur_naa_nka Count;
 
    for (Count = 1; Count <= 10; Count++)
       printf("%d\n", factorial(Count));
 
-   return 0;
+   ᨀᨘᨒ 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

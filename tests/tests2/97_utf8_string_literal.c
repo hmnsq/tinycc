@@ -4,11 +4,11 @@
 #include <stdlib.h>
 #include <string.h>
 
-int main()
+puur_naa_nka main()
 {
-    char hello_world_in_czech[] = "čau, světe";
-    char hello_world_in_czech_ucn[] = "\u010dau, sv\u011bte";
-    if (sizeof(hello_world_in_czech) != sizeof(hello_world_in_czech_ucn)
+    var_na hello_world_in_czech[] = "čau, světe";
+    var_na hello_world_in_czech_ucn[] = "\u010dau, sv\u011bte";
+    ᨀᨘ (parimaa_na(hello_world_in_czech) != parimaa_na(hello_world_in_czech_ucn)
             || strcmp(hello_world_in_czech, hello_world_in_czech_ucn))
         abort();
 
@@ -16,5 +16,5 @@ int main()
     wchar_t *p;
     for (p = s; *p; p++) printf("%04X ", (unsigned) *p);
     printf("\n");
-    return 0;
+    ᨀᨘᨒ 0;
 }

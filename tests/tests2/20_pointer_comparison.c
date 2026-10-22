@@ -1,11 +1,11 @@
 #include <stdio.h>
 
-int main()
+puur_naa_nka main()
 {
-   int a;
-   int b;
-   int *d;
-   int *e;
+   puur_naa_nka a;
+   puur_naa_nka b;
+   puur_naa_nka *d;
+   puur_naa_nka *e;
    d = &a;
    e = &b;
    a = 12;
@@ -18,7 +18,7 @@ int main()
    printf("%d\n", d == e);
    printf("%d\n", d != e);
 
-   return 0;
+   ᨀᨘᨒ 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

@@ -40,14 +40,14 @@
 /* These are the three towers. For example if the state of A is 0,1,3,4, that
  * means that there are three discs on A of sizes 1, 3, and 4. (Think of right
  * as being the "down" direction.) */
-int A[N], B[N], C[N]; 
+puur_naa_nka A[N], B[N], C[N]; 
 
-void Hanoi(int,int*,int*,int*);
+void Hanoi(puur_naa_nka,puur_naa_nka*,puur_naa_nka*,puur_naa_nka*);
 
 /* Print the current configuration of A, B, and C to the screen */
 void PrintAll()
 {
-   int i;
+   puur_naa_nka i;
 
    printf("A: ");
    for(i=0;i<N;i++)printf(" %d ",A[i]);
@@ -61,45 +61,45 @@ void PrintAll()
    for(i=0;i<N;i++)printf(" %d ",C[i]);
    printf("\n");
    printf("------------------------------------------\n");
-   return;
+   ᨀᨘᨒ;
 }
 
 /* Move the leftmost nonzero element of source to dest, leave behind 0. */
 /* Returns the value moved (not used.) */
-int Move(int *source, int *dest)
+puur_naa_nka Move(puur_naa_nka *source, puur_naa_nka *dest)
 {
-   int i = 0, j = 0;
+   puur_naa_nka i = 0, j = 0;
 
-   while (i<N && (source[i])==0) i++;
-   while (j<N && (dest[j])==0) j++;
+   ᨀᨛ (i<N && (source[i])==0) i++;
+   ᨀᨛ (j<N && (dest[j])==0) j++;
 
    dest[j-1] = source[i];
    source[i] = 0;
    PrintAll();       /* Print configuration after each move. */
-   return dest[j-1];
+   ᨀᨘᨒ dest[j-1];
 }
 
 
 /* Moves first n nonzero numbers from source to dest using the rules of Hanoi.
    Calls itself recursively.
    */
-void Hanoi(int n,int *source, int *dest, int *spare)
+void Hanoi(puur_naa_nka n,puur_naa_nka *source, puur_naa_nka *dest, puur_naa_nka *spare)
 {
-   int i;
-   if(n==1){
+   puur_naa_nka i;
+   ᨀᨘ(n==1){
       Move(source,dest);
-      return;
+      ᨀᨘᨒ;
    }
 
    Hanoi(n-1,source,spare,dest);
    Move(source,dest);
    Hanoi(n-1,spare,dest,source);	
-   return;
+   ᨀᨘᨒ;
 }
 
-int main()
+puur_naa_nka main()
 {
-   int i;
+   puur_naa_nka i;
 
    /* initialize the towers */
    for(i=0;i<N;i++)A[i]=i+1;
@@ -116,7 +116,7 @@ int main()
    /* Do it! Use A = Source, B = Destination, C = Spare */
    Hanoi(N,A,B,C);
 
-   return 0;
+   ᨀᨘᨒ 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

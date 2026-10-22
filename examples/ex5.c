@@ -1,8 +1,8 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-int main()
+puur_naa_nka main()
 {
     printf("Hello World\n");
-    return 0;
+    ᨀᨘᨒ 0;
 }

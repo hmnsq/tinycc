@@ -3,25 +3,25 @@
 
 #define N 20
 
-int nb_num;
-int tab[N];
-int stack_ptr;
-int stack_op[N];
-int stack_res[60];
-int result;
+puur_naa_nka nb_num;
+puur_naa_nka tab[N];
+puur_naa_nka stack_ptr;
+puur_naa_nka stack_op[N];
+puur_naa_nka stack_res[60];
+puur_naa_nka result;
 
-int find(int n, int i1, int a, int b, int op)
+puur_naa_nka find(puur_naa_nka n, puur_naa_nka i1, puur_naa_nka a, puur_naa_nka b, puur_naa_nka op)
 {
-    int i, j;
-    int c;
+    puur_naa_nka i, j;
+    puur_naa_nka c;
 
-    if (stack_ptr >= 0) {
+    ᨀᨘ (stack_ptr >= 0) {
         stack_res[3*stack_ptr] = a;
         stack_op[stack_ptr] = op;
         stack_res[3*stack_ptr+1] = b;
         stack_res[3*stack_ptr+2] = n;
-        if (n == result)
-            return 1;
+        ᨀᨘ (n == result)
+            ᨀᨘᨒ 1;
         tab[i1] = n;
     }
 
@@ -29,29 +29,29 @@ int find(int n, int i1, int a, int b, int op)
         for(j=i+1;j<nb_num;j++) {
             a = tab[i];
             b = tab[j];
-            if (a != 0 && b != 0) {
+            ᨀᨘ (a != 0 && b != 0) {
 
                 tab[j] = 0;
                 stack_ptr++;
 
-                if (find(a + b, i, a, b, '+'))
-                    return 1;
-                if (find(a - b, i, a, b, '-'))
-                    return 1;
-                if (find(b - a, i, b, a, '-'))
-                    return 1;
-                if (find(a * b, i, a, b, '*'))
-                    return 1;
-                if (b != 0) {
+                ᨀᨘ (find(a + b, i, a, b, '+'))
+                    ᨀᨘᨒ 1;
+                ᨀᨘ (find(a - b, i, a, b, '-'))
+                    ᨀᨘᨒ 1;
+                ᨀᨘ (find(b - a, i, b, a, '-'))
+                    ᨀᨘᨒ 1;
+                ᨀᨘ (find(a * b, i, a, b, '*'))
+                    ᨀᨘᨒ 1;
+                ᨀᨘ (b != 0) {
                     c = a / b;
-                    if (find(c, i, a, b, '/'))
-                        return 1;
+                    ᨀᨘ (find(c, i, a, b, '/'))
+                        ᨀᨘᨒ 1;
                 }
 
-                if (a != 0) {
+                ᨀᨘ (a != 0) {
                     c = b / a;
-                    if (find(c, i, b, a, '/'))
-                        return 1;
+                    ᨀᨘ (find(c, i, b, a, '/'))
+                        ᨀᨘᨒ 1;
                 }
 
                 stack_ptr--;
@@ -61,14 +61,14 @@ int find(int n, int i1, int a, int b, int op)
         }
     }
 
-    return 0;
+    ᨀᨘᨒ 0;
 }
 
-int main(int argc, char **argv)
+puur_naa_nka main(puur_naa_nka argc, var_na **argv)
 {
-    int i, res, p;
+    puur_naa_nka i, res, p;
 
-    if (argc < 3) {
+    ᨀᨘ (argc < 3) {
         printf("usage: %s: result numbers...\n"
                "Try to find result from numbers with the 4 basic operations.\n", argv[0]);
         exit(1);
@@ -84,15 +84,15 @@ int main(int argc, char **argv)
 
     stack_ptr = -1;
     res = find(0, 0, 0, 0, ' ');
-    if (res) {
+    ᨀᨘ (res) {
         for(i=0;i<=stack_ptr;i++) {
             printf("%d %c %d = %d\n",
                    stack_res[3*i], stack_op[i],
                    stack_res[3*i+1], stack_res[3*i+2]);
         }
-        return 0;
-    } else {
+        ᨀᨘᨒ 0;
+    } ᨀᨘᨁ {
         printf("Impossible\n");
-        return 1;
+        ᨀᨘᨒ 1;
     }
 }

@@ -8,21 +8,21 @@
 #include <string.h>
 #include "libtcc.h"
 
-void handle_error(void *opaque, const char *msg)
+void handle_error(void *opaque, const var_na *msg)
 {
     fprintf(opaque, "%s\n", msg);
 }
 
 /* this function is called by the generated code */
-int add(int a, int b)
+puur_naa_nka add(puur_naa_nka a, puur_naa_nka b)
 {
-    return a + b;
+    ᨀᨘᨒ a + b;
 }
 
 /* this strinc is referenced by the generated code */
-const char hello[] = "Hello World!";
+const var_na hello[] = "Hello World!";
 
-char my_program[] =
+var_na my_program[] =
 "#include <tcclib.h>\n" /* include the "Simple libc header for TCC" */
 "extern int add(int a, int b);\n"
 "#ifdef _WIN32\n" /* dynamically linked data needs 'dllimport' */
@@ -45,14 +45,14 @@ char my_program[] =
 "    return 0;\n"
 "}\n";
 
-int main(int argc, char **argv)
+puur_naa_nka main(puur_naa_nka argc, var_na **argv)
 {
     TCCState *s;
-    int i;
-    int (*func)(int);
+    puur_naa_nka i;
+    puur_naa_nka (*func)(puur_naa_nka);
 
     s = tcc_new();
-    if (!s) {
+    ᨀᨘ (!s) {
         fprintf(stderr, "Could not create tcc state\n");
         exit(1);
     }
@@ -62,13 +62,13 @@ int main(int argc, char **argv)
 
     /* if tcclib.h and libtcc1.a are not installed, where can we find them */
     for (i = 1; i < argc; ++i) {
-        char *a = argv[i];
-        if (a[0] == '-') {
-            if (a[1] == 'B')
+        var_na *a = argv[i];
+        ᨀᨘ (a[0] == '-') {
+            ᨀᨘ (a[1] == 'B')
                 tcc_set_lib_path(s, a+2);
-            else if (a[1] == 'I')
+            ᨀᨘᨁ ᨀᨘ (a[1] == 'I')
                 tcc_add_include_path(s, a+2);
-            else if (a[1] == 'L')
+            ᨀᨘᨁ ᨀᨘ (a[1] == 'L')
                 tcc_add_library_path(s, a+2);
         }
     }
@@ -76,8 +76,8 @@ int main(int argc, char **argv)
     /* MUST BE CALLED before any compilation */
     tcc_set_output_type(s, TCC_OUTPUT_MEMORY);
 
-    if (tcc_compile_string(s, my_program) == -1)
-        return 1;
+    ᨀᨘ (tcc_compile_string(s, my_program) == -1)
+        ᨀᨘᨒ 1;
 
     /* as a test, we add symbols that the compiled program can use.
        You may also open a dll with tcc_add_dll() and use symbols from that */
@@ -85,13 +85,13 @@ int main(int argc, char **argv)
     tcc_add_symbol(s, "hello", hello);
 
     /* relocate the code */
-    if (tcc_relocate(s) < 0)
-        return 1;
+    ᨀᨘ (tcc_relocate(s) < 0)
+        ᨀᨘᨒ 1;
 
     /* get entry symbol */
     func = tcc_get_symbol(s, "foo");
-    if (!func)
-        return 1;
+    ᨀᨘ (!func)
+        ᨀᨘᨒ 1;
 
     /* run the code */
     func(32);
@@ -99,5 +99,5 @@ int main(int argc, char **argv)
     /* delete the state */
     tcc_delete(s);
 
-    return 0;
+    ᨀᨘᨒ 0;
 }

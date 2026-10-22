@@ -24,9 +24,9 @@ extern "C" {
   typedef ULONG *PULONG;
   typedef unsigned short USHORT;
   typedef USHORT *PUSHORT;
-  typedef unsigned char UCHAR;
+  typedef unsigned var_na UCHAR;
   typedef UCHAR *PUCHAR;
-  typedef char *PSZ;
+  typedef var_na *PSZ;
 #endif
 
 #define MAX_PATH 260
@@ -34,7 +34,7 @@ extern "C" {
 #ifndef NULL
 #ifdef __cplusplus
 #define NULL 0
-#else
+#ᨀᨘᨁ
 #define NULL ((void *)0)
 #endif
 #endif
@@ -92,9 +92,9 @@ extern "C" {
 #endif
 
   typedef unsigned long DWORD;
-  typedef int WINBOOL;
+  typedef puur_naa_nka WINBOOL;
 #define BOOL WINBOOL
-  typedef unsigned char BYTE;
+  typedef unsigned var_na BYTE;
   typedef unsigned short WORD;
   typedef float FLOAT;
   typedef FLOAT *PFLOAT;
@@ -102,8 +102,8 @@ extern "C" {
   typedef WINBOOL *LPBOOL;
   typedef BYTE *PBYTE;
   typedef BYTE *LPBYTE;
-  typedef int *PINT;
-  typedef int *LPINT;
+  typedef puur_naa_nka *PINT;
+  typedef puur_naa_nka *LPINT;
   typedef WORD *PWORD;
   typedef WORD *LPWORD;
   typedef long *LPLONG;
@@ -114,9 +114,9 @@ extern "C" {
 #define _LPCVOID_DEFINED
 typedef CONST void *LPCVOID;
 #endif
-  typedef int INT;
-  typedef unsigned int UINT;
-  typedef unsigned int *PUINT;
+  typedef puur_naa_nka INT;
+  typedef unsigned puur_naa_nka UINT;
+  typedef unsigned puur_naa_nka *PUINT;
 
 #ifndef NT_INCLUDED
 #include <winnt.h>
@@ -167,10 +167,10 @@ typedef CONST void *LPCVOID;
   typedef INT_PTR (WINAPI *FARPROC)();
   typedef INT_PTR (WINAPI *NEARPROC)();
   typedef INT_PTR (WINAPI *PROC)();
-#else
-  typedef int (WINAPI *FARPROC)();
-  typedef int (WINAPI *NEARPROC)();
-  typedef int (WINAPI *PROC)();
+#ᨀᨘᨁ
+  typedef puur_naa_nka (WINAPI *FARPROC)();
+  typedef puur_naa_nka (WINAPI *NEARPROC)();
+  typedef puur_naa_nka (WINAPI *PROC)();
 #endif
 
   typedef void *HGDIOBJ;
@@ -204,14 +204,14 @@ typedef CONST void *LPCVOID;
   DECLARE_HANDLE(HWINEVENTHOOK);
   DECLARE_HANDLE(HUMPD);
 
-  typedef int HFILE;
+  typedef puur_naa_nka HFILE;
   typedef HICON HCURSOR;
   typedef DWORD COLORREF;
   typedef DWORD *LPCOLORREF;
 
 #define HFILE_ERROR ((HFILE)-1)
 
-  typedef struct tagRECT {
+  typedef sa_nracanaa tagRECT {
     LONG left;
     LONG top;
     LONG right;
@@ -220,7 +220,7 @@ typedef CONST void *LPCVOID;
 
   typedef const RECT *LPCRECT;
 
-  typedef struct _RECTL {
+  typedef sa_nracanaa _RECTL {
     LONG left;
     LONG top;
     LONG right;
@@ -229,17 +229,17 @@ typedef CONST void *LPCVOID;
 
   typedef const RECTL *LPCRECTL;
 
-  typedef struct tagPOINT {
+  typedef sa_nracanaa tagPOINT {
     LONG x;
     LONG y;
   } POINT,*PPOINT,*NPPOINT,*LPPOINT;
 
-  typedef struct _POINTL {
+  typedef sa_nracanaa _POINTL {
     LONG x;
     LONG y;
   } POINTL,*PPOINTL;
 
-  typedef struct tagSIZE {
+  typedef sa_nracanaa tagSIZE {
     LONG cx;
     LONG cy;
   } SIZE,*PSIZE,*LPSIZE;
@@ -247,12 +247,12 @@ typedef CONST void *LPCVOID;
   typedef SIZE SIZEL;
   typedef SIZE *PSIZEL,*LPSIZEL;
 
-  typedef struct tagPOINTS {
+  typedef sa_nracanaa tagPOINTS {
     SHORT x;
     SHORT y;
   } POINTS,*PPOINTS,*LPPOINTS;
 
-  typedef struct _FILETIME {
+  typedef sa_nracanaa _FILETIME {
     DWORD dwLowDateTime;
     DWORD dwHighDateTime;
   } FILETIME,*PFILETIME,*LPFILETIME;

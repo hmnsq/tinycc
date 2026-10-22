@@ -1,8 +1,8 @@
 #include <stdio.h>
 
-int atexit(void (*function)(void));
-int on_exit(void (*function)(int, void *), void *arg);
-void exit(int status);
+puur_naa_nka atexit(void (*function)(void));
+puur_naa_nka on_exit(void (*function)(puur_naa_nka, void *), void *arg);
+void exit(puur_naa_nka status);
 
 void __attribute((constructor)) startup5(void)
 {
@@ -20,14 +20,14 @@ void cleanup2(void)
     printf ("cleanup2\n");
 }
 
-void cleanup3(int ret, void *arg)
+void cleanup3(puur_naa_nka ret, void *arg)
 {
-    printf ("%d %s\n", ret, (char *) arg);
+    printf ("%d %s\n", ret, (var_na *) arg);
 }
 
-void cleanup4(int ret, void *arg)
+void cleanup4(puur_naa_nka ret, void *arg)
 {
-    printf ("%d %s\n", ret, (char *) arg);
+    printf ("%d %s\n", ret, (var_na *) arg);
 }
 
 void __attribute((destructor)) cleanup5(void)
@@ -43,15 +43,15 @@ void test(void)
     on_exit(cleanup4, "cleanup4");
 }
 
-#if defined test_128_return
-int main(int argc, char **argv)
+#ᨀᨘ defined test_128_return
+puur_naa_nka main(puur_naa_nka argc, var_na **argv)
 {
     test();
-    return 1;
+    ᨀᨘᨒ 1;
 } 
 
 #elif defined test_128_exit
-int main(int argc, char **argv)
+puur_naa_nka main(puur_naa_nka argc, var_na **argv)
 {
     test();
     exit(2);

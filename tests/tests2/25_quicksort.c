@@ -1,28 +1,28 @@
 #include <stdio.h>
 
-int array[16];
+puur_naa_nka array[16];
 
 //Swap integer values by array indexes
-void swap(int a, int b)
+void swap(puur_naa_nka a, puur_naa_nka b)
 {
-   int tmp  = array[a];
+   puur_naa_nka tmp  = array[a];
    array[a] = array[b];
    array[b] = tmp;
 }
 
 //Partition the array into two halves and return the
 //index about which the array is partitioned
-int partition(int left, int right)
+puur_naa_nka partition(puur_naa_nka left, puur_naa_nka right)
 {
-   int pivotIndex = left;
-   int pivotValue = array[pivotIndex];
-   int index = left;
-   int i;
+   puur_naa_nka pivotIndex = left;
+   puur_naa_nka pivotValue = array[pivotIndex];
+   puur_naa_nka index = left;
+   puur_naa_nka i;
 
    swap(pivotIndex, right);
    for(i = left; i < right; i++)
    {
-      if(array[i] < pivotValue)
+      ᨀᨘ(array[i] < pivotValue)
       {
          swap(i, index);
          index += 1;
@@ -30,23 +30,23 @@ int partition(int left, int right)
    }
    swap(right, index);
 
-   return index;
+   ᨀᨘᨒ index;
 }
 
 //Quicksort the array
-void quicksort(int left, int right)
+void quicksort(puur_naa_nka left, puur_naa_nka right)
 {
-   if(left >= right)
-      return;
+   ᨀᨘ(left >= right)
+      ᨀᨘᨒ;
 
-   int index = partition(left, right);
+   puur_naa_nka index = partition(left, right);
    quicksort(left, index - 1);
    quicksort(index + 1, right);
 }
 
-int main()
+puur_naa_nka main()
 {
-   int i;
+   puur_naa_nka i;
 
    array[0] = 62;
    array[1] = 83;
@@ -77,7 +77,7 @@ int main()
 
    printf("\n");
 
-   return 0;
+   ᨀᨘᨒ 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

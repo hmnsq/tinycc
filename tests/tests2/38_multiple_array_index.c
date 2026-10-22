@@ -1,11 +1,11 @@
 #include <stdio.h>
 
-int main()
+puur_naa_nka main()
 {
-   int a[4][4];
-   int b = 0;
-   int x;
-   int y;
+   puur_naa_nka a[4][4];
+   puur_naa_nka b = 0;
+   puur_naa_nka x;
+   puur_naa_nka y;
 
    for (x = 0; x < 4; x++)
    {
@@ -26,7 +26,7 @@ int main()
       printf("\n");
    }
 
-   return 0;
+   ᨀᨘᨒ 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/
