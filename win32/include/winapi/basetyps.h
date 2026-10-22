@@ -3,13 +3,13 @@
  * This file is part of the w64 mingw-runtime package.
  * No warranty is given; refer to the file DISCLAIMER within this package.
  */
-#if !defined(_BASETYPS_H_)
+#إذا !defined(_BASETYPS_H_)
 #define _BASETYPS_H_
 
 #ifdef __cplusplus
-#define EXTERN_C extern "C"
-#else
-#define EXTERN_C extern
+#define EXTERN_C خارجي "C"
+#وإلا
+#define EXTERN_C خارجي
 #endif
 
 #define STDMETHODCALLTYPE WINAPI
@@ -30,22 +30,22 @@
 #define STDMETHODIMPV HRESULT STDMETHODVCALLTYPE
 #define STDMETHODIMPV_(type) type STDMETHODVCALLTYPE
 
-#if defined(__cplusplus) && !defined(CINTERFACE)
+#إذا defined(__cplusplus) && !defined(CINTERFACE)
 
-#define __STRUCT__ struct
+#define __STRUCT__ بنية
 #define STDMETHOD(method) virtual HRESULT WINAPI method
 #define STDMETHOD_(type,method) virtual type WINAPI method
 #define STDMETHODV(method) virtual HRESULT STDMETHODVCALLTYPE method
 #define STDMETHODV_(type,method) virtual type STDMETHODVCALLTYPE method
 #define PURE = 0
 #define THIS_
-#define THIS void
+#define THIS فراغ
 #define DECLARE_INTERFACE(iface) __STRUCT__ iface
-#define DECLARE_INTERFACE_(iface,baseiface) __STRUCT__ iface : public baseiface
-#else
+#define DECLARE_INTERFACE_(iface,baseiface) __STRUCT__ iface : عام baseiface
+#وإلا
 
 #ifndef __OBJC__
-#define interface struct
+#define interface بنية
 #endif
 
 #define STDMETHOD(method) HRESULT (WINAPI *method)
@@ -57,29 +57,29 @@
 #define THIS_ INTERFACE *This,
 #define THIS INTERFACE *This
 #ifdef CONST_VTABLE
-#define DECLARE_INTERFACE(iface) typedef struct iface { \
-  const struct iface##Vtbl *lpVtbl; } iface; \
-  typedef const struct iface##Vtbl iface##Vtbl; \
-  const struct iface##Vtbl
-#else
-#define DECLARE_INTERFACE(iface) typedef struct iface { \
-    struct iface##Vtbl *lpVtbl; \
+#define DECLARE_INTERFACE(iface) تعريفنوع بنية iface { \
+  ثابت بنية iface##Vtbl *lpVtbl; } iface; \
+  تعريفنوع ثابت بنية iface##Vtbl iface##Vtbl; \
+  ثابت بنية iface##Vtbl
+#وإلا
+#define DECLARE_INTERFACE(iface) تعريفنوع بنية iface { \
+    بنية iface##Vtbl *lpVtbl; \
   } iface; \
-  typedef struct iface##Vtbl iface##Vtbl; \
-  struct iface##Vtbl
+  تعريفنوع بنية iface##Vtbl iface##Vtbl; \
+  بنية iface##Vtbl
 #endif
 #define DECLARE_INTERFACE_(iface,baseiface) DECLARE_INTERFACE(iface)
 #endif
 
-#include <guiddef.h>
+#ضمن <guiddef.h>
 
 #ifndef _ERROR_STATUS_T_DEFINED
 #define _ERROR_STATUS_T_DEFINED
-typedef unsigned long error_status_t;
+تعريفنوع unsigned long error_status_t;
 #endif
 
 #ifndef _WCHAR_T_DEFINED
-typedef unsigned short wchar_t;
+تعريفنوع unsigned short wchar_t;
 #define _WCHAR_T_DEFINED
 #endif
 #endif

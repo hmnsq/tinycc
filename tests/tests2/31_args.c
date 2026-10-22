@@ -1,14 +1,14 @@
-#include <stdio.h>
+#ضمن <stdio.h>
 
-int main(int argc, char **argv)
+صحيح main(صحيح argc, حرف **argv)
 {
-   int Count;
+   صحيح ژماردن_3;
 
    printf("hello world %d\n", argc);
-   for (Count = 1; Count < argc; Count++)
-      printf("arg %d: %s\n", Count, argv[Count]);
+   لكل (ژماردن_3 = 1; ژماردن_3 < argc; ژماردن_3++)
+      printf("arg %d: %s\n", ژماردن_3, argv[ژماردن_3]);
 
-   return 0;
+   أرجع 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

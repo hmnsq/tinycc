@@ -1,137 +1,137 @@
-#include <stdio.h>
-#include <pthread.h>
-#include <semaphore.h>
-#include <signal.h>
-#include <string.h>
-#include <sys/types.h>
-#include <sys/wait.h>
-#include <sys/time.h>
-#include <unistd.h>
-#include <stdlib.h>
-#include <errno.h>
-#include <setjmp.h>
+#ضمن <stdio.h>
+#ضمن <pthread.h>
+#ضمن <semaphore.h>
+#ضمن <signal.h>
+#ضمن <string.h>
+#ضمن <sys/types.h>
+#ضمن <sys/wait.h>
+#ضمن <sys/time.h>
+#ضمن <unistd.h>
+#ضمن <stdlib.h>
+#ضمن <errno.h>
+#ضمن <setjmp.h>
 
-static volatile int run = 1;
-static sem_t sem;
-static sem_t sem_child;
+ساكن متطاير صحيح run = 1;
+ساكن sem_t sem;
+ساكن sem_t sem_child;
 
-static void
-add (int n)
+ساكن فراغ
+add (صحيح n)
 {
-    int i;
-    int arr[n];
+    صحيح i;
+    صحيح arr[n];
 
-    for (i = 0; i < n; i++) {
+    لكل (i = 0; i < n; i++) {
         arr[i]++;
     }
-    memset (&arr[0], 0, n * sizeof(int));
+    memset (&arr[0], 0, n * حجم(صحيح));
 }
 
-static void *
-high_load (void *unused)
+ساكن فراغ *
+بەرز_load (فراغ *unused)
 {
-    while (run) {
+    طالما (run) {
         add(10);
         add(20);
     }
-    return NULL;
+    أرجع عدم;
 }
 
-static void *
-do_signal (void *unused)
+ساكن فراغ *
+do_signal (فراغ *unused)
 {
-    while (run) {
+    طالما (run) {
         kill (getpid(), SIGUSR1);
-        while (sem_wait(&sem) < 0 && errno == EINTR);
+        طالما (sem_wait(&sem) < 0 && errno == EINTR);
     }
-    return NULL;
+    أرجع عدم;
 }
 
-static void *
-do_fork (void *unused)
+ساكن فراغ *
+do_fork (فراغ *unused)
 {
     pid_t pid;
 
-    while (run) {
-        switch ((pid = fork())) {
-        case 0:
+    طالما (run) {
+        بدل ((pid = fork())) {
+        حالة 0:
             add(1000);
             add(2000);
             exit(0);
-            break;
-        case -1:
-            return NULL;
-        default:
-            while (sem_wait(&sem_child) < 0 && errno == EINTR);
-            wait(NULL);
-            break;
+            اكسر;
+        حالة -1:
+            أرجع عدم;
+        افتراضي:
+            طالما (sem_wait(&sem_child) < 0 && errno == EINTR);
+            wait(عدم);
+            اكسر;
         }
     }
-    return NULL;
+    أرجع عدم;
 }
 
-static void signal_handler(int sig)
+ساكن فراغ signal_handler(صحيح sig)
 {
     add(10);
     add(20);
     sem_post (&sem);
 }
 
-static void child_handler(int sig)
+ساكن فراغ child_handler(صحيح sig)
 {
     add(10);
     add(20);
     sem_post (&sem_child);
 }
 
-static unsigned getclock_ms(void)
+ساكن unsigned getclock_ms(فراغ)
 {
 #ifdef _WIN32
-    return GetTickCount();
-#else
-    struct timeval tv;
-    gettimeofday(&tv, NULL);
-    return tv.tv_sec*1000 + (tv.tv_usec+500)/1000;
+    أرجع Get_Tick_ژماردن();
+#وإلا
+    بنية timeval tv;
+    gettimeofday(&tv, عدم);
+    أرجع tv.tv_sec*1000 + (tv.tv_usec+500)/1000;
 #endif
 }
 
-int
-main (void)
+صحيح
+main (فراغ)
 {
-    int i;
+    صحيح i;
     pthread_t id1, id2, id3;
-    struct sigaction act;
+    بنية sigaction act;
     sigjmp_buf sj;
     sigset_t m;
     time_t end;
 
-    memset (&act, 0, sizeof (act));
+    memset (&act, 0, حجم (act));
     act.sa_handler = signal_handler;
     act.sa_flags = 0;
     sigemptyset (&act.sa_mask);
-    sigaction (SIGUSR1, &act, NULL);
+    sigaction (SIGUSR1, &act, عدم);
     act.sa_handler = child_handler;
-    sigaction (SIGCHLD, &act, NULL);
+    sigaction (SIGCHLD, &act, عدم);
 
     printf ("start\n"); fflush(stdout);
 
     sem_init (&sem, 0, 0);
     sem_init (&sem_child, 0, 0);
-    pthread_create(&id1, NULL, high_load, NULL);
-    pthread_create(&id2, NULL, do_signal, NULL);
-#if !defined(__APPLE__)
-    pthread_create(&id3, NULL, do_fork, NULL);
+    pthread_create(&id1, عدم, بەرز_load, عدم);
+    pthread_create(&id2, عدم, do_signal, عدم);
+#إذا !defined(__APPLE__)
+    pthread_create(&id3, عدم, do_fork, عدم);
 #endif
 
     /* sleep does not work !!! */
     end = getclock_ms() + 200;
-    while (getclock_ms() < end) ;
+    طالما (getclock_ms() < end) ;
     run = 0;
 
-    pthread_join(id1, NULL);
-    pthread_join(id2, NULL);
-#if !defined(__APPLE__)
-    pthread_join(id3, NULL);
+    pthread_join(id1, عدم);
+    pthread_join(id2, عدم);
+#إذا !defined(__APPLE__)
+    pthread_join(id3, عدم);
 #endif
     sem_destroy (&sem);
     sem_destroy (&sem_child);
@@ -139,17 +139,17 @@ main (void)
     printf ("end\n"); fflush(stdout);
 
     sigemptyset (&m);
-    sigprocmask (SIG_SETMASK, &m, NULL);
-    if (sigsetjmp (sj, 0) == 0)
+    sigprocmask (SIG_SETMASK, &m, عدم);
+    إذا (sigsetjmp (sj, 0) == 0)
     {
         sigaddset (&m, SIGUSR1);
-        sigprocmask (SIG_SETMASK, &m, NULL);
+        sigprocmask (SIG_SETMASK, &m, عدم);
         siglongjmp (sj, 1);
         printf ("failed");
-        return 1;
+        أرجع 1;
     }
-    sigprocmask (SIG_SETMASK, NULL, &m);
-    if (!sigismember (&m, SIGUSR1))
+    sigprocmask (SIG_SETMASK, عدم, &m);
+    إذا (!sigismember (&m, SIGUSR1))
         printf ("failed");
-    return 0;
+    أرجع 0;
 }

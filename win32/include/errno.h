@@ -6,19 +6,19 @@
 #ifndef _INC_ERRNO
 #define _INC_ERRNO
 
-#include <_mingw.h>
+#ضمن <_mingw.h>
 
 #ifdef __cplusplus
-extern "C" {
+خارجي "C" {
 #endif
 
 #ifndef _CRT_ERRNO_DEFINED
 #define _CRT_ERRNO_DEFINED
-  _CRTIMP int *__cdecl _errno(void);
+  _CRTIMP صحيح *__cdecl _errno(فراغ);
 #define errno (*_errno())
 
-  errno_t __cdecl _set_errno(int _Value);
-  errno_t __cdecl _get_errno(int *_Value);
+  errno_t __cdecl _set_errno(صحيح بەها_2);
+  errno_t __cdecl _get_errno(صحيح *بەها_2);
 #endif
 
 #define EPERM 1
@@ -58,8 +58,8 @@ extern "C" {
 #define ENOTEMPTY 41
 
 #ifndef RC_INVOKED
-#if !defined(_SECURECRT_ERRCODE_VALUES_DEFINED)
-#define _SECURECRT_ERRCODE_VALUES_DEFINED
+#إذا !defined(SECURECRT_ERRCODE_بەهاکان_DEFINED)
+#define SECURECRT_ERRCODE_بەهاکان_DEFINED
 #define EINVAL 22
 #define ERANGE 34
 #define EILSEQ 42

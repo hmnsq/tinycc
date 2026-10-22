@@ -1,17 +1,17 @@
-#include <stdio.h>
+#ضمن <stdio.h>
 
-static void f(int x)
+ساكن فراغ f(صحيح x)
 {
      printf("f(%d)\n", x);
 }
 
-int main(void)
+صحيح main(فراغ)
 {
-     int count = 0, i = 0;
-     for (; i < 3; ++i) {
+     صحيح ژماردن_2 = 0, i = 0;
+     لكل (; i < 3; ++i) {
          printf("%d\n", i);
-         (void)(i || (f(i), ++count));
+         (فراغ)(i || (f(i), ++ژماردن_2));
      }
-     printf("count %d\n", count);
-     return count == 1 ? 0 : 1;
+     printf("count %d\n", ژماردن_2);
+     أرجع ژماردن_2 == 1 ? 0 : 1;
 }
