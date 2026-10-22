@@ -1,21 +1,21 @@
-#include <stdio.h>
+#ಅನ್ತರ್ಭಾವ <stdio.h>
 
-int main()
+ಪೂರ್ಣಾಙ್ಕ main()
 {
-   int a = 1;
+   ಪೂರ್ಣಾಙ್ಕ a = 1;
 
-   if (a)
+   ಯದಿ (a)
       printf("a is true\n");
-   else
+   ಅನ್ಯಥಾ
       printf("a is false\n");
 
-   int b = 0;
-   if (b)
+   ಪೂರ್ಣಾಙ್ಕ b = 0;
+   ಯದಿ (b)
       printf("b is true\n");
-   else
+   ಅನ್ಯಥಾ
       printf("b is false\n");
 
-   return 0;
+   ಪ್ರತ್ಯಾಗಮ 0;
 }
 
 // vim: set expandtab ts=4 sw=3 sts=3 tw=80 :

@@ -1,24 +1,24 @@
-#include <stdio.h>
+#ಅನ್ತರ್ಭಾವ <stdio.h>
 
-void fred()
+ಶೂನ್ಯ fred()
 {
    printf("In fred()\n");
-   goto done;
+   ಗಚ್ಛ done;
    printf("In middle\n");
 done:
    printf("At end\n");
 }
 
-void joe()
+ಶೂನ್ಯ joe()
 {
-   int b = 5678;
+   ಪೂರ್ಣಾಙ್ಕ b = 5678;
 
    printf("In joe()\n");
 
    {
-      int c = 1234;
+      ಪೂರ್ಣಾಙ್ಕ c = 1234;
       printf("c = %d\n", c);
-      goto outer;
+      ಗಚ್ಛ outer;
       printf("uh-oh\n");
    }
 
@@ -27,15 +27,15 @@ outer:
    printf("done\n");
 }
 
-void henry()
+ಶೂನ್ಯ henry()
 {
-   int a;
+   ಪೂರ್ಣಾಙ್ಕ a;
 
    printf("In henry()\n");
-   goto inner;
+   ಗಚ್ಛ inner;
 
    {
-      int b;
+      ಪೂರ್ಣಾಙ್ಕ b;
 inner:    
       b = 1234;
       printf("b = %d\n", b);
@@ -44,13 +44,13 @@ inner:
    printf("done\n");
 }
 
-int main()
+ಪೂರ್ಣಾಙ್ಕ main()
 {
    fred();
    joe();
    henry();
 
-   return 0;
+   ಪ್ರತ್ಯಾಗಮ 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

@@ -1,25 +1,25 @@
-#include <stdio.h>
+#ಅನ್ತರ್ಭಾವ <stdio.h>
 
-extern int Array3[10];
-int Array3[] = { 12, 34, };
-int main()
+ಬಾಹ್ಯ ಪೂರ್ಣಾಙ್ಕ Array3[10];
+ಪೂರ್ಣಾಙ್ಕ Array3[] = { 12, 34, };
+ಪೂರ್ಣಾಙ್ಕ main()
 {
-   int Count;
+   ಪೂರ್ಣಾಙ್ಕ ಎಣಿಕೆ_3;
 
-   int Array[10] = { 12, 34, 56, 78, 90, 123, 456, 789, 8642, 9753 };
+   ಪೂರ್ಣಾಙ್ಕ Array[10] = { 12, 34, 56, 78, 90, 123, 456, 789, 8642, 9753 };
 
-   for (Count = 0; Count < 10; Count++)
-      printf("%d: %d\n", Count, Array[Count]);
+   ಪ್ರತಿ (ಎಣಿಕೆ_3 = 0; ಎಣಿಕೆ_3 < 10; ಎಣಿಕೆ_3++)
+      printf("%d: %d\n", ಎಣಿಕೆ_3, Array[ಎಣಿಕೆ_3]);
 
-   int Array2[10] = { 12, 34, 56, 78, 90, 123, 456, 789, 8642, 9753, };
+   ಪೂರ್ಣಾಙ್ಕ Array2[10] = { 12, 34, 56, 78, 90, 123, 456, 789, 8642, 9753, };
 
-   for (Count = 0; Count < 10; Count++)
-      printf("%d: %d\n", Count, Array2[Count]);
+   ಪ್ರತಿ (ಎಣಿಕೆ_3 = 0; ಎಣಿಕೆ_3 < 10; ಎಣಿಕೆ_3++)
+      printf("%d: %d\n", ಎಣಿಕೆ_3, Array2[ಎಣಿಕೆ_3]);
 
-   for (Count = 0; Count < 10; Count++)
-      printf("%d: %d\n", Count, Array3[Count]);
+   ಪ್ರತಿ (ಎಣಿಕೆ_3 = 0; ಎಣಿಕೆ_3 < 10; ಎಣಿಕೆ_3++)
+      printf("%d: %d\n", ಎಣಿಕೆ_3, Array3[ಎಣಿಕೆ_3]);
 
-   return 0;
+   ಪ್ರತ್ಯಾಗಮ 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

@@ -10,56 +10,56 @@
 #error Only Win32 target is supported!
 #endif
 
-#include <_mingw.h>
-#include <io.h>
+#ಅನ್ತರ್ಭಾವ <_mingw.h>
+#ಅನ್ತರ್ಭಾವ <io.h>
 
-#pragma pack(push,_CRT_PACKING)
+#pragma pack(ತಳ್ಳು,_CRT_PACKING)
 
 #ifdef __cplusplus
-extern "C" {
+ಬಾಹ್ಯ "C" {
 #endif
 
 #ifndef _CRTIMP
 #define _CRTIMP __declspec(dllimport)
 #endif
 
-#include <sys/types.h>
+#ಅನ್ತರ್ಭಾವ <sys/types.h>
 
 #ifndef __TINYC__ /* gr */
 #ifdef _USE_32BIT_TIME_T
 #ifdef _WIN64
 #undef _USE_32BIT_TIME_T
 #endif
-#else
-#if _INTEGRAL_MAX_BITS < 64
+#ಅನ್ಯಥಾ
+#ಯದಿ _INTEGRAL_MAX_BITS < 64
 #define _USE_32BIT_TIME_T
 #endif
 #endif
 #endif
 
 #ifndef _TIME32_T_DEFINED
-  typedef long __time32_t;
+  ಪ್ರಕಾರನಿರ್ದೇಶ long __time32_t;
 #define _TIME32_T_DEFINED
 #endif
 
 #ifndef _TIME64_T_DEFINED
-#if _INTEGRAL_MAX_BITS >= 64
-  typedef __int64 __time64_t;
+#ಯದಿ _INTEGRAL_MAX_BITS >= 64
+  ಪ್ರಕಾರನಿರ್ದೇಶ __int64 __time64_t;
 #endif
 #define _TIME64_T_DEFINED
 #endif
 
 #ifndef _TIME_T_DEFINED
 #ifdef _USE_32BIT_TIME_T
-  typedef __time32_t time_t;
-#else
-  typedef __time64_t time_t;
+  ಪ್ರಕಾರನಿರ್ದೇಶ __time32_t time_t;
+#ಅನ್ಯಥಾ
+  ಪ್ರಕಾರನಿರ್ದೇಶ __time64_t time_t;
 #endif
 #define _TIME_T_DEFINED
 #endif
 
 #ifndef _WCHAR_T_DEFINED
-  typedef unsigned short wchar_t;
+  ಪ್ರಕಾರನಿರ್ದೇಶ unsigned short wchar_t;
 #define _WCHAR_T_DEFINED
 #endif
 
@@ -70,7 +70,7 @@ extern "C" {
 #define _fstat32 _fstat
 #define _stat32 _stat
 #define _wstat32 _wstat
-#else
+#ಅನ್ಯಥಾ
 #define _fstat _fstat32
 #define _stat _stat32
 #define _wstat _wstat32
@@ -78,7 +78,7 @@ extern "C" {
 #define _fstati64 _fstat32i64
 #define _stati64 _stat32i64
 #define _wstati64 _wstat32i64
-#else
+#ಅನ್ಯಥಾ
 #define _fstat _fstat64i32
 #define _fstati64 _fstat64
 #define _stat _stat64
@@ -87,7 +87,7 @@ extern "C" {
 #define _wstati64 _wstat64
 #endif
 
-  struct _stat32 {
+  ಸಂರಚನಾ _stat32 {
     _dev_t st_dev;
     _ino_t st_ino;
     unsigned short st_mode;
@@ -102,7 +102,7 @@ extern "C" {
   };
 
 #ifndef	NO_OLDNAMES
-  struct stat {
+  ಸಂರಚನಾ stat {
     _dev_t st_dev;
     _ino_t st_ino;
     unsigned short st_mode;
@@ -117,8 +117,8 @@ extern "C" {
   };
 #endif
 
-#if _INTEGRAL_MAX_BITS >= 64
-  struct _stat32i64 {
+#ಯದಿ _INTEGRAL_MAX_BITS >= 64
+  ಸಂರಚನಾ _stat32i64 {
     _dev_t st_dev;
     _ino_t st_ino;
     unsigned short st_mode;
@@ -132,7 +132,7 @@ extern "C" {
     __time32_t st_ctime;
   };
 
-  struct _stat64i32 {
+  ಸಂರಚನಾ _stat64i32 {
     _dev_t st_dev;
     _ino_t st_ino;
     unsigned short st_mode;
@@ -146,7 +146,7 @@ extern "C" {
     __time64_t st_ctime;
   };
 
-  struct _stat64 {
+  ಸಂರಚನಾ _stat64 {
     _dev_t st_dev;
     _ino_t st_ino;
     unsigned short st_mode;
@@ -175,16 +175,16 @@ extern "C" {
 #define _S_IWRITE 0x0080
 #define _S_IEXEC 0x0040
 
-  _CRTIMP int __cdecl _fstat32(int _FileDes,struct _stat32 *_Stat);
-  _CRTIMP int __cdecl _stat32(const char *_Name,struct _stat32 *_Stat);
-#if _INTEGRAL_MAX_BITS >= 64
-  _CRTIMP int __cdecl _fstat64(int _FileDes,struct _stat64 *_Stat);
-  _CRTIMP int __cdecl _fstat32i64(int _FileDes,struct _stat32i64 *_Stat);
-  int __cdecl _fstat64i32(int _FileDes,struct _stat64i32 *_Stat);
-  __CRT_INLINE int __cdecl _fstat64i32(int _FileDes,struct _stat64i32 *_Stat)
+  _CRTIMP ಪೂರ್ಣಾಙ್ಕ __cdecl _fstat32(ಪೂರ್ಣಾಙ್ಕ _FileDes,ಸಂರಚನಾ _stat32 *_Stat);
+  _CRTIMP ಪೂರ್ಣಾಙ್ಕ __cdecl _stat32(ಧ್ರುವ ವರ್ಣ *_Name,ಸಂರಚನಾ _stat32 *_Stat);
+#ಯದಿ _INTEGRAL_MAX_BITS >= 64
+  _CRTIMP ಪೂರ್ಣಾಙ್ಕ __cdecl _fstat64(ಪೂರ್ಣಾಙ್ಕ _FileDes,ಸಂರಚನಾ _stat64 *_Stat);
+  _CRTIMP ಪೂರ್ಣಾಙ್ಕ __cdecl _fstat32i64(ಪೂರ್ಣಾಙ್ಕ _FileDes,ಸಂರಚನಾ _stat32i64 *_Stat);
+  ಪೂರ್ಣಾಙ್ಕ __cdecl _fstat64i32(ಪೂರ್ಣಾಙ್ಕ _FileDes,ಸಂರಚನಾ _stat64i32 *_Stat);
+  __CRT_INLINE ಪೂರ್ಣಾಙ್ಕ __cdecl _fstat64i32(ಪೂರ್ಣಾಙ್ಕ _FileDes,ಸಂರಚನಾ _stat64i32 *_Stat)
   {
-    struct _stat64 st;
-    int ret=_fstat64(_FileDes,&st);
+    ಸಂರಚನಾ _stat64 st;
+    ಪೂರ್ಣಾಙ್ಕ ret=_fstat64(_FileDes,&st);
     _Stat->st_dev=st.st_dev;
     _Stat->st_ino=st.st_ino;
     _Stat->st_mode=st.st_mode;
@@ -196,15 +196,15 @@ extern "C" {
     _Stat->st_atime=st.st_atime;
     _Stat->st_mtime=st.st_mtime;
     _Stat->st_ctime=st.st_ctime;
-    return ret;
+    ಪ್ರತ್ಯಾಗಮ ret;
   }
-  _CRTIMP int __cdecl _stat64(const char *_Name,struct _stat64 *_Stat);
-  _CRTIMP int __cdecl _stat32i64(const char *_Name,struct _stat32i64 *_Stat);
-  int __cdecl _stat64i32(const char *_Name,struct _stat64i32 *_Stat);
-  __CRT_INLINE int __cdecl _stat64i32(const char *_Name,struct _stat64i32 *_Stat)
+  _CRTIMP ಪೂರ್ಣಾಙ್ಕ __cdecl _stat64(ಧ್ರುವ ವರ್ಣ *_Name,ಸಂರಚನಾ _stat64 *_Stat);
+  _CRTIMP ಪೂರ್ಣಾಙ್ಕ __cdecl _stat32i64(ಧ್ರುವ ವರ್ಣ *_Name,ಸಂರಚನಾ _stat32i64 *_Stat);
+  ಪೂರ್ಣಾಙ್ಕ __cdecl _stat64i32(ಧ್ರುವ ವರ್ಣ *_Name,ಸಂರಚನಾ _stat64i32 *_Stat);
+  __CRT_INLINE ಪೂರ್ಣಾಙ್ಕ __cdecl _stat64i32(ಧ್ರುವ ವರ್ಣ *_Name,ಸಂರಚನಾ _stat64i32 *_Stat)
   {
-    struct _stat64 st;
-    int ret=_stat64(_Name,&st);
+    ಸಂರಚನಾ _stat64 st;
+    ಪೂರ್ಣಾಙ್ಕ ret=_stat64(_Name,&st);
     _Stat->st_dev=st.st_dev;
     _Stat->st_ino=st.st_ino;
     _Stat->st_mode=st.st_mode;
@@ -216,17 +216,17 @@ extern "C" {
     _Stat->st_atime=st.st_atime;
     _Stat->st_mtime=st.st_mtime;
     _Stat->st_ctime=st.st_ctime;
-    return ret;
+    ಪ್ರತ್ಯಾಗಮ ret;
   }
 #endif
 
 #ifndef _WSTAT_DEFINED
 #define _WSTAT_DEFINED
-  _CRTIMP int __cdecl _wstat32(const wchar_t *_Name,struct _stat32 *_Stat);
-#if _INTEGRAL_MAX_BITS >= 64
-  _CRTIMP int __cdecl _wstat32i64(const wchar_t *_Name,struct _stat32i64 *_Stat);
-  int __cdecl _wstat64i32(const wchar_t *_Name,struct _stat64i32 *_Stat);
-  _CRTIMP int __cdecl _wstat64(const wchar_t *_Name,struct _stat64 *_Stat);
+  _CRTIMP ಪೂರ್ಣಾಙ್ಕ __cdecl _wstat32(ಧ್ರುವ wchar_t *_Name,ಸಂರಚನಾ _stat32 *_Stat);
+#ಯದಿ _INTEGRAL_MAX_BITS >= 64
+  _CRTIMP ಪೂರ್ಣಾಙ್ಕ __cdecl _wstat32i64(ಧ್ರುವ wchar_t *_Name,ಸಂರಚನಾ _stat32i64 *_Stat);
+  ಪೂರ್ಣಾಙ್ಕ __cdecl _wstat64i32(ಧ್ರುವ wchar_t *_Name,ಸಂರಚನಾ _stat64i32 *_Stat);
+  _CRTIMP ಪೂರ್ಣಾಙ್ಕ __cdecl _wstat64(ಧ್ರುವ wchar_t *_Name,ಸಂರಚನಾ _stat64 *_Stat);
 #endif
 #endif
 
@@ -261,23 +261,23 @@ extern "C" {
 
 #endif
 
-#if !defined (RC_INVOKED) && !defined (NO_OLDNAMES)
-int __cdecl stat(const char *_Filename,struct stat *_Stat);
-int __cdecl fstat(int _Desc,struct stat *_Stat);
-int __cdecl wstat(const wchar_t *_Filename,struct stat *_Stat);
+#ಯದಿ !defined (RC_INVOKED) && !defined (NO_OLDNAMES)
+ಪೂರ್ಣಾಙ್ಕ __cdecl stat(ಧ್ರುವ ವರ್ಣ *_Filename,ಸಂರಚನಾ stat *_Stat);
+ಪೂರ್ಣಾಙ್ಕ __cdecl fstat(ಪೂರ್ಣಾಙ್ಕ _Desc,ಸಂರಚನಾ stat *_Stat);
+ಪೂರ್ಣಾಙ್ಕ __cdecl wstat(ಧ್ರುವ wchar_t *_Filename,ಸಂರಚನಾ stat *_Stat);
 #ifdef _USE_32BIT_TIME_T
-__CRT_INLINE int __cdecl fstat(int _Desc,struct stat *_Stat) {
-  return _fstat32(_Desc,(struct _stat32 *)_Stat);
+__CRT_INLINE ಪೂರ್ಣಾಙ್ಕ __cdecl fstat(ಪೂರ್ಣಾಙ್ಕ _Desc,ಸಂರಚನಾ stat *_Stat) {
+  ಪ್ರತ್ಯಾಗಮ _fstat32(_Desc,(ಸಂರಚನಾ _stat32 *)_Stat);
 }
-__CRT_INLINE int __cdecl stat(const char *_Filename,struct stat *_Stat) {
-  return _stat32(_Filename,(struct _stat32 *)_Stat);
+__CRT_INLINE ಪೂರ್ಣಾಙ್ಕ __cdecl stat(ಧ್ರುವ ವರ್ಣ *_Filename,ಸಂರಚನಾ stat *_Stat) {
+  ಪ್ರತ್ಯಾಗಮ _stat32(_Filename,(ಸಂರಚನಾ _stat32 *)_Stat);
 }
-#else
-__CRT_INLINE int __cdecl fstat(int _Desc,struct stat *_Stat) {
-  return _fstat64i32(_Desc,(struct _stat64i32 *)_Stat);
+#ಅನ್ಯಥಾ
+__CRT_INLINE ಪೂರ್ಣಾಙ್ಕ __cdecl fstat(ಪೂರ್ಣಾಙ್ಕ _Desc,ಸಂರಚನಾ stat *_Stat) {
+  ಪ್ರತ್ಯಾಗಮ _fstat64i32(_Desc,(ಸಂರಚನಾ _stat64i32 *)_Stat);
 }
-__CRT_INLINE int __cdecl stat(const char *_Filename,struct stat *_Stat) {
-  return _stat64i32(_Filename,(struct _stat64i32 *)_Stat);
+__CRT_INLINE ಪೂರ್ಣಾಙ್ಕ __cdecl stat(ಧ್ರುವ ವರ್ಣ *_Filename,ಸಂರಚನಾ stat *_Stat) {
+  ಪ್ರತ್ಯಾಗಮ _stat64i32(_Filename,(ಸಂರಚನಾ _stat64i32 *)_Stat);
 }
 #endif
 #endif
@@ -286,5 +286,5 @@ __CRT_INLINE int __cdecl stat(const char *_Filename,struct stat *_Stat) {
 }
 #endif
 
-#pragma pack(pop)
+#pragma pack(ತೆಗೆ)
 #endif

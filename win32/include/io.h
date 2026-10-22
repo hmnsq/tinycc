@@ -7,61 +7,61 @@
 #ifndef _IO_H_
 #define _IO_H_
 
-#include <_mingw.h>
-#include <string.h>
+#ಅನ್ತರ್ಭಾವ <_mingw.h>
+#ಅನ್ತರ್ಭಾವ <string.h>
 
-#pragma pack(push,_CRT_PACKING)
+#pragma pack(ತಳ್ಳು,_CRT_PACKING)
 
 #ifndef _POSIX_
 
 #ifdef __cplusplus
-extern "C" {
+ಬಾಹ್ಯ "C" {
 #endif
 
-_CRTIMP char* __cdecl _getcwd (char*, int);
+_CRTIMP ವರ್ಣ* __cdecl _getcwd (ವರ್ಣ*, ಪೂರ್ಣಾಙ್ಕ);
 #ifndef _FSIZE_T_DEFINED
-  typedef unsigned long _fsize_t;
+  ಪ್ರಕಾರನಿರ್ದೇಶ unsigned long _fsize_t;
 #define _FSIZE_T_DEFINED
 #endif
 
 #ifndef _FINDDATA_T_DEFINED
 
-  struct _finddata32_t {
+  ಸಂರಚನಾ _finddata32_t {
     unsigned attrib;
     __time32_t time_create;
     __time32_t time_access;
     __time32_t time_write;
     _fsize_t size;
-    char name[260];
+    ವರ್ಣ name[260];
   };
 
 /*#if _INTEGRAL_MAX_BITS >= 64*/
 
-  struct _finddata32i64_t {
+  ಸಂರಚನಾ _finddata32i64_t {
     unsigned attrib;
     __time32_t time_create;
     __time32_t time_access;
     __time32_t time_write;
     __int64 size;
-    char name[260];
+    ವರ್ಣ name[260];
   };
 
-  struct _finddata64i32_t {
+  ಸಂರಚನಾ _finddata64i32_t {
     unsigned attrib;
     __time64_t time_create;
     __time64_t time_access;
     __time64_t time_write;
     _fsize_t size;
-    char name[260];
+    ವರ್ಣ name[260];
   };
 
-  struct __finddata64_t {
+  ಸಂರಚನಾ __finddata64_t {
     unsigned attrib;
     __time64_t time_create;
     __time64_t time_access;
     __time64_t time_write;
     __int64 size;
-    char name[260];
+    ವರ್ಣ name[260];
   };
 /* #endif */
 
@@ -72,13 +72,13 @@ _CRTIMP char* __cdecl _getcwd (char*, int);
 #ifdef _WIN64
 #define _findfirst _findfirst32
 #define _findnext _findnext32
-#else
+#ಅನ್ಯಥಾ
 #define _findfirst32 _findfirst
 #define _findnext32 _findnext
 #endif
 #define _findfirsti64 _findfirst32i64
 #define _findnexti64 _findnext32i64
-#else
+#ಅನ್ಯಥಾ
 #define _finddata_t _finddata64i32_t
 #define _finddatai64_t __finddata64_t
 
@@ -93,7 +93,7 @@ _CRTIMP char* __cdecl _getcwd (char*, int);
 
 #ifndef _WFINDDATA_T_DEFINED
 
-  struct _wfinddata32_t {
+  ಸಂರಚನಾ _wfinddata32_t {
     unsigned attrib;
     __time32_t time_create;
     __time32_t time_access;
@@ -104,7 +104,7 @@ _CRTIMP char* __cdecl _getcwd (char*, int);
 
 /* #if _INTEGRAL_MAX_BITS >= 64 */
 
-  struct _wfinddata32i64_t {
+  ಸಂರಚನಾ _wfinddata32i64_t {
     unsigned attrib;
     __time32_t time_create;
     __time32_t time_access;
@@ -113,7 +113,7 @@ _CRTIMP char* __cdecl _getcwd (char*, int);
     wchar_t name[260];
   };
 
-  struct _wfinddata64i32_t {
+  ಸಂರಚನಾ _wfinddata64i32_t {
     unsigned attrib;
     __time64_t time_create;
     __time64_t time_access;
@@ -122,7 +122,7 @@ _CRTIMP char* __cdecl _getcwd (char*, int);
     wchar_t name[260];
   };
 
-  struct _wfinddata64_t {
+  ಸಂರಚನಾ _wfinddata64_t {
     unsigned attrib;
     __time64_t time_create;
     __time64_t time_access;
@@ -140,7 +140,7 @@ _CRTIMP char* __cdecl _getcwd (char*, int);
 #define _wfindnext _wfindnext32
 #define _wfindfirsti64 _wfindfirst32i64
 #define _wfindnexti64 _wfindnext32i64
-#else
+#ಅನ್ಯಥಾ
 #define _wfinddata_t _wfinddata64i32_t
 #define _wfinddatai64_t _wfinddata64_t
 
@@ -164,13 +164,13 @@ _CRTIMP char* __cdecl _getcwd (char*, int);
 #define _SIZE_T_DEFINED
 #undef size_t
 #ifdef _WIN64
-#if defined(__GNUC__) && defined(__STRICT_ANSI__)
-  typedef unsigned int size_t __attribute__ ((mode (DI)));
-#else
-  typedef unsigned __int64 size_t;
+#ಯದಿ defined(__GNUC__) && defined(__STRICT_ANSI__)
+  ಪ್ರಕಾರನಿರ್ದೇಶ unsigned ಪೂರ್ಣಾಙ್ಕ size_t __attribute__ ((mode (DI)));
+#ಅನ್ಯಥಾ
+  ಪ್ರಕಾರನಿರ್ದೇಶ unsigned __int64 size_t;
 #endif
-#else
-  typedef unsigned int size_t;
+#ಅನ್ಯಥಾ
+  ಪ್ರಕಾರನಿರ್ದೇಶ unsigned ಪೂರ್ಣಾಙ್ಕ size_t;
 #endif
 #endif
 
@@ -178,13 +178,13 @@ _CRTIMP char* __cdecl _getcwd (char*, int);
 #define _SSIZE_T_DEFINED
 #undef ssize_t
 #ifdef _WIN64
-#if defined(__GNUC__) && defined(__STRICT_ANSI__)
-  typedef int ssize_t __attribute__ ((mode (DI)));
-#else
-  typedef __int64 ssize_t;
+#ಯದಿ defined(__GNUC__) && defined(__STRICT_ANSI__)
+  ಪ್ರಕಾರನಿರ್ದೇಶ ಪೂರ್ಣಾಙ್ಕ ssize_t __attribute__ ((mode (DI)));
+#ಅನ್ಯಥಾ
+  ಪ್ರಕಾರನಿರ್ದೇಶ __int64 ssize_t;
 #endif
-#else
-  typedef int ssize_t;
+#ಅನ್ಯಥಾ
+  ಪ್ರಕಾರನಿರ್ದೇಶ ಪೂರ್ಣಾಙ್ಕ ssize_t;
 #endif
 #endif
 
@@ -192,24 +192,24 @@ _CRTIMP char* __cdecl _getcwd (char*, int);
 #define _OFF_T_DEFINED
 #ifndef _OFF_T_
 #define _OFF_T_
-  typedef long _off_t;
-#if !defined(NO_OLDNAMES) || defined(_POSIX)
-  typedef long off_t;
+  ಪ್ರಕಾರನಿರ್ದೇಶ long _off_t;
+#ಯದಿ !defined(NO_OLDNAMES) || defined(_POSIX)
+  ಪ್ರಕಾರನಿರ್ದೇಶ long off_t;
 #endif
 #endif
 #endif
 
 #ifndef _OFF64_T_DEFINED
 #define _OFF64_T_DEFINED
-#if defined(__GNUC__) && defined(__STRICT_ANSI__)
-  typedef int _off64_t __attribute__ ((mode (DI)));
-#if !defined(NO_OLDNAMES) || defined(_POSIX)
-  typedef int off64_t __attribute__ ((mode (DI)));
+#ಯದಿ defined(__GNUC__) && defined(__STRICT_ANSI__)
+  ಪ್ರಕಾರನಿರ್ದೇಶ ಪೂರ್ಣಾಙ್ಕ _off64_t __attribute__ ((mode (DI)));
+#ಯದಿ !defined(NO_OLDNAMES) || defined(_POSIX)
+  ಪ್ರಕಾರನಿರ್ದೇಶ ಪೂರ್ಣಾಙ್ಕ off64_t __attribute__ ((mode (DI)));
 #endif
-#else
-  typedef long long _off64_t;
-#if !defined(NO_OLDNAMES) || defined(_POSIX)
-  typedef long long off64_t;
+#ಅನ್ಯಥಾ
+  ಪ್ರಕಾರನಿರ್ದೇಶ long long _off64_t;
+#ಯದಿ !defined(NO_OLDNAMES) || defined(_POSIX)
+  ಪ್ರಕಾರನಿರ್ದೇಶ long long off64_t;
 #endif
 #endif
 #endif
@@ -221,53 +221,53 @@ _CRTIMP char* __cdecl _getcwd (char*, int);
 #define	W_OK	2	/* Check for write permission */
 #define	R_OK	4	/* Check for read permission */
 
-  _CRTIMP int __cdecl _access(const char *_Filename,int _AccessMode);
-  _CRTIMP int __cdecl _chmod(const char *_Filename,int _Mode);
-  _CRTIMP int __cdecl _chsize(int _FileHandle,long _Size);
-  _CRTIMP int __cdecl _close(int _FileHandle);
-  _CRTIMP int __cdecl _commit(int _FileHandle);
-  _CRTIMP int __cdecl _creat(const char *_Filename,int _PermissionMode);
-  _CRTIMP int __cdecl _dup(int _FileHandle);
-  _CRTIMP int __cdecl _dup2(int _FileHandleSrc,int _FileHandleDst);
-  _CRTIMP int __cdecl _eof(int _FileHandle);
-  _CRTIMP long __cdecl _filelength(int _FileHandle);
-  _CRTIMP intptr_t __cdecl _findfirst32(const char *_Filename,struct _finddata32_t *_FindData);
-  _CRTIMP int __cdecl _findnext32(intptr_t _FindHandle,struct _finddata32_t *_FindData);
-  _CRTIMP int __cdecl _findclose(intptr_t _FindHandle);
-  _CRTIMP int __cdecl _isatty(int _FileHandle);
-  _CRTIMP int __cdecl _locking(int _FileHandle,int _LockMode,long _NumOfBytes);
-  _CRTIMP long __cdecl _lseek(int _FileHandle,long _Offset,int _Origin);
-  _off64_t lseek64(int fd,_off64_t offset, int whence);
-  _CRTIMP char *__cdecl _mktemp(char *_TemplateName);
-  _CRTIMP int __cdecl _pipe(int *_PtHandles,unsigned int _PipeSize,int _TextMode);
-  _CRTIMP int __cdecl _read(int _FileHandle,void *_DstBuf,unsigned int _MaxCharCount);
+  _CRTIMP ಪೂರ್ಣಾಙ್ಕ __cdecl _access(ಧ್ರುವ ವರ್ಣ *_Filename,ಪೂರ್ಣಾಙ್ಕ _AccessMode);
+  _CRTIMP ಪೂರ್ಣಾಙ್ಕ __cdecl _chmod(ಧ್ರುವ ವರ್ಣ *_Filename,ಪೂರ್ಣಾಙ್ಕ _Mode);
+  _CRTIMP ಪೂರ್ಣಾಙ್ಕ __cdecl _chsize(ಪೂರ್ಣಾಙ್ಕ _FileHandle,long _Size);
+  _CRTIMP ಪೂರ್ಣಾಙ್ಕ __cdecl _close(ಪೂರ್ಣಾಙ್ಕ _FileHandle);
+  _CRTIMP ಪೂರ್ಣಾಙ್ಕ __cdecl _commit(ಪೂರ್ಣಾಙ್ಕ _FileHandle);
+  _CRTIMP ಪೂರ್ಣಾಙ್ಕ __cdecl _creat(ಧ್ರುವ ವರ್ಣ *_Filename,ಪೂರ್ಣಾಙ್ಕ _PermissionMode);
+  _CRTIMP ಪೂರ್ಣಾಙ್ಕ __cdecl _dup(ಪೂರ್ಣಾಙ್ಕ _FileHandle);
+  _CRTIMP ಪೂರ್ಣಾಙ್ಕ __cdecl _dup2(ಪೂರ್ಣಾಙ್ಕ _FileHandleSrc,ಪೂರ್ಣಾಙ್ಕ _FileHandleDst);
+  _CRTIMP ಪೂರ್ಣಾಙ್ಕ __cdecl _eof(ಪೂರ್ಣಾಙ್ಕ _FileHandle);
+  _CRTIMP long __cdecl _filelength(ಪೂರ್ಣಾಙ್ಕ _FileHandle);
+  _CRTIMP intptr_t __cdecl _findfirst32(ಧ್ರುವ ವರ್ಣ *_Filename,ಸಂರಚನಾ _finddata32_t *_FindData);
+  _CRTIMP ಪೂರ್ಣಾಙ್ಕ __cdecl _findnext32(intptr_t _FindHandle,ಸಂರಚನಾ _finddata32_t *_FindData);
+  _CRTIMP ಪೂರ್ಣಾಙ್ಕ __cdecl _findclose(intptr_t _FindHandle);
+  _CRTIMP ಪೂರ್ಣಾಙ್ಕ __cdecl _isatty(ಪೂರ್ಣಾಙ್ಕ _FileHandle);
+  _CRTIMP ಪೂರ್ಣಾಙ್ಕ __cdecl _locking(ಪೂರ್ಣಾಙ್ಕ _FileHandle,ಪೂರ್ಣಾಙ್ಕ _LockMode,long ಅಂಕೆ_Of_Bytes);
+  _CRTIMP long __cdecl _lseek(ಪೂರ್ಣಾಙ್ಕ _FileHandle,long _Offset,ಪೂರ್ಣಾಙ್ಕ _Origin);
+  _off64_t lseek64(ಪೂರ್ಣಾಙ್ಕ fd,_off64_t offset, ಪೂರ್ಣಾಙ್ಕ whence);
+  _CRTIMP ವರ್ಣ *__cdecl _mktemp(ವರ್ಣ *_TemplateName);
+  _CRTIMP ಪೂರ್ಣಾಙ್ಕ __cdecl _pipe(ಪೂರ್ಣಾಙ್ಕ *_PtHandles,unsigned ಪೂರ್ಣಾಙ್ಕ _PipeSize,ಪೂರ್ಣಾಙ್ಕ _TextMode);
+  _CRTIMP ಪೂರ್ಣಾಙ್ಕ __cdecl _read(ಪೂರ್ಣಾಙ್ಕ _FileHandle,ಶೂನ್ಯ *_DstBuf,unsigned ಪೂರ್ಣಾಙ್ಕ Max_Char_ಎಣಿಕೆ);
 
 #ifndef _CRT_DIRECTORY_DEFINED
 #define _CRT_DIRECTORY_DEFINED
-  int __cdecl remove(const char *_Filename);
-  int __cdecl rename(const char *_OldFilename,const char *_NewFilename);
-  _CRTIMP int __cdecl _unlink(const char *_Filename);
+  ಪೂರ್ಣಾಙ್ಕ __cdecl remove(ಧ್ರುವ ವರ್ಣ *_Filename);
+  ಪೂರ್ಣಾಙ್ಕ __cdecl rename(ಧ್ರುವ ವರ್ಣ *_OldFilename,ಧ್ರುವ ವರ್ಣ *_NewFilename);
+  _CRTIMP ಪೂರ್ಣಾಙ್ಕ __cdecl _unlink(ಧ್ರುವ ವರ್ಣ *_Filename);
 #ifndef	NO_OLDNAMES
-  int __cdecl unlink(const char *_Filename);
+  ಪೂರ್ಣಾಙ್ಕ __cdecl unlink(ಧ್ರುವ ವರ್ಣ *_Filename);
 #endif
 #endif
 
-  _CRTIMP int __cdecl _setmode(int _FileHandle,int _Mode);
-  _CRTIMP long __cdecl _tell(int _FileHandle);
-  _CRTIMP int __cdecl _umask(int _Mode);
-  _CRTIMP int __cdecl _write(int _FileHandle,const void *_Buf,unsigned int _MaxCharCount);
+  _CRTIMP ಪೂರ್ಣಾಙ್ಕ __cdecl _setmode(ಪೂರ್ಣಾಙ್ಕ _FileHandle,ಪೂರ್ಣಾಙ್ಕ _Mode);
+  _CRTIMP long __cdecl _tell(ಪೂರ್ಣಾಙ್ಕ _FileHandle);
+  _CRTIMP ಪೂರ್ಣಾಙ್ಕ __cdecl _umask(ಪೂರ್ಣಾಙ್ಕ _Mode);
+  _CRTIMP ಪೂರ್ಣಾಙ್ಕ __cdecl _write(ಪೂರ್ಣಾಙ್ಕ _FileHandle,ಧ್ರುವ ಶೂನ್ಯ *_Buf,unsigned ಪೂರ್ಣಾಙ್ಕ Max_Char_ಎಣಿಕೆ);
 
-#if _INTEGRAL_MAX_BITS >= 64
-  _CRTIMP __int64 __cdecl _filelengthi64(int _FileHandle);
-  _CRTIMP intptr_t __cdecl _findfirst32i64(const char *_Filename,struct _finddata32i64_t *_FindData);
-  _CRTIMP intptr_t __cdecl _findfirst64(const char *_Filename,struct __finddata64_t *_FindData);
+#ಯದಿ _INTEGRAL_MAX_BITS >= 64
+  _CRTIMP __int64 __cdecl _filelengthi64(ಪೂರ್ಣಾಙ್ಕ _FileHandle);
+  _CRTIMP intptr_t __cdecl _findfirst32i64(ಧ್ರುವ ವರ್ಣ *_Filename,ಸಂರಚನಾ _finddata32i64_t *_FindData);
+  _CRTIMP intptr_t __cdecl _findfirst64(ಧ್ರುವ ವರ್ಣ *_Filename,ಸಂರಚನಾ __finddata64_t *_FindData);
 #ifdef __cplusplus
-#include <string.h>
+#ಅನ್ತರ್ಭಾವ <string.h>
 #endif
-  intptr_t __cdecl _findfirst64i32(const char *_Filename,struct _finddata64i32_t *_FindData);
-  __CRT_INLINE intptr_t __cdecl _findfirst64i32(const char *_Filename,struct _finddata64i32_t *_FindData)
+  intptr_t __cdecl _findfirst64i32(ಧ್ರುವ ವರ್ಣ *_Filename,ಸಂರಚನಾ _finddata64i32_t *_FindData);
+  __CRT_INLINE intptr_t __cdecl _findfirst64i32(ಧ್ರುವ ವರ್ಣ *_Filename,ಸಂರಚನಾ _finddata64i32_t *_FindData)
   {
-    struct __finddata64_t fd;
+    ಸಂರಚನಾ __finddata64_t fd;
     intptr_t ret = _findfirst64(_Filename,&fd);
     _FindData->attrib=fd.attrib;
     _FindData->time_create=fd.time_create;
@@ -275,107 +275,107 @@ _CRTIMP char* __cdecl _getcwd (char*, int);
     _FindData->time_write=fd.time_write;
     _FindData->size=(_fsize_t) fd.size;
     strncpy(_FindData->name,fd.name,260);
-    return ret;
+    ಪ್ರತ್ಯಾಗಮ ret;
   }
-  _CRTIMP int __cdecl _findnext32i64(intptr_t _FindHandle,struct _finddata32i64_t *_FindData);
-  _CRTIMP int __cdecl _findnext64(intptr_t _FindHandle,struct __finddata64_t *_FindData);
-  int __cdecl _findnext64i32(intptr_t _FindHandle,struct _finddata64i32_t *_FindData);
-  __CRT_INLINE int __cdecl _findnext64i32(intptr_t _FindHandle,struct _finddata64i32_t *_FindData)
+  _CRTIMP ಪೂರ್ಣಾಙ್ಕ __cdecl _findnext32i64(intptr_t _FindHandle,ಸಂರಚನಾ _finddata32i64_t *_FindData);
+  _CRTIMP ಪೂರ್ಣಾಙ್ಕ __cdecl _findnext64(intptr_t _FindHandle,ಸಂರಚನಾ __finddata64_t *_FindData);
+  ಪೂರ್ಣಾಙ್ಕ __cdecl _findnext64i32(intptr_t _FindHandle,ಸಂರಚನಾ _finddata64i32_t *_FindData);
+  __CRT_INLINE ಪೂರ್ಣಾಙ್ಕ __cdecl _findnext64i32(intptr_t _FindHandle,ಸಂರಚನಾ _finddata64i32_t *_FindData)
   {
-    struct __finddata64_t fd;
-    int ret = _findnext64(_FindHandle,&fd);
+    ಸಂರಚನಾ __finddata64_t fd;
+    ಪೂರ್ಣಾಙ್ಕ ret = _findnext64(_FindHandle,&fd);
     _FindData->attrib=fd.attrib;
     _FindData->time_create=fd.time_create;
     _FindData->time_access=fd.time_access;
     _FindData->time_write=fd.time_write;
     _FindData->size=(_fsize_t) fd.size;
     strncpy(_FindData->name,fd.name,260);
-    return ret;
+    ಪ್ರತ್ಯಾಗಮ ret;
   }
-  __int64 __cdecl _lseeki64(int _FileHandle,__int64 _Offset,int _Origin);
-  __int64 __cdecl _telli64(int _FileHandle);
+  __int64 __cdecl _lseeki64(ಪೂರ್ಣಾಙ್ಕ _FileHandle,__int64 _Offset,ಪೂರ್ಣಾಙ್ಕ _Origin);
+  __int64 __cdecl _telli64(ಪೂರ್ಣಾಙ್ಕ _FileHandle);
 #endif
 #ifndef NO_OLDNAMES
 
 #ifndef _UWIN
-  int __cdecl chdir (const char *);
-  char *__cdecl getcwd (char *, int);
-  int __cdecl mkdir (const char *);
-  char *__cdecl mktemp(char *);
-  int __cdecl rmdir (const char*);
-  int __cdecl chmod (const char *, int);
+  ಪೂರ್ಣಾಙ್ಕ __cdecl chdir (ಧ್ರುವ ವರ್ಣ *);
+  ವರ್ಣ *__cdecl getcwd (ವರ್ಣ *, ಪೂರ್ಣಾಙ್ಕ);
+  ಪೂರ್ಣಾಙ್ಕ __cdecl mkdir (ಧ್ರುವ ವರ್ಣ *);
+  ವರ್ಣ *__cdecl mktemp(ವರ್ಣ *);
+  ಪೂರ್ಣಾಙ್ಕ __cdecl rmdir (ಧ್ರುವ ವರ್ಣ*);
+  ಪೂರ್ಣಾಙ್ಕ __cdecl chmod (ಧ್ರುವ ವರ್ಣ *, ಪೂರ್ಣಾಙ್ಕ);
 #endif /* _UWIN */
 
 #endif /* Not NO_OLDNAMES */
 
-  _CRTIMP errno_t __cdecl _sopen_s(int *_FileHandle,const char *_Filename,int _OpenFlag,int _ShareFlag,int _PermissionMode);
+  _CRTIMP errno_t __cdecl _sopen_s(ಪೂರ್ಣಾಙ್ಕ *_FileHandle,ಧ್ರುವ ವರ್ಣ *_Filename,ಪೂರ್ಣಾಙ್ಕ _OpenFlag,ಪೂರ್ಣಾಙ್ಕ _ShareFlag,ಪೂರ್ಣಾಙ್ಕ _PermissionMode);
 
 #ifndef __cplusplus
-  _CRTIMP int __cdecl _open(const char *_Filename,int _OpenFlag,...);
-  _CRTIMP int __cdecl _sopen(const char *_Filename,int _OpenFlag,int _ShareFlag,...);
-#else
-  extern "C++" _CRTIMP int __cdecl _open(const char *_Filename,int _Openflag,int _PermissionMode = 0);
-  extern "C++" _CRTIMP int __cdecl _sopen(const char *_Filename,int _Openflag,int _ShareFlag,int _PermissionMode = 0);
+  _CRTIMP ಪೂರ್ಣಾಙ್ಕ __cdecl _open(ಧ್ರುವ ವರ್ಣ *_Filename,ಪೂರ್ಣಾಙ್ಕ _OpenFlag,...);
+  _CRTIMP ಪೂರ್ಣಾಙ್ಕ __cdecl _sopen(ಧ್ರುವ ವರ್ಣ *_Filename,ಪೂರ್ಣಾಙ್ಕ _OpenFlag,ಪೂರ್ಣಾಙ್ಕ _ShareFlag,...);
+#ಅನ್ಯಥಾ
+  ಬಾಹ್ಯ "C++" _CRTIMP ಪೂರ್ಣಾಙ್ಕ __cdecl _open(ಧ್ರುವ ವರ್ಣ *_Filename,ಪೂರ್ಣಾಙ್ಕ _Openflag,ಪೂರ್ಣಾಙ್ಕ _PermissionMode = 0);
+  ಬಾಹ್ಯ "C++" _CRTIMP ಪೂರ್ಣಾಙ್ಕ __cdecl _sopen(ಧ್ರುವ ವರ್ಣ *_Filename,ಪೂರ್ಣಾಙ್ಕ _Openflag,ಪೂರ್ಣಾಙ್ಕ _ShareFlag,ಪೂರ್ಣಾಙ್ಕ _PermissionMode = 0);
 #endif
 
 #ifndef _WIO_DEFINED
 #define _WIO_DEFINED
-  _CRTIMP int __cdecl _waccess(const wchar_t *_Filename,int _AccessMode);
-  _CRTIMP int __cdecl _wchmod(const wchar_t *_Filename,int _Mode);
-  _CRTIMP int __cdecl _wcreat(const wchar_t *_Filename,int _PermissionMode);
-  _CRTIMP intptr_t __cdecl _wfindfirst32(const wchar_t *_Filename,struct _wfinddata32_t *_FindData);
-  _CRTIMP int __cdecl _wfindnext32(intptr_t _FindHandle,struct _wfinddata32_t *_FindData);
-  _CRTIMP int __cdecl _wunlink(const wchar_t *_Filename);
-  _CRTIMP int __cdecl _wrename(const wchar_t *_NewFilename,const wchar_t *_OldFilename);
+  _CRTIMP ಪೂರ್ಣಾಙ್ಕ __cdecl _waccess(ಧ್ರುವ wchar_t *_Filename,ಪೂರ್ಣಾಙ್ಕ _AccessMode);
+  _CRTIMP ಪೂರ್ಣಾಙ್ಕ __cdecl _wchmod(ಧ್ರುವ wchar_t *_Filename,ಪೂರ್ಣಾಙ್ಕ _Mode);
+  _CRTIMP ಪೂರ್ಣಾಙ್ಕ __cdecl _wcreat(ಧ್ರುವ wchar_t *_Filename,ಪೂರ್ಣಾಙ್ಕ _PermissionMode);
+  _CRTIMP intptr_t __cdecl _wfindfirst32(ಧ್ರುವ wchar_t *_Filename,ಸಂರಚನಾ _wfinddata32_t *_FindData);
+  _CRTIMP ಪೂರ್ಣಾಙ್ಕ __cdecl _wfindnext32(intptr_t _FindHandle,ಸಂರಚನಾ _wfinddata32_t *_FindData);
+  _CRTIMP ಪೂರ್ಣಾಙ್ಕ __cdecl _wunlink(ಧ್ರುವ wchar_t *_Filename);
+  _CRTIMP ಪೂರ್ಣಾಙ್ಕ __cdecl _wrename(ಧ್ರುವ wchar_t *_NewFilename,ಧ್ರುವ wchar_t *_OldFilename);
   _CRTIMP wchar_t *__cdecl _wmktemp(wchar_t *_TemplateName);
 
-#if _INTEGRAL_MAX_BITS >= 64
-  _CRTIMP intptr_t __cdecl _wfindfirst32i64(const wchar_t *_Filename,struct _wfinddata32i64_t *_FindData);
-  intptr_t __cdecl _wfindfirst64i32(const wchar_t *_Filename,struct _wfinddata64i32_t *_FindData);
-  _CRTIMP intptr_t __cdecl _wfindfirst64(const wchar_t *_Filename,struct _wfinddata64_t *_FindData);
-  _CRTIMP int __cdecl _wfindnext32i64(intptr_t _FindHandle,struct _wfinddata32i64_t *_FindData);
-  int __cdecl _wfindnext64i32(intptr_t _FindHandle,struct _wfinddata64i32_t *_FindData);
-  _CRTIMP int __cdecl _wfindnext64(intptr_t _FindHandle,struct _wfinddata64_t *_FindData);
+#ಯದಿ _INTEGRAL_MAX_BITS >= 64
+  _CRTIMP intptr_t __cdecl _wfindfirst32i64(ಧ್ರುವ wchar_t *_Filename,ಸಂರಚನಾ _wfinddata32i64_t *_FindData);
+  intptr_t __cdecl _wfindfirst64i32(ಧ್ರುವ wchar_t *_Filename,ಸಂರಚನಾ _wfinddata64i32_t *_FindData);
+  _CRTIMP intptr_t __cdecl _wfindfirst64(ಧ್ರುವ wchar_t *_Filename,ಸಂರಚನಾ _wfinddata64_t *_FindData);
+  _CRTIMP ಪೂರ್ಣಾಙ್ಕ __cdecl _wfindnext32i64(intptr_t _FindHandle,ಸಂರಚನಾ _wfinddata32i64_t *_FindData);
+  ಪೂರ್ಣಾಙ್ಕ __cdecl _wfindnext64i32(intptr_t _FindHandle,ಸಂರಚನಾ _wfinddata64i32_t *_FindData);
+  _CRTIMP ಪೂರ್ಣಾಙ್ಕ __cdecl _wfindnext64(intptr_t _FindHandle,ಸಂರಚನಾ _wfinddata64_t *_FindData);
 #endif
 
-  _CRTIMP errno_t __cdecl _wsopen_s(int *_FileHandle,const wchar_t *_Filename,int _OpenFlag,int _ShareFlag,int _PermissionFlag);
+  _CRTIMP errno_t __cdecl _wsopen_s(ಪೂರ್ಣಾಙ್ಕ *_FileHandle,ಧ್ರುವ wchar_t *_Filename,ಪೂರ್ಣಾಙ್ಕ _OpenFlag,ಪೂರ್ಣಾಙ್ಕ _ShareFlag,ಪೂರ್ಣಾಙ್ಕ _PermissionFlag);
 
-#if !defined(__cplusplus) || !(defined(_X86_) && !defined(__x86_64))
-  _CRTIMP int __cdecl _wopen(const wchar_t *_Filename,int _OpenFlag,...);
-  _CRTIMP int __cdecl _wsopen(const wchar_t *_Filename,int _OpenFlag,int _ShareFlag,...);
-#else
-  extern "C++" _CRTIMP int __cdecl _wopen(const wchar_t *_Filename,int _OpenFlag,int _PermissionMode = 0);
-  extern "C++" _CRTIMP int __cdecl _wsopen(const wchar_t *_Filename,int _OpenFlag,int _ShareFlag,int _PermissionMode = 0);
+#ಯದಿ !defined(__cplusplus) || !(defined(_X86_) && !defined(__x86_64))
+  _CRTIMP ಪೂರ್ಣಾಙ್ಕ __cdecl _wopen(ಧ್ರುವ wchar_t *_Filename,ಪೂರ್ಣಾಙ್ಕ _OpenFlag,...);
+  _CRTIMP ಪೂರ್ಣಾಙ್ಕ __cdecl _wsopen(ಧ್ರುವ wchar_t *_Filename,ಪೂರ್ಣಾಙ್ಕ _OpenFlag,ಪೂರ್ಣಾಙ್ಕ _ShareFlag,...);
+#ಅನ್ಯಥಾ
+  ಬಾಹ್ಯ "C++" _CRTIMP ಪೂರ್ಣಾಙ್ಕ __cdecl _wopen(ಧ್ರುವ wchar_t *_Filename,ಪೂರ್ಣಾಙ್ಕ _OpenFlag,ಪೂರ್ಣಾಙ್ಕ _PermissionMode = 0);
+  ಬಾಹ್ಯ "C++" _CRTIMP ಪೂರ್ಣಾಙ್ಕ __cdecl _wsopen(ಧ್ರುವ wchar_t *_Filename,ಪೂರ್ಣಾಙ್ಕ _OpenFlag,ಪೂರ್ಣಾಙ್ಕ _ShareFlag,ಪೂರ್ಣಾಙ್ಕ _PermissionMode = 0);
 #endif
 
 #endif
 
-  int __cdecl __lock_fhandle(int _Filehandle);
-  void __cdecl _unlock_fhandle(int _Filehandle);
-  _CRTIMP intptr_t __cdecl _get_osfhandle(int _FileHandle);
-  _CRTIMP int __cdecl _open_osfhandle(intptr_t _OSFileHandle,int _Flags);
+  ಪೂರ್ಣಾಙ್ಕ __cdecl __lock_fhandle(ಪೂರ್ಣಾಙ್ಕ _Filehandle);
+  ಶೂನ್ಯ __cdecl _unlock_fhandle(ಪೂರ್ಣಾಙ್ಕ _Filehandle);
+  _CRTIMP intptr_t __cdecl _get_osfhandle(ಪೂರ್ಣಾಙ್ಕ _FileHandle);
+  _CRTIMP ಪೂರ್ಣಾಙ್ಕ __cdecl _open_osfhandle(intptr_t _OSFileHandle,ಪೂರ್ಣಾಙ್ಕ _Flags);
 
 #ifndef	NO_OLDNAMES
-  int __cdecl access(const char *_Filename,int _AccessMode);
-  int __cdecl chmod(const char *_Filename,int _AccessMode);
-  int __cdecl chsize(int _FileHandle,long _Size);
-  int __cdecl close(int _FileHandle);
-  int __cdecl creat(const char *_Filename,int _PermissionMode);
-  int __cdecl dup(int _FileHandle);
-  int __cdecl dup2(int _FileHandleSrc,int _FileHandleDst);
-  int __cdecl eof(int _FileHandle);
-  long __cdecl filelength(int _FileHandle);
-  int __cdecl isatty(int _FileHandle);
-  int __cdecl locking(int _FileHandle,int _LockMode,long _NumOfBytes);
-  long __cdecl lseek(int _FileHandle,long _Offset,int _Origin);
-  char *__cdecl mktemp(char *_TemplateName);
-  int __cdecl open(const char *_Filename,int _OpenFlag,...);
-  int __cdecl read(int _FileHandle,void *_DstBuf,unsigned int _MaxCharCount);
-  int __cdecl setmode(int _FileHandle,int _Mode);
-  int __cdecl sopen(const char *_Filename,int _OpenFlag,int _ShareFlag,...);
-  long __cdecl tell(int _FileHandle);
-  int __cdecl umask(int _Mode);
-  int __cdecl write(int _Filehandle,const void *_Buf,unsigned int _MaxCharCount);
+  ಪೂರ್ಣಾಙ್ಕ __cdecl access(ಧ್ರುವ ವರ್ಣ *_Filename,ಪೂರ್ಣಾಙ್ಕ _AccessMode);
+  ಪೂರ್ಣಾಙ್ಕ __cdecl chmod(ಧ್ರುವ ವರ್ಣ *_Filename,ಪೂರ್ಣಾಙ್ಕ _AccessMode);
+  ಪೂರ್ಣಾಙ್ಕ __cdecl chsize(ಪೂರ್ಣಾಙ್ಕ _FileHandle,long _Size);
+  ಪೂರ್ಣಾಙ್ಕ __cdecl close(ಪೂರ್ಣಾಙ್ಕ _FileHandle);
+  ಪೂರ್ಣಾಙ್ಕ __cdecl creat(ಧ್ರುವ ವರ್ಣ *_Filename,ಪೂರ್ಣಾಙ್ಕ _PermissionMode);
+  ಪೂರ್ಣಾಙ್ಕ __cdecl dup(ಪೂರ್ಣಾಙ್ಕ _FileHandle);
+  ಪೂರ್ಣಾಙ್ಕ __cdecl dup2(ಪೂರ್ಣಾಙ್ಕ _FileHandleSrc,ಪೂರ್ಣಾಙ್ಕ _FileHandleDst);
+  ಪೂರ್ಣಾಙ್ಕ __cdecl eof(ಪೂರ್ಣಾಙ್ಕ _FileHandle);
+  long __cdecl filelength(ಪೂರ್ಣಾಙ್ಕ _FileHandle);
+  ಪೂರ್ಣಾಙ್ಕ __cdecl isatty(ಪೂರ್ಣಾಙ್ಕ _FileHandle);
+  ಪೂರ್ಣಾಙ್ಕ __cdecl locking(ಪೂರ್ಣಾಙ್ಕ _FileHandle,ಪೂರ್ಣಾಙ್ಕ _LockMode,long ಅಂಕೆ_Of_Bytes);
+  long __cdecl lseek(ಪೂರ್ಣಾಙ್ಕ _FileHandle,long _Offset,ಪೂರ್ಣಾಙ್ಕ _Origin);
+  ವರ್ಣ *__cdecl mktemp(ವರ್ಣ *_TemplateName);
+  ಪೂರ್ಣಾಙ್ಕ __cdecl open(ಧ್ರುವ ವರ್ಣ *_Filename,ಪೂರ್ಣಾಙ್ಕ _OpenFlag,...);
+  ಪೂರ್ಣಾಙ್ಕ __cdecl ಪಠ(ಪೂರ್ಣಾಙ್ಕ _FileHandle,ಶೂನ್ಯ *_DstBuf,unsigned ಪೂರ್ಣಾಙ್ಕ Max_Char_ಎಣಿಕೆ);
+  ಪೂರ್ಣಾಙ್ಕ __cdecl setmode(ಪೂರ್ಣಾಙ್ಕ _FileHandle,ಪೂರ್ಣಾಙ್ಕ _Mode);
+  ಪೂರ್ಣಾಙ್ಕ __cdecl sopen(ಧ್ರುವ ವರ್ಣ *_Filename,ಪೂರ್ಣಾಙ್ಕ _OpenFlag,ಪೂರ್ಣಾಙ್ಕ _ShareFlag,...);
+  long __cdecl tell(ಪೂರ್ಣಾಙ್ಕ _FileHandle);
+  ಪೂರ್ಣಾಙ್ಕ __cdecl umask(ಪೂರ್ಣಾಙ್ಕ _Mode);
+  ಪೂರ್ಣಾಙ್ಕ __cdecl ಲಿಖ(ಪೂರ್ಣಾಙ್ಕ _Filehandle,ಧ್ರುವ ಶೂನ್ಯ *_Buf,unsigned ಪೂರ್ಣಾಙ್ಕ Max_Char_ಎಣಿಕೆ);
 #endif
 
 #ifdef __cplusplus
@@ -384,21 +384,21 @@ _CRTIMP char* __cdecl _getcwd (char*, int);
 #endif
 
 #ifdef __cplusplus
-extern "C" {
+ಬಾಹ್ಯ "C" {
 #endif
 
 /* Misc stuff */
-char *getlogin(void);
+ವರ್ಣ *getlogin(ಶೂನ್ಯ);
 #ifdef __USE_MINGW_ALARM
-unsigned int alarm(unsigned int seconds);
+unsigned ಪೂರ್ಣಾಙ್ಕ alarm(unsigned ಪೂರ್ಣಾಙ್ಕ seconds);
 #endif
 
 #ifdef __USE_MINGW_ACCESS
 /*  Old versions of MSVCRT access() just ignored X_OK, while the version
     shipped with Vista, returns an error code.  This will restore the
     old behaviour  */
-static inline int __mingw_access (const char *__fname, int __mode) {
-  return  _access (__fname, __mode & ~X_OK);
+ಸ್ಥಿರ ಅನ್ತಃಸ್ಥ ಪೂರ್ಣಾಙ್ಕ __mingw_access (ಧ್ರುವ ವರ್ಣ *__fname, ಪೂರ್ಣಾಙ್ಕ __mode) {
+  ಪ್ರತ್ಯಾಗಮ  _access (__fname, __mode & ~X_OK);
 }
 
 #define access(__f,__m)  __mingw_access (__f, __m)
@@ -410,9 +410,9 @@ static inline int __mingw_access (const char *__fname, int __mode) {
 #endif
 
 
-#pragma pack(pop)
+#pragma pack(ತೆಗೆ)
 
-#include <sec_api/io_s.h>
+#ಅನ್ತರ್ಭಾವ <sec_api/io_s.h>
 
 #endif /* End _IO_H_ */
 

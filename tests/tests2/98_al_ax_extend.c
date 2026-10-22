@@ -1,5 +1,5 @@
-#include <stdio.h>
-#include <stdlib.h>
+#ಅನ್ತರ್ಭಾವ <stdio.h>
+#ಅನ್ತರ್ಭಾವ <stdlib.h>
 asm (
     ".text;"
     ".globl _us;.globl _ss;.globl _uc;.globl _sc;"
@@ -15,17 +15,17 @@ asm (
 #define sc _sc
 #endif
 
-int main()
+ಪೂರ್ಣಾಙ್ಕ main()
 {
-    unsigned short us(void);
-    short ss(void);
-    unsigned char uc(void);
-    signed char sc(void);
+    unsigned short us(ಶೂನ್ಯ);
+    short ss(ಶೂನ್ಯ);
+    unsigned ವರ್ಣ uc(ಶೂನ್ಯ);
+    signed ವರ್ಣ sc(ಶೂನ್ಯ);
 
-    unsigned short (*fpus)(void) = us;
-    short (*fpss)(void) = ss;
-    unsigned char (*fpuc)(void) = uc;
-    signed char (*fpsc)(void) = sc;
+    unsigned short (*fpus)(ಶೂನ್ಯ) = us;
+    short (*fpss)(ಶೂನ್ಯ) = ss;
+    unsigned ವರ್ಣ (*fpuc)(ಶೂನ್ಯ) = uc;
+    signed ವರ್ಣ (*fpsc)(ಶೂನ್ಯ) = sc;
 
     printf("%08X %08X\n", us() + 1, fpus() + 1);
     printf("%08X %08X\n", ss() + 1, fpss() + 1);
@@ -37,5 +37,5 @@ int main()
     printf("%08X %08X\n", fpuc() + 1, uc() + 1);
     printf("%08X %08X\n", fpsc() + 1, sc() + 1);
 
-    return 0;
+    ಪ್ರತ್ಯಾಗಮ 0;
 }

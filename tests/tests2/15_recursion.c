@@ -1,21 +1,21 @@
-#include <stdio.h>
+#ಅನ್ತರ್ಭಾವ <stdio.h>
 
-int factorial(int i) 
+ಪೂರ್ಣಾಙ್ಕ factorial(ಪೂರ್ಣಾಙ್ಕ i) 
 {
-   if (i < 2)
-      return i;
-   else
-      return i * factorial(i - 1);
+   ಯದಿ (i < 2)
+      ಪ್ರತ್ಯಾಗಮ i;
+   ಅನ್ಯಥಾ
+      ಪ್ರತ್ಯಾಗಮ i * factorial(i - 1);
 }
 
-int main()
+ಪೂರ್ಣಾಙ್ಕ main()
 {
-   int Count;
+   ಪೂರ್ಣಾಙ್ಕ ಎಣಿಕೆ_3;
 
-   for (Count = 1; Count <= 10; Count++)
-      printf("%d\n", factorial(Count));
+   ಪ್ರತಿ (ಎಣಿಕೆ_3 = 1; ಎಣಿಕೆ_3 <= 10; ಎಣಿಕೆ_3++)
+      printf("%d\n", factorial(ಎಣಿಕೆ_3));
 
-   return 0;
+   ಪ್ರತ್ಯಾಗಮ 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

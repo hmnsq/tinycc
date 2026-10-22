@@ -7,16 +7,16 @@
 #ifndef _SYS_TIME_H_
 #define _SYS_TIME_H_
 
-#include <time.h>
+#ಅನ್ತರ್ಭಾವ <time.h>
 
 #ifdef  __cplusplus
-extern "C" {
+ಬಾಹ್ಯ "C" {
 #endif
 
 #ifndef __STRICT_ANSI__
 #ifndef _TIMEVAL_DEFINED /* also in winsock[2].h */
 #define _TIMEVAL_DEFINED
-struct timeval {
+ಸಂರಚನಾ timeval {
   long tv_sec;
   long tv_usec;
 };
@@ -33,13 +33,13 @@ struct timeval {
 /* Provided for compatibility with code that assumes that
    the presence of gettimeofday function implies a definition
    of struct timezone. */
-struct timezone
+ಸಂರಚನಾ timezone
 {
-  int tz_minuteswest; /* of Greenwich */
-  int tz_dsttime;     /* type of dst correction to apply */
+  ಪೂರ್ಣಾಙ್ಕ tz_minuteswest; /* of Greenwich */
+  ಪೂರ್ಣಾಙ್ಕ tz_dsttime;     /* type of dst correction to apply */
 };
 
-  extern int __cdecl mingw_gettimeofday (struct timeval *p, struct timezone *z);
+  ಬಾಹ್ಯ ಪೂರ್ಣಾಙ್ಕ __cdecl mingw_gettimeofday (ಸಂರಚನಾ timeval *p, ಸಂರಚನಾ timezone *z);
 
 #endif
 
@@ -52,8 +52,8 @@ struct timezone
 */
 #ifndef _GETTIMEOFDAY_DEFINED
 #define _GETTIMEOFDAY_DEFINED
-int __cdecl gettimeofday(struct timeval *__restrict__,
-                         void *__restrict__  /* tzp (unused) */);
+ಪೂರ್ಣಾಙ್ಕ __cdecl gettimeofday(ಸಂರಚನಾ timeval *__restrict__,
+                         ಶೂನ್ಯ *__restrict__  /* tzp (unused) */);
 #endif
 
 #endif /* __STRICT_ANSI__ */
@@ -63,7 +63,7 @@ int __cdecl gettimeofday(struct timeval *__restrict__,
 #endif
 
 /* Adding timespec definition.  */
-#include <sys/timeb.h>
+#ಅನ್ತರ್ಭಾವ <sys/timeb.h>
 
 
 #endif /* _SYS_TIME_H_ */

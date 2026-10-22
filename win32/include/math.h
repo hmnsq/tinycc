@@ -6,15 +6,15 @@
 #ifndef _MATH_H_
 #define _MATH_H_
 
-#if __GNUC__ >= 3
+#ಯದಿ __GNUC__ >= 3
 #pragma GCC system_header
 #endif
 
-#include <_mingw.h>
+#ಅನ್ತರ್ಭಾವ <_mingw.h>
 
-struct exception;
+ಸಂರಚನಾ exception;
 
-#pragma pack(push,_CRT_PACKING)
+#pragma pack(ತಳ್ಳು,_CRT_PACKING)
 
 #define _DOMAIN 1
 #define _SING 2
@@ -68,24 +68,24 @@ struct exception;
 #endif
 
 #ifdef __cplusplus
-extern "C" {
+ಬಾಹ್ಯ "C" {
 #endif
 
 #ifndef _EXCEPTION_DEFINED
 #define _EXCEPTION_DEFINED
-  struct _exception {
-    int type;
-    char *name;
-    double arg1;
-    double arg2;
-    double retval;
+  ಸಂರಚನಾ _exception {
+    ಪೂರ್ಣಾಙ್ಕ type;
+    ವರ್ಣ *name;
+    ದ್ವಿಗುಣ arg1;
+    ದ್ವಿಗುಣ arg2;
+    ದ್ವಿಗುಣ retval;
   };
 #endif
 
 #ifndef _COMPLEX_DEFINED
 #define _COMPLEX_DEFINED
-  struct _complex {
-    double x,y;
+  ಸಂರಚನಾ _complex {
+    ದ್ವಿಗುಣ x,y;
   };
 #endif
 
@@ -94,9 +94,9 @@ extern "C" {
 
 #ifndef _HUGE
 #ifdef _MSVCRT_
-  extern double *_HUGE;
-#else
-  extern double *_imp___HUGE;
+  ಬಾಹ್ಯ ದ್ವಿಗುಣ *_HUGE;
+#ಅನ್ಯಥಾ
+  ಬಾಹ್ಯ ದ್ವಿಗುಣ *_imp___HUGE;
 #define _HUGE	(*_imp___HUGE)
 #endif
 #endif
@@ -105,96 +105,96 @@ extern "C" {
 
 #ifndef _CRT_ABS_DEFINED
 #define _CRT_ABS_DEFINED
-  int __cdecl abs(int _X);
+  ಪೂರ್ಣಾಙ್ಕ __cdecl abs(ಪೂರ್ಣಾಙ್ಕ _X);
   long __cdecl labs(long _X);
 #endif
-  double __cdecl acos(double _X);
-  double __cdecl asin(double _X);
-  double __cdecl atan(double _X);
-  double __cdecl atan2(double _Y,double _X);
+  ದ್ವಿಗುಣ __cdecl acos(ದ್ವಿಗುಣ _X);
+  ದ್ವಿಗುಣ __cdecl asin(ದ್ವಿಗುಣ _X);
+  ದ್ವಿಗುಣ __cdecl atan(ದ್ವಿಗುಣ _X);
+  ದ್ವಿಗುಣ __cdecl atan2(ದ್ವಿಗುಣ _Y,ದ್ವಿಗುಣ _X);
 #ifndef _SIGN_DEFINED
 #define _SIGN_DEFINED
-  _CRTIMP double __cdecl _copysign (double _Number,double _Sign);
-  _CRTIMP double __cdecl _chgsign (double _X);
+  _CRTIMP ದ್ವಿಗುಣ __cdecl _copysign (ದ್ವಿಗುಣ ಸಂಖ್ಯೆ,ದ್ವಿಗುಣ _Sign);
+  _CRTIMP ದ್ವಿಗುಣ __cdecl _chgsign (ದ್ವಿಗುಣ _X);
 #endif
-  double __cdecl cos(double _X);
-  double __cdecl cosh(double _X);
-  double __cdecl exp(double _X);
-  double __cdecl expm1(double _X);
-  double __cdecl fabs(double _X);
-  double __cdecl fmod(double _X,double _Y);
-  double __cdecl log(double _X);
-  double __cdecl log10(double _X);
-  double __cdecl pow(double _X,double _Y);
-  double __cdecl sin(double _X);
-  double __cdecl sinh(double _X);
-  double __cdecl tan(double _X);
-  double __cdecl tanh(double _X);
-  double __cdecl sqrt(double _X);
+  ದ್ವಿಗುಣ __cdecl cos(ದ್ವಿಗುಣ _X);
+  ದ್ವಿಗುಣ __cdecl cosh(ದ್ವಿಗುಣ _X);
+  ದ್ವಿಗುಣ __cdecl exp(ದ್ವಿಗುಣ _X);
+  ದ್ವಿಗುಣ __cdecl expm1(ದ್ವಿಗುಣ _X);
+  ದ್ವಿಗುಣ __cdecl fabs(ದ್ವಿಗುಣ _X);
+  ದ್ವಿಗುಣ __cdecl fmod(ದ್ವಿಗುಣ _X,ದ್ವಿಗುಣ _Y);
+  ದ್ವಿಗುಣ __cdecl log(ದ್ವಿಗುಣ _X);
+  ದ್ವಿಗುಣ __cdecl log10(ದ್ವಿಗುಣ _X);
+  ದ್ವಿಗುಣ __cdecl pow(ದ್ವಿಗುಣ _X,ದ್ವಿಗುಣ _Y);
+  ದ್ವಿಗುಣ __cdecl sin(ದ್ವಿಗುಣ _X);
+  ದ್ವಿಗುಣ __cdecl sinh(ದ್ವಿಗುಣ _X);
+  ದ್ವಿಗುಣ __cdecl tan(ದ್ವಿಗುಣ _X);
+  ದ್ವಿಗುಣ __cdecl tanh(ದ್ವಿಗುಣ _X);
+  ದ್ವಿಗುಣ __cdecl sqrt(ದ್ವಿಗುಣ _X);
 #ifndef _CRT_ATOF_DEFINED
 #define _CRT_ATOF_DEFINED
-  double __cdecl atof(const char *_String);
-  double __cdecl _atof_l(const char *_String,_locale_t _Locale);
+  ದ್ವಿಗುಣ __cdecl atof(ಧ್ರುವ ವರ್ಣ *_String);
+  ದ್ವಿಗುಣ __cdecl _atof_l(ಧ್ರುವ ವರ್ಣ *_String,_locale_t _Locale);
 #endif
 
-  _CRTIMP double __cdecl _cabs(struct _complex _ComplexA);
-  double __cdecl ceil(double _X);
-  double __cdecl floor(double _X);
-  double __cdecl frexp(double _X,int *_Y);
-  double __cdecl _hypot(double _X,double _Y);
-  _CRTIMP double __cdecl _j0(double _X);
-  _CRTIMP double __cdecl _j1(double _X);
-  _CRTIMP double __cdecl _jn(int _X,double _Y);
-  double __cdecl ldexp(double _X,int _Y);
+  _CRTIMP ದ್ವಿಗುಣ __cdecl _cabs(ಸಂರಚನಾ _complex _ComplexA);
+  ದ್ವಿಗುಣ __cdecl ceil(ದ್ವಿಗುಣ _X);
+  ದ್ವಿಗುಣ __cdecl floor(ದ್ವಿಗುಣ _X);
+  ದ್ವಿಗುಣ __cdecl frexp(ದ್ವಿಗುಣ _X,ಪೂರ್ಣಾಙ್ಕ *_Y);
+  ದ್ವಿಗುಣ __cdecl _hypot(ದ್ವಿಗುಣ _X,ದ್ವಿಗುಣ _Y);
+  _CRTIMP ದ್ವಿಗುಣ __cdecl _j0(ದ್ವಿಗುಣ _X);
+  _CRTIMP ದ್ವಿಗುಣ __cdecl _j1(ದ್ವಿಗುಣ _X);
+  _CRTIMP ದ್ವಿಗುಣ __cdecl _jn(ಪೂರ್ಣಾಙ್ಕ _X,ದ್ವಿಗುಣ _Y);
+  ದ್ವಿಗುಣ __cdecl ldexp(ದ್ವಿಗುಣ _X,ಪೂರ್ಣಾಙ್ಕ _Y);
 #ifndef _CRT_MATHERR_DEFINED
 #define _CRT_MATHERR_DEFINED
-  int __cdecl _matherr(struct _exception *_Except);
+  ಪೂರ್ಣಾಙ್ಕ __cdecl _matherr(ಸಂರಚನಾ _exception *_Except);
 #endif
-  double __cdecl modf(double _X,double *_Y);
-  _CRTIMP double __cdecl _y0(double _X);
-  _CRTIMP double __cdecl _y1(double _X);
-  _CRTIMP double __cdecl _yn(int _X,double _Y);
+  ದ್ವಿಗುಣ __cdecl modf(ದ್ವಿಗುಣ _X,ದ್ವಿಗುಣ *_Y);
+  _CRTIMP ದ್ವಿಗುಣ __cdecl _y0(ದ್ವಿಗುಣ _X);
+  _CRTIMP ದ್ವಿಗುಣ __cdecl _y1(ದ್ವಿಗುಣ _X);
+  _CRTIMP ದ್ವಿಗುಣ __cdecl _yn(ಪೂರ್ಣಾಙ್ಕ _X,ದ್ವಿಗುಣ _Y);
 
-#if(defined(_X86_) && !defined(__x86_64))
-  _CRTIMP int __cdecl _set_SSE2_enable(int _Flag);
+#ಯದಿ(defined(_X86_) && !defined(__x86_64))
+  _CRTIMP ಪೂರ್ಣಾಙ್ಕ __cdecl _set_SSE2_enable(ಪೂರ್ಣಾಙ್ಕ _Flag);
   /* from libmingwex */
-  float __cdecl _hypotf(float _X,float _Y);
+  ಭಿನ್ನ __cdecl _hypotf(ಭಿನ್ನ _X,ಭಿನ್ನ _Y);
 #endif
 
-  float frexpf(float _X,int *_Y);
-  float __cdecl ldexpf(float _X,int _Y);
-  long double __cdecl ldexpl(long double _X,int _Y);
-  float __cdecl acosf(float _X);
-  float __cdecl asinf(float _X);
-   float __cdecl atanf(float _X);
-   float __cdecl atan2f(float _X,float _Y);
-   float __cdecl cosf(float _X);
-   float __cdecl sinf(float _X);
-   float __cdecl tanf(float _X);
-   float __cdecl coshf(float _X);
-   float __cdecl sinhf(float _X);
-   float __cdecl tanhf(float _X);
-   float __cdecl expf(float _X);
-   float __cdecl expm1f(float _X);
-   float __cdecl logf(float _X);
-   float __cdecl log10f(float _X);
-   float __cdecl modff(float _X,float *_Y);
-   float __cdecl powf(float _X,float _Y);
-   float __cdecl sqrtf(float _X);
-   float __cdecl ceilf(float _X);
-   float __cdecl floorf(float _X);
-  float __cdecl fmodf(float _X,float _Y);
-   float __cdecl _hypotf(float _X,float _Y);
-  float __cdecl fabsf(float _X);
-#if !defined(__ia64__)
+  ಭಿನ್ನ frexpf(ಭಿನ್ನ _X,ಪೂರ್ಣಾಙ್ಕ *_Y);
+  ಭಿನ್ನ __cdecl ldexpf(ಭಿನ್ನ _X,ಪೂರ್ಣಾಙ್ಕ _Y);
+  long ದ್ವಿಗುಣ __cdecl ldexpl(long ದ್ವಿಗುಣ _X,ಪೂರ್ಣಾಙ್ಕ _Y);
+  ಭಿನ್ನ __cdecl acosf(ಭಿನ್ನ _X);
+  ಭಿನ್ನ __cdecl asinf(ಭಿನ್ನ _X);
+   ಭಿನ್ನ __cdecl atanf(ಭಿನ್ನ _X);
+   ಭಿನ್ನ __cdecl atan2f(ಭಿನ್ನ _X,ಭಿನ್ನ _Y);
+   ಭಿನ್ನ __cdecl cosf(ಭಿನ್ನ _X);
+   ಭಿನ್ನ __cdecl sinf(ಭಿನ್ನ _X);
+   ಭಿನ್ನ __cdecl tanf(ಭಿನ್ನ _X);
+   ಭಿನ್ನ __cdecl coshf(ಭಿನ್ನ _X);
+   ಭಿನ್ನ __cdecl sinhf(ಭಿನ್ನ _X);
+   ಭಿನ್ನ __cdecl tanhf(ಭಿನ್ನ _X);
+   ಭಿನ್ನ __cdecl expf(ಭಿನ್ನ _X);
+   ಭಿನ್ನ __cdecl expm1f(ಭಿನ್ನ _X);
+   ಭಿನ್ನ __cdecl logf(ಭಿನ್ನ _X);
+   ಭಿನ್ನ __cdecl log10f(ಭಿನ್ನ _X);
+   ಭಿನ್ನ __cdecl modff(ಭಿನ್ನ _X,ಭಿನ್ನ *_Y);
+   ಭಿನ್ನ __cdecl powf(ಭಿನ್ನ _X,ಭಿನ್ನ _Y);
+   ಭಿನ್ನ __cdecl sqrtf(ಭಿನ್ನ _X);
+   ಭಿನ್ನ __cdecl ceilf(ಭಿನ್ನ _X);
+   ಭಿನ್ನ __cdecl floorf(ಭಿನ್ನ _X);
+  ಭಿನ್ನ __cdecl fmodf(ಭಿನ್ನ _X,ಭಿನ್ನ _Y);
+   ಭಿನ್ನ __cdecl _hypotf(ಭಿನ್ನ _X,ಭಿನ್ನ _Y);
+  ಭಿನ್ನ __cdecl fabsf(ಭಿನ್ನ _X);
+#ಯದಿ !defined(__ia64__)
    /* from libmingwex */
-   float __cdecl _copysignf (float _Number,float _Sign);
-   float __cdecl _chgsignf (float _X);
-   float __cdecl _logbf(float _X);
-   float __cdecl _nextafterf(float _X,float _Y);
-   int __cdecl _finitef(float _X);
-   int __cdecl _isnanf(float _X);
-   int __cdecl _fpclassf(float _X);
+   ಭಿನ್ನ __cdecl _copysignf (ಭಿನ್ನ ಸಂಖ್ಯೆ,ಭಿನ್ನ _Sign);
+   ಭಿನ್ನ __cdecl _chgsignf (ಭಿನ್ನ _X);
+   ಭಿನ್ನ __cdecl _logbf(ಭಿನ್ನ _X);
+   ಭಿನ್ನ __cdecl _nextafterf(ಭಿನ್ನ _X,ಭಿನ್ನ _Y);
+   ಪೂರ್ಣಾಙ್ಕ __cdecl _finitef(ಭಿನ್ನ _X);
+   ಪೂರ್ಣಾಙ್ಕ __cdecl _isnanf(ಭಿನ್ನ _X);
+   ಪೂರ್ಣಾಙ್ಕ __cdecl _fpclassf(ಭಿನ್ನ _X);
 #endif
 
 #ifndef	NO_OLDNAMES
@@ -202,17 +202,17 @@ extern "C" {
 
 #define HUGE	_HUGE
   /*	double __cdecl cabs(struct _complex _X); */
-  double __cdecl hypot(double _X,double _Y);
-  _CRTIMP double __cdecl j0(double _X);
-  _CRTIMP double __cdecl j1(double _X);
-  _CRTIMP double __cdecl jn(int _X,double _Y);
-  _CRTIMP double __cdecl y0(double _X);
-  _CRTIMP double __cdecl y1(double _X);
-  _CRTIMP double __cdecl yn(int _X,double _Y);
+  ದ್ವಿಗುಣ __cdecl hypot(ದ್ವಿಗುಣ _X,ದ್ವಿಗುಣ _Y);
+  _CRTIMP ದ್ವಿಗುಣ __cdecl j0(ದ್ವಿಗುಣ _X);
+  _CRTIMP ದ್ವಿಗುಣ __cdecl j1(ದ್ವಿಗುಣ _X);
+  _CRTIMP ದ್ವಿಗುಣ __cdecl jn(ಪೂರ್ಣಾಙ್ಕ _X,ದ್ವಿಗುಣ _Y);
+  _CRTIMP ದ್ವಿಗುಣ __cdecl y0(ದ್ವಿಗುಣ _X);
+  _CRTIMP ದ್ವಿಗುಣ __cdecl y1(ದ್ವಿಗುಣ _X);
+  _CRTIMP ದ್ವಿಗುಣ __cdecl yn(ಪೂರ್ಣಾಙ್ಕ _X,ದ್ವಿಗುಣ _Y);
 #endif
 
 #ifndef __NO_ISOCEXT
-#if (defined (__STDC_VERSION__) && __STDC_VERSION__ >= 199901L) \
+#ಯದಿ (defined (__STDC_VERSION__) && __STDC_VERSION__ >= 199901L) \
   || !defined __STRICT_ANSI__ || defined __GLIBCPP__
 
 #define NAN (0.0F/0.0F)
@@ -236,9 +236,9 @@ extern "C" {
   converted to double, and zero when converted to float.)
   */
 
-  extern int __cdecl __fpclassifyf (float);
-  extern int __cdecl __fpclassify (double);
-  extern int __cdecl __fpclassifyl (long double);
+  ಬಾಹ್ಯ ಪೂರ್ಣಾಙ್ಕ __cdecl __fpclassifyf (ಭಿನ್ನ);
+  ಬಾಹ್ಯ ಪೂರ್ಣಾಙ್ಕ __cdecl __fpclassify (ದ್ವಿಗುಣ);
+  ಬಾಹ್ಯ ಪೂರ್ಣಾಙ್ಕ __cdecl __fpclassifyl (long ದ್ವಿಗುಣ);
 
 /* Implemented at tcc/tcc_libm.h
 #define fpclassify(x) (sizeof (x) == sizeof (float) ? __fpclassifyf (x)	  \
@@ -246,7 +246,7 @@ extern "C" {
   : __fpclassifyl (x))
 */
 #define fpclassify(x) \
-  _Generic(x, float: __fpclassifyf, double: __fpclassify, long double: __fpclassifyl)(x)
+  _Generic(x, ಭಿನ್ನ: __fpclassifyf, ದ್ವಿಗುಣ: __fpclassify, long ದ್ವಿಗುಣ: __fpclassifyl)(x)
 
   /* 7.12.3.2 */
 #define isfinite(x) ((fpclassify(x) & FP_NAN) == 0)
@@ -264,9 +264,9 @@ extern "C" {
 
   /* 7.12.3.6 The signbit macro */
 
-  extern int __cdecl __signbitf (float);
-  extern int __cdecl __signbit (double);
-  extern int __cdecl __signbitl (long double);
+  ಬಾಹ್ಯ ಪೂರ್ಣಾಙ್ಕ __cdecl __signbitf (ಭಿನ್ನ);
+  ಬಾಹ್ಯ ಪೂರ್ಣಾಙ್ಕ __cdecl __signbit (ದ್ವಿಗುಣ);
+  ಬಾಹ್ಯ ಪೂರ್ಣಾಙ್ಕ __cdecl __signbitl (long ದ್ವಿಗುಣ);
 
 /* Implemented at tcc/tcc_libm.h
 #define signbit(x) (sizeof (x) == sizeof (float) ? __signbitf (x)	\
@@ -274,115 +274,115 @@ extern "C" {
   : __signbitl (x))
 */
 #define signbit(x) \
-  _Generic(x, float: __signbitf, double: __signbit, long double: __signbitl)(x)
+  _Generic(x, ಭಿನ್ನ: __signbitf, ದ್ವಿಗುಣ: __signbit, long ದ್ವಿಗುಣ: __signbitl)(x)
 
-  extern double __cdecl exp2(double);
-  extern float __cdecl exp2f(float);
-  extern long double __cdecl exp2l(long double);
+  ಬಾಹ್ಯ ದ್ವಿಗುಣ __cdecl exp2(ದ್ವಿಗುಣ);
+  ಬಾಹ್ಯ ಭಿನ್ನ __cdecl exp2f(ಭಿನ್ನ);
+  ಬಾಹ್ಯ long ದ್ವಿಗುಣ __cdecl exp2l(long ದ್ವಿಗುಣ);
 
-#define FP_ILOGB0 ((int)0x80000000)
-#define FP_ILOGBNAN ((int)0x80000000)
-  extern int __cdecl ilogb (double);
-  extern int __cdecl ilogbf (float);
-  extern int __cdecl ilogbl (long double);
+#define FP_ILOGB0 ((ಪೂರ್ಣಾಙ್ಕ)0x80000000)
+#define FP_ILOGBNAN ((ಪೂರ್ಣಾಙ್ಕ)0x80000000)
+  ಬಾಹ್ಯ ಪೂರ್ಣಾಙ್ಕ __cdecl ilogb (ದ್ವಿಗುಣ);
+  ಬಾಹ್ಯ ಪೂರ್ಣಾಙ್ಕ __cdecl ilogbf (ಭಿನ್ನ);
+  ಬಾಹ್ಯ ಪೂರ್ಣಾಙ್ಕ __cdecl ilogbl (long ದ್ವಿಗುಣ);
 
-  extern double __cdecl log1p(double);
-  extern float __cdecl log1pf(float);
-  extern long double __cdecl log1pl(long double);
+  ಬಾಹ್ಯ ದ್ವಿಗುಣ __cdecl log1p(ದ್ವಿಗುಣ);
+  ಬಾಹ್ಯ ಭಿನ್ನ __cdecl log1pf(ಭಿನ್ನ);
+  ಬಾಹ್ಯ long ದ್ವಿಗುಣ __cdecl log1pl(long ದ್ವಿಗುಣ);
 
-  extern double __cdecl log2 (double);
-  extern float __cdecl log2f (float);
-  extern long double __cdecl log2l (long double);
+  ಬಾಹ್ಯ ದ್ವಿಗುಣ __cdecl log2 (ದ್ವಿಗುಣ);
+  ಬಾಹ್ಯ ಭಿನ್ನ __cdecl log2f (ಭಿನ್ನ);
+  ಬಾಹ್ಯ long ದ್ವಿಗುಣ __cdecl log2l (long ದ್ವಿಗುಣ);
 
-  extern double __cdecl logb (double);
-  extern float __cdecl logbf (float);
-  extern long double __cdecl logbl (long double);
+  ಬಾಹ್ಯ ದ್ವಿಗುಣ __cdecl logb (ದ್ವಿಗುಣ);
+  ಬಾಹ್ಯ ಭಿನ್ನ __cdecl logbf (ಭಿನ್ನ);
+  ಬಾಹ್ಯ long ದ್ವಿಗುಣ __cdecl logbl (long ದ್ವಿಗುಣ);
 
-  extern long double __cdecl modfl (long double, long double*);
+  ಬಾಹ್ಯ long ದ್ವಿಗುಣ __cdecl modfl (long ದ್ವಿಗುಣ, long ದ್ವಿಗುಣ*);
 
   /* 7.12.6.13 */
-  extern double __cdecl scalbn (double, int);
-  extern float __cdecl scalbnf (float, int);
-  extern long double __cdecl scalbnl (long double, int);
+  ಬಾಹ್ಯ ದ್ವಿಗುಣ __cdecl scalbn (ದ್ವಿಗುಣ, ಪೂರ್ಣಾಙ್ಕ);
+  ಬಾಹ್ಯ ಭಿನ್ನ __cdecl scalbnf (ಭಿನ್ನ, ಪೂರ್ಣಾಙ್ಕ);
+  ಬಾಹ್ಯ long ದ್ವಿಗುಣ __cdecl scalbnl (long ದ್ವಿಗುಣ, ಪೂರ್ಣಾಙ್ಕ);
 
-  extern double __cdecl scalbln (double, long);
-  extern float __cdecl scalblnf (float, long);
-  extern long double __cdecl scalblnl (long double, long);
+  ಬಾಹ್ಯ ದ್ವಿಗುಣ __cdecl scalbln (ದ್ವಿಗುಣ, long);
+  ಬಾಹ್ಯ ಭಿನ್ನ __cdecl scalblnf (ಭಿನ್ನ, long);
+  ಬಾಹ್ಯ long ದ್ವಿಗುಣ __cdecl scalblnl (long ದ್ವಿಗುಣ, long);
 
   /* 7.12.7.1 */
   /* Implementations adapted from Cephes versions */ 
-  extern double __cdecl cbrt (double);
-  extern float __cdecl cbrtf (float);
-  extern long double __cdecl cbrtl (long double);
+  ಬಾಹ್ಯ ದ್ವಿಗುಣ __cdecl cbrt (ದ್ವಿಗುಣ);
+  ಬಾಹ್ಯ ಭಿನ್ನ __cdecl cbrtf (ಭಿನ್ನ);
+  ಬಾಹ್ಯ long ದ್ವಿಗುಣ __cdecl cbrtl (long ದ್ವಿಗುಣ);
 
-  extern double __cdecl hypot (double, double);
-  extern float __cdecl hypotf (float, float);
-  extern long double __cdecl hypotl (long double, long double);
+  ಬಾಹ್ಯ ದ್ವಿಗುಣ __cdecl hypot (ದ್ವಿಗುಣ, ದ್ವಿಗುಣ);
+  ಬಾಹ್ಯ ಭಿನ್ನ __cdecl hypotf (ಭಿನ್ನ, ಭಿನ್ನ);
+  ಬಾಹ್ಯ long ದ್ವಿಗುಣ __cdecl hypotl (long ದ್ವಿಗುಣ, long ದ್ವಿಗುಣ);
 
-  extern long double __cdecl powl (long double, long double);
-  extern long double __cdecl expl(long double);
-  extern long double __cdecl expm1l(long double);
-  extern long double __cdecl coshl(long double);
-  extern long double __cdecl fabsl (long double);
-  extern long double __cdecl acosl(long double);
-  extern long double __cdecl asinl(long double);
-  extern long double __cdecl atanl(long double);
-  extern long double __cdecl atan2l(long double,long double);
-  extern long double __cdecl sinhl(long double);
-  extern long double __cdecl tanhl(long double);
+  ಬಾಹ್ಯ long ದ್ವಿಗುಣ __cdecl powl (long ದ್ವಿಗುಣ, long ದ್ವಿಗುಣ);
+  ಬಾಹ್ಯ long ದ್ವಿಗುಣ __cdecl expl(long ದ್ವಿಗುಣ);
+  ಬಾಹ್ಯ long ದ್ವಿಗುಣ __cdecl expm1l(long ದ್ವಿಗುಣ);
+  ಬಾಹ್ಯ long ದ್ವಿಗುಣ __cdecl coshl(long ದ್ವಿಗುಣ);
+  ಬಾಹ್ಯ long ದ್ವಿಗುಣ __cdecl fabsl (long ದ್ವಿಗುಣ);
+  ಬಾಹ್ಯ long ದ್ವಿಗುಣ __cdecl acosl(long ದ್ವಿಗುಣ);
+  ಬಾಹ್ಯ long ದ್ವಿಗುಣ __cdecl asinl(long ದ್ವಿಗುಣ);
+  ಬಾಹ್ಯ long ದ್ವಿಗುಣ __cdecl atanl(long ದ್ವಿಗುಣ);
+  ಬಾಹ್ಯ long ದ್ವಿಗುಣ __cdecl atan2l(long ದ್ವಿಗುಣ,long ದ್ವಿಗುಣ);
+  ಬಾಹ್ಯ long ದ್ವಿಗುಣ __cdecl sinhl(long ದ್ವಿಗುಣ);
+  ಬಾಹ್ಯ long ದ್ವಿಗುಣ __cdecl tanhl(long ದ್ವಿಗುಣ);
 
   /* 7.12.8.1 The erf functions  */
-  extern double __cdecl erf (double);
-  extern float __cdecl erff (float);
+  ಬಾಹ್ಯ ದ್ವಿಗುಣ __cdecl erf (ದ್ವಿಗುಣ);
+  ಬಾಹ್ಯ ಭಿನ್ನ __cdecl erff (ಭಿನ್ನ);
   /* TODO
   extern long double __cdecl erfl (long double);
   */ 
 
   /* 7.12.8.2 The erfc functions  */
-  extern double __cdecl erfc (double);
-  extern float __cdecl erfcf (float);
+  ಬಾಹ್ಯ ದ್ವಿಗುಣ __cdecl erfc (ದ್ವಿಗುಣ);
+  ಬಾಹ್ಯ ಭಿನ್ನ __cdecl erfcf (ಭಿನ್ನ);
   /* TODO
   extern long double __cdecl erfcl (long double);
   */ 
 
   /* 7.12.8.3 The lgamma functions */
-  extern double __cdecl lgamma (double);
-  extern float __cdecl lgammaf (float);
-  extern long double __cdecl lgammal (long double);
+  ಬಾಹ್ಯ ದ್ವಿಗುಣ __cdecl lgamma (ದ್ವಿಗುಣ);
+  ಬಾಹ್ಯ ಭಿನ್ನ __cdecl lgammaf (ಭಿನ್ನ);
+  ಬಾಹ್ಯ long ದ್ವಿಗುಣ __cdecl lgammal (long ದ್ವಿಗುಣ);
 
   /* 7.12.8.4 The tgamma functions */
-  extern double __cdecl tgamma (double);
-  extern float __cdecl tgammaf (float);
-  extern long double __cdecl tgammal (long double);
+  ಬಾಹ್ಯ ದ್ವಿಗುಣ __cdecl tgamma (ದ್ವಿಗುಣ);
+  ಬಾಹ್ಯ ಭಿನ್ನ __cdecl tgammaf (ಭಿನ್ನ);
+  ಬಾಹ್ಯ long ದ್ವಿಗುಣ __cdecl tgammal (long ದ್ವಿಗುಣ);
 
-  extern long double __cdecl ceill (long double);
-  extern long double __cdecl floorl (long double);
-  extern long double __cdecl frexpl(long double,int *);
-  extern long double __cdecl log10l(long double);
-  extern long double __cdecl logl(long double);
-  extern long double __cdecl cosl(long double);
-  extern long double __cdecl sinl(long double);
-  extern long double __cdecl tanl(long double);
-  extern long double sqrtl(long double);
+  ಬಾಹ್ಯ long ದ್ವಿಗುಣ __cdecl ceill (long ದ್ವಿಗುಣ);
+  ಬಾಹ್ಯ long ದ್ವಿಗುಣ __cdecl floorl (long ದ್ವಿಗುಣ);
+  ಬಾಹ್ಯ long ದ್ವಿಗುಣ __cdecl frexpl(long ದ್ವಿಗುಣ,ಪೂರ್ಣಾಙ್ಕ *);
+  ಬಾಹ್ಯ long ದ್ವಿಗುಣ __cdecl log10l(long ದ್ವಿಗುಣ);
+  ಬಾಹ್ಯ long ದ್ವಿಗುಣ __cdecl logl(long ದ್ವಿಗುಣ);
+  ಬಾಹ್ಯ long ದ್ವಿಗುಣ __cdecl cosl(long ದ್ವಿಗುಣ);
+  ಬಾಹ್ಯ long ದ್ವಿಗುಣ __cdecl sinl(long ದ್ವಿಗುಣ);
+  ಬಾಹ್ಯ long ದ್ವಿಗುಣ __cdecl tanl(long ದ್ವಿಗುಣ);
+  ಬಾಹ್ಯ long ದ್ವಿಗುಣ sqrtl(long ದ್ವಿಗುಣ);
 
   /* 7.12.9.3 */
-  extern double __cdecl nearbyint ( double);
-  extern float __cdecl nearbyintf (float);
-  extern long double __cdecl nearbyintl (long double);
+  ಬಾಹ್ಯ ದ್ವಿಗುಣ __cdecl nearbyint ( ದ್ವಿಗುಣ);
+  ಬಾಹ್ಯ ಭಿನ್ನ __cdecl nearbyintf (ಭಿನ್ನ);
+  ಬಾಹ್ಯ long ದ್ವಿಗುಣ __cdecl nearbyintl (long ದ್ವಿಗುಣ);
 
   /* 7.12.9.4 */
   /* round, using fpu control word settings */
-  extern double __cdecl rint (double);
-  extern float __cdecl rintf (float);
-  extern long double __cdecl rintl (long double);
+  ಬಾಹ್ಯ ದ್ವಿಗುಣ __cdecl rint (ದ್ವಿಗುಣ);
+  ಬಾಹ್ಯ ಭಿನ್ನ __cdecl rintf (ಭಿನ್ನ);
+  ಬಾಹ್ಯ long ದ್ವಿಗುಣ __cdecl rintl (long ದ್ವಿಗುಣ);
 
-  extern long __cdecl lrint (double);
-  extern long __cdecl lrintf (float);
-  extern long __cdecl lrintl (long double);
+  ಬಾಹ್ಯ long __cdecl lrint (ದ್ವಿಗುಣ);
+  ಬಾಹ್ಯ long __cdecl lrintf (ಭಿನ್ನ);
+  ಬಾಹ್ಯ long __cdecl lrintl (long ದ್ವಿಗುಣ);
 
-  extern long long __cdecl llrint (double);
-  extern long long __cdecl llrintf (float);
-  extern long long __cdecl llrintl (long double);
+  ಬಾಹ್ಯ long long __cdecl llrint (ದ್ವಿಗುಣ);
+  ಬಾಹ್ಯ long long __cdecl llrintf (ಭಿನ್ನ);
+  ಬಾಹ್ಯ long long __cdecl llrintl (long ದ್ವಿಗುಣ);
 
   #define FE_TONEAREST	0x0000
   #define FE_DOWNWARD	0x0400
@@ -391,46 +391,46 @@ extern "C" {
 
   /* 7.12.9.6 */
   /* round away from zero, regardless of fpu control word settings */
-  extern double __cdecl round (double);
-  extern float __cdecl roundf (float);
-  extern long double __cdecl roundl (long double);
+  ಬಾಹ್ಯ ದ್ವಿಗುಣ __cdecl round (ದ್ವಿಗುಣ);
+  ಬಾಹ್ಯ ಭಿನ್ನ __cdecl roundf (ಭಿನ್ನ);
+  ಬಾಹ್ಯ long ದ್ವಿಗುಣ __cdecl roundl (long ದ್ವಿಗುಣ);
 
   /* 7.12.9.7  */
-  extern long __cdecl lround (double);
-  extern long __cdecl lroundf (float);
-  extern long __cdecl lroundl (long double);
+  ಬಾಹ್ಯ long __cdecl lround (ದ್ವಿಗುಣ);
+  ಬಾಹ್ಯ long __cdecl lroundf (ಭಿನ್ನ);
+  ಬಾಹ್ಯ long __cdecl lroundl (long ದ್ವಿಗುಣ);
 
-  extern long long __cdecl llround (double);
-  extern long long __cdecl llroundf (float);
-  extern long long __cdecl llroundl (long double);
+  ಬಾಹ್ಯ long long __cdecl llround (ದ್ವಿಗುಣ);
+  ಬಾಹ್ಯ long long __cdecl llroundf (ಭಿನ್ನ);
+  ಬಾಹ್ಯ long long __cdecl llroundl (long ದ್ವಿಗುಣ);
 
   /* 7.12.9.8 */
   /* round towards zero, regardless of fpu control word settings */
-  extern double __cdecl trunc (double);
-  extern float __cdecl truncf (float);
-  extern long double __cdecl truncl (long double);
+  ಬಾಹ್ಯ ದ್ವಿಗುಣ __cdecl trunc (ದ್ವಿಗುಣ);
+  ಬಾಹ್ಯ ಭಿನ್ನ __cdecl truncf (ಭಿನ್ನ);
+  ಬಾಹ್ಯ long ದ್ವಿಗುಣ __cdecl truncl (long ದ್ವಿಗುಣ);
 
-  extern long double __cdecl fmodl (long double, long double);
+  ಬಾಹ್ಯ long ದ್ವಿಗುಣ __cdecl fmodl (long ದ್ವಿಗುಣ, long ದ್ವಿಗುಣ);
 
   /* 7.12.10.2 */ 
-  extern double __cdecl remainder (double, double);
-  extern float __cdecl remainderf (float, float);
-  extern long double __cdecl remainderl (long double, long double);
+  ಬಾಹ್ಯ ದ್ವಿಗುಣ __cdecl remainder (ದ್ವಿಗುಣ, ದ್ವಿಗುಣ);
+  ಬಾಹ್ಯ ಭಿನ್ನ __cdecl remainderf (ಭಿನ್ನ, ಭಿನ್ನ);
+  ಬಾಹ್ಯ long ದ್ವಿಗುಣ __cdecl remainderl (long ದ್ವಿಗುಣ, long ದ್ವಿಗುಣ);
 
   /* 7.12.10.3 */
-  extern double __cdecl remquo(double, double, int *);
-  extern float __cdecl remquof(float, float, int *);
-  extern long double __cdecl remquol(long double, long double, int *);
+  ಬಾಹ್ಯ ದ್ವಿಗುಣ __cdecl remquo(ದ್ವಿಗುಣ, ದ್ವಿಗುಣ, ಪೂರ್ಣಾಙ್ಕ *);
+  ಬಾಹ್ಯ ಭಿನ್ನ __cdecl remquof(ಭಿನ್ನ, ಭಿನ್ನ, ಪೂರ್ಣಾಙ್ಕ *);
+  ಬಾಹ್ಯ long ದ್ವಿಗುಣ __cdecl remquol(long ದ್ವಿಗುಣ, long ದ್ವಿಗುಣ, ಪೂರ್ಣಾಙ್ಕ *);
 
   /* 7.12.11.1 */
-  extern double __cdecl copysign (double, double); /* in libmoldname.a */
-  extern float __cdecl copysignf (float, float);
-  extern long double __cdecl copysignl (long double, long double);
+  ಬಾಹ್ಯ ದ್ವಿಗುಣ __cdecl copysign (ದ್ವಿಗುಣ, ದ್ವಿಗುಣ); /* in libmoldname.a */
+  ಬಾಹ್ಯ ಭಿನ್ನ __cdecl copysignf (ಭಿನ್ನ, ಭಿನ್ನ);
+  ಬಾಹ್ಯ long ದ್ವಿಗುಣ __cdecl copysignl (long ದ್ವಿಗುಣ, long ದ್ವಿಗುಣ);
 
   /* 7.12.11.2 Return a NaN */
-  extern double __cdecl nan(const char *tagp);
-  extern float __cdecl nanf(const char *tagp);
-  extern long double __cdecl nanl(const char *tagp);
+  ಬಾಹ್ಯ ದ್ವಿಗುಣ __cdecl nan(ಧ್ರುವ ವರ್ಣ *tagp);
+  ಬಾಹ್ಯ ಭಿನ್ನ __cdecl nanf(ಧ್ರುವ ವರ್ಣ *tagp);
+  ಬಾಹ್ಯ long ದ್ವಿಗುಣ __cdecl nanl(ಧ್ರುವ ವರ್ಣ *tagp);
 
 #ifndef __STRICT_ANSI__
 #define _nan() nan("")
@@ -439,17 +439,17 @@ extern "C" {
 #endif
 
   /* 7.12.11.3 */
-  extern double __cdecl nextafter (double, double); /* in libmoldname.a */
-  extern float __cdecl nextafterf (float, float);
-  extern long double __cdecl nextafterl (long double, long double);
+  ಬಾಹ್ಯ ದ್ವಿಗುಣ __cdecl nextafter (ದ್ವಿಗುಣ, ದ್ವಿಗುಣ); /* in libmoldname.a */
+  ಬಾಹ್ಯ ಭಿನ್ನ __cdecl nextafterf (ಭಿನ್ನ, ಭಿನ್ನ);
+  ಬಾಹ್ಯ long ದ್ವಿಗುಣ __cdecl nextafterl (long ದ್ವಿಗುಣ, long ದ್ವಿಗುಣ);
 
   /* 7.12.11.4 The nexttoward functions: TODO */
 
   /* 7.12.12.1 */
   /*  x > y ? (x - y) : 0.0  */
-  extern double __cdecl fdim (double x, double y);
-  extern float __cdecl fdimf (float x, float y);
-  extern long double __cdecl fdiml (long double x, long double y);
+  ಬಾಹ್ಯ ದ್ವಿಗುಣ __cdecl fdim (ದ್ವಿಗುಣ x, ದ್ವಿಗುಣ y);
+  ಬಾಹ್ಯ ಭಿನ್ನ __cdecl fdimf (ಭಿನ್ನ x, ಭಿನ್ನ y);
+  ಬಾಹ್ಯ long ದ್ವಿಗುಣ __cdecl fdiml (long ದ್ವಿಗುಣ x, long ದ್ವಿಗುಣ y);
 
   /* fmax and fmin.
   NaN arguments are treated as missing data: if one argument is a NaN
@@ -457,20 +457,20 @@ extern "C" {
   value. */
 
   /* 7.12.12.2 */
-  extern double __cdecl fmax  (double, double);
-  extern float __cdecl fmaxf (float, float);
-  extern long double __cdecl fmaxl (long double, long double);
+  ಬಾಹ್ಯ ದ್ವಿಗುಣ __cdecl fmax  (ದ್ವಿಗುಣ, ದ್ವಿಗುಣ);
+  ಬಾಹ್ಯ ಭಿನ್ನ __cdecl fmaxf (ಭಿನ್ನ, ಭಿನ್ನ);
+  ಬಾಹ್ಯ long ದ್ವಿಗುಣ __cdecl fmaxl (long ದ್ವಿಗುಣ, long ದ್ವಿಗುಣ);
 
   /* 7.12.12.3 */
-  extern double __cdecl fmin (double, double);
-  extern float __cdecl fminf (float, float);
-  extern long double __cdecl fminl (long double, long double);
+  ಬಾಹ್ಯ ದ್ವಿಗುಣ __cdecl fmin (ದ್ವಿಗುಣ, ದ್ವಿಗುಣ);
+  ಬಾಹ್ಯ ಭಿನ್ನ __cdecl fminf (ಭಿನ್ನ, ಭಿನ್ನ);
+  ಬಾಹ್ಯ long ದ್ವಿಗುಣ __cdecl fminl (long ದ್ವಿಗುಣ, long ದ್ವಿಗುಣ);
 
   /* 7.12.13.1 */
   /* return x * y + z as a ternary op */ 
-  extern double __cdecl fma (double, double, double);
-  extern float __cdecl fmaf (float, float, float);
-  extern long double __cdecl fmal (long double, long double, long double);
+  ಬಾಹ್ಯ ದ್ವಿಗುಣ __cdecl fma (ದ್ವಿಗುಣ, ದ್ವಿಗುಣ, ದ್ವಿಗುಣ);
+  ಬಾಹ್ಯ ಭಿನ್ನ __cdecl fmaf (ಭಿನ್ನ, ಭಿನ್ನ, ಭಿನ್ನ);
+  ಬಾಹ್ಯ long ದ್ವಿಗುಣ __cdecl fmal (long ದ್ವಿಗುಣ, long ದ್ವಿಗುಣ, long ದ್ವಿಗುಣ);
 
 
 #endif /* __STDC_VERSION__ >= 199901L */
@@ -479,7 +479,7 @@ extern "C" {
 #ifdef __cplusplus
 }
 #endif
-#pragma pack(pop)
+#pragma pack(ತೆಗೆ)
 
 /* 7.12.14 */
 /* 
@@ -491,7 +491,7 @@ extern "C" {
  */
 
 /* Mini libm (inline __fpclassify*, __signbit* and variants) */
-#include "tcc/tcc_libm.h"
+#ಅನ್ತರ್ಭಾವ "tcc/tcc_libm.h"
 
 #endif /* End _MATH_H_ */
 

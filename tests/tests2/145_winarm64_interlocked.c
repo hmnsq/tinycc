@@ -1,12 +1,12 @@
-#include <stdio.h>
-#include <windows.h>
+#ಅನ್ತರ್ಭಾವ <stdio.h>
+#ಅನ್ತರ್ಭಾವ <windows.h>
 
 #define PTR(x) ((PVOID)(ULONG_PTR)(x))
-#define CHECK(name, expr) printf("%s: %s\n", name, (expr) ? "yes" : "no")
+#define CHECK(name, ಅಭಿವ್ಯಕ್ತಿ) printf("%s: %s\n", name, (ಅಭಿವ್ಯಕ್ತಿ) ? "yes" : "no")
 
-int main(void)
+ಪೂರ್ಣಾಙ್ಕ main(ಶೂನ್ಯ)
 {
-    PVOID volatile slot = PTR(0x1111222233334444ULL);
+    PVOID ಚಞ್ಚಲ slot = PTR(0x1111222233334444ULL);
     PVOID old;
 
     old = InterlockedExchangePointer(&slot, PTR(0x5555666677778888ULL));
@@ -31,5 +31,5 @@ int main(void)
     CHECK("release old", old == PTR(0x9999aaaabbbbccccULL));
     CHECK("release stored", slot == PTR(0xdddd111122223333ULL));
 
-    return 0;
+    ಪ್ರತ್ಯಾಗಮ 0;
 }

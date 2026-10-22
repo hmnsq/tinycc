@@ -11,7 +11,7 @@
 #endif
 
 #ifdef __cplusplus
-extern "C" {
+ಬಾಹ್ಯ "C" {
 #endif
 
 #ifndef WINVER
@@ -20,22 +20,22 @@ extern "C" {
 
 #ifndef BASETYPES
 #define BASETYPES
-  typedef unsigned long ULONG;
-  typedef ULONG *PULONG;
-  typedef unsigned short USHORT;
-  typedef USHORT *PUSHORT;
-  typedef unsigned char UCHAR;
-  typedef UCHAR *PUCHAR;
-  typedef char *PSZ;
+  ಪ್ರಕಾರನಿರ್ದೇಶ unsigned long ULONG;
+  ಪ್ರಕಾರನಿರ್ದೇಶ ULONG *PULONG;
+  ಪ್ರಕಾರನಿರ್ದೇಶ unsigned short USHORT;
+  ಪ್ರಕಾರನಿರ್ದೇಶ USHORT *PUSHORT;
+  ಪ್ರಕಾರನಿರ್ದೇಶ unsigned ವರ್ಣ UCHAR;
+  ಪ್ರಕಾರನಿರ್ದೇಶ UCHAR *PUCHAR;
+  ಪ್ರಕಾರನಿರ್ದೇಶ ವರ್ಣ *PSZ;
 #endif
 
 #define MAX_PATH 260
 
-#ifndef NULL
+#ifndef ರಿಕ್ತ
 #ifdef __cplusplus
-#define NULL 0
-#else
-#define NULL ((void *)0)
+#define ರಿಕ್ತ 0
+#ಅನ್ಯಥಾ
+#define ರಿಕ್ತ ((ಶೂನ್ಯ *)0)
 #endif
 #endif
 
@@ -88,45 +88,45 @@ extern "C" {
 #define FAR
 #define NEAR
 #ifndef CONST
-#define CONST const
+#define CONST ಧ್ರುವ
 #endif
 
-  typedef unsigned long DWORD;
-  typedef int WINBOOL;
+  ಪ್ರಕಾರನಿರ್ದೇಶ unsigned long DWORD;
+  ಪ್ರಕಾರನಿರ್ದೇಶ ಪೂರ್ಣಾಙ್ಕ WINBOOL;
 #define BOOL WINBOOL
-  typedef unsigned char BYTE;
-  typedef unsigned short WORD;
-  typedef float FLOAT;
-  typedef FLOAT *PFLOAT;
-  typedef WINBOOL *PBOOL;
-  typedef WINBOOL *LPBOOL;
-  typedef BYTE *PBYTE;
-  typedef BYTE *LPBYTE;
-  typedef int *PINT;
-  typedef int *LPINT;
-  typedef WORD *PWORD;
-  typedef WORD *LPWORD;
-  typedef long *LPLONG;
-  typedef DWORD *PDWORD;
-  typedef DWORD *LPDWORD;
-  typedef void *LPVOID;
+  ಪ್ರಕಾರನಿರ್ದೇಶ unsigned ವರ್ಣ BYTE;
+  ಪ್ರಕಾರನಿರ್ದೇಶ unsigned short WORD;
+  ಪ್ರಕಾರನಿರ್ದೇಶ ಭಿನ್ನ FLOAT;
+  ಪ್ರಕಾರನಿರ್ದೇಶ FLOAT *PFLOAT;
+  ಪ್ರಕಾರನಿರ್ದೇಶ WINBOOL *PBOOL;
+  ಪ್ರಕಾರನಿರ್ದೇಶ WINBOOL *LPBOOL;
+  ಪ್ರಕಾರನಿರ್ದೇಶ BYTE *PBYTE;
+  ಪ್ರಕಾರನಿರ್ದೇಶ BYTE *LPBYTE;
+  ಪ್ರಕಾರನಿರ್ದೇಶ ಪೂರ್ಣಾಙ್ಕ *PINT;
+  ಪ್ರಕಾರನಿರ್ದೇಶ ಪೂರ್ಣಾಙ್ಕ *LPINT;
+  ಪ್ರಕಾರನಿರ್ದೇಶ WORD *PWORD;
+  ಪ್ರಕಾರನಿರ್ದೇಶ WORD *LPWORD;
+  ಪ್ರಕಾರನಿರ್ದೇಶ long *LPLONG;
+  ಪ್ರಕಾರನಿರ್ದೇಶ DWORD *PDWORD;
+  ಪ್ರಕಾರನಿರ್ದೇಶ DWORD *LPDWORD;
+  ಪ್ರಕಾರನಿರ್ದೇಶ ಶೂನ್ಯ *LPVOID;
 # ifndef _LPCVOID_DEFINED
 #define _LPCVOID_DEFINED
-typedef CONST void *LPCVOID;
+ಪ್ರಕಾರನಿರ್ದೇಶ CONST ಶೂನ್ಯ *LPCVOID;
 #endif
-  typedef int INT;
-  typedef unsigned int UINT;
-  typedef unsigned int *PUINT;
+  ಪ್ರಕಾರನಿರ್ದೇಶ ಪೂರ್ಣಾಙ್ಕ INT;
+  ಪ್ರಕಾರನಿರ್ದೇಶ unsigned ಪೂರ್ಣಾಙ್ಕ UINT;
+  ಪ್ರಕಾರನಿರ್ದೇಶ unsigned ಪೂರ್ಣಾಙ್ಕ *PUINT;
 
 #ifndef NT_INCLUDED
-#include <winnt.h>
+#ಅನ್ತರ್ಭಾವ <winnt.h>
 #endif
 
 //gr #include <specstrings.h>
 
-  typedef UINT_PTR WPARAM;
-  typedef LONG_PTR LPARAM;
-  typedef LONG_PTR LRESULT;
+  ಪ್ರಕಾರನಿರ್ದೇಶ UINT_PTR WPARAM;
+  ಪ್ರಕಾರನಿರ್ದೇಶ LONG_PTR LPARAM;
+  ಪ್ರಕಾರನಿರ್ದೇಶ LONG_PTR LRESULT;
 
 #ifndef __cplusplus
 #ifndef NOMINMAX
@@ -155,28 +155,28 @@ typedef CONST void *LPCVOID;
 #endif
 #endif
 
-  typedef WORD ATOM;
+  ಪ್ರಕಾರನಿರ್ದೇಶ WORD ATOM;
 
-  typedef HANDLE *SPHANDLE;
-  typedef HANDLE *LPHANDLE;
-  typedef HANDLE HGLOBAL;
-  typedef HANDLE HLOCAL;
-  typedef HANDLE GLOBALHANDLE;
-  typedef HANDLE LOCALHANDLE;
+  ಪ್ರಕಾರನಿರ್ದೇಶ HANDLE *SPHANDLE;
+  ಪ್ರಕಾರನಿರ್ದೇಶ HANDLE *LPHANDLE;
+  ಪ್ರಕಾರನಿರ್ದೇಶ HANDLE HGLOBAL;
+  ಪ್ರಕಾರನಿರ್ದೇಶ HANDLE HLOCAL;
+  ಪ್ರಕಾರನಿರ್ದೇಶ HANDLE GLOBALHANDLE;
+  ಪ್ರಕಾರನಿರ್ದೇಶ HANDLE LOCALHANDLE;
 #ifdef _WIN64
-  typedef INT_PTR (WINAPI *FARPROC)();
-  typedef INT_PTR (WINAPI *NEARPROC)();
-  typedef INT_PTR (WINAPI *PROC)();
-#else
-  typedef int (WINAPI *FARPROC)();
-  typedef int (WINAPI *NEARPROC)();
-  typedef int (WINAPI *PROC)();
+  ಪ್ರಕಾರನಿರ್ದೇಶ INT_PTR (WINAPI *FARPROC)();
+  ಪ್ರಕಾರನಿರ್ದೇಶ INT_PTR (WINAPI *NEARPROC)();
+  ಪ್ರಕಾರನಿರ್ದೇಶ INT_PTR (WINAPI *PROC)();
+#ಅನ್ಯಥಾ
+  ಪ್ರಕಾರನಿರ್ದೇಶ ಪೂರ್ಣಾಙ್ಕ (WINAPI *FARPROC)();
+  ಪ್ರಕಾರನಿರ್ದೇಶ ಪೂರ್ಣಾಙ್ಕ (WINAPI *NEARPROC)();
+  ಪ್ರಕಾರನಿರ್ದೇಶ ಪೂರ್ಣಾಙ್ಕ (WINAPI *PROC)();
 #endif
 
-  typedef void *HGDIOBJ;
+  ಪ್ರಕಾರನಿರ್ದೇಶ ಶೂನ್ಯ *HGDIOBJ;
 
   DECLARE_HANDLE(HKEY);
-  typedef HKEY *PHKEY;
+  ಪ್ರಕಾರನಿರ್ದೇಶ HKEY *PHKEY;
 
   DECLARE_HANDLE(HACCEL);
   DECLARE_HANDLE(HBITMAP);
@@ -191,7 +191,7 @@ typedef CONST void *LPCVOID;
   DECLARE_HANDLE(HMENU);
   DECLARE_HANDLE(HMETAFILE);
   DECLARE_HANDLE(HINSTANCE);
-  typedef HINSTANCE HMODULE;
+  ಪ್ರಕಾರನಿರ್ದೇಶ HINSTANCE HMODULE;
   DECLARE_HANDLE(HPALETTE);
   DECLARE_HANDLE(HPEN);
   DECLARE_HANDLE(HRGN);
@@ -204,57 +204,57 @@ typedef CONST void *LPCVOID;
   DECLARE_HANDLE(HWINEVENTHOOK);
   DECLARE_HANDLE(HUMPD);
 
-  typedef int HFILE;
-  typedef HICON HCURSOR;
-  typedef DWORD COLORREF;
-  typedef DWORD *LPCOLORREF;
+  ಪ್ರಕಾರನಿರ್ದೇಶ ಪೂರ್ಣಾಙ್ಕ HFILE;
+  ಪ್ರಕಾರನಿರ್ದೇಶ HICON HCURSOR;
+  ಪ್ರಕಾರನಿರ್ದೇಶ DWORD COLORREF;
+  ಪ್ರಕಾರನಿರ್ದೇಶ DWORD *LPCOLORREF;
 
 #define HFILE_ERROR ((HFILE)-1)
 
-  typedef struct tagRECT {
-    LONG left;
-    LONG top;
-    LONG right;
+  ಪ್ರಕಾರನಿರ್ದೇಶ ಸಂರಚನಾ tagRECT {
+    LONG ಎಡ;
+    LONG ತುದಿ;
+    LONG ಬಲ;
     LONG bottom;
   } RECT,*PRECT,*NPRECT,*LPRECT;
 
-  typedef const RECT *LPCRECT;
+  ಪ್ರಕಾರನಿರ್ದೇಶ ಧ್ರುವ RECT *LPCRECT;
 
-  typedef struct _RECTL {
-    LONG left;
-    LONG top;
-    LONG right;
+  ಪ್ರಕಾರನಿರ್ದೇಶ ಸಂರಚನಾ _RECTL {
+    LONG ಎಡ;
+    LONG ತುದಿ;
+    LONG ಬಲ;
     LONG bottom;
   } RECTL,*PRECTL,*LPRECTL;
 
-  typedef const RECTL *LPCRECTL;
+  ಪ್ರಕಾರನಿರ್ದೇಶ ಧ್ರುವ RECTL *LPCRECTL;
 
-  typedef struct tagPOINT {
+  ಪ್ರಕಾರನಿರ್ದೇಶ ಸಂರಚನಾ tagPOINT {
     LONG x;
     LONG y;
   } POINT,*PPOINT,*NPPOINT,*LPPOINT;
 
-  typedef struct _POINTL {
+  ಪ್ರಕಾರನಿರ್ದೇಶ ಸಂರಚನಾ _POINTL {
     LONG x;
     LONG y;
   } POINTL,*PPOINTL;
 
-  typedef struct tagSIZE {
+  ಪ್ರಕಾರನಿರ್ದೇಶ ಸಂರಚನಾ tagSIZE {
     LONG cx;
     LONG cy;
   } SIZE,*PSIZE,*LPSIZE;
 
-  typedef SIZE SIZEL;
-  typedef SIZE *PSIZEL,*LPSIZEL;
+  ಪ್ರಕಾರನಿರ್ದೇಶ SIZE SIZEL;
+  ಪ್ರಕಾರನಿರ್ದೇಶ SIZE *PSIZEL,*LPSIZEL;
 
-  typedef struct tagPOINTS {
+  ಪ್ರಕಾರನಿರ್ದೇಶ ಸಂರಚನಾ tagPOINTS {
     SHORT x;
     SHORT y;
   } POINTS,*PPOINTS,*LPPOINTS;
 
-  typedef struct _FILETIME {
-    DWORD dwLowDateTime;
-    DWORD dwHighDateTime;
+  ಪ್ರಕಾರನಿರ್ದೇಶ ಸಂರಚನಾ _FILETIME {
+    DWORD dw_ಕೆಳಗಿನ_Date_Time;
+    DWORD dw_ಮೇಲಿನ_Date_Time;
   } FILETIME,*PFILETIME,*LPFILETIME;
 #define _FILETIME_
 

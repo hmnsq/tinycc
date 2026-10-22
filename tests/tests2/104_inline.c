@@ -1,123 +1,123 @@
-inline void inline_inline_2decl_only(void);
-inline void inline_inline_2decl_only(void);
+ಅನ್ತಃಸ್ಥ ಶೂನ್ಯ inline_inline_2decl_only(ಶೂನ್ಯ);
+ಅನ್ತಃಸ್ಥ ಶೂನ್ಯ inline_inline_2decl_only(ಶೂನ್ಯ);
 
-inline void inline_inline_undeclared(void){}
+ಅನ್ತಃಸ್ಥ ಶೂನ್ಯ inline_inline_undeclared(ಶೂನ್ಯ){}
 
-inline void inline_inline_predeclared(void);
-inline void inline_inline_predeclared(void){}
+ಅನ್ತಃಸ್ಥ ಶೂನ್ಯ inline_inline_predeclared(ಶೂನ್ಯ);
+ಅನ್ತಃಸ್ಥ ಶೂನ್ಯ inline_inline_predeclared(ಶೂನ್ಯ){}
 
-inline void inline_inline_postdeclared(void){}
-inline void inline_inline_postdeclared(void);
+ಅನ್ತಃಸ್ಥ ಶೂನ್ಯ inline_inline_postdeclared(ಶೂನ್ಯ){}
+ಅನ್ತಃಸ್ಥ ಶೂನ್ಯ inline_inline_postdeclared(ಶೂನ್ಯ);
 
-inline void inline_inline_prepostdeclared(void);
-inline void inline_inline_prepostdeclared(void){}
-inline void inline_inline_prepostdeclared(void);
+ಅನ್ತಃಸ್ಥ ಶೂನ್ಯ inline_inline_prepostdeclared(ಶೂನ್ಯ);
+ಅನ್ತಃಸ್ಥ ಶೂನ್ಯ inline_inline_prepostdeclared(ಶೂನ್ಯ){}
+ಅನ್ತಃಸ್ಥ ಶೂನ್ಯ inline_inline_prepostdeclared(ಶೂನ್ಯ);
 
-inline void inline_inline_undeclared2(void){}
+ಅನ್ತಃಸ್ಥ ಶೂನ್ಯ inline_inline_undeclared2(ಶೂನ್ಯ){}
 
-inline void inline_inline_predeclared2(void);
-inline void inline_inline_predeclared2(void);
-inline void inline_inline_predeclared2(void){}
+ಅನ್ತಃಸ್ಥ ಶೂನ್ಯ inline_inline_predeclared2(ಶೂನ್ಯ);
+ಅನ್ತಃಸ್ಥ ಶೂನ್ಯ inline_inline_predeclared2(ಶೂನ್ಯ);
+ಅನ್ತಃಸ್ಥ ಶೂನ್ಯ inline_inline_predeclared2(ಶೂನ್ಯ){}
 
-inline void inline_inline_postdeclared2(void){}
-inline void inline_inline_postdeclared2(void);
-inline void inline_inline_postdeclared2(void);
+ಅನ್ತಃಸ್ಥ ಶೂನ್ಯ inline_inline_postdeclared2(ಶೂನ್ಯ){}
+ಅನ್ತಃಸ್ಥ ಶೂನ್ಯ inline_inline_postdeclared2(ಶೂನ್ಯ);
+ಅನ್ತಃಸ್ಥ ಶೂನ್ಯ inline_inline_postdeclared2(ಶೂನ್ಯ);
 
-inline void inline_inline_prepostdeclared2(void);
-inline void inline_inline_prepostdeclared2(void);
-inline void inline_inline_prepostdeclared2(void){}
-inline void inline_inline_prepostdeclared2(void);
-inline void inline_inline_prepostdeclared2(void);
+ಅನ್ತಃಸ್ಥ ಶೂನ್ಯ inline_inline_prepostdeclared2(ಶೂನ್ಯ);
+ಅನ್ತಃಸ್ಥ ಶೂನ್ಯ inline_inline_prepostdeclared2(ಶೂನ್ಯ);
+ಅನ್ತಃಸ್ಥ ಶೂನ್ಯ inline_inline_prepostdeclared2(ಶೂನ್ಯ){}
+ಅನ್ತಃಸ್ಥ ಶೂನ್ಯ inline_inline_prepostdeclared2(ಶೂನ್ಯ);
+ಅನ್ತಃಸ್ಥ ಶೂನ್ಯ inline_inline_prepostdeclared2(ಶೂನ್ಯ);
 
-extern void extern_extern_undeclared(void){}
+ಬಾಹ್ಯ ಶೂನ್ಯ extern_extern_undeclared(ಶೂನ್ಯ){}
 
-extern void extern_extern_predeclared(void);
-extern void extern_extern_predeclared(void){}
+ಬಾಹ್ಯ ಶೂನ್ಯ extern_extern_predeclared(ಶೂನ್ಯ);
+ಬಾಹ್ಯ ಶೂನ್ಯ extern_extern_predeclared(ಶೂನ್ಯ){}
 
-extern void extern_extern_postdeclared(void){}
-extern void extern_extern_postdeclared(void);
+ಬಾಹ್ಯ ಶೂನ್ಯ extern_extern_postdeclared(ಶೂನ್ಯ){}
+ಬಾಹ್ಯ ಶೂನ್ಯ extern_extern_postdeclared(ಶೂನ್ಯ);
 
-extern void extern_extern_prepostdeclared(void);
-extern void extern_extern_prepostdeclared(void){}
-extern void extern_extern_prepostdeclared(void);
+ಬಾಹ್ಯ ಶೂನ್ಯ extern_extern_prepostdeclared(ಶೂನ್ಯ);
+ಬಾಹ್ಯ ಶೂನ್ಯ extern_extern_prepostdeclared(ಶೂನ್ಯ){}
+ಬಾಹ್ಯ ಶೂನ್ಯ extern_extern_prepostdeclared(ಶೂನ್ಯ);
 
-extern void extern_extern_undeclared2(void){}
+ಬಾಹ್ಯ ಶೂನ್ಯ extern_extern_undeclared2(ಶೂನ್ಯ){}
 
-extern void extern_extern_predeclared2(void);
-extern void extern_extern_predeclared2(void);
-extern void extern_extern_predeclared2(void){}
+ಬಾಹ್ಯ ಶೂನ್ಯ extern_extern_predeclared2(ಶೂನ್ಯ);
+ಬಾಹ್ಯ ಶೂನ್ಯ extern_extern_predeclared2(ಶೂನ್ಯ);
+ಬಾಹ್ಯ ಶೂನ್ಯ extern_extern_predeclared2(ಶೂನ್ಯ){}
 
-extern void extern_extern_postdeclared2(void){}
-extern void extern_extern_postdeclared2(void);
-extern void extern_extern_postdeclared2(void);
+ಬಾಹ್ಯ ಶೂನ್ಯ extern_extern_postdeclared2(ಶೂನ್ಯ){}
+ಬಾಹ್ಯ ಶೂನ್ಯ extern_extern_postdeclared2(ಶೂನ್ಯ);
+ಬಾಹ್ಯ ಶೂನ್ಯ extern_extern_postdeclared2(ಶೂನ್ಯ);
 
-extern void extern_extern_prepostdeclared2(void);
-extern void extern_extern_prepostdeclared2(void);
-extern void extern_extern_prepostdeclared2(void){}
-extern void extern_extern_prepostdeclared2(void);
-extern void extern_extern_prepostdeclared2(void);
+ಬಾಹ್ಯ ಶೂನ್ಯ extern_extern_prepostdeclared2(ಶೂನ್ಯ);
+ಬಾಹ್ಯ ಶೂನ್ಯ extern_extern_prepostdeclared2(ಶೂನ್ಯ);
+ಬಾಹ್ಯ ಶೂನ್ಯ extern_extern_prepostdeclared2(ಶೂನ್ಯ){}
+ಬಾಹ್ಯ ಶೂನ್ಯ extern_extern_prepostdeclared2(ಶೂನ್ಯ);
+ಬಾಹ್ಯ ಶೂನ್ಯ extern_extern_prepostdeclared2(ಶೂನ್ಯ);
 
-void extern_undeclared(void){}
+ಶೂನ್ಯ extern_undeclared(ಶೂನ್ಯ){}
 
-void extern_predeclared(void);
-void extern_predeclared(void){}
+ಶೂನ್ಯ extern_predeclared(ಶೂನ್ಯ);
+ಶೂನ್ಯ extern_predeclared(ಶೂನ್ಯ){}
 
-void extern_postdeclared(void){}
-void extern_postdeclared(void);
+ಶೂನ್ಯ extern_postdeclared(ಶೂನ್ಯ){}
+ಶೂನ್ಯ extern_postdeclared(ಶೂನ್ಯ);
 
-void extern_prepostdeclared(void);
-void extern_prepostdeclared(void){}
-void extern_prepostdeclared(void);
+ಶೂನ್ಯ extern_prepostdeclared(ಶೂನ್ಯ);
+ಶೂನ್ಯ extern_prepostdeclared(ಶೂನ್ಯ){}
+ಶೂನ್ಯ extern_prepostdeclared(ಶೂನ್ಯ);
 
-void extern_undeclared2(void){}
+ಶೂನ್ಯ extern_undeclared2(ಶೂನ್ಯ){}
 
-void extern_predeclared2(void);
-void extern_predeclared2(void);
-void extern_predeclared2(void){}
+ಶೂನ್ಯ extern_predeclared2(ಶೂನ್ಯ);
+ಶೂನ್ಯ extern_predeclared2(ಶೂನ್ಯ);
+ಶೂನ್ಯ extern_predeclared2(ಶೂನ್ಯ){}
 
-void extern_postdeclared2(void){}
-void extern_postdeclared2(void);
-void extern_postdeclared2(void);
+ಶೂನ್ಯ extern_postdeclared2(ಶೂನ್ಯ){}
+ಶೂನ್ಯ extern_postdeclared2(ಶೂನ್ಯ);
+ಶೂನ್ಯ extern_postdeclared2(ಶೂನ್ಯ);
 
 
-extern inline void noinst_extern_inline_undeclared(void){}
+ಬಾಹ್ಯ ಅನ್ತಃಸ್ಥ ಶೂನ್ಯ noinst_extern_inline_undeclared(ಶೂನ್ಯ){}
 
-extern inline void noinst_extern_inline_postdeclared(void){}
-inline void noinst_extern_inline_postdeclared(void);
+ಬಾಹ್ಯ ಅನ್ತಃಸ್ಥ ಶೂನ್ಯ noinst_extern_inline_postdeclared(ಶೂನ್ಯ){}
+ಅನ್ತಃಸ್ಥ ಶೂನ್ಯ noinst_extern_inline_postdeclared(ಶೂನ್ಯ);
 
-extern inline void noinst_extern_inline_postdeclared2(void){}
-inline void noinst_extern_inline_postdeclared2(void);
-inline void noinst_extern_inline_postdeclared2(void);
+ಬಾಹ್ಯ ಅನ್ತಃಸ್ಥ ಶೂನ್ಯ noinst_extern_inline_postdeclared2(ಶೂನ್ಯ){}
+ಅನ್ತಃಸ್ಥ ಶೂನ್ಯ noinst_extern_inline_postdeclared2(ಶೂನ್ಯ);
+ಅನ್ತಃಸ್ಥ ಶೂನ್ಯ noinst_extern_inline_postdeclared2(ಶೂನ್ಯ);
 
-extern inline void inst_extern_inline_postdeclared(void){}
-extern inline void inst_extern_inline_postdeclared(void);
-inline void inst2_extern_inline_postdeclared(void){}
-void inst2_extern_inline_postdeclared(void);
+ಬಾಹ್ಯ ಅನ್ತಃಸ್ಥ ಶೂನ್ಯ inst_extern_inline_postdeclared(ಶೂನ್ಯ){}
+ಬಾಹ್ಯ ಅನ್ತಃಸ್ಥ ಶೂನ್ಯ inst_extern_inline_postdeclared(ಶೂನ್ಯ);
+ಅನ್ತಃಸ್ಥ ಶೂನ್ಯ inst2_extern_inline_postdeclared(ಶೂನ್ಯ){}
+ಶೂನ್ಯ inst2_extern_inline_postdeclared(ಶೂನ್ಯ);
 
-void inst_extern_inline_predeclared(void);
-extern inline void inst_extern_inline_predeclared(void){}
-void inst2_extern_inline_predeclared(void);
-inline void inst2_extern_inline_predeclared(void){}
-extern inline void inst3_extern_inline_predeclared(void);
-inline void inst3_extern_inline_predeclared(void){}
+ಶೂನ್ಯ inst_extern_inline_predeclared(ಶೂನ್ಯ);
+ಬಾಹ್ಯ ಅನ್ತಃಸ್ಥ ಶೂನ್ಯ inst_extern_inline_predeclared(ಶೂನ್ಯ){}
+ಶೂನ್ಯ inst2_extern_inline_predeclared(ಶೂನ್ಯ);
+ಅನ್ತಃಸ್ಥ ಶೂನ್ಯ inst2_extern_inline_predeclared(ಶೂನ್ಯ){}
+ಬಾಹ್ಯ ಅನ್ತಃಸ್ಥ ಶೂನ್ಯ inst3_extern_inline_predeclared(ಶೂನ್ಯ);
+ಅನ್ತಃಸ್ಥ ಶೂನ್ಯ inst3_extern_inline_predeclared(ಶೂನ್ಯ){}
 
-static inline void noinst_static_inline_postdeclared(void){}
-static inline void noinst_static_inline_postdeclared(void);
-static inline void noinst2_static_inline_postdeclared(void){}
-static void noinst2_static_inline_postdeclared(void);
+ಸ್ಥಿರ ಅನ್ತಃಸ್ಥ ಶೂನ್ಯ noinst_static_inline_postdeclared(ಶೂನ್ಯ){}
+ಸ್ಥಿರ ಅನ್ತಃಸ್ಥ ಶೂನ್ಯ noinst_static_inline_postdeclared(ಶೂನ್ಯ);
+ಸ್ಥಿರ ಅನ್ತಃಸ್ಥ ಶೂನ್ಯ noinst2_static_inline_postdeclared(ಶೂನ್ಯ){}
+ಸ್ಥಿರ ಶೂನ್ಯ noinst2_static_inline_postdeclared(ಶೂನ್ಯ);
 
-static void noinst_static_inline_predeclared(void);
-static inline void noinst_static_inline_predeclared(void){}
-static void noinst2_static_inline_predeclared(void);
-static inline void noinst2_static_inline_predeclared(void){}
+ಸ್ಥಿರ ಶೂನ್ಯ noinst_static_inline_predeclared(ಶೂನ್ಯ);
+ಸ್ಥಿರ ಅನ್ತಃಸ್ಥ ಶೂನ್ಯ noinst_static_inline_predeclared(ಶೂನ್ಯ){}
+ಸ್ಥಿರ ಶೂನ್ಯ noinst2_static_inline_predeclared(ಶೂನ್ಯ);
+ಸ್ಥಿರ ಅನ್ತಃಸ್ಥ ಶೂನ್ಯ noinst2_static_inline_predeclared(ಶೂನ್ಯ){}
 
-static void static_func(void);
-void static_func(void) { }
+ಸ್ಥಿರ ಶೂನ್ಯ static_func(ಶೂನ್ಯ);
+ಶೂನ್ಯ static_func(ಶೂನ್ಯ) { }
 
-inline void noinst_extern_inline_func(void);
-void noinst_extern_inline_func(void) { }
+ಅನ್ತಃಸ್ಥ ಶೂನ್ಯ noinst_extern_inline_func(ಶೂನ್ಯ);
+ಶೂನ್ಯ noinst_extern_inline_func(ಶೂನ್ಯ) { }
 
-int main()
+ಪೂರ್ಣಾಙ್ಕ main()
 {
         inline_inline_undeclared(); inline_inline_predeclared(); inline_inline_postdeclared();
         inline_inline_undeclared2(); inline_inline_predeclared2(); inline_inline_postdeclared2();
@@ -126,7 +126,7 @@ int main()
 	noinst_static_inline_predeclared();
 	noinst2_static_inline_predeclared();
 
-        void check_exports();
+        ಶೂನ್ಯ check_exports();
         check_exports();
-        return 0;
+        ಪ್ರತ್ಯಾಗಮ 0;
 }

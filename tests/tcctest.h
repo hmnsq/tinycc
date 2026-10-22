@@ -1,9 +1,9 @@
-static inline const char *get_basefile_from_header(void)
+ಸ್ಥಿರ ಅನ್ತಃಸ್ಥ ಧ್ರುವ ವರ್ಣ *get_basefile_from_header(ಶೂನ್ಯ)
 {
-  return __BASE_FILE__;
+  ಪ್ರತ್ಯಾಗಮ __BASE_FILE__;
 }
 
-static inline const char *get_file_from_header(void)
+ಸ್ಥಿರ ಅನ್ತಃಸ್ಥ ಧ್ರುವ ವರ್ಣ *get_file_from_header(ಶೂನ್ಯ)
 {
-  return __FILE__;
+  ಪ್ರತ್ಯಾಗಮ __FILE__;
 }

@@ -1,52 +1,52 @@
 /* Check some way in where code suppression caused various
    miscompilations.  */
-extern int printf (const char *, ...);
-typedef __SIZE_TYPE__ size_t;
+ಬಾಹ್ಯ ಪೂರ್ಣಾಙ್ಕ printf (ಧ್ರುವ ವರ್ಣ *, ...);
+ಪ್ರಕಾರನಿರ್ದೇಶ __SIZE_TYPE__ size_t;
 
 size_t _brk_start, _brk_end;
-void * extend_brk(size_t size, size_t align)
+ಶೂನ್ಯ * extend_brk(size_t size, size_t align)
 {
     size_t mask = align - 1;
-    void *ret = 0;
+    ಶೂನ್ಯ *ret = 0;
 
-     do {
-	 if (__builtin_expect(!!(_brk_start == 0), 0))
-	   do {
+     ಕುರು {
+	 ಯದಿ (__builtin_expect(!!(_brk_start == 0), 0))
+	   ಕುರು {
 	       printf("wrong1\n");
-	   } while (0);
-     } while (0);
+	   } ಯಾವತ್ (0);
+     } ಯಾವತ್ (0);
      _brk_end = (_brk_end + mask) & ~mask;
-     ret = (void *)_brk_end;
+     ret = (ಶೂನ್ಯ *)_brk_end;
      _brk_end += size;
 
-     return ret;
+     ಪ್ರತ್ಯಾಗಮ ret;
 }
 
-static void get_args (int a, int b)
+ಸ್ಥಿರ ಶೂನ್ಯ get_args (ಪೂರ್ಣಾಙ್ಕ a, ಪೂರ್ಣಾಙ್ಕ b)
 {
-  if (a != 1)
+  ಯದಿ (a != 1)
     printf("wrong2\n");
-  else
+  ಅನ್ಯಥಾ
     printf("okay\n");
 }
 
-void bla(void)
+ಶೂನ್ಯ bla(ಶೂನ್ಯ)
 {
-  int __ret = 42;
+  ಪೂರ್ಣಾಙ್ಕ __ret = 42;
   ({
-    if (__builtin_expect(!!(0), 0)) {
-      if (__builtin_expect(!!__ret, 0))
+    ಯದಿ (__builtin_expect(!!(0), 0)) {
+      ಯದಿ (__builtin_expect(!!__ret, 0))
         printf("wrong3\n");
-      int x = !!(__ret);
+      ಪೂರ್ಣಾಙ್ಕ x = !!(__ret);
     }
     __ret;
   });
-  get_args(!!__ret, sizeof(__ret));
+  get_args(!!__ret, ಪರಿಮಾಣ(__ret));
 }
 
-int ext;
+ಪೂರ್ಣಾಙ್ಕ ext;
 
-void broken_jumpopt (int xxx)
+ಶೂನ್ಯ broken_jumpopt (ಪೂರ್ಣಾಙ್ಕ xxx)
 {
   /* This was broken in 8227db3a2 by code suppression during suppressed
      code :) */
@@ -59,22 +59,22 @@ _Bool chk(unsigned long addr, unsigned long limit, unsigned long size)
   _Bool ret;
   /* This just needs to compile, no runtime test.  (And it doesn't compile
      only with certain internal checking added that's not committed).  */
-  if (0)
+  ಯದಿ (0)
     ret = 0 != (!!(addr > limit - size));
-  return 0;
+  ಪ್ರತ್ಯಾಗಮ 0;
 }
 
-int main()
+ಪೂರ್ಣಾಙ್ಕ main()
 {
-  void *r;
+  ಶೂನ್ಯ *r;
   _brk_start = 1024;
   _brk_end = 1024;
   r = extend_brk (4096, 16);
-  if (!r)
+  ಯದಿ (!r)
     printf("wrong4\n");
-  else
+  ಅನ್ಯಥಾ
     printf("okay\n");
   bla();
   broken_jumpopt(42);
-  return 0;
+  ಪ್ರತ್ಯಾಗಮ 0;
 }

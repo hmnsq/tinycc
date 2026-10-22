@@ -1,104 +1,104 @@
-extern int printf(const char *format, ...);
-static void kb_wait_1(void)
+ಬಾಹ್ಯ ಪೂರ್ಣಾಙ್ಕ printf(ಧ್ರುವ ವರ್ಣ *format, ...);
+ಸ್ಥಿರ ಶೂನ್ಯ kb_wait_1(ಶೂನ್ಯ)
 {
     unsigned long timeout = 2;
-    do {
+    ಕುರು {
         (1 ?
             printf("timeout=%ld\n", timeout) :
             ({
-                while (1)
+                ಯಾವತ್ (1)
                     printf("error\n");
             })
         );
         timeout--;
-    } while (timeout);
+    } ಯಾವತ್ (timeout);
 }
-static void kb_wait_2(void)
+ಸ್ಥಿರ ಶೂನ್ಯ kb_wait_2(ಶೂನ್ಯ)
 {
     unsigned long timeout = 2;
-    do {
+    ಕುರು {
         (1 ?
             printf("timeout=%ld\n", timeout) :
             ({
-                for (;;)
+                ಪ್ರತಿ (;;)
                     printf("error\n");
             })
         );
         timeout--;
-    } while (timeout);
+    } ಯಾವತ್ (timeout);
 }
-static void kb_wait_2_1(void)
+ಸ್ಥಿರ ಶೂನ್ಯ kb_wait_2_1(ಶೂನ್ಯ)
 {
     unsigned long timeout = 2;
-    do {
+    ಕುರು {
         (1 ?
             printf("timeout=%ld\n", timeout) :
             ({
-                do {
+                ಕುರು {
                     printf("error\n");
-		} while (1);
+		} ಯಾವತ್ (1);
             })
         );
         timeout--;
-    } while (timeout);
+    } ಯಾವತ್ (timeout);
 }
-static void kb_wait_2_2(void)
+ಸ್ಥಿರ ಶೂನ್ಯ kb_wait_2_2(ಶೂನ್ಯ)
 {
     unsigned long timeout = 2;
-    do {
+    ಕುರು {
         (1 ?
             printf("timeout=%ld\n", timeout) :
             ({
                 label:
                     printf("error\n");
-		goto label;
+		ಗಚ್ಛ label;
             })
         );
         timeout--;
-    } while (timeout);
+    } ಯಾವತ್ (timeout);
 }
-static void kb_wait_3(void)
+ಸ್ಥಿರ ಶೂನ್ಯ kb_wait_3(ಶೂನ್ಯ)
 {
     unsigned long timeout = 2;
-    do {
+    ಕುರು {
         (1 ?
             printf("timeout=%ld\n", timeout) :
             ({
-                int i = 1;
-                goto label;
+                ಪೂರ್ಣಾಙ್ಕ i = 1;
+                ಗಚ್ಛ label;
                 i = i + 2;
             label:
                 i = i + 3;
             })
         );
         timeout--;
-    } while (timeout);
+    } ಯಾವತ್ (timeout);
 }
-static void kb_wait_4(void)
+ಸ್ಥಿರ ಶೂನ್ಯ kb_wait_4(ಶೂನ್ಯ)
 {
     unsigned long timeout = 2;
-    do {
+    ಕುರು {
         (1 ?
             printf("timeout=%ld\n", timeout) :
             ({
-                switch(timeout) {
-                    case 2:
+                ವಿಕಲ್ಪ(timeout) {
+                    ಪಕ್ಷ 2:
                         printf("timeout is 2");
-                        break;
-                    case 1:
+                        ಭಙ್ಗ;
+                    ಪಕ್ಷ 1:
                         printf("timeout is 1");
-                        break;
-                    default:
+                        ಭಙ್ಗ;
+                    ಸ್ವಭಾವ:
                         printf("timeout is 0?");
-                        break;
+                        ಭಙ್ಗ;
                 };
                 // return;
             })
         );
         timeout--;
-    } while (timeout);
+    } ಯಾವತ್ (timeout);
 }
-int main()
+ಪೂರ್ಣಾಙ್ಕ main()
 {
     printf("begin\n");
     kb_wait_1();
@@ -108,5 +108,5 @@ int main()
     kb_wait_3();
     kb_wait_4();
     printf("end\n");
-    return 0;
+    ಪ್ರತ್ಯಾಗಮ 0;
 }

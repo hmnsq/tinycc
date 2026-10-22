@@ -1,23 +1,23 @@
-#include <stdio.h>
+#ಅನ್ತರ್ಭಾವ <stdio.h>
 
-struct point
+ಸಂರಚನಾ point
 {
-   double x;
-   double y;
+   ದ್ವಿಗುಣ x;
+   ದ್ವಿಗುಣ y;
 };
 
-struct point point_array[100];
+ಸಂರಚನಾ point point_array[100];
 
-int main()
+ಪೂರ್ಣಾಙ್ಕ main()
 {
-   int my_point = 10;
+   ಪೂರ್ಣಾಙ್ಕ my_point = 10;
 
    point_array[my_point].x = 12.34;
    point_array[my_point].y = 56.78;
 
    printf("%f, %f\n", point_array[my_point].x, point_array[my_point].y);
 
-   return 0;
+   ಪ್ರತ್ಯಾಗಮ 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

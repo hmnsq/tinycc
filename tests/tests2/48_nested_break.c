@@ -1,18 +1,18 @@
-#include <stdio.h>
+#ಅನ್ತರ್ಭಾವ <stdio.h>
 
-int main()
+ಪೂರ್ಣಾಙ್ಕ main()
 {
-   int a;
-   char b;
+   ಪೂರ್ಣಾಙ್ಕ a;
+   ವರ್ಣ b;
 
    a = 0;
-   while (a < 2)
+   ಯಾವತ್ (a < 2)
    {
       printf("%d", a++);
-      break;
+      ಭಙ್ಗ;
 
       b = 'A';
-      while (b < 'C')
+      ಯಾವತ್ (b < 'C')
       {
          printf("%c", b++);
       }
@@ -20,7 +20,7 @@ int main()
    }
    printf("\n");
 
-   return 0;
+   ಪ್ರತ್ಯಾಗಮ 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

@@ -1,31 +1,31 @@
-#include <stdio.h>
+#ಅನ್ತರ್ಭಾವ <stdio.h>
 
-int
-main (void)
+ಪೂರ್ಣಾಙ್ಕ
+main (ಶೂನ್ಯ)
 {
-    int n = 0;
-    int  first=1;
-    int *p[101];
-    if (0) {
+    ಪೂರ್ಣಾಙ್ಕ n = 0;
+    ಪೂರ್ಣಾಙ್ಕ  first=1;
+    ಪೂರ್ಣಾಙ್ಕ *p[101];
+    ಯದಿ (0) {
         lab:;
     }
-    int x[n % 100 + 1];
-    if (first == 0) {
-        if (&x[0] != p[n % 100 + 1]) {
+    ಪೂರ್ಣಾಙ್ಕ x[n % 100 + 1];
+    ಯದಿ (first == 0) {
+        ಯದಿ (&x[0] != p[n % 100 + 1]) {
             printf ("ERROR: %p %p\n", &x[0], p[n % 100 + 1]);
-            return(1);
+            ಪ್ರತ್ಯಾಗಮ(1);
         }
     }
-    else {
+    ಅನ್ಯಥಾ {
         p[n % 100 + 1] = &x[0];
         first = n < 100;
     }
     x[0] = 1;
     x[n % 100] = 2;
     n++;
-    if (n < 100000)
-        goto lab;
+    ಯದಿ (n < 100000)
+        ಗಚ್ಛ lab;
     printf ("OK\n");
-    return 0;
+    ಪ್ರತ್ಯಾಗಮ 0;
 }
 

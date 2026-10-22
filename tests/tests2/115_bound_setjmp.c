@@ -1,20 +1,20 @@
-#include <stdio.h>
-#include <string.h>
-#include <setjmp.h>
+#ಅನ್ತರ್ಭಾವ <stdio.h>
+#ಅನ್ತರ್ಭಾವ <string.h>
+#ಅನ್ತರ್ಭಾವ <setjmp.h>
 
-#define TST   int i, a[2], b[2];                \
-              for (i = 0; i < 2; i++) a[i] = 0; \
-              for (i = 0; i < 2; i++) b[i] = 0
+#define TST   ಪೂರ್ಣಾಙ್ಕ i, a[2], b[2];                \
+              ಪ್ರತಿ (i = 0; i < 2; i++) a[i] = 0; \
+              ಪ್ರತಿ (i = 0; i < 2; i++) b[i] = 0
 
-static jmp_buf jmp;
+ಸ್ಥಿರ jmp_buf jmp;
 
-static void tst1 (void)
+ಸ್ಥಿರ ಶೂನ್ಯ tst1 (ಶೂನ್ಯ)
 {
     TST;
     longjmp(jmp, 1);
 }
 
-static void tst2(void)
+ಸ್ಥಿರ ಶೂನ್ಯ tst2(ಶೂನ್ಯ)
 {
     jmp_buf jmp;
 
@@ -23,13 +23,13 @@ static void tst2(void)
     tst1();
 }
 
-static void tst3 (jmp_buf loc)
+ಸ್ಥಿರ ಶೂನ್ಯ tst3 (jmp_buf loc)
 {
     TST;
     longjmp(loc, 1);
 }
 
-static void tst4(jmp_buf loc)
+ಸ್ಥಿರ ಶೂನ್ಯ tst4(jmp_buf loc)
 {
     jmp_buf jmp;
 
@@ -38,55 +38,55 @@ static void tst4(jmp_buf loc)
     tst3(loc);
 }
 
-static void tst (void)
+ಸ್ಥಿರ ಶೂನ್ಯ tst (ಶೂನ್ಯ)
 {
     jmp_buf loc;
-    static int cnt;
+    ಸ್ಥಿರ ಪೂರ್ಣಾಙ್ಕ cnt;
 
     cnt = 0;
-    if (setjmp (jmp) == 0) {
+    ಯದಿ (setjmp (jmp) == 0) {
         TST;
         tst2();
     }
-    else {
+    ಅನ್ಯಥಾ {
         cnt++;
     }
-    if (setjmp (loc) == 0) {
+    ಯದಿ (setjmp (loc) == 0) {
         TST;
         tst4(loc);
     }
-    else {
+    ಅನ್ಯಥಾ {
         cnt++;
     }
-    if (cnt != 2)
+    ಯದಿ (cnt != 2)
         printf ("incorrect cnt %d\n", cnt);
 }
 
-static jmp_buf buf1;
-static jmp_buf buf2;
-static int *p;
-static int n_x = 6;
-static int g_counter;
+ಸ್ಥಿರ jmp_buf buf1;
+ಸ್ಥಿರ jmp_buf buf2;
+ಸ್ಥಿರ ಪೂರ್ಣಾಙ್ಕ *p;
+ಸ್ಥಿರ ಪೂರ್ಣಾಙ್ಕ n_x = 6;
+ಸ್ಥಿರ ಪೂರ್ಣಾಙ್ಕ g_counter;
 
-static void stack (void)
+ಸ್ಥಿರ ಶೂನ್ಯ ರಾಶಿ (ಶೂನ್ಯ)
 {
-    static int counter;
-    static int way_point1;
-    static int way_point2;
+    ಸ್ಥಿರ ಪೂರ್ಣಾಙ್ಕ counter;
+    ಸ್ಥಿರ ಪೂರ್ಣಾಙ್ಕ way_point1;
+    ಸ್ಥಿರ ಪೂರ್ಣಾಙ್ಕ way_point2;
 
     counter = 0;
     way_point1 = 3;
     way_point2 = 2;
     g_counter = 0;
-    if (setjmp (buf1) != 101) {
-        int a[n_x];
+    ಯದಿ (setjmp (buf1) != 101) {
+        ಪೂರ್ಣಾಙ್ಕ a[n_x];
         g_counter++;
         p = &a[0];
-        if (g_counter < 5)
+        ಯದಿ (g_counter < 5)
             longjmp (buf1, 2);
-        else if (g_counter == 5)
+        ಅನ್ಯಥಾ ಯದಿ (g_counter == 5)
             longjmp (buf1, 101);
-        else {
+        ಅನ್ಯಥಾ {
             setjmp (buf2); 
             longjmp (buf1, 101);
         }
@@ -94,17 +94,17 @@ static void stack (void)
     
     way_point1--;
 
-    if (counter == 0) {
+    ಯದಿ (counter == 0) {
         counter++;
         {
-            int a[n_x];
+            ಪೂರ್ಣಾಙ್ಕ a[n_x];
             g_counter++;
             p = &a[0];
-            if (g_counter < 5)
+            ಯದಿ (g_counter < 5)
                 longjmp (buf1, 2);
-            else if (g_counter == 5)
+            ಅನ್ಯಥಾ ಯದಿ (g_counter == 5)
                 longjmp (buf1, 101);
-            else {
+            ಅನ್ಯಥಾ {
                 setjmp (buf2);
                 longjmp (buf1, 101);
             }
@@ -113,60 +113,60 @@ static void stack (void)
 
     way_point2--;
 
-    if (counter == 1) {
+    ಯದಿ (counter == 1) {
         counter++;
         longjmp (buf2, 2);
     }
 
-    if (!(way_point1 == 0 && way_point2 == 0 &&
+    ಯದಿ (!(way_point1 == 0 && way_point2 == 0 &&
           g_counter == 6 && counter == 2))
         printf ("Failed %d %d %d %d\n",
                 way_point1, way_point2, g_counter, counter);
 }
 
-static jmp_buf env;
-static int last_value;
+ಸ್ಥಿರ jmp_buf env;
+ಸ್ಥಿರ ಪೂರ್ಣಾಙ್ಕ last_ಮೌಲ್ಯ;
 
-static void jump (int val)
+ಸ್ಥಿರ ಶೂನ್ಯ jump (ಪೂರ್ಣಾಙ್ಕ val)
 {
     longjmp (env, val);
 }
 
-static void check (void)
+ಸ್ಥಿರ ಶೂನ್ಯ check (ಶೂನ್ಯ)
 {
-    int value;
+    ಪೂರ್ಣಾಙ್ಕ ಮೌಲ್ಯ;
 
-    last_value = -1;
-    value = setjmp (env);
-    if (value != last_value + 1) {
+    last_ಮೌಲ್ಯ = -1;
+    ಮೌಲ್ಯ = setjmp (env);
+    ಯದಿ (ಮೌಲ್ಯ != last_ಮೌಲ್ಯ + 1) {
         printf ("incorrect value %d %d\n",
-                value, last_value + 1);
-        return;
+                ಮೌಲ್ಯ, last_ಮೌಲ್ಯ + 1);
+        ಪ್ರತ್ಯಾಗಮ;
     }
-    last_value = value;
-    switch (value) {
-#if !(defined(__FreeBSD__) || defined(__NetBSD__))
+    last_ಮೌಲ್ಯ = ಮೌಲ್ಯ;
+    ವಿಕಲ್ಪ (ಮೌಲ್ಯ) {
+#ಯದಿ !(defined(__FreeBSD__) || defined(__NetBSD__))
     /* longjmp(jmp_buf, 0) not supported */
-    case 0:
+    ಪಕ್ಷ 0:
         jump (0);
 #endif
-    default:
-        if (value < 10)
-          jump (value + 1);
+    ಸ್ವಭಾವ:
+        ಯದಿ (ಮೌಲ್ಯ < 10)
+          jump (ಮೌಲ್ಯ + 1);
     }
 }
 
-int
-main (void)
+ಪೂರ್ಣಾಙ್ಕ
+main (ಶೂನ್ಯ)
 {
-    int i;
+    ಪೂರ್ಣಾಙ್ಕ i;
 
-    for (i = 0; i < 10;  i++) {
+    ಪ್ರತಿ (i = 0; i < 10;  i++) {
         tst();
-        stack();
+        ರಾಶಿ();
         check();
     }
-    return 0;
+    ಪ್ರತ್ಯಾಗಮ 0;
 }
 
 

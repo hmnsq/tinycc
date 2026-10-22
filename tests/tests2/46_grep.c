@@ -14,9 +14,9 @@
  * included and reference made to  the  fact  that  reproduction
  * privileges were granted by DECUS.
  */
-#include <stdio.h>
-#include <stdlib.h>
-#include <ctype.h>	// tolower()
+#ಅನ್ತರ್ಭಾವ <stdio.h>
+#ಅನ್ತರ್ಭಾವ <stdlib.h>
+#ಅನ್ತರ್ಭಾವ <ctype.h>	// tolower()
 
 /*
  * grep
@@ -27,7 +27,7 @@
  * See below for more information.
  */
 
-char    *documentation[] = {
+ವರ್ಣ    *documentation[] = {
    "grep searches a file for a given pattern.  Execute by",
    "   grep [flags] regular_expression file_list\n",
    "Flags are single characters preceded by '-':",
@@ -40,7 +40,7 @@ char    *documentation[] = {
    "The -f flag reverses this action (print name no file, not if more).\n",
    0 };
 
-char    *patdoc[] = {
+ವರ್ಣ    *patdoc[] = {
    "The regular_expression defines the pattern to search for.  Upper- and",
    "lower-case are always ignored.  Blank lines never match.  The expression",
    "should be quoted to prevent file-name translation.",
@@ -91,41 +91,41 @@ char    *patdoc[] = {
 #define RANGE   14
 #define ENDPAT  15
 
-int cflag=0, fflag=0, nflag=0, vflag=0, nfile=0, debug=0;
+ಪೂರ್ಣಾಙ್ಕ cflag=0, fflag=0, nflag=0, vflag=0, nfile=0, debug=0;
 
-char *pp, lbuf[LMAX], pbuf[PMAX];
+ವರ್ಣ *pp, lbuf[LMAX], pbuf[PMAX];
 
-char *cclass();
-char *pmatch();
-void store(int);
-void error(char *);
-void badpat(char *, char *, char *);
-int match(void);
+ವರ್ಣ *cclass();
+ವರ್ಣ *pmatch();
+ಶೂನ್ಯ store(ಪೂರ್ಣಾಙ್ಕ);
+ಶೂನ್ಯ error(ವರ್ಣ *);
+ಶೂನ್ಯ badpat(ವರ್ಣ *, ವರ್ಣ *, ವರ್ಣ *);
+ಪೂರ್ಣಾಙ್ಕ match(ಶೂನ್ಯ);
 
 
 /*** Display a file name *******************************/
-void file(char *s)
+ಶೂನ್ಯ file(ವರ್ಣ *s)
 {
    printf("File %s:\n", s);
 }
 
 /*** Report unopenable file ****************************/
-void cant(char *s)
+ಶೂನ್ಯ cant(ವರ್ಣ *s)
 {
    fprintf(stderr, "%s: cannot open\n", s);
 }
 
 /*** Give good help ************************************/
-void help(char **hp)
+ಶೂನ್ಯ help(ವರ್ಣ **hp)
 {
-   char   **dp;
+   ವರ್ಣ   **dp;
 
-   for (dp = hp; *dp; ++dp)
+   ಪ್ರತಿ (dp = hp; *dp; ++dp)
       printf("%s\n", *dp);
 }
 
 /*** Display usage summary *****************************/
-void usage(char *s)
+ಶೂನ್ಯ usage(ವರ್ಣ *s)
 {
    fprintf(stderr, "?GREP-E-%s\n", s);
    fprintf(stderr,
@@ -134,24 +134,24 @@ void usage(char *s)
 }
 
 /*** Compile the pattern into global pbuf[] ************/
-void compile(char *source)
+ಶೂನ್ಯ compile(ವರ್ಣ *source)
 {
-   char  *s;         /* Source string pointer     */
-   char  *lp;        /* Last pattern pointer      */
-   int   c;          /* Current character         */
-   int            o;          /* Temp                      */
-   char           *spp;       /* Save beginning of pattern */
+   ವರ್ಣ  *s;         /* Source string pointer     */
+   ವರ್ಣ  *lp;        /* Last pattern pointer      */
+   ಪೂರ್ಣಾಙ್ಕ   c;          /* Current character         */
+   ಪೂರ್ಣಾಙ್ಕ            o;          /* Temp                      */
+   ವರ್ಣ           *spp;       /* Save beginning of pattern */
 
    s = source;
-   if (debug)
+   ಯದಿ (debug)
       printf("Pattern = \"%s\"\n", s);
    pp = pbuf;
-   while (c = *s++) {
+   ಯಾವತ್ (c = *s++) {
       /*
        * STAR, PLUS and MINUS are special.
        */
-      if (c == '*' || c == '+' || c == '-') {
-         if (pp == pbuf ||
+      ಯದಿ (c == '*' || c == '+' || c == '-') {
+         ಯದಿ (pp == pbuf ||
                (o=pp[-1]) == BOL ||
                o == EOL ||
                o == STAR ||
@@ -161,113 +161,113 @@ void compile(char *source)
          store(ENDPAT);
          store(ENDPAT);
          spp = pp;               /* Save pattern end     */
-         while (--pp > lp)       /* Move pattern down    */
+         ಯಾವತ್ (--pp > lp)       /* Move pattern down    */
             *pp = pp[-1];        /* one byte             */
          *pp =   (c == '*') ? STAR :
             (c == '-') ? MINUS : PLUS;
          pp = spp;               /* Restore pattern end  */
-         continue;
+         ಅನುವರ್ತ;
       }
       /*
        * All the rest.
        */
       lp = pp;         /* Remember start       */
-      switch(c) {
+      ವಿಕಲ್ಪ(c) {
 
-         case '^':
+         ಪಕ್ಷ '^':
             store(BOL);
-            break;
+            ಭಙ್ಗ;
 
-         case '$':
+         ಪಕ್ಷ '$':
             store(EOL);
-            break;
+            ಭಙ್ಗ;
 
-         case '.':
+         ಪಕ್ಷ '.':
             store(ANY);
-            break;
+            ಭಙ್ಗ;
 
-         case '[':
+         ಪಕ್ಷ '[':
             s = cclass(source, s);
-            break;
+            ಭಙ್ಗ;
 
-         case ':':
-            if (*s) {
-               switch(tolower(c = *s++)) {
+         ಪಕ್ಷ ':':
+            ಯದಿ (*s) {
+               ವಿಕಲ್ಪ(tolower(c = *s++)) {
 
-                  case 'a':
-                  case 'A':
+                  ಪಕ್ಷ 'a':
+                  ಪಕ್ಷ 'A':
                      store(ALPHA);
-                     break;
+                     ಭಙ್ಗ;
 
-                  case 'd':
-                  case 'D':
+                  ಪಕ್ಷ 'd':
+                  ಪಕ್ಷ 'D':
                      store(DIGIT);
-                     break;
+                     ಭಙ್ಗ;
 
-                  case 'n':
-                  case 'N':
+                  ಪಕ್ಷ 'n':
+                  ಪಕ್ಷ 'N':
                      store(NALPHA);
-                     break;
+                     ಭಙ್ಗ;
 
-                  case ' ':
+                  ಪಕ್ಷ ' ':
                      store(PUNCT);
-                     break;
+                     ಭಙ್ಗ;
 
-                  default:
+                  ಸ್ವಭಾವ:
                      badpat("Unknown : type", source, s);
 
                }
-               break;
+               ಭಙ್ಗ;
             }
-            else    badpat("No : type", source, s);
+            ಅನ್ಯಥಾ    badpat("No : type", source, s);
 
-         case '\\':
-            if (*s)
+         ಪಕ್ಷ '\\':
+            ಯದಿ (*s)
                c = *s++;
 
-         default:
+         ಸ್ವಭಾವ:
             store(CHAR);
             store(tolower(c));
       }
    }
    store(ENDPAT);
    store(0);                /* Terminate string     */
-   if (debug) {
-      for (lp = pbuf; lp < pp;) {
-         if ((c = (*lp++ & 0377)) < ' ')
+   ಯದಿ (debug) {
+      ಪ್ರತಿ (lp = pbuf; lp < pp;) {
+         ಯದಿ ((c = (*lp++ & 0377)) < ' ')
             printf("\\%o ", c);
-         else    printf("%c ", c);
+         ಅನ್ಯಥಾ    printf("%c ", c);
       }
       printf("\n");
    }
 }
 
 /*** Compile a class (within []) ***********************/
-char *cclass(char *source, char *src)
+ವರ್ಣ *cclass(ವರ್ಣ *source, ವರ್ಣ *src)
    /* char       *source;   // Pattern start -- for error msg. */
    /* char       *src;      // Class start */
 {
-   char   *s;        /* Source pointer    */
-   char   *cp;       /* Pattern start     */
-   int    c;         /* Current character */
-   int             o;         /* Temp              */
+   ವರ್ಣ   *s;        /* Source pointer    */
+   ವರ್ಣ   *cp;       /* Pattern start     */
+   ಪೂರ್ಣಾಙ್ಕ    c;         /* Current character */
+   ಪೂರ್ಣಾಙ್ಕ             o;         /* Temp              */
 
    s = src;
    o = CLASS;
-   if (*s == '^') {
+   ಯದಿ (*s == '^') {
       ++s;
       o = NCLASS;
    }
    store(o);
    cp = pp;
    store(0);                          /* Byte count      */
-   while ((c = *s++) && c!=']') {
-      if (c == '\\') {                /* Store quoted char    */
-         if ((c = *s++) == '\0')      /* Gotta get something  */
+   ಯಾವತ್ ((c = *s++) && c!=']') {
+      ಯದಿ (c == '\\') {                /* Store quoted char    */
+         ಯದಿ ((c = *s++) == '\0')      /* Gotta get something  */
             badpat("Class terminates badly", source, s);
-         else    store(tolower(c));
+         ಅನ್ಯಥಾ    store(tolower(c));
       }
-      else if (c == '-' &&
+      ಅನ್ಯಥಾ ಯದಿ (c == '-' &&
             (pp - cp) > 1 && *s != ']' && *s != '\0') {
          c = pp[-1];             /* Range start     */
          pp[-1] = RANGE;         /* Range signal    */
@@ -275,30 +275,30 @@ char *cclass(char *source, char *src)
          c = *s++;               /* Get end char and*/
          store(tolower(c));      /* Store it        */
       }
-      else {
+      ಅನ್ಯಥಾ {
          store(tolower(c));      /* Store normal char */
       }
    }
-   if (c != ']')
+   ಯದಿ (c != ']')
       badpat("Unterminated class", source, s);
-   if ((c = (pp - cp)) >= 256)
+   ಯದಿ ((c = (pp - cp)) >= 256)
       badpat("Class too large", source, s);
-   if (c == 0)
+   ಯದಿ (c == 0)
       badpat("Empty class", source, s);
    *cp = c;
-   return(s);
+   ಪ್ರತ್ಯಾಗಮ(s);
 }
 
 /*** Store an entry in the pattern buffer **************/
-void store(int op)
+ಶೂನ್ಯ store(ಪೂರ್ಣಾಙ್ಕ op)
 {
-   if (pp >= &pbuf[PMAX])
+   ಯದಿ (pp >= &pbuf[PMAX])
       error("Pattern too complex\n");
    *pp++ = op;
 }
 
 /*** Report a bad pattern specification ****************/
-void badpat(char *message, char *source, char *stop)
+ಶೂನ್ಯ badpat(ವರ್ಣ *message, ವರ್ಣ *source, ವರ್ಣ *stop)
    /* char  *message;       // Error message */
    /* char  *source;        // Pattern start */
    /* char  *stop;          // Pattern end   */
@@ -310,261 +310,261 @@ void badpat(char *message, char *source, char *stop)
 }
 
 /*** Scan the file for the pattern in pbuf[] ***********/
-void grep(FILE *fp, char *fn)
+ಶೂನ್ಯ grep(FILE *fp, ವರ್ಣ *fn)
    /* FILE       *fp;       // File to process            */
    /* char       *fn;       // File name (for -f option)  */
 {
-   int lno, count, m;
+   ಪೂರ್ಣಾಙ್ಕ lno, ಎಣಿಕೆ_2, m;
 
    lno = 0;
-   count = 0;
-   while (fgets(lbuf, LMAX, fp)) {
+   ಎಣಿಕೆ_2 = 0;
+   ಯಾವತ್ (fgets(lbuf, LMAX, fp)) {
       ++lno;
       m = match();
-      if ((m && !vflag) || (!m && vflag)) {
-         ++count;
-         if (!cflag) {
-            if (fflag && fn) {
+      ಯದಿ ((m && !vflag) || (!m && vflag)) {
+         ++ಎಣಿಕೆ_2;
+         ಯದಿ (!cflag) {
+            ಯದಿ (fflag && fn) {
                file(fn);
                fn = 0;
             }
-            if (nflag)
+            ಯದಿ (nflag)
                printf("%d\t", lno);
             printf("%s\n", lbuf);
          }
       }
    }
-   if (cflag) {
-      if (fflag && fn)
+   ಯದಿ (cflag) {
+      ಯದಿ (fflag && fn)
          file(fn);
-      printf("%d\n", count);
+      printf("%d\n", ಎಣಿಕೆ_2);
    }
 }
 
 /*** Match line (lbuf) with pattern (pbuf) return 1 if match ***/
-int match()
+ಪೂರ್ಣಾಙ್ಕ match()
 {
-   char   *l;        /* Line pointer       */
+   ವರ್ಣ   *l;        /* Line pointer       */
 
-   for (l = lbuf; *l; ++l) {
-      if (pmatch(l, pbuf))
-         return(1);
+   ಪ್ರತಿ (l = lbuf; *l; ++l) {
+      ಯದಿ (pmatch(l, pbuf))
+         ಪ್ರತ್ಯಾಗಮ(1);
    }
-   return(0);
+   ಪ್ರತ್ಯಾಗಮ(0);
 }
 
 /*** Match partial line with pattern *******************/
-char *pmatch(char *line, char *pattern)
+ವರ್ಣ *pmatch(ವರ್ಣ *ಸಾಲು, ವರ್ಣ *pattern)
    /* char               *line;     // (partial) line to match      */
    /* char               *pattern;  // (partial) pattern to match   */
 {
-   char   *l;        /* Current line pointer         */
-   char   *p;        /* Current pattern pointer      */
-   char   c;         /* Current character            */
-   char            *e;        /* End for STAR and PLUS match  */
-   int             op;        /* Pattern operation            */
-   int             n;         /* Class counter                */
-   char            *are;      /* Start of STAR match          */
+   ವರ್ಣ   *l;        /* Current line pointer         */
+   ವರ್ಣ   *p;        /* Current pattern pointer      */
+   ವರ್ಣ   c;         /* Current character            */
+   ವರ್ಣ            *e;        /* End for STAR and PLUS match  */
+   ಪೂರ್ಣಾಙ್ಕ             op;        /* Pattern operation            */
+   ಪೂರ್ಣಾಙ್ಕ             n;         /* Class counter                */
+   ವರ್ಣ            *are;      /* Start of STAR match          */
 
-   l = line;
-   if (debug > 1)
-      printf("pmatch(\"%s\")\n", line);
+   l = ಸಾಲು;
+   ಯದಿ (debug > 1)
+      printf("pmatch(\"%s\")\n", ಸಾಲು);
    p = pattern;
-   while ((op = *p++) != ENDPAT) {
-      if (debug > 1)
+   ಯಾವತ್ ((op = *p++) != ENDPAT) {
+      ಯದಿ (debug > 1)
          printf("byte[%ld] = 0%o, '%c', op = 0%o\n",
-               l-line, *l, *l, op);
-      switch(op) {
+               l-ಸಾಲು, *l, *l, op);
+      ವಿಕಲ್ಪ(op) {
 
-         case CHAR:
-            if (tolower(*l++) != *p++)
-               return(0);
-            break;
+         ಪಕ್ಷ CHAR:
+            ಯದಿ (tolower(*l++) != *p++)
+               ಪ್ರತ್ಯಾಗಮ(0);
+            ಭಙ್ಗ;
 
-         case BOL:
-            if (l != lbuf)
-               return(0);
-            break;
+         ಪಕ್ಷ BOL:
+            ಯದಿ (l != lbuf)
+               ಪ್ರತ್ಯಾಗಮ(0);
+            ಭಙ್ಗ;
 
-         case EOL:
-            if (*l != '\0')
-               return(0);
-            break;
+         ಪಕ್ಷ EOL:
+            ಯದಿ (*l != '\0')
+               ಪ್ರತ್ಯಾಗಮ(0);
+            ಭಙ್ಗ;
 
-         case ANY:
-            if (*l++ == '\0')
-               return(0);
-            break;
+         ಪಕ್ಷ ANY:
+            ಯದಿ (*l++ == '\0')
+               ಪ್ರತ್ಯಾಗಮ(0);
+            ಭಙ್ಗ;
 
-         case DIGIT:
-            if ((c = *l++) < '0' || (c > '9'))
-               return(0);
-            break;
+         ಪಕ್ಷ DIGIT:
+            ಯದಿ ((c = *l++) < '0' || (c > '9'))
+               ಪ್ರತ್ಯಾಗಮ(0);
+            ಭಙ್ಗ;
 
-         case ALPHA:
+         ಪಕ್ಷ ALPHA:
             c = tolower(*l++);
-            if (c < 'a' || c > 'z')
-               return(0);
-            break;
+            ಯದಿ (c < 'a' || c > 'z')
+               ಪ್ರತ್ಯಾಗಮ(0);
+            ಭಙ್ಗ;
 
-         case NALPHA:
+         ಪಕ್ಷ NALPHA:
             c = tolower(*l++);
-            if (c >= 'a' && c <= 'z')
-               break;
-            else if (c < '0' || c > '9')
-               return(0);
-            break;
+            ಯದಿ (c >= 'a' && c <= 'z')
+               ಭಙ್ಗ;
+            ಅನ್ಯಥಾ ಯದಿ (c < '0' || c > '9')
+               ಪ್ರತ್ಯಾಗಮ(0);
+            ಭಙ್ಗ;
 
-         case PUNCT:
+         ಪಕ್ಷ PUNCT:
             c = *l++;
-            if (c == 0 || c > ' ')
-               return(0);
-            break;
+            ಯದಿ (c == 0 || c > ' ')
+               ಪ್ರತ್ಯಾಗಮ(0);
+            ಭಙ್ಗ;
 
-         case CLASS:
-         case NCLASS:
+         ಪಕ್ಷ CLASS:
+         ಪಕ್ಷ NCLASS:
             c = tolower(*l++);
             n = *p++ & 0377;
-            do {
-               if (*p == RANGE) {
+            ಕುರು {
+               ಯದಿ (*p == RANGE) {
                   p += 3;
                   n -= 2;
-                  if (c >= p[-2] && c <= p[-1])
-                     break;
+                  ಯದಿ (c >= p[-2] && c <= p[-1])
+                     ಭಙ್ಗ;
                }
-               else if (c == *p++)
-                  break;
-            } while (--n > 1);
-            if ((op == CLASS) == (n <= 1))
-               return(0);
-            if (op == CLASS)
+               ಅನ್ಯಥಾ ಯದಿ (c == *p++)
+                  ಭಙ್ಗ;
+            } ಯಾವತ್ (--n > 1);
+            ಯದಿ ((op == CLASS) == (n <= 1))
+               ಪ್ರತ್ಯಾಗಮ(0);
+            ಯದಿ (op == CLASS)
                p += n - 2;
-            break;
+            ಭಙ್ಗ;
 
-         case MINUS:
+         ಪಕ್ಷ MINUS:
             e = pmatch(l, p);       /* Look for a match    */
-            while (*p++ != ENDPAT); /* Skip over pattern   */
-            if (e)                  /* Got a match?        */
+            ಯಾವತ್ (*p++ != ENDPAT); /* Skip over pattern   */
+            ಯದಿ (e)                  /* Got a match?        */
                l = e;               /* Yes, update string  */
-            break;                  /* Always succeeds     */
+            ಭಙ್ಗ;                  /* Always succeeds     */
 
-         case PLUS:                 /* One or more ...     */
-            if ((l = pmatch(l, p)) == 0)
-               return(0);           /* Gotta have a match  */
-         case STAR:                 /* Zero or more ...    */
+         ಪಕ್ಷ PLUS:                 /* One or more ...     */
+            ಯದಿ ((l = pmatch(l, p)) == 0)
+               ಪ್ರತ್ಯಾಗಮ(0);           /* Gotta have a match  */
+         ಪಕ್ಷ STAR:                 /* Zero or more ...    */
             are = l;                /* Remember line start */
-            while (*l && (e = pmatch(l, p)))
+            ಯಾವತ್ (*l && (e = pmatch(l, p)))
                l = e;               /* Get longest match   */
-            while (*p++ != ENDPAT); /* Skip over pattern   */
-            while (l > are) {       /* Try to match rest   */
-               if (e = pmatch(l, p))
-                  return(e);
+            ಯಾವತ್ (*p++ != ENDPAT); /* Skip over pattern   */
+            ಯಾವತ್ (l > are) {       /* Try to match rest   */
+               ಯದಿ (e = pmatch(l, p))
+                  ಪ್ರತ್ಯಾಗಮ(e);
                --l;                 /* Nope, try earlier   */
             }
-            if (e = pmatch(l, p))
-               return(e);
-            return(0);              /* Nothing else worked */
+            ಯದಿ (e = pmatch(l, p))
+               ಪ್ರತ್ಯಾಗಮ(e);
+            ಪ್ರತ್ಯಾಗಮ(0);              /* Nothing else worked */
 
-         default:
+         ಸ್ವಭಾವ:
             printf("Bad op code %d\n", op);
             error("Cannot happen -- match\n");
       }
    }
-   return(l);
+   ಪ್ರತ್ಯಾಗಮ(l);
 }
 
 /*** Report an error ***********************************/
-void error(char *s)
+ಶೂನ್ಯ error(ವರ್ಣ *s)
 {
    fprintf(stderr, "%s", s);
    exit(1);
 }
 
 /*** Main program - parse arguments & grep *************/
-int main(int argc, char **argv)
+ಪೂರ್ಣಾಙ್ಕ main(ಪೂರ್ಣಾಙ್ಕ argc, ವರ್ಣ **argv)
 {
-   char   *p;
-   int    c, i;
-   int             gotpattern;
+   ವರ್ಣ   *p;
+   ಪೂರ್ಣಾಙ್ಕ    c, i;
+   ಪೂರ್ಣಾಙ್ಕ             gotpattern;
 
    FILE            *f;
 
-   if (argc <= 1)
+   ಯದಿ (argc <= 1)
       usage("No arguments");
-   if (argc == 2 && argv[1][0] == '?' && argv[1][1] == 0) {
+   ಯದಿ (argc == 2 && argv[1][0] == '?' && argv[1][1] == 0) {
       help(documentation);
       help(patdoc);
-      return 0;
+      ಪ್ರತ್ಯಾಗಮ 0;
    }
    nfile = argc-1;
    gotpattern = 0;
-   for (i=1; i < argc; ++i) {
+   ಪ್ರತಿ (i=1; i < argc; ++i) {
       p = argv[i];
-      if (*p == '-') {
+      ಯದಿ (*p == '-') {
          ++p;
-         while (c = *p++) {
-            switch(tolower(c)) {
+         ಯಾವತ್ (c = *p++) {
+            ವಿಕಲ್ಪ(tolower(c)) {
 
-               case '?':
+               ಪಕ್ಷ '?':
                   help(documentation);
-                  break;
+                  ಭಙ್ಗ;
 
-               case 'C':
-               case 'c':
+               ಪಕ್ಷ 'C':
+               ಪಕ್ಷ 'c':
                   ++cflag;
-                  break;
+                  ಭಙ್ಗ;
 
-               case 'D':
-               case 'd':
+               ಪಕ್ಷ 'D':
+               ಪಕ್ಷ 'd':
                   ++debug;
-                  break;
+                  ಭಙ್ಗ;
 
-               case 'F':
-               case 'f':
+               ಪಕ್ಷ 'F':
+               ಪಕ್ಷ 'f':
                   ++fflag;
-                  break;
+                  ಭಙ್ಗ;
 
-               case 'n':
-               case 'N':
+               ಪಕ್ಷ 'n':
+               ಪಕ್ಷ 'N':
                   ++nflag;
-                  break;
+                  ಭಙ್ಗ;
 
-               case 'v':
-               case 'V':
+               ಪಕ್ಷ 'v':
+               ಪಕ್ಷ 'V':
                   ++vflag;
-                  break;
+                  ಭಙ್ಗ;
 
-               default:
+               ಸ್ವಭಾವ:
                   usage("Unknown flag");
             }
          }
          argv[i] = 0;
          --nfile;
-      } else if (!gotpattern) {
+      } ಅನ್ಯಥಾ ಯದಿ (!gotpattern) {
          compile(p);
          argv[i] = 0;
          ++gotpattern;
          --nfile;
       }
    }
-   if (!gotpattern)
+   ಯದಿ (!gotpattern)
       usage("No pattern");
-   if (nfile == 0)
+   ಯದಿ (nfile == 0)
       grep(stdin, 0);
-   else {
+   ಅನ್ಯಥಾ {
       fflag = fflag ^ (nfile > 0);
-      for (i=1; i < argc; ++i) {
-         if (p = argv[i]) {
-            if ((f=fopen(p, "r")) == NULL)
+      ಪ್ರತಿ (i=1; i < argc; ++i) {
+         ಯದಿ (p = argv[i]) {
+            ಯದಿ ((f=fopen(p, "r")) == ರಿಕ್ತ)
                cant(p);
-            else {
+            ಅನ್ಯಥಾ {
                grep(f, p);
                fclose(f);
             }
          }
       }
    }
-   return 0;
+   ಪ್ರತ್ಯಾಗಮ 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

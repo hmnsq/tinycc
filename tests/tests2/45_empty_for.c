@@ -1,18 +1,18 @@
-#include <stdio.h>
+#ಅನ್ತರ್ಭಾವ <stdio.h>
 
-int main()
+ಪೂರ್ಣಾಙ್ಕ main()
 {
-   int Count = 0;
+   ಪೂರ್ಣಾಙ್ಕ ಎಣಿಕೆ_3 = 0;
 
-   for (;;)
+   ಪ್ರತಿ (;;)
    {
-      Count++;
-      printf("%d\n", Count);
-      if (Count >= 10)
-         break;
+      ಎಣಿಕೆ_3++;
+      printf("%d\n", ಎಣಿಕೆ_3);
+      ಯದಿ (ಎಣಿಕೆ_3 >= 10)
+         ಭಙ್ಗ;
    }
 
-   return 0;
+   ಪ್ರತ್ಯಾಗಮ 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

@@ -1,11 +1,11 @@
-#include <stdio.h>
+#ಅನ್ತರ್ಭಾವ <stdio.h>
 
-int main()
+ಪೂರ್ಣಾಙ್ಕ main()
 {
-   int a;
-   int b;
-   int *d;
-   int *e;
+   ಪೂರ್ಣಾಙ್ಕ a;
+   ಪೂರ್ಣಾಙ್ಕ b;
+   ಪೂರ್ಣಾಙ್ಕ *d;
+   ಪೂರ್ಣಾಙ್ಕ *e;
    d = &a;
    e = &b;
    a = 12;
@@ -18,7 +18,7 @@ int main()
    printf("%d\n", d == e);
    printf("%d\n", d != e);
 
-   return 0;
+   ಪ್ರತ್ಯಾಗಮ 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

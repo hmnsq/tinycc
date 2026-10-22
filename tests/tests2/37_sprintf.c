@@ -1,17 +1,17 @@
-#include <stdio.h>
+#ಅನ್ತರ್ಭಾವ <stdio.h>
 
-int main()
+ಪೂರ್ಣಾಙ್ಕ main()
 {
-   char Buf[100];
-   int Count;
+   ವರ್ಣ Buf[100];
+   ಪೂರ್ಣಾಙ್ಕ ಎಣಿಕೆ_3;
 
-   for (Count = 1; Count <= 20; Count++)
+   ಪ್ರತಿ (ಎಣಿಕೆ_3 = 1; ಎಣಿಕೆ_3 <= 20; ಎಣಿಕೆ_3++)
    {
-      sprintf(Buf, "->%02d<-\n", Count);
+      sprintf(Buf, "->%02d<-\n", ಎಣಿಕೆ_3);
       printf("%s", Buf);
    }
 
-   return 0;
+   ಪ್ರತ್ಯಾಗಮ 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

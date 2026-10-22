@@ -3,11 +3,11 @@
 //  dll.c - Windows DLL example - dynamically linked part
 //
 
-#include <windows.h>
+#ಅನ್ತರ್ಭಾವ <windows.h>
 
-__declspec(dllexport) const char *hello_data = "(not set)";
+__declspec(dllexport) ಧ್ರುವ ವರ್ಣ *hello_data = "(not set)";
 
-__declspec(dllexport) void hello_func (void)
+__declspec(dllexport) ಶೂನ್ಯ hello_func (ಶೂನ್ಯ)
 {
     MessageBox (0, hello_data, "From DLL", MB_ICONINFORMATION);
 }

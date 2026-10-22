@@ -6,19 +6,19 @@
 #ifndef __STRALIGN_H_S_
 #define __STRALIGN_H_S_
 
-#include <stralign.h>
+#ಅನ್ತರ್ಭಾವ <stralign.h>
 
-#if defined(MINGW_HAS_SECURE_API)
+#ಯದಿ defined(MINGW_HAS_SECURE_API)
 
 #ifdef __cplusplus
-extern "C" {
+ಬಾಹ್ಯ "C" {
 #endif
 
-#if !defined(I_X86_) && defined(_WSTRING_S_DEFINED)
-#if defined(__cplusplus) && defined(_WConst_Return)
-  static __inline PUWSTR ua_wcscpy_s(PUWSTR Destination,size_t DestinationSize,PCUWSTR Source) {
-    if(WSTR_ALIGNED(Source) && WSTR_ALIGNED(Destination)) return (wcscpy_s((PWSTR)Destination,DestinationSize,(PCWSTR)Source)==0 ? Destination : NULL);
-    return uaw_wcscpy((PCUWSTR)String,Character);
+#ಯದಿ !defined(I_X86_) && defined(_WSTRING_S_DEFINED)
+#ಯದಿ defined(__cplusplus) && defined(_WConst_Return)
+  ಸ್ಥಿರ __inline PUWSTR ua_wcscpy_s(PUWSTR Destination,size_t DestinationSize,PCUWSTR Source) {
+    ಯದಿ(WSTR_ALIGNED(Source) && WSTR_ALIGNED(Destination)) ಪ್ರತ್ಯಾಗಮ (wcscpy_s((PWSTR)Destination,DestinationSize,(PCWSTR)Source)==0 ? Destination : ರಿಕ್ತ);
+    ಪ್ರತ್ಯಾಗಮ uaw_wcscpy((PCUWSTR)String,Character);
   }
 #endif
 #endif

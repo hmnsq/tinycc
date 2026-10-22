@@ -1,123 +1,123 @@
 // This program is designed to test some arm64-specific things, such as the
 // calling convention, but should give the same results on any architecture.
 
-#include <stdarg.h>
-#include <stdint.h>
-#include <stdio.h>
+#ಅನ್ತರ್ಭಾವ <stdarg.h>
+#ಅನ್ತರ್ಭಾವ <stdint.h>
+#ಅನ್ತರ್ಭಾವ <stdio.h>
 
-struct s1 { char x[1]; } s1 = { "0" };
-struct s2 { char x[2]; } s2 = { "12" };
-struct s3 { char x[3]; } s3 = { "345" };
-struct s4 { char x[4]; } s4 = { "6789" };
-struct s5 { char x[5]; } s5 = { "abcde" };
-struct s6 { char x[6]; } s6 = { "fghijk" };
-struct s7 { char x[7]; } s7 = { "lmnopqr" };
-struct s8 { char x[8]; } s8 = { "stuvwxyz" };
-struct s9 { char x[9]; } s9 = { "ABCDEFGHI" };
-struct s10 { char x[10]; } s10 = { "JKLMNOPQRS" };
-struct s11 { char x[11]; } s11 = { "TUVWXYZ0123" };
-struct s12 { char x[12]; } s12 = { "456789abcdef" };
-struct s13 { char x[13]; } s13 = { "ghijklmnopqrs" };
-struct s14 { char x[14]; } s14 = { "tuvwxyzABCDEFG" };
-struct s15 { char x[15]; } s15 = { "HIJKLMNOPQRSTUV" };
-struct s16 { char x[16]; } s16 = { "WXYZ0123456789ab" };
-struct s17 { char x[17]; } s17 = { "cdefghijklmnopqrs" };
+ಸಂರಚನಾ s1 { ವರ್ಣ x[1]; } s1 = { "0" };
+ಸಂರಚನಾ s2 { ವರ್ಣ x[2]; } s2 = { "12" };
+ಸಂರಚನಾ s3 { ವರ್ಣ x[3]; } s3 = { "345" };
+ಸಂರಚನಾ s4 { ವರ್ಣ x[4]; } s4 = { "6789" };
+ಸಂರಚನಾ s5 { ವರ್ಣ x[5]; } s5 = { "abcde" };
+ಸಂರಚನಾ s6 { ವರ್ಣ x[6]; } s6 = { "fghijk" };
+ಸಂರಚನಾ s7 { ವರ್ಣ x[7]; } s7 = { "lmnopqr" };
+ಸಂರಚನಾ s8 { ವರ್ಣ x[8]; } s8 = { "stuvwxyz" };
+ಸಂರಚನಾ s9 { ವರ್ಣ x[9]; } s9 = { "ABCDEFGHI" };
+ಸಂರಚನಾ s10 { ವರ್ಣ x[10]; } s10 = { "JKLMNOPQRS" };
+ಸಂರಚನಾ s11 { ವರ್ಣ x[11]; } s11 = { "TUVWXYZ0123" };
+ಸಂರಚನಾ s12 { ವರ್ಣ x[12]; } s12 = { "456789abcdef" };
+ಸಂರಚನಾ s13 { ವರ್ಣ x[13]; } s13 = { "ghijklmnopqrs" };
+ಸಂರಚನಾ s14 { ವರ್ಣ x[14]; } s14 = { "tuvwxyzABCDEFG" };
+ಸಂರಚನಾ s15 { ವರ್ಣ x[15]; } s15 = { "HIJKLMNOPQRSTUV" };
+ಸಂರಚನಾ s16 { ವರ್ಣ x[16]; } s16 = { "WXYZ0123456789ab" };
+ಸಂರಚನಾ s17 { ವರ್ಣ x[17]; } s17 = { "cdefghijklmnopqrs" };
 
-struct hfa11 { float a; } hfa11 = { 11.1 };
-struct hfa12 { float a, b; } hfa12 = { 12.1, 12.2 };
-struct hfa13 { float a, b, c; } hfa13 = { 13.1, 13.2, 13.3 };
-struct hfa14 { float a, b, c, d; } hfa14 = { 14.1, 14.2, 14.3, 14.4 };
+ಸಂರಚನಾ hfa11 { ಭಿನ್ನ a; } hfa11 = { 11.1 };
+ಸಂರಚನಾ hfa12 { ಭಿನ್ನ a, b; } hfa12 = { 12.1, 12.2 };
+ಸಂರಚನಾ hfa13 { ಭಿನ್ನ a, b, c; } hfa13 = { 13.1, 13.2, 13.3 };
+ಸಂರಚನಾ hfa14 { ಭಿನ್ನ a, b, c, d; } hfa14 = { 14.1, 14.2, 14.3, 14.4 };
 
-struct hfa21 { double a; } hfa21 = { 21.1 };
-struct hfa22 { double a, b; } hfa22 = { 22.1, 22.2 };
-struct hfa23 { double a, b, c; } hfa23 = { 23.1, 23.2, 23.3 };
-struct hfa24 { double a, b, c, d; } hfa24 = { 24.1, 24.2, 24.3, 24.4 };
+ಸಂರಚನಾ hfa21 { ದ್ವಿಗುಣ a; } hfa21 = { 21.1 };
+ಸಂರಚನಾ hfa22 { ದ್ವಿಗುಣ a, b; } hfa22 = { 22.1, 22.2 };
+ಸಂರಚನಾ hfa23 { ದ್ವಿಗುಣ a, b, c; } hfa23 = { 23.1, 23.2, 23.3 };
+ಸಂರಚನಾ hfa24 { ದ್ವಿಗುಣ a, b, c, d; } hfa24 = { 24.1, 24.2, 24.3, 24.4 };
 
-struct hfa31 { long double a; } hfa31 = { 31.1 };
-struct hfa32 { long double a, b; } hfa32 = { 32.1, 32.2 };
-struct hfa33 { long double a, b, c; } hfa33 = { 33.1, 33.2, 33.3 };
-struct hfa34 { long double a, b, c, d; } hfa34 = { 34.1, 34.2, 34.3, 34.4 };
+ಸಂರಚನಾ hfa31 { long ದ್ವಿಗುಣ a; } hfa31 = { 31.1 };
+ಸಂರಚನಾ hfa32 { long ದ್ವಿಗುಣ a, b; } hfa32 = { 32.1, 32.2 };
+ಸಂರಚನಾ hfa33 { long ದ್ವಿಗುಣ a, b, c; } hfa33 = { 33.1, 33.2, 33.3 };
+ಸಂರಚನಾ hfa34 { long ದ್ವಿಗುಣ a, b, c, d; } hfa34 = { 34.1, 34.2, 34.3, 34.4 };
 
-struct empty { };
+ಸಂರಚನಾ empty { };
 /* Keep the top-level offsets at zero without changing the type into a union. */
-struct hfae12 { struct empty e; struct hfa12 h; } hfae12 = { { }, { 112.1, 112.2 } };
-struct hfae22 { struct empty e; struct hfa22 h; } hfae22 = { { }, { 122.1, 122.2 } };
+ಸಂರಚನಾ hfae12 { ಸಂರಚನಾ empty e; ಸಂರಚನಾ hfa12 h; } hfae12 = { { }, { 112.1, 112.2 } };
+ಸಂರಚನಾ hfae22 { ಸಂರಚನಾ empty e; ಸಂರಚನಾ hfa22 h; } hfae22 = { { }, { 122.1, 122.2 } };
 
-void fa_s1(struct s1 a) { printf("%.1s\n", a.x); }
-void fa_s2(struct s2 a) { printf("%.2s\n", a.x); }
-void fa_s3(struct s3 a) { printf("%.3s\n", a.x); }
-void fa_s4(struct s4 a) { printf("%.4s\n", a.x); }
-void fa_s5(struct s5 a) { printf("%.5s\n", a.x); }
-void fa_s6(struct s6 a) { printf("%.6s\n", a.x); }
-void fa_s7(struct s7 a) { printf("%.7s\n", a.x); }
-void fa_s8(struct s8 a) { printf("%.8s\n", a.x); }
-void fa_s9(struct s9 a) { printf("%.9s\n", a.x); }
-void fa_s10(struct s10 a) { printf("%.10s\n", a.x); }
-void fa_s11(struct s11 a) { printf("%.11s\n", a.x); }
-void fa_s12(struct s12 a) { printf("%.12s\n", a.x); }
-void fa_s13(struct s13 a) { printf("%.13s\n", a.x); }
-void fa_s14(struct s14 a) { printf("%.14s\n", a.x); }
-void fa_s15(struct s15 a) { printf("%.15s\n", a.x); }
-void fa_s16(struct s16 a) { printf("%.16s\n", a.x); }
-void fa_s17(struct s17 a) { printf("%.17s\n", a.x); }
+ಶೂನ್ಯ fa_s1(ಸಂರಚನಾ s1 a) { printf("%.1s\n", a.x); }
+ಶೂನ್ಯ fa_s2(ಸಂರಚನಾ s2 a) { printf("%.2s\n", a.x); }
+ಶೂನ್ಯ fa_s3(ಸಂರಚನಾ s3 a) { printf("%.3s\n", a.x); }
+ಶೂನ್ಯ fa_s4(ಸಂರಚನಾ s4 a) { printf("%.4s\n", a.x); }
+ಶೂನ್ಯ fa_s5(ಸಂರಚನಾ s5 a) { printf("%.5s\n", a.x); }
+ಶೂನ್ಯ fa_s6(ಸಂರಚನಾ s6 a) { printf("%.6s\n", a.x); }
+ಶೂನ್ಯ fa_s7(ಸಂರಚನಾ s7 a) { printf("%.7s\n", a.x); }
+ಶೂನ್ಯ fa_s8(ಸಂರಚನಾ s8 a) { printf("%.8s\n", a.x); }
+ಶೂನ್ಯ fa_s9(ಸಂರಚನಾ s9 a) { printf("%.9s\n", a.x); }
+ಶೂನ್ಯ fa_s10(ಸಂರಚನಾ s10 a) { printf("%.10s\n", a.x); }
+ಶೂನ್ಯ fa_s11(ಸಂರಚನಾ s11 a) { printf("%.11s\n", a.x); }
+ಶೂನ್ಯ fa_s12(ಸಂರಚನಾ s12 a) { printf("%.12s\n", a.x); }
+ಶೂನ್ಯ fa_s13(ಸಂರಚನಾ s13 a) { printf("%.13s\n", a.x); }
+ಶೂನ್ಯ fa_s14(ಸಂರಚನಾ s14 a) { printf("%.14s\n", a.x); }
+ಶೂನ್ಯ fa_s15(ಸಂರಚನಾ s15 a) { printf("%.15s\n", a.x); }
+ಶೂನ್ಯ fa_s16(ಸಂರಚನಾ s16 a) { printf("%.16s\n", a.x); }
+ಶೂನ್ಯ fa_s17(ಸಂರಚನಾ s17 a) { printf("%.17s\n", a.x); }
 
-void fa_hfa11(struct hfa11 a)
+ಶೂನ್ಯ fa_hfa11(ಸಂರಚನಾ hfa11 a)
 { printf("%.1f\n", a.a); }
-void fa_hfa12(struct hfa12 a)
+ಶೂನ್ಯ fa_hfa12(ಸಂರಚನಾ hfa12 a)
 { printf("%.1f %.1f\n", a.a, a.a); }
-void fa_hfa13(struct hfa13 a)
+ಶೂನ್ಯ fa_hfa13(ಸಂರಚನಾ hfa13 a)
 { printf("%.1f %.1f %.1f\n", a.a, a.b, a.c); }
-void fa_hfa14(struct hfa14 a)
+ಶೂನ್ಯ fa_hfa14(ಸಂರಚನಾ hfa14 a)
 { printf("%.1f %.1f %.1f %.1f\n", a.a, a.b, a.c, a.d); }
 
-void fa_hfa21(struct hfa21 a)
+ಶೂನ್ಯ fa_hfa21(ಸಂರಚನಾ hfa21 a)
 { printf("%.1f\n", a.a); }
-void fa_hfa22(struct hfa22 a)
+ಶೂನ್ಯ fa_hfa22(ಸಂರಚನಾ hfa22 a)
 { printf("%.1f %.1f\n", a.a, a.a); }
-void fa_hfa23(struct hfa23 a)
+ಶೂನ್ಯ fa_hfa23(ಸಂರಚನಾ hfa23 a)
 { printf("%.1f %.1f %.1f\n", a.a, a.b, a.c); }
-void fa_hfa24(struct hfa24 a)
+ಶೂನ್ಯ fa_hfa24(ಸಂರಚನಾ hfa24 a)
 { printf("%.1f %.1f %.1f %.1f\n", a.a, a.b, a.c, a.d); }
 
-void fa_hfa31(struct hfa31 a)
+ಶೂನ್ಯ fa_hfa31(ಸಂರಚನಾ hfa31 a)
 { printf("%.1Lf\n", a.a); }
-void fa_hfa32(struct hfa32 a)
+ಶೂನ್ಯ fa_hfa32(ಸಂರಚನಾ hfa32 a)
 { printf("%.1Lf %.1Lf\n", a.a, a.a); }
-void fa_hfa33(struct hfa33 a)
+ಶೂನ್ಯ fa_hfa33(ಸಂರಚನಾ hfa33 a)
 { printf("%.1Lf %.1Lf %.1Lf\n", a.a, a.b, a.c); }
-void fa_hfa34(struct hfa34 a)
+ಶೂನ್ಯ fa_hfa34(ಸಂರಚನಾ hfa34 a)
 { printf("%.1Lf %.1Lf %.1Lf %.1Lf\n", a.a, a.b, a.c, a.d); }
-void fa_hfae12(struct hfae12 a)
+ಶೂನ್ಯ fa_hfae12(ಸಂರಚನಾ hfae12 a)
 { printf("%.1f %.1f\n", a.h.a, a.h.b); }
-void fa_hfae22(struct hfae22 a)
+ಶೂನ್ಯ fa_hfae22(ಸಂರಚನಾ hfae22 a)
 { printf("%.1f %.1f\n", a.h.a, a.h.b); }
 
-void fa1(struct s8 a, struct s9 b, struct s10 c, struct s11 d,
-         struct s12 e, struct s13 f)
+ಶೂನ್ಯ fa1(ಸಂರಚನಾ s8 a, ಸಂರಚನಾ s9 b, ಸಂರಚನಾ s10 c, ಸಂರಚನಾ s11 d,
+         ಸಂರಚನಾ s12 e, ಸಂರಚನಾ s13 f)
 {
     printf("%.3s %.3s %.3s %.3s %.3s %.3s\n", a.x, b.x, c.x, d.x, e.x, f.x);
 }
 
-void fa2(struct s9 a, struct s10 b, struct s11 c, struct s12 d,
-         struct s13 e, struct s14 f)
+ಶೂನ್ಯ fa2(ಸಂರಚನಾ s9 a, ಸಂರಚನಾ s10 b, ಸಂರಚನಾ s11 c, ಸಂರಚನಾ s12 d,
+         ಸಂರಚನಾ s13 e, ಸಂರಚನಾ s14 f)
 {
     printf("%.3s %.3s %.3s %.3s %.3s %.3s\n", a.x, b.x, c.x, d.x, e.x, f.x);
 }
 
-void fa3(struct hfa14 a, struct hfa23 b, struct hfa32 c)
+ಶೂನ್ಯ fa3(ಸಂರಚನಾ hfa14 a, ಸಂರಚನಾ hfa23 b, ಸಂರಚನಾ hfa32 c)
 {
     printf("%.1f %.1f %.1f %.1f %.1Lf %.1Lf\n",
            a.a, a.d, b.a, b.c, c.a, c.b);
 }
 
-void fa4(struct s1 a, struct hfa14 b, struct s2 c, struct hfa24 d,
-         struct s3 e, struct hfa34 f)
+ಶೂನ್ಯ fa4(ಸಂರಚನಾ s1 a, ಸಂರಚನಾ hfa14 b, ಸಂರಚನಾ s2 c, ಸಂರಚನಾ hfa24 d,
+         ಸಂರಚನಾ s3 e, ಸಂರಚನಾ hfa34 f)
 {
     printf("%.1s %.1f %.1f %.2s %.1f %.1f %.3s %.1Lf %.1Lf\n",
            a.x, b.a, b.d, c.x, d.a, d.d, e.x, f.a, f.d);
 }
 
-void arg(void)
+ಶೂನ್ಯ arg(ಶೂನ್ಯ)
 {
     printf("Arguments:\n");
     fa_s1(s1);
@@ -157,60 +157,60 @@ void arg(void)
     fa4(s1, hfa14, s2, hfa24, s3, hfa34);
 }
 
-struct s1 fr_s1(void) { return s1; }
-struct s2 fr_s2(void) { return s2; }
-struct s3 fr_s3(void) { return s3; }
-struct s4 fr_s4(void) { return s4; }
-struct s5 fr_s5(void) { return s5; }
-struct s6 fr_s6(void) { return s6; }
-struct s7 fr_s7(void) { return s7; }
-struct s8 fr_s8(void) { return s8; }
-struct s9 fr_s9(void) { return s9; }
-struct s10 fr_s10(void) { return s10; }
-struct s11 fr_s11(void) { return s11; }
-struct s12 fr_s12(void) { return s12; }
-struct s13 fr_s13(void) { return s13; }
-struct s14 fr_s14(void) { return s14; }
-struct s15 fr_s15(void) { return s15; }
-struct s16 fr_s16(void) { return s16; }
-struct s17 fr_s17(void) { return s17; }
+ಸಂರಚನಾ s1 fr_s1(ಶೂನ್ಯ) { ಪ್ರತ್ಯಾಗಮ s1; }
+ಸಂರಚನಾ s2 fr_s2(ಶೂನ್ಯ) { ಪ್ರತ್ಯಾಗಮ s2; }
+ಸಂರಚನಾ s3 fr_s3(ಶೂನ್ಯ) { ಪ್ರತ್ಯಾಗಮ s3; }
+ಸಂರಚನಾ s4 fr_s4(ಶೂನ್ಯ) { ಪ್ರತ್ಯಾಗಮ s4; }
+ಸಂರಚನಾ s5 fr_s5(ಶೂನ್ಯ) { ಪ್ರತ್ಯಾಗಮ s5; }
+ಸಂರಚನಾ s6 fr_s6(ಶೂನ್ಯ) { ಪ್ರತ್ಯಾಗಮ s6; }
+ಸಂರಚನಾ s7 fr_s7(ಶೂನ್ಯ) { ಪ್ರತ್ಯಾಗಮ s7; }
+ಸಂರಚನಾ s8 fr_s8(ಶೂನ್ಯ) { ಪ್ರತ್ಯಾಗಮ s8; }
+ಸಂರಚನಾ s9 fr_s9(ಶೂನ್ಯ) { ಪ್ರತ್ಯಾಗಮ s9; }
+ಸಂರಚನಾ s10 fr_s10(ಶೂನ್ಯ) { ಪ್ರತ್ಯಾಗಮ s10; }
+ಸಂರಚನಾ s11 fr_s11(ಶೂನ್ಯ) { ಪ್ರತ್ಯಾಗಮ s11; }
+ಸಂರಚನಾ s12 fr_s12(ಶೂನ್ಯ) { ಪ್ರತ್ಯಾಗಮ s12; }
+ಸಂರಚನಾ s13 fr_s13(ಶೂನ್ಯ) { ಪ್ರತ್ಯಾಗಮ s13; }
+ಸಂರಚನಾ s14 fr_s14(ಶೂನ್ಯ) { ಪ್ರತ್ಯಾಗಮ s14; }
+ಸಂರಚನಾ s15 fr_s15(ಶೂನ್ಯ) { ಪ್ರತ್ಯಾಗಮ s15; }
+ಸಂರಚನಾ s16 fr_s16(ಶೂನ್ಯ) { ಪ್ರತ್ಯಾಗಮ s16; }
+ಸಂರಚನಾ s17 fr_s17(ಶೂನ್ಯ) { ಪ್ರತ್ಯಾಗಮ s17; }
 
-struct hfa11 fr_hfa11(void) { return hfa11; }
-struct hfa12 fr_hfa12(void) { return hfa12; }
-struct hfa13 fr_hfa13(void) { return hfa13; }
-struct hfa14 fr_hfa14(void) { return hfa14; }
+ಸಂರಚನಾ hfa11 fr_hfa11(ಶೂನ್ಯ) { ಪ್ರತ್ಯಾಗಮ hfa11; }
+ಸಂರಚನಾ hfa12 fr_hfa12(ಶೂನ್ಯ) { ಪ್ರತ್ಯಾಗಮ hfa12; }
+ಸಂರಚನಾ hfa13 fr_hfa13(ಶೂನ್ಯ) { ಪ್ರತ್ಯಾಗಮ hfa13; }
+ಸಂರಚನಾ hfa14 fr_hfa14(ಶೂನ್ಯ) { ಪ್ರತ್ಯಾಗಮ hfa14; }
 
-struct hfa21 fr_hfa21(void) { return hfa21; }
-struct hfa22 fr_hfa22(void) { return hfa22; }
-struct hfa23 fr_hfa23(void) { return hfa23; }
-struct hfa24 fr_hfa24(void) { return hfa24; }
+ಸಂರಚನಾ hfa21 fr_hfa21(ಶೂನ್ಯ) { ಪ್ರತ್ಯಾಗಮ hfa21; }
+ಸಂರಚನಾ hfa22 fr_hfa22(ಶೂನ್ಯ) { ಪ್ರತ್ಯಾಗಮ hfa22; }
+ಸಂರಚನಾ hfa23 fr_hfa23(ಶೂನ್ಯ) { ಪ್ರತ್ಯಾಗಮ hfa23; }
+ಸಂರಚನಾ hfa24 fr_hfa24(ಶೂನ್ಯ) { ಪ್ರತ್ಯಾಗಮ hfa24; }
 
-struct hfa31 fr_hfa31(void) { return hfa31; }
-struct hfa32 fr_hfa32(void) { return hfa32; }
-struct hfa33 fr_hfa33(void) { return hfa33; }
-struct hfa34 fr_hfa34(void) { return hfa34; }
-struct hfae12 fr_hfae12(void) { return hfae12; }
-struct hfae22 fr_hfae22(void) { return hfae22; }
+ಸಂರಚನಾ hfa31 fr_hfa31(ಶೂನ್ಯ) { ಪ್ರತ್ಯಾಗಮ hfa31; }
+ಸಂರಚನಾ hfa32 fr_hfa32(ಶೂನ್ಯ) { ಪ್ರತ್ಯಾಗಮ hfa32; }
+ಸಂರಚನಾ hfa33 fr_hfa33(ಶೂನ್ಯ) { ಪ್ರತ್ಯಾಗಮ hfa33; }
+ಸಂರಚನಾ hfa34 fr_hfa34(ಶೂನ್ಯ) { ಪ್ರತ್ಯಾಗಮ hfa34; }
+ಸಂರಚನಾ hfae12 fr_hfae12(ಶೂನ್ಯ) { ಪ್ರತ್ಯಾಗಮ hfae12; }
+ಸಂರಚನಾ hfae22 fr_hfae22(ಶೂನ್ಯ) { ಪ್ರತ್ಯಾಗಮ hfae22; }
 
-void ret(void)
+ಶೂನ್ಯ ret(ಶೂನ್ಯ)
 {
-    struct s1 t1 = fr_s1();
-    struct s2 t2 = fr_s2();
-    struct s3 t3 = fr_s3();
-    struct s4 t4 = fr_s4();
-    struct s5 t5 = fr_s5();
-    struct s6 t6 = fr_s6();
-    struct s7 t7 = fr_s7();
-    struct s8 t8 = fr_s8();
-    struct s9 t9 = fr_s9();
-    struct s10 t10 = fr_s10();
-    struct s11 t11 = fr_s11();
-    struct s12 t12 = fr_s12();
-    struct s13 t13 = fr_s13();
-    struct s14 t14 = fr_s14();
-    struct s15 t15 = fr_s15();
-    struct s16 t16 = fr_s16();
-    struct s17 t17 = fr_s17();
+    ಸಂರಚನಾ s1 t1 = fr_s1();
+    ಸಂರಚನಾ s2 t2 = fr_s2();
+    ಸಂರಚನಾ s3 t3 = fr_s3();
+    ಸಂರಚನಾ s4 t4 = fr_s4();
+    ಸಂರಚನಾ s5 t5 = fr_s5();
+    ಸಂರಚನಾ s6 t6 = fr_s6();
+    ಸಂರಚನಾ s7 t7 = fr_s7();
+    ಸಂರಚನಾ s8 t8 = fr_s8();
+    ಸಂರಚನಾ s9 t9 = fr_s9();
+    ಸಂರಚನಾ s10 t10 = fr_s10();
+    ಸಂರಚನಾ s11 t11 = fr_s11();
+    ಸಂರಚನಾ s12 t12 = fr_s12();
+    ಸಂರಚನಾ s13 t13 = fr_s13();
+    ಸಂರಚನಾ s14 t14 = fr_s14();
+    ಸಂರಚನಾ s15 t15 = fr_s15();
+    ಸಂರಚನಾ s16 t16 = fr_s16();
+    ಸಂರಚನಾ s17 t17 = fr_s17();
     printf("Return values:\n");
     printf("%.1s\n", t1.x);
     printf("%.2s\n", t2.x);
@@ -245,98 +245,98 @@ void ret(void)
     printf("%.1f %.1f\n", fr_hfae22().h.a, fr_hfae22().h.b);
 }
 
-void*
+ಶೂನ್ಯ*
 va_arg_with_struct_ptr(va_list ap) {
         /*
          * This was a BUG identified with FFTW-3.3.8 on arm64.
          * The test case only checks it compiles.
          */
-        struct X { int _x; };
-        struct X *x = va_arg(ap, struct X *);
-        return x;
+        ಸಂರಚನಾ X { ಪೂರ್ಣಾಙ್ಕ _x; };
+        ಸಂರಚನಾ X *x = va_arg(ap, ಸಂರಚನಾ X *);
+        ಪ್ರತ್ಯಾಗಮ x;
 }
 
-int match(const char **s, const char *f)
+ಪೂರ್ಣಾಙ್ಕ match(ಧ್ರುವ ವರ್ಣ **s, ಧ್ರುವ ವರ್ಣ *f)
 {
-    const char *p = *s;
-    for (p = *s; *f && *f == *p; f++, p++)
+    ಧ್ರುವ ವರ್ಣ *p = *s;
+    ಪ್ರತಿ (p = *s; *f && *f == *p; f++, p++)
         ;
-    if (!*f) {
+    ಯದಿ (!*f) {
         *s = p - 1;
-        return 1;
+        ಪ್ರತ್ಯಾಗಮ 1;
     }
-    return 0;
+    ಪ್ರತ್ಯಾಗಮ 0;
 }
 
-void myprintf(const char *format, ...)
+ಶೂನ್ಯ myprintf(ಧ್ರುವ ವರ್ಣ *format, ...)
 {
-    const char *s;
+    ಧ್ರುವ ವರ್ಣ *s;
     va_list ap;
     va_start(ap, format);
-    for (s = format; *s; s++) {
-        if (match(&s, "%7s")) {
-            struct s7 t7 = va_arg(ap, struct s7);
+    ಪ್ರತಿ (s = format; *s; s++) {
+        ಯದಿ (match(&s, "%7s")) {
+            ಸಂರಚನಾ s7 t7 = va_arg(ap, ಸಂರಚನಾ s7);
             printf("%.7s", t7.x);
         }
-        else if (match(&s, "%9s")) {
-            struct s9 t9 = va_arg(ap, struct s9);
+        ಅನ್ಯಥಾ ಯದಿ (match(&s, "%9s")) {
+            ಸಂರಚನಾ s9 t9 = va_arg(ap, ಸಂರಚನಾ s9);
             printf("%.9s", t9.x);
         }
-        else if (match(&s, "%hfa11")) {
-            struct hfa11 x = va_arg(ap, struct hfa11);
+        ಅನ್ಯಥಾ ಯದಿ (match(&s, "%hfa11")) {
+            ಸಂರಚನಾ hfa11 x = va_arg(ap, ಸಂರಚನಾ hfa11);
             printf("%.1f,%.1f", x.a, x.a);
         }
-        else if (match(&s, "%hfa12")) {
-            struct hfa12 x = va_arg(ap, struct hfa12);
+        ಅನ್ಯಥಾ ಯದಿ (match(&s, "%hfa12")) {
+            ಸಂರಚನಾ hfa12 x = va_arg(ap, ಸಂರಚನಾ hfa12);
             printf("%.1f,%.1f", x.a, x.b);
         }
-        else if (match(&s, "%hfa13")) {
-            struct hfa13 x = va_arg(ap, struct hfa13);
+        ಅನ್ಯಥಾ ಯದಿ (match(&s, "%hfa13")) {
+            ಸಂರಚನಾ hfa13 x = va_arg(ap, ಸಂರಚನಾ hfa13);
             printf("%.1f,%.1f", x.a, x.c);
         }
-        else if (match(&s, "%hfa14")) {
-            struct hfa14 x = va_arg(ap, struct hfa14);
+        ಅನ್ಯಥಾ ಯದಿ (match(&s, "%hfa14")) {
+            ಸಂರಚನಾ hfa14 x = va_arg(ap, ಸಂರಚನಾ hfa14);
             printf("%.1f,%.1f", x.a, x.d);
         }
-        else if (match(&s, "%hfa21")) {
-            struct hfa21 x = va_arg(ap, struct hfa21);
+        ಅನ್ಯಥಾ ಯದಿ (match(&s, "%hfa21")) {
+            ಸಂರಚನಾ hfa21 x = va_arg(ap, ಸಂರಚನಾ hfa21);
             printf("%.1f,%.1f", x.a, x.a);
         }
-        else if (match(&s, "%hfa22")) {
-            struct hfa22 x = va_arg(ap, struct hfa22);
+        ಅನ್ಯಥಾ ಯದಿ (match(&s, "%hfa22")) {
+            ಸಂರಚನಾ hfa22 x = va_arg(ap, ಸಂರಚನಾ hfa22);
             printf("%.1f,%.1f", x.a, x.b);
         }
-        else if (match(&s, "%hfa23")) {
-            struct hfa23 x = va_arg(ap, struct hfa23);
+        ಅನ್ಯಥಾ ಯದಿ (match(&s, "%hfa23")) {
+            ಸಂರಚನಾ hfa23 x = va_arg(ap, ಸಂರಚನಾ hfa23);
             printf("%.1f,%.1f", x.a, x.c);
         }
-        else if (match(&s, "%hfa24")) {
-            struct hfa24 x = va_arg(ap, struct hfa24);
+        ಅನ್ಯಥಾ ಯದಿ (match(&s, "%hfa24")) {
+            ಸಂರಚನಾ hfa24 x = va_arg(ap, ಸಂರಚನಾ hfa24);
             printf("%.1f,%.1f", x.a, x.d);
         }
-        else if (match(&s, "%hfa31")) {
-            struct hfa31 x = va_arg(ap, struct hfa31);
+        ಅನ್ಯಥಾ ಯದಿ (match(&s, "%hfa31")) {
+            ಸಂರಚನಾ hfa31 x = va_arg(ap, ಸಂರಚನಾ hfa31);
             printf("%.1Lf,%.1Lf", x.a, x.a);
         }
-        else if (match(&s, "%hfa32")) {
-            struct hfa32 x = va_arg(ap, struct hfa32);
+        ಅನ್ಯಥಾ ಯದಿ (match(&s, "%hfa32")) {
+            ಸಂರಚನಾ hfa32 x = va_arg(ap, ಸಂರಚನಾ hfa32);
             printf("%.1Lf,%.1Lf", x.a, x.b);
         }
-        else if (match(&s, "%hfa33")) {
-            struct hfa33 x = va_arg(ap, struct hfa33);
+        ಅನ್ಯಥಾ ಯದಿ (match(&s, "%hfa33")) {
+            ಸಂರಚನಾ hfa33 x = va_arg(ap, ಸಂರಚನಾ hfa33);
             printf("%.1Lf,%.1Lf", x.a, x.c);
         }
-        else if (match(&s, "%hfa34")) {
-            struct hfa34 x = va_arg(ap, struct hfa34);
+        ಅನ್ಯಥಾ ಯದಿ (match(&s, "%hfa34")) {
+            ಸಂರಚನಾ hfa34 x = va_arg(ap, ಸಂರಚನಾ hfa34);
             printf("%.1Lf,%.1Lf", x.a, x.d);
         }
-        else
+        ಅನ್ಯಥಾ
             putchar(*s);
     }
     putchar('\n');
 }
 
-void stdarg(void)
+ಶೂನ್ಯ stdarg(ಶೂನ್ಯ)
 {
     printf("stdarg:\n");
     myprintf("%9s %9s %9s %9s %9s %9s", s9, s9, s9, s9, s9, s9);
@@ -406,12 +406,12 @@ void stdarg(void)
              hfa14, hfa12, hfa11, hfa11, hfa11, hfa11);
 }
 
-void pll(unsigned long long x)
+ಶೂನ್ಯ pll(unsigned long long x)
 {
     printf("%llx\n", x);
 }
 
-void movi(void)
+ಶೂನ್ಯ movi(ಶೂನ್ಯ)
 {
     printf("MOVI:\n");
     pll(0);
@@ -456,49 +456,49 @@ void movi(void)
     pll(0xabcdef0123456789);
 }
 
-static uint32_t addip0(uint32_t x) { return x + 0; }
-static uint64_t sublp0(uint64_t x) { return x - 0; }
-static uint32_t addip123(uint32_t x) { return x + 123; }
-static uint64_t addlm123(uint64_t x) { return x + -123; }
-static uint64_t sublp4095(uint64_t x) { return x - 4095; }
-static uint32_t subim503808(uint32_t x) { return x - -503808; }
-static uint64_t addp12345(uint64_t x) { return x + 12345; }
-static uint32_t subp12345(uint32_t x) { return x - 12345; }
+ಸ್ಥಿರ uint32_t addip0(uint32_t x) { ಪ್ರತ್ಯಾಗಮ x + 0; }
+ಸ್ಥಿರ uint64_t sublp0(uint64_t x) { ಪ್ರತ್ಯಾಗಮ x - 0; }
+ಸ್ಥಿರ uint32_t addip123(uint32_t x) { ಪ್ರತ್ಯಾಗಮ x + 123; }
+ಸ್ಥಿರ uint64_t addlm123(uint64_t x) { ಪ್ರತ್ಯಾಗಮ x + -123; }
+ಸ್ಥಿರ uint64_t sublp4095(uint64_t x) { ಪ್ರತ್ಯಾಗಮ x - 4095; }
+ಸ್ಥಿರ uint32_t subim503808(uint32_t x) { ಪ್ರತ್ಯಾಗಮ x - -503808; }
+ಸ್ಥಿರ uint64_t addp12345(uint64_t x) { ಪ್ರತ್ಯಾಗಮ x + 12345; }
+ಸ್ಥಿರ uint32_t subp12345(uint32_t x) { ಪ್ರತ್ಯಾಗಮ x - 12345; }
 
-static uint32_t mvni(uint32_t x) { return 0xffffffff - x; }
-static uint64_t negl(uint64_t x) { return 0 - x; }
-static uint32_t rsbi123(uint32_t x) { return 123 - x; }
-static uint64_t rsbl123(uint64_t x) { return 123 - x; }
+ಸ್ಥಿರ uint32_t mvni(uint32_t x) { ಪ್ರತ್ಯಾಗಮ 0xffffffff - x; }
+ಸ್ಥಿರ uint64_t negl(uint64_t x) { ಪ್ರತ್ಯಾಗಮ 0 - x; }
+ಸ್ಥಿರ uint32_t rsbi123(uint32_t x) { ಪ್ರತ್ಯಾಗಮ 123 - x; }
+ಸ್ಥಿರ uint64_t rsbl123(uint64_t x) { ಪ್ರತ್ಯಾಗಮ 123 - x; }
 
-static uint32_t andi0(uint32_t x) { return x & 0; }
-static uint64_t andlm1(uint64_t x) { return x & -1; }
-static uint64_t orrl0(uint64_t x) { return x | 0; }
-static uint32_t orrim1(uint32_t x) { return x | -1; }
-static uint32_t eori0(uint32_t x) { return x ^ 0; }
-static uint64_t eorlm1(uint64_t x) { return x ^ -1; }
-static uint32_t and0xf0(uint32_t x) { return x & 0xf0; }
-static uint64_t orr0xf0(uint64_t x) { return x | 0xf0; }
-static uint64_t eor0xf0(uint64_t x) { return x ^ 0xf0; }
+ಸ್ಥಿರ uint32_t andi0(uint32_t x) { ಪ್ರತ್ಯಾಗಮ x & 0; }
+ಸ್ಥಿರ uint64_t andlm1(uint64_t x) { ಪ್ರತ್ಯಾಗಮ x & -1; }
+ಸ್ಥಿರ uint64_t orrl0(uint64_t x) { ಪ್ರತ್ಯಾಗಮ x | 0; }
+ಸ್ಥಿರ uint32_t orrim1(uint32_t x) { ಪ್ರತ್ಯಾಗಮ x | -1; }
+ಸ್ಥಿರ uint32_t eori0(uint32_t x) { ಪ್ರತ್ಯಾಗಮ x ^ 0; }
+ಸ್ಥಿರ uint64_t eorlm1(uint64_t x) { ಪ್ರತ್ಯಾಗಮ x ^ -1; }
+ಸ್ಥಿರ uint32_t and0xf0(uint32_t x) { ಪ್ರತ್ಯಾಗಮ x & 0xf0; }
+ಸ್ಥಿರ uint64_t orr0xf0(uint64_t x) { ಪ್ರತ್ಯಾಗಮ x | 0xf0; }
+ಸ್ಥಿರ uint64_t eor0xf0(uint64_t x) { ಪ್ರತ್ಯಾಗಮ x ^ 0xf0; }
 
-static uint32_t lsli0(uint32_t x) { return x << 0; }
-static uint32_t lsri0(uint32_t x) { return x >> 0; }
-static int64_t asrl0(int64_t x) { return x >> 0; }
-static uint32_t lsli1(uint32_t x) { return x << 1; }
-static uint32_t lsli31(uint32_t x) { return x << 31; }
-static uint64_t lsll1(uint64_t x) { return x << 1; }
-static uint64_t lsll63(uint64_t x) { return x << 63; }
-static uint32_t lsri1(uint32_t x) { return x >> 1; }
-static uint32_t lsri31(uint32_t x) { return x >> 31; }
-static uint64_t lsrl1(uint64_t x) { return x >> 1; }
-static uint64_t lsrl63(uint64_t x) { return x >> 63; }
-static int32_t asri1(int32_t x) { return x >> 1; }
-static int32_t asri31(int32_t x) { return x >> 31; }
-static int64_t asrl1(int64_t x) { return x >> 1; }
-static int64_t asrl63(int64_t x) { return x >> 63; }
+ಸ್ಥಿರ uint32_t lsli0(uint32_t x) { ಪ್ರತ್ಯಾಗಮ x << 0; }
+ಸ್ಥಿರ uint32_t lsri0(uint32_t x) { ಪ್ರತ್ಯಾಗಮ x >> 0; }
+ಸ್ಥಿರ int64_t asrl0(int64_t x) { ಪ್ರತ್ಯಾಗಮ x >> 0; }
+ಸ್ಥಿರ uint32_t lsli1(uint32_t x) { ಪ್ರತ್ಯಾಗಮ x << 1; }
+ಸ್ಥಿರ uint32_t lsli31(uint32_t x) { ಪ್ರತ್ಯಾಗಮ x << 31; }
+ಸ್ಥಿರ uint64_t lsll1(uint64_t x) { ಪ್ರತ್ಯಾಗಮ x << 1; }
+ಸ್ಥಿರ uint64_t lsll63(uint64_t x) { ಪ್ರತ್ಯಾಗಮ x << 63; }
+ಸ್ಥಿರ uint32_t lsri1(uint32_t x) { ಪ್ರತ್ಯಾಗಮ x >> 1; }
+ಸ್ಥಿರ uint32_t lsri31(uint32_t x) { ಪ್ರತ್ಯಾಗಮ x >> 31; }
+ಸ್ಥಿರ uint64_t lsrl1(uint64_t x) { ಪ್ರತ್ಯಾಗಮ x >> 1; }
+ಸ್ಥಿರ uint64_t lsrl63(uint64_t x) { ಪ್ರತ್ಯಾಗಮ x >> 63; }
+ಸ್ಥಿರ int32_t asri1(int32_t x) { ಪ್ರತ್ಯಾಗಮ x >> 1; }
+ಸ್ಥಿರ int32_t asri31(int32_t x) { ಪ್ರತ್ಯಾಗಮ x >> 31; }
+ಸ್ಥಿರ int64_t asrl1(int64_t x) { ಪ್ರತ್ಯಾಗಮ x >> 1; }
+ಸ್ಥಿರ int64_t asrl63(int64_t x) { ಪ್ರತ್ಯಾಗಮ x >> 63; }
 
-void opi(void)
+ಶೂನ್ಯ opi(ಶೂನ್ಯ)
 {
-    int x = 1000;
+    ಪೂರ್ಣಾಙ್ಕ x = 1000;
     pll(addip0(x));
     pll(sublp0(x));
     pll(addip123(x));
@@ -537,7 +537,7 @@ void opi(void)
     pll(asrl63(x));
 }
 
-void pcs(void)
+ಶೂನ್ಯ pcs(ಶೂನ್ಯ)
 {
     arg();
     ret();
@@ -546,8 +546,8 @@ void pcs(void)
     opi();
 }
 
-int main()
+ಪೂರ್ಣಾಙ್ಕ main()
 {
     pcs();
-    return 0;
+    ಪ್ರತ್ಯಾಗಮ 0;
 }

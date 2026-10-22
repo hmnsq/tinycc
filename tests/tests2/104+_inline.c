@@ -1,11 +1,11 @@
 
 #define GOT(f) \
-    __attribute__((weak)) void f(void); \
+    __attribute__((weak)) ಶೂನ್ಯ f(ಶೂನ್ಯ); \
     printf("%d %s\n", !!((__SIZE_TYPE__)f & ~0u), #f);
 
-int printf(const char*, ...);
+ಪೂರ್ಣಾಙ್ಕ printf(ಧ್ರುವ ವರ್ಣ*, ...);
 
-void check_exports()
+ಶೂನ್ಯ check_exports()
 {
     // 0
     GOT(inline_inline_2decl_only)

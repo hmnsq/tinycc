@@ -1,21 +1,21 @@
-#include <stdio.h>
+#ಅನ್ತರ್ಭಾವ <stdio.h>
 
-int main() 
+ಪೂರ್ಣಾಙ್ಕ main() 
 {
-   int Count;
-   int Array[10];
+   ಪೂರ್ಣಾಙ್ಕ ಎಣಿಕೆ_3;
+   ಪೂರ್ಣಾಙ್ಕ Array[10];
 
-   for (Count = 1; Count <= 10; Count++)
+   ಪ್ರತಿ (ಎಣಿಕೆ_3 = 1; ಎಣಿಕೆ_3 <= 10; ಎಣಿಕೆ_3++)
    {
-      Array[Count-1] = Count * Count;
+      Array[ಎಣಿಕೆ_3-1] = ಎಣಿಕೆ_3 * ಎಣಿಕೆ_3;
    }
 
-   for (Count = 0; Count < 10; Count++)
+   ಪ್ರತಿ (ಎಣಿಕೆ_3 = 0; ಎಣಿಕೆ_3 < 10; ಎಣಿಕೆ_3++)
    {
-      printf("%d\n", Array[Count]);
+      printf("%d\n", Array[ಎಣಿಕೆ_3]);
    }
 
-   return 0;
+   ಪ್ರತ್ಯಾಗಮ 0;
 }
 
 // vim: set expandtab ts=4 sw=3 sts=3 tw=80 :

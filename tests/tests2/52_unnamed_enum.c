@@ -1,17 +1,17 @@
-#include <stdio.h>
+#ಅನ್ತರ್ಭಾವ <stdio.h>
 
-enum fred { a, b, c };
+ಗಣನಾ fred { a, b, c };
 
-int main()
+ಪೂರ್ಣಾಙ್ಕ main()
 {
    printf("a=%d\n", a);
    printf("b=%d\n", b);
    printf("c=%d\n", c);
 
-   enum fred d;
+   ಗಣನಾ fred d;
 
-   typedef enum { e, f, g } h;
-   typedef enum { i, j, k } m;
+   ಪ್ರಕಾರನಿರ್ದೇಶ ಗಣನಾ { e, f, g } h;
+   ಪ್ರಕಾರನಿರ್ದೇಶ ಗಣನಾ { i, j, k } m;
 
    printf("e=%d\n", e);
    printf("f=%d\n", f);
@@ -21,7 +21,7 @@ int main()
    printf("j=%d\n", j);
    printf("k=%d\n", k);
 
-   return 0;
+   ಪ್ರತ್ಯಾಗಮ 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

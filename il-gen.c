@@ -37,13 +37,13 @@
 #define RC_FRET    RC_ST0 /* function return: float register */
 
 /* pretty names for the registers */
-enum {
+ಗಣನಾ {
     REG_ST0 = 0,
     REG_ST1,
     REG_ST2,
 };
 
-const int reg_classes[NB_REGS] = {
+ಧ್ರುವ ಪೂರ್ಣಾಙ್ಕ reg_classes[NB_REGS] = {
     /* ST0 */ RC_ST | RC_ST0,
     /* ST1 */ RC_ST | RC_ST1,
     /* ST2 */ RC_ST,
@@ -69,8 +69,8 @@ const int reg_classes[NB_REGS] = {
 #define LDOUBLE_ALIGN 8
 
 /* function call context */
-typedef struct GFuncContext {
-    int func_call; /* func call type (FUNC_STDCALL or FUNC_CDECL) */
+ಪ್ರಕಾರನಿರ್ದೇಶ ಸಂರಚನಾ GFuncContext {
+    ಪೂರ್ಣಾಙ್ಕ func_call; /* func call type (FUNC_STDCALL or FUNC_CDECL) */
 } GFuncContext;
 
 /******************************************************/
@@ -78,15 +78,15 @@ typedef struct GFuncContext {
 
 #define IL_OP_PREFIX 0xFE
 
-enum ILOPCodes {
+ಗಣನಾ ILOPCodes {
 #define OP(name, str, n) IL_OP_ ## name = n,
-#include "il-opcodes.h"
+#ಅನ್ತರ್ಭಾವ "il-opcodes.h"
 #undef OP
 };
 
-char *il_opcodes_str[] = {
+ವರ್ಣ *il_opcodes_str[] = {
 #define OP(name, str, n) [n] = str,
-#include "il-opcodes.h"
+#ಅನ್ತರ್ಭಾವ "il-opcodes.h"
 #undef OP
 };
 
@@ -95,14 +95,14 @@ char *il_opcodes_str[] = {
 /* arguments variable numbers start from there */
 #define ARG_BASE 0x70000000
 
-static FILE *il_outfile;
+ಸ್ಥಿರ FILE *il_outfile;
 
-static void out_byte(int c)
+ಸ್ಥಿರ ಶೂನ್ಯ out_byte(ಪೂರ್ಣಾಙ್ಕ c)
 {
-    *(char *)ind++ = c;
+    *(ವರ್ಣ *)ind++ = c;
 }
 
-static void out_le32(int c)
+ಸ್ಥಿರ ಶೂನ್ಯ out_le32(ಪೂರ್ಣಾಙ್ಕ c)
 {
     out_byte(c);
     out_byte(c >> 8);
@@ -110,9 +110,9 @@ static void out_le32(int c)
     out_byte(c >> 24);
 }
 
-static void init_outfile(void)
+ಸ್ಥಿರ ಶೂನ್ಯ init_outfile(ಶೂನ್ಯ)
 {
-    if (!il_outfile) {
+    ಯದಿ (!il_outfile) {
         il_outfile = stdout;
         fprintf(il_outfile, 
                 ".assembly extern mscorlib\n"
@@ -122,28 +122,28 @@ static void init_outfile(void)
     }
 }
 
-static void out_op1(int op)
+ಸ್ಥಿರ ಶೂನ್ಯ out_op1(ಪೂರ್ಣಾಙ್ಕ op)
 {
-    if (op & 0x100)
+    ಯದಿ (op & 0x100)
         out_byte(IL_OP_PREFIX);
     out_byte(op & 0xff);
 }
 
 /* output an opcode with prefix */
-static void out_op(int op)
+ಸ್ಥಿರ ಶೂನ್ಯ out_op(ಪೂರ್ಣಾಙ್ಕ op)
 {
     out_op1(op);
     fprintf(il_outfile, " %s\n", il_opcodes_str[op]);
 }
 
-static void out_opb(int op, int c)
+ಸ್ಥಿರ ಶೂನ್ಯ out_opb(ಪೂರ್ಣಾಙ್ಕ op, ಪೂರ್ಣಾಙ್ಕ c)
 {
     out_op1(op);
     out_byte(c);
     fprintf(il_outfile, " %s %d\n", il_opcodes_str[op], c);
 }
 
-static void out_opi(int op, int c)
+ಸ್ಥಿರ ಶೂನ್ಯ out_opi(ಪೂರ್ಣಾಙ್ಕ op, ಪೂರ್ಣಾಙ್ಕ c)
 {
     out_op1(op);
     out_le32(c);
@@ -151,75 +151,75 @@ static void out_opi(int op, int c)
 }
 
 /* XXX: not complete */
-static void il_type_to_str(char *buf, int buf_size, 
-                           int t, const char *varstr)
+ಸ್ಥಿರ ಶೂನ್ಯ il_type_to_str(ವರ್ಣ *buf, ಪೂರ್ಣಾಙ್ಕ buf_size, 
+                           ಪೂರ್ಣಾಙ್ಕ t, ಧ್ರುವ ವರ್ಣ *varstr)
 {
-    int bt;
+    ಪೂರ್ಣಾಙ್ಕ bt;
     Sym *s, *sa;
-    char buf1[256];
-    const char *tstr;
+    ವರ್ಣ buf1[256];
+    ಧ್ರುವ ವರ್ಣ *tstr;
 
     t = t & VT_TYPE;
     bt = t & VT_BTYPE;
     buf[0] = '\0';
-    if (t & VT_UNSIGNED)
+    ಯದಿ (t & VT_UNSIGNED)
         pstrcat(buf, buf_size, "unsigned ");
-    switch(bt) {
-    case VT_VOID:
+    ವಿಕಲ್ಪ(bt) {
+    ಪಕ್ಷ VT_VOID:
         tstr = "void";
-        goto add_tstr;
-    case VT_BOOL:
+        ಗಚ್ಛ add_tstr;
+    ಪಕ್ಷ VT_BOOL:
         tstr = "bool";
-        goto add_tstr;
-    case VT_BYTE:
+        ಗಚ್ಛ add_tstr;
+    ಪಕ್ಷ VT_BYTE:
         tstr = "int8";
-        goto add_tstr;
-    case VT_SHORT:
+        ಗಚ್ಛ add_tstr;
+    ಪಕ್ಷ VT_SHORT:
         tstr = "int16";
-        goto add_tstr;
-    case VT_ENUM:
-    case VT_INT:
-    case VT_LONG:
+        ಗಚ್ಛ add_tstr;
+    ಪಕ್ಷ VT_ENUM:
+    ಪಕ್ಷ VT_INT:
+    ಪಕ್ಷ VT_LONG:
         tstr = "int32";
-        goto add_tstr;
-    case VT_LLONG:
+        ಗಚ್ಛ add_tstr;
+    ಪಕ್ಷ VT_LLONG:
         tstr = "int64";
-        goto add_tstr;
-    case VT_FLOAT:
+        ಗಚ್ಛ add_tstr;
+    ಪಕ್ಷ VT_FLOAT:
         tstr = "float32";
-        goto add_tstr;
-    case VT_DOUBLE:
-    case VT_LDOUBLE:
+        ಗಚ್ಛ add_tstr;
+    ಪಕ್ಷ VT_DOUBLE:
+    ಪಕ್ಷ VT_LDOUBLE:
         tstr = "float64";
     add_tstr:
         pstrcat(buf, buf_size, tstr);
-        break;
-    case VT_STRUCT:
+        ಭಙ್ಗ;
+    ಪಕ್ಷ VT_STRUCT:
         tcc_error("structures not handled yet");
-        break;
-    case VT_FUNC:
+        ಭಙ್ಗ;
+    ಪಕ್ಷ VT_FUNC:
         s = sym_find((unsigned)t >> VT_STRUCT_SHIFT);
         il_type_to_str(buf, buf_size, s->t, varstr);
         pstrcat(buf, buf_size, "(");
         sa = s->next;
-        while (sa != NULL) {
-            il_type_to_str(buf1, sizeof(buf1), sa->t, NULL);
+        ಯಾವತ್ (sa != ರಿಕ್ತ) {
+            il_type_to_str(buf1, ಪರಿಮಾಣ(buf1), sa->t, ರಿಕ್ತ);
             pstrcat(buf, buf_size, buf1);
             sa = sa->next;
-            if (sa)
+            ಯದಿ (sa)
                 pstrcat(buf, buf_size, ", ");
         }
         pstrcat(buf, buf_size, ")");
-        goto no_var;
-    case VT_PTR:
+        ಗಚ್ಛ no_var;
+    ಪಕ್ಷ VT_PTR:
         s = sym_find((unsigned)t >> VT_STRUCT_SHIFT);
-        pstrcpy(buf1, sizeof(buf1), "*");
-        if (varstr)
-            pstrcat(buf1, sizeof(buf1), varstr);
+        pstrcpy(buf1, ಪರಿಮಾಣ(buf1), "*");
+        ಯದಿ (varstr)
+            pstrcat(buf1, ಪರಿಮಾಣ(buf1), varstr);
         il_type_to_str(buf, buf_size, s->t, buf1);
-        goto no_var;
+        ಗಚ್ಛ no_var;
     }
-    if (varstr) {
+    ಯದಿ (varstr) {
         pstrcat(buf, buf_size, " ");
         pstrcat(buf, buf_size, varstr);
     }
@@ -228,169 +228,169 @@ static void il_type_to_str(char *buf, int buf_size,
 
 
 /* patch relocation entry with value 'val' */
-void greloc_patch1(Reloc *p, int val)
+ಶೂನ್ಯ greloc_patch1(Reloc *p, ಪೂರ್ಣಾಙ್ಕ val)
 {
 }
 
 /* output a symbol and patch all calls to it */
-void gsym_addr(t, a)
+ಶೂನ್ಯ gsym_addr(t, a)
 {
 }
 
 /* output jump and return symbol */
-static int out_opj(int op, int c)
+ಸ್ಥಿರ ಪೂರ್ಣಾಙ್ಕ out_opj(ಪೂರ್ಣಾಙ್ಕ op, ಪೂರ್ಣಾಙ್ಕ c)
 {
     out_op1(op);
     out_le32(0);
-    if (c == 0) {
-        c = ind - (int)cur_text_section->data;
+    ಯದಿ (c == 0) {
+        c = ind - (ಪೂರ್ಣಾಙ್ಕ)cur_text_section->data;
     }
     fprintf(il_outfile, " %s L%d\n", il_opcodes_str[op], c);
-    return c;
+    ಪ್ರತ್ಯಾಗಮ c;
 }
 
-void gsym(int t)
+ಶೂನ್ಯ gsym(ಪೂರ್ಣಾಙ್ಕ t)
 {
     fprintf(il_outfile, "L%d:\n", t);
 }
 
 /* load 'r' from value 'sv' */
-void load(int r, SValue *sv)
+ಶೂನ್ಯ load(ಪೂರ್ಣಾಙ್ಕ r, SValue *sv)
 {
-    int v, fc, ft;
+    ಪೂರ್ಣಾಙ್ಕ v, fc, ft;
 
     v = sv->r & VT_VALMASK;
     fc = sv->c.i;
     ft = sv->t;
 
-    if (sv->r & VT_LVAL) {
-        if (v == VT_LOCAL) {
-            if (fc >= ARG_BASE) {
+    ಯದಿ (sv->r & VT_LVAL) {
+        ಯದಿ (v == VT_LOCAL) {
+            ಯದಿ (fc >= ARG_BASE) {
                 fc -= ARG_BASE;
-                if (fc >= 0 && fc <= 4) {
+                ಯದಿ (fc >= 0 && fc <= 4) {
                     out_op(IL_OP_LDARG_0 + fc);
-                } else if (fc <= 0xff) {
+                } ಅನ್ಯಥಾ ಯದಿ (fc <= 0xff) {
                     out_opb(IL_OP_LDARG_S, fc);
-                } else {
+                } ಅನ್ಯಥಾ {
                     out_opi(IL_OP_LDARG, fc);
                 }
-            } else {
-                if (fc >= 0 && fc <= 4) {
+            } ಅನ್ಯಥಾ {
+                ಯದಿ (fc >= 0 && fc <= 4) {
                     out_op(IL_OP_LDLOC_0 + fc);
-                } else if (fc <= 0xff) {
+                } ಅನ್ಯಥಾ ಯದಿ (fc <= 0xff) {
                     out_opb(IL_OP_LDLOC_S, fc);
-                } else {
+                } ಅನ್ಯಥಾ {
                     out_opi(IL_OP_LDLOC, fc);
                 }
             }
-        } else if (v == VT_CONST) {
+        } ಅನ್ಯಥಾ ಯದಿ (v == VT_CONST) {
                 /* XXX: handle globals */
                 out_opi(IL_OP_LDSFLD, 0);
-        } else {
-            if ((ft & VT_BTYPE) == VT_FLOAT) {
+        } ಅನ್ಯಥಾ {
+            ಯದಿ ((ft & VT_BTYPE) == VT_FLOAT) {
                 out_op(IL_OP_LDIND_R4);
-            } else if ((ft & VT_BTYPE) == VT_DOUBLE) {
+            } ಅನ್ಯಥಾ ಯದಿ ((ft & VT_BTYPE) == VT_DOUBLE) {
                 out_op(IL_OP_LDIND_R8);
-            } else if ((ft & VT_BTYPE) == VT_LDOUBLE) {
+            } ಅನ್ಯಥಾ ಯದಿ ((ft & VT_BTYPE) == VT_LDOUBLE) {
                 out_op(IL_OP_LDIND_R8);
-            } else if ((ft & VT_TYPE) == VT_BYTE)
+            } ಅನ್ಯಥಾ ಯದಿ ((ft & VT_TYPE) == VT_BYTE)
                 out_op(IL_OP_LDIND_I1);
-            else if ((ft & VT_TYPE) == (VT_BYTE | VT_UNSIGNED))
+            ಅನ್ಯಥಾ ಯದಿ ((ft & VT_TYPE) == (VT_BYTE | VT_UNSIGNED))
                 out_op(IL_OP_LDIND_U1);
-            else if ((ft & VT_TYPE) == VT_SHORT)
+            ಅನ್ಯಥಾ ಯದಿ ((ft & VT_TYPE) == VT_SHORT)
                 out_op(IL_OP_LDIND_I2);
-            else if ((ft & VT_TYPE) == (VT_SHORT | VT_UNSIGNED))
+            ಅನ್ಯಥಾ ಯದಿ ((ft & VT_TYPE) == (VT_SHORT | VT_UNSIGNED))
                 out_op(IL_OP_LDIND_U2);
-            else
+            ಅನ್ಯಥಾ
                 out_op(IL_OP_LDIND_I4);
         } 
-    } else {
-        if (v == VT_CONST) {
+    } ಅನ್ಯಥಾ {
+        ಯದಿ (v == VT_CONST) {
             /* XXX: handle globals */
-            if (fc >= -1 && fc <= 8) {
+            ಯದಿ (fc >= -1 && fc <= 8) {
                 out_op(IL_OP_LDC_I4_M1 + fc + 1); 
-            } else {
+            } ಅನ್ಯಥಾ {
                 out_opi(IL_OP_LDC_I4, fc);
             }
-        } else if (v == VT_LOCAL) {
-            if (fc >= ARG_BASE) {
+        } ಅನ್ಯಥಾ ಯದಿ (v == VT_LOCAL) {
+            ಯದಿ (fc >= ARG_BASE) {
                 fc -= ARG_BASE;
-                if (fc <= 0xff) {
+                ಯದಿ (fc <= 0xff) {
                     out_opb(IL_OP_LDARGA_S, fc);
-                } else {
+                } ಅನ್ಯಥಾ {
                     out_opi(IL_OP_LDARGA, fc);
                 }
-            } else {
-                if (fc <= 0xff) {
+            } ಅನ್ಯಥಾ {
+                ಯದಿ (fc <= 0xff) {
                     out_opb(IL_OP_LDLOCA_S, fc);
-                } else {
+                } ಅನ್ಯಥಾ {
                     out_opi(IL_OP_LDLOCA, fc);
                 }
             }
-        } else {
+        } ಅನ್ಯಥಾ {
             /* XXX: do it */
         }
     }
 }
 
 /* store register 'r' in lvalue 'v' */
-void store(int r, SValue *sv)
+ಶೂನ್ಯ store(ಪೂರ್ಣಾಙ್ಕ r, SValue *sv)
 {
-    int v, fc, ft;
+    ಪೂರ್ಣಾಙ್ಕ v, fc, ft;
 
     v = sv->r & VT_VALMASK;
     fc = sv->c.i;
     ft = sv->t;
-    if (v == VT_LOCAL) {
-        if (fc >= ARG_BASE) {
+    ಯದಿ (v == VT_LOCAL) {
+        ಯದಿ (fc >= ARG_BASE) {
             fc -= ARG_BASE;
             /* XXX: check IL arg store semantics */
-            if (fc <= 0xff) {
+            ಯದಿ (fc <= 0xff) {
                 out_opb(IL_OP_STARG_S, fc);
-            } else {
+            } ಅನ್ಯಥಾ {
                 out_opi(IL_OP_STARG, fc);
             }
-        } else {
-            if (fc >= 0 && fc <= 4) {
+        } ಅನ್ಯಥಾ {
+            ಯದಿ (fc >= 0 && fc <= 4) {
                 out_op(IL_OP_STLOC_0 + fc);
-            } else if (fc <= 0xff) {
+            } ಅನ್ಯಥಾ ಯದಿ (fc <= 0xff) {
                 out_opb(IL_OP_STLOC_S, fc);
-            } else {
+            } ಅನ್ಯಥಾ {
                 out_opi(IL_OP_STLOC, fc);
             }
         }
-    } else if (v == VT_CONST) {
+    } ಅನ್ಯಥಾ ಯದಿ (v == VT_CONST) {
         /* XXX: handle globals */
         out_opi(IL_OP_STSFLD, 0);
-    } else {
-        if ((ft & VT_BTYPE) == VT_FLOAT)
+    } ಅನ್ಯಥಾ {
+        ಯದಿ ((ft & VT_BTYPE) == VT_FLOAT)
             out_op(IL_OP_STIND_R4);
-        else if ((ft & VT_BTYPE) == VT_DOUBLE)
+        ಅನ್ಯಥಾ ಯದಿ ((ft & VT_BTYPE) == VT_DOUBLE)
             out_op(IL_OP_STIND_R8);
-        else if ((ft & VT_BTYPE) == VT_LDOUBLE)
+        ಅನ್ಯಥಾ ಯದಿ ((ft & VT_BTYPE) == VT_LDOUBLE)
             out_op(IL_OP_STIND_R8);
-        else if ((ft & VT_BTYPE) == VT_BYTE)
+        ಅನ್ಯಥಾ ಯದಿ ((ft & VT_BTYPE) == VT_BYTE)
             out_op(IL_OP_STIND_I1);
-        else if ((ft & VT_BTYPE) == VT_SHORT)
+        ಅನ್ಯಥಾ ಯದಿ ((ft & VT_BTYPE) == VT_SHORT)
             out_op(IL_OP_STIND_I2);
-        else
+        ಅನ್ಯಥಾ
             out_op(IL_OP_STIND_I4);
     }
 }
 
 /* start function call and return function call context */
-void gfunc_start(GFuncContext *c, int func_call)
+ಶೂನ್ಯ gfunc_start(GFuncContext *c, ಪೂರ್ಣಾಙ್ಕ func_call)
 {
     c->func_call = func_call;
 }
 
 /* push function parameter which is in (vtop->t, vtop->c). Stack entry
    is then popped. */
-void gfunc_param(GFuncContext *c)
+ಶೂನ್ಯ gfunc_param(GFuncContext *c)
 {
-    if ((vtop->t & VT_BTYPE) == VT_STRUCT) {
+    ಯದಿ ((vtop->t & VT_BTYPE) == VT_STRUCT) {
         tcc_error("structures passed as value not handled yet");
-    } else {
+    } ಅನ್ಯಥಾ {
         /* simply push on stack */
         gv(RC_ST0);
     }
@@ -399,41 +399,41 @@ void gfunc_param(GFuncContext *c)
 
 /* generate function call with address in (vtop->t, vtop->c) and free function
    context. Stack entry is popped */
-void gfunc_call(GFuncContext *c)
+ಶೂನ್ಯ gfunc_call(GFuncContext *c)
 {
-    char buf[1024];
+    ವರ್ಣ buf[1024];
 
-    if ((vtop->r & (VT_VALMASK | VT_LVAL)) == VT_CONST) {
+    ಯದಿ ((vtop->r & (VT_VALMASK | VT_LVAL)) == VT_CONST) {
         /* XXX: more info needed from tcc */
-        il_type_to_str(buf, sizeof(buf), vtop->t, "xxx");
+        il_type_to_str(buf, ಪರಿಮಾಣ(buf), vtop->t, "xxx");
         fprintf(il_outfile, " call %s\n", buf);
-    } else {
+    } ಅನ್ಯಥಾ {
         /* indirect call */
         gv(RC_INT);
-        il_type_to_str(buf, sizeof(buf), vtop->t, NULL);
+        il_type_to_str(buf, ಪರಿಮಾಣ(buf), vtop->t, ರಿಕ್ತ);
         fprintf(il_outfile, " calli %s\n", buf);
     }
     vtop--;
 }
 
 /* generate function prolog of type 't' */
-void gfunc_prolog(int t)
+ಶೂನ್ಯ gfunc_prolog(ಪೂರ್ಣಾಙ್ಕ t)
 {
-    int addr, u, func_call;
+    ಪೂರ್ಣಾಙ್ಕ addr, u, func_call;
     Sym *sym;
-    char buf[1024];
+    ವರ್ಣ buf[1024];
 
     init_outfile();
 
     /* XXX: pass function name to gfunc_prolog */
-    il_type_to_str(buf, sizeof(buf), t, funcname);
+    il_type_to_str(buf, ಪರಿಮಾಣ(buf), t, funcname);
     fprintf(il_outfile, ".method static %s il managed\n", buf);
     fprintf(il_outfile, "{\n");
     /* XXX: cannot do better now */
     fprintf(il_outfile, " .maxstack %d\n", NB_REGS);
     fprintf(il_outfile, " .locals (int32, int32, int32, int32, int32, int32, int32, int32)\n");
     
-    if (!strcmp(funcname, "main"))
+    ಯದಿ (!strcmp(funcname, "main"))
         fprintf(il_outfile, " .entrypoint\n");
         
     sym = sym_find((unsigned)t >> VT_STRUCT_SHIFT);
@@ -444,166 +444,166 @@ void gfunc_prolog(int t)
        implicit pointer parameter */
     func_vt = sym->t;
     func_var = (sym->c == FUNC_ELLIPSIS);
-    if ((func_vt & VT_BTYPE) == VT_STRUCT) {
+    ಯದಿ ((func_vt & VT_BTYPE) == VT_STRUCT) {
         func_vc = addr;
         addr++;
     }
     /* define parameters */
-    while ((sym = sym->next) != NULL) {
+    ಯಾವತ್ ((sym = sym->next) != ರಿಕ್ತ) {
         u = sym->t;
-        sym_push(sym->v & ~SYM_FIELD, u,
+        sym_ತಳ್ಳು(sym->v & ~SYM_FIELD, u,
                  VT_LOCAL | lvalue_type(sym->type.t), addr);
         addr++;
     }
 }
 
 /* generate function epilog */
-void gfunc_epilog(void)
+ಶೂನ್ಯ gfunc_epilog(ಶೂನ್ಯ)
 {
     out_op(IL_OP_RET);
     fprintf(il_outfile, "}\n\n");
 }
 
 /* generate a jump to a label */
-int gjmp(int t)
+ಪೂರ್ಣಾಙ್ಕ gjmp(ಪೂರ್ಣಾಙ್ಕ t)
 {
-    return out_opj(IL_OP_BR, t);
+    ಪ್ರತ್ಯಾಗಮ out_opj(IL_OP_BR, t);
 }
 
 /* generate a jump to a fixed address */
-void gjmp_addr(int a)
+ಶೂನ್ಯ gjmp_addr(ಪೂರ್ಣಾಙ್ಕ a)
 {
     /* XXX: handle syms */
     out_opi(IL_OP_BR, a);
 }
 
 /* generate a test. set 'inv' to invert test. Stack entry is popped */
-int gtst(int inv, int t)
+ಪೂರ್ಣಾಙ್ಕ gtst(ಪೂರ್ಣಾಙ್ಕ inv, ಪೂರ್ಣಾಙ್ಕ t)
 {
-    int v, *p, c;
+    ಪೂರ್ಣಾಙ್ಕ v, *p, c;
 
     v = vtop->r & VT_VALMASK;
-    if (v == VT_CMP) {
+    ಯದಿ (v == VT_CMP) {
         c = vtop->c.i ^ inv;
-        switch(c) {
-        case TOK_EQ:
+        ವಿಕಲ್ಪ(c) {
+        ಪಕ್ಷ TOK_EQ:
             c = IL_OP_BEQ;
-            break;
-        case TOK_NE:
+            ಭಙ್ಗ;
+        ಪಕ್ಷ TOK_NE:
             c = IL_OP_BNE_UN;
-            break;
-        case TOK_LT:
+            ಭಙ್ಗ;
+        ಪಕ್ಷ TOK_LT:
             c = IL_OP_BLT;
-            break;
-        case TOK_LE:
+            ಭಙ್ಗ;
+        ಪಕ್ಷ TOK_LE:
             c = IL_OP_BLE;
-            break;
-        case TOK_GT:
+            ಭಙ್ಗ;
+        ಪಕ್ಷ TOK_GT:
             c = IL_OP_BGT;
-            break;
-        case TOK_GE:
+            ಭಙ್ಗ;
+        ಪಕ್ಷ TOK_GE:
             c = IL_OP_BGE;
-            break;
-        case TOK_ULT:
+            ಭಙ್ಗ;
+        ಪಕ್ಷ TOK_ULT:
             c = IL_OP_BLT_UN;
-            break;
-        case TOK_ULE:
+            ಭಙ್ಗ;
+        ಪಕ್ಷ TOK_ULE:
             c = IL_OP_BLE_UN;
-            break;
-        case TOK_UGT:
+            ಭಙ್ಗ;
+        ಪಕ್ಷ TOK_UGT:
             c = IL_OP_BGT_UN;
-            break;
-        case TOK_UGE:
+            ಭಙ್ಗ;
+        ಪಕ್ಷ TOK_UGE:
             c = IL_OP_BGE_UN;
-            break;
+            ಭಙ್ಗ;
         }
         t = out_opj(c, t);
-    } else if (v == VT_JMP || v == VT_JMPI) {
+    } ಅನ್ಯಥಾ ಯದಿ (v == VT_JMP || v == VT_JMPI) {
         /* && or || optimization */
-        if ((v & 1) == inv) {
+        ಯದಿ ((v & 1) == inv) {
             /* insert vtop->c jump list in t */
             p = &vtop->c.i;
-            while (*p != 0)
-                p = (int *)*p;
+            ಯಾವತ್ (*p != 0)
+                p = (ಪೂರ್ಣಾಙ್ಕ *)*p;
             *p = t;
             t = vtop->c.i;
-        } else {
+        } ಅನ್ಯಥಾ {
             t = gjmp(t);
             gsym(vtop->c.i);
         }
     }
     vtop--;
-    return t;
+    ಪ್ರತ್ಯಾಗಮ t;
 }
 
 /* generate an integer binary operation */
-void gen_opi(int op)
+ಶೂನ್ಯ gen_opi(ಪೂರ್ಣಾಙ್ಕ op)
 {
     gv2(RC_ST1, RC_ST0);
-    switch(op) {
-    case '+':
+    ವಿಕಲ್ಪ(op) {
+    ಪಕ್ಷ '+':
         out_op(IL_OP_ADD);
-        goto std_op;
-    case '-':
+        ಗಚ್ಛ std_op;
+    ಪಕ್ಷ '-':
         out_op(IL_OP_SUB);
-        goto std_op;
-    case '&':
+        ಗಚ್ಛ std_op;
+    ಪಕ್ಷ '&':
         out_op(IL_OP_AND);
-        goto std_op;
-    case '^':
+        ಗಚ್ಛ std_op;
+    ಪಕ್ಷ '^':
         out_op(IL_OP_XOR);
-        goto std_op;
-    case '|':
+        ಗಚ್ಛ std_op;
+    ಪಕ್ಷ '|':
         out_op(IL_OP_OR);
-        goto std_op;
-    case '*':
+        ಗಚ್ಛ std_op;
+    ಪಕ್ಷ '*':
         out_op(IL_OP_MUL);
-        goto std_op;
-    case TOK_SHL:
+        ಗಚ್ಛ std_op;
+    ಪಕ್ಷ TOK_SHL:
         out_op(IL_OP_SHL);
-        goto std_op;
-    case TOK_SHR:
+        ಗಚ್ಛ std_op;
+    ಪಕ್ಷ TOK_SHR:
         out_op(IL_OP_SHR_UN);
-        goto std_op;
-    case TOK_SAR:
+        ಗಚ್ಛ std_op;
+    ಪಕ್ಷ TOK_SAR:
         out_op(IL_OP_SHR);
-        goto std_op;
-    case '/':
-    case TOK_PDIV:
+        ಗಚ್ಛ std_op;
+    ಪಕ್ಷ '/':
+    ಪಕ್ಷ TOK_PDIV:
         out_op(IL_OP_DIV);
-        goto std_op;
-    case TOK_UDIV:
+        ಗಚ್ಛ std_op;
+    ಪಕ್ಷ TOK_UDIV:
         out_op(IL_OP_DIV_UN);
-        goto std_op;
-    case '%':
+        ಗಚ್ಛ std_op;
+    ಪಕ್ಷ '%':
         out_op(IL_OP_REM);
-        goto std_op;
-    case TOK_UMOD:
+        ಗಚ್ಛ std_op;
+    ಪಕ್ಷ TOK_UMOD:
         out_op(IL_OP_REM_UN);
     std_op:
         vtop--;
         vtop[0].r = REG_ST0;
-        break;
-    case TOK_EQ:
-    case TOK_NE:
-    case TOK_LT:
-    case TOK_LE:
-    case TOK_GT:
-    case TOK_GE:
-    case TOK_ULT:
-    case TOK_ULE:
-    case TOK_UGT:
-    case TOK_UGE:
+        ಭಙ್ಗ;
+    ಪಕ್ಷ TOK_EQ:
+    ಪಕ್ಷ TOK_NE:
+    ಪಕ್ಷ TOK_LT:
+    ಪಕ್ಷ TOK_LE:
+    ಪಕ್ಷ TOK_GT:
+    ಪಕ್ಷ TOK_GE:
+    ಪಕ್ಷ TOK_ULT:
+    ಪಕ್ಷ TOK_ULE:
+    ಪಕ್ಷ TOK_UGT:
+    ಪಕ್ಷ TOK_UGE:
         vtop--;
         vtop[0].r = VT_CMP;
         vtop[0].c.i = op;
-        break;
+        ಭಙ್ಗ;
     }
 }
 
 /* generate a floating point operation 'v = t1 op t2' instruction. The
    two operands are guaranteed to have the same floating point type */
-void gen_opf(int op)
+ಶೂನ್ಯ gen_opf(ಪೂರ್ಣಾಙ್ಕ op)
 {
     /* same as integer */
     gen_opi(op);
@@ -611,43 +611,43 @@ void gen_opf(int op)
 
 /* convert integers to fp 't' type. Must handle 'int', 'unsigned int'
    and 'long long' cases. */
-void gen_cvt_itof(int t)
+ಶೂನ್ಯ gen_cvt_itof(ಪೂರ್ಣಾಙ್ಕ t)
 {
     gv(RC_ST0);
-    if (t == VT_FLOAT)
+    ಯದಿ (t == VT_FLOAT)
         out_op(IL_OP_CONV_R4);
-    else
+    ಅನ್ಯಥಾ
         out_op(IL_OP_CONV_R8);
 }
 
 /* convert fp to int 't' type */
 /* XXX: handle long long case */
-void gen_cvt_ftoi(int t)
+ಶೂನ್ಯ gen_cvt_ftoi(ಪೂರ್ಣಾಙ್ಕ t)
 {
     gv(RC_ST0);
-    switch(t) {
-    case VT_INT | VT_UNSIGNED:
+    ವಿಕಲ್ಪ(t) {
+    ಪಕ್ಷ VT_INT | VT_UNSIGNED:
         out_op(IL_OP_CONV_U4);
-        break;
-    case VT_LLONG:
+        ಭಙ್ಗ;
+    ಪಕ್ಷ VT_LLONG:
         out_op(IL_OP_CONV_I8);
-        break;
-    case VT_LLONG | VT_UNSIGNED:
+        ಭಙ್ಗ;
+    ಪಕ್ಷ VT_LLONG | VT_UNSIGNED:
         out_op(IL_OP_CONV_U8);
-        break;
-    default:
+        ಭಙ್ಗ;
+    ಸ್ವಭಾವ:
         out_op(IL_OP_CONV_I4);
-        break;
+        ಭಙ್ಗ;
     }
 }
 
 /* convert from one floating point type to another */
-void gen_cvt_ftof(int t)
+ಶೂನ್ಯ gen_cvt_ftof(ಪೂರ್ಣಾಙ್ಕ t)
 {
     gv(RC_ST0);
-    if (t == VT_FLOAT) {
+    ಯದಿ (t == VT_FLOAT) {
         out_op(IL_OP_CONV_R4);
-    } else {
+    } ಅನ್ಯಥಾ {
         out_op(IL_OP_CONV_R8);
     }
 }

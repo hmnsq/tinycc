@@ -1,53 +1,53 @@
-#include <stdio.h>
+#ಅನ್ತರ್ಭಾವ <stdio.h>
 
-typedef struct {
-    int data[4];
-    double d1;
-    double d2;
-} Node;
+ಪ್ರಕಾರನಿರ್ದೇಶ ಸಂರಚನಾ {
+    ಪೂರ್ಣಾಙ್ಕ data[4];
+    ದ್ವಿಗುಣ d1;
+    ದ್ವಿಗುಣ d2;
+} ಗಂಟು_2;
 
-typedef struct {
-    int a, b, c;
+ಪ್ರಕಾರನಿರ್ದೇಶ ಸಂರಚನಾ {
+    ಪೂರ್ಣಾಙ್ಕ a, b, c;
 } A;
 
-Node init(Node self) {
+ಗಂಟು_2 init(ಗಂಟು_2 self) {
     self.data[0] = 0;
     self.data[1] = 1;
     self.data[2] = 2;
     self.data[3] = 3;
     self.d1 = 1234;
     self.d2 = 2345;
-    return self;
+    ಪ್ರತ್ಯಾಗಮ self;
 }
 
-void dummy(Node self) {
+ಶೂನ್ಯ dummy(ಗಂಟು_2 self) {
 }
 
-void print_data(Node data) {
+ಶೂನ್ಯ print_data(ಗಂಟು_2 data) {
     printf ("%d %d %d %d %g %g\n",
             data.data[0], data.data[1], data.data[2], data.data[3],
             data.d1, data.d2);
 }
 
-A test(void)
+A test(ಶೂನ್ಯ)
 {
-    int i;
+    ಪೂರ್ಣಾಙ್ಕ i;
     A arr[30];
 
-    for (i = 0; i < 30; i++)
+    ಪ್ರತಿ (i = 0; i < 30; i++)
         arr[i].b = i;
-    return arr[29];
+    ಪ್ರತ್ಯಾಗಮ arr[29];
 }
 
-int main(void) {
+ಪೂರ್ಣಾಙ್ಕ main(ಶೂನ್ಯ) {
     /* This code resulted in a bounds checking error */
-    Node data;
+    ಗಂಟು_2 data;
     A a;
     dummy (data);
-    char val;
+    ವರ್ಣ val;
     data = init (data);
     print_data(data);
     a = test();
     printf("%d\n", a.b);
-    return 0;
+    ಪ್ರತ್ಯಾಗಮ 0;
 }

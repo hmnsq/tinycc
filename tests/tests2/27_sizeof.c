@@ -1,18 +1,18 @@
-#include <stdio.h>
+#ಅನ್ತರ್ಭಾವ <stdio.h>
 
-int main()
+ಪೂರ್ಣಾಙ್ಕ main()
 {
-   char a;
-   int b;
-   double c;
+   ವರ್ಣ a;
+   ಪೂರ್ಣಾಙ್ಕ b;
+   ದ್ವಿಗುಣ c;
 
-   printf("%d\n", sizeof(a));
-   printf("%d\n", sizeof(b));
-   printf("%d\n", sizeof(c));
+   printf("%d\n", ಪರಿಮಾಣ(a));
+   printf("%d\n", ಪರಿಮಾಣ(b));
+   printf("%d\n", ಪರಿಮಾಣ(c));
 
-   printf("%d\n", sizeof(!a));
+   printf("%d\n", ಪರಿಮಾಣ(!a));
 
-   return 0;
+   ಪ್ರತ್ಯಾಗಮ 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

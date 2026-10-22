@@ -2,12 +2,12 @@
    that it starts with a pre-processing number which isn't a valid
    number (42test.h).  Including this must work.  */
 #ifndef INC42_FIRST
-int have_included_42test_h;
+ಪೂರ್ಣಾಙ್ಕ have_included_42test_h;
 #define INC42_FIRST
-#elif !defined INC42_SECOND
+#ನೋಚೇದ್ಯದಿ !defined INC42_SECOND
 #define INC42_SECOND
-int have_included_42test_h_second;
-#else
+ಪೂರ್ಣಾಙ್ಕ have_included_42test_h_second;
+#ಅನ್ಯಥಾ
 #define INC42_THIRD
-int have_included_42test_h_third;
+ಪೂರ್ಣಾಙ್ಕ have_included_42test_h_third;
 #endif

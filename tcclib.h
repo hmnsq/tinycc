@@ -7,76 +7,76 @@
 #ifndef _TCCLIB_H
 #define _TCCLIB_H
 
-#include <stddef.h>
-#include <stdarg.h>
+#ಅನ್ತರ್ಭಾವ <stddef.h>
+#ಅನ್ತರ್ಭಾವ <stdarg.h>
 
 /* stdlib.h */
-void *calloc(size_t nmemb, size_t size);
-void *malloc(size_t size);
-void free(void *ptr);
-void *realloc(void *ptr, size_t size);
-int atoi(const char *nptr);
-long int strtol(const char *nptr, char **endptr, int base);
-unsigned long int strtoul(const char *nptr, char **endptr, int base);
-void exit(int);
-void *alloca(size_t);
+ಶೂನ್ಯ *calloc(size_t nmemb, size_t size);
+ಶೂನ್ಯ *malloc(size_t size);
+ಶೂನ್ಯ ಮುಕ್ತ(ಶೂನ್ಯ *ptr);
+ಶೂನ್ಯ *realloc(ಶೂನ್ಯ *ptr, size_t size);
+ಪೂರ್ಣಾಙ್ಕ atoi(ಧ್ರುವ ವರ್ಣ *nptr);
+long ಪೂರ್ಣಾಙ್ಕ strtol(ಧ್ರುವ ವರ್ಣ *nptr, ವರ್ಣ **endptr, ಪೂರ್ಣಾಙ್ಕ base);
+unsigned long ಪೂರ್ಣಾಙ್ಕ strtoul(ಧ್ರುವ ವರ್ಣ *nptr, ವರ್ಣ **endptr, ಪೂರ್ಣಾಙ್ಕ base);
+ಶೂನ್ಯ exit(ಪೂರ್ಣಾಙ್ಕ);
+ಶೂನ್ಯ *alloca(size_t);
 
 /* stdio.h */
-typedef struct __FILE FILE;
+ಪ್ರಕಾರನಿರ್ದೇಶ ಸಂರಚನಾ __FILE FILE;
 #define EOF (-1)
-extern FILE *stdin;
-extern FILE *stdout;
-extern FILE *stderr;
-FILE *fopen(const char *path, const char *mode);
-FILE *fdopen(int fildes, const char *mode);
-FILE *freopen(const  char *path, const char *mode, FILE *stream);
-int fclose(FILE *stream);
-size_t  fread(void *ptr, size_t size, size_t nmemb, FILE *stream);
-size_t  fwrite(void *ptr, size_t size, size_t nmemb, FILE *stream);
-int fgetc(FILE *stream);
-char *fgets(char *s, int size, FILE *stream);
-int getc(FILE *stream);
-int getchar(void);
-char *gets(char *s);
-int ungetc(int c, FILE *stream);
-int fflush(FILE *stream);
-int puts(const char *s);
-int putchar (int c);
+ಬಾಹ್ಯ FILE *stdin;
+ಬಾಹ್ಯ FILE *stdout;
+ಬಾಹ್ಯ FILE *stderr;
+FILE *fopen(ಧ್ರುವ ವರ್ಣ *path, ಧ್ರುವ ವರ್ಣ *mode);
+FILE *fdopen(ಪೂರ್ಣಾಙ್ಕ fildes, ಧ್ರುವ ವರ್ಣ *mode);
+FILE *freopen(ಧ್ರುವ  ವರ್ಣ *path, ಧ್ರುವ ವರ್ಣ *mode, FILE *stream);
+ಪೂರ್ಣಾಙ್ಕ fclose(FILE *stream);
+size_t  fread(ಶೂನ್ಯ *ptr, size_t size, size_t nmemb, FILE *stream);
+size_t  fwrite(ಶೂನ್ಯ *ptr, size_t size, size_t nmemb, FILE *stream);
+ಪೂರ್ಣಾಙ್ಕ fgetc(FILE *stream);
+ವರ್ಣ *fgets(ವರ್ಣ *s, ಪೂರ್ಣಾಙ್ಕ size, FILE *stream);
+ಪೂರ್ಣಾಙ್ಕ getc(FILE *stream);
+ಪೂರ್ಣಾಙ್ಕ getchar(ಶೂನ್ಯ);
+ವರ್ಣ *gets(ವರ್ಣ *s);
+ಪೂರ್ಣಾಙ್ಕ ungetc(ಪೂರ್ಣಾಙ್ಕ c, FILE *stream);
+ಪೂರ್ಣಾಙ್ಕ fflush(FILE *stream);
+ಪೂರ್ಣಾಙ್ಕ puts(ಧ್ರುವ ವರ್ಣ *s);
+ಪೂರ್ಣಾಙ್ಕ putchar (ಪೂರ್ಣಾಙ್ಕ c);
 
-int printf(const char *format, ...);
-int fprintf(FILE *stream, const char *format, ...);
-int sprintf(char *str, const char *format, ...);
-int snprintf(char *str, size_t size, const  char  *format, ...);
-int asprintf(char **strp, const char *format, ...);
-int dprintf(int fd, const char *format, ...);
-int vprintf(const char *format, va_list ap);
-int vfprintf(FILE  *stream,  const  char *format, va_list ap);
-int vsprintf(char *str, const char *format, va_list ap);
-int vsnprintf(char *str, size_t size, const char  *format, va_list ap);
-int vasprintf(char  **strp,  const  char *format, va_list ap);
-int vdprintf(int fd, const char *format, va_list ap);
+ಪೂರ್ಣಾಙ್ಕ printf(ಧ್ರುವ ವರ್ಣ *format, ...);
+ಪೂರ್ಣಾಙ್ಕ fprintf(FILE *stream, ಧ್ರುವ ವರ್ಣ *format, ...);
+ಪೂರ್ಣಾಙ್ಕ sprintf(ವರ್ಣ *str, ಧ್ರುವ ವರ್ಣ *format, ...);
+ಪೂರ್ಣಾಙ್ಕ snprintf(ವರ್ಣ *str, size_t size, ಧ್ರುವ  ವರ್ಣ  *format, ...);
+ಪೂರ್ಣಾಙ್ಕ asprintf(ವರ್ಣ **strp, ಧ್ರುವ ವರ್ಣ *format, ...);
+ಪೂರ್ಣಾಙ್ಕ dprintf(ಪೂರ್ಣಾಙ್ಕ fd, ಧ್ರುವ ವರ್ಣ *format, ...);
+ಪೂರ್ಣಾಙ್ಕ vprintf(ಧ್ರುವ ವರ್ಣ *format, va_list ap);
+ಪೂರ್ಣಾಙ್ಕ vfprintf(FILE  *stream,  ಧ್ರುವ  ವರ್ಣ *format, va_list ap);
+ಪೂರ್ಣಾಙ್ಕ vsprintf(ವರ್ಣ *str, ಧ್ರುವ ವರ್ಣ *format, va_list ap);
+ಪೂರ್ಣಾಙ್ಕ vsnprintf(ವರ್ಣ *str, size_t size, ಧ್ರುವ ವರ್ಣ  *format, va_list ap);
+ಪೂರ್ಣಾಙ್ಕ vasprintf(ವರ್ಣ  **strp,  ಧ್ರುವ  ವರ್ಣ *format, va_list ap);
+ಪೂರ್ಣಾಙ್ಕ vdprintf(ಪೂರ್ಣಾಙ್ಕ fd, ಧ್ರುವ ವರ್ಣ *format, va_list ap);
 
-void perror(const char *s);
+ಶೂನ್ಯ perror(ಧ್ರುವ ವರ್ಣ *s);
 
 /* string.h */
-char *strcat(char *dest, const char *src);
-char *strchr(const char *s, int c);
-char *strrchr(const char *s, int c);
-char *strcpy(char *dest, const char *src);
-void *memcpy(void *dest, const void *src, size_t n);
-void *memmove(void *dest, const void *src, size_t n);
-void *memset(void *s, int c, size_t n);
-char *strdup(const char *s);
-size_t strlen(const char *s);
+ವರ್ಣ *strcat(ವರ್ಣ *dest, ಧ್ರುವ ವರ್ಣ *src);
+ವರ್ಣ *strchr(ಧ್ರುವ ವರ್ಣ *s, ಪೂರ್ಣಾಙ್ಕ c);
+ವರ್ಣ *strrchr(ಧ್ರುವ ವರ್ಣ *s, ಪೂರ್ಣಾಙ್ಕ c);
+ವರ್ಣ *strcpy(ವರ್ಣ *dest, ಧ್ರುವ ವರ್ಣ *src);
+ಶೂನ್ಯ *memcpy(ಶೂನ್ಯ *dest, ಧ್ರುವ ಶೂನ್ಯ *src, size_t n);
+ಶೂನ್ಯ *memmove(ಶೂನ್ಯ *dest, ಧ್ರುವ ಶೂನ್ಯ *src, size_t n);
+ಶೂನ್ಯ *memset(ಶೂನ್ಯ *s, ಪೂರ್ಣಾಙ್ಕ c, size_t n);
+ವರ್ಣ *strdup(ಧ್ರುವ ವರ್ಣ *s);
+size_t strlen(ಧ್ರುವ ವರ್ಣ *s);
 
 /* dlfcn.h */
 #define RTLD_LAZY       0x001
 #define RTLD_NOW        0x002
 #define RTLD_GLOBAL     0x100
 
-void *dlopen(const char *filename, int flag);
-const char *dlerror(void);
-void *dlsym(void *handle, char *symbol);
-int dlclose(void *handle);
+ಶೂನ್ಯ *dlopen(ಧ್ರುವ ವರ್ಣ *filename, ಪೂರ್ಣಾಙ್ಕ flag);
+ಧ್ರುವ ವರ್ಣ *dlerror(ಶೂನ್ಯ);
+ಶೂನ್ಯ *dlsym(ಶೂನ್ಯ *handle, ವರ್ಣ *ಚಿಹ್ನೆ);
+ಪೂರ್ಣಾಙ್ಕ dlclose(ಶೂನ್ಯ *handle);
 
 #endif /* _TCCLIB_H */

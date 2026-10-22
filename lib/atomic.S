@@ -31,7 +31,7 @@
 
         .text
 
-        .global _(__atomic_load_1)
+        .ವೈಶ್ವಿಕ _(__atomic_load_1)
         .type   _(__atomic_load_1), %function
 _(__atomic_load_1):
         endbr32
@@ -40,7 +40,7 @@ _(__atomic_load_1):
         ret
 	.size   _(__atomic_load_1), .-_(__atomic_load_1)
 
-        .global _(__atomic_load_2)
+        .ವೈಶ್ವಿಕ _(__atomic_load_2)
         .type   _(__atomic_load_2), %function
 _(__atomic_load_2):
         endbr32
@@ -49,7 +49,7 @@ _(__atomic_load_2):
         ret
 	.size   _(__atomic_load_2), .-_(__atomic_load_2)
 
-        .global _(__atomic_load_4)
+        .ವೈಶ್ವಿಕ _(__atomic_load_4)
         .type   _(__atomic_load_4), %function
 _(__atomic_load_4):
         endbr32
@@ -58,7 +58,7 @@ _(__atomic_load_4):
         ret
 	.size   _(__atomic_load_4), .-_(__atomic_load_4)
 
-        .global _(__atomic_load_8)
+        .ವೈಶ್ವಿಕ _(__atomic_load_8)
         .type   _(__atomic_load_8), %function
 _(__atomic_load_8):
         endbr32
@@ -72,7 +72,7 @@ _(__atomic_load_8):
         ret
 	.size   _(__atomic_load_8), .-_(__atomic_load_8)
 
-        .global _(__atomic_store_1)
+        .ವೈಶ್ವಿಕ _(__atomic_store_1)
         .type   _(__atomic_store_1), %function
 _(__atomic_store_1):
         endbr32
@@ -82,7 +82,7 @@ _(__atomic_store_1):
         ret
 	.size   _(__atomic_store_1), .-_(__atomic_store_1)
 
-        .global _(__atomic_store_2)
+        .ವೈಶ್ವಿಕ _(__atomic_store_2)
         .type   _(__atomic_store_2), %function
 _(__atomic_store_2):
         endbr32
@@ -92,7 +92,7 @@ _(__atomic_store_2):
         ret
 	.size   _(__atomic_store_2), .-_(__atomic_store_2)
 
-        .global _(__atomic_store_4)
+        .ವೈಶ್ವಿಕ _(__atomic_store_4)
         .type   _(__atomic_store_4), %function
 _(__atomic_store_4):
         endbr32
@@ -102,7 +102,7 @@ _(__atomic_store_4):
         ret
 	.size   _(__atomic_store_4), .-_(__atomic_store_4)
 
-        .global _(__atomic_store_8)
+        .ವೈಶ್ವಿಕ _(__atomic_store_8)
         .type   _(__atomic_store_8), %function
 _(__atomic_store_8):
         endbr32
@@ -121,7 +121,7 @@ _(__atomic_store_8):
         ret
 	.size   _(__atomic_store_8), .-_(__atomic_store_8)
 
-        .global _(__atomic_compare_exchange_1)
+        .ವೈಶ್ವಿಕ _(__atomic_compare_exchange_1)
         .type   _(__atomic_compare_exchange_1), %function
 _(__atomic_compare_exchange_1):
         endbr32
@@ -140,7 +140,7 @@ _(__atomic_compare_exchange_1):
         ret
 	.size   _(__atomic_compare_exchange_1), .-_(__atomic_compare_exchange_1)
 
-        .global _(__atomic_compare_exchange_2)
+        .ವೈಶ್ವಿಕ _(__atomic_compare_exchange_2)
         .type   _(__atomic_compare_exchange_2), %function
 _(__atomic_compare_exchange_2):
         endbr32
@@ -159,7 +159,7 @@ _(__atomic_compare_exchange_2):
         ret
 	.size   _(__atomic_compare_exchange_2), .-_(__atomic_compare_exchange_2)
 
-        .global _(__atomic_compare_exchange_4)
+        .ವೈಶ್ವಿಕ _(__atomic_compare_exchange_4)
         .type   _(__atomic_compare_exchange_4), %function
 _(__atomic_compare_exchange_4):
         endbr32
@@ -178,7 +178,7 @@ _(__atomic_compare_exchange_4):
         ret
 	.size   _(__atomic_compare_exchange_4), .-_(__atomic_compare_exchange_4)
 
-        .global _(__atomic_compare_exchange_8)
+        .ವೈಶ್ವಿಕ _(__atomic_compare_exchange_8)
         .type   _(__atomic_compare_exchange_8), %function
 _(__atomic_compare_exchange_8):
         endbr32
@@ -204,7 +204,7 @@ _(__atomic_compare_exchange_8):
         ret
 	.size   _(__atomic_compare_exchange_8), .-_(__atomic_compare_exchange_8)
 
-        .global _(__atomic_test_and_set_1)
+        .ವೈಶ್ವಿಕ _(__atomic_test_and_set_1)
         .type   _(__atomic_test_and_set_1), %function
 _(__atomic_test_and_set_1):
         endbr32
@@ -214,7 +214,7 @@ _(__atomic_test_and_set_1):
         ret
 	.size   _(__atomic_test_and_set_1), .-_(__atomic_test_and_set_1)
 
-        .global _(__atomic_test_and_set_2)
+        .ವೈಶ್ವಿಕ _(__atomic_test_and_set_2)
         .type   _(__atomic_test_and_set_2), %function
 _(__atomic_test_and_set_2):
         endbr32
@@ -224,7 +224,7 @@ _(__atomic_test_and_set_2):
         ret
 	.size   _(__atomic_test_and_set_2), .-_(__atomic_test_and_set_2)
 
-        .global _(__atomic_test_and_set_4)
+        .ವೈಶ್ವಿಕ _(__atomic_test_and_set_4)
         .type   _(__atomic_test_and_set_4), %function
 _(__atomic_test_and_set_4):
         endbr32
@@ -234,7 +234,7 @@ _(__atomic_test_and_set_4):
         ret
 	.size   _(__atomic_test_and_set_4), .-_(__atomic_test_and_set_4)
 
-        .global _(__atomic_test_and_set_8)
+        .ವೈಶ್ವಿಕ _(__atomic_test_and_set_8)
         .type   _(__atomic_test_and_set_8), %function
 _(__atomic_test_and_set_8):
         endbr32
@@ -244,7 +244,7 @@ _(__atomic_test_and_set_8):
         ret
 	.size   _(__atomic_test_and_set_8), .-_(__atomic_test_and_set_8)
 
-        .global _(atomic_thread_fence)
+        .ವೈಶ್ವಿಕ _(atomic_thread_fence)
         .type   _(atomic_thread_fence), %function
 _(atomic_thread_fence):
         endbr32
@@ -252,14 +252,14 @@ _(atomic_thread_fence):
         ret
 	.size   _(atomic_thread_fence), .-_(atomic_thread_fence)
 
-        .global _(atomic_signal_fence)
+        .ವೈಶ್ವಿಕ _(atomic_signal_fence)
         .type   _(atomic_signal_fence), %function
 _(atomic_signal_fence):
         endbr32
         ret
 	.size   _(atomic_signal_fence), .-_(atomic_signal_fence)
 
-        .global _(atomic_flag_test_and_set)
+        .ವೈಶ್ವಿಕ _(atomic_flag_test_and_set)
         .type   _(atomic_flag_test_and_set), %function
 _(atomic_flag_test_and_set):
         endbr32
@@ -269,7 +269,7 @@ _(atomic_flag_test_and_set):
         ret
 	.size   _(atomic_flag_test_and_set), .-_(atomic_flag_test_and_set)
 
-        .global _(atomic_flag_test_and_set_explicit)
+        .ವೈಶ್ವಿಕ _(atomic_flag_test_and_set_explicit)
         .type   _(atomic_flag_test_and_set_explicit), %function
 _(atomic_flag_test_and_set_explicit):
         endbr32
@@ -279,7 +279,7 @@ _(atomic_flag_test_and_set_explicit):
         ret
 	.size   _(atomic_flag_test_and_set_explicit), .-_(atomic_flag_test_and_set_explicit)
 
-        .global _(atomic_flag_clear)
+        .ವೈಶ್ವಿಕ _(atomic_flag_clear)
         .type   _(atomic_flag_clear), %function
 _(atomic_flag_clear):
         endbr32
@@ -289,7 +289,7 @@ _(atomic_flag_clear):
         ret
 	.size   _(atomic_flag_clear), .-_(atomic_flag_clear)
 
-        .global _(atomic_flag_clear_explicit)
+        .ವೈಶ್ವಿಕ _(atomic_flag_clear_explicit)
         .type   _(atomic_flag_clear_explicit), %function
 _(atomic_flag_clear_explicit):
         endbr32
@@ -308,7 +308,7 @@ _(atomic_flag_clear_explicit):
 
         .text
 
-        .global _(__atomic_load_1)
+        .ವೈಶ್ವಿಕ _(__atomic_load_1)
         .type   _(__atomic_load_1), %function
 _(__atomic_load_1):
         endbr64
@@ -316,7 +316,7 @@ _(__atomic_load_1):
         ret
 	.size   _(__atomic_load_1), .-_(__atomic_load_1)
 
-        .global _(__atomic_load_2)
+        .ವೈಶ್ವಿಕ _(__atomic_load_2)
         .type   _(__atomic_load_2), %function
 _(__atomic_load_2):
         endbr64
@@ -324,7 +324,7 @@ _(__atomic_load_2):
         ret
 	.size   _(__atomic_load_2), .-_(__atomic_load_2)
 
-        .global _(__atomic_load_4)
+        .ವೈಶ್ವಿಕ _(__atomic_load_4)
         .type   _(__atomic_load_4), %function
 _(__atomic_load_4):
         endbr64
@@ -332,7 +332,7 @@ _(__atomic_load_4):
         ret
 	.size   _(__atomic_load_4), .-_(__atomic_load_4)
 
-        .global _(__atomic_load_8)
+        .ವೈಶ್ವಿಕ _(__atomic_load_8)
         .type   _(__atomic_load_8), %function
 _(__atomic_load_8):
         endbr64
@@ -340,7 +340,7 @@ _(__atomic_load_8):
         ret
 	.size   _(__atomic_load_8), .-_(__atomic_load_8)
 
-        .global _(__atomic_store_1)
+        .ವೈಶ್ವಿಕ _(__atomic_store_1)
         .type   _(__atomic_store_1), %function
 _(__atomic_store_1):
         endbr64
@@ -348,7 +348,7 @@ _(__atomic_store_1):
         ret
 	.size   _(__atomic_store_1), .-_(__atomic_store_1)
 
-        .global _(__atomic_store_2)
+        .ವೈಶ್ವಿಕ _(__atomic_store_2)
         .type   _(__atomic_store_2), %function
 _(__atomic_store_2):
         endbr64
@@ -356,7 +356,7 @@ _(__atomic_store_2):
         ret
 	.size   _(__atomic_store_2), .-_(__atomic_store_2)
 
-        .global _(__atomic_store_4)
+        .ವೈಶ್ವಿಕ _(__atomic_store_4)
         .type   _(__atomic_store_4), %function
 _(__atomic_store_4):
         endbr64
@@ -364,7 +364,7 @@ _(__atomic_store_4):
         ret
 	.size   _(__atomic_store_4), .-_(__atomic_store_4)
 
-        .global _(__atomic_store_8)
+        .ವೈಶ್ವಿಕ _(__atomic_store_8)
         .type   _(__atomic_store_8), %function
 _(__atomic_store_8):
         endbr64
@@ -372,7 +372,7 @@ _(__atomic_store_8):
         ret
 	.size   _(__atomic_store_8), .-_(__atomic_store_8)
 
-        .global _(__atomic_compare_exchange_1)
+        .ವೈಶ್ವಿಕ _(__atomic_compare_exchange_1)
         .type   _(__atomic_compare_exchange_1), %function
 _(__atomic_compare_exchange_1):
         endbr64
@@ -386,7 +386,7 @@ _(__atomic_compare_exchange_1):
         ret
 	.size   _(__atomic_compare_exchange_1), .-_(__atomic_compare_exchange_1)
 
-        .global _(__atomic_compare_exchange_2)
+        .ವೈಶ್ವಿಕ _(__atomic_compare_exchange_2)
         .type   _(__atomic_compare_exchange_2), %function
 _(__atomic_compare_exchange_2):
         endbr64
@@ -400,7 +400,7 @@ _(__atomic_compare_exchange_2):
         ret
 	.size   _(__atomic_compare_exchange_2), .-_(__atomic_compare_exchange_2)
 
-        .global _(__atomic_compare_exchange_4)
+        .ವೈಶ್ವಿಕ _(__atomic_compare_exchange_4)
         .type   _(__atomic_compare_exchange_4), %function
 _(__atomic_compare_exchange_4):
         endbr64
@@ -414,7 +414,7 @@ _(__atomic_compare_exchange_4):
         ret
 	.size   _(__atomic_compare_exchange_4), .-_(__atomic_compare_exchange_4)
 
-        .global _(__atomic_compare_exchange_8)
+        .ವೈಶ್ವಿಕ _(__atomic_compare_exchange_8)
         .type   _(__atomic_compare_exchange_8), %function
 _(__atomic_compare_exchange_8):
         endbr64
@@ -428,7 +428,7 @@ _(__atomic_compare_exchange_8):
         ret
 	.size   _(__atomic_compare_exchange_8), .-_(__atomic_compare_exchange_8)
 
-        .global _(__atomic_test_and_set_1)
+        .ವೈಶ್ವಿಕ _(__atomic_test_and_set_1)
         .type   _(__atomic_test_and_set_1), %function
 _(__atomic_test_and_set_1):
         endbr64
@@ -437,7 +437,7 @@ _(__atomic_test_and_set_1):
         ret
 	.size   _(__atomic_test_and_set_1), .-_(__atomic_test_and_set_1)
 
-        .global _(__atomic_test_and_set_2)
+        .ವೈಶ್ವಿಕ _(__atomic_test_and_set_2)
         .type   _(__atomic_test_and_set_2), %function
 _(__atomic_test_and_set_2):
         endbr64
@@ -446,7 +446,7 @@ _(__atomic_test_and_set_2):
         ret
 	.size   _(__atomic_test_and_set_2), .-_(__atomic_test_and_set_2)
 
-        .global _(__atomic_test_and_set_4)
+        .ವೈಶ್ವಿಕ _(__atomic_test_and_set_4)
         .type   _(__atomic_test_and_set_4), %function
 _(__atomic_test_and_set_4):
         endbr64
@@ -455,7 +455,7 @@ _(__atomic_test_and_set_4):
         ret
 	.size   _(__atomic_test_and_set_4), .-_(__atomic_test_and_set_4)
 
-        .global _(__atomic_test_and_set_8)
+        .ವೈಶ್ವಿಕ _(__atomic_test_and_set_8)
         .type   _(__atomic_test_and_set_8), %function
 _(__atomic_test_and_set_8):
         endbr64
@@ -464,7 +464,7 @@ _(__atomic_test_and_set_8):
         ret
 	.size   _(__atomic_test_and_set_8), .-_(__atomic_test_and_set_8)
 
-        .global _(atomic_thread_fence)
+        .ವೈಶ್ವಿಕ _(atomic_thread_fence)
         .type   _(atomic_thread_fence), %function
 _(atomic_thread_fence):
         endbr64
@@ -472,14 +472,14 @@ _(atomic_thread_fence):
         ret
 	.size   _(atomic_thread_fence), .-_(atomic_thread_fence)
 
-        .global _(atomic_signal_fence)
+        .ವೈಶ್ವಿಕ _(atomic_signal_fence)
         .type   _(atomic_signal_fence), %function
 _(atomic_signal_fence):
         endbr64
         ret
 	.size   _(atomic_signal_fence), .-_(atomic_signal_fence)
 
-        .global _(atomic_flag_test_and_set)
+        .ವೈಶ್ವಿಕ _(atomic_flag_test_and_set)
         .type   _(atomic_flag_test_and_set), %function
 _(atomic_flag_test_and_set):
         endbr64
@@ -488,7 +488,7 @@ _(atomic_flag_test_and_set):
         ret
 	.size   _(atomic_flag_test_and_set), .-_(atomic_flag_test_and_set)
 
-        .global _(atomic_flag_test_and_set_explicit)
+        .ವೈಶ್ವಿಕ _(atomic_flag_test_and_set_explicit)
         .type   _(atomic_flag_test_and_set_explicit), %function
 _(atomic_flag_test_and_set_explicit):
         endbr64
@@ -497,7 +497,7 @@ _(atomic_flag_test_and_set_explicit):
         ret
 	.size   _(atomic_flag_test_and_set_explicit), .-_(atomic_flag_test_and_set_explicit)
 
-        .global _(atomic_flag_clear)
+        .ವೈಶ್ವಿಕ _(atomic_flag_clear)
         .type   _(atomic_flag_clear), %function
 _(atomic_flag_clear):
         endbr64
@@ -506,7 +506,7 @@ _(atomic_flag_clear):
         ret
 	.size   _(atomic_flag_clear), .-_(atomic_flag_clear)
 
-        .global _(atomic_flag_clear_explicit)
+        .ವೈಶ್ವಿಕ _(atomic_flag_clear_explicit)
         .type   _(atomic_flag_clear_explicit), %function
 _(atomic_flag_clear_explicit):
         endbr64
@@ -521,63 +521,63 @@ _(atomic_flag_clear_explicit):
 #if defined __x86_64__ && defined _WIN32
         .text
 
-        .global _(__atomic_load_1)
+        .ವೈಶ್ವಿಕ _(__atomic_load_1)
         .type   _(__atomic_load_1), %function
 _(__atomic_load_1):
         movzbl (%rcx),%eax
         ret
 	.size   _(__atomic_load_1), .-_(__atomic_load_1)
 
-        .global _(__atomic_load_2)
+        .ವೈಶ್ವಿಕ _(__atomic_load_2)
         .type   _(__atomic_load_2), %function
 _(__atomic_load_2):
         movzwl (%rcx),%eax
         ret
 	.size   _(__atomic_load_2), .-_(__atomic_load_2)
 
-        .global _(__atomic_load_4)
+        .ವೈಶ್ವಿಕ _(__atomic_load_4)
         .type   _(__atomic_load_4), %function
 _(__atomic_load_4):
         mov    (%rcx),%eax
         ret
 	.size   _(__atomic_load_4), .-_(__atomic_load_4)
 
-        .global _(__atomic_load_8)
+        .ವೈಶ್ವಿಕ _(__atomic_load_8)
         .type   _(__atomic_load_8), %function
 _(__atomic_load_8):
         mov    (%rcx),%rax
         ret
 	.size   _(__atomic_load_8), .-_(__atomic_load_8)
 
-        .global _(__atomic_store_1)
+        .ವೈಶ್ವಿಕ _(__atomic_store_1)
         .type   _(__atomic_store_1), %function
 _(__atomic_store_1):
         xchg   %dl,(%rcx)
         ret
 	.size   _(__atomic_store_1), .-_(__atomic_store_1)
 
-        .global _(__atomic_store_2)
+        .ವೈಶ್ವಿಕ _(__atomic_store_2)
         .type   _(__atomic_store_2), %function
 _(__atomic_store_2):
         xchg   %dx,(%rcx)
         ret
 	.size   _(__atomic_store_2), .-_(__atomic_store_2)
 
-        .global _(__atomic_store_4)
+        .ವೈಶ್ವಿಕ _(__atomic_store_4)
         .type   _(__atomic_store_4), %function
 _(__atomic_store_4):
         xchg   %edx,(%rcx)
         ret
 	.size   _(__atomic_store_4), .-_(__atomic_store_4)
 
-        .global _(__atomic_store_8)
+        .ವೈಶ್ವಿಕ _(__atomic_store_8)
         .type   _(__atomic_store_8), %function
 _(__atomic_store_8):
         xchg   %rdx,(%rcx)
         ret
 	.size   _(__atomic_store_8), .-_(__atomic_store_8)
 
-        .global _(__atomic_compare_exchange_1)
+        .ವೈಶ್ವಿಕ _(__atomic_compare_exchange_1)
         .type   _(__atomic_compare_exchange_1), %function
 _(__atomic_compare_exchange_1):
         movzbl (%rdx),%eax
@@ -590,7 +590,7 @@ _(__atomic_compare_exchange_1):
         ret
 	.size   _(__atomic_compare_exchange_1), .-_(__atomic_compare_exchange_1)
 
-        .global _(__atomic_compare_exchange_2)
+        .ವೈಶ್ವಿಕ _(__atomic_compare_exchange_2)
         .type   _(__atomic_compare_exchange_2), %function
 _(__atomic_compare_exchange_2):
         movzwl (%rdx),%eax
@@ -603,7 +603,7 @@ _(__atomic_compare_exchange_2):
         ret
 	.size   _(__atomic_compare_exchange_2), .-_(__atomic_compare_exchange_2)
 
-        .global _(__atomic_compare_exchange_4)
+        .ವೈಶ್ವಿಕ _(__atomic_compare_exchange_4)
         .type   _(__atomic_compare_exchange_4), %function
 _(__atomic_compare_exchange_4):
         mov    (%rdx),%eax
@@ -616,7 +616,7 @@ _(__atomic_compare_exchange_4):
         ret
 	.size   _(__atomic_compare_exchange_4), .-_(__atomic_compare_exchange_4)
 
-        .global _(__atomic_compare_exchange_8)
+        .ವೈಶ್ವಿಕ _(__atomic_compare_exchange_8)
         .type   _(__atomic_compare_exchange_8), %function
 _(__atomic_compare_exchange_8):
         mov    (%rdx),%rax
@@ -629,7 +629,7 @@ _(__atomic_compare_exchange_8):
         ret
 	.size   _(__atomic_compare_exchange_8), .-_(__atomic_compare_exchange_8)
 
-        .global _(__atomic_test_and_set_1)
+        .ವೈಶ್ವಿಕ _(__atomic_test_and_set_1)
         .type   _(__atomic_test_and_set_1), %function
 _(__atomic_test_and_set_1):
         mov    $0x1,%eax
@@ -637,7 +637,7 @@ _(__atomic_test_and_set_1):
         ret
 	.size   _(__atomic_test_and_set_1), .-_(__atomic_test_and_set_1)
 
-        .global _(__atomic_test_and_set_2)
+        .ವೈಶ್ವಿಕ _(__atomic_test_and_set_2)
         .type   _(__atomic_test_and_set_2), %function
 _(__atomic_test_and_set_2):
         mov    $0x1,%eax
@@ -645,7 +645,7 @@ _(__atomic_test_and_set_2):
         ret
 	.size   _(__atomic_test_and_set_2), .-_(__atomic_test_and_set_2)
 
-        .global _(__atomic_test_and_set_4)
+        .ವೈಶ್ವಿಕ _(__atomic_test_and_set_4)
         .type   _(__atomic_test_and_set_4), %function
 _(__atomic_test_and_set_4):
         mov    $0x1,%eax
@@ -653,7 +653,7 @@ _(__atomic_test_and_set_4):
         ret
 	.size   _(__atomic_test_and_set_4), .-_(__atomic_test_and_set_4)
 
-        .global _(__atomic_test_and_set_8)
+        .ವೈಶ್ವಿಕ _(__atomic_test_and_set_8)
         .type   _(__atomic_test_and_set_8), %function
 _(__atomic_test_and_set_8):
         mov    $0x1,%eax
@@ -661,20 +661,20 @@ _(__atomic_test_and_set_8):
         ret
 	.size   _(__atomic_test_and_set_8), .-_(__atomic_test_and_set_8)
 
-        .global _(atomic_thread_fence)
+        .ವೈಶ್ವಿಕ _(atomic_thread_fence)
         .type   _(atomic_thread_fence), %function
 _(atomic_thread_fence):
         lock orq $0x0,(%rsp)
         ret
 	.size   _(atomic_thread_fence), .-_(atomic_thread_fence)
 
-        .global _(atomic_signal_fence)
+        .ವೈಶ್ವಿಕ _(atomic_signal_fence)
         .type   _(atomic_signal_fence), %function
 _(atomic_signal_fence):
         ret
 	.size   _(atomic_signal_fence), .-_(atomic_signal_fence)
 
-        .global _(atomic_flag_test_and_set)
+        .ವೈಶ್ವಿಕ _(atomic_flag_test_and_set)
         .type   _(atomic_flag_test_and_set), %function
 _(atomic_flag_test_and_set):
         mov    $0x1,%eax
@@ -682,7 +682,7 @@ _(atomic_flag_test_and_set):
         ret
 	.size   _(atomic_flag_test_and_set), .-_(atomic_flag_test_and_set)
 
-        .global _(atomic_flag_test_and_set_explicit)
+        .ವೈಶ್ವಿಕ _(atomic_flag_test_and_set_explicit)
         .type   _(atomic_flag_test_and_set_explicit), %function
 _(atomic_flag_test_and_set_explicit):
         mov    $0x1,%eax
@@ -690,7 +690,7 @@ _(atomic_flag_test_and_set_explicit):
         ret
 	.size   _(atomic_flag_test_and_set_explicit), .-_(atomic_flag_test_and_set_explicit)
 
-        .global _(atomic_flag_clear)
+        .ವೈಶ್ವಿಕ _(atomic_flag_clear)
         .type   _(atomic_flag_clear), %function
 _(atomic_flag_clear):
         xor    %eax,%eax
@@ -698,7 +698,7 @@ _(atomic_flag_clear):
         ret
 	.size   _(atomic_flag_clear), .-_(atomic_flag_clear)
 
-        .global _(atomic_flag_clear_explicit)
+        .ವೈಶ್ವಿಕ _(atomic_flag_clear_explicit)
         .type   _(atomic_flag_clear_explicit), %function
 _(atomic_flag_clear_explicit):
         xor    %eax,%eax
@@ -716,7 +716,7 @@ _(atomic_flag_clear_explicit):
         .syntax unified
 #endif
 
-        .global _(__atomic_load_1)
+        .ವೈಶ್ವಿಕ _(__atomic_load_1)
         .type   _(__atomic_load_1), %function
 _(__atomic_load_1):
 #ifdef __TINYC__
@@ -745,7 +745,7 @@ _(__atomic_load_1):
 	.size   _(__atomic_load_1), .-_(__atomic_load_1)
 
 #endif
-        .global _(__atomic_load_2)
+        .ವೈಶ್ವಿಕ _(__atomic_load_2)
         .type   _(__atomic_load_2), %function
 _(__atomic_load_2):
 #ifdef __TINYC__
@@ -774,7 +774,7 @@ _(__atomic_load_2):
 	.size   _(__atomic_load_2), .-_(__atomic_load_2)
 
 #endif
-        .global _(__atomic_load_4)
+        .ವೈಶ್ವಿಕ _(__atomic_load_4)
         .type   _(__atomic_load_4), %function
 _(__atomic_load_4):
 #ifdef __TINYC__
@@ -799,7 +799,7 @@ _(__atomic_load_4):
 	.size   _(__atomic_load_4), .-_(__atomic_load_4)
 
 #endif
-        .global _(__atomic_load_8)
+        .ವೈಶ್ವಿಕ _(__atomic_load_8)
         .type   _(__atomic_load_8), %function
 _(__atomic_load_8):
 #ifdef __TINYC__
@@ -824,7 +824,7 @@ _(__atomic_load_8):
 	.size   _(__atomic_load_8), .-_(__atomic_load_8)
 
 #endif
-        .global _(__atomic_store_1)
+        .ವೈಶ್ವಿಕ _(__atomic_store_1)
         .type   _(__atomic_store_1), %function
 _(__atomic_store_1):
 #ifdef __TINYC__
@@ -849,7 +849,7 @@ _(__atomic_store_1):
 	.size   _(__atomic_store_1), .-_(__atomic_store_1)
 
 #endif
-        .global _(__atomic_store_2)
+        .ವೈಶ್ವಿಕ _(__atomic_store_2)
         .type   _(__atomic_store_2), %function
 _(__atomic_store_2):
 #ifdef __TINYC__
@@ -874,7 +874,7 @@ _(__atomic_store_2):
 	.size   _(__atomic_store_2), .-_(__atomic_store_2)
 
 #endif
-        .global _(__atomic_store_4)
+        .ವೈಶ್ವಿಕ _(__atomic_store_4)
         .type   _(__atomic_store_4), %function
 _(__atomic_store_4):
 #ifdef __TINYC__
@@ -899,7 +899,7 @@ _(__atomic_store_4):
 	.size   _(__atomic_store_4), .-_(__atomic_store_4)
 
 #endif
-        .global _(__atomic_store_8)
+        .ವೈಶ್ವಿಕ _(__atomic_store_8)
         .type   _(__atomic_store_8), %function
 _(__atomic_store_8):
 #ifdef __TINYC__
@@ -950,7 +950,7 @@ _(__atomic_store_8):
 	.size   _(__atomic_store_8), .-_(__atomic_store_8)
 
 #endif
-        .global _(__atomic_compare_exchange_1)
+        .ವೈಶ್ವಿಕ _(__atomic_compare_exchange_1)
         .type   _(__atomic_compare_exchange_1), %function
 _(__atomic_compare_exchange_1):
 #ifdef __TINYC__
@@ -1010,7 +1010,7 @@ _(__atomic_compare_exchange_1):
 	.size   _(__atomic_compare_exchange_1), .-_(__atomic_compare_exchange_1)
 
 #endif
-        .global _(__atomic_compare_exchange_2)
+        .ವೈಶ್ವಿಕ _(__atomic_compare_exchange_2)
         .type   _(__atomic_compare_exchange_2), %function
 _(__atomic_compare_exchange_2):
 #ifdef __TINYC__
@@ -1070,7 +1070,7 @@ _(__atomic_compare_exchange_2):
 	.size   _(__atomic_compare_exchange_2), .-_(__atomic_compare_exchange_2)
 
 #endif
-        .global _(__atomic_compare_exchange_4)
+        .ವೈಶ್ವಿಕ _(__atomic_compare_exchange_4)
         .type   _(__atomic_compare_exchange_4), %function
 _(__atomic_compare_exchange_4):
 #ifdef __TINYC__
@@ -1132,7 +1132,7 @@ _(__atomic_compare_exchange_4):
 	.size   _(__atomic_compare_exchange_4), .-_(__atomic_compare_exchange_4)
 
 #endif
-        .global _(__atomic_compare_exchange_8)
+        .ವೈಶ್ವಿಕ _(__atomic_compare_exchange_8)
         .type   _(__atomic_compare_exchange_8), %function
 _(__atomic_compare_exchange_8):
 #ifdef __TINYC__
@@ -1204,7 +1204,7 @@ _(__atomic_compare_exchange_8):
 	.size   _(__atomic_compare_exchange_8), .-_(__atomic_compare_exchange_8)
 
 #endif
-        .global _(__atomic_test_and_set_1)
+        .ವೈಶ್ವಿಕ _(__atomic_test_and_set_1)
         .type   _(__atomic_test_and_set_1), %function
 _(__atomic_test_and_set_1):
 #ifdef __TINYC__
@@ -1249,7 +1249,7 @@ _(__atomic_test_and_set_1):
 	.size   _(__atomic_test_and_set_1), .-_(__atomic_test_and_set_1)
 
 #endif
-        .global _(__atomic_test_and_set_2)
+        .ವೈಶ್ವಿಕ _(__atomic_test_and_set_2)
         .type   _(__atomic_test_and_set_2), %function
 _(__atomic_test_and_set_2):
 #ifdef __TINYC__
@@ -1294,7 +1294,7 @@ _(__atomic_test_and_set_2):
 	.size   _(__atomic_test_and_set_2), .-_(__atomic_test_and_set_2)
 
 #endif
-        .global _(__atomic_test_and_set_4)
+        .ವೈಶ್ವಿಕ _(__atomic_test_and_set_4)
         .type   _(__atomic_test_and_set_4), %function
 _(__atomic_test_and_set_4):
 #ifdef __TINYC__
@@ -1339,7 +1339,7 @@ _(__atomic_test_and_set_4):
 	.size   _(__atomic_test_and_set_4), .-_(__atomic_test_and_set_4)
 
 #endif
-        .global _(__atomic_test_and_set_8)
+        .ವೈಶ್ವಿಕ _(__atomic_test_and_set_8)
         .type   _(__atomic_test_and_set_8), %function
 _(__atomic_test_and_set_8):
 #ifdef __TINYC__
@@ -1384,7 +1384,7 @@ _(__atomic_test_and_set_8):
 	.size   _(__atomic_test_and_set_8), .-_(__atomic_test_and_set_8)
 
 #endif
-        .global _(atomic_thread_fence)
+        .ವೈಶ್ವಿಕ _(atomic_thread_fence)
         .type   _(atomic_thread_fence), %function
 _(atomic_thread_fence):
 #ifdef __TINYC__
@@ -1396,7 +1396,7 @@ _(atomic_thread_fence):
 	.size   _(atomic_thread_fence), .-_(atomic_thread_fence)
 
 #endif
-        .global _(atomic_signal_fence)
+        .ವೈಶ್ವಿಕ _(atomic_signal_fence)
         .type   _(atomic_signal_fence), %function
 _(atomic_signal_fence):
 #ifdef __TINYC__
@@ -1406,7 +1406,7 @@ _(atomic_signal_fence):
 	.size   _(atomic_signal_fence), .-_(atomic_signal_fence)
 
 #endif
-        .global _(atomic_flag_test_and_set)
+        .ವೈಶ್ವಿಕ _(atomic_flag_test_and_set)
         .type   _(atomic_flag_test_and_set), %function
 _(atomic_flag_test_and_set):
 #ifdef __TINYC__
@@ -1433,7 +1433,7 @@ _(atomic_flag_test_and_set):
 	.size   _(atomic_flag_test_and_set), .-_(atomic_flag_test_and_set)
 
 #endif
-        .global _(atomic_flag_test_and_set_explicit)
+        .ವೈಶ್ವಿಕ _(atomic_flag_test_and_set_explicit)
         .type   _(atomic_flag_test_and_set_explicit), %function
 _(atomic_flag_test_and_set_explicit):
 #ifdef __TINYC__
@@ -1460,7 +1460,7 @@ _(atomic_flag_test_and_set_explicit):
 	.size   _(atomic_flag_test_and_set_explicit), .-_(atomic_flag_test_and_set_explicit)
 
 #endif
-        .global _(atomic_flag_clear)
+        .ವೈಶ್ವಿಕ _(atomic_flag_clear)
         .type   _(atomic_flag_clear), %function
 _(atomic_flag_clear):
 #ifdef __TINYC__
@@ -1478,7 +1478,7 @@ _(atomic_flag_clear):
 	.size   _(atomic_flag_clear), .-_(atomic_flag_clear)
 
 #endif
-        .global _(atomic_flag_clear_explicit)
+        .ವೈಶ್ವಿಕ _(atomic_flag_clear_explicit)
         .type   _(atomic_flag_clear_explicit), %function
 _(atomic_flag_clear_explicit):
 #ifdef __TINYC__
@@ -1502,7 +1502,7 @@ _(atomic_flag_clear_explicit):
 #if defined __aarch64__
         .text
 
-        .global _(__atomic_load_1)
+        .ವೈಶ್ವಿಕ _(__atomic_load_1)
         .type   _(__atomic_load_1), %function
 _(__atomic_load_1):
 #ifdef __TINYC__
@@ -1525,7 +1525,7 @@ _(__atomic_load_1):
 	.size   _(__atomic_load_1), .-_(__atomic_load_1)
 
 #endif
-        .global _(__atomic_load_2)
+        .ವೈಶ್ವಿಕ _(__atomic_load_2)
         .type   _(__atomic_load_2), %function
 _(__atomic_load_2):
 #ifdef __TINYC__
@@ -1548,7 +1548,7 @@ _(__atomic_load_2):
 	.size   _(__atomic_load_2), .-_(__atomic_load_2)
 
 #endif
-        .global _(__atomic_load_4)
+        .ವೈಶ್ವಿಕ _(__atomic_load_4)
         .type   _(__atomic_load_4), %function
 _(__atomic_load_4):
 #ifdef __TINYC__
@@ -1567,7 +1567,7 @@ _(__atomic_load_4):
 	.size   _(__atomic_load_4), .-_(__atomic_load_4)
 
 #endif
-        .global _(__atomic_load_8)
+        .ವೈಶ್ವಿಕ _(__atomic_load_8)
         .type   _(__atomic_load_8), %function
 _(__atomic_load_8):
 #ifdef __TINYC__
@@ -1586,7 +1586,7 @@ _(__atomic_load_8):
 	.size   _(__atomic_load_8), .-_(__atomic_load_8)
 
 #endif
-        .global _(__atomic_store_1)
+        .ವೈಶ್ವಿಕ _(__atomic_store_1)
         .type   _(__atomic_store_1), %function
 _(__atomic_store_1):
 #ifdef __TINYC__
@@ -1607,7 +1607,7 @@ _(__atomic_store_1):
 	.size   _(__atomic_store_1), .-_(__atomic_store_1)
 
 #endif
-        .global _(__atomic_store_2)
+        .ವೈಶ್ವಿಕ _(__atomic_store_2)
         .type   _(__atomic_store_2), %function
 _(__atomic_store_2):
 #ifdef __TINYC__
@@ -1628,7 +1628,7 @@ _(__atomic_store_2):
 	.size   _(__atomic_store_2), .-_(__atomic_store_2)
 
 #endif
-        .global _(__atomic_store_4)
+        .ವೈಶ್ವಿಕ _(__atomic_store_4)
         .type   _(__atomic_store_4), %function
 _(__atomic_store_4):
 #ifdef __TINYC__
@@ -1647,7 +1647,7 @@ _(__atomic_store_4):
 	.size   _(__atomic_store_4), .-_(__atomic_store_4)
 
 #endif
-        .global _(__atomic_store_8)
+        .ವೈಶ್ವಿಕ _(__atomic_store_8)
         .type   _(__atomic_store_8), %function
 _(__atomic_store_8):
 #ifdef __TINYC__
@@ -1666,7 +1666,7 @@ _(__atomic_store_8):
 	.size   _(__atomic_store_8), .-_(__atomic_store_8)
 
 #endif
-        .global _(__atomic_compare_exchange_1)
+        .ವೈಶ್ವಿಕ _(__atomic_compare_exchange_1)
         .type   _(__atomic_compare_exchange_1), %function
 _(__atomic_compare_exchange_1):
 #ifdef __TINYC__
@@ -1723,7 +1723,7 @@ _(__atomic_compare_exchange_1):
 	.size   _(__atomic_compare_exchange_1), .-_(__atomic_compare_exchange_1)
 
 #endif
-        .global _(__atomic_compare_exchange_2)
+        .ವೈಶ್ವಿಕ _(__atomic_compare_exchange_2)
         .type   _(__atomic_compare_exchange_2), %function
 _(__atomic_compare_exchange_2):
 #ifdef __TINYC__
@@ -1780,7 +1780,7 @@ _(__atomic_compare_exchange_2):
 	.size   _(__atomic_compare_exchange_2), .-_(__atomic_compare_exchange_2)
 
 #endif
-        .global _(__atomic_compare_exchange_4)
+        .ವೈಶ್ವಿಕ _(__atomic_compare_exchange_4)
         .type   _(__atomic_compare_exchange_4), %function
 _(__atomic_compare_exchange_4):
 #ifdef __TINYC__
@@ -1835,7 +1835,7 @@ _(__atomic_compare_exchange_4):
 	.size   _(__atomic_compare_exchange_4), .-_(__atomic_compare_exchange_4)
 
 #endif
-        .global _(__atomic_compare_exchange_8)
+        .ವೈಶ್ವಿಕ _(__atomic_compare_exchange_8)
         .type   _(__atomic_compare_exchange_8), %function
 _(__atomic_compare_exchange_8):
 #ifdef __TINYC__
@@ -1890,7 +1890,7 @@ _(__atomic_compare_exchange_8):
 	.size   _(__atomic_compare_exchange_8), .-_(__atomic_compare_exchange_8)
 
 #endif
-        .global _(__atomic_test_and_set_1)
+        .ವೈಶ್ವಿಕ _(__atomic_test_and_set_1)
         .type   _(__atomic_test_and_set_1), %function
 _(__atomic_test_and_set_1):
 #ifdef __TINYC__
@@ -1924,7 +1924,7 @@ _(__atomic_test_and_set_1):
 	.size   _(__atomic_test_and_set_1), .-_(__atomic_test_and_set_1)
 
 #endif
-        .global _(__atomic_test_and_set_2)
+        .ವೈಶ್ವಿಕ _(__atomic_test_and_set_2)
         .type   _(__atomic_test_and_set_2), %function
 _(__atomic_test_and_set_2):
 #ifdef __TINYC__
@@ -1958,7 +1958,7 @@ _(__atomic_test_and_set_2):
 	.size   _(__atomic_test_and_set_2), .-_(__atomic_test_and_set_2)
 
 #endif
-        .global _(__atomic_test_and_set_4)
+        .ವೈಶ್ವಿಕ _(__atomic_test_and_set_4)
         .type   _(__atomic_test_and_set_4), %function
 _(__atomic_test_and_set_4):
 #ifdef __TINYC__
@@ -1992,7 +1992,7 @@ _(__atomic_test_and_set_4):
 	.size   _(__atomic_test_and_set_4), .-_(__atomic_test_and_set_4)
 
 #endif
-        .global _(__atomic_test_and_set_8)
+        .ವೈಶ್ವಿಕ _(__atomic_test_and_set_8)
         .type   _(__atomic_test_and_set_8), %function
 _(__atomic_test_and_set_8):
 #ifdef __TINYC__
@@ -2026,7 +2026,7 @@ _(__atomic_test_and_set_8):
 	.size   _(__atomic_test_and_set_8), .-_(__atomic_test_and_set_8)
 
 #endif
-        .global _(atomic_thread_fence)
+        .ವೈಶ್ವಿಕ _(atomic_thread_fence)
         .type   _(atomic_thread_fence), %function
 _(atomic_thread_fence):
 #ifdef __TINYC__
@@ -2038,7 +2038,7 @@ _(atomic_thread_fence):
 	.size   _(atomic_thread_fence), .-_(atomic_thread_fence)
 
 #endif
-        .global _(atomic_signal_fence)
+        .ವೈಶ್ವಿಕ _(atomic_signal_fence)
         .type   _(atomic_signal_fence), %function
 _(atomic_signal_fence):
 #ifdef __TINYC__
@@ -2048,7 +2048,7 @@ _(atomic_signal_fence):
 	.size   _(atomic_signal_fence), .-_(atomic_signal_fence)
 
 #endif
-        .global _(atomic_flag_test_and_set)
+        .ವೈಶ್ವಿಕ _(atomic_flag_test_and_set)
         .type   _(atomic_flag_test_and_set), %function
 _(atomic_flag_test_and_set):
 #ifdef __TINYC__
@@ -2069,7 +2069,7 @@ _(atomic_flag_test_and_set):
 	.size   _(atomic_flag_test_and_set), .-_(atomic_flag_test_and_set)
 
 #endif
-        .global _(atomic_flag_test_and_set_explicit)
+        .ವೈಶ್ವಿಕ _(atomic_flag_test_and_set_explicit)
         .type   _(atomic_flag_test_and_set_explicit), %function
 _(atomic_flag_test_and_set_explicit):
 #ifdef __TINYC__
@@ -2090,7 +2090,7 @@ _(atomic_flag_test_and_set_explicit):
 	.size   _(atomic_flag_test_and_set_explicit), .-_(atomic_flag_test_and_set_explicit)
 
 #endif
-        .global _(atomic_flag_clear)
+        .ವೈಶ್ವಿಕ _(atomic_flag_clear)
         .type   _(atomic_flag_clear), %function
 _(atomic_flag_clear):
 #ifdef __TINYC__
@@ -2102,7 +2102,7 @@ _(atomic_flag_clear):
 	.size   _(atomic_flag_clear), .-_(atomic_flag_clear)
 
 #endif
-        .global _(atomic_flag_clear_explicit)
+        .ವೈಶ್ವಿಕ _(atomic_flag_clear_explicit)
         .type   _(atomic_flag_clear_explicit), %function
 _(atomic_flag_clear_explicit):
 #ifdef __TINYC__
@@ -2120,7 +2120,7 @@ _(atomic_flag_clear_explicit):
 #if defined __riscv
         .text
 
-        .global _(__atomic_load_1)
+        .ವೈಶ್ವಿಕ _(__atomic_load_1)
         .type   _(__atomic_load_1), %function
 _(__atomic_load_1):
 #ifdef __TINYC__
@@ -2136,7 +2136,7 @@ _(__atomic_load_1):
 	.size   _(__atomic_load_1), .-_(__atomic_load_1)
 
 #endif
-        .global _(__atomic_load_2)
+        .ವೈಶ್ವಿಕ _(__atomic_load_2)
         .type   _(__atomic_load_2), %function
 _(__atomic_load_2):
 #ifdef __TINYC__
@@ -2152,7 +2152,7 @@ _(__atomic_load_2):
 	.size   _(__atomic_load_2), .-_(__atomic_load_2)
 
 #endif
-        .global _(__atomic_load_4)
+        .ವೈಶ್ವಿಕ _(__atomic_load_4)
         .type   _(__atomic_load_4), %function
 _(__atomic_load_4):
 #ifdef __TINYC__
@@ -2170,7 +2170,7 @@ _(__atomic_load_4):
 	.size   _(__atomic_load_4), .-_(__atomic_load_4)
 
 #endif
-        .global _(__atomic_load_8)
+        .ವೈಶ್ವಿಕ _(__atomic_load_8)
         .type   _(__atomic_load_8), %function
 _(__atomic_load_8):
 #ifdef __TINYC__
@@ -2186,7 +2186,7 @@ _(__atomic_load_8):
 	.size   _(__atomic_load_8), .-_(__atomic_load_8)
 
 #endif
-        .global _(__atomic_store_1)
+        .ವೈಶ್ವಿಕ _(__atomic_store_1)
         .type   _(__atomic_store_1), %function
 _(__atomic_store_1):
 #ifdef __TINYC__
@@ -2202,7 +2202,7 @@ _(__atomic_store_1):
 	.size   _(__atomic_store_1), .-_(__atomic_store_1)
 
 #endif
-        .global _(__atomic_store_2)
+        .ವೈಶ್ವಿಕ _(__atomic_store_2)
         .type   _(__atomic_store_2), %function
 _(__atomic_store_2):
 #ifdef __TINYC__
@@ -2218,7 +2218,7 @@ _(__atomic_store_2):
 	.size   _(__atomic_store_2), .-_(__atomic_store_2)
 
 #endif
-        .global _(__atomic_store_4)
+        .ವೈಶ್ವಿಕ _(__atomic_store_4)
         .type   _(__atomic_store_4), %function
 _(__atomic_store_4):
 #ifdef __TINYC__
@@ -2234,7 +2234,7 @@ _(__atomic_store_4):
 	.size   _(__atomic_store_4), .-_(__atomic_store_4)
 
 #endif
-        .global _(__atomic_store_8)
+        .ವೈಶ್ವಿಕ _(__atomic_store_8)
         .type   _(__atomic_store_8), %function
 _(__atomic_store_8):
 #ifdef __TINYC__
@@ -2250,7 +2250,7 @@ _(__atomic_store_8):
 	.size   _(__atomic_store_8), .-_(__atomic_store_8)
 
 #endif
-        .global _(__atomic_compare_exchange_1)
+        .ವೈಶ್ವಿಕ _(__atomic_compare_exchange_1)
         .type   _(__atomic_compare_exchange_1), %function
 _(__atomic_compare_exchange_1):
 #ifdef __TINYC__
@@ -2319,7 +2319,7 @@ _(__atomic_compare_exchange_1):
 	.size   _(__atomic_compare_exchange_1), .-_(__atomic_compare_exchange_1)
 
 #endif
-        .global _(__atomic_compare_exchange_2)
+        .ವೈಶ್ವಿಕ _(__atomic_compare_exchange_2)
         .type   _(__atomic_compare_exchange_2), %function
 _(__atomic_compare_exchange_2):
 #ifdef __TINYC__
@@ -2390,7 +2390,7 @@ _(__atomic_compare_exchange_2):
 	.size   _(__atomic_compare_exchange_2), .-_(__atomic_compare_exchange_2)
 
 #endif
-        .global _(__atomic_compare_exchange_4)
+        .ವೈಶ್ವಿಕ _(__atomic_compare_exchange_4)
         .type   _(__atomic_compare_exchange_4), %function
 _(__atomic_compare_exchange_4):
 #ifdef __TINYC__
@@ -2423,7 +2423,7 @@ _(__atomic_compare_exchange_4):
 	.size   _(__atomic_compare_exchange_4), .-_(__atomic_compare_exchange_4)
 
 #endif
-        .global _(__atomic_compare_exchange_8)
+        .ವೈಶ್ವಿಕ _(__atomic_compare_exchange_8)
         .type   _(__atomic_compare_exchange_8), %function
 _(__atomic_compare_exchange_8):
 #ifdef __TINYC__
@@ -2456,7 +2456,7 @@ _(__atomic_compare_exchange_8):
 	.size   _(__atomic_compare_exchange_8), .-_(__atomic_compare_exchange_8)
 
 #endif
-        .global _(__atomic_test_and_set_1)
+        .ವೈಶ್ವಿಕ _(__atomic_test_and_set_1)
         .type   _(__atomic_test_and_set_1), %function
 _(__atomic_test_and_set_1):
 #ifdef __TINYC__
@@ -2482,7 +2482,7 @@ _(__atomic_test_and_set_1):
 	.size   _(__atomic_test_and_set_1), .-_(__atomic_test_and_set_1)
 
 #endif
-        .global _(__atomic_test_and_set_2)
+        .ವೈಶ್ವಿಕ _(__atomic_test_and_set_2)
         .type   _(__atomic_test_and_set_2), %function
 _(__atomic_test_and_set_2):
 #ifdef __TINYC__
@@ -2508,7 +2508,7 @@ _(__atomic_test_and_set_2):
 	.size   _(__atomic_test_and_set_2), .-_(__atomic_test_and_set_2)
 
 #endif
-        .global _(__atomic_test_and_set_4)
+        .ವೈಶ್ವಿಕ _(__atomic_test_and_set_4)
         .type   _(__atomic_test_and_set_4), %function
 _(__atomic_test_and_set_4):
 #ifdef __TINYC__
@@ -2534,7 +2534,7 @@ _(__atomic_test_and_set_4):
 	.size   _(__atomic_test_and_set_4), .-_(__atomic_test_and_set_4)
 
 #endif
-        .global _(__atomic_test_and_set_8)
+        .ವೈಶ್ವಿಕ _(__atomic_test_and_set_8)
         .type   _(__atomic_test_and_set_8), %function
 _(__atomic_test_and_set_8):
 #ifdef __TINYC__
@@ -2560,7 +2560,7 @@ _(__atomic_test_and_set_8):
 	.size   _(__atomic_test_and_set_8), .-_(__atomic_test_and_set_8)
 
 #endif
-        .global _(atomic_thread_fence)
+        .ವೈಶ್ವಿಕ _(atomic_thread_fence)
         .type   _(atomic_thread_fence), %function
 _(atomic_thread_fence):
 #ifdef __TINYC__
@@ -2572,7 +2572,7 @@ _(atomic_thread_fence):
 	.size   _(atomic_thread_fence), .-_(atomic_thread_fence)
 
 #endif
-        .global _(atomic_signal_fence)
+        .ವೈಶ್ವಿಕ _(atomic_signal_fence)
         .type   _(atomic_signal_fence), %function
 _(atomic_signal_fence):
 #ifdef __TINYC__
@@ -2582,7 +2582,7 @@ _(atomic_signal_fence):
 	.size   _(atomic_signal_fence), .-_(atomic_signal_fence)
 
 #endif
-        .global _(atomic_flag_test_and_set)
+        .ವೈಶ್ವಿಕ _(atomic_flag_test_and_set)
         .type   _(atomic_flag_test_and_set), %function
 _(atomic_flag_test_and_set):
 #ifdef __TINYC__
@@ -2608,7 +2608,7 @@ _(atomic_flag_test_and_set):
 	.size   _(atomic_flag_test_and_set), .-_(atomic_flag_test_and_set)
 
 #endif
-        .global _(atomic_flag_test_and_set_explicit)
+        .ವೈಶ್ವಿಕ _(atomic_flag_test_and_set_explicit)
         .type   _(atomic_flag_test_and_set_explicit), %function
 _(atomic_flag_test_and_set_explicit):
 #ifdef __TINYC__
@@ -2634,7 +2634,7 @@ _(atomic_flag_test_and_set_explicit):
 	.size   _(atomic_flag_test_and_set_explicit), .-_(atomic_flag_test_and_set_explicit)
 
 #endif
-        .global _(atomic_flag_clear)
+        .ವೈಶ್ವಿಕ _(atomic_flag_clear)
         .type   _(atomic_flag_clear), %function
 _(atomic_flag_clear):
 #ifdef __TINYC__
@@ -2650,7 +2650,7 @@ _(atomic_flag_clear):
 	.size   _(atomic_flag_clear), .-_(atomic_flag_clear)
 
 #endif
-        .global _(atomic_flag_clear_explicit)
+        .ವೈಶ್ವಿಕ _(atomic_flag_clear_explicit)
         .type   _(atomic_flag_clear_explicit), %function
 _(atomic_flag_clear_explicit):
 #ifdef __TINYC__

@@ -1,41 +1,41 @@
-#include<stdio.h>
+#ಅನ್ತರ್ಭಾವ<stdio.h>
 
-struct large1 {
-    int a[768];
+ಸಂರಚನಾ large1 {
+    ಪೂರ್ಣಾಙ್ಕ a[768];
 };
 
-struct large2 {
-    int a[1920];
+ಸಂರಚನಾ large2 {
+    ಪೂರ್ಣಾಙ್ಕ a[1920];
 };
 
-void pass_large_struct1(struct large1 in)
+ಶೂನ್ಯ pass_large_struct1(ಸಂರಚನಾ large1 in)
 {
     printf("%d %d\n", in.a[200], in.a[767]);
-    return;
+    ಪ್ರತ್ಯಾಗಮ;
 }
 
-void pass_large_struct2(struct large2 in)
+ಶೂನ್ಯ pass_large_struct2(ಸಂರಚನಾ large2 in)
 {
     printf("%d %d %d\n", in.a[200], in.a[1023], in.a[1919]);
-    return;
+    ಪ್ರತ್ಯಾಗಮ;
 }
 
-void pass_many_args(int a, int b, int c, int d, int e, int f, int g, int h, int i,
-                    int j, int k, int l, int m)
+ಶೂನ್ಯ pass_many_args(ಪೂರ್ಣಾಙ್ಕ a, ಪೂರ್ಣಾಙ್ಕ b, ಪೂರ್ಣಾಙ್ಕ c, ಪೂರ್ಣಾಙ್ಕ d, ಪೂರ್ಣಾಙ್ಕ e, ಪೂರ್ಣಾಙ್ಕ f, ಪೂರ್ಣಾಙ್ಕ g, ಪೂರ್ಣಾಙ್ಕ h, ಪೂರ್ಣಾಙ್ಕ i,
+                    ಪೂರ್ಣಾಙ್ಕ j, ಪೂರ್ಣಾಙ್ಕ k, ಪೂರ್ಣಾಙ್ಕ l, ಪೂರ್ಣಾಙ್ಕ m)
 {
     printf("%d %d %d %d %d %d %d %d %d %d %d %d %d\n", a, b, c, d, e, f, g, h, i,
            j, k, l, m);
-    return;
+    ಪ್ರತ್ಯಾಗಮ;
 }
 
-struct large1 l1 = { .a = { [200] = 1, [767] = 2 } };
-struct large2 l2 = { .a = { [200] = 3, [1023] = 4, [1919] = 5} };
+ಸಂರಚನಾ large1 l1 = { .a = { [200] = 1, [767] = 2 } };
+ಸಂರಚನಾ large2 l2 = { .a = { [200] = 3, [1023] = 4, [1919] = 5} };
 
-int main(void)
+ಪೂರ್ಣಾಙ್ಕ main(ಶೂನ್ಯ)
 {
     pass_large_struct1(l1);
     pass_large_struct2(l2);
     pass_many_args(13, 12, 11, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1);
 
-    return 0;
+    ಪ್ರತ್ಯಾಗಮ 0;
 }

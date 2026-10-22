@@ -1,41 +1,41 @@
-int printf(const char *s, ...);
+ಪೂರ್ಣಾಙ್ಕ printf(ಧ್ರುವ ವರ್ಣ *s, ...);
 
-float fx(x)
-float x;
+ಭಿನ್ನ fx(x)
+ಭಿನ್ನ x;
 {
-    return 2.0 * x;
+    ಪ್ರತ್ಯಾಗಮ 2.0 * x;
 }
 
-void func(float a);
+ಶೂನ್ಯ func(ಭಿನ್ನ a);
 
-void func3(struct p { int a; int b; } *q) {
+ಶೂನ್ಯ func3(ಸಂರಚನಾ p { ಪೂರ್ಣಾಙ್ಕ a; ಪೂರ್ಣಾಙ್ಕ b; } *q) {
 }
 
-void func4(q)
- struct p { int a; int b; int c; } *q;
+ಶೂನ್ಯ func4(q)
+ ಸಂರಚನಾ p { ಪೂರ್ಣಾಙ್ಕ a; ಪೂರ್ಣಾಙ್ಕ b; ಪೂರ್ಣಾಙ್ಕ c; } *q;
 {
 }
 
-struct p { int a; int b; int c; int d; };
+ಸಂರಚನಾ p { ಪೂರ್ಣಾಙ್ಕ a; ಪೂರ್ಣಾಙ್ಕ b; ಪೂರ್ಣಾಙ್ಕ c; ಪೂರ್ಣಾಙ್ಕ d; };
 
-int
-main(void)
+ಪೂರ್ಣಾಙ್ಕ
+main(ಶೂನ್ಯ)
 {
-    float fy();
+    ಭಿನ್ನ fy();
 
     printf("%g %g\n", fx(2.0), fy(10.0));
     printf("%g %g\n", fx(2.0f), fy(10.0f));
     func(1);
 }
 
-float fy(x)
-float x;
+ಭಿನ್ನ fy(x)
+ಭಿನ್ನ x;
 {
-    return 3.0 * x;
+    ಪ್ರತ್ಯಾಗಮ 3.0 * x;
 }
 
-void func(a)
-float a;
+ಶೂನ್ಯ func(a)
+ಭಿನ್ನ a;
 {
     printf("%g\n", a);
 }

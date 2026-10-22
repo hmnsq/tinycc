@@ -1,9 +1,9 @@
 #define _ISOC99_SOURCE 1
 
-#include <stdio.h>
-#include <math.h>
+#ಅನ್ತರ್ಭಾವ <stdio.h>
+#ಅನ್ತರ್ಭಾವ <math.h>
 
-int main()
+ಪೂರ್ಣಾಙ್ಕ main()
 {
    printf("%f\n", sin(0.12));
    printf("%f\n", cos(0.12));
@@ -24,7 +24,7 @@ int main()
    printf("%f\n", ceil(12.34));
    printf("%f\n", floor(12.34));
 
-   return 0;
+   ಪ್ರತ್ಯಾಗಮ 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

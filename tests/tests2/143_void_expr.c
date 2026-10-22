@@ -1,17 +1,17 @@
-#include <stdio.h>
+#ಅನ್ತರ್ಭಾವ <stdio.h>
 
-static void f(int x)
+ಸ್ಥಿರ ಶೂನ್ಯ f(ಪೂರ್ಣಾಙ್ಕ x)
 {
      printf("f(%d)\n", x);
 }
 
-int main(void)
+ಪೂರ್ಣಾಙ್ಕ main(ಶೂನ್ಯ)
 {
-     int count = 0, i = 0;
-     for (; i < 3; ++i) {
+     ಪೂರ್ಣಾಙ್ಕ ಎಣಿಕೆ_2 = 0, i = 0;
+     ಪ್ರತಿ (; i < 3; ++i) {
          printf("%d\n", i);
-         (void)(i || (f(i), ++count));
+         (ಶೂನ್ಯ)(i || (f(i), ++ಎಣಿಕೆ_2));
      }
-     printf("count %d\n", count);
-     return count == 1 ? 0 : 1;
+     printf("count %d\n", ಎಣಿಕೆ_2);
+     ಪ್ರತ್ಯಾಗಮ ಎಣಿಕೆ_2 == 1 ? 0 : 1;
 }

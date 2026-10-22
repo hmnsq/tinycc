@@ -1,24 +1,24 @@
-#include <stdio.h>
+#ಅನ್ತರ್ಭಾವ <stdio.h>
 
-int main()
+ಪೂರ್ಣಾಙ್ಕ main()
 {
-   int a;
-   int p;
-   int t;
+   ಪೂರ್ಣಾಙ್ಕ a;
+   ಪೂರ್ಣಾಙ್ಕ p;
+   ಪೂರ್ಣಾಙ್ಕ t;
 
    a = 1;
    p = 0;
    t = 0;
 
-   do
+   ಕುರು
    {
       printf("%d\n", a);
       t = a;
       a = t + p;
       p = t;
-   } while (a < 100);
+   } ಯಾವತ್ (a < 100);
 
-   return 0;
+   ಪ್ರತ್ಯಾಗಮ 0;
 }
 
 // vim: set expandtab ts=4 sw=3 sts=3 tw=80 :

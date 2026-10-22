@@ -1,40 +1,40 @@
-#include <stdio.h>
+#ಅನ್ತರ್ಭಾವ <stdio.h>
 
-#if (defined _WIN32 || defined __APPLE__) && (!defined __TINYC__ || defined __leading_underscore)
+#ಯದಿ (defined _WIN32 || defined __APPLE__) && (!defined __TINYC__ || defined __leading_underscore)
 # define _ "_"
-#else
+#ಅನ್ಯಥಾ
 # define _
 #endif
 
 #ifdef __clang__
 /* clang needs some help tp not throw functions away even at -O0 */
 #define __USED __attribute__((__used__))
-#else
+#ಅನ್ಯಥಾ
 #define __USED
 #endif
 
-static int __USED x1_c (void)
+ಸ್ಥಿರ ಪೂರ್ಣಾಙ್ಕ __USED x1_c (ಶೂನ್ಯ)
 {
     printf(" x1");
-    return 1;
+    ಪ್ರತ್ಯಾಗಮ 1;
 }
 
-#if __i386__
+#ಯದಿ __i386__
 asm(".text;"_"x1: call "_"x1_c; ret");
-#else
+#ಅನ್ಯಥಾ
 /* Keep stack aligned */
 asm(".text;"_"x1: sub $8,%rsp; call "_"x1_c; add $8,%rsp; ret");
 #endif
 
-void callx4(void);
-void callx5_again(void);
+ಶೂನ್ಯ callx4(ಶೂನ್ಯ);
+ಶೂನ್ಯ callx5_again(ಶೂನ್ಯ);
 
-void x6()
+ಶೂನ್ಯ x6()
 {
     printf(" x6-1");
 }
 
-int main(int argc, char *argv[])
+ಪೂರ್ಣಾಙ್ಕ main(ಪೂರ್ಣಾಙ್ಕ argc, ವರ್ಣ *argv[])
 {
     printf("*");
     asm("call "_"x1");
@@ -45,25 +45,25 @@ int main(int argc, char *argv[])
     callx5_again();
     x6();
     printf(" *\n");
-    return 0;
+    ಪ್ರತ್ಯಾಗಮ 0;
 }
 
-static
-int __USED x2(void)
+ಸ್ಥಿರ
+ಪೂರ್ಣಾಙ್ಕ __USED x2(ಶೂನ್ಯ)
 {
     printf(" x2");
-    return 2;
+    ಪ್ರತ್ಯಾಗಮ 2;
 }
 
-extern int x3(void);
+ಬಾಹ್ಯ ಪೂರ್ಣಾಙ್ಕ x3(ಶೂನ್ಯ);
 
-void x4(void)
+ಶೂನ್ಯ x4(ಶೂನ್ಯ)
 {
     printf(" x4");
 }
 
-void x5(void);
-void x5(void)
+ಶೂನ್ಯ x5(ಶೂನ್ಯ);
+ಶೂನ್ಯ x5(ಶೂನ್ಯ)
 {
     printf(" x5");
 }

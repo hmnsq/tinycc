@@ -1,16 +1,16 @@
 //#include <stdio.h>
-extern int printf(const char *, ...);
+ಬಾಹ್ಯ ಪೂರ್ಣಾಙ್ಕ printf(ಧ್ರುವ ವರ್ಣ *, ...);
 
-int main()
+ಪೂರ್ಣಾಙ್ಕ main()
 {
-   int a;
-   int b;
-   int c;
-   int d;
-   int e;
-   int f;
-   int x;
-   int y;
+   ಪೂರ್ಣಾಙ್ಕ a;
+   ಪೂರ್ಣಾಙ್ಕ b;
+   ಪೂರ್ಣಾಙ್ಕ c;
+   ಪೂರ್ಣಾಙ್ಕ d;
+   ಪೂರ್ಣಾಙ್ಕ e;
+   ಪೂರ್ಣಾಙ್ಕ f;
+   ಪೂರ್ಣಾಙ್ಕ x;
+   ಪೂರ್ಣಾಙ್ಕ y;
 
    a = 12;
    b = 34;
@@ -35,7 +35,7 @@ int main()
    printf("%d\n", (4 << 4));
    printf("%d\n", (64 >> 4));
 
-   return 0;
+   ಪ್ರತ್ಯಾಗಮ 0;
 }
 
 // vim: set expandtab ts=4 sw=3 sts=3 tw=80 :

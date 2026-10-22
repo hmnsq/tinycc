@@ -2,19 +2,19 @@
    Exercises shift-by-immediate, load/store addressing modes,
    conditional branches, and system register access. */
 
-#include <stdio.h>
-#include <stdint.h>
+#ಅನ್ತರ್ಭಾವ <stdio.h>
+#ಅನ್ತರ್ಭಾವ <stdint.h>
 
 /* ---- shift-by-immediate helpers ---- */
 
-static uint32_t lsl32(uint32_t x, int n) { return x << n; }
-static uint32_t lsr32(uint32_t x, int n) { return x >> n; }
-static int32_t  asr32(int32_t  x, int n) { return x >> n; }
-static uint64_t lsl64(uint64_t x, int n) { return x << n; }
-static uint64_t lsr64(uint64_t x, int n) { return x >> n; }
-static int64_t  asr64(int64_t  x, int n) { return x >> n; }
+ಸ್ಥಿರ uint32_t lsl32(uint32_t x, ಪೂರ್ಣಾಙ್ಕ n) { ಪ್ರತ್ಯಾಗಮ x << n; }
+ಸ್ಥಿರ uint32_t lsr32(uint32_t x, ಪೂರ್ಣಾಙ್ಕ n) { ಪ್ರತ್ಯಾಗಮ x >> n; }
+ಸ್ಥಿರ int32_t  asr32(int32_t  x, ಪೂರ್ಣಾಙ್ಕ n) { ಪ್ರತ್ಯಾಗಮ x >> n; }
+ಸ್ಥಿರ uint64_t lsl64(uint64_t x, ಪೂರ್ಣಾಙ್ಕ n) { ಪ್ರತ್ಯಾಗಮ x << n; }
+ಸ್ಥಿರ uint64_t lsr64(uint64_t x, ಪೂರ್ಣಾಙ್ಕ n) { ಪ್ರತ್ಯಾಗಮ x >> n; }
+ಸ್ಥಿರ int64_t  asr64(int64_t  x, ಪೂರ್ಣಾಙ್ಕ n) { ಪ್ರತ್ಯಾಗಮ x >> n; }
 
-static void test_shifts(void)
+ಸ್ಥಿರ ಶೂನ್ಯ test_shifts(ಶೂನ್ಯ)
 {
     printf("shift-imm:\n");
     printf("%x\n", lsl32(1, 0));
@@ -34,7 +34,7 @@ static void test_shifts(void)
 
 /* ---- load/store with various addressing modes ---- */
 
-static void test_ldr_str(void)
+ಸ್ಥಿರ ಶೂನ್ಯ test_ldr_str(ಶೂನ್ಯ)
 {
     int64_t buf[4] = { 0x1122334455667788LL, 0x99AABBCCDDEEFF00LL,
                        0x0F1E2D3C4B5A6978LL, 0x0000000000000001LL };
@@ -69,7 +69,7 @@ static void test_ldr_str(void)
 
 /* ---- STP/LDP (store/load pair) ---- */
 
-static void test_ldp_stp(void)
+ಸ್ಥಿರ ಶೂನ್ಯ test_ldp_stp(ಶೂನ್ಯ)
 {
     int64_t src[2] = { 0xAAAABBBBCCCCDDDDLL, 0x1111222233334444LL };
     int64_t dst[2];
@@ -86,21 +86,21 @@ static void test_ldp_stp(void)
 
 /* ---- CBZ / CBNZ via C patterns ---- */
 
-static const char *cbz_test(int x)
+ಸ್ಥಿರ ಧ್ರುವ ವರ್ಣ *cbz_test(ಪೂರ್ಣಾಙ್ಕ x)
 {
-    if (x == 0)
-        return "zero";
-    return "nonzero";
+    ಯದಿ (x == 0)
+        ಪ್ರತ್ಯಾಗಮ "zero";
+    ಪ್ರತ್ಯಾಗಮ "nonzero";
 }
 
-static const char *cbnz_test(int x)
+ಸ್ಥಿರ ಧ್ರುವ ವರ್ಣ *cbnz_test(ಪೂರ್ಣಾಙ್ಕ x)
 {
-    if (x != 0)
-        return "nonzero";
-    return "zero";
+    ಯದಿ (x != 0)
+        ಪ್ರತ್ಯಾಗಮ "nonzero";
+    ಪ್ರತ್ಯಾಗಮ "zero";
 }
 
-static void test_cond_branches(void)
+ಸ್ಥಿರ ಶೂನ್ಯ test_cond_branches(ಶೂನ್ಯ)
 {
     printf("cbz-cbnz:\n");
     printf("%s\n", cbz_test(0));
@@ -111,13 +111,13 @@ static void test_cond_branches(void)
 
 /* ---- conditional compare patterns (CCMP/CCMN) ---- */
 
-static int cond_select(int a, int b)
+ಸ್ಥಿರ ಪೂರ್ಣಾಙ್ಕ cond_select(ಪೂರ್ಣಾಙ್ಕ a, ಪೂರ್ಣಾಙ್ಕ b)
 {
     /* TCC should generate csel or equivalent */
-    return a > b ? a : b;
+    ಪ್ರತ್ಯಾಗಮ a > b ? a : b;
 }
 
-static void test_cond_select(void)
+ಸ್ಥಿರ ಶೂನ್ಯ test_cond_select(ಶೂನ್ಯ)
 {
     printf("csel:\n");
     printf("%d\n", cond_select(5, 10));
@@ -128,63 +128,63 @@ static void test_cond_select(void)
 
 /* ---- MRS/MSR system registers (FPCR/FPSR) ---- */
 
-static void test_sysregs(void)
+ಸ್ಥಿರ ಶೂನ್ಯ test_sysregs(ಶೂನ್ಯ)
 {
-    unsigned int fpcr, fpsr;
+    unsigned ಪೂರ್ಣಾಙ್ಕ fpcr, fpsr;
 
     printf("sysregs:\n");
 
     /* Read FPCR */
-    __asm__ volatile ("mrs %0, fpcr" : "=r"(fpcr));
+    __asm__ ಚಞ್ಚಲ ("mrs %0, fpcr" : "=r"(fpcr));
     printf("%u\n", fpcr & 0x0F);
 
     /* Read FPSR */
-    __asm__ volatile ("mrs %0, fpsr" : "=r"(fpsr));
+    __asm__ ಚಞ್ಚಲ ("mrs %0, fpsr" : "=r"(fpsr));
     printf("%u\n", fpsr);
 
     /* Write/restore FPCR (should be same value) */
-    __asm__ volatile ("msr fpcr, %0" : : "r"(fpcr));
+    __asm__ ಚಞ್ಚಲ ("msr fpcr, %0" : : "r"(fpcr));
 
     /* Read back and verify */
     {
-        unsigned int check;
-        __asm__ volatile ("mrs %0, fpcr" : "=r"(check));
+        unsigned ಪೂರ್ಣಾಙ್ಕ check;
+        __asm__ ಚಞ್ಚಲ ("mrs %0, fpcr" : "=r"(check));
         printf("%s\n", check == fpcr ? "ok" : "fail");
     }
 }
 
 /* ---- NOP encoding (should not crash) ---- */
 
-static void test_nop(void)
+ಸ್ಥಿರ ಶೂನ್ಯ test_nop(ಶೂನ್ಯ)
 {
     printf("nop:\n");
-    __asm__ volatile ("nop");
-    __asm__ volatile ("nop");
-    __asm__ volatile ("nop");
+    __asm__ ಚಞ್ಚಲ ("nop");
+    __asm__ ಚಞ್ಚಲ ("nop");
+    __asm__ ಚಞ್ಚಲ ("nop");
     printf("ok\n");
 }
 
 /* ---- barrier instructions ---- */
 
-static void test_barriers(void)
+ಸ್ಥಿರ ಶೂನ್ಯ test_barriers(ಶೂನ್ಯ)
 {
     printf("barriers:\n");
-    __asm__ volatile ("dmb sy");
-    __asm__ volatile ("dsb sy");
-    __asm__ volatile ("isb");
+    __asm__ ಚಞ್ಚಲ ("dmb sy");
+    __asm__ ಚಞ್ಚಲ ("dsb sy");
+    __asm__ ಚಞ್ಚಲ ("isb");
     printf("ok\n");
 }
 
 /* ---- MOV (register) patterns ---- */
 
-static int64_t mov_x0_x1(int64_t x)
+ಸ್ಥಿರ int64_t mov_x0_x1(int64_t x)
 {
-    register int64_t r __asm__("x0") = x;
-    __asm__ volatile ("" : "=r"(r) : "0"(r));
-    return r;
+    ಪಞ್ಜಿಕಾ int64_t r __asm__("x0") = x;
+    __asm__ ಚಞ್ಚಲ ("" : "=r"(r) : "0"(r));
+    ಪ್ರತ್ಯಾಗಮ r;
 }
 
-static void test_mov_reg(void)
+ಸ್ಥಿರ ಶೂನ್ಯ test_mov_reg(ಶೂನ್ಯ)
 {
     printf("mov-reg:\n");
     printf("%lld\n", (long long)mov_x0_x1(42));
@@ -193,23 +193,23 @@ static void test_mov_reg(void)
 
 /* ---- large struct passing (reference semantics) ---- */
 
-struct large { int64_t a, b, c, d; };
+ಸಂರಚನಾ large { int64_t a, b, c, d; };
 
-static int64_t sum_large(struct large s)
+ಸ್ಥಿರ int64_t sum_large(ಸಂರಚನಾ large s)
 {
-    return s.a + s.b + s.c + s.d;
+    ಪ್ರತ್ಯಾಗಮ s.a + s.b + s.c + s.d;
 }
 
-static struct large make_large(int64_t a, int64_t b, int64_t c, int64_t d)
+ಸ್ಥಿರ ಸಂರಚನಾ large make_large(int64_t a, int64_t b, int64_t c, int64_t d)
 {
-    struct large s = { a, b, c, d };
-    return s;
+    ಸಂರಚನಾ large s = { a, b, c, d };
+    ಪ್ರತ್ಯಾಗಮ s;
 }
 
-static void test_large_structs(void)
+ಸ್ಥಿರ ಶೂನ್ಯ test_large_structs(ಶೂನ್ಯ)
 {
-    struct large s = { 1, 2, 3, 4 };
-    struct large t;
+    ಸಂರಚನಾ large s = { 1, 2, 3, 4 };
+    ಸಂರಚನಾ large t;
 
     printf("large-struct:\n");
     printf("%lld\n", (long long)sum_large(s));
@@ -222,37 +222,37 @@ static void test_large_structs(void)
 
 /* ---- boundary-sized structs ---- */
 
-struct s18 { char x[18]; };
-struct s24 { char x[24]; };
-struct s32 { char x[32]; };
+ಸಂರಚನಾ s18 { ವರ್ಣ x[18]; };
+ಸಂರಚನಾ s24 { ವರ್ಣ x[24]; };
+ಸಂರಚನಾ s32 { ವರ್ಣ x[32]; };
 
-static void print_s18(struct s18 s) { printf("%.18s\n", s.x); }
-static void print_s24(struct s24 s) { printf("%.24s\n", s.x); }
-static void print_s32(struct s32 s) { printf("%.32s\n", s.x); }
+ಸ್ಥಿರ ಶೂನ್ಯ print_s18(ಸಂರಚನಾ s18 s) { printf("%.18s\n", s.x); }
+ಸ್ಥಿರ ಶೂನ್ಯ print_s24(ಸಂರಚನಾ s24 s) { printf("%.24s\n", s.x); }
+ಸ್ಥಿರ ಶೂನ್ಯ print_s32(ಸಂರಚನಾ s32 s) { printf("%.32s\n", s.x); }
 
-static struct s18 ret_s18(void)
+ಸ್ಥಿರ ಸಂರಚನಾ s18 ret_s18(ಶೂನ್ಯ)
 {
-    struct s18 s = { "123456789012345678" };
-    return s;
+    ಸಂರಚನಾ s18 s = { "123456789012345678" };
+    ಪ್ರತ್ಯಾಗಮ s;
 }
 
-static struct s24 ret_s24(void)
+ಸ್ಥಿರ ಸಂರಚನಾ s24 ret_s24(ಶೂನ್ಯ)
 {
-    struct s24 s = { "123456789012345678901234" };
-    return s;
+    ಸಂರಚನಾ s24 s = { "123456789012345678901234" };
+    ಪ್ರತ್ಯಾಗಮ s;
 }
 
-static struct s32 ret_s32(void)
+ಸ್ಥಿರ ಸಂರಚನಾ s32 ret_s32(ಶೂನ್ಯ)
 {
-    struct s32 s = { "12345678901234567890123456789012" };
-    return s;
+    ಸಂರಚನಾ s32 s = { "12345678901234567890123456789012" };
+    ಪ್ರತ್ಯಾಗಮ s;
 }
 
-static void test_boundary_structs(void)
+ಸ್ಥಿರ ಶೂನ್ಯ test_boundary_structs(ಶೂನ್ಯ)
 {
-    struct s18 a;
-    struct s24 b;
-    struct s32 c;
+    ಸಂರಚನಾ s18 a;
+    ಸಂರಚನಾ s24 b;
+    ಸಂರಚನಾ s32 c;
 
     printf("boundary-structs:\n");
     a = ret_s18();
@@ -263,7 +263,7 @@ static void test_boundary_structs(void)
     printf("%.32s\n", c.x);
 }
 
-int main(void)
+ಪೂರ್ಣಾಙ್ಕ main(ಶೂನ್ಯ)
 {
     test_shifts();
     test_ldr_str();
@@ -276,5 +276,5 @@ int main(void)
     test_mov_reg();
     test_large_structs();
     test_boundary_structs();
-    return 0;
+    ಪ್ರತ್ಯಾಗಮ 0;
 }

@@ -1,133 +1,133 @@
-#include <stdio.h>
+#ಅನ್ತರ್ಭಾವ <stdio.h>
 
-struct big_struct { char a[262144]; };
+ಸಂರಚನಾ big_struct { ವರ್ಣ a[262144]; };
 
-static const char str[] = "abcdefghijklmnopqrstuvwxyz";
+ಸ್ಥಿರ ಧ್ರುವ ವರ್ಣ str[] = "abcdefghijklmnopqrstuvwxyz";
 
-void tst_branch(void)
+ಶೂನ್ಯ tst_branch(ಶೂನ್ಯ)
 {
   printf("tst_branch --");
-  goto *&&a; 
+  ಗಚ್ಛ *&&a; 
   printf (" dummy");
 a: ;
   printf(" --\n");
 }
 
-void tst_void_ptr(void *pv, int i) 
+ಶೂನ್ಯ tst_void_ptr(ಶೂನ್ಯ *pv, ಪೂರ್ಣಾಙ್ಕ i) 
 {
   i ? *pv : *pv; // dr106
 }
 
-void tst_shift(void)
+ಶೂನ್ಯ tst_shift(ಶೂನ್ಯ)
 {
-  int i = 1;
+  ಪೂರ್ಣಾಙ್ಕ i = 1;
   long long l = 1;
   i = i << 32; // illegal. just test
   l = l << 64; // illegal. just test
 }
 
-#if !defined(_WIN32)
-#include <sys/mman.h>
+#ಯದಿ !defined(_WIN32)
+#ಅನ್ತರ್ಭಾವ <sys/mman.h>
 
-void tst_const_addr(void)
+ಶೂನ್ಯ tst_const_addr(ಶೂನ್ಯ)
 {
-  void *addr = mmap ((void *)0x20000000, 4096, PROT_READ | PROT_WRITE, MAP_FIXED | MAP_ANONYMOUS, -1, 0);
-  if (addr != (void *) -1) {
-    *(int *)0x20000000 += 42;
+  ಶೂನ್ಯ *addr = mmap ((ಶೂನ್ಯ *)0x20000000, 4096, PROT_READ | PROT_WRITE, MAP_FIXED | MAP_ANONYMOUS, -1, 0);
+  ಯದಿ (addr != (ಶೂನ್ಯ *) -1) {
+    *(ಪೂರ್ಣಾಙ್ಕ *)0x20000000 += 42;
     munmap (addr, 4096);
   }
 }
 #endif
 
-struct zero_struct {};
+ಸಂರಚನಾ zero_struct {};
 
-struct zero_struct tst_zero_struct(void)
+ಸಂರಚನಾ zero_struct tst_zero_struct(ಶೂನ್ಯ)
 {
-  struct zero_struct ret;
-  return ret;
+  ಸಂರಚನಾ zero_struct ret;
+  ಪ್ರತ್ಯಾಗಮ ret;
 }
 
-struct big_struct tst_big(struct big_struct tst)
+ಸಂರಚನಾ big_struct tst_big(ಸಂರಚನಾ big_struct tst)
 {
-   return tst;
+   ಪ್ರತ್ಯಾಗಮ tst;
 }
 
-void tst_adr (int (*fp)(char *, const char *, ...))
+ಶೂನ್ಯ tst_adr (ಪೂರ್ಣಾಙ್ಕ (*fp)(ವರ್ಣ *, ಧ್ರುವ ವರ್ಣ *, ...))
 {
-  char buf[10];
+  ವರ್ಣ buf[10];
   (*fp)(buf, "%.0f", 5.0);
   printf("tst_adr %s\n", buf);
 }
 
-int tst(void)
+ಪೂರ್ಣಾಙ್ಕ tst(ಶೂನ್ಯ)
 {
-  long long value = 3;
-  return -value;
+  long long ಮೌಲ್ಯ = 3;
+  ಪ್ರತ್ಯಾಗಮ -ಮೌಲ್ಯ;
 }
 
-void tst_compare(void)
+ಶೂನ್ಯ tst_compare(ಶೂನ್ಯ)
 {
   /* This failed on risc64 */
   printf ("tst_compare: %s\n", tst() > 0 ? "error" : "ok");
 }
 
 #pragma pack(1)
-struct S { int d:24; int f:14; } i, j;
+ಸಂರಚನಾ S { ಪೂರ್ಣಾಙ್ಕ d:24; ಪೂರ್ಣಾಙ್ಕ f:14; } i, j;
 #pragma pack()
 
-void tst_pack (void)
+ಶೂನ್ಯ tst_pack (ಶೂನ್ಯ)
 {
   i.f = 5; j.f = 5;
   printf("tst_pack: j.f = %d, i.f = %d\n", j.f, i.f);
 }
 
-void tst_cast(void)
+ಶೂನ್ಯ tst_cast(ಶೂನ್ಯ)
 {
-  signed char c = (signed char) 0xaaaaaaaa;
-  int r = (unsigned short) c ^ (signed char) 0x99999999;
+  signed ವರ್ಣ c = (signed ವರ್ಣ) 0xaaaaaaaa;
+  ಪೂರ್ಣಾಙ್ಕ r = (unsigned short) c ^ (signed ವರ್ಣ) 0x99999999;
   printf ("schar to ushort cast: %x\n", r);
 }
 
-struct {
-    int (*print)(const char *format, ...);
+ಸಂರಚನಾ {
+    ಪೂರ್ಣಾಙ್ಕ (*print)(ಧ್ರುವ ವರ್ಣ *format, ...);
 } tst_indir = {
     printf
 };
 
-void tst_indir_func(void)
+ಶೂನ್ಯ tst_indir_func(ಶೂನ್ಯ)
 {
     tst_indir.print("tst_indir_func %d\n", 10);
 }
 
-struct V {
-  int x, y, z;
+ಸಂರಚನಾ V {
+  ಪೂರ್ಣಾಙ್ಕ x, y, z;
 };
 
-struct V vec(void)
+ಸಂರಚನಾ V vec(ಶೂನ್ಯ)
 {
-  return (struct V) { 1, 2, 3 };
+  ಪ್ರತ್ಯಾಗಮ (ಸಂರಚನಾ V) { 1, 2, 3 };
 }
 
-void func(float f, struct V v)
+ಶೂನ್ಯ func(ಭಿನ್ನ f, ಸಂರಚನಾ V v)
 {
   printf("%g\n", f);
 }
 
-void tst_struct_return_align(void)
+ಶೂನ್ಯ tst_struct_return_align(ಶೂನ್ಯ)
 {
-  float d = 5.0f;
+  ಭಿನ್ನ d = 5.0f;
   func(d, vec());
 }
 
-int
-main (void)
+ಪೂರ್ಣಾಙ್ಕ
+main (ಶೂನ್ಯ)
 {
-  struct big_struct big;
+  ಸಂರಚನಾ big_struct big;
 
   tst_branch();
   tst_shift();
   tst_void_ptr(&big.a[0], 0);
-#if !defined(_WIN32)
+#ಯದಿ !defined(_WIN32)
   tst_const_addr();
 #endif
   tst_zero_struct();

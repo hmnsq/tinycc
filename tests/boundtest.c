@@ -1,200 +1,200 @@
-#include <stdlib.h>
-#include <stdio.h>
-#include <string.h>
+#ಅನ್ತರ್ಭಾವ <stdlib.h>
+#ಅನ್ತರ್ಭಾವ <stdio.h>
+#ಅನ್ತರ್ಭಾವ <string.h>
 
 #define NB_ITS 1000000
 //#define NB_ITS 1
 #define TAB_SIZE 100
 
-int tab[TAB_SIZE];
-int ret_sum;
-char tab3[256];
+ಪೂರ್ಣಾಙ್ಕ tab[TAB_SIZE];
+ಪೂರ್ಣಾಙ್ಕ ret_sum;
+ವರ್ಣ tab3[256];
 
-int test1(void)
+ಪೂರ್ಣಾಙ್ಕ test1(ಶೂನ್ಯ)
 {
-    int i, sum = 0;
-    for(i=0;i<TAB_SIZE;i++) {
+    ಪೂರ್ಣಾಙ್ಕ i, sum = 0;
+    ಪ್ರತಿ(i=0;i<TAB_SIZE;i++) {
         sum += tab[i];
     }
-    return sum;
+    ಪ್ರತ್ಯಾಗಮ sum;
 }
 
 /* error */
-int test2(void)
+ಪೂರ್ಣಾಙ್ಕ test2(ಶೂನ್ಯ)
 {
-    int i, sum = 0;
-    for(i=0;i<TAB_SIZE + 1;i++) {
+    ಪೂರ್ಣಾಙ್ಕ i, sum = 0;
+    ಪ್ರತಿ(i=0;i<TAB_SIZE + 1;i++) {
         sum += tab[i];
     }
-    return sum;
+    ಪ್ರತ್ಯಾಗಮ sum;
 }
 
 /* actually, profiling test */
-int test3(void)
+ಪೂರ್ಣಾಙ್ಕ test3(ಶೂನ್ಯ)
 {
-    int sum;
-    int i, it;
+    ಪೂರ್ಣಾಙ್ಕ sum;
+    ಪೂರ್ಣಾಙ್ಕ i, it;
 
     sum = 0;
-    for(it=0;it<NB_ITS;it++) {
-        for(i=0;i<TAB_SIZE;i++) {
+    ಪ್ರತಿ(it=0;it<NB_ITS;it++) {
+        ಪ್ರತಿ(i=0;i<TAB_SIZE;i++) {
             sum += tab[i];
         }
     }
-    return sum;
+    ಪ್ರತ್ಯಾಗಮ sum;
 }
 
 /* ok */
-int test4(void)
+ಪೂರ್ಣಾಙ್ಕ test4(ಶೂನ್ಯ)
 {
-    int i, sum = 0;
-    int *tab4;
+    ಪೂರ್ಣಾಙ್ಕ i, sum = 0;
+    ಪೂರ್ಣಾಙ್ಕ *tab4;
 
-    tab4 = malloc(20 * sizeof(int));
-    for(i=0;i<20;i++) {
+    tab4 = malloc(20 * ಪರಿಮಾಣ(ಪೂರ್ಣಾಙ್ಕ));
+    ಪ್ರತಿ(i=0;i<20;i++) {
         sum += tab4[i];
     }
-    free(tab4);
+    ಮುಕ್ತ(tab4);
 
-    return sum;
+    ಪ್ರತ್ಯಾಗಮ sum;
 }
 
 /* error */
-int test5(void)
+ಪೂರ್ಣಾಙ್ಕ test5(ಶೂನ್ಯ)
 {
-    int i, sum = 0;
-    int *tab4;
+    ಪೂರ್ಣಾಙ್ಕ i, sum = 0;
+    ಪೂರ್ಣಾಙ್ಕ *tab4;
 
-    tab4 = malloc(20 * sizeof(int));
-    for(i=0;i<21;i++) {
+    tab4 = malloc(20 * ಪರಿಮಾಣ(ಪೂರ್ಣಾಙ್ಕ));
+    ಪ್ರತಿ(i=0;i<21;i++) {
         sum += tab4[i];
     }
-    free(tab4);
+    ಮುಕ್ತ(tab4);
 
-    return sum;
+    ಪ್ರತ್ಯಾಗಮ sum;
 }
 
 /* error */
-int test6(void)
+ಪೂರ್ಣಾಙ್ಕ test6(ಶೂನ್ಯ)
 {
-    int i, sum = 0;
-    int *tab4;
+    ಪೂರ್ಣಾಙ್ಕ i, sum = 0;
+    ಪೂರ್ಣಾಙ್ಕ *tab4;
     
-    tab4 = malloc(20 * sizeof(int));
-    free(tab4);
-    for(i=0;i<21;i++) {
+    tab4 = malloc(20 * ಪರಿಮಾಣ(ಪೂರ್ಣಾಙ್ಕ));
+    ಮುಕ್ತ(tab4);
+    ಪ್ರತಿ(i=0;i<21;i++) {
         sum += tab4[i];
     }
 
-    return sum;
+    ಪ್ರತ್ಯಾಗಮ sum;
 }
 
 /* error */
-int test7(void)
+ಪೂರ್ಣಾಙ್ಕ test7(ಶೂನ್ಯ)
 {
-    int i, sum = 0;
-    int *p;
+    ಪೂರ್ಣಾಙ್ಕ i, sum = 0;
+    ಪೂರ್ಣಾಙ್ಕ *p;
 
-    for(i=0;i<TAB_SIZE + 1;i++) {
+    ಪ್ರತಿ(i=0;i<TAB_SIZE + 1;i++) {
         p = &tab[i];
-        if (i == TAB_SIZE)
+        ಯದಿ (i == TAB_SIZE)
             printf("i=%d %x\n", i, p);
         sum += *p;
     }
-    return sum;
+    ಪ್ರತ್ಯಾಗಮ sum;
 }
 
 /* ok */
-int test8(void)
+ಪೂರ್ಣಾಙ್ಕ test8(ಶೂನ್ಯ)
 {
-    int i, sum = 0;
-    int tab[10];
+    ಪೂರ್ಣಾಙ್ಕ i, sum = 0;
+    ಪೂರ್ಣಾಙ್ಕ tab[10];
 
-    for(i=0;i<10;i++) {
+    ಪ್ರತಿ(i=0;i<10;i++) {
         sum += tab[i];
     }
-    return sum;
+    ಪ್ರತ್ಯಾಗಮ sum;
 }
 
 /* error */
-int test9(void)
+ಪೂರ್ಣಾಙ್ಕ test9(ಶೂನ್ಯ)
 {
-    int i, sum = 0;
-    char tab[10];
+    ಪೂರ್ಣಾಙ್ಕ i, sum = 0;
+    ವರ್ಣ tab[10];
 
-    for(i=0;i<11;i++) {
+    ಪ್ರತಿ(i=0;i<11;i++) {
         sum += tab[i];
     }
-    return sum;
+    ಪ್ರತ್ಯಾಗಮ sum;
 }
 
 /* ok */
-int test10(void)
+ಪೂರ್ಣಾಙ್ಕ test10(ಶೂನ್ಯ)
 {
-    char tab[10];
-    char tab1[10];
+    ವರ್ಣ tab[10];
+    ವರ್ಣ tab1[10];
 
     memset(tab, 0, 10);
     memcpy(tab, tab1, 10);
     memmove(tab, tab1, 10);
-    return 0;
+    ಪ್ರತ್ಯಾಗಮ 0;
 }
 
 /* error */
-int test11(void)
+ಪೂರ್ಣಾಙ್ಕ test11(ಶೂನ್ಯ)
 {
-    char tab[10];
+    ವರ್ಣ tab[10];
 
     memset(tab, 0, 11);
-    return 0;
+    ಪ್ರತ್ಯಾಗಮ 0;
 }
 
 /* error */
-int test12(void)
+ಪೂರ್ಣಾಙ್ಕ test12(ಶೂನ್ಯ)
 {
-    void *ptr;
+    ಶೂನ್ಯ *ptr;
     ptr = malloc(10);
-    free(ptr);
-    free(ptr);
-    return 0;
+    ಮುಕ್ತ(ptr);
+    ಮುಕ್ತ(ptr);
+    ಪ್ರತ್ಯಾಗಮ 0;
 }
 
 /* error */
-int test13(void)
+ಪೂರ್ಣಾಙ್ಕ test13(ಶೂನ್ಯ)
 {
-    char pad1 = 0;
-    char tab[10];
-    char pad2 = 0;
-    memset(tab, 'a', sizeof(tab));
-    return strlen(tab);
+    ವರ್ಣ pad1 = 0;
+    ವರ್ಣ tab[10];
+    ವರ್ಣ pad2 = 0;
+    memset(tab, 'a', ಪರಿಮಾಣ(tab));
+    ಪ್ರತ್ಯಾಗಮ strlen(tab);
 }
 
-int test14(void)
+ಪೂರ್ಣಾಙ್ಕ test14(ಶೂನ್ಯ)
 {
-    char *p = alloca(TAB_SIZE);
+    ವರ್ಣ *p = alloca(TAB_SIZE);
     size_t ret;
     memset(p, 'a', TAB_SIZE);
     p[TAB_SIZE-1] = 0;
     ret = strlen(p);
-    return ret;
+    ಪ್ರತ್ಯಾಗಮ ret;
 }
 
 /* error */
-int test15(void)
+ಪೂರ್ಣಾಙ್ಕ test15(ಶೂನ್ಯ)
 {
-    char *p = alloca(TAB_SIZE-1);
+    ವರ್ಣ *p = alloca(TAB_SIZE-1);
     size_t ret;
     memset(p, 'a', TAB_SIZE);
     p[TAB_SIZE-1] = 0;
     ret = strlen(p);
-    return ret;
+    ಪ್ರತ್ಯಾಗಮ ret;
 }
 
 /* ok */
-int test16()
+ಪೂರ್ಣಾಙ್ಕ test16()
 {
-    char *demo = "This is only a test.";
-    char *p, *q;
+    ವರ್ಣ *demo = "This is only a test.";
+    ವರ್ಣ *p, *q;
 
     p = alloca(16);
     strcpy(p,"12345678901234");
@@ -202,14 +202,14 @@ int test16()
     /* Test alloca embedded in a larger expression */
     printf("alloca : %s : %s\n", p, strcpy(q=alloca(strlen(demo)+1),demo) );
 
-    return 0;
+    ಪ್ರತ್ಯಾಗಮ 0;
 }
 
 /* error */
-int test17()
+ಪೂರ್ಣಾಙ್ಕ test17()
 {
-    char *demo = "This is only a test.";
-    char *p, *q;
+    ವರ್ಣ *demo = "This is only a test.";
+    ವರ್ಣ *p, *q;
 
     p = alloca(16);
     strcpy(p,"12345678901234");
@@ -217,20 +217,20 @@ int test17()
     /* Test alloca embedded in a larger expression */
     printf("alloca : %s : %s\n", p, strcpy(q=alloca(strlen(demo)),demo) );
 
-    return 0;
+    ಪ್ರತ್ಯಾಗಮ 0;
 }
 
-int test18(void)
+ಪೂರ್ಣಾಙ್ಕ test18(ಶೂನ್ಯ)
 {
-    int i, sum = 0, n = TAB_SIZE;
-    int tab[n];
-    for(i=0;i<TAB_SIZE+1;i++) {
+    ಪೂರ್ಣಾಙ್ಕ i, sum = 0, n = TAB_SIZE;
+    ಪೂರ್ಣಾಙ್ಕ tab[n];
+    ಪ್ರತಿ(i=0;i<TAB_SIZE+1;i++) {
         sum += tab[i];
     }
-    return sum;
+    ಪ್ರತ್ಯಾಗಮ sum;
 }
 
-int (*table_test[])(void) = {
+ಪೂರ್ಣಾಙ್ಕ (*table_test[])(ಶೂನ್ಯ) = {
     test1,
     test2,
     test3,
@@ -251,23 +251,23 @@ int (*table_test[])(void) = {
     test18
 };
 
-int main(int argc, char **argv)
+ಪೂರ್ಣಾಙ್ಕ main(ಪೂರ್ಣಾಙ್ಕ argc, ವರ್ಣ **argv)
 {
-    int i;
-    char *cp;
-    int index;
-    int (*ftest)(void);
-    int index_max = sizeof(table_test)/sizeof(table_test[0]);
+    ಪೂರ್ಣಾಙ್ಕ i;
+    ವರ್ಣ *cp;
+    ಪೂರ್ಣಾಙ್ಕ index;
+    ಪೂರ್ಣಾಙ್ಕ (*ftest)(ಶೂನ್ಯ);
+    ಪೂರ್ಣಾಙ್ಕ index_max = ಪರಿಮಾಣ(table_test)/ಪರಿಮಾಣ(table_test[0]);
 
     /* check bounds checking main arg */
-    for (i = 0; i < argc; i++) {
+    ಪ್ರತಿ (i = 0; i < argc; i++) {
         cp = argv[i];
-        while (*cp) {
+        ಯಾವತ್ (*cp) {
             cp++;
         }
     }
 
-    if (argc < 2) {
+    ಯದಿ (argc < 2) {
         printf(
     	    "test TCC bound checking system\n"
 	    "usage: boundtest N\n"
@@ -276,10 +276,10 @@ int main(int argc, char **argv)
     }
 
     index = 0;
-    if (argc >= 2)
+    ಯದಿ (argc >= 2)
         index = atoi(argv[1]) - 1;
 
-    if ((index < 0) || (index >= index_max)) {
+    ಯದಿ ((index < 0) || (index >= index_max)) {
         printf("N is outside of the valid range (%d)\n", index);
         exit(2);
     }
@@ -288,7 +288,7 @@ int main(int argc, char **argv)
     ftest = table_test[index];
     ftest();
 
-    return 0;
+    ಪ್ರತ್ಯಾಗಮ 0;
 }
 
 /*

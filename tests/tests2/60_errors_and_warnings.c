@@ -1,77 +1,77 @@
-int printf(const char*, ...);
+ಪೂರ್ಣಾಙ್ಕ printf(ಧ್ರುವ ವರ್ಣ*, ...);
 
-#if defined test_56_btype_excess_1
-struct A {} int i;
-#elif defined test_57_btype_excess_2
-char int i;
-#elif defined test_58_function_redefinition
-int f(void) { return 0; }
-int f(void) { return 1; }
+#ಯದಿ defined test_56_btype_excess_1
+ಸಂರಚನಾ A {} ಪೂರ್ಣಾಙ್ಕ i;
+#ನೋಚೇದ್ಯದಿ defined test_57_btype_excess_2
+ವರ್ಣ ಪೂರ್ಣಾಙ್ಕ i;
+#ನೋಚೇದ್ಯದಿ defined test_58_function_redefinition
+ಪೂರ್ಣಾಙ್ಕ f(ಶೂನ್ಯ) { ಪ್ರತ್ಯಾಗಮ 0; }
+ಪೂರ್ಣಾಙ್ಕ f(ಶೂನ್ಯ) { ಪ್ರತ್ಯಾಗಮ 1; }
 
-#elif defined test_global_redefinition
-int xxx = 1;
-int xxx;
-int xxx = 2;
+#ನೋಚೇದ್ಯದಿ defined test_global_redefinition
+ಪೂರ್ಣಾಙ್ಕ xxx = 1;
+ಪೂರ್ಣಾಙ್ಕ xxx;
+ಪೂರ್ಣಾಙ್ಕ xxx = 2;
 
-#elif defined test_59_function_array
-int (*fct)[42](int x);
+#ನೋಚೇದ್ಯದಿ defined test_59_function_array
+ಪೂರ್ಣಾಙ್ಕ (*fct)[42](ಪೂರ್ಣಾಙ್ಕ x);
 
-#elif defined test_60_enum_redefinition
-enum color { RED, GREEN, BLUE };
-enum color { R, G, B };
-enum color c;
+#ನೋಚೇದ್ಯದಿ defined test_60_enum_redefinition
+ಗಣನಾ color { RED, GREEN, BLUE };
+ಗಣನಾ color { R, G, B };
+ಗಣನಾ color c;
 
-#elif defined test_62_enumerator_redefinition
-enum color { RED, GREEN, BLUE };
-enum rgb { RED, G, B};
-enum color c = RED;
+#ನೋಚೇದ್ಯದಿ defined test_62_enumerator_redefinition
+ಗಣನಾ color { RED, GREEN, BLUE };
+ಗಣನಾ rgb { RED, G, B};
+ಗಣನಾ color c = RED;
 
-#elif defined test_63_local_enumerator_redefinition
-enum {
+#ನೋಚೇದ್ಯದಿ defined test_63_local_enumerator_redefinition
+ಗಣನಾ {
     FOO,
     BAR
 };
 
-int main(void)
+ಪೂರ್ಣಾಙ್ಕ main(ಶೂನ್ಯ)
 {
-    enum {
+    ಗಣನಾ {
         FOO = 2,
         BAR
     };
 
-    return BAR - FOO;
+    ಪ್ರತ್ಯಾಗಮ BAR - FOO;
 }
 
-#elif defined test_61_undefined_enum
-enum rgb3 c = 42;
+#ನೋಚೇದ್ಯದಿ defined test_61_undefined_enum
+ಗಣನಾ rgb3 c = 42;
 
-#elif defined test_74_non_const_init
-int i = i++;
+#ನೋಚೇದ್ಯದಿ defined test_74_non_const_init
+ಪೂರ್ಣಾಙ್ಕ i = i++;
 
-#elif defined test_pointer_assignment
+#ನೋಚೇದ್ಯದಿ defined test_pointer_assignment
 
-void (*f1)(void);
-void f2(void) {}
+ಶೂನ್ಯ (*f1)(ಶೂನ್ಯ);
+ಶೂನ್ಯ f2(ಶೂನ್ಯ) {}
 
-struct s1 *ps1;
-struct s2 *ps2;
+ಸಂರಚನಾ s1 *ps1;
+ಸಂರಚನಾ s2 *ps2;
 
-void *v1, **v2, ***v3;
+ಶೂನ್ಯ *v1, **v2, ***v3;
 
-enum e1 { a = 4 } e10, *e11, *e12;
-enum e2 { b = -4 } e20, *e21;
-enum e3 { c = 5000000000LL } e30;
+ಗಣನಾ e1 { a = 4 } e10, *e11, *e12;
+ಗಣನಾ e2 { b = -4 } e20, *e21;
+ಗಣನಾ e3 { c = 5000000000LL } e30;
 
-int *ip;
-unsigned int *up;
+ಪೂರ್ಣಾಙ್ಕ *ip;
+unsigned ಪೂರ್ಣಾಙ್ಕ *up;
 long *lp;
 long long *llp;
 
-char **c1;
-char const **c2;
-unsigned char **u1;
+ವರ್ಣ **c1;
+ವರ್ಣ ಧ್ರುವ **c2;
+unsigned ವರ್ಣ **u1;
 
-int no_main ()
+ಪೂರ್ಣಾಙ್ಕ no_main ()
 {
     // function
     f1 = f2;
@@ -108,233 +108,233 @@ int no_main ()
     *c2 = *c1;
     **c2 = **c1;
 
-    return 0;
+    ಪ್ರತ್ಯಾಗಮ 0;
 }
 
 
-#elif defined test_enum_compat
-enum e4;
-enum e5;
-void f3(enum e4 e);
-void f3(enum e5 e);
+#ನೋಚೇದ್ಯದಿ defined test_enum_compat
+ಗಣನಾ e4;
+ಗಣನಾ e5;
+ಶೂನ್ಯ f3(ಗಣನಾ e4 e);
+ಶೂನ್ಯ f3(ಗಣನಾ e5 e);
 
-#elif defined test_enum_compat_2
-enum e6 { E1 = -1, E0 };
-void f3(enum e6);
-void f3(int);        // should work as int and e6 are compatible
-void f4(enum e6 e);
-void f4(unsigned e); // should error as unsigned and e6 are incompatible
+#ನೋಚೇದ್ಯದಿ defined test_enum_compat_2
+ಗಣನಾ e6 { E1 = -1, E0 };
+ಶೂನ್ಯ f3(ಗಣನಾ e6);
+ಶೂನ್ಯ f3(ಪೂರ್ಣಾಙ್ಕ);        // should work as int and e6 are compatible
+ಶೂನ್ಯ f4(ಗಣನಾ e6 e);
+ಶೂನ್ಯ f4(unsigned e); // should error as unsigned and e6 are incompatible
 
-#elif defined test_ptr_to_str
-void f() { _Generic((int const *[]){0}, int:0); }
-#elif defined test_fnptr_to_str
-void f() { _Generic((int (*(*)(float,char))(double,int)){0}, int:0); }
-#elif defined test_array_to_str
-void f() { _Generic((int(*)[3]){0}, int:0); }
-#elif defined test_duplicate_def_1
-static enum myenum { L = -1 } L;                                                
-#elif defined test_duplicate_def_2
-void foo(void) {
-static enum myenum { L = -1 } L;                                                
+#ನೋಚೇದ್ಯದಿ defined test_ptr_to_str
+ಶೂನ್ಯ f() { _Generic((ಪೂರ್ಣಾಙ್ಕ ಧ್ರುವ *[]){0}, ಪೂರ್ಣಾಙ್ಕ:0); }
+#ನೋಚೇದ್ಯದಿ defined test_fnptr_to_str
+ಶೂನ್ಯ f() { _Generic((ಪೂರ್ಣಾಙ್ಕ (*(*)(ಭಿನ್ನ,ವರ್ಣ))(ದ್ವಿಗುಣ,ಪೂರ್ಣಾಙ್ಕ)){0}, ಪೂರ್ಣಾಙ್ಕ:0); }
+#ನೋಚೇದ್ಯದಿ defined test_array_to_str
+ಶೂನ್ಯ f() { _Generic((ಪೂರ್ಣಾಙ್ಕ(*)[3]){0}, ಪೂರ್ಣಾಙ್ಕ:0); }
+#ನೋಚೇದ್ಯದಿ defined test_duplicate_def_1
+ಸ್ಥಿರ ಗಣನಾ myenum { L = -1 } L;                                                
+#ನೋಚೇದ್ಯದಿ defined test_duplicate_def_2
+ಶೂನ್ಯ foo(ಶೂನ್ಯ) {
+ಸ್ಥಿರ ಗಣನಾ myenum { L = -1 } L;                                                
 }
-#elif defined test_abstract_decls
-int bar(const char *());     // abstract declarator here is okay
-int bar (const char *(*g)()) // should match this 'g' argument
+#ನೋಚೇದ್ಯದಿ defined test_abstract_decls
+ಪೂರ್ಣಾಙ್ಕ bar(ಧ್ರುವ ವರ್ಣ *());     // abstract declarator here is okay
+ಪೂರ್ಣಾಙ್ಕ bar (ಧ್ರುವ ವರ್ಣ *(*g)()) // should match this 'g' argument
 {
   g();
-  return 42;
+  ಪ್ರತ್ಯಾಗಮ 42;
 }
-int foo(int ())              // abstract decl is wrong in definitions
+ಪೂರ್ಣಾಙ್ಕ foo(ಪೂರ್ಣಾಙ್ಕ ())              // abstract decl is wrong in definitions
 {
-  return 0;
-#elif defined test_invalid_1
-void f(char*);
-void g(void) {
-  f((char[]){1, ,});
+  ಪ್ರತ್ಯಾಗಮ 0;
+#ನೋಚೇದ್ಯದಿ defined test_invalid_1
+ಶೂನ್ಯ f(ವರ್ಣ*);
+ಶೂನ್ಯ g(ಶೂನ್ಯ) {
+  f((ವರ್ಣ[]){1, ,});
 }
-#elif defined test_invalid_2
-int ga = 0.42 { 2 };
-#elif defined test_invalid_3
-struct S { int a, b; };
-struct T { struct S x; };
-struct T gt = { 42 a: 1, 43 };
-#elif defined test_invalid_4
-enum E {
+#ನೋಚೇದ್ಯದಿ defined test_invalid_2
+ಪೂರ್ಣಾಙ್ಕ ga = 0.42 { 2 };
+#ನೋಚೇದ್ಯದಿ defined test_invalid_3
+ಸಂರಚನಾ S { ಪೂರ್ಣಾಙ್ಕ a, b; };
+ಸಂರಚನಾ T { ಸಂರಚನಾ S x; };
+ಸಂರಚನಾ T gt = { 42 a: 1, 43 };
+#ನೋಚೇದ್ಯದಿ defined test_invalid_4
+ಗಣನಾ E {
     x = 1 / 0
 };
-#elif defined test_conflicting_types
-int i;
-void foo(void) {
-    int i;
+#ನೋಚೇದ್ಯದಿ defined test_conflicting_types
+ಪೂರ್ಣಾಙ್ಕ i;
+ಶೂನ್ಯ foo(ಶೂನ್ಯ) {
+    ಪೂರ್ಣಾಙ್ಕ i;
       {
-        extern double i;
+        ಬಾಹ್ಯ ದ್ವಿಗುಣ i;
         i = 42.2;
       }
 }
-#elif defined test_nested_types
-union u {
-    union u {
-        int i;
+#ನೋಚೇದ್ಯದಿ defined test_nested_types
+ಸಙ್ಘ u {
+    ಸಙ್ಘ u {
+        ಪೂರ್ಣಾಙ್ಕ i;
     } m;
 };
-#elif defined test_vla_1
-int X=1;
+#ನೋಚೇದ್ಯದಿ defined test_vla_1
+ಪೂರ್ಣಾಙ್ಕ X=1;
 
-int main(void) {
-  int t[][][X];
+ಪೂರ್ಣಾಙ್ಕ main(ಶೂನ್ಯ) {
+  ಪೂರ್ಣಾಙ್ಕ t[][][X];
 }
-#elif defined test_invalid_alignas
+#ನೋಚೇದ್ಯದಿ defined test_invalid_alignas
 /* _Alignas is no type qualifier */
-void * _Alignas(16) p1;
+ಶೂನ್ಯ * _Alignas(16) p1;
 
-#elif defined test_static_assert
+#ನೋಚೇದ್ಯದಿ defined test_static_assert
 
 #define ONE 0
  _Static_assert(ONE == 0, "don't show me this");
- struct x{ _Static_assert(ONE == 1, "ONE is not 1"); };
+ ಸಂರಚನಾ x{ _Static_assert(ONE == 1, "ONE is not 1"); };
 
-#elif defined test_static_assert_2
+#ನೋಚೇದ್ಯದಿ defined test_static_assert_2
  _Static_assert(1, "1"" is 1");
-struct y {  _Static_assert(0, "0"" is 0"); };
+ಸಂರಚನಾ y {  _Static_assert(0, "0"" is 0"); };
 
-#elif defined test_static_assert_c2x
+#ನೋಚೇದ್ಯದಿ defined test_static_assert_c2x
  _Static_assert(1);
-struct z {  _Static_assert(0); }
+ಸಂರಚನಾ z {  _Static_assert(0); }
 
-#elif defined test_static_assert_empty_string
+#ನೋಚೇದ್ಯದಿ defined test_static_assert_empty_string
  _Static_assert(0,"");
 
-#elif defined test_void_array
- void t[3];
+#ನೋಚೇದ್ಯದಿ defined test_void_array
+ ಶೂನ್ಯ t[3];
 
-#elif defined test_incomplete_enum_array
-  enum e t[3];
+#ನೋಚೇದ್ಯದಿ defined test_incomplete_enum_array
+  ಗಣನಾ e t[3];
 
-#elif defined test_incomplete_struct_array
-  struct s t[3];
+#ನೋಚೇದ್ಯದಿ defined test_incomplete_struct_array
+  ಸಂರಚನಾ s t[3];
 
-#elif defined test_const_fun_array
-  typedef void f(void);
-  const f t[3];
+#ನೋಚೇದ್ಯದಿ defined test_const_fun_array
+  ಪ್ರಕಾರನಿರ್ದೇಶ ಶೂನ್ಯ f(ಶೂನ್ಯ);
+  ಧ್ರುವ f t[3];
 
-#elif defined test_incomplete_array_array
-  int t[][3]; // gr: not an error, see below
-
-/******************************************************************/
-#elif defined test_extern_array
-int iii[] = { 1,2,3 };
-extern int iii[];
-int x[];
-int x[2];
-int x[];
-int x[2];
-int x[];
-extern int x[2];
-extern int x[];
-int x[3];
+#ನೋಚೇದ್ಯದಿ defined test_incomplete_array_array
+  ಪೂರ್ಣಾಙ್ಕ t[][3]; // gr: not an error, see below
 
 /******************************************************************/
-#elif defined test_func_1 \
+#ನೋಚೇದ್ಯದಿ defined test_extern_array
+ಪೂರ್ಣಾಙ್ಕ iii[] = { 1,2,3 };
+ಬಾಹ್ಯ ಪೂರ್ಣಾಙ್ಕ iii[];
+ಪೂರ್ಣಾಙ್ಕ x[];
+ಪೂರ್ಣಾಙ್ಕ x[2];
+ಪೂರ್ಣಾಙ್ಕ x[];
+ಪೂರ್ಣಾಙ್ಕ x[2];
+ಪೂರ್ಣಾಙ್ಕ x[];
+ಬಾಹ್ಯ ಪೂರ್ಣಾಙ್ಕ x[2];
+ಬಾಹ್ಯ ಪೂರ್ಣಾಙ್ಕ x[];
+ಪೂರ್ಣಾಙ್ಕ x[3];
+
+/******************************************************************/
+#ನೋಚೇದ್ಯದಿ defined test_func_1 \
  || defined test_func_2 \
  || defined test_func_3 \
  || defined test_func_4 \
  || defined test_func_5 \
  || defined test_func_6
-#if defined test_func_1
-int hello(int);
-#elif defined test_func_4
-static int hello(int);
+#ಯದಿ defined test_func_1
+ಪೂರ್ಣಾಙ್ಕ hello(ಪೂರ್ಣಾಙ್ಕ);
+#ನೋಚೇದ್ಯದಿ defined test_func_4
+ಸ್ಥಿರ ಪೂರ್ಣಾಙ್ಕ hello(ಪೂರ್ಣಾಙ್ಕ);
 #endif
-int main () {
-#if defined test_func_6
-    static
+ಪೂರ್ಣಾಙ್ಕ main () {
+#ಯದಿ defined test_func_6
+    ಸ್ಥಿರ
 #endif
-    int hello(int);
+    ಪೂರ್ಣಾಙ್ಕ hello(ಪೂರ್ಣಾಙ್ಕ);
     hello(123);
-    return 0;
+    ಪ್ರತ್ಯಾಗಮ 0;
 }
 
-#if defined test_func_3
-static int hello(int a)
-#elif defined test_func_5
-int hello(int a, int b)
-#else
-int hello(int a)
+#ಯದಿ defined test_func_3
+ಸ್ಥಿರ ಪೂರ್ಣಾಙ್ಕ hello(ಪೂರ್ಣಾಙ್ಕ a)
+#ನೋಚೇದ್ಯದಿ defined test_func_5
+ಪೂರ್ಣಾಙ್ಕ hello(ಪೂರ್ಣಾಙ್ಕ a, ಪೂರ್ಣಾಙ್ಕ b)
+#ಅನ್ಯಥಾ
+ಪೂರ್ಣಾಙ್ಕ hello(ಪೂರ್ಣಾಙ್ಕ a)
 #endif
-{ printf("%s: a = %d\n", __FUNCTION__, a); return 0; }
+{ printf("%s: a = %d\n", __FUNCTION__, a); ಪ್ರತ್ಯಾಗಮ 0; }
 
 /******************************************************************/
-#elif defined test_var_1 \
+#ನೋಚೇದ್ಯದಿ defined test_var_1 \
    || defined test_var_2 \
    || defined test_var_3
 #define P(n,v) printf("%-5s: %d ; %d\n", __FUNCTION__, n, v)
-#if defined test_var_1
-int xxx[];
+#ಯದಿ defined test_var_1
+ಪೂರ್ಣಾಙ್ಕ xxx[];
 #endif
-int bar();
+ಪೂರ್ಣಾಙ್ಕ bar();
 
-int main ()
+ಪೂರ್ಣಾಙ್ಕ main ()
 {
-#if !defined test_var_3
-    int xxx = 2;
+#ಯದಿ !defined test_var_3
+    ಪೂರ್ಣಾಙ್ಕ xxx = 2;
 #endif
     {
-        extern int xxx[
-#if defined test_var_3
+        ಬಾಹ್ಯ ಪೂರ್ಣಾಙ್ಕ xxx[
+#ಯದಿ defined test_var_3
         2
 #endif
         ];
         P(1, xxx[0]);
         xxx[0] += 2;
     }
-#if !defined test_var_3
+#ಯದಿ !defined test_var_3
     P(2, xxx);
 #endif
     bar(123);
-    return 0;
+    ಪ್ರತ್ಯಾಗಮ 0;
 }
-int xxx[1] = {1};
-int bar() { P(3, xxx[0]); return 0; }
+ಪೂರ್ಣಾಙ್ಕ xxx[1] = {1};
+ಪೂರ್ಣಾಙ್ಕ bar() { P(3, xxx[0]); ಪ್ರತ್ಯಾಗಮ 0; }
 
-#elif defined test_var_4
-struct yyy { int y; };
-struct zzz;
-void f1() {
-    extern char *x;
-    extern char **xx;
-    extern struct yyy y;
-    extern struct yyy *yy;
-    extern struct zzz z;
-    extern struct zzz *zz;
+#ನೋಚೇದ್ಯದಿ defined test_var_4
+ಸಂರಚನಾ yyy { ಪೂರ್ಣಾಙ್ಕ y; };
+ಸಂರಚನಾ zzz;
+ಶೂನ್ಯ f1() {
+    ಬಾಹ್ಯ ವರ್ಣ *x;
+    ಬಾಹ್ಯ ವರ್ಣ **xx;
+    ಬಾಹ್ಯ ಸಂರಚನಾ yyy y;
+    ಬಾಹ್ಯ ಸಂರಚನಾ yyy *yy;
+    ಬಾಹ್ಯ ಸಂರಚನಾ zzz z;
+    ಬಾಹ್ಯ ಸಂರಚನಾ zzz *zz;
 }
-void f2() {
-    extern char *x;
-    extern char **xx;
-    extern struct yyy y;
-    extern struct yyy *yy;
-    extern struct zzz z;
-    extern struct zzz *zz;
+ಶೂನ್ಯ f2() {
+    ಬಾಹ್ಯ ವರ್ಣ *x;
+    ಬಾಹ್ಯ ವರ್ಣ **xx;
+    ಬಾಹ್ಯ ಸಂರಚನಾ yyy y;
+    ಬಾಹ್ಯ ಸಂರಚನಾ yyy *yy;
+    ಬಾಹ್ಯ ಸಂರಚನಾ zzz z;
+    ಬಾಹ್ಯ ಸಂರಚನಾ zzz *zz;
 }
-struct yyy y, *yy;
-struct zzz { int z; } z, *zz;
+ಸಂರಚನಾ yyy y, *yy;
+ಸಂರಚನಾ zzz { ಪೂರ್ಣಾಙ್ಕ z; } z, *zz;
 
 /******************************************************************/
-#elif defined test_long_double_type_for_win32
+#ನೋಚೇದ್ಯದಿ defined test_long_double_type_for_win32
 
-int main()
+ಪೂರ್ಣಾಙ್ಕ main()
 {
-    double *a = 0;
-    long double *b = a;
-    int n = _Generic(*a, double:0, long double:1);
+    ದ್ವಿಗುಣ *a = 0;
+    long ದ್ವಿಗುಣ *b = a;
+    ಪೂರ್ಣಾಙ್ಕ n = _Generic(*a, ದ್ವಿಗುಣ:0, long ದ್ವಿಗುಣ:1);
 }
 
-#elif defined test_stray_backslash
+#ನೋಚೇದ್ಯದಿ defined test_stray_backslash
 #define x \a
 x
 
-#elif defined test_stray_backslash2
+#ನೋಚೇದ್ಯದಿ defined test_stray_backslash2
 
-int main()
+ಪೂರ್ಣಾಙ್ಕ main()
 {
 #define _S(x) #x
 #define S(x) _S(x)
@@ -342,336 +342,336 @@ int main()
 }
 
 /******************************************************************/
-#elif defined test_var_array
+#ನೋಚೇದ್ಯದಿ defined test_var_array
 
-static struct var_len { int i; const char str[]; } var_array[] =
+ಸ್ಥಿರ ಸಂರಚನಾ var_len { ಪೂರ್ಣಾಙ್ಕ i; ಧ್ರುವ ವರ್ಣ str[]; } var_array[] =
 { { 1, "abcdefghijklmnopqrstuvwxyz" },
   { 2, "longlonglonglonglong" },
   { 3, "tst3" } };
 
-#elif defined test_var_array2
+#ನೋಚೇದ್ಯದಿ defined test_var_array2
 
-struct c1 { int a; int b[]; };
-struct c1 c1 = { 1, { 2, 3, 4 } };
+ಸಂರಚನಾ c1 { ಪೂರ್ಣಾಙ್ಕ a; ಪೂರ್ಣಾಙ್ಕ b[]; };
+ಸಂರಚನಾ c1 c1 = { 1, { 2, 3, 4 } };
 
-struct c2 { int c; struct c1 c1; };
-struct c2 c2 = { 1, { 2, { 3, 4, 5 }}};
+ಸಂರಚನಾ c2 { ಪೂರ್ಣಾಙ್ಕ c; ಸಂರಚನಾ c1 c1; };
+ಸಂರಚನಾ c2 c2 = { 1, { 2, { 3, 4, 5 }}};
 
-#elif defined test_var_array3
+#ನೋಚೇದ್ಯದಿ defined test_var_array3
 /* similar to test_var_array2 but with string initializers */
-struct A { int a; char b[]; };
-struct A a = { 1, "1" };
-struct B { struct A a; };
-struct B b = { { 1, "1" } };
+ಸಂರಚನಾ A { ಪೂರ್ಣಾಙ್ಕ a; ವರ್ಣ b[]; };
+ಸಂರಚನಾ A a = { 1, "1" };
+ಸಂರಚನಾ B { ಸಂರಚನಾ A a; };
+ಸಂರಚನಾ B b = { { 1, "1" } };
 /******************************************************************/
-#elif defined test_default_int_type
+#ನೋಚೇದ್ಯದಿ defined test_default_int_type
 n; // warn
 f(); // don't warn
 
-#elif defined test_invalid_global_stmtexpr
-n[sizeof({3;})]; // crashed in block() due to missing local scope
+#ನೋಚೇದ್ಯದಿ defined test_invalid_global_stmtexpr
+n[ಪರಿಮಾಣ({3;})]; // crashed in block() due to missing local scope
 
-#elif defined test_invalid_tokckill
+#ನೋಚೇದ್ಯದಿ defined test_invalid_tokckill
 f(){"12"3;} // second const token killed the value of the first
 
 /******************************************************************/
-#elif defined test_duplicate_member
-struct S {
-  int a, a;
+#ನೋಚೇದ್ಯದಿ defined test_duplicate_member
+ಸಂರಚನಾ S {
+  ಪೂರ್ಣಾಙ್ಕ a, a;
 };
-#elif defined test_duplicate_member_anon
-struct S1 {
-  int b;
-  struct {
-    int b;
+#ನೋಚೇದ್ಯದಿ defined test_duplicate_member_anon
+ಸಂರಚನಾ S1 {
+  ಪೂರ್ಣಾಙ್ಕ b;
+  ಸಂರಚನಾ {
+    ಪೂರ್ಣಾಙ್ಕ b;
   } c;
 };
-struct S2 {
-  int d;
-  struct {
-    int d;
+ಸಂರಚನಾ S2 {
+  ಪೂರ್ಣಾಙ್ಕ d;
+  ಸಂರಚನಾ {
+    ಪೂರ್ಣಾಙ್ಕ d;
   };
 };
 
 /******************************************************************/
-#elif defined test_conflicting_array_definition
-extern int array[2];
-int array[] = { 1, 2, 3 };
+#ನೋಚೇದ್ಯದಿ defined test_conflicting_array_definition
+ಬಾಹ್ಯ ಪೂರ್ಣಾಙ್ಕ array[2];
+ಪೂರ್ಣಾಙ್ಕ array[] = { 1, 2, 3 };
 
-#elif defined test_incompatible_local_redef
-void foo (void)
+#ನೋಚೇದ್ಯದಿ defined test_incompatible_local_redef
+ಶೂನ್ಯ foo (ಶೂನ್ಯ)
 {
-  typedef int localfunctype (int);
-  extern localfunctype func2;
-  typedef void localfunctype (int, int);
+  ಪ್ರಕಾರನಿರ್ದೇಶ ಪೂರ್ಣಾಙ್ಕ localfunctype (ಪೂರ್ಣಾಙ್ಕ);
+  ಬಾಹ್ಯ localfunctype func2;
+  ಪ್ರಕಾರನಿರ್ದೇಶ ಶೂನ್ಯ localfunctype (ಪೂರ್ಣಾಙ್ಕ, ಪೂರ್ಣಾಙ್ಕ);
 }
 
-#elif defined test_cast_from_void
-void v() {}
-int f() { return v(); }
+#ನೋಚೇದ್ಯದಿ defined test_cast_from_void
+ಶೂನ್ಯ v() {}
+ಪೂರ್ಣಾಙ್ಕ f() { ಪ್ರತ್ಯಾಗಮ v(); }
 
-#elif defined test_switch_W1 || defined test_switch_W2 \
+#ನೋಚೇದ್ಯದಿ defined test_switch_W1 || defined test_switch_W2 \
    || defined test_switch_W3 || defined test_switch_W4
-#if defined test_switch_W1
+#ಯದಿ defined test_switch_W1
 #pragma comment(option, "-Wall")
-#elif defined test_switch_W2
+#ನೋಚೇದ್ಯದಿ defined test_switch_W2
 #pragma comment(option, "-Wunsupported -Wno-implicit-function-declaration -Wstuff")
-#elif defined test_switch_W3
+#ನೋಚೇದ್ಯದಿ defined test_switch_W3
 #pragma comment(option, "-Wwrite-strings -Werror=discarded-qualifiers")
-#elif defined test_switch_W4
+#ನೋಚೇದ್ಯದಿ defined test_switch_W4
 #pragma comment(option, "-Wunsupported -Wno-error=implicit-function-declaration -Werror")
 #endif
-void func(void)
+ಶೂನ್ಯ func(ಶೂನ್ಯ)
 {
-    char *ccp = "123";
+    ವರ್ಣ *ccp = "123";
     fink();
 }
-__attribute__((stuff)) int fink() {return 0;}
+__attribute__((stuff)) ಪೂರ್ಣಾಙ್ಕ fink() {ಪ್ರತ್ಯಾಗಮ 0;}
 
-#elif defined test_invalid_funcparam_1
-void func(int a, int b, int a);
+#ನೋಚೇದ್ಯದಿ defined test_invalid_funcparam_1
+ಶೂನ್ಯ func(ಪೂರ್ಣಾಙ್ಕ a, ಪೂರ್ಣಾಙ್ಕ b, ಪೂರ್ಣಾಙ್ಕ a);
 
-#elif defined test_invalid_funcparam_2
-void func(int a, int if);
+#ನೋಚೇದ್ಯದಿ defined test_invalid_funcparam_2
+ಶೂನ್ಯ func(ಪೂರ್ಣಾಙ್ಕ a, ಪೂರ್ಣಾಙ್ಕ ಯದಿ);
 
-#elif defined test_array_funcparam
-int amain(int argc, char *argv[static argc + 1])
+#ನೋಚೇದ್ಯದಿ defined test_array_funcparam
+ಪೂರ್ಣಾಙ್ಕ amain(ಪೂರ್ಣಾಙ್ಕ argc, ವರ್ಣ *argv[ಸ್ಥಿರ argc + 1])
 {
-    int i;
+    ಪೂರ್ಣಾಙ್ಕ i;
 
-    for (i = 0; i < argc; ++i)
+    ಪ್ರತಿ (i = 0; i < argc; ++i)
         printf("arg[%d] = \"%s\"\n", i, argv[i]);
-    return 0;
+    ಪ್ರತ್ಯಾಗಮ 0;
 }
-int main()
+ಪೂರ್ಣಾಙ್ಕ main()
 {
-    return amain(2, (char *[]){ "X", "Y", 0 });
+    ಪ್ರತ್ಯಾಗಮ amain(2, (ವರ್ಣ *[]){ "X", "Y", 0 });
 }
 
-#elif defined test_return_from_statement_expr
-int f() { ({ return 78; }); }
-int main() { return f(); }
+#ನೋಚೇದ್ಯದಿ defined test_return_from_statement_ಅಭಿವ್ಯಕ್ತಿ
+ಪೂರ್ಣಾಙ್ಕ f() { ({ ಪ್ರತ್ಯಾಗಮ 78; }); }
+ಪೂರ್ಣಾಙ್ಕ main() { ಪ್ರತ್ಯಾಗಮ f(); }
 
 /******************************************************************/
 
-#elif defined test_illegal_unicode
-int main() {
-    char *str = "\Uffffffff";
+#ನೋಚೇದ್ಯದಿ defined test_illegal_unicode
+ಪೂರ್ಣಾಙ್ಕ main() {
+    ವರ್ಣ *str = "\Uffffffff";
 }
 
-#elif defined test_error_string
+#ನೋಚೇದ್ಯದಿ defined test_error_string
 #error \123\\
 456
 
-#elif defined test_error_incomplete_type
-struct A;
-void f(struct A *);
+#ನೋಚೇದ್ಯದಿ defined test_error_incomplete_type
+ಸಂರಚನಾ A;
+ಶೂನ್ಯ f(ಸಂರಚನಾ A *);
 
-int main()
+ಪೂರ್ಣಾಙ್ಕ main()
 {
-    f(&(struct A){});
+    f(&(ಸಂರಚನಾ A){});
 }
 
-struct A {
-    int x;
+ಸಂರಚನಾ A {
+    ಪೂರ್ಣಾಙ್ಕ x;
 };
 
-#elif defined test_pp_error_1
-# if //no expression
+#ನೋಚೇದ್ಯದಿ defined test_pp_error_1
+# ಯದಿ //no expression
 # endif
-#elif defined test_pp_error_2
-# if X(1,2) //undefined function macro
+#ನೋಚೇದ್ಯದಿ defined test_pp_error_2
+# ಯದಿ X(1,2) //undefined function macro
 # endif
 
-#elif defined test_pointer_plus_double
+#ನೋಚೇದ್ಯದಿ defined test_pointer_plus_double
 
-int *invalid_operation(int *p, double d)
+ಪೂರ್ಣಾಙ್ಕ *invalid_operation(ಪೂರ್ಣಾಙ್ಕ *p, ದ್ವಿಗುಣ d)
 {
-    return p + d;
+    ಪ್ರತ್ಯಾಗಮ p + d;
 }
 
-#elif defined test_duplicate_case
+#ನೋಚೇದ್ಯದಿ defined test_duplicate_case
 
-int main()
+ಪೂರ್ಣಾಙ್ಕ main()
 {
-    unsigned int x;
-    switch (x) {
-        case -1 ... 0: /* empty case range with unsigned */
-        case 3:
-        case 1:
-        case 2:
-        case 3: /* show this line number in error */
-        case 4:
-        case 5:
+    unsigned ಪೂರ್ಣಾಙ್ಕ x;
+    ವಿಕಲ್ಪ (x) {
+        ಪಕ್ಷ -1 ... 0: /* empty case range with unsigned */
+        ಪಕ್ಷ 3:
+        ಪಕ್ಷ 1:
+        ಪಕ್ಷ 2:
+        ಪಕ್ಷ 3: /* show this line number in error */
+        ಪಕ್ಷ 4:
+        ಪಕ್ಷ 5:
     }
 }
-#elif defined test_normal_funcargs || defined test_reverse_funcargs
+#ನೋಚೇದ್ಯದಿ defined test_normal_funcargs || defined test_reverse_funcargs
 
 #ifdef test_reverse_funcargs
 # pragma comment(option, "-freverse-funcargs")
 #endif
 
-int main()
+ಪೂರ್ಣಾಙ್ಕ main()
 {
     printf(" %d %d %d\n", printf("1"), printf("22"), printf("333"));
 }
 
-#elif defined test_scope_1 \
+#ನೋಚೇದ್ಯದಿ defined test_scope_1 \
    || defined test_scope_2 \
    || defined test_scope_3
 
-struct xxx {int x[4];};
+ಸಂರಚನಾ xxx {ಪೂರ್ಣಾಙ್ಕ x[4];};
 
 /* 'ee' not defined outside of function, 'i' not redefined */
-int bar(enum ee { a = 12, b = 34 } i, int(*f)(int i))
+ಪೂರ್ಣಾಙ್ಕ bar(ಗಣನಾ ee { a = 12, b = 34 } i, ಪೂರ್ಣಾಙ್ಕ(*f)(ಪೂರ್ಣಾಙ್ಕ i))
 {
     printf("bar %d %d %d\n", i, a, b);
-    return 0;
+    ಪ್ರತ್ಯಾಗಮ 0;
 }
 /* 'xxx' not defined outside of function */
-int foo(struct xxx {int x[3];}*p)
+ಪೂರ್ಣಾಙ್ಕ foo(ಸಂರಚನಾ xxx {ಪೂರ್ಣಾಙ್ಕ x[3];}*p)
 {
-    printf("foo %d", sizeof *p);
-    return p->x[3];
+    printf("foo %d", ಪರಿಮಾಣ *p);
+    ಪ್ರತ್ಯಾಗಮ p->x[3];
 }
 #ifdef test_scope_2
 /* incompatible redefinition */
-int foo(struct xxx {int x[2];}*p);
+ಪೂರ್ಣಾಙ್ಕ foo(ಸಂರಚನಾ xxx {ಪೂರ್ಣಾಙ್ಕ x[2];}*p);
 #endif
 #ifndef test_scope_3
-enum ee { a = 1, b };
+ಗಣನಾ ee { a = 1, b };
 #endif
 
-struct xxx x = { 11,22,33,44 };
-int main(int argc, char **argv)
+ಸಂರಚನಾ xxx x = { 11,22,33,44 };
+ಪೂರ್ಣಾಙ್ಕ main(ಪೂರ್ಣಾಙ್ಕ argc, ವರ್ಣ **argv)
 {
-    printf(" %d %d\n", foo(&x), sizeof (struct xxx));
-    enum ee e = b;
+    printf(" %d %d\n", foo(&x), ಪರಿಮಾಣ (ಸಂರಚನಾ xxx));
+    ಗಣನಾ ee e = b;
     bar(13 + e, 0);
 
 }
 
-#elif defined test_const_array_member_addr_ok
+#ನೋಚೇದ್ಯದಿ defined test_const_array_member_addr_ok
 
-typedef int int_array[1];
-typedef struct { int_array arr; } my_struct;
+ಪ್ರಕಾರನಿರ್ದೇಶ ಪೂರ್ಣಾಙ್ಕ int_array[1];
+ಪ್ರಕಾರನಿರ್ದೇಶ ಸಂರಚನಾ { int_array arr; } my_struct;
 
-int_array const *get_array(const my_struct *s)
+int_array ಧ್ರುವ *get_array(ಧ್ರುವ my_struct *s)
 {
-    return &(s->arr);
+    ಪ್ರತ್ಯಾಗಮ &(s->arr);
 }
 
-#elif defined test_const_array_member_decay_ok
+#ನೋಚೇದ್ಯದಿ defined test_const_array_member_decay_ok
 
-typedef int int_array[1];
-typedef struct { int_array arr; } my_struct;
+ಪ್ರಕಾರನಿರ್ದೇಶ ಪೂರ್ಣಾಙ್ಕ int_array[1];
+ಪ್ರಕಾರನಿರ್ದೇಶ ಸಂರಚನಾ { int_array arr; } my_struct;
 
-const int *good_decay(const my_struct *s)
+ಧ್ರುವ ಪೂರ್ಣಾಙ್ಕ *good_decay(ಧ್ರುವ my_struct *s)
 {
-    return s->arr;
+    ಪ್ರತ್ಯಾಗಮ s->arr;
 }
 
-#elif defined test_const_array_member_addr_bad
+#ನೋಚೇದ್ಯದಿ defined test_const_array_member_addr_bad
 
-typedef int int_array[1];
-typedef struct { int_array arr; } my_struct;
+ಪ್ರಕಾರನಿರ್ದೇಶ ಪೂರ್ಣಾಙ್ಕ int_array[1];
+ಪ್ರಕಾರನಿರ್ದೇಶ ಸಂರಚನಾ { int_array arr; } my_struct;
 
-int_array *bad_array_addr(const my_struct *s)
+int_array *bad_array_addr(ಧ್ರುವ my_struct *s)
 {
-    return &(s->arr);
+    ಪ್ರತ್ಯಾಗಮ &(s->arr);
 }
 
-#elif defined test_const_array_member_decay_bad
+#ನೋಚೇದ್ಯದಿ defined test_const_array_member_decay_bad
 
-typedef int int_array[1];
-typedef struct { int_array arr; } my_struct;
+ಪ್ರಕಾರನಿರ್ದೇಶ ಪೂರ್ಣಾಙ್ಕ int_array[1];
+ಪ್ರಕಾರನಿರ್ದೇಶ ಸಂರಚನಾ { int_array arr; } my_struct;
 
-int *bad_decay(const my_struct *s)
+ಪೂರ್ಣಾಙ್ಕ *bad_decay(ಧ್ರುವ my_struct *s)
 {
-    return s->arr;
+    ಪ್ರತ್ಯಾಗಮ s->arr;
 }
 
-#elif defined test_const_array_member_write_bad
+#ನೋಚೇದ್ಯದಿ defined test_const_array_member_write_bad
 
-typedef int int_array[1];
-typedef struct { int_array arr; } my_struct;
+ಪ್ರಕಾರನಿರ್ದೇಶ ಪೂರ್ಣಾಙ್ಕ int_array[1];
+ಪ್ರಕಾರನಿರ್ದೇಶ ಸಂರಚನಾ { int_array arr; } my_struct;
 
-void bad_write(const my_struct *s)
+ಶೂನ್ಯ bad_write(ಧ್ರುವ my_struct *s)
 {
     s->arr[0] = 1;
 }
 
-#elif defined test_const_struct_array_member_write_bad
+#ನೋಚೇದ್ಯದಿ defined test_const_struct_array_member_write_bad
 
-typedef struct { int x; } inner;
-typedef struct { inner arr[1]; } outer;
+ಪ್ರಕಾರನಿರ್ದೇಶ ಸಂರಚನಾ { ಪೂರ್ಣಾಙ್ಕ x; } inner;
+ಪ್ರಕಾರನಿರ್ದೇಶ ಸಂರಚನಾ { inner arr[1]; } outer;
 
-void bad_inner_write(const outer *s)
+ಶೂನ್ಯ bad_inner_write(ಧ್ರುವ outer *s)
 {
     s->arr[0].x = 1;
 }
 
-#elif defined test_volatile_array_member_addr_ok
+#ನೋಚೇದ್ಯದಿ defined test_volatile_array_member_addr_ok
 
-typedef int int_array[1];
-typedef struct { int_array arr; } my_struct;
+ಪ್ರಕಾರನಿರ್ದೇಶ ಪೂರ್ಣಾಙ್ಕ int_array[1];
+ಪ್ರಕಾರನಿರ್ದೇಶ ಸಂರಚನಾ { int_array arr; } my_struct;
 
-int_array volatile *get_volatile_array(volatile my_struct *s)
+int_array ಚಞ್ಚಲ *get_volatile_array(ಚಞ್ಚಲ my_struct *s)
 {
-    return &(s->arr);
+    ಪ್ರತ್ಯಾಗಮ &(s->arr);
 }
 
-#elif defined test_volatile_array_member_decay_ok
+#ನೋಚೇದ್ಯದಿ defined test_volatile_array_member_decay_ok
 
-typedef int int_array[1];
-typedef struct { int_array arr; } my_struct;
+ಪ್ರಕಾರನಿರ್ದೇಶ ಪೂರ್ಣಾಙ್ಕ int_array[1];
+ಪ್ರಕಾರನಿರ್ದೇಶ ಸಂರಚನಾ { int_array arr; } my_struct;
 
-volatile int *good_volatile_decay(volatile my_struct *s)
+ಚಞ್ಚಲ ಪೂರ್ಣಾಙ್ಕ *good_volatile_decay(ಚಞ್ಚಲ my_struct *s)
 {
-    return s->arr;
+    ಪ್ರತ್ಯಾಗಮ s->arr;
 }
 
-#elif defined test_volatile_array_member_addr_bad
+#ನೋಚೇದ್ಯದಿ defined test_volatile_array_member_addr_bad
 
-typedef int int_array[1];
-typedef struct { int_array arr; } my_struct;
+ಪ್ರಕಾರನಿರ್ದೇಶ ಪೂರ್ಣಾಙ್ಕ int_array[1];
+ಪ್ರಕಾರನಿರ್ದೇಶ ಸಂರಚನಾ { int_array arr; } my_struct;
 
-int_array *bad_volatile_array_addr(volatile my_struct *s)
+int_array *bad_volatile_array_addr(ಚಞ್ಚಲ my_struct *s)
 {
-    return &(s->arr);
+    ಪ್ರತ್ಯಾಗಮ &(s->arr);
 }
 
-#elif defined test_volatile_array_member_decay_bad
+#ನೋಚೇದ್ಯದಿ defined test_volatile_array_member_decay_bad
 
-typedef int int_array[1];
-typedef struct { int_array arr; } my_struct;
+ಪ್ರಕಾರನಿರ್ದೇಶ ಪೂರ್ಣಾಙ್ಕ int_array[1];
+ಪ್ರಕಾರನಿರ್ದೇಶ ಸಂರಚನಾ { int_array arr; } my_struct;
 
-int *bad_volatile_decay(volatile my_struct *s)
+ಪೂರ್ಣಾಙ್ಕ *bad_volatile_decay(ಚಞ್ಚಲ my_struct *s)
 {
-    return s->arr;
+    ಪ್ರತ್ಯಾಗಮ s->arr;
 }
 
-#elif defined test_volatile_array_member_write_ok
+#ನೋಚೇದ್ಯದಿ defined test_volatile_array_member_write_ok
 
-typedef int int_array[1];
-typedef struct { int_array arr; } my_struct;
+ಪ್ರಕಾರನಿರ್ದೇಶ ಪೂರ್ಣಾಙ್ಕ int_array[1];
+ಪ್ರಕಾರನಿರ್ದೇಶ ಸಂರಚನಾ { int_array arr; } my_struct;
 
-void good_volatile_write(volatile my_struct *s)
+ಶೂನ್ಯ good_volatile_write(ಚಞ್ಚಲ my_struct *s)
 {
     s->arr[0] = 1;
 }
 
-#elif defined test_conditional_array_qualifiers
+#ನೋಚೇದ್ಯದಿ defined test_conditional_array_qualifiers
 
-typedef int Array2[2];
-typedef int Array2x3[2][3];
+ಪ್ರಕಾರನಿರ್ದೇಶ ಪೂರ್ಣಾಙ್ಕ Array2[2];
+ಪ್ರಕಾರನಿರ್ದೇಶ ಪೂರ್ಣಾಙ್ಕ Array2x3[2][3];
 
 Array2 *p;
-const Array2 *cp;
-const Array2x3 *cap;
-volatile Array2x3 *vap;
+ಧ್ರುವ Array2 *cp;
+ಧ್ರುವ Array2x3 *cap;
+ಚಞ್ಚಲ Array2x3 *vap;
 
-void test(void)
+ಶೂನ್ಯ test(ಶೂನ್ಯ)
 {
     (1 ? p : cp)[0][0] = 1;
     (1 ? cp : p)[0][0] = 2;
@@ -679,22 +679,22 @@ void test(void)
     (1 ? vap : cap)[0][0][0] = 4;
 }
 
-#elif defined test_restrict_scalar
+#ನೋಚೇದ್ಯದಿ defined test_restrict_scalar
 
-restrict int object;
+restrict ಪೂರ್ಣಾಙ್ಕ object;
 
-#elif defined test_restrict_function_pointer
+#ನೋಚೇದ್ಯದಿ defined test_restrict_function_pointer
 
-int (*restrict function_pointer)(void);
+ಪೂರ್ಣಾಙ್ಕ (*restrict function_pointer)(ಶೂನ್ಯ);
 
-#elif defined test_discarded_restrict
+#ನೋಚೇದ್ಯದಿ defined test_discarded_restrict
 
-typedef int *restrict restricted_pointer;
+ಪ್ರಕಾರನಿರ್ದೇಶ ಪೂರ್ಣಾಙ್ಕ *restrict restricted_pointer;
 
 restricted_pointer *source;
-int **destination;
+ಪೂರ್ಣಾಙ್ಕ **destination;
 
-void test(void)
+ಶೂನ್ಯ test(ಶೂನ್ಯ)
 {
     destination = source;
 }

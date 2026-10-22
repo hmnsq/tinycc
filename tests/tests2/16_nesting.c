@@ -1,21 +1,21 @@
-#include <stdio.h>
+#ಅನ್ತರ್ಭಾವ <stdio.h>
 
-int main()
+ಪೂರ್ಣಾಙ್ಕ main()
 {
-   int x, y, z;
+   ಪೂರ್ಣಾಙ್ಕ x, y, z;
 
-   for (x = 0; x < 2; x++)
+   ಪ್ರತಿ (x = 0; x < 2; x++)
    {
-      for (y = 0; y < 3; y++)
+      ಪ್ರತಿ (y = 0; y < 3; y++)
       {
-         for (z = 0; z < 3; z++)
+         ಪ್ರತಿ (z = 0; z < 3; z++)
          {
             printf("%d %d %d\n", x, y, z);
          }
       }
    }
 
-   return 0;
+   ಪ್ರತ್ಯಾಗಮ 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

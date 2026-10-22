@@ -17,35 +17,35 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
-#include <stdlib.h>
-#include <stdio.h>
-#include <stdarg.h>
-#include <string.h>
-#include <setjmp.h>
-#include <stdatomic.h>
+#ಅನ್ತರ್ಭಾವ <stdlib.h>
+#ಅನ್ತರ್ಭಾವ <stdio.h>
+#ಅನ್ತರ್ಭಾವ <stdarg.h>
+#ಅನ್ತರ್ಭಾವ <string.h>
+#ಅನ್ತರ್ಭಾವ <setjmp.h>
+#ಅನ್ತರ್ಭಾವ <stdatomic.h>
 
-#if !defined(__FreeBSD__) \
+#ಯದಿ !defined(__FreeBSD__) \
  && !defined(__FreeBSD_kernel__) \
  && !defined(__DragonFly__) \
  && !defined(__OpenBSD__) \
  && !defined(__APPLE__) \
  && !defined(__NetBSD__)
-#include <malloc.h>
+#ಅನ್ತರ್ಭಾವ <malloc.h>
 #endif
 
-#if !defined(_WIN32)
-#include <unistd.h>
-#include <sys/syscall.h>
+#ಯದಿ !defined(_WIN32)
+#ಅನ್ತರ್ಭಾವ <unistd.h>
+#ಅನ್ತರ್ಭಾವ <sys/syscall.h>
 #endif
 
-#include "config.h"
+#ಅನ್ತರ್ಭಾವ "config.h"
 
 #define BOUND_DEBUG             (1)
 #define BOUND_STATISTIC         (1)
 
-#if BOUND_DEBUG
- #define dprintf(a...)         if (print_calls) { bounds_loc(a); }
-#else
+#ಯದಿ BOUND_DEBUG
+ #define dprintf(a...)         ಯದಿ (print_calls) { bounds_loc(a); }
+#ಅನ್ಯಥಾ
  #define dprintf(a...)
 #endif
 
@@ -55,24 +55,24 @@
 #endif
 #ifdef __i386__
 #define FASTCALL __attribute__((regparm(3)))
-#else
+#ಅನ್ಯಥಾ
 #define FASTCALL
 #endif
 
 #ifdef _WIN32
 # define DLL_EXPORT __declspec(dllexport)
-#else
+#ಅನ್ಯಥಾ
 # define DLL_EXPORT
 #endif
 
-#if defined(__FreeBSD__) \
+#ಯದಿ defined(__FreeBSD__) \
  || defined(__FreeBSD_kernel__) \
  || defined(__DragonFly__) \
  || defined(__OpenBSD__) \
  || defined(__NetBSD__) \
  || defined(__dietlibc__)
 
-#include <sys/mman.h>
+#ಅನ್ತರ್ಭಾವ <sys/mman.h>
 #define INIT_SEM()
 #define EXIT_SEM()
 #define WAIT_SEM()
@@ -89,11 +89,11 @@
 #define HAVE_TLS_FUNC          (0)
 #define HAVE_TLS_VAR           (0)
 
-#elif defined(_WIN32)
+#ನೋಚೇದ್ಯದಿ defined(_WIN32)
 
-#include <windows.h>
-#include <signal.h>
-static CRITICAL_SECTION bounds_sem;
+#ಅನ್ತರ್ಭಾವ <windows.h>
+#ಅನ್ತರ್ಭಾವ <signal.h>
+ಸ್ಥಿರ CRITICAL_SECTION bounds_sem;
 #define INIT_SEM()             InitializeCriticalSection(&bounds_sem)
 #define EXIT_SEM()             DeleteCriticalSection(&bounds_sem)
 #define WAIT_SEM()             EnterCriticalSection(&bounds_sem)
@@ -110,48 +110,48 @@ static CRITICAL_SECTION bounds_sem;
 #define HAVE_TLS_FUNC          (1)
 #define HAVE_TLS_VAR           (0)
 
-#else
+#ಅನ್ಯಥಾ
 
 #define __USE_GNU              /* get RTLD_NEXT */
-#include <sys/mman.h>
-#include <ctype.h>
-#include <pthread.h>
-#include <dlfcn.h>
-#include <errno.h>
-#include <signal.h>
+#ಅನ್ತರ್ಭಾವ <sys/mman.h>
+#ಅನ್ತರ್ಭಾವ <ctype.h>
+#ಅನ್ತರ್ಭಾವ <pthread.h>
+#ಅನ್ತರ್ಭಾವ <dlfcn.h>
+#ಅನ್ತರ್ಭಾವ <errno.h>
+#ಅನ್ತರ್ಭಾವ <signal.h>
 #ifdef __APPLE__
-#include <dispatch/dispatch.h>
-static dispatch_semaphore_t bounds_sem;
+#ಅನ್ತರ್ಭಾವ <dispatch/dispatch.h>
+ಸ್ಥಿರ dispatch_semaphore_t bounds_sem;
 #define INIT_SEM()             bounds_sem = dispatch_semaphore_create(1)
 #define EXIT_SEM()             dispatch_release(*(dispatch_object_t*)&bounds_sem)
-#define WAIT_SEM()             if (use_sem) dispatch_semaphore_wait(bounds_sem, DISPATCH_TIME_FOREVER)
-#define POST_SEM()             if (use_sem) dispatch_semaphore_signal(bounds_sem)
-#define TRY_SEM()              if (use_sem) dispatch_semaphore_wait(bounds_sem, DISPATCH_TIME_NOW)
-#elif 0
-#include <semaphore.h>
-static sem_t bounds_sem;
+#define WAIT_SEM()             ಯದಿ (use_sem) dispatch_semaphore_wait(bounds_sem, DISPATCH_TIME_FOREVER)
+#define POST_SEM()             ಯದಿ (use_sem) dispatch_semaphore_signal(bounds_sem)
+#define TRY_SEM()              ಯದಿ (use_sem) dispatch_semaphore_wait(bounds_sem, DISPATCH_TIME_NOW)
+#ನೋಚೇದ್ಯದಿ 0
+#ಅನ್ತರ್ಭಾವ <semaphore.h>
+ಸ್ಥಿರ sem_t bounds_sem;
 #define INIT_SEM()             sem_init (&bounds_sem, 0, 1)
 #define EXIT_SEM()             sem_destroy (&bounds_sem)
-#define WAIT_SEM()             if (use_sem) while (sem_wait (&bounds_sem) < 0 \
+#define WAIT_SEM()             ಯದಿ (use_sem) ಯಾವತ್ (sem_wait (&bounds_sem) < 0 \
                                                    && errno == EINTR)
-#define POST_SEM()             if (use_sem) sem_post (&bounds_sem)
-#define TRY_SEM()              if (use_sem) while (sem_trywait (&bounds_sem) < 0 \
+#define POST_SEM()             ಯದಿ (use_sem) sem_post (&bounds_sem)
+#define TRY_SEM()              ಯದಿ (use_sem) ಯಾವತ್ (sem_trywait (&bounds_sem) < 0 \
                                                    && errno == EINTR)
-#elif 0
-static pthread_mutex_t bounds_mtx;
-#define INIT_SEM()             pthread_mutex_init (&bounds_mtx, NULL)
+#ನೋಚೇದ್ಯದಿ 0
+ಸ್ಥಿರ pthread_mutex_t bounds_mtx;
+#define INIT_SEM()             pthread_mutex_init (&bounds_mtx, ರಿಕ್ತ)
 #define EXIT_SEM()             pthread_mutex_destroy (&bounds_mtx)
-#define WAIT_SEM()             if (use_sem) pthread_mutex_lock (&bounds_mtx)
-#define POST_SEM()             if (use_sem) pthread_mutex_unlock (&bounds_mtx)
-#define TRY_SEM()              if (use_sem) pthread_mutex_trylock (&bounds_mtx)
-#else
-static pthread_spinlock_t bounds_spin;
+#define WAIT_SEM()             ಯದಿ (use_sem) pthread_mutex_lock (&bounds_mtx)
+#define POST_SEM()             ಯದಿ (use_sem) pthread_mutex_unlock (&bounds_mtx)
+#define TRY_SEM()              ಯದಿ (use_sem) pthread_mutex_trylock (&bounds_mtx)
+#ಅನ್ಯಥಾ
+ಸ್ಥಿರ pthread_spinlock_t bounds_spin;
 /* about 25% faster then semaphore. */
 #define INIT_SEM()             pthread_spin_init (&bounds_spin, 0)
 #define EXIT_SEM()             pthread_spin_destroy (&bounds_spin)
-#define WAIT_SEM()             if (use_sem) pthread_spin_lock (&bounds_spin)
-#define POST_SEM()             if (use_sem) pthread_spin_unlock (&bounds_spin)
-#define TRY_SEM()              if (use_sem) pthread_spin_trylock (&bounds_spin)
+#define WAIT_SEM()             ಯದಿ (use_sem) pthread_spin_lock (&bounds_spin)
+#define POST_SEM()             ಯದಿ (use_sem) pthread_spin_unlock (&bounds_spin)
+#define TRY_SEM()              ಯದಿ (use_sem) pthread_spin_trylock (&bounds_spin)
 #endif
 #define HAVE_MEMALIGN          (1)
 #define MALLOC_REDIR           (1)
@@ -161,44 +161,44 @@ static pthread_spinlock_t bounds_spin;
 #define HAVE_SIGNAL            (1)
 #define HAVE_SIGACTION         (1)
 #define HAVE_FORK              (1)
-#if defined(__APPLE__) || defined(__arm__) || defined(__GNUC__) || defined(BCHECK_RUN)
+#ಯದಿ defined(__APPLE__) || defined(__arm__) || defined(__GNUC__) || defined(BCHECK_RUN)
 #define HAVE_TLS_FUNC          (1)
 #define HAVE_TLS_VAR           (0)
-#else
+#ಅನ್ಯಥಾ
 #define HAVE_TLS_FUNC          (0)
 #define HAVE_TLS_VAR           (1)
 #endif
-#if defined CONFIG_TCC_MUSL || defined __ANDROID__
+#ಯದಿ defined CONFIG_TCC_MUSL || defined __ANDROID__
 # undef HAVE_CTYPE
 #endif
 #endif
 
-#if MALLOC_REDIR
-static void *(*malloc_redir) (size_t);
-static void *(*calloc_redir) (size_t, size_t);
-static void (*free_redir) (void *);
-static void *(*realloc_redir) (void *, size_t);
-static unsigned int pool_index;
-static unsigned char __attribute__((aligned(16))) initial_pool[256];
+#ಯದಿ MALLOC_REDIR
+ಸ್ಥಿರ ಶೂನ್ಯ *(*malloc_redir) (size_t);
+ಸ್ಥಿರ ಶೂನ್ಯ *(*calloc_redir) (size_t, size_t);
+ಸ್ಥಿರ ಶೂನ್ಯ (*free_redir) (ಶೂನ್ಯ *);
+ಸ್ಥಿರ ಶೂನ್ಯ *(*realloc_redir) (ಶೂನ್ಯ *, size_t);
+ಸ್ಥಿರ unsigned ಪೂರ್ಣಾಙ್ಕ pool_index;
+ಸ್ಥಿರ unsigned ವರ್ಣ __attribute__((aligned(16))) initial_pool[256];
 #endif
-#if HAVE_MEMALIGN
-static void *(*memalign_redir) (size_t, size_t);
+#ಯದಿ HAVE_MEMALIGN
+ಸ್ಥಿರ ಶೂನ್ಯ *(*memalign_redir) (size_t, size_t);
 #endif
-#if HAVE_PTHREAD_CREATE
-static int (*pthread_create_redir) (pthread_t *thread,
-                                    const pthread_attr_t *attr,
-                                    void *(*start_routine)(void *), void *arg);
+#ಯದಿ HAVE_PTHREAD_CREATE
+ಸ್ಥಿರ ಪೂರ್ಣಾಙ್ಕ (*pthread_create_redir) (pthread_t *thread,
+                                    ಧ್ರುವ pthread_attr_t *attr,
+                                    ಶೂನ್ಯ *(*start_routine)(ಶೂನ್ಯ *), ಶೂನ್ಯ *arg);
 #endif
-#if HAVE_SIGNAL
-typedef void (*bound_sig)(int);
-static bound_sig (*signal_redir) (int signum, bound_sig handler);
+#ಯದಿ HAVE_SIGNAL
+ಪ್ರಕಾರನಿರ್ದೇಶ ಶೂನ್ಯ (*bound_sig)(ಪೂರ್ಣಾಙ್ಕ);
+ಸ್ಥಿರ bound_sig (*signal_redir) (ಪೂರ್ಣಾಙ್ಕ signum, bound_sig handler);
 #endif
-#if HAVE_SIGACTION
-static int (*sigaction_redir) (int signum, const struct sigaction *act,
-                               struct sigaction *oldact);
+#ಯದಿ HAVE_SIGACTION
+ಸ್ಥಿರ ಪೂರ್ಣಾಙ್ಕ (*sigaction_redir) (ಪೂರ್ಣಾಙ್ಕ signum, ಧ್ರುವ ಸಂರಚನಾ sigaction *act,
+                               ಸಂರಚನಾ sigaction *oldact);
 #endif
-#if HAVE_FORK
-static int (*fork_redir) (void);
+#ಯದಿ HAVE_FORK
+ಸ್ಥಿರ ಪೂರ್ಣಾಙ್ಕ (*fork_redir) (ಶೂನ್ಯ);
 #endif
 
 #define TCC_TYPE_NONE           (0)
@@ -209,407 +209,407 @@ static int (*fork_redir) (void);
 #define TCC_TYPE_STRDUP         (5)
 
 /* this pointer is generated when bound check is incorrect */
-#define INVALID_POINTER ((void *)(-2))
+#define INVALID_POINTER ((ಶೂನ್ಯ *)(-2))
 
-typedef struct tree_node Tree;
-struct tree_node {
-    Tree * left, * right;
+ಪ್ರಕಾರನಿರ್ದೇಶ ಸಂರಚನಾ ವೃಕ್ಷ_ಗಂಟು ವೃಕ್ಷ;
+ಸಂರಚನಾ ವೃಕ್ಷ_ಗಂಟು {
+    ವೃಕ್ಷ * ಎಡ, * ಬಲ;
     size_t start;
     size_t size;
-    unsigned char type;
-    unsigned char is_invalid; /* true if pointers outside region are invalid */
+    unsigned ವರ್ಣ type;
+    unsigned ವರ್ಣ is_invalid; /* true if pointers outside region are invalid */
 };
 
-typedef struct alloca_list_struct {
+ಪ್ರಕಾರನಿರ್ದೇಶ ಸಂರಚನಾ alloca_list_struct {
     size_t fp;
-    void *p;
+    ಶೂನ್ಯ *p;
     size_t size;
-    struct alloca_list_struct *next;
+    ಸಂರಚನಾ alloca_list_struct *next;
 } alloca_list_type;
 
-#if defined(_WIN32)
+#ಯದಿ defined(_WIN32)
 #define BOUND_TID_TYPE		DWORD
 #define BOUND_GET_TID(id)	id = GetCurrentThreadId()
-#elif defined(__OpenBSD__)
+#ನೋಚೇದ್ಯದಿ defined(__OpenBSD__)
 #define BOUND_TID_TYPE		pid_t
 #define BOUND_GET_TID(id)	id = getthrid()
-#elif defined(__FreeBSD__)
+#ನೋಚೇದ್ಯದಿ defined(__FreeBSD__)
 #define BOUND_TID_TYPE		pid_t
 #define BOUND_GET_TID(id)	syscall (SYS_thr_self, &id)
-#elif  defined(__NetBSD__)
+#ನೋಚೇದ್ಯದಿ  defined(__NetBSD__)
 #define BOUND_TID_TYPE		pid_t
 #define BOUND_GET_TID(id)	id = syscall (SYS__lwp_self)
-#elif defined(__linux__)
+#ನೋಚೇದ್ಯದಿ defined(__linux__)
 #define BOUND_TID_TYPE		pid_t
 #define BOUND_GET_TID(id)	id = syscall (SYS_gettid)
-#else
-#define BOUND_TID_TYPE		int
+#ಅನ್ಯಥಾ
+#define BOUND_TID_TYPE		ಪೂರ್ಣಾಙ್ಕ
 #define BOUND_GET_TID(id)	id = 0
 #endif
 
-typedef struct jmp_list_struct {
-    void *penv;
+ಪ್ರಕಾರನಿರ್ದೇಶ ಸಂರಚನಾ jmp_list_struct {
+    ಶೂನ್ಯ *penv;
     size_t fp;
     size_t end_fp;
     BOUND_TID_TYPE tid;
-    struct jmp_list_struct *next;
+    ಸಂರಚನಾ jmp_list_struct *next;
 } jmp_list_type;
 
 #define BOUND_STATISTIC_SPLAY   (0)
-static Tree * splay (size_t addr, Tree *t);
-static Tree * splay_end (size_t addr, Tree *t);
-static Tree * splay_insert(size_t addr, size_t size, Tree * t);
-static Tree * splay_delete(size_t addr, Tree *t);
-void splay_printtree(Tree * t, int d);
+ಸ್ಥಿರ ವೃಕ್ಷ * splay (size_t addr, ವೃಕ್ಷ *t);
+ಸ್ಥಿರ ವೃಕ್ಷ * splay_end (size_t addr, ವೃಕ್ಷ *t);
+ಸ್ಥಿರ ವೃಕ್ಷ * splay_ಸೇರಿಸು(size_t addr, size_t size, ವೃಕ್ಷ * t);
+ಸ್ಥಿರ ವೃಕ್ಷ * splay_delete(size_t addr, ವೃಕ್ಷ *t);
+ಶೂನ್ಯ splay_printtree(ವೃಕ್ಷ * t, ಪೂರ್ಣಾಙ್ಕ d);
 
 /* external interface */
-void __bounds_checking (int no_check);
-void __bound_checking_lock (void);
-void __bound_checking_unlock (void);
-void __bound_never_fatal (int no_check);
-DLL_EXPORT void * __bound_ptr_add(void *p, size_t offset);
-DLL_EXPORT void * __bound_ptr_indir1(void *p, size_t offset);
-DLL_EXPORT void * __bound_ptr_indir2(void *p, size_t offset);
-DLL_EXPORT void * __bound_ptr_indir4(void *p, size_t offset);
-DLL_EXPORT void * __bound_ptr_indir8(void *p, size_t offset);
-DLL_EXPORT void * __bound_ptr_indir12(void *p, size_t offset);
-DLL_EXPORT void * __bound_ptr_indir16(void *p, size_t offset);
-DLL_EXPORT void FASTCALL __bound_local_new(void *p1);
-DLL_EXPORT void FASTCALL __bound_local_delete(void *p1);
-void __bound_init(size_t *, int);
-void __bound_main_arg(int argc, char **argv, char **envp);
-void __bound_exit(void);
-void __bound_exit_dll(size_t *);
-#if !defined(_WIN32)
-void *__bound_mmap (void *start, size_t size, int prot, int flags, int fd,
+ಶೂನ್ಯ __bounds_checking (ಪೂರ್ಣಾಙ್ಕ no_check);
+ಶೂನ್ಯ __bound_checking_lock (ಶೂನ್ಯ);
+ಶೂನ್ಯ __bound_checking_unlock (ಶೂನ್ಯ);
+ಶೂನ್ಯ __bound_never_fatal (ಪೂರ್ಣಾಙ್ಕ no_check);
+DLL_EXPORT ಶೂನ್ಯ * __bound_ptr_add(ಶೂನ್ಯ *p, size_t offset);
+DLL_EXPORT ಶೂನ್ಯ * __bound_ptr_indir1(ಶೂನ್ಯ *p, size_t offset);
+DLL_EXPORT ಶೂನ್ಯ * __bound_ptr_indir2(ಶೂನ್ಯ *p, size_t offset);
+DLL_EXPORT ಶೂನ್ಯ * __bound_ptr_indir4(ಶೂನ್ಯ *p, size_t offset);
+DLL_EXPORT ಶೂನ್ಯ * __bound_ptr_indir8(ಶೂನ್ಯ *p, size_t offset);
+DLL_EXPORT ಶೂನ್ಯ * __bound_ptr_indir12(ಶೂನ್ಯ *p, size_t offset);
+DLL_EXPORT ಶೂನ್ಯ * __bound_ptr_indir16(ಶೂನ್ಯ *p, size_t offset);
+DLL_EXPORT ಶೂನ್ಯ FASTCALL __bound_local_new(ಶೂನ್ಯ *p1);
+DLL_EXPORT ಶೂನ್ಯ FASTCALL __bound_local_delete(ಶೂನ್ಯ *p1);
+ಶೂನ್ಯ __bound_init(size_t *, ಪೂರ್ಣಾಙ್ಕ);
+ಶೂನ್ಯ __bound_main_arg(ಪೂರ್ಣಾಙ್ಕ argc, ವರ್ಣ **argv, ವರ್ಣ **envp);
+ಶೂನ್ಯ __bound_exit(ಶೂನ್ಯ);
+ಶೂನ್ಯ __bound_exit_dll(size_t *);
+#ಯದಿ !defined(_WIN32)
+ಶೂನ್ಯ *__bound_mmap (ಶೂನ್ಯ *start, size_t size, ಪೂರ್ಣಾಙ್ಕ prot, ಪೂರ್ಣಾಙ್ಕ flags, ಪೂರ್ಣಾಙ್ಕ fd,
                     off_t offset);
-int __bound_munmap (void *start, size_t size);
-DLL_EXPORT void __bound_siglongjmp(jmp_buf env, int val);
+ಪೂರ್ಣಾಙ್ಕ __bound_munmap (ಶೂನ್ಯ *start, size_t size);
+DLL_EXPORT ಶೂನ್ಯ __bound_siglongjmp(jmp_buf env, ಪೂರ್ಣಾಙ್ಕ val);
 #endif
-DLL_EXPORT void __bound_new_region(void *p, size_t size);
-DLL_EXPORT void __bound_setjmp(jmp_buf env);
-DLL_EXPORT void __bound_longjmp(jmp_buf env, int val);
-DLL_EXPORT void *__bound_memcpy(void *dst, const void *src, size_t size);
-DLL_EXPORT int __bound_memcmp(const void *s1, const void *s2, size_t size);
-DLL_EXPORT void *__bound_memmove(void *dst, const void *src, size_t size);
-DLL_EXPORT void *__bound_memset(void *dst, int c, size_t size);
-DLL_EXPORT int __bound_strlen(const char *s);
-DLL_EXPORT char *__bound_strcpy(char *dst, const char *src);
-DLL_EXPORT char *__bound_strncpy(char *dst, const char *src, size_t n);
-DLL_EXPORT int __bound_strcmp(const char *s1, const char *s2);
-DLL_EXPORT int __bound_strncmp(const char *s1, const char *s2, size_t n);
-DLL_EXPORT char *__bound_strcat(char *dest, const char *src);
-DLL_EXPORT char *__bound_strncat(char *dest, const char *src, size_t n);
-DLL_EXPORT char *__bound_strchr(const char *string, int ch);
-DLL_EXPORT char *__bound_strrchr(const char *string, int ch);
-DLL_EXPORT char *__bound_strdup(const char *s);
+DLL_EXPORT ಶೂನ್ಯ __bound_new_region(ಶೂನ್ಯ *p, size_t size);
+DLL_EXPORT ಶೂನ್ಯ __bound_setjmp(jmp_buf env);
+DLL_EXPORT ಶೂನ್ಯ __bound_longjmp(jmp_buf env, ಪೂರ್ಣಾಙ್ಕ val);
+DLL_EXPORT ಶೂನ್ಯ *__bound_memcpy(ಶೂನ್ಯ *dst, ಧ್ರುವ ಶೂನ್ಯ *src, size_t size);
+DLL_EXPORT ಪೂರ್ಣಾಙ್ಕ __bound_memcmp(ಧ್ರುವ ಶೂನ್ಯ *s1, ಧ್ರುವ ಶೂನ್ಯ *s2, size_t size);
+DLL_EXPORT ಶೂನ್ಯ *__bound_memmove(ಶೂನ್ಯ *dst, ಧ್ರುವ ಶೂನ್ಯ *src, size_t size);
+DLL_EXPORT ಶೂನ್ಯ *__bound_memset(ಶೂನ್ಯ *dst, ಪೂರ್ಣಾಙ್ಕ c, size_t size);
+DLL_EXPORT ಪೂರ್ಣಾಙ್ಕ __bound_strlen(ಧ್ರುವ ವರ್ಣ *s);
+DLL_EXPORT ವರ್ಣ *__bound_strcpy(ವರ್ಣ *dst, ಧ್ರುವ ವರ್ಣ *src);
+DLL_EXPORT ವರ್ಣ *__bound_strncpy(ವರ್ಣ *dst, ಧ್ರುವ ವರ್ಣ *src, size_t n);
+DLL_EXPORT ಪೂರ್ಣಾಙ್ಕ __bound_strcmp(ಧ್ರುವ ವರ್ಣ *s1, ಧ್ರುವ ವರ್ಣ *s2);
+DLL_EXPORT ಪೂರ್ಣಾಙ್ಕ __bound_strncmp(ಧ್ರುವ ವರ್ಣ *s1, ಧ್ರುವ ವರ್ಣ *s2, size_t n);
+DLL_EXPORT ವರ್ಣ *__bound_strcat(ವರ್ಣ *dest, ಧ್ರುವ ವರ್ಣ *src);
+DLL_EXPORT ವರ್ಣ *__bound_strncat(ವರ್ಣ *dest, ಧ್ರುವ ವರ್ಣ *src, size_t n);
+DLL_EXPORT ವರ್ಣ *__bound_strchr(ಧ್ರುವ ವರ್ಣ *string, ಪೂರ್ಣಾಙ್ಕ ch);
+DLL_EXPORT ವರ್ಣ *__bound_strrchr(ಧ್ರುವ ವರ್ಣ *string, ಪೂರ್ಣಾಙ್ಕ ch);
+DLL_EXPORT ವರ್ಣ *__bound_strdup(ಧ್ರುವ ವರ್ಣ *s);
 
-#if defined(__arm__) && defined(__ARM_EABI__)
-DLL_EXPORT void *__bound___aeabi_memcpy(void *dst, const void *src, size_t size);
-DLL_EXPORT void *__bound___aeabi_memmove(void *dst, const void *src, size_t size);
-DLL_EXPORT void *__bound___aeabi_memmove4(void *dst, const void *src, size_t size);
-DLL_EXPORT void *__bound___aeabi_memmove8(void *dst, const void *src, size_t size);
-DLL_EXPORT void *__bound___aeabi_memset(void *dst, int c, size_t size);
-DLL_EXPORT void *__aeabi_memcpy(void *dst, const void *src, size_t size);
-DLL_EXPORT void *__aeabi_memmove(void *dst, const void *src, size_t size);
-DLL_EXPORT void *__aeabi_memmove4(void *dst, const void *src, size_t size);
-DLL_EXPORT void *__aeabi_memmove8(void *dst, const void *src, size_t size);
-DLL_EXPORT void *__aeabi_memset(void *dst, int c, size_t size);
+#ಯದಿ defined(__arm__) && defined(__ARM_EABI__)
+DLL_EXPORT ಶೂನ್ಯ *__bound___aeabi_memcpy(ಶೂನ್ಯ *dst, ಧ್ರುವ ಶೂನ್ಯ *src, size_t size);
+DLL_EXPORT ಶೂನ್ಯ *__bound___aeabi_memmove(ಶೂನ್ಯ *dst, ಧ್ರುವ ಶೂನ್ಯ *src, size_t size);
+DLL_EXPORT ಶೂನ್ಯ *__bound___aeabi_memmove4(ಶೂನ್ಯ *dst, ಧ್ರುವ ಶೂನ್ಯ *src, size_t size);
+DLL_EXPORT ಶೂನ್ಯ *__bound___aeabi_memmove8(ಶೂನ್ಯ *dst, ಧ್ರುವ ಶೂನ್ಯ *src, size_t size);
+DLL_EXPORT ಶೂನ್ಯ *__bound___aeabi_memset(ಶೂನ್ಯ *dst, ಪೂರ್ಣಾಙ್ಕ c, size_t size);
+DLL_EXPORT ಶೂನ್ಯ *__aeabi_memcpy(ಶೂನ್ಯ *dst, ಧ್ರುವ ಶೂನ್ಯ *src, size_t size);
+DLL_EXPORT ಶೂನ್ಯ *__aeabi_memmove(ಶೂನ್ಯ *dst, ಧ್ರುವ ಶೂನ್ಯ *src, size_t size);
+DLL_EXPORT ಶೂನ್ಯ *__aeabi_memmove4(ಶೂನ್ಯ *dst, ಧ್ರುವ ಶೂನ್ಯ *src, size_t size);
+DLL_EXPORT ಶೂನ್ಯ *__aeabi_memmove8(ಶೂನ್ಯ *dst, ಧ್ರುವ ಶೂನ್ಯ *src, size_t size);
+DLL_EXPORT ಶೂನ್ಯ *__aeabi_memset(ಶೂನ್ಯ *dst, ಪೂರ್ಣಾಙ್ಕ c, size_t size);
 #endif
 
-#if MALLOC_REDIR
+#ಯದಿ MALLOC_REDIR
 #define BOUND_MALLOC(a)          malloc_redir(a)
 #define BOUND_MEMALIGN(a,b)      memalign_redir(a,b)
 #define BOUND_FREE(a)            free_redir(a)
 #define BOUND_REALLOC(a,b)       realloc_redir(a,b)
 #define BOUND_CALLOC(a,b)        calloc_redir(a,b)
-#else
+#ಅನ್ಯಥಾ
 #define BOUND_MALLOC(a)          malloc(a)
 #define BOUND_MEMALIGN(a,b)      memalign(a,b)
-#define BOUND_FREE(a)            free(a)
+#define BOUND_FREE(a)            ಮುಕ್ತ(a)
 #define BOUND_REALLOC(a,b)       realloc(a,b)
 #define BOUND_CALLOC(a,b)        calloc(a,b)
-DLL_EXPORT void *__bound_malloc(size_t size, const void *caller);
-DLL_EXPORT void *__bound_memalign(size_t align, size_t size, const void *caller);
-DLL_EXPORT void __bound_free(void *ptr, const void *caller);
-DLL_EXPORT void *__bound_realloc(void *ptr, size_t size, const void *caller);
-DLL_EXPORT void *__bound_calloc(size_t nmemb, size_t size);
+DLL_EXPORT ಶೂನ್ಯ *__bound_malloc(size_t size, ಧ್ರುವ ಶೂನ್ಯ *caller);
+DLL_EXPORT ಶೂನ್ಯ *__bound_memalign(size_t align, size_t size, ಧ್ರುವ ಶೂನ್ಯ *caller);
+DLL_EXPORT ಶೂನ್ಯ __bound_free(ಶೂನ್ಯ *ptr, ಧ್ರುವ ಶೂನ್ಯ *caller);
+DLL_EXPORT ಶೂನ್ಯ *__bound_realloc(ಶೂನ್ಯ *ptr, size_t size, ಧ್ರುವ ಶೂನ್ಯ *caller);
+DLL_EXPORT ಶೂನ್ಯ *__bound_calloc(size_t nmemb, size_t size);
 #endif
 
 #define FREE_REUSE_SIZE (100)
-static unsigned int free_reuse_index;
-static void *free_reuse_list[FREE_REUSE_SIZE];
+ಸ್ಥಿರ unsigned ಪೂರ್ಣಾಙ್ಕ free_reuse_index;
+ಸ್ಥಿರ ಶೂನ್ಯ *free_reuse_list[FREE_REUSE_SIZE];
 
-static Tree *tree = NULL;
-#define TREE_REUSE      (1)
-#if TREE_REUSE
-static Tree *tree_free_list;
+ಸ್ಥಿರ ವೃಕ್ಷ *ವೃಕ್ಷ_2 = ರಿಕ್ತ;
+#define ವೃಕ್ಷ_REUSE      (1)
+#ಯದಿ ವೃಕ್ಷ_REUSE
+ಸ್ಥಿರ ವೃಕ್ಷ *ವೃಕ್ಷ_free_list;
 #endif
-static alloca_list_type *alloca_list;
-static jmp_list_type *jmp_list;
+ಸ್ಥಿರ alloca_list_type *alloca_list;
+ಸ್ಥಿರ jmp_list_type *jmp_list;
 
-static unsigned char inited;
-static unsigned char print_warn_ptr_add;
-static unsigned char print_calls;
-static unsigned char print_heap;
-static unsigned char print_statistic;
-static unsigned char no_strdup;
-static unsigned char use_sem;
-static _Atomic int never_fatal;
-#if HAVE_TLS_FUNC
-#if defined(_WIN32)
-static int no_checking = 0;
-static DWORD no_checking_key;
-#define NO_CHECKING_CHECK() if (!p) {                                         \
-                                  p = (int *) LocalAlloc(LPTR, sizeof(int));  \
-                                  if (!p) bound_alloc_error("tls malloc");    \
+ಸ್ಥಿರ unsigned ವರ್ಣ inited;
+ಸ್ಥಿರ unsigned ವರ್ಣ print_warn_ptr_add;
+ಸ್ಥಿರ unsigned ವರ್ಣ print_calls;
+ಸ್ಥಿರ unsigned ವರ್ಣ print_heap;
+ಸ್ಥಿರ unsigned ವರ್ಣ print_statistic;
+ಸ್ಥಿರ unsigned ವರ್ಣ no_strdup;
+ಸ್ಥಿರ unsigned ವರ್ಣ use_sem;
+ಸ್ಥಿರ _Atomic ಪೂರ್ಣಾಙ್ಕ never_fatal;
+#ಯದಿ HAVE_TLS_FUNC
+#ಯದಿ defined(_WIN32)
+ಸ್ಥಿರ ಪೂರ್ಣಾಙ್ಕ no_checking = 0;
+ಸ್ಥಿರ DWORD no_checking_ಕೀಲಿ;
+#define NO_CHECKING_CHECK() ಯದಿ (!p) {                                         \
+                                  p = (ಪೂರ್ಣಾಙ್ಕ *) LocalAlloc(LPTR, ಪರಿಮಾಣ(ಪೂರ್ಣಾಙ್ಕ));  \
+                                  ಯದಿ (!p) bound_alloc_error("tls malloc");    \
                                   *p = 0;                                     \
-                                  TlsSetValue(no_checking_key, p);            \
+                                  Tls_Set_ಮೌಲ್ಯ(no_checking_ಕೀಲಿ, p);            \
                             }
-#define NO_CHECKING_GET()   ({ int *p = TlsGetValue(no_checking_key);         \
+#define NO_CHECKING_GET()   ({ ಪೂರ್ಣಾಙ್ಕ *p = Tls_Get_ಮೌಲ್ಯ(no_checking_ಕೀಲಿ);         \
                                NO_CHECKING_CHECK();                           \
                                *p;                                            \
                             })
-#define NO_CHECKING_SET(v)  { int *p = TlsGetValue(no_checking_key);          \
+#define NO_CHECKING_SET(v)  { ಪೂರ್ಣಾಙ್ಕ *p = Tls_Get_ಮೌಲ್ಯ(no_checking_ಕೀಲಿ);          \
                               NO_CHECKING_CHECK();                            \
                               *p = v;                                         \
                             }
-#else
-static int no_checking = 0;
-static pthread_key_t no_checking_key;
-#define NO_CHECKING_CHECK() if (!p) {                                         \
-                                  p = (int *) BOUND_MALLOC(sizeof(int));      \
-                                  if (!p) bound_alloc_error("tls malloc");    \
+#ಅನ್ಯಥಾ
+ಸ್ಥಿರ ಪೂರ್ಣಾಙ್ಕ no_checking = 0;
+ಸ್ಥಿರ pthread_key_t no_checking_ಕೀಲಿ;
+#define NO_CHECKING_CHECK() ಯದಿ (!p) {                                         \
+                                  p = (ಪೂರ್ಣಾಙ್ಕ *) BOUND_MALLOC(ಪರಿಮಾಣ(ಪೂರ್ಣಾಙ್ಕ));      \
+                                  ಯದಿ (!p) bound_alloc_error("tls malloc");    \
                                   *p = 0;                                     \
-                                  pthread_setspecific(no_checking_key, p);    \
+                                  pthread_setspecific(no_checking_ಕೀಲಿ, p);    \
                             }
-#define NO_CHECKING_GET()   ({ int *p = pthread_getspecific(no_checking_key); \
+#define NO_CHECKING_GET()   ({ ಪೂರ್ಣಾಙ್ಕ *p = pthread_getspecific(no_checking_ಕೀಲಿ); \
                                NO_CHECKING_CHECK();                           \
                                *p;                                            \
                             })
-#define NO_CHECKING_SET(v)  { int *p = pthread_getspecific(no_checking_key);  \
+#define NO_CHECKING_SET(v)  { ಪೂರ್ಣಾಙ್ಕ *p = pthread_getspecific(no_checking_ಕೀಲಿ);  \
                               NO_CHECKING_CHECK();                            \
                               *p = v;                                         \
                             }
 #endif
-#elif HAVE_TLS_VAR
-static __thread int no_checking = 0;
+#ನೋಚೇದ್ಯದಿ HAVE_TLS_VAR
+ಸ್ಥಿರ __thread ಪೂರ್ಣಾಙ್ಕ no_checking = 0;
 #define NO_CHECKING_GET()  no_checking
 #define NO_CHECKING_SET(v) no_checking = v 
-#else
-static _Atomic int no_checking = 0;
+#ಅನ್ಯಥಾ
+ಸ್ಥಿರ _Atomic ಪೂರ್ಣಾಙ್ಕ no_checking = 0;
 #define NO_CHECKING_GET()  no_checking
 #define NO_CHECKING_SET(v) no_checking = v 
 #endif
-static char exec[100];
+ಸ್ಥಿರ ವರ್ಣ exec[100];
 
-#if BOUND_STATISTIC
-static unsigned long long bound_ptr_add_count;
-static unsigned long long bound_ptr_indir1_count;
-static unsigned long long bound_ptr_indir2_count;
-static unsigned long long bound_ptr_indir4_count;
-static unsigned long long bound_ptr_indir8_count;
-static unsigned long long bound_ptr_indir12_count;
-static unsigned long long bound_ptr_indir16_count;
-static unsigned long long bound_local_new_count;
-static unsigned long long bound_local_delete_count;
-static unsigned long long bound_malloc_count;
-static unsigned long long bound_calloc_count;
-static unsigned long long bound_realloc_count;
-static unsigned long long bound_free_count;
-static unsigned long long bound_memalign_count;
-static unsigned long long bound_mmap_count;
-static unsigned long long bound_munmap_count;
-static unsigned long long bound_alloca_count;
-static unsigned long long bound_setjmp_count;
-static unsigned long long bound_longjmp_count;
-static unsigned long long bound_mempcy_count;
-static unsigned long long bound_memcmp_count;
-static unsigned long long bound_memmove_count;
-static unsigned long long bound_memset_count;
-static unsigned long long bound_strlen_count;
-static unsigned long long bound_strcpy_count;
-static unsigned long long bound_strncpy_count;
-static unsigned long long bound_strcmp_count;
-static unsigned long long bound_strncmp_count;
-static unsigned long long bound_strcat_count;
-static unsigned long long bound_strncat_count;
-static unsigned long long bound_strchr_count;
-static unsigned long long bound_strrchr_count;
-static unsigned long long bound_strdup_count;
-static unsigned long long bound_not_found;
-#define INCR_COUNT(x)          ++x
-#else
-#define INCR_COUNT(x)
+#ಯದಿ BOUND_STATISTIC
+ಸ್ಥಿರ unsigned long long bound_ptr_add_ಎಣಿಕೆ;
+ಸ್ಥಿರ unsigned long long bound_ptr_indir1_ಎಣಿಕೆ;
+ಸ್ಥಿರ unsigned long long bound_ptr_indir2_ಎಣಿಕೆ;
+ಸ್ಥಿರ unsigned long long bound_ptr_indir4_ಎಣಿಕೆ;
+ಸ್ಥಿರ unsigned long long bound_ptr_indir8_ಎಣಿಕೆ;
+ಸ್ಥಿರ unsigned long long bound_ptr_indir12_ಎಣಿಕೆ;
+ಸ್ಥಿರ unsigned long long bound_ptr_indir16_ಎಣಿಕೆ;
+ಸ್ಥಿರ unsigned long long bound_local_new_ಎಣಿಕೆ;
+ಸ್ಥಿರ unsigned long long bound_local_delete_ಎಣಿಕೆ;
+ಸ್ಥಿರ unsigned long long bound_malloc_ಎಣಿಕೆ;
+ಸ್ಥಿರ unsigned long long bound_calloc_ಎಣಿಕೆ;
+ಸ್ಥಿರ unsigned long long bound_realloc_ಎಣಿಕೆ;
+ಸ್ಥಿರ unsigned long long bound_free_ಎಣಿಕೆ;
+ಸ್ಥಿರ unsigned long long bound_memalign_ಎಣಿಕೆ;
+ಸ್ಥಿರ unsigned long long bound_mmap_ಎಣಿಕೆ;
+ಸ್ಥಿರ unsigned long long bound_munmap_ಎಣಿಕೆ;
+ಸ್ಥಿರ unsigned long long bound_alloca_ಎಣಿಕೆ;
+ಸ್ಥಿರ unsigned long long bound_setjmp_ಎಣಿಕೆ;
+ಸ್ಥಿರ unsigned long long bound_longjmp_ಎಣಿಕೆ;
+ಸ್ಥಿರ unsigned long long bound_mempcy_ಎಣಿಕೆ;
+ಸ್ಥಿರ unsigned long long bound_memcmp_ಎಣಿಕೆ;
+ಸ್ಥಿರ unsigned long long bound_memmove_ಎಣಿಕೆ;
+ಸ್ಥಿರ unsigned long long bound_memset_ಎಣಿಕೆ;
+ಸ್ಥಿರ unsigned long long bound_strlen_ಎಣಿಕೆ;
+ಸ್ಥಿರ unsigned long long bound_strcpy_ಎಣಿಕೆ;
+ಸ್ಥಿರ unsigned long long bound_strncpy_ಎಣಿಕೆ;
+ಸ್ಥಿರ unsigned long long bound_strcmp_ಎಣಿಕೆ;
+ಸ್ಥಿರ unsigned long long bound_strncmp_ಎಣಿಕೆ;
+ಸ್ಥಿರ unsigned long long bound_strcat_ಎಣಿಕೆ;
+ಸ್ಥಿರ unsigned long long bound_strncat_ಎಣಿಕೆ;
+ಸ್ಥಿರ unsigned long long bound_strchr_ಎಣಿಕೆ;
+ಸ್ಥಿರ unsigned long long bound_strrchr_ಎಣಿಕೆ;
+ಸ್ಥಿರ unsigned long long bound_strdup_ಎಣಿಕೆ;
+ಸ್ಥಿರ unsigned long long bound_not_found;
+#define INCR_ಎಣಿಕೆ(x)          ++x
+#ಅನ್ಯಥಾ
+#define INCR_ಎಣಿಕೆ(x)
 #endif
-#if BOUND_STATISTIC_SPLAY
-static unsigned long long bound_splay;
-static unsigned long long bound_splay_end;
-static unsigned long long bound_splay_insert;
-static unsigned long long bound_splay_delete;
-#define INCR_COUNT_SPLAY(x)    ++x
-#else
-#define INCR_COUNT_SPLAY(x)
+#ಯದಿ BOUND_STATISTIC_SPLAY
+ಸ್ಥಿರ unsigned long long bound_splay;
+ಸ್ಥಿರ unsigned long long bound_splay_end;
+ಸ್ಥಿರ unsigned long long bound_splay_ಸೇರಿಸು;
+ಸ್ಥಿರ unsigned long long bound_splay_delete;
+#define INCR_ಎಣಿಕೆ_SPLAY(x)    ++x
+#ಅನ್ಯಥಾ
+#define INCR_ಎಣಿಕೆ_SPLAY(x)
 #endif
 
-int tcc_backtrace(const char *fmt, ...);
+ಪೂರ್ಣಾಙ್ಕ tcc_backtrace(ಧ್ರುವ ವರ್ಣ *fmt, ...);
 
 /* print a bound error message */
 #define bound_warning(...) \
-    do {                                                 \
+    ಕುರು {                                                 \
         WAIT_SEM ();                                     \
         tcc_backtrace("^bcheck.c^BCHECK: " __VA_ARGS__); \
         POST_SEM ();                                     \
-    } while (0)
+    } ಯಾವತ್ (0)
 
 #define bound_error(...)            \
-    do {                            \
+    ಕುರು {                            \
         bound_warning(__VA_ARGS__); \
-        if (never_fatal == 0)       \
+        ಯದಿ (never_fatal == 0)       \
             exit(255);              \
-    } while (0)
+    } ಯಾವತ್ (0)
 
 #define bounds_loc(fp, ...) \
-    do {                            \
+    ಕುರು {                            \
         WAIT_SEM (); \
         tcc_backtrace("^bcheck.c^\001" __VA_ARGS__); \
         POST_SEM (); \
-    } while (0)
+    } ಯಾವತ್ (0)
 
-static void bound_alloc_error(const char *s)
+ಸ್ಥಿರ ಶೂನ್ಯ bound_alloc_error(ಧ್ರುವ ವರ್ಣ *s)
 {
     fprintf(stderr,"FATAL: %s\n",s);
     exit (1);
 }
 
-static void bound_not_found_warning(const char *file, const char *function,
-                                    void *ptr)
+ಸ್ಥಿರ ಶೂನ್ಯ bound_not_found_warning(ಧ್ರುವ ವರ್ಣ *file, ಧ್ರುವ ವರ್ಣ *function,
+                                    ಶೂನ್ಯ *ptr)
 {
     dprintf(stderr, "%s%s, %s(): Not found %p\n", exec, file, function, ptr);
 }
 
 /* enable/disable checking. This can be used in signal handlers. */
-void __bounds_checking (int no_check)
+ಶೂನ್ಯ __bounds_checking (ಪೂರ್ಣಾಙ್ಕ no_check)
 {
-#if HAVE_TLS_FUNC || HAVE_TLS_VAR
+#ಯದಿ HAVE_TLS_FUNC || HAVE_TLS_VAR
     NO_CHECKING_SET(NO_CHECKING_GET() + no_check);
-#else
+#ಅನ್ಯಥಾ
     atomic_fetch_add (&no_checking, no_check);
 #endif
 }
 
-void __bound_checking_lock(void)
+ಶೂನ್ಯ __bound_checking_lock(ಶೂನ್ಯ)
 {
     WAIT_SEM ();
 }
 
-void __bound_checking_unlock(void)
+ಶೂನ್ಯ __bound_checking_unlock(ಶೂನ್ಯ)
 {
     POST_SEM ();
 }
 
 /* enable/disable checking. This can be used in signal handlers. */
-void __bound_never_fatal (int neverfatal)
+ಶೂನ್ಯ __bound_never_fatal (ಪೂರ್ಣಾಙ್ಕ neverfatal)
 {
     atomic_fetch_add (&never_fatal, neverfatal);
 }
 
 /* return '(p + offset)' for pointer arithmetic (a pointer can reach
    the end of a region in this case */
-void * __bound_ptr_add(void *p, size_t offset)
+ಶೂನ್ಯ * __bound_ptr_add(ಶೂನ್ಯ *p, size_t offset)
 {
     size_t addr = (size_t)p;
 
-    if (NO_CHECKING_GET())
-        return p + offset;
+    ಯದಿ (NO_CHECKING_GET())
+        ಪ್ರತ್ಯಾಗಮ p + offset;
 
     dprintf(stderr, "%s, %s(): %p 0x%lx\n",
             __FILE__, __FUNCTION__, p, (unsigned long)offset);
 
     WAIT_SEM ();
-    INCR_COUNT(bound_ptr_add_count);
-    if (tree) {
-        addr -= tree->start;
-        if (addr >= tree->size) {
+    INCR_ಎಣಿಕೆ(bound_ptr_add_ಎಣಿಕೆ);
+    ಯದಿ (ವೃಕ್ಷ_2) {
+        addr -= ವೃಕ್ಷ_2->start;
+        ಯದಿ (addr >= ವೃಕ್ಷ_2->size) {
             addr = (size_t)p;
-            tree = splay (addr, tree);
-            addr -= tree->start;
+            ವೃಕ್ಷ_2 = splay (addr, ವೃಕ್ಷ_2);
+            addr -= ವೃಕ್ಷ_2->start;
         }
-        if (addr >= tree->size) {
+        ಯದಿ (addr >= ವೃಕ್ಷ_2->size) {
             addr = (size_t)p;
-            tree = splay_end (addr, tree);
-            addr -= tree->start;
+            ವೃಕ್ಷ_2 = splay_end (addr, ವೃಕ್ಷ_2);
+            addr -= ವೃಕ್ಷ_2->start;
         }
-        if (addr <= tree->size) {
-            if (tree->is_invalid || addr + offset > tree->size) {
+        ಯದಿ (addr <= ವೃಕ್ಷ_2->size) {
+            ಯದಿ (ವೃಕ್ಷ_2->is_invalid || addr + offset > ವೃಕ್ಷ_2->size) {
                 POST_SEM ();
-                if (print_warn_ptr_add)
+                ಯದಿ (print_warn_ptr_add)
                     bound_warning("%p is outside of the region (0x%lx..0x%lx)",
-                                  p + offset, (long)tree->start,
-                                  (long)(tree->start + tree->size - 1));
-                if (never_fatal <= 0)
-                    return INVALID_POINTER; /* return an invalid pointer */
-                return p + offset;
+                                  p + offset, (long)ವೃಕ್ಷ_2->start,
+                                  (long)(ವೃಕ್ಷ_2->start + ವೃಕ್ಷ_2->size - 1));
+                ಯದಿ (never_fatal <= 0)
+                    ಪ್ರತ್ಯಾಗಮ INVALID_POINTER; /* return an invalid pointer */
+                ಪ್ರತ್ಯಾಗಮ p + offset;
             }
         }
-        else if (p) { /* Allow NULL + offset. offsetoff is using it. */
-            INCR_COUNT(bound_not_found);
+        ಅನ್ಯಥಾ ಯದಿ (p) { /* Allow NULL + offset. offsetoff is using it. */
+            INCR_ಎಣಿಕೆ(bound_not_found);
             POST_SEM ();
             bound_not_found_warning (__FILE__, __FUNCTION__, p);
-            return p + offset;
+            ಪ್ರತ್ಯಾಗಮ p + offset;
         }
     }
     POST_SEM ();
-    return p + offset;
+    ಪ್ರತ್ಯಾಗಮ p + offset;
 }
 
 /* return '(p + offset)' for pointer indirection (the resulting must
    be strictly inside the region */
 #define BOUND_PTR_INDIR(dsize)                                                 \
-void * __bound_ptr_indir ## dsize (void *p, size_t offset)                     \
+ಶೂನ್ಯ * __bound_ptr_indir ## dsize (ಶೂನ್ಯ *p, size_t offset)                     \
 {                                                                              \
     size_t addr = (size_t)p;                                                   \
                                                                                \
-    if (NO_CHECKING_GET())                                                     \
-        return p + offset;                                                     \
+    ಯದಿ (NO_CHECKING_GET())                                                     \
+        ಪ್ರತ್ಯಾಗಮ p + offset;                                                     \
                                                                                \
     dprintf(stderr, "%s, %s(): %p 0x%lx\n",                                    \
             __FILE__, __FUNCTION__, p, (unsigned long)offset);                 \
     WAIT_SEM ();                                                               \
-    INCR_COUNT(bound_ptr_indir ## dsize ## _count);                            \
-    if (tree) {                                                                \
-        addr -= tree->start;                                                   \
-        if (addr >= tree->size) {                                              \
+    INCR_ಎಣಿಕೆ(bound_ptr_indir ## dsize ## ಎಣಿಕೆ);                            \
+    ಯದಿ (ವೃಕ್ಷ_2) {                                                                \
+        addr -= ವೃಕ್ಷ_2->start;                                                   \
+        ಯದಿ (addr >= ವೃಕ್ಷ_2->size) {                                              \
             addr = (size_t)p;                                                  \
-            tree = splay (addr, tree);                                         \
-            addr -= tree->start;                                               \
+            ವೃಕ್ಷ_2 = splay (addr, ವೃಕ್ಷ_2);                                         \
+            addr -= ವೃಕ್ಷ_2->start;                                               \
         }                                                                      \
-        if (addr >= tree->size) {                                              \
+        ಯದಿ (addr >= ವೃಕ್ಷ_2->size) {                                              \
             addr = (size_t)p;                                                  \
-            tree = splay_end (addr, tree);                                     \
-            addr -= tree->start;                                               \
+            ವೃಕ್ಷ_2 = splay_end (addr, ವೃಕ್ಷ_2);                                     \
+            addr -= ವೃಕ್ಷ_2->start;                                               \
         }                                                                      \
-        if (addr <= tree->size) {                                              \
-            if (tree->is_invalid || addr + offset + dsize > tree->size) {      \
+        ಯದಿ (addr <= ವೃಕ್ಷ_2->size) {                                              \
+            ಯದಿ (ವೃಕ್ಷ_2->is_invalid || addr + offset + dsize > ವೃಕ್ಷ_2->size) {      \
                 POST_SEM ();                                                   \
                 bound_warning("%p (size %d) is outside of the region "         \
                               "(0x%lx..0x%lx)",                                \
-                              p + offset, dsize, (long)tree->start,            \
-                              (long)(tree->start + tree->size - 1));           \
-                if (never_fatal <= 0)                                          \
-                    return INVALID_POINTER; /* return an invalid pointer */    \
-                return p + offset;                                             \
+                              p + offset, dsize, (long)ವೃಕ್ಷ_2->start,            \
+                              (long)(ವೃಕ್ಷ_2->start + ವೃಕ್ಷ_2->size - 1));           \
+                ಯದಿ (never_fatal <= 0)                                          \
+                    ಪ್ರತ್ಯಾಗಮ INVALID_POINTER; /* return an invalid pointer */    \
+                ಪ್ರತ್ಯಾಗಮ p + offset;                                             \
             }                                                                  \
         }                                                                      \
-        else {                                                                 \
-            INCR_COUNT(bound_not_found);                                       \
+        ಅನ್ಯಥಾ {                                                                 \
+            INCR_ಎಣಿಕೆ(bound_not_found);                                       \
             POST_SEM ();                                                       \
             bound_not_found_warning (__FILE__, __FUNCTION__, p);               \
-            return p + offset;                                                 \
+            ಪ್ರತ್ಯಾಗಮ p + offset;                                                 \
         }                                                                      \
     }                                                                          \
     POST_SEM ();                                                               \
-    return p + offset;                                                         \
+    ಪ್ರತ್ಯಾಗಮ p + offset;                                                         \
 }
 
 BOUND_PTR_INDIR(1)
@@ -620,12 +620,12 @@ BOUND_PTR_INDIR(12)
 BOUND_PTR_INDIR(16)
 
 /* Needed when using ...libtcc1-usegcc=yes in lib/Makefile */
-#if (defined(__GNUC__) && (__GNUC__ >= 6)) || defined(__clang__)
+#ಯದಿ (defined(__GNUC__) && (__GNUC__ >= 6)) || defined(__clang__)
 /*
  * At least gcc 6.2 complains when __builtin_frame_address is used with
  * nonzero argument.
  */
-#pragma GCC diagnostic push
+#pragma GCC diagnostic ತಳ್ಳು
 #pragma GCC diagnostic ignored "-Wframe-address"
 #endif
 
@@ -636,29 +636,29 @@ BOUND_PTR_INDIR(16)
 }
 
 /* called when entering a function to add all the local regions */
-void FASTCALL __bound_local_new(void *p1) 
+ಶೂನ್ಯ FASTCALL __bound_local_new(ಶೂನ್ಯ *p1) 
 {
     size_t addr, fp, *p = p1;
 
-    if (NO_CHECKING_GET())
-         return;
+    ಯದಿ (NO_CHECKING_GET())
+         ಪ್ರತ್ಯಾಗಮ;
     GET_CALLER_FP(fp);
     dprintf(stderr, "%s, %s(): p1=%p fp=%p\n",
-            __FILE__, __FUNCTION__, p, (void *)fp);
+            __FILE__, __FUNCTION__, p, (ಶೂನ್ಯ *)fp);
     WAIT_SEM ();
-    while ((addr = p[0])) {
-        INCR_COUNT(bound_local_new_count);
-        tree = splay_insert(addr + fp, p[1], tree);
+    ಯಾವತ್ ((addr = p[0])) {
+        INCR_ಎಣಿಕೆ(bound_local_new_ಎಣಿಕೆ);
+        ವೃಕ್ಷ_2 = splay_ಸೇರಿಸು(addr + fp, p[1], ವೃಕ್ಷ_2);
         p += 2;
     }
     POST_SEM ();
-#if BOUND_DEBUG
-    if (print_calls) {
+#ಯದಿ BOUND_DEBUG
+    ಯದಿ (print_calls) {
         p = p1;
-        while ((addr = p[0])) {
+        ಯಾವತ್ ((addr = p[0])) {
             dprintf(stderr, "%s, %s(): %p 0x%lx\n",
                     __FILE__, __FUNCTION__,
-                    (void *) (addr + fp), (unsigned long) p[1]);
+                    (ಶೂನ್ಯ *) (addr + fp), (unsigned long) p[1]);
             p += 2;
         }
     }
@@ -666,74 +666,74 @@ void FASTCALL __bound_local_new(void *p1)
 }
 
 /* called when leaving a function to delete all the local regions */
-void FASTCALL __bound_local_delete(void *p1) 
+ಶೂನ್ಯ FASTCALL __bound_local_delete(ಶೂನ್ಯ *p1) 
 {
     size_t addr, fp, *p = p1;
 
-    if (NO_CHECKING_GET())
-         return;
+    ಯದಿ (NO_CHECKING_GET())
+         ಪ್ರತ್ಯಾಗಮ;
     GET_CALLER_FP(fp);
     dprintf(stderr, "%s, %s(): p1=%p fp=%p\n",
-            __FILE__, __FUNCTION__, p, (void *)fp);
+            __FILE__, __FUNCTION__, p, (ಶೂನ್ಯ *)fp);
     WAIT_SEM ();
-    while ((addr = p[0])) {
-        INCR_COUNT(bound_local_delete_count);
-        tree = splay_delete(addr + fp, tree);
+    ಯಾವತ್ ((addr = p[0])) {
+        INCR_ಎಣಿಕೆ(bound_local_delete_ಎಣಿಕೆ);
+        ವೃಕ್ಷ_2 = splay_delete(addr + fp, ವೃಕ್ಷ_2);
         p += 2;
     }
-    if (alloca_list) {
-        alloca_list_type *last = NULL;
+    ಯದಿ (alloca_list) {
+        alloca_list_type *last = ರಿಕ್ತ;
         alloca_list_type *cur = alloca_list;
 
-        do {
-            if (cur->fp == fp) {
-                if (last)
+        ಕುರು {
+            ಯದಿ (cur->fp == fp) {
+                ಯದಿ (last)
                     last->next = cur->next;
-                else
+                ಅನ್ಯಥಾ
                     alloca_list = cur->next;
-                tree = splay_delete ((size_t) cur->p, tree);
+                ವೃಕ್ಷ_2 = splay_delete ((size_t) cur->p, ವೃಕ್ಷ_2);
                 dprintf(stderr, "%s, %s(): remove alloca/vla %p\n",
                         __FILE__, __FUNCTION__, cur->p);
                 BOUND_FREE (cur);
                 cur = last ? last->next : alloca_list;
              }
-             else {
+             ಅನ್ಯಥಾ {
                  last = cur;
                  cur = cur->next;
              }
-        } while (cur);
+        } ಯಾವತ್ (cur);
     }
-    if (jmp_list) {
-        jmp_list_type *last = NULL;
+    ಯದಿ (jmp_list) {
+        jmp_list_type *last = ರಿಕ್ತ;
         jmp_list_type *cur = jmp_list;
 
-        do {
-            if (cur->fp == fp) {
-                if (last)
+        ಕುರು {
+            ಯದಿ (cur->fp == fp) {
+                ಯದಿ (last)
                     last->next = cur->next;
-                else
+                ಅನ್ಯಥಾ
                     jmp_list = cur->next;
                 dprintf(stderr, "%s, %s(): remove setjmp %p\n",
                        __FILE__, __FUNCTION__, cur->penv);
                 BOUND_FREE (cur);
                 cur = last ? last->next : jmp_list;
             }
-            else {
+            ಅನ್ಯಥಾ {
                 last = cur;
                 cur = cur->next;
             }
-        } while (cur);
+        } ಯಾವತ್ (cur);
     }
 
     POST_SEM ();
-#if BOUND_DEBUG
-    if (print_calls) {
+#ಯದಿ BOUND_DEBUG
+    ಯದಿ (print_calls) {
         p = p1;
-        while ((addr = p[0])) {
-            if (addr != 1) {
+        ಯಾವತ್ ((addr = p[0])) {
+            ಯದಿ (addr != 1) {
                 dprintf(stderr, "%s, %s(): %p 0x%lx\n",
                         __FILE__, __FUNCTION__,
-                        (void *) (addr + fp), (unsigned long) p[1]);
+                        (ಶೂನ್ಯ *) (addr + fp), (unsigned long) p[1]);
             }
             p+= 2;
         }
@@ -742,48 +742,48 @@ void FASTCALL __bound_local_delete(void *p1)
 }
 
 /* used by alloca */
-void __bound_new_region(void *p, size_t size)
+ಶೂನ್ಯ __bound_new_region(ಶೂನ್ಯ *p, size_t size)
 {
     size_t fp;
     alloca_list_type *last;
     alloca_list_type *cur;
     alloca_list_type *new;
 
-    if (NO_CHECKING_GET())
-        return;
+    ಯದಿ (NO_CHECKING_GET())
+        ಪ್ರತ್ಯಾಗಮ;
 
     dprintf(stderr, "%s, %s(): %p, 0x%lx\n",
             __FILE__, __FUNCTION__, p, (unsigned long)size);
     GET_CALLER_FP (fp);
-    new = BOUND_MALLOC (sizeof (alloca_list_type));
+    new = BOUND_MALLOC (ಪರಿಮಾಣ (alloca_list_type));
     WAIT_SEM ();
-    INCR_COUNT(bound_alloca_count);
-    last = NULL;
+    INCR_ಎಣಿಕೆ(bound_alloca_ಎಣಿಕೆ);
+    last = ರಿಕ್ತ;
     cur = alloca_list;
-    while (cur) {
-#if defined(__i386__) || (defined(__arm__) && !defined(__ARM_EABI__))
-        int align = 4;
-#elif defined(__arm__)
-        int align = 8;
-#else
-        int align = 16;
+    ಯಾವತ್ (cur) {
+#ಯದಿ defined(__i386__) || (defined(__arm__) && !defined(__ARM_EABI__))
+        ಪೂರ್ಣಾಙ್ಕ align = 4;
+#ನೋಚೇದ್ಯದಿ defined(__arm__)
+        ಪೂರ್ಣಾಙ್ಕ align = 8;
+#ಅನ್ಯಥಾ
+        ಪೂರ್ಣಾಙ್ಕ align = 16;
 #endif
-        void *cure = (void *)((char *)cur->p + ((cur->size + align) & -align));
-        void *pe = (void *)((char *)p + ((size + align) & -align));
-        if (cur->fp == fp && ((cur->p <= p && cure > p) ||
+        ಶೂನ್ಯ *cure = (ಶೂನ್ಯ *)((ವರ್ಣ *)cur->p + ((cur->size + align) & -align));
+        ಶೂನ್ಯ *pe = (ಶೂನ್ಯ *)((ವರ್ಣ *)p + ((size + align) & -align));
+        ಯದಿ (cur->fp == fp && ((cur->p <= p && cure > p) ||
                               (p <= cur->p && pe > cur->p))) {
-            if (last)
+            ಯದಿ (last)
                 last->next = cur->next;
-            else
+            ಅನ್ಯಥಾ
                 alloca_list = cur->next;
-            tree = splay_delete((size_t)cur->p, tree);
-            break;
+            ವೃಕ್ಷ_2 = splay_delete((size_t)cur->p, ವೃಕ್ಷ_2);
+            ಭಙ್ಗ;
         }
         last = cur;
         cur = cur->next;
     }
-    tree = splay_insert((size_t)p, size, tree);
-    if (new) {
+    ವೃಕ್ಷ_2 = splay_ಸೇರಿಸು((size_t)p, size, ವೃಕ್ಷ_2);
+    ಯದಿ (new) {
         new->fp = fp;
         new->p = p;
         new->size = size;
@@ -791,37 +791,37 @@ void __bound_new_region(void *p, size_t size)
         alloca_list = new;
     }
     POST_SEM ();
-    if (cur) {
+    ಯದಿ (cur) {
         dprintf(stderr, "%s, %s(): remove alloca/vla %p\n",
                 __FILE__, __FUNCTION__, cur->p);
         BOUND_FREE (cur);
     }
 }
 
-void __bound_setjmp(jmp_buf env)
+ಶೂನ್ಯ __bound_setjmp(jmp_buf env)
 {
     jmp_list_type *jl;
-    void *e = (void *) env;
+    ಶೂನ್ಯ *e = (ಶೂನ್ಯ *) env;
 
-    if (NO_CHECKING_GET() == 0) {
+    ಯದಿ (NO_CHECKING_GET() == 0) {
         dprintf(stderr, "%s, %s(): %p\n", __FILE__, __FUNCTION__, e);
         WAIT_SEM ();
-        INCR_COUNT(bound_setjmp_count);
+        INCR_ಎಣಿಕೆ(bound_setjmp_ಎಣಿಕೆ);
         jl = jmp_list;
-        while (jl) {
-            if (jl->penv == e)
-                break;
+        ಯಾವತ್ (jl) {
+            ಯದಿ (jl->penv == e)
+                ಭಙ್ಗ;
             jl = jl->next;
         }
-        if (jl == NULL) {
-            jl = BOUND_MALLOC (sizeof (jmp_list_type));
-            if (jl) {
+        ಯದಿ (jl == ರಿಕ್ತ) {
+            jl = BOUND_MALLOC (ಪರಿಮಾಣ (jmp_list_type));
+            ಯದಿ (jl) {
                 jl->penv = e;
                 jl->next = jmp_list;
                 jmp_list = jl;
             }
         }
-        if (jl) {
+        ಯದಿ (jl) {
             size_t fp;
 
             GET_CALLER_FP (fp);
@@ -833,151 +833,151 @@ void __bound_setjmp(jmp_buf env)
     }
 }
 
-static void __bound_long_jump(jmp_buf env, int val, int sig, const char *func)
+ಸ್ಥಿರ ಶೂನ್ಯ __bound_long_jump(jmp_buf env, ಪೂರ್ಣಾಙ್ಕ val, ಪೂರ್ಣಾಙ್ಕ sig, ಧ್ರುವ ವರ್ಣ *func)
 {
     jmp_list_type *jl;
-    void *e;
+    ಶೂನ್ಯ *e;
     BOUND_TID_TYPE tid;
 
-    if (NO_CHECKING_GET() == 0) {
-        e = (void *)env;
+    ಯದಿ (NO_CHECKING_GET() == 0) {
+        e = (ಶೂನ್ಯ *)env;
         BOUND_GET_TID(tid);
         dprintf(stderr, "%s, %s(): %p\n", __FILE__, func, e);
         WAIT_SEM();
-        INCR_COUNT(bound_longjmp_count);
+        INCR_ಎಣಿಕೆ(bound_longjmp_ಎಣಿಕೆ);
         jl = jmp_list;
-        while (jl) {
-            if (jl->penv == e && jl->tid == tid) {
+        ಯಾವತ್ (jl) {
+            ಯದಿ (jl->penv == e && jl->tid == tid) {
                 size_t start_fp = (size_t)__builtin_frame_address(0);
                 size_t end_fp = jl->end_fp;
                 jmp_list_type *cur = jmp_list;
-                jmp_list_type *last = NULL;
+                jmp_list_type *last = ರಿಕ್ತ;
 
-                while (cur->penv != e || cur->tid != tid) {
-                    if (cur->tid == tid) {
+                ಯಾವತ್ (cur->penv != e || cur->tid != tid) {
+                    ಯದಿ (cur->tid == tid) {
                         dprintf(stderr, "%s, %s(): remove setjmp %p\n",
                                 __FILE__, func, cur->penv);
-                        if (last)
+                        ಯದಿ (last)
                             last->next = cur->next;
-                        else
+                        ಅನ್ಯಥಾ
                             jmp_list = cur->next;
                         BOUND_FREE (cur);
                         cur = last ? last->next : jmp_list;
                     }
-                    else {
+                    ಅನ್ಯಥಾ {
                         last = cur;
                         cur = cur->next;
                     }
                 }
-                for (;;) {
-                    Tree *t = tree;
+                ಪ್ರತಿ (;;) {
+                    ವೃಕ್ಷ *t = ವೃಕ್ಷ_2;
                     alloca_list_type *last;
                     alloca_list_type *cur;
 
-                    while (t && (t->start < start_fp || t->start > end_fp))
-                        if (t->start < start_fp)
-                            t = t->right;
-                        else
-                            t = t->left;
-                    if (t == NULL)
-                        break;
-                    last = NULL;
+                    ಯಾವತ್ (t && (t->start < start_fp || t->start > end_fp))
+                        ಯದಿ (t->start < start_fp)
+                            t = t->ಬಲ;
+                        ಅನ್ಯಥಾ
+                            t = t->ಎಡ;
+                    ಯದಿ (t == ರಿಕ್ತ)
+                        ಭಙ್ಗ;
+                    last = ರಿಕ್ತ;
                     cur = alloca_list;
-                    while (cur) {
-                         if ((size_t) cur->p == t->start) {
+                    ಯಾವತ್ (cur) {
+                         ಯದಿ ((size_t) cur->p == t->start) {
                              dprintf(stderr, "%s, %s(): remove alloca/vla %p\n",
                                      __FILE__, func, cur->p);
-                             if (last)
+                             ಯದಿ (last)
                                  last->next = cur->next;
-                             else
+                             ಅನ್ಯಥಾ
                                  alloca_list = cur->next;
                              BOUND_FREE (cur);
-                             break;
+                             ಭಙ್ಗ;
                          }
                          last = cur;
                          cur = cur->next;
                     }
                     dprintf(stderr, "%s, %s(): delete %p\n",
-                            __FILE__, func, (void *) t->start);
-                    tree = splay_delete(t->start, tree);
+                            __FILE__, func, (ಶೂನ್ಯ *) t->start);
+                    ವೃಕ್ಷ_2 = splay_delete(t->start, ವೃಕ್ಷ_2);
                 }
-                break;
+                ಭಙ್ಗ;
             }
             jl = jl->next;
         }
         POST_SEM();
     }
-#if !defined(_WIN32)
+#ಯದಿ !defined(_WIN32)
     sig ? siglongjmp(env, val) :
 #endif
     longjmp (env, val);
 }
 
-void __bound_longjmp(jmp_buf env, int val)
+ಶೂನ್ಯ __bound_longjmp(jmp_buf env, ಪೂರ್ಣಾಙ್ಕ val)
 {
     __bound_long_jump(env,val, 0, __FUNCTION__);
 }
 
-#if !defined(_WIN32)
-void __bound_siglongjmp(jmp_buf env, int val)
+#ಯದಿ !defined(_WIN32)
+ಶೂನ್ಯ __bound_siglongjmp(jmp_buf env, ಪೂರ್ಣಾಙ್ಕ val)
 {
     __bound_long_jump(env,val, 1, __FUNCTION__);
 }
 #endif
 
-#if (defined(__GNUC__) && (__GNUC__ >= 6)) || defined(__clang__)
-#pragma GCC diagnostic pop
+#ಯದಿ (defined(__GNUC__) && (__GNUC__ >= 6)) || defined(__clang__)
+#pragma GCC diagnostic ತೆಗೆ
 #endif
 
-void __bound_init(size_t *p, int mode)
+ಶೂನ್ಯ __bound_init(size_t *p, ಪೂರ್ಣಾಙ್ಕ mode)
 {
     dprintf(stderr, "%s, %s(): start %s\n", __FILE__, __FUNCTION__,
             mode < 0 ? "lazy" : mode == 0 ? "normal use" : "for -run");
 
-    if (inited) {
+    ಯದಿ (inited) {
         WAIT_SEM();
-        goto add_bounds;
+        ಗಚ್ಛ add_bounds;
     }
     inited = 1;
 
-#if HAVE_TLS_FUNC
-#if defined(_WIN32)
-    no_checking_key = TlsAlloc();
-    TlsSetValue(no_checking_key, &no_checking);
-#else
-    pthread_key_create(&no_checking_key, NULL);
-    pthread_setspecific(no_checking_key, &no_checking);
+#ಯದಿ HAVE_TLS_FUNC
+#ಯದಿ defined(_WIN32)
+    no_checking_ಕೀಲಿ = TlsAlloc();
+    Tls_Set_ಮೌಲ್ಯ(no_checking_ಕೀಲಿ, &no_checking);
+#ಅನ್ಯಥಾ
+    pthread_key_create(&no_checking_ಕೀಲಿ, ರಿಕ್ತ);
+    pthread_setspecific(no_checking_ಕೀಲಿ, &no_checking);
 #endif
 #endif
     NO_CHECKING_SET(1);
 
-    print_warn_ptr_add = getenv ("TCC_BOUNDS_WARN_POINTER_ADD") != NULL;
-    print_calls = getenv ("TCC_BOUNDS_PRINT_CALLS") != NULL;
-    print_heap = getenv ("TCC_BOUNDS_PRINT_HEAP") != NULL;
-    print_statistic = getenv ("TCC_BOUNDS_PRINT_STATISTIC") != NULL;
-    never_fatal = getenv ("TCC_BOUNDS_NEVER_FATAL") != NULL;
+    print_warn_ptr_add = getenv ("TCC_BOUNDS_WARN_POINTER_ADD") != ರಿಕ್ತ;
+    print_calls = getenv ("TCC_BOUNDS_PRINT_CALLS") != ರಿಕ್ತ;
+    print_heap = getenv ("TCC_BOUNDS_PRINT_HEAP") != ರಿಕ್ತ;
+    print_statistic = getenv ("TCC_BOUNDS_PRINT_STATISTIC") != ರಿಕ್ತ;
+    never_fatal = getenv ("TCC_BOUNDS_NEVER_FATAL") != ರಿಕ್ತ;
 
     INIT_SEM ();
 
-#if MALLOC_REDIR
+#ಯದಿ MALLOC_REDIR
     {
-        void *addr = mode > 0 ? RTLD_DEFAULT : RTLD_NEXT;
+        ಶೂನ್ಯ *addr = mode > 0 ? RTLD_DEFAULT : RTLD_NEXT;
 
         /* tcc -run required RTLD_DEFAULT. Normal usage requires RTLD_NEXT,
            but using RTLD_NEXT with -run segfaults on MacOS in dyld as the
            generated code segment isn't registered with dyld and hence the
            caller image of dlsym isn't known to it */
-        *(void **) (&malloc_redir) = dlsym (addr, "malloc");
-        if (malloc_redir == NULL) {
+        *(ಶೂನ್ಯ **) (&malloc_redir) = dlsym (addr, "malloc");
+        ಯದಿ (malloc_redir == ರಿಕ್ತ) {
             dprintf(stderr, "%s, %s(): use RTLD_DEFAULT\n",
                     __FILE__, __FUNCTION__);
             addr = RTLD_DEFAULT;
-            *(void **) (&malloc_redir) = dlsym (addr, "malloc");
+            *(ಶೂನ್ಯ **) (&malloc_redir) = dlsym (addr, "malloc");
         }
-        *(void **) (&calloc_redir) = dlsym (addr, "calloc");
-        *(void **) (&free_redir) = dlsym (addr, "free");
-        *(void **) (&realloc_redir) = dlsym (addr, "realloc");
-        *(void **) (&memalign_redir) = dlsym (addr, "memalign");
+        *(ಶೂನ್ಯ **) (&calloc_redir) = dlsym (addr, "calloc");
+        *(ಶೂನ್ಯ **) (&free_redir) = dlsym (addr, "free");
+        *(ಶೂನ್ಯ **) (&realloc_redir) = dlsym (addr, "realloc");
+        *(ಶೂನ್ಯ **) (&memalign_redir) = dlsym (addr, "memalign");
         dprintf(stderr, "%s, %s(): malloc_redir %p\n",
                 __FILE__, __FUNCTION__, malloc_redir);
         dprintf(stderr, "%s, %s(): free_redir %p\n",
@@ -986,34 +986,34 @@ void __bound_init(size_t *p, int mode)
                 __FILE__, __FUNCTION__, realloc_redir);
         dprintf(stderr, "%s, %s(): memalign_redir %p\n",
                 __FILE__, __FUNCTION__, memalign_redir);
-        if (malloc_redir == NULL || free_redir == NULL)
+        ಯದಿ (malloc_redir == ರಿಕ್ತ || free_redir == ರಿಕ್ತ)
             bound_alloc_error ("Cannot redirect malloc/free");
-#if HAVE_PTHREAD_CREATE
-        *(void **) (&pthread_create_redir) = dlsym (addr, "pthread_create");
+#ಯದಿ HAVE_PTHREAD_CREATE
+        *(ಶೂನ್ಯ **) (&pthread_create_redir) = dlsym (addr, "pthread_create");
         dprintf(stderr, "%s, %s(): pthread_create_redir %p\n",
                 __FILE__, __FUNCTION__, pthread_create_redir);
-        if (pthread_create_redir == NULL)
+        ಯದಿ (pthread_create_redir == ರಿಕ್ತ)
             bound_alloc_error ("Cannot redirect pthread_create");
 #endif
-#if HAVE_SIGNAL
-        *(void **) (&signal_redir) = dlsym (addr, "signal");
+#ಯದಿ HAVE_SIGNAL
+        *(ಶೂನ್ಯ **) (&signal_redir) = dlsym (addr, "signal");
         dprintf(stderr, "%s, %s(): signal_redir %p\n",
                 __FILE__, __FUNCTION__, signal_redir);
-        if (signal_redir == NULL)
+        ಯದಿ (signal_redir == ರಿಕ್ತ)
             bound_alloc_error ("Cannot redirect signal");
 #endif
-#if HAVE_SIGACTION
-        *(void **) (&sigaction_redir) = dlsym (addr, "sigaction");
+#ಯದಿ HAVE_SIGACTION
+        *(ಶೂನ್ಯ **) (&sigaction_redir) = dlsym (addr, "sigaction");
         dprintf(stderr, "%s, %s(): sigaction_redir %p\n",
                 __FILE__, __FUNCTION__, sigaction_redir);
-        if (sigaction_redir == NULL)
+        ಯದಿ (sigaction_redir == ರಿಕ್ತ)
             bound_alloc_error ("Cannot redirect sigaction");
 #endif
-#if HAVE_FORK
-        *(void **) (&fork_redir) = dlsym (addr, "fork");
+#ಯದಿ HAVE_FORK
+        *(ಶೂನ್ಯ **) (&fork_redir) = dlsym (addr, "fork");
         dprintf(stderr, "%s, %s(): fork_redir %p\n",
                 __FILE__, __FUNCTION__, fork_redir);
-        if (fork_redir == NULL)
+        ಯದಿ (fork_redir == ರಿಕ್ತ)
             bound_alloc_error ("Cannot redirect fork");
 #endif
     }
@@ -1022,19 +1022,19 @@ void __bound_init(size_t *p, int mode)
 #ifdef __linux__
     {
         FILE *fp;
-        unsigned char found;
+        unsigned ವರ್ಣ found;
         unsigned long start;
         unsigned long end;
         unsigned long ad =
             (unsigned long) __builtin_return_address(0);
-        char line[1000];
+        ವರ್ಣ ಸಾಲು[1000];
 
         /* Display exec name. Usefull when a lot of code is compiled with tcc */
         fp = fopen ("/proc/self/comm", "r");
-        if (fp) {
-            memset (exec, 0, sizeof(exec));
-            fread (exec, 1, sizeof(exec) - 2, fp);
-            if (strchr(exec,'\n'))
+        ಯದಿ (fp) {
+            memset (exec, 0, ಪರಿಮಾಣ(exec));
+            fread (exec, 1, ಪರಿಮಾಣ(exec) - 2, fp);
+            ಯದಿ (strchr(exec,'\n'))
                 *strchr(exec,'\n') = '\0';
             strcat (exec, ":");
             fclose (fp);
@@ -1042,19 +1042,19 @@ void __bound_init(size_t *p, int mode)
         /* check if dlopen is used (is threre a better way?) */ 
         found = 0;
         fp = fopen ("/proc/self/maps", "r");
-        if (fp) {
-            while (fgets (line, sizeof(line), fp)) {
-                if (sscanf (line, "%lx-%lx", &start, &end) == 2 &&
+        ಯದಿ (fp) {
+            ಯಾವತ್ (fgets (ಸಾಲು, ಪರಿಮಾಣ(ಸಾಲು), fp)) {
+                ಯದಿ (sscanf (ಸಾಲು, "%lx-%lx", &start, &end) == 2 &&
                             ad >= start && ad < end) {
                     found = 1;
-                    break;
+                    ಭಙ್ಗ;
                 }
-                if (strstr (line,"[heap]"))
-                    break;
+                ಯದಿ (strstr (ಸಾಲು,"[heap]"))
+                    ಭಙ್ಗ;
             }
             fclose (fp);
         }
-        if (found == 0) {
+        ಯದಿ (found == 0) {
             use_sem = 1;
             no_strdup = 1;
         }
@@ -1063,41 +1063,41 @@ void __bound_init(size_t *p, int mode)
 
     WAIT_SEM ();
 
-#if HAVE_CTYPE
+#ಯದಿ HAVE_CTYPE
 #ifdef __APPLE__
-    tree = splay_insert((size_t) &_DefaultRuneLocale,
-                        sizeof (_DefaultRuneLocale), tree);
-#else
+    ವೃಕ್ಷ_2 = splay_ಸೇರಿಸು((size_t) &_DefaultRuneLocale,
+                        ಪರಿಮಾಣ (_DefaultRuneLocale), ವೃಕ್ಷ_2);
+#ಅನ್ಯಥಾ
     /* XXX: Does not work if locale is changed */
-    tree = splay_insert((size_t) __ctype_b_loc(),
-                        sizeof (unsigned short *), tree);
-    tree = splay_insert((size_t) (*__ctype_b_loc() - 128),
-                        384 * sizeof (unsigned short), tree);
-    tree = splay_insert((size_t) __ctype_tolower_loc(),
-                        sizeof (__int32_t *), tree);
-    tree = splay_insert((size_t) (*__ctype_tolower_loc() - 128),
-                        384 * sizeof (__int32_t), tree);
-    tree = splay_insert((size_t) __ctype_toupper_loc(),
-                        sizeof (__int32_t *), tree);
-    tree = splay_insert((size_t) (*__ctype_toupper_loc() - 128),
-                        384 * sizeof (__int32_t), tree);
+    ವೃಕ್ಷ_2 = splay_ಸೇರಿಸು((size_t) __ctype_b_loc(),
+                        ಪರಿಮಾಣ (unsigned short *), ವೃಕ್ಷ_2);
+    ವೃಕ್ಷ_2 = splay_ಸೇರಿಸು((size_t) (*__ctype_b_loc() - 128),
+                        384 * ಪರಿಮಾಣ (unsigned short), ವೃಕ್ಷ_2);
+    ವೃಕ್ಷ_2 = splay_ಸೇರಿಸು((size_t) __ctype_tolower_loc(),
+                        ಪರಿಮಾಣ (__int32_t *), ವೃಕ್ಷ_2);
+    ವೃಕ್ಷ_2 = splay_ಸೇರಿಸು((size_t) (*__ctype_tolower_loc() - 128),
+                        384 * ಪರಿಮಾಣ (__int32_t), ವೃಕ್ಷ_2);
+    ವೃಕ್ಷ_2 = splay_ಸೇರಿಸು((size_t) __ctype_toupper_loc(),
+                        ಪರಿಮಾಣ (__int32_t *), ವೃಕ್ಷ_2);
+    ವೃಕ್ಷ_2 = splay_ಸೇರಿಸು((size_t) (*__ctype_toupper_loc() - 128),
+                        384 * ಪರಿಮಾಣ (__int32_t), ವೃಕ್ಷ_2);
 #endif
 #endif
-#if HAVE_ERRNO
-    tree = splay_insert((size_t) (&errno), sizeof (int), tree);
+#ಯದಿ HAVE_ERRNO
+    ವೃಕ್ಷ_2 = splay_ಸೇರಿಸು((size_t) (&errno), ಪರಿಮಾಣ (ಪೂರ್ಣಾಙ್ಕ), ವೃಕ್ಷ_2);
 #endif
 
 add_bounds:
-    if (!p)
-        goto no_bounds;
+    ಯದಿ (!p)
+        ಗಚ್ಛ no_bounds;
 
     /* add all static bound check values */
-    while (p[0] != 0) {
-        tree = splay_insert(p[0], p[1], tree);
-#if BOUND_DEBUG
+    ಯಾವತ್ (p[0] != 0) {
+        ವೃಕ್ಷ_2 = splay_ಸೇರಿಸು(p[0], p[1], ವೃಕ್ಷ_2);
+#ಯದಿ BOUND_DEBUG
         dprintf(stderr, "%s, %s(): static var %p 0x%lx\n",
                 __FILE__, __FUNCTION__,
-                (void *) p[0], (unsigned long) p[1]);
+                (ಶೂನ್ಯ *) p[0], (unsigned long) p[1]);
 #endif
         p += 2;
     }
@@ -1108,48 +1108,48 @@ no_bounds:
     dprintf(stderr, "%s, %s(): end\n\n", __FILE__, __FUNCTION__);
 }
 
-void
-#if (defined(__GLIBC__) && (__GLIBC_MINOR__ >= 4)) || defined(_WIN32)
+ಶೂನ್ಯ
+#ಯದಿ (defined(__GLIBC__) && (__GLIBC_MINOR__ >= 4)) || defined(_WIN32)
 __attribute__((constructor))
 #endif
-__bound_main_arg(int argc, char **argv, char **envp)
+__bound_main_arg(ಪೂರ್ಣಾಙ್ಕ argc, ವರ್ಣ **argv, ವರ್ಣ **envp)
 {
     __bound_init (0, -1);
-    if (argc && argv) {
-        int i;
+    ಯದಿ (argc && argv) {
+        ಪೂರ್ಣಾಙ್ಕ i;
 
         WAIT_SEM ();
-        for (i = 0; i < argc; i++)
-            tree = splay_insert((size_t) argv[i], strlen (argv[i]) + 1, tree);
-        tree = splay_insert((size_t) argv, (argc + 1) * sizeof(char *), tree);
+        ಪ್ರತಿ (i = 0; i < argc; i++)
+            ವೃಕ್ಷ_2 = splay_ಸೇರಿಸು((size_t) argv[i], strlen (argv[i]) + 1, ವೃಕ್ಷ_2);
+        ವೃಕ್ಷ_2 = splay_ಸೇರಿಸು((size_t) argv, (argc + 1) * ಪರಿಮಾಣ(ವರ್ಣ *), ವೃಕ್ಷ_2);
         POST_SEM ();
-#if BOUND_DEBUG
-        if (print_calls) {
-            for (i = 0; i < argc; i++)
+#ಯದಿ BOUND_DEBUG
+        ಯದಿ (print_calls) {
+            ಪ್ರತಿ (i = 0; i < argc; i++)
                 dprintf(stderr, "%s, %s(): arg %p 0x%lx\n",
                         __FILE__, __FUNCTION__,
                         argv[i], (unsigned long)(strlen (argv[i]) + 1));
             dprintf(stderr, "%s, %s(): argv %p %d\n",
                     __FILE__, __FUNCTION__, argv,
-                    (int)((argc + 1) * sizeof(char *)));
+                    (ಪೂರ್ಣಾಙ್ಕ)((argc + 1) * ಪರಿಮಾಣ(ವರ್ಣ *)));
         }
 #endif
     }
 
-    if (envp && *envp) {
-        char **p = envp;
+    ಯದಿ (envp && *envp) {
+        ವರ್ಣ **p = envp;
 
         WAIT_SEM ();
-        while (*p) {
-            tree = splay_insert((size_t) *p, strlen (*p) + 1, tree);
+        ಯಾವತ್ (*p) {
+            ವೃಕ್ಷ_2 = splay_ಸೇರಿಸು((size_t) *p, strlen (*p) + 1, ವೃಕ್ಷ_2);
             ++p;
         }
-        tree = splay_insert((size_t) envp, (++p - envp) * sizeof(char *), tree);
+        ವೃಕ್ಷ_2 = splay_ಸೇರಿಸು((size_t) envp, (++p - envp) * ಪರಿಮಾಣ(ವರ್ಣ *), ವೃಕ್ಷ_2);
         POST_SEM ();
-#if BOUND_DEBUG
-        if (print_calls) {
+#ಯದಿ BOUND_DEBUG
+        ಯದಿ (print_calls) {
             p = envp;
-            while (*p) {
+            ಯಾವತ್ (*p) {
                 dprintf(stderr, "%s, %s(): env %p 0x%lx\n",
                         __FILE__, __FUNCTION__,
                         *p, (unsigned long)(strlen (*p) + 1));
@@ -1157,27 +1157,27 @@ __bound_main_arg(int argc, char **argv, char **envp)
             }
             dprintf(stderr, "%s, %s(): environ %p %d\n",
                     __FILE__, __FUNCTION__, envp,
-                    (int)((++p - envp) * sizeof(char *)));
+                    (ಪೂರ್ಣಾಙ್ಕ)((++p - envp) * ಪರಿಮಾಣ(ವರ್ಣ *)));
         }
 #endif
     }
 }
 
-void __attribute__((destructor)) __bound_exit(void)
+ಶೂನ್ಯ __attribute__((destructor)) __bound_exit(ಶೂನ್ಯ)
 {
-    int i;
-    static const char * const alloc_type[] = {
+    ಪೂರ್ಣಾಙ್ಕ i;
+    ಸ್ಥಿರ ಧ್ರುವ ವರ್ಣ * ಧ್ರುವ alloc_type[] = {
         "", "malloc", "calloc", "realloc", "memalign", "strdup"
     };
 
     dprintf(stderr, "%s, %s():\n", __FILE__, __FUNCTION__);
 
-    if (inited) {
-#if !defined(_WIN32) && !defined(__APPLE__) && !defined CONFIG_TCC_MUSL && \
+    ಯದಿ (inited) {
+#ಯದಿ !defined(_WIN32) && !defined(__APPLE__) && !defined CONFIG_TCC_MUSL && \
     !defined(__OpenBSD__) && !defined(__FreeBSD__) && !defined(__NetBSD__) && \
     !defined(__ANDROID__)
-        if (print_heap) {
-            extern void __libc_freeres (void);
+        ಯದಿ (print_heap) {
+            ಬಾಹ್ಯ ಶೂನ್ಯ __libc_freeres (ಶೂನ್ಯ);
             __libc_freeres ();
         }
 #endif
@@ -1185,109 +1185,109 @@ void __attribute__((destructor)) __bound_exit(void)
         NO_CHECKING_SET(1);
 
         TRY_SEM ();
-        while (alloca_list) {
+        ಯಾವತ್ (alloca_list) {
             alloca_list_type *next = alloca_list->next;
 
-            tree = splay_delete ((size_t) alloca_list->p, tree);
+            ವೃಕ್ಷ_2 = splay_delete ((size_t) alloca_list->p, ವೃಕ್ಷ_2);
             BOUND_FREE (alloca_list);
             alloca_list = next;
         }
-        while (jmp_list) {
+        ಯಾವತ್ (jmp_list) {
            jmp_list_type *next  = jmp_list->next;
 
            BOUND_FREE (jmp_list);
            jmp_list = next;
         }
-        for (i = 0; i < FREE_REUSE_SIZE; i++) {
-            if (free_reuse_list[i]) {
-                tree = splay_delete ((size_t) free_reuse_list[i], tree);
+        ಪ್ರತಿ (i = 0; i < FREE_REUSE_SIZE; i++) {
+            ಯದಿ (free_reuse_list[i]) {
+                ವೃಕ್ಷ_2 = splay_delete ((size_t) free_reuse_list[i], ವೃಕ್ಷ_2);
                 BOUND_FREE (free_reuse_list[i]);
              }
         }
-        while (tree) {
-            if (print_heap && tree->type != 0)
+        ಯಾವತ್ (ವೃಕ್ಷ_2) {
+            ಯದಿ (print_heap && ವೃಕ್ಷ_2->type != 0)
                 fprintf (stderr, "%s, %s(): %s found size %lu\n",
-                         __FILE__, __FUNCTION__, alloc_type[tree->type],
-                         (unsigned long) tree->size);
-            tree = splay_delete (tree->start, tree);
+                         __FILE__, __FUNCTION__, alloc_type[ವೃಕ್ಷ_2->type],
+                         (unsigned long) ವೃಕ್ಷ_2->size);
+            ವೃಕ್ಷ_2 = splay_delete (ವೃಕ್ಷ_2->start, ವೃಕ್ಷ_2);
         }
-#if TREE_REUSE
-        while (tree_free_list) {
-            Tree *next = tree_free_list->left;
-            BOUND_FREE (tree_free_list);
-            tree_free_list = next;
+#ಯದಿ ವೃಕ್ಷ_REUSE
+        ಯಾವತ್ (ವೃಕ್ಷ_free_list) {
+            ವೃಕ್ಷ *next = ವೃಕ್ಷ_free_list->ಎಡ;
+            BOUND_FREE (ವೃಕ್ಷ_free_list);
+            ವೃಕ್ಷ_free_list = next;
         }
 #endif
         POST_SEM ();
         EXIT_SEM ();
-#if HAVE_TLS_FUNC
-#if defined(_WIN32)
-        TlsFree(no_checking_key);
-#else
-        pthread_key_delete(no_checking_key);
+#ಯದಿ HAVE_TLS_FUNC
+#ಯದಿ defined(_WIN32)
+        TlsFree(no_checking_ಕೀಲಿ);
+#ಅನ್ಯಥಾ
+        pthread_key_delete(no_checking_ಕೀಲಿ);
 #endif
 #endif
         inited = 0;
-        if (print_statistic) {
-#if BOUND_STATISTIC
-            fprintf (stderr, "bound_ptr_add_count      %llu\n", bound_ptr_add_count);
-            fprintf (stderr, "bound_ptr_indir1_count   %llu\n", bound_ptr_indir1_count);
-            fprintf (stderr, "bound_ptr_indir2_count   %llu\n", bound_ptr_indir2_count);
-            fprintf (stderr, "bound_ptr_indir4_count   %llu\n", bound_ptr_indir4_count);
-            fprintf (stderr, "bound_ptr_indir8_count   %llu\n", bound_ptr_indir8_count);
-            fprintf (stderr, "bound_ptr_indir12_count  %llu\n", bound_ptr_indir12_count);
-            fprintf (stderr, "bound_ptr_indir16_count  %llu\n", bound_ptr_indir16_count);
-            fprintf (stderr, "bound_local_new_count    %llu\n", bound_local_new_count);
-            fprintf (stderr, "bound_local_delete_count %llu\n", bound_local_delete_count);
-            fprintf (stderr, "bound_malloc_count       %llu\n", bound_malloc_count);
-            fprintf (stderr, "bound_calloc_count       %llu\n", bound_calloc_count);
-            fprintf (stderr, "bound_realloc_count      %llu\n", bound_realloc_count);
-            fprintf (stderr, "bound_free_count         %llu\n", bound_free_count);
-            fprintf (stderr, "bound_memalign_count     %llu\n", bound_memalign_count);
-            fprintf (stderr, "bound_mmap_count         %llu\n", bound_mmap_count);
-            fprintf (stderr, "bound_munmap_count       %llu\n", bound_munmap_count);
-            fprintf (stderr, "bound_alloca_count       %llu\n", bound_alloca_count);
-            fprintf (stderr, "bound_setjmp_count       %llu\n", bound_setjmp_count);
-            fprintf (stderr, "bound_longjmp_count      %llu\n", bound_longjmp_count);
-            fprintf (stderr, "bound_mempcy_count       %llu\n", bound_mempcy_count);
-            fprintf (stderr, "bound_memcmp_count       %llu\n", bound_memcmp_count);
-            fprintf (stderr, "bound_memmove_count      %llu\n", bound_memmove_count);
-            fprintf (stderr, "bound_memset_count       %llu\n", bound_memset_count);
-            fprintf (stderr, "bound_strlen_count       %llu\n", bound_strlen_count);
-            fprintf (stderr, "bound_strcpy_count       %llu\n", bound_strcpy_count);
-            fprintf (stderr, "bound_strncpy_count      %llu\n", bound_strncpy_count);
-            fprintf (stderr, "bound_strcmp_count       %llu\n", bound_strcmp_count);
-            fprintf (stderr, "bound_strncmp_count      %llu\n", bound_strncmp_count);
-            fprintf (stderr, "bound_strcat_count       %llu\n", bound_strcat_count);
-            fprintf (stderr, "bound_strncat_count      %llu\n", bound_strncat_count);
-            fprintf (stderr, "bound_strchr_count       %llu\n", bound_strchr_count);
-            fprintf (stderr, "bound_strrchr_count      %llu\n", bound_strrchr_count);
-            fprintf (stderr, "bound_strdup_count       %llu\n", bound_strdup_count);
+        ಯದಿ (print_statistic) {
+#ಯದಿ BOUND_STATISTIC
+            fprintf (stderr, "bound_ptr_add_count      %llu\n", bound_ptr_add_ಎಣಿಕೆ);
+            fprintf (stderr, "bound_ptr_indir1_count   %llu\n", bound_ptr_indir1_ಎಣಿಕೆ);
+            fprintf (stderr, "bound_ptr_indir2_count   %llu\n", bound_ptr_indir2_ಎಣಿಕೆ);
+            fprintf (stderr, "bound_ptr_indir4_count   %llu\n", bound_ptr_indir4_ಎಣಿಕೆ);
+            fprintf (stderr, "bound_ptr_indir8_count   %llu\n", bound_ptr_indir8_ಎಣಿಕೆ);
+            fprintf (stderr, "bound_ptr_indir12_count  %llu\n", bound_ptr_indir12_ಎಣಿಕೆ);
+            fprintf (stderr, "bound_ptr_indir16_count  %llu\n", bound_ptr_indir16_ಎಣಿಕೆ);
+            fprintf (stderr, "bound_local_new_count    %llu\n", bound_local_new_ಎಣಿಕೆ);
+            fprintf (stderr, "bound_local_delete_count %llu\n", bound_local_delete_ಎಣಿಕೆ);
+            fprintf (stderr, "bound_malloc_count       %llu\n", bound_malloc_ಎಣಿಕೆ);
+            fprintf (stderr, "bound_calloc_count       %llu\n", bound_calloc_ಎಣಿಕೆ);
+            fprintf (stderr, "bound_realloc_count      %llu\n", bound_realloc_ಎಣಿಕೆ);
+            fprintf (stderr, "bound_free_count         %llu\n", bound_free_ಎಣಿಕೆ);
+            fprintf (stderr, "bound_memalign_count     %llu\n", bound_memalign_ಎಣಿಕೆ);
+            fprintf (stderr, "bound_mmap_count         %llu\n", bound_mmap_ಎಣಿಕೆ);
+            fprintf (stderr, "bound_munmap_count       %llu\n", bound_munmap_ಎಣಿಕೆ);
+            fprintf (stderr, "bound_alloca_count       %llu\n", bound_alloca_ಎಣಿಕೆ);
+            fprintf (stderr, "bound_setjmp_count       %llu\n", bound_setjmp_ಎಣಿಕೆ);
+            fprintf (stderr, "bound_longjmp_count      %llu\n", bound_longjmp_ಎಣಿಕೆ);
+            fprintf (stderr, "bound_mempcy_count       %llu\n", bound_mempcy_ಎಣಿಕೆ);
+            fprintf (stderr, "bound_memcmp_count       %llu\n", bound_memcmp_ಎಣಿಕೆ);
+            fprintf (stderr, "bound_memmove_count      %llu\n", bound_memmove_ಎಣಿಕೆ);
+            fprintf (stderr, "bound_memset_count       %llu\n", bound_memset_ಎಣಿಕೆ);
+            fprintf (stderr, "bound_strlen_count       %llu\n", bound_strlen_ಎಣಿಕೆ);
+            fprintf (stderr, "bound_strcpy_count       %llu\n", bound_strcpy_ಎಣಿಕೆ);
+            fprintf (stderr, "bound_strncpy_count      %llu\n", bound_strncpy_ಎಣಿಕೆ);
+            fprintf (stderr, "bound_strcmp_count       %llu\n", bound_strcmp_ಎಣಿಕೆ);
+            fprintf (stderr, "bound_strncmp_count      %llu\n", bound_strncmp_ಎಣಿಕೆ);
+            fprintf (stderr, "bound_strcat_count       %llu\n", bound_strcat_ಎಣಿಕೆ);
+            fprintf (stderr, "bound_strncat_count      %llu\n", bound_strncat_ಎಣಿಕೆ);
+            fprintf (stderr, "bound_strchr_count       %llu\n", bound_strchr_ಎಣಿಕೆ);
+            fprintf (stderr, "bound_strrchr_count      %llu\n", bound_strrchr_ಎಣಿಕೆ);
+            fprintf (stderr, "bound_strdup_count       %llu\n", bound_strdup_ಎಣಿಕೆ);
             fprintf (stderr, "bound_not_found          %llu\n", bound_not_found);
 #endif
-#if BOUND_STATISTIC_SPLAY
+#ಯದಿ BOUND_STATISTIC_SPLAY
             fprintf (stderr, "bound_splay              %llu\n", bound_splay);
             fprintf (stderr, "bound_splay_end          %llu\n", bound_splay_end);
-            fprintf (stderr, "bound_splay_insert       %llu\n", bound_splay_insert);
+            fprintf (stderr, "bound_splay_insert       %llu\n", bound_splay_ಸೇರಿಸು);
             fprintf (stderr, "bound_splay_delete       %llu\n", bound_splay_delete);
 #endif
         }
     }
 }
 
-void __bound_exit_dll(size_t *p)
+ಶೂನ್ಯ __bound_exit_dll(size_t *p)
 {
     dprintf(stderr, "%s, %s()\n", __FILE__, __FUNCTION__);
 
-    if (p) {
+    ಯದಿ (p) {
         WAIT_SEM ();
-	while (p[0] != 0) {
-	    tree = splay_delete(p[0], tree);
-#if BOUND_DEBUG
-            if (print_calls) {
+	ಯಾವತ್ (p[0] != 0) {
+	    ವೃಕ್ಷ_2 = splay_delete(p[0], ವೃಕ್ಷ_2);
+#ಯದಿ BOUND_DEBUG
+            ಯದಿ (print_calls) {
                 dprintf(stderr, "%s, %s(): remove static var %p 0x%lx\n",
                         __FILE__, __FUNCTION__,
-                        (void *) p[0], (unsigned long) p[1]);
+                        (ಶೂನ್ಯ *) p[0], (unsigned long) p[1]);
             }
 #endif
 	    p += 2;
@@ -1296,38 +1296,38 @@ void __bound_exit_dll(size_t *p)
     }
 }
 
-#if HAVE_PTHREAD_CREATE
-typedef struct {
-    void *(*start_routine) (void *);
-    void *arg;
+#ಯದಿ HAVE_PTHREAD_CREATE
+ಪ್ರಕಾರನಿರ್ದೇಶ ಸಂರಚನಾ {
+    ಶೂನ್ಯ *(*start_routine) (ಶೂನ್ಯ *);
+    ಶೂನ್ಯ *arg;
     sigset_t old_mask;
 } bound_thread_create_type;
 
-static void *bound_thread_create(void *bdata)
+ಸ್ಥಿರ ಶೂನ್ಯ *bound_thread_create(ಶೂನ್ಯ *bdata)
 {
     bound_thread_create_type *data = (bound_thread_create_type *) bdata;
-    void *retval;
-#if HAVE_TLS_FUNC
-    int *p = (int *) BOUND_MALLOC(sizeof(int));
+    ಶೂನ್ಯ *retval;
+#ಯದಿ HAVE_TLS_FUNC
+    ಪೂರ್ಣಾಙ್ಕ *p = (ಪೂರ್ಣಾಙ್ಕ *) BOUND_MALLOC(ಪರಿಮಾಣ(ಪೂರ್ಣಾಙ್ಕ));
   
-    if (!p) bound_alloc_error("bound_thread_create malloc");
+    ಯದಿ (!p) bound_alloc_error("bound_thread_create malloc");
     *p = 0;
-    pthread_setspecific(no_checking_key, p);
+    pthread_setspecific(no_checking_ಕೀಲಿ, p);
 #endif
-    pthread_sigmask(SIG_SETMASK, &data->old_mask, NULL);
+    pthread_sigmask(SIG_SETMASK, &data->old_mask, ರಿಕ್ತ);
     retval = data->start_routine(data->arg);
-#if HAVE_TLS_FUNC
-    pthread_setspecific(no_checking_key, NULL);
+#ಯದಿ HAVE_TLS_FUNC
+    pthread_setspecific(no_checking_ಕೀಲಿ, ರಿಕ್ತ);
     BOUND_FREE (p);
 #endif
     BOUND_FREE (data);
-    return retval;
+    ಪ್ರತ್ಯಾಗಮ retval;
 }
 
-int pthread_create(pthread_t *thread, const pthread_attr_t *attr,
-                   void *(*start_routine) (void *), void *arg)
+ಪೂರ್ಣಾಙ್ಕ pthread_create(pthread_t *thread, ಧ್ರುವ pthread_attr_t *attr,
+                   ಶೂನ್ಯ *(*start_routine) (ಶೂನ್ಯ *), ಶೂನ್ಯ *arg)
 {
-    int retval;
+    ಪೂರ್ಣಾಙ್ಕ retval;
     bound_thread_create_type *data;
     sigset_t mask;
     sigset_t old_mask;
@@ -1336,152 +1336,152 @@ int pthread_create(pthread_t *thread, const pthread_attr_t *attr,
     dprintf (stderr, "%s, %s()\n", __FILE__, __FUNCTION__);
     sigfillset(&mask);
     pthread_sigmask(SIG_SETMASK, &mask, &old_mask);
-    data = (bound_thread_create_type *) BOUND_MALLOC(sizeof(bound_thread_create_type));
-    if (!data) bound_alloc_error("bound_thread_create malloc");
+    data = (bound_thread_create_type *) BOUND_MALLOC(ಪರಿಮಾಣ(bound_thread_create_type));
+    ಯದಿ (!data) bound_alloc_error("bound_thread_create malloc");
     data->start_routine = start_routine;
     data->arg = arg;
     data->old_mask = old_mask;
     retval = pthread_create_redir(thread, attr, bound_thread_create, data);
-    pthread_sigmask(SIG_SETMASK, &old_mask, NULL);
-    return retval;
+    pthread_sigmask(SIG_SETMASK, &old_mask, ರಿಕ್ತ);
+    ಪ್ರತ್ಯಾಗಮ retval;
 }
 #endif
 
-#if HAVE_SIGNAL || HAVE_SIGACTION
-typedef union {
-#if HAVE_SIGNAL
+#ಯದಿ HAVE_SIGNAL || HAVE_SIGACTION
+ಪ್ರಕಾರನಿರ್ದೇಶ ಸಙ್ಘ {
+#ಯದಿ HAVE_SIGNAL
     bound_sig signal_handler;
 #endif
-#if HAVE_SIGACTION
-    void (*sig_handler)(int);
-    void (*sig_sigaction)(int, siginfo_t *, void *);
+#ಯದಿ HAVE_SIGACTION
+    ಶೂನ್ಯ (*sig_handler)(ಪೂರ್ಣಾಙ್ಕ);
+    ಶೂನ್ಯ (*sig_sigaction)(ಪೂರ್ಣಾಙ್ಕ, siginfo_t *, ಶೂನ್ಯ *);
 #endif
 } bound_sig_type;
 
-static unsigned char bound_sig_used[NSIG];
-static bound_sig_type bound_sig_data[NSIG];
+ಸ್ಥಿರ unsigned ವರ್ಣ bound_sig_used[NSIG];
+ಸ್ಥಿರ bound_sig_type bound_sig_data[NSIG];
 #endif
 
-#if HAVE_SIGNAL
-static void signal_handler(int sig)
+#ಯದಿ HAVE_SIGNAL
+ಸ್ಥಿರ ಶೂನ್ಯ signal_handler(ಪೂರ್ಣಾಙ್ಕ sig)
 {
    __bounds_checking(1);
    bound_sig_data[sig].signal_handler(sig);
    __bounds_checking(-1);
 }
 
-bound_sig signal(int signum, bound_sig handler)
+bound_sig ಸಙ್ಕೇತ(ಪೂರ್ಣಾಙ್ಕ signum, bound_sig handler)
 {
     bound_sig retval;
 
     dprintf (stderr, "%s, %s() %d %p\n", __FILE__, __FUNCTION__,
              signum, handler);
     retval = signal_redir(signum, handler ? signal_handler : handler);
-    if (retval != SIG_ERR) {
-        if (bound_sig_used[signum])
+    ಯದಿ (retval != SIG_ERR) {
+        ಯದಿ (bound_sig_used[signum])
             retval = bound_sig_data[signum].signal_handler;
-        if (handler) {
+        ಯದಿ (handler) {
             bound_sig_used[signum] = 1;
             bound_sig_data[signum].signal_handler = handler;
         }
     }
-    return retval;
+    ಪ್ರತ್ಯಾಗಮ retval;
 }
 #endif
 
-#if HAVE_SIGACTION
-static void sig_handler(int sig)
+#ಯದಿ HAVE_SIGACTION
+ಸ್ಥಿರ ಶೂನ್ಯ sig_handler(ಪೂರ್ಣಾಙ್ಕ sig)
 {
    __bounds_checking(1);
    bound_sig_data[sig].sig_handler(sig);
    __bounds_checking(-1);
 }
 
-static void sig_sigaction(int sig, siginfo_t *info, void *ucontext)
+ಸ್ಥಿರ ಶೂನ್ಯ sig_sigaction(ಪೂರ್ಣಾಙ್ಕ sig, siginfo_t *info, ಶೂನ್ಯ *ucontext)
 {
    __bounds_checking(1);
    bound_sig_data[sig].sig_sigaction(sig, info, ucontext);
    __bounds_checking(-1);
 }
 
-int sigaction(int signum, const struct sigaction *act, struct sigaction *oldact)
+ಪೂರ್ಣಾಙ್ಕ sigaction(ಪೂರ್ಣಾಙ್ಕ signum, ಧ್ರುವ ಸಂರಚನಾ sigaction *act, ಸಂರಚನಾ sigaction *oldact)
 {
-    int retval;
-    struct sigaction nact, oact;
+    ಪೂರ್ಣಾಙ್ಕ retval;
+    ಸಂರಚನಾ sigaction nact, oact;
 
     dprintf (stderr, "%s, %s() %d %p %p\n", __FILE__, __FUNCTION__,
              signum, act, oldact);
 
-    if (sigaction_redir == NULL)
+    ಯದಿ (sigaction_redir == ರಿಕ್ತ)
         __bound_init(0,-1);
 
-    if (act) {
+    ಯದಿ (act) {
         nact = *act;
-        if (nact.sa_flags & SA_SIGINFO)
+        ಯದಿ (nact.sa_flags & SA_SIGINFO)
             nact.sa_sigaction = sig_sigaction;
-        else
+        ಅನ್ಯಥಾ
             nact.sa_handler = sig_handler;
         retval = sigaction_redir(signum, &nact, &oact);
     }
-    else
+    ಅನ್ಯಥಾ
         retval = sigaction_redir(signum, act, &oact);
-    if (retval >= 0) {
-        if (bound_sig_used[signum]) {
-            if (oact.sa_flags & SA_SIGINFO)
+    ಯದಿ (retval >= 0) {
+        ಯದಿ (bound_sig_used[signum]) {
+            ಯದಿ (oact.sa_flags & SA_SIGINFO)
                 oact.sa_sigaction = bound_sig_data[signum].sig_sigaction;
-            else
+            ಅನ್ಯಥಾ
                 oact.sa_handler = bound_sig_data[signum].sig_handler;
         }
-        if (oldact) {
+        ಯದಿ (oldact) {
             *oldact = oact;
         }
-        if (act) {
+        ಯದಿ (act) {
             bound_sig_used[signum] = 1;
-            if (act->sa_flags & SA_SIGINFO)
+            ಯದಿ (act->sa_flags & SA_SIGINFO)
                 bound_sig_data[signum].sig_sigaction = act->sa_sigaction;
-            else
+            ಅನ್ಯಥಾ
                 bound_sig_data[signum].sig_handler = act->sa_handler;
         }
     }
-    return retval;
+    ಪ್ರತ್ಯಾಗಮ retval;
 }
 #endif
 
-#if HAVE_FORK
-pid_t fork(void)
+#ಯದಿ HAVE_FORK
+pid_t fork(ಶೂನ್ಯ)
 {
     pid_t retval;
 
     WAIT_SEM();
     retval = (*fork_redir)();
-    if (retval == 0)
+    ಯದಿ (retval == 0)
         INIT_SEM();
-    else
+    ಅನ್ಯಥಾ
         POST_SEM();
-    return retval;
+    ಪ್ರತ್ಯಾಗಮ retval;
 }
 #endif
 
-#if MALLOC_REDIR
-void *malloc(size_t size)
-#else
-void *__bound_malloc(size_t size, const void *caller)
+#ಯದಿ MALLOC_REDIR
+ಶೂನ್ಯ *malloc(size_t size)
+#ಅನ್ಯಥಾ
+ಶೂನ್ಯ *__bound_malloc(size_t size, ಧ್ರುವ ಶೂನ್ಯ *caller)
 #endif
 {
-    void *ptr;
+    ಶೂನ್ಯ *ptr;
     
-#if MALLOC_REDIR
+#ಯದಿ MALLOC_REDIR
     /* This will catch the first dlsym call from __bound_init */
-    if (malloc_redir == NULL) {
+    ಯದಿ (malloc_redir == ರಿಕ್ತ) {
         __bound_init (0, -1);
-        if (malloc_redir == NULL) {
+        ಯದಿ (malloc_redir == ರಿಕ್ತ) {
             ptr = &initial_pool[pool_index];
             pool_index = (pool_index + size + 15) & ~15;
-            if (pool_index >= sizeof (initial_pool))
+            ಯದಿ (pool_index >= ಪರಿಮಾಣ (initial_pool))
                 bound_alloc_error ("initial memory pool too small");
             dprintf (stderr, "%s, %s(): initial %p, 0x%lx\n",
                      __FILE__, __FUNCTION__, ptr, (unsigned long)size);
-            return ptr;
+            ಪ್ರತ್ಯಾಗಮ ptr;
         }
     }
 #endif
@@ -1492,38 +1492,38 @@ void *__bound_malloc(size_t size, const void *caller)
     dprintf(stderr, "%s, %s(): %p, 0x%lx\n",
             __FILE__, __FUNCTION__, ptr, (unsigned long)size);
     
-    if (inited && NO_CHECKING_GET() == 0) {
+    ಯದಿ (inited && NO_CHECKING_GET() == 0) {
         WAIT_SEM ();
-        INCR_COUNT(bound_malloc_count);
+        INCR_ಎಣಿಕೆ(bound_malloc_ಎಣಿಕೆ);
 
-        if (ptr) {
-            tree = splay_insert ((size_t) ptr, size ? size : size + 1, tree);
-            if (tree && tree->start == (size_t) ptr)
-                tree->type = TCC_TYPE_MALLOC;
+        ಯದಿ (ptr) {
+            ವೃಕ್ಷ_2 = splay_ಸೇರಿಸು ((size_t) ptr, size ? size : size + 1, ವೃಕ್ಷ_2);
+            ಯದಿ (ವೃಕ್ಷ_2 && ವೃಕ್ಷ_2->start == (size_t) ptr)
+                ವೃಕ್ಷ_2->type = TCC_TYPE_MALLOC;
         }
         POST_SEM ();
     }
-    return ptr;
+    ಪ್ರತ್ಯಾಗಮ ptr;
 }
 
-#if MALLOC_REDIR
-void *memalign(size_t align, size_t size)
-#else
-void *__bound_memalign(size_t align, size_t size, const void *caller)
+#ಯದಿ MALLOC_REDIR
+ಶೂನ್ಯ *memalign(size_t align, size_t size)
+#ಅನ್ಯಥಾ
+ಶೂನ್ಯ *__bound_memalign(size_t align, size_t size, ಧ್ರುವ ಶೂನ್ಯ *caller)
 #endif
 {
-    void *ptr;
+    ಶೂನ್ಯ *ptr;
 
-#if HAVE_MEMALIGN
+#ಯದಿ HAVE_MEMALIGN
     /* we allocate one more byte to ensure the regions will be
        separated by at least one byte. With the glibc malloc, it may
        be in fact not necessary */
     ptr = BOUND_MEMALIGN(align, size + 1);
-#else
-    if (align > 4) {
+#ಅನ್ಯಥಾ
+    ಯದಿ (align > 4) {
         /* XXX: handle it ? */
-        ptr = NULL;
-    } else {
+        ptr = ರಿಕ್ತ;
+    } ಅನ್ಯಥಾ {
         /* we suppose that malloc aligns to at least four bytes */
         ptr = BOUND_MALLOC(size + 1);
     }
@@ -1531,56 +1531,56 @@ void *__bound_memalign(size_t align, size_t size, const void *caller)
     dprintf(stderr, "%s, %s(): %p, 0x%lx\n",
             __FILE__, __FUNCTION__, ptr, (unsigned long)size);
 
-    if (NO_CHECKING_GET() == 0) {
+    ಯದಿ (NO_CHECKING_GET() == 0) {
         WAIT_SEM ();
-        INCR_COUNT(bound_memalign_count);
+        INCR_ಎಣಿಕೆ(bound_memalign_ಎಣಿಕೆ);
 
-        if (ptr) {
-            tree = splay_insert((size_t) ptr, size ? size : size + 1, tree);
-            if (tree && tree->start == (size_t) ptr)
-                tree->type = TCC_TYPE_MEMALIGN;
+        ಯದಿ (ptr) {
+            ವೃಕ್ಷ_2 = splay_ಸೇರಿಸು((size_t) ptr, size ? size : size + 1, ವೃಕ್ಷ_2);
+            ಯದಿ (ವೃಕ್ಷ_2 && ವೃಕ್ಷ_2->start == (size_t) ptr)
+                ವೃಕ್ಷ_2->type = TCC_TYPE_MEMALIGN;
         }
         POST_SEM ();
     }
-    return ptr;
+    ಪ್ರತ್ಯಾಗಮ ptr;
 }
 
-#if MALLOC_REDIR
-void free(void *ptr)
-#else
-void __bound_free(void *ptr, const void *caller)
+#ಯದಿ MALLOC_REDIR
+ಶೂನ್ಯ ಮುಕ್ತ(ಶೂನ್ಯ *ptr)
+#ಅನ್ಯಥಾ
+ಶೂನ್ಯ __bound_free(ಶೂನ್ಯ *ptr, ಧ್ರುವ ಶೂನ್ಯ *caller)
 #endif
 {
     size_t addr = (size_t) ptr;
-    void *p;
+    ಶೂನ್ಯ *p;
 
-    if (ptr == NULL || tree == NULL
-#if MALLOC_REDIR
-        || ((unsigned char *) ptr >= &initial_pool[0] &&
-            (unsigned char *) ptr < &initial_pool[sizeof(initial_pool)])
+    ಯದಿ (ptr == ರಿಕ್ತ || ವೃಕ್ಷ_2 == ರಿಕ್ತ
+#ಯದಿ MALLOC_REDIR
+        || ((unsigned ವರ್ಣ *) ptr >= &initial_pool[0] &&
+            (unsigned ವರ್ಣ *) ptr < &initial_pool[ಪರಿಮಾಣ(initial_pool)])
 #endif
         )
-        return;
+        ಪ್ರತ್ಯಾಗಮ;
 
     dprintf(stderr, "%s, %s(): %p\n", __FILE__, __FUNCTION__, ptr);
 
-    if (inited && NO_CHECKING_GET() == 0) {
+    ಯದಿ (inited && NO_CHECKING_GET() == 0) {
         WAIT_SEM ();
-        INCR_COUNT(bound_free_count);
-        tree = splay (addr, tree);
-        if (tree->start == addr) {
-            if (tree->is_invalid) {
+        INCR_ಎಣಿಕೆ(bound_free_ಎಣಿಕೆ);
+        ವೃಕ್ಷ_2 = splay (addr, ವೃಕ್ಷ_2);
+        ಯದಿ (ವೃಕ್ಷ_2->start == addr) {
+            ಯದಿ (ವೃಕ್ಷ_2->is_invalid) {
                 POST_SEM ();
                 bound_error("freeing invalid region");
-                return;
+                ಪ್ರತ್ಯಾಗಮ;
             }
-            tree->is_invalid = 1;
-            memset (ptr, 0x5a, tree->size);
+            ವೃಕ್ಷ_2->is_invalid = 1;
+            memset (ptr, 0x5a, ವೃಕ್ಷ_2->size);
             p = free_reuse_list[free_reuse_index];
             free_reuse_list[free_reuse_index] = ptr;
             free_reuse_index = (free_reuse_index + 1) % FREE_REUSE_SIZE;
-            if (p)
-                tree = splay_delete((size_t)p, tree);
+            ಯದಿ (p)
+                ವೃಕ್ಷ_2 = splay_delete((size_t)p, ವೃಕ್ಷ_2);
             ptr = p;
         }
         POST_SEM ();
@@ -1588,65 +1588,65 @@ void __bound_free(void *ptr, const void *caller)
     BOUND_FREE (ptr);
 }
 
-#if MALLOC_REDIR
-void *realloc(void *ptr, size_t size)
-#else
-void *__bound_realloc(void *ptr, size_t size, const void *caller)
+#ಯದಿ MALLOC_REDIR
+ಶೂನ್ಯ *realloc(ಶೂನ್ಯ *ptr, size_t size)
+#ಅನ್ಯಥಾ
+ಶೂನ್ಯ *__bound_realloc(ಶೂನ್ಯ *ptr, size_t size, ಧ್ರುವ ಶೂನ್ಯ *caller)
 #endif
 {
-    void *new_ptr;
+    ಶೂನ್ಯ *new_ptr;
 
-    if (size == 0) {
-#if MALLOC_REDIR
-        free(ptr);
-#else
+    ಯದಿ (size == 0) {
+#ಯದಿ MALLOC_REDIR
+        ಮುಕ್ತ(ptr);
+#ಅನ್ಯಥಾ
         __bound_free(ptr, caller);
 #endif
-        return NULL;
+        ಪ್ರತ್ಯಾಗಮ ರಿಕ್ತ;
     }
 
     new_ptr = BOUND_REALLOC (ptr, size + 1);
     dprintf(stderr, "%s, %s(): %p, 0x%lx\n",
             __FILE__, __FUNCTION__, new_ptr, (unsigned long)size);
 
-    if (NO_CHECKING_GET() == 0) {
+    ಯದಿ (NO_CHECKING_GET() == 0) {
         WAIT_SEM ();
-        INCR_COUNT(bound_realloc_count);
+        INCR_ಎಣಿಕೆ(bound_realloc_ಎಣಿಕೆ);
 
-        if (ptr)
-            tree = splay_delete ((size_t) ptr, tree);
-        if (new_ptr) {
-            tree = splay_insert ((size_t) new_ptr, size ? size : size + 1, tree);
-            if (tree && tree->start == (size_t) new_ptr)
-                tree->type = TCC_TYPE_REALLOC;
+        ಯದಿ (ptr)
+            ವೃಕ್ಷ_2 = splay_delete ((size_t) ptr, ವೃಕ್ಷ_2);
+        ಯದಿ (new_ptr) {
+            ವೃಕ್ಷ_2 = splay_ಸೇರಿಸು ((size_t) new_ptr, size ? size : size + 1, ವೃಕ್ಷ_2);
+            ಯದಿ (ವೃಕ್ಷ_2 && ವೃಕ್ಷ_2->start == (size_t) new_ptr)
+                ವೃಕ್ಷ_2->type = TCC_TYPE_REALLOC;
         }
         POST_SEM ();
     }
-    return new_ptr;
+    ಪ್ರತ್ಯಾಗಮ new_ptr;
 }
 
-#if MALLOC_REDIR
-void *calloc(size_t nmemb, size_t size)
-#else
-void *__bound_calloc(size_t nmemb, size_t size)
+#ಯದಿ MALLOC_REDIR
+ಶೂನ್ಯ *calloc(size_t nmemb, size_t size)
+#ಅನ್ಯಥಾ
+ಶೂನ್ಯ *__bound_calloc(size_t nmemb, size_t size)
 #endif
 {
-    void *ptr;
+    ಶೂನ್ಯ *ptr;
 
     size *= nmemb;
-#if MALLOC_REDIR
+#ಯದಿ MALLOC_REDIR
     /* This will catch the first dlsym call from __bound_init */
-    if (malloc_redir == NULL) {
+    ಯದಿ (malloc_redir == ರಿಕ್ತ) {
         __bound_init (0, -1);
-        if (malloc_redir == NULL) {
+        ಯದಿ (malloc_redir == ರಿಕ್ತ) {
             ptr = &initial_pool[pool_index];
             pool_index = (pool_index + size + 15) & ~15;
-            if (pool_index >= sizeof (initial_pool))
+            ಯದಿ (pool_index >= ಪರಿಮಾಣ (initial_pool))
                 bound_alloc_error ("initial memory pool too small");
             dprintf (stderr, "%s, %s(): initial %p, 0x%lx\n",
                      __FILE__, __FUNCTION__, ptr, (unsigned long)size);
             memset (ptr, 0, size);
-            return ptr;
+            ಪ್ರತ್ಯಾಗಮ ptr;
         }
     }
 #endif
@@ -1654,369 +1654,369 @@ void *__bound_calloc(size_t nmemb, size_t size)
     dprintf (stderr, "%s, %s(): %p, 0x%lx\n",
              __FILE__, __FUNCTION__, ptr, (unsigned long)size);
 
-    if (ptr) {
+    ಯದಿ (ptr) {
         memset (ptr, 0, size);
-        if (NO_CHECKING_GET() == 0) {
+        ಯದಿ (NO_CHECKING_GET() == 0) {
             WAIT_SEM ();
-            INCR_COUNT(bound_calloc_count);
-            tree = splay_insert ((size_t) ptr, size ? size : size + 1, tree);
-            if (tree && tree->start == (size_t) ptr)
-                tree->type = TCC_TYPE_CALLOC;
+            INCR_ಎಣಿಕೆ(bound_calloc_ಎಣಿಕೆ);
+            ವೃಕ್ಷ_2 = splay_ಸೇರಿಸು ((size_t) ptr, size ? size : size + 1, ವೃಕ್ಷ_2);
+            ಯದಿ (ವೃಕ್ಷ_2 && ವೃಕ್ಷ_2->start == (size_t) ptr)
+                ವೃಕ್ಷ_2->type = TCC_TYPE_CALLOC;
             POST_SEM ();
         }
     }
-    return ptr;
+    ಪ್ರತ್ಯಾಗಮ ptr;
 }
 
-#if !defined(_WIN32)
-void *__bound_mmap (void *start, size_t size, int prot,
-                    int flags, int fd, off_t offset)
+#ಯದಿ !defined(_WIN32)
+ಶೂನ್ಯ *__bound_mmap (ಶೂನ್ಯ *start, size_t size, ಪೂರ್ಣಾಙ್ಕ prot,
+                    ಪೂರ್ಣಾಙ್ಕ flags, ಪೂರ್ಣಾಙ್ಕ fd, off_t offset)
 {
-    void *result;
+    ಶೂನ್ಯ *result;
 
     dprintf(stderr, "%s, %s(): %p, 0x%lx\n",
             __FILE__, __FUNCTION__, start, (unsigned long)size);
     result = mmap (start, size, prot, flags, fd, offset);
-    if (result && NO_CHECKING_GET() == 0) {
+    ಯದಿ (result && NO_CHECKING_GET() == 0) {
         WAIT_SEM ();
-        INCR_COUNT(bound_mmap_count);
-        tree = splay_insert((size_t)result, size, tree);
+        INCR_ಎಣಿಕೆ(bound_mmap_ಎಣಿಕೆ);
+        ವೃಕ್ಷ_2 = splay_ಸೇರಿಸು((size_t)result, size, ವೃಕ್ಷ_2);
         POST_SEM ();
     }
-    return result;
+    ಪ್ರತ್ಯಾಗಮ result;
 }
 
-int __bound_munmap (void *start, size_t size)
+ಪೂರ್ಣಾಙ್ಕ __bound_munmap (ಶೂನ್ಯ *start, size_t size)
 {
-    int result;
+    ಪೂರ್ಣಾಙ್ಕ result;
 
     dprintf(stderr, "%s, %s(): %p, 0x%lx\n",
             __FILE__, __FUNCTION__, start, (unsigned long)size);
-    if (start && NO_CHECKING_GET() == 0) {
+    ಯದಿ (start && NO_CHECKING_GET() == 0) {
         WAIT_SEM ();
-        INCR_COUNT(bound_munmap_count);
-        tree = splay_delete ((size_t) start, tree);
+        INCR_ಎಣಿಕೆ(bound_munmap_ಎಣಿಕೆ);
+        ವೃಕ್ಷ_2 = splay_delete ((size_t) start, ವೃಕ್ಷ_2);
         POST_SEM ();
     }
     result = munmap (start, size);
-    return result;
+    ಪ್ರತ್ಯಾಗಮ result;
 }
 #endif
 
 /* some useful checked functions */
 
 /* check that (p ... p + size - 1) lies inside 'p' region, if any */
-static void __bound_check(const void *p, size_t size, const char *function)
+ಸ್ಥಿರ ಶೂನ್ಯ __bound_check(ಧ್ರುವ ಶೂನ್ಯ *p, size_t size, ಧ್ರುವ ವರ್ಣ *function)
 {
-    if (size != 0 && __bound_ptr_add((void *)p, size) == INVALID_POINTER) {
+    ಯದಿ (size != 0 && __bound_ptr_add((ಶೂನ್ಯ *)p, size) == INVALID_POINTER) {
         bound_error("invalid pointer %p, size 0x%lx in %s",
                 p, (unsigned long)size, function);
     }
 }
 
-static int check_overlap (const void *p1, size_t n1,
-                          const void *p2, size_t n2,
-                          const char *function)
+ಸ್ಥಿರ ಪೂರ್ಣಾಙ್ಕ check_overlap (ಧ್ರುವ ಶೂನ್ಯ *p1, size_t n1,
+                          ಧ್ರುವ ಶೂನ್ಯ *p2, size_t n2,
+                          ಧ್ರುವ ವರ್ಣ *function)
 {
-    const void *p1e = (const void *) ((const char *) p1 + n1);
-    const void *p2e = (const void *) ((const char *) p2 + n2);
+    ಧ್ರುವ ಶೂನ್ಯ *p1e = (ಧ್ರುವ ಶೂನ್ಯ *) ((ಧ್ರುವ ವರ್ಣ *) p1 + n1);
+    ಧ್ರುವ ಶೂನ್ಯ *p2e = (ಧ್ರುವ ಶೂನ್ಯ *) ((ಧ್ರುವ ವರ್ಣ *) p2 + n2);
 
-    if (NO_CHECKING_GET() == 0 && n1 != 0 && n2 !=0 &&
+    ಯದಿ (NO_CHECKING_GET() == 0 && n1 != 0 && n2 !=0 &&
         ((p1 <= p2 && p1e > p2) ||     /* p1----p2====p1e----p2e */
          (p2 <= p1 && p2e > p1))) {    /* p2----p1====p2e----p1e */
         bound_error("overlapping regions %p(0x%lx), %p(0x%lx) in %s",
                 p1, (unsigned long)n1, p2, (unsigned long)n2, function);
-        return never_fatal < 0;
+        ಪ್ರತ್ಯಾಗಮ never_fatal < 0;
     }
-    return 0;
+    ಪ್ರತ್ಯಾಗಮ 0;
 }
 
-void *__bound_memcpy(void *dest, const void *src, size_t n)
+ಶೂನ್ಯ *__bound_memcpy(ಶೂನ್ಯ *dest, ಧ್ರುವ ಶೂನ್ಯ *src, size_t n)
 {
     dprintf(stderr, "%s, %s(): %p, %p, 0x%lx\n",
             __FILE__, __FUNCTION__, dest, src, (unsigned long)n);
-    INCR_COUNT(bound_mempcy_count);
+    INCR_ಎಣಿಕೆ(bound_mempcy_ಎಣಿಕೆ);
     __bound_check(dest, n, "memcpy dest");
     __bound_check(src, n, "memcpy src");
-    if (check_overlap(dest, n, src, n, "memcpy"))
-        return dest;
-    return memcpy(dest, src, n);
+    ಯದಿ (check_overlap(dest, n, src, n, "memcpy"))
+        ಪ್ರತ್ಯಾಗಮ dest;
+    ಪ್ರತ್ಯಾಗಮ memcpy(dest, src, n);
 }
 
-int __bound_memcmp(const void *s1, const void *s2, size_t n)
+ಪೂರ್ಣಾಙ್ಕ __bound_memcmp(ಧ್ರುವ ಶೂನ್ಯ *s1, ಧ್ರುವ ಶೂನ್ಯ *s2, size_t n)
 {
-    const unsigned char *u1 = (const unsigned char *) s1;
-    const unsigned char *u2 = (const unsigned char *) s2;
-    int retval = 0;
+    ಧ್ರುವ unsigned ವರ್ಣ *u1 = (ಧ್ರುವ unsigned ವರ್ಣ *) s1;
+    ಧ್ರುವ unsigned ವರ್ಣ *u2 = (ಧ್ರುವ unsigned ವರ್ಣ *) s2;
+    ಪೂರ್ಣಾಙ್ಕ retval = 0;
 
     dprintf(stderr, "%s, %s(): %p, %p, 0x%lx\n",
             __FILE__, __FUNCTION__, s1, s2, (unsigned long)n);
-    INCR_COUNT(bound_memcmp_count);
-    for (;;) {
-        if ((ssize_t) --n == -1)
-            break;
-        else if (*u1 != *u2) {
+    INCR_ಎಣಿಕೆ(bound_memcmp_ಎಣಿಕೆ);
+    ಪ್ರತಿ (;;) {
+        ಯದಿ ((ssize_t) --n == -1)
+            ಭಙ್ಗ;
+        ಅನ್ಯಥಾ ಯದಿ (*u1 != *u2) {
             retval = *u1++ - *u2++;
-            break;
+            ಭಙ್ಗ;
         }
         ++u1;
         ++u2;
     }
-    __bound_check(s1, (const void *)u1 - s1, "memcmp s1");
-    __bound_check(s2, (const void *)u2 - s2, "memcmp s2");
-    return retval;
+    __bound_check(s1, (ಧ್ರುವ ಶೂನ್ಯ *)u1 - s1, "memcmp s1");
+    __bound_check(s2, (ಧ್ರುವ ಶೂನ್ಯ *)u2 - s2, "memcmp s2");
+    ಪ್ರತ್ಯಾಗಮ retval;
 }
 
-void *__bound_memmove(void *dest, const void *src, size_t n)
+ಶೂನ್ಯ *__bound_memmove(ಶೂನ್ಯ *dest, ಧ್ರುವ ಶೂನ್ಯ *src, size_t n)
 {
     dprintf(stderr, "%s, %s(): %p, %p, 0x%lx\n",
             __FILE__, __FUNCTION__, dest, src, (unsigned long)n);
-    INCR_COUNT(bound_memmove_count);
+    INCR_ಎಣಿಕೆ(bound_memmove_ಎಣಿಕೆ);
     __bound_check(dest, n, "memmove dest");
     __bound_check(src, n, "memmove src");
-    return memmove(dest, src, n);
+    ಪ್ರತ್ಯಾಗಮ memmove(dest, src, n);
 }
 
-void *__bound_memset(void *s, int c, size_t n)
+ಶೂನ್ಯ *__bound_memset(ಶೂನ್ಯ *s, ಪೂರ್ಣಾಙ್ಕ c, size_t n)
 {
     dprintf(stderr, "%s, %s(): %p, %d, 0x%lx\n",
             __FILE__, __FUNCTION__, s, c, (unsigned long)n);
-    INCR_COUNT(bound_memset_count);
+    INCR_ಎಣಿಕೆ(bound_memset_ಎಣಿಕೆ);
     __bound_check(s, n, "memset");
-    return memset(s, c, n);
+    ಪ್ರತ್ಯಾಗಮ memset(s, c, n);
 }
 
-#if defined(__arm__) && defined(__ARM_EABI__)
-void *__bound___aeabi_memcpy(void *dest, const void *src, size_t n)
+#ಯದಿ defined(__arm__) && defined(__ARM_EABI__)
+ಶೂನ್ಯ *__bound___aeabi_memcpy(ಶೂನ್ಯ *dest, ಧ್ರುವ ಶೂನ್ಯ *src, size_t n)
 {
     dprintf(stderr, "%s, %s(): %p, %p, 0x%lx\n",
             __FILE__, __FUNCTION__, dest, src, (unsigned long)n);
-    INCR_COUNT(bound_mempcy_count);
+    INCR_ಎಣಿಕೆ(bound_mempcy_ಎಣಿಕೆ);
     __bound_check(dest, n, "memcpy dest");
     __bound_check(src, n, "memcpy src");
-    if (check_overlap(dest, n, src, n, "memcpy"))
-        return dest;
-    return __aeabi_memcpy(dest, src, n);
+    ಯದಿ (check_overlap(dest, n, src, n, "memcpy"))
+        ಪ್ರತ್ಯಾಗಮ dest;
+    ಪ್ರತ್ಯಾಗಮ __aeabi_memcpy(dest, src, n);
 }
 
-void *__bound___aeabi_memmove(void *dest, const void *src, size_t n)
+ಶೂನ್ಯ *__bound___aeabi_memmove(ಶೂನ್ಯ *dest, ಧ್ರುವ ಶೂನ್ಯ *src, size_t n)
 {
     dprintf(stderr, "%s, %s(): %p, %p, 0x%lx\n",
             __FILE__, __FUNCTION__, dest, src, (unsigned long)n);
-    INCR_COUNT(bound_memmove_count);
+    INCR_ಎಣಿಕೆ(bound_memmove_ಎಣಿಕೆ);
     __bound_check(dest, n, "memmove dest");
     __bound_check(src, n, "memmove src");
-    return __aeabi_memmove(dest, src, n);
+    ಪ್ರತ್ಯಾಗಮ __aeabi_memmove(dest, src, n);
 }
 
-void *__bound___aeabi_memmove4(void *dest, const void *src, size_t n)
+ಶೂನ್ಯ *__bound___aeabi_memmove4(ಶೂನ್ಯ *dest, ಧ್ರುವ ಶೂನ್ಯ *src, size_t n)
 {
     dprintf(stderr, "%s, %s(): %p, %p, 0x%lx\n",
             __FILE__, __FUNCTION__, dest, src, (unsigned long)n);
-    INCR_COUNT(bound_memmove_count);
+    INCR_ಎಣಿಕೆ(bound_memmove_ಎಣಿಕೆ);
     __bound_check(dest, n, "memmove dest");
     __bound_check(src, n, "memmove src");
-    return __aeabi_memmove4(dest, src, n);
+    ಪ್ರತ್ಯಾಗಮ __aeabi_memmove4(dest, src, n);
 }
 
-void *__bound___aeabi_memmove8(void *dest, const void *src, size_t n)
+ಶೂನ್ಯ *__bound___aeabi_memmove8(ಶೂನ್ಯ *dest, ಧ್ರುವ ಶೂನ್ಯ *src, size_t n)
 {
     dprintf(stderr, "%s, %s(): %p, %p, 0x%lx\n",
             __FILE__, __FUNCTION__, dest, src, (unsigned long)n);
-    INCR_COUNT(bound_memmove_count);
+    INCR_ಎಣಿಕೆ(bound_memmove_ಎಣಿಕೆ);
     __bound_check(dest, n, "memmove dest");
     __bound_check(src, n, "memmove src");
-    return __aeabi_memmove8(dest, src, n);
+    ಪ್ರತ್ಯಾಗಮ __aeabi_memmove8(dest, src, n);
 }
 
-void *__bound___aeabi_memset(void *s, int c, size_t n)
+ಶೂನ್ಯ *__bound___aeabi_memset(ಶೂನ್ಯ *s, ಪೂರ್ಣಾಙ್ಕ c, size_t n)
 {
     dprintf(stderr, "%s, %s(): %p, %d, 0x%lx\n",
             __FILE__, __FUNCTION__, s, c, (unsigned long)n);
-    INCR_COUNT(bound_memset_count);
+    INCR_ಎಣಿಕೆ(bound_memset_ಎಣಿಕೆ);
     __bound_check(s, n, "memset");
-    return __aeabi_memset(s, c, n);
+    ಪ್ರತ್ಯಾಗಮ __aeabi_memset(s, c, n);
 }
 #endif
 
-int __bound_strlen(const char *s)
+ಪೂರ್ಣಾಙ್ಕ __bound_strlen(ಧ್ರುವ ವರ್ಣ *s)
 {
-    const char *p = s;
+    ಧ್ರುವ ವರ್ಣ *p = s;
 
     dprintf(stderr, "%s, %s(): %p\n",
             __FILE__, __FUNCTION__, s);
-    INCR_COUNT(bound_strlen_count);
-    while (*p++);
+    INCR_ಎಣಿಕೆ(bound_strlen_ಎಣಿಕೆ);
+    ಯಾವತ್ (*p++);
     __bound_check(s, p - s, "strlen");
-    return (p - s) - 1;
+    ಪ್ರತ್ಯಾಗಮ (p - s) - 1;
 }
 
-char *__bound_strcpy(char *dest, const char *src)
+ವರ್ಣ *__bound_strcpy(ವರ್ಣ *dest, ಧ್ರುವ ವರ್ಣ *src)
 {
     size_t len;
-    const char *p = src;
+    ಧ್ರುವ ವರ್ಣ *p = src;
 
     dprintf(stderr, "%s, %s(): %p, %p\n",
             __FILE__, __FUNCTION__, dest, src);
-    INCR_COUNT(bound_strcpy_count);
-    while (*p++);
+    INCR_ಎಣಿಕೆ(bound_strcpy_ಎಣಿಕೆ);
+    ಯಾವತ್ (*p++);
     len = p - src;
     __bound_check(dest, len, "strcpy dest");
     __bound_check(src, len, "strcpy src");
-    if (check_overlap(dest, len, src, len, "strcpy"))
-        return dest;
-    return strcpy (dest, src);
+    ಯದಿ (check_overlap(dest, len, src, len, "strcpy"))
+        ಪ್ರತ್ಯಾಗಮ dest;
+    ಪ್ರತ್ಯಾಗಮ strcpy (dest, src);
 }
 
-char *__bound_strncpy(char *dest, const char *src, size_t n)
+ವರ್ಣ *__bound_strncpy(ವರ್ಣ *dest, ಧ್ರುವ ವರ್ಣ *src, size_t n)
 {
     size_t len = n;
-    const char *p = src;
+    ಧ್ರುವ ವರ್ಣ *p = src;
 
     dprintf(stderr, "%s, %s(): %p, %p, 0x%lx\n",
             __FILE__, __FUNCTION__, dest, src, (unsigned long)n);
-    INCR_COUNT(bound_strncpy_count);
-    while (len-- && *p++);
+    INCR_ಎಣಿಕೆ(bound_strncpy_ಎಣಿಕೆ);
+    ಯಾವತ್ (len-- && *p++);
     len = p - src;
     __bound_check(dest, len, "strncpy dest");
     __bound_check(src, len, "strncpy src");
-    if (check_overlap(dest, len, src, len, "strncpy"))
-        return dest;
-    return strncpy(dest, src, n);
+    ಯದಿ (check_overlap(dest, len, src, len, "strncpy"))
+        ಪ್ರತ್ಯಾಗಮ dest;
+    ಪ್ರತ್ಯಾಗಮ strncpy(dest, src, n);
 }
 
-int __bound_strcmp(const char *s1, const char *s2)
+ಪೂರ್ಣಾಙ್ಕ __bound_strcmp(ಧ್ರುವ ವರ್ಣ *s1, ಧ್ರುವ ವರ್ಣ *s2)
 {
-    const unsigned char *u1 = (const unsigned char *) s1;
-    const unsigned char *u2 = (const unsigned char *) s2;
+    ಧ್ರುವ unsigned ವರ್ಣ *u1 = (ಧ್ರುವ unsigned ವರ್ಣ *) s1;
+    ಧ್ರುವ unsigned ವರ್ಣ *u2 = (ಧ್ರುವ unsigned ವರ್ಣ *) s2;
 
     dprintf(stderr, "%s, %s(): %p, %p\n",
             __FILE__, __FUNCTION__, s1, s2);
-    INCR_COUNT(bound_strcmp_count);
-    while (*u1 && *u1 == *u2) {
+    INCR_ಎಣಿಕೆ(bound_strcmp_ಎಣಿಕೆ);
+    ಯಾವತ್ (*u1 && *u1 == *u2) {
         ++u1;
         ++u2;
     }
-    __bound_check(s1, ((const char *)u1 - s1) + 1, "strcmp s1");
-    __bound_check(s2, ((const char *)u2 - s2) + 1, "strcmp s2");
-    return *u1 - *u2;
+    __bound_check(s1, ((ಧ್ರುವ ವರ್ಣ *)u1 - s1) + 1, "strcmp s1");
+    __bound_check(s2, ((ಧ್ರುವ ವರ್ಣ *)u2 - s2) + 1, "strcmp s2");
+    ಪ್ರತ್ಯಾಗಮ *u1 - *u2;
 }
 
-int __bound_strncmp(const char *s1, const char *s2, size_t n)
+ಪೂರ್ಣಾಙ್ಕ __bound_strncmp(ಧ್ರುವ ವರ್ಣ *s1, ಧ್ರುವ ವರ್ಣ *s2, size_t n)
 {
-    const unsigned char *u1 = (const unsigned char *) s1;
-    const unsigned char *u2 = (const unsigned char *) s2;
-    int retval = 0;
+    ಧ್ರುವ unsigned ವರ್ಣ *u1 = (ಧ್ರುವ unsigned ವರ್ಣ *) s1;
+    ಧ್ರುವ unsigned ವರ್ಣ *u2 = (ಧ್ರುವ unsigned ವರ್ಣ *) s2;
+    ಪೂರ್ಣಾಙ್ಕ retval = 0;
 
     dprintf(stderr, "%s, %s(): %p, %p, 0x%lx\n",
             __FILE__, __FUNCTION__, s1, s2, (unsigned long)n);
-    INCR_COUNT(bound_strncmp_count);
-    do {
-        if ((ssize_t) --n == -1)
-            break;
-        else if (*u1 != *u2) {
+    INCR_ಎಣಿಕೆ(bound_strncmp_ಎಣಿಕೆ);
+    ಕುರು {
+        ಯದಿ ((ssize_t) --n == -1)
+            ಭಙ್ಗ;
+        ಅನ್ಯಥಾ ಯದಿ (*u1 != *u2) {
             retval = *u1++ - *u2++;
-            break;
+            ಭಙ್ಗ;
         }
         ++u2;
-    } while (*u1++);
-    __bound_check(s1, (const char *)u1 - s1, "strncmp s1");
-    __bound_check(s2, (const char *)u2 - s2, "strncmp s2");
-    return retval;
+    } ಯಾವತ್ (*u1++);
+    __bound_check(s1, (ಧ್ರುವ ವರ್ಣ *)u1 - s1, "strncmp s1");
+    __bound_check(s2, (ಧ್ರುವ ವರ್ಣ *)u2 - s2, "strncmp s2");
+    ಪ್ರತ್ಯಾಗಮ retval;
 }
 
-char *__bound_strcat(char *dest, const char *src)
+ವರ್ಣ *__bound_strcat(ವರ್ಣ *dest, ಧ್ರುವ ವರ್ಣ *src)
 {
-    char *r = dest;
-    const char *s = src;
+    ವರ್ಣ *r = dest;
+    ಧ್ರುವ ವರ್ಣ *s = src;
 
     dprintf(stderr, "%s, %s(): %p, %p\n",
             __FILE__, __FUNCTION__, dest, src);
-    INCR_COUNT(bound_strcat_count);
-    while (*dest++);
-    while (*src++);
+    INCR_ಎಣಿಕೆ(bound_strcat_ಎಣಿಕೆ);
+    ಯಾವತ್ (*dest++);
+    ಯಾವತ್ (*src++);
     __bound_check(r, (dest - r) + (src - s) - 1, "strcat dest");
     __bound_check(s, src - s, "strcat src");
-    if (check_overlap(r, (dest - r) + (src - s) - 1, s, src - s, "strcat"))
-        return dest;
-    return strcat(r, s);
+    ಯದಿ (check_overlap(r, (dest - r) + (src - s) - 1, s, src - s, "strcat"))
+        ಪ್ರತ್ಯಾಗಮ dest;
+    ಪ್ರತ್ಯಾಗಮ strcat(r, s);
 }
 
-char *__bound_strncat(char *dest, const char *src, size_t n)
+ವರ್ಣ *__bound_strncat(ವರ್ಣ *dest, ಧ್ರುವ ವರ್ಣ *src, size_t n)
 {
-    char *r = dest;
-    const char *s = src;
+    ವರ್ಣ *r = dest;
+    ಧ್ರುವ ವರ್ಣ *s = src;
     size_t len = n;
 
     dprintf(stderr, "%s, %s(): %p, %p, 0x%lx\n",
             __FILE__, __FUNCTION__, dest, src, (unsigned long)n);
-    INCR_COUNT(bound_strncat_count);
-    while (*dest++);
-    while (len-- && *src++);
+    INCR_ಎಣಿಕೆ(bound_strncat_ಎಣಿಕೆ);
+    ಯಾವತ್ (*dest++);
+    ಯಾವತ್ (len-- && *src++);
     __bound_check(r, (dest - r) + (src - s) - 1, "strncat dest");
     __bound_check(s, src - s, "strncat src");
-    if (check_overlap(r, (dest - r) + (src - s) - 1, s, src - s, "strncat"))
-        return dest;
-    return strncat(r, s, n);
+    ಯದಿ (check_overlap(r, (dest - r) + (src - s) - 1, s, src - s, "strncat"))
+        ಪ್ರತ್ಯಾಗಮ dest;
+    ಪ್ರತ್ಯಾಗಮ strncat(r, s, n);
 }
 
-char *__bound_strchr(const char *s, int c)
+ವರ್ಣ *__bound_strchr(ಧ್ರುವ ವರ್ಣ *s, ಪೂರ್ಣಾಙ್ಕ c)
 {
-    const unsigned char *str = (const unsigned char *) s;
-    unsigned char ch = c;
+    ಧ್ರುವ unsigned ವರ್ಣ *str = (ಧ್ರುವ unsigned ವರ್ಣ *) s;
+    unsigned ವರ್ಣ ch = c;
 
     dprintf(stderr, "%s, %s(): %p, %d\n",
             __FILE__, __FUNCTION__, s, ch);
-    INCR_COUNT(bound_strchr_count);
-    while (*str) {
-        if (*str == ch)
-            break;
+    INCR_ಎಣಿಕೆ(bound_strchr_ಎಣಿಕೆ);
+    ಯಾವತ್ (*str) {
+        ಯದಿ (*str == ch)
+            ಭಙ್ಗ;
         ++str;
     }
-    __bound_check(s, ((const char *)str - s) + 1, "strchr");
-    return *str == ch ? (char *) str : NULL;
+    __bound_check(s, ((ಧ್ರುವ ವರ್ಣ *)str - s) + 1, "strchr");
+    ಪ್ರತ್ಯಾಗಮ *str == ch ? (ವರ್ಣ *) str : ರಿಕ್ತ;
 }
 
-char *__bound_strrchr(const char *s, int c)
+ವರ್ಣ *__bound_strrchr(ಧ್ರುವ ವರ್ಣ *s, ಪೂರ್ಣಾಙ್ಕ c)
 {
-    const unsigned char *str = (const unsigned char *) s;
-    unsigned char ch = c;
+    ಧ್ರುವ unsigned ವರ್ಣ *str = (ಧ್ರುವ unsigned ವರ್ಣ *) s;
+    unsigned ವರ್ಣ ch = c;
 
     dprintf(stderr, "%s, %s(): %p, %d\n",
             __FILE__, __FUNCTION__, s, ch);
-    INCR_COUNT(bound_strrchr_count);
-    while (*str++);
-    __bound_check(s, (const char *)str - s, "strrchr");
-    while (str != (const unsigned char *)s) {
-        if (*--str == ch)
-            break;
+    INCR_ಎಣಿಕೆ(bound_strrchr_ಎಣಿಕೆ);
+    ಯಾವತ್ (*str++);
+    __bound_check(s, (ಧ್ರುವ ವರ್ಣ *)str - s, "strrchr");
+    ಯಾವತ್ (str != (ಧ್ರುವ unsigned ವರ್ಣ *)s) {
+        ಯದಿ (*--str == ch)
+            ಭಙ್ಗ;
     }
-    __bound_check(s, (const char *)str - s, "strrchr");
-    return *str == ch ? (char *) str : NULL;
+    __bound_check(s, (ಧ್ರುವ ವರ್ಣ *)str - s, "strrchr");
+    ಪ್ರತ್ಯಾಗಮ *str == ch ? (ವರ್ಣ *) str : ರಿಕ್ತ;
 }
 
-char *__bound_strdup(const char *s)
+ವರ್ಣ *__bound_strdup(ಧ್ರುವ ವರ್ಣ *s)
 {
-    const char *p = s;
-    char *new;
+    ಧ್ರುವ ವರ್ಣ *p = s;
+    ವರ್ಣ *new;
 
-    INCR_COUNT(bound_strdup_count);
-    while (*p++);
+    INCR_ಎಣಿಕೆ(bound_strdup_ಎಣಿಕೆ);
+    ಯಾವತ್ (*p++);
     __bound_check(s, p - s, "strdup");
     new = BOUND_MALLOC ((p - s) + 1);
     dprintf(stderr, "%s, %s(): %p, 0x%lx\n",
             __FILE__, __FUNCTION__, new, (unsigned long)(p -s));
-    if (new) {
-        if (NO_CHECKING_GET() == 0 && no_strdup == 0) {
+    ಯದಿ (new) {
+        ಯದಿ (NO_CHECKING_GET() == 0 && no_strdup == 0) {
             WAIT_SEM ();
-            tree = splay_insert((size_t)new, p - s, tree);
-            if (tree && tree->start == (size_t) new)
-                tree->type = TCC_TYPE_STRDUP;
+            ವೃಕ್ಷ_2 = splay_ಸೇರಿಸು((size_t)new, p - s, ವೃಕ್ಷ_2);
+            ಯದಿ (ವೃಕ್ಷ_2 && ವೃಕ್ಷ_2->start == (size_t) new)
+                ವೃಕ್ಷ_2->type = TCC_TYPE_STRDUP;
             POST_SEM ();
         }
         memcpy (new, s, p - s);
     }
-    return new;
+    ಪ್ರತ್ಯಾಗಮ new;
 }
 
 /*
@@ -2072,194 +2072,194 @@ char *__bound_strdup(const char *s)
 #define compare(start,tstart,tsize) (start < tstart ? -1 : \
                                      start >= tstart+tsize  ? 1 : 0)
 
-static Tree * splay (size_t addr, Tree *t)
+ಸ್ಥಿರ ವೃಕ್ಷ * splay (size_t addr, ವೃಕ್ಷ *t)
 /* Splay using the key start (which may or may not be in the tree.) */
 /* The starting root is t, and the tree used is defined by rat      */
 {
-    Tree N, *l, *r, *y;
-    int comp;
+    ವೃಕ್ಷ N, *l, *r, *y;
+    ಪೂರ್ಣಾಙ್ಕ comp;
     
-    INCR_COUNT_SPLAY(bound_splay);
-    if (t == NULL) return t;
-    N.left = N.right = NULL;
+    INCR_ಎಣಿಕೆ_SPLAY(bound_splay);
+    ಯದಿ (t == ರಿಕ್ತ) ಪ್ರತ್ಯಾಗಮ t;
+    N.ಎಡ = N.ಬಲ = ರಿಕ್ತ;
     l = r = &N;
  
-    for (;;) {
+    ಪ್ರತಿ (;;) {
         comp = compare(addr, t->start, t->size);
-        if (comp < 0) {
-            y = t->left;
-            if (y == NULL) break;
-            if (compare(addr, y->start, y->size) < 0) {
-                t->left = y->right;                    /* rotate right */
-                y->right = t;
+        ಯದಿ (comp < 0) {
+            y = t->ಎಡ;
+            ಯದಿ (y == ರಿಕ್ತ) ಭಙ್ಗ;
+            ಯದಿ (compare(addr, y->start, y->size) < 0) {
+                t->ಎಡ = y->ಬಲ;                    /* rotate right */
+                y->ಬಲ = t;
                 t = y;
-                if (t->left == NULL) break;
+                ಯದಿ (t->ಎಡ == ರಿಕ್ತ) ಭಙ್ಗ;
             }
-            r->left = t;                               /* link right */
+            r->ಎಡ = t;                               /* link right */
             r = t;
-            t = t->left;
-        } else if (comp > 0) {
-            y = t->right;
-            if (y == NULL) break;
-            if (compare(addr, y->start, y->size) > 0) {
-                t->right = y->left;                    /* rotate left */
-                y->left = t;
+            t = t->ಎಡ;
+        } ಅನ್ಯಥಾ ಯದಿ (comp > 0) {
+            y = t->ಬಲ;
+            ಯದಿ (y == ರಿಕ್ತ) ಭಙ್ಗ;
+            ಯದಿ (compare(addr, y->start, y->size) > 0) {
+                t->ಬಲ = y->ಎಡ;                    /* rotate left */
+                y->ಎಡ = t;
                 t = y;
-                if (t->right == NULL) break;
+                ಯದಿ (t->ಬಲ == ರಿಕ್ತ) ಭಙ್ಗ;
             }
-            l->right = t;                              /* link left */
+            l->ಬಲ = t;                              /* link left */
             l = t;
-            t = t->right;
-        } else {
-            break;
+            t = t->ಬಲ;
+        } ಅನ್ಯಥಾ {
+            ಭಙ್ಗ;
         }
     }
-    l->right = t->left;                                /* assemble */
-    r->left = t->right;
-    t->left = N.right;
-    t->right = N.left;
+    l->ಬಲ = t->ಎಡ;                                /* assemble */
+    r->ಎಡ = t->ಬಲ;
+    t->ಎಡ = N.ಬಲ;
+    t->ಬಲ = N.ಎಡ;
 
-    return t;
+    ಪ್ರತ್ಯಾಗಮ t;
 }
 
 #define compare_end(start,tend) (start < tend ? -1 : \
                                  start > tend  ? 1 : 0)
 
-static Tree * splay_end (size_t addr, Tree *t)
+ಸ್ಥಿರ ವೃಕ್ಷ * splay_end (size_t addr, ವೃಕ್ಷ *t)
 /* Splay using the key start (which may or may not be in the tree.) */
 /* The starting root is t, and the tree used is defined by rat  */
 {
-    Tree N, *l, *r, *y;
-    int comp;
+    ವೃಕ್ಷ N, *l, *r, *y;
+    ಪೂರ್ಣಾಙ್ಕ comp;
     
-    INCR_COUNT_SPLAY(bound_splay_end);
-    if (t == NULL) return t;
-    N.left = N.right = NULL;
+    INCR_ಎಣಿಕೆ_SPLAY(bound_splay_end);
+    ಯದಿ (t == ರಿಕ್ತ) ಪ್ರತ್ಯಾಗಮ t;
+    N.ಎಡ = N.ಬಲ = ರಿಕ್ತ;
     l = r = &N;
  
-    for (;;) {
+    ಪ್ರತಿ (;;) {
         comp = compare_end(addr, t->start + t->size);
-        if (comp < 0) {
-            y = t->left;
-            if (y == NULL) break;
-            if (compare_end(addr, y->start + y->size) < 0) {
-                t->left = y->right;                    /* rotate right */
-                y->right = t;
+        ಯದಿ (comp < 0) {
+            y = t->ಎಡ;
+            ಯದಿ (y == ರಿಕ್ತ) ಭಙ್ಗ;
+            ಯದಿ (compare_end(addr, y->start + y->size) < 0) {
+                t->ಎಡ = y->ಬಲ;                    /* rotate right */
+                y->ಬಲ = t;
                 t = y;
-                if (t->left == NULL) break;
+                ಯದಿ (t->ಎಡ == ರಿಕ್ತ) ಭಙ್ಗ;
             }
-            r->left = t;                               /* link right */
+            r->ಎಡ = t;                               /* link right */
             r = t;
-            t = t->left;
-        } else if (comp > 0) {
-            y = t->right;
-            if (y == NULL) break;
-            if (compare_end(addr, y->start + y->size) > 0) {
-                t->right = y->left;                    /* rotate left */
-                y->left = t;
+            t = t->ಎಡ;
+        } ಅನ್ಯಥಾ ಯದಿ (comp > 0) {
+            y = t->ಬಲ;
+            ಯದಿ (y == ರಿಕ್ತ) ಭಙ್ಗ;
+            ಯದಿ (compare_end(addr, y->start + y->size) > 0) {
+                t->ಬಲ = y->ಎಡ;                    /* rotate left */
+                y->ಎಡ = t;
                 t = y;
-                if (t->right == NULL) break;
+                ಯದಿ (t->ಬಲ == ರಿಕ್ತ) ಭಙ್ಗ;
             }
-            l->right = t;                              /* link left */
+            l->ಬಲ = t;                              /* link left */
             l = t;
-            t = t->right;
-        } else {
-            break;
+            t = t->ಬಲ;
+        } ಅನ್ಯಥಾ {
+            ಭಙ್ಗ;
         }
     }
-    l->right = t->left;                                /* assemble */
-    r->left = t->right;
-    t->left = N.right;
-    t->right = N.left;
+    l->ಬಲ = t->ಎಡ;                                /* assemble */
+    r->ಎಡ = t->ಬಲ;
+    t->ಎಡ = N.ಬಲ;
+    t->ಬಲ = N.ಎಡ;
 
-    return t;
+    ಪ್ರತ್ಯಾಗಮ t;
 }
 
-static Tree * splay_insert(size_t addr, size_t size, Tree * t)
+ಸ್ಥಿರ ವೃಕ್ಷ * splay_ಸೇರಿಸು(size_t addr, size_t size, ವೃಕ್ಷ * t)
 /* Insert key start into the tree t, if it is not already there. */
 /* Return a pointer to the resulting tree.                       */
 {
-    Tree * new;
+    ವೃಕ್ಷ * new;
 
-    INCR_COUNT_SPLAY(bound_splay_insert);
-    if (t != NULL) {
+    INCR_ಎಣಿಕೆ_SPLAY(bound_splay_ಸೇರಿಸು);
+    ಯದಿ (t != ರಿಕ್ತ) {
         t = splay(addr,t);
-        if (compare(addr, t->start, t->size)==0) {
-            return t;  /* it's already there */
+        ಯದಿ (compare(addr, t->start, t->size)==0) {
+            ಪ್ರತ್ಯಾಗಮ t;  /* it's already there */
         }
     }
-#if TREE_REUSE
-    if (tree_free_list) {
-          new = tree_free_list;
-          tree_free_list = new->left;
+#ಯದಿ ವೃಕ್ಷ_REUSE
+    ಯದಿ (ವೃಕ್ಷ_free_list) {
+          new = ವೃಕ್ಷ_free_list;
+          ವೃಕ್ಷ_free_list = new->ಎಡ;
     }
-    else
+    ಅನ್ಯಥಾ
 #endif
     {
-        new = (Tree *) BOUND_MALLOC (sizeof (Tree));
+        new = (ವೃಕ್ಷ *) BOUND_MALLOC (ಪರಿಮಾಣ (ವೃಕ್ಷ));
     }
-    if (new == NULL) {
+    ಯದಿ (new == ರಿಕ್ತ) {
         bound_alloc_error("not enough memory for bound checking code");
     }
-    else {
-        if (t == NULL) {
-            new->left = new->right = NULL;
-        } else if (compare(addr, t->start, t->size) < 0) {
-            new->left = t->left;
-            new->right = t;
-            t->left = NULL;
-        } else {
-            new->right = t->right;
-            new->left = t;
-            t->right = NULL;
+    ಅನ್ಯಥಾ {
+        ಯದಿ (t == ರಿಕ್ತ) {
+            new->ಎಡ = new->ಬಲ = ರಿಕ್ತ;
+        } ಅನ್ಯಥಾ ಯದಿ (compare(addr, t->start, t->size) < 0) {
+            new->ಎಡ = t->ಎಡ;
+            new->ಬಲ = t;
+            t->ಎಡ = ರಿಕ್ತ;
+        } ಅನ್ಯಥಾ {
+            new->ಬಲ = t->ಬಲ;
+            new->ಎಡ = t;
+            t->ಬಲ = ರಿಕ್ತ;
         }
         new->start = addr;
         new->size = size;
         new->type = TCC_TYPE_NONE;
         new->is_invalid = 0;
     }
-    return new;
+    ಪ್ರತ್ಯಾಗಮ new;
 }
 
 #define compare_destroy(start,tstart) (start < tstart ? -1 : \
                                        start > tstart  ? 1 : 0)
 
-static Tree * splay_delete(size_t addr, Tree *t)
+ಸ್ಥಿರ ವೃಕ್ಷ * splay_delete(size_t addr, ವೃಕ್ಷ *t)
 /* Deletes addr from the tree if it's there.               */
 /* Return a pointer to the resulting tree.                 */
 {
-    Tree * x;
+    ವೃಕ್ಷ * x;
 
-    INCR_COUNT_SPLAY(bound_splay_delete);
-    if (t==NULL) return NULL;
+    INCR_ಎಣಿಕೆ_SPLAY(bound_splay_delete);
+    ಯದಿ (t==ರಿಕ್ತ) ಪ್ರತ್ಯಾಗಮ ರಿಕ್ತ;
     t = splay(addr,t);
-    if (compare_destroy(addr, t->start) == 0) {        /* found it */
-        if (t->left == NULL) {
-            x = t->right;
-        } else {
-            x = splay(addr, t->left);
-            x->right = t->right;
+    ಯದಿ (compare_destroy(addr, t->start) == 0) {        /* found it */
+        ಯದಿ (t->ಎಡ == ರಿಕ್ತ) {
+            x = t->ಬಲ;
+        } ಅನ್ಯಥಾ {
+            x = splay(addr, t->ಎಡ);
+            x->ಬಲ = t->ಬಲ;
         }
-#if TREE_REUSE
-        t->left = tree_free_list;
-        tree_free_list = t;
-#else
+#ಯದಿ ವೃಕ್ಷ_REUSE
+        t->ಎಡ = ವೃಕ್ಷ_free_list;
+        ವೃಕ್ಷ_free_list = t;
+#ಅನ್ಯಥಾ
         BOUND_FREE(t);
 #endif
-        return x;
-    } else {
-        return t;                                      /* It wasn't there */
+        ಪ್ರತ್ಯಾಗಮ x;
+    } ಅನ್ಯಥಾ {
+        ಪ್ರತ್ಯಾಗಮ t;                                      /* It wasn't there */
     }
 }
 
-void splay_printtree(Tree * t, int d)
+ಶೂನ್ಯ splay_printtree(ವೃಕ್ಷ * t, ಪೂರ್ಣಾಙ್ಕ d)
 {
-    int i;
-    if (t == NULL) return;
-    splay_printtree(t->right, d+1);
-    for (i=0; i<d; i++) fprintf(stderr," ");
+    ಪೂರ್ಣಾಙ್ಕ i;
+    ಯದಿ (t == ರಿಕ್ತ) ಪ್ರತ್ಯಾಗಮ;
+    splay_printtree(t->ಬಲ, d+1);
+    ಪ್ರತಿ (i=0; i<d; i++) fprintf(stderr," ");
     fprintf(stderr,"%p(0x%lx:%u:%u)\n",
-            (void *) t->start, (unsigned long) t->size,
+            (ಶೂನ್ಯ *) t->start, (unsigned long) t->size,
             (unsigned)t->type, (unsigned)t->is_invalid);
-    splay_printtree(t->left, d+1);
+    splay_printtree(t->ಎಡ, d+1);
 }

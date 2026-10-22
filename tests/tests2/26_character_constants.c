@@ -1,6 +1,6 @@
-#include <stdio.h>
+#ಅನ್ತರ್ಭಾವ <stdio.h>
 
-int main()
+ಪೂರ್ಣಾಙ್ಕ main()
 {
    printf("%d\n", '\1');
    printf("%d\n", '\10');
@@ -11,7 +11,7 @@ int main()
    printf("%d\n", '\x40');
    printf("test \x40\n");
 
-   return 0;
+   ಪ್ರತ್ಯಾಗಮ 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

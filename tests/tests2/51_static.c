@@ -1,17 +1,17 @@
-#include <stdio.h>
+#ಅನ್ತರ್ಭಾವ <stdio.h>
 
-static int fred = 1234;
-static int joe;
+ಸ್ಥಿರ ಪೂರ್ಣಾಙ್ಕ fred = 1234;
+ಸ್ಥಿರ ಪೂರ್ಣಾಙ್ಕ joe;
 
-void henry()
+ಶೂನ್ಯ henry()
 {
-   static int fred = 4567;
+   ಸ್ಥಿರ ಪೂರ್ಣಾಙ್ಕ fred = 4567;
 
    printf("%d\n", fred);
    fred++;
 }
 
-int main()
+ಪೂರ್ಣಾಙ್ಕ main()
 {
    printf("%d\n", fred);
    henry();
@@ -24,7 +24,7 @@ int main()
    printf("%d\n", fred);
    printf("%d\n", joe);
 
-   return 0;
+   ಪ್ರತ್ಯಾಗಮ 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

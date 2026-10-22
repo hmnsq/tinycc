@@ -1,9 +1,9 @@
-#include <stdio.h>
+#ಅನ್ತರ್ಭಾವ <stdio.h>
 
 #define T(a,b,c) a b c
 
-int main(void)
+ಪೂರ್ಣಾಙ್ಕ main(ಶೂನ್ಯ)
 {
     printf("%d", T(1,+,2) T(+,,) T(,2,*) T(,7,) T(,,));
-    return 0;
+    ಪ್ರತ್ಯಾಗಮ 0;
 }

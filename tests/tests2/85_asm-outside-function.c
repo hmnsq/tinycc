@@ -1,15 +1,15 @@
 #ifdef __leading_underscore
 # define _ "_"
-#else
+#ಅನ್ಯಥಾ
 # define _
 #endif
 
-extern int printf (const char *, ...);
-extern void vide(void);
+ಬಾಹ್ಯ ಪೂರ್ಣಾಙ್ಕ printf (ಧ್ರುವ ವರ್ಣ *, ...);
+ಬಾಹ್ಯ ಶೂನ್ಯ vide(ಶೂನ್ಯ);
 __asm__(_"vide: ret");
 
-int main() {
+ಪೂರ್ಣಾಙ್ಕ main() {
     vide();
     printf ("okay\n");
-    return 0;
+    ಪ್ರತ್ಯಾಗಮ 0;
 }

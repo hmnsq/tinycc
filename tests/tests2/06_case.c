@@ -1,29 +1,29 @@
-#include <stdio.h>
+#ಅನ್ತರ್ಭಾವ <stdio.h>
 
-int main()
+ಪೂರ್ಣಾಙ್ಕ main()
 {
-   int Count;
+   ಪೂರ್ಣಾಙ್ಕ ಎಣಿಕೆ_3;
 
-   for (Count = 0; Count < 4; Count++)
+   ಪ್ರತಿ (ಎಣಿಕೆ_3 = 0; ಎಣಿಕೆ_3 < 4; ಎಣಿಕೆ_3++)
    {
-      printf("%d\n", Count);
-      switch (Count)
+      printf("%d\n", ಎಣಿಕೆ_3);
+      ವಿಕಲ್ಪ (ಎಣಿಕೆ_3)
       {
-         case 1:
+         ಪಕ್ಷ 1:
             printf("%d\n", 1);
-            break;
+            ಭಙ್ಗ;
 
-         case 2:
+         ಪಕ್ಷ 2:
             printf("%d\n", 2);
-            break;
+            ಭಙ್ಗ;
 
-         default:
+         ಸ್ವಭಾವ:
             printf("%d\n", 0);
-            break;
+            ಭಙ್ಗ;
       }
    }
 
-   return 0;
+   ಪ್ರತ್ಯಾಗಮ 0;
 }
 
 // vim: set expandtab ts=4 sw=3 sts=3 tw=80 :

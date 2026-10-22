@@ -1,179 +1,179 @@
-int printf(const char*, ...);
+ಪೂರ್ಣಾಙ್ಕ printf(ಧ್ರುವ ವರ್ಣ*, ...);
 
 #define myassert(x) \
     printf("%s:%d: %s : \"%s\"\n", __FILE__,__LINE__,(x)?"ok":"error",#x)
 
-enum{ in = 0};
+ಗಣನಾ{ in = 0};
 
-int main_1(){
+ಪೂರ್ಣಾಙ್ಕ main_1(){
     {
         myassert(!in);
-        if(sizeof(enum{in=1})) myassert(in);
+        ಯದಿ(ಪರಿಮಾಣ(ಗಣನಾ{in=1})) myassert(in);
         myassert(!in); //OOPS
     }
     {
         myassert(!in);
-        switch(sizeof(enum{in=1})) { default: myassert(in); }
+        ವಿಕಲ್ಪ(ಪರಿಮಾಣ(ಗಣನಾ{in=1})) { ಸ್ವಭಾವ: myassert(in); }
         myassert(!in); //OOPS
     }
     {
         myassert(!in);
-        while(sizeof(enum{in=1})) { myassert(in); break; }
+        ಯಾವತ್(ಪರಿಮಾಣ(ಗಣನಾ{in=1})) { myassert(in); ಭಙ್ಗ; }
         myassert(!in); //OOPS
     }
     {
         myassert(!in);
-        do{ myassert(!in);}while(0*sizeof(enum{in=1}));
+        ಕುರು{ myassert(!in);}ಯಾವತ್(0*ಪರಿಮಾಣ(ಗಣನಾ{in=1}));
         myassert(!in); //OOPS
     }
 
     {
         myassert(!in);
-        for(sizeof(enum{in=1});;){ myassert(in); break; }
+        ಪ್ರತಿ(ಪರಿಮಾಣ(ಗಣನಾ{in=1});;){ myassert(in); ಭಙ್ಗ; }
         myassert(!in); //OK
     }
     {
         myassert(!in);
-        for(;;sizeof(enum{in=1})){ myassert(in); break; }
+        ಪ್ರತಿ(;;ಪರಿಮಾಣ(ಗಣನಾ{in=1})){ myassert(in); ಭಙ್ಗ; }
         myassert(!in); //OK
     }
     {
         myassert(!in);
-        for(;sizeof(enum{in=1});){ myassert(in); break; }
+        ಪ್ರತಿ(;ಪರಿಮಾಣ(ಗಣನಾ{in=1});){ myassert(in); ಭಙ್ಗ; }
         myassert(!in); //OK
     }
-    return 0;
+    ಪ್ರತ್ಯಾಗಮ 0;
 }
 
 /* --------------------------------------------- */
-int main_2()
+ಪೂರ್ಣಾಙ್ಕ main_2()
 {
-  char c = 'a';
-  void func1(char c); /* param 'c' must not shadow local 'c' */
+  ವರ್ಣ c = 'a';
+  ಶೂನ್ಯ func1(ವರ್ಣ c); /* param 'c' must not shadow local 'c' */
   func1(c);
-  return 0;
+  ಪ್ರತ್ಯಾಗಮ 0;
 }
 
-void func1(char c)
+ಶೂನ್ಯ func1(ವರ್ಣ c)
 {
     myassert(c == 'a');
 }
 
-struct st { int a; };
+ಸಂರಚನಾ st { ಪೂರ್ಣಾಙ್ಕ a; };
 
 /* --------------------------------------------- */
-int main_3()
+ಪೂರ್ಣಾಙ್ಕ main_3()
 {
-  struct st func(void);
-  struct st st = func(); /* not an 'incompatible redefinition' */
+  ಸಂರಚನಾ st func(ಶೂನ್ಯ);
+  ಸಂರಚನಾ st st = func(); /* not an 'incompatible redefinition' */
   myassert(st.a == 10);
-  return 0;
+  ಪ್ರತ್ಯಾಗಮ 0;
 }
 
-struct st func(void)
+ಸಂರಚನಾ st func(ಶೂನ್ಯ)
 {
-  struct st st = { 10 };
-  return st;
+  ಸಂರಚನಾ st st = { 10 };
+  ಪ್ರತ್ಯಾಗಮ st;
 }
 
 /* --------------------------------------------- */
 /* func* 'md' must not be shadowed by param 'md' */
-static void f4(char *(*md)(char *md))
+ಸ್ಥಿರ ಶೂನ್ಯ f4(ವರ್ಣ *(*md)(ವರ್ಣ *md))
 {
    (*md)("test");
 }
-static char *a4(char *a)
+ಸ್ಥಿರ ವರ್ಣ *a4(ವರ್ಣ *a)
 {
-    int strcmp();
+    ಪೂರ್ಣಾಙ್ಕ strcmp();
     myassert(!strcmp(a, "test"));
-    return a;
+    ಪ್ರತ್ಯಾಗಮ a;
 }
 
-int main_4()
+ಪೂರ್ಣಾಙ್ಕ main_4()
 {
     f4(a4);
-    return 0;
+    ಪ್ರತ್ಯಾಗಮ 0;
 }
 
 /* --------------------------------------------- */
-int a5[3], b5[];
-int f5(void);
-int main_5()
+ಪೂರ್ಣಾಙ್ಕ a5[3], b5[];
+ಪೂರ್ಣಾಙ್ಕ f5(ಶೂನ್ಯ);
+ಪೂರ್ಣಾಙ್ಕ main_5()
 {
-    extern int a5[3], b5[3];
+    ಬಾಹ್ಯ ಪೂರ್ಣಾಙ್ಕ a5[3], b5[3];
     a5[2]=10, b5[2]=4;
     myassert(f5() == 10 + 4);
-    return 0;
+    ಪ್ರತ್ಯಾಗಮ 0;
 }
-int f5(void)
+ಪೂರ್ಣಾಙ್ಕ f5(ಶೂನ್ಯ)
 {
-    return a5[2]+b5[2];
+    ಪ್ರತ್ಯಾಗಮ a5[2]+b5[2];
 }
-int b5[3];
+ಪೂರ್ಣಾಙ್ಕ b5[3];
 
 /* --------------------------------------------- */
-static int f6(int);
-int i6 = 11;
+ಸ್ಥಿರ ಪೂರ್ಣಾಙ್ಕ f6(ಪೂರ್ಣಾಙ್ಕ);
+ಪೂರ್ಣಾಙ್ಕ i6 = 11;
 
-int main_6()
+ಪೂರ್ಣಾಙ್ಕ main_6()
 {
     {
-        int i6 = 33, f6 = 44;
+        ಪೂರ್ಣಾಙ್ಕ i6 = 33, f6 = 44;
         myassert(i6 == 33 && f6 == 44);
         {
-            int f6(int);
-            extern int i6;
+            ಪೂರ್ಣಾಙ್ಕ f6(ಪೂರ್ಣಾಙ್ಕ);
+            ಬಾಹ್ಯ ಪೂರ್ಣಾಙ್ಕ i6;
             myassert(i6 == 11 && f6(22) == 22);
         }
         myassert(i6 == 33 && f6 == 44);
     }
     myassert(i6 == 11 && f6(22) == 22);
-    return 0;
+    ಪ್ರತ್ಯಾಗಮ 0;
 }
 
-int f6(int x)
+ಪೂರ್ಣಾಙ್ಕ f6(ಪೂರ್ಣಾಙ್ಕ x)
 {
-    return x;
+    ಪ್ರತ್ಯಾಗಮ x;
 }
 
 /* --------------------------------------------- */
 
-#if defined __TINYC__ \
+#ಯದಿ defined __TINYC__ \
     ? !defined __leading_underscore \
     : !(defined __APPLE__ || defined _WIN32)
 # define _
-#else
+#ಅನ್ಯಥಾ
 # define _ "_"
 #endif
 
-struct xx7 { int a, b; };
+ಸಂರಚನಾ xx7 { ಪೂರ್ಣಾಙ್ಕ a, b; };
 
-void f7()
+ಶೂನ್ಯ f7()
 {
-    struct xx7 { int c; } x;
+    ಸಂರಚನಾ xx7 { ಪೂರ್ಣಾಙ್ಕ c; } x;
     {
-        extern struct xx7 { int a, b; } x __asm__(_"z7");
+        ಬಾಹ್ಯ ಸಂರಚನಾ xx7 { ಪೂರ್ಣಾಙ್ಕ a, b; } x __asm__(_"z7");
         x.a = 12;
-        struct xx7 y = { 0,0 };
+        ಸಂರಚನಾ xx7 y = { 0,0 };
     }
-    struct xx7 y = { 90 };
+    ಸಂರಚನಾ xx7 y = { 90 };
     x.c = 78;
     printf("xx7 (1) : %d %d\n", x.c, y.c);
 }
 
-int main_7()
+ಪೂರ್ಣಾಙ್ಕ main_7()
 {
     f7();
-    extern struct xx7 y __asm__(_"z7");
+    ಬಾಹ್ಯ ಸಂರಚನಾ xx7 y __asm__(_"z7");
     printf("xx7 (2) : %d %d\n", y.a, y.b);
-    return 0;
+    ಪ್ರತ್ಯಾಗಮ 0;
 }
 
 
-struct xx7 z7 = { 0, 34 };
+ಸಂರಚನಾ xx7 z7 = { 0, 34 };
 
 /* --------------------------------------------- */
-int main()
+ಪೂರ್ಣಾಙ್ಕ main()
 {
     main_1();
     main_2();
@@ -182,5 +182,5 @@ int main()
     main_5();
     main_6();
     main_7();
-    return 0;
+    ಪ್ರತ್ಯಾಗಮ 0;
 }

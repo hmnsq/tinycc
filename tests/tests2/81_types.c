@@ -1,55 +1,55 @@
 /* The following are all valid decls, even though some subtypes
    are incomplete.  */
-enum E *e;
-const enum E *e1;
-enum E const *e2;
-struct S *s;
-const struct S *s1;
-struct S const *s2;
+ಗಣನಾ E *e;
+ಧ್ರುವ ಗಣನಾ E *e1;
+ಗಣನಾ E ಧ್ರುವ *e2;
+ಸಂರಚನಾ S *s;
+ಧ್ರುವ ಸಂರಚನಾ S *s1;
+ಸಂರಚನಾ S ಧ್ರುವ *s2;
 
 /* Various strangely looking declarators, which are all valid
    and have to map to the same numbered typedefs. */
-typedef int (*fptr1)();
-int f1 (int (), int);
-typedef int (*fptr2)(int x);
-int f2 (int (int x), int);
-typedef int (*fptr3)(int);
-int f3 (int (int), int);
-typedef int (*fptr4[4])(int);
-int f4 (int (*[4])(int), int);
-typedef int (*fptr5)(fptr1);
-int f5 (int (int()), fptr1);
-int f1 (fptr1 fp, int i)
+ಪ್ರಕಾರನಿರ್ದೇಶ ಪೂರ್ಣಾಙ್ಕ (*fptr1)();
+ಪೂರ್ಣಾಙ್ಕ f1 (ಪೂರ್ಣಾಙ್ಕ (), ಪೂರ್ಣಾಙ್ಕ);
+ಪ್ರಕಾರನಿರ್ದೇಶ ಪೂರ್ಣಾಙ್ಕ (*fptr2)(ಪೂರ್ಣಾಙ್ಕ x);
+ಪೂರ್ಣಾಙ್ಕ f2 (ಪೂರ್ಣಾಙ್ಕ (ಪೂರ್ಣಾಙ್ಕ x), ಪೂರ್ಣಾಙ್ಕ);
+ಪ್ರಕಾರನಿರ್ದೇಶ ಪೂರ್ಣಾಙ್ಕ (*fptr3)(ಪೂರ್ಣಾಙ್ಕ);
+ಪೂರ್ಣಾಙ್ಕ f3 (ಪೂರ್ಣಾಙ್ಕ (ಪೂರ್ಣಾಙ್ಕ), ಪೂರ್ಣಾಙ್ಕ);
+ಪ್ರಕಾರನಿರ್ದೇಶ ಪೂರ್ಣಾಙ್ಕ (*fptr4[4])(ಪೂರ್ಣಾಙ್ಕ);
+ಪೂರ್ಣಾಙ್ಕ f4 (ಪೂರ್ಣಾಙ್ಕ (*[4])(ಪೂರ್ಣಾಙ್ಕ), ಪೂರ್ಣಾಙ್ಕ);
+ಪ್ರಕಾರನಿರ್ದೇಶ ಪೂರ್ಣಾಙ್ಕ (*fptr5)(fptr1);
+ಪೂರ್ಣಾಙ್ಕ f5 (ಪೂರ್ಣಾಙ್ಕ (ಪೂರ್ಣಾಙ್ಕ()), fptr1);
+ಪೂರ್ಣಾಙ್ಕ f1 (fptr1 fp, ಪೂರ್ಣಾಙ್ಕ i)
 {
-  return (*fp)(i);
+  ಪ್ರತ್ಯಾಗಮ (*fp)(i);
 }
-int f2 (fptr2 fp, int i)
+ಪೂರ್ಣಾಙ್ಕ f2 (fptr2 fp, ಪೂರ್ಣಾಙ್ಕ i)
 {
-  return (*fp)(i);
+  ಪ್ರತ್ಯಾಗಮ (*fp)(i);
 }
-int f3 (fptr3 fp, int i)
+ಪೂರ್ಣಾಙ್ಕ f3 (fptr3 fp, ಪೂರ್ಣಾಙ್ಕ i)
 {
-  return (*fp)(i);
+  ಪ್ರತ್ಯಾಗಮ (*fp)(i);
 }
-int f4 (fptr4 fp, int i)
+ಪೂರ್ಣಾಙ್ಕ f4 (fptr4 fp, ಪೂರ್ಣಾಙ್ಕ i)
 {
-  return (*fp[i])(i);
+  ಪ್ರತ್ಯಾಗಮ (*fp[i])(i);
 }
-int f5 (fptr5 fp, fptr1 i)
+ಪೂರ್ಣಾಙ್ಕ f5 (fptr5 fp, fptr1 i)
 {
-  return fp(i);
+  ಪ್ರತ್ಯಾಗಮ fp(i);
 }
-typedef int intx4[4];
-int f8 (intx4, int);
-int f8 (int ([4]), int);
-int f8 (int y[4], int i)
+ಪ್ರಕಾರನಿರ್ದೇಶ ಪೂರ್ಣಾಙ್ಕ intx4[4];
+ಪೂರ್ಣಾಙ್ಕ f8 (intx4, ಪೂರ್ಣಾಙ್ಕ);
+ಪೂರ್ಣಾಙ್ಕ f8 (ಪೂರ್ಣಾಙ್ಕ ([4]), ಪೂರ್ಣಾಙ್ಕ);
+ಪೂರ್ಣಾಙ್ಕ f8 (ಪೂರ್ಣಾಙ್ಕ y[4], ಪೂರ್ಣಾಙ್ಕ i)
 {
-  return y[i];
+  ಪ್ರತ್ಯಾಗಮ y[i];
 }
-int f9 (int (*)(int), int);
-int f9 (int ((int)), int);
-int f9 (int f(int), int i)
+ಪೂರ್ಣಾಙ್ಕ f9 (ಪೂರ್ಣಾಙ್ಕ (*)(ಪೂರ್ಣಾಙ್ಕ), ಪೂರ್ಣಾಙ್ಕ);
+ಪೂರ್ಣಾಙ್ಕ f9 (ಪೂರ್ಣಾಙ್ಕ ((ಪೂರ್ಣಾಙ್ಕ)), ಪೂರ್ಣಾಙ್ಕ);
+ಪೂರ್ಣಾಙ್ಕ f9 (ಪೂರ್ಣಾಙ್ಕ f(ಪೂರ್ಣಾಙ್ಕ), ಪೂರ್ಣಾಙ್ಕ i)
 {
-  return f(i);
+  ಪ್ರತ್ಯಾಗಮ f(i);
 }
-int main () { return 0; }
+ಪೂರ್ಣಾಙ್ಕ main () { ಪ್ರತ್ಯಾಗಮ 0; }

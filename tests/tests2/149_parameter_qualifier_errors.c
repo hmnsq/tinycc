@@ -1,11 +1,11 @@
-void defined_const(int *pointer);
+ಶೂನ್ಯ defined_const(ಪೂರ್ಣಾಙ್ಕ *pointer);
 
-void defined_const(int *const pointer)
+ಶೂನ್ಯ defined_const(ಪೂರ್ಣಾಙ್ಕ *ಧ್ರುವ pointer)
 {
     pointer = 0;
 }
 
-int main(void)
+ಪೂರ್ಣಾಙ್ಕ main(ಶೂನ್ಯ)
 {
-    return 0;
+    ಪ್ರತ್ಯಾಗಮ 0;
 }
