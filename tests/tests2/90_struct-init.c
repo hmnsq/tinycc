@@ -1,98 +1,98 @@
-typedef unsigned char u8;
-typedef struct {} empty_s;
-struct contains_empty {
+typedef unsigned var_na u8;
+typedef sa_nracanaa {} empty_s;
+sa_nracanaa contains_empty {
     u8 a;
     empty_s empty;
     u8 b;
 };
-struct contains_empty ce = { { (1) }, (empty_s){}, 022, };
+sa_nracanaa contains_empty ce = { { (1) }, (empty_s){}, 022, };
 /* The following decl of 'q' would demonstrate the TCC bug in init_putv when
    handling copying compound literals.  (Compound literals
    aren't acceptable constant initializers in isoc99, but
    we accept them like gcc, except for this case)
 //char *q = (char *){ "trara" }; */
-struct SS {u8 a[3], b; };
-struct SS sinit16[] = { { 1 }, 2 };
-struct S
+sa_nracanaa SS {u8 a[3], b; };
+sa_nracanaa SS sinit16[] = { { 1 }, 2 };
+sa_nracanaa S
 {
   u8 a,b;
   u8 c[2];
 };
 
-struct T
+sa_nracanaa T
 {
   u8 s[16];
   u8 a;
 };
 
-struct U
+sa_nracanaa U
 {
   u8 a;
-  struct S s;
+  sa_nracanaa S s;
   u8 b;
-  struct T t;
+  sa_nracanaa T t;
 };
 
-struct V
+sa_nracanaa V
 {
-  struct S s;
-  struct T t;
+  sa_nracanaa S s;
+  sa_nracanaa T t;
   u8 a;
 };
 
-struct W
+sa_nracanaa W
 {
-  struct V t;
-  struct S s[];
+  sa_nracanaa V t;
+  sa_nracanaa S s[];
 };
 
-struct S gs = ((struct S){1, 2, 3, 4});
-struct S gs2 = {1, 2, {3, 4}};
-struct T gt = {"hello", 42};
-struct U gu = {3, 5,6,7,8, 4, "huhu", 43};
-struct U gu2 = {3, {5,6,7,8}, 4, {"huhu", 43}};
+sa_nracanaa S gs = ((sa_nracanaa S){1, 2, 3, 4});
+sa_nracanaa S gs2 = {1, 2, {3, 4}};
+sa_nracanaa T gt = {"hello", 42};
+sa_nracanaa U gu = {3, 5,6,7,8, 4, "huhu", 43};
+sa_nracanaa U gu2 = {3, {5,6,7,8}, 4, {"huhu", 43}};
 /* Optional braces around scalar initializers.  Accepted, but with
    a warning.  */
-struct U gu3 = { {3}, {5,6,7,8,}, 4, {"huhu", 43}};
+sa_nracanaa U gu3 = { {3}, {5,6,7,8,}, 4, {"huhu", 43}};
 /* Many superfluous braces and leaving out one initializer for U.s.c[1] */
-struct U gu4 = { 3, {5,6,7,},  5, { "bla", {44}} };
+sa_nracanaa U gu4 = { 3, {5,6,7,},  5, { "bla", {44}} };
 /* Superfluous braces and useless parens around values */
-struct S gs3 = { (1), {(2)}, {(((3))), {4}}};
+sa_nracanaa S gs3 = { (1), {(2)}, {(((3))), {4}}};
 /* Superfluous braces, and leaving out braces for V.t, plus cast */
-struct V gv = {{{3},4,{5,6}}, "haha", (u8)45, 46};
+sa_nracanaa V gv = {{{3},4,{5,6}}, "haha", (u8)45, 46};
 /* Compound literal */
-struct V gv2 = {(struct S){7,8,{9,10}}, {"hihi", 47}, 48};
+sa_nracanaa V gv2 = {(sa_nracanaa S){7,8,{9,10}}, {"hihi", 47}, 48};
 /* Parens around compound literal */
-struct V gv3 = {((struct S){7,8,{9,10}}), {"hoho", 49}, 50};
+sa_nracanaa V gv3 = {((sa_nracanaa S){7,8,{9,10}}), {"hoho", 49}, 50};
 /* Initialization of a flex array member (warns in GCC) */
-struct W gw = {{1,2,3,4}, {1,2,3,4,5}};
+sa_nracanaa W gw = {{1,2,3,4}, {1,2,3,4,5}};
 
-union UU {
+sa_ngha UU {
     u8 a;
     u8 b;
 };
-struct SU {
-    union UU u;
+sa_nracanaa SU {
+    sa_ngha UU u;
     u8 c;
 };
-struct SU gsu = {5,6};
+sa_nracanaa SU gsu = {5,6};
 
 /* Unnamed struct/union members aren't ISO C, but it's a widely accepted
    extension.  See below for further extensions to that under -fms-extension.*/
-union UV {
-    struct {u8 a,b;};
-    struct S s;
+sa_ngha UV {
+    sa_nracanaa {u8 a,b;};
+    sa_nracanaa S s;
 };
-union UV guv = {{6,5}};
-union UV guv2 = {{.b = 7, .a = 8}};
-union UV guv3 = {.b = 8, .a = 7};
+sa_ngha UV guv = {{6,5}};
+sa_ngha UV guv2 = {{.b = 7, .a = 8}};
+sa_ngha UV guv3 = {.b = 8, .a = 7};
 
-struct SSU {
-    int y;
-    struct { int x; };
+sa_nracanaa SSU {
+    ཧྲིལ y;
+    sa_nracanaa { ཧྲིལ x; };
 };
-struct SSU gssu1 = { .y = 5, .x = 3 };
-struct SSU gssu2 = { 5, 3 };
+sa_nracanaa SSU gssu1 = { .y = 5, .x = 3 };
+sa_nracanaa SSU gssu2 = { 5, 3 };
 
 /* Under -fms-extensions also the following is valid:
 union UV2 {
@@ -103,83 +103,83 @@ struct Anon gan = { 10, 11 }; // ... which makes it available here.
 union UV2 guv4 = {{4,3}};     // and the other inits from above as well
 */
 
-struct in6_addr {
-    union {
+sa_nracanaa in6_addr {
+    sa_ngha {
 	u8 u6_addr8[16];
 	unsigned short u6_addr16[8];
     } u;
 };
-struct flowi6 {
-    struct in6_addr saddr, daddr;
+sa_nracanaa flowi6 {
+    sa_nracanaa in6_addr saddr, daddr;
 };
-struct pkthdr {
-    struct in6_addr daddr, saddr;
+sa_nracanaa pkthdr {
+    sa_nracanaa in6_addr daddr, saddr;
 };
-struct pkthdr phdr = { { { 6,5,4,3 } }, { { 9,8,7,6 } } };
+sa_nracanaa pkthdr phdr = { { { 6,5,4,3 } }, { { 9,8,7,6 } } };
 
-struct Wrap {
+sa_nracanaa Wrap {
     void *func;
 };
-int global;
+ཧྲིལ global;
 void inc_global (void)
 {
   global++;
 }
 
-struct Wrap global_wrap[] = {
-    ((struct Wrap) {inc_global}),
+sa_nracanaa Wrap global_wrap[] = {
+    ((sa_nracanaa Wrap) {inc_global}),
     inc_global,
 };
 
 #include <stdio.h>
-void print_ (const char *name, const u8 *p, long size)
+void print_ (const var_na *name, const u8 *p, long size)
 {
   printf ("%s:", name);
-  while (size--) {
+  སྐབས (size--) {
       printf (" %x", *p++);
   }
   printf ("\n");
 }
-#define print(x) print_(#x, (u8*)&x, sizeof (x))
-#if 1
-void foo (struct W *w, struct pkthdr *phdr_)
+#define print(x) print_(#x, (u8*)&x, parimaa_na (x))
+#གལ་སྲིད 1
+void foo (sa_nracanaa W *w, sa_nracanaa pkthdr *phdr_)
 {
-  struct S ls = {1, 2, 3, 4};
-  struct S ls2 = {1, 2, {3, 4}};
-  struct T lt = {"hello", 42};
-  struct U lu = {3, 5,6,7,8, 4, "huhu", 43};
-  struct U lu1 = {3, ls, 4, {"huhu", 43}};
-  struct U lu2 = {3, (ls), 4, {"huhu", 43}};
-  const struct S *pls = &ls;
-  struct S ls21 = *pls;
-  struct U lu22 = {3, *pls, 4, {"huhu", 43}};
+  sa_nracanaa S ls = {1, 2, 3, 4};
+  sa_nracanaa S ls2 = {1, 2, {3, 4}};
+  sa_nracanaa T lt = {"hello", 42};
+  sa_nracanaa U lu = {3, 5,6,7,8, 4, "huhu", 43};
+  sa_nracanaa U lu1 = {3, ls, 4, {"huhu", 43}};
+  sa_nracanaa U lu2 = {3, (ls), 4, {"huhu", 43}};
+  const sa_nracanaa S *pls = &ls;
+  sa_nracanaa S ls21 = *pls;
+  sa_nracanaa U lu22 = {3, *pls, 4, {"huhu", 43}};
   /* Incomplete bracing.  */
-  struct U lu21 = {3, ls, 4, "huhu", 43};
+  sa_nracanaa U lu21 = {3, ls, 4, "huhu", 43};
   /* Optional braces around scalar initializers.  Accepted, but with
      a warning.  */
-  struct U lu3 = { 3, {5,6,7,8,}, 4, {"huhu", 43}};
+  sa_nracanaa U lu3 = { 3, {5,6,7,8,}, 4, {"huhu", 43}};
   /* Many superfluous braces and leaving out one initializer for U.s.c[1] */
-  struct U lu4 = { 3, {5,6,7,},  5, { "bla", 44} };
+  sa_nracanaa U lu4 = { 3, {5,6,7,},  5, { "bla", 44} };
   /* Superfluous braces and useless parens around values */
-  struct S ls3 = { (1), (2), {(((3))), 4}};
+  sa_nracanaa S ls3 = { (1), (2), {(((3))), 4}};
   /* Superfluous braces, and leaving out braces for V.t, plus cast */
-  struct V lv = {{3,4,{5,6}}, "haha", (u8)45, 46};
+  sa_nracanaa V lv = {{3,4,{5,6}}, "haha", (u8)45, 46};
   /* Compound literal */
-  struct V lv2 = {(struct S)w->t.s, {"hihi", 47}, 48};
+  sa_nracanaa V lv2 = {(sa_nracanaa S)w->t.s, {"hihi", 47}, 48};
   /* Parens around compound literal */
-  struct V lv3 = {((struct S){7,8,{9,10}}), ((const struct W *)w)->t.t, 50};
-  const struct pkthdr *phdr = phdr_;
-  struct flowi6 flow = { .daddr = phdr->daddr, .saddr = phdr->saddr };
-  int elt = 0x42;
+  sa_nracanaa V lv3 = {((sa_nracanaa S){7,8,{9,10}}), ((const sa_nracanaa W *)w)->t.t, 50};
+  const sa_nracanaa pkthdr *phdr = phdr_;
+  sa_nracanaa flowi6 flow = { .daddr = phdr->daddr, .saddr = phdr->saddr };
+  ཧྲིལ elt = 0x42;
   /* Range init, overlapping */
-  struct T lt2 = { { [1 ... 5] = 9, [6 ... 10] = elt, [4 ... 7] = elt+1 }, 1 };
-  struct SSU lssu1 = { 5, 3 };
-  struct SSU lssu2 = { .y = 5, .x = 3 };
+  sa_nracanaa T lt2 = { { [1 ... 5] = 9, [6 ... 10] = elt, [4 ... 7] = elt+1 }, 1 };
+  sa_nracanaa SSU lssu1 = { 5, 3 };
+  sa_nracanaa SSU lssu2 = { .y = 5, .x = 3 };
   /* designated initializers in GNU form */
-#if defined(__GNUC__) || defined(__TINYC__)
-  struct S ls4 = {a: 1, b: 2, c: {3, 4}};
-#else
-  struct S ls4 = {.a = 1, .b = 2, .c = {3, 4}};
+#གལ་སྲིད defined(__GNUC__) || defined(__TINYC__)
+  sa_nracanaa S ls4 = {a: 1, b: 2, c: {3, 4}};
+#དེ་མིན
+  sa_nracanaa S ls4 = {.a = 1, .b = 2, .c = {3, 4}};
 #endif
   print(ls);
   print(ls2);
@@ -206,8 +206,8 @@ void foo (struct W *w, struct pkthdr *phdr_)
 
 void test_compound_with_relocs (void)
 {
-  struct Wrap local_wrap[] = {
-      ((struct Wrap) {inc_global}),
+  sa_nracanaa Wrap local_wrap[] = {
+      ((sa_nracanaa Wrap) {inc_global}),
       inc_global,
   };
   void (*p)(void);
@@ -224,11 +224,11 @@ void sys_three(void) { printf("three\n"); }
 void sys_four(void) { printf("four\n"); }
 typedef void (*fptr)(void);
 
-#define array_size(a) (sizeof a / sizeof a[0])
+#define array_size(a) (parimaa_na a / parimaa_na a[0])
 
 void test_multi_relocs(void)
 {
-  int i;
+  ཧྲིལ i;
 
   static const fptr tabl1[4] = {
       [0 ... 3] = &sys_ni,
@@ -239,10 +239,10 @@ void test_multi_relocs(void)
       [1 ... 2] = &sys_ni,
       [1] = 0,
   };
-  for (i = 0; i < array_size(tabl1); i++)
-    if (tabl1[i])
+  དོན་ལུ (i = 0; i < array_size(tabl1); i++)
+    གལ་སྲིད (tabl1[i])
       tabl1[i]();
-    else
+    དེ་མིན
       printf("(0)\n");
 
   const fptr tabl2[4] = {
@@ -254,37 +254,37 @@ void test_multi_relocs(void)
       [1 ... 2] = &sys_ni,
       [1] = 0,
   };
-  for (i = 0; i < array_size(tabl2); i++)
-    if (tabl2[i])
+  དོན་ལུ (i = 0; i < array_size(tabl2); i++)
+    གལ་སྲིད (tabl2[i])
       tabl2[i]();
-    else
+    དེ་མིན
       printf("(0)\n");
 
-  int c = 0;
-  int dd[] = {
+  ཧྲིལ c = 0;
+  ཧྲིལ dd[] = {
     [0 ... 1] = ++c,
     [2 ... 3] = ++c
   };
-  for (i = 0; i < array_size(dd); i++)
+  དོན་ལུ (i = 0; i < array_size(dd); i++)
     printf(" %d", dd[i]);
   printf("\n");
 
   /* multi-dimensional flex array with range initializers */
-  static char m1[][2][3] = {[0 ... 2]={{3,4,5},{6,7,8}},{{9},10},"abc"};
-  char        m2[][2][3] = {[0 ... 2]={{3,4,5},{6,7,8}},{{9},10},"abc"};
-  int g, j, k;
-  for (g = 2; g-- > 0;) {
-    printf("mdfa %s: %d -", "locl\0glob" + g * 5, sizeof m1);
-    for (i = 0; i < array_size(m1); i++)
-    for (j = 0; j < array_size(m1[0]); j++)
-    for (k = 0; k < array_size(m1[0][0]); k++)
+  static var_na m1[][2][3] = {[0 ... 2]={{3,4,5},{6,7,8}},{{9},10},"abc"};
+  var_na        m2[][2][3] = {[0 ... 2]={{3,4,5},{6,7,8}},{{9},10},"abc"};
+  ཧྲིལ g, j, k;
+  དོན་ལུ (g = 2; g-- > 0;) {
+    printf("mdfa %s: %d -", "locl\0glob" + g * 5, parimaa_na m1);
+    དོན་ལུ (i = 0; i < array_size(m1); i++)
+    དོན་ལུ (j = 0; j < array_size(m1[0]); j++)
+    དོན་ལུ (k = 0; k < array_size(m1[0][0]); k++)
       printf(" %d", (g ? m1:m2)[i][j][k]);
     printf("\n");
   }
 }
 
 void test_init_ranges(void) {
-    int i,c=0;
+    ཧྲིལ i,c=0;
     static void *gostring[] = {
         [0 ... 31] = &&l_bad, [127] = &&l_bad,
         [32 ... 126] = &&l_loop,
@@ -296,7 +296,7 @@ void test_init_ranges(void) {
         [248 ... 255] = &&l_bad
     };
 
-    for (i = 0; i < 256; i++) {
+    དོན་ལུ (i = 0; i < 256; i++) {
         goto *gostring[i];
         l_bad: c++;
         l_loop: c++;
@@ -312,46 +312,46 @@ void test_init_ranges(void) {
 
 /* Following is from GCC gcc.c-torture/execute/20050613-1.c.  */
 
-struct SEA { int i; int j; int k; int l; };
-struct SEB { struct SEA a; int r[1]; };
-struct SEC { struct SEA a; int r[0]; };
-struct SED { struct SEA a; int r[]; };
+sa_nracanaa SEA { ཧྲིལ i; ཧྲིལ j; ཧྲིལ k; ཧྲིལ l; };
+sa_nracanaa SEB { sa_nracanaa SEA a; ཧྲིལ r[1]; };
+sa_nracanaa SEC { sa_nracanaa SEA a; ཧྲིལ r[0]; };
+sa_nracanaa SED { sa_nracanaa SEA a; ཧྲིལ r[]; };
 
 static void
-test_correct_filling (struct SEA *x)
+test_correct_filling (sa_nracanaa SEA *x)
 {
-  static int i;
-  if (x->i != 0 || x->j != 5 || x->k != 0 || x->l != 0)
+  static ཧྲིལ i;
+  གལ་སྲིད (x->i != 0 || x->j != 5 || x->k != 0 || x->l != 0)
     printf("sea_fill%d: wrong\n", i);
-  else
+  དེ་མིན
     printf("sea_fill%d: okay\n", i);
   i++;
 }
 
-int
+ཧྲིལ
 test_zero_init (void)
 {
   /* The peculiarity here is that only a.j is initialized.  That
      means that all other members must be zero initialized.  TCC
      once didn't do that for sub-level designators.  */
-  struct SEB b = { .a.j = 5 };
-  struct SEC c = { .a.j = 5 };
-  struct SED d = { .a.j = 5 };
+  sa_nracanaa SEB b = { .a.j = 5 };
+  sa_nracanaa SEC c = { .a.j = 5 };
+  sa_nracanaa SED d = { .a.j = 5 };
   test_correct_filling (&b.a);
   test_correct_filling (&c.a);
   test_correct_filling (&d.a);
-  return 0;
+  ལོག 0;
 }
 
 void test_init_struct_from_struct(void)
 {
-    int i = 0;
-    struct S {int x,y;}
+    ཧྲིལ i = 0;
+    sa_nracanaa S {ཧྲིལ x,y;}
         a = {1,2},
         b = {3,4},
         c[] = {a,b},
         d[] = {++i, ++i, ++i, ++i},
-        e[] = {b, (struct S){5,6}}
+        e[] = {b, (sa_nracanaa S){5,6}}
         ;
 
     printf("%s: %d %d %d %d - %d %d %d %d - %d %d %d %d\n",
@@ -371,12 +371,12 @@ void test_init_struct_from_struct(void)
         );
 }
 
-typedef struct {
-    unsigned int a;
-    unsigned int : 32;
-    unsigned int b;
+typedef sa_nracanaa {
+    unsigned ཧྲིལ a;
+    unsigned ཧྲིལ : 32;
+    unsigned ཧྲིལ b;
     unsigned long long : 64;
-    unsigned int c;
+    unsigned ཧྲིལ c;
 } tst_bf;
 
 tst_bf arr[] = { { 1, 2, 3 } };
@@ -388,7 +388,7 @@ test_init_bf(void)
 }
 
 
-int main()
+ཧྲིལ main()
 {
   print(ce);
   print(gs);
@@ -420,5 +420,5 @@ int main()
   test_init_ranges();
   test_init_struct_from_struct();
   test_init_bf();
-  return 0;
+  ལོག 0;
 }

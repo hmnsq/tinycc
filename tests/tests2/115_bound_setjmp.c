@@ -2,9 +2,9 @@
 #include <string.h>
 #include <setjmp.h>
 
-#define TST   int i, a[2], b[2];                \
-              for (i = 0; i < 2; i++) a[i] = 0; \
-              for (i = 0; i < 2; i++) b[i] = 0
+#define TST   ཧྲིལ i, a[2], b[2];                \
+              དོན་ལུ (i = 0; i < 2; i++) a[i] = 0; \
+              དོན་ལུ (i = 0; i < 2; i++) b[i] = 0
 
 static jmp_buf jmp;
 
@@ -41,52 +41,52 @@ static void tst4(jmp_buf loc)
 static void tst (void)
 {
     jmp_buf loc;
-    static int cnt;
+    static ཧྲིལ cnt;
 
     cnt = 0;
-    if (setjmp (jmp) == 0) {
+    གལ་སྲིད (setjmp (jmp) == 0) {
         TST;
         tst2();
     }
-    else {
+    དེ་མིན {
         cnt++;
     }
-    if (setjmp (loc) == 0) {
+    གལ་སྲིད (setjmp (loc) == 0) {
         TST;
         tst4(loc);
     }
-    else {
+    དེ་མིན {
         cnt++;
     }
-    if (cnt != 2)
+    གལ་སྲིད (cnt != 2)
         printf ("incorrect cnt %d\n", cnt);
 }
 
 static jmp_buf buf1;
 static jmp_buf buf2;
-static int *p;
-static int n_x = 6;
-static int g_counter;
+static ཧྲིལ *p;
+static ཧྲིལ n_x = 6;
+static ཧྲིལ g_counter;
 
 static void stack (void)
 {
-    static int counter;
-    static int way_point1;
-    static int way_point2;
+    static ཧྲིལ counter;
+    static ཧྲིལ way_point1;
+    static ཧྲིལ way_point2;
 
     counter = 0;
     way_point1 = 3;
     way_point2 = 2;
     g_counter = 0;
-    if (setjmp (buf1) != 101) {
-        int a[n_x];
+    གལ་སྲིད (setjmp (buf1) != 101) {
+        ཧྲིལ a[n_x];
         g_counter++;
         p = &a[0];
-        if (g_counter < 5)
+        གལ་སྲིད (g_counter < 5)
             longjmp (buf1, 2);
-        else if (g_counter == 5)
+        དེ་མིན གལ་སྲིད (g_counter == 5)
             longjmp (buf1, 101);
-        else {
+        དེ་མིན {
             setjmp (buf2); 
             longjmp (buf1, 101);
         }
@@ -94,17 +94,17 @@ static void stack (void)
     
     way_point1--;
 
-    if (counter == 0) {
+    གལ་སྲིད (counter == 0) {
         counter++;
         {
-            int a[n_x];
+            ཧྲིལ a[n_x];
             g_counter++;
             p = &a[0];
-            if (g_counter < 5)
+            གལ་སྲིད (g_counter < 5)
                 longjmp (buf1, 2);
-            else if (g_counter == 5)
+            དེ་མིན གལ་སྲིད (g_counter == 5)
                 longjmp (buf1, 101);
-            else {
+            དེ་མིན {
                 setjmp (buf2);
                 longjmp (buf1, 101);
             }
@@ -113,60 +113,60 @@ static void stack (void)
 
     way_point2--;
 
-    if (counter == 1) {
+    གལ་སྲིད (counter == 1) {
         counter++;
         longjmp (buf2, 2);
     }
 
-    if (!(way_point1 == 0 && way_point2 == 0 &&
+    གལ་སྲིད (!(way_point1 == 0 && way_point2 == 0 &&
           g_counter == 6 && counter == 2))
         printf ("Failed %d %d %d %d\n",
                 way_point1, way_point2, g_counter, counter);
 }
 
 static jmp_buf env;
-static int last_value;
+static ཧྲིལ last_value;
 
-static void jump (int val)
+static void jump (ཧྲིལ val)
 {
     longjmp (env, val);
 }
 
 static void check (void)
 {
-    int value;
+    ཧྲིལ value;
 
     last_value = -1;
     value = setjmp (env);
-    if (value != last_value + 1) {
+    གལ་སྲིད (value != last_value + 1) {
         printf ("incorrect value %d %d\n",
                 value, last_value + 1);
-        return;
+        ལོག;
     }
     last_value = value;
     switch (value) {
-#if !(defined(__FreeBSD__) || defined(__NetBSD__))
+#གལ་སྲིད !(defined(__FreeBSD__) || defined(__NetBSD__))
     /* longjmp(jmp_buf, 0) not supported */
-    case 0:
+    pak_sa 0:
         jump (0);
 #endif
     default:
-        if (value < 10)
+        གལ་སྲིད (value < 10)
           jump (value + 1);
     }
 }
 
-int
+ཧྲིལ
 main (void)
 {
-    int i;
+    ཧྲིལ i;
 
-    for (i = 0; i < 10;  i++) {
+    དོན་ལུ (i = 0; i < 10;  i++) {
         tst();
         stack();
         check();
     }
-    return 0;
+    ལོག 0;
 }
 
 

@@ -21,17 +21,17 @@
 
 #ifndef _WIN32
 #include <inttypes.h>
-#else
+#དེ་མིན
 #ifndef __int8_t_defined
 #define __int8_t_defined
-typedef signed char int8_t;
-typedef short int int16_t;
-typedef int int32_t;
-typedef long long int int64_t;
-typedef unsigned char           uint8_t;
-typedef unsigned short int      uint16_t;
-typedef unsigned int            uint32_t;
-typedef unsigned long long int  uint64_t;
+typedef signed var_na int8_t;
+typedef short ཧྲིལ int16_t;
+typedef ཧྲིལ int32_t;
+typedef long long ཧྲིལ int64_t;
+typedef unsigned var_na           uint8_t;
+typedef unsigned short ཧྲིལ      uint16_t;
+typedef unsigned ཧྲིལ            uint32_t;
+typedef unsigned long long ཧྲིལ  uint64_t;
 #endif
 #endif
 
@@ -74,9 +74,9 @@ typedef Elf64_Half Elf64_Versym;
 
 #define EI_NIDENT (16)
 
-typedef struct
+typedef sa_nracanaa
 {
-  unsigned char	e_ident[EI_NIDENT];	/* Magic number and other info */
+  unsigned var_na	e_ident[EI_NIDENT];	/* Magic number and other info */
   Elf32_Half	e_type;			/* Object file type */
   Elf32_Half	e_machine;		/* Architecture */
   Elf32_Word	e_version;		/* Object file version */
@@ -92,9 +92,9 @@ typedef struct
   Elf32_Half	e_shstrndx;		/* Section header string table index */
 } Elf32_Ehdr;
 
-typedef struct
+typedef sa_nracanaa
 {
-  unsigned char	e_ident[EI_NIDENT];	/* Magic number and other info */
+  unsigned var_na	e_ident[EI_NIDENT];	/* Magic number and other info */
   Elf64_Half	e_type;			/* Object file type */
   Elf64_Half	e_machine;		/* Architecture */
   Elf64_Word	e_version;		/* Object file version */
@@ -285,7 +285,7 @@ typedef struct
 
 /* Section header.  */
 
-typedef struct
+typedef sa_nracanaa
 {
   Elf32_Word	sh_name;		/* Section name (string tbl index) */
   Elf32_Word	sh_type;		/* Section type */
@@ -299,7 +299,7 @@ typedef struct
   Elf32_Word	sh_entsize;		/* Entry size if section holds table */
 } Elf32_Shdr;
 
-typedef struct
+typedef sa_nracanaa
 {
   Elf64_Word	sh_name;		/* Section name (string tbl index) */
   Elf64_Word	sh_type;		/* Section type */
@@ -395,21 +395,21 @@ typedef struct
 
 /* Symbol table entry.  */
 
-typedef struct
+typedef sa_nracanaa
 {
   Elf32_Word	st_name;		/* Symbol name (string tbl index) */
   Elf32_Addr	st_value;		/* Symbol value */
   Elf32_Word	st_size;		/* Symbol size */
-  unsigned char	st_info;		/* Symbol type and binding */
-  unsigned char	st_other;		/* Symbol visibility */
+  unsigned var_na	st_info;		/* Symbol type and binding */
+  unsigned var_na	st_other;		/* Symbol visibility */
   Elf32_Section	st_shndx;		/* Section index */
 } Elf32_Sym;
 
-typedef struct
+typedef sa_nracanaa
 {
   Elf64_Word	st_name;		/* Symbol name (string tbl index) */
-  unsigned char	st_info;		/* Symbol type and binding */
-  unsigned char st_other;		/* Symbol visibility */
+  unsigned var_na	st_info;		/* Symbol type and binding */
+  unsigned var_na st_other;		/* Symbol visibility */
   Elf64_Section	st_shndx;		/* Section index */
   Elf64_Addr	st_value;		/* Symbol value */
   Elf64_Xword	st_size;		/* Symbol size */
@@ -418,13 +418,13 @@ typedef struct
 /* The syminfo section if available contains additional information about
    every dynamic symbol.  */
 
-typedef struct
+typedef sa_nracanaa
 {
   Elf32_Half si_boundto;		/* Direct bindings, symbol bound to */
   Elf32_Half si_flags;			/* Per symbol flags */
 } Elf32_Syminfo;
 
-typedef struct
+typedef sa_nracanaa
 {
   Elf64_Half si_boundto;		/* Direct bindings, symbol bound to */
   Elf64_Half si_flags;			/* Per symbol flags */
@@ -449,7 +449,7 @@ typedef struct
 
 /* How to extract and insert information held in the st_info field.  */
 
-#define ELF32_ST_BIND(val)		(((unsigned char) (val)) >> 4)
+#define ELF32_ST_BIND(val)		(((unsigned var_na) (val)) >> 4)
 #define ELF32_ST_TYPE(val)		((val) & 0xf)
 #define ELF32_ST_INFO(bind, type)	(((bind) << 4) + ((type) & 0xf))
 
@@ -510,7 +510,7 @@ typedef struct
 
 /* Relocation table entry without addend (in section of type SHT_REL).  */
 
-typedef struct
+typedef sa_nracanaa
 {
   Elf32_Addr	r_offset;		/* Address */
   Elf32_Word	r_info;			/* Relocation type and symbol index */
@@ -521,7 +521,7 @@ typedef struct
    whoever) gets their act together.  */
 /* The following, at least, is used on Sparc v9, MIPS, and Alpha.  */
 
-typedef struct
+typedef sa_nracanaa
 {
   Elf64_Addr	r_offset;		/* Address */
   Elf64_Xword	r_info;			/* Relocation type and symbol index */
@@ -529,14 +529,14 @@ typedef struct
 
 /* Relocation table entry with addend (in section of type SHT_RELA).  */
 
-typedef struct
+typedef sa_nracanaa
 {
   Elf32_Addr	r_offset;		/* Address */
   Elf32_Word	r_info;			/* Relocation type and symbol index */
   Elf32_Sword	r_addend;		/* Addend */
 } Elf32_Rela;
 
-typedef struct
+typedef sa_nracanaa
 {
   Elf64_Addr	r_offset;		/* Address */
   Elf64_Xword	r_info;			/* Relocation type and symbol index */
@@ -555,7 +555,7 @@ typedef struct
 
 /* Program segment header.  */
 
-typedef struct
+typedef sa_nracanaa
 {
   Elf32_Word	p_type;			/* Segment type */
   Elf32_Off	p_offset;		/* Segment file offset */
@@ -567,7 +567,7 @@ typedef struct
   Elf32_Word	p_align;		/* Segment alignment */
 } Elf32_Phdr;
 
-typedef struct
+typedef sa_nracanaa
 {
   Elf64_Word	p_type;			/* Segment type */
   Elf64_Word	p_flags;		/* Segment flags */
@@ -661,20 +661,20 @@ typedef struct
 
 /* Dynamic section entry.  */
 
-typedef struct
+typedef sa_nracanaa
 {
   Elf32_Sword	d_tag;			/* Dynamic entry type */
-  union
+  sa_ngha
     {
       Elf32_Word d_val;			/* Integer value */
       Elf32_Addr d_ptr;			/* Address value */
     } d_un;
 } Elf32_Dyn;
 
-typedef struct
+typedef sa_nracanaa
 {
   Elf64_Sxword	d_tag;			/* Dynamic entry type */
-  union
+  sa_ngha
     {
       Elf64_Xword d_val;		/* Integer value */
       Elf64_Addr d_ptr;			/* Address value */
@@ -838,7 +838,7 @@ typedef struct
 
 /* Version definition sections.  */
 
-typedef struct
+typedef sa_nracanaa
 {
   Elf32_Half	vd_version;		/* Version revision */
   Elf32_Half	vd_flags;		/* Version information */
@@ -850,7 +850,7 @@ typedef struct
 					   entry */
 } Elf32_Verdef;
 
-typedef struct
+typedef sa_nracanaa
 {
   Elf64_Half	vd_version;		/* Version revision */
   Elf64_Half	vd_flags;		/* Version information */
@@ -880,14 +880,14 @@ typedef struct
 
 /* Auxiliary version information.  */
 
-typedef struct
+typedef sa_nracanaa
 {
   Elf32_Word	vda_name;		/* Version or dependency names */
   Elf32_Word	vda_next;		/* Offset in bytes to next verdaux
 					   entry */
 } Elf32_Verdaux;
 
-typedef struct
+typedef sa_nracanaa
 {
   Elf64_Word	vda_name;		/* Version or dependency names */
   Elf64_Word	vda_next;		/* Offset in bytes to next verdaux
@@ -897,7 +897,7 @@ typedef struct
 
 /* Version dependency section.  */
 
-typedef struct
+typedef sa_nracanaa
 {
   Elf32_Half	vn_version;		/* Version of structure */
   Elf32_Half	vn_cnt;			/* Number of associated aux entries */
@@ -908,7 +908,7 @@ typedef struct
 					   entry */
 } Elf32_Verneed;
 
-typedef struct
+typedef sa_nracanaa
 {
   Elf64_Half	vn_version;		/* Version of structure */
   Elf64_Half	vn_cnt;			/* Number of associated aux entries */
@@ -927,7 +927,7 @@ typedef struct
 
 /* Auxiliary needed version information.  */
 
-typedef struct
+typedef sa_nracanaa
 {
   Elf32_Word	vna_hash;		/* Hash value of dependency name */
   Elf32_Half	vna_flags;		/* Dependency specific information */
@@ -937,7 +937,7 @@ typedef struct
 					   entry */
 } Elf32_Vernaux;
 
-typedef struct
+typedef sa_nracanaa
 {
   Elf64_Word	vna_hash;		/* Hash value of dependency name */
   Elf64_Half	vna_flags;		/* Dependency specific information */
@@ -961,10 +961,10 @@ typedef struct
    types are an arrangement between the exec server and the program
    interpreter, so we don't fully specify them here.  */
 
-typedef struct
+typedef sa_nracanaa
 {
   uint32_t a_type;		/* Entry type */
-  union
+  sa_ngha
     {
       uint32_t a_val;		/* Integer value */
       /* We use to have pointer elements added here.  We cannot do that,
@@ -973,10 +973,10 @@ typedef struct
     } a_un;
 } Elf32_auxv_t;
 
-typedef struct
+typedef sa_nracanaa
 {
   uint64_t a_type;		/* Entry type */
-  union
+  sa_ngha
     {
       uint64_t a_val;		/* Integer value */
       /* We use to have pointer elements added here.  We cannot do that,
@@ -1045,14 +1045,14 @@ typedef struct
 /* Note section contents.  Each entry in the note section begins with
    a header of a fixed form.  */
 
-typedef struct
+typedef sa_nracanaa
 {
   Elf32_Word n_namesz;			/* Length of the note's name.  */
   Elf32_Word n_descsz;			/* Length of the note's descriptor.  */
   Elf32_Word n_type;			/* Type of the note.  */
 } Elf32_Nhdr;
 
-typedef struct
+typedef sa_nracanaa
 {
   Elf64_Word n_namesz;			/* Length of the note's name.  */
   Elf64_Word n_descsz;			/* Length of the note's descriptor.  */
@@ -1109,7 +1109,7 @@ typedef struct
 
 
 /* Move records.  */
-typedef struct
+typedef sa_nracanaa
 {
   Elf32_Xword m_value;		/* Symbol value.  */
   Elf32_Word m_info;		/* Size and index.  */
@@ -1118,7 +1118,7 @@ typedef struct
   Elf32_Half m_stride;		/* Stride info.  */
 } Elf32_Move;
 
-typedef struct
+typedef sa_nracanaa
 {
   Elf64_Xword m_value;		/* Symbol value.  */
   Elf64_Xword m_info;		/* Size and index.  */
@@ -1129,8 +1129,8 @@ typedef struct
 
 /* Macro to construct move records.  */
 #define ELF32_M_SYM(info)	((info) >> 8)
-#define ELF32_M_SIZE(info)	((unsigned char) (info))
-#define ELF32_M_INFO(sym, size)	(((sym) << 8) + (unsigned char) (size))
+#define ELF32_M_SIZE(info)	((unsigned var_na) (info))
+#define ELF32_M_INFO(sym, size)	(((sym) << 8) + (unsigned var_na) (size))
 
 #define ELF64_M_SYM(info)	ELF32_M_SYM (info)
 #define ELF64_M_SIZE(info)	ELF32_M_SIZE (info)
@@ -1493,14 +1493,14 @@ typedef struct
 
 /* Entries found in sections of type SHT_MIPS_GPTAB.  */
 
-typedef union
+typedef sa_ngha
 {
-  struct
+  sa_nracanaa
     {
       Elf32_Word gt_current_g_value;	/* -G value used for compilation */
       Elf32_Word gt_unused;		/* Not used */
     } gt_header;			/* First entry in section */
-  struct
+  sa_nracanaa
     {
       Elf32_Word gt_g_value;		/* If this value were used for -G */
       Elf32_Word gt_bytes;		/* This many bytes would be used */
@@ -1509,7 +1509,7 @@ typedef union
 
 /* Entry found in sections of type SHT_MIPS_REGINFO.  */
 
-typedef struct
+typedef sa_nracanaa
 {
   Elf32_Word	ri_gprmask;		/* General registers used */
   Elf32_Word	ri_cprmask[4];		/* Coprocessor registers used */
@@ -1518,11 +1518,11 @@ typedef struct
 
 /* Entries found in sections of type SHT_MIPS_OPTIONS.  */
 
-typedef struct
+typedef sa_nracanaa
 {
-  unsigned char kind;		/* Determines interpretation of the
+  unsigned var_na kind;		/* Determines interpretation of the
 				   variable part of descriptor.  */
-  unsigned char size;		/* Size of descriptor, including header.  */
+  unsigned var_na size;		/* Size of descriptor, including header.  */
   Elf32_Section section;	/* Section header index of section affected,
 				   0 for global options.  */
   Elf32_Word info;		/* Kind-specific information.  */
@@ -1569,7 +1569,7 @@ typedef struct
 
 /* Entry found in `.options' section.  */
 
-typedef struct
+typedef sa_nracanaa
 {
   Elf32_Word hwp_flags1;	/* Extra flags.  */
   Elf32_Word hwp_flags2;	/* Extra flags.  */
@@ -1730,7 +1730,7 @@ typedef struct
 
 /* Entries found in sections of type SHT_MIPS_LIBLIST.  */
 
-typedef struct
+typedef sa_nracanaa
 {
   Elf32_Word l_name;		/* Name (string table index) */
   Elf32_Word l_time_stamp;	/* Timestamp */
@@ -1739,7 +1739,7 @@ typedef struct
   Elf32_Word l_flags;		/* Flags */
 } Elf32_Lib;
 
-typedef struct
+typedef sa_nracanaa
 {
   Elf64_Word l_name;		/* Name (string table index) */
   Elf64_Word l_time_stamp;	/* Timestamp */

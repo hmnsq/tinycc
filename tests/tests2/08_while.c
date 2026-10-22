@@ -1,16 +1,16 @@
 #include <stdio.h>
 
-int main()
+ཧྲིལ main()
 {
-   int a;
-   int p;
-   int t;
+   ཧྲིལ a;
+   ཧྲིལ p;
+   ཧྲིལ t;
 
    a = 1;
    p = 0;
    t = 0;
 
-   while (a < 100)
+   སྐབས (a < 100)
    {
       printf("%d\n", a);
       t = a;
@@ -18,7 +18,7 @@ int main()
       p = t;
    }
 
-   return 0;
+   ལོག 0;
 }
 
 // vim: set expandtab ts=4 sw=3 sts=3 tw=80 :

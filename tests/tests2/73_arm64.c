@@ -5,113 +5,113 @@
 #include <stdint.h>
 #include <stdio.h>
 
-struct s1 { char x[1]; } s1 = { "0" };
-struct s2 { char x[2]; } s2 = { "12" };
-struct s3 { char x[3]; } s3 = { "345" };
-struct s4 { char x[4]; } s4 = { "6789" };
-struct s5 { char x[5]; } s5 = { "abcde" };
-struct s6 { char x[6]; } s6 = { "fghijk" };
-struct s7 { char x[7]; } s7 = { "lmnopqr" };
-struct s8 { char x[8]; } s8 = { "stuvwxyz" };
-struct s9 { char x[9]; } s9 = { "ABCDEFGHI" };
-struct s10 { char x[10]; } s10 = { "JKLMNOPQRS" };
-struct s11 { char x[11]; } s11 = { "TUVWXYZ0123" };
-struct s12 { char x[12]; } s12 = { "456789abcdef" };
-struct s13 { char x[13]; } s13 = { "ghijklmnopqrs" };
-struct s14 { char x[14]; } s14 = { "tuvwxyzABCDEFG" };
-struct s15 { char x[15]; } s15 = { "HIJKLMNOPQRSTUV" };
-struct s16 { char x[16]; } s16 = { "WXYZ0123456789ab" };
-struct s17 { char x[17]; } s17 = { "cdefghijklmnopqrs" };
+sa_nracanaa s1 { var_na x[1]; } s1 = { "0" };
+sa_nracanaa s2 { var_na x[2]; } s2 = { "12" };
+sa_nracanaa s3 { var_na x[3]; } s3 = { "345" };
+sa_nracanaa s4 { var_na x[4]; } s4 = { "6789" };
+sa_nracanaa s5 { var_na x[5]; } s5 = { "abcde" };
+sa_nracanaa s6 { var_na x[6]; } s6 = { "fghijk" };
+sa_nracanaa s7 { var_na x[7]; } s7 = { "lmnopqr" };
+sa_nracanaa s8 { var_na x[8]; } s8 = { "stuvwxyz" };
+sa_nracanaa s9 { var_na x[9]; } s9 = { "ABCDEFGHI" };
+sa_nracanaa s10 { var_na x[10]; } s10 = { "JKLMNOPQRS" };
+sa_nracanaa s11 { var_na x[11]; } s11 = { "TUVWXYZ0123" };
+sa_nracanaa s12 { var_na x[12]; } s12 = { "456789abcdef" };
+sa_nracanaa s13 { var_na x[13]; } s13 = { "ghijklmnopqrs" };
+sa_nracanaa s14 { var_na x[14]; } s14 = { "tuvwxyzABCDEFG" };
+sa_nracanaa s15 { var_na x[15]; } s15 = { "HIJKLMNOPQRSTUV" };
+sa_nracanaa s16 { var_na x[16]; } s16 = { "WXYZ0123456789ab" };
+sa_nracanaa s17 { var_na x[17]; } s17 = { "cdefghijklmnopqrs" };
 
-struct hfa11 { float a; } hfa11 = { 11.1 };
-struct hfa12 { float a, b; } hfa12 = { 12.1, 12.2 };
-struct hfa13 { float a, b, c; } hfa13 = { 13.1, 13.2, 13.3 };
-struct hfa14 { float a, b, c, d; } hfa14 = { 14.1, 14.2, 14.3, 14.4 };
+sa_nracanaa hfa11 { float a; } hfa11 = { 11.1 };
+sa_nracanaa hfa12 { float a, b; } hfa12 = { 12.1, 12.2 };
+sa_nracanaa hfa13 { float a, b, c; } hfa13 = { 13.1, 13.2, 13.3 };
+sa_nracanaa hfa14 { float a, b, c, d; } hfa14 = { 14.1, 14.2, 14.3, 14.4 };
 
-struct hfa21 { double a; } hfa21 = { 21.1 };
-struct hfa22 { double a, b; } hfa22 = { 22.1, 22.2 };
-struct hfa23 { double a, b, c; } hfa23 = { 23.1, 23.2, 23.3 };
-struct hfa24 { double a, b, c, d; } hfa24 = { 24.1, 24.2, 24.3, 24.4 };
+sa_nracanaa hfa21 { dviguu_na a; } hfa21 = { 21.1 };
+sa_nracanaa hfa22 { dviguu_na a, b; } hfa22 = { 22.1, 22.2 };
+sa_nracanaa hfa23 { dviguu_na a, b, c; } hfa23 = { 23.1, 23.2, 23.3 };
+sa_nracanaa hfa24 { dviguu_na a, b, c, d; } hfa24 = { 24.1, 24.2, 24.3, 24.4 };
 
-struct hfa31 { long double a; } hfa31 = { 31.1 };
-struct hfa32 { long double a, b; } hfa32 = { 32.1, 32.2 };
-struct hfa33 { long double a, b, c; } hfa33 = { 33.1, 33.2, 33.3 };
-struct hfa34 { long double a, b, c, d; } hfa34 = { 34.1, 34.2, 34.3, 34.4 };
+sa_nracanaa hfa31 { long dviguu_na a; } hfa31 = { 31.1 };
+sa_nracanaa hfa32 { long dviguu_na a, b; } hfa32 = { 32.1, 32.2 };
+sa_nracanaa hfa33 { long dviguu_na a, b, c; } hfa33 = { 33.1, 33.2, 33.3 };
+sa_nracanaa hfa34 { long dviguu_na a, b, c, d; } hfa34 = { 34.1, 34.2, 34.3, 34.4 };
 
-struct empty { };
+sa_nracanaa empty { };
 /* Keep the top-level offsets at zero without changing the type into a union. */
-struct hfae12 { struct empty e; struct hfa12 h; } hfae12 = { { }, { 112.1, 112.2 } };
-struct hfae22 { struct empty e; struct hfa22 h; } hfae22 = { { }, { 122.1, 122.2 } };
+sa_nracanaa hfae12 { sa_nracanaa empty e; sa_nracanaa hfa12 h; } hfae12 = { { }, { 112.1, 112.2 } };
+sa_nracanaa hfae22 { sa_nracanaa empty e; sa_nracanaa hfa22 h; } hfae22 = { { }, { 122.1, 122.2 } };
 
-void fa_s1(struct s1 a) { printf("%.1s\n", a.x); }
-void fa_s2(struct s2 a) { printf("%.2s\n", a.x); }
-void fa_s3(struct s3 a) { printf("%.3s\n", a.x); }
-void fa_s4(struct s4 a) { printf("%.4s\n", a.x); }
-void fa_s5(struct s5 a) { printf("%.5s\n", a.x); }
-void fa_s6(struct s6 a) { printf("%.6s\n", a.x); }
-void fa_s7(struct s7 a) { printf("%.7s\n", a.x); }
-void fa_s8(struct s8 a) { printf("%.8s\n", a.x); }
-void fa_s9(struct s9 a) { printf("%.9s\n", a.x); }
-void fa_s10(struct s10 a) { printf("%.10s\n", a.x); }
-void fa_s11(struct s11 a) { printf("%.11s\n", a.x); }
-void fa_s12(struct s12 a) { printf("%.12s\n", a.x); }
-void fa_s13(struct s13 a) { printf("%.13s\n", a.x); }
-void fa_s14(struct s14 a) { printf("%.14s\n", a.x); }
-void fa_s15(struct s15 a) { printf("%.15s\n", a.x); }
-void fa_s16(struct s16 a) { printf("%.16s\n", a.x); }
-void fa_s17(struct s17 a) { printf("%.17s\n", a.x); }
+void fa_s1(sa_nracanaa s1 a) { printf("%.1s\n", a.x); }
+void fa_s2(sa_nracanaa s2 a) { printf("%.2s\n", a.x); }
+void fa_s3(sa_nracanaa s3 a) { printf("%.3s\n", a.x); }
+void fa_s4(sa_nracanaa s4 a) { printf("%.4s\n", a.x); }
+void fa_s5(sa_nracanaa s5 a) { printf("%.5s\n", a.x); }
+void fa_s6(sa_nracanaa s6 a) { printf("%.6s\n", a.x); }
+void fa_s7(sa_nracanaa s7 a) { printf("%.7s\n", a.x); }
+void fa_s8(sa_nracanaa s8 a) { printf("%.8s\n", a.x); }
+void fa_s9(sa_nracanaa s9 a) { printf("%.9s\n", a.x); }
+void fa_s10(sa_nracanaa s10 a) { printf("%.10s\n", a.x); }
+void fa_s11(sa_nracanaa s11 a) { printf("%.11s\n", a.x); }
+void fa_s12(sa_nracanaa s12 a) { printf("%.12s\n", a.x); }
+void fa_s13(sa_nracanaa s13 a) { printf("%.13s\n", a.x); }
+void fa_s14(sa_nracanaa s14 a) { printf("%.14s\n", a.x); }
+void fa_s15(sa_nracanaa s15 a) { printf("%.15s\n", a.x); }
+void fa_s16(sa_nracanaa s16 a) { printf("%.16s\n", a.x); }
+void fa_s17(sa_nracanaa s17 a) { printf("%.17s\n", a.x); }
 
-void fa_hfa11(struct hfa11 a)
+void fa_hfa11(sa_nracanaa hfa11 a)
 { printf("%.1f\n", a.a); }
-void fa_hfa12(struct hfa12 a)
+void fa_hfa12(sa_nracanaa hfa12 a)
 { printf("%.1f %.1f\n", a.a, a.a); }
-void fa_hfa13(struct hfa13 a)
+void fa_hfa13(sa_nracanaa hfa13 a)
 { printf("%.1f %.1f %.1f\n", a.a, a.b, a.c); }
-void fa_hfa14(struct hfa14 a)
+void fa_hfa14(sa_nracanaa hfa14 a)
 { printf("%.1f %.1f %.1f %.1f\n", a.a, a.b, a.c, a.d); }
 
-void fa_hfa21(struct hfa21 a)
+void fa_hfa21(sa_nracanaa hfa21 a)
 { printf("%.1f\n", a.a); }
-void fa_hfa22(struct hfa22 a)
+void fa_hfa22(sa_nracanaa hfa22 a)
 { printf("%.1f %.1f\n", a.a, a.a); }
-void fa_hfa23(struct hfa23 a)
+void fa_hfa23(sa_nracanaa hfa23 a)
 { printf("%.1f %.1f %.1f\n", a.a, a.b, a.c); }
-void fa_hfa24(struct hfa24 a)
+void fa_hfa24(sa_nracanaa hfa24 a)
 { printf("%.1f %.1f %.1f %.1f\n", a.a, a.b, a.c, a.d); }
 
-void fa_hfa31(struct hfa31 a)
+void fa_hfa31(sa_nracanaa hfa31 a)
 { printf("%.1Lf\n", a.a); }
-void fa_hfa32(struct hfa32 a)
+void fa_hfa32(sa_nracanaa hfa32 a)
 { printf("%.1Lf %.1Lf\n", a.a, a.a); }
-void fa_hfa33(struct hfa33 a)
+void fa_hfa33(sa_nracanaa hfa33 a)
 { printf("%.1Lf %.1Lf %.1Lf\n", a.a, a.b, a.c); }
-void fa_hfa34(struct hfa34 a)
+void fa_hfa34(sa_nracanaa hfa34 a)
 { printf("%.1Lf %.1Lf %.1Lf %.1Lf\n", a.a, a.b, a.c, a.d); }
-void fa_hfae12(struct hfae12 a)
+void fa_hfae12(sa_nracanaa hfae12 a)
 { printf("%.1f %.1f\n", a.h.a, a.h.b); }
-void fa_hfae22(struct hfae22 a)
+void fa_hfae22(sa_nracanaa hfae22 a)
 { printf("%.1f %.1f\n", a.h.a, a.h.b); }
 
-void fa1(struct s8 a, struct s9 b, struct s10 c, struct s11 d,
-         struct s12 e, struct s13 f)
+void fa1(sa_nracanaa s8 a, sa_nracanaa s9 b, sa_nracanaa s10 c, sa_nracanaa s11 d,
+         sa_nracanaa s12 e, sa_nracanaa s13 f)
 {
     printf("%.3s %.3s %.3s %.3s %.3s %.3s\n", a.x, b.x, c.x, d.x, e.x, f.x);
 }
 
-void fa2(struct s9 a, struct s10 b, struct s11 c, struct s12 d,
-         struct s13 e, struct s14 f)
+void fa2(sa_nracanaa s9 a, sa_nracanaa s10 b, sa_nracanaa s11 c, sa_nracanaa s12 d,
+         sa_nracanaa s13 e, sa_nracanaa s14 f)
 {
     printf("%.3s %.3s %.3s %.3s %.3s %.3s\n", a.x, b.x, c.x, d.x, e.x, f.x);
 }
 
-void fa3(struct hfa14 a, struct hfa23 b, struct hfa32 c)
+void fa3(sa_nracanaa hfa14 a, sa_nracanaa hfa23 b, sa_nracanaa hfa32 c)
 {
     printf("%.1f %.1f %.1f %.1f %.1Lf %.1Lf\n",
            a.a, a.d, b.a, b.c, c.a, c.b);
 }
 
-void fa4(struct s1 a, struct hfa14 b, struct s2 c, struct hfa24 d,
-         struct s3 e, struct hfa34 f)
+void fa4(sa_nracanaa s1 a, sa_nracanaa hfa14 b, sa_nracanaa s2 c, sa_nracanaa hfa24 d,
+         sa_nracanaa s3 e, sa_nracanaa hfa34 f)
 {
     printf("%.1s %.1f %.1f %.2s %.1f %.1f %.3s %.1Lf %.1Lf\n",
            a.x, b.a, b.d, c.x, d.a, d.d, e.x, f.a, f.d);
@@ -157,60 +157,60 @@ void arg(void)
     fa4(s1, hfa14, s2, hfa24, s3, hfa34);
 }
 
-struct s1 fr_s1(void) { return s1; }
-struct s2 fr_s2(void) { return s2; }
-struct s3 fr_s3(void) { return s3; }
-struct s4 fr_s4(void) { return s4; }
-struct s5 fr_s5(void) { return s5; }
-struct s6 fr_s6(void) { return s6; }
-struct s7 fr_s7(void) { return s7; }
-struct s8 fr_s8(void) { return s8; }
-struct s9 fr_s9(void) { return s9; }
-struct s10 fr_s10(void) { return s10; }
-struct s11 fr_s11(void) { return s11; }
-struct s12 fr_s12(void) { return s12; }
-struct s13 fr_s13(void) { return s13; }
-struct s14 fr_s14(void) { return s14; }
-struct s15 fr_s15(void) { return s15; }
-struct s16 fr_s16(void) { return s16; }
-struct s17 fr_s17(void) { return s17; }
+sa_nracanaa s1 fr_s1(void) { ལོག s1; }
+sa_nracanaa s2 fr_s2(void) { ལོག s2; }
+sa_nracanaa s3 fr_s3(void) { ལོག s3; }
+sa_nracanaa s4 fr_s4(void) { ལོག s4; }
+sa_nracanaa s5 fr_s5(void) { ལོག s5; }
+sa_nracanaa s6 fr_s6(void) { ལོག s6; }
+sa_nracanaa s7 fr_s7(void) { ལོག s7; }
+sa_nracanaa s8 fr_s8(void) { ལོག s8; }
+sa_nracanaa s9 fr_s9(void) { ལོག s9; }
+sa_nracanaa s10 fr_s10(void) { ལོག s10; }
+sa_nracanaa s11 fr_s11(void) { ལོག s11; }
+sa_nracanaa s12 fr_s12(void) { ལོག s12; }
+sa_nracanaa s13 fr_s13(void) { ལོག s13; }
+sa_nracanaa s14 fr_s14(void) { ལོག s14; }
+sa_nracanaa s15 fr_s15(void) { ལོག s15; }
+sa_nracanaa s16 fr_s16(void) { ལོག s16; }
+sa_nracanaa s17 fr_s17(void) { ལོག s17; }
 
-struct hfa11 fr_hfa11(void) { return hfa11; }
-struct hfa12 fr_hfa12(void) { return hfa12; }
-struct hfa13 fr_hfa13(void) { return hfa13; }
-struct hfa14 fr_hfa14(void) { return hfa14; }
+sa_nracanaa hfa11 fr_hfa11(void) { ལོག hfa11; }
+sa_nracanaa hfa12 fr_hfa12(void) { ལོག hfa12; }
+sa_nracanaa hfa13 fr_hfa13(void) { ལོག hfa13; }
+sa_nracanaa hfa14 fr_hfa14(void) { ལོག hfa14; }
 
-struct hfa21 fr_hfa21(void) { return hfa21; }
-struct hfa22 fr_hfa22(void) { return hfa22; }
-struct hfa23 fr_hfa23(void) { return hfa23; }
-struct hfa24 fr_hfa24(void) { return hfa24; }
+sa_nracanaa hfa21 fr_hfa21(void) { ལོག hfa21; }
+sa_nracanaa hfa22 fr_hfa22(void) { ལོག hfa22; }
+sa_nracanaa hfa23 fr_hfa23(void) { ལོག hfa23; }
+sa_nracanaa hfa24 fr_hfa24(void) { ལོག hfa24; }
 
-struct hfa31 fr_hfa31(void) { return hfa31; }
-struct hfa32 fr_hfa32(void) { return hfa32; }
-struct hfa33 fr_hfa33(void) { return hfa33; }
-struct hfa34 fr_hfa34(void) { return hfa34; }
-struct hfae12 fr_hfae12(void) { return hfae12; }
-struct hfae22 fr_hfae22(void) { return hfae22; }
+sa_nracanaa hfa31 fr_hfa31(void) { ལོག hfa31; }
+sa_nracanaa hfa32 fr_hfa32(void) { ལོག hfa32; }
+sa_nracanaa hfa33 fr_hfa33(void) { ལོག hfa33; }
+sa_nracanaa hfa34 fr_hfa34(void) { ལོག hfa34; }
+sa_nracanaa hfae12 fr_hfae12(void) { ལོག hfae12; }
+sa_nracanaa hfae22 fr_hfae22(void) { ལོག hfae22; }
 
 void ret(void)
 {
-    struct s1 t1 = fr_s1();
-    struct s2 t2 = fr_s2();
-    struct s3 t3 = fr_s3();
-    struct s4 t4 = fr_s4();
-    struct s5 t5 = fr_s5();
-    struct s6 t6 = fr_s6();
-    struct s7 t7 = fr_s7();
-    struct s8 t8 = fr_s8();
-    struct s9 t9 = fr_s9();
-    struct s10 t10 = fr_s10();
-    struct s11 t11 = fr_s11();
-    struct s12 t12 = fr_s12();
-    struct s13 t13 = fr_s13();
-    struct s14 t14 = fr_s14();
-    struct s15 t15 = fr_s15();
-    struct s16 t16 = fr_s16();
-    struct s17 t17 = fr_s17();
+    sa_nracanaa s1 t1 = fr_s1();
+    sa_nracanaa s2 t2 = fr_s2();
+    sa_nracanaa s3 t3 = fr_s3();
+    sa_nracanaa s4 t4 = fr_s4();
+    sa_nracanaa s5 t5 = fr_s5();
+    sa_nracanaa s6 t6 = fr_s6();
+    sa_nracanaa s7 t7 = fr_s7();
+    sa_nracanaa s8 t8 = fr_s8();
+    sa_nracanaa s9 t9 = fr_s9();
+    sa_nracanaa s10 t10 = fr_s10();
+    sa_nracanaa s11 t11 = fr_s11();
+    sa_nracanaa s12 t12 = fr_s12();
+    sa_nracanaa s13 t13 = fr_s13();
+    sa_nracanaa s14 t14 = fr_s14();
+    sa_nracanaa s15 t15 = fr_s15();
+    sa_nracanaa s16 t16 = fr_s16();
+    sa_nracanaa s17 t17 = fr_s17();
     printf("Return values:\n");
     printf("%.1s\n", t1.x);
     printf("%.2s\n", t2.x);
@@ -251,86 +251,86 @@ va_arg_with_struct_ptr(va_list ap) {
          * This was a BUG identified with FFTW-3.3.8 on arm64.
          * The test case only checks it compiles.
          */
-        struct X { int _x; };
-        struct X *x = va_arg(ap, struct X *);
-        return x;
+        sa_nracanaa X { ཧྲིལ _x; };
+        sa_nracanaa X *x = va_arg(ap, sa_nracanaa X *);
+        ལོག x;
 }
 
-int match(const char **s, const char *f)
+ཧྲིལ match(const var_na **s, const var_na *f)
 {
-    const char *p = *s;
-    for (p = *s; *f && *f == *p; f++, p++)
+    const var_na *p = *s;
+    དོན་ལུ (p = *s; *f && *f == *p; f++, p++)
         ;
-    if (!*f) {
+    གལ་སྲིད (!*f) {
         *s = p - 1;
-        return 1;
+        ལོག 1;
     }
-    return 0;
+    ལོག 0;
 }
 
-void myprintf(const char *format, ...)
+void myprintf(const var_na *format, ...)
 {
-    const char *s;
+    const var_na *s;
     va_list ap;
     va_start(ap, format);
-    for (s = format; *s; s++) {
-        if (match(&s, "%7s")) {
-            struct s7 t7 = va_arg(ap, struct s7);
+    དོན་ལུ (s = format; *s; s++) {
+        གལ་སྲིད (match(&s, "%7s")) {
+            sa_nracanaa s7 t7 = va_arg(ap, sa_nracanaa s7);
             printf("%.7s", t7.x);
         }
-        else if (match(&s, "%9s")) {
-            struct s9 t9 = va_arg(ap, struct s9);
+        དེ་མིན གལ་སྲིད (match(&s, "%9s")) {
+            sa_nracanaa s9 t9 = va_arg(ap, sa_nracanaa s9);
             printf("%.9s", t9.x);
         }
-        else if (match(&s, "%hfa11")) {
-            struct hfa11 x = va_arg(ap, struct hfa11);
+        དེ་མིན གལ་སྲིད (match(&s, "%hfa11")) {
+            sa_nracanaa hfa11 x = va_arg(ap, sa_nracanaa hfa11);
             printf("%.1f,%.1f", x.a, x.a);
         }
-        else if (match(&s, "%hfa12")) {
-            struct hfa12 x = va_arg(ap, struct hfa12);
+        དེ་མིན གལ་སྲིད (match(&s, "%hfa12")) {
+            sa_nracanaa hfa12 x = va_arg(ap, sa_nracanaa hfa12);
             printf("%.1f,%.1f", x.a, x.b);
         }
-        else if (match(&s, "%hfa13")) {
-            struct hfa13 x = va_arg(ap, struct hfa13);
+        དེ་མིན གལ་སྲིད (match(&s, "%hfa13")) {
+            sa_nracanaa hfa13 x = va_arg(ap, sa_nracanaa hfa13);
             printf("%.1f,%.1f", x.a, x.c);
         }
-        else if (match(&s, "%hfa14")) {
-            struct hfa14 x = va_arg(ap, struct hfa14);
+        དེ་མིན གལ་སྲིད (match(&s, "%hfa14")) {
+            sa_nracanaa hfa14 x = va_arg(ap, sa_nracanaa hfa14);
             printf("%.1f,%.1f", x.a, x.d);
         }
-        else if (match(&s, "%hfa21")) {
-            struct hfa21 x = va_arg(ap, struct hfa21);
+        དེ་མིན གལ་སྲིད (match(&s, "%hfa21")) {
+            sa_nracanaa hfa21 x = va_arg(ap, sa_nracanaa hfa21);
             printf("%.1f,%.1f", x.a, x.a);
         }
-        else if (match(&s, "%hfa22")) {
-            struct hfa22 x = va_arg(ap, struct hfa22);
+        དེ་མིན གལ་སྲིད (match(&s, "%hfa22")) {
+            sa_nracanaa hfa22 x = va_arg(ap, sa_nracanaa hfa22);
             printf("%.1f,%.1f", x.a, x.b);
         }
-        else if (match(&s, "%hfa23")) {
-            struct hfa23 x = va_arg(ap, struct hfa23);
+        དེ་མིན གལ་སྲིད (match(&s, "%hfa23")) {
+            sa_nracanaa hfa23 x = va_arg(ap, sa_nracanaa hfa23);
             printf("%.1f,%.1f", x.a, x.c);
         }
-        else if (match(&s, "%hfa24")) {
-            struct hfa24 x = va_arg(ap, struct hfa24);
+        དེ་མིན གལ་སྲིད (match(&s, "%hfa24")) {
+            sa_nracanaa hfa24 x = va_arg(ap, sa_nracanaa hfa24);
             printf("%.1f,%.1f", x.a, x.d);
         }
-        else if (match(&s, "%hfa31")) {
-            struct hfa31 x = va_arg(ap, struct hfa31);
+        དེ་མིན གལ་སྲིད (match(&s, "%hfa31")) {
+            sa_nracanaa hfa31 x = va_arg(ap, sa_nracanaa hfa31);
             printf("%.1Lf,%.1Lf", x.a, x.a);
         }
-        else if (match(&s, "%hfa32")) {
-            struct hfa32 x = va_arg(ap, struct hfa32);
+        དེ་མིན གལ་སྲིད (match(&s, "%hfa32")) {
+            sa_nracanaa hfa32 x = va_arg(ap, sa_nracanaa hfa32);
             printf("%.1Lf,%.1Lf", x.a, x.b);
         }
-        else if (match(&s, "%hfa33")) {
-            struct hfa33 x = va_arg(ap, struct hfa33);
+        དེ་མིན གལ་སྲིད (match(&s, "%hfa33")) {
+            sa_nracanaa hfa33 x = va_arg(ap, sa_nracanaa hfa33);
             printf("%.1Lf,%.1Lf", x.a, x.c);
         }
-        else if (match(&s, "%hfa34")) {
-            struct hfa34 x = va_arg(ap, struct hfa34);
+        དེ་མིན གལ་སྲིད (match(&s, "%hfa34")) {
+            sa_nracanaa hfa34 x = va_arg(ap, sa_nracanaa hfa34);
             printf("%.1Lf,%.1Lf", x.a, x.d);
         }
-        else
+        དེ་མིན
             putchar(*s);
     }
     putchar('\n');
@@ -456,49 +456,49 @@ void movi(void)
     pll(0xabcdef0123456789);
 }
 
-static uint32_t addip0(uint32_t x) { return x + 0; }
-static uint64_t sublp0(uint64_t x) { return x - 0; }
-static uint32_t addip123(uint32_t x) { return x + 123; }
-static uint64_t addlm123(uint64_t x) { return x + -123; }
-static uint64_t sublp4095(uint64_t x) { return x - 4095; }
-static uint32_t subim503808(uint32_t x) { return x - -503808; }
-static uint64_t addp12345(uint64_t x) { return x + 12345; }
-static uint32_t subp12345(uint32_t x) { return x - 12345; }
+static uint32_t addip0(uint32_t x) { ལོག x + 0; }
+static uint64_t sublp0(uint64_t x) { ལོག x - 0; }
+static uint32_t addip123(uint32_t x) { ལོག x + 123; }
+static uint64_t addlm123(uint64_t x) { ལོག x + -123; }
+static uint64_t sublp4095(uint64_t x) { ལོག x - 4095; }
+static uint32_t subim503808(uint32_t x) { ལོག x - -503808; }
+static uint64_t addp12345(uint64_t x) { ལོག x + 12345; }
+static uint32_t subp12345(uint32_t x) { ལོག x - 12345; }
 
-static uint32_t mvni(uint32_t x) { return 0xffffffff - x; }
-static uint64_t negl(uint64_t x) { return 0 - x; }
-static uint32_t rsbi123(uint32_t x) { return 123 - x; }
-static uint64_t rsbl123(uint64_t x) { return 123 - x; }
+static uint32_t mvni(uint32_t x) { ལོག 0xffffffff - x; }
+static uint64_t negl(uint64_t x) { ལོག 0 - x; }
+static uint32_t rsbi123(uint32_t x) { ལོག 123 - x; }
+static uint64_t rsbl123(uint64_t x) { ལོག 123 - x; }
 
-static uint32_t andi0(uint32_t x) { return x & 0; }
-static uint64_t andlm1(uint64_t x) { return x & -1; }
-static uint64_t orrl0(uint64_t x) { return x | 0; }
-static uint32_t orrim1(uint32_t x) { return x | -1; }
-static uint32_t eori0(uint32_t x) { return x ^ 0; }
-static uint64_t eorlm1(uint64_t x) { return x ^ -1; }
-static uint32_t and0xf0(uint32_t x) { return x & 0xf0; }
-static uint64_t orr0xf0(uint64_t x) { return x | 0xf0; }
-static uint64_t eor0xf0(uint64_t x) { return x ^ 0xf0; }
+static uint32_t andi0(uint32_t x) { ལོག x & 0; }
+static uint64_t andlm1(uint64_t x) { ལོག x & -1; }
+static uint64_t orrl0(uint64_t x) { ལོག x | 0; }
+static uint32_t orrim1(uint32_t x) { ལོག x | -1; }
+static uint32_t eori0(uint32_t x) { ལོག x ^ 0; }
+static uint64_t eorlm1(uint64_t x) { ལོག x ^ -1; }
+static uint32_t and0xf0(uint32_t x) { ལོག x & 0xf0; }
+static uint64_t orr0xf0(uint64_t x) { ལོག x | 0xf0; }
+static uint64_t eor0xf0(uint64_t x) { ལོག x ^ 0xf0; }
 
-static uint32_t lsli0(uint32_t x) { return x << 0; }
-static uint32_t lsri0(uint32_t x) { return x >> 0; }
-static int64_t asrl0(int64_t x) { return x >> 0; }
-static uint32_t lsli1(uint32_t x) { return x << 1; }
-static uint32_t lsli31(uint32_t x) { return x << 31; }
-static uint64_t lsll1(uint64_t x) { return x << 1; }
-static uint64_t lsll63(uint64_t x) { return x << 63; }
-static uint32_t lsri1(uint32_t x) { return x >> 1; }
-static uint32_t lsri31(uint32_t x) { return x >> 31; }
-static uint64_t lsrl1(uint64_t x) { return x >> 1; }
-static uint64_t lsrl63(uint64_t x) { return x >> 63; }
-static int32_t asri1(int32_t x) { return x >> 1; }
-static int32_t asri31(int32_t x) { return x >> 31; }
-static int64_t asrl1(int64_t x) { return x >> 1; }
-static int64_t asrl63(int64_t x) { return x >> 63; }
+static uint32_t lsli0(uint32_t x) { ལོག x << 0; }
+static uint32_t lsri0(uint32_t x) { ལོག x >> 0; }
+static int64_t asrl0(int64_t x) { ལོག x >> 0; }
+static uint32_t lsli1(uint32_t x) { ལོག x << 1; }
+static uint32_t lsli31(uint32_t x) { ལོག x << 31; }
+static uint64_t lsll1(uint64_t x) { ལོག x << 1; }
+static uint64_t lsll63(uint64_t x) { ལོག x << 63; }
+static uint32_t lsri1(uint32_t x) { ལོག x >> 1; }
+static uint32_t lsri31(uint32_t x) { ལོག x >> 31; }
+static uint64_t lsrl1(uint64_t x) { ལོག x >> 1; }
+static uint64_t lsrl63(uint64_t x) { ལོག x >> 63; }
+static int32_t asri1(int32_t x) { ལོག x >> 1; }
+static int32_t asri31(int32_t x) { ལོག x >> 31; }
+static int64_t asrl1(int64_t x) { ལོག x >> 1; }
+static int64_t asrl63(int64_t x) { ལོག x >> 63; }
 
 void opi(void)
 {
-    int x = 1000;
+    ཧྲིལ x = 1000;
     pll(addip0(x));
     pll(sublp0(x));
     pll(addip123(x));
@@ -546,8 +546,8 @@ void pcs(void)
     opi();
 }
 
-int main()
+ཧྲིལ main()
 {
     pcs();
-    return 0;
+    ལོག 0;
 }

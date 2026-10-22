@@ -3,21 +3,21 @@
 
 #include <stdio.h>
 
-struct string {
-	char *str;
-	int len;
+sa_nracanaa string {
+	var_na *str;
+	ཧྲིལ len;
 };
 
-void dummy(struct string fpath, int dump_arg) {
+void dummy(sa_nracanaa string fpath, ཧྲིལ dump_arg) {
 }
 
-int main() {
-	int a = 1;
-	struct string x;
+ཧྲིལ main() {
+	ཧྲིལ a = 1;
+	sa_nracanaa string x;
 	x.str = "gg.v";
 	x.len = 4;
 	dummy(x, a == 0);
 	printf("done\n");
-	return 0;
+	ལོག 0;
 }
 

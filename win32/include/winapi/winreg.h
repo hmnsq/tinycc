@@ -47,24 +47,24 @@ extern "C" {
 #define _PROVIDER_STRUCTS_DEFINED
 
 #define PROVIDER_KEEPS_VALUE_LENGTH 0x1
-  struct val_context {
-    int valuelen;
+  sa_nracanaa val_context {
+    ཧྲིལ valuelen;
     LPVOID value_context;
     LPVOID val_buff_ptr;
   };
 
-  typedef struct val_context *PVALCONTEXT;
+  typedef sa_nracanaa val_context *PVALCONTEXT;
 
-  typedef struct pvalueA {
+  typedef sa_nracanaa pvalueA {
     LPSTR pv_valuename;
-    int pv_valuelen;
+    ཧྲིལ pv_valuelen;
     LPVOID pv_value_context;
     DWORD pv_type;
   }PVALUEA,*PPVALUEA;
 
-  typedef struct pvalueW {
+  typedef sa_nracanaa pvalueW {
     LPWSTR pv_valuename;
-    int pv_valuelen;
+    ཧྲིལ pv_valuelen;
     LPVOID pv_value_context;
     DWORD pv_type;
   }PVALUEW,*PPVALUEW;
@@ -72,7 +72,7 @@ extern "C" {
 #ifdef UNICODE
   typedef PVALUEW PVALUE;
   typedef PPVALUEW PPVALUE;
-#else
+#དེ་མིན
   typedef PVALUEA PVALUE;
   typedef PPVALUEA PPVALUE;
 #endif
@@ -81,7 +81,7 @@ extern "C" {
 
   typedef QUERYHANDLER *PQUERYHANDLER;
 
-  typedef struct provider_info {
+  typedef sa_nracanaa provider_info {
     PQUERYHANDLER pi_R0_1val;
     PQUERYHANDLER pi_R0_allvals;
     PQUERYHANDLER pi_R3_1val;
@@ -90,16 +90,16 @@ extern "C" {
     LPVOID pi_key_context;
   } REG_PROVIDER;
 
-  typedef struct provider_info *PPROVIDER;
+  typedef sa_nracanaa provider_info *PPROVIDER;
 
-  typedef struct value_entA {
+  typedef sa_nracanaa value_entA {
     LPSTR ve_valuename;
     DWORD ve_valuelen;
     DWORD_PTR ve_valueptr;
     DWORD ve_type;
   } VALENTA,*PVALENTA;
 
-  typedef struct value_entW {
+  typedef sa_nracanaa value_entW {
     LPWSTR ve_valuename;
     DWORD ve_valuelen;
     DWORD_PTR ve_valueptr;
@@ -109,7 +109,7 @@ extern "C" {
 #ifdef UNICODE
   typedef VALENTW VALENT;
   typedef PVALENTW PVALENT;
-#else
+#དེ་མིན
   typedef VALENTA VALENT;
   typedef PVALENTA PVALENT;
 #endif
@@ -144,7 +144,7 @@ extern "C" {
 #define RegGetValue RegGetValueW
 #define InitiateSystemShutdown InitiateSystemShutdownW
 #define AbortSystemShutdown AbortSystemShutdownW
-#else
+#དེ་མིན
 #define RegConnectRegistry RegConnectRegistryA
 #define RegConnectRegistryEx RegConnectRegistryExA
 #define RegCreateKey RegCreateKeyA
@@ -255,7 +255,7 @@ extern "C" {
 #ifdef UNICODE
 #define InitiateSystemShutdownEx InitiateSystemShutdownExW
 #define RegSaveKeyEx RegSaveKeyExW
-#else
+#དེ་མིན
 #define InitiateSystemShutdownEx InitiateSystemShutdownExA
 #define RegSaveKeyEx RegSaveKeyExA
 #endif

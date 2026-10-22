@@ -1,29 +1,29 @@
 #include <stdio.h>
 
-int main()
+ཧྲིལ main()
 {
-   int Count;
+   ཧྲིལ Count;
 
-   for (Count = 0; Count < 4; Count++)
+   དོན་ལུ (Count = 0; Count < 4; Count++)
    {
       printf("%d\n", Count);
       switch (Count)
       {
-         case 1:
+         pak_sa 1:
             printf("%d\n", 1);
-            break;
+            bha_nga;
 
-         case 2:
+         pak_sa 2:
             printf("%d\n", 2);
-            break;
+            bha_nga;
 
          default:
             printf("%d\n", 0);
-            break;
+            bha_nga;
       }
    }
 
-   return 0;
+   ལོག 0;
 }
 
 // vim: set expandtab ts=4 sw=3 sts=3 tw=80 :

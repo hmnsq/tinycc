@@ -1,20 +1,20 @@
 #include <stdio.h>
 #include <string.h>
 #include <setjmp.h>
-#if !defined(_WIN32)
+#གལ་སྲིད !defined(_WIN32)
 #include <pthread.h>
-#else
+#དེ་མིན
 #include <windows.h>
 #endif
 
 #define	SIZE	10
 #define	COUNT	10
 
-#define TST   int i, a[2], b[2];                \
-              for (i = 0; i < 2; i++) a[i] = 0; \
-              for (i = 0; i < 2; i++) b[i] = 0
+#define TST   ཧྲིལ i, a[2], b[2];                \
+              དོན་ལུ (i = 0; i < 2; i++) a[i] = 0; \
+              དོན་ལུ (i = 0; i < 2; i++) b[i] = 0
 
-static int count[SIZE];
+static ཧྲིལ count[SIZE];
 
 static void tst1 (jmp_buf loc)
 {
@@ -34,51 +34,51 @@ static void tst2(jmp_buf loc)
 static void *tst (void * index)
 {
     jmp_buf loc;
-    int i = *(int *) index;
-    static int v[SIZE];
+    ཧྲིལ i = *(ཧྲིལ *) index;
+    static ཧྲིལ v[SIZE];
 
-    for (v[i] = 0; v[i] < COUNT; v[i]++) {
-        if (setjmp (loc) == 0) {
+    དོན་ལུ (v[i] = 0; v[i] < COUNT; v[i]++) {
+        གལ་སྲིད (setjmp (loc) == 0) {
             TST;
             tst2(loc);
         }
-        else {
+        དེ་མིན {
             count[i]++;
         }
-        i = *(int *) index;
+        i = *(ཧྲིལ *) index;
     }
-    return NULL;
+    ལོག NULL;
 }
 
-int
+ཧྲིལ
 main (void)
 {
-    int i;
-#if !defined(_WIN32)
+    ཧྲིལ i;
+#གལ་སྲིད !defined(_WIN32)
     pthread_t id[SIZE];
-#else
+#དེ་མིན
     HANDLE id[SIZE];
 #endif
-    int index[SIZE];
+    ཧྲིལ index[SIZE];
 
-    for (i = 0; i < SIZE; i++) {
+    དོན་ལུ (i = 0; i < SIZE; i++) {
         index[i] = i;
-#if !defined(_WIN32)
+#གལ་སྲིད !defined(_WIN32)
         pthread_create (&id[i], NULL, tst, (void *) &index[i]);
-#else
+#དེ་མིན
         id[i] = CreateThread(NULL, 8192, (LPTHREAD_START_ROUTINE) tst, (void *) &index[i], 0, NULL);
 #endif
     }
-    for (i = 0; i < SIZE; i++) {
-#if !defined(_WIN32)
+    དོན་ལུ (i = 0; i < SIZE; i++) {
+#གལ་སྲིད !defined(_WIN32)
         pthread_join (id[i], NULL);
-#else
+#དེ་མིན
         WaitForSingleObject(id[i], INFINITE);
 #endif
     }
-    for (i = 0; i < SIZE; i++) {
-        if (count[i] != COUNT)
+    དོན་ལུ (i = 0; i < SIZE; i++) {
+        གལ་སྲིད (count[i] != COUNT)
             printf ("error: %d %d\n", i, count[i]);
     }
-    return 0;
+    ལོག 0;
 }

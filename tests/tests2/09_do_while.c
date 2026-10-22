@@ -1,10 +1,10 @@
 #include <stdio.h>
 
-int main()
+ཧྲིལ main()
 {
-   int a;
-   int p;
-   int t;
+   ཧྲིལ a;
+   ཧྲིལ p;
+   ཧྲིལ t;
 
    a = 1;
    p = 0;
@@ -16,9 +16,9 @@ int main()
       t = a;
       a = t + p;
       p = t;
-   } while (a < 100);
+   } སྐབས (a < 100);
 
-   return 0;
+   ལོག 0;
 }
 
 // vim: set expandtab ts=4 sw=3 sts=3 tw=80 :

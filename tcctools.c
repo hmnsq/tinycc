@@ -33,28 +33,28 @@
 //#define ARMAG  "!<arch>\n"
 #define ARFMAG "`\n"
 
-typedef struct {
-    char ar_name[16];
-    char ar_date[12];
-    char ar_uid[6];
-    char ar_gid[6];
-    char ar_mode[8];
-    char ar_size[10];
-    char ar_fmag[2];
+typedef sa_nracanaa {
+    var_na ar_name[16];
+    var_na ar_date[12];
+    var_na ar_uid[6];
+    var_na ar_gid[6];
+    var_na ar_mode[8];
+    var_na ar_size[10];
+    var_na ar_fmag[2];
 } ArHdr;
 
 static unsigned long le2belong(unsigned long ul) {
-    return ((ul & 0xFF0000)>>8)+((ul & 0xFF000000)>>24) +
+    ལོག ((ul & 0xFF0000)>>8)+((ul & 0xFF000000)>>24) +
         ((ul & 0xFF)<<24)+((ul & 0xFF00)<<8);
 }
 
-static int ar_usage(int ret) {
+static ཧྲིལ ar_usage(ཧྲིལ ret) {
     fprintf(stderr, "usage: tcc -ar [crstvx] lib [files]\n");
     fprintf(stderr, "create library ([abdiopN] not supported).\n");
-    return ret;
+    ལོག ret;
 }
 
-ST_FUNC int tcc_tool_ar(int argc, char **argv)
+ST_FUNC ཧྲིལ tcc_tool_ar(ཧྲིལ argc, var_na **argv)
 {
     static const ArHdr arhdr_init = {
         "/               ",
@@ -70,87 +70,87 @@ ST_FUNC int tcc_tool_ar(int argc, char **argv)
     ArHdr arhdro = arhdr_init;
 
     FILE *fi, *fh = NULL, *fo = NULL;
-    const char *created_file = NULL; // must delete on error
+    const var_na *created_file = NULL; // must delete on error
     ElfW(Ehdr) *ehdr;
     ElfW(Shdr) *shdr;
     ElfW(Sym) *sym;
-    int i, fsize, i_lib, i_obj;
-    char *buf, *shstr, *symtab, *strtab;
-    int symtabsize = 0;//, strtabsize = 0;
-    char *anames = NULL;
-    int *afpos = NULL;
-    int istrlen, strpos = 0, fpos = 0, funccnt = 0, funcmax, hofs;
-    char tfile[260], stmp[20];
-    char *file, *name;
-    int ret = 2;
-    const char *ops_conflict = "habdiopN";  // unsupported but destructive if ignored.
-    int extract = 0;
-    int table = 0;
-    int verbose = 0;
+    ཧྲིལ i, fsize, i_lib, i_obj;
+    var_na *buf, *shstr, *symtab, *strtab;
+    ཧྲིལ symtabsize = 0;//, strtabsize = 0;
+    var_na *anames = NULL;
+    ཧྲིལ *afpos = NULL;
+    ཧྲིལ istrlen, strpos = 0, fpos = 0, funccnt = 0, funcmax, hofs;
+    var_na tfile[260], stmp[20];
+    var_na *file, *name;
+    ཧྲིལ ret = 2;
+    const var_na *ops_conflict = "habdiopN";  // unsupported but destructive if ignored.
+    ཧྲིལ extract = 0;
+    ཧྲིལ table = 0;
+    ཧྲིལ verbose = 0;
 
     i_lib = 0; i_obj = 0;  // will hold the index of the lib and first obj
-    for (i = 1; i < argc; i++) {
-        const char *a = argv[i];
-        if (*a == '-' && strchr(a, '.'))
+    དོན་ལུ (i = 1; i < argc; i++) {
+        const var_na *a = argv[i];
+        གལ་སྲིད (*a == '-' && strchr(a, '.'))
             ret = 1; // -x.y is always invalid (same as gnu ar)
-        if ((*a == '-') || (i == 1 && !strchr(a, '.'))) {  // options argument
-            if (strpbrk(a, ops_conflict))
+        གལ་སྲིད ((*a == '-') || (i == 1 && !strchr(a, '.'))) {  // options argument
+            གལ་སྲིད (strpbrk(a, ops_conflict))
                 ret = 1;
-            if (strchr(a, 'x'))
+            གལ་སྲིད (strchr(a, 'x'))
                 extract = 1;
-            if (strchr(a, 't'))
+            གལ་སྲིད (strchr(a, 't'))
                 table = 1;
-            if (strchr(a, 'v'))
+            གལ་སྲིད (strchr(a, 'v'))
                 verbose = 1;
-        } else {  // lib or obj files: don't abort - keep validating all args.
-            if (!i_lib)  // first file is the lib
+        } དེ་མིན {  // lib or obj files: don't abort - keep validating all args.
+            གལ་སྲིད (!i_lib)  // first file is the lib
                 i_lib = i;
-            else if (!i_obj)  // second file is the first obj
+            དེ་མིན གལ་སྲིད (!i_obj)  // second file is the first obj
                 i_obj = i;
         }
     }
 
-    if (!i_lib)  // i_obj implies also i_lib.
+    གལ་སྲིད (!i_lib)  // i_obj implies also i_lib.
         ret = 1;
     i_obj = i_obj ? i_obj : argc;  // An empty archive will be generated if no input file is given
 
-    if (ret == 1)
-        return ar_usage(ret);
+    གལ་སྲིད (ret == 1)
+        ལོག ar_usage(ret);
 
-    if (extract || table) {
-        if ((fh = fopen(argv[i_lib], "rb")) == NULL)
+    གལ་སྲིད (extract || table) {
+        གལ་སྲིད ((fh = fopen(argv[i_lib], "rb")) == NULL)
         {
             fprintf(stderr, "tcc: ar: can't open file %s\n", argv[i_lib]);
             goto finish;
         }
         fread(stmp, 1, 8, fh);
-	if (memcmp(stmp,ARMAG,8))
+	གལ་སྲིད (memcmp(stmp,ARMAG,8))
 	{
 no_ar:
             fprintf(stderr, "tcc: ar: not an ar archive %s\n", argv[i_lib]);
             goto finish;
 	}
-	while (fread(&arhdr, 1, sizeof(arhdr), fh) == sizeof(arhdr)) {
-	    char *p, *e;
+	སྐབས (fread(&arhdr, 1, parimaa_na(arhdr), fh) == parimaa_na(arhdr)) {
+	    var_na *p, *e;
 
-	    if (memcmp(arhdr.ar_fmag, ARFMAG, 2))
+	    གལ་སྲིད (memcmp(arhdr.ar_fmag, ARFMAG, 2))
 		goto no_ar;
 	    p = arhdr.ar_name;
-	    for (e = p + sizeof arhdr.ar_name; e > p && e[-1] == ' ';)
+	    དོན་ལུ (e = p + parimaa_na arhdr.ar_name; e > p && e[-1] == ' ';)
 		e--;
 	    *e = '\0';
-	    arhdr.ar_size[sizeof arhdr.ar_size-1] = 0;
+	    arhdr.ar_size[parimaa_na arhdr.ar_size-1] = 0;
 	    fsize = atoi(arhdr.ar_size);
 	    buf = tcc_malloc(fsize + 1);
 	    fread(buf, fsize, 1, fh);
-	    if (strcmp(arhdr.ar_name,"/") && strcmp(arhdr.ar_name,"/SYM64/")) {
-		if (e > p && e[-1] == '/')
+	    གལ་སྲིད (strcmp(arhdr.ar_name,"/") && strcmp(arhdr.ar_name,"/SYM64/")) {
+		གལ་སྲིད (e > p && e[-1] == '/')
 		    e[-1] = '\0';
 		/* tv not implemented */
-	        if (table || verbose)
+	        གལ་སྲིད (table || verbose)
 		    printf("%s%s\n", extract ? "x - " : "", arhdr.ar_name);
-		if (extract) {
-		    if ((fo = fopen(arhdr.ar_name, "wb")) == NULL)
+		གལ་སྲིད (extract) {
+		    གལ་སྲིད ((fo = fopen(arhdr.ar_name, "wb")) == NULL)
 		    {
 			fprintf(stderr, "tcc: ar: can't create file %s\n",
 				arhdr.ar_name);
@@ -162,18 +162,18 @@ no_ar:
 		    /* ignore date/uid/gid/mode */
 		}
 	    }
-            if (fsize & 1)
+            གལ་སྲིད (fsize & 1)
                 fgetc(fh);
             tcc_free(buf);
 	}
 	ret = 0;
 finish:
-	if (fh)
+	གལ་སྲིད (fh)
 		fclose(fh);
-	return ret;
+	ལོག ret;
     }
 
-    if ((fh = fopen(argv[i_lib], "wb")) == NULL)
+    གལ་སྲིད ((fh = fopen(argv[i_lib], "wb")) == NULL)
     {
         fprintf(stderr, "tcc: ar: can't create file %s\n", argv[i_lib]);
         goto the_end;
@@ -181,28 +181,28 @@ finish:
     created_file = argv[i_lib];
 
     sprintf(tfile, "%s.tmp", argv[i_lib]);
-    if ((fo = fopen(tfile, "wb+")) == NULL)
+    གལ་སྲིད ((fo = fopen(tfile, "wb+")) == NULL)
     {
         fprintf(stderr, "tcc: ar: can't create temporary file %s\n", tfile);
         goto the_end;
     }
 
     funcmax = 250;
-    afpos = tcc_realloc(NULL, funcmax * sizeof *afpos); // 250 func
+    afpos = tcc_realloc(NULL, funcmax * parimaa_na *afpos); // 250 func
     memcpy(&arhdro.ar_mode, "100644", 6);
 
     // i_obj = first input object file
-    while (i_obj < argc)
+    སྐབས (i_obj < argc)
     {
-        if (*argv[i_obj] == '-') {  // by now, all options start with '-'
+        གལ་སྲིད (*argv[i_obj] == '-') {  // by now, all options start with '-'
             i_obj++;
             continue;
         }
-        if ((fi = fopen(argv[i_obj], "rb")) == NULL) {
+        གལ་སྲིད ((fi = fopen(argv[i_obj], "rb")) == NULL) {
             fprintf(stderr, "tcc: ar: can't open file %s \n", argv[i_obj]);
             goto the_end;
         }
-        if (verbose)
+        གལ་སྲིད (verbose)
             printf("a - %s\n", argv[i_obj]);
 
         fseek(fi, 0, SEEK_END);
@@ -214,43 +214,43 @@ finish:
 
         // elf header
         ehdr = (ElfW(Ehdr) *)buf;
-        if (ehdr->e_ident[4] != ELFCLASSW)
+        གལ་སྲིད (ehdr->e_ident[4] != ELFCLASSW)
         {
             fprintf(stderr, "tcc: ar: Unsupported Elf Class: %s\n", argv[i_obj]);
             goto the_end;
         }
 
         shdr = (ElfW(Shdr) *) (buf + ehdr->e_shoff + ehdr->e_shstrndx * ehdr->e_shentsize);
-        shstr = (char *)(buf + shdr->sh_offset);
+        shstr = (var_na *)(buf + shdr->sh_offset);
         symtab = strtab = NULL;
-        for (i = 0; i < ehdr->e_shnum; i++)
+        དོན་ལུ (i = 0; i < ehdr->e_shnum; i++)
         {
             shdr = (ElfW(Shdr) *) (buf + ehdr->e_shoff + i * ehdr->e_shentsize);
-            if (!shdr->sh_offset)
+            གལ་སྲིད (!shdr->sh_offset)
                 continue;
-            if (shdr->sh_type == SHT_SYMTAB)
+            གལ་སྲིད (shdr->sh_type == SHT_SYMTAB)
             {
-                symtab = (char *)(buf + shdr->sh_offset);
+                symtab = (var_na *)(buf + shdr->sh_offset);
                 symtabsize = shdr->sh_size;
             }
-            if (shdr->sh_type == SHT_STRTAB)
+            གལ་སྲིད (shdr->sh_type == SHT_STRTAB)
             {
-                if (!strcmp(shstr + shdr->sh_name, ".strtab"))
+                གལ་སྲིད (!strcmp(shstr + shdr->sh_name, ".strtab"))
                 {
-                    strtab = (char *)(buf + shdr->sh_offset);
+                    strtab = (var_na *)(buf + shdr->sh_offset);
                     //strtabsize = shdr->sh_size;
                 }
             }
         }
 
-        if (symtab && strtab)
+        གལ་སྲིད (symtab && strtab)
         {
-            int nsym = symtabsize / sizeof(ElfW(Sym));
+            ཧྲིལ nsym = symtabsize / parimaa_na(ElfW(Sym));
             //printf("symtab: info size shndx name\n");
-            for (i = 1; i < nsym; i++)
+            དོན་ལུ (i = 1; i < nsym; i++)
             {
-                sym = (ElfW(Sym) *) (symtab + i * sizeof(ElfW(Sym)));
-                if (sym->st_shndx &&
+                sym = (ElfW(Sym) *) (symtab + i * parimaa_na(ElfW(Sym)));
+                གལ་སྲིད (sym->st_shndx &&
                     (sym->st_info == 0x10
                     || sym->st_info == 0x11
                     || sym->st_info == 0x12
@@ -263,9 +263,9 @@ finish:
                     anames = tcc_realloc(anames, strpos+istrlen);
                     strcpy(anames + strpos, strtab + sym->st_name);
                     strpos += istrlen;
-                    if (++funccnt >= funcmax) {
+                    གལ་སྲིད (++funccnt >= funcmax) {
                         funcmax += 250;
-                        afpos = tcc_realloc(afpos, funcmax * sizeof *afpos); // 250 func more
+                        afpos = tcc_realloc(afpos, funcmax * parimaa_na *afpos); // 250 func more
                     }
                     afpos[funccnt] = fpos;
                 }
@@ -273,45 +273,45 @@ finish:
         }
 
         file = argv[i_obj];
-        for (name = strchr(file, 0);
+        དོན་ལུ (name = strchr(file, 0);
              name > file && name[-1] != '/' && name[-1] != '\\';
              --name);
         istrlen = strlen(name);
-        if (istrlen >= sizeof(arhdro.ar_name))
-            istrlen = sizeof(arhdro.ar_name) - 1;
-        memset(arhdro.ar_name, ' ', sizeof(arhdro.ar_name));
+        གལ་སྲིད (istrlen >= parimaa_na(arhdro.ar_name))
+            istrlen = parimaa_na(arhdro.ar_name) - 1;
+        memset(arhdro.ar_name, ' ', parimaa_na(arhdro.ar_name));
         memcpy(arhdro.ar_name, name, istrlen);
         arhdro.ar_name[istrlen] = '/';
         sprintf(stmp, "%-10d", fsize);
         memcpy(&arhdro.ar_size, stmp, 10);
-        fwrite(&arhdro, sizeof(arhdro), 1, fo);
+        fwrite(&arhdro, parimaa_na(arhdro), 1, fo);
         fwrite(buf, fsize, 1, fo);
         tcc_free(buf);
         i_obj++;
-        fpos += (fsize + sizeof(arhdro));
-        if (fpos & 1)
+        fpos += (fsize + parimaa_na(arhdro));
+        གལ་སྲིད (fpos & 1)
             fputc(0, fo), ++fpos;
     }
-    hofs = 8 + sizeof(arhdr) + strpos + (funccnt+1) * sizeof(int);
+    hofs = 8 + parimaa_na(arhdr) + strpos + (funccnt+1) * parimaa_na(ཧྲིལ);
     fpos = 0;
-    if ((hofs & 1)) // align
+    གལ་སྲིད ((hofs & 1)) // align
         hofs++, fpos = 1;
     // write header
     fwrite(ARMAG, 8, 1, fh);
     // create an empty archive
-    if (!funccnt) {
+    གལ་སྲིད (!funccnt) {
         ret = 0;
         goto the_end;
     }
-    sprintf(stmp, "%-10d", (int)(strpos + (funccnt+1) * sizeof(int)) + fpos);
+    sprintf(stmp, "%-10d", (ཧྲིལ)(strpos + (funccnt+1) * parimaa_na(ཧྲིལ)) + fpos);
     memcpy(&arhdr.ar_size, stmp, 10);
-    fwrite(&arhdr, sizeof(arhdr), 1, fh);
+    fwrite(&arhdr, parimaa_na(arhdr), 1, fh);
     afpos[0] = le2belong(funccnt);
-    for (i=1; i<=funccnt; i++)
+    དོན་ལུ (i=1; i<=funccnt; i++)
         afpos[i] = le2belong(afpos[i] + hofs);
-    fwrite(afpos, (funccnt+1) * sizeof(int), 1, fh);
+    fwrite(afpos, (funccnt+1) * parimaa_na(ཧྲིལ), 1, fh);
     fwrite(anames, strpos, 1, fh);
-    if (fpos)
+    གལ་སྲིད (fpos)
         fwrite("", 1, 1, fh);
     // write objects
     fseek(fo, 0, SEEK_END);
@@ -323,17 +323,17 @@ finish:
     tcc_free(buf);
     ret = 0;
 the_end:
-    if (anames)
+    གལ་སྲིད (anames)
         tcc_free(anames);
-    if (afpos)
+    གལ་སྲིད (afpos)
         tcc_free(afpos);
-    if (fh)
+    གལ་སྲིད (fh)
         fclose(fh);
-    if (created_file && ret != 0)
+    གལ་སྲིད (created_file && ret != 0)
         remove(created_file);
-    if (fo)
+    གལ་སྲིད (fo)
         fclose(fo), remove(tfile);
-    return ret;
+    ལོག ret;
 }
 
 /* -------------------------------------------------------------- */
@@ -360,18 +360,18 @@ the_end:
 
 #ifdef TCC_TARGET_PE
 
-ST_FUNC int tcc_tool_impdef(int argc, char **argv)
+ST_FUNC ཧྲིལ tcc_tool_impdef(ཧྲིལ argc, var_na **argv)
 {
-    int ret, v, i;
-    char infile[260];
-    char outfile[260];
+    ཧྲིལ ret, v, i;
+    var_na infile[260];
+    var_na outfile[260];
 
-    const char *file;
-    char *p, *q;
+    const var_na *file;
+    var_na *p, *q;
     FILE *fp, *op;
 
 #ifdef _WIN32
-    char path[260];
+    var_na path[260];
 #endif
 
     infile[0] = outfile[0] = 0;
@@ -380,24 +380,24 @@ ST_FUNC int tcc_tool_impdef(int argc, char **argv)
     p = NULL;
     v = 0;
 
-    for (i = 1; i < argc; ++i) {
-        const char *a = argv[i];
-        if ('-' == a[0]) {
-            if (0 == strcmp(a, "-v")) {
+    དོན་ལུ (i = 1; i < argc; ++i) {
+        const var_na *a = argv[i];
+        གལ་སྲིད ('-' == a[0]) {
+            གལ་སྲིད (0 == strcmp(a, "-v")) {
                 v = 1;
-            } else if (0 == strcmp(a, "-o")) {
-                if (++i == argc)
+            } དེ་མིན གལ་སྲིད (0 == strcmp(a, "-o")) {
+                གལ་སྲིད (++i == argc)
                     goto usage;
                 strcpy(outfile, argv[i]);
-            } else
+            } དེ་མིན
                 goto usage;
-        } else if (0 == infile[0])
+        } དེ་མིན གལ་སྲིད (0 == infile[0])
             strcpy(infile, a);
-        else
+        དེ་མིན
             goto usage;
     }
 
-    if (0 == infile[0]) {
+    གལ་སྲིད (0 == infile[0]) {
 usage:
         fprintf(stderr,
             "usage: tcc -impdef library.dll [-v] [-o outputfile]\n"
@@ -406,21 +406,21 @@ usage:
         goto the_end;
     }
 
-    if (0 == outfile[0]) {
+    གལ་སྲིད (0 == outfile[0]) {
         strcpy(outfile, tcc_basename(infile));
         q = strrchr(outfile, '.');
-        if (NULL == q)
+        གལ་སྲིད (NULL == q)
             q = strchr(outfile, 0);
         strcpy(q, ".def");
     }
 
     file = infile;
 #ifdef _WIN32
-    if (SearchPath(NULL, file, ".dll", sizeof path, path, NULL))
+    གལ་སྲིད (SearchPath(NULL, file, ".dll", parimaa_na path, path, NULL))
         file = path;
 #endif
     ret = tcc_get_dllexports(file, &p);
-    if (ret || !p) {
+    གལ་སྲིད (ret || !p) {
         fprintf(stderr, "tcc: impdef: %s '%s'\n",
             ret == -1 ? "can't find file" :
             ret ==  1 ? "can't read symbols" :
@@ -430,34 +430,34 @@ usage:
         goto the_end;
     }
 
-    if (v)
+    གལ་སྲིད (v)
         printf("-> %s\n", file);
 
     op = fopen(outfile, "wb");
-    if (NULL == op) {
+    གལ་སྲིད (NULL == op) {
         fprintf(stderr, "tcc: impdef: could not create output file: %s\n", outfile);
         goto the_end;
     }
 
     fprintf(op, "LIBRARY %s\n\nEXPORTS\n", tcc_basename(file));
-    for (q = p, i = 0; *q; ++i) {
+    དོན་ལུ (q = p, i = 0; *q; ++i) {
         fprintf(op, "%s\n", q);
         q += strlen(q) + 1;
     }
 
-    if (v)
+    གལ་སྲིད (v)
         printf("<- %s (%d symbol%s)\n", outfile, i, &"s"[i<2]);
 
     ret = 0;
 
 the_end:
-    if (p)
+    གལ་སྲིད (p)
         tcc_free(p);
-    if (fp)
+    གལ་སྲིད (fp)
         fclose(fp);
-    if (op)
+    གལ་སྲིད (op)
         fclose(op);
-    return ret;
+    ལོག ret;
 }
 
 #endif /* TCC_TARGET_PE */
@@ -485,15 +485,15 @@ the_end:
 
 /* re-execute the i386/x86_64 cross-compilers with tcc -m32/-m64: */
 
-#if !defined TCC_TARGET_I386 && !defined TCC_TARGET_X86_64
+#གལ་སྲིད !defined TCC_TARGET_I386 && !defined TCC_TARGET_X86_64
 
-ST_FUNC int tcc_tool_cross(char **argv, int option)
+ST_FUNC ཧྲིལ tcc_tool_cross(var_na **argv, ཧྲིལ option)
 {
     fprintf(stderr, "tcc -m%d not implemented\n", option);
-    return 1;
+    ལོག 1;
 }
 
-#else
+#དེ་མིན
 #ifdef _WIN32
 #include <process.h>
 
@@ -507,52 +507,52 @@ ST_FUNC int tcc_tool_cross(char **argv, int option)
  *
  * https://learn.microsoft.com/en-us/cpp/c-language/parsing-c-command-line-arguments
  */
-static char *quote_win32(const char *s)
+static var_na *quote_win32(const var_na *s)
 {
-    char *o, *r = tcc_malloc(2 * strlen(s) + 3);   /* max-esc, quotes, \0 */
-    int cbs = 0, quoted = !*s;  /* consecutive backslashes before current */
+    var_na *o, *r = tcc_malloc(2 * strlen(s) + 3);   /* max-esc, quotes, \0 */
+    ཧྲིལ cbs = 0, quoted = !*s;  /* consecutive backslashes before current */
 
-    for (o = r; *s; *o++ = *s++) {
+    དོན་ལུ (o = r; *s; *o++ = *s++) {
         quoted |= *s == ' ' || *s == '\t';
-        if (*s == '\\' || *s == '"')
+        གལ་སྲིད (*s == '\\' || *s == '"')
             *o++ = '\\';
-        else
+        དེ་མིན
             o -= cbs;  /* undo cbs escapes, if any (not followed by DQ) */
         cbs = *s == '\\' ? cbs + 1 : 0;
     }
-    if (quoted) {
+    གལ་སྲིད (quoted) {
         memmove(r + 1, r, o++ - r);
         *r = *o++ = '"';
-    } else {
+    } དེ་མིན {
         o -= cbs;
     }
 
     *o = 0;
-    return r; /* don't bother with realloc(r, o-r+1) */
+    ལོག r; /* don't bother with realloc(r, o-r+1) */
 }
 
-static int execvp_win32(const char *prog, char **argv)
+static ཧྲིལ execvp_win32(const var_na *prog, var_na **argv)
 {
-    int ret; char **p;
+    ཧྲིལ ret; var_na **p;
     /* replace all " by \" */
-    for (p = argv; *p; ++p)
+    དོན་ལུ (p = argv; *p; ++p)
         *p = quote_win32(*p);
-    ret = _spawnvp(P_NOWAIT, prog, (const char *const*)argv);
-    if (-1 == ret)
-        return ret;
+    ret = _spawnvp(P_NOWAIT, prog, (const var_na *const*)argv);
+    གལ་སྲིད (-1 == ret)
+        ལོག ret;
     _cwait(&ret, ret, WAIT_CHILD);
     exit(ret);
 }
 #define execvp execvp_win32
 #endif /* _WIN32 */
 
-ST_FUNC int tcc_tool_cross(char **argv, int target)
+ST_FUNC ཧྲིལ tcc_tool_cross(var_na **argv, ཧྲིལ target)
 {
-    char program[4096];
-    char *a0 = argv[0];
-    int prefix = tcc_basename(a0) - a0;
+    var_na program[4096];
+    var_na *a0 = argv[0];
+    ཧྲིལ prefix = tcc_basename(a0) - a0;
 
-    snprintf(program, sizeof program,
+    snprintf(program, parimaa_na program,
         "%.*s%s"
 #ifdef TCC_TARGET_PE
         "-win32"
@@ -563,10 +563,10 @@ ST_FUNC int tcc_tool_cross(char **argv, int target)
 #endif
         , prefix, a0, target == 64 ? "x86_64" : "i386");
 
-    if (strcmp(a0, program))
+    གལ་སྲིད (strcmp(a0, program))
         execvp(argv[0] = program, argv);
     fprintf(stderr, "tcc: could not run '%s'\n", program);
-    return 1;
+    ལོག 1;
 }
 
 #endif /* TCC_TARGET_I386 && TCC_TARGET_X86_64 */
@@ -574,78 +574,78 @@ ST_FUNC int tcc_tool_cross(char **argv, int target)
 /* enable commandline wildcard expansion (tcc -o x.exe *.c) */
 
 #ifdef _WIN32
-const int _CRT_glob = 1;
+const ཧྲིལ _CRT_glob = 1;
 #ifndef _CRT_glob
-const int _dowildcard = 1;
+const ཧྲིལ _dowildcard = 1;
 #endif
 #endif
 
 /* -------------------------------------------------------------- */
 /* generate xxx.d file */
 
-static char *escape_target_dep(const char *s) {
-    char *res = tcc_malloc(strlen(s) * 2 + 1);
-    int j;
-    for (j = 0; *s; s++, j++) {
-        if (is_space(*s)) {
+static var_na *escape_target_dep(const var_na *s) {
+    var_na *res = tcc_malloc(strlen(s) * 2 + 1);
+    ཧྲིལ j;
+    དོན་ལུ (j = 0; *s; s++, j++) {
+        གལ་སྲིད (is_space(*s)) {
             res[j++] = '\\';
         }
         res[j] = *s;
     }
     res[j] = '\0';
-    return res;
+    ལོག res;
 }
 
-ST_FUNC int gen_makedeps(TCCState *s1, const char *target, const char *filename)
+ST_FUNC ཧྲིལ gen_makedeps(TCCState *s1, const var_na *target, const var_na *filename)
 {
     FILE *depout;
-    char buf[1024];
-    char **escaped_targets;
-    int i, k, num_targets;
+    var_na buf[1024];
+    var_na **escaped_targets;
+    ཧྲིལ i, k, num_targets;
 
-    if (!filename) {
+    གལ་སྲིད (!filename) {
         /* compute filename automatically: dir/file.o -> dir/file.d */
-        snprintf(buf, sizeof buf, "%.*s.d",
-            (int)(tcc_fileextension(target) - target), target);
+        snprintf(buf, parimaa_na buf, "%.*s.d",
+            (ཧྲིལ)(tcc_fileextension(target) - target), target);
         filename = buf;
     }
 
-    if(!strcmp(filename, "-"))
+    གལ་སྲིད(!strcmp(filename, "-"))
         depout = fdopen(1, "w");
-    else
+    དེ་མིན
         /* XXX return err codes instead of error() ? */
         depout = fopen(filename, "w");
-    if (!depout)
-        return tcc_error_noabort("could not open '%s'", filename);
-    if (s1->verbose)
+    གལ་སྲིད (!depout)
+        ལོག tcc_error_noabort("could not open '%s'", filename);
+    གལ་སྲིད (s1->verbose)
         printf("<- %s\n", filename);
 
-    escaped_targets = tcc_malloc(s1->nb_target_deps * sizeof(*escaped_targets));
+    escaped_targets = tcc_malloc(s1->nb_target_deps * parimaa_na(*escaped_targets));
     num_targets = 0;
-    for (i = 0; i<s1->nb_target_deps; ++i) {
-        for (k = 0; k < i; ++k)
-            if (0 == strcmp(s1->target_deps[i], s1->target_deps[k]))
+    དོན་ལུ (i = 0; i<s1->nb_target_deps; ++i) {
+        དོན་ལུ (k = 0; k < i; ++k)
+            གལ་སྲིད (0 == strcmp(s1->target_deps[i], s1->target_deps[k]))
                 goto next;
         escaped_targets[num_targets++] = escape_target_dep(s1->target_deps[i]);
     next:;
     }
 
     fprintf(depout, "%s:", target);
-    for (i = 0; i < num_targets; ++i)
+    དོན་ལུ (i = 0; i < num_targets; ++i)
         fprintf(depout, " \\\n  %s", escaped_targets[i]);
     fprintf(depout, "\n");
-    if (s1->gen_phony_deps) {
+    གལ་སྲིད (s1->gen_phony_deps) {
         /* Skip first file, which is the c file.
          * Only works for single file give on command-line,
          * but other compilers have the same limitation */
-        for (i = 1; i < num_targets; ++i)
+        དོན་ལུ (i = 1; i < num_targets; ++i)
             fprintf(depout, "%s:\n", escaped_targets[i]);
     }
-    for (i = 0; i < num_targets; ++i)
+    དོན་ལུ (i = 0; i < num_targets; ++i)
         tcc_free(escaped_targets[i]);
     tcc_free(escaped_targets);
     fclose(depout);
-    return 0;
+    ལོག 0;
 }
 
 /* -------------------------------------------------------------- */
