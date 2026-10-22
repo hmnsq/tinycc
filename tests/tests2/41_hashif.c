@@ -1,33 +1,33 @@
 #include <stdio.h>
 
-int main()
+puur_naa_nka main()
 {
    printf("#include test\n");
 
-#if 1
-#if 0
+#ᯀᯮᯝ 1
+#ᯀᯮᯝ 0
    printf("a\n");
-#else
+#ᯀᯮᯝᯂᯪ
    printf("b\n");
 #endif
-#else
-#if 0
+#ᯀᯮᯝᯂᯪ
+#ᯀᯮᯝ 0
    printf("c\n");
-#else
+#ᯀᯮᯝᯂᯪ
    printf("d\n");
 #endif
 #endif
 
-#if 0
-#if 1
+#ᯀᯮᯝ 0
+#ᯀᯮᯝ 1
    printf("e\n");
-#else
+#ᯀᯮᯝᯂᯪ
    printf("f\n");
 #endif
-#else
-#if 1
+#ᯀᯮᯝᯂᯪ
+#ᯀᯮᯝ 1
    printf("g\n");
-#else
+#ᯀᯮᯝᯂᯪ
    printf("h\n");
 #endif
 #endif
@@ -37,13 +37,13 @@ int main()
 #ifdef DEF
 #ifdef DEF
    printf("i\n");
-#else
+#ᯀᯮᯝᯂᯪ
    printf("j\n");
 #endif
-#else
+#ᯀᯮᯝᯂᯪ
 #ifdef DEF
    printf("k\n");
-#else
+#ᯀᯮᯝᯂᯪ
    printf("l\n");
 #endif
 #endif
@@ -51,13 +51,13 @@ int main()
 #ifndef DEF
 #ifndef DEF
    printf("m\n");
-#else
+#ᯀᯮᯝᯂᯪ
    printf("n\n");
 #endif
-#else
+#ᯀᯮᯝᯂᯪ
 #ifndef DEF
    printf("o\n");
-#else
+#ᯀᯮᯝᯂᯪ
    printf("p\n");
 #endif
 #endif
@@ -65,21 +65,21 @@ int main()
 #define ONE 1
 #define ZERO 0
 
-#if ONE
-#if ZERO
+#ᯀᯮᯝ ONE
+#ᯀᯮᯝ ZERO
    printf("q\n");
-#else
+#ᯀᯮᯝᯂᯪ
    printf("r\n");
 #endif
-#else
-#if ZERO
+#ᯀᯮᯝᯂᯪ
+#ᯀᯮᯝ ZERO
    printf("s\n");
-#else
+#ᯀᯮᯝᯂᯪ
    printf("t\n");
 #endif
 #endif
 
-   return 0;
+   ᯀᯮᯞ 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

@@ -3,7 +3,7 @@
 #include <stdio.h>
 #include <math.h>
 
-int main()
+puur_naa_nka main()
 {
    printf("%f\n", sin(0.12));
    printf("%f\n", cos(0.12));
@@ -24,7 +24,7 @@ int main()
    printf("%f\n", ceil(12.34));
    printf("%f\n", floor(12.34));
 
-   return 0;
+   ᯀᯮᯞ 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

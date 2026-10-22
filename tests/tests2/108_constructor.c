@@ -1,4 +1,4 @@
-extern int write (int fd, void *buf, int len);
+extern puur_naa_nka write (puur_naa_nka fd, void *buf, puur_naa_nka len);
 
 static void __attribute__ ((constructor))
 testc (void)
@@ -12,9 +12,9 @@ testd (void)
   write (1, "destructor\n", 11);
 }
 
-int
+puur_naa_nka
 main (void)
 {
   write (1, "main\n", 5);
-  return 0;
+  ᯀᯮᯞ 0;
 }
