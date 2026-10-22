@@ -6,10 +6,10 @@
 #ifndef _INC_MEMORY
 #define _INC_MEMORY
 
-#include <_mingw.h>
+#ଅନ୍ତର୍ଭାଵ <_mingw.h>
 
 #ifdef __cplusplus
-extern "C" {
+ବାହ୍ୟ "C" {
 #endif
 
 #ifndef _CONST_RETURN
@@ -20,17 +20,17 @@ extern "C" {
 
 #ifndef _CRT_MEMORY_DEFINED
 #define _CRT_MEMORY_DEFINED
-  _CRTIMP void *__cdecl _memccpy(void *_Dst,const void *_Src,int _Val,size_t _MaxCount);
-  _CONST_RETURN void *__cdecl memchr(const void *_Buf ,int _Val,size_t _MaxCount);
-  _CRTIMP int __cdecl _memicmp(const void *_Buf1,const void *_Buf2,size_t _Size);
-  _CRTIMP int __cdecl _memicmp_l(const void *_Buf1,const void *_Buf2,size_t _Size,_locale_t _Locale);
-  int __cdecl memcmp(const void *_Buf1,const void *_Buf2,size_t _Size);
-  void *__cdecl memcpy(void *_Dst,const void *_Src,size_t _Size);
-  void *__cdecl memset(void *_Dst,int _Val,size_t _Size);
+  _CRTIMP ଶୂନ୍ୟ *__cdecl _memccpy(ଶୂନ୍ୟ *_Dst,ଅଚଳ ଶୂନ୍ୟ *_Src,ପୂର୍ଣ୍ଣସଂଖ୍ୟା _Val,size_t Max_ଗଣନା);
+  _CONST_RETURN ଶୂନ୍ୟ *__cdecl memchr(ଅଚଳ ଶୂନ୍ୟ *_Buf ,ପୂର୍ଣ୍ଣସଂଖ୍ୟା _Val,size_t Max_ଗଣନା);
+  _CRTIMP ପୂର୍ଣ୍ଣସଂଖ୍ୟା __cdecl _memicmp(ଅଚଳ ଶୂନ୍ୟ *_Buf1,ଅଚଳ ଶୂନ୍ୟ *_Buf2,size_t _Size);
+  _CRTIMP ପୂର୍ଣ୍ଣସଂଖ୍ୟା __cdecl _memicmp_l(ଅଚଳ ଶୂନ୍ୟ *_Buf1,ଅଚଳ ଶୂନ୍ୟ *_Buf2,size_t _Size,_locale_t _Locale);
+  ପୂର୍ଣ୍ଣସଂଖ୍ୟା __cdecl memcmp(ଅଚଳ ଶୂନ୍ୟ *_Buf1,ଅଚଳ ଶୂନ୍ୟ *_Buf2,size_t _Size);
+  ଶୂନ୍ୟ *__cdecl memcpy(ଶୂନ୍ୟ *_Dst,ଅଚଳ ଶୂନ୍ୟ *_Src,size_t _Size);
+  ଶୂନ୍ୟ *__cdecl memset(ଶୂନ୍ୟ *_Dst,ପୂର୍ଣ୍ଣସଂଖ୍ୟା _Val,size_t _Size);
 
 #ifndef	NO_OLDNAMES
-  void *__cdecl memccpy(void *_Dst,const void *_Src,int _Val,size_t _Size);
-  int __cdecl memicmp(const void *_Buf1,const void *_Buf2,size_t _Size);
+  ଶୂନ୍ୟ *__cdecl memccpy(ଶୂନ୍ୟ *_Dst,ଅଚଳ ଶୂନ୍ୟ *_Src,ପୂର୍ଣ୍ଣସଂଖ୍ୟା _Val,size_t _Size);
+  ପୂର୍ଣ୍ଣସଂଖ୍ୟା __cdecl memicmp(ଅଚଳ ଶୂନ୍ୟ *_Buf1,ଅଚଳ ଶୂନ୍ୟ *_Buf2,size_t _Size);
 #endif
 #endif
 

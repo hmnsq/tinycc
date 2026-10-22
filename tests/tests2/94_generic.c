@@ -1,131 +1,131 @@
-#include <stdio.h>
+#ଅନ୍ତର୍ଭାଵ <stdio.h>
 
-const int a = 0;
+ଅଚଳ ପୂର୍ଣ୍ଣସଂଖ୍ୟା a = 0;
 
-struct a {
-	int a;
+ସଂରଚନା a {
+	ପୂର୍ଣ୍ଣସଂଖ୍ୟା a;
 };
 
-struct b {
-	int a;
+ସଂରଚନା b {
+	ପୂର୍ଣ୍ଣସଂଖ୍ୟା a;
 };
 
-int a_f()
+ପୂର୍ଣ୍ଣସଂଖ୍ୟା a_f()
 {
-	return 20;
+	ଫେରନ୍ତୁ 20;
 }
 
-int b_f()
+ପୂର୍ଣ୍ଣସଂଖ୍ୟା b_f()
 {
-	return 10;
+	ଫେରନ୍ତୁ 10;
 }
 
-typedef int (*fptr)(int);
-typedef void (*vfptr)(int);
-int foo(int i)
+ପ୍ରକାରବ୍ୟାଖ୍ୟା ପୂର୍ଣ୍ଣସଂଖ୍ୟା (*fptr)(ପୂର୍ଣ୍ଣସଂଖ୍ୟା);
+ପ୍ରକାରବ୍ୟାଖ୍ୟା ଶୂନ୍ୟ (*vfptr)(ପୂର୍ଣ୍ଣସଂଖ୍ୟା);
+ପୂର୍ଣ୍ଣସଂଖ୍ୟା foo(ପୂର୍ଣ୍ଣସଂଖ୍ୟା i)
 {
-  return i;
+  ଫେରନ୍ତୁ i;
 }
-void void_foo(int i) {}
+ଶୂନ୍ୟ void_foo(ପୂର୍ଣ୍ଣସଂଖ୍ୟା i) {}
 
-typedef int int_type1;
+ପ୍ରକାରବ୍ୟାଖ୍ୟା ପୂର୍ଣ୍ଣସଂଖ୍ୟା int_type1;
 
-typedef int T[4];
-int f(T t)
+ପ୍ରକାରବ୍ୟାଖ୍ୟା ପୂର୍ଣ୍ଣସଂଖ୍ୟା T[4];
+ପୂର୍ଣ୍ଣସଂଖ୍ୟା f(T t)
 {
-	return _Generic(t, __typeof__( ((void)0, (T){0}) ) : 1 );
+	ଫେରନ୍ତୁ _Generic(t, __typeof__( ((ଶୂନ୍ୟ)0, (T){0}) ) : 1 );
 }
 
-#define gen_sw(a) _Generic(a, const char *: 1, default: 8, int: 123);
+#define gen_sw(a) _Generic(a, ଅଚଳ ଅକ୍ଷର *: 1, ପୂର୍ବନିର୍ଦ୍ଧାରିତ: 8, ପୂର୍ଣ୍ଣସଂଖ୍ୟା: 123);
 
-int main()
+ପୂର୍ଣ୍ଣସଂଖ୍ୟା ମୁଖ୍ୟ()
 {
-	int i = 0;
-	signed long int l = 2;
-	struct b titi;
-	const int * const ptr;
-	const char *ti;
+	ପୂର୍ଣ୍ଣସଂଖ୍ୟା i = 0;
+	signed long ପୂର୍ଣ୍ଣସଂଖ୍ୟା l = 2;
+	ସଂରଚନା b titi;
+	ଅଚଳ ପୂର୍ଣ୍ଣସଂଖ୍ୟା * ଅଚଳ ptr;
+	ଅଚଳ ଅକ୍ଷର *ti;
 	int_type1 i2;
 	T t;
 
-	i = _Generic(a, int: a_f, const int: b_f)();
+	i = _Generic(a, ପୂର୍ଣ୍ଣସଂଖ୍ୟା: a_f, ଅଚଳ ପୂର୍ଣ୍ଣସଂଖ୍ୟା: b_f)();
 	printf("%d\n", i);
-	i = _Generic(a, int: a_f() / 2, const int: b_f() / 2);
+	i = _Generic(a, ପୂର୍ଣ୍ଣସଂଖ୍ୟା: a_f() / 2, ଅଚଳ ପୂର୍ଣ୍ଣସଂଖ୍ୟା: b_f() / 2);
 	printf("%d\n", i);
-	i = _Generic(ptr, int *:1, int * const:2, default:20);
+	i = _Generic(ptr, ପୂର୍ଣ୍ଣସଂଖ୍ୟା *:1, ପୂର୍ଣ୍ଣସଂଖ୍ୟା * ଅଚଳ:2, ପୂର୍ବନିର୍ଦ୍ଧାରିତ:20);
 	printf("%d\n", i);
 	i = gen_sw(a);
 	printf("%d\n", i);
-	i = _Generic(titi, struct a:1, struct b:2, default:20);
+	i = _Generic(titi, ସଂରଚନା a:1, ସଂରଚନା b:2, ପୂର୍ବନିର୍ଦ୍ଧାରିତ:20);
 	printf("%d\n", i);
-	i = _Generic(i2, char: 1, int : 0);
+	i = _Generic(i2, ଅକ୍ଷର: 1, ପୂର୍ଣ୍ଣସଂଖ୍ୟା : 0);
 	printf("%d\n", i);
-	i = _Generic(a, char:1, int[4]:2, default:5);
+	i = _Generic(a, ଅକ୍ଷର:1, ପୂର୍ଣ୍ଣସଂଖ୍ୟା[4]:2, ପୂର୍ବନିର୍ଦ୍ଧାରିତ:5);
 	printf("%d\n", i);
-	i = _Generic(17, int :1, int **:2);
+	i = _Generic(17, ପୂର୍ଣ୍ଣସଂଖ୍ୟା :1, ପୂର୍ଣ୍ଣସଂଖ୍ୟା **:2);
 	printf("%d\n", i);
-	i = _Generic(17L, int :1, long :2, long long : 3);
+	i = _Generic(17L, ପୂର୍ଣ୍ଣସଂଖ୍ୟା :1, long :2, long long : 3);
 	printf("%d\n", i);
-	i = _Generic("17, io", char *: 3, const char *: 1);
+	i = _Generic("17, io", ଅକ୍ଷର *: 3, ଅଚଳ ଅକ୍ଷର *: 1);
 	printf("%d\n", i);
-	i = _Generic(ti, const unsigned char *:1, const char *:4, char *:3,
-		     const signed char *:2);
+	i = _Generic(ti, ଅଚଳ unsigned ଅକ୍ଷର *:1, ଅଚଳ ଅକ୍ଷର *:4, ଅକ୍ଷର *:3,
+		     ଅଚଳ signed ଅକ୍ଷର *:2);
 	printf("%d\n", i);
-	printf("%s\n", _Generic(i + 2L, long: "long", int: "int",
+	printf("%s\n", _Generic(i + 2L, long: "long", ପୂର୍ଣ୍ଣସଂଖ୍ୟା: "int",
 				long long: "long long"));
-	i = _Generic(l, long: 1, int: 2);
+	i = _Generic(l, long: 1, ପୂର୍ଣ୍ଣସଂଖ୍ୟା: 2);
 	printf("%d\n", i);
-	i = _Generic(foo, fptr: 3, int: 4, vfptr: 5);
+	i = _Generic(foo, fptr: 3, ପୂର୍ଣ୍ଣସଂଖ୍ୟା: 4, vfptr: 5);
 	printf("%d\n", i);
-	i = _Generic(void_foo, fptr: 3, int: 4, vfptr: 5);
+	i = _Generic(void_foo, fptr: 3, ପୂର୍ଣ୍ଣସଂଖ୍ୟା: 4, vfptr: 5);
 	printf("%d\n", i);
 
-	(void)_Generic((int(*)[2]){0}, int(*)[2]:0, int(*)[4]:0); //shouldn't match twice
+	(ଶୂନ୍ୟ)_Generic((ପୂର୍ଣ୍ଣସଂଖ୍ୟା(*)[2]){0}, ପୂର୍ଣ୍ଣସଂଖ୍ୟା(*)[2]:0, ପୂର୍ଣ୍ଣସଂଖ୍ୟା(*)[4]:0); //shouldn't match twice
 
 	//should accept ({ }) in the controlling expr of _Generic even in const_wanted contexts
-	struct { _Bool x_0: _Generic(({0;}),default:1); } my_x;
+	ସଂରଚନା { _Bool x_0: _Generic(({0;}),ପୂର୍ବନିର୍ଦ୍ଧାରିତ:1); } my_x;
 
-	_Generic((__typeof((float const)((float const){42}))*){0}, float*: 0); //casts lose top-level qualifiers
-	int const x = 42; __typeof((__typeof(x))x) *xp = 0; (void)_Generic(xp, int*: 0); //casts lose top-level qualifiers
+	_Generic((__typeof((ଦଶମିକ ଅଚଳ)((ଦଶମିକ ଅଚଳ){42}))*){0}, ଦଶମିକ*: 0); //casts lose top-level qualifiers
+	ପୂର୍ଣ୍ଣସଂଖ୍ୟା ଅଚଳ x = 42; __typeof((__typeof(x))x) *xp = 0; (ଶୂନ୍ୟ)_Generic(xp, ପୂର୍ଣ୍ଣସଂଖ୍ୟା*: 0); //casts lose top-level qualifiers
 
 	//TEST TERNARY:
 	//Same type
-	_Generic( 0?(long*)0:(long*)0,  long*: (void)0);
+	_Generic( 0?(long*)0:(long*)0,  long*: (ଶୂନ୍ୟ)0);
 	//combining of qualifiers
-	_Generic( 0?(long volatile*)0:(long const*)0,  long const volatile*: (void)0);
+	_Generic( 0?(long ଅସ୍ଥିର*)0:(long ଅଚଳ*)0,  long ଅଚଳ ଅସ୍ଥିର*: (ଶୂନ୍ୟ)0);
 	//nul-ptr constant selects other type
-	_Generic( 0?(long*)0:0,			long*: (void)0);
-	_Generic( 0?(long*)0:(void*)0, long*: (void)0);
+	_Generic( 0?(long*)0:0,			long*: (ଶୂନ୍ୟ)0);
+	_Generic( 0?(long*)0:(ଶୂନ୍ୟ*)0, long*: (ଶୂନ୍ୟ)0);
 
 	//void ptrs get chosen preferentially; qualifs still combine
-	_Generic( 0?(int volatile*)0: (void const*)1, void volatile const*: (void)0);
+	_Generic( 0?(ପୂର୍ଣ୍ଣସଂଖ୍ୟା ଅସ୍ଥିର*)0: (ଶୂନ୍ୟ ଅଚଳ*)1, ଶୂନ୍ୟ ଅସ୍ଥିର ଅଚଳ*: (ଶୂନ୍ୟ)0);
         //but this is no null-ptr constant, so fallback to void-choice
         i = 0;
-        _Generic( 1?(void*)(i*0LL):&i, void*:0);
+        _Generic( 1?(ଶୂନ୍ୟ*)(i*0LL):&i, ଶୂନ୍ୟ*:0);
 	//like gcc but not clang, don't treat (void* const as the null-ptr constant)
-	_Generic( 0?(int volatile*)0: (void const*)0, void volatile const*: (void)0);
+	_Generic( 0?(ପୂର୍ଣ୍ଣସଂଖ୍ୟା ଅସ୍ଥିର*)0: (ଶୂନ୍ୟ ଅଚଳ*)0, ଶୂନ୍ୟ ଅସ୍ଥିର ଅଚଳ*: (ଶୂନ୍ୟ)0);
 
 	//ptrs to incomplete types get completed
-	(void)(sizeof(struct { int x:_Generic( 0?(int (*)[4])0 : (int (*)[])0, int (*)[4]:+1, int (*)[5]:(void)0); }));
-	(void)(sizeof(struct { int x:_Generic( 0?(int (*)[])0 : (int (*)[4])0, int (*)[4]:+1, int (*)[5]:(void)0); }));
+	(ଶୂନ୍ୟ)(ଆକାର(ସଂରଚନା { ପୂର୍ଣ୍ଣସଂଖ୍ୟା x:_Generic( 0?(ପୂର୍ଣ୍ଣସଂଖ୍ୟା (*)[4])0 : (ପୂର୍ଣ୍ଣସଂଖ୍ୟା (*)[])0, ପୂର୍ଣ୍ଣସଂଖ୍ୟା (*)[4]:+1, ପୂର୍ଣ୍ଣସଂଖ୍ୟା (*)[5]:(ଶୂନ୍ୟ)0); }));
+	(ଶୂନ୍ୟ)(ଆକାର(ସଂରଚନା { ପୂର୍ଣ୍ଣସଂଖ୍ୟା x:_Generic( 0?(ପୂର୍ଣ୍ଣସଂଖ୍ୟା (*)[])0 : (ପୂର୍ଣ୍ଣସଂଖ୍ୟା (*)[4])0, ପୂର୍ଣ୍ଣସଂଖ୍ୟା (*)[4]:+1, ପୂର୍ଣ୍ଣସଂଖ୍ୟା (*)[5]:(ଶୂନ୍ୟ)0); }));
 
 	{
 	  /* completion shouldn't affect the type of decl */
-		char **argv;
-		_Generic(argv, char**: (void)0);
-		_Generic(0?(char const*)0:argv[0], char const*: (void)0);
-		_Generic(argv, char**: (void)0);
+		ଅକ୍ଷର **argv;
+		_Generic(argv, ଅକ୍ଷର**: (ଶୂନ୍ୟ)0);
+		_Generic(0?(ଅକ୍ଷର ଅଚଳ*)0:argv[0], ଅକ୍ଷର ଅଚଳ*: (ଶୂନ୍ୟ)0);
+		_Generic(argv, ଅକ୍ଷର**: (ଶୂନ୍ୟ)0);
 	}
 	{
-	  extern int (*ar)[];
-	  (void)(sizeof(struct { int x:_Generic( 0?(int (*)[4])0 : (int (*)[])0, int (*)[4]:+1, int (*)[5]:(void)0); }));
-	  (void)(sizeof(struct { int x:_Generic( 0?(int (*)[])0 : (int (*)[4])0, int (*)[4]:+1, int (*)[5]:(void)0); }));
-	  (void)(sizeof(struct { int x:_Generic( 0?ar : (int (*)[4])0, int (*)[4]:+1, int (*)[5]:(void)0); }));
-	  (void)(sizeof(struct { int x:_Generic( 0?(int (*)[4])0 : ar, int (*)[4]:+1, int (*)[5]:(void)0); }));
-	  (void)(sizeof(struct { int x:_Generic( 0?(int (*)[5])0 : ar, int (*)[5]:+1, int (*)[4]:(void)0); }));
+	  ବାହ୍ୟ ପୂର୍ଣ୍ଣସଂଖ୍ୟା (*ar)[];
+	  (ଶୂନ୍ୟ)(ଆକାର(ସଂରଚନା { ପୂର୍ଣ୍ଣସଂଖ୍ୟା x:_Generic( 0?(ପୂର୍ଣ୍ଣସଂଖ୍ୟା (*)[4])0 : (ପୂର୍ଣ୍ଣସଂଖ୍ୟା (*)[])0, ପୂର୍ଣ୍ଣସଂଖ୍ୟା (*)[4]:+1, ପୂର୍ଣ୍ଣସଂଖ୍ୟା (*)[5]:(ଶୂନ୍ୟ)0); }));
+	  (ଶୂନ୍ୟ)(ଆକାର(ସଂରଚନା { ପୂର୍ଣ୍ଣସଂଖ୍ୟା x:_Generic( 0?(ପୂର୍ଣ୍ଣସଂଖ୍ୟା (*)[])0 : (ପୂର୍ଣ୍ଣସଂଖ୍ୟା (*)[4])0, ପୂର୍ଣ୍ଣସଂଖ୍ୟା (*)[4]:+1, ପୂର୍ଣ୍ଣସଂଖ୍ୟା (*)[5]:(ଶୂନ୍ୟ)0); }));
+	  (ଶୂନ୍ୟ)(ଆକାର(ସଂରଚନା { ପୂର୍ଣ୍ଣସଂଖ୍ୟା x:_Generic( 0?ar : (ପୂର୍ଣ୍ଣସଂଖ୍ୟା (*)[4])0, ପୂର୍ଣ୍ଣସଂଖ୍ୟା (*)[4]:+1, ପୂର୍ଣ୍ଣସଂଖ୍ୟା (*)[5]:(ଶୂନ୍ୟ)0); }));
+	  (ଶୂନ୍ୟ)(ଆକାର(ସଂରଚନା { ପୂର୍ଣ୍ଣସଂଖ୍ୟା x:_Generic( 0?(ପୂର୍ଣ୍ଣସଂଖ୍ୟା (*)[4])0 : ar, ପୂର୍ଣ୍ଣସଂଖ୍ୟା (*)[4]:+1, ପୂର୍ଣ୍ଣସଂଖ୍ୟା (*)[5]:(ଶୂନ୍ୟ)0); }));
+	  (ଶୂନ୍ୟ)(ଆକାର(ସଂରଚନା { ପୂର୍ଣ୍ଣସଂଖ୍ୟା x:_Generic( 0?(ପୂର୍ଣ୍ଣସଂଖ୍ୟା (*)[5])0 : ar, ପୂର୍ଣ୍ଣସଂଖ୍ୟା (*)[5]:+1, ପୂର୍ଣ୍ଣସଂଖ୍ୟା (*)[4]:(ଶୂନ୍ୟ)0); }));
 	}
 
 	printf ("%d\n", f(t));
 
-	return 0;
+	ଫେରନ୍ତୁ 0;
 }

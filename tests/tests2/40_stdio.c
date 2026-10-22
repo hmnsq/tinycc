@@ -1,14 +1,14 @@
-#include <stdio.h>
+#ଅନ୍ତର୍ଭାଵ <stdio.h>
 
-int main()
+ପୂର୍ଣ୍ଣସଂଖ୍ୟା ମୁଖ୍ୟ()
 {
    FILE *f = fopen("fred.txt", "w");
    fwrite("hello\nhello\n", 1, 12, f);
    fclose(f);
 
-   char freddy[7];
+   ଅକ୍ଷର freddy[7];
    f = fopen("fred.txt", "r");
-   if (fread(freddy, 1, 6, f) != 6)
+   ଯଦି (fread(freddy, 1, 6, f) != 6)
       printf("couldn't read fred.txt\n");
 
    freddy[6] = '\0';
@@ -16,13 +16,13 @@ int main()
 
    printf("%s", freddy);
 
-   int InChar;
-   char ShowChar;
+   ପୂର୍ଣ୍ଣସଂଖ୍ୟା InChar;
+   ଅକ୍ଷର ShowChar;
    f = fopen("fred.txt", "r");
-   while ( (InChar = fgetc(f)) != EOF)
+   ଯେତେବେଳେ ( (InChar = fgetc(f)) != EOF)
    {
       ShowChar = InChar;
-      if (ShowChar < ' ')
+      ଯଦି (ShowChar < ' ')
          ShowChar = '.';
 
       printf("ch: %d '%c'\n", InChar, ShowChar);
@@ -30,10 +30,10 @@ int main()
    fclose(f);
 
    f = fopen("fred.txt", "r");
-   while ( (InChar = getc(f)) != EOF)
+   ଯେତେବେଳେ ( (InChar = getc(f)) != EOF)
    {
       ShowChar = InChar;
-      if (ShowChar < ' ')
+      ଯଦି (ShowChar < ' ')
          ShowChar = '.';
 
       printf("ch: %d '%c'\n", InChar, ShowChar);
@@ -41,12 +41,12 @@ int main()
    fclose(f);
 
    f = fopen("fred.txt", "r");
-   while (fgets(freddy, sizeof(freddy), f) != NULL)
+   ଯେତେବେଳେ (fgets(freddy, ଆକାର(freddy), f) != ଖାଲି)
       printf("x: %s", freddy);
 
    fclose(f);
 
-   return 0;
+   ଫେରନ୍ତୁ 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

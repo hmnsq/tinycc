@@ -1,12 +1,12 @@
-#include <stdatomic.h>
-int printf(const char*,...);
+#ଅନ୍ତର୍ଭାଵ <stdatomic.h>
+ପୂର୍ଣ୍ଣସଂଖ୍ୟା printf(ଅଚଳ ଅକ୍ଷର*,...);
 
-#if defined test_atomic_compare_exchange
-int main()
+#ଯଦି defined test_atomic_compare_exchange
+ପୂର୍ଣ୍ଣସଂଖ୍ୟା ମୁଖ୍ୟ()
 {
-    _Atomic int a = 12;
-    int b = 77;
-    int r;
+    _Atomic ପୂର୍ଣ୍ଣସଂଖ୍ୟା a = 12;
+    ପୂର୍ଣ୍ଣସଂଖ୍ୟା b = 77;
+    ପୂର୍ଣ୍ଣସଂଖ୍ୟା r;
 
     atomic_store(&a, b + 0);
     r = atomic_compare_exchange_strong(&a, &b, 99);
@@ -24,33 +24,33 @@ int main()
     r = atomic_exchange(&a, 66);
     printf("%d %d %d\n", r, a, b);
 
-    return 0;
+    ଫେରନ୍ତୁ 0;
 }
 
-#elif defined test_atomic_store
-int main()
+#ନଚେତଯଦି defined test_atomic_store
+ପୂର୍ଣ୍ଣସଂଖ୍ୟା ମୁଖ୍ୟ()
 {
-    int _Atomic i;
-    int r;
+    ପୂର୍ଣ୍ଣସଂଖ୍ୟା _Atomic i;
+    ପୂର୍ଣ୍ଣସଂଖ୍ୟା r;
     atomic_store(&i, 12);
     r = atomic_fetch_add(&i, i);
     printf("r = %d, i = %d\n", r, i);
 }
 
-#elif defined test_atomic_store_pointer
-typedef struct { char c[4]; } c4;
-int main()
+#ନଚେତଯଦି defined test_atomic_store_pointer
+ପ୍ରକାରବ୍ୟାଖ୍ୟା ସଂରଚନା { ଅକ୍ଷର c[4]; } c4;
+ପୂର୍ଣ୍ଣସଂଖ୍ୟା ମୁଖ୍ୟ()
 {
-    int i = 1;
-    int _Atomic *p = &i;
-    int k = 2;
+    ପୂର୍ଣ୍ଣସଂଖ୍ୟା i = 1;
+    ପୂର୍ଣ୍ଣସଂଖ୍ୟା _Atomic *p = &i;
+    ପୂର୍ଣ୍ଣସଂଖ୍ୟା k = 2;
     atomic_store(&p, &k);
     printf("*p = %d\n", *p);
 }
 
-#elif defined test_atomic_store_struct
-typedef struct { char c[4]; } c4;
-int main()
+#ନଚେତଯଦି defined test_atomic_store_struct
+ପ୍ରକାରବ୍ୟାଖ୍ୟା ସଂରଚନା { ଅକ୍ଷର c[4]; } c4;
+ପୂର୍ଣ୍ଣସଂଖ୍ୟା ମୁଖ୍ୟ()
 {
     c4 _Atomic p;
     c4 v = { 1,2,3,4 };
@@ -58,7 +58,7 @@ int main()
     printf("%d %d %d %d\n", p.c[0], p.c[1], p.c[2], p.c[3]);
 }
 
-#elif defined test_atomic_op
+#ନଚେତଯଦି defined test_atomic_op
 
 #define OP1(func, v, e1, e2) atomic_##func(&c, v) == e1 && c == e2
 #define OP2(func, v, e1, e2) atomic_##func(&s, v) == e1 && s == e2
@@ -70,7 +70,7 @@ int main()
                                     OP4(func,v,e1,e2) && OP8(func,v,e1,e2)    \
                                     ? "SUCCESS" : "FAIL");
  
-int main()
+ପୂର୍ଣ୍ଣସଂଖ୍ୟା ମୁଖ୍ୟ()
 {
     atomic_char c;
     atomic_short s;
@@ -89,9 +89,9 @@ int main()
     OP(fetch_and, 0x0f, 53, 5);
 }
 
-#elif defined test_atomic_op2
+#ନଚେତଯଦି defined test_atomic_op2
 
-typedef __SIZE_TYPE__ size64_t;
+ପ୍ରକାରବ୍ୟାଖ୍ୟା __SIZE_TYPE__ size64_t;
 
 #define OP1(func, v, e1, e2) \
     __atomic_##func(&c, v, __ATOMIC_SEQ_CST) == e1 && c == e2
@@ -107,11 +107,11 @@ typedef __SIZE_TYPE__ size64_t;
                                     OP4(func,v,e1,e2) && OP8(func,v,e1,e2)    \
                                     ? "SUCCESS" : "FAIL");
 
-int main()
+ପୂର୍ଣ୍ଣସଂଖ୍ୟା ମୁଖ୍ୟ()
 {
-    signed char c;
+    signed ଅକ୍ଷର c;
     short s;
-    int i;
+    ପୂର୍ଣ୍ଣସଂଖ୍ୟା i;
     size64_t l;
 
     atomic_init(&c, 0);
@@ -139,67 +139,67 @@ int main()
     OP(nand_fetch, 0x01, -2, -2);
 }
 
-#elif defined test_atomic_thread_signal
-int main()
+#ନଚେତଯଦି defined test_atomic_thread_signal
+ପୂର୍ଣ୍ଣସଂଖ୍ୟା ମୁଖ୍ୟ()
 {
-    int c;
+    ପୂର୍ଣ୍ଣସଂଖ୍ୟା c;
 
     atomic_thread_fence(__ATOMIC_SEQ_CST);
     atomic_signal_fence(__ATOMIC_SEQ_CST);
     printf ("%d\n", atomic_is_lock_free(&c));
 }
 
-#elif defined test_atomic_error_1
-int main()
+#ନଚେତଯଦି defined test_atomic_error_1
+ପୂର୍ଣ୍ଣସଂଖ୍ୟା ମୁଖ୍ୟ()
 {
-    int _Atomic i;
+    ପୂର୍ଣ୍ଣସଂଖ୍ୟା _Atomic i;
     atomic_load(i);
 }
 
-#elif defined test_atomic_error_2
-int main()
+#ନଚେତଯଦି defined test_atomic_error_2
+ପୂର୍ଣ୍ଣସଂଖ୍ୟା ମୁଖ୍ୟ()
 {
-    struct { char c[3]; } _Atomic c3;
+    ସଂରଚନା { ଅକ୍ଷର c[3]; } _Atomic c3;
     atomic_load(&c3);
 }
 
-#elif defined test_atomic_error_3
-int main()
+#ନଚେତଯଦି defined test_atomic_error_3
+ପୂର୍ଣ୍ଣସଂଖ୍ୟା ମୁଖ୍ୟ()
 {
-    _Atomic int *p = 0;
+    _Atomic ପୂର୍ଣ୍ଣସଂଖ୍ୟା *p = 0;
     atomic_fetch_add(&p, 1);
 }
 
-#elif defined test_atomic_error_4
-int main()
+#ନଚେତଯଦି defined test_atomic_error_4
+ପୂର୍ଣ୍ଣସଂଖ୍ୟା ମୁଖ୍ୟ()
 {
-    int _Atomic i = 1;
-    char c = 2;
+    ପୂର୍ଣ୍ଣସଂଖ୍ୟା _Atomic i = 1;
+    ଅକ୍ଷର c = 2;
     atomic_compare_exchange_strong(&i, &c, 0);
 }
 
-#elif defined test_atomic_warn_1
-int main()
+#ନଚେତଯଦି defined test_atomic_warn_1
+ପୂର୍ଣ୍ଣସଂଖ୍ୟା ମୁଖ୍ୟ()
 {
     size_t _Atomic i = 1;
     /* assignment to integer from pointer */
     atomic_store(&i, &i);
 }
 
-#elif defined test_atomic_warn_2
-int main()
+#ନଚେତଯଦି defined test_atomic_warn_2
+ପୂର୍ଣ୍ଣସଂଖ୍ୟା ମୁଖ୍ୟ()
 {
-    int i = 1;
-    char c = 2;
-    int _Atomic *p = &i;
+    ପୂର୍ଣ୍ଣସଂଖ୍ୟା i = 1;
+    ଅକ୍ଷର c = 2;
+    ପୂର୍ଣ୍ଣସଂଖ୍ୟା _Atomic *p = &i;
     /* assignment from incompatible pointer */
     atomic_store(&p, &c);
 }
 
-#elif defined test_atomic_warn_3
-int main()
+#ନଚେତଯଦି defined test_atomic_warn_3
+ପୂର୍ଣ୍ଣସଂଖ୍ୟା ମୁଖ୍ୟ()
 {
-    int const i = 1;
+    ପୂର୍ଣ୍ଣସଂଖ୍ୟା ଅଚଳ i = 1;
     /* assignment to read-only -location */
     atomic_fetch_add(&i, 2);
 }

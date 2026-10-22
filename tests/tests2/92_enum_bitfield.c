@@ -3,56 +3,56 @@
    when stored into/loaded from a 8 bit bit-field of enum type (which
    itself is implementation defined, so isn't necessarily supported by all
    other compilers).  */
-enum tree_code {
+ଗଣନା ବୃକ୍ଷ_code {
   SOME_CODE = 148, /* has bit 7 set, and hence all further enum values as well */
-  LAST_AND_UNUSED_TREE_CODE
+  LAST_AND_UNUSED_ବୃକ୍ଷ_CODE
 };
-typedef union tree_node *tree;
-struct tree_common
+ପ୍ରକାରବ୍ୟାଖ୍ୟା ସଂଘ ବୃକ୍ଷ_ଗଣ୍ଠି *ବୃକ୍ଷ_2;
+ସଂରଚନା ବୃକ୍ଷ_common
 {
-  union tree_node *chain;
-  union tree_node *type;
-  enum tree_code code : 8;
+  ସଂଘ ବୃକ୍ଷ_ଗଣ୍ଠି *chain;
+  ସଂଘ ବୃକ୍ଷ_ଗଣ୍ଠି *type;
+  ଗଣନା ବୃକ୍ଷ_code code : 8;
   unsigned side_effects_flag : 1;
 };
-union tree_node
+ସଂଘ ବୃକ୍ଷ_ଗଣ୍ଠି
 {
-  struct tree_common common;
+  ସଂରଚନା ବୃକ୍ଷ_common common;
  };
-enum c_tree_code {
-  C_DUMMY_TREE_CODE = LAST_AND_UNUSED_TREE_CODE,
-  STMT_EXPR,
-  LAST_C_TREE_CODE
+ଗଣନା c_ବୃକ୍ଷ_code {
+  C_DUMMY_ବୃକ୍ଷ_CODE = LAST_AND_UNUSED_ବୃକ୍ଷ_CODE,
+  STMT_ପଦସମଷ୍ଟି,
+  LAST_C_ବୃକ୍ଷ_CODE
 };
-enum cplus_tree_code {
-  CP_DUMMY_TREE_CODE = LAST_C_TREE_CODE,
+ଗଣନା cplus_ବୃକ୍ଷ_code {
+  CP_DUMMY_ବୃକ୍ଷ_CODE = LAST_C_ବୃକ୍ଷ_CODE,
   AMBIG_CONV,
-  LAST_CPLUS_TREE_CODE
+  LAST_CPLUS_ବୃକ୍ଷ_CODE
 };
 
-extern int printf(const char *, ...);
-int blah(){return 0;}
+ବାହ୍ୟ ପୂର୍ଣ୍ଣସଂଖ୍ୟା printf(ଅଚଳ ଅକ୍ଷର *, ...);
+ପୂର୍ଣ୍ଣସଂଖ୍ୟା blah(){ଫେରନ୍ତୁ 0;}
 
-int convert_like_real (tree convs)
+ପୂର୍ଣ୍ଣସଂଖ୍ୟା convert_like_real (ବୃକ୍ଷ_2 convs)
 {
-  switch (((enum tree_code) (convs)->common.code))
+  ବାଛ (((ଗଣନା ବୃକ୍ଷ_code) (convs)->common.code))
     {
-    case AMBIG_CONV: /* This has bit 7 set, which must not be the sign
+    ସ୍ଥିତି AMBIG_CONV: /* This has bit 7 set, which must not be the sign
 			bit in tree_common.code, i.e. the bitfield must
 			be somehow marked unsigned.  */
-      return blah();
-    default:
-      break;
+      ଫେରନ୍ତୁ blah();
+    ପୂର୍ବନିର୍ଦ୍ଧାରିତ:
+      ଭାଙ୍ଗ;
     };
    printf("unsigned enum bit-fields broken\n");
-   return 0;
+   ଫେରନ୍ତୁ 0;
 }
 
-int main()
+ପୂର୍ଣ୍ଣସଂଖ୍ୟା ମୁଖ୍ୟ()
 {
-  union tree_node convs;
+  ସଂଘ ବୃକ୍ଷ_ଗଣ୍ଠି convs;
 
   convs.common.code = AMBIG_CONV;
   convert_like_real (&convs);
-  return 0;
+  ଫେରନ୍ତୁ 0;
 }

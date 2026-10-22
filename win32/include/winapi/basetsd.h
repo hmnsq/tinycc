@@ -6,10 +6,10 @@
 #ifndef _BASETSD_H_
 #define _BASETSD_H_
 
-#if (defined(__x86_64) || defined(__ia64__)) && !defined(RC_INVOKED)
-typedef unsigned __int64 POINTER_64_INT;
-#else
-typedef unsigned long POINTER_64_INT;
+#ଯଦି (defined(__x86_64) || defined(__ia64__)) && !defined(RC_INVOKED)
+ପ୍ରକାରବ୍ୟାଖ୍ୟା unsigned __int64 POINTER_64_INT;
+#ଅନ୍ୟଥା
+ପ୍ରକାରବ୍ୟାଖ୍ୟା unsigned long POINTER_64_INT;
 #endif
 
 #define POINTER_32
@@ -17,79 +17,79 @@ typedef unsigned long POINTER_64_INT;
 #define FIRMWARE_PTR
 
 #ifdef __cplusplus
-extern "C" {
+ବାହ୍ୟ "C" {
 #endif
 
-  typedef signed char INT8,*PINT8;
-  typedef signed short INT16,*PINT16;
-  typedef signed int INT32,*PINT32;
-  typedef signed __int64 INT64,*PINT64;
-  typedef unsigned char UINT8,*PUINT8;
-  typedef unsigned short UINT16,*PUINT16;
-  typedef unsigned int UINT32,*PUINT32;
-  typedef unsigned __int64 UINT64,*PUINT64;
-  typedef signed int LONG32,*PLONG32;
-  typedef unsigned int ULONG32,*PULONG32;
-  typedef unsigned int DWORD32,*PDWORD32;
+  ପ୍ରକାରବ୍ୟାଖ୍ୟା signed ଅକ୍ଷର INT8,*PINT8;
+  ପ୍ରକାରବ୍ୟାଖ୍ୟା signed short INT16,*PINT16;
+  ପ୍ରକାରବ୍ୟାଖ୍ୟା signed ପୂର୍ଣ୍ଣସଂଖ୍ୟା INT32,*PINT32;
+  ପ୍ରକାରବ୍ୟାଖ୍ୟା signed __int64 INT64,*PINT64;
+  ପ୍ରକାରବ୍ୟାଖ୍ୟା unsigned ଅକ୍ଷର UINT8,*PUINT8;
+  ପ୍ରକାରବ୍ୟାଖ୍ୟା unsigned short UINT16,*PUINT16;
+  ପ୍ରକାରବ୍ୟାଖ୍ୟା unsigned ପୂର୍ଣ୍ଣସଂଖ୍ୟା UINT32,*PUINT32;
+  ପ୍ରକାରବ୍ୟାଖ୍ୟା unsigned __int64 UINT64,*PUINT64;
+  ପ୍ରକାରବ୍ୟାଖ୍ୟା signed ପୂର୍ଣ୍ଣସଂଖ୍ୟା LONG32,*PLONG32;
+  ପ୍ରକାରବ୍ୟାଖ୍ୟା unsigned ପୂର୍ଣ୍ଣସଂଖ୍ୟା ULONG32,*PULONG32;
+  ପ୍ରକାରବ୍ୟାଖ୍ୟା unsigned ପୂର୍ଣ୍ଣସଂଖ୍ୟା DWORD32,*PDWORD32;
 
 #ifndef _W64
 #define _W64
 #endif
 
 #ifdef _WIN64
-  typedef __int64 INT_PTR,*PINT_PTR;
-  typedef unsigned __int64 UINT_PTR,*PUINT_PTR;
-  typedef __int64 LONG_PTR,*PLONG_PTR;
-  typedef unsigned __int64 ULONG_PTR,*PULONG_PTR;
+  ପ୍ରକାରବ୍ୟାଖ୍ୟା __int64 INT_PTR,*PINT_PTR;
+  ପ୍ରକାରବ୍ୟାଖ୍ୟା unsigned __int64 UINT_PTR,*PUINT_PTR;
+  ପ୍ରକାରବ୍ୟାଖ୍ୟା __int64 LONG_PTR,*PLONG_PTR;
+  ପ୍ରକାରବ୍ୟାଖ୍ୟା unsigned __int64 ULONG_PTR,*PULONG_PTR;
 #define __int3264 __int64
-#else
-  typedef int INT_PTR,*PINT_PTR;
-  typedef unsigned int UINT_PTR,*PUINT_PTR;
-  typedef long LONG_PTR,*PLONG_PTR;
-  typedef unsigned long ULONG_PTR,*PULONG_PTR;
+#ଅନ୍ୟଥା
+  ପ୍ରକାରବ୍ୟାଖ୍ୟା ପୂର୍ଣ୍ଣସଂଖ୍ୟା INT_PTR,*PINT_PTR;
+  ପ୍ରକାରବ୍ୟାଖ୍ୟା unsigned ପୂର୍ଣ୍ଣସଂଖ୍ୟା UINT_PTR,*PUINT_PTR;
+  ପ୍ରକାରବ୍ୟାଖ୍ୟା long LONG_PTR,*PLONG_PTR;
+  ପ୍ରକାରବ୍ୟାଖ୍ୟା unsigned long ULONG_PTR,*PULONG_PTR;
 #define __int3264 __int32
 #endif
 
 #ifdef _WIN64
 #define ADDRESS_TAG_BIT 0x40000000000ULL
-  typedef __int64 SHANDLE_PTR;
-  typedef unsigned __int64 HANDLE_PTR;
-  typedef unsigned int UHALF_PTR,*PUHALF_PTR;
-  typedef int HALF_PTR,*PHALF_PTR;
+  ପ୍ରକାରବ୍ୟାଖ୍ୟା __int64 SHANDLE_PTR;
+  ପ୍ରକାରବ୍ୟାଖ୍ୟା unsigned __int64 HANDLE_PTR;
+  ପ୍ରକାରବ୍ୟାଖ୍ୟା unsigned ପୂର୍ଣ୍ଣସଂଖ୍ୟା UHALF_PTR,*PUHALF_PTR;
+  ପ୍ରକାରବ୍ୟାଖ୍ୟା ପୂର୍ଣ୍ଣସଂଖ୍ୟା HALF_PTR,*PHALF_PTR;
 
-  static __inline unsigned long HandleToULong(const void *h) { return((unsigned long) (ULONG_PTR) h); }
-  static __inline long HandleToLong(const void *h) { return((long) (LONG_PTR) h); }
-  static __inline void *ULongToHandle(const unsigned long h) { return((void *) (UINT_PTR) h); }
-  static __inline void *LongToHandle(const long h) { return((void *) (INT_PTR) h); }
-  static __inline unsigned long PtrToUlong(const void *p) { return((unsigned long) (ULONG_PTR) p); }
-  static __inline unsigned int PtrToUint(const void *p) { return((unsigned int) (UINT_PTR) p); }
-  static __inline unsigned short PtrToUshort(const void *p) { return((unsigned short) (unsigned long) (ULONG_PTR) p); }
-  static __inline long PtrToLong(const void *p) { return((long) (LONG_PTR) p); }
-  static __inline int PtrToInt(const void *p) { return((int) (INT_PTR) p); }
-  static __inline short PtrToShort(const void *p) { return((short) (long) (LONG_PTR) p); }
-  static __inline void *IntToPtr(const int i) { return((void *)(INT_PTR)i); }
-  static __inline void *UIntToPtr(const unsigned int ui) { return((void *)(UINT_PTR)ui); }
-  static __inline void *LongToPtr(const long l) { return((void *)(LONG_PTR)l); }
-  static __inline void *ULongToPtr(const unsigned long ul) { return((void *)(ULONG_PTR)ul); }
+  ସ୍ଥିର __inline unsigned long HandleToULong(ଅଚଳ ଶୂନ୍ୟ *h) { ଫେରନ୍ତୁ((unsigned long) (ULONG_PTR) h); }
+  ସ୍ଥିର __inline long HandleToLong(ଅଚଳ ଶୂନ୍ୟ *h) { ଫେରନ୍ତୁ((long) (LONG_PTR) h); }
+  ସ୍ଥିର __inline ଶୂନ୍ୟ *ULongToHandle(ଅଚଳ unsigned long h) { ଫେରନ୍ତୁ((ଶୂନ୍ୟ *) (UINT_PTR) h); }
+  ସ୍ଥିର __inline ଶୂନ୍ୟ *LongToHandle(ଅଚଳ long h) { ଫେରନ୍ତୁ((ଶୂନ୍ୟ *) (INT_PTR) h); }
+  ସ୍ଥିର __inline unsigned long PtrToUlong(ଅଚଳ ଶୂନ୍ୟ *p) { ଫେରନ୍ତୁ((unsigned long) (ULONG_PTR) p); }
+  ସ୍ଥିର __inline unsigned ପୂର୍ଣ୍ଣସଂଖ୍ୟା PtrToUint(ଅଚଳ ଶୂନ୍ୟ *p) { ଫେରନ୍ତୁ((unsigned ପୂର୍ଣ୍ଣସଂଖ୍ୟା) (UINT_PTR) p); }
+  ସ୍ଥିର __inline unsigned short PtrToUshort(ଅଚଳ ଶୂନ୍ୟ *p) { ଫେରନ୍ତୁ((unsigned short) (unsigned long) (ULONG_PTR) p); }
+  ସ୍ଥିର __inline long PtrToLong(ଅଚଳ ଶୂନ୍ୟ *p) { ଫେରନ୍ତୁ((long) (LONG_PTR) p); }
+  ସ୍ଥିର __inline ପୂର୍ଣ୍ଣସଂଖ୍ୟା PtrToInt(ଅଚଳ ଶୂନ୍ୟ *p) { ଫେରନ୍ତୁ((ପୂର୍ଣ୍ଣସଂଖ୍ୟା) (INT_PTR) p); }
+  ସ୍ଥିର __inline short PtrToShort(ଅଚଳ ଶୂନ୍ୟ *p) { ଫେରନ୍ତୁ((short) (long) (LONG_PTR) p); }
+  ସ୍ଥିର __inline ଶୂନ୍ୟ *IntToPtr(ଅଚଳ ପୂର୍ଣ୍ଣସଂଖ୍ୟା i) { ଫେରନ୍ତୁ((ଶୂନ୍ୟ *)(INT_PTR)i); }
+  ସ୍ଥିର __inline ଶୂନ୍ୟ *UIntToPtr(ଅଚଳ unsigned ପୂର୍ଣ୍ଣସଂଖ୍ୟା ui) { ଫେରନ୍ତୁ((ଶୂନ୍ୟ *)(UINT_PTR)ui); }
+  ସ୍ଥିର __inline ଶୂନ୍ୟ *LongToPtr(ଅଚଳ long l) { ଫେରନ୍ତୁ((ଶୂନ୍ୟ *)(LONG_PTR)l); }
+  ସ୍ଥିର __inline ଶୂନ୍ୟ *ULongToPtr(ଅଚଳ unsigned long ul) { ଫେରନ୍ତୁ((ଶୂନ୍ୟ *)(ULONG_PTR)ul); }
 
-#define PtrToPtr64(p) ((void *) p)
-#define Ptr64ToPtr(p) ((void *) p)
+#define PtrToPtr64(p) ((ଶୂନ୍ୟ *) p)
+#define Ptr64ToPtr(p) ((ଶୂନ୍ୟ *) p)
 #define HandleToHandle64(h) (PtrToPtr64(h))
 #define Handle64ToHandle(h) (Ptr64ToPtr(h))
 
-  static __inline void *Ptr32ToPtr(const void *p) { return (void *)p; }
-  static __inline void *Handle32ToHandle(const void *h) { return((void *) h); }
-  static __inline void *PtrToPtr32(const void *p) { return((void *) (ULONG_PTR) p); }
+  ସ୍ଥିର __inline ଶୂନ୍ୟ *Ptr32ToPtr(ଅଚଳ ଶୂନ୍ୟ *p) { ଫେରନ୍ତୁ (ଶୂନ୍ୟ *)p; }
+  ସ୍ଥିର __inline ଶୂନ୍ୟ *Handle32ToHandle(ଅଚଳ ଶୂନ୍ୟ *h) { ଫେରନ୍ତୁ((ଶୂନ୍ୟ *) h); }
+  ସ୍ଥିର __inline ଶୂନ୍ୟ *PtrToPtr32(ଅଚଳ ଶୂନ୍ୟ *p) { ଫେରନ୍ତୁ((ଶୂନ୍ୟ *) (ULONG_PTR) p); }
 
 #define HandleToHandle32(h) (PtrToPtr32(h))
-#else
+#ଅନ୍ୟଥା
 
 #define ADDRESS_TAG_BIT 0x80000000UL
 
-  typedef unsigned short UHALF_PTR,*PUHALF_PTR;
-  typedef short HALF_PTR,*PHALF_PTR;
-  typedef long SHANDLE_PTR;
-  typedef unsigned long HANDLE_PTR;
+  ପ୍ରକାରବ୍ୟାଖ୍ୟା unsigned short UHALF_PTR,*PUHALF_PTR;
+  ପ୍ରକାରବ୍ୟାଖ୍ୟା short HALF_PTR,*PHALF_PTR;
+  ପ୍ରକାରବ୍ୟାଖ୍ୟା long SHANDLE_PTR;
+  ପ୍ରକାରବ୍ୟାଖ୍ୟା unsigned long HANDLE_PTR;
 
 #define HandleToULong(h) ((ULONG)(ULONG_PTR)(h))
 #define HandleToLong(h) ((LONG)(LONG_PTR) (h))
@@ -101,19 +101,19 @@ extern "C" {
 #define PtrToInt(p) ((INT)(INT_PTR) (p))
 #define PtrToUshort(p) ((unsigned short)(ULONG_PTR)(p))
 #define PtrToShort(p) ((short)(LONG_PTR)(p))
-#define IntToPtr(i) ((VOID *)(INT_PTR)((int)i))
-#define UIntToPtr(ui) ((VOID *)(UINT_PTR)((unsigned int)ui))
+#define IntToPtr(i) ((VOID *)(INT_PTR)((ପୂର୍ଣ୍ଣସଂଖ୍ୟା)i))
+#define UIntToPtr(ui) ((VOID *)(UINT_PTR)((unsigned ପୂର୍ଣ୍ଣସଂଖ୍ୟା)ui))
 #define LongToPtr(l) ((VOID *)(LONG_PTR)((long)l))
 #define ULongToPtr(ul) ((VOID *)(ULONG_PTR)((unsigned long)ul))
 
-  static __inline void *PtrToPtr64(const void *p) { return((void *) (ULONG_PTR)p); }
-  static __inline void *Ptr64ToPtr(const void *p) { return((void *) (ULONG_PTR) p); }
-  static __inline void *HandleToHandle64(const void *h) { return((void *) h); }
-  static __inline void *Handle64ToHandle(const void *h) { return((void *) (ULONG_PTR) h); }
+  ସ୍ଥିର __inline ଶୂନ୍ୟ *PtrToPtr64(ଅଚଳ ଶୂନ୍ୟ *p) { ଫେରନ୍ତୁ((ଶୂନ୍ୟ *) (ULONG_PTR)p); }
+  ସ୍ଥିର __inline ଶୂନ୍ୟ *Ptr64ToPtr(ଅଚଳ ଶୂନ୍ୟ *p) { ଫେରନ୍ତୁ((ଶୂନ୍ୟ *) (ULONG_PTR) p); }
+  ସ୍ଥିର __inline ଶୂନ୍ୟ *HandleToHandle64(ଅଚଳ ଶୂନ୍ୟ *h) { ଫେରନ୍ତୁ((ଶୂନ୍ୟ *) h); }
+  ସ୍ଥିର __inline ଶୂନ୍ୟ *Handle64ToHandle(ଅଚଳ ଶୂନ୍ୟ *h) { ଫେରନ୍ତୁ((ଶୂନ୍ୟ *) (ULONG_PTR) h); }
 
-#define Ptr32ToPtr(p) ((void *) p)
+#define Ptr32ToPtr(p) ((ଶୂନ୍ୟ *) p)
 #define Handle32ToHandle(h) (Ptr32ToPtr(h))
-#define PtrToPtr32(p) ((void *) p)
+#define PtrToPtr32(p) ((ଶୂନ୍ୟ *) p)
 #define HandleToHandle32(h) (PtrToPtr32(h))
 #endif
 
@@ -134,14 +134,14 @@ extern "C" {
 #define MAXHALF_PTR ((HALF_PTR)(MAXUHALF_PTR >> 1))
 #define MINHALF_PTR (~MAXHALF_PTR)
 
-  typedef ULONG_PTR SIZE_T,*PSIZE_T;
-  typedef LONG_PTR SSIZE_T,*PSSIZE_T;
-  typedef ULONG_PTR DWORD_PTR,*PDWORD_PTR;
-  typedef __int64 LONG64,*PLONG64;
-  typedef unsigned __int64 ULONG64,*PULONG64;
-  typedef unsigned __int64 DWORD64,*PDWORD64;
-  typedef ULONG_PTR KAFFINITY;
-  typedef KAFFINITY *PKAFFINITY;
+  ପ୍ରକାରବ୍ୟାଖ୍ୟା ULONG_PTR SIZE_T,*PSIZE_T;
+  ପ୍ରକାରବ୍ୟାଖ୍ୟା LONG_PTR SSIZE_T,*PSSIZE_T;
+  ପ୍ରକାରବ୍ୟାଖ୍ୟା ULONG_PTR DWORD_PTR,*PDWORD_PTR;
+  ପ୍ରକାରବ୍ୟାଖ୍ୟା __int64 LONG64,*PLONG64;
+  ପ୍ରକାରବ୍ୟାଖ୍ୟା unsigned __int64 ULONG64,*PULONG64;
+  ପ୍ରକାରବ୍ୟାଖ୍ୟା unsigned __int64 DWORD64,*PDWORD64;
+  ପ୍ରକାରବ୍ୟାଖ୍ୟା ULONG_PTR KAFFINITY;
+  ପ୍ରକାରବ୍ୟାଖ୍ୟା KAFFINITY *PKAFFINITY;
 
 #ifdef __cplusplus
 }

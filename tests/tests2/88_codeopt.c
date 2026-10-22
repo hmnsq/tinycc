@@ -1,52 +1,52 @@
 /* Check some way in where code suppression caused various
    miscompilations.  */
-extern int printf (const char *, ...);
-typedef __SIZE_TYPE__ size_t;
+ବାହ୍ୟ ପୂର୍ଣ୍ଣସଂଖ୍ୟା printf (ଅଚଳ ଅକ୍ଷର *, ...);
+ପ୍ରକାରବ୍ୟାଖ୍ୟା __SIZE_TYPE__ size_t;
 
 size_t _brk_start, _brk_end;
-void * extend_brk(size_t size, size_t align)
+ଶୂନ୍ୟ * extend_brk(size_t size, size_t align)
 {
     size_t mask = align - 1;
-    void *ret = 0;
+    ଶୂନ୍ୟ *ret = 0;
 
-     do {
-	 if (__builtin_expect(!!(_brk_start == 0), 0))
-	   do {
+     କର {
+	 ଯଦି (__builtin_expect(!!(_brk_start == 0), 0))
+	   କର {
 	       printf("wrong1\n");
-	   } while (0);
-     } while (0);
+	   } ଯେତେବେଳେ (0);
+     } ଯେତେବେଳେ (0);
      _brk_end = (_brk_end + mask) & ~mask;
-     ret = (void *)_brk_end;
+     ret = (ଶୂନ୍ୟ *)_brk_end;
      _brk_end += size;
 
-     return ret;
+     ଫେରନ୍ତୁ ret;
 }
 
-static void get_args (int a, int b)
+ସ୍ଥିର ଶୂନ୍ୟ get_args (ପୂର୍ଣ୍ଣସଂଖ୍ୟା a, ପୂର୍ଣ୍ଣସଂଖ୍ୟା b)
 {
-  if (a != 1)
+  ଯଦି (a != 1)
     printf("wrong2\n");
-  else
+  ଅନ୍ୟଥା
     printf("okay\n");
 }
 
-void bla(void)
+ଶୂନ୍ୟ bla(ଶୂନ୍ୟ)
 {
-  int __ret = 42;
+  ପୂର୍ଣ୍ଣସଂଖ୍ୟା __ret = 42;
   ({
-    if (__builtin_expect(!!(0), 0)) {
-      if (__builtin_expect(!!__ret, 0))
+    ଯଦି (__builtin_expect(!!(0), 0)) {
+      ଯଦି (__builtin_expect(!!__ret, 0))
         printf("wrong3\n");
-      int x = !!(__ret);
+      ପୂର୍ଣ୍ଣସଂଖ୍ୟା x = !!(__ret);
     }
     __ret;
   });
-  get_args(!!__ret, sizeof(__ret));
+  get_args(!!__ret, ଆକାର(__ret));
 }
 
-int ext;
+ପୂର୍ଣ୍ଣସଂଖ୍ୟା ext;
 
-void broken_jumpopt (int xxx)
+ଶୂନ୍ୟ broken_jumpopt (ପୂର୍ଣ୍ଣସଂଖ୍ୟା xxx)
 {
   /* This was broken in 8227db3a2 by code suppression during suppressed
      code :) */
@@ -59,22 +59,22 @@ _Bool chk(unsigned long addr, unsigned long limit, unsigned long size)
   _Bool ret;
   /* This just needs to compile, no runtime test.  (And it doesn't compile
      only with certain internal checking added that's not committed).  */
-  if (0)
+  ଯଦି (0)
     ret = 0 != (!!(addr > limit - size));
-  return 0;
+  ଫେରନ୍ତୁ 0;
 }
 
-int main()
+ପୂର୍ଣ୍ଣସଂଖ୍ୟା ମୁଖ୍ୟ()
 {
-  void *r;
+  ଶୂନ୍ୟ *r;
   _brk_start = 1024;
   _brk_end = 1024;
   r = extend_brk (4096, 16);
-  if (!r)
+  ଯଦି (!r)
     printf("wrong4\n");
-  else
+  ଅନ୍ୟଥା
     printf("okay\n");
   bla();
   broken_jumpopt(42);
-  return 0;
+  ଫେରନ୍ତୁ 0;
 }

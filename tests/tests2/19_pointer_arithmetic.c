@@ -1,28 +1,28 @@
-#include <stdio.h>
+#ଅନ୍ତର୍ଭାଵ <stdio.h>
 
-int main()
+ପୂର୍ଣ୍ଣସଂଖ୍ୟା ମୁଖ୍ୟ()
 {
-   int a;
-   int *b;
-   int *c;
+   ପୂର୍ଣ୍ଣସଂଖ୍ୟା a;
+   ପୂର୍ଣ୍ଣସଂଖ୍ୟା *b;
+   ପୂର୍ଣ୍ଣସଂଖ୍ୟା *c;
 
    a = 42;
    b = &a;
-   c = NULL;
+   c = ଖାଲି;
 
    printf("%d\n", *b);
 
-   if (b == NULL)
+   ଯଦି (b == ଖାଲି)
       printf("b is NULL\n");
-   else
+   ଅନ୍ୟଥା
       printf("b is not NULL\n");
 
-   if (c == NULL)
+   ଯଦି (c == ଖାଲି)
       printf("c is NULL\n");
-   else
+   ଅନ୍ୟଥା
       printf("c is not NULL\n");
 
-   return 0;
+   ଫେରନ୍ତୁ 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

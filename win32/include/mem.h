@@ -9,5 +9,5 @@
  * mem.h maps to string.h
  */
 #ifndef	__STRICT_ANSI__
-#include <string.h>
+#ଅନ୍ତର୍ଭାଵ <string.h>
 #endif

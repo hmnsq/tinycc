@@ -1,19 +1,19 @@
-#include <stdio.h>
+#ଅନ୍ତର୍ଭାଵ <stdio.h>
 
-int main()
+ପୂର୍ଣ୍ଣସଂଖ୍ୟା ମୁଖ୍ୟ()
 {
-    long long int res = 0;
+    long long ପୂର୍ଣ୍ଣସଂଖ୍ୟା res = 0;
 
-    if (res < -2147483648LL) {
+    ଯଦି (res < -2147483648LL) {
         printf("Error: 0 < -2147483648\n");
-        return 1;
+        ଫେରନ୍ତୁ 1;
     }
-    else
-    if (2147483647LL < res) {
+    ଅନ୍ୟଥା
+    ଯଦି (2147483647LL < res) {
         printf("Error: 2147483647 < 0\n");
-        return 2;
+        ଫେରନ୍ତୁ 2;
     }
-    else
+    ଅନ୍ୟଥା
         printf("long long constant test ok.\n");
-    return 0;
+    ଫେରନ୍ତୁ 0;
 }

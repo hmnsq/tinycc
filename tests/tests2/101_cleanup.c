@@ -1,21 +1,21 @@
-extern int printf(const char*, ...);
-static int glob_i = 0;
+ବାହ୍ୟ ପୂର୍ଣ୍ଣସଂଖ୍ୟା printf(ଅଚଳ ଅକ୍ଷର*, ...);
+ସ୍ଥିର ପୂର୍ଣ୍ଣସଂଖ୍ୟା glob_i = 0;
 
-typedef struct { int a; int b; int c; int d; int e; int f; int g; int h; } tstl;
-typedef struct { int a; int b; int c; int d; } tsti;
-typedef struct { double a; double b; } tstd;
-typedef struct { long double a; } tstld;
-typedef struct { int a; double b; } tstm;
-typedef struct { float a; float b; float c; float d; } tstf;
+ପ୍ରକାରବ୍ୟାଖ୍ୟା ସଂରଚନା { ପୂର୍ଣ୍ଣସଂଖ୍ୟା a; ପୂର୍ଣ୍ଣସଂଖ୍ୟା b; ପୂର୍ଣ୍ଣସଂଖ୍ୟା c; ପୂର୍ଣ୍ଣସଂଖ୍ୟା d; ପୂର୍ଣ୍ଣସଂଖ୍ୟା e; ପୂର୍ଣ୍ଣସଂଖ୍ୟା f; ପୂର୍ଣ୍ଣସଂଖ୍ୟା g; ପୂର୍ଣ୍ଣସଂଖ୍ୟା h; } tstl;
+ପ୍ରକାରବ୍ୟାଖ୍ୟା ସଂରଚନା { ପୂର୍ଣ୍ଣସଂଖ୍ୟା a; ପୂର୍ଣ୍ଣସଂଖ୍ୟା b; ପୂର୍ଣ୍ଣସଂଖ୍ୟା c; ପୂର୍ଣ୍ଣସଂଖ୍ୟା d; } tsti;
+ପ୍ରକାରବ୍ୟାଖ୍ୟା ସଂରଚନା { ଦ୍ୱିଗୁଣ a; ଦ୍ୱିଗୁଣ b; } tstd;
+ପ୍ରକାରବ୍ୟାଖ୍ୟା ସଂରଚନା { long ଦ୍ୱିଗୁଣ a; } tstld;
+ପ୍ରକାରବ୍ୟାଖ୍ୟା ସଂରଚନା { ପୂର୍ଣ୍ଣସଂଖ୍ୟା a; ଦ୍ୱିଗୁଣ b; } tstm;
+ପ୍ରକାରବ୍ୟାଖ୍ୟା ସଂରଚନା { ଦଶମିକ a; ଦଶମିକ b; ଦଶମିକ c; ଦଶମିକ d; } tstf;
 
-void incr_glob_i(int *i)
+ଶୂନ୍ୟ incr_glob_i(ପୂର୍ଣ୍ଣସଂଖ୍ୟା *i)
 {
   glob_i += *i;
   *i = -1;
 }
 
 #define INCR_GI {						\
-    int i __attribute__ ((__cleanup__(incr_glob_i))) = 1;	\
+    ପୂର୍ଣ୍ଣସଂଖ୍ୟା i __attribute__ ((__cleanup__(incr_glob_i))) = 1;	\
   }
 
 #define INCR_GI0 INCR_GI INCR_GI INCR_GI INCR_GI
@@ -28,281 +28,281 @@ void incr_glob_i(int *i)
 #define INCR_GI7 INCR_GI6 INCR_GI6 INCR_GI6 INCR_GI6
 
 
-void check2(char **hum);
+ଶୂନ୍ୟ check2(ଅକ୍ଷର **hum);
 
-void check(int *j)
+ଶୂନ୍ୟ check(ପୂର୍ଣ୍ଣସଂଖ୍ୟା *j)
 {
-    char * __attribute__ ((cleanup(check2))) stop_that = "wololo";
-    int chk = 0;
+    ଅକ୍ଷର * __attribute__ ((cleanup(check2))) stop_that = "wololo";
+    ପୂର୍ଣ୍ଣସଂଖ୍ୟା chk = 0;
 
     {
-	char * __attribute__ ((cleanup(check2))) stop_that = "plop";
+	ଅକ୍ଷର * __attribute__ ((cleanup(check2))) stop_that = "plop";
 
 	{
 	  non_plopage:
 	    printf("---- %d\n", chk);
 	}
-	if (!chk) {
+	ଯଦି (!chk) {
 	    chk = 1;
-	    goto non_plopage;
+	    ଯାଅ non_plopage;
 	}
     }
 
     {
-	char * __attribute__ ((cleanup(check2))) stop_that = "tata !";
+	ଅକ୍ଷର * __attribute__ ((cleanup(check2))) stop_that = "tata !";
 
-	goto out;
+	ଯାଅ out;
 	stop_that = "titi";
     }
   again:
     chk = 2;
     {
-	char * __attribute__ ((cleanup(check2))) cascade1 = "1";
+	ଅକ୍ଷର * __attribute__ ((cleanup(check2))) cascade1 = "1";
 	{
-	    char * __attribute__ ((cleanup(check2))) cascade2 = "2";
+	    ଅକ୍ଷର * __attribute__ ((cleanup(check2))) cascade2 = "2";
 	    {
-		char * __attribute__ ((cleanup(check2))) cascade3 = "3";
+		ଅକ୍ଷର * __attribute__ ((cleanup(check2))) cascade3 = "3";
 
-		goto out;
+		ଯାଅ out;
 		cascade3 = "nope";
 	    }
 	}
     }
   out:
-    if (chk != 2)
-	goto again;
+    ଯଦି (chk != 2)
+	ଯାଅ again;
     {
 	{
-	    char * __attribute__ ((cleanup(check2))) out = "last goto out";
+	    ଅକ୍ଷର * __attribute__ ((cleanup(check2))) out = "last goto out";
 	    ++chk;
-	    if (chk != 3)
-		goto out;
+	    ଯଦି (chk != 3)
+		ଯାଅ out;
 	}
     }
     *j = -1;
-    return;
+    ଫେରନ୍ତୁ;
 }
 
-void check_oh_i(char *oh_i)
+ଶୂନ୍ୟ check_oh_i(ଅକ୍ଷର *oh_i)
 {
     printf("c: %c\n", *oh_i);
     *oh_i = '0';
 }
 
-void goto_hell(double *f)
+ଶୂନ୍ୟ goto_hell(ଦ୍ୱିଗୁଣ *f)
 {
     printf("oo: %f\n", *f);
     *f = -1.0;
 }
 
-char *test()
+ଅକ୍ଷର *test()
 {
-    char *__attribute__ ((cleanup(check2))) str = "I don't think this should be print(but gcc got it wrong too)";
+    ଅକ୍ଷର *__attribute__ ((cleanup(check2))) str = "I don't think this should be print(but gcc got it wrong too)";
 
-    return str;
+    ଫେରନ୍ତୁ str;
 }
 
-void test_ret_subcall(char *that)
+ଶୂନ୍ୟ test_ret_subcall(ଅକ୍ଷର *that)
 {
     printf("should be print before\n");
 }
 
-void test_ret()
+ଶୂନ୍ୟ test_ret()
 {
-    char *__attribute__ ((cleanup(check2))) that = "that";
-    return test_ret_subcall(that);
+    ଅକ୍ଷର *__attribute__ ((cleanup(check2))) that = "that";
+    ଫେରନ୍ତୁ test_ret_subcall(that);
 }
 
-void test_ret2()
+ଶୂନ୍ୟ test_ret2()
 {
-  char *__attribute__ ((cleanup(check2))) that = "-that";
+  ଅକ୍ଷର *__attribute__ ((cleanup(check2))) that = "-that";
   {
-    char *__attribute__ ((cleanup(check2))) that = "this should appear only once";
+    ଅକ୍ଷର *__attribute__ ((cleanup(check2))) that = "this should appear only once";
   }
   {
-    char *__attribute__ ((cleanup(check2))) that = "-that2";
-    return;
+    ଅକ୍ଷର *__attribute__ ((cleanup(check2))) that = "-that2";
+    ଫେରନ୍ତୁ;
   }
 }
 
-void test2(void) {
-    int chk = 0;
+ଶୂନ୍ୟ test2(ଶୂନ୍ୟ) {
+    ପୂର୍ଣ୍ଣସଂଖ୍ୟା chk = 0;
 again:
-    if (!chk) {
-        char * __attribute__ ((cleanup(check2))) stop_that = "test2";
+    ଯଦି (!chk) {
+        ଅକ୍ଷର * __attribute__ ((cleanup(check2))) stop_that = "test2";
         chk++;
-        goto again;
+        ଯାଅ again;
     }
 }
 
-int test3(void) {
-    char * __attribute__ ((cleanup(check2))) stop_that = "three";
-    int chk = 0;
+ପୂର୍ଣ୍ଣସଂଖ୍ୟା test3(ଶୂନ୍ୟ) {
+    ଅକ୍ଷର * __attribute__ ((cleanup(check2))) stop_that = "three";
+    ପୂର୍ଣ୍ଣସଂଖ୍ୟା chk = 0;
 
-    if (chk) {
+    ଯଦି (chk) {
         {
           outside:
 	    {
-            char * __attribute__ ((cleanup(check2))) stop_that = "two";
+            ଅକ୍ଷର * __attribute__ ((cleanup(check2))) stop_that = "two";
             printf("---- %d\n", chk);
 	    }
         }
     }
-    if (!chk)
+    ଯଦି (!chk)
     {
-        char * __attribute__ ((cleanup(check2))) stop_that = "one";
+        ଅକ୍ଷର * __attribute__ ((cleanup(check2))) stop_that = "one";
 
-        if (!chk) {
+        ଯଦି (!chk) {
             chk = 1;
-            goto outside;
+            ଯାଅ outside;
         }
     }
-    return 0;
+    ଫେରନ୍ତୁ 0;
 }
 
-void cl(int *ip)
+ଶୂନ୍ୟ cl(ପୂର୍ଣ୍ଣସଂଖ୍ୟା *ip)
 {
     printf("%d\n", *ip);
     *ip = -1;
 }
 
-void loop_cleanups(void)
+ଶୂନ୍ୟ loop_cleanups(ଶୂନ୍ୟ)
 {
-    __attribute__((cleanup(cl))) int l = 1000;
+    __attribute__((cleanup(cl))) ପୂର୍ଣ୍ଣସଂଖ୍ୟା l = 1000;
 
     printf("-- loop 0 --\n");
-    for ( __attribute__((cleanup(cl))) int i = 0; i < 10; ++i) {
-        __attribute__((cleanup(cl))) int j = 100;
+    ପାଇଁ ( __attribute__((cleanup(cl))) ପୂର୍ଣ୍ଣସଂଖ୍ୟା i = 0; i < 10; ++i) {
+        __attribute__((cleanup(cl))) ପୂର୍ଣ୍ଣସଂଖ୍ୟା j = 100;
     }
 
     printf("-- loop 1 --\n");
-    for (__attribute__((cleanup(cl))) int i = 0; i < 10; ++i) {
-        __attribute__((cleanup(cl)))  int j = 200;
-        continue;
+    ପାଇଁ (__attribute__((cleanup(cl))) ପୂର୍ଣ୍ଣସଂଖ୍ୟା i = 0; i < 10; ++i) {
+        __attribute__((cleanup(cl)))  ପୂର୍ଣ୍ଣସଂଖ୍ୟା j = 200;
+        ଜାରି;
     }
 
     printf("-- loop 2 --\n");
-    for (__attribute__((cleanup(cl))) int i = 0; i < 10; ++i) {
-        __attribute__((cleanup(cl))) int j = 300;
-        break;
+    ପାଇଁ (__attribute__((cleanup(cl))) ପୂର୍ଣ୍ଣସଂଖ୍ୟା i = 0; i < 10; ++i) {
+        __attribute__((cleanup(cl))) ପୂର୍ଣ୍ଣସଂଖ୍ୟା j = 300;
+        ଭାଙ୍ଗ;
     }
 
     printf("-- loop 3 --\n");
-    for (int i = 0; i < 2; ++i) {
-	__attribute__((cleanup(cl))) int j = 400;
-	switch (i) {
-	case 0:
-	    continue;
-	default:
+    ପାଇଁ (ପୂର୍ଣ୍ଣସଂଖ୍ୟା i = 0; i < 2; ++i) {
+	__attribute__((cleanup(cl))) ପୂର୍ଣ୍ଣସଂଖ୍ୟା j = 400;
+	ବାଛ (i) {
+	ସ୍ଥିତି 0:
+	    ଜାରି;
+	ପୂର୍ବନିର୍ଦ୍ଧାରିତ:
 	{
-	    __attribute__((cleanup(cl))) int jj = 500;
-	    break;
+	    __attribute__((cleanup(cl))) ପୂର୍ଣ୍ଣସଂଖ୍ୟା jj = 500;
+	    ଭାଙ୍ଗ;
 	}
 	}
     }
     printf("after break\n");
 }
 
-void my_cleanup1(int *p) {
+ଶୂନ୍ୟ my_cleanup1(ପୂର୍ଣ୍ଣସଂଖ୍ୟା *p) {
     printf("%d\n", *p);
     *p = 0x90;
 }
 
-int test_cleanup1(void) {
-    int __attribute__((cleanup(my_cleanup1))) n = 42;
-    return n;
+ପୂର୍ଣ୍ଣସଂଖ୍ୟା test_cleanup1(ଶୂନ୍ୟ) {
+    ପୂର୍ଣ୍ଣସଂଖ୍ୟା __attribute__((cleanup(my_cleanup1))) n = 42;
+    ଫେରନ୍ତୁ n;
 }
 
-void my_cleanup2(tstl *p) {
+ଶୂନ୍ୟ my_cleanup2(tstl *p) {
     printf("%d %d %d %d %d %d %d %d\n", p->a, p->b, p->c, p->d,
 			                p->e, p->f, p->g, p->h);
     p->a = 0x90; p->b = 0x91; p->c = 0x92; p->d = 0x93;
     p->e = 0x94; p->f = 0x95; p->g = 0x96; p->h = 0x97;
 }
 
-tstl test_cleanup2(void) {
+tstl test_cleanup2(ଶୂନ୍ୟ) {
     tstl __attribute__((cleanup(my_cleanup2))) n;
     n.a = 42; n.b = 43; n.c = 44; n.d = 45;
     n.e = 46; n.f = 47; n.g = 48; n.h = 49;
-    return n;
+    ଫେରନ୍ତୁ n;
 }
 
-void my_cleanup3(tsti *p) {
+ଶୂନ୍ୟ my_cleanup3(tsti *p) {
     printf("%d %d %d %d\n", p->a, p->b, p->c, p->d);
     p->a = 0x90; p->b = 0x91; p->c = 0x92; p->d = 0x93;
 }
 
-tsti test_cleanup3(void) {
+tsti test_cleanup3(ଶୂନ୍ୟ) {
     tsti __attribute__((cleanup(my_cleanup3))) n;
     n.a = 42; n.b = 43; n.c = 44; n.d = 45;
-    return n;
+    ଫେରନ୍ତୁ n;
 }
 
-void my_cleanup4(tstd *p) {
+ଶୂନ୍ୟ my_cleanup4(tstd *p) {
     printf("%g %g\n", p->a, p->b);
     p->a = 90.0; p->b = 91.0;
 }
 
-tstd test_cleanup4(void) {
+tstd test_cleanup4(ଶୂନ୍ୟ) {
     tstd __attribute__((cleanup(my_cleanup4))) n;
     n.a = 42.0; n.b = 43.0;
-    return n;
+    ଫେରନ୍ତୁ n;
 }
 
-void my_cleanup5(tstld *p) {
+ଶୂନ୍ୟ my_cleanup5(tstld *p) {
     printf("%Lf\n", p->a);
     p->a = 90.0;
 }
 
-tstld test_cleanup5(void) {
+tstld test_cleanup5(ଶୂନ୍ୟ) {
     tstld __attribute__((cleanup(my_cleanup5))) n;
     n.a = 42.0;
-    return n;
+    ଫେରନ୍ତୁ n;
 }
 
-void my_cleanup6(tstm *p) {
+ଶୂନ୍ୟ my_cleanup6(tstm *p) {
     printf("%d %g\n", p->a, p->b);
     p->a = 90;
     p->b = 91.0;
 }
 
-tstm test_cleanup6(void) {
+tstm test_cleanup6(ଶୂନ୍ୟ) {
     tstm __attribute__((cleanup(my_cleanup6))) n;
     n.a = 42;
     n.b = 43.0;
-    return n;
+    ଫେରନ୍ତୁ n;
 }
 
-void my_cleanup7(tstf *p) {
+ଶୂନ୍ୟ my_cleanup7(tstf *p) {
     printf("%f %f %f %f\n", p->a, p->b, p->c, p->d);
     p->a = 0x90; p->b = 0x91; p->c = 0x92; p->d = 0x93;
 }
 
-tstf test_cleanup7(void) {
+tstf test_cleanup7(ଶୂନ୍ୟ) {
     tstf __attribute__((cleanup(my_cleanup7))) n;
     n.a = 42; n.b = 43; n.c = 44; n.d = 45;
-    return n;
+    ଫେରନ୍ତୁ n;
 }
 
-void my_cleanup8(int **p) {
+ଶୂନ୍ୟ my_cleanup8(ପୂର୍ଣ୍ଣସଂଖ୍ୟା **p) {
     **p = 0x90;
 }
 
-int test_cleanup8(void) {
-    int n = 42;
-    int __attribute__((cleanup(my_cleanup8))) *p = &n;
-    return n;
+ପୂର୍ଣ୍ଣସଂଖ୍ୟା test_cleanup8(ଶୂନ୍ୟ) {
+    ପୂର୍ଣ୍ଣସଂଖ୍ୟା n = 42;
+    ପୂର୍ଣ୍ଣସଂଖ୍ୟା __attribute__((cleanup(my_cleanup8))) *p = &n;
+    ଫେରନ୍ତୁ n;
 }
 
-static void my_cleanupe(int *p) {
+ସ୍ଥିର ଶୂନ୍ୟ my_cleanupe(ପୂର୍ଣ୍ଣସଂଖ୍ୟା *p) {
     *p = 0x90;
 }
 
-int main()
+ପୂର୍ଣ୍ଣସଂଖ୍ୟା ମୁଖ୍ୟ()
 {
-    int i __attribute__ ((__cleanup__(check))) = 0, not_i;
-    int chk = 0;
-    (void)not_i;
+    ପୂର୍ଣ୍ଣସଂଖ୍ୟା i __attribute__ ((__cleanup__(check))) = 0, not_i;
+    ପୂର୍ଣ୍ଣସଂଖ୍ୟା chk = 0;
+    (ଶୂନ୍ୟ)not_i;
     tstl tl;
     tsti ti;
     tstd td;
@@ -311,18 +311,18 @@ int main()
     tstf tf;
 
     {
-	__attribute__ ((__cleanup__(check_oh_i))) char oh_i = 'o', o = 'a';
+	__attribute__ ((__cleanup__(check_oh_i))) ଅକ୍ଷର oh_i = 'o', o = 'a';
     }
 
     INCR_GI7;
     printf("glob_i: %d\n", glob_i);
  naaaaaaaa:
-    if (!chk) {
-	__attribute__ ((__cleanup__(check_oh_i))) char oh_i = 'f';
-	double __attribute__ ((__cleanup__(goto_hell))) f = 2.6;
+    ଯଦି (!chk) {
+	__attribute__ ((__cleanup__(check_oh_i))) ଅକ୍ଷର oh_i = 'f';
+	ଦ୍ୱିଗୁଣ __attribute__ ((__cleanup__(goto_hell))) f = 2.6;
 
 	chk = 1;
-	goto naaaaaaaa;
+	ଯାଅ naaaaaaaa;
     }
     i = 105;
     printf("because what if free was call inside cleanup function %s\n", test());
@@ -347,12 +347,12 @@ int main()
     printf("%f %f %f %f\n", tf.a, tf.b, tf.c, tf.d);
     printf("%d\n", test_cleanup8());
     printf("%d\n", ({
-            int __attribute__ ((cleanup(my_cleanupe))) n = 42;
+            ପୂର୍ଣ୍ଣସଂଖ୍ୟା __attribute__ ((cleanup(my_cleanupe))) n = 42;
             n; }));
-    return i;
+    ଫେରନ୍ତୁ i;
 }
 
-void check2(char **hum)
+ଶୂନ୍ୟ check2(ଅକ୍ଷର **hum)
 {
     printf("str: %s\n", *hum);
     *hum = "fail";

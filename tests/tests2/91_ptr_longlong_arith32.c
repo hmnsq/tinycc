@@ -1,9 +1,9 @@
-int printf(const char *, ...);
-char t[] = "012345678";
+ପୂର୍ଣ୍ଣସଂଖ୍ୟା printf(ଅଚଳ ଅକ୍ଷର *, ...);
+ଅକ୍ଷର t[] = "012345678";
 
-int main(void)
+ପୂର୍ଣ୍ଣସଂଖ୍ୟା ମୁଖ୍ୟ(ଶୂନ୍ୟ)
 {
-    char *data = t;
+    ଅକ୍ଷର *data = t;
     unsigned long long r = 4;
     unsigned a = 5;
     unsigned long long b = 12;
@@ -11,5 +11,5 @@ int main(void)
     *(unsigned*)(data + r) += a - b;
 
     printf("data = \"%s\"\n", data);
-    return 0;
+    ଫେରନ୍ତୁ 0;
 }

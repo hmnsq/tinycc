@@ -1,72 +1,72 @@
-#include <stdio.h>
-#include "threads.h"
+#ଅନ୍ତର୍ଭାଵ <stdio.h>
+#ଅନ୍ତର୍ଭାଵ "threads.h"
 
-#if __SIZEOF_POINTER__ == 8
+#ଯଦି __SIZEOF_POINTER__ == 8
 # define pFMT "0x%llx"
-#else
+#ଅନ୍ୟଥା
 # define pFMT "0x%x"
 #endif
 
-#define	CHECK(var,fmt,val)	printf(fmt "\n",var); if (var != val) errors = 1
+#define	CHECK(var,fmt,val)	printf(fmt "\n",var); ଯଦି (var != val) errors = 1
 
-typedef enum { tls_a, tls_b, tls_c } tls_enum_type;
-typedef struct { int tls_d, tls_e, tls_f; } tls_struct_type;
+ପ୍ରକାରବ୍ୟାଖ୍ୟା ଗଣନା { tls_a, tls_b, tls_c } tls_enum_type;
+ପ୍ରକାରବ୍ୟାଖ୍ୟା ସଂରଚନା { ପୂର୍ଣ୍ଣସଂଖ୍ୟା tls_d, tls_e, tls_f; } tls_struct_type;
 
-typedef struct {
-    int *init;
+ପ୍ରକାରବ୍ୟାଖ୍ୟା ସଂରଚନା {
+    ପୂର୍ଣ୍ଣସଂଖ୍ୟା *init;
     signed short *element;
 } tls_address_type;
 
-__thread char tls_char = 42;
+__thread ଅକ୍ଷର tls_char = 42;
 __thread short tls_short = 43;
-__thread int tls_init = 44;
+__thread ପୂର୍ଣ୍ଣସଂଖ୍ୟା tls_init = 44;
 __thread long long tls_long_long = 45;
-__thread int tls_zero;
-__thread float tls_float = 46.0;
-__thread double tls_double = 47.0;
-__thread long double tls_long_double = 48.0;
-__thread int *tls_ptr = (int *)49;
+__thread ପୂର୍ଣ୍ଣସଂଖ୍ୟା tls_zero;
+__thread ଦଶମିକ tls_float = 46.0;
+__thread ଦ୍ୱିଗୁଣ tls_double = 47.0;
+__thread long ଦ୍ୱିଗୁଣ tls_long_double = 48.0;
+__thread ପୂର୍ଣ୍ଣସଂଖ୍ୟା *tls_ptr = (ପୂର୍ଣ୍ଣସଂଖ୍ୟା *)49;
 __thread tls_enum_type tls_enum = tls_b;
 __thread tls_struct_type tls_struct = { 50, 51, 52 };
-__thread signed char tls_signed_char = -5;
-__thread unsigned char tls_unsigned_char = 250;
+__thread signed ଅକ୍ଷର tls_signed_char = -5;
+__thread unsigned ଅକ୍ଷର tls_unsigned_char = 250;
 __thread signed short tls_signed_short = -1234;
 __thread unsigned short tls_unsigned_short = 60000;
 __thread signed short tls_array[4] = { -1000, 2000, -3000, 4000 };
 
-#if defined __riscv && __riscv_xlen == 64
-typedef struct {
-    char padding[4096];
-    int value;
+#ଯଦି defined __riscv && __riscv_xlen == 64
+ପ୍ରକାରବ୍ୟାଖ୍ୟା ସଂରଚନା {
+    ଅକ୍ଷର padding[4096];
+    ପୂର୍ଣ୍ଣସଂଖ୍ୟା ମୂଲ୍ୟ;
 } tls_large_type;
 
 __thread tls_large_type tls_large = { { 0 }, 123456 };
 #endif
 
-static int check_extra(int changed)
+ସ୍ଥିର ପୂର୍ଣ୍ଣସଂଖ୍ୟା check_extra(ପୂର୍ଣ୍ଣସଂଖ୍ୟା changed)
 {
-    volatile int index = 2;
+    ଅସ୍ଥିର ପୂର୍ଣ୍ଣସଂଖ୍ୟା index = 2;
 
-    if (changed)
-        return tls_signed_char != -7 || tls_unsigned_char != 42
+    ଯଦି (changed)
+        ଫେରନ୍ତୁ tls_signed_char != -7 || tls_unsigned_char != 42
             || tls_signed_short != -2222 || tls_unsigned_short != 12345
             || tls_array[1] != 2222 || tls_array[index] != -3333;
 
-    if (tls_signed_char != -5 || tls_unsigned_char != 250
+    ଯଦି (tls_signed_char != -5 || tls_unsigned_char != 250
         || tls_signed_short != -1234 || tls_unsigned_short != 60000
         || tls_array[1] != 2000 || tls_array[index] != -3000)
-        return 1;
+        ଫେରନ୍ତୁ 1;
 
-#if defined __riscv && __riscv_xlen == 64
-    if (tls_large.value != 123456)
-        return 1;
+#ଯଦି defined __riscv && __riscv_xlen == 64
+    ଯଦି (tls_large.ମୂଲ୍ୟ != 123456)
+        ଫେରନ୍ତୁ 1;
 #endif
-    return 0;
+    ଫେରନ୍ତୁ 0;
 }
 
-static int check(void)
+ସ୍ଥିର ପୂର୍ଣ୍ଣସଂଖ୍ୟା check(ଶୂନ୍ୟ)
 {
-    int errors = 0;
+    ପୂର୍ଣ୍ଣସଂଖ୍ୟା errors = 0;
 
     CHECK(tls_char, "%d", 42);
     CHECK(tls_short, "%d", 43);
@@ -76,23 +76,23 @@ static int check(void)
     CHECK(tls_float, "%g", 46.0);
     CHECK(tls_double, "%g", 47.0);
     CHECK(tls_long_double, "%Lg", 48.0);
-    CHECK(tls_ptr, pFMT, (int *)49);
+    CHECK(tls_ptr, pFMT, (ପୂର୍ଣ୍ଣସଂଖ୍ୟା *)49);
     CHECK(tls_enum, "%d", tls_b);
     CHECK(tls_struct.tls_d, "%d", 50);
     CHECK(tls_struct.tls_e, "%d", 51);
     CHECK(tls_struct.tls_f, "%d", 52);
-    return errors;
+    ଫେରନ୍ତୁ errors;
 }
 
-static void *thread_func(void *arg)
+ସ୍ଥିର ଶୂନ୍ୟ *thread_func(ଶୂନ୍ୟ *arg)
 {
     tls_address_type *main_addresses = arg;
-    int *init_address = &tls_init;
+    ପୂର୍ଣ୍ଣସଂଖ୍ୟା *init_address = &tls_init;
     signed short *element_address = &tls_array[1];
-    volatile int index = 2;
+    ଅସ୍ଥିର ପୂର୍ଣ୍ଣସଂଖ୍ୟା index = 2;
     long errors = check();
 
-    if (init_address == main_addresses->init
+    ଯଦି (init_address == main_addresses->init
         || element_address == main_addresses->element
         || *init_address != 44 || *element_address != 2000
         || tls_array[index] != -3000 || check_extra(0))
@@ -106,7 +106,7 @@ static void *thread_func(void *arg)
     tls_float = 60.0;
     tls_double = 70.0;
     tls_long_double = 80.0;
-    tls_ptr = (int *)90;
+    tls_ptr = (ପୂର୍ଣ୍ଣସଂଖ୍ୟା *)90;
     tls_enum = tls_c;
     tls_struct.tls_d = 100;
     tls_struct.tls_e = 110;
@@ -127,37 +127,37 @@ static void *thread_func(void *arg)
     CHECK(tls_double, "%g", 70.0);
     CHECK(tls_long_double, "%Lg", 80.0);
     CHECK(tls_enum, "%d", tls_c);
-    CHECK(tls_ptr, pFMT, (int *)90);
+    CHECK(tls_ptr, pFMT, (ପୂର୍ଣ୍ଣସଂଖ୍ୟା *)90);
     CHECK(tls_struct.tls_d, "%d", 100);
     CHECK(tls_struct.tls_e, "%d", 110);
     CHECK(tls_struct.tls_f, "%d", 120);
 
-    if (*init_address != 30 || *element_address != 2222
+    ଯଦି (*init_address != 30 || *element_address != 2222
         || tls_array[index] != -3333 || check_extra(1))
         errors = 1;
 
-    return (void *)(size_t)errors;
+    ଫେରନ୍ତୁ (ଶୂନ୍ୟ *)(size_t)errors;
 }
 
-int main()
+ପୂର୍ଣ୍ଣସଂଖ୍ୟା ମୁଖ୍ୟ()
 {
     pthread_t t;
-    void *ret;
-    int errors = check();
+    ଶୂନ୍ୟ *ret;
+    ପୂର୍ଣ୍ଣସଂଖ୍ୟା errors = check();
     tls_address_type addresses = { &tls_init, &tls_array[1] };
 
-    if (*addresses.init != 44 || *addresses.element != 2000
+    ଯଦି (*addresses.init != 44 || *addresses.element != 2000
         || check_extra(0))
         errors = 1;
 
-    pthread_create(&t, NULL, thread_func, &addresses);
+    pthread_create(&t, ଖାଲି, thread_func, &addresses);
     pthread_join(t, &ret);
 
     errors |= (ret ? 1 : 0) | check();
-    if (*addresses.init != 44 || *addresses.element != 2000
+    ଯଦି (*addresses.init != 44 || *addresses.element != 2000
         || check_extra(0))
         errors = 1;
 
     printf("errors: %d\n", errors);
-    return errors;
+    ଫେରନ୍ତୁ errors;
 }

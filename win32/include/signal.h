@@ -6,15 +6,15 @@
 #ifndef _INC_SIGNAL
 #define _INC_SIGNAL
 
-#include <_mingw.h>
+#ଅନ୍ତର୍ଭାଵ <_mingw.h>
 
 #ifdef __cplusplus
-extern "C" {
+ବାହ୍ୟ "C" {
 #endif
 
 #ifndef _SIG_ATOMIC_T_DEFINED
 #define _SIG_ATOMIC_T_DEFINED
-  typedef int sig_atomic_t;
+  ପ୍ରକାରବ୍ୟାଖ୍ୟା ପୂର୍ଣ୍ଣସଂଖ୍ୟା sig_atomic_t;
 #endif
 
 #define NSIG 23
@@ -42,7 +42,7 @@ extern "C" {
 
 #define SIGABRT_COMPAT 6
 
-  typedef	void (*__p_sig_fn_t)(int);
+  ପ୍ରକାରବ୍ୟାଖ୍ୟା	ଶୂନ୍ୟ (*__p_sig_fn_t)(ପୂର୍ଣ୍ଣସଂଖ୍ୟା);
 
 #define SIG_DFL (__p_sig_fn_t)0
 #define SIG_IGN (__p_sig_fn_t)1
@@ -51,11 +51,11 @@ extern "C" {
 #define SIG_ACK (__p_sig_fn_t)4
 #define SIG_ERR (__p_sig_fn_t)-1
 
-  extern void **__cdecl __pxcptinfoptrs(void);
+  ବାହ୍ୟ ଶୂନ୍ୟ **__cdecl __pxcptinfoptrs(ଶୂନ୍ୟ);
 #define _pxcptinfoptrs (*__pxcptinfoptrs())
 
-  __p_sig_fn_t __cdecl signal(int _SigNum,__p_sig_fn_t _Func);
-  int __cdecl raise(int _SigNum);
+  __p_sig_fn_t __cdecl ସଙ୍କେତ(ପୂର୍ଣ୍ଣସଂଖ୍ୟା Sig_ଅଙ୍କ_2,__p_sig_fn_t _Func);
+  ପୂର୍ଣ୍ଣସଂଖ୍ୟା __cdecl ଉଠାଅ(ପୂର୍ଣ୍ଣସଂଖ୍ୟା Sig_ଅଙ୍କ_2);
 
 #ifdef __cplusplus
 }

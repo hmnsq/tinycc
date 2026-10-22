@@ -1,55 +1,55 @@
 /* The following are all valid decls, even though some subtypes
    are incomplete.  */
-enum E *e;
-const enum E *e1;
-enum E const *e2;
-struct S *s;
-const struct S *s1;
-struct S const *s2;
+ଗଣନା E *e;
+ଅଚଳ ଗଣନା E *e1;
+ଗଣନା E ଅଚଳ *e2;
+ସଂରଚନା S *s;
+ଅଚଳ ସଂରଚନା S *s1;
+ସଂରଚନା S ଅଚଳ *s2;
 
 /* Various strangely looking declarators, which are all valid
    and have to map to the same numbered typedefs. */
-typedef int (*fptr1)();
-int f1 (int (), int);
-typedef int (*fptr2)(int x);
-int f2 (int (int x), int);
-typedef int (*fptr3)(int);
-int f3 (int (int), int);
-typedef int (*fptr4[4])(int);
-int f4 (int (*[4])(int), int);
-typedef int (*fptr5)(fptr1);
-int f5 (int (int()), fptr1);
-int f1 (fptr1 fp, int i)
+ପ୍ରକାରବ୍ୟାଖ୍ୟା ପୂର୍ଣ୍ଣସଂଖ୍ୟା (*fptr1)();
+ପୂର୍ଣ୍ଣସଂଖ୍ୟା f1 (ପୂର୍ଣ୍ଣସଂଖ୍ୟା (), ପୂର୍ଣ୍ଣସଂଖ୍ୟା);
+ପ୍ରକାରବ୍ୟାଖ୍ୟା ପୂର୍ଣ୍ଣସଂଖ୍ୟା (*fptr2)(ପୂର୍ଣ୍ଣସଂଖ୍ୟା x);
+ପୂର୍ଣ୍ଣସଂଖ୍ୟା f2 (ପୂର୍ଣ୍ଣସଂଖ୍ୟା (ପୂର୍ଣ୍ଣସଂଖ୍ୟା x), ପୂର୍ଣ୍ଣସଂଖ୍ୟା);
+ପ୍ରକାରବ୍ୟାଖ୍ୟା ପୂର୍ଣ୍ଣସଂଖ୍ୟା (*fptr3)(ପୂର୍ଣ୍ଣସଂଖ୍ୟା);
+ପୂର୍ଣ୍ଣସଂଖ୍ୟା f3 (ପୂର୍ଣ୍ଣସଂଖ୍ୟା (ପୂର୍ଣ୍ଣସଂଖ୍ୟା), ପୂର୍ଣ୍ଣସଂଖ୍ୟା);
+ପ୍ରକାରବ୍ୟାଖ୍ୟା ପୂର୍ଣ୍ଣସଂଖ୍ୟା (*fptr4[4])(ପୂର୍ଣ୍ଣସଂଖ୍ୟା);
+ପୂର୍ଣ୍ଣସଂଖ୍ୟା f4 (ପୂର୍ଣ୍ଣସଂଖ୍ୟା (*[4])(ପୂର୍ଣ୍ଣସଂଖ୍ୟା), ପୂର୍ଣ୍ଣସଂଖ୍ୟା);
+ପ୍ରକାରବ୍ୟାଖ୍ୟା ପୂର୍ଣ୍ଣସଂଖ୍ୟା (*fptr5)(fptr1);
+ପୂର୍ଣ୍ଣସଂଖ୍ୟା f5 (ପୂର୍ଣ୍ଣସଂଖ୍ୟା (ପୂର୍ଣ୍ଣସଂଖ୍ୟା()), fptr1);
+ପୂର୍ଣ୍ଣସଂଖ୍ୟା f1 (fptr1 fp, ପୂର୍ଣ୍ଣସଂଖ୍ୟା i)
 {
-  return (*fp)(i);
+  ଫେରନ୍ତୁ (*fp)(i);
 }
-int f2 (fptr2 fp, int i)
+ପୂର୍ଣ୍ଣସଂଖ୍ୟା f2 (fptr2 fp, ପୂର୍ଣ୍ଣସଂଖ୍ୟା i)
 {
-  return (*fp)(i);
+  ଫେରନ୍ତୁ (*fp)(i);
 }
-int f3 (fptr3 fp, int i)
+ପୂର୍ଣ୍ଣସଂଖ୍ୟା f3 (fptr3 fp, ପୂର୍ଣ୍ଣସଂଖ୍ୟା i)
 {
-  return (*fp)(i);
+  ଫେରନ୍ତୁ (*fp)(i);
 }
-int f4 (fptr4 fp, int i)
+ପୂର୍ଣ୍ଣସଂଖ୍ୟା f4 (fptr4 fp, ପୂର୍ଣ୍ଣସଂଖ୍ୟା i)
 {
-  return (*fp[i])(i);
+  ଫେରନ୍ତୁ (*fp[i])(i);
 }
-int f5 (fptr5 fp, fptr1 i)
+ପୂର୍ଣ୍ଣସଂଖ୍ୟା f5 (fptr5 fp, fptr1 i)
 {
-  return fp(i);
+  ଫେରନ୍ତୁ fp(i);
 }
-typedef int intx4[4];
-int f8 (intx4, int);
-int f8 (int ([4]), int);
-int f8 (int y[4], int i)
+ପ୍ରକାରବ୍ୟାଖ୍ୟା ପୂର୍ଣ୍ଣସଂଖ୍ୟା intx4[4];
+ପୂର୍ଣ୍ଣସଂଖ୍ୟା f8 (intx4, ପୂର୍ଣ୍ଣସଂଖ୍ୟା);
+ପୂର୍ଣ୍ଣସଂଖ୍ୟା f8 (ପୂର୍ଣ୍ଣସଂଖ୍ୟା ([4]), ପୂର୍ଣ୍ଣସଂଖ୍ୟା);
+ପୂର୍ଣ୍ଣସଂଖ୍ୟା f8 (ପୂର୍ଣ୍ଣସଂଖ୍ୟା y[4], ପୂର୍ଣ୍ଣସଂଖ୍ୟା i)
 {
-  return y[i];
+  ଫେରନ୍ତୁ y[i];
 }
-int f9 (int (*)(int), int);
-int f9 (int ((int)), int);
-int f9 (int f(int), int i)
+ପୂର୍ଣ୍ଣସଂଖ୍ୟା f9 (ପୂର୍ଣ୍ଣସଂଖ୍ୟା (*)(ପୂର୍ଣ୍ଣସଂଖ୍ୟା), ପୂର୍ଣ୍ଣସଂଖ୍ୟା);
+ପୂର୍ଣ୍ଣସଂଖ୍ୟା f9 (ପୂର୍ଣ୍ଣସଂଖ୍ୟା ((ପୂର୍ଣ୍ଣସଂଖ୍ୟା)), ପୂର୍ଣ୍ଣସଂଖ୍ୟା);
+ପୂର୍ଣ୍ଣସଂଖ୍ୟା f9 (ପୂର୍ଣ୍ଣସଂଖ୍ୟା f(ପୂର୍ଣ୍ଣସଂଖ୍ୟା), ପୂର୍ଣ୍ଣସଂଖ୍ୟା i)
 {
-  return f(i);
+  ଫେରନ୍ତୁ f(i);
 }
-int main () { return 0; }
+ପୂର୍ଣ୍ଣସଂଖ୍ୟା ମୁଖ୍ୟ () { ଫେରନ୍ତୁ 0; }

@@ -1,28 +1,28 @@
-#include <stdio.h>
-#include <string.h>
-#include <setjmp.h>
-#if !defined(_WIN32)
-#include <pthread.h>
-#else
-#include <windows.h>
+#ଅନ୍ତର୍ଭାଵ <stdio.h>
+#ଅନ୍ତର୍ଭାଵ <string.h>
+#ଅନ୍ତର୍ଭାଵ <setjmp.h>
+#ଯଦି !defined(_WIN32)
+#ଅନ୍ତର୍ଭାଵ <pthread.h>
+#ଅନ୍ୟଥା
+#ଅନ୍ତର୍ଭାଵ <windows.h>
 #endif
 
 #define	SIZE	10
-#define	COUNT	10
+#define	ଗଣନା_5	10
 
-#define TST   int i, a[2], b[2];                \
-              for (i = 0; i < 2; i++) a[i] = 0; \
-              for (i = 0; i < 2; i++) b[i] = 0
+#define TST   ପୂର୍ଣ୍ଣସଂଖ୍ୟା i, a[2], b[2];                \
+              ପାଇଁ (i = 0; i < 2; i++) a[i] = 0; \
+              ପାଇଁ (i = 0; i < 2; i++) b[i] = 0
 
-static int count[SIZE];
+ସ୍ଥିର ପୂର୍ଣ୍ଣସଂଖ୍ୟା ଗଣନା_3[SIZE];
 
-static void tst1 (jmp_buf loc)
+ସ୍ଥିର ଶୂନ୍ୟ tst1 (jmp_buf loc)
 {
     TST;
     longjmp(loc, 1);
 }
 
-static void tst2(jmp_buf loc)
+ସ୍ଥିର ଶୂନ୍ୟ tst2(jmp_buf loc)
 {
     jmp_buf jmp;
 
@@ -31,54 +31,54 @@ static void tst2(jmp_buf loc)
     tst1(loc);
 }
 
-static void *tst (void * index)
+ସ୍ଥିର ଶୂନ୍ୟ *tst (ଶୂନ୍ୟ * index)
 {
     jmp_buf loc;
-    int i = *(int *) index;
-    static int v[SIZE];
+    ପୂର୍ଣ୍ଣସଂଖ୍ୟା i = *(ପୂର୍ଣ୍ଣସଂଖ୍ୟା *) index;
+    ସ୍ଥିର ପୂର୍ଣ୍ଣସଂଖ୍ୟା v[SIZE];
 
-    for (v[i] = 0; v[i] < COUNT; v[i]++) {
-        if (setjmp (loc) == 0) {
+    ପାଇଁ (v[i] = 0; v[i] < ଗଣନା_5; v[i]++) {
+        ଯଦି (setjmp (loc) == 0) {
             TST;
             tst2(loc);
         }
-        else {
-            count[i]++;
+        ଅନ୍ୟଥା {
+            ଗଣନା_3[i]++;
         }
-        i = *(int *) index;
+        i = *(ପୂର୍ଣ୍ଣସଂଖ୍ୟା *) index;
     }
-    return NULL;
+    ଫେରନ୍ତୁ ଖାଲି;
 }
 
-int
-main (void)
+ପୂର୍ଣ୍ଣସଂଖ୍ୟା
+ମୁଖ୍ୟ (ଶୂନ୍ୟ)
 {
-    int i;
-#if !defined(_WIN32)
+    ପୂର୍ଣ୍ଣସଂଖ୍ୟା i;
+#ଯଦି !defined(_WIN32)
     pthread_t id[SIZE];
-#else
+#ଅନ୍ୟଥା
     HANDLE id[SIZE];
 #endif
-    int index[SIZE];
+    ପୂର୍ଣ୍ଣସଂଖ୍ୟା index[SIZE];
 
-    for (i = 0; i < SIZE; i++) {
+    ପାଇଁ (i = 0; i < SIZE; i++) {
         index[i] = i;
-#if !defined(_WIN32)
-        pthread_create (&id[i], NULL, tst, (void *) &index[i]);
-#else
-        id[i] = CreateThread(NULL, 8192, (LPTHREAD_START_ROUTINE) tst, (void *) &index[i], 0, NULL);
+#ଯଦି !defined(_WIN32)
+        pthread_create (&id[i], ଖାଲି, tst, (ଶୂନ୍ୟ *) &index[i]);
+#ଅନ୍ୟଥା
+        id[i] = CreateThread(ଖାଲି, 8192, (LPTHREAD_START_ROUTINE) tst, (ଶୂନ୍ୟ *) &index[i], 0, ଖାଲି);
 #endif
     }
-    for (i = 0; i < SIZE; i++) {
-#if !defined(_WIN32)
-        pthread_join (id[i], NULL);
-#else
+    ପାଇଁ (i = 0; i < SIZE; i++) {
+#ଯଦି !defined(_WIN32)
+        pthread_join (id[i], ଖାଲି);
+#ଅନ୍ୟଥା
         WaitForSingleObject(id[i], INFINITE);
 #endif
     }
-    for (i = 0; i < SIZE; i++) {
-        if (count[i] != COUNT)
-            printf ("error: %d %d\n", i, count[i]);
+    ପାଇଁ (i = 0; i < SIZE; i++) {
+        ଯଦି (ଗଣନା_3[i] != ଗଣନା_5)
+            printf ("error: %d %d\n", i, ଗଣନା_3[i]);
     }
-    return 0;
+    ଫେରନ୍ତୁ 0;
 }

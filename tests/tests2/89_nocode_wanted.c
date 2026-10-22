@@ -1,104 +1,104 @@
-extern int printf(const char *format, ...);
-static void kb_wait_1(void)
+ବାହ୍ୟ ପୂର୍ଣ୍ଣସଂଖ୍ୟା printf(ଅଚଳ ଅକ୍ଷର *format, ...);
+ସ୍ଥିର ଶୂନ୍ୟ kb_wait_1(ଶୂନ୍ୟ)
 {
     unsigned long timeout = 2;
-    do {
+    କର {
         (1 ?
             printf("timeout=%ld\n", timeout) :
             ({
-                while (1)
+                ଯେତେବେଳେ (1)
                     printf("error\n");
             })
         );
         timeout--;
-    } while (timeout);
+    } ଯେତେବେଳେ (timeout);
 }
-static void kb_wait_2(void)
+ସ୍ଥିର ଶୂନ୍ୟ kb_wait_2(ଶୂନ୍ୟ)
 {
     unsigned long timeout = 2;
-    do {
+    କର {
         (1 ?
             printf("timeout=%ld\n", timeout) :
             ({
-                for (;;)
+                ପାଇଁ (;;)
                     printf("error\n");
             })
         );
         timeout--;
-    } while (timeout);
+    } ଯେତେବେଳେ (timeout);
 }
-static void kb_wait_2_1(void)
+ସ୍ଥିର ଶୂନ୍ୟ kb_wait_2_1(ଶୂନ୍ୟ)
 {
     unsigned long timeout = 2;
-    do {
+    କର {
         (1 ?
             printf("timeout=%ld\n", timeout) :
             ({
-                do {
+                କର {
                     printf("error\n");
-		} while (1);
+		} ଯେତେବେଳେ (1);
             })
         );
         timeout--;
-    } while (timeout);
+    } ଯେତେବେଳେ (timeout);
 }
-static void kb_wait_2_2(void)
+ସ୍ଥିର ଶୂନ୍ୟ kb_wait_2_2(ଶୂନ୍ୟ)
 {
     unsigned long timeout = 2;
-    do {
+    କର {
         (1 ?
             printf("timeout=%ld\n", timeout) :
             ({
                 label:
                     printf("error\n");
-		goto label;
+		ଯାଅ label;
             })
         );
         timeout--;
-    } while (timeout);
+    } ଯେତେବେଳେ (timeout);
 }
-static void kb_wait_3(void)
+ସ୍ଥିର ଶୂନ୍ୟ kb_wait_3(ଶୂନ୍ୟ)
 {
     unsigned long timeout = 2;
-    do {
+    କର {
         (1 ?
             printf("timeout=%ld\n", timeout) :
             ({
-                int i = 1;
-                goto label;
+                ପୂର୍ଣ୍ଣସଂଖ୍ୟା i = 1;
+                ଯାଅ label;
                 i = i + 2;
             label:
                 i = i + 3;
             })
         );
         timeout--;
-    } while (timeout);
+    } ଯେତେବେଳେ (timeout);
 }
-static void kb_wait_4(void)
+ସ୍ଥିର ଶୂନ୍ୟ kb_wait_4(ଶୂନ୍ୟ)
 {
     unsigned long timeout = 2;
-    do {
+    କର {
         (1 ?
             printf("timeout=%ld\n", timeout) :
             ({
-                switch(timeout) {
-                    case 2:
+                ବାଛ(timeout) {
+                    ସ୍ଥିତି 2:
                         printf("timeout is 2");
-                        break;
-                    case 1:
+                        ଭାଙ୍ଗ;
+                    ସ୍ଥିତି 1:
                         printf("timeout is 1");
-                        break;
-                    default:
+                        ଭାଙ୍ଗ;
+                    ପୂର୍ବନିର୍ଦ୍ଧାରିତ:
                         printf("timeout is 0?");
-                        break;
+                        ଭାଙ୍ଗ;
                 };
                 // return;
             })
         );
         timeout--;
-    } while (timeout);
+    } ଯେତେବେଳେ (timeout);
 }
-int main()
+ପୂର୍ଣ୍ଣସଂଖ୍ୟା ମୁଖ୍ୟ()
 {
     printf("begin\n");
     kb_wait_1();
@@ -108,5 +108,5 @@ int main()
     kb_wait_3();
     kb_wait_4();
     printf("end\n");
-    return 0;
+    ଫେରନ୍ତୁ 0;
 }

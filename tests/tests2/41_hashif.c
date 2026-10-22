@@ -1,33 +1,33 @@
-#include <stdio.h>
+#ଅନ୍ତର୍ଭାଵ <stdio.h>
 
-int main()
+ପୂର୍ଣ୍ଣସଂଖ୍ୟା ମୁଖ୍ୟ()
 {
    printf("#include test\n");
 
-#if 1
-#if 0
+#ଯଦି 1
+#ଯଦି 0
    printf("a\n");
-#else
+#ଅନ୍ୟଥା
    printf("b\n");
 #endif
-#else
-#if 0
+#ଅନ୍ୟଥା
+#ଯଦି 0
    printf("c\n");
-#else
+#ଅନ୍ୟଥା
    printf("d\n");
 #endif
 #endif
 
-#if 0
-#if 1
+#ଯଦି 0
+#ଯଦି 1
    printf("e\n");
-#else
+#ଅନ୍ୟଥା
    printf("f\n");
 #endif
-#else
-#if 1
+#ଅନ୍ୟଥା
+#ଯଦି 1
    printf("g\n");
-#else
+#ଅନ୍ୟଥା
    printf("h\n");
 #endif
 #endif
@@ -37,13 +37,13 @@ int main()
 #ifdef DEF
 #ifdef DEF
    printf("i\n");
-#else
+#ଅନ୍ୟଥା
    printf("j\n");
 #endif
-#else
+#ଅନ୍ୟଥା
 #ifdef DEF
    printf("k\n");
-#else
+#ଅନ୍ୟଥା
    printf("l\n");
 #endif
 #endif
@@ -51,13 +51,13 @@ int main()
 #ifndef DEF
 #ifndef DEF
    printf("m\n");
-#else
+#ଅନ୍ୟଥା
    printf("n\n");
 #endif
-#else
+#ଅନ୍ୟଥା
 #ifndef DEF
    printf("o\n");
-#else
+#ଅନ୍ୟଥା
    printf("p\n");
 #endif
 #endif
@@ -65,21 +65,21 @@ int main()
 #define ONE 1
 #define ZERO 0
 
-#if ONE
-#if ZERO
+#ଯଦି ONE
+#ଯଦି ZERO
    printf("q\n");
-#else
+#ଅନ୍ୟଥା
    printf("r\n");
 #endif
-#else
-#if ZERO
+#ଅନ୍ୟଥା
+#ଯଦି ZERO
    printf("s\n");
-#else
+#ଅନ୍ୟଥା
    printf("t\n");
 #endif
 #endif
 
-   return 0;
+   ଫେରନ୍ତୁ 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

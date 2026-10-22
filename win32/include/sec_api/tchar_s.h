@@ -6,12 +6,12 @@
 #ifndef _INC_TCHAR_S
 #define _INC_TCHAR_S
 
-#include <tchar.h>
+#ଅନ୍ତର୍ଭାଵ <tchar.h>
 
-#if defined(MINGW_HAS_SECURE_API)
+#ଯଦି defined(MINGW_HAS_SECURE_API)
 
 #ifdef __cplusplus
-extern "C" {
+ବାହ୍ୟ "C" {
 #endif
 
 #ifdef _UNICODE
@@ -104,10 +104,10 @@ extern "C" {
 #define _tcsupr_s_l _wcsupr_s_l
 
 #define _wcstok_s_l(_String,_Delimiters,_Current_position,_Locale) (wcstok_s(_String,_Delimiters,_Current_position))
-#define _wcsnset_s_l(_Destination,_Destination_size_chars,_Value,_Count,_Locale) (_wcsnset_s(_Destination,_Destination_size_chars,_Value,_Count))
-#define _wcsset_s_l(_Destination,_Destination_size_chars,_Value,_Locale) (_wcsset_s(_Destination,_Destination_size_chars,_Value))
+#define _wcsnset_s_l(_Destination,_Destination_size_chars,ମୂଲ୍ୟ_2,ଗଣନା_6,_Locale) (_wcsnset_s(_Destination,_Destination_size_chars,ମୂଲ୍ୟ_2,ଗଣନା_6))
+#define _wcsset_s_l(_Destination,_Destination_size_chars,ମୂଲ୍ୟ_2,_Locale) (_wcsset_s(_Destination,_Destination_size_chars,ମୂଲ୍ୟ_2))
 
-#else
+#ଅନ୍ୟଥା
 
 #define _tprintf_s printf_s
 #define _tprintf_s_l _printf_s_l
@@ -208,28 +208,28 @@ extern "C" {
 
 #define _tccpy_s _mbccpy_s
 #define _tccpy_s_l _mbccpy_s_l
-#else
+#ଅନ୍ୟଥା
 
-  _CRTIMP char *__cdecl _tcsncat_s(char *_Dst,size_t _DstSizeInChars,const char *_Src,size_t _MaxCount);
-  _CRTIMP char *__cdecl _tcsncat_s_l(char *_Dst,size_t _DstSizeInChars,const char *_Src,size_t _MaxCount,_locale_t _Locale);
-  _CRTIMP char *__cdecl _tcsncpy_s(char *_Dst,size_t _DstSizeInChars,const char *_Src,size_t _MaxCount);
-  _CRTIMP char *__cdecl _tcsncpy_s_l(char *_Dst,size_t _DstSizeInChars,const char *_Src,size_t _MaxCount,_locale_t _Locale);
-  _CRTIMP char *__cdecl _tcstok_s(char *_Str,const char *_Delim,char **_Context);
-  _CRTIMP char *__cdecl _tcstok_s_l(char *_Str,const char *_Delim,char **_Context,_locale_t _Locale);
-  _CRTIMP errno_t __cdecl _tcsset_s(char *_Str,size_t _SizeInChars,unsigned int _Val);
-  _CRTIMP errno_t __cdecl _tcsset_s_l(char *_Str,size_t _SizeInChars,unsigned int,_locale_t _Locale);
-  _CRTIMP char *__cdecl _tcsnccat_s(char *_Dst,size_t _DstSizeInChars,const char *_Src,size_t _MaxCount);
-  _CRTIMP char *__cdecl _tcsnccat_s_l(char *_Dst,size_t _DstSizeInChars,const char *_Src,size_t _MaxCount,_locale_t _Locale);
-  _CRTIMP char *__cdecl _tcsnccpy_s(char *_Dst,size_t _DstSizeInChars,const char *_Src,size_t _MaxCount);
-  _CRTIMP char *__cdecl _tcsnccpy_s_l(char *_Dst,size_t _DstSizeInChars,const char *_Src,size_t _MaxCount,_locale_t _Locale);
-  _CRTIMP char *__cdecl _tcslwr_s(char *_Str,size_t _SizeInChars);
-  _CRTIMP char *__cdecl _tcslwr_s_l(char *_Str,size_t _SizeInChars,_locale_t _Locale);
-  _CRTIMP char *__cdecl _tcsupr_s(char *_Str,size_t _SizeInChars);
-  _CRTIMP char *__cdecl _tcsupr_s_l(char *_Str,size_t _SizeInChars,_locale_t _Locale);
+  _CRTIMP ଅକ୍ଷର *__cdecl _tcsncat_s(ଅକ୍ଷର *_Dst,size_t _DstSizeInChars,ଅଚଳ ଅକ୍ଷର *_Src,size_t Max_ଗଣନା);
+  _CRTIMP ଅକ୍ଷର *__cdecl _tcsncat_s_l(ଅକ୍ଷର *_Dst,size_t _DstSizeInChars,ଅଚଳ ଅକ୍ଷର *_Src,size_t Max_ଗଣନା,_locale_t _Locale);
+  _CRTIMP ଅକ୍ଷର *__cdecl _tcsncpy_s(ଅକ୍ଷର *_Dst,size_t _DstSizeInChars,ଅଚଳ ଅକ୍ଷର *_Src,size_t Max_ଗଣନା);
+  _CRTIMP ଅକ୍ଷର *__cdecl _tcsncpy_s_l(ଅକ୍ଷର *_Dst,size_t _DstSizeInChars,ଅଚଳ ଅକ୍ଷର *_Src,size_t Max_ଗଣନା,_locale_t _Locale);
+  _CRTIMP ଅକ୍ଷର *__cdecl _tcstok_s(ଅକ୍ଷର *_Str,ଅଚଳ ଅକ୍ଷର *_Delim,ଅକ୍ଷର **_Context);
+  _CRTIMP ଅକ୍ଷର *__cdecl _tcstok_s_l(ଅକ୍ଷର *_Str,ଅଚଳ ଅକ୍ଷର *_Delim,ଅକ୍ଷର **_Context,_locale_t _Locale);
+  _CRTIMP errno_t __cdecl _tcsset_s(ଅକ୍ଷର *_Str,size_t _SizeInChars,unsigned ପୂର୍ଣ୍ଣସଂଖ୍ୟା _Val);
+  _CRTIMP errno_t __cdecl _tcsset_s_l(ଅକ୍ଷର *_Str,size_t _SizeInChars,unsigned ପୂର୍ଣ୍ଣସଂଖ୍ୟା,_locale_t _Locale);
+  _CRTIMP ଅକ୍ଷର *__cdecl _tcsnccat_s(ଅକ୍ଷର *_Dst,size_t _DstSizeInChars,ଅଚଳ ଅକ୍ଷର *_Src,size_t Max_ଗଣନା);
+  _CRTIMP ଅକ୍ଷର *__cdecl _tcsnccat_s_l(ଅକ୍ଷର *_Dst,size_t _DstSizeInChars,ଅଚଳ ଅକ୍ଷର *_Src,size_t Max_ଗଣନା,_locale_t _Locale);
+  _CRTIMP ଅକ୍ଷର *__cdecl _tcsnccpy_s(ଅକ୍ଷର *_Dst,size_t _DstSizeInChars,ଅଚଳ ଅକ୍ଷର *_Src,size_t Max_ଗଣନା);
+  _CRTIMP ଅକ୍ଷର *__cdecl _tcsnccpy_s_l(ଅକ୍ଷର *_Dst,size_t _DstSizeInChars,ଅଚଳ ଅକ୍ଷର *_Src,size_t Max_ଗଣନା,_locale_t _Locale);
+  _CRTIMP ଅକ୍ଷର *__cdecl _tcslwr_s(ଅକ୍ଷର *_Str,size_t _SizeInChars);
+  _CRTIMP ଅକ୍ଷର *__cdecl _tcslwr_s_l(ଅକ୍ଷର *_Str,size_t _SizeInChars,_locale_t _Locale);
+  _CRTIMP ଅକ୍ଷର *__cdecl _tcsupr_s(ଅକ୍ଷର *_Str,size_t _SizeInChars);
+  _CRTIMP ଅକ୍ଷର *__cdecl _tcsupr_s_l(ଅକ୍ଷର *_Str,size_t _SizeInChars,_locale_t _Locale);
 
 #endif
 
-#else
+#ଅନ୍ୟଥା
 
 #define _tcsncat_s strncat_s
 #define _tcsncat_s_l _strncat_s_l
@@ -254,8 +254,8 @@ extern "C" {
 #define _tcsupr_s _strupr_s
 #define _tcsupr_s_l _strupr_s_l
 
-#define _strnset_s_l(_Destination,_Destination_size_chars,_Value,_Count,_Locale) (_strnset_s(_Destination,_Destination_size_chars,_Value,_Count))
-#define _strset_s_l(_Destination,_Destination_size_chars,_Value,_Locale) (_strset_s(_Destination,_Destination_size_chars,_Value))
+#define _strnset_s_l(_Destination,_Destination_size_chars,ମୂଲ୍ୟ_2,ଗଣନା_6,_Locale) (_strnset_s(_Destination,_Destination_size_chars,ମୂଲ୍ୟ_2,ଗଣନା_6))
+#define _strset_s_l(_Destination,_Destination_size_chars,ମୂଲ୍ୟ_2,_Locale) (_strset_s(_Destination,_Destination_size_chars,ମୂଲ୍ୟ_2))
 #endif
 #endif
 

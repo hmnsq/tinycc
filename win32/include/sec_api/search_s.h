@@ -3,19 +3,19 @@
  * This file is part of the w64 mingw-runtime package.
  * No warranty is given; refer to the file DISCLAIMER within this package.
  */
-#ifndef _INC_SEARCH_S
-#define _INC_SEARCH_S
+#ifndef INC_ସନ୍ଧାନ_S
+#define INC_ସନ୍ଧାନ_S
 
-#include <search.h>
+#ଅନ୍ତର୍ଭାଵ <search.h>
 
-#if defined(MINGW_HAS_SECURE_API)
+#ଯଦି defined(MINGW_HAS_SECURE_API)
 
 #ifdef __cplusplus
-extern "C" {
+ବାହ୍ୟ "C" {
 #endif
 
-  _CRTIMP void *__cdecl _lfind_s(const void *_Key,const void *_Base,unsigned int *_NumOfElements,size_t _SizeOfElements,int (__cdecl *_PtFuncCompare)(void *,const void *,const void *),void *_Context);
-  _CRTIMP void *__cdecl _lsearch_s(const void *_Key,void *_Base,unsigned int *_NumOfElements,size_t _SizeOfElements,int (__cdecl *_PtFuncCompare)(void *,const void *,const void *),void *_Context);
+  _CRTIMP ଶୂନ୍ୟ *__cdecl _lfind_s(ଅଚଳ ଶୂନ୍ୟ *ଚାବି_2,ଅଚଳ ଶୂନ୍ୟ *_Base,unsigned ପୂର୍ଣ୍ଣସଂଖ୍ୟା *ଅଙ୍କ_Of_Elements,size_t _SizeOfElements,ପୂର୍ଣ୍ଣସଂଖ୍ୟା (__cdecl *_PtFuncCompare)(ଶୂନ୍ୟ *,ଅଚଳ ଶୂନ୍ୟ *,ଅଚଳ ଶୂନ୍ୟ *),ଶୂନ୍ୟ *_Context);
+  _CRTIMP ଶୂନ୍ୟ *__cdecl _lsearch_s(ଅଚଳ ଶୂନ୍ୟ *ଚାବି_2,ଶୂନ୍ୟ *_Base,unsigned ପୂର୍ଣ୍ଣସଂଖ୍ୟା *ଅଙ୍କ_Of_Elements,size_t _SizeOfElements,ପୂର୍ଣ୍ଣସଂଖ୍ୟା (__cdecl *_PtFuncCompare)(ଶୂନ୍ୟ *,ଅଚଳ ଶୂନ୍ୟ *,ଅଚଳ ଶୂନ୍ୟ *),ଶୂନ୍ୟ *_Context);
 
 #ifdef __cplusplus
 }

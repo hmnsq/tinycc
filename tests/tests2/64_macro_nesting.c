@@ -1,12 +1,12 @@
-#include <stdio.h>	// printf()
+#ଅନ୍ତର୍ଭାଵ <stdio.h>	// printf()
 
 #define CAT2(a,b) a##b
 #define CAT(a,b) CAT2(a,b)
 #define AB(x) CAT(x,y)
 
-int main(void)
+ପୂର୍ଣ୍ଣସଂଖ୍ୟା ମୁଖ୍ୟ(ଶୂନ୍ୟ)
 {
-  int xy = 42;
+  ପୂର୍ଣ୍ଣସଂଖ୍ୟା xy = 42;
   printf("%d\n", CAT(A,B)(x));
-  return 0;
+  ଫେରନ୍ତୁ 0;
 }

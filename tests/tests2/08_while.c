@@ -1,16 +1,16 @@
-#include <stdio.h>
+#ଅନ୍ତର୍ଭାଵ <stdio.h>
 
-int main()
+ପୂର୍ଣ୍ଣସଂଖ୍ୟା ମୁଖ୍ୟ()
 {
-   int a;
-   int p;
-   int t;
+   ପୂର୍ଣ୍ଣସଂଖ୍ୟା a;
+   ପୂର୍ଣ୍ଣସଂଖ୍ୟା p;
+   ପୂର୍ଣ୍ଣସଂଖ୍ୟା t;
 
    a = 1;
    p = 0;
    t = 0;
 
-   while (a < 100)
+   ଯେତେବେଳେ (a < 100)
    {
       printf("%d\n", a);
       t = a;
@@ -18,7 +18,7 @@ int main()
       p = t;
    }
 
-   return 0;
+   ଫେରନ୍ତୁ 0;
 }
 
 // vim: set expandtab ts=4 sw=3 sts=3 tw=80 :

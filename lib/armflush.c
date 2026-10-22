@@ -5,7 +5,7 @@
    itself needs this function */
 
 /* ------------------------------------------------------------- */
-#if defined __arm__
+#ଯଦି defined __arm__
 
 #ifdef __TINYC__
 
@@ -26,9 +26,9 @@ __asm__(
     );
 
 /* from unistd.h: */
-#if defined(__thumb__) || defined(__ARM_EABI__)
+#ଯଦି defined(__thumb__) || defined(__ARM_EABI__)
 # define __NR_SYSCALL_BASE      0x0
-#else
+#ଅନ୍ୟଥା
 # define __NR_SYSCALL_BASE      0x900000
 #endif
 #define __ARM_NR_BASE           (__NR_SYSCALL_BASE+0x0f0000)
@@ -36,17 +36,17 @@ __asm__(
 
 #define syscall _tccsyscall
 
-#else
+#ଅନ୍ୟଥା
 
 #define _GNU_SOURCE
-#include <unistd.h>
-#include <sys/syscall.h>
-#include <stdio.h>
+#ଅନ୍ତର୍ଭାଵ <unistd.h>
+#ଅନ୍ତର୍ଭାଵ <sys/syscall.h>
+#ଅନ୍ତର୍ଭାଵ <stdio.h>
 
 #endif
 
 /* Flushing for tccrun */
-void __clear_cache(void *beginning, void *end)
+ଶୂନ୍ୟ __clear_cache(ଶୂନ୍ୟ *beginning, ଶୂନ୍ୟ *end)
 {
 /* __ARM_NR_cacheflush is kernel private and should not be used in user space.
  * However, there is no ARM asm parser in tcc so we use it for now */
@@ -54,15 +54,15 @@ void __clear_cache(void *beginning, void *end)
 }
 
 /* ------------------------------------------------------------- */
-#elif defined __aarch64__
-void __clear_cache(void *beg, void *end)
+#ନଚେତଯଦି defined __aarch64__
+ଶୂନ୍ୟ __clear_cache(ଶୂନ୍ୟ *beg, ଶୂନ୍ୟ *end)
 {
     __arm64_clear_cache(beg, end);
 }
 
 /* ------------------------------------------------------------- */
-#elif defined __riscv
-void __clear_cache(void *beg, void *end)
+#ନଚେତଯଦି defined __riscv
+ଶୂନ୍ୟ __clear_cache(ଶୂନ୍ୟ *beg, ଶୂନ୍ୟ *end)
 {
     __riscv64_clear_cache(beg, end);
 }

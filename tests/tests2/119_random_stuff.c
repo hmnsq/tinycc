@@ -1,133 +1,133 @@
-#include <stdio.h>
+#ଅନ୍ତର୍ଭାଵ <stdio.h>
 
-struct big_struct { char a[262144]; };
+ସଂରଚନା big_struct { ଅକ୍ଷର a[262144]; };
 
-static const char str[] = "abcdefghijklmnopqrstuvwxyz";
+ସ୍ଥିର ଅଚଳ ଅକ୍ଷର str[] = "abcdefghijklmnopqrstuvwxyz";
 
-void tst_branch(void)
+ଶୂନ୍ୟ tst_branch(ଶୂନ୍ୟ)
 {
   printf("tst_branch --");
-  goto *&&a; 
+  ଯାଅ *&&a; 
   printf (" dummy");
 a: ;
   printf(" --\n");
 }
 
-void tst_void_ptr(void *pv, int i) 
+ଶୂନ୍ୟ tst_void_ptr(ଶୂନ୍ୟ *pv, ପୂର୍ଣ୍ଣସଂଖ୍ୟା i) 
 {
   i ? *pv : *pv; // dr106
 }
 
-void tst_shift(void)
+ଶୂନ୍ୟ tst_shift(ଶୂନ୍ୟ)
 {
-  int i = 1;
+  ପୂର୍ଣ୍ଣସଂଖ୍ୟା i = 1;
   long long l = 1;
   i = i << 32; // illegal. just test
   l = l << 64; // illegal. just test
 }
 
-#if !defined(_WIN32)
-#include <sys/mman.h>
+#ଯଦି !defined(_WIN32)
+#ଅନ୍ତର୍ଭାଵ <sys/mman.h>
 
-void tst_const_addr(void)
+ଶୂନ୍ୟ tst_const_addr(ଶୂନ୍ୟ)
 {
-  void *addr = mmap ((void *)0x20000000, 4096, PROT_READ | PROT_WRITE, MAP_FIXED | MAP_ANONYMOUS, -1, 0);
-  if (addr != (void *) -1) {
-    *(int *)0x20000000 += 42;
+  ଶୂନ୍ୟ *addr = mmap ((ଶୂନ୍ୟ *)0x20000000, 4096, PROT_READ | PROT_WRITE, MAP_FIXED | MAP_ANONYMOUS, -1, 0);
+  ଯଦି (addr != (ଶୂନ୍ୟ *) -1) {
+    *(ପୂର୍ଣ୍ଣସଂଖ୍ୟା *)0x20000000 += 42;
     munmap (addr, 4096);
   }
 }
 #endif
 
-struct zero_struct {};
+ସଂରଚନା zero_struct {};
 
-struct zero_struct tst_zero_struct(void)
+ସଂରଚନା zero_struct tst_zero_struct(ଶୂନ୍ୟ)
 {
-  struct zero_struct ret;
-  return ret;
+  ସଂରଚନା zero_struct ret;
+  ଫେରନ୍ତୁ ret;
 }
 
-struct big_struct tst_big(struct big_struct tst)
+ସଂରଚନା big_struct tst_big(ସଂରଚନା big_struct tst)
 {
-   return tst;
+   ଫେରନ୍ତୁ tst;
 }
 
-void tst_adr (int (*fp)(char *, const char *, ...))
+ଶୂନ୍ୟ tst_adr (ପୂର୍ଣ୍ଣସଂଖ୍ୟା (*fp)(ଅକ୍ଷର *, ଅଚଳ ଅକ୍ଷର *, ...))
 {
-  char buf[10];
+  ଅକ୍ଷର buf[10];
   (*fp)(buf, "%.0f", 5.0);
   printf("tst_adr %s\n", buf);
 }
 
-int tst(void)
+ପୂର୍ଣ୍ଣସଂଖ୍ୟା tst(ଶୂନ୍ୟ)
 {
-  long long value = 3;
-  return -value;
+  long long ମୂଲ୍ୟ = 3;
+  ଫେରନ୍ତୁ -ମୂଲ୍ୟ;
 }
 
-void tst_compare(void)
+ଶୂନ୍ୟ tst_compare(ଶୂନ୍ୟ)
 {
   /* This failed on risc64 */
   printf ("tst_compare: %s\n", tst() > 0 ? "error" : "ok");
 }
 
 #pragma pack(1)
-struct S { int d:24; int f:14; } i, j;
+ସଂରଚନା S { ପୂର୍ଣ୍ଣସଂଖ୍ୟା d:24; ପୂର୍ଣ୍ଣସଂଖ୍ୟା f:14; } i, j;
 #pragma pack()
 
-void tst_pack (void)
+ଶୂନ୍ୟ tst_pack (ଶୂନ୍ୟ)
 {
   i.f = 5; j.f = 5;
   printf("tst_pack: j.f = %d, i.f = %d\n", j.f, i.f);
 }
 
-void tst_cast(void)
+ଶୂନ୍ୟ tst_cast(ଶୂନ୍ୟ)
 {
-  signed char c = (signed char) 0xaaaaaaaa;
-  int r = (unsigned short) c ^ (signed char) 0x99999999;
+  signed ଅକ୍ଷର c = (signed ଅକ୍ଷର) 0xaaaaaaaa;
+  ପୂର୍ଣ୍ଣସଂଖ୍ୟା r = (unsigned short) c ^ (signed ଅକ୍ଷର) 0x99999999;
   printf ("schar to ushort cast: %x\n", r);
 }
 
-struct {
-    int (*print)(const char *format, ...);
+ସଂରଚନା {
+    ପୂର୍ଣ୍ଣସଂଖ୍ୟା (*print)(ଅଚଳ ଅକ୍ଷର *format, ...);
 } tst_indir = {
     printf
 };
 
-void tst_indir_func(void)
+ଶୂନ୍ୟ tst_indir_func(ଶୂନ୍ୟ)
 {
     tst_indir.print("tst_indir_func %d\n", 10);
 }
 
-struct V {
-  int x, y, z;
+ସଂରଚନା V {
+  ପୂର୍ଣ୍ଣସଂଖ୍ୟା x, y, z;
 };
 
-struct V vec(void)
+ସଂରଚନା V vec(ଶୂନ୍ୟ)
 {
-  return (struct V) { 1, 2, 3 };
+  ଫେରନ୍ତୁ (ସଂରଚନା V) { 1, 2, 3 };
 }
 
-void func(float f, struct V v)
+ଶୂନ୍ୟ func(ଦଶମିକ f, ସଂରଚନା V v)
 {
   printf("%g\n", f);
 }
 
-void tst_struct_return_align(void)
+ଶୂନ୍ୟ tst_struct_return_align(ଶୂନ୍ୟ)
 {
-  float d = 5.0f;
+  ଦଶମିକ d = 5.0f;
   func(d, vec());
 }
 
-int
-main (void)
+ପୂର୍ଣ୍ଣସଂଖ୍ୟା
+ମୁଖ୍ୟ (ଶୂନ୍ୟ)
 {
-  struct big_struct big;
+  ସଂରଚନା big_struct big;
 
   tst_branch();
   tst_shift();
   tst_void_ptr(&big.a[0], 0);
-#if !defined(_WIN32)
+#ଯଦି !defined(_WIN32)
   tst_const_addr();
 #endif
   tst_zero_struct();

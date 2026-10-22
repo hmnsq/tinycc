@@ -1,113 +1,113 @@
-#include <stdio.h>
+#ଅନ୍ତର୍ଭାଵ <stdio.h>
 
-int f(void)
+ପୂର୍ଣ୍ଣସଂଖ୍ୟା f(ଶୂନ୍ୟ)
 {
-  return 5;
+  ଫେରନ୍ତୁ 5;
 }
 
-void test1()
+ଶୂନ୍ୟ test1()
 {
-  int count = 10;
-  void *addr[10];
-  for(;count--;) {
-    int a[f()];
+  ପୂର୍ଣ୍ଣସଂଖ୍ୟା ଗଣନା_3 = 10;
+  ଶୂନ୍ୟ *addr[10];
+  ପାଇଁ(;ଗଣନା_3--;) {
+    ପୂର୍ଣ୍ଣସଂଖ୍ୟା a[f()];
 
-    addr[count] = a;
+    addr[ଗଣନା_3] = a;
 
-    continue;
+    ଜାରି;
   }
 
-  if(addr[9] == addr[0]) {
+  ଯଦି(addr[9] == addr[0]) {
     printf("OK\n");
-  } else {
+  } ଅନ୍ୟଥା {
     printf("NOT OK\n");
   }
 }
 
-void test2()
+ଶୂନ୍ୟ test2()
 {
-  int count = 10;
-  void *addr[count];
-  for(;count--;) {
-    int a[f()];
+  ପୂର୍ଣ୍ଣସଂଖ୍ୟା ଗଣନା_3 = 10;
+  ଶୂନ୍ୟ *addr[ଗଣନା_3];
+  ପାଇଁ(;ଗଣନା_3--;) {
+    ପୂର୍ଣ୍ଣସଂଖ୍ୟା a[f()];
 
-    addr[count] = a;
+    addr[ଗଣନା_3] = a;
 
-    continue;
+    ଜାରି;
   }
 
-  if(addr[9] == addr[0]) {
+  ଯଦି(addr[9] == addr[0]) {
     printf("OK\n");
-  } else {
+  } ଅନ୍ୟଥା {
     printf("NOT OK\n");
   }
 }
 
-void test3()
+ଶୂନ୍ୟ test3()
 {
-  int count = 10;
-  void *addr[count];
-  while(count--) {
-      int b[f()];
-      if (count >= 0) {
-          int a[f()];
+  ପୂର୍ଣ୍ଣସଂଖ୍ୟା ଗଣନା_3 = 10;
+  ଶୂନ୍ୟ *addr[ଗଣନା_3];
+  ଯେତେବେଳେ(ଗଣନା_3--) {
+      ପୂର୍ଣ୍ଣସଂଖ୍ୟା b[f()];
+      ଯଦି (ଗଣନା_3 >= 0) {
+          ପୂର୍ଣ୍ଣସଂଖ୍ୟା a[f()];
 
-          addr[count] = a;
+          addr[ଗଣନା_3] = a;
 
-          continue;
+          ଜାରି;
       }
   }
 
-  if(addr[9] == addr[0]) {
+  ଯଦି(addr[9] == addr[0]) {
     printf("OK\n");
-  } else {
+  } ଅନ୍ୟଥା {
     printf("NOT OK\n");
   }
 }
 
-void test4()
+ଶୂନ୍ୟ test4()
 {
-  int count = 10;
-  void *addr[count];
-  do {
-    int a[f()];
+  ପୂର୍ଣ୍ଣସଂଖ୍ୟା ଗଣନା_3 = 10;
+  ଶୂନ୍ୟ *addr[ଗଣନା_3];
+  କର {
+    ପୂର୍ଣ୍ଣସଂଖ୍ୟା a[f()];
 
-    addr[--count] = a;
+    addr[--ଗଣନା_3] = a;
 
-    continue;
-  } while (count);
+    ଜାରି;
+  } ଯେତେବେଳେ (ଗଣନା_3);
 
-  if(addr[9] == addr[0]) {
+  ଯଦି(addr[9] == addr[0]) {
     printf("OK\n");
-  } else {
+  } ଅନ୍ୟଥା {
     printf("NOT OK\n");
   }
 }
 
-void test5()
+ଶୂନ୍ୟ test5()
 {
-  int count = 10;
-  int a[f()];
-  int c[f()];
+  ପୂର୍ଣ୍ଣସଂଖ୍ୟା ଗଣନା_3 = 10;
+  ପୂର୍ଣ୍ଣସଂଖ୍ୟା a[f()];
+  ପୂର୍ଣ୍ଣସଂଖ୍ୟା c[f()];
 
   c[0] = 42;
 
-  for(;count--;) {
-    int b[f()];
-    int i;
-    for (i=0; i<f(); i++) {
-      b[i] = count;
+  ପାଇଁ(;ଗଣନା_3--;) {
+    ପୂର୍ଣ୍ଣସଂଖ୍ୟା b[f()];
+    ପୂର୍ଣ୍ଣସଂଖ୍ୟା i;
+    ପାଇଁ (i=0; i<f(); i++) {
+      b[i] = ଗଣନା_3;
     }
   }
 
-  if (c[0] == 42) {
+  ଯଦି (c[0] == 42) {
     printf("OK\n");
-  } else {
+  } ଅନ୍ୟଥା {
     printf("NOT OK\n");
   }
 }
 
-int main(void)
+ପୂର୍ଣ୍ଣସଂଖ୍ୟା ମୁଖ୍ୟ(ଶୂନ୍ୟ)
 {
   test1();
   test2();
@@ -115,5 +115,5 @@ int main(void)
   test4();
   test5();
 
-  return 0;
+  ଫେରନ୍ତୁ 0;
 }

@@ -1,13 +1,13 @@
-#include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
-#include <fcntl.h>
+#ଅନ୍ତର୍ଭାଵ <stdio.h>
+#ଅନ୍ତର୍ଭାଵ <string.h>
+#ଅନ୍ତର୍ଭାଵ <stdlib.h>
+#ଅନ୍ତର୍ଭାଵ <fcntl.h>
 #ifndef _WIN32
-#include <unistd.h>
-#include <errno.h>
-#else
-#include <windows.h>
-#include <io.h>
+#ଅନ୍ତର୍ଭାଵ <unistd.h>
+#ଅନ୍ତର୍ଭାଵ <errno.h>
+#ଅନ୍ୟଥା
+#ଅନ୍ତର୍ଭାଵ <windows.h>
+#ଅନ୍ତର୍ଭାଵ <io.h>
 #endif
 
 /* section layout (all little endian):
@@ -24,33 +24,33 @@
    executable/so file name \0
  */
 
-typedef struct tcov_line {
-    unsigned int fline;
-    unsigned int lline;
-    unsigned long long count;
-} tcov_line;
+ପ୍ରକାରବ୍ୟାଖ୍ୟା ସଂରଚନା tcov_ଧାଡ଼ି {
+    unsigned ପୂର୍ଣ୍ଣସଂଖ୍ୟା fline;
+    unsigned ପୂର୍ଣ୍ଣସଂଖ୍ୟା lline;
+    unsigned long long ଗଣନା_3;
+} tcov_ଧାଡ଼ି;
 
-typedef struct tcov_function {
-    char *function;
-    unsigned int first_line;
-    unsigned int n_line;
-    unsigned int m_line;
-    tcov_line *line;
+ପ୍ରକାରବ୍ୟାଖ୍ୟା ସଂରଚନା tcov_function {
+    ଅକ୍ଷର *function;
+    unsigned ପୂର୍ଣ୍ଣସଂଖ୍ୟା first_ଧାଡ଼ି;
+    unsigned ପୂର୍ଣ୍ଣସଂଖ୍ୟା n_ଧାଡ଼ି;
+    unsigned ପୂର୍ଣ୍ଣସଂଖ୍ୟା m_ଧାଡ଼ି;
+    tcov_ଧାଡ଼ି *ଧାଡ଼ି;
 } tcov_function;
 
-typedef struct tcov_file {
-    char *filename;
-    unsigned int n_func;
-    unsigned int m_func;
+ପ୍ରକାରବ୍ୟାଖ୍ୟା ସଂରଚନା tcov_file {
+    ଅକ୍ଷର *filename;
+    unsigned ପୂର୍ଣ୍ଣସଂଖ୍ୟା n_func;
+    unsigned ପୂର୍ଣ୍ଣସଂଖ୍ୟା m_func;
     tcov_function *func;
-    struct tcov_file *next;
+    ସଂରଚନା tcov_file *next;
 } tcov_file;
 
-static FILE *open_tcov_file (char *cov_filename)
+ସ୍ଥିର FILE *open_tcov_file (ଅକ୍ଷର *cov_filename)
 {
-    int fd;
+    ପୂର୍ଣ୍ଣସଂଖ୍ୟା fd;
 #ifndef _WIN32
-    struct flock lock;
+    ସଂରଚନା flock lock;
 
     lock.l_type = F_WRLCK;
     lock.l_whence = SEEK_SET;
@@ -59,13 +59,13 @@ static FILE *open_tcov_file (char *cov_filename)
     lock.l_pid = getpid ();
 #endif
     fd = open (cov_filename, O_RDWR | O_CREAT, 0666);
-    if (fd < 0)
-	return NULL;
+    ଯଦି (fd < 0)
+	ଫେରନ୍ତୁ ଖାଲି;
   
 #ifndef _WIN32
-    while (fcntl (fd, F_SETLKW, &lock) && errno == EINTR)
-        continue;
-#else
+    ଯେତେବେଳେ (fcntl (fd, F_SETLKW, &lock) && errno == EINTR)
+        ଜାରି;
+#ଅନ୍ୟଥା
     {
         OVERLAPPED overlapped = { 0 };
         LockFileEx((HANDLE)_get_osfhandle(fd), LOCKFILE_EXCLUSIVE_LOCK,
@@ -73,129 +73,129 @@ static FILE *open_tcov_file (char *cov_filename)
     }
 #endif
 
-    return fdopen (fd, "r+");
+    ଫେରନ୍ତୁ fdopen (fd, "r+");
 }
 
-static unsigned long long get_value(unsigned char *p, int size)
+ସ୍ଥିର unsigned long long get_ମୂଲ୍ୟ(unsigned ଅକ୍ଷର *p, ପୂର୍ଣ୍ଣସଂଖ୍ୟା size)
 {
-    unsigned long long value = 0;
+    unsigned long long ମୂଲ୍ୟ = 0;
 
     p += size;
-    while (size--)
- 	value = (value << 8) | *--p;
-    return value;
+    ଯେତେବେଳେ (size--)
+ 	ମୂଲ୍ୟ = (ମୂଲ୍ୟ << 8) | *--p;
+    ଫେରନ୍ତୁ ମୂଲ୍ୟ;
 }
 
-static int sort_func (const void *p, const void *q)
+ସ୍ଥିର ପୂର୍ଣ୍ଣସଂଖ୍ୟା sort_func (ଅଚଳ ଶୂନ୍ୟ *p, ଅଚଳ ଶୂନ୍ୟ *q)
 {
-    const tcov_function *pp = (const tcov_function *) p;
-    const tcov_function *pq = (const tcov_function *) q;
+    ଅଚଳ tcov_function *pp = (ଅଚଳ tcov_function *) p;
+    ଅଚଳ tcov_function *pq = (ଅଚଳ tcov_function *) q;
 
-    return pp->first_line > pq->first_line ? 1 :
-	   pp->first_line < pq->first_line ? -1 : 0;
+    ଫେରନ୍ତୁ pp->first_ଧାଡ଼ି > pq->first_ଧାଡ଼ି ? 1 :
+	   pp->first_ଧାଡ଼ି < pq->first_ଧାଡ଼ି ? -1 : 0;
 }
 
-static int sort_line (const void *p, const void *q)
+ସ୍ଥିର ପୂର୍ଣ୍ଣସଂଖ୍ୟା sort_ଧାଡ଼ି (ଅଚଳ ଶୂନ୍ୟ *p, ଅଚଳ ଶୂନ୍ୟ *q)
 {
-    const tcov_line *pp = (const tcov_line *) p;
-    const tcov_line *pq = (const tcov_line *) q;
+    ଅଚଳ tcov_ଧାଡ଼ି *pp = (ଅଚଳ tcov_ଧାଡ଼ି *) p;
+    ଅଚଳ tcov_ଧାଡ଼ି *pq = (ଅଚଳ tcov_ଧାଡ଼ି *) q;
 
-    return pp->fline > pq->fline ? 1 :
+    ଫେରନ୍ତୁ pp->fline > pq->fline ? 1 :
 	   pp->fline < pq->fline ? -1 :
-           pp->count < pq->count ? 1 :
-	   pp->count > pq->count ? -1 : 0;
+           pp->ଗଣନା_3 < pq->ଗଣନା_3 ? 1 :
+	   pp->ଗଣନା_3 > pq->ଗଣନା_3 ? -1 : 0;
 }
 
 /* sort to let inline functions work */
-static tcov_file *sort_test_coverage (unsigned char *p)
+ସ୍ଥିର tcov_file *sort_test_coverage (unsigned ଅକ୍ଷର *p)
 {
-    int i, j, k;
-    unsigned char *start = p;
-    tcov_file *file = NULL;
+    ପୂର୍ଣ୍ଣସଂଖ୍ୟା i, j, k;
+    unsigned ଅକ୍ଷର *start = p;
+    tcov_file *file = ଖାଲି;
     tcov_file *nfile;
 
     p += 4;
-    while (*p) {
-        char *filename = (char *)p;
+    ଯେତେବେଳେ (*p) {
+        ଅକ୍ଷର *filename = (ଅକ୍ଷର *)p;
 	size_t len = strlen (filename);
 
 	nfile = file;
-	while (nfile) {
-	    if (strcmp (nfile->filename, filename) == 0)
-		break;
+	ଯେତେବେଳେ (nfile) {
+	    ଯଦି (strcmp (nfile->filename, filename) == 0)
+		ଭାଙ୍ଗ;
 	    nfile = nfile->next;
 	}
-	if (nfile == NULL) {
-	    nfile = malloc (sizeof(tcov_file));
-	    if (nfile == NULL) {
+	ଯଦି (nfile == ଖାଲି) {
+	    nfile = malloc (ଆକାର(tcov_file));
+	    ଯଦି (nfile == ଖାଲି) {
 	        fprintf (stderr, "Malloc error test_coverage\n");
-	        return file;
+	        ଫେରନ୍ତୁ file;
     	    }
 	    nfile->filename = filename;
 	    nfile->n_func = 0;
 	    nfile->m_func = 0;
-	    nfile->func = NULL;
-	    nfile->next = NULL;
-	    if (file == NULL)
+	    nfile->func = ଖାଲି;
+	    nfile->next = ଖାଲି;
+	    ଯଦି (file == ଖାଲି)
 	        file = nfile;
-	    else {
+	    ଅନ୍ୟଥା {
 		tcov_file *lfile = file;
 
-	        while (lfile->next)
+	        ଯେତେବେଳେ (lfile->next)
 		    lfile = lfile->next;
 		lfile->next = nfile;
 	    }
 	}
 	p += len + 1;
-	while (*p) {
-	    int i;
-	    char *function = (char *)p;
+	ଯେତେବେଳେ (*p) {
+	    ପୂର୍ଣ୍ଣସଂଖ୍ୟା i;
+	    ଅକ୍ଷର *function = (ଅକ୍ଷର *)p;
 	    tcov_function *func;
 
 	    p += strlen (function) + 1;
 	    p += -(p - start) & 7;
-	    for (i = 0; i < nfile->n_func; i++) {
+	    ପାଇଁ (i = 0; i < nfile->n_func; i++) {
 		func = &nfile->func[i];
-		if (strcmp (func->function, function) == 0)
-		    break;
+		ଯଦି (strcmp (func->function, function) == 0)
+		    ଭାଙ୍ଗ;
 	    }
-	    if (i == nfile->n_func) {
-	        if (nfile->n_func >= nfile->m_func) {
+	    ଯଦି (i == nfile->n_func) {
+	        ଯଦି (nfile->n_func >= nfile->m_func) {
 		    nfile->m_func = nfile->m_func == 0 ? 4 : nfile->m_func * 2;
 		    nfile->func = realloc (nfile->func,
 					   nfile->m_func *
-					   sizeof (tcov_function));
-		    if (nfile->func == NULL) {
+					   ଆକାର (tcov_function));
+		    ଯଦି (nfile->func == ଖାଲି) {
 		        fprintf (stderr, "Realloc error test_coverage\n");
-		        return file;
+		        ଫେରନ୍ତୁ file;
 		    }
 	        }
 	        func = &nfile->func[nfile->n_func++];
 	        func->function = function;
-	        func->first_line = get_value (p, 8);
-	        func->n_line = 0;
-	        func->m_line = 0;
-	        func->line = NULL;
+	        func->first_ଧାଡ଼ି = get_ମୂଲ୍ୟ (p, 8);
+	        func->n_ଧାଡ଼ି = 0;
+	        func->m_ଧାଡ଼ି = 0;
+	        func->ଧାଡ଼ି = ଖାଲି;
 	    }
 	    p += 8;
-	    while (*p) {
-		tcov_line *line;
+	    ଯେତେବେଳେ (*p) {
+		tcov_ଧାଡ଼ି *ଧାଡ଼ି;
 		unsigned long long val;
 
-		if (func->n_line >= func->m_line) {
-		    func->m_line = func->m_line == 0 ? 4 : func->m_line * 2;
-		    func->line = realloc (func->line,
-					  func->m_line * sizeof (tcov_line));
-		    if (func->line == NULL) {
+		ଯଦି (func->n_ଧାଡ଼ି >= func->m_ଧାଡ଼ି) {
+		    func->m_ଧାଡ଼ି = func->m_ଧାଡ଼ି == 0 ? 4 : func->m_ଧାଡ଼ି * 2;
+		    func->ଧାଡ଼ି = realloc (func->ଧାଡ଼ି,
+					  func->m_ଧାଡ଼ି * ଆକାର (tcov_ଧାଡ଼ି));
+		    ଯଦି (func->ଧାଡ଼ି == ଖାଲି) {
 		        fprintf (stderr, "Realloc error test_coverage\n");
-		        return file;
+		        ଫେରନ୍ତୁ file;
 		    }
 		}
-		line = &func->line[func->n_line++];
-		val = get_value (p, 8);
-	        line->fline = (val >> 8) & 0xfffffffULL;
-	        line->lline = val >> 36;
-	        line->count = get_value (p + 8, 8);
+		ଧାଡ଼ି = &func->ଧାଡ଼ି[func->n_ଧାଡ଼ି++];
+		val = get_ମୂଲ୍ୟ (p, 8);
+	        ଧାଡ଼ି->fline = (val >> 8) & 0xfffffffULL;
+	        ଧାଡ଼ି->lline = val >> 36;
+	        ଧାଡ଼ି->ଗଣନା_3 = get_ମୂଲ୍ୟ (p + 8, 8);
 	 	p += 16;
 	    }
 	    p++;
@@ -203,63 +203,63 @@ static tcov_file *sort_test_coverage (unsigned char *p)
 	p++;
     }
     nfile = file;
-    while (nfile) {
-	qsort (nfile->func, nfile->n_func, sizeof (tcov_function), sort_func);
-	for (i = 0; i < nfile->n_func; i++) {
+    ଯେତେବେଳେ (nfile) {
+	qsort (nfile->func, nfile->n_func, ଆକାର (tcov_function), sort_func);
+	ପାଇଁ (i = 0; i < nfile->n_func; i++) {
 	    tcov_function *func = &nfile->func[i];
-	    qsort (func->line, func->n_line, sizeof (tcov_line), sort_line);
+	    qsort (func->ଧାଡ଼ି, func->n_ଧାଡ଼ି, ଆକାର (tcov_ଧାଡ଼ି), sort_ଧାଡ଼ି);
         }
 	nfile = nfile->next;
     }
-    return file;
+    ଫେରନ୍ତୁ file;
 }
 
 /* merge with previous tcov file */
-static void merge_test_coverage (tcov_file *file, FILE *fp,
-				 unsigned int *pruns)
+ସ୍ଥିର ଶୂନ୍ୟ merge_test_coverage (tcov_file *file, FILE *fp,
+				 unsigned ପୂର୍ଣ୍ଣସଂଖ୍ୟା *pruns)
 {
-    unsigned int runs;
-    char *p;
-    char str[10000];
+    unsigned ପୂର୍ଣ୍ଣସଂଖ୍ୟା runs;
+    ଅକ୍ଷର *p;
+    ଅକ୍ଷର str[10000];
     
     *pruns = 1;
-    if (fp == NULL)
-        return;
-    if (fgets(str, sizeof(str), fp) &&
+    ଯଦି (fp == ଖାଲି)
+        ଫେରନ୍ତୁ;
+    ଯଦି (fgets(str, ଆକାର(str), fp) &&
         (p = strrchr (str, ':')) &&
         (sscanf (p + 1, "%u", &runs) == 1)) 
         *pruns = runs + 1;
-    while (file) {
-	int i;
+    ଯେତେବେଳେ (file) {
+	ପୂର୍ଣ୍ଣସଂଖ୍ୟା i;
 	size_t len = strlen (file->filename);
 
-	while (fgets(str, sizeof(str), fp) &&
-	       (p = strstr(str, "0:File:")) == NULL) {}
-        if ((p = strstr(str, "0:File:")) == NULL ||
+	ଯେତେବେଳେ (fgets(str, ଆକାର(str), fp) &&
+	       (p = strstr(str, "0:File:")) == ଖାଲି) {}
+        ଯଦି ((p = strstr(str, "0:File:")) == ଖାଲି ||
 	    strncmp (p + strlen("0:File:"), file->filename, len) != 0 ||
 	    p[strlen("0:File:") + len] != ' ')
-	    break;
-	for (i = 0; i < file->n_func; i++) {
-	    int j;
+	    ଭାଙ୍ଗ;
+	ପାଇଁ (i = 0; i < file->n_func; i++) {
+	    ପୂର୍ଣ୍ଣସଂଖ୍ୟା j;
 	    tcov_function *func = &file->func[i];
-	    unsigned int next_zero = 0;
-	    unsigned int curline = 0;
+	    unsigned ପୂର୍ଣ୍ଣସଂଖ୍ୟା next_zero = 0;
+	    unsigned ପୂର୍ଣ୍ଣସଂଖ୍ୟା curline = 0;
 
-	    for (j = 0; j < func->n_line; j++) {
-		tcov_line *line = &func->line[j];
-	        unsigned int fline = line->fline;
-	        unsigned long long count;
-		unsigned int tmp;
-		char c;
+	    ପାଇଁ (j = 0; j < func->n_ଧାଡ଼ି; j++) {
+		tcov_ଧାଡ଼ି *ଧାଡ଼ି = &func->ଧାଡ଼ି[j];
+	        unsigned ପୂର୍ଣ୍ଣସଂଖ୍ୟା fline = ଧାଡ଼ି->fline;
+	        unsigned long long ଗଣନା_3;
+		unsigned ପୂର୍ଣ୍ଣସଂଖ୍ୟା tmp;
+		ଅକ୍ଷର c;
 
-		while (curline < fline &&
-		       fgets(str, sizeof(str), fp))
-		    if ((p = strchr(str, ':')) &&
+		ଯେତେବେଳେ (curline < fline &&
+		       fgets(str, ଆକାର(str), fp))
+		    ଯଦି ((p = strchr(str, ':')) &&
 			sscanf (p + 1, "%u", &tmp) == 1)
 			curline = tmp;
-		if (sscanf (str, "%llu%c\n", &count, &c) == 2) {
-		    if (next_zero == 0)
-		        line->count += count;
+		ଯଦି (sscanf (str, "%llu%c\n", &ଗଣନା_3, &c) == 2) {
+		    ଯଦି (next_zero == 0)
+		        ଧାଡ଼ି->ଗଣନା_3 += ଗଣନା_3;
 		    next_zero = c == '*';
 		}
 	    }
@@ -269,25 +269,25 @@ static void merge_test_coverage (tcov_file *file, FILE *fp,
 }
 
 /* store tcov data in file */
-void __store_test_coverage (unsigned char * p)
+ଶୂନ୍ୟ __store_test_coverage (unsigned ଅକ୍ଷର * p)
 {
-    int i, j;
-    unsigned int files;
-    unsigned int funcs;
-    unsigned int blocks;
-    unsigned int blocks_run;
-    unsigned int runs;
-    char *cov_filename = (char *)p + get_value (p, 4);
+    ପୂର୍ଣ୍ଣସଂଖ୍ୟା i, j;
+    unsigned ପୂର୍ଣ୍ଣସଂଖ୍ୟା files;
+    unsigned ପୂର୍ଣ୍ଣସଂଖ୍ୟା funcs;
+    unsigned ପୂର୍ଣ୍ଣସଂଖ୍ୟା blocks;
+    unsigned ପୂର୍ଣ୍ଣସଂଖ୍ୟା blocks_run;
+    unsigned ପୂର୍ଣ୍ଣସଂଖ୍ୟା runs;
+    ଅକ୍ଷର *cov_filename = (ଅକ୍ଷର *)p + get_ମୂଲ୍ୟ (p, 4);
     FILE *fp;
-    char *q;
+    ଅକ୍ଷର *q;
     tcov_file *file;
     tcov_file *nfile;
     tcov_function *func;
 
     fp = open_tcov_file (cov_filename);
-    if (fp == NULL) {
+    ଯଦି (fp == ଖାଲି) {
 	fprintf (stderr, "Cannot create coverage file: %s\n", cov_filename);
-	return;
+	ଫେରନ୍ତୁ;
     }
     file = sort_test_coverage (p);
     merge_test_coverage (file, fp, &runs);
@@ -298,131 +298,131 @@ void __store_test_coverage (unsigned char * p)
     blocks = 0;
     blocks_run = 0;
     nfile = file;
-    while (nfile) {
+    ଯେତେବେଳେ (nfile) {
 	files++;
-	for (i = 0; i < nfile->n_func; i++) {
+	ପାଇଁ (i = 0; i < nfile->n_func; i++) {
 	    func = &nfile->func[i];
 	    funcs++;
-	    for (j = 0; j < func->n_line; j++) {
+	    ପାଇଁ (j = 0; j < func->n_ଧାଡ଼ି; j++) {
 		blocks++;
-		blocks_run += func->line[j].count != 0;
+		blocks_run += func->ଧାଡ଼ି[j].ଗଣନା_3 != 0;
 	    }
 	}
 	nfile = nfile->next;
     }
-    if (blocks == 0)
+    ଯଦି (blocks == 0)
 	blocks = 1;
     fprintf (fp, "        -:    0:All:%s Files:%u Functions:%u %.02f%%\n",
-	     cov_filename, files, funcs, 100.0 * (double) blocks_run / blocks);
+	     cov_filename, files, funcs, 100.0 * (ଦ୍ୱିଗୁଣ) blocks_run / blocks);
     nfile = file;
-    while (nfile) {
+    ଯେତେବେଳେ (nfile) {
 	FILE *src = fopen (nfile->filename, "r");
-	unsigned int curline = 1;
-	char str[10000];
+	unsigned ପୂର୍ଣ୍ଣସଂଖ୍ୟା curline = 1;
+	ଅକ୍ଷର str[10000];
 
-        if (src == NULL)
-	     goto next;
+        ଯଦି (src == ଖାଲି)
+	     ଯାଅ next;
 	funcs = 0;
 	blocks = 0;
 	blocks_run = 0;
-	for (i = 0; i < nfile->n_func; i++) {
+	ପାଇଁ (i = 0; i < nfile->n_func; i++) {
 	    func = &nfile->func[i];
 	    funcs++;
-	    for (j = 0; j < func->n_line; j++) {
+	    ପାଇଁ (j = 0; j < func->n_ଧାଡ଼ି; j++) {
 		blocks++;
-		blocks_run += func->line[j].count != 0;
+		blocks_run += func->ଧାଡ଼ି[j].ଗଣନା_3 != 0;
 	    }
 	}
-	if (blocks == 0)
+	ଯଦି (blocks == 0)
 	    blocks = 1;
         fprintf (fp, "        -:    0:File:%s Functions:%u %.02f%%\n",
-		 nfile->filename, funcs, 100.0 * (double) blocks_run / blocks);
-        for (i = 0; i < nfile->n_func; i++) {
+		 nfile->filename, funcs, 100.0 * (ଦ୍ୱିଗୁଣ) blocks_run / blocks);
+        ପାଇଁ (i = 0; i < nfile->n_func; i++) {
 	    func = &nfile->func[i];
 	
-	    while (curline < func->first_line &&
-		   fgets(str, sizeof(str), src))
+	    ଯେତେବେଳେ (curline < func->first_ଧାଡ଼ି &&
+		   fgets(str, ଆକାର(str), src))
 		fprintf (fp, "        -:%5u:%s", curline++, str);
 	    blocks = 0;
 	    blocks_run = 0;
-	    for (j = 0; j < func->n_line; j++) {
+	    ପାଇଁ (j = 0; j < func->n_ଧାଡ଼ି; j++) {
 		blocks++;
-		blocks_run += func->line[j].count != 0;
+		blocks_run += func->ଧାଡ଼ି[j].ଗଣନା_3 != 0;
 	    }
-	    if (blocks == 0)
+	    ଯଦି (blocks == 0)
 		blocks = 1;
             fprintf (fp, "        -:    0:Function:%s %.02f%%\n",
-		     func->function, 100.0 * (double) blocks_run / blocks);
-#if 0
-	    for (j = 0; j < func->n_line; j++) {
-	        unsigned int fline = func->line[j].fline;
-	        unsigned int lline = func->line[j].lline;
-		unsigned long long count = func->line[j].count;
+		     func->function, 100.0 * (ଦ୍ୱିଗୁଣ) blocks_run / blocks);
+#ଯଦି 0
+	    ପାଇଁ (j = 0; j < func->n_ଧାଡ଼ି; j++) {
+	        unsigned ପୂର୍ଣ୍ଣସଂଖ୍ୟା fline = func->ଧାଡ଼ି[j].fline;
+	        unsigned ପୂର୍ଣ୍ଣସଂଖ୍ୟା lline = func->ଧାଡ଼ି[j].lline;
+		unsigned long long ଗଣନା_3 = func->ଧାଡ଼ି[j].ଗଣନା_3;
 
-		fprintf (fp, "%u %u %llu\n", fline, lline, count);
+		fprintf (fp, "%u %u %llu\n", fline, lline, ଗଣନା_3);
 	    }
 #endif
-	    for (j = 0; j < func->n_line;) {
-	        unsigned int fline = func->line[j].fline;
-	        unsigned int lline = func->line[j].lline;
-	        unsigned long long count = func->line[j].count;
-		unsigned int has_zero = 0;
-		unsigned int same_line = fline == lline;
+	    ପାଇଁ (j = 0; j < func->n_ଧାଡ଼ି;) {
+	        unsigned ପୂର୍ଣ୍ଣସଂଖ୍ୟା fline = func->ଧାଡ଼ି[j].fline;
+	        unsigned ପୂର୍ଣ୍ଣସଂଖ୍ୟା lline = func->ଧାଡ଼ି[j].lline;
+	        unsigned long long ଗଣନା_3 = func->ଧାଡ଼ି[j].ଗଣନା_3;
+		unsigned ପୂର୍ଣ୍ଣସଂଖ୍ୟା has_zero = 0;
+		unsigned ପୂର୍ଣ୍ଣସଂଖ୍ୟା same_ଧାଡ଼ି = fline == lline;
 
 		j++;
-		while (j < func->n_line) {
-	            unsigned int nfline = func->line[j].fline;
-	            unsigned int nlline = func->line[j].lline;
-	            unsigned long long ncount = func->line[j].count;
+		ଯେତେବେଳେ (j < func->n_ଧାଡ଼ି) {
+	            unsigned ପୂର୍ଣ୍ଣସଂଖ୍ୟା nfline = func->ଧାଡ଼ି[j].fline;
+	            unsigned ପୂର୍ଣ୍ଣସଂଖ୍ୟା nlline = func->ଧାଡ଼ି[j].lline;
+	            unsigned long long ncount = func->ଧାଡ଼ି[j].ଗଣନା_3;
 
-		    if (fline == nfline) {
-			if (ncount == 0)
+		    ଯଦି (fline == nfline) {
+			ଯଦି (ncount == 0)
 			    has_zero = 1;
-			else if (ncount > count)
-			    count =  ncount;
-			same_line = nfline == nlline;
+			ଅନ୍ୟଥା ଯଦି (ncount > ଗଣନା_3)
+			    ଗଣନା_3 =  ncount;
+			same_ଧାଡ଼ି = nfline == nlline;
 			lline = nlline;
 			j++;
 		    }
-		    else
-			break;
+		    ଅନ୍ୟଥା
+			ଭାଙ୍ଗ;
 		}
-		if (same_line)
+		ଯଦି (same_ଧାଡ଼ି)
 		     lline++;
 
-	        while (curline < fline &&
-		       fgets(str, sizeof(str), src))
+	        ଯେତେବେଳେ (curline < fline &&
+		       fgets(str, ଆକାର(str), src))
 		     fprintf (fp, "        -:%5u:%s", curline++, str);
-		while (curline < lline &&
-		       fgets(str, sizeof(str), src)) {
-		    if (count == 0)
+		ଯେତେବେଳେ (curline < lline &&
+		       fgets(str, ଆକାର(str), src)) {
+		    ଯଦି (ଗଣନା_3 == 0)
 		        fprintf (fp, "    #####:%5u:%s",
 				 curline, str);
-		    else if (has_zero)
+		    ଅନ୍ୟଥା ଯଦି (has_zero)
 		        fprintf (fp, "%8llu*:%5u:%s", 
-				 count, curline, str);
-		    else
+				 ଗଣନା_3, curline, str);
+		    ଅନ୍ୟଥା
 		        fprintf (fp, "%9llu:%5u:%s",
-				 count, curline, str);
+				 ଗଣନା_3, curline, str);
 		    curline++;
 		}
 	    }
 	}
-	while (fgets(str, sizeof(str), src))
+	ଯେତେବେଳେ (fgets(str, ଆକାର(str), src))
 	    fprintf (fp, "        -:%5u:%s", curline++, str);
 	fclose (src);
 next:
 	nfile = nfile->next;
     }
-    while (file) {
-        for (i = 0; i < file->n_func; i++) {
+    ଯେତେବେଳେ (file) {
+        ପାଇଁ (i = 0; i < file->n_func; i++) {
 	    func = &file->func[i];
-	    free (func->line);
+	    ମୁକ୍ତ (func->ଧାଡ଼ି);
         }
-	free (file->func);
+	ମୁକ୍ତ (file->func);
 	nfile = file;
 	file = file->next;
-	free (nfile);
+	ମୁକ୍ତ (nfile);
     }
     fclose (fp);
 }

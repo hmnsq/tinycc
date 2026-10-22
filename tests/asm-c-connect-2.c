@@ -1,30 +1,30 @@
-#include <stdio.h>
+#ଅନ୍ତର୍ଭାଵ <stdio.h>
 
-#if (defined _WIN32 || defined __APPLE__) && (!defined __TINYC__ || defined __leading_underscore)
+#ଯଦି (defined _WIN32 || defined __APPLE__) && (!defined __TINYC__ || defined __leading_underscore)
 # define _ "_"
-#else
+#ଅନ୍ୟଥା
 # define _
 #endif
 
 #ifdef __clang__
 /* clang needs some help tp not throw functions away even at -O0 */
 #define __USED __attribute__((__used__))
-#else
+#ଅନ୍ୟଥା
 #define __USED
 #endif
 
-int x3(void)
+ପୂର୍ଣ୍ଣସଂଖ୍ୟା x3(ଶୂନ୍ୟ)
 {
     printf(" x3");
-    return 3;
+    ଫେରନ୍ତୁ 3;
 }
 
 /* That callx4 is defined globally (as if ".globl callx4")
    is a TCC extension.  GCC doesn't behave like this.  */
-void callx4(void);
-#if __i386__
+ଶୂନ୍ୟ callx4(ଶୂନ୍ୟ);
+#ଯଦି __i386__
 __asm__(_"callx4: call "_"x4; ret;"
-#else
+#ଅନ୍ୟଥା
 /* Keep stack aligned */
 __asm__(_"callx4: sub $8,%rsp; call "_"x4; add $8,%rsp; ret;"
 #endif
@@ -33,16 +33,16 @@ __asm__(_"callx4: sub $8,%rsp; call "_"x4; add $8,%rsp; ret;"
 #endif
 );
 
-extern void x5(void);
+ବାହ୍ୟ ଶୂନ୍ୟ x5(ଶୂନ୍ୟ);
 
-void callx5_again(void);
-void callx5_again(void)
+ଶୂନ୍ୟ callx5_again(ଶୂନ୍ୟ);
+ଶୂନ୍ୟ callx5_again(ଶୂନ୍ୟ)
 {
     x5();
     asm("call "_"x6");
 }
 
-static void __USED x6()
+ସ୍ଥିର ଶୂନ୍ୟ __USED x6()
 {
     printf(" x6-2");
 }

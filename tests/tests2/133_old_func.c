@@ -1,41 +1,41 @@
-int printf(const char *s, ...);
+ପୂର୍ଣ୍ଣସଂଖ୍ୟା printf(ଅଚଳ ଅକ୍ଷର *s, ...);
 
-float fx(x)
-float x;
+ଦଶମିକ fx(x)
+ଦଶମିକ x;
 {
-    return 2.0 * x;
+    ଫେରନ୍ତୁ 2.0 * x;
 }
 
-void func(float a);
+ଶୂନ୍ୟ func(ଦଶମିକ a);
 
-void func3(struct p { int a; int b; } *q) {
+ଶୂନ୍ୟ func3(ସଂରଚନା p { ପୂର୍ଣ୍ଣସଂଖ୍ୟା a; ପୂର୍ଣ୍ଣସଂଖ୍ୟା b; } *q) {
 }
 
-void func4(q)
- struct p { int a; int b; int c; } *q;
+ଶୂନ୍ୟ func4(q)
+ ସଂରଚନା p { ପୂର୍ଣ୍ଣସଂଖ୍ୟା a; ପୂର୍ଣ୍ଣସଂଖ୍ୟା b; ପୂର୍ଣ୍ଣସଂଖ୍ୟା c; } *q;
 {
 }
 
-struct p { int a; int b; int c; int d; };
+ସଂରଚନା p { ପୂର୍ଣ୍ଣସଂଖ୍ୟା a; ପୂର୍ଣ୍ଣସଂଖ୍ୟା b; ପୂର୍ଣ୍ଣସଂଖ୍ୟା c; ପୂର୍ଣ୍ଣସଂଖ୍ୟା d; };
 
-int
-main(void)
+ପୂର୍ଣ୍ଣସଂଖ୍ୟା
+ମୁଖ୍ୟ(ଶୂନ୍ୟ)
 {
-    float fy();
+    ଦଶମିକ fy();
 
     printf("%g %g\n", fx(2.0), fy(10.0));
     printf("%g %g\n", fx(2.0f), fy(10.0f));
     func(1);
 }
 
-float fy(x)
-float x;
+ଦଶମିକ fy(x)
+ଦଶମିକ x;
 {
-    return 3.0 * x;
+    ଫେରନ୍ତୁ 3.0 * x;
 }
 
-void func(a)
-float a;
+ଶୂନ୍ୟ func(a)
+ଦଶମିକ a;
 {
     printf("%g\n", a);
 }

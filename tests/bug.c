@@ -1,35 +1,35 @@
-#include <stdio.h>
-#include <stdarg.h>
+#ଅନ୍ତର୍ଭାଵ <stdio.h>
+#ଅନ୍ତର୍ଭାଵ <stdarg.h>
 
-int compile_errors(void)
+ପୂର୍ଣ୍ଣସଂଖ୍ୟା compile_errors(ଶୂନ୍ୟ)
 {
-#if TEST == 1
+#ଯଦି TEST == 1
   {
     /* Not constant */
-    static int i = (&"Foobar"[1] - &"Foobar"[0]);
+    ସ୍ଥିର ପୂର୍ଣ୍ଣସଂଖ୍ୟା i = (&"Foobar"[1] - &"Foobar"[0]);
   }
 #endif
-#if TEST == 2
+#ଯଦି TEST == 2
   {
     /* Not constant */
-    struct{int c;}v;
-    static long i=((char*)&(v.c)-(char*)&v);
+    ସଂରଚନା{ପୂର୍ଣ୍ଣସଂଖ୍ୟା c;}v;
+    ସ୍ଥିର long i=((ଅକ୍ଷର*)&(v.c)-(ଅକ୍ଷର*)&v);
   }
 #endif
-#if TEST == 3
+#ଯଦି TEST == 3
   {
     /* Not constant */
-    static const short ar[] = { &&l1 - &&l1, &&l2 - &&l1 };
-    void *p = &&l1 + ar[0];
-    goto *p;
-   l1: return 1;
-   l2: return 2;
+    ସ୍ଥିର ଅଚଳ short ar[] = { &&l1 - &&l1, &&l2 - &&l1 };
+    ଶୂନ୍ୟ *p = &&l1 + ar[0];
+    ଯାଅ *p;
+   l1: ଫେରନ୍ତୁ 1;
+   l2: ଫେରନ୍ତୁ 2;
   }
 #endif
-  return 0;
+  ଫେରନ୍ତୁ 0;
 }
 
-int
-main(void)
+ପୂର୍ଣ୍ଣସଂଖ୍ୟା
+ମୁଖ୍ୟ(ଶୂନ୍ୟ)
 {
 }

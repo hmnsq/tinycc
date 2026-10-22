@@ -6,15 +6,15 @@
 #ifndef _MATH_H_
 #define _MATH_H_
 
-#if __GNUC__ >= 3
+#ଯଦି __GNUC__ >= 3
 #pragma GCC system_header
 #endif
 
-#include <_mingw.h>
+#ଅନ୍ତର୍ଭାଵ <_mingw.h>
 
-struct exception;
+ସଂରଚନା exception;
 
-#pragma pack(push,_CRT_PACKING)
+#pragma pack(ଠେଲ,_CRT_PACKING)
 
 #define _DOMAIN 1
 #define _SING 2
@@ -68,24 +68,24 @@ struct exception;
 #endif
 
 #ifdef __cplusplus
-extern "C" {
+ବାହ୍ୟ "C" {
 #endif
 
 #ifndef _EXCEPTION_DEFINED
 #define _EXCEPTION_DEFINED
-  struct _exception {
-    int type;
-    char *name;
-    double arg1;
-    double arg2;
-    double retval;
+  ସଂରଚନା _exception {
+    ପୂର୍ଣ୍ଣସଂଖ୍ୟା type;
+    ଅକ୍ଷର *name;
+    ଦ୍ୱିଗୁଣ arg1;
+    ଦ୍ୱିଗୁଣ arg2;
+    ଦ୍ୱିଗୁଣ retval;
   };
 #endif
 
 #ifndef _COMPLEX_DEFINED
 #define _COMPLEX_DEFINED
-  struct _complex {
-    double x,y;
+  ସଂରଚନା _complex {
+    ଦ୍ୱିଗୁଣ x,y;
   };
 #endif
 
@@ -94,9 +94,9 @@ extern "C" {
 
 #ifndef _HUGE
 #ifdef _MSVCRT_
-  extern double *_HUGE;
-#else
-  extern double *_imp___HUGE;
+  ବାହ୍ୟ ଦ୍ୱିଗୁଣ *_HUGE;
+#ଅନ୍ୟଥା
+  ବାହ୍ୟ ଦ୍ୱିଗୁଣ *_imp___HUGE;
 #define _HUGE	(*_imp___HUGE)
 #endif
 #endif
@@ -105,96 +105,96 @@ extern "C" {
 
 #ifndef _CRT_ABS_DEFINED
 #define _CRT_ABS_DEFINED
-  int __cdecl abs(int _X);
+  ପୂର୍ଣ୍ଣସଂଖ୍ୟା __cdecl abs(ପୂର୍ଣ୍ଣସଂଖ୍ୟା _X);
   long __cdecl labs(long _X);
 #endif
-  double __cdecl acos(double _X);
-  double __cdecl asin(double _X);
-  double __cdecl atan(double _X);
-  double __cdecl atan2(double _Y,double _X);
+  ଦ୍ୱିଗୁଣ __cdecl acos(ଦ୍ୱିଗୁଣ _X);
+  ଦ୍ୱିଗୁଣ __cdecl asin(ଦ୍ୱିଗୁଣ _X);
+  ଦ୍ୱିଗୁଣ __cdecl atan(ଦ୍ୱିଗୁଣ _X);
+  ଦ୍ୱିଗୁଣ __cdecl atan2(ଦ୍ୱିଗୁଣ _Y,ଦ୍ୱିଗୁଣ _X);
 #ifndef _SIGN_DEFINED
 #define _SIGN_DEFINED
-  _CRTIMP double __cdecl _copysign (double _Number,double _Sign);
-  _CRTIMP double __cdecl _chgsign (double _X);
+  _CRTIMP ଦ୍ୱିଗୁଣ __cdecl _copysign (ଦ୍ୱିଗୁଣ ସଂଖ୍ୟା,ଦ୍ୱିଗୁଣ _Sign);
+  _CRTIMP ଦ୍ୱିଗୁଣ __cdecl _chgsign (ଦ୍ୱିଗୁଣ _X);
 #endif
-  double __cdecl cos(double _X);
-  double __cdecl cosh(double _X);
-  double __cdecl exp(double _X);
-  double __cdecl expm1(double _X);
-  double __cdecl fabs(double _X);
-  double __cdecl fmod(double _X,double _Y);
-  double __cdecl log(double _X);
-  double __cdecl log10(double _X);
-  double __cdecl pow(double _X,double _Y);
-  double __cdecl sin(double _X);
-  double __cdecl sinh(double _X);
-  double __cdecl tan(double _X);
-  double __cdecl tanh(double _X);
-  double __cdecl sqrt(double _X);
+  ଦ୍ୱିଗୁଣ __cdecl cos(ଦ୍ୱିଗୁଣ _X);
+  ଦ୍ୱିଗୁଣ __cdecl cosh(ଦ୍ୱିଗୁଣ _X);
+  ଦ୍ୱିଗୁଣ __cdecl exp(ଦ୍ୱିଗୁଣ _X);
+  ଦ୍ୱିଗୁଣ __cdecl expm1(ଦ୍ୱିଗୁଣ _X);
+  ଦ୍ୱିଗୁଣ __cdecl fabs(ଦ୍ୱିଗୁଣ _X);
+  ଦ୍ୱିଗୁଣ __cdecl fmod(ଦ୍ୱିଗୁଣ _X,ଦ୍ୱିଗୁଣ _Y);
+  ଦ୍ୱିଗୁଣ __cdecl log(ଦ୍ୱିଗୁଣ _X);
+  ଦ୍ୱିଗୁଣ __cdecl log10(ଦ୍ୱିଗୁଣ _X);
+  ଦ୍ୱିଗୁଣ __cdecl pow(ଦ୍ୱିଗୁଣ _X,ଦ୍ୱିଗୁଣ _Y);
+  ଦ୍ୱିଗୁଣ __cdecl sin(ଦ୍ୱିଗୁଣ _X);
+  ଦ୍ୱିଗୁଣ __cdecl sinh(ଦ୍ୱିଗୁଣ _X);
+  ଦ୍ୱିଗୁଣ __cdecl tan(ଦ୍ୱିଗୁଣ _X);
+  ଦ୍ୱିଗୁଣ __cdecl tanh(ଦ୍ୱିଗୁଣ _X);
+  ଦ୍ୱିଗୁଣ __cdecl sqrt(ଦ୍ୱିଗୁଣ _X);
 #ifndef _CRT_ATOF_DEFINED
 #define _CRT_ATOF_DEFINED
-  double __cdecl atof(const char *_String);
-  double __cdecl _atof_l(const char *_String,_locale_t _Locale);
+  ଦ୍ୱିଗୁଣ __cdecl atof(ଅଚଳ ଅକ୍ଷର *_String);
+  ଦ୍ୱିଗୁଣ __cdecl _atof_l(ଅଚଳ ଅକ୍ଷର *_String,_locale_t _Locale);
 #endif
 
-  _CRTIMP double __cdecl _cabs(struct _complex _ComplexA);
-  double __cdecl ceil(double _X);
-  double __cdecl floor(double _X);
-  double __cdecl frexp(double _X,int *_Y);
-  double __cdecl _hypot(double _X,double _Y);
-  _CRTIMP double __cdecl _j0(double _X);
-  _CRTIMP double __cdecl _j1(double _X);
-  _CRTIMP double __cdecl _jn(int _X,double _Y);
-  double __cdecl ldexp(double _X,int _Y);
+  _CRTIMP ଦ୍ୱିଗୁଣ __cdecl _cabs(ସଂରଚନା _complex _ComplexA);
+  ଦ୍ୱିଗୁଣ __cdecl ceil(ଦ୍ୱିଗୁଣ _X);
+  ଦ୍ୱିଗୁଣ __cdecl floor(ଦ୍ୱିଗୁଣ _X);
+  ଦ୍ୱିଗୁଣ __cdecl frexp(ଦ୍ୱିଗୁଣ _X,ପୂର୍ଣ୍ଣସଂଖ୍ୟା *_Y);
+  ଦ୍ୱିଗୁଣ __cdecl _hypot(ଦ୍ୱିଗୁଣ _X,ଦ୍ୱିଗୁଣ _Y);
+  _CRTIMP ଦ୍ୱିଗୁଣ __cdecl _j0(ଦ୍ୱିଗୁଣ _X);
+  _CRTIMP ଦ୍ୱିଗୁଣ __cdecl _j1(ଦ୍ୱିଗୁଣ _X);
+  _CRTIMP ଦ୍ୱିଗୁଣ __cdecl _jn(ପୂର୍ଣ୍ଣସଂଖ୍ୟା _X,ଦ୍ୱିଗୁଣ _Y);
+  ଦ୍ୱିଗୁଣ __cdecl ldexp(ଦ୍ୱିଗୁଣ _X,ପୂର୍ଣ୍ଣସଂଖ୍ୟା _Y);
 #ifndef _CRT_MATHERR_DEFINED
 #define _CRT_MATHERR_DEFINED
-  int __cdecl _matherr(struct _exception *_Except);
+  ପୂର୍ଣ୍ଣସଂଖ୍ୟା __cdecl _matherr(ସଂରଚନା _exception *_Except);
 #endif
-  double __cdecl modf(double _X,double *_Y);
-  _CRTIMP double __cdecl _y0(double _X);
-  _CRTIMP double __cdecl _y1(double _X);
-  _CRTIMP double __cdecl _yn(int _X,double _Y);
+  ଦ୍ୱିଗୁଣ __cdecl modf(ଦ୍ୱିଗୁଣ _X,ଦ୍ୱିଗୁଣ *_Y);
+  _CRTIMP ଦ୍ୱିଗୁଣ __cdecl _y0(ଦ୍ୱିଗୁଣ _X);
+  _CRTIMP ଦ୍ୱିଗୁଣ __cdecl _y1(ଦ୍ୱିଗୁଣ _X);
+  _CRTIMP ଦ୍ୱିଗୁଣ __cdecl _yn(ପୂର୍ଣ୍ଣସଂଖ୍ୟା _X,ଦ୍ୱିଗୁଣ _Y);
 
-#if(defined(_X86_) && !defined(__x86_64))
-  _CRTIMP int __cdecl _set_SSE2_enable(int _Flag);
+#ଯଦି(defined(_X86_) && !defined(__x86_64))
+  _CRTIMP ପୂର୍ଣ୍ଣସଂଖ୍ୟା __cdecl _set_SSE2_enable(ପୂର୍ଣ୍ଣସଂଖ୍ୟା _Flag);
   /* from libmingwex */
-  float __cdecl _hypotf(float _X,float _Y);
+  ଦଶମିକ __cdecl _hypotf(ଦଶମିକ _X,ଦଶମିକ _Y);
 #endif
 
-  float frexpf(float _X,int *_Y);
-  float __cdecl ldexpf(float _X,int _Y);
-  long double __cdecl ldexpl(long double _X,int _Y);
-  float __cdecl acosf(float _X);
-  float __cdecl asinf(float _X);
-   float __cdecl atanf(float _X);
-   float __cdecl atan2f(float _X,float _Y);
-   float __cdecl cosf(float _X);
-   float __cdecl sinf(float _X);
-   float __cdecl tanf(float _X);
-   float __cdecl coshf(float _X);
-   float __cdecl sinhf(float _X);
-   float __cdecl tanhf(float _X);
-   float __cdecl expf(float _X);
-   float __cdecl expm1f(float _X);
-   float __cdecl logf(float _X);
-   float __cdecl log10f(float _X);
-   float __cdecl modff(float _X,float *_Y);
-   float __cdecl powf(float _X,float _Y);
-   float __cdecl sqrtf(float _X);
-   float __cdecl ceilf(float _X);
-   float __cdecl floorf(float _X);
-  float __cdecl fmodf(float _X,float _Y);
-   float __cdecl _hypotf(float _X,float _Y);
-  float __cdecl fabsf(float _X);
-#if !defined(__ia64__)
+  ଦଶମିକ frexpf(ଦଶମିକ _X,ପୂର୍ଣ୍ଣସଂଖ୍ୟା *_Y);
+  ଦଶମିକ __cdecl ldexpf(ଦଶମିକ _X,ପୂର୍ଣ୍ଣସଂଖ୍ୟା _Y);
+  long ଦ୍ୱିଗୁଣ __cdecl ldexpl(long ଦ୍ୱିଗୁଣ _X,ପୂର୍ଣ୍ଣସଂଖ୍ୟା _Y);
+  ଦଶମିକ __cdecl acosf(ଦଶମିକ _X);
+  ଦଶମିକ __cdecl asinf(ଦଶମିକ _X);
+   ଦଶମିକ __cdecl atanf(ଦଶମିକ _X);
+   ଦଶମିକ __cdecl atan2f(ଦଶମିକ _X,ଦଶମିକ _Y);
+   ଦଶମିକ __cdecl cosf(ଦଶମିକ _X);
+   ଦଶମିକ __cdecl sinf(ଦଶମିକ _X);
+   ଦଶମିକ __cdecl tanf(ଦଶମିକ _X);
+   ଦଶମିକ __cdecl coshf(ଦଶମିକ _X);
+   ଦଶମିକ __cdecl sinhf(ଦଶମିକ _X);
+   ଦଶମିକ __cdecl tanhf(ଦଶମିକ _X);
+   ଦଶମିକ __cdecl expf(ଦଶମିକ _X);
+   ଦଶମିକ __cdecl expm1f(ଦଶମିକ _X);
+   ଦଶମିକ __cdecl logf(ଦଶମିକ _X);
+   ଦଶମିକ __cdecl log10f(ଦଶମିକ _X);
+   ଦଶମିକ __cdecl modff(ଦଶମିକ _X,ଦଶମିକ *_Y);
+   ଦଶମିକ __cdecl powf(ଦଶମିକ _X,ଦଶମିକ _Y);
+   ଦଶମିକ __cdecl sqrtf(ଦଶମିକ _X);
+   ଦଶମିକ __cdecl ceilf(ଦଶମିକ _X);
+   ଦଶମିକ __cdecl floorf(ଦଶମିକ _X);
+  ଦଶମିକ __cdecl fmodf(ଦଶମିକ _X,ଦଶମିକ _Y);
+   ଦଶମିକ __cdecl _hypotf(ଦଶମିକ _X,ଦଶମିକ _Y);
+  ଦଶମିକ __cdecl fabsf(ଦଶମିକ _X);
+#ଯଦି !defined(__ia64__)
    /* from libmingwex */
-   float __cdecl _copysignf (float _Number,float _Sign);
-   float __cdecl _chgsignf (float _X);
-   float __cdecl _logbf(float _X);
-   float __cdecl _nextafterf(float _X,float _Y);
-   int __cdecl _finitef(float _X);
-   int __cdecl _isnanf(float _X);
-   int __cdecl _fpclassf(float _X);
+   ଦଶମିକ __cdecl _copysignf (ଦଶମିକ ସଂଖ୍ୟା,ଦଶମିକ _Sign);
+   ଦଶମିକ __cdecl _chgsignf (ଦଶମିକ _X);
+   ଦଶମିକ __cdecl _logbf(ଦଶମିକ _X);
+   ଦଶମିକ __cdecl _nextafterf(ଦଶମିକ _X,ଦଶମିକ _Y);
+   ପୂର୍ଣ୍ଣସଂଖ୍ୟା __cdecl _finitef(ଦଶମିକ _X);
+   ପୂର୍ଣ୍ଣସଂଖ୍ୟା __cdecl _isnanf(ଦଶମିକ _X);
+   ପୂର୍ଣ୍ଣସଂଖ୍ୟା __cdecl _fpclassf(ଦଶମିକ _X);
 #endif
 
 #ifndef	NO_OLDNAMES
@@ -202,17 +202,17 @@ extern "C" {
 
 #define HUGE	_HUGE
   /*	double __cdecl cabs(struct _complex _X); */
-  double __cdecl hypot(double _X,double _Y);
-  _CRTIMP double __cdecl j0(double _X);
-  _CRTIMP double __cdecl j1(double _X);
-  _CRTIMP double __cdecl jn(int _X,double _Y);
-  _CRTIMP double __cdecl y0(double _X);
-  _CRTIMP double __cdecl y1(double _X);
-  _CRTIMP double __cdecl yn(int _X,double _Y);
+  ଦ୍ୱିଗୁଣ __cdecl hypot(ଦ୍ୱିଗୁଣ _X,ଦ୍ୱିଗୁଣ _Y);
+  _CRTIMP ଦ୍ୱିଗୁଣ __cdecl j0(ଦ୍ୱିଗୁଣ _X);
+  _CRTIMP ଦ୍ୱିଗୁଣ __cdecl j1(ଦ୍ୱିଗୁଣ _X);
+  _CRTIMP ଦ୍ୱିଗୁଣ __cdecl jn(ପୂର୍ଣ୍ଣସଂଖ୍ୟା _X,ଦ୍ୱିଗୁଣ _Y);
+  _CRTIMP ଦ୍ୱିଗୁଣ __cdecl y0(ଦ୍ୱିଗୁଣ _X);
+  _CRTIMP ଦ୍ୱିଗୁଣ __cdecl y1(ଦ୍ୱିଗୁଣ _X);
+  _CRTIMP ଦ୍ୱିଗୁଣ __cdecl yn(ପୂର୍ଣ୍ଣସଂଖ୍ୟା _X,ଦ୍ୱିଗୁଣ _Y);
 #endif
 
 #ifndef __NO_ISOCEXT
-#if (defined (__STDC_VERSION__) && __STDC_VERSION__ >= 199901L) \
+#ଯଦି (defined (__STDC_VERSION__) && __STDC_VERSION__ >= 199901L) \
   || !defined __STRICT_ANSI__ || defined __GLIBCPP__
 
 #define NAN (0.0F/0.0F)
@@ -236,9 +236,9 @@ extern "C" {
   converted to double, and zero when converted to float.)
   */
 
-  extern int __cdecl __fpclassifyf (float);
-  extern int __cdecl __fpclassify (double);
-  extern int __cdecl __fpclassifyl (long double);
+  ବାହ୍ୟ ପୂର୍ଣ୍ଣସଂଖ୍ୟା __cdecl __fpclassifyf (ଦଶମିକ);
+  ବାହ୍ୟ ପୂର୍ଣ୍ଣସଂଖ୍ୟା __cdecl __fpclassify (ଦ୍ୱିଗୁଣ);
+  ବାହ୍ୟ ପୂର୍ଣ୍ଣସଂଖ୍ୟା __cdecl __fpclassifyl (long ଦ୍ୱିଗୁଣ);
 
 /* Implemented at tcc/tcc_libm.h
 #define fpclassify(x) (sizeof (x) == sizeof (float) ? __fpclassifyf (x)	  \
@@ -246,7 +246,7 @@ extern "C" {
   : __fpclassifyl (x))
 */
 #define fpclassify(x) \
-  _Generic(x, float: __fpclassifyf, double: __fpclassify, long double: __fpclassifyl)(x)
+  _Generic(x, ଦଶମିକ: __fpclassifyf, ଦ୍ୱିଗୁଣ: __fpclassify, long ଦ୍ୱିଗୁଣ: __fpclassifyl)(x)
 
   /* 7.12.3.2 */
 #define isfinite(x) ((fpclassify(x) & FP_NAN) == 0)
@@ -264,9 +264,9 @@ extern "C" {
 
   /* 7.12.3.6 The signbit macro */
 
-  extern int __cdecl __signbitf (float);
-  extern int __cdecl __signbit (double);
-  extern int __cdecl __signbitl (long double);
+  ବାହ୍ୟ ପୂର୍ଣ୍ଣସଂଖ୍ୟା __cdecl __signbitf (ଦଶମିକ);
+  ବାହ୍ୟ ପୂର୍ଣ୍ଣସଂଖ୍ୟା __cdecl __signbit (ଦ୍ୱିଗୁଣ);
+  ବାହ୍ୟ ପୂର୍ଣ୍ଣସଂଖ୍ୟା __cdecl __signbitl (long ଦ୍ୱିଗୁଣ);
 
 /* Implemented at tcc/tcc_libm.h
 #define signbit(x) (sizeof (x) == sizeof (float) ? __signbitf (x)	\
@@ -274,115 +274,115 @@ extern "C" {
   : __signbitl (x))
 */
 #define signbit(x) \
-  _Generic(x, float: __signbitf, double: __signbit, long double: __signbitl)(x)
+  _Generic(x, ଦଶମିକ: __signbitf, ଦ୍ୱିଗୁଣ: __signbit, long ଦ୍ୱିଗୁଣ: __signbitl)(x)
 
-  extern double __cdecl exp2(double);
-  extern float __cdecl exp2f(float);
-  extern long double __cdecl exp2l(long double);
+  ବାହ୍ୟ ଦ୍ୱିଗୁଣ __cdecl exp2(ଦ୍ୱିଗୁଣ);
+  ବାହ୍ୟ ଦଶମିକ __cdecl exp2f(ଦଶମିକ);
+  ବାହ୍ୟ long ଦ୍ୱିଗୁଣ __cdecl exp2l(long ଦ୍ୱିଗୁଣ);
 
-#define FP_ILOGB0 ((int)0x80000000)
-#define FP_ILOGBNAN ((int)0x80000000)
-  extern int __cdecl ilogb (double);
-  extern int __cdecl ilogbf (float);
-  extern int __cdecl ilogbl (long double);
+#define FP_ILOGB0 ((ପୂର୍ଣ୍ଣସଂଖ୍ୟା)0x80000000)
+#define FP_ILOGBNAN ((ପୂର୍ଣ୍ଣସଂଖ୍ୟା)0x80000000)
+  ବାହ୍ୟ ପୂର୍ଣ୍ଣସଂଖ୍ୟା __cdecl ilogb (ଦ୍ୱିଗୁଣ);
+  ବାହ୍ୟ ପୂର୍ଣ୍ଣସଂଖ୍ୟା __cdecl ilogbf (ଦଶମିକ);
+  ବାହ୍ୟ ପୂର୍ଣ୍ଣସଂଖ୍ୟା __cdecl ilogbl (long ଦ୍ୱିଗୁଣ);
 
-  extern double __cdecl log1p(double);
-  extern float __cdecl log1pf(float);
-  extern long double __cdecl log1pl(long double);
+  ବାହ୍ୟ ଦ୍ୱିଗୁଣ __cdecl log1p(ଦ୍ୱିଗୁଣ);
+  ବାହ୍ୟ ଦଶମିକ __cdecl log1pf(ଦଶମିକ);
+  ବାହ୍ୟ long ଦ୍ୱିଗୁଣ __cdecl log1pl(long ଦ୍ୱିଗୁଣ);
 
-  extern double __cdecl log2 (double);
-  extern float __cdecl log2f (float);
-  extern long double __cdecl log2l (long double);
+  ବାହ୍ୟ ଦ୍ୱିଗୁଣ __cdecl log2 (ଦ୍ୱିଗୁଣ);
+  ବାହ୍ୟ ଦଶମିକ __cdecl log2f (ଦଶମିକ);
+  ବାହ୍ୟ long ଦ୍ୱିଗୁଣ __cdecl log2l (long ଦ୍ୱିଗୁଣ);
 
-  extern double __cdecl logb (double);
-  extern float __cdecl logbf (float);
-  extern long double __cdecl logbl (long double);
+  ବାହ୍ୟ ଦ୍ୱିଗୁଣ __cdecl logb (ଦ୍ୱିଗୁଣ);
+  ବାହ୍ୟ ଦଶମିକ __cdecl logbf (ଦଶମିକ);
+  ବାହ୍ୟ long ଦ୍ୱିଗୁଣ __cdecl logbl (long ଦ୍ୱିଗୁଣ);
 
-  extern long double __cdecl modfl (long double, long double*);
+  ବାହ୍ୟ long ଦ୍ୱିଗୁଣ __cdecl modfl (long ଦ୍ୱିଗୁଣ, long ଦ୍ୱିଗୁଣ*);
 
   /* 7.12.6.13 */
-  extern double __cdecl scalbn (double, int);
-  extern float __cdecl scalbnf (float, int);
-  extern long double __cdecl scalbnl (long double, int);
+  ବାହ୍ୟ ଦ୍ୱିଗୁଣ __cdecl scalbn (ଦ୍ୱିଗୁଣ, ପୂର୍ଣ୍ଣସଂଖ୍ୟା);
+  ବାହ୍ୟ ଦଶମିକ __cdecl scalbnf (ଦଶମିକ, ପୂର୍ଣ୍ଣସଂଖ୍ୟା);
+  ବାହ୍ୟ long ଦ୍ୱିଗୁଣ __cdecl scalbnl (long ଦ୍ୱିଗୁଣ, ପୂର୍ଣ୍ଣସଂଖ୍ୟା);
 
-  extern double __cdecl scalbln (double, long);
-  extern float __cdecl scalblnf (float, long);
-  extern long double __cdecl scalblnl (long double, long);
+  ବାହ୍ୟ ଦ୍ୱିଗୁଣ __cdecl scalbln (ଦ୍ୱିଗୁଣ, long);
+  ବାହ୍ୟ ଦଶମିକ __cdecl scalblnf (ଦଶମିକ, long);
+  ବାହ୍ୟ long ଦ୍ୱିଗୁଣ __cdecl scalblnl (long ଦ୍ୱିଗୁଣ, long);
 
   /* 7.12.7.1 */
   /* Implementations adapted from Cephes versions */ 
-  extern double __cdecl cbrt (double);
-  extern float __cdecl cbrtf (float);
-  extern long double __cdecl cbrtl (long double);
+  ବାହ୍ୟ ଦ୍ୱିଗୁଣ __cdecl cbrt (ଦ୍ୱିଗୁଣ);
+  ବାହ୍ୟ ଦଶମିକ __cdecl cbrtf (ଦଶମିକ);
+  ବାହ୍ୟ long ଦ୍ୱିଗୁଣ __cdecl cbrtl (long ଦ୍ୱିଗୁଣ);
 
-  extern double __cdecl hypot (double, double);
-  extern float __cdecl hypotf (float, float);
-  extern long double __cdecl hypotl (long double, long double);
+  ବାହ୍ୟ ଦ୍ୱିଗୁଣ __cdecl hypot (ଦ୍ୱିଗୁଣ, ଦ୍ୱିଗୁଣ);
+  ବାହ୍ୟ ଦଶମିକ __cdecl hypotf (ଦଶମିକ, ଦଶମିକ);
+  ବାହ୍ୟ long ଦ୍ୱିଗୁଣ __cdecl hypotl (long ଦ୍ୱିଗୁଣ, long ଦ୍ୱିଗୁଣ);
 
-  extern long double __cdecl powl (long double, long double);
-  extern long double __cdecl expl(long double);
-  extern long double __cdecl expm1l(long double);
-  extern long double __cdecl coshl(long double);
-  extern long double __cdecl fabsl (long double);
-  extern long double __cdecl acosl(long double);
-  extern long double __cdecl asinl(long double);
-  extern long double __cdecl atanl(long double);
-  extern long double __cdecl atan2l(long double,long double);
-  extern long double __cdecl sinhl(long double);
-  extern long double __cdecl tanhl(long double);
+  ବାହ୍ୟ long ଦ୍ୱିଗୁଣ __cdecl powl (long ଦ୍ୱିଗୁଣ, long ଦ୍ୱିଗୁଣ);
+  ବାହ୍ୟ long ଦ୍ୱିଗୁଣ __cdecl expl(long ଦ୍ୱିଗୁଣ);
+  ବାହ୍ୟ long ଦ୍ୱିଗୁଣ __cdecl expm1l(long ଦ୍ୱିଗୁଣ);
+  ବାହ୍ୟ long ଦ୍ୱିଗୁଣ __cdecl coshl(long ଦ୍ୱିଗୁଣ);
+  ବାହ୍ୟ long ଦ୍ୱିଗୁଣ __cdecl fabsl (long ଦ୍ୱିଗୁଣ);
+  ବାହ୍ୟ long ଦ୍ୱିଗୁଣ __cdecl acosl(long ଦ୍ୱିଗୁଣ);
+  ବାହ୍ୟ long ଦ୍ୱିଗୁଣ __cdecl asinl(long ଦ୍ୱିଗୁଣ);
+  ବାହ୍ୟ long ଦ୍ୱିଗୁଣ __cdecl atanl(long ଦ୍ୱିଗୁଣ);
+  ବାହ୍ୟ long ଦ୍ୱିଗୁଣ __cdecl atan2l(long ଦ୍ୱିଗୁଣ,long ଦ୍ୱିଗୁଣ);
+  ବାହ୍ୟ long ଦ୍ୱିଗୁଣ __cdecl sinhl(long ଦ୍ୱିଗୁଣ);
+  ବାହ୍ୟ long ଦ୍ୱିଗୁଣ __cdecl tanhl(long ଦ୍ୱିଗୁଣ);
 
   /* 7.12.8.1 The erf functions  */
-  extern double __cdecl erf (double);
-  extern float __cdecl erff (float);
+  ବାହ୍ୟ ଦ୍ୱିଗୁଣ __cdecl erf (ଦ୍ୱିଗୁଣ);
+  ବାହ୍ୟ ଦଶମିକ __cdecl erff (ଦଶମିକ);
   /* TODO
   extern long double __cdecl erfl (long double);
   */ 
 
   /* 7.12.8.2 The erfc functions  */
-  extern double __cdecl erfc (double);
-  extern float __cdecl erfcf (float);
+  ବାହ୍ୟ ଦ୍ୱିଗୁଣ __cdecl erfc (ଦ୍ୱିଗୁଣ);
+  ବାହ୍ୟ ଦଶମିକ __cdecl erfcf (ଦଶମିକ);
   /* TODO
   extern long double __cdecl erfcl (long double);
   */ 
 
   /* 7.12.8.3 The lgamma functions */
-  extern double __cdecl lgamma (double);
-  extern float __cdecl lgammaf (float);
-  extern long double __cdecl lgammal (long double);
+  ବାହ୍ୟ ଦ୍ୱିଗୁଣ __cdecl lgamma (ଦ୍ୱିଗୁଣ);
+  ବାହ୍ୟ ଦଶମିକ __cdecl lgammaf (ଦଶମିକ);
+  ବାହ୍ୟ long ଦ୍ୱିଗୁଣ __cdecl lgammal (long ଦ୍ୱିଗୁଣ);
 
   /* 7.12.8.4 The tgamma functions */
-  extern double __cdecl tgamma (double);
-  extern float __cdecl tgammaf (float);
-  extern long double __cdecl tgammal (long double);
+  ବାହ୍ୟ ଦ୍ୱିଗୁଣ __cdecl tgamma (ଦ୍ୱିଗୁଣ);
+  ବାହ୍ୟ ଦଶମିକ __cdecl tgammaf (ଦଶମିକ);
+  ବାହ୍ୟ long ଦ୍ୱିଗୁଣ __cdecl tgammal (long ଦ୍ୱିଗୁଣ);
 
-  extern long double __cdecl ceill (long double);
-  extern long double __cdecl floorl (long double);
-  extern long double __cdecl frexpl(long double,int *);
-  extern long double __cdecl log10l(long double);
-  extern long double __cdecl logl(long double);
-  extern long double __cdecl cosl(long double);
-  extern long double __cdecl sinl(long double);
-  extern long double __cdecl tanl(long double);
-  extern long double sqrtl(long double);
+  ବାହ୍ୟ long ଦ୍ୱିଗୁଣ __cdecl ceill (long ଦ୍ୱିଗୁଣ);
+  ବାହ୍ୟ long ଦ୍ୱିଗୁଣ __cdecl floorl (long ଦ୍ୱିଗୁଣ);
+  ବାହ୍ୟ long ଦ୍ୱିଗୁଣ __cdecl frexpl(long ଦ୍ୱିଗୁଣ,ପୂର୍ଣ୍ଣସଂଖ୍ୟା *);
+  ବାହ୍ୟ long ଦ୍ୱିଗୁଣ __cdecl log10l(long ଦ୍ୱିଗୁଣ);
+  ବାହ୍ୟ long ଦ୍ୱିଗୁଣ __cdecl logl(long ଦ୍ୱିଗୁଣ);
+  ବାହ୍ୟ long ଦ୍ୱିଗୁଣ __cdecl cosl(long ଦ୍ୱିଗୁଣ);
+  ବାହ୍ୟ long ଦ୍ୱିଗୁଣ __cdecl sinl(long ଦ୍ୱିଗୁଣ);
+  ବାହ୍ୟ long ଦ୍ୱିଗୁଣ __cdecl tanl(long ଦ୍ୱିଗୁଣ);
+  ବାହ୍ୟ long ଦ୍ୱିଗୁଣ sqrtl(long ଦ୍ୱିଗୁଣ);
 
   /* 7.12.9.3 */
-  extern double __cdecl nearbyint ( double);
-  extern float __cdecl nearbyintf (float);
-  extern long double __cdecl nearbyintl (long double);
+  ବାହ୍ୟ ଦ୍ୱିଗୁଣ __cdecl nearbyint ( ଦ୍ୱିଗୁଣ);
+  ବାହ୍ୟ ଦଶମିକ __cdecl nearbyintf (ଦଶମିକ);
+  ବାହ୍ୟ long ଦ୍ୱିଗୁଣ __cdecl nearbyintl (long ଦ୍ୱିଗୁଣ);
 
   /* 7.12.9.4 */
   /* round, using fpu control word settings */
-  extern double __cdecl rint (double);
-  extern float __cdecl rintf (float);
-  extern long double __cdecl rintl (long double);
+  ବାହ୍ୟ ଦ୍ୱିଗୁଣ __cdecl rint (ଦ୍ୱିଗୁଣ);
+  ବାହ୍ୟ ଦଶମିକ __cdecl rintf (ଦଶମିକ);
+  ବାହ୍ୟ long ଦ୍ୱିଗୁଣ __cdecl rintl (long ଦ୍ୱିଗୁଣ);
 
-  extern long __cdecl lrint (double);
-  extern long __cdecl lrintf (float);
-  extern long __cdecl lrintl (long double);
+  ବାହ୍ୟ long __cdecl lrint (ଦ୍ୱିଗୁଣ);
+  ବାହ୍ୟ long __cdecl lrintf (ଦଶମିକ);
+  ବାହ୍ୟ long __cdecl lrintl (long ଦ୍ୱିଗୁଣ);
 
-  extern long long __cdecl llrint (double);
-  extern long long __cdecl llrintf (float);
-  extern long long __cdecl llrintl (long double);
+  ବାହ୍ୟ long long __cdecl llrint (ଦ୍ୱିଗୁଣ);
+  ବାହ୍ୟ long long __cdecl llrintf (ଦଶମିକ);
+  ବାହ୍ୟ long long __cdecl llrintl (long ଦ୍ୱିଗୁଣ);
 
   #define FE_TONEAREST	0x0000
   #define FE_DOWNWARD	0x0400
@@ -391,46 +391,46 @@ extern "C" {
 
   /* 7.12.9.6 */
   /* round away from zero, regardless of fpu control word settings */
-  extern double __cdecl round (double);
-  extern float __cdecl roundf (float);
-  extern long double __cdecl roundl (long double);
+  ବାହ୍ୟ ଦ୍ୱିଗୁଣ __cdecl round (ଦ୍ୱିଗୁଣ);
+  ବାହ୍ୟ ଦଶମିକ __cdecl roundf (ଦଶମିକ);
+  ବାହ୍ୟ long ଦ୍ୱିଗୁଣ __cdecl roundl (long ଦ୍ୱିଗୁଣ);
 
   /* 7.12.9.7  */
-  extern long __cdecl lround (double);
-  extern long __cdecl lroundf (float);
-  extern long __cdecl lroundl (long double);
+  ବାହ୍ୟ long __cdecl lround (ଦ୍ୱିଗୁଣ);
+  ବାହ୍ୟ long __cdecl lroundf (ଦଶମିକ);
+  ବାହ୍ୟ long __cdecl lroundl (long ଦ୍ୱିଗୁଣ);
 
-  extern long long __cdecl llround (double);
-  extern long long __cdecl llroundf (float);
-  extern long long __cdecl llroundl (long double);
+  ବାହ୍ୟ long long __cdecl llround (ଦ୍ୱିଗୁଣ);
+  ବାହ୍ୟ long long __cdecl llroundf (ଦଶମିକ);
+  ବାହ୍ୟ long long __cdecl llroundl (long ଦ୍ୱିଗୁଣ);
 
   /* 7.12.9.8 */
   /* round towards zero, regardless of fpu control word settings */
-  extern double __cdecl trunc (double);
-  extern float __cdecl truncf (float);
-  extern long double __cdecl truncl (long double);
+  ବାହ୍ୟ ଦ୍ୱିଗୁଣ __cdecl trunc (ଦ୍ୱିଗୁଣ);
+  ବାହ୍ୟ ଦଶମିକ __cdecl truncf (ଦଶମିକ);
+  ବାହ୍ୟ long ଦ୍ୱିଗୁଣ __cdecl truncl (long ଦ୍ୱିଗୁଣ);
 
-  extern long double __cdecl fmodl (long double, long double);
+  ବାହ୍ୟ long ଦ୍ୱିଗୁଣ __cdecl fmodl (long ଦ୍ୱିଗୁଣ, long ଦ୍ୱିଗୁଣ);
 
   /* 7.12.10.2 */ 
-  extern double __cdecl remainder (double, double);
-  extern float __cdecl remainderf (float, float);
-  extern long double __cdecl remainderl (long double, long double);
+  ବାହ୍ୟ ଦ୍ୱିଗୁଣ __cdecl remainder (ଦ୍ୱିଗୁଣ, ଦ୍ୱିଗୁଣ);
+  ବାହ୍ୟ ଦଶମିକ __cdecl remainderf (ଦଶମିକ, ଦଶମିକ);
+  ବାହ୍ୟ long ଦ୍ୱିଗୁଣ __cdecl remainderl (long ଦ୍ୱିଗୁଣ, long ଦ୍ୱିଗୁଣ);
 
   /* 7.12.10.3 */
-  extern double __cdecl remquo(double, double, int *);
-  extern float __cdecl remquof(float, float, int *);
-  extern long double __cdecl remquol(long double, long double, int *);
+  ବାହ୍ୟ ଦ୍ୱିଗୁଣ __cdecl remquo(ଦ୍ୱିଗୁଣ, ଦ୍ୱିଗୁଣ, ପୂର୍ଣ୍ଣସଂଖ୍ୟା *);
+  ବାହ୍ୟ ଦଶମିକ __cdecl remquof(ଦଶମିକ, ଦଶମିକ, ପୂର୍ଣ୍ଣସଂଖ୍ୟା *);
+  ବାହ୍ୟ long ଦ୍ୱିଗୁଣ __cdecl remquol(long ଦ୍ୱିଗୁଣ, long ଦ୍ୱିଗୁଣ, ପୂର୍ଣ୍ଣସଂଖ୍ୟା *);
 
   /* 7.12.11.1 */
-  extern double __cdecl copysign (double, double); /* in libmoldname.a */
-  extern float __cdecl copysignf (float, float);
-  extern long double __cdecl copysignl (long double, long double);
+  ବାହ୍ୟ ଦ୍ୱିଗୁଣ __cdecl copysign (ଦ୍ୱିଗୁଣ, ଦ୍ୱିଗୁଣ); /* in libmoldname.a */
+  ବାହ୍ୟ ଦଶମିକ __cdecl copysignf (ଦଶମିକ, ଦଶମିକ);
+  ବାହ୍ୟ long ଦ୍ୱିଗୁଣ __cdecl copysignl (long ଦ୍ୱିଗୁଣ, long ଦ୍ୱିଗୁଣ);
 
   /* 7.12.11.2 Return a NaN */
-  extern double __cdecl nan(const char *tagp);
-  extern float __cdecl nanf(const char *tagp);
-  extern long double __cdecl nanl(const char *tagp);
+  ବାହ୍ୟ ଦ୍ୱିଗୁଣ __cdecl nan(ଅଚଳ ଅକ୍ଷର *tagp);
+  ବାହ୍ୟ ଦଶମିକ __cdecl nanf(ଅଚଳ ଅକ୍ଷର *tagp);
+  ବାହ୍ୟ long ଦ୍ୱିଗୁଣ __cdecl nanl(ଅଚଳ ଅକ୍ଷର *tagp);
 
 #ifndef __STRICT_ANSI__
 #define _nan() nan("")
@@ -439,17 +439,17 @@ extern "C" {
 #endif
 
   /* 7.12.11.3 */
-  extern double __cdecl nextafter (double, double); /* in libmoldname.a */
-  extern float __cdecl nextafterf (float, float);
-  extern long double __cdecl nextafterl (long double, long double);
+  ବାହ୍ୟ ଦ୍ୱିଗୁଣ __cdecl nextafter (ଦ୍ୱିଗୁଣ, ଦ୍ୱିଗୁଣ); /* in libmoldname.a */
+  ବାହ୍ୟ ଦଶମିକ __cdecl nextafterf (ଦଶମିକ, ଦଶମିକ);
+  ବାହ୍ୟ long ଦ୍ୱିଗୁଣ __cdecl nextafterl (long ଦ୍ୱିଗୁଣ, long ଦ୍ୱିଗୁଣ);
 
   /* 7.12.11.4 The nexttoward functions: TODO */
 
   /* 7.12.12.1 */
   /*  x > y ? (x - y) : 0.0  */
-  extern double __cdecl fdim (double x, double y);
-  extern float __cdecl fdimf (float x, float y);
-  extern long double __cdecl fdiml (long double x, long double y);
+  ବାହ୍ୟ ଦ୍ୱିଗୁଣ __cdecl fdim (ଦ୍ୱିଗୁଣ x, ଦ୍ୱିଗୁଣ y);
+  ବାହ୍ୟ ଦଶମିକ __cdecl fdimf (ଦଶମିକ x, ଦଶମିକ y);
+  ବାହ୍ୟ long ଦ୍ୱିଗୁଣ __cdecl fdiml (long ଦ୍ୱିଗୁଣ x, long ଦ୍ୱିଗୁଣ y);
 
   /* fmax and fmin.
   NaN arguments are treated as missing data: if one argument is a NaN
@@ -457,20 +457,20 @@ extern "C" {
   value. */
 
   /* 7.12.12.2 */
-  extern double __cdecl fmax  (double, double);
-  extern float __cdecl fmaxf (float, float);
-  extern long double __cdecl fmaxl (long double, long double);
+  ବାହ୍ୟ ଦ୍ୱିଗୁଣ __cdecl fmax  (ଦ୍ୱିଗୁଣ, ଦ୍ୱିଗୁଣ);
+  ବାହ୍ୟ ଦଶମିକ __cdecl fmaxf (ଦଶମିକ, ଦଶମିକ);
+  ବାହ୍ୟ long ଦ୍ୱିଗୁଣ __cdecl fmaxl (long ଦ୍ୱିଗୁଣ, long ଦ୍ୱିଗୁଣ);
 
   /* 7.12.12.3 */
-  extern double __cdecl fmin (double, double);
-  extern float __cdecl fminf (float, float);
-  extern long double __cdecl fminl (long double, long double);
+  ବାହ୍ୟ ଦ୍ୱିଗୁଣ __cdecl fmin (ଦ୍ୱିଗୁଣ, ଦ୍ୱିଗୁଣ);
+  ବାହ୍ୟ ଦଶମିକ __cdecl fminf (ଦଶମିକ, ଦଶମିକ);
+  ବାହ୍ୟ long ଦ୍ୱିଗୁଣ __cdecl fminl (long ଦ୍ୱିଗୁଣ, long ଦ୍ୱିଗୁଣ);
 
   /* 7.12.13.1 */
   /* return x * y + z as a ternary op */ 
-  extern double __cdecl fma (double, double, double);
-  extern float __cdecl fmaf (float, float, float);
-  extern long double __cdecl fmal (long double, long double, long double);
+  ବାହ୍ୟ ଦ୍ୱିଗୁଣ __cdecl fma (ଦ୍ୱିଗୁଣ, ଦ୍ୱିଗୁଣ, ଦ୍ୱିଗୁଣ);
+  ବାହ୍ୟ ଦଶମିକ __cdecl fmaf (ଦଶମିକ, ଦଶମିକ, ଦଶମିକ);
+  ବାହ୍ୟ long ଦ୍ୱିଗୁଣ __cdecl fmal (long ଦ୍ୱିଗୁଣ, long ଦ୍ୱିଗୁଣ, long ଦ୍ୱିଗୁଣ);
 
 
 #endif /* __STDC_VERSION__ >= 199901L */
@@ -479,7 +479,7 @@ extern "C" {
 #ifdef __cplusplus
 }
 #endif
-#pragma pack(pop)
+#pragma pack(କାଢ଼)
 
 /* 7.12.14 */
 /* 
@@ -491,7 +491,7 @@ extern "C" {
  */
 
 /* Mini libm (inline __fpclassify*, __signbit* and variants) */
-#include "tcc/tcc_libm.h"
+#ଅନ୍ତର୍ଭାଵ "tcc/tcc_libm.h"
 
 #endif /* End _MATH_H_ */
 

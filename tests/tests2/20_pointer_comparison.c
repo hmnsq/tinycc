@@ -1,11 +1,11 @@
-#include <stdio.h>
+#ଅନ୍ତର୍ଭାଵ <stdio.h>
 
-int main()
+ପୂର୍ଣ୍ଣସଂଖ୍ୟା ମୁଖ୍ୟ()
 {
-   int a;
-   int b;
-   int *d;
-   int *e;
+   ପୂର୍ଣ୍ଣସଂଖ୍ୟା a;
+   ପୂର୍ଣ୍ଣସଂଖ୍ୟା b;
+   ପୂର୍ଣ୍ଣସଂଖ୍ୟା *d;
+   ପୂର୍ଣ୍ଣସଂଖ୍ୟା *e;
    d = &a;
    e = &b;
    a = 12;
@@ -18,7 +18,7 @@ int main()
    printf("%d\n", d == e);
    printf("%d\n", d != e);
 
-   return 0;
+   ଫେରନ୍ତୁ 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

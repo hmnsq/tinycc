@@ -1,18 +1,18 @@
-#include <stdio.h>
+#ଅନ୍ତର୍ଭାଵ <stdio.h>
 
-int fred()
+ପୂର୍ଣ୍ଣସଂଖ୍ୟା fred()
 {
    printf("fred\n");
-   return 0;
+   ଫେରନ୍ତୁ 0;
 }
 
-int joe()
+ପୂର୍ଣ୍ଣସଂଖ୍ୟା joe()
 {
    printf("joe\n");
-   return 1;
+   ଫେରନ୍ତୁ 1;
 }
 
-int main()
+ପୂର୍ଣ୍ଣସଂଖ୍ୟା ମୁଖ୍ୟ()
 {
    printf("%d\n", fred() && joe());
    printf("%d\n", fred() || joe());
@@ -23,7 +23,7 @@ int main()
    printf("%d\n", joe() && (0 + fred()));
    printf("%d\n", joe() || (1 + fred()));
 
-   return 0;
+   ଫେରନ୍ତୁ 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

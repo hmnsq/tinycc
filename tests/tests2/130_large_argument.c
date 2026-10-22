@@ -1,41 +1,41 @@
-#include<stdio.h>
+#ଅନ୍ତର୍ଭାଵ<stdio.h>
 
-struct large1 {
-    int a[768];
+ସଂରଚନା large1 {
+    ପୂର୍ଣ୍ଣସଂଖ୍ୟା a[768];
 };
 
-struct large2 {
-    int a[1920];
+ସଂରଚନା large2 {
+    ପୂର୍ଣ୍ଣସଂଖ୍ୟା a[1920];
 };
 
-void pass_large_struct1(struct large1 in)
+ଶୂନ୍ୟ pass_large_struct1(ସଂରଚନା large1 in)
 {
     printf("%d %d\n", in.a[200], in.a[767]);
-    return;
+    ଫେରନ୍ତୁ;
 }
 
-void pass_large_struct2(struct large2 in)
+ଶୂନ୍ୟ pass_large_struct2(ସଂରଚନା large2 in)
 {
     printf("%d %d %d\n", in.a[200], in.a[1023], in.a[1919]);
-    return;
+    ଫେରନ୍ତୁ;
 }
 
-void pass_many_args(int a, int b, int c, int d, int e, int f, int g, int h, int i,
-                    int j, int k, int l, int m)
+ଶୂନ୍ୟ pass_many_args(ପୂର୍ଣ୍ଣସଂଖ୍ୟା a, ପୂର୍ଣ୍ଣସଂଖ୍ୟା b, ପୂର୍ଣ୍ଣସଂଖ୍ୟା c, ପୂର୍ଣ୍ଣସଂଖ୍ୟା d, ପୂର୍ଣ୍ଣସଂଖ୍ୟା e, ପୂର୍ଣ୍ଣସଂଖ୍ୟା f, ପୂର୍ଣ୍ଣସଂଖ୍ୟା g, ପୂର୍ଣ୍ଣସଂଖ୍ୟା h, ପୂର୍ଣ୍ଣସଂଖ୍ୟା i,
+                    ପୂର୍ଣ୍ଣସଂଖ୍ୟା j, ପୂର୍ଣ୍ଣସଂଖ୍ୟା k, ପୂର୍ଣ୍ଣସଂଖ୍ୟା l, ପୂର୍ଣ୍ଣସଂଖ୍ୟା m)
 {
     printf("%d %d %d %d %d %d %d %d %d %d %d %d %d\n", a, b, c, d, e, f, g, h, i,
            j, k, l, m);
-    return;
+    ଫେରନ୍ତୁ;
 }
 
-struct large1 l1 = { .a = { [200] = 1, [767] = 2 } };
-struct large2 l2 = { .a = { [200] = 3, [1023] = 4, [1919] = 5} };
+ସଂରଚନା large1 l1 = { .a = { [200] = 1, [767] = 2 } };
+ସଂରଚନା large2 l2 = { .a = { [200] = 3, [1023] = 4, [1919] = 5} };
 
-int main(void)
+ପୂର୍ଣ୍ଣସଂଖ୍ୟା ମୁଖ୍ୟ(ଶୂନ୍ୟ)
 {
     pass_large_struct1(l1);
     pass_large_struct2(l2);
     pass_many_args(13, 12, 11, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1);
 
-    return 0;
+    ଫେରନ୍ତୁ 0;
 }

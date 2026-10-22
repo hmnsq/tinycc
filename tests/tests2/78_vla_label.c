@@ -1,25 +1,25 @@
-#include <stdio.h>
+#ଅନ୍ତର୍ଭାଵ <stdio.h>
 
 /* This test segfaults as of April 27, 2015. */
-void f1(int argc)
+ଶୂନ୍ୟ f1(ପୂର୍ଣ୍ଣସଂଖ୍ୟା argc)
 {
-  char test[argc];
-  if(0)
+  ଅକ୍ଷର test[argc];
+  ଯଦି(0)
   label:
     printf("boom!\n");
-  if(argc-- == 0)
-    return;
-  goto label;
+  ଯଦି(argc-- == 0)
+    ଫେରନ୍ତୁ;
+  ଯାଅ label;
 }
 
 /* This segfaulted on 2015-11-19. */
-void f2(void)
+ଶୂନ୍ୟ f2(ଶୂନ୍ୟ)
 {
-    goto start;
+    ଯାଅ start;
     {
-        int a[1 && 1]; /* not a variable-length array */
-        int b[1 || 1]; /* not a variable-length array */
-        int c[1 ? 1 : 1]; /* not a variable-length array */
+        ପୂର୍ଣ୍ଣସଂଖ୍ୟା a[1 && 1]; /* not a variable-length array */
+        ପୂର୍ଣ୍ଣସଂଖ୍ୟା b[1 || 1]; /* not a variable-length array */
+        ପୂର୍ଣ୍ଣସଂଖ୍ୟା c[1 ? 1 : 1]; /* not a variable-length array */
     start:
         a[0] = 0;
         b[0] = 0;
@@ -27,7 +27,7 @@ void f2(void)
     }
 }
 
-void f3(void)
+ଶୂନ୍ୟ f3(ଶୂନ୍ୟ)
 {
     printf("%d\n", 0 ? printf("x1\n") : 11);
     printf("%d\n", 1 ? 12 : printf("x2\n"));
@@ -35,11 +35,11 @@ void f3(void)
     printf("%d\n", 1 || printf("x4\n"));
 }
 
-int main()
+ପୂର୍ଣ୍ଣସଂଖ୍ୟା ମୁଖ୍ୟ()
 {
   f1(2);
   f2();
   f3();
 
-  return 0;
+  ଫେରନ୍ତୁ 0;
 }

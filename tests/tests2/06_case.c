@@ -1,29 +1,29 @@
-#include <stdio.h>
+#ଅନ୍ତର୍ଭାଵ <stdio.h>
 
-int main()
+ପୂର୍ଣ୍ଣସଂଖ୍ୟା ମୁଖ୍ୟ()
 {
-   int Count;
+   ପୂର୍ଣ୍ଣସଂଖ୍ୟା ଗଣନା_4;
 
-   for (Count = 0; Count < 4; Count++)
+   ପାଇଁ (ଗଣନା_4 = 0; ଗଣନା_4 < 4; ଗଣନା_4++)
    {
-      printf("%d\n", Count);
-      switch (Count)
+      printf("%d\n", ଗଣନା_4);
+      ବାଛ (ଗଣନା_4)
       {
-         case 1:
+         ସ୍ଥିତି 1:
             printf("%d\n", 1);
-            break;
+            ଭାଙ୍ଗ;
 
-         case 2:
+         ସ୍ଥିତି 2:
             printf("%d\n", 2);
-            break;
+            ଭାଙ୍ଗ;
 
-         default:
+         ପୂର୍ବନିର୍ଦ୍ଧାରିତ:
             printf("%d\n", 0);
-            break;
+            ଭାଙ୍ଗ;
       }
    }
 
-   return 0;
+   ଫେରନ୍ତୁ 0;
 }
 
 // vim: set expandtab ts=4 sw=3 sts=3 tw=80 :

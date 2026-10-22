@@ -1,12 +1,12 @@
-extern int printf(const char *, ...);
-void f(void);
-void bar(void) { void f(void); f(); }
-void foo(void) { extern void f(void); f(); }
-void f(void) { printf("f\n"); }
+ବାହ୍ୟ ପୂର୍ଣ୍ଣସଂଖ୍ୟା printf(ଅଚଳ ଅକ୍ଷର *, ...);
+ଶୂନ୍ୟ f(ଶୂନ୍ୟ);
+ଶୂନ୍ୟ bar(ଶୂନ୍ୟ) { ଶୂନ୍ୟ f(ଶୂନ୍ୟ); f(); }
+ଶୂନ୍ୟ foo(ଶୂନ୍ୟ) { ବାହ୍ୟ ଶୂନ୍ୟ f(ଶୂନ୍ୟ); f(); }
+ଶୂନ୍ୟ f(ଶୂନ୍ୟ) { printf("f\n"); }
 
-int main()
+ପୂର୍ଣ୍ଣସଂଖ୍ୟା ମୁଖ୍ୟ()
 {
   bar();
   foo();
-  return 0;
+  ଫେରନ୍ତୁ 0;
 }

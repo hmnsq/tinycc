@@ -1,32 +1,32 @@
-#include <stdio.h>
+#ଅନ୍ତର୍ଭାଵ <stdio.h>
 
-int main()
+ପୂର୍ଣ୍ଣସଂଖ୍ୟା ମୁଖ୍ୟ()
 {
-   int a[4][4];
-   int b = 0;
-   int x;
-   int y;
+   ପୂର୍ଣ୍ଣସଂଖ୍ୟା a[4][4];
+   ପୂର୍ଣ୍ଣସଂଖ୍ୟା b = 0;
+   ପୂର୍ଣ୍ଣସଂଖ୍ୟା x;
+   ପୂର୍ଣ୍ଣସଂଖ୍ୟା y;
 
-   for (x = 0; x < 4; x++)
+   ପାଇଁ (x = 0; x < 4; x++)
    {
-      for (y = 0; y < 4; y++)
+      ପାଇଁ (y = 0; y < 4; y++)
       {
          b++;
          a[x][y] = b;
       }
    }
 
-   for (x = 0; x < 4; x++)
+   ପାଇଁ (x = 0; x < 4; x++)
    {
       printf("x=%d: ", x);
-      for (y = 0; y < 4; y++)
+      ପାଇଁ (y = 0; y < 4; y++)
       {
          printf("%d ", a[x][y]);
       }
       printf("\n");
    }
 
-   return 0;
+   ଫେରନ୍ତୁ 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

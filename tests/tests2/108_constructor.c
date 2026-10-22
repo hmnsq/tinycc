@@ -1,20 +1,20 @@
-extern int write (int fd, void *buf, int len);
+ବାହ୍ୟ ପୂର୍ଣ୍ଣସଂଖ୍ୟା ଲିଖ (ପୂର୍ଣ୍ଣସଂଖ୍ୟା fd, ଶୂନ୍ୟ *buf, ପୂର୍ଣ୍ଣସଂଖ୍ୟା len);
 
-static void __attribute__ ((constructor))
-testc (void)
+ସ୍ଥିର ଶୂନ୍ୟ __attribute__ ((constructor))
+testc (ଶୂନ୍ୟ)
 {
-  write (1, "constructor\n", 12);
+  ଲିଖ (1, "constructor\n", 12);
 }
 
-static void __attribute__ ((destructor))
-testd (void)
+ସ୍ଥିର ଶୂନ୍ୟ __attribute__ ((destructor))
+testd (ଶୂନ୍ୟ)
 {
-  write (1, "destructor\n", 11);
+  ଲିଖ (1, "destructor\n", 11);
 }
 
-int
-main (void)
+ପୂର୍ଣ୍ଣସଂଖ୍ୟା
+ମୁଖ୍ୟ (ଶୂନ୍ୟ)
 {
-  write (1, "main\n", 5);
-  return 0;
+  ଲିଖ (1, "main\n", 5);
+  ଫେରନ୍ତୁ 0;
 }

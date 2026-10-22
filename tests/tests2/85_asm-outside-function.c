@@ -1,15 +1,15 @@
 #ifdef __leading_underscore
 # define _ "_"
-#else
+#ଅନ୍ୟଥା
 # define _
 #endif
 
-extern int printf (const char *, ...);
-extern void vide(void);
+ବାହ୍ୟ ପୂର୍ଣ୍ଣସଂଖ୍ୟା printf (ଅଚଳ ଅକ୍ଷର *, ...);
+ବାହ୍ୟ ଶୂନ୍ୟ vide(ଶୂନ୍ୟ);
 __asm__(_"vide: ret");
 
-int main() {
+ପୂର୍ଣ୍ଣସଂଖ୍ୟା ମୁଖ୍ୟ() {
     vide();
     printf ("okay\n");
-    return 0;
+    ଫେରନ୍ତୁ 0;
 }

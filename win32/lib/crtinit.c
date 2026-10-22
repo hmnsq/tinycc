@@ -2,25 +2,25 @@
 
 #ifdef __leading_underscore
 # define _(s) s
-#else
+#ଅନ୍ୟଥା
 # define _(s) _##s
 #endif
 
-extern void (*_(_init_array_start)[]) (int argc, _TCHAR **argv, _TCHAR **envp);
-extern void (*_(_init_array_end)[]) (int argc, _TCHAR **argv, _TCHAR **envp);
-extern void (*_(_fini_array_start)[]) (void);
-extern void (*_(_fini_array_end)[]) (void);
+ବାହ୍ୟ ଶୂନ୍ୟ (*_(_init_array_start)[]) (ପୂର୍ଣ୍ଣସଂଖ୍ୟା argc, _TCHAR **argv, _TCHAR **envp);
+ବାହ୍ୟ ଶୂନ୍ୟ (*_(_init_array_end)[]) (ପୂର୍ଣ୍ଣସଂଖ୍ୟା argc, _TCHAR **argv, _TCHAR **envp);
+ବାହ୍ୟ ଶୂନ୍ୟ (*_(_fini_array_start)[]) (ଶୂନ୍ୟ);
+ବାହ୍ୟ ଶୂନ୍ୟ (*_(_fini_array_end)[]) (ଶୂନ୍ୟ);
 
-static void run_ctors(int argc, _TCHAR **argv, _TCHAR **env)
+ସ୍ଥିର ଶୂନ୍ୟ run_ctors(ପୂର୍ଣ୍ଣସଂଖ୍ୟା argc, _TCHAR **argv, _TCHAR **env)
 {
-    int i = 0;
-    while (&_(_init_array_start)[i] != _(_init_array_end))
+    ପୂର୍ଣ୍ଣସଂଖ୍ୟା i = 0;
+    ଯେତେବେଳେ (&_(_init_array_start)[i] != _(_init_array_end))
         (*_(_init_array_start)[i++])(argc, argv, env);
 }
 
-static void run_dtors(void)
+ସ୍ଥିର ଶୂନ୍ୟ run_dtors(ଶୂନ୍ୟ)
 {
-    int i = 0;
-    while (&_(_fini_array_end)[i] != _(_fini_array_start))
+    ପୂର୍ଣ୍ଣସଂଖ୍ୟା i = 0;
+    ଯେତେବେଳେ (&_(_fini_array_end)[i] != _(_fini_array_start))
         (*_(_fini_array_end)[--i])();
 }

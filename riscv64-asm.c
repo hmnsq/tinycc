@@ -10,17 +10,17 @@
 /* 32 general purpose + 32 floating point registers */
 #define NB_ASM_REGS 64
 
-ST_FUNC void g(int c);
-ST_FUNC void gen_le16(int c);
-ST_FUNC void gen_le32(int c);
+ST_FUNC ଶୂନ୍ୟ g(ପୂର୍ଣ୍ଣସଂଖ୍ୟା c);
+ST_FUNC ଶୂନ୍ୟ gen_le16(ପୂର୍ଣ୍ଣସଂଖ୍ୟା c);
+ST_FUNC ଶୂନ୍ୟ gen_le32(ପୂର୍ଣ୍ଣସଂଖ୍ୟା c);
 
 /*************************************************************/
-#else
+#ଅନ୍ୟଥା
 /*************************************************************/
 #define USING_GLOBALS
-#include "tcc.h"
+#ଅନ୍ତର୍ଭାଵ "tcc.h"
 
-enum {
+ଗଣନା {
     OPT_REG,
     OPT_IM12S,
     OPT_IM32,
@@ -28,95 +28,95 @@ enum {
 // Registers go from 0 to 31. We use next bit to choose general/float
 #define REG_FLOAT_MASK 0x20
 #define REG_IS_FLOAT(register_index) ((register_index) & REG_FLOAT_MASK)
-#define REG_VALUE(register_index)    ((register_index) & (REG_FLOAT_MASK-1))
-#define C_ENCODE_RS1(register_index) (REG_VALUE(register_index) << 7)
-#define C_ENCODE_RS2(register_index) (REG_VALUE(register_index) << 2)
-#define ENCODE_RD(register_index)  (REG_VALUE(register_index) << 7)
-#define ENCODE_RS1(register_index) (REG_VALUE(register_index) << 15)
-#define ENCODE_RS2(register_index) (REG_VALUE(register_index) << 20)
+#define REG_ମୂଲ୍ୟ(register_index)    ((register_index) & (REG_FLOAT_MASK-1))
+#define C_ENCODE_RS1(register_index) (REG_ମୂଲ୍ୟ(register_index) << 7)
+#define C_ENCODE_RS2(register_index) (REG_ମୂଲ୍ୟ(register_index) << 2)
+#define ENCODE_RD(register_index)  (REG_ମୂଲ୍ୟ(register_index) << 7)
+#define ENCODE_RS1(register_index) (REG_ମୂଲ୍ୟ(register_index) << 15)
+#define ENCODE_RS2(register_index) (REG_ମୂଲ୍ୟ(register_index) << 20)
 #define NTH_BIT(b, n) ((b >> n) & 1)
 #define OP_IM12S (1 << OPT_IM12S)
 #define OP_IM32 (1 << OPT_IM32)
 #define OP_REG (1 << OPT_REG)
 
-typedef struct Operand {
+ପ୍ରକାରବ୍ୟାଖ୍ୟା ସଂରଚନା Operand {
     uint32_t type;
-    union {
+    ସଂଘ {
         uint8_t reg;
         uint16_t regset;
-        ExprValue e;
+        ପଦସମଷ୍ଟି_ମୂଲ୍ୟ e;
     };
 } Operand;
 
-static const Operand zero = { OP_REG, { 0 }};
-static const Operand ra = { OP_REG, { 1 }};
-static const Operand zimm = { OP_IM12S };
+ସ୍ଥିର ଅଚଳ Operand zero = { OP_REG, { 0 }};
+ସ୍ଥିର ଅଚଳ Operand ra = { OP_REG, { 1 }};
+ସ୍ଥିର ଅଚଳ Operand zimm = { OP_IM12S };
 
-static void asm_binary_opcode(TCCState* s1, int token);
-ST_FUNC void asm_clobber(uint8_t *clobber_regs, const char *str);
-ST_FUNC void asm_compute_constraints(ASMOperand *operands, int nb_operands, int nb_outputs, const uint8_t *clobber_regs, int *pout_reg);
-static void asm_emit_a(int token, uint32_t opcode, const Operand *rs1, const Operand *rs2, const Operand *rd1, int aq, int rl);
-static void asm_emit_b(int token, uint32_t opcode, const Operand *rs1, const Operand *rs2, const Operand *imm);
-static void asm_emit_i(int token, uint32_t opcode, const Operand *rd, const Operand *rs1, const Operand *rs2);
-static void asm_emit_j(int token, uint32_t opcode, const Operand *rd, const Operand *rs2);
-static void asm_emit_opcode(uint32_t opcode);
-static void asm_emit_r(int token, uint32_t opcode, const Operand *rd, const Operand *rs1, const Operand *rs2);
-static void asm_emit_s(int token, uint32_t opcode, const Operand *rs1, const Operand *rs2, const Operand *imm);
-static void asm_emit_u(int token, uint32_t opcode, const Operand *rd, const Operand *rs2);
-static void asm_emit_f(int token, uint32_t opcode, const Operand *rd, const Operand *rs1, const Operand *rs2);
-static void asm_emit_fb(int token, uint32_t opcode, const Operand *rd, const Operand *rs);
-static void asm_emit_fq(int token, uint32_t opcode, const Operand *rd, const Operand *rs1, const Operand *rs2, const Operand *rs3);
-ST_FUNC void asm_gen_code(ASMOperand *operands, int nb_operands, int nb_outputs, int is_output, uint8_t *clobber_regs, int out_reg);
-static void asm_nullary_opcode(TCCState *s1, int token);
-ST_FUNC void asm_opcode(TCCState *s1, int token);
-static int asm_parse_csrvar(int t);
-ST_FUNC int asm_parse_regvar(int t);
-static void asm_ternary_opcode(TCCState *s1, int token);
-static void asm_unary_opcode(TCCState *s1, int token);
-static void asm_branch_opcode(TCCState *s1, int token, int argc);
-ST_FUNC void gen_expr32(ExprValue *pe);
-static void parse_operand(TCCState *s1, Operand *op);
-static void parse_branch_offset_operand(TCCState *s1, Operand *op);
-static void parse_operands(TCCState *s1, Operand *ops, int count);
-static void parse_mem_access_operands(TCCState *s1, Operand* ops);
-ST_FUNC void subst_asm_operand(CString *add_str, SValue *sv, int modifier);
+ସ୍ଥିର ଶୂନ୍ୟ asm_ଦ୍ୱିମିକ_opcode(TCCState* s1, ପୂର୍ଣ୍ଣସଂଖ୍ୟା token);
+ST_FUNC ଶୂନ୍ୟ asm_clobber(uint8_t *clobber_regs, ଅଚଳ ଅକ୍ଷର *str);
+ST_FUNC ଶୂନ୍ୟ asm_compute_constraints(ASMOperand *operands, ପୂର୍ଣ୍ଣସଂଖ୍ୟା nb_operands, ପୂର୍ଣ୍ଣସଂଖ୍ୟା nb_outputs, ଅଚଳ uint8_t *clobber_regs, ପୂର୍ଣ୍ଣସଂଖ୍ୟା *pout_reg);
+ସ୍ଥିର ଶୂନ୍ୟ asm_emit_a(ପୂର୍ଣ୍ଣସଂଖ୍ୟା token, uint32_t opcode, ଅଚଳ Operand *rs1, ଅଚଳ Operand *rs2, ଅଚଳ Operand *rd1, ପୂର୍ଣ୍ଣସଂଖ୍ୟା aq, ପୂର୍ଣ୍ଣସଂଖ୍ୟା rl);
+ସ୍ଥିର ଶୂନ୍ୟ asm_emit_b(ପୂର୍ଣ୍ଣସଂଖ୍ୟା token, uint32_t opcode, ଅଚଳ Operand *rs1, ଅଚଳ Operand *rs2, ଅଚଳ Operand *imm);
+ସ୍ଥିର ଶୂନ୍ୟ asm_emit_i(ପୂର୍ଣ୍ଣସଂଖ୍ୟା token, uint32_t opcode, ଅଚଳ Operand *rd, ଅଚଳ Operand *rs1, ଅଚଳ Operand *rs2);
+ସ୍ଥିର ଶୂନ୍ୟ asm_emit_j(ପୂର୍ଣ୍ଣସଂଖ୍ୟା token, uint32_t opcode, ଅଚଳ Operand *rd, ଅଚଳ Operand *rs2);
+ସ୍ଥିର ଶୂନ୍ୟ asm_emit_opcode(uint32_t opcode);
+ସ୍ଥିର ଶୂନ୍ୟ asm_emit_r(ପୂର୍ଣ୍ଣସଂଖ୍ୟା token, uint32_t opcode, ଅଚଳ Operand *rd, ଅଚଳ Operand *rs1, ଅଚଳ Operand *rs2);
+ସ୍ଥିର ଶୂନ୍ୟ asm_emit_s(ପୂର୍ଣ୍ଣସଂଖ୍ୟା token, uint32_t opcode, ଅଚଳ Operand *rs1, ଅଚଳ Operand *rs2, ଅଚଳ Operand *imm);
+ସ୍ଥିର ଶୂନ୍ୟ asm_emit_u(ପୂର୍ଣ୍ଣସଂଖ୍ୟା token, uint32_t opcode, ଅଚଳ Operand *rd, ଅଚଳ Operand *rs2);
+ସ୍ଥିର ଶୂନ୍ୟ asm_emit_f(ପୂର୍ଣ୍ଣସଂଖ୍ୟା token, uint32_t opcode, ଅଚଳ Operand *rd, ଅଚଳ Operand *rs1, ଅଚଳ Operand *rs2);
+ସ୍ଥିର ଶୂନ୍ୟ asm_emit_fb(ପୂର୍ଣ୍ଣସଂଖ୍ୟା token, uint32_t opcode, ଅଚଳ Operand *rd, ଅଚଳ Operand *rs);
+ସ୍ଥିର ଶୂନ୍ୟ asm_emit_fq(ପୂର୍ଣ୍ଣସଂଖ୍ୟା token, uint32_t opcode, ଅଚଳ Operand *rd, ଅଚଳ Operand *rs1, ଅଚଳ Operand *rs2, ଅଚଳ Operand *rs3);
+ST_FUNC ଶୂନ୍ୟ asm_gen_code(ASMOperand *operands, ପୂର୍ଣ୍ଣସଂଖ୍ୟା nb_operands, ପୂର୍ଣ୍ଣସଂଖ୍ୟା nb_outputs, ପୂର୍ଣ୍ଣସଂଖ୍ୟା is_output, uint8_t *clobber_regs, ପୂର୍ଣ୍ଣସଂଖ୍ୟା out_reg);
+ସ୍ଥିର ଶୂନ୍ୟ asm_nullary_opcode(TCCState *s1, ପୂର୍ଣ୍ଣସଂଖ୍ୟା token);
+ST_FUNC ଶୂନ୍ୟ asm_opcode(TCCState *s1, ପୂର୍ଣ୍ଣସଂଖ୍ୟା token);
+ସ୍ଥିର ପୂର୍ଣ୍ଣସଂଖ୍ୟା asm_parse_csrvar(ପୂର୍ଣ୍ଣସଂଖ୍ୟା t);
+ST_FUNC ପୂର୍ଣ୍ଣସଂଖ୍ୟା asm_parse_regvar(ପୂର୍ଣ୍ଣସଂଖ୍ୟା t);
+ସ୍ଥିର ଶୂନ୍ୟ asm_ternary_opcode(TCCState *s1, ପୂର୍ଣ୍ଣସଂଖ୍ୟା token);
+ସ୍ଥିର ଶୂନ୍ୟ asm_unary_opcode(TCCState *s1, ପୂର୍ଣ୍ଣସଂଖ୍ୟା token);
+ସ୍ଥିର ଶୂନ୍ୟ asm_branch_opcode(TCCState *s1, ପୂର୍ଣ୍ଣସଂଖ୍ୟା token, ପୂର୍ଣ୍ଣସଂଖ୍ୟା argc);
+ST_FUNC ଶୂନ୍ୟ gen_expr32(ପଦସମଷ୍ଟି_ମୂଲ୍ୟ *pe);
+ସ୍ଥିର ଶୂନ୍ୟ parse_operand(TCCState *s1, Operand *op);
+ସ୍ଥିର ଶୂନ୍ୟ parse_branch_offset_operand(TCCState *s1, Operand *op);
+ସ୍ଥିର ଶୂନ୍ୟ parse_operands(TCCState *s1, Operand *ops, ପୂର୍ଣ୍ଣସଂଖ୍ୟା ଗଣନା_3);
+ସ୍ଥିର ଶୂନ୍ୟ parse_mem_access_operands(TCCState *s1, Operand* ops);
+ST_FUNC ଶୂନ୍ୟ subst_asm_operand(CString *add_str, SValue *sv, ପୂର୍ଣ୍ଣସଂଖ୍ୟା modifier);
 /* C extension */
-static void asm_emit_ca(int token, uint16_t opcode, const Operand *rd, const Operand *rs2);
-static void asm_emit_cb(int token, uint16_t opcode, const Operand *rs1, const Operand *imm);
-static void asm_emit_ci(int token, uint16_t opcode, const Operand *rd, const Operand *imm);
-static void asm_emit_ciw(int token, uint16_t opcode, const Operand *rd, const Operand *imm);
-static void asm_emit_cj(int token, uint16_t opcode, const Operand *imm);
-static void asm_emit_cl(int token, uint16_t opcode, const Operand *rd, const Operand *rs1, const Operand *imm);
-static void asm_emit_cr(int token, uint16_t opcode, const Operand *rd, const Operand *rs2);
-static void asm_emit_cs(int token, uint16_t opcode, const Operand *rs2, const Operand *rs1, const Operand *imm);
-static void asm_emit_css(int token, uint16_t opcode, const Operand *rs2, const Operand *imm);
+ସ୍ଥିର ଶୂନ୍ୟ asm_emit_ca(ପୂର୍ଣ୍ଣସଂଖ୍ୟା token, uint16_t opcode, ଅଚଳ Operand *rd, ଅଚଳ Operand *rs2);
+ସ୍ଥିର ଶୂନ୍ୟ asm_emit_cb(ପୂର୍ଣ୍ଣସଂଖ୍ୟା token, uint16_t opcode, ଅଚଳ Operand *rs1, ଅଚଳ Operand *imm);
+ସ୍ଥିର ଶୂନ୍ୟ asm_emit_ci(ପୂର୍ଣ୍ଣସଂଖ୍ୟା token, uint16_t opcode, ଅଚଳ Operand *rd, ଅଚଳ Operand *imm);
+ସ୍ଥିର ଶୂନ୍ୟ asm_emit_ciw(ପୂର୍ଣ୍ଣସଂଖ୍ୟା token, uint16_t opcode, ଅଚଳ Operand *rd, ଅଚଳ Operand *imm);
+ସ୍ଥିର ଶୂନ୍ୟ asm_emit_cj(ପୂର୍ଣ୍ଣସଂଖ୍ୟା token, uint16_t opcode, ଅଚଳ Operand *imm);
+ସ୍ଥିର ଶୂନ୍ୟ asm_emit_cl(ପୂର୍ଣ୍ଣସଂଖ୍ୟା token, uint16_t opcode, ଅଚଳ Operand *rd, ଅଚଳ Operand *rs1, ଅଚଳ Operand *imm);
+ସ୍ଥିର ଶୂନ୍ୟ asm_emit_cr(ପୂର୍ଣ୍ଣସଂଖ୍ୟା token, uint16_t opcode, ଅଚଳ Operand *rd, ଅଚଳ Operand *rs2);
+ସ୍ଥିର ଶୂନ୍ୟ asm_emit_cs(ପୂର୍ଣ୍ଣସଂଖ୍ୟା token, uint16_t opcode, ଅଚଳ Operand *rs2, ଅଚଳ Operand *rs1, ଅଚଳ Operand *imm);
+ସ୍ଥିର ଶୂନ୍ୟ asm_emit_css(ପୂର୍ଣ୍ଣସଂଖ୍ୟା token, uint16_t opcode, ଅଚଳ Operand *rs2, ଅଚଳ Operand *imm);
 
 /* XXX: make it faster ? */
-ST_FUNC void g(int c)
+ST_FUNC ଶୂନ୍ୟ g(ପୂର୍ଣ୍ଣସଂଖ୍ୟା c)
 {
-    int ind1;
-    if (nocode_wanted)
-        return;
+    ପୂର୍ଣ୍ଣସଂଖ୍ୟା ind1;
+    ଯଦି (nocode_wanted)
+        ଫେରନ୍ତୁ;
     ind1 = ind + 1;
-    if (ind1 > cur_text_section->data_allocated)
+    ଯଦି (ind1 > cur_text_section->data_allocated)
         section_realloc(cur_text_section, ind1);
     cur_text_section->data[ind] = c;
     ind = ind1;
 }
 
-ST_FUNC void gen_le16 (int i)
+ST_FUNC ଶୂନ୍ୟ gen_le16 (ପୂର୍ଣ୍ଣସଂଖ୍ୟା i)
 {
     g(i);
     g(i>>8);
 }
 
-ST_FUNC void gen_le32 (int i)
+ST_FUNC ଶୂନ୍ୟ gen_le32 (ପୂର୍ଣ୍ଣସଂଖ୍ୟା i)
 {
-    int ind1;
-    if (nocode_wanted)
-        return;
+    ପୂର୍ଣ୍ଣସଂଖ୍ୟା ind1;
+    ଯଦି (nocode_wanted)
+        ଫେରନ୍ତୁ;
     ind1 = ind + 4;
-    if (ind1 > cur_text_section->data_allocated)
+    ଯଦି (ind1 > cur_text_section->data_allocated)
         section_realloc(cur_text_section, ind1);
     cur_text_section->data[ind++] = i & 0xFF;
     cur_text_section->data[ind++] = (i >> 8) & 0xFF;
@@ -124,91 +124,91 @@ ST_FUNC void gen_le32 (int i)
     cur_text_section->data[ind++] = (i >> 24) & 0xFF;
 }
 
-ST_FUNC void gen_expr32(ExprValue *pe)
+ST_FUNC ଶୂନ୍ୟ gen_expr32(ପଦସମଷ୍ଟି_ମୂଲ୍ୟ *pe)
 {
     gen_le32(pe->v);
 }
 
-static void asm_emit_opcode(uint32_t opcode) {
+ସ୍ଥିର ଶୂନ୍ୟ asm_emit_opcode(uint32_t opcode) {
     gen_le32(opcode);
 }
 
-static void asm_nullary_opcode(TCCState *s1, int token)
+ସ୍ଥିର ଶୂନ୍ୟ asm_nullary_opcode(TCCState *s1, ପୂର୍ଣ୍ଣସଂଖ୍ୟା token)
 {
-    switch (token) {
+    ବାଛ (token) {
     // Sync instructions
 
-    case TOK_ASM_fence_i: // I
+    ସ୍ଥିତି TOK_ASM_fence_i: // I
         asm_emit_opcode((0x3 << 2) | 3| (1 << 12));
-        return;
+        ଫେରନ୍ତୁ;
 
     // System calls
 
-    case TOK_ASM_ecall: // I (pseudo)
+    ସ୍ଥିତି TOK_ASM_ecall: // I (pseudo)
         asm_emit_opcode((0x1C << 2) | 3 | (0 << 12));
-        return;
-    case TOK_ASM_ebreak: // I (pseudo)
+        ଫେରନ୍ତୁ;
+    ସ୍ଥିତି TOK_ASM_ebreak: // I (pseudo)
         asm_emit_opcode((0x1C << 2) | 3 | (0 << 12) | (1 << 20));
-        return;
+        ଫେରନ୍ତୁ;
 
     // Other
 
-    case TOK_ASM_nop:
+    ସ୍ଥିତି TOK_ASM_nop:
         asm_emit_i(token, (4 << 2) | 3, &zero, &zero, &zimm);
-        return;
+        ଫେରନ୍ତୁ;
 
-    case TOK_ASM_wfi:
+    ସ୍ଥିତି TOK_ASM_wfi:
         asm_emit_opcode((0x1C << 2) | 3 | (0x105 << 20));
-        return;
+        ଫେରନ୍ତୁ;
 
     /* Pseudoinstructions */
-    case TOK_ASM_ret:
+    ସ୍ଥିତି TOK_ASM_ret:
         /* jalr zero, x1, 0 */
         asm_emit_opcode( 0x67 | (0 << 12) | ENCODE_RS1(1) );
-        return;
+        ଫେରନ୍ତୁ;
 
     /* C extension */
-    case TOK_ASM_c_ebreak:
+    ସ୍ଥିତି TOK_ASM_c_ebreak:
         asm_emit_cr(token, 2 | (9 << 12), &zero, &zero);
-        return;
-    case TOK_ASM_c_nop:
+        ଫେରନ୍ତୁ;
+    ସ୍ଥିତି TOK_ASM_c_nop:
         asm_emit_ci(token, 1, &zero, &zimm);
-        return;
+        ଫେରନ୍ତୁ;
 
-    default:
+    ପୂର୍ବନିର୍ଦ୍ଧାରିତ:
         expect("nullary instruction");
     }
 }
 
 /* Parse a text containing operand and store the result in OP */
-static void parse_operand(TCCState *s1, Operand *op)
+ସ୍ଥିର ଶୂନ୍ୟ parse_operand(TCCState *s1, Operand *op)
 {
-    ExprValue e = {0};
+    ପଦସମଷ୍ଟି_ମୂଲ୍ୟ e = {0};
     Sym label = {0};
     int8_t reg;
 
     op->type = 0;
 
-    if ((reg = asm_parse_regvar(tok)) != -1) {
+    ଯଦି ((reg = asm_parse_regvar(tok)) != -1) {
         next(); // skip register name
         op->type = OP_REG;
         op->reg = (uint8_t) reg;
-        return;
-    } else if (tok == '$') {
+        ଫେରନ୍ତୁ;
+    } ଅନ୍ୟଥା ଯଦି (tok == '$') {
         /* constant value */
         next(); // skip '#' or '$'
-    } else if ((e.v = asm_parse_csrvar(tok)) != -1) {
+    } ଅନ୍ୟଥା ଯଦି ((e.v = asm_parse_csrvar(tok)) != -1) {
         next();
-    } else {
-        asm_expr(s1, &e);
+    } ଅନ୍ୟଥା {
+        asm_ପଦସମଷ୍ଟି(s1, &e);
     }
     op->type = OP_IM32;
     op->e = e;
     /* compare against unsigned 12-bit maximum */
-    if (!op->e.sym) {
-        if ((int) op->e.v >= -0x1000 && (int) op->e.v < 0x1000)
+    ଯଦି (!op->e.sym) {
+        ଯଦି ((ପୂର୍ଣ୍ଣସଂଖ୍ୟା) op->e.v >= -0x1000 && (ପୂର୍ଣ୍ଣସଂଖ୍ୟା) op->e.v < 0x1000)
             op->type = OP_IM12S;
-    } else if (op->e.sym->type.t & (VT_EXTERN | VT_STATIC)) {
+    } ଅନ୍ୟଥା ଯଦି (op->e.sym->type.t & (VT_EXTERN | VT_STATIC)) {
         /* see also: "RISC-V ABIs Specification" V1.0
 
            section 5.2 recommends using a GOT for
@@ -222,89 +222,89 @@ static void parse_operand(TCCState *s1, Operand *op)
         label.type.t = VT_VOID | VT_STATIC;
 
         /* use the medium PIC model: GOT, auipc, lw */
-        if (op->e.sym->type.t & VT_STATIC)
+        ଯଦି (op->e.sym->type.t & VT_STATIC)
             greloca(cur_text_section, op->e.sym, ind, R_RISCV_PCREL_HI20, 0);
-        else
+        ଅନ୍ୟଥା
             greloca(cur_text_section, op->e.sym, ind, R_RISCV_GOT_HI20, 0);
         put_extern_sym(&label, cur_text_section, ind, 0);
         greloca(cur_text_section, &label, ind+4, R_RISCV_PCREL_LO12_I, 0);
 
         op->type = OP_IM12S;
         op->e.v = 0;
-    } else {
+    } ଅନ୍ୟଥା {
         expect("operand");
     }
 }
 
-static void parse_branch_offset_operand(TCCState *s1, Operand *op){
-    ExprValue e = {0};
+ସ୍ଥିର ଶୂନ୍ୟ parse_branch_offset_operand(TCCState *s1, Operand *op){
+    ପଦସମଷ୍ଟି_ମୂଲ୍ୟ e = {0};
 
-    asm_expr(s1, &e);
+    asm_ପଦସମଷ୍ଟି(s1, &e);
     op->type = OP_IM32;
     op->e = e;
     /* compare against unsigned 12-bit maximum */
-    if (!op->e.sym) {
-        if ((int) op->e.v >= -0x1000 && (int) op->e.v < 0x1000)
+    ଯଦି (!op->e.sym) {
+        ଯଦି ((ପୂର୍ଣ୍ଣସଂଖ୍ୟା) op->e.v >= -0x1000 && (ପୂର୍ଣ୍ଣସଂଖ୍ୟା) op->e.v < 0x1000)
             op->type = OP_IM12S;
-    } else if (op->e.sym->type.t & (VT_EXTERN | VT_STATIC)) {
+    } ଅନ୍ୟଥା ଯଦି (op->e.sym->type.t & (VT_EXTERN | VT_STATIC)) {
         /* For extern/static symbols, always use far-branch expansion
            since linker relaxation (R_RISCV_RELAX) is not implemented. */
         op->type = OP_IM32;
         op->e.v = 0;
-    } else {
+    } ଅନ୍ୟଥା {
         expect("operand");
     }
 }
 
-static void parse_jump_offset_operand(TCCState *s1, Operand *op){
-    ExprValue e = {0};
+ସ୍ଥିର ଶୂନ୍ୟ parse_jump_offset_operand(TCCState *s1, Operand *op){
+    ପଦସମଷ୍ଟି_ମୂଲ୍ୟ e = {0};
 
-    asm_expr(s1, &e);
+    asm_ପଦସମଷ୍ଟି(s1, &e);
     op->type = OP_IM32;
     op->e = e;
     /* compare against unsigned 12-bit maximum */
-    if (!op->e.sym) {
-        if ((int) op->e.v >= -0x1000 && (int) op->e.v < 0x1000)
+    ଯଦି (!op->e.sym) {
+        ଯଦି ((ପୂର୍ଣ୍ଣସଂଖ୍ୟା) op->e.v >= -0x1000 && (ପୂର୍ଣ୍ଣସଂଖ୍ୟା) op->e.v < 0x1000)
             op->type = OP_IM12S;
-    } else if (op->e.sym->type.t & (VT_EXTERN | VT_STATIC)) {
+    } ଅନ୍ୟଥା ଯଦି (op->e.sym->type.t & (VT_EXTERN | VT_STATIC)) {
         greloca(cur_text_section, op->e.sym, ind, R_RISCV_JAL, 0);
         op->type = OP_IM12S;
         op->e.v = 0;
-    } else {
+    } ଅନ୍ୟଥା {
         expect("operand");
     }
 }
 
-static void parse_operands(TCCState *s1, Operand* ops, int count){
-    int i;
-    for (i = 0; i < count; i++) {
-        if ( i != 0 )
+ସ୍ଥିର ଶୂନ୍ୟ parse_operands(TCCState *s1, Operand* ops, ପୂର୍ଣ୍ଣସଂଖ୍ୟା ଗଣନା_3){
+    ପୂର୍ଣ୍ଣସଂଖ୍ୟା i;
+    ପାଇଁ (i = 0; i < ଗଣନା_3; i++) {
+        ଯଦି ( i != 0 )
             skip(',');
         parse_operand(s1, &ops[i]);
     }
 }
 
 /* parse `X, imm(Y)` to {X, Y, imm} operands */
-static void parse_mem_access_operands(TCCState *s1, Operand* ops){
+ସ୍ଥିର ଶୂନ୍ୟ parse_mem_access_operands(TCCState *s1, Operand* ops){
 
     Operand op;
 
     parse_operand(s1, &ops[0]);
     skip(',');
-    if ( tok == '(') {
+    ଯଦି ( tok == '(') {
         /* `X, (Y)` case*/
         next();
         parse_operand(s1, &ops[1]);
         skip(')');
         ops[2] = zimm;
-    } else {
+    } ଅନ୍ୟଥା {
         parse_operand(s1, &ops[2]);
-        if ( tok == '('){
+        ଯଦି ( tok == '('){
             /* `X, imm(Y)` case*/
             next();
             parse_operand(s1, &ops[1]);
             skip(')');
-        } else {
+        } ଅନ୍ୟଥା {
             /* `X, Y` case*/
             /* we parsed Y thinking it was imm, swap and default imm to zero */
             op = ops[2];
@@ -316,54 +316,54 @@ static void parse_mem_access_operands(TCCState *s1, Operand* ops){
 }
 
 /* This is special: First operand is optional */
-static void asm_jal_opcode(TCCState *s1, int token){
+ସ୍ଥିର ଶୂନ୍ୟ asm_jal_opcode(TCCState *s1, ପୂର୍ଣ୍ଣସଂଖ୍ୟା token){
     Operand ops[2];
 
-    if (token == TOK_ASM_j ){
+    ଯଦି (token == TOK_ASM_j ){
         ops[0] = zero; // j offset
-    } else if (asm_parse_regvar(tok) == -1) {
+    } ଅନ୍ୟଥା ଯଦି (asm_parse_regvar(tok) == -1) {
         ops[0] = ra;   // jal offset
-    } else {
+    } ଅନ୍ୟଥା {
         // jal reg, offset
         parse_operand(s1, &ops[0]);
-        if ( tok == ',') next(); else expect("','");
+        ଯଦି ( tok == ',') next(); ଅନ୍ୟଥା expect("','");
     }
     parse_jump_offset_operand(s1, &ops[1]);
     asm_emit_j(token, 0x6f, &ops[0], &ops[1]);
 }
 
 /* This is special: It can be a pseudointruction or a instruction */
-static void asm_jalr_opcode(TCCState *s1, int token){
+ସ୍ଥିର ଶୂନ୍ୟ asm_jalr_opcode(TCCState *s1, ପୂର୍ଣ୍ଣସଂଖ୍ୟା token){
     Operand ops[3];
     Operand op;
 
     parse_operand(s1, &ops[0]);
-    if ( tok == ',')
+    ଯଦି ( tok == ',')
         next();
-    else {
+    ଅନ୍ୟଥା {
         /* no more operands, it's the pseudoinstruction:
          *  jalr rs
          * Expand to:
          *  jalr ra, 0(rs)
          */
         asm_emit_i(token, 0x67 | (0 << 12), &ra, &ops[0], &zimm);
-        return;
+        ଫେରନ୍ତୁ;
     }
 
-    if ( tok == '(') {
+    ଯଦି ( tok == '(') {
         /* `X, (Y)` case*/
         next();
         parse_operand(s1, &ops[1]);
         skip(')');
         ops[2] = zimm;
-    } else {
+    } ଅନ୍ୟଥା {
         parse_operand(s1, &ops[2]);
-        if ( tok == '('){
+        ଯଦି ( tok == '('){
             /* `X, imm(Y)` case*/
             next();
             parse_operand(s1, &ops[1]);
             skip(')');
-        } else {
+        } ଅନ୍ୟଥା {
             /* `X, Y` case*/
             /* we parsed Y thinking it was imm, swap and default imm to zero */
             op = ops[2];
@@ -377,7 +377,7 @@ static void asm_jalr_opcode(TCCState *s1, int token){
 }
 
 
-static void asm_unary_opcode(TCCState *s1, int token)
+ସ୍ଥିର ଶୂନ୍ୟ asm_unary_opcode(TCCState *s1, ପୂର୍ଣ୍ଣସଂଖ୍ୟା token)
 {
     uint32_t opcode = (0x1C << 2) | 3 | (2 << 12);
     Operand op;
@@ -386,83 +386,83 @@ static void asm_unary_opcode(TCCState *s1, int token)
     /* Note: Those all map to CSR--so they are pseudo-instructions. */
     opcode |= ENCODE_RD(op.reg);
 
-    switch (token) {
+    ବାଛ (token) {
     /* pseudoinstructions */
-    case TOK_ASM_rdcycle:
+    ସ୍ଥିତି TOK_ASM_rdcycle:
         asm_emit_opcode(opcode | (0xC00 << 20));
-        return;
-    case TOK_ASM_rdcycleh:
+        ଫେରନ୍ତୁ;
+    ସ୍ଥିତି TOK_ASM_rdcycleh:
         asm_emit_opcode(opcode | (0xC80 << 20));
-        return;
-    case TOK_ASM_rdtime:
+        ଫେରନ୍ତୁ;
+    ସ୍ଥିତି TOK_ASM_rdtime:
         asm_emit_opcode(opcode | (0xC01 << 20) | ENCODE_RD(op.reg));
-        return;
-    case TOK_ASM_rdtimeh:
+        ଫେରନ୍ତୁ;
+    ସ୍ଥିତି TOK_ASM_rdtimeh:
         asm_emit_opcode(opcode | (0xC81 << 20) | ENCODE_RD(op.reg));
-        return;
-    case TOK_ASM_rdinstret:
+        ଫେରନ୍ତୁ;
+    ସ୍ଥିତି TOK_ASM_rdinstret:
         asm_emit_opcode(opcode | (0xC02 << 20) | ENCODE_RD(op.reg));
-        return;
-    case TOK_ASM_rdinstreth:
+        ଫେରନ୍ତୁ;
+    ସ୍ଥିତି TOK_ASM_rdinstreth:
         asm_emit_opcode(opcode | (0xC82 << 20) | ENCODE_RD(op.reg));
-        return;
-    case TOK_ASM_frflags:
+        ଫେରନ୍ତୁ;
+    ସ୍ଥିତି TOK_ASM_frflags:
         asm_emit_opcode(opcode | (0x001 << 20) | ENCODE_RD(op.reg));
-        return;
-    case TOK_ASM_frrm:
+        ଫେରନ୍ତୁ;
+    ସ୍ଥିତି TOK_ASM_frrm:
         asm_emit_opcode(opcode | (0x002 << 20) | ENCODE_RD(op.reg));
-        return;
-    case TOK_ASM_frcsr:
+        ଫେରନ୍ତୁ;
+    ସ୍ଥିତି TOK_ASM_frcsr:
         asm_emit_opcode(opcode | (0x003 << 20) | ENCODE_RD(op.reg));
-        return;
+        ଫେରନ୍ତୁ;
 
-    case TOK_ASM_jr:
+    ସ୍ଥିତି TOK_ASM_jr:
         /* jalr zero, 0(rs)*/
         asm_emit_i(token, 0x67 | (0 << 12), &zero, &op, &zimm);
-        return;
-    case TOK_ASM_call:
+        ଫେରନ୍ତୁ;
+    ସ୍ଥିତି TOK_ASM_call:
         /* auipc ra, 0 */
         greloca(cur_text_section, op.e.sym, ind, R_RISCV_CALL, 0);
         asm_emit_opcode(3 | (5 << 2) | ENCODE_RD(1));
         /* jalr zero, 0(ra) */
         asm_emit_opcode(0x67 | (0 << 12) | ENCODE_RS1(1));
-        return;
-    case TOK_ASM_tail:
+        ଫେରନ୍ତୁ;
+    ସ୍ଥିତି TOK_ASM_tail:
         /* auipc x6, 0 */
         greloca(cur_text_section, op.e.sym, ind, R_RISCV_CALL, 0);
         asm_emit_opcode(3 | (5 << 2) | ENCODE_RD(6));
         /* jalr zero, 0(x6) */
         asm_emit_opcode(0x67 | (0 << 12) | ENCODE_RS1(6));
-        return;
+        ଫେରନ୍ତୁ;
 
     /* C extension */
-    case TOK_ASM_c_j:
+    ସ୍ଥିତି TOK_ASM_c_j:
         asm_emit_cj(token, 1 | (5 << 13), &op);
-        return;
-    case TOK_ASM_c_jal: /* RV32C-only */
+        ଫେରନ୍ତୁ;
+    ସ୍ଥିତି TOK_ASM_c_jal: /* RV32C-only */
         asm_emit_cj(token, 1 | (1 << 13), &op);
-        return;
-    case TOK_ASM_c_jalr:
+        ଫେରନ୍ତୁ;
+    ସ୍ଥିତି TOK_ASM_c_jalr:
         asm_emit_cr(token, 2 | (9 << 12), &op, &zero);
-        return;
-    case TOK_ASM_c_jr:
+        ଫେରନ୍ତୁ;
+    ସ୍ଥିତି TOK_ASM_c_jr:
         asm_emit_cr(token, 2 | (8 << 12), &op, &zero);
-        return;
+        ଫେରନ୍ତୁ;
 
-    default:
+    ପୂର୍ବନିର୍ଦ୍ଧାରିତ:
         expect("unary instruction");
     }
 }
 
-static void asm_emit_u(int token, uint32_t opcode, const Operand* rd, const Operand* rs2)
+ସ୍ଥିର ଶୂନ୍ୟ asm_emit_u(ପୂର୍ଣ୍ଣସଂଖ୍ୟା token, uint32_t opcode, ଅଚଳ Operand* rd, ଅଚଳ Operand* rs2)
 {
-    if (rd->type != OP_REG) {
-        tcc_error("'%s': Expected destination operand that is a register", get_tok_str(token, NULL));
+    ଯଦି (rd->type != OP_REG) {
+        tcc_error("'%s': Expected destination operand that is a register", get_tok_str(token, ଖାଲି));
     }
-    if (rs2->type != OP_IM12S && rs2->type != OP_IM32) {
-        tcc_error("'%s': Expected second source operand that is an immediate value", get_tok_str(token, NULL));
-    } else if (rs2->e.v >= 0x100000) {
-        tcc_error("'%s': Expected second source operand that is an immediate value between 0 and 0xfffff", get_tok_str(token, NULL));
+    ଯଦି (rs2->type != OP_IM12S && rs2->type != OP_IM32) {
+        tcc_error("'%s': Expected second source operand that is an immediate value", get_tok_str(token, ଖାଲି));
+    } ଅନ୍ୟଥା ଯଦି (rs2->e.v >= 0x100000) {
+        tcc_error("'%s': Expected second source operand that is an immediate value between 0 and 0xfffff", get_tok_str(token, ଖାଲି));
     }
     /* U-type instruction:
 	      31...12 imm[31:12]
@@ -471,35 +471,35 @@ static void asm_emit_u(int token, uint32_t opcode, const Operand* rd, const Oper
     gen_le32(opcode | ENCODE_RD(rd->reg) | (rs2->e.v << 12));
 }
 
-static int parse_fence_operand(){
-    int t = tok;
-    if ( tok == TOK_ASM_or ){
+ସ୍ଥିର ପୂର୍ଣ୍ଣସଂଖ୍ୟା parse_fence_operand(){
+    ପୂର୍ଣ୍ଣସଂଖ୍ୟା t = tok;
+    ଯଦି ( tok == TOK_ASM_or ){
         // we are in a fence instruction, parse as output read
         t = TOK_ASM_or_fence;
     }
     next();
-    return t - (TOK_ASM_w_fence - 1);
+    ଫେରନ୍ତୁ t - (TOK_ASM_w_fence - 1);
 }
 
-static void asm_fence_opcode(TCCState *s1, int token){
+ସ୍ଥିର ଶୂନ୍ୟ asm_fence_opcode(TCCState *s1, ପୂର୍ଣ୍ଣସଂଖ୍ୟା token){
     // `fence` is both an instruction and a pseudoinstruction:
     // `fence` expands to `fence iorw, iorw`
-    int succ = 0xF, pred = 0xF;
-    if (tok != TOK_LINEFEED && tok != ';' && tok != CH_EOF){
+    ପୂର୍ଣ୍ଣସଂଖ୍ୟା succ = 0xF, pred = 0xF;
+    ଯଦି (tok != TOK_LINEFEED && tok != ';' && tok != CH_EOF){
         pred = parse_fence_operand();
-        if ( pred > 0xF || pred < 0) {
-            tcc_error("'%s': Expected first operand that is a valid predecessor operand", get_tok_str(token, NULL));
+        ଯଦି ( pred > 0xF || pred < 0) {
+            tcc_error("'%s': Expected first operand that is a valid predecessor operand", get_tok_str(token, ଖାଲି));
         }
         skip(',');
         succ = parse_fence_operand();
-        if ( succ > 0xF || succ < 0) {
-            tcc_error("'%s': Expected second operand that is a valid successor operand", get_tok_str(token, NULL));
+        ଯଦି ( succ > 0xF || succ < 0) {
+            tcc_error("'%s': Expected second operand that is a valid successor operand", get_tok_str(token, ଖାଲି));
         }
     }
     asm_emit_opcode((0x3 << 2) | 3 | (0 << 12) | succ<<20 | pred<<24);
 }
 
-static void asm_binary_opcode(TCCState* s1, int token)
+ସ୍ଥିର ଶୂନ୍ୟ asm_ଦ୍ୱିମିକ_opcode(TCCState* s1, ପୂର୍ଣ୍ଣସଂଖ୍ୟା token)
 {
     Operand imm = { OP_IM12S };
     Operand ops[2];
@@ -507,136 +507,136 @@ static void asm_binary_opcode(TCCState* s1, int token)
     uint32_t hi;
 
     parse_operands(s1, &ops[0], 2);
-    switch (token) {
-    case TOK_ASM_lui:
+    ବାଛ (token) {
+    ସ୍ଥିତି TOK_ASM_lui:
         asm_emit_u(token, (0xD << 2) | 3, &ops[0], &ops[1]);
-        return;
-    case TOK_ASM_auipc:
+        ଫେରନ୍ତୁ;
+    ସ୍ଥିତି TOK_ASM_auipc:
         asm_emit_u(token, (0x05 << 2) | 3, &ops[0], &ops[1]);
-        return;
+        ଫେରନ୍ତୁ;
 
     /* C extension */
-    case TOK_ASM_c_add:
+    ସ୍ଥିତି TOK_ASM_c_add:
         asm_emit_cr(token, 2 | (9 << 12), ops, ops + 1);
-        return;
-    case TOK_ASM_c_mv:
+        ଫେରନ୍ତୁ;
+    ସ୍ଥିତି TOK_ASM_c_mv:
         asm_emit_cr(token, 2 | (8 << 12), ops, ops + 1);
-        return;
+        ଫେରନ୍ତୁ;
 
-    case TOK_ASM_c_addi16sp:
+    ସ୍ଥିତି TOK_ASM_c_addi16sp:
         asm_emit_ci(token, 1 | (3 << 13), ops, ops + 1);
-        return;
-    case TOK_ASM_c_addi:
+        ଫେରନ୍ତୁ;
+    ସ୍ଥିତି TOK_ASM_c_addi:
         asm_emit_ci(token, 1, ops, ops + 1);
-        return;
-    case TOK_ASM_c_addiw:
+        ଫେରନ୍ତୁ;
+    ସ୍ଥିତି TOK_ASM_c_addiw:
         asm_emit_ci(token, 1 | (1 << 13), ops, ops + 1);
-        return;
-    case TOK_ASM_c_fldsp:
+        ଫେରନ୍ତୁ;
+    ସ୍ଥିତି TOK_ASM_c_fldsp:
         asm_emit_ci(token, 2 | (1 << 13), ops, ops + 1);
-        return;
-    case TOK_ASM_c_flwsp: /* RV32FC-only */
+        ଫେରନ୍ତୁ;
+    ସ୍ଥିତି TOK_ASM_c_flwsp: /* RV32FC-only */
         asm_emit_ci(token, 2 | (3 << 13), ops, ops + 1);
-        return;
-    case TOK_ASM_c_ldsp:
+        ଫେରନ୍ତୁ;
+    ସ୍ଥିତି TOK_ASM_c_ldsp:
         asm_emit_ci(token, 2 | (3 << 13), ops, ops + 1);
-        return;
-    case TOK_ASM_c_li:
+        ଫେରନ୍ତୁ;
+    ସ୍ଥିତି TOK_ASM_c_li:
         asm_emit_ci(token, 1 | (2 << 13), ops, ops + 1);
-        return;
-    case TOK_ASM_c_lui:
+        ଫେରନ୍ତୁ;
+    ସ୍ଥିତି TOK_ASM_c_lui:
         asm_emit_ci(token, 1 | (3 << 13), ops, ops + 1);
-        return;
-    case TOK_ASM_c_lwsp:
+        ଫେରନ୍ତୁ;
+    ସ୍ଥିତି TOK_ASM_c_lwsp:
         asm_emit_ci(token, 2 | (2 << 13), ops, ops + 1);
-        return;
-    case TOK_ASM_c_slli:
+        ଫେରନ୍ତୁ;
+    ସ୍ଥିତି TOK_ASM_c_slli:
         asm_emit_ci(token, 2, ops, ops + 1);
-        return;
+        ଫେରନ୍ତୁ;
 
-    case TOK_ASM_c_addi4spn:
+    ସ୍ଥିତି TOK_ASM_c_addi4spn:
         asm_emit_ciw(token, 0, ops, ops + 1);
-        return;
+        ଫେରନ୍ତୁ;
 
 #define CA (1 | (3 << 10) | (4 << 13))
-    case TOK_ASM_c_addw:
+    ସ୍ଥିତି TOK_ASM_c_addw:
         asm_emit_ca(token, CA | (1 << 5) | (1 << 12), ops, ops + 1);
-        return;
-    case TOK_ASM_c_and:
+        ଫେରନ୍ତୁ;
+    ସ୍ଥିତି TOK_ASM_c_and:
         asm_emit_ca(token, CA | (3 << 5), ops, ops + 1);
-        return;
-    case TOK_ASM_c_or:
+        ଫେରନ୍ତୁ;
+    ସ୍ଥିତି TOK_ASM_c_or:
         asm_emit_ca(token, CA | (2 << 5), ops, ops + 1);
-        return;
-    case TOK_ASM_c_sub:
+        ଫେରନ୍ତୁ;
+    ସ୍ଥିତି TOK_ASM_c_sub:
         asm_emit_ca(token, CA, ops, ops + 1);
-        return;
-    case TOK_ASM_c_subw:
+        ଫେରନ୍ତୁ;
+    ସ୍ଥିତି TOK_ASM_c_subw:
         asm_emit_ca(token, CA | (1 << 12), ops, ops + 1);
-        return;
-    case TOK_ASM_c_xor:
+        ଫେରନ୍ତୁ;
+    ସ୍ଥିତି TOK_ASM_c_xor:
         asm_emit_ca(token, CA | (1 << 5), ops, ops + 1);
-        return;
+        ଫେରନ୍ତୁ;
 #undef CA
 
-    case TOK_ASM_c_andi:
+    ସ୍ଥିତି TOK_ASM_c_andi:
         asm_emit_cb(token, 1 | (2 << 10) | (4 << 13), ops, ops + 1);
-        return;
-    case TOK_ASM_c_beqz:
+        ଫେରନ୍ତୁ;
+    ସ୍ଥିତି TOK_ASM_c_beqz:
         asm_emit_cb(token, 1 | (6 << 13), ops, ops + 1);
-        return;
-    case TOK_ASM_c_bnez:
+        ଫେରନ୍ତୁ;
+    ସ୍ଥିତି TOK_ASM_c_bnez:
         asm_emit_cb(token, 1 | (7 << 13), ops, ops + 1);
-        return;
-    case TOK_ASM_c_srai:
+        ଫେରନ୍ତୁ;
+    ସ୍ଥିତି TOK_ASM_c_srai:
         asm_emit_cb(token, 1 | (1 << 10) | (4 << 13), ops, ops + 1);
-        return;
-    case TOK_ASM_c_srli:
+        ଫେରନ୍ତୁ;
+    ସ୍ଥିତି TOK_ASM_c_srli:
         asm_emit_cb(token, 1 | (4 << 13), ops, ops + 1);
-        return;
+        ଫେରନ୍ତୁ;
 
-    case TOK_ASM_c_sdsp:
+    ସ୍ଥିତି TOK_ASM_c_sdsp:
         asm_emit_css(token, 2 | (7 << 13), ops, ops + 1);
-        return;
-    case TOK_ASM_c_swsp:
+        ଫେରନ୍ତୁ;
+    ସ୍ଥିତି TOK_ASM_c_swsp:
         asm_emit_css(token, 2 | (6 << 13), ops, ops + 1);
-        return;
-    case TOK_ASM_c_fswsp: /* RV32FC-only */
+        ଫେରନ୍ତୁ;
+    ସ୍ଥିତି TOK_ASM_c_fswsp: /* RV32FC-only */
         asm_emit_css(token, 2 | (7 << 13), ops, ops + 1);
-        return;
-    case TOK_ASM_c_fsdsp:
+        ଫେରନ୍ତୁ;
+    ସ୍ଥିତି TOK_ASM_c_fsdsp:
         asm_emit_css(token, 2 | (5 << 13), ops, ops + 1);
-        return;
+        ଫେରନ୍ତୁ;
 
     /* F/D extension */
-    case TOK_ASM_fsqrt_d:
+    ସ୍ଥିତି TOK_ASM_fsqrt_d:
         asm_emit_fb(token, 0x53 | (11 << 27) | (1 << 25) | (7 << 12), ops, ops + 1);
-        return;
-    case TOK_ASM_fsqrt_s:
+        ଫେରନ୍ତୁ;
+    ସ୍ଥିତି TOK_ASM_fsqrt_s:
         asm_emit_fb(token, 0x53 | (11 << 27) | (0 << 25) | (7 << 12), ops, ops + 1);
-        return;
+        ଫେରନ୍ତୁ;
 
     /* pseudoinstructions */
     /* rd, sym */
-    case TOK_ASM_la:
+    ସ୍ଥିତି TOK_ASM_la:
         /* auipc rd, 0 */
         asm_emit_u(token, 3 | (5 << 2), ops, ops + 1);
         /* lw rd, rd, 0 */
         asm_emit_i(token, 3 | (2 << 12), ops, ops, ops + 1);
-        return;
-    case TOK_ASM_lla:
+        ଫେରନ୍ତୁ;
+    ସ୍ଥିତି TOK_ASM_lla:
         /* auipc rd, 0 */
         asm_emit_u(token, 3 | (5 << 2), ops, ops + 1);
         /* addi rd, rd, 0 */
         asm_emit_i(token, 3 | (4 << 2), ops, ops, ops + 1);
-        return;
-    case TOK_ASM_li:
-        if(ops[1].type != OP_IM32 && ops[1].type != OP_IM12S){
-            tcc_error("'%s': Expected first source operand that is an immediate value between 0 and 0xFFFFFFFFFFFFFFFF", get_tok_str(token, NULL));
+        ଫେରନ୍ତୁ;
+    ସ୍ଥିତି TOK_ASM_li:
+        ଯଦି(ops[1].type != OP_IM32 && ops[1].type != OP_IM12S){
+            tcc_error("'%s': Expected first source operand that is an immediate value between 0 and 0xFFFFFFFFFFFFFFFF", get_tok_str(token, ଖାଲି));
         }
         lo = ops[1].e.v;
         hi = (int64_t)ops[1].e.v >> 32;
-        if(lo < 0){
+        ଯଦି(lo < 0){
             hi += 1;
         }
         imm.e.v = ((hi + 0x800) & 0xfffff000) >> 12;
@@ -665,136 +665,136 @@ static void asm_binary_opcode(TCCState* s1, int token)
         lo &= 0xff;
         imm.e.v = lo << 20 >> 20;
         asm_emit_i(token, 3 | (4 << 2), &ops[0], &ops[0], &imm);
-        return;
-    case TOK_ASM_mv:
+        ଫେରନ୍ତୁ;
+    ସ୍ଥିତି TOK_ASM_mv:
         /* addi rd, rs, 0 */
         asm_emit_i(token, 3 | (4 << 2), &ops[0], &ops[1], &imm);
-        return;
-    case TOK_ASM_not:
+        ଫେରନ୍ତୁ;
+    ସ୍ଥିତି TOK_ASM_not:
         /* xori rd, rs, -1 */
         imm.e.v = -1;
         asm_emit_i(token, (0x4 << 2) | 3 | (4 << 12), &ops[0], &ops[1], &imm);
-        return;
-    case TOK_ASM_neg:
+        ଫେରନ୍ତୁ;
+    ସ୍ଥିତି TOK_ASM_neg:
         /* sub rd, x0, rs2 */
         asm_emit_r(token, (0xC << 2) | 3 | (32 << 25), &ops[0], &zero, &ops[1]);
-        return;
-    case TOK_ASM_negw:
+        ଫେରନ୍ତୁ;
+    ସ୍ଥିତି TOK_ASM_negw:
         /* subw rd, x0, rs2 */
         asm_emit_r(token, (0xE << 2) | 3 | (32 << 25), &ops[0], &zero, &ops[1]);
-        return;
-    case TOK_ASM_sext_w:
+        ଫେରନ୍ତୁ;
+    ସ୍ଥିତି TOK_ASM_sext_w:
         /* addiw rd, rs, 0 */
         asm_emit_i(token, 0x1b, &ops[0], &ops[1], &zimm);
-        return;
-    case TOK_ASM_fneg_s:
+        ଫେରନ୍ତୁ;
+    ସ୍ଥିତି TOK_ASM_fneg_s:
         /* fsgnjn.s rd, rs, rs */
         asm_emit_f(token, 0x53 | (1 << 12) | (0 << 25) | (4 << 27), &ops[0], &ops[1], &ops[1]);
-        return;
-    case TOK_ASM_fneg_d:
+        ଫେରନ୍ତୁ;
+    ସ୍ଥିତି TOK_ASM_fneg_d:
         /* fsgnjn.d rd, rs, rs */
         asm_emit_f(token, 0x53 | (1 << 12) | (1 << 25) | (4 << 27), &ops[0], &ops[1], &ops[1]);
-        return;
-    case TOK_ASM_fmv_s:
+        ଫେରନ୍ତୁ;
+    ସ୍ଥିତି TOK_ASM_fmv_s:
         /* fsgnj.s rd, rs, rs */
         asm_emit_f(token, 0x53 | (0 << 12) | (0 << 25) | (4 << 27), &ops[0], &ops[1], &ops[1]);
-        return;
-    case TOK_ASM_fmv_d:
+        ଫେରନ୍ତୁ;
+    ସ୍ଥିତି TOK_ASM_fmv_d:
         /* fsgnj.d rd, rs, rs */
         asm_emit_f(token, 0x53 | (0 << 12) | (1 << 25) | (4 << 27), &ops[0], &ops[1], &ops[1]);
-        return;
+        ଫେରନ୍ତୁ;
     /* FCVT instructions now handled by asm_fcvt_opcode() with
        optional rounding mode operand (GNU as syntax:
        fcvt.w.s rd, rs1 [, rtz/rne/...) */
 
-    case TOK_ASM_jump:
+    ସ୍ଥିତି TOK_ASM_jump:
         /* auipc x5, 0 */
         asm_emit_opcode(3 | (5 << 2) | ENCODE_RD(5));
         greloca(cur_text_section, ops->e.sym, ind, R_RISCV_CALL, 0);
         /* jalr zero, 0(x5) */
         asm_emit_opcode(0x67 | (0 << 12) | ENCODE_RS1(5));
-        return;
-    case TOK_ASM_seqz:
+        ଫେରନ୍ତୁ;
+    ସ୍ଥିତି TOK_ASM_seqz:
         /* sltiu rd, rs, 1 */
         imm.e.v = 1;
         asm_emit_i(token, (0x4 << 2) | 3 | (3 << 12), &ops[0], &ops[1], &imm);
-        return;
-    case TOK_ASM_snez:
+        ଫେରନ୍ତୁ;
+    ସ୍ଥିତି TOK_ASM_snez:
         /* sltu rd, zero, rs */
         imm.e.v = 1;
         asm_emit_r(token, (0xC << 2) | 3 | (3 << 12), &ops[0], &zero, &ops[1]);
-        return;
-    case TOK_ASM_sltz:
+        ଫେରନ୍ତୁ;
+    ସ୍ଥିତି TOK_ASM_sltz:
         /* slt rd, rs, zero */
         asm_emit_r(token, (0xC << 2) | 3 | (2 << 12), &ops[0], &ops[1], &zero);
-        return;
-    case TOK_ASM_sgtz:
+        ଫେରନ୍ତୁ;
+    ସ୍ଥିତି TOK_ASM_sgtz:
         /* slt rd, zero, rs */
         asm_emit_r(token, (0xC << 2) | 3 | (2 << 12), &ops[0], &zero, &ops[1]);
-        return;
+        ଫେରନ୍ତୁ;
 
-    case TOK_ASM_fabs_d:
+    ସ୍ଥିତି TOK_ASM_fabs_d:
         /* fsgnjx.d rd, rs, rs */
         asm_emit_f(token, 0x53 | (4 << 27) | (1 << 25) | (2 << 12), &ops[0], &ops[1], &ops[1]);
-        return;
-    case TOK_ASM_fabs_s:
+        ଫେରନ୍ତୁ;
+    ସ୍ଥିତି TOK_ASM_fabs_s:
         /* fsgnjx.s rd, rs, rs */
         asm_emit_f(token, 0x53 | (4 << 27) | (0 << 25) | (2 << 12), &ops[0], &ops[1], &ops[1]);
-        return;
+        ଫେରନ୍ତୁ;
 
     /* CSR pseudo-instructions */
-    case TOK_ASM_csrr:
+    ସ୍ଥିତି TOK_ASM_csrr:
         /* csrrs rd, csr, x0 */
         asm_emit_opcode(0x73 | (2 << 12) | (ops[1].e.v << 20) | ENCODE_RD(ops[0].reg));
-        return;
-    case TOK_ASM_csrw:
+        ଫେରନ୍ତୁ;
+    ସ୍ଥିତି TOK_ASM_csrw:
         /* csrrw x0, csr, rs */
         asm_emit_opcode(0x73 | (1 << 12) | (ops[0].e.v << 20) | ENCODE_RS1(ops[1].reg));
-        return;
-    case TOK_ASM_csrs:
+        ଫେରନ୍ତୁ;
+    ସ୍ଥିତି TOK_ASM_csrs:
         /* csrrs x0, csr, rs */
         asm_emit_opcode(0x73 | (2 << 12) | (ops[0].e.v << 20) | ENCODE_RS1(ops[1].reg));
-        return;
-    case TOK_ASM_csrc:
+        ଫେରନ୍ତୁ;
+    ସ୍ଥିତି TOK_ASM_csrc:
         /* csrrc x0, csr, rs */
         asm_emit_opcode(0x73 | (3 << 12) | (ops[0].e.v << 20) | ENCODE_RS1(ops[1].reg));
-        return;
-    case TOK_ASM_fsrm:
+        ଫେରନ୍ତୁ;
+    ସ୍ଥିତି TOK_ASM_fsrm:
         /* csrrw rd, frm, rs */
         asm_emit_opcode(0x73 | (1 << 12) | (2 << 20) | ENCODE_RD(ops[0].reg) | ENCODE_RS1(ops[1].reg));
-        return;
-    case TOK_ASM_fscsr:
+        ଫେରନ୍ତୁ;
+    ସ୍ଥିତି TOK_ASM_fscsr:
         /* csrrw rd, fcsr, rs */
         asm_emit_opcode(0x73 | (1 << 12) | (3 << 20) | ENCODE_RD(ops[0].reg) | ENCODE_RS1(ops[1].reg));
-        return;
-    case TOK_ASM_csrwi:
+        ଫେରନ୍ତୁ;
+    ସ୍ଥିତି TOK_ASM_csrwi:
         /* csrrwi x0, csr, uimm */
         asm_emit_opcode(0x73 | (5 << 12) | (ops[0].e.v << 20) | ENCODE_RS1(ops[1].e.v));
-        return;
-    case TOK_ASM_csrsi:
+        ଫେରନ୍ତୁ;
+    ସ୍ଥିତି TOK_ASM_csrsi:
         /* csrrsi x0, csr, uimm */
         asm_emit_opcode(0x73 | (6 << 12) | (ops[0].e.v << 20) | ENCODE_RS1(ops[1].e.v));
-        return;
-    case TOK_ASM_csrci:
+        ଫେରନ୍ତୁ;
+    ସ୍ଥିତି TOK_ASM_csrci:
         /* csrrci x0, csr, uimm */
         asm_emit_opcode(0x73 | (7 << 12) | (ops[0].e.v << 20) | ENCODE_RS1(ops[1].e.v));
-        return;
-    default:
+        ଫେରନ୍ତୁ;
+    ପୂର୍ବନିର୍ଦ୍ଧାରିତ:
         expect("binary instruction");
     }
 }
 
 /* caller: Add funct3, funct7 into opcode */
-static void asm_emit_r(int token, uint32_t opcode, const Operand* rd, const Operand* rs1, const Operand* rs2)
+ସ୍ଥିର ଶୂନ୍ୟ asm_emit_r(ପୂର୍ଣ୍ଣସଂଖ୍ୟା token, uint32_t opcode, ଅଚଳ Operand* rd, ଅଚଳ Operand* rs1, ଅଚଳ Operand* rs2)
 {
-    if (rd->type != OP_REG) {
-        tcc_error("'%s': Expected destination operand that is a register", get_tok_str(token, NULL));
+    ଯଦି (rd->type != OP_REG) {
+        tcc_error("'%s': Expected destination operand that is a register", get_tok_str(token, ଖାଲି));
     }
-    if (rs1->type != OP_REG) {
-        tcc_error("'%s': Expected first source operand that is a register", get_tok_str(token, NULL));
+    ଯଦି (rs1->type != OP_REG) {
+        tcc_error("'%s': Expected first source operand that is a register", get_tok_str(token, ଖାଲି));
     }
-    if (rs2->type != OP_REG) {
-        tcc_error("'%s': Expected second source operand that is a register or immediate", get_tok_str(token, NULL));
+    ଯଦି (rs2->type != OP_REG) {
+        tcc_error("'%s': Expected second source operand that is a register or immediate", get_tok_str(token, ଖାଲି));
     }
     /* R-type instruction:
 	     31...25 funct7
@@ -807,16 +807,16 @@ static void asm_emit_r(int token, uint32_t opcode, const Operand* rd, const Oper
 }
 
 /* caller: Add rounding mode, fmt, funct5 to opcode */
-static void asm_emit_f(int token, uint32_t opcode, const Operand* rd, const Operand* rs1, const Operand* rs2)
+ସ୍ଥିର ଶୂନ୍ୟ asm_emit_f(ପୂର୍ଣ୍ଣସଂଖ୍ୟା token, uint32_t opcode, ଅଚଳ Operand* rd, ଅଚଳ Operand* rs1, ଅଚଳ Operand* rs2)
 {
-    if (rd->type != OP_REG || !REG_IS_FLOAT(rd->reg)) {
-        tcc_error("'%s': Expected destination operand that is a floating-point register", get_tok_str(token, NULL));
+    ଯଦି (rd->type != OP_REG || !REG_IS_FLOAT(rd->reg)) {
+        tcc_error("'%s': Expected destination operand that is a floating-point register", get_tok_str(token, ଖାଲି));
     }
-    if (rs1->type != OP_REG || !REG_IS_FLOAT(rs1->reg)) {
-        tcc_error("'%s': Expected first source operand that is a floating-point register", get_tok_str(token, NULL));
+    ଯଦି (rs1->type != OP_REG || !REG_IS_FLOAT(rs1->reg)) {
+        tcc_error("'%s': Expected first source operand that is a floating-point register", get_tok_str(token, ଖାଲି));
     }
-    if (rs2->type != OP_REG || !REG_IS_FLOAT(rs2->reg)) {
-        tcc_error("'%s': Expected second source operand that is a floating-point register", get_tok_str(token, NULL));
+    ଯଦି (rs2->type != OP_REG || !REG_IS_FLOAT(rs2->reg)) {
+        tcc_error("'%s': Expected second source operand that is a floating-point register", get_tok_str(token, ଖାଲି));
     }
     /* F-type instruction:
 	     31...27 funct5
@@ -829,13 +829,13 @@ static void asm_emit_f(int token, uint32_t opcode, const Operand* rd, const Oper
     gen_le32(opcode | ENCODE_RD(rd->reg) | ENCODE_RS1(rs1->reg) | ENCODE_RS2(rs2->reg));
 }
 /* caller: Add rounding mode, fmt, funct5 to opcode */
-static void asm_emit_fb(int token, uint32_t opcode, const Operand* rd, const Operand* rs)
+ସ୍ଥିର ଶୂନ୍ୟ asm_emit_fb(ପୂର୍ଣ୍ଣସଂଖ୍ୟା token, uint32_t opcode, ଅଚଳ Operand* rd, ଅଚଳ Operand* rs)
 {
-    if (rd->type != OP_REG || !REG_IS_FLOAT(rd->reg)) {
-        tcc_error("'%s': Expected destination operand that is a floating-point register", get_tok_str(token, NULL));
+    ଯଦି (rd->type != OP_REG || !REG_IS_FLOAT(rd->reg)) {
+        tcc_error("'%s': Expected destination operand that is a floating-point register", get_tok_str(token, ଖାଲି));
     }
-    if (rs->type != OP_REG || !REG_IS_FLOAT(rs->reg)) {
-        tcc_error("'%s': Expected source operand that is a floating-point register", get_tok_str(token, NULL));
+    ଯଦି (rs->type != OP_REG || !REG_IS_FLOAT(rs->reg)) {
+        tcc_error("'%s': Expected source operand that is a floating-point register", get_tok_str(token, ଖାଲି));
     }
     /* F-type instruction:
 	     31...27 funct5
@@ -848,19 +848,19 @@ static void asm_emit_fb(int token, uint32_t opcode, const Operand* rd, const Ope
     gen_le32(opcode | ENCODE_RD(rd->reg) | ENCODE_RS1(rs->reg) | ENCODE_RS2(0));
 }
 /* caller: Add rounding mode, fmt to opcode */
-static void asm_emit_fq(int token, uint32_t opcode, const Operand* rd, const Operand* rs1, const Operand* rs2, const Operand* rs3)
+ସ୍ଥିର ଶୂନ୍ୟ asm_emit_fq(ପୂର୍ଣ୍ଣସଂଖ୍ୟା token, uint32_t opcode, ଅଚଳ Operand* rd, ଅଚଳ Operand* rs1, ଅଚଳ Operand* rs2, ଅଚଳ Operand* rs3)
 {
-    if (rd->type != OP_REG || !REG_IS_FLOAT(rd->reg)) {
-        tcc_error("'%s': Expected destination operand that is a floating-point register", get_tok_str(token, NULL));
+    ଯଦି (rd->type != OP_REG || !REG_IS_FLOAT(rd->reg)) {
+        tcc_error("'%s': Expected destination operand that is a floating-point register", get_tok_str(token, ଖାଲି));
     }
-    if (rs1->type != OP_REG || !REG_IS_FLOAT(rs1->reg)) {
-        tcc_error("'%s': Expected first source operand that is a floating-point register", get_tok_str(token, NULL));
+    ଯଦି (rs1->type != OP_REG || !REG_IS_FLOAT(rs1->reg)) {
+        tcc_error("'%s': Expected first source operand that is a floating-point register", get_tok_str(token, ଖାଲି));
     }
-    if (rs2->type != OP_REG || !REG_IS_FLOAT(rs2->reg)) {
-        tcc_error("'%s': Expected second source operand that is a floating-point register", get_tok_str(token, NULL));
+    ଯଦି (rs2->type != OP_REG || !REG_IS_FLOAT(rs2->reg)) {
+        tcc_error("'%s': Expected second source operand that is a floating-point register", get_tok_str(token, ଖାଲି));
     }
-    if (rs3->type != OP_REG || !REG_IS_FLOAT(rs3->reg)) {
-        tcc_error("'%s': Expected third source operand that is a floating-point register", get_tok_str(token, NULL));
+    ଯଦି (rs3->type != OP_REG || !REG_IS_FLOAT(rs3->reg)) {
+        tcc_error("'%s': Expected third source operand that is a floating-point register", get_tok_str(token, ଖାଲି));
     }
     /* F-type instruction:
 	     31...27 rs3
@@ -870,20 +870,20 @@ static void asm_emit_fq(int token, uint32_t opcode, const Operand* rd, const Ope
 	     14...12 rm
 	     11...7 rd
 	     6...0 opcode */
-    gen_le32(opcode | ENCODE_RD(rd->reg) | ENCODE_RS1(rs1->reg) | ENCODE_RS2(rs2->reg) | (REG_VALUE(rs3->reg) << 27));
+    gen_le32(opcode | ENCODE_RD(rd->reg) | ENCODE_RS1(rs1->reg) | ENCODE_RS2(rs2->reg) | (REG_ମୂଲ୍ୟ(rs3->reg) << 27));
 }
 
 /* caller: Add funct3 into opcode */
-static void asm_emit_i(int token, uint32_t opcode, const Operand* rd, const Operand* rs1, const Operand* rs2)
+ସ୍ଥିର ଶୂନ୍ୟ asm_emit_i(ପୂର୍ଣ୍ଣସଂଖ୍ୟା token, uint32_t opcode, ଅଚଳ Operand* rd, ଅଚଳ Operand* rs1, ଅଚଳ Operand* rs2)
 {
-    if (rd->type != OP_REG) {
-        tcc_error("'%s': Expected destination operand that is a register", get_tok_str(token, NULL));
+    ଯଦି (rd->type != OP_REG) {
+        tcc_error("'%s': Expected destination operand that is a register", get_tok_str(token, ଖାଲି));
     }
-    if (rs1->type != OP_REG) {
-        tcc_error("'%s': Expected first source operand that is a register", get_tok_str(token, NULL));
+    ଯଦି (rs1->type != OP_REG) {
+        tcc_error("'%s': Expected first source operand that is a register", get_tok_str(token, ଖାଲି));
     }
-    if (rs2->type != OP_IM12S) {
-        tcc_error("'%s': Expected second source operand that is an immediate value between 0 and 8191", get_tok_str(token, NULL));
+    ଯଦି (rs2->type != OP_IM12S) {
+        tcc_error("'%s': Expected second source operand that is an immediate value between 0 and 8191", get_tok_str(token, ଖାଲି));
     }
     /* I-type instruction:
 	     31...20 imm[11:0]
@@ -895,26 +895,26 @@ static void asm_emit_i(int token, uint32_t opcode, const Operand* rd, const Oper
     gen_le32(opcode | ENCODE_RD(rd->reg) | ENCODE_RS1(rs1->reg) | (rs2->e.v << 20));
 }
 
-static void asm_emit_j(int token, uint32_t opcode, const Operand* rd, const Operand* rs2)
+ସ୍ଥିର ଶୂନ୍ୟ asm_emit_j(ପୂର୍ଣ୍ଣସଂଖ୍ୟା token, uint32_t opcode, ଅଚଳ Operand* rd, ଅଚଳ Operand* rs2)
 {
     uint32_t imm;
 
-    if (rd->type != OP_REG) {
-        tcc_error("'%s': Expected destination operand that is a register", get_tok_str(token, NULL));
+    ଯଦି (rd->type != OP_REG) {
+        tcc_error("'%s': Expected destination operand that is a register", get_tok_str(token, ଖାଲି));
     }
-    if (rs2->type != OP_IM12S && rs2->type != OP_IM32) {
-        tcc_error("'%s': Expected second source operand that is an immediate value", get_tok_str(token, NULL));
+    ଯଦି (rs2->type != OP_IM12S && rs2->type != OP_IM32) {
+        tcc_error("'%s': Expected second source operand that is an immediate value", get_tok_str(token, ଖାଲି));
     }
 
     imm = rs2->e.v;
 
     /* even offsets in a +- 1 MiB range */
-    if ((int)imm > (1 << 20) -1 || (int)imm <= -1 * ((1 << 20) -1)) {
-        tcc_error("'%s': Expected second source operand that is an immediate value between 0 and 0x1fffff", get_tok_str(token, NULL));
+    ଯଦି ((ପୂର୍ଣ୍ଣସଂଖ୍ୟା)imm > (1 << 20) -1 || (ପୂର୍ଣ୍ଣସଂଖ୍ୟା)imm <= -1 * ((1 << 20) -1)) {
+        tcc_error("'%s': Expected second source operand that is an immediate value between 0 and 0x1fffff", get_tok_str(token, ଖାଲି));
     }
 
-    if (imm & 1) {
-        tcc_error("'%s': Expected second source operand that is an even immediate value", get_tok_str(token, NULL));
+    ଯଦି (imm & 1) {
+        tcc_error("'%s': Expected second source operand that is an even immediate value", get_tok_str(token, ଖାଲି));
     }
     /* J-type instruction:
     31      imm[20]
@@ -926,7 +926,7 @@ static void asm_emit_j(int token, uint32_t opcode, const Operand* rd, const Oper
     gen_le32(opcode | ENCODE_RD(rd->reg) | (((imm >> 20) & 1) << 31) | (((imm >> 1) & 0x3ff) << 21) | (((imm >> 11) & 1) << 20) | (((imm >> 12) & 0xff) << 12));
 }
 
-static void asm_mem_access_opcode(TCCState *s1, int token)
+ସ୍ଥିର ଶୂନ୍ୟ asm_mem_access_opcode(TCCState *s1, ପୂର୍ଣ୍ଣସଂଖ୍ୟା token)
 {
 
     Operand ops[3];
@@ -938,7 +938,7 @@ static void asm_mem_access_opcode(TCCState *s1, int token)
      *   inst reg, 0(reg)
      * And with the proper relocation to label
      */
-    if (ops[1].type == OP_IM32 && ops[1].e.sym && ops[1].e.sym->type.t & VT_STATIC){
+    ଯଦି (ops[1].type == OP_IM32 && ops[1].e.sym && ops[1].e.sym->type.t & VT_STATIC){
         ops[1] = ops[0];
         /* set the offset to zero */
         ops[2].type = OP_IM12S;
@@ -947,409 +947,409 @@ static void asm_mem_access_opcode(TCCState *s1, int token)
         asm_emit_u(token, (0x05 << 2) | 3, &ops[0], &ops[2]);
     }
 
-    switch (token) {
+    ବାଛ (token) {
     // l{b|h|w|d}[u] rd, imm(rs1); I-format
-    case TOK_ASM_lb:
+    ସ୍ଥିତି TOK_ASM_lb:
          asm_emit_i(token, (0x0 << 2) | 3, &ops[0], &ops[1], &ops[2]);
-         return;
-    case TOK_ASM_lh:
+         ଫେରନ୍ତୁ;
+    ସ୍ଥିତି TOK_ASM_lh:
          asm_emit_i(token, (0x0 << 2) | 3 | (1 << 12), &ops[0], &ops[1], &ops[2]);
-         return;
-    case TOK_ASM_lw:
+         ଫେରନ୍ତୁ;
+    ସ୍ଥିତି TOK_ASM_lw:
          asm_emit_i(token, (0x0 << 2) | 3 | (2 << 12), &ops[0], &ops[1], &ops[2]);
-         return;
-    case TOK_ASM_ld:
+         ଫେରନ୍ତୁ;
+    ସ୍ଥିତି TOK_ASM_ld:
          asm_emit_i(token, (0x0 << 2) | 3 | (3 << 12), &ops[0], &ops[1], &ops[2]);
-         return;
-    case TOK_ASM_lbu:
+         ଫେରନ୍ତୁ;
+    ସ୍ଥିତି TOK_ASM_lbu:
          asm_emit_i(token, (0x0 << 2) | 3 | (4 << 12), &ops[0], &ops[1], &ops[2]);
-         return;
-    case TOK_ASM_lhu:
+         ଫେରନ୍ତୁ;
+    ସ୍ଥିତି TOK_ASM_lhu:
          asm_emit_i(token, (0x0 << 2) | 3 | (5 << 12), &ops[0], &ops[1], &ops[2]);
-         return;
-    case TOK_ASM_lwu:
+         ଫେରନ୍ତୁ;
+    ସ୍ଥିତି TOK_ASM_lwu:
          asm_emit_i(token, (0x0 << 2) | 3 | (6 << 12), &ops[0], &ops[1], &ops[2]);
-         return;
-    case TOK_ASM_fld:
+         ଫେରନ୍ତୁ;
+    ସ୍ଥିତି TOK_ASM_fld:
          asm_emit_i(token, (0x1 << 2) | 3 | (3 << 12), &ops[0], &ops[1], &ops[2]);
-         return;
+         ଫେରନ୍ତୁ;
 
     // s{b|h|w|d} rs2, imm(rs1); S-format (with rsX swapped)
-    case TOK_ASM_sb:
+    ସ୍ଥିତି TOK_ASM_sb:
          asm_emit_s(token, (0x8 << 2) | 3 | (0 << 12), &ops[1], &ops[0], &ops[2]);
-         return;
-    case TOK_ASM_sh:
+         ଫେରନ୍ତୁ;
+    ସ୍ଥିତି TOK_ASM_sh:
          asm_emit_s(token, (0x8 << 2) | 3 | (1 << 12), &ops[1], &ops[0], &ops[2]);
-         return;
-    case TOK_ASM_sw:
+         ଫେରନ୍ତୁ;
+    ସ୍ଥିତି TOK_ASM_sw:
          asm_emit_s(token, (0x8 << 2) | 3 | (2 << 12), &ops[1], &ops[0], &ops[2]);
-         return;
-    case TOK_ASM_sd:
+         ଫେରନ୍ତୁ;
+    ସ୍ଥିତି TOK_ASM_sd:
          asm_emit_s(token, (0x8 << 2) | 3 | (3 << 12), &ops[1], &ops[0], &ops[2]);
-         return;
-    case TOK_ASM_fsd:
+         ଫେରନ୍ତୁ;
+    ସ୍ଥିତି TOK_ASM_fsd:
          asm_emit_s(token, (0x9 << 2) | 3 | (3 << 12), &ops[1], &ops[0], &ops[2]);
-         return;
+         ଫେରନ୍ତୁ;
     }
 }
 
-static void asm_branch_opcode(TCCState *s1, int token, int argc)
+ସ୍ଥିର ଶୂନ୍ୟ asm_branch_opcode(TCCState *s1, ପୂର୍ଣ୍ଣସଂଖ୍ୟା token, ପୂର୍ଣ୍ଣସଂଖ୍ୟା argc)
 {
     Operand ops[3];
     parse_operands(s1, &ops[0], argc-1);
     skip(',');
     parse_branch_offset_operand(s1, &ops[argc-1]);
 
-    switch(token){
+    ବାଛ(token){
     /* branch (RS1, RS2, IMM); B-format */
-    case TOK_ASM_beq:
+    ସ୍ଥିତି TOK_ASM_beq:
         asm_emit_b(token, 0x63 | (0 << 12), ops, ops + 1, ops + 2);
-        return;
-    case TOK_ASM_bne:
+        ଫେରନ୍ତୁ;
+    ସ୍ଥିତି TOK_ASM_bne:
         asm_emit_b(token, 0x63 | (1 << 12), ops, ops + 1, ops + 2);
-        return;
-    case TOK_ASM_blt:
+        ଫେରନ୍ତୁ;
+    ସ୍ଥିତି TOK_ASM_blt:
         asm_emit_b(token, 0x63 | (4 << 12), ops, ops + 1, ops + 2);
-        return;
-    case TOK_ASM_bge:
+        ଫେରନ୍ତୁ;
+    ସ୍ଥିତି TOK_ASM_bge:
         asm_emit_b(token, 0x63 | (5 << 12), ops, ops + 1, ops + 2);
-        return;
-    case TOK_ASM_bltu:
+        ଫେରନ୍ତୁ;
+    ସ୍ଥିତି TOK_ASM_bltu:
         asm_emit_b(token, 0x63 | (6 << 12), ops, ops + 1, ops + 2);
-        return;
-    case TOK_ASM_bgeu:
+        ଫେରନ୍ତୁ;
+    ସ୍ଥିତି TOK_ASM_bgeu:
         asm_emit_b(token, 0x63 | (7 << 12), ops, ops + 1, ops + 2);
-        return;
+        ଫେରନ୍ତୁ;
     /* related pseudoinstructions */
-    case TOK_ASM_bgt:
+    ସ୍ଥିତି TOK_ASM_bgt:
         asm_emit_b(token, 0x63 | (4 << 12), ops + 1, ops, ops + 2);
-        return;
-    case TOK_ASM_ble:
+        ଫେରନ୍ତୁ;
+    ସ୍ଥିତି TOK_ASM_ble:
         asm_emit_b(token, 0x63 | (5 << 12), ops + 1, ops, ops + 2);
-        return;
-    case TOK_ASM_bgtu:
+        ଫେରନ୍ତୁ;
+    ସ୍ଥିତି TOK_ASM_bgtu:
         asm_emit_b(token, 0x63 | (6 << 12), ops + 1, ops, ops + 2);
-        return;
-    case TOK_ASM_bleu:
+        ଫେରନ୍ତୁ;
+    ସ୍ଥିତି TOK_ASM_bleu:
         asm_emit_b(token, 0x63 | (7 << 12), ops + 1, ops, ops + 2);
-        return;
+        ଫେରନ୍ତୁ;
     /* shorter pseudoinstructions */
-    case TOK_ASM_bnez:
+    ସ୍ଥିତି TOK_ASM_bnez:
         /* bne rs, zero, offset */
         asm_emit_b(token, 0x63 | (1 << 12), &ops[0], &zero, &ops[1]);
-        return;
-    case TOK_ASM_beqz:
+        ଫେରନ୍ତୁ;
+    ସ୍ଥିତି TOK_ASM_beqz:
         /* bne rs, zero, offset */
         asm_emit_b(token, 0x63 | (0 << 12), &ops[0], &zero, &ops[1]);
-        return;
-    case TOK_ASM_blez:
+        ଫେରନ୍ତୁ;
+    ସ୍ଥିତି TOK_ASM_blez:
         /* bge rs, zero, offset */
         asm_emit_b(token, 0x63 | (5 << 12), &ops[0], &zero, &ops[1]);
-        return;
-    case TOK_ASM_bgez:
+        ଫେରନ୍ତୁ;
+    ସ୍ଥିତି TOK_ASM_bgez:
         /* bge zero, rs, offset */
         asm_emit_b(token, 0x63 | (5 << 12), &zero, &ops[0], &ops[1]);
-        return;
-    case TOK_ASM_bltz:
+        ଫେରନ୍ତୁ;
+    ସ୍ଥିତି TOK_ASM_bltz:
         /* blt rs, zero, offset */
         asm_emit_b(token, 0x63 | (4 << 12), &ops[0], &zero, &ops[1]);
-        return;
-    case TOK_ASM_bgtz:
+        ଫେରନ୍ତୁ;
+    ସ୍ଥିତି TOK_ASM_bgtz:
         /* blt zero, rs, offset */
         asm_emit_b(token, 0x63 | (4 << 12), &zero, &ops[0], &ops[1]);
-        return;
+        ଫେରନ୍ତୁ;
     }
 }
 
-static void asm_ternary_opcode(TCCState *s1, int token)
+ସ୍ଥିର ଶୂନ୍ୟ asm_ternary_opcode(TCCState *s1, ପୂର୍ଣ୍ଣସଂଖ୍ୟା token)
 {
     Operand ops[3];
     parse_operands(s1, &ops[0], 3);
 
-    switch (token) {
-    case TOK_ASM_sll:
+    ବାଛ (token) {
+    ସ୍ଥିତି TOK_ASM_sll:
         asm_emit_r(token, (0xC << 2) | 3 | (1 << 12), &ops[0], &ops[1], &ops[2]);
-        return;
-    case TOK_ASM_slli:
+        ଫେରନ୍ତୁ;
+    ସ୍ଥିତି TOK_ASM_slli:
         asm_emit_i(token, (4 << 2) | 3 | (1 << 12), &ops[0], &ops[1], &ops[2]);
-        return;
-    case TOK_ASM_srl:
+        ଫେରନ୍ତୁ;
+    ସ୍ଥିତି TOK_ASM_srl:
         asm_emit_r(token, (0xC << 2) | 3 | (4 << 12), &ops[0], &ops[1], &ops[2]);
-        return;
-    case TOK_ASM_srli:
+        ଫେରନ୍ତୁ;
+    ସ୍ଥିତି TOK_ASM_srli:
         asm_emit_i(token, (0x4 << 2) | 3 | (5 << 12), &ops[0], &ops[1], &ops[2]);
-        return;
-    case TOK_ASM_sra:
+        ଫେରନ୍ତୁ;
+    ସ୍ଥିତି TOK_ASM_sra:
         asm_emit_r(token, (0xC << 2) | 3 | (5 << 12) | (32 << 25), &ops[0], &ops[1], &ops[2]);
-        return;
-    case TOK_ASM_srai:
+        ଫେରନ୍ତୁ;
+    ସ୍ଥିତି TOK_ASM_srai:
         asm_emit_i(token, (0x4 << 2) | 3 | (5 << 12) | (16 << 26), &ops[0], &ops[1], &ops[2]);
-        return;
-    case TOK_ASM_sllw:
+        ଫେରନ୍ତୁ;
+    ସ୍ଥିତି TOK_ASM_sllw:
         asm_emit_r(token, (0xE << 2) | 3 | (1 << 12), &ops[0], &ops[1], &ops[2]);
-        return;
-    case TOK_ASM_slliw:
+        ଫେରନ୍ତୁ;
+    ସ୍ଥିତି TOK_ASM_slliw:
         asm_emit_i(token, (6 << 2) | 3 | (1 << 12), &ops[0], &ops[1], &ops[2]);
-        return;
-    case TOK_ASM_srlw:
+        ଫେରନ୍ତୁ;
+    ସ୍ଥିତି TOK_ASM_srlw:
         asm_emit_r(token, (0xE << 2) | 3 | (5 << 12), &ops[0], &ops[1], &ops[2]);
-        return;
-    case TOK_ASM_srliw:
+        ଫେରନ୍ତୁ;
+    ସ୍ଥିତି TOK_ASM_srliw:
         asm_emit_i(token, (0x6 << 2) | 3 | (5 << 12), &ops[0], &ops[1], &ops[2]);
-        return;
-    case TOK_ASM_sraw:
+        ଫେରନ୍ତୁ;
+    ସ୍ଥିତି TOK_ASM_sraw:
         asm_emit_r(token, (0xE << 2) | 3 | (5 << 12), &ops[0], &ops[1], &ops[2]);
-        return;
-    case TOK_ASM_sraiw:
+        ଫେରନ୍ତୁ;
+    ସ୍ଥିତି TOK_ASM_sraiw:
         asm_emit_i(token, (0x6 << 2) | 3 | (5 << 12), &ops[0], &ops[1], &ops[2]);
-        return;
+        ଫେରନ୍ତୁ;
 
     // Arithmetic (RD,RS1,(RS2|IMM)); R-format, I-format or U-format
 
-    case TOK_ASM_add:
+    ସ୍ଥିତି TOK_ASM_add:
          asm_emit_r(token, (0xC << 2) | 3, &ops[0], &ops[1], &ops[2]);
-         return;
-    case TOK_ASM_addi:
+         ଫେରନ୍ତୁ;
+    ସ୍ଥିତି TOK_ASM_addi:
          asm_emit_i(token, (4 << 2) | 3, &ops[0], &ops[1], &ops[2]);
-         return;
-    case TOK_ASM_sub:
+         ଫେରନ୍ତୁ;
+    ସ୍ଥିତି TOK_ASM_sub:
          asm_emit_r(token, (0xC << 2) | 3 | (32 << 25), &ops[0], &ops[1], &ops[2]);
-         return;
-    case TOK_ASM_addw:
+         ଫେରନ୍ତୁ;
+    ସ୍ଥିତି TOK_ASM_addw:
          asm_emit_r(token, (0xE << 2) | 3 | (0 << 12), &ops[0], &ops[1], &ops[2]);
-         return;
-    case TOK_ASM_addiw: // 64 bit
+         ଫେରନ୍ତୁ;
+    ସ୍ଥିତି TOK_ASM_addiw: // 64 bit
          asm_emit_i(token, (0x6 << 2) | 3 | (0 << 12), &ops[0], &ops[1], &ops[2]);
-         return;
-    case TOK_ASM_subw:
+         ଫେରନ୍ତୁ;
+    ସ୍ଥିତି TOK_ASM_subw:
          asm_emit_r(token, (0xE << 2) | 3 | (0 << 12) | (32 << 25), &ops[0], &ops[1], &ops[2]);
-         return;
+         ଫେରନ୍ତୁ;
 
     // Logical (RD,RS1,(RS2|IMM)); R-format or I-format
 
-    case TOK_ASM_xor:
+    ସ୍ଥିତି TOK_ASM_xor:
          asm_emit_r(token, (0xC << 2) | 3 | (4 << 12), &ops[0], &ops[1], &ops[2]);
-         return;
-    case TOK_ASM_xori:
+         ଫେରନ୍ତୁ;
+    ସ୍ଥିତି TOK_ASM_xori:
          asm_emit_i(token, (0x4 << 2) | 3 | (4 << 12), &ops[0], &ops[1], &ops[2]);
-         return;
-    case TOK_ASM_or:
+         ଫେରନ୍ତୁ;
+    ସ୍ଥିତି TOK_ASM_or:
          asm_emit_r(token, (0xC << 2) | 3 | (6 << 12), &ops[0], &ops[1], &ops[2]);
-         return;
-    case TOK_ASM_ori:
+         ଫେରନ୍ତୁ;
+    ସ୍ଥିତି TOK_ASM_ori:
          asm_emit_i(token, (0x4 << 2) | 3 | (6 << 12), &ops[0], &ops[1], &ops[2]);
-         return;
-    case TOK_ASM_and:
+         ଫେରନ୍ତୁ;
+    ସ୍ଥିତି TOK_ASM_and:
          asm_emit_r(token, (0xC << 2) | 3 | (7 << 12), &ops[0], &ops[1], &ops[2]);
-         return;
-    case TOK_ASM_andi:
+         ଫେରନ୍ତୁ;
+    ସ୍ଥିତି TOK_ASM_andi:
          asm_emit_i(token, (0x4 << 2) | 3 | (7 << 12), &ops[0], &ops[1], &ops[2]);
-         return;
+         ଫେରନ୍ତୁ;
 
     // Compare (RD,RS1,(RS2|IMM)); R-format or I-format
 
-    case TOK_ASM_slt:
+    ସ୍ଥିତି TOK_ASM_slt:
          asm_emit_r(token, (0xC << 2) | 3 | (2 << 12), &ops[0], &ops[1], &ops[2]);
-         return;
-    case TOK_ASM_slti:
+         ଫେରନ୍ତୁ;
+    ସ୍ଥିତି TOK_ASM_slti:
          asm_emit_i(token, (0x4 << 2) | 3 | (2 << 12), &ops[0], &ops[1], &ops[2]);
-         return;
-    case TOK_ASM_sltu:
+         ଫେରନ୍ତୁ;
+    ସ୍ଥିତି TOK_ASM_sltu:
          asm_emit_r(token, (0xC << 2) | 3 | (3 << 12), &ops[0], &ops[1], &ops[2]);
-         return;
-    case TOK_ASM_sltiu:
+         ଫେରନ୍ତୁ;
+    ସ୍ଥିତି TOK_ASM_sltiu:
          asm_emit_i(token, (0x4 << 2) | 3 | (3 << 12), &ops[0], &ops[1], &ops[2]);
-         return;
+         ଫେରନ୍ତୁ;
 
     /* M extension */
-    case TOK_ASM_div:
+    ସ୍ଥିତି TOK_ASM_div:
         asm_emit_r(token, 0x33 | (4 << 12) | (1 << 25), ops, ops + 1, ops + 2);
-        return;
-    case TOK_ASM_divu:
+        ଫେରନ୍ତୁ;
+    ସ୍ଥିତି TOK_ASM_divu:
         asm_emit_r(token, 0x33 | (5 << 12) | (1 << 25), ops, ops + 1, ops + 2);
-        return;
-    case TOK_ASM_divuw:
+        ଫେରନ୍ତୁ;
+    ସ୍ଥିତି TOK_ASM_divuw:
         asm_emit_r(token, 0x3b | (5 << 12) | (1 << 25), ops, ops + 1, ops + 2);
-        return;
-    case TOK_ASM_divw:
+        ଫେରନ୍ତୁ;
+    ସ୍ଥିତି TOK_ASM_divw:
         asm_emit_r(token, 0x3b | (4 << 12) | (1 << 25), ops, ops + 1, ops + 2);
-        return;
-    case TOK_ASM_mul:
+        ଫେରନ୍ତୁ;
+    ସ୍ଥିତି TOK_ASM_mul:
         asm_emit_r(token, 0x33 | (1 << 25), ops, ops + 1, ops + 2);
-        return;
-    case TOK_ASM_mulh:
+        ଫେରନ୍ତୁ;
+    ସ୍ଥିତି TOK_ASM_mulh:
         asm_emit_r(token, 0x33 | (1 << 12) | (1 << 25), ops, ops + 1, ops + 2);
-        return;
-    case TOK_ASM_mulhsu:
+        ଫେରନ୍ତୁ;
+    ସ୍ଥିତି TOK_ASM_mulhsu:
         asm_emit_r(token, 0x33 | (2 << 12) | (1 << 25), ops, ops + 1, ops + 2);
-        return;
-    case TOK_ASM_mulhu:
+        ଫେରନ୍ତୁ;
+    ସ୍ଥିତି TOK_ASM_mulhu:
         asm_emit_r(token, 0x33 | (3 << 12) | (1 << 25), ops, ops + 1, ops + 2);
-        return;
-    case TOK_ASM_mulw:
+        ଫେରନ୍ତୁ;
+    ସ୍ଥିତି TOK_ASM_mulw:
         asm_emit_r(token, 0x3b | (1 << 25), ops, ops + 1, ops + 2);
-        return;
-    case TOK_ASM_rem:
+        ଫେରନ୍ତୁ;
+    ସ୍ଥିତି TOK_ASM_rem:
         asm_emit_r(token, 0x33 | (6 << 12) | (1 << 25), ops, ops + 1, ops + 2);
-        return;
-    case TOK_ASM_remu:
+        ଫେରନ୍ତୁ;
+    ସ୍ଥିତି TOK_ASM_remu:
         asm_emit_r(token, 0x33 | (7 << 12) | (1 << 25), ops, ops + 1, ops + 2);
-        return;
-    case TOK_ASM_remuw:
+        ଫେରନ୍ତୁ;
+    ସ୍ଥିତି TOK_ASM_remuw:
         asm_emit_r(token, 0x3b | (7 << 12) | (1 << 25), ops, ops + 1, ops + 2);
-        return;
-    case TOK_ASM_remw:
+        ଫେରନ୍ତୁ;
+    ସ୍ଥିତି TOK_ASM_remw:
         asm_emit_r(token, 0x3b | (6 << 12) | (1 << 25), ops, ops + 1, ops + 2);
-        return;
+        ଫେରନ୍ତୁ;
 
     /* Zicsr extension; (rd, csr, rs/uimm) */
-    case TOK_ASM_csrrc:
+    ସ୍ଥିତି TOK_ASM_csrrc:
         asm_emit_i(token, 0x73 | (3 << 12), ops, ops + 2, ops + 1);
-        return;
-    case TOK_ASM_csrrci:
+        ଫେରନ୍ତୁ;
+    ସ୍ଥିତି TOK_ASM_csrrci:
         /* using rs1 field for uimmm */
         ops[2].type = OP_REG;
         asm_emit_i(token, 0x73 | (7 << 12), ops, ops + 2, ops + 1);
-        return;
-    case TOK_ASM_csrrs:
+        ଫେରନ୍ତୁ;
+    ସ୍ଥିତି TOK_ASM_csrrs:
         asm_emit_i(token, 0x73 | (2 << 12), ops, ops + 2, ops + 1);
-        return;
-    case TOK_ASM_csrrsi:
+        ଫେରନ୍ତୁ;
+    ସ୍ଥିତି TOK_ASM_csrrsi:
         ops[2].type = OP_REG;
         asm_emit_i(token, 0x73 | (6 << 12), ops, ops + 2, ops + 1);
-        return;
-    case TOK_ASM_csrrw:
+        ଫେରନ୍ତୁ;
+    ସ୍ଥିତି TOK_ASM_csrrw:
         asm_emit_i(token, 0x73 | (1 << 12), ops, ops + 2, ops + 1);
-        return;
-    case TOK_ASM_csrrwi:
+        ଫେରନ୍ତୁ;
+    ସ୍ଥିତି TOK_ASM_csrrwi:
         ops[2].type = OP_REG;
         asm_emit_i(token, 0x73 | (5 << 12), ops, ops + 2, ops + 1);
-        return;
+        ଫେରନ୍ତୁ;
 
     /* C extension */
     /* register-based loads and stores (RD, RS1, IMM); CL-format */
-    case TOK_ASM_c_fld:
+    ସ୍ଥିତି TOK_ASM_c_fld:
         asm_emit_cl(token, 1 << 13, ops, ops + 1, ops + 2);
-        return;
-    case TOK_ASM_c_flw: /* RV32FC-only */
+        ଫେରନ୍ତୁ;
+    ସ୍ଥିତି TOK_ASM_c_flw: /* RV32FC-only */
         asm_emit_cl(token, 3 << 13, ops, ops + 1, ops + 2);
-        return;
-    case TOK_ASM_c_fsd:
+        ଫେରନ୍ତୁ;
+    ସ୍ଥିତି TOK_ASM_c_fsd:
         asm_emit_cs(token, 5 << 13, ops, ops + 1, ops + 2);
-        return;
-    case TOK_ASM_c_fsw: /* RV32FC-only */
+        ଫେରନ୍ତୁ;
+    ସ୍ଥିତି TOK_ASM_c_fsw: /* RV32FC-only */
         asm_emit_cs(token, 7 << 13, ops, ops + 1, ops + 2);
-        return;
-    case TOK_ASM_c_ld:
+        ଫେରନ୍ତୁ;
+    ସ୍ଥିତି TOK_ASM_c_ld:
         asm_emit_cl(token, 3 << 13, ops, ops + 1, ops + 2);
-        return;
-    case TOK_ASM_c_lw:
+        ଫେରନ୍ତୁ;
+    ସ୍ଥିତି TOK_ASM_c_lw:
         asm_emit_cl(token, 2 << 13, ops, ops + 1, ops + 2);
-        return;
-    case TOK_ASM_c_sd:
+        ଫେରନ୍ତୁ;
+    ସ୍ଥିତି TOK_ASM_c_sd:
         asm_emit_cs(token, 7 << 13, ops, ops + 1, ops + 2);
-        return;
-    case TOK_ASM_c_sw:
+        ଫେରନ୍ତୁ;
+    ସ୍ଥିତି TOK_ASM_c_sw:
         asm_emit_cs(token, 6 << 13, ops, ops + 1, ops + 2);
-        return;
+        ଫେରନ୍ତୁ;
 
     /* F/D extension */
-    case TOK_ASM_fadd_d:
+    ସ୍ଥିତି TOK_ASM_fadd_d:
         asm_emit_f(token, 0x53 | (0 << 27) | (1 << 25) | (7 << 12), ops, ops + 1, ops + 2);
-        return;
-    case TOK_ASM_fadd_s:
+        ଫେରନ୍ତୁ;
+    ସ୍ଥିତି TOK_ASM_fadd_s:
         asm_emit_f(token, 0x53 | (0 << 27) | (0 << 25) | (7 << 12), ops, ops + 1, ops + 2);
-        return;
-    case TOK_ASM_fsub_d:
+        ଫେରନ୍ତୁ;
+    ସ୍ଥିତି TOK_ASM_fsub_d:
         asm_emit_f(token, 0x53 | (1 << 27) | (1 << 25) | (7 << 12), ops, ops + 1, ops + 2);
-        return;
-    case TOK_ASM_fsub_s:
+        ଫେରନ୍ତୁ;
+    ସ୍ଥିତି TOK_ASM_fsub_s:
         asm_emit_f(token, 0x53 | (1 << 27) | (0 << 25) | (7 << 12), ops, ops + 1, ops + 2);
-        return;
-    case TOK_ASM_fmul_d:
+        ଫେରନ୍ତୁ;
+    ସ୍ଥିତି TOK_ASM_fmul_d:
         asm_emit_f(token, 0x53 | (2 << 27) | (1 << 25) | (7 << 12), ops, ops + 1, ops + 2);
-        return;
-    case TOK_ASM_fmul_s:
+        ଫେରନ୍ତୁ;
+    ସ୍ଥିତି TOK_ASM_fmul_s:
         asm_emit_f(token, 0x53 | (2 << 27) | (0 << 25) | (7 << 12), ops, ops + 1, ops + 2);
-        return;
-    case TOK_ASM_fdiv_d:
+        ଫେରନ୍ତୁ;
+    ସ୍ଥିତି TOK_ASM_fdiv_d:
         asm_emit_f(token, 0x53 | (3 << 27) | (1 << 25) | (7 << 12), ops, ops + 1, ops + 2);
-        return;
-    case TOK_ASM_fdiv_s:
+        ଫେରନ୍ତୁ;
+    ସ୍ଥିତି TOK_ASM_fdiv_s:
         asm_emit_f(token, 0x53 | (3 << 27) | (0 << 25) | (7 << 12), ops, ops + 1, ops + 2);
-        return;
-    case TOK_ASM_fsgnj_d:
+        ଫେରନ୍ତୁ;
+    ସ୍ଥିତି TOK_ASM_fsgnj_d:
         asm_emit_f(token, 0x53 | (4 << 27) | (1 << 25) | (0 << 12), ops, ops + 1, ops + 2);
-        return;
-    case TOK_ASM_fsgnj_s:
+        ଫେରନ୍ତୁ;
+    ସ୍ଥିତି TOK_ASM_fsgnj_s:
         asm_emit_f(token, 0x53 | (4 << 27) | (0 << 25) | (0 << 12), ops, ops + 1, ops + 2);
-        return;
-    case TOK_ASM_fmax_d:
+        ଫେରନ୍ତୁ;
+    ସ୍ଥିତି TOK_ASM_fmax_d:
         asm_emit_f(token, 0x53 | (5 << 27) | (1 << 25) | (1 << 12), ops, ops + 1, ops + 2);
-        return;
-    case TOK_ASM_fmax_s:
+        ଫେରନ୍ତୁ;
+    ସ୍ଥିତି TOK_ASM_fmax_s:
         asm_emit_f(token, 0x53 | (5 << 27) | (0 << 25) | (1 << 12), ops, ops + 1, ops + 2);
-        return;
-    case TOK_ASM_fmin_d:
+        ଫେରନ୍ତୁ;
+    ସ୍ଥିତି TOK_ASM_fmin_d:
         asm_emit_f(token, 0x53 | (5 << 27) | (1 << 25) | (0 << 12), ops, ops + 1, ops + 2);
-        return;
-    case TOK_ASM_fmin_s:
+        ଫେରନ୍ତୁ;
+    ସ୍ଥିତି TOK_ASM_fmin_s:
         asm_emit_f(token, 0x53 | (5 << 27) | (0 << 25) | (0 << 12), ops, ops + 1, ops + 2);
-        return;
+        ଫେରନ୍ତୁ;
 
     /* F/D comparison: produce integer result, encode manually */
-    case TOK_ASM_feq_s:
+    ସ୍ଥିତି TOK_ASM_feq_s:
         asm_emit_opcode(0x53 | (0x14 << 27) | (0 << 25) | (2 << 12) | ENCODE_RD(ops[0].reg) | ENCODE_RS1(ops[1].reg) | ENCODE_RS2(ops[2].reg));
-        return;
-    case TOK_ASM_feq_d:
+        ଫେରନ୍ତୁ;
+    ସ୍ଥିତି TOK_ASM_feq_d:
         asm_emit_opcode(0x53 | (0x14 << 27) | (1 << 25) | (2 << 12) | ENCODE_RD(ops[0].reg) | ENCODE_RS1(ops[1].reg) | ENCODE_RS2(ops[2].reg));
-        return;
-    case TOK_ASM_flt_s:
+        ଫେରନ୍ତୁ;
+    ସ୍ଥିତି TOK_ASM_flt_s:
         asm_emit_opcode(0x53 | (0x14 << 27) | (0 << 25) | (1 << 12) | ENCODE_RD(ops[0].reg) | ENCODE_RS1(ops[1].reg) | ENCODE_RS2(ops[2].reg));
-        return;
-    case TOK_ASM_flt_d:
+        ଫେରନ୍ତୁ;
+    ସ୍ଥିତି TOK_ASM_flt_d:
         asm_emit_opcode(0x53 | (0x14 << 27) | (1 << 25) | (1 << 12) | ENCODE_RD(ops[0].reg) | ENCODE_RS1(ops[1].reg) | ENCODE_RS2(ops[2].reg));
-        return;
-    case TOK_ASM_fle_s:
+        ଫେରନ୍ତୁ;
+    ସ୍ଥିତି TOK_ASM_fle_s:
         asm_emit_opcode(0x53 | (0x14 << 27) | (0 << 25) | (0 << 12) | ENCODE_RD(ops[0].reg) | ENCODE_RS1(ops[1].reg) | ENCODE_RS2(ops[2].reg));
-        return;
-    case TOK_ASM_fle_d:
+        ଫେରନ୍ତୁ;
+    ସ୍ଥିତି TOK_ASM_fle_d:
         asm_emit_opcode(0x53 | (0x14 << 27) | (1 << 25) | (0 << 12) | ENCODE_RD(ops[0].reg) | ENCODE_RS1(ops[1].reg) | ENCODE_RS2(ops[2].reg));
-        return;
+        ଫେରନ୍ତୁ;
 
-    default:
+    ପୂର୍ବନିର୍ଦ୍ଧାରିତ:
         expect("ternary instruction");
     }
 }
 
-static void asm_quaternary_opcode(TCCState *s1, int token)
+ସ୍ଥିର ଶୂନ୍ୟ asm_quaternary_opcode(TCCState *s1, ପୂର୍ଣ୍ଣସଂଖ୍ୟା token)
 {
     Operand ops[4];
     parse_operands(s1, &ops[0], 4);
 
-    switch (token) {
-    case TOK_ASM_fmadd_d:
+    ବାଛ (token) {
+    ସ୍ଥିତି TOK_ASM_fmadd_d:
         asm_emit_fq(token, 0x43 | (1 << 25) | (7 << 12), ops, ops + 1, ops + 2, ops + 3);
-        return;
-    case TOK_ASM_fmadd_s:
+        ଫେରନ୍ତୁ;
+    ସ୍ଥିତି TOK_ASM_fmadd_s:
         asm_emit_fq(token, 0x43 | (0 << 25) | (7 << 12), ops, ops + 1, ops + 2, ops + 3);
-        return;
+        ଫେରନ୍ତୁ;
 
-    default:
+    ପୂର୍ବନିର୍ଦ୍ଧାରିତ:
         expect("quaternary instruction");
     }
 }
 
-static void asm_atomic_opcode(TCCState *s1, int token)
+ସ୍ଥିର ଶୂନ୍ୟ asm_atomic_opcode(TCCState *s1, ପୂର୍ଣ୍ଣସଂଖ୍ୟା token)
 {
     Operand ops[3];
 
     parse_operand(s1, &ops[0]);
     skip(',');
 
-    if ( token <= TOK_ASM_lr_d_aqrl && token >= TOK_ASM_lr_w ) {
+    ଯଦି ( token <= TOK_ASM_lr_d_aqrl && token >= TOK_ASM_lr_w ) {
         ops[1] = zero;
-    } else {
+    } ଅନ୍ୟଥା {
         parse_operand(s1, &ops[1]);
         skip(',');
     }
@@ -1358,219 +1358,219 @@ static void asm_atomic_opcode(TCCState *s1, int token)
     parse_operand(s1, &ops[2]);
     skip(')');
 
-    switch(token){
-        case TOK_ASM_lr_w:
+    ବାଛ(token){
+        ସ୍ଥିତି TOK_ASM_lr_w:
             asm_emit_a(token, 0x2F | 0x2<<12 | 0xC<<27, &ops[0], &ops[1], &ops[2], 0, 0);
-            break;
-        case TOK_ASM_lr_w_aq:
+            ଭାଙ୍ଗ;
+        ସ୍ଥିତି TOK_ASM_lr_w_aq:
             asm_emit_a(token, 0x2F | 0x2<<12 | 0xC<<27, &ops[0], &ops[1], &ops[2], 1, 0);
-            break;
-        case TOK_ASM_lr_w_rl:
+            ଭାଙ୍ଗ;
+        ସ୍ଥିତି TOK_ASM_lr_w_rl:
             asm_emit_a(token, 0x2F | 0x2<<12 | 0xC<<27, &ops[0], &ops[1], &ops[2], 0, 1);
-            break;
-        case TOK_ASM_lr_w_aqrl:
+            ଭାଙ୍ଗ;
+        ସ୍ଥିତି TOK_ASM_lr_w_aqrl:
             asm_emit_a(token, 0x2F | 0x2<<12 | 0xC<<27, &ops[0], &ops[1], &ops[2], 1, 1);
-            break;
+            ଭାଙ୍ଗ;
 
-        case TOK_ASM_lr_d:
+        ସ୍ଥିତି TOK_ASM_lr_d:
             asm_emit_a(token, 0x2F | 0x3<<12 | 0xC<<27, &ops[0], &ops[1], &ops[2], 0, 0);
-            break;
-        case TOK_ASM_lr_d_aq:
+            ଭାଙ୍ଗ;
+        ସ୍ଥିତି TOK_ASM_lr_d_aq:
             asm_emit_a(token, 0x2F | 0x3<<12 | 0xC<<27, &ops[0], &ops[1], &ops[2], 1, 0);
-            break;
-        case TOK_ASM_lr_d_rl:
+            ଭାଙ୍ଗ;
+        ସ୍ଥିତି TOK_ASM_lr_d_rl:
             asm_emit_a(token, 0x2F | 0x3<<12 | 0xC<<27, &ops[0], &ops[1], &ops[2], 0, 1);
-            break;
-        case TOK_ASM_lr_d_aqrl:
+            ଭାଙ୍ଗ;
+        ସ୍ଥିତି TOK_ASM_lr_d_aqrl:
             asm_emit_a(token, 0x2F | 0x3<<12 | 0xC<<27, &ops[0], &ops[1], &ops[2], 1, 1);
-            break;
+            ଭାଙ୍ଗ;
 
-        case TOK_ASM_sc_w:
+        ସ୍ଥିତି TOK_ASM_sc_w:
             asm_emit_a(token, 0x2F | 0x2<<12 | 0x18<<27, &ops[0], &ops[1], &ops[2], 0, 0);
-            break;
-        case TOK_ASM_sc_w_aq:
+            ଭାଙ୍ଗ;
+        ସ୍ଥିତି TOK_ASM_sc_w_aq:
             asm_emit_a(token, 0x2F | 0x2<<12 | 0x18<<27, &ops[0], &ops[1], &ops[2], 1, 0);
-            break;
-        case TOK_ASM_sc_w_rl:
+            ଭାଙ୍ଗ;
+        ସ୍ଥିତି TOK_ASM_sc_w_rl:
             asm_emit_a(token, 0x2F | 0x2<<12 | 0x18<<27, &ops[0], &ops[1], &ops[2], 0, 1);
-            break;
-        case TOK_ASM_sc_w_aqrl:
+            ଭାଙ୍ଗ;
+        ସ୍ଥିତି TOK_ASM_sc_w_aqrl:
             asm_emit_a(token, 0x2F | 0x2<<12 | 0x18<<27, &ops[0], &ops[1], &ops[2], 1, 1);
-            break;
+            ଭାଙ୍ଗ;
 
-        case TOK_ASM_sc_d:
+        ସ୍ଥିତି TOK_ASM_sc_d:
             asm_emit_a(token, 0x2F | 0x3<<12 | 0x18<<27, &ops[0], &ops[1], &ops[2], 0, 0);
-            break;
-        case TOK_ASM_sc_d_aq:
+            ଭାଙ୍ଗ;
+        ସ୍ଥିତି TOK_ASM_sc_d_aq:
             asm_emit_a(token, 0x2F | 0x3<<12 | 0x18<<27, &ops[0], &ops[1], &ops[2], 1, 0);
-            break;
-        case TOK_ASM_sc_d_rl:
+            ଭାଙ୍ଗ;
+        ସ୍ଥିତି TOK_ASM_sc_d_rl:
             asm_emit_a(token, 0x2F | 0x3<<12 | 0x18<<27, &ops[0], &ops[1], &ops[2], 0, 1);
-            break;
-        case TOK_ASM_sc_d_aqrl:
+            ଭାଙ୍ଗ;
+        ସ୍ଥିତି TOK_ASM_sc_d_aqrl:
             asm_emit_a(token, 0x2F | 0x3<<12 | 0x18<<27, &ops[0], &ops[1], &ops[2], 1, 1);
-            break;
+            ଭାଙ୍ଗ;
 
         /* AMO instructions (base, aq=0 rl=0) */
-        case TOK_ASM_amoadd_w:
-            asm_emit_a(token, 0x2F | 0x2<<12 | 0x0<<27, &ops[0], &ops[1], &ops[2], 0, 0); break;
-        case TOK_ASM_amoadd_d:
-            asm_emit_a(token, 0x2F | 0x3<<12 | 0x0<<27, &ops[0], &ops[1], &ops[2], 0, 0); break;
-        case TOK_ASM_amoswap_w:
-            asm_emit_a(token, 0x2F | 0x2<<12 | 0x1<<27, &ops[0], &ops[1], &ops[2], 0, 0); break;
-        case TOK_ASM_amoswap_d:
-            asm_emit_a(token, 0x2F | 0x3<<12 | 0x1<<27, &ops[0], &ops[1], &ops[2], 0, 0); break;
-        case TOK_ASM_amoand_w:
-            asm_emit_a(token, 0x2F | 0x2<<12 | 0xC<<27, &ops[0], &ops[1], &ops[2], 0, 0); break;
-        case TOK_ASM_amoand_d:
-            asm_emit_a(token, 0x2F | 0x3<<12 | 0xC<<27, &ops[0], &ops[1], &ops[2], 0, 0); break;
-        case TOK_ASM_amoor_w:
-            asm_emit_a(token, 0x2F | 0x2<<12 | 0x18<<27, &ops[0], &ops[1], &ops[2], 0, 0); break;
-        case TOK_ASM_amoor_d:
-            asm_emit_a(token, 0x2F | 0x3<<12 | 0x18<<27, &ops[0], &ops[1], &ops[2], 0, 0); break;
-        case TOK_ASM_amoxor_w:
-            asm_emit_a(token, 0x2F | 0x2<<12 | 0x4<<27, &ops[0], &ops[1], &ops[2], 0, 0); break;
-        case TOK_ASM_amoxor_d:
-            asm_emit_a(token, 0x2F | 0x3<<12 | 0x4<<27, &ops[0], &ops[1], &ops[2], 0, 0); break;
-        case TOK_ASM_amomax_w:
-            asm_emit_a(token, 0x2F | 0x2<<12 | 0x14<<27, &ops[0], &ops[1], &ops[2], 0, 0); break;
-        case TOK_ASM_amomax_d:
-            asm_emit_a(token, 0x2F | 0x3<<12 | 0x14<<27, &ops[0], &ops[1], &ops[2], 0, 0); break;
-        case TOK_ASM_amomaxu_w:
-            asm_emit_a(token, 0x2F | 0x2<<12 | 0x1C<<27, &ops[0], &ops[1], &ops[2], 0, 0); break;
-        case TOK_ASM_amomaxu_d:
-            asm_emit_a(token, 0x2F | 0x3<<12 | 0x1C<<27, &ops[0], &ops[1], &ops[2], 0, 0); break;
-        case TOK_ASM_amomin_w:
-            asm_emit_a(token, 0x2F | 0x2<<12 | 0x10<<27, &ops[0], &ops[1], &ops[2], 0, 0); break;
-        case TOK_ASM_amomin_d:
-            asm_emit_a(token, 0x2F | 0x3<<12 | 0x10<<27, &ops[0], &ops[1], &ops[2], 0, 0); break;
-        case TOK_ASM_amominu_w:
-            asm_emit_a(token, 0x2F | 0x2<<12 | 0x18<<27, &ops[0], &ops[1], &ops[2], 0, 0); break;
-        case TOK_ASM_amominu_d:
-            asm_emit_a(token, 0x2F | 0x3<<12 | 0x18<<27, &ops[0], &ops[1], &ops[2], 0, 0); break;
+        ସ୍ଥିତି TOK_ASM_amoadd_w:
+            asm_emit_a(token, 0x2F | 0x2<<12 | 0x0<<27, &ops[0], &ops[1], &ops[2], 0, 0); ଭାଙ୍ଗ;
+        ସ୍ଥିତି TOK_ASM_amoadd_d:
+            asm_emit_a(token, 0x2F | 0x3<<12 | 0x0<<27, &ops[0], &ops[1], &ops[2], 0, 0); ଭାଙ୍ଗ;
+        ସ୍ଥିତି TOK_ASM_amoswap_w:
+            asm_emit_a(token, 0x2F | 0x2<<12 | 0x1<<27, &ops[0], &ops[1], &ops[2], 0, 0); ଭାଙ୍ଗ;
+        ସ୍ଥିତି TOK_ASM_amoswap_d:
+            asm_emit_a(token, 0x2F | 0x3<<12 | 0x1<<27, &ops[0], &ops[1], &ops[2], 0, 0); ଭାଙ୍ଗ;
+        ସ୍ଥିତି TOK_ASM_amoand_w:
+            asm_emit_a(token, 0x2F | 0x2<<12 | 0xC<<27, &ops[0], &ops[1], &ops[2], 0, 0); ଭାଙ୍ଗ;
+        ସ୍ଥିତି TOK_ASM_amoand_d:
+            asm_emit_a(token, 0x2F | 0x3<<12 | 0xC<<27, &ops[0], &ops[1], &ops[2], 0, 0); ଭାଙ୍ଗ;
+        ସ୍ଥିତି TOK_ASM_amoor_w:
+            asm_emit_a(token, 0x2F | 0x2<<12 | 0x18<<27, &ops[0], &ops[1], &ops[2], 0, 0); ଭାଙ୍ଗ;
+        ସ୍ଥିତି TOK_ASM_amoor_d:
+            asm_emit_a(token, 0x2F | 0x3<<12 | 0x18<<27, &ops[0], &ops[1], &ops[2], 0, 0); ଭାଙ୍ଗ;
+        ସ୍ଥିତି TOK_ASM_amoxor_w:
+            asm_emit_a(token, 0x2F | 0x2<<12 | 0x4<<27, &ops[0], &ops[1], &ops[2], 0, 0); ଭାଙ୍ଗ;
+        ସ୍ଥିତି TOK_ASM_amoxor_d:
+            asm_emit_a(token, 0x2F | 0x3<<12 | 0x4<<27, &ops[0], &ops[1], &ops[2], 0, 0); ଭାଙ୍ଗ;
+        ସ୍ଥିତି TOK_ASM_amomax_w:
+            asm_emit_a(token, 0x2F | 0x2<<12 | 0x14<<27, &ops[0], &ops[1], &ops[2], 0, 0); ଭାଙ୍ଗ;
+        ସ୍ଥିତି TOK_ASM_amomax_d:
+            asm_emit_a(token, 0x2F | 0x3<<12 | 0x14<<27, &ops[0], &ops[1], &ops[2], 0, 0); ଭାଙ୍ଗ;
+        ସ୍ଥିତି TOK_ASM_amomaxu_w:
+            asm_emit_a(token, 0x2F | 0x2<<12 | 0x1C<<27, &ops[0], &ops[1], &ops[2], 0, 0); ଭାଙ୍ଗ;
+        ସ୍ଥିତି TOK_ASM_amomaxu_d:
+            asm_emit_a(token, 0x2F | 0x3<<12 | 0x1C<<27, &ops[0], &ops[1], &ops[2], 0, 0); ଭାଙ୍ଗ;
+        ସ୍ଥିତି TOK_ASM_amomin_w:
+            asm_emit_a(token, 0x2F | 0x2<<12 | 0x10<<27, &ops[0], &ops[1], &ops[2], 0, 0); ଭାଙ୍ଗ;
+        ସ୍ଥିତି TOK_ASM_amomin_d:
+            asm_emit_a(token, 0x2F | 0x3<<12 | 0x10<<27, &ops[0], &ops[1], &ops[2], 0, 0); ଭାଙ୍ଗ;
+        ସ୍ଥିତି TOK_ASM_amominu_w:
+            asm_emit_a(token, 0x2F | 0x2<<12 | 0x18<<27, &ops[0], &ops[1], &ops[2], 0, 0); ଭାଙ୍ଗ;
+        ସ୍ଥିତି TOK_ASM_amominu_d:
+            asm_emit_a(token, 0x2F | 0x3<<12 | 0x18<<27, &ops[0], &ops[1], &ops[2], 0, 0); ଭାଙ୍ଗ;
 
         /* AMO aq/rl variants */
-        case TOK_ASM_amoadd_w_aq:
-            asm_emit_a(token, 0x2F | 0x2<<12 | 0x0<<27, &ops[0], &ops[1], &ops[2], 1, 0); break;
-        case TOK_ASM_amoadd_w_rl:
-            asm_emit_a(token, 0x2F | 0x2<<12 | 0x0<<27, &ops[0], &ops[1], &ops[2], 0, 1); break;
-        case TOK_ASM_amoadd_w_aqrl:
-            asm_emit_a(token, 0x2F | 0x2<<12 | 0x0<<27, &ops[0], &ops[1], &ops[2], 1, 1); break;
-        case TOK_ASM_amoadd_d_aq:
-            asm_emit_a(token, 0x2F | 0x3<<12 | 0x0<<27, &ops[0], &ops[1], &ops[2], 1, 0); break;
-        case TOK_ASM_amoadd_d_rl:
-            asm_emit_a(token, 0x2F | 0x3<<12 | 0x0<<27, &ops[0], &ops[1], &ops[2], 0, 1); break;
-        case TOK_ASM_amoadd_d_aqrl:
-            asm_emit_a(token, 0x2F | 0x3<<12 | 0x0<<27, &ops[0], &ops[1], &ops[2], 1, 1); break;
+        ସ୍ଥିତି TOK_ASM_amoadd_w_aq:
+            asm_emit_a(token, 0x2F | 0x2<<12 | 0x0<<27, &ops[0], &ops[1], &ops[2], 1, 0); ଭାଙ୍ଗ;
+        ସ୍ଥିତି TOK_ASM_amoadd_w_rl:
+            asm_emit_a(token, 0x2F | 0x2<<12 | 0x0<<27, &ops[0], &ops[1], &ops[2], 0, 1); ଭାଙ୍ଗ;
+        ସ୍ଥିତି TOK_ASM_amoadd_w_aqrl:
+            asm_emit_a(token, 0x2F | 0x2<<12 | 0x0<<27, &ops[0], &ops[1], &ops[2], 1, 1); ଭାଙ୍ଗ;
+        ସ୍ଥିତି TOK_ASM_amoadd_d_aq:
+            asm_emit_a(token, 0x2F | 0x3<<12 | 0x0<<27, &ops[0], &ops[1], &ops[2], 1, 0); ଭାଙ୍ଗ;
+        ସ୍ଥିତି TOK_ASM_amoadd_d_rl:
+            asm_emit_a(token, 0x2F | 0x3<<12 | 0x0<<27, &ops[0], &ops[1], &ops[2], 0, 1); ଭାଙ୍ଗ;
+        ସ୍ଥିତି TOK_ASM_amoadd_d_aqrl:
+            asm_emit_a(token, 0x2F | 0x3<<12 | 0x0<<27, &ops[0], &ops[1], &ops[2], 1, 1); ଭାଙ୍ଗ;
 
-        case TOK_ASM_amoswap_w_aq:
-            asm_emit_a(token, 0x2F | 2<<12 | 0x1<<27, &ops[0], &ops[1], &ops[2], 1, 0); break;
-        case TOK_ASM_amoswap_w_rl:
-            asm_emit_a(token, 0x2F | 2<<12 | 0x1<<27, &ops[0], &ops[1], &ops[2], 0, 1); break;
-        case TOK_ASM_amoswap_w_aqrl:
-            asm_emit_a(token, 0x2F | 2<<12 | 0x1<<27, &ops[0], &ops[1], &ops[2], 1, 1); break;
-        case TOK_ASM_amoswap_d_aq:
-            asm_emit_a(token, 0x2F | 3<<12 | 0x1<<27, &ops[0], &ops[1], &ops[2], 1, 0); break;
-        case TOK_ASM_amoswap_d_rl:
-            asm_emit_a(token, 0x2F | 3<<12 | 0x1<<27, &ops[0], &ops[1], &ops[2], 0, 1); break;
-        case TOK_ASM_amoswap_d_aqrl:
-            asm_emit_a(token, 0x2F | 3<<12 | 0x1<<27, &ops[0], &ops[1], &ops[2], 1, 1); break;
-        case TOK_ASM_amoand_w_aq:
-            asm_emit_a(token, 0x2F | 2<<12 | 0xc<<27, &ops[0], &ops[1], &ops[2], 1, 0); break;
-        case TOK_ASM_amoand_w_rl:
-            asm_emit_a(token, 0x2F | 2<<12 | 0xc<<27, &ops[0], &ops[1], &ops[2], 0, 1); break;
-        case TOK_ASM_amoand_w_aqrl:
-            asm_emit_a(token, 0x2F | 2<<12 | 0xc<<27, &ops[0], &ops[1], &ops[2], 1, 1); break;
-        case TOK_ASM_amoand_d_aq:
-            asm_emit_a(token, 0x2F | 3<<12 | 0xc<<27, &ops[0], &ops[1], &ops[2], 1, 0); break;
-        case TOK_ASM_amoand_d_rl:
-            asm_emit_a(token, 0x2F | 3<<12 | 0xc<<27, &ops[0], &ops[1], &ops[2], 0, 1); break;
-        case TOK_ASM_amoand_d_aqrl:
-            asm_emit_a(token, 0x2F | 3<<12 | 0xc<<27, &ops[0], &ops[1], &ops[2], 1, 1); break;
-        case TOK_ASM_amoor_w_aq:
-            asm_emit_a(token, 0x2F | 2<<12 | 0x8<<27, &ops[0], &ops[1], &ops[2], 1, 0); break;
-        case TOK_ASM_amoor_w_rl:
-            asm_emit_a(token, 0x2F | 2<<12 | 0x8<<27, &ops[0], &ops[1], &ops[2], 0, 1); break;
-        case TOK_ASM_amoor_w_aqrl:
-            asm_emit_a(token, 0x2F | 2<<12 | 0x8<<27, &ops[0], &ops[1], &ops[2], 1, 1); break;
-        case TOK_ASM_amoor_d_aq:
-            asm_emit_a(token, 0x2F | 3<<12 | 0x8<<27, &ops[0], &ops[1], &ops[2], 1, 0); break;
-        case TOK_ASM_amoor_d_rl:
-            asm_emit_a(token, 0x2F | 3<<12 | 0x8<<27, &ops[0], &ops[1], &ops[2], 0, 1); break;
-        case TOK_ASM_amoor_d_aqrl:
-            asm_emit_a(token, 0x2F | 3<<12 | 0x8<<27, &ops[0], &ops[1], &ops[2], 1, 1); break;
-        case TOK_ASM_amoxor_w_aq:
-            asm_emit_a(token, 0x2F | 2<<12 | 0x4<<27, &ops[0], &ops[1], &ops[2], 1, 0); break;
-        case TOK_ASM_amoxor_w_rl:
-            asm_emit_a(token, 0x2F | 2<<12 | 0x4<<27, &ops[0], &ops[1], &ops[2], 0, 1); break;
-        case TOK_ASM_amoxor_w_aqrl:
-            asm_emit_a(token, 0x2F | 2<<12 | 0x4<<27, &ops[0], &ops[1], &ops[2], 1, 1); break;
-        case TOK_ASM_amoxor_d_aq:
-            asm_emit_a(token, 0x2F | 3<<12 | 0x4<<27, &ops[0], &ops[1], &ops[2], 1, 0); break;
-        case TOK_ASM_amoxor_d_rl:
-            asm_emit_a(token, 0x2F | 3<<12 | 0x4<<27, &ops[0], &ops[1], &ops[2], 0, 1); break;
-        case TOK_ASM_amoxor_d_aqrl:
-            asm_emit_a(token, 0x2F | 3<<12 | 0x4<<27, &ops[0], &ops[1], &ops[2], 1, 1); break;
-        case TOK_ASM_amomax_w_aq:
-            asm_emit_a(token, 0x2F | 2<<12 | 0x14<<27, &ops[0], &ops[1], &ops[2], 1, 0); break;
-        case TOK_ASM_amomax_w_rl:
-            asm_emit_a(token, 0x2F | 2<<12 | 0x14<<27, &ops[0], &ops[1], &ops[2], 0, 1); break;
-        case TOK_ASM_amomax_w_aqrl:
-            asm_emit_a(token, 0x2F | 2<<12 | 0x14<<27, &ops[0], &ops[1], &ops[2], 1, 1); break;
-        case TOK_ASM_amomax_d_aq:
-            asm_emit_a(token, 0x2F | 3<<12 | 0x14<<27, &ops[0], &ops[1], &ops[2], 1, 0); break;
-        case TOK_ASM_amomax_d_rl:
-            asm_emit_a(token, 0x2F | 3<<12 | 0x14<<27, &ops[0], &ops[1], &ops[2], 0, 1); break;
-        case TOK_ASM_amomax_d_aqrl:
-            asm_emit_a(token, 0x2F | 3<<12 | 0x14<<27, &ops[0], &ops[1], &ops[2], 1, 1); break;
-        case TOK_ASM_amomaxu_w_aq:
-            asm_emit_a(token, 0x2F | 2<<12 | 0x1c<<27, &ops[0], &ops[1], &ops[2], 1, 0); break;
-        case TOK_ASM_amomaxu_w_rl:
-            asm_emit_a(token, 0x2F | 2<<12 | 0x1c<<27, &ops[0], &ops[1], &ops[2], 0, 1); break;
-        case TOK_ASM_amomaxu_w_aqrl:
-            asm_emit_a(token, 0x2F | 2<<12 | 0x1c<<27, &ops[0], &ops[1], &ops[2], 1, 1); break;
-        case TOK_ASM_amomaxu_d_aq:
-            asm_emit_a(token, 0x2F | 3<<12 | 0x1c<<27, &ops[0], &ops[1], &ops[2], 1, 0); break;
-        case TOK_ASM_amomaxu_d_rl:
-            asm_emit_a(token, 0x2F | 3<<12 | 0x1c<<27, &ops[0], &ops[1], &ops[2], 0, 1); break;
-        case TOK_ASM_amomaxu_d_aqrl:
-            asm_emit_a(token, 0x2F | 3<<12 | 0x1c<<27, &ops[0], &ops[1], &ops[2], 1, 1); break;
-        case TOK_ASM_amomin_w_aq:
-            asm_emit_a(token, 0x2F | 2<<12 | 0x10<<27, &ops[0], &ops[1], &ops[2], 1, 0); break;
-        case TOK_ASM_amomin_w_rl:
-            asm_emit_a(token, 0x2F | 2<<12 | 0x10<<27, &ops[0], &ops[1], &ops[2], 0, 1); break;
-        case TOK_ASM_amomin_w_aqrl:
-            asm_emit_a(token, 0x2F | 2<<12 | 0x10<<27, &ops[0], &ops[1], &ops[2], 1, 1); break;
-        case TOK_ASM_amomin_d_aq:
-            asm_emit_a(token, 0x2F | 3<<12 | 0x10<<27, &ops[0], &ops[1], &ops[2], 1, 0); break;
-        case TOK_ASM_amomin_d_rl:
-            asm_emit_a(token, 0x2F | 3<<12 | 0x10<<27, &ops[0], &ops[1], &ops[2], 0, 1); break;
-        case TOK_ASM_amomin_d_aqrl:
-            asm_emit_a(token, 0x2F | 3<<12 | 0x10<<27, &ops[0], &ops[1], &ops[2], 1, 1); break;
-        case TOK_ASM_amominu_w_aq:
-            asm_emit_a(token, 0x2F | 2<<12 | 0x18<<27, &ops[0], &ops[1], &ops[2], 1, 0); break;
-        case TOK_ASM_amominu_w_rl:
-            asm_emit_a(token, 0x2F | 2<<12 | 0x18<<27, &ops[0], &ops[1], &ops[2], 0, 1); break;
-        case TOK_ASM_amominu_w_aqrl:
-            asm_emit_a(token, 0x2F | 2<<12 | 0x18<<27, &ops[0], &ops[1], &ops[2], 1, 1); break;
-        case TOK_ASM_amominu_d_aq:
-            asm_emit_a(token, 0x2F | 3<<12 | 0x18<<27, &ops[0], &ops[1], &ops[2], 1, 0); break;
-        case TOK_ASM_amominu_d_rl:
-            asm_emit_a(token, 0x2F | 3<<12 | 0x18<<27, &ops[0], &ops[1], &ops[2], 0, 1); break;
-        case TOK_ASM_amominu_d_aqrl:
-            asm_emit_a(token, 0x2F | 3<<12 | 0x18<<27, &ops[0], &ops[1], &ops[2], 1, 1); break;
+        ସ୍ଥିତି TOK_ASM_amoswap_w_aq:
+            asm_emit_a(token, 0x2F | 2<<12 | 0x1<<27, &ops[0], &ops[1], &ops[2], 1, 0); ଭାଙ୍ଗ;
+        ସ୍ଥିତି TOK_ASM_amoswap_w_rl:
+            asm_emit_a(token, 0x2F | 2<<12 | 0x1<<27, &ops[0], &ops[1], &ops[2], 0, 1); ଭାଙ୍ଗ;
+        ସ୍ଥିତି TOK_ASM_amoswap_w_aqrl:
+            asm_emit_a(token, 0x2F | 2<<12 | 0x1<<27, &ops[0], &ops[1], &ops[2], 1, 1); ଭାଙ୍ଗ;
+        ସ୍ଥିତି TOK_ASM_amoswap_d_aq:
+            asm_emit_a(token, 0x2F | 3<<12 | 0x1<<27, &ops[0], &ops[1], &ops[2], 1, 0); ଭାଙ୍ଗ;
+        ସ୍ଥିତି TOK_ASM_amoswap_d_rl:
+            asm_emit_a(token, 0x2F | 3<<12 | 0x1<<27, &ops[0], &ops[1], &ops[2], 0, 1); ଭାଙ୍ଗ;
+        ସ୍ଥିତି TOK_ASM_amoswap_d_aqrl:
+            asm_emit_a(token, 0x2F | 3<<12 | 0x1<<27, &ops[0], &ops[1], &ops[2], 1, 1); ଭାଙ୍ଗ;
+        ସ୍ଥିତି TOK_ASM_amoand_w_aq:
+            asm_emit_a(token, 0x2F | 2<<12 | 0xc<<27, &ops[0], &ops[1], &ops[2], 1, 0); ଭାଙ୍ଗ;
+        ସ୍ଥିତି TOK_ASM_amoand_w_rl:
+            asm_emit_a(token, 0x2F | 2<<12 | 0xc<<27, &ops[0], &ops[1], &ops[2], 0, 1); ଭାଙ୍ଗ;
+        ସ୍ଥିତି TOK_ASM_amoand_w_aqrl:
+            asm_emit_a(token, 0x2F | 2<<12 | 0xc<<27, &ops[0], &ops[1], &ops[2], 1, 1); ଭାଙ୍ଗ;
+        ସ୍ଥିତି TOK_ASM_amoand_d_aq:
+            asm_emit_a(token, 0x2F | 3<<12 | 0xc<<27, &ops[0], &ops[1], &ops[2], 1, 0); ଭାଙ୍ଗ;
+        ସ୍ଥିତି TOK_ASM_amoand_d_rl:
+            asm_emit_a(token, 0x2F | 3<<12 | 0xc<<27, &ops[0], &ops[1], &ops[2], 0, 1); ଭାଙ୍ଗ;
+        ସ୍ଥିତି TOK_ASM_amoand_d_aqrl:
+            asm_emit_a(token, 0x2F | 3<<12 | 0xc<<27, &ops[0], &ops[1], &ops[2], 1, 1); ଭାଙ୍ଗ;
+        ସ୍ଥିତି TOK_ASM_amoor_w_aq:
+            asm_emit_a(token, 0x2F | 2<<12 | 0x8<<27, &ops[0], &ops[1], &ops[2], 1, 0); ଭାଙ୍ଗ;
+        ସ୍ଥିତି TOK_ASM_amoor_w_rl:
+            asm_emit_a(token, 0x2F | 2<<12 | 0x8<<27, &ops[0], &ops[1], &ops[2], 0, 1); ଭାଙ୍ଗ;
+        ସ୍ଥିତି TOK_ASM_amoor_w_aqrl:
+            asm_emit_a(token, 0x2F | 2<<12 | 0x8<<27, &ops[0], &ops[1], &ops[2], 1, 1); ଭାଙ୍ଗ;
+        ସ୍ଥିତି TOK_ASM_amoor_d_aq:
+            asm_emit_a(token, 0x2F | 3<<12 | 0x8<<27, &ops[0], &ops[1], &ops[2], 1, 0); ଭାଙ୍ଗ;
+        ସ୍ଥିତି TOK_ASM_amoor_d_rl:
+            asm_emit_a(token, 0x2F | 3<<12 | 0x8<<27, &ops[0], &ops[1], &ops[2], 0, 1); ଭାଙ୍ଗ;
+        ସ୍ଥିତି TOK_ASM_amoor_d_aqrl:
+            asm_emit_a(token, 0x2F | 3<<12 | 0x8<<27, &ops[0], &ops[1], &ops[2], 1, 1); ଭାଙ୍ଗ;
+        ସ୍ଥିତି TOK_ASM_amoxor_w_aq:
+            asm_emit_a(token, 0x2F | 2<<12 | 0x4<<27, &ops[0], &ops[1], &ops[2], 1, 0); ଭାଙ୍ଗ;
+        ସ୍ଥିତି TOK_ASM_amoxor_w_rl:
+            asm_emit_a(token, 0x2F | 2<<12 | 0x4<<27, &ops[0], &ops[1], &ops[2], 0, 1); ଭାଙ୍ଗ;
+        ସ୍ଥିତି TOK_ASM_amoxor_w_aqrl:
+            asm_emit_a(token, 0x2F | 2<<12 | 0x4<<27, &ops[0], &ops[1], &ops[2], 1, 1); ଭାଙ୍ଗ;
+        ସ୍ଥିତି TOK_ASM_amoxor_d_aq:
+            asm_emit_a(token, 0x2F | 3<<12 | 0x4<<27, &ops[0], &ops[1], &ops[2], 1, 0); ଭାଙ୍ଗ;
+        ସ୍ଥିତି TOK_ASM_amoxor_d_rl:
+            asm_emit_a(token, 0x2F | 3<<12 | 0x4<<27, &ops[0], &ops[1], &ops[2], 0, 1); ଭାଙ୍ଗ;
+        ସ୍ଥିତି TOK_ASM_amoxor_d_aqrl:
+            asm_emit_a(token, 0x2F | 3<<12 | 0x4<<27, &ops[0], &ops[1], &ops[2], 1, 1); ଭାଙ୍ଗ;
+        ସ୍ଥିତି TOK_ASM_amomax_w_aq:
+            asm_emit_a(token, 0x2F | 2<<12 | 0x14<<27, &ops[0], &ops[1], &ops[2], 1, 0); ଭାଙ୍ଗ;
+        ସ୍ଥିତି TOK_ASM_amomax_w_rl:
+            asm_emit_a(token, 0x2F | 2<<12 | 0x14<<27, &ops[0], &ops[1], &ops[2], 0, 1); ଭାଙ୍ଗ;
+        ସ୍ଥିତି TOK_ASM_amomax_w_aqrl:
+            asm_emit_a(token, 0x2F | 2<<12 | 0x14<<27, &ops[0], &ops[1], &ops[2], 1, 1); ଭାଙ୍ଗ;
+        ସ୍ଥିତି TOK_ASM_amomax_d_aq:
+            asm_emit_a(token, 0x2F | 3<<12 | 0x14<<27, &ops[0], &ops[1], &ops[2], 1, 0); ଭାଙ୍ଗ;
+        ସ୍ଥିତି TOK_ASM_amomax_d_rl:
+            asm_emit_a(token, 0x2F | 3<<12 | 0x14<<27, &ops[0], &ops[1], &ops[2], 0, 1); ଭାଙ୍ଗ;
+        ସ୍ଥିତି TOK_ASM_amomax_d_aqrl:
+            asm_emit_a(token, 0x2F | 3<<12 | 0x14<<27, &ops[0], &ops[1], &ops[2], 1, 1); ଭାଙ୍ଗ;
+        ସ୍ଥିତି TOK_ASM_amomaxu_w_aq:
+            asm_emit_a(token, 0x2F | 2<<12 | 0x1c<<27, &ops[0], &ops[1], &ops[2], 1, 0); ଭାଙ୍ଗ;
+        ସ୍ଥିତି TOK_ASM_amomaxu_w_rl:
+            asm_emit_a(token, 0x2F | 2<<12 | 0x1c<<27, &ops[0], &ops[1], &ops[2], 0, 1); ଭାଙ୍ଗ;
+        ସ୍ଥିତି TOK_ASM_amomaxu_w_aqrl:
+            asm_emit_a(token, 0x2F | 2<<12 | 0x1c<<27, &ops[0], &ops[1], &ops[2], 1, 1); ଭାଙ୍ଗ;
+        ସ୍ଥିତି TOK_ASM_amomaxu_d_aq:
+            asm_emit_a(token, 0x2F | 3<<12 | 0x1c<<27, &ops[0], &ops[1], &ops[2], 1, 0); ଭାଙ୍ଗ;
+        ସ୍ଥିତି TOK_ASM_amomaxu_d_rl:
+            asm_emit_a(token, 0x2F | 3<<12 | 0x1c<<27, &ops[0], &ops[1], &ops[2], 0, 1); ଭାଙ୍ଗ;
+        ସ୍ଥିତି TOK_ASM_amomaxu_d_aqrl:
+            asm_emit_a(token, 0x2F | 3<<12 | 0x1c<<27, &ops[0], &ops[1], &ops[2], 1, 1); ଭାଙ୍ଗ;
+        ସ୍ଥିତି TOK_ASM_amomin_w_aq:
+            asm_emit_a(token, 0x2F | 2<<12 | 0x10<<27, &ops[0], &ops[1], &ops[2], 1, 0); ଭାଙ୍ଗ;
+        ସ୍ଥିତି TOK_ASM_amomin_w_rl:
+            asm_emit_a(token, 0x2F | 2<<12 | 0x10<<27, &ops[0], &ops[1], &ops[2], 0, 1); ଭାଙ୍ଗ;
+        ସ୍ଥିତି TOK_ASM_amomin_w_aqrl:
+            asm_emit_a(token, 0x2F | 2<<12 | 0x10<<27, &ops[0], &ops[1], &ops[2], 1, 1); ଭାଙ୍ଗ;
+        ସ୍ଥିତି TOK_ASM_amomin_d_aq:
+            asm_emit_a(token, 0x2F | 3<<12 | 0x10<<27, &ops[0], &ops[1], &ops[2], 1, 0); ଭାଙ୍ଗ;
+        ସ୍ଥିତି TOK_ASM_amomin_d_rl:
+            asm_emit_a(token, 0x2F | 3<<12 | 0x10<<27, &ops[0], &ops[1], &ops[2], 0, 1); ଭାଙ୍ଗ;
+        ସ୍ଥିତି TOK_ASM_amomin_d_aqrl:
+            asm_emit_a(token, 0x2F | 3<<12 | 0x10<<27, &ops[0], &ops[1], &ops[2], 1, 1); ଭାଙ୍ଗ;
+        ସ୍ଥିତି TOK_ASM_amominu_w_aq:
+            asm_emit_a(token, 0x2F | 2<<12 | 0x18<<27, &ops[0], &ops[1], &ops[2], 1, 0); ଭାଙ୍ଗ;
+        ସ୍ଥିତି TOK_ASM_amominu_w_rl:
+            asm_emit_a(token, 0x2F | 2<<12 | 0x18<<27, &ops[0], &ops[1], &ops[2], 0, 1); ଭାଙ୍ଗ;
+        ସ୍ଥିତି TOK_ASM_amominu_w_aqrl:
+            asm_emit_a(token, 0x2F | 2<<12 | 0x18<<27, &ops[0], &ops[1], &ops[2], 1, 1); ଭାଙ୍ଗ;
+        ସ୍ଥିତି TOK_ASM_amominu_d_aq:
+            asm_emit_a(token, 0x2F | 3<<12 | 0x18<<27, &ops[0], &ops[1], &ops[2], 1, 0); ଭାଙ୍ଗ;
+        ସ୍ଥିତି TOK_ASM_amominu_d_rl:
+            asm_emit_a(token, 0x2F | 3<<12 | 0x18<<27, &ops[0], &ops[1], &ops[2], 0, 1); ଭାଙ୍ଗ;
+        ସ୍ଥିତି TOK_ASM_amominu_d_aqrl:
+            asm_emit_a(token, 0x2F | 3<<12 | 0x18<<27, &ops[0], &ops[1], &ops[2], 1, 1); ଭାଙ୍ଗ;
     }
 }
 
 /* caller: Add funct3 and func5 to opcode */
-static void asm_emit_a(int token, uint32_t opcode, const Operand *rd1, const Operand *rs2, const Operand *rs1, int aq, int rl)
+ସ୍ଥିର ଶୂନ୍ୟ asm_emit_a(ପୂର୍ଣ୍ଣସଂଖ୍ୟା token, uint32_t opcode, ଅଚଳ Operand *rd1, ଅଚଳ Operand *rs2, ଅଚଳ Operand *rs1, ପୂର୍ଣ୍ଣସଂଖ୍ୟା aq, ପୂର୍ଣ୍ଣସଂଖ୍ୟା rl)
 {
-    if (rd1->type != OP_REG)
-        tcc_error("'%s': Expected first destination operand that is a register", get_tok_str(token, NULL));
-    if (rs2->type != OP_REG)
-        tcc_error("'%s': Expected second source operand that is a register", get_tok_str(token, NULL));
-    if (rs1->type != OP_REG)
-        tcc_error("'%s': Expected third source operand that is a register", get_tok_str(token, NULL));
+    ଯଦି (rd1->type != OP_REG)
+        tcc_error("'%s': Expected first destination operand that is a register", get_tok_str(token, ଖାଲି));
+    ଯଦି (rs2->type != OP_REG)
+        tcc_error("'%s': Expected second source operand that is a register", get_tok_str(token, ଖାଲି));
+    ଯଦି (rs1->type != OP_REG)
+        tcc_error("'%s': Expected third source operand that is a register", get_tok_str(token, ଖାଲି));
         /* A-type instruction:
 	        31...27 funct5
 	        26      aq
@@ -1585,16 +1585,16 @@ static void asm_emit_a(int token, uint32_t opcode, const Operand *rd1, const Ope
 }
 
 /* caller: Add funct3 to opcode */
-static void asm_emit_s(int token, uint32_t opcode, const Operand* rs1, const Operand* rs2, const Operand* imm)
+ସ୍ଥିର ଶୂନ୍ୟ asm_emit_s(ପୂର୍ଣ୍ଣସଂଖ୍ୟା token, uint32_t opcode, ଅଚଳ Operand* rs1, ଅଚଳ Operand* rs2, ଅଚଳ Operand* imm)
 {
-    if (rs1->type != OP_REG) {
-        tcc_error("'%s': Expected first source operand that is a register", get_tok_str(token, NULL));
+    ଯଦି (rs1->type != OP_REG) {
+        tcc_error("'%s': Expected first source operand that is a register", get_tok_str(token, ଖାଲି));
     }
-    if (rs2->type != OP_REG) {
-        tcc_error("'%s': Expected second source operand that is a register", get_tok_str(token, NULL));
+    ଯଦି (rs2->type != OP_REG) {
+        tcc_error("'%s': Expected second source operand that is a register", get_tok_str(token, ଖାଲି));
     }
-    if (imm->type != OP_IM12S) {
-        tcc_error("'%s': Expected third operand that is an immediate value between 0 and 8191", get_tok_str(token, NULL));
+    ଯଦି (imm->type != OP_IM12S) {
+        tcc_error("'%s': Expected third operand that is an immediate value between 0 and 8191", get_tok_str(token, ଖାଲି));
     }
     {
         uint16_t v = imm->e.v;
@@ -1610,19 +1610,19 @@ static void asm_emit_s(int token, uint32_t opcode, const Operand* rs1, const Ope
     }
 }
 
-static void asm_emit_b(int token, uint32_t opcode, const Operand *rs1, const Operand *rs2, const Operand *imm)
+ସ୍ଥିର ଶୂନ୍ୟ asm_emit_b(ପୂର୍ଣ୍ଣସଂଖ୍ୟା token, uint32_t opcode, ଅଚଳ Operand *rs1, ଅଚଳ Operand *rs2, ଅଚଳ Operand *imm)
 {
     uint32_t offset;
 
-    if (rs1->type != OP_REG) {
-        tcc_error("'%s': Expected first source operand that is a register", get_tok_str(token, NULL));
+    ଯଦି (rs1->type != OP_REG) {
+        tcc_error("'%s': Expected first source operand that is a register", get_tok_str(token, ଖାଲି));
     }
-    if (rs2->type != OP_REG) {
-        tcc_error("'%s': Expected destination operand that is a register", get_tok_str(token, NULL));
+    ଯଦି (rs2->type != OP_REG) {
+        tcc_error("'%s': Expected destination operand that is a register", get_tok_str(token, ଖାଲି));
     }
-    if (imm->type == OP_IM32 && imm->e.sym) {
+    ଯଦି (imm->type == OP_IM32 && imm->e.sym) {
         /* far branch: expand to inverted short branch + auipc + jalr */
-        int b_ofs = ind;
+        ପୂର୍ଣ୍ଣସଂଖ୍ୟା b_ofs = ind;
         uint32_t inv_func3 = ((opcode >> 12) & 7) ^ 1;
         uint32_t inv_opcode = (opcode & ~(7 << 12)) | (inv_func3 << 12);
         /* b<inverse> .+8 */
@@ -1638,10 +1638,10 @@ static void asm_emit_b(int token, uint32_t opcode, const Operand *rs1, const Ope
                   | (((ind - b_ofs) >> 5) & 0x3f) << 25
                   | (((ind - b_ofs) >> 11) & 1) << 7
                   | (((ind - b_ofs) >> 12) & 1) << 31);
-        return;
+        ଫେରନ୍ତୁ;
     }
-    if (imm->type != OP_IM12S) {
-        tcc_error("'%s': Expected second source operand that is an immediate value between 0 and 8191", get_tok_str(token, NULL));
+    ଯଦି (imm->type != OP_IM12S) {
+        tcc_error("'%s': Expected second source operand that is an immediate value between 0 and 8191", get_tok_str(token, ଖାଲି));
     }
 
     offset = imm->e.v;
@@ -1660,487 +1660,487 @@ static void asm_emit_b(int token, uint32_t opcode, const Operand *rs1, const Ope
 
 /* FCVT helper: parse optional rounding mode operand (GNU as syntax:
    fcvt.w.s rd, rs1 [, rtz/rne/rdn/rup/rmm]) */
-static int asm_fcvt_rm(TCCState *s1)
+ସ୍ଥିର ପୂର୍ଣ୍ଣସଂଖ୍ୟା asm_fcvt_rm(TCCState *s1)
 {
-    int rm = 7; /* dynamic */
-    if (tok == ',') {
+    ପୂର୍ଣ୍ଣସଂଖ୍ୟା rm = 7; /* dynamic */
+    ଯଦି (tok == ',') {
         next();
-        switch (tok) {
-            case TOK_ASM_rne: rm = 0; next(); break;
-            case TOK_ASM_rtz: rm = 1; next(); break;
-            case TOK_ASM_rdn: rm = 2; next(); break;
-            case TOK_ASM_rup: rm = 3; next(); break;
-            case TOK_ASM_rmm: rm = 4; next(); break;
-            default: expect("rounding mode"); break;
+        ବାଛ (tok) {
+            ସ୍ଥିତି TOK_ASM_rne: rm = 0; next(); ଭାଙ୍ଗ;
+            ସ୍ଥିତି TOK_ASM_rtz: rm = 1; next(); ଭାଙ୍ଗ;
+            ସ୍ଥିତି TOK_ASM_rdn: rm = 2; next(); ଭାଙ୍ଗ;
+            ସ୍ଥିତି TOK_ASM_rup: rm = 3; next(); ଭାଙ୍ଗ;
+            ସ୍ଥିତି TOK_ASM_rmm: rm = 4; next(); ଭାଙ୍ଗ;
+            ପୂର୍ବନିର୍ଦ୍ଧାରିତ: expect("rounding mode"); ଭାଙ୍ଗ;
         }
     }
-    return rm;
+    ଫେରନ୍ତୁ rm;
 }
 
 /* fcvt + fclass handler (all are binary with optional rounding operand) */
-static void asm_fcvt_opcode(TCCState *s1, int token)
+ସ୍ଥିର ଶୂନ୍ୟ asm_fcvt_opcode(TCCState *s1, ପୂର୍ଣ୍ଣସଂଖ୍ୟା token)
 {
     Operand ops[2];
-    int rm;
+    ପୂର୍ଣ୍ଣସଂଖ୍ୟା rm;
     uint32_t enc = 0;
 
     parse_operand(s1, &ops[0]);
     skip(',');
     parse_operand(s1, &ops[1]);
 
-    switch (token) {
-        case TOK_ASM_fcvt_w_s:  rm = asm_fcvt_rm(s1); enc = 0x53 | (0x60 << 25) | (rm << 12); break;
-        case TOK_ASM_fcvt_wu_s: rm = asm_fcvt_rm(s1); enc = 0x53 | (0x60 << 25) | (rm << 12) | (1 << 20); break;
-        case TOK_ASM_fcvt_l_s:  rm = asm_fcvt_rm(s1); enc = 0x53 | (0x60 << 25) | (rm << 12) | (2 << 20); break;
-        case TOK_ASM_fcvt_lu_s: rm = asm_fcvt_rm(s1); enc = 0x53 | (0x60 << 25) | (rm << 12) | (3 << 20); break;
-        case TOK_ASM_fcvt_s_w:  enc = 0x53 | (0x68 << 25) | (7 << 12); break;
-        case TOK_ASM_fcvt_s_wu: enc = 0x53 | (0x68 << 25) | (7 << 12) | (1 << 20); break;
-        case TOK_ASM_fcvt_s_l:  enc = 0x53 | (0x68 << 25) | (7 << 12) | (2 << 20); break;
-        case TOK_ASM_fcvt_s_lu: enc = 0x53 | (0x68 << 25) | (7 << 12) | (3 << 20); break;
-        case TOK_ASM_fcvt_w_d:  rm = asm_fcvt_rm(s1); enc = 0x53 | (0x61 << 25) | (rm << 12); break;
-        case TOK_ASM_fcvt_wu_d: rm = asm_fcvt_rm(s1); enc = 0x53 | (0x61 << 25) | (rm << 12) | (1 << 20); break;
-        case TOK_ASM_fcvt_l_d:  rm = asm_fcvt_rm(s1); enc = 0x53 | (0x61 << 25) | (rm << 12) | (2 << 20); break;
-        case TOK_ASM_fcvt_lu_d: rm = asm_fcvt_rm(s1); enc = 0x53 | (0x61 << 25) | (rm << 12) | (3 << 20); break;
-        case TOK_ASM_fcvt_d_w:  enc = 0x53 | (0x69 << 25) | (7 << 12); break;
-        case TOK_ASM_fcvt_d_wu: enc = 0x53 | (0x69 << 25) | (7 << 12) | (1 << 20); break;
-        case TOK_ASM_fcvt_d_l:  enc = 0x53 | (0x69 << 25) | (7 << 12) | (2 << 20); break;
-        case TOK_ASM_fcvt_d_lu: enc = 0x53 | (0x69 << 25) | (7 << 12) | (3 << 20); break;
-        case TOK_ASM_fcvt_s_d:  enc = 0x53 | (0x20 << 25) | (7 << 12) | (1 << 20); break;
-        case TOK_ASM_fcvt_d_s:  enc = 0x53 | (0x21 << 25) | (7 << 12); break;
-        case TOK_ASM_fclass_s:  enc = 0x53 | (0x70 << 25) | (1 << 12); break;
-        case TOK_ASM_fclass_d:  enc = 0x53 | (0x71 << 25) | (1 << 12); break;
-        default: expect("fcvt/fclass instruction"); return;
+    ବାଛ (token) {
+        ସ୍ଥିତି TOK_ASM_fcvt_w_s:  rm = asm_fcvt_rm(s1); enc = 0x53 | (0x60 << 25) | (rm << 12); ଭାଙ୍ଗ;
+        ସ୍ଥିତି TOK_ASM_fcvt_wu_s: rm = asm_fcvt_rm(s1); enc = 0x53 | (0x60 << 25) | (rm << 12) | (1 << 20); ଭାଙ୍ଗ;
+        ସ୍ଥିତି TOK_ASM_fcvt_l_s:  rm = asm_fcvt_rm(s1); enc = 0x53 | (0x60 << 25) | (rm << 12) | (2 << 20); ଭାଙ୍ଗ;
+        ସ୍ଥିତି TOK_ASM_fcvt_lu_s: rm = asm_fcvt_rm(s1); enc = 0x53 | (0x60 << 25) | (rm << 12) | (3 << 20); ଭାଙ୍ଗ;
+        ସ୍ଥିତି TOK_ASM_fcvt_s_w:  enc = 0x53 | (0x68 << 25) | (7 << 12); ଭାଙ୍ଗ;
+        ସ୍ଥିତି TOK_ASM_fcvt_s_wu: enc = 0x53 | (0x68 << 25) | (7 << 12) | (1 << 20); ଭାଙ୍ଗ;
+        ସ୍ଥିତି TOK_ASM_fcvt_s_l:  enc = 0x53 | (0x68 << 25) | (7 << 12) | (2 << 20); ଭାଙ୍ଗ;
+        ସ୍ଥିତି TOK_ASM_fcvt_s_lu: enc = 0x53 | (0x68 << 25) | (7 << 12) | (3 << 20); ଭାଙ୍ଗ;
+        ସ୍ଥିତି TOK_ASM_fcvt_w_d:  rm = asm_fcvt_rm(s1); enc = 0x53 | (0x61 << 25) | (rm << 12); ଭାଙ୍ଗ;
+        ସ୍ଥିତି TOK_ASM_fcvt_wu_d: rm = asm_fcvt_rm(s1); enc = 0x53 | (0x61 << 25) | (rm << 12) | (1 << 20); ଭାଙ୍ଗ;
+        ସ୍ଥିତି TOK_ASM_fcvt_l_d:  rm = asm_fcvt_rm(s1); enc = 0x53 | (0x61 << 25) | (rm << 12) | (2 << 20); ଭାଙ୍ଗ;
+        ସ୍ଥିତି TOK_ASM_fcvt_lu_d: rm = asm_fcvt_rm(s1); enc = 0x53 | (0x61 << 25) | (rm << 12) | (3 << 20); ଭାଙ୍ଗ;
+        ସ୍ଥିତି TOK_ASM_fcvt_d_w:  enc = 0x53 | (0x69 << 25) | (7 << 12); ଭାଙ୍ଗ;
+        ସ୍ଥିତି TOK_ASM_fcvt_d_wu: enc = 0x53 | (0x69 << 25) | (7 << 12) | (1 << 20); ଭାଙ୍ଗ;
+        ସ୍ଥିତି TOK_ASM_fcvt_d_l:  enc = 0x53 | (0x69 << 25) | (7 << 12) | (2 << 20); ଭାଙ୍ଗ;
+        ସ୍ଥିତି TOK_ASM_fcvt_d_lu: enc = 0x53 | (0x69 << 25) | (7 << 12) | (3 << 20); ଭାଙ୍ଗ;
+        ସ୍ଥିତି TOK_ASM_fcvt_s_d:  enc = 0x53 | (0x20 << 25) | (7 << 12) | (1 << 20); ଭାଙ୍ଗ;
+        ସ୍ଥିତି TOK_ASM_fcvt_d_s:  enc = 0x53 | (0x21 << 25) | (7 << 12); ଭାଙ୍ଗ;
+        ସ୍ଥିତି TOK_ASM_fclass_s:  enc = 0x53 | (0x70 << 25) | (1 << 12); ଭାଙ୍ଗ;
+        ସ୍ଥିତି TOK_ASM_fclass_d:  enc = 0x53 | (0x71 << 25) | (1 << 12); ଭାଙ୍ଗ;
+        ପୂର୍ବନିର୍ଦ୍ଧାରିତ: expect("fcvt/fclass instruction"); ଫେରନ୍ତୁ;
     }
     asm_emit_opcode(enc | ENCODE_RD(ops[0].reg) | ENCODE_RS1(ops[1].reg));
 }
 
-ST_FUNC void asm_opcode(TCCState *s1, int token)
+ST_FUNC ଶୂନ୍ୟ asm_opcode(TCCState *s1, ପୂର୍ଣ୍ଣସଂଖ୍ୟା token)
 {
-    switch (token) {
-    case TOK_ASM_ebreak:
-    case TOK_ASM_ecall:
-    case TOK_ASM_fence_i:
-    case TOK_ASM_hrts:
-    case TOK_ASM_mrth:
-    case TOK_ASM_mrts:
-    case TOK_ASM_wfi:
+    ବାଛ (token) {
+    ସ୍ଥିତି TOK_ASM_ebreak:
+    ସ୍ଥିତି TOK_ASM_ecall:
+    ସ୍ଥିତି TOK_ASM_fence_i:
+    ସ୍ଥିତି TOK_ASM_hrts:
+    ସ୍ଥିତି TOK_ASM_mrth:
+    ସ୍ଥିତି TOK_ASM_mrts:
+    ସ୍ଥିତି TOK_ASM_wfi:
         asm_nullary_opcode(s1, token);
-        return;
+        ଫେରନ୍ତୁ;
 
-    case TOK_ASM_fence:
+    ସ୍ଥିତି TOK_ASM_fence:
         asm_fence_opcode(s1, token);
-        return;
+        ଫେରନ୍ତୁ;
 
-    case TOK_ASM_rdcycle:
-    case TOK_ASM_rdcycleh:
-    case TOK_ASM_rdtime:
-    case TOK_ASM_rdtimeh:
-    case TOK_ASM_rdinstret:
-    case TOK_ASM_rdinstreth:
+    ସ୍ଥିତି TOK_ASM_rdcycle:
+    ସ୍ଥିତି TOK_ASM_rdcycleh:
+    ସ୍ଥିତି TOK_ASM_rdtime:
+    ସ୍ଥିତି TOK_ASM_rdtimeh:
+    ସ୍ଥିତି TOK_ASM_rdinstret:
+    ସ୍ଥିତି TOK_ASM_rdinstreth:
         asm_unary_opcode(s1, token);
-        return;
+        ଫେରନ୍ତୁ;
 
-    case TOK_ASM_lui:
-    case TOK_ASM_auipc:
-    case TOK_ASM_fsqrt_s:
-    case TOK_ASM_fsqrt_d:
-        asm_binary_opcode(s1, token);
-        return;
+    ସ୍ଥିତି TOK_ASM_lui:
+    ସ୍ଥିତି TOK_ASM_auipc:
+    ସ୍ଥିତି TOK_ASM_fsqrt_s:
+    ସ୍ଥିତି TOK_ASM_fsqrt_d:
+        asm_ଦ୍ୱିମିକ_opcode(s1, token);
+        ଫେରନ୍ତୁ;
 
     /* fcvt/fclass — separate handler for optional rounding operand */
-    case TOK_ASM_fcvt_w_s:
-    case TOK_ASM_fcvt_wu_s:
-    case TOK_ASM_fcvt_l_s:
-    case TOK_ASM_fcvt_lu_s:
-    case TOK_ASM_fcvt_s_w:
-    case TOK_ASM_fcvt_s_wu:
-    case TOK_ASM_fcvt_s_l:
-    case TOK_ASM_fcvt_s_lu:
-    case TOK_ASM_fcvt_w_d:
-    case TOK_ASM_fcvt_wu_d:
-    case TOK_ASM_fcvt_l_d:
-    case TOK_ASM_fcvt_lu_d:
-    case TOK_ASM_fcvt_d_w:
-    case TOK_ASM_fcvt_d_wu:
-    case TOK_ASM_fcvt_d_l:
-    case TOK_ASM_fcvt_d_lu:
-    case TOK_ASM_fcvt_s_d:
-    case TOK_ASM_fcvt_d_s:
-    case TOK_ASM_fclass_s:
-    case TOK_ASM_fclass_d:
+    ସ୍ଥିତି TOK_ASM_fcvt_w_s:
+    ସ୍ଥିତି TOK_ASM_fcvt_wu_s:
+    ସ୍ଥିତି TOK_ASM_fcvt_l_s:
+    ସ୍ଥିତି TOK_ASM_fcvt_lu_s:
+    ସ୍ଥିତି TOK_ASM_fcvt_s_w:
+    ସ୍ଥିତି TOK_ASM_fcvt_s_wu:
+    ସ୍ଥିତି TOK_ASM_fcvt_s_l:
+    ସ୍ଥିତି TOK_ASM_fcvt_s_lu:
+    ସ୍ଥିତି TOK_ASM_fcvt_w_d:
+    ସ୍ଥିତି TOK_ASM_fcvt_wu_d:
+    ସ୍ଥିତି TOK_ASM_fcvt_l_d:
+    ସ୍ଥିତି TOK_ASM_fcvt_lu_d:
+    ସ୍ଥିତି TOK_ASM_fcvt_d_w:
+    ସ୍ଥିତି TOK_ASM_fcvt_d_wu:
+    ସ୍ଥିତି TOK_ASM_fcvt_d_l:
+    ସ୍ଥିତି TOK_ASM_fcvt_d_lu:
+    ସ୍ଥିତି TOK_ASM_fcvt_s_d:
+    ସ୍ଥିତି TOK_ASM_fcvt_d_s:
+    ସ୍ଥିତି TOK_ASM_fclass_s:
+    ସ୍ଥିତି TOK_ASM_fclass_d:
         asm_fcvt_opcode(s1, token);
-        return;
+        ଫେରନ୍ତୁ;
 
-    case TOK_ASM_lb:
-    case TOK_ASM_lh:
-    case TOK_ASM_lw:
-    case TOK_ASM_ld:
-    case TOK_ASM_fld:
-    case TOK_ASM_lbu:
-    case TOK_ASM_lhu:
-    case TOK_ASM_lwu:
-    case TOK_ASM_sb:
-    case TOK_ASM_sh:
-    case TOK_ASM_sw:
-    case TOK_ASM_sd:
-    case TOK_ASM_fsd:
+    ସ୍ଥିତି TOK_ASM_lb:
+    ସ୍ଥିତି TOK_ASM_lh:
+    ସ୍ଥିତି TOK_ASM_lw:
+    ସ୍ଥିତି TOK_ASM_ld:
+    ସ୍ଥିତି TOK_ASM_fld:
+    ସ୍ଥିତି TOK_ASM_lbu:
+    ସ୍ଥିତି TOK_ASM_lhu:
+    ସ୍ଥିତି TOK_ASM_lwu:
+    ସ୍ଥିତି TOK_ASM_sb:
+    ସ୍ଥିତି TOK_ASM_sh:
+    ସ୍ଥିତି TOK_ASM_sw:
+    ସ୍ଥିତି TOK_ASM_sd:
+    ସ୍ଥିତି TOK_ASM_fsd:
         asm_mem_access_opcode(s1, token);
-        break;
+        ଭାଙ୍ଗ;
 
-    case TOK_ASM_jalr:
+    ସ୍ଥିତି TOK_ASM_jalr:
         asm_jalr_opcode(s1, token); /* it can be a pseudo instruction too*/
-        break;
-    case TOK_ASM_j:
+        ଭାଙ୍ଗ;
+    ସ୍ଥିତି TOK_ASM_j:
         asm_jal_opcode(s1, token); /* jal zero, offset*/
-        return;
-    case TOK_ASM_jal:
+        ଫେରନ୍ତୁ;
+    ସ୍ଥିତି TOK_ASM_jal:
         asm_jal_opcode(s1, token); /* it can be a pseudo instruction too*/
-        break;
+        ଭାଙ୍ଗ;
 
-    case TOK_ASM_add:
-    case TOK_ASM_addi:
-    case TOK_ASM_addiw:
-    case TOK_ASM_addw:
-    case TOK_ASM_and:
-    case TOK_ASM_andi:
-    case TOK_ASM_or:
-    case TOK_ASM_ori:
-    case TOK_ASM_sll:
-    case TOK_ASM_slli:
-    case TOK_ASM_slliw:
-    case TOK_ASM_sllw:
-    case TOK_ASM_slt:
-    case TOK_ASM_slti:
-    case TOK_ASM_sltiu:
-    case TOK_ASM_sltu:
-    case TOK_ASM_sra:
-    case TOK_ASM_srai:
-    case TOK_ASM_sraiw:
-    case TOK_ASM_sraw:
-    case TOK_ASM_srl:
-    case TOK_ASM_srli:
-    case TOK_ASM_srliw:
-    case TOK_ASM_srlw:
-    case TOK_ASM_sub:
-    case TOK_ASM_subw:
-    case TOK_ASM_xor:
-    case TOK_ASM_xori:
+    ସ୍ଥିତି TOK_ASM_add:
+    ସ୍ଥିତି TOK_ASM_addi:
+    ସ୍ଥିତି TOK_ASM_addiw:
+    ସ୍ଥିତି TOK_ASM_addw:
+    ସ୍ଥିତି TOK_ASM_and:
+    ସ୍ଥିତି TOK_ASM_andi:
+    ସ୍ଥିତି TOK_ASM_or:
+    ସ୍ଥିତି TOK_ASM_ori:
+    ସ୍ଥିତି TOK_ASM_sll:
+    ସ୍ଥିତି TOK_ASM_slli:
+    ସ୍ଥିତି TOK_ASM_slliw:
+    ସ୍ଥିତି TOK_ASM_sllw:
+    ସ୍ଥିତି TOK_ASM_slt:
+    ସ୍ଥିତି TOK_ASM_slti:
+    ସ୍ଥିତି TOK_ASM_sltiu:
+    ସ୍ଥିତି TOK_ASM_sltu:
+    ସ୍ଥିତି TOK_ASM_sra:
+    ସ୍ଥିତି TOK_ASM_srai:
+    ସ୍ଥିତି TOK_ASM_sraiw:
+    ସ୍ଥିତି TOK_ASM_sraw:
+    ସ୍ଥିତି TOK_ASM_srl:
+    ସ୍ଥିତି TOK_ASM_srli:
+    ସ୍ଥିତି TOK_ASM_srliw:
+    ସ୍ଥିତି TOK_ASM_srlw:
+    ସ୍ଥିତି TOK_ASM_sub:
+    ସ୍ଥିତି TOK_ASM_subw:
+    ସ୍ଥିତି TOK_ASM_xor:
+    ସ୍ଥିତି TOK_ASM_xori:
     /* M extension */
-    case TOK_ASM_div:
-    case TOK_ASM_divu:
-    case TOK_ASM_divuw:
-    case TOK_ASM_divw:
-    case TOK_ASM_mul:
-    case TOK_ASM_mulh:
-    case TOK_ASM_mulhsu:
-    case TOK_ASM_mulhu:
-    case TOK_ASM_mulw:
-    case TOK_ASM_rem:
-    case TOK_ASM_remu:
-    case TOK_ASM_remuw:
-    case TOK_ASM_remw:
+    ସ୍ଥିତି TOK_ASM_div:
+    ସ୍ଥିତି TOK_ASM_divu:
+    ସ୍ଥିତି TOK_ASM_divuw:
+    ସ୍ଥିତି TOK_ASM_divw:
+    ସ୍ଥିତି TOK_ASM_mul:
+    ସ୍ଥିତି TOK_ASM_mulh:
+    ସ୍ଥିତି TOK_ASM_mulhsu:
+    ସ୍ଥିତି TOK_ASM_mulhu:
+    ସ୍ଥିତି TOK_ASM_mulw:
+    ସ୍ଥିତି TOK_ASM_rem:
+    ସ୍ଥିତି TOK_ASM_remu:
+    ସ୍ଥିତି TOK_ASM_remuw:
+    ସ୍ଥିତି TOK_ASM_remw:
     /* Zicsr extension */
-    case TOK_ASM_csrrc:
-    case TOK_ASM_csrrci:
-    case TOK_ASM_csrrs:
-    case TOK_ASM_csrrsi:
-    case TOK_ASM_csrrw:
-    case TOK_ASM_csrrwi:
+    ସ୍ଥିତି TOK_ASM_csrrc:
+    ସ୍ଥିତି TOK_ASM_csrrci:
+    ସ୍ଥିତି TOK_ASM_csrrs:
+    ସ୍ଥିତି TOK_ASM_csrrsi:
+    ସ୍ଥିତି TOK_ASM_csrrw:
+    ସ୍ଥିତି TOK_ASM_csrrwi:
     /* F/D extension */
-    case TOK_ASM_fadd_s:
-    case TOK_ASM_fadd_d:
-    case TOK_ASM_fsub_s:
-    case TOK_ASM_fsub_d:
-    case TOK_ASM_fmul_s:
-    case TOK_ASM_fmul_d:
-    case TOK_ASM_fdiv_s:
-    case TOK_ASM_fdiv_d:
-    case TOK_ASM_fsgnj_d:
-    case TOK_ASM_fsgnj_s:
-    case TOK_ASM_fmax_s:
-    case TOK_ASM_fmax_d:
-    case TOK_ASM_fmin_s:
-    case TOK_ASM_fmin_d:
-    case TOK_ASM_feq_s:
-    case TOK_ASM_feq_d:
-    case TOK_ASM_flt_s:
-    case TOK_ASM_flt_d:
-    case TOK_ASM_fle_s:
-    case TOK_ASM_fle_d:
+    ସ୍ଥିତି TOK_ASM_fadd_s:
+    ସ୍ଥିତି TOK_ASM_fadd_d:
+    ସ୍ଥିତି TOK_ASM_fsub_s:
+    ସ୍ଥିତି TOK_ASM_fsub_d:
+    ସ୍ଥିତି TOK_ASM_fmul_s:
+    ସ୍ଥିତି TOK_ASM_fmul_d:
+    ସ୍ଥିତି TOK_ASM_fdiv_s:
+    ସ୍ଥିତି TOK_ASM_fdiv_d:
+    ସ୍ଥିତି TOK_ASM_fsgnj_d:
+    ସ୍ଥିତି TOK_ASM_fsgnj_s:
+    ସ୍ଥିତି TOK_ASM_fmax_s:
+    ସ୍ଥିତି TOK_ASM_fmax_d:
+    ସ୍ଥିତି TOK_ASM_fmin_s:
+    ସ୍ଥିତି TOK_ASM_fmin_d:
+    ସ୍ଥିତି TOK_ASM_feq_s:
+    ସ୍ଥିତି TOK_ASM_feq_d:
+    ସ୍ଥିତି TOK_ASM_flt_s:
+    ସ୍ଥିତି TOK_ASM_flt_d:
+    ସ୍ଥିତି TOK_ASM_fle_s:
+    ସ୍ଥିତି TOK_ASM_fle_d:
         asm_ternary_opcode(s1, token);
-        return;
-    case TOK_ASM_fmadd_d:
-    case TOK_ASM_fmadd_s:
+        ଫେରନ୍ତୁ;
+    ସ୍ଥିତି TOK_ASM_fmadd_d:
+    ସ୍ଥିତି TOK_ASM_fmadd_s:
         asm_quaternary_opcode(s1, token);
-        return;
+        ଫେରନ୍ତୁ;
 
     /* Branches */
-    case TOK_ASM_beq:
-    case TOK_ASM_bge:
-    case TOK_ASM_bgeu:
-    case TOK_ASM_blt:
-    case TOK_ASM_bltu:
-    case TOK_ASM_bne:
+    ସ୍ଥିତି TOK_ASM_beq:
+    ସ୍ଥିତି TOK_ASM_bge:
+    ସ୍ଥିତି TOK_ASM_bgeu:
+    ସ୍ଥିତି TOK_ASM_blt:
+    ସ୍ଥିତି TOK_ASM_bltu:
+    ସ୍ଥିତି TOK_ASM_bne:
         asm_branch_opcode(s1, token, 3);
-        break;
+        ଭାଙ୍ଗ;
 
     /* C extension */
-    case TOK_ASM_c_ebreak:
-    case TOK_ASM_c_nop:
+    ସ୍ଥିତି TOK_ASM_c_ebreak:
+    ସ୍ଥିତି TOK_ASM_c_nop:
         asm_nullary_opcode(s1, token);
-        return;
+        ଫେରନ୍ତୁ;
 
-    case TOK_ASM_c_j:
-    case TOK_ASM_c_jal:
-    case TOK_ASM_c_jalr:
-    case TOK_ASM_c_jr:
+    ସ୍ଥିତି TOK_ASM_c_j:
+    ସ୍ଥିତି TOK_ASM_c_jal:
+    ସ୍ଥିତି TOK_ASM_c_jalr:
+    ସ୍ଥିତି TOK_ASM_c_jr:
         asm_unary_opcode(s1, token);
-        return;
+        ଫେରନ୍ତୁ;
 
-    case TOK_ASM_c_add:
-    case TOK_ASM_c_addi16sp:
-    case TOK_ASM_c_addi4spn:
-    case TOK_ASM_c_addi:
-    case TOK_ASM_c_addiw:
-    case TOK_ASM_c_addw:
-    case TOK_ASM_c_and:
-    case TOK_ASM_c_andi:
-    case TOK_ASM_c_beqz:
-    case TOK_ASM_c_bnez:
-    case TOK_ASM_c_fldsp:
-    case TOK_ASM_c_flwsp:
-    case TOK_ASM_c_fsdsp:
-    case TOK_ASM_c_fswsp:
-    case TOK_ASM_c_ldsp:
-    case TOK_ASM_c_li:
-    case TOK_ASM_c_lui:
-    case TOK_ASM_c_lwsp:
-    case TOK_ASM_c_mv:
-    case TOK_ASM_c_or:
-    case TOK_ASM_c_sdsp:
-    case TOK_ASM_c_slli:
-    case TOK_ASM_c_srai:
-    case TOK_ASM_c_srli:
-    case TOK_ASM_c_sub:
-    case TOK_ASM_c_subw:
-    case TOK_ASM_c_swsp:
-    case TOK_ASM_c_xor:
-        asm_binary_opcode(s1, token);
-        return;
+    ସ୍ଥିତି TOK_ASM_c_add:
+    ସ୍ଥିତି TOK_ASM_c_addi16sp:
+    ସ୍ଥିତି TOK_ASM_c_addi4spn:
+    ସ୍ଥିତି TOK_ASM_c_addi:
+    ସ୍ଥିତି TOK_ASM_c_addiw:
+    ସ୍ଥିତି TOK_ASM_c_addw:
+    ସ୍ଥିତି TOK_ASM_c_and:
+    ସ୍ଥିତି TOK_ASM_c_andi:
+    ସ୍ଥିତି TOK_ASM_c_beqz:
+    ସ୍ଥିତି TOK_ASM_c_bnez:
+    ସ୍ଥିତି TOK_ASM_c_fldsp:
+    ସ୍ଥିତି TOK_ASM_c_flwsp:
+    ସ୍ଥିତି TOK_ASM_c_fsdsp:
+    ସ୍ଥିତି TOK_ASM_c_fswsp:
+    ସ୍ଥିତି TOK_ASM_c_ldsp:
+    ସ୍ଥିତି TOK_ASM_c_li:
+    ସ୍ଥିତି TOK_ASM_c_lui:
+    ସ୍ଥିତି TOK_ASM_c_lwsp:
+    ସ୍ଥିତି TOK_ASM_c_mv:
+    ସ୍ଥିତି TOK_ASM_c_or:
+    ସ୍ଥିତି TOK_ASM_c_sdsp:
+    ସ୍ଥିତି TOK_ASM_c_slli:
+    ସ୍ଥିତି TOK_ASM_c_srai:
+    ସ୍ଥିତି TOK_ASM_c_srli:
+    ସ୍ଥିତି TOK_ASM_c_sub:
+    ସ୍ଥିତି TOK_ASM_c_subw:
+    ସ୍ଥିତି TOK_ASM_c_swsp:
+    ସ୍ଥିତି TOK_ASM_c_xor:
+        asm_ଦ୍ୱିମିକ_opcode(s1, token);
+        ଫେରନ୍ତୁ;
 
-    case TOK_ASM_c_fld:
-    case TOK_ASM_c_flw:
-    case TOK_ASM_c_fsd:
-    case TOK_ASM_c_fsw:
-    case TOK_ASM_c_ld:
-    case TOK_ASM_c_lw:
-    case TOK_ASM_c_sd:
-    case TOK_ASM_c_sw:
+    ସ୍ଥିତି TOK_ASM_c_fld:
+    ସ୍ଥିତି TOK_ASM_c_flw:
+    ସ୍ଥିତି TOK_ASM_c_fsd:
+    ସ୍ଥିତି TOK_ASM_c_fsw:
+    ସ୍ଥିତି TOK_ASM_c_ld:
+    ସ୍ଥିତି TOK_ASM_c_lw:
+    ସ୍ଥିତି TOK_ASM_c_sd:
+    ସ୍ଥିତି TOK_ASM_c_sw:
         asm_ternary_opcode(s1, token);
-        return;
+        ଫେରନ୍ତୁ;
 
     /* pseudoinstructions */
-    case TOK_ASM_nop:
-    case TOK_ASM_ret:
+    ସ୍ଥିତି TOK_ASM_nop:
+    ସ୍ଥିତି TOK_ASM_ret:
         asm_nullary_opcode(s1, token);
-        return;
+        ଫେରନ୍ତୁ;
 
-    case TOK_ASM_jr:
-    case TOK_ASM_call:
-    case TOK_ASM_tail:
-    case TOK_ASM_frflags:
-    case TOK_ASM_frrm:
-    case TOK_ASM_frcsr:
+    ସ୍ଥିତି TOK_ASM_jr:
+    ସ୍ଥିତି TOK_ASM_call:
+    ସ୍ଥିତି TOK_ASM_tail:
+    ସ୍ଥିତି TOK_ASM_frflags:
+    ସ୍ଥିତି TOK_ASM_frrm:
+    ସ୍ଥିତି TOK_ASM_frcsr:
         asm_unary_opcode(s1, token);
-        return;
+        ଫେରନ୍ତୁ;
 
-    case TOK_ASM_la:
-    case TOK_ASM_lla:
-    case TOK_ASM_li:
-    case TOK_ASM_jump:
-    case TOK_ASM_seqz:
-    case TOK_ASM_snez:
-    case TOK_ASM_sltz:
-    case TOK_ASM_sgtz:
-    case TOK_ASM_mv:
-    case TOK_ASM_not:
-    case TOK_ASM_neg:
-    case TOK_ASM_negw:
-    case TOK_ASM_sext_w:
-    case TOK_ASM_fabs_s:
-    case TOK_ASM_fabs_d:
-    case TOK_ASM_fmv_s:
-    case TOK_ASM_fmv_d:
-    case TOK_ASM_fneg_s:
-    case TOK_ASM_fneg_d:
-    case TOK_ASM_csrc:
-    case TOK_ASM_csrs:
-    case TOK_ASM_csrr:
-    case TOK_ASM_csrw:
-    case TOK_ASM_csrwi:
-    case TOK_ASM_csrsi:
-    case TOK_ASM_csrci:
-    case TOK_ASM_fsrm:
-    case TOK_ASM_fscsr:
-        asm_binary_opcode(s1, token);
-        return;
+    ସ୍ଥିତି TOK_ASM_la:
+    ସ୍ଥିତି TOK_ASM_lla:
+    ସ୍ଥିତି TOK_ASM_li:
+    ସ୍ଥିତି TOK_ASM_jump:
+    ସ୍ଥିତି TOK_ASM_seqz:
+    ସ୍ଥିତି TOK_ASM_snez:
+    ସ୍ଥିତି TOK_ASM_sltz:
+    ସ୍ଥିତି TOK_ASM_sgtz:
+    ସ୍ଥିତି TOK_ASM_mv:
+    ସ୍ଥିତି TOK_ASM_not:
+    ସ୍ଥିତି TOK_ASM_neg:
+    ସ୍ଥିତି TOK_ASM_negw:
+    ସ୍ଥିତି TOK_ASM_sext_w:
+    ସ୍ଥିତି TOK_ASM_fabs_s:
+    ସ୍ଥିତି TOK_ASM_fabs_d:
+    ସ୍ଥିତି TOK_ASM_fmv_s:
+    ସ୍ଥିତି TOK_ASM_fmv_d:
+    ସ୍ଥିତି TOK_ASM_fneg_s:
+    ସ୍ଥିତି TOK_ASM_fneg_d:
+    ସ୍ଥିତି TOK_ASM_csrc:
+    ସ୍ଥିତି TOK_ASM_csrs:
+    ସ୍ଥିତି TOK_ASM_csrr:
+    ସ୍ଥିତି TOK_ASM_csrw:
+    ସ୍ଥିତି TOK_ASM_csrwi:
+    ସ୍ଥିତି TOK_ASM_csrsi:
+    ସ୍ଥିତି TOK_ASM_csrci:
+    ସ୍ଥିତି TOK_ASM_fsrm:
+    ସ୍ଥିତି TOK_ASM_fscsr:
+        asm_ଦ୍ୱିମିକ_opcode(s1, token);
+        ଫେରନ୍ତୁ;
 
-    case TOK_ASM_bnez:
-    case TOK_ASM_beqz:
-    case TOK_ASM_blez:
-    case TOK_ASM_bgez:
-    case TOK_ASM_bltz:
-    case TOK_ASM_bgtz:
+    ସ୍ଥିତି TOK_ASM_bnez:
+    ସ୍ଥିତି TOK_ASM_beqz:
+    ସ୍ଥିତି TOK_ASM_blez:
+    ସ୍ଥିତି TOK_ASM_bgez:
+    ସ୍ଥିତି TOK_ASM_bltz:
+    ସ୍ଥିତି TOK_ASM_bgtz:
         asm_branch_opcode(s1, token, 2);
-        return;
+        ଫେରନ୍ତୁ;
 
-    case TOK_ASM_bgt:
-    case TOK_ASM_bgtu:
-    case TOK_ASM_ble:
-    case TOK_ASM_bleu:
+    ସ୍ଥିତି TOK_ASM_bgt:
+    ସ୍ଥିତି TOK_ASM_bgtu:
+    ସ୍ଥିତି TOK_ASM_ble:
+    ସ୍ଥିତି TOK_ASM_bleu:
         asm_branch_opcode(s1, token, 3);
-        return;
+        ଫେରନ୍ତୁ;
 
     /* Atomic operations */
-    case TOK_ASM_lr_w:
-    case TOK_ASM_lr_w_aq:
-    case TOK_ASM_lr_w_rl:
-    case TOK_ASM_lr_w_aqrl:
-    case TOK_ASM_lr_d:
-    case TOK_ASM_lr_d_aq:
-    case TOK_ASM_lr_d_rl:
-    case TOK_ASM_lr_d_aqrl:
-    case TOK_ASM_sc_w:
-    case TOK_ASM_sc_w_aq:
-    case TOK_ASM_sc_w_rl:
-    case TOK_ASM_sc_w_aqrl:
-    case TOK_ASM_sc_d:
-    case TOK_ASM_sc_d_aq:
-    case TOK_ASM_sc_d_rl:
-    case TOK_ASM_sc_d_aqrl:
+    ସ୍ଥିତି TOK_ASM_lr_w:
+    ସ୍ଥିତି TOK_ASM_lr_w_aq:
+    ସ୍ଥିତି TOK_ASM_lr_w_rl:
+    ସ୍ଥିତି TOK_ASM_lr_w_aqrl:
+    ସ୍ଥିତି TOK_ASM_lr_d:
+    ସ୍ଥିତି TOK_ASM_lr_d_aq:
+    ସ୍ଥିତି TOK_ASM_lr_d_rl:
+    ସ୍ଥିତି TOK_ASM_lr_d_aqrl:
+    ସ୍ଥିତି TOK_ASM_sc_w:
+    ସ୍ଥିତି TOK_ASM_sc_w_aq:
+    ସ୍ଥିତି TOK_ASM_sc_w_rl:
+    ସ୍ଥିତି TOK_ASM_sc_w_aqrl:
+    ସ୍ଥିତି TOK_ASM_sc_d:
+    ସ୍ଥିତି TOK_ASM_sc_d_aq:
+    ସ୍ଥିତି TOK_ASM_sc_d_rl:
+    ସ୍ଥିତି TOK_ASM_sc_d_aqrl:
     /* AMO instructions */
-    case TOK_ASM_amoadd_w:
-    case TOK_ASM_amoadd_d:
-    case TOK_ASM_amoswap_w:
-    case TOK_ASM_amoswap_d:
-    case TOK_ASM_amoand_w:
-    case TOK_ASM_amoand_d:
-    case TOK_ASM_amoor_w:
-    case TOK_ASM_amoor_d:
-    case TOK_ASM_amoxor_w:
-    case TOK_ASM_amoxor_d:
-    case TOK_ASM_amomax_w:
-    case TOK_ASM_amomax_d:
-    case TOK_ASM_amomaxu_w:
-    case TOK_ASM_amomaxu_d:
-    case TOK_ASM_amomin_w:
-    case TOK_ASM_amomin_d:
-    case TOK_ASM_amominu_w:
-    case TOK_ASM_amominu_d:
+    ସ୍ଥିତି TOK_ASM_amoadd_w:
+    ସ୍ଥିତି TOK_ASM_amoadd_d:
+    ସ୍ଥିତି TOK_ASM_amoswap_w:
+    ସ୍ଥିତି TOK_ASM_amoswap_d:
+    ସ୍ଥିତି TOK_ASM_amoand_w:
+    ସ୍ଥିତି TOK_ASM_amoand_d:
+    ସ୍ଥିତି TOK_ASM_amoor_w:
+    ସ୍ଥିତି TOK_ASM_amoor_d:
+    ସ୍ଥିତି TOK_ASM_amoxor_w:
+    ସ୍ଥିତି TOK_ASM_amoxor_d:
+    ସ୍ଥିତି TOK_ASM_amomax_w:
+    ସ୍ଥିତି TOK_ASM_amomax_d:
+    ସ୍ଥିତି TOK_ASM_amomaxu_w:
+    ସ୍ଥିତି TOK_ASM_amomaxu_d:
+    ସ୍ଥିତି TOK_ASM_amomin_w:
+    ସ୍ଥିତି TOK_ASM_amomin_d:
+    ସ୍ଥିତି TOK_ASM_amominu_w:
+    ସ୍ଥିତି TOK_ASM_amominu_d:
         
     /* AMO aq/rl */
-    case TOK_ASM_amoadd_w_aq:
-    case TOK_ASM_amoadd_w_rl:
-    case TOK_ASM_amoadd_w_aqrl:
-    case TOK_ASM_amoadd_d_aq:
-    case TOK_ASM_amoadd_d_rl:
-    case TOK_ASM_amoadd_d_aqrl:
+    ସ୍ଥିତି TOK_ASM_amoadd_w_aq:
+    ସ୍ଥିତି TOK_ASM_amoadd_w_rl:
+    ସ୍ଥିତି TOK_ASM_amoadd_w_aqrl:
+    ସ୍ଥିତି TOK_ASM_amoadd_d_aq:
+    ସ୍ଥିତି TOK_ASM_amoadd_d_rl:
+    ସ୍ଥିତି TOK_ASM_amoadd_d_aqrl:
     /* AMO aq/rl (all ops) */
-    case TOK_ASM_amoswap_w_aq:
-    case TOK_ASM_amoswap_w_rl:
-    case TOK_ASM_amoswap_w_aqrl:
-    case TOK_ASM_amoswap_d_aq:
-    case TOK_ASM_amoswap_d_rl:
-    case TOK_ASM_amoswap_d_aqrl:
-    case TOK_ASM_amoand_w_aq:
-    case TOK_ASM_amoand_w_rl:
-    case TOK_ASM_amoand_w_aqrl:
-    case TOK_ASM_amoand_d_aq:
-    case TOK_ASM_amoand_d_rl:
-    case TOK_ASM_amoand_d_aqrl:
-    case TOK_ASM_amoor_w_aq:
-    case TOK_ASM_amoor_w_rl:
-    case TOK_ASM_amoor_w_aqrl:
-    case TOK_ASM_amoor_d_aq:
-    case TOK_ASM_amoor_d_rl:
-    case TOK_ASM_amoor_d_aqrl:
-    case TOK_ASM_amoxor_w_aq:
-    case TOK_ASM_amoxor_w_rl:
-    case TOK_ASM_amoxor_w_aqrl:
-    case TOK_ASM_amoxor_d_aq:
-    case TOK_ASM_amoxor_d_rl:
-    case TOK_ASM_amoxor_d_aqrl:
-    case TOK_ASM_amomax_w_aq:
-    case TOK_ASM_amomax_w_rl:
-    case TOK_ASM_amomax_w_aqrl:
-    case TOK_ASM_amomax_d_aq:
-    case TOK_ASM_amomax_d_rl:
-    case TOK_ASM_amomax_d_aqrl:
-    case TOK_ASM_amomaxu_w_aq:
-    case TOK_ASM_amomaxu_w_rl:
-    case TOK_ASM_amomaxu_w_aqrl:
-    case TOK_ASM_amomaxu_d_aq:
-    case TOK_ASM_amomaxu_d_rl:
-    case TOK_ASM_amomaxu_d_aqrl:
-    case TOK_ASM_amomin_w_aq:
-    case TOK_ASM_amomin_w_rl:
-    case TOK_ASM_amomin_w_aqrl:
-    case TOK_ASM_amomin_d_aq:
-    case TOK_ASM_amomin_d_rl:
-    case TOK_ASM_amomin_d_aqrl:
-    case TOK_ASM_amominu_w_aq:
-    case TOK_ASM_amominu_w_rl:
-    case TOK_ASM_amominu_w_aqrl:
-    case TOK_ASM_amominu_d_aq:
-    case TOK_ASM_amominu_d_rl:
-    case TOK_ASM_amominu_d_aqrl:
+    ସ୍ଥିତି TOK_ASM_amoswap_w_aq:
+    ସ୍ଥିତି TOK_ASM_amoswap_w_rl:
+    ସ୍ଥିତି TOK_ASM_amoswap_w_aqrl:
+    ସ୍ଥିତି TOK_ASM_amoswap_d_aq:
+    ସ୍ଥିତି TOK_ASM_amoswap_d_rl:
+    ସ୍ଥିତି TOK_ASM_amoswap_d_aqrl:
+    ସ୍ଥିତି TOK_ASM_amoand_w_aq:
+    ସ୍ଥିତି TOK_ASM_amoand_w_rl:
+    ସ୍ଥିତି TOK_ASM_amoand_w_aqrl:
+    ସ୍ଥିତି TOK_ASM_amoand_d_aq:
+    ସ୍ଥିତି TOK_ASM_amoand_d_rl:
+    ସ୍ଥିତି TOK_ASM_amoand_d_aqrl:
+    ସ୍ଥିତି TOK_ASM_amoor_w_aq:
+    ସ୍ଥିତି TOK_ASM_amoor_w_rl:
+    ସ୍ଥିତି TOK_ASM_amoor_w_aqrl:
+    ସ୍ଥିତି TOK_ASM_amoor_d_aq:
+    ସ୍ଥିତି TOK_ASM_amoor_d_rl:
+    ସ୍ଥିତି TOK_ASM_amoor_d_aqrl:
+    ସ୍ଥିତି TOK_ASM_amoxor_w_aq:
+    ସ୍ଥିତି TOK_ASM_amoxor_w_rl:
+    ସ୍ଥିତି TOK_ASM_amoxor_w_aqrl:
+    ସ୍ଥିତି TOK_ASM_amoxor_d_aq:
+    ସ୍ଥିତି TOK_ASM_amoxor_d_rl:
+    ସ୍ଥିତି TOK_ASM_amoxor_d_aqrl:
+    ସ୍ଥିତି TOK_ASM_amomax_w_aq:
+    ସ୍ଥିତି TOK_ASM_amomax_w_rl:
+    ସ୍ଥିତି TOK_ASM_amomax_w_aqrl:
+    ସ୍ଥିତି TOK_ASM_amomax_d_aq:
+    ସ୍ଥିତି TOK_ASM_amomax_d_rl:
+    ସ୍ଥିତି TOK_ASM_amomax_d_aqrl:
+    ସ୍ଥିତି TOK_ASM_amomaxu_w_aq:
+    ସ୍ଥିତି TOK_ASM_amomaxu_w_rl:
+    ସ୍ଥିତି TOK_ASM_amomaxu_w_aqrl:
+    ସ୍ଥିତି TOK_ASM_amomaxu_d_aq:
+    ସ୍ଥିତି TOK_ASM_amomaxu_d_rl:
+    ସ୍ଥିତି TOK_ASM_amomaxu_d_aqrl:
+    ସ୍ଥିତି TOK_ASM_amomin_w_aq:
+    ସ୍ଥିତି TOK_ASM_amomin_w_rl:
+    ସ୍ଥିତି TOK_ASM_amomin_w_aqrl:
+    ସ୍ଥିତି TOK_ASM_amomin_d_aq:
+    ସ୍ଥିତି TOK_ASM_amomin_d_rl:
+    ସ୍ଥିତି TOK_ASM_amomin_d_aqrl:
+    ସ୍ଥିତି TOK_ASM_amominu_w_aq:
+    ସ୍ଥିତି TOK_ASM_amominu_w_rl:
+    ସ୍ଥିତି TOK_ASM_amominu_w_aqrl:
+    ସ୍ଥିତି TOK_ASM_amominu_d_aq:
+    ସ୍ଥିତି TOK_ASM_amominu_d_rl:
+    ସ୍ଥିତି TOK_ASM_amominu_d_aqrl:
 asm_atomic_opcode(s1, token);
-        break;
+        ଭାଙ୍ଗ;
 
-    default:
+    ପୂର୍ବନିର୍ଦ୍ଧାରିତ:
         expect("known instruction");
     }
 }
 
-static int asm_parse_csrvar(int t)
+ସ୍ଥିର ପୂର୍ଣ୍ଣସଂଖ୍ୟା asm_parse_csrvar(ପୂର୍ଣ୍ଣସଂଖ୍ୟା t)
 {
-    switch (t) {
-    case TOK_ASM_cycle:
-        return 0xc00;
-    case TOK_ASM_fcsr:
-        return 3;
-    case TOK_ASM_fflags:
-        return 1;
-    case TOK_ASM_frm:
-        return 2;
-    case TOK_ASM_instret:
-        return 0xc02;
-    case TOK_ASM_time:
-        return 0xc01;
-    case TOK_ASM_cycleh:
-        return 0xc80;
-    case TOK_ASM_instreth:
-        return 0xc82;
-    case TOK_ASM_timeh:
-        return 0xc81;
-    default:
-        return -1;
+    ବାଛ (t) {
+    ସ୍ଥିତି TOK_ASM_cycle:
+        ଫେରନ୍ତୁ 0xc00;
+    ସ୍ଥିତି TOK_ASM_fcsr:
+        ଫେରନ୍ତୁ 3;
+    ସ୍ଥିତି TOK_ASM_fflags:
+        ଫେରନ୍ତୁ 1;
+    ସ୍ଥିତି TOK_ASM_frm:
+        ଫେରନ୍ତୁ 2;
+    ସ୍ଥିତି TOK_ASM_instret:
+        ଫେରନ୍ତୁ 0xc02;
+    ସ୍ଥିତି TOK_ASM_time:
+        ଫେରନ୍ତୁ 0xc01;
+    ସ୍ଥିତି TOK_ASM_cycleh:
+        ଫେରନ୍ତୁ 0xc80;
+    ସ୍ଥିତି TOK_ASM_instreth:
+        ଫେରନ୍ତୁ 0xc82;
+    ସ୍ଥିତି TOK_ASM_timeh:
+        ଫେରନ୍ତୁ 0xc81;
+    ପୂର୍ବନିର୍ଦ୍ଧାରିତ:
+        ଫେରନ୍ତୁ -1;
     }
 }
 
-ST_FUNC void subst_asm_operand(CString *add_str, SValue *sv, int modifier)
+ST_FUNC ଶୂନ୍ୟ subst_asm_operand(CString *add_str, SValue *sv, ପୂର୍ଣ୍ଣସଂଖ୍ୟା modifier)
 {
-    int r, reg, val;
+    ପୂର୍ଣ୍ଣସଂଖ୍ୟା r, reg, val;
 
     r = sv->r;
-    if ((r & VT_VALMASK) == VT_CONST) {
-        if (!(r & VT_LVAL) && modifier != 'c' && modifier != 'n' &&
+    ଯଦି ((r & VT_VALMASK) == VT_CONST) {
+        ଯଦି (!(r & VT_LVAL) && modifier != 'c' && modifier != 'n' &&
             modifier != 'P') {
             //cstr_ccat(add_str, '#');
         }
-        if (r & VT_SYM) {
-            const char *name = get_tok_str(sv->sym->v, NULL);
-            if (sv->sym->v >= SYM_FIRST_ANOM) {
+        ଯଦି (r & VT_SYM) {
+            ଅଚଳ ଅକ୍ଷର *name = get_tok_str(sv->sym->v, ଖାଲି);
+            ଯଦି (sv->sym->v >= SYM_FIRST_ANOM) {
                 /* In case of anonymous symbols ("L.42", used
                    for static data labels) we can't find them
                    in the C symbol table when later looking up
@@ -2148,74 +2148,74 @@ ST_FUNC void subst_asm_operand(CString *add_str, SValue *sv, int modifier)
                    list when we still know the symbol.  */
                 get_asm_sym(tok_alloc(name, strlen(name))->tok, sv->sym);
             }
-            if (tcc_state->leading_underscore)
+            ଯଦି (tcc_state->leading_underscore)
                 cstr_ccat(add_str, '_');
             cstr_cat(add_str, name, -1);
-            if ((uint32_t) sv->c.i == 0)
-                goto no_offset;
+            ଯଦି ((uint32_t) sv->c.i == 0)
+                ଯାଅ no_offset;
             cstr_ccat(add_str, '+');
         }
         val = sv->c.i;
-        if (modifier == 'n')
+        ଯଦି (modifier == 'n')
             val = -val;
-        if (modifier == 'z' && val == 0) {
+        ଯଦି (modifier == 'z' && val == 0) {
             cstr_cat(add_str, "zero", -1);
-        } else {
+        } ଅନ୍ୟଥା {
             cstr_printf(add_str, "%d", val);
         }
       no_offset:;
-    } else if ((r & VT_VALMASK) == VT_LOCAL) {
-        cstr_printf(add_str, "%d", (int) sv->c.i);
-    } else if (r & VT_LVAL) {
+    } ଅନ୍ୟଥା ଯଦି ((r & VT_VALMASK) == VT_LOCAL) {
+        cstr_printf(add_str, "%d", (ପୂର୍ଣ୍ଣସଂଖ୍ୟା) sv->c.i);
+    } ଅନ୍ୟଥା ଯଦି (r & VT_LVAL) {
         reg = r & VT_VALMASK;
-        if (reg >= VT_CONST)
+        ଯଦି (reg >= VT_CONST)
             tcc_internal_error("");
-        if ((sv->type.t & VT_BTYPE) == VT_FLOAT ||
+        ଯଦି ((sv->type.t & VT_BTYPE) == VT_FLOAT ||
             (sv->type.t & VT_BTYPE) == VT_DOUBLE) {
             /* floating point register */
-            reg = TOK_ASM_f0 + REG_VALUE(reg);
-        } else {
+            reg = TOK_ASM_f0 + REG_ମୂଲ୍ୟ(reg);
+        } ଅନ୍ୟଥା {
             /* general purpose register */
             reg = TOK_ASM_x0 + reg;
         }
-        cstr_cat(add_str, get_tok_str(reg, NULL), -1);
-    } else {
+        cstr_cat(add_str, get_tok_str(reg, ଖାଲି), -1);
+    } ଅନ୍ୟଥା {
         /* register case */
         reg = r & VT_VALMASK;
-        if (reg >= VT_CONST)
+        ଯଦି (reg >= VT_CONST)
             tcc_internal_error("");
-        if ((sv->type.t & VT_BTYPE) == VT_FLOAT ||
+        ଯଦି ((sv->type.t & VT_BTYPE) == VT_FLOAT ||
             (sv->type.t & VT_BTYPE) == VT_DOUBLE) {
             /* floating point register */
-            reg = TOK_ASM_f0 + REG_VALUE(reg);
-        } else {
+            reg = TOK_ASM_f0 + REG_ମୂଲ୍ୟ(reg);
+        } ଅନ୍ୟଥା {
             /* general purpose register */
             reg = TOK_ASM_x0 + reg;
         }
-        cstr_cat(add_str, get_tok_str(reg, NULL), -1);
+        cstr_cat(add_str, get_tok_str(reg, ଖାଲି), -1);
     }
 }
 
 /* TCC does not use RISC-V register numbers internally, it uses 0-8 for
  * integers and 8-16 for floats instead */
-static int tcc_ireg(int r){
-    return REG_VALUE(r) - 10;
+ସ୍ଥିର ପୂର୍ଣ୍ଣସଂଖ୍ୟା tcc_ireg(ପୂର୍ଣ୍ଣସଂଖ୍ୟା r){
+    ଫେରନ୍ତୁ REG_ମୂଲ୍ୟ(r) - 10;
 }
-static int tcc_freg(int r){
-    return REG_VALUE(r) - 10 + 8;
+ସ୍ଥିର ପୂର୍ଣ୍ଣସଂଖ୍ୟା tcc_freg(ପୂର୍ଣ୍ଣସଂଖ୍ୟା r){
+    ଫେରନ୍ତୁ REG_ମୂଲ୍ୟ(r) - 10 + 8;
 }
 
 /* generate prolog and epilog code for asm statement */
-ST_FUNC void asm_gen_code(ASMOperand *operands, int nb_operands,
-                         int nb_outputs, int is_output,
+ST_FUNC ଶୂନ୍ୟ asm_gen_code(ASMOperand *operands, ପୂର୍ଣ୍ଣସଂଖ୍ୟା nb_operands,
+                         ପୂର୍ଣ୍ଣସଂଖ୍ୟା nb_outputs, ପୂର୍ଣ୍ଣସଂଖ୍ୟା is_output,
                          uint8_t *clobber_regs,
-                         int out_reg)
+                         ପୂର୍ଣ୍ଣସଂଖ୍ୟା out_reg)
 {
     uint8_t regs_allocated[NB_ASM_REGS];
     ASMOperand *op;
-    int i, reg;
+    ପୂର୍ଣ୍ଣସଂଖ୍ୟା i, reg;
 
-    static const uint8_t reg_saved[] = {
+    ସ୍ଥିର ଅଚଳ uint8_t reg_saved[] = {
         // General purpose regs
         8, 9, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27,
         // Float regs
@@ -2223,28 +2223,28 @@ ST_FUNC void asm_gen_code(ASMOperand *operands, int nb_operands,
     };
 
     /* mark all used registers */
-    memcpy(regs_allocated, clobber_regs, sizeof(regs_allocated));
-    for(i = 0; i < nb_operands; i++) {
+    memcpy(regs_allocated, clobber_regs, ଆକାର(regs_allocated));
+    ପାଇଁ(i = 0; i < nb_operands; i++) {
         op = &operands[i];
-        if (op->reg >= 0) {
+        ଯଦି (op->reg >= 0) {
             regs_allocated[op->reg] = 1;
         }
     }
 
-    if(!is_output) {
+    ଯଦି(!is_output) {
         /* generate reg save code */
-        for(i = 0; i < sizeof(reg_saved)/sizeof(reg_saved[0]); i++) {
+        ପାଇଁ(i = 0; i < ଆକାର(reg_saved)/ଆକାର(reg_saved[0]); i++) {
             reg = reg_saved[i];
-            if (regs_allocated[reg]) {
-                /* push */
+            ଯଦି (regs_allocated[reg]) {
+                /*ଠେଲ*/
                 /* addi sp, sp, -offset */
                 gen_le32((4 << 2) | 3 |
                         ENCODE_RD(2) | ENCODE_RS1(2) | (unsigned)-8 << 20);
-                if (REG_IS_FLOAT(reg)){
+                ଯଦି (REG_IS_FLOAT(reg)){
                     /* fsd reg, offset(sp) */
                     gen_le32( 0x27 | (3 << 12) |
                             ENCODE_RS2(reg) | ENCODE_RS1(2) );
-                } else {
+                } ଅନ୍ୟଥା {
                     /* sd reg, offset(sp) */
                     gen_le32((0x8 << 2) | 3 | (3 << 12) |
                             ENCODE_RS2(reg) | ENCODE_RS1(2) );
@@ -2253,10 +2253,10 @@ ST_FUNC void asm_gen_code(ASMOperand *operands, int nb_operands,
         }
 
         /* generate load code */
-        for(i = 0; i < nb_operands; i++) {
+        ପାଇଁ(i = 0; i < nb_operands; i++) {
             op = &operands[i];
-            if (op->reg >= 0) {
-                if ((op->vt->r & VT_VALMASK) == VT_LLOCAL &&
+            ଯଦି (op->reg >= 0) {
+                ଯଦି ((op->vt->r & VT_VALMASK) == VT_LLOCAL &&
                     op->is_memory) {
                     /* memory reference case (for both input and
                        output cases) */
@@ -2265,12 +2265,12 @@ ST_FUNC void asm_gen_code(ASMOperand *operands, int nb_operands,
                     sv.r = (sv.r & ~VT_VALMASK) | VT_LOCAL | VT_LVAL;
                     sv.type.t = VT_PTR;
                     load(tcc_ireg(op->reg), &sv);
-                } else if (i >= nb_outputs || op->is_rw) {
+                } ଅନ୍ୟଥା ଯଦି (i >= nb_outputs || op->is_rw) {
                     /* load value in register */
-                    if ((op->vt->type.t & VT_BTYPE) == VT_FLOAT ||
+                    ଯଦି ((op->vt->type.t & VT_BTYPE) == VT_FLOAT ||
                         (op->vt->type.t & VT_BTYPE) == VT_DOUBLE) {
                         load(tcc_freg(op->reg), op->vt);
-                    } else {
+                    } ଅନ୍ୟଥା {
                         load(tcc_ireg(op->reg), op->vt);
                     }
                     /* RV64: long long fits in a single 64-bit register;
@@ -2278,13 +2278,13 @@ ST_FUNC void asm_gen_code(ASMOperand *operands, int nb_operands,
                 }
             }
         }
-    } else {
+    } ଅନ୍ୟଥା {
         /* generate save code */
-        for(i = 0 ; i < nb_outputs; i++) {
+        ପାଇଁ(i = 0 ; i < nb_outputs; i++) {
             op = &operands[i];
-            if (op->reg >= 0) {
-                if ((op->vt->r & VT_VALMASK) == VT_LLOCAL) {
-                    if (!op->is_memory) {
+            ଯଦି (op->reg >= 0) {
+                ଯଦି ((op->vt->r & VT_VALMASK) == VT_LLOCAL) {
+                    ଯଦି (!op->is_memory) {
                         SValue sv;
                         sv = *op->vt;
                         sv.r = (sv.r & ~VT_VALMASK) | VT_LOCAL;
@@ -2295,11 +2295,11 @@ ST_FUNC void asm_gen_code(ASMOperand *operands, int nb_operands,
                         sv.r = (sv.r & ~VT_VALMASK) | out_reg;
                         store(tcc_ireg(op->reg), &sv);
                     }
-                } else {
-                    if ((op->vt->type.t & VT_BTYPE) == VT_FLOAT ||
+                } ଅନ୍ୟଥା {
+                    ଯଦି ((op->vt->type.t & VT_BTYPE) == VT_FLOAT ||
                         (op->vt->type.t & VT_BTYPE) == VT_DOUBLE) {
                         store(tcc_freg(op->reg), op->vt);
-                    } else {
+                    } ଅନ୍ୟଥା {
                         store(tcc_ireg(op->reg), op->vt);
                     }
                     /* RV64: long long fits in a single 64-bit register */
@@ -2307,15 +2307,15 @@ ST_FUNC void asm_gen_code(ASMOperand *operands, int nb_operands,
             }
         }
         /* generate reg restore code for floating point registers */
-        for(i = sizeof(reg_saved)/sizeof(reg_saved[0]) - 1; i >= 0; i--) {
+        ପାଇଁ(i = ଆକାର(reg_saved)/ଆକାର(reg_saved[0]) - 1; i >= 0; i--) {
             reg = reg_saved[i];
-            if (regs_allocated[reg]) {
-                /* pop */
-                if (REG_IS_FLOAT(reg)){
+            ଯଦି (regs_allocated[reg]) {
+                /*କାଢ଼*/
+                ଯଦି (REG_IS_FLOAT(reg)){
                     /* fld reg, offset(sp) */
                     gen_le32(7 | (3 << 12) |
                             ENCODE_RD(reg) | ENCODE_RS1(2) | 0);
-                } else {
+                } ଅନ୍ୟଥା {
                     /* ld reg, offset(sp) */
                     gen_le32(3 | (3 << 12) |
                             ENCODE_RD(reg) | ENCODE_RS1(2) | 0);
@@ -2330,44 +2330,44 @@ ST_FUNC void asm_gen_code(ASMOperand *operands, int nb_operands,
 
 /* return the constraint priority (we allocate first the lowest
    numbered constraints) */
-static inline int constraint_priority(const char *str)
+ସ୍ଥିର ଧାଡ଼ିଭିତରେ ପୂର୍ଣ୍ଣସଂଖ୍ୟା constraint_priority(ଅଚଳ ଅକ୍ଷର *str)
 {
     // TODO: How is this chosen??
-    int priority, c, pr;
+    ପୂର୍ଣ୍ଣସଂଖ୍ୟା priority, c, pr;
 
     /* we take the lowest priority */
     priority = 0;
-    for(;;) {
+    ପାଇଁ(;;) {
         c = *str;
-        if (c == '\0')
-            break;
+        ଯଦି (c == '\0')
+            ଭାଙ୍ଗ;
         str++;
-        switch(c) {
-        case 'A': // address that is held in a general-purpose register.
-        case 'S': // constraint that matches an absolute symbolic address.
-        case 'f': // register [float]
-        case 'r': // register [general]
-        case 'p': // valid memory address for load,store [general]
+        ବାଛ(c) {
+        ସ୍ଥିତି 'A': // address that is held in a general-purpose register.
+        ସ୍ଥିତି 'S': // constraint that matches an absolute symbolic address.
+        ସ୍ଥିତି 'f': // register [float]
+        ସ୍ଥିତି 'r': // register [general]
+        ସ୍ଥିତି 'p': // valid memory address for load,store [general]
             pr = 3;
-            break;
-        case 'I': // 12 bit signed immedate
-        case 'i': // immediate integer operand, including symbolic constants [general]
-        case 'm': // memory operand [general]
-        case 'g': // general-purpose-register, memory, immediate integer [general]
+            ଭାଙ୍ଗ;
+        ସ୍ଥିତି 'I': // 12 bit signed immedate
+        ସ୍ଥିତି 'i': // immediate integer operand, including symbolic constants [general]
+        ସ୍ଥିତି 'm': // memory operand [general]
+        ସ୍ଥିତି 'g': // general-purpose-register, memory, immediate integer [general]
             pr = 4;
-            break;
-        case 'v':
+            ଭାଙ୍ଗ;
+        ସ୍ଥିତି 'v':
             tcc_error("unimp: constraint '%c'", c);
-        default:
+        ପୂର୍ବନିର୍ଦ୍ଧାରିତ:
             tcc_error("unknown constraint '%d'", c);
         }
-        if (pr > priority)
+        ଯଦି (pr > priority)
             priority = pr;
     }
-    return priority;
+    ଫେରନ୍ତୁ priority;
 }
 
-static const char *skip_constraint_modifiers(const char *p)
+ସ୍ଥିର ଅଚଳ ଅକ୍ଷର *skip_constraint_modifiers(ଅଚଳ ଅକ୍ଷର *p)
 {
     /* Constraint modifier:
         =   Operand is written to by this instruction
@@ -2377,9 +2377,9 @@ static const char *skip_constraint_modifiers(const char *p)
        Per-alternative constraint modifier:
         &   Operand is clobbered before the instruction is done using the input operands
     */
-    while (*p == '=' || *p == '&' || *p == '+' || *p == '%')
+    ଯେତେବେଳେ (*p == '=' || *p == '&' || *p == '+' || *p == '%')
         p++;
-    return p;
+    ଫେରନ୍ତୁ p;
 }
 
 #define REG_OUT_MASK 0x01
@@ -2387,10 +2387,10 @@ static const char *skip_constraint_modifiers(const char *p)
 
 #define is_reg_allocated(reg) (regs_allocated[reg] & reg_mask)
 
-ST_FUNC void asm_compute_constraints(ASMOperand *operands,
-                                    int nb_operands, int nb_outputs,
-                                    const uint8_t *clobber_regs,
-                                    int *pout_reg)
+ST_FUNC ଶୂନ୍ୟ asm_compute_constraints(ASMOperand *operands,
+                                    ପୂର୍ଣ୍ଣସଂଖ୍ୟା nb_operands, ପୂର୍ଣ୍ଣସଂଖ୍ୟା nb_outputs,
+                                    ଅଚଳ uint8_t *clobber_regs,
+                                    ପୂର୍ଣ୍ଣସଂଖ୍ୟା *pout_reg)
 {
     /* TODO: Simple constraints
         whitespace  ignored
@@ -2416,15 +2416,15 @@ ST_FUNC void asm_compute_constraints(ASMOperand *operands,
         vm  A vector register, only v0 (if available).
     */
     ASMOperand *op;
-    int sorted_op[MAX_ASM_OPERANDS];
-    int i, j, k, p1, p2, tmp, reg, c, reg_mask;
-    const char *str;
+    ପୂର୍ଣ୍ଣସଂଖ୍ୟା sorted_op[MAX_ASM_OPERANDS];
+    ପୂର୍ଣ୍ଣସଂଖ୍ୟା i, j, k, p1, p2, tmp, reg, c, reg_mask;
+    ଅଚଳ ଅକ୍ଷର *str;
     uint8_t regs_allocated[NB_ASM_REGS];
 
     /* init fields */
-    for (i = 0; i < nb_operands; i++) {
+    ପାଇଁ (i = 0; i < nb_operands; i++) {
         op = &operands[i];
-        op->input_index = -1;
+        op->ନିବେଶ_index = -1;
         op->ref_index = -1;
         op->reg = -1;
         op->is_memory = 0;
@@ -2432,39 +2432,39 @@ ST_FUNC void asm_compute_constraints(ASMOperand *operands,
     }
     /* compute constraint priority and evaluate references to output
        constraints if input constraints */
-    for (i = 0; i < nb_operands; i++) {
+    ପାଇଁ (i = 0; i < nb_operands; i++) {
         op = &operands[i];
         str = op->constraint;
         str = skip_constraint_modifiers(str);
-        if (isnum(*str) || *str == '[') {
+        ଯଦି (isnum(*str) || *str == '[') {
             /* this is a reference to another constraint */
-            k = find_constraint(operands, nb_operands, str, NULL);
-            if ((unsigned) k >= i || i < nb_outputs)
+            k = find_constraint(operands, nb_operands, str, ଖାଲି);
+            ଯଦି ((unsigned) k >= i || i < nb_outputs)
                 tcc_error("invalid reference in constraint %d ('%s')",
                           i, str);
             op->ref_index = k;
-            if (operands[k].input_index >= 0)
+            ଯଦି (operands[k].ନିବେଶ_index >= 0)
                 tcc_error("cannot reference twice the same operand");
-            operands[k].input_index = i;
+            operands[k].ନିବେଶ_index = i;
             op->priority = 5;
-        } else if ((op->vt->r & VT_VALMASK) == VT_LOCAL
+        } ଅନ୍ୟଥା ଯଦି ((op->vt->r & VT_VALMASK) == VT_LOCAL
                    && op->vt->sym
                    && (reg = op->vt->sym->r & VT_VALMASK) < VT_CONST) {
             op->priority = 1;
             op->reg = reg;
-        } else {
+        } ଅନ୍ୟଥା {
             op->priority = constraint_priority(str);
         }
     }
 
     /* sort operands according to their priority */
-    for (i = 0; i < nb_operands; i++)
+    ପାଇଁ (i = 0; i < nb_operands; i++)
         sorted_op[i] = i;
-    for (i = 0; i < nb_operands - 1; i++) {
-        for (j = i + 1; j < nb_operands; j++) {
+    ପାଇଁ (i = 0; i < nb_operands - 1; i++) {
+        ପାଇଁ (j = i + 1; j < nb_operands; j++) {
             p1 = operands[sorted_op[i]].priority;
             p2 = operands[sorted_op[j]].priority;
-            if (p2 < p1) {
+            ଯଦି (p2 < p1) {
                 tmp = sorted_op[i];
                 sorted_op[i] = sorted_op[j];
                 sorted_op[j] = tmp;
@@ -2472,82 +2472,82 @@ ST_FUNC void asm_compute_constraints(ASMOperand *operands,
         }
     }
 
-    for (i = 0; i < NB_ASM_REGS; i++) {
-        if (clobber_regs[i])
+    ପାଇଁ (i = 0; i < NB_ASM_REGS; i++) {
+        ଯଦି (clobber_regs[i])
             regs_allocated[i] = REG_IN_MASK | REG_OUT_MASK;
-        else
+        ଅନ୍ୟଥା
             regs_allocated[i] = 0;
     }
 
     /* allocate registers and generate corresponding asm moves */
-    for (i = 0; i < nb_operands; i++) {
+    ପାଇଁ (i = 0; i < nb_operands; i++) {
         j = sorted_op[i];
         op = &operands[j];
         str = op->constraint;
         /* no need to allocate references */
-        if (op->ref_index >= 0)
-            continue;
+        ଯଦି (op->ref_index >= 0)
+            ଜାରି;
         /* select if register is used for output, input or both */
-        if (op->input_index >= 0) {
+        ଯଦି (op->ନିବେଶ_index >= 0) {
             reg_mask = REG_IN_MASK | REG_OUT_MASK;
-        } else if (j < nb_outputs) {
+        } ଅନ୍ୟଥା ଯଦି (j < nb_outputs) {
             reg_mask = REG_OUT_MASK;
-        } else {
+        } ଅନ୍ୟଥା {
             reg_mask = REG_IN_MASK;
         }
-        if (op->reg >= 0) {
-            if (is_reg_allocated(op->reg))
+        ଯଦି (op->reg >= 0) {
+            ଯଦି (is_reg_allocated(op->reg))
                 tcc_error
                     ("asm regvar requests register that's taken already");
             reg = op->reg;
         }
       try_next:
         c = *str++;
-        switch (c) {
-        case '=': // Operand is written-to
-            goto try_next;
-        case '+': // Operand is both READ and written-to
+        ବାଛ (c) {
+        ସ୍ଥିତି '=': // Operand is written-to
+            ଯାଅ try_next;
+        ସ୍ଥିତି '+': // Operand is both READ and written-to
             op->is_rw = 1;
             /* FALL THRU */
-        case '&': // Operand is clobbered before the instruction is done using the input operands
-            if (j >= nb_outputs)
+        ସ୍ଥିତି '&': // Operand is clobbered before the instruction is done using the input operands
+            ଯଦି (j >= nb_outputs)
                 tcc_error("'%c' modifier can only be applied to outputs", c);
             reg_mask = REG_IN_MASK | REG_OUT_MASK;
-            goto try_next;
-        case 'r': // general-purpose register
-        case 'p': // loadable/storable address
+            ଯାଅ try_next;
+        ସ୍ଥିତି 'r': // general-purpose register
+        ସ୍ଥିତି 'p': // loadable/storable address
             /* any general register */
             /* From a0 to a7 */
-            if ((reg = op->reg) >= 0)
-                goto reg_found;
-            else for (reg = 10; reg <= 18; reg++) {
-                if (!is_reg_allocated(reg))
-                    goto reg_found;
+            ଯଦି ((reg = op->reg) >= 0)
+                ଯାଅ reg_found;
+            ଅନ୍ୟଥା ପାଇଁ (reg = 10; reg <= 18; reg++) {
+                ଯଦି (!is_reg_allocated(reg))
+                    ଯାଅ reg_found;
             }
-            goto try_next;
+            ଯାଅ try_next;
           reg_found:
             /* now we can reload in the register */
             op->is_llong = 0;
             op->reg = reg;
             regs_allocated[reg] |= reg_mask;
-            break;
-        case 'f': // floating pont register
+            ଭାଙ୍ଗ;
+        ସ୍ଥିତି 'f': // floating pont register
             /* floating point register */
             /* From fa0 to fa7 */
-            if ((reg = op->reg) >= 0)
-                goto reg_found;
-            else for (reg = 42; reg <= 50; reg++) {
-                if (!is_reg_allocated(reg))
-                    goto reg_found;
+            ଯଦି ((reg = op->reg) >= 0)
+                ଯାଅ reg_found;
+            ଅନ୍ୟଥା ପାଇଁ (reg = 42; reg <= 50; reg++) {
+                ଯଦି (!is_reg_allocated(reg))
+                    ଯାଅ reg_found;
             }
-            goto try_next;
-        case 'I': // I-Type 12 bit signed immediate
-        case 'i': // immediate integer operand, including symbolic constants
-            if (!((op->vt->r & (VT_VALMASK | VT_LVAL)) == VT_CONST))
-                goto try_next;
-            break;
-        case 'm': // memory operand
-        case 'g': // any register
+            ଯାଅ try_next;
+        ସ୍ଥିତି 'I': // I-Type 12 bit signed immediate
+        ସ୍ଥିତି 'i': // immediate integer operand, including symbolic constants
+            ଯଦି (!((op->vt->r & (VT_VALMASK | VT_LVAL)) == VT_CONST))
+                ଯାଅ try_next;
+            ଭାଙ୍ଗ;
+        ସ୍ଥିତି 'm': // memory operand
+        ସ୍ଥିତି 'g': // any register
             /* nothing special to do because the operand is already in
                memory, except if the pointer itself is stored in a
                memory variable (VT_LLOCAL case) */
@@ -2556,14 +2556,14 @@ ST_FUNC void asm_compute_constraints(ASMOperand *operands,
                in a register, so we reserve the register in the
                input registers and a load will be generated
                later */
-            if (j < nb_outputs || c == 'm') {
-                if ((op->vt->r & VT_VALMASK) == VT_LLOCAL) {
+            ଯଦି (j < nb_outputs || c == 'm') {
+                ଯଦି ((op->vt->r & VT_VALMASK) == VT_LLOCAL) {
                     /* any general register: from a0 to a7 */
-                    for (reg = 10; reg <= 18; reg++) {
-                        if (!(regs_allocated[reg] & REG_IN_MASK))
-                            goto reg_found1;
+                    ପାଇଁ (reg = 10; reg <= 18; reg++) {
+                        ଯଦି (!(regs_allocated[reg] & REG_IN_MASK))
+                            ଯାଅ reg_found1;
                     }
-                    goto try_next;
+                    ଯାଅ try_next;
                   reg_found1:
                     /* now we can reload in the register */
                     regs_allocated[reg] |= REG_IN_MASK;
@@ -2571,111 +2571,111 @@ ST_FUNC void asm_compute_constraints(ASMOperand *operands,
                     op->is_memory = 1;
                 }
             }
-            break;
-        default:
+            ଭାଙ୍ଗ;
+        ପୂର୍ବନିର୍ଦ୍ଧାରିତ:
             tcc_error("asm constraint %d ('%s') could not be satisfied",
                       j, op->constraint);
-            break;
+            ଭାଙ୍ଗ;
         }
         /* if a reference is present for that operand, we assign it too */
-        if (op->input_index >= 0) {
-            operands[op->input_index].reg = op->reg;
-            operands[op->input_index].is_llong = op->is_llong;
+        ଯଦି (op->ନିବେଶ_index >= 0) {
+            operands[op->ନିବେଶ_index].reg = op->reg;
+            operands[op->ନିବେଶ_index].is_llong = op->is_llong;
         }
     }
 
     /* compute out_reg. It is used to store outputs registers to memory
        locations references by pointers (VT_LLOCAL case) */
     *pout_reg = -1;
-    for (i = 0; i < nb_operands; i++) {
+    ପାଇଁ (i = 0; i < nb_operands; i++) {
         op = &operands[i];
-        if (op->reg >= 0 &&
+        ଯଦି (op->reg >= 0 &&
             (op->vt->r & VT_VALMASK) == VT_LLOCAL && !op->is_memory) {
-            if (REG_IS_FLOAT(op->reg)){
+            ଯଦି (REG_IS_FLOAT(op->reg)){
                 /* From fa0 to fa7 */
-                for (reg = 42; reg <= 50; reg++) {
-                    if (!(regs_allocated[reg] & REG_OUT_MASK))
-                        goto reg_found2;
+                ପାଇଁ (reg = 42; reg <= 50; reg++) {
+                    ଯଦି (!(regs_allocated[reg] & REG_OUT_MASK))
+                        ଯାଅ reg_found2;
                 }
-            } else {
+            } ଅନ୍ୟଥା {
                 /* From a0 to a7 */
-                for (reg = 10; reg <= 18; reg++) {
-                    if (!(regs_allocated[reg] & REG_OUT_MASK))
-                        goto reg_found2;
+                ପାଇଁ (reg = 10; reg <= 18; reg++) {
+                    ଯଦି (!(regs_allocated[reg] & REG_OUT_MASK))
+                        ଯାଅ reg_found2;
                 }
             }
             tcc_error("could not find free output register for reloading");
           reg_found2:
             *pout_reg = reg;
-            break;
+            ଭାଙ୍ଗ;
         }
     }
 
     /* print sorted constraints */
 #ifdef ASM_DEBUG
-    for (i = 0; i < nb_operands; i++) {
+    ପାଇଁ (i = 0; i < nb_operands; i++) {
         j = sorted_op[i];
         op = &operands[j];
         printf("%%%d [%s]: \"%s\" r=0x%04x reg=%d\n",
                j,
-               op->id ? get_tok_str(op->id, NULL) : "",
+               op->id ? get_tok_str(op->id, ଖାଲି) : "",
                op->constraint, op->vt->r, op->reg);
     }
-    if (*pout_reg >= 0)
+    ଯଦି (*pout_reg >= 0)
         printf("out_reg=%d\n", *pout_reg);
 #endif
 }
 
-ST_FUNC void asm_clobber(uint8_t *clobber_regs, const char *str)
+ST_FUNC ଶୂନ୍ୟ asm_clobber(uint8_t *clobber_regs, ଅଚଳ ଅକ୍ଷର *str)
 {
-    int reg;
+    ପୂର୍ଣ୍ଣସଂଖ୍ୟା reg;
     TokenSym *ts;
 
-    if (!strcmp(str, "memory") ||
+    ଯଦି (!strcmp(str, "memory") ||
         !strcmp(str, "cc") ||
         !strcmp(str, "flags"))
-        return;
+        ଫେରନ୍ତୁ;
     ts = tok_alloc(str, strlen(str));
     reg = asm_parse_regvar(ts->tok);
-    if (reg == -1) {
+    ଯଦି (reg == -1) {
         tcc_error("invalid clobber register '%s'", str);
     }
     clobber_regs[reg] = 1;
 }
 
-ST_FUNC int asm_parse_regvar (int t)
+ST_FUNC ପୂର୍ଣ୍ଣସଂଖ୍ୟା asm_parse_regvar (ପୂର୍ଣ୍ଣସଂଖ୍ୟା t)
 {
     /* PC register not implemented */
-    if (t >= TOK_ASM_pc || t < TOK_ASM_x0)
-        return -1;
+    ଯଦି (t >= TOK_ASM_pc || t < TOK_ASM_x0)
+        ଫେରନ୍ତୁ -1;
 
-    if (t < TOK_ASM_f0)
-        return t - TOK_ASM_x0;
+    ଯଦି (t < TOK_ASM_f0)
+        ଫେରନ୍ତୁ t - TOK_ASM_x0;
 
-    if (t < TOK_ASM_zero)
-        return t - TOK_ASM_f0 + 32; // Use higher 32 for floating point
+    ଯଦି (t < TOK_ASM_zero)
+        ଫେରନ୍ତୁ t - TOK_ASM_f0 + 32; // Use higher 32 for floating point
 
     /* ABI mnemonic */
-    if (t < TOK_ASM_ft0)
-        return t - TOK_ASM_zero;
+    ଯଦି (t < TOK_ASM_ft0)
+        ଫେରନ୍ତୁ t - TOK_ASM_zero;
 
-    return t - TOK_ASM_ft0 + 32; // Use higher 32 for floating point
+    ଫେରନ୍ତୁ t - TOK_ASM_ft0 + 32; // Use higher 32 for floating point
 }
 
 /*************************************************************/
 /* C extension */
 
 /* caller: Add funct6, funct2 into opcode */
-static void asm_emit_ca(int token, uint16_t opcode, const Operand *rd, const Operand *rs2)
+ସ୍ଥିର ଶୂନ୍ୟ asm_emit_ca(ପୂର୍ଣ୍ଣସଂଖ୍ୟା token, uint16_t opcode, ଅଚଳ Operand *rd, ଅଚଳ Operand *rs2)
 {
     uint8_t dst, src;
 
-    if (rd->type != OP_REG) {
-        tcc_error("'%s': Expected destination operand that is a register", get_tok_str(token, NULL));
+    ଯଦି (rd->type != OP_REG) {
+        tcc_error("'%s': Expected destination operand that is a register", get_tok_str(token, ଖାଲି));
     }
 
-    if (rs2->type != OP_REG) {
-        tcc_error("'%s': Expected source operand that is a register", get_tok_str(token, NULL));
+    ଯଦି (rs2->type != OP_REG) {
+        tcc_error("'%s': Expected source operand that is a register", get_tok_str(token, ଖାଲି));
     }
 
     /* subtract index of x8 */
@@ -2683,12 +2683,12 @@ static void asm_emit_ca(int token, uint16_t opcode, const Operand *rd, const Ope
     src = rs2->reg - 8;
 
     /* only registers {x,f}8 to {x,f}15 are valid (3-bit) */
-    if (dst > 7) {
-        tcc_error("'%s': Expected destination operand that is a valid C-extension register", get_tok_str(token, NULL));
+    ଯଦି (dst > 7) {
+        tcc_error("'%s': Expected destination operand that is a valid C-extension register", get_tok_str(token, ଖାଲି));
     }
 
-    if (src > 7) {
-        tcc_error("'%s': Expected source operand that is a valid C-extension register", get_tok_str(token, NULL));
+    ଯଦି (src > 7) {
+        tcc_error("'%s': Expected source operand that is a valid C-extension register", get_tok_str(token, ଖାଲି));
     }
 
     /* CA-type instruction:
@@ -2701,29 +2701,29 @@ static void asm_emit_ca(int token, uint16_t opcode, const Operand *rd, const Ope
     gen_le16(opcode | C_ENCODE_RS2(src) | C_ENCODE_RS1(dst));
 }
 
-static void asm_emit_cb(int token, uint16_t opcode, const Operand *rs1, const Operand *imm)
+ସ୍ଥିର ଶୂନ୍ୟ asm_emit_cb(ପୂର୍ଣ୍ଣସଂଖ୍ୟା token, uint16_t opcode, ଅଚଳ Operand *rs1, ଅଚଳ Operand *imm)
 {
     uint32_t offset;
     uint8_t src;
 
-    if (rs1->type != OP_REG) {
-        tcc_error("'%s': Expected source operand that is a register", get_tok_str(token, NULL));
+    ଯଦି (rs1->type != OP_REG) {
+        tcc_error("'%s': Expected source operand that is a register", get_tok_str(token, ଖାଲି));
     }
 
-    if (imm->type != OP_IM12S && imm->type != OP_IM32) {
-        tcc_error("'%s': Expected source operand that is an immediate value", get_tok_str(token, NULL));
+    ଯଦି (imm->type != OP_IM12S && imm->type != OP_IM32) {
+        tcc_error("'%s': Expected source operand that is an immediate value", get_tok_str(token, ଖାଲି));
     }
 
     offset = imm->e.v;
 
-    if (offset & 1) {
-        tcc_error("'%s': Expected source operand that is an even immediate value", get_tok_str(token, NULL));
+    ଯଦି (offset & 1) {
+        tcc_error("'%s': Expected source operand that is an even immediate value", get_tok_str(token, ଖାଲି));
     }
 
     src = rs1->reg - 8;
 
-    if (src > 7) {
-        tcc_error("'%s': Expected source operand that is a valid C-extension register", get_tok_str(token, NULL));
+    ଯଦି (src > 7) {
+        tcc_error("'%s': Expected source operand that is a valid C-extension register", get_tok_str(token, ଖାଲି));
     }
 
     /* CB-type instruction:
@@ -2741,27 +2741,27 @@ static void asm_emit_cb(int token, uint16_t opcode, const Operand *rs1, const Op
     6..2    imm
     1...0   opcode */
 
-    switch (token) {
-    case TOK_ASM_c_beqz:
-    case TOK_ASM_c_bnez:
+    ବାଛ (token) {
+    ସ୍ଥିତି TOK_ASM_c_beqz:
+    ସ୍ଥିତି TOK_ASM_c_bnez:
         gen_le16(opcode | C_ENCODE_RS1(src) | ((NTH_BIT(offset, 5) | (((offset >> 1) & 3) << 1) | (((offset >> 6) & 3) << 3)) << 2) | ((((offset >> 3) & 3) | NTH_BIT(offset, 8)) << 10));
-        return;
-    default:
+        ଫେରନ୍ତୁ;
+    ପୂର୍ବନିର୍ଦ୍ଧାରିତ:
         gen_le16(opcode | C_ENCODE_RS1(src) | ((offset & 0x1f) << 2) | (NTH_BIT(offset, 5) << 12));
-        return;
+        ଫେରନ୍ତୁ;
     }
 }
 
-static void asm_emit_ci(int token, uint16_t opcode, const Operand *rd, const Operand *imm)
+ସ୍ଥିର ଶୂନ୍ୟ asm_emit_ci(ପୂର୍ଣ୍ଣସଂଖ୍ୟା token, uint16_t opcode, ଅଚଳ Operand *rd, ଅଚଳ Operand *imm)
 {
     uint32_t immediate;
 
-    if (rd->type != OP_REG) {
-        tcc_error("'%s': Expected destination operand that is a register", get_tok_str(token, NULL));
+    ଯଦି (rd->type != OP_REG) {
+        tcc_error("'%s': Expected destination operand that is a register", get_tok_str(token, ଖାଲି));
     }
 
-    if (imm->type != OP_IM12S && imm->type != OP_IM32) {
-        tcc_error("'%s': Expected source operand that is an immediate value", get_tok_str(token, NULL));
+    ଯଦି (imm->type != OP_IM12S && imm->type != OP_IM32) {
+        tcc_error("'%s': Expected source operand that is an immediate value", get_tok_str(token, ଖାଲି));
     }
 
     immediate = imm->e.v;
@@ -2773,63 +2773,63 @@ static void asm_emit_ci(int token, uint16_t opcode, const Operand *rd, const Ope
     6...2   imm
     1...0   opcode */
 
-    switch (token) {
-    case TOK_ASM_c_addi:
-    case TOK_ASM_c_addiw:
-    case TOK_ASM_c_li:
-    case TOK_ASM_c_slli:
+    ବାଛ (token) {
+    ସ୍ଥିତି TOK_ASM_c_addi:
+    ସ୍ଥିତି TOK_ASM_c_addiw:
+    ସ୍ଥିତି TOK_ASM_c_li:
+    ସ୍ଥିତି TOK_ASM_c_slli:
         gen_le16(opcode | ((immediate & 0x1f) << 2) | ENCODE_RD(rd->reg) | (NTH_BIT(immediate, 5) << 12));
-        return;
-    case TOK_ASM_c_addi16sp:
+        ଫେରନ୍ତୁ;
+    ସ୍ଥିତି TOK_ASM_c_addi16sp:
         gen_le16(opcode | NTH_BIT(immediate, 5) << 2 | (((immediate >> 7) & 3) << 3) | NTH_BIT(immediate, 6) << 5 | NTH_BIT(immediate, 4) << 6 | ENCODE_RD(rd->reg) | (NTH_BIT(immediate, 9) << 12));
-        return;
-    case TOK_ASM_c_lui:
+        ଫେରନ୍ତୁ;
+    ସ୍ଥିତି TOK_ASM_c_lui:
         gen_le16(opcode | (((immediate >> 12) & 0x1f) << 2) | ENCODE_RD(rd->reg) | (NTH_BIT(immediate, 17) << 12));
-        return;
-    case TOK_ASM_c_fldsp:
-    case TOK_ASM_c_ldsp:
+        ଫେରନ୍ତୁ;
+    ସ୍ଥିତି TOK_ASM_c_fldsp:
+    ସ୍ଥିତି TOK_ASM_c_ldsp:
         gen_le16(opcode | (((immediate >> 6) & 7) << 2) | (((immediate >> 3) & 2) << 5) | ENCODE_RD(rd->reg) | (NTH_BIT(immediate, 5) << 12));
-        return;
-    case TOK_ASM_c_flwsp:
-    case TOK_ASM_c_lwsp:
+        ଫେରନ୍ତୁ;
+    ସ୍ଥିତି TOK_ASM_c_flwsp:
+    ସ୍ଥିତି TOK_ASM_c_lwsp:
         gen_le16(opcode | (((immediate >> 6) & 3) << 2) | (((immediate >> 2) & 7) << 4) | ENCODE_RD(rd->reg) | (NTH_BIT(immediate, 5) << 12));
-        return;
-    case TOK_ASM_c_nop:
+        ଫେରନ୍ତୁ;
+    ସ୍ଥିତି TOK_ASM_c_nop:
         gen_le16(opcode);
-        return;
-    default:
+        ଫେରନ୍ତୁ;
+    ପୂର୍ବନିର୍ଦ୍ଧାରିତ:
         expect("known instruction");
     }
 }
 
 /* caller: Add funct3 into opcode */
-static void asm_emit_ciw(int token, uint16_t opcode, const Operand *rd, const Operand *imm)
+ସ୍ଥିର ଶୂନ୍ୟ asm_emit_ciw(ପୂର୍ଣ୍ଣସଂଖ୍ୟା token, uint16_t opcode, ଅଚଳ Operand *rd, ଅଚଳ Operand *imm)
 {
     uint32_t nzuimm;
     uint8_t dst;
 
-    if (rd->type != OP_REG) {
-        tcc_error("'%s': Expected destination operand that is a register", get_tok_str(token, NULL));
+    ଯଦି (rd->type != OP_REG) {
+        tcc_error("'%s': Expected destination operand that is a register", get_tok_str(token, ଖାଲି));
     }
 
-    if (imm->type != OP_IM12S && imm->type != OP_IM32) {
-        tcc_error("'%s': Expected source operand that is an immediate value", get_tok_str(token, NULL));
+    ଯଦି (imm->type != OP_IM12S && imm->type != OP_IM32) {
+        tcc_error("'%s': Expected source operand that is an immediate value", get_tok_str(token, ଖାଲି));
     }
 
     dst = rd->reg - 8;
 
-    if (dst > 7) {
-        tcc_error("'%s': Expected destination operand that is a valid C-extension register", get_tok_str(token, NULL));
+    ଯଦି (dst > 7) {
+        tcc_error("'%s': Expected destination operand that is a valid C-extension register", get_tok_str(token, ଖାଲି));
     }
 
     nzuimm = imm->e.v;
 
-    if (nzuimm > 0x3fc) {
-        tcc_error("'%s': Expected source operand that is an immediate value between 0 and 0x3ff", get_tok_str(token, NULL));
+    ଯଦି (nzuimm > 0x3fc) {
+        tcc_error("'%s': Expected source operand that is an immediate value between 0 and 0x3ff", get_tok_str(token, ଖାଲି));
     }
 
-    if (nzuimm & 3) {
-        tcc_error("'%s': Expected source operand that is a non-zero immediate value divisible by 4", get_tok_str(token, NULL));
+    ଯଦି (nzuimm & 3) {
+        tcc_error("'%s': Expected source operand that is a non-zero immediate value divisible by 4", get_tok_str(token, ଖାଲି));
     }
 
     /* CIW-type instruction:
@@ -2842,19 +2842,19 @@ static void asm_emit_ciw(int token, uint16_t opcode, const Operand *rd, const Op
 }
 
 /* caller: Add funct3 into opcode */
-static void asm_emit_cj(int token, uint16_t opcode, const Operand *imm)
+ସ୍ଥିର ଶୂନ୍ୟ asm_emit_cj(ପୂର୍ଣ୍ଣସଂଖ୍ୟା token, uint16_t opcode, ଅଚଳ Operand *imm)
 {
     uint32_t offset;
 
     /* +-2 KiB range */
-    if (imm->type != OP_IM12S) {
-        tcc_error("'%s': Expected source operand that is a 12-bit immediate value", get_tok_str(token, NULL));
+    ଯଦି (imm->type != OP_IM12S) {
+        tcc_error("'%s': Expected source operand that is a 12-bit immediate value", get_tok_str(token, ଖାଲି));
     }
 
     offset = imm->e.v;
 
-    if (offset & 1) {
-        tcc_error("'%s': Expected source operand that is an even immediate value", get_tok_str(token, NULL));
+    ଯଦି (offset & 1) {
+        tcc_error("'%s': Expected source operand that is an even immediate value", get_tok_str(token, ଖାଲି));
     }
 
     /* CJ-type instruction:
@@ -2866,42 +2866,42 @@ static void asm_emit_cj(int token, uint16_t opcode, const Operand *imm)
 }
 
 /* caller: Add funct3 into opcode */
-static void asm_emit_cl(int token, uint16_t opcode, const Operand *rd, const Operand *rs1, const Operand *imm)
+ସ୍ଥିର ଶୂନ୍ୟ asm_emit_cl(ପୂର୍ଣ୍ଣସଂଖ୍ୟା token, uint16_t opcode, ଅଚଳ Operand *rd, ଅଚଳ Operand *rs1, ଅଚଳ Operand *imm)
 {
     uint32_t offset;
     uint8_t dst, src;
 
-    if (rd->type != OP_REG) {
-        tcc_error("'%s': Expected destination operand that is a register", get_tok_str(token, NULL));
+    ଯଦି (rd->type != OP_REG) {
+        tcc_error("'%s': Expected destination operand that is a register", get_tok_str(token, ଖାଲି));
     }
 
-    if (rs1->type != OP_REG) {
-        tcc_error("'%s': Expected source operand that is a register", get_tok_str(token, NULL));
+    ଯଦି (rs1->type != OP_REG) {
+        tcc_error("'%s': Expected source operand that is a register", get_tok_str(token, ଖାଲି));
     }
 
-    if (imm->type != OP_IM12S && imm->type != OP_IM32) {
-        tcc_error("'%s': Expected source operand that is an immediate value", get_tok_str(token, NULL));
+    ଯଦି (imm->type != OP_IM12S && imm->type != OP_IM32) {
+        tcc_error("'%s': Expected source operand that is an immediate value", get_tok_str(token, ଖାଲି));
     }
 
     dst = rd->reg - 8;
     src = rs1->reg - 8;
 
-    if (dst > 7) {
-        tcc_error("'%s': Expected destination operand that is a valid C-extension register", get_tok_str(token, NULL));
+    ଯଦି (dst > 7) {
+        tcc_error("'%s': Expected destination operand that is a valid C-extension register", get_tok_str(token, ଖାଲି));
     }
 
-    if (src > 7) {
-        tcc_error("'%s': Expected source operand that is a valid C-extension register", get_tok_str(token, NULL));
+    ଯଦି (src > 7) {
+        tcc_error("'%s': Expected source operand that is a valid C-extension register", get_tok_str(token, ଖାଲି));
     }
 
     offset = imm->e.v;
 
-    if (offset > 0xff) {
-        tcc_error("'%s': Expected source operand that is an immediate value between 0 and 0xff", get_tok_str(token, NULL));
+    ଯଦି (offset > 0xff) {
+        tcc_error("'%s': Expected source operand that is an immediate value between 0 and 0xff", get_tok_str(token, ଖାଲି));
     }
 
-    if (offset & 3) {
-        tcc_error("'%s': Expected source operand that is an immediate value divisible by 4", get_tok_str(token, NULL));
+    ଯଦି (offset & 3) {
+        tcc_error("'%s': Expected source operand that is an immediate value divisible by 4", get_tok_str(token, ଖାଲି));
     }
 
     /* CL-type instruction:
@@ -2912,31 +2912,31 @@ static void asm_emit_cl(int token, uint16_t opcode, const Operand *rd, const Ope
     4...2   rd'
     1...0   opcode */
 
-    switch (token) {
+    ବାଛ (token) {
     /* imm variant 1 */
-    case TOK_ASM_c_flw:
-    case TOK_ASM_c_lw:
+    ସ୍ଥିତି TOK_ASM_c_flw:
+    ସ୍ଥିତି TOK_ASM_c_lw:
         gen_le16(opcode | C_ENCODE_RS2(dst) | C_ENCODE_RS1(src) | (NTH_BIT(offset, 6) << 5) | (NTH_BIT(offset, 2) << 6) | (((offset >> 3) & 7) << 10));
-        return;
+        ଫେରନ୍ତୁ;
     /* imm variant 2 */
-    case TOK_ASM_c_fld:
-    case TOK_ASM_c_ld:
+    ସ୍ଥିତି TOK_ASM_c_fld:
+    ସ୍ଥିତି TOK_ASM_c_ld:
         gen_le16(opcode | C_ENCODE_RS2(dst) | C_ENCODE_RS1(src) | (((offset >> 6) & 3) << 5) | (((offset >> 3) & 7) << 10));
-        return;
-    default:
+        ଫେରନ୍ତୁ;
+    ପୂର୍ବନିର୍ଦ୍ଧାରିତ:
         expect("known instruction");
     }
 }
 
 /* caller: Add funct4 into opcode */
-static void asm_emit_cr(int token, uint16_t opcode, const Operand *rd, const Operand *rs2)
+ସ୍ଥିର ଶୂନ୍ୟ asm_emit_cr(ପୂର୍ଣ୍ଣସଂଖ୍ୟା token, uint16_t opcode, ଅଚଳ Operand *rd, ଅଚଳ Operand *rs2)
 {
-    if (rd->type != OP_REG) {
-        tcc_error("'%s': Expected destination operand that is a register", get_tok_str(token, NULL));
+    ଯଦି (rd->type != OP_REG) {
+        tcc_error("'%s': Expected destination operand that is a register", get_tok_str(token, ଖାଲି));
     }
 
-    if (rs2->type != OP_REG) {
-        tcc_error("'%s': Expected source operand that is a register", get_tok_str(token, NULL));
+    ଯଦି (rs2->type != OP_REG) {
+        tcc_error("'%s': Expected source operand that is a register", get_tok_str(token, ଖାଲି));
     }
 
     /* CR-type instruction:
@@ -2949,42 +2949,42 @@ static void asm_emit_cr(int token, uint16_t opcode, const Operand *rd, const Ope
 }
 
 /* caller: Add funct3 into opcode */
-static void asm_emit_cs(int token, uint16_t opcode, const Operand *rs2, const Operand *rs1, const Operand *imm)
+ସ୍ଥିର ଶୂନ୍ୟ asm_emit_cs(ପୂର୍ଣ୍ଣସଂଖ୍ୟା token, uint16_t opcode, ଅଚଳ Operand *rs2, ଅଚଳ Operand *rs1, ଅଚଳ Operand *imm)
 {
     uint32_t offset;
     uint8_t base, src;
 
-    if (rs2->type != OP_REG) {
-        tcc_error("'%s': Expected destination operand that is a register", get_tok_str(token, NULL));
+    ଯଦି (rs2->type != OP_REG) {
+        tcc_error("'%s': Expected destination operand that is a register", get_tok_str(token, ଖାଲି));
     }
 
-    if (rs1->type != OP_REG) {
-        tcc_error("'%s': Expected source operand that is a register", get_tok_str(token, NULL));
+    ଯଦି (rs1->type != OP_REG) {
+        tcc_error("'%s': Expected source operand that is a register", get_tok_str(token, ଖାଲି));
     }
 
-    if (imm->type != OP_IM12S && imm->type != OP_IM32) {
-        tcc_error("'%s': Expected source operand that is an immediate value", get_tok_str(token, NULL));
+    ଯଦି (imm->type != OP_IM12S && imm->type != OP_IM32) {
+        tcc_error("'%s': Expected source operand that is an immediate value", get_tok_str(token, ଖାଲି));
     }
 
     base = rs1->reg - 8;
     src = rs2->reg - 8;
 
-    if (base > 7) {
-        tcc_error("'%s': Expected destination operand that is a valid C-extension register", get_tok_str(token, NULL));
+    ଯଦି (base > 7) {
+        tcc_error("'%s': Expected destination operand that is a valid C-extension register", get_tok_str(token, ଖାଲି));
     }
 
-    if (src > 7) {
-        tcc_error("'%s': Expected source operand that is a valid C-extension register", get_tok_str(token, NULL));
+    ଯଦି (src > 7) {
+        tcc_error("'%s': Expected source operand that is a valid C-extension register", get_tok_str(token, ଖାଲି));
     }
 
     offset = imm->e.v;
 
-    if (offset > 0xff) {
-        tcc_error("'%s': Expected source operand that is an immediate value between 0 and 0xff", get_tok_str(token, NULL));
+    ଯଦି (offset > 0xff) {
+        tcc_error("'%s': Expected source operand that is an immediate value between 0 and 0xff", get_tok_str(token, ଖାଲି));
     }
 
-    if (offset & 3) {
-        tcc_error("'%s': Expected source operand that is an immediate value divisible by 4", get_tok_str(token, NULL));
+    ଯଦି (offset & 3) {
+        tcc_error("'%s': Expected source operand that is an immediate value divisible by 4", get_tok_str(token, ଖାଲି));
     }
 
     /* CS-type instruction:
@@ -2994,43 +2994,43 @@ static void asm_emit_cs(int token, uint16_t opcode, const Operand *rs2, const Op
     6...5   imm
     4...2   rs2'
     1...0   opcode */
-    switch (token) {
+    ବାଛ (token) {
     /* imm variant 1 */
-    case TOK_ASM_c_fsw:
-    case TOK_ASM_c_sw:
+    ସ୍ଥିତି TOK_ASM_c_fsw:
+    ସ୍ଥିତି TOK_ASM_c_sw:
         gen_le16(opcode | C_ENCODE_RS2(base) | C_ENCODE_RS1(src) | (NTH_BIT(offset, 6) << 5) | (NTH_BIT(offset, 2) << 6) | (((offset >> 3) & 7) << 10));
-        return;
+        ଫେରନ୍ତୁ;
     /* imm variant 2 */
-    case TOK_ASM_c_fsd:
-    case TOK_ASM_c_sd:
+    ସ୍ଥିତି TOK_ASM_c_fsd:
+    ସ୍ଥିତି TOK_ASM_c_sd:
         gen_le16(opcode | C_ENCODE_RS2(base) | C_ENCODE_RS1(src) | (((offset >> 6) & 3) << 5) | (((offset >> 3) & 7) << 10));
-        return;
-    default:
+        ଫେରନ୍ତୁ;
+    ପୂର୍ବନିର୍ଦ୍ଧାରିତ:
         expect("known instruction");
     }
 }
 
 /* caller: Add funct3 into opcode */
-static void asm_emit_css(int token, uint16_t opcode, const Operand *rs2, const Operand *imm)
+ସ୍ଥିର ଶୂନ୍ୟ asm_emit_css(ପୂର୍ଣ୍ଣସଂଖ୍ୟା token, uint16_t opcode, ଅଚଳ Operand *rs2, ଅଚଳ Operand *imm)
 {
     uint32_t offset;
 
-    if (rs2->type != OP_REG) {
-        tcc_error("'%s': Expected destination operand that is a register", get_tok_str(token, NULL));
+    ଯଦି (rs2->type != OP_REG) {
+        tcc_error("'%s': Expected destination operand that is a register", get_tok_str(token, ଖାଲି));
     }
 
-    if (imm->type != OP_IM12S && imm->type != OP_IM32) {
-        tcc_error("'%s': Expected source operand that is an immediate value", get_tok_str(token, NULL));
+    ଯଦି (imm->type != OP_IM12S && imm->type != OP_IM32) {
+        tcc_error("'%s': Expected source operand that is an immediate value", get_tok_str(token, ଖାଲି));
     }
 
     offset = imm->e.v;
 
-    if (offset > 0xff) {
-        tcc_error("'%s': Expected source operand that is an immediate value between 0 and 0xff", get_tok_str(token, NULL));
+    ଯଦି (offset > 0xff) {
+        tcc_error("'%s': Expected source operand that is an immediate value between 0 and 0xff", get_tok_str(token, ଖାଲି));
     }
 
-    if (offset & 3) {
-        tcc_error("'%s': Expected source operand that is an immediate value divisible by 4", get_tok_str(token, NULL));
+    ଯଦି (offset & 3) {
+        tcc_error("'%s': Expected source operand that is an immediate value divisible by 4", get_tok_str(token, ଖାଲି));
     }
 
     /* CSS-type instruction:
@@ -3039,18 +3039,18 @@ static void asm_emit_css(int token, uint16_t opcode, const Operand *rs2, const O
     6...2   rs2
     1...0   opcode */
 
-    switch (token) {
+    ବାଛ (token) {
     /* imm variant 1 */
-    case TOK_ASM_c_fswsp:
-    case TOK_ASM_c_swsp:
+    ସ୍ଥିତି TOK_ASM_c_fswsp:
+    ସ୍ଥିତି TOK_ASM_c_swsp:
         gen_le16(opcode | ENCODE_RS2(rs2->reg) | (((offset >> 6) & 3) << 7) | (((offset >> 2) & 0xf) << 9));
-        return;
+        ଫେରନ୍ତୁ;
     /* imm variant 2 */
-    case TOK_ASM_c_fsdsp:
-    case TOK_ASM_c_sdsp:
+    ସ୍ଥିତି TOK_ASM_c_fsdsp:
+    ସ୍ଥିତି TOK_ASM_c_sdsp:
         gen_le16(opcode | ENCODE_RS2(rs2->reg) | (((offset >> 6) & 7) << 7) | (((offset >> 3) & 7) << 10));
-        return;
-    default:
+        ଫେରନ୍ତୁ;
+    ପୂର୍ବନିର୍ଦ୍ଧାରିତ:
         expect("known instruction");
     }
 }

@@ -1,21 +1,21 @@
-#include <stdio.h>
+#ଅନ୍ତର୍ଭାଵ <stdio.h>
 
-void charfunc(char a)
+ଶୂନ୍ୟ charfunc(ଅକ୍ଷର a)
 {
    printf("char: %c\n", a);
 }
 
-void intfunc(int a)
+ଶୂନ୍ୟ intfunc(ପୂର୍ଣ୍ଣସଂଖ୍ୟା a)
 {
    printf("int: %d\n", a);
 }
 
-void floatfunc(float a)
+ଶୂନ୍ୟ floatfunc(ଦଶମିକ a)
 {
    printf("float: %f\n", a);
 }
 
-int main()
+ପୂର୍ଣ୍ଣସଂଖ୍ୟା ମୁଖ୍ୟ()
 {
    charfunc('a');
    charfunc(98);
@@ -33,22 +33,22 @@ int main()
    /* printf("%c %d %f\n", 97, 98, 99); */
    /* printf("%c %d %f\n", 97.0, 98.0, 99.0); */
 
-   char b = 97;
-   char c = 97.0;
+   ଅକ୍ଷର b = 97;
+   ଅକ୍ଷର c = 97.0;
 
    printf("%d %d\n", b, c);
 
-   int d = 'a';
-   int e = 97.0;
+   ପୂର୍ଣ୍ଣସଂଖ୍ୟା d = 'a';
+   ପୂର୍ଣ୍ଣସଂଖ୍ୟା e = 97.0;
 
    printf("%d %d\n", d, e);
 
-   float f = 'a';
-   float g = 97;
+   ଦଶମିକ f = 'a';
+   ଦଶମିକ g = 97;
 
    printf("%f %f\n", f, g);
 
-   return 0;
+   ଫେରନ୍ତୁ 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

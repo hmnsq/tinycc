@@ -1,24 +1,24 @@
-#include <stdio.h>
+#ଅନ୍ତର୍ଭାଵ <stdio.h>
 
-void fred()
+ଶୂନ୍ୟ fred()
 {
    printf("In fred()\n");
-   goto done;
+   ଯାଅ done;
    printf("In middle\n");
 done:
    printf("At end\n");
 }
 
-void joe()
+ଶୂନ୍ୟ joe()
 {
-   int b = 5678;
+   ପୂର୍ଣ୍ଣସଂଖ୍ୟା b = 5678;
 
    printf("In joe()\n");
 
    {
-      int c = 1234;
+      ପୂର୍ଣ୍ଣସଂଖ୍ୟା c = 1234;
       printf("c = %d\n", c);
-      goto outer;
+      ଯାଅ outer;
       printf("uh-oh\n");
    }
 
@@ -27,15 +27,15 @@ outer:
    printf("done\n");
 }
 
-void henry()
+ଶୂନ୍ୟ henry()
 {
-   int a;
+   ପୂର୍ଣ୍ଣସଂଖ୍ୟା a;
 
    printf("In henry()\n");
-   goto inner;
+   ଯାଅ inner;
 
    {
-      int b;
+      ପୂର୍ଣ୍ଣସଂଖ୍ୟା b;
 inner:    
       b = 1234;
       printf("b = %d\n", b);
@@ -44,13 +44,13 @@ inner:
    printf("done\n");
 }
 
-int main()
+ପୂର୍ଣ୍ଣସଂଖ୍ୟା ମୁଖ୍ୟ()
 {
    fred();
    joe();
    henry();
 
-   return 0;
+   ଫେରନ୍ତୁ 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

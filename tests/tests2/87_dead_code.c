@@ -1,11 +1,11 @@
 /* This checks various ways of dead code inside if statements
    where there are non-obvious ways of how the code is actually
    not dead due to reachable by labels.  */
-extern int printf (const char *, ...);
-static void kb_wait_1(void)
+ବାହ୍ୟ ପୂର୍ଣ୍ଣସଂଖ୍ୟା printf (ଅଚଳ ଅକ୍ଷର *, ...);
+ସ୍ଥିର ଶୂନ୍ୟ kb_wait_1(ଶୂନ୍ୟ)
 {
   unsigned long timeout = 2;
-  do {
+  କର {
       /* Here the else arm is a statement expression that's supposed
          to be suppressed.  The label inside the while would unsuppress
 	 code generation again if not handled correctly.  And that
@@ -15,145 +15,145 @@ static void kb_wait_1(void)
       (1 ? 
        printf("timeout=%ld\n", timeout) :
        ({
-	int i = 1;
-	while (1)
-	  while (i--)
+	ପୂର୍ଣ୍ଣସଂଖ୍ୟା i = 1;
+	ଯେତେବେଳେ (1)
+	  ଯେତେବେଳେ (i--)
 	    some_label:
 	      printf("error\n");
-	goto some_label;
+	ଯାଅ some_label;
 	})
       );
       timeout--;
-  } while (timeout);
+  } ଯେତେବେଳେ (timeout);
 }
 
-static int global;
+ସ୍ଥିର ପୂର୍ଣ୍ଣସଂଖ୍ୟା global;
 
-static void foo(int i)
+ସ୍ଥିର ଶୂନ୍ୟ foo(ପୂର୍ଣ୍ଣସଂଖ୍ୟା i)
 {
   global+=i;
   printf ("g=%d\n", global);
 }
 
-static int check(void)
+ସ୍ଥିର ପୂର୍ଣ୍ଣସଂଖ୍ୟା check(ଶୂନ୍ୟ)
 {
   printf ("check %d\n", global);
-  return 1;
+  ଫେରନ୍ତୁ 1;
 }
 
-static void dowhile(void)
+ସ୍ଥିର ଶୂନ୍ୟ dowhile(ଶୂନ୍ୟ)
 {
-  do {
+  କର {
       foo(1);
-      if (global == 1) {
-	  continue;
-      } else if (global == 2) {
-	  continue;
+      ଯଦି (global == 1) {
+	  ଜାରି;
+      } ଅନ୍ୟଥା ଯଦି (global == 2) {
+	  ଜାରି;
       }
       /* The following break shouldn't disable the check() call,
          as it's reachable by the continues above.  */
-      break;
-  } while (check());
+      ଭାଙ୍ଗ;
+  } ଯେତେବେଳେ (check());
 }
 
-static void nondead_after_dead_return(void)
+ସ୍ଥିର ଶୂନ୍ୟ nondead_after_dead_return(ଶୂନ୍ୟ)
 {
   /* This statement expr is not entered, and hence that fact that it
      doesn't fall-through should not influence the surrounding code.  */
-  0 && ({ return; 0;});
+  0 && ({ ଫେରନ୍ତୁ; 0;});
   printf ("nondead works\n");
-  return;
+  ଫେରନ୍ତୁ;
 }
 
-int main (void)
+ପୂର୍ଣ୍ଣସଂଖ୍ୟା ମୁଖ୍ୟ (ଶୂନ୍ୟ)
 {
-  int i = 1;
+  ପୂର୍ଣ୍ଣସଂଖ୍ୟା i = 1;
   kb_wait_1();
 
   /* Simple test of dead code at first sight which isn't actually dead. */
-  if (0) {
+  ଯଦି (0) {
 yeah:
       printf ("yeah\n");
-  } else {
+  } ଅନ୍ୟଥା {
       printf ("boo\n");
   }
-  if (i--)
-    goto yeah;
+  ଯଦି (i--)
+    ଯାଅ yeah;
 
   /* Some more non-obvious uses where the problems are loops, so that even
      the first loop statements aren't actually dead.  */
   i = 1;
-  if (0) {
-      while (i--) {
+  ଯଦି (0) {
+      ଯେତେବେଳେ (i--) {
 	  printf ("once\n");
 enterloop:
 	  printf ("twice\n");
       }
   }
-  if (i >= 0)
-    goto enterloop;
+  ଯଦି (i >= 0)
+    ଯାଅ enterloop;
 
   /* The same with statement expressions.  One might be tempted to
      handle them specially by counting if inside statement exprs and
      not unsuppressing code at loops at all then.
      See kb_wait_1 for the other side of the medal where that wouldn't work.  */
   i = ({
-      int j = 1;
-      if (0) {
-	  while (j--) {
+      ପୂର୍ଣ୍ଣସଂଖ୍ୟା j = 1;
+      ଯଦି (0) {
+	  ଯେତେବେଳେ (j--) {
 	      printf ("SEonce\n");
     enterexprloop:
 	      printf ("SEtwice\n");
 	  }
       }
-      if (j >= 0)
-	goto enterexprloop;
+      ଯଦି (j >= 0)
+	ଯାଅ enterexprloop;
       j; });
 
   /* The other two loop forms: */
   i = 1;
-  if (0) {
-      for (i = 1; i--;) {
+  ଯଦି (0) {
+      ପାଇଁ (i = 1; i--;) {
 	  printf ("once2\n");
 enterloop2:
 	  printf ("twice2\n");
       }
   }
-  if (i > 0)
-    goto enterloop2;
+  ଯଦି (i > 0)
+    ଯାଅ enterloop2;
 
   i = 1;
-  if (0) {
-      do {
+  ଯଦି (0) {
+      କର {
 	  printf ("once3\n");
 enterloop3:
 	  printf ("twice3\n");
-      } while (i--);
+      } ଯେତେବେଳେ (i--);
   }
-  if (i > 0)
-    goto enterloop3;
+  ଯଦି (i > 0)
+    ଯାଅ enterloop3;
 
   /* And check that case and default labels have the same effect
      of disabling code suppression.  */
   i = 41;
-  switch (i) {
-      if (0) {
+  ବାଛ (i) {
+      ଯଦି (0) {
 	  printf ("error\n");
-      case 42:
+      ସ୍ଥିତି 42:
 	  printf ("error2\n");
-      case 41:
+      ସ୍ଥିତି 41:
 	  printf ("caseok\n");
       }
   }
 
   i = 41;
-  switch (i) {
-      if (0) {
+  ବାଛ (i) {
+      ଯଦି (0) {
 	  printf ("error3\n");
-      default:
+      ପୂର୍ବନିର୍ଦ୍ଧାରିତ:
 	  printf ("caseok2\n");
-	  break;
-      case 42:
+	  ଭାଙ୍ଗ;
+      ସ୍ଥିତି 42:
 	  printf ("error4\n");
       }
   }
@@ -161,5 +161,5 @@ enterloop3:
   dowhile();
   nondead_after_dead_return();
 
-  return 0;
+  ଫେରନ୍ତୁ 0;
 }

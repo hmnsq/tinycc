@@ -1,14 +1,14 @@
-#include <stdio.h>
-#include <assert.h>
+#ଅନ୍ତର୍ଭାଵ <stdio.h>
+#ଅନ୍ତର୍ଭାଵ <assert.h>
 
-#if !(defined( _WIN32) || (defined(__FreeBSD__) && defined(__i386__)))
+#ଯଦି !(defined( _WIN32) || (defined(__FreeBSD__) && defined(__i386__)))
 #define __fastcall __attribute((fastcall))
 #endif
 
 #ifndef __leading_underscore
-#define SYMBOL(x) _##x
-#else
-#define SYMBOL(x) x
+#define ପ୍ରତୀକ_2(x) _##x
+#ଅନ୍ୟଥା
+#define ପ୍ରତୀକ_2(x) x
 #endif
 
 /////////////////////////////////////////////////////////////////////////
@@ -20,9 +20,9 @@
 //   in C-code you can pop DWORDs from stack and modify registers
 //
 
-void *SYMBOL(trap_handler);
+ଶୂନ୍ୟ *ପ୍ରତୀକ_2(trap_handler);
 
-extern unsigned char SYMBOL(trap)[];
+ବାହ୍ୟ unsigned ଅକ୍ଷର ପ୍ରତୀକ_2(trap)[];
 asm (
     ".text;"
     "_trap:;"
@@ -39,15 +39,15 @@ asm (
 	"ret;"
 );
 
-struct trapframe {
+ସଂରଚନା trapframe {
     unsigned edi, esi, ebp, esp, ebx, edx, ecx, eax;
 };
 
 
-#define M_FLOAT(addr) (*(float *)(addr))
+#define M_FLOAT(addr) (*(ଦଶମିକ *)(addr))
 #define M_DWORD(addr) (*(unsigned *)(addr))
 #define M_WORD(addr) (*(unsigned short *)(addr))
-#define M_BYTE(addr) (*(unsigned char *)(addr))
+#define M_BYTE(addr) (*(unsigned ଅକ୍ଷର *)(addr))
 #define R_EAX ((tf)->eax)
 #define R_ECX ((tf)->ecx)
 #define R_EDX ((tf)->edx)
@@ -59,12 +59,12 @@ struct trapframe {
 
 #define ARG(x) (M_DWORD(R_ESP + (x) * 4))
 
-#define RETN(x) do { \
+#define RETN(x) କର { \
     M_DWORD(R_ESP + (x)) = M_DWORD(R_ESP); \
     R_ESP += (x); \
-} while (0)
+} ଯେତେବେଳେ (0)
 
-#define DUMP() do { \
+#define DUMP() କର { \
     unsigned i; \
     printf("EAX: %08X\n", R_EAX); \
     printf("ECX: %08X\n", R_ECX); \
@@ -76,13 +76,13 @@ struct trapframe {
     printf("EDI: %08X\n", R_EDI); \
     printf("\n"); \
     printf("[RETADDR]: %08X\n", M_DWORD(R_ESP)); \
-    for (i = 1; i <= 8; i++) { \
+    ପାଇଁ (i = 1; i <= 8; i++) { \
         printf("[ARG%4d]: %08X\n", i, ARG(i)); \
     } \
-} while (0)
+} ଯେତେବେଳେ (0)
 
-#define SET_TRAP_HANDLER(x) ((SYMBOL(trap_handler)) = (x))
-#define TRAP ((void *) &SYMBOL(trap))
+#define SET_TRAP_HANDLER(x) ((ପ୍ରତୀକ_2(trap_handler)) = (x))
+#define TRAP ((ଶୂନ୍ୟ *) &ପ୍ରତୀକ_2(trap))
 
 
 
@@ -94,12 +94,12 @@ struct trapframe {
 //        then cast 'SAFECALL' to target function pointer type and invoke it
 //        after calling, 'ESPDIFF' is the difference of old and new esp
 
-void *SYMBOL(sc_call_target);
-unsigned SYMBOL(sc_retn_addr);
-unsigned SYMBOL(sc_old_esp);
-unsigned SYMBOL(sc_new_esp);
+ଶୂନ୍ୟ *ପ୍ରତୀକ_2(sc_call_target);
+unsigned ପ୍ରତୀକ_2(sc_retn_addr);
+unsigned ପ୍ରତୀକ_2(sc_old_esp);
+unsigned ପ୍ରତୀକ_2(sc_new_esp);
 
-extern unsigned char SYMBOL(safecall)[];
+ବାହ୍ୟ unsigned ଅକ୍ଷର ପ୍ରତୀକ_2(safecall)[];
 asm (
     ".text;"
     "_safecall:;"
@@ -111,82 +111,82 @@ asm (
 	"jmp *_sc_retn_addr;"
 );
 
-#define SET_SAFECALL_TARGET(x) ((SYMBOL(sc_call_target)) = (x))
-#define SAFECALL ((void *) &SYMBOL(safecall))
-#define ESPDIFF (SYMBOL(sc_new_esp) - SYMBOL(sc_old_esp))
+#define SET_SAFECALL_TARGET(x) ((ପ୍ରତୀକ_2(sc_call_target)) = (x))
+#define SAFECALL ((ଶୂନ୍ୟ *) &ପ୍ରତୀକ_2(safecall))
+#define ESPDIFF (ପ୍ରତୀକ_2(sc_new_esp) - ପ୍ରତୀକ_2(sc_old_esp))
 
 
 /////////////////////////////////////////////////////////////////////////
 //////////                TEST FASTCALL INVOKE
 /////////////////////////////////////////////////////////////////////////
 
-void check_fastcall_invoke_0(struct trapframe *tf)
+ଶୂନ୍ୟ check_fastcall_invoke_0(ସଂରଚନା trapframe *tf)
 {
     //DUMP();
     RETN(0);
 }
 
-void check_fastcall_invoke_1(struct trapframe *tf)
+ଶୂନ୍ୟ check_fastcall_invoke_1(ସଂରଚନା trapframe *tf)
 {
     //DUMP();
-    assert(R_ECX == 0x11111111);
+    ପ୍ରତିଜ୍ଞା(R_ECX == 0x11111111);
     RETN(0);
 }
-void check_fastcall_invoke_2(struct trapframe *tf)
+ଶୂନ୍ୟ check_fastcall_invoke_2(ସଂରଚନା trapframe *tf)
 {
     //DUMP();
-    assert(R_ECX == 0x11111111);
-    assert(R_EDX == 0x22222222);
+    ପ୍ରତିଜ୍ଞା(R_ECX == 0x11111111);
+    ପ୍ରତିଜ୍ଞା(R_EDX == 0x22222222);
     RETN(0);
 }
-void check_fastcall_invoke_3(struct trapframe *tf)
+ଶୂନ୍ୟ check_fastcall_invoke_3(ସଂରଚନା trapframe *tf)
 {
     //DUMP();
-    assert(R_ECX == 0x11111111);
-    assert(R_EDX == 0x22222222);
-    assert(ARG(1) == 0x33333333);
+    ପ୍ରତିଜ୍ଞା(R_ECX == 0x11111111);
+    ପ୍ରତିଜ୍ଞା(R_EDX == 0x22222222);
+    ପ୍ରତିଜ୍ଞା(ARG(1) == 0x33333333);
     RETN(1*4);
 }
-void check_fastcall_invoke_4(struct trapframe *tf)
+ଶୂନ୍ୟ check_fastcall_invoke_4(ସଂରଚନା trapframe *tf)
 {
     //DUMP();
-    assert(R_ECX == 0x11111111);
-    assert(R_EDX == 0x22222222);
-    assert(ARG(1) == 0x33333333);
-    assert(ARG(2) == 0x44444444);
+    ପ୍ରତିଜ୍ଞା(R_ECX == 0x11111111);
+    ପ୍ରତିଜ୍ଞା(R_EDX == 0x22222222);
+    ପ୍ରତିଜ୍ଞା(ARG(1) == 0x33333333);
+    ପ୍ରତିଜ୍ଞା(ARG(2) == 0x44444444);
     RETN(2*4);
 }
 
-void check_fastcall_invoke_5(struct trapframe *tf)
+ଶୂନ୍ୟ check_fastcall_invoke_5(ସଂରଚନା trapframe *tf)
 {
     //DUMP();
-    assert(R_ECX == 0x11111111);
-    assert(R_EDX == 0x22222222);
-    assert(ARG(1) == 0x33333333);
-    assert(ARG(2) == 0x44444444);
-    assert(ARG(3) == 0x55555555);
+    ପ୍ରତିଜ୍ଞା(R_ECX == 0x11111111);
+    ପ୍ରତିଜ୍ଞା(R_EDX == 0x22222222);
+    ପ୍ରତିଜ୍ଞା(ARG(1) == 0x33333333);
+    ପ୍ରତିଜ୍ଞା(ARG(2) == 0x44444444);
+    ପ୍ରତିଜ୍ଞା(ARG(3) == 0x55555555);
     RETN(3*4);
 }
 
-void test_fastcall_invoke()
+ଶୂନ୍ୟ test_fastcall_invoke()
 {
     SET_TRAP_HANDLER(check_fastcall_invoke_0);
-    ((void __fastcall (*)(void)) TRAP)();
+    ((ଶୂନ୍ୟ __fastcall (*)(ଶୂନ୍ୟ)) TRAP)();
 
     SET_TRAP_HANDLER(check_fastcall_invoke_1);
-    ((void __fastcall (*)(unsigned)) TRAP)(0x11111111);
+    ((ଶୂନ୍ୟ __fastcall (*)(unsigned)) TRAP)(0x11111111);
 
     SET_TRAP_HANDLER(check_fastcall_invoke_2);
-    ((void __fastcall (*)(unsigned, unsigned)) TRAP)(0x11111111, 0x22222222);
+    ((ଶୂନ୍ୟ __fastcall (*)(unsigned, unsigned)) TRAP)(0x11111111, 0x22222222);
 
     SET_TRAP_HANDLER(check_fastcall_invoke_3);
-    ((void __fastcall (*)(unsigned, unsigned, unsigned)) TRAP)(0x11111111, 0x22222222, 0x33333333);
+    ((ଶୂନ୍ୟ __fastcall (*)(unsigned, unsigned, unsigned)) TRAP)(0x11111111, 0x22222222, 0x33333333);
 
     SET_TRAP_HANDLER(check_fastcall_invoke_4);
-    ((void __fastcall (*)(unsigned, unsigned, unsigned, unsigned)) TRAP)(0x11111111, 0x22222222, 0x33333333, 0x44444444);
+    ((ଶୂନ୍ୟ __fastcall (*)(unsigned, unsigned, unsigned, unsigned)) TRAP)(0x11111111, 0x22222222, 0x33333333, 0x44444444);
 
     SET_TRAP_HANDLER(check_fastcall_invoke_5);
-    ((void __fastcall (*)(unsigned, unsigned, unsigned, unsigned, unsigned)) TRAP)(0x11111111, 0x22222222, 0x33333333, 0x44444444, 0x55555555);
+    ((ଶୂନ୍ୟ __fastcall (*)(unsigned, unsigned, unsigned, unsigned, unsigned)) TRAP)(0x11111111, 0x22222222, 0x33333333, 0x44444444, 0x55555555);
 }
 
 
@@ -194,83 +194,83 @@ void test_fastcall_invoke()
 //////////                TEST FUNCTION CODE GENERATION
 /////////////////////////////////////////////////////////////////////////
 
-int __fastcall check_fastcall_espdiff_0(void)
+ପୂର୍ଣ୍ଣସଂଖ୍ୟା __fastcall check_fastcall_espdiff_0(ଶୂନ୍ୟ)
 {
-    return 0;
+    ଫେରନ୍ତୁ 0;
 }
 
-int __fastcall check_fastcall_espdiff_1(int a)
+ପୂର୍ଣ୍ଣସଂଖ୍ୟା __fastcall check_fastcall_espdiff_1(ପୂର୍ଣ୍ଣସଂଖ୍ୟା a)
 {
-    return a;
+    ଫେରନ୍ତୁ a;
 }
 
-int __fastcall check_fastcall_espdiff_2(int a, int b)
+ପୂର୍ଣ୍ଣସଂଖ୍ୟା __fastcall check_fastcall_espdiff_2(ପୂର୍ଣ୍ଣସଂଖ୍ୟା a, ପୂର୍ଣ୍ଣସଂଖ୍ୟା b)
 {
-    return a + b;
+    ଫେରନ୍ତୁ a + b;
 }
 
-int __fastcall check_fastcall_espdiff_3(int a, int b, int c)
+ପୂର୍ଣ୍ଣସଂଖ୍ୟା __fastcall check_fastcall_espdiff_3(ପୂର୍ଣ୍ଣସଂଖ୍ୟା a, ପୂର୍ଣ୍ଣସଂଖ୍ୟା b, ପୂର୍ଣ୍ଣସଂଖ୍ୟା c)
 {
-    return a + b + c;
+    ଫେରନ୍ତୁ a + b + c;
 }
 
-int __fastcall check_fastcall_espdiff_4(int a, int b, int c, int d)
+ପୂର୍ଣ୍ଣସଂଖ୍ୟା __fastcall check_fastcall_espdiff_4(ପୂର୍ଣ୍ଣସଂଖ୍ୟା a, ପୂର୍ଣ୍ଣସଂଖ୍ୟା b, ପୂର୍ଣ୍ଣସଂଖ୍ୟା c, ପୂର୍ଣ୍ଣସଂଖ୍ୟା d)
 {
-    return a + b + c + d;
+    ଫେରନ୍ତୁ a + b + c + d;
 }
 
-int __fastcall check_fastcall_espdiff_5(int a, int b, int c, int d, int e)
+ପୂର୍ଣ୍ଣସଂଖ୍ୟା __fastcall check_fastcall_espdiff_5(ପୂର୍ଣ୍ଣସଂଖ୍ୟା a, ପୂର୍ଣ୍ଣସଂଖ୍ୟା b, ପୂର୍ଣ୍ଣସଂଖ୍ୟା c, ପୂର୍ଣ୍ଣସଂଖ୍ୟା d, ପୂର୍ଣ୍ଣସଂଖ୍ୟା e)
 {
-    return a + b + c + d + e;
+    ଫେରନ୍ତୁ a + b + c + d + e;
 }
 
-void test_fastcall_espdiff()
+ଶୂନ୍ୟ test_fastcall_espdiff()
 {
-    int x;
+    ପୂର୍ଣ୍ଣସଂଖ୍ୟା x;
     SET_SAFECALL_TARGET(check_fastcall_espdiff_0);
     x = ((typeof(&check_fastcall_espdiff_0))SAFECALL)();
-    assert(x == 0);
-    assert(ESPDIFF == 0);
+    ପ୍ରତିଜ୍ଞା(x == 0);
+    ପ୍ରତିଜ୍ଞା(ESPDIFF == 0);
 
     SET_SAFECALL_TARGET(check_fastcall_espdiff_1);
     x = ((typeof(&check_fastcall_espdiff_1))SAFECALL)(1);
-    assert(x == 1);
-    assert(ESPDIFF == 0);
+    ପ୍ରତିଜ୍ଞା(x == 1);
+    ପ୍ରତିଜ୍ଞା(ESPDIFF == 0);
 
     SET_SAFECALL_TARGET(check_fastcall_espdiff_2);
     x = ((typeof(&check_fastcall_espdiff_2))SAFECALL)(1, 2);
-    assert(x == 1 + 2);
-    assert(ESPDIFF == 0);
+    ପ୍ରତିଜ୍ଞା(x == 1 + 2);
+    ପ୍ରତିଜ୍ଞା(ESPDIFF == 0);
 
     SET_SAFECALL_TARGET(check_fastcall_espdiff_3);
     x = ((typeof(&check_fastcall_espdiff_3))SAFECALL)(1, 2, 3);
-    assert(x == 1 + 2 + 3);
-    assert(ESPDIFF == 1*4);
+    ପ୍ରତିଜ୍ଞା(x == 1 + 2 + 3);
+    ପ୍ରତିଜ୍ଞା(ESPDIFF == 1*4);
 
     SET_SAFECALL_TARGET(check_fastcall_espdiff_4);
     x = ((typeof(&check_fastcall_espdiff_4))SAFECALL)(1, 2, 3, 4);
-    assert(x == 1 + 2 + 3 + 4);
-    assert(ESPDIFF == 2*4);
+    ପ୍ରତିଜ୍ଞା(x == 1 + 2 + 3 + 4);
+    ପ୍ରତିଜ୍ଞା(ESPDIFF == 2*4);
 
     SET_SAFECALL_TARGET(check_fastcall_espdiff_5);
     x = ((typeof(&check_fastcall_espdiff_5))SAFECALL)(1, 2, 3, 4, 5);
-    assert(x == 1 + 2 + 3 + 4 + 5);
-    assert(ESPDIFF == 3*4);
+    ପ୍ରତିଜ୍ଞା(x == 1 + 2 + 3 + 4 + 5);
+    ପ୍ରତିଜ୍ଞା(ESPDIFF == 3*4);
 }
 
-int main()
+ପୂର୍ଣ୍ଣସଂଖ୍ୟା ମୁଖ୍ୟ()
 {
 #define N 10000
-    int i;
+    ପୂର୍ଣ୍ଣସଂଖ୍ୟା i;
 
-    for (i = 1; i <= N; i++) {
+    ପାଇଁ (i = 1; i <= N; i++) {
         test_fastcall_espdiff();
     }
 
-    for (i = 1; i <= N; i++) {
+    ପାଇଁ (i = 1; i <= N; i++) {
         test_fastcall_invoke();
     }
 
     puts("TEST OK");
-    return 0;
+    ଫେରନ୍ତୁ 0;
 }

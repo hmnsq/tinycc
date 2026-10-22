@@ -31,25 +31,25 @@ Boston, MA 02111-1307, USA.
 #define W_TYPE_SIZE   32
 #define BITS_PER_UNIT 8
 
-typedef int Wtype;
-typedef unsigned int UWtype;
-typedef unsigned int USItype;
-typedef long long DWtype;
-typedef unsigned long long UDWtype;
+ପ୍ରକାରବ୍ୟାଖ୍ୟା ପୂର୍ଣ୍ଣସଂଖ୍ୟା Wtype;
+ପ୍ରକାରବ୍ୟାଖ୍ୟା unsigned ପୂର୍ଣ୍ଣସଂଖ୍ୟା UWtype;
+ପ୍ରକାରବ୍ୟାଖ୍ୟା unsigned ପୂର୍ଣ୍ଣସଂଖ୍ୟା USItype;
+ପ୍ରକାରବ୍ୟାଖ୍ୟା long long DWtype;
+ପ୍ରକାରବ୍ୟାଖ୍ୟା unsigned long long UDWtype;
 
-struct DWstruct {
-    Wtype low, high;
+ସଂରଚନା DWstruct {
+    Wtype ତଳ, ଉପର;
 };
 
-typedef union
+ପ୍ରକାରବ୍ୟାଖ୍ୟା ସଂଘ
 {
-  struct DWstruct s;
+  ସଂରଚନା DWstruct s;
   DWtype ll;
 } DWunion;
 
-typedef long double XFtype;
-#define WORD_SIZE (sizeof (Wtype) * BITS_PER_UNIT)
-#define HIGH_WORD_COEFF (((UDWtype) 1) << WORD_SIZE)
+ପ୍ରକାରବ୍ୟାଖ୍ୟା long ଦ୍ୱିଗୁଣ XFtype;
+#define WORD_SIZE (ଆକାର (Wtype) * BITS_PER_UNIT)
+#define ଉପର_WORD_COEFF (((UDWtype) 1) << WORD_SIZE)
 
 /* the following deal with IEEE single-precision numbers */
 #define EXCESS		126
@@ -77,37 +77,37 @@ typedef long double XFtype;
 #define SIGNLD(fp)	((fp.l.upper) & 0x8000)
 
 /* only for x86 */
-union ldouble_long {
-    long double ld;
-    struct {
+ସଂଘ ldouble_long {
+    long ଦ୍ୱିଗୁଣ ld;
+    ସଂରଚନା {
         unsigned long long lower;
         unsigned short upper;
     } l;
 };
 
-union double_long {
-    double d;
-#if 1
-    struct {
-        unsigned int lower;
-        int upper;
+ସଂଘ double_long {
+    ଦ୍ୱିଗୁଣ d;
+#ଯଦି 1
+    ସଂରଚନା {
+        unsigned ପୂର୍ଣ୍ଣସଂଖ୍ୟା lower;
+        ପୂର୍ଣ୍ଣସଂଖ୍ୟା upper;
     } l;
-#else
-    struct {
-        int upper;
-        unsigned int lower;
+#ଅନ୍ୟଥା
+    ସଂରଚନା {
+        ପୂର୍ଣ୍ଣସଂଖ୍ୟା upper;
+        unsigned ପୂର୍ଣ୍ଣସଂଖ୍ୟା lower;
     } l;
 #endif
     long long ll;
 };
 
-union float_long {
-    float f;
-    unsigned int l;
+ସଂଘ float_long {
+    ଦଶମିକ f;
+    unsigned ପୂର୍ଣ୍ଣସଂଖ୍ୟା l;
 };
 
 /* XXX: we don't support several builtin supports for now */
-#if defined __i386__
+#ଯଦି defined __i386__
 
 /* XXX: use gcc/tcc intrinsic ? */
 #define sub_ddmmss(sh, sl, ah, al, bh, bl) \
@@ -131,17 +131,17 @@ union float_long {
 	   : "0" ((USItype) (n0)),					\
 	     "1" ((USItype) (n1)),					\
 	     "rm" ((USItype) (dv)))
-#define count_leading_zeros(count, x) \
-  do {									\
+#define ଗଣନା_leading_zeros(ଗଣନା_3, x) \
+  କର {									\
     USItype __cbtmp;							\
     __asm__ ("bsrl %1,%0"						\
 	     : "=r" (__cbtmp) : "rm" ((USItype) (x)));			\
-    (count) = __cbtmp ^ 31;						\
-  } while (0)
+    (ଗଣନା_3) = __cbtmp ^ 31;						\
+  } ଯେତେବେଳେ (0)
 
 /* most of this code is taken from libgcc2.c from gcc */
 
-static UDWtype __udivmoddi4 (UDWtype n, UDWtype d, UDWtype *rp)
+ସ୍ଥିର UDWtype __udivmoddi4 (UDWtype n, UDWtype d, UDWtype *rp)
 {
   DWunion ww;
   DWunion nn, dd;
@@ -153,15 +153,15 @@ static UDWtype __udivmoddi4 (UDWtype n, UDWtype d, UDWtype *rp)
   nn.ll = n;
   dd.ll = d;
 
-  d0 = dd.s.low;
-  d1 = dd.s.high;
-  n0 = nn.s.low;
-  n1 = nn.s.high;
+  d0 = dd.s.ତଳ;
+  d1 = dd.s.ଉପର;
+  n0 = nn.s.ତଳ;
+  n1 = nn.s.ଉପର;
 
-#if !defined(UDIV_NEEDS_NORMALIZATION)
-  if (d1 == 0)
+#ଯଦି !defined(UDIV_NEEDS_NORMALIZATION)
+  ଯଦି (d1 == 0)
     {
-      if (d0 > n1)
+      ଯଦି (d0 > n1)
 	{
 	  /* 0q = nn / 0D */
 
@@ -170,11 +170,11 @@ static UDWtype __udivmoddi4 (UDWtype n, UDWtype d, UDWtype *rp)
 
 	  /* Remainder in n0.  */
 	}
-      else
+      ଅନ୍ୟଥା
 	{
 	  /* qq = NN / 0d */
 
-	  if (d0 == 0)
+	  ଯଦି (d0 == 0)
 	    d0 = 1 / d0;	/* Divide intentionally by zero.  */
 
 	  udiv_qrnnd (q1, n1, 0, n1, d0);
@@ -183,25 +183,25 @@ static UDWtype __udivmoddi4 (UDWtype n, UDWtype d, UDWtype *rp)
 	  /* Remainder in n0.  */
 	}
 
-      if (rp != 0)
+      ଯଦି (rp != 0)
 	{
-	  rr.s.low = n0;
-	  rr.s.high = 0;
+	  rr.s.ତଳ = n0;
+	  rr.s.ଉପର = 0;
 	  *rp = rr.ll;
 	}
     }
 
-#else /* UDIV_NEEDS_NORMALIZATION */
+#ଅନ୍ୟଥା /* UDIV_NEEDS_NORMALIZATION */
 
-  if (d1 == 0)
+  ଯଦି (d1 == 0)
     {
-      if (d0 > n1)
+      ଯଦି (d0 > n1)
 	{
 	  /* 0q = nn / 0D */
 
-	  count_leading_zeros (bm, d0);
+	  ଗଣନା_leading_zeros (bm, d0);
 
-	  if (bm != 0)
+	  ଯଦି (bm != 0)
 	    {
 	      /* Normalize, i.e. make the most significant bit of the
 		 denominator set.  */
@@ -216,16 +216,16 @@ static UDWtype __udivmoddi4 (UDWtype n, UDWtype d, UDWtype *rp)
 
 	  /* Remainder in n0 >> bm.  */
 	}
-      else
+      ଅନ୍ୟଥା
 	{
 	  /* qq = NN / 0d */
 
-	  if (d0 == 0)
+	  ଯଦି (d0 == 0)
 	    d0 = 1 / d0;	/* Divide intentionally by zero.  */
 
-	  count_leading_zeros (bm, d0);
+	  ଗଣନା_leading_zeros (bm, d0);
 
-	  if (bm == 0)
+	  ଯଦି (bm == 0)
 	    {
 	      /* From (n1 >= d0) /\ (the most significant bit of d0 is set),
 		 conclude (the most significant bit of n1 is set) /\ (the
@@ -237,7 +237,7 @@ static UDWtype __udivmoddi4 (UDWtype n, UDWtype d, UDWtype *rp)
 	      n1 -= d0;
 	      q1 = 1;
 	    }
-	  else
+	  ଅନ୍ୟଥା
 	    {
 	      /* Normalize.  */
 
@@ -258,18 +258,18 @@ static UDWtype __udivmoddi4 (UDWtype n, UDWtype d, UDWtype *rp)
 	  /* Remainder in n0 >> bm.  */
 	}
 
-      if (rp != 0)
+      ଯଦି (rp != 0)
 	{
-	  rr.s.low = n0 >> bm;
-	  rr.s.high = 0;
+	  rr.s.ତଳ = n0 >> bm;
+	  rr.s.ଉପର = 0;
 	  *rp = rr.ll;
 	}
     }
 #endif /* UDIV_NEEDS_NORMALIZATION */
 
-  else
+  ଅନ୍ୟଥା
     {
-      if (d1 > n1)
+      ଯଦି (d1 > n1)
 	{
 	  /* 00 = nn / DD */
 
@@ -277,19 +277,19 @@ static UDWtype __udivmoddi4 (UDWtype n, UDWtype d, UDWtype *rp)
 	  q1 = 0;
 
 	  /* Remainder in n1n0.  */
-	  if (rp != 0)
+	  ଯଦି (rp != 0)
 	    {
-	      rr.s.low = n0;
-	      rr.s.high = n1;
+	      rr.s.ତଳ = n0;
+	      rr.s.ଉପର = n1;
 	      *rp = rr.ll;
 	    }
 	}
-      else
+      ଅନ୍ୟଥା
 	{
 	  /* 0q = NN / dd */
 
-	  count_leading_zeros (bm, d1);
-	  if (bm == 0)
+	  ଗଣନା_leading_zeros (bm, d1);
+	  ଯଦି (bm == 0)
 	    {
 	      /* From (n1 >= d1) /\ (the most significant bit of d1 is set),
 		 conclude (the most significant bit of n1 is set) /\ (the
@@ -299,24 +299,24 @@ static UDWtype __udivmoddi4 (UDWtype n, UDWtype d, UDWtype *rp)
 
 	      /* The condition on the next line takes advantage of that
 		 n1 >= d1 (true due to program flow).  */
-	      if (n1 > d1 || n0 >= d0)
+	      ଯଦି (n1 > d1 || n0 >= d0)
 		{
 		  q0 = 1;
 		  sub_ddmmss (n1, n0, n1, n0, d1, d0);
 		}
-	      else
+	      ଅନ୍ୟଥା
 		q0 = 0;
 
 	      q1 = 0;
 
-	      if (rp != 0)
+	      ଯଦି (rp != 0)
 		{
-		  rr.s.low = n0;
-		  rr.s.high = n1;
+		  rr.s.ତଳ = n0;
+		  rr.s.ଉପର = n1;
 		  *rp = rr.ll;
 		}
 	    }
-	  else
+	  ଅନ୍ୟଥା
 	    {
 	      UWtype m1, m0;
 	      /* Normalize.  */
@@ -332,7 +332,7 @@ static UDWtype __udivmoddi4 (UDWtype n, UDWtype d, UDWtype *rp)
 	      udiv_qrnnd (q0, n1, n2, n1, d1);
 	      umul_ppmm (m1, m0, q0, d0);
 
-	      if (m1 > n1 || (m1 == n1 && m0 > n0))
+	      ଯଦି (m1 > n1 || (m1 == n1 && m0 > n0))
 		{
 		  q0--;
 		  sub_ddmmss (m1, m0, m1, m0, d1, d0);
@@ -341,72 +341,72 @@ static UDWtype __udivmoddi4 (UDWtype n, UDWtype d, UDWtype *rp)
 	      q1 = 0;
 
 	      /* Remainder in (n1n0 - m1m0) >> bm.  */
-	      if (rp != 0)
+	      ଯଦି (rp != 0)
 		{
 		  sub_ddmmss (n1, n0, n1, n0, m1, m0);
-		  rr.s.low = (n1 << b) | (n0 >> bm);
-		  rr.s.high = n1 >> bm;
+		  rr.s.ତଳ = (n1 << b) | (n0 >> bm);
+		  rr.s.ଉପର = n1 >> bm;
 		  *rp = rr.ll;
 		}
 	    }
 	}
     }
 
-  ww.s.low = q0;
-  ww.s.high = q1;
-  return ww.ll;
+  ww.s.ତଳ = q0;
+  ww.s.ଉପର = q1;
+  ଫେରନ୍ତୁ ww.ll;
 }
 
 #define __negdi2(a) (-(a))
 
 long long __divdi3(long long u, long long v)
 {
-    int c = 0;
+    ପୂର୍ଣ୍ଣସଂଖ୍ୟା c = 0;
     DWunion uu, vv;
     DWtype w;
     
     uu.ll = u;
     vv.ll = v;
     
-    if (uu.s.high < 0) {
+    ଯଦି (uu.s.ଉପର < 0) {
         c = ~c;
         uu.ll = __negdi2 (uu.ll);
     }
-    if (vv.s.high < 0) {
+    ଯଦି (vv.s.ଉପର < 0) {
         c = ~c;
         vv.ll = __negdi2 (vv.ll);
     }
     w = __udivmoddi4 (uu.ll, vv.ll, (UDWtype *) 0);
-    if (c)
+    ଯଦି (c)
         w = __negdi2 (w);
-    return w;
+    ଫେରନ୍ତୁ w;
 }
 
 long long __moddi3(long long u, long long v)
 {
-    int c = 0;
+    ପୂର୍ଣ୍ଣସଂଖ୍ୟା c = 0;
     DWunion uu, vv;
     DWtype w;
     
     uu.ll = u;
     vv.ll = v;
     
-    if (uu.s.high < 0) {
+    ଯଦି (uu.s.ଉପର < 0) {
         c = ~c;
         uu.ll = __negdi2 (uu.ll);
     }
-    if (vv.s.high < 0)
+    ଯଦି (vv.s.ଉପର < 0)
         vv.ll = __negdi2 (vv.ll);
     
     __udivmoddi4 (uu.ll, vv.ll, (UDWtype *) &w);
-    if (c)
+    ଯଦି (c)
         w = __negdi2 (w);
-    return w;
+    ଫେରନ୍ତୁ w;
 }
 
 unsigned long long __udivdi3(unsigned long long u, unsigned long long v)
 {
-    return __udivmoddi4 (u, v, (UDWtype *) 0);
+    ଫେରନ୍ତୁ __udivmoddi4 (u, v, (UDWtype *) 0);
 }
 
 unsigned long long __umoddi3(unsigned long long u, unsigned long long v)
@@ -414,210 +414,210 @@ unsigned long long __umoddi3(unsigned long long u, unsigned long long v)
     UDWtype w;
     
     __udivmoddi4 (u, v, &w);
-    return w;
+    ଫେରନ୍ତୁ w;
 }
 
 /* XXX: fix tcc's code generator to do this instead */
-long long __ashrdi3(long long a, int b)
+long long __ashrdi3(long long a, ପୂର୍ଣ୍ଣସଂଖ୍ୟା b)
 {
 #ifdef __TINYC__
     DWunion u;
     u.ll = a;
-    if (b >= 32) {
-        u.s.low = u.s.high >> (b - 32);
-        u.s.high = u.s.high >> 31;
-    } else if (b != 0) {
-        u.s.low = ((unsigned)u.s.low >> b) | (u.s.high << (32 - b));
-        u.s.high = u.s.high >> b;
+    ଯଦି (b >= 32) {
+        u.s.ତଳ = u.s.ଉପର >> (b - 32);
+        u.s.ଉପର = u.s.ଉପର >> 31;
+    } ଅନ୍ୟଥା ଯଦି (b != 0) {
+        u.s.ତଳ = ((unsigned)u.s.ତଳ >> b) | (u.s.ଉପର << (32 - b));
+        u.s.ଉପର = u.s.ଉପର >> b;
     }
-    return u.ll;
-#else
-    return a >> b;
+    ଫେରନ୍ତୁ u.ll;
+#ଅନ୍ୟଥା
+    ଫେରନ୍ତୁ a >> b;
 #endif
 }
 
 /* XXX: fix tcc's code generator to do this instead */
-unsigned long long __lshrdi3(unsigned long long a, int b)
+unsigned long long __lshrdi3(unsigned long long a, ପୂର୍ଣ୍ଣସଂଖ୍ୟା b)
 {
 #ifdef __TINYC__
     DWunion u;
     u.ll = a;
-    if (b >= 32) {
-        u.s.low = (unsigned)u.s.high >> (b - 32);
-        u.s.high = 0;
-    } else if (b != 0) {
-        u.s.low = ((unsigned)u.s.low >> b) | (u.s.high << (32 - b));
-        u.s.high = (unsigned)u.s.high >> b;
+    ଯଦି (b >= 32) {
+        u.s.ତଳ = (unsigned)u.s.ଉପର >> (b - 32);
+        u.s.ଉପର = 0;
+    } ଅନ୍ୟଥା ଯଦି (b != 0) {
+        u.s.ତଳ = ((unsigned)u.s.ତଳ >> b) | (u.s.ଉପର << (32 - b));
+        u.s.ଉପର = (unsigned)u.s.ଉପର >> b;
     }
-    return u.ll;
-#else
-    return a >> b;
+    ଫେରନ୍ତୁ u.ll;
+#ଅନ୍ୟଥା
+    ଫେରନ୍ତୁ a >> b;
 #endif
 }
 
 /* XXX: fix tcc's code generator to do this instead */
-long long __ashldi3(long long a, int b)
+long long __ashldi3(long long a, ପୂର୍ଣ୍ଣସଂଖ୍ୟା b)
 {
 #ifdef __TINYC__
     DWunion u;
     u.ll = a;
-    if (b >= 32) {
-        u.s.high = (unsigned)u.s.low << (b - 32);
-        u.s.low = 0;
-    } else if (b != 0) {
-        u.s.high = ((unsigned)u.s.high << b) | ((unsigned)u.s.low >> (32 - b));
-        u.s.low = (unsigned)u.s.low << b;
+    ଯଦି (b >= 32) {
+        u.s.ଉପର = (unsigned)u.s.ତଳ << (b - 32);
+        u.s.ତଳ = 0;
+    } ଅନ୍ୟଥା ଯଦି (b != 0) {
+        u.s.ଉପର = ((unsigned)u.s.ଉପର << b) | ((unsigned)u.s.ତଳ >> (32 - b));
+        u.s.ତଳ = (unsigned)u.s.ତଳ << b;
     }
-    return u.ll;
-#else
-    return a << b;
+    ଫେରନ୍ତୁ u.ll;
+#ଅନ୍ୟଥା
+    ଫେରନ୍ତୁ a << b;
 #endif
 }
 
 #endif /* __i386__ */
 
 /* XXX: fix tcc's code generator to do this instead */
-float __floatundisf(unsigned long long a)
+ଦଶମିକ __floatundisf(unsigned long long a)
 {
     DWunion uu; 
     XFtype r;
 
     uu.ll = a;
-    if (uu.s.high >= 0) {
-        return (float)uu.ll;
-    } else {
+    ଯଦି (uu.s.ଉପର >= 0) {
+        ଫେରନ୍ତୁ (ଦଶମିକ)uu.ll;
+    } ଅନ୍ୟଥା {
         r = (XFtype)uu.ll;
         r += 18446744073709551616.0;
-        return (float)r;
+        ଫେରନ୍ତୁ (ଦଶମିକ)r;
     }
 }
 
-double __floatundidf(unsigned long long a)
+ଦ୍ୱିଗୁଣ __floatundidf(unsigned long long a)
 {
     DWunion uu; 
     XFtype r;
 
     uu.ll = a;
-    if (uu.s.high >= 0) {
-        return (double)uu.ll;
-    } else {
+    ଯଦି (uu.s.ଉପର >= 0) {
+        ଫେରନ୍ତୁ (ଦ୍ୱିଗୁଣ)uu.ll;
+    } ଅନ୍ୟଥା {
         r = (XFtype)uu.ll;
         r += 18446744073709551616.0;
-        return (double)r;
+        ଫେରନ୍ତୁ (ଦ୍ୱିଗୁଣ)r;
     }
 }
 
-long double __floatundixf(unsigned long long a)
+long ଦ୍ୱିଗୁଣ __floatundixf(unsigned long long a)
 {
     DWunion uu; 
     XFtype r;
 
     uu.ll = a;
-    if (uu.s.high >= 0) {
-        return (long double)uu.ll;
-    } else {
+    ଯଦି (uu.s.ଉପର >= 0) {
+        ଫେରନ୍ତୁ (long ଦ୍ୱିଗୁଣ)uu.ll;
+    } ଅନ୍ୟଥା {
         r = (XFtype)uu.ll;
         r += 18446744073709551616.0;
-        return (long double)r;
+        ଫେରନ୍ତୁ (long ଦ୍ୱିଗୁଣ)r;
     }
 }
 
-unsigned long long __fixunssfdi (float a1)
+unsigned long long __fixunssfdi (ଦଶମିକ a1)
 {
-    register union float_long fl1;
-    register int exp;
-    register unsigned long long l;
+    ପଞ୍ଜିକରଣ ସଂଘ float_long fl1;
+    ପଞ୍ଜିକରଣ ପୂର୍ଣ୍ଣସଂଖ୍ୟା exp;
+    ପଞ୍ଜିକରଣ unsigned long long l;
 
     fl1.f = a1;
 
-    if (fl1.l == 0)
-	return (0);
+    ଯଦି (fl1.l == 0)
+	ଫେରନ୍ତୁ (0);
 
     exp = EXP (fl1.l) - EXCESS - 24;
     l = MANT(fl1.l);
 
-    if (exp >= 41)
-        return 1ULL << 63;
-    else if (exp >= 0)
+    ଯଦି (exp >= 41)
+        ଫେରନ୍ତୁ 1ULL << 63;
+    ଅନ୍ୟଥା ଯଦି (exp >= 0)
         l <<= exp;
-    else if (exp >= -23)
+    ଅନ୍ୟଥା ଯଦି (exp >= -23)
         l >>= -exp;
-    else
-	return 0;
-    if (SIGN(fl1.l))
+    ଅନ୍ୟଥା
+	ଫେରନ୍ତୁ 0;
+    ଯଦି (SIGN(fl1.l))
         l = (unsigned long long)-l;
-    return l;
+    ଫେରନ୍ତୁ l;
 }
 
-long long __fixsfdi (float a1)
+long long __fixsfdi (ଦଶମିକ a1)
 {
-    long long ret; int s;
+    long long ret; ପୂର୍ଣ୍ଣସଂଖ୍ୟା s;
     ret = __fixunssfdi((s = a1 >= 0) ? a1 : -a1);
-    return s ? ret : -ret;
+    ଫେରନ୍ତୁ s ? ret : -ret;
 }
 
-unsigned long long __fixunsdfdi (double a1)
+unsigned long long __fixunsdfdi (ଦ୍ୱିଗୁଣ a1)
 {
-    register union double_long dl1;
-    register int exp;
-    register unsigned long long l;
+    ପଞ୍ଜିକରଣ ସଂଘ double_long dl1;
+    ପଞ୍ଜିକରଣ ପୂର୍ଣ୍ଣସଂଖ୍ୟା exp;
+    ପଞ୍ଜିକରଣ unsigned long long l;
 
     dl1.d = a1;
 
-    if (dl1.ll == 0)
-	return (0);
+    ଯଦି (dl1.ll == 0)
+	ଫେରନ୍ତୁ (0);
 
     exp = EXPD (dl1) - EXCESSD - 53;
     l = MANTD_LL(dl1);
 
-    if (exp >= 12)
-        return 1ULL << 63; /* overflow result (like gcc, somewhat) */
-    else if (exp >= 0)
+    ଯଦି (exp >= 12)
+        ଫେରନ୍ତୁ 1ULL << 63; /* overflow result (like gcc, somewhat) */
+    ଅନ୍ୟଥା ଯଦି (exp >= 0)
         l <<= exp;
-    else if (exp >= -52)
+    ଅନ୍ୟଥା ଯଦି (exp >= -52)
         l >>= -exp;
-    else
-        return 0;
-    if (SIGND(dl1))
+    ଅନ୍ୟଥା
+        ଫେରନ୍ତୁ 0;
+    ଯଦି (SIGND(dl1))
         l = (unsigned long long)-l;
-    return l;
+    ଫେରନ୍ତୁ l;
 }
 
-long long __fixdfdi (double a1)
+long long __fixdfdi (ଦ୍ୱିଗୁଣ a1)
 {
-    long long ret; int s;
+    long long ret; ପୂର୍ଣ୍ଣସଂଖ୍ୟା s;
     ret = __fixunsdfdi((s = a1 >= 0) ? a1 : -a1);
-    return s ? ret : -ret;
+    ଫେରନ୍ତୁ s ? ret : -ret;
 }
 
 #ifndef __arm__
-unsigned long long __fixunsxfdi (long double a1)
+unsigned long long __fixunsxfdi (long ଦ୍ୱିଗୁଣ a1)
 {
-    register union ldouble_long dl1;
-    register int exp;
-    register unsigned long long l;
+    ପଞ୍ଜିକରଣ ସଂଘ ldouble_long dl1;
+    ପଞ୍ଜିକରଣ ପୂର୍ଣ୍ଣସଂଖ୍ୟା exp;
+    ପଞ୍ଜିକରଣ unsigned long long l;
 
     dl1.ld = a1;
 
-    if (dl1.l.lower == 0 && dl1.l.upper == 0)
-	return (0);
+    ଯଦି (dl1.l.lower == 0 && dl1.l.upper == 0)
+	ଫେରନ୍ତୁ (0);
 
     exp = EXPLD (dl1) - EXCESSLD - 64;
     l = dl1.l.lower;
-    if (exp > 0)
-	return 1ULL << 63;
-    if (exp < -63)
-        return 0;
+    ଯଦି (exp > 0)
+	ଫେରନ୍ତୁ 1ULL << 63;
+    ଯଦି (exp < -63)
+        ଫେରନ୍ତୁ 0;
     l >>= -exp;
-    if (SIGNLD(dl1))
+    ଯଦି (SIGNLD(dl1))
         l = (unsigned long long)-l;
-    return l;
+    ଫେରନ୍ତୁ l;
 }
 
-long long __fixxfdi (long double a1)
+long long __fixxfdi (long ଦ୍ୱିଗୁଣ a1)
 {
-    long long ret; int s;
+    long long ret; ପୂର୍ଣ୍ଣସଂଖ୍ୟା s;
     ret = __fixunsxfdi((s = a1 >= 0) ? a1 : -a1);
-    return s ? ret : -ret;
+    ଫେରନ୍ତୁ s ? ret : -ret;
 }
 #endif /* !ARM */

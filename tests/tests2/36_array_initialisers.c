@@ -1,25 +1,25 @@
-#include <stdio.h>
+#ଅନ୍ତର୍ଭାଵ <stdio.h>
 
-extern int Array3[10];
-int Array3[] = { 12, 34, };
-int main()
+ବାହ୍ୟ ପୂର୍ଣ୍ଣସଂଖ୍ୟା Array3[10];
+ପୂର୍ଣ୍ଣସଂଖ୍ୟା Array3[] = { 12, 34, };
+ପୂର୍ଣ୍ଣସଂଖ୍ୟା ମୁଖ୍ୟ()
 {
-   int Count;
+   ପୂର୍ଣ୍ଣସଂଖ୍ୟା ଗଣନା_4;
 
-   int Array[10] = { 12, 34, 56, 78, 90, 123, 456, 789, 8642, 9753 };
+   ପୂର୍ଣ୍ଣସଂଖ୍ୟା Array[10] = { 12, 34, 56, 78, 90, 123, 456, 789, 8642, 9753 };
 
-   for (Count = 0; Count < 10; Count++)
-      printf("%d: %d\n", Count, Array[Count]);
+   ପାଇଁ (ଗଣନା_4 = 0; ଗଣନା_4 < 10; ଗଣନା_4++)
+      printf("%d: %d\n", ଗଣନା_4, Array[ଗଣନା_4]);
 
-   int Array2[10] = { 12, 34, 56, 78, 90, 123, 456, 789, 8642, 9753, };
+   ପୂର୍ଣ୍ଣସଂଖ୍ୟା Array2[10] = { 12, 34, 56, 78, 90, 123, 456, 789, 8642, 9753, };
 
-   for (Count = 0; Count < 10; Count++)
-      printf("%d: %d\n", Count, Array2[Count]);
+   ପାଇଁ (ଗଣନା_4 = 0; ଗଣନା_4 < 10; ଗଣନା_4++)
+      printf("%d: %d\n", ଗଣନା_4, Array2[ଗଣନା_4]);
 
-   for (Count = 0; Count < 10; Count++)
-      printf("%d: %d\n", Count, Array3[Count]);
+   ପାଇଁ (ଗଣନା_4 = 0; ଗଣନା_4 < 10; ଗଣନା_4++)
+      printf("%d: %d\n", ଗଣନା_4, Array3[ଗଣନା_4]);
 
-   return 0;
+   ଫେରନ୍ତୁ 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

@@ -1,18 +1,18 @@
-#include <stdio.h>
+#ଅନ୍ତର୍ଭାଵ <stdio.h>
 
-int main() 
+ପୂର୍ଣ୍ଣସଂଖ୍ୟା ମୁଖ୍ୟ() 
 {
-   int a;
+   ପୂର୍ଣ୍ଣସଂଖ୍ୟା a;
    a = 42;
    printf("%d\n", a);
 
-   int b = 64;
+   ପୂର୍ଣ୍ଣସଂଖ୍ୟା b = 64;
    printf("%d\n", b);
 
-   int c = 12, d = 34;
+   ପୂର୍ଣ୍ଣସଂଖ୍ୟା c = 12, d = 34;
    printf("%d, %d\n", c, d);
 
-   return 0;
+   ଫେରନ୍ତୁ 0;
 }
 
 // vim: set expandtab ts=4 sw=3 sts=3 tw=80 :

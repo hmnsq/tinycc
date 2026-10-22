@@ -6,16 +6,16 @@
 #ifndef _TIMEB_H_
 #define _TIMEB_H_
 
-#include <_mingw.h>
+#ଅନ୍ତର୍ଭାଵ <_mingw.h>
 
 #ifndef _WIN32
 #error Only Win32 target is supported!
 #endif
 
-#pragma pack(push,_CRT_PACKING)
+#pragma pack(ଠେଲ,_CRT_PACKING)
 
 #ifdef __cplusplus
-extern "C" {
+ବାହ୍ୟ "C" {
 #endif
 
 #ifndef _CRTIMP
@@ -27,30 +27,30 @@ extern "C" {
 #ifdef _WIN64
 #undef _USE_32BIT_TIME_T
 #endif
-#else
-#if _INTEGRAL_MAX_BITS < 64
+#ଅନ୍ୟଥା
+#ଯଦି _INTEGRAL_MAX_BITS < 64
 #define _USE_32BIT_TIME_T
 #endif
 #endif
 #endif
 
 #ifndef _TIME32_T_DEFINED
-  typedef long __time32_t;
+  ପ୍ରକାରବ୍ୟାଖ୍ୟା long __time32_t;
 #define _TIME32_T_DEFINED
 #endif
 
 #ifndef _TIME64_T_DEFINED
-#if _INTEGRAL_MAX_BITS >= 64
-  typedef __int64 __time64_t;
+#ଯଦି _INTEGRAL_MAX_BITS >= 64
+  ପ୍ରକାରବ୍ୟାଖ୍ୟା __int64 __time64_t;
 #endif
 #define _TIME64_T_DEFINED
 #endif
 
 #ifndef _TIME_T_DEFINED
 #ifdef _USE_32BIT_TIME_T
-  typedef __time32_t time_t;
-#else
-  typedef __time64_t time_t;
+  ପ୍ରକାରବ୍ୟାଖ୍ୟା __time32_t time_t;
+#ଅନ୍ୟଥା
+  ପ୍ରକାରବ୍ୟାଖ୍ୟା __time64_t time_t;
 #endif
 #define _TIME_T_DEFINED
 #endif
@@ -58,7 +58,7 @@ extern "C" {
 #ifndef _TIMEB_DEFINED
 #define _TIMEB_DEFINED
 
-  struct __timeb32 {
+  ସଂରଚନା __timeb32 {
     __time32_t time;
     unsigned short millitm;
     short timezone;
@@ -66,7 +66,7 @@ extern "C" {
   };
 
 #ifndef	NO_OLDNAMES
-  struct timeb {
+  ସଂରଚନା timeb {
     time_t time;
     unsigned short millitm;
     short timezone;
@@ -74,8 +74,8 @@ extern "C" {
   };
 #endif
 
-#if _INTEGRAL_MAX_BITS >= 64
-  struct __timeb64 {
+#ଯଦି _INTEGRAL_MAX_BITS >= 64
+  ସଂରଚନା __timeb64 {
     __time64_t time;
     unsigned short millitm;
     short timezone;
@@ -87,38 +87,38 @@ extern "C" {
 #define _timeb __timeb32
 //gr #define _ftime _ftime32
 #define _ftime32 _ftime
-#else
+#ଅନ୍ୟଥା
 #define _timeb __timeb64
 #define _ftime _ftime64
 #endif
 #endif
 
-  _CRTIMP void __cdecl _ftime32(struct __timeb32 *_Time);
-#if _INTEGRAL_MAX_BITS >= 64
-  _CRTIMP void __cdecl _ftime64(struct __timeb64 *_Time);
+  _CRTIMP ଶୂନ୍ୟ __cdecl _ftime32(ସଂରଚନା __timeb32 *_Time);
+#ଯଦି _INTEGRAL_MAX_BITS >= 64
+  _CRTIMP ଶୂନ୍ୟ __cdecl _ftime64(ସଂରଚନା __timeb64 *_Time);
 #endif
 
 #ifndef _TIMESPEC_DEFINED
 #define _TIMESPEC_DEFINED
-struct timespec {
+ସଂରଚନା timespec {
   time_t  tv_sec;   /* Seconds */
   long    tv_nsec;  /* Nanoseconds */
 };
 
-struct itimerspec {
-  struct timespec  it_interval;  /* Timer period */
-  struct timespec  it_value;     /* Timer expiration */
+ସଂରଚନା itimerspec {
+  ସଂରଚନା timespec  it_interval;  /* Timer period */
+  ସଂରଚନା timespec  it_value;     /* Timer expiration */
 };
 #endif
 
-#if !defined (RC_INVOKED) && !defined (NO_OLDNAMES)
+#ଯଦି !defined (RC_INVOKED) && !defined (NO_OLDNAMES)
 #ifdef _USE_32BIT_TIME_T
-__CRT_INLINE void __cdecl ftime(struct timeb *_Tmb) {
-  _ftime32((struct __timeb32 *)_Tmb);
+__CRT_INLINE ଶୂନ୍ୟ __cdecl ftime(ସଂରଚନା timeb *_Tmb) {
+  _ftime32((ସଂରଚନା __timeb32 *)_Tmb);
 }
-#else
-__CRT_INLINE void __cdecl ftime(struct timeb *_Tmb) {
-  _ftime64((struct __timeb64 *)_Tmb);
+#ଅନ୍ୟଥା
+__CRT_INLINE ଶୂନ୍ୟ __cdecl ftime(ସଂରଚନା timeb *_Tmb) {
+  _ftime64((ସଂରଚନା __timeb64 *)_Tmb);
 }
 #endif
 #endif
@@ -127,7 +127,7 @@ __CRT_INLINE void __cdecl ftime(struct timeb *_Tmb) {
 }
 #endif
 
-#pragma pack(pop)
+#pragma pack(କାଢ଼)
 
-#include <sec_api/sys/timeb_s.h>
+#ଅନ୍ତର୍ଭାଵ <sec_api/sys/timeb_s.h>
 #endif

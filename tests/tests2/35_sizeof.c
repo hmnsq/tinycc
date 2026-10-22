@@ -1,30 +1,30 @@
-int printf(const char*, ...);
+ପୂର୍ଣ୍ଣସଂଖ୍ୟା printf(ଅଚଳ ଅକ୍ଷର*, ...);
 
-int main()
+ପୂର୍ଣ୍ଣସଂଖ୍ୟା ମୁଖ୍ୟ()
 {
-    char a;
+    ଅକ୍ଷର a;
     short b;
 
-    printf("sizeof a : %d %d\n", sizeof(char), sizeof(a));
-    printf("sizeof b : %d %d\n", sizeof(short), sizeof(b));
+    printf("sizeof a : %d %d\n", ଆକାର(ଅକ୍ଷର), ଆକାର(a));
+    printf("sizeof b : %d %d\n", ଆକାର(short), ଆକାର(b));
 
-    int ii[] = {}; /* gnu extension, size = 0 */
-    printf("sizeof ii : %d\n", sizeof ii);
+    ପୂର୍ଣ୍ଣସଂଖ୍ୟା ii[] = {}; /* gnu extension, size = 0 */
+    printf("sizeof ii : %d\n", ଆକାର ii);
 
-    int kk[] = { 1 };
-    printf("sizeof kk : %d\n", sizeof kk);
+    ପୂର୍ଣ୍ଣସଂଖ୍ୟା kk[] = { 1 };
+    printf("sizeof kk : %d\n", ଆକାର kk);
 
-    char cc[] = "12";
-    printf("sizeof cc : %d\n", sizeof cc);
+    ଅକ୍ଷର cc[] = "12";
+    printf("sizeof cc : %d\n", ଆକାର cc);
 
     __WCHAR_TYPE__ ll[] = L"12345";
-    printf("len-of ll : %d\n", sizeof ll / sizeof ll[0]);
+    printf("len-of ll : %d\n", ଆକାର ll / ଆକାର ll[0]);
 
-    static struct {
-        int a,b,c;
-        int d[];
+    ସ୍ଥିର ସଂରଚନା {
+        ପୂର୍ଣ୍ଣସଂଖ୍ୟା a,b,c;
+        ପୂର୍ଣ୍ଣସଂଖ୍ୟା d[];
     } ss[] = {{ 1, 2, 3, {} }};
-    printf("sizeof ss : %d\n", sizeof ss);
+    printf("sizeof ss : %d\n", ଆକାର ss);
 
-    return 0;
+    ଫେରନ୍ତୁ 0;
 }

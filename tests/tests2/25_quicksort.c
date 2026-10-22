@@ -1,52 +1,52 @@
-#include <stdio.h>
+#ଅନ୍ତର୍ଭାଵ <stdio.h>
 
-int array[16];
+ପୂର୍ଣ୍ଣସଂଖ୍ୟା array[16];
 
 //Swap integer values by array indexes
-void swap(int a, int b)
+ଶୂନ୍ୟ swap(ପୂର୍ଣ୍ଣସଂଖ୍ୟା a, ପୂର୍ଣ୍ଣସଂଖ୍ୟା b)
 {
-   int tmp  = array[a];
+   ପୂର୍ଣ୍ଣସଂଖ୍ୟା tmp  = array[a];
    array[a] = array[b];
    array[b] = tmp;
 }
 
 //Partition the array into two halves and return the
 //index about which the array is partitioned
-int partition(int left, int right)
+ପୂର୍ଣ୍ଣସଂଖ୍ୟା partition(ପୂର୍ଣ୍ଣସଂଖ୍ୟା ବାମ, ପୂର୍ଣ୍ଣସଂଖ୍ୟା ଡାହାଣ)
 {
-   int pivotIndex = left;
-   int pivotValue = array[pivotIndex];
-   int index = left;
-   int i;
+   ପୂର୍ଣ୍ଣସଂଖ୍ୟା pivotIndex = ବାମ;
+   ପୂର୍ଣ୍ଣସଂଖ୍ୟା pivot_ମୂଲ୍ୟ = array[pivotIndex];
+   ପୂର୍ଣ୍ଣସଂଖ୍ୟା index = ବାମ;
+   ପୂର୍ଣ୍ଣସଂଖ୍ୟା i;
 
-   swap(pivotIndex, right);
-   for(i = left; i < right; i++)
+   swap(pivotIndex, ଡାହାଣ);
+   ପାଇଁ(i = ବାମ; i < ଡାହାଣ; i++)
    {
-      if(array[i] < pivotValue)
+      ଯଦି(array[i] < pivot_ମୂଲ୍ୟ)
       {
          swap(i, index);
          index += 1;
       }
    }
-   swap(right, index);
+   swap(ଡାହାଣ, index);
 
-   return index;
+   ଫେରନ୍ତୁ index;
 }
 
 //Quicksort the array
-void quicksort(int left, int right)
+ଶୂନ୍ୟ quicksort(ପୂର୍ଣ୍ଣସଂଖ୍ୟା ବାମ, ପୂର୍ଣ୍ଣସଂଖ୍ୟା ଡାହାଣ)
 {
-   if(left >= right)
-      return;
+   ଯଦି(ବାମ >= ଡାହାଣ)
+      ଫେରନ୍ତୁ;
 
-   int index = partition(left, right);
-   quicksort(left, index - 1);
-   quicksort(index + 1, right);
+   ପୂର୍ଣ୍ଣସଂଖ୍ୟା index = partition(ବାମ, ଡାହାଣ);
+   quicksort(ବାମ, index - 1);
+   quicksort(index + 1, ଡାହାଣ);
 }
 
-int main()
+ପୂର୍ଣ୍ଣସଂଖ୍ୟା ମୁଖ୍ୟ()
 {
-   int i;
+   ପୂର୍ଣ୍ଣସଂଖ୍ୟା i;
 
    array[0] = 62;
    array[1] = 83;
@@ -65,19 +65,19 @@ int main()
    array[14] = 74;
    array[15] = 55;
 
-   for (i = 0; i < 16; i++)
+   ପାଇଁ (i = 0; i < 16; i++)
       printf("%d ", array[i]);
 
    printf("\n");
 
    quicksort(0, 15);
 
-   for (i = 0; i < 16; i++)
+   ପାଇଁ (i = 0; i < 16; i++)
       printf("%d ", array[i]);
 
    printf("\n");
 
-   return 0;
+   ଫେରନ୍ତୁ 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

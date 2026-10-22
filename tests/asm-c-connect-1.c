@@ -1,40 +1,40 @@
-#include <stdio.h>
+#ଅନ୍ତର୍ଭାଵ <stdio.h>
 
-#if (defined _WIN32 || defined __APPLE__) && (!defined __TINYC__ || defined __leading_underscore)
+#ଯଦି (defined _WIN32 || defined __APPLE__) && (!defined __TINYC__ || defined __leading_underscore)
 # define _ "_"
-#else
+#ଅନ୍ୟଥା
 # define _
 #endif
 
 #ifdef __clang__
 /* clang needs some help tp not throw functions away even at -O0 */
 #define __USED __attribute__((__used__))
-#else
+#ଅନ୍ୟଥା
 #define __USED
 #endif
 
-static int __USED x1_c (void)
+ସ୍ଥିର ପୂର୍ଣ୍ଣସଂଖ୍ୟା __USED x1_c (ଶୂନ୍ୟ)
 {
     printf(" x1");
-    return 1;
+    ଫେରନ୍ତୁ 1;
 }
 
-#if __i386__
+#ଯଦି __i386__
 asm(".text;"_"x1: call "_"x1_c; ret");
-#else
+#ଅନ୍ୟଥା
 /* Keep stack aligned */
 asm(".text;"_"x1: sub $8,%rsp; call "_"x1_c; add $8,%rsp; ret");
 #endif
 
-void callx4(void);
-void callx5_again(void);
+ଶୂନ୍ୟ callx4(ଶୂନ୍ୟ);
+ଶୂନ୍ୟ callx5_again(ଶୂନ୍ୟ);
 
-void x6()
+ଶୂନ୍ୟ x6()
 {
     printf(" x6-1");
 }
 
-int main(int argc, char *argv[])
+ପୂର୍ଣ୍ଣସଂଖ୍ୟା ମୁଖ୍ୟ(ପୂର୍ଣ୍ଣସଂଖ୍ୟା argc, ଅକ୍ଷର *argv[])
 {
     printf("*");
     asm("call "_"x1");
@@ -45,25 +45,25 @@ int main(int argc, char *argv[])
     callx5_again();
     x6();
     printf(" *\n");
-    return 0;
+    ଫେରନ୍ତୁ 0;
 }
 
-static
-int __USED x2(void)
+ସ୍ଥିର
+ପୂର୍ଣ୍ଣସଂଖ୍ୟା __USED x2(ଶୂନ୍ୟ)
 {
     printf(" x2");
-    return 2;
+    ଫେରନ୍ତୁ 2;
 }
 
-extern int x3(void);
+ବାହ୍ୟ ପୂର୍ଣ୍ଣସଂଖ୍ୟା x3(ଶୂନ୍ୟ);
 
-void x4(void)
+ଶୂନ୍ୟ x4(ଶୂନ୍ୟ)
 {
     printf(" x4");
 }
 
-void x5(void);
-void x5(void)
+ଶୂନ୍ୟ x5(ଶୂନ୍ୟ);
+ଶୂନ୍ୟ x5(ଶୂନ୍ୟ)
 {
     printf(" x5");
 }

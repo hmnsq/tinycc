@@ -1,26 +1,26 @@
-#include <stdio.h>
+#ଅନ୍ତର୍ଭାଵ <stdio.h>
 
-int myfunc(int x)
+ପୂର୍ଣ୍ଣସଂଖ୍ୟା myfunc(ପୂର୍ଣ୍ଣସଂଖ୍ୟା x)
 {
-   return x * x;
+   ଫେରନ୍ତୁ x * x;
 }
 
-void vfunc(int a)
+ଶୂନ୍ୟ vfunc(ପୂର୍ଣ୍ଣସଂଖ୍ୟା a)
 {
    printf("a=%d\n", a);
 }
 
-void qfunc()
+ଶୂନ୍ୟ qfunc()
 {
    printf("qfunc()\n");
 }
 
-void zfunc()
+ଶୂନ୍ୟ zfunc()
 {
-	((void (*)(void))0) ();
+	((ଶୂନ୍ୟ (*)(ଶୂନ୍ୟ))0) ();
 }
 
-int main()
+ପୂର୍ଣ୍ଣସଂଖ୍ୟା ମୁଖ୍ୟ()
 {
    printf("%d\n", myfunc(3));
    printf("%d\n", myfunc(4));
@@ -29,7 +29,7 @@ int main()
 
    qfunc();
 
-   return 0;
+   ଫେରନ୍ତୁ 0;
 }
 
 // vim: set expandtab ts=4 sw=3 sts=3 tw=80 :

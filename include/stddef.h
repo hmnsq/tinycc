@@ -1,25 +1,25 @@
 #ifndef _STDDEF_H
 #define _STDDEF_H
 
-typedef __SIZE_TYPE__ size_t;
-typedef __PTRDIFF_TYPE__ ssize_t;
-typedef __WCHAR_TYPE__ wchar_t;
-typedef __PTRDIFF_TYPE__ ptrdiff_t;
-typedef __PTRDIFF_TYPE__ intptr_t;
-typedef __SIZE_TYPE__ uintptr_t;
+ପ୍ରକାରବ୍ୟାଖ୍ୟା __SIZE_TYPE__ size_t;
+ପ୍ରକାରବ୍ୟାଖ୍ୟା __PTRDIFF_TYPE__ ssize_t;
+ପ୍ରକାରବ୍ୟାଖ୍ୟା __WCHAR_TYPE__ wchar_t;
+ପ୍ରକାରବ୍ୟାଖ୍ୟା __PTRDIFF_TYPE__ ptrdiff_t;
+ପ୍ରକାରବ୍ୟାଖ୍ୟା __PTRDIFF_TYPE__ intptr_t;
+ପ୍ରକାରବ୍ୟାଖ୍ୟା __SIZE_TYPE__ uintptr_t;
 
-#if __STDC_VERSION__ >= 201112L
-typedef union { long long __ll; long double __ld; } max_align_t;
+#ଯଦି __STDC_VERSION__ >= 201112L
+ପ୍ରକାରବ୍ୟାଖ୍ୟା ସଂଘ { long long __ll; long ଦ୍ୱିଗୁଣ __ld; } max_align_t;
 #endif
 
-#ifndef NULL
-#define NULL ((void*)0)
+#ifndef ଖାଲି
+#define ଖାଲି ((ଶୂନ୍ୟ*)0)
 #endif
 
 #undef offsetof
 #define offsetof(type, field) __builtin_offsetof(type, field)
 
-void *alloca(size_t size);
+ଶୂନ୍ୟ *alloca(size_t size);
 
 #endif
 
@@ -30,10 +30,10 @@ void *alloca(size_t size);
    already (without requiring wint_t).  Some other libs define _WINT_T
    if they've already provided that type, so we can use that as guard.
    TCC defines __WINT_TYPE__ for us.  */
-#if defined (__need_wint_t)
+#ଯଦି defined (__need_wint_t)
 #ifndef _WINT_T
 #define _WINT_T
-typedef __WINT_TYPE__ wint_t;
+ପ୍ରକାରବ୍ୟାଖ୍ୟା __WINT_TYPE__ wint_t;
 #endif
 #undef __need_wint_t
 #endif

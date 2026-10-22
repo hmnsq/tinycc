@@ -10,93 +10,93 @@
  */
 
 #ifdef __TINYC__
-typedef signed char int8_t;
-typedef unsigned char uint8_t;
-typedef short int16_t;
-typedef unsigned short uint16_t;
-typedef int int32_t;
-typedef unsigned uint32_t;
-typedef long long int64_t;
-typedef unsigned long long uint64_t;
-#else
-#include <stdint.h>
-#include <string.h>
+ପ୍ରକାରବ୍ୟାଖ୍ୟା signed ଅକ୍ଷର int8_t;
+ପ୍ରକାରବ୍ୟାଖ୍ୟା unsigned ଅକ୍ଷର uint8_t;
+ପ୍ରକାରବ୍ୟାଖ୍ୟା short int16_t;
+ପ୍ରକାରବ୍ୟାଖ୍ୟା unsigned short uint16_t;
+ପ୍ରକାରବ୍ୟାଖ୍ୟା ପୂର୍ଣ୍ଣସଂଖ୍ୟା int32_t;
+ପ୍ରକାରବ୍ୟାଖ୍ୟା unsigned uint32_t;
+ପ୍ରକାରବ୍ୟାଖ୍ୟା long long int64_t;
+ପ୍ରକାରବ୍ୟାଖ୍ୟା unsigned long long uint64_t;
+#ଅନ୍ୟଥା
+#ଅନ୍ତର୍ଭାଵ <stdint.h>
+#ଅନ୍ତର୍ଭାଵ <string.h>
 #endif
 
-typedef union {
-    struct { uint64_t x0, x1; };
-    long double f;
+ପ୍ରକାରବ୍ୟାଖ୍ୟା ସଂଘ {
+    ସଂରଚନା { uint64_t x0, x1; };
+    long ଦ୍ୱିଗୁଣ f;
 } u128_t;
 
-typedef union {
+ପ୍ରକାରବ୍ୟାଖ୍ୟା ସଂଘ {
     uint64_t x;
-    double f;
+    ଦ୍ୱିଗୁଣ f;
 } u64_t;
 
-typedef union {
+ପ୍ରକାରବ୍ୟାଖ୍ୟା ସଂଘ {
     uint32_t x;
-    float f;
+    ଦଶମିକ f;
 } u32_t;
 
-static long double f3_zero(int sgn)
+ସ୍ଥିର long ଦ୍ୱିଗୁଣ f3_zero(ପୂର୍ଣ୍ଣସଂଖ୍ୟା sgn)
 {
     u128_t x = { 0, (uint64_t)sgn << 63 };
-    return x.f;
+    ଫେରନ୍ତୁ x.f;
 }
 
-static long double f3_infinity(int sgn)
+ସ୍ଥିର long ଦ୍ୱିଗୁଣ f3_infinity(ପୂର୍ଣ୍ଣସଂଖ୍ୟା sgn)
 {
     u128_t x = { 0, (uint64_t)sgn << 63 | 0x7fff000000000000 };
-    return x.f;
+    ଫେରନ୍ତୁ x.f;
 }
 
-static long double f3_NaN(void)
+ସ୍ଥିର long ଦ୍ୱିଗୁଣ f3_NaN(ଶୂନ୍ୟ)
 {
-#if 0
+#ଯଦି 0
     // ARM's default NaN usually has just the top fraction bit set:
     u128_t x = {  0, 0x7fff800000000000 };
-#else
+#ଅନ୍ୟଥା
     // GCC's library sets all fraction bits:
     u128_t x = { -1, 0x7fffffffffffffff };
 #endif
-    return x.f;
+    ଫେରନ୍ତୁ x.f;
 }
 
-static int fp3_convert_NaN(long double *f, int sgn, u128_t *mnt)
+ସ୍ଥିର ପୂର୍ଣ୍ଣସଂଖ୍ୟା fp3_convert_NaN(long ଦ୍ୱିଗୁଣ *f, ପୂର୍ଣ୍ଣସଂଖ୍ୟା sgn, u128_t *mnt)
 {
     u128_t x = { mnt->x0,
                  mnt->x1 | 0x7fff800000000000 | (uint64_t)sgn << 63 };
     *f = x.f;
-    return 1;
+    ଫେରନ୍ତୁ 1;
 #define fp3_convert_NaN(a,b,c) fp3_convert_NaN(a,b,&c)
 }
 
-static int fp3_detect_NaNs(long double *f,
-                           int a_sgn, int a_exp, u128_t *a,
-                           int b_sgn, int b_exp, u128_t *b)
+ସ୍ଥିର ପୂର୍ଣ୍ଣସଂଖ୍ୟା fp3_detect_NaNs(long ଦ୍ୱିଗୁଣ *f,
+                           ପୂର୍ଣ୍ଣସଂଖ୍ୟା a_sgn, ପୂର୍ଣ୍ଣସଂଖ୍ୟା a_exp, u128_t *a,
+                           ପୂର୍ଣ୍ଣସଂଖ୍ୟା b_sgn, ପୂର୍ଣ୍ଣସଂଖ୍ୟା b_exp, u128_t *b)
 #define a (*a)
 #define b (*b)
 {
-#if 0
+#ଯଦି 0
     // Detect signalling NaNs:
-    if (a_exp == 32767 && (a.x0 | a.x1 << 16) && !(a.x1 >> 47 & 1))
-        return fp3_convert_NaN(f, a_sgn, a);
-    if (b_exp == 32767 && (b.x0 | b.x1 << 16) && !(b.x1 >> 47 & 1))
-        return fp3_convert_NaN(f, b_sgn, b);
+    ଯଦି (a_exp == 32767 && (a.x0 | a.x1 << 16) && !(a.x1 >> 47 & 1))
+        ଫେରନ୍ତୁ fp3_convert_NaN(f, a_sgn, a);
+    ଯଦି (b_exp == 32767 && (b.x0 | b.x1 << 16) && !(b.x1 >> 47 & 1))
+        ଫେରନ୍ତୁ fp3_convert_NaN(f, b_sgn, b);
 #endif
     // Detect quiet NaNs:
-    if (a_exp == 32767 && (a.x0 | a.x1 << 16))
-        return fp3_convert_NaN(f, a_sgn, a);
-    if (b_exp == 32767 && (b.x0 | b.x1 << 16))
-        return fp3_convert_NaN(f, b_sgn, b);
+    ଯଦି (a_exp == 32767 && (a.x0 | a.x1 << 16))
+        ଫେରନ୍ତୁ fp3_convert_NaN(f, a_sgn, a);
+    ଯଦି (b_exp == 32767 && (b.x0 | b.x1 << 16))
+        ଫେରନ୍ତୁ fp3_convert_NaN(f, b_sgn, b);
 
-    return 0;
+    ଫେରନ୍ତୁ 0;
 #undef a
 #undef b
 #define fp3_detect_NaNs(a,b,c,d,e,f,g) fp3_detect_NaNs(a,b,c,&d,e,f,&g)
 }
 
-static void f3_unpack(int *sgn, int32_t *exp, u128_t *mnt, long double f)
+ସ୍ଥିର ଶୂନ୍ୟ f3_unpack(ପୂର୍ଣ୍ଣସଂଖ୍ୟା *sgn, int32_t *exp, u128_t *mnt, long ଦ୍ୱିଗୁଣ f)
 {
     u128_t x;
 
@@ -104,25 +104,25 @@ static void f3_unpack(int *sgn, int32_t *exp, u128_t *mnt, long double f)
     *sgn = x.x1 >> 63;
     *exp = x.x1 >> 48 & 32767;
     x.x1 = x.x1 << 16 >> 16;
-    if (*exp)
+    ଯଦି (*exp)
         x.x1 |= (uint64_t)1 << 48;
-    else
+    ଅନ୍ୟଥା
         *exp = 1;
     mnt->f = x.f;
 }
 
-static void f3_normalise(int32_t *exp, u128_t *mnt)
+ସ୍ଥିର ଶୂନ୍ୟ f3_normalise(int32_t *exp, u128_t *mnt)
 {
-    int sh;
-    if (!(mnt->x0 | mnt->x1))
-        return;
-    if (!mnt->x1) {
+    ପୂର୍ଣ୍ଣସଂଖ୍ୟା sh;
+    ଯଦି (!(mnt->x0 | mnt->x1))
+        ଫେରନ୍ତୁ;
+    ଯଦି (!mnt->x1) {
         mnt->x1 = mnt->x0;
         mnt->x0 = 0;
         *exp -= 64;
     }
-    for (sh = 32; sh; sh >>= 1) {
-        if (!(mnt->x1 >> (64 - sh))) {
+    ପାଇଁ (sh = 32; sh; sh >>= 1) {
+        ଯଦି (!(mnt->x1 >> (64 - sh))) {
             mnt->x1 = mnt->x1 << sh | mnt->x0 >> (64 - sh);
             mnt->x0 = mnt->x0 << sh;
             *exp -= sh;
@@ -130,33 +130,33 @@ static void f3_normalise(int32_t *exp, u128_t *mnt)
     }
 }
 
-static void f3_sticky_shift(int32_t sh, u128_t *x)
+ସ୍ଥିର ଶୂନ୍ୟ f3_sticky_shift(int32_t sh, u128_t *x)
 {
-  if (sh >= 128) {
+  ଯଦି (sh >= 128) {
       x->x0 = !!(x->x0 | x->x1);
       x->x1 = 0;
-      return;
+      ଫେରନ୍ତୁ;
   }
-  if (sh >= 64) {
+  ଯଦି (sh >= 64) {
       x->x0 = x->x1 | !!x->x0;
       x->x1 = 0;
       sh -= 64;
   }
-  if (sh > 0) {
+  ଯଦି (sh > 0) {
       x->x0 = x->x0 >> sh | x->x1 << (64 - sh) | !!(x->x0 << (64 - sh));
       x->x1 = x->x1 >> sh;
   }
 }
 
-static long double f3_round(int sgn, int32_t exp, u128_t *x)
+ସ୍ଥିର long ଦ୍ୱିଗୁଣ f3_round(ପୂର୍ଣ୍ଣସଂଖ୍ୟା sgn, int32_t exp, u128_t *x)
 {
-    long double f;
-    int error;
+    long ଦ୍ୱିଗୁଣ f;
+    ପୂର୍ଣ୍ଣସଂଖ୍ୟା error;
 
-    if (exp > 0) {
+    ଯଦି (exp > 0) {
         f3_sticky_shift(13, x);
     }
-    else {
+    ଅନ୍ୟଥା {
         f3_sticky_shift(14 - exp, x);
         exp = 0;
     }
@@ -165,12 +165,12 @@ static long double f3_round(int sgn, int32_t exp, u128_t *x)
     x->x0 = x->x0 >> 2 | x->x1 << 62;
     x->x1 = x->x1 >> 2;
 
-    if (error == 3 || ((error == 2) & (x->x0 & 1))) {
-        if (!++x->x0) {
+    ଯଦି (error == 3 || ((error == 2) & (x->x0 & 1))) {
+        ଯଦି (!++x->x0) {
             ++x->x1;
-            if (x->x1 == (uint64_t)1 << 48)
+            ଯଦି (x->x1 == (uint64_t)1 << 48)
                 exp = 1;
-            else if (x->x1 == (uint64_t)1 << 49) {
+            ଅନ୍ୟଥା ଯଦି (x->x1 == (uint64_t)1 << 49) {
                 ++exp;
                 x->x0 = x->x0 >> 1 | x->x1 << 63;
                 x->x1 = x->x1 >> 1;
@@ -178,107 +178,107 @@ static long double f3_round(int sgn, int32_t exp, u128_t *x)
         }
     }
 
-    if (exp >= 32767)
-        return f3_infinity(sgn);
+    ଯଦି (exp >= 32767)
+        ଫେରନ୍ତୁ f3_infinity(sgn);
 
     x->x1 = x->x1 << 16 >> 16 | (uint64_t)exp << 48 | (uint64_t)sgn << 63;
-    return x->f;
+    ଫେରନ୍ତୁ x->f;
 }
 
-static long double f3_add(long double fa, long double fb, int neg)
+ସ୍ଥିର long ଦ୍ୱିଗୁଣ f3_add(long ଦ୍ୱିଗୁଣ fa, long ଦ୍ୱିଗୁଣ fb, ପୂର୍ଣ୍ଣସଂଖ୍ୟା neg)
 {
     u128_t a, b, x;
     int32_t a_exp, b_exp, x_exp;
-    int a_sgn, b_sgn, x_sgn;
-    long double fx;
+    ପୂର୍ଣ୍ଣସଂଖ୍ୟା a_sgn, b_sgn, x_sgn;
+    long ଦ୍ୱିଗୁଣ fx;
 
     f3_unpack(&a_sgn, &a_exp, &a, fa);
     f3_unpack(&b_sgn, &b_exp, &b, fb);
 
-    if (fp3_detect_NaNs(&fx, a_sgn, a_exp, a, b_sgn, b_exp, b))
-        return fx;
+    ଯଦି (fp3_detect_NaNs(&fx, a_sgn, a_exp, a, b_sgn, b_exp, b))
+        ଫେରନ୍ତୁ fx;
 
     b_sgn ^= neg;
 
     // Handle infinities and zeroes:
-    if (a_exp == 32767 && b_exp == 32767 && a_sgn != b_sgn)
-        return f3_NaN();
-    if (a_exp == 32767)
-        return f3_infinity(a_sgn);
-    if (b_exp == 32767)
-        return f3_infinity(b_sgn);
-    if (!(a.x0 | a.x1 | b.x0 | b.x1))
-        return f3_zero(a_sgn & b_sgn);
+    ଯଦି (a_exp == 32767 && b_exp == 32767 && a_sgn != b_sgn)
+        ଫେରନ୍ତୁ f3_NaN();
+    ଯଦି (a_exp == 32767)
+        ଫେରନ୍ତୁ f3_infinity(a_sgn);
+    ଯଦି (b_exp == 32767)
+        ଫେରନ୍ତୁ f3_infinity(b_sgn);
+    ଯଦି (!(a.x0 | a.x1 | b.x0 | b.x1))
+        ଫେରନ୍ତୁ f3_zero(a_sgn & b_sgn);
 
     a.x1 = a.x1 << 3 | a.x0 >> 61;
     a.x0 = a.x0 << 3;
     b.x1 = b.x1 << 3 | b.x0 >> 61;
     b.x0 = b.x0 << 3;
 
-    if (a_exp <= b_exp) {
+    ଯଦି (a_exp <= b_exp) {
         f3_sticky_shift(b_exp - a_exp, &a);
         a_exp = b_exp;
     }
-    else {
+    ଅନ୍ୟଥା {
         f3_sticky_shift(a_exp - b_exp, &b);
         b_exp = a_exp;
     }
 
     x_sgn = a_sgn;
     x_exp = a_exp;
-    if (a_sgn == b_sgn) {
+    ଯଦି (a_sgn == b_sgn) {
         x.x0 = a.x0 + b.x0;
         x.x1 = a.x1 + b.x1 + (x.x0 < a.x0);
     }
-    else {
+    ଅନ୍ୟଥା {
         x.x0 = a.x0 - b.x0;
         x.x1 = a.x1 - b.x1 - (x.x0 > a.x0);
-        if (x.x1 >> 63) {
+        ଯଦି (x.x1 >> 63) {
             x_sgn ^= 1;
             x.x0 = -x.x0;
             x.x1 = -x.x1 - !!x.x0;
         }
     }
 
-    if (!(x.x0 | x.x1))
-        return f3_zero(0);
+    ଯଦି (!(x.x0 | x.x1))
+        ଫେରନ୍ତୁ f3_zero(0);
 
     f3_normalise(&x_exp, &x);
 
-    return f3_round(x_sgn, x_exp + 12, &x);
+    ଫେରନ୍ତୁ f3_round(x_sgn, x_exp + 12, &x);
 }
 
-long double __addtf3(long double a, long double b)
+long ଦ୍ୱିଗୁଣ __addtf3(long ଦ୍ୱିଗୁଣ a, long ଦ୍ୱିଗୁଣ b)
 {
-    return f3_add(a, b, 0);
+    ଫେରନ୍ତୁ f3_add(a, b, 0);
 }
 
-long double __subtf3(long double a, long double b)
+long ଦ୍ୱିଗୁଣ __subtf3(long ଦ୍ୱିଗୁଣ a, long ଦ୍ୱିଗୁଣ b)
 {
-    return f3_add(a, b, 1);
+    ଫେରନ୍ତୁ f3_add(a, b, 1);
 }
 
-long double __multf3(long double fa, long double fb)
+long ଦ୍ୱିଗୁଣ __multf3(long ଦ୍ୱିଗୁଣ fa, long ଦ୍ୱିଗୁଣ fb)
 {
     u128_t a, b, x;
     int32_t a_exp, b_exp, x_exp;
-    int a_sgn, b_sgn, x_sgn;
-    long double fx;
+    ପୂର୍ଣ୍ଣସଂଖ୍ୟା a_sgn, b_sgn, x_sgn;
+    long ଦ୍ୱିଗୁଣ fx;
 
     f3_unpack(&a_sgn, &a_exp, &a, fa);
     f3_unpack(&b_sgn, &b_exp, &b, fb);
 
-    if (fp3_detect_NaNs(&fx, a_sgn, a_exp, a, b_sgn, b_exp, b))
-        return fx;
+    ଯଦି (fp3_detect_NaNs(&fx, a_sgn, a_exp, a, b_sgn, b_exp, b))
+        ଫେରନ୍ତୁ fx;
 
     // Handle infinities and zeroes:
-    if ((a_exp == 32767 && !(b.x0 | b.x1)) ||
+    ଯଦି ((a_exp == 32767 && !(b.x0 | b.x1)) ||
         (b_exp == 32767 && !(a.x0 | a.x1)))
-        return f3_NaN();
-    if (a_exp == 32767 || b_exp == 32767)
-        return f3_infinity(a_sgn ^ b_sgn);
-    if (!(a.x0 | a.x1) || !(b.x0 | b.x1))
-        return f3_zero(a_sgn ^ b_sgn);
+        ଫେରନ୍ତୁ f3_NaN();
+    ଯଦି (a_exp == 32767 || b_exp == 32767)
+        ଫେରନ୍ତୁ f3_infinity(a_sgn ^ b_sgn);
+    ଯଦି (!(a.x0 | a.x1) || !(b.x0 | b.x1))
+        ଫେରନ୍ତୁ f3_zero(a_sgn ^ b_sgn);
 
     f3_normalise(&a_exp, &a);
     f3_normalise(&b_exp, &b);
@@ -311,7 +311,7 @@ long double __multf3(long double fa, long double fb)
                        !!(x3 << 38 | (x2 | x1 | x0) << 34));
         uint64_t y1 = x6;
         // Top bit may be zero. Renormalise:
-        if (!(y1 >> 63)) {
+        ଯଦି (!(y1 >> 63)) {
             y1 = y1 << 1 | y0 >> 63;
             y0 = y0 << 1;
             --x_exp;
@@ -320,30 +320,30 @@ long double __multf3(long double fa, long double fb)
         x.x1 = y1;
     }
 
-    return f3_round(x_sgn, x_exp, &x);
+    ଫେରନ୍ତୁ f3_round(x_sgn, x_exp, &x);
 }
 
-long double __divtf3(long double fa, long double fb)
+long ଦ୍ୱିଗୁଣ __divtf3(long ଦ୍ୱିଗୁଣ fa, long ଦ୍ୱିଗୁଣ fb)
 {
     u128_t a, b, x;
     int32_t a_exp, b_exp, x_exp;
-    int a_sgn, b_sgn, x_sgn, i;
-    long double fx;
+    ପୂର୍ଣ୍ଣସଂଖ୍ୟା a_sgn, b_sgn, x_sgn, i;
+    long ଦ୍ୱିଗୁଣ fx;
 
     f3_unpack(&a_sgn, &a_exp, &a, fa);
     f3_unpack(&b_sgn, &b_exp, &b, fb);
 
-    if (fp3_detect_NaNs(&fx, a_sgn, a_exp, a, b_sgn, b_exp, b))
-        return fx;
+    ଯଦି (fp3_detect_NaNs(&fx, a_sgn, a_exp, a, b_sgn, b_exp, b))
+        ଫେରନ୍ତୁ fx;
 
     // Handle infinities and zeroes:
-    if ((a_exp == 32767 && b_exp == 32767) ||
+    ଯଦି ((a_exp == 32767 && b_exp == 32767) ||
         (!(a.x0 | a.x1) && !(b.x0 | b.x1)))
-        return f3_NaN();
-    if (a_exp == 32767 || !(b.x0 | b.x1))
-        return f3_infinity(a_sgn ^ b_sgn);
-    if (!(a.x0 | a.x1) || b_exp == 32767)
-        return f3_zero(a_sgn ^ b_sgn);
+        ଫେରନ୍ତୁ f3_NaN();
+    ଯଦି (a_exp == 32767 || !(b.x0 | b.x1))
+        ଫେରନ୍ତୁ f3_infinity(a_sgn ^ b_sgn);
+    ଯଦି (!(a.x0 | a.x1) || b_exp == 32767)
+        ଫେରନ୍ତୁ f3_zero(a_sgn ^ b_sgn);
 
     f3_normalise(&a_exp, &a);
     f3_normalise(&b_exp, &b);
@@ -357,10 +357,10 @@ long double __divtf3(long double fa, long double fb)
     b.x1 = b.x1 >> 1;
     x.x0 = 0;
     x.x1 = 0;
-    for (i = 0; i < 116; i++) {
+    ପାଇଁ (i = 0; i < 116; i++) {
         x.x1 = x.x1 << 1 | x.x0 >> 63;
         x.x0 = x.x0 << 1;
-        if (a.x1 > b.x1 || (a.x1 == b.x1 && a.x0 >= b.x0)) {
+        ଯଦି (a.x1 > b.x1 || (a.x1 == b.x1 && a.x0 >= b.x0)) {
             a.x1 = a.x1 - b.x1 - (a.x0 < b.x0);
             a.x0 = a.x0 - b.x0;
             x.x0 |= 1;
@@ -372,16 +372,16 @@ long double __divtf3(long double fa, long double fb)
 
     f3_normalise(&x_exp, &x);
 
-    return f3_round(x_sgn, x_exp, &x);
+    ଫେରନ୍ତୁ f3_round(x_sgn, x_exp, &x);
 }
 
-long double __negtf2(long double f)
+long ଦ୍ୱିଗୁଣ __negtf2(long ଦ୍ୱିଗୁଣ f)
 {
     ((u128_t*)&f)->x1 ^= 1UL << 63;
-    return f;
+    ଫେରନ୍ତୁ f;
 }
 
-long double __extendsftf2(float f)
+long ଦ୍ୱିଗୁଣ __extendsftf2(ଦଶମିକ f)
 {
     u128_t x;
     u32_t u;
@@ -392,23 +392,23 @@ long double __extendsftf2(float f)
     aa = a;
 
     x.x0 = 0;
-    if (!(a << 1))
+    ଯଦି (!(a << 1))
         x.x1 = aa << 32;
-    else if (a << 1 >> 24 == 255)
+    ଅନ୍ୟଥା ଯଦି (a << 1 >> 24 == 255)
         x.x1 = (0x7fff000000000000 | aa >> 31 << 63 | aa << 41 >> 16 |
                 (uint64_t)!!(a << 9) << 47);
-    else if (a << 1 >> 24 == 0) {
+    ଅନ୍ୟଥା ଯଦି (a << 1 >> 24 == 0) {
         uint64_t adj = 0;
-        while (!(a << 1 >> 1 >> (23 - adj)))
+        ଯେତେବେଳେ (!(a << 1 >> 1 >> (23 - adj)))
           adj++;
         x.x1 = aa >> 31 << 63 | (16256 - adj + 1) << 48 | aa << adj << 41 >> 16;
-    } else
+    } ଅନ୍ୟଥା
         x.x1 = (aa >> 31 << 63 | ((aa >> 23 & 255) + 16256) << 48 |
                 aa << 41 >> 16);
-    return x.f;
+    ଫେରନ୍ତୁ x.f;
 }
 
-long double __extenddftf2(double f)
+long ଦ୍ୱିଗୁଣ __extenddftf2(ଦ୍ୱିଗୁଣ f)
 {
     u128_t x;
     u64_t u;
@@ -417,262 +417,262 @@ long double __extenddftf2(double f)
     u.f = f, a = u.x;
 
     x.x0 = a << 60;
-    if (!(a << 1))
+    ଯଦି (!(a << 1))
         x.x1 = a;
-    else if (a << 1 >> 53 == 2047)
+    ଅନ୍ୟଥା ଯଦି (a << 1 >> 53 == 2047)
         x.x1 = (0x7fff000000000000 | a >> 63 << 63 | a << 12 >> 16 |
                 (uint64_t)!!(a << 12) << 47);
-    else if (a << 1 >> 53 == 0) {
+    ଅନ୍ୟଥା ଯଦି (a << 1 >> 53 == 0) {
         uint64_t adj = 0;
-        while (!(a << 1 >> 1 >> (52 - adj)))
+        ଯେତେବେଳେ (!(a << 1 >> 1 >> (52 - adj)))
           adj++;
         x.x0 <<= adj;
         x.x1 = a >> 63 << 63 | (15360 - adj + 1) << 48 | a << adj << 12 >> 16;
-    } else
+    } ଅନ୍ୟଥା
         x.x1 = a >> 63 << 63 | ((a >> 52 & 2047) + 15360) << 48 | a << 12 >> 16;
-    return x.f;
+    ଫେରନ୍ତୁ x.f;
 }
 
-float __trunctfsf2(long double f)
+ଦଶମିକ __trunctfsf2(long ଦ୍ୱିଗୁଣ f)
 {
     u128_t mnt;
     int32_t exp;
-    int sgn;
+    ପୂର୍ଣ୍ଣସଂଖ୍ୟା sgn;
     u32_t x;
 #define x x.x
 
     f3_unpack(&sgn, &exp, &mnt, f);
-    if (exp == 32767 && (mnt.x0 | mnt.x1 << 16))
+    ଯଦି (exp == 32767 && (mnt.x0 | mnt.x1 << 16))
         x = 0x7fc00000 | (uint32_t)sgn << 31 | (mnt.x1 >> 25 & 0x007fffff);
-    else if (exp > 16510)
+    ଅନ୍ୟଥା ଯଦି (exp > 16510)
         x = 0x7f800000 | (uint32_t)sgn << 31;
-    else if (exp < 16233)
+    ଅନ୍ୟଥା ଯଦି (exp < 16233)
         x = (uint32_t)sgn << 31;
-    else {
+    ଅନ୍ୟଥା {
         exp -= 16257;
         x = mnt.x1 >> 23 | !!(mnt.x0 | mnt.x1 << 41);
-        if (exp < 0) {
+        ଯଦି (exp < 0) {
             x = x >> -exp | !!(x << (32 + exp));
             exp = 0;
         }
-        if ((x & 3) == 3 || (x & 7) == 6)
+        ଯଦି ((x & 3) == 3 || (x & 7) == 6)
             x += 4;
         x = ((x >> 2) + (exp << 23)) | (uint32_t)sgn << 31;
     }
 #undef x
-    return x.f;
+    ଫେରନ୍ତୁ x.f;
 }
 
-double __trunctfdf2(long double f)
+ଦ୍ୱିଗୁଣ __trunctfdf2(long ଦ୍ୱିଗୁଣ f)
 {
     u128_t mnt;
     int32_t exp;
-    int sgn;
+    ପୂର୍ଣ୍ଣସଂଖ୍ୟା sgn;
     u64_t x;
 #define x x.x
 
     f3_unpack(&sgn, &exp, &mnt, f);
-    if (exp == 32767 && (mnt.x0 | mnt.x1 << 16))
+    ଯଦି (exp == 32767 && (mnt.x0 | mnt.x1 << 16))
         x = (0x7ff8000000000000 | (uint64_t)sgn << 63 |
              mnt.x1 << 16 >> 12 | mnt.x0 >> 60);
-    else if (exp > 17406)
+    ଅନ୍ୟଥା ଯଦି (exp > 17406)
         x = 0x7ff0000000000000 | (uint64_t)sgn << 63;
-    else if (exp < 15308)
+    ଅନ୍ୟଥା ଯଦି (exp < 15308)
         x = (uint64_t)sgn << 63;
-    else {
+    ଅନ୍ୟଥା {
         exp -= 15361;
         x = mnt.x1 << 6 | mnt.x0 >> 58 | !!(mnt.x0 << 6);
-        if (exp < 0) {
+        ଯଦି (exp < 0) {
             x = x >> -exp | !!(x << (64 + exp));
             exp = 0;
         }
-        if ((x & 3) == 3 || (x & 7) == 6)
+        ଯଦି ((x & 3) == 3 || (x & 7) == 6)
             x += 4;
         x = ((x >> 2) + ((uint64_t)exp << 52)) | (uint64_t)sgn << 63;
     }
 #undef x
-    return x.f;
+    ଫେରନ୍ତୁ x.f;
 }
 
-int32_t __fixtfsi(long double fa)
+int32_t __fixtfsi(long ଦ୍ୱିଗୁଣ fa)
 {
     u128_t a;
     int32_t a_exp;
-    int a_sgn;
+    ପୂର୍ଣ୍ଣସଂଖ୍ୟା a_sgn;
     int32_t x;
     f3_unpack(&a_sgn, &a_exp, &a, fa);
-    if (a_exp < 16369)
-        return 0;
-    if (a_exp > 16413)
-        return a_sgn ? -0x80000000 : 0x7fffffff;
+    ଯଦି (a_exp < 16369)
+        ଫେରନ୍ତୁ 0;
+    ଯଦି (a_exp > 16413)
+        ଫେରନ୍ତୁ a_sgn ? -0x80000000 : 0x7fffffff;
     x = a.x1 >> (16431 - a_exp);
-    return a_sgn ? -x : x;
+    ଫେରନ୍ତୁ a_sgn ? -x : x;
 }
 
-int64_t __fixtfdi(long double fa)
+int64_t __fixtfdi(long ଦ୍ୱିଗୁଣ fa)
 {
     u128_t a;
     int32_t a_exp;
-    int a_sgn;
+    ପୂର୍ଣ୍ଣସଂଖ୍ୟା a_sgn;
     int64_t x;
     f3_unpack(&a_sgn, &a_exp, &a, fa);
-    if (a_exp < 16383)
-        return 0;
-    if (a_exp > 16445)
-        return a_sgn ? -0x8000000000000000 : 0x7fffffffffffffff;
+    ଯଦି (a_exp < 16383)
+        ଫେରନ୍ତୁ 0;
+    ଯଦି (a_exp > 16445)
+        ଫେରନ୍ତୁ a_sgn ? -0x8000000000000000 : 0x7fffffffffffffff;
     x = (a.x1 << 15 | a.x0 >> 49) >> (16446 - a_exp);
-    return a_sgn ? -x : x;
+    ଫେରନ୍ତୁ a_sgn ? -x : x;
 }
 
-uint32_t __fixunstfsi(long double fa)
+uint32_t __fixunstfsi(long ଦ୍ୱିଗୁଣ fa)
 {
     u128_t a;
     int32_t a_exp;
-    int a_sgn;
+    ପୂର୍ଣ୍ଣସଂଖ୍ୟା a_sgn;
     f3_unpack(&a_sgn, &a_exp, &a, fa);
-    if (a_sgn || a_exp < 16369)
-        return 0;
-    if (a_exp > 16414)
-        return -1;
-    return a.x1 >> (16431 - a_exp);
+    ଯଦି (a_sgn || a_exp < 16369)
+        ଫେରନ୍ତୁ 0;
+    ଯଦି (a_exp > 16414)
+        ଫେରନ୍ତୁ -1;
+    ଫେରନ୍ତୁ a.x1 >> (16431 - a_exp);
 }
 
-uint64_t __fixunstfdi(long double fa)
+uint64_t __fixunstfdi(long ଦ୍ୱିଗୁଣ fa)
 {
     u128_t a;
     int32_t a_exp;
-    int a_sgn;
+    ପୂର୍ଣ୍ଣସଂଖ୍ୟା a_sgn;
     f3_unpack(&a_sgn, &a_exp, &a, fa);
-    if (a_sgn || a_exp < 16383)
-        return 0;
-    if (a_exp > 16446)
-        return -1;
-    return (a.x1 << 15 | a.x0 >> 49) >> (16446 - a_exp);
+    ଯଦି (a_sgn || a_exp < 16383)
+        ଫେରନ୍ତୁ 0;
+    ଯଦି (a_exp > 16446)
+        ଫେରନ୍ତୁ -1;
+    ଫେରନ୍ତୁ (a.x1 << 15 | a.x0 >> 49) >> (16446 - a_exp);
 }
 
-long double __floatsitf(int32_t a)
+long ଦ୍ୱିଗୁଣ __floatsitf(int32_t a)
 {
-    int sgn = 0;
-    int exp = 16414;
+    ପୂର୍ଣ୍ଣସଂଖ୍ୟା sgn = 0;
+    ପୂର୍ଣ୍ଣସଂଖ୍ୟା exp = 16414;
     uint32_t mnt = a;
     u128_t x = { 0, 0 };
-    int i;
-    if (a) {
-        if (a < 0) {
+    ପୂର୍ଣ୍ଣସଂଖ୍ୟା i;
+    ଯଦି (a) {
+        ଯଦି (a < 0) {
             sgn = 1;
             mnt = -mnt;
         }
-        for (i = 16; i; i >>= 1)
-            if (!(mnt >> (32 - i))) {
+        ପାଇଁ (i = 16; i; i >>= 1)
+            ଯଦି (!(mnt >> (32 - i))) {
                 mnt <<= i;
                 exp -= i;
             }
         x.x1 = ((uint64_t)sgn << 63 | (uint64_t)exp << 48 |
                 (uint64_t)(mnt << 1) << 16);
     }
-    return x.f;
+    ଫେରନ୍ତୁ x.f;
 }
 
-long double __floatditf(int64_t a)
+long ଦ୍ୱିଗୁଣ __floatditf(int64_t a)
 {
-    int sgn = 0;
-    int exp = 16446;
+    ପୂର୍ଣ୍ଣସଂଖ୍ୟା sgn = 0;
+    ପୂର୍ଣ୍ଣସଂଖ୍ୟା exp = 16446;
     uint64_t mnt = a;
     u128_t x = { 0, 0 };
-    int i;
-    if (a) {
-        if (a < 0) {
+    ପୂର୍ଣ୍ଣସଂଖ୍ୟା i;
+    ଯଦି (a) {
+        ଯଦି (a < 0) {
             sgn = 1;
             mnt = -mnt;
         }
-        for (i = 32; i; i >>= 1)
-            if (!(mnt >> (64 - i))) {
+        ପାଇଁ (i = 32; i; i >>= 1)
+            ଯଦି (!(mnt >> (64 - i))) {
                 mnt <<= i;
                 exp -= i;
             }
         x.x0 = mnt << 49;
         x.x1 = (uint64_t)sgn << 63 | (uint64_t)exp << 48 | mnt << 1 >> 16;
     }
-    return x.f;
+    ଫେରନ୍ତୁ x.f;
 }
 
-long double __floatunsitf(uint32_t a)
+long ଦ୍ୱିଗୁଣ __floatunsitf(uint32_t a)
 {
-    int exp = 16414;
+    ପୂର୍ଣ୍ଣସଂଖ୍ୟା exp = 16414;
     uint32_t mnt = a;
     u128_t x = { 0, 0 };
-    int i;
-    if (a) {
-        for (i = 16; i; i >>= 1)
-            if (!(mnt >> (32 - i))) {
+    ପୂର୍ଣ୍ଣସଂଖ୍ୟା i;
+    ଯଦି (a) {
+        ପାଇଁ (i = 16; i; i >>= 1)
+            ଯଦି (!(mnt >> (32 - i))) {
                 mnt <<= i;
                 exp -= i;
             }
         x.x1 = (uint64_t)exp << 48 | (uint64_t)(mnt << 1) << 16;
     }
-    return x.f;
+    ଫେରନ୍ତୁ x.f;
 }
 
-long double __floatunditf(uint64_t a)
+long ଦ୍ୱିଗୁଣ __floatunditf(uint64_t a)
 {
-    int exp = 16446;
+    ପୂର୍ଣ୍ଣସଂଖ୍ୟା exp = 16446;
     uint64_t mnt = a;
     u128_t x = { 0, 0 };
-    long double f;
-    int i;
-    if (a) {
-        for (i = 32; i; i >>= 1)
-            if (!(mnt >> (64 - i))) {
+    long ଦ୍ୱିଗୁଣ f;
+    ପୂର୍ଣ୍ଣସଂଖ୍ୟା i;
+    ଯଦି (a) {
+        ପାଇଁ (i = 32; i; i >>= 1)
+            ଯଦି (!(mnt >> (64 - i))) {
                 mnt <<= i;
                 exp -= i;
             }
         x.x0 = mnt << 49;
         x.x1 = (uint64_t)exp << 48 | mnt << 1 >> 16;
     }
-    return x.f;
+    ଫେରନ୍ତୁ x.f;
 }
 
-static int f3_cmp(long double fa, long double fb)
+ସ୍ଥିର ପୂର୍ଣ୍ଣସଂଖ୍ୟା f3_cmp(long ଦ୍ୱିଗୁଣ fa, long ଦ୍ୱିଗୁଣ fb)
 {
     u128_t a, b;
     a.f = fa;
     b.f = fb;
-    return (!(a.x0 | a.x1 << 1 | b.x0 | b.x1 << 1) ? 0 :
+    ଫେରନ୍ତୁ (!(a.x0 | a.x1 << 1 | b.x0 | b.x1 << 1) ? 0 :
             ((a.x1 << 1 >> 49 == 0x7fff && (a.x0 | a.x1 << 16)) ||
              (b.x1 << 1 >> 49 == 0x7fff && (b.x0 | b.x1 << 16))) ? 2 :
-            a.x1 >> 63 != b.x1 >> 63 ? (int)(b.x1 >> 63) - (int)(a.x1 >> 63) :
-            a.x1 < b.x1 ? (int)(a.x1 >> 63 << 1) - 1 :
-            a.x1 > b.x1 ? 1 - (int)(a.x1 >> 63 << 1) :
-            a.x0 < b.x0 ? (int)(a.x1 >> 63 << 1) - 1 :
-            b.x0 < a.x0 ? 1 - (int)(a.x1 >> 63 << 1) : 0);
+            a.x1 >> 63 != b.x1 >> 63 ? (ପୂର୍ଣ୍ଣସଂଖ୍ୟା)(b.x1 >> 63) - (ପୂର୍ଣ୍ଣସଂଖ୍ୟା)(a.x1 >> 63) :
+            a.x1 < b.x1 ? (ପୂର୍ଣ୍ଣସଂଖ୍ୟା)(a.x1 >> 63 << 1) - 1 :
+            a.x1 > b.x1 ? 1 - (ପୂର୍ଣ୍ଣସଂଖ୍ୟା)(a.x1 >> 63 << 1) :
+            a.x0 < b.x0 ? (ପୂର୍ଣ୍ଣସଂଖ୍ୟା)(a.x1 >> 63 << 1) - 1 :
+            b.x0 < a.x0 ? 1 - (ପୂର୍ଣ୍ଣସଂଖ୍ୟା)(a.x1 >> 63 << 1) : 0);
 }
 
-int __eqtf2(long double a, long double b)
+ପୂର୍ଣ୍ଣସଂଖ୍ୟା __eqtf2(long ଦ୍ୱିଗୁଣ a, long ଦ୍ୱିଗୁଣ b)
 {
-    return !!f3_cmp(a, b);
+    ଫେରନ୍ତୁ !!f3_cmp(a, b);
 }
 
-int __netf2(long double a, long double b)
+ପୂର୍ଣ୍ଣସଂଖ୍ୟା __netf2(long ଦ୍ୱିଗୁଣ a, long ଦ୍ୱିଗୁଣ b)
 {
-    return !!f3_cmp(a, b);
+    ଫେରନ୍ତୁ !!f3_cmp(a, b);
 }
 
-int __lttf2(long double a, long double b)
+ପୂର୍ଣ୍ଣସଂଖ୍ୟା __lttf2(long ଦ୍ୱିଗୁଣ a, long ଦ୍ୱିଗୁଣ b)
 {
-    return f3_cmp(a, b);
+    ଫେରନ୍ତୁ f3_cmp(a, b);
 }
 
-int __letf2(long double a, long double b)
+ପୂର୍ଣ୍ଣସଂଖ୍ୟା __letf2(long ଦ୍ୱିଗୁଣ a, long ଦ୍ୱିଗୁଣ b)
 {
-    return f3_cmp(a, b);
+    ଫେରନ୍ତୁ f3_cmp(a, b);
 }
 
-int __gttf2(long double a, long double b)
+ପୂର୍ଣ୍ଣସଂଖ୍ୟା __gttf2(long ଦ୍ୱିଗୁଣ a, long ଦ୍ୱିଗୁଣ b)
 {
-    return -f3_cmp(b, a);
+    ଫେରନ୍ତୁ -f3_cmp(b, a);
 }
 
-int __getf2(long double a, long double b)
+ପୂର୍ଣ୍ଣସଂଖ୍ୟା __getf2(long ଦ୍ୱିଗୁଣ a, long ଦ୍ୱିଗୁଣ b)
 {
-    return -f3_cmp(b, a);
+    ଫେରନ୍ତୁ -f3_cmp(b, a);
 }

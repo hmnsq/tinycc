@@ -1,18 +1,18 @@
-#include <stdio.h>
+#ଅନ୍ତର୍ଭାଵ <stdio.h>
 
-int main()
+ପୂର୍ଣ୍ଣସଂଖ୍ୟା ମୁଖ୍ୟ()
 {
-   int Count = 0;
+   ପୂର୍ଣ୍ଣସଂଖ୍ୟା ଗଣନା_4 = 0;
 
-   for (;;)
+   ପାଇଁ (;;)
    {
-      Count++;
-      printf("%d\n", Count);
-      if (Count >= 10)
-         break;
+      ଗଣନା_4++;
+      printf("%d\n", ଗଣନା_4);
+      ଯଦି (ଗଣନା_4 >= 10)
+         ଭାଙ୍ଗ;
    }
 
-   return 0;
+   ଫେରନ୍ତୁ 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

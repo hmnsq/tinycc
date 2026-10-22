@@ -1,17 +1,17 @@
-#include <stdio.h>
+#ଅନ୍ତର୍ଭାଵ <stdio.h>
 
-int main()
+ପୂର୍ଣ୍ଣସଂଖ୍ୟା ମୁଖ୍ୟ()
 {
-   char Buf[100];
-   int Count;
+   ଅକ୍ଷର Buf[100];
+   ପୂର୍ଣ୍ଣସଂଖ୍ୟା ଗଣନା_4;
 
-   for (Count = 1; Count <= 20; Count++)
+   ପାଇଁ (ଗଣନା_4 = 1; ଗଣନା_4 <= 20; ଗଣନା_4++)
    {
-      sprintf(Buf, "->%02d<-\n", Count);
+      sprintf(Buf, "->%02d<-\n", ଗଣନା_4);
       printf("%s", Buf);
    }
 
-   return 0;
+   ଫେରନ୍ତୁ 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

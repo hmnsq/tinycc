@@ -1,17 +1,17 @@
-#include <stdio.h>
+#ଅନ୍ତର୍ଭାଵ <stdio.h>
 
-enum fred { a, b, c };
+ଗଣନା fred { a, b, c };
 
-int main()
+ପୂର୍ଣ୍ଣସଂଖ୍ୟା ମୁଖ୍ୟ()
 {
    printf("a=%d\n", a);
    printf("b=%d\n", b);
    printf("c=%d\n", c);
 
-   enum fred d;
+   ଗଣନା fred d;
 
-   typedef enum { e, f, g } h;
-   typedef enum { i, j, k } m;
+   ପ୍ରକାରବ୍ୟାଖ୍ୟା ଗଣନା { e, f, g } h;
+   ପ୍ରକାରବ୍ୟାଖ୍ୟା ଗଣନା { i, j, k } m;
 
    printf("e=%d\n", e);
    printf("f=%d\n", f);
@@ -21,7 +21,7 @@ int main()
    printf("j=%d\n", j);
    printf("k=%d\n", k);
 
-   return 0;
+   ଫେରନ୍ତୁ 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

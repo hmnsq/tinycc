@@ -1,18 +1,18 @@
-#include <stdio.h>
+#ଅନ୍ତର୍ଭାଵ <stdio.h>
 
-int main()
+ପୂର୍ଣ୍ଣସଂଖ୍ୟା ମୁଖ୍ୟ()
 {
-   int a;
-   char b;
+   ପୂର୍ଣ୍ଣସଂଖ୍ୟା a;
+   ଅକ୍ଷର b;
 
    a = 0;
-   while (a < 2)
+   ଯେତେବେଳେ (a < 2)
    {
       printf("%d", a++);
-      break;
+      ଭାଙ୍ଗ;
 
       b = 'A';
-      while (b < 'C')
+      ଯେତେବେଳେ (b < 'C')
       {
          printf("%c", b++);
       }
@@ -20,7 +20,7 @@ int main()
    }
    printf("\n");
 
-   return 0;
+   ଫେରନ୍ତୁ 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

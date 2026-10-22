@@ -1,17 +1,17 @@
-#include <stdio.h>
+#ଅନ୍ତର୍ଭାଵ <stdio.h>
 
-static int fred = 1234;
-static int joe;
+ସ୍ଥିର ପୂର୍ଣ୍ଣସଂଖ୍ୟା fred = 1234;
+ସ୍ଥିର ପୂର୍ଣ୍ଣସଂଖ୍ୟା joe;
 
-void henry()
+ଶୂନ୍ୟ henry()
 {
-   static int fred = 4567;
+   ସ୍ଥିର ପୂର୍ଣ୍ଣସଂଖ୍ୟା fred = 4567;
 
    printf("%d\n", fred);
    fred++;
 }
 
-int main()
+ପୂର୍ଣ୍ଣସଂଖ୍ୟା ମୁଖ୍ୟ()
 {
    printf("%d\n", fred);
    henry();
@@ -24,7 +24,7 @@ int main()
    printf("%d\n", fred);
    printf("%d\n", joe);
 
-   return 0;
+   ଫେରନ୍ତୁ 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

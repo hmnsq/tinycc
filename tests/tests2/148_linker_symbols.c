@@ -1,6 +1,6 @@
-int printf(const char *, ...);
+ପୂର୍ଣ୍ଣସଂଖ୍ୟା printf(ଅଚଳ ଅକ୍ଷର *, ...);
 
-#define assert(x) ((x) \
+#define ପ୍ରତିଜ୍ଞା(x) ((x) \
     ? (printf(" 1 (%s)\n",#x),1) \
     : (printf("%s:%d: error: (%s)\n",__FILE__,__LINE__,#x),0))
 
@@ -8,145 +8,145 @@ int printf(const char *, ...);
 #define SO 200
 
 /* ------------------------------------------------------ */
-#if TEST-O == 1
-extern char etext[], _etext[];
-extern char edata[], _edata[];
-extern char end[], _end[];
-int check_linker_symbols(void)
+#ଯଦି TEST-O == 1
+ବାହ୍ୟ ଅକ୍ଷର etext[], _etext[];
+ବାହ୍ୟ ଅକ୍ଷର edata[], _edata[];
+ବାହ୍ୟ ଅକ୍ଷର end[], _end[];
+ପୂର୍ଣ୍ଣସଂଖ୍ୟା check_linker_symbols(ଶୂନ୍ୟ)
 {
-    int errors = 0;
-    errors += !assert(etext == _etext);
-    errors += !assert(edata == _edata);
-    errors += !assert(end == _end);
-    return errors;
+    ପୂର୍ଣ୍ଣସଂଖ୍ୟା errors = 0;
+    errors += !ପ୍ରତିଜ୍ଞା(etext == _etext);
+    errors += !ପ୍ରତିଜ୍ଞା(edata == _edata);
+    errors += !ପ୍ରତିଜ୍ଞା(end == _end);
+    ଫେରନ୍ତୁ errors;
 }
 
-#elif TEST-MAIN == 1
-int check_linker_symbols(void);
-int main(void)
+#ନଚେତଯଦି TEST-MAIN == 1
+ପୂର୍ଣ୍ଣସଂଖ୍ୟା check_linker_symbols(ଶୂନ୍ୟ);
+ପୂର୍ଣ୍ଣସଂଖ୍ୟା ମୁଖ୍ୟ(ଶୂନ୍ୟ)
 {
     printf("linker symbols test\n");
-    assert(check_linker_symbols() == 0);
+    ପ୍ରତିଜ୍ଞା(check_linker_symbols() == 0);
 }
 
 /* ------------------------------------------------------ */
-#elif TEST-SO == 2
-extern char etext[], edata[], end[];
-void get_dso_end(char **p)
+#ନଚେତଯଦି TEST-SO == 2
+ବାହ୍ୟ ଅକ୍ଷର etext[], edata[], end[];
+ଶୂନ୍ୟ get_dso_end(ଅକ୍ଷର **p)
 {
     p[0] = etext;
     p[1] = edata;
     p[2] = end;
 }
 
-#elif TEST-MAIN == 2
-extern char _etext[], _edata[], _end[];
-extern void get_dso_end(char **);
-static int fill_data = 123;
-static int fill_bss;
+#ନଚେତଯଦି TEST-MAIN == 2
+ବାହ୍ୟ ଅକ୍ଷର _etext[], _edata[], _end[];
+ବାହ୍ୟ ଶୂନ୍ୟ get_dso_end(ଅକ୍ଷର **);
+ସ୍ଥିର ପୂର୍ଣ୍ଣସଂଖ୍ୟା fill_data = 123;
+ସ୍ଥିର ପୂର୍ଣ୍ଣସଂଖ୍ୟା fill_bss;
 
-int main(void)
+ପୂର୍ଣ୍ଣସଂଖ୍ୟା ମୁଖ୍ୟ(ଶୂନ୍ୟ)
 {
-    char *p[3];
+    ଅକ୍ଷର *p[3];
     printf("DSO linker symbols test\n");
     get_dso_end(p);
-    assert(p[0] == _etext) || printf("-- %p %p\n", p[0], _etext);
-    assert(p[1] == _edata) || printf("-- %p %p\n", p[1], _edata);
-    assert(p[2] == _end)   || printf("-- %p %p\n", p[2], _end);
+    ପ୍ରତିଜ୍ଞା(p[0] == _etext) || printf("-- %p %p\n", p[0], _etext);
+    ପ୍ରତିଜ୍ଞା(p[1] == _edata) || printf("-- %p %p\n", p[1], _edata);
+    ପ୍ରତିଜ୍ଞା(p[2] == _end)   || printf("-- %p %p\n", p[2], _end);
 }
 
 /* ------------------------------------------------------ */
-#elif TEST-MAIN == 3
+#ନଚେତଯଦି TEST-MAIN == 3
 
-int etext(void) { return 1; }
-int edata(void) { return 2; }
-int end(void) { return 3; }
-int main(void)
+ପୂର୍ଣ୍ଣସଂଖ୍ୟା etext(ଶୂନ୍ୟ) { ଫେରନ୍ତୁ 1; }
+ପୂର୍ଣ୍ଣସଂଖ୍ୟା edata(ଶୂନ୍ୟ) { ଫେରନ୍ତୁ 2; }
+ପୂର୍ଣ୍ଣସଂଖ୍ୟା end(ଶୂନ୍ୟ) { ଫେରନ୍ତୁ 3; }
+ପୂର୍ଣ୍ଣସଂଖ୍ୟା ମୁଖ୍ୟ(ଶୂନ୍ୟ)
 {
     printf("user definition test\n");
-    assert(etext() + edata() + end() == 6);
+    ପ୍ରତିଜ୍ଞା(etext() + edata() + end() == 6);
 }
 
 /* ------------------------------------------------------ */
-#elif TEST-SO == 4
-unsigned char copy_reloc_data[257];
+#ନଚେତଯଦି TEST-SO == 4
+unsigned ଅକ୍ଷର copy_reloc_data[257];
 
-#elif TEST-MAIN == 4
-extern unsigned char copy_reloc_data[257];
-extern char end[], _end[];
+#ନଚେତଯଦି TEST-MAIN == 4
+ବାହ୍ୟ unsigned ଅକ୍ଷର copy_reloc_data[257];
+ବାହ୍ୟ ଅକ୍ଷର end[], _end[];
 
-int main(void)
+ପୂର୍ଣ୍ଣସଂଖ୍ୟା ମୁଖ୍ୟ(ଶୂନ୍ୟ)
 {
     unsigned long data_end;
     printf("end copy relocation test\n");
     copy_reloc_data[256] = 42;
-    data_end = (unsigned long)(copy_reloc_data + sizeof copy_reloc_data);
-    assert(end == _end);
-    assert((unsigned long)end >= data_end);
-    assert(copy_reloc_data[256] == 42);
+    data_end = (unsigned long)(copy_reloc_data + ଆକାର copy_reloc_data);
+    ପ୍ରତିଜ୍ଞା(end == _end);
+    ପ୍ରତିଜ୍ଞା((unsigned long)end >= data_end);
+    ପ୍ରତିଜ୍ଞା(copy_reloc_data[256] == 42);
 }
 
 /* ------------------------------------------------------ */
-#elif TEST-O == 5
-void __attribute__((section(".text.linker_test"), noinline, used))
-linker_test_text(void)
+#ନଚେତଯଦି TEST-O == 5
+ଶୂନ୍ୟ __attribute__((section(".text.linker_test"), noinline, used))
+linker_test_text(ଶୂନ୍ୟ)
 {
 }
 __attribute__((section(".bss.linker_test"), used))
-unsigned char linker_test_bss[257];
+unsigned ଅକ୍ଷର linker_test_bss[257];
 
 __attribute__((section(".data.linker_test"), used))
-unsigned char linker_test_data[23] = { 1 };
+unsigned ଅକ୍ଷର linker_test_data[23] = { 1 };
 
-#elif TEST-MAIN == 5
-extern void linker_test_text(void);
-extern unsigned char linker_test_data[23];
-extern unsigned char linker_test_bss[257];
-extern char etext[], _etext[];
-extern char edata[], _edata[];
-extern char end[], _end[];
+#ନଚେତଯଦି TEST-MAIN == 5
+ବାହ୍ୟ ଶୂନ୍ୟ linker_test_text(ଶୂନ୍ୟ);
+ବାହ୍ୟ unsigned ଅକ୍ଷର linker_test_data[23];
+ବାହ୍ୟ unsigned ଅକ୍ଷର linker_test_bss[257];
+ବାହ୍ୟ ଅକ୍ଷର etext[], _etext[];
+ବାହ୍ୟ ଅକ୍ଷର edata[], _edata[];
+ବାହ୍ୟ ଅକ୍ଷର end[], _end[];
 
-int main(void)
+ପୂର୍ଣ୍ଣସଂଖ୍ୟା ମୁଖ୍ୟ(ଶୂନ୍ୟ)
 {
-    char* text_addr = (void*)linker_test_text;
-    char* data_end = linker_test_data + sizeof linker_test_data;
-    char* bss_end = linker_test_bss + sizeof linker_test_bss;
+    ଅକ୍ଷର* text_addr = (ଶୂନ୍ୟ*)linker_test_text;
+    ଅକ୍ଷର* data_end = linker_test_data + ଆକାର linker_test_data;
+    ଅକ୍ଷର* bss_end = linker_test_bss + ଆକାର linker_test_bss;
 
     printf("linker boundary test\n");
     linker_test_data[22] = 42;
     linker_test_bss[256] = 42;
-    assert(linker_test_bss > linker_test_data);
-    assert(etext == _etext);
-    assert(edata == _edata);
-    assert(end == _end);
-    assert(etext >= text_addr);
-    assert(edata >= data_end);
-    assert(end >= bss_end);
-    assert(linker_test_data[22] == 42);
-    assert(linker_test_bss[256] == 42);
+    ପ୍ରତିଜ୍ଞା(linker_test_bss > linker_test_data);
+    ପ୍ରତିଜ୍ଞା(etext == _etext);
+    ପ୍ରତିଜ୍ଞା(edata == _edata);
+    ପ୍ରତିଜ୍ଞା(end == _end);
+    ପ୍ରତିଜ୍ଞା(etext >= text_addr);
+    ପ୍ରତିଜ୍ଞା(edata >= data_end);
+    ପ୍ରତିଜ୍ଞା(end >= bss_end);
+    ପ୍ରତିଜ୍ଞା(linker_test_data[22] == 42);
+    ପ୍ରତିଜ୍ଞା(linker_test_bss[256] == 42);
 }
 
 /* ------------------------------------------------------ */
-#elif TEST-SO == 6
-int end;
-int eight = 8;
-int nine;
-int dso_add() { return end + eight + nine; }
+#ନଚେତଯଦି TEST-SO == 6
+ପୂର୍ଣ୍ଣସଂଖ୍ୟା end;
+ପୂର୍ଣ୍ଣସଂଖ୍ୟା eight = 8;
+ପୂର୍ଣ୍ଣସଂଖ୍ୟା nine;
+ପୂର୍ଣ୍ଣସଂଖ୍ୟା dso_add() { ଫେରନ୍ତୁ end + eight + nine; }
 
-#elif TEST-MAIN == 6
-int end = 7;
-int eight;
-int nine = 9;
-int dso_add();
-int main()
+#ନଚେତଯଦି TEST-MAIN == 6
+ପୂର୍ଣ୍ଣସଂଖ୍ୟା end = 7;
+ପୂର୍ଣ୍ଣସଂଖ୍ୟା eight;
+ପୂର୍ଣ୍ଣସଂଖ୍ୟା nine = 9;
+ପୂର୍ଣ୍ଣସଂଖ୍ୟା dso_add();
+ପୂର୍ଣ୍ଣସଂଖ୍ୟା ମୁଖ୍ୟ()
 {
-    int sum;
+    ପୂର୍ଣ୍ଣସଂଖ୍ୟା sum;
     printf("DSO initialized data test\n");
     sum = dso_add();
-    assert(end == 7);
-    assert(eight == 8);
-    assert(nine == 9);
-    assert(sum == 24) || printf("-- %d + %d + %d = %d\n", end, eight, nine, sum);
+    ପ୍ରତିଜ୍ଞା(end == 7);
+    ପ୍ରତିଜ୍ଞା(eight == 8);
+    ପ୍ରତିଜ୍ଞା(nine == 9);
+    ପ୍ରତିଜ୍ଞା(sum == 24) || printf("-- %d + %d + %d = %d\n", end, eight, nine, sum);
 }
 
 /* ------------------------------------------------------ */

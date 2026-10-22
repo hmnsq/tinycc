@@ -1,11 +1,11 @@
-void defined_const(int *pointer);
+ଶୂନ୍ୟ defined_const(ପୂର୍ଣ୍ଣସଂଖ୍ୟା *pointer);
 
-void defined_const(int *const pointer)
+ଶୂନ୍ୟ defined_const(ପୂର୍ଣ୍ଣସଂଖ୍ୟା *ଅଚଳ pointer)
 {
     pointer = 0;
 }
 
-int main(void)
+ପୂର୍ଣ୍ଣସଂଖ୍ୟା ମୁଖ୍ୟ(ଶୂନ୍ୟ)
 {
-    return 0;
+    ଫେରନ୍ତୁ 0;
 }

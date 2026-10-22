@@ -1,21 +1,21 @@
-extern int printf(const char*, ...);
+ବାହ୍ୟ ପୂର୍ଣ୍ଣସଂଖ୍ୟା printf(ଅଚଳ ଅକ୍ଷର*, ...);
 
-struct fred;
+ସଂରଚନା fred;
 
-void fred$(struct fred* this)
+ଶୂନ୍ୟ fred$(ସଂରଚନା fred* this)
 {
     printf("~fred()\n");
 }
 
-struct __attribute__((__cleanup__(fred$))) fred
+ସଂରଚନା __attribute__((__cleanup__(fred$))) fred
 {
-   int boris;
-   int natasha;
+   ପୂର୍ଣ୍ଣସଂଖ୍ୟା boris;
+   ପୂର୍ଣ୍ଣସଂଖ୍ୟା natasha;
 };
 
-int main()
+ପୂର୍ଣ୍ଣସଂଖ୍ୟା ମୁଖ୍ୟ()
 {
-    struct fred  __attribute__((__cleanup__(fred$))) bloggs;
+    ସଂରଚନା fred  __attribute__((__cleanup__(fred$))) bloggs;
 
    bloggs.boris = 12;
    bloggs.natasha = 34;
@@ -23,7 +23,7 @@ int main()
    printf("%d\n", bloggs.boris);
    printf("%d\n", bloggs.natasha);
 
-   struct fred jones[2];
+   ସଂରଚନା fred jones[2];
    jones[0].boris = 12;
    jones[0].natasha = 34;
    jones[1].boris = 56;
@@ -34,5 +34,5 @@ int main()
    printf("%d\n", jones[1].boris);
    printf("%d\n", jones[1].natasha);
 
-   return 0;
+   ଫେରନ୍ତୁ 0;
 }

@@ -1,24 +1,24 @@
-#include <stdio.h>
+#ଅନ୍ତର୍ଭାଵ <stdio.h>
 
-union u {
+ସଂଘ u {
     unsigned long ul;
-    long double ld;
+    long ଦ୍ୱିଗୁଣ ld;
 };
 
-void
-conv (union u *p)
+ଶୂନ୍ୟ
+conv (ସଂଘ u *p)
 {
-    p->ul = (unsigned int) p->ld;
+    p->ul = (unsigned ପୂର୍ଣ୍ଣସଂଖ୍ୟା) p->ld;
 }
 
-int main (void)
+ପୂର୍ଣ୍ଣସଂଖ୍ୟା ମୁଖ୍ୟ (ଶୂନ୍ୟ)
 {
-    union u v;
-    double d = 1234567890.0;
+    ସଂଘ u v;
+    ଦ୍ୱିଗୁଣ d = 1234567890.0;
 
     v.ld = 42;
     conv (&v);
     printf ("%lu\n", v.ul);
     printf ("%llu\n", (unsigned long long)d);
-    return 0;
+    ଫେରନ୍ତୁ 0;
 }

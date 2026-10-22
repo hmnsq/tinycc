@@ -1,17 +1,17 @@
-#include <stdio.h>
+#ଅନ୍ତର୍ଭାଵ <stdio.h>
 
-static void f(int x)
+ସ୍ଥିର ଶୂନ୍ୟ f(ପୂର୍ଣ୍ଣସଂଖ୍ୟା x)
 {
      printf("f(%d)\n", x);
 }
 
-int main(void)
+ପୂର୍ଣ୍ଣସଂଖ୍ୟା ମୁଖ୍ୟ(ଶୂନ୍ୟ)
 {
-     int count = 0, i = 0;
-     for (; i < 3; ++i) {
+     ପୂର୍ଣ୍ଣସଂଖ୍ୟା ଗଣନା_3 = 0, i = 0;
+     ପାଇଁ (; i < 3; ++i) {
          printf("%d\n", i);
-         (void)(i || (f(i), ++count));
+         (ଶୂନ୍ୟ)(i || (f(i), ++ଗଣନା_3));
      }
-     printf("count %d\n", count);
-     return count == 1 ? 0 : 1;
+     printf("count %d\n", ଗଣନା_3);
+     ଫେରନ୍ତୁ ଗଣନା_3 == 1 ? 0 : 1;
 }
