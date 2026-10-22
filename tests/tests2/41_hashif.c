@@ -1,33 +1,33 @@
-#include <stdio.h>
+#अन्तर्भाव <stdio.h>
 
-int main()
+पूर्णाङ्क main()
 {
    printf("#include test\n");
 
-#if 1
-#if 0
+#जइ 1
+#जइ 0
    printf("a\n");
-#else
+#अण्णहा
    printf("b\n");
 #endif
-#else
-#if 0
+#अण्णहा
+#जइ 0
    printf("c\n");
-#else
+#अण्णहा
    printf("d\n");
 #endif
 #endif
 
-#if 0
-#if 1
+#जइ 0
+#जइ 1
    printf("e\n");
-#else
+#अण्णहा
    printf("f\n");
 #endif
-#else
-#if 1
+#अण्णहा
+#जइ 1
    printf("g\n");
-#else
+#अण्णहा
    printf("h\n");
 #endif
 #endif
@@ -37,13 +37,13 @@ int main()
 #ifdef DEF
 #ifdef DEF
    printf("i\n");
-#else
+#अण्णहा
    printf("j\n");
 #endif
-#else
+#अण्णहा
 #ifdef DEF
    printf("k\n");
-#else
+#अण्णहा
    printf("l\n");
 #endif
 #endif
@@ -51,13 +51,13 @@ int main()
 #ifndef DEF
 #ifndef DEF
    printf("m\n");
-#else
+#अण्णहा
    printf("n\n");
 #endif
-#else
+#अण्णहा
 #ifndef DEF
    printf("o\n");
-#else
+#अण्णहा
    printf("p\n");
 #endif
 #endif
@@ -65,21 +65,21 @@ int main()
 #define ONE 1
 #define ZERO 0
 
-#if ONE
-#if ZERO
+#जइ ONE
+#जइ ZERO
    printf("q\n");
-#else
+#अण्णहा
    printf("r\n");
 #endif
-#else
-#if ZERO
+#अण्णहा
+#जइ ZERO
    printf("s\n");
-#else
+#अण्णहा
    printf("t\n");
 #endif
 #endif
 
-   return 0;
+   प्रत्यागम 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

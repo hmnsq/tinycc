@@ -1,104 +1,104 @@
-extern int printf(const char *format, ...);
-static void kb_wait_1(void)
+बाह्य पूर्णाङ्क printf(ध्रुव वर्ण *format, ...);
+स्थिर शून्य kb_wait_1(शून्य)
 {
     unsigned long timeout = 2;
-    do {
+    करेहि {
         (1 ?
             printf("timeout=%ld\n", timeout) :
             ({
-                while (1)
+                जाव (1)
                     printf("error\n");
             })
         );
         timeout--;
-    } while (timeout);
+    } जाव (timeout);
 }
-static void kb_wait_2(void)
+स्थिर शून्य kb_wait_2(शून्य)
 {
     unsigned long timeout = 2;
-    do {
+    करेहि {
         (1 ?
             printf("timeout=%ld\n", timeout) :
             ({
-                for (;;)
+                प्रति (;;)
                     printf("error\n");
             })
         );
         timeout--;
-    } while (timeout);
+    } जाव (timeout);
 }
-static void kb_wait_2_1(void)
+स्थिर शून्य kb_wait_2_1(शून्य)
 {
     unsigned long timeout = 2;
-    do {
+    करेहि {
         (1 ?
             printf("timeout=%ld\n", timeout) :
             ({
-                do {
+                करेहि {
                     printf("error\n");
-		} while (1);
+		} जाव (1);
             })
         );
         timeout--;
-    } while (timeout);
+    } जाव (timeout);
 }
-static void kb_wait_2_2(void)
+स्थिर शून्य kb_wait_2_2(शून्य)
 {
     unsigned long timeout = 2;
-    do {
+    करेहि {
         (1 ?
             printf("timeout=%ld\n", timeout) :
             ({
                 label:
                     printf("error\n");
-		goto label;
+		गच्छ label;
             })
         );
         timeout--;
-    } while (timeout);
+    } जाव (timeout);
 }
-static void kb_wait_3(void)
+स्थिर शून्य kb_wait_3(शून्य)
 {
     unsigned long timeout = 2;
-    do {
+    करेहि {
         (1 ?
             printf("timeout=%ld\n", timeout) :
             ({
-                int i = 1;
-                goto label;
+                पूर्णाङ्क i = 1;
+                गच्छ label;
                 i = i + 2;
             label:
                 i = i + 3;
             })
         );
         timeout--;
-    } while (timeout);
+    } जाव (timeout);
 }
-static void kb_wait_4(void)
+स्थिर शून्य kb_wait_4(शून्य)
 {
     unsigned long timeout = 2;
-    do {
+    करेहि {
         (1 ?
             printf("timeout=%ld\n", timeout) :
             ({
-                switch(timeout) {
-                    case 2:
+                विकल्प(timeout) {
+                    पक्ष 2:
                         printf("timeout is 2");
-                        break;
-                    case 1:
+                        भङ्ग;
+                    पक्ष 1:
                         printf("timeout is 1");
-                        break;
-                    default:
+                        भङ्ग;
+                    स्वभाव:
                         printf("timeout is 0?");
-                        break;
+                        भङ्ग;
                 };
                 // return;
             })
         );
         timeout--;
-    } while (timeout);
+    } जाव (timeout);
 }
-int main()
+पूर्णाङ्क main()
 {
     printf("begin\n");
     kb_wait_1();
@@ -108,5 +108,5 @@ int main()
     kb_wait_3();
     kb_wait_4();
     printf("end\n");
-    return 0;
+    प्रत्यागम 0;
 }

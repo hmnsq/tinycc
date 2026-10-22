@@ -1,12 +1,12 @@
-#include <stdatomic.h>
-int printf(const char*,...);
+#अन्तर्भाव <stdatomic.h>
+पूर्णाङ्क printf(ध्रुव वर्ण*,...);
 
-#if defined test_atomic_compare_exchange
-int main()
+#जइ defined test_atomic_compare_exchange
+पूर्णाङ्क main()
 {
-    _Atomic int a = 12;
-    int b = 77;
-    int r;
+    _Atomic पूर्णाङ्क a = 12;
+    पूर्णाङ्क b = 77;
+    पूर्णाङ्क r;
 
     atomic_store(&a, b + 0);
     r = atomic_compare_exchange_strong(&a, &b, 99);
@@ -24,33 +24,33 @@ int main()
     r = atomic_exchange(&a, 66);
     printf("%d %d %d\n", r, a, b);
 
-    return 0;
+    प्रत्यागम 0;
 }
 
-#elif defined test_atomic_store
-int main()
+#नोचेद्यदि defined test_atomic_store
+पूर्णाङ्क main()
 {
-    int _Atomic i;
-    int r;
+    पूर्णाङ्क _Atomic i;
+    पूर्णाङ्क r;
     atomic_store(&i, 12);
     r = atomic_fetch_add(&i, i);
     printf("r = %d, i = %d\n", r, i);
 }
 
-#elif defined test_atomic_store_pointer
-typedef struct { char c[4]; } c4;
-int main()
+#नोचेद्यदि defined test_atomic_store_pointer
+प्रकारनिर्देश संरचना { वर्ण c[4]; } c4;
+पूर्णाङ्क main()
 {
-    int i = 1;
-    int _Atomic *p = &i;
-    int k = 2;
+    पूर्णाङ्क i = 1;
+    पूर्णाङ्क _Atomic *p = &i;
+    पूर्णाङ्क k = 2;
     atomic_store(&p, &k);
     printf("*p = %d\n", *p);
 }
 
-#elif defined test_atomic_store_struct
-typedef struct { char c[4]; } c4;
-int main()
+#नोचेद्यदि defined test_atomic_store_struct
+प्रकारनिर्देश संरचना { वर्ण c[4]; } c4;
+पूर्णाङ्क main()
 {
     c4 _Atomic p;
     c4 v = { 1,2,3,4 };
@@ -58,7 +58,7 @@ int main()
     printf("%d %d %d %d\n", p.c[0], p.c[1], p.c[2], p.c[3]);
 }
 
-#elif defined test_atomic_op
+#नोचेद्यदि defined test_atomic_op
 
 #define OP1(func, v, e1, e2) atomic_##func(&c, v) == e1 && c == e2
 #define OP2(func, v, e1, e2) atomic_##func(&s, v) == e1 && s == e2
@@ -70,7 +70,7 @@ int main()
                                     OP4(func,v,e1,e2) && OP8(func,v,e1,e2)    \
                                     ? "SUCCESS" : "FAIL");
  
-int main()
+पूर्णाङ्क main()
 {
     atomic_char c;
     atomic_short s;
@@ -89,9 +89,9 @@ int main()
     OP(fetch_and, 0x0f, 53, 5);
 }
 
-#elif defined test_atomic_op2
+#नोचेद्यदि defined test_atomic_op2
 
-typedef __SIZE_TYPE__ size64_t;
+प्रकारनिर्देश __SIZE_TYPE__ size64_t;
 
 #define OP1(func, v, e1, e2) \
     __atomic_##func(&c, v, __ATOMIC_SEQ_CST) == e1 && c == e2
@@ -107,11 +107,11 @@ typedef __SIZE_TYPE__ size64_t;
                                     OP4(func,v,e1,e2) && OP8(func,v,e1,e2)    \
                                     ? "SUCCESS" : "FAIL");
 
-int main()
+पूर्णाङ्क main()
 {
-    signed char c;
+    signed वर्ण c;
     short s;
-    int i;
+    पूर्णाङ्क i;
     size64_t l;
 
     atomic_init(&c, 0);
@@ -139,67 +139,67 @@ int main()
     OP(nand_fetch, 0x01, -2, -2);
 }
 
-#elif defined test_atomic_thread_signal
-int main()
+#नोचेद्यदि defined test_atomic_thread_signal
+पूर्णाङ्क main()
 {
-    int c;
+    पूर्णाङ्क c;
 
     atomic_thread_fence(__ATOMIC_SEQ_CST);
     atomic_signal_fence(__ATOMIC_SEQ_CST);
     printf ("%d\n", atomic_is_lock_free(&c));
 }
 
-#elif defined test_atomic_error_1
-int main()
+#नोचेद्यदि defined test_atomic_error_1
+पूर्णाङ्क main()
 {
-    int _Atomic i;
+    पूर्णाङ्क _Atomic i;
     atomic_load(i);
 }
 
-#elif defined test_atomic_error_2
-int main()
+#नोचेद्यदि defined test_atomic_error_2
+पूर्णाङ्क main()
 {
-    struct { char c[3]; } _Atomic c3;
+    संरचना { वर्ण c[3]; } _Atomic c3;
     atomic_load(&c3);
 }
 
-#elif defined test_atomic_error_3
-int main()
+#नोचेद्यदि defined test_atomic_error_3
+पूर्णाङ्क main()
 {
-    _Atomic int *p = 0;
+    _Atomic पूर्णाङ्क *p = 0;
     atomic_fetch_add(&p, 1);
 }
 
-#elif defined test_atomic_error_4
-int main()
+#नोचेद्यदि defined test_atomic_error_4
+पूर्णाङ्क main()
 {
-    int _Atomic i = 1;
-    char c = 2;
+    पूर्णाङ्क _Atomic i = 1;
+    वर्ण c = 2;
     atomic_compare_exchange_strong(&i, &c, 0);
 }
 
-#elif defined test_atomic_warn_1
-int main()
+#नोचेद्यदि defined test_atomic_warn_1
+पूर्णाङ्क main()
 {
     size_t _Atomic i = 1;
     /* assignment to integer from pointer */
     atomic_store(&i, &i);
 }
 
-#elif defined test_atomic_warn_2
-int main()
+#नोचेद्यदि defined test_atomic_warn_2
+पूर्णाङ्क main()
 {
-    int i = 1;
-    char c = 2;
-    int _Atomic *p = &i;
+    पूर्णाङ्क i = 1;
+    वर्ण c = 2;
+    पूर्णाङ्क _Atomic *p = &i;
     /* assignment from incompatible pointer */
     atomic_store(&p, &c);
 }
 
-#elif defined test_atomic_warn_3
-int main()
+#नोचेद्यदि defined test_atomic_warn_3
+पूर्णाङ्क main()
 {
-    int const i = 1;
+    पूर्णाङ्क ध्रुव i = 1;
     /* assignment to read-only -location */
     atomic_fetch_add(&i, 2);
 }

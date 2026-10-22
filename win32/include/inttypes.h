@@ -8,21 +8,21 @@
 #ifndef _INTTYPES_H_
 #define _INTTYPES_H_
 
-#include <_mingw.h>
-#include <stdint.h>
+#अन्तर्भाव <_mingw.h>
+#अन्तर्भाव <stdint.h>
 #define __need_wchar_t
-#include <stddef.h>
+#अन्तर्भाव <stddef.h>
 
 #ifdef	__cplusplus
-extern	"C"	{
+बाह्य	"C"	{
 #endif
 
-typedef struct {
+प्रकारनिर्देश संरचना {
 	intmax_t quot;
 	intmax_t rem;
 	} imaxdiv_t;
 
-#if !defined(__cplusplus) || defined(__STDC_FORMAT_MACROS)
+#जइ !defined(__cplusplus) || defined(__STDC_FORMAT_MACROS)
 
 /* 7.8.1 Macros for format specifiers
  * 
@@ -228,7 +228,7 @@ typedef struct {
 #define SCNoPTR "I64o"
 #define SCNxPTR "I64x"
 #define SCNuPTR "I64u"
-#else
+#अण्णहा
 #define PRIdPTR "d"
 #define PRIiPTR "i"
 #define PRIoPTR "o"
@@ -242,7 +242,7 @@ typedef struct {
 #define SCNuPTR "u"
 #endif
 
-#if defined (__STDC_VERSION__) && __STDC_VERSION__ >= 199901L
+#जइ defined (__STDC_VERSION__) && __STDC_VERSION__ >= 199901L
 /*
  * no length modifier for char types prior to C9x
  * MS runtime  scanf appears to treat "hh" as "h" 
@@ -275,20 +275,20 @@ typedef struct {
 
 intmax_t __cdecl imaxabs (intmax_t j);
 __CRT_INLINE intmax_t __cdecl imaxabs (intmax_t j)
-	{return	(j >= 0 ? j : -j);}
+	{प्रत्यागम	(j >= 0 ? j : -j);}
 imaxdiv_t __cdecl imaxdiv (intmax_t numer, intmax_t denom);
 
 /* 7.8.2 Conversion functions for greatest-width integer types */
 
-intmax_t __cdecl strtoimax (const char* __restrict__ nptr,
-                            char** __restrict__ endptr, int base);
-uintmax_t __cdecl strtoumax (const char* __restrict__ nptr,
-			     char** __restrict__ endptr, int base);
+intmax_t __cdecl strtoimax (ध्रुव वर्ण* __restrict__ nptr,
+                            वर्ण** __restrict__ endptr, पूर्णाङ्क base);
+uintmax_t __cdecl strtoumax (ध्रुव वर्ण* __restrict__ nptr,
+			     वर्ण** __restrict__ endptr, पूर्णाङ्क base);
 
-intmax_t __cdecl wcstoimax (const wchar_t* __restrict__ nptr,
-                            wchar_t** __restrict__ endptr, int base);
-uintmax_t __cdecl wcstoumax (const wchar_t* __restrict__ nptr,
-			     wchar_t** __restrict__ endptr, int base);
+intmax_t __cdecl wcstoimax (ध्रुव wchar_t* __restrict__ nptr,
+                            wchar_t** __restrict__ endptr, पूर्णाङ्क base);
+uintmax_t __cdecl wcstoumax (ध्रुव wchar_t* __restrict__ nptr,
+			     wchar_t** __restrict__ endptr, पूर्णाङ्क base);
 
 #ifdef	__cplusplus
 }

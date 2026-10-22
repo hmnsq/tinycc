@@ -3,9 +3,9 @@
 A rettrue(bla) B
 TRACE(
       ARG_1,
-#if rettrue(bla)
+#जइ rettrue(bla)
       ARG_2,
-#else
+#अण्णहा
       ARG_2_wrong,
 #endif
       ARG_3

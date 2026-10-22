@@ -1,12 +1,12 @@
-extern int printf(const char *, ...);
-void f(void);
-void bar(void) { void f(void); f(); }
-void foo(void) { extern void f(void); f(); }
-void f(void) { printf("f\n"); }
+बाह्य पूर्णाङ्क printf(ध्रुव वर्ण *, ...);
+शून्य f(शून्य);
+शून्य bar(शून्य) { शून्य f(शून्य); f(); }
+शून्य foo(शून्य) { बाह्य शून्य f(शून्य); f(); }
+शून्य f(शून्य) { printf("f\n"); }
 
-int main()
+पूर्णाङ्क main()
 {
   bar();
   foo();
-  return 0;
+  प्रत्यागम 0;
 }

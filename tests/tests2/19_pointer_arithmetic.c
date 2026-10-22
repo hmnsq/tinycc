@@ -1,28 +1,28 @@
-#include <stdio.h>
+#अन्तर्भाव <stdio.h>
 
-int main()
+पूर्णाङ्क main()
 {
-   int a;
-   int *b;
-   int *c;
+   पूर्णाङ्क a;
+   पूर्णाङ्क *b;
+   पूर्णाङ्क *c;
 
    a = 42;
    b = &a;
-   c = NULL;
+   c = रिक्त;
 
    printf("%d\n", *b);
 
-   if (b == NULL)
+   जइ (b == रिक्त)
       printf("b is NULL\n");
-   else
+   अण्णहा
       printf("b is not NULL\n");
 
-   if (c == NULL)
+   जइ (c == रिक्त)
       printf("c is NULL\n");
-   else
+   अण्णहा
       printf("c is not NULL\n");
 
-   return 0;
+   प्रत्यागम 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

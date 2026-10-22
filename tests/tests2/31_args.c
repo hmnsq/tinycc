@@ -1,14 +1,14 @@
-#include <stdio.h>
+#अन्तर्भाव <stdio.h>
 
-int main(int argc, char **argv)
+पूर्णाङ्क main(पूर्णाङ्क argc, वर्ण **argv)
 {
-   int Count;
+   पूर्णाङ्क गणनम्_3;
 
    printf("hello world %d\n", argc);
-   for (Count = 1; Count < argc; Count++)
-      printf("arg %d: %s\n", Count, argv[Count]);
+   प्रति (गणनम्_3 = 1; गणनम्_3 < argc; गणनम्_3++)
+      printf("arg %d: %s\n", गणनम्_3, argv[गणनम्_3]);
 
-   return 0;
+   प्रत्यागम 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/
