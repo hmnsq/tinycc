@@ -1,13 +1,13 @@
 /* test bound checking code without -run */
 
-int arr[10];
+पूर्णाङ्क arr[10];
 
-int
-main(int argc, char **argv)
+पूर्णाङ्क
+main(पूर्णाङ्क argc, वर्ण **argv)
 {
-  int i;
+  पूर्णाङ्क i;
 
-  for (i = 0; i <= sizeof(arr)/sizeof(arr[0]); i++)
+  अत्थाय (i = 0; i <= परिमाण(arr)/परिमाण(arr[0]); i++)
         arr[i] = 0;
-  return 0;
+  पटिनिवत्त 0;
 }

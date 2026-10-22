@@ -1,9 +1,9 @@
-#include <stdio.h>
+#अन्तर्भाव <stdio.h>
 
 #define T(a,b,c) a b c
 
-int main(void)
+पूर्णाङ्क main(शून्य)
 {
     printf("%d", T(1,+,2) T(+,,) T(,2,*) T(,7,) T(,,));
-    return 0;
+    पटिनिवत्त 0;
 }

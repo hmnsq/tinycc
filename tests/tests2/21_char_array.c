@@ -1,33 +1,33 @@
-#include <stdio.h>
+#अन्तर्भाव <stdio.h>
 
-int main()
+पूर्णाङ्क main()
 {
-   int x = 'a';
-   char y = x;
+   पूर्णाङ्क x = 'a';
+   वर्ण y = x;
 
-   char *a = "hello";
+   वर्ण *a = "hello";
 
    printf("%s\n", a);
 
-   int c;
+   पूर्णाङ्क c;
    c = *a;
 
-   char *b;
-   for (b = a; *b != 0; b++)
+   वर्ण *b;
+   अत्थाय (b = a; *b != 0; b++)
       printf("%c: %d\n", *b, *b);
 
-   char destarray[10];
-   char *dest = &destarray[0];
-   char *src = a;
+   वर्ण destarray[10];
+   वर्ण *dest = &destarray[0];
+   वर्ण *src = a;
 
-   while (*src != 0)
+   याव (*src != 0)
       *dest++ = *src++;
 
    *dest = 0;
 
    printf("copied string is %s\n", destarray);
 
-   return 0;
+   पटिनिवत्त 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

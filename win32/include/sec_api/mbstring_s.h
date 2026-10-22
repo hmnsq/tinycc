@@ -6,42 +6,42 @@
 #ifndef _INC_MBSTRING_S
 #define _INC_MBSTRING_S
 
-#include <mbstring.h>
+#अन्तर्भाव <mbstring.h>
 
-#if defined(MINGW_HAS_SECURE_API)
+#सचे defined(MINGW_HAS_SECURE_API)
 
 #ifdef __cplusplus
-extern "C" {
+बाह्य "C" {
 #endif
 
 #ifndef _MBSTRING_S_DEFINED
 #define _MBSTRING_S_DEFINED
-  _CRTIMP errno_t __cdecl _mbscat_s(unsigned char *_Dst,size_t _DstSizeInBytes,const unsigned char *_Src);
-  _CRTIMP errno_t __cdecl _mbscat_s_l(unsigned char *_Dst,size_t _DstSizeInBytes,const unsigned char *_Src,_locale_t _Locale);
-  _CRTIMP errno_t __cdecl _mbscpy_s(unsigned char *_Dst,size_t _DstSizeInBytes,const unsigned char *_Src);
-  _CRTIMP errno_t __cdecl _mbscpy_s_l(unsigned char *_Dst,size_t _DstSizeInBytes,const unsigned char *_Src,_locale_t _Locale);
-  _CRTIMP errno_t __cdecl _mbslwr_s(unsigned char *_Str,size_t _SizeInBytes);
-  _CRTIMP errno_t __cdecl _mbslwr_s_l(unsigned char *_Str,size_t _SizeInBytes,_locale_t _Locale);
-  _CRTIMP errno_t __cdecl _mbsnbcat_s(unsigned char *_Dst,size_t _DstSizeInBytes,const unsigned char *_Src,size_t _MaxCount);
-  _CRTIMP errno_t __cdecl _mbsnbcat_s_l(unsigned char *_Dst,size_t _DstSizeInBytes,const unsigned char *_Src,size_t _MaxCount,_locale_t _Locale);
-  _CRTIMP errno_t __cdecl _mbsnbcpy_s(unsigned char *_Dst,size_t _DstSizeInBytes,const unsigned char *_Src,size_t _MaxCount);
-  _CRTIMP errno_t __cdecl _mbsnbcpy_s_l(unsigned char *_Dst,size_t _DstSizeInBytes,const unsigned char *_Src,size_t _MaxCount,_locale_t _Locale);
-  _CRTIMP errno_t __cdecl _mbsnbset_s(unsigned char *_Dst,size_t _DstSizeInBytes,unsigned int _Ch,size_t _MaxCount);
-  _CRTIMP errno_t __cdecl _mbsnbset_s_l(unsigned char *_Dst,size_t _DstSizeInBytes,unsigned int _Ch,size_t _MaxCount,_locale_t _Locale);
-  _CRTIMP errno_t __cdecl _mbsncat_s(unsigned char *_Dst,size_t _DstSizeInBytes,const unsigned char *_Src,size_t _MaxCount);
-  _CRTIMP errno_t __cdecl _mbsncat_s_l(unsigned char *_Dst,size_t _DstSizeInBytes,const unsigned char *_Src,size_t _MaxCount,_locale_t _Locale);
-  _CRTIMP errno_t __cdecl _mbsncpy_s(unsigned char *_Dst,size_t _DstSizeInBytes,const unsigned char *_Src,size_t _MaxCount);
-  _CRTIMP errno_t __cdecl _mbsncpy_s_l(unsigned char *_Dst,size_t _DstSizeInBytes,const unsigned char *_Src,size_t _MaxCount,_locale_t _Locale);
-  _CRTIMP errno_t __cdecl _mbsnset_s(unsigned char *_Dst,size_t _DstSizeInBytes,unsigned int _Val,size_t _MaxCount);
-  _CRTIMP errno_t __cdecl _mbsnset_s_l(unsigned char *_Dst,size_t _DstSizeInBytes,unsigned int _Val,size_t _MaxCount,_locale_t _Locale);
-  _CRTIMP errno_t __cdecl _mbsset_s(unsigned char *_Dst,size_t _DstSizeInBytes,unsigned int _Val);
-  _CRTIMP errno_t __cdecl _mbsset_s_l(unsigned char *_Dst,size_t _DstSizeInBytes,unsigned int _Val,_locale_t _Locale);
-  _CRTIMP unsigned char *__cdecl _mbstok_s(unsigned char *_Str,const unsigned char *_Delim,unsigned char **_Context);
-  _CRTIMP unsigned char *__cdecl _mbstok_s_l(unsigned char *_Str,const unsigned char *_Delim,unsigned char **_Context,_locale_t _Locale);
-  _CRTIMP errno_t __cdecl _mbsupr_s(unsigned char *_Str,size_t _SizeInBytes);
-  _CRTIMP errno_t __cdecl _mbsupr_s_l(unsigned char *_Str,size_t _SizeInBytes,_locale_t _Locale);
-  _CRTIMP errno_t __cdecl _mbccpy_s(unsigned char *_Dst,size_t _DstSizeInBytes,int *_PCopied,const unsigned char *_Src);
-  _CRTIMP errno_t __cdecl _mbccpy_s_l(unsigned char *_Dst,size_t _DstSizeInBytes,int *_PCopied,const unsigned char *_Src,_locale_t _Locale);
+  _CRTIMP errno_t __cdecl _mbscat_s(unsigned वर्ण *_Dst,size_t _DstSizeInBytes,ध्रुव unsigned वर्ण *_Src);
+  _CRTIMP errno_t __cdecl _mbscat_s_l(unsigned वर्ण *_Dst,size_t _DstSizeInBytes,ध्रुव unsigned वर्ण *_Src,_locale_t _Locale);
+  _CRTIMP errno_t __cdecl _mbscpy_s(unsigned वर्ण *_Dst,size_t _DstSizeInBytes,ध्रुव unsigned वर्ण *_Src);
+  _CRTIMP errno_t __cdecl _mbscpy_s_l(unsigned वर्ण *_Dst,size_t _DstSizeInBytes,ध्रुव unsigned वर्ण *_Src,_locale_t _Locale);
+  _CRTIMP errno_t __cdecl _mbslwr_s(unsigned वर्ण *_Str,size_t _SizeInBytes);
+  _CRTIMP errno_t __cdecl _mbslwr_s_l(unsigned वर्ण *_Str,size_t _SizeInBytes,_locale_t _Locale);
+  _CRTIMP errno_t __cdecl _mbsnbcat_s(unsigned वर्ण *_Dst,size_t _DstSizeInBytes,ध्रुव unsigned वर्ण *_Src,size_t Max_गणनम्);
+  _CRTIMP errno_t __cdecl _mbsnbcat_s_l(unsigned वर्ण *_Dst,size_t _DstSizeInBytes,ध्रुव unsigned वर्ण *_Src,size_t Max_गणनम्,_locale_t _Locale);
+  _CRTIMP errno_t __cdecl _mbsnbcpy_s(unsigned वर्ण *_Dst,size_t _DstSizeInBytes,ध्रुव unsigned वर्ण *_Src,size_t Max_गणनम्);
+  _CRTIMP errno_t __cdecl _mbsnbcpy_s_l(unsigned वर्ण *_Dst,size_t _DstSizeInBytes,ध्रुव unsigned वर्ण *_Src,size_t Max_गणनम्,_locale_t _Locale);
+  _CRTIMP errno_t __cdecl _mbsnbset_s(unsigned वर्ण *_Dst,size_t _DstSizeInBytes,unsigned पूर्णाङ्क _Ch,size_t Max_गणनम्);
+  _CRTIMP errno_t __cdecl _mbsnbset_s_l(unsigned वर्ण *_Dst,size_t _DstSizeInBytes,unsigned पूर्णाङ्क _Ch,size_t Max_गणनम्,_locale_t _Locale);
+  _CRTIMP errno_t __cdecl _mbsncat_s(unsigned वर्ण *_Dst,size_t _DstSizeInBytes,ध्रुव unsigned वर्ण *_Src,size_t Max_गणनम्);
+  _CRTIMP errno_t __cdecl _mbsncat_s_l(unsigned वर्ण *_Dst,size_t _DstSizeInBytes,ध्रुव unsigned वर्ण *_Src,size_t Max_गणनम्,_locale_t _Locale);
+  _CRTIMP errno_t __cdecl _mbsncpy_s(unsigned वर्ण *_Dst,size_t _DstSizeInBytes,ध्रुव unsigned वर्ण *_Src,size_t Max_गणनम्);
+  _CRTIMP errno_t __cdecl _mbsncpy_s_l(unsigned वर्ण *_Dst,size_t _DstSizeInBytes,ध्रुव unsigned वर्ण *_Src,size_t Max_गणनम्,_locale_t _Locale);
+  _CRTIMP errno_t __cdecl _mbsnset_s(unsigned वर्ण *_Dst,size_t _DstSizeInBytes,unsigned पूर्णाङ्क _Val,size_t Max_गणनम्);
+  _CRTIMP errno_t __cdecl _mbsnset_s_l(unsigned वर्ण *_Dst,size_t _DstSizeInBytes,unsigned पूर्णाङ्क _Val,size_t Max_गणनम्,_locale_t _Locale);
+  _CRTIMP errno_t __cdecl _mbsset_s(unsigned वर्ण *_Dst,size_t _DstSizeInBytes,unsigned पूर्णाङ्क _Val);
+  _CRTIMP errno_t __cdecl _mbsset_s_l(unsigned वर्ण *_Dst,size_t _DstSizeInBytes,unsigned पूर्णाङ्क _Val,_locale_t _Locale);
+  _CRTIMP unsigned वर्ण *__cdecl _mbstok_s(unsigned वर्ण *_Str,ध्रुव unsigned वर्ण *_Delim,unsigned वर्ण **_Context);
+  _CRTIMP unsigned वर्ण *__cdecl _mbstok_s_l(unsigned वर्ण *_Str,ध्रुव unsigned वर्ण *_Delim,unsigned वर्ण **_Context,_locale_t _Locale);
+  _CRTIMP errno_t __cdecl _mbsupr_s(unsigned वर्ण *_Str,size_t _SizeInBytes);
+  _CRTIMP errno_t __cdecl _mbsupr_s_l(unsigned वर्ण *_Str,size_t _SizeInBytes,_locale_t _Locale);
+  _CRTIMP errno_t __cdecl _mbccpy_s(unsigned वर्ण *_Dst,size_t _DstSizeInBytes,पूर्णाङ्क *_PCopied,ध्रुव unsigned वर्ण *_Src);
+  _CRTIMP errno_t __cdecl _mbccpy_s_l(unsigned वर्ण *_Dst,size_t _DstSizeInBytes,पूर्णाङ्क *_PCopied,ध्रुव unsigned वर्ण *_Src,_locale_t _Locale);
 #endif
 
 #ifdef __cplusplus

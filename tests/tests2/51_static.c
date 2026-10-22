@@ -1,17 +1,17 @@
-#include <stdio.h>
+#अन्तर्भाव <stdio.h>
 
-static int fred = 1234;
-static int joe;
+स्थिर पूर्णाङ्क fred = 1234;
+स्थिर पूर्णाङ्क joe;
 
-void henry()
+शून्य henry()
 {
-   static int fred = 4567;
+   स्थिर पूर्णाङ्क fred = 4567;
 
    printf("%d\n", fred);
    fred++;
 }
 
-int main()
+पूर्णाङ्क main()
 {
    printf("%d\n", fred);
    henry();
@@ -24,7 +24,7 @@ int main()
    printf("%d\n", fred);
    printf("%d\n", joe);
 
-   return 0;
+   पटिनिवत्त 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

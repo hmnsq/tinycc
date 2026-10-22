@@ -1,13 +1,13 @@
-#include <stdio.h>
-#include <string.h>
+#अन्तर्भाव <stdio.h>
+#अन्तर्भाव <string.h>
 
-int main()
+पूर्णाङ्क main()
 {
-   char a[10];
+   वर्ण a[10];
    strcpy(a, "abcdef");
    printf("%s\n", &a[1]);
 
-   return 0;
+   पटिनिवत्त 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

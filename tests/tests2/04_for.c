@@ -1,15 +1,15 @@
-#include <stdio.h>
+#अन्तर्भाव <stdio.h>
 
-int main() 
+पूर्णाङ्क main() 
 {
-   int Count;
+   पूर्णाङ्क गणनम्_3;
 
-   for (Count = 1; Count <= 10; Count++)
+   अत्थाय (गणनम्_3 = 1; गणनम्_3 <= 10; गणनम्_3++)
    {
-      printf("%d\n", Count);
+      printf("%d\n", गणनम्_3);
    }
 
-   return 0;
+   पटिनिवत्त 0;
 }
 
 // vim: set expandtab ts=4 sw=3 sts=3 tw=80 :

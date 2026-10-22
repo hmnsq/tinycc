@@ -1,17 +1,17 @@
-#include <stdio.h>
+#अन्तर्भाव <stdio.h>
 
-int main()
+पूर्णाङ्क main()
 {
-   char Buf[100];
-   int Count;
+   वर्ण Buf[100];
+   पूर्णाङ्क गणनम्_3;
 
-   for (Count = 1; Count <= 20; Count++)
+   अत्थाय (गणनम्_3 = 1; गणनम्_3 <= 20; गणनम्_3++)
    {
-      sprintf(Buf, "->%02d<-\n", Count);
+      sprintf(Buf, "->%02d<-\n", गणनम्_3);
       printf("%s", Buf);
    }
 
-   return 0;
+   पटिनिवत्त 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

@@ -1,40 +1,40 @@
-typedef __SIZE_TYPE__ size_t;
-extern int printf(const char*, ...);
-extern size_t strlen(const char*);
-char str[] = "blabla";
-int g;
-int main()
+प्रकारनिर्देश __SIZE_TYPE__ size_t;
+बाह्य पूर्णाङ्क printf(ध्रुव वर्ण*, ...);
+बाह्य size_t strlen(ध्रुव वर्ण*);
+वर्ण str[] = "blabla";
+पूर्णाङ्क g;
+पूर्णाङ्क main()
 {
   //char helpme[strlen(str) + 1];
-  int i = 0;
-#if 0
-  if (g) {
-      char buf[strlen(str) + 10];
+  पूर्णाङ्क i = 0;
+#सचे 0
+  सचे (g) {
+      वर्ण buf[strlen(str) + 10];
       buf[0] = 0;
   }
 alabel:
   printf("default: i = %d\n", i);
-#else
-  for (i = 0; i < 5; i++) {
-      switch (i) {
-      case 10:
-          if (g) {
-              char buf[strlen(str) + 10];
+#अञ्ञथा
+  अत्थाय (i = 0; i < 5; i++) {
+      विकल्प (i) {
+      पक्ष 10:
+          सचे (g) {
+              वर्ण buf[strlen(str) + 10];
               buf[0] = 0;
-              goto do_cmd;
+              गच्छ do_cmd;
           }
-          break;
-      case 1:
+          भङ्ग;
+      पक्ष 1:
           printf("reached 3\n");
     do_cmd:
           printf("after do_cmd");
-          break;
-      default:
+          भङ्ग;
+      स्वभाव:
           g++;
           printf("default: i = %d\n", i);
-          break;
+          भङ्ग;
       }
   }
 #endif
-  return 0;
+  पटिनिवत्त 0;
 }

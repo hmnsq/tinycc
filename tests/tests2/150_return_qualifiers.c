@@ -1,30 +1,30 @@
-const int const_return(void);
-volatile int volatile_return(void);
-int *restrict restrict_return(void);
+ध्रुव पूर्णाङ्क const_return(शून्य);
+चञ्चल पूर्णाङ्क volatile_return(शून्य);
+पूर्णाङ्क *restrict restrict_return(शून्य);
 
-_Static_assert(__builtin_types_compatible_p(__typeof__(const_return()) *, int *),
+_Static_assert(__builtin_types_compatible_p(__typeof__(const_return()) *, पूर्णाङ्क *),
                "const is removed from a return type");
-_Static_assert(__builtin_types_compatible_p(__typeof__(volatile_return()) *, int *),
+_Static_assert(__builtin_types_compatible_p(__typeof__(volatile_return()) *, पूर्णाङ्क *),
                "volatile is removed from a return type");
-_Static_assert(__builtin_types_compatible_p(__typeof__(restrict_return()) *, int **),
+_Static_assert(__builtin_types_compatible_p(__typeof__(restrict_return()) *, पूर्णाङ्क **),
                "restrict is removed from a return type");
 
-int const_return(void)
+पूर्णाङ्क const_return(शून्य)
 {
-   return 0;
+   पटिनिवत्त 0;
 }
 
-int volatile_return(void)
+पूर्णाङ्क volatile_return(शून्य)
 {
-   return 0;
+   पटिनिवत्त 0;
 }
 
-int *restrict_return(void)
+पूर्णाङ्क *restrict_return(शून्य)
 {
-   return 0;
+   पटिनिवत्त 0;
 }
 
-int main(void)
+पूर्णाङ्क main(शून्य)
 {
-   return 0;
+   पटिनिवत्त 0;
 }

@@ -1,8 +1,8 @@
 /* ------------------------------------------------------------- */
 /* stubs for calling bcheck functions from a dll. */
 
-#include <windows.h>
-#include <stdio.h>
+#अन्तर्भाव <windows.h>
+#अन्तर्भाव <stdio.h>
 
 #define REDIR_ALL \
   REDIR(__bt_init) \
@@ -42,19 +42,19 @@
 
 #ifdef __leading_underscore
 #define _(s) "_"#s
-#else
+#अञ्ञथा
 #define _(s) #s
 #endif
 
-#define REDIR(s) void *s;
-static struct { REDIR_ALL } all_ptrs;
+#define REDIR(s) शून्य *s;
+स्थिर संरचना { REDIR_ALL } all_ptrs;
 #undef REDIR
 
 #define REDIR(s) #s"\0"
-static const char all_names[] = REDIR_ALL;
+स्थिर ध्रुव वर्ण all_names[] = REDIR_ALL;
 #undef REDIR
 
-#if __aarch64__
+#सचे __aarch64__
 # define REDIR(s) \
     __asm__(".global "_(s)";"_(s)":"); \
     __asm__(".int 0x58000090"); /* ldr x16, [pc, #16] */ \
@@ -66,30 +66,30 @@ static const char all_names[] = REDIR_ALL;
 
     __asm__(".text\n.align 8\nall_jmps:");
     REDIR_ALL
-#else
+#अञ्ञथा
 # define REDIR(s) \
-    __asm__(".global "_(s)";"_(s)":"); goto *all_ptrs.s;
-    static void all_jmps() { REDIR_ALL }
+    __asm__(".global "_(s)";"_(s)":"); गच्छ *all_ptrs.s;
+    स्थिर शून्य all_jmps() { REDIR_ALL }
 #endif
 #undef REDIR
 
-void __bt_init_dll(int bcheck)
+शून्य __bt_init_dll(पूर्णाङ्क bcheck)
 {
-    const char *s = all_names;
-    void **p = (void**)&all_ptrs;
-    do {
-        *p = (void*)GetProcAddress(GetModuleHandle(NULL), (char*)s);
-        if (NULL == *p) {
-            char buf[100];
+    ध्रुव वर्ण *s = all_names;
+    शून्य **p = (शून्य**)&all_ptrs;
+    करोहि {
+        *p = (शून्य*)GetProcAddress(GetModuleHandle(रिक्त), (वर्ण*)s);
+        सचे (रिक्त == *p) {
+            वर्ण buf[100];
             sprintf(buf,
                 "Error: function '%s()' not found in executable. "
                 "(Need -bt or -b for linking the exe.)", s);
-            if (GetStdHandle(STD_ERROR_HANDLE))
+            सचे (GetStdHandle(STD_ERROR_HANDLE))
                 fprintf(stderr, "TCC/BCHECK: %s\n", buf), fflush(stderr);
-            else
-                MessageBox(NULL, buf, "TCC/BCHECK", MB_ICONERROR);
+            अञ्ञथा
+                MessageBox(रिक्त, buf, "TCC/BCHECK", MB_ICONERROR);
             ExitProcess(1);
         }
         s = strchr(s,'\0') + 1, ++p;
-    } while (*s && (bcheck || p < &all_ptrs.__bound_ptr_add));
+    } याव (*s && (bcheck || p < &all_ptrs.__bound_ptr_add));
 }

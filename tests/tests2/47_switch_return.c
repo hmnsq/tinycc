@@ -1,24 +1,24 @@
-#include <stdio.h>
+#अन्तर्भाव <stdio.h>
 
-void fred(int x)
+शून्य fred(पूर्णाङ्क x)
 {
-   switch (x)
+   विकल्प (x)
    {
-      case 1: printf("1\n"); return;
-      case 2: printf("2\n"); break;
-      case 3: printf("3\n"); return;
+      पक्ष 1: printf("1\n"); पटिनिवत्त;
+      पक्ष 2: printf("2\n"); भङ्ग;
+      पक्ष 3: printf("3\n"); पटिनिवत्त;
    }
 
    printf("out\n");
 }
 
-int main()
+पूर्णाङ्क main()
 {
    fred(1);
    fred(2);
    fred(3);
 
-   return 0;
+   पटिनिवत्त 0;
 }    
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

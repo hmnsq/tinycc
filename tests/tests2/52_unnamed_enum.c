@@ -1,17 +1,17 @@
-#include <stdio.h>
+#अन्तर्भाव <stdio.h>
 
-enum fred { a, b, c };
+गणना fred { a, b, c };
 
-int main()
+पूर्णाङ्क main()
 {
    printf("a=%d\n", a);
    printf("b=%d\n", b);
    printf("c=%d\n", c);
 
-   enum fred d;
+   गणना fred d;
 
-   typedef enum { e, f, g } h;
-   typedef enum { i, j, k } m;
+   प्रकारनिर्देश गणना { e, f, g } h;
+   प्रकारनिर्देश गणना { i, j, k } m;
 
    printf("e=%d\n", e);
    printf("f=%d\n", f);
@@ -21,7 +21,7 @@ int main()
    printf("j=%d\n", j);
    printf("k=%d\n", k);
 
-   return 0;
+   पटिनिवत्त 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

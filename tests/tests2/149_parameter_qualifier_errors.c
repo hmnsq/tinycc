@@ -1,11 +1,11 @@
-void defined_const(int *pointer);
+शून्य defined_const(पूर्णाङ्क *pointer);
 
-void defined_const(int *const pointer)
+शून्य defined_const(पूर्णाङ्क *ध्रुव pointer)
 {
     pointer = 0;
 }
 
-int main(void)
+पूर्णाङ्क main(शून्य)
 {
-    return 0;
+    पटिनिवत्त 0;
 }

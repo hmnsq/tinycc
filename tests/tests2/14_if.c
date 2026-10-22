@@ -1,21 +1,21 @@
-#include <stdio.h>
+#अन्तर्भाव <stdio.h>
 
-int main()
+पूर्णाङ्क main()
 {
-   int a = 1;
+   पूर्णाङ्क a = 1;
 
-   if (a)
+   सचे (a)
       printf("a is true\n");
-   else
+   अञ्ञथा
       printf("a is false\n");
 
-   int b = 0;
-   if (b)
+   पूर्णाङ्क b = 0;
+   सचे (b)
       printf("b is true\n");
-   else
+   अञ्ञथा
       printf("b is false\n");
 
-   return 0;
+   पटिनिवत्त 0;
 }
 
 // vim: set expandtab ts=4 sw=3 sts=3 tw=80 :
