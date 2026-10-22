@@ -1,15 +1,15 @@
 #include <stdio.h>
 
-int main() 
+ចំនួនគត់ main() 
 {
-   int Count;
+   ចំនួនគត់ Count;
 
-   for (Count = 1; Count <= 10; Count++)
+   សម្រាប់ (Count = 1; Count <= 10; Count++)
    {
       printf("%d\n", Count);
    }
 
-   return 0;
+   ត្រឡប់ 0;
 }
 
 // vim: set expandtab ts=4 sw=3 sts=3 tw=80 :

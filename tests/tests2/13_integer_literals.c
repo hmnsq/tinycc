@@ -1,12 +1,12 @@
 #include <stdio.h>
 
-int main()
+ចំនួនគត់ main()
 {
-   int a = 24680;
-   int b = 01234567;
-   int c = 0x2468ac;
-   int d = 0x2468AC;
-   int e = 0b010101010101;
+   ចំនួនគត់ a = 24680;
+   ចំនួនគត់ b = 01234567;
+   ចំនួនគត់ c = 0x2468ac;
+   ចំនួនគត់ d = 0x2468AC;
+   ចំនួនគត់ e = 0b010101010101;
 
    printf("%d\n", a);
    printf("%d\n", b);
@@ -14,7 +14,7 @@ int main()
    printf("%d\n", d);
    printf("%d\n", e);
 
-   return 0;
+   ត្រឡប់ 0;
 }
 
 // vim: set expandtab ts=4 sw=3 sts=3 tw=80 :

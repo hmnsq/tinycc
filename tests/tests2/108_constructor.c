@@ -1,4 +1,4 @@
-extern int write (int fd, void *buf, int len);
+extern ចំនួនគត់ write (ចំនួនគត់ fd, void *buf, ចំនួនគត់ len);
 
 static void __attribute__ ((constructor))
 testc (void)
@@ -12,9 +12,9 @@ testd (void)
   write (1, "destructor\n", 11);
 }
 
-int
+ចំនួនគត់
 main (void)
 {
   write (1, "main\n", 5);
-  return 0;
+  ត្រឡប់ 0;
 }

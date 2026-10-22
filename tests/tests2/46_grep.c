@@ -27,7 +27,7 @@
  * See below for more information.
  */
 
-char    *documentation[] = {
+var_na    *documentation[] = {
    "grep searches a file for a given pattern.  Execute by",
    "   grep [flags] regular_expression file_list\n",
    "Flags are single characters preceded by '-':",
@@ -40,7 +40,7 @@ char    *documentation[] = {
    "The -f flag reverses this action (print name no file, not if more).\n",
    0 };
 
-char    *patdoc[] = {
+var_na    *patdoc[] = {
    "The regular_expression defines the pattern to search for.  Upper- and",
    "lower-case are always ignored.  Blank lines never match.  The expression",
    "should be quoted to prevent file-name translation.",
@@ -91,41 +91,41 @@ char    *patdoc[] = {
 #define RANGE   14
 #define ENDPAT  15
 
-int cflag=0, fflag=0, nflag=0, vflag=0, nfile=0, debug=0;
+ចំនួនគត់ cflag=0, fflag=0, nflag=0, vflag=0, nfile=0, debug=0;
 
-char *pp, lbuf[LMAX], pbuf[PMAX];
+var_na *pp, lbuf[LMAX], pbuf[PMAX];
 
-char *cclass();
-char *pmatch();
-void store(int);
-void error(char *);
-void badpat(char *, char *, char *);
-int match(void);
+var_na *cclass();
+var_na *pmatch();
+void store(ចំនួនគត់);
+void error(var_na *);
+void badpat(var_na *, var_na *, var_na *);
+ចំនួនគត់ match(void);
 
 
 /*** Display a file name *******************************/
-void file(char *s)
+void file(var_na *s)
 {
    printf("File %s:\n", s);
 }
 
 /*** Report unopenable file ****************************/
-void cant(char *s)
+void cant(var_na *s)
 {
    fprintf(stderr, "%s: cannot open\n", s);
 }
 
 /*** Give good help ************************************/
-void help(char **hp)
+void help(var_na **hp)
 {
-   char   **dp;
+   var_na   **dp;
 
-   for (dp = hp; *dp; ++dp)
+   សម្រាប់ (dp = hp; *dp; ++dp)
       printf("%s\n", *dp);
 }
 
 /*** Display usage summary *****************************/
-void usage(char *s)
+void usage(var_na *s)
 {
    fprintf(stderr, "?GREP-E-%s\n", s);
    fprintf(stderr,
@@ -134,24 +134,24 @@ void usage(char *s)
 }
 
 /*** Compile the pattern into global pbuf[] ************/
-void compile(char *source)
+void compile(var_na *source)
 {
-   char  *s;         /* Source string pointer     */
-   char  *lp;        /* Last pattern pointer      */
-   int   c;          /* Current character         */
-   int            o;          /* Temp                      */
-   char           *spp;       /* Save beginning of pattern */
+   var_na  *s;         /* Source string pointer     */
+   var_na  *lp;        /* Last pattern pointer      */
+   ចំនួនគត់   c;          /* Current character         */
+   ចំនួនគត់            o;          /* Temp                      */
+   var_na           *spp;       /* Save beginning of pattern */
 
    s = source;
-   if (debug)
+   ប្រសិនបើ (debug)
       printf("Pattern = \"%s\"\n", s);
    pp = pbuf;
-   while (c = *s++) {
+   ខណៈពេល (c = *s++) {
       /*
        * STAR, PLUS and MINUS are special.
        */
-      if (c == '*' || c == '+' || c == '-') {
-         if (pp == pbuf ||
+      ប្រសិនបើ (c == '*' || c == '+' || c == '-') {
+         ប្រសិនបើ (pp == pbuf ||
                (o=pp[-1]) == BOL ||
                o == EOL ||
                o == STAR ||
@@ -161,7 +161,7 @@ void compile(char *source)
          store(ENDPAT);
          store(ENDPAT);
          spp = pp;               /* Save pattern end     */
-         while (--pp > lp)       /* Move pattern down    */
+         ខណៈពេល (--pp > lp)       /* Move pattern down    */
             *pp = pp[-1];        /* one byte             */
          *pp =   (c == '*') ? STAR :
             (c == '-') ? MINUS : PLUS;
@@ -174,55 +174,55 @@ void compile(char *source)
       lp = pp;         /* Remember start       */
       switch(c) {
 
-         case '^':
+         pak_sa '^':
             store(BOL);
-            break;
+            bha_nga;
 
-         case '$':
+         pak_sa '$':
             store(EOL);
-            break;
+            bha_nga;
 
-         case '.':
+         pak_sa '.':
             store(ANY);
-            break;
+            bha_nga;
 
-         case '[':
+         pak_sa '[':
             s = cclass(source, s);
-            break;
+            bha_nga;
 
-         case ':':
-            if (*s) {
+         pak_sa ':':
+            ប្រសិនបើ (*s) {
                switch(tolower(c = *s++)) {
 
-                  case 'a':
-                  case 'A':
+                  pak_sa 'a':
+                  pak_sa 'A':
                      store(ALPHA);
-                     break;
+                     bha_nga;
 
-                  case 'd':
-                  case 'D':
+                  pak_sa 'd':
+                  pak_sa 'D':
                      store(DIGIT);
-                     break;
+                     bha_nga;
 
-                  case 'n':
-                  case 'N':
+                  pak_sa 'n':
+                  pak_sa 'N':
                      store(NALPHA);
-                     break;
+                     bha_nga;
 
-                  case ' ':
+                  pak_sa ' ':
                      store(PUNCT);
-                     break;
+                     bha_nga;
 
                   default:
                      badpat("Unknown : type", source, s);
 
                }
-               break;
+               bha_nga;
             }
-            else    badpat("No : type", source, s);
+            បើមិនដូច្នេះ    badpat("No : type", source, s);
 
-         case '\\':
-            if (*s)
+         pak_sa '\\':
+            ប្រសិនបើ (*s)
                c = *s++;
 
          default:
@@ -232,42 +232,42 @@ void compile(char *source)
    }
    store(ENDPAT);
    store(0);                /* Terminate string     */
-   if (debug) {
-      for (lp = pbuf; lp < pp;) {
-         if ((c = (*lp++ & 0377)) < ' ')
+   ប្រសិនបើ (debug) {
+      សម្រាប់ (lp = pbuf; lp < pp;) {
+         ប្រសិនបើ ((c = (*lp++ & 0377)) < ' ')
             printf("\\%o ", c);
-         else    printf("%c ", c);
+         បើមិនដូច្នេះ    printf("%c ", c);
       }
       printf("\n");
    }
 }
 
 /*** Compile a class (within []) ***********************/
-char *cclass(char *source, char *src)
+var_na *cclass(var_na *source, var_na *src)
    /* char       *source;   // Pattern start -- for error msg. */
    /* char       *src;      // Class start */
 {
-   char   *s;        /* Source pointer    */
-   char   *cp;       /* Pattern start     */
-   int    c;         /* Current character */
-   int             o;         /* Temp              */
+   var_na   *s;        /* Source pointer    */
+   var_na   *cp;       /* Pattern start     */
+   ចំនួនគត់    c;         /* Current character */
+   ចំនួនគត់             o;         /* Temp              */
 
    s = src;
    o = CLASS;
-   if (*s == '^') {
+   ប្រសិនបើ (*s == '^') {
       ++s;
       o = NCLASS;
    }
    store(o);
    cp = pp;
    store(0);                          /* Byte count      */
-   while ((c = *s++) && c!=']') {
-      if (c == '\\') {                /* Store quoted char    */
-         if ((c = *s++) == '\0')      /* Gotta get something  */
+   ខណៈពេល ((c = *s++) && c!=']') {
+      ប្រសិនបើ (c == '\\') {                /* Store quoted char    */
+         ប្រសិនបើ ((c = *s++) == '\0')      /* Gotta get something  */
             badpat("Class terminates badly", source, s);
-         else    store(tolower(c));
+         បើមិនដូច្នេះ    store(tolower(c));
       }
-      else if (c == '-' &&
+      បើមិនដូច្នេះ ប្រសិនបើ (c == '-' &&
             (pp - cp) > 1 && *s != ']' && *s != '\0') {
          c = pp[-1];             /* Range start     */
          pp[-1] = RANGE;         /* Range signal    */
@@ -275,30 +275,30 @@ char *cclass(char *source, char *src)
          c = *s++;               /* Get end char and*/
          store(tolower(c));      /* Store it        */
       }
-      else {
+      បើមិនដូច្នេះ {
          store(tolower(c));      /* Store normal char */
       }
    }
-   if (c != ']')
+   ប្រសិនបើ (c != ']')
       badpat("Unterminated class", source, s);
-   if ((c = (pp - cp)) >= 256)
+   ប្រសិនបើ ((c = (pp - cp)) >= 256)
       badpat("Class too large", source, s);
-   if (c == 0)
+   ប្រសិនបើ (c == 0)
       badpat("Empty class", source, s);
    *cp = c;
-   return(s);
+   ត្រឡប់(s);
 }
 
 /*** Store an entry in the pattern buffer **************/
-void store(int op)
+void store(ចំនួនគត់ op)
 {
-   if (pp >= &pbuf[PMAX])
+   ប្រសិនបើ (pp >= &pbuf[PMAX])
       error("Pattern too complex\n");
    *pp++ = op;
 }
 
 /*** Report a bad pattern specification ****************/
-void badpat(char *message, char *source, char *stop)
+void badpat(var_na *message, var_na *source, var_na *stop)
    /* char  *message;       // Error message */
    /* char  *source;        // Pattern start */
    /* char  *stop;          // Pattern end   */
@@ -310,229 +310,229 @@ void badpat(char *message, char *source, char *stop)
 }
 
 /*** Scan the file for the pattern in pbuf[] ***********/
-void grep(FILE *fp, char *fn)
+void grep(FILE *fp, var_na *fn)
    /* FILE       *fp;       // File to process            */
    /* char       *fn;       // File name (for -f option)  */
 {
-   int lno, count, m;
+   ចំនួនគត់ lno, count, m;
 
    lno = 0;
    count = 0;
-   while (fgets(lbuf, LMAX, fp)) {
+   ខណៈពេល (fgets(lbuf, LMAX, fp)) {
       ++lno;
       m = match();
-      if ((m && !vflag) || (!m && vflag)) {
+      ប្រសិនបើ ((m && !vflag) || (!m && vflag)) {
          ++count;
-         if (!cflag) {
-            if (fflag && fn) {
+         ប្រសិនបើ (!cflag) {
+            ប្រសិនបើ (fflag && fn) {
                file(fn);
                fn = 0;
             }
-            if (nflag)
+            ប្រសិនបើ (nflag)
                printf("%d\t", lno);
             printf("%s\n", lbuf);
          }
       }
    }
-   if (cflag) {
-      if (fflag && fn)
+   ប្រសិនបើ (cflag) {
+      ប្រសិនបើ (fflag && fn)
          file(fn);
       printf("%d\n", count);
    }
 }
 
 /*** Match line (lbuf) with pattern (pbuf) return 1 if match ***/
-int match()
+ចំនួនគត់ match()
 {
-   char   *l;        /* Line pointer       */
+   var_na   *l;        /* Line pointer       */
 
-   for (l = lbuf; *l; ++l) {
-      if (pmatch(l, pbuf))
-         return(1);
+   សម្រាប់ (l = lbuf; *l; ++l) {
+      ប្រសិនបើ (pmatch(l, pbuf))
+         ត្រឡប់(1);
    }
-   return(0);
+   ត្រឡប់(0);
 }
 
 /*** Match partial line with pattern *******************/
-char *pmatch(char *line, char *pattern)
+var_na *pmatch(var_na *line, var_na *pattern)
    /* char               *line;     // (partial) line to match      */
    /* char               *pattern;  // (partial) pattern to match   */
 {
-   char   *l;        /* Current line pointer         */
-   char   *p;        /* Current pattern pointer      */
-   char   c;         /* Current character            */
-   char            *e;        /* End for STAR and PLUS match  */
-   int             op;        /* Pattern operation            */
-   int             n;         /* Class counter                */
-   char            *are;      /* Start of STAR match          */
+   var_na   *l;        /* Current line pointer         */
+   var_na   *p;        /* Current pattern pointer      */
+   var_na   c;         /* Current character            */
+   var_na            *e;        /* End for STAR and PLUS match  */
+   ចំនួនគត់             op;        /* Pattern operation            */
+   ចំនួនគត់             n;         /* Class counter                */
+   var_na            *are;      /* Start of STAR match          */
 
    l = line;
-   if (debug > 1)
+   ប្រសិនបើ (debug > 1)
       printf("pmatch(\"%s\")\n", line);
    p = pattern;
-   while ((op = *p++) != ENDPAT) {
-      if (debug > 1)
+   ខណៈពេល ((op = *p++) != ENDPAT) {
+      ប្រសិនបើ (debug > 1)
          printf("byte[%ld] = 0%o, '%c', op = 0%o\n",
                l-line, *l, *l, op);
       switch(op) {
 
-         case CHAR:
-            if (tolower(*l++) != *p++)
-               return(0);
-            break;
+         pak_sa CHAR:
+            ប្រសិនបើ (tolower(*l++) != *p++)
+               ត្រឡប់(0);
+            bha_nga;
 
-         case BOL:
-            if (l != lbuf)
-               return(0);
-            break;
+         pak_sa BOL:
+            ប្រសិនបើ (l != lbuf)
+               ត្រឡប់(0);
+            bha_nga;
 
-         case EOL:
-            if (*l != '\0')
-               return(0);
-            break;
+         pak_sa EOL:
+            ប្រសិនបើ (*l != '\0')
+               ត្រឡប់(0);
+            bha_nga;
 
-         case ANY:
-            if (*l++ == '\0')
-               return(0);
-            break;
+         pak_sa ANY:
+            ប្រសិនបើ (*l++ == '\0')
+               ត្រឡប់(0);
+            bha_nga;
 
-         case DIGIT:
-            if ((c = *l++) < '0' || (c > '9'))
-               return(0);
-            break;
+         pak_sa DIGIT:
+            ប្រសិនបើ ((c = *l++) < '0' || (c > '9'))
+               ត្រឡប់(0);
+            bha_nga;
 
-         case ALPHA:
+         pak_sa ALPHA:
             c = tolower(*l++);
-            if (c < 'a' || c > 'z')
-               return(0);
-            break;
+            ប្រសិនបើ (c < 'a' || c > 'z')
+               ត្រឡប់(0);
+            bha_nga;
 
-         case NALPHA:
+         pak_sa NALPHA:
             c = tolower(*l++);
-            if (c >= 'a' && c <= 'z')
-               break;
-            else if (c < '0' || c > '9')
-               return(0);
-            break;
+            ប្រសិនបើ (c >= 'a' && c <= 'z')
+               bha_nga;
+            បើមិនដូច្នេះ ប្រសិនបើ (c < '0' || c > '9')
+               ត្រឡប់(0);
+            bha_nga;
 
-         case PUNCT:
+         pak_sa PUNCT:
             c = *l++;
-            if (c == 0 || c > ' ')
-               return(0);
-            break;
+            ប្រសិនបើ (c == 0 || c > ' ')
+               ត្រឡប់(0);
+            bha_nga;
 
-         case CLASS:
-         case NCLASS:
+         pak_sa CLASS:
+         pak_sa NCLASS:
             c = tolower(*l++);
             n = *p++ & 0377;
             do {
-               if (*p == RANGE) {
+               ប្រសិនបើ (*p == RANGE) {
                   p += 3;
                   n -= 2;
-                  if (c >= p[-2] && c <= p[-1])
-                     break;
+                  ប្រសិនបើ (c >= p[-2] && c <= p[-1])
+                     bha_nga;
                }
-               else if (c == *p++)
-                  break;
-            } while (--n > 1);
-            if ((op == CLASS) == (n <= 1))
-               return(0);
-            if (op == CLASS)
+               បើមិនដូច្នេះ ប្រសិនបើ (c == *p++)
+                  bha_nga;
+            } ខណៈពេល (--n > 1);
+            ប្រសិនបើ ((op == CLASS) == (n <= 1))
+               ត្រឡប់(0);
+            ប្រសិនបើ (op == CLASS)
                p += n - 2;
-            break;
+            bha_nga;
 
-         case MINUS:
+         pak_sa MINUS:
             e = pmatch(l, p);       /* Look for a match    */
-            while (*p++ != ENDPAT); /* Skip over pattern   */
-            if (e)                  /* Got a match?        */
+            ខណៈពេល (*p++ != ENDPAT); /* Skip over pattern   */
+            ប្រសិនបើ (e)                  /* Got a match?        */
                l = e;               /* Yes, update string  */
-            break;                  /* Always succeeds     */
+            bha_nga;                  /* Always succeeds     */
 
-         case PLUS:                 /* One or more ...     */
-            if ((l = pmatch(l, p)) == 0)
-               return(0);           /* Gotta have a match  */
-         case STAR:                 /* Zero or more ...    */
+         pak_sa PLUS:                 /* One or more ...     */
+            ប្រសិនបើ ((l = pmatch(l, p)) == 0)
+               ត្រឡប់(0);           /* Gotta have a match  */
+         pak_sa STAR:                 /* Zero or more ...    */
             are = l;                /* Remember line start */
-            while (*l && (e = pmatch(l, p)))
+            ខណៈពេល (*l && (e = pmatch(l, p)))
                l = e;               /* Get longest match   */
-            while (*p++ != ENDPAT); /* Skip over pattern   */
-            while (l > are) {       /* Try to match rest   */
-               if (e = pmatch(l, p))
-                  return(e);
+            ខណៈពេល (*p++ != ENDPAT); /* Skip over pattern   */
+            ខណៈពេល (l > are) {       /* Try to match rest   */
+               ប្រសិនបើ (e = pmatch(l, p))
+                  ត្រឡប់(e);
                --l;                 /* Nope, try earlier   */
             }
-            if (e = pmatch(l, p))
-               return(e);
-            return(0);              /* Nothing else worked */
+            ប្រសិនបើ (e = pmatch(l, p))
+               ត្រឡប់(e);
+            ត្រឡប់(0);              /* Nothing else worked */
 
          default:
             printf("Bad op code %d\n", op);
             error("Cannot happen -- match\n");
       }
    }
-   return(l);
+   ត្រឡប់(l);
 }
 
 /*** Report an error ***********************************/
-void error(char *s)
+void error(var_na *s)
 {
    fprintf(stderr, "%s", s);
    exit(1);
 }
 
 /*** Main program - parse arguments & grep *************/
-int main(int argc, char **argv)
+ចំនួនគត់ main(ចំនួនគត់ argc, var_na **argv)
 {
-   char   *p;
-   int    c, i;
-   int             gotpattern;
+   var_na   *p;
+   ចំនួនគត់    c, i;
+   ចំនួនគត់             gotpattern;
 
    FILE            *f;
 
-   if (argc <= 1)
+   ប្រសិនបើ (argc <= 1)
       usage("No arguments");
-   if (argc == 2 && argv[1][0] == '?' && argv[1][1] == 0) {
+   ប្រសិនបើ (argc == 2 && argv[1][0] == '?' && argv[1][1] == 0) {
       help(documentation);
       help(patdoc);
-      return 0;
+      ត្រឡប់ 0;
    }
    nfile = argc-1;
    gotpattern = 0;
-   for (i=1; i < argc; ++i) {
+   សម្រាប់ (i=1; i < argc; ++i) {
       p = argv[i];
-      if (*p == '-') {
+      ប្រសិនបើ (*p == '-') {
          ++p;
-         while (c = *p++) {
+         ខណៈពេល (c = *p++) {
             switch(tolower(c)) {
 
-               case '?':
+               pak_sa '?':
                   help(documentation);
-                  break;
+                  bha_nga;
 
-               case 'C':
-               case 'c':
+               pak_sa 'C':
+               pak_sa 'c':
                   ++cflag;
-                  break;
+                  bha_nga;
 
-               case 'D':
-               case 'd':
+               pak_sa 'D':
+               pak_sa 'd':
                   ++debug;
-                  break;
+                  bha_nga;
 
-               case 'F':
-               case 'f':
+               pak_sa 'F':
+               pak_sa 'f':
                   ++fflag;
-                  break;
+                  bha_nga;
 
-               case 'n':
-               case 'N':
+               pak_sa 'n':
+               pak_sa 'N':
                   ++nflag;
-                  break;
+                  bha_nga;
 
-               case 'v':
-               case 'V':
+               pak_sa 'v':
+               pak_sa 'V':
                   ++vflag;
-                  break;
+                  bha_nga;
 
                default:
                   usage("Unknown flag");
@@ -540,31 +540,31 @@ int main(int argc, char **argv)
          }
          argv[i] = 0;
          --nfile;
-      } else if (!gotpattern) {
+      } បើមិនដូច្នេះ ប្រសិនបើ (!gotpattern) {
          compile(p);
          argv[i] = 0;
          ++gotpattern;
          --nfile;
       }
    }
-   if (!gotpattern)
+   ប្រសិនបើ (!gotpattern)
       usage("No pattern");
-   if (nfile == 0)
+   ប្រសិនបើ (nfile == 0)
       grep(stdin, 0);
-   else {
+   បើមិនដូច្នេះ {
       fflag = fflag ^ (nfile > 0);
-      for (i=1; i < argc; ++i) {
-         if (p = argv[i]) {
-            if ((f=fopen(p, "r")) == NULL)
+      សម្រាប់ (i=1; i < argc; ++i) {
+         ប្រសិនបើ (p = argv[i]) {
+            ប្រសិនបើ ((f=fopen(p, "r")) == NULL)
                cant(p);
-            else {
+            បើមិនដូច្នេះ {
                grep(f, p);
                fclose(f);
             }
          }
       }
    }
-   return 0;
+   ត្រឡប់ 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

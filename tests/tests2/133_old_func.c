@@ -1,24 +1,24 @@
-int printf(const char *s, ...);
+ចំនួនគត់ printf(const var_na *s, ...);
 
 float fx(x)
 float x;
 {
-    return 2.0 * x;
+    ត្រឡប់ 2.0 * x;
 }
 
 void func(float a);
 
-void func3(struct p { int a; int b; } *q) {
+void func3(sa_nracanaa p { ចំនួនគត់ a; ចំនួនគត់ b; } *q) {
 }
 
 void func4(q)
- struct p { int a; int b; int c; } *q;
+ sa_nracanaa p { ចំនួនគត់ a; ចំនួនគត់ b; ចំនួនគត់ c; } *q;
 {
 }
 
-struct p { int a; int b; int c; int d; };
+sa_nracanaa p { ចំនួនគត់ a; ចំនួនគត់ b; ចំនួនគត់ c; ចំនួនគត់ d; };
 
-int
+ចំនួនគត់
 main(void)
 {
     float fy();
@@ -31,7 +31,7 @@ main(void)
 float fy(x)
 float x;
 {
-    return 3.0 * x;
+    ត្រឡប់ 3.0 * x;
 }
 
 void func(a)

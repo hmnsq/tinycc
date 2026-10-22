@@ -20,12 +20,12 @@ extern "C" {
 
 #ifdef _WIN64
 #define _HEAP_MAXREQ 0xFFFFFFFFFFFFFFE0
-#else
+#បើមិនដូច្នេះ
 #define _HEAP_MAXREQ 0xFFFFFFE0
 #endif
 
 #ifndef _STATIC_ASSERT
-#define _STATIC_ASSERT(expr) extern void __static_assert_t(int [(expr)?1:-1])
+#define _STATIC_ASSERT(expr) extern void __static_assert_t(ចំនួនគត់ [(expr)?1:-1])
 #endif
 
 /* Return codes for _heapwalk()  */
@@ -43,14 +43,14 @@ extern "C" {
 #ifndef _HEAPINFO_DEFINED
 #define _HEAPINFO_DEFINED
  /* The structure used to walk through the heap with _heapwalk.  */
-  typedef struct _heapinfo {
-    int *_pentry;
+  typedef sa_nracanaa _heapinfo {
+    ចំនួនគត់ *_pentry;
     size_t _size;
-    int _useflag;
+    ចំនួនគត់ _useflag;
   } _HEAPINFO;
 #endif
 
-  extern unsigned int _amblksiz;
+  extern unsigned ចំនួនគត់ _amblksiz;
 
 #define _mm_free(a) _aligned_free(a)
 #define _mm_malloc(a,b) _aligned_malloc(a,b)
@@ -73,7 +73,7 @@ extern "C" {
 
 #define _MAX_WAIT_MALLOC_CRT 60000
 
-  _CRTIMP int __cdecl _resetstkoflw (void);
+  _CRTIMP ចំនួនគត់ __cdecl _resetstkoflw (void);
   _CRTIMP unsigned long __cdecl _set_malloc_crt_max_wait(unsigned long _NewValue);
 
   _CRTIMP void *__cdecl _expand(void *_Memory,size_t _NewSize);
@@ -81,7 +81,7 @@ extern "C" {
 #ifdef __GNUC__
 #undef _alloca
 #define _alloca(x) __builtin_alloca((x))
-#else
+#បើមិនដូច្នេះ
   /* tcc implements alloca internally and exposes it (since commit d778bde7).
   /* alloca is declared at include/stddef.h (which is distributed with tcc).
    */
@@ -91,14 +91,14 @@ extern "C" {
 #define _alloca(x) alloca((x))
 #endif
   _CRTIMP size_t __cdecl _get_sbh_threshold(void);
-  _CRTIMP int __cdecl _set_sbh_threshold(size_t _NewValue);
+  _CRTIMP ចំនួនគត់ __cdecl _set_sbh_threshold(size_t _NewValue);
   _CRTIMP errno_t __cdecl _set_amblksiz(size_t _Value);
   _CRTIMP errno_t __cdecl _get_amblksiz(size_t *_Value);
-  _CRTIMP int __cdecl _heapadd(void *_Memory,size_t _Size);
-  _CRTIMP int __cdecl _heapchk(void);
-  _CRTIMP int __cdecl _heapmin(void);
-  _CRTIMP int __cdecl _heapset(unsigned int _Fill);
-  _CRTIMP int __cdecl _heapwalk(_HEAPINFO *_EntryInfo);
+  _CRTIMP ចំនួនគត់ __cdecl _heapadd(void *_Memory,size_t _Size);
+  _CRTIMP ចំនួនគត់ __cdecl _heapchk(void);
+  _CRTIMP ចំនួនគត់ __cdecl _heapmin(void);
+  _CRTIMP ចំនួនគត់ __cdecl _heapset(unsigned ចំនួនគត់ _Fill);
+  _CRTIMP ចំនួនគត់ __cdecl _heapwalk(_HEAPINFO *_EntryInfo);
   _CRTIMP size_t __cdecl _heapused(size_t *_Used,size_t *_Commit);
   _CRTIMP intptr_t __cdecl _get_heap_handle(void);
 
@@ -106,19 +106,19 @@ extern "C" {
 #define _ALLOCA_S_STACK_MARKER 0xCCCC
 #define _ALLOCA_S_HEAP_MARKER 0xDDDD
 
-#if(defined(_X86_) && !defined(__x86_64))
+#ប្រសិនបើ(defined(_X86_) && !defined(__x86_64))
 #define _ALLOCA_S_MARKER_SIZE 8
 #elif defined(__ia64__) || defined(__x86_64)
 #define _ALLOCA_S_MARKER_SIZE 16
 #endif
 
-#if !defined(RC_INVOKED)
-  static __inline void *_MarkAllocaS(void *_Ptr,unsigned int _Marker) {
-    if(_Ptr) {
-      *((unsigned int*)_Ptr) = _Marker;
-      _Ptr = (char*)_Ptr + _ALLOCA_S_MARKER_SIZE;
+#ប្រសិនបើ !defined(RC_INVOKED)
+  static __inline void *_MarkAllocaS(void *_Ptr,unsigned ចំនួនគត់ _Marker) {
+    ប្រសិនបើ(_Ptr) {
+      *((unsigned ចំនួនគត់*)_Ptr) = _Marker;
+      _Ptr = (var_na*)_Ptr + _ALLOCA_S_MARKER_SIZE;
     }
-    return _Ptr;
+    ត្រឡប់ _Ptr;
   }
 #endif
 
@@ -133,15 +133,15 @@ extern "C" {
 #ifndef RC_INVOKED
 #undef _freea
   static __inline void __cdecl _freea(void *_Memory) {
-    unsigned int _Marker;
-    if(_Memory) {
-      _Memory = (char*)_Memory - _ALLOCA_S_MARKER_SIZE;
-      _Marker = *(unsigned int *)_Memory;
-      if(_Marker==_ALLOCA_S_HEAP_MARKER) {
+    unsigned ចំនួនគត់ _Marker;
+    ប្រសិនបើ(_Memory) {
+      _Memory = (var_na*)_Memory - _ALLOCA_S_MARKER_SIZE;
+      _Marker = *(unsigned ចំនួនគត់ *)_Memory;
+      ប្រសិនបើ(_Marker==_ALLOCA_S_HEAP_MARKER) {
 	free(_Memory);
       }
 #ifdef _ASSERTE
-      else if(_Marker!=_ALLOCA_S_STACK_MARKER) {
+      បើមិនដូច្នេះ ប្រសិនបើ(_Marker!=_ALLOCA_S_STACK_MARKER) {
 	_ASSERTE(("Corrupted pointer passed to _freea",0));
       }
 #endif
@@ -159,7 +159,7 @@ extern "C" {
 #ifdef HEAPHOOK
 #ifndef _HEAPHOOK_DEFINED
 #define _HEAPHOOK_DEFINED
-  typedef int (__cdecl *_HEAPHOOK)(int,size_t,void *,void **);
+  typedef ចំនួនគត់ (__cdecl *_HEAPHOOK)(ចំនួនគត់,size_t,void *,void **);
 #endif
 
   _CRTIMP _HEAPHOOK __cdecl _setheaphook(_HEAPHOOK _NewHook);

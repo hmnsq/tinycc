@@ -1,18 +1,18 @@
 #include <stdio.h>
 
-int main()
+ចំនួនគត់ main()
 {
-   int Count = 0;
+   ចំនួនគត់ Count = 0;
 
-   for (;;)
+   សម្រាប់ (;;)
    {
       Count++;
       printf("%d\n", Count);
-      if (Count >= 10)
-         break;
+      ប្រសិនបើ (Count >= 10)
+         bha_nga;
    }
 
-   return 0;
+   ត្រឡប់ 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

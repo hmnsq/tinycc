@@ -1,17 +1,17 @@
 #include <stdio.h>
 
-static void f(int x)
+static void f(ចំនួនគត់ x)
 {
      printf("f(%d)\n", x);
 }
 
-int main(void)
+ចំនួនគត់ main(void)
 {
-     int count = 0, i = 0;
-     for (; i < 3; ++i) {
+     ចំនួនគត់ count = 0, i = 0;
+     សម្រាប់ (; i < 3; ++i) {
          printf("%d\n", i);
          (void)(i || (f(i), ++count));
      }
      printf("count %d\n", count);
-     return count == 1 ? 0 : 1;
+     ត្រឡប់ count == 1 ? 0 : 1;
 }

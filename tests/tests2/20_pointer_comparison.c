@@ -1,11 +1,11 @@
 #include <stdio.h>
 
-int main()
+ចំនួនគត់ main()
 {
-   int a;
-   int b;
-   int *d;
-   int *e;
+   ចំនួនគត់ a;
+   ចំនួនគត់ b;
+   ចំនួនគត់ *d;
+   ចំនួនគត់ *e;
    d = &a;
    e = &b;
    a = 12;
@@ -18,7 +18,7 @@ int main()
    printf("%d\n", d == e);
    printf("%d\n", d != e);
 
-   return 0;
+   ត្រឡប់ 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

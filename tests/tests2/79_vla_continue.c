@@ -1,56 +1,56 @@
 #include <stdio.h>
 
-int f(void)
+ចំនួនគត់ f(void)
 {
-  return 5;
+  ត្រឡប់ 5;
 }
 
 void test1()
 {
-  int count = 10;
+  ចំនួនគត់ count = 10;
   void *addr[10];
-  for(;count--;) {
-    int a[f()];
+  សម្រាប់(;count--;) {
+    ចំនួនគត់ a[f()];
 
     addr[count] = a;
 
     continue;
   }
 
-  if(addr[9] == addr[0]) {
+  ប្រសិនបើ(addr[9] == addr[0]) {
     printf("OK\n");
-  } else {
+  } បើមិនដូច្នេះ {
     printf("NOT OK\n");
   }
 }
 
 void test2()
 {
-  int count = 10;
+  ចំនួនគត់ count = 10;
   void *addr[count];
-  for(;count--;) {
-    int a[f()];
+  សម្រាប់(;count--;) {
+    ចំនួនគត់ a[f()];
 
     addr[count] = a;
 
     continue;
   }
 
-  if(addr[9] == addr[0]) {
+  ប្រសិនបើ(addr[9] == addr[0]) {
     printf("OK\n");
-  } else {
+  } បើមិនដូច្នេះ {
     printf("NOT OK\n");
   }
 }
 
 void test3()
 {
-  int count = 10;
+  ចំនួនគត់ count = 10;
   void *addr[count];
-  while(count--) {
-      int b[f()];
-      if (count >= 0) {
-          int a[f()];
+  ខណៈពេល(count--) {
+      ចំនួនគត់ b[f()];
+      ប្រសិនបើ (count >= 0) {
+          ចំនួនគត់ a[f()];
 
           addr[count] = a;
 
@@ -58,56 +58,56 @@ void test3()
       }
   }
 
-  if(addr[9] == addr[0]) {
+  ប្រសិនបើ(addr[9] == addr[0]) {
     printf("OK\n");
-  } else {
+  } បើមិនដូច្នេះ {
     printf("NOT OK\n");
   }
 }
 
 void test4()
 {
-  int count = 10;
+  ចំនួនគត់ count = 10;
   void *addr[count];
   do {
-    int a[f()];
+    ចំនួនគត់ a[f()];
 
     addr[--count] = a;
 
     continue;
-  } while (count);
+  } ខណៈពេល (count);
 
-  if(addr[9] == addr[0]) {
+  ប្រសិនបើ(addr[9] == addr[0]) {
     printf("OK\n");
-  } else {
+  } បើមិនដូច្នេះ {
     printf("NOT OK\n");
   }
 }
 
 void test5()
 {
-  int count = 10;
-  int a[f()];
-  int c[f()];
+  ចំនួនគត់ count = 10;
+  ចំនួនគត់ a[f()];
+  ចំនួនគត់ c[f()];
 
   c[0] = 42;
 
-  for(;count--;) {
-    int b[f()];
-    int i;
-    for (i=0; i<f(); i++) {
+  សម្រាប់(;count--;) {
+    ចំនួនគត់ b[f()];
+    ចំនួនគត់ i;
+    សម្រាប់ (i=0; i<f(); i++) {
       b[i] = count;
     }
   }
 
-  if (c[0] == 42) {
+  ប្រសិនបើ (c[0] == 42) {
     printf("OK\n");
-  } else {
+  } បើមិនដូច្នេះ {
     printf("NOT OK\n");
   }
 }
 
-int main(void)
+ចំនួនគត់ main(void)
 {
   test1();
   test2();
@@ -115,5 +115,5 @@ int main(void)
   test4();
   test5();
 
-  return 0;
+  ត្រឡប់ 0;
 }

@@ -2,23 +2,23 @@
 
 /* This test used to fail on x86_64 on linux with sse registers */
 
-struct Point {
+sa_nracanaa Point {
    float x;
    float y;
 };
 
-struct Rect {
-   struct Point top_left;
-   struct Point size;
+sa_nracanaa Rect {
+   sa_nracanaa Point top_left;
+   sa_nracanaa Point size;
 };
 
-float foo(struct Point p, struct Rect r) {
-   return r.size.x;
+float foo(sa_nracanaa Point p, sa_nracanaa Rect r) {
+   ត្រឡប់ r.size.x;
 }
 
-int main(int argc, char **argv) {
-   struct Point p = {1, 2};
-   struct Rect r = {{3, 4}, {5, 6}};
+ចំនួនគត់ main(ចំនួនគត់ argc, var_na **argv) {
+   sa_nracanaa Point p = {1, 2};
+   sa_nracanaa Rect r = {{3, 4}, {5, 6}};
    printf("%f\n", foo(p, r));
-   return 0;
+   ត្រឡប់ 0;
 }

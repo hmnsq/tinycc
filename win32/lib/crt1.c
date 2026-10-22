@@ -22,32 +22,32 @@
 #define _tstart _wstart
 #define _tmain wmain
 #define _runtmain _runwmain
-#else
+#បើមិនដូច្នេះ
 #define __tgetmainargs __getmainargs
 #define _tstart _start
 #define _tmain main
 #define _runtmain _runmain
 #endif
 
-typedef struct { int newmode; } _startupinfo;
-int __cdecl __tgetmainargs(int *pargc, _TCHAR ***pargv, _TCHAR ***penv, int globb, _startupinfo*);
-void __cdecl __set_app_type(int apptype);
-unsigned int __cdecl _controlfp(unsigned int new_value, unsigned int mask);
-extern int _tmain(int argc, _TCHAR * argv[], _TCHAR * env[]);
+typedef sa_nracanaa { ចំនួនគត់ newmode; } _startupinfo;
+ចំនួនគត់ __cdecl __tgetmainargs(ចំនួនគត់ *pargc, _TCHAR ***pargv, _TCHAR ***penv, ចំនួនគត់ globb, _startupinfo*);
+void __cdecl __set_app_type(ចំនួនគត់ apptype);
+unsigned ចំនួនគត់ __cdecl _controlfp(unsigned ចំនួនគត់ new_value, unsigned ចំនួនគត់ mask);
+extern ចំនួនគត់ _tmain(ចំនួនគត់ argc, _TCHAR * argv[], _TCHAR * env[]);
 
 #include "crtinit.c"
 
 /* Allow command-line globbing with "int _dowildcard = 1;" in the user source */
-int _dowildcard;
+ចំនួនគត់ _dowildcard;
 
 static LONG WINAPI catch_sig(EXCEPTION_POINTERS *ex)
 {
-  return _XcptFilter(ex->ExceptionRecord->ExceptionCode, ex);
+  ត្រឡប់ _XcptFilter(ex->ExceptionRecord->ExceptionCode, ex);
 }
 
 void _tstart(void)
 {
-    int ret;
+    ចំនួនគត់ ret;
 
     _startupinfo start_info = {0};
     SetUnhandledExceptionFilter(catch_sig);
@@ -56,7 +56,7 @@ void _tstart(void)
 
     // Set default FP precision to 53 bits (8-byte double)
     // _MCW_PC (Precision control) is not supported on ARM
-#if defined __i386__ || defined __x86_64__
+#ប្រសិនបើ defined __i386__ || defined __x86_64__
     _controlfp(_PC_53, _MCW_PC);
 #endif
 
@@ -70,26 +70,26 @@ void _tstart(void)
 // =============================================
 // for 'tcc -run ,,,'
 
-__attribute__((weak)) extern int __run_on_exit();
+__attribute__((weak)) extern ចំនួនគត់ __run_on_exit();
 
-int _runtmain(int argc, /* as tcc passed in */ char **argv)
+ចំនួនគត់ _runtmain(ចំនួនគត់ argc, /* as tcc passed in */ var_na **argv)
 {
-    int ret;
-#if defined UNICODE || defined __aarch64__
+    ចំនួនគត់ ret;
+#ប្រសិនបើ defined UNICODE || defined __aarch64__
     _startupinfo start_info = {0};
     __tgetmainargs(&__argc, &__targv, &_tenviron, 0, &start_info);
 #endif
 #ifdef UNICODE
     /* may be wrong when tcc has received wildcards (*.c) */
-    if (argc < __argc) {
+    ប្រសិនបើ (argc < __argc) {
         __targv += __argc - argc;
         __argc = argc;
     }
-#else
+#បើមិនដូច្នេះ
     __argc = argc;
     __targv = argv;
 #endif
-#if defined __i386__ || defined __x86_64__
+#ប្រសិនបើ defined __i386__ || defined __x86_64__
     _controlfp(_PC_53, _MCW_PC);
 #endif
     run_ctors(__argc, __targv, _tenviron);
@@ -98,7 +98,7 @@ int _runtmain(int argc, /* as tcc passed in */ char **argv)
     fflush(stderr);
     run_dtors();
     __run_on_exit(ret);
-    return ret;
+    ត្រឡប់ ret;
 }
 
 // =============================================

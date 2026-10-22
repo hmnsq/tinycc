@@ -45,7 +45,7 @@ extern "C" {
 #define __PCTYPE_FUNC __pctype_func()
 #ifdef _MSVCRT_
 #define __pctype_func() (_pctype)
-#else
+#បើមិនដូច្នេះ
 #define __pctype_func() (*_imp___pctype)
 #endif
 #endif
@@ -53,7 +53,7 @@ extern "C" {
 #ifndef _pctype
 #ifdef _MSVCRT_
   extern unsigned short *_pctype;
-#else
+#បើមិនដូច្នេះ
   extern unsigned short **_imp___pctype;
 #define _pctype (*_imp___pctype)
 #endif
@@ -68,7 +68,7 @@ extern "C" {
 #ifndef _wctype
 #ifdef _MSVCRT_
   extern unsigned short *_wctype;
-#else
+#បើមិនដូច្នេះ
   extern unsigned short **_imp___wctype;
 #define _wctype (*_imp___wctype)
 #endif
@@ -77,7 +77,7 @@ extern "C" {
 #ifndef _pwctype
 #ifdef _MSVCRT_
   extern unsigned short *_pwctype;
-#else
+#បើមិនដូច្នេះ
   extern unsigned short **_imp___pwctype;
 #define _pwctype (*_imp___pwctype)
 #define __pwctype_func() (*_imp___pwctype)
@@ -102,27 +102,27 @@ extern "C" {
 #ifndef _WCTYPE_DEFINED
 #define _WCTYPE_DEFINED
 
-  int __cdecl iswalpha(wint_t);
-  int __cdecl iswupper(wint_t);
-  int __cdecl iswlower(wint_t);
-  int __cdecl iswdigit(wint_t);
-  int __cdecl iswxdigit(wint_t);
-  int __cdecl iswspace(wint_t);
-  int __cdecl iswpunct(wint_t);
-  int __cdecl iswalnum(wint_t);
-  int __cdecl iswprint(wint_t);
-  int __cdecl iswgraph(wint_t);
-  int __cdecl iswcntrl(wint_t);
-  int __cdecl iswascii(wint_t);
-  int __cdecl isleadbyte(int);
+  ចំនួនគត់ __cdecl iswalpha(wint_t);
+  ចំនួនគត់ __cdecl iswupper(wint_t);
+  ចំនួនគត់ __cdecl iswlower(wint_t);
+  ចំនួនគត់ __cdecl iswdigit(wint_t);
+  ចំនួនគត់ __cdecl iswxdigit(wint_t);
+  ចំនួនគត់ __cdecl iswspace(wint_t);
+  ចំនួនគត់ __cdecl iswpunct(wint_t);
+  ចំនួនគត់ __cdecl iswalnum(wint_t);
+  ចំនួនគត់ __cdecl iswprint(wint_t);
+  ចំនួនគត់ __cdecl iswgraph(wint_t);
+  ចំនួនគត់ __cdecl iswcntrl(wint_t);
+  ចំនួនគត់ __cdecl iswascii(wint_t);
+  ចំនួនគត់ __cdecl isleadbyte(ចំនួនគត់);
   wint_t __cdecl towupper(wint_t);
   wint_t __cdecl towlower(wint_t);
-  int __cdecl iswctype(wint_t,wctype_t);
-  _CRTIMP int __cdecl __iswcsymf(wint_t);
-  _CRTIMP int __cdecl __iswcsym(wint_t);
-  int __cdecl is_wctype(wint_t,wctype_t);
-#if (defined (__STDC_VERSION__) && __STDC_VERSION__ >= 199901L) || !defined (NO_OLDNAMES)
-int __cdecl isblank(int _C);
+  ចំនួនគត់ __cdecl iswctype(wint_t,wctype_t);
+  _CRTIMP ចំនួនគត់ __cdecl __iswcsymf(wint_t);
+  _CRTIMP ចំនួនគត់ __cdecl __iswcsym(wint_t);
+  ចំនួនគត់ __cdecl is_wctype(wint_t,wctype_t);
+#ប្រសិនបើ (defined (__STDC_VERSION__) && __STDC_VERSION__ >= 199901L) || !defined (NO_OLDNAMES)
+ចំនួនគត់ __cdecl isblank(ចំនួនគត់ _C);
 #endif
 #endif
 
@@ -141,28 +141,28 @@ int __cdecl isblank(int _C);
 #define iswgraph(_c) (iswctype(_c,_PUNCT|_ALPHA|_DIGIT))
 #define iswcntrl(_c) (iswctype(_c,_CONTROL))
 #define iswascii(_c) ((unsigned)(_c) < 0x80)
-#define isleadbyte(c) (__pctype_func()[(unsigned char)(c)] & _LEADBYTE)
-#else
-  __CRT_INLINE int __cdecl iswalpha(wint_t _C) {return (iswctype(_C,_ALPHA)); }
-  __CRT_INLINE int __cdecl iswupper(wint_t _C) {return (iswctype(_C,_UPPER)); }
-  __CRT_INLINE int __cdecl iswlower(wint_t _C) {return (iswctype(_C,_LOWER)); }
-  __CRT_INLINE int __cdecl iswdigit(wint_t _C) {return (iswctype(_C,_DIGIT)); }
-  __CRT_INLINE int __cdecl iswxdigit(wint_t _C) {return (iswctype(_C,_HEX)); }
-  __CRT_INLINE int __cdecl iswspace(wint_t _C) {return (iswctype(_C,_SPACE)); }
-  __CRT_INLINE int __cdecl iswpunct(wint_t _C) {return (iswctype(_C,_PUNCT)); }
-  __CRT_INLINE int __cdecl iswalnum(wint_t _C) {return (iswctype(_C,_ALPHA|_DIGIT)); }
-  __CRT_INLINE int __cdecl iswprint(wint_t _C) {return (iswctype(_C,_BLANK|_PUNCT|_ALPHA|_DIGIT)); }
-  __CRT_INLINE int __cdecl iswgraph(wint_t _C) {return (iswctype(_C,_PUNCT|_ALPHA|_DIGIT)); }
-  __CRT_INLINE int __cdecl iswcntrl(wint_t _C) {return (iswctype(_C,_CONTROL)); }
-  __CRT_INLINE int __cdecl iswascii(wint_t _C) {return ((unsigned)(_C) < 0x80); }
-  __CRT_INLINE int __cdecl isleadbyte(int _C) {return (__pctype_func()[(unsigned char)(_C)] & _LEADBYTE); }
+#define isleadbyte(c) (__pctype_func()[(unsigned var_na)(c)] & _LEADBYTE)
+#បើមិនដូច្នេះ
+  __CRT_INLINE ចំនួនគត់ __cdecl iswalpha(wint_t _C) {ត្រឡប់ (iswctype(_C,_ALPHA)); }
+  __CRT_INLINE ចំនួនគត់ __cdecl iswupper(wint_t _C) {ត្រឡប់ (iswctype(_C,_UPPER)); }
+  __CRT_INLINE ចំនួនគត់ __cdecl iswlower(wint_t _C) {ត្រឡប់ (iswctype(_C,_LOWER)); }
+  __CRT_INLINE ចំនួនគត់ __cdecl iswdigit(wint_t _C) {ត្រឡប់ (iswctype(_C,_DIGIT)); }
+  __CRT_INLINE ចំនួនគត់ __cdecl iswxdigit(wint_t _C) {ត្រឡប់ (iswctype(_C,_HEX)); }
+  __CRT_INLINE ចំនួនគត់ __cdecl iswspace(wint_t _C) {ត្រឡប់ (iswctype(_C,_SPACE)); }
+  __CRT_INLINE ចំនួនគត់ __cdecl iswpunct(wint_t _C) {ត្រឡប់ (iswctype(_C,_PUNCT)); }
+  __CRT_INLINE ចំនួនគត់ __cdecl iswalnum(wint_t _C) {ត្រឡប់ (iswctype(_C,_ALPHA|_DIGIT)); }
+  __CRT_INLINE ចំនួនគត់ __cdecl iswprint(wint_t _C) {ត្រឡប់ (iswctype(_C,_BLANK|_PUNCT|_ALPHA|_DIGIT)); }
+  __CRT_INLINE ចំនួនគត់ __cdecl iswgraph(wint_t _C) {ត្រឡប់ (iswctype(_C,_PUNCT|_ALPHA|_DIGIT)); }
+  __CRT_INLINE ចំនួនគត់ __cdecl iswcntrl(wint_t _C) {ត្រឡប់ (iswctype(_C,_CONTROL)); }
+  __CRT_INLINE ចំនួនគត់ __cdecl iswascii(wint_t _C) {ត្រឡប់ ((unsigned)(_C) < 0x80); }
+  __CRT_INLINE ចំនួនគត់ __cdecl isleadbyte(ចំនួនគត់ _C) {ត្រឡប់ (__pctype_func()[(unsigned var_na)(_C)] & _LEADBYTE); }
 #endif
 #endif
 
   typedef wchar_t wctrans_t;
   wint_t __cdecl towctrans(wint_t,wctrans_t);
-  wctrans_t __cdecl wctrans(const char *);
-  wctype_t __cdecl wctype(const char *);
+  wctrans_t __cdecl wctrans(const var_na *);
+  wctype_t __cdecl wctype(const var_na *);
 
 #ifdef __cplusplus
 }

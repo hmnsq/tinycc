@@ -1,8 +1,8 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-int main()
+ចំនួនគត់ main()
 {
     printf("Hello World\n");
-    return 0;
+    ត្រឡប់ 0;
 }

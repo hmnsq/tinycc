@@ -1,18 +1,18 @@
 #include <stdio.h>
 
-int main()
+ចំនួនគត់ main()
 {
-   int a;
-   char b;
+   ចំនួនគត់ a;
+   var_na b;
 
    a = 0;
-   while (a < 2)
+   ខណៈពេល (a < 2)
    {
       printf("%d", a++);
-      break;
+      bha_nga;
 
       b = 'A';
-      while (b < 'C')
+      ខណៈពេល (b < 'C')
       {
          printf("%c", b++);
       }
@@ -20,7 +20,7 @@ int main()
    }
    printf("\n");
 
-   return 0;
+   ត្រឡប់ 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

@@ -1,28 +1,28 @@
 #include <stdio.h>
 
-int array[16];
+ចំនួនគត់ array[16];
 
 //Swap integer values by array indexes
-void swap(int a, int b)
+void swap(ចំនួនគត់ a, ចំនួនគត់ b)
 {
-   int tmp  = array[a];
+   ចំនួនគត់ tmp  = array[a];
    array[a] = array[b];
    array[b] = tmp;
 }
 
 //Partition the array into two halves and return the
 //index about which the array is partitioned
-int partition(int left, int right)
+ចំនួនគត់ partition(ចំនួនគត់ left, ចំនួនគត់ right)
 {
-   int pivotIndex = left;
-   int pivotValue = array[pivotIndex];
-   int index = left;
-   int i;
+   ចំនួនគត់ pivotIndex = left;
+   ចំនួនគត់ pivotValue = array[pivotIndex];
+   ចំនួនគត់ index = left;
+   ចំនួនគត់ i;
 
    swap(pivotIndex, right);
-   for(i = left; i < right; i++)
+   សម្រាប់(i = left; i < right; i++)
    {
-      if(array[i] < pivotValue)
+      ប្រសិនបើ(array[i] < pivotValue)
       {
          swap(i, index);
          index += 1;
@@ -30,23 +30,23 @@ int partition(int left, int right)
    }
    swap(right, index);
 
-   return index;
+   ត្រឡប់ index;
 }
 
 //Quicksort the array
-void quicksort(int left, int right)
+void quicksort(ចំនួនគត់ left, ចំនួនគត់ right)
 {
-   if(left >= right)
-      return;
+   ប្រសិនបើ(left >= right)
+      ត្រឡប់;
 
-   int index = partition(left, right);
+   ចំនួនគត់ index = partition(left, right);
    quicksort(left, index - 1);
    quicksort(index + 1, right);
 }
 
-int main()
+ចំនួនគត់ main()
 {
-   int i;
+   ចំនួនគត់ i;
 
    array[0] = 62;
    array[1] = 83;
@@ -65,19 +65,19 @@ int main()
    array[14] = 74;
    array[15] = 55;
 
-   for (i = 0; i < 16; i++)
+   សម្រាប់ (i = 0; i < 16; i++)
       printf("%d ", array[i]);
 
    printf("\n");
 
    quicksort(0, 15);
 
-   for (i = 0; i < 16; i++)
+   សម្រាប់ (i = 0; i < 16; i++)
       printf("%d ", array[i]);
 
    printf("\n");
 
-   return 0;
+   ត្រឡប់ 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

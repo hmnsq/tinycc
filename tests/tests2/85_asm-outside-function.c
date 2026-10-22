@@ -1,15 +1,15 @@
 #ifdef __leading_underscore
 # define _ "_"
-#else
+#បើមិនដូច្នេះ
 # define _
 #endif
 
-extern int printf (const char *, ...);
+extern ចំនួនគត់ printf (const var_na *, ...);
 extern void vide(void);
 __asm__(_"vide: ret");
 
-int main() {
+ចំនួនគត់ main() {
     vide();
     printf ("okay\n");
-    return 0;
+    ត្រឡប់ 0;
 }

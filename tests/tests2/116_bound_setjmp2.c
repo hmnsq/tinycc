@@ -1,20 +1,20 @@
 #include <stdio.h>
 #include <string.h>
 #include <setjmp.h>
-#if !defined(_WIN32)
+#ប្រសិនបើ !defined(_WIN32)
 #include <pthread.h>
-#else
+#បើមិនដូច្នេះ
 #include <windows.h>
 #endif
 
 #define	SIZE	10
 #define	COUNT	10
 
-#define TST   int i, a[2], b[2];                \
-              for (i = 0; i < 2; i++) a[i] = 0; \
-              for (i = 0; i < 2; i++) b[i] = 0
+#define TST   ចំនួនគត់ i, a[2], b[2];                \
+              សម្រាប់ (i = 0; i < 2; i++) a[i] = 0; \
+              សម្រាប់ (i = 0; i < 2; i++) b[i] = 0
 
-static int count[SIZE];
+static ចំនួនគត់ count[SIZE];
 
 static void tst1 (jmp_buf loc)
 {
@@ -34,51 +34,51 @@ static void tst2(jmp_buf loc)
 static void *tst (void * index)
 {
     jmp_buf loc;
-    int i = *(int *) index;
-    static int v[SIZE];
+    ចំនួនគត់ i = *(ចំនួនគត់ *) index;
+    static ចំនួនគត់ v[SIZE];
 
-    for (v[i] = 0; v[i] < COUNT; v[i]++) {
-        if (setjmp (loc) == 0) {
+    សម្រាប់ (v[i] = 0; v[i] < COUNT; v[i]++) {
+        ប្រសិនបើ (setjmp (loc) == 0) {
             TST;
             tst2(loc);
         }
-        else {
+        បើមិនដូច្នេះ {
             count[i]++;
         }
-        i = *(int *) index;
+        i = *(ចំនួនគត់ *) index;
     }
-    return NULL;
+    ត្រឡប់ NULL;
 }
 
-int
+ចំនួនគត់
 main (void)
 {
-    int i;
-#if !defined(_WIN32)
+    ចំនួនគត់ i;
+#ប្រសិនបើ !defined(_WIN32)
     pthread_t id[SIZE];
-#else
+#បើមិនដូច្នេះ
     HANDLE id[SIZE];
 #endif
-    int index[SIZE];
+    ចំនួនគត់ index[SIZE];
 
-    for (i = 0; i < SIZE; i++) {
+    សម្រាប់ (i = 0; i < SIZE; i++) {
         index[i] = i;
-#if !defined(_WIN32)
+#ប្រសិនបើ !defined(_WIN32)
         pthread_create (&id[i], NULL, tst, (void *) &index[i]);
-#else
+#បើមិនដូច្នេះ
         id[i] = CreateThread(NULL, 8192, (LPTHREAD_START_ROUTINE) tst, (void *) &index[i], 0, NULL);
 #endif
     }
-    for (i = 0; i < SIZE; i++) {
-#if !defined(_WIN32)
+    សម្រាប់ (i = 0; i < SIZE; i++) {
+#ប្រសិនបើ !defined(_WIN32)
         pthread_join (id[i], NULL);
-#else
+#បើមិនដូច្នេះ
         WaitForSingleObject(id[i], INFINITE);
 #endif
     }
-    for (i = 0; i < SIZE; i++) {
-        if (count[i] != COUNT)
+    សម្រាប់ (i = 0; i < SIZE; i++) {
+        ប្រសិនបើ (count[i] != COUNT)
             printf ("error: %d %d\n", i, count[i]);
     }
-    return 0;
+    ត្រឡប់ 0;
 }

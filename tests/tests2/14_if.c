@@ -1,21 +1,21 @@
 #include <stdio.h>
 
-int main()
+ចំនួនគត់ main()
 {
-   int a = 1;
+   ចំនួនគត់ a = 1;
 
-   if (a)
+   ប្រសិនបើ (a)
       printf("a is true\n");
-   else
+   បើមិនដូច្នេះ
       printf("a is false\n");
 
-   int b = 0;
-   if (b)
+   ចំនួនគត់ b = 0;
+   ប្រសិនបើ (b)
       printf("b is true\n");
-   else
+   បើមិនដូច្នេះ
       printf("b is false\n");
 
-   return 0;
+   ត្រឡប់ 0;
 }
 
 // vim: set expandtab ts=4 sw=3 sts=3 tw=80 :

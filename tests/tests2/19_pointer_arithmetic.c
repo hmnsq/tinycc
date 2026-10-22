@@ -1,10 +1,10 @@
 #include <stdio.h>
 
-int main()
+ចំនួនគត់ main()
 {
-   int a;
-   int *b;
-   int *c;
+   ចំនួនគត់ a;
+   ចំនួនគត់ *b;
+   ចំនួនគត់ *c;
 
    a = 42;
    b = &a;
@@ -12,17 +12,17 @@ int main()
 
    printf("%d\n", *b);
 
-   if (b == NULL)
+   ប្រសិនបើ (b == NULL)
       printf("b is NULL\n");
-   else
+   បើមិនដូច្នេះ
       printf("b is not NULL\n");
 
-   if (c == NULL)
+   ប្រសិនបើ (c == NULL)
       printf("c is NULL\n");
-   else
+   បើមិនដូច្នេះ
       printf("c is not NULL\n");
 
-   return 0;
+   ត្រឡប់ 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

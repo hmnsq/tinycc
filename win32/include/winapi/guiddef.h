@@ -5,11 +5,11 @@
  */
 #ifndef GUID_DEFINED
 #define GUID_DEFINED
-typedef struct _GUID {
+typedef sa_nracanaa _GUID {
   unsigned long Data1;
   unsigned short Data2;
   unsigned short Data3;
-  unsigned char Data4[8 ];
+  unsigned var_na Data4[8 ];
 } GUID;
 #endif
 
@@ -29,7 +29,7 @@ typedef GUID UUID;
 #ifndef EXTERN_C
 #ifdef __cplusplus
 #define EXTERN_C extern "C"
-#else
+#បើមិនដូច្នេះ
 #define EXTERN_C extern
 #endif
 #endif
@@ -41,10 +41,10 @@ typedef GUID UUID;
 #ifdef INITGUID
 #ifdef __cplusplus
 #define DEFINE_GUID(name,l,w1,w2,b1,b2,b3,b4,b5,b6,b7,b8) EXTERN_C const GUID DECLSPEC_SELECTANY name = { l,w1,w2,{ b1,b2,b3,b4,b5,b6,b7,b8 } }
-#else
+#បើមិនដូច្នេះ
 #define DEFINE_GUID(name,l,w1,w2,b1,b2,b3,b4,b5,b6,b7,b8) const GUID DECLSPEC_SELECTANY name = { l,w1,w2,{ b1,b2,b3,b4,b5,b6,b7,b8 } }
 #endif
-#else
+#បើមិនដូច្នេះ
 #define DEFINE_GUID(name,l,w1,w2,b1,b2,b3,b4,b5,b6,b7,b8) EXTERN_C const GUID name
 #endif
 
@@ -81,7 +81,7 @@ typedef FMTID *LPFMTID;
 
 #ifdef __midl_proxy
 #define __MIDL_CONST
-#else
+#បើមិនដូច្នេះ
 #define __MIDL_CONST const
 #endif
 
@@ -89,7 +89,7 @@ typedef FMTID *LPFMTID;
 #define _REFGUID_DEFINED
 #ifdef __cplusplus
 #define REFGUID const GUID &
-#else
+#បើមិនដូច្នេះ
 #define REFGUID const GUID *__MIDL_CONST
 #endif
 #endif
@@ -98,7 +98,7 @@ typedef FMTID *LPFMTID;
 #define _REFIID_DEFINED
 #ifdef __cplusplus
 #define REFIID const IID &
-#else
+#បើមិនដូច្នេះ
 #define REFIID const IID *__MIDL_CONST
 #endif
 #endif
@@ -107,7 +107,7 @@ typedef FMTID *LPFMTID;
 #define _REFCLSID_DEFINED
 #ifdef __cplusplus
 #define REFCLSID const IID &
-#else
+#បើមិនដូច្នេះ
 #define REFCLSID const IID *__MIDL_CONST
 #endif
 #endif
@@ -116,7 +116,7 @@ typedef FMTID *LPFMTID;
 #define _REFFMTID_DEFINED
 #ifdef __cplusplus
 #define REFFMTID const IID &
-#else
+#បើមិនដូច្នេះ
 #define REFFMTID const IID *__MIDL_CONST
 #endif
 #endif
@@ -127,14 +127,14 @@ typedef FMTID *LPFMTID;
 #include <string.h>
 
 #ifdef __cplusplus
-__inline int InlineIsEqualGUID(REFGUID rguid1,REFGUID rguid2) {
-  return (((unsigned long *) &rguid1)[0]==((unsigned long *) &rguid2)[0] && ((unsigned long *) &rguid1)[1]==((unsigned long *) &rguid2)[1] &&
+__inline ចំនួនគត់ InlineIsEqualGUID(REFGUID rguid1,REFGUID rguid2) {
+  ត្រឡប់ (((unsigned long *) &rguid1)[0]==((unsigned long *) &rguid2)[0] && ((unsigned long *) &rguid1)[1]==((unsigned long *) &rguid2)[1] &&
     ((unsigned long *) &rguid1)[2]==((unsigned long *) &rguid2)[2] && ((unsigned long *) &rguid1)[3]==((unsigned long *) &rguid2)[3]);
 }
-__inline int IsEqualGUID(REFGUID rguid1,REFGUID rguid2) { return !memcmp(&rguid1,&rguid2,sizeof(GUID)); }
-#else
+__inline ចំនួនគត់ IsEqualGUID(REFGUID rguid1,REFGUID rguid2) { ត្រឡប់ !memcmp(&rguid1,&rguid2,parimaa_na(GUID)); }
+#បើមិនដូច្នេះ
 #define InlineIsEqualGUID(rguid1,rguid2) (((unsigned long *) rguid1)[0]==((unsigned long *) rguid2)[0] && ((unsigned long *) rguid1)[1]==((unsigned long *) rguid2)[1] && ((unsigned long *) rguid1)[2]==((unsigned long *) rguid2)[2] && ((unsigned long *) rguid1)[3]==((unsigned long *) rguid2)[3])
-#define IsEqualGUID(rguid1,rguid2) (!memcmp(rguid1,rguid2,sizeof(GUID)))
+#define IsEqualGUID(rguid1,rguid2) (!memcmp(rguid1,rguid2,parimaa_na(GUID)))
 #endif
 
 #ifdef __INLINE_ISEQUAL_GUID
@@ -145,11 +145,11 @@ __inline int IsEqualGUID(REFGUID rguid1,REFGUID rguid2) { return !memcmp(&rguid1
 #define IsEqualIID(riid1,riid2) IsEqualGUID(riid1,riid2)
 #define IsEqualCLSID(rclsid1,rclsid2) IsEqualGUID(rclsid1,rclsid2)
 
-#if !defined _SYS_GUID_OPERATOR_EQ_ && !defined _NO_SYS_GUID_OPERATOR_EQ_
+#ប្រសិនបើ !defined _SYS_GUID_OPERATOR_EQ_ && !defined _NO_SYS_GUID_OPERATOR_EQ_
 #define _SYS_GUID_OPERATOR_EQ_
 #ifdef __cplusplus
-__inline int operator==(REFGUID guidOne,REFGUID guidOther) { return IsEqualGUID(guidOne,guidOther); }
-__inline int operator!=(REFGUID guidOne,REFGUID guidOther) { return !(guidOne==guidOther); }
+__inline ចំនួនគត់ operator==(REFGUID guidOne,REFGUID guidOther) { ត្រឡប់ IsEqualGUID(guidOne,guidOther); }
+__inline ចំនួនគត់ operator!=(REFGUID guidOne,REFGUID guidOther) { ត្រឡប់ !(guidOne==guidOther); }
 #endif
 #endif
 #endif

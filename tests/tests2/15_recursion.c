@@ -1,21 +1,21 @@
 #include <stdio.h>
 
-int factorial(int i) 
+ចំនួនគត់ factorial(ចំនួនគត់ i) 
 {
-   if (i < 2)
-      return i;
-   else
-      return i * factorial(i - 1);
+   ប្រសិនបើ (i < 2)
+      ត្រឡប់ i;
+   បើមិនដូច្នេះ
+      ត្រឡប់ i * factorial(i - 1);
 }
 
-int main()
+ចំនួនគត់ main()
 {
-   int Count;
+   ចំនួនគត់ Count;
 
-   for (Count = 1; Count <= 10; Count++)
+   សម្រាប់ (Count = 1; Count <= 10; Count++)
       printf("%d\n", factorial(Count));
 
-   return 0;
+   ត្រឡប់ 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

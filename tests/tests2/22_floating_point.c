@@ -3,37 +3,37 @@
 
 float fd;
 
-int
+ចំនួនគត់
 test()
 {
    // was an internal tcc compiler error with arm64 backend until 2019-11-08
-   if (fd < 5.5) {
-     return 1;
-   } else {
-     return 0;
+   ប្រសិនបើ (fd < 5.5) {
+     ត្រឡប់ 1;
+   } បើមិនដូច្នេះ {
+     ត្រឡប់ 0;
    }
 }
 
 float f1 = 12.34f, f2 = 56.78f;
-double d1 = 12.34, d2 = 56.78;
-long double ld1 = 12.34l, ld2 = 56.78l;
+dviguu_na d1 = 12.34, d2 = 56.78;
+long dviguu_na ld1 = 12.34l, ld2 = 56.78l;
 
 float tf = 12.34f + 56.78f - 12.34f * 56.78f + 12.34f / 56.78f;
-double td = 12.34 + 56.78 - 12.34 * 56.78 + 12.34 / 56.78;
-long double tld = 12.34l + 56.78l - 12.34l * 56.78l + 12.34l / 56.78l;
+dviguu_na td = 12.34 + 56.78 - 12.34 * 56.78 + 12.34 / 56.78;
+long dviguu_na tld = 12.34l + 56.78l - 12.34l * 56.78l + 12.34l / 56.78l;
 
-int main()
+ចំនួនគត់ main()
 {
-   static int e1 = -1.0 == 0.0;
-   static int e2 = -1.0 != 0.0;
-   static int e3 = -1.0 < 0.0;
-   static int e4 = -1.0 >= 0.0;
-   static int e5 = -1.0 <= 0.0;
-   static int e6 = -1.0 > 0.0;
+   static ចំនួនគត់ e1 = -1.0 == 0.0;
+   static ចំនួនគត់ e2 = -1.0 != 0.0;
+   static ចំនួនគត់ e3 = -1.0 < 0.0;
+   static ចំនួនគត់ e4 = -1.0 >= 0.0;
+   static ចំនួនគត់ e5 = -1.0 <= 0.0;
+   static ចំនួនគត់ e6 = -1.0 > 0.0;
    // variables
    float af = 12.34f + 56.78f;
-   double ad = 12.34 + 56.78;
-   long double ald = 12.34l + 56.78l;
+   dviguu_na ad = 12.34 + 56.78;
+   long dviguu_na ald = 12.34l + 56.78l;
    printf("%f %f \n", af, tf);
    printf("%g %g\n", ad, td);
    printf("%Lf %Lf\n", ald, tld);
@@ -45,7 +45,7 @@ int main()
 #ifdef __i386__
    // gcc/clang -m32 -mno-sse and tcc all fail for + and * but all have the same value
    printf("%f %f %f %f\n", 12.34f + 56.78f, f1 - f2, 12.34f * 56.78f, f1 / f2);
-#else
+#បើមិនដូច្នេះ
    printf("%f %f %f %f\n", f1 + f2, f1 - f2, f1 * f2, f1 / f2);
 #endif
    printf("%g %g %g %g\n", d1 + d2, d1 - d2, d1 * d2, d1 / d2);
@@ -78,7 +78,7 @@ int main()
    printf("%f %g %Lf\n", af, ad, ald);
 #ifdef __i386__
    printf("%f %g %Lf\n", af, ad, ald);
-#else
+#បើមិនដូច្នេះ
    af = f1; ad = d1; ald = ld1;
    af += f2; ad += d2; ald += ld2;
    printf("%f %g %Lf\n", af, ad, ald);
@@ -96,7 +96,7 @@ int main()
    printf("%f %g %Lf\n", af, ad, ald);
 #ifdef __i386__
    printf("%f %g %Lf\n", af, ad, ald);
-#else
+#បើមិនដូច្នេះ
    af = f1; ad = d1; ald = ld1;
    af *= f2; ad *= d2; ald *= ld2;
    printf("%f %g %Lf\n", af, ad, ald);
@@ -118,7 +118,7 @@ int main()
    printf("%f\n", af);
    printf("%f\n", sin(2));
 
-   return 0;
+   ត្រឡប់ 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

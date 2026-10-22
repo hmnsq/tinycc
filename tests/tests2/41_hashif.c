@@ -1,33 +1,33 @@
 #include <stdio.h>
 
-int main()
+ចំនួនគត់ main()
 {
    printf("#include test\n");
 
-#if 1
-#if 0
+#ប្រសិនបើ 1
+#ប្រសិនបើ 0
    printf("a\n");
-#else
+#បើមិនដូច្នេះ
    printf("b\n");
 #endif
-#else
-#if 0
+#បើមិនដូច្នេះ
+#ប្រសិនបើ 0
    printf("c\n");
-#else
+#បើមិនដូច្នេះ
    printf("d\n");
 #endif
 #endif
 
-#if 0
-#if 1
+#ប្រសិនបើ 0
+#ប្រសិនបើ 1
    printf("e\n");
-#else
+#បើមិនដូច្នេះ
    printf("f\n");
 #endif
-#else
-#if 1
+#បើមិនដូច្នេះ
+#ប្រសិនបើ 1
    printf("g\n");
-#else
+#បើមិនដូច្នេះ
    printf("h\n");
 #endif
 #endif
@@ -37,13 +37,13 @@ int main()
 #ifdef DEF
 #ifdef DEF
    printf("i\n");
-#else
+#បើមិនដូច្នេះ
    printf("j\n");
 #endif
-#else
+#បើមិនដូច្នេះ
 #ifdef DEF
    printf("k\n");
-#else
+#បើមិនដូច្នេះ
    printf("l\n");
 #endif
 #endif
@@ -51,13 +51,13 @@ int main()
 #ifndef DEF
 #ifndef DEF
    printf("m\n");
-#else
+#បើមិនដូច្នេះ
    printf("n\n");
 #endif
-#else
+#បើមិនដូច្នេះ
 #ifndef DEF
    printf("o\n");
-#else
+#បើមិនដូច្នេះ
    printf("p\n");
 #endif
 #endif
@@ -65,21 +65,21 @@ int main()
 #define ONE 1
 #define ZERO 0
 
-#if ONE
-#if ZERO
+#ប្រសិនបើ ONE
+#ប្រសិនបើ ZERO
    printf("q\n");
-#else
+#បើមិនដូច្នេះ
    printf("r\n");
 #endif
-#else
-#if ZERO
+#បើមិនដូច្នេះ
+#ប្រសិនបើ ZERO
    printf("s\n");
-#else
+#បើមិនដូច្នេះ
    printf("t\n");
 #endif
 #endif
 
-   return 0;
+   ត្រឡប់ 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

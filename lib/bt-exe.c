@@ -17,26 +17,26 @@ static void bt_init_pe_prog_base(rt_context *p)
     MEMORY_BASIC_INFORMATION mbi;
     addr_t imagebase;
 
-    if (!p->prog_base)
-        return;
-    if (!VirtualQuery(p, &mbi, sizeof(mbi)) || !mbi.AllocationBase)
-        return;
+    ប្រសិនបើ (!p->prog_base)
+        ត្រឡប់;
+    ប្រសិនបើ (!VirtualQuery(p, &mbi, parimaa_na(mbi)) || !mbi.AllocationBase)
+        ត្រឡប់;
     imagebase = (addr_t)mbi.AllocationBase - p->prog_base;
     p->prog_base = (addr_t)mbi.AllocationBase - (imagebase & 0xffffffffu);
 }
 #endif
 
 __declspec(dllexport)
-void __bt_init(rt_context *p, int is_exe)
+void __bt_init(rt_context *p, ចំនួនគត់ is_exe)
 {
-    __attribute__((weak)) int main();
-    __attribute__((weak)) void __bound_init(void*, int);
+    __attribute__((weak)) ចំនួនគត់ main();
+    __attribute__((weak)) void __bound_init(void*, ចំនួនគត់);
 
     //fprintf(stderr, "__bt_init %d %p %p %p\n", is_exe, p, p->stab_sym, p->bounds_start), fflush(stderr);
 
     /* call __bound_init here due to redirection of sigaction */
     /* needed to add global symbols */
-    if (p->bounds_start)
+    ប្រសិនបើ (p->bounds_start)
 	__bound_init(p->bounds_start, -1);
 
 #ifdef _WIN64
@@ -47,7 +47,7 @@ void __bt_init(rt_context *p, int is_exe)
     rt_wait_sem();
     p->next = g_rc, g_rc = p;
     rt_post_sem();
-    if (is_exe) {
+    ប្រសិនបើ (is_exe) {
         /* we are the executable (not a dll) */
         p->top_func = main;
         set_exception_handler();
@@ -57,31 +57,31 @@ void __bt_init(rt_context *p, int is_exe)
 __declspec(dllexport)
 void __bt_exit(rt_context *p)
 {
-    struct rt_context *rc, **pp;
+    sa_nracanaa rt_context *rc, **pp;
     __attribute__((weak)) void __bound_exit_dll(void*);
 
     //fprintf(stderr, "__bt_exit %d %p\n", !!p->top_func, p);
 
-    if (p->bounds_start)
+    ប្រសិនបើ (p->bounds_start)
 	__bound_exit_dll(p->bounds_start);
 
     /* remove from chain */
     rt_wait_sem();
-    for (pp = &g_rc; rc = *pp, rc; pp = &rc->next)
-        if (rc == p) {
+    សម្រាប់ (pp = &g_rc; rc = *pp, rc; pp = &rc->next)
+        ប្រសិនបើ (rc == p) {
             *pp = rc->next;
-            break;
+            bha_nga;
         }
     rt_post_sem();
 }
 
 /* copy a string and truncate it. */
-ST_FUNC char *pstrcpy(char *buf, size_t buf_size, const char *s)
+ST_FUNC var_na *pstrcpy(var_na *buf, size_t buf_size, const var_na *s)
 {
-    int l = strlen(s);
-    if (l >= buf_size)
+    ចំនួនគត់ l = strlen(s);
+    ប្រសិនបើ (l >= buf_size)
         l = buf_size - 1;
     memcpy(buf, s, l);
     buf[l] = 0;
-    return buf;
+    ត្រឡប់ buf;
 }

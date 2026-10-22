@@ -1,11 +1,11 @@
-void defined_const(int *pointer);
+void defined_const(ចំនួនគត់ *pointer);
 
-void defined_const(int *const pointer)
+void defined_const(ចំនួនគត់ *const pointer)
 {
     pointer = 0;
 }
 
-int main(void)
+ចំនួនគត់ main(void)
 {
-    return 0;
+    ត្រឡប់ 0;
 }

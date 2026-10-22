@@ -1,21 +1,21 @@
 #include <stdio.h>
 
-int main()
+ចំនួនគត់ main()
 {
-   int x, y, z;
+   ចំនួនគត់ x, y, z;
 
-   for (x = 0; x < 2; x++)
+   សម្រាប់ (x = 0; x < 2; x++)
    {
-      for (y = 0; y < 3; y++)
+      សម្រាប់ (y = 0; y < 3; y++)
       {
-         for (z = 0; z < 3; z++)
+         សម្រាប់ (z = 0; z < 3; z++)
          {
             printf("%d %d %d\n", x, y, z);
          }
       }
    }
 
-   return 0;
+   ត្រឡប់ 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

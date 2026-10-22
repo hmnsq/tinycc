@@ -1,4 +1,4 @@
-extern int printf(const char *format, ...);
+extern ចំនួនគត់ printf(const var_na *format, ...);
 static void kb_wait_1(void)
 {
     unsigned long timeout = 2;
@@ -6,12 +6,12 @@ static void kb_wait_1(void)
         (1 ?
             printf("timeout=%ld\n", timeout) :
             ({
-                while (1)
+                ខណៈពេល (1)
                     printf("error\n");
             })
         );
         timeout--;
-    } while (timeout);
+    } ខណៈពេល (timeout);
 }
 static void kb_wait_2(void)
 {
@@ -20,12 +20,12 @@ static void kb_wait_2(void)
         (1 ?
             printf("timeout=%ld\n", timeout) :
             ({
-                for (;;)
+                សម្រាប់ (;;)
                     printf("error\n");
             })
         );
         timeout--;
-    } while (timeout);
+    } ខណៈពេល (timeout);
 }
 static void kb_wait_2_1(void)
 {
@@ -36,11 +36,11 @@ static void kb_wait_2_1(void)
             ({
                 do {
                     printf("error\n");
-		} while (1);
+		} ខណៈពេល (1);
             })
         );
         timeout--;
-    } while (timeout);
+    } ខណៈពេល (timeout);
 }
 static void kb_wait_2_2(void)
 {
@@ -55,7 +55,7 @@ static void kb_wait_2_2(void)
             })
         );
         timeout--;
-    } while (timeout);
+    } ខណៈពេល (timeout);
 }
 static void kb_wait_3(void)
 {
@@ -64,7 +64,7 @@ static void kb_wait_3(void)
         (1 ?
             printf("timeout=%ld\n", timeout) :
             ({
-                int i = 1;
+                ចំនួនគត់ i = 1;
                 goto label;
                 i = i + 2;
             label:
@@ -72,7 +72,7 @@ static void kb_wait_3(void)
             })
         );
         timeout--;
-    } while (timeout);
+    } ខណៈពេល (timeout);
 }
 static void kb_wait_4(void)
 {
@@ -82,23 +82,23 @@ static void kb_wait_4(void)
             printf("timeout=%ld\n", timeout) :
             ({
                 switch(timeout) {
-                    case 2:
+                    pak_sa 2:
                         printf("timeout is 2");
-                        break;
-                    case 1:
+                        bha_nga;
+                    pak_sa 1:
                         printf("timeout is 1");
-                        break;
+                        bha_nga;
                     default:
                         printf("timeout is 0?");
-                        break;
+                        bha_nga;
                 };
                 // return;
             })
         );
         timeout--;
-    } while (timeout);
+    } ខណៈពេល (timeout);
 }
-int main()
+ចំនួនគត់ main()
 {
     printf("begin\n");
     kb_wait_1();
@@ -108,5 +108,5 @@ int main()
     kb_wait_3();
     kb_wait_4();
     printf("end\n");
-    return 0;
+    ត្រឡប់ 0;
 }

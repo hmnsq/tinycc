@@ -1,30 +1,30 @@
-const int const_return(void);
-volatile int volatile_return(void);
-int *restrict restrict_return(void);
+const ចំនួនគត់ const_return(void);
+ca_ncala ចំនួនគត់ volatile_return(void);
+ចំនួនគត់ *restrict restrict_return(void);
 
-_Static_assert(__builtin_types_compatible_p(__typeof__(const_return()) *, int *),
+_Static_assert(__builtin_types_compatible_p(__typeof__(const_return()) *, ចំនួនគត់ *),
                "const is removed from a return type");
-_Static_assert(__builtin_types_compatible_p(__typeof__(volatile_return()) *, int *),
+_Static_assert(__builtin_types_compatible_p(__typeof__(volatile_return()) *, ចំនួនគត់ *),
                "volatile is removed from a return type");
-_Static_assert(__builtin_types_compatible_p(__typeof__(restrict_return()) *, int **),
+_Static_assert(__builtin_types_compatible_p(__typeof__(restrict_return()) *, ចំនួនគត់ **),
                "restrict is removed from a return type");
 
-int const_return(void)
+ចំនួនគត់ const_return(void)
 {
-   return 0;
+   ត្រឡប់ 0;
 }
 
-int volatile_return(void)
+ចំនួនគត់ volatile_return(void)
 {
-   return 0;
+   ត្រឡប់ 0;
 }
 
-int *restrict_return(void)
+ចំនួនគត់ *restrict_return(void)
 {
-   return 0;
+   ត្រឡប់ 0;
 }
 
-int main(void)
+ចំនួនគត់ main(void)
 {
-   return 0;
+   ត្រឡប់ 0;
 }

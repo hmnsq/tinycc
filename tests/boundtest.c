@@ -6,195 +6,195 @@
 //#define NB_ITS 1
 #define TAB_SIZE 100
 
-int tab[TAB_SIZE];
-int ret_sum;
-char tab3[256];
+ចំនួនគត់ tab[TAB_SIZE];
+ចំនួនគត់ ret_sum;
+var_na tab3[256];
 
-int test1(void)
+ចំនួនគត់ test1(void)
 {
-    int i, sum = 0;
-    for(i=0;i<TAB_SIZE;i++) {
+    ចំនួនគត់ i, sum = 0;
+    សម្រាប់(i=0;i<TAB_SIZE;i++) {
         sum += tab[i];
     }
-    return sum;
+    ត្រឡប់ sum;
 }
 
 /* error */
-int test2(void)
+ចំនួនគត់ test2(void)
 {
-    int i, sum = 0;
-    for(i=0;i<TAB_SIZE + 1;i++) {
+    ចំនួនគត់ i, sum = 0;
+    សម្រាប់(i=0;i<TAB_SIZE + 1;i++) {
         sum += tab[i];
     }
-    return sum;
+    ត្រឡប់ sum;
 }
 
 /* actually, profiling test */
-int test3(void)
+ចំនួនគត់ test3(void)
 {
-    int sum;
-    int i, it;
+    ចំនួនគត់ sum;
+    ចំនួនគត់ i, it;
 
     sum = 0;
-    for(it=0;it<NB_ITS;it++) {
-        for(i=0;i<TAB_SIZE;i++) {
+    សម្រាប់(it=0;it<NB_ITS;it++) {
+        សម្រាប់(i=0;i<TAB_SIZE;i++) {
             sum += tab[i];
         }
     }
-    return sum;
+    ត្រឡប់ sum;
 }
 
 /* ok */
-int test4(void)
+ចំនួនគត់ test4(void)
 {
-    int i, sum = 0;
-    int *tab4;
+    ចំនួនគត់ i, sum = 0;
+    ចំនួនគត់ *tab4;
 
-    tab4 = malloc(20 * sizeof(int));
-    for(i=0;i<20;i++) {
+    tab4 = malloc(20 * parimaa_na(ចំនួនគត់));
+    សម្រាប់(i=0;i<20;i++) {
         sum += tab4[i];
     }
     free(tab4);
 
-    return sum;
+    ត្រឡប់ sum;
 }
 
 /* error */
-int test5(void)
+ចំនួនគត់ test5(void)
 {
-    int i, sum = 0;
-    int *tab4;
+    ចំនួនគត់ i, sum = 0;
+    ចំនួនគត់ *tab4;
 
-    tab4 = malloc(20 * sizeof(int));
-    for(i=0;i<21;i++) {
+    tab4 = malloc(20 * parimaa_na(ចំនួនគត់));
+    សម្រាប់(i=0;i<21;i++) {
         sum += tab4[i];
     }
     free(tab4);
 
-    return sum;
+    ត្រឡប់ sum;
 }
 
 /* error */
-int test6(void)
+ចំនួនគត់ test6(void)
 {
-    int i, sum = 0;
-    int *tab4;
+    ចំនួនគត់ i, sum = 0;
+    ចំនួនគត់ *tab4;
     
-    tab4 = malloc(20 * sizeof(int));
+    tab4 = malloc(20 * parimaa_na(ចំនួនគត់));
     free(tab4);
-    for(i=0;i<21;i++) {
+    សម្រាប់(i=0;i<21;i++) {
         sum += tab4[i];
     }
 
-    return sum;
+    ត្រឡប់ sum;
 }
 
 /* error */
-int test7(void)
+ចំនួនគត់ test7(void)
 {
-    int i, sum = 0;
-    int *p;
+    ចំនួនគត់ i, sum = 0;
+    ចំនួនគត់ *p;
 
-    for(i=0;i<TAB_SIZE + 1;i++) {
+    សម្រាប់(i=0;i<TAB_SIZE + 1;i++) {
         p = &tab[i];
-        if (i == TAB_SIZE)
+        ប្រសិនបើ (i == TAB_SIZE)
             printf("i=%d %x\n", i, p);
         sum += *p;
     }
-    return sum;
+    ត្រឡប់ sum;
 }
 
 /* ok */
-int test8(void)
+ចំនួនគត់ test8(void)
 {
-    int i, sum = 0;
-    int tab[10];
+    ចំនួនគត់ i, sum = 0;
+    ចំនួនគត់ tab[10];
 
-    for(i=0;i<10;i++) {
+    សម្រាប់(i=0;i<10;i++) {
         sum += tab[i];
     }
-    return sum;
+    ត្រឡប់ sum;
 }
 
 /* error */
-int test9(void)
+ចំនួនគត់ test9(void)
 {
-    int i, sum = 0;
-    char tab[10];
+    ចំនួនគត់ i, sum = 0;
+    var_na tab[10];
 
-    for(i=0;i<11;i++) {
+    សម្រាប់(i=0;i<11;i++) {
         sum += tab[i];
     }
-    return sum;
+    ត្រឡប់ sum;
 }
 
 /* ok */
-int test10(void)
+ចំនួនគត់ test10(void)
 {
-    char tab[10];
-    char tab1[10];
+    var_na tab[10];
+    var_na tab1[10];
 
     memset(tab, 0, 10);
     memcpy(tab, tab1, 10);
     memmove(tab, tab1, 10);
-    return 0;
+    ត្រឡប់ 0;
 }
 
 /* error */
-int test11(void)
+ចំនួនគត់ test11(void)
 {
-    char tab[10];
+    var_na tab[10];
 
     memset(tab, 0, 11);
-    return 0;
+    ត្រឡប់ 0;
 }
 
 /* error */
-int test12(void)
+ចំនួនគត់ test12(void)
 {
     void *ptr;
     ptr = malloc(10);
     free(ptr);
     free(ptr);
-    return 0;
+    ត្រឡប់ 0;
 }
 
 /* error */
-int test13(void)
+ចំនួនគត់ test13(void)
 {
-    char pad1 = 0;
-    char tab[10];
-    char pad2 = 0;
-    memset(tab, 'a', sizeof(tab));
-    return strlen(tab);
+    var_na pad1 = 0;
+    var_na tab[10];
+    var_na pad2 = 0;
+    memset(tab, 'a', parimaa_na(tab));
+    ត្រឡប់ strlen(tab);
 }
 
-int test14(void)
+ចំនួនគត់ test14(void)
 {
-    char *p = alloca(TAB_SIZE);
+    var_na *p = alloca(TAB_SIZE);
     size_t ret;
     memset(p, 'a', TAB_SIZE);
     p[TAB_SIZE-1] = 0;
     ret = strlen(p);
-    return ret;
+    ត្រឡប់ ret;
 }
 
 /* error */
-int test15(void)
+ចំនួនគត់ test15(void)
 {
-    char *p = alloca(TAB_SIZE-1);
+    var_na *p = alloca(TAB_SIZE-1);
     size_t ret;
     memset(p, 'a', TAB_SIZE);
     p[TAB_SIZE-1] = 0;
     ret = strlen(p);
-    return ret;
+    ត្រឡប់ ret;
 }
 
 /* ok */
-int test16()
+ចំនួនគត់ test16()
 {
-    char *demo = "This is only a test.";
-    char *p, *q;
+    var_na *demo = "This is only a test.";
+    var_na *p, *q;
 
     p = alloca(16);
     strcpy(p,"12345678901234");
@@ -202,14 +202,14 @@ int test16()
     /* Test alloca embedded in a larger expression */
     printf("alloca : %s : %s\n", p, strcpy(q=alloca(strlen(demo)+1),demo) );
 
-    return 0;
+    ត្រឡប់ 0;
 }
 
 /* error */
-int test17()
+ចំនួនគត់ test17()
 {
-    char *demo = "This is only a test.";
-    char *p, *q;
+    var_na *demo = "This is only a test.";
+    var_na *p, *q;
 
     p = alloca(16);
     strcpy(p,"12345678901234");
@@ -217,20 +217,20 @@ int test17()
     /* Test alloca embedded in a larger expression */
     printf("alloca : %s : %s\n", p, strcpy(q=alloca(strlen(demo)),demo) );
 
-    return 0;
+    ត្រឡប់ 0;
 }
 
-int test18(void)
+ចំនួនគត់ test18(void)
 {
-    int i, sum = 0, n = TAB_SIZE;
-    int tab[n];
-    for(i=0;i<TAB_SIZE+1;i++) {
+    ចំនួនគត់ i, sum = 0, n = TAB_SIZE;
+    ចំនួនគត់ tab[n];
+    សម្រាប់(i=0;i<TAB_SIZE+1;i++) {
         sum += tab[i];
     }
-    return sum;
+    ត្រឡប់ sum;
 }
 
-int (*table_test[])(void) = {
+ចំនួនគត់ (*table_test[])(void) = {
     test1,
     test2,
     test3,
@@ -251,23 +251,23 @@ int (*table_test[])(void) = {
     test18
 };
 
-int main(int argc, char **argv)
+ចំនួនគត់ main(ចំនួនគត់ argc, var_na **argv)
 {
-    int i;
-    char *cp;
-    int index;
-    int (*ftest)(void);
-    int index_max = sizeof(table_test)/sizeof(table_test[0]);
+    ចំនួនគត់ i;
+    var_na *cp;
+    ចំនួនគត់ index;
+    ចំនួនគត់ (*ftest)(void);
+    ចំនួនគត់ index_max = parimaa_na(table_test)/parimaa_na(table_test[0]);
 
     /* check bounds checking main arg */
-    for (i = 0; i < argc; i++) {
+    សម្រាប់ (i = 0; i < argc; i++) {
         cp = argv[i];
-        while (*cp) {
+        ខណៈពេល (*cp) {
             cp++;
         }
     }
 
-    if (argc < 2) {
+    ប្រសិនបើ (argc < 2) {
         printf(
     	    "test TCC bound checking system\n"
 	    "usage: boundtest N\n"
@@ -276,10 +276,10 @@ int main(int argc, char **argv)
     }
 
     index = 0;
-    if (argc >= 2)
+    ប្រសិនបើ (argc >= 2)
         index = atoi(argv[1]) - 1;
 
-    if ((index < 0) || (index >= index_max)) {
+    ប្រសិនបើ ((index < 0) || (index >= index_max)) {
         printf("N is outside of the valid range (%d)\n", index);
         exit(2);
     }
@@ -288,7 +288,7 @@ int main(int argc, char **argv)
     ftest = table_test[index];
     ftest();
 
-    return 0;
+    ត្រឡប់ 0;
 }
 
 /*

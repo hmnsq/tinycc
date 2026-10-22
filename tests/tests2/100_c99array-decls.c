@@ -1,31 +1,31 @@
-void foo(int [5]);
-void fooc(int x[const 5]);
-void foos(int x[static 5]);
-void foov(int x[volatile 5]);
-void foor(int x[restrict 5]);
-void fooc(int [const 5]);
-void foos(int [static 5]);
-void foov(int [volatile 5]);
-void foor(int [restrict 5]);
-void fooc(int (* const x));
-void foos(int *x);
-void foov(int * volatile x);
-void foor(int * restrict x);
-void fooc(int x[volatile 5])
+void foo(ចំនួនគត់ [5]);
+void fooc(ចំនួនគត់ x[const 5]);
+void foos(ចំនួនគត់ x[static 5]);
+void foov(ចំនួនគត់ x[ca_ncala 5]);
+void foor(ចំនួនគត់ x[restrict 5]);
+void fooc(ចំនួនគត់ [const 5]);
+void foos(ចំនួនគត់ [static 5]);
+void foov(ចំនួនគត់ [ca_ncala 5]);
+void foor(ចំនួនគត់ [restrict 5]);
+void fooc(ចំនួនគត់ (* const x));
+void foos(ចំនួនគត់ *x);
+void foov(ចំនួនគត់ * ca_ncala x);
+void foor(ចំនួនគត់ * restrict x);
+void fooc(ចំនួនគត់ x[ca_ncala 5])
 {
   x[3] = 42;
 #ifdef INVALID
   x = 0;
 #endif
 }
-void foovm(int x[const *]);
-void foovm(int * const x);
+void foovm(ចំនួនគត់ x[const *]);
+void foovm(ចំនួនគត់ * const x);
 
-typedef int *pointer_array[2];
-typedef int *restrict restricted_pointer;
+typedef ចំនួនគត់ *pointer_array[2];
+typedef ចំនួនគត់ *restrict restricted_pointer;
 typedef restrict pointer_array restricted_pointer_array;
 
-_Static_assert(!__builtin_types_compatible_p(int **,
+_Static_assert(!__builtin_types_compatible_p(ចំនួនគត់ **,
                                              restricted_pointer *),
                "nested restrict qualifier is retained");
 _Static_assert(__builtin_types_compatible_p(restricted_pointer_array,
@@ -33,7 +33,7 @@ _Static_assert(__builtin_types_compatible_p(restricted_pointer_array,
                "restrict can qualify an array of pointer types");
 
 restricted_pointer *restricted_pp;
-int **unrestricted_pp;
+ចំនួនគត់ **unrestricted_pp;
 
 _Static_assert(__builtin_types_compatible_p(
                    __typeof__(1 ? restricted_pp : unrestricted_pp),
@@ -41,14 +41,14 @@ _Static_assert(__builtin_types_compatible_p(
                "conditional expression combines restrict qualifiers");
 
 #ifdef INVALID
-void wrongc(int x[3][const 4]);
-void wrongvm(int x[static *]);
-void foovm(int x[const *])
+void wrongc(ចំនួនគត់ x[3][const 4]);
+void wrongvm(ចំនួនគត់ x[static *]);
+void foovm(ចំនួនគត់ x[const *])
 {
   x[2] = 1;
 }
 #endif
-int main()
+ចំនួនគត់ main()
 {
-  return 0;
+  ត្រឡប់ 0;
 }
