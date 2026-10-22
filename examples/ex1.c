@@ -1,8 +1,8 @@
-#!/usr/local/bin/tcc -run
-#include <tcclib.h>
+#!/usr/local/bin/tcc -لاڳيتو
+#ضمن <tcclib.h>
 
-int main()
+صحيح مکيه()
 {
-    printf("Hello World\n");
-    return 0;
+    لکو("Hello World\n");
+    أرجع 0;
 }

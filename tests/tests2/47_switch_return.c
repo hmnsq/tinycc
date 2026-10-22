@@ -1,24 +1,24 @@
-#include <stdio.h>
+#ضمن <stdio.h>
 
-void fred(int x)
+فراغ fred(صحيح x)
 {
-   switch (x)
+   بدل (x)
    {
-      case 1: printf("1\n"); return;
-      case 2: printf("2\n"); break;
-      case 3: printf("3\n"); return;
+      حالة 1: لکو("1\n"); أرجع;
+      حالة 2: لکو("2\n"); اكسر;
+      حالة 3: لکو("3\n"); أرجع;
    }
 
-   printf("out\n");
+   لکو("out\n");
 }
 
-int main()
+صحيح مکيه()
 {
    fred(1);
    fred(2);
    fred(3);
 
-   return 0;
+   أرجع 0;
 }    
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

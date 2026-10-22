@@ -1,12 +1,12 @@
-extern int printf(const char *format, ...);
+خارجي صحيح لکو(ثابت حرف *format, ...);
 
-#define ACPI_TYPE_INVALID       0x1E
-#define NUM_NS_TYPES            ACPI_TYPE_INVALID+1
-int array[NUM_NS_TYPES];
+#وصف_ڪريو ACPI_TYPE_INVALID       0x1E
+#وصف_ڪريو انگ_NS_TYPES            ACPI_TYPE_INVALID+1
+صحيح array[انگ_NS_TYPES];
 
-#define n 0xe
-int main()
+#وصف_ڪريو n 0xe
+صحيح مکيه()
 {
-    printf("n+1 = %d\n", n+1);
+    لکو("n+1 = %d\n", n+1);
 //    printf("n+1 = %d\n", 0xe+1);
 }

@@ -1,45 +1,45 @@
-#include <stdatomic.h>
-#include <stdio.h>
+#ضمن <stdatomic.h>
+#ضمن <stdio.h>
 
-static int value_calls;
-static int order_calls;
+ساكن صحيح قدر_calls;
+ساكن صحيح ترتيب_calls;
 
-static int next_value(void)
+ساكن صحيح ايندڙ_قدر(فراغ)
 {
-    ++value_calls;
-    return 42;
+    ++قدر_calls;
+    أرجع 42;
 }
 
-static int next_order(void)
+ساكن صحيح ايندڙ_ترتيب(فراغ)
 {
-    ++order_calls;
-    return __ATOMIC_SEQ_CST;
+    ++ترتيب_calls;
+    أرجع __ATOMIC_SEQ_CST;
 }
 
-int main(void)
+صحيح مکيه(فراغ)
 {
-    int values[2] = {7, 8};
-    int index = 0;
-    int value = 1;
-    volatile int vol = 0;
-    int *pointer = &value;
-    void (*signal_fence)(memory_order) = &atomic_signal_fence;
+    صحيح قدرون[2] = {7, 8};
+    صحيح اشاريو = 0;
+    صحيح قدر = 1;
+    متطاير صحيح vol = 0;
+    صحيح *اشارو = &قدر;
+    فراغ (*signal_fence)(memory_order) = &atomic_signal_fence;
 
-    __atomic_store_n(&values[index++], next_value(), next_order());
-    printf("%d %d %d %d %d\n", index, value_calls, order_calls,
-           values[0], values[1]);
-    __atomic_store_n(&value, value + 1, __ATOMIC_RELAXED);
-    printf("%d\n", value);
+    __atomic_store_n(&قدرون[اشاريو++], ايندڙ_قدر(), ايندڙ_ترتيب());
+    لکو("%d %d %d %d %d\n", اشاريو, قدر_calls, ترتيب_calls,
+           قدرون[0], قدرون[1]);
+    __atomic_store_n(&قدر, قدر + 1, __ATOMIC_RELAXED);
+    لکو("%d\n", قدر);
     __atomic_store_n(&vol, 13, __ATOMIC_RELEASE);
-    printf("%d\n", __atomic_load_n(&vol, __ATOMIC_ACQUIRE));
-    __atomic_store_n(&pointer, &values[0], __ATOMIC_RELEASE);
-    printf("%d\n", *__atomic_load_n(&pointer, __ATOMIC_ACQUIRE));
+    لکو("%d\n", __atomic_load_n(&vol, __ATOMIC_ACQUIRE));
+    __atomic_store_n(&اشارو, &قدرون[0], __ATOMIC_RELEASE);
+    لکو("%d\n", *__atomic_load_n(&اشارو, __ATOMIC_ACQUIRE));
 
-    atomic_signal_fence(memory_order_acquire);
+    atomic_signal_fence(يادگيري_ترتيب_acquire);
     __atomic_signal_fence(__ATOMIC_RELEASE);
-    signal_fence(memory_order_seq_cst);
-    atomic_thread_fence(memory_order_seq_cst);
+    signal_fence(يادگيري_ترتيب_seq_cst);
+    atomic_thread_fence(يادگيري_ترتيب_seq_cst);
     __atomic_thread_fence(__ATOMIC_SEQ_CST);
     puts("ok");
-    return 0;
+    أرجع 0;
 }

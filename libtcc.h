@@ -1,61 +1,61 @@
-#ifndef LIBTCC_H
-#define LIBTCC_H
+#جيڪڏهن_وصف_نه_ٿيل LIBTCC_H
+#وصف_ڪريو LIBTCC_H
 
-#ifndef LIBTCCAPI
+#جيڪڏهن_وصف_نه_ٿيل LIBTCCAPI
 # define LIBTCCAPI
-#endif
+#جيڪڏهن_پورو
 
-#ifdef __cplusplus
-extern "C" {
-#endif
+#جيڪڏهن_وصف_ٿيل __cplusplus
+خارجي "C" {
+#جيڪڏهن_پورو
 
 /*****************************/
 /* set custom allocator for all allocations (optional), NULL for default. */
-typedef void *TCCReallocFunc(void *ptr, unsigned long size);
-LIBTCCAPI void tcc_set_realloc(TCCReallocFunc *my_realloc);
+تعريفنوع فراغ *TCCReallocFunc(فراغ *ptr, بنانشان ڊگهو سائيز);
+LIBTCCAPI فراغ tcc_سيٽ_realloc(TCCReallocFunc *my_realloc);
 
 /*****************************/
-typedef struct TCCState TCCState;
+تعريفنوع بنية TCCState TCCState;
 
 /* create a new TCC compilation context */
-LIBTCCAPI TCCState *tcc_new(void);
+LIBTCCAPI TCCState *tcc_new(فراغ);
 
 /* free a TCC compilation context */
-LIBTCCAPI void tcc_delete(TCCState *s);
+LIBTCCAPI فراغ tcc_delete(TCCState *s);
 
 /* set CONFIG_TCCDIR at runtime */
-LIBTCCAPI void tcc_set_lib_path(TCCState *s, const char *path);
+LIBTCCAPI فراغ tcc_سيٽ_lib_رستو(TCCState *s, ثابت حرف *رستو);
 
 /* set error/warning callback (optional) */
-typedef void TCCErrorFunc(void *opaque, const char *msg);
-LIBTCCAPI void tcc_set_error_func(TCCState *s, void *error_opaque, TCCErrorFunc *error_func);
+تعريفنوع فراغ TCCErrorFunc(فراغ *opaque, ثابت حرف *نياپو);
+LIBTCCAPI فراغ tcc_سيٽ_error_func(TCCState *s, فراغ *error_opaque, TCCErrorFunc *error_func);
 
 /* set options as from command line (multiple supported) */
-LIBTCCAPI int tcc_set_options(TCCState *s, const char *str);
+LIBTCCAPI صحيح tcc_سيٽ_options(TCCState *s, ثابت حرف *str);
 
 /*****************************/
 /* preprocessor */
 
 /* add include path */
-LIBTCCAPI int tcc_add_include_path(TCCState *s, const char *pathname);
+LIBTCCAPI صحيح tcc_جوڙيو_include_رستو(TCCState *s, ثابت حرف *pathname);
 
 /* add in system include path */
-LIBTCCAPI int tcc_add_sysinclude_path(TCCState *s, const char *pathname);
+LIBTCCAPI صحيح tcc_جوڙيو_sysinclude_رستو(TCCState *s, ثابت حرف *pathname);
 
 /* define preprocessor symbol 'sym'. value can be NULL, sym can be "sym=val" */
-LIBTCCAPI void tcc_define_symbol(TCCState *s, const char *sym, const char *value);
+LIBTCCAPI فراغ tcc_define_نشان(TCCState *s, ثابت حرف *sym, ثابت حرف *قدر);
 
 /* undefine preprocess symbol 'sym' */
-LIBTCCAPI void tcc_undefine_symbol(TCCState *s, const char *sym);
+LIBTCCAPI فراغ tcc_undefine_نشان(TCCState *s, ثابت حرف *sym);
 
 /*****************************/
 /* compiling */
 
 /* add a file (C file, dll, object, library, ld script). Return -1 if error. */
-LIBTCCAPI int tcc_add_file(TCCState *s, const char *filename);
+LIBTCCAPI صحيح tcc_جوڙيو_file(TCCState *s, ثابت حرف *filename);
 
 /* compile a string containing a C source. Return -1 if error. */
-LIBTCCAPI int tcc_compile_string(TCCState *s, const char *buf);
+LIBTCCAPI صحيح tcc_compile_string(TCCState *s, ثابت حرف *buf);
 
 /* Tip: to have more specific errors/warnings from tcc_compile_string(),
    you can prefix the string with "#line <num> \"<filename>\"\n" */
@@ -64,53 +64,53 @@ LIBTCCAPI int tcc_compile_string(TCCState *s, const char *buf);
 /* linking commands */
 
 /* set output type. MUST BE CALLED before any compilation */
-LIBTCCAPI int tcc_set_output_type(TCCState *s, int output_type);
-#define TCC_OUTPUT_MEMORY   1 /* output will be run in memory */
-#define TCC_OUTPUT_EXE      2 /* executable file */
-#define TCC_OUTPUT_DLL      4 /* dynamic library */
-#define TCC_OUTPUT_OBJ      3 /* object file */
-#define TCC_OUTPUT_PREPROCESS 5 /* only preprocess */
+LIBTCCAPI صحيح tcc_سيٽ_output_type(TCCState *s, صحيح output_type);
+#وصف_ڪريو TCC_OUTPUT_يادگيري   1 /* output will be run in memory */
+#وصف_ڪريو TCC_OUTPUT_EXE      2 /* executable file */
+#وصف_ڪريو TCC_OUTPUT_DLL      4 /* dynamic library */
+#وصف_ڪريو TCC_OUTPUT_OBJ      3 /* object file */
+#وصف_ڪريو TCC_OUTPUT_PREPROCESS 5 /* only preprocess */
 
 /* equivalent to -Lpath option */
-LIBTCCAPI int tcc_add_library_path(TCCState *s, const char *pathname);
+LIBTCCAPI صحيح tcc_جوڙيو_library_رستو(TCCState *s, ثابت حرف *pathname);
 
 /* the library name is the same as the argument of the '-l' option */
-LIBTCCAPI int tcc_add_library(TCCState *s, const char *libraryname);
+LIBTCCAPI صحيح tcc_جوڙيو_library(TCCState *s, ثابت حرف *libraryname);
 
 /* add a symbol to the compiled program */
-LIBTCCAPI int tcc_add_symbol(TCCState *s, const char *name, const void *val);
+LIBTCCAPI صحيح tcc_جوڙيو_نشان(TCCState *s, ثابت حرف *name, ثابت فراغ *val);
 
 /* output an executable, library or object file. DO NOT call
    tcc_relocate() before. */
-LIBTCCAPI int tcc_output_file(TCCState *s, const char *filename);
+LIBTCCAPI صحيح tcc_output_file(TCCState *s, ثابت حرف *filename);
 
 /* link and run main() function and return its value. DO NOT call
    tcc_relocate() before. */
-LIBTCCAPI int tcc_run(TCCState *s, int argc, char **argv);
+LIBTCCAPI صحيح tcc_لاڳيتو(TCCState *s, صحيح argc, حرف **argv);
 
 /* do all relocations (needed before using tcc_get_symbol()) */
-LIBTCCAPI int tcc_relocate(TCCState *s1);
+LIBTCCAPI صحيح tcc_relocate(TCCState *s1);
 
 /* return symbol value or NULL if not found */
-LIBTCCAPI void *tcc_get_symbol(TCCState *s, const char *name);
+LIBTCCAPI فراغ *tcc_get_نشان(TCCState *s, ثابت حرف *name);
 
 /* list all (global) symbols and their values via 'symbol_cb()' */
-LIBTCCAPI void tcc_list_symbols(TCCState *s, void *ctx,
-    void (*symbol_cb)(void *ctx, const char *name, const void *val));
+LIBTCCAPI فراغ tcc_list_symbols(TCCState *s, فراغ *ctx,
+    فراغ (*نشان_cb)(فراغ *ctx, ثابت حرف *name, ثابت فراغ *val));
 
 /* experimental/advanced section (see libtcc_test_mt.c for an example) */
 
 /* catch runtime exceptions (optionally limit backtraces at top_func),
    when using tcc_set_options("-bt") and when not using tcc_run() */
-LIBTCCAPI void *_tcc_setjmp(TCCState *s1, void *jmp_buf, void *top_func, void *longjmp);
-#define tcc_setjmp(s1,jb,f) setjmp(_tcc_setjmp(s1, jb, f, longjmp))
+LIBTCCAPI فراغ *_tcc_setjmp(TCCState *s1, فراغ *jmp_buf, فراغ *چوٽي_func, فراغ *longjmp);
+#وصف_ڪريو tcc_setjmp(s1,jb,f) setjmp(_tcc_setjmp(s1, jb, f, longjmp))
 
 /* custom error printer for runtime exceptions. Returning 0 stops backtrace */
-typedef int TCCBtFunc(void *udata, void *pc, const char *file, int line, const char* func, const char *msg);
-LIBTCCAPI void tcc_set_backtrace_func(TCCState *s1, void* userdata, TCCBtFunc*);
+تعريفنوع صحيح TCCBtFunc(فراغ *udata, فراغ *pc, ثابت حرف *file, صحيح سٽ, ثابت حرف* func, ثابت حرف *نياپو);
+LIBTCCAPI فراغ tcc_سيٽ_backtrace_func(TCCState *s1, فراغ* userdata, TCCBtFunc*);
 
-#ifdef __cplusplus
+#جيڪڏهن_وصف_ٿيل __cplusplus
 }
-#endif
+#جيڪڏهن_پورو
 
-#endif
+#جيڪڏهن_پورو

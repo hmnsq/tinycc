@@ -4,16 +4,16 @@
  * No warranty is given; refer to the file DISCLAIMER within this package.
  */
 
-#ifndef _INC_CRTDBG_S
-#define _INC_CRTDBG_S
+#جيڪڏهن_وصف_نه_ٿيل _INC_CRTDBG_S
+#وصف_ڪريو _INC_CRTDBG_S
 
-#include <crtdbg.h>
+#ضمن <crtdbg.h>
 
-#if defined(MINGW_HAS_SECURE_API)
+#إذا defined(MINGW_HAS_SECURE_API)
 
-#define _dupenv_s_dbg(ps1,size,s2,t,f,l) _dupenv_s(ps1,size,s2)
-#define _wdupenv_s_dbg(ps1,size,s2,t,f,l) _wdupenv_s(ps1,size,s2)
+#وصف_ڪريو _dupenv_s_dbg(ps1,سائيز,s2,t,f,l) _dupenv_s(ps1,سائيز,s2)
+#وصف_ڪريو _wdupenv_s_dbg(ps1,سائيز,s2,t,f,l) _wdupenv_s(ps1,سائيز,s2)
 
-#endif
+#جيڪڏهن_پورو
 
-#endif
+#جيڪڏهن_پورو

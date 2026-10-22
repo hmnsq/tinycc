@@ -1,73 +1,73 @@
 // for libtcc1, avoid including files that are not part of tcc
 // #include <stdint.h>
-#define uint8_t unsigned char
-#define uint16_t unsigned short
-#define uint32_t unsigned int
-#define uint64_t unsigned long long
-#define bool _Bool
-#define false 0
-#define true 1
-#define __ATOMIC_RELAXED 0
-#define __ATOMIC_CONSUME 1
-#define __ATOMIC_ACQUIRE 2
-#define __ATOMIC_RELEASE 3
-#define __ATOMIC_ACQ_REL 4
-#define __ATOMIC_SEQ_CST 5
-typedef __SIZE_TYPE__ size_t;
+#وصف_ڪريو uint8_t بنانشان حرف
+#وصف_ڪريو uint16_t بنانشان ننڍو
+#وصف_ڪريو uint32_t بنانشان صحيح
+#وصف_ڪريو uint64_t بنانشان ڊگهو ڊگهو
+#وصف_ڪريو bool _Bool
+#وصف_ڪريو false 0
+#وصف_ڪريو true 1
+#وصف_ڪريو __ATOMIC_RELAXED 0
+#وصف_ڪريو __ATOMIC_CONSUME 1
+#وصف_ڪريو __ATOMIC_ACQUIRE 2
+#وصف_ڪريو __ATOMIC_RELEASE 3
+#وصف_ڪريو __ATOMIC_ACQ_REL 4
+#وصف_ڪريو __ATOMIC_SEQ_CST 5
+تعريفنوع __SIZE_TYPE__ سائيز_t;
 
-#define ATOMIC_GEN_OP(TYPE, MODE, NAME, OP, RET) \
-    TYPE __atomic_##NAME##_##MODE(volatile void *atom, TYPE value, int memorder) \
+#وصف_ڪريو ATOMIC_GEN_OP(TYPE, گهڻائي_2, NAME, OP, RET) \
+    TYPE __atomic_##NAME##_##MODE(متطاير فراغ *atom, TYPE قدر, صحيح memorder) \
     { \
         TYPE xchg, cmp; \
         __atomic_load((TYPE *)atom, (TYPE *)&cmp, __ATOMIC_RELAXED); \
-        do { \
+        افعل { \
             xchg = (OP); \
-        } while (!__atomic_compare_exchange((TYPE *)atom, &cmp, &xchg, true, \
+        } طالما (!__atomic_compare_exchange((TYPE *)atom, &cmp, &xchg, true, \
                                             __ATOMIC_SEQ_CST, __ATOMIC_SEQ_CST)); \
-        return RET; \
+        أرجع RET; \
     }
 
-#define ATOMIC_EXCHANGE(TYPE, MODE) \
-    ATOMIC_GEN_OP(TYPE, MODE, exchange, value, cmp)
-#define ATOMIC_ADD_FETCH(TYPE, MODE) \
-    ATOMIC_GEN_OP(TYPE, MODE, add_fetch, (cmp + value), xchg)
-#define ATOMIC_SUB_FETCH(TYPE, MODE) \
-    ATOMIC_GEN_OP(TYPE, MODE, sub_fetch, (cmp - value), xchg)
-#define ATOMIC_AND_FETCH(TYPE, MODE) \
-    ATOMIC_GEN_OP(TYPE, MODE, and_fetch, (cmp & value), xchg)
-#define ATOMIC_OR_FETCH(TYPE, MODE) \
-    ATOMIC_GEN_OP(TYPE, MODE, or_fetch, (cmp | value), xchg)
-#define ATOMIC_XOR_FETCH(TYPE, MODE) \
-    ATOMIC_GEN_OP(TYPE, MODE, xor_fetch, (cmp ^ value), xchg)
-#define ATOMIC_NAND_FETCH(TYPE, MODE) \
-    ATOMIC_GEN_OP(TYPE, MODE, nand_fetch, ~(cmp & value), xchg)
-#define ATOMIC_FETCH_ADD(TYPE, MODE) \
-    ATOMIC_GEN_OP(TYPE, MODE, fetch_add, (cmp + value), cmp)
-#define ATOMIC_FETCH_SUB(TYPE, MODE) \
-    ATOMIC_GEN_OP(TYPE, MODE, fetch_sub, (cmp - value), cmp)
-#define ATOMIC_FETCH_AND(TYPE, MODE) \
-    ATOMIC_GEN_OP(TYPE, MODE, fetch_and, (cmp & value), cmp)
-#define ATOMIC_FETCH_OR(TYPE, MODE) \
-    ATOMIC_GEN_OP(TYPE, MODE, fetch_or, (cmp | value), cmp)
-#define ATOMIC_FETCH_XOR(TYPE, MODE) \
-    ATOMIC_GEN_OP(TYPE, MODE, fetch_xor, (cmp ^ value), cmp)
-#define ATOMIC_FETCH_NAND(TYPE, MODE) \
-    ATOMIC_GEN_OP(TYPE, MODE, fetch_nand, ~(cmp & value), cmp)
+#وصف_ڪريو ATOMIC_EXCHANGE(TYPE, گهڻائي_2) \
+    ATOMIC_GEN_OP(TYPE, گهڻائي_2, exchange, قدر, cmp)
+#وصف_ڪريو ATOMIC_جوڙيو_FETCH(TYPE, گهڻائي_2) \
+    ATOMIC_GEN_OP(TYPE, گهڻائي_2, جوڙيو_fetch, (cmp + قدر), xchg)
+#وصف_ڪريو ATOMIC_SUB_FETCH(TYPE, گهڻائي_2) \
+    ATOMIC_GEN_OP(TYPE, گهڻائي_2, sub_fetch, (cmp - قدر), xchg)
+#وصف_ڪريو ATOMIC_AND_FETCH(TYPE, گهڻائي_2) \
+    ATOMIC_GEN_OP(TYPE, گهڻائي_2, and_fetch, (cmp & قدر), xchg)
+#وصف_ڪريو ATOMIC_OR_FETCH(TYPE, گهڻائي_2) \
+    ATOMIC_GEN_OP(TYPE, گهڻائي_2, or_fetch, (cmp | قدر), xchg)
+#وصف_ڪريو ATOMIC_XOR_FETCH(TYPE, گهڻائي_2) \
+    ATOMIC_GEN_OP(TYPE, گهڻائي_2, xor_fetch, (cmp ^ قدر), xchg)
+#وصف_ڪريو ATOMIC_NAND_FETCH(TYPE, گهڻائي_2) \
+    ATOMIC_GEN_OP(TYPE, گهڻائي_2, nand_fetch, ~(cmp & قدر), xchg)
+#وصف_ڪريو ATOMIC_FETCH_جوڙيو(TYPE, گهڻائي_2) \
+    ATOMIC_GEN_OP(TYPE, گهڻائي_2, fetch_جوڙيو, (cmp + قدر), cmp)
+#وصف_ڪريو ATOMIC_FETCH_SUB(TYPE, گهڻائي_2) \
+    ATOMIC_GEN_OP(TYPE, گهڻائي_2, fetch_sub, (cmp - قدر), cmp)
+#وصف_ڪريو ATOMIC_FETCH_AND(TYPE, گهڻائي_2) \
+    ATOMIC_GEN_OP(TYPE, گهڻائي_2, fetch_and, (cmp & قدر), cmp)
+#وصف_ڪريو ATOMIC_FETCH_OR(TYPE, گهڻائي_2) \
+    ATOMIC_GEN_OP(TYPE, گهڻائي_2, fetch_or, (cmp | قدر), cmp)
+#وصف_ڪريو ATOMIC_FETCH_XOR(TYPE, گهڻائي_2) \
+    ATOMIC_GEN_OP(TYPE, گهڻائي_2, fetch_xor, (cmp ^ قدر), cmp)
+#وصف_ڪريو ATOMIC_FETCH_NAND(TYPE, گهڻائي_2) \
+    ATOMIC_GEN_OP(TYPE, گهڻائي_2, fetch_nand, ~(cmp & قدر), cmp)
 
-#define ATOMIC_GEN(TYPE, SIZE) \
-    ATOMIC_EXCHANGE(TYPE, SIZE) \
-    ATOMIC_ADD_FETCH(TYPE, SIZE) \
-    ATOMIC_SUB_FETCH(TYPE, SIZE) \
-    ATOMIC_AND_FETCH(TYPE, SIZE) \
-    ATOMIC_OR_FETCH(TYPE, SIZE) \
-    ATOMIC_XOR_FETCH(TYPE, SIZE) \
-    ATOMIC_NAND_FETCH(TYPE, SIZE) \
-    ATOMIC_FETCH_ADD(TYPE, SIZE) \
-    ATOMIC_FETCH_SUB(TYPE, SIZE) \
-    ATOMIC_FETCH_AND(TYPE, SIZE) \
-    ATOMIC_FETCH_OR(TYPE, SIZE) \
-    ATOMIC_FETCH_XOR(TYPE, SIZE) \
-    ATOMIC_FETCH_NAND(TYPE, SIZE)
+#وصف_ڪريو ATOMIC_GEN(TYPE, سائيز_2) \
+    ATOMIC_EXCHANGE(TYPE, سائيز_2) \
+    ATOMIC_جوڙيو_FETCH(TYPE, سائيز_2) \
+    ATOMIC_SUB_FETCH(TYPE, سائيز_2) \
+    ATOMIC_AND_FETCH(TYPE, سائيز_2) \
+    ATOMIC_OR_FETCH(TYPE, سائيز_2) \
+    ATOMIC_XOR_FETCH(TYPE, سائيز_2) \
+    ATOMIC_NAND_FETCH(TYPE, سائيز_2) \
+    ATOMIC_FETCH_جوڙيو(TYPE, سائيز_2) \
+    ATOMIC_FETCH_SUB(TYPE, سائيز_2) \
+    ATOMIC_FETCH_AND(TYPE, سائيز_2) \
+    ATOMIC_FETCH_OR(TYPE, سائيز_2) \
+    ATOMIC_FETCH_XOR(TYPE, سائيز_2) \
+    ATOMIC_FETCH_NAND(TYPE, سائيز_2)
 
 ATOMIC_GEN(uint8_t, 1)
 ATOMIC_GEN(uint16_t, 2)
@@ -75,30 +75,30 @@ ATOMIC_GEN(uint32_t, 4)
 ATOMIC_GEN(uint64_t, 8)
 
 /* uses alias to allow building with gcc/clang */
-#ifdef __TINYC__
-#define ATOMIC(x)      __atomic_##x
-#else
-#define ATOMIC(x)      __tcc_atomic_##x
-#endif
+#جيڪڏهن_وصف_ٿيل __TINYC__
+#وصف_ڪريو ATOMIC(x)      __atomic_##x
+#وإلا
+#وصف_ڪريو ATOMIC(x)      __tcc_atomic_##x
+#جيڪڏهن_پورو
 
-bool ATOMIC(is_lock_free) (unsigned long size, const volatile void *ptr)
+bool ATOMIC(is_تالو_free) (بنانشان ڊگهو سائيز, ثابت متطاير فراغ *ptr)
 {
     bool ret;
 
-    switch (size) {
-    case 1: ret = true; break;
-    case 2: ret = true; break;
-    case 4: ret = true; break;
-#if defined __x86_64__ || defined __aarch64__ || defined __riscv
-    case 8: ret = true; break;
-#else
-    case 8: ret = false; break;
-#endif
-    default: ret = false; break;
+    بدل (سائيز) {
+    حالة 1: ret = true; اكسر;
+    حالة 2: ret = true; اكسر;
+    حالة 4: ret = true; اكسر;
+#إذا defined __x86_64__ || defined __aarch64__ || defined __riscv
+    حالة 8: ret = true; اكسر;
+#وإلا
+    حالة 8: ret = false; اكسر;
+#جيڪڏهن_پورو
+    افتراضي: ret = false; اكسر;
     }
-    return ret;
+    أرجع ret;
 }
 
-#ifndef __TINYC__
-bool __atomic_is_lock_free(unsigned long size, const volatile void *ptr) __attribute__((alias("__tcc_atomic_is_lock_free")));
-#endif
+#جيڪڏهن_وصف_نه_ٿيل __TINYC__
+bool __atomic_is_lock_free(بنانشان ڊگهو سائيز, ثابت متطاير فراغ *ptr) __attribute__((alias("__tcc_atomic_is_lock_free")));
+#جيڪڏهن_پورو

@@ -3,125 +3,125 @@
  * This file is part of the w64 mingw-runtime package.
  * No warranty is given; refer to the file DISCLAIMER within this package.
  */
-#ifndef _WINDOWS_
-#define _WINDOWS_
+#جيڪڏهن_وصف_نه_ٿيل _WINDOWS_
+#وصف_ڪريو _WINDOWS_
 
-#ifndef WIN32_LEAN_AND_MEAN
-#define WIN32_LEAN_AND_MEAN 1
-#endif
+#جيڪڏهن_وصف_نه_ٿيل WIN32_LEAN_AND_سراسري
+#وصف_ڪريو WIN32_LEAN_AND_سراسري 1
+#جيڪڏهن_پورو
 
-#ifndef WINVER
-#define WINVER 0x0502
-#endif
+#جيڪڏهن_وصف_نه_ٿيل WINVER
+#وصف_ڪريو WINVER 0x0502
+#جيڪڏهن_پورو
 
-#include <_mingw.h>
+#ضمن <_mingw.h>
 
-#ifndef _INC_WINDOWS
-#define _INC_WINDOWS
+#جيڪڏهن_وصف_نه_ٿيل _INC_WINDOWS
+#وصف_ڪريو _INC_WINDOWS
 
-#if defined(RC_INVOKED) && !defined(NOWINRES)
+#إذا defined(RC_INVOKED) && !defined(NOWINRES)
 
-#include <winresrc.h>
-#else
+#ضمن <winresrc.h>
+#وإلا
 
-#ifdef RC_INVOKED
-#define NOATOM
-#define NOGDI
-#define NOGDICAPMASKS
-#define NOMETAFILE
-#define NOMINMAX
-#define NOMSG
-#define NOOPENFILE
-#define NORASTEROPS
-#define NOSCROLL
-#define NOSOUND
-#define NOSYSMETRICS
-#define NOTEXTMETRIC
-#define NOWH
-#define NOCOMM
-#define NOKANJI
-#define NOCRYPT
-#define NOMCX
-#endif
+#جيڪڏهن_وصف_ٿيل RC_INVOKED
+#وصف_ڪريو NOATOM
+#وصف_ڪريو NOGDI
+#وصف_ڪريو NOGDICAPMASKS
+#وصف_ڪريو NOMETAFILE
+#وصف_ڪريو NOMINMAX
+#وصف_ڪريو NOMSG
+#وصف_ڪريو NOOPENFILE
+#وصف_ڪريو NORASTEROPS
+#وصف_ڪريو NOSCROLL
+#وصف_ڪريو NOSOUND
+#وصف_ڪريو NOSYSMETRICS
+#وصف_ڪريو NOTEXTMETRIC
+#وصف_ڪريو NOWH
+#وصف_ڪريو NOCOMM
+#وصف_ڪريو NOKANJI
+#وصف_ڪريو NOCRYPT
+#وصف_ڪريو NOMCX
+#جيڪڏهن_پورو
 
-#if !defined(I_X86_) && !defined(_IA64_) && !defined(_AMD64_) && (defined(_X86_) && !defined(__x86_64))
-#define I_X86_
-#endif
+#إذا !defined(I_X86_) && !defined(_IA64_) && !defined(_AMD64_) && (defined(_X86_) && !defined(__x86_64))
+#وصف_ڪريو I_X86_
+#جيڪڏهن_پورو
 
-#if !defined(I_X86_) && !defined(_IA64_) && !defined(_AMD64_) && defined(__x86_64)
-#define _AMD64_
-#endif
+#إذا !defined(I_X86_) && !defined(_IA64_) && !defined(_AMD64_) && defined(__x86_64)
+#وصف_ڪريو _AMD64_
+#جيڪڏهن_پورو
 
-#if !defined(I_X86_) && !(defined(_X86_) && !defined(__x86_64)) && !defined(_AMD64_) && defined(__ia64__)
-#if !defined(_IA64_)
-#define _IA64_
-#endif
-#endif
+#إذا !defined(I_X86_) && !(defined(_X86_) && !defined(__x86_64)) && !defined(_AMD64_) && defined(__ia64__)
+#إذا !defined(_IA64_)
+#وصف_ڪريو _IA64_
+#جيڪڏهن_پورو
+#جيڪڏهن_پورو
 
-#ifndef RC_INVOKED
-#include <excpt.h>
-#include <stdarg.h>
-#endif
+#جيڪڏهن_وصف_نه_ٿيل RC_INVOKED
+#ضمن <excpt.h>
+#ضمن <stdarg.h>
+#جيڪڏهن_پورو
 
-#include <windef.h>
-#include <winbase.h>
-#include <wingdi.h>
-#include <winuser.h>
-#include <winnls.h>
-#include <wincon.h>
-#include <winver.h>
-#include <winreg.h>
+#ضمن <windef.h>
+#ضمن <winbase.h>
+#ضمن <wingdi.h>
+#ضمن <winuser.h>
+#ضمن <winnls.h>
+#ضمن <wincon.h>
+#ضمن <winver.h>
+#ضمن <winreg.h>
 //gr #include <winnetwk.h>
 
-#ifndef WIN32_LEAN_AND_MEAN
-#include <cderr.h>
-#include <dde.h>
-#include <ddeml.h>
-#include <dlgs.h>
-#include <lzexpand.h>
-#include <mmsystem.h>
-#include <nb30.h>
-#include <rpc.h>
-#include <shellapi.h>
-#include <winperf.h>
-#include <winsock.h>
-#ifndef NOCRYPT
-#include <wincrypt.h>
-#include <winefs.h>
-#include <winscard.h>
-#endif
+#جيڪڏهن_وصف_نه_ٿيل WIN32_LEAN_AND_سراسري
+#ضمن <cderr.h>
+#ضمن <dde.h>
+#ضمن <ddeml.h>
+#ضمن <dlgs.h>
+#ضمن <lzexpand.h>
+#ضمن <mmsystem.h>
+#ضمن <nb30.h>
+#ضمن <rpc.h>
+#ضمن <shellapi.h>
+#ضمن <winperf.h>
+#ضمن <winsock.h>
+#جيڪڏهن_وصف_نه_ٿيل NOCRYPT
+#ضمن <wincrypt.h>
+#ضمن <winefs.h>
+#ضمن <winscard.h>
+#جيڪڏهن_پورو
 
-#ifndef NOUSER
-#ifndef NOGDI
-#include <winspool.h>
-#ifdef INC_OLE1
-#include <ole.h>
-#else
-#include <ole2.h>
-#endif
-#include <commdlg.h>
-#endif
-#endif
-#endif
+#جيڪڏهن_وصف_نه_ٿيل NOUSER
+#جيڪڏهن_وصف_نه_ٿيل NOGDI
+#ضمن <winspool.h>
+#جيڪڏهن_وصف_ٿيل INC_OLE1
+#ضمن <ole.h>
+#وإلا
+#ضمن <ole2.h>
+#جيڪڏهن_پورو
+#ضمن <commdlg.h>
+#جيڪڏهن_پورو
+#جيڪڏهن_پورو
+#جيڪڏهن_پورو
 
 //gr #include <stralign.h>
 
-#ifdef INC_OLE2
-#include <ole2.h>
-#endif
+#جيڪڏهن_وصف_ٿيل INC_OLE2
+#ضمن <ole2.h>
+#جيڪڏهن_پورو
 
-#ifndef NOSERVICE
-#include <winsvc.h>
-#endif
+#جيڪڏهن_وصف_نه_ٿيل NOSERVICE
+#ضمن <winsvc.h>
+#جيڪڏهن_پورو
 
-#ifndef NOMCX
-#include <mcx.h>
-#endif
+#جيڪڏهن_وصف_نه_ٿيل NOMCX
+#ضمن <mcx.h>
+#جيڪڏهن_پورو
 
-#ifndef NOIME
-#include <imm.h>
-#endif
+#جيڪڏهن_وصف_نه_ٿيل NOIME
+#ضمن <imm.h>
+#جيڪڏهن_پورو
 
-#endif
-#endif
-#endif
+#جيڪڏهن_پورو
+#جيڪڏهن_پورو
+#جيڪڏهن_پورو

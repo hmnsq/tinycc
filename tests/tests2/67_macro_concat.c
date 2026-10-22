@@ -1,14 +1,14 @@
-#include <stdio.h>
+#ضمن <stdio.h>
 
-#define P(A,B) A ## B ; bob
-#define Q(A,B) A ## B+
+#وصف_ڪريو P(A,B) A ## B ; bob
+#وصف_ڪريو Q(A,B) A ## B+
 
-int main(void)
+صحيح مکيه(فراغ)
 {
-    int bob, jim = 21;
+    صحيح bob, jim = 21;
     bob = P(jim,) *= 2;
-    printf("jim: %d, bob: %d\n", jim, bob);
+    لکو("jim: %d, bob: %d\n", jim, bob);
     jim = 60 Q(+,)3;
-    printf("jim: %d\n", jim);
-    return 0;
+    لکو("jim: %d\n", jim);
+    أرجع 0;
 }

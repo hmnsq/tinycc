@@ -1,15 +1,15 @@
-#ifdef __leading_underscore
+#جيڪڏهن_وصف_ٿيل __leading_underscore
 # define _ "_"
-#else
+#وإلا
 # define _
-#endif
+#جيڪڏهن_پورو
 
-extern int printf (const char *, ...);
-extern void vide(void);
+خارجي صحيح لکو (ثابت حرف *, ...);
+خارجي فراغ vide(فراغ);
 __asm__(_"vide: ret");
 
-int main() {
+صحيح مکيه() {
     vide();
-    printf ("okay\n");
-    return 0;
+    لکو ("okay\n");
+    أرجع 0;
 }

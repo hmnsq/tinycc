@@ -15,157 +15,157 @@
  *
  */
 
-#ifndef __MINGW_H
-#define __MINGW_H
+#جيڪڏهن_وصف_نه_ٿيل __MINGW_H
+#وصف_ڪريو __MINGW_H
 
 /* some winapi files define these before including _mingw.h --> */
-#undef __cdecl
-#undef _X86_
-#undef WIN32
+#وصف_رد __cdecl
+#وصف_رد _X86_
+#وصف_رد WIN32
 /* <-- */
 
-#include <stddef.h>
-#include <stdarg.h>
+#ضمن <stddef.h>
+#ضمن <stdarg.h>
 
-#define __int8 char
-#define __int16 short
-#define __int32 int
-#define __int64 long long
-#define _HAVE_INT64
+#وصف_ڪريو __int8 حرف
+#وصف_ڪريو __int16 ننڍو
+#وصف_ڪريو __int32 صحيح
+#وصف_ڪريو __int64 ڊگهو ڊگهو
+#وصف_ڪريو _HAVE_INT64
 
-#define __cdecl
-#define __declspec(x) __attribute__((x))
-#define __unaligned __attribute__((packed))
-#define __fastcall __attribute__((fastcall))
+#وصف_ڪريو __cdecl
+#وصف_ڪريو __declspec(x) __attribute__((x))
+#وصف_ڪريو __unaligned __attribute__((packed))
+#وصف_ڪريو __fastcall __attribute__((fastcall))
 
-#define __MSVCRT__ 1
-#undef _MSVCRT_
-#define __MINGW_IMPORT extern __declspec(dllimport)
-#define __MINGW_ATTRIB_NORETURN __declspec(noreturn)
-#define __MINGW_ATTRIB_CONST
-#define __MINGW_ATTRIB_DEPRECATED
-#define __MINGW_ATTRIB_MALLOC
-#define __MINGW_ATTRIB_PURE
-#define __MINGW_ATTRIB_NONNULL(arg)
-#define __MINGW_NOTHROW
-#define __GNUC_VA_LIST
+#وصف_ڪريو __MSVCRT__ 1
+#وصف_رد _MSVCRT_
+#وصف_ڪريو __MINGW_IMPORT خارجي __declspec(dllimport)
+#وصف_ڪريو __MINGW_ATTRIB_NORETURN __declspec(noreturn)
+#وصف_ڪريو __MINGW_ATTRIB_CONST
+#وصف_ڪريو __MINGW_ATTRIB_DEPRECATED
+#وصف_ڪريو __MINGW_ATTRIB_MALLOC
+#وصف_ڪريو __MINGW_ATTRIB_PURE
+#وصف_ڪريو __MINGW_ATTRIB_NONNULL(arg)
+#وصف_ڪريو __MINGW_NOTHROW
+#وصف_ڪريو __GNUC_VA_LIST
 
-#define _CRTIMP extern
-#define __CRT_INLINE static __inline__
+#وصف_ڪريو _CRTIMP خارجي
+#وصف_ڪريو __CRT_INLINE ساكن __inline__
 
-#define _CRT_ALIGN(x) __attribute__((aligned(x)))
-#define DECLSPEC_ALIGN(x) __attribute__((aligned(x)))
-#define _CRT_PACKING 8
-#define __CRT_UNALIGNED
-#define _CONST_RETURN
+#وصف_ڪريو _CRT_ALIGN(x) __attribute__((aligned(x)))
+#وصف_ڪريو DECLSPEC_ALIGN(x) __attribute__((aligned(x)))
+#وصف_ڪريو _CRT_PACKING 8
+#وصف_ڪريو __CRT_UNALIGNED
+#وصف_ڪريو _CONST_RETURN
 
-#ifndef _TRUNCATE
-#define _TRUNCATE ((size_t)-1)
-#endif
+#جيڪڏهن_وصف_نه_ٿيل _TRUNCATE
+#وصف_ڪريو _TRUNCATE ((سائيز_t)-1)
+#جيڪڏهن_پورو
 
-#define __CRT_STRINGIZE(_Value) #_Value
-#define _CRT_STRINGIZE(_Value) __CRT_STRINGIZE(_Value)
-#define __CRT_WIDE(_String) L ## _String
-#define _CRT_WIDE(_String) __CRT_WIDE(_String)
+#وصف_ڪريو __CRT_STRINGIZE(قدر_2) #_Value
+#وصف_ڪريو _CRT_STRINGIZE(قدر_2) __CRT_STRINGIZE(قدر_2)
+#وصف_ڪريو __CRT_WIDE(_String) L ## _String
+#وصف_ڪريو _CRT_WIDE(_String) __CRT_WIDE(_String)
 
-#ifdef _WIN64
-#define __stdcall
-#if defined(__aarch64__)
-#define _M_ARM64 1
-#define _ARM64_ 1
-#else
-#define _AMD64_ 1
-#define __x86_64 1
-#define _M_X64 100 /* Visual Studio */
-#define _M_AMD64 100 /* Visual Studio */
-#endif
-#else
-#define __stdcall __attribute__((__stdcall__))
-#define _X86_ 1
-#define _M_IX86 300 /* Visual Studio */
-#ifndef __MINGW_USE_VC2005_COMPAT /* time became 64, but not timeval.tv_sec */
-# ifndef _USE_32BIT_TIME_T
-#  define _USE_32BIT_TIME_T
+#جيڪڏهن_وصف_ٿيل _WIN64
+#وصف_ڪريو __stdcall
+#إذا defined(__aarch64__)
+#وصف_ڪريو _M_ARM64 1
+#وصف_ڪريو _ARM64_ 1
+#وإلا
+#وصف_ڪريو _AMD64_ 1
+#وصف_ڪريو __x86_64 1
+#وصف_ڪريو _M_X64 100 /* Visual Studio */
+#وصف_ڪريو _M_AMD64 100 /* Visual Studio */
+#جيڪڏهن_پورو
+#وإلا
+#وصف_ڪريو __stdcall __attribute__((__stdcall__))
+#وصف_ڪريو _X86_ 1
+#وصف_ڪريو _M_IX86 300 /* Visual Studio */
+#جيڪڏهن_وصف_نه_ٿيل __MINGW_USE_VC2005_COMPAT /* time became 64, but not timeval.tv_sec */
+# ifndef USE_32_ٻٽو_انگ_وقت_T
+#  define USE_32_ٻٽو_انگ_وقت_T
 # endif
-#endif
-#endif
+#جيڪڏهن_پورو
+#جيڪڏهن_پورو
 
 /* in stddef.h */
-#define _SIZE_T_DEFINED
-#define _SSIZE_T_DEFINED
-#define _PTRDIFF_T_DEFINED
-#define _WCHAR_T_DEFINED
-#define _UINTPTR_T_DEFINED
-#define _INTPTR_T_DEFINED
-#define _INTEGRAL_MAX_BITS 64
+#وصف_ڪريو _SIZE_T_DEFINED
+#وصف_ڪريو _SSIZE_T_DEFINED
+#وصف_ڪريو _PTRDIFF_T_DEFINED
+#وصف_ڪريو _WCHAR_T_DEFINED
+#وصف_ڪريو _UINTPTR_T_DEFINED
+#وصف_ڪريو _INTPTR_T_DEFINED
+#وصف_ڪريو INTEGRAL_MAX_بٽ 64
 
-#ifndef _TIME32_T_DEFINED
-#define _TIME32_T_DEFINED
-typedef long __time32_t;
-#endif
+#جيڪڏهن_وصف_نه_ٿيل _TIME32_T_DEFINED
+#وصف_ڪريو _TIME32_T_DEFINED
+تعريفنوع ڊگهو __time32_t;
+#جيڪڏهن_پورو
 
-#ifndef _TIME64_T_DEFINED
-#define _TIME64_T_DEFINED
-typedef long long __time64_t;
-#endif
+#جيڪڏهن_وصف_نه_ٿيل _TIME64_T_DEFINED
+#وصف_ڪريو _TIME64_T_DEFINED
+تعريفنوع ڊگهو ڊگهو __time64_t;
+#جيڪڏهن_پورو
 
-#ifndef _TIME_T_DEFINED
-#define _TIME_T_DEFINED
-#ifdef _USE_32BIT_TIME_T
-typedef __time32_t time_t;
-#else
-typedef __time64_t time_t;
-#endif
-#endif
+#جيڪڏهن_وصف_نه_ٿيل وقت_T_DEFINED
+#وصف_ڪريو وقت_T_DEFINED
+#جيڪڏهن_وصف_ٿيل USE_32_ٻٽو_انگ_وقت_T
+تعريفنوع __time32_t time_t;
+#وإلا
+تعريفنوع __time64_t time_t;
+#جيڪڏهن_پورو
+#جيڪڏهن_پورو
 
-#ifndef _WCTYPE_T_DEFINED
-#define _WCTYPE_T_DEFINED
-typedef wchar_t wctype_t;
-#endif
+#جيڪڏهن_وصف_نه_ٿيل _WCTYPE_T_DEFINED
+#وصف_ڪريو _WCTYPE_T_DEFINED
+تعريفنوع wchar_t wctype_t;
+#جيڪڏهن_پورو
 
-#ifndef _WINT_T
-#define _WINT_T
-typedef __WINT_TYPE__ wint_t;
-#endif
+#جيڪڏهن_وصف_نه_ٿيل _WINT_T
+#وصف_ڪريو _WINT_T
+تعريفنوع __WINT_TYPE__ wint_t;
+#جيڪڏهن_پورو
 
-typedef int errno_t;
-#define _ERRCODE_DEFINED
+تعريفنوع صحيح errno_t;
+#وصف_ڪريو _ERRCODE_DEFINED
 
-typedef struct threadlocaleinfostruct *pthreadlocinfo;
-typedef struct threadmbcinfostruct *pthreadmbcinfo;
-typedef struct localeinfo_struct _locale_tstruct,*_locale_t;
+تعريفنوع بنية threadlocaleinfostruct *pthreadlocinfo;
+تعريفنوع بنية threadmbcinfostruct *pthreadmbcinfo;
+تعريفنوع بنية localeinfo_struct _locale_tstruct,*_locale_t;
 
 /* for winapi */
-#define _ANONYMOUS_UNION
-#define _ANONYMOUS_STRUCT
-#define DECLSPEC_NORETURN __declspec(noreturn)
-#define DECLARE_STDCALL_P(type) __stdcall type
-#define NOSERVICE 1
-#define NOMCX 1
-#define NOIME 1
-#define __INTRIN_H_
-#ifndef DUMMYUNIONNAME
+#وصف_ڪريو _ANONYMOUS_UNION
+#وصف_ڪريو _ANONYMOUS_STRUCT
+#وصف_ڪريو DECLSPEC_NORETURN __declspec(noreturn)
+#وصف_ڪريو DECLARE_STDCALL_P(type) __stdcall type
+#وصف_ڪريو NOSERVICE 1
+#وصف_ڪريو NOMCX 1
+#وصف_ڪريو NOIME 1
+#وصف_ڪريو __INTRIN_H_
+#جيڪڏهن_وصف_نه_ٿيل DUMMYUNIONNAME
 #  define DUMMYUNIONNAME
 #  define DUMMYUNIONNAME1
 #  define DUMMYUNIONNAME2
 #  define DUMMYUNIONNAME3
 #  define DUMMYUNIONNAME4
 #  define DUMMYUNIONNAME5
-#endif
-#ifndef DUMMYSTRUCTNAME
+#جيڪڏهن_پورو
+#جيڪڏهن_وصف_نه_ٿيل DUMMYSTRUCTNAME
 #  define DUMMYSTRUCTNAME
-#endif
-#ifndef WINVER
+#جيڪڏهن_پورو
+#جيڪڏهن_وصف_نه_ٿيل WINVER
 # define WINVER 0x0502
-#endif
-#ifndef _WIN32_WINNT
+#جيڪڏهن_پورو
+#جيڪڏهن_وصف_نه_ٿيل _WIN32_WINNT
 # define _WIN32_WINNT 0x502
-#endif
+#جيڪڏهن_پورو
 
-#define __C89_NAMELESS
-#define __MINGW_EXTENSION
-#define WINAPI_FAMILY_PARTITION(X) 1
-#define MINGW_HAS_SECURE_API
-#define WIN32 1
+#وصف_ڪريو __C89_NAMELESS
+#وصف_ڪريو __MINGW_EXTENSION
+#وصف_ڪريو WINAPI_FAMILY_حصا_ڪريو(X) 1
+#وصف_ڪريو MINGW_HAS_SECURE_API
+#وصف_ڪريو WIN32 1
 
-#endif /* __MINGW_H */
+#جيڪڏهن_پورو /* __MINGW_H */

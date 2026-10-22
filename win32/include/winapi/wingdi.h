@@ -3,419 +3,419 @@
  * This file is part of the w64 mingw-runtime package.
  * No warranty is given; refer to the file DISCLAIMER within this package.
  */
-#ifndef _WINGDI_
-#define _WINGDI_
+#جيڪڏهن_وصف_نه_ٿيل _WINGDI_
+#وصف_ڪريو _WINGDI_
 
-#define WINGDIAPI DECLSPEC_IMPORT
-#define WINSPOOLAPI DECLSPEC_IMPORT
+#وصف_ڪريو WINGDIAPI DECLSPEC_IMPORT
+#وصف_ڪريو WINSPOOLAPI DECLSPEC_IMPORT
 
-#ifdef __cplusplus
-extern "C" {
-#endif
+#جيڪڏهن_وصف_ٿيل __cplusplus
+خارجي "C" {
+#جيڪڏهن_پورو
 
-#ifndef WINVER
-#define WINVER 0x0502
-#endif
+#جيڪڏهن_وصف_نه_ٿيل WINVER
+#وصف_ڪريو WINVER 0x0502
+#جيڪڏهن_پورو
 
-#ifndef NOGDI
-#ifndef NORASTEROPS
-#define R2_BLACK 1
-#define R2_NOTMERGEPEN 2
-#define R2_MASKNOTPEN 3
-#define R2_NOTCOPYPEN 4
-#define R2_MASKPENNOT 5
-#define R2_NOT 6
-#define R2_XORPEN 7
-#define R2_NOTMASKPEN 8
-#define R2_MASKPEN 9
-#define R2_NOTXORPEN 10
-#define R2_NOP 11
-#define R2_MERGENOTPEN 12
-#define R2_COPYPEN 13
-#define R2_MERGEPENNOT 14
-#define R2_MERGEPEN 15
-#define R2_WHITE 16
-#define R2_LAST 16
+#جيڪڏهن_وصف_نه_ٿيل NOGDI
+#جيڪڏهن_وصف_نه_ٿيل NORASTEROPS
+#وصف_ڪريو R2_BLACK 1
+#وصف_ڪريو R2_NOTMERGEPEN 2
+#وصف_ڪريو R2_MASKNOTPEN 3
+#وصف_ڪريو R2_NOTCOPYPEN 4
+#وصف_ڪريو R2_MASKPENNOT 5
+#وصف_ڪريو R2_NOT 6
+#وصف_ڪريو R2_XORPEN 7
+#وصف_ڪريو R2_NOTMASKPEN 8
+#وصف_ڪريو R2_MASKPEN 9
+#وصف_ڪريو R2_NOTXORPEN 10
+#وصف_ڪريو R2_NOP 11
+#وصف_ڪريو R2_MERGENOTPEN 12
+#وصف_ڪريو R2_COPYPEN 13
+#وصف_ڪريو R2_MERGEPENNOT 14
+#وصف_ڪريو R2_MERGEPEN 15
+#وصف_ڪريو R2_WHITE 16
+#وصف_ڪريو R2_آخري 16
 
-#define SRCCOPY (DWORD)0x00CC0020
-#define SRCPAINT (DWORD)0x00EE0086
-#define SRCAND (DWORD)0x008800C6
-#define SRCINVERT (DWORD)0x00660046
-#define SRCERASE (DWORD)0x00440328
-#define NOTSRCCOPY (DWORD)0x00330008
-#define NOTSRCERASE (DWORD)0x001100A6
-#define MERGECOPY (DWORD)0x00C000CA
-#define MERGEPAINT (DWORD)0x00BB0226
-#define PATCOPY (DWORD)0x00F00021
-#define PATPAINT (DWORD)0x00FB0A09
-#define PATINVERT (DWORD)0x005A0049
-#define DSTINVERT (DWORD)0x00550009
-#define BLACKNESS (DWORD)0x00000042
-#define WHITENESS (DWORD)0x00FF0062
-#define NOMIRRORBITMAP (DWORD)0x80000000
-#define CAPTUREBLT (DWORD)0x40000000
-#define MAKEROP4(fore,back) (DWORD)((((back) << 8) & 0xFF000000) | (fore))
-#endif
+#وصف_ڪريو SRCCOPY (DWORD)0x00CC0020
+#وصف_ڪريو SRCPAINT (DWORD)0x00EE0086
+#وصف_ڪريو SRCAND (DWORD)0x008800C6
+#وصف_ڪريو SRCINVERT (DWORD)0x00660046
+#وصف_ڪريو SRCERASE (DWORD)0x00440328
+#وصف_ڪريو NOTSRCCOPY (DWORD)0x00330008
+#وصف_ڪريو NOTSRCERASE (DWORD)0x001100A6
+#وصف_ڪريو MERGECOPY (DWORD)0x00C000CA
+#وصف_ڪريو MERGEPAINT (DWORD)0x00BB0226
+#وصف_ڪريو PATCOPY (DWORD)0x00F00021
+#وصف_ڪريو PATPAINT (DWORD)0x00FB0A09
+#وصف_ڪريو PATINVERT (DWORD)0x005A0049
+#وصف_ڪريو DSTINVERT (DWORD)0x00550009
+#وصف_ڪريو BLACKNESS (DWORD)0x00000042
+#وصف_ڪريو WHITENESS (DWORD)0x00FF0062
+#وصف_ڪريو NOMIRRORBITMAP (DWORD)0x80000000
+#وصف_ڪريو CAPTUREBLT (DWORD)0x40000000
+#وصف_ڪريو MAKEROP4(fore,پٺ) (DWORD)((((پٺ) << 8) & 0xFF000000) | (fore))
+#جيڪڏهن_پورو
 
-#define GDI_ERROR (0xFFFFFFFFL)
-#define HGDI_ERROR (LongToHandle(0xFFFFFFFFL))
+#وصف_ڪريو GDI_ERROR (0xFFFFFFFFL)
+#وصف_ڪريو HGDI_ERROR (Long_منزل_Handle(0xFFFFFFFFL))
 
-#define ERROR 0
-#define NULLREGION 1
-#define SIMPLEREGION 2
-#define COMPLEXREGION 3
-#define RGN_ERROR ERROR
+#وصف_ڪريو ERROR 0
+#وصف_ڪريو NULLREGION 1
+#وصف_ڪريو SIMPLEREGION 2
+#وصف_ڪريو COMPLEXREGION 3
+#وصف_ڪريو RGN_ERROR ERROR
 
-#define RGN_AND 1
-#define RGN_OR 2
-#define RGN_XOR 3
-#define RGN_DIFF 4
-#define RGN_COPY 5
-#define RGN_MIN RGN_AND
-#define RGN_MAX RGN_COPY
+#وصف_ڪريو RGN_AND 1
+#وصف_ڪريو RGN_OR 2
+#وصف_ڪريو RGN_XOR 3
+#وصف_ڪريو RGN_DIFF 4
+#وصف_ڪريو RGN_COPY 5
+#وصف_ڪريو RGN_MIN RGN_AND
+#وصف_ڪريو RGN_MAX RGN_COPY
 
-#define BLACKONWHITE 1
-#define WHITEONBLACK 2
-#define COLORONCOLOR 3
-#define HALFTONE 4
-#define MAXSTRETCHBLTMODE 4
+#وصف_ڪريو BLACKONWHITE 1
+#وصف_ڪريو WHITEONBLACK 2
+#وصف_ڪريو COLORONCOLOR 3
+#وصف_ڪريو HALFTONE 4
+#وصف_ڪريو MAXSTRETCHBLTMODE 4
 
-#define STRETCH_ANDSCANS BLACKONWHITE
-#define STRETCH_ORSCANS WHITEONBLACK
-#define STRETCH_DELETESCANS COLORONCOLOR
-#define STRETCH_HALFTONE HALFTONE
+#وصف_ڪريو STRETCH_ANDSCANS BLACKONWHITE
+#وصف_ڪريو STRETCH_ORSCANS WHITEONBLACK
+#وصف_ڪريو STRETCH_DELETESCANS COLORONCOLOR
+#وصف_ڪريو STRETCH_HALFTONE HALFTONE
 
-#define ALTERNATE 1
-#define WINDING 2
-#define POLYFILL_LAST 2
+#وصف_ڪريو ALTERNATE 1
+#وصف_ڪريو WINDING 2
+#وصف_ڪريو POLYFILL_آخري 2
 
-#define LAYOUT_RTL 0x00000001
-#define LAYOUT_BTT 0x00000002
-#define LAYOUT_VBH 0x00000004
-#define LAYOUT_ORIENTATIONMASK (LAYOUT_RTL | LAYOUT_BTT | LAYOUT_VBH)
-#define LAYOUT_BITMAPORIENTATIONPRESERVED 0x00000008
+#وصف_ڪريو LAYOUT_RTL 0x00000001
+#وصف_ڪريو LAYOUT_BTT 0x00000002
+#وصف_ڪريو LAYOUT_VBH 0x00000004
+#وصف_ڪريو LAYOUT_ORIENTATIONMASK (LAYOUT_RTL | LAYOUT_BTT | LAYOUT_VBH)
+#وصف_ڪريو LAYOUT_BITMAPORIENTATIONPRESERVED 0x00000008
 
-#define TA_NOUPDATECP 0
-#define TA_UPDATECP 1
+#وصف_ڪريو TA_NOUPDATECP 0
+#وصف_ڪريو TA_UPDATECP 1
 
-#define TA_LEFT 0
-#define TA_RIGHT 2
-#define TA_CENTER 6
+#وصف_ڪريو TA_کاٻو 0
+#وصف_ڪريو TA_ساڄو 2
+#وصف_ڪريو TA_CENTER 6
 
-#define TA_TOP 0
-#define TA_BOTTOM 8
-#define TA_BASELINE 24
-#define TA_RTLREADING 256
-#define TA_MASK (TA_BASELINE+TA_CENTER+TA_UPDATECP+TA_RTLREADING)
+#وصف_ڪريو TA_چوٽي 0
+#وصف_ڪريو TA_BOTTOM 8
+#وصف_ڪريو TA_BASELINE 24
+#وصف_ڪريو TA_RTLREADING 256
+#وصف_ڪريو TA_نقاب (TA_BASELINE+TA_CENTER+TA_UPDATECP+TA_RTLREADING)
 
-#define VTA_BASELINE TA_BASELINE
-#define VTA_LEFT TA_BOTTOM
-#define VTA_RIGHT TA_TOP
-#define VTA_CENTER TA_CENTER
-#define VTA_BOTTOM TA_RIGHT
-#define VTA_TOP TA_LEFT
+#وصف_ڪريو VTA_BASELINE TA_BASELINE
+#وصف_ڪريو VTA_کاٻو TA_BOTTOM
+#وصف_ڪريو VTA_ساڄو TA_چوٽي
+#وصف_ڪريو VTA_CENTER TA_CENTER
+#وصف_ڪريو VTA_BOTTOM TA_ساڄو
+#وصف_ڪريو VTA_چوٽي TA_کاٻو
 
-#define ETO_OPAQUE 0x0002
-#define ETO_CLIPPED 0x0004
-#define ETO_GLYPH_INDEX 0x0010
-#define ETO_RTLREADING 0x0080
-#define ETO_NUMERICSLOCAL 0x0400
-#define ETO_NUMERICSLATIN 0x0800
-#define ETO_IGNORELANGUAGE 0x1000
-#define ETO_PDY 0x2000
+#وصف_ڪريو ETO_OPAQUE 0x0002
+#وصف_ڪريو ETO_CLIPPED 0x0004
+#وصف_ڪريو ETO_GLYPH_اشاريو 0x0010
+#وصف_ڪريو ETO_RTLREADING 0x0080
+#وصف_ڪريو ETO_NUMERICSLOCAL 0x0400
+#وصف_ڪريو ETO_NUMERICSLATIN 0x0800
+#وصف_ڪريو ETO_IGNORELANGUAGE 0x1000
+#وصف_ڪريو ETO_PDY 0x2000
 
-#define ASPECT_FILTERING 0x0001
+#وصف_ڪريو ASPECT_FILTERING 0x0001
 
-#define DCB_RESET 0x0001
-#define DCB_ACCUMULATE 0x0002
-#define DCB_DIRTY DCB_ACCUMULATE
-#define DCB_SET (DCB_RESET | DCB_ACCUMULATE)
-#define DCB_ENABLE 0x0004
-#define DCB_DISABLE 0x0008
+#وصف_ڪريو DCB_RESET 0x0001
+#وصف_ڪريو DCB_ACCUMULATE 0x0002
+#وصف_ڪريو DCB_DIRTY DCB_ACCUMULATE
+#وصف_ڪريو DCB_سيٽ (DCB_RESET | DCB_ACCUMULATE)
+#وصف_ڪريو DCB_ENABLE 0x0004
+#وصف_ڪريو DCB_DISABLE 0x0008
 
-#ifndef NOMETAFILE
+#جيڪڏهن_وصف_نه_ٿيل NOMETAFILE
 
-#define META_SETBKCOLOR 0x0201
-#define META_SETBKMODE 0x0102
-#define META_SETMAPMODE 0x0103
-#define META_SETROP2 0x0104
-#define META_SETRELABS 0x0105
-#define META_SETPOLYFILLMODE 0x0106
-#define META_SETSTRETCHBLTMODE 0x0107
-#define META_SETTEXTCHAREXTRA 0x0108
-#define META_SETTEXTCOLOR 0x0209
-#define META_SETTEXTJUSTIFICATION 0x020A
-#define META_SETWINDOWORG 0x020B
-#define META_SETWINDOWEXT 0x020C
-#define META_SETVIEWPORTORG 0x020D
-#define META_SETVIEWPORTEXT 0x020E
-#define META_OFFSETWINDOWORG 0x020F
-#define META_SCALEWINDOWEXT 0x0410
-#define META_OFFSETVIEWPORTORG 0x0211
-#define META_SCALEVIEWPORTEXT 0x0412
-#define META_LINETO 0x0213
-#define META_MOVETO 0x0214
-#define META_EXCLUDECLIPRECT 0x0415
-#define META_INTERSECTCLIPRECT 0x0416
-#define META_ARC 0x0817
-#define META_ELLIPSE 0x0418
-#define META_FLOODFILL 0x0419
-#define META_PIE 0x081A
-#define META_RECTANGLE 0x041B
-#define META_ROUNDRECT 0x061C
-#define META_PATBLT 0x061D
-#define META_SAVEDC 0x001E
-#define META_SETPIXEL 0x041F
-#define META_OFFSETCLIPRGN 0x0220
-#define META_TEXTOUT 0x0521
-#define META_BITBLT 0x0922
-#define META_STRETCHBLT 0x0B23
-#define META_POLYGON 0x0324
-#define META_POLYLINE 0x0325
-#define META_ESCAPE 0x0626
-#define META_RESTOREDC 0x0127
-#define META_FILLREGION 0x0228
-#define META_FRAMEREGION 0x0429
-#define META_INVERTREGION 0x012A
-#define META_PAINTREGION 0x012B
-#define META_SELECTCLIPREGION 0x012C
-#define META_SELECTOBJECT 0x012D
-#define META_SETTEXTALIGN 0x012E
-#define META_CHORD 0x0830
-#define META_SETMAPPERFLAGS 0x0231
-#define META_EXTTEXTOUT 0x0a32
-#define META_SETDIBTODEV 0x0d33
-#define META_SELECTPALETTE 0x0234
-#define META_REALIZEPALETTE 0x0035
-#define META_ANIMATEPALETTE 0x0436
-#define META_SETPALENTRIES 0x0037
-#define META_POLYPOLYGON 0x0538
-#define META_RESIZEPALETTE 0x0139
-#define META_DIBBITBLT 0x0940
-#define META_DIBSTRETCHBLT 0x0b41
-#define META_DIBCREATEPATTERNBRUSH 0x0142
-#define META_STRETCHDIB 0x0f43
-#define META_EXTFLOODFILL 0x0548
-#define META_SETLAYOUT 0x0149
-#define META_DELETEOBJECT 0x01f0
-#define META_CREATEPALETTE 0x00f7
-#define META_CREATEPATTERNBRUSH 0x01F9
-#define META_CREATEPENINDIRECT 0x02FA
-#define META_CREATEFONTINDIRECT 0x02FB
-#define META_CREATEBRUSHINDIRECT 0x02FC
-#define META_CREATEREGION 0x06FF
+#وصف_ڪريو META_SETBKCOLOR 0x0201
+#وصف_ڪريو META_SETBKMODE 0x0102
+#وصف_ڪريو META_SETMAPMODE 0x0103
+#وصف_ڪريو META_SETROP2 0x0104
+#وصف_ڪريو META_SETRELABS 0x0105
+#وصف_ڪريو META_SETPOLYFILLMODE 0x0106
+#وصف_ڪريو META_SETSTRETCHBLTMODE 0x0107
+#وصف_ڪريو META_SETTEXTCHAREXTRA 0x0108
+#وصف_ڪريو META_SETTEXTCOLOR 0x0209
+#وصف_ڪريو META_SETTEXTJUSTIFICATION 0x020A
+#وصف_ڪريو META_SETWINDOWORG 0x020B
+#وصف_ڪريو META_SETWINDOWEXT 0x020C
+#وصف_ڪريو META_SETVIEWPORTORG 0x020D
+#وصف_ڪريو META_SETVIEWPORTEXT 0x020E
+#وصف_ڪريو META_OFFSETWINDOWORG 0x020F
+#وصف_ڪريو META_SCALEWINDOWEXT 0x0410
+#وصف_ڪريو META_OFFSETVIEWPORTORG 0x0211
+#وصف_ڪريو META_SCALEVIEWPORTEXT 0x0412
+#وصف_ڪريو META_LINETO 0x0213
+#وصف_ڪريو META_MOVETO 0x0214
+#وصف_ڪريو META_EXCLUDECLIPRECT 0x0415
+#وصف_ڪريو META_INTERSECTCLIPRECT 0x0416
+#وصف_ڪريو META_ARC 0x0817
+#وصف_ڪريو META_ELLIPSE 0x0418
+#وصف_ڪريو META_FLOODFILL 0x0419
+#وصف_ڪريو META_PIE 0x081A
+#وصف_ڪريو META_RECTANGLE 0x041B
+#وصف_ڪريو META_ROUNDRECT 0x061C
+#وصف_ڪريو META_PATBLT 0x061D
+#وصف_ڪريو META_SAVEDC 0x001E
+#وصف_ڪريو META_SETPIXEL 0x041F
+#وصف_ڪريو META_OFFSETCLIPRGN 0x0220
+#وصف_ڪريو META_TEXTOUT 0x0521
+#وصف_ڪريو META_BITBLT 0x0922
+#وصف_ڪريو META_STRETCHBLT 0x0B23
+#وصف_ڪريو META_POLYGON 0x0324
+#وصف_ڪريو META_POLYLINE 0x0325
+#وصف_ڪريو META_ESCAPE 0x0626
+#وصف_ڪريو META_RESTOREDC 0x0127
+#وصف_ڪريو META_FILLREGION 0x0228
+#وصف_ڪريو META_FRAMEREGION 0x0429
+#وصف_ڪريو META_INVERTREGION 0x012A
+#وصف_ڪريو META_PAINTREGION 0x012B
+#وصف_ڪريو META_SELECTCLIPREGION 0x012C
+#وصف_ڪريو META_SELECTOBJECT 0x012D
+#وصف_ڪريو META_SETTEXTALIGN 0x012E
+#وصف_ڪريو META_CHORD 0x0830
+#وصف_ڪريو META_SETMAPPERFLAGS 0x0231
+#وصف_ڪريو META_EXTTEXTOUT 0x0a32
+#وصف_ڪريو META_SETDIBTODEV 0x0d33
+#وصف_ڪريو META_SELECTPALETTE 0x0234
+#وصف_ڪريو META_REALIZEPALETTE 0x0035
+#وصف_ڪريو META_ANIMATEPALETTE 0x0436
+#وصف_ڪريو META_SETPALENTRIES 0x0037
+#وصف_ڪريو META_POLYPOLYGON 0x0538
+#وصف_ڪريو META_RESIZEPALETTE 0x0139
+#وصف_ڪريو META_DIBBITBLT 0x0940
+#وصف_ڪريو META_DIBSTRETCHBLT 0x0b41
+#وصف_ڪريو META_DIBCREATEPATTERNBRUSH 0x0142
+#وصف_ڪريو META_STRETCHDIB 0x0f43
+#وصف_ڪريو META_EXTFLOODFILL 0x0548
+#وصف_ڪريو META_SETLAYOUT 0x0149
+#وصف_ڪريو META_DELETEOBJECT 0x01f0
+#وصف_ڪريو META_CREATEPALETTE 0x00f7
+#وصف_ڪريو META_CREATEPATTERNBRUSH 0x01F9
+#وصف_ڪريو META_CREATEPENINDIRECT 0x02FA
+#وصف_ڪريو META_CREATEFONTINDIRECT 0x02FB
+#وصف_ڪريو META_CREATEBRUSHINDIRECT 0x02FC
+#وصف_ڪريو META_CREATEREGION 0x06FF
 
-  typedef struct _DRAWPATRECT {
-    POINT ptPosition;
-    POINT ptSize;
-    WORD wStyle;
-    WORD wPattern;
+  تعريفنوع بنية _DRAWPATRECT {
+    نقطو_3 ptPosition;
+    نقطو_3 pt_سائيز;
+    لفظ_3 wStyle;
+    لفظ_3 w_نمونو;
   } DRAWPATRECT,*PDRAWPATRECT;
-#endif
+#جيڪڏهن_پورو
 
-#define NEWFRAME 1
-#define ABORTDOC 2
-#define NEXTBAND 3
-#define SETCOLORTABLE 4
-#define GETCOLORTABLE 5
-#define FLUSHOUTPUT 6
-#define DRAFTMODE 7
-#define QUERYESCSUPPORT 8
-#define SETABORTPROC 9
-#define STARTDOC 10
-#define ENDDOC 11
-#define GETPHYSPAGESIZE 12
-#define GETPRINTINGOFFSET 13
-#define GETSCALINGFACTOR 14
-#define MFCOMMENT 15
-#define GETPENWIDTH 16
-#define SETCOPYCOUNT 17
-#define SELECTPAPERSOURCE 18
-#define DEVICEDATA 19
-#define PASSTHROUGH 19
-#define GETTECHNOLGY 20
-#define GETTECHNOLOGY 20
-#define SETLINECAP 21
-#define SETLINEJOIN 22
-#define SETMITERLIMIT 23
-#define BANDINFO 24
-#define DRAWPATTERNRECT 25
-#define GETVECTORPENSIZE 26
-#define GETVECTORBRUSHSIZE 27
-#define ENABLEDUPLEX 28
-#define GETSETPAPERBINS 29
-#define GETSETPRINTORIENT 30
-#define ENUMPAPERBINS 31
-#define SETDIBSCALING 32
-#define EPSPRINTING 33
-#define ENUMPAPERMETRICS 34
-#define GETSETPAPERMETRICS 35
-#define POSTSCRIPT_DATA 37
-#define POSTSCRIPT_IGNORE 38
-#define MOUSETRAILS 39
-#define GETDEVICEUNITS 42
+#وصف_ڪريو NEWFRAME 1
+#وصف_ڪريو ABORTDOC 2
+#وصف_ڪريو NEXTBAND 3
+#وصف_ڪريو SETCOLORTABLE 4
+#وصف_ڪريو GETCOLORTABLE 5
+#وصف_ڪريو FLUSHOUTPUT 6
+#وصف_ڪريو DRAFTMODE 7
+#وصف_ڪريو QUERYESCSUPPORT 8
+#وصف_ڪريو SETABORTPROC 9
+#وصف_ڪريو STARTDOC 10
+#وصف_ڪريو ENDDOC 11
+#وصف_ڪريو GETPHYSPAGESIZE 12
+#وصف_ڪريو GETPRINTINGOFFSET 13
+#وصف_ڪريو GETSCALINGFACTOR 14
+#وصف_ڪريو MFCOMMENT 15
+#وصف_ڪريو GETPENWIDTH 16
+#وصف_ڪريو SETCOPYCOUNT 17
+#وصف_ڪريو SELECTPAPERSOURCE 18
+#وصف_ڪريو DEVICEDATA 19
+#وصف_ڪريو PASSTHROUGH 19
+#وصف_ڪريو GETTECHNOLGY 20
+#وصف_ڪريو GETTECHNOLOGY 20
+#وصف_ڪريو SETLINECAP 21
+#وصف_ڪريو SETLINEJOIN 22
+#وصف_ڪريو SETMITERLIMIT 23
+#وصف_ڪريو BANDINFO 24
+#وصف_ڪريو DRAWPATTERNRECT 25
+#وصف_ڪريو GETVECTORPENSIZE 26
+#وصف_ڪريو GETVECTORBRUSHSIZE 27
+#وصف_ڪريو ENABLEDUPLEX 28
+#وصف_ڪريو GETSETPAPERBINS 29
+#وصف_ڪريو GETSETPRINTORIENT 30
+#وصف_ڪريو ENUMPAPERBINS 31
+#وصف_ڪريو SETDIBSCALING 32
+#وصف_ڪريو EPSPRINTING 33
+#وصف_ڪريو ENUMPAPERMETRICS 34
+#وصف_ڪريو GETSETPAPERMETRICS 35
+#وصف_ڪريو POSTSCRIPT_معلومات 37
+#وصف_ڪريو POSTSCRIPT_IGNORE 38
+#وصف_ڪريو MOUSETRAILS 39
+#وصف_ڪريو GETDEVICEUNITS 42
 
-#define GETEXTENDEDTEXTMETRICS 256
-#define GETEXTENTTABLE 257
-#define GETPAIRKERNTABLE 258
-#define GETTRACKKERNTABLE 259
-#define EXTTEXTOUT 512
-#define GETFACENAME 513
-#define DOWNLOADFACE 514
-#define ENABLERELATIVEWIDTHS 768
-#define ENABLEPAIRKERNING 769
-#define SETKERNTRACK 770
-#define SETALLJUSTVALUES 771
-#define SETCHARSET 772
+#وصف_ڪريو GETEXTENDEDTEXTMETRICS 256
+#وصف_ڪريو GETEXTENTTABLE 257
+#وصف_ڪريو GETPAIRKERNTABLE 258
+#وصف_ڪريو GETTRACKKERNTABLE 259
+#وصف_ڪريو EXTTEXTOUT 512
+#وصف_ڪريو GETFACENAME 513
+#وصف_ڪريو DOWNLOADFACE 514
+#وصف_ڪريو ENABLERELATIVEWIDTHS 768
+#وصف_ڪريو ENABLEPAIRKERNING 769
+#وصف_ڪريو SETKERNTRACK 770
+#وصف_ڪريو SETALLJUSTVALUES 771
+#وصف_ڪريو SETCHARSET 772
 
-#define STRETCHBLT 2048
-#define METAFILE_DRIVER 2049
-#define GETSETSCREENPARAMS 3072
-#define QUERYDIBSUPPORT 3073
-#define BEGIN_PATH 4096
-#define CLIP_TO_PATH 4097
-#define END_PATH 4098
-#define EXT_DEVICE_CAPS 4099
-#define RESTORE_CTM 4100
-#define SAVE_CTM 4101
-#define SET_ARC_DIRECTION 4102
-#define SET_BACKGROUND_COLOR 4103
-#define SET_POLY_MODE 4104
-#define SET_SCREEN_ANGLE 4105
-#define SET_SPREAD 4106
-#define TRANSFORM_CTM 4107
-#define SET_CLIP_BOX 4108
-#define SET_BOUNDS 4109
-#define SET_MIRROR_MODE 4110
-#define OPENCHANNEL 4110
-#define DOWNLOADHEADER 4111
-#define CLOSECHANNEL 4112
-#define POSTSCRIPT_PASSTHROUGH 4115
-#define ENCAPSULATED_POSTSCRIPT 4116
+#وصف_ڪريو STRETCHBLT 2048
+#وصف_ڪريو METAFILE_DRIVER 2049
+#وصف_ڪريو GETSETSCREENPARAMS 3072
+#وصف_ڪريو QUERYDIBSUPPORT 3073
+#وصف_ڪريو BEGIN_رستو 4096
+#وصف_ڪريو CLIP_منزل_رستو 4097
+#وصف_ڪريو پڇاڙي_رستو 4098
+#وصف_ڪريو EXT_DEVICE_CAPS 4099
+#وصف_ڪريو RESTORE_CTM 4100
+#وصف_ڪريو SAVE_CTM 4101
+#وصف_ڪريو سيٽ_ARC_DIRECTION 4102
+#وصف_ڪريو سيٽ_BACKGROUND_COLOR 4103
+#وصف_ڪريو سيٽ_POLY_گهڻائي 4104
+#وصف_ڪريو سيٽ_SCREEN_ANGLE 4105
+#وصف_ڪريو سيٽ_پکيڙ 4106
+#وصف_ڪريو TRANSFORM_CTM 4107
+#وصف_ڪريو سيٽ_CLIP_BOX 4108
+#وصف_ڪريو سيٽ_BOUNDS 4109
+#وصف_ڪريو سيٽ_MIRROR_گهڻائي 4110
+#وصف_ڪريو OPENCHANNEL 4110
+#وصف_ڪريو DOWNLOADHEADER 4111
+#وصف_ڪريو CLOSECHANNEL 4112
+#وصف_ڪريو POSTSCRIPT_PASSTHROUGH 4115
+#وصف_ڪريو ENCAPSULATED_POSTSCRIPT 4116
 
-#define POSTSCRIPT_IDENTIFY 4117
-#define POSTSCRIPT_INJECTION 4118
+#وصف_ڪريو POSTSCRIPT_IDENTIFY 4117
+#وصف_ڪريو POSTSCRIPT_INJECTION 4118
 
-#define CHECKJPEGFORMAT 4119
-#define CHECKPNGFORMAT 4120
+#وصف_ڪريو CHECKJPEGFORMAT 4119
+#وصف_ڪريو CHECKPNGFORMAT 4120
 
-#define GET_PS_FEATURESETTING 4121
+#وصف_ڪريو GET_PS_FEATURESETTING 4121
 
-#define SPCLPASSTHROUGH2 4568
+#وصف_ڪريو SPCLPASSTHROUGH2 4568
 
-#define PSIDENT_GDICENTRIC 0
-#define PSIDENT_PSCENTRIC 1
+#وصف_ڪريو PSIDENT_GDICENTRIC 0
+#وصف_ڪريو PSIDENT_PSCENTRIC 1
 
-  typedef struct _PSINJECTDATA {
-    DWORD DataBytes;
-    WORD InjectionPoint;
-    WORD PageNumber;
+  تعريفنوع بنية _PSINJECTDATA {
+    DWORD معلومات_بائيٽون;
+    لفظ_3 Injection_نقطو;
+    لفظ_3 صفحو_عدد;
   } PSINJECTDATA,*PPSINJECTDATA;
 
-#define PSINJECT_BEGINSTREAM 1
-#define PSINJECT_PSADOBE 2
-#define PSINJECT_PAGESATEND 3
-#define PSINJECT_PAGES 4
+#وصف_ڪريو PSINJECT_BEGINSTREAM 1
+#وصف_ڪريو PSINJECT_PSADOBE 2
+#وصف_ڪريو PSINJECT_PAGESATEND 3
+#وصف_ڪريو PSINJECT_صفحا 4
 
-#define PSINJECT_DOCNEEDEDRES 5
-#define PSINJECT_DOCSUPPLIEDRES 6
-#define PSINJECT_PAGEORDER 7
-#define PSINJECT_ORIENTATION 8
-#define PSINJECT_BOUNDINGBOX 9
-#define PSINJECT_DOCUMENTPROCESSCOLORS 10
+#وصف_ڪريو PSINJECT_DOCNEEDEDRES 5
+#وصف_ڪريو PSINJECT_DOCSUPPLIEDRES 6
+#وصف_ڪريو PSINJECT_PAGEORDER 7
+#وصف_ڪريو PSINJECT_ORIENTATION 8
+#وصف_ڪريو PSINJECT_BOUNDINGBOX 9
+#وصف_ڪريو PSINJECT_DOCUMENTPROCESSCOLORS 10
 
-#define PSINJECT_COMMENTS 11
-#define PSINJECT_BEGINDEFAULTS 12
-#define PSINJECT_ENDDEFAULTS 13
-#define PSINJECT_BEGINPROLOG 14
-#define PSINJECT_ENDPROLOG 15
-#define PSINJECT_BEGINSETUP 16
-#define PSINJECT_ENDSETUP 17
-#define PSINJECT_TRAILER 18
-#define PSINJECT_EOF 19
-#define PSINJECT_ENDSTREAM 20
-#define PSINJECT_DOCUMENTPROCESSCOLORSATEND 21
+#وصف_ڪريو PSINJECT_COMMENTS 11
+#وصف_ڪريو PSINJECT_BEGINDEFAULTS 12
+#وصف_ڪريو PSINJECT_ENDDEFAULTS 13
+#وصف_ڪريو PSINJECT_BEGINPROLOG 14
+#وصف_ڪريو PSINJECT_ENDPROLOG 15
+#وصف_ڪريو PSINJECT_BEGINSETUP 16
+#وصف_ڪريو PSINJECT_ENDSETUP 17
+#وصف_ڪريو PSINJECT_TRAILER 18
+#وصف_ڪريو PSINJECT_EOF 19
+#وصف_ڪريو PSINJECT_ENDSTREAM 20
+#وصف_ڪريو PSINJECT_DOCUMENTPROCESSCOLORSATEND 21
 
-#define PSINJECT_PAGENUMBER 100
-#define PSINJECT_BEGINPAGESETUP 101
-#define PSINJECT_ENDPAGESETUP 102
-#define PSINJECT_PAGETRAILER 103
-#define PSINJECT_PLATECOLOR 104
+#وصف_ڪريو PSINJECT_PAGENUMBER 100
+#وصف_ڪريو PSINJECT_BEGINPAGESETUP 101
+#وصف_ڪريو PSINJECT_ENDPAGESETUP 102
+#وصف_ڪريو PSINJECT_PAGETRAILER 103
+#وصف_ڪريو PSINJECT_PLATECOLOR 104
 
-#define PSINJECT_SHOWPAGE 105
-#define PSINJECT_PAGEBBOX 106
-#define PSINJECT_ENDPAGECOMMENTS 107
+#وصف_ڪريو PSINJECT_SHOWPAGE 105
+#وصف_ڪريو PSINJECT_PAGEBBOX 106
+#وصف_ڪريو PSINJECT_ENDPAGECOMMENTS 107
 
-#define PSINJECT_VMSAVE 200
-#define PSINJECT_VMRESTORE 201
+#وصف_ڪريو PSINJECT_VMSAVE 200
+#وصف_ڪريو PSINJECT_VMRESTORE 201
 
-#define FEATURESETTING_NUP 0
-#define FEATURESETTING_OUTPUT 1
-#define FEATURESETTING_PSLEVEL 2
-#define FEATURESETTING_CUSTPAPER 3
-#define FEATURESETTING_MIRROR 4
-#define FEATURESETTING_NEGATIVE 5
-#define FEATURESETTING_PROTOCOL 6
+#وصف_ڪريو FEATURESETTING_NUP 0
+#وصف_ڪريو FEATURESETTING_OUTPUT 1
+#وصف_ڪريو FEATURESETTING_PSLEVEL 2
+#وصف_ڪريو FEATURESETTING_CUSTPAPER 3
+#وصف_ڪريو FEATURESETTING_MIRROR 4
+#وصف_ڪريو FEATURESETTING_NEGATIVE 5
+#وصف_ڪريو FEATURESETTING_PROTOCOL 6
 
-#define FEATURESETTING_PRIVATE_BEGIN 0x1000
-#define FEATURESETTING_PRIVATE_END 0x1FFF
+#وصف_ڪريو FEATURESETTING_ذاتي_BEGIN 0x1000
+#وصف_ڪريو FEATURESETTING_ذاتي_پڇاڙي 0x1FFF
 
-  typedef struct _PSFEATURE_OUTPUT {
-    WINBOOL bPageIndependent;
-    WINBOOL bSetPageDevice;
+  تعريفنوع بنية _PSFEATURE_OUTPUT {
+    WINBOOL b_صفحو_Independent;
+    WINBOOL b_سيٽ_صفحو_Device;
   } PSFEATURE_OUTPUT,*PPSFEATURE_OUTPUT;
 
-  typedef struct _PSFEATURE_CUSTPAPER {
+  تعريفنوع بنية _PSFEATURE_CUSTPAPER {
     LONG lOrientation;
-    LONG lWidth;
-    LONG lHeight;
-    LONG lWidthOffset;
-    LONG lHeightOffset;
+    LONG l_ويڪر;
+    LONG l_اوچائي;
+    LONG l_ويڪر_وٿي;
+    LONG l_اوچائي_وٿي;
   } PSFEATURE_CUSTPAPER,*PPSFEATURE_CUSTPAPER;
 
-#define PSPROTOCOL_ASCII 0
-#define PSPROTOCOL_BCP 1
-#define PSPROTOCOL_TBCP 2
-#define PSPROTOCOL_BINARY 3
+#وصف_ڪريو PSPROTOCOL_ASCII 0
+#وصف_ڪريو PSPROTOCOL_BCP 1
+#وصف_ڪريو PSPROTOCOL_TBCP 2
+#وصف_ڪريو PSPROTOCOL_ٻٽو 3
 
-#define QDI_SETDIBITS 1
-#define QDI_GETDIBITS 2
-#define QDI_DIBTOSCREEN 4
-#define QDI_STRETCHDIB 8
+#وصف_ڪريو QDI_SETDIBITS 1
+#وصف_ڪريو QDI_GETDIBITS 2
+#وصف_ڪريو QDI_DIBTOSCREEN 4
+#وصف_ڪريو QDI_STRETCHDIB 8
 
-#define SP_NOTREPORTED 0x4000
-#define SP_ERROR (-1)
-#define SP_APPABORT (-2)
-#define SP_USERABORT (-3)
-#define SP_OUTOFDISK (-4)
-#define SP_OUTOFMEMORY (-5)
+#وصف_ڪريو SP_NOTREPORTED 0x4000
+#وصف_ڪريو SP_ERROR (-1)
+#وصف_ڪريو SP_APPABORT (-2)
+#وصف_ڪريو SP_USERABORT (-3)
+#وصف_ڪريو SP_OUTOFDISK (-4)
+#وصف_ڪريو SP_OUTOFMEMORY (-5)
 
-#define PR_JOBSTATUS 0x0000
+#وصف_ڪريو PR_JOBSTATUS 0x0000
 
-#define OBJ_PEN 1
-#define OBJ_BRUSH 2
-#define OBJ_DC 3
-#define OBJ_METADC 4
-#define OBJ_PAL 5
-#define OBJ_FONT 6
-#define OBJ_BITMAP 7
-#define OBJ_REGION 8
-#define OBJ_METAFILE 9
-#define OBJ_MEMDC 10
-#define OBJ_EXTPEN 11
-#define OBJ_ENHMETADC 12
-#define OBJ_ENHMETAFILE 13
-#define OBJ_COLORSPACE 14
+#وصف_ڪريو OBJ_PEN 1
+#وصف_ڪريو OBJ_BRUSH 2
+#وصف_ڪريو OBJ_DC 3
+#وصف_ڪريو OBJ_METADC 4
+#وصف_ڪريو OBJ_PAL 5
+#وصف_ڪريو OBJ_FONT 6
+#وصف_ڪريو OBJ_BITMAP 7
+#وصف_ڪريو OBJ_REGION 8
+#وصف_ڪريو OBJ_METAFILE 9
+#وصف_ڪريو OBJ_MEMDC 10
+#وصف_ڪريو OBJ_EXTPEN 11
+#وصف_ڪريو OBJ_ENHMETADC 12
+#وصف_ڪريو OBJ_ENHMETAFILE 13
+#وصف_ڪريو OBJ_COLORSPACE 14
 
-#define MWT_IDENTITY 1
-#define MWT_LEFTMULTIPLY 2
-#define MWT_RIGHTMULTIPLY 3
+#وصف_ڪريو MWT_سڃاڻپ_عنصر 1
+#وصف_ڪريو MWT_LEFTMULTIPLY 2
+#وصف_ڪريو MWT_RIGHTMULTIPLY 3
 
-#define MWT_MIN MWT_IDENTITY
-#define MWT_MAX MWT_RIGHTMULTIPLY
+#وصف_ڪريو MWT_MIN MWT_سڃاڻپ_عنصر
+#وصف_ڪريو MWT_MAX MWT_RIGHTMULTIPLY
 
-#define _XFORM_
-  typedef struct tagXFORM {
+#وصف_ڪريو _XFORM_
+  تعريفنوع بنية ٽيگ_XFORM {
     FLOAT eM11;
     FLOAT eM12;
     FLOAT eM21;
@@ -424,300 +424,300 @@ extern "C" {
     FLOAT eDy;
   } XFORM,*PXFORM,*LPXFORM;
 
-  typedef struct tagBITMAP {
+  تعريفنوع بنية ٽيگ_BITMAP {
     LONG bmType;
-    LONG bmWidth;
-    LONG bmHeight;
-    LONG bmWidthBytes;
-    WORD bmPlanes;
-    WORD bmBitsPixel;
-    LPVOID bmBits;
+    LONG bm_ويڪر;
+    LONG bm_اوچائي;
+    LONG bm_ويڪر_بائيٽون;
+    لفظ_3 bmPlanes;
+    لفظ_3 bm_بٽ_Pixel;
+    LPVOID bm_بٽ;
   } BITMAP,*PBITMAP,*NPBITMAP,*LPBITMAP;
 
-#include <pshpack1.h>
-  typedef struct tagRGBTRIPLE {
+#ضمن <pshpack1.h>
+  تعريفنوع بنية ٽيگ_RGBTRIPLE {
     BYTE rgbtBlue;
     BYTE rgbtGreen;
     BYTE rgbtRed;
   } RGBTRIPLE;
-#include <poppack.h>
+#ضمن <poppack.h>
 
-  typedef struct tagRGBQUAD {
+  تعريفنوع بنية ٽيگ_RGBQUAD {
     BYTE rgbBlue;
     BYTE rgbGreen;
     BYTE rgbRed;
     BYTE rgbReserved;
   } RGBQUAD;
-  typedef RGBQUAD *LPRGBQUAD;
+  تعريفنوع RGBQUAD *LPRGBQUAD;
 
-#define CS_ENABLE 0x00000001L
-#define CS_DISABLE 0x00000002L
-#define CS_DELETE_TRANSFORM 0x00000003L
+#وصف_ڪريو CS_ENABLE 0x00000001L
+#وصف_ڪريو CS_DISABLE 0x00000002L
+#وصف_ڪريو CS_DELETE_TRANSFORM 0x00000003L
 
 //!__TINYC__: #define LCS_SIGNATURE 'PSOC'
 //!__TINYC__: #define LCS_sRGB 'sRGB'
 //!__TINYC__: #define LCS_WINDOWS_COLOR_SPACE 'Win '
 
-  typedef LONG LCSCSTYPE;
-#define LCS_CALIBRATED_RGB 0x00000000L
+  تعريفنوع LONG LCSCSTYPE;
+#وصف_ڪريو LCS_CALIBRATED_RGB 0x00000000L
 
-  typedef LONG LCSGAMUTMATCH;
-#define LCS_GM_BUSINESS 0x00000001L
-#define LCS_GM_GRAPHICS 0x00000002L
-#define LCS_GM_IMAGES 0x00000004L
-#define LCS_GM_ABS_COLORIMETRIC 0x00000008L
+  تعريفنوع LONG LCSGAMUTMATCH;
+#وصف_ڪريو LCS_GM_BUSINESS 0x00000001L
+#وصف_ڪريو LCS_GM_GRAPHICS 0x00000002L
+#وصف_ڪريو LCS_GM_IMAGES 0x00000004L
+#وصف_ڪريو LCS_GM_ABS_COLORIMETRIC 0x00000008L
 
-#define CM_OUT_OF_GAMUT 255
-#define CM_IN_GAMUT 0
+#وصف_ڪريو CM_ٻاهريون_جو_GAMUT 255
+#وصف_ڪريو CM_اندريون_GAMUT 0
 
-#define ICM_ADDPROFILE 1
-#define ICM_DELETEPROFILE 2
-#define ICM_QUERYPROFILE 3
-#define ICM_SETDEFAULTPROFILE 4
-#define ICM_REGISTERICMATCHER 5
-#define ICM_UNREGISTERICMATCHER 6
-#define ICM_QUERYMATCH 7
+#وصف_ڪريو ICM_ADDPROFILE 1
+#وصف_ڪريو ICM_DELETEPROFILE 2
+#وصف_ڪريو ICM_QUERYPROFILE 3
+#وصف_ڪريو ICM_SETDEFAULTPROFILE 4
+#وصف_ڪريو ICM_REGISTERICMATCHER 5
+#وصف_ڪريو ICM_UNREGISTERICMATCHER 6
+#وصف_ڪريو ICM_QUERYMATCH 7
 
-#define GetKValue(cmyk) ((BYTE)(cmyk))
-#define GetYValue(cmyk) ((BYTE)((cmyk)>> 8))
-#define GetMValue(cmyk) ((BYTE)((cmyk)>>16))
-#define GetCValue(cmyk) ((BYTE)((cmyk)>>24))
+#وصف_ڪريو GetKValue(cmyk) ((BYTE)(cmyk))
+#وصف_ڪريو GetYValue(cmyk) ((BYTE)((cmyk)>> 8))
+#وصف_ڪريو GetMValue(cmyk) ((BYTE)((cmyk)>>16))
+#وصف_ڪريو GetCValue(cmyk) ((BYTE)((cmyk)>>24))
 
-#define CMYK(c,m,y,k) ((COLORREF)((((BYTE)(k)|((WORD)((BYTE)(y))<<8))|(((DWORD)(BYTE)(m))<<16))|(((DWORD)(BYTE)(c))<<24)))
+#وصف_ڪريو CMYK(c,m,y,k) ((COLORREF)((((BYTE)(k)|((لفظ_3)((BYTE)(y))<<8))|(((DWORD)(BYTE)(m))<<16))|(((DWORD)(BYTE)(c))<<24)))
 
-  typedef long FXPT16DOT16,*LPFXPT16DOT16;
-  typedef long FXPT2DOT30,*LPFXPT2DOT30;
+  تعريفنوع ڊگهو FXPT16DOT16,*LPFXPT16DOT16;
+  تعريفنوع ڊگهو FXPT2DOT30,*LPFXPT2DOT30;
 
-  typedef struct tagCIEXYZ {
+  تعريفنوع بنية ٽيگ_CIEXYZ {
     FXPT2DOT30 ciexyzX;
     FXPT2DOT30 ciexyzY;
     FXPT2DOT30 ciexyzZ;
   } CIEXYZ;
-  typedef CIEXYZ *LPCIEXYZ;
+  تعريفنوع CIEXYZ *LPCIEXYZ;
 
-  typedef struct tagICEXYZTRIPLE {
+  تعريفنوع بنية ٽيگ_ICEXYZTRIPLE {
     CIEXYZ ciexyzRed;
     CIEXYZ ciexyzGreen;
     CIEXYZ ciexyzBlue;
   } CIEXYZTRIPLE;
 
-  typedef CIEXYZTRIPLE *LPCIEXYZTRIPLE;
+  تعريفنوع CIEXYZTRIPLE *LPCIEXYZTRIPLE;
 
-  typedef struct tagLOGCOLORSPACEA {
+  تعريفنوع بنية ٽيگ_LOGCOLORSPACEA {
     DWORD lcsSignature;
-    DWORD lcsVersion;
-    DWORD lcsSize;
+    DWORD lcs_نسخو;
+    DWORD lcs_سائيز;
     LCSCSTYPE lcsCSType;
     LCSGAMUTMATCH lcsIntent;
     CIEXYZTRIPLE lcsEndpoints;
     DWORD lcsGammaRed;
     DWORD lcsGammaGreen;
     DWORD lcsGammaBlue;
-    CHAR lcsFilename[MAX_PATH];
+    CHAR lcsFilename[MAX_رستو];
   } LOGCOLORSPACEA,*LPLOGCOLORSPACEA;
 
-  typedef struct tagLOGCOLORSPACEW {
+  تعريفنوع بنية ٽيگ_LOGCOLORSPACEW {
     DWORD lcsSignature;
-    DWORD lcsVersion;
-    DWORD lcsSize;
+    DWORD lcs_نسخو;
+    DWORD lcs_سائيز;
     LCSCSTYPE lcsCSType;
     LCSGAMUTMATCH lcsIntent;
     CIEXYZTRIPLE lcsEndpoints;
     DWORD lcsGammaRed;
     DWORD lcsGammaGreen;
     DWORD lcsGammaBlue;
-    WCHAR lcsFilename[MAX_PATH];
+    WCHAR lcsFilename[MAX_رستو];
   } LOGCOLORSPACEW,*LPLOGCOLORSPACEW;
 
-#ifdef UNICODE
-  typedef LOGCOLORSPACEW LOGCOLORSPACE;
-  typedef LPLOGCOLORSPACEW LPLOGCOLORSPACE;
-#else
-  typedef LOGCOLORSPACEA LOGCOLORSPACE;
-  typedef LPLOGCOLORSPACEA LPLOGCOLORSPACE;
-#endif
+#جيڪڏهن_وصف_ٿيل UNICODE
+  تعريفنوع LOGCOLORSPACEW LOGCOLORSPACE;
+  تعريفنوع LPLOGCOLORSPACEW LPLOGCOLORSPACE;
+#وإلا
+  تعريفنوع LOGCOLORSPACEA LOGCOLORSPACE;
+  تعريفنوع LPLOGCOLORSPACEA LPLOGCOLORSPACE;
+#جيڪڏهن_پورو
 
-  typedef struct tagBITMAPCOREHEADER {
-    DWORD bcSize;
-    WORD bcWidth;
-    WORD bcHeight;
-    WORD bcPlanes;
-    WORD bcBitCount;
+  تعريفنوع بنية ٽيگ_BITMAPCOREHEADER {
+    DWORD bc_سائيز;
+    لفظ_3 bc_ويڪر;
+    لفظ_3 bc_اوچائي;
+    لفظ_3 bcPlanes;
+    لفظ_3 bc_ٻٽو_انگ_ڳڻپ;
   } BITMAPCOREHEADER,*LPBITMAPCOREHEADER,*PBITMAPCOREHEADER;
 
-  typedef struct tagBITMAPINFOHEADER {
-    DWORD biSize;
-    LONG biWidth;
-    LONG biHeight;
-    WORD biPlanes;
-    WORD biBitCount;
+  تعريفنوع بنية ٽيگ_BITMAPINFOHEADER {
+    DWORD bi_سائيز;
+    LONG bi_ويڪر;
+    LONG bi_اوچائي;
+    لفظ_3 biPlanes;
+    لفظ_3 bi_ٻٽو_انگ_ڳڻپ;
     DWORD biCompression;
-    DWORD biSizeImage;
-    LONG biXPelsPerMeter;
-    LONG biYPelsPerMeter;
-    DWORD biClrUsed;
+    DWORD bi_سائيز_Image;
+    LONG bi_XPels_في_Meter;
+    LONG bi_YPels_في_Meter;
+    DWORD bi_Clr_استعمال_ٿيل;
     DWORD biClrImportant;
   } BITMAPINFOHEADER,*LPBITMAPINFOHEADER,*PBITMAPINFOHEADER;
 
-  typedef struct {
-    DWORD bV4Size;
-    LONG bV4Width;
-    LONG bV4Height;
-    WORD bV4Planes;
-    WORD bV4BitCount;
+  تعريفنوع بنية {
+    DWORD b_V4_سائيز;
+    LONG b_V4_ويڪر;
+    LONG b_V4_اوچائي;
+    لفظ_3 bV4Planes;
+    لفظ_3 b_V4_ٻٽو_انگ_ڳڻپ;
     DWORD bV4V4Compression;
-    DWORD bV4SizeImage;
-    LONG bV4XPelsPerMeter;
-    LONG bV4YPelsPerMeter;
-    DWORD bV4ClrUsed;
+    DWORD b_V4_سائيز_Image;
+    LONG b_V4_XPels_في_Meter;
+    LONG b_V4_YPels_في_Meter;
+    DWORD b_V4_Clr_استعمال_ٿيل;
     DWORD bV4ClrImportant;
-    DWORD bV4RedMask;
-    DWORD bV4GreenMask;
-    DWORD bV4BlueMask;
-    DWORD bV4AlphaMask;
+    DWORD b_V4_Red_نقاب;
+    DWORD b_V4_Green_نقاب;
+    DWORD b_V4_Blue_نقاب;
+    DWORD b_V4_Alpha_نقاب;
     DWORD bV4CSType;
     CIEXYZTRIPLE bV4Endpoints;
     DWORD bV4GammaRed;
     DWORD bV4GammaGreen;
     DWORD bV4GammaBlue;
-  } BITMAPV4HEADER,*LPBITMAPV4HEADER,*PBITMAPV4HEADER;
+  } BITMAPV4_سرو,*LPBITMAPV4_سرو,*PBITMAPV4_سرو;
 
-  typedef struct {
-    DWORD bV5Size;
-    LONG bV5Width;
-    LONG bV5Height;
-    WORD bV5Planes;
-    WORD bV5BitCount;
+  تعريفنوع بنية {
+    DWORD b_V5_سائيز;
+    LONG b_V5_ويڪر;
+    LONG b_V5_اوچائي;
+    لفظ_3 bV5Planes;
+    لفظ_3 b_V5_ٻٽو_انگ_ڳڻپ;
     DWORD bV5Compression;
-    DWORD bV5SizeImage;
-    LONG bV5XPelsPerMeter;
-    LONG bV5YPelsPerMeter;
-    DWORD bV5ClrUsed;
+    DWORD b_V5_سائيز_Image;
+    LONG b_V5_XPels_في_Meter;
+    LONG b_V5_YPels_في_Meter;
+    DWORD b_V5_Clr_استعمال_ٿيل;
     DWORD bV5ClrImportant;
-    DWORD bV5RedMask;
-    DWORD bV5GreenMask;
-    DWORD bV5BlueMask;
-    DWORD bV5AlphaMask;
+    DWORD b_V5_Red_نقاب;
+    DWORD b_V5_Green_نقاب;
+    DWORD b_V5_Blue_نقاب;
+    DWORD b_V5_Alpha_نقاب;
     DWORD bV5CSType;
     CIEXYZTRIPLE bV5Endpoints;
     DWORD bV5GammaRed;
     DWORD bV5GammaGreen;
     DWORD bV5GammaBlue;
     DWORD bV5Intent;
-    DWORD bV5ProfileData;
-    DWORD bV5ProfileSize;
+    DWORD b_V5_Profile_معلومات;
+    DWORD b_V5_Profile_سائيز;
     DWORD bV5Reserved;
-  } BITMAPV5HEADER,*LPBITMAPV5HEADER,*PBITMAPV5HEADER;
+  } BITMAPV5_سرو,*LPBITMAPV5_سرو,*PBITMAPV5_سرو;
 
 //!__TINYC__: #define PROFILE_LINKED 'LINK'
 //!__TINYC__: #define PROFILE_EMBEDDED 'MBED'
 
-#define BI_RGB 0L
-#define BI_RLE8 1L
-#define BI_RLE4 2L
-#define BI_BITFIELDS 3L
-#define BI_JPEG 4L
-#define BI_PNG 5L
+#وصف_ڪريو BI_RGB 0L
+#وصف_ڪريو BI_RLE8 1L
+#وصف_ڪريو BI_RLE4 2L
+#وصف_ڪريو BI_BITFIELDS 3L
+#وصف_ڪريو BI_JPEG 4L
+#وصف_ڪريو BI_PNG 5L
 
-  typedef struct tagBITMAPINFO {
-    BITMAPINFOHEADER bmiHeader;
+  تعريفنوع بنية ٽيگ_BITMAPINFO {
+    BITMAPINFOHEADER bmi_سرو;
     RGBQUAD bmiColors[1];
   } BITMAPINFO,*LPBITMAPINFO,*PBITMAPINFO;
 
-  typedef struct tagBITMAPCOREINFO {
-    BITMAPCOREHEADER bmciHeader;
+  تعريفنوع بنية ٽيگ_BITMAPCOREINFO {
+    BITMAPCOREHEADER bmci_سرو;
     RGBTRIPLE bmciColors[1];
   } BITMAPCOREINFO,*LPBITMAPCOREINFO,*PBITMAPCOREINFO;
 
-#include <pshpack2.h>
-  typedef struct tagBITMAPFILEHEADER {
-    WORD bfType;
-    DWORD bfSize;
-    WORD bfReserved1;
-    WORD bfReserved2;
-    DWORD bfOffBits;
+#ضمن <pshpack2.h>
+  تعريفنوع بنية ٽيگ_BITMAPFILEHEADER {
+    لفظ_3 bfType;
+    DWORD bf_سائيز;
+    لفظ_3 bfReserved1;
+    لفظ_3 bfReserved2;
+    DWORD bf_Off_بٽ;
   } BITMAPFILEHEADER,*LPBITMAPFILEHEADER,*PBITMAPFILEHEADER;
-#include <poppack.h>
+#ضمن <poppack.h>
 
-#define MAKEPOINTS(l) (*((POINTS *)&(l)))
+#وصف_ڪريو MAKEPOINTS(l) (*((POINTS *)&(l)))
 
-#ifndef NOFONTSIG
-  typedef struct tagFONTSIGNATURE {
+#جيڪڏهن_وصف_نه_ٿيل NOFONTSIG
+  تعريفنوع بنية ٽيگ_FONTSIGNATURE {
     DWORD fsUsb[4];
     DWORD fsCsb[2];
   } FONTSIGNATURE,*PFONTSIGNATURE,*LPFONTSIGNATURE;
 
-  typedef struct tagCHARSETINFO {
+  تعريفنوع بنية ٽيگ_CHARSETINFO {
     UINT ciCharset;
     UINT ciACP;
     FONTSIGNATURE fs;
   } CHARSETINFO,*PCHARSETINFO,*NPCHARSETINFO,*LPCHARSETINFO;
 
-#define TCI_SRCCHARSET 1
-#define TCI_SRCCODEPAGE 2
-#define TCI_SRCFONTSIG 3
-#define TCI_SRCLOCALE 0x1000
+#وصف_ڪريو TCI_SRCCHARSET 1
+#وصف_ڪريو TCI_SRCCODEPAGE 2
+#وصف_ڪريو TCI_SRCFONTSIG 3
+#وصف_ڪريو TCI_SRCLOCALE 0x1000
 
-  typedef struct tagLOCALESIGNATURE {
+  تعريفنوع بنية ٽيگ_LOCALESIGNATURE {
     DWORD lsUsb[4];
     DWORD lsCsbDefault[2];
     DWORD lsCsbSupported[2];
   } LOCALESIGNATURE,*PLOCALESIGNATURE,*LPLOCALESIGNATURE;
-#endif
+#جيڪڏهن_پورو
 
 
-#ifndef NOMETAFILE
-  typedef struct tagHANDLETABLE {
+#جيڪڏهن_وصف_نه_ٿيل NOMETAFILE
+  تعريفنوع بنية ٽيگ_HANDLETABLE {
     HGDIOBJ objectHandle[1];
   } HANDLETABLE,*PHANDLETABLE,*LPHANDLETABLE;
 
-  typedef struct tagMETARECORD {
-    DWORD rdSize;
-    WORD rdFunction;
-    WORD rdParm[1];
+  تعريفنوع بنية ٽيگ_METARECORD {
+    DWORD rd_سائيز;
+    لفظ_3 rdFunction;
+    لفظ_3 rdParm[1];
   } METARECORD;
-  typedef struct tagMETARECORD UNALIGNED *PMETARECORD;
-  typedef struct tagMETARECORD UNALIGNED *LPMETARECORD;
+  تعريفنوع بنية ٽيگ_METARECORD UNALIGNED *PMETARECORD;
+  تعريفنوع بنية ٽيگ_METARECORD UNALIGNED *LPMETARECORD;
 
-  typedef struct tagMETAFILEPICT {
+  تعريفنوع بنية ٽيگ_METAFILEPICT {
     LONG mm;
     LONG xExt;
     LONG yExt;
     HMETAFILE hMF;
   } METAFILEPICT,*LPMETAFILEPICT;
 
-#include <pshpack2.h>
-  typedef struct tagMETAHEADER {
-    WORD mtType;
-    WORD mtHeaderSize;
-    WORD mtVersion;
-    DWORD mtSize;
-    WORD mtNoObjects;
-    DWORD mtMaxRecord;
-    WORD mtNoParameters;
+#ضمن <pshpack2.h>
+  تعريفنوع بنية ٽيگ_METAHEADER {
+    لفظ_3 mtType;
+    لفظ_3 mt_سرو_سائيز;
+    لفظ_3 mt_نسخو;
+    DWORD mt_سائيز;
+    لفظ_3 mtNoObjects;
+    DWORD mt_Max_رڪارڊ;
+    لفظ_3 mtNoParameters;
   } METAHEADER;
-  typedef struct tagMETAHEADER UNALIGNED *PMETAHEADER;
-  typedef struct tagMETAHEADER UNALIGNED *LPMETAHEADER;
+  تعريفنوع بنية ٽيگ_METAHEADER UNALIGNED *PMETAHEADER;
+  تعريفنوع بنية ٽيگ_METAHEADER UNALIGNED *LPMETAHEADER;
 
-#include <poppack.h>
+#ضمن <poppack.h>
 
-  typedef struct tagENHMETARECORD {
+  تعريفنوع بنية ٽيگ_ENHMETARECORD {
     DWORD iType;
-    DWORD nSize;
+    DWORD n_سائيز;
     DWORD dParm[1];
   } ENHMETARECORD,*PENHMETARECORD,*LPENHMETARECORD;
 
-  typedef struct tagENHMETAHEADER {
+  تعريفنوع بنية ٽيگ_ENHMETAHEADER {
     DWORD iType;
-    DWORD nSize;
+    DWORD n_سائيز;
     RECTL rclBounds;
-    RECTL rclFrame;
+    RECTL rcl_چوکٺو;
     DWORD dSignature;
-    DWORD nVersion;
-    DWORD nBytes;
-    DWORD nRecords;
-    WORD nHandles;
-    WORD sReserved;
+    DWORD n_نسخو;
+    DWORD n_بائيٽون;
+    DWORD n_رڪارڊون;
+    لفظ_3 nHandles;
+    لفظ_3 sReserved;
     DWORD nDescription;
     DWORD offDescription;
     DWORD nPalEntries;
@@ -728,175 +728,175 @@ extern "C" {
     DWORD bOpenGL;
     SIZEL szlMicrometers;
   } ENHMETAHEADER,*PENHMETAHEADER,*LPENHMETAHEADER;
-#endif
+#جيڪڏهن_پورو
 
-#ifndef NOTEXTMETRIC
-#define TMPF_FIXED_PITCH 0x01
-#define TMPF_VECTOR 0x02
-#define TMPF_DEVICE 0x08
-#define TMPF_TRUETYPE 0x04
+#جيڪڏهن_وصف_نه_ٿيل NOTEXTMETRIC
+#وصف_ڪريو TMPF_FIXED_PITCH 0x01
+#وصف_ڪريو TMPF_ويڪٽر 0x02
+#وصف_ڪريو TMPF_DEVICE 0x08
+#وصف_ڪريو TMPF_TRUETYPE 0x04
 
-#ifdef UNICODE
-  typedef WCHAR BCHAR;
-#else
-  typedef BYTE BCHAR;
-#endif
+#جيڪڏهن_وصف_ٿيل UNICODE
+  تعريفنوع WCHAR BCHAR;
+#وإلا
+  تعريفنوع BYTE BCHAR;
+#جيڪڏهن_پورو
 
-#ifndef _TEXTMETRIC_DEFINED
-#define _TEXTMETRIC_DEFINED
-  typedef struct tagTEXTMETRICA {
-    LONG tmHeight;
+#جيڪڏهن_وصف_نه_ٿيل _TEXTMETRIC_DEFINED
+#وصف_ڪريو _TEXTMETRIC_DEFINED
+  تعريفنوع بنية ٽيگ_TEXTMETRICA {
+    LONG tm_اوچائي;
     LONG tmAscent;
     LONG tmDescent;
-    LONG tmInternalLeading;
+    LONG tm_اندروني_Leading;
     LONG tmExternalLeading;
-    LONG tmAveCharWidth;
-    LONG tmMaxCharWidth;
-    LONG tmWeight;
+    LONG tm_Ave_Char_ويڪر;
+    LONG tm_Max_Char_ويڪر;
+    LONG tm_وزن;
     LONG tmOverhang;
     LONG tmDigitizedAspectX;
     LONG tmDigitizedAspectY;
-    BYTE tmFirstChar;
-    BYTE tmLastChar;
+    BYTE tm_پهريون_Char;
+    BYTE tm_آخري_Char;
     BYTE tmDefaultChar;
     BYTE tmBreakChar;
     BYTE tmItalic;
     BYTE tmUnderlined;
-    BYTE tmStruckOut;
+    BYTE tm_Struck_ٻاهريون;
     BYTE tmPitchAndFamily;
-    BYTE tmCharSet;
+    BYTE tm_Char_سيٽ;
   } TEXTMETRICA,*PTEXTMETRICA,*NPTEXTMETRICA,*LPTEXTMETRICA;
 
-  typedef struct tagTEXTMETRICW {
-    LONG tmHeight;
+  تعريفنوع بنية ٽيگ_TEXTMETRICW {
+    LONG tm_اوچائي;
     LONG tmAscent;
     LONG tmDescent;
-    LONG tmInternalLeading;
+    LONG tm_اندروني_Leading;
     LONG tmExternalLeading;
-    LONG tmAveCharWidth;
-    LONG tmMaxCharWidth;
-    LONG tmWeight;
+    LONG tm_Ave_Char_ويڪر;
+    LONG tm_Max_Char_ويڪر;
+    LONG tm_وزن;
     LONG tmOverhang;
     LONG tmDigitizedAspectX;
     LONG tmDigitizedAspectY;
-    WCHAR tmFirstChar;
-    WCHAR tmLastChar;
+    WCHAR tm_پهريون_Char;
+    WCHAR tm_آخري_Char;
     WCHAR tmDefaultChar;
     WCHAR tmBreakChar;
     BYTE tmItalic;
     BYTE tmUnderlined;
-    BYTE tmStruckOut;
+    BYTE tm_Struck_ٻاهريون;
     BYTE tmPitchAndFamily;
-    BYTE tmCharSet;
+    BYTE tm_Char_سيٽ;
   } TEXTMETRICW,*PTEXTMETRICW,*NPTEXTMETRICW,*LPTEXTMETRICW;
-#ifdef UNICODE
-  typedef TEXTMETRICW TEXTMETRIC;
-  typedef PTEXTMETRICW PTEXTMETRIC;
-  typedef NPTEXTMETRICW NPTEXTMETRIC;
-  typedef LPTEXTMETRICW LPTEXTMETRIC;
-#else
-  typedef TEXTMETRICA TEXTMETRIC;
-  typedef PTEXTMETRICA PTEXTMETRIC;
-  typedef NPTEXTMETRICA NPTEXTMETRIC;
-  typedef LPTEXTMETRICA LPTEXTMETRIC;
-#endif
-#endif
+#جيڪڏهن_وصف_ٿيل UNICODE
+  تعريفنوع TEXTMETRICW TEXTMETRIC;
+  تعريفنوع PTEXTMETRICW PTEXTMETRIC;
+  تعريفنوع NPTEXTMETRICW NPTEXTMETRIC;
+  تعريفنوع LPTEXTMETRICW LPTEXTMETRIC;
+#وإلا
+  تعريفنوع TEXTMETRICA TEXTMETRIC;
+  تعريفنوع PTEXTMETRICA PTEXTMETRIC;
+  تعريفنوع NPTEXTMETRICA NPTEXTMETRIC;
+  تعريفنوع LPTEXTMETRICA LPTEXTMETRIC;
+#جيڪڏهن_پورو
+#جيڪڏهن_پورو
 
-#define NTM_REGULAR 0x00000040L
-#define NTM_BOLD 0x00000020L
-#define NTM_ITALIC 0x00000001L
+#وصف_ڪريو NTM_REGULAR 0x00000040L
+#وصف_ڪريو NTM_BOLD 0x00000020L
+#وصف_ڪريو NTM_ITALIC 0x00000001L
 
-#define NTM_NONNEGATIVE_AC 0x00010000
-#define NTM_PS_OPENTYPE 0x00020000
-#define NTM_TT_OPENTYPE 0x00040000
-#define NTM_MULTIPLEMASTER 0x00080000
-#define NTM_TYPE1 0x00100000
-#define NTM_DSIG 0x00200000
+#وصف_ڪريو NTM_NONNEGATIVE_AC 0x00010000
+#وصف_ڪريو NTM_PS_OPENTYPE 0x00020000
+#وصف_ڪريو NTM_TT_OPENTYPE 0x00040000
+#وصف_ڪريو NTM_MULTIPLEMASTER 0x00080000
+#وصف_ڪريو NTM_TYPE1 0x00100000
+#وصف_ڪريو NTM_DSIG 0x00200000
 
-#include <pshpack4.h>
-  typedef struct tagNEWTEXTMETRICA {
-    LONG tmHeight;
+#ضمن <pshpack4.h>
+  تعريفنوع بنية ٽيگ_NEWTEXTMETRICA {
+    LONG tm_اوچائي;
     LONG tmAscent;
     LONG tmDescent;
-    LONG tmInternalLeading;
+    LONG tm_اندروني_Leading;
     LONG tmExternalLeading;
-    LONG tmAveCharWidth;
-    LONG tmMaxCharWidth;
-    LONG tmWeight;
+    LONG tm_Ave_Char_ويڪر;
+    LONG tm_Max_Char_ويڪر;
+    LONG tm_وزن;
     LONG tmOverhang;
     LONG tmDigitizedAspectX;
     LONG tmDigitizedAspectY;
-    BYTE tmFirstChar;
-    BYTE tmLastChar;
+    BYTE tm_پهريون_Char;
+    BYTE tm_آخري_Char;
     BYTE tmDefaultChar;
     BYTE tmBreakChar;
     BYTE tmItalic;
     BYTE tmUnderlined;
-    BYTE tmStruckOut;
+    BYTE tm_Struck_ٻاهريون;
     BYTE tmPitchAndFamily;
-    BYTE tmCharSet;
+    BYTE tm_Char_سيٽ;
     DWORD ntmFlags;
-    UINT ntmSizeEM;
-    UINT ntmCellHeight;
-    UINT ntmAvgWidth;
+    UINT ntm_سائيز_EM;
+    UINT ntm_Cell_اوچائي;
+    UINT ntm_Avg_ويڪر;
   } NEWTEXTMETRICA,*PNEWTEXTMETRICA,*NPNEWTEXTMETRICA,*LPNEWTEXTMETRICA;
 
-  typedef struct tagNEWTEXTMETRICW {
-    LONG tmHeight;
+  تعريفنوع بنية ٽيگ_NEWTEXTMETRICW {
+    LONG tm_اوچائي;
     LONG tmAscent;
     LONG tmDescent;
-    LONG tmInternalLeading;
+    LONG tm_اندروني_Leading;
     LONG tmExternalLeading;
-    LONG tmAveCharWidth;
-    LONG tmMaxCharWidth;
-    LONG tmWeight;
+    LONG tm_Ave_Char_ويڪر;
+    LONG tm_Max_Char_ويڪر;
+    LONG tm_وزن;
     LONG tmOverhang;
     LONG tmDigitizedAspectX;
     LONG tmDigitizedAspectY;
-    WCHAR tmFirstChar;
-    WCHAR tmLastChar;
+    WCHAR tm_پهريون_Char;
+    WCHAR tm_آخري_Char;
     WCHAR tmDefaultChar;
     WCHAR tmBreakChar;
     BYTE tmItalic;
     BYTE tmUnderlined;
-    BYTE tmStruckOut;
+    BYTE tm_Struck_ٻاهريون;
     BYTE tmPitchAndFamily;
-    BYTE tmCharSet;
+    BYTE tm_Char_سيٽ;
     DWORD ntmFlags;
-    UINT ntmSizeEM;
-    UINT ntmCellHeight;
-    UINT ntmAvgWidth;
+    UINT ntm_سائيز_EM;
+    UINT ntm_Cell_اوچائي;
+    UINT ntm_Avg_ويڪر;
   } NEWTEXTMETRICW,*PNEWTEXTMETRICW,*NPNEWTEXTMETRICW,*LPNEWTEXTMETRICW;
-#ifdef UNICODE
-  typedef NEWTEXTMETRICW NEWTEXTMETRIC;
-  typedef PNEWTEXTMETRICW PNEWTEXTMETRIC;
-  typedef NPNEWTEXTMETRICW NPNEWTEXTMETRIC;
-  typedef LPNEWTEXTMETRICW LPNEWTEXTMETRIC;
-#else
-  typedef NEWTEXTMETRICA NEWTEXTMETRIC;
-  typedef PNEWTEXTMETRICA PNEWTEXTMETRIC;
-  typedef NPNEWTEXTMETRICA NPNEWTEXTMETRIC;
-  typedef LPNEWTEXTMETRICA LPNEWTEXTMETRIC;
-#endif
-#include <poppack.h>
+#جيڪڏهن_وصف_ٿيل UNICODE
+  تعريفنوع NEWTEXTMETRICW NEWTEXTMETRIC;
+  تعريفنوع PNEWTEXTMETRICW PNEWTEXTMETRIC;
+  تعريفنوع NPNEWTEXTMETRICW NPNEWTEXTMETRIC;
+  تعريفنوع LPNEWTEXTMETRICW LPNEWTEXTMETRIC;
+#وإلا
+  تعريفنوع NEWTEXTMETRICA NEWTEXTMETRIC;
+  تعريفنوع PNEWTEXTMETRICA PNEWTEXTMETRIC;
+  تعريفنوع NPNEWTEXTMETRICA NPNEWTEXTMETRIC;
+  تعريفنوع LPNEWTEXTMETRICA LPNEWTEXTMETRIC;
+#جيڪڏهن_پورو
+#ضمن <poppack.h>
 
-  typedef struct tagNEWTEXTMETRICEXA {
+  تعريفنوع بنية ٽيگ_NEWTEXTMETRICEXA {
     NEWTEXTMETRICA ntmTm;
     FONTSIGNATURE ntmFontSig;
   } NEWTEXTMETRICEXA;
 
-  typedef struct tagNEWTEXTMETRICEXW {
+  تعريفنوع بنية ٽيگ_NEWTEXTMETRICEXW {
     NEWTEXTMETRICW ntmTm;
     FONTSIGNATURE ntmFontSig;
   } NEWTEXTMETRICEXW;
-#ifdef UNICODE
-  typedef NEWTEXTMETRICEXW NEWTEXTMETRICEX;
-#else
-  typedef NEWTEXTMETRICEXA NEWTEXTMETRICEX;
-#endif
-#endif
+#جيڪڏهن_وصف_ٿيل UNICODE
+  تعريفنوع NEWTEXTMETRICEXW NEWTEXTMETRICEX;
+#وإلا
+  تعريفنوع NEWTEXTMETRICEXA NEWTEXTMETRICEX;
+#جيڪڏهن_پورو
+#جيڪڏهن_پورو
 
-  typedef struct tagPELARRAY {
+  تعريفنوع بنية ٽيگ_PELARRAY {
     LONG paXCount;
     LONG paYCount;
     LONG paXExt;
@@ -904,267 +904,267 @@ extern "C" {
     BYTE paRGBs;
   } PELARRAY,*PPELARRAY,*NPPELARRAY,*LPPELARRAY;
 
-  typedef struct tagLOGBRUSH {
+  تعريفنوع بنية ٽيگ_LOGBRUSH {
     UINT lbStyle;
     COLORREF lbColor;
     ULONG_PTR lbHatch;
   } LOGBRUSH,*PLOGBRUSH,*NPLOGBRUSH,*LPLOGBRUSH;
 
-  typedef struct tagLOGBRUSH32 {
+  تعريفنوع بنية ٽيگ_LOGBRUSH32 {
     UINT lbStyle;
     COLORREF lbColor;
     ULONG lbHatch;
   } LOGBRUSH32,*PLOGBRUSH32,*NPLOGBRUSH32,*LPLOGBRUSH32;
 
-  typedef LOGBRUSH PATTERN;
-  typedef PATTERN *PPATTERN;
-  typedef PATTERN *NPPATTERN;
-  typedef PATTERN *LPPATTERN;
+  تعريفنوع LOGBRUSH نمونو_2;
+  تعريفنوع نمونو_2 *PPATTERN;
+  تعريفنوع نمونو_2 *NPPATTERN;
+  تعريفنوع نمونو_2 *LPPATTERN;
 
-  typedef struct tagLOGPEN {
+  تعريفنوع بنية ٽيگ_LOGPEN {
     UINT lopnStyle;
-    POINT lopnWidth;
+    نقطو_3 lopn_ويڪر;
     COLORREF lopnColor;
   } LOGPEN,*PLOGPEN,*NPLOGPEN,*LPLOGPEN;
 
-  typedef struct tagEXTLOGPEN {
+  تعريفنوع بنية ٽيگ_EXTLOGPEN {
     DWORD elpPenStyle;
-    DWORD elpWidth;
+    DWORD elp_ويڪر;
     UINT elpBrushStyle;
     COLORREF elpColor;
     ULONG_PTR elpHatch;
-    DWORD elpNumEntries;
-    DWORD elpStyleEntry[1];
+    DWORD elp_انگ_Entries;
+    DWORD elp_Style_داخلا[1];
   } EXTLOGPEN,*PEXTLOGPEN,*NPEXTLOGPEN,*LPEXTLOGPEN;
 
-#ifndef _PALETTEENTRY_DEFINED
-#define _PALETTEENTRY_DEFINED
-  typedef struct tagPALETTEENTRY {
+#جيڪڏهن_وصف_نه_ٿيل _PALETTEENTRY_DEFINED
+#وصف_ڪريو _PALETTEENTRY_DEFINED
+  تعريفنوع بنية ٽيگ_PALETTEENTRY {
     BYTE peRed;
     BYTE peGreen;
     BYTE peBlue;
     BYTE peFlags;
   } PALETTEENTRY,*PPALETTEENTRY,*LPPALETTEENTRY;
-#endif
+#جيڪڏهن_پورو
 
-#ifndef _LOGPALETTE_DEFINED
-#define _LOGPALETTE_DEFINED
+#جيڪڏهن_وصف_نه_ٿيل _LOGPALETTE_DEFINED
+#وصف_ڪريو _LOGPALETTE_DEFINED
 
-  typedef struct tagLOGPALETTE {
-    WORD palVersion;
-    WORD palNumEntries;
-    PALETTEENTRY palPalEntry[1];
+  تعريفنوع بنية ٽيگ_LOGPALETTE {
+    لفظ_3 pal_نسخو;
+    لفظ_3 pal_انگ_Entries;
+    PALETTEENTRY pal_Pal_داخلا[1];
   } LOGPALETTE,*PLOGPALETTE,*NPLOGPALETTE,*LPLOGPALETTE;
-#endif
+#جيڪڏهن_پورو
 
-#define LF_FACESIZE 32
+#وصف_ڪريو LF_FACESIZE 32
 
-  typedef struct tagLOGFONTA {
-    LONG lfHeight;
-    LONG lfWidth;
+  تعريفنوع بنية ٽيگ_LOGFONTA {
+    LONG lf_اوچائي;
+    LONG lf_ويڪر;
     LONG lfEscapement;
     LONG lfOrientation;
-    LONG lfWeight;
+    LONG lf_وزن;
     BYTE lfItalic;
     BYTE lfUnderline;
-    BYTE lfStrikeOut;
-    BYTE lfCharSet;
-    BYTE lfOutPrecision;
+    BYTE lf_Strike_ٻاهريون;
+    BYTE lf_Char_سيٽ;
+    BYTE lf_ٻاهريون_Precision;
     BYTE lfClipPrecision;
     BYTE lfQuality;
     BYTE lfPitchAndFamily;
     CHAR lfFaceName[LF_FACESIZE];
   } LOGFONTA,*PLOGFONTA,*NPLOGFONTA,*LPLOGFONTA;
 
-  typedef struct tagLOGFONTW {
-    LONG lfHeight;
-    LONG lfWidth;
+  تعريفنوع بنية ٽيگ_LOGFONTW {
+    LONG lf_اوچائي;
+    LONG lf_ويڪر;
     LONG lfEscapement;
     LONG lfOrientation;
-    LONG lfWeight;
+    LONG lf_وزن;
     BYTE lfItalic;
     BYTE lfUnderline;
-    BYTE lfStrikeOut;
-    BYTE lfCharSet;
-    BYTE lfOutPrecision;
+    BYTE lf_Strike_ٻاهريون;
+    BYTE lf_Char_سيٽ;
+    BYTE lf_ٻاهريون_Precision;
     BYTE lfClipPrecision;
     BYTE lfQuality;
     BYTE lfPitchAndFamily;
     WCHAR lfFaceName[LF_FACESIZE];
   } LOGFONTW,*PLOGFONTW,*NPLOGFONTW,*LPLOGFONTW;
-#ifdef UNICODE
-  typedef LOGFONTW LOGFONT;
-  typedef PLOGFONTW PLOGFONT;
-  typedef NPLOGFONTW NPLOGFONT;
-  typedef LPLOGFONTW LPLOGFONT;
-#else
-  typedef LOGFONTA LOGFONT;
-  typedef PLOGFONTA PLOGFONT;
-  typedef NPLOGFONTA NPLOGFONT;
-  typedef LPLOGFONTA LPLOGFONT;
-#endif
+#جيڪڏهن_وصف_ٿيل UNICODE
+  تعريفنوع LOGFONTW LOGFONT;
+  تعريفنوع PLOGFONTW PLOGFONT;
+  تعريفنوع NPLOGFONTW NPLOGFONT;
+  تعريفنوع LPLOGFONTW LPLOGFONT;
+#وإلا
+  تعريفنوع LOGFONTA LOGFONT;
+  تعريفنوع PLOGFONTA PLOGFONT;
+  تعريفنوع NPLOGFONTA NPLOGFONT;
+  تعريفنوع LPLOGFONTA LPLOGFONT;
+#جيڪڏهن_پورو
 
-#define LF_FULLFACESIZE 64
+#وصف_ڪريو LF_FULLFACESIZE 64
 
-  typedef struct tagENUMLOGFONTA {
+  تعريفنوع بنية ٽيگ_ENUMLOGFONTA {
     LOGFONTA elfLogFont;
-    BYTE elfFullName[LF_FULLFACESIZE];
+    BYTE elf_ڀريل_Name[LF_FULLFACESIZE];
     BYTE elfStyle[LF_FACESIZE];
   } ENUMLOGFONTA,*LPENUMLOGFONTA;
 
-  typedef struct tagENUMLOGFONTW {
+  تعريفنوع بنية ٽيگ_ENUMLOGFONTW {
     LOGFONTW elfLogFont;
-    WCHAR elfFullName[LF_FULLFACESIZE];
+    WCHAR elf_ڀريل_Name[LF_FULLFACESIZE];
     WCHAR elfStyle[LF_FACESIZE];
   } ENUMLOGFONTW,*LPENUMLOGFONTW;
-#ifdef UNICODE
-  typedef ENUMLOGFONTW ENUMLOGFONT;
-  typedef LPENUMLOGFONTW LPENUMLOGFONT;
-#else
-  typedef ENUMLOGFONTA ENUMLOGFONT;
-  typedef LPENUMLOGFONTA LPENUMLOGFONT;
-#endif
+#جيڪڏهن_وصف_ٿيل UNICODE
+  تعريفنوع ENUMLOGFONTW ENUMLOGFONT;
+  تعريفنوع LPENUMLOGFONTW LPENUMLOGFONT;
+#وإلا
+  تعريفنوع ENUMLOGFONTA ENUMLOGFONT;
+  تعريفنوع LPENUMLOGFONTA LPENUMLOGFONT;
+#جيڪڏهن_پورو
 
-  typedef struct tagENUMLOGFONTEXA {
+  تعريفنوع بنية ٽيگ_ENUMLOGFONTEXA {
     LOGFONTA elfLogFont;
-    BYTE elfFullName[LF_FULLFACESIZE];
+    BYTE elf_ڀريل_Name[LF_FULLFACESIZE];
     BYTE elfStyle[LF_FACESIZE];
     BYTE elfScript[LF_FACESIZE];
   } ENUMLOGFONTEXA,*LPENUMLOGFONTEXA;
 
-  typedef struct tagENUMLOGFONTEXW {
+  تعريفنوع بنية ٽيگ_ENUMLOGFONTEXW {
     LOGFONTW elfLogFont;
-    WCHAR elfFullName[LF_FULLFACESIZE];
+    WCHAR elf_ڀريل_Name[LF_FULLFACESIZE];
     WCHAR elfStyle[LF_FACESIZE];
     WCHAR elfScript[LF_FACESIZE];
   } ENUMLOGFONTEXW,*LPENUMLOGFONTEXW;
-#ifdef UNICODE
-  typedef ENUMLOGFONTEXW ENUMLOGFONTEX;
-  typedef LPENUMLOGFONTEXW LPENUMLOGFONTEX;
-#else
-  typedef ENUMLOGFONTEXA ENUMLOGFONTEX;
-  typedef LPENUMLOGFONTEXA LPENUMLOGFONTEX;
-#endif
+#جيڪڏهن_وصف_ٿيل UNICODE
+  تعريفنوع ENUMLOGFONTEXW ENUMLOGFONTEX;
+  تعريفنوع LPENUMLOGFONTEXW LPENUMLOGFONTEX;
+#وإلا
+  تعريفنوع ENUMLOGFONTEXA ENUMLOGFONTEX;
+  تعريفنوع LPENUMLOGFONTEXA LPENUMLOGFONTEX;
+#جيڪڏهن_پورو
 
-#define OUT_DEFAULT_PRECIS 0
-#define OUT_STRING_PRECIS 1
-#define OUT_CHARACTER_PRECIS 2
-#define OUT_STROKE_PRECIS 3
-#define OUT_TT_PRECIS 4
-#define OUT_DEVICE_PRECIS 5
-#define OUT_RASTER_PRECIS 6
-#define OUT_TT_ONLY_PRECIS 7
-#define OUT_OUTLINE_PRECIS 8
-#define OUT_SCREEN_OUTLINE_PRECIS 9
-#define OUT_PS_ONLY_PRECIS 10
+#وصف_ڪريو ٻاهريون_DEFAULT_PRECIS 0
+#وصف_ڪريو ٻاهريون_STRING_PRECIS 1
+#وصف_ڪريو ٻاهريون_CHARACTER_PRECIS 2
+#وصف_ڪريو ٻاهريون_STROKE_PRECIS 3
+#وصف_ڪريو ٻاهريون_TT_PRECIS 4
+#وصف_ڪريو ٻاهريون_DEVICE_PRECIS 5
+#وصف_ڪريو ٻاهريون_RASTER_PRECIS 6
+#وصف_ڪريو ٻاهريون_TT_ONLY_PRECIS 7
+#وصف_ڪريو ٻاهريون_OUTLINE_PRECIS 8
+#وصف_ڪريو ٻاهريون_SCREEN_OUTLINE_PRECIS 9
+#وصف_ڪريو ٻاهريون_PS_ONLY_PRECIS 10
 
-#define CLIP_DEFAULT_PRECIS 0
-#define CLIP_CHARACTER_PRECIS 1
-#define CLIP_STROKE_PRECIS 2
-#define CLIP_MASK 0xf
-#define CLIP_LH_ANGLES (1<<4)
-#define CLIP_TT_ALWAYS (2<<4)
-#define CLIP_DFA_DISABLE (4<<4)
-#define CLIP_EMBEDDED (8<<4)
+#وصف_ڪريو CLIP_DEFAULT_PRECIS 0
+#وصف_ڪريو CLIP_CHARACTER_PRECIS 1
+#وصف_ڪريو CLIP_STROKE_PRECIS 2
+#وصف_ڪريو CLIP_نقاب 0xf
+#وصف_ڪريو CLIP_LH_ANGLES (1<<4)
+#وصف_ڪريو CLIP_TT_ALWAYS (2<<4)
+#وصف_ڪريو CLIP_DFA_DISABLE (4<<4)
+#وصف_ڪريو CLIP_EMBEDDED (8<<4)
 
-#define DEFAULT_QUALITY 0
-#define DRAFT_QUALITY 1
-#define PROOF_QUALITY 2
-#define NONANTIALIASED_QUALITY 3
-#define ANTIALIASED_QUALITY 4
+#وصف_ڪريو DEFAULT_QUALITY 0
+#وصف_ڪريو DRAFT_QUALITY 1
+#وصف_ڪريو PROOF_QUALITY 2
+#وصف_ڪريو NONANTIALIASED_QUALITY 3
+#وصف_ڪريو ANTIALIASED_QUALITY 4
 
-#define CLEARTYPE_QUALITY 5
-#define CLEARTYPE_NATURAL_QUALITY 6
+#وصف_ڪريو CLEARTYPE_QUALITY 5
+#وصف_ڪريو CLEARTYPE_NATURAL_QUALITY 6
 
-#define DEFAULT_PITCH 0
-#define FIXED_PITCH 1
-#define VARIABLE_PITCH 2
-#define MONO_FONT 8
+#وصف_ڪريو DEFAULT_PITCH 0
+#وصف_ڪريو FIXED_PITCH 1
+#وصف_ڪريو VARIABLE_PITCH 2
+#وصف_ڪريو MONO_FONT 8
 
-#define ANSI_CHARSET 0
-#define DEFAULT_CHARSET 1
-#define SYMBOL_CHARSET 2
-#define SHIFTJIS_CHARSET 128
-#define HANGEUL_CHARSET 129
-#define HANGUL_CHARSET 129
-#define GB2312_CHARSET 134
-#define CHINESEBIG5_CHARSET 136
-#define OEM_CHARSET 255
-#define JOHAB_CHARSET 130
-#define HEBREW_CHARSET 177
-#define ARABIC_CHARSET 178
-#define GREEK_CHARSET 161
-#define TURKISH_CHARSET 162
-#define VIETNAMESE_CHARSET 163
-#define THAI_CHARSET 222
-#define EASTEUROPE_CHARSET 238
-#define RUSSIAN_CHARSET 204
+#وصف_ڪريو ANSI_CHARSET 0
+#وصف_ڪريو DEFAULT_CHARSET 1
+#وصف_ڪريو نشان_CHARSET 2
+#وصف_ڪريو SHIFTJIS_CHARSET 128
+#وصف_ڪريو HANGEUL_CHARSET 129
+#وصف_ڪريو HANGUL_CHARSET 129
+#وصف_ڪريو GB2312_CHARSET 134
+#وصف_ڪريو CHINESEBIG5_CHARSET 136
+#وصف_ڪريو OEM_CHARSET 255
+#وصف_ڪريو JOHAB_CHARSET 130
+#وصف_ڪريو HEBREW_CHARSET 177
+#وصف_ڪريو ARABIC_CHARSET 178
+#وصف_ڪريو GREEK_CHARSET 161
+#وصف_ڪريو TURKISH_CHARSET 162
+#وصف_ڪريو VIETNAMESE_CHARSET 163
+#وصف_ڪريو THAI_CHARSET 222
+#وصف_ڪريو EASTEUROPE_CHARSET 238
+#وصف_ڪريو RUSSIAN_CHARSET 204
 
-#define MAC_CHARSET 77
-#define BALTIC_CHARSET 186
+#وصف_ڪريو MAC_CHARSET 77
+#وصف_ڪريو BALTIC_CHARSET 186
 
-#define FS_LATIN1 0x00000001L
-#define FS_LATIN2 0x00000002L
-#define FS_CYRILLIC 0x00000004L
-#define FS_GREEK 0x00000008L
-#define FS_TURKISH 0x00000010L
-#define FS_HEBREW 0x00000020L
-#define FS_ARABIC 0x00000040L
-#define FS_BALTIC 0x00000080L
-#define FS_VIETNAMESE 0x00000100L
-#define FS_THAI 0x00010000L
-#define FS_JISJAPAN 0x00020000L
-#define FS_CHINESESIMP 0x00040000L
-#define FS_WANSUNG 0x00080000L
-#define FS_CHINESETRAD 0x00100000L
-#define FS_JOHAB 0x00200000L
-#define FS_SYMBOL 0x80000000L
+#وصف_ڪريو FS_LATIN1 0x00000001L
+#وصف_ڪريو FS_LATIN2 0x00000002L
+#وصف_ڪريو FS_CYRILLIC 0x00000004L
+#وصف_ڪريو FS_GREEK 0x00000008L
+#وصف_ڪريو FS_TURKISH 0x00000010L
+#وصف_ڪريو FS_HEBREW 0x00000020L
+#وصف_ڪريو FS_ARABIC 0x00000040L
+#وصف_ڪريو FS_BALTIC 0x00000080L
+#وصف_ڪريو FS_VIETNAMESE 0x00000100L
+#وصف_ڪريو FS_THAI 0x00010000L
+#وصف_ڪريو FS_JISJAPAN 0x00020000L
+#وصف_ڪريو FS_CHINESESIMP 0x00040000L
+#وصف_ڪريو FS_WANSUNG 0x00080000L
+#وصف_ڪريو FS_CHINESETRAD 0x00100000L
+#وصف_ڪريو FS_JOHAB 0x00200000L
+#وصف_ڪريو FS_نشان 0x80000000L
 
-#define FF_DONTCARE (0<<4)
-#define FF_ROMAN (1<<4)
+#وصف_ڪريو FF_DONTCARE (0<<4)
+#وصف_ڪريو FF_ROMAN (1<<4)
 
-#define FF_SWISS (2<<4)
+#وصف_ڪريو FF_SWISS (2<<4)
 
-#define FF_MODERN (3<<4)
+#وصف_ڪريو FF_MODERN (3<<4)
 
-#define FF_SCRIPT (4<<4)
-#define FF_DECORATIVE (5<<4)
+#وصف_ڪريو FF_SCRIPT (4<<4)
+#وصف_ڪريو FF_DECORATIVE (5<<4)
 
-#define FW_DONTCARE 0
-#define FW_THIN 100
-#define FW_EXTRALIGHT 200
-#define FW_LIGHT 300
-#define FW_NORMAL 400
-#define FW_MEDIUM 500
-#define FW_SEMIBOLD 600
-#define FW_BOLD 700
-#define FW_EXTRABOLD 800
-#define FW_HEAVY 900
+#وصف_ڪريو FW_DONTCARE 0
+#وصف_ڪريو FW_THIN 100
+#وصف_ڪريو FW_EXTRALIGHT 200
+#وصف_ڪريو FW_LIGHT 300
+#وصف_ڪريو FW_عام 400
+#وصف_ڪريو FW_MEDIUM 500
+#وصف_ڪريو FW_SEMIBOLD 600
+#وصف_ڪريو FW_BOLD 700
+#وصف_ڪريو FW_EXTRABOLD 800
+#وصف_ڪريو FW_HEAVY 900
 
-#define FW_ULTRALIGHT FW_EXTRALIGHT
-#define FW_REGULAR FW_NORMAL
-#define FW_DEMIBOLD FW_SEMIBOLD
-#define FW_ULTRABOLD FW_EXTRABOLD
-#define FW_BLACK FW_HEAVY
+#وصف_ڪريو FW_ULTRALIGHT FW_EXTRALIGHT
+#وصف_ڪريو FW_REGULAR FW_عام
+#وصف_ڪريو FW_DEMIBOLD FW_SEMIBOLD
+#وصف_ڪريو FW_ULTRABOLD FW_EXTRABOLD
+#وصف_ڪريو FW_BLACK FW_HEAVY
 
-#define PANOSE_COUNT 10
-#define PAN_FAMILYTYPE_INDEX 0
-#define PAN_SERIFSTYLE_INDEX 1
-#define PAN_WEIGHT_INDEX 2
-#define PAN_PROPORTION_INDEX 3
-#define PAN_CONTRAST_INDEX 4
-#define PAN_STROKEVARIATION_INDEX 5
-#define PAN_ARMSTYLE_INDEX 6
-#define PAN_LETTERFORM_INDEX 7
-#define PAN_MIDLINE_INDEX 8
-#define PAN_XHEIGHT_INDEX 9
+#وصف_ڪريو PANOSE_ڳڻپ 10
+#وصف_ڪريو PAN_FAMILYTYPE_اشاريو 0
+#وصف_ڪريو PAN_SERIFSTYLE_اشاريو 1
+#وصف_ڪريو PAN_وزن_اشاريو 2
+#وصف_ڪريو PAN_PROPORTION_اشاريو 3
+#وصف_ڪريو PAN_CONTRAST_اشاريو 4
+#وصف_ڪريو PAN_STROKEVARIATION_اشاريو 5
+#وصف_ڪريو PAN_ARMSTYLE_اشاريو 6
+#وصف_ڪريو PAN_LETTERFORM_اشاريو 7
+#وصف_ڪريو PAN_MIDLINE_اشاريو 8
+#وصف_ڪريو PAN_XHEIGHT_اشاريو 9
 
-#define PAN_CULTURE_LATIN 0
+#وصف_ڪريو PAN_CULTURE_LATIN 0
 
-  typedef struct tagPANOSE {
+  تعريفنوع بنية ٽيگ_PANOSE {
     BYTE bFamilyType;
     BYTE bSerifStyle;
-    BYTE bWeight;
+    BYTE b_وزن;
     BYTE bProportion;
     BYTE bContrast;
     BYTE bStrokeVariation;
@@ -1174,470 +1174,470 @@ extern "C" {
     BYTE bXHeight;
   } PANOSE,*LPPANOSE;
 
-#define PAN_ANY 0
-#define PAN_NO_FIT 1
+#وصف_ڪريو PAN_ANY 0
+#وصف_ڪريو PAN_NO_FIT 1
 
-#define PAN_FAMILY_TEXT_DISPLAY 2
-#define PAN_FAMILY_SCRIPT 3
-#define PAN_FAMILY_DECORATIVE 4
-#define PAN_FAMILY_PICTORIAL 5
+#وصف_ڪريو PAN_FAMILY_متن_DISPLAY 2
+#وصف_ڪريو PAN_FAMILY_SCRIPT 3
+#وصف_ڪريو PAN_FAMILY_DECORATIVE 4
+#وصف_ڪريو PAN_FAMILY_PICTORIAL 5
 
-#define PAN_SERIF_COVE 2
-#define PAN_SERIF_OBTUSE_COVE 3
-#define PAN_SERIF_SQUARE_COVE 4
-#define PAN_SERIF_OBTUSE_SQUARE_COVE 5
-#define PAN_SERIF_SQUARE 6
-#define PAN_SERIF_THIN 7
-#define PAN_SERIF_BONE 8
-#define PAN_SERIF_EXAGGERATED 9
-#define PAN_SERIF_TRIANGLE 10
-#define PAN_SERIF_NORMAL_SANS 11
-#define PAN_SERIF_OBTUSE_SANS 12
-#define PAN_SERIF_PERP_SANS 13
-#define PAN_SERIF_FLARED 14
-#define PAN_SERIF_ROUNDED 15
+#وصف_ڪريو PAN_SERIF_COVE 2
+#وصف_ڪريو PAN_SERIF_OBTUSE_COVE 3
+#وصف_ڪريو PAN_SERIF_چورس_COVE 4
+#وصف_ڪريو PAN_SERIF_OBTUSE_چورس_COVE 5
+#وصف_ڪريو PAN_SERIF_چورس 6
+#وصف_ڪريو PAN_SERIF_THIN 7
+#وصف_ڪريو PAN_SERIF_BONE 8
+#وصف_ڪريو PAN_SERIF_EXAGGERATED 9
+#وصف_ڪريو PAN_SERIF_TRIANGLE 10
+#وصف_ڪريو PAN_SERIF_عام_SANS 11
+#وصف_ڪريو PAN_SERIF_OBTUSE_SANS 12
+#وصف_ڪريو PAN_SERIF_PERP_SANS 13
+#وصف_ڪريو PAN_SERIF_FLARED 14
+#وصف_ڪريو PAN_SERIF_ROUNDED 15
 
-#define PAN_WEIGHT_VERY_LIGHT 2
-#define PAN_WEIGHT_LIGHT 3
-#define PAN_WEIGHT_THIN 4
-#define PAN_WEIGHT_BOOK 5
-#define PAN_WEIGHT_MEDIUM 6
-#define PAN_WEIGHT_DEMI 7
-#define PAN_WEIGHT_BOLD 8
-#define PAN_WEIGHT_HEAVY 9
-#define PAN_WEIGHT_BLACK 10
-#define PAN_WEIGHT_NORD 11
+#وصف_ڪريو PAN_وزن_VERY_LIGHT 2
+#وصف_ڪريو PAN_وزن_LIGHT 3
+#وصف_ڪريو PAN_وزن_THIN 4
+#وصف_ڪريو PAN_وزن_BOOK 5
+#وصف_ڪريو PAN_وزن_MEDIUM 6
+#وصف_ڪريو PAN_وزن_DEMI 7
+#وصف_ڪريو PAN_وزن_BOLD 8
+#وصف_ڪريو PAN_وزن_HEAVY 9
+#وصف_ڪريو PAN_وزن_BLACK 10
+#وصف_ڪريو PAN_وزن_NORD 11
 
-#define PAN_PROP_OLD_STYLE 2
-#define PAN_PROP_MODERN 3
-#define PAN_PROP_EVEN_WIDTH 4
-#define PAN_PROP_EXPANDED 5
-#define PAN_PROP_CONDENSED 6
-#define PAN_PROP_VERY_EXPANDED 7
-#define PAN_PROP_VERY_CONDENSED 8
-#define PAN_PROP_MONOSPACED 9
+#وصف_ڪريو PAN_PROP_OLD_STYLE 2
+#وصف_ڪريو PAN_PROP_MODERN 3
+#وصف_ڪريو PAN_PROP_EVEN_ويڪر 4
+#وصف_ڪريو PAN_PROP_EXPANDED 5
+#وصف_ڪريو PAN_PROP_CONDENSED 6
+#وصف_ڪريو PAN_PROP_VERY_EXPANDED 7
+#وصف_ڪريو PAN_PROP_VERY_CONDENSED 8
+#وصف_ڪريو PAN_PROP_MONOSPACED 9
 
-#define PAN_CONTRAST_NONE 2
-#define PAN_CONTRAST_VERY_LOW 3
-#define PAN_CONTRAST_LOW 4
-#define PAN_CONTRAST_MEDIUM_LOW 5
-#define PAN_CONTRAST_MEDIUM 6
-#define PAN_CONTRAST_MEDIUM_HIGH 7
-#define PAN_CONTRAST_HIGH 8
-#define PAN_CONTRAST_VERY_HIGH 9
+#وصف_ڪريو PAN_CONTRAST_NONE 2
+#وصف_ڪريو PAN_CONTRAST_VERY_هيٺيون 3
+#وصف_ڪريو PAN_CONTRAST_هيٺيون 4
+#وصف_ڪريو PAN_CONTRAST_MEDIUM_هيٺيون 5
+#وصف_ڪريو PAN_CONTRAST_MEDIUM 6
+#وصف_ڪريو PAN_CONTRAST_MEDIUM_مٿاهون 7
+#وصف_ڪريو PAN_CONTRAST_مٿاهون 8
+#وصف_ڪريو PAN_CONTRAST_VERY_مٿاهون 9
 
-#define PAN_STROKE_GRADUAL_DIAG 2
-#define PAN_STROKE_GRADUAL_TRAN 3
-#define PAN_STROKE_GRADUAL_VERT 4
-#define PAN_STROKE_GRADUAL_HORZ 5
-#define PAN_STROKE_RAPID_VERT 6
-#define PAN_STROKE_RAPID_HORZ 7
-#define PAN_STROKE_INSTANT_VERT 8
+#وصف_ڪريو PAN_STROKE_GRADUAL_DIAG 2
+#وصف_ڪريو PAN_STROKE_GRADUAL_TRAN 3
+#وصف_ڪريو PAN_STROKE_GRADUAL_VERT 4
+#وصف_ڪريو PAN_STROKE_GRADUAL_HORZ 5
+#وصف_ڪريو PAN_STROKE_RAPID_VERT 6
+#وصف_ڪريو PAN_STROKE_RAPID_HORZ 7
+#وصف_ڪريو PAN_STROKE_INSTANT_VERT 8
 
-#define PAN_STRAIGHT_ARMS_HORZ 2
-#define PAN_STRAIGHT_ARMS_WEDGE 3
-#define PAN_STRAIGHT_ARMS_VERT 4
-#define PAN_STRAIGHT_ARMS_SINGLE_SERIF 5
-#define PAN_STRAIGHT_ARMS_DOUBLE_SERIF 6
-#define PAN_BENT_ARMS_HORZ 7
-#define PAN_BENT_ARMS_WEDGE 8
-#define PAN_BENT_ARMS_VERT 9
-#define PAN_BENT_ARMS_SINGLE_SERIF 10
-#define PAN_BENT_ARMS_DOUBLE_SERIF 11
+#وصف_ڪريو PAN_STRAIGHT_ARMS_HORZ 2
+#وصف_ڪريو PAN_STRAIGHT_ARMS_WEDGE 3
+#وصف_ڪريو PAN_STRAIGHT_ARMS_VERT 4
+#وصف_ڪريو PAN_STRAIGHT_ARMS_SINGLE_SERIF 5
+#وصف_ڪريو PAN_STRAIGHT_ARMS_DOUBLE_SERIF 6
+#وصف_ڪريو PAN_BENT_ARMS_HORZ 7
+#وصف_ڪريو PAN_BENT_ARMS_WEDGE 8
+#وصف_ڪريو PAN_BENT_ARMS_VERT 9
+#وصف_ڪريو PAN_BENT_ARMS_SINGLE_SERIF 10
+#وصف_ڪريو PAN_BENT_ARMS_DOUBLE_SERIF 11
 
-#define PAN_LETT_NORMAL_CONTACT 2
-#define PAN_LETT_NORMAL_WEIGHTED 3
-#define PAN_LETT_NORMAL_BOXED 4
-#define PAN_LETT_NORMAL_FLATTENED 5
-#define PAN_LETT_NORMAL_ROUNDED 6
-#define PAN_LETT_NORMAL_OFF_CENTER 7
-#define PAN_LETT_NORMAL_SQUARE 8
-#define PAN_LETT_OBLIQUE_CONTACT 9
-#define PAN_LETT_OBLIQUE_WEIGHTED 10
-#define PAN_LETT_OBLIQUE_BOXED 11
-#define PAN_LETT_OBLIQUE_FLATTENED 12
-#define PAN_LETT_OBLIQUE_ROUNDED 13
-#define PAN_LETT_OBLIQUE_OFF_CENTER 14
-#define PAN_LETT_OBLIQUE_SQUARE 15
+#وصف_ڪريو PAN_LETT_عام_CONTACT 2
+#وصف_ڪريو PAN_LETT_عام_WEIGHTED 3
+#وصف_ڪريو PAN_LETT_عام_BOXED 4
+#وصف_ڪريو PAN_LETT_عام_FLATTENED 5
+#وصف_ڪريو PAN_LETT_عام_ROUNDED 6
+#وصف_ڪريو PAN_LETT_عام_OFF_CENTER 7
+#وصف_ڪريو PAN_LETT_عام_چورس 8
+#وصف_ڪريو PAN_LETT_OBLIQUE_CONTACT 9
+#وصف_ڪريو PAN_LETT_OBLIQUE_WEIGHTED 10
+#وصف_ڪريو PAN_LETT_OBLIQUE_BOXED 11
+#وصف_ڪريو PAN_LETT_OBLIQUE_FLATTENED 12
+#وصف_ڪريو PAN_LETT_OBLIQUE_ROUNDED 13
+#وصف_ڪريو PAN_LETT_OBLIQUE_OFF_CENTER 14
+#وصف_ڪريو PAN_LETT_OBLIQUE_چورس 15
 
-#define PAN_MIDLINE_STANDARD_TRIMMED 2
-#define PAN_MIDLINE_STANDARD_POINTED 3
-#define PAN_MIDLINE_STANDARD_SERIFED 4
-#define PAN_MIDLINE_HIGH_TRIMMED 5
-#define PAN_MIDLINE_HIGH_POINTED 6
-#define PAN_MIDLINE_HIGH_SERIFED 7
-#define PAN_MIDLINE_CONSTANT_TRIMMED 8
-#define PAN_MIDLINE_CONSTANT_POINTED 9
-#define PAN_MIDLINE_CONSTANT_SERIFED 10
-#define PAN_MIDLINE_LOW_TRIMMED 11
-#define PAN_MIDLINE_LOW_POINTED 12
-#define PAN_MIDLINE_LOW_SERIFED 13
+#وصف_ڪريو PAN_MIDLINE_STANDARD_TRIMMED 2
+#وصف_ڪريو PAN_MIDLINE_STANDARD_POINTED 3
+#وصف_ڪريو PAN_MIDLINE_STANDARD_SERIFED 4
+#وصف_ڪريو PAN_MIDLINE_مٿاهون_TRIMMED 5
+#وصف_ڪريو PAN_MIDLINE_مٿاهون_POINTED 6
+#وصف_ڪريو PAN_MIDLINE_مٿاهون_SERIFED 7
+#وصف_ڪريو PAN_MIDLINE_CONSTANT_TRIMMED 8
+#وصف_ڪريو PAN_MIDLINE_CONSTANT_POINTED 9
+#وصف_ڪريو PAN_MIDLINE_CONSTANT_SERIFED 10
+#وصف_ڪريو PAN_MIDLINE_هيٺيون_TRIMMED 11
+#وصف_ڪريو PAN_MIDLINE_هيٺيون_POINTED 12
+#وصف_ڪريو PAN_MIDLINE_هيٺيون_SERIFED 13
 
-#define PAN_XHEIGHT_CONSTANT_SMALL 2
-#define PAN_XHEIGHT_CONSTANT_STD 3
-#define PAN_XHEIGHT_CONSTANT_LARGE 4
-#define PAN_XHEIGHT_DUCKING_SMALL 5
-#define PAN_XHEIGHT_DUCKING_STD 6
-#define PAN_XHEIGHT_DUCKING_LARGE 7
+#وصف_ڪريو PAN_XHEIGHT_CONSTANT_SMALL 2
+#وصف_ڪريو PAN_XHEIGHT_CONSTANT_STD 3
+#وصف_ڪريو PAN_XHEIGHT_CONSTANT_LARGE 4
+#وصف_ڪريو PAN_XHEIGHT_DUCKING_SMALL 5
+#وصف_ڪريو PAN_XHEIGHT_DUCKING_STD 6
+#وصف_ڪريو PAN_XHEIGHT_DUCKING_LARGE 7
 
-#define ELF_VENDOR_SIZE 4
+#وصف_ڪريو ELF_VENDOR_سائيز 4
 
-  typedef struct tagEXTLOGFONTA {
+  تعريفنوع بنية ٽيگ_EXTLOGFONTA {
     LOGFONTA elfLogFont;
-    BYTE elfFullName[LF_FULLFACESIZE];
+    BYTE elf_ڀريل_Name[LF_FULLFACESIZE];
     BYTE elfStyle[LF_FACESIZE];
-    DWORD elfVersion;
-    DWORD elfStyleSize;
-    DWORD elfMatch;
+    DWORD elf_نسخو;
+    DWORD elf_Style_سائيز;
+    DWORD elf_ميلاپ;
     DWORD elfReserved;
-    BYTE elfVendorId[ELF_VENDOR_SIZE];
+    BYTE elfVendorId[ELF_VENDOR_سائيز];
     DWORD elfCulture;
     PANOSE elfPanose;
   } EXTLOGFONTA,*PEXTLOGFONTA,*NPEXTLOGFONTA,*LPEXTLOGFONTA;
 
-  typedef struct tagEXTLOGFONTW {
+  تعريفنوع بنية ٽيگ_EXTLOGFONTW {
     LOGFONTW elfLogFont;
-    WCHAR elfFullName[LF_FULLFACESIZE];
+    WCHAR elf_ڀريل_Name[LF_FULLFACESIZE];
     WCHAR elfStyle[LF_FACESIZE];
-    DWORD elfVersion;
-    DWORD elfStyleSize;
-    DWORD elfMatch;
+    DWORD elf_نسخو;
+    DWORD elf_Style_سائيز;
+    DWORD elf_ميلاپ;
     DWORD elfReserved;
-    BYTE elfVendorId[ELF_VENDOR_SIZE];
+    BYTE elfVendorId[ELF_VENDOR_سائيز];
     DWORD elfCulture;
     PANOSE elfPanose;
   } EXTLOGFONTW,*PEXTLOGFONTW,*NPEXTLOGFONTW,*LPEXTLOGFONTW;
-#ifdef UNICODE
-  typedef EXTLOGFONTW EXTLOGFONT;
-  typedef PEXTLOGFONTW PEXTLOGFONT;
-  typedef NPEXTLOGFONTW NPEXTLOGFONT;
-  typedef LPEXTLOGFONTW LPEXTLOGFONT;
-#else
-  typedef EXTLOGFONTA EXTLOGFONT;
-  typedef PEXTLOGFONTA PEXTLOGFONT;
-  typedef NPEXTLOGFONTA NPEXTLOGFONT;
-  typedef LPEXTLOGFONTA LPEXTLOGFONT;
-#endif
+#جيڪڏهن_وصف_ٿيل UNICODE
+  تعريفنوع EXTLOGFONTW EXTLOGFONT;
+  تعريفنوع PEXTLOGFONTW PEXTLOGFONT;
+  تعريفنوع NPEXTLOGFONTW NPEXTLOGFONT;
+  تعريفنوع LPEXTLOGFONTW LPEXTLOGFONT;
+#وإلا
+  تعريفنوع EXTLOGFONTA EXTLOGFONT;
+  تعريفنوع PEXTLOGFONTA PEXTLOGFONT;
+  تعريفنوع NPEXTLOGFONTA NPEXTLOGFONT;
+  تعريفنوع LPEXTLOGFONTA LPEXTLOGFONT;
+#جيڪڏهن_پورو
 
-#define ELF_VERSION 0
-#define ELF_CULTURE_LATIN 0
+#وصف_ڪريو ELF_نسخو 0
+#وصف_ڪريو ELF_CULTURE_LATIN 0
 
-#define RASTER_FONTTYPE 0x0001
-#define DEVICE_FONTTYPE 0x002
-#define TRUETYPE_FONTTYPE 0x004
+#وصف_ڪريو RASTER_FONTTYPE 0x0001
+#وصف_ڪريو DEVICE_FONTTYPE 0x002
+#وصف_ڪريو TRUETYPE_FONTTYPE 0x004
 
-#define RGB(r,g,b) ((COLORREF)(((BYTE)(r)|((WORD)((BYTE)(g))<<8))|(((DWORD)(BYTE)(b))<<16)))
-#define PALETTERGB(r,g,b) (0x02000000 | RGB(r,g,b))
-#define PALETTEINDEX(i) ((COLORREF)(0x01000000 | (DWORD)(WORD)(i)))
+#وصف_ڪريو RGB(r,g,b) ((COLORREF)(((BYTE)(r)|((لفظ_3)((BYTE)(g))<<8))|(((DWORD)(BYTE)(b))<<16)))
+#وصف_ڪريو PALETTERGB(r,g,b) (0x02000000 | RGB(r,g,b))
+#وصف_ڪريو PALETTEINDEX(i) ((COLORREF)(0x01000000 | (DWORD)(لفظ_3)(i)))
 
-#define PC_RESERVED 0x01
-#define PC_EXPLICIT 0x02
-#define PC_NOCOLLAPSE 0x04
+#وصف_ڪريو PC_RESERVED 0x01
+#وصف_ڪريو PC_EXPLICIT 0x02
+#وصف_ڪريو PC_NOCOLLAPSE 0x04
 
-#define GetRValue(rgb) (LOBYTE(rgb))
-#define GetGValue(rgb) (LOBYTE(((WORD)(rgb)) >> 8))
-#define GetBValue(rgb) (LOBYTE((rgb)>>16))
+#وصف_ڪريو GetRValue(rgb) (LOBYTE(rgb))
+#وصف_ڪريو GetGValue(rgb) (LOBYTE(((لفظ_3)(rgb)) >> 8))
+#وصف_ڪريو GetBValue(rgb) (LOBYTE((rgb)>>16))
 
-#define TRANSPARENT 1
-#define OPAQUE 2
-#define BKMODE_LAST 2
+#وصف_ڪريو TRANSPARENT 1
+#وصف_ڪريو OPAQUE 2
+#وصف_ڪريو BKMODE_آخري 2
 
-#define GM_COMPATIBLE 1
-#define GM_ADVANCED 2
-#define GM_LAST 2
+#وصف_ڪريو GM_COMPATIBLE 1
+#وصف_ڪريو GM_ADVANCED 2
+#وصف_ڪريو GM_آخري 2
 
-#define PT_CLOSEFIGURE 0x01
-#define PT_LINETO 0x02
-#define PT_BEZIERTO 0x04
-#define PT_MOVETO 0x06
+#وصف_ڪريو PT_CLOSEFIGURE 0x01
+#وصف_ڪريو PT_LINETO 0x02
+#وصف_ڪريو PT_BEZIERTO 0x04
+#وصف_ڪريو PT_MOVETO 0x06
 
-#define MM_TEXT 1
-#define MM_LOMETRIC 2
-#define MM_HIMETRIC 3
-#define MM_LOENGLISH 4
-#define MM_HIENGLISH 5
-#define MM_TWIPS 6
-#define MM_ISOTROPIC 7
-#define MM_ANISOTROPIC 8
+#وصف_ڪريو MM_متن 1
+#وصف_ڪريو MM_LOMETRIC 2
+#وصف_ڪريو MM_HIMETRIC 3
+#وصف_ڪريو MM_LOENGLISH 4
+#وصف_ڪريو MM_HIENGLISH 5
+#وصف_ڪريو MM_TWIPS 6
+#وصف_ڪريو MM_ISOTROPIC 7
+#وصف_ڪريو MM_ANISOTROPIC 8
 
-#define MM_MIN MM_TEXT
-#define MM_MAX MM_ANISOTROPIC
-#define MM_MAX_FIXEDSCALE MM_TWIPS
+#وصف_ڪريو MM_MIN MM_متن
+#وصف_ڪريو MM_MAX MM_ANISOTROPIC
+#وصف_ڪريو MM_MAX_FIXEDSCALE MM_TWIPS
 
-#define ABSOLUTE 1
-#define RELATIVE 2
+#وصف_ڪريو ABSOLUTE 1
+#وصف_ڪريو RELATIVE 2
 
-#define WHITE_BRUSH 0
-#define LTGRAY_BRUSH 1
-#define GRAY_BRUSH 2
-#define DKGRAY_BRUSH 3
-#define BLACK_BRUSH 4
-#define NULL_BRUSH 5
-#define HOLLOW_BRUSH NULL_BRUSH
-#define WHITE_PEN 6
-#define BLACK_PEN 7
-#define NULL_PEN 8
-#define OEM_FIXED_FONT 10
-#define ANSI_FIXED_FONT 11
-#define ANSI_VAR_FONT 12
-#define SYSTEM_FONT 13
-#define DEVICE_DEFAULT_FONT 14
-#define DEFAULT_PALETTE 15
-#define SYSTEM_FIXED_FONT 16
+#وصف_ڪريو WHITE_BRUSH 0
+#وصف_ڪريو LTGRAY_BRUSH 1
+#وصف_ڪريو ناسي_BRUSH 2
+#وصف_ڪريو DKGRAY_BRUSH 3
+#وصف_ڪريو BLACK_BRUSH 4
+#وصف_ڪريو NULL_BRUSH 5
+#وصف_ڪريو HOLLOW_BRUSH NULL_BRUSH
+#وصف_ڪريو WHITE_PEN 6
+#وصف_ڪريو BLACK_PEN 7
+#وصف_ڪريو NULL_PEN 8
+#وصف_ڪريو OEM_FIXED_FONT 10
+#وصف_ڪريو ANSI_FIXED_FONT 11
+#وصف_ڪريو ANSI_VAR_FONT 12
+#وصف_ڪريو SYSTEM_FONT 13
+#وصف_ڪريو DEVICE_DEFAULT_FONT 14
+#وصف_ڪريو DEFAULT_PALETTE 15
+#وصف_ڪريو SYSTEM_FIXED_FONT 16
 
-#define DEFAULT_GUI_FONT 17
+#وصف_ڪريو DEFAULT_GUI_FONT 17
 
-#define DC_BRUSH 18
-#define DC_PEN 19
+#وصف_ڪريو DC_BRUSH 18
+#وصف_ڪريو DC_PEN 19
 
-#define STOCK_LAST 19
+#وصف_ڪريو STOCK_آخري 19
 
-#define CLR_INVALID 0xFFFFFFFF
+#وصف_ڪريو CLR_INVALID 0xFFFFFFFF
 
-#define BS_SOLID 0
-#define BS_NULL 1
-#define BS_HOLLOW BS_NULL
-#define BS_HATCHED 2
-#define BS_PATTERN 3
-#define BS_INDEXED 4
-#define BS_DIBPATTERN 5
-#define BS_DIBPATTERNPT 6
-#define BS_PATTERN8X8 7
-#define BS_DIBPATTERN8X8 8
-#define BS_MONOPATTERN 9
+#وصف_ڪريو BS_SOLID 0
+#وصف_ڪريو BS_NULL 1
+#وصف_ڪريو BS_HOLLOW BS_NULL
+#وصف_ڪريو BS_HATCHED 2
+#وصف_ڪريو BS_نمونو 3
+#وصف_ڪريو BS_اشاريي_وارو 4
+#وصف_ڪريو BS_DIBPATTERN 5
+#وصف_ڪريو BS_DIBPATTERNPT 6
+#وصف_ڪريو BS_PATTERN8X8 7
+#وصف_ڪريو BS_DIBPATTERN8X8 8
+#وصف_ڪريو BS_MONOPATTERN 9
 
-#define HS_HORIZONTAL 0
-#define HS_VERTICAL 1
-#define HS_FDIAGONAL 2
-#define HS_BDIAGONAL 3
-#define HS_CROSS 4
-#define HS_DIAGCROSS 5
+#وصف_ڪريو HS_HORIZONTAL 0
+#وصف_ڪريو HS_VERTICAL 1
+#وصف_ڪريو HS_FDIAGONAL 2
+#وصف_ڪريو HS_BDIAGONAL 3
+#وصف_ڪريو HS_CROSS 4
+#وصف_ڪريو HS_DIAGCROSS 5
 
-#define PS_SOLID 0
-#define PS_DASH 1
-#define PS_DOT 2
-#define PS_DASHDOT 3
-#define PS_DASHDOTDOT 4
-#define PS_NULL 5
-#define PS_INSIDEFRAME 6
-#define PS_USERSTYLE 7
-#define PS_ALTERNATE 8
-#define PS_STYLE_MASK 0x0000000F
+#وصف_ڪريو PS_SOLID 0
+#وصف_ڪريو PS_DASH 1
+#وصف_ڪريو PS_DOT 2
+#وصف_ڪريو PS_DASHDOT 3
+#وصف_ڪريو PS_DASHDOTDOT 4
+#وصف_ڪريو PS_NULL 5
+#وصف_ڪريو PS_INSIDEFRAME 6
+#وصف_ڪريو PS_USERSTYLE 7
+#وصف_ڪريو PS_ALTERNATE 8
+#وصف_ڪريو PS_STYLE_نقاب 0x0000000F
 
-#define PS_ENDCAP_ROUND 0x00000000
-#define PS_ENDCAP_SQUARE 0x00000100
-#define PS_ENDCAP_FLAT 0x00000200
-#define PS_ENDCAP_MASK 0x00000F00
+#وصف_ڪريو PS_ENDCAP_ڦيرو 0x00000000
+#وصف_ڪريو PS_ENDCAP_چورس 0x00000100
+#وصف_ڪريو PS_ENDCAP_FLAT 0x00000200
+#وصف_ڪريو PS_ENDCAP_نقاب 0x00000F00
 
-#define PS_JOIN_ROUND 0x00000000
-#define PS_JOIN_BEVEL 0x00001000
-#define PS_JOIN_MITER 0x00002000
-#define PS_JOIN_MASK 0x0000F000
+#وصف_ڪريو PS_JOIN_ڦيرو 0x00000000
+#وصف_ڪريو PS_JOIN_BEVEL 0x00001000
+#وصف_ڪريو PS_JOIN_MITER 0x00002000
+#وصف_ڪريو PS_JOIN_نقاب 0x0000F000
 
-#define PS_COSMETIC 0x00000000
-#define PS_GEOMETRIC 0x00010000
-#define PS_TYPE_MASK 0x000F0000
+#وصف_ڪريو PS_COSMETIC 0x00000000
+#وصف_ڪريو PS_GEOMETRIC 0x00010000
+#وصف_ڪريو PS_TYPE_نقاب 0x000F0000
 
-#define AD_COUNTERCLOCKWISE 1
-#define AD_CLOCKWISE 2
+#وصف_ڪريو AD_COUNTERCLOCKWISE 1
+#وصف_ڪريو AD_CLOCKWISE 2
 
-#define DRIVERVERSION 0
-#define TECHNOLOGY 2
-#define HORZSIZE 4
-#define VERTSIZE 6
-#define HORZRES 8
-#define VERTRES 10
-#define BITSPIXEL 12
-#define PLANES 14
-#define NUMBRUSHES 16
-#define NUMPENS 18
-#define NUMMARKERS 20
-#define NUMFONTS 22
-#define NUMCOLORS 24
-#define PDEVICESIZE 26
-#define CURVECAPS 28
-#define LINECAPS 30
-#define POLYGONALCAPS 32
-#define TEXTCAPS 34
-#define CLIPCAPS 36
-#define RASTERCAPS 38
-#define ASPECTX 40
-#define ASPECTY 42
-#define ASPECTXY 44
+#وصف_ڪريو DRIVERVERSION 0
+#وصف_ڪريو TECHNOLOGY 2
+#وصف_ڪريو HORZSIZE 4
+#وصف_ڪريو VERTSIZE 6
+#وصف_ڪريو HORZRES 8
+#وصف_ڪريو VERTRES 10
+#وصف_ڪريو BITSPIXEL 12
+#وصف_ڪريو PLANES 14
+#وصف_ڪريو NUMBRUSHES 16
+#وصف_ڪريو NUMPENS 18
+#وصف_ڪريو NUMMARKERS 20
+#وصف_ڪريو NUMFONTS 22
+#وصف_ڪريو NUMCOLORS 24
+#وصف_ڪريو PDEVICESIZE 26
+#وصف_ڪريو CURVECAPS 28
+#وصف_ڪريو LINECAPS 30
+#وصف_ڪريو POLYGONALCAPS 32
+#وصف_ڪريو TEXTCAPS 34
+#وصف_ڪريو CLIPCAPS 36
+#وصف_ڪريو RASTERCAPS 38
+#وصف_ڪريو ASPECTX 40
+#وصف_ڪريو ASPECTY 42
+#وصف_ڪريو ASPECTXY 44
 
-#define LOGPIXELSX 88
-#define LOGPIXELSY 90
+#وصف_ڪريو LOGPIXELSX 88
+#وصف_ڪريو LOGPIXELSY 90
 
-#define SIZEPALETTE 104
-#define NUMRESERVED 106
-#define COLORRES 108
+#وصف_ڪريو SIZEPALETTE 104
+#وصف_ڪريو NUMRESERVED 106
+#وصف_ڪريو COLORRES 108
 
-#define PHYSICALWIDTH 110
-#define PHYSICALHEIGHT 111
-#define PHYSICALOFFSETX 112
-#define PHYSICALOFFSETY 113
-#define SCALINGFACTORX 114
-#define SCALINGFACTORY 115
+#وصف_ڪريو PHYSICALWIDTH 110
+#وصف_ڪريو PHYSICALHEIGHT 111
+#وصف_ڪريو PHYSICALOFFSETX 112
+#وصف_ڪريو PHYSICALOFFSETY 113
+#وصف_ڪريو SCALINGFACTORX 114
+#وصف_ڪريو SCALINGFACTORY 115
 
-#define VREFRESH 116
+#وصف_ڪريو VREFRESH 116
 
-#define DESKTOPVERTRES 117
+#وصف_ڪريو DESKTOPVERTRES 117
 
-#define DESKTOPHORZRES 118
+#وصف_ڪريو DESKTOPHORZRES 118
 
-#define BLTALIGNMENT 119
+#وصف_ڪريو BLTALIGNMENT 119
 
-#define SHADEBLENDCAPS 120
-#define COLORMGMTCAPS 121
+#وصف_ڪريو SHADEBLENDCAPS 120
+#وصف_ڪريو COLORMGMTCAPS 121
 
-#ifndef NOGDICAPMASKS
-#define DT_PLOTTER 0
-#define DT_RASDISPLAY 1
-#define DT_RASPRINTER 2
-#define DT_RASCAMERA 3
-#define DT_CHARSTREAM 4
-#define DT_METAFILE 5
-#define DT_DISPFILE 6
+#جيڪڏهن_وصف_نه_ٿيل NOGDICAPMASKS
+#وصف_ڪريو DT_PLOTTER 0
+#وصف_ڪريو DT_RASDISPLAY 1
+#وصف_ڪريو DT_RASPRINTER 2
+#وصف_ڪريو DT_RASCAMERA 3
+#وصف_ڪريو DT_CHARSTREAM 4
+#وصف_ڪريو DT_METAFILE 5
+#وصف_ڪريو DT_DISPFILE 6
 
-#define CC_NONE 0
-#define CC_CIRCLES 1
-#define CC_PIE 2
-#define CC_CHORD 4
-#define CC_ELLIPSES 8
-#define CC_WIDE 16
-#define CC_STYLED 32
-#define CC_WIDESTYLED 64
-#define CC_INTERIORS 128
-#define CC_ROUNDRECT 256
+#وصف_ڪريو CC_NONE 0
+#وصف_ڪريو CC_CIRCLES 1
+#وصف_ڪريو CC_PIE 2
+#وصف_ڪريو CC_CHORD 4
+#وصف_ڪريو CC_ELLIPSES 8
+#وصف_ڪريو CC_WIDE 16
+#وصف_ڪريو CC_STYLED 32
+#وصف_ڪريو CC_WIDESTYLED 64
+#وصف_ڪريو CC_INTERIORS 128
+#وصف_ڪريو CC_ROUNDRECT 256
 
-#define LC_NONE 0
-#define LC_POLYLINE 2
-#define LC_MARKER 4
-#define LC_POLYMARKER 8
-#define LC_WIDE 16
-#define LC_STYLED 32
-#define LC_WIDESTYLED 64
-#define LC_INTERIORS 128
+#وصف_ڪريو LC_NONE 0
+#وصف_ڪريو LC_POLYLINE 2
+#وصف_ڪريو LC_MARKER 4
+#وصف_ڪريو LC_POLYMARKER 8
+#وصف_ڪريو LC_WIDE 16
+#وصف_ڪريو LC_STYLED 32
+#وصف_ڪريو LC_WIDESTYLED 64
+#وصف_ڪريو LC_INTERIORS 128
 
-#define PC_NONE 0
-#define PC_POLYGON 1
-#define PC_RECTANGLE 2
-#define PC_WINDPOLYGON 4
-#define PC_TRAPEZOID 4
-#define PC_SCANLINE 8
-#define PC_WIDE 16
-#define PC_STYLED 32
-#define PC_WIDESTYLED 64
-#define PC_INTERIORS 128
-#define PC_POLYPOLYGON 256
-#define PC_PATHS 512
+#وصف_ڪريو PC_NONE 0
+#وصف_ڪريو PC_POLYGON 1
+#وصف_ڪريو PC_RECTANGLE 2
+#وصف_ڪريو PC_WINDPOLYGON 4
+#وصف_ڪريو PC_TRAPEZOID 4
+#وصف_ڪريو PC_SCANLINE 8
+#وصف_ڪريو PC_WIDE 16
+#وصف_ڪريو PC_STYLED 32
+#وصف_ڪريو PC_WIDESTYLED 64
+#وصف_ڪريو PC_INTERIORS 128
+#وصف_ڪريو PC_POLYPOLYGON 256
+#وصف_ڪريو PC_PATHS 512
 
-#define CP_NONE 0
-#define CP_RECTANGLE 1
-#define CP_REGION 2
+#وصف_ڪريو CP_NONE 0
+#وصف_ڪريو CP_RECTANGLE 1
+#وصف_ڪريو CP_REGION 2
 
-#define TC_OP_CHARACTER 0x00000001
-#define TC_OP_STROKE 0x00000002
-#define TC_CP_STROKE 0x00000004
-#define TC_CR_90 0x00000008
-#define TC_CR_ANY 0x00000010
-#define TC_SF_X_YINDEP 0x00000020
-#define TC_SA_DOUBLE 0x00000040
-#define TC_SA_INTEGER 0x00000080
-#define TC_SA_CONTIN 0x00000100
-#define TC_EA_DOUBLE 0x00000200
-#define TC_IA_ABLE 0x00000400
-#define TC_UA_ABLE 0x00000800
-#define TC_SO_ABLE 0x00001000
-#define TC_RA_ABLE 0x00002000
-#define TC_VA_ABLE 0x00004000
-#define TC_RESERVED 0x00008000
-#define TC_SCROLLBLT 0x00010000
-#endif
+#وصف_ڪريو TC_OP_CHARACTER 0x00000001
+#وصف_ڪريو TC_OP_STROKE 0x00000002
+#وصف_ڪريو TC_CP_STROKE 0x00000004
+#وصف_ڪريو TC_CR_90 0x00000008
+#وصف_ڪريو TC_CR_ANY 0x00000010
+#وصف_ڪريو TC_SF_X_YINDEP 0x00000020
+#وصف_ڪريو TC_SA_DOUBLE 0x00000040
+#وصف_ڪريو TC_SA_INTEGER 0x00000080
+#وصف_ڪريو TC_SA_CONTIN 0x00000100
+#وصف_ڪريو TC_EA_DOUBLE 0x00000200
+#وصف_ڪريو TC_IA_ABLE 0x00000400
+#وصف_ڪريو TC_UA_ABLE 0x00000800
+#وصف_ڪريو TC_SO_ABLE 0x00001000
+#وصف_ڪريو TC_RA_ABLE 0x00002000
+#وصف_ڪريو TC_VA_ABLE 0x00004000
+#وصف_ڪريو TC_RESERVED 0x00008000
+#وصف_ڪريو TC_SCROLLBLT 0x00010000
+#جيڪڏهن_پورو
 
-#define RC_NONE
-#define RC_BITBLT 1
-#define RC_BANDING 2
-#define RC_SCALING 4
-#define RC_BITMAP64 8
-#define RC_GDI20_OUTPUT 0x0010
-#define RC_GDI20_STATE 0x0020
-#define RC_SAVEBITMAP 0x0040
-#define RC_DI_BITMAP 0x0080
-#define RC_PALETTE 0x0100
-#define RC_DIBTODEV 0x0200
-#define RC_BIGFONT 0x0400
-#define RC_STRETCHBLT 0x0800
-#define RC_FLOODFILL 0x1000
-#define RC_STRETCHDIB 0x2000
-#define RC_OP_DX_OUTPUT 0x4000
-#define RC_DEVBITS 0x8000
+#وصف_ڪريو RC_NONE
+#وصف_ڪريو RC_BITBLT 1
+#وصف_ڪريو RC_BANDING 2
+#وصف_ڪريو RC_SCALING 4
+#وصف_ڪريو RC_BITMAP64 8
+#وصف_ڪريو RC_GDI20_OUTPUT 0x0010
+#وصف_ڪريو RC_GDI20_STATE 0x0020
+#وصف_ڪريو RC_SAVEBITMAP 0x0040
+#وصف_ڪريو RC_DI_BITMAP 0x0080
+#وصف_ڪريو RC_PALETTE 0x0100
+#وصف_ڪريو RC_DIBTODEV 0x0200
+#وصف_ڪريو RC_BIGFONT 0x0400
+#وصف_ڪريو RC_STRETCHBLT 0x0800
+#وصف_ڪريو RC_FLOODFILL 0x1000
+#وصف_ڪريو RC_STRETCHDIB 0x2000
+#وصف_ڪريو RC_OP_DX_OUTPUT 0x4000
+#وصف_ڪريو RC_DEVBITS 0x8000
 
-#define SB_NONE 0x00000000
-#define SB_CONST_ALPHA 0x00000001
-#define SB_PIXEL_ALPHA 0x00000002
-#define SB_PREMULT_ALPHA 0x00000004
+#وصف_ڪريو SB_NONE 0x00000000
+#وصف_ڪريو SB_CONST_ALPHA 0x00000001
+#وصف_ڪريو SB_PIXEL_ALPHA 0x00000002
+#وصف_ڪريو SB_PREMULT_ALPHA 0x00000004
 
-#define SB_GRAD_RECT 0x00000010
-#define SB_GRAD_TRI 0x00000020
+#وصف_ڪريو SB_GRAD_RECT 0x00000010
+#وصف_ڪريو SB_GRAD_TRI 0x00000020
 
-#define CM_NONE 0x00000000
-#define CM_DEVICE_ICM 0x00000001
-#define CM_GAMMA_RAMP 0x00000002
-#define CM_CMYK_COLOR 0x00000004
+#وصف_ڪريو CM_NONE 0x00000000
+#وصف_ڪريو CM_DEVICE_ICM 0x00000001
+#وصف_ڪريو CM_GAMMA_RAMP 0x00000002
+#وصف_ڪريو CM_CMYK_COLOR 0x00000004
 
-#define DIB_RGB_COLORS 0
-#define DIB_PAL_COLORS 1
+#وصف_ڪريو DIB_RGB_COLORS 0
+#وصف_ڪريو DIB_PAL_COLORS 1
 
-#define SYSPAL_ERROR 0
-#define SYSPAL_STATIC 1
-#define SYSPAL_NOSTATIC 2
-#define SYSPAL_NOSTATIC256 3
+#وصف_ڪريو SYSPAL_ERROR 0
+#وصف_ڪريو SYSPAL_STATIC 1
+#وصف_ڪريو SYSPAL_NOSTATIC 2
+#وصف_ڪريو SYSPAL_NOSTATIC256 3
 
-#define CBM_INIT 0x04L
+#وصف_ڪريو CBM_INIT 0x04L
 
-#define FLOODFILLBORDER 0
-#define FLOODFILLSURFACE 1
+#وصف_ڪريو FLOODFILLBORDER 0
+#وصف_ڪريو FLOODFILLSURFACE 1
 
-#define CCHDEVICENAME 32
+#وصف_ڪريو CCHDEVICENAME 32
 
-#define CCHFORMNAME 32
+#وصف_ڪريو CCHFORMNAME 32
 
-  typedef struct _devicemodeA {
+  تعريفنوع بنية _devicemodeA {
     BYTE dmDeviceName[CCHDEVICENAME];
-    WORD dmSpecVersion;
-    WORD dmDriverVersion;
-    WORD dmSize;
-    WORD dmDriverExtra;
+    لفظ_3 dm_Spec_نسخو;
+    لفظ_3 dm_Driver_نسخو;
+    لفظ_3 dm_سائيز;
+    لفظ_3 dmDriverExtra;
     DWORD dmFields;
-    union {
-      struct {
-        short dmOrientation;
-        short dmPaperSize;
-        short dmPaperLength;
-        short dmPaperWidth;
-        short dmScale;
-        short dmCopies;
-        short dmDefaultSource;
-        short dmPrintQuality;
+    اتحاد {
+      بنية {
+        ننڍو dmOrientation;
+        ننڍو dm_Paper_سائيز;
+        ننڍو dm_Paper_ڊيگهائي;
+        ننڍو dm_Paper_ويڪر;
+        ننڍو dmScale;
+        ننڍو dmCopies;
+        ننڍو dm_Default_ذريعو;
+        ننڍو dmPrintQuality;
       };
-      struct {
+      بنية {
         POINTL dmPosition;
         DWORD dmDisplayOrientation;
         DWORD dmDisplayFixedOutput;
       };
     };
-    short dmColor;
-    short dmDuplex;
-    short dmYResolution;
-    short dmTTOption;
-    short dmCollate;
+    ننڍو dmColor;
+    ننڍو dmDuplex;
+    ننڍو dmYResolution;
+    ننڍو dmTTOption;
+    ننڍو dmCollate;
     BYTE dmFormName[CCHFORMNAME];
-    WORD dmLogPixels;
-    DWORD dmBitsPerPel;
-    DWORD dmPelsWidth;
-    DWORD dmPelsHeight;
-    union {
+    لفظ_3 dmLogPixels;
+    DWORD dm_بٽ_في_Pel;
+    DWORD dm_Pels_ويڪر;
+    DWORD dm_Pels_اوچائي;
+    اتحاد {
       DWORD dmDisplayFlags;
       DWORD dmNup;
     };
@@ -1648,45 +1648,45 @@ extern "C" {
     DWORD dmDitherType;
     DWORD dmReserved1;
     DWORD dmReserved2;
-    DWORD dmPanningWidth;
-    DWORD dmPanningHeight;
+    DWORD dm_Panning_ويڪر;
+    DWORD dm_Panning_اوچائي;
   } DEVMODEA,*PDEVMODEA,*NPDEVMODEA,*LPDEVMODEA;
 
-  typedef struct _devicemodeW {
+  تعريفنوع بنية _devicemodeW {
     WCHAR dmDeviceName[CCHDEVICENAME];
-    WORD dmSpecVersion;
-    WORD dmDriverVersion;
-    WORD dmSize;
-    WORD dmDriverExtra;
+    لفظ_3 dm_Spec_نسخو;
+    لفظ_3 dm_Driver_نسخو;
+    لفظ_3 dm_سائيز;
+    لفظ_3 dmDriverExtra;
     DWORD dmFields;
-    union {
-      struct {
-        short dmOrientation;
-        short dmPaperSize;
-        short dmPaperLength;
-        short dmPaperWidth;
-        short dmScale;
-        short dmCopies;
-        short dmDefaultSource;
-        short dmPrintQuality;
+    اتحاد {
+      بنية {
+        ننڍو dmOrientation;
+        ننڍو dm_Paper_سائيز;
+        ننڍو dm_Paper_ڊيگهائي;
+        ننڍو dm_Paper_ويڪر;
+        ننڍو dmScale;
+        ننڍو dmCopies;
+        ننڍو dm_Default_ذريعو;
+        ننڍو dmPrintQuality;
       };
-      struct {
+      بنية {
         POINTL dmPosition;
         DWORD dmDisplayOrientation;
         DWORD dmDisplayFixedOutput;
       };
     };
-    short dmColor;
-    short dmDuplex;
-    short dmYResolution;
-    short dmTTOption;
-    short dmCollate;
+    ننڍو dmColor;
+    ننڍو dmDuplex;
+    ننڍو dmYResolution;
+    ننڍو dmTTOption;
+    ننڍو dmCollate;
     WCHAR dmFormName[CCHFORMNAME];
-    WORD dmLogPixels;
-    DWORD dmBitsPerPel;
-    DWORD dmPelsWidth;
-    DWORD dmPelsHeight;
-    union {
+    لفظ_3 dmLogPixels;
+    DWORD dm_بٽ_في_Pel;
+    DWORD dm_Pels_ويڪر;
+    DWORD dm_Pels_اوچائي;
+    اتحاد {
       DWORD dmDisplayFlags;
       DWORD dmNup;
     };
@@ -1697,947 +1697,947 @@ extern "C" {
     DWORD dmDitherType;
     DWORD dmReserved1;
     DWORD dmReserved2;
-    DWORD dmPanningWidth;
-    DWORD dmPanningHeight;
+    DWORD dm_Panning_ويڪر;
+    DWORD dm_Panning_اوچائي;
   } DEVMODEW,*PDEVMODEW,*NPDEVMODEW,*LPDEVMODEW;
-#ifdef UNICODE
-  typedef DEVMODEW DEVMODE;
-  typedef PDEVMODEW PDEVMODE;
-  typedef NPDEVMODEW NPDEVMODE;
-  typedef LPDEVMODEW LPDEVMODE;
-#else
-  typedef DEVMODEA DEVMODE;
-  typedef PDEVMODEA PDEVMODE;
-  typedef NPDEVMODEA NPDEVMODE;
-  typedef LPDEVMODEA LPDEVMODE;
-#endif
+#جيڪڏهن_وصف_ٿيل UNICODE
+  تعريفنوع DEVMODEW DEVMODE;
+  تعريفنوع PDEVMODEW PDEVMODE;
+  تعريفنوع NPDEVMODEW NPDEVMODE;
+  تعريفنوع LPDEVMODEW LPDEVMODE;
+#وإلا
+  تعريفنوع DEVMODEA DEVMODE;
+  تعريفنوع PDEVMODEA PDEVMODE;
+  تعريفنوع NPDEVMODEA NPDEVMODE;
+  تعريفنوع LPDEVMODEA LPDEVMODE;
+#جيڪڏهن_پورو
 
-#define DM_SPECVERSION 0x0401
+#وصف_ڪريو DM_SPECVERSION 0x0401
 
-#define DM_ORIENTATION 0x00000001L
-#define DM_PAPERSIZE 0x00000002L
-#define DM_PAPERLENGTH 0x00000004L
-#define DM_PAPERWIDTH 0x00000008L
-#define DM_SCALE 0x00000010L
-#define DM_POSITION 0x00000020L
-#define DM_NUP 0x00000040L
-#define DM_DISPLAYORIENTATION 0x00000080L
-#define DM_COPIES 0x00000100L
-#define DM_DEFAULTSOURCE 0x00000200L
-#define DM_PRINTQUALITY 0x00000400L
-#define DM_COLOR 0x00000800L
-#define DM_DUPLEX 0x00001000L
-#define DM_YRESOLUTION 0x00002000L
-#define DM_TTOPTION 0x00004000L
-#define DM_COLLATE 0x00008000L
-#define DM_FORMNAME 0x00010000L
-#define DM_LOGPIXELS 0x00020000L
-#define DM_BITSPERPEL 0x00040000L
-#define DM_PELSWIDTH 0x00080000L
-#define DM_PELSHEIGHT 0x00100000L
-#define DM_DISPLAYFLAGS 0x00200000L
-#define DM_DISPLAYFREQUENCY 0x00400000L
-#define DM_ICMMETHOD 0x00800000L
-#define DM_ICMINTENT 0x01000000L
-#define DM_MEDIATYPE 0x02000000L
-#define DM_DITHERTYPE 0x04000000L
-#define DM_PANNINGWIDTH 0x08000000L
-#define DM_PANNINGHEIGHT 0x10000000L
-#define DM_DISPLAYFIXEDOUTPUT 0x20000000L
+#وصف_ڪريو DM_ORIENTATION 0x00000001L
+#وصف_ڪريو DM_PAPERSIZE 0x00000002L
+#وصف_ڪريو DM_PAPERLENGTH 0x00000004L
+#وصف_ڪريو DM_PAPERWIDTH 0x00000008L
+#وصف_ڪريو DM_SCALE 0x00000010L
+#وصف_ڪريو DM_POSITION 0x00000020L
+#وصف_ڪريو DM_NUP 0x00000040L
+#وصف_ڪريو DM_DISPLAYORIENTATION 0x00000080L
+#وصف_ڪريو DM_COPIES 0x00000100L
+#وصف_ڪريو DM_DEFAULTSOURCE 0x00000200L
+#وصف_ڪريو DM_PRINTQUALITY 0x00000400L
+#وصف_ڪريو DM_COLOR 0x00000800L
+#وصف_ڪريو DM_DUPLEX 0x00001000L
+#وصف_ڪريو DM_YRESOLUTION 0x00002000L
+#وصف_ڪريو DM_TTOPTION 0x00004000L
+#وصف_ڪريو DM_COLLATE 0x00008000L
+#وصف_ڪريو DM_FORMNAME 0x00010000L
+#وصف_ڪريو DM_LOGPIXELS 0x00020000L
+#وصف_ڪريو DM_BITSPERPEL 0x00040000L
+#وصف_ڪريو DM_PELSWIDTH 0x00080000L
+#وصف_ڪريو DM_PELSHEIGHT 0x00100000L
+#وصف_ڪريو DM_DISPLAYFLAGS 0x00200000L
+#وصف_ڪريو DM_DISPLAYFREQUENCY 0x00400000L
+#وصف_ڪريو DM_ICMMETHOD 0x00800000L
+#وصف_ڪريو DM_ICMINTENT 0x01000000L
+#وصف_ڪريو DM_MEDIATYPE 0x02000000L
+#وصف_ڪريو DM_DITHERTYPE 0x04000000L
+#وصف_ڪريو DM_PANNINGWIDTH 0x08000000L
+#وصف_ڪريو DM_PANNINGHEIGHT 0x10000000L
+#وصف_ڪريو DM_DISPLAYFIXEDOUTPUT 0x20000000L
 
-#define DMORIENT_PORTRAIT 1
-#define DMORIENT_LANDSCAPE 2
+#وصف_ڪريو DMORIENT_PORTRAIT 1
+#وصف_ڪريو DMORIENT_LANDSCAPE 2
 
-#define DMPAPER_FIRST DMPAPER_LETTER
-#define DMPAPER_LETTER 1
-#define DMPAPER_LETTERSMALL 2
-#define DMPAPER_TABLOID 3
-#define DMPAPER_LEDGER 4
-#define DMPAPER_LEGAL 5
-#define DMPAPER_STATEMENT 6
-#define DMPAPER_EXECUTIVE 7
-#define DMPAPER_A3 8
-#define DMPAPER_A4 9
-#define DMPAPER_A4SMALL 10
-#define DMPAPER_A5 11
-#define DMPAPER_B4 12
-#define DMPAPER_B5 13
-#define DMPAPER_FOLIO 14
-#define DMPAPER_QUARTO 15
-#define DMPAPER_10X14 16
-#define DMPAPER_11X17 17
-#define DMPAPER_NOTE 18
-#define DMPAPER_ENV_9 19
-#define DMPAPER_ENV_10 20
-#define DMPAPER_ENV_11 21
-#define DMPAPER_ENV_12 22
-#define DMPAPER_ENV_14 23
-#define DMPAPER_CSHEET 24
-#define DMPAPER_DSHEET 25
-#define DMPAPER_ESHEET 26
-#define DMPAPER_ENV_DL 27
-#define DMPAPER_ENV_C5 28
-#define DMPAPER_ENV_C3 29
-#define DMPAPER_ENV_C4 30
-#define DMPAPER_ENV_C6 31
-#define DMPAPER_ENV_C65 32
-#define DMPAPER_ENV_B4 33
-#define DMPAPER_ENV_B5 34
-#define DMPAPER_ENV_B6 35
-#define DMPAPER_ENV_ITALY 36
-#define DMPAPER_ENV_MONARCH 37
-#define DMPAPER_ENV_PERSONAL 38
-#define DMPAPER_FANFOLD_US 39
-#define DMPAPER_FANFOLD_STD_GERMAN 40
-#define DMPAPER_FANFOLD_LGL_GERMAN 41
-#define DMPAPER_ISO_B4 42
-#define DMPAPER_JAPANESE_POSTCARD 43
-#define DMPAPER_9X11 44
-#define DMPAPER_10X11 45
-#define DMPAPER_15X11 46
-#define DMPAPER_ENV_INVITE 47
-#define DMPAPER_RESERVED_48 48
-#define DMPAPER_RESERVED_49 49
-#define DMPAPER_LETTER_EXTRA 50
-#define DMPAPER_LEGAL_EXTRA 51
-#define DMPAPER_TABLOID_EXTRA 52
-#define DMPAPER_A4_EXTRA 53
-#define DMPAPER_LETTER_TRANSVERSE 54
-#define DMPAPER_A4_TRANSVERSE 55
-#define DMPAPER_LETTER_EXTRA_TRANSVERSE 56
-#define DMPAPER_A_PLUS 57
-#define DMPAPER_B_PLUS 58
-#define DMPAPER_LETTER_PLUS 59
-#define DMPAPER_A4_PLUS 60
-#define DMPAPER_A5_TRANSVERSE 61
-#define DMPAPER_B5_TRANSVERSE 62
-#define DMPAPER_A3_EXTRA 63
-#define DMPAPER_A5_EXTRA 64
-#define DMPAPER_B5_EXTRA 65
-#define DMPAPER_A2 66
-#define DMPAPER_A3_TRANSVERSE 67
-#define DMPAPER_A3_EXTRA_TRANSVERSE 68
-#define DMPAPER_DBL_JAPANESE_POSTCARD 69
-#define DMPAPER_A6 70
-#define DMPAPER_JENV_KAKU2 71
-#define DMPAPER_JENV_KAKU3 72
-#define DMPAPER_JENV_CHOU3 73
-#define DMPAPER_JENV_CHOU4 74
-#define DMPAPER_LETTER_ROTATED 75
-#define DMPAPER_A3_ROTATED 76
-#define DMPAPER_A4_ROTATED 77
-#define DMPAPER_A5_ROTATED 78
-#define DMPAPER_B4_JIS_ROTATED 79
-#define DMPAPER_B5_JIS_ROTATED 80
-#define DMPAPER_JAPANESE_POSTCARD_ROTATED 81
-#define DMPAPER_DBL_JAPANESE_POSTCARD_ROTATED 82
-#define DMPAPER_A6_ROTATED 83
-#define DMPAPER_JENV_KAKU2_ROTATED 84
-#define DMPAPER_JENV_KAKU3_ROTATED 85
-#define DMPAPER_JENV_CHOU3_ROTATED 86
-#define DMPAPER_JENV_CHOU4_ROTATED 87
-#define DMPAPER_B6_JIS 88
-#define DMPAPER_B6_JIS_ROTATED 89
-#define DMPAPER_12X11 90
-#define DMPAPER_JENV_YOU4 91
-#define DMPAPER_JENV_YOU4_ROTATED 92
-#define DMPAPER_P16K 93
-#define DMPAPER_P32K 94
-#define DMPAPER_P32KBIG 95
-#define DMPAPER_PENV_1 96
-#define DMPAPER_PENV_2 97
-#define DMPAPER_PENV_3 98
-#define DMPAPER_PENV_4 99
-#define DMPAPER_PENV_5 100
-#define DMPAPER_PENV_6 101
-#define DMPAPER_PENV_7 102
-#define DMPAPER_PENV_8 103
-#define DMPAPER_PENV_9 104
-#define DMPAPER_PENV_10 105
-#define DMPAPER_P16K_ROTATED 106
-#define DMPAPER_P32K_ROTATED 107
-#define DMPAPER_P32KBIG_ROTATED 108
-#define DMPAPER_PENV_1_ROTATED 109
-#define DMPAPER_PENV_2_ROTATED 110
-#define DMPAPER_PENV_3_ROTATED 111
-#define DMPAPER_PENV_4_ROTATED 112
-#define DMPAPER_PENV_5_ROTATED 113
-#define DMPAPER_PENV_6_ROTATED 114
-#define DMPAPER_PENV_7_ROTATED 115
-#define DMPAPER_PENV_8_ROTATED 116
-#define DMPAPER_PENV_9_ROTATED 117
-#define DMPAPER_PENV_10_ROTATED 118
+#وصف_ڪريو DMPAPER_پهريون DMPAPER_LETTER
+#وصف_ڪريو DMPAPER_LETTER 1
+#وصف_ڪريو DMPAPER_LETTERSMALL 2
+#وصف_ڪريو DMPAPER_TABLOID 3
+#وصف_ڪريو DMPAPER_LEDGER 4
+#وصف_ڪريو DMPAPER_LEGAL 5
+#وصف_ڪريو DMPAPER_STATEMENT 6
+#وصف_ڪريو DMPAPER_EXECUTIVE 7
+#وصف_ڪريو DMPAPER_A3 8
+#وصف_ڪريو DMPAPER_A4 9
+#وصف_ڪريو DMPAPER_A4SMALL 10
+#وصف_ڪريو DMPAPER_A5 11
+#وصف_ڪريو DMPAPER_B4 12
+#وصف_ڪريو DMPAPER_B5 13
+#وصف_ڪريو DMPAPER_FOLIO 14
+#وصف_ڪريو DMPAPER_QUARTO 15
+#وصف_ڪريو DMPAPER_10X14 16
+#وصف_ڪريو DMPAPER_11X17 17
+#وصف_ڪريو DMPAPER_NOTE 18
+#وصف_ڪريو DMPAPER_ENV_9 19
+#وصف_ڪريو DMPAPER_ENV_10 20
+#وصف_ڪريو DMPAPER_ENV_11 21
+#وصف_ڪريو DMPAPER_ENV_12 22
+#وصف_ڪريو DMPAPER_ENV_14 23
+#وصف_ڪريو DMPAPER_CSHEET 24
+#وصف_ڪريو DMPAPER_DSHEET 25
+#وصف_ڪريو DMPAPER_ESHEET 26
+#وصف_ڪريو DMPAPER_ENV_DL 27
+#وصف_ڪريو DMPAPER_ENV_C5 28
+#وصف_ڪريو DMPAPER_ENV_C3 29
+#وصف_ڪريو DMPAPER_ENV_C4 30
+#وصف_ڪريو DMPAPER_ENV_C6 31
+#وصف_ڪريو DMPAPER_ENV_C65 32
+#وصف_ڪريو DMPAPER_ENV_B4 33
+#وصف_ڪريو DMPAPER_ENV_B5 34
+#وصف_ڪريو DMPAPER_ENV_B6 35
+#وصف_ڪريو DMPAPER_ENV_ITALY 36
+#وصف_ڪريو DMPAPER_ENV_MONARCH 37
+#وصف_ڪريو DMPAPER_ENV_PERSONAL 38
+#وصف_ڪريو DMPAPER_FANFOLD_US 39
+#وصف_ڪريو DMPAPER_FANFOLD_STD_GERMAN 40
+#وصف_ڪريو DMPAPER_FANFOLD_LGL_GERMAN 41
+#وصف_ڪريو DMPAPER_ISO_B4 42
+#وصف_ڪريو DMPAPER_JAPANESE_POSTCARD 43
+#وصف_ڪريو DMPAPER_9X11 44
+#وصف_ڪريو DMPAPER_10X11 45
+#وصف_ڪريو DMPAPER_15X11 46
+#وصف_ڪريو DMPAPER_ENV_INVITE 47
+#وصف_ڪريو DMPAPER_RESERVED_48 48
+#وصف_ڪريو DMPAPER_RESERVED_49 49
+#وصف_ڪريو DMPAPER_LETTER_EXTRA 50
+#وصف_ڪريو DMPAPER_LEGAL_EXTRA 51
+#وصف_ڪريو DMPAPER_TABLOID_EXTRA 52
+#وصف_ڪريو DMPAPER_A4_EXTRA 53
+#وصف_ڪريو DMPAPER_LETTER_TRANSVERSE 54
+#وصف_ڪريو DMPAPER_A4_TRANSVERSE 55
+#وصف_ڪريو DMPAPER_LETTER_EXTRA_TRANSVERSE 56
+#وصف_ڪريو DMPAPER_A_PLUS 57
+#وصف_ڪريو DMPAPER_B_PLUS 58
+#وصف_ڪريو DMPAPER_LETTER_PLUS 59
+#وصف_ڪريو DMPAPER_A4_PLUS 60
+#وصف_ڪريو DMPAPER_A5_TRANSVERSE 61
+#وصف_ڪريو DMPAPER_B5_TRANSVERSE 62
+#وصف_ڪريو DMPAPER_A3_EXTRA 63
+#وصف_ڪريو DMPAPER_A5_EXTRA 64
+#وصف_ڪريو DMPAPER_B5_EXTRA 65
+#وصف_ڪريو DMPAPER_A2 66
+#وصف_ڪريو DMPAPER_A3_TRANSVERSE 67
+#وصف_ڪريو DMPAPER_A3_EXTRA_TRANSVERSE 68
+#وصف_ڪريو DMPAPER_DBL_JAPANESE_POSTCARD 69
+#وصف_ڪريو DMPAPER_A6 70
+#وصف_ڪريو DMPAPER_JENV_KAKU2 71
+#وصف_ڪريو DMPAPER_JENV_KAKU3 72
+#وصف_ڪريو DMPAPER_JENV_CHOU3 73
+#وصف_ڪريو DMPAPER_JENV_CHOU4 74
+#وصف_ڪريو DMPAPER_LETTER_ROTATED 75
+#وصف_ڪريو DMPAPER_A3_ROTATED 76
+#وصف_ڪريو DMPAPER_A4_ROTATED 77
+#وصف_ڪريو DMPAPER_A5_ROTATED 78
+#وصف_ڪريو DMPAPER_B4_JIS_ROTATED 79
+#وصف_ڪريو DMPAPER_B5_JIS_ROTATED 80
+#وصف_ڪريو DMPAPER_JAPANESE_POSTCARD_ROTATED 81
+#وصف_ڪريو DMPAPER_DBL_JAPANESE_POSTCARD_ROTATED 82
+#وصف_ڪريو DMPAPER_A6_ROTATED 83
+#وصف_ڪريو DMPAPER_JENV_KAKU2_ROTATED 84
+#وصف_ڪريو DMPAPER_JENV_KAKU3_ROTATED 85
+#وصف_ڪريو DMPAPER_JENV_CHOU3_ROTATED 86
+#وصف_ڪريو DMPAPER_JENV_CHOU4_ROTATED 87
+#وصف_ڪريو DMPAPER_B6_JIS 88
+#وصف_ڪريو DMPAPER_B6_JIS_ROTATED 89
+#وصف_ڪريو DMPAPER_12X11 90
+#وصف_ڪريو DMPAPER_JENV_YOU4 91
+#وصف_ڪريو DMPAPER_JENV_YOU4_ROTATED 92
+#وصف_ڪريو DMPAPER_P16K 93
+#وصف_ڪريو DMPAPER_P32K 94
+#وصف_ڪريو DMPAPER_P32KBIG 95
+#وصف_ڪريو DMPAPER_PENV_1 96
+#وصف_ڪريو DMPAPER_PENV_2 97
+#وصف_ڪريو DMPAPER_PENV_3 98
+#وصف_ڪريو DMPAPER_PENV_4 99
+#وصف_ڪريو DMPAPER_PENV_5 100
+#وصف_ڪريو DMPAPER_PENV_6 101
+#وصف_ڪريو DMPAPER_PENV_7 102
+#وصف_ڪريو DMPAPER_PENV_8 103
+#وصف_ڪريو DMPAPER_PENV_9 104
+#وصف_ڪريو DMPAPER_PENV_10 105
+#وصف_ڪريو DMPAPER_P16K_ROTATED 106
+#وصف_ڪريو DMPAPER_P32K_ROTATED 107
+#وصف_ڪريو DMPAPER_P32KBIG_ROTATED 108
+#وصف_ڪريو DMPAPER_PENV_1_ROTATED 109
+#وصف_ڪريو DMPAPER_PENV_2_ROTATED 110
+#وصف_ڪريو DMPAPER_PENV_3_ROTATED 111
+#وصف_ڪريو DMPAPER_PENV_4_ROTATED 112
+#وصف_ڪريو DMPAPER_PENV_5_ROTATED 113
+#وصف_ڪريو DMPAPER_PENV_6_ROTATED 114
+#وصف_ڪريو DMPAPER_PENV_7_ROTATED 115
+#وصف_ڪريو DMPAPER_PENV_8_ROTATED 116
+#وصف_ڪريو DMPAPER_PENV_9_ROTATED 117
+#وصف_ڪريو DMPAPER_PENV_10_ROTATED 118
 
-#define DMPAPER_LAST DMPAPER_PENV_10_ROTATED
+#وصف_ڪريو DMPAPER_آخري DMPAPER_PENV_10_ROTATED
 
-#define DMPAPER_USER 256
+#وصف_ڪريو DMPAPER_USER 256
 
-#define DMBIN_FIRST DMBIN_UPPER
-#define DMBIN_UPPER 1
-#define DMBIN_ONLYONE 1
-#define DMBIN_LOWER 2
-#define DMBIN_MIDDLE 3
-#define DMBIN_MANUAL 4
-#define DMBIN_ENVELOPE 5
-#define DMBIN_ENVMANUAL 6
-#define DMBIN_AUTO 7
-#define DMBIN_TRACTOR 8
-#define DMBIN_SMALLFMT 9
-#define DMBIN_LARGEFMT 10
-#define DMBIN_LARGECAPACITY 11
-#define DMBIN_CASSETTE 14
-#define DMBIN_FORMSOURCE 15
-#define DMBIN_LAST DMBIN_FORMSOURCE
+#وصف_ڪريو DMBIN_پهريون DMBIN_مٿانهون
+#وصف_ڪريو DMBIN_مٿانهون 1
+#وصف_ڪريو DMBIN_ONLYONE 1
+#وصف_ڪريو DMBIN_هيٺاهون 2
+#وصف_ڪريو DMBIN_وچ 3
+#وصف_ڪريو DMBIN_MANUAL 4
+#وصف_ڪريو DMBIN_ENVELOPE 5
+#وصف_ڪريو DMBIN_ENVMANUAL 6
+#وصف_ڪريو DMBIN_AUTO 7
+#وصف_ڪريو DMBIN_TRACTOR 8
+#وصف_ڪريو DMBIN_SMALLFMT 9
+#وصف_ڪريو DMBIN_LARGEFMT 10
+#وصف_ڪريو DMBIN_LARGECAPACITY 11
+#وصف_ڪريو DMBIN_CASSETTE 14
+#وصف_ڪريو DMBIN_FORMSOURCE 15
+#وصف_ڪريو DMBIN_آخري DMBIN_FORMSOURCE
 
-#define DMBIN_USER 256
+#وصف_ڪريو DMBIN_USER 256
 
-#define DMRES_DRAFT (-1)
-#define DMRES_LOW (-2)
-#define DMRES_MEDIUM (-3)
-#define DMRES_HIGH (-4)
+#وصف_ڪريو DMRES_DRAFT (-1)
+#وصف_ڪريو DMRES_هيٺيون (-2)
+#وصف_ڪريو DMRES_MEDIUM (-3)
+#وصف_ڪريو DMRES_مٿاهون (-4)
 
-#define DMCOLOR_MONOCHROME 1
-#define DMCOLOR_COLOR 2
+#وصف_ڪريو DMCOLOR_MONOCHROME 1
+#وصف_ڪريو DMCOLOR_COLOR 2
 
-#define DMDUP_SIMPLEX 1
-#define DMDUP_VERTICAL 2
-#define DMDUP_HORIZONTAL 3
+#وصف_ڪريو DMDUP_SIMPLEX 1
+#وصف_ڪريو DMDUP_VERTICAL 2
+#وصف_ڪريو DMDUP_HORIZONTAL 3
 
-#define DMTT_BITMAP 1
-#define DMTT_DOWNLOAD 2
-#define DMTT_SUBDEV 3
-#define DMTT_DOWNLOAD_OUTLINE 4
+#وصف_ڪريو DMTT_BITMAP 1
+#وصف_ڪريو DMTT_DOWNLOAD 2
+#وصف_ڪريو DMTT_SUBDEV 3
+#وصف_ڪريو DMTT_DOWNLOAD_OUTLINE 4
 
-#define DMCOLLATE_FALSE 0
-#define DMCOLLATE_TRUE 1
+#وصف_ڪريو DMCOLLATE_FALSE 0
+#وصف_ڪريو DMCOLLATE_TRUE 1
 
-#define DMDO_DEFAULT 0
-#define DMDO_90 1
-#define DMDO_180 2
-#define DMDO_270 3
+#وصف_ڪريو DMDO_DEFAULT 0
+#وصف_ڪريو DMDO_90 1
+#وصف_ڪريو DMDO_180 2
+#وصف_ڪريو DMDO_270 3
 
-#define DMDFO_DEFAULT 0
-#define DMDFO_STRETCH 1
-#define DMDFO_CENTER 2
+#وصف_ڪريو DMDFO_DEFAULT 0
+#وصف_ڪريو DMDFO_STRETCH 1
+#وصف_ڪريو DMDFO_CENTER 2
 
-#define DMDISPLAYFLAGS_TEXTMODE 0x00000004
+#وصف_ڪريو DMDISPLAYFLAGS_TEXTMODE 0x00000004
 
-#define DMNUP_SYSTEM 1
-#define DMNUP_ONEUP 2
+#وصف_ڪريو DMNUP_SYSTEM 1
+#وصف_ڪريو DMNUP_ONEUP 2
 
-#define DMICMMETHOD_NONE 1
-#define DMICMMETHOD_SYSTEM 2
-#define DMICMMETHOD_DRIVER 3
-#define DMICMMETHOD_DEVICE 4
+#وصف_ڪريو DMICMMETHOD_NONE 1
+#وصف_ڪريو DMICMMETHOD_SYSTEM 2
+#وصف_ڪريو DMICMMETHOD_DRIVER 3
+#وصف_ڪريو DMICMMETHOD_DEVICE 4
 
-#define DMICMMETHOD_USER 256
+#وصف_ڪريو DMICMMETHOD_USER 256
 
-#define DMICM_SATURATE 1
-#define DMICM_CONTRAST 2
-#define DMICM_COLORIMETRIC 3
-#define DMICM_ABS_COLORIMETRIC 4
+#وصف_ڪريو DMICM_SATURATE 1
+#وصف_ڪريو DMICM_CONTRAST 2
+#وصف_ڪريو DMICM_COLORIMETRIC 3
+#وصف_ڪريو DMICM_ABS_COLORIMETRIC 4
 
-#define DMICM_USER 256
+#وصف_ڪريو DMICM_USER 256
 
-#define DMMEDIA_STANDARD 1
-#define DMMEDIA_TRANSPARENCY 2
-#define DMMEDIA_GLOSSY 3
+#وصف_ڪريو DMMEDIA_STANDARD 1
+#وصف_ڪريو DMMEDIA_TRANSPARENCY 2
+#وصف_ڪريو DMMEDIA_GLOSSY 3
 
-#define DMMEDIA_USER 256
+#وصف_ڪريو DMMEDIA_USER 256
 
-#define DMDITHER_NONE 1
-#define DMDITHER_COARSE 2
-#define DMDITHER_FINE 3
-#define DMDITHER_LINEART 4
-#define DMDITHER_ERRORDIFFUSION 5
-#define DMDITHER_RESERVED6 6
-#define DMDITHER_RESERVED7 7
-#define DMDITHER_RESERVED8 8
-#define DMDITHER_RESERVED9 9
-#define DMDITHER_GRAYSCALE 10
+#وصف_ڪريو DMDITHER_NONE 1
+#وصف_ڪريو DMDITHER_COARSE 2
+#وصف_ڪريو DMDITHER_FINE 3
+#وصف_ڪريو DMDITHER_LINEART 4
+#وصف_ڪريو DMDITHER_ERRORDIFFUSION 5
+#وصف_ڪريو DMDITHER_RESERVED6 6
+#وصف_ڪريو DMDITHER_RESERVED7 7
+#وصف_ڪريو DMDITHER_RESERVED8 8
+#وصف_ڪريو DMDITHER_RESERVED9 9
+#وصف_ڪريو DMDITHER_GRAYSCALE 10
 
-#define DMDITHER_USER 256
+#وصف_ڪريو DMDITHER_USER 256
 
-  typedef struct _DISPLAY_DEVICEA {
+  تعريفنوع بنية _DISPLAY_DEVICEA {
     DWORD cb;
     CHAR DeviceName[32];
     CHAR DeviceString[128];
     DWORD StateFlags;
     CHAR DeviceID[128];
-    CHAR DeviceKey[128];
+    CHAR Device_ڪنجي[128];
   } DISPLAY_DEVICEA,*PDISPLAY_DEVICEA,*LPDISPLAY_DEVICEA;
-  typedef struct _DISPLAY_DEVICEW {
+  تعريفنوع بنية _DISPLAY_DEVICEW {
     DWORD cb;
     WCHAR DeviceName[32];
     WCHAR DeviceString[128];
     DWORD StateFlags;
     WCHAR DeviceID[128];
-    WCHAR DeviceKey[128];
+    WCHAR Device_ڪنجي[128];
   } DISPLAY_DEVICEW,*PDISPLAY_DEVICEW,*LPDISPLAY_DEVICEW;
-#ifdef UNICODE
-  typedef DISPLAY_DEVICEW DISPLAY_DEVICE;
-  typedef PDISPLAY_DEVICEW PDISPLAY_DEVICE;
-  typedef LPDISPLAY_DEVICEW LPDISPLAY_DEVICE;
-#else
-  typedef DISPLAY_DEVICEA DISPLAY_DEVICE;
-  typedef PDISPLAY_DEVICEA PDISPLAY_DEVICE;
-  typedef LPDISPLAY_DEVICEA LPDISPLAY_DEVICE;
-#endif
+#جيڪڏهن_وصف_ٿيل UNICODE
+  تعريفنوع DISPLAY_DEVICEW DISPLAY_DEVICE;
+  تعريفنوع PDISPLAY_DEVICEW PDISPLAY_DEVICE;
+  تعريفنوع LPDISPLAY_DEVICEW LPDISPLAY_DEVICE;
+#وإلا
+  تعريفنوع DISPLAY_DEVICEA DISPLAY_DEVICE;
+  تعريفنوع PDISPLAY_DEVICEA PDISPLAY_DEVICE;
+  تعريفنوع LPDISPLAY_DEVICEA LPDISPLAY_DEVICE;
+#جيڪڏهن_پورو
 
-#define DISPLAY_DEVICE_ATTACHED_TO_DESKTOP 0x00000001
-#define DISPLAY_DEVICE_MULTI_DRIVER 0x00000002
-#define DISPLAY_DEVICE_PRIMARY_DEVICE 0x00000004
-#define DISPLAY_DEVICE_MIRRORING_DRIVER 0x00000008
-#define DISPLAY_DEVICE_VGA_COMPATIBLE 0x00000010
-#define DISPLAY_DEVICE_REMOVABLE 0x00000020
-#define DISPLAY_DEVICE_MODESPRUNED 0x08000000
-#define DISPLAY_DEVICE_REMOTE 0x04000000
-#define DISPLAY_DEVICE_DISCONNECT 0x02000000
+#وصف_ڪريو DISPLAY_DEVICE_ATTACHED_منزل_DESKTOP 0x00000001
+#وصف_ڪريو DISPLAY_DEVICE_MULTI_DRIVER 0x00000002
+#وصف_ڪريو DISPLAY_DEVICE_PRIMARY_DEVICE 0x00000004
+#وصف_ڪريو DISPLAY_DEVICE_MIRRORING_DRIVER 0x00000008
+#وصف_ڪريو DISPLAY_DEVICE_VGA_COMPATIBLE 0x00000010
+#وصف_ڪريو DISPLAY_DEVICE_REMOVABLE 0x00000020
+#وصف_ڪريو DISPLAY_DEVICE_MODESPRUNED 0x08000000
+#وصف_ڪريو DISPLAY_DEVICE_REMOTE 0x04000000
+#وصف_ڪريو DISPLAY_DEVICE_DISCONNECT 0x02000000
 
-#define DISPLAY_DEVICE_ACTIVE 0x00000001
-#define DISPLAY_DEVICE_ATTACHED 0x00000002
+#وصف_ڪريو DISPLAY_DEVICE_سرگرم 0x00000001
+#وصف_ڪريو DISPLAY_DEVICE_ATTACHED 0x00000002
 
-#define RDH_RECTANGLES 1
+#وصف_ڪريو RDH_RECTANGLES 1
 
-  typedef struct _RGNDATAHEADER {
-    DWORD dwSize;
+  تعريفنوع بنية _RGNDATAHEADER {
+    DWORD dw_سائيز;
     DWORD iType;
-    DWORD nCount;
-    DWORD nRgnSize;
+    DWORD n_ڳڻپ;
+    DWORD n_Rgn_سائيز;
     RECT rcBound;
   } RGNDATAHEADER,*PRGNDATAHEADER;
 
-  typedef struct _RGNDATA {
+  تعريفنوع بنية _RGNDATA {
     RGNDATAHEADER rdh;
-    char Buffer[1];
+    حرف بفر_3[1];
   } RGNDATA,*PRGNDATA,*NPRGNDATA,*LPRGNDATA;
 
-#define SYSRGN 4
+#وصف_ڪريو SYSRGN 4
 
-  typedef struct _ABC {
-    int abcA;
+  تعريفنوع بنية _ABC {
+    صحيح abcA;
     UINT abcB;
-    int abcC;
+    صحيح abcC;
   } ABC,*PABC,*NPABC,*LPABC;
 
-  typedef struct _ABCFLOAT {
+  تعريفنوع بنية _ABCFLOAT {
     FLOAT abcfA;
     FLOAT abcfB;
     FLOAT abcfC;
   } ABCFLOAT,*PABCFLOAT,*NPABCFLOAT,*LPABCFLOAT;
 
-#ifndef NOTEXTMETRIC
+#جيڪڏهن_وصف_نه_ٿيل NOTEXTMETRIC
 
-  typedef struct _OUTLINETEXTMETRICA {
-    UINT otmSize;
-    TEXTMETRICA otmTextMetrics;
+  تعريفنوع بنية _OUTLINETEXTMETRICA {
+    UINT otm_سائيز;
+    TEXTMETRICA otm_متن_Metrics;
     BYTE otmFiller;
-    PANOSE otmPanoseNumber;
+    PANOSE otm_Panose_عدد;
     UINT otmfsSelection;
     UINT otmfsType;
-    int otmsCharSlopeRise;
-    int otmsCharSlopeRun;
-    int otmItalicAngle;
+    صحيح otms_Char_لاهي_Rise;
+    صحيح otms_Char_لاهي_لاڳيتو;
+    صحيح otmItalicAngle;
     UINT otmEMSquare;
-    int otmAscent;
-    int otmDescent;
-    UINT otmLineGap;
-    UINT otmsCapEmHeight;
+    صحيح otmAscent;
+    صحيح otmDescent;
+    UINT otm_سٽ_Gap;
+    UINT otms_Cap_Em_اوچائي;
     UINT otmsXHeight;
     RECT otmrcFontBox;
-    int otmMacAscent;
-    int otmMacDescent;
-    UINT otmMacLineGap;
+    صحيح otmMacAscent;
+    صحيح otmMacDescent;
+    UINT otm_Mac_سٽ_Gap;
     UINT otmusMinimumPPEM;
-    POINT otmptSubscriptSize;
-    POINT otmptSubscriptOffset;
-    POINT otmptSuperscriptSize;
-    POINT otmptSuperscriptOffset;
-    UINT otmsStrikeoutSize;
-    int otmsStrikeoutPosition;
-    int otmsUnderscoreSize;
-    int otmsUnderscorePosition;
+    نقطو_3 otmpt_Subscript_سائيز;
+    نقطو_3 otmpt_Subscript_وٿي;
+    نقطو_3 otmpt_Superscript_سائيز;
+    نقطو_3 otmpt_Superscript_وٿي;
+    UINT otms_Strikeout_سائيز;
+    صحيح otmsStrikeoutPosition;
+    صحيح otms_Underscore_سائيز;
+    صحيح otmsUnderscorePosition;
     PSTR otmpFamilyName;
     PSTR otmpFaceName;
     PSTR otmpStyleName;
-    PSTR otmpFullName;
+    PSTR otmp_ڀريل_Name;
   } OUTLINETEXTMETRICA,*POUTLINETEXTMETRICA,*NPOUTLINETEXTMETRICA,*LPOUTLINETEXTMETRICA;
 
-  typedef struct _OUTLINETEXTMETRICW {
-    UINT otmSize;
-    TEXTMETRICW otmTextMetrics;
+  تعريفنوع بنية _OUTLINETEXTMETRICW {
+    UINT otm_سائيز;
+    TEXTMETRICW otm_متن_Metrics;
     BYTE otmFiller;
-    PANOSE otmPanoseNumber;
+    PANOSE otm_Panose_عدد;
     UINT otmfsSelection;
     UINT otmfsType;
-    int otmsCharSlopeRise;
-    int otmsCharSlopeRun;
-    int otmItalicAngle;
+    صحيح otms_Char_لاهي_Rise;
+    صحيح otms_Char_لاهي_لاڳيتو;
+    صحيح otmItalicAngle;
     UINT otmEMSquare;
-    int otmAscent;
-    int otmDescent;
-    UINT otmLineGap;
-    UINT otmsCapEmHeight;
+    صحيح otmAscent;
+    صحيح otmDescent;
+    UINT otm_سٽ_Gap;
+    UINT otms_Cap_Em_اوچائي;
     UINT otmsXHeight;
     RECT otmrcFontBox;
-    int otmMacAscent;
-    int otmMacDescent;
-    UINT otmMacLineGap;
+    صحيح otmMacAscent;
+    صحيح otmMacDescent;
+    UINT otm_Mac_سٽ_Gap;
     UINT otmusMinimumPPEM;
-    POINT otmptSubscriptSize;
-    POINT otmptSubscriptOffset;
-    POINT otmptSuperscriptSize;
-    POINT otmptSuperscriptOffset;
-    UINT otmsStrikeoutSize;
-    int otmsStrikeoutPosition;
-    int otmsUnderscoreSize;
-    int otmsUnderscorePosition;
+    نقطو_3 otmpt_Subscript_سائيز;
+    نقطو_3 otmpt_Subscript_وٿي;
+    نقطو_3 otmpt_Superscript_سائيز;
+    نقطو_3 otmpt_Superscript_وٿي;
+    UINT otms_Strikeout_سائيز;
+    صحيح otmsStrikeoutPosition;
+    صحيح otms_Underscore_سائيز;
+    صحيح otmsUnderscorePosition;
     PSTR otmpFamilyName;
     PSTR otmpFaceName;
     PSTR otmpStyleName;
-    PSTR otmpFullName;
+    PSTR otmp_ڀريل_Name;
   } OUTLINETEXTMETRICW,*POUTLINETEXTMETRICW,*NPOUTLINETEXTMETRICW,*LPOUTLINETEXTMETRICW;
-#ifdef UNICODE
-  typedef OUTLINETEXTMETRICW OUTLINETEXTMETRIC;
-  typedef POUTLINETEXTMETRICW POUTLINETEXTMETRIC;
-  typedef NPOUTLINETEXTMETRICW NPOUTLINETEXTMETRIC;
-  typedef LPOUTLINETEXTMETRICW LPOUTLINETEXTMETRIC;
-#else
-  typedef OUTLINETEXTMETRICA OUTLINETEXTMETRIC;
-  typedef POUTLINETEXTMETRICA POUTLINETEXTMETRIC;
-  typedef NPOUTLINETEXTMETRICA NPOUTLINETEXTMETRIC;
-  typedef LPOUTLINETEXTMETRICA LPOUTLINETEXTMETRIC;
-#endif
-#endif
+#جيڪڏهن_وصف_ٿيل UNICODE
+  تعريفنوع OUTLINETEXTMETRICW OUTLINETEXTMETRIC;
+  تعريفنوع POUTLINETEXTMETRICW POUTLINETEXTMETRIC;
+  تعريفنوع NPOUTLINETEXTMETRICW NPOUTLINETEXTMETRIC;
+  تعريفنوع LPOUTLINETEXTMETRICW LPOUTLINETEXTMETRIC;
+#وإلا
+  تعريفنوع OUTLINETEXTMETRICA OUTLINETEXTMETRIC;
+  تعريفنوع POUTLINETEXTMETRICA POUTLINETEXTMETRIC;
+  تعريفنوع NPOUTLINETEXTMETRICA NPOUTLINETEXTMETRIC;
+  تعريفنوع LPOUTLINETEXTMETRICA LPOUTLINETEXTMETRIC;
+#جيڪڏهن_پورو
+#جيڪڏهن_پورو
 
-  typedef struct tagPOLYTEXTA {
-    int x;
-    int y;
+  تعريفنوع بنية ٽيگ_POLYTEXTA {
+    صحيح x;
+    صحيح y;
     UINT n;
     LPCSTR lpstr;
     UINT uiFlags;
     RECT rcl;
-    int *pdx;
+    صحيح *pdx;
   } POLYTEXTA,*PPOLYTEXTA,*NPPOLYTEXTA,*LPPOLYTEXTA;
 
-  typedef struct tagPOLYTEXTW {
-    int x;
-    int y;
+  تعريفنوع بنية ٽيگ_POLYTEXTW {
+    صحيح x;
+    صحيح y;
     UINT n;
     LPCWSTR lpstr;
     UINT uiFlags;
     RECT rcl;
-    int *pdx;
+    صحيح *pdx;
   } POLYTEXTW,*PPOLYTEXTW,*NPPOLYTEXTW,*LPPOLYTEXTW;
-#ifdef UNICODE
-  typedef POLYTEXTW POLYTEXT;
-  typedef PPOLYTEXTW PPOLYTEXT;
-  typedef NPPOLYTEXTW NPPOLYTEXT;
-  typedef LPPOLYTEXTW LPPOLYTEXT;
-#else
-  typedef POLYTEXTA POLYTEXT;
-  typedef PPOLYTEXTA PPOLYTEXT;
-  typedef NPPOLYTEXTA NPPOLYTEXT;
-  typedef LPPOLYTEXTA LPPOLYTEXT;
-#endif
+#جيڪڏهن_وصف_ٿيل UNICODE
+  تعريفنوع POLYTEXTW POLYTEXT;
+  تعريفنوع PPOLYTEXTW PPOLYTEXT;
+  تعريفنوع NPPOLYTEXTW NPPOLYTEXT;
+  تعريفنوع LPPOLYTEXTW LPPOLYTEXT;
+#وإلا
+  تعريفنوع POLYTEXTA POLYTEXT;
+  تعريفنوع PPOLYTEXTA PPOLYTEXT;
+  تعريفنوع NPPOLYTEXTA NPPOLYTEXT;
+  تعريفنوع LPPOLYTEXTA LPPOLYTEXT;
+#جيڪڏهن_پورو
 
-  typedef struct _FIXED {
-    WORD fract;
-    short value;
+  تعريفنوع بنية _FIXED {
+    لفظ_3 fract;
+    ننڍو قدر;
   } FIXED;
 
-  typedef struct _MAT2 {
+  تعريفنوع بنية _MAT2 {
     FIXED eM11;
     FIXED eM12;
     FIXED eM21;
     FIXED eM22;
   } MAT2,*LPMAT2;
 
-  typedef struct _GLYPHMETRICS {
+  تعريفنوع بنية _GLYPHMETRICS {
     UINT gmBlackBoxX;
     UINT gmBlackBoxY;
-    POINT gmptGlyphOrigin;
-    short gmCellIncX;
-    short gmCellIncY;
+    نقطو_3 gmptGlyphOrigin;
+    ننڍو gmCellIncX;
+    ننڍو gmCellIncY;
   } GLYPHMETRICS,*LPGLYPHMETRICS;
 
-#define GGO_METRICS 0
-#define GGO_BITMAP 1
-#define GGO_NATIVE 2
-#define GGO_BEZIER 3
+#وصف_ڪريو GGO_METRICS 0
+#وصف_ڪريو GGO_BITMAP 1
+#وصف_ڪريو GGO_NATIVE 2
+#وصف_ڪريو GGO_BEZIER 3
 
-#define GGO_GRAY2_BITMAP 4
-#define GGO_GRAY4_BITMAP 5
-#define GGO_GRAY8_BITMAP 6
-#define GGO_GLYPH_INDEX 0x0080
-#define GGO_UNHINTED 0x0100
+#وصف_ڪريو GGO_GRAY2_BITMAP 4
+#وصف_ڪريو GGO_GRAY4_BITMAP 5
+#وصف_ڪريو GGO_GRAY8_BITMAP 6
+#وصف_ڪريو GGO_GLYPH_اشاريو 0x0080
+#وصف_ڪريو GGO_UNHINTED 0x0100
 
-#define TT_POLYGON_TYPE 24
+#وصف_ڪريو TT_POLYGON_TYPE 24
 
-#define TT_PRIM_LINE 1
-#define TT_PRIM_QSPLINE 2
-#define TT_PRIM_CSPLINE 3
+#وصف_ڪريو TT_PRIM_سٽ 1
+#وصف_ڪريو TT_PRIM_QSPLINE 2
+#وصف_ڪريو TT_PRIM_CSPLINE 3
 
-  typedef struct tagPOINTFX {
+  تعريفنوع بنية ٽيگ_POINTFX {
     FIXED x;
     FIXED y;
   } POINTFX,*LPPOINTFX;
 
-  typedef struct tagTTPOLYCURVE {
-    WORD wType;
-    WORD cpfx;
+  تعريفنوع بنية ٽيگ_TTPOLYCURVE {
+    لفظ_3 wType;
+    لفظ_3 cpfx;
     POINTFX apfx[1];
   } TTPOLYCURVE,*LPTTPOLYCURVE;
 
-  typedef struct tagTTPOLYGONHEADER {
+  تعريفنوع بنية ٽيگ_TTPOLYGONHEADER {
     DWORD cb;
     DWORD dwType;
-    POINTFX pfxStart;
+    POINTFX pfx_شروعات;
   } TTPOLYGONHEADER,*LPTTPOLYGONHEADER;
 
-#define GCP_DBCS 0x0001
-#define GCP_REORDER 0x0002
-#define GCP_USEKERNING 0x0008
-#define GCP_GLYPHSHAPE 0x0010
-#define GCP_LIGATE 0x0020
+#وصف_ڪريو GCP_DBCS 0x0001
+#وصف_ڪريو GCP_REORDER 0x0002
+#وصف_ڪريو GCP_USEKERNING 0x0008
+#وصف_ڪريو GCP_GLYPHSHAPE 0x0010
+#وصف_ڪريو GCP_LIGATE 0x0020
 
-#define GCP_DIACRITIC 0x0100
-#define GCP_KASHIDA 0x0400
-#define GCP_ERROR 0x8000
-#define FLI_MASK 0x103B
+#وصف_ڪريو GCP_DIACRITIC 0x0100
+#وصف_ڪريو GCP_KASHIDA 0x0400
+#وصف_ڪريو GCP_ERROR 0x8000
+#وصف_ڪريو FLI_نقاب 0x103B
 
-#define GCP_JUSTIFY 0x00010000L
+#وصف_ڪريو GCP_JUSTIFY 0x00010000L
 
-#define FLI_GLYPHS 0x00040000L
-#define GCP_CLASSIN 0x00080000L
-#define GCP_MAXEXTENT 0x00100000L
-#define GCP_JUSTIFYIN 0x00200000L
-#define GCP_DISPLAYZWG 0x00400000L
-#define GCP_SYMSWAPOFF 0x00800000L
-#define GCP_NUMERICOVERRIDE 0x01000000L
-#define GCP_NEUTRALOVERRIDE 0x02000000L
-#define GCP_NUMERICSLATIN 0x04000000L
-#define GCP_NUMERICSLOCAL 0x08000000L
+#وصف_ڪريو FLI_GLYPHS 0x00040000L
+#وصف_ڪريو GCP_CLASSIN 0x00080000L
+#وصف_ڪريو GCP_MAXEXTENT 0x00100000L
+#وصف_ڪريو GCP_JUSTIFYIN 0x00200000L
+#وصف_ڪريو GCP_DISPLAYZWG 0x00400000L
+#وصف_ڪريو GCP_SYMSWAPOFF 0x00800000L
+#وصف_ڪريو GCP_NUMERICOVERRIDE 0x01000000L
+#وصف_ڪريو GCP_NEUTRALOVERRIDE 0x02000000L
+#وصف_ڪريو GCP_NUMERICSLATIN 0x04000000L
+#وصف_ڪريو GCP_NUMERICSLOCAL 0x08000000L
 
-#define GCPCLASS_LATIN 1
-#define GCPCLASS_HEBREW 2
-#define GCPCLASS_ARABIC 2
-#define GCPCLASS_NEUTRAL 3
-#define GCPCLASS_LOCALNUMBER 4
-#define GCPCLASS_LATINNUMBER 5
-#define GCPCLASS_LATINNUMERICTERMINATOR 6
-#define GCPCLASS_LATINNUMERICSEPARATOR 7
-#define GCPCLASS_NUMERICSEPARATOR 8
-#define GCPCLASS_PREBOUNDLTR 0x80
-#define GCPCLASS_PREBOUNDRTL 0x40
-#define GCPCLASS_POSTBOUNDLTR 0x20
-#define GCPCLASS_POSTBOUNDRTL 0x10
+#وصف_ڪريو GCPCLASS_LATIN 1
+#وصف_ڪريو GCPCLASS_HEBREW 2
+#وصف_ڪريو GCPCLASS_ARABIC 2
+#وصف_ڪريو GCPCLASS_NEUTRAL 3
+#وصف_ڪريو GCPCLASS_LOCALNUMBER 4
+#وصف_ڪريو GCPCLASS_LATINNUMBER 5
+#وصف_ڪريو GCPCLASS_LATINNUMERICTERMINATOR 6
+#وصف_ڪريو GCPCLASS_LATINNUMERICSEPARATOR 7
+#وصف_ڪريو GCPCLASS_NUMERICSEPARATOR 8
+#وصف_ڪريو GCPCLASS_PREBOUNDLTR 0x80
+#وصف_ڪريو GCPCLASS_PREBOUNDRTL 0x40
+#وصف_ڪريو GCPCLASS_POSTBOUNDLTR 0x20
+#وصف_ڪريو GCPCLASS_POSTBOUNDRTL 0x10
 
-#define GCPGLYPH_LINKBEFORE 0x8000
-#define GCPGLYPH_LINKAFTER 0x4000
+#وصف_ڪريو GCPGLYPH_LINKBEFORE 0x8000
+#وصف_ڪريو GCPGLYPH_LINKAFTER 0x4000
 
-  typedef struct tagGCP_RESULTSA {
-    DWORD lStructSize;
-    LPSTR lpOutString;
-    UINT *lpOrder;
-    int *lpDx;
-    int *lpCaretPos;
+  تعريفنوع بنية ٽيگ_GCP_RESULTSA {
+    DWORD l_Struct_سائيز;
+    LPSTR lp_ٻاهريون_String;
+    UINT *lp_ترتيب;
+    صحيح *lpDx;
+    صحيح *lpCaretPos;
     LPSTR lpClass;
     LPWSTR lpGlyphs;
     UINT nGlyphs;
-    int nMaxFit;
+    صحيح nMaxFit;
   } GCP_RESULTSA,*LPGCP_RESULTSA;
-  typedef struct tagGCP_RESULTSW {
-    DWORD lStructSize;
-    LPWSTR lpOutString;
-    UINT *lpOrder;
-    int *lpDx;
-    int *lpCaretPos;
+  تعريفنوع بنية ٽيگ_GCP_RESULTSW {
+    DWORD l_Struct_سائيز;
+    LPWSTR lp_ٻاهريون_String;
+    UINT *lp_ترتيب;
+    صحيح *lpDx;
+    صحيح *lpCaretPos;
     LPSTR lpClass;
     LPWSTR lpGlyphs;
     UINT nGlyphs;
-    int nMaxFit;
+    صحيح nMaxFit;
   } GCP_RESULTSW,*LPGCP_RESULTSW;
-#ifdef UNICODE
-  typedef GCP_RESULTSW GCP_RESULTS;
-  typedef LPGCP_RESULTSW LPGCP_RESULTS;
-#else
-  typedef GCP_RESULTSA GCP_RESULTS;
-  typedef LPGCP_RESULTSA LPGCP_RESULTS;
-#endif
+#جيڪڏهن_وصف_ٿيل UNICODE
+  تعريفنوع GCP_RESULTSW GCP_RESULTS;
+  تعريفنوع LPGCP_RESULTSW LPGCP_RESULTS;
+#وإلا
+  تعريفنوع GCP_RESULTSA GCP_RESULTS;
+  تعريفنوع LPGCP_RESULTSA LPGCP_RESULTS;
+#جيڪڏهن_پورو
 
-  typedef struct _RASTERIZER_STATUS {
-    short nSize;
-    short wFlags;
-    short nLanguageID;
-  } RASTERIZER_STATUS,*LPRASTERIZER_STATUS;
+  تعريفنوع بنية RASTERIZER_حالت {
+    ننڍو n_سائيز;
+    ننڍو wFlags;
+    ننڍو nLanguageID;
+  } RASTERIZER_حالت_2,*LPRASTERIZER_حالت;
 
-#define TT_AVAILABLE 0x0001
-#define TT_ENABLED 0x0002
+#وصف_ڪريو TT_موجود 0x0001
+#وصف_ڪريو TT_ENABLED 0x0002
 
-  typedef struct tagPIXELFORMATDESCRIPTOR {
-    WORD nSize;
-    WORD nVersion;
+  تعريفنوع بنية ٽيگ_PIXELFORMATDESCRIPTOR {
+    لفظ_3 n_سائيز;
+    لفظ_3 n_نسخو;
     DWORD dwFlags;
     BYTE iPixelType;
-    BYTE cColorBits;
-    BYTE cRedBits;
-    BYTE cRedShift;
-    BYTE cGreenBits;
-    BYTE cGreenShift;
-    BYTE cBlueBits;
-    BYTE cBlueShift;
-    BYTE cAlphaBits;
-    BYTE cAlphaShift;
-    BYTE cAccumBits;
-    BYTE cAccumRedBits;
-    BYTE cAccumGreenBits;
-    BYTE cAccumBlueBits;
-    BYTE cAccumAlphaBits;
-    BYTE cDepthBits;
-    BYTE cStencilBits;
+    BYTE c_Color_بٽ;
+    BYTE c_Red_بٽ;
+    BYTE c_Red_سرڪايو;
+    BYTE c_Green_بٽ;
+    BYTE c_Green_سرڪايو;
+    BYTE c_Blue_بٽ;
+    BYTE c_Blue_سرڪايو;
+    BYTE c_Alpha_بٽ;
+    BYTE c_Alpha_سرڪايو;
+    BYTE c_Accum_بٽ;
+    BYTE c_Accum_Red_بٽ;
+    BYTE c_Accum_Green_بٽ;
+    BYTE c_Accum_Blue_بٽ;
+    BYTE c_Accum_Alpha_بٽ;
+    BYTE c_اونهائي_بٽ;
+    BYTE c_Stencil_بٽ;
     BYTE cAuxBuffers;
     BYTE iLayerType;
     BYTE bReserved;
-    DWORD dwLayerMask;
-    DWORD dwVisibleMask;
-    DWORD dwDamageMask;
+    DWORD dw_Layer_نقاب;
+    DWORD dw_Visible_نقاب;
+    DWORD dw_Damage_نقاب;
   } PIXELFORMATDESCRIPTOR,*PPIXELFORMATDESCRIPTOR,*LPPIXELFORMATDESCRIPTOR;
 
-#define PFD_TYPE_RGBA 0
-#define PFD_TYPE_COLORINDEX 1
+#وصف_ڪريو PFD_TYPE_RGBA 0
+#وصف_ڪريو PFD_TYPE_COLORINDEX 1
 
-#define PFD_MAIN_PLANE 0
-#define PFD_OVERLAY_PLANE 1
-#define PFD_UNDERLAY_PLANE (-1)
+#وصف_ڪريو PFD_MAIN_PLANE 0
+#وصف_ڪريو PFD_OVERLAY_PLANE 1
+#وصف_ڪريو PFD_UNDERLAY_PLANE (-1)
 
-#define PFD_DOUBLEBUFFER 0x00000001
-#define PFD_STEREO 0x00000002
-#define PFD_DRAW_TO_WINDOW 0x00000004
-#define PFD_DRAW_TO_BITMAP 0x00000008
-#define PFD_SUPPORT_GDI 0x00000010
-#define PFD_SUPPORT_OPENGL 0x00000020
-#define PFD_GENERIC_FORMAT 0x00000040
-#define PFD_NEED_PALETTE 0x00000080
-#define PFD_NEED_SYSTEM_PALETTE 0x00000100
-#define PFD_SWAP_EXCHANGE 0x00000200
-#define PFD_SWAP_COPY 0x00000400
-#define PFD_SWAP_LAYER_BUFFERS 0x00000800
-#define PFD_GENERIC_ACCELERATED 0x00001000
-#define PFD_SUPPORT_DIRECTDRAW 0x00002000
+#وصف_ڪريو PFD_DOUBLEBUFFER 0x00000001
+#وصف_ڪريو PFD_STEREO 0x00000002
+#وصف_ڪريو PFD_DRAW_منزل_دري 0x00000004
+#وصف_ڪريو PFD_DRAW_منزل_BITMAP 0x00000008
+#وصف_ڪريو PFD_SUPPORT_GDI 0x00000010
+#وصف_ڪريو PFD_SUPPORT_OPENGL 0x00000020
+#وصف_ڪريو PFD_GENERIC_FORMAT 0x00000040
+#وصف_ڪريو PFD_NEED_PALETTE 0x00000080
+#وصف_ڪريو PFD_NEED_SYSTEM_PALETTE 0x00000100
+#وصف_ڪريو PFD_مٽا_سٽا_EXCHANGE 0x00000200
+#وصف_ڪريو PFD_مٽا_سٽا_COPY 0x00000400
+#وصف_ڪريو PFD_مٽا_سٽا_LAYER_BUFFERS 0x00000800
+#وصف_ڪريو PFD_GENERIC_ACCELERATED 0x00001000
+#وصف_ڪريو PFD_SUPPORT_DIRECTDRAW 0x00002000
 
-#define PFD_DEPTH_DONTCARE 0x20000000
-#define PFD_DOUBLEBUFFER_DONTCARE 0x40000000
-#define PFD_STEREO_DONTCARE 0x80000000
+#وصف_ڪريو PFD_اونهائي_DONTCARE 0x20000000
+#وصف_ڪريو PFD_DOUBLEBUFFER_DONTCARE 0x40000000
+#وصف_ڪريو PFD_STEREO_DONTCARE 0x80000000
 
-#ifndef NOTEXTMETRIC
-  typedef int (CALLBACK *OLDFONTENUMPROCA)(CONST LOGFONTA *,CONST TEXTMETRICA *,DWORD,LPARAM);
-  typedef int (CALLBACK *OLDFONTENUMPROCW)(CONST LOGFONTW *,CONST TEXTMETRICW *,DWORD,LPARAM);
-#ifdef UNICODE
-#define OLDFONTENUMPROC OLDFONTENUMPROCW
-#else
-#define OLDFONTENUMPROC OLDFONTENUMPROCA
-#endif
-#else
-  typedef int (CALLBACK *OLDFONTENUMPROCA)(CONST LOGFONTA *,CONST VOID *,DWORD,LPARAM);
-  typedef int (CALLBACK *OLDFONTENUMPROCW)(CONST LOGFONTW *,CONST VOID *,DWORD,LPARAM);
-#ifdef UNICODE
-#define OLDFONTENUMPROC OLDFONTENUMPROCW
-#else
-#define OLDFONTENUMPROC OLDFONTENUMPROCA
-#endif
-#endif
+#جيڪڏهن_وصف_نه_ٿيل NOTEXTMETRIC
+  تعريفنوع صحيح (CALLBACK *OLDFONTENUMPROCA)(CONST LOGFONTA *,CONST TEXTMETRICA *,DWORD,LPARAM);
+  تعريفنوع صحيح (CALLBACK *OLDFONTENUMPROCW)(CONST LOGFONTW *,CONST TEXTMETRICW *,DWORD,LPARAM);
+#جيڪڏهن_وصف_ٿيل UNICODE
+#وصف_ڪريو OLDFONTENUMPROC OLDFONTENUMPROCW
+#وإلا
+#وصف_ڪريو OLDFONTENUMPROC OLDFONTENUMPROCA
+#جيڪڏهن_پورو
+#وإلا
+  تعريفنوع صحيح (CALLBACK *OLDFONTENUMPROCA)(CONST LOGFONTA *,CONST VOID *,DWORD,LPARAM);
+  تعريفنوع صحيح (CALLBACK *OLDFONTENUMPROCW)(CONST LOGFONTW *,CONST VOID *,DWORD,LPARAM);
+#جيڪڏهن_وصف_ٿيل UNICODE
+#وصف_ڪريو OLDFONTENUMPROC OLDFONTENUMPROCW
+#وإلا
+#وصف_ڪريو OLDFONTENUMPROC OLDFONTENUMPROCA
+#جيڪڏهن_پورو
+#جيڪڏهن_پورو
 
-  typedef OLDFONTENUMPROCA FONTENUMPROCA;
-  typedef OLDFONTENUMPROCW FONTENUMPROCW;
-#ifdef UNICODE
-  typedef FONTENUMPROCW FONTENUMPROC;
-#else
-  typedef FONTENUMPROCA FONTENUMPROC;
-#endif
+  تعريفنوع OLDFONTENUMPROCA FONTENUMPROCA;
+  تعريفنوع OLDFONTENUMPROCW FONTENUMPROCW;
+#جيڪڏهن_وصف_ٿيل UNICODE
+  تعريفنوع FONTENUMPROCW FONTENUMPROC;
+#وإلا
+  تعريفنوع FONTENUMPROCA FONTENUMPROC;
+#جيڪڏهن_پورو
 
-  typedef int (CALLBACK *GOBJENUMPROC)(LPVOID,LPARAM);
-  typedef VOID (CALLBACK *LINEDDAPROC)(int,int,LPARAM);
+  تعريفنوع صحيح (CALLBACK *GOBJENUMPROC)(LPVOID,LPARAM);
+  تعريفنوع VOID (CALLBACK *LINEDDAPROC)(صحيح,صحيح,LPARAM);
 
-#ifdef UNICODE
-#define AddFontResource AddFontResourceW
-#define CopyMetaFile CopyMetaFileW
-#define CreateDC CreateDCW
-#define CreateFontIndirect CreateFontIndirectW
-#define CreateFont CreateFontW
-#define CreateIC CreateICW
-#define CreateMetaFile CreateMetaFileW
-#define CreateScalableFontResource CreateScalableFontResourceW
-#else
-#define AddFontResource AddFontResourceA
-#define CopyMetaFile CopyMetaFileA
-#define CreateDC CreateDCA
-#define CreateFontIndirect CreateFontIndirectA
-#define CreateFont CreateFontA
-#define CreateIC CreateICA
-#define CreateMetaFile CreateMetaFileA
-#define CreateScalableFontResource CreateScalableFontResourceA
-#endif
+#جيڪڏهن_وصف_ٿيل UNICODE
+#وصف_ڪريو جوڙيو_Font_Resource جوڙيو_Font_Resource_W
+#وصف_ڪريو CopyMetaFile CopyMetaFileW
+#وصف_ڪريو CreateDC CreateDCW
+#وصف_ڪريو Create_Font_اڻسڌو Create_Font_اڻسڌو_W
+#وصف_ڪريو CreateFont CreateFontW
+#وصف_ڪريو CreateIC CreateICW
+#وصف_ڪريو CreateMetaFile CreateMetaFileW
+#وصف_ڪريو CreateScalableFontResource CreateScalableFontResourceW
+#وإلا
+#وصف_ڪريو جوڙيو_Font_Resource جوڙيو_Font_Resource_A
+#وصف_ڪريو CopyMetaFile CopyMetaFileA
+#وصف_ڪريو CreateDC CreateDCA
+#وصف_ڪريو Create_Font_اڻسڌو Create_Font_اڻسڌو_A
+#وصف_ڪريو CreateFont CreateFontA
+#وصف_ڪريو CreateIC CreateICA
+#وصف_ڪريو CreateMetaFile CreateMetaFileA
+#وصف_ڪريو CreateScalableFontResource CreateScalableFontResourceA
+#جيڪڏهن_پورو
 
-  WINGDIAPI int WINAPI AddFontResourceA(LPCSTR);
-  WINGDIAPI int WINAPI AddFontResourceW(LPCWSTR);
-  WINGDIAPI WINBOOL WINAPI AnimatePalette(HPALETTE hPal,UINT iStartIndex,UINT cEntries,CONST PALETTEENTRY *ppe);
-  WINGDIAPI WINBOOL WINAPI Arc(HDC hdc,int x1,int y1,int x2,int y2,int x3,int y3,int x4,int y4);
-  WINGDIAPI WINBOOL WINAPI BitBlt(HDC hdc,int x,int y,int cx,int cy,HDC hdcSrc,int x1,int y1,DWORD rop);
+  WINGDIAPI صحيح WINAPI جوڙيو_Font_Resource_A(LPCSTR);
+  WINGDIAPI صحيح WINAPI جوڙيو_Font_Resource_W(LPCWSTR);
+  WINGDIAPI WINBOOL WINAPI AnimatePalette(HPALETTE hPal,UINT i_شروعات_اشاريو,UINT cEntries,CONST PALETTEENTRY *ppe);
+  WINGDIAPI WINBOOL WINAPI Arc(HDC hdc,صحيح x1,صحيح y1,صحيح x2,صحيح y2,صحيح x3,صحيح y3,صحيح x4,صحيح y4);
+  WINGDIAPI WINBOOL WINAPI ٻٽو_انگ_Blt(HDC hdc,صحيح x,صحيح y,صحيح cx,صحيح cy,HDC hdcSrc,صحيح x1,صحيح y1,DWORD rop);
   WINGDIAPI WINBOOL WINAPI CancelDC(HDC hdc);
-  WINGDIAPI WINBOOL WINAPI Chord(HDC hdc,int x1,int y1,int x2,int y2,int x3,int y3,int x4,int y4);
-  WINGDIAPI int WINAPI ChoosePixelFormat(HDC hdc,CONST PIXELFORMATDESCRIPTOR *ppfd);
+  WINGDIAPI WINBOOL WINAPI Chord(HDC hdc,صحيح x1,صحيح y1,صحيح x2,صحيح y2,صحيح x3,صحيح y3,صحيح x4,صحيح y4);
+  WINGDIAPI صحيح WINAPI چونڊيو_Pixel_Format(HDC hdc,CONST PIXELFORMATDESCRIPTOR *ppfd);
   WINGDIAPI HMETAFILE WINAPI CloseMetaFile(HDC hdc);
-  WINGDIAPI int WINAPI CombineRgn(HRGN hrgnDst,HRGN hrgnSrc1,HRGN hrgnSrc2,int iMode);
+  WINGDIAPI صحيح WINAPI CombineRgn(HRGN hrgnDst,HRGN hrgnSrc1,HRGN hrgnSrc2,صحيح i_گهڻائي);
   WINGDIAPI HMETAFILE WINAPI CopyMetaFileA(HMETAFILE,LPCSTR);
   WINGDIAPI HMETAFILE WINAPI CopyMetaFileW(HMETAFILE,LPCWSTR);
-  WINGDIAPI HBITMAP WINAPI CreateBitmap(int nWidth,int nHeight,UINT nPlanes,UINT nBitCount,CONST VOID *lpBits);
-  WINGDIAPI HBITMAP WINAPI CreateBitmapIndirect(CONST BITMAP *pbm);
-  WINGDIAPI HBRUSH WINAPI CreateBrushIndirect(CONST LOGBRUSH *plbrush);
-  WINGDIAPI HBITMAP WINAPI CreateCompatibleBitmap(HDC hdc,int cx,int cy);
-  WINGDIAPI HBITMAP WINAPI CreateDiscardableBitmap(HDC hdc,int cx,int cy);
+  WINGDIAPI HBITMAP WINAPI CreateBitmap(صحيح n_ويڪر,صحيح n_اوچائي,UINT nPlanes,UINT n_ٻٽو_انگ_ڳڻپ,CONST VOID *lp_بٽ);
+  WINGDIAPI HBITMAP WINAPI Create_Bitmap_اڻسڌو(CONST BITMAP *pbm);
+  WINGDIAPI HBRUSH WINAPI Create_Brush_اڻسڌو(CONST LOGBRUSH *plbrush);
+  WINGDIAPI HBITMAP WINAPI CreateCompatibleBitmap(HDC hdc,صحيح cx,صحيح cy);
+  WINGDIAPI HBITMAP WINAPI CreateDiscardableBitmap(HDC hdc,صحيح cx,صحيح cy);
   WINGDIAPI HDC WINAPI CreateCompatibleDC(HDC hdc);
-  WINGDIAPI HDC WINAPI CreateDCA(LPCSTR pwszDriver,LPCSTR pwszDevice,LPCSTR pszPort,CONST DEVMODEA *pdm);
-  WINGDIAPI HDC WINAPI CreateDCW(LPCWSTR pwszDriver,LPCWSTR pwszDevice,LPCWSTR pszPort,CONST DEVMODEW *pdm);
-  WINGDIAPI HBITMAP WINAPI CreateDIBitmap(HDC hdc,CONST BITMAPINFOHEADER *pbmih,DWORD flInit,CONST VOID *pjBits,CONST BITMAPINFO *pbmi,UINT iUsage);
+  WINGDIAPI HDC WINAPI CreateDCA(LPCSTR pwszDriver,LPCSTR pwszDevice,LPCSTR psz_پورٽ,CONST DEVMODEA *pdm);
+  WINGDIAPI HDC WINAPI CreateDCW(LPCWSTR pwszDriver,LPCWSTR pwszDevice,LPCWSTR psz_پورٽ,CONST DEVMODEW *pdm);
+  WINGDIAPI HBITMAP WINAPI CreateDIBitmap(HDC hdc,CONST BITMAPINFOHEADER *pbmih,DWORD flInit,CONST VOID *pj_بٽ,CONST BITMAPINFO *pbmi,UINT iUsage);
   WINGDIAPI HBRUSH WINAPI CreateDIBPatternBrush(HGLOBAL h,UINT iUsage);
   WINGDIAPI HBRUSH WINAPI CreateDIBPatternBrushPt(CONST VOID *lpPackedDIB,UINT iUsage);
-  WINGDIAPI HRGN WINAPI CreateEllipticRgn(int x1,int y1,int x2,int y2);
-  WINGDIAPI HRGN WINAPI CreateEllipticRgnIndirect(CONST RECT *lprect);
-  WINGDIAPI HFONT WINAPI CreateFontIndirectA(CONST LOGFONTA *lplf);
-  WINGDIAPI HFONT WINAPI CreateFontIndirectW(CONST LOGFONTW *lplf);
-  WINGDIAPI HFONT WINAPI CreateFontA(int cHeight,int cWidth,int cEscapement,int cOrientation,int cWeight,DWORD bItalic,DWORD bUnderline,DWORD bStrikeOut,DWORD iCharSet,DWORD iOutPrecision,DWORD iClipPrecision,DWORD iQuality,DWORD iPitchAndFamily,LPCSTR pszFaceName);
-  WINGDIAPI HFONT WINAPI CreateFontW(int cHeight,int cWidth,int cEscapement,int cOrientation,int cWeight,DWORD bItalic,DWORD bUnderline,DWORD bStrikeOut,DWORD iCharSet,DWORD iOutPrecision,DWORD iClipPrecision,DWORD iQuality,DWORD iPitchAndFamily,LPCWSTR pszFaceName);
-  WINGDIAPI HBRUSH WINAPI CreateHatchBrush(int iHatch,COLORREF color);
-  WINGDIAPI HDC WINAPI CreateICA(LPCSTR pszDriver,LPCSTR pszDevice,LPCSTR pszPort,CONST DEVMODEA *pdm);
-  WINGDIAPI HDC WINAPI CreateICW(LPCWSTR pszDriver,LPCWSTR pszDevice,LPCWSTR pszPort,CONST DEVMODEW *pdm);
+  WINGDIAPI HRGN WINAPI CreateEllipticRgn(صحيح x1,صحيح y1,صحيح x2,صحيح y2);
+  WINGDIAPI HRGN WINAPI Create_Elliptic_Rgn_اڻسڌو(CONST RECT *lprect);
+  WINGDIAPI HFONT WINAPI Create_Font_اڻسڌو_A(CONST LOGFONTA *lplf);
+  WINGDIAPI HFONT WINAPI Create_Font_اڻسڌو_W(CONST LOGFONTW *lplf);
+  WINGDIAPI HFONT WINAPI CreateFontA(صحيح c_اوچائي,صحيح c_ويڪر,صحيح cEscapement,صحيح cOrientation,صحيح c_وزن,DWORD bItalic,DWORD bUnderline,DWORD b_Strike_ٻاهريون,DWORD i_Char_سيٽ,DWORD i_ٻاهريون_Precision,DWORD iClipPrecision,DWORD iQuality,DWORD iPitchAndFamily,LPCSTR pszFaceName);
+  WINGDIAPI HFONT WINAPI CreateFontW(صحيح c_اوچائي,صحيح c_ويڪر,صحيح cEscapement,صحيح cOrientation,صحيح c_وزن,DWORD bItalic,DWORD bUnderline,DWORD b_Strike_ٻاهريون,DWORD i_Char_سيٽ,DWORD i_ٻاهريون_Precision,DWORD iClipPrecision,DWORD iQuality,DWORD iPitchAndFamily,LPCWSTR pszFaceName);
+  WINGDIAPI HBRUSH WINAPI CreateHatchBrush(صحيح iHatch,COLORREF color);
+  WINGDIAPI HDC WINAPI CreateICA(LPCSTR pszDriver,LPCSTR pszDevice,LPCSTR psz_پورٽ,CONST DEVMODEA *pdm);
+  WINGDIAPI HDC WINAPI CreateICW(LPCWSTR pszDriver,LPCWSTR pszDevice,LPCWSTR psz_پورٽ,CONST DEVMODEW *pdm);
   WINGDIAPI HDC WINAPI CreateMetaFileA(LPCSTR pszFile);
   WINGDIAPI HDC WINAPI CreateMetaFileW(LPCWSTR pszFile);
   WINGDIAPI HPALETTE WINAPI CreatePalette(CONST LOGPALETTE *plpal);
-  WINGDIAPI HPEN WINAPI CreatePen(int iStyle,int cWidth,COLORREF color);
-  WINGDIAPI HPEN WINAPI CreatePenIndirect(CONST LOGPEN *plpen);
-  WINGDIAPI HRGN WINAPI CreatePolyPolygonRgn(CONST POINT *pptl,CONST INT *pc,int cPoly,int iMode);
-  WINGDIAPI HBRUSH WINAPI CreatePatternBrush(HBITMAP hbm);
-  WINGDIAPI HRGN WINAPI CreateRectRgn(int x1,int y1,int x2,int y2);
-  WINGDIAPI HRGN WINAPI CreateRectRgnIndirect(CONST RECT *lprect);
-  WINGDIAPI HRGN WINAPI CreateRoundRectRgn(int x1,int y1,int x2,int y2,int w,int h);
-  WINGDIAPI WINBOOL WINAPI CreateScalableFontResourceA(DWORD fdwHidden,LPCSTR lpszFont,LPCSTR lpszFile,LPCSTR lpszPath);
-  WINGDIAPI WINBOOL WINAPI CreateScalableFontResourceW(DWORD fdwHidden,LPCWSTR lpszFont,LPCWSTR lpszFile,LPCWSTR lpszPath);
+  WINGDIAPI HPEN WINAPI CreatePen(صحيح iStyle,صحيح c_ويڪر,COLORREF color);
+  WINGDIAPI HPEN WINAPI Create_Pen_اڻسڌو(CONST LOGPEN *plpen);
+  WINGDIAPI HRGN WINAPI CreatePolyPolygonRgn(CONST نقطو_3 *pptl,CONST INT *pc,صحيح cPoly,صحيح i_گهڻائي);
+  WINGDIAPI HBRUSH WINAPI Create_نمونو_Brush(HBITMAP hbm);
+  WINGDIAPI HRGN WINAPI CreateRectRgn(صحيح x1,صحيح y1,صحيح x2,صحيح y2);
+  WINGDIAPI HRGN WINAPI Create_Rect_Rgn_اڻسڌو(CONST RECT *lprect);
+  WINGDIAPI HRGN WINAPI Create_ڦيرو_Rect_Rgn(صحيح x1,صحيح y1,صحيح x2,صحيح y2,صحيح w,صحيح h);
+  WINGDIAPI WINBOOL WINAPI CreateScalableFontResourceA(DWORD fdwHidden,LPCSTR lpszFont,LPCSTR lpszFile,LPCSTR lpsz_رستو);
+  WINGDIAPI WINBOOL WINAPI CreateScalableFontResourceW(DWORD fdwHidden,LPCWSTR lpszFont,LPCWSTR lpszFile,LPCWSTR lpsz_رستو);
   WINGDIAPI HBRUSH WINAPI CreateSolidBrush(COLORREF color);
   WINGDIAPI WINBOOL WINAPI DeleteDC(HDC hdc);
   WINGDIAPI WINBOOL WINAPI DeleteMetaFile(HMETAFILE hmf);
   WINGDIAPI WINBOOL WINAPI DeleteObject(HGDIOBJ ho);
-  WINGDIAPI int WINAPI DescribePixelFormat(HDC hdc,int iPixelFormat,UINT nBytes,LPPIXELFORMATDESCRIPTOR ppfd);
+  WINGDIAPI صحيح WINAPI DescribePixelFormat(HDC hdc,صحيح iPixelFormat,UINT n_بائيٽون,LPPIXELFORMATDESCRIPTOR ppfd);
 
-  typedef UINT (CALLBACK *LPFNDEVMODE)(HWND,HMODULE,LPDEVMODE,LPSTR,LPSTR,LPDEVMODE,LPSTR,UINT);
-  typedef DWORD (CALLBACK *LPFNDEVCAPS)(LPSTR,LPSTR,UINT,LPSTR,LPDEVMODE);
+  تعريفنوع UINT (CALLBACK *LPFNDEVMODE)(HWND,HMODULE,LPDEVMODE,LPSTR,LPSTR,LPDEVMODE,LPSTR,UINT);
+  تعريفنوع DWORD (CALLBACK *LPFNDEVCAPS)(LPSTR,LPSTR,UINT,LPSTR,LPDEVMODE);
 
-#define DM_UPDATE 1
-#define DM_COPY 2
-#define DM_PROMPT 4
-#define DM_MODIFY 8
+#وصف_ڪريو DM_UPDATE 1
+#وصف_ڪريو DM_COPY 2
+#وصف_ڪريو DM_PROMPT 4
+#وصف_ڪريو DM_MODIFY 8
 
-#define DM_IN_BUFFER DM_MODIFY
-#define DM_IN_PROMPT DM_PROMPT
-#define DM_OUT_BUFFER DM_COPY
-#define DM_OUT_DEFAULT DM_UPDATE
+#وصف_ڪريو DM_اندريون_بفر DM_MODIFY
+#وصف_ڪريو DM_اندريون_PROMPT DM_PROMPT
+#وصف_ڪريو DM_ٻاهريون_بفر DM_COPY
+#وصف_ڪريو DM_ٻاهريون_DEFAULT DM_UPDATE
 
-#define DC_FIELDS 1
-#define DC_PAPERS 2
-#define DC_PAPERSIZE 3
-#define DC_MINEXTENT 4
-#define DC_MAXEXTENT 5
-#define DC_BINS 6
-#define DC_DUPLEX 7
-#define DC_SIZE 8
-#define DC_EXTRA 9
-#define DC_VERSION 10
-#define DC_DRIVER 11
-#define DC_BINNAMES 12
-#define DC_ENUMRESOLUTIONS 13
-#define DC_FILEDEPENDENCIES 14
-#define DC_TRUETYPE 15
-#define DC_PAPERNAMES 16
-#define DC_ORIENTATION 17
-#define DC_COPIES 18
-#define DC_BINADJUST 19
-#define DC_EMF_COMPLIANT 20
-#define DC_DATATYPE_PRODUCED 21
-#define DC_COLLATE 22
-#define DC_MANUFACTURER 23
-#define DC_MODEL 24
-#define DC_PERSONALITY 25
-#define DC_PRINTRATE 26
-#define DC_PRINTRATEUNIT 27
-#define PRINTRATEUNIT_PPM 1
-#define PRINTRATEUNIT_CPS 2
-#define PRINTRATEUNIT_LPM 3
-#define PRINTRATEUNIT_IPM 4
-#define DC_PRINTERMEM 28
-#define DC_MEDIAREADY 29
-#define DC_STAPLE 30
-#define DC_PRINTRATEPPM 31
-#define DC_COLORDEVICE 32
-#define DC_NUP 33
-#define DC_MEDIATYPENAMES 34
-#define DC_MEDIATYPES 35
+#وصف_ڪريو DC_FIELDS 1
+#وصف_ڪريو DC_PAPERS 2
+#وصف_ڪريو DC_PAPERSIZE 3
+#وصف_ڪريو DC_MINEXTENT 4
+#وصف_ڪريو DC_MAXEXTENT 5
+#وصف_ڪريو DC_BINS 6
+#وصف_ڪريو DC_DUPLEX 7
+#وصف_ڪريو DC_سائيز 8
+#وصف_ڪريو DC_EXTRA 9
+#وصف_ڪريو DC_نسخو 10
+#وصف_ڪريو DC_DRIVER 11
+#وصف_ڪريو DC_BINNAMES 12
+#وصف_ڪريو DC_ENUMRESOLUTIONS 13
+#وصف_ڪريو DC_FILEDEPENDENCIES 14
+#وصف_ڪريو DC_TRUETYPE 15
+#وصف_ڪريو DC_PAPERNAMES 16
+#وصف_ڪريو DC_ORIENTATION 17
+#وصف_ڪريو DC_COPIES 18
+#وصف_ڪريو DC_BINADJUST 19
+#وصف_ڪريو DC_EMF_COMPLIANT 20
+#وصف_ڪريو DC_DATATYPE_PRODUCED 21
+#وصف_ڪريو DC_COLLATE 22
+#وصف_ڪريو DC_MANUFACTURER 23
+#وصف_ڪريو DC_MODEL 24
+#وصف_ڪريو DC_PERSONALITY 25
+#وصف_ڪريو DC_PRINTRATE 26
+#وصف_ڪريو DC_PRINTRATEUNIT 27
+#وصف_ڪريو PRINTRATEUNIT_PPM 1
+#وصف_ڪريو PRINTRATEUNIT_CPS 2
+#وصف_ڪريو PRINTRATEUNIT_LPM 3
+#وصف_ڪريو PRINTRATEUNIT_IPM 4
+#وصف_ڪريو DC_PRINTERMEM 28
+#وصف_ڪريو DC_MEDIAREADY 29
+#وصف_ڪريو DC_STAPLE 30
+#وصف_ڪريو DC_PRINTRATEPPM 31
+#وصف_ڪريو DC_COLORDEVICE 32
+#وصف_ڪريو DC_NUP 33
+#وصف_ڪريو DC_MEDIATYPENAMES 34
+#وصف_ڪريو DC_MEDIATYPES 35
 
-#define DCTT_BITMAP 0x0000001L
-#define DCTT_DOWNLOAD 0x0000002L
-#define DCTT_SUBDEV 0x0000004L
-#define DCTT_DOWNLOAD_OUTLINE 0x0000008L
+#وصف_ڪريو DCTT_BITMAP 0x0000001L
+#وصف_ڪريو DCTT_DOWNLOAD 0x0000002L
+#وصف_ڪريو DCTT_SUBDEV 0x0000004L
+#وصف_ڪريو DCTT_DOWNLOAD_OUTLINE 0x0000008L
 
-#define DCBA_FACEUPNONE 0x0000
-#define DCBA_FACEUPCENTER 0x0001
-#define DCBA_FACEUPLEFT 0x0002
-#define DCBA_FACEUPRIGHT 0x0003
-#define DCBA_FACEDOWNNONE 0x0100
-#define DCBA_FACEDOWNCENTER 0x0101
-#define DCBA_FACEDOWNLEFT 0x0102
-#define DCBA_FACEDOWNRIGHT 0x0103
+#وصف_ڪريو DCBA_FACEUPNONE 0x0000
+#وصف_ڪريو DCBA_FACEUPCENTER 0x0001
+#وصف_ڪريو DCBA_FACEUPLEFT 0x0002
+#وصف_ڪريو DCBA_FACEUPRIGHT 0x0003
+#وصف_ڪريو DCBA_FACEDOWNNONE 0x0100
+#وصف_ڪريو DCBA_FACEDOWNCENTER 0x0101
+#وصف_ڪريو DCBA_FACEDOWNLEFT 0x0102
+#وصف_ڪريو DCBA_FACEDOWNRIGHT 0x0103
 
-#ifdef UNICODE
-#define DeviceCapabilities DeviceCapabilitiesW
-#define EnumFontFamiliesEx EnumFontFamiliesExW
-#define EnumFontFamilies EnumFontFamiliesW
-#define EnumFonts EnumFontsW
-#define GetCharWidth GetCharWidthW
-#define GetCharWidth32 GetCharWidth32W
-#define GetCharWidthFloat GetCharWidthFloatW
-#define GetCharABCWidths GetCharABCWidthsW
-#define GetCharABCWidthsFloat GetCharABCWidthsFloatW
-#define GetGlyphOutline GetGlyphOutlineW
-#define GetMetaFile GetMetaFileW
-#else
-#define DeviceCapabilities DeviceCapabilitiesA
-#define EnumFontFamiliesEx EnumFontFamiliesExA
-#define EnumFontFamilies EnumFontFamiliesA
-#define EnumFonts EnumFontsA
-#define GetCharWidth GetCharWidthA
-#define GetCharWidth32 GetCharWidth32A
-#define GetCharWidthFloat GetCharWidthFloatA
-#define GetCharABCWidths GetCharABCWidthsA
-#define GetCharABCWidthsFloat GetCharABCWidthsFloatA
-#define GetGlyphOutline GetGlyphOutlineA
-#define GetMetaFile GetMetaFileA
-#endif
+#جيڪڏهن_وصف_ٿيل UNICODE
+#وصف_ڪريو DeviceCapabilities DeviceCapabilitiesW
+#وصف_ڪريو EnumFontFamiliesEx EnumFontFamiliesExW
+#وصف_ڪريو EnumFontFamilies EnumFontFamiliesW
+#وصف_ڪريو EnumFonts EnumFontsW
+#وصف_ڪريو Get_Char_ويڪر Get_Char_ويڪر_W
+#وصف_ڪريو GetCharWidth32 GetCharWidth32W
+#وصف_ڪريو Get_Char_ويڪر_Float Get_Char_ويڪر_Float_W
+#وصف_ڪريو GetCharABCWidths GetCharABCWidthsW
+#وصف_ڪريو GetCharABCWidthsFloat GetCharABCWidthsFloatW
+#وصف_ڪريو GetGlyphOutline GetGlyphOutlineW
+#وصف_ڪريو GetMetaFile GetMetaFileW
+#وإلا
+#وصف_ڪريو DeviceCapabilities DeviceCapabilitiesA
+#وصف_ڪريو EnumFontFamiliesEx EnumFontFamiliesExA
+#وصف_ڪريو EnumFontFamilies EnumFontFamiliesA
+#وصف_ڪريو EnumFonts EnumFontsA
+#وصف_ڪريو Get_Char_ويڪر Get_Char_ويڪر_A
+#وصف_ڪريو GetCharWidth32 GetCharWidth32A
+#وصف_ڪريو Get_Char_ويڪر_Float Get_Char_ويڪر_Float_A
+#وصف_ڪريو GetCharABCWidths GetCharABCWidthsA
+#وصف_ڪريو GetCharABCWidthsFloat GetCharABCWidthsFloatA
+#وصف_ڪريو GetGlyphOutline GetGlyphOutlineA
+#وصف_ڪريو GetMetaFile GetMetaFileA
+#جيڪڏهن_پورو
 
-  WINSPOOLAPI int WINAPI DeviceCapabilitiesA(LPCSTR pDevice,LPCSTR pPort,WORD fwCapability,LPSTR pOutput,CONST DEVMODEA *pDevMode);
-  WINSPOOLAPI int WINAPI DeviceCapabilitiesW(LPCWSTR pDevice,LPCWSTR pPort,WORD fwCapability,LPWSTR pOutput,CONST DEVMODEW *pDevMode);
-  WINGDIAPI int WINAPI DrawEscape(HDC hdc,int iEscape,int cjIn,LPCSTR lpIn);
-  WINGDIAPI WINBOOL WINAPI Ellipse(HDC hdc,int left,int top,int right,int bottom);
-  WINGDIAPI int WINAPI EnumFontFamiliesExA(HDC hdc,LPLOGFONTA lpLogfont,FONTENUMPROCA lpProc,LPARAM lParam,DWORD dwFlags);
-  WINGDIAPI int WINAPI EnumFontFamiliesExW(HDC hdc,LPLOGFONTW lpLogfont,FONTENUMPROCW lpProc,LPARAM lParam,DWORD dwFlags);
-  WINGDIAPI int WINAPI EnumFontFamiliesA(HDC hdc,LPCSTR lpLogfont,FONTENUMPROCA lpProc,LPARAM lParam);
-  WINGDIAPI int WINAPI EnumFontFamiliesW(HDC hdc,LPCWSTR lpLogfont,FONTENUMPROCW lpProc,LPARAM lParam);
-  WINGDIAPI int WINAPI EnumFontsA(HDC hdc,LPCSTR lpLogfont,FONTENUMPROCA lpProc,LPARAM lParam);
-  WINGDIAPI int WINAPI EnumFontsW(HDC hdc,LPCWSTR lpLogfont,FONTENUMPROCW lpProc,LPARAM lParam);
-  WINGDIAPI int WINAPI EnumObjects(HDC hdc,int nType,GOBJENUMPROC lpFunc,LPARAM lParam);
+  WINSPOOLAPI صحيح WINAPI DeviceCapabilitiesA(LPCSTR pDevice,LPCSTR p_پورٽ,لفظ_3 fwCapability,LPSTR pOutput,CONST DEVMODEA *p_Dev_گهڻائي);
+  WINSPOOLAPI صحيح WINAPI DeviceCapabilitiesW(LPCWSTR pDevice,LPCWSTR p_پورٽ,لفظ_3 fwCapability,LPWSTR pOutput,CONST DEVMODEW *p_Dev_گهڻائي);
+  WINGDIAPI صحيح WINAPI DrawEscape(HDC hdc,صحيح iEscape,صحيح cj_اندريون,LPCSTR lp_اندريون);
+  WINGDIAPI WINBOOL WINAPI Ellipse(HDC hdc,صحيح کاٻو,صحيح چوٽي,صحيح ساڄو,صحيح bottom);
+  WINGDIAPI صحيح WINAPI EnumFontFamiliesExA(HDC hdc,LPLOGFONTA lpLogfont,FONTENUMPROCA lpProc,LPARAM lParam,DWORD dwFlags);
+  WINGDIAPI صحيح WINAPI EnumFontFamiliesExW(HDC hdc,LPLOGFONTW lpLogfont,FONTENUMPROCW lpProc,LPARAM lParam,DWORD dwFlags);
+  WINGDIAPI صحيح WINAPI EnumFontFamiliesA(HDC hdc,LPCSTR lpLogfont,FONTENUMPROCA lpProc,LPARAM lParam);
+  WINGDIAPI صحيح WINAPI EnumFontFamiliesW(HDC hdc,LPCWSTR lpLogfont,FONTENUMPROCW lpProc,LPARAM lParam);
+  WINGDIAPI صحيح WINAPI EnumFontsA(HDC hdc,LPCSTR lpLogfont,FONTENUMPROCA lpProc,LPARAM lParam);
+  WINGDIAPI صحيح WINAPI EnumFontsW(HDC hdc,LPCWSTR lpLogfont,FONTENUMPROCW lpProc,LPARAM lParam);
+  WINGDIAPI صحيح WINAPI EnumObjects(HDC hdc,صحيح nType,GOBJENUMPROC lpFunc,LPARAM lParam);
   WINGDIAPI WINBOOL WINAPI EqualRgn(HRGN hrgn1,HRGN hrgn2);
-  WINGDIAPI int WINAPI Escape(HDC hdc,int iEscape,int cjIn,LPCSTR pvIn,LPVOID pvOut);
-  WINGDIAPI int WINAPI ExtEscape(HDC hdc,int iEscape,int cjInput,LPCSTR lpInData,int cjOutput,LPSTR lpOutData);
-  WINGDIAPI int WINAPI ExcludeClipRect(HDC hdc,int left,int top,int right,int bottom);
-  WINGDIAPI HRGN WINAPI ExtCreateRegion(CONST XFORM *lpx,DWORD nCount,CONST RGNDATA *lpData);
-  WINGDIAPI WINBOOL WINAPI ExtFloodFill(HDC hdc,int x,int y,COLORREF color,UINT type);
+  WINGDIAPI صحيح WINAPI Escape(HDC hdc,صحيح iEscape,صحيح cj_اندريون,LPCSTR pv_اندريون,LPVOID pv_ٻاهريون);
+  WINGDIAPI صحيح WINAPI ExtEscape(HDC hdc,صحيح iEscape,صحيح cj_داخلا,LPCSTR lp_اندريون_معلومات,صحيح cjOutput,LPSTR lp_ٻاهريون_معلومات);
+  WINGDIAPI صحيح WINAPI ExcludeClipRect(HDC hdc,صحيح کاٻو,صحيح چوٽي,صحيح ساڄو,صحيح bottom);
+  WINGDIAPI HRGN WINAPI ExtCreateRegion(CONST XFORM *lpx,DWORD n_ڳڻپ,CONST RGNDATA *lp_معلومات);
+  WINGDIAPI WINBOOL WINAPI ExtFloodFill(HDC hdc,صحيح x,صحيح y,COLORREF color,UINT type);
   WINGDIAPI WINBOOL WINAPI FillRgn(HDC hdc,HRGN hrgn,HBRUSH hbr);
-  WINGDIAPI WINBOOL WINAPI FloodFill(HDC hdc,int x,int y,COLORREF color);
-  WINGDIAPI WINBOOL WINAPI FrameRgn(HDC hdc,HRGN hrgn,HBRUSH hbr,int w,int h);
-  WINGDIAPI int WINAPI GetROP2(HDC hdc);
-  WINGDIAPI WINBOOL WINAPI GetAspectRatioFilterEx(HDC hdc,LPSIZE lpsize);
+  WINGDIAPI WINBOOL WINAPI FloodFill(HDC hdc,صحيح x,صحيح y,COLORREF color);
+  WINGDIAPI WINBOOL WINAPI چوکٺو_Rgn(HDC hdc,HRGN hrgn,HBRUSH hbr,صحيح w,صحيح h);
+  WINGDIAPI صحيح WINAPI GetROP2(HDC hdc);
+  WINGDIAPI WINBOOL WINAPI Get_Aspect_تناسب_Filter_Ex(HDC hdc,LPSIZE lpsize);
   WINGDIAPI COLORREF WINAPI GetBkColor(HDC hdc);
   WINGDIAPI COLORREF WINAPI GetDCBrushColor(HDC hdc);
   WINGDIAPI COLORREF WINAPI GetDCPenColor(HDC hdc);
-  WINGDIAPI int WINAPI GetBkMode(HDC hdc);
-  WINGDIAPI LONG WINAPI GetBitmapBits(HBITMAP hbit,LONG cb,LPVOID lpvBits);
+  WINGDIAPI صحيح WINAPI Get_Bk_گهڻائي(HDC hdc);
+  WINGDIAPI LONG WINAPI Get_Bitmap_بٽ(HBITMAP hbit,LONG cb,LPVOID lpv_بٽ);
   WINGDIAPI WINBOOL WINAPI GetBitmapDimensionEx(HBITMAP hbit,LPSIZE lpsize);
   WINGDIAPI UINT WINAPI GetBoundsRect(HDC hdc,LPRECT lprect,UINT flags);
   WINGDIAPI WINBOOL WINAPI GetBrushOrgEx(HDC hdc,LPPOINT lppt);
-  WINGDIAPI WINBOOL WINAPI GetCharWidthA(HDC hdc,UINT iFirst,UINT iLast,LPINT lpBuffer);
-  WINGDIAPI WINBOOL WINAPI GetCharWidthW(HDC hdc,UINT iFirst,UINT iLast,LPINT lpBuffer);
-  WINGDIAPI WINBOOL WINAPI GetCharWidth32A(HDC hdc,UINT iFirst,UINT iLast,LPINT lpBuffer);
-  WINGDIAPI WINBOOL WINAPI GetCharWidth32W(HDC hdc,UINT iFirst,UINT iLast,LPINT lpBuffer);
-  WINGDIAPI WINBOOL WINAPI GetCharWidthFloatA(HDC hdc,UINT iFirst,UINT iLast,PFLOAT lpBuffer);
-  WINGDIAPI WINBOOL WINAPI GetCharWidthFloatW(HDC hdc,UINT iFirst,UINT iLast,PFLOAT lpBuffer);
-  WINGDIAPI WINBOOL WINAPI GetCharABCWidthsA(HDC hdc,UINT wFirst,UINT wLast,LPABC lpABC);
-  WINGDIAPI WINBOOL WINAPI GetCharABCWidthsW(HDC hdc,UINT wFirst,UINT wLast,LPABC lpABC);
-  WINGDIAPI WINBOOL WINAPI GetCharABCWidthsFloatA(HDC hdc,UINT iFirst,UINT iLast,LPABCFLOAT lpABC);
-  WINGDIAPI WINBOOL WINAPI GetCharABCWidthsFloatW(HDC hdc,UINT iFirst,UINT iLast,LPABCFLOAT lpABC);
-  WINGDIAPI int WINAPI GetClipBox(HDC hdc,LPRECT lprect);
-  WINGDIAPI int WINAPI GetClipRgn(HDC hdc,HRGN hrgn);
-  WINGDIAPI int WINAPI GetMetaRgn(HDC hdc,HRGN hrgn);
+  WINGDIAPI WINBOOL WINAPI Get_Char_ويڪر_A(HDC hdc,UINT i_پهريون,UINT i_آخري,LPINT lp_بفر);
+  WINGDIAPI WINBOOL WINAPI Get_Char_ويڪر_W(HDC hdc,UINT i_پهريون,UINT i_آخري,LPINT lp_بفر);
+  WINGDIAPI WINBOOL WINAPI GetCharWidth32A(HDC hdc,UINT i_پهريون,UINT i_آخري,LPINT lp_بفر);
+  WINGDIAPI WINBOOL WINAPI GetCharWidth32W(HDC hdc,UINT i_پهريون,UINT i_آخري,LPINT lp_بفر);
+  WINGDIAPI WINBOOL WINAPI Get_Char_ويڪر_Float_A(HDC hdc,UINT i_پهريون,UINT i_آخري,PFLOAT lp_بفر);
+  WINGDIAPI WINBOOL WINAPI Get_Char_ويڪر_Float_W(HDC hdc,UINT i_پهريون,UINT i_آخري,PFLOAT lp_بفر);
+  WINGDIAPI WINBOOL WINAPI GetCharABCWidthsA(HDC hdc,UINT w_پهريون,UINT w_آخري,LPABC lpABC);
+  WINGDIAPI WINBOOL WINAPI GetCharABCWidthsW(HDC hdc,UINT w_پهريون,UINT w_آخري,LPABC lpABC);
+  WINGDIAPI WINBOOL WINAPI GetCharABCWidthsFloatA(HDC hdc,UINT i_پهريون,UINT i_آخري,LPABCFLOAT lpABC);
+  WINGDIAPI WINBOOL WINAPI GetCharABCWidthsFloatW(HDC hdc,UINT i_پهريون,UINT i_آخري,LPABCFLOAT lpABC);
+  WINGDIAPI صحيح WINAPI GetClipBox(HDC hdc,LPRECT lprect);
+  WINGDIAPI صحيح WINAPI GetClipRgn(HDC hdc,HRGN hrgn);
+  WINGDIAPI صحيح WINAPI GetMetaRgn(HDC hdc,HRGN hrgn);
   WINGDIAPI HGDIOBJ WINAPI GetCurrentObject(HDC hdc,UINT type);
   WINGDIAPI WINBOOL WINAPI GetCurrentPositionEx(HDC hdc,LPPOINT lppt);
-  WINGDIAPI int WINAPI GetDeviceCaps(HDC hdc,int index);
-  WINGDIAPI int WINAPI GetDIBits(HDC hdc,HBITMAP hbm,UINT start,UINT cLines,LPVOID lpvBits,LPBITMAPINFO lpbmi,UINT usage);
-  WINGDIAPI DWORD WINAPI GetFontData (HDC hdc,DWORD dwTable,DWORD dwOffset,PVOID pvBuffer,DWORD cjBuffer);
-  WINGDIAPI DWORD WINAPI GetGlyphOutlineA(HDC hdc,UINT uChar,UINT fuFormat,LPGLYPHMETRICS lpgm,DWORD cjBuffer,LPVOID pvBuffer,CONST MAT2 *lpmat2);
-  WINGDIAPI DWORD WINAPI GetGlyphOutlineW(HDC hdc,UINT uChar,UINT fuFormat,LPGLYPHMETRICS lpgm,DWORD cjBuffer,LPVOID pvBuffer,CONST MAT2 *lpmat2);
-  WINGDIAPI int WINAPI GetGraphicsMode(HDC hdc);
-  WINGDIAPI int WINAPI GetMapMode(HDC hdc);
-  WINGDIAPI UINT WINAPI GetMetaFileBitsEx(HMETAFILE hMF,UINT cbBuffer,LPVOID lpData);
+  WINGDIAPI صحيح WINAPI GetDeviceCaps(HDC hdc,صحيح اشاريو);
+  WINGDIAPI صحيح WINAPI GetDIBits(HDC hdc,HBITMAP hbm,UINT شروعات,UINT c_سٽون,LPVOID lpv_بٽ,LPBITMAPINFO lpbmi,UINT usage);
+  WINGDIAPI DWORD WINAPI Get_Font_معلومات (HDC hdc,DWORD dw_جدول,DWORD dw_وٿي,PVOID pv_بفر,DWORD cj_بفر);
+  WINGDIAPI DWORD WINAPI GetGlyphOutlineA(HDC hdc,UINT uChar,UINT fuFormat,LPGLYPHMETRICS lpgm,DWORD cj_بفر,LPVOID pv_بفر,CONST MAT2 *lpmat2);
+  WINGDIAPI DWORD WINAPI GetGlyphOutlineW(HDC hdc,UINT uChar,UINT fuFormat,LPGLYPHMETRICS lpgm,DWORD cj_بفر,LPVOID pv_بفر,CONST MAT2 *lpmat2);
+  WINGDIAPI صحيح WINAPI Get_Graphics_گهڻائي(HDC hdc);
+  WINGDIAPI صحيح WINAPI Get_Map_گهڻائي(HDC hdc);
+  WINGDIAPI UINT WINAPI Get_Meta_File_بٽ_Ex(HMETAFILE hMF,UINT cb_بفر,LPVOID lp_معلومات);
   WINGDIAPI HMETAFILE WINAPI GetMetaFileA(LPCSTR lpName);
   WINGDIAPI HMETAFILE WINAPI GetMetaFileW(LPCWSTR lpName);
-  WINGDIAPI COLORREF WINAPI GetNearestColor(HDC hdc,COLORREF color);
-  WINGDIAPI UINT WINAPI GetNearestPaletteIndex(HPALETTE h,COLORREF color);
+  WINGDIAPI COLORREF WINAPI Get_سڀ_کان_ويجهو_Color(HDC hdc,COLORREF color);
+  WINGDIAPI UINT WINAPI Get_سڀ_کان_ويجهو_Palette_اشاريو(HPALETTE h,COLORREF color);
   WINGDIAPI DWORD WINAPI GetObjectType(HGDIOBJ h);
 
-#ifndef NOTEXTMETRIC
-#ifdef UNICODE
-#define GetOutlineTextMetrics GetOutlineTextMetricsW
-#else
-#define GetOutlineTextMetrics GetOutlineTextMetricsA
-#endif
+#جيڪڏهن_وصف_نه_ٿيل NOTEXTMETRIC
+#جيڪڏهن_وصف_ٿيل UNICODE
+#وصف_ڪريو Get_Outline_متن_Metrics Get_Outline_متن_Metrics_W
+#وإلا
+#وصف_ڪريو Get_Outline_متن_Metrics Get_Outline_متن_Metrics_A
+#جيڪڏهن_پورو
 
-  WINGDIAPI UINT WINAPI GetOutlineTextMetricsA(HDC hdc,UINT cjCopy,LPOUTLINETEXTMETRICA potm);
-  WINGDIAPI UINT WINAPI GetOutlineTextMetricsW(HDC hdc,UINT cjCopy,LPOUTLINETEXTMETRICW potm);
-#endif
+  WINGDIAPI UINT WINAPI Get_Outline_متن_Metrics_A(HDC hdc,UINT cjCopy,LPOUTLINETEXTMETRICA potm);
+  WINGDIAPI UINT WINAPI Get_Outline_متن_Metrics_W(HDC hdc,UINT cjCopy,LPOUTLINETEXTMETRICW potm);
+#جيڪڏهن_پورو
 
-#ifdef UNICODE
-#define GetTextExtentPoint GetTextExtentPointW
-#define GetTextExtentPoint32 GetTextExtentPoint32W
-#define GetTextExtentExPoint GetTextExtentExPointW
-#define GetCharacterPlacement GetCharacterPlacementW
-#else
-#define GetTextExtentPoint GetTextExtentPointA
-#define GetTextExtentPoint32 GetTextExtentPoint32A
-#define GetTextExtentExPoint GetTextExtentExPointA
-#define GetCharacterPlacement GetCharacterPlacementA
-#endif
+#جيڪڏهن_وصف_ٿيل UNICODE
+#وصف_ڪريو Get_متن_Extent_نقطو Get_متن_Extent_نقطو_W
+#وصف_ڪريو Get_متن_Extent_Point32 Get_متن_Extent_Point32_W
+#وصف_ڪريو Get_متن_Extent_Ex_نقطو Get_متن_Extent_Ex_نقطو_W
+#وصف_ڪريو GetCharacterPlacement GetCharacterPlacementW
+#وإلا
+#وصف_ڪريو Get_متن_Extent_نقطو Get_متن_Extent_نقطو_A
+#وصف_ڪريو Get_متن_Extent_Point32 Get_متن_Extent_Point32_A
+#وصف_ڪريو Get_متن_Extent_Ex_نقطو Get_متن_Extent_Ex_نقطو_A
+#وصف_ڪريو GetCharacterPlacement GetCharacterPlacementA
+#جيڪڏهن_پورو
 
-  WINGDIAPI UINT WINAPI GetPaletteEntries(HPALETTE hpal,UINT iStart,UINT cEntries,LPPALETTEENTRY pPalEntries);
-  WINGDIAPI COLORREF WINAPI GetPixel(HDC hdc,int x,int y);
-  WINGDIAPI int WINAPI GetPixelFormat(HDC hdc);
-  WINGDIAPI int WINAPI GetPolyFillMode(HDC hdc);
-  WINGDIAPI WINBOOL WINAPI GetRasterizerCaps(LPRASTERIZER_STATUS lpraststat,UINT cjBytes);
-  WINGDIAPI int WINAPI GetRandomRgn (HDC hdc,HRGN hrgn,INT i);
-  WINGDIAPI DWORD WINAPI GetRegionData(HRGN hrgn,DWORD nCount,LPRGNDATA lpRgnData);
-  WINGDIAPI int WINAPI GetRgnBox(HRGN hrgn,LPRECT lprc);
-  WINGDIAPI HGDIOBJ WINAPI GetStockObject(int i);
-  WINGDIAPI int WINAPI GetStretchBltMode(HDC hdc);
-  WINGDIAPI UINT WINAPI GetSystemPaletteEntries(HDC hdc,UINT iStart,UINT cEntries,LPPALETTEENTRY pPalEntries);
+  WINGDIAPI UINT WINAPI GetPaletteEntries(HPALETTE hpal,UINT i_شروعات,UINT cEntries,LPPALETTEENTRY pPalEntries);
+  WINGDIAPI COLORREF WINAPI GetPixel(HDC hdc,صحيح x,صحيح y);
+  WINGDIAPI صحيح WINAPI GetPixelFormat(HDC hdc);
+  WINGDIAPI صحيح WINAPI Get_Poly_Fill_گهڻائي(HDC hdc);
+  WINGDIAPI WINBOOL WINAPI GetRasterizerCaps(LPRASTERIZER_حالت lpraststat,UINT cj_بائيٽون);
+  WINGDIAPI صحيح WINAPI GetRandomRgn (HDC hdc,HRGN hrgn,INT i);
+  WINGDIAPI DWORD WINAPI Get_Region_معلومات(HRGN hrgn,DWORD n_ڳڻپ,LPRGNDATA lp_Rgn_معلومات);
+  WINGDIAPI صحيح WINAPI GetRgnBox(HRGN hrgn,LPRECT lprc);
+  WINGDIAPI HGDIOBJ WINAPI GetStockObject(صحيح i);
+  WINGDIAPI صحيح WINAPI Get_Stretch_Blt_گهڻائي(HDC hdc);
+  WINGDIAPI UINT WINAPI GetSystemPaletteEntries(HDC hdc,UINT i_شروعات,UINT cEntries,LPPALETTEENTRY pPalEntries);
   WINGDIAPI UINT WINAPI GetSystemPaletteUse(HDC hdc);
-  WINGDIAPI int WINAPI GetTextCharacterExtra(HDC hdc);
-  WINGDIAPI UINT WINAPI GetTextAlign(HDC hdc);
-  WINGDIAPI COLORREF WINAPI GetTextColor(HDC hdc);
-  WINGDIAPI WINBOOL WINAPI GetTextExtentPointA(HDC hdc,LPCSTR lpString,int c,LPSIZE lpsz);
-  WINGDIAPI WINBOOL WINAPI GetTextExtentPointW(HDC hdc,LPCWSTR lpString,int c,LPSIZE lpsz);
-  WINGDIAPI WINBOOL WINAPI GetTextExtentPoint32A(HDC hdc,LPCSTR lpString,int c,LPSIZE psizl);
-  WINGDIAPI WINBOOL WINAPI GetTextExtentPoint32W(HDC hdc,LPCWSTR lpString,int c,LPSIZE psizl);
-  WINGDIAPI WINBOOL WINAPI GetTextExtentExPointA(HDC hdc,LPCSTR lpszString,int cchString,int nMaxExtent,LPINT lpnFit,LPINT lpnDx,LPSIZE lpSize);
-  WINGDIAPI WINBOOL WINAPI GetTextExtentExPointW(HDC hdc,LPCWSTR lpszString,int cchString,int nMaxExtent,LPINT lpnFit,LPINT lpnDx,LPSIZE lpSize);
-  WINGDIAPI int WINAPI GetTextCharset(HDC hdc);
-  WINGDIAPI int WINAPI GetTextCharsetInfo(HDC hdc,LPFONTSIGNATURE lpSig,DWORD dwFlags);
+  WINGDIAPI صحيح WINAPI Get_متن_Character_Extra(HDC hdc);
+  WINGDIAPI UINT WINAPI Get_متن_Align(HDC hdc);
+  WINGDIAPI COLORREF WINAPI Get_متن_Color(HDC hdc);
+  WINGDIAPI WINBOOL WINAPI Get_متن_Extent_نقطو_A(HDC hdc,LPCSTR lpString,صحيح c,LPSIZE lpsz);
+  WINGDIAPI WINBOOL WINAPI Get_متن_Extent_نقطو_W(HDC hdc,LPCWSTR lpString,صحيح c,LPSIZE lpsz);
+  WINGDIAPI WINBOOL WINAPI Get_متن_Extent_Point32_A(HDC hdc,LPCSTR lpString,صحيح c,LPSIZE psizl);
+  WINGDIAPI WINBOOL WINAPI Get_متن_Extent_Point32_W(HDC hdc,LPCWSTR lpString,صحيح c,LPSIZE psizl);
+  WINGDIAPI WINBOOL WINAPI Get_متن_Extent_Ex_نقطو_A(HDC hdc,LPCSTR lpszString,صحيح cchString,صحيح nMaxExtent,LPINT lpnFit,LPINT lpnDx,LPSIZE lp_سائيز);
+  WINGDIAPI WINBOOL WINAPI Get_متن_Extent_Ex_نقطو_W(HDC hdc,LPCWSTR lpszString,صحيح cchString,صحيح nMaxExtent,LPINT lpnFit,LPINT lpnDx,LPSIZE lp_سائيز);
+  WINGDIAPI صحيح WINAPI Get_متن_Charset(HDC hdc);
+  WINGDIAPI صحيح WINAPI Get_متن_Charset_Info(HDC hdc,LPFONTSIGNATURE lpSig,DWORD dwFlags);
   WINGDIAPI WINBOOL WINAPI TranslateCharsetInfo(DWORD *lpSrc,LPCHARSETINFO lpCs,DWORD dwFlags);
   WINGDIAPI DWORD WINAPI GetFontLanguageInfo(HDC hdc);
-  WINGDIAPI DWORD WINAPI GetCharacterPlacementA(HDC hdc,LPCSTR lpString,int nCount,int nMexExtent,LPGCP_RESULTSA lpResults,DWORD dwFlags);
-  WINGDIAPI DWORD WINAPI GetCharacterPlacementW(HDC hdc,LPCWSTR lpString,int nCount,int nMexExtent,LPGCP_RESULTSW lpResults,DWORD dwFlags);
+  WINGDIAPI DWORD WINAPI GetCharacterPlacementA(HDC hdc,LPCSTR lpString,صحيح n_ڳڻپ,صحيح nMexExtent,LPGCP_RESULTSA lpResults,DWORD dwFlags);
+  WINGDIAPI DWORD WINAPI GetCharacterPlacementW(HDC hdc,LPCWSTR lpString,صحيح n_ڳڻپ,صحيح nMexExtent,LPGCP_RESULTSW lpResults,DWORD dwFlags);
 
-  typedef struct tagWCRANGE {
-    WCHAR wcLow;
+  تعريفنوع بنية ٽيگ_WCRANGE {
+    WCHAR wc_هيٺيون;
     USHORT cGlyphs;
   } WCRANGE,*PWCRANGE,*LPWCRANGE;
 
-  typedef struct tagGLYPHSET {
+  تعريفنوع بنية ٽيگ_GLYPHSET {
     DWORD cbThis;
     DWORD flAccel;
     DWORD cGlyphsSupported;
@@ -2645,223 +2645,223 @@ extern "C" {
     WCRANGE ranges[1];
   } GLYPHSET,*PGLYPHSET,*LPGLYPHSET;
 
-#define GS_8BIT_INDICES 0x00000001
+#وصف_ڪريو GS_8_ٻٽو_انگ_INDICES 0x00000001
 
-#define GGI_MARK_NONEXISTING_GLYPHS 0X0001
+#وصف_ڪريو GGI_MARK_NONEXISTING_GLYPHS 0X0001
 
-#ifdef UNICODE
-#define GetGlyphIndices GetGlyphIndicesW
-#else
-#define GetGlyphIndices GetGlyphIndicesA
-#endif
+#جيڪڏهن_وصف_ٿيل UNICODE
+#وصف_ڪريو GetGlyphIndices GetGlyphIndicesW
+#وإلا
+#وصف_ڪريو GetGlyphIndices GetGlyphIndicesA
+#جيڪڏهن_پورو
 
   WINGDIAPI DWORD WINAPI GetFontUnicodeRanges(HDC hdc,LPGLYPHSET lpgs);
-  WINGDIAPI DWORD WINAPI GetGlyphIndicesA(HDC hdc,LPCSTR lpstr,int c,LPWORD pgi,DWORD fl);
-  WINGDIAPI DWORD WINAPI GetGlyphIndicesW(HDC hdc,LPCWSTR lpstr,int c,LPWORD pgi,DWORD fl);
-  WINGDIAPI WINBOOL WINAPI GetTextExtentPointI(HDC hdc,LPWORD pgiIn,int cgi,LPSIZE psize);
-  WINGDIAPI WINBOOL WINAPI GetTextExtentExPointI (HDC hdc,LPWORD lpwszString,int cwchString,int nMaxExtent,LPINT lpnFit,LPINT lpnDx,LPSIZE lpSize);
-  WINGDIAPI WINBOOL WINAPI GetCharWidthI(HDC hdc,UINT giFirst,UINT cgi,LPWORD pgi,LPINT piWidths);
-  WINGDIAPI WINBOOL WINAPI GetCharABCWidthsI(HDC hdc,UINT giFirst,UINT cgi,LPWORD pgi,LPABC pabc);
+  WINGDIAPI DWORD WINAPI GetGlyphIndicesA(HDC hdc,LPCSTR lpstr,صحيح c,LPWORD pgi,DWORD fl);
+  WINGDIAPI DWORD WINAPI GetGlyphIndicesW(HDC hdc,LPCWSTR lpstr,صحيح c,LPWORD pgi,DWORD fl);
+  WINGDIAPI WINBOOL WINAPI Get_متن_Extent_نقطو_I(HDC hdc,LPWORD pgi_اندريون,صحيح cgi,LPSIZE psize);
+  WINGDIAPI WINBOOL WINAPI Get_متن_Extent_Ex_نقطو_I (HDC hdc,LPWORD lpwszString,صحيح cwchString,صحيح nMaxExtent,LPINT lpnFit,LPINT lpnDx,LPSIZE lp_سائيز);
+  WINGDIAPI WINBOOL WINAPI Get_Char_ويڪر_I(HDC hdc,UINT gi_پهريون,UINT cgi,LPWORD pgi,LPINT piWidths);
+  WINGDIAPI WINBOOL WINAPI GetCharABCWidthsI(HDC hdc,UINT gi_پهريون,UINT cgi,LPWORD pgi,LPABC pabc);
 
-#define STAMP_DESIGNVECTOR (0x8000000 + 'd' + ('v' << 8))
-#define STAMP_AXESLIST (0x8000000 + 'a' + ('l' << 8))
-#define MM_MAX_NUMAXES 16
+#وصف_ڪريو STAMP_DESIGNVECTOR (0x8000000 + 'd' + ('v' << 8))
+#وصف_ڪريو STAMP_AXESLIST (0x8000000 + 'a' + ('l' << 8))
+#وصف_ڪريو MM_MAX_NUMAXES 16
 
-  typedef struct tagDESIGNVECTOR {
+  تعريفنوع بنية ٽيگ_DESIGNVECTOR {
     DWORD dvReserved;
-    DWORD dvNumAxes;
-    LONG dvValues[MM_MAX_NUMAXES];
+    DWORD dv_انگ_Axes;
+    LONG dv_قدرون[MM_MAX_NUMAXES];
   } DESIGNVECTOR,*PDESIGNVECTOR,*LPDESIGNVECTOR;
 
-#ifdef UNICODE
-#define AddFontResourceEx AddFontResourceExW
-#define RemoveFontResourceEx RemoveFontResourceExW
-#else
-#define AddFontResourceEx AddFontResourceExA
-#define RemoveFontResourceEx RemoveFontResourceExA
-#endif
+#جيڪڏهن_وصف_ٿيل UNICODE
+#وصف_ڪريو جوڙيو_Font_Resource_Ex جوڙيو_Font_Resource_Ex_W
+#وصف_ڪريو RemoveFontResourceEx RemoveFontResourceExW
+#وإلا
+#وصف_ڪريو جوڙيو_Font_Resource_Ex جوڙيو_Font_Resource_Ex_A
+#وصف_ڪريو RemoveFontResourceEx RemoveFontResourceExA
+#جيڪڏهن_پورو
 
-  WINGDIAPI int WINAPI AddFontResourceExA(LPCSTR name,DWORD fl,PVOID res);
-  WINGDIAPI int WINAPI AddFontResourceExW(LPCWSTR name,DWORD fl,PVOID res);
+  WINGDIAPI صحيح WINAPI جوڙيو_Font_Resource_Ex_A(LPCSTR name,DWORD fl,PVOID res);
+  WINGDIAPI صحيح WINAPI جوڙيو_Font_Resource_Ex_W(LPCWSTR name,DWORD fl,PVOID res);
   WINGDIAPI WINBOOL WINAPI RemoveFontResourceExA(LPCSTR name,DWORD fl,PVOID pdv);
   WINGDIAPI WINBOOL WINAPI RemoveFontResourceExW(LPCWSTR name,DWORD fl,PVOID pdv);
-  WINGDIAPI HANDLE WINAPI AddFontMemResourceEx(PVOID pFileView,DWORD cjSize,PVOID pvResrved,DWORD *pNumFonts);
+  WINGDIAPI HANDLE WINAPI جوڙيو_Font_Mem_Resource_Ex(PVOID pFileView,DWORD cj_سائيز,PVOID pvResrved,DWORD *p_انگ_Fonts);
   WINGDIAPI WINBOOL WINAPI RemoveFontMemResourceEx(HANDLE h);
 
-#define FR_PRIVATE 0x10
-#define FR_NOT_ENUM 0x20
+#وصف_ڪريو FR_ذاتي 0x10
+#وصف_ڪريو FR_NOT_ENUM 0x20
 
-#define MM_MAX_AXES_NAMELEN 16
+#وصف_ڪريو MM_MAX_AXES_NAMELEN 16
 
-  typedef struct tagAXISINFOA {
-    LONG axMinValue;
-    LONG axMaxValue;
+  تعريفنوع بنية ٽيگ_AXISINFOA {
+    LONG ax_Min_قدر;
+    LONG ax_Max_قدر;
     BYTE axAxisName[MM_MAX_AXES_NAMELEN];
   } AXISINFOA,*PAXISINFOA,*LPAXISINFOA;
 
-  typedef struct tagAXISINFOW {
-    LONG axMinValue;
-    LONG axMaxValue;
+  تعريفنوع بنية ٽيگ_AXISINFOW {
+    LONG ax_Min_قدر;
+    LONG ax_Max_قدر;
     WCHAR axAxisName[MM_MAX_AXES_NAMELEN];
   } AXISINFOW,*PAXISINFOW,*LPAXISINFOW;
-#ifdef UNICODE
-  typedef AXISINFOW AXISINFO;
-  typedef PAXISINFOW PAXISINFO;
-  typedef LPAXISINFOW LPAXISINFO;
-#else
-  typedef AXISINFOA AXISINFO;
-  typedef PAXISINFOA PAXISINFO;
-  typedef LPAXISINFOA LPAXISINFO;
-#endif
+#جيڪڏهن_وصف_ٿيل UNICODE
+  تعريفنوع AXISINFOW AXISINFO;
+  تعريفنوع PAXISINFOW PAXISINFO;
+  تعريفنوع LPAXISINFOW LPAXISINFO;
+#وإلا
+  تعريفنوع AXISINFOA AXISINFO;
+  تعريفنوع PAXISINFOA PAXISINFO;
+  تعريفنوع LPAXISINFOA LPAXISINFO;
+#جيڪڏهن_پورو
 
-  typedef struct tagAXESLISTA {
+  تعريفنوع بنية ٽيگ_AXESLISTA {
     DWORD axlReserved;
-    DWORD axlNumAxes;
+    DWORD axl_انگ_Axes;
     AXISINFOA axlAxisInfo[MM_MAX_NUMAXES];
   } AXESLISTA,*PAXESLISTA,*LPAXESLISTA;
 
-  typedef struct tagAXESLISTW {
+  تعريفنوع بنية ٽيگ_AXESLISTW {
     DWORD axlReserved;
-    DWORD axlNumAxes;
+    DWORD axl_انگ_Axes;
     AXISINFOW axlAxisInfo[MM_MAX_NUMAXES];
   } AXESLISTW,*PAXESLISTW,*LPAXESLISTW;
-#ifdef UNICODE
-  typedef AXESLISTW AXESLIST;
-  typedef PAXESLISTW PAXESLIST;
-  typedef LPAXESLISTW LPAXESLIST;
-#else
-  typedef AXESLISTA AXESLIST;
-  typedef PAXESLISTA PAXESLIST;
-  typedef LPAXESLISTA LPAXESLIST;
-#endif
+#جيڪڏهن_وصف_ٿيل UNICODE
+  تعريفنوع AXESLISTW AXESLIST;
+  تعريفنوع PAXESLISTW PAXESLIST;
+  تعريفنوع LPAXESLISTW LPAXESLIST;
+#وإلا
+  تعريفنوع AXESLISTA AXESLIST;
+  تعريفنوع PAXESLISTA PAXESLIST;
+  تعريفنوع LPAXESLISTA LPAXESLIST;
+#جيڪڏهن_پورو
 
-  typedef struct tagENUMLOGFONTEXDVA {
+  تعريفنوع بنية ٽيگ_ENUMLOGFONTEXDVA {
     ENUMLOGFONTEXA elfEnumLogfontEx;
-    DESIGNVECTOR elfDesignVector;
+    DESIGNVECTOR elf_Design_ويڪٽر;
   } ENUMLOGFONTEXDVA,*PENUMLOGFONTEXDVA,*LPENUMLOGFONTEXDVA;
 
-  typedef struct tagENUMLOGFONTEXDVW {
+  تعريفنوع بنية ٽيگ_ENUMLOGFONTEXDVW {
     ENUMLOGFONTEXW elfEnumLogfontEx;
-    DESIGNVECTOR elfDesignVector;
+    DESIGNVECTOR elf_Design_ويڪٽر;
   } ENUMLOGFONTEXDVW,*PENUMLOGFONTEXDVW,*LPENUMLOGFONTEXDVW;
-#ifdef UNICODE
-  typedef ENUMLOGFONTEXDVW ENUMLOGFONTEXDV;
-  typedef PENUMLOGFONTEXDVW PENUMLOGFONTEXDV;
-  typedef LPENUMLOGFONTEXDVW LPENUMLOGFONTEXDV;
-#else
-  typedef ENUMLOGFONTEXDVA ENUMLOGFONTEXDV;
-  typedef PENUMLOGFONTEXDVA PENUMLOGFONTEXDV;
-  typedef LPENUMLOGFONTEXDVA LPENUMLOGFONTEXDV;
-#endif
+#جيڪڏهن_وصف_ٿيل UNICODE
+  تعريفنوع ENUMLOGFONTEXDVW ENUMLOGFONTEXDV;
+  تعريفنوع PENUMLOGFONTEXDVW PENUMLOGFONTEXDV;
+  تعريفنوع LPENUMLOGFONTEXDVW LPENUMLOGFONTEXDV;
+#وإلا
+  تعريفنوع ENUMLOGFONTEXDVA ENUMLOGFONTEXDV;
+  تعريفنوع PENUMLOGFONTEXDVA PENUMLOGFONTEXDV;
+  تعريفنوع LPENUMLOGFONTEXDVA LPENUMLOGFONTEXDV;
+#جيڪڏهن_پورو
 
-#ifdef UNICODE
-#define CreateFontIndirectEx CreateFontIndirectExW
-#else
-#define CreateFontIndirectEx CreateFontIndirectExA
-#endif
+#جيڪڏهن_وصف_ٿيل UNICODE
+#وصف_ڪريو Create_Font_اڻسڌو_Ex Create_Font_اڻسڌو_Ex_W
+#وإلا
+#وصف_ڪريو Create_Font_اڻسڌو_Ex Create_Font_اڻسڌو_Ex_A
+#جيڪڏهن_پورو
 
-  WINGDIAPI HFONT WINAPI CreateFontIndirectExA(CONST ENUMLOGFONTEXDVA *);
-  WINGDIAPI HFONT WINAPI CreateFontIndirectExW(CONST ENUMLOGFONTEXDVW *);
+  WINGDIAPI HFONT WINAPI Create_Font_اڻسڌو_Ex_A(CONST ENUMLOGFONTEXDVA *);
+  WINGDIAPI HFONT WINAPI Create_Font_اڻسڌو_Ex_W(CONST ENUMLOGFONTEXDVW *);
 
-#ifndef NOTEXTMETRIC
-  typedef struct tagENUMTEXTMETRICA {
-    NEWTEXTMETRICEXA etmNewTextMetricEx;
+#جيڪڏهن_وصف_نه_ٿيل NOTEXTMETRIC
+  تعريفنوع بنية ٽيگ_ENUMTEXTMETRICA {
+    NEWTEXTMETRICEXA etm_New_متن_Metric_Ex;
     AXESLISTA etmAxesList;
   } ENUMTEXTMETRICA,*PENUMTEXTMETRICA,*LPENUMTEXTMETRICA;
-  typedef struct tagENUMTEXTMETRICW
+  تعريفنوع بنية ٽيگ_ENUMTEXTMETRICW
   {
-    NEWTEXTMETRICEXW etmNewTextMetricEx;
+    NEWTEXTMETRICEXW etm_New_متن_Metric_Ex;
     AXESLISTW etmAxesList;
   } ENUMTEXTMETRICW,*PENUMTEXTMETRICW,*LPENUMTEXTMETRICW;
-#ifdef UNICODE
-  typedef ENUMTEXTMETRICW ENUMTEXTMETRIC;
-  typedef PENUMTEXTMETRICW PENUMTEXTMETRIC;
-  typedef LPENUMTEXTMETRICW LPENUMTEXTMETRIC;
-#else
-  typedef ENUMTEXTMETRICA ENUMTEXTMETRIC;
-  typedef PENUMTEXTMETRICA PENUMTEXTMETRIC;
-  typedef LPENUMTEXTMETRICA LPENUMTEXTMETRIC;
-#endif
-#endif
+#جيڪڏهن_وصف_ٿيل UNICODE
+  تعريفنوع ENUMTEXTMETRICW ENUMTEXTMETRIC;
+  تعريفنوع PENUMTEXTMETRICW PENUMTEXTMETRIC;
+  تعريفنوع LPENUMTEXTMETRICW LPENUMTEXTMETRIC;
+#وإلا
+  تعريفنوع ENUMTEXTMETRICA ENUMTEXTMETRIC;
+  تعريفنوع PENUMTEXTMETRICA PENUMTEXTMETRIC;
+  تعريفنوع LPENUMTEXTMETRICA LPENUMTEXTMETRIC;
+#جيڪڏهن_پورو
+#جيڪڏهن_پورو
 
-#ifdef UNICODE
-#define ResetDC ResetDCW
-#define RemoveFontResource RemoveFontResourceW
-#else
-#define ResetDC ResetDCA
-#define RemoveFontResource RemoveFontResourceA
-#endif
+#جيڪڏهن_وصف_ٿيل UNICODE
+#وصف_ڪريو ResetDC ResetDCW
+#وصف_ڪريو RemoveFontResource RemoveFontResourceW
+#وإلا
+#وصف_ڪريو ResetDC ResetDCA
+#وصف_ڪريو RemoveFontResource RemoveFontResourceA
+#جيڪڏهن_پورو
 
   WINGDIAPI WINBOOL WINAPI GetViewportExtEx(HDC hdc,LPSIZE lpsize);
   WINGDIAPI WINBOOL WINAPI GetViewportOrgEx(HDC hdc,LPPOINT lppoint);
-  WINGDIAPI WINBOOL WINAPI GetWindowExtEx(HDC hdc,LPSIZE lpsize);
-  WINGDIAPI WINBOOL WINAPI GetWindowOrgEx(HDC hdc,LPPOINT lppoint);
-  WINGDIAPI int WINAPI IntersectClipRect(HDC hdc,int left,int top,int right,int bottom);
+  WINGDIAPI WINBOOL WINAPI Get_دري_Ext_Ex(HDC hdc,LPSIZE lpsize);
+  WINGDIAPI WINBOOL WINAPI Get_دري_Org_Ex(HDC hdc,LPPOINT lppoint);
+  WINGDIAPI صحيح WINAPI IntersectClipRect(HDC hdc,صحيح کاٻو,صحيح چوٽي,صحيح ساڄو,صحيح bottom);
   WINGDIAPI WINBOOL WINAPI InvertRgn(HDC hdc,HRGN hrgn);
-  WINGDIAPI WINBOOL WINAPI LineDDA(int xStart,int yStart,int xEnd,int yEnd,LINEDDAPROC lpProc,LPARAM data);
-  WINGDIAPI WINBOOL WINAPI LineTo(HDC hdc,int x,int y);
-  WINGDIAPI WINBOOL WINAPI MaskBlt(HDC hdcDest,int xDest,int yDest,int width,int height,HDC hdcSrc,int xSrc,int ySrc,HBITMAP hbmMask,int xMask,int yMask,DWORD rop);
-  WINGDIAPI WINBOOL WINAPI PlgBlt(HDC hdcDest,CONST POINT *lpPoint,HDC hdcSrc,int xSrc,int ySrc,int width,int height,HBITMAP hbmMask,int xMask,int yMask);
-  WINGDIAPI int WINAPI OffsetClipRgn(HDC hdc,int x,int y);
-  WINGDIAPI int WINAPI OffsetRgn(HRGN hrgn,int x,int y);
-  WINGDIAPI WINBOOL WINAPI PatBlt(HDC hdc,int x,int y,int w,int h,DWORD rop);
-  WINGDIAPI WINBOOL WINAPI Pie(HDC hdc,int left,int top,int right,int bottom,int xr1,int yr1,int xr2,int yr2);
+  WINGDIAPI WINBOOL WINAPI سٽ_DDA(صحيح x_شروعات,صحيح y_شروعات,صحيح x_پڇاڙي,صحيح y_پڇاڙي,LINEDDAPROC lpProc,LPARAM معلومات);
+  WINGDIAPI WINBOOL WINAPI سٽ_منزل(HDC hdc,صحيح x,صحيح y);
+  WINGDIAPI WINBOOL WINAPI نقاب_Blt(HDC hdcDest,صحيح xDest,صحيح yDest,صحيح ويڪر,صحيح اوچائي,HDC hdcSrc,صحيح xSrc,صحيح ySrc,HBITMAP hbm_نقاب,صحيح x_نقاب,صحيح y_نقاب,DWORD rop);
+  WINGDIAPI WINBOOL WINAPI PlgBlt(HDC hdcDest,CONST نقطو_3 *lp_نقطو,HDC hdcSrc,صحيح xSrc,صحيح ySrc,صحيح ويڪر,صحيح اوچائي,HBITMAP hbm_نقاب,صحيح x_نقاب,صحيح y_نقاب);
+  WINGDIAPI صحيح WINAPI وٿي_Clip_Rgn(HDC hdc,صحيح x,صحيح y);
+  WINGDIAPI صحيح WINAPI وٿي_Rgn(HRGN hrgn,صحيح x,صحيح y);
+  WINGDIAPI WINBOOL WINAPI PatBlt(HDC hdc,صحيح x,صحيح y,صحيح w,صحيح h,DWORD rop);
+  WINGDIAPI WINBOOL WINAPI Pie(HDC hdc,صحيح کاٻو,صحيح چوٽي,صحيح ساڄو,صحيح bottom,صحيح xr1,صحيح yr1,صحيح xr2,صحيح yr2);
   WINGDIAPI WINBOOL WINAPI PlayMetaFile(HDC hdc,HMETAFILE hmf);
   WINGDIAPI WINBOOL WINAPI PaintRgn(HDC hdc,HRGN hrgn);
-  WINGDIAPI WINBOOL WINAPI PolyPolygon(HDC hdc,CONST POINT *apt,CONST INT *asz,int csz);
-  WINGDIAPI WINBOOL WINAPI PtInRegion(HRGN hrgn,int x,int y);
-  WINGDIAPI WINBOOL WINAPI PtVisible(HDC hdc,int x,int y);
-  WINGDIAPI WINBOOL WINAPI RectInRegion(HRGN hrgn,CONST RECT *lprect);
+  WINGDIAPI WINBOOL WINAPI PolyPolygon(HDC hdc,CONST نقطو_3 *apt,CONST INT *asz,صحيح csz);
+  WINGDIAPI WINBOOL WINAPI Pt_اندريون_Region(HRGN hrgn,صحيح x,صحيح y);
+  WINGDIAPI WINBOOL WINAPI PtVisible(HDC hdc,صحيح x,صحيح y);
+  WINGDIAPI WINBOOL WINAPI Rect_اندريون_Region(HRGN hrgn,CONST RECT *lprect);
   WINGDIAPI WINBOOL WINAPI RectVisible(HDC hdc,CONST RECT *lprect);
-  WINGDIAPI WINBOOL WINAPI Rectangle(HDC hdc,int left,int top,int right,int bottom);
-  WINGDIAPI WINBOOL WINAPI RestoreDC(HDC hdc,int nSavedDC);
+  WINGDIAPI WINBOOL WINAPI Rectangle(HDC hdc,صحيح کاٻو,صحيح چوٽي,صحيح ساڄو,صحيح bottom);
+  WINGDIAPI WINBOOL WINAPI RestoreDC(HDC hdc,صحيح nSavedDC);
   WINGDIAPI HDC WINAPI ResetDCA(HDC hdc,CONST DEVMODEA *lpdm);
   WINGDIAPI HDC WINAPI ResetDCW(HDC hdc,CONST DEVMODEW *lpdm);
   WINGDIAPI UINT WINAPI RealizePalette(HDC hdc);
   WINGDIAPI WINBOOL WINAPI RemoveFontResourceA(LPCSTR lpFileName);
   WINGDIAPI WINBOOL WINAPI RemoveFontResourceW(LPCWSTR lpFileName);
-  WINGDIAPI WINBOOL WINAPI RoundRect(HDC hdc,int left,int top,int right,int bottom,int width,int height);
+  WINGDIAPI WINBOOL WINAPI ڦيرو_Rect(HDC hdc,صحيح کاٻو,صحيح چوٽي,صحيح ساڄو,صحيح bottom,صحيح ويڪر,صحيح اوچائي);
   WINGDIAPI WINBOOL WINAPI ResizePalette(HPALETTE hpal,UINT n);
-  WINGDIAPI int WINAPI SaveDC(HDC hdc);
-  WINGDIAPI int WINAPI SelectClipRgn(HDC hdc,HRGN hrgn);
-  WINGDIAPI int WINAPI ExtSelectClipRgn(HDC hdc,HRGN hrgn,int mode);
-  WINGDIAPI int WINAPI SetMetaRgn(HDC hdc);
+  WINGDIAPI صحيح WINAPI SaveDC(HDC hdc);
+  WINGDIAPI صحيح WINAPI SelectClipRgn(HDC hdc,HRGN hrgn);
+  WINGDIAPI صحيح WINAPI ExtSelectClipRgn(HDC hdc,HRGN hrgn,صحيح گهڻائي);
+  WINGDIAPI صحيح WINAPI سيٽ_Meta_Rgn(HDC hdc);
   WINGDIAPI HGDIOBJ WINAPI SelectObject(HDC hdc,HGDIOBJ h);
   WINGDIAPI HPALETTE WINAPI SelectPalette(HDC hdc,HPALETTE hPal,WINBOOL bForceBkgd);
-  WINGDIAPI COLORREF WINAPI SetBkColor(HDC hdc,COLORREF color);
-  WINGDIAPI COLORREF WINAPI SetDCBrushColor(HDC hdc,COLORREF color);
-  WINGDIAPI COLORREF WINAPI SetDCPenColor(HDC hdc,COLORREF color);
-  WINGDIAPI int WINAPI SetBkMode(HDC hdc,int mode);
-  WINGDIAPI LONG WINAPI SetBitmapBits(HBITMAP hbm,DWORD cb,CONST VOID *pvBits);
-  WINGDIAPI UINT WINAPI SetBoundsRect(HDC hdc,CONST RECT *lprect,UINT flags);
-  WINGDIAPI int WINAPI SetDIBits(HDC hdc,HBITMAP hbm,UINT start,UINT cLines,CONST VOID *lpBits,CONST BITMAPINFO *lpbmi,UINT ColorUse);
-  WINGDIAPI int WINAPI SetDIBitsToDevice(HDC hdc,int xDest,int yDest,DWORD w,DWORD h,int xSrc,int ySrc,UINT StartScan,UINT cLines,CONST VOID *lpvBits,CONST BITMAPINFO *lpbmi,UINT ColorUse);
-  WINGDIAPI DWORD WINAPI SetMapperFlags(HDC hdc,DWORD flags);
-  WINGDIAPI int WINAPI SetGraphicsMode(HDC hdc,int iMode);
-  WINGDIAPI int WINAPI SetMapMode(HDC hdc,int iMode);
-  WINGDIAPI DWORD WINAPI SetLayout(HDC hdc,DWORD l);
+  WINGDIAPI COLORREF WINAPI سيٽ_Bk_Color(HDC hdc,COLORREF color);
+  WINGDIAPI COLORREF WINAPI سيٽ_DCBrush_Color(HDC hdc,COLORREF color);
+  WINGDIAPI COLORREF WINAPI سيٽ_DCPen_Color(HDC hdc,COLORREF color);
+  WINGDIAPI صحيح WINAPI سيٽ_Bk_گهڻائي(HDC hdc,صحيح گهڻائي);
+  WINGDIAPI LONG WINAPI سيٽ_Bitmap_بٽ(HBITMAP hbm,DWORD cb,CONST VOID *pv_بٽ);
+  WINGDIAPI UINT WINAPI سيٽ_Bounds_Rect(HDC hdc,CONST RECT *lprect,UINT flags);
+  WINGDIAPI صحيح WINAPI سيٽ_DIBits(HDC hdc,HBITMAP hbm,UINT شروعات,UINT c_سٽون,CONST VOID *lp_بٽ,CONST BITMAPINFO *lpbmi,UINT ColorUse);
+  WINGDIAPI صحيح WINAPI سيٽ_DIBits_منزل_Device(HDC hdc,صحيح xDest,صحيح yDest,DWORD w,DWORD h,صحيح xSrc,صحيح ySrc,UINT شروعات_جاچ,UINT c_سٽون,CONST VOID *lpv_بٽ,CONST BITMAPINFO *lpbmi,UINT ColorUse);
+  WINGDIAPI DWORD WINAPI سيٽ_Mapper_Flags(HDC hdc,DWORD flags);
+  WINGDIAPI صحيح WINAPI سيٽ_Graphics_گهڻائي(HDC hdc,صحيح i_گهڻائي);
+  WINGDIAPI صحيح WINAPI سيٽ_Map_گهڻائي(HDC hdc,صحيح i_گهڻائي);
+  WINGDIAPI DWORD WINAPI سيٽ_Layout(HDC hdc,DWORD l);
   WINGDIAPI DWORD WINAPI GetLayout(HDC hdc);
-  WINGDIAPI HMETAFILE WINAPI SetMetaFileBitsEx(UINT cbBuffer,CONST BYTE *lpData);
-  WINGDIAPI UINT WINAPI SetPaletteEntries(HPALETTE hpal,UINT iStart,UINT cEntries,CONST PALETTEENTRY *pPalEntries);
-  WINGDIAPI COLORREF WINAPI SetPixel(HDC hdc,int x,int y,COLORREF color);
-  WINGDIAPI WINBOOL WINAPI SetPixelV(HDC hdc,int x,int y,COLORREF color);
-  WINGDIAPI WINBOOL WINAPI SetPixelFormat(HDC hdc,int format,CONST PIXELFORMATDESCRIPTOR *ppfd);
-  WINGDIAPI int WINAPI SetPolyFillMode(HDC hdc,int mode);
-  WINGDIAPI WINBOOL WINAPI StretchBlt(HDC hdcDest,int xDest,int yDest,int wDest,int hDest,HDC hdcSrc,int xSrc,int ySrc,int wSrc,int hSrc,DWORD rop);
-  WINGDIAPI WINBOOL WINAPI SetRectRgn(HRGN hrgn,int left,int top,int right,int bottom);
-  WINGDIAPI int WINAPI StretchDIBits(HDC hdc,int xDest,int yDest,int DestWidth,int DestHeight,int xSrc,int ySrc,int SrcWidth,int SrcHeight,CONST VOID *lpBits,CONST BITMAPINFO *lpbmi,UINT iUsage,DWORD rop);
-  WINGDIAPI int WINAPI SetROP2(HDC hdc,int rop2);
-  WINGDIAPI int WINAPI SetStretchBltMode(HDC hdc,int mode);
-  WINGDIAPI UINT WINAPI SetSystemPaletteUse(HDC hdc,UINT use);
-  WINGDIAPI int WINAPI SetTextCharacterExtra(HDC hdc,int extra);
-  WINGDIAPI COLORREF WINAPI SetTextColor(HDC hdc,COLORREF color);
-  WINGDIAPI UINT WINAPI SetTextAlign(HDC hdc,UINT align);
-  WINGDIAPI WINBOOL WINAPI SetTextJustification(HDC hdc,int extra,int count);
+  WINGDIAPI HMETAFILE WINAPI سيٽ_Meta_File_بٽ_Ex(UINT cb_بفر,CONST BYTE *lp_معلومات);
+  WINGDIAPI UINT WINAPI سيٽ_Palette_Entries(HPALETTE hpal,UINT i_شروعات,UINT cEntries,CONST PALETTEENTRY *pPalEntries);
+  WINGDIAPI COLORREF WINAPI سيٽ_Pixel(HDC hdc,صحيح x,صحيح y,COLORREF color);
+  WINGDIAPI WINBOOL WINAPI سيٽ_Pixel_V(HDC hdc,صحيح x,صحيح y,COLORREF color);
+  WINGDIAPI WINBOOL WINAPI سيٽ_Pixel_Format(HDC hdc,صحيح format,CONST PIXELFORMATDESCRIPTOR *ppfd);
+  WINGDIAPI صحيح WINAPI سيٽ_Poly_Fill_گهڻائي(HDC hdc,صحيح گهڻائي);
+  WINGDIAPI WINBOOL WINAPI StretchBlt(HDC hdcDest,صحيح xDest,صحيح yDest,صحيح wDest,صحيح hDest,HDC hdcSrc,صحيح xSrc,صحيح ySrc,صحيح wSrc,صحيح hSrc,DWORD rop);
+  WINGDIAPI WINBOOL WINAPI سيٽ_Rect_Rgn(HRGN hrgn,صحيح کاٻو,صحيح چوٽي,صحيح ساڄو,صحيح bottom);
+  WINGDIAPI صحيح WINAPI StretchDIBits(HDC hdc,صحيح xDest,صحيح yDest,صحيح Dest_ويڪر,صحيح Dest_اوچائي,صحيح xSrc,صحيح ySrc,صحيح Src_ويڪر,صحيح Src_اوچائي,CONST VOID *lp_بٽ,CONST BITMAPINFO *lpbmi,UINT iUsage,DWORD rop);
+  WINGDIAPI صحيح WINAPI سيٽ_ROP2(HDC hdc,صحيح rop2);
+  WINGDIAPI صحيح WINAPI سيٽ_Stretch_Blt_گهڻائي(HDC hdc,صحيح گهڻائي);
+  WINGDIAPI UINT WINAPI سيٽ_System_Palette_Use(HDC hdc,UINT use);
+  WINGDIAPI صحيح WINAPI سيٽ_متن_Character_Extra(HDC hdc,صحيح extra);
+  WINGDIAPI COLORREF WINAPI سيٽ_متن_Color(HDC hdc,COLORREF color);
+  WINGDIAPI UINT WINAPI سيٽ_متن_Align(HDC hdc,UINT align);
+  WINGDIAPI WINBOOL WINAPI سيٽ_متن_Justification(HDC hdc,صحيح extra,صحيح ڳڻپ_2);
   WINGDIAPI WINBOOL WINAPI UpdateColors(HDC hdc);
 
-  typedef USHORT COLOR16;
+  تعريفنوع USHORT COLOR16;
 
-  typedef struct _TRIVERTEX {
+  تعريفنوع بنية _TRIVERTEX {
     LONG x;
     LONG y;
     COLOR16 Red;
@@ -2870,58 +2870,58 @@ extern "C" {
     COLOR16 Alpha;
   } TRIVERTEX,*PTRIVERTEX,*LPTRIVERTEX;
 
-  typedef struct _GRADIENT_TRIANGLE {
+  تعريفنوع بنية _GRADIENT_TRIANGLE {
     ULONG Vertex1;
     ULONG Vertex2;
     ULONG Vertex3;
   } GRADIENT_TRIANGLE,*PGRADIENT_TRIANGLE,*LPGRADIENT_TRIANGLE;
 
-  typedef struct _GRADIENT_RECT {
-    ULONG UpperLeft;
-    ULONG LowerRight;
+  تعريفنوع بنية _GRADIENT_RECT {
+    ULONG مٿانهون_کاٻو;
+    ULONG هيٺاهون_ساڄو;
   } GRADIENT_RECT,*PGRADIENT_RECT,*LPGRADIENT_RECT;
 
-  typedef struct _BLENDFUNCTION {
+  تعريفنوع بنية _BLENDFUNCTION {
     BYTE BlendOp;
     BYTE BlendFlags;
-    BYTE SourceConstantAlpha;
+    BYTE ذريعو_Constant_Alpha;
     BYTE AlphaFormat;
   } BLENDFUNCTION,*PBLENDFUNCTION;
 
-#define AC_SRC_OVER 0x00
-#define AC_SRC_ALPHA 0x01
+#وصف_ڪريو AC_SRC_OVER 0x00
+#وصف_ڪريو AC_SRC_ALPHA 0x01
 
-  WINGDIAPI WINBOOL WINAPI AlphaBlend(HDC hdcDest,int xoriginDest,int yoriginDest,int wDest,int hDest,HDC hdcSrc,int xoriginSrc,int yoriginSrc,int wSrc,int hSrc,BLENDFUNCTION ftn);
-  WINGDIAPI WINBOOL WINAPI TransparentBlt(HDC hdcDest,int xoriginDest,int yoriginDest,int wDest,int hDest,HDC hdcSrc,int xoriginSrc,int yoriginSrc,int wSrc,int hSrc,UINT crTransparent);
+  WINGDIAPI WINBOOL WINAPI AlphaBlend(HDC hdcDest,صحيح xoriginDest,صحيح yoriginDest,صحيح wDest,صحيح hDest,HDC hdcSrc,صحيح xoriginSrc,صحيح yoriginSrc,صحيح wSrc,صحيح hSrc,BLENDFUNCTION ftn);
+  WINGDIAPI WINBOOL WINAPI TransparentBlt(HDC hdcDest,صحيح xoriginDest,صحيح yoriginDest,صحيح wDest,صحيح hDest,HDC hdcSrc,صحيح xoriginSrc,صحيح yoriginSrc,صحيح wSrc,صحيح hSrc,UINT crTransparent);
 
-#define GRADIENT_FILL_RECT_H 0x00000000
-#define GRADIENT_FILL_RECT_V 0x00000001
-#define GRADIENT_FILL_TRIANGLE 0x00000002
-#define GRADIENT_FILL_OP_FLAG 0x000000ff
+#وصف_ڪريو GRADIENT_FILL_RECT_H 0x00000000
+#وصف_ڪريو GRADIENT_FILL_RECT_V 0x00000001
+#وصف_ڪريو GRADIENT_FILL_TRIANGLE 0x00000002
+#وصف_ڪريو GRADIENT_FILL_OP_FLAG 0x000000ff
 
-  WINGDIAPI WINBOOL WINAPI GradientFill(HDC hdc,PTRIVERTEX pVertex,ULONG nVertex,PVOID pMesh,ULONG nMesh,ULONG ulMode);
+  WINGDIAPI WINBOOL WINAPI GradientFill(HDC hdc,PTRIVERTEX p_راس,ULONG n_راس,PVOID pMesh,ULONG nMesh,ULONG ul_گهڻائي);
 
-#ifndef NOMETAFILE
+#جيڪڏهن_وصف_نه_ٿيل NOMETAFILE
 
-#ifdef UNICODE
-#define CopyEnhMetaFile CopyEnhMetaFileW
-#define CreateEnhMetaFile CreateEnhMetaFileW
-#define GetEnhMetaFile GetEnhMetaFileW
-#define GetEnhMetaFileDescription GetEnhMetaFileDescriptionW
-#else
-#define CopyEnhMetaFile CopyEnhMetaFileA
-#define CreateEnhMetaFile CreateEnhMetaFileA
-#define GetEnhMetaFile GetEnhMetaFileA
-#define GetEnhMetaFileDescription GetEnhMetaFileDescriptionA
-#endif
+#جيڪڏهن_وصف_ٿيل UNICODE
+#وصف_ڪريو CopyEnhMetaFile CopyEnhMetaFileW
+#وصف_ڪريو CreateEnhMetaFile CreateEnhMetaFileW
+#وصف_ڪريو GetEnhMetaFile GetEnhMetaFileW
+#وصف_ڪريو GetEnhMetaFileDescription GetEnhMetaFileDescriptionW
+#وإلا
+#وصف_ڪريو CopyEnhMetaFile CopyEnhMetaFileA
+#وصف_ڪريو CreateEnhMetaFile CreateEnhMetaFileA
+#وصف_ڪريو GetEnhMetaFile GetEnhMetaFileA
+#وصف_ڪريو GetEnhMetaFileDescription GetEnhMetaFileDescriptionA
+#جيڪڏهن_پورو
 
-  WINGDIAPI WINBOOL WINAPI PlayMetaFileRecord(HDC hdc,LPHANDLETABLE lpHandleTable,LPMETARECORD lpMR,UINT noObjs);
+  WINGDIAPI WINBOOL WINAPI Play_Meta_File_رڪارڊ(HDC hdc,LPHANDLETABLE lp_Handle_جدول,LPMETARECORD lpMR,UINT noObjs);
 
-  typedef int (CALLBACK *MFENUMPROC)(HDC hdc,HANDLETABLE *lpht,METARECORD *lpMR,int nObj,LPARAM param);
+  تعريفنوع صحيح (CALLBACK *MFENUMPROC)(HDC hdc,HANDLETABLE *lpht,METARECORD *lpMR,صحيح nObj,LPARAM param);
 
   WINGDIAPI WINBOOL WINAPI EnumMetaFile(HDC hdc,HMETAFILE hmf,MFENUMPROC proc,LPARAM param);
 
-  typedef int (CALLBACK *ENHMFENUMPROC)(HDC hdc,HANDLETABLE *lpht,CONST ENHMETARECORD *lpmr,int hHandles,LPARAM data);
+  تعريفنوع صحيح (CALLBACK *ENHMFENUMPROC)(HDC hdc,HANDLETABLE *lpht,CONST ENHMETARECORD *lpmr,صحيح hHandles,LPARAM معلومات);
 
   WINGDIAPI HENHMETAFILE WINAPI CloseEnhMetaFile(HDC hdc);
   WINGDIAPI HENHMETAFILE WINAPI CopyEnhMetaFileA(HENHMETAFILE hEnh,LPCSTR lpFileName);
@@ -2932,409 +2932,409 @@ extern "C" {
   WINGDIAPI WINBOOL WINAPI EnumEnhMetaFile(HDC hdc,HENHMETAFILE hmf,ENHMFENUMPROC proc,LPVOID param,CONST RECT *lpRect);
   WINGDIAPI HENHMETAFILE WINAPI GetEnhMetaFileA(LPCSTR lpName);
   WINGDIAPI HENHMETAFILE WINAPI GetEnhMetaFileW(LPCWSTR lpName);
-  WINGDIAPI UINT WINAPI GetEnhMetaFileBits(HENHMETAFILE hEMF,UINT nSize,LPBYTE lpData);
-  WINGDIAPI UINT WINAPI GetEnhMetaFileDescriptionA(HENHMETAFILE hemf,UINT cchBuffer,LPSTR lpDescription);
-  WINGDIAPI UINT WINAPI GetEnhMetaFileDescriptionW(HENHMETAFILE hemf,UINT cchBuffer,LPWSTR lpDescription);
-  WINGDIAPI UINT WINAPI GetEnhMetaFileHeader(HENHMETAFILE hemf,UINT nSize,LPENHMETAHEADER lpEnhMetaHeader);
-  WINGDIAPI UINT WINAPI GetEnhMetaFilePaletteEntries(HENHMETAFILE hemf,UINT nNumEntries,LPPALETTEENTRY lpPaletteEntries);
-  WINGDIAPI UINT WINAPI GetEnhMetaFilePixelFormat(HENHMETAFILE hemf,UINT cbBuffer,PIXELFORMATDESCRIPTOR *ppfd);
-  WINGDIAPI UINT WINAPI GetWinMetaFileBits(HENHMETAFILE hemf,UINT cbData16,LPBYTE pData16,INT iMapMode,HDC hdcRef);
+  WINGDIAPI UINT WINAPI Get_Enh_Meta_File_بٽ(HENHMETAFILE hEMF,UINT n_سائيز,LPBYTE lp_معلومات);
+  WINGDIAPI UINT WINAPI GetEnhMetaFileDescriptionA(HENHMETAFILE hemf,UINT cch_بفر,LPSTR lpDescription);
+  WINGDIAPI UINT WINAPI GetEnhMetaFileDescriptionW(HENHMETAFILE hemf,UINT cch_بفر,LPWSTR lpDescription);
+  WINGDIAPI UINT WINAPI Get_Enh_Meta_File_سرو(HENHMETAFILE hemf,UINT n_سائيز,LPENHMETAHEADER lp_Enh_Meta_سرو);
+  WINGDIAPI UINT WINAPI GetEnhMetaFilePaletteEntries(HENHMETAFILE hemf,UINT n_انگ_Entries,LPPALETTEENTRY lpPaletteEntries);
+  WINGDIAPI UINT WINAPI GetEnhMetaFilePixelFormat(HENHMETAFILE hemf,UINT cb_بفر,PIXELFORMATDESCRIPTOR *ppfd);
+  WINGDIAPI UINT WINAPI Get_Win_Meta_File_بٽ(HENHMETAFILE hemf,UINT cbData16,LPBYTE pData16,INT i_Map_گهڻائي,HDC hdcRef);
   WINGDIAPI WINBOOL WINAPI PlayEnhMetaFile(HDC hdc,HENHMETAFILE hmf,CONST RECT *lprect);
-  WINGDIAPI WINBOOL WINAPI PlayEnhMetaFileRecord(HDC hdc,LPHANDLETABLE pht,CONST ENHMETARECORD *pmr,UINT cht);
-  WINGDIAPI HENHMETAFILE WINAPI SetEnhMetaFileBits(UINT nSize,CONST BYTE *pb);
-  WINGDIAPI HENHMETAFILE WINAPI SetWinMetaFileBits(UINT nSize,CONST BYTE *lpMeta16Data,HDC hdcRef,CONST METAFILEPICT *lpMFP);
-  WINGDIAPI WINBOOL WINAPI GdiComment(HDC hdc,UINT nSize,CONST BYTE *lpData);
-#endif
+  WINGDIAPI WINBOOL WINAPI Play_Enh_Meta_File_رڪارڊ(HDC hdc,LPHANDLETABLE pht,CONST ENHMETARECORD *pmr,UINT cht);
+  WINGDIAPI HENHMETAFILE WINAPI سيٽ_Enh_Meta_File_بٽ(UINT n_سائيز,CONST BYTE *pb);
+  WINGDIAPI HENHMETAFILE WINAPI سيٽ_Win_Meta_File_بٽ(UINT n_سائيز,CONST BYTE *lp_Meta16_معلومات,HDC hdcRef,CONST METAFILEPICT *lpMFP);
+  WINGDIAPI WINBOOL WINAPI GdiComment(HDC hdc,UINT n_سائيز,CONST BYTE *lp_معلومات);
+#جيڪڏهن_پورو
 
-#ifndef NOTEXTMETRIC
-#ifdef UNICODE
-#define GetTextMetrics GetTextMetricsW
-#else
-#define GetTextMetrics GetTextMetricsA
-#endif
+#جيڪڏهن_وصف_نه_ٿيل NOTEXTMETRIC
+#جيڪڏهن_وصف_ٿيل UNICODE
+#وصف_ڪريو Get_متن_Metrics Get_متن_Metrics_W
+#وإلا
+#وصف_ڪريو Get_متن_Metrics Get_متن_Metrics_A
+#جيڪڏهن_پورو
 
-  WINGDIAPI WINBOOL WINAPI GetTextMetricsA(HDC hdc,LPTEXTMETRICA lptm);
-  WINGDIAPI WINBOOL WINAPI GetTextMetricsW(HDC hdc,LPTEXTMETRICW lptm);
-#endif
+  WINGDIAPI WINBOOL WINAPI Get_متن_Metrics_A(HDC hdc,LPTEXTMETRICA lptm);
+  WINGDIAPI WINBOOL WINAPI Get_متن_Metrics_W(HDC hdc,LPTEXTMETRICW lptm);
+#جيڪڏهن_پورو
 
-  typedef struct tagDIBSECTION {
+  تعريفنوع بنية ٽيگ_DIBSECTION {
     BITMAP dsBm;
     BITMAPINFOHEADER dsBmih;
     DWORD dsBitfields[3];
     HANDLE dshSection;
-    DWORD dsOffset;
+    DWORD ds_وٿي;
   } DIBSECTION,*LPDIBSECTION,*PDIBSECTION;
 
-  WINGDIAPI WINBOOL WINAPI AngleArc(HDC hdc,int x,int y,DWORD r,FLOAT StartAngle,FLOAT SweepAngle);
-  WINGDIAPI WINBOOL WINAPI PolyPolyline(HDC hdc,CONST POINT *apt,CONST DWORD *asz,DWORD csz);
+  WINGDIAPI WINBOOL WINAPI AngleArc(HDC hdc,صحيح x,صحيح y,DWORD r,FLOAT شروعات_Angle,FLOAT SweepAngle);
+  WINGDIAPI WINBOOL WINAPI PolyPolyline(HDC hdc,CONST نقطو_3 *apt,CONST DWORD *asz,DWORD csz);
   WINGDIAPI WINBOOL WINAPI GetWorldTransform(HDC hdc,LPXFORM lpxf);
-  WINGDIAPI WINBOOL WINAPI SetWorldTransform(HDC hdc,CONST XFORM *lpxf);
-  WINGDIAPI WINBOOL WINAPI ModifyWorldTransform(HDC hdc,CONST XFORM *lpxf,DWORD mode);
-  WINGDIAPI WINBOOL WINAPI CombineTransform(LPXFORM lpxfOut,CONST XFORM *lpxf1,CONST XFORM *lpxf2);
-  WINGDIAPI HBITMAP WINAPI CreateDIBSection(HDC hdc,CONST BITMAPINFO *lpbmi,UINT usage,VOID **ppvBits,HANDLE hSection,DWORD offset);
-  WINGDIAPI UINT WINAPI GetDIBColorTable(HDC hdc,UINT iStart,UINT cEntries,RGBQUAD *prgbq);
-  WINGDIAPI UINT WINAPI SetDIBColorTable(HDC hdc,UINT iStart,UINT cEntries,CONST RGBQUAD *prgbq);
+  WINGDIAPI WINBOOL WINAPI سيٽ_World_Transform(HDC hdc,CONST XFORM *lpxf);
+  WINGDIAPI WINBOOL WINAPI ModifyWorldTransform(HDC hdc,CONST XFORM *lpxf,DWORD گهڻائي);
+  WINGDIAPI WINBOOL WINAPI CombineTransform(LPXFORM lpxf_ٻاهريون,CONST XFORM *lpxf1,CONST XFORM *lpxf2);
+  WINGDIAPI HBITMAP WINAPI CreateDIBSection(HDC hdc,CONST BITMAPINFO *lpbmi,UINT usage,VOID **ppv_بٽ,HANDLE hSection,DWORD وٿي);
+  WINGDIAPI UINT WINAPI Get_DIBColor_جدول(HDC hdc,UINT i_شروعات,UINT cEntries,RGBQUAD *prgbq);
+  WINGDIAPI UINT WINAPI سيٽ_DIBColor_جدول(HDC hdc,UINT i_شروعات,UINT cEntries,CONST RGBQUAD *prgbq);
 
-#define CA_NEGATIVE 0x0001
-#define CA_LOG_FILTER 0x0002
+#وصف_ڪريو CA_NEGATIVE 0x0001
+#وصف_ڪريو CA_LOG_FILTER 0x0002
 
-#define ILLUMINANT_DEVICE_DEFAULT 0
-#define ILLUMINANT_A 1
-#define ILLUMINANT_B 2
-#define ILLUMINANT_C 3
-#define ILLUMINANT_D50 4
-#define ILLUMINANT_D55 5
-#define ILLUMINANT_D65 6
-#define ILLUMINANT_D75 7
-#define ILLUMINANT_F2 8
-#define ILLUMINANT_MAX_INDEX ILLUMINANT_F2
+#وصف_ڪريو ILLUMINANT_DEVICE_DEFAULT 0
+#وصف_ڪريو ILLUMINANT_A 1
+#وصف_ڪريو ILLUMINANT_B 2
+#وصف_ڪريو ILLUMINANT_C 3
+#وصف_ڪريو ILLUMINANT_D50 4
+#وصف_ڪريو ILLUMINANT_D55 5
+#وصف_ڪريو ILLUMINANT_D65 6
+#وصف_ڪريو ILLUMINANT_D75 7
+#وصف_ڪريو ILLUMINANT_F2 8
+#وصف_ڪريو ILLUMINANT_MAX_اشاريو ILLUMINANT_F2
 
-#define ILLUMINANT_TUNGSTEN ILLUMINANT_A
-#define ILLUMINANT_DAYLIGHT ILLUMINANT_C
-#define ILLUMINANT_FLUORESCENT ILLUMINANT_F2
-#define ILLUMINANT_NTSC ILLUMINANT_C
+#وصف_ڪريو ILLUMINANT_TUNGSTEN ILLUMINANT_A
+#وصف_ڪريو ILLUMINANT_DAYLIGHT ILLUMINANT_C
+#وصف_ڪريو ILLUMINANT_FLUORESCENT ILLUMINANT_F2
+#وصف_ڪريو ILLUMINANT_NTSC ILLUMINANT_C
 
-#define RGB_GAMMA_MIN (WORD)02500
-#define RGB_GAMMA_MAX (WORD)65000
+#وصف_ڪريو RGB_GAMMA_MIN (لفظ_3)02500
+#وصف_ڪريو RGB_GAMMA_MAX (لفظ_3)65000
 
-#define REFERENCE_WHITE_MIN (WORD)6000
-#define REFERENCE_WHITE_MAX (WORD)10000
-#define REFERENCE_BLACK_MIN (WORD)0
-#define REFERENCE_BLACK_MAX (WORD)4000
+#وصف_ڪريو REFERENCE_WHITE_MIN (لفظ_3)6000
+#وصف_ڪريو REFERENCE_WHITE_MAX (لفظ_3)10000
+#وصف_ڪريو REFERENCE_BLACK_MIN (لفظ_3)0
+#وصف_ڪريو REFERENCE_BLACK_MAX (لفظ_3)4000
 
-#define COLOR_ADJ_MIN (SHORT)-100
-#define COLOR_ADJ_MAX (SHORT)100
+#وصف_ڪريو COLOR_ADJ_MIN (SHORT)-100
+#وصف_ڪريو COLOR_ADJ_MAX (SHORT)100
 
-  typedef struct tagCOLORADJUSTMENT {
-    WORD caSize;
-    WORD caFlags;
-    WORD caIlluminantIndex;
-    WORD caRedGamma;
-    WORD caGreenGamma;
-    WORD caBlueGamma;
-    WORD caReferenceBlack;
-    WORD caReferenceWhite;
+  تعريفنوع بنية ٽيگ_COLORADJUSTMENT {
+    لفظ_3 ca_سائيز;
+    لفظ_3 caFlags;
+    لفظ_3 ca_Illuminant_اشاريو;
+    لفظ_3 caRedGamma;
+    لفظ_3 caGreenGamma;
+    لفظ_3 caBlueGamma;
+    لفظ_3 caReferenceBlack;
+    لفظ_3 caReferenceWhite;
     SHORT caContrast;
     SHORT caBrightness;
     SHORT caColorfulness;
     SHORT caRedGreenTint;
   } COLORADJUSTMENT,*PCOLORADJUSTMENT,*LPCOLORADJUSTMENT;
 
-  WINGDIAPI WINBOOL WINAPI SetColorAdjustment(HDC hdc,CONST COLORADJUSTMENT *lpca);
+  WINGDIAPI WINBOOL WINAPI سيٽ_Color_Adjustment(HDC hdc,CONST COLORADJUSTMENT *lpca);
   WINGDIAPI WINBOOL WINAPI GetColorAdjustment(HDC hdc,LPCOLORADJUSTMENT lpca);
   WINGDIAPI HPALETTE WINAPI CreateHalftonePalette(HDC hdc);
 
-  typedef WINBOOL (CALLBACK *ABORTPROC)(HDC,int);
+  تعريفنوع WINBOOL (CALLBACK *ABORTPROC)(HDC,صحيح);
 
-  typedef struct _DOCINFOA {
-    int cbSize;
+  تعريفنوع بنية _DOCINFOA {
+    صحيح cb_سائيز;
     LPCSTR lpszDocName;
     LPCSTR lpszOutput;
     LPCSTR lpszDatatype;
     DWORD fwType;
   } DOCINFOA,*LPDOCINFOA;
 
-  typedef struct _DOCINFOW {
-    int cbSize;
+  تعريفنوع بنية _DOCINFOW {
+    صحيح cb_سائيز;
     LPCWSTR lpszDocName;
     LPCWSTR lpszOutput;
     LPCWSTR lpszDatatype;
     DWORD fwType;
   } DOCINFOW,*LPDOCINFOW;
 
-#ifdef UNICODE
-  typedef DOCINFOW DOCINFO;
-  typedef LPDOCINFOW LPDOCINFO;
-#else
-  typedef DOCINFOA DOCINFO;
-  typedef LPDOCINFOA LPDOCINFO;
-#endif
+#جيڪڏهن_وصف_ٿيل UNICODE
+  تعريفنوع DOCINFOW DOCINFO;
+  تعريفنوع LPDOCINFOW LPDOCINFO;
+#وإلا
+  تعريفنوع DOCINFOA DOCINFO;
+  تعريفنوع LPDOCINFOA LPDOCINFO;
+#جيڪڏهن_پورو
 
-#define DI_APPBANDING 0x00000001
-#define DI_ROPS_READ_DESTINATION 0x00000002
+#وصف_ڪريو DI_APPBANDING 0x00000001
+#وصف_ڪريو DI_ROPS_READ_DESTINATION 0x00000002
 
-#ifdef UNICODE
-#define StartDoc StartDocW
-#define GetObject GetObjectW
-#define TextOut TextOutW
-#define ExtTextOut ExtTextOutW
-#define PolyTextOut PolyTextOutW
-#define GetTextFace GetTextFaceW
-#else
-#define StartDoc StartDocA
-#define GetObject GetObjectA
-#define TextOut TextOutA
-#define ExtTextOut ExtTextOutA
-#define PolyTextOut PolyTextOutA
-#define GetTextFace GetTextFaceA
-#endif
+#جيڪڏهن_وصف_ٿيل UNICODE
+#وصف_ڪريو شروعات_Doc شروعات_Doc_W
+#وصف_ڪريو GetObject GetObjectW
+#وصف_ڪريو متن_ٻاهريون متن_ٻاهريون_W
+#وصف_ڪريو Ext_متن_ٻاهريون Ext_متن_ٻاهريون_W
+#وصف_ڪريو Poly_متن_ٻاهريون Poly_متن_ٻاهريون_W
+#وصف_ڪريو Get_متن_Face Get_متن_Face_W
+#وإلا
+#وصف_ڪريو شروعات_Doc شروعات_Doc_A
+#وصف_ڪريو GetObject GetObjectA
+#وصف_ڪريو متن_ٻاهريون متن_ٻاهريون_A
+#وصف_ڪريو Ext_متن_ٻاهريون Ext_متن_ٻاهريون_A
+#وصف_ڪريو Poly_متن_ٻاهريون Poly_متن_ٻاهريون_A
+#وصف_ڪريو Get_متن_Face Get_متن_Face_A
+#جيڪڏهن_پورو
 
-  WINGDIAPI int WINAPI StartDocA(HDC hdc,CONST DOCINFOA *lpdi);
-  WINGDIAPI int WINAPI StartDocW(HDC hdc,CONST DOCINFOW *lpdi);
-  WINGDIAPI int WINAPI EndDoc(HDC hdc);
-  WINGDIAPI int WINAPI StartPage(HDC hdc);
-  WINGDIAPI int WINAPI EndPage(HDC hdc);
-  WINGDIAPI int WINAPI AbortDoc(HDC hdc);
-  WINGDIAPI int WINAPI SetAbortProc(HDC hdc,ABORTPROC proc);
-  WINGDIAPI WINBOOL WINAPI AbortPath(HDC hdc);
-  WINGDIAPI WINBOOL WINAPI ArcTo(HDC hdc,int left,int top,int right,int bottom,int xr1,int yr1,int xr2,int yr2);
-  WINGDIAPI WINBOOL WINAPI BeginPath(HDC hdc);
+  WINGDIAPI صحيح WINAPI شروعات_Doc_A(HDC hdc,CONST DOCINFOA *lpdi);
+  WINGDIAPI صحيح WINAPI شروعات_Doc_W(HDC hdc,CONST DOCINFOW *lpdi);
+  WINGDIAPI صحيح WINAPI پڇاڙي_Doc(HDC hdc);
+  WINGDIAPI صحيح WINAPI شروعات_صفحو(HDC hdc);
+  WINGDIAPI صحيح WINAPI پڇاڙي_صفحو(HDC hdc);
+  WINGDIAPI صحيح WINAPI AbortDoc(HDC hdc);
+  WINGDIAPI صحيح WINAPI سيٽ_Abort_Proc(HDC hdc,ABORTPROC proc);
+  WINGDIAPI WINBOOL WINAPI Abort_رستو(HDC hdc);
+  WINGDIAPI WINBOOL WINAPI Arc_منزل(HDC hdc,صحيح کاٻو,صحيح چوٽي,صحيح ساڄو,صحيح bottom,صحيح xr1,صحيح yr1,صحيح xr2,صحيح yr2);
+  WINGDIAPI WINBOOL WINAPI Begin_رستو(HDC hdc);
   WINGDIAPI WINBOOL WINAPI CloseFigure(HDC hdc);
-  WINGDIAPI WINBOOL WINAPI EndPath(HDC hdc);
-  WINGDIAPI WINBOOL WINAPI FillPath(HDC hdc);
-  WINGDIAPI WINBOOL WINAPI FlattenPath(HDC hdc);
-  WINGDIAPI int WINAPI GetPath(HDC hdc,LPPOINT apt,LPBYTE aj,int cpt);
-  WINGDIAPI HRGN WINAPI PathToRegion(HDC hdc);
-  WINGDIAPI WINBOOL WINAPI PolyDraw(HDC hdc,CONST POINT *apt,CONST BYTE *aj,int cpt);
-  WINGDIAPI WINBOOL WINAPI SelectClipPath(HDC hdc,int mode);
-  WINGDIAPI int WINAPI SetArcDirection(HDC hdc,int dir);
-  WINGDIAPI WINBOOL WINAPI SetMiterLimit(HDC hdc,FLOAT limit,PFLOAT old);
-  WINGDIAPI WINBOOL WINAPI StrokeAndFillPath(HDC hdc);
-  WINGDIAPI WINBOOL WINAPI StrokePath(HDC hdc);
-  WINGDIAPI WINBOOL WINAPI WidenPath(HDC hdc);
-  WINGDIAPI HPEN WINAPI ExtCreatePen(DWORD iPenStyle,DWORD cWidth,CONST LOGBRUSH *plbrush,DWORD cStyle,CONST DWORD *pstyle);
-  WINGDIAPI WINBOOL WINAPI GetMiterLimit(HDC hdc,PFLOAT plimit);
-  WINGDIAPI int WINAPI GetArcDirection(HDC hdc);
-  WINGDIAPI int WINAPI GetObjectA(HANDLE h,int c,LPVOID pv);
-  WINGDIAPI int WINAPI GetObjectW(HANDLE h,int c,LPVOID pv);
-  WINGDIAPI WINBOOL WINAPI MoveToEx(HDC hdc,int x,int y,LPPOINT lppt);
-  WINGDIAPI WINBOOL WINAPI TextOutA(HDC hdc,int x,int y,LPCSTR lpString,int c);
-  WINGDIAPI WINBOOL WINAPI TextOutW(HDC hdc,int x,int y,LPCWSTR lpString,int c);
-  WINGDIAPI WINBOOL WINAPI ExtTextOutA(HDC hdc,int x,int y,UINT options,CONST RECT *lprect,LPCSTR lpString,UINT c,CONST INT *lpDx);
-  WINGDIAPI WINBOOL WINAPI ExtTextOutW(HDC hdc,int x,int y,UINT options,CONST RECT *lprect,LPCWSTR lpString,UINT c,CONST INT *lpDx);
-  WINGDIAPI WINBOOL WINAPI PolyTextOutA(HDC hdc,CONST POLYTEXTA *ppt,int nstrings);
-  WINGDIAPI WINBOOL WINAPI PolyTextOutW(HDC hdc,CONST POLYTEXTW *ppt,int nstrings);
-  WINGDIAPI HRGN WINAPI CreatePolygonRgn(CONST POINT *pptl,int cPoint,int iMode);
-  WINGDIAPI WINBOOL WINAPI DPtoLP(HDC hdc,LPPOINT lppt,int c);
-  WINGDIAPI WINBOOL WINAPI LPtoDP(HDC hdc,LPPOINT lppt,int c);
-  WINGDIAPI WINBOOL WINAPI Polygon(HDC hdc,CONST POINT *apt,int cpt);
-  WINGDIAPI WINBOOL WINAPI Polyline(HDC hdc,CONST POINT *apt,int cpt);
-  WINGDIAPI WINBOOL WINAPI PolyBezier(HDC hdc,CONST POINT *apt,DWORD cpt);
-  WINGDIAPI WINBOOL WINAPI PolyBezierTo(HDC hdc,CONST POINT *apt,DWORD cpt);
-  WINGDIAPI WINBOOL WINAPI PolylineTo(HDC hdc,CONST POINT *apt,DWORD cpt);
-  WINGDIAPI WINBOOL WINAPI SetViewportExtEx(HDC hdc,int x,int y,LPSIZE lpsz);
-  WINGDIAPI WINBOOL WINAPI SetViewportOrgEx(HDC hdc,int x,int y,LPPOINT lppt);
-  WINGDIAPI WINBOOL WINAPI SetWindowExtEx(HDC hdc,int x,int y,LPSIZE lpsz);
-  WINGDIAPI WINBOOL WINAPI SetWindowOrgEx(HDC hdc,int x,int y,LPPOINT lppt);
-  WINGDIAPI WINBOOL WINAPI OffsetViewportOrgEx(HDC hdc,int x,int y,LPPOINT lppt);
-  WINGDIAPI WINBOOL WINAPI OffsetWindowOrgEx(HDC hdc,int x,int y,LPPOINT lppt);
-  WINGDIAPI WINBOOL WINAPI ScaleViewportExtEx(HDC hdc,int xn,int dx,int yn,int yd,LPSIZE lpsz);
-  WINGDIAPI WINBOOL WINAPI ScaleWindowExtEx(HDC hdc,int xn,int xd,int yn,int yd,LPSIZE lpsz);
-  WINGDIAPI WINBOOL WINAPI SetBitmapDimensionEx(HBITMAP hbm,int w,int h,LPSIZE lpsz);
-  WINGDIAPI WINBOOL WINAPI SetBrushOrgEx(HDC hdc,int x,int y,LPPOINT lppt);
-  WINGDIAPI int WINAPI GetTextFaceA(HDC hdc,int c,LPSTR lpName);
-  WINGDIAPI int WINAPI GetTextFaceW(HDC hdc,int c,LPWSTR lpName);
+  WINGDIAPI WINBOOL WINAPI پڇاڙي_رستو_2(HDC hdc);
+  WINGDIAPI WINBOOL WINAPI Fill_رستو(HDC hdc);
+  WINGDIAPI WINBOOL WINAPI Flatten_رستو(HDC hdc);
+  WINGDIAPI صحيح WINAPI Get_رستو(HDC hdc,LPPOINT apt,LPBYTE aj,صحيح cpt);
+  WINGDIAPI HRGN WINAPI رستو_منزل_Region(HDC hdc);
+  WINGDIAPI WINBOOL WINAPI PolyDraw(HDC hdc,CONST نقطو_3 *apt,CONST BYTE *aj,صحيح cpt);
+  WINGDIAPI WINBOOL WINAPI Select_Clip_رستو(HDC hdc,صحيح گهڻائي);
+  WINGDIAPI صحيح WINAPI سيٽ_Arc_Direction(HDC hdc,صحيح dir);
+  WINGDIAPI WINBOOL WINAPI سيٽ_Miter_حد_بندي(HDC hdc,FLOAT حد_بندي,PFLOAT old);
+  WINGDIAPI WINBOOL WINAPI Stroke_And_Fill_رستو(HDC hdc);
+  WINGDIAPI WINBOOL WINAPI Stroke_رستو(HDC hdc);
+  WINGDIAPI WINBOOL WINAPI Widen_رستو(HDC hdc);
+  WINGDIAPI HPEN WINAPI ExtCreatePen(DWORD iPenStyle,DWORD c_ويڪر,CONST LOGBRUSH *plbrush,DWORD cStyle,CONST DWORD *pstyle);
+  WINGDIAPI WINBOOL WINAPI Get_Miter_حد_بندي(HDC hdc,PFLOAT plimit);
+  WINGDIAPI صحيح WINAPI GetArcDirection(HDC hdc);
+  WINGDIAPI صحيح WINAPI GetObjectA(HANDLE h,صحيح c,LPVOID pv);
+  WINGDIAPI صحيح WINAPI GetObjectW(HANDLE h,صحيح c,LPVOID pv);
+  WINGDIAPI WINBOOL WINAPI Move_منزل_Ex(HDC hdc,صحيح x,صحيح y,LPPOINT lppt);
+  WINGDIAPI WINBOOL WINAPI متن_ٻاهريون_A(HDC hdc,صحيح x,صحيح y,LPCSTR lpString,صحيح c);
+  WINGDIAPI WINBOOL WINAPI متن_ٻاهريون_W(HDC hdc,صحيح x,صحيح y,LPCWSTR lpString,صحيح c);
+  WINGDIAPI WINBOOL WINAPI Ext_متن_ٻاهريون_A(HDC hdc,صحيح x,صحيح y,UINT options,CONST RECT *lprect,LPCSTR lpString,UINT c,CONST INT *lpDx);
+  WINGDIAPI WINBOOL WINAPI Ext_متن_ٻاهريون_W(HDC hdc,صحيح x,صحيح y,UINT options,CONST RECT *lprect,LPCWSTR lpString,UINT c,CONST INT *lpDx);
+  WINGDIAPI WINBOOL WINAPI Poly_متن_ٻاهريون_A(HDC hdc,CONST POLYTEXTA *ppt,صحيح nstrings);
+  WINGDIAPI WINBOOL WINAPI Poly_متن_ٻاهريون_W(HDC hdc,CONST POLYTEXTW *ppt,صحيح nstrings);
+  WINGDIAPI HRGN WINAPI CreatePolygonRgn(CONST نقطو_3 *pptl,صحيح c_نقطو,صحيح i_گهڻائي);
+  WINGDIAPI WINBOOL WINAPI DPtoLP(HDC hdc,LPPOINT lppt,صحيح c);
+  WINGDIAPI WINBOOL WINAPI LPtoDP(HDC hdc,LPPOINT lppt,صحيح c);
+  WINGDIAPI WINBOOL WINAPI Polygon(HDC hdc,CONST نقطو_3 *apt,صحيح cpt);
+  WINGDIAPI WINBOOL WINAPI Polyline(HDC hdc,CONST نقطو_3 *apt,صحيح cpt);
+  WINGDIAPI WINBOOL WINAPI PolyBezier(HDC hdc,CONST نقطو_3 *apt,DWORD cpt);
+  WINGDIAPI WINBOOL WINAPI Poly_Bezier_منزل(HDC hdc,CONST نقطو_3 *apt,DWORD cpt);
+  WINGDIAPI WINBOOL WINAPI Polyline_منزل(HDC hdc,CONST نقطو_3 *apt,DWORD cpt);
+  WINGDIAPI WINBOOL WINAPI سيٽ_Viewport_Ext_Ex(HDC hdc,صحيح x,صحيح y,LPSIZE lpsz);
+  WINGDIAPI WINBOOL WINAPI سيٽ_Viewport_Org_Ex(HDC hdc,صحيح x,صحيح y,LPPOINT lppt);
+  WINGDIAPI WINBOOL WINAPI سيٽ_دري_Ext_Ex(HDC hdc,صحيح x,صحيح y,LPSIZE lpsz);
+  WINGDIAPI WINBOOL WINAPI سيٽ_دري_Org_Ex(HDC hdc,صحيح x,صحيح y,LPPOINT lppt);
+  WINGDIAPI WINBOOL WINAPI وٿي_Viewport_Org_Ex(HDC hdc,صحيح x,صحيح y,LPPOINT lppt);
+  WINGDIAPI WINBOOL WINAPI وٿي_دري_Org_Ex(HDC hdc,صحيح x,صحيح y,LPPOINT lppt);
+  WINGDIAPI WINBOOL WINAPI ScaleViewportExtEx(HDC hdc,صحيح xn,صحيح dx,صحيح yn,صحيح yd,LPSIZE lpsz);
+  WINGDIAPI WINBOOL WINAPI Scale_دري_Ext_Ex(HDC hdc,صحيح xn,صحيح xd,صحيح yn,صحيح yd,LPSIZE lpsz);
+  WINGDIAPI WINBOOL WINAPI سيٽ_Bitmap_Dimension_Ex(HBITMAP hbm,صحيح w,صحيح h,LPSIZE lpsz);
+  WINGDIAPI WINBOOL WINAPI سيٽ_Brush_Org_Ex(HDC hdc,صحيح x,صحيح y,LPPOINT lppt);
+  WINGDIAPI صحيح WINAPI Get_متن_Face_A(HDC hdc,صحيح c,LPSTR lpName);
+  WINGDIAPI صحيح WINAPI Get_متن_Face_W(HDC hdc,صحيح c,LPWSTR lpName);
 
-#define FONTMAPPER_MAX 10
+#وصف_ڪريو FONTMAPPER_MAX 10
 
-  typedef struct tagKERNINGPAIR {
-    WORD wFirst;
-    WORD wSecond;
-    int iKernAmount;
+  تعريفنوع بنية ٽيگ_KERNINGPAIR {
+    لفظ_3 w_پهريون;
+    لفظ_3 w_ٻيو;
+    صحيح iKernAmount;
   } KERNINGPAIR,*LPKERNINGPAIR;
 
-#ifdef UNICODE
-#define GetKerningPairs GetKerningPairsW
-#else
-#define GetKerningPairs GetKerningPairsA
-#endif
+#جيڪڏهن_وصف_ٿيل UNICODE
+#وصف_ڪريو Get_Kerning_جوڙا Get_Kerning_جوڙا_W
+#وإلا
+#وصف_ڪريو Get_Kerning_جوڙا Get_Kerning_جوڙا_A
+#جيڪڏهن_پورو
 
-  WINGDIAPI DWORD WINAPI GetKerningPairsA(HDC hdc,DWORD nPairs,LPKERNINGPAIR lpKernPair);
-  WINGDIAPI DWORD WINAPI GetKerningPairsW(HDC hdc,DWORD nPairs,LPKERNINGPAIR lpKernPair);
+  WINGDIAPI DWORD WINAPI Get_Kerning_جوڙا_A(HDC hdc,DWORD n_جوڙا,LPKERNINGPAIR lpKernPair);
+  WINGDIAPI DWORD WINAPI Get_Kerning_جوڙا_W(HDC hdc,DWORD n_جوڙا,LPKERNINGPAIR lpKernPair);
   WINGDIAPI WINBOOL WINAPI GetDCOrgEx(HDC hdc,LPPOINT lppt);
-  WINGDIAPI WINBOOL WINAPI FixBrushOrgEx(HDC hdc,int x,int y,LPPOINT ptl);
+  WINGDIAPI WINBOOL WINAPI FixBrushOrgEx(HDC hdc,صحيح x,صحيح y,LPPOINT ptl);
   WINGDIAPI WINBOOL WINAPI UnrealizeObject(HGDIOBJ h);
   WINGDIAPI WINBOOL WINAPI GdiFlush();
-  WINGDIAPI DWORD WINAPI GdiSetBatchLimit(DWORD dw);
-  WINGDIAPI DWORD WINAPI GdiGetBatchLimit();
+  WINGDIAPI DWORD WINAPI Gdi_سيٽ_Batch_حد_بندي(DWORD dw);
+  WINGDIAPI DWORD WINAPI Gdi_Get_Batch_حد_بندي();
 
-#define ICM_OFF 1
-#define ICM_ON 2
-#define ICM_QUERY 3
-#define ICM_DONE_OUTSIDEDC 4
+#وصف_ڪريو ICM_OFF 1
+#وصف_ڪريو ICM_ON 2
+#وصف_ڪريو ICM_QUERY 3
+#وصف_ڪريو ICM_پورو_OUTSIDEDC 4
 
-  typedef int (CALLBACK *ICMENUMPROCA)(LPSTR,LPARAM);
-  typedef int (CALLBACK *ICMENUMPROCW)(LPWSTR,LPARAM);
+  تعريفنوع صحيح (CALLBACK *ICMENUMPROCA)(LPSTR,LPARAM);
+  تعريفنوع صحيح (CALLBACK *ICMENUMPROCW)(LPWSTR,LPARAM);
 
-#ifdef UNICODE
-#define ICMENUMPROC ICMENUMPROCW
-#define EnumICMProfiles EnumICMProfilesW
-#define UpdateICMRegKey UpdateICMRegKeyW
-#define GetLogColorSpace GetLogColorSpaceW
-#define CreateColorSpace CreateColorSpaceW
-#define GetICMProfile GetICMProfileW
-#define SetICMProfile SetICMProfileW
-#else
-#define ICMENUMPROC ICMENUMPROCA
-#define EnumICMProfiles EnumICMProfilesA
-#define UpdateICMRegKey UpdateICMRegKeyA
-#define GetLogColorSpace GetLogColorSpaceA
-#define CreateColorSpace CreateColorSpaceA
-#define GetICMProfile GetICMProfileA
-#define SetICMProfile SetICMProfileA
-#endif
+#جيڪڏهن_وصف_ٿيل UNICODE
+#وصف_ڪريو ICMENUMPROC ICMENUMPROCW
+#وصف_ڪريو EnumICMProfiles EnumICMProfilesW
+#وصف_ڪريو Update_ICMReg_ڪنجي Update_ICMReg_ڪنجي_W
+#وصف_ڪريو GetLogColorSpace GetLogColorSpaceW
+#وصف_ڪريو CreateColorSpace CreateColorSpaceW
+#وصف_ڪريو GetICMProfile GetICMProfileW
+#وصف_ڪريو سيٽ_ICMProfile سيٽ_ICMProfile_W
+#وإلا
+#وصف_ڪريو ICMENUMPROC ICMENUMPROCA
+#وصف_ڪريو EnumICMProfiles EnumICMProfilesA
+#وصف_ڪريو Update_ICMReg_ڪنجي Update_ICMReg_ڪنجي_A
+#وصف_ڪريو GetLogColorSpace GetLogColorSpaceA
+#وصف_ڪريو CreateColorSpace CreateColorSpaceA
+#وصف_ڪريو GetICMProfile GetICMProfileA
+#وصف_ڪريو سيٽ_ICMProfile سيٽ_ICMProfile_A
+#جيڪڏهن_پورو
 
-  WINGDIAPI int WINAPI SetICMMode(HDC hdc,int mode);
-  WINGDIAPI WINBOOL WINAPI CheckColorsInGamut(HDC hdc,LPVOID lpRGBTriple,LPVOID dlpBuffer,DWORD nCount);
+  WINGDIAPI صحيح WINAPI سيٽ_ICMMode(HDC hdc,صحيح گهڻائي);
+  WINGDIAPI WINBOOL WINAPI Check_Colors_اندريون_Gamut(HDC hdc,LPVOID lpRGBTriple,LPVOID dlp_بفر,DWORD n_ڳڻپ);
   WINGDIAPI HCOLORSPACE WINAPI GetColorSpace(HDC hdc);
-  WINGDIAPI WINBOOL WINAPI GetLogColorSpaceA(HCOLORSPACE hColorSpace,LPLOGCOLORSPACEA lpBuffer,DWORD nSize);
-  WINGDIAPI WINBOOL WINAPI GetLogColorSpaceW(HCOLORSPACE hColorSpace,LPLOGCOLORSPACEW lpBuffer,DWORD nSize);
+  WINGDIAPI WINBOOL WINAPI GetLogColorSpaceA(HCOLORSPACE hColorSpace,LPLOGCOLORSPACEA lp_بفر,DWORD n_سائيز);
+  WINGDIAPI WINBOOL WINAPI GetLogColorSpaceW(HCOLORSPACE hColorSpace,LPLOGCOLORSPACEW lp_بفر,DWORD n_سائيز);
   WINGDIAPI HCOLORSPACE WINAPI CreateColorSpaceA(LPLOGCOLORSPACEA lplcs);
   WINGDIAPI HCOLORSPACE WINAPI CreateColorSpaceW(LPLOGCOLORSPACEW lplcs);
-  WINGDIAPI HCOLORSPACE WINAPI SetColorSpace(HDC hdc,HCOLORSPACE hcs);
+  WINGDIAPI HCOLORSPACE WINAPI سيٽ_Color_Space(HDC hdc,HCOLORSPACE hcs);
   WINGDIAPI WINBOOL WINAPI DeleteColorSpace(HCOLORSPACE hcs);
-  WINGDIAPI WINBOOL WINAPI GetICMProfileA(HDC hdc,LPDWORD pBufSize,LPSTR pszFilename);
-  WINGDIAPI WINBOOL WINAPI GetICMProfileW(HDC hdc,LPDWORD pBufSize,LPWSTR pszFilename);
-  WINGDIAPI WINBOOL WINAPI SetICMProfileA(HDC hdc,LPSTR lpFileName);
-  WINGDIAPI WINBOOL WINAPI SetICMProfileW(HDC hdc,LPWSTR lpFileName);
+  WINGDIAPI WINBOOL WINAPI GetICMProfileA(HDC hdc,LPDWORD p_Buf_سائيز,LPSTR pszFilename);
+  WINGDIAPI WINBOOL WINAPI GetICMProfileW(HDC hdc,LPDWORD p_Buf_سائيز,LPWSTR pszFilename);
+  WINGDIAPI WINBOOL WINAPI سيٽ_ICMProfile_A(HDC hdc,LPSTR lpFileName);
+  WINGDIAPI WINBOOL WINAPI سيٽ_ICMProfile_W(HDC hdc,LPWSTR lpFileName);
   WINGDIAPI WINBOOL WINAPI GetDeviceGammaRamp(HDC hdc,LPVOID lpRamp);
-  WINGDIAPI WINBOOL WINAPI SetDeviceGammaRamp(HDC hdc,LPVOID lpRamp);
-  WINGDIAPI WINBOOL WINAPI ColorMatchToTarget(HDC hdc,HDC hdcTarget,DWORD action);
-  WINGDIAPI int WINAPI EnumICMProfilesA(HDC hdc,ICMENUMPROCA proc,LPARAM param);
-  WINGDIAPI int WINAPI EnumICMProfilesW(HDC hdc,ICMENUMPROCW proc,LPARAM param);
-  WINGDIAPI WINBOOL WINAPI UpdateICMRegKeyA(DWORD reserved,LPSTR lpszCMID,LPSTR lpszFileName,UINT command);
-  WINGDIAPI WINBOOL WINAPI UpdateICMRegKeyW(DWORD reserved,LPWSTR lpszCMID,LPWSTR lpszFileName,UINT command);
-  WINGDIAPI WINBOOL WINAPI ColorCorrectPalette(HDC hdc,HPALETTE hPal,DWORD deFirst,DWORD num);
+  WINGDIAPI WINBOOL WINAPI سيٽ_Device_Gamma_Ramp(HDC hdc,LPVOID lpRamp);
+  WINGDIAPI WINBOOL WINAPI Color_ميلاپ_منزل_هدف(HDC hdc,HDC hdc_هدف,DWORD action);
+  WINGDIAPI صحيح WINAPI EnumICMProfilesA(HDC hdc,ICMENUMPROCA proc,LPARAM param);
+  WINGDIAPI صحيح WINAPI EnumICMProfilesW(HDC hdc,ICMENUMPROCW proc,LPARAM param);
+  WINGDIAPI WINBOOL WINAPI Update_ICMReg_ڪنجي_A(DWORD reserved,LPSTR lpszCMID,LPSTR lpszFileName,UINT command);
+  WINGDIAPI WINBOOL WINAPI Update_ICMReg_ڪنجي_W(DWORD reserved,LPWSTR lpszCMID,LPWSTR lpszFileName,UINT command);
+  WINGDIAPI WINBOOL WINAPI ColorCorrectPalette(HDC hdc,HPALETTE hPal,DWORD de_پهريون,DWORD انگ);
 
-#ifndef NOMETAFILE
+#جيڪڏهن_وصف_نه_ٿيل NOMETAFILE
 
-#define ENHMETA_SIGNATURE 0x464D4520
-#define ENHMETA_STOCK_OBJECT 0x80000000
+#وصف_ڪريو ENHMETA_SIGNATURE 0x464D4520
+#وصف_ڪريو ENHMETA_STOCK_OBJECT 0x80000000
 
-#define EMR_HEADER 1
-#define EMR_POLYBEZIER 2
-#define EMR_POLYGON 3
-#define EMR_POLYLINE 4
-#define EMR_POLYBEZIERTO 5
-#define EMR_POLYLINETO 6
-#define EMR_POLYPOLYLINE 7
-#define EMR_POLYPOLYGON 8
-#define EMR_SETWINDOWEXTEX 9
-#define EMR_SETWINDOWORGEX 10
-#define EMR_SETVIEWPORTEXTEX 11
-#define EMR_SETVIEWPORTORGEX 12
-#define EMR_SETBRUSHORGEX 13
-#define EMR_EOF 14
-#define EMR_SETPIXELV 15
-#define EMR_SETMAPPERFLAGS 16
-#define EMR_SETMAPMODE 17
-#define EMR_SETBKMODE 18
-#define EMR_SETPOLYFILLMODE 19
-#define EMR_SETROP2 20
-#define EMR_SETSTRETCHBLTMODE 21
-#define EMR_SETTEXTALIGN 22
-#define EMR_SETCOLORADJUSTMENT 23
-#define EMR_SETTEXTCOLOR 24
-#define EMR_SETBKCOLOR 25
-#define EMR_OFFSETCLIPRGN 26
-#define EMR_MOVETOEX 27
-#define EMR_SETMETARGN 28
-#define EMR_EXCLUDECLIPRECT 29
-#define EMR_INTERSECTCLIPRECT 30
-#define EMR_SCALEVIEWPORTEXTEX 31
-#define EMR_SCALEWINDOWEXTEX 32
-#define EMR_SAVEDC 33
-#define EMR_RESTOREDC 34
-#define EMR_SETWORLDTRANSFORM 35
-#define EMR_MODIFYWORLDTRANSFORM 36
-#define EMR_SELECTOBJECT 37
-#define EMR_CREATEPEN 38
-#define EMR_CREATEBRUSHINDIRECT 39
-#define EMR_DELETEOBJECT 40
-#define EMR_ANGLEARC 41
-#define EMR_ELLIPSE 42
-#define EMR_RECTANGLE 43
-#define EMR_ROUNDRECT 44
-#define EMR_ARC 45
-#define EMR_CHORD 46
-#define EMR_PIE 47
-#define EMR_SELECTPALETTE 48
-#define EMR_CREATEPALETTE 49
-#define EMR_SETPALETTEENTRIES 50
-#define EMR_RESIZEPALETTE 51
-#define EMR_REALIZEPALETTE 52
-#define EMR_EXTFLOODFILL 53
-#define EMR_LINETO 54
-#define EMR_ARCTO 55
-#define EMR_POLYDRAW 56
-#define EMR_SETARCDIRECTION 57
-#define EMR_SETMITERLIMIT 58
-#define EMR_BEGINPATH 59
-#define EMR_ENDPATH 60
-#define EMR_CLOSEFIGURE 61
-#define EMR_FILLPATH 62
-#define EMR_STROKEANDFILLPATH 63
-#define EMR_STROKEPATH 64
-#define EMR_FLATTENPATH 65
-#define EMR_WIDENPATH 66
-#define EMR_SELECTCLIPPATH 67
-#define EMR_ABORTPATH 68
+#وصف_ڪريو EMR_سرو 1
+#وصف_ڪريو EMR_POLYBEZIER 2
+#وصف_ڪريو EMR_POLYGON 3
+#وصف_ڪريو EMR_POLYLINE 4
+#وصف_ڪريو EMR_POLYBEZIERTO 5
+#وصف_ڪريو EMR_POLYLINETO 6
+#وصف_ڪريو EMR_POLYPOLYLINE 7
+#وصف_ڪريو EMR_POLYPOLYGON 8
+#وصف_ڪريو EMR_SETWINDOWEXTEX 9
+#وصف_ڪريو EMR_SETWINDOWORGEX 10
+#وصف_ڪريو EMR_SETVIEWPORTEXTEX 11
+#وصف_ڪريو EMR_SETVIEWPORTORGEX 12
+#وصف_ڪريو EMR_SETBRUSHORGEX 13
+#وصف_ڪريو EMR_EOF 14
+#وصف_ڪريو EMR_SETPIXELV 15
+#وصف_ڪريو EMR_SETMAPPERFLAGS 16
+#وصف_ڪريو EMR_SETMAPMODE 17
+#وصف_ڪريو EMR_SETBKMODE 18
+#وصف_ڪريو EMR_SETPOLYFILLMODE 19
+#وصف_ڪريو EMR_SETROP2 20
+#وصف_ڪريو EMR_SETSTRETCHBLTMODE 21
+#وصف_ڪريو EMR_SETTEXTALIGN 22
+#وصف_ڪريو EMR_SETCOLORADJUSTMENT 23
+#وصف_ڪريو EMR_SETTEXTCOLOR 24
+#وصف_ڪريو EMR_SETBKCOLOR 25
+#وصف_ڪريو EMR_OFFSETCLIPRGN 26
+#وصف_ڪريو EMR_MOVETOEX 27
+#وصف_ڪريو EMR_SETMETARGN 28
+#وصف_ڪريو EMR_EXCLUDECLIPRECT 29
+#وصف_ڪريو EMR_INTERSECTCLIPRECT 30
+#وصف_ڪريو EMR_SCALEVIEWPORTEXTEX 31
+#وصف_ڪريو EMR_SCALEWINDOWEXTEX 32
+#وصف_ڪريو EMR_SAVEDC 33
+#وصف_ڪريو EMR_RESTOREDC 34
+#وصف_ڪريو EMR_SETWORLDTRANSFORM 35
+#وصف_ڪريو EMR_MODIFYWORLDTRANSFORM 36
+#وصف_ڪريو EMR_SELECTOBJECT 37
+#وصف_ڪريو EMR_CREATEPEN 38
+#وصف_ڪريو EMR_CREATEBRUSHINDIRECT 39
+#وصف_ڪريو EMR_DELETEOBJECT 40
+#وصف_ڪريو EMR_ANGLEARC 41
+#وصف_ڪريو EMR_ELLIPSE 42
+#وصف_ڪريو EMR_RECTANGLE 43
+#وصف_ڪريو EMR_ROUNDRECT 44
+#وصف_ڪريو EMR_ARC 45
+#وصف_ڪريو EMR_CHORD 46
+#وصف_ڪريو EMR_PIE 47
+#وصف_ڪريو EMR_SELECTPALETTE 48
+#وصف_ڪريو EMR_CREATEPALETTE 49
+#وصف_ڪريو EMR_SETPALETTEENTRIES 50
+#وصف_ڪريو EMR_RESIZEPALETTE 51
+#وصف_ڪريو EMR_REALIZEPALETTE 52
+#وصف_ڪريو EMR_EXTFLOODFILL 53
+#وصف_ڪريو EMR_LINETO 54
+#وصف_ڪريو EMR_ARCTO 55
+#وصف_ڪريو EMR_POLYDRAW 56
+#وصف_ڪريو EMR_SETARCDIRECTION 57
+#وصف_ڪريو EMR_SETMITERLIMIT 58
+#وصف_ڪريو EMR_BEGINPATH 59
+#وصف_ڪريو EMR_ENDPATH 60
+#وصف_ڪريو EMR_CLOSEFIGURE 61
+#وصف_ڪريو EMR_FILLPATH 62
+#وصف_ڪريو EMR_STROKEANDFILLPATH 63
+#وصف_ڪريو EMR_STROKEPATH 64
+#وصف_ڪريو EMR_FLATTENPATH 65
+#وصف_ڪريو EMR_WIDENPATH 66
+#وصف_ڪريو EMR_SELECTCLIPPATH 67
+#وصف_ڪريو EMR_ABORTPATH 68
 
-#define EMR_GDICOMMENT 70
-#define EMR_FILLRGN 71
-#define EMR_FRAMERGN 72
-#define EMR_INVERTRGN 73
-#define EMR_PAINTRGN 74
-#define EMR_EXTSELECTCLIPRGN 75
-#define EMR_BITBLT 76
-#define EMR_STRETCHBLT 77
-#define EMR_MASKBLT 78
-#define EMR_PLGBLT 79
-#define EMR_SETDIBITSTODEVICE 80
-#define EMR_STRETCHDIBITS 81
-#define EMR_EXTCREATEFONTINDIRECTW 82
-#define EMR_EXTTEXTOUTA 83
-#define EMR_EXTTEXTOUTW 84
-#define EMR_POLYBEZIER16 85
-#define EMR_POLYGON16 86
-#define EMR_POLYLINE16 87
-#define EMR_POLYBEZIERTO16 88
-#define EMR_POLYLINETO16 89
-#define EMR_POLYPOLYLINE16 90
-#define EMR_POLYPOLYGON16 91
-#define EMR_POLYDRAW16 92
-#define EMR_CREATEMONOBRUSH 93
-#define EMR_CREATEDIBPATTERNBRUSHPT 94
-#define EMR_EXTCREATEPEN 95
-#define EMR_POLYTEXTOUTA 96
-#define EMR_POLYTEXTOUTW 97
+#وصف_ڪريو EMR_GDICOMMENT 70
+#وصف_ڪريو EMR_FILLRGN 71
+#وصف_ڪريو EMR_FRAMERGN 72
+#وصف_ڪريو EMR_INVERTRGN 73
+#وصف_ڪريو EMR_PAINTRGN 74
+#وصف_ڪريو EMR_EXTSELECTCLIPRGN 75
+#وصف_ڪريو EMR_BITBLT 76
+#وصف_ڪريو EMR_STRETCHBLT 77
+#وصف_ڪريو EMR_MASKBLT 78
+#وصف_ڪريو EMR_PLGBLT 79
+#وصف_ڪريو EMR_SETDIBITSTODEVICE 80
+#وصف_ڪريو EMR_STRETCHDIBITS 81
+#وصف_ڪريو EMR_EXTCREATEFONTINDIRECTW 82
+#وصف_ڪريو EMR_EXTTEXTOUTA 83
+#وصف_ڪريو EMR_EXTTEXTOUTW 84
+#وصف_ڪريو EMR_POLYBEZIER16 85
+#وصف_ڪريو EMR_POLYGON16 86
+#وصف_ڪريو EMR_POLYLINE16 87
+#وصف_ڪريو EMR_POLYBEZIERTO16 88
+#وصف_ڪريو EMR_POLYLINETO16 89
+#وصف_ڪريو EMR_POLYPOLYLINE16 90
+#وصف_ڪريو EMR_POLYPOLYGON16 91
+#وصف_ڪريو EMR_POLYDRAW16 92
+#وصف_ڪريو EMR_CREATEMONOBRUSH 93
+#وصف_ڪريو EMR_CREATEDIBPATTERNBRUSHPT 94
+#وصف_ڪريو EMR_EXTCREATEPEN 95
+#وصف_ڪريو EMR_POLYTEXTOUTA 96
+#وصف_ڪريو EMR_POLYTEXTOUTW 97
 
-#define EMR_SETICMMODE 98
-#define EMR_CREATECOLORSPACE 99
-#define EMR_SETCOLORSPACE 100
-#define EMR_DELETECOLORSPACE 101
-#define EMR_GLSRECORD 102
-#define EMR_GLSBOUNDEDRECORD 103
-#define EMR_PIXELFORMAT 104
-#define EMR_RESERVED_105 105
-#define EMR_RESERVED_106 106
-#define EMR_RESERVED_107 107
-#define EMR_RESERVED_108 108
-#define EMR_RESERVED_109 109
-#define EMR_RESERVED_110 110
-#define EMR_COLORCORRECTPALETTE 111
-#define EMR_SETICMPROFILEA 112
-#define EMR_SETICMPROFILEW 113
-#define EMR_ALPHABLEND 114
-#define EMR_SETLAYOUT 115
-#define EMR_TRANSPARENTBLT 116
-#define EMR_RESERVED_117 117
-#define EMR_GRADIENTFILL 118
-#define EMR_RESERVED_119 119
-#define EMR_RESERVED_120 120
-#define EMR_COLORMATCHTOTARGETW 121
-#define EMR_CREATECOLORSPACEW 122
+#وصف_ڪريو EMR_SETICMMODE 98
+#وصف_ڪريو EMR_CREATECOLORSPACE 99
+#وصف_ڪريو EMR_SETCOLORSPACE 100
+#وصف_ڪريو EMR_DELETECOLORSPACE 101
+#وصف_ڪريو EMR_GLSRECORD 102
+#وصف_ڪريو EMR_GLSBOUNDEDRECORD 103
+#وصف_ڪريو EMR_PIXELFORMAT 104
+#وصف_ڪريو EMR_RESERVED_105 105
+#وصف_ڪريو EMR_RESERVED_106 106
+#وصف_ڪريو EMR_RESERVED_107 107
+#وصف_ڪريو EMR_RESERVED_108 108
+#وصف_ڪريو EMR_RESERVED_109 109
+#وصف_ڪريو EMR_RESERVED_110 110
+#وصف_ڪريو EMR_COLORCORRECTPALETTE 111
+#وصف_ڪريو EMR_SETICMPROFILEA 112
+#وصف_ڪريو EMR_SETICMPROFILEW 113
+#وصف_ڪريو EMR_ALPHABLEND 114
+#وصف_ڪريو EMR_SETLAYOUT 115
+#وصف_ڪريو EMR_TRANSPARENTBLT 116
+#وصف_ڪريو EMR_RESERVED_117 117
+#وصف_ڪريو EMR_GRADIENTFILL 118
+#وصف_ڪريو EMR_RESERVED_119 119
+#وصف_ڪريو EMR_RESERVED_120 120
+#وصف_ڪريو EMR_COLORMATCHTOTARGETW 121
+#وصف_ڪريو EMR_CREATECOLORSPACEW 122
 
-#define EMR_MIN 1
+#وصف_ڪريو EMR_MIN 1
 
-#define EMR_MAX 122
+#وصف_ڪريو EMR_MAX 122
 
-  typedef struct tagEMR {
+  تعريفنوع بنية ٽيگ_EMR {
     DWORD iType;
-    DWORD nSize;
+    DWORD n_سائيز;
   } EMR,*PEMR;
 
-  typedef struct tagEMRTEXT {
+  تعريفنوع بنية ٽيگ_EMRTEXT {
     POINTL ptlReference;
     DWORD nChars;
     DWORD offString;
@@ -3343,188 +3343,188 @@ extern "C" {
     DWORD offDx;
   } EMRTEXT,*PEMRTEXT;
 
-  typedef struct tagABORTPATH {
+  تعريفنوع بنية ٽيگ_ABORTPATH {
     EMR emr;
   } EMRABORTPATH,*PEMRABORTPATH,EMRBEGINPATH,*PEMRBEGINPATH,EMRENDPATH,*PEMRENDPATH,EMRCLOSEFIGURE,*PEMRCLOSEFIGURE,EMRFLATTENPATH,*PEMRFLATTENPATH,EMRWIDENPATH,*PEMRWIDENPATH,EMRSETMETARGN,*PEMRSETMETARGN,EMRSAVEDC,*PEMRSAVEDC,EMRREALIZEPALETTE,*PEMRREALIZEPALETTE;
 
-  typedef struct tagEMRSELECTCLIPPATH {
+  تعريفنوع بنية ٽيگ_EMRSELECTCLIPPATH {
     EMR emr;
-    DWORD iMode;
+    DWORD i_گهڻائي;
   } EMRSELECTCLIPPATH,*PEMRSELECTCLIPPATH,EMRSETBKMODE,*PEMRSETBKMODE,EMRSETMAPMODE,*PEMRSETMAPMODE,EMRSETLAYOUT,*PEMRSETLAYOUT,
     EMRSETPOLYFILLMODE,*PEMRSETPOLYFILLMODE,EMRSETROP2,*PEMRSETROP2,EMRSETSTRETCHBLTMODE,*PEMRSETSTRETCHBLTMODE,EMRSETICMMODE,
     *PEMRSETICMMODE,EMRSETTEXTALIGN,*PEMRSETTEXTALIGN;
 
-  typedef struct tagEMRSETMITERLIMIT {
+  تعريفنوع بنية ٽيگ_EMRSETMITERLIMIT {
     EMR emr;
-    FLOAT eMiterLimit;
+    FLOAT e_Miter_حد_بندي;
   } EMRSETMITERLIMIT,*PEMRSETMITERLIMIT;
 
-  typedef struct tagEMRRESTOREDC {
+  تعريفنوع بنية ٽيگ_EMRRESTOREDC {
     EMR emr;
     LONG iRelative;
   } EMRRESTOREDC,*PEMRRESTOREDC;
 
-  typedef struct tagEMRSETARCDIRECTION {
+  تعريفنوع بنية ٽيگ_EMRSETARCDIRECTION {
     EMR emr;
     DWORD iArcDirection;
 
   } EMRSETARCDIRECTION,*PEMRSETARCDIRECTION;
 
-  typedef struct tagEMRSETMAPPERFLAGS {
+  تعريفنوع بنية ٽيگ_EMRSETMAPPERFLAGS {
     EMR emr;
     DWORD dwFlags;
   } EMRSETMAPPERFLAGS,*PEMRSETMAPPERFLAGS;
 
-  typedef struct tagEMRSETTEXTCOLOR {
+  تعريفنوع بنية ٽيگ_EMRSETTEXTCOLOR {
     EMR emr;
     COLORREF crColor;
   } EMRSETBKCOLOR,*PEMRSETBKCOLOR,EMRSETTEXTCOLOR,*PEMRSETTEXTCOLOR;
 
-  typedef struct tagEMRSELECTOBJECT {
+  تعريفنوع بنية ٽيگ_EMRSELECTOBJECT {
     EMR emr;
     DWORD ihObject;
   } EMRSELECTOBJECT,*PEMRSELECTOBJECT,EMRDELETEOBJECT,*PEMRDELETEOBJECT;
 
-  typedef struct tagEMRSELECTPALETTE {
+  تعريفنوع بنية ٽيگ_EMRSELECTPALETTE {
     EMR emr;
     DWORD ihPal;
   } EMRSELECTPALETTE,*PEMRSELECTPALETTE;
 
-  typedef struct tagEMRRESIZEPALETTE {
+  تعريفنوع بنية ٽيگ_EMRRESIZEPALETTE {
     EMR emr;
     DWORD ihPal;
     DWORD cEntries;
   } EMRRESIZEPALETTE,*PEMRRESIZEPALETTE;
 
-  typedef struct tagEMRSETPALETTEENTRIES {
+  تعريفنوع بنية ٽيگ_EMRSETPALETTEENTRIES {
     EMR emr;
     DWORD ihPal;
-    DWORD iStart;
+    DWORD i_شروعات;
     DWORD cEntries;
     PALETTEENTRY aPalEntries[1];
   } EMRSETPALETTEENTRIES,*PEMRSETPALETTEENTRIES;
 
-  typedef struct tagEMRSETCOLORADJUSTMENT {
+  تعريفنوع بنية ٽيگ_EMRSETCOLORADJUSTMENT {
     EMR emr;
     COLORADJUSTMENT ColorAdjustment;
   } EMRSETCOLORADJUSTMENT,*PEMRSETCOLORADJUSTMENT;
 
-  typedef struct tagEMRGDICOMMENT {
+  تعريفنوع بنية ٽيگ_EMRGDICOMMENT {
     EMR emr;
-    DWORD cbData;
-    BYTE Data[1];
+    DWORD cb_معلومات;
+    BYTE معلومات_3[1];
   } EMRGDICOMMENT,*PEMRGDICOMMENT;
 
-  typedef struct tagEMREOF {
+  تعريفنوع بنية ٽيگ_EMREOF {
     EMR emr;
     DWORD nPalEntries;
     DWORD offPalEntries;
-    DWORD nSizeLast;
+    DWORD n_سائيز_آخري;
   } EMREOF,*PEMREOF;
 
-  typedef struct tagEMRLINETO {
+  تعريفنوع بنية ٽيگ_EMRLINETO {
     EMR emr;
     POINTL ptl;
   } EMRLINETO,*PEMRLINETO,EMRMOVETOEX,*PEMRMOVETOEX;
 
-  typedef struct tagEMROFFSETCLIPRGN {
+  تعريفنوع بنية ٽيگ_EMROFFSETCLIPRGN {
     EMR emr;
-    POINTL ptlOffset;
+    POINTL ptl_وٿي;
   } EMROFFSETCLIPRGN,*PEMROFFSETCLIPRGN;
 
-  typedef struct tagEMRFILLPATH {
+  تعريفنوع بنية ٽيگ_EMRFILLPATH {
     EMR emr;
     RECTL rclBounds;
   } EMRFILLPATH,*PEMRFILLPATH,EMRSTROKEANDFILLPATH,*PEMRSTROKEANDFILLPATH,EMRSTROKEPATH,*PEMRSTROKEPATH;
 
-  typedef struct tagEMREXCLUDECLIPRECT {
+  تعريفنوع بنية ٽيگ_EMREXCLUDECLIPRECT {
     EMR emr;
     RECTL rclClip;
   } EMREXCLUDECLIPRECT,*PEMREXCLUDECLIPRECT,EMRINTERSECTCLIPRECT,*PEMRINTERSECTCLIPRECT;
 
-  typedef struct tagEMRSETVIEWPORTORGEX {
+  تعريفنوع بنية ٽيگ_EMRSETVIEWPORTORGEX {
     EMR emr;
     POINTL ptlOrigin;
   } EMRSETVIEWPORTORGEX,*PEMRSETVIEWPORTORGEX,EMRSETWINDOWORGEX,*PEMRSETWINDOWORGEX,EMRSETBRUSHORGEX,*PEMRSETBRUSHORGEX;
 
-  typedef struct tagEMRSETVIEWPORTEXTEX {
+  تعريفنوع بنية ٽيگ_EMRSETVIEWPORTEXTEX {
     EMR emr;
     SIZEL szlExtent;
   } EMRSETVIEWPORTEXTEX,*PEMRSETVIEWPORTEXTEX,EMRSETWINDOWEXTEX,*PEMRSETWINDOWEXTEX;
 
-  typedef struct tagEMRSCALEVIEWPORTEXTEX {
+  تعريفنوع بنية ٽيگ_EMRSCALEVIEWPORTEXTEX {
     EMR emr;
-    LONG xNum;
+    LONG x_انگ;
     LONG xDenom;
-    LONG yNum;
+    LONG y_انگ;
     LONG yDenom;
   } EMRSCALEVIEWPORTEXTEX,*PEMRSCALEVIEWPORTEXTEX,EMRSCALEWINDOWEXTEX,*PEMRSCALEWINDOWEXTEX;
 
-  typedef struct tagEMRSETWORLDTRANSFORM {
+  تعريفنوع بنية ٽيگ_EMRSETWORLDTRANSFORM {
     EMR emr;
     XFORM xform;
   } EMRSETWORLDTRANSFORM,*PEMRSETWORLDTRANSFORM;
 
-  typedef struct tagEMRMODIFYWORLDTRANSFORM {
+  تعريفنوع بنية ٽيگ_EMRMODIFYWORLDTRANSFORM {
     EMR emr;
     XFORM xform;
-    DWORD iMode;
+    DWORD i_گهڻائي;
   } EMRMODIFYWORLDTRANSFORM,*PEMRMODIFYWORLDTRANSFORM;
 
-  typedef struct tagEMRSETPIXELV {
+  تعريفنوع بنية ٽيگ_EMRSETPIXELV {
     EMR emr;
     POINTL ptlPixel;
     COLORREF crColor;
   } EMRSETPIXELV,*PEMRSETPIXELV;
 
-  typedef struct tagEMREXTFLOODFILL {
+  تعريفنوع بنية ٽيگ_EMREXTFLOODFILL {
     EMR emr;
-    POINTL ptlStart;
+    POINTL ptl_شروعات;
     COLORREF crColor;
-    DWORD iMode;
+    DWORD i_گهڻائي;
   } EMREXTFLOODFILL,*PEMREXTFLOODFILL;
 
-  typedef struct tagEMRELLIPSE {
+  تعريفنوع بنية ٽيگ_EMRELLIPSE {
     EMR emr;
     RECTL rclBox;
   } EMRELLIPSE,*PEMRELLIPSE,EMRRECTANGLE,*PEMRRECTANGLE;
 
-  typedef struct tagEMRROUNDRECT {
+  تعريفنوع بنية ٽيگ_EMRROUNDRECT {
     EMR emr;
     RECTL rclBox;
-    SIZEL szlCorner;
+    SIZEL szl_ڪنڊ;
   } EMRROUNDRECT,*PEMRROUNDRECT;
 
-  typedef struct tagEMRARC {
+  تعريفنوع بنية ٽيگ_EMRARC {
     EMR emr;
     RECTL rclBox;
-    POINTL ptlStart;
-    POINTL ptlEnd;
+    POINTL ptl_شروعات;
+    POINTL ptl_پڇاڙي;
   } EMRARC,*PEMRARC,EMRARCTO,*PEMRARCTO,EMRCHORD,*PEMRCHORD,EMRPIE,*PEMRPIE;
 
-  typedef struct tagEMRANGLEARC {
+  تعريفنوع بنية ٽيگ_EMRANGLEARC {
     EMR emr;
     POINTL ptlCenter;
     DWORD nRadius;
-    FLOAT eStartAngle;
+    FLOAT e_شروعات_Angle;
     FLOAT eSweepAngle;
   } EMRANGLEARC,*PEMRANGLEARC;
 
-  typedef struct tagEMRPOLYLINE {
+  تعريفنوع بنية ٽيگ_EMRPOLYLINE {
     EMR emr;
     RECTL rclBounds;
     DWORD cptl;
     POINTL aptl[1];
   } EMRPOLYLINE,*PEMRPOLYLINE,EMRPOLYBEZIER,*PEMRPOLYBEZIER,EMRPOLYGON,*PEMRPOLYGON,EMRPOLYBEZIERTO,*PEMRPOLYBEZIERTO,EMRPOLYLINETO,*PEMRPOLYLINETO;
 
-  typedef struct tagEMRPOLYLINE16 {
+  تعريفنوع بنية ٽيگ_EMRPOLYLINE16 {
     EMR emr;
     RECTL rclBounds;
     DWORD cpts;
     POINTS apts[1];
   } EMRPOLYLINE16,*PEMRPOLYLINE16,EMRPOLYBEZIER16,*PEMRPOLYBEZIER16,EMRPOLYGON16,*PEMRPOLYGON16,EMRPOLYBEZIERTO16,*PEMRPOLYBEZIERTO16,EMRPOLYLINETO16,*PEMRPOLYLINETO16;
 
-  typedef struct tagEMRPOLYDRAW {
+  تعريفنوع بنية ٽيگ_EMRPOLYDRAW {
     EMR emr;
     RECTL rclBounds;
     DWORD cptl;
@@ -3532,7 +3532,7 @@ extern "C" {
     BYTE abTypes[1];
   } EMRPOLYDRAW,*PEMRPOLYDRAW;
 
-  typedef struct tagEMRPOLYDRAW16 {
+  تعريفنوع بنية ٽيگ_EMRPOLYDRAW16 {
     EMR emr;
     RECTL rclBounds;
     DWORD cpts;
@@ -3540,7 +3540,7 @@ extern "C" {
     BYTE abTypes[1];
   } EMRPOLYDRAW16,*PEMRPOLYDRAW16;
 
-  typedef struct tagEMRPOLYPOLYLINE {
+  تعريفنوع بنية ٽيگ_EMRPOLYPOLYLINE {
     EMR emr;
     RECTL rclBounds;
     DWORD nPolys;
@@ -3549,7 +3549,7 @@ extern "C" {
     POINTL aptl[1];
   } EMRPOLYPOLYLINE,*PEMRPOLYPOLYLINE,EMRPOLYPOLYGON,*PEMRPOLYPOLYGON;
 
-  typedef struct tagEMRPOLYPOLYLINE16 {
+  تعريفنوع بنية ٽيگ_EMRPOLYPOLYLINE16 {
     EMR emr;
     RECTL rclBounds;
     DWORD nPolys;
@@ -3558,57 +3558,57 @@ extern "C" {
     POINTS apts[1];
   } EMRPOLYPOLYLINE16,*PEMRPOLYPOLYLINE16,EMRPOLYPOLYGON16,*PEMRPOLYPOLYGON16;
 
-  typedef struct tagEMRINVERTRGN {
+  تعريفنوع بنية ٽيگ_EMRINVERTRGN {
     EMR emr;
     RECTL rclBounds;
-    DWORD cbRgnData;
-    BYTE RgnData[1];
+    DWORD cb_Rgn_معلومات;
+    BYTE Rgn_معلومات[1];
   } EMRINVERTRGN,*PEMRINVERTRGN,EMRPAINTRGN,*PEMRPAINTRGN;
 
-  typedef struct tagEMRFILLRGN {
+  تعريفنوع بنية ٽيگ_EMRFILLRGN {
     EMR emr;
     RECTL rclBounds;
-    DWORD cbRgnData;
+    DWORD cb_Rgn_معلومات;
     DWORD ihBrush;
-    BYTE RgnData[1];
+    BYTE Rgn_معلومات[1];
   } EMRFILLRGN,*PEMRFILLRGN;
 
-  typedef struct tagEMRFRAMERGN {
+  تعريفنوع بنية ٽيگ_EMRFRAMERGN {
     EMR emr;
     RECTL rclBounds;
-    DWORD cbRgnData;
+    DWORD cb_Rgn_معلومات;
     DWORD ihBrush;
     SIZEL szlStroke;
-    BYTE RgnData[1];
+    BYTE Rgn_معلومات[1];
   } EMRFRAMERGN,*PEMRFRAMERGN;
 
-  typedef struct tagEMREXTSELECTCLIPRGN {
+  تعريفنوع بنية ٽيگ_EMREXTSELECTCLIPRGN {
     EMR emr;
-    DWORD cbRgnData;
-    DWORD iMode;
-    BYTE RgnData[1];
+    DWORD cb_Rgn_معلومات;
+    DWORD i_گهڻائي;
+    BYTE Rgn_معلومات[1];
   } EMREXTSELECTCLIPRGN,*PEMREXTSELECTCLIPRGN;
 
-  typedef struct tagEMREXTTEXTOUTA {
+  تعريفنوع بنية ٽيگ_EMREXTTEXTOUTA {
     EMR emr;
     RECTL rclBounds;
-    DWORD iGraphicsMode;
+    DWORD i_Graphics_گهڻائي;
     FLOAT exScale;
     FLOAT eyScale;
     EMRTEXT emrtext;
   } EMREXTTEXTOUTA,*PEMREXTTEXTOUTA,EMREXTTEXTOUTW,*PEMREXTTEXTOUTW;
 
-  typedef struct tagEMRPOLYTEXTOUTA {
+  تعريفنوع بنية ٽيگ_EMRPOLYTEXTOUTA {
     EMR emr;
     RECTL rclBounds;
-    DWORD iGraphicsMode;
+    DWORD i_Graphics_گهڻائي;
     FLOAT exScale;
     FLOAT eyScale;
-    LONG cStrings;
+    LONG c_لڙيون;
     EMRTEXT aemrtext[1];
   } EMRPOLYTEXTOUTA,*PEMRPOLYTEXTOUTA,EMRPOLYTEXTOUTW,*PEMRPOLYTEXTOUTW;
 
-  typedef struct tagEMRBITBLT {
+  تعريفنوع بنية ٽيگ_EMRBITBLT {
     EMR emr;
     RECTL rclBounds;
     LONG xDest;
@@ -3623,11 +3623,11 @@ extern "C" {
     DWORD iUsageSrc;
     DWORD offBmiSrc;
     DWORD cbBmiSrc;
-    DWORD offBitsSrc;
-    DWORD cbBitsSrc;
+    DWORD off_بٽ_Src;
+    DWORD cb_بٽ_Src;
   } EMRBITBLT,*PEMRBITBLT;
 
-  typedef struct tagEMRSTRETCHBLT {
+  تعريفنوع بنية ٽيگ_EMRSTRETCHBLT {
     EMR emr;
     RECTL rclBounds;
     LONG xDest;
@@ -3642,13 +3642,13 @@ extern "C" {
     DWORD iUsageSrc;
     DWORD offBmiSrc;
     DWORD cbBmiSrc;
-    DWORD offBitsSrc;
-    DWORD cbBitsSrc;
+    DWORD off_بٽ_Src;
+    DWORD cb_بٽ_Src;
     LONG cxSrc;
     LONG cySrc;
   } EMRSTRETCHBLT,*PEMRSTRETCHBLT;
 
-  typedef struct tagEMRMASKBLT {
+  تعريفنوع بنية ٽيگ_EMRMASKBLT {
     EMR emr;
     RECTL rclBounds;
     LONG xDest;
@@ -3663,18 +3663,18 @@ extern "C" {
     DWORD iUsageSrc;
     DWORD offBmiSrc;
     DWORD cbBmiSrc;
-    DWORD offBitsSrc;
-    DWORD cbBitsSrc;
-    LONG xMask;
-    LONG yMask;
-    DWORD iUsageMask;
-    DWORD offBmiMask;
-    DWORD cbBmiMask;
-    DWORD offBitsMask;
-    DWORD cbBitsMask;
+    DWORD off_بٽ_Src;
+    DWORD cb_بٽ_Src;
+    LONG x_نقاب;
+    LONG y_نقاب;
+    DWORD i_Usage_نقاب;
+    DWORD off_Bmi_نقاب;
+    DWORD cb_Bmi_نقاب;
+    DWORD off_بٽ_نقاب;
+    DWORD cb_بٽ_نقاب;
   } EMRMASKBLT,*PEMRMASKBLT;
 
-  typedef struct tagEMRPLGBLT {
+  تعريفنوع بنية ٽيگ_EMRPLGBLT {
     EMR emr;
     RECTL rclBounds;
     POINTL aptlDest[3];
@@ -3687,18 +3687,18 @@ extern "C" {
     DWORD iUsageSrc;
     DWORD offBmiSrc;
     DWORD cbBmiSrc;
-    DWORD offBitsSrc;
-    DWORD cbBitsSrc;
-    LONG xMask;
-    LONG yMask;
-    DWORD iUsageMask;
-    DWORD offBmiMask;
-    DWORD cbBmiMask;
-    DWORD offBitsMask;
-    DWORD cbBitsMask;
+    DWORD off_بٽ_Src;
+    DWORD cb_بٽ_Src;
+    LONG x_نقاب;
+    LONG y_نقاب;
+    DWORD i_Usage_نقاب;
+    DWORD off_Bmi_نقاب;
+    DWORD cb_Bmi_نقاب;
+    DWORD off_بٽ_نقاب;
+    DWORD cb_بٽ_نقاب;
   } EMRPLGBLT,*PEMRPLGBLT;
 
-  typedef struct tagEMRSETDIBITSTODEVICE {
+  تعريفنوع بنية ٽيگ_EMRSETDIBITSTODEVICE {
     EMR emr;
     RECTL rclBounds;
     LONG xDest;
@@ -3709,14 +3709,14 @@ extern "C" {
     LONG cySrc;
     DWORD offBmiSrc;
     DWORD cbBmiSrc;
-    DWORD offBitsSrc;
-    DWORD cbBitsSrc;
+    DWORD off_بٽ_Src;
+    DWORD cb_بٽ_Src;
     DWORD iUsageSrc;
-    DWORD iStartScan;
+    DWORD i_شروعات_جاچ;
     DWORD cScans;
   } EMRSETDIBITSTODEVICE,*PEMRSETDIBITSTODEVICE;
 
-  typedef struct tagEMRSTRETCHDIBITS {
+  تعريفنوع بنية ٽيگ_EMRSTRETCHDIBITS {
     EMR emr;
     RECTL rclBounds;
     LONG xDest;
@@ -3727,160 +3727,160 @@ extern "C" {
     LONG cySrc;
     DWORD offBmiSrc;
     DWORD cbBmiSrc;
-    DWORD offBitsSrc;
-    DWORD cbBitsSrc;
+    DWORD off_بٽ_Src;
+    DWORD cb_بٽ_Src;
     DWORD iUsageSrc;
     DWORD dwRop;
     LONG cxDest;
     LONG cyDest;
   } EMRSTRETCHDIBITS,*PEMRSTRETCHDIBITS;
 
-  typedef struct tagEMREXTCREATEFONTINDIRECTW {
+  تعريفنوع بنية ٽيگ_EMREXTCREATEFONTINDIRECTW {
     EMR emr;
     DWORD ihFont;
     EXTLOGFONTW elfw;
   } EMREXTCREATEFONTINDIRECTW,*PEMREXTCREATEFONTINDIRECTW;
 
-  typedef struct tagEMRCREATEPALETTE {
+  تعريفنوع بنية ٽيگ_EMRCREATEPALETTE {
     EMR emr;
     DWORD ihPal;
     LOGPALETTE lgpl;
   } EMRCREATEPALETTE,*PEMRCREATEPALETTE;
 
-  typedef struct tagEMRCREATEPEN {
+  تعريفنوع بنية ٽيگ_EMRCREATEPEN {
     EMR emr;
     DWORD ihPen;
     LOGPEN lopn;
   } EMRCREATEPEN,*PEMRCREATEPEN;
 
-  typedef struct tagEMREXTCREATEPEN {
+  تعريفنوع بنية ٽيگ_EMREXTCREATEPEN {
     EMR emr;
     DWORD ihPen;
     DWORD offBmi;
     DWORD cbBmi;
-    DWORD offBits;
-    DWORD cbBits;
+    DWORD off_بٽ;
+    DWORD cb_بٽ;
     EXTLOGPEN elp;
   } EMREXTCREATEPEN,*PEMREXTCREATEPEN;
 
-  typedef struct tagEMRCREATEBRUSHINDIRECT {
+  تعريفنوع بنية ٽيگ_EMRCREATEBRUSHINDIRECT {
     EMR emr;
     DWORD ihBrush;
     LOGBRUSH32 lb;
   } EMRCREATEBRUSHINDIRECT,*PEMRCREATEBRUSHINDIRECT;
 
-  typedef struct tagEMRCREATEMONOBRUSH {
+  تعريفنوع بنية ٽيگ_EMRCREATEMONOBRUSH {
     EMR emr;
     DWORD ihBrush;
     DWORD iUsage;
     DWORD offBmi;
     DWORD cbBmi;
-    DWORD offBits;
-    DWORD cbBits;
+    DWORD off_بٽ;
+    DWORD cb_بٽ;
   } EMRCREATEMONOBRUSH,*PEMRCREATEMONOBRUSH;
 
-  typedef struct tagEMRCREATEDIBPATTERNBRUSHPT {
+  تعريفنوع بنية ٽيگ_EMRCREATEDIBPATTERNBRUSHPT {
     EMR emr;
     DWORD ihBrush;
     DWORD iUsage;
     DWORD offBmi;
     DWORD cbBmi;
-    DWORD offBits;
-    DWORD cbBits;
+    DWORD off_بٽ;
+    DWORD cb_بٽ;
   } EMRCREATEDIBPATTERNBRUSHPT,*PEMRCREATEDIBPATTERNBRUSHPT;
 
-  typedef struct tagEMRFORMAT {
+  تعريفنوع بنية ٽيگ_EMRFORMAT {
     DWORD dSignature;
-    DWORD nVersion;
-    DWORD cbData;
-    DWORD offData;
+    DWORD n_نسخو;
+    DWORD cb_معلومات;
+    DWORD off_معلومات;
   } EMRFORMAT,*PEMRFORMAT;
 
-  typedef struct tagEMRGLSRECORD {
+  تعريفنوع بنية ٽيگ_EMRGLSRECORD {
     EMR emr;
-    DWORD cbData;
-    BYTE Data[1];
+    DWORD cb_معلومات;
+    BYTE معلومات_3[1];
   } EMRGLSRECORD,*PEMRGLSRECORD;
 
-  typedef struct tagEMRGLSBOUNDEDRECORD {
+  تعريفنوع بنية ٽيگ_EMRGLSBOUNDEDRECORD {
     EMR emr;
     RECTL rclBounds;
-    DWORD cbData;
-    BYTE Data[1];
+    DWORD cb_معلومات;
+    BYTE معلومات_3[1];
   } EMRGLSBOUNDEDRECORD,*PEMRGLSBOUNDEDRECORD;
 
-  typedef struct tagEMRPIXELFORMAT {
+  تعريفنوع بنية ٽيگ_EMRPIXELFORMAT {
     EMR emr;
     PIXELFORMATDESCRIPTOR pfd;
   } EMRPIXELFORMAT,*PEMRPIXELFORMAT;
 
-  typedef struct tagEMRCREATECOLORSPACE {
+  تعريفنوع بنية ٽيگ_EMRCREATECOLORSPACE {
     EMR emr;
     DWORD ihCS;
     LOGCOLORSPACEA lcs;
   } EMRCREATECOLORSPACE,*PEMRCREATECOLORSPACE;
 
-  typedef struct tagEMRSETCOLORSPACE {
+  تعريفنوع بنية ٽيگ_EMRSETCOLORSPACE {
     EMR emr;
     DWORD ihCS;
   } EMRSETCOLORSPACE,*PEMRSETCOLORSPACE,EMRSELECTCOLORSPACE,*PEMRSELECTCOLORSPACE,EMRDELETECOLORSPACE,*PEMRDELETECOLORSPACE;
 
-  typedef struct tagEMREXTESCAPE {
+  تعريفنوع بنية ٽيگ_EMREXTESCAPE {
     EMR emr;
     INT iEscape;
-    INT cbEscData;
-    BYTE EscData[1];
+    INT cb_Esc_معلومات;
+    BYTE Esc_معلومات[1];
   } EMREXTESCAPE,*PEMREXTESCAPE,EMRDRAWESCAPE,*PEMRDRAWESCAPE;
 
-  typedef struct tagEMRNAMEDESCAPE {
+  تعريفنوع بنية ٽيگ_EMRNAMEDESCAPE {
     EMR emr;
     INT iEscape;
     INT cbDriver;
-    INT cbEscData;
-    BYTE EscData[1];
+    INT cb_Esc_معلومات;
+    BYTE Esc_معلومات[1];
   } EMRNAMEDESCAPE,*PEMRNAMEDESCAPE;
 
-#define SETICMPROFILE_EMBEDED 0x00000001
+#وصف_ڪريو SETICMPROFILE_EMBEDED 0x00000001
 
-  typedef struct tagEMRSETICMPROFILE {
+  تعريفنوع بنية ٽيگ_EMRSETICMPROFILE {
     EMR emr;
     DWORD dwFlags;
     DWORD cbName;
-    DWORD cbData;
-    BYTE Data[1];
+    DWORD cb_معلومات;
+    BYTE معلومات_3[1];
   } EMRSETICMPROFILE,*PEMRSETICMPROFILE,EMRSETICMPROFILEA,*PEMRSETICMPROFILEA,EMRSETICMPROFILEW,*PEMRSETICMPROFILEW;
 
-#define CREATECOLORSPACE_EMBEDED 0x00000001
+#وصف_ڪريو CREATECOLORSPACE_EMBEDED 0x00000001
 
-  typedef struct tagEMRCREATECOLORSPACEW {
+  تعريفنوع بنية ٽيگ_EMRCREATECOLORSPACEW {
     EMR emr;
     DWORD ihCS;
     LOGCOLORSPACEW lcs;
     DWORD dwFlags;
-    DWORD cbData;
-    BYTE Data[1];
+    DWORD cb_معلومات;
+    BYTE معلومات_3[1];
   } EMRCREATECOLORSPACEW,*PEMRCREATECOLORSPACEW;
 
-#define COLORMATCHTOTARGET_EMBEDED 0x00000001
+#وصف_ڪريو COLORMATCHTOTARGET_EMBEDED 0x00000001
 
-  typedef struct tagCOLORMATCHTOTARGET {
+  تعريفنوع بنية ٽيگ_COLORMATCHTOTARGET {
     EMR emr;
     DWORD dwAction;
     DWORD dwFlags;
     DWORD cbName;
-    DWORD cbData;
-    BYTE Data[1];
+    DWORD cb_معلومات;
+    BYTE معلومات_3[1];
   } EMRCOLORMATCHTOTARGET,*PEMRCOLORMATCHTOTARGET;
 
-  typedef struct tagCOLORCORRECTPALETTE {
+  تعريفنوع بنية ٽيگ_COLORCORRECTPALETTE {
     EMR emr;
     DWORD ihPalette;
-    DWORD nFirstEntry;
+    DWORD n_پهريون_داخلا;
     DWORD nPalEntries;
     DWORD nReserved;
   } EMRCOLORCORRECTPALETTE,*PEMRCOLORCORRECTPALETTE;
 
-  typedef struct tagEMRALPHABLEND {
+  تعريفنوع بنية ٽيگ_EMRALPHABLEND {
     EMR emr;
     RECTL rclBounds;
     LONG xDest;
@@ -3895,22 +3895,22 @@ extern "C" {
     DWORD iUsageSrc;
     DWORD offBmiSrc;
     DWORD cbBmiSrc;
-    DWORD offBitsSrc;
-    DWORD cbBitsSrc;
+    DWORD off_بٽ_Src;
+    DWORD cb_بٽ_Src;
     LONG cxSrc;
     LONG cySrc;
   } EMRALPHABLEND,*PEMRALPHABLEND;
 
-  typedef struct tagEMRGRADIENTFILL {
+  تعريفنوع بنية ٽيگ_EMRGRADIENTFILL {
     EMR emr;
     RECTL rclBounds;
     DWORD nVer;
     DWORD nTri;
-    ULONG ulMode;
+    ULONG ul_گهڻائي;
     TRIVERTEX Ver[1];
   } EMRGRADIENTFILL,*PEMRGRADIENTFILL;
 
-  typedef struct tagEMRTRANSPARENTBLT {
+  تعريفنوع بنية ٽيگ_EMRTRANSPARENTBLT {
     EMR emr;
     RECTL rclBounds;
     LONG xDest;
@@ -3925,47 +3925,47 @@ extern "C" {
     DWORD iUsageSrc;
     DWORD offBmiSrc;
     DWORD cbBmiSrc;
-    DWORD offBitsSrc;
-    DWORD cbBitsSrc;
+    DWORD off_بٽ_Src;
+    DWORD cb_بٽ_Src;
     LONG cxSrc;
     LONG cySrc;
   } EMRTRANSPARENTBLT,*PEMRTRANSPARENTBLT;
 
-#define GDICOMMENT_IDENTIFIER 0x43494447
-#define GDICOMMENT_WINDOWS_METAFILE 0x80000001
-#define GDICOMMENT_BEGINGROUP 0x00000002
-#define GDICOMMENT_ENDGROUP 0x00000003
-#define GDICOMMENT_MULTIFORMATS 0x40000004
-#define EPS_SIGNATURE 0x46535045
-#define GDICOMMENT_UNICODE_STRING 0x00000040
-#define GDICOMMENT_UNICODE_END 0x00000080
-#endif
+#وصف_ڪريو GDICOMMENT_IDENTIFIER 0x43494447
+#وصف_ڪريو GDICOMMENT_WINDOWS_METAFILE 0x80000001
+#وصف_ڪريو GDICOMMENT_BEGINGROUP 0x00000002
+#وصف_ڪريو GDICOMMENT_ENDGROUP 0x00000003
+#وصف_ڪريو GDICOMMENT_MULTIFORMATS 0x40000004
+#وصف_ڪريو EPS_SIGNATURE 0x46535045
+#وصف_ڪريو GDICOMMENT_UNICODE_STRING 0x00000040
+#وصف_ڪريو GDICOMMENT_UNICODE_پڇاڙي 0x00000080
+#جيڪڏهن_پورو
 
-#ifdef UNICODE
-#define wglUseFontBitmaps wglUseFontBitmapsW
-#else
-#define wglUseFontBitmaps wglUseFontBitmapsA
-#endif
+#جيڪڏهن_وصف_ٿيل UNICODE
+#وصف_ڪريو wglUseFontBitmaps wglUseFontBitmapsW
+#وإلا
+#وصف_ڪريو wglUseFontBitmaps wglUseFontBitmapsA
+#جيڪڏهن_پورو
 
   WINGDIAPI WINBOOL WINAPI wglCopyContext(HGLRC,HGLRC,UINT);
   WINGDIAPI HGLRC WINAPI wglCreateContext(HDC);
-  WINGDIAPI HGLRC WINAPI wglCreateLayerContext(HDC,int);
+  WINGDIAPI HGLRC WINAPI wglCreateLayerContext(HDC,صحيح);
   WINGDIAPI WINBOOL WINAPI wglDeleteContext(HGLRC);
   WINGDIAPI HGLRC WINAPI wglGetCurrentContext(VOID);
   WINGDIAPI HDC WINAPI wglGetCurrentDC(VOID);
-  WINGDIAPI PROC WINAPI wglGetProcAddress(LPCSTR);
+  WINGDIAPI PROC WINAPI wgl_Get_Proc_پتو(LPCSTR);
   WINGDIAPI WINBOOL WINAPI wglMakeCurrent(HDC,HGLRC);
   WINGDIAPI WINBOOL WINAPI wglShareLists(HGLRC,HGLRC);
   WINGDIAPI WINBOOL WINAPI wglUseFontBitmapsA(HDC,DWORD,DWORD,DWORD);
   WINGDIAPI WINBOOL WINAPI wglUseFontBitmapsW(HDC,DWORD,DWORD,DWORD);
-  WINGDIAPI WINBOOL WINAPI SwapBuffers(HDC);
+  WINGDIAPI WINBOOL WINAPI مٽا_سٽا_Buffers(HDC);
 
-  typedef struct _POINTFLOAT {
+  تعريفنوع بنية _POINTFLOAT {
     FLOAT x;
     FLOAT y;
   } POINTFLOAT,*PPOINTFLOAT;
 
-  typedef struct _GLYPHMETRICSFLOAT {
+  تعريفنوع بنية _GLYPHMETRICSFLOAT {
     FLOAT gmfBlackBoxX;
     FLOAT gmfBlackBoxY;
     POINTFLOAT gmfptGlyphOrigin;
@@ -3973,108 +3973,108 @@ extern "C" {
     FLOAT gmfCellIncY;
   } GLYPHMETRICSFLOAT,*PGLYPHMETRICSFLOAT,*LPGLYPHMETRICSFLOAT;
 
-#define WGL_FONT_LINES 0
-#define WGL_FONT_POLYGONS 1
+#وصف_ڪريو WGL_FONT_سٽون 0
+#وصف_ڪريو WGL_FONT_POLYGONS 1
 
-#ifdef UNICODE
-#define wglUseFontOutlines wglUseFontOutlinesW
-#else
-#define wglUseFontOutlines wglUseFontOutlinesA
-#endif
+#جيڪڏهن_وصف_ٿيل UNICODE
+#وصف_ڪريو wglUseFontOutlines wglUseFontOutlinesW
+#وإلا
+#وصف_ڪريو wglUseFontOutlines wglUseFontOutlinesA
+#جيڪڏهن_پورو
 
-  WINGDIAPI WINBOOL WINAPI wglUseFontOutlinesA(HDC,DWORD,DWORD,DWORD,FLOAT,FLOAT,int,LPGLYPHMETRICSFLOAT);
-  WINGDIAPI WINBOOL WINAPI wglUseFontOutlinesW(HDC,DWORD,DWORD,DWORD,FLOAT,FLOAT,int,LPGLYPHMETRICSFLOAT);
+  WINGDIAPI WINBOOL WINAPI wglUseFontOutlinesA(HDC,DWORD,DWORD,DWORD,FLOAT,FLOAT,صحيح,LPGLYPHMETRICSFLOAT);
+  WINGDIAPI WINBOOL WINAPI wglUseFontOutlinesW(HDC,DWORD,DWORD,DWORD,FLOAT,FLOAT,صحيح,LPGLYPHMETRICSFLOAT);
 
-  typedef struct tagLAYERPLANEDESCRIPTOR {
-    WORD nSize;
-    WORD nVersion;
+  تعريفنوع بنية ٽيگ_LAYERPLANEDESCRIPTOR {
+    لفظ_3 n_سائيز;
+    لفظ_3 n_نسخو;
     DWORD dwFlags;
     BYTE iPixelType;
-    BYTE cColorBits;
-    BYTE cRedBits;
-    BYTE cRedShift;
-    BYTE cGreenBits;
-    BYTE cGreenShift;
-    BYTE cBlueBits;
-    BYTE cBlueShift;
-    BYTE cAlphaBits;
-    BYTE cAlphaShift;
-    BYTE cAccumBits;
-    BYTE cAccumRedBits;
-    BYTE cAccumGreenBits;
-    BYTE cAccumBlueBits;
-    BYTE cAccumAlphaBits;
-    BYTE cDepthBits;
-    BYTE cStencilBits;
+    BYTE c_Color_بٽ;
+    BYTE c_Red_بٽ;
+    BYTE c_Red_سرڪايو;
+    BYTE c_Green_بٽ;
+    BYTE c_Green_سرڪايو;
+    BYTE c_Blue_بٽ;
+    BYTE c_Blue_سرڪايو;
+    BYTE c_Alpha_بٽ;
+    BYTE c_Alpha_سرڪايو;
+    BYTE c_Accum_بٽ;
+    BYTE c_Accum_Red_بٽ;
+    BYTE c_Accum_Green_بٽ;
+    BYTE c_Accum_Blue_بٽ;
+    BYTE c_Accum_Alpha_بٽ;
+    BYTE c_اونهائي_بٽ;
+    BYTE c_Stencil_بٽ;
     BYTE cAuxBuffers;
     BYTE iLayerPlane;
     BYTE bReserved;
     COLORREF crTransparent;
   } LAYERPLANEDESCRIPTOR,*PLAYERPLANEDESCRIPTOR,*LPLAYERPLANEDESCRIPTOR;
 
-#define LPD_DOUBLEBUFFER 0x00000001
-#define LPD_STEREO 0x00000002
-#define LPD_SUPPORT_GDI 0x00000010
-#define LPD_SUPPORT_OPENGL 0x00000020
-#define LPD_SHARE_DEPTH 0x00000040
-#define LPD_SHARE_STENCIL 0x00000080
-#define LPD_SHARE_ACCUM 0x00000100
-#define LPD_SWAP_EXCHANGE 0x00000200
-#define LPD_SWAP_COPY 0x00000400
-#define LPD_TRANSPARENT 0x00001000
+#وصف_ڪريو LPD_DOUBLEBUFFER 0x00000001
+#وصف_ڪريو LPD_STEREO 0x00000002
+#وصف_ڪريو LPD_SUPPORT_GDI 0x00000010
+#وصف_ڪريو LPD_SUPPORT_OPENGL 0x00000020
+#وصف_ڪريو LPD_SHARE_اونهائي 0x00000040
+#وصف_ڪريو LPD_SHARE_STENCIL 0x00000080
+#وصف_ڪريو LPD_SHARE_ACCUM 0x00000100
+#وصف_ڪريو LPD_مٽا_سٽا_EXCHANGE 0x00000200
+#وصف_ڪريو LPD_مٽا_سٽا_COPY 0x00000400
+#وصف_ڪريو LPD_TRANSPARENT 0x00001000
 
-#define LPD_TYPE_RGBA 0
-#define LPD_TYPE_COLORINDEX 1
+#وصف_ڪريو LPD_TYPE_RGBA 0
+#وصف_ڪريو LPD_TYPE_COLORINDEX 1
 
-#define WGL_SWAP_MAIN_PLANE 0x00000001
-#define WGL_SWAP_OVERLAY1 0x00000002
-#define WGL_SWAP_OVERLAY2 0x00000004
-#define WGL_SWAP_OVERLAY3 0x00000008
-#define WGL_SWAP_OVERLAY4 0x00000010
-#define WGL_SWAP_OVERLAY5 0x00000020
-#define WGL_SWAP_OVERLAY6 0x00000040
-#define WGL_SWAP_OVERLAY7 0x00000080
-#define WGL_SWAP_OVERLAY8 0x00000100
-#define WGL_SWAP_OVERLAY9 0x00000200
-#define WGL_SWAP_OVERLAY10 0x00000400
-#define WGL_SWAP_OVERLAY11 0x00000800
-#define WGL_SWAP_OVERLAY12 0x00001000
-#define WGL_SWAP_OVERLAY13 0x00002000
-#define WGL_SWAP_OVERLAY14 0x00004000
-#define WGL_SWAP_OVERLAY15 0x00008000
-#define WGL_SWAP_UNDERLAY1 0x00010000
-#define WGL_SWAP_UNDERLAY2 0x00020000
-#define WGL_SWAP_UNDERLAY3 0x00040000
-#define WGL_SWAP_UNDERLAY4 0x00080000
-#define WGL_SWAP_UNDERLAY5 0x00100000
-#define WGL_SWAP_UNDERLAY6 0x00200000
-#define WGL_SWAP_UNDERLAY7 0x00400000
-#define WGL_SWAP_UNDERLAY8 0x00800000
-#define WGL_SWAP_UNDERLAY9 0x01000000
-#define WGL_SWAP_UNDERLAY10 0x02000000
-#define WGL_SWAP_UNDERLAY11 0x04000000
-#define WGL_SWAP_UNDERLAY12 0x08000000
-#define WGL_SWAP_UNDERLAY13 0x10000000
-#define WGL_SWAP_UNDERLAY14 0x20000000
-#define WGL_SWAP_UNDERLAY15 0x40000000
+#وصف_ڪريو WGL_مٽا_سٽا_MAIN_PLANE 0x00000001
+#وصف_ڪريو WGL_مٽا_سٽا_OVERLAY1 0x00000002
+#وصف_ڪريو WGL_مٽا_سٽا_OVERLAY2 0x00000004
+#وصف_ڪريو WGL_مٽا_سٽا_OVERLAY3 0x00000008
+#وصف_ڪريو WGL_مٽا_سٽا_OVERLAY4 0x00000010
+#وصف_ڪريو WGL_مٽا_سٽا_OVERLAY5 0x00000020
+#وصف_ڪريو WGL_مٽا_سٽا_OVERLAY6 0x00000040
+#وصف_ڪريو WGL_مٽا_سٽا_OVERLAY7 0x00000080
+#وصف_ڪريو WGL_مٽا_سٽا_OVERLAY8 0x00000100
+#وصف_ڪريو WGL_مٽا_سٽا_OVERLAY9 0x00000200
+#وصف_ڪريو WGL_مٽا_سٽا_OVERLAY10 0x00000400
+#وصف_ڪريو WGL_مٽا_سٽا_OVERLAY11 0x00000800
+#وصف_ڪريو WGL_مٽا_سٽا_OVERLAY12 0x00001000
+#وصف_ڪريو WGL_مٽا_سٽا_OVERLAY13 0x00002000
+#وصف_ڪريو WGL_مٽا_سٽا_OVERLAY14 0x00004000
+#وصف_ڪريو WGL_مٽا_سٽا_OVERLAY15 0x00008000
+#وصف_ڪريو WGL_مٽا_سٽا_UNDERLAY1 0x00010000
+#وصف_ڪريو WGL_مٽا_سٽا_UNDERLAY2 0x00020000
+#وصف_ڪريو WGL_مٽا_سٽا_UNDERLAY3 0x00040000
+#وصف_ڪريو WGL_مٽا_سٽا_UNDERLAY4 0x00080000
+#وصف_ڪريو WGL_مٽا_سٽا_UNDERLAY5 0x00100000
+#وصف_ڪريو WGL_مٽا_سٽا_UNDERLAY6 0x00200000
+#وصف_ڪريو WGL_مٽا_سٽا_UNDERLAY7 0x00400000
+#وصف_ڪريو WGL_مٽا_سٽا_UNDERLAY8 0x00800000
+#وصف_ڪريو WGL_مٽا_سٽا_UNDERLAY9 0x01000000
+#وصف_ڪريو WGL_مٽا_سٽا_UNDERLAY10 0x02000000
+#وصف_ڪريو WGL_مٽا_سٽا_UNDERLAY11 0x04000000
+#وصف_ڪريو WGL_مٽا_سٽا_UNDERLAY12 0x08000000
+#وصف_ڪريو WGL_مٽا_سٽا_UNDERLAY13 0x10000000
+#وصف_ڪريو WGL_مٽا_سٽا_UNDERLAY14 0x20000000
+#وصف_ڪريو WGL_مٽا_سٽا_UNDERLAY15 0x40000000
 
-  WINGDIAPI WINBOOL WINAPI wglDescribeLayerPlane(HDC,int,int,UINT,LPLAYERPLANEDESCRIPTOR);
-  WINGDIAPI int WINAPI wglSetLayerPaletteEntries(HDC,int,int,int,CONST COLORREF *);
-  WINGDIAPI int WINAPI wglGetLayerPaletteEntries(HDC,int,int,int,COLORREF *);
-  WINGDIAPI WINBOOL WINAPI wglRealizeLayerPalette(HDC,int,WINBOOL);
-  WINGDIAPI WINBOOL WINAPI wglSwapLayerBuffers(HDC,UINT);
+  WINGDIAPI WINBOOL WINAPI wglDescribeLayerPlane(HDC,صحيح,صحيح,UINT,LPLAYERPLANEDESCRIPTOR);
+  WINGDIAPI صحيح WINAPI wgl_سيٽ_Layer_Palette_Entries(HDC,صحيح,صحيح,صحيح,CONST COLORREF *);
+  WINGDIAPI صحيح WINAPI wglGetLayerPaletteEntries(HDC,صحيح,صحيح,صحيح,COLORREF *);
+  WINGDIAPI WINBOOL WINAPI wglRealizeLayerPalette(HDC,صحيح,WINBOOL);
+  WINGDIAPI WINBOOL WINAPI wgl_مٽا_سٽا_Layer_Buffers(HDC,UINT);
 
-  typedef struct _WGLSWAP {
+  تعريفنوع بنية _WGLSWAP {
     HDC hdc;
     UINT uiFlags;
   } WGLSWAP,*PWGLSWAP,*LPWGLSWAP;
 
-#define WGL_SWAPMULTIPLE_MAX 16
+#وصف_ڪريو WGL_SWAPMULTIPLE_MAX 16
 
-  WINGDIAPI DWORD WINAPI wglSwapMultipleBuffers(UINT,CONST WGLSWAP *);
-#endif
+  WINGDIAPI DWORD WINAPI wgl_مٽا_سٽا_گڻو_Buffers(UINT,CONST WGLSWAP *);
+#جيڪڏهن_پورو
 
-#ifdef __cplusplus
+#جيڪڏهن_وصف_ٿيل __cplusplus
 }
-#endif
-#endif
+#جيڪڏهن_پورو
+#جيڪڏهن_پورو

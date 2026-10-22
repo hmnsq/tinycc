@@ -3,26 +3,26 @@
  * This file is part of the w64 mingw-runtime package.
  * No warranty is given; refer to the file DISCLAIMER within this package.
  */
-#ifndef _INC_SHARE
-#define _INC_SHARE
+#جيڪڏهن_وصف_نه_ٿيل _INC_SHARE
+#وصف_ڪريو _INC_SHARE
 
-#ifndef _WIN32
-#error Only Win32 target is supported!
-#endif
+#جيڪڏهن_وصف_نه_ٿيل _WIN32
+#غلطي Only Win32 هدف is supported!
+#جيڪڏهن_پورو
 
-#define _SH_COMPAT 0x00
-#define _SH_DENYRW 0x10
-#define _SH_DENYWR 0x20
-#define _SH_DENYRD 0x30
-#define _SH_DENYNO 0x40
-#define _SH_SECURE 0x80
+#وصف_ڪريو _SH_COMPAT 0x00
+#وصف_ڪريو _SH_DENYRW 0x10
+#وصف_ڪريو _SH_DENYWR 0x20
+#وصف_ڪريو _SH_DENYRD 0x30
+#وصف_ڪريو _SH_DENYNO 0x40
+#وصف_ڪريو _SH_SECURE 0x80
 
-#ifndef	NO_OLDNAMES
-#define SH_COMPAT _SH_COMPAT
-#define SH_DENYRW _SH_DENYRW
-#define SH_DENYWR _SH_DENYWR
-#define SH_DENYRD _SH_DENYRD
-#define SH_DENYNO _SH_DENYNO
-#endif
+#جيڪڏهن_وصف_نه_ٿيل	NO_OLDNAMES
+#وصف_ڪريو SH_COMPAT _SH_COMPAT
+#وصف_ڪريو SH_DENYRW _SH_DENYRW
+#وصف_ڪريو SH_DENYWR _SH_DENYWR
+#وصف_ڪريو SH_DENYRD _SH_DENYRD
+#وصف_ڪريو SH_DENYNO _SH_DENYNO
+#جيڪڏهن_پورو
 
-#endif
+#جيڪڏهن_پورو

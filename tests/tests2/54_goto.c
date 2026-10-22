@@ -1,56 +1,56 @@
-#include <stdio.h>
+#ضمن <stdio.h>
 
-void fred()
+فراغ fred()
 {
-   printf("In fred()\n");
-   goto done;
-   printf("In middle\n");
-done:
-   printf("At end\n");
+   لکو("In fred()\n");
+   اذهب پورو;
+   لکو("In middle\n");
+پورو:
+   لکو("At end\n");
 }
 
-void joe()
+فراغ joe()
 {
-   int b = 5678;
+   صحيح b = 5678;
 
-   printf("In joe()\n");
+   لکو("In joe()\n");
 
    {
-      int c = 1234;
-      printf("c = %d\n", c);
-      goto outer;
-      printf("uh-oh\n");
+      صحيح c = 1234;
+      لکو("c = %d\n", c);
+      اذهب outer;
+      لکو("uh-oh\n");
    }
 
 outer:    
 
-   printf("done\n");
+   لکو("done\n");
 }
 
-void henry()
+فراغ henry()
 {
-   int a;
+   صحيح a;
 
-   printf("In henry()\n");
-   goto inner;
+   لکو("In henry()\n");
+   اذهب inner;
 
    {
-      int b;
+      صحيح b;
 inner:    
       b = 1234;
-      printf("b = %d\n", b);
+      لکو("b = %d\n", b);
    }
 
-   printf("done\n");
+   لکو("done\n");
 }
 
-int main()
+صحيح مکيه()
 {
    fred();
    joe();
    henry();
 
-   return 0;
+   أرجع 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

@@ -3,307 +3,307 @@
  * This file is part of the w64 mingw-runtime package.
  * No warranty is given; refer to the file DISCLAIMER within this package.
  */
-#ifndef _WINCON_
-#define _WINCON_
+#جيڪڏهن_وصف_نه_ٿيل _WINCON_
+#وصف_ڪريو _WINCON_
 
-#ifdef __cplusplus
-extern "C" {
-#endif
+#جيڪڏهن_وصف_ٿيل __cplusplus
+خارجي "C" {
+#جيڪڏهن_پورو
 
-  typedef struct _COORD {
+  تعريفنوع بنية _COORD {
     SHORT X;
     SHORT Y;
   } COORD,*PCOORD;
 
-  typedef struct _SMALL_RECT {
-    SHORT Left;
-    SHORT Top;
-    SHORT Right;
+  تعريفنوع بنية _SMALL_RECT {
+    SHORT کاٻو_2;
+    SHORT چوٽي_2;
+    SHORT ساڄو_2;
     SHORT Bottom;
   } SMALL_RECT,*PSMALL_RECT;
 
-  typedef struct _KEY_EVENT_RECORD {
-    WINBOOL bKeyDown;
-    WORD wRepeatCount;
-    WORD wVirtualKeyCode;
-    WORD wVirtualScanCode;
-    union {
+  تعريفنوع بنية ڪنجي_EVENT_رڪارڊ {
+    WINBOOL b_ڪنجي_هيٺ_ڏانهن;
+    لفظ_3 w_Repeat_ڳڻپ;
+    لفظ_3 w_Virtual_ڪنجي_ڪوڊ;
+    لفظ_3 w_Virtual_جاچ_ڪوڊ;
+    اتحاد {
       WCHAR UnicodeChar;
       CHAR AsciiChar;
     } uChar;
-    DWORD dwControlKeyState;
-  } KEY_EVENT_RECORD,*PKEY_EVENT_RECORD;
+    DWORD dw_Control_ڪنجي_State;
+  } ڪنجي_EVENT_رڪارڊ_2,*PKEY_EVENT_رڪارڊ;
 
-#define RIGHT_ALT_PRESSED 0x1
-#define LEFT_ALT_PRESSED 0x2
-#define RIGHT_CTRL_PRESSED 0x4
-#define LEFT_CTRL_PRESSED 0x8
-#define SHIFT_PRESSED 0x10
-#define NUMLOCK_ON 0x20
-#define SCROLLLOCK_ON 0x40
-#define CAPSLOCK_ON 0x80
-#define ENHANCED_KEY 0x100
-#define NLS_DBCSCHAR 0x10000
-#define NLS_ALPHANUMERIC 0x0
-#define NLS_KATAKANA 0x20000
-#define NLS_HIRAGANA 0x40000
-#define NLS_ROMAN 0x400000
-#define NLS_IME_CONVERSION 0x800000
-#define NLS_IME_DISABLE 0x20000000
+#وصف_ڪريو ساڄو_ALT_PRESSED 0x1
+#وصف_ڪريو کاٻو_ALT_PRESSED 0x2
+#وصف_ڪريو ساڄو_CTRL_PRESSED 0x4
+#وصف_ڪريو کاٻو_CTRL_PRESSED 0x8
+#وصف_ڪريو سرڪايو_PRESSED 0x10
+#وصف_ڪريو NUMLOCK_ON 0x20
+#وصف_ڪريو SCROLLLOCK_ON 0x40
+#وصف_ڪريو CAPSLOCK_ON 0x80
+#وصف_ڪريو ENHANCED_ڪنجي 0x100
+#وصف_ڪريو NLS_DBCSCHAR 0x10000
+#وصف_ڪريو NLS_ALPHANUMERIC 0x0
+#وصف_ڪريو NLS_KATAKANA 0x20000
+#وصف_ڪريو NLS_HIRAGANA 0x40000
+#وصف_ڪريو NLS_ROMAN 0x400000
+#وصف_ڪريو NLS_IME_CONVERSION 0x800000
+#وصف_ڪريو NLS_IME_DISABLE 0x20000000
 
-  typedef struct _MOUSE_EVENT_RECORD {
+  تعريفنوع بنية MOUSE_EVENT_رڪارڊ {
     COORD dwMousePosition;
     DWORD dwButtonState;
-    DWORD dwControlKeyState;
+    DWORD dw_Control_ڪنجي_State;
     DWORD dwEventFlags;
-  } MOUSE_EVENT_RECORD,*PMOUSE_EVENT_RECORD;
+  } MOUSE_EVENT_رڪارڊ_2,*PMOUSE_EVENT_رڪارڊ;
 
-#define FROM_LEFT_1ST_BUTTON_PRESSED 0x1
-#define RIGHTMOST_BUTTON_PRESSED 0x2
-#define FROM_LEFT_2ND_BUTTON_PRESSED 0x4
-#define FROM_LEFT_3RD_BUTTON_PRESSED 0x8
-#define FROM_LEFT_4TH_BUTTON_PRESSED 0x10
+#وصف_ڪريو FROM_کاٻو_1_ST_BUTTON_PRESSED 0x1
+#وصف_ڪريو RIGHTMOST_BUTTON_PRESSED 0x2
+#وصف_ڪريو FROM_کاٻو_2_ND_BUTTON_PRESSED 0x4
+#وصف_ڪريو FROM_کاٻو_3_RD_BUTTON_PRESSED 0x8
+#وصف_ڪريو FROM_کاٻو_4_TH_BUTTON_PRESSED 0x10
 
-#define MOUSE_MOVED 0x1
-#define DOUBLE_CLICK 0x2
-#define MOUSE_WHEELED 0x4
+#وصف_ڪريو MOUSE_MOVED 0x1
+#وصف_ڪريو DOUBLE_CLICK 0x2
+#وصف_ڪريو MOUSE_WHEELED 0x4
 
-  typedef struct _WINDOW_BUFFER_SIZE_RECORD {
-    COORD dwSize;
-  } WINDOW_BUFFER_SIZE_RECORD,*PWINDOW_BUFFER_SIZE_RECORD;
+  تعريفنوع بنية دري_بفر_سائيز_رڪارڊ {
+    COORD dw_سائيز;
+  } دري_بفر_سائيز_رڪارڊ_2,*PWINDOW_بفر_سائيز_رڪارڊ;
 
-  typedef struct _MENU_EVENT_RECORD {
+  تعريفنوع بنية MENU_EVENT_رڪارڊ {
     UINT dwCommandId;
-  } MENU_EVENT_RECORD,*PMENU_EVENT_RECORD;
+  } MENU_EVENT_رڪارڊ_2,*PMENU_EVENT_رڪارڊ;
 
-  typedef struct _FOCUS_EVENT_RECORD {
-    WINBOOL bSetFocus;
-  } FOCUS_EVENT_RECORD,*PFOCUS_EVENT_RECORD;
+  تعريفنوع بنية FOCUS_EVENT_رڪارڊ {
+    WINBOOL b_سيٽ_Focus;
+  } FOCUS_EVENT_رڪارڊ_2,*PFOCUS_EVENT_رڪارڊ;
 
-  typedef struct _INPUT_RECORD {
-    WORD EventType;
-    union {
-      KEY_EVENT_RECORD KeyEvent;
-      MOUSE_EVENT_RECORD MouseEvent;
-      WINDOW_BUFFER_SIZE_RECORD WindowBufferSizeEvent;
-      MENU_EVENT_RECORD MenuEvent;
-      FOCUS_EVENT_RECORD FocusEvent;
+  تعريفنوع بنية داخلا_رڪارڊ {
+    لفظ_3 EventType;
+    اتحاد {
+      ڪنجي_EVENT_رڪارڊ_2 ڪنجي_Event;
+      MOUSE_EVENT_رڪارڊ_2 MouseEvent;
+      دري_بفر_سائيز_رڪارڊ_2 دري_بفر_سائيز_Event;
+      MENU_EVENT_رڪارڊ_2 MenuEvent;
+      FOCUS_EVENT_رڪارڊ_2 FocusEvent;
     } Event;
-  } INPUT_RECORD,*PINPUT_RECORD;
+  } داخلا_رڪارڊ_2,*PINPUT_رڪارڊ;
 
-#define KEY_EVENT 0x1
-#define MOUSE_EVENT 0x2
-#define WINDOW_BUFFER_SIZE_EVENT 0x4
-#define MENU_EVENT 0x8
-#define FOCUS_EVENT 0x10
+#وصف_ڪريو ڪنجي_EVENT 0x1
+#وصف_ڪريو MOUSE_EVENT 0x2
+#وصف_ڪريو دري_بفر_سائيز_EVENT 0x4
+#وصف_ڪريو MENU_EVENT 0x8
+#وصف_ڪريو FOCUS_EVENT 0x10
 
-  typedef struct _CHAR_INFO {
-    union {
+  تعريفنوع بنية _CHAR_INFO {
+    اتحاد {
       WCHAR UnicodeChar;
       CHAR AsciiChar;
     } Char;
-    WORD Attributes;
+    لفظ_3 خاصيتون;
   } CHAR_INFO,*PCHAR_INFO;
 
-#define FOREGROUND_BLUE 0x1
-#define FOREGROUND_GREEN 0x2
-#define FOREGROUND_RED 0x4
-#define FOREGROUND_INTENSITY 0x8
-#define BACKGROUND_BLUE 0x10
-#define BACKGROUND_GREEN 0x20
-#define BACKGROUND_RED 0x40
-#define BACKGROUND_INTENSITY 0x80
-#define COMMON_LVB_LEADING_BYTE 0x100
-#define COMMON_LVB_TRAILING_BYTE 0x200
-#define COMMON_LVB_GRID_HORIZONTAL 0x400
-#define COMMON_LVB_GRID_LVERTICAL 0x800
-#define COMMON_LVB_GRID_RVERTICAL 0x1000
-#define COMMON_LVB_REVERSE_VIDEO 0x4000
-#define COMMON_LVB_UNDERSCORE 0x8000
+#وصف_ڪريو FOREGROUND_BLUE 0x1
+#وصف_ڪريو FOREGROUND_GREEN 0x2
+#وصف_ڪريو FOREGROUND_RED 0x4
+#وصف_ڪريو FOREGROUND_INTENSITY 0x8
+#وصف_ڪريو BACKGROUND_BLUE 0x10
+#وصف_ڪريو BACKGROUND_GREEN 0x20
+#وصف_ڪريو BACKGROUND_RED 0x40
+#وصف_ڪريو BACKGROUND_INTENSITY 0x80
+#وصف_ڪريو COMMON_LVB_LEADING_BYTE 0x100
+#وصف_ڪريو COMMON_LVB_TRAILING_BYTE 0x200
+#وصف_ڪريو COMMON_LVB_GRID_HORIZONTAL 0x400
+#وصف_ڪريو COMMON_LVB_GRID_LVERTICAL 0x800
+#وصف_ڪريو COMMON_LVB_GRID_RVERTICAL 0x1000
+#وصف_ڪريو COMMON_LVB_ابتو_VIDEO 0x4000
+#وصف_ڪريو COMMON_LVB_UNDERSCORE 0x8000
 
-#define COMMON_LVB_SBCSDBCS 0x300
+#وصف_ڪريو COMMON_LVB_SBCSDBCS 0x300
 
-  typedef struct _CONSOLE_SCREEN_BUFFER_INFO {
-    COORD dwSize;
+  تعريفنوع بنية CONSOLE_SCREEN_بفر_INFO {
+    COORD dw_سائيز;
     COORD dwCursorPosition;
-    WORD wAttributes;
-    SMALL_RECT srWindow;
-    COORD dwMaximumWindowSize;
-  } CONSOLE_SCREEN_BUFFER_INFO,*PCONSOLE_SCREEN_BUFFER_INFO;
+    لفظ_3 w_خاصيتون;
+    SMALL_RECT sr_دري;
+    COORD dw_وڌ_کان_وڌ_دري_سائيز;
+  } CONSOLE_SCREEN_بفر_INFO_2,*PCONSOLE_SCREEN_بفر_INFO;
 
-  typedef struct _CONSOLE_CURSOR_INFO {
-    DWORD dwSize;
+  تعريفنوع بنية _CONSOLE_CURSOR_INFO {
+    DWORD dw_سائيز;
     WINBOOL bVisible;
   } CONSOLE_CURSOR_INFO,*PCONSOLE_CURSOR_INFO;
 
-  typedef struct _CONSOLE_FONT_INFO {
+  تعريفنوع بنية _CONSOLE_FONT_INFO {
     DWORD nFont;
-    COORD dwFontSize;
+    COORD dw_Font_سائيز;
   } CONSOLE_FONT_INFO,*PCONSOLE_FONT_INFO;
 
-  typedef struct _CONSOLE_SELECTION_INFO {
+  تعريفنوع بنية _CONSOLE_SELECTION_INFO {
     DWORD dwFlags;
     COORD dwSelectionAnchor;
     SMALL_RECT srSelection;
   } CONSOLE_SELECTION_INFO,*PCONSOLE_SELECTION_INFO;
 
-#define CONSOLE_NO_SELECTION 0x0
-#define CONSOLE_SELECTION_IN_PROGRESS 0x1
-#define CONSOLE_SELECTION_NOT_EMPTY 0x2
-#define CONSOLE_MOUSE_SELECTION 0x4
-#define CONSOLE_MOUSE_DOWN 0x8
+#وصف_ڪريو CONSOLE_NO_SELECTION 0x0
+#وصف_ڪريو CONSOLE_SELECTION_اندريون_ترقي 0x1
+#وصف_ڪريو CONSOLE_SELECTION_NOT_خالي_جايون 0x2
+#وصف_ڪريو CONSOLE_MOUSE_SELECTION 0x4
+#وصف_ڪريو CONSOLE_MOUSE_هيٺ_ڏانهن 0x8
 
-  typedef WINBOOL (WINAPI *PHANDLER_ROUTINE)(DWORD CtrlType);
+  تعريفنوع WINBOOL (WINAPI *PHANDLER_ROUTINE)(DWORD CtrlType);
 
-#define CTRL_C_EVENT 0
-#define CTRL_BREAK_EVENT 1
-#define CTRL_CLOSE_EVENT 2
+#وصف_ڪريو CTRL_C_EVENT 0
+#وصف_ڪريو CTRL_BREAK_EVENT 1
+#وصف_ڪريو CTRL_CLOSE_EVENT 2
 
-#define CTRL_LOGOFF_EVENT 5
-#define CTRL_SHUTDOWN_EVENT 6
+#وصف_ڪريو CTRL_LOGOFF_EVENT 5
+#وصف_ڪريو CTRL_SHUTDOWN_EVENT 6
 
-#define ENABLE_PROCESSED_INPUT 0x1
-#define ENABLE_LINE_INPUT 0x2
-#define ENABLE_ECHO_INPUT 0x4
-#define ENABLE_WINDOW_INPUT 0x8
-#define ENABLE_MOUSE_INPUT 0x10
-#define ENABLE_INSERT_MODE 0x20
-#define ENABLE_QUICK_EDIT_MODE 0x40
-#define ENABLE_EXTENDED_FLAGS 0x80
-#define ENABLE_AUTO_POSITION 0x100
-#define ENABLE_VIRTUAL_TERMINAL_INPUT 0x200
+#وصف_ڪريو ENABLE_PROCESSED_داخلا 0x1
+#وصف_ڪريو ENABLE_سٽ_داخلا 0x2
+#وصف_ڪريو ENABLE_ECHO_داخلا 0x4
+#وصف_ڪريو ENABLE_دري_داخلا 0x8
+#وصف_ڪريو ENABLE_MOUSE_داخلا 0x10
+#وصف_ڪريو ENABLE_وجهو_گهڻائي 0x20
+#وصف_ڪريو ENABLE_تيز_EDIT_گهڻائي 0x40
+#وصف_ڪريو ENABLE_EXTENDED_FLAGS 0x80
+#وصف_ڪريو ENABLE_AUTO_POSITION 0x100
+#وصف_ڪريو ENABLE_VIRTUAL_TERMINAL_داخلا 0x200
 
-#define ENABLE_PROCESSED_OUTPUT 0x1
-#define ENABLE_WRAP_AT_EOL_OUTPUT 0x2
-#define ENABLE_VIRTUAL_TERMINAL_PROCESSING 0x4
-#define DISABLE_NEWLINE_AUTO_RETURN 0x8
-#define ENABLE_LVB_GRID_WORLDWIDE 0x10
+#وصف_ڪريو ENABLE_PROCESSED_OUTPUT 0x1
+#وصف_ڪريو ENABLE_WRAP_AT_EOL_OUTPUT 0x2
+#وصف_ڪريو ENABLE_VIRTUAL_TERMINAL_PROCESSING 0x4
+#وصف_ڪريو DISABLE_NEWLINE_AUTO_RETURN 0x8
+#وصف_ڪريو ENABLE_LVB_GRID_WORLDWIDE 0x10
 
-#ifdef UNICODE
-#define PeekConsoleInput PeekConsoleInputW
-#define ReadConsoleInput ReadConsoleInputW
-#define WriteConsoleInput WriteConsoleInputW
-#define ReadConsoleOutput ReadConsoleOutputW
-#define WriteConsoleOutput WriteConsoleOutputW
-#define ReadConsoleOutputCharacter ReadConsoleOutputCharacterW
-#define WriteConsoleOutputCharacter WriteConsoleOutputCharacterW
-#define FillConsoleOutputCharacter FillConsoleOutputCharacterW
-#define ScrollConsoleScreenBuffer ScrollConsoleScreenBufferW
-#define GetConsoleTitle GetConsoleTitleW
-#define SetConsoleTitle SetConsoleTitleW
-#define ReadConsole ReadConsoleW
-#define WriteConsole WriteConsoleW
-#define AddConsoleAlias AddConsoleAliasW
-#define GetConsoleAlias GetConsoleAliasW
-#define GetConsoleAliasesLength GetConsoleAliasesLengthW
-#define GetConsoleAliasExesLength GetConsoleAliasExesLengthW
-#define GetConsoleAliases GetConsoleAliasesW
-#define GetConsoleAliasExes GetConsoleAliasExesW
-#else
-#define PeekConsoleInput PeekConsoleInputA
-#define ReadConsoleInput ReadConsoleInputA
-#define WriteConsoleInput WriteConsoleInputA
-#define ReadConsoleOutput ReadConsoleOutputA
-#define WriteConsoleOutput WriteConsoleOutputA
-#define ReadConsoleOutputCharacter ReadConsoleOutputCharacterA
-#define WriteConsoleOutputCharacter WriteConsoleOutputCharacterA
-#define FillConsoleOutputCharacter FillConsoleOutputCharacterA
-#define ScrollConsoleScreenBuffer ScrollConsoleScreenBufferA
-#define GetConsoleTitle GetConsoleTitleA
-#define SetConsoleTitle SetConsoleTitleA
-#define ReadConsole ReadConsoleA
-#define WriteConsole WriteConsoleA
-#define AddConsoleAlias AddConsoleAliasA
-#define GetConsoleAlias GetConsoleAliasA
-#define GetConsoleAliasesLength GetConsoleAliasesLengthA
-#define GetConsoleAliasExesLength GetConsoleAliasExesLengthA
-#define GetConsoleAliases GetConsoleAliasesA
-#define GetConsoleAliasExes GetConsoleAliasExesA
-#endif
+#جيڪڏهن_وصف_ٿيل UNICODE
+#وصف_ڪريو Peek_Console_داخلا Peek_Console_داخلا_W
+#وصف_ڪريو Read_Console_داخلا Read_Console_داخلا_W
+#وصف_ڪريو Write_Console_داخلا Write_Console_داخلا_W
+#وصف_ڪريو ReadConsoleOutput ReadConsoleOutputW
+#وصف_ڪريو WriteConsoleOutput WriteConsoleOutputW
+#وصف_ڪريو ReadConsoleOutputCharacter ReadConsoleOutputCharacterW
+#وصف_ڪريو WriteConsoleOutputCharacter WriteConsoleOutputCharacterW
+#وصف_ڪريو FillConsoleOutputCharacter FillConsoleOutputCharacterW
+#وصف_ڪريو Scroll_Console_Screen_بفر Scroll_Console_Screen_بفر_W
+#وصف_ڪريو GetConsoleTitle GetConsoleTitleW
+#وصف_ڪريو سيٽ_Console_Title سيٽ_Console_Title_W
+#وصف_ڪريو ReadConsole ReadConsoleW
+#وصف_ڪريو WriteConsole WriteConsoleW
+#وصف_ڪريو جوڙيو_Console_Alias جوڙيو_Console_Alias_W
+#وصف_ڪريو GetConsoleAlias GetConsoleAliasW
+#وصف_ڪريو Get_Console_Aliases_ڊيگهائي Get_Console_Aliases_ڊيگهائي_W
+#وصف_ڪريو Get_Console_Alias_Exes_ڊيگهائي Get_Console_Alias_Exes_ڊيگهائي_W
+#وصف_ڪريو GetConsoleAliases GetConsoleAliasesW
+#وصف_ڪريو GetConsoleAliasExes GetConsoleAliasExesW
+#وإلا
+#وصف_ڪريو Peek_Console_داخلا Peek_Console_داخلا_A
+#وصف_ڪريو Read_Console_داخلا Read_Console_داخلا_A
+#وصف_ڪريو Write_Console_داخلا Write_Console_داخلا_A
+#وصف_ڪريو ReadConsoleOutput ReadConsoleOutputA
+#وصف_ڪريو WriteConsoleOutput WriteConsoleOutputA
+#وصف_ڪريو ReadConsoleOutputCharacter ReadConsoleOutputCharacterA
+#وصف_ڪريو WriteConsoleOutputCharacter WriteConsoleOutputCharacterA
+#وصف_ڪريو FillConsoleOutputCharacter FillConsoleOutputCharacterA
+#وصف_ڪريو Scroll_Console_Screen_بفر Scroll_Console_Screen_بفر_A
+#وصف_ڪريو GetConsoleTitle GetConsoleTitleA
+#وصف_ڪريو سيٽ_Console_Title سيٽ_Console_Title_A
+#وصف_ڪريو ReadConsole ReadConsoleA
+#وصف_ڪريو WriteConsole WriteConsoleA
+#وصف_ڪريو جوڙيو_Console_Alias جوڙيو_Console_Alias_A
+#وصف_ڪريو GetConsoleAlias GetConsoleAliasA
+#وصف_ڪريو Get_Console_Aliases_ڊيگهائي Get_Console_Aliases_ڊيگهائي_A
+#وصف_ڪريو Get_Console_Alias_Exes_ڊيگهائي Get_Console_Alias_Exes_ڊيگهائي_A
+#وصف_ڪريو GetConsoleAliases GetConsoleAliasesA
+#وصف_ڪريو GetConsoleAliasExes GetConsoleAliasExesA
+#جيڪڏهن_پورو
 
-  WINBASEAPI WINBOOL WINAPI PeekConsoleInputA(HANDLE hConsoleInput,PINPUT_RECORD lpBuffer,DWORD nLength,LPDWORD lpNumberOfEventsRead);
-  WINBASEAPI WINBOOL WINAPI PeekConsoleInputW(HANDLE hConsoleInput,PINPUT_RECORD lpBuffer,DWORD nLength,LPDWORD lpNumberOfEventsRead);
-  WINBASEAPI WINBOOL WINAPI ReadConsoleInputA(HANDLE hConsoleInput,PINPUT_RECORD lpBuffer,DWORD nLength,LPDWORD lpNumberOfEventsRead);
-  WINBASEAPI WINBOOL WINAPI ReadConsoleInputW(HANDLE hConsoleInput,PINPUT_RECORD lpBuffer,DWORD nLength,LPDWORD lpNumberOfEventsRead);
-  WINBASEAPI WINBOOL WINAPI WriteConsoleInputA(HANDLE hConsoleInput,CONST INPUT_RECORD *lpBuffer,DWORD nLength,LPDWORD lpNumberOfEventsWritten);
-  WINBASEAPI WINBOOL WINAPI WriteConsoleInputW(HANDLE hConsoleInput,CONST INPUT_RECORD *lpBuffer,DWORD nLength,LPDWORD lpNumberOfEventsWritten);
-  WINBASEAPI WINBOOL WINAPI ReadConsoleOutputA(HANDLE hConsoleOutput,PCHAR_INFO lpBuffer,COORD dwBufferSize,COORD dwBufferCoord,PSMALL_RECT lpReadRegion);
-  WINBASEAPI WINBOOL WINAPI ReadConsoleOutputW(HANDLE hConsoleOutput,PCHAR_INFO lpBuffer,COORD dwBufferSize,COORD dwBufferCoord,PSMALL_RECT lpReadRegion);
-  WINBASEAPI WINBOOL WINAPI WriteConsoleOutputA(HANDLE hConsoleOutput,CONST CHAR_INFO *lpBuffer,COORD dwBufferSize,COORD dwBufferCoord,PSMALL_RECT lpWriteRegion);
-  WINBASEAPI WINBOOL WINAPI WriteConsoleOutputW(HANDLE hConsoleOutput,CONST CHAR_INFO *lpBuffer,COORD dwBufferSize,COORD dwBufferCoord,PSMALL_RECT lpWriteRegion);
-  WINBASEAPI WINBOOL WINAPI ReadConsoleOutputCharacterA(HANDLE hConsoleOutput,LPSTR lpCharacter,DWORD nLength,COORD dwReadCoord,LPDWORD lpNumberOfCharsRead);
-  WINBASEAPI WINBOOL WINAPI ReadConsoleOutputCharacterW(HANDLE hConsoleOutput,LPWSTR lpCharacter,DWORD nLength,COORD dwReadCoord,LPDWORD lpNumberOfCharsRead);
-  WINBASEAPI WINBOOL WINAPI ReadConsoleOutputAttribute(HANDLE hConsoleOutput,LPWORD lpAttribute,DWORD nLength,COORD dwReadCoord,LPDWORD lpNumberOfAttrsRead);
-  WINBASEAPI WINBOOL WINAPI WriteConsoleOutputCharacterA(HANDLE hConsoleOutput,LPCSTR lpCharacter,DWORD nLength,COORD dwWriteCoord,LPDWORD lpNumberOfCharsWritten);
-  WINBASEAPI WINBOOL WINAPI WriteConsoleOutputCharacterW(HANDLE hConsoleOutput,LPCWSTR lpCharacter,DWORD nLength,COORD dwWriteCoord,LPDWORD lpNumberOfCharsWritten);
-  WINBASEAPI WINBOOL WINAPI WriteConsoleOutputAttribute(HANDLE hConsoleOutput,CONST WORD *lpAttribute,DWORD nLength,COORD dwWriteCoord,LPDWORD lpNumberOfAttrsWritten);
-  WINBASEAPI WINBOOL WINAPI FillConsoleOutputCharacterA(HANDLE hConsoleOutput,CHAR cCharacter,DWORD nLength,COORD dwWriteCoord,LPDWORD lpNumberOfCharsWritten);
-  WINBASEAPI WINBOOL WINAPI FillConsoleOutputCharacterW(HANDLE hConsoleOutput,WCHAR cCharacter,DWORD nLength,COORD dwWriteCoord,LPDWORD lpNumberOfCharsWritten);
-  WINBASEAPI WINBOOL WINAPI FillConsoleOutputAttribute(HANDLE hConsoleOutput,WORD wAttribute,DWORD nLength,COORD dwWriteCoord,LPDWORD lpNumberOfAttrsWritten);
-  WINBASEAPI WINBOOL WINAPI GetConsoleMode(HANDLE hConsoleHandle,LPDWORD lpMode);
-  WINBASEAPI WINBOOL WINAPI GetNumberOfConsoleInputEvents(HANDLE hConsoleInput,LPDWORD lpNumberOfEvents);
-  WINBASEAPI WINBOOL WINAPI GetConsoleScreenBufferInfo(HANDLE hConsoleOutput,PCONSOLE_SCREEN_BUFFER_INFO lpConsoleScreenBufferInfo);
-  WINBASEAPI COORD WINAPI GetLargestConsoleWindowSize(HANDLE hConsoleOutput);
+  WINBASEAPI WINBOOL WINAPI Peek_Console_داخلا_A(HANDLE h_Console_داخلا,PINPUT_رڪارڊ lp_بفر,DWORD n_ڊيگهائي,LPDWORD lp_عدد_جو_Events_Read);
+  WINBASEAPI WINBOOL WINAPI Peek_Console_داخلا_W(HANDLE h_Console_داخلا,PINPUT_رڪارڊ lp_بفر,DWORD n_ڊيگهائي,LPDWORD lp_عدد_جو_Events_Read);
+  WINBASEAPI WINBOOL WINAPI Read_Console_داخلا_A(HANDLE h_Console_داخلا,PINPUT_رڪارڊ lp_بفر,DWORD n_ڊيگهائي,LPDWORD lp_عدد_جو_Events_Read);
+  WINBASEAPI WINBOOL WINAPI Read_Console_داخلا_W(HANDLE h_Console_داخلا,PINPUT_رڪارڊ lp_بفر,DWORD n_ڊيگهائي,LPDWORD lp_عدد_جو_Events_Read);
+  WINBASEAPI WINBOOL WINAPI Write_Console_داخلا_A(HANDLE h_Console_داخلا,CONST داخلا_رڪارڊ_2 *lp_بفر,DWORD n_ڊيگهائي,LPDWORD lp_عدد_جو_Events_Written);
+  WINBASEAPI WINBOOL WINAPI Write_Console_داخلا_W(HANDLE h_Console_داخلا,CONST داخلا_رڪارڊ_2 *lp_بفر,DWORD n_ڊيگهائي,LPDWORD lp_عدد_جو_Events_Written);
+  WINBASEAPI WINBOOL WINAPI ReadConsoleOutputA(HANDLE hConsoleOutput,PCHAR_INFO lp_بفر,COORD dw_بفر_سائيز,COORD dw_بفر_Coord,PSMALL_RECT lpReadRegion);
+  WINBASEAPI WINBOOL WINAPI ReadConsoleOutputW(HANDLE hConsoleOutput,PCHAR_INFO lp_بفر,COORD dw_بفر_سائيز,COORD dw_بفر_Coord,PSMALL_RECT lpReadRegion);
+  WINBASEAPI WINBOOL WINAPI WriteConsoleOutputA(HANDLE hConsoleOutput,CONST CHAR_INFO *lp_بفر,COORD dw_بفر_سائيز,COORD dw_بفر_Coord,PSMALL_RECT lpWriteRegion);
+  WINBASEAPI WINBOOL WINAPI WriteConsoleOutputW(HANDLE hConsoleOutput,CONST CHAR_INFO *lp_بفر,COORD dw_بفر_سائيز,COORD dw_بفر_Coord,PSMALL_RECT lpWriteRegion);
+  WINBASEAPI WINBOOL WINAPI ReadConsoleOutputCharacterA(HANDLE hConsoleOutput,LPSTR lpCharacter,DWORD n_ڊيگهائي,COORD dwReadCoord,LPDWORD lp_عدد_جو_Chars_Read);
+  WINBASEAPI WINBOOL WINAPI ReadConsoleOutputCharacterW(HANDLE hConsoleOutput,LPWSTR lpCharacter,DWORD n_ڊيگهائي,COORD dwReadCoord,LPDWORD lp_عدد_جو_Chars_Read);
+  WINBASEAPI WINBOOL WINAPI ReadConsoleOutputAttribute(HANDLE hConsoleOutput,LPWORD lpAttribute,DWORD n_ڊيگهائي,COORD dwReadCoord,LPDWORD lp_عدد_جو_Attrs_Read);
+  WINBASEAPI WINBOOL WINAPI WriteConsoleOutputCharacterA(HANDLE hConsoleOutput,LPCSTR lpCharacter,DWORD n_ڊيگهائي,COORD dwWriteCoord,LPDWORD lp_عدد_جو_Chars_Written);
+  WINBASEAPI WINBOOL WINAPI WriteConsoleOutputCharacterW(HANDLE hConsoleOutput,LPCWSTR lpCharacter,DWORD n_ڊيگهائي,COORD dwWriteCoord,LPDWORD lp_عدد_جو_Chars_Written);
+  WINBASEAPI WINBOOL WINAPI WriteConsoleOutputAttribute(HANDLE hConsoleOutput,CONST لفظ_3 *lpAttribute,DWORD n_ڊيگهائي,COORD dwWriteCoord,LPDWORD lp_عدد_جو_Attrs_Written);
+  WINBASEAPI WINBOOL WINAPI FillConsoleOutputCharacterA(HANDLE hConsoleOutput,CHAR cCharacter,DWORD n_ڊيگهائي,COORD dwWriteCoord,LPDWORD lp_عدد_جو_Chars_Written);
+  WINBASEAPI WINBOOL WINAPI FillConsoleOutputCharacterW(HANDLE hConsoleOutput,WCHAR cCharacter,DWORD n_ڊيگهائي,COORD dwWriteCoord,LPDWORD lp_عدد_جو_Chars_Written);
+  WINBASEAPI WINBOOL WINAPI FillConsoleOutputAttribute(HANDLE hConsoleOutput,لفظ_3 wAttribute,DWORD n_ڊيگهائي,COORD dwWriteCoord,LPDWORD lp_عدد_جو_Attrs_Written);
+  WINBASEAPI WINBOOL WINAPI Get_Console_گهڻائي(HANDLE hConsoleHandle,LPDWORD lp_گهڻائي);
+  WINBASEAPI WINBOOL WINAPI Get_عدد_جو_Console_داخلا_Events(HANDLE h_Console_داخلا,LPDWORD lp_عدد_جو_Events);
+  WINBASEAPI WINBOOL WINAPI Get_Console_Screen_بفر_Info(HANDLE hConsoleOutput,PCONSOLE_SCREEN_بفر_INFO lp_Console_Screen_بفر_Info);
+  WINBASEAPI COORD WINAPI Get_سڀ_کان_وڏو_Console_دري_سائيز(HANDLE hConsoleOutput);
   WINBASEAPI WINBOOL WINAPI GetConsoleCursorInfo(HANDLE hConsoleOutput,PCONSOLE_CURSOR_INFO lpConsoleCursorInfo);
-  WINBASEAPI WINBOOL WINAPI GetCurrentConsoleFont(HANDLE hConsoleOutput,WINBOOL bMaximumWindow,PCONSOLE_FONT_INFO lpConsoleCurrentFont);
-  WINBASEAPI COORD WINAPI GetConsoleFontSize(HANDLE hConsoleOutput,DWORD nFont);
+  WINBASEAPI WINBOOL WINAPI GetCurrentConsoleFont(HANDLE hConsoleOutput,WINBOOL b_وڌ_کان_وڌ_دري,PCONSOLE_FONT_INFO lpConsoleCurrentFont);
+  WINBASEAPI COORD WINAPI Get_Console_Font_سائيز(HANDLE hConsoleOutput,DWORD nFont);
   WINBASEAPI WINBOOL WINAPI GetConsoleSelectionInfo(PCONSOLE_SELECTION_INFO lpConsoleSelectionInfo);
-  WINBASEAPI WINBOOL WINAPI GetNumberOfConsoleMouseButtons(LPDWORD lpNumberOfMouseButtons);
-  WINBASEAPI WINBOOL WINAPI SetConsoleMode(HANDLE hConsoleHandle,DWORD dwMode);
-  WINBASEAPI WINBOOL WINAPI SetConsoleActiveScreenBuffer(HANDLE hConsoleOutput);
-  WINBASEAPI WINBOOL WINAPI FlushConsoleInputBuffer(HANDLE hConsoleInput);
-  WINBASEAPI WINBOOL WINAPI SetConsoleScreenBufferSize(HANDLE hConsoleOutput,COORD dwSize);
-  WINBASEAPI WINBOOL WINAPI SetConsoleCursorPosition(HANDLE hConsoleOutput,COORD dwCursorPosition);
-  WINBASEAPI WINBOOL WINAPI SetConsoleCursorInfo(HANDLE hConsoleOutput,CONST CONSOLE_CURSOR_INFO *lpConsoleCursorInfo);
-  WINBASEAPI WINBOOL WINAPI ScrollConsoleScreenBufferA(HANDLE hConsoleOutput,CONST SMALL_RECT *lpScrollRectangle,CONST SMALL_RECT *lpClipRectangle,COORD dwDestinationOrigin,CONST CHAR_INFO *lpFill);
-  WINBASEAPI WINBOOL WINAPI ScrollConsoleScreenBufferW(HANDLE hConsoleOutput,CONST SMALL_RECT *lpScrollRectangle,CONST SMALL_RECT *lpClipRectangle,COORD dwDestinationOrigin,CONST CHAR_INFO *lpFill);
-  WINBASEAPI WINBOOL WINAPI SetConsoleWindowInfo(HANDLE hConsoleOutput,WINBOOL bAbsolute,CONST SMALL_RECT *lpConsoleWindow);
-  WINBASEAPI WINBOOL WINAPI SetConsoleTextAttribute(HANDLE hConsoleOutput,WORD wAttributes);
-  WINBASEAPI WINBOOL WINAPI SetConsoleCtrlHandler(PHANDLER_ROUTINE HandlerRoutine,WINBOOL Add);
-  WINBASEAPI WINBOOL WINAPI GenerateConsoleCtrlEvent(DWORD dwCtrlEvent,DWORD dwProcessGroupId);
+  WINBASEAPI WINBOOL WINAPI Get_عدد_جو_Console_Mouse_Buttons(LPDWORD lp_عدد_جو_Mouse_Buttons);
+  WINBASEAPI WINBOOL WINAPI سيٽ_Console_گهڻائي(HANDLE hConsoleHandle,DWORD dw_گهڻائي);
+  WINBASEAPI WINBOOL WINAPI سيٽ_Console_سرگرم_Screen_بفر(HANDLE hConsoleOutput);
+  WINBASEAPI WINBOOL WINAPI Flush_Console_داخلا_بفر(HANDLE h_Console_داخلا);
+  WINBASEAPI WINBOOL WINAPI سيٽ_Console_Screen_بفر_سائيز(HANDLE hConsoleOutput,COORD dw_سائيز);
+  WINBASEAPI WINBOOL WINAPI سيٽ_Console_Cursor_Position(HANDLE hConsoleOutput,COORD dwCursorPosition);
+  WINBASEAPI WINBOOL WINAPI سيٽ_Console_Cursor_Info(HANDLE hConsoleOutput,CONST CONSOLE_CURSOR_INFO *lpConsoleCursorInfo);
+  WINBASEAPI WINBOOL WINAPI Scroll_Console_Screen_بفر_A(HANDLE hConsoleOutput,CONST SMALL_RECT *lpScrollRectangle,CONST SMALL_RECT *lpClipRectangle,COORD dwDestinationOrigin,CONST CHAR_INFO *lpFill);
+  WINBASEAPI WINBOOL WINAPI Scroll_Console_Screen_بفر_W(HANDLE hConsoleOutput,CONST SMALL_RECT *lpScrollRectangle,CONST SMALL_RECT *lpClipRectangle,COORD dwDestinationOrigin,CONST CHAR_INFO *lpFill);
+  WINBASEAPI WINBOOL WINAPI سيٽ_Console_دري_Info(HANDLE hConsoleOutput,WINBOOL bAbsolute,CONST SMALL_RECT *lp_Console_دري);
+  WINBASEAPI WINBOOL WINAPI سيٽ_Console_متن_Attribute(HANDLE hConsoleOutput,لفظ_3 w_خاصيتون);
+  WINBASEAPI WINBOOL WINAPI سيٽ_Console_Ctrl_Handler(PHANDLER_ROUTINE HandlerRoutine,WINBOOL جوڙيو_3);
+  WINBASEAPI WINBOOL WINAPI GenerateConsoleCtrlEvent(DWORD dwCtrlEvent,DWORD dw_Process_گروهه_Id);
   WINBASEAPI WINBOOL WINAPI AllocConsole(VOID);
   WINBASEAPI WINBOOL WINAPI FreeConsole(VOID);
   WINBASEAPI WINBOOL WINAPI AttachConsole(DWORD dwProcessId);
 
-#define ATTACH_PARENT_PROCESS ((DWORD)-1)
+#وصف_ڪريو ATTACH_والد_PROCESS ((DWORD)-1)
 
-  WINBASEAPI DWORD WINAPI GetConsoleTitleA(LPSTR lpConsoleTitle,DWORD nSize);
-  WINBASEAPI DWORD WINAPI GetConsoleTitleW(LPWSTR lpConsoleTitle,DWORD nSize);
-  WINBASEAPI WINBOOL WINAPI SetConsoleTitleA(LPCSTR lpConsoleTitle);
-  WINBASEAPI WINBOOL WINAPI SetConsoleTitleW(LPCWSTR lpConsoleTitle);
-  WINBASEAPI WINBOOL WINAPI ReadConsoleA(HANDLE hConsoleInput,LPVOID lpBuffer,DWORD nNumberOfCharsToRead,LPDWORD lpNumberOfCharsRead,LPVOID lpReserved);
-  WINBASEAPI WINBOOL WINAPI ReadConsoleW(HANDLE hConsoleInput,LPVOID lpBuffer,DWORD nNumberOfCharsToRead,LPDWORD lpNumberOfCharsRead,LPVOID lpReserved);
-  WINBASEAPI WINBOOL WINAPI WriteConsoleA(HANDLE hConsoleOutput,CONST VOID *lpBuffer,DWORD nNumberOfCharsToWrite,LPDWORD lpNumberOfCharsWritten,LPVOID lpReserved);
-  WINBASEAPI WINBOOL WINAPI WriteConsoleW(HANDLE hConsoleOutput,CONST VOID *lpBuffer,DWORD nNumberOfCharsToWrite,LPDWORD lpNumberOfCharsWritten,LPVOID lpReserved);
+  WINBASEAPI DWORD WINAPI GetConsoleTitleA(LPSTR lpConsoleTitle,DWORD n_سائيز);
+  WINBASEAPI DWORD WINAPI GetConsoleTitleW(LPWSTR lpConsoleTitle,DWORD n_سائيز);
+  WINBASEAPI WINBOOL WINAPI سيٽ_Console_Title_A(LPCSTR lpConsoleTitle);
+  WINBASEAPI WINBOOL WINAPI سيٽ_Console_Title_W(LPCWSTR lpConsoleTitle);
+  WINBASEAPI WINBOOL WINAPI ReadConsoleA(HANDLE h_Console_داخلا,LPVOID lp_بفر,DWORD n_عدد_جو_Chars_منزل_Read,LPDWORD lp_عدد_جو_Chars_Read,LPVOID lpReserved);
+  WINBASEAPI WINBOOL WINAPI ReadConsoleW(HANDLE h_Console_داخلا,LPVOID lp_بفر,DWORD n_عدد_جو_Chars_منزل_Read,LPDWORD lp_عدد_جو_Chars_Read,LPVOID lpReserved);
+  WINBASEAPI WINBOOL WINAPI WriteConsoleA(HANDLE hConsoleOutput,CONST VOID *lp_بفر,DWORD n_عدد_جو_Chars_منزل_Write,LPDWORD lp_عدد_جو_Chars_Written,LPVOID lpReserved);
+  WINBASEAPI WINBOOL WINAPI WriteConsoleW(HANDLE hConsoleOutput,CONST VOID *lp_بفر,DWORD n_عدد_جو_Chars_منزل_Write,LPDWORD lp_عدد_جو_Chars_Written,LPVOID lpReserved);
 
-#define CONSOLE_TEXTMODE_BUFFER 1
+#وصف_ڪريو CONSOLE_TEXTMODE_بفر 1
 
-  WINBASEAPI HANDLE WINAPI CreateConsoleScreenBuffer(DWORD dwDesiredAccess,DWORD dwShareMode,CONST SECURITY_ATTRIBUTES *lpSecurityAttributes,DWORD dwFlags,LPVOID lpScreenBufferData);
+  WINBASEAPI HANDLE WINAPI Create_Console_Screen_بفر(DWORD dwDesiredAccess,DWORD dw_Share_گهڻائي,CONST SECURITY_خاصيتون_2 *lp_Security_خاصيتون,DWORD dwFlags,LPVOID lp_Screen_بفر_معلومات);
   WINBASEAPI UINT WINAPI GetConsoleCP(VOID);
-  WINBASEAPI WINBOOL WINAPI SetConsoleCP(UINT wCodePageID);
+  WINBASEAPI WINBOOL WINAPI سيٽ_Console_CP(UINT w_ڪوڊ_صفحو_ID);
   WINBASEAPI UINT WINAPI GetConsoleOutputCP(VOID);
-  WINBASEAPI WINBOOL WINAPI SetConsoleOutputCP(UINT wCodePageID);
+  WINBASEAPI WINBOOL WINAPI سيٽ_Console_Output_CP(UINT w_ڪوڊ_صفحو_ID);
 
-#define CONSOLE_FULLSCREEN 1
-#define CONSOLE_FULLSCREEN_HARDWARE 2
+#وصف_ڪريو CONSOLE_FULLSCREEN 1
+#وصف_ڪريو CONSOLE_FULLSCREEN_HARDWARE 2
 
-  WINBASEAPI WINBOOL WINAPI GetConsoleDisplayMode(LPDWORD lpModeFlags);
-  WINBASEAPI HWND WINAPI GetConsoleWindow(VOID);
-  WINBASEAPI DWORD WINAPI GetConsoleProcessList(LPDWORD lpdwProcessList,DWORD dwProcessCount);
-  WINBASEAPI WINBOOL WINAPI AddConsoleAliasA(LPSTR Source,LPSTR Target,LPSTR ExeName);
-  WINBASEAPI WINBOOL WINAPI AddConsoleAliasW(LPWSTR Source,LPWSTR Target,LPWSTR ExeName);
-  WINBASEAPI DWORD WINAPI GetConsoleAliasA(LPSTR Source,LPSTR TargetBuffer,DWORD TargetBufferLength,LPSTR ExeName);
-  WINBASEAPI DWORD WINAPI GetConsoleAliasW(LPWSTR Source,LPWSTR TargetBuffer,DWORD TargetBufferLength,LPWSTR ExeName);
-  WINBASEAPI DWORD WINAPI GetConsoleAliasesLengthA(LPSTR ExeName);
-  WINBASEAPI DWORD WINAPI GetConsoleAliasesLengthW(LPWSTR ExeName);
-  WINBASEAPI DWORD WINAPI GetConsoleAliasExesLengthA(VOID);
-  WINBASEAPI DWORD WINAPI GetConsoleAliasExesLengthW(VOID);
-  WINBASEAPI DWORD WINAPI GetConsoleAliasesA(LPSTR AliasBuffer,DWORD AliasBufferLength,LPSTR ExeName);
-  WINBASEAPI DWORD WINAPI GetConsoleAliasesW(LPWSTR AliasBuffer,DWORD AliasBufferLength,LPWSTR ExeName);
-  WINBASEAPI DWORD WINAPI GetConsoleAliasExesA(LPSTR ExeNameBuffer,DWORD ExeNameBufferLength);
-  WINBASEAPI DWORD WINAPI GetConsoleAliasExesW(LPWSTR ExeNameBuffer,DWORD ExeNameBufferLength);
+  WINBASEAPI WINBOOL WINAPI Get_Console_Display_گهڻائي(LPDWORD lp_گهڻائي_Flags);
+  WINBASEAPI HWND WINAPI Get_Console_دري(VOID);
+  WINBASEAPI DWORD WINAPI GetConsoleProcessList(LPDWORD lpdwProcessList,DWORD dw_Process_ڳڻپ);
+  WINBASEAPI WINBOOL WINAPI جوڙيو_Console_Alias_A(LPSTR ذريعو_2,LPSTR هدف_2,LPSTR ExeName);
+  WINBASEAPI WINBOOL WINAPI جوڙيو_Console_Alias_W(LPWSTR ذريعو_2,LPWSTR هدف_2,LPWSTR ExeName);
+  WINBASEAPI DWORD WINAPI GetConsoleAliasA(LPSTR ذريعو_2,LPSTR هدف_بفر,DWORD هدف_بفر_ڊيگهائي,LPSTR ExeName);
+  WINBASEAPI DWORD WINAPI GetConsoleAliasW(LPWSTR ذريعو_2,LPWSTR هدف_بفر,DWORD هدف_بفر_ڊيگهائي,LPWSTR ExeName);
+  WINBASEAPI DWORD WINAPI Get_Console_Aliases_ڊيگهائي_A(LPSTR ExeName);
+  WINBASEAPI DWORD WINAPI Get_Console_Aliases_ڊيگهائي_W(LPWSTR ExeName);
+  WINBASEAPI DWORD WINAPI Get_Console_Alias_Exes_ڊيگهائي_A(VOID);
+  WINBASEAPI DWORD WINAPI Get_Console_Alias_Exes_ڊيگهائي_W(VOID);
+  WINBASEAPI DWORD WINAPI GetConsoleAliasesA(LPSTR Alias_بفر,DWORD Alias_بفر_ڊيگهائي,LPSTR ExeName);
+  WINBASEAPI DWORD WINAPI GetConsoleAliasesW(LPWSTR Alias_بفر,DWORD Alias_بفر_ڊيگهائي,LPWSTR ExeName);
+  WINBASEAPI DWORD WINAPI GetConsoleAliasExesA(LPSTR Exe_Name_بفر,DWORD Exe_Name_بفر_ڊيگهائي);
+  WINBASEAPI DWORD WINAPI GetConsoleAliasExesW(LPWSTR Exe_Name_بفر,DWORD Exe_Name_بفر_ڊيگهائي);
 
-#ifdef __cplusplus
+#جيڪڏهن_وصف_ٿيل __cplusplus
 }
-#endif
-#endif
+#جيڪڏهن_پورو
+#جيڪڏهن_پورو

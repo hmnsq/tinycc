@@ -1,28 +1,28 @@
-#include <stdio.h>
+#ضمن <stdio.h>
 
-int main()
+صحيح مکيه()
 {
-   int a;
-   int *b;
-   int *c;
+   صحيح a;
+   صحيح *b;
+   صحيح *c;
 
    a = 42;
    b = &a;
-   c = NULL;
+   c = عدم;
 
-   printf("%d\n", *b);
+   لکو("%d\n", *b);
 
-   if (b == NULL)
-      printf("b is NULL\n");
-   else
-      printf("b is not NULL\n");
+   إذا (b == عدم)
+      لکو("b is NULL\n");
+   وإلا
+      لکو("b is not NULL\n");
 
-   if (c == NULL)
-      printf("c is NULL\n");
-   else
-      printf("c is not NULL\n");
+   إذا (c == عدم)
+      لکو("c is NULL\n");
+   وإلا
+      لکو("c is not NULL\n");
 
-   return 0;
+   أرجع 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

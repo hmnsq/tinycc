@@ -3,89 +3,89 @@
  * This file is part of the w64 mingw-runtime package.
  * No warranty is given; refer to the file DISCLAIMER within this package.
  */
-#ifndef _INC_LOCALE
-#define _INC_LOCALE
+#جيڪڏهن_وصف_نه_ٿيل _INC_LOCALE
+#وصف_ڪريو _INC_LOCALE
 
-#include <_mingw.h>
+#ضمن <_mingw.h>
 
-#pragma pack(push,_CRT_PACKING)
+#هدايت pack(ڌڪو,_CRT_PACKING)
 
-#ifdef __cplusplus
-extern "C" {
-#endif
+#جيڪڏهن_وصف_ٿيل __cplusplus
+خارجي "C" {
+#جيڪڏهن_پورو
 
-#ifndef NULL
-#ifdef __cplusplus
-#define NULL 0
-#else
-#define NULL ((void *)0)
-#endif
-#endif
+#جيڪڏهن_وصف_نه_ٿيل عدم
+#جيڪڏهن_وصف_ٿيل __cplusplus
+#وصف_ڪريو عدم 0
+#وإلا
+#وصف_ڪريو عدم ((فراغ *)0)
+#جيڪڏهن_پورو
+#جيڪڏهن_پورو
 
-#define LC_ALL 0
-#define LC_COLLATE 1
-#define LC_CTYPE 2
-#define LC_MONETARY 3
-#define LC_NUMERIC 4
-#define LC_TIME 5
+#وصف_ڪريو LC_ALL 0
+#وصف_ڪريو LC_COLLATE 1
+#وصف_ڪريو LC_CTYPE 2
+#وصف_ڪريو LC_MONETARY 3
+#وصف_ڪريو LC_NUMERIC 4
+#وصف_ڪريو LC_وقت 5
 
-#define LC_MIN LC_ALL
-#define LC_MAX LC_TIME
+#وصف_ڪريو LC_MIN LC_ALL
+#وصف_ڪريو LC_MAX LC_وقت
 
-#ifndef _LCONV_DEFINED
-#define _LCONV_DEFINED
-  struct lconv {
-    char *decimal_point;
-    char *thousands_sep;
-    char *grouping;
-    char *int_curr_symbol;
-    char *currency_symbol;
-    char *mon_decimal_point;
-    char *mon_thousands_sep;
-    char *mon_grouping;
-    char *positive_sign;
-    char *negative_sign;
-    char int_frac_digits;
-    char frac_digits;
-    char p_cs_precedes;
-    char p_sep_by_space;
-    char n_cs_precedes;
-    char n_sep_by_space;
-    char p_sign_posn;
-    char n_sign_posn;
+#جيڪڏهن_وصف_نه_ٿيل _LCONV_DEFINED
+#وصف_ڪريو _LCONV_DEFINED
+  بنية lconv {
+    حرف *decimal_نقطو;
+    حرف *thousands_sep;
+    حرف *grouping;
+    حرف *int_curr_نشان;
+    حرف *currency_نشان;
+    حرف *mon_decimal_نقطو;
+    حرف *mon_thousands_sep;
+    حرف *mon_grouping;
+    حرف *مثبت_sign;
+    حرف *negative_sign;
+    حرف int_frac_digits;
+    حرف frac_digits;
+    حرف p_cs_precedes;
+    حرف p_sep_by_space;
+    حرف n_cs_precedes;
+    حرف n_sep_by_space;
+    حرف p_sign_posn;
+    حرف n_sign_posn;
   };
-#endif
+#جيڪڏهن_پورو
 
-#ifndef _CONFIG_LOCALE_SWT
-#define _CONFIG_LOCALE_SWT
+#جيڪڏهن_وصف_نه_ٿيل _CONFIG_LOCALE_SWT
+#وصف_ڪريو _CONFIG_LOCALE_SWT
 
-#define _ENABLE_PER_THREAD_LOCALE 0x1
-#define _DISABLE_PER_THREAD_LOCALE 0x2
-#define _ENABLE_PER_THREAD_LOCALE_GLOBAL 0x10
-#define _DISABLE_PER_THREAD_LOCALE_GLOBAL 0x20
-#define _ENABLE_PER_THREAD_LOCALE_NEW 0x100
-#define _DISABLE_PER_THREAD_LOCALE_NEW 0x200
+#وصف_ڪريو ENABLE_في_THREAD_LOCALE 0x1
+#وصف_ڪريو DISABLE_في_THREAD_LOCALE 0x2
+#وصف_ڪريو ENABLE_في_THREAD_LOCALE_GLOBAL 0x10
+#وصف_ڪريو DISABLE_في_THREAD_LOCALE_GLOBAL 0x20
+#وصف_ڪريو ENABLE_في_THREAD_LOCALE_NEW 0x100
+#وصف_ڪريو DISABLE_في_THREAD_LOCALE_NEW 0x200
 
-#endif
+#جيڪڏهن_پورو
 
-  int __cdecl _configthreadlocale(int _Flag);
-  char *__cdecl setlocale(int _Category,const char *_Locale);
-  _CRTIMP struct lconv *__cdecl localeconv(void);
-  _locale_t __cdecl _get_current_locale(void);
-  _locale_t __cdecl _create_locale(int _Category,const char *_Locale);
-  void __cdecl _free_locale(_locale_t _Locale);
-  _locale_t __cdecl __get_current_locale(void);
-  _locale_t __cdecl __create_locale(int _Category,const char *_Locale);
-  void __cdecl __free_locale(_locale_t _Locale);
+  صحيح __cdecl _configthreadlocale(صحيح _Flag);
+  حرف *__cdecl setlocale(صحيح _Category,ثابت حرف *_Locale);
+  _CRTIMP بنية lconv *__cdecl localeconv(فراغ);
+  _locale_t __cdecl _get_current_locale(فراغ);
+  _locale_t __cdecl _create_locale(صحيح _Category,ثابت حرف *_Locale);
+  فراغ __cdecl _free_locale(_locale_t _Locale);
+  _locale_t __cdecl __get_current_locale(فراغ);
+  _locale_t __cdecl __create_locale(صحيح _Category,ثابت حرف *_Locale);
+  فراغ __cdecl __free_locale(_locale_t _Locale);
 
-#ifndef _WLOCALE_DEFINED
-#define _WLOCALE_DEFINED
-  _CRTIMP wchar_t *__cdecl _wsetlocale(int _Category,const wchar_t *_Locale);
-#endif
+#جيڪڏهن_وصف_نه_ٿيل _WLOCALE_DEFINED
+#وصف_ڪريو _WLOCALE_DEFINED
+  _CRTIMP wchar_t *__cdecl _wsetlocale(صحيح _Category,ثابت wchar_t *_Locale);
+#جيڪڏهن_پورو
 
-#ifdef __cplusplus
+#جيڪڏهن_وصف_ٿيل __cplusplus
 }
-#endif
+#جيڪڏهن_پورو
 
-#pragma pack(pop)
-#endif
+#هدايت pack(ڪڍو)
+#جيڪڏهن_پورو

@@ -8,7 +8,7 @@
  *
  * unistd.h maps (roughly) to io.h
  */
-#ifndef __STRICT_ANSI__
-#include <io.h>
-#endif
+#جيڪڏهن_وصف_نه_ٿيل __STRICT_ANSI__
+#ضمن <io.h>
+#جيڪڏهن_پورو
 

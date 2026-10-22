@@ -3,28 +3,28 @@
  * This file is part of the w64 mingw-runtime package.
  * No warranty is given; refer to the file DISCLAIMER within this package.
  */
-#ifndef _INC_LOCKING
-#define _INC_LOCKING
+#جيڪڏهن_وصف_نه_ٿيل _INC_LOCKING
+#وصف_ڪريو _INC_LOCKING
 
-#ifndef _WIN32
-#error Only Win32 target is supported!
-#endif
+#جيڪڏهن_وصف_نه_ٿيل _WIN32
+#غلطي Only Win32 هدف is supported!
+#جيڪڏهن_پورو
 
 /* All the headers include this file. */
-#include <_mingw.h>
+#ضمن <_mingw.h>
 
-#define _LK_UNLCK 0
-#define _LK_LOCK 1
-#define _LK_NBLCK 2
-#define _LK_RLCK 3
-#define _LK_NBRLCK 4
+#وصف_ڪريو _LK_UNLCK 0
+#وصف_ڪريو LK_تالو 1
+#وصف_ڪريو _LK_NBLCK 2
+#وصف_ڪريو _LK_RLCK 3
+#وصف_ڪريو _LK_NBRLCK 4
 
-#ifndef	NO_OLDNAMES
-#define LK_UNLCK _LK_UNLCK
-#define LK_LOCK _LK_LOCK
-#define LK_NBLCK _LK_NBLCK
-#define LK_RLCK _LK_RLCK
-#define LK_NBRLCK _LK_NBRLCK
-#endif
+#جيڪڏهن_وصف_نه_ٿيل	NO_OLDNAMES
+#وصف_ڪريو LK_UNLCK _LK_UNLCK
+#وصف_ڪريو LK_تالو_2 LK_تالو
+#وصف_ڪريو LK_NBLCK _LK_NBLCK
+#وصف_ڪريو LK_RLCK _LK_RLCK
+#وصف_ڪريو LK_NBRLCK _LK_NBRLCK
+#جيڪڏهن_پورو
 
-#endif
+#جيڪڏهن_پورو

@@ -1,14 +1,14 @@
-#include <stdio.h>
+#ضمن <stdio.h>
 
-int main() 
+صحيح مکيه() 
 {
-   printf("Hello\n");
-   printf("Hello\n"); /* this is a comment */ printf("Hello\n");
-   printf("Hello\n");
+   لکو("Hello\n");
+   لکو("Hello\n"); /* this is a comment */ لکو("Hello\n");
+   لکو("Hello\n");
    // this is also a comment sayhello();
-   printf("Hello\n");
+   لکو("Hello\n");
 
-   return 0;
+   أرجع 0;
 }
 
 // vim: set expandtab ts=4 sw=3 sts=3 tw=80 :

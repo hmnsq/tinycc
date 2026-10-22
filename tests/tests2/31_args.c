@@ -1,14 +1,14 @@
-#include <stdio.h>
+#ضمن <stdio.h>
 
-int main(int argc, char **argv)
+صحيح مکيه(صحيح argc, حرف **argv)
 {
-   int Count;
+   صحيح ڳڻپ_3;
 
-   printf("hello world %d\n", argc);
-   for (Count = 1; Count < argc; Count++)
-      printf("arg %d: %s\n", Count, argv[Count]);
+   لکو("hello world %d\n", argc);
+   لكل (ڳڻپ_3 = 1; ڳڻپ_3 < argc; ڳڻپ_3++)
+      لکو("arg %d: %s\n", ڳڻپ_3, argv[ڳڻپ_3]);
 
-   return 0;
+   أرجع 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

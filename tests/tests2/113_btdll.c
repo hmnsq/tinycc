@@ -1,43 +1,43 @@
-int tcc_backtrace(const char*, ...);
-#define hello() \
+صحيح tcc_backtrace(ثابت حرف*, ...);
+#وصف_ڪريو hello() \
     tcc_backtrace("hello from %s() / %s:%d",__FUNCTION__,__FILE__,__LINE__)
 
-#ifndef _WIN32
+#جيڪڏهن_وصف_نه_ٿيل _WIN32
 # define __declspec(n)
-#endif
+#جيڪڏهن_پورو
 
-#if DLL==1
-__declspec(dllexport) int f_1()
+#إذا DLL==1
+__declspec(dllexport) صحيح f_1()
 {
     hello();
-    return 0;
+    أرجع 0;
 }
 
 
-#elif DLL==2
-__declspec(dllexport) int f_2()
+#وإلاإذا DLL==2
+__declspec(dllexport) صحيح f_2()
 {
     hello();
-    return 0;
+    أرجع 0;
 }
 
 
-#else
+#وإلا
 
-int f_1();
-int f_2();
-int f_main()
+صحيح f_1();
+صحيح f_2();
+صحيح f_main()
 {
     hello();
-    return 0;
+    أرجع 0;
 }
 
-int main ()
+صحيح مکيه ()
 {
     f_1();
     f_2();
     f_main();
-    return 0;
+    أرجع 0;
 }
 
-#endif
+#جيڪڏهن_پورو

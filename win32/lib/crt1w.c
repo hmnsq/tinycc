@@ -1,3 +1,3 @@
-#define _UNICODE 1
-#define UNICODE 1
-#include "crt1.c"
+#وصف_ڪريو _UNICODE 1
+#وصف_ڪريو UNICODE 1
+#ضمن "crt1.c"

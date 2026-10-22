@@ -1,42 +1,42 @@
-#include <stdio.h>
+#ضمن <stdio.h>
 
-#if (defined _WIN32 || defined __APPLE__) && (!defined __TINYC__ || defined __leading_underscore)
+#إذا (defined _WIN32 || defined __APPLE__) && (!defined __TINYC__ || defined __leading_underscore)
 # define _ "_"
-#else
+#وإلا
 # define _
-#endif
+#جيڪڏهن_پورو
 
-#ifdef __clang__
+#جيڪڏهن_وصف_ٿيل __clang__
 /* clang needs some help tp not throw functions away even at -O0 */
-#define __USED __attribute__((__used__))
-#else
-#define __USED
-#endif
+#وصف_ڪريو __USED __attribute__((__used__))
+#وإلا
+#وصف_ڪريو __USED
+#جيڪڏهن_پورو
 
-static int __USED x1_c (void)
+ساكن صحيح __USED x1_c (فراغ)
 {
-    printf(" x1");
-    return 1;
+    لکو(" x1");
+    أرجع 1;
 }
 
-#if __i386__
+#إذا __i386__
 asm(".text;"_"x1: call "_"x1_c; ret");
-#else
+#وإلا
 /* Keep stack aligned */
 asm(".text;"_"x1: sub $8,%rsp; call "_"x1_c; add $8,%rsp; ret");
-#endif
+#جيڪڏهن_پورو
 
-void callx4(void);
-void callx5_again(void);
+فراغ callx4(فراغ);
+فراغ callx5_again(فراغ);
 
-void x6()
+فراغ x6()
 {
-    printf(" x6-1");
+    لکو(" x6-1");
 }
 
-int main(int argc, char *argv[])
+صحيح مکيه(صحيح argc, حرف *argv[])
 {
-    printf("*");
+    لکو("*");
     asm("call "_"x1");
     asm("call "_"x2");
     asm("call "_"x3");
@@ -44,26 +44,26 @@ int main(int argc, char *argv[])
     asm("call "_"x5");
     callx5_again();
     x6();
-    printf(" *\n");
-    return 0;
+    لکو(" *\n");
+    أرجع 0;
 }
 
-static
-int __USED x2(void)
+ساكن
+صحيح __USED x2(فراغ)
 {
-    printf(" x2");
-    return 2;
+    لکو(" x2");
+    أرجع 2;
 }
 
-extern int x3(void);
+خارجي صحيح x3(فراغ);
 
-void x4(void)
+فراغ x4(فراغ)
 {
-    printf(" x4");
+    لکو(" x4");
 }
 
-void x5(void);
-void x5(void)
+فراغ x5(فراغ);
+فراغ x5(فراغ)
 {
-    printf(" x5");
+    لکو(" x5");
 }

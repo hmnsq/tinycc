@@ -3,1100 +3,1100 @@
  * This file is part of the w64 mingw-runtime package.
  * No warranty is given; refer to the file DISCLAIMER within this package.
  */
-#include <_mingw.h>
+#ضمن <_mingw.h>
 
-#ifndef _INC_TCHAR
-#define _INC_TCHAR
+#جيڪڏهن_وصف_نه_ٿيل _INC_TCHAR
+#وصف_ڪريو _INC_TCHAR
 
-#ifdef _STRSAFE_H_INCLUDED_
-#error Need to include strsafe.h after tchar.h
-#endif
+#جيڪڏهن_وصف_ٿيل _STRSAFE_H_INCLUDED_
+#غلطي Need منزل include strsafe.h after tchar.h
+#جيڪڏهن_پورو
 
-#ifdef __cplusplus
-extern "C" {
-#endif
+#جيڪڏهن_وصف_ٿيل __cplusplus
+خارجي "C" {
+#جيڪڏهن_پورو
 
-#define _ftcscat _tcscat
-#define _ftcschr _tcschr
-#define _ftcscpy _tcscpy
-#define _ftcscspn _tcscspn
-#define _ftcslen _tcslen
-#define _ftcsncat _tcsncat
-#define _ftcsncpy _tcsncpy
-#define _ftcspbrk _tcspbrk
-#define _ftcsrchr _tcsrchr
-#define _ftcsspn _tcsspn
-#define _ftcsstr _tcsstr
-#define _ftcstok _tcstok
+#وصف_ڪريو _ftcscat _tcscat
+#وصف_ڪريو _ftcschr _tcschr
+#وصف_ڪريو _ftcscpy _tcscpy
+#وصف_ڪريو _ftcscspn _tcscspn
+#وصف_ڪريو _ftcslen _tcslen
+#وصف_ڪريو _ftcsncat _tcsncat
+#وصف_ڪريو _ftcsncpy _tcsncpy
+#وصف_ڪريو _ftcspbrk _tcspbrk
+#وصف_ڪريو _ftcsrchr _tcsrchr
+#وصف_ڪريو _ftcsspn _tcsspn
+#وصف_ڪريو _ftcsstr _tcsstr
+#وصف_ڪريو _ftcstok _tcstok
 
-#define _ftcsdup _tcsdup
-#define _ftcsnset _tcsnset
-#define _ftcsrev _tcsrev
-#define _ftcsset _tcsset
+#وصف_ڪريو _ftcsdup _tcsdup
+#وصف_ڪريو _ftcsnset _tcsnset
+#وصف_ڪريو _ftcsrev _tcsrev
+#وصف_ڪريو _ftcsset _tcsset
 
-#define _ftcscmp _tcscmp
-#define _ftcsicmp _tcsicmp
-#define _ftcsnccmp _tcsnccmp
-#define _ftcsncmp _tcsncmp
-#define _ftcsncicmp _tcsncicmp
-#define _ftcsnicmp _tcsnicmp
+#وصف_ڪريو _ftcscmp _tcscmp
+#وصف_ڪريو _ftcsicmp _tcsicmp
+#وصف_ڪريو _ftcsnccmp _tcsnccmp
+#وصف_ڪريو _ftcsncmp _tcsncmp
+#وصف_ڪريو _ftcsncicmp _tcsncicmp
+#وصف_ڪريو _ftcsnicmp _tcsnicmp
 
-#define _ftcscoll _tcscoll
-#define _ftcsicoll _tcsicoll
-#define _ftcsnccoll _tcsnccoll
-#define _ftcsncoll _tcsncoll
-#define _ftcsncicoll _tcsncicoll
-#define _ftcsnicoll _tcsnicoll
+#وصف_ڪريو _ftcscoll _tcscoll
+#وصف_ڪريو _ftcsicoll _tcsicoll
+#وصف_ڪريو _ftcsnccoll _tcsnccoll
+#وصف_ڪريو _ftcsncoll _tcsncoll
+#وصف_ڪريو _ftcsncicoll _tcsncicoll
+#وصف_ڪريو _ftcsnicoll _tcsnicoll
 
-#define _ftcsclen _tcsclen
-#define _ftcsnccat _tcsnccat
-#define _ftcsnccpy _tcsnccpy
-#define _ftcsncset _tcsncset
+#وصف_ڪريو _ftcsclen _tcsclen
+#وصف_ڪريو _ftcsnccat _tcsnccat
+#وصف_ڪريو _ftcsnccpy _tcsnccpy
+#وصف_ڪريو _ftcsncset _tcsncset
 
-#define _ftcsdec _tcsdec
-#define _ftcsinc _tcsinc
-#define _ftcsnbcnt _tcsnbcnt
-#define _ftcsnccnt _tcsnccnt
-#define _ftcsnextc _tcsnextc
-#define _ftcsninc _tcsninc
-#define _ftcsspnp _tcsspnp
+#وصف_ڪريو _ftcsdec _tcsdec
+#وصف_ڪريو _ftcsinc _tcsinc
+#وصف_ڪريو _ftcsnbcnt _tcsnbcnt
+#وصف_ڪريو _ftcsnccnt _tcsnccnt
+#وصف_ڪريو _ftcsnextc _tcsnextc
+#وصف_ڪريو _ftcsninc _tcsninc
+#وصف_ڪريو _ftcsspnp _tcsspnp
 
-#define _ftcslwr _tcslwr
-#define _ftcsupr _tcsupr
+#وصف_ڪريو _ftcslwr _tcslwr
+#وصف_ڪريو _ftcsupr _tcsupr
 
-#define _ftclen _tclen
-#define _ftccpy _tccpy
-#define _ftccmp _tccmp
+#وصف_ڪريو _ftclen _tclen
+#وصف_ڪريو _ftccpy _tccpy
+#وصف_ڪريو _ftccmp _tccmp
 
-#ifndef _CONST_RETURN
-#ifdef __cplusplus
-#define _CONST_RETURN const
-#define _CRT_CONST_CORRECT_OVERLOADS
-#else
-#define _CONST_RETURN
-#endif
-#endif
+#جيڪڏهن_وصف_نه_ٿيل _CONST_RETURN
+#جيڪڏهن_وصف_ٿيل __cplusplus
+#وصف_ڪريو _CONST_RETURN ثابت
+#وصف_ڪريو _CRT_CONST_CORRECT_OVERLOADS
+#وإلا
+#وصف_ڪريو _CONST_RETURN
+#جيڪڏهن_پورو
+#جيڪڏهن_پورو
 
-#define _WConst_return _CONST_RETURN
+#وصف_ڪريو _WConst_return _CONST_RETURN
 
-#ifdef _UNICODE
+#جيڪڏهن_وصف_ٿيل _UNICODE
 
-#ifdef __cplusplus
+#جيڪڏهن_وصف_ٿيل __cplusplus
 }
-#endif
+#جيڪڏهن_پورو
 
-#include <wchar.h>
+#ضمن <wchar.h>
 
-#ifdef __cplusplus
-extern "C" {
-#endif
+#جيڪڏهن_وصف_ٿيل __cplusplus
+خارجي "C" {
+#جيڪڏهن_پورو
 
-#ifndef _WCTYPE_T_DEFINED
-#define _WCTYPE_T_DEFINED
-  typedef unsigned short wint_t;
-  typedef unsigned short wctype_t;
-#endif
+#جيڪڏهن_وصف_نه_ٿيل _WCTYPE_T_DEFINED
+#وصف_ڪريو _WCTYPE_T_DEFINED
+  تعريفنوع بنانشان ننڍو wint_t;
+  تعريفنوع بنانشان ننڍو wctype_t;
+#جيڪڏهن_پورو
 
-#ifndef __TCHAR_DEFINED
-#define __TCHAR_DEFINED
-  typedef wchar_t _TCHAR;
-  typedef wchar_t _TSCHAR;
-  typedef wchar_t _TUCHAR;
-  typedef wchar_t _TXCHAR;
-  typedef wint_t _TINT;
-#endif
+#جيڪڏهن_وصف_نه_ٿيل __TCHAR_DEFINED
+#وصف_ڪريو __TCHAR_DEFINED
+  تعريفنوع wchar_t _TCHAR;
+  تعريفنوع wchar_t _TSCHAR;
+  تعريفنوع wchar_t _TUCHAR;
+  تعريفنوع wchar_t _TXCHAR;
+  تعريفنوع wint_t _TINT;
+#جيڪڏهن_پورو
 
-#ifndef _TCHAR_DEFINED
-#define _TCHAR_DEFINED
-#ifndef	NO_OLDNAMES
-  typedef wchar_t TCHAR;
-#endif
-#endif
+#جيڪڏهن_وصف_نه_ٿيل _TCHAR_DEFINED
+#وصف_ڪريو _TCHAR_DEFINED
+#جيڪڏهن_وصف_نه_ٿيل	NO_OLDNAMES
+  تعريفنوع wchar_t TCHAR;
+#جيڪڏهن_پورو
+#جيڪڏهن_پورو
 
-#define _TEOF WEOF
+#وصف_ڪريو _TEOF WEOF
 
-#define __T(x) L##x
+#وصف_ڪريو __T(x) L##x
 
-#define _tmain wmain
-#define _tWinMain wWinMain
-#define _tenviron _wenviron
-#define __targv __wargv
+#وصف_ڪريو _tmain wmain
+#وصف_ڪريو _tWinMain wWinMain
+#وصف_ڪريو _tenviron _wenviron
+#وصف_ڪريو __targv __wargv
 
-#define _tprintf wprintf
-#define _tprintf_l _wprintf_l
-#define _tprintf_p _wprintf_p
-#define _tprintf_p_l _wprintf_p_l
-#define _tcprintf _cwprintf
-#define _tcprintf_l _cwprintf_l
-#define _tcprintf_p _cwprintf_p
-#define _tcprintf_p_l _cwprintf_p_l
-#define _vtcprintf _vcwprintf
-#define _vtcprintf_l _vcwprintf_l
-#define _vtcprintf_p _vcwprintf_p
-#define _vtcprintf_p_l _vcwprintf_p_l
-#define _ftprintf fwprintf
-#define _ftprintf_l _fwprintf_l
-#define _ftprintf_p _fwprintf_p
-#define _ftprintf_p_l _fwprintf_p_l
-#define _stprintf swprintf
-#define _stprintf_l __swprintf_l
-#define _stprintf_p _swprintf_p
-#define _stprintf_p_l _swprintf_p_l
-#define _sctprintf _scwprintf
-#define _sctprintf_l _scwprintf_l
-#define _sctprintf_p _scwprintf_p
-#define _sctprintf_p_l _scwprintf_p_l
-#define _sntprintf _snwprintf
-#define _sntprintf_l _snwprintf_l
-#define _vtprintf vwprintf
-#define _vtprintf_l _vwprintf_l
-#define _vtprintf_p _vwprintf_p
-#define _vtprintf_p_l _vwprintf_p_l
-#define _vftprintf vfwprintf
-#define _vftprintf_l _vfwprintf_l
-#define _vftprintf_p _vfwprintf_p
-#define _vftprintf_p_l _vfwprintf_p_l
-#define _vstprintf vswprintf
-#define _vstprintf_l _vswprintf_l
-#define _vstprintf_p _vswprintf_p
-#define _vstprintf_p_l _vswprintf_p_l
-#define _vsctprintf _vscwprintf
-#define _vsctprintf_l _vscwprintf_l
-#define _vsctprintf_p _vscwprintf_p
-#define _vsctprintf_p_l _vscwprintf_p_l
-#define _vsntprintf _vsnwprintf
-#define _vsntprintf_l _vsnwprintf_l
+#وصف_ڪريو _tprintf wprintf
+#وصف_ڪريو _tprintf_l _wprintf_l
+#وصف_ڪريو _tprintf_p _wprintf_p
+#وصف_ڪريو _tprintf_p_l _wprintf_p_l
+#وصف_ڪريو _tcprintf _cwprintf
+#وصف_ڪريو _tcprintf_l _cwprintf_l
+#وصف_ڪريو _tcprintf_p _cwprintf_p
+#وصف_ڪريو _tcprintf_p_l _cwprintf_p_l
+#وصف_ڪريو _vtcprintf _vcwprintf
+#وصف_ڪريو _vtcprintf_l _vcwprintf_l
+#وصف_ڪريو _vtcprintf_p _vcwprintf_p
+#وصف_ڪريو _vtcprintf_p_l _vcwprintf_p_l
+#وصف_ڪريو _ftprintf fwprintf
+#وصف_ڪريو _ftprintf_l _fwprintf_l
+#وصف_ڪريو _ftprintf_p _fwprintf_p
+#وصف_ڪريو _ftprintf_p_l _fwprintf_p_l
+#وصف_ڪريو _stprintf swprintf
+#وصف_ڪريو _stprintf_l __swprintf_l
+#وصف_ڪريو _stprintf_p _swprintf_p
+#وصف_ڪريو _stprintf_p_l _swprintf_p_l
+#وصف_ڪريو _sctprintf _scwprintf
+#وصف_ڪريو _sctprintf_l _scwprintf_l
+#وصف_ڪريو _sctprintf_p _scwprintf_p
+#وصف_ڪريو _sctprintf_p_l _scwprintf_p_l
+#وصف_ڪريو _sntprintf _snwprintf
+#وصف_ڪريو _sntprintf_l _snwprintf_l
+#وصف_ڪريو _vtprintf vwprintf
+#وصف_ڪريو _vtprintf_l _vwprintf_l
+#وصف_ڪريو _vtprintf_p _vwprintf_p
+#وصف_ڪريو _vtprintf_p_l _vwprintf_p_l
+#وصف_ڪريو _vftprintf vfwprintf
+#وصف_ڪريو _vftprintf_l _vfwprintf_l
+#وصف_ڪريو _vftprintf_p _vfwprintf_p
+#وصف_ڪريو _vftprintf_p_l _vfwprintf_p_l
+#وصف_ڪريو _vstprintf vswprintf
+#وصف_ڪريو _vstprintf_l _vswprintf_l
+#وصف_ڪريو _vstprintf_p _vswprintf_p
+#وصف_ڪريو _vstprintf_p_l _vswprintf_p_l
+#وصف_ڪريو _vsctprintf _vscwprintf
+#وصف_ڪريو _vsctprintf_l _vscwprintf_l
+#وصف_ڪريو _vsctprintf_p _vscwprintf_p
+#وصف_ڪريو _vsctprintf_p_l _vscwprintf_p_l
+#وصف_ڪريو _vsntprintf _vsnwprintf
+#وصف_ڪريو _vsntprintf_l _vsnwprintf_l
 
-#define _tscanf wscanf
-#define _tscanf_l _wscanf_l
-#define _tcscanf _cwscanf
-#define _tcscanf_l _cwscanf_l
-#define _ftscanf fwscanf
-#define _ftscanf_l _fwscanf_l
-#define _stscanf swscanf
-#define _stscanf_l _swscanf_l
-#define _sntscanf _snwscanf
-#define _sntscanf_l _snwscanf_l
+#وصف_ڪريو _tscanf wscanf
+#وصف_ڪريو _tscanf_l _wscanf_l
+#وصف_ڪريو _tcscanf _cwscanf
+#وصف_ڪريو _tcscanf_l _cwscanf_l
+#وصف_ڪريو _ftscanf fwscanf
+#وصف_ڪريو _ftscanf_l _fwscanf_l
+#وصف_ڪريو _stscanf swscanf
+#وصف_ڪريو _stscanf_l _swscanf_l
+#وصف_ڪريو _sntscanf _snwscanf
+#وصف_ڪريو _sntscanf_l _snwscanf_l
 
-#define _fgettc fgetwc
-#define _fgettc_nolock _fgetwc_nolock
-#define _fgettchar _fgetwchar
-#define _fgetts fgetws
-#define _fputtc fputwc
-#define _fputtc_nolock _fputwc_nolock
-#define _fputtchar _fputwchar
-#define _fputts fputws
-#define _cputts _cputws
-#define _cgetts _cgetws
-#define _gettc getwc
-#define _gettc_nolock _getwc_nolock
-#define _gettch _getwch
-#define _gettch_nolock _getwch_nolock
-#define _gettche _getwche
-#define _gettche_nolock _getwche_nolock
-#define _gettchar getwchar
-#define _gettchar_nolock _getwchar_nolock
-#define _getts _getws
-#define _puttc putwc
-#define _puttc_nolock _putwc_nolock
-#define _puttchar putwchar
-#define _puttchar_nolock _putwchar_nolock
-#define _puttch _putwch
-#define _puttch_nolock _putwch_nolock
-#define _putts _putws
-#define _ungettc ungetwc
-#define _ungettc_nolock _ungetwc_nolock
-#define _ungettch _ungetwch
-#define _ungettch_nolock _ungetwch_nolock
+#وصف_ڪريو _fgettc fgetwc
+#وصف_ڪريو _fgettc_nolock _fgetwc_nolock
+#وصف_ڪريو _fgettchar _fgetwchar
+#وصف_ڪريو _fgetts fgetws
+#وصف_ڪريو _fputtc fputwc
+#وصف_ڪريو _fputtc_nolock _fputwc_nolock
+#وصف_ڪريو _fputtchar _fputwchar
+#وصف_ڪريو _fputts fputws
+#وصف_ڪريو _cputts _cputws
+#وصف_ڪريو _cgetts _cgetws
+#وصف_ڪريو _gettc getwc
+#وصف_ڪريو _gettc_nolock _getwc_nolock
+#وصف_ڪريو _gettch _getwch
+#وصف_ڪريو _gettch_nolock _getwch_nolock
+#وصف_ڪريو _gettche _getwche
+#وصف_ڪريو _gettche_nolock _getwche_nolock
+#وصف_ڪريو _gettchar getwchar
+#وصف_ڪريو _gettchar_nolock _getwchar_nolock
+#وصف_ڪريو _getts _getws
+#وصف_ڪريو _puttc putwc
+#وصف_ڪريو _puttc_nolock _putwc_nolock
+#وصف_ڪريو _puttchar putwchar
+#وصف_ڪريو _puttchar_nolock _putwchar_nolock
+#وصف_ڪريو _puttch _putwch
+#وصف_ڪريو _puttch_nolock _putwch_nolock
+#وصف_ڪريو _putts _putws
+#وصف_ڪريو _ungettc ungetwc
+#وصف_ڪريو _ungettc_nolock _ungetwc_nolock
+#وصف_ڪريو _ungettch _ungetwch
+#وصف_ڪريو _ungettch_nolock _ungetwch_nolock
 
-#define _tcstod wcstod
-#define _tcstol wcstol
-#define _tcstoul wcstoul
-#define _tcstoi64 _wcstoi64
-#define _tcstoui64 _wcstoui64
-#define _tstof _wtof
-#define _tstol _wtol
-#define _tstoi _wtoi
-#define _tstoi64 _wtoi64
-#define _tcstod_l _wcstod_l
-#define _tcstol_l _wcstol_l
-#define _tcstoul_l _wcstoul_l
-#define _tcstoi64_l _wcstoi64_l
-#define _tcstoui64_l _wcstoui64_l
-#define _tstof_l _wtof_l
-#define _tstol_l _wtol_l
-#define _tstoi_l _wtoi_l
-#define _tstoi64_l _wtoi64_l
+#وصف_ڪريو _tcstod wcstod
+#وصف_ڪريو _tcstol wcstol
+#وصف_ڪريو _tcstoul wcstoul
+#وصف_ڪريو _tcstoi64 _wcstoi64
+#وصف_ڪريو _tcstoui64 _wcstoui64
+#وصف_ڪريو _tstof _wtof
+#وصف_ڪريو _tstol _wtol
+#وصف_ڪريو _tstoi _wtoi
+#وصف_ڪريو _tstoi64 _wtoi64
+#وصف_ڪريو _tcstod_l _wcstod_l
+#وصف_ڪريو _tcstol_l _wcstol_l
+#وصف_ڪريو _tcstoul_l _wcstoul_l
+#وصف_ڪريو _tcstoi64_l _wcstoi64_l
+#وصف_ڪريو _tcstoui64_l _wcstoui64_l
+#وصف_ڪريو _tstof_l _wtof_l
+#وصف_ڪريو _tstol_l _wtol_l
+#وصف_ڪريو _tstoi_l _wtoi_l
+#وصف_ڪريو _tstoi64_l _wtoi64_l
 
-#define _itot _itow
-#define _ltot _ltow
-#define _ultot _ultow
-#define _ttoi _wtoi
-#define _ttol _wtol
+#وصف_ڪريو _itot _itow
+#وصف_ڪريو _ltot _ltow
+#وصف_ڪريو _ultot _ultow
+#وصف_ڪريو _ttoi _wtoi
+#وصف_ڪريو _ttol _wtol
 
-#define _ttoi64 _wtoi64
-#define _i64tot _i64tow
-#define _ui64tot _ui64tow
+#وصف_ڪريو _ttoi64 _wtoi64
+#وصف_ڪريو _i64tot _i64tow
+#وصف_ڪريو _ui64tot _ui64tow
 
-#define _tcscat wcscat
-#define _tcschr wcschr
-#define _tcscpy wcscpy
-#define _tcscspn wcscspn
-#define _tcslen wcslen
-#define _tcsnlen wcsnlen
-#define _tcsncat wcsncat
-#define _tcsncat_l _wcsncat_l
-#define _tcsncpy wcsncpy
-#define _tcsncpy_l _wcsncpy_l
-#define _tcspbrk wcspbrk
-#define _tcsrchr wcsrchr
-#define _tcsspn wcsspn
-#define _tcsstr wcsstr
-#define _tcstok wcstok
-#define _tcstok_l _wcstok_l
-#define _tcserror _wcserror
-#define __tcserror __wcserror
+#وصف_ڪريو _tcscat wcscat
+#وصف_ڪريو _tcschr wcschr
+#وصف_ڪريو _tcscpy wcscpy
+#وصف_ڪريو _tcscspn wcscspn
+#وصف_ڪريو _tcslen wcslen
+#وصف_ڪريو _tcsnlen wcsnlen
+#وصف_ڪريو _tcsncat wcsncat
+#وصف_ڪريو _tcsncat_l _wcsncat_l
+#وصف_ڪريو _tcsncpy wcsncpy
+#وصف_ڪريو _tcsncpy_l _wcsncpy_l
+#وصف_ڪريو _tcspbrk wcspbrk
+#وصف_ڪريو _tcsrchr wcsrchr
+#وصف_ڪريو _tcsspn wcsspn
+#وصف_ڪريو _tcsstr wcsstr
+#وصف_ڪريو _tcstok wcstok
+#وصف_ڪريو _tcstok_l _wcstok_l
+#وصف_ڪريو _tcserror _wcserror
+#وصف_ڪريو __tcserror __wcserror
 
-#define _tcsdup _wcsdup
-#define _tcsnset _wcsnset
-#define _tcsnset_l _wcsnset_l
-#define _tcsrev _wcsrev
-#define _tcsset _wcsset
-#define _tcsset_l _wcsset_l
+#وصف_ڪريو _tcsdup _wcsdup
+#وصف_ڪريو _tcsnset _wcsnset
+#وصف_ڪريو _tcsnset_l _wcsnset_l
+#وصف_ڪريو _tcsrev _wcsrev
+#وصف_ڪريو _tcsset _wcsset
+#وصف_ڪريو _tcsset_l _wcsset_l
 
-#define _tcscmp wcscmp
-#define _tcsicmp _wcsicmp
-#define _tcsicmp_l _wcsicmp_l
-#define _tcsnccmp wcsncmp
-#define _tcsncmp wcsncmp
-#define _tcsncicmp _wcsnicmp
-#define _tcsncicmp_l _wcsnicmp_l
-#define _tcsnicmp _wcsnicmp
-#define _tcsnicmp_l _wcsnicmp_l
+#وصف_ڪريو _tcscmp wcscmp
+#وصف_ڪريو _tcsicmp _wcsicmp
+#وصف_ڪريو _tcsicmp_l _wcsicmp_l
+#وصف_ڪريو _tcsnccmp wcsncmp
+#وصف_ڪريو _tcsncmp wcsncmp
+#وصف_ڪريو _tcsncicmp _wcsnicmp
+#وصف_ڪريو _tcsncicmp_l _wcsnicmp_l
+#وصف_ڪريو _tcsnicmp _wcsnicmp
+#وصف_ڪريو _tcsnicmp_l _wcsnicmp_l
 
-#define _tcscoll wcscoll
-#define _tcscoll_l _wcscoll_l
-#define _tcsicoll _wcsicoll
-#define _tcsicoll_l _wcsicoll_l
-#define _tcsnccoll _wcsncoll
-#define _tcsnccoll_l _wcsncoll_l
-#define _tcsncoll _wcsncoll
-#define _tcsncoll_l _wcsncoll_l
-#define _tcsncicoll _wcsnicoll
-#define _tcsncicoll_l _wcsnicoll_l
-#define _tcsnicoll _wcsnicoll
-#define _tcsnicoll_l _wcsnicoll_l
+#وصف_ڪريو _tcscoll wcscoll
+#وصف_ڪريو _tcscoll_l _wcscoll_l
+#وصف_ڪريو _tcsicoll _wcsicoll
+#وصف_ڪريو _tcsicoll_l _wcsicoll_l
+#وصف_ڪريو _tcsnccoll _wcsncoll
+#وصف_ڪريو _tcsnccoll_l _wcsncoll_l
+#وصف_ڪريو _tcsncoll _wcsncoll
+#وصف_ڪريو _tcsncoll_l _wcsncoll_l
+#وصف_ڪريو _tcsncicoll _wcsnicoll
+#وصف_ڪريو _tcsncicoll_l _wcsnicoll_l
+#وصف_ڪريو _tcsnicoll _wcsnicoll
+#وصف_ڪريو _tcsnicoll_l _wcsnicoll_l
 
-#define _texecl _wexecl
-#define _texecle _wexecle
-#define _texeclp _wexeclp
-#define _texeclpe _wexeclpe
-#define _texecv _wexecv
-#define _texecve _wexecve
-#define _texecvp _wexecvp
-#define _texecvpe _wexecvpe
+#وصف_ڪريو _texecl _wexecl
+#وصف_ڪريو _texecle _wexecle
+#وصف_ڪريو _texeclp _wexeclp
+#وصف_ڪريو _texeclpe _wexeclpe
+#وصف_ڪريو _texecv _wexecv
+#وصف_ڪريو _texecve _wexecve
+#وصف_ڪريو _texecvp _wexecvp
+#وصف_ڪريو _texecvpe _wexecvpe
 
-#define _tspawnl _wspawnl
-#define _tspawnle _wspawnle
-#define _tspawnlp _wspawnlp
-#define _tspawnlpe _wspawnlpe
-#define _tspawnv _wspawnv
-#define _tspawnve _wspawnve
-#define _tspawnvp _wspawnvp
-#define _tspawnvp _wspawnvp
-#define _tspawnvpe _wspawnvpe
+#وصف_ڪريو _tspawnl _wspawnl
+#وصف_ڪريو _tspawnle _wspawnle
+#وصف_ڪريو _tspawnlp _wspawnlp
+#وصف_ڪريو _tspawnlpe _wspawnlpe
+#وصف_ڪريو _tspawnv _wspawnv
+#وصف_ڪريو _tspawnve _wspawnve
+#وصف_ڪريو _tspawnvp _wspawnvp
+#وصف_ڪريو _tspawnvp _wspawnvp
+#وصف_ڪريو _tspawnvpe _wspawnvpe
 
-#define _tsystem _wsystem
+#وصف_ڪريو _tsystem _wsystem
 
-#define _tasctime _wasctime
-#define _tctime _wctime
-#define _tctime32 _wctime32
-#define _tctime64 _wctime64
-#define _tstrdate _wstrdate
-#define _tstrtime _wstrtime
-#define _tutime _wutime
-#define _tutime32 _wutime32
-#define _tutime64 _wutime64
-#define _tcsftime wcsftime
-#define _tcsftime_l _wcsftime_l
+#وصف_ڪريو _tasctime _wasctime
+#وصف_ڪريو _tctime _wctime
+#وصف_ڪريو _tctime32 _wctime32
+#وصف_ڪريو _tctime64 _wctime64
+#وصف_ڪريو _tstrdate _wstrdate
+#وصف_ڪريو _tstrtime _wstrtime
+#وصف_ڪريو _tutime _wutime
+#وصف_ڪريو _tutime32 _wutime32
+#وصف_ڪريو _tutime64 _wutime64
+#وصف_ڪريو _tcsftime wcsftime
+#وصف_ڪريو _tcsftime_l _wcsftime_l
 
-#define _tchdir _wchdir
-#define _tgetcwd _wgetcwd
-#define _tgetdcwd _wgetdcwd
-#define _tgetdcwd_nolock _wgetdcwd_nolock
-#define _tmkdir _wmkdir
-#define _trmdir _wrmdir
+#وصف_ڪريو _tchdir _wchdir
+#وصف_ڪريو _tgetcwd _wgetcwd
+#وصف_ڪريو _tgetdcwd _wgetdcwd
+#وصف_ڪريو _tgetdcwd_nolock _wgetdcwd_nolock
+#وصف_ڪريو _tmkdir _wmkdir
+#وصف_ڪريو _trmdir _wrmdir
 
-#define _tfullpath _wfullpath
-#define _tgetenv _wgetenv
-#define _tmakepath _wmakepath
-#define _tpgmptr _wpgmptr
-#define _get_tpgmptr _get_wpgmptr
-#define _tputenv _wputenv
-#define _tsearchenv _wsearchenv
-#define _tsplitpath _wsplitpath
+#وصف_ڪريو _tfullpath _wfullpath
+#وصف_ڪريو _tgetenv _wgetenv
+#وصف_ڪريو _tmakepath _wmakepath
+#وصف_ڪريو _tpgmptr _wpgmptr
+#وصف_ڪريو _get_tpgmptr _get_wpgmptr
+#وصف_ڪريو _tputenv _wputenv
+#وصف_ڪريو _tsearchenv _wsearchenv
+#وصف_ڪريو _tsplitpath _wsplitpath
 
-#define _tfdopen _wfdopen
-#define _tfsopen _wfsopen
-#define _tfopen _wfopen
-#define _tfreopen _wfreopen
-#define _tperror _wperror
-#define _tpopen _wpopen
-#define _ttempnam _wtempnam
-#define _ttmpnam _wtmpnam
+#وصف_ڪريو _tfdopen _wfdopen
+#وصف_ڪريو _tfsopen _wfsopen
+#وصف_ڪريو _tfopen _wfopen
+#وصف_ڪريو _tfreopen _wfreopen
+#وصف_ڪريو _tperror _wperror
+#وصف_ڪريو _tpopen _wpopen
+#وصف_ڪريو _ttempnam _wtempnam
+#وصف_ڪريو _ttmpnam _wtmpnam
 
-#define _taccess _waccess
-#define _tchmod _wchmod
-#define _tcreat _wcreat
-#define _tfindfirst _wfindfirst
-#define _tfindfirst32 _wfindfirst32
-#define _tfindfirst64 _wfindfirst64
-#define _tfindfirsti64 _wfindfirsti64
-#define _tfindfirst32i64 _wfindfirst32i64
-#define _tfindfirst64i32 _wfindfirst64i32
-#define _tfindnext _wfindnext
-#define _tfindnext32 _wfindnext32
-#define _tfindnext64 _wfindnext64
-#define _tfindnexti64 _wfindnexti64
-#define _tfindnext32i64 _wfindnext32i64
-#define _tfindnext64i32 _wfindnext64i32
-#define _tmktemp _wmktemp
-#define _topen _wopen
-#define _tremove _wremove
-#define _trename _wrename
-#define _tsopen _wsopen
-#define _tunlink _wunlink
+#وصف_ڪريو _taccess _waccess
+#وصف_ڪريو _tchmod _wchmod
+#وصف_ڪريو _tcreat _wcreat
+#وصف_ڪريو _tfindfirst _wfindfirst
+#وصف_ڪريو _tfindfirst32 _wfindfirst32
+#وصف_ڪريو _tfindfirst64 _wfindfirst64
+#وصف_ڪريو _tfindfirsti64 _wfindfirsti64
+#وصف_ڪريو _tfindfirst32i64 _wfindfirst32i64
+#وصف_ڪريو _tfindfirst64i32 _wfindfirst64i32
+#وصف_ڪريو _tfindnext _wfindnext
+#وصف_ڪريو _tfindnext32 _wfindnext32
+#وصف_ڪريو _tfindnext64 _wfindnext64
+#وصف_ڪريو _tfindnexti64 _wfindnexti64
+#وصف_ڪريو _tfindnext32i64 _wfindnext32i64
+#وصف_ڪريو _tfindnext64i32 _wfindnext64i32
+#وصف_ڪريو _tmktemp _wmktemp
+#وصف_ڪريو _topen _wopen
+#وصف_ڪريو _tremove _wremove
+#وصف_ڪريو _trename _wrename
+#وصف_ڪريو _tsopen _wsopen
+#وصف_ڪريو _tunlink _wunlink
 
-#define _tfinddata_t _wfinddata_t
-#define _tfinddata32_t _wfinddata32_t
-#define _tfinddata64_t _wfinddata64_t
-#define _tfinddatai64_t _wfinddatai64_t
-#define _tfinddata32i64_t _wfinddata32i64_t
-#define _tfinddata64i32_t _wfinddata64i32_t
+#وصف_ڪريو _tfinddata_t _wfinddata_t
+#وصف_ڪريو _tfinddata32_t _wfinddata32_t
+#وصف_ڪريو _tfinddata64_t _wfinddata64_t
+#وصف_ڪريو _tfinddatai64_t _wfinddatai64_t
+#وصف_ڪريو _tfinddata32i64_t _wfinddata32i64_t
+#وصف_ڪريو _tfinddata64i32_t _wfinddata64i32_t
 
-#define _tstat _wstat
-#define _tstat32 _wstat32
-#define _tstat32i64 _wstat32i64
-#define _tstat64 _wstat64
-#define _tstat64i32 _wstat64i32
-#define _tstati64 _wstati64
+#وصف_ڪريو _tstat _wstat
+#وصف_ڪريو _tstat32 _wstat32
+#وصف_ڪريو _tstat32i64 _wstat32i64
+#وصف_ڪريو _tstat64 _wstat64
+#وصف_ڪريو _tstat64i32 _wstat64i32
+#وصف_ڪريو _tstati64 _wstati64
 
-#define _tsetlocale _wsetlocale
+#وصف_ڪريو _tsetlocale _wsetlocale
 
-#define _tcsclen wcslen
-#define _tcscnlen wcsnlen
-#define _tcsclen_l(_String,_Locale) wcslen(_String)
-#define _tcscnlen_l(_String,_Max_count,_Locale) wcsnlen_l((_String),(_Max_count))
-#define _tcsnccat wcsncat
-#define _tcsnccat_l _wcsncat_l
-#define _tcsnccpy wcsncpy
-#define _tcsnccpy_l _wcsncpy_l
-#define _tcsncset _wcsnset
+#وصف_ڪريو _tcsclen wcslen
+#وصف_ڪريو _tcscnlen wcsnlen
+#وصف_ڪريو _tcsclen_l(_String,_Locale) wcslen(_String)
+#وصف_ڪريو _tcscnlen_l(_String,Max_ڳڻپ_2,_Locale) wcsnlen_l((_String),(Max_ڳڻپ_2))
+#وصف_ڪريو _tcsnccat wcsncat
+#وصف_ڪريو _tcsnccat_l _wcsncat_l
+#وصف_ڪريو _tcsnccpy wcsncpy
+#وصف_ڪريو _tcsnccpy_l _wcsncpy_l
+#وصف_ڪريو _tcsncset _wcsnset
 
-#define _tcsdec _wcsdec
-#define _tcsinc _wcsinc
-#define _tcsnbcnt _wcsncnt
-#define _tcsnccnt _wcsncnt
-#define _tcsnextc _wcsnextc
-#define _tcsninc _wcsninc
-#define _tcsspnp _wcsspnp
+#وصف_ڪريو _tcsdec _wcsdec
+#وصف_ڪريو _tcsinc _wcsinc
+#وصف_ڪريو _tcsnbcnt _wcsncnt
+#وصف_ڪريو _tcsnccnt _wcsncnt
+#وصف_ڪريو _tcsnextc _wcsnextc
+#وصف_ڪريو _tcsninc _wcsninc
+#وصف_ڪريو _tcsspnp _wcsspnp
 
-#define _tcslwr _wcslwr
-#define _tcslwr_l _wcslwr_l
-#define _tcsupr _wcsupr
-#define _tcsupr_l _wcsupr_l
-#define _tcsxfrm wcsxfrm
-#define _tcsxfrm_l _wcsxfrm_l
+#وصف_ڪريو _tcslwr _wcslwr
+#وصف_ڪريو _tcslwr_l _wcslwr_l
+#وصف_ڪريو _tcsupr _wcsupr
+#وصف_ڪريو _tcsupr_l _wcsupr_l
+#وصف_ڪريو _tcsxfrm wcsxfrm
+#وصف_ڪريو _tcsxfrm_l _wcsxfrm_l
 
-#define _tclen(_pc) (1)
-#define _tccpy(_pc1,_cpc2) ((*(_pc1) = *(_cpc2)))
-#define _tccmp(_cpc1,_cpc2) ((*(_cpc1))-(*(_cpc2)))
+#وصف_ڪريو _tclen(_pc) (1)
+#وصف_ڪريو _tccpy(_pc1,_cpc2) ((*(_pc1) = *(_cpc2)))
+#وصف_ڪريو _tccmp(_cpc1,_cpc2) ((*(_cpc1))-(*(_cpc2)))
 
-#define _istalnum iswalnum
-#define _istalnum_l _iswalnum_l
-#define _istalpha iswalpha
-#define _istalpha_l _iswalpha_l
-#define _istascii iswascii
-#define _istcntrl iswcntrl
-#define _istcntrl_l _iswcntrl_l
-#define _istdigit iswdigit
-#define _istdigit_l _iswdigit_l
-#define _istgraph iswgraph
-#define _istgraph_l _iswgraph_l
-#define _istlower iswlower
-#define _istlower_l _iswlower_l
-#define _istprint iswprint
-#define _istprint_l _iswprint_l
-#define _istpunct iswpunct
-#define _istpunct_l _iswpunct_l
-#define _istspace iswspace
-#define _istspace_l _iswspace_l
-#define _istupper iswupper
-#define _istupper_l _iswupper_l
-#define _istxdigit iswxdigit
-#define _istxdigit_l _iswxdigit_l
+#وصف_ڪريو _istalnum iswalnum
+#وصف_ڪريو _istalnum_l _iswalnum_l
+#وصف_ڪريو _istalpha iswalpha
+#وصف_ڪريو _istalpha_l _iswalpha_l
+#وصف_ڪريو _istascii iswascii
+#وصف_ڪريو _istcntrl iswcntrl
+#وصف_ڪريو _istcntrl_l _iswcntrl_l
+#وصف_ڪريو _istdigit iswdigit
+#وصف_ڪريو _istdigit_l _iswdigit_l
+#وصف_ڪريو _istgraph iswgraph
+#وصف_ڪريو _istgraph_l _iswgraph_l
+#وصف_ڪريو _istlower iswlower
+#وصف_ڪريو _istlower_l _iswlower_l
+#وصف_ڪريو _istprint iswprint
+#وصف_ڪريو _istprint_l _iswprint_l
+#وصف_ڪريو _istpunct iswpunct
+#وصف_ڪريو _istpunct_l _iswpunct_l
+#وصف_ڪريو _istspace iswspace
+#وصف_ڪريو _istspace_l _iswspace_l
+#وصف_ڪريو _istupper iswupper
+#وصف_ڪريو _istupper_l _iswupper_l
+#وصف_ڪريو _istxdigit iswxdigit
+#وصف_ڪريو _istxdigit_l _iswxdigit_l
 
-#define _totupper towupper
-#define _totupper_l _towupper_l
-#define _totlower towlower
-#define _totlower_l _towlower_l
+#وصف_ڪريو _totupper towupper
+#وصف_ڪريو _totupper_l _towupper_l
+#وصف_ڪريو _totlower towlower
+#وصف_ڪريو _totlower_l _towlower_l
 
-#define _istlegal(_Char) (1)
-#define _istlead(_Char) (0)
-#define _istleadbyte(_Char) (0)
-#define _istleadbyte_l(_Char,_Locale) (0)
+#وصف_ڪريو _istlegal(_Char) (1)
+#وصف_ڪريو _istlead(_Char) (0)
+#وصف_ڪريو _istleadbyte(_Char) (0)
+#وصف_ڪريو _istleadbyte_l(_Char,_Locale) (0)
 
-#define _wcsdec(_cpc1,_cpc2) ((_cpc1)>=(_cpc2) ? NULL : (_cpc2)-1)
-#define _wcsinc(_pc) ((_pc)+1)
-#define _wcsnextc(_cpc) ((unsigned int) *(_cpc))
-#define _wcsninc(_pc,_sz) (((_pc)+(_sz)))
-  _CRTIMP size_t __cdecl __wcsncnt(const wchar_t *_Str,size_t _MaxCount);
-#define _wcsncnt(_cpc,_sz) (__wcsncnt(_cpc,_sz))
-#define _wcsspnp(_cpc1,_cpc2) (!_cpc1 ? NULL : ((*((_cpc1)+wcsspn(_cpc1,_cpc2))) ? ((_cpc1)+wcsspn(_cpc1,_cpc2)) : NULL))
-#define _wcsncpy_l(_Destination,_Source,_Count,_Locale) (wcsncpy(_Destination,_Source,_Count))
-#define _wcsncat_l(_Destination,_Source,_Count,_Locale) (wcsncat(_Destination,_Source,_Count))
-#define _wcstok_l(_String,_Delimiters,_Locale) (wcstok(_String,_Delimiters))
-#define _wcsnset_l(_Destination,_Value,_Count,_Locale) (_wcsnset(_Destination,_Value,_Count))
-#define _wcsset_l(_Destination,_Value,_Locale) (_wcsset(_Destination,_Value))
+#وصف_ڪريو _wcsdec(_cpc1,_cpc2) ((_cpc1)>=(_cpc2) ? عدم : (_cpc2)-1)
+#وصف_ڪريو _wcsinc(_pc) ((_pc)+1)
+#وصف_ڪريو _wcsnextc(_cpc) ((بنانشان صحيح) *(_cpc))
+#وصف_ڪريو _wcsninc(_pc,_sz) (((_pc)+(_sz)))
+  _CRTIMP سائيز_t __cdecl __wcsncnt(ثابت wchar_t *_Str,سائيز_t Max_ڳڻپ);
+#وصف_ڪريو _wcsncnt(_cpc,_sz) (__wcsncnt(_cpc,_sz))
+#وصف_ڪريو _wcsspnp(_cpc1,_cpc2) (!_cpc1 ? عدم : ((*((_cpc1)+wcsspn(_cpc1,_cpc2))) ? ((_cpc1)+wcsspn(_cpc1,_cpc2)) : عدم))
+#وصف_ڪريو _wcsncpy_l(_Destination,ذريعو_3,ڳڻپ_5,_Locale) (wcsncpy(_Destination,ذريعو_3,ڳڻپ_5))
+#وصف_ڪريو _wcsncat_l(_Destination,ذريعو_3,ڳڻپ_5,_Locale) (wcsncat(_Destination,ذريعو_3,ڳڻپ_5))
+#وصف_ڪريو _wcstok_l(_String,_Delimiters,_Locale) (wcstok(_String,_Delimiters))
+#وصف_ڪريو _wcsnset_l(_Destination,قدر_2,ڳڻپ_5,_Locale) (_wcsnset(_Destination,قدر_2,ڳڻپ_5))
+#وصف_ڪريو _wcsset_l(_Destination,قدر_2,_Locale) (_wcsset(_Destination,قدر_2))
 
   /* dirent structures and functions */
-#define _tdirent	_wdirent
-#define _TDIR 		_WDIR
-#define _topendir	_wopendir
-#define _tclosedir	_wclosedir
-#define _treaddir	_wreaddir
-#define _trewinddir	_wrewinddir
-#define _ttelldir	_wtelldir
-#define _tseekdir	_wseekdir
+#وصف_ڪريو _tdirent	_wdirent
+#وصف_ڪريو _TDIR 		_WDIR
+#وصف_ڪريو _topendir	_wopendir
+#وصف_ڪريو _tclosedir	_wclosedir
+#وصف_ڪريو _treaddir	_wreaddir
+#وصف_ڪريو _trewinddir	_wrewinddir
+#وصف_ڪريو _ttelldir	_wtelldir
+#وصف_ڪريو _tseekdir	_wseekdir
 
-#else
+#وإلا
 
-#ifdef __cplusplus
+#جيڪڏهن_وصف_ٿيل __cplusplus
 }
-#endif
+#جيڪڏهن_پورو
 
-#include <string.h>
+#ضمن <string.h>
 
-#ifdef __cplusplus
-extern "C" {
-#endif
+#جيڪڏهن_وصف_ٿيل __cplusplus
+خارجي "C" {
+#جيڪڏهن_پورو
 
-#define _TEOF EOF
+#وصف_ڪريو _TEOF EOF
 
-#define __T(x) x
+#وصف_ڪريو __T(x) x
 
-#define _tmain main
-#define _tWinMain WinMain
-#ifdef _POSIX_
-#define _tenviron environ
-#else
-#define _tenviron _environ
-#endif
-#define __targv __argv
+#وصف_ڪريو _tmain مکيه
+#وصف_ڪريو _tWinMain WinMain
+#جيڪڏهن_وصف_ٿيل _POSIX_
+#وصف_ڪريو _tenviron environ
+#وإلا
+#وصف_ڪريو _tenviron _environ
+#جيڪڏهن_پورو
+#وصف_ڪريو __targv __argv
 
-#define _tprintf printf
-#define _tprintf_l _printf_l
-#define _tprintf_p _printf_p
-#define _tprintf_p_l _printf_p_l
-#define _tcprintf _cprintf
-#define _tcprintf_l _cprintf_l
-#define _tcprintf_p _cprintf_p
-#define _tcprintf_p_l _cprintf_p_l
-#define _vtcprintf _vcprintf
-#define _vtcprintf_l _vcprintf_l
-#define _vtcprintf_p _vcprintf_p
-#define _vtcprintf_p_l _vcprintf_p_l
-#define _ftprintf fprintf
-#define _ftprintf_l _fprintf_l
-#define _ftprintf_p _fprintf_p
-#define _ftprintf_p_l _fprintf_p_l
-#define _stprintf sprintf
-#define _stprintf_l _sprintf_l
-#define _stprintf_p _sprintf_p
-#define _stprintf_p_l _sprintf_p_l
-#define _sctprintf _scprintf
-#define _sctprintf_l _scprintf_l
-#define _sctprintf_p _scprintf_p
-#define _sctprintf_p_l _scprintf_p_l
-#define _sntprintf _snprintf
-#define _sntprintf_l _snprintf_l
-#define _vtprintf vprintf
-#define _vtprintf_l _vprintf_l
-#define _vtprintf_p _vprintf_p
-#define _vtprintf_p_l _vprintf_p_l
-#define _vftprintf vfprintf
-#define _vftprintf_l _vfprintf_l
-#define _vftprintf_p _vfprintf_p
-#define _vftprintf_p_l _vfprintf_p_l
-#define _vstprintf vsprintf
-#define _vstprintf_l _vsprintf_l
-#define _vstprintf_p _vsprintf_p
-#define _vstprintf_p_l _vsprintf_p_l
-#define _vsctprintf _vscprintf
-#define _vsctprintf_l _vscprintf_l
-#define _vsctprintf_p _vscprintf_p
-#define _vsctprintf_p_l _vscprintf_p_l
-#define _vsntprintf _vsnprintf
-#define _vsntprintf_l _vsnprintf_l
+#وصف_ڪريو _tprintf لکو
+#وصف_ڪريو _tprintf_l _printf_l
+#وصف_ڪريو _tprintf_p _printf_p
+#وصف_ڪريو _tprintf_p_l _printf_p_l
+#وصف_ڪريو _tcprintf _cprintf
+#وصف_ڪريو _tcprintf_l _cprintf_l
+#وصف_ڪريو _tcprintf_p _cprintf_p
+#وصف_ڪريو _tcprintf_p_l _cprintf_p_l
+#وصف_ڪريو _vtcprintf _vcprintf
+#وصف_ڪريو _vtcprintf_l _vcprintf_l
+#وصف_ڪريو _vtcprintf_p _vcprintf_p
+#وصف_ڪريو _vtcprintf_p_l _vcprintf_p_l
+#وصف_ڪريو _ftprintf fprintf
+#وصف_ڪريو _ftprintf_l _fprintf_l
+#وصف_ڪريو _ftprintf_p _fprintf_p
+#وصف_ڪريو _ftprintf_p_l _fprintf_p_l
+#وصف_ڪريو _stprintf sprintf
+#وصف_ڪريو _stprintf_l _sprintf_l
+#وصف_ڪريو _stprintf_p _sprintf_p
+#وصف_ڪريو _stprintf_p_l _sprintf_p_l
+#وصف_ڪريو _sctprintf _scprintf
+#وصف_ڪريو _sctprintf_l _scprintf_l
+#وصف_ڪريو _sctprintf_p _scprintf_p
+#وصف_ڪريو _sctprintf_p_l _scprintf_p_l
+#وصف_ڪريو _sntprintf _snprintf
+#وصف_ڪريو _sntprintf_l _snprintf_l
+#وصف_ڪريو _vtprintf vprintf
+#وصف_ڪريو _vtprintf_l _vprintf_l
+#وصف_ڪريو _vtprintf_p _vprintf_p
+#وصف_ڪريو _vtprintf_p_l _vprintf_p_l
+#وصف_ڪريو _vftprintf vfprintf
+#وصف_ڪريو _vftprintf_l _vfprintf_l
+#وصف_ڪريو _vftprintf_p _vfprintf_p
+#وصف_ڪريو _vftprintf_p_l _vfprintf_p_l
+#وصف_ڪريو _vstprintf vsprintf
+#وصف_ڪريو _vstprintf_l _vsprintf_l
+#وصف_ڪريو _vstprintf_p _vsprintf_p
+#وصف_ڪريو _vstprintf_p_l _vsprintf_p_l
+#وصف_ڪريو _vsctprintf _vscprintf
+#وصف_ڪريو _vsctprintf_l _vscprintf_l
+#وصف_ڪريو _vsctprintf_p _vscprintf_p
+#وصف_ڪريو _vsctprintf_p_l _vscprintf_p_l
+#وصف_ڪريو _vsntprintf _vsnprintf
+#وصف_ڪريو _vsntprintf_l _vsnprintf_l
 
-#define _tscanf scanf
-#define _tscanf_l _scanf_l
-#define _tcscanf _cscanf
-#define _tcscanf_l _cscanf_l
-#define _ftscanf fscanf
-#define _ftscanf_l _fscanf_l
-#define _stscanf sscanf
-#define _stscanf_l _sscanf_l
-#define _sntscanf _snscanf
-#define _sntscanf_l _snscanf_l
+#وصف_ڪريو _tscanf scanf
+#وصف_ڪريو _tscanf_l _scanf_l
+#وصف_ڪريو _tcscanf _cscanf
+#وصف_ڪريو _tcscanf_l _cscanf_l
+#وصف_ڪريو _ftscanf fscanf
+#وصف_ڪريو _ftscanf_l _fscanf_l
+#وصف_ڪريو _stscanf لڙي_مان_پڙهو
+#وصف_ڪريو _stscanf_l _sscanf_l
+#وصف_ڪريو _sntscanf _snscanf
+#وصف_ڪريو _sntscanf_l _snscanf_l
 
-#define _fgettc fgetc
-#define _fgettc_nolock _fgetc_nolock
-#define _fgettchar _fgetchar
-#define _fgetts fgets
-#define _fputtc fputc
-#define _fputtc_nolock _fputc_nolock
-#define _fputtchar _fputchar
-#define _fputts fputs
-#define _cputts _cputs
-#define _gettc getc
-#define _gettc_nolock _getc_nolock
-#define _gettch _getch
-#define _gettch_nolock _getch_nolock
-#define _gettche _getche
-#define _gettche_nolock _getche_nolock
-#define _gettchar getchar
-#define _gettchar_nolock _getchar_nolock
-#define _getts gets
-#define _cgetts _cgets
-#define _puttc putc
-#define _puttc_nolock _putc_nolock
-#define _puttchar putchar
-#define _puttchar_nolock _putchar_nolock
-#define _puttch _putch
-#define _puttch_nolock _putch_nolock
-#define _putts puts
-#define _ungettc ungetc
-#define _ungettc_nolock _ungetc_nolock
-#define _ungettch _ungetch
-#define _ungettch_nolock _ungetch_nolock
+#وصف_ڪريو _fgettc fgetc
+#وصف_ڪريو _fgettc_nolock _fgetc_nolock
+#وصف_ڪريو _fgettchar _fgetchar
+#وصف_ڪريو _fgetts fgets
+#وصف_ڪريو _fputtc fputc
+#وصف_ڪريو _fputtc_nolock _fputc_nolock
+#وصف_ڪريو _fputtchar _fputchar
+#وصف_ڪريو _fputts fputs
+#وصف_ڪريو _cputts _cputs
+#وصف_ڪريو _gettc getc
+#وصف_ڪريو _gettc_nolock _getc_nolock
+#وصف_ڪريو _gettch _getch
+#وصف_ڪريو _gettch_nolock _getch_nolock
+#وصف_ڪريو _gettche _getche
+#وصف_ڪريو _gettche_nolock _getche_nolock
+#وصف_ڪريو _gettchar getchar
+#وصف_ڪريو _gettchar_nolock _getchar_nolock
+#وصف_ڪريو _getts gets
+#وصف_ڪريو _cgetts _cgets
+#وصف_ڪريو _puttc putc
+#وصف_ڪريو _puttc_nolock _putc_nolock
+#وصف_ڪريو _puttchar اکر_لکو
+#وصف_ڪريو _puttchar_nolock _putchar_nolock
+#وصف_ڪريو _puttch _putch
+#وصف_ڪريو _puttch_nolock _putch_nolock
+#وصف_ڪريو _putts puts
+#وصف_ڪريو _ungettc ungetc
+#وصف_ڪريو _ungettc_nolock _ungetc_nolock
+#وصف_ڪريو _ungettch _ungetch
+#وصف_ڪريو _ungettch_nolock _ungetch_nolock
 
-#define _tcstod strtod
-#define _tcstol strtol
-#define _tcstoul strtoul
-#define _tstof atof
-#define _tstol atol
-#define _tstoi atoi
-#define _tstoi64 _atoi64
-#define _tcstod_l _strtod_l
-#define _tcstol_l _strtol_l
-#define _tcstoul_l _strtoul_l
-#define _tstof_l _atof_l
-#define _tstol_l _atol_l
-#define _tstoi_l _atoi_l
-#define _tstoi64_l _atoi64_l
+#وصف_ڪريو _tcstod strtod
+#وصف_ڪريو _tcstol strtol
+#وصف_ڪريو _tcstoul strtoul
+#وصف_ڪريو _tstof atof
+#وصف_ڪريو _tstol atol
+#وصف_ڪريو _tstoi atoi
+#وصف_ڪريو _tstoi64 _atoi64
+#وصف_ڪريو _tcstod_l _strtod_l
+#وصف_ڪريو _tcstol_l _strtol_l
+#وصف_ڪريو _tcstoul_l _strtoul_l
+#وصف_ڪريو _tstof_l _atof_l
+#وصف_ڪريو _tstol_l _atol_l
+#وصف_ڪريو _tstoi_l _atoi_l
+#وصف_ڪريو _tstoi64_l _atoi64_l
 
-#define _itot _itoa
-#define _ltot _ltoa
-#define _ultot _ultoa
-#define _ttoi atoi
-#define _ttol atol
+#وصف_ڪريو _itot _itoa
+#وصف_ڪريو _ltot _ltoa
+#وصف_ڪريو _ultot _ultoa
+#وصف_ڪريو _ttoi atoi
+#وصف_ڪريو _ttol atol
 
-#define _ttoi64 _atoi64
-#define _tcstoi64 _strtoi64
-#define _tcstoi64_l _strtoi64_l
-#define _tcstoui64 _strtoui64
-#define _tcstoui64_l _strtoui64_l
-#define _i64tot _i64toa
-#define _ui64tot _ui64toa
+#وصف_ڪريو _ttoi64 _atoi64
+#وصف_ڪريو _tcstoi64 _strtoi64
+#وصف_ڪريو _tcstoi64_l _strtoi64_l
+#وصف_ڪريو _tcstoui64 _strtoui64
+#وصف_ڪريو _tcstoui64_l _strtoui64_l
+#وصف_ڪريو _i64tot _i64toa
+#وصف_ڪريو _ui64tot _ui64toa
 
-#define _tcscat strcat
-#define _tcscpy strcpy
-#define _tcsdup _strdup
-#define _tcslen strlen
-#if 0
-#define _tcsnlen strnlen
-#endif
-#define _tcsxfrm strxfrm
-#define _tcsxfrm_l _strxfrm_l
-#define _tcserror strerror
-#define __tcserror _strerror
+#وصف_ڪريو _tcscat strcat
+#وصف_ڪريو _tcscpy strcpy
+#وصف_ڪريو _tcsdup _strdup
+#وصف_ڪريو _tcslen لڙي_ڊيگهه
+#إذا 0
+#وصف_ڪريو _tcsnlen strnlen
+#جيڪڏهن_پورو
+#وصف_ڪريو _tcsxfrm strxfrm
+#وصف_ڪريو _tcsxfrm_l _strxfrm_l
+#وصف_ڪريو _tcserror strerror
+#وصف_ڪريو __tcserror _strerror
 
-#define _texecl _execl
-#define _texecle _execle
-#define _texeclp _execlp
-#define _texeclpe _execlpe
-#define _texecv _execv
-#define _texecve _execve
-#define _texecvp _execvp
-#define _texecvpe _execvpe
+#وصف_ڪريو _texecl _execl
+#وصف_ڪريو _texecle _execle
+#وصف_ڪريو _texeclp _execlp
+#وصف_ڪريو _texeclpe _execlpe
+#وصف_ڪريو _texecv _execv
+#وصف_ڪريو _texecve _execve
+#وصف_ڪريو _texecvp _execvp
+#وصف_ڪريو _texecvpe _execvpe
 
-#define _tspawnl _spawnl
-#define _tspawnle _spawnle
-#define _tspawnlp _spawnlp
-#define _tspawnlpe _spawnlpe
-#define _tspawnv _spawnv
-#define _tspawnve _spawnve
-#define _tspawnvp _spawnvp
-#define _tspawnvpe _spawnvpe
+#وصف_ڪريو _tspawnl _spawnl
+#وصف_ڪريو _tspawnle _spawnle
+#وصف_ڪريو _tspawnlp _spawnlp
+#وصف_ڪريو _tspawnlpe _spawnlpe
+#وصف_ڪريو _tspawnv _spawnv
+#وصف_ڪريو _tspawnve _spawnve
+#وصف_ڪريو _tspawnvp _spawnvp
+#وصف_ڪريو _tspawnvpe _spawnvpe
 
-#define _tsystem system
+#وصف_ڪريو _tsystem system
 
-#define _tasctime asctime
-#define _tctime ctime
-#define _tctime32 _ctime32
-#define _tctime64 _ctime64
-#define _tstrdate _strdate
-#define _tstrtime _strtime
-#define _tutime _utime
-#define _tutime32 _utime32
-#define _tutime64 _utime64
-#define _tcsftime strftime
-#define _tcsftime_l _strftime_l
+#وصف_ڪريو _tasctime asctime
+#وصف_ڪريو _tctime ctime
+#وصف_ڪريو _tctime32 _ctime32
+#وصف_ڪريو _tctime64 _ctime64
+#وصف_ڪريو _tstrdate _strdate
+#وصف_ڪريو _tstrtime _strtime
+#وصف_ڪريو _tutime _utime
+#وصف_ڪريو _tutime32 _utime32
+#وصف_ڪريو _tutime64 _utime64
+#وصف_ڪريو _tcsftime strftime
+#وصف_ڪريو _tcsftime_l _strftime_l
 
-#define _tchdir _chdir
-#define _tgetcwd _getcwd
-#define _tgetdcwd _getdcwd
-#define _tgetdcwd_nolock _getdcwd_nolock
-#define _tmkdir _mkdir
-#define _trmdir _rmdir
+#وصف_ڪريو _tchdir _chdir
+#وصف_ڪريو _tgetcwd _getcwd
+#وصف_ڪريو _tgetdcwd _getdcwd
+#وصف_ڪريو _tgetdcwd_nolock _getdcwd_nolock
+#وصف_ڪريو _tmkdir _mkdir
+#وصف_ڪريو _trmdir _rmdir
 
-#define _tfullpath _fullpath
-#define _tgetenv getenv
-#define _tmakepath _makepath
-#define _tpgmptr _pgmptr
-#define _get_tpgmptr _get_pgmptr
-#define _tputenv _putenv
-#define _tsearchenv _searchenv
-#define _tsplitpath _splitpath
+#وصف_ڪريو _tfullpath _fullpath
+#وصف_ڪريو _tgetenv getenv
+#وصف_ڪريو _tmakepath _makepath
+#وصف_ڪريو _tpgmptr _pgmptr
+#وصف_ڪريو _get_tpgmptr _get_pgmptr
+#وصف_ڪريو _tputenv _putenv
+#وصف_ڪريو _tsearchenv _searchenv
+#وصف_ڪريو _tsplitpath _splitpath
 
-#ifdef _POSIX_
-#define _tfdopen fdopen
-#else
-#define _tfdopen _fdopen
-#endif
-#define _tfsopen _fsopen
-#define _tfopen fopen
-#define _tfreopen freopen
-#define _tperror perror
-#define _tpopen _popen
-#define _ttempnam _tempnam
-#define _ttmpnam tmpnam
+#جيڪڏهن_وصف_ٿيل _POSIX_
+#وصف_ڪريو _tfdopen fdopen
+#وإلا
+#وصف_ڪريو _tfdopen _fdopen
+#جيڪڏهن_پورو
+#وصف_ڪريو _tfsopen _fsopen
+#وصف_ڪريو _tfopen fopen
+#وصف_ڪريو _tfreopen freopen
+#وصف_ڪريو _tperror perror
+#وصف_ڪريو _tpopen _popen
+#وصف_ڪريو _ttempnam _tempnam
+#وصف_ڪريو _ttmpnam tmpnam
 
-#define _tchmod _chmod
-#define _tcreat _creat
-#define _tfindfirst _findfirst
-#define _tfindfirst32 _findfirst32
-#define _tfindfirst64 _findfirst64
-#define _tfindfirsti64 _findfirsti64
-#define _tfindfirst32i64 _findfirst32i64
-#define _tfindfirst64i32 _findfirst64i32
-#define _tfindnext _findnext
-#define _tfindnext32 _findnext32
-#define _tfindnext64 _findnext64
-#define _tfindnexti64 _findnexti64
-#define _tfindnext32i64 _findnext32i64
-#define _tfindnext64i32 _findnext64i32
-#define _tmktemp _mktemp
+#وصف_ڪريو _tchmod _chmod
+#وصف_ڪريو _tcreat _creat
+#وصف_ڪريو _tfindfirst _findfirst
+#وصف_ڪريو _tfindfirst32 _findfirst32
+#وصف_ڪريو _tfindfirst64 _findfirst64
+#وصف_ڪريو _tfindfirsti64 _findfirsti64
+#وصف_ڪريو _tfindfirst32i64 _findfirst32i64
+#وصف_ڪريو _tfindfirst64i32 _findfirst64i32
+#وصف_ڪريو _tfindnext _findnext
+#وصف_ڪريو _tfindnext32 _findnext32
+#وصف_ڪريو _tfindnext64 _findnext64
+#وصف_ڪريو _tfindnexti64 _findnexti64
+#وصف_ڪريو _tfindnext32i64 _findnext32i64
+#وصف_ڪريو _tfindnext64i32 _findnext64i32
+#وصف_ڪريو _tmktemp _mktemp
 
-#ifdef _POSIX_
-#define _topen open
-#define _taccess access
-#else
-#define _topen _open
-#define _taccess _access
-#endif
+#جيڪڏهن_وصف_ٿيل _POSIX_
+#وصف_ڪريو _topen open
+#وصف_ڪريو _taccess access
+#وإلا
+#وصف_ڪريو _topen _open
+#وصف_ڪريو _taccess _access
+#جيڪڏهن_پورو
 
-#define _tremove remove
-#define _trename rename
-#define _tsopen _sopen
-#define _tunlink _unlink
+#وصف_ڪريو _tremove remove
+#وصف_ڪريو _trename rename
+#وصف_ڪريو _tsopen _sopen
+#وصف_ڪريو _tunlink _unlink
 
-#define _tfinddata_t _finddata_t
-#define _tfinddata32_t _finddata32_t
-#define _tfinddata64_t __finddata64_t
-#define _tfinddatai64_t _finddatai64_t
-#define _tfinddata32i64_t _finddata32i64_t
-#define _tfinddata64i32_t _finddata64i32_t
+#وصف_ڪريو _tfinddata_t _finddata_t
+#وصف_ڪريو _tfinddata32_t _finddata32_t
+#وصف_ڪريو _tfinddata64_t __finddata64_t
+#وصف_ڪريو _tfinddatai64_t _finddatai64_t
+#وصف_ڪريو _tfinddata32i64_t _finddata32i64_t
+#وصف_ڪريو _tfinddata64i32_t _finddata64i32_t
 
-#define _istascii __isascii
-#define _istcntrl iscntrl
-#define _istcntrl_l _iscntrl_l
-#define _istxdigit isxdigit
-#define _istxdigit_l _isxdigit_l
+#وصف_ڪريو _istascii __isascii
+#وصف_ڪريو _istcntrl iscntrl
+#وصف_ڪريو _istcntrl_l _iscntrl_l
+#وصف_ڪريو _istxdigit isxdigit
+#وصف_ڪريو _istxdigit_l _isxdigit_l
 
-#define _tstat _stat
-#define _tstat32 _stat32
-#define _tstat32i64 _stat32i64
-#define _tstat64 _stat64
-#define _tstat64i32 _stat64i32
-#define _tstati64 _stati64
+#وصف_ڪريو _tstat _stat
+#وصف_ڪريو _tstat32 _stat32
+#وصف_ڪريو _tstat32i64 _stat32i64
+#وصف_ڪريو _tstat64 _stat64
+#وصف_ڪريو _tstat64i32 _stat64i32
+#وصف_ڪريو _tstati64 _stati64
 
-#define _tsetlocale setlocale
+#وصف_ڪريو _tsetlocale setlocale
 
-#ifdef _MBCS
+#جيڪڏهن_وصف_ٿيل _MBCS
 
-#ifdef __cplusplus
+#جيڪڏهن_وصف_ٿيل __cplusplus
 }
-#endif
+#جيڪڏهن_پورو
 
-#include <mbstring.h>
+#ضمن <mbstring.h>
 
-#ifdef __cplusplus
-extern "C" {
-#endif
+#جيڪڏهن_وصف_ٿيل __cplusplus
+خارجي "C" {
+#جيڪڏهن_پورو
 
-#ifndef __TCHAR_DEFINED
-  typedef char _TCHAR;
-  typedef signed char _TSCHAR;
-  typedef unsigned char _TUCHAR;
-  typedef unsigned char _TXCHAR;
-  typedef unsigned int _TINT;
-#define __TCHAR_DEFINED
-#endif
+#جيڪڏهن_وصف_نه_ٿيل __TCHAR_DEFINED
+  تعريفنوع حرف _TCHAR;
+  تعريفنوع نشانوارو حرف _TSCHAR;
+  تعريفنوع بنانشان حرف _TUCHAR;
+  تعريفنوع بنانشان حرف _TXCHAR;
+  تعريفنوع بنانشان صحيح _TINT;
+#وصف_ڪريو __TCHAR_DEFINED
+#جيڪڏهن_پورو
 
-#ifndef _TCHAR_DEFINED
-#ifndef	NO_OLDNAMES
-  typedef char TCHAR;
-#endif
-#define _TCHAR_DEFINED
-#endif
+#جيڪڏهن_وصف_نه_ٿيل _TCHAR_DEFINED
+#جيڪڏهن_وصف_نه_ٿيل	NO_OLDNAMES
+  تعريفنوع حرف TCHAR;
+#جيڪڏهن_پورو
+#وصف_ڪريو _TCHAR_DEFINED
+#جيڪڏهن_پورو
 
-#ifdef _MB_MAP_DIRECT
+#جيڪڏهن_وصف_ٿيل MB_MAP_سڌو
 
-#define _tcschr _mbschr
-#define _tcscspn _mbscspn
-#define _tcsncat _mbsnbcat
-#define _tcsncat_l _mbsnbcat_l
-#define _tcsncpy _mbsnbcpy
-#define _tcsncpy_l _mbsnbcpy_l
-#define _tcspbrk _mbspbrk
-#define _tcsrchr _mbsrchr
-#define _tcsspn _mbsspn
-#define _tcsstr _mbsstr
-#define _tcstok _mbstok
-#define _tcstok_l _mbstok_l
+#وصف_ڪريو _tcschr _mbschr
+#وصف_ڪريو _tcscspn _mbscspn
+#وصف_ڪريو _tcsncat _mbsnbcat
+#وصف_ڪريو _tcsncat_l _mbsnbcat_l
+#وصف_ڪريو _tcsncpy _mbsnbcpy
+#وصف_ڪريو _tcsncpy_l _mbsnbcpy_l
+#وصف_ڪريو _tcspbrk _mbspbrk
+#وصف_ڪريو _tcsrchr _mbsrchr
+#وصف_ڪريو _tcsspn _mbsspn
+#وصف_ڪريو _tcsstr _mbsstr
+#وصف_ڪريو _tcstok _mbstok
+#وصف_ڪريو _tcstok_l _mbstok_l
 
-#define _tcsnset _mbsnbset
-#define _tcsnset_l _mbsnbset_l
-#define _tcsrev _mbsrev
-#define _tcsset _mbsset
-#define _tcsset_l _mbsset_l
+#وصف_ڪريو _tcsnset _mbsnbset
+#وصف_ڪريو _tcsnset_l _mbsnbset_l
+#وصف_ڪريو _tcsrev _mbsrev
+#وصف_ڪريو _tcsset _mbsset
+#وصف_ڪريو _tcsset_l _mbsset_l
 
-#define _tcscmp _mbscmp
-#define _tcsicmp _mbsicmp
-#define _tcsicmp_l _mbsicmp_l
-#define _tcsnccmp _mbsncmp
-#define _tcsncmp _mbsnbcmp
-#define _tcsncicmp _mbsnicmp
-#define _tcsncicmp_l _mbsnicmp_l
-#define _tcsnicmp _mbsnbicmp
-#define _tcsnicmp_l _mbsnbicmp_l
+#وصف_ڪريو _tcscmp _mbscmp
+#وصف_ڪريو _tcsicmp _mbsicmp
+#وصف_ڪريو _tcsicmp_l _mbsicmp_l
+#وصف_ڪريو _tcsnccmp _mbsncmp
+#وصف_ڪريو _tcsncmp _mbsnbcmp
+#وصف_ڪريو _tcsncicmp _mbsnicmp
+#وصف_ڪريو _tcsncicmp_l _mbsnicmp_l
+#وصف_ڪريو _tcsnicmp _mbsnbicmp
+#وصف_ڪريو _tcsnicmp_l _mbsnbicmp_l
 
-#define _tcscoll _mbscoll
-#define _tcscoll_l _mbscoll_l
-#define _tcsicoll _mbsicoll
-#define _tcsicoll_l _mbsicoll_l
-#define _tcsnccoll _mbsncoll
-#define _tcsnccoll_l _mbsncoll_l
-#define _tcsncoll _mbsnbcoll
-#define _tcsncoll_l _mbsnbcoll_l
-#define _tcsncicoll _mbsnicoll
-#define _tcsncicoll_l _mbsnicoll_l
-#define _tcsnicoll _mbsnbicoll
-#define _tcsnicoll_l _mbsnbicoll_l
+#وصف_ڪريو _tcscoll _mbscoll
+#وصف_ڪريو _tcscoll_l _mbscoll_l
+#وصف_ڪريو _tcsicoll _mbsicoll
+#وصف_ڪريو _tcsicoll_l _mbsicoll_l
+#وصف_ڪريو _tcsnccoll _mbsncoll
+#وصف_ڪريو _tcsnccoll_l _mbsncoll_l
+#وصف_ڪريو _tcsncoll _mbsnbcoll
+#وصف_ڪريو _tcsncoll_l _mbsnbcoll_l
+#وصف_ڪريو _tcsncicoll _mbsnicoll
+#وصف_ڪريو _tcsncicoll_l _mbsnicoll_l
+#وصف_ڪريو _tcsnicoll _mbsnbicoll
+#وصف_ڪريو _tcsnicoll_l _mbsnbicoll_l
 
-#define _tcsclen _mbslen
-#define _tcscnlen _mbsnlen
-#define _tcsclen_l _mbslen_l
-#define _tcscnlen_l _mbsnlen_l
-#define _tcsnccat _mbsncat
-#define _tcsnccat_l _mbsncat_l
-#define _tcsnccpy _mbsncpy
-#define _tcsnccpy_l _mbsncpy_l
-#define _tcsncset _mbsnset
-#define _tcsncset_l _mbsnset_l
+#وصف_ڪريو _tcsclen _mbslen
+#وصف_ڪريو _tcscnlen _mbsnlen
+#وصف_ڪريو _tcsclen_l _mbslen_l
+#وصف_ڪريو _tcscnlen_l _mbsnlen_l
+#وصف_ڪريو _tcsnccat _mbsncat
+#وصف_ڪريو _tcsnccat_l _mbsncat_l
+#وصف_ڪريو _tcsnccpy _mbsncpy
+#وصف_ڪريو _tcsnccpy_l _mbsncpy_l
+#وصف_ڪريو _tcsncset _mbsnset
+#وصف_ڪريو _tcsncset_l _mbsnset_l
 
-#define _tcsdec _mbsdec
-#define _tcsinc _mbsinc
-#define _tcsnbcnt _mbsnbcnt
-#define _tcsnccnt _mbsnccnt
-#define _tcsnextc _mbsnextc
-#define _tcsninc _mbsninc
-#define _tcsspnp _mbsspnp
+#وصف_ڪريو _tcsdec _mbsdec
+#وصف_ڪريو _tcsinc _mbsinc
+#وصف_ڪريو _tcsnbcnt _mbsnbcnt
+#وصف_ڪريو _tcsnccnt _mbsnccnt
+#وصف_ڪريو _tcsnextc _mbsnextc
+#وصف_ڪريو _tcsninc _mbsninc
+#وصف_ڪريو _tcsspnp _mbsspnp
 
-#define _tcslwr _mbslwr
-#define _tcslwr_l _mbslwr_l
-#define _tcsupr _mbsupr
-#define _tcsupr_l _mbsupr_l
+#وصف_ڪريو _tcslwr _mbslwr
+#وصف_ڪريو _tcslwr_l _mbslwr_l
+#وصف_ڪريو _tcsupr _mbsupr
+#وصف_ڪريو _tcsupr_l _mbsupr_l
 
-#define _tclen _mbclen
-#define _tccpy _mbccpy
-#define _tccpy_l _mbccpy_l
-#else
+#وصف_ڪريو _tclen _mbclen
+#وصف_ڪريو _tccpy _mbccpy
+#وصف_ڪريو _tccpy_l _mbccpy_l
+#وإلا
 
-  _CRTIMP _CONST_RETURN char *__cdecl _tcschr(const char *_Str,unsigned int _Val);
-  _CRTIMP size_t __cdecl _tcscspn(const char *_Str,const char *_Control);
-  _CRTIMP char *__cdecl _tcsncat(char *_Dst,const char *_Src,size_t _MaxCount);
-  _CRTIMP char *__cdecl _tcsncat_l(char *_Dst,const char *_Src,size_t _MaxCount,_locale_t _Locale);
-  _CRTIMP char *__cdecl _tcsncpy(char *_Dst,const char *_Src,size_t _MaxCount);
-  _CRTIMP char *__cdecl _tcsncpy_l(char *_Dst,const char *_Src,size_t _MaxCount,_locale_t _Locale);
-  _CRTIMP _CONST_RETURN char *__cdecl _tcspbrk(const char *_Str,const char *_Control);
-  _CRTIMP _CONST_RETURN char *__cdecl _tcsrchr(const char *_Str,unsigned int _Ch);
-  _CRTIMP size_t __cdecl _tcsspn(const char *_Str,const char *_Control);
-  _CRTIMP _CONST_RETURN char *__cdecl _tcsstr(const char *_Str,const char *_Substr);
-  _CRTIMP char *__cdecl _tcstok(char *_Str,const char *_Delim);
-  _CRTIMP char *__cdecl _tcstok_l(char *_Str,const char *_Delim,_locale_t _Locale);
-  _CRTIMP char *__cdecl _tcsnset(char *_Str,unsigned int _Val,size_t _MaxCount);
-  _CRTIMP char *__cdecl _tcsrev(char *_Str);
-  _CRTIMP char *__cdecl _tcsset(char *_Str,unsigned int _Val);
-  _CRTIMP char *__cdecl _tcsset_l(char *_Str,unsigned int _Val,_locale_t _Locale);
-  _CRTIMP int __cdecl _tcscmp(const char *_Str1,const char *_Str);
-  _CRTIMP int __cdecl _tcsicmp(const char *_Str1,const char *_Str2);
-  _CRTIMP int __cdecl _tcsicmp_l(const char *_Str1,const char *_Str2,_locale_t _Locale);
-  _CRTIMP int __cdecl _tcsnccmp(const char *_Str1,const char *_Str2,size_t _MaxCount);
-  _CRTIMP int __cdecl _tcsncmp(const char *_Str1,const char *_Str2,size_t _MaxCount);
-  _CRTIMP int __cdecl _tcsncicmp(const char *_Str1,const char *_Str2,size_t _MaxCount);
-  _CRTIMP int __cdecl _tcsncicmp_l(const char *_Str1,const char *_Str2,size_t _MaxCount,_locale_t _Locale);
-  _CRTIMP int __cdecl _tcsnicmp(const char *_Str1,const char *_Str2,size_t _MaxCount);
-  _CRTIMP int __cdecl _tcsnicmp_l(const char *_Str1,const char *_Str2,size_t _MaxCount,_locale_t _Locale);
-  _CRTIMP int __cdecl _tcscoll(const char *_Str1,const char *_Str2);
-  _CRTIMP int __cdecl _tcscoll_l(const char *_Str1,const char *_Str2,_locale_t _Locale);
-  _CRTIMP int __cdecl _tcsicoll(const char *_Str1,const char *_Str2);
-  _CRTIMP int __cdecl _tcsicoll_l(const char *_Str1,const char *_Str2,_locale_t _Locale);
-  _CRTIMP int __cdecl _tcsnccoll(const char *_Str1,const char *_Str2,size_t _MaxCount);
-  _CRTIMP int __cdecl _tcsnccoll_l(const char *_Str1,const char *_Str2,size_t _MaxCount,_locale_t _Locale);
-  _CRTIMP int __cdecl _tcsncoll(const char *_Str1,const char *_Str2,size_t _MaxCount);
-  _CRTIMP int __cdecl _tcsncoll_l(const char *_Str1,const char *_Str2,size_t _MaxCount,_locale_t _Locale);
-  _CRTIMP int __cdecl _tcsncicoll(const char *_Str1,const char *_Str2,size_t _MaxCount);
-  _CRTIMP int __cdecl _tcsncicoll_l(const char *_Str1,const char *_Str2,size_t _MaxCount,_locale_t _Locale);
-  _CRTIMP int __cdecl _tcsnicoll(const char *_Str1,const char *_Str2,size_t _MaxCount);
-  _CRTIMP int __cdecl _tcsnicoll_l(const char *_Str1,const char *_Str2,size_t _MaxCount,_locale_t _Locale);
-  _CRTIMP size_t __cdecl _tcsclen(const char *_Str);
-  _CRTIMP size_t __cdecl _tcscnlen(const char *_Str,size_t _MaxCount);
-  _CRTIMP size_t __cdecl _tcsclen_l(const char *_Str,_locale_t _Locale);
-  _CRTIMP size_t __cdecl _tcscnlen_l(const char *_Str,size_t _MaxCount,_locale_t _Locale);
-  _CRTIMP char *__cdecl _tcsnccat(char *_Dst,const char *_Src,size_t _MaxCount);
-  _CRTIMP char *__cdecl _tcsnccat_l(char *_Dst,const char *_Src,size_t _MaxCount,_locale_t _Locale);
-  _CRTIMP char *__cdecl _tcsnccpy(char *_Dst,const char *_Src,size_t _MaxCount);
-  _CRTIMP char *__cdecl _tcsnccpy_l(char *_Dst,const char *_Src,size_t _MaxCount,_locale_t _Locale);
-  _CRTIMP char *__cdecl _tcsncset(char *_Str,unsigned int _Val,size_t _MaxCount);
-  _CRTIMP char *__cdecl _tcsdec(const char *_Start,const char *_Pos);
-  _CRTIMP char *__cdecl _tcsinc(const char *_Ptr);
-  _CRTIMP size_t __cdecl _tcsnbcnt(const char *_Str,size_t _MaxCount);
-  _CRTIMP size_t __cdecl _tcsnccnt(const char *_Str,size_t _MaxCount);
-  _CRTIMP unsigned int __cdecl _tcsnextc (const char *_Str);
-  _CRTIMP char *__cdecl _tcsninc(const char *_Ptr,size_t _Count);
-  _CRTIMP char *__cdecl _tcsspnp(const char *_Str1,const char *_Str2);
-  _CRTIMP char *__cdecl _tcslwr(char *_Str);
-  _CRTIMP char *__cdecl _tcslwr_l(char *_Str,_locale_t _Locale);
-  _CRTIMP char *__cdecl _tcsupr(char *_Str);
-  _CRTIMP char *__cdecl _tcsupr_l(char *_Str,_locale_t _Locale);
-  _CRTIMP size_t __cdecl _tclen(const char *_Str);
-  _CRTIMP void __cdecl _tccpy(char *_DstCh,const char *_SrcCh);
+  _CRTIMP _CONST_RETURN حرف *__cdecl _tcschr(ثابت حرف *_Str,بنانشان صحيح _Val);
+  _CRTIMP سائيز_t __cdecl _tcscspn(ثابت حرف *_Str,ثابت حرف *_Control);
+  _CRTIMP حرف *__cdecl _tcsncat(حرف *_Dst,ثابت حرف *_Src,سائيز_t Max_ڳڻپ);
+  _CRTIMP حرف *__cdecl _tcsncat_l(حرف *_Dst,ثابت حرف *_Src,سائيز_t Max_ڳڻپ,_locale_t _Locale);
+  _CRTIMP حرف *__cdecl _tcsncpy(حرف *_Dst,ثابت حرف *_Src,سائيز_t Max_ڳڻپ);
+  _CRTIMP حرف *__cdecl _tcsncpy_l(حرف *_Dst,ثابت حرف *_Src,سائيز_t Max_ڳڻپ,_locale_t _Locale);
+  _CRTIMP _CONST_RETURN حرف *__cdecl _tcspbrk(ثابت حرف *_Str,ثابت حرف *_Control);
+  _CRTIMP _CONST_RETURN حرف *__cdecl _tcsrchr(ثابت حرف *_Str,بنانشان صحيح _Ch);
+  _CRTIMP سائيز_t __cdecl _tcsspn(ثابت حرف *_Str,ثابت حرف *_Control);
+  _CRTIMP _CONST_RETURN حرف *__cdecl _tcsstr(ثابت حرف *_Str,ثابت حرف *_Substr);
+  _CRTIMP حرف *__cdecl _tcstok(حرف *_Str,ثابت حرف *_Delim);
+  _CRTIMP حرف *__cdecl _tcstok_l(حرف *_Str,ثابت حرف *_Delim,_locale_t _Locale);
+  _CRTIMP حرف *__cdecl _tcsnset(حرف *_Str,بنانشان صحيح _Val,سائيز_t Max_ڳڻپ);
+  _CRTIMP حرف *__cdecl _tcsrev(حرف *_Str);
+  _CRTIMP حرف *__cdecl _tcsset(حرف *_Str,بنانشان صحيح _Val);
+  _CRTIMP حرف *__cdecl _tcsset_l(حرف *_Str,بنانشان صحيح _Val,_locale_t _Locale);
+  _CRTIMP صحيح __cdecl _tcscmp(ثابت حرف *_Str1,ثابت حرف *_Str);
+  _CRTIMP صحيح __cdecl _tcsicmp(ثابت حرف *_Str1,ثابت حرف *_Str2);
+  _CRTIMP صحيح __cdecl _tcsicmp_l(ثابت حرف *_Str1,ثابت حرف *_Str2,_locale_t _Locale);
+  _CRTIMP صحيح __cdecl _tcsnccmp(ثابت حرف *_Str1,ثابت حرف *_Str2,سائيز_t Max_ڳڻپ);
+  _CRTIMP صحيح __cdecl _tcsncmp(ثابت حرف *_Str1,ثابت حرف *_Str2,سائيز_t Max_ڳڻپ);
+  _CRTIMP صحيح __cdecl _tcsncicmp(ثابت حرف *_Str1,ثابت حرف *_Str2,سائيز_t Max_ڳڻپ);
+  _CRTIMP صحيح __cdecl _tcsncicmp_l(ثابت حرف *_Str1,ثابت حرف *_Str2,سائيز_t Max_ڳڻپ,_locale_t _Locale);
+  _CRTIMP صحيح __cdecl _tcsnicmp(ثابت حرف *_Str1,ثابت حرف *_Str2,سائيز_t Max_ڳڻپ);
+  _CRTIMP صحيح __cdecl _tcsnicmp_l(ثابت حرف *_Str1,ثابت حرف *_Str2,سائيز_t Max_ڳڻپ,_locale_t _Locale);
+  _CRTIMP صحيح __cdecl _tcscoll(ثابت حرف *_Str1,ثابت حرف *_Str2);
+  _CRTIMP صحيح __cdecl _tcscoll_l(ثابت حرف *_Str1,ثابت حرف *_Str2,_locale_t _Locale);
+  _CRTIMP صحيح __cdecl _tcsicoll(ثابت حرف *_Str1,ثابت حرف *_Str2);
+  _CRTIMP صحيح __cdecl _tcsicoll_l(ثابت حرف *_Str1,ثابت حرف *_Str2,_locale_t _Locale);
+  _CRTIMP صحيح __cdecl _tcsnccoll(ثابت حرف *_Str1,ثابت حرف *_Str2,سائيز_t Max_ڳڻپ);
+  _CRTIMP صحيح __cdecl _tcsnccoll_l(ثابت حرف *_Str1,ثابت حرف *_Str2,سائيز_t Max_ڳڻپ,_locale_t _Locale);
+  _CRTIMP صحيح __cdecl _tcsncoll(ثابت حرف *_Str1,ثابت حرف *_Str2,سائيز_t Max_ڳڻپ);
+  _CRTIMP صحيح __cdecl _tcsncoll_l(ثابت حرف *_Str1,ثابت حرف *_Str2,سائيز_t Max_ڳڻپ,_locale_t _Locale);
+  _CRTIMP صحيح __cdecl _tcsncicoll(ثابت حرف *_Str1,ثابت حرف *_Str2,سائيز_t Max_ڳڻپ);
+  _CRTIMP صحيح __cdecl _tcsncicoll_l(ثابت حرف *_Str1,ثابت حرف *_Str2,سائيز_t Max_ڳڻپ,_locale_t _Locale);
+  _CRTIMP صحيح __cdecl _tcsnicoll(ثابت حرف *_Str1,ثابت حرف *_Str2,سائيز_t Max_ڳڻپ);
+  _CRTIMP صحيح __cdecl _tcsnicoll_l(ثابت حرف *_Str1,ثابت حرف *_Str2,سائيز_t Max_ڳڻپ,_locale_t _Locale);
+  _CRTIMP سائيز_t __cdecl _tcsclen(ثابت حرف *_Str);
+  _CRTIMP سائيز_t __cdecl _tcscnlen(ثابت حرف *_Str,سائيز_t Max_ڳڻپ);
+  _CRTIMP سائيز_t __cdecl _tcsclen_l(ثابت حرف *_Str,_locale_t _Locale);
+  _CRTIMP سائيز_t __cdecl _tcscnlen_l(ثابت حرف *_Str,سائيز_t Max_ڳڻپ,_locale_t _Locale);
+  _CRTIMP حرف *__cdecl _tcsnccat(حرف *_Dst,ثابت حرف *_Src,سائيز_t Max_ڳڻپ);
+  _CRTIMP حرف *__cdecl _tcsnccat_l(حرف *_Dst,ثابت حرف *_Src,سائيز_t Max_ڳڻپ,_locale_t _Locale);
+  _CRTIMP حرف *__cdecl _tcsnccpy(حرف *_Dst,ثابت حرف *_Src,سائيز_t Max_ڳڻپ);
+  _CRTIMP حرف *__cdecl _tcsnccpy_l(حرف *_Dst,ثابت حرف *_Src,سائيز_t Max_ڳڻپ,_locale_t _Locale);
+  _CRTIMP حرف *__cdecl _tcsncset(حرف *_Str,بنانشان صحيح _Val,سائيز_t Max_ڳڻپ);
+  _CRTIMP حرف *__cdecl _tcsdec(ثابت حرف *شروعات_4,ثابت حرف *_Pos);
+  _CRTIMP حرف *__cdecl _tcsinc(ثابت حرف *_Ptr);
+  _CRTIMP سائيز_t __cdecl _tcsnbcnt(ثابت حرف *_Str,سائيز_t Max_ڳڻپ);
+  _CRTIMP سائيز_t __cdecl _tcsnccnt(ثابت حرف *_Str,سائيز_t Max_ڳڻپ);
+  _CRTIMP بنانشان صحيح __cdecl _tcsnextc (ثابت حرف *_Str);
+  _CRTIMP حرف *__cdecl _tcsninc(ثابت حرف *_Ptr,سائيز_t ڳڻپ_5);
+  _CRTIMP حرف *__cdecl _tcsspnp(ثابت حرف *_Str1,ثابت حرف *_Str2);
+  _CRTIMP حرف *__cdecl _tcslwr(حرف *_Str);
+  _CRTIMP حرف *__cdecl _tcslwr_l(حرف *_Str,_locale_t _Locale);
+  _CRTIMP حرف *__cdecl _tcsupr(حرف *_Str);
+  _CRTIMP حرف *__cdecl _tcsupr_l(حرف *_Str,_locale_t _Locale);
+  _CRTIMP سائيز_t __cdecl _tclen(ثابت حرف *_Str);
+  _CRTIMP فراغ __cdecl _tccpy(حرف *_DstCh,ثابت حرف *_SrcCh);
 
-#ifdef __cplusplus
-#ifndef _CPP_TCHAR_INLINES_DEFINED
-#define _CPP_TCHAR_INLINES_DEFINED
-  extern "C++" {
-    extern inline char *__cdecl _tcschr(char *_S,unsigned int _C) { return ((char *)_tcschr((const char *)_S,_C)); }
-    extern inline char *__cdecl _tcspbrk(char *_S,const char *_P) { return ((char *)_tcspbrk((const char *)_S,_P)); }
-    extern inline char *__cdecl _tcsrchr(char *_S,unsigned int _C) { return ((char *)_tcsrchr((const char *)_S,_C)); }
-    extern inline char *__cdecl _tcsstr(char *_S,const char *_P) { return ((char *)_tcsstr((const char *)_S,_P)); }
+#جيڪڏهن_وصف_ٿيل __cplusplus
+#جيڪڏهن_وصف_نه_ٿيل _CPP_TCHAR_INLINES_DEFINED
+#وصف_ڪريو _CPP_TCHAR_INLINES_DEFINED
+  خارجي "C++" {
+    خارجي مضمن حرف *__cdecl _tcschr(حرف *_S,بنانشان صحيح _C) { أرجع ((حرف *)_tcschr((ثابت حرف *)_S,_C)); }
+    خارجي مضمن حرف *__cdecl _tcspbrk(حرف *_S,ثابت حرف *_P) { أرجع ((حرف *)_tcspbrk((ثابت حرف *)_S,_P)); }
+    خارجي مضمن حرف *__cdecl _tcsrchr(حرف *_S,بنانشان صحيح _C) { أرجع ((حرف *)_tcsrchr((ثابت حرف *)_S,_C)); }
+    خارجي مضمن حرف *__cdecl _tcsstr(حرف *_S,ثابت حرف *_P) { أرجع ((حرف *)_tcsstr((ثابت حرف *)_S,_P)); }
   }
-#endif
-#endif
-#endif
+#جيڪڏهن_پورو
+#جيڪڏهن_پورو
+#جيڪڏهن_پورو
 
-#define _tccmp(_cp1,_cp2) _tcsnccmp(_cp1,_cp2,1)
+#وصف_ڪريو _tccmp(_cp1,_cp2) _tcsnccmp(_cp1,_cp2,1)
 
-#define _istalnum _ismbcalnum
-#define _istalnum_l _ismbcalnum_l
-#define _istalpha _ismbcalpha
-#define _istalpha_l _ismbcalpha_l
-#define _istdigit _ismbcdigit
-#define _istdigit_l _ismbcdigit_l
-#define _istgraph _ismbcgraph
-#define _istgraph_l _ismbcgraph_l
-#define _istlegal _ismbclegal
-#define _istlegal_l _ismbclegal_l
-#define _istlower _ismbclower
-#define _istlower_l _ismbclower_l
-#define _istprint _ismbcprint
-#define _istprint_l _ismbcprint_l
-#define _istpunct _ismbcpunct
-#define _istpunct_l _ismbcpunct_l
-#define _istspace _ismbcspace
-#define _istspace_l _ismbcspace_l
-#define _istupper _ismbcupper
-#define _istupper_l _ismbcupper_l
+#وصف_ڪريو _istalnum _ismbcalnum
+#وصف_ڪريو _istalnum_l _ismbcalnum_l
+#وصف_ڪريو _istalpha _ismbcalpha
+#وصف_ڪريو _istalpha_l _ismbcalpha_l
+#وصف_ڪريو _istdigit _ismbcdigit
+#وصف_ڪريو _istdigit_l _ismbcdigit_l
+#وصف_ڪريو _istgraph _ismbcgraph
+#وصف_ڪريو _istgraph_l _ismbcgraph_l
+#وصف_ڪريو _istlegal _ismbclegal
+#وصف_ڪريو _istlegal_l _ismbclegal_l
+#وصف_ڪريو _istlower _ismbclower
+#وصف_ڪريو _istlower_l _ismbclower_l
+#وصف_ڪريو _istprint _ismbcprint
+#وصف_ڪريو _istprint_l _ismbcprint_l
+#وصف_ڪريو _istpunct _ismbcpunct
+#وصف_ڪريو _istpunct_l _ismbcpunct_l
+#وصف_ڪريو _istspace _ismbcspace
+#وصف_ڪريو _istspace_l _ismbcspace_l
+#وصف_ڪريو _istupper _ismbcupper
+#وصف_ڪريو _istupper_l _ismbcupper_l
 
-#define _totupper _mbctoupper
-#define _totupper_l _mbctoupper_l
-#define _totlower _mbctolower
-#define _totlower_l _mbctolower_l
+#وصف_ڪريو _totupper _mbctoupper
+#وصف_ڪريو _totupper_l _mbctoupper_l
+#وصف_ڪريو _totlower _mbctolower
+#وصف_ڪريو _totlower_l _mbctolower_l
 
-#define _istlead _ismbblead
-#define _istleadbyte isleadbyte
-#define _istleadbyte_l _isleadbyte_l
-#else
+#وصف_ڪريو _istlead _ismbblead
+#وصف_ڪريو _istleadbyte isleadbyte
+#وصف_ڪريو _istleadbyte_l _isleadbyte_l
+#وإلا
 
-#ifndef __TCHAR_DEFINED
-#define __TCHAR_DEFINED
-  typedef char _TCHAR;
-  typedef signed char _TSCHAR;
-  typedef unsigned char _TUCHAR;
-  typedef char _TXCHAR;
-  typedef int _TINT;
-#endif
+#جيڪڏهن_وصف_نه_ٿيل __TCHAR_DEFINED
+#وصف_ڪريو __TCHAR_DEFINED
+  تعريفنوع حرف _TCHAR;
+  تعريفنوع نشانوارو حرف _TSCHAR;
+  تعريفنوع بنانشان حرف _TUCHAR;
+  تعريفنوع حرف _TXCHAR;
+  تعريفنوع صحيح _TINT;
+#جيڪڏهن_پورو
 
-#ifndef _TCHAR_DEFINED
-#define _TCHAR_DEFINED
-#ifndef	NO_OLDNAMES
-  typedef char TCHAR;
-#endif
-#endif
+#جيڪڏهن_وصف_نه_ٿيل _TCHAR_DEFINED
+#وصف_ڪريو _TCHAR_DEFINED
+#جيڪڏهن_وصف_نه_ٿيل	NO_OLDNAMES
+  تعريفنوع حرف TCHAR;
+#جيڪڏهن_پورو
+#جيڪڏهن_پورو
 
-#define _tcschr strchr
-#define _tcscspn strcspn
-#define _tcsncat strncat
-#define _tcsncat_l _strncat_l
-#define _tcsncpy strncpy
-#define _tcsncpy_l _strncpy_l
-#define _tcspbrk strpbrk
-#define _tcsrchr strrchr
-#define _tcsspn strspn
-#define _tcsstr strstr
-#define _tcstok strtok
-#define _tcstok_l _strtok_l
+#وصف_ڪريو _tcschr strchr
+#وصف_ڪريو _tcscspn strcspn
+#وصف_ڪريو _tcsncat strncat
+#وصف_ڪريو _tcsncat_l _strncat_l
+#وصف_ڪريو _tcsncpy strncpy
+#وصف_ڪريو _tcsncpy_l _strncpy_l
+#وصف_ڪريو _tcspbrk strpbrk
+#وصف_ڪريو _tcsrchr strrchr
+#وصف_ڪريو _tcsspn strspn
+#وصف_ڪريو _tcsstr لڙي_ڳولا
+#وصف_ڪريو _tcstok strtok
+#وصف_ڪريو _tcstok_l _strtok_l
 
-#define _tcsnset _strnset
-#define _tcsnset_l _strnset_l
-#define _tcsrev _strrev
-#define _tcsset _strset
+#وصف_ڪريو _tcsnset _strnset
+#وصف_ڪريو _tcsnset_l _strnset_l
+#وصف_ڪريو _tcsrev _strrev
+#وصف_ڪريو _tcsset _strset
 
-#define _tcscmp strcmp
-#define _tcsicmp _stricmp
-#define _tcsicmp_l _stricmp_l
-#define _tcsnccmp strncmp
-#define _tcsncmp strncmp
-#define _tcsncicmp _strnicmp
-#define _tcsncicmp_l _strnicmp_l
-#define _tcsnicmp _strnicmp
-#define _tcsnicmp_l _strnicmp_l
+#وصف_ڪريو _tcscmp strcmp
+#وصف_ڪريو _tcsicmp _stricmp
+#وصف_ڪريو _tcsicmp_l _stricmp_l
+#وصف_ڪريو _tcsnccmp لڙي_ڀيٽ
+#وصف_ڪريو _tcsncmp لڙي_ڀيٽ
+#وصف_ڪريو _tcsncicmp _strnicmp
+#وصف_ڪريو _tcsncicmp_l _strnicmp_l
+#وصف_ڪريو _tcsnicmp _strnicmp
+#وصف_ڪريو _tcsnicmp_l _strnicmp_l
 
-#define _tcscoll strcoll
-#define _tcscoll_l _strcoll_l
-#define _tcsicoll _stricoll
-#define _tcsicoll_l _stricoll_l
-#define _tcsnccoll _strncoll
-#define _tcsnccoll_l _strncoll_l
-#define _tcsncoll _strncoll
-#define _tcsncoll_l _strncoll_l
-#define _tcsncicoll _strnicoll
-#define _tcsncicoll_l _strnicoll_l
-#define _tcsnicoll _strnicoll
-#define _tcsnicoll_l _strnicoll_l
+#وصف_ڪريو _tcscoll strcoll
+#وصف_ڪريو _tcscoll_l _strcoll_l
+#وصف_ڪريو _tcsicoll _stricoll
+#وصف_ڪريو _tcsicoll_l _stricoll_l
+#وصف_ڪريو _tcsnccoll _strncoll
+#وصف_ڪريو _tcsnccoll_l _strncoll_l
+#وصف_ڪريو _tcsncoll _strncoll
+#وصف_ڪريو _tcsncoll_l _strncoll_l
+#وصف_ڪريو _tcsncicoll _strnicoll
+#وصف_ڪريو _tcsncicoll_l _strnicoll_l
+#وصف_ڪريو _tcsnicoll _strnicoll
+#وصف_ڪريو _tcsnicoll_l _strnicoll_l
 
-#define _tcsclen strlen
-#define _tcscnlen strnlen
-#define _tcsclen_l(_String,_Locale) strlen(_String)
-#define _tcscnlen_l(_String,_Max_count,_Locale) strnlen_l((_String),(_Max_count))
-#define _tcsnccat strncat
-#define _tcsnccat_l _strncat_l
-#define _tcsnccpy strncpy
-#define _tcsnccpy_l _strncpy_l
-#define _tcsncset _strnset
+#وصف_ڪريو _tcsclen لڙي_ڊيگهه
+#وصف_ڪريو _tcscnlen strnlen
+#وصف_ڪريو _tcsclen_l(_String,_Locale) لڙي_ڊيگهه(_String)
+#وصف_ڪريو _tcscnlen_l(_String,Max_ڳڻپ_2,_Locale) strnlen_l((_String),(Max_ڳڻپ_2))
+#وصف_ڪريو _tcsnccat strncat
+#وصف_ڪريو _tcsnccat_l _strncat_l
+#وصف_ڪريو _tcsnccpy strncpy
+#وصف_ڪريو _tcsnccpy_l _strncpy_l
+#وصف_ڪريو _tcsncset _strnset
 
-#define _tcsdec _strdec
-#define _tcsinc _strinc
-#define _tcsnbcnt _strncnt
-#define _tcsnccnt _strncnt
-#define _tcsnextc _strnextc
-#define _tcsninc _strninc
-#define _tcsspnp _strspnp
+#وصف_ڪريو _tcsdec _strdec
+#وصف_ڪريو _tcsinc _strinc
+#وصف_ڪريو _tcsnbcnt _strncnt
+#وصف_ڪريو _tcsnccnt _strncnt
+#وصف_ڪريو _tcsnextc _strnextc
+#وصف_ڪريو _tcsninc _strninc
+#وصف_ڪريو _tcsspnp _strspnp
 
-#define _tcslwr _strlwr
-#define _tcslwr_l _strlwr_l
-#define _tcsupr _strupr
-#define _tcsupr_l _strupr_l
-#define _tcsxfrm strxfrm
-#define _tcsxfrm_l _strxfrm_l
+#وصف_ڪريو _tcslwr _strlwr
+#وصف_ڪريو _tcslwr_l _strlwr_l
+#وصف_ڪريو _tcsupr _strupr
+#وصف_ڪريو _tcsupr_l _strupr_l
+#وصف_ڪريو _tcsxfrm strxfrm
+#وصف_ڪريو _tcsxfrm_l _strxfrm_l
 
-#define _istlead(_Char) (0)
-#define _istleadbyte(_Char) (0)
-#define _istleadbyte_l(_Char,_Locale) (0)
+#وصف_ڪريو _istlead(_Char) (0)
+#وصف_ڪريو _istleadbyte(_Char) (0)
+#وصف_ڪريو _istleadbyte_l(_Char,_Locale) (0)
 
-#define _tclen(_pc) (1)
-#define _tccpy(_pc1,_cpc2) (*(_pc1) = *(_cpc2))
-#define _tccmp(_cpc1,_cpc2) (((unsigned char)*(_cpc1))-((unsigned char)*(_cpc2)))
+#وصف_ڪريو _tclen(_pc) (1)
+#وصف_ڪريو _tccpy(_pc1,_cpc2) (*(_pc1) = *(_cpc2))
+#وصف_ڪريو _tccmp(_cpc1,_cpc2) (((بنانشان حرف)*(_cpc1))-((بنانشان حرف)*(_cpc2)))
 
   /* dirent structures and functions */
-#define _tdirent	dirent
-#define _TDIR 		DIR
-#define _topendir	opendir
-#define _tclosedir	closedir
-#define _treaddir	readdir
-#define _trewinddir	rewinddir
-#define _ttelldir	telldir
-#define _tseekdir	seekdir
+#وصف_ڪريو _tdirent	dirent
+#وصف_ڪريو _TDIR 		DIR
+#وصف_ڪريو _topendir	opendir
+#وصف_ڪريو _tclosedir	closedir
+#وصف_ڪريو _treaddir	readdir
+#وصف_ڪريو _trewinddir	rewinddir
+#وصف_ڪريو _ttelldir	telldir
+#وصف_ڪريو _tseekdir	seekdir
 
-#define _istalnum isalnum
-#define _istalnum_l _isalnum_l
-#define _istalpha isalpha
-#define _istalpha_l _isalpha_l
-#define _istdigit isdigit
-#define _istdigit_l _isdigit_l
-#define _istgraph isgraph
-#define _istgraph_l _isgraph_l
-#define _istlower islower
-#define _istlower_l _islower_l
-#define _istprint isprint
-#define _istprint_l _isprint_l
-#define _istpunct ispunct
-#define _istpunct_l _ispunct_l
-#define _istspace isspace
-#define _istspace_l _isspace_l
-#define _istupper isupper
-#define _istupper_l _isupper_l
+#وصف_ڪريو _istalnum اکر_يا_انگ
+#وصف_ڪريو _istalnum_l _isalnum_l
+#وصف_ڪريو _istalpha اکر_آهي
+#وصف_ڪريو _istalpha_l _isalpha_l
+#وصف_ڪريو _istdigit انگ_آهي
+#وصف_ڪريو _istdigit_l _isdigit_l
+#وصف_ڪريو _istgraph isgraph
+#وصف_ڪريو _istgraph_l _isgraph_l
+#وصف_ڪريو _istlower islower
+#وصف_ڪريو _istlower_l _islower_l
+#وصف_ڪريو _istprint isprint
+#وصف_ڪريو _istprint_l _isprint_l
+#وصف_ڪريو _istpunct ispunct
+#وصف_ڪريو _istpunct_l _ispunct_l
+#وصف_ڪريو _istspace خال_آهي
+#وصف_ڪريو _istspace_l _isspace_l
+#وصف_ڪريو _istupper isupper
+#وصف_ڪريو _istupper_l _isupper_l
 
-#define _totupper toupper
-#define _totupper_l _toupper_l
-#define _totlower tolower
-#define _totlower_l _tolower_l
+#وصف_ڪريو _totupper وڏو_اکر
+#وصف_ڪريو _totupper_l _toupper_l
+#وصف_ڪريو _totlower tolower
+#وصف_ڪريو _totlower_l _tolower_l
 
-#define _istlegal(_c) (1)
+#وصف_ڪريو _istlegal(_c) (1)
 
-#ifndef NULL
-#ifdef __cplusplus
-#define NULL 0
-#else
-#define NULL ((void *)0)
-#endif
-#endif
+#جيڪڏهن_وصف_نه_ٿيل عدم
+#جيڪڏهن_وصف_ٿيل __cplusplus
+#وصف_ڪريو عدم 0
+#وإلا
+#وصف_ڪريو عدم ((فراغ *)0)
+#جيڪڏهن_پورو
+#جيڪڏهن_پورو
 
-#define _strdec(_cpc1,_cpc2) ((_cpc1)>=(_cpc2) ? NULL : (_cpc2)-1)
-#define _strinc(_pc) ((_pc)+1)
-#define _strnextc(_cpc) ((unsigned int) *(const unsigned char *)(_cpc))
-#define _strninc(_pc,_sz) (((_pc)+(_sz)))
-  _CRTIMP size_t __cdecl __strncnt(const char *_Str,size_t _Cnt);
-#define _strncnt(_cpc,_sz) (__strncnt(_cpc,_sz))
-#define _strspnp(_cpc1,_cpc2) (!_cpc1 ? NULL : ((*((_cpc1)+strspn(_cpc1,_cpc2))) ? ((_cpc1)+strspn(_cpc1,_cpc2)) : NULL))
+#وصف_ڪريو _strdec(_cpc1,_cpc2) ((_cpc1)>=(_cpc2) ? عدم : (_cpc2)-1)
+#وصف_ڪريو _strinc(_pc) ((_pc)+1)
+#وصف_ڪريو _strnextc(_cpc) ((بنانشان صحيح) *(ثابت بنانشان حرف *)(_cpc))
+#وصف_ڪريو _strninc(_pc,_sz) (((_pc)+(_sz)))
+  _CRTIMP سائيز_t __cdecl __strncnt(ثابت حرف *_Str,سائيز_t _Cnt);
+#وصف_ڪريو _strncnt(_cpc,_sz) (__strncnt(_cpc,_sz))
+#وصف_ڪريو _strspnp(_cpc1,_cpc2) (!_cpc1 ? عدم : ((*((_cpc1)+strspn(_cpc1,_cpc2))) ? ((_cpc1)+strspn(_cpc1,_cpc2)) : عدم))
 
-#define _strncpy_l(_Destination,_Source,_Count,_Locale) (strncpy(_Destination,_Source,_Count))
-#define _strncat_l(_Destination,_Source,_Count,_Locale) (strncat(_Destination,_Source,_Count))
-#define _strtok_l(_String,_Delimiters,_Locale) (strtok(_String,_Delimiters))
-#define _strnset_l(_Destination,_Value,_Count,_Locale) (_strnset(_Destination,_Value,_Count))
-#define _strset_l(_Destination,_Value,_Locale) (_strset(_Destination,_Value))
-#endif
-#endif
+#وصف_ڪريو _strncpy_l(_Destination,ذريعو_3,ڳڻپ_5,_Locale) (strncpy(_Destination,ذريعو_3,ڳڻپ_5))
+#وصف_ڪريو _strncat_l(_Destination,ذريعو_3,ڳڻپ_5,_Locale) (strncat(_Destination,ذريعو_3,ڳڻپ_5))
+#وصف_ڪريو _strtok_l(_String,_Delimiters,_Locale) (strtok(_String,_Delimiters))
+#وصف_ڪريو _strnset_l(_Destination,قدر_2,ڳڻپ_5,_Locale) (_strnset(_Destination,قدر_2,ڳڻپ_5))
+#وصف_ڪريو _strset_l(_Destination,قدر_2,_Locale) (_strset(_Destination,قدر_2))
+#جيڪڏهن_پورو
+#جيڪڏهن_پورو
 
-#define _T(x) __T(x)
-#define _TEXT(x) __T(x)
+#وصف_ڪريو _T(x) __T(x)
+#وصف_ڪريو متن_2(x) __T(x)
 
-#ifdef __cplusplus
+#جيڪڏهن_وصف_ٿيل __cplusplus
 }
-#endif
+#جيڪڏهن_پورو
 
-#include <sec_api/tchar_s.h>
-#endif
+#ضمن <sec_api/tchar_s.h>
+#جيڪڏهن_پورو

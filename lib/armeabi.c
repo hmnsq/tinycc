@@ -19,46 +19,46 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.*/
 
-#ifdef __TINYC__
-#define INT_MIN (-2147483647 - 1)
-#define INT_MAX 2147483647
-#define UINT_MAX 0xffffffff
-#define LONG_MIN (-2147483647L - 1)
-#define LONG_MAX 2147483647L
-#define ULONG_MAX 0xffffffffUL
-#define LLONG_MAX 9223372036854775807LL
-#define LLONG_MIN (-9223372036854775807LL - 1)
-#define ULLONG_MAX 0xffffffffffffffffULL
-#else
-#include <limits.h>
-#endif
+#جيڪڏهن_وصف_ٿيل __TINYC__
+#وصف_ڪريو INT_MIN (-2147483647 - 1)
+#وصف_ڪريو وڌ_کان_وڌ_عدد 2147483647
+#وصف_ڪريو UINT_MAX 0xffffffff
+#وصف_ڪريو LONG_MIN (-2147483647L - 1)
+#وصف_ڪريو LONG_MAX 2147483647L
+#وصف_ڪريو ULONG_MAX 0xffffffffUL
+#وصف_ڪريو LLONG_MAX 9223372036854775807LL
+#وصف_ڪريو LLONG_MIN (-9223372036854775807LL - 1)
+#وصف_ڪريو ULLONG_MAX 0xffffffffffffffffULL
+#وإلا
+#ضمن <limits.h>
+#جيڪڏهن_پورو
 
 /* We rely on the little endianness and EABI calling convention for this to
    work */
 
-typedef struct double_unsigned_struct {
-    unsigned low;
-    unsigned high;
+تعريفنوع بنية double_unsigned_struct {
+    بنانشان هيٺيون;
+    بنانشان مٿاهون;
 } double_unsigned_struct;
 
-typedef struct unsigned_int_struct {
-    unsigned low;
-    int high;
+تعريفنوع بنية unsigned_int_struct {
+    بنانشان هيٺيون;
+    صحيح مٿاهون;
 } unsigned_int_struct;
 
-#define REGS_RETURN(name, type) \
-    static void name ## _return(type ret) {}
+#وصف_ڪريو REGS_RETURN(name, type) \
+    ساكن فراغ name ## _return(type ret) {}
 
 
 /* Float helper functions */
 
-#define FLOAT_EXP_BITS 8
-#define FLOAT_FRAC_BITS 23
+#وصف_ڪريو FLOAT_EXP_بٽ 8
+#وصف_ڪريو FLOAT_FRAC_بٽ 23
 
-#define DOUBLE_EXP_BITS 11
-#define DOUBLE_FRAC_BITS 52
+#وصف_ڪريو DOUBLE_EXP_بٽ 11
+#وصف_ڪريو DOUBLE_FRAC_بٽ 52
 
-#define ONE_EXP(type) ((1 << (type ## _EXP_BITS - 1)) - 1)
+#وصف_ڪريو ONE_EXP(type) ((1 << (type ## EXP_بٽ - 1)) - 1)
 
 REGS_RETURN(unsigned_int_struct, unsigned_int_struct)
 REGS_RETURN(double_unsigned_struct, double_unsigned_struct)
@@ -67,58 +67,58 @@ REGS_RETURN(double_unsigned_struct, double_unsigned_struct)
 
 
 /* float to [unsigned] long long conversion */
-#define DEFINE__AEABI_F2XLZ(name, with_sign)                                 \
-void __aeabi_ ## name(unsigned val)                                          \
+#وصف_ڪريو DEFINE__AEABI_F2XLZ(name, with_sign)                                 \
+فراغ __aeabi_ ## name(بنانشان val)                                          \
 {                                                                            \
-    int exp, high_shift, sign;                                               \
+    صحيح قوت_نما, مٿاهون_سرڪايو, sign;                                               \
     double_unsigned_struct ret;                                              \
                                                                              \
     /* compute sign */                                                       \
     sign = val >> 31;                                                        \
                                                                              \
     /* compute real exponent */                                              \
-    exp = val >> FLOAT_FRAC_BITS;                                            \
-    exp &= (1 << FLOAT_EXP_BITS) - 1;                                        \
-    exp -= ONE_EXP(FLOAT);                                                   \
+    قوت_نما = val >> FLOAT_FRAC_بٽ;                                            \
+    قوت_نما &= (1 << FLOAT_EXP_بٽ) - 1;                                        \
+    قوت_نما -= ONE_EXP(FLOAT);                                                   \
                                                                              \
     /* undefined behavior if truncated value cannot be represented */        \
-    if (with_sign) {                                                         \
-        if (exp > 62) /* |val| too big, double cannot represent LLONG_MAX */ \
-            return;                                                          \
-    } else {                                                                 \
-        if ((sign && exp >= 0) || exp > 63) /* if val < 0 || val too big */  \
-            return;                                                          \
+    إذا (with_sign) {                                                         \
+        إذا (قوت_نما > 62) /* |val| too big, double cannot represent LLONG_MAX */ \
+            أرجع;                                                          \
+    } وإلا {                                                                 \
+        إذا ((sign && قوت_نما >= 0) || قوت_نما > 63) /* if val < 0 || val too big */  \
+            أرجع;                                                          \
     }                                                                        \
                                                                              \
-    val &= (1 << FLOAT_FRAC_BITS) - 1;                                       \
-    if (exp >= 32) {                                                         \
-        ret.high = 1 << (exp - 32);                                          \
-        if (exp - 32 >= FLOAT_FRAC_BITS) {                                   \
-            ret.high |= val << (exp - 32 - FLOAT_FRAC_BITS);                 \
-            ret.low = 0;                                                     \
-        } else {                                                             \
-            high_shift = FLOAT_FRAC_BITS - (exp - 32);                       \
-            ret.high |= val >> high_shift;                                   \
-            ret.low = val << (32 - high_shift);                              \
+    val &= (1 << FLOAT_FRAC_بٽ) - 1;                                       \
+    إذا (قوت_نما >= 32) {                                                         \
+        ret.مٿاهون = 1 << (قوت_نما - 32);                                          \
+        إذا (قوت_نما - 32 >= FLOAT_FRAC_بٽ) {                                   \
+            ret.مٿاهون |= val << (قوت_نما - 32 - FLOAT_FRAC_بٽ);                 \
+            ret.هيٺيون = 0;                                                     \
+        } وإلا {                                                             \
+            مٿاهون_سرڪايو = FLOAT_FRAC_بٽ - (قوت_نما - 32);                       \
+            ret.مٿاهون |= val >> مٿاهون_سرڪايو;                                   \
+            ret.هيٺيون = val << (32 - مٿاهون_سرڪايو);                              \
         }                                                                    \
-    } else {                                                                 \
-        ret.high = 0;                                                        \
-        ret.low = 1 << exp;                                                  \
-        if (exp > FLOAT_FRAC_BITS)                                           \
-            ret.low |= val << (exp - FLOAT_FRAC_BITS);                       \
-        else                                                                 \
-            ret.low |= val >> (FLOAT_FRAC_BITS - exp);                       \
+    } وإلا {                                                                 \
+        ret.مٿاهون = 0;                                                        \
+        ret.هيٺيون = 1 << قوت_نما;                                                  \
+        إذا (قوت_نما > FLOAT_FRAC_بٽ)                                           \
+            ret.هيٺيون |= val << (قوت_نما - FLOAT_FRAC_بٽ);                       \
+        وإلا                                                                 \
+            ret.هيٺيون |= val >> (FLOAT_FRAC_بٽ - قوت_نما);                       \
     }                                                                        \
                                                                              \
     /* encode negative integer using 2's complement */                       \
-    if (with_sign && sign) {                                                 \
-        ret.low = ~ret.low;                                                  \
-        ret.high = ~ret.high;                                                \
-        if (ret.low == UINT_MAX) {                                           \
-            ret.low = 0;                                                     \
-            ret.high++;                                                      \
-        } else                                                               \
-            ret.low++;                                                       \
+    إذا (with_sign && sign) {                                                 \
+        ret.هيٺيون = ~ret.هيٺيون;                                                  \
+        ret.مٿاهون = ~ret.مٿاهون;                                                \
+        إذا (ret.هيٺيون == UINT_MAX) {                                           \
+            ret.هيٺيون = 0;                                                     \
+            ret.مٿاهون++;                                                      \
+        } وإلا                                                               \
+            ret.هيٺيون++;                                                       \
     }                                                                        \
                                                                              \
     double_unsigned_struct_return(ret);                                      \
@@ -131,68 +131,68 @@ DEFINE__AEABI_F2XLZ(f2ulz, 0)
 DEFINE__AEABI_F2XLZ(f2lz, 1)
 
 /* double to [unsigned] long long conversion */
-#define DEFINE__AEABI_D2XLZ(name, with_sign)                                 \
-void __aeabi_ ## name(double_unsigned_struct val)                            \
+#وصف_ڪريو DEFINE__AEABI_D2XLZ(name, with_sign)                                 \
+فراغ __aeabi_ ## name(double_unsigned_struct val)                            \
 {                                                                            \
-    int exp, high_shift, sign;                                               \
+    صحيح قوت_نما, مٿاهون_سرڪايو, sign;                                               \
     double_unsigned_struct ret;                                              \
                                                                              \
-    if ((val.high & ~0x80000000) == 0 && val.low == 0) {                     \
-        ret.low = ret.high = 0;                                              \
-        goto _ret_;                                                          \
+    إذا ((val.مٿاهون & ~0x80000000) == 0 && val.هيٺيون == 0) {                     \
+        ret.هيٺيون = ret.مٿاهون = 0;                                              \
+        اذهب _ret_;                                                          \
     }                                                                        \
                                                                              \
     /* compute sign */                                                       \
-    sign = val.high >> 31;                                                   \
+    sign = val.مٿاهون >> 31;                                                   \
                                                                              \
     /* compute real exponent */                                              \
-    exp = (val.high >> (DOUBLE_FRAC_BITS - 32));                             \
-    exp &= (1 << DOUBLE_EXP_BITS) - 1;                                       \
-    exp -= ONE_EXP(DOUBLE);                                                  \
+    قوت_نما = (val.مٿاهون >> (DOUBLE_FRAC_بٽ - 32));                             \
+    قوت_نما &= (1 << DOUBLE_EXP_بٽ) - 1;                                       \
+    قوت_نما -= ONE_EXP(DOUBLE);                                                  \
                                                                              \
     /* undefined behavior if truncated value cannot be represented */        \
-    if (with_sign) {                                                         \
-        if (exp > 62) /* |val| too big, double cannot represent LLONG_MAX */ \
-            return;                                                          \
-    } else {                                                                 \
-        if ((sign && exp >= 0) || exp > 63) /* if val < 0 || val too big */  \
-            return;                                                          \
+    إذا (with_sign) {                                                         \
+        إذا (قوت_نما > 62) /* |val| too big, double cannot represent LLONG_MAX */ \
+            أرجع;                                                          \
+    } وإلا {                                                                 \
+        إذا ((sign && قوت_نما >= 0) || قوت_نما > 63) /* if val < 0 || val too big */  \
+            أرجع;                                                          \
     }                                                                        \
                                                                              \
-    val.high &= (1 << (DOUBLE_FRAC_BITS - 32)) - 1;                          \
-    if (exp >= 32) {                                                         \
-        ret.high = 1 << (exp - 32);                                          \
-        if (exp >= DOUBLE_FRAC_BITS) {                                       \
-            high_shift = exp - DOUBLE_FRAC_BITS;                             \
-            ret.high |= val.high << high_shift;                              \
-            ret.high |= val.low >> (32 - high_shift);                        \
-            ret.low = val.low << high_shift;                                 \
-        } else {                                                             \
-            high_shift = DOUBLE_FRAC_BITS - exp;                             \
-            ret.high |= val.high >> high_shift;                              \
-            ret.low = val.high << (32 - high_shift);                         \
-            ret.low |= val.low >> high_shift;                                \
+    val.مٿاهون &= (1 << (DOUBLE_FRAC_بٽ - 32)) - 1;                          \
+    إذا (قوت_نما >= 32) {                                                         \
+        ret.مٿاهون = 1 << (قوت_نما - 32);                                          \
+        إذا (قوت_نما >= DOUBLE_FRAC_بٽ) {                                       \
+            مٿاهون_سرڪايو = قوت_نما - DOUBLE_FRAC_بٽ;                             \
+            ret.مٿاهون |= val.مٿاهون << مٿاهون_سرڪايو;                              \
+            ret.مٿاهون |= val.هيٺيون >> (32 - مٿاهون_سرڪايو);                        \
+            ret.هيٺيون = val.هيٺيون << مٿاهون_سرڪايو;                                 \
+        } وإلا {                                                             \
+            مٿاهون_سرڪايو = DOUBLE_FRAC_بٽ - قوت_نما;                             \
+            ret.مٿاهون |= val.مٿاهون >> مٿاهون_سرڪايو;                              \
+            ret.هيٺيون = val.مٿاهون << (32 - مٿاهون_سرڪايو);                         \
+            ret.هيٺيون |= val.هيٺيون >> مٿاهون_سرڪايو;                                \
         }                                                                    \
-    } else {                                                                 \
-        ret.high = 0;                                                        \
-        ret.low = 1 << exp;                                                  \
-        if (exp > DOUBLE_FRAC_BITS - 32) {                                   \
-            high_shift = exp - (DOUBLE_FRAC_BITS - 32);                      \
-            ret.low |= val.high << high_shift;                               \
-            ret.low |= val.low >> (32 - high_shift);                         \
-        } else                                                               \
-            ret.low |= val.high >> (DOUBLE_FRAC_BITS - 32 - exp);            \
+    } وإلا {                                                                 \
+        ret.مٿاهون = 0;                                                        \
+        ret.هيٺيون = 1 << قوت_نما;                                                  \
+        إذا (قوت_نما > DOUBLE_FRAC_بٽ - 32) {                                   \
+            مٿاهون_سرڪايو = قوت_نما - (DOUBLE_FRAC_بٽ - 32);                      \
+            ret.هيٺيون |= val.مٿاهون << مٿاهون_سرڪايو;                               \
+            ret.هيٺيون |= val.هيٺيون >> (32 - مٿاهون_سرڪايو);                         \
+        } وإلا                                                               \
+            ret.هيٺيون |= val.مٿاهون >> (DOUBLE_FRAC_بٽ - 32 - قوت_نما);            \
     }                                                                        \
                                                                              \
     /* encode negative integer using 2's complement */                       \
-    if (with_sign && sign) {                                                 \
-        ret.low = ~ret.low;                                                  \
-        ret.high = ~ret.high;                                                \
-        if (ret.low == UINT_MAX) {                                           \
-            ret.low = 0;                                                     \
-            ret.high++;                                                      \
-        } else                                                               \
-            ret.low++;                                                       \
+    إذا (with_sign && sign) {                                                 \
+        ret.هيٺيون = ~ret.هيٺيون;                                                  \
+        ret.مٿاهون = ~ret.مٿاهون;                                                \
+        إذا (ret.هيٺيون == UINT_MAX) {                                           \
+            ret.هيٺيون = 0;                                                     \
+            ret.مٿاهون++;                                                      \
+        } وإلا                                                               \
+            ret.هيٺيون++;                                                       \
     }                                                                        \
                                                                              \
 _ret_:                                                                       \
@@ -206,57 +206,57 @@ DEFINE__AEABI_D2XLZ(d2ulz, 0)
 DEFINE__AEABI_D2XLZ(d2lz, 1)
 
 /* long long to float conversion */
-#define DEFINE__AEABI_XL2F(name, with_sign)                             \
-unsigned __aeabi_ ## name(unsigned long long v)                         \
+#وصف_ڪريو DEFINE__AEABI_XL2F(name, with_sign)                             \
+بنانشان __aeabi_ ## name(بنانشان ڊگهو ڊگهو v)                         \
 {                                                                       \
-    int s /* shift */, flb /* first lost bit */, sign = 0;              \
-    unsigned p = 0 /* power */, ret;                                    \
+    صحيح s /*سرڪايو*/, flb /* first lost bit */, sign = 0;              \
+    بنانشان p = 0 /* power */, ret;                                    \
     double_unsigned_struct val;                                         \
                                                                         \
     /* fraction in negative float is encoded in 1's complement */       \
-    if (with_sign && (v & (1ULL << 63))) {                              \
+    إذا (with_sign && (v & (1ULL << 63))) {                              \
         sign = 1;                                                       \
         v = ~v + 1;                                                     \
     }                                                                   \
-    val.low = v;                                                        \
-    val.high = v >> 32;                                                 \
+    val.هيٺيون = v;                                                        \
+    val.مٿاهون = v >> 32;                                                 \
     /* fill fraction bits */                                            \
-    for (s = 31, p = 1 << 31; p && !(val.high & p); s--, p >>= 1);      \
-    if (p) {                                                            \
-        ret = val.high & (p - 1);                                       \
-        if (s < FLOAT_FRAC_BITS) {                                      \
-            ret <<= FLOAT_FRAC_BITS - s;                                \
-            ret |= val.low >> (32 - (FLOAT_FRAC_BITS - s));             \
-            flb = (val.low >> (32 - (FLOAT_FRAC_BITS - s - 1))) & 1;    \
-        } else {                                                        \
-            flb = (ret >> (s - FLOAT_FRAC_BITS - 1)) & 1;               \
-            ret >>= s - FLOAT_FRAC_BITS;                                \
+    لكل (s = 31, p = 1 << 31; p && !(val.مٿاهون & p); s--, p >>= 1);      \
+    إذا (p) {                                                            \
+        ret = val.مٿاهون & (p - 1);                                       \
+        إذا (s < FLOAT_FRAC_بٽ) {                                      \
+            ret <<= FLOAT_FRAC_بٽ - s;                                \
+            ret |= val.هيٺيون >> (32 - (FLOAT_FRAC_بٽ - s));             \
+            flb = (val.هيٺيون >> (32 - (FLOAT_FRAC_بٽ - s - 1))) & 1;    \
+        } وإلا {                                                        \
+            flb = (ret >> (s - FLOAT_FRAC_بٽ - 1)) & 1;               \
+            ret >>= s - FLOAT_FRAC_بٽ;                                \
         }                                                               \
         s += 32;                                                        \
-    } else {                                                            \
-        for (s = 31, p = 1 << 31; p && !(val.low & p); s--, p >>= 1);   \
-        if (p) {                                                        \
-            ret = val.low & (p - 1);                                    \
-            if (s <= FLOAT_FRAC_BITS) {                                 \
-                ret <<= FLOAT_FRAC_BITS - s;                            \
+    } وإلا {                                                            \
+        لكل (s = 31, p = 1 << 31; p && !(val.هيٺيون & p); s--, p >>= 1);   \
+        إذا (p) {                                                        \
+            ret = val.هيٺيون & (p - 1);                                    \
+            إذا (s <= FLOAT_FRAC_بٽ) {                                 \
+                ret <<= FLOAT_FRAC_بٽ - s;                            \
                 flb = 0;                                                \
-	    } else {                                                    \
-                flb = (ret >> (s - FLOAT_FRAC_BITS - 1)) & 1;           \
-                ret >>= s - FLOAT_FRAC_BITS;                            \
+	    } وإلا {                                                    \
+                flb = (ret >> (s - FLOAT_FRAC_بٽ - 1)) & 1;           \
+                ret >>= s - FLOAT_FRAC_بٽ;                            \
 	    }                                                           \
-        } else                                                          \
-            return 0;                                                   \
+        } وإلا                                                          \
+            أرجع 0;                                                   \
     }                                                                   \
-    if (flb)                                                            \
+    إذا (flb)                                                            \
         ret++;                                                          \
                                                                         \
     /* fill exponent bits */                                            \
-    ret |= (s + ONE_EXP(FLOAT)) << FLOAT_FRAC_BITS;                     \
+    ret |= (s + ONE_EXP(FLOAT)) << FLOAT_FRAC_بٽ;                     \
                                                                         \
     /* fill sign bit */                                                 \
     ret |= sign << 31;                                                  \
                                                                         \
-    return ret;                                                         \
+    أرجع ret;                                                         \
 }
 
 /* unsigned long long to float conversion */
@@ -266,68 +266,68 @@ DEFINE__AEABI_XL2F(ul2f, 0)
 DEFINE__AEABI_XL2F(l2f, 1)
 
 /* long long to double conversion */
-#define __AEABI_XL2D(name, with_sign)                                   \
-void __aeabi_ ## name(unsigned long long v)                             \
+#وصف_ڪريو __AEABI_XL2D(name, with_sign)                                   \
+فراغ __aeabi_ ## name(بنانشان ڊگهو ڊگهو v)                             \
 {                                                                       \
-    int s /* shift */, high_shift, sign = 0;                            \
-    unsigned tmp, p = 0;                                                \
+    صحيح s /*سرڪايو*/, مٿاهون_سرڪايو, sign = 0;                            \
+    بنانشان tmp, p = 0;                                                \
     double_unsigned_struct val, ret;                                    \
                                                                         \
     /* fraction in negative float is encoded in 1's complement */       \
-    if (with_sign && (v & (1ULL << 63))) {                              \
+    إذا (with_sign && (v & (1ULL << 63))) {                              \
         sign = 1;                                                       \
         v = ~v + 1;                                                     \
     }                                                                   \
-    val.low = v;                                                        \
-    val.high = v >> 32;                                                 \
+    val.هيٺيون = v;                                                        \
+    val.مٿاهون = v >> 32;                                                 \
                                                                         \
     /* fill fraction bits */                                            \
-    for (s = 31, p = 1 << 31; p && !(val.high & p); s--, p >>= 1);      \
-    if (p) {                                                            \
-        tmp = val.high & (p - 1);                                       \
-        if (s < DOUBLE_FRAC_BITS - 32) {                                \
-            high_shift = DOUBLE_FRAC_BITS - 32 - s;                     \
-            ret.high = tmp << high_shift;                               \
-            ret.high |= val.low >> (32 - high_shift);                   \
-            ret.low = val.low << high_shift;                            \
-        } else {                                                        \
-            high_shift = s - (DOUBLE_FRAC_BITS - 32);                   \
-            ret.high = tmp >> high_shift;                               \
-            ret.low = tmp << (32 - high_shift);                         \
-            ret.low |= val.low >> high_shift;                           \
-            if ((val.low >> (high_shift - 1)) & 1) {                    \
-                if (ret.low == UINT_MAX) {                              \
-                    ret.high++;                                         \
-                    ret.low = 0;                                        \
-		} else                                                  \
-                    ret.low++;                                          \
+    لكل (s = 31, p = 1 << 31; p && !(val.مٿاهون & p); s--, p >>= 1);      \
+    إذا (p) {                                                            \
+        tmp = val.مٿاهون & (p - 1);                                       \
+        إذا (s < DOUBLE_FRAC_بٽ - 32) {                                \
+            مٿاهون_سرڪايو = DOUBLE_FRAC_بٽ - 32 - s;                     \
+            ret.مٿاهون = tmp << مٿاهون_سرڪايو;                               \
+            ret.مٿاهون |= val.هيٺيون >> (32 - مٿاهون_سرڪايو);                   \
+            ret.هيٺيون = val.هيٺيون << مٿاهون_سرڪايو;                            \
+        } وإلا {                                                        \
+            مٿاهون_سرڪايو = s - (DOUBLE_FRAC_بٽ - 32);                   \
+            ret.مٿاهون = tmp >> مٿاهون_سرڪايو;                               \
+            ret.هيٺيون = tmp << (32 - مٿاهون_سرڪايو);                         \
+            ret.هيٺيون |= val.هيٺيون >> مٿاهون_سرڪايو;                           \
+            إذا ((val.هيٺيون >> (مٿاهون_سرڪايو - 1)) & 1) {                    \
+                إذا (ret.هيٺيون == UINT_MAX) {                              \
+                    ret.مٿاهون++;                                         \
+                    ret.هيٺيون = 0;                                        \
+		} وإلا                                                  \
+                    ret.هيٺيون++;                                          \
             }                                                           \
         }                                                               \
         s += 32;                                                        \
-    } else {                                                            \
-        for (s = 31, p = 1 << 31; p && !(val.low & p); s--, p >>= 1);   \
-        if (p) {                                                        \
-            tmp = val.low & (p - 1);                                    \
-            if (s <= DOUBLE_FRAC_BITS - 32) {                           \
-                high_shift = DOUBLE_FRAC_BITS - 32 - s;                 \
-                ret.high = tmp << high_shift;                           \
-                ret.low = 0;                                            \
-	    } else {                                                    \
-                high_shift = s - (DOUBLE_FRAC_BITS - 32);               \
-                ret.high = tmp >> high_shift;                           \
-                ret.low = tmp << (32 - high_shift);                     \
+    } وإلا {                                                            \
+        لكل (s = 31, p = 1 << 31; p && !(val.هيٺيون & p); s--, p >>= 1);   \
+        إذا (p) {                                                        \
+            tmp = val.هيٺيون & (p - 1);                                    \
+            إذا (s <= DOUBLE_FRAC_بٽ - 32) {                           \
+                مٿاهون_سرڪايو = DOUBLE_FRAC_بٽ - 32 - s;                 \
+                ret.مٿاهون = tmp << مٿاهون_سرڪايو;                           \
+                ret.هيٺيون = 0;                                            \
+	    } وإلا {                                                    \
+                مٿاهون_سرڪايو = s - (DOUBLE_FRAC_بٽ - 32);               \
+                ret.مٿاهون = tmp >> مٿاهون_سرڪايو;                           \
+                ret.هيٺيون = tmp << (32 - مٿاهون_سرڪايو);                     \
             }                                                           \
-        } else {                                                        \
-            ret.high = ret.low = 0;                                     \
-            goto _ret_;                                                 \
+        } وإلا {                                                        \
+            ret.مٿاهون = ret.هيٺيون = 0;                                     \
+            اذهب _ret_;                                                 \
         }                                                               \
     }                                                                   \
                                                                         \
     /* fill exponent bits */                                            \
-    ret.high |= (s + ONE_EXP(DOUBLE)) << (DOUBLE_FRAC_BITS - 32);       \
+    ret.مٿاهون |= (s + ONE_EXP(DOUBLE)) << (DOUBLE_FRAC_بٽ - 32);       \
                                                                         \
     /* fill sign bit */                                                 \
-    ret.high |= sign << 31;                                             \
+    ret.مٿاهون |= sign << 31;                                             \
                                                                         \
 _ret_:                                                                  \
     double_unsigned_struct_return(ret);                                 \
@@ -339,221 +339,221 @@ __AEABI_XL2D(ul2d, 0)
 /* long long to double conversion */
 __AEABI_XL2D(l2d, 1)
 
-#if 1
+#إذا 1
 /* Long long helper functions */
 
 /* TODO: add error in case of den == 0 (see §4.3.1 and §4.3.2) */
 
-#define define_aeabi_xdivmod_signed_type(basetype, type) \
-typedef struct type {                                    \
+#وصف_ڪريو define_aeabi_xdivmod_signed_type(basetype, type) \
+تعريفنوع بنية type {                                    \
     basetype quot;                                       \
-    unsigned basetype rem;                               \
+    بنانشان basetype rem;                               \
 } type
 
-#define define_aeabi_xdivmod_unsigned_type(basetype, type) \
-typedef struct type {                                      \
+#وصف_ڪريو define_aeabi_xdivmod_unsigned_type(basetype, type) \
+تعريفنوع بنية type {                                      \
     basetype quot;                                         \
     basetype rem;                                          \
 } type
 
-#define AEABI_UXDIVMOD(name,type, rettype, typemacro)                     \
-static inline rettype aeabi_ ## name (type num, type den)                 \
+#وصف_ڪريو AEABI_UXDIVMOD(name,type, rettype, typemacro)                     \
+ساكن مضمن rettype aeabi_ ## name (type انگ, type den)                 \
 {                                                                         \
     rettype ret;                                                          \
     type quot = 0;                                                        \
                                                                           \
     /* Increase quotient while it is less than numerator */               \
-    while (num >= den) {                                                  \
+    طالما (انگ >= den) {                                                  \
         type q = 1;                                                       \
                                                                           \
         /* Find closest power of two */                                   \
-        while ((q << 1) * den <= num && q * den <= typemacro ## _MAX / 2) \
+        طالما ((q << 1) * den <= انگ && q * den <= typemacro ## _MAX / 2) \
             q <<= 1;                                                      \
                                                                           \
         /* Compute difference between current quotient and numerator */   \
-        num -= q * den;                                                   \
+        انگ -= q * den;                                                   \
         quot += q;                                                        \
     }                                                                     \
     ret.quot = quot;                                                      \
-    ret.rem = num;                                                        \
-    return ret;                                                           \
+    ret.rem = انگ;                                                        \
+    أرجع ret;                                                           \
 }
 
-#define __AEABI_XDIVMOD(name, type, uiname, rettype, urettype, typemacro)     \
-void __aeabi_ ## name(type numerator, type denominator)                       \
+#وصف_ڪريو __AEABI_XDIVMOD(name, type, uiname, rettype, urettype, typemacro)     \
+فراغ __aeabi_ ## name(type numerator, type denominator)                       \
 {                                                                             \
-    unsigned type num, den;                                                   \
+    بنانشان type انگ, den;                                                   \
     urettype uxdiv_ret;                                                       \
     rettype ret;                                                              \
                                                                               \
-    if (numerator >= 0)                                                       \
-      num = numerator;                                                        \
-    else                                                                      \
-      num = 0 - numerator;                                                    \
-    if (denominator >= 0)                                                     \
+    إذا (numerator >= 0)                                                       \
+      انگ = numerator;                                                        \
+    وإلا                                                                      \
+      انگ = 0 - numerator;                                                    \
+    إذا (denominator >= 0)                                                     \
       den = denominator;                                                      \
-    else                                                                      \
+    وإلا                                                                      \
       den = 0 - denominator;                                                  \
-    uxdiv_ret = aeabi_ ## uiname(num, den);                                   \
+    uxdiv_ret = aeabi_ ## uiname(انگ, den);                                   \
     /* signs differ */                                                        \
-    if ((numerator & typemacro ## _MIN) != (denominator & typemacro ## _MIN)) \
+    إذا ((numerator & typemacro ## _MIN) != (denominator & typemacro ## _MIN)) \
         ret.quot = 0 - uxdiv_ret.quot;                                        \
-    else                                                                      \
+    وإلا                                                                      \
         ret.quot = uxdiv_ret.quot;                                            \
-    if (numerator < 0)                                                        \
+    إذا (numerator < 0)                                                        \
         ret.rem = 0 - uxdiv_ret.rem;                                          \
-    else                                                                      \
+    وإلا                                                                      \
         ret.rem = uxdiv_ret.rem;                                              \
                                                                               \
     rettype ## _return(ret);                                                  \
 }
 
-define_aeabi_xdivmod_signed_type(long long, lldiv_t);
-define_aeabi_xdivmod_unsigned_type(unsigned long long, ulldiv_t);
-define_aeabi_xdivmod_signed_type(int, idiv_t);
-define_aeabi_xdivmod_unsigned_type(unsigned, uidiv_t);
+define_aeabi_xdivmod_signed_type(ڊگهو ڊگهو, lldiv_t);
+define_aeabi_xdivmod_unsigned_type(بنانشان ڊگهو ڊگهو, ulldiv_t);
+define_aeabi_xdivmod_signed_type(صحيح, idiv_t);
+define_aeabi_xdivmod_unsigned_type(بنانشان, uidiv_t);
 
 REGS_RETURN(lldiv_t, lldiv_t)
 REGS_RETURN(ulldiv_t, ulldiv_t)
 REGS_RETURN(idiv_t, idiv_t)
 REGS_RETURN(uidiv_t, uidiv_t)
 
-AEABI_UXDIVMOD(uldivmod, unsigned long long, ulldiv_t, ULLONG)
+AEABI_UXDIVMOD(uldivmod, بنانشان ڊگهو ڊگهو, ulldiv_t, ULLONG)
 
-__AEABI_XDIVMOD(ldivmod, long long, uldivmod, lldiv_t, ulldiv_t, LLONG)
+__AEABI_XDIVMOD(ldivmod, ڊگهو ڊگهو, uldivmod, lldiv_t, ulldiv_t, LLONG)
 
-void __aeabi_uldivmod(unsigned long long num, unsigned long long den)
+فراغ __aeabi_uldivmod(بنانشان ڊگهو ڊگهو انگ, بنانشان ڊگهو ڊگهو den)
 {
-    ulldiv_t_return(aeabi_uldivmod(num, den));
+    ulldiv_t_return(aeabi_uldivmod(انگ, den));
 }
 
-void __aeabi_llsl(double_unsigned_struct val, int shift)
+فراغ __aeabi_llsl(double_unsigned_struct val, صحيح سرڪايو)
 {
     double_unsigned_struct ret;
 
-    if (shift >= 32) {
-        val.high = val.low;
-        val.low = 0;
-        shift -= 32;
+    إذا (سرڪايو >= 32) {
+        val.مٿاهون = val.هيٺيون;
+        val.هيٺيون = 0;
+        سرڪايو -= 32;
     }
-    if (shift > 0) {
-        ret.low = val.low << shift;
-        ret.high = (val.high << shift) | (val.low >> (32 - shift));
+    إذا (سرڪايو > 0) {
+        ret.هيٺيون = val.هيٺيون << سرڪايو;
+        ret.مٿاهون = (val.مٿاهون << سرڪايو) | (val.هيٺيون >> (32 - سرڪايو));
         double_unsigned_struct_return(ret);
-	return;
+	أرجع;
     }
     double_unsigned_struct_return(val);
 }
 
-#define aeabi_lsr(val, shift, fill, type)                          \
+#وصف_ڪريو aeabi_lsr(val, سرڪايو, fill, type)                          \
     type ## _struct ret;                                           \
                                                                    \
-    if (shift >= 32) {                                             \
-        val.low = val.high;                                        \
-        val.high = fill;                                           \
-        shift -= 32;                                               \
+    إذا (سرڪايو >= 32) {                                             \
+        val.هيٺيون = val.مٿاهون;                                        \
+        val.مٿاهون = fill;                                           \
+        سرڪايو -= 32;                                               \
     }                                                              \
-    if (shift > 0) {                                               \
-        ret.high = val.high >> shift;                              \
-        ret.low = (val.high << (32 - shift)) | (val.low >> shift); \
+    إذا (سرڪايو > 0) {                                               \
+        ret.مٿاهون = val.مٿاهون >> سرڪايو;                              \
+        ret.هيٺيون = (val.مٿاهون << (32 - سرڪايو)) | (val.هيٺيون >> سرڪايو); \
         type ## _struct_return(ret);                               \
-	return;                                                    \
+	أرجع;                                                    \
     }                                                              \
     type ## _struct_return(val);
 
-void __aeabi_llsr(double_unsigned_struct val, int shift)
+فراغ __aeabi_llsr(double_unsigned_struct val, صحيح سرڪايو)
 {
-    aeabi_lsr(val, shift, 0, double_unsigned);
+    aeabi_lsr(val, سرڪايو, 0, double_unsigned);
 }
 
-void __aeabi_lasr(unsigned_int_struct val, int shift)
+فراغ __aeabi_lasr(unsigned_int_struct val, صحيح سرڪايو)
 {
-    aeabi_lsr(val, shift, val.high >> 31, unsigned_int);
+    aeabi_lsr(val, سرڪايو, val.مٿاهون >> 31, unsigned_int);
 }
 
 
 /* Integer division functions */
 
-#if 0 /* very slow */
-AEABI_UXDIVMOD(uidivmod, unsigned, uidiv_t, UINT)
+#إذا 0 /* very slow */
+AEABI_UXDIVMOD(uidivmod, بنانشان, uidiv_t, UINT)
 
-int __aeabi_idiv(int numerator, int denominator)
+صحيح __aeabi_idiv(صحيح numerator, صحيح denominator)
 {
-    unsigned num, den;
+    بنانشان انگ, den;
     uidiv_t ret;
 
-    if (numerator >= 0)
-        num = numerator;
-    else
-        num = 0 - numerator;
-    if (denominator >= 0)
+    إذا (numerator >= 0)
+        انگ = numerator;
+    وإلا
+        انگ = 0 - numerator;
+    إذا (denominator >= 0)
         den = denominator;
-    else
+    وإلا
         den = 0 - denominator;
-    ret = aeabi_uidivmod(num, den);
-    if ((numerator & INT_MIN) != (denominator & INT_MIN)) /* signs differ */
+    ret = aeabi_uidivmod(انگ, den);
+    إذا ((numerator & INT_MIN) != (denominator & INT_MIN)) /* signs differ */
         ret.quot *= -1;
-    return ret.quot;
+    أرجع ret.quot;
 }
 
-unsigned __aeabi_uidiv(unsigned num, unsigned den)
+بنانشان __aeabi_uidiv(بنانشان انگ, بنانشان den)
 {
-    return aeabi_uidivmod(num, den).quot;
+    أرجع aeabi_uidivmod(انگ, den).quot;
 }
 
-__AEABI_XDIVMOD(idivmod, int, uidivmod, idiv_t, uidiv_t, INT)
+__AEABI_XDIVMOD(idivmod, صحيح, uidivmod, idiv_t, uidiv_t, INT)
 
-void __aeabi_uidivmod(unsigned num, unsigned den)
+فراغ __aeabi_uidivmod(بنانشان انگ, بنانشان den)
 {
-    uidiv_t_return(aeabi_uidivmod(num, den));
+    uidiv_t_return(aeabi_uidivmod(انگ, den));
 }
-#else
+#وإلا
 # define UIDIVMOD_ASM 1
-#endif
+#جيڪڏهن_پورو
 
 /* Some targets do not have all eabi calls (OpenBSD) */
-typedef __SIZE_TYPE__ size_t;
-extern void *memcpy(void *dest, const void *src, size_t n);
-extern void *memmove(void *dest, const void *src, size_t n);
-extern void *memset(void *s, int c, size_t n);
+تعريفنوع __SIZE_TYPE__ سائيز_t;
+خارجي فراغ *يادگيري_نقل(فراغ *dest, ثابت فراغ *src, سائيز_t n);
+خارجي فراغ *memmove(فراغ *dest, ثابت فراغ *src, سائيز_t n);
+خارجي فراغ *memset(فراغ *s, صحيح c, سائيز_t n);
 
-void *
-__aeabi_memcpy (void *dest, const void *src, size_t n)
+فراغ *
+__aeabi_memcpy (فراغ *dest, ثابت فراغ *src, سائيز_t n)
 {
-    return memcpy (dest, src, n);
+    أرجع يادگيري_نقل (dest, src, n);
 }
 
-void *
-__aeabi_memmove (void *dest, const void *src, size_t n)
+فراغ *
+__aeabi_memmove (فراغ *dest, ثابت فراغ *src, سائيز_t n)
 {
-    return memmove (dest, src, n);
+    أرجع memmove (dest, src, n);
 }
 
-void *
-__aeabi_memmove4 (void *dest, const void *src, size_t n)
+فراغ *
+__aeabi_memmove4 (فراغ *dest, ثابت فراغ *src, سائيز_t n)
 {
-    return memmove (dest, src, n);
+    أرجع memmove (dest, src, n);
 }
 
-void *
-__aeabi_memmove8 (void *dest, const void *src, size_t n)
+فراغ *
+__aeabi_memmove8 (فراغ *dest, ثابت فراغ *src, سائيز_t n)
 {
-    return memmove (dest, src, n);
+    أرجع memmove (dest, src, n);
 }
 
-void *
-__aeabi_memset (void *s, size_t n, int c)
+فراغ *
+__aeabi_memset (فراغ *s, سائيز_t n, صحيح c)
 {
-    return memset (s, c, n);
+    أرجع memset (s, c, n);
 }
 
 /* ***************************************************************** */
-#if UIDIVMOD_ASM
-#include <config.h>
+#إذا UIDIVMOD_ASM
+#ضمن <config.h>
 __asm__(
    "\n  .global __aeabi_idiv, __aeabi_idivmod"
    "\n  .global __aeabi_uidiv, __aeabi_uidivmod"
-#if __ARM_FEATURE_IDIV
+#إذا __ARM_FEATURE_IDIV
    "\n__aeabi_idiv:"
    "\n__aeabi_idivmod:"
    "\n  mov     r2, r0"
@@ -567,7 +567,7 @@ __asm__(
    "\n  udiv    r0, r0, r1"
    "\n  mls     r1, r1, r0, r2"
    "\n  bx      lr"
-#else
+#وإلا
 /* Runtime ABI for the ARM Cortex-M0
  * idivmod.S: signed 32 bit division (quotient and remainder)
  *
@@ -610,7 +610,7 @@ __asm__(
    "\n__aeabi_uidivmod:"
    // Shift left the denominator until it is greater than the numerator
    "\n  mov     r2, #1"	    // counter
-   "\n  mov     r3, #0"	    // result
+   "\n  mov     r3, #0"	    //نتيجو
    "\n  cmp     r0, r1"
    "\n  bls     .Lsub_loop"
    "\n  adds    r1, #0"	    // dont shift if denominator would overflow
@@ -635,8 +635,8 @@ __asm__(
    "\n.Luidiv0:"            // XXX: division by zero
    "\n  mov     r0, #0"
    "\n  bx      lr"
-#endif
+#جيڪڏهن_پورو
 );
-#endif /* UIDIVMOD_ASM */
+#جيڪڏهن_پورو /* UIDIVMOD_ASM */
 /* ***************************************************************** */
-#endif
+#جيڪڏهن_پورو

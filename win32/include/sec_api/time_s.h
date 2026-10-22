@@ -3,59 +3,59 @@
  * This file is part of the w64 mingw-runtime package.
  * No warranty is given; refer to the file DISCLAIMER within this package.
  */
-#ifndef _TIME_H__S
-#define _TIME_H__S
+#جيڪڏهن_وصف_نه_ٿيل وقت_H_S
+#وصف_ڪريو وقت_H_S
 
-#include <time.h>
+#ضمن <time.h>
 
-#if defined(MINGW_HAS_SECURE_API)
+#إذا defined(MINGW_HAS_SECURE_API)
 
-#ifdef __cplusplus
-extern "C" {
-#endif
+#جيڪڏهن_وصف_ٿيل __cplusplus
+خارجي "C" {
+#جيڪڏهن_پورو
 
-  _CRTIMP errno_t __cdecl _ctime32_s(char *_Buf,size_t _SizeInBytes,const __time32_t *_Time);
-  _CRTIMP errno_t __cdecl _gmtime32_s(struct tm *_Tm,const __time32_t *_Time);
-  _CRTIMP errno_t __cdecl _localtime32_s(struct tm *_Tm,const __time32_t *_Time);
-  _CRTIMP errno_t __cdecl _strdate_s(char *_Buf,size_t _SizeInBytes);
-  _CRTIMP errno_t __cdecl _strtime_s(char *_Buf ,size_t _SizeInBytes);
-#if _INTEGRAL_MAX_BITS >= 64
-  _CRTIMP errno_t __cdecl _ctime64_s(char *_Buf,size_t _SizeInBytes,const __time64_t *_Time);
-  _CRTIMP errno_t __cdecl _gmtime64_s(struct tm *_Tm,const __time64_t *_Time);
-  _CRTIMP errno_t __cdecl _localtime64_s(struct tm *_Tm,const __time64_t *_Time);
-#endif
+  _CRTIMP errno_t __cdecl _ctime32_s(حرف *_Buf,سائيز_t سائيز_اندريون_بائيٽون,ثابت __time32_t *وقت_2);
+  _CRTIMP errno_t __cdecl _gmtime32_s(بنية tm *_Tm,ثابت __time32_t *وقت_2);
+  _CRTIMP errno_t __cdecl _localtime32_s(بنية tm *_Tm,ثابت __time32_t *وقت_2);
+  _CRTIMP errno_t __cdecl _strdate_s(حرف *_Buf,سائيز_t سائيز_اندريون_بائيٽون);
+  _CRTIMP errno_t __cdecl _strtime_s(حرف *_Buf ,سائيز_t سائيز_اندريون_بائيٽون);
+#إذا INTEGRAL_MAX_بٽ >= 64
+  _CRTIMP errno_t __cdecl _ctime64_s(حرف *_Buf,سائيز_t سائيز_اندريون_بائيٽون,ثابت __time64_t *وقت_2);
+  _CRTIMP errno_t __cdecl _gmtime64_s(بنية tm *_Tm,ثابت __time64_t *وقت_2);
+  _CRTIMP errno_t __cdecl _localtime64_s(بنية tm *_Tm,ثابت __time64_t *وقت_2);
+#جيڪڏهن_پورو
 
-#ifndef _WTIME_S_DEFINED
-#define _WTIME_S_DEFINED
-  _CRTIMP errno_t __cdecl _wasctime_s(wchar_t *_Buf,size_t _SizeInWords,const struct tm *_Tm);
-  _CRTIMP errno_t __cdecl _wctime32_s(wchar_t *_Buf,size_t _SizeInWords,const __time32_t *_Time);
-  _CRTIMP errno_t __cdecl _wstrdate_s(wchar_t *_Buf,size_t _SizeInWords);
-  _CRTIMP errno_t __cdecl _wstrtime_s(wchar_t *_Buf,size_t _SizeInWords);
-#if _INTEGRAL_MAX_BITS >= 64
-  _CRTIMP errno_t __cdecl _wctime64_s(wchar_t *_Buf,size_t _SizeInWords,const __time64_t *_Time);
-#endif
+#جيڪڏهن_وصف_نه_ٿيل _WTIME_S_DEFINED
+#وصف_ڪريو _WTIME_S_DEFINED
+  _CRTIMP errno_t __cdecl _wasctime_s(wchar_t *_Buf,سائيز_t سائيز_اندريون_لفظ,ثابت بنية tm *_Tm);
+  _CRTIMP errno_t __cdecl _wctime32_s(wchar_t *_Buf,سائيز_t سائيز_اندريون_لفظ,ثابت __time32_t *وقت_2);
+  _CRTIMP errno_t __cdecl _wstrdate_s(wchar_t *_Buf,سائيز_t سائيز_اندريون_لفظ);
+  _CRTIMP errno_t __cdecl _wstrtime_s(wchar_t *_Buf,سائيز_t سائيز_اندريون_لفظ);
+#إذا INTEGRAL_MAX_بٽ >= 64
+  _CRTIMP errno_t __cdecl _wctime64_s(wchar_t *_Buf,سائيز_t سائيز_اندريون_لفظ,ثابت __time64_t *وقت_2);
+#جيڪڏهن_پورو
 
-#if !defined (RC_INVOKED) && !defined (_INC_WTIME_S_INL)
-#define _INC_WTIME_S_INL
-#ifdef _USE_32BIT_TIME_T
-__CRT_INLINE errno_t __cdecl _wctime_s(wchar_t *_Buffer,size_t _SizeInWords,const time_t *_Time) { return _wctime32_s(_Buffer,_SizeInWords,_Time); }
-#else
-__CRT_INLINE errno_t __cdecl _wctime_s(wchar_t *_Buffer,size_t _SizeInWords,const time_t *_Time) { return _wctime64_s(_Buffer,_SizeInWords,_Time); }
-#endif
-#endif
-#endif
+#إذا !defined (RC_INVOKED) && !defined (_INC_WTIME_S_INL)
+#وصف_ڪريو _INC_WTIME_S_INL
+#جيڪڏهن_وصف_ٿيل USE_32_ٻٽو_انگ_وقت_T
+__CRT_INLINE errno_t __cdecl _wctime_s(wchar_t *بفر_2,سائيز_t سائيز_اندريون_لفظ,ثابت time_t *وقت_2) { أرجع _wctime32_s(بفر_2,سائيز_اندريون_لفظ,وقت_2); }
+#وإلا
+__CRT_INLINE errno_t __cdecl _wctime_s(wchar_t *بفر_2,سائيز_t سائيز_اندريون_لفظ,ثابت time_t *وقت_2) { أرجع _wctime64_s(بفر_2,سائيز_اندريون_لفظ,وقت_2); }
+#جيڪڏهن_پورو
+#جيڪڏهن_پورو
+#جيڪڏهن_پورو
 
-#ifndef RC_INVOKED
-#ifdef _USE_32BIT_TIME_T
-__CRT_INLINE errno_t __cdecl localtime_s(struct tm *_Tm,const time_t *_Time) { return _localtime32_s(_Tm,_Time); }
-#else
-__CRT_INLINE errno_t __cdecl localtime_s(struct tm *_Tm,const time_t *_Time) { return _localtime64_s(_Tm,_Time); }
-#endif
-#endif
+#جيڪڏهن_وصف_نه_ٿيل RC_INVOKED
+#جيڪڏهن_وصف_ٿيل USE_32_ٻٽو_انگ_وقت_T
+__CRT_INLINE errno_t __cdecl localtime_s(بنية tm *_Tm,ثابت time_t *وقت_2) { أرجع _localtime32_s(_Tm,وقت_2); }
+#وإلا
+__CRT_INLINE errno_t __cdecl localtime_s(بنية tm *_Tm,ثابت time_t *وقت_2) { أرجع _localtime64_s(_Tm,وقت_2); }
+#جيڪڏهن_پورو
+#جيڪڏهن_پورو
 
-#ifdef __cplusplus
+#جيڪڏهن_وصف_ٿيل __cplusplus
 }
-#endif
+#جيڪڏهن_پورو
 
-#endif
-#endif
+#جيڪڏهن_پورو
+#جيڪڏهن_پورو

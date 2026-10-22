@@ -1,85 +1,85 @@
-#include <stdio.h>
+#ضمن <stdio.h>
 
-int main()
+صحيح مکيه()
 {
-   printf("#include test\n");
+   لکو("#include test\n");
 
-#if 1
-#if 0
-   printf("a\n");
-#else
-   printf("b\n");
-#endif
-#else
-#if 0
-   printf("c\n");
-#else
-   printf("d\n");
-#endif
-#endif
+#إذا 1
+#إذا 0
+   لکو("a\n");
+#وإلا
+   لکو("b\n");
+#جيڪڏهن_پورو
+#وإلا
+#إذا 0
+   لکو("c\n");
+#وإلا
+   لکو("d\n");
+#جيڪڏهن_پورو
+#جيڪڏهن_پورو
 
-#if 0
-#if 1
-   printf("e\n");
-#else
-   printf("f\n");
-#endif
-#else
-#if 1
-   printf("g\n");
-#else
-   printf("h\n");
-#endif
-#endif
+#إذا 0
+#إذا 1
+   لکو("e\n");
+#وإلا
+   لکو("f\n");
+#جيڪڏهن_پورو
+#وإلا
+#إذا 1
+   لکو("g\n");
+#وإلا
+   لکو("h\n");
+#جيڪڏهن_پورو
+#جيڪڏهن_پورو
 
-#define DEF
+#وصف_ڪريو DEF
 
-#ifdef DEF
-#ifdef DEF
-   printf("i\n");
-#else
-   printf("j\n");
-#endif
-#else
-#ifdef DEF
-   printf("k\n");
-#else
-   printf("l\n");
-#endif
-#endif
+#جيڪڏهن_وصف_ٿيل DEF
+#جيڪڏهن_وصف_ٿيل DEF
+   لکو("i\n");
+#وإلا
+   لکو("j\n");
+#جيڪڏهن_پورو
+#وإلا
+#جيڪڏهن_وصف_ٿيل DEF
+   لکو("k\n");
+#وإلا
+   لکو("l\n");
+#جيڪڏهن_پورو
+#جيڪڏهن_پورو
 
-#ifndef DEF
-#ifndef DEF
-   printf("m\n");
-#else
-   printf("n\n");
-#endif
-#else
-#ifndef DEF
-   printf("o\n");
-#else
-   printf("p\n");
-#endif
-#endif
+#جيڪڏهن_وصف_نه_ٿيل DEF
+#جيڪڏهن_وصف_نه_ٿيل DEF
+   لکو("m\n");
+#وإلا
+   لکو("n\n");
+#جيڪڏهن_پورو
+#وإلا
+#جيڪڏهن_وصف_نه_ٿيل DEF
+   لکو("o\n");
+#وإلا
+   لکو("p\n");
+#جيڪڏهن_پورو
+#جيڪڏهن_پورو
 
-#define ONE 1
-#define ZERO 0
+#وصف_ڪريو ONE 1
+#وصف_ڪريو ZERO 0
 
-#if ONE
-#if ZERO
-   printf("q\n");
-#else
-   printf("r\n");
-#endif
-#else
-#if ZERO
-   printf("s\n");
-#else
-   printf("t\n");
-#endif
-#endif
+#إذا ONE
+#إذا ZERO
+   لکو("q\n");
+#وإلا
+   لکو("r\n");
+#جيڪڏهن_پورو
+#وإلا
+#إذا ZERO
+   لکو("s\n");
+#وإلا
+   لکو("t\n");
+#جيڪڏهن_پورو
+#جيڪڏهن_پورو
 
-   return 0;
+   أرجع 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

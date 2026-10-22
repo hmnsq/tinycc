@@ -3,174 +3,174 @@
  * This file is part of the w64 mingw-runtime package.
  * No warranty is given; refer to the file DISCLAIMER within this package.
  */
-#ifndef _INC_PROCESS
-#define _INC_PROCESS
+#جيڪڏهن_وصف_نه_ٿيل _INC_PROCESS
+#وصف_ڪريو _INC_PROCESS
 
-#include <_mingw.h>
+#ضمن <_mingw.h>
 
 /* Includes a definition of _pid_t and pid_t */
-#include <sys/types.h>
+#ضمن <sys/types.h>
 
-#ifndef _POSIX_
-#ifdef __cplusplus
-extern "C" {
-#endif
+#جيڪڏهن_وصف_نه_ٿيل _POSIX_
+#جيڪڏهن_وصف_ٿيل __cplusplus
+خارجي "C" {
+#جيڪڏهن_پورو
 
-#define _P_WAIT 0
-#define _P_NOWAIT 1
-#define _OLD_P_OVERLAY 2
-#define _P_NOWAITO 3
-#define _P_DETACH 4
-#define _P_OVERLAY 2
+#وصف_ڪريو _P_WAIT 0
+#وصف_ڪريو _P_NOWAIT 1
+#وصف_ڪريو _OLD_P_OVERLAY 2
+#وصف_ڪريو _P_NOWAITO 3
+#وصف_ڪريو _P_DETACH 4
+#وصف_ڪريو _P_OVERLAY 2
 
-#define _WAIT_CHILD 0
-#define _WAIT_GRANDCHILD 1
+#وصف_ڪريو WAIT_ٻار_2 0
+#وصف_ڪريو _WAIT_GRANDCHILD 1
 
-  _CRTIMP uintptr_t __cdecl _beginthread(void (__cdecl *_StartAddress) (void *),unsigned _StackSize,void *_ArgList);
-  _CRTIMP void __cdecl _endthread(void);
-  _CRTIMP uintptr_t __cdecl _beginthreadex(void *_Security,unsigned _StackSize,unsigned (__stdcall *_StartAddress) (void *),void *_ArgList,unsigned _InitFlag,unsigned *_ThrdAddr);
-  _CRTIMP void __cdecl _endthreadex(unsigned _Retval);
+  _CRTIMP uintptr_t __cdecl _beginthread(فراغ (__cdecl *شروعات_پتو) (فراغ *),بنانشان ڍير_سائيز_2,فراغ *_ArgList);
+  _CRTIMP فراغ __cdecl _endthread(فراغ);
+  _CRTIMP uintptr_t __cdecl _beginthreadex(فراغ *_Security,بنانشان ڍير_سائيز_2,بنانشان (__stdcall *شروعات_پتو) (فراغ *),فراغ *_ArgList,بنانشان _InitFlag,بنانشان *_ThrdAddr);
+  _CRTIMP فراغ __cdecl _endthreadex(بنانشان _Retval);
 
-#ifndef _CRT_TERMINATE_DEFINED
-#define _CRT_TERMINATE_DEFINED
-  void __cdecl __MINGW_NOTHROW exit(int _Code) __MINGW_ATTRIB_NORETURN;
-  _CRTIMP void __cdecl __MINGW_NOTHROW _exit(int _Code) __MINGW_ATTRIB_NORETURN;
+#جيڪڏهن_وصف_نه_ٿيل _CRT_TERMINATE_DEFINED
+#وصف_ڪريو _CRT_TERMINATE_DEFINED
+  فراغ __cdecl __MINGW_NOTHROW ٻاهر_نڪرو(صحيح ڪوڊ_3) __MINGW_ATTRIB_NORETURN;
+  _CRTIMP فراغ __cdecl __MINGW_NOTHROW _exit(صحيح ڪوڊ_3) __MINGW_ATTRIB_NORETURN;
 
-#pragma push_macro("abort")
-#undef abort
-  void __cdecl __declspec(noreturn) abort(void);
-#pragma pop_macro("abort")
+#هدايت ڌڪو_macro("abort")
+#وصف_رد abort
+  فراغ __cdecl __declspec(noreturn) abort(فراغ);
+#هدايت ڪڍو_macro("abort")
 
-#endif
+#جيڪڏهن_پورو
 
-  _CRTIMP void __cdecl __MINGW_NOTHROW _cexit(void);
-  _CRTIMP void __cdecl __MINGW_NOTHROW _c_exit(void);
-  _CRTIMP int __cdecl _getpid(void);
-  _CRTIMP intptr_t __cdecl _cwait(int *_TermStat,intptr_t _ProcHandle,int _Action);
-  _CRTIMP intptr_t __cdecl _execl(const char *_Filename,const char *_ArgList,...);
-  _CRTIMP intptr_t __cdecl _execle(const char *_Filename,const char *_ArgList,...);
-  _CRTIMP intptr_t __cdecl _execlp(const char *_Filename,const char *_ArgList,...);
-  _CRTIMP intptr_t __cdecl _execlpe(const char *_Filename,const char *_ArgList,...);
-  _CRTIMP intptr_t __cdecl _execv(const char *_Filename,const char *const *_ArgList);
-  _CRTIMP intptr_t __cdecl _execve(const char *_Filename,const char *const *_ArgList,const char *const *_Env);
-  _CRTIMP intptr_t __cdecl _execvp(const char *_Filename,const char *const *_ArgList);
-  _CRTIMP intptr_t __cdecl _execvpe(const char *_Filename,const char *const *_ArgList,const char *const *_Env);
-  _CRTIMP intptr_t __cdecl _spawnl(int _Mode,const char *_Filename,const char *_ArgList,...);
-  _CRTIMP intptr_t __cdecl _spawnle(int _Mode,const char *_Filename,const char *_ArgList,...);
-  _CRTIMP intptr_t __cdecl _spawnlp(int _Mode,const char *_Filename,const char *_ArgList,...);
-  _CRTIMP intptr_t __cdecl _spawnlpe(int _Mode,const char *_Filename,const char *_ArgList,...);
-  _CRTIMP intptr_t __cdecl _spawnv(int _Mode,const char *_Filename,const char *const *_ArgList);
-  _CRTIMP intptr_t __cdecl _spawnve(int _Mode,const char *_Filename,const char *const *_ArgList,const char *const *_Env);
-  _CRTIMP intptr_t __cdecl _spawnvp(int _Mode,const char *_Filename,const char *const *_ArgList);
-  _CRTIMP intptr_t __cdecl _spawnvpe(int _Mode,const char *_Filename,const char *const *_ArgList,const char *const *_Env);
+  _CRTIMP فراغ __cdecl __MINGW_NOTHROW _cexit(فراغ);
+  _CRTIMP فراغ __cdecl __MINGW_NOTHROW _c_exit(فراغ);
+  _CRTIMP صحيح __cdecl _getpid(فراغ);
+  _CRTIMP intptr_t __cdecl _cwait(صحيح *رڪن_Stat,intptr_t _ProcHandle,صحيح _Action);
+  _CRTIMP intptr_t __cdecl _execl(ثابت حرف *_Filename,ثابت حرف *_ArgList,...);
+  _CRTIMP intptr_t __cdecl _execle(ثابت حرف *_Filename,ثابت حرف *_ArgList,...);
+  _CRTIMP intptr_t __cdecl _execlp(ثابت حرف *_Filename,ثابت حرف *_ArgList,...);
+  _CRTIMP intptr_t __cdecl _execlpe(ثابت حرف *_Filename,ثابت حرف *_ArgList,...);
+  _CRTIMP intptr_t __cdecl _execv(ثابت حرف *_Filename,ثابت حرف *ثابت *_ArgList);
+  _CRTIMP intptr_t __cdecl _execve(ثابت حرف *_Filename,ثابت حرف *ثابت *_ArgList,ثابت حرف *ثابت *_Env);
+  _CRTIMP intptr_t __cdecl _execvp(ثابت حرف *_Filename,ثابت حرف *ثابت *_ArgList);
+  _CRTIMP intptr_t __cdecl _execvpe(ثابت حرف *_Filename,ثابت حرف *ثابت *_ArgList,ثابت حرف *ثابت *_Env);
+  _CRTIMP intptr_t __cdecl _spawnl(صحيح گهڻائي_3,ثابت حرف *_Filename,ثابت حرف *_ArgList,...);
+  _CRTIMP intptr_t __cdecl _spawnle(صحيح گهڻائي_3,ثابت حرف *_Filename,ثابت حرف *_ArgList,...);
+  _CRTIMP intptr_t __cdecl _spawnlp(صحيح گهڻائي_3,ثابت حرف *_Filename,ثابت حرف *_ArgList,...);
+  _CRTIMP intptr_t __cdecl _spawnlpe(صحيح گهڻائي_3,ثابت حرف *_Filename,ثابت حرف *_ArgList,...);
+  _CRTIMP intptr_t __cdecl _spawnv(صحيح گهڻائي_3,ثابت حرف *_Filename,ثابت حرف *ثابت *_ArgList);
+  _CRTIMP intptr_t __cdecl _spawnve(صحيح گهڻائي_3,ثابت حرف *_Filename,ثابت حرف *ثابت *_ArgList,ثابت حرف *ثابت *_Env);
+  _CRTIMP intptr_t __cdecl _spawnvp(صحيح گهڻائي_3,ثابت حرف *_Filename,ثابت حرف *ثابت *_ArgList);
+  _CRTIMP intptr_t __cdecl _spawnvpe(صحيح گهڻائي_3,ثابت حرف *_Filename,ثابت حرف *ثابت *_ArgList,ثابت حرف *ثابت *_Env);
 
-#ifndef _CRT_SYSTEM_DEFINED
-#define _CRT_SYSTEM_DEFINED
-  int __cdecl system(const char *_Command);
-#endif
+#جيڪڏهن_وصف_نه_ٿيل _CRT_SYSTEM_DEFINED
+#وصف_ڪريو _CRT_SYSTEM_DEFINED
+  صحيح __cdecl system(ثابت حرف *_Command);
+#جيڪڏهن_پورو
 
-#ifndef _WPROCESS_DEFINED
-#define _WPROCESS_DEFINED
-  _CRTIMP intptr_t __cdecl _wexecl(const wchar_t *_Filename,const wchar_t *_ArgList,...);
-  _CRTIMP intptr_t __cdecl _wexecle(const wchar_t *_Filename,const wchar_t *_ArgList,...);
-  _CRTIMP intptr_t __cdecl _wexeclp(const wchar_t *_Filename,const wchar_t *_ArgList,...);
-  _CRTIMP intptr_t __cdecl _wexeclpe(const wchar_t *_Filename,const wchar_t *_ArgList,...);
-  _CRTIMP intptr_t __cdecl _wexecv(const wchar_t *_Filename,const wchar_t *const *_ArgList);
-  _CRTIMP intptr_t __cdecl _wexecve(const wchar_t *_Filename,const wchar_t *const *_ArgList,const wchar_t *const *_Env);
-  _CRTIMP intptr_t __cdecl _wexecvp(const wchar_t *_Filename,const wchar_t *const *_ArgList);
-  _CRTIMP intptr_t __cdecl _wexecvpe(const wchar_t *_Filename,const wchar_t *const *_ArgList,const wchar_t *const *_Env);
-  _CRTIMP intptr_t __cdecl _wspawnl(int _Mode,const wchar_t *_Filename,const wchar_t *_ArgList,...);
-  _CRTIMP intptr_t __cdecl _wspawnle(int _Mode,const wchar_t *_Filename,const wchar_t *_ArgList,...);
-  _CRTIMP intptr_t __cdecl _wspawnlp(int _Mode,const wchar_t *_Filename,const wchar_t *_ArgList,...);
-  _CRTIMP intptr_t __cdecl _wspawnlpe(int _Mode,const wchar_t *_Filename,const wchar_t *_ArgList,...);
-  _CRTIMP intptr_t __cdecl _wspawnv(int _Mode,const wchar_t *_Filename,const wchar_t *const *_ArgList);
-  _CRTIMP intptr_t __cdecl _wspawnve(int _Mode,const wchar_t *_Filename,const wchar_t *const *_ArgList,const wchar_t *const *_Env);
-  _CRTIMP intptr_t __cdecl _wspawnvp(int _Mode,const wchar_t *_Filename,const wchar_t *const *_ArgList);
-  _CRTIMP intptr_t __cdecl _wspawnvpe(int _Mode,const wchar_t *_Filename,const wchar_t *const *_ArgList,const wchar_t *const *_Env);
-#ifndef _CRT_WSYSTEM_DEFINED
-#define _CRT_WSYSTEM_DEFINED
-  _CRTIMP int __cdecl _wsystem(const wchar_t *_Command);
-#endif
-#endif
+#جيڪڏهن_وصف_نه_ٿيل _WPROCESS_DEFINED
+#وصف_ڪريو _WPROCESS_DEFINED
+  _CRTIMP intptr_t __cdecl _wexecl(ثابت wchar_t *_Filename,ثابت wchar_t *_ArgList,...);
+  _CRTIMP intptr_t __cdecl _wexecle(ثابت wchar_t *_Filename,ثابت wchar_t *_ArgList,...);
+  _CRTIMP intptr_t __cdecl _wexeclp(ثابت wchar_t *_Filename,ثابت wchar_t *_ArgList,...);
+  _CRTIMP intptr_t __cdecl _wexeclpe(ثابت wchar_t *_Filename,ثابت wchar_t *_ArgList,...);
+  _CRTIMP intptr_t __cdecl _wexecv(ثابت wchar_t *_Filename,ثابت wchar_t *ثابت *_ArgList);
+  _CRTIMP intptr_t __cdecl _wexecve(ثابت wchar_t *_Filename,ثابت wchar_t *ثابت *_ArgList,ثابت wchar_t *ثابت *_Env);
+  _CRTIMP intptr_t __cdecl _wexecvp(ثابت wchar_t *_Filename,ثابت wchar_t *ثابت *_ArgList);
+  _CRTIMP intptr_t __cdecl _wexecvpe(ثابت wchar_t *_Filename,ثابت wchar_t *ثابت *_ArgList,ثابت wchar_t *ثابت *_Env);
+  _CRTIMP intptr_t __cdecl _wspawnl(صحيح گهڻائي_3,ثابت wchar_t *_Filename,ثابت wchar_t *_ArgList,...);
+  _CRTIMP intptr_t __cdecl _wspawnle(صحيح گهڻائي_3,ثابت wchar_t *_Filename,ثابت wchar_t *_ArgList,...);
+  _CRTIMP intptr_t __cdecl _wspawnlp(صحيح گهڻائي_3,ثابت wchar_t *_Filename,ثابت wchar_t *_ArgList,...);
+  _CRTIMP intptr_t __cdecl _wspawnlpe(صحيح گهڻائي_3,ثابت wchar_t *_Filename,ثابت wchar_t *_ArgList,...);
+  _CRTIMP intptr_t __cdecl _wspawnv(صحيح گهڻائي_3,ثابت wchar_t *_Filename,ثابت wchar_t *ثابت *_ArgList);
+  _CRTIMP intptr_t __cdecl _wspawnve(صحيح گهڻائي_3,ثابت wchar_t *_Filename,ثابت wchar_t *ثابت *_ArgList,ثابت wchar_t *ثابت *_Env);
+  _CRTIMP intptr_t __cdecl _wspawnvp(صحيح گهڻائي_3,ثابت wchar_t *_Filename,ثابت wchar_t *ثابت *_ArgList);
+  _CRTIMP intptr_t __cdecl _wspawnvpe(صحيح گهڻائي_3,ثابت wchar_t *_Filename,ثابت wchar_t *ثابت *_ArgList,ثابت wchar_t *ثابت *_Env);
+#جيڪڏهن_وصف_نه_ٿيل _CRT_WSYSTEM_DEFINED
+#وصف_ڪريو _CRT_WSYSTEM_DEFINED
+  _CRTIMP صحيح __cdecl _wsystem(ثابت wchar_t *_Command);
+#جيڪڏهن_پورو
+#جيڪڏهن_پورو
 
-  void __cdecl __security_init_cookie(void);
-#if (defined(_X86_) && !defined(__x86_64))
-  void __fastcall __security_check_cookie(uintptr_t _StackCookie);
-  __declspec(noreturn) void __cdecl __report_gsfailure(void);
-#else
-  void __cdecl __security_check_cookie(uintptr_t _StackCookie);
-  __declspec(noreturn) void __cdecl __report_gsfailure(uintptr_t _StackCookie);
-#endif
-  extern uintptr_t __security_cookie;
+  فراغ __cdecl __security_init_cookie(فراغ);
+#إذا (defined(_X86_) && !defined(__x86_64))
+  فراغ __fastcall __security_check_cookie(uintptr_t ڍير_Cookie);
+  __declspec(noreturn) فراغ __cdecl __report_gsfailure(فراغ);
+#وإلا
+  فراغ __cdecl __security_check_cookie(uintptr_t ڍير_Cookie);
+  __declspec(noreturn) فراغ __cdecl __report_gsfailure(uintptr_t ڍير_Cookie);
+#جيڪڏهن_پورو
+  خارجي uintptr_t __security_cookie;
 
-  intptr_t __cdecl _loaddll(char *_Filename);
-  int __cdecl _unloaddll(intptr_t _Handle);
-  int (__cdecl *__cdecl _getdllprocaddr(intptr_t _Handle,char *_ProcedureName,intptr_t _Ordinal))(void);
+  intptr_t __cdecl _loaddll(حرف *_Filename);
+  صحيح __cdecl _unloaddll(intptr_t _Handle);
+  صحيح (__cdecl *__cdecl _getdllprocaddr(intptr_t _Handle,حرف *_ProcedureName,intptr_t _Ordinal))(فراغ);
 
-#ifdef _DECL_DLLMAIN
-#ifdef _WINDOWS_
+#جيڪڏهن_وصف_ٿيل _DECL_DLLMAIN
+#جيڪڏهن_وصف_ٿيل _WINDOWS_
   WINBOOL WINAPI DllMain(HANDLE _HDllHandle,DWORD _Reason,LPVOID _Reserved);
   WINBOOL WINAPI _CRT_INIT(HANDLE _HDllHandle,DWORD _Reason,LPVOID _Reserved);
   WINBOOL WINAPI _wCRT_INIT(HANDLE _HDllHandle,DWORD _Reason,LPVOID _Reserved);
-  extern WINBOOL (WINAPI *const _pRawDllMain)(HANDLE,DWORD,LPVOID);
-#else
-  int __stdcall DllMain(void *_HDllHandle,unsigned _Reason,void *_Reserved);
-  int __stdcall _CRT_INIT(void *_HDllHandle,unsigned _Reason,void *_Reserved);
-  int __stdcall _wCRT_INIT(void *_HDllHandle,unsigned _Reason,void *_Reserved);
-  extern int (__stdcall *const _pRawDllMain)(void *,unsigned,void *);
-#endif
-#endif
+  خارجي WINBOOL (WINAPI *ثابت _pRawDllMain)(HANDLE,DWORD,LPVOID);
+#وإلا
+  صحيح __stdcall DllMain(فراغ *_HDllHandle,بنانشان _Reason,فراغ *_Reserved);
+  صحيح __stdcall _CRT_INIT(فراغ *_HDllHandle,بنانشان _Reason,فراغ *_Reserved);
+  صحيح __stdcall _wCRT_INIT(فراغ *_HDllHandle,بنانشان _Reason,فراغ *_Reserved);
+  خارجي صحيح (__stdcall *ثابت _pRawDllMain)(فراغ *,بنانشان,فراغ *);
+#جيڪڏهن_پورو
+#جيڪڏهن_پورو
 
-#ifndef	NO_OLDNAMES
-#define P_WAIT _P_WAIT
-#define P_NOWAIT _P_NOWAIT
-#define P_OVERLAY _P_OVERLAY
-#define OLD_P_OVERLAY _OLD_P_OVERLAY
-#define P_NOWAITO _P_NOWAITO
-#define P_DETACH _P_DETACH
-#define WAIT_CHILD _WAIT_CHILD
-#define WAIT_GRANDCHILD _WAIT_GRANDCHILD
+#جيڪڏهن_وصف_نه_ٿيل	NO_OLDNAMES
+#وصف_ڪريو P_WAIT _P_WAIT
+#وصف_ڪريو P_NOWAIT _P_NOWAIT
+#وصف_ڪريو P_OVERLAY _P_OVERLAY
+#وصف_ڪريو OLD_P_OVERLAY _OLD_P_OVERLAY
+#وصف_ڪريو P_NOWAITO _P_NOWAITO
+#وصف_ڪريو P_DETACH _P_DETACH
+#وصف_ڪريو WAIT_ٻار WAIT_ٻار_2
+#وصف_ڪريو WAIT_GRANDCHILD _WAIT_GRANDCHILD
 
-  intptr_t __cdecl cwait(int *_TermStat,intptr_t _ProcHandle,int _Action);
-#ifdef __GNUC__
-  int __cdecl execl(const char *_Filename,const char *_ArgList,...);
-  int __cdecl execle(const char *_Filename,const char *_ArgList,...);
-  int __cdecl execlp(const char *_Filename,const char *_ArgList,...);
-  int __cdecl execlpe(const char *_Filename,const char *_ArgList,...);
-#else
-    intptr_t __cdecl execl(const char *_Filename,const char *_ArgList,...);
-  intptr_t __cdecl execle(const char *_Filename,const char *_ArgList,...);
-  intptr_t __cdecl execlp(const char *_Filename,const char *_ArgList,...);
-  intptr_t __cdecl execlpe(const char *_Filename,const char *_ArgList,...);
-#endif
-  intptr_t __cdecl spawnl(int,const char *_Filename,const char *_ArgList,...);
-  intptr_t __cdecl spawnle(int,const char *_Filename,const char *_ArgList,...);
-  intptr_t __cdecl spawnlp(int,const char *_Filename,const char *_ArgList,...);
-  intptr_t __cdecl spawnlpe(int,const char *_Filename,const char *_ArgList,...);
-  int __cdecl getpid(void);
-#ifdef __GNUC__
+  intptr_t __cdecl cwait(صحيح *رڪن_Stat,intptr_t _ProcHandle,صحيح _Action);
+#جيڪڏهن_وصف_ٿيل __GNUC__
+  صحيح __cdecl execl(ثابت حرف *_Filename,ثابت حرف *_ArgList,...);
+  صحيح __cdecl execle(ثابت حرف *_Filename,ثابت حرف *_ArgList,...);
+  صحيح __cdecl execlp(ثابت حرف *_Filename,ثابت حرف *_ArgList,...);
+  صحيح __cdecl execlpe(ثابت حرف *_Filename,ثابت حرف *_ArgList,...);
+#وإلا
+    intptr_t __cdecl execl(ثابت حرف *_Filename,ثابت حرف *_ArgList,...);
+  intptr_t __cdecl execle(ثابت حرف *_Filename,ثابت حرف *_ArgList,...);
+  intptr_t __cdecl execlp(ثابت حرف *_Filename,ثابت حرف *_ArgList,...);
+  intptr_t __cdecl execlpe(ثابت حرف *_Filename,ثابت حرف *_ArgList,...);
+#جيڪڏهن_پورو
+  intptr_t __cdecl spawnl(صحيح,ثابت حرف *_Filename,ثابت حرف *_ArgList,...);
+  intptr_t __cdecl spawnle(صحيح,ثابت حرف *_Filename,ثابت حرف *_ArgList,...);
+  intptr_t __cdecl spawnlp(صحيح,ثابت حرف *_Filename,ثابت حرف *_ArgList,...);
+  intptr_t __cdecl spawnlpe(صحيح,ثابت حرف *_Filename,ثابت حرف *_ArgList,...);
+  صحيح __cdecl getpid(فراغ);
+#جيڪڏهن_وصف_ٿيل __GNUC__
   /* Those methods are predefined by gcc builtins to return int. So to prevent
      stupid warnings, define them in POSIX way.  This is save, because those
      methods do not return in success case, so that the return value is not
      really dependent to its scalar width.  */
-  int __cdecl execv(const char *_Filename,const char *const _ArgList[]);
-  int __cdecl execve(const char *_Filename,const char *const _ArgList[],const char *const _Env[]);
-  int __cdecl execvp(const char *_Filename,const char *const _ArgList[]);
-  int __cdecl execvpe(const char *_Filename,const char *const _ArgList[],const char *const _Env[]);
-#else
-  intptr_t __cdecl execv(const char *_Filename,const char *const _ArgList[]);
-  intptr_t __cdecl execve(const char *_Filename,const char *const _ArgList[],const char *const _Env[]);
-  intptr_t __cdecl execvp(const char *_Filename,const char *const _ArgList[]);
-  intptr_t __cdecl execvpe(const char *_Filename,const char *const _ArgList[],const char *const _Env[]);
-#endif
-  intptr_t __cdecl spawnv(int,const char *_Filename,const char *const _ArgList[]);
-  intptr_t __cdecl spawnve(int,const char *_Filename,const char *const _ArgList[],const char *const _Env[]);
-  intptr_t __cdecl spawnvp(int,const char *_Filename,const char *const _ArgList[]);
-  intptr_t __cdecl spawnvpe(int,const char *_Filename,const char *const _ArgList[],char *const _Env[]);
-#endif
+  صحيح __cdecl execv(ثابت حرف *_Filename,ثابت حرف *ثابت _ArgList[]);
+  صحيح __cdecl execve(ثابت حرف *_Filename,ثابت حرف *ثابت _ArgList[],ثابت حرف *ثابت _Env[]);
+  صحيح __cdecl execvp(ثابت حرف *_Filename,ثابت حرف *ثابت _ArgList[]);
+  صحيح __cdecl execvpe(ثابت حرف *_Filename,ثابت حرف *ثابت _ArgList[],ثابت حرف *ثابت _Env[]);
+#وإلا
+  intptr_t __cdecl execv(ثابت حرف *_Filename,ثابت حرف *ثابت _ArgList[]);
+  intptr_t __cdecl execve(ثابت حرف *_Filename,ثابت حرف *ثابت _ArgList[],ثابت حرف *ثابت _Env[]);
+  intptr_t __cdecl execvp(ثابت حرف *_Filename,ثابت حرف *ثابت _ArgList[]);
+  intptr_t __cdecl execvpe(ثابت حرف *_Filename,ثابت حرف *ثابت _ArgList[],ثابت حرف *ثابت _Env[]);
+#جيڪڏهن_پورو
+  intptr_t __cdecl spawnv(صحيح,ثابت حرف *_Filename,ثابت حرف *ثابت _ArgList[]);
+  intptr_t __cdecl spawnve(صحيح,ثابت حرف *_Filename,ثابت حرف *ثابت _ArgList[],ثابت حرف *ثابت _Env[]);
+  intptr_t __cdecl spawnvp(صحيح,ثابت حرف *_Filename,ثابت حرف *ثابت _ArgList[]);
+  intptr_t __cdecl spawnvpe(صحيح,ثابت حرف *_Filename,ثابت حرف *ثابت _ArgList[],حرف *ثابت _Env[]);
+#جيڪڏهن_پورو
 
-#ifdef __cplusplus
+#جيڪڏهن_وصف_ٿيل __cplusplus
 }
-#endif
-#endif
-#endif
+#جيڪڏهن_پورو
+#جيڪڏهن_پورو
+#جيڪڏهن_پورو

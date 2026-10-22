@@ -3,131 +3,131 @@
  * This file is part of the w64 mingw-runtime package.
  * No warranty is given; refer to the file DISCLAIMER within this package.
  */
-#ifndef _TIMEB_H_
-#define _TIMEB_H_
+#جيڪڏهن_وصف_نه_ٿيل _TIMEB_H_
+#وصف_ڪريو _TIMEB_H_
 
-#include <_mingw.h>
+#ضمن <_mingw.h>
 
-#ifndef _WIN32
-#error Only Win32 target is supported!
-#endif
+#جيڪڏهن_وصف_نه_ٿيل _WIN32
+#غلطي Only Win32 هدف is supported!
+#جيڪڏهن_پورو
 
-#pragma pack(push,_CRT_PACKING)
+#هدايت pack(ڌڪو,_CRT_PACKING)
 
-#ifdef __cplusplus
-extern "C" {
-#endif
+#جيڪڏهن_وصف_ٿيل __cplusplus
+خارجي "C" {
+#جيڪڏهن_پورو
 
-#ifndef _CRTIMP
-#define _CRTIMP __declspec(dllimport)
-#endif
+#جيڪڏهن_وصف_نه_ٿيل _CRTIMP
+#وصف_ڪريو _CRTIMP __declspec(dllimport)
+#جيڪڏهن_پورو
 
-#ifndef __TINYC__ /* gr */
-#ifdef _USE_32BIT_TIME_T
-#ifdef _WIN64
-#undef _USE_32BIT_TIME_T
-#endif
-#else
-#if _INTEGRAL_MAX_BITS < 64
-#define _USE_32BIT_TIME_T
-#endif
-#endif
-#endif
+#جيڪڏهن_وصف_نه_ٿيل __TINYC__ /* gr */
+#جيڪڏهن_وصف_ٿيل USE_32_ٻٽو_انگ_وقت_T
+#جيڪڏهن_وصف_ٿيل _WIN64
+#وصف_رد USE_32_ٻٽو_انگ_وقت_T
+#جيڪڏهن_پورو
+#وإلا
+#إذا INTEGRAL_MAX_بٽ < 64
+#وصف_ڪريو USE_32_ٻٽو_انگ_وقت_T
+#جيڪڏهن_پورو
+#جيڪڏهن_پورو
+#جيڪڏهن_پورو
 
-#ifndef _TIME32_T_DEFINED
-  typedef long __time32_t;
-#define _TIME32_T_DEFINED
-#endif
+#جيڪڏهن_وصف_نه_ٿيل _TIME32_T_DEFINED
+  تعريفنوع ڊگهو __time32_t;
+#وصف_ڪريو _TIME32_T_DEFINED
+#جيڪڏهن_پورو
 
-#ifndef _TIME64_T_DEFINED
-#if _INTEGRAL_MAX_BITS >= 64
-  typedef __int64 __time64_t;
-#endif
-#define _TIME64_T_DEFINED
-#endif
+#جيڪڏهن_وصف_نه_ٿيل _TIME64_T_DEFINED
+#إذا INTEGRAL_MAX_بٽ >= 64
+  تعريفنوع __int64 __time64_t;
+#جيڪڏهن_پورو
+#وصف_ڪريو _TIME64_T_DEFINED
+#جيڪڏهن_پورو
 
-#ifndef _TIME_T_DEFINED
-#ifdef _USE_32BIT_TIME_T
-  typedef __time32_t time_t;
-#else
-  typedef __time64_t time_t;
-#endif
-#define _TIME_T_DEFINED
-#endif
+#جيڪڏهن_وصف_نه_ٿيل وقت_T_DEFINED
+#جيڪڏهن_وصف_ٿيل USE_32_ٻٽو_انگ_وقت_T
+  تعريفنوع __time32_t time_t;
+#وإلا
+  تعريفنوع __time64_t time_t;
+#جيڪڏهن_پورو
+#وصف_ڪريو وقت_T_DEFINED
+#جيڪڏهن_پورو
 
-#ifndef _TIMEB_DEFINED
-#define _TIMEB_DEFINED
+#جيڪڏهن_وصف_نه_ٿيل _TIMEB_DEFINED
+#وصف_ڪريو _TIMEB_DEFINED
 
-  struct __timeb32 {
-    __time32_t time;
-    unsigned short millitm;
-    short timezone;
-    short dstflag;
+  بنية __timeb32 {
+    __time32_t وقت;
+    بنانشان ننڍو millitm;
+    ننڍو timezone;
+    ننڍو dstflag;
   };
 
-#ifndef	NO_OLDNAMES
-  struct timeb {
-    time_t time;
-    unsigned short millitm;
-    short timezone;
-    short dstflag;
+#جيڪڏهن_وصف_نه_ٿيل	NO_OLDNAMES
+  بنية timeb {
+    time_t وقت;
+    بنانشان ننڍو millitm;
+    ننڍو timezone;
+    ننڍو dstflag;
   };
-#endif
+#جيڪڏهن_پورو
 
-#if _INTEGRAL_MAX_BITS >= 64
-  struct __timeb64 {
-    __time64_t time;
-    unsigned short millitm;
-    short timezone;
-    short dstflag;
+#إذا INTEGRAL_MAX_بٽ >= 64
+  بنية __timeb64 {
+    __time64_t وقت;
+    بنانشان ننڍو millitm;
+    ننڍو timezone;
+    ننڍو dstflag;
   };
-#endif
+#جيڪڏهن_پورو
 
-#ifdef _USE_32BIT_TIME_T
-#define _timeb __timeb32
+#جيڪڏهن_وصف_ٿيل USE_32_ٻٽو_انگ_وقت_T
+#وصف_ڪريو _timeb __timeb32
 //gr #define _ftime _ftime32
-#define _ftime32 _ftime
-#else
-#define _timeb __timeb64
-#define _ftime _ftime64
-#endif
-#endif
+#وصف_ڪريو _ftime32 _ftime
+#وإلا
+#وصف_ڪريو _timeb __timeb64
+#وصف_ڪريو _ftime _ftime64
+#جيڪڏهن_پورو
+#جيڪڏهن_پورو
 
-  _CRTIMP void __cdecl _ftime32(struct __timeb32 *_Time);
-#if _INTEGRAL_MAX_BITS >= 64
-  _CRTIMP void __cdecl _ftime64(struct __timeb64 *_Time);
-#endif
+  _CRTIMP فراغ __cdecl _ftime32(بنية __timeb32 *وقت_2);
+#إذا INTEGRAL_MAX_بٽ >= 64
+  _CRTIMP فراغ __cdecl _ftime64(بنية __timeb64 *وقت_2);
+#جيڪڏهن_پورو
 
-#ifndef _TIMESPEC_DEFINED
-#define _TIMESPEC_DEFINED
-struct timespec {
+#جيڪڏهن_وصف_نه_ٿيل _TIMESPEC_DEFINED
+#وصف_ڪريو _TIMESPEC_DEFINED
+بنية timespec {
   time_t  tv_sec;   /* Seconds */
-  long    tv_nsec;  /* Nanoseconds */
+  ڊگهو    tv_nsec;  /* Nanoseconds */
 };
 
-struct itimerspec {
-  struct timespec  it_interval;  /* Timer period */
-  struct timespec  it_value;     /* Timer expiration */
+بنية itimerspec {
+  بنية timespec  it_interval;  /* Timer period */
+  بنية timespec  it_value;     /* Timer expiration */
 };
-#endif
+#جيڪڏهن_پورو
 
-#if !defined (RC_INVOKED) && !defined (NO_OLDNAMES)
-#ifdef _USE_32BIT_TIME_T
-__CRT_INLINE void __cdecl ftime(struct timeb *_Tmb) {
-  _ftime32((struct __timeb32 *)_Tmb);
+#إذا !defined (RC_INVOKED) && !defined (NO_OLDNAMES)
+#جيڪڏهن_وصف_ٿيل USE_32_ٻٽو_انگ_وقت_T
+__CRT_INLINE فراغ __cdecl ftime(بنية timeb *_Tmb) {
+  _ftime32((بنية __timeb32 *)_Tmb);
 }
-#else
-__CRT_INLINE void __cdecl ftime(struct timeb *_Tmb) {
-  _ftime64((struct __timeb64 *)_Tmb);
+#وإلا
+__CRT_INLINE فراغ __cdecl ftime(بنية timeb *_Tmb) {
+  _ftime64((بنية __timeb64 *)_Tmb);
 }
-#endif
-#endif
+#جيڪڏهن_پورو
+#جيڪڏهن_پورو
 
-#ifdef __cplusplus
+#جيڪڏهن_وصف_ٿيل __cplusplus
 }
-#endif
+#جيڪڏهن_پورو
 
-#pragma pack(pop)
+#هدايت pack(ڪڍو)
 
-#include <sec_api/sys/timeb_s.h>
-#endif
+#ضمن <sec_api/sys/timeb_s.h>
+#جيڪڏهن_پورو

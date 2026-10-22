@@ -1,2 +1,2 @@
-#pragma once
-printf ("counter %d\n", __COUNTER__);
+#هدايت once
+لکو ("counter %d\n", __COUNTER__);

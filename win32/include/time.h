@@ -3,285 +3,285 @@
  * This file is part of the w64 mingw-runtime package.
  * No warranty is given; refer to the file DISCLAIMER within this package.
  */
-#ifndef _TIME_H_
-#define _TIME_H_
+#جيڪڏهن_وصف_نه_ٿيل وقت_H
+#وصف_ڪريو وقت_H
 
-#include <_mingw.h>
+#ضمن <_mingw.h>
 
-#ifndef _WIN32
-#error Only Win32 target is supported!
-#endif
+#جيڪڏهن_وصف_نه_ٿيل _WIN32
+#غلطي Only Win32 هدف is supported!
+#جيڪڏهن_پورو
 
-#pragma pack(push,_CRT_PACKING)
+#هدايت pack(ڌڪو,_CRT_PACKING)
 
-#ifdef __cplusplus
-extern "C" {
-#endif
+#جيڪڏهن_وصف_ٿيل __cplusplus
+خارجي "C" {
+#جيڪڏهن_پورو
 
-#ifndef _CRTIMP
-#define _CRTIMP __declspec(dllimport)
-#endif
+#جيڪڏهن_وصف_نه_ٿيل _CRTIMP
+#وصف_ڪريو _CRTIMP __declspec(dllimport)
+#جيڪڏهن_پورو
 
-#ifndef _WCHAR_T_DEFINED
-#define _WCHAR_T_DEFINED
-  typedef unsigned short wchar_t;
-#endif
+#جيڪڏهن_وصف_نه_ٿيل _WCHAR_T_DEFINED
+#وصف_ڪريو _WCHAR_T_DEFINED
+  تعريفنوع بنانشان ننڍو wchar_t;
+#جيڪڏهن_پورو
 
-#ifndef _TIME32_T_DEFINED
-#define _TIME32_T_DEFINED
-  typedef long __time32_t;
-#endif
+#جيڪڏهن_وصف_نه_ٿيل _TIME32_T_DEFINED
+#وصف_ڪريو _TIME32_T_DEFINED
+  تعريفنوع ڊگهو __time32_t;
+#جيڪڏهن_پورو
 
-#ifndef _TIME64_T_DEFINED
-#define _TIME64_T_DEFINED
-#if _INTEGRAL_MAX_BITS >= 64
-#if defined(__GNUC__) && defined(__STRICT_ANSI__)
-  typedef int _time64_t __attribute__ ((mode (DI)));
-#else
-  typedef __int64 __time64_t;
-#endif
-#endif
-#endif
+#جيڪڏهن_وصف_نه_ٿيل _TIME64_T_DEFINED
+#وصف_ڪريو _TIME64_T_DEFINED
+#إذا INTEGRAL_MAX_بٽ >= 64
+#إذا defined(__GNUC__) && defined(__STRICT_ANSI__)
+  تعريفنوع صحيح _time64_t __attribute__ ((گهڻائي (DI)));
+#وإلا
+  تعريفنوع __int64 __time64_t;
+#جيڪڏهن_پورو
+#جيڪڏهن_پورو
+#جيڪڏهن_پورو
 
-#ifndef _TIME_T_DEFINED
-#define _TIME_T_DEFINED
-#ifdef _USE_32BIT_TIME_T
-  typedef __time32_t time_t;
-#else
-  typedef __time64_t time_t;
-#endif
-#endif
+#جيڪڏهن_وصف_نه_ٿيل وقت_T_DEFINED
+#وصف_ڪريو وقت_T_DEFINED
+#جيڪڏهن_وصف_ٿيل USE_32_ٻٽو_انگ_وقت_T
+  تعريفنوع __time32_t time_t;
+#وإلا
+  تعريفنوع __time64_t time_t;
+#جيڪڏهن_پورو
+#جيڪڏهن_پورو
 
-#ifndef _CLOCK_T_DEFINED
-#define _CLOCK_T_DEFINED
-  typedef long clock_t;
-#endif
+#جيڪڏهن_وصف_نه_ٿيل _CLOCK_T_DEFINED
+#وصف_ڪريو _CLOCK_T_DEFINED
+  تعريفنوع ڊگهو clock_t;
+#جيڪڏهن_پورو
 
-#ifndef _SIZE_T_DEFINED
-#define _SIZE_T_DEFINED
-#undef size_t
-#ifdef _WIN64
-#if defined(__GNUC__) && defined(__STRICT_ANSI__)
-  typedef unsigned int size_t __attribute__ ((mode (DI)));
-#else
-  typedef unsigned __int64 size_t;
-#endif
-#else
-  typedef unsigned int size_t;
-#endif
-#endif
+#جيڪڏهن_وصف_نه_ٿيل _SIZE_T_DEFINED
+#وصف_ڪريو _SIZE_T_DEFINED
+#وصف_رد سائيز_t
+#جيڪڏهن_وصف_ٿيل _WIN64
+#إذا defined(__GNUC__) && defined(__STRICT_ANSI__)
+  تعريفنوع بنانشان صحيح سائيز_t __attribute__ ((گهڻائي (DI)));
+#وإلا
+  تعريفنوع بنانشان __int64 سائيز_t;
+#جيڪڏهن_پورو
+#وإلا
+  تعريفنوع بنانشان صحيح سائيز_t;
+#جيڪڏهن_پورو
+#جيڪڏهن_پورو
 
-#ifndef _SSIZE_T_DEFINED
-#define _SSIZE_T_DEFINED
-#undef ssize_t
-#ifdef _WIN64
-#if defined(__GNUC__) && defined(__STRICT_ANSI__)
-  typedef int ssize_t __attribute__ ((mode (DI)));
-#else
-  typedef __int64 ssize_t;
-#endif
-#else
-  typedef int ssize_t;
-#endif
-#endif
+#جيڪڏهن_وصف_نه_ٿيل _SSIZE_T_DEFINED
+#وصف_ڪريو _SSIZE_T_DEFINED
+#وصف_رد ssize_t
+#جيڪڏهن_وصف_ٿيل _WIN64
+#إذا defined(__GNUC__) && defined(__STRICT_ANSI__)
+  تعريفنوع صحيح ssize_t __attribute__ ((گهڻائي (DI)));
+#وإلا
+  تعريفنوع __int64 ssize_t;
+#جيڪڏهن_پورو
+#وإلا
+  تعريفنوع صحيح ssize_t;
+#جيڪڏهن_پورو
+#جيڪڏهن_پورو
 
-#ifndef NULL
-#ifdef __cplusplus
-#define NULL 0
-#else
-#define NULL ((void *)0)
-#endif
-#endif
+#جيڪڏهن_وصف_نه_ٿيل عدم
+#جيڪڏهن_وصف_ٿيل __cplusplus
+#وصف_ڪريو عدم 0
+#وإلا
+#وصف_ڪريو عدم ((فراغ *)0)
+#جيڪڏهن_پورو
+#جيڪڏهن_پورو
 
-#ifdef _USE_32BIT_TIME_T
-#define _localtime32 localtime
-#define _difftime32     difftime
-#define _ctime32        ctime
-#define _gmtime32       gmtime
-#define _mktime32       mktime
-#define _time32 time
-#endif
+#جيڪڏهن_وصف_ٿيل USE_32_ٻٽو_انگ_وقت_T
+#وصف_ڪريو _localtime32 localtime
+#وصف_ڪريو _difftime32     difftime
+#وصف_ڪريو _ctime32        ctime
+#وصف_ڪريو _gmtime32       gmtime
+#وصف_ڪريو _mktime32       mktime
+#وصف_ڪريو _time32 وقت
+#جيڪڏهن_پورو
 
-#ifndef _TM_DEFINED
-#define _TM_DEFINED
-  struct tm {
-    int tm_sec;
-    int tm_min;
-    int tm_hour;
-    int tm_mday;
-    int tm_mon;
-    int tm_year;
-    int tm_wday;
-    int tm_yday;
-    int tm_isdst;
+#جيڪڏهن_وصف_نه_ٿيل _TM_DEFINED
+#وصف_ڪريو _TM_DEFINED
+  بنية tm {
+    صحيح tm_sec;
+    صحيح tm_min;
+    صحيح tm_hour;
+    صحيح tm_mday;
+    صحيح tm_mon;
+    صحيح tm_year;
+    صحيح tm_wday;
+    صحيح tm_yday;
+    صحيح tm_isdst;
   };
-#endif
+#جيڪڏهن_پورو
 
-#define CLOCKS_PER_SEC 1000
+#وصف_ڪريو CLOCKS_PER_SEC 1000
 
-  __MINGW_IMPORT int _daylight;
-  __MINGW_IMPORT long _dstbias;
-  __MINGW_IMPORT long _timezone;
-  __MINGW_IMPORT char * _tzname[2];
-  _CRTIMP errno_t __cdecl _get_daylight(int *_Daylight);
-  _CRTIMP errno_t __cdecl _get_dstbias(long *_Daylight_savings_bias);
-  _CRTIMP errno_t __cdecl _get_timezone(long *_Timezone);
-  _CRTIMP errno_t __cdecl _get_tzname(size_t *_ReturnValue,char *_Buffer,size_t _SizeInBytes,int _Index);
-  char *__cdecl asctime(const struct tm *_Tm);
-  _CRTIMP char *__cdecl _ctime32(const __time32_t *_Time);
-  clock_t __cdecl clock(void);
-  _CRTIMP double __cdecl _difftime32(__time32_t _Time1,__time32_t _Time2);
-  _CRTIMP struct tm *__cdecl _gmtime32(const __time32_t *_Time);
-  _CRTIMP struct tm *__cdecl _localtime32(const __time32_t *_Time);
-  size_t __cdecl strftime(char *_Buf,size_t _SizeInBytes,const char *_Format,const struct tm *_Tm);
-  _CRTIMP size_t __cdecl _strftime_l(char *_Buf,size_t _Max_size,const char *_Format,const struct tm *_Tm,_locale_t _Locale);
-  _CRTIMP char *__cdecl _strdate(char *_Buffer);
-  _CRTIMP char *__cdecl _strtime(char *_Buffer);
-  _CRTIMP __time32_t __cdecl _time32(__time32_t *_Time);
-  _CRTIMP __time32_t __cdecl _mktime32(struct tm *_Tm);
-  _CRTIMP __time32_t __cdecl _mkgmtime32(struct tm *_Tm);
-#if defined (_POSIX_) || defined(__GNUC__)
-  void __cdecl tzset(void);
-#else
-  _CRTIMP void __cdecl _tzset(void);
-#endif
+  __MINGW_IMPORT صحيح _daylight;
+  __MINGW_IMPORT ڊگهو _dstbias;
+  __MINGW_IMPORT ڊگهو _timezone;
+  __MINGW_IMPORT حرف * _tzname[2];
+  _CRTIMP errno_t __cdecl _get_daylight(صحيح *_Daylight);
+  _CRTIMP errno_t __cdecl _get_dstbias(ڊگهو *_Daylight_savings_bias);
+  _CRTIMP errno_t __cdecl _get_timezone(ڊگهو *_Timezone);
+  _CRTIMP errno_t __cdecl _get_tzname(سائيز_t *Return_قدر,حرف *بفر_2,سائيز_t سائيز_اندريون_بائيٽون,صحيح اشاريو_2);
+  حرف *__cdecl asctime(ثابت بنية tm *_Tm);
+  _CRTIMP حرف *__cdecl _ctime32(ثابت __time32_t *وقت_2);
+  clock_t __cdecl clock(فراغ);
+  _CRTIMP مزدوج __cdecl _difftime32(__time32_t _Time1,__time32_t _Time2);
+  _CRTIMP بنية tm *__cdecl _gmtime32(ثابت __time32_t *وقت_2);
+  _CRTIMP بنية tm *__cdecl _localtime32(ثابت __time32_t *وقت_2);
+  سائيز_t __cdecl strftime(حرف *_Buf,سائيز_t سائيز_اندريون_بائيٽون,ثابت حرف *_Format,ثابت بنية tm *_Tm);
+  _CRTIMP سائيز_t __cdecl _strftime_l(حرف *_Buf,سائيز_t Max_سائيز,ثابت حرف *_Format,ثابت بنية tm *_Tm,_locale_t _Locale);
+  _CRTIMP حرف *__cdecl _strdate(حرف *بفر_2);
+  _CRTIMP حرف *__cdecl _strtime(حرف *بفر_2);
+  _CRTIMP __time32_t __cdecl _time32(__time32_t *وقت_2);
+  _CRTIMP __time32_t __cdecl _mktime32(بنية tm *_Tm);
+  _CRTIMP __time32_t __cdecl _mkgmtime32(بنية tm *_Tm);
+#إذا defined (_POSIX_) || defined(__GNUC__)
+  فراغ __cdecl tzset(فراغ);
+#وإلا
+  _CRTIMP فراغ __cdecl _tzset(فراغ);
+#جيڪڏهن_پورو
 
-#if _INTEGRAL_MAX_BITS >= 64
-  double __cdecl _difftime64(__time64_t _Time1,__time64_t _Time2);
-  _CRTIMP char *__cdecl _ctime64(const __time64_t *_Time);
-  _CRTIMP struct tm *__cdecl _gmtime64(const __time64_t *_Time);
-  _CRTIMP struct tm *__cdecl _localtime64(const __time64_t *_Time);
-  _CRTIMP __time64_t __cdecl _mktime64(struct tm *_Tm);
-  _CRTIMP __time64_t __cdecl _mkgmtime64(struct tm *_Tm);
-  _CRTIMP __time64_t __cdecl _time64(__time64_t *_Time);
-#endif
-  unsigned __cdecl _getsystime(struct tm *_Tm);
-  unsigned __cdecl _setsystime(struct tm *_Tm,unsigned _MilliSec);
+#إذا INTEGRAL_MAX_بٽ >= 64
+  مزدوج __cdecl _difftime64(__time64_t _Time1,__time64_t _Time2);
+  _CRTIMP حرف *__cdecl _ctime64(ثابت __time64_t *وقت_2);
+  _CRTIMP بنية tm *__cdecl _gmtime64(ثابت __time64_t *وقت_2);
+  _CRTIMP بنية tm *__cdecl _localtime64(ثابت __time64_t *وقت_2);
+  _CRTIMP __time64_t __cdecl _mktime64(بنية tm *_Tm);
+  _CRTIMP __time64_t __cdecl _mkgmtime64(بنية tm *_Tm);
+  _CRTIMP __time64_t __cdecl _time64(__time64_t *وقت_2);
+#جيڪڏهن_پورو
+  بنانشان __cdecl _getsystime(بنية tm *_Tm);
+  بنانشان __cdecl _setsystime(بنية tm *_Tm,بنانشان _MilliSec);
 
-#ifndef _SIZE_T_DEFINED
-#define _SIZE_T_DEFINED
-#ifdef _WIN64
-#if defined(__GNUC__) && defined(__STRICT_ANSI__)
-  typedef unsigned int size_t __attribute__ ((mode (DI)));
-#else
-  typedef unsigned __int64 size_t;
-#endif
-#else
-  typedef unsigned long size_t;
-#endif
-#endif
+#جيڪڏهن_وصف_نه_ٿيل _SIZE_T_DEFINED
+#وصف_ڪريو _SIZE_T_DEFINED
+#جيڪڏهن_وصف_ٿيل _WIN64
+#إذا defined(__GNUC__) && defined(__STRICT_ANSI__)
+  تعريفنوع بنانشان صحيح سائيز_t __attribute__ ((گهڻائي (DI)));
+#وإلا
+  تعريفنوع بنانشان __int64 سائيز_t;
+#جيڪڏهن_پورو
+#وإلا
+  تعريفنوع بنانشان ڊگهو سائيز_t;
+#جيڪڏهن_پورو
+#جيڪڏهن_پورو
 
-#ifndef _SSIZE_T_DEFINED
-#define _SSIZE_T_DEFINED
-#ifdef _WIN64
-#if defined(__GNUC__) && defined(__STRICT_ANSI__)
-  typedef int ssize_t __attribute__ ((mode (DI)));
-#else
-  typedef __int64 ssize_t;
-#endif
-#else
-  typedef long ssize_t;
-#endif
-#endif
+#جيڪڏهن_وصف_نه_ٿيل _SSIZE_T_DEFINED
+#وصف_ڪريو _SSIZE_T_DEFINED
+#جيڪڏهن_وصف_ٿيل _WIN64
+#إذا defined(__GNUC__) && defined(__STRICT_ANSI__)
+  تعريفنوع صحيح ssize_t __attribute__ ((گهڻائي (DI)));
+#وإلا
+  تعريفنوع __int64 ssize_t;
+#جيڪڏهن_پورو
+#وإلا
+  تعريفنوع ڊگهو ssize_t;
+#جيڪڏهن_پورو
+#جيڪڏهن_پورو
 
-#ifndef _WTIME_DEFINED
-  _CRTIMP wchar_t *__cdecl _wasctime(const struct tm *_Tm);
-  _CRTIMP wchar_t *__cdecl _wctime32(const __time32_t *_Time);
-  size_t __cdecl wcsftime(wchar_t *_Buf,size_t _SizeInWords,const wchar_t *_Format,const struct tm *_Tm);
-  _CRTIMP size_t __cdecl _wcsftime_l(wchar_t *_Buf,size_t _SizeInWords,const wchar_t *_Format,const struct tm *_Tm,_locale_t _Locale);
-  _CRTIMP wchar_t *__cdecl _wstrdate(wchar_t *_Buffer);
-  _CRTIMP wchar_t *__cdecl _wstrtime(wchar_t *_Buffer);
-#if _INTEGRAL_MAX_BITS >= 64
-  _CRTIMP wchar_t *__cdecl _wctime64(const __time64_t *_Time);
-#endif
+#جيڪڏهن_وصف_نه_ٿيل _WTIME_DEFINED
+  _CRTIMP wchar_t *__cdecl _wasctime(ثابت بنية tm *_Tm);
+  _CRTIMP wchar_t *__cdecl _wctime32(ثابت __time32_t *وقت_2);
+  سائيز_t __cdecl wcsftime(wchar_t *_Buf,سائيز_t سائيز_اندريون_لفظ,ثابت wchar_t *_Format,ثابت بنية tm *_Tm);
+  _CRTIMP سائيز_t __cdecl _wcsftime_l(wchar_t *_Buf,سائيز_t سائيز_اندريون_لفظ,ثابت wchar_t *_Format,ثابت بنية tm *_Tm,_locale_t _Locale);
+  _CRTIMP wchar_t *__cdecl _wstrdate(wchar_t *بفر_2);
+  _CRTIMP wchar_t *__cdecl _wstrtime(wchar_t *بفر_2);
+#إذا INTEGRAL_MAX_بٽ >= 64
+  _CRTIMP wchar_t *__cdecl _wctime64(ثابت __time64_t *وقت_2);
+#جيڪڏهن_پورو
 
-#if !defined (RC_INVOKED) && !defined (_INC_WTIME_INL)
-#define _INC_WTIME_INL
-#ifdef _USE_32BIT_TIME_T
-__CRT_INLINE wchar_t *__cdecl _wctime(const time_t *_Time) { return _wctime32(_Time); }
-#else
-__CRT_INLINE wchar_t *__cdecl _wctime(const time_t *_Time) { return _wctime64(_Time); }
-#endif
-#endif
+#إذا !defined (RC_INVOKED) && !defined (_INC_WTIME_INL)
+#وصف_ڪريو _INC_WTIME_INL
+#جيڪڏهن_وصف_ٿيل USE_32_ٻٽو_انگ_وقت_T
+__CRT_INLINE wchar_t *__cdecl _wctime(ثابت time_t *وقت_2) { أرجع _wctime32(وقت_2); }
+#وإلا
+__CRT_INLINE wchar_t *__cdecl _wctime(ثابت time_t *وقت_2) { أرجع _wctime64(وقت_2); }
+#جيڪڏهن_پورو
+#جيڪڏهن_پورو
 
-#define _WTIME_DEFINED
-#endif
+#وصف_ڪريو _WTIME_DEFINED
+#جيڪڏهن_پورو
 
-#ifndef RC_INVOKED
-double __cdecl difftime(time_t _Time1,time_t _Time2);
-char *__cdecl ctime(const time_t *_Time);
-struct tm *__cdecl gmtime(const time_t *_Time);
-struct tm *__cdecl localtime(const time_t *_Time);
-struct tm *__cdecl localtime_r(const time_t *_Time,struct tm *);
+#جيڪڏهن_وصف_نه_ٿيل RC_INVOKED
+مزدوج __cdecl difftime(time_t _Time1,time_t _Time2);
+حرف *__cdecl ctime(ثابت time_t *وقت_2);
+بنية tm *__cdecl gmtime(ثابت time_t *وقت_2);
+بنية tm *__cdecl localtime(ثابت time_t *وقت_2);
+بنية tm *__cdecl localtime_r(ثابت time_t *وقت_2,بنية tm *);
 
-time_t __cdecl mktime(struct tm *_Tm);
-time_t __cdecl _mkgmtime(struct tm *_Tm);
-time_t __cdecl time(time_t *_Time);
+time_t __cdecl mktime(بنية tm *_Tm);
+time_t __cdecl _mkgmtime(بنية tm *_Tm);
+time_t __cdecl وقت(time_t *وقت_2);
 
-#ifdef _USE_32BIT_TIME_T
-#if 0
-__CRT_INLINE double __cdecl difftime(time_t _Time1,time_t _Time2) { return _difftime32(_Time1,_Time2); }
-__CRT_INLINE char *__cdecl ctime(const time_t *_Time) { return _ctime32(_Time); }
-__CRT_INLINE struct tm *__cdecl gmtime(const time_t *_Time) { return _gmtime32(_Time); }
-__CRT_INLINE struct tm *__cdecl localtime(const time_t *_Time) { return _localtime32(_Time); }
-__CRT_INLINE time_t __cdecl mktime(struct tm *_Tm) { return _mktime32(_Tm); }
-__CRT_INLINE time_t __cdecl _mkgmtime(struct tm *_Tm) { return _mkgmtime32(_Tm); }
-__CRT_INLINE time_t __cdecl time(time_t *_Time) { return _time32(_Time); }
-#endif
-#else
-__CRT_INLINE double __cdecl difftime(time_t _Time1,time_t _Time2) { return _difftime64(_Time1,_Time2); }
-__CRT_INLINE char *__cdecl ctime(const time_t *_Time) { return _ctime64(_Time); }
-__CRT_INLINE struct tm *__cdecl gmtime(const time_t *_Time) { return _gmtime64(_Time); }
-__CRT_INLINE struct tm *__cdecl localtime(const time_t *_Time) { return _localtime64(_Time); }
-__CRT_INLINE time_t __cdecl mktime(struct tm *_Tm) { return _mktime64(_Tm); }
-__CRT_INLINE time_t __cdecl _mkgmtime(struct tm *_Tm) { return _mkgmtime64(_Tm); }
-__CRT_INLINE time_t __cdecl time(time_t *_Time) { return _time64(_Time); }
-#endif
-#endif
+#جيڪڏهن_وصف_ٿيل USE_32_ٻٽو_انگ_وقت_T
+#إذا 0
+__CRT_INLINE مزدوج __cdecl difftime(time_t _Time1,time_t _Time2) { أرجع _difftime32(_Time1,_Time2); }
+__CRT_INLINE حرف *__cdecl ctime(ثابت time_t *وقت_2) { أرجع _ctime32(وقت_2); }
+__CRT_INLINE بنية tm *__cdecl gmtime(ثابت time_t *وقت_2) { أرجع _gmtime32(وقت_2); }
+__CRT_INLINE بنية tm *__cdecl localtime(ثابت time_t *وقت_2) { أرجع _localtime32(وقت_2); }
+__CRT_INLINE time_t __cdecl mktime(بنية tm *_Tm) { أرجع _mktime32(_Tm); }
+__CRT_INLINE time_t __cdecl _mkgmtime(بنية tm *_Tm) { أرجع _mkgmtime32(_Tm); }
+__CRT_INLINE time_t __cdecl وقت(time_t *وقت_2) { أرجع _time32(وقت_2); }
+#جيڪڏهن_پورو
+#وإلا
+__CRT_INLINE مزدوج __cdecl difftime(time_t _Time1,time_t _Time2) { أرجع _difftime64(_Time1,_Time2); }
+__CRT_INLINE حرف *__cdecl ctime(ثابت time_t *وقت_2) { أرجع _ctime64(وقت_2); }
+__CRT_INLINE بنية tm *__cdecl gmtime(ثابت time_t *وقت_2) { أرجع _gmtime64(وقت_2); }
+__CRT_INLINE بنية tm *__cdecl localtime(ثابت time_t *وقت_2) { أرجع _localtime64(وقت_2); }
+__CRT_INLINE time_t __cdecl mktime(بنية tm *_Tm) { أرجع _mktime64(_Tm); }
+__CRT_INLINE time_t __cdecl _mkgmtime(بنية tm *_Tm) { أرجع _mkgmtime64(_Tm); }
+__CRT_INLINE time_t __cdecl وقت(time_t *وقت_2) { أرجع _time64(وقت_2); }
+#جيڪڏهن_پورو
+#جيڪڏهن_پورو
 
-#if !defined(NO_OLDNAMES) || defined(_POSIX)
-#define CLK_TCK CLOCKS_PER_SEC
+#إذا !defined(NO_OLDNAMES) || defined(_POSIX)
+#وصف_ڪريو CLK_TCK CLOCKS_PER_SEC
 
-  __MINGW_IMPORT int daylight;
-  __MINGW_IMPORT long dstbias;
-  __MINGW_IMPORT long timezone;
-  __MINGW_IMPORT char *tzname[2];
-  void __cdecl tzset(void);
-#endif
+  __MINGW_IMPORT صحيح daylight;
+  __MINGW_IMPORT ڊگهو dstbias;
+  __MINGW_IMPORT ڊگهو timezone;
+  __MINGW_IMPORT حرف *tzname[2];
+  فراغ __cdecl tzset(فراغ);
+#جيڪڏهن_پورو
 
-#ifndef _TIMEVAL_DEFINED /* also in winsock[2].h */
-#define _TIMEVAL_DEFINED
-struct timeval {
-  long tv_sec;
-  long tv_usec;
+#جيڪڏهن_وصف_نه_ٿيل _TIMEVAL_DEFINED /* also in winsock[2].h */
+#وصف_ڪريو _TIMEVAL_DEFINED
+بنية timeval {
+  ڊگهو tv_sec;
+  ڊگهو tv_usec;
 };
-#define timerisset(tvp) ((tvp)->tv_sec || (tvp)->tv_usec)
-#define timercmp(tvp,uvp,cmp) ((tvp)->tv_sec cmp (uvp)->tv_sec || (tvp)->tv_sec==(uvp)->tv_sec && (tvp)->tv_usec cmp (uvp)->tv_usec)
-#define timerclear(tvp) (tvp)->tv_sec = (tvp)->tv_usec = 0
-#endif /* _TIMEVAL_DEFINED */
+#وصف_ڪريو timerisset(tvp) ((tvp)->tv_sec || (tvp)->tv_usec)
+#وصف_ڪريو timercmp(tvp,uvp,cmp) ((tvp)->tv_sec cmp (uvp)->tv_sec || (tvp)->tv_sec==(uvp)->tv_sec && (tvp)->tv_usec cmp (uvp)->tv_usec)
+#وصف_ڪريو timerclear(tvp) (tvp)->tv_sec = (tvp)->tv_usec = 0
+#جيڪڏهن_پورو /* _TIMEVAL_DEFINED */
 
-#ifndef __STRICT_ANSI__
-#ifndef _TIMEZONE_DEFINED /* also in sys/time.h */
-#define _TIMEZONE_DEFINED
-struct timezone {
-  int tz_minuteswest;
-  int tz_dsttime;
+#جيڪڏهن_وصف_نه_ٿيل __STRICT_ANSI__
+#جيڪڏهن_وصف_نه_ٿيل _TIMEZONE_DEFINED /* also in sys/time.h */
+#وصف_ڪريو _TIMEZONE_DEFINED
+بنية timezone {
+  صحيح tz_minuteswest;
+  صحيح tz_dsttime;
 };
 
-  extern int __cdecl mingw_gettimeofday (struct timeval *p, struct timezone *z);
-#endif
-#endif /* __STRICT_ANSI__ */
+  خارجي صحيح __cdecl mingw_gettimeofday (بنية timeval *p, بنية timezone *z);
+#جيڪڏهن_پورو
+#جيڪڏهن_پورو /* __STRICT_ANSI__ */
 
-#ifdef __cplusplus
+#جيڪڏهن_وصف_ٿيل __cplusplus
 }
-#endif
+#جيڪڏهن_پورو
 
-#pragma pack(pop)
+#هدايت pack(ڪڍو)
 
-#include <sec_api/time_s.h>
+#ضمن <sec_api/time_s.h>
 
 /* Adding timespec definition.  */
-#include <sys/timeb.h>
+#ضمن <sys/timeb.h>
 
-#endif /* End _TIME_H_ */
+#جيڪڏهن_پورو /* End _TIME_H_ */
 

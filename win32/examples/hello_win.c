@@ -4,15 +4,15 @@
 //
 //+---------------------------------------------------------------------------
 
-#include <windows.h>
+#ضمن <windows.h>
 
-#define APPNAME "HELLO_WIN"
+#وصف_ڪريو APPNAME "HELLO_WIN"
 
-char szAppName[] = APPNAME; // The name of this application
-char szTitle[]   = APPNAME; // The title bar text
-const char *pWindowText;
+حرف szAppName[] = APPNAME; // The name of this application
+حرف szTitle[]   = APPNAME; // The title bar text
+ثابت حرف *p_دري_متن;
 
-void CenterWindow(HWND hWnd);
+فراغ Center_دري(HWND hWnd);
 
 //+---------------------------------------------------------------------------
 //
@@ -24,31 +24,31 @@ void CenterWindow(HWND hWnd);
 //  Arguments:  same as always.
 //----------------------------------------------------------------------------
 
-LRESULT CALLBACK WndProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam)
+LRESULT CALLBACK WndProc(HWND hwnd, UINT پيغام, WPARAM wParam, LPARAM lParam)
 {
-    switch (message) {
+    بدل (پيغام) {
 
         // ----------------------- first and last
-        case WM_CREATE:
-            CenterWindow(hwnd);
-            break;
+        حالة WM_CREATE:
+            Center_دري(hwnd);
+            اكسر;
 
-        case WM_DESTROY:
-            PostQuitMessage(0);
-            break;
+        حالة WM_DESTROY:
+            Post_Quit_پيغام(0);
+            اكسر;
 
         // ----------------------- get out of it...
-        case WM_RBUTTONUP:
-            DestroyWindow(hwnd);
-            break;
+        حالة WM_RBUTTONUP:
+            Destroy_دري(hwnd);
+            اكسر;
 
-        case WM_KEYDOWN:
-            if (VK_ESCAPE == wParam)
-                DestroyWindow(hwnd);
-            break;
+        حالة WM_KEYDOWN:
+            إذا (VK_ESCAPE == wParam)
+                Destroy_دري(hwnd);
+            اكسر;
 
         // ----------------------- display our minimal info
-        case WM_PAINT:
+        حالة WM_PAINT:
         {
             PAINTSTRUCT ps;
             HDC         hdc;
@@ -56,19 +56,19 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam)
             hdc = BeginPaint(hwnd, &ps);
 
             GetClientRect(hwnd, &rc);
-            SetTextColor(hdc, RGB(240,240,96));
-            SetBkMode(hdc, TRANSPARENT);
-            DrawText(hdc, pWindowText, -1, &rc, DT_CENTER|DT_SINGLELINE|DT_VCENTER);
+            سيٽ_متن_Color(hdc, RGB(240,240,96));
+            سيٽ_Bk_گهڻائي(hdc, TRANSPARENT);
+            Draw_متن(hdc, p_دري_متن, -1, &rc, DT_CENTER|DT_SINGLELINE|DT_VCENTER);
 
-            EndPaint(hwnd, &ps);
-            break;
+            پڇاڙي_Paint(hwnd, &ps);
+            اكسر;
         }
 
         // ----------------------- let windows do all other stuff
-        default:
-            return DefWindowProc(hwnd, message, wParam, lParam);
+        افتراضي:
+            أرجع Def_دري_Proc(hwnd, پيغام, wParam, lParam);
     }
-    return 0;
+    أرجع 0;
 }
 
 //+---------------------------------------------------------------------------
@@ -78,36 +78,36 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam)
 //  Synopsis:   standard entrypoint for GUI Win32 apps
 //
 //----------------------------------------------------------------------------
-int APIENTRY WinMain(
+صحيح APIENTRY WinMain(
         HINSTANCE hInstance,
         HINSTANCE hPrevInstance,
-        LPSTR lpCmdLine,
-        int nCmdShow
+        LPSTR lp_Cmd_سٽ,
+        صحيح nCmdShow
         )
 {
-    MSG msg;
+    نياپو_2 نياپو;
     WNDCLASS wc;
     HWND hwnd;
 
-    pWindowText = lpCmdLine[0] ? lpCmdLine : "Hello Windows!";
+    p_دري_متن = lp_Cmd_سٽ[0] ? lp_Cmd_سٽ : "Hello Windows!";
 
     // Fill in window class structure with parameters that describe
     // the main window.
 
-    ZeroMemory(&wc, sizeof wc);
+    Zero_يادگيري(&wc, حجم wc);
     wc.hInstance     = hInstance;
     wc.lpszClassName = szAppName;
     wc.lpfnWndProc   = (WNDPROC)WndProc;
     wc.style         = CS_DBLCLKS|CS_VREDRAW|CS_HREDRAW;
     wc.hbrBackground = (HBRUSH)GetStockObject(BLACK_BRUSH);
-    wc.hIcon         = LoadIcon(NULL, IDI_APPLICATION);
-    wc.hCursor       = LoadCursor(NULL, IDC_ARROW);
+    wc.hIcon         = ڀريو_Icon(عدم, IDI_APPLICATION);
+    wc.hCursor       = ڀريو_Cursor(عدم, IDC_ARROW);
 
-    if (FALSE == RegisterClass(&wc))
-        return 0;
+    إذا (FALSE == رجسٽر_Class(&wc))
+        أرجع 0;
 
     // create the browser
-    hwnd = CreateWindow(
+    hwnd = Create_دري(
         szAppName,
         szTitle,
         WS_OVERLAPPEDWINDOW|WS_VISIBLE,
@@ -120,41 +120,41 @@ int APIENTRY WinMain(
         hInstance,
         0);
 
-    if (NULL == hwnd)
-        return 0;
+    إذا (عدم == hwnd)
+        أرجع 0;
 
     // Main message loop:
-    while (GetMessage(&msg, NULL, 0, 0) > 0) {
-        TranslateMessage(&msg);
-        DispatchMessage(&msg);
+    طالما (Get_پيغام(&نياپو, عدم, 0, 0) > 0) {
+        Translate_پيغام(&نياپو);
+        Dispatch_پيغام(&نياپو);
     }
 
-    return msg.wParam;
+    أرجع نياپو.wParam;
 }
 
 //+---------------------------------------------------------------------------
 
 //+---------------------------------------------------------------------------
 
-void CenterWindow(HWND hwnd_self)
+فراغ Center_دري(HWND hwnd_self)
 {
-    HWND hwnd_parent;
-    RECT rw_self, rc_parent, rw_parent;
-    int xpos, ypos;
+    HWND hwnd_والد;
+    RECT rw_self, rc_والد, rw_والد;
+    صحيح xpos, ypos;
 
-    hwnd_parent = GetParent(hwnd_self);
-    if (NULL == hwnd_parent)
-        hwnd_parent = GetDesktopWindow();
+    hwnd_والد = Get_والد(hwnd_self);
+    إذا (عدم == hwnd_والد)
+        hwnd_والد = Get_Desktop_دري();
 
-    GetWindowRect(hwnd_parent, &rw_parent);
-    GetClientRect(hwnd_parent, &rc_parent);
-    GetWindowRect(hwnd_self, &rw_self);
+    Get_دري_Rect(hwnd_والد, &rw_والد);
+    GetClientRect(hwnd_والد, &rc_والد);
+    Get_دري_Rect(hwnd_self, &rw_self);
 
-    xpos = rw_parent.left + (rc_parent.right + rw_self.left - rw_self.right) / 2;
-    ypos = rw_parent.top + (rc_parent.bottom + rw_self.top - rw_self.bottom) / 2;
+    xpos = rw_والد.کاٻو + (rc_والد.ساڄو + rw_self.کاٻو - rw_self.ساڄو) / 2;
+    ypos = rw_والد.چوٽي + (rc_والد.bottom + rw_self.چوٽي - rw_self.bottom) / 2;
 
-    SetWindowPos(
-        hwnd_self, NULL,
+    سيٽ_دري_Pos(
+        hwnd_self, عدم,
         xpos, ypos, 0, 0,
         SWP_NOSIZE|SWP_NOZORDER|SWP_NOACTIVATE
         );

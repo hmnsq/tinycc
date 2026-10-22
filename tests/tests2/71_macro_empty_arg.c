@@ -1,9 +1,9 @@
-#include <stdio.h>
+#ضمن <stdio.h>
 
-#define T(a,b,c) a b c
+#وصف_ڪريو T(a,b,c) a b c
 
-int main(void)
+صحيح مکيه(فراغ)
 {
-    printf("%d", T(1,+,2) T(+,,) T(,2,*) T(,7,) T(,,));
-    return 0;
+    لکو("%d", T(1,+,2) T(+,,) T(,2,*) T(,7,) T(,,));
+    أرجع 0;
 }

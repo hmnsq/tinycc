@@ -1,4 +1,4 @@
-#define a() YES
-#define b() a
+#وصف_ڪريو a() YES
+#وصف_ڪريو b() a
 b()
 b()()

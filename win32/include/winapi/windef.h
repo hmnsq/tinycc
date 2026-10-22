@@ -3,180 +3,180 @@
  * This file is part of the w64 mingw-runtime package.
  * No warranty is given; refer to the file DISCLAIMER within this package.
  */
-#ifndef _WINDEF_
-#define _WINDEF_
+#جيڪڏهن_وصف_نه_ٿيل _WINDEF_
+#وصف_ڪريو _WINDEF_
 
-#ifndef STRICT
-#define STRICT 1
-#endif
+#جيڪڏهن_وصف_نه_ٿيل STRICT
+#وصف_ڪريو STRICT 1
+#جيڪڏهن_پورو
 
-#ifdef __cplusplus
-extern "C" {
-#endif
+#جيڪڏهن_وصف_ٿيل __cplusplus
+خارجي "C" {
+#جيڪڏهن_پورو
 
-#ifndef WINVER
-#define WINVER 0x0502
-#endif
+#جيڪڏهن_وصف_نه_ٿيل WINVER
+#وصف_ڪريو WINVER 0x0502
+#جيڪڏهن_پورو
 
-#ifndef BASETYPES
-#define BASETYPES
-  typedef unsigned long ULONG;
-  typedef ULONG *PULONG;
-  typedef unsigned short USHORT;
-  typedef USHORT *PUSHORT;
-  typedef unsigned char UCHAR;
-  typedef UCHAR *PUCHAR;
-  typedef char *PSZ;
-#endif
+#جيڪڏهن_وصف_نه_ٿيل BASETYPES
+#وصف_ڪريو BASETYPES
+  تعريفنوع بنانشان ڊگهو ULONG;
+  تعريفنوع ULONG *PULONG;
+  تعريفنوع بنانشان ننڍو USHORT;
+  تعريفنوع USHORT *PUSHORT;
+  تعريفنوع بنانشان حرف UCHAR;
+  تعريفنوع UCHAR *PUCHAR;
+  تعريفنوع حرف *PSZ;
+#جيڪڏهن_پورو
 
-#define MAX_PATH 260
+#وصف_ڪريو MAX_رستو 260
 
-#ifndef NULL
-#ifdef __cplusplus
-#define NULL 0
-#else
-#define NULL ((void *)0)
-#endif
-#endif
+#جيڪڏهن_وصف_نه_ٿيل عدم
+#جيڪڏهن_وصف_ٿيل __cplusplus
+#وصف_ڪريو عدم 0
+#وإلا
+#وصف_ڪريو عدم ((فراغ *)0)
+#جيڪڏهن_پورو
+#جيڪڏهن_پورو
 
-#ifndef FALSE
-#define FALSE 0
-#endif
+#جيڪڏهن_وصف_نه_ٿيل FALSE
+#وصف_ڪريو FALSE 0
+#جيڪڏهن_پورو
 
-#ifndef TRUE
-#define TRUE 1
-#endif
+#جيڪڏهن_وصف_نه_ٿيل TRUE
+#وصف_ڪريو TRUE 1
+#جيڪڏهن_پورو
 
-#ifndef IN
-#define IN
-#endif
+#جيڪڏهن_وصف_نه_ٿيل اندريون_2
+#وصف_ڪريو اندريون_2
+#جيڪڏهن_پورو
 
-#ifndef OUT
-#define OUT
-#endif
+#جيڪڏهن_وصف_نه_ٿيل ٻاهريون_2
+#وصف_ڪريو ٻاهريون_2
+#جيڪڏهن_پورو
 
-#ifndef OPTIONAL
-#define OPTIONAL
-#endif
+#جيڪڏهن_وصف_نه_ٿيل OPTIONAL
+#وصف_ڪريو OPTIONAL
+#جيڪڏهن_پورو
 
-#undef far
-#undef near
-#undef pascal
+#وصف_رد far
+#وصف_رد near
+#وصف_رد pascal
 
-#define far
-#define near
-#define pascal __stdcall
+#وصف_ڪريو far
+#وصف_ڪريو near
+#وصف_ڪريو pascal __stdcall
 
-#define cdecl
-#ifndef CDECL
-#define CDECL
-#endif
-#ifndef CALLBACK
-#define CALLBACK __stdcall
-#endif
-#ifndef WINAPI
-#define WINAPI __stdcall
-#endif
-#define WINAPIV __cdecl
-#define APIENTRY WINAPI
-#define APIPRIVATE WINAPI
-#define PASCAL WINAPI
-#define WINAPI_INLINE WINAPI
+#وصف_ڪريو cdecl
+#جيڪڏهن_وصف_نه_ٿيل CDECL
+#وصف_ڪريو CDECL
+#جيڪڏهن_پورو
+#جيڪڏهن_وصف_نه_ٿيل CALLBACK
+#وصف_ڪريو CALLBACK __stdcall
+#جيڪڏهن_پورو
+#جيڪڏهن_وصف_نه_ٿيل WINAPI
+#وصف_ڪريو WINAPI __stdcall
+#جيڪڏهن_پورو
+#وصف_ڪريو WINAPIV __cdecl
+#وصف_ڪريو APIENTRY WINAPI
+#وصف_ڪريو APIPRIVATE WINAPI
+#وصف_ڪريو PASCAL WINAPI
+#وصف_ڪريو WINAPI_INLINE WINAPI
 
-#undef FAR
-#undef NEAR
-#define FAR
-#define NEAR
-#ifndef CONST
-#define CONST const
-#endif
+#وصف_رد FAR
+#وصف_رد NEAR
+#وصف_ڪريو FAR
+#وصف_ڪريو NEAR
+#جيڪڏهن_وصف_نه_ٿيل CONST
+#وصف_ڪريو CONST ثابت
+#جيڪڏهن_پورو
 
-  typedef unsigned long DWORD;
-  typedef int WINBOOL;
-#define BOOL WINBOOL
-  typedef unsigned char BYTE;
-  typedef unsigned short WORD;
-  typedef float FLOAT;
-  typedef FLOAT *PFLOAT;
-  typedef WINBOOL *PBOOL;
-  typedef WINBOOL *LPBOOL;
-  typedef BYTE *PBYTE;
-  typedef BYTE *LPBYTE;
-  typedef int *PINT;
-  typedef int *LPINT;
-  typedef WORD *PWORD;
-  typedef WORD *LPWORD;
-  typedef long *LPLONG;
-  typedef DWORD *PDWORD;
-  typedef DWORD *LPDWORD;
-  typedef void *LPVOID;
+  تعريفنوع بنانشان ڊگهو DWORD;
+  تعريفنوع صحيح WINBOOL;
+#وصف_ڪريو BOOL WINBOOL
+  تعريفنوع بنانشان حرف BYTE;
+  تعريفنوع بنانشان ننڍو لفظ_3;
+  تعريفنوع عائم FLOAT;
+  تعريفنوع FLOAT *PFLOAT;
+  تعريفنوع WINBOOL *PBOOL;
+  تعريفنوع WINBOOL *LPBOOL;
+  تعريفنوع BYTE *PBYTE;
+  تعريفنوع BYTE *LPBYTE;
+  تعريفنوع صحيح *PINT;
+  تعريفنوع صحيح *LPINT;
+  تعريفنوع لفظ_3 *PWORD;
+  تعريفنوع لفظ_3 *LPWORD;
+  تعريفنوع ڊگهو *LPLONG;
+  تعريفنوع DWORD *PDWORD;
+  تعريفنوع DWORD *LPDWORD;
+  تعريفنوع فراغ *LPVOID;
 # ifndef _LPCVOID_DEFINED
-#define _LPCVOID_DEFINED
-typedef CONST void *LPCVOID;
-#endif
-  typedef int INT;
-  typedef unsigned int UINT;
-  typedef unsigned int *PUINT;
+#وصف_ڪريو _LPCVOID_DEFINED
+تعريفنوع CONST فراغ *LPCVOID;
+#جيڪڏهن_پورو
+  تعريفنوع صحيح INT;
+  تعريفنوع بنانشان صحيح UINT;
+  تعريفنوع بنانشان صحيح *PUINT;
 
-#ifndef NT_INCLUDED
-#include <winnt.h>
-#endif
+#جيڪڏهن_وصف_نه_ٿيل NT_INCLUDED
+#ضمن <winnt.h>
+#جيڪڏهن_پورو
 
 //gr #include <specstrings.h>
 
-  typedef UINT_PTR WPARAM;
-  typedef LONG_PTR LPARAM;
-  typedef LONG_PTR LRESULT;
+  تعريفنوع UINT_PTR WPARAM;
+  تعريفنوع LONG_PTR LPARAM;
+  تعريفنوع LONG_PTR LRESULT;
 
-#ifndef __cplusplus
-#ifndef NOMINMAX
-#ifndef max
-#define max(a,b) (((a) > (b)) ? (a) : (b))
-#endif
+#جيڪڏهن_وصف_نه_ٿيل __cplusplus
+#جيڪڏهن_وصف_نه_ٿيل NOMINMAX
+#جيڪڏهن_وصف_نه_ٿيل max
+#وصف_ڪريو max(a,b) (((a) > (b)) ? (a) : (b))
+#جيڪڏهن_پورو
 
-#ifndef min
-#define min(a,b) (((a) < (b)) ? (a) : (b))
-#endif
-#endif
-#endif
+#جيڪڏهن_وصف_نه_ٿيل min
+#وصف_ڪريو min(a,b) (((a) < (b)) ? (a) : (b))
+#جيڪڏهن_پورو
+#جيڪڏهن_پورو
+#جيڪڏهن_پورو
 
-#define MAKEWORD(a,b) ((WORD)(((BYTE)((DWORD_PTR)(a) & 0xff)) | ((WORD)((BYTE)((DWORD_PTR)(b) & 0xff))) << 8))
-#define MAKELONG(a,b) ((LONG)(((WORD)((DWORD_PTR)(a) & 0xffff)) | ((DWORD)((WORD)((DWORD_PTR)(b) & 0xffff))) << 16))
-#define LOWORD(l) ((WORD)((DWORD_PTR)(l) & 0xffff))
-#define HIWORD(l) ((WORD)((DWORD_PTR)(l) >> 16))
-#define LOBYTE(w) ((BYTE)((DWORD_PTR)(w) & 0xff))
-#define HIBYTE(w) ((BYTE)((DWORD_PTR)(w) >> 8))
+#وصف_ڪريو MAKEWORD(a,b) ((لفظ_3)(((BYTE)((DWORD_PTR)(a) & 0xff)) | ((لفظ_3)((BYTE)((DWORD_PTR)(b) & 0xff))) << 8))
+#وصف_ڪريو MAKELONG(a,b) ((LONG)(((لفظ_3)((DWORD_PTR)(a) & 0xffff)) | ((DWORD)((لفظ_3)((DWORD_PTR)(b) & 0xffff))) << 16))
+#وصف_ڪريو LOWORD(l) ((لفظ_3)((DWORD_PTR)(l) & 0xffff))
+#وصف_ڪريو HIWORD(l) ((لفظ_3)((DWORD_PTR)(l) >> 16))
+#وصف_ڪريو LOBYTE(w) ((BYTE)((DWORD_PTR)(w) & 0xff))
+#وصف_ڪريو HIBYTE(w) ((BYTE)((DWORD_PTR)(w) >> 8))
 
-#ifndef WIN_INTERNAL
+#جيڪڏهن_وصف_نه_ٿيل WIN_اندروني
   DECLARE_HANDLE (HWND);
   DECLARE_HANDLE (HHOOK);
-#ifdef WINABLE
+#جيڪڏهن_وصف_ٿيل WINABLE
   DECLARE_HANDLE (HEVENT);
-#endif
-#endif
+#جيڪڏهن_پورو
+#جيڪڏهن_پورو
 
-  typedef WORD ATOM;
+  تعريفنوع لفظ_3 ATOM;
 
-  typedef HANDLE *SPHANDLE;
-  typedef HANDLE *LPHANDLE;
-  typedef HANDLE HGLOBAL;
-  typedef HANDLE HLOCAL;
-  typedef HANDLE GLOBALHANDLE;
-  typedef HANDLE LOCALHANDLE;
-#ifdef _WIN64
-  typedef INT_PTR (WINAPI *FARPROC)();
-  typedef INT_PTR (WINAPI *NEARPROC)();
-  typedef INT_PTR (WINAPI *PROC)();
-#else
-  typedef int (WINAPI *FARPROC)();
-  typedef int (WINAPI *NEARPROC)();
-  typedef int (WINAPI *PROC)();
-#endif
+  تعريفنوع HANDLE *SPHANDLE;
+  تعريفنوع HANDLE *LPHANDLE;
+  تعريفنوع HANDLE HGLOBAL;
+  تعريفنوع HANDLE HLOCAL;
+  تعريفنوع HANDLE GLOBALHANDLE;
+  تعريفنوع HANDLE LOCALHANDLE;
+#جيڪڏهن_وصف_ٿيل _WIN64
+  تعريفنوع INT_PTR (WINAPI *FARPROC)();
+  تعريفنوع INT_PTR (WINAPI *NEARPROC)();
+  تعريفنوع INT_PTR (WINAPI *PROC)();
+#وإلا
+  تعريفنوع صحيح (WINAPI *FARPROC)();
+  تعريفنوع صحيح (WINAPI *NEARPROC)();
+  تعريفنوع صحيح (WINAPI *PROC)();
+#جيڪڏهن_پورو
 
-  typedef void *HGDIOBJ;
+  تعريفنوع فراغ *HGDIOBJ;
 
   DECLARE_HANDLE(HKEY);
-  typedef HKEY *PHKEY;
+  تعريفنوع HKEY *PHKEY;
 
   DECLARE_HANDLE(HACCEL);
   DECLARE_HANDLE(HBITMAP);
@@ -191,7 +191,7 @@ typedef CONST void *LPCVOID;
   DECLARE_HANDLE(HMENU);
   DECLARE_HANDLE(HMETAFILE);
   DECLARE_HANDLE(HINSTANCE);
-  typedef HINSTANCE HMODULE;
+  تعريفنوع HINSTANCE HMODULE;
   DECLARE_HANDLE(HPALETTE);
   DECLARE_HANDLE(HPEN);
   DECLARE_HANDLE(HRGN);
@@ -204,90 +204,90 @@ typedef CONST void *LPCVOID;
   DECLARE_HANDLE(HWINEVENTHOOK);
   DECLARE_HANDLE(HUMPD);
 
-  typedef int HFILE;
-  typedef HICON HCURSOR;
-  typedef DWORD COLORREF;
-  typedef DWORD *LPCOLORREF;
+  تعريفنوع صحيح HFILE;
+  تعريفنوع HICON HCURSOR;
+  تعريفنوع DWORD COLORREF;
+  تعريفنوع DWORD *LPCOLORREF;
 
-#define HFILE_ERROR ((HFILE)-1)
+#وصف_ڪريو HFILE_ERROR ((HFILE)-1)
 
-  typedef struct tagRECT {
-    LONG left;
-    LONG top;
-    LONG right;
+  تعريفنوع بنية ٽيگ_RECT {
+    LONG کاٻو;
+    LONG چوٽي;
+    LONG ساڄو;
     LONG bottom;
   } RECT,*PRECT,*NPRECT,*LPRECT;
 
-  typedef const RECT *LPCRECT;
+  تعريفنوع ثابت RECT *LPCRECT;
 
-  typedef struct _RECTL {
-    LONG left;
-    LONG top;
-    LONG right;
+  تعريفنوع بنية _RECTL {
+    LONG کاٻو;
+    LONG چوٽي;
+    LONG ساڄو;
     LONG bottom;
   } RECTL,*PRECTL,*LPRECTL;
 
-  typedef const RECTL *LPCRECTL;
+  تعريفنوع ثابت RECTL *LPCRECTL;
 
-  typedef struct tagPOINT {
+  تعريفنوع بنية ٽيگ_نقطو {
     LONG x;
     LONG y;
-  } POINT,*PPOINT,*NPPOINT,*LPPOINT;
+  } نقطو_3,*PPOINT,*NPPOINT,*LPPOINT;
 
-  typedef struct _POINTL {
+  تعريفنوع بنية _POINTL {
     LONG x;
     LONG y;
   } POINTL,*PPOINTL;
 
-  typedef struct tagSIZE {
+  تعريفنوع بنية ٽيگ_سائيز {
     LONG cx;
     LONG cy;
-  } SIZE,*PSIZE,*LPSIZE;
+  } سائيز_2,*PSIZE,*LPSIZE;
 
-  typedef SIZE SIZEL;
-  typedef SIZE *PSIZEL,*LPSIZEL;
+  تعريفنوع سائيز_2 SIZEL;
+  تعريفنوع سائيز_2 *PSIZEL,*LPSIZEL;
 
-  typedef struct tagPOINTS {
+  تعريفنوع بنية ٽيگ_POINTS {
     SHORT x;
     SHORT y;
   } POINTS,*PPOINTS,*LPPOINTS;
 
-  typedef struct _FILETIME {
-    DWORD dwLowDateTime;
-    DWORD dwHighDateTime;
+  تعريفنوع بنية _FILETIME {
+    DWORD dw_هيٺيون_Date_وقت;
+    DWORD dw_مٿاهون_Date_وقت;
   } FILETIME,*PFILETIME,*LPFILETIME;
-#define _FILETIME_
+#وصف_ڪريو _FILETIME_
 
-#define DM_UPDATE 1
-#define DM_COPY 2
-#define DM_PROMPT 4
-#define DM_MODIFY 8
+#وصف_ڪريو DM_UPDATE 1
+#وصف_ڪريو DM_COPY 2
+#وصف_ڪريو DM_PROMPT 4
+#وصف_ڪريو DM_MODIFY 8
 
-#define DM_IN_BUFFER DM_MODIFY
-#define DM_IN_PROMPT DM_PROMPT
-#define DM_OUT_BUFFER DM_COPY
-#define DM_OUT_DEFAULT DM_UPDATE
+#وصف_ڪريو DM_اندريون_بفر DM_MODIFY
+#وصف_ڪريو DM_اندريون_PROMPT DM_PROMPT
+#وصف_ڪريو DM_ٻاهريون_بفر DM_COPY
+#وصف_ڪريو DM_ٻاهريون_DEFAULT DM_UPDATE
 
-#define DC_FIELDS 1
-#define DC_PAPERS 2
-#define DC_PAPERSIZE 3
-#define DC_MINEXTENT 4
-#define DC_MAXEXTENT 5
-#define DC_BINS 6
-#define DC_DUPLEX 7
-#define DC_SIZE 8
-#define DC_EXTRA 9
-#define DC_VERSION 10
-#define DC_DRIVER 11
-#define DC_BINNAMES 12
-#define DC_ENUMRESOLUTIONS 13
-#define DC_FILEDEPENDENCIES 14
-#define DC_TRUETYPE 15
-#define DC_PAPERNAMES 16
-#define DC_ORIENTATION 17
-#define DC_COPIES 18
+#وصف_ڪريو DC_FIELDS 1
+#وصف_ڪريو DC_PAPERS 2
+#وصف_ڪريو DC_PAPERSIZE 3
+#وصف_ڪريو DC_MINEXTENT 4
+#وصف_ڪريو DC_MAXEXTENT 5
+#وصف_ڪريو DC_BINS 6
+#وصف_ڪريو DC_DUPLEX 7
+#وصف_ڪريو DC_سائيز 8
+#وصف_ڪريو DC_EXTRA 9
+#وصف_ڪريو DC_نسخو 10
+#وصف_ڪريو DC_DRIVER 11
+#وصف_ڪريو DC_BINNAMES 12
+#وصف_ڪريو DC_ENUMRESOLUTIONS 13
+#وصف_ڪريو DC_FILEDEPENDENCIES 14
+#وصف_ڪريو DC_TRUETYPE 15
+#وصف_ڪريو DC_PAPERNAMES 16
+#وصف_ڪريو DC_ORIENTATION 17
+#وصف_ڪريو DC_COPIES 18
 
-#ifdef __cplusplus
+#جيڪڏهن_وصف_ٿيل __cplusplus
 }
-#endif
-#endif
+#جيڪڏهن_پورو
+#جيڪڏهن_پورو

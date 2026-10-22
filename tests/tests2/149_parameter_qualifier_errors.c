@@ -1,11 +1,11 @@
-void defined_const(int *pointer);
+فراغ defined_const(صحيح *اشارو);
 
-void defined_const(int *const pointer)
+فراغ defined_const(صحيح *ثابت اشارو)
 {
-    pointer = 0;
+    اشارو = 0;
 }
 
-int main(void)
+صحيح مکيه(فراغ)
 {
-    return 0;
+    أرجع 0;
 }

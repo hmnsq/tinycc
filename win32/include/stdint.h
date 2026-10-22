@@ -22,159 +22,159 @@
  */
 
 
-#ifndef _STDINT_H
-#define _STDINT_H
+#جيڪڏهن_وصف_نه_ٿيل _STDINT_H
+#وصف_ڪريو _STDINT_H
 
-#include <_mingw.h>
+#ضمن <_mingw.h>
 
-#define __need_wint_t
-#define __need_wchar_t
-#include "stddef.h"
+#وصف_ڪريو __need_wint_t
+#وصف_ڪريو __need_wchar_t
+#ضمن "stddef.h"
 
-#ifndef __int8_t_defined
-#define __int8_t_defined
+#جيڪڏهن_وصف_نه_ٿيل __int8_t_defined
+#وصف_ڪريو __int8_t_defined
 /* 7.18.1.1  Exact-width integer types */
-typedef signed char int8_t;
-typedef unsigned char   uint8_t;
-typedef short  int16_t;
-typedef unsigned short  uint16_t;
-typedef int  int32_t;
-typedef unsigned   uint32_t;
-typedef long long  int64_t;
-typedef unsigned long long   uint64_t;
-#endif
+تعريفنوع نشانوارو حرف int8_t;
+تعريفنوع بنانشان حرف   uint8_t;
+تعريفنوع ننڍو  int16_t;
+تعريفنوع بنانشان ننڍو  uint16_t;
+تعريفنوع صحيح  int32_t;
+تعريفنوع بنانشان   uint32_t;
+تعريفنوع ڊگهو ڊگهو  int64_t;
+تعريفنوع بنانشان ڊگهو ڊگهو   uint64_t;
+#جيڪڏهن_پورو
 
 /* 7.18.1.2  Minimum-width integer types */
-typedef signed char int_least8_t;
-typedef unsigned char   uint_least8_t;
-typedef short  int_least16_t;
-typedef unsigned short  uint_least16_t;
-typedef int  int_least32_t;
-typedef unsigned   uint_least32_t;
-typedef long long  int_least64_t;
-typedef unsigned long long   uint_least64_t;
+تعريفنوع نشانوارو حرف int_least8_t;
+تعريفنوع بنانشان حرف   uint_least8_t;
+تعريفنوع ننڍو  int_least16_t;
+تعريفنوع بنانشان ننڍو  uint_least16_t;
+تعريفنوع صحيح  int_least32_t;
+تعريفنوع بنانشان   uint_least32_t;
+تعريفنوع ڊگهو ڊگهو  int_least64_t;
+تعريفنوع بنانشان ڊگهو ڊگهو   uint_least64_t;
 
 /*  7.18.1.3  Fastest minimum-width integer types
  *  Not actually guaranteed to be fastest for all purposes
  *  Here we use the exact-width types for 8 and 16-bit ints.
  */
-typedef char int_fast8_t;
-typedef unsigned char uint_fast8_t;
-typedef short  int_fast16_t;
-typedef unsigned short  uint_fast16_t;
-typedef int  int_fast32_t;
-typedef unsigned  int  uint_fast32_t;
-typedef long long  int_fast64_t;
-typedef unsigned long long   uint_fast64_t;
+تعريفنوع حرف int_fast8_t;
+تعريفنوع بنانشان حرف uint_fast8_t;
+تعريفنوع ننڍو  int_fast16_t;
+تعريفنوع بنانشان ننڍو  uint_fast16_t;
+تعريفنوع صحيح  int_fast32_t;
+تعريفنوع بنانشان  صحيح  uint_fast32_t;
+تعريفنوع ڊگهو ڊگهو  int_fast64_t;
+تعريفنوع بنانشان ڊگهو ڊگهو   uint_fast64_t;
 
 /* 7.18.1.5  Greatest-width integer types */
-typedef long long  intmax_t;
-typedef unsigned long long   uintmax_t;
+تعريفنوع ڊگهو ڊگهو  intmax_t;
+تعريفنوع بنانشان ڊگهو ڊگهو   uintmax_t;
 
 /* 7.18.2  Limits of specified-width integer types */
-#if !defined ( __cplusplus) || defined (__STDC_LIMIT_MACROS)
+#إذا !defined ( __cplusplus) || defined (__STDC_LIMIT_MACROS)
 
 /* 7.18.2.1  Limits of exact-width integer types */
-#define INT8_MIN (-128)
-#define INT16_MIN (-32768)
-#define INT32_MIN (-2147483647 - 1)
-#define INT64_MIN  (-9223372036854775807LL - 1)
+#وصف_ڪريو INT8_MIN (-128)
+#وصف_ڪريو INT16_MIN (-32768)
+#وصف_ڪريو INT32_MIN (-2147483647 - 1)
+#وصف_ڪريو INT64_MIN  (-9223372036854775807LL - 1)
 
-#define INT8_MAX 127
-#define INT16_MAX 32767
-#define INT32_MAX 2147483647
-#define INT64_MAX 9223372036854775807LL
+#وصف_ڪريو INT8_MAX 127
+#وصف_ڪريو INT16_MAX 32767
+#وصف_ڪريو INT32_MAX 2147483647
+#وصف_ڪريو INT64_MAX 9223372036854775807LL
 
-#define UINT8_MAX 0xff /* 255U */
-#define UINT16_MAX 0xffff /* 65535U */
-#define UINT32_MAX 0xffffffff  /* 4294967295U */
-#define UINT64_MAX 0xffffffffffffffffULL /* 18446744073709551615ULL */
+#وصف_ڪريو UINT8_MAX 0xff /* 255U */
+#وصف_ڪريو UINT16_MAX 0xffff /* 65535U */
+#وصف_ڪريو UINT32_MAX 0xffffffff  /* 4294967295U */
+#وصف_ڪريو UINT64_MAX 0xffffffffffffffffULL /* 18446744073709551615ULL */
 
 /* 7.18.2.2  Limits of minimum-width integer types */
-#define INT_LEAST8_MIN INT8_MIN
-#define INT_LEAST16_MIN INT16_MIN
-#define INT_LEAST32_MIN INT32_MIN
-#define INT_LEAST64_MIN INT64_MIN
+#وصف_ڪريو INT_LEAST8_MIN INT8_MIN
+#وصف_ڪريو INT_LEAST16_MIN INT16_MIN
+#وصف_ڪريو INT_LEAST32_MIN INT32_MIN
+#وصف_ڪريو INT_LEAST64_MIN INT64_MIN
 
-#define INT_LEAST8_MAX INT8_MAX
-#define INT_LEAST16_MAX INT16_MAX
-#define INT_LEAST32_MAX INT32_MAX
-#define INT_LEAST64_MAX INT64_MAX
+#وصف_ڪريو INT_LEAST8_MAX INT8_MAX
+#وصف_ڪريو INT_LEAST16_MAX INT16_MAX
+#وصف_ڪريو INT_LEAST32_MAX INT32_MAX
+#وصف_ڪريو INT_LEAST64_MAX INT64_MAX
 
-#define UINT_LEAST8_MAX UINT8_MAX
-#define UINT_LEAST16_MAX UINT16_MAX
-#define UINT_LEAST32_MAX UINT32_MAX
-#define UINT_LEAST64_MAX UINT64_MAX
+#وصف_ڪريو UINT_LEAST8_MAX UINT8_MAX
+#وصف_ڪريو UINT_LEAST16_MAX UINT16_MAX
+#وصف_ڪريو UINT_LEAST32_MAX UINT32_MAX
+#وصف_ڪريو UINT_LEAST64_MAX UINT64_MAX
 
 /* 7.18.2.3  Limits of fastest minimum-width integer types */
-#define INT_FAST8_MIN INT8_MIN
-#define INT_FAST16_MIN INT16_MIN
-#define INT_FAST32_MIN INT32_MIN
-#define INT_FAST64_MIN INT64_MIN
+#وصف_ڪريو INT_FAST8_MIN INT8_MIN
+#وصف_ڪريو INT_FAST16_MIN INT16_MIN
+#وصف_ڪريو INT_FAST32_MIN INT32_MIN
+#وصف_ڪريو INT_FAST64_MIN INT64_MIN
 
-#define INT_FAST8_MAX INT8_MAX
-#define INT_FAST16_MAX INT16_MAX
-#define INT_FAST32_MAX INT32_MAX
-#define INT_FAST64_MAX INT64_MAX
+#وصف_ڪريو INT_FAST8_MAX INT8_MAX
+#وصف_ڪريو INT_FAST16_MAX INT16_MAX
+#وصف_ڪريو INT_FAST32_MAX INT32_MAX
+#وصف_ڪريو INT_FAST64_MAX INT64_MAX
 
-#define UINT_FAST8_MAX UINT8_MAX
-#define UINT_FAST16_MAX UINT16_MAX
-#define UINT_FAST32_MAX UINT32_MAX
-#define UINT_FAST64_MAX UINT64_MAX
+#وصف_ڪريو UINT_FAST8_MAX UINT8_MAX
+#وصف_ڪريو UINT_FAST16_MAX UINT16_MAX
+#وصف_ڪريو UINT_FAST32_MAX UINT32_MAX
+#وصف_ڪريو UINT_FAST64_MAX UINT64_MAX
 
 /* 7.18.2.4  Limits of integer types capable of holding
     object pointers */
-#ifdef _WIN64
-#define INTPTR_MIN INT64_MIN
-#define INTPTR_MAX INT64_MAX
-#define UINTPTR_MAX UINT64_MAX
-#else
-#define INTPTR_MIN INT32_MIN
-#define INTPTR_MAX INT32_MAX
-#define UINTPTR_MAX UINT32_MAX
-#endif
+#جيڪڏهن_وصف_ٿيل _WIN64
+#وصف_ڪريو INTPTR_MIN INT64_MIN
+#وصف_ڪريو INTPTR_MAX INT64_MAX
+#وصف_ڪريو UINTPTR_MAX UINT64_MAX
+#وإلا
+#وصف_ڪريو INTPTR_MIN INT32_MIN
+#وصف_ڪريو INTPTR_MAX INT32_MAX
+#وصف_ڪريو UINTPTR_MAX UINT32_MAX
+#جيڪڏهن_پورو
 
 /* 7.18.2.5  Limits of greatest-width integer types */
-#define INTMAX_MIN INT64_MIN
-#define INTMAX_MAX INT64_MAX
-#define UINTMAX_MAX UINT64_MAX
+#وصف_ڪريو INTMAX_MIN INT64_MIN
+#وصف_ڪريو INTMAX_MAX INT64_MAX
+#وصف_ڪريو UINTMAX_MAX UINT64_MAX
 
 /* 7.18.3  Limits of other integer types */
-#ifdef _WIN64
-#define PTRDIFF_MIN INT64_MIN
-#define PTRDIFF_MAX INT64_MAX
-#else
-#define PTRDIFF_MIN INT32_MIN
-#define PTRDIFF_MAX INT32_MAX
-#endif
+#جيڪڏهن_وصف_ٿيل _WIN64
+#وصف_ڪريو PTRDIFF_MIN INT64_MIN
+#وصف_ڪريو PTRDIFF_MAX INT64_MAX
+#وإلا
+#وصف_ڪريو PTRDIFF_MIN INT32_MIN
+#وصف_ڪريو PTRDIFF_MAX INT32_MAX
+#جيڪڏهن_پورو
 
-#define SIG_ATOMIC_MIN INT32_MIN
-#define SIG_ATOMIC_MAX INT32_MAX
+#وصف_ڪريو SIG_ATOMIC_MIN INT32_MIN
+#وصف_ڪريو SIG_ATOMIC_MAX INT32_MAX
 
-#ifndef SIZE_MAX
-#ifdef _WIN64
-#define SIZE_MAX UINT64_MAX
-#else
-#define SIZE_MAX UINT32_MAX
-#endif
-#endif
+#جيڪڏهن_وصف_نه_ٿيل SIZE_MAX
+#جيڪڏهن_وصف_ٿيل _WIN64
+#وصف_ڪريو SIZE_MAX UINT64_MAX
+#وإلا
+#وصف_ڪريو SIZE_MAX UINT32_MAX
+#جيڪڏهن_پورو
+#جيڪڏهن_پورو
 
-#ifndef WCHAR_MIN  /* also in wchar.h */
-#define WCHAR_MIN 0
-#define WCHAR_MAX ((wchar_t)-1) /* UINT16_MAX */
-#endif
+#جيڪڏهن_وصف_نه_ٿيل WCHAR_MIN  /* also in wchar.h */
+#وصف_ڪريو WCHAR_MIN 0
+#وصف_ڪريو WCHAR_MAX ((wchar_t)-1) /* UINT16_MAX */
+#جيڪڏهن_پورو
 
 /*
  * wint_t is unsigned short for compatibility with MS runtime
  */
-#define WINT_MIN 0
-#define WINT_MAX ((wint_t)-1) /* UINT16_MAX */
+#وصف_ڪريو WINT_MIN 0
+#وصف_ڪريو WINT_MAX ((wint_t)-1) /* UINT16_MAX */
 
-#endif /* !defined ( __cplusplus) || defined __STDC_LIMIT_MACROS */
+#جيڪڏهن_پورو /* !defined ( __cplusplus) || defined __STDC_LIMIT_MACROS */
 
 
 /* 7.18.4  Macros for integer constants */
-#if !defined ( __cplusplus) || defined (__STDC_CONSTANT_MACROS)
+#إذا !defined ( __cplusplus) || defined (__STDC_CONSTANT_MACROS)
 
 /* 7.18.4.1  Macros for minimum-width integer constants
 
@@ -191,22 +191,22 @@ typedef unsigned long long   uintmax_t;
 	The trick used here is from Clive D W Feather.
 */
 
-#define INT8_C(val) (INT_LEAST8_MAX-INT_LEAST8_MAX+(val))
-#define INT16_C(val) (INT_LEAST16_MAX-INT_LEAST16_MAX+(val))
-#define INT32_C(val) (INT_LEAST32_MAX-INT_LEAST32_MAX+(val))
+#وصف_ڪريو INT8_C(val) (INT_LEAST8_MAX-INT_LEAST8_MAX+(val))
+#وصف_ڪريو INT16_C(val) (INT_LEAST16_MAX-INT_LEAST16_MAX+(val))
+#وصف_ڪريو INT32_C(val) (INT_LEAST32_MAX-INT_LEAST32_MAX+(val))
 /*  The 'trick' doesn't work in C89 for long long because, without
     suffix, (val) will be evaluated as int, not intmax_t */
-#define INT64_C(val) val##LL
+#وصف_ڪريو INT64_C(val) val##LL
 
-#define UINT8_C(val) (UINT_LEAST8_MAX-UINT_LEAST8_MAX+(val))
-#define UINT16_C(val) (UINT_LEAST16_MAX-UINT_LEAST16_MAX+(val))
-#define UINT32_C(val) (UINT_LEAST32_MAX-UINT_LEAST32_MAX+(val))
-#define UINT64_C(val) val##ULL
+#وصف_ڪريو UINT8_C(val) (UINT_LEAST8_MAX-UINT_LEAST8_MAX+(val))
+#وصف_ڪريو UINT16_C(val) (UINT_LEAST16_MAX-UINT_LEAST16_MAX+(val))
+#وصف_ڪريو UINT32_C(val) (UINT_LEAST32_MAX-UINT_LEAST32_MAX+(val))
+#وصف_ڪريو UINT64_C(val) val##ULL
 
 /* 7.18.4.2  Macros for greatest-width integer constants */
-#define INTMAX_C(val) val##LL
-#define UINTMAX_C(val) val##ULL
+#وصف_ڪريو INTMAX_C(val) val##LL
+#وصف_ڪريو UINTMAX_C(val) val##ULL
 
-#endif  /* !defined ( __cplusplus) || defined __STDC_CONSTANT_MACROS */
+#جيڪڏهن_پورو  /* !defined ( __cplusplus) || defined __STDC_CONSTANT_MACROS */
 
-#endif
+#جيڪڏهن_پورو

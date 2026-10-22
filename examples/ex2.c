@@ -1,98 +1,98 @@
-#include <stdlib.h>
-#include <stdio.h>
+#ضمن <stdlib.h>
+#ضمن <stdio.h>
 
-#define N 20
+#وصف_ڪريو N 20
 
-int nb_num;
-int tab[N];
-int stack_ptr;
-int stack_op[N];
-int stack_res[60];
-int result;
+صحيح nb_انگ;
+صحيح tab[N];
+صحيح ڍير_ptr;
+صحيح ڍير_op[N];
+صحيح ڍير_res[60];
+صحيح نتيجو;
 
-int find(int n, int i1, int a, int b, int op)
+صحيح ڳوليو(صحيح n, صحيح i1, صحيح a, صحيح b, صحيح op)
 {
-    int i, j;
-    int c;
+    صحيح i, j;
+    صحيح c;
 
-    if (stack_ptr >= 0) {
-        stack_res[3*stack_ptr] = a;
-        stack_op[stack_ptr] = op;
-        stack_res[3*stack_ptr+1] = b;
-        stack_res[3*stack_ptr+2] = n;
-        if (n == result)
-            return 1;
+    إذا (ڍير_ptr >= 0) {
+        ڍير_res[3*ڍير_ptr] = a;
+        ڍير_op[ڍير_ptr] = op;
+        ڍير_res[3*ڍير_ptr+1] = b;
+        ڍير_res[3*ڍير_ptr+2] = n;
+        إذا (n == نتيجو)
+            أرجع 1;
         tab[i1] = n;
     }
 
-    for(i=0;i<nb_num;i++) {
-        for(j=i+1;j<nb_num;j++) {
+    لكل(i=0;i<nb_انگ;i++) {
+        لكل(j=i+1;j<nb_انگ;j++) {
             a = tab[i];
             b = tab[j];
-            if (a != 0 && b != 0) {
+            إذا (a != 0 && b != 0) {
 
                 tab[j] = 0;
-                stack_ptr++;
+                ڍير_ptr++;
 
-                if (find(a + b, i, a, b, '+'))
-                    return 1;
-                if (find(a - b, i, a, b, '-'))
-                    return 1;
-                if (find(b - a, i, b, a, '-'))
-                    return 1;
-                if (find(a * b, i, a, b, '*'))
-                    return 1;
-                if (b != 0) {
+                إذا (ڳوليو(a + b, i, a, b, '+'))
+                    أرجع 1;
+                إذا (ڳوليو(a - b, i, a, b, '-'))
+                    أرجع 1;
+                إذا (ڳوليو(b - a, i, b, a, '-'))
+                    أرجع 1;
+                إذا (ڳوليو(a * b, i, a, b, '*'))
+                    أرجع 1;
+                إذا (b != 0) {
                     c = a / b;
-                    if (find(c, i, a, b, '/'))
-                        return 1;
+                    إذا (ڳوليو(c, i, a, b, '/'))
+                        أرجع 1;
                 }
 
-                if (a != 0) {
+                إذا (a != 0) {
                     c = b / a;
-                    if (find(c, i, b, a, '/'))
-                        return 1;
+                    إذا (ڳوليو(c, i, b, a, '/'))
+                        أرجع 1;
                 }
 
-                stack_ptr--;
+                ڍير_ptr--;
                 tab[i] = a;
                 tab[j] = b;
             }
         }
     }
 
-    return 0;
+    أرجع 0;
 }
 
-int main(int argc, char **argv)
+صحيح مکيه(صحيح argc, حرف **argv)
 {
-    int i, res, p;
+    صحيح i, res, p;
 
-    if (argc < 3) {
-        printf("usage: %s: result numbers...\n"
+    إذا (argc < 3) {
+        لکو("usage: %s: result numbers...\n"
                "Try to find result from numbers with the 4 basic operations.\n", argv[0]);
-        exit(1);
+        ٻاهر_نڪرو(1);
     }
 
     p = 1;
-    result = atoi(argv[p]);
-    printf("result=%d\n", result);
-    nb_num = 0;
-    for(i=p+1;i<argc;i++) {
-        tab[nb_num++] = atoi(argv[i]);
+    نتيجو = atoi(argv[p]);
+    لکو("result=%d\n", نتيجو);
+    nb_انگ = 0;
+    لكل(i=p+1;i<argc;i++) {
+        tab[nb_انگ++] = atoi(argv[i]);
     }
 
-    stack_ptr = -1;
-    res = find(0, 0, 0, 0, ' ');
-    if (res) {
-        for(i=0;i<=stack_ptr;i++) {
-            printf("%d %c %d = %d\n",
-                   stack_res[3*i], stack_op[i],
-                   stack_res[3*i+1], stack_res[3*i+2]);
+    ڍير_ptr = -1;
+    res = ڳوليو(0, 0, 0, 0, ' ');
+    إذا (res) {
+        لكل(i=0;i<=ڍير_ptr;i++) {
+            لکو("%d %c %d = %d\n",
+                   ڍير_res[3*i], ڍير_op[i],
+                   ڍير_res[3*i+1], ڍير_res[3*i+2]);
         }
-        return 0;
-    } else {
-        printf("Impossible\n");
-        return 1;
+        أرجع 0;
+    } وإلا {
+        لکو("Impossible\n");
+        أرجع 1;
     }
 }

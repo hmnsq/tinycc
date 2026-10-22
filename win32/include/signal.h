@@ -3,61 +3,61 @@
  * This file is part of the w64 mingw-runtime package.
  * No warranty is given; refer to the file DISCLAIMER within this package.
  */
-#ifndef _INC_SIGNAL
-#define _INC_SIGNAL
+#جيڪڏهن_وصف_نه_ٿيل _INC_SIGNAL
+#وصف_ڪريو _INC_SIGNAL
 
-#include <_mingw.h>
+#ضمن <_mingw.h>
 
-#ifdef __cplusplus
-extern "C" {
-#endif
+#جيڪڏهن_وصف_ٿيل __cplusplus
+خارجي "C" {
+#جيڪڏهن_پورو
 
-#ifndef _SIG_ATOMIC_T_DEFINED
-#define _SIG_ATOMIC_T_DEFINED
-  typedef int sig_atomic_t;
-#endif
+#جيڪڏهن_وصف_نه_ٿيل _SIG_ATOMIC_T_DEFINED
+#وصف_ڪريو _SIG_ATOMIC_T_DEFINED
+  تعريفنوع صحيح sig_atomic_t;
+#جيڪڏهن_پورو
 
-#define NSIG 23
+#وصف_ڪريو NSIG 23
 
-#define	SIGHUP	1	/* hangup */
-#define SIGINT 2
-#define	SIGQUIT	3	/* quit */
-#define SIGILL 4
-#define	SIGTRAP	5	/* trace trap (not reset when caught) */
-#define	SIGIOT	6	/* IOT instruction */
-#define	SIGABRT 6	/* used by abort, replace SIGIOT in the future */
-#define	SIGEMT	7	/* EMT instruction */
-#define SIGFPE 8
-#define	SIGKILL	9	/* kill (cannot be caught or ignored) */
-#define	SIGBUS	10	/* bus error */
-#define SIGSEGV 11
-#define	SIGSYS	12	/* bad argument to system call */
-#define	SIGPIPE	13	/* write on a pipe with no one to read it */
-#ifdef __USE_MINGW_ALARM
-#define	SIGALRM	14	/* alarm clock */
-#endif
-#define SIGTERM 15
-#define SIGBREAK 21
-#define SIGABRT2 22
+#وصف_ڪريو	SIGHUP	1	/* hangup */
+#وصف_ڪريو SIGINT 2
+#وصف_ڪريو	SIGQUIT	3	/* quit */
+#وصف_ڪريو SIGILL 4
+#وصف_ڪريو	SIGTRAP	5	/* trace trap (not reset when caught) */
+#وصف_ڪريو	SIGIOT	6	/* IOT instruction */
+#وصف_ڪريو	SIGABRT 6	/* used by abort, replace SIGIOT in the future */
+#وصف_ڪريو	SIGEMT	7	/* EMT instruction */
+#وصف_ڪريو SIGFPE 8
+#وصف_ڪريو	SIGKILL	9	/* kill (cannot be caught or ignored) */
+#وصف_ڪريو	SIGBUS	10	/* bus error */
+#وصف_ڪريو SIGSEGV 11
+#وصف_ڪريو	SIGSYS	12	/* bad argument to system call */
+#وصف_ڪريو	SIGPIPE	13	/* write on a pipe with no one to read it */
+#جيڪڏهن_وصف_ٿيل __USE_MINGW_ALARM
+#وصف_ڪريو	SIGALRM	14	/* alarm clock */
+#جيڪڏهن_پورو
+#وصف_ڪريو SIGTERM 15
+#وصف_ڪريو SIGBREAK 21
+#وصف_ڪريو SIGABRT2 22
 
-#define SIGABRT_COMPAT 6
+#وصف_ڪريو SIGABRT_COMPAT 6
 
-  typedef	void (*__p_sig_fn_t)(int);
+  تعريفنوع	فراغ (*__p_sig_fn_t)(صحيح);
 
-#define SIG_DFL (__p_sig_fn_t)0
-#define SIG_IGN (__p_sig_fn_t)1
-#define SIG_GET (__p_sig_fn_t)2
-#define SIG_SGE (__p_sig_fn_t)3
-#define SIG_ACK (__p_sig_fn_t)4
-#define SIG_ERR (__p_sig_fn_t)-1
+#وصف_ڪريو SIG_DFL (__p_sig_fn_t)0
+#وصف_ڪريو SIG_IGN (__p_sig_fn_t)1
+#وصف_ڪريو SIG_GET (__p_sig_fn_t)2
+#وصف_ڪريو SIG_SGE (__p_sig_fn_t)3
+#وصف_ڪريو SIG_ACK (__p_sig_fn_t)4
+#وصف_ڪريو SIG_ERR (__p_sig_fn_t)-1
 
-  extern void **__cdecl __pxcptinfoptrs(void);
-#define _pxcptinfoptrs (*__pxcptinfoptrs())
+  خارجي فراغ **__cdecl __pxcptinfoptrs(فراغ);
+#وصف_ڪريو _pxcptinfoptrs (*__pxcptinfoptrs())
 
-  __p_sig_fn_t __cdecl signal(int _SigNum,__p_sig_fn_t _Func);
-  int __cdecl raise(int _SigNum);
+  __p_sig_fn_t __cdecl إشارة(صحيح Sig_انگ_2,__p_sig_fn_t _Func);
+  صحيح __cdecl ارفع(صحيح Sig_انگ_2);
 
-#ifdef __cplusplus
+#جيڪڏهن_وصف_ٿيل __cplusplus
 }
-#endif
-#endif
+#جيڪڏهن_پورو
+#جيڪڏهن_پورو

@@ -3,56 +3,56 @@
    when stored into/loaded from a 8 bit bit-field of enum type (which
    itself is implementation defined, so isn't necessarily supported by all
    other compilers).  */
-enum tree_code {
-  SOME_CODE = 148, /* has bit 7 set, and hence all further enum values as well */
-  LAST_AND_UNUSED_TREE_CODE
+تعداد وڻ_ڪوڊ {
+  SOME_ڪوڊ = 148, /* has bit 7 set, and hence all further enum values as well */
+  آخري_AND_اڻ_استعمال_ٿيل_وڻ_ڪوڊ
 };
-typedef union tree_node *tree;
-struct tree_common
+تعريفنوع اتحاد وڻ_ڳنڍ *وڻ_2;
+بنية وڻ_common
 {
-  union tree_node *chain;
-  union tree_node *type;
-  enum tree_code code : 8;
-  unsigned side_effects_flag : 1;
+  اتحاد وڻ_ڳنڍ *chain;
+  اتحاد وڻ_ڳنڍ *type;
+  تعداد وڻ_ڪوڊ ڪوڊ : 8;
+  بنانشان side_effects_flag : 1;
 };
-union tree_node
+اتحاد وڻ_ڳنڍ
 {
-  struct tree_common common;
+  بنية وڻ_common common;
  };
-enum c_tree_code {
-  C_DUMMY_TREE_CODE = LAST_AND_UNUSED_TREE_CODE,
-  STMT_EXPR,
-  LAST_C_TREE_CODE
+تعداد c_وڻ_ڪوڊ {
+  C_DUMMY_وڻ_ڪوڊ = آخري_AND_اڻ_استعمال_ٿيل_وڻ_ڪوڊ,
+  STMT_اظهار,
+  آخري_C_وڻ_ڪوڊ
 };
-enum cplus_tree_code {
-  CP_DUMMY_TREE_CODE = LAST_C_TREE_CODE,
+تعداد cplus_وڻ_ڪوڊ {
+  CP_DUMMY_وڻ_ڪوڊ = آخري_C_وڻ_ڪوڊ,
   AMBIG_CONV,
-  LAST_CPLUS_TREE_CODE
+  آخري_CPLUS_وڻ_ڪوڊ
 };
 
-extern int printf(const char *, ...);
-int blah(){return 0;}
+خارجي صحيح لکو(ثابت حرف *, ...);
+صحيح blah(){أرجع 0;}
 
-int convert_like_real (tree convs)
+صحيح convert_like_real (وڻ_2 convs)
 {
-  switch (((enum tree_code) (convs)->common.code))
+  بدل (((تعداد وڻ_ڪوڊ) (convs)->common.ڪوڊ))
     {
-    case AMBIG_CONV: /* This has bit 7 set, which must not be the sign
+    حالة AMBIG_CONV: /* This has bit 7 set, which must not be the sign
 			bit in tree_common.code, i.e. the bitfield must
 			be somehow marked unsigned.  */
-      return blah();
-    default:
-      break;
+      أرجع blah();
+    افتراضي:
+      اكسر;
     };
-   printf("unsigned enum bit-fields broken\n");
-   return 0;
+   لکو("unsigned enum bit-fields broken\n");
+   أرجع 0;
 }
 
-int main()
+صحيح مکيه()
 {
-  union tree_node convs;
+  اتحاد وڻ_ڳنڍ convs;
 
-  convs.common.code = AMBIG_CONV;
+  convs.common.ڪوڊ = AMBIG_CONV;
   convert_like_real (&convs);
-  return 0;
+  أرجع 0;
 }

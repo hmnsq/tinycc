@@ -1,23 +1,23 @@
-#include <stdio.h>
+#ضمن <stdio.h>
 
-struct point
+بنية نقطو
 {
-   double x;
-   double y;
+   مزدوج x;
+   مزدوج y;
 };
 
-struct point point_array[100];
+بنية نقطو نقطو_array[100];
 
-int main()
+صحيح مکيه()
 {
-   int my_point = 10;
+   صحيح my_نقطو = 10;
 
-   point_array[my_point].x = 12.34;
-   point_array[my_point].y = 56.78;
+   نقطو_array[my_نقطو].x = 12.34;
+   نقطو_array[my_نقطو].y = 56.78;
 
-   printf("%f, %f\n", point_array[my_point].x, point_array[my_point].y);
+   لکو("%f, %f\n", نقطو_array[my_نقطو].x, نقطو_array[my_نقطو].y);
 
-   return 0;
+   أرجع 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

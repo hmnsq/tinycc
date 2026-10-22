@@ -1,11 +1,11 @@
-#ifndef _STDBOOL_H
-#define _STDBOOL_H
+#جيڪڏهن_وصف_نه_ٿيل _STDBOOL_H
+#وصف_ڪريو _STDBOOL_H
 
 /* ISOC99 boolean */
 
-#define bool	_Bool
-#define true	1
-#define false	0
-#define __bool_true_false_are_defined 1
+#وصف_ڪريو bool	_Bool
+#وصف_ڪريو true	1
+#وصف_ڪريو false	0
+#وصف_ڪريو __bool_true_false_are_defined 1
 
-#endif /* _STDBOOL_H */
+#جيڪڏهن_پورو /* _STDBOOL_H */

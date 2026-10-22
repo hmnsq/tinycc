@@ -3,62 +3,62 @@
  * This file is part of the w64 mingw-runtime package.
  * No warranty is given; refer to the file DISCLAIMER within this package.
  */
-#ifndef _FENV_H_
-#define _FENV_H_
+#جيڪڏهن_وصف_نه_ٿيل _FENV_H_
+#وصف_ڪريو _FENV_H_
 
-#include <_mingw.h>
+#ضمن <_mingw.h>
 
 /* FPU status word exception flags */
-#define FE_INVALID	0x01
-#define FE_DENORMAL	0x02
-#define FE_DIVBYZERO	0x04
-#define FE_OVERFLOW	0x08
-#define FE_UNDERFLOW	0x10
-#define FE_INEXACT	0x20
-#define FE_ALL_EXCEPT (FE_INVALID | FE_DENORMAL | FE_DIVBYZERO \
-		       | FE_OVERFLOW | FE_UNDERFLOW | FE_INEXACT)
+#وصف_ڪريو FE_INVALID	0x01
+#وصف_ڪريو FE_DENORMAL	0x02
+#وصف_ڪريو FE_DIVBYZERO	0x04
+#وصف_ڪريو FE_حد_کان_مٿي	0x08
+#وصف_ڪريو FE_UNDERFLOW	0x10
+#وصف_ڪريو FE_INEXACT	0x20
+#وصف_ڪريو FE_ALL_EXCEPT (FE_INVALID | FE_DENORMAL | FE_DIVBYZERO \
+		       | FE_حد_کان_مٿي | FE_UNDERFLOW | FE_INEXACT)
 
 /* FPU control word rounding flags */
-#define FE_TONEAREST	0x0000
-#define FE_DOWNWARD	0x0400
-#define FE_UPWARD	0x0800
-#define FE_TOWARDZERO	0x0c00
+#وصف_ڪريو FE_TONEAREST	0x0000
+#وصف_ڪريو FE_DOWNWARD	0x0400
+#وصف_ڪريو FE_UPWARD	0x0800
+#وصف_ڪريو FE_TOWARDZERO	0x0c00
 
 /* The MXCSR exception flags are the same as the
    FE flags. */
-#define __MXCSR_EXCEPT_FLAG_SHIFT 0
+#وصف_ڪريو __MXCSR_EXCEPT_FLAG_SHIFT 0
 
 /* How much to shift FE status word exception flags
    to get MXCSR rounding flags,  */
-#define __MXCSR_ROUND_FLAG_SHIFT 3
+#وصف_ڪريو __MXCSR_ROUND_FLAG_SHIFT 3
 
-#ifndef RC_INVOKED
+#جيڪڏهن_وصف_نه_ٿيل RC_INVOKED
 /*
   For now, support only for the basic abstraction of flags that are
   either set or clear. fexcept_t could be  structure that holds more
   info about the fp environment.
 */
-typedef unsigned short fexcept_t;
+تعريفنوع بنانشان ننڍو fexcept_t;
 
 /* This 32-byte struct represents the entire floating point
    environment as stored by fnstenv or fstenv, augmented by
    the  contents of the MXCSR register, as stored by stmxcsr
    (if CPU supports it). */
-typedef struct
+تعريفنوع بنية
 {
-  unsigned short __control_word;
-  unsigned short __unused0;
-  unsigned short __status_word;
-  unsigned short __unused1;
-  unsigned short __tag_word;
-  unsigned short __unused2;  
-  unsigned int	 __ip_offset;    /* instruction pointer offset */
-  unsigned short __ip_selector;  
-  unsigned short __opcode;
-  unsigned int	 __data_offset;
-  unsigned short __data_selector;  
-  unsigned short __unused3;
-  unsigned int   __mxcsr; /* contents of the MXCSR register  */
+  بنانشان ننڍو __control_word;
+  بنانشان ننڍو __unused0;
+  بنانشان ننڍو __status_word;
+  بنانشان ننڍو __unused1;
+  بنانشان ننڍو __tag_word;
+  بنانشان ننڍو __unused2;  
+  بنانشان صحيح	 __ip_offset;    /* instruction pointer offset */
+  بنانشان ننڍو __ip_selector;  
+  بنانشان ننڍو __opcode;
+  بنانشان صحيح	 __data_offset;
+  بنانشان ننڍو __data_selector;  
+  بنانشان ننڍو __unused3;
+  بنانشان صحيح   __mxcsr; /* contents of the MXCSR register  */
 } fenv_t;
 
 
@@ -66,43 +66,43 @@ typedef struct
   different fp environments */
   
 /* The default Intel x87 floating point environment (64-bit mantissa) */
-#define FE_PC64_ENV ((const fenv_t *)-1)
+#وصف_ڪريو FE_PC64_ENV ((ثابت fenv_t *)-1)
 
 /* The floating point environment set by MSVCRT _fpreset (53-bit mantissa) */
-#define FE_PC53_ENV ((const fenv_t *)-2)
+#وصف_ڪريو FE_PC53_ENV ((ثابت fenv_t *)-2)
 
 /* The FE_DFL_ENV macro is required by standard.
   fesetenv will use the environment set at app startup.*/
-#define FE_DFL_ENV ((const fenv_t *) 0)
+#وصف_ڪريو FE_DFL_ENV ((ثابت fenv_t *) 0)
 
-#ifdef __cplusplus
-extern "C" {
-#endif
+#جيڪڏهن_وصف_ٿيل __cplusplus
+خارجي "C" {
+#جيڪڏهن_پورو
 
 /*TODO: Some of these could be inlined */
 /* 7.6.2 Exception */
 
-extern int __cdecl feclearexcept (int);
-extern int __cdecl fegetexceptflag (fexcept_t * flagp, int excepts);
-extern int __cdecl feraiseexcept (int excepts );
-extern int __cdecl fesetexceptflag (const fexcept_t *, int);
-extern int __cdecl fetestexcept (int excepts);
+خارجي صحيح __cdecl feclearexcept (صحيح);
+خارجي صحيح __cdecl fegetexceptflag (fexcept_t * flagp, صحيح excepts);
+خارجي صحيح __cdecl feraiseexcept (صحيح excepts );
+خارجي صحيح __cdecl fesetexceptflag (ثابت fexcept_t *, صحيح);
+خارجي صحيح __cdecl fetestexcept (صحيح excepts);
 
 /* 7.6.3 Rounding */
 
-extern int __cdecl fegetround (void);
-extern int __cdecl fesetround (int mode);
+خارجي صحيح __cdecl fegetround (فراغ);
+خارجي صحيح __cdecl fesetround (صحيح گهڻائي);
 
 /* 7.6.4 Environment */
 
-extern int __cdecl fegetenv(fenv_t * envp);
-extern int __cdecl fesetenv(const fenv_t * );
-extern int __cdecl feupdateenv(const fenv_t *);
-extern int __cdecl feholdexcept(fenv_t *);
+خارجي صحيح __cdecl fegetenv(fenv_t * envp);
+خارجي صحيح __cdecl fesetenv(ثابت fenv_t * );
+خارجي صحيح __cdecl feupdateenv(ثابت fenv_t *);
+خارجي صحيح __cdecl feholdexcept(fenv_t *);
 
-#ifdef __cplusplus
+#جيڪڏهن_وصف_ٿيل __cplusplus
 }
-#endif
-#endif	/* Not RC_INVOKED */
+#جيڪڏهن_پورو
+#جيڪڏهن_پورو	/* Not RC_INVOKED */
 
-#endif /* ndef _FENV_H */
+#جيڪڏهن_پورو /* ndef _FENV_H */

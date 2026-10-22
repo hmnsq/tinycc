@@ -1,16 +1,16 @@
 //#include <stdio.h>
-extern int printf(const char *, ...);
+خارجي صحيح لکو(ثابت حرف *, ...);
 
-int main()
+صحيح مکيه()
 {
-   int a;
-   int b;
-   int c;
-   int d;
-   int e;
-   int f;
-   int x;
-   int y;
+   صحيح a;
+   صحيح b;
+   صحيح c;
+   صحيح d;
+   صحيح e;
+   صحيح f;
+   صحيح x;
+   صحيح y;
 
    a = 12;
    b = 34;
@@ -19,23 +19,23 @@ int main()
    e = 0;
    f = 1;
 
-   printf("%d\n", c + d);
-   printf("%d\n", (y = c + d));
-   printf("%d\n", e || e && f);
-   printf("%d\n", e || f && f);
-   printf("%d\n", e && e || f);
-   printf("%d\n", e && f || f);
-   printf("%d\n", a && f | f);
-   printf("%d\n", a | b ^ c & d);
-   printf("%d, %d\n", a == a, a == b);
-   printf("%d, %d\n", a != a, a != b);
-   printf("%d\n", a != b && c != d);
-   printf("%d\n", a + b * c / f);
-   printf("%d\n", a + b * c / f);
-   printf("%d\n", (4 << 4));
-   printf("%d\n", (64 >> 4));
+   لکو("%d\n", c + d);
+   لکو("%d\n", (y = c + d));
+   لکو("%d\n", e || e && f);
+   لکو("%d\n", e || f && f);
+   لکو("%d\n", e && e || f);
+   لکو("%d\n", e && f || f);
+   لکو("%d\n", a && f | f);
+   لکو("%d\n", a | b ^ c & d);
+   لکو("%d, %d\n", a == a, a == b);
+   لکو("%d, %d\n", a != a, a != b);
+   لکو("%d\n", a != b && c != d);
+   لکو("%d\n", a + b * c / f);
+   لکو("%d\n", a + b * c / f);
+   لکو("%d\n", (4 << 4));
+   لکو("%d\n", (64 >> 4));
 
-   return 0;
+   أرجع 0;
 }
 
 // vim: set expandtab ts=4 sw=3 sts=3 tw=80 :
