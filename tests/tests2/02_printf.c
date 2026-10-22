@@ -1,18 +1,18 @@
-#include <stdio.h>
+#ضمن <stdio.h>
 
-int main() 
+صحيح اصلی() 
 {
-   printf("Hello world\n");
+   چاپ_کن("Hello world\n");
 
-   int Count;
-   for (Count = -5; Count <= 5; Count++)
-      printf("Count = %d\n", Count);
+   صحيح شمار_3;
+   لكل (شمار_3 = -5; شمار_3 <= 5; شمار_3++)
+      چاپ_کن("Count = %d\n", شمار_3);
 
-   printf("String 'hello', 'there' is '%s', '%s'\n", "hello", "there");
-   printf("Character 'A' is '%c'\n", 65);
-   printf("Character 'a' is '%c'\n", 'a');
+   چاپ_کن("String 'hello', 'there' is '%s', '%s'\n", "hello", "there");
+   چاپ_کن("Character 'A' is '%c'\n", 65);
+   چاپ_کن("Character 'a' is '%c'\n", 'a');
 
-   return 0;
+   أرجع 0;
 }
 
 // vim: set expandtab ts=4 sw=3 sts=3 tw=80 :

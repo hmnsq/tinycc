@@ -1,236 +1,236 @@
-#include <stdlib.h>
-#include <stdio.h>
-#include <string.h>
+#ضمن <stdlib.h>
+#ضمن <stdio.h>
+#ضمن <string.h>
 
-#define NB_ITS 1000000
+#تعریف_کن NB_ITS 1000000
 //#define NB_ITS 1
-#define TAB_SIZE 100
+#تعریف_کن TAB_اندازه 100
 
-int tab[TAB_SIZE];
-int ret_sum;
-char tab3[256];
+صحيح tab[TAB_اندازه];
+صحيح ret_جمع;
+حرف tab3[256];
 
-int test1(void)
+صحيح test1(فراغ)
 {
-    int i, sum = 0;
-    for(i=0;i<TAB_SIZE;i++) {
-        sum += tab[i];
+    صحيح i, جمع = 0;
+    لكل(i=0;i<TAB_اندازه;i++) {
+        جمع += tab[i];
     }
-    return sum;
+    أرجع جمع;
 }
 
 /* error */
-int test2(void)
+صحيح test2(فراغ)
 {
-    int i, sum = 0;
-    for(i=0;i<TAB_SIZE + 1;i++) {
-        sum += tab[i];
+    صحيح i, جمع = 0;
+    لكل(i=0;i<TAB_اندازه + 1;i++) {
+        جمع += tab[i];
     }
-    return sum;
+    أرجع جمع;
 }
 
 /* actually, profiling test */
-int test3(void)
+صحيح test3(فراغ)
 {
-    int sum;
-    int i, it;
+    صحيح جمع;
+    صحيح i, it;
 
-    sum = 0;
-    for(it=0;it<NB_ITS;it++) {
-        for(i=0;i<TAB_SIZE;i++) {
-            sum += tab[i];
+    جمع = 0;
+    لكل(it=0;it<NB_ITS;it++) {
+        لكل(i=0;i<TAB_اندازه;i++) {
+            جمع += tab[i];
         }
     }
-    return sum;
+    أرجع جمع;
 }
 
 /* ok */
-int test4(void)
+صحيح test4(فراغ)
 {
-    int i, sum = 0;
-    int *tab4;
+    صحيح i, جمع = 0;
+    صحيح *tab4;
 
-    tab4 = malloc(20 * sizeof(int));
-    for(i=0;i<20;i++) {
-        sum += tab4[i];
+    tab4 = حافظه_بده(20 * حجم(صحيح));
+    لكل(i=0;i<20;i++) {
+        جمع += tab4[i];
     }
-    free(tab4);
+    حرر(tab4);
 
-    return sum;
+    أرجع جمع;
 }
 
 /* error */
-int test5(void)
+صحيح test5(فراغ)
 {
-    int i, sum = 0;
-    int *tab4;
+    صحيح i, جمع = 0;
+    صحيح *tab4;
 
-    tab4 = malloc(20 * sizeof(int));
-    for(i=0;i<21;i++) {
-        sum += tab4[i];
+    tab4 = حافظه_بده(20 * حجم(صحيح));
+    لكل(i=0;i<21;i++) {
+        جمع += tab4[i];
     }
-    free(tab4);
+    حرر(tab4);
 
-    return sum;
+    أرجع جمع;
 }
 
 /* error */
-int test6(void)
+صحيح test6(فراغ)
 {
-    int i, sum = 0;
-    int *tab4;
+    صحيح i, جمع = 0;
+    صحيح *tab4;
     
-    tab4 = malloc(20 * sizeof(int));
-    free(tab4);
-    for(i=0;i<21;i++) {
-        sum += tab4[i];
+    tab4 = حافظه_بده(20 * حجم(صحيح));
+    حرر(tab4);
+    لكل(i=0;i<21;i++) {
+        جمع += tab4[i];
     }
 
-    return sum;
+    أرجع جمع;
 }
 
 /* error */
-int test7(void)
+صحيح test7(فراغ)
 {
-    int i, sum = 0;
-    int *p;
+    صحيح i, جمع = 0;
+    صحيح *p;
 
-    for(i=0;i<TAB_SIZE + 1;i++) {
+    لكل(i=0;i<TAB_اندازه + 1;i++) {
         p = &tab[i];
-        if (i == TAB_SIZE)
-            printf("i=%d %x\n", i, p);
-        sum += *p;
+        إذا (i == TAB_اندازه)
+            چاپ_کن("i=%d %x\n", i, p);
+        جمع += *p;
     }
-    return sum;
+    أرجع جمع;
 }
 
 /* ok */
-int test8(void)
+صحيح test8(فراغ)
 {
-    int i, sum = 0;
-    int tab[10];
+    صحيح i, جمع = 0;
+    صحيح tab[10];
 
-    for(i=0;i<10;i++) {
-        sum += tab[i];
+    لكل(i=0;i<10;i++) {
+        جمع += tab[i];
     }
-    return sum;
+    أرجع جمع;
 }
 
 /* error */
-int test9(void)
+صحيح test9(فراغ)
 {
-    int i, sum = 0;
-    char tab[10];
+    صحيح i, جمع = 0;
+    حرف tab[10];
 
-    for(i=0;i<11;i++) {
-        sum += tab[i];
+    لكل(i=0;i<11;i++) {
+        جمع += tab[i];
     }
-    return sum;
+    أرجع جمع;
 }
 
 /* ok */
-int test10(void)
+صحيح test10(فراغ)
 {
-    char tab[10];
-    char tab1[10];
+    حرف tab[10];
+    حرف tab1[10];
 
     memset(tab, 0, 10);
-    memcpy(tab, tab1, 10);
+    کپی_حافظه(tab, tab1, 10);
     memmove(tab, tab1, 10);
-    return 0;
+    أرجع 0;
 }
 
 /* error */
-int test11(void)
+صحيح test11(فراغ)
 {
-    char tab[10];
+    حرف tab[10];
 
     memset(tab, 0, 11);
-    return 0;
+    أرجع 0;
 }
 
 /* error */
-int test12(void)
+صحيح test12(فراغ)
 {
-    void *ptr;
-    ptr = malloc(10);
-    free(ptr);
-    free(ptr);
-    return 0;
+    فراغ *ptr;
+    ptr = حافظه_بده(10);
+    حرر(ptr);
+    حرر(ptr);
+    أرجع 0;
 }
 
 /* error */
-int test13(void)
+صحيح test13(فراغ)
 {
-    char pad1 = 0;
-    char tab[10];
-    char pad2 = 0;
-    memset(tab, 'a', sizeof(tab));
-    return strlen(tab);
+    حرف pad1 = 0;
+    حرف tab[10];
+    حرف pad2 = 0;
+    memset(tab, 'a', حجم(tab));
+    أرجع طول_رشته(tab);
 }
 
-int test14(void)
+صحيح test14(فراغ)
 {
-    char *p = alloca(TAB_SIZE);
-    size_t ret;
-    memset(p, 'a', TAB_SIZE);
-    p[TAB_SIZE-1] = 0;
-    ret = strlen(p);
-    return ret;
+    حرف *p = alloca(TAB_اندازه);
+    اندازه_t ret;
+    memset(p, 'a', TAB_اندازه);
+    p[TAB_اندازه-1] = 0;
+    ret = طول_رشته(p);
+    أرجع ret;
 }
 
 /* error */
-int test15(void)
+صحيح test15(فراغ)
 {
-    char *p = alloca(TAB_SIZE-1);
-    size_t ret;
-    memset(p, 'a', TAB_SIZE);
-    p[TAB_SIZE-1] = 0;
-    ret = strlen(p);
-    return ret;
+    حرف *p = alloca(TAB_اندازه-1);
+    اندازه_t ret;
+    memset(p, 'a', TAB_اندازه);
+    p[TAB_اندازه-1] = 0;
+    ret = طول_رشته(p);
+    أرجع ret;
 }
 
 /* ok */
-int test16()
+صحيح test16()
 {
-    char *demo = "This is only a test.";
-    char *p, *q;
+    حرف *demo = "This is only a test.";
+    حرف *p, *q;
 
     p = alloca(16);
     strcpy(p,"12345678901234");
 
     /* Test alloca embedded in a larger expression */
-    printf("alloca : %s : %s\n", p, strcpy(q=alloca(strlen(demo)+1),demo) );
+    چاپ_کن("alloca : %s : %s\n", p, strcpy(q=alloca(طول_رشته(demo)+1),demo) );
 
-    return 0;
+    أرجع 0;
 }
 
 /* error */
-int test17()
+صحيح test17()
 {
-    char *demo = "This is only a test.";
-    char *p, *q;
+    حرف *demo = "This is only a test.";
+    حرف *p, *q;
 
     p = alloca(16);
     strcpy(p,"12345678901234");
 
     /* Test alloca embedded in a larger expression */
-    printf("alloca : %s : %s\n", p, strcpy(q=alloca(strlen(demo)),demo) );
+    چاپ_کن("alloca : %s : %s\n", p, strcpy(q=alloca(طول_رشته(demo)),demo) );
 
-    return 0;
+    أرجع 0;
 }
 
-int test18(void)
+صحيح test18(فراغ)
 {
-    int i, sum = 0, n = TAB_SIZE;
-    int tab[n];
-    for(i=0;i<TAB_SIZE+1;i++) {
-        sum += tab[i];
+    صحيح i, جمع = 0, n = TAB_اندازه;
+    صحيح tab[n];
+    لكل(i=0;i<TAB_اندازه+1;i++) {
+        جمع += tab[i];
     }
-    return sum;
+    أرجع جمع;
 }
 
-int (*table_test[])(void) = {
+صحيح (*جدول_test[])(فراغ) = {
     test1,
     test2,
     test3,
@@ -251,44 +251,44 @@ int (*table_test[])(void) = {
     test18
 };
 
-int main(int argc, char **argv)
+صحيح اصلی(صحيح argc, حرف **argv)
 {
-    int i;
-    char *cp;
-    int index;
-    int (*ftest)(void);
-    int index_max = sizeof(table_test)/sizeof(table_test[0]);
+    صحيح i;
+    حرف *cp;
+    صحيح شاخص;
+    صحيح (*ftest)(فراغ);
+    صحيح شاخص_max = حجم(جدول_test)/حجم(جدول_test[0]);
 
     /* check bounds checking main arg */
-    for (i = 0; i < argc; i++) {
+    لكل (i = 0; i < argc; i++) {
         cp = argv[i];
-        while (*cp) {
+        طالما (*cp) {
             cp++;
         }
     }
 
-    if (argc < 2) {
-        printf(
+    إذا (argc < 2) {
+        چاپ_کن(
     	    "test TCC bound checking system\n"
 	    "usage: boundtest N\n"
-            "  1 <= N <= %d\n", index_max);
-        exit(1);
+            "  1 <= N <= %d\n", شاخص_max);
+        خروج(1);
     }
 
-    index = 0;
-    if (argc >= 2)
-        index = atoi(argv[1]) - 1;
+    شاخص = 0;
+    إذا (argc >= 2)
+        شاخص = atoi(argv[1]) - 1;
 
-    if ((index < 0) || (index >= index_max)) {
-        printf("N is outside of the valid range (%d)\n", index);
-        exit(2);
+    إذا ((شاخص < 0) || (شاخص >= شاخص_max)) {
+        چاپ_کن("N is outside of the valid range (%d)\n", شاخص);
+        خروج(2);
     }
 
     /* well, we also use bounds on this ! */
-    ftest = table_test[index];
+    ftest = جدول_test[شاخص];
     ftest();
 
-    return 0;
+    أرجع 0;
 }
 
 /*

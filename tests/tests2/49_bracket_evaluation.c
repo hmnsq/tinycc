@@ -1,23 +1,23 @@
-#include <stdio.h>
+#ضمن <stdio.h>
 
-struct point
+بنية نقطه
 {
-   double x;
-   double y;
+   مزدوج x;
+   مزدوج y;
 };
 
-struct point point_array[100];
+بنية نقطه نقطه_array[100];
 
-int main()
+صحيح اصلی()
 {
-   int my_point = 10;
+   صحيح my_نقطه = 10;
 
-   point_array[my_point].x = 12.34;
-   point_array[my_point].y = 56.78;
+   نقطه_array[my_نقطه].x = 12.34;
+   نقطه_array[my_نقطه].y = 56.78;
 
-   printf("%f, %f\n", point_array[my_point].x, point_array[my_point].y);
+   چاپ_کن("%f, %f\n", نقطه_array[my_نقطه].x, نقطه_array[my_نقطه].y);
 
-   return 0;
+   أرجع 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

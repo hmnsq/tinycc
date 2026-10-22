@@ -3,389 +3,389 @@
  * This file is part of the w64 mingw-runtime package.
  * No warranty is given; refer to the file DISCLAIMER within this package.
  */
-#ifndef _WS2TCPIP_H
-#define _WS2TCPIP_H
+#اگر_تعریف_نشده _WS2TCPIP_H
+#تعریف_کن _WS2TCPIP_H
 
-#if __GNUC__ >=3
-#pragma GCC system_header
-#endif
+#إذا __GNUC__ >=3
+#رهنمود GCC system_سرآیند
+#پایان_اگر
 
-#include <ws2ipdef.h>
+#ضمن <ws2ipdef.h>
 
-struct ip_msfilter {
-  struct in_addr imsf_multiaddr;
-  struct in_addr imsf_interface;
+بنية ip_msfilter {
+  بنية درون_addr imsf_multiaddr;
+  بنية درون_addr imsf_interface;
   u_long imsf_fmode;
   u_long imsf_numsrc;
-  struct in_addr imsf_slist[1];
+  بنية درون_addr imsf_slist[1];
 };
 
-#define IP_MSFILTER_SIZE(numsrc) (sizeof(struct ip_msfilter)-sizeof(struct in_addr) + (numsrc)*sizeof(struct in_addr))
+#تعریف_کن IP_MSFILTER_اندازه(numsrc) (حجم(بنية ip_msfilter)-حجم(بنية درون_addr) + (numsrc)*حجم(بنية درون_addr))
 
-#define MCAST_INCLUDE 0
-#define MCAST_EXCLUDE 1
+#تعریف_کن MCAST_INCLUDE 0
+#تعریف_کن MCAST_EXCLUDE 1
 
-#define SIO_GET_INTERFACE_LIST _IOR('t',127,u_long)
+#تعریف_کن SIO_GET_INTERFACE_LIST _IOR('t',127,u_long)
 
-#define SIO_GET_INTERFACE_LIST_EX _IOR('t',126,u_long)
-#define SIO_SET_MULTICAST_FILTER _IOW('t',125,u_long)
-#define SIO_GET_MULTICAST_FILTER _IOW('t',124 | IOC_IN,u_long)
+#تعریف_کن SIO_GET_INTERFACE_LIST_EX _IOR('t',126,u_long)
+#تعریف_کن SIO_مجموعه_MULTICAST_FILTER _IOW('t',125,u_long)
+#تعریف_کن SIO_GET_MULTICAST_FILTER _IOW('t',124 | IOC_درون,u_long)
 
-#define IP_OPTIONS 1
-#define IP_HDRINCL 2
-#define IP_TOS 3
-#define IP_TTL 4
-#define IP_MULTICAST_IF 9
-#define IP_MULTICAST_TTL 10
-#define IP_MULTICAST_LOOP 11
-#define IP_ADD_MEMBERSHIP 12
-#define IP_DROP_MEMBERSHIP 13
-#define IP_DONTFRAGMENT 14
-#define IP_ADD_SOURCE_MEMBERSHIP 15
-#define IP_DROP_SOURCE_MEMBERSHIP 16
-#define IP_BLOCK_SOURCE 17
-#define IP_UNBLOCK_SOURCE 18
-#define IP_PKTINFO 19
-#define IP_RECEIVE_BROADCAST 22
+#تعریف_کن IP_OPTIONS 1
+#تعریف_کن IP_HDRINCL 2
+#تعریف_کن IP_TOS 3
+#تعریف_کن IP_TTL 4
+#تعریف_کن IP_MULTICAST_IF 9
+#تعریف_کن IP_MULTICAST_TTL 10
+#تعریف_کن IP_MULTICAST_LOOP 11
+#تعریف_کن IP_جمع_کن_MEMBERSHIP 12
+#تعریف_کن IP_DROP_MEMBERSHIP 13
+#تعریف_کن IP_DONTFRAGMENT 14
+#تعریف_کن IP_جمع_کن_منبع_MEMBERSHIP 15
+#تعریف_کن IP_DROP_منبع_MEMBERSHIP 16
+#تعریف_کن IP_بلوک_منبع 17
+#تعریف_کن IP_UNBLOCK_منبع 18
+#تعریف_کن IP_PKTINFO 19
+#تعریف_کن IP_RECEIVE_پخش 22
 
-#define IPV6_HDRINCL 2
-#define IPV6_UNICAST_HOPS 4
-#define IPV6_MULTICAST_IF 9
-#define IPV6_MULTICAST_HOPS 10
-#define IPV6_MULTICAST_LOOP 11
-#define IPV6_ADD_MEMBERSHIP 12
-#define IPV6_DROP_MEMBERSHIP 13
-#define IPV6_JOIN_GROUP IPV6_ADD_MEMBERSHIP
-#define IPV6_LEAVE_GROUP IPV6_DROP_MEMBERSHIP
-#define IPV6_PKTINFO 19
-#define IPV6_HOPLIMIT 21
-#define IPV6_PROTECTION_LEVEL 23
+#تعریف_کن IPV6_HDRINCL 2
+#تعریف_کن IPV6_UNICAST_HOPS 4
+#تعریف_کن IPV6_MULTICAST_IF 9
+#تعریف_کن IPV6_MULTICAST_HOPS 10
+#تعریف_کن IPV6_MULTICAST_LOOP 11
+#تعریف_کن IPV6_جمع_کن_MEMBERSHIP 12
+#تعریف_کن IPV6_DROP_MEMBERSHIP 13
+#تعریف_کن IPV6_JOIN_گروه IPV6_جمع_کن_MEMBERSHIP
+#تعریف_کن IPV6_LEAVE_گروه IPV6_DROP_MEMBERSHIP
+#تعریف_کن IPV6_PKTINFO 19
+#تعریف_کن IPV6_HOPLIMIT 21
+#تعریف_کن IPV6_PROTECTION_LEVEL 23
 
-#define PROTECTION_LEVEL_UNRESTRICTED 10
-#define PROTECTION_LEVEL_DEFAULT 20
-#define PROTECTION_LEVEL_RESTRICTED 30
+#تعریف_کن PROTECTION_LEVEL_UNRESTRICTED 10
+#تعریف_کن PROTECTION_LEVEL_DEFAULT 20
+#تعریف_کن PROTECTION_LEVEL_RESTRICTED 30
 
-#define UDP_NOCHECKSUM 1
-#define UDP_CHECKSUM_COVERAGE 20
+#تعریف_کن UDP_NOCHECKSUM 1
+#تعریف_کن UDP_CHECKSUM_COVERAGE 20
 
-#define TCP_EXPEDITED_1122 0x0002
+#تعریف_کن TCP_EXPEDITED_1122 0x0002
 
-#ifndef s6_addr
+#اگر_تعریف_نشده s6_addr
 
-struct in6_addr {
-  __MINGW_EXTENSION union {
+بنية in6_addr {
+  __MINGW_EXTENSION اتحاد {
     u_char Byte[16];
-    u_short Word[8];
+    u_short کلمه_2[8];
   } u;
 };
 
-#define in_addr6 in6_addr
+#تعریف_کن درون_addr6 in6_addr
 
-#define _S6_un u
-#define _S6_u8 Byte
-#define s6_addr _S6_un._S6_u8
+#تعریف_کن _S6_un u
+#تعریف_کن _S6_u8 Byte
+#تعریف_کن s6_addr _S6_un._S6_u8
 
-#define s6_bytes u.Byte
-#define s6_words u.Word
-#endif
+#تعریف_کن s6_بایتها u.Byte
+#تعریف_کن s6_واژگان u.کلمه_2
+#پایان_اگر
 
-typedef struct ipv6_mreq {
-  struct in6_addr ipv6mr_multiaddr;
-  unsigned int ipv6mr_interface;
+تعريفنوع بنية ipv6_mreq {
+  بنية in6_addr ipv6mr_multiaddr;
+  بیعلامت صحيح ipv6mr_interface;
 } IPV6_MREQ;
 
-struct sockaddr_in6_old {
-  short sin6_family;
-  u_short sin6_port;
+بنية sockaddr_in6_old {
+  کوتاه sin6_family;
+  u_short sin6_پورت;
   u_long sin6_flowinfo;
-  struct in6_addr sin6_addr;
+  بنية in6_addr sin6_addr;
 };
 
-struct sockaddr_in6 {
-  short sin6_family;
-  u_short sin6_port;
+بنية sockaddr_in6 {
+  کوتاه sin6_family;
+  u_short sin6_پورت;
   u_long sin6_flowinfo;
-  struct in6_addr sin6_addr;
+  بنية in6_addr sin6_addr;
   u_long sin6_scope_id;
 };
 
-typedef struct in6_addr IN6_ADDR;
-typedef struct in6_addr *PIN6_ADDR;
-typedef struct in6_addr *LPIN6_ADDR;
+تعريفنوع بنية in6_addr IN6_ADDR;
+تعريفنوع بنية in6_addr *PIN6_ADDR;
+تعريفنوع بنية in6_addr *LPIN6_ADDR;
 
-typedef struct sockaddr_in6 SOCKADDR_IN6;
-typedef struct sockaddr_in6 *PSOCKADDR_IN6;
-typedef struct sockaddr_in6 *LPSOCKADDR_IN6;
+تعريفنوع بنية sockaddr_in6 SOCKADDR_IN6;
+تعريفنوع بنية sockaddr_in6 *PSOCKADDR_IN6;
+تعريفنوع بنية sockaddr_in6 *LPSOCKADDR_IN6;
 
-#define SS_PORT(ssp) (((struct sockaddr_in*)(ssp))->sin_port)
+#تعریف_کن SS_پورت(ssp) (((بنية sockaddr_درون*)(ssp))->sin_پورت)
 
-#define IN6ADDR_ANY_INIT { 0 }
-#define IN6ADDR_LOOPBACK_INIT { 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1 }
+#تعریف_کن IN6ADDR_ANY_INIT { 0 }
+#تعریف_کن IN6ADDR_LOOPBACK_INIT { 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1 }
 
-#ifdef __cplusplus
-extern "C" {
-#endif
+#اگر_تعریف_شده __cplusplus
+خارجي "C" {
+#پایان_اگر
 
-  extern const struct in6_addr in6addr_any;
-  extern const struct in6_addr in6addr_loopback;
+  خارجي ثابت بنية in6_addr in6addr_any;
+  خارجي ثابت بنية in6_addr in6addr_loopback;
 
-#ifdef __cplusplus
+#اگر_تعریف_شده __cplusplus
 }
-#endif
+#پایان_اگر
 
-#define WS2TCPIP_INLINE __CRT_INLINE
+#تعریف_کن WS2TCPIP_INLINE __CRT_INLINE
 
-int IN6_ADDR_EQUAL(const struct in6_addr *,const struct in6_addr *);
-int IN6_IS_ADDR_UNSPECIFIED(const struct in6_addr *);
-int IN6_IS_ADDR_LOOPBACK(const struct in6_addr *);
-int IN6_IS_ADDR_MULTICAST(const struct in6_addr *);
-int IN6_IS_ADDR_LINKLOCAL(const struct in6_addr *);
-int IN6_IS_ADDR_SITELOCAL(const struct in6_addr *);
-int IN6_IS_ADDR_V4MAPPED(const struct in6_addr *);
-int IN6_IS_ADDR_V4COMPAT(const struct in6_addr *);
-int IN6_IS_ADDR_MC_NODELOCAL(const struct in6_addr *);
-int IN6_IS_ADDR_MC_LINKLOCAL(const struct in6_addr *);
-int IN6_IS_ADDR_MC_SITELOCAL(const struct in6_addr *);
-int IN6_IS_ADDR_MC_ORGLOCAL(const struct in6_addr *);
-int IN6_IS_ADDR_MC_GLOBAL(const struct in6_addr *);
-int IN6ADDR_ISANY(const struct sockaddr_in6 *);
-int IN6ADDR_ISLOOPBACK(const struct sockaddr_in6 *);
-void IN6_SET_ADDR_UNSPECIFIED(struct in6_addr *);
-void IN6_SET_ADDR_LOOPBACK(struct in6_addr *);
-void IN6ADDR_SETANY(struct sockaddr_in6 *);
-void IN6ADDR_SETLOOPBACK(struct sockaddr_in6 *);
+صحيح IN6_ADDR_EQUAL(ثابت بنية in6_addr *,ثابت بنية in6_addr *);
+صحيح IN6_IS_ADDR_UNSPECIFIED(ثابت بنية in6_addr *);
+صحيح IN6_IS_ADDR_LOOPBACK(ثابت بنية in6_addr *);
+صحيح IN6_IS_ADDR_MULTICAST(ثابت بنية in6_addr *);
+صحيح IN6_IS_ADDR_LINKLOCAL(ثابت بنية in6_addr *);
+صحيح IN6_IS_ADDR_SITELOCAL(ثابت بنية in6_addr *);
+صحيح IN6_IS_ADDR_V4MAPPED(ثابت بنية in6_addr *);
+صحيح IN6_IS_ADDR_V4COMPAT(ثابت بنية in6_addr *);
+صحيح IN6_IS_ADDR_MC_NODELOCAL(ثابت بنية in6_addr *);
+صحيح IN6_IS_ADDR_MC_LINKLOCAL(ثابت بنية in6_addr *);
+صحيح IN6_IS_ADDR_MC_SITELOCAL(ثابت بنية in6_addr *);
+صحيح IN6_IS_ADDR_MC_ORGLOCAL(ثابت بنية in6_addr *);
+صحيح IN6_IS_ADDR_MC_GLOBAL(ثابت بنية in6_addr *);
+صحيح IN6ADDR_ISANY(ثابت بنية sockaddr_in6 *);
+صحيح IN6ADDR_ISLOOPBACK(ثابت بنية sockaddr_in6 *);
+فراغ IN6_مجموعه_ADDR_UNSPECIFIED(بنية in6_addr *);
+فراغ IN6_مجموعه_ADDR_LOOPBACK(بنية in6_addr *);
+فراغ IN6ADDR_SETANY(بنية sockaddr_in6 *);
+فراغ IN6ADDR_SETLOOPBACK(بنية sockaddr_in6 *);
 
-#ifndef __CRT__NO_INLINE
-WS2TCPIP_INLINE int IN6_ADDR_EQUAL(const struct in6_addr *a,const struct in6_addr *b) { return (memcmp(a,b,sizeof(struct in6_addr))==0); }
-WS2TCPIP_INLINE int IN6_IS_ADDR_UNSPECIFIED(const struct in6_addr *a) { return ((a->s6_words[0]==0) && (a->s6_words[1]==0) && (a->s6_words[2]==0) && (a->s6_words[3]==0) && (a->s6_words[4]==0) && (a->s6_words[5]==0) && (a->s6_words[6]==0) && (a->s6_words[7]==0)); }
-WS2TCPIP_INLINE int IN6_IS_ADDR_LOOPBACK(const struct in6_addr *a) { return ((a->s6_words[0]==0) && (a->s6_words[1]==0) && (a->s6_words[2]==0) && (a->s6_words[3]==0) && (a->s6_words[4]==0) && (a->s6_words[5]==0) && (a->s6_words[6]==0) && (a->s6_words[7]==0x0100)); }
-WS2TCPIP_INLINE int IN6_IS_ADDR_MULTICAST(const struct in6_addr *a) { return (a->s6_bytes[0]==0xff); }
-WS2TCPIP_INLINE int IN6_IS_ADDR_LINKLOCAL(const struct in6_addr *a) { return ((a->s6_bytes[0]==0xfe) && ((a->s6_bytes[1] & 0xc0)==0x80)); }
-WS2TCPIP_INLINE int IN6_IS_ADDR_SITELOCAL(const struct in6_addr *a) { return ((a->s6_bytes[0]==0xfe) && ((a->s6_bytes[1] & 0xc0)==0xc0)); }
-WS2TCPIP_INLINE int IN6_IS_ADDR_V4MAPPED(const struct in6_addr *a) { return ((a->s6_words[0]==0) && (a->s6_words[1]==0) && (a->s6_words[2]==0) && (a->s6_words[3]==0) && (a->s6_words[4]==0) && (a->s6_words[5]==0xffff)); }
-WS2TCPIP_INLINE int IN6_IS_ADDR_V4COMPAT(const struct in6_addr *a) { return ((a->s6_words[0]==0) && (a->s6_words[1]==0) && (a->s6_words[2]==0) && (a->s6_words[3]==0) && (a->s6_words[4]==0) && (a->s6_words[5]==0) && !((a->s6_words[6]==0) && (a->s6_addr[14]==0) && ((a->s6_addr[15]==0) || (a->s6_addr[15]==1)))); }
-WS2TCPIP_INLINE int IN6_IS_ADDR_MC_NODELOCAL(const struct in6_addr *a) { return IN6_IS_ADDR_MULTICAST(a) && ((a->s6_bytes[1] & 0xf)==1); }
-WS2TCPIP_INLINE int IN6_IS_ADDR_MC_LINKLOCAL(const struct in6_addr *a) { return IN6_IS_ADDR_MULTICAST(a) && ((a->s6_bytes[1] & 0xf)==2); }
-WS2TCPIP_INLINE int IN6_IS_ADDR_MC_SITELOCAL(const struct in6_addr *a) { return IN6_IS_ADDR_MULTICAST(a) && ((a->s6_bytes[1] & 0xf)==5); }
-WS2TCPIP_INLINE int IN6_IS_ADDR_MC_ORGLOCAL(const struct in6_addr *a) { return IN6_IS_ADDR_MULTICAST(a) && ((a->s6_bytes[1] & 0xf)==8); }
-WS2TCPIP_INLINE int IN6_IS_ADDR_MC_GLOBAL(const struct in6_addr *a) { return IN6_IS_ADDR_MULTICAST(a) && ((a->s6_bytes[1] & 0xf)==0xe); }
-WS2TCPIP_INLINE int IN6ADDR_ISANY(const struct sockaddr_in6 *a) { return ((a->sin6_family==AF_INET6) && IN6_IS_ADDR_UNSPECIFIED(&a->sin6_addr)); }
-WS2TCPIP_INLINE int IN6ADDR_ISLOOPBACK(const struct sockaddr_in6 *a) { return ((a->sin6_family==AF_INET6) && IN6_IS_ADDR_LOOPBACK(&a->sin6_addr)); }
-WS2TCPIP_INLINE void IN6_SET_ADDR_UNSPECIFIED(struct in6_addr *a) { memset(a->s6_bytes,0,sizeof(struct in6_addr)); }
-WS2TCPIP_INLINE void IN6_SET_ADDR_LOOPBACK(struct in6_addr *a) {
-  memset(a->s6_bytes,0,sizeof(struct in6_addr));
-  a->s6_bytes[15] = 1;
+#اگر_تعریف_نشده __CRT__NO_INLINE
+WS2TCPIP_INLINE صحيح IN6_ADDR_EQUAL(ثابت بنية in6_addr *a,ثابت بنية in6_addr *b) { أرجع (memcmp(a,b,حجم(بنية in6_addr))==0); }
+WS2TCPIP_INLINE صحيح IN6_IS_ADDR_UNSPECIFIED(ثابت بنية in6_addr *a) { أرجع ((a->s6_واژگان[0]==0) && (a->s6_واژگان[1]==0) && (a->s6_واژگان[2]==0) && (a->s6_واژگان[3]==0) && (a->s6_واژگان[4]==0) && (a->s6_واژگان[5]==0) && (a->s6_واژگان[6]==0) && (a->s6_واژگان[7]==0)); }
+WS2TCPIP_INLINE صحيح IN6_IS_ADDR_LOOPBACK(ثابت بنية in6_addr *a) { أرجع ((a->s6_واژگان[0]==0) && (a->s6_واژگان[1]==0) && (a->s6_واژگان[2]==0) && (a->s6_واژگان[3]==0) && (a->s6_واژگان[4]==0) && (a->s6_واژگان[5]==0) && (a->s6_واژگان[6]==0) && (a->s6_واژگان[7]==0x0100)); }
+WS2TCPIP_INLINE صحيح IN6_IS_ADDR_MULTICAST(ثابت بنية in6_addr *a) { أرجع (a->s6_بایتها[0]==0xff); }
+WS2TCPIP_INLINE صحيح IN6_IS_ADDR_LINKLOCAL(ثابت بنية in6_addr *a) { أرجع ((a->s6_بایتها[0]==0xfe) && ((a->s6_بایتها[1] & 0xc0)==0x80)); }
+WS2TCPIP_INLINE صحيح IN6_IS_ADDR_SITELOCAL(ثابت بنية in6_addr *a) { أرجع ((a->s6_بایتها[0]==0xfe) && ((a->s6_بایتها[1] & 0xc0)==0xc0)); }
+WS2TCPIP_INLINE صحيح IN6_IS_ADDR_V4MAPPED(ثابت بنية in6_addr *a) { أرجع ((a->s6_واژگان[0]==0) && (a->s6_واژگان[1]==0) && (a->s6_واژگان[2]==0) && (a->s6_واژگان[3]==0) && (a->s6_واژگان[4]==0) && (a->s6_واژگان[5]==0xffff)); }
+WS2TCPIP_INLINE صحيح IN6_IS_ADDR_V4COMPAT(ثابت بنية in6_addr *a) { أرجع ((a->s6_واژگان[0]==0) && (a->s6_واژگان[1]==0) && (a->s6_واژگان[2]==0) && (a->s6_واژگان[3]==0) && (a->s6_واژگان[4]==0) && (a->s6_واژگان[5]==0) && !((a->s6_واژگان[6]==0) && (a->s6_addr[14]==0) && ((a->s6_addr[15]==0) || (a->s6_addr[15]==1)))); }
+WS2TCPIP_INLINE صحيح IN6_IS_ADDR_MC_NODELOCAL(ثابت بنية in6_addr *a) { أرجع IN6_IS_ADDR_MULTICAST(a) && ((a->s6_بایتها[1] & 0xf)==1); }
+WS2TCPIP_INLINE صحيح IN6_IS_ADDR_MC_LINKLOCAL(ثابت بنية in6_addr *a) { أرجع IN6_IS_ADDR_MULTICAST(a) && ((a->s6_بایتها[1] & 0xf)==2); }
+WS2TCPIP_INLINE صحيح IN6_IS_ADDR_MC_SITELOCAL(ثابت بنية in6_addr *a) { أرجع IN6_IS_ADDR_MULTICAST(a) && ((a->s6_بایتها[1] & 0xf)==5); }
+WS2TCPIP_INLINE صحيح IN6_IS_ADDR_MC_ORGLOCAL(ثابت بنية in6_addr *a) { أرجع IN6_IS_ADDR_MULTICAST(a) && ((a->s6_بایتها[1] & 0xf)==8); }
+WS2TCPIP_INLINE صحيح IN6_IS_ADDR_MC_GLOBAL(ثابت بنية in6_addr *a) { أرجع IN6_IS_ADDR_MULTICAST(a) && ((a->s6_بایتها[1] & 0xf)==0xe); }
+WS2TCPIP_INLINE صحيح IN6ADDR_ISANY(ثابت بنية sockaddr_in6 *a) { أرجع ((a->sin6_family==AF_INET6) && IN6_IS_ADDR_UNSPECIFIED(&a->sin6_addr)); }
+WS2TCPIP_INLINE صحيح IN6ADDR_ISLOOPBACK(ثابت بنية sockaddr_in6 *a) { أرجع ((a->sin6_family==AF_INET6) && IN6_IS_ADDR_LOOPBACK(&a->sin6_addr)); }
+WS2TCPIP_INLINE فراغ IN6_مجموعه_ADDR_UNSPECIFIED(بنية in6_addr *a) { memset(a->s6_بایتها,0,حجم(بنية in6_addr)); }
+WS2TCPIP_INLINE فراغ IN6_مجموعه_ADDR_LOOPBACK(بنية in6_addr *a) {
+  memset(a->s6_بایتها,0,حجم(بنية in6_addr));
+  a->s6_بایتها[15] = 1;
 }
-WS2TCPIP_INLINE void IN6ADDR_SETANY(struct sockaddr_in6 *a) {
+WS2TCPIP_INLINE فراغ IN6ADDR_SETANY(بنية sockaddr_in6 *a) {
   a->sin6_family = AF_INET6;
-  a->sin6_port = 0;
+  a->sin6_پورت = 0;
   a->sin6_flowinfo = 0;
-  IN6_SET_ADDR_UNSPECIFIED(&a->sin6_addr);
+  IN6_مجموعه_ADDR_UNSPECIFIED(&a->sin6_addr);
   a->sin6_scope_id = 0;
 }
-WS2TCPIP_INLINE void IN6ADDR_SETLOOPBACK(struct sockaddr_in6 *a) {
+WS2TCPIP_INLINE فراغ IN6ADDR_SETLOOPBACK(بنية sockaddr_in6 *a) {
   a->sin6_family = AF_INET6;
-  a->sin6_port = 0;
+  a->sin6_پورت = 0;
   a->sin6_flowinfo = 0;
-  IN6_SET_ADDR_LOOPBACK(&a->sin6_addr);
+  IN6_مجموعه_ADDR_LOOPBACK(&a->sin6_addr);
   a->sin6_scope_id = 0;
 }
-#endif /* !__CRT__NO_INLINE */
+#پایان_اگر /* !__CRT__NO_INLINE */
 
-typedef union sockaddr_gen {
-  struct sockaddr Address;
-  struct sockaddr_in AddressIn;
-  struct sockaddr_in6_old AddressIn6;
+تعريفنوع اتحاد sockaddr_gen {
+  بنية sockaddr آدرس_2;
+  بنية sockaddr_درون آدرس_درون;
+  بنية sockaddr_in6_old آدرس_In6;
 } sockaddr_gen;
 
-typedef struct _INTERFACE_INFO {
+تعريفنوع بنية _INTERFACE_INFO {
   u_long iiFlags;
-  sockaddr_gen iiAddress;
-  sockaddr_gen iiBroadcastAddress;
+  sockaddr_gen ii_آدرس;
+  sockaddr_gen ii_پخش_آدرس;
   sockaddr_gen iiNetmask;
 } INTERFACE_INFO,*LPINTERFACE_INFO;
 
-typedef struct _INTERFACE_INFO_EX {
+تعريفنوع بنية _INTERFACE_INFO_EX {
   u_long iiFlags;
-  SOCKET_ADDRESS iiAddress;
-  SOCKET_ADDRESS iiBroadcastAddress;
-  SOCKET_ADDRESS iiNetmask;
+  SOCKET_آدرس_2 ii_آدرس;
+  SOCKET_آدرس_2 ii_پخش_آدرس;
+  SOCKET_آدرس_2 iiNetmask;
 } INTERFACE_INFO_EX,*LPINTERFACE_INFO_EX;
 
-#define IFF_UP 0x00000001
-#define IFF_BROADCAST 0x00000002
-#define IFF_LOOPBACK 0x00000004
-#define IFF_POINTTOPOINT 0x00000008
-#define IFF_MULTICAST 0x00000010
+#تعریف_کن IFF_به_بالا 0x00000001
+#تعریف_کن IFF_پخش 0x00000002
+#تعریف_کن IFF_LOOPBACK 0x00000004
+#تعریف_کن IFF_POINTTOPOINT 0x00000008
+#تعریف_کن IFF_MULTICAST 0x00000010
 
-typedef struct in_pktinfo {
-  IN_ADDR ipi_addr;
+تعريفنوع بنية درون_pktinfo {
+  درون_ADDR ipi_addr;
   UINT ipi_ifindex;
-} IN_PKTINFO;
+} درون_PKTINFO;
 
-C_ASSERT(sizeof(IN_PKTINFO)==8);
+C_ASSERT(حجم(درون_PKTINFO)==8);
 
-typedef struct in6_pktinfo {
+تعريفنوع بنية in6_pktinfo {
   IN6_ADDR ipi6_addr;
   UINT ipi6_ifindex;
 } IN6_PKTINFO;
 
-C_ASSERT(sizeof(IN6_PKTINFO)==20);
+C_ASSERT(حجم(IN6_PKTINFO)==20);
 
-#define EAI_AGAIN WSATRY_AGAIN
-#define EAI_BADFLAGS WSAEINVAL
-#define EAI_FAIL WSANO_RECOVERY
-#define EAI_FAMILY WSAEAFNOSUPPORT
-#define EAI_MEMORY WSA_NOT_ENOUGH_MEMORY
+#تعریف_کن EAI_AGAIN WSATRY_AGAIN
+#تعریف_کن EAI_BADFLAGS WSAEINVAL
+#تعریف_کن EAI_FAIL WSANO_RECOVERY
+#تعریف_کن EAI_FAMILY WSAEAFNOSUPPORT
+#تعریف_کن EAI_حافظه WSA_NOT_ENOUGH_حافظه
 
-#define EAI_NONAME WSAHOST_NOT_FOUND
-#define EAI_SERVICE WSATYPE_NOT_FOUND
-#define EAI_SOCKTYPE WSAESOCKTNOSUPPORT
+#تعریف_کن EAI_NONAME WSAHOST_NOT_یافت
+#تعریف_کن EAI_SERVICE WSATYPE_NOT_یافت
+#تعریف_کن EAI_SOCKTYPE WSAESOCKTNOSUPPORT
 
-#define EAI_NODATA EAI_NONAME
+#تعریف_کن EAI_NODATA EAI_NONAME
 
-typedef struct addrinfo {
-  int ai_flags;
-  int ai_family;
-  int ai_socktype;
-  int ai_protocol;
-  size_t ai_addrlen;
-  char *ai_canonname;
-  struct sockaddr *ai_addr;
-  struct addrinfo *ai_next;
+تعريفنوع بنية addrinfo {
+  صحيح ai_flags;
+  صحيح ai_family;
+  صحيح ai_socktype;
+  صحيح ai_protocol;
+  اندازه_t ai_addrlen;
+  حرف *ai_canonname;
+  بنية sockaddr *ai_addr;
+  بنية addrinfo *ai_بعدی;
 } ADDRINFOA,*PADDRINFOA;
 
-typedef struct addrinfoW {
-  int ai_flags;
-  int ai_family;
-  int ai_socktype;
-  int ai_protocol;
-  size_t ai_addrlen;
+تعريفنوع بنية addrinfoW {
+  صحيح ai_flags;
+  صحيح ai_family;
+  صحيح ai_socktype;
+  صحيح ai_protocol;
+  اندازه_t ai_addrlen;
   PWSTR ai_canonname;
-  struct sockaddr *ai_addr;
-  struct addrinfoW *ai_next;
+  بنية sockaddr *ai_addr;
+  بنية addrinfoW *ai_بعدی;
 } ADDRINFOW,*PADDRINFOW;
 
-#ifdef UNICODE
-typedef ADDRINFOW ADDRINFOT,*PADDRINFOT;
-#else
-typedef ADDRINFOA ADDRINFOT,*PADDRINFOT;
-#endif
+#اگر_تعریف_شده UNICODE
+تعريفنوع ADDRINFOW ADDRINFOT,*PADDRINFOT;
+#وإلا
+تعريفنوع ADDRINFOA ADDRINFOT,*PADDRINFOT;
+#پایان_اگر
 
-typedef ADDRINFOA ADDRINFO,*LPADDRINFO;
+تعريفنوع ADDRINFOA ADDRINFO,*LPADDRINFO;
 
-#define AI_PASSIVE 0x1
-#define AI_CANONNAME 0x2
-#define AI_NUMERICHOST 0x4
+#تعریف_کن AI_PASSIVE 0x1
+#تعریف_کن AI_CANONNAME 0x2
+#تعریف_کن AI_NUMERICHOST 0x4
 
-#ifdef __cplusplus
-extern "C" {
-#endif
+#اگر_تعریف_شده __cplusplus
+خارجي "C" {
+#پایان_اگر
 
-#ifdef UNICODE
-#define GetAddrInfo GetAddrInfoW
-#else
-#define GetAddrInfo GetAddrInfoA
-#endif
+#اگر_تعریف_شده UNICODE
+#تعریف_کن GetAddrInfo GetAddrInfoW
+#وإلا
+#تعریف_کن GetAddrInfo GetAddrInfoA
+#پایان_اگر
 
-  WINSOCK_API_LINKAGE int WSAAPI getaddrinfo(const char *nodename,const char *servname,const struct addrinfo *hints,struct addrinfo **res);
-  WINSOCK_API_LINKAGE int WSAAPI GetAddrInfoW(PCWSTR pNodeName,PCWSTR pServiceName,const ADDRINFOW *pHints,PADDRINFOW *ppResult);
+  WINSOCK_API_LINKAGE صحيح WSAAPI getaddrinfo(ثابت حرف *nodename,ثابت حرف *servname,ثابت بنية addrinfo *hints,بنية addrinfo **res);
+  WINSOCK_API_LINKAGE صحيح WSAAPI GetAddrInfoW(PCWSTR p_گره_Name,PCWSTR pServiceName,ثابت ADDRINFOW *pHints,PADDRINFOW *pp_نتیجه);
 
-#define GetAddrInfoA getaddrinfo
+#تعریف_کن GetAddrInfoA getaddrinfo
 
-#if INCL_WINSOCK_API_TYPEDEFS
-  typedef int (WSAAPI *LPFN_GETADDRINFO)(const char *nodename,const char *servname,const struct addrinfo *hints,struct addrinfo **res);
-  typedef int (WSAAPI *LPFN_GETADDRINFOW)(PCWSTR pNodeName,PCWSTR pServiceName,const ADDRINFOW *pHints,PADDRINFOW *ppResult);
+#إذا INCL_WINSOCK_API_TYPEDEFS
+  تعريفنوع صحيح (WSAAPI *LPFN_GETADDRINFO)(ثابت حرف *nodename,ثابت حرف *servname,ثابت بنية addrinfo *hints,بنية addrinfo **res);
+  تعريفنوع صحيح (WSAAPI *LPFN_GETADDRINFOW)(PCWSTR p_گره_Name,PCWSTR pServiceName,ثابت ADDRINFOW *pHints,PADDRINFOW *pp_نتیجه);
 
-#define LPFN_GETADDRINFOA LPFN_GETADDRINFO
+#تعریف_کن LPFN_GETADDRINFOA LPFN_GETADDRINFO
 
-#ifdef UNICODE
-#define LPFN_GETADDRINFOT LPFN_GETADDRINFOW
-#else
-#define LPFN_GETADDRINFOT LPFN_GETADDRINFOA
-#endif
-#endif
+#اگر_تعریف_شده UNICODE
+#تعریف_کن LPFN_GETADDRINFOT LPFN_GETADDRINFOW
+#وإلا
+#تعریف_کن LPFN_GETADDRINFOT LPFN_GETADDRINFOA
+#پایان_اگر
+#پایان_اگر
 
-#ifdef UNICODE
-#define FreeAddrInfo FreeAddrInfoW
-#else
-#define FreeAddrInfo FreeAddrInfoA
-#endif
+#اگر_تعریف_شده UNICODE
+#تعریف_کن FreeAddrInfo FreeAddrInfoW
+#وإلا
+#تعریف_کن FreeAddrInfo FreeAddrInfoA
+#پایان_اگر
 
-  WINSOCK_API_LINKAGE void WSAAPI freeaddrinfo(LPADDRINFO pAddrInfo);
-  WINSOCK_API_LINKAGE void WSAAPI FreeAddrInfoW(PADDRINFOW pAddrInfo);
+  WINSOCK_API_LINKAGE فراغ WSAAPI freeaddrinfo(LPADDRINFO pAddrInfo);
+  WINSOCK_API_LINKAGE فراغ WSAAPI FreeAddrInfoW(PADDRINFOW pAddrInfo);
 
-#define FreeAddrInfoA freeaddrinfo
+#تعریف_کن FreeAddrInfoA freeaddrinfo
 
-#if INCL_WINSOCK_API_TYPEDEFS
-  typedef void (WSAAPI *LPFN_FREEADDRINFO)(struct addrinfo *ai);
-  typedef void (WSAAPI *LPFN_FREEADDRINFOW)(PADDRINFOW pAddrInfo);
+#إذا INCL_WINSOCK_API_TYPEDEFS
+  تعريفنوع فراغ (WSAAPI *LPFN_FREEADDRINFO)(بنية addrinfo *ai);
+  تعريفنوع فراغ (WSAAPI *LPFN_FREEADDRINFOW)(PADDRINFOW pAddrInfo);
 
-#define LPFN_FREEADDRINFOA LPFN_FREEADDRINFO
+#تعریف_کن LPFN_FREEADDRINFOA LPFN_FREEADDRINFO
 
-#ifdef UNICODE
-#define LPFN_FREEADDRINFOT LPFN_FREEADDRINFOW
-#else
-#define LPFN_FREEADDRINFOT LPFN_FREEADDRINFOA
-#endif
-#endif
+#اگر_تعریف_شده UNICODE
+#تعریف_کن LPFN_FREEADDRINFOT LPFN_FREEADDRINFOW
+#وإلا
+#تعریف_کن LPFN_FREEADDRINFOT LPFN_FREEADDRINFOA
+#پایان_اگر
+#پایان_اگر
 
-#pragma push_macro("socklen_t")
-#undef socklen_t
+#رهنمود افزودن_macro("socklen_t")
+#لغو_تعریف socklen_t
 
-  typedef int socklen_t;
+  تعريفنوع صحيح socklen_t;
 
-#ifdef UNICODE
-#define GetNameInfo GetNameInfoW
-#else
-#define GetNameInfo GetNameInfoA
-#endif
+#اگر_تعریف_شده UNICODE
+#تعریف_کن GetNameInfo GetNameInfoW
+#وإلا
+#تعریف_کن GetNameInfo GetNameInfoA
+#پایان_اگر
 
-  WINSOCK_API_LINKAGE int WSAAPI getnameinfo(const struct sockaddr *sa,socklen_t salen,char *host,DWORD hostlen,char *serv,DWORD servlen,int flags);
-  WINSOCK_API_LINKAGE INT WSAAPI GetNameInfoW(const SOCKADDR *pSockaddr,socklen_t SockaddrLength,PWCHAR pNodeBuffer,DWORD NodeBufferSize,PWCHAR pServiceBuffer,DWORD ServiceBufferSize,INT Flags);
+  WINSOCK_API_LINKAGE صحيح WSAAPI getnameinfo(ثابت بنية sockaddr *sa,socklen_t salen,حرف *host,DWORD hostlen,حرف *serv,DWORD servlen,صحيح flags);
+  WINSOCK_API_LINKAGE INT WSAAPI GetNameInfoW(ثابت SOCKADDR *pSockaddr,socklen_t Sockaddr_درازی,PWCHAR p_گره_میانگیر,DWORD گره_میانگیر_اندازه,PWCHAR p_Service_میانگیر,DWORD Service_میانگیر_اندازه,INT Flags);
 
-#define GetNameInfoA getnameinfo
+#تعریف_کن GetNameInfoA getnameinfo
 
-#if INCL_WINSOCK_API_TYPEDEFS
-  typedef int (WSAAPI *LPFN_GETNAMEINFO)(const struct sockaddr *sa,socklen_t salen,char *host,DWORD hostlen,char *serv,DWORD servlen,int flags);
-  typedef INT (WSAAPI *LPFN_GETNAMEINFOW)(const SOCKADDR *pSockaddr,socklen_t SockaddrLength,PWCHAR pNodeBuffer,DWORD NodeBufferSize,PWCHAR pServiceBuffer,DWORD ServiceBufferSize,INT Flags);
+#إذا INCL_WINSOCK_API_TYPEDEFS
+  تعريفنوع صحيح (WSAAPI *LPFN_GETNAMEINFO)(ثابت بنية sockaddr *sa,socklen_t salen,حرف *host,DWORD hostlen,حرف *serv,DWORD servlen,صحيح flags);
+  تعريفنوع INT (WSAAPI *LPFN_GETNAMEINFOW)(ثابت SOCKADDR *pSockaddr,socklen_t Sockaddr_درازی,PWCHAR p_گره_میانگیر,DWORD گره_میانگیر_اندازه,PWCHAR p_Service_میانگیر,DWORD Service_میانگیر_اندازه,INT Flags);
 
-#define LPFN_GETNAMEINFOA LPFN_GETNAMEINFO
+#تعریف_کن LPFN_GETNAMEINFOA LPFN_GETNAMEINFO
 
-#ifdef UNICODE
-#define LPFN_GETNAMEINFOT LPFN_GETNAMEINFOW
-#else
-#define LPFN_GETNAMEINFOT LPFN_GETNAMEINFOA
-#endif
-#endif
+#اگر_تعریف_شده UNICODE
+#تعریف_کن LPFN_GETNAMEINFOT LPFN_GETNAMEINFOW
+#وإلا
+#تعریف_کن LPFN_GETNAMEINFOT LPFN_GETNAMEINFOA
+#پایان_اگر
+#پایان_اگر
 
-#pragma pop_macro("socklen_t")
+#رهنمود برداشت_macro("socklen_t")
 
-#ifdef UNICODE
-#define gai_strerror gai_strerrorW
-#else
-#define gai_strerror gai_strerrorA
-#endif
+#اگر_تعریف_شده UNICODE
+#تعریف_کن gai_strerror gai_strerrorW
+#وإلا
+#تعریف_کن gai_strerror gai_strerrorA
+#پایان_اگر
 
-#define GAI_STRERROR_BUFFER_SIZE 1024
+#تعریف_کن GAI_STRERROR_میانگیر_اندازه 1024
 
-char *gai_strerrorA (int);
-WCHAR *gai_strerrorW(int);
+حرف *gai_strerrorA (صحيح);
+WCHAR *gai_strerrorW(صحيح);
 
-#define NI_MAXHOST 1025
-#define NI_MAXSERV 32
+#تعریف_کن NI_MAXHOST 1025
+#تعریف_کن NI_MAXSERV 32
 
-#define INET_ADDRSTRLEN 22
-#define INET6_ADDRSTRLEN 65
+#تعریف_کن INET_ADDRSTRLEN 22
+#تعریف_کن INET6_ADDRSTRLEN 65
 
-#define NI_NOFQDN 0x01
-#define NI_NUMERICHOST 0x02
-#define NI_NAMEREQD 0x04
-#define NI_NUMERICSERV 0x08
-#define NI_DGRAM 0x10
+#تعریف_کن NI_NOFQDN 0x01
+#تعریف_کن NI_NUMERICHOST 0x02
+#تعریف_کن NI_NAMEREQD 0x04
+#تعریف_کن NI_NUMERICSERV 0x08
+#تعریف_کن NI_DGRAM 0x10
 
-#ifdef __cplusplus
+#اگر_تعریف_شده __cplusplus
 }
-#endif
+#پایان_اگر
 
-#endif
+#پایان_اگر

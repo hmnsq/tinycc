@@ -1,21 +1,21 @@
-#include <stdio.h>
+#ضمن <stdio.h>
 
-int main() 
+صحيح اصلی() 
 {
-   int Count;
-   int Array[10];
+   صحيح شمار_3;
+   صحيح Array[10];
 
-   for (Count = 1; Count <= 10; Count++)
+   لكل (شمار_3 = 1; شمار_3 <= 10; شمار_3++)
    {
-      Array[Count-1] = Count * Count;
+      Array[شمار_3-1] = شمار_3 * شمار_3;
    }
 
-   for (Count = 0; Count < 10; Count++)
+   لكل (شمار_3 = 0; شمار_3 < 10; شمار_3++)
    {
-      printf("%d\n", Array[Count]);
+      چاپ_کن("%d\n", Array[شمار_3]);
    }
 
-   return 0;
+   أرجع 0;
 }
 
 // vim: set expandtab ts=4 sw=3 sts=3 tw=80 :

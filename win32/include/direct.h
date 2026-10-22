@@ -3,66 +3,66 @@
  * This file is part of the w64 mingw-runtime package.
  * No warranty is given; refer to the file DISCLAIMER within this package.
  */
-#ifndef _INC_DIRECT
-#define _INC_DIRECT
+#اگر_تعریف_نشده INC_مستقیم
+#تعریف_کن INC_مستقیم
 
-#include <_mingw.h>
-#include <io.h>
+#ضمن <_mingw.h>
+#ضمن <io.h>
 
-#pragma pack(push,_CRT_PACKING)
+#رهنمود pack(افزودن,_CRT_PACKING)
 
-#ifdef __cplusplus
-extern "C" {
-#endif
+#اگر_تعریف_شده __cplusplus
+خارجي "C" {
+#پایان_اگر
 
-#ifndef _DISKFREE_T_DEFINED
-#define _DISKFREE_T_DEFINED
-  struct _diskfree_t {
-    unsigned total_clusters;
-    unsigned avail_clusters;
-    unsigned sectors_per_cluster;
-    unsigned bytes_per_sector;
+#اگر_تعریف_نشده _DISKFREE_T_DEFINED
+#تعریف_کن _DISKFREE_T_DEFINED
+  بنية _diskfree_t {
+    بیعلامت مجموع_clusters;
+    بیعلامت avail_clusters;
+    بیعلامت sectors_در_هر_cluster;
+    بیعلامت بایتها_در_هر_sector;
   };
-#endif
+#پایان_اگر
 
-  _CRTIMP char *__cdecl _getcwd(char *_DstBuf,int _SizeInBytes);
-  _CRTIMP char *__cdecl _getdcwd(int _Drive,char *_DstBuf,int _SizeInBytes);
-  char *__cdecl _getdcwd_nolock(int _Drive,char *_DstBuf,int _SizeInBytes);
-  _CRTIMP int __cdecl _chdir(const char *_Path);
-  _CRTIMP int __cdecl _mkdir(const char *_Path);
-  _CRTIMP int __cdecl _rmdir(const char *_Path);
-  _CRTIMP int __cdecl _chdrive(int _Drive);
-  _CRTIMP int __cdecl _getdrive(void);
-  _CRTIMP unsigned long __cdecl _getdrives(void);
+  _CRTIMP حرف *__cdecl _getcwd(حرف *_DstBuf,صحيح اندازه_درون_بایتها);
+  _CRTIMP حرف *__cdecl _getdcwd(صحيح _Drive,حرف *_DstBuf,صحيح اندازه_درون_بایتها);
+  حرف *__cdecl _getdcwd_nolock(صحيح _Drive,حرف *_DstBuf,صحيح اندازه_درون_بایتها);
+  _CRTIMP صحيح __cdecl _chdir(ثابت حرف *مسیر_2);
+  _CRTIMP صحيح __cdecl _mkdir(ثابت حرف *مسیر_2);
+  _CRTIMP صحيح __cdecl _rmdir(ثابت حرف *مسیر_2);
+  _CRTIMP صحيح __cdecl _chdrive(صحيح _Drive);
+  _CRTIMP صحيح __cdecl _getdrive(فراغ);
+  _CRTIMP بیعلامت دراز __cdecl _getdrives(فراغ);
 
-#ifndef _GETDISKFREE_DEFINED
-#define _GETDISKFREE_DEFINED
-  _CRTIMP unsigned __cdecl _getdiskfree(unsigned _Drive,struct _diskfree_t *_DiskFree);
-#endif
+#اگر_تعریف_نشده _GETDISKFREE_DEFINED
+#تعریف_کن _GETDISKFREE_DEFINED
+  _CRTIMP بیعلامت __cdecl _getdiskfree(بیعلامت _Drive,بنية _diskfree_t *_DiskFree);
+#پایان_اگر
 
-#ifndef _WDIRECT_DEFINED
-#define _WDIRECT_DEFINED
-  _CRTIMP wchar_t *__cdecl _wgetcwd(wchar_t *_DstBuf,int _SizeInWords);
-  _CRTIMP wchar_t *__cdecl _wgetdcwd(int _Drive,wchar_t *_DstBuf,int _SizeInWords);
-  wchar_t *__cdecl _wgetdcwd_nolock(int _Drive,wchar_t *_DstBuf,int _SizeInWords);
-  _CRTIMP int __cdecl _wchdir(const wchar_t *_Path);
-  _CRTIMP int __cdecl _wmkdir(const wchar_t *_Path);
-  _CRTIMP int __cdecl _wrmdir(const wchar_t *_Path);
-#endif
+#اگر_تعریف_نشده _WDIRECT_DEFINED
+#تعریف_کن _WDIRECT_DEFINED
+  _CRTIMP wchar_t *__cdecl _wgetcwd(wchar_t *_DstBuf,صحيح اندازه_درون_واژگان);
+  _CRTIMP wchar_t *__cdecl _wgetdcwd(صحيح _Drive,wchar_t *_DstBuf,صحيح اندازه_درون_واژگان);
+  wchar_t *__cdecl _wgetdcwd_nolock(صحيح _Drive,wchar_t *_DstBuf,صحيح اندازه_درون_واژگان);
+  _CRTIMP صحيح __cdecl _wchdir(ثابت wchar_t *مسیر_2);
+  _CRTIMP صحيح __cdecl _wmkdir(ثابت wchar_t *مسیر_2);
+  _CRTIMP صحيح __cdecl _wrmdir(ثابت wchar_t *مسیر_2);
+#پایان_اگر
 
-#ifndef	NO_OLDNAMES
+#اگر_تعریف_نشده	NO_OLDNAMES
 
-#define diskfree_t _diskfree_t
+#تعریف_کن diskfree_t _diskfree_t
 
-  char *__cdecl getcwd(char *_DstBuf,int _SizeInBytes);
-  int __cdecl chdir(const char *_Path);
-  int __cdecl mkdir(const char *_Path);
-  int __cdecl rmdir(const char *_Path);
-#endif
+  حرف *__cdecl getcwd(حرف *_DstBuf,صحيح اندازه_درون_بایتها);
+  صحيح __cdecl chdir(ثابت حرف *مسیر_2);
+  صحيح __cdecl mkdir(ثابت حرف *مسیر_2);
+  صحيح __cdecl rmdir(ثابت حرف *مسیر_2);
+#پایان_اگر
 
-#ifdef __cplusplus
+#اگر_تعریف_شده __cplusplus
 }
-#endif
+#پایان_اگر
 
-#pragma pack(pop)
-#endif
+#رهنمود pack(برداشت)
+#پایان_اگر

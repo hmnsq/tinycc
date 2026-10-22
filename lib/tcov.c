@@ -1,14 +1,14 @@
-#include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
-#include <fcntl.h>
-#ifndef _WIN32
-#include <unistd.h>
-#include <errno.h>
-#else
-#include <windows.h>
-#include <io.h>
-#endif
+#ضمن <stdio.h>
+#ضمن <string.h>
+#ضمن <stdlib.h>
+#ضمن <fcntl.h>
+#اگر_تعریف_نشده _WIN32
+#ضمن <unistd.h>
+#ضمن <errno.h>
+#وإلا
+#ضمن <windows.h>
+#ضمن <io.h>
+#پایان_اگر
 
 /* section layout (all little endian):
    32bit offset to executable/so file name
@@ -24,178 +24,178 @@
    executable/so file name \0
  */
 
-typedef struct tcov_line {
-    unsigned int fline;
-    unsigned int lline;
-    unsigned long long count;
-} tcov_line;
+تعريفنوع بنية tcov_سطر {
+    بیعلامت صحيح fline;
+    بیعلامت صحيح lline;
+    بیعلامت دراز دراز شمار_2;
+} tcov_سطر;
 
-typedef struct tcov_function {
-    char *function;
-    unsigned int first_line;
-    unsigned int n_line;
-    unsigned int m_line;
-    tcov_line *line;
+تعريفنوع بنية tcov_function {
+    حرف *function;
+    بیعلامت صحيح اولی_سطر;
+    بیعلامت صحيح n_سطر;
+    بیعلامت صحيح m_سطر;
+    tcov_سطر *سطر;
 } tcov_function;
 
-typedef struct tcov_file {
-    char *filename;
-    unsigned int n_func;
-    unsigned int m_func;
+تعريفنوع بنية tcov_file {
+    حرف *filename;
+    بیعلامت صحيح n_func;
+    بیعلامت صحيح m_func;
     tcov_function *func;
-    struct tcov_file *next;
+    بنية tcov_file *بعدی;
 } tcov_file;
 
-static FILE *open_tcov_file (char *cov_filename)
+ساكن FILE *open_tcov_file (حرف *cov_filename)
 {
-    int fd;
-#ifndef _WIN32
-    struct flock lock;
+    صحيح fd;
+#اگر_تعریف_نشده _WIN32
+    بنية flock قفل;
 
-    lock.l_type = F_WRLCK;
-    lock.l_whence = SEEK_SET;
-    lock.l_start = 0;
-    lock.l_len = 0; /* Until EOF.  */
-    lock.l_pid = getpid ();
-#endif
+    قفل.l_type = F_WRLCK;
+    قفل.l_whence = SEEK_SET;
+    قفل.l_start = 0;
+    قفل.l_len = 0; /* Until EOF.  */
+    قفل.l_pid = getpid ();
+#پایان_اگر
     fd = open (cov_filename, O_RDWR | O_CREAT, 0666);
-    if (fd < 0)
-	return NULL;
+    إذا (fd < 0)
+	أرجع عدم;
   
-#ifndef _WIN32
-    while (fcntl (fd, F_SETLKW, &lock) && errno == EINTR)
-        continue;
-#else
+#اگر_تعریف_نشده _WIN32
+    طالما (fcntl (fd, F_SETLKW, &قفل) && errno == EINTR)
+        استمر;
+#وإلا
     {
         OVERLAPPED overlapped = { 0 };
-        LockFileEx((HANDLE)_get_osfhandle(fd), LOCKFILE_EXCLUSIVE_LOCK,
+        قفل_File_Ex((HANDLE)_get_osfhandle(fd), LOCKFILE_EXCLUSIVE_قفل,
 		   0, 1, 0, &overlapped);
     }
-#endif
+#پایان_اگر
 
-    return fdopen (fd, "r+");
+    أرجع fdopen (fd, "r+");
 }
 
-static unsigned long long get_value(unsigned char *p, int size)
+ساكن بیعلامت دراز دراز get_مقدار(بیعلامت حرف *p, صحيح اندازه)
 {
-    unsigned long long value = 0;
+    بیعلامت دراز دراز مقدار = 0;
 
-    p += size;
-    while (size--)
- 	value = (value << 8) | *--p;
-    return value;
+    p += اندازه;
+    طالما (اندازه--)
+ 	مقدار = (مقدار << 8) | *--p;
+    أرجع مقدار;
 }
 
-static int sort_func (const void *p, const void *q)
+ساكن صحيح مرتب_سازی_func (ثابت فراغ *p, ثابت فراغ *q)
 {
-    const tcov_function *pp = (const tcov_function *) p;
-    const tcov_function *pq = (const tcov_function *) q;
+    ثابت tcov_function *pp = (ثابت tcov_function *) p;
+    ثابت tcov_function *pq = (ثابت tcov_function *) q;
 
-    return pp->first_line > pq->first_line ? 1 :
-	   pp->first_line < pq->first_line ? -1 : 0;
+    أرجع pp->اولی_سطر > pq->اولی_سطر ? 1 :
+	   pp->اولی_سطر < pq->اولی_سطر ? -1 : 0;
 }
 
-static int sort_line (const void *p, const void *q)
+ساكن صحيح مرتب_سازی_سطر (ثابت فراغ *p, ثابت فراغ *q)
 {
-    const tcov_line *pp = (const tcov_line *) p;
-    const tcov_line *pq = (const tcov_line *) q;
+    ثابت tcov_سطر *pp = (ثابت tcov_سطر *) p;
+    ثابت tcov_سطر *pq = (ثابت tcov_سطر *) q;
 
-    return pp->fline > pq->fline ? 1 :
+    أرجع pp->fline > pq->fline ? 1 :
 	   pp->fline < pq->fline ? -1 :
-           pp->count < pq->count ? 1 :
-	   pp->count > pq->count ? -1 : 0;
+           pp->شمار_2 < pq->شمار_2 ? 1 :
+	   pp->شمار_2 > pq->شمار_2 ? -1 : 0;
 }
 
 /* sort to let inline functions work */
-static tcov_file *sort_test_coverage (unsigned char *p)
+ساكن tcov_file *مرتب_سازی_test_coverage (بیعلامت حرف *p)
 {
-    int i, j, k;
-    unsigned char *start = p;
-    tcov_file *file = NULL;
+    صحيح i, j, k;
+    بیعلامت حرف *شروع = p;
+    tcov_file *file = عدم;
     tcov_file *nfile;
 
     p += 4;
-    while (*p) {
-        char *filename = (char *)p;
-	size_t len = strlen (filename);
+    طالما (*p) {
+        حرف *filename = (حرف *)p;
+	اندازه_t len = طول_رشته (filename);
 
 	nfile = file;
-	while (nfile) {
-	    if (strcmp (nfile->filename, filename) == 0)
-		break;
-	    nfile = nfile->next;
+	طالما (nfile) {
+	    إذا (strcmp (nfile->filename, filename) == 0)
+		اكسر;
+	    nfile = nfile->بعدی;
 	}
-	if (nfile == NULL) {
-	    nfile = malloc (sizeof(tcov_file));
-	    if (nfile == NULL) {
+	إذا (nfile == عدم) {
+	    nfile = حافظه_بده (حجم(tcov_file));
+	    إذا (nfile == عدم) {
 	        fprintf (stderr, "Malloc error test_coverage\n");
-	        return file;
+	        أرجع file;
     	    }
 	    nfile->filename = filename;
 	    nfile->n_func = 0;
 	    nfile->m_func = 0;
-	    nfile->func = NULL;
-	    nfile->next = NULL;
-	    if (file == NULL)
+	    nfile->func = عدم;
+	    nfile->بعدی = عدم;
+	    إذا (file == عدم)
 	        file = nfile;
-	    else {
+	    وإلا {
 		tcov_file *lfile = file;
 
-	        while (lfile->next)
-		    lfile = lfile->next;
-		lfile->next = nfile;
+	        طالما (lfile->بعدی)
+		    lfile = lfile->بعدی;
+		lfile->بعدی = nfile;
 	    }
 	}
 	p += len + 1;
-	while (*p) {
-	    int i;
-	    char *function = (char *)p;
+	طالما (*p) {
+	    صحيح i;
+	    حرف *function = (حرف *)p;
 	    tcov_function *func;
 
-	    p += strlen (function) + 1;
-	    p += -(p - start) & 7;
-	    for (i = 0; i < nfile->n_func; i++) {
+	    p += طول_رشته (function) + 1;
+	    p += -(p - شروع) & 7;
+	    لكل (i = 0; i < nfile->n_func; i++) {
 		func = &nfile->func[i];
-		if (strcmp (func->function, function) == 0)
-		    break;
+		إذا (strcmp (func->function, function) == 0)
+		    اكسر;
 	    }
-	    if (i == nfile->n_func) {
-	        if (nfile->n_func >= nfile->m_func) {
+	    إذا (i == nfile->n_func) {
+	        إذا (nfile->n_func >= nfile->m_func) {
 		    nfile->m_func = nfile->m_func == 0 ? 4 : nfile->m_func * 2;
 		    nfile->func = realloc (nfile->func,
 					   nfile->m_func *
-					   sizeof (tcov_function));
-		    if (nfile->func == NULL) {
+					   حجم (tcov_function));
+		    إذا (nfile->func == عدم) {
 		        fprintf (stderr, "Realloc error test_coverage\n");
-		        return file;
+		        أرجع file;
 		    }
 	        }
 	        func = &nfile->func[nfile->n_func++];
 	        func->function = function;
-	        func->first_line = get_value (p, 8);
-	        func->n_line = 0;
-	        func->m_line = 0;
-	        func->line = NULL;
+	        func->اولی_سطر = get_مقدار (p, 8);
+	        func->n_سطر = 0;
+	        func->m_سطر = 0;
+	        func->سطر = عدم;
 	    }
 	    p += 8;
-	    while (*p) {
-		tcov_line *line;
-		unsigned long long val;
+	    طالما (*p) {
+		tcov_سطر *سطر;
+		بیعلامت دراز دراز val;
 
-		if (func->n_line >= func->m_line) {
-		    func->m_line = func->m_line == 0 ? 4 : func->m_line * 2;
-		    func->line = realloc (func->line,
-					  func->m_line * sizeof (tcov_line));
-		    if (func->line == NULL) {
+		إذا (func->n_سطر >= func->m_سطر) {
+		    func->m_سطر = func->m_سطر == 0 ? 4 : func->m_سطر * 2;
+		    func->سطر = realloc (func->سطر,
+					  func->m_سطر * حجم (tcov_سطر));
+		    إذا (func->سطر == عدم) {
 		        fprintf (stderr, "Realloc error test_coverage\n");
-		        return file;
+		        أرجع file;
 		    }
 		}
-		line = &func->line[func->n_line++];
-		val = get_value (p, 8);
-	        line->fline = (val >> 8) & 0xfffffffULL;
-	        line->lline = val >> 36;
-	        line->count = get_value (p + 8, 8);
+		سطر = &func->سطر[func->n_سطر++];
+		val = get_مقدار (p, 8);
+	        سطر->fline = (val >> 8) & 0xfffffffULL;
+	        سطر->lline = val >> 36;
+	        سطر->شمار_2 = get_مقدار (p + 8, 8);
 	 	p += 16;
 	    }
 	    p++;
@@ -203,226 +203,226 @@ static tcov_file *sort_test_coverage (unsigned char *p)
 	p++;
     }
     nfile = file;
-    while (nfile) {
-	qsort (nfile->func, nfile->n_func, sizeof (tcov_function), sort_func);
-	for (i = 0; i < nfile->n_func; i++) {
+    طالما (nfile) {
+	qsort (nfile->func, nfile->n_func, حجم (tcov_function), مرتب_سازی_func);
+	لكل (i = 0; i < nfile->n_func; i++) {
 	    tcov_function *func = &nfile->func[i];
-	    qsort (func->line, func->n_line, sizeof (tcov_line), sort_line);
+	    qsort (func->سطر, func->n_سطر, حجم (tcov_سطر), مرتب_سازی_سطر);
         }
-	nfile = nfile->next;
+	nfile = nfile->بعدی;
     }
-    return file;
+    أرجع file;
 }
 
 /* merge with previous tcov file */
-static void merge_test_coverage (tcov_file *file, FILE *fp,
-				 unsigned int *pruns)
+ساكن فراغ ادغام_test_coverage (tcov_file *file, FILE *fp,
+				 بیعلامت صحيح *pruns)
 {
-    unsigned int runs;
-    char *p;
-    char str[10000];
+    بیعلامت صحيح runs;
+    حرف *p;
+    حرف str[10000];
     
     *pruns = 1;
-    if (fp == NULL)
-        return;
-    if (fgets(str, sizeof(str), fp) &&
+    إذا (fp == عدم)
+        أرجع;
+    إذا (fgets(str, حجم(str), fp) &&
         (p = strrchr (str, ':')) &&
-        (sscanf (p + 1, "%u", &runs) == 1)) 
+        (از_رشته_بخوان (p + 1, "%u", &runs) == 1)) 
         *pruns = runs + 1;
-    while (file) {
-	int i;
-	size_t len = strlen (file->filename);
+    طالما (file) {
+	صحيح i;
+	اندازه_t len = طول_رشته (file->filename);
 
-	while (fgets(str, sizeof(str), fp) &&
-	       (p = strstr(str, "0:File:")) == NULL) {}
-        if ((p = strstr(str, "0:File:")) == NULL ||
-	    strncmp (p + strlen("0:File:"), file->filename, len) != 0 ||
-	    p[strlen("0:File:") + len] != ' ')
-	    break;
-	for (i = 0; i < file->n_func; i++) {
-	    int j;
+	طالما (fgets(str, حجم(str), fp) &&
+	       (p = جستجوی_رشته(str, "0:File:")) == عدم) {}
+        إذا ((p = جستجوی_رشته(str, "0:File:")) == عدم ||
+	    مقایسه_رشته (p + طول_رشته("0:File:"), file->filename, len) != 0 ||
+	    p[طول_رشته("0:File:") + len] != ' ')
+	    اكسر;
+	لكل (i = 0; i < file->n_func; i++) {
+	    صحيح j;
 	    tcov_function *func = &file->func[i];
-	    unsigned int next_zero = 0;
-	    unsigned int curline = 0;
+	    بیعلامت صحيح بعدی_zero = 0;
+	    بیعلامت صحيح curline = 0;
 
-	    for (j = 0; j < func->n_line; j++) {
-		tcov_line *line = &func->line[j];
-	        unsigned int fline = line->fline;
-	        unsigned long long count;
-		unsigned int tmp;
-		char c;
+	    لكل (j = 0; j < func->n_سطر; j++) {
+		tcov_سطر *سطر = &func->سطر[j];
+	        بیعلامت صحيح fline = سطر->fline;
+	        بیعلامت دراز دراز شمار_2;
+		بیعلامت صحيح tmp;
+		حرف c;
 
-		while (curline < fline &&
-		       fgets(str, sizeof(str), fp))
-		    if ((p = strchr(str, ':')) &&
-			sscanf (p + 1, "%u", &tmp) == 1)
+		طالما (curline < fline &&
+		       fgets(str, حجم(str), fp))
+		    إذا ((p = strchr(str, ':')) &&
+			از_رشته_بخوان (p + 1, "%u", &tmp) == 1)
 			curline = tmp;
-		if (sscanf (str, "%llu%c\n", &count, &c) == 2) {
-		    if (next_zero == 0)
-		        line->count += count;
-		    next_zero = c == '*';
+		إذا (از_رشته_بخوان (str, "%llu%c\n", &شمار_2, &c) == 2) {
+		    إذا (بعدی_zero == 0)
+		        سطر->شمار_2 += شمار_2;
+		    بعدی_zero = c == '*';
 		}
 	    }
 	}
-	file = file->next;
+	file = file->بعدی;
     }
 }
 
 /* store tcov data in file */
-void __store_test_coverage (unsigned char * p)
+فراغ __store_test_coverage (بیعلامت حرف * p)
 {
-    int i, j;
-    unsigned int files;
-    unsigned int funcs;
-    unsigned int blocks;
-    unsigned int blocks_run;
-    unsigned int runs;
-    char *cov_filename = (char *)p + get_value (p, 4);
+    صحيح i, j;
+    بیعلامت صحيح files;
+    بیعلامت صحيح funcs;
+    بیعلامت صحيح بلوکها;
+    بیعلامت صحيح بلوکها_پیاپی;
+    بیعلامت صحيح runs;
+    حرف *cov_filename = (حرف *)p + get_مقدار (p, 4);
     FILE *fp;
-    char *q;
+    حرف *q;
     tcov_file *file;
     tcov_file *nfile;
     tcov_function *func;
 
     fp = open_tcov_file (cov_filename);
-    if (fp == NULL) {
+    إذا (fp == عدم) {
 	fprintf (stderr, "Cannot create coverage file: %s\n", cov_filename);
-	return;
+	أرجع;
     }
-    file = sort_test_coverage (p);
-    merge_test_coverage (file, fp, &runs);
+    file = مرتب_سازی_test_coverage (p);
+    ادغام_test_coverage (file, fp, &runs);
     fseek (fp, 0, SEEK_SET);
     fprintf (fp, "        -:    0:Runs:%u\n", runs);
     files = 0;
     funcs = 0;
-    blocks = 0;
-    blocks_run = 0;
+    بلوکها = 0;
+    بلوکها_پیاپی = 0;
     nfile = file;
-    while (nfile) {
+    طالما (nfile) {
 	files++;
-	for (i = 0; i < nfile->n_func; i++) {
+	لكل (i = 0; i < nfile->n_func; i++) {
 	    func = &nfile->func[i];
 	    funcs++;
-	    for (j = 0; j < func->n_line; j++) {
-		blocks++;
-		blocks_run += func->line[j].count != 0;
+	    لكل (j = 0; j < func->n_سطر; j++) {
+		بلوکها++;
+		بلوکها_پیاپی += func->سطر[j].شمار_2 != 0;
 	    }
 	}
-	nfile = nfile->next;
+	nfile = nfile->بعدی;
     }
-    if (blocks == 0)
-	blocks = 1;
+    إذا (بلوکها == 0)
+	بلوکها = 1;
     fprintf (fp, "        -:    0:All:%s Files:%u Functions:%u %.02f%%\n",
-	     cov_filename, files, funcs, 100.0 * (double) blocks_run / blocks);
+	     cov_filename, files, funcs, 100.0 * (مزدوج) بلوکها_پیاپی / بلوکها);
     nfile = file;
-    while (nfile) {
+    طالما (nfile) {
 	FILE *src = fopen (nfile->filename, "r");
-	unsigned int curline = 1;
-	char str[10000];
+	بیعلامت صحيح curline = 1;
+	حرف str[10000];
 
-        if (src == NULL)
-	     goto next;
+        إذا (src == عدم)
+	     اذهب بعدی;
 	funcs = 0;
-	blocks = 0;
-	blocks_run = 0;
-	for (i = 0; i < nfile->n_func; i++) {
+	بلوکها = 0;
+	بلوکها_پیاپی = 0;
+	لكل (i = 0; i < nfile->n_func; i++) {
 	    func = &nfile->func[i];
 	    funcs++;
-	    for (j = 0; j < func->n_line; j++) {
-		blocks++;
-		blocks_run += func->line[j].count != 0;
+	    لكل (j = 0; j < func->n_سطر; j++) {
+		بلوکها++;
+		بلوکها_پیاپی += func->سطر[j].شمار_2 != 0;
 	    }
 	}
-	if (blocks == 0)
-	    blocks = 1;
+	إذا (بلوکها == 0)
+	    بلوکها = 1;
         fprintf (fp, "        -:    0:File:%s Functions:%u %.02f%%\n",
-		 nfile->filename, funcs, 100.0 * (double) blocks_run / blocks);
-        for (i = 0; i < nfile->n_func; i++) {
+		 nfile->filename, funcs, 100.0 * (مزدوج) بلوکها_پیاپی / بلوکها);
+        لكل (i = 0; i < nfile->n_func; i++) {
 	    func = &nfile->func[i];
 	
-	    while (curline < func->first_line &&
-		   fgets(str, sizeof(str), src))
+	    طالما (curline < func->اولی_سطر &&
+		   fgets(str, حجم(str), src))
 		fprintf (fp, "        -:%5u:%s", curline++, str);
-	    blocks = 0;
-	    blocks_run = 0;
-	    for (j = 0; j < func->n_line; j++) {
-		blocks++;
-		blocks_run += func->line[j].count != 0;
+	    بلوکها = 0;
+	    بلوکها_پیاپی = 0;
+	    لكل (j = 0; j < func->n_سطر; j++) {
+		بلوکها++;
+		بلوکها_پیاپی += func->سطر[j].شمار_2 != 0;
 	    }
-	    if (blocks == 0)
-		blocks = 1;
+	    إذا (بلوکها == 0)
+		بلوکها = 1;
             fprintf (fp, "        -:    0:Function:%s %.02f%%\n",
-		     func->function, 100.0 * (double) blocks_run / blocks);
-#if 0
-	    for (j = 0; j < func->n_line; j++) {
-	        unsigned int fline = func->line[j].fline;
-	        unsigned int lline = func->line[j].lline;
-		unsigned long long count = func->line[j].count;
+		     func->function, 100.0 * (مزدوج) بلوکها_پیاپی / بلوکها);
+#إذا 0
+	    لكل (j = 0; j < func->n_سطر; j++) {
+	        بیعلامت صحيح fline = func->سطر[j].fline;
+	        بیعلامت صحيح lline = func->سطر[j].lline;
+		بیعلامت دراز دراز شمار_2 = func->سطر[j].شمار_2;
 
-		fprintf (fp, "%u %u %llu\n", fline, lline, count);
+		fprintf (fp, "%u %u %llu\n", fline, lline, شمار_2);
 	    }
-#endif
-	    for (j = 0; j < func->n_line;) {
-	        unsigned int fline = func->line[j].fline;
-	        unsigned int lline = func->line[j].lline;
-	        unsigned long long count = func->line[j].count;
-		unsigned int has_zero = 0;
-		unsigned int same_line = fline == lline;
+#پایان_اگر
+	    لكل (j = 0; j < func->n_سطر;) {
+	        بیعلامت صحيح fline = func->سطر[j].fline;
+	        بیعلامت صحيح lline = func->سطر[j].lline;
+	        بیعلامت دراز دراز شمار_2 = func->سطر[j].شمار_2;
+		بیعلامت صحيح has_zero = 0;
+		بیعلامت صحيح same_سطر = fline == lline;
 
 		j++;
-		while (j < func->n_line) {
-	            unsigned int nfline = func->line[j].fline;
-	            unsigned int nlline = func->line[j].lline;
-	            unsigned long long ncount = func->line[j].count;
+		طالما (j < func->n_سطر) {
+	            بیعلامت صحيح nfline = func->سطر[j].fline;
+	            بیعلامت صحيح nlline = func->سطر[j].lline;
+	            بیعلامت دراز دراز ncount = func->سطر[j].شمار_2;
 
-		    if (fline == nfline) {
-			if (ncount == 0)
+		    إذا (fline == nfline) {
+			إذا (ncount == 0)
 			    has_zero = 1;
-			else if (ncount > count)
-			    count =  ncount;
-			same_line = nfline == nlline;
+			وإلا إذا (ncount > شمار_2)
+			    شمار_2 =  ncount;
+			same_سطر = nfline == nlline;
 			lline = nlline;
 			j++;
 		    }
-		    else
-			break;
+		    وإلا
+			اكسر;
 		}
-		if (same_line)
+		إذا (same_سطر)
 		     lline++;
 
-	        while (curline < fline &&
-		       fgets(str, sizeof(str), src))
+	        طالما (curline < fline &&
+		       fgets(str, حجم(str), src))
 		     fprintf (fp, "        -:%5u:%s", curline++, str);
-		while (curline < lline &&
-		       fgets(str, sizeof(str), src)) {
-		    if (count == 0)
+		طالما (curline < lline &&
+		       fgets(str, حجم(str), src)) {
+		    إذا (شمار_2 == 0)
 		        fprintf (fp, "    #####:%5u:%s",
 				 curline, str);
-		    else if (has_zero)
+		    وإلا إذا (has_zero)
 		        fprintf (fp, "%8llu*:%5u:%s", 
-				 count, curline, str);
-		    else
+				 شمار_2, curline, str);
+		    وإلا
 		        fprintf (fp, "%9llu:%5u:%s",
-				 count, curline, str);
+				 شمار_2, curline, str);
 		    curline++;
 		}
 	    }
 	}
-	while (fgets(str, sizeof(str), src))
+	طالما (fgets(str, حجم(str), src))
 	    fprintf (fp, "        -:%5u:%s", curline++, str);
 	fclose (src);
-next:
-	nfile = nfile->next;
+بعدی:
+	nfile = nfile->بعدی;
     }
-    while (file) {
-        for (i = 0; i < file->n_func; i++) {
+    طالما (file) {
+        لكل (i = 0; i < file->n_func; i++) {
 	    func = &file->func[i];
-	    free (func->line);
+	    حرر (func->سطر);
         }
-	free (file->func);
+	حرر (file->func);
 	nfile = file;
-	file = file->next;
-	free (nfile);
+	file = file->بعدی;
+	حرر (nfile);
     }
     fclose (fp);
 }

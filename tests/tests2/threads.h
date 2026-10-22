@@ -1,22 +1,22 @@
-#ifdef _WIN32
-#include <windows.h>
-typedef HANDLE pthread_t;
-int pthread_create(pthread_t *p, void *x, void *fn, void *args)
+#اگر_تعریف_شده _WIN32
+#ضمن <windows.h>
+تعريفنوع HANDLE pthread_t;
+صحيح pthread_create(pthread_t *p, فراغ *x, فراغ *fn, فراغ *آرگومانها)
 {
     DWORD tid;
-    *p = CreateThread(NULL, 0, fn, args, 0, &tid);
-    return *p ? 0 : -1;
+    *p = CreateThread(عدم, 0, fn, آرگومانها, 0, &tid);
+    أرجع *p ? 0 : -1;
 }
-int pthread_join(pthread_t h, void **ret)
+صحيح pthread_join(pthread_t h, فراغ **ret)
 {
     DWORD r;
     WaitForSingleObject(h, INFINITE);
-    GetExitCodeThread(h, &r);
+    Get_Exit_کد_Thread(h, &r);
     CloseHandle(h);
-    if (ret)
-        *ret = (void*)(size_t)r;
-    return 0;
+    إذا (ret)
+        *ret = (فراغ*)(اندازه_t)r;
+    أرجع 0;
 }
-#else
-#include <pthread.h>
-#endif
+#وإلا
+#ضمن <pthread.h>
+#پایان_اگر

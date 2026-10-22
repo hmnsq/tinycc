@@ -1,4 +1,4 @@
-#define X(a,b, \
+#تعریف_کن X(a,b, \
 	c,d) \
 	foo
 

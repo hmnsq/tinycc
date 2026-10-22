@@ -4,1471 +4,1471 @@
  * No warranty is given; refer to the file DISCLAIMER within this package.
  */
 
-#ifndef _WINSOCK2API_
-#define _WINSOCK2API_
+#اگر_تعریف_نشده _WINSOCK2API_
+#تعریف_کن _WINSOCK2API_
 
-#ifndef INCL_WINSOCK_API_TYPEDEFS
-#define INCL_WINSOCK_API_TYPEDEFS 0
-#endif
+#اگر_تعریف_نشده INCL_WINSOCK_API_TYPEDEFS
+#تعریف_کن INCL_WINSOCK_API_TYPEDEFS 0
+#پایان_اگر
 
-#ifndef _INC_WINDOWS
-#include <windows.h>
-#endif
+#اگر_تعریف_نشده _INC_WINDOWS
+#ضمن <windows.h>
+#پایان_اگر
 
-#ifndef MAKEWORD
-#define MAKEWORD(low,high) ((WORD)(((BYTE)(low)) | ((WORD)((BYTE)(high))) << 8))
-#endif
+#اگر_تعریف_نشده MAKEWORD
+#تعریف_کن MAKEWORD(کم,بالا) ((کلمه_3)(((BYTE)(کم)) | ((کلمه_3)((BYTE)(بالا))) << 8))
+#پایان_اگر
 
-#ifndef WINSOCK_VERSION
-#define WINSOCK_VERSION MAKEWORD(2,2)
-#endif
+#اگر_تعریف_نشده WINSOCK_نسخه
+#تعریف_کن WINSOCK_نسخه MAKEWORD(2,2)
+#پایان_اگر
 
-#ifndef WINSOCK_API_LINKAGE
-#ifdef DECLSPEC_IMPORT
-#define WINSOCK_API_LINKAGE DECLSPEC_IMPORT
-#else
-#define WINSOCK_API_LINKAGE
-#endif
-#endif
+#اگر_تعریف_نشده WINSOCK_API_LINKAGE
+#اگر_تعریف_شده DECLSPEC_IMPORT
+#تعریف_کن WINSOCK_API_LINKAGE DECLSPEC_IMPORT
+#وإلا
+#تعریف_کن WINSOCK_API_LINKAGE
+#پایان_اگر
+#پایان_اگر
 
-#ifdef __cplusplus
-extern "C" {
-#endif
+#اگر_تعریف_شده __cplusplus
+خارجي "C" {
+#پایان_اگر
 
-#ifndef _WINSOCK_SOCKET_DEFINED
-#define _WINSOCK_SOCKET_DEFINED
-  typedef unsigned char u_char;
-  typedef unsigned short u_short;
-  typedef unsigned int u_int;
-  typedef unsigned long u_long;
-  __MINGW_EXTENSION typedef unsigned __int64 u_int64;
-  typedef INT_PTR SOCKET;
-#endif
+#اگر_تعریف_نشده _WINSOCK_SOCKET_DEFINED
+#تعریف_کن _WINSOCK_SOCKET_DEFINED
+  تعريفنوع بیعلامت حرف u_char;
+  تعريفنوع بیعلامت کوتاه u_short;
+  تعريفنوع بیعلامت صحيح u_int;
+  تعريفنوع بیعلامت دراز u_long;
+  __MINGW_EXTENSION تعريفنوع بیعلامت __int64 u_int64;
+  تعريفنوع INT_PTR SOCKET;
+#پایان_اگر
 
-#ifndef FD_SETSIZE
-#define FD_SETSIZE 64
-#endif
+#اگر_تعریف_نشده FD_SETSIZE
+#تعریف_کن FD_SETSIZE 64
+#پایان_اگر
 
-  typedef struct fd_set {
-    u_int fd_count;
+  تعريفنوع بنية fd_set {
+    u_int fd_شمار;
     SOCKET fd_array[FD_SETSIZE];
   } fd_set;
 
-  extern int WINAPI __WSAFDIsSet(SOCKET,fd_set *);
+  خارجي صحيح WINAPI __WSAFDIsSet(SOCKET,fd_set *);
 
-#define FD_CLR(fd,set) do { u_int __i; for(__i = 0;__i < ((fd_set *)(set))->fd_count;__i++) { if (((fd_set *)(set))->fd_array[__i]==fd) { while (__i < ((fd_set *)(set))->fd_count-1) { ((fd_set *)(set))->fd_array[__i] = ((fd_set *)(set))->fd_array[__i+1]; __i++; } ((fd_set *)(set))->fd_count--; break; } } } while(0)
-#define FD_SET(fd,set) do { u_int __i; for(__i = 0;__i < ((fd_set *)(set))->fd_count;__i++) { if (((fd_set *)(set))->fd_array[__i]==(fd)) { break; } } if (__i==((fd_set *)(set))->fd_count) { if (((fd_set *)(set))->fd_count < FD_SETSIZE) { ((fd_set *)(set))->fd_array[__i] = (fd); ((fd_set *)(set))->fd_count++; } } } while(0)
-#define FD_ZERO(set) (((fd_set *)(set))->fd_count=0)
-#define FD_ISSET(fd,set) __WSAFDIsSet((SOCKET)(fd),(fd_set *)(set))
+#تعریف_کن FD_CLR(fd,مجموعه) افعل { u_int __i; لكل(__i = 0;__i < ((fd_set *)(مجموعه))->fd_شمار;__i++) { إذا (((fd_set *)(مجموعه))->fd_array[__i]==fd) { طالما (__i < ((fd_set *)(مجموعه))->fd_شمار-1) { ((fd_set *)(مجموعه))->fd_array[__i] = ((fd_set *)(مجموعه))->fd_array[__i+1]; __i++; } ((fd_set *)(مجموعه))->fd_شمار--; اكسر; } } } طالما(0)
+#تعریف_کن FD_SET(fd,مجموعه) افعل { u_int __i; لكل(__i = 0;__i < ((fd_set *)(مجموعه))->fd_شمار;__i++) { إذا (((fd_set *)(مجموعه))->fd_array[__i]==(fd)) { اكسر; } } إذا (__i==((fd_set *)(مجموعه))->fd_شمار) { إذا (((fd_set *)(مجموعه))->fd_شمار < FD_SETSIZE) { ((fd_set *)(مجموعه))->fd_array[__i] = (fd); ((fd_set *)(مجموعه))->fd_شمار++; } } } طالما(0)
+#تعریف_کن FD_ZERO(مجموعه) (((fd_set *)(مجموعه))->fd_شمار=0)
+#تعریف_کن FD_ISSET(fd,مجموعه) __WSAFDIsSet((SOCKET)(fd),(fd_set *)(مجموعه))
 
-#ifndef _TIMEVAL_DEFINED /* also in winsock[2].h */
-#define _TIMEVAL_DEFINED
-  struct timeval {
-    long tv_sec;
-    long tv_usec;
+#اگر_تعریف_نشده _TIMEVAL_DEFINED /* also in winsock[2].h */
+#تعریف_کن _TIMEVAL_DEFINED
+  بنية timeval {
+    دراز tv_sec;
+    دراز tv_usec;
   };
 
-#define timerisset(tvp) ((tvp)->tv_sec || (tvp)->tv_usec)
-#define timercmp(tvp,uvp,cmp) ((tvp)->tv_sec cmp (uvp)->tv_sec || (tvp)->tv_sec==(uvp)->tv_sec && (tvp)->tv_usec cmp (uvp)->tv_usec)
-#define timerclear(tvp) (tvp)->tv_sec = (tvp)->tv_usec = 0
-#endif /* _TIMEVAL_DEFINED */
+#تعریف_کن timerisset(tvp) ((tvp)->tv_sec || (tvp)->tv_usec)
+#تعریف_کن timercmp(tvp,uvp,cmp) ((tvp)->tv_sec cmp (uvp)->tv_sec || (tvp)->tv_sec==(uvp)->tv_sec && (tvp)->tv_usec cmp (uvp)->tv_usec)
+#تعریف_کن timerclear(tvp) (tvp)->tv_sec = (tvp)->tv_usec = 0
+#پایان_اگر /* _TIMEVAL_DEFINED */
 
-#define IOCPARM_MASK 0x7f
-#define IOC_VOID 0x20000000
-#define IOC_OUT 0x40000000
-#define IOC_IN 0x80000000
-#define IOC_INOUT (IOC_IN|IOC_OUT)
+#تعریف_کن IOCPARM_ماسک 0x7f
+#تعریف_کن IOC_VOID 0x20000000
+#تعریف_کن IOC_بیرون 0x40000000
+#تعریف_کن IOC_درون 0x80000000
+#تعریف_کن IOC_INOUT (IOC_درون|IOC_بیرون)
 
-#define _IO(x,y) (IOC_VOID|((x)<<8)|(y))
-#define _IOR(x,y,t) (IOC_OUT|(((long)sizeof(t)&IOCPARM_MASK)<<16)|((x)<<8)|(y))
-#define _IOW(x,y,t) (IOC_IN|(((long)sizeof(t)&IOCPARM_MASK)<<16)|((x)<<8)|(y))
+#تعریف_کن _IO(x,y) (IOC_VOID|((x)<<8)|(y))
+#تعریف_کن _IOR(x,y,t) (IOC_بیرون|(((دراز)حجم(t)&IOCPARM_ماسک)<<16)|((x)<<8)|(y))
+#تعریف_کن _IOW(x,y,t) (IOC_درون|(((دراز)حجم(t)&IOCPARM_ماسک)<<16)|((x)<<8)|(y))
 
-#define FIONREAD _IOR('f',127,u_long)
-#define FIONBIO _IOW('f',126,u_long)
-#define FIOASYNC _IOW('f',125,u_long)
+#تعریف_کن FIONREAD _IOR('f',127,u_long)
+#تعریف_کن FIONBIO _IOW('f',126,u_long)
+#تعریف_کن FIOASYNC _IOW('f',125,u_long)
 
-#define SIOCSHIWAT _IOW('s',0,u_long)
-#define SIOCGHIWAT _IOR('s',1,u_long)
-#define SIOCSLOWAT _IOW('s',2,u_long)
-#define SIOCGLOWAT _IOR('s',3,u_long)
-#define SIOCATMARK _IOR('s',7,u_long)
+#تعریف_کن SIOCSHIWAT _IOW('s',0,u_long)
+#تعریف_کن SIOCGHIWAT _IOR('s',1,u_long)
+#تعریف_کن SIOCSLOWAT _IOW('s',2,u_long)
+#تعریف_کن SIOCGLOWAT _IOR('s',3,u_long)
+#تعریف_کن SIOCATMARK _IOR('s',7,u_long)
 
-#define h_addr h_addr_list[0]
+#تعریف_کن h_addr h_addr_list[0]
 
-  struct hostent {
-    char *h_name;
-    char **h_aliases;
-    short h_addrtype;
-    short h_length;
-    char **h_addr_list;
+  بنية hostent {
+    حرف *h_name;
+    حرف **h_aliases;
+    کوتاه h_addrtype;
+    کوتاه h_درازی;
+    حرف **h_addr_list;
   };
 
-  struct netent {
-    char *n_name;
-    char **n_aliases;
-    short n_addrtype;
+  بنية netent {
+    حرف *n_name;
+    حرف **n_aliases;
+    کوتاه n_addrtype;
     u_long n_net;
   };
 
-  struct servent {
-    char *s_name;
-    char **s_aliases;
-#ifdef _WIN64
-    char *s_proto;
-    short s_port;
-#else
-    short s_port;
-    char *s_proto;
-#endif
+  بنية servent {
+    حرف *s_name;
+    حرف **s_aliases;
+#اگر_تعریف_شده _WIN64
+    حرف *s_proto;
+    کوتاه s_پورت;
+#وإلا
+    کوتاه s_پورت;
+    حرف *s_proto;
+#پایان_اگر
   };
 
-  struct protoent {
-    char *p_name;
-    char **p_aliases;
-    short p_proto;
+  بنية protoent {
+    حرف *p_name;
+    حرف **p_aliases;
+    کوتاه p_proto;
   };
 
-#define IPPROTO_IP 0
-#define IPPROTO_HOPOPTS 0
-#define IPPROTO_ICMP 1
-#define IPPROTO_IGMP 2
-#define IPPROTO_GGP 3
-#define IPPROTO_IPV4 4
-#define IPPROTO_TCP 6
-#define IPPROTO_PUP 12
-#define IPPROTO_UDP 17
-#define IPPROTO_IDP 22
-#define IPPROTO_IPV6 41
-#define IPPROTO_ROUTING 43
-#define IPPROTO_FRAGMENT 44
-#define IPPROTO_ESP 50
-#define IPPROTO_AH 51
-#define IPPROTO_ICMPV6 58
-#define IPPROTO_NONE 59
-#define IPPROTO_DSTOPTS 60
-#define IPPROTO_ND 77
-#define IPPROTO_ICLFXBM 78
+#تعریف_کن IPPROTO_IP 0
+#تعریف_کن IPPROTO_HOPOPTS 0
+#تعریف_کن IPPROTO_ICMP 1
+#تعریف_کن IPPROTO_IGMP 2
+#تعریف_کن IPPROTO_GGP 3
+#تعریف_کن IPPROTO_IPV4 4
+#تعریف_کن IPPROTO_TCP 6
+#تعریف_کن IPPROTO_PUP 12
+#تعریف_کن IPPROTO_UDP 17
+#تعریف_کن IPPROTO_IDP 22
+#تعریف_کن IPPROTO_IPV6 41
+#تعریف_کن IPPROTO_ROUTING 43
+#تعریف_کن IPPROTO_FRAGMENT 44
+#تعریف_کن IPPROTO_ESP 50
+#تعریف_کن IPPROTO_AH 51
+#تعریف_کن IPPROTO_ICMPV6 58
+#تعریف_کن IPPROTO_NONE 59
+#تعریف_کن IPPROTO_DSTOPTS 60
+#تعریف_کن IPPROTO_ND 77
+#تعریف_کن IPPROTO_ICLFXBM 78
 
-#define IPPROTO_RAW 255
-#define IPPROTO_MAX 256
+#تعریف_کن IPPROTO_RAW 255
+#تعریف_کن IPPROTO_MAX 256
 
-#define IPPORT_ECHO 7
-#define IPPORT_DISCARD 9
-#define IPPORT_SYSTAT 11
-#define IPPORT_DAYTIME 13
-#define IPPORT_NETSTAT 15
-#define IPPORT_FTP 21
-#define IPPORT_TELNET 23
-#define IPPORT_SMTP 25
-#define IPPORT_TIMESERVER 37
-#define IPPORT_NAMESERVER 42
-#define IPPORT_WHOIS 43
-#define IPPORT_MTP 57
+#تعریف_کن IPPORT_ECHO 7
+#تعریف_کن IPPORT_DISCARD 9
+#تعریف_کن IPPORT_SYSTAT 11
+#تعریف_کن IPPORT_DAYTIME 13
+#تعریف_کن IPPORT_NETSTAT 15
+#تعریف_کن IPPORT_FTP 21
+#تعریف_کن IPPORT_TELNET 23
+#تعریف_کن IPPORT_SMTP 25
+#تعریف_کن IPPORT_TIMESERVER 37
+#تعریف_کن IPPORT_NAMESERVER 42
+#تعریف_کن IPPORT_WHOIS 43
+#تعریف_کن IPPORT_MTP 57
 
-#define IPPORT_TFTP 69
-#define IPPORT_RJE 77
-#define IPPORT_FINGER 79
-#define IPPORT_TTYLINK 87
-#define IPPORT_SUPDUP 95
+#تعریف_کن IPPORT_TFTP 69
+#تعریف_کن IPPORT_RJE 77
+#تعریف_کن IPPORT_FINGER 79
+#تعریف_کن IPPORT_TTYLINK 87
+#تعریف_کن IPPORT_SUPDUP 95
 
-#define IPPORT_EXECSERVER 512
-#define IPPORT_LOGINSERVER 513
-#define IPPORT_CMDSERVER 514
-#define IPPORT_EFSSERVER 520
+#تعریف_کن IPPORT_EXECSERVER 512
+#تعریف_کن IPPORT_LOGINSERVER 513
+#تعریف_کن IPPORT_CMDSERVER 514
+#تعریف_کن IPPORT_EFSSERVER 520
 
-#define IPPORT_BIFFUDP 512
-#define IPPORT_WHOSERVER 513
-#define IPPORT_ROUTESERVER 520
+#تعریف_کن IPPORT_BIFFUDP 512
+#تعریف_کن IPPORT_WHOSERVER 513
+#تعریف_کن IPPORT_ROUTESERVER 520
 
-#define IPPORT_RESERVED 1024
+#تعریف_کن IPPORT_RESERVED 1024
 
-#define IMPLINK_IP 155
-#define IMPLINK_LOWEXPER 156
-#define IMPLINK_HIGHEXPER 158
+#تعریف_کن IMPLINK_IP 155
+#تعریف_کن IMPLINK_LOWEXPER 156
+#تعریف_کن IMPLINK_HIGHEXPER 158
 
-#ifndef s_addr
+#اگر_تعریف_نشده s_addr
 
-  struct in_addr {
-    union {
-      struct { u_char s_b1,s_b2,s_b3,s_b4; } S_un_b;
-      struct { u_short s_w1,s_w2; } S_un_w;
+  بنية درون_addr {
+    اتحاد {
+      بنية { u_char s_b1,s_b2,s_b3,s_b4; } S_un_b;
+      بنية { u_short s_w1,s_w2; } S_un_w;
       u_long S_addr;
     } S_un;
   };
 
-#define s_addr S_un.S_addr
-#define s_host S_un.S_un_b.s_b2
-#define s_net S_un.S_un_b.s_b1
-#define s_imp S_un.S_un_w.s_w2
-#define s_impno S_un.S_un_b.s_b4
-#define s_lh S_un.S_un_b.s_b3
+#تعریف_کن s_addr S_un.S_addr
+#تعریف_کن s_host S_un.S_un_b.s_b2
+#تعریف_کن s_net S_un.S_un_b.s_b1
+#تعریف_کن s_imp S_un.S_un_w.s_w2
+#تعریف_کن s_impno S_un.S_un_b.s_b4
+#تعریف_کن s_lh S_un.S_un_b.s_b3
 
-#endif
+#پایان_اگر
 
-#define IN_CLASSA(i) (((long)(i) & 0x80000000)==0)
-#define IN_CLASSA_NET 0xff000000
-#define IN_CLASSA_NSHIFT 24
-#define IN_CLASSA_HOST 0x00ffffff
-#define IN_CLASSA_MAX 128
+#تعریف_کن درون_CLASSA(i) (((دراز)(i) & 0x80000000)==0)
+#تعریف_کن درون_CLASSA_NET 0xff000000
+#تعریف_کن درون_CLASSA_NSHIFT 24
+#تعریف_کن درون_CLASSA_HOST 0x00ffffff
+#تعریف_کن درون_CLASSA_MAX 128
 
-#define IN_CLASSB(i) (((long)(i) & 0xc0000000)==0x80000000)
-#define IN_CLASSB_NET 0xffff0000
-#define IN_CLASSB_NSHIFT 16
-#define IN_CLASSB_HOST 0x0000ffff
-#define IN_CLASSB_MAX 65536
+#تعریف_کن درون_CLASSB(i) (((دراز)(i) & 0xc0000000)==0x80000000)
+#تعریف_کن درون_CLASSB_NET 0xffff0000
+#تعریف_کن درون_CLASSB_NSHIFT 16
+#تعریف_کن درون_CLASSB_HOST 0x0000ffff
+#تعریف_کن درون_CLASSB_MAX 65536
 
-#define IN_CLASSC(i) (((long)(i) & 0xe0000000)==0xc0000000)
-#define IN_CLASSC_NET 0xffffff00
-#define IN_CLASSC_NSHIFT 8
-#define IN_CLASSC_HOST 0x000000ff
+#تعریف_کن درون_CLASSC(i) (((دراز)(i) & 0xe0000000)==0xc0000000)
+#تعریف_کن درون_CLASSC_NET 0xffffff00
+#تعریف_کن درون_CLASSC_NSHIFT 8
+#تعریف_کن درون_CLASSC_HOST 0x000000ff
 
-#define IN_CLASSD(i) (((long)(i) & 0xf0000000)==0xe0000000)
-#define IN_CLASSD_NET 0xf0000000
-#define IN_CLASSD_NSHIFT 28
-#define IN_CLASSD_HOST 0x0fffffff
-#define IN_MULTICAST(i) IN_CLASSD(i)
+#تعریف_کن درون_CLASSD(i) (((دراز)(i) & 0xf0000000)==0xe0000000)
+#تعریف_کن درون_CLASSD_NET 0xf0000000
+#تعریف_کن درون_CLASSD_NSHIFT 28
+#تعریف_کن درون_CLASSD_HOST 0x0fffffff
+#تعریف_کن درون_MULTICAST(i) درون_CLASSD(i)
 
-#define INADDR_ANY (u_long)0x00000000
-#define INADDR_LOOPBACK 0x7f000001
-#define INADDR_BROADCAST (u_long)0xffffffff
-#define INADDR_NONE 0xffffffff
+#تعریف_کن INADDR_ANY (u_long)0x00000000
+#تعریف_کن INADDR_LOOPBACK 0x7f000001
+#تعریف_کن INADDR_پخش (u_long)0xffffffff
+#تعریف_کن INADDR_NONE 0xffffffff
 
-#define ADDR_ANY INADDR_ANY
+#تعریف_کن ADDR_ANY INADDR_ANY
 
-  struct sockaddr_in {
-    short sin_family;
-    u_short sin_port;
-    struct in_addr sin_addr;
-    char sin_zero[8];
+  بنية sockaddr_درون {
+    کوتاه sin_family;
+    u_short sin_پورت;
+    بنية درون_addr sin_addr;
+    حرف sin_zero[8];
   };
 
-#define WSADESCRIPTION_LEN 256
-#define WSASYS_STATUS_LEN 128
+#تعریف_کن WSADESCRIPTION_LEN 256
+#تعریف_کن WSASYS_وضعیت_LEN 128
 
-  typedef struct WSAData {
-    WORD wVersion;
-    WORD wHighVersion;
-#ifdef _WIN64
-    unsigned short iMaxSockets;
-    unsigned short iMaxUdpDg;
-    char *lpVendorInfo;
-    char szDescription[WSADESCRIPTION_LEN+1];
-    char szSystemStatus[WSASYS_STATUS_LEN+1];
-#else
-    char szDescription[WSADESCRIPTION_LEN+1];
-    char szSystemStatus[WSASYS_STATUS_LEN+1];
-    unsigned short iMaxSockets;
-    unsigned short iMaxUdpDg;
-    char *lpVendorInfo;
-#endif
+  تعريفنوع بنية WSAData {
+    کلمه_3 w_نسخه;
+    کلمه_3 w_بالا_نسخه;
+#اگر_تعریف_شده _WIN64
+    بیعلامت کوتاه iMaxSockets;
+    بیعلامت کوتاه iMaxUdpDg;
+    حرف *lpVendorInfo;
+    حرف szDescription[WSADESCRIPTION_LEN+1];
+    حرف sz_System_وضعیت[WSASYS_وضعیت_LEN+1];
+#وإلا
+    حرف szDescription[WSADESCRIPTION_LEN+1];
+    حرف sz_System_وضعیت[WSASYS_وضعیت_LEN+1];
+    بیعلامت کوتاه iMaxSockets;
+    بیعلامت کوتاه iMaxUdpDg;
+    حرف *lpVendorInfo;
+#پایان_اگر
   } WSADATA,*LPWSADATA;
 
-#define INVALID_SOCKET (SOCKET)(~0)
-#define SOCKET_ERROR (-1)
+#تعریف_کن INVALID_SOCKET (SOCKET)(~0)
+#تعریف_کن SOCKET_ERROR (-1)
 
-#define FROM_PROTOCOL_INFO (-1)
+#تعریف_کن FROM_PROTOCOL_INFO (-1)
 
-#define SOCK_STREAM 1
-#define SOCK_DGRAM 2
-#define SOCK_RAW 3
-#define SOCK_RDM 4
-#define SOCK_SEQPACKET 5
+#تعریف_کن SOCK_جریان 1
+#تعریف_کن SOCK_DGRAM 2
+#تعریف_کن SOCK_RAW 3
+#تعریف_کن SOCK_RDM 4
+#تعریف_کن SOCK_SEQPACKET 5
 
-#define SO_DEBUG 0x0001
-#define SO_ACCEPTCONN 0x0002
-#define SO_REUSEADDR 0x0004
-#define SO_KEEPALIVE 0x0008
-#define SO_DONTROUTE 0x0010
-#define SO_BROADCAST 0x0020
-#define SO_USELOOPBACK 0x0040
-#define SO_LINGER 0x0080
-#define SO_OOBINLINE 0x0100
+#تعریف_کن SO_DEBUG 0x0001
+#تعریف_کن SO_ACCEPTCONN 0x0002
+#تعریف_کن SO_REUSEADDR 0x0004
+#تعریف_کن SO_KEEPALIVE 0x0008
+#تعریف_کن SO_DONTROUTE 0x0010
+#تعریف_کن SO_پخش 0x0020
+#تعریف_کن SO_USELOOPBACK 0x0040
+#تعریف_کن SO_LINGER 0x0080
+#تعریف_کن SO_OOBINLINE 0x0100
 
-#define SO_DONTLINGER (int)(~SO_LINGER)
-#define SO_EXCLUSIVEADDRUSE ((int)(~SO_REUSEADDR))
+#تعریف_کن SO_DONTLINGER (صحيح)(~SO_LINGER)
+#تعریف_کن SO_EXCLUSIVEADDRUSE ((صحيح)(~SO_REUSEADDR))
 
-#define SO_SNDBUF 0x1001
-#define SO_RCVBUF 0x1002
-#define SO_SNDLOWAT 0x1003
-#define SO_RCVLOWAT 0x1004
-#define SO_SNDTIMEO 0x1005
-#define SO_RCVTIMEO 0x1006
-#define SO_ERROR 0x1007
-#define SO_TYPE 0x1008
+#تعریف_کن SO_SNDBUF 0x1001
+#تعریف_کن SO_RCVBUF 0x1002
+#تعریف_کن SO_SNDLOWAT 0x1003
+#تعریف_کن SO_RCVLOWAT 0x1004
+#تعریف_کن SO_SNDTIMEO 0x1005
+#تعریف_کن SO_RCVTIMEO 0x1006
+#تعریف_کن SO_ERROR 0x1007
+#تعریف_کن SO_TYPE 0x1008
 
-#define SO_GROUP_ID 0x2001
-#define SO_GROUP_PRIORITY 0x2002
-#define SO_MAX_MSG_SIZE 0x2003
-#define SO_PROTOCOL_INFOA 0x2004
-#define SO_PROTOCOL_INFOW 0x2005
-#ifdef UNICODE
-#define SO_PROTOCOL_INFO SO_PROTOCOL_INFOW
-#else
-#define SO_PROTOCOL_INFO SO_PROTOCOL_INFOA
-#endif
-#define PVD_CONFIG 0x3001
-#define SO_CONDITIONAL_ACCEPT 0x3002
+#تعریف_کن SO_گروه_ID 0x2001
+#تعریف_کن SO_گروه_اولویت 0x2002
+#تعریف_کن SO_MAX_پیام_اندازه 0x2003
+#تعریف_کن SO_PROTOCOL_INFOA 0x2004
+#تعریف_کن SO_PROTOCOL_INFOW 0x2005
+#اگر_تعریف_شده UNICODE
+#تعریف_کن SO_PROTOCOL_INFO SO_PROTOCOL_INFOW
+#وإلا
+#تعریف_کن SO_PROTOCOL_INFO SO_PROTOCOL_INFOA
+#پایان_اگر
+#تعریف_کن PVD_CONFIG 0x3001
+#تعریف_کن SO_CONDITIONAL_ACCEPT 0x3002
 
-#define TCP_NODELAY 0x0001
+#تعریف_کن TCP_NODELAY 0x0001
 
-#define AF_UNSPEC 0
+#تعریف_کن AF_UNSPEC 0
 
-#define AF_UNIX 1
-#define AF_INET 2
-#define AF_IMPLINK 3
-#define AF_PUP 4
-#define AF_CHAOS 5
-#define AF_NS 6
-#define AF_IPX AF_NS
-#define AF_ISO 7
-#define AF_OSI AF_ISO
-#define AF_ECMA 8
-#define AF_DATAKIT 9
-#define AF_CCITT 10
-#define AF_SNA 11
-#define AF_DECnet 12
-#define AF_DLI 13
-#define AF_LAT 14
-#define AF_HYLINK 15
-#define AF_APPLETALK 16
-#define AF_NETBIOS 17
-#define AF_VOICEVIEW 18
-#define AF_FIREFOX 19
-#define AF_UNKNOWN1 20
-#define AF_BAN 21
-#define AF_ATM 22
-#define AF_INET6 23
-#define AF_CLUSTER 24
-#define AF_12844 25
-#define AF_IRDA 26
-#define AF_NETDES 28
-#define AF_TCNPROCESS 29
-#define AF_TCNMESSAGE 30
-#define AF_ICLFXBM 31
+#تعریف_کن AF_UNIX 1
+#تعریف_کن AF_INET 2
+#تعریف_کن AF_IMPLINK 3
+#تعریف_کن AF_PUP 4
+#تعریف_کن AF_CHAOS 5
+#تعریف_کن AF_NS 6
+#تعریف_کن AF_IPX AF_NS
+#تعریف_کن AF_ISO 7
+#تعریف_کن AF_OSI AF_ISO
+#تعریف_کن AF_ECMA 8
+#تعریف_کن AF_DATAKIT 9
+#تعریف_کن AF_CCITT 10
+#تعریف_کن AF_SNA 11
+#تعریف_کن AF_DECnet 12
+#تعریف_کن AF_DLI 13
+#تعریف_کن AF_LAT 14
+#تعریف_کن AF_HYLINK 15
+#تعریف_کن AF_APPLETALK 16
+#تعریف_کن AF_NETBIOS 17
+#تعریف_کن AF_VOICEVIEW 18
+#تعریف_کن AF_FIREFOX 19
+#تعریف_کن AF_UNKNOWN1 20
+#تعریف_کن AF_BAN 21
+#تعریف_کن AF_ATM 22
+#تعریف_کن AF_INET6 23
+#تعریف_کن AF_CLUSTER 24
+#تعریف_کن AF_12844 25
+#تعریف_کن AF_IRDA 26
+#تعریف_کن AF_NETDES 28
+#تعریف_کن AF_TCNPROCESS 29
+#تعریف_کن AF_TCNMESSAGE 30
+#تعریف_کن AF_ICLFXBM 31
 
-#define AF_MAX 32
+#تعریف_کن AF_MAX 32
 
-  struct sockaddr {
+  بنية sockaddr {
     u_short sa_family;
-    char sa_data[14];
+    حرف sa_داده[14];
   };
 
-#define _SS_MAXSIZE 128
-#define _SS_ALIGNSIZE (8)
+#تعریف_کن _SS_MAXSIZE 128
+#تعریف_کن _SS_ALIGNSIZE (8)
 
-#define _SS_PAD1SIZE (_SS_ALIGNSIZE - sizeof (short))
-#define _SS_PAD2SIZE (_SS_MAXSIZE - (sizeof (short) + _SS_PAD1SIZE + _SS_ALIGNSIZE))
+#تعریف_کن SS_PAD1_اندازه (_SS_ALIGNSIZE - حجم (کوتاه))
+#تعریف_کن SS_PAD2_اندازه (_SS_MAXSIZE - (حجم (کوتاه) + SS_PAD1_اندازه + _SS_ALIGNSIZE))
 
-  struct sockaddr_storage {
-    short ss_family;
-    char __ss_pad1[_SS_PAD1SIZE];
+  بنية sockaddr_storage {
+    کوتاه ss_family;
+    حرف __ss_pad1[SS_PAD1_اندازه];
 
     __MINGW_EXTENSION __int64 __ss_align;
-    char __ss_pad2[_SS_PAD2SIZE];
+    حرف __ss_pad2[SS_PAD2_اندازه];
 
   };
 
-  struct sockproto {
+  بنية sockproto {
     u_short sp_family;
     u_short sp_protocol;
   };
 
-#define PF_UNSPEC AF_UNSPEC
-#define PF_UNIX AF_UNIX
-#define PF_INET AF_INET
-#define PF_IMPLINK AF_IMPLINK
-#define PF_PUP AF_PUP
-#define PF_CHAOS AF_CHAOS
-#define PF_NS AF_NS
-#define PF_IPX AF_IPX
-#define PF_ISO AF_ISO
-#define PF_OSI AF_OSI
-#define PF_ECMA AF_ECMA
-#define PF_DATAKIT AF_DATAKIT
-#define PF_CCITT AF_CCITT
-#define PF_SNA AF_SNA
-#define PF_DECnet AF_DECnet
-#define PF_DLI AF_DLI
-#define PF_LAT AF_LAT
-#define PF_HYLINK AF_HYLINK
-#define PF_APPLETALK AF_APPLETALK
-#define PF_VOICEVIEW AF_VOICEVIEW
-#define PF_FIREFOX AF_FIREFOX
-#define PF_UNKNOWN1 AF_UNKNOWN1
-#define PF_BAN AF_BAN
-#define PF_ATM AF_ATM
-#define PF_INET6 AF_INET6
+#تعریف_کن PF_UNSPEC AF_UNSPEC
+#تعریف_کن PF_UNIX AF_UNIX
+#تعریف_کن PF_INET AF_INET
+#تعریف_کن PF_IMPLINK AF_IMPLINK
+#تعریف_کن PF_PUP AF_PUP
+#تعریف_کن PF_CHAOS AF_CHAOS
+#تعریف_کن PF_NS AF_NS
+#تعریف_کن PF_IPX AF_IPX
+#تعریف_کن PF_ISO AF_ISO
+#تعریف_کن PF_OSI AF_OSI
+#تعریف_کن PF_ECMA AF_ECMA
+#تعریف_کن PF_DATAKIT AF_DATAKIT
+#تعریف_کن PF_CCITT AF_CCITT
+#تعریف_کن PF_SNA AF_SNA
+#تعریف_کن PF_DECnet AF_DECnet
+#تعریف_کن PF_DLI AF_DLI
+#تعریف_کن PF_LAT AF_LAT
+#تعریف_کن PF_HYLINK AF_HYLINK
+#تعریف_کن PF_APPLETALK AF_APPLETALK
+#تعریف_کن PF_VOICEVIEW AF_VOICEVIEW
+#تعریف_کن PF_FIREFOX AF_FIREFOX
+#تعریف_کن PF_UNKNOWN1 AF_UNKNOWN1
+#تعریف_کن PF_BAN AF_BAN
+#تعریف_کن PF_ATM AF_ATM
+#تعریف_کن PF_INET6 AF_INET6
 
-#define PF_MAX AF_MAX
+#تعریف_کن PF_MAX AF_MAX
 
-  struct linger {
+  بنية linger {
     u_short l_onoff;
     u_short l_linger;
   };
 
-#define SOL_SOCKET 0xffff
+#تعریف_کن SOL_SOCKET 0xffff
 
-#define SOMAXCONN 0x7fffffff
+#تعریف_کن SOMAXCONN 0x7fffffff
 
-#define MSG_OOB 0x1
-#define MSG_PEEK 0x2
-#define MSG_DONTROUTE 0x4
-#define MSG_WAITALL 0x8
+#تعریف_کن پیام_OOB 0x1
+#تعریف_کن پیام_PEEK 0x2
+#تعریف_کن پیام_DONTROUTE 0x4
+#تعریف_کن پیام_WAITALL 0x8
 
-#define MSG_PARTIAL 0x8000
+#تعریف_کن پیام_PARTIAL 0x8000
 
-#define MSG_INTERRUPT 0x10
+#تعریف_کن پیام_وقفه 0x10
 
-#define MSG_MAXIOVLEN 16
+#تعریف_کن پیام_MAXIOVLEN 16
 
-#define MAXGETHOSTSTRUCT 1024
+#تعریف_کن MAXGETHOSTSTRUCT 1024
 
-#define FD_READ_BIT 0
-#define FD_READ (1 << FD_READ_BIT)
+#تعریف_کن FD_READ_بیت 0
+#تعریف_کن FD_READ (1 << FD_READ_بیت)
 
-#define FD_WRITE_BIT 1
-#define FD_WRITE (1 << FD_WRITE_BIT)
+#تعریف_کن FD_WRITE_بیت 1
+#تعریف_کن FD_WRITE (1 << FD_WRITE_بیت)
 
-#define FD_OOB_BIT 2
-#define FD_OOB (1 << FD_OOB_BIT)
+#تعریف_کن FD_OOB_بیت 2
+#تعریف_کن FD_OOB (1 << FD_OOB_بیت)
 
-#define FD_ACCEPT_BIT 3
-#define FD_ACCEPT (1 << FD_ACCEPT_BIT)
+#تعریف_کن FD_ACCEPT_بیت 3
+#تعریف_کن FD_ACCEPT (1 << FD_ACCEPT_بیت)
 
-#define FD_CONNECT_BIT 4
-#define FD_CONNECT (1 << FD_CONNECT_BIT)
+#تعریف_کن FD_CONNECT_بیت 4
+#تعریف_کن FD_CONNECT (1 << FD_CONNECT_بیت)
 
-#define FD_CLOSE_BIT 5
-#define FD_CLOSE (1 << FD_CLOSE_BIT)
+#تعریف_کن FD_CLOSE_بیت 5
+#تعریف_کن FD_CLOSE (1 << FD_CLOSE_بیت)
 
-#define FD_QOS_BIT 6
-#define FD_QOS (1 << FD_QOS_BIT)
+#تعریف_کن FD_QOS_بیت 6
+#تعریف_کن FD_QOS (1 << FD_QOS_بیت)
 
-#define FD_GROUP_QOS_BIT 7
-#define FD_GROUP_QOS (1 << FD_GROUP_QOS_BIT)
+#تعریف_کن FD_گروه_QOS_بیت 7
+#تعریف_کن FD_گروه_QOS (1 << FD_گروه_QOS_بیت)
 
-#define FD_ROUTING_INTERFACE_CHANGE_BIT 8
-#define FD_ROUTING_INTERFACE_CHANGE (1 << FD_ROUTING_INTERFACE_CHANGE_BIT)
+#تعریف_کن FD_ROUTING_INTERFACE_CHANGE_بیت 8
+#تعریف_کن FD_ROUTING_INTERFACE_CHANGE (1 << FD_ROUTING_INTERFACE_CHANGE_بیت)
 
-#define FD_ADDRESS_LIST_CHANGE_BIT 9
-#define FD_ADDRESS_LIST_CHANGE (1 << FD_ADDRESS_LIST_CHANGE_BIT)
+#تعریف_کن FD_آدرس_LIST_CHANGE_بیت 9
+#تعریف_کن FD_آدرس_LIST_CHANGE (1 << FD_آدرس_LIST_CHANGE_بیت)
 
-#define FD_MAX_EVENTS 10
-#define FD_ALL_EVENTS ((1 << FD_MAX_EVENTS) - 1)
+#تعریف_کن FD_MAX_EVENTS 10
+#تعریف_کن FD_ALL_EVENTS ((1 << FD_MAX_EVENTS) - 1)
 
-#ifndef WSABASEERR
+#اگر_تعریف_نشده WSABASEERR
 
-#define WSABASEERR 10000
+#تعریف_کن WSABASEERR 10000
 
-#define WSAEINTR (WSABASEERR+4)
-#define WSAEBADF (WSABASEERR+9)
-#define WSAEACCES (WSABASEERR+13)
-#define WSAEFAULT (WSABASEERR+14)
-#define WSAEINVAL (WSABASEERR+22)
-#define WSAEMFILE (WSABASEERR+24)
+#تعریف_کن WSAEINTR (WSABASEERR+4)
+#تعریف_کن WSAEBADF (WSABASEERR+9)
+#تعریف_کن WSAEACCES (WSABASEERR+13)
+#تعریف_کن WSAEFAULT (WSABASEERR+14)
+#تعریف_کن WSAEINVAL (WSABASEERR+22)
+#تعریف_کن WSAEMFILE (WSABASEERR+24)
 
-#define WSAEWOULDBLOCK (WSABASEERR+35)
-#define WSAEINPROGRESS (WSABASEERR+36)
-#define WSAEALREADY (WSABASEERR+37)
-#define WSAENOTSOCK (WSABASEERR+38)
-#define WSAEDESTADDRREQ (WSABASEERR+39)
-#define WSAEMSGSIZE (WSABASEERR+40)
-#define WSAEPROTOTYPE (WSABASEERR+41)
-#define WSAENOPROTOOPT (WSABASEERR+42)
-#define WSAEPROTONOSUPPORT (WSABASEERR+43)
-#define WSAESOCKTNOSUPPORT (WSABASEERR+44)
-#define WSAEOPNOTSUPP (WSABASEERR+45)
-#define WSAEPFNOSUPPORT (WSABASEERR+46)
-#define WSAEAFNOSUPPORT (WSABASEERR+47)
-#define WSAEADDRINUSE (WSABASEERR+48)
-#define WSAEADDRNOTAVAIL (WSABASEERR+49)
-#define WSAENETDOWN (WSABASEERR+50)
-#define WSAENETUNREACH (WSABASEERR+51)
-#define WSAENETRESET (WSABASEERR+52)
-#define WSAECONNABORTED (WSABASEERR+53)
-#define WSAECONNRESET (WSABASEERR+54)
-#define WSAENOBUFS (WSABASEERR+55)
-#define WSAEISCONN (WSABASEERR+56)
-#define WSAENOTCONN (WSABASEERR+57)
-#define WSAESHUTDOWN (WSABASEERR+58)
-#define WSAETOOMANYREFS (WSABASEERR+59)
-#define WSAETIMEDOUT (WSABASEERR+60)
-#define WSAECONNREFUSED (WSABASEERR+61)
-#define WSAELOOP (WSABASEERR+62)
-#define WSAENAMETOOLONG (WSABASEERR+63)
-#define WSAEHOSTDOWN (WSABASEERR+64)
-#define WSAEHOSTUNREACH (WSABASEERR+65)
-#define WSAENOTEMPTY (WSABASEERR+66)
-#define WSAEPROCLIM (WSABASEERR+67)
-#define WSAEUSERS (WSABASEERR+68)
-#define WSAEDQUOT (WSABASEERR+69)
-#define WSAESTALE (WSABASEERR+70)
-#define WSAEREMOTE (WSABASEERR+71)
+#تعریف_کن WSAEWOULDBLOCK (WSABASEERR+35)
+#تعریف_کن WSAEINPROGRESS (WSABASEERR+36)
+#تعریف_کن WSAEALREADY (WSABASEERR+37)
+#تعریف_کن WSAENOTSOCK (WSABASEERR+38)
+#تعریف_کن WSAEDESTADDRREQ (WSABASEERR+39)
+#تعریف_کن WSAEMSGSIZE (WSABASEERR+40)
+#تعریف_کن WSAEPROTOTYPE (WSABASEERR+41)
+#تعریف_کن WSAENOPROTOOPT (WSABASEERR+42)
+#تعریف_کن WSAEPROTONOSUPPORT (WSABASEERR+43)
+#تعریف_کن WSAESOCKTNOSUPPORT (WSABASEERR+44)
+#تعریف_کن WSAEOPNOTSUPP (WSABASEERR+45)
+#تعریف_کن WSAEPFNOSUPPORT (WSABASEERR+46)
+#تعریف_کن WSAEAFNOSUPPORT (WSABASEERR+47)
+#تعریف_کن WSAEADDRINUSE (WSABASEERR+48)
+#تعریف_کن WSAEADDRNOTAVAIL (WSABASEERR+49)
+#تعریف_کن WSAENETDOWN (WSABASEERR+50)
+#تعریف_کن WSAENETUNREACH (WSABASEERR+51)
+#تعریف_کن WSAENETRESET (WSABASEERR+52)
+#تعریف_کن WSAECONNABORTED (WSABASEERR+53)
+#تعریف_کن WSAECONNRESET (WSABASEERR+54)
+#تعریف_کن WSAENOBUFS (WSABASEERR+55)
+#تعریف_کن WSAEISCONN (WSABASEERR+56)
+#تعریف_کن WSAENOTCONN (WSABASEERR+57)
+#تعریف_کن WSAESHUTDOWN (WSABASEERR+58)
+#تعریف_کن WSAETOOMANYREFS (WSABASEERR+59)
+#تعریف_کن WSAETIMEDOUT (WSABASEERR+60)
+#تعریف_کن WSAECONNREFUSED (WSABASEERR+61)
+#تعریف_کن WSAELOOP (WSABASEERR+62)
+#تعریف_کن WSAENAMETOOLONG (WSABASEERR+63)
+#تعریف_کن WSAEHOSTDOWN (WSABASEERR+64)
+#تعریف_کن WSAEHOSTUNREACH (WSABASEERR+65)
+#تعریف_کن WSAENOTEMPTY (WSABASEERR+66)
+#تعریف_کن WSAEPROCLIM (WSABASEERR+67)
+#تعریف_کن WSAEUSERS (WSABASEERR+68)
+#تعریف_کن WSAEDQUOT (WSABASEERR+69)
+#تعریف_کن WSAESTALE (WSABASEERR+70)
+#تعریف_کن WSAEREMOTE (WSABASEERR+71)
 
-#define WSASYSNOTREADY (WSABASEERR+91)
-#define WSAVERNOTSUPPORTED (WSABASEERR+92)
-#define WSANOTINITIALISED (WSABASEERR+93)
-#define WSAEDISCON (WSABASEERR+101)
-#ifndef WSAHOST_NOT_FOUND
-#define WSAHOST_NOT_FOUND (WSABASEERR+1001)
-#endif
-#ifndef WSATRY_AGAIN
-#define WSATRY_AGAIN (WSABASEERR+1002)
-#endif
-#ifndef WSANO_RECOVERY
-#define WSANO_RECOVERY (WSABASEERR+1003)
-#endif
-#ifndef WSANO_DATA
-#define WSANO_DATA (WSABASEERR+1004)
-#endif
+#تعریف_کن WSASYSNOTREADY (WSABASEERR+91)
+#تعریف_کن WSAVERNOTSUPPORTED (WSABASEERR+92)
+#تعریف_کن WSANOTINITIALISED (WSABASEERR+93)
+#تعریف_کن WSAEDISCON (WSABASEERR+101)
+#اگر_تعریف_نشده WSAHOST_NOT_یافت
+#تعریف_کن WSAHOST_NOT_یافت (WSABASEERR+1001)
+#پایان_اگر
+#اگر_تعریف_نشده WSATRY_AGAIN
+#تعریف_کن WSATRY_AGAIN (WSABASEERR+1002)
+#پایان_اگر
+#اگر_تعریف_نشده WSANO_RECOVERY
+#تعریف_کن WSANO_RECOVERY (WSABASEERR+1003)
+#پایان_اگر
+#اگر_تعریف_نشده WSANO_داده
+#تعریف_کن WSANO_داده (WSABASEERR+1004)
+#پایان_اگر
 
-#define WSAENOMORE (WSABASEERR+102)
-#define WSAECANCELLED (WSABASEERR+103)
-#define WSAEINVALIDPROCTABLE (WSABASEERR+104)
-#define WSAEINVALIDPROVIDER (WSABASEERR+105)
-#define WSAEPROVIDERFAILEDINIT (WSABASEERR+106)
-#define WSASYSCALLFAILURE (WSABASEERR+107)
-#define WSASERVICE_NOT_FOUND (WSABASEERR+108)
-#define WSATYPE_NOT_FOUND (WSABASEERR+109)
-#define WSA_E_NO_MORE (WSABASEERR+110)
-#define WSA_E_CANCELLED (WSABASEERR+111)
-#define WSAEREFUSED (WSABASEERR+112)
-#ifndef WSA_QOS_RECEIVERS
-#define WSA_QOS_RECEIVERS (WSABASEERR + 1005)
-#endif
-#ifndef WSA_QOS_SENDERS
-#define WSA_QOS_SENDERS (WSABASEERR + 1006)
-#endif
-#ifndef WSA_QOS_NO_SENDERS
-#define WSA_QOS_NO_SENDERS (WSABASEERR + 1007)
-#define WSA_QOS_NO_RECEIVERS (WSABASEERR + 1008)
-#define WSA_QOS_REQUEST_CONFIRMED (WSABASEERR + 1009)
-#define WSA_QOS_ADMISSION_FAILURE (WSABASEERR + 1010)
-#define WSA_QOS_POLICY_FAILURE (WSABASEERR + 1011)
-#define WSA_QOS_BAD_STYLE (WSABASEERR + 1012)
-#define WSA_QOS_BAD_OBJECT (WSABASEERR + 1013)
-#define WSA_QOS_TRAFFIC_CTRL_ERROR (WSABASEERR + 1014)
-#define WSA_QOS_GENERIC_ERROR (WSABASEERR + 1015)
-#define WSA_QOS_ESERVICETYPE (WSABASEERR + 1016)
-#define WSA_QOS_EFLOWSPEC (WSABASEERR + 1017)
-#define WSA_QOS_EPROVSPECBUF (WSABASEERR + 1018)
-#endif
-#ifndef WSA_QOS_EFILTERSTYLE
-#define WSA_QOS_EFILTERSTYLE (WSABASEERR + 1019)
-#endif
-#ifndef WSA_QOS_EFILTERTYPE
-#define WSA_QOS_EFILTERTYPE (WSABASEERR + 1020)
-#endif
-#ifndef WSA_QOS_EFILTERCOUNT
-#define WSA_QOS_EFILTERCOUNT (WSABASEERR + 1021)
-#endif
-#ifndef WSA_QOS_EOBJLENGTH
-#define WSA_QOS_EOBJLENGTH (WSABASEERR + 1022)
-#endif
-#ifndef WSA_QOS_EFLOWCOUNT
-#define WSA_QOS_EFLOWCOUNT (WSABASEERR + 1023)
-#endif
-#ifndef WSA_QOS_EUNKNOWNPSOBJ
-#define WSA_QOS_EUNKNOWNPSOBJ (WSABASEERR + 1024)
-#endif
-#ifndef WSA_QOS_EPOLICYOBJ
-#define WSA_QOS_EPOLICYOBJ (WSABASEERR + 1025)
-#endif
-#ifndef WSA_QOS_EFLOWDESC
-#define WSA_QOS_EFLOWDESC (WSABASEERR + 1026)
-#endif
-#ifndef WSA_QOS_EPSFLOWSPEC
-#define WSA_QOS_EPSFLOWSPEC (WSABASEERR + 1027)
-#endif
-#ifndef WSA_QOS_EPSFILTERSPEC
-#define WSA_QOS_EPSFILTERSPEC (WSABASEERR + 1028)
-#endif
-#ifndef WSA_QOS_ESDMODEOBJ
-#define WSA_QOS_ESDMODEOBJ (WSABASEERR + 1029)
-#endif
-#ifndef WSA_QOS_ESHAPERATEOBJ
-#define WSA_QOS_ESHAPERATEOBJ (WSABASEERR + 1030)
-#endif
-#ifndef WSA_QOS_RESERVED_PETYPE
-#define WSA_QOS_RESERVED_PETYPE (WSABASEERR + 1031)
-#endif
-#endif // WSABASEERR
+#تعریف_کن WSAENOMORE (WSABASEERR+102)
+#تعریف_کن WSAECANCELLED (WSABASEERR+103)
+#تعریف_کن WSAEINVALIDPROCTABLE (WSABASEERR+104)
+#تعریف_کن WSAEINVALIDPROVIDER (WSABASEERR+105)
+#تعریف_کن WSAEPROVIDERFAILEDINIT (WSABASEERR+106)
+#تعریف_کن WSASYSCALLFAILURE (WSABASEERR+107)
+#تعریف_کن WSASERVICE_NOT_یافت (WSABASEERR+108)
+#تعریف_کن WSATYPE_NOT_یافت (WSABASEERR+109)
+#تعریف_کن WSA_E_NO_بیشتر (WSABASEERR+110)
+#تعریف_کن WSA_E_CANCELLED (WSABASEERR+111)
+#تعریف_کن WSAEREFUSED (WSABASEERR+112)
+#اگر_تعریف_نشده WSA_QOS_RECEIVERS
+#تعریف_کن WSA_QOS_RECEIVERS (WSABASEERR + 1005)
+#پایان_اگر
+#اگر_تعریف_نشده WSA_QOS_SENDERS
+#تعریف_کن WSA_QOS_SENDERS (WSABASEERR + 1006)
+#پایان_اگر
+#اگر_تعریف_نشده WSA_QOS_NO_SENDERS
+#تعریف_کن WSA_QOS_NO_SENDERS (WSABASEERR + 1007)
+#تعریف_کن WSA_QOS_NO_RECEIVERS (WSABASEERR + 1008)
+#تعریف_کن WSA_QOS_REQUEST_CONFIRMED (WSABASEERR + 1009)
+#تعریف_کن WSA_QOS_ADMISSION_FAILURE (WSABASEERR + 1010)
+#تعریف_کن WSA_QOS_POLICY_FAILURE (WSABASEERR + 1011)
+#تعریف_کن WSA_QOS_BAD_STYLE (WSABASEERR + 1012)
+#تعریف_کن WSA_QOS_BAD_OBJECT (WSABASEERR + 1013)
+#تعریف_کن WSA_QOS_TRAFFIC_CTRL_ERROR (WSABASEERR + 1014)
+#تعریف_کن WSA_QOS_GENERIC_ERROR (WSABASEERR + 1015)
+#تعریف_کن WSA_QOS_ESERVICETYPE (WSABASEERR + 1016)
+#تعریف_کن WSA_QOS_EFLOWSPEC (WSABASEERR + 1017)
+#تعریف_کن WSA_QOS_EPROVSPECBUF (WSABASEERR + 1018)
+#پایان_اگر
+#اگر_تعریف_نشده WSA_QOS_EFILTERSTYLE
+#تعریف_کن WSA_QOS_EFILTERSTYLE (WSABASEERR + 1019)
+#پایان_اگر
+#اگر_تعریف_نشده WSA_QOS_EFILTERTYPE
+#تعریف_کن WSA_QOS_EFILTERTYPE (WSABASEERR + 1020)
+#پایان_اگر
+#اگر_تعریف_نشده WSA_QOS_EFILTERCOUNT
+#تعریف_کن WSA_QOS_EFILTERCOUNT (WSABASEERR + 1021)
+#پایان_اگر
+#اگر_تعریف_نشده WSA_QOS_EOBJLENGTH
+#تعریف_کن WSA_QOS_EOBJLENGTH (WSABASEERR + 1022)
+#پایان_اگر
+#اگر_تعریف_نشده WSA_QOS_EFLOWCOUNT
+#تعریف_کن WSA_QOS_EFLOWCOUNT (WSABASEERR + 1023)
+#پایان_اگر
+#اگر_تعریف_نشده WSA_QOS_EUNKNOWNPSOBJ
+#تعریف_کن WSA_QOS_EUNKNOWNPSOBJ (WSABASEERR + 1024)
+#پایان_اگر
+#اگر_تعریف_نشده WSA_QOS_EPOLICYOBJ
+#تعریف_کن WSA_QOS_EPOLICYOBJ (WSABASEERR + 1025)
+#پایان_اگر
+#اگر_تعریف_نشده WSA_QOS_EFLOWDESC
+#تعریف_کن WSA_QOS_EFLOWDESC (WSABASEERR + 1026)
+#پایان_اگر
+#اگر_تعریف_نشده WSA_QOS_EPSFLOWSPEC
+#تعریف_کن WSA_QOS_EPSFLOWSPEC (WSABASEERR + 1027)
+#پایان_اگر
+#اگر_تعریف_نشده WSA_QOS_EPSFILTERSPEC
+#تعریف_کن WSA_QOS_EPSFILTERSPEC (WSABASEERR + 1028)
+#پایان_اگر
+#اگر_تعریف_نشده WSA_QOS_ESDMODEOBJ
+#تعریف_کن WSA_QOS_ESDMODEOBJ (WSABASEERR + 1029)
+#پایان_اگر
+#اگر_تعریف_نشده WSA_QOS_ESHAPERATEOBJ
+#تعریف_کن WSA_QOS_ESHAPERATEOBJ (WSABASEERR + 1030)
+#پایان_اگر
+#اگر_تعریف_نشده WSA_QOS_RESERVED_PETYPE
+#تعریف_کن WSA_QOS_RESERVED_PETYPE (WSABASEERR + 1031)
+#پایان_اگر
+#پایان_اگر // WSABASEERR
 
-#define h_errno WSAGetLastError()
-#define HOST_NOT_FOUND WSAHOST_NOT_FOUND
-#define TRY_AGAIN WSATRY_AGAIN
-#define NO_RECOVERY WSANO_RECOVERY
-#define NO_DATA WSANO_DATA
+#تعریف_کن h_errno WSAGet_آخرین_Error()
+#تعریف_کن HOST_NOT_یافت WSAHOST_NOT_یافت
+#تعریف_کن TRY_AGAIN WSATRY_AGAIN
+#تعریف_کن NO_RECOVERY WSANO_RECOVERY
+#تعریف_کن NO_داده WSANO_داده
 
-#define WSANO_ADDRESS WSANO_DATA
-#define NO_ADDRESS WSANO_ADDRESS
+#تعریف_کن WSANO_آدرس WSANO_داده
+#تعریف_کن NO_آدرس WSANO_آدرس
 
-#if 0
-#define EWOULDBLOCK WSAEWOULDBLOCK
-#define EINPROGRESS WSAEINPROGRESS
-#define EALREADY WSAEALREADY
-#define ENOTSOCK WSAENOTSOCK
-#define EDESTADDRREQ WSAEDESTADDRREQ
-#define EMSGSIZE WSAEMSGSIZE
-#define EPROTOTYPE WSAEPROTOTYPE
-#define ENOPROTOOPT WSAENOPROTOOPT
-#define EPROTONOSUPPORT WSAEPROTONOSUPPORT
-#define ESOCKTNOSUPPORT WSAESOCKTNOSUPPORT
-#define EOPNOTSUPP WSAEOPNOTSUPP
-#define EPFNOSUPPORT WSAEPFNOSUPPORT
-#define EAFNOSUPPORT WSAEAFNOSUPPORT
-#define EADDRINUSE WSAEADDRINUSE
-#define EADDRNOTAVAIL WSAEADDRNOTAVAIL
-#define ENETDOWN WSAENETDOWN
-#define ENETUNREACH WSAENETUNREACH
-#define ENETRESET WSAENETRESET
-#define ECONNABORTED WSAECONNABORTED
-#define ECONNRESET WSAECONNRESET
-#define ENOBUFS WSAENOBUFS
-#define EISCONN WSAEISCONN
-#define ENOTCONN WSAENOTCONN
-#define ESHUTDOWN WSAESHUTDOWN
-#define ETOOMANYREFS WSAETOOMANYREFS
-#define ETIMEDOUT WSAETIMEDOUT
-#define ECONNREFUSED WSAECONNREFUSED
-#define ELOOP WSAELOOP
-#define ENAMETOOLONG WSAENAMETOOLONG
-#define EHOSTDOWN WSAEHOSTDOWN
-#define EHOSTUNREACH WSAEHOSTUNREACH
-#define ENOTEMPTY WSAENOTEMPTY
-#define EPROCLIM WSAEPROCLIM
-#define EUSERS WSAEUSERS
-#define EDQUOT WSAEDQUOT
-#define ESTALE WSAESTALE
-#define EREMOTE WSAEREMOTE
-#endif
+#إذا 0
+#تعریف_کن EWOULDBLOCK WSAEWOULDBLOCK
+#تعریف_کن EINPROGRESS WSAEINPROGRESS
+#تعریف_کن EALREADY WSAEALREADY
+#تعریف_کن ENOTSOCK WSAENOTSOCK
+#تعریف_کن EDESTADDRREQ WSAEDESTADDRREQ
+#تعریف_کن EMSGSIZE WSAEMSGSIZE
+#تعریف_کن EPROTOTYPE WSAEPROTOTYPE
+#تعریف_کن ENOPROTOOPT WSAENOPROTOOPT
+#تعریف_کن EPROTONOSUPPORT WSAEPROTONOSUPPORT
+#تعریف_کن ESOCKTNOSUPPORT WSAESOCKTNOSUPPORT
+#تعریف_کن EOPNOTSUPP WSAEOPNOTSUPP
+#تعریف_کن EPFNOSUPPORT WSAEPFNOSUPPORT
+#تعریف_کن EAFNOSUPPORT WSAEAFNOSUPPORT
+#تعریف_کن EADDRINUSE WSAEADDRINUSE
+#تعریف_کن EADDRNOTAVAIL WSAEADDRNOTAVAIL
+#تعریف_کن ENETDOWN WSAENETDOWN
+#تعریف_کن ENETUNREACH WSAENETUNREACH
+#تعریف_کن ENETRESET WSAENETRESET
+#تعریف_کن ECONNABORTED WSAECONNABORTED
+#تعریف_کن ECONNRESET WSAECONNRESET
+#تعریف_کن ENOBUFS WSAENOBUFS
+#تعریف_کن EISCONN WSAEISCONN
+#تعریف_کن ENOTCONN WSAENOTCONN
+#تعریف_کن ESHUTDOWN WSAESHUTDOWN
+#تعریف_کن ETOOMANYREFS WSAETOOMANYREFS
+#تعریف_کن ETIMEDOUT WSAETIMEDOUT
+#تعریف_کن ECONNREFUSED WSAECONNREFUSED
+#تعریف_کن ELOOP WSAELOOP
+#تعریف_کن ENAMETOOLONG WSAENAMETOOLONG
+#تعریف_کن EHOSTDOWN WSAEHOSTDOWN
+#تعریف_کن EHOSTUNREACH WSAEHOSTUNREACH
+#تعریف_کن ENOTEMPTY WSAENOTEMPTY
+#تعریف_کن EPROCLIM WSAEPROCLIM
+#تعریف_کن EUSERS WSAEUSERS
+#تعریف_کن EDQUOT WSAEDQUOT
+#تعریف_کن ESTALE WSAESTALE
+#تعریف_کن EREMOTE WSAEREMOTE
+#پایان_اگر
 
-#define WSAAPI WINAPI
-#define WSAEVENT HANDLE
-#define LPWSAEVENT LPHANDLE
-#define WSAOVERLAPPED OVERLAPPED
-  typedef struct _OVERLAPPED *LPWSAOVERLAPPED;
+#تعریف_کن WSAAPI WINAPI
+#تعریف_کن WSAEVENT HANDLE
+#تعریف_کن LPWSAEVENT LPHANDLE
+#تعریف_کن WSAOVERLAPPED OVERLAPPED
+  تعريفنوع بنية _OVERLAPPED *LPWSAOVERLAPPED;
 
-#define WSA_IO_PENDING (ERROR_IO_PENDING)
-#define WSA_IO_INCOMPLETE (ERROR_IO_INCOMPLETE)
-#define WSA_INVALID_HANDLE (ERROR_INVALID_HANDLE)
-#define WSA_INVALID_PARAMETER (ERROR_INVALID_PARAMETER)
-#define WSA_NOT_ENOUGH_MEMORY (ERROR_NOT_ENOUGH_MEMORY)
-#define WSA_OPERATION_ABORTED (ERROR_OPERATION_ABORTED)
+#تعریف_کن WSA_IO_PENDING (ERROR_IO_PENDING)
+#تعریف_کن WSA_IO_INCOMPLETE (ERROR_IO_INCOMPLETE)
+#تعریف_کن WSA_INVALID_HANDLE (ERROR_INVALID_HANDLE)
+#تعریف_کن WSA_INVALID_PARAMETER (ERROR_INVALID_PARAMETER)
+#تعریف_کن WSA_NOT_ENOUGH_حافظه (ERROR_NOT_ENOUGH_حافظه)
+#تعریف_کن WSA_OPERATION_ABORTED (ERROR_OPERATION_ABORTED)
 
-#define WSA_INVALID_EVENT ((WSAEVENT)NULL)
-#define WSA_MAXIMUM_WAIT_EVENTS (MAXIMUM_WAIT_OBJECTS)
-#define WSA_WAIT_FAILED (WAIT_FAILED)
-#define WSA_WAIT_EVENT_0 (WAIT_OBJECT_0)
-#define WSA_WAIT_IO_COMPLETION (WAIT_IO_COMPLETION)
-#define WSA_WAIT_TIMEOUT (WAIT_TIMEOUT)
-#define WSA_INFINITE (INFINITE)
+#تعریف_کن WSA_INVALID_EVENT ((WSAEVENT)عدم)
+#تعریف_کن WSA_بیشینه_WAIT_EVENTS (بیشینه_WAIT_OBJECTS)
+#تعریف_کن WSA_WAIT_FAILED (WAIT_FAILED)
+#تعریف_کن WSA_WAIT_EVENT_0 (WAIT_OBJECT_0)
+#تعریف_کن WSA_WAIT_IO_COMPLETION (WAIT_IO_COMPLETION)
+#تعریف_کن WSA_WAIT_TIMEOUT (WAIT_TIMEOUT)
+#تعریف_کن WSA_INFINITE (INFINITE)
 
-  typedef struct _WSABUF {
+  تعريفنوع بنية _WSABUF {
     u_long len;
-    char *buf;
+    حرف *buf;
   } WSABUF,*LPWSABUF;
 
-#include <qos.h>
+#ضمن <qos.h>
 
-  typedef struct _QualityOfService {
+  تعريفنوع بنية Quality_از_Service {
     FLOWSPEC SendingFlowspec;
     FLOWSPEC ReceivingFlowspec;
     WSABUF ProviderSpecific;
   } QOS,*LPQOS;
 
-#define CF_ACCEPT 0x0000
-#define CF_REJECT 0x0001
-#define CF_DEFER 0x0002
+#تعریف_کن CF_ACCEPT 0x0000
+#تعریف_کن CF_REJECT 0x0001
+#تعریف_کن CF_DEFER 0x0002
 
-#define SD_RECEIVE 0x00
-#define SD_SEND 0x01
-#define SD_BOTH 0x02
+#تعریف_کن SD_RECEIVE 0x00
+#تعریف_کن SD_SEND 0x01
+#تعریف_کن SD_BOTH 0x02
 
-  typedef unsigned int GROUP;
+  تعريفنوع بیعلامت صحيح گروه_3;
 
-#define SG_UNCONSTRAINED_GROUP 0x01
-#define SG_CONSTRAINED_GROUP 0x02
+#تعریف_کن SG_UNCONSTRAINED_گروه 0x01
+#تعریف_کن SG_CONSTRAINED_گروه 0x02
 
-  typedef struct _WSANETWORKEVENTS {
-    long lNetworkEvents;
-    int iErrorCode[FD_MAX_EVENTS];
+  تعريفنوع بنية _WSANETWORKEVENTS {
+    دراز l_شبکه_Events;
+    صحيح i_Error_کد[FD_MAX_EVENTS];
   } WSANETWORKEVENTS,*LPWSANETWORKEVENTS;
 
-#ifndef GUID_DEFINED
-#include <guiddef.h>
-#endif
+#اگر_تعریف_نشده GUID_DEFINED
+#ضمن <guiddef.h>
+#پایان_اگر
 
-#define MAX_PROTOCOL_CHAIN 7
+#تعریف_کن MAX_PROTOCOL_CHAIN 7
 
-#define BASE_PROTOCOL 1
-#define LAYERED_PROTOCOL 0
+#تعریف_کن پایه_PROTOCOL 1
+#تعریف_کن LAYERED_PROTOCOL 0
 
-  typedef struct _WSAPROTOCOLCHAIN {
-    int ChainLen;
+  تعريفنوع بنية _WSAPROTOCOLCHAIN {
+    صحيح ChainLen;
 
     DWORD ChainEntries[MAX_PROTOCOL_CHAIN];
   } WSAPROTOCOLCHAIN,*LPWSAPROTOCOLCHAIN;
 
-#define WSAPROTOCOL_LEN 255
+#تعریف_کن WSAPROTOCOL_LEN 255
 
-  typedef struct _WSAPROTOCOL_INFOA {
+  تعريفنوع بنية _WSAPROTOCOL_INFOA {
     DWORD dwServiceFlags1;
     DWORD dwServiceFlags2;
     DWORD dwServiceFlags3;
     DWORD dwServiceFlags4;
     DWORD dwProviderFlags;
     GUID ProviderId;
-    DWORD dwCatalogEntryId;
+    DWORD dw_Catalog_مدخل_Id;
     WSAPROTOCOLCHAIN ProtocolChain;
-    int iVersion;
-    int iAddressFamily;
-    int iMaxSockAddr;
-    int iMinSockAddr;
-    int iSocketType;
-    int iProtocol;
-    int iProtocolMaxOffset;
-    int iNetworkByteOrder;
-    int iSecurityScheme;
-    DWORD dwMessageSize;
+    صحيح i_نسخه;
+    صحيح i_آدرس_Family;
+    صحيح iMaxSockAddr;
+    صحيح iMinSockAddr;
+    صحيح iSocketType;
+    صحيح iProtocol;
+    صحيح i_Protocol_Max_جابه_جایی;
+    صحيح i_شبکه_Byte_ترتیب;
+    صحيح iSecurityScheme;
+    DWORD dw_پیام_اندازه;
     DWORD dwProviderReserved;
     CHAR szProtocol[WSAPROTOCOL_LEN+1];
   } WSAPROTOCOL_INFOA,*LPWSAPROTOCOL_INFOA;
-  typedef struct _WSAPROTOCOL_INFOW {
+  تعريفنوع بنية _WSAPROTOCOL_INFOW {
     DWORD dwServiceFlags1;
     DWORD dwServiceFlags2;
     DWORD dwServiceFlags3;
     DWORD dwServiceFlags4;
     DWORD dwProviderFlags;
     GUID ProviderId;
-    DWORD dwCatalogEntryId;
+    DWORD dw_Catalog_مدخل_Id;
     WSAPROTOCOLCHAIN ProtocolChain;
-    int iVersion;
-    int iAddressFamily;
-    int iMaxSockAddr;
-    int iMinSockAddr;
-    int iSocketType;
-    int iProtocol;
-    int iProtocolMaxOffset;
-    int iNetworkByteOrder;
-    int iSecurityScheme;
-    DWORD dwMessageSize;
+    صحيح i_نسخه;
+    صحيح i_آدرس_Family;
+    صحيح iMaxSockAddr;
+    صحيح iMinSockAddr;
+    صحيح iSocketType;
+    صحيح iProtocol;
+    صحيح i_Protocol_Max_جابه_جایی;
+    صحيح i_شبکه_Byte_ترتیب;
+    صحيح iSecurityScheme;
+    DWORD dw_پیام_اندازه;
     DWORD dwProviderReserved;
     WCHAR szProtocol[WSAPROTOCOL_LEN+1];
   } WSAPROTOCOL_INFOW,*LPWSAPROTOCOL_INFOW;
-#ifdef UNICODE
-  typedef WSAPROTOCOL_INFOW WSAPROTOCOL_INFO;
-  typedef LPWSAPROTOCOL_INFOW LPWSAPROTOCOL_INFO;
-#else
-  typedef WSAPROTOCOL_INFOA WSAPROTOCOL_INFO;
-  typedef LPWSAPROTOCOL_INFOA LPWSAPROTOCOL_INFO;
-#endif
+#اگر_تعریف_شده UNICODE
+  تعريفنوع WSAPROTOCOL_INFOW WSAPROTOCOL_INFO;
+  تعريفنوع LPWSAPROTOCOL_INFOW LPWSAPROTOCOL_INFO;
+#وإلا
+  تعريفنوع WSAPROTOCOL_INFOA WSAPROTOCOL_INFO;
+  تعريفنوع LPWSAPROTOCOL_INFOA LPWSAPROTOCOL_INFO;
+#پایان_اگر
 
-#define PFL_MULTIPLE_PROTO_ENTRIES 0x00000001
-#define PFL_RECOMMENDED_PROTO_ENTRY 0x00000002
-#define PFL_HIDDEN 0x00000004
-#define PFL_MATCHES_PROTOCOL_ZERO 0x00000008
+#تعریف_کن PFL_مضرب_PROTO_ENTRIES 0x00000001
+#تعریف_کن PFL_RECOMMENDED_PROTO_مدخل 0x00000002
+#تعریف_کن PFL_HIDDEN 0x00000004
+#تعریف_کن PFL_MATCHES_PROTOCOL_ZERO 0x00000008
 
-#define XP1_CONNECTIONLESS 0x00000001
-#define XP1_GUARANTEED_DELIVERY 0x00000002
-#define XP1_GUARANTEED_ORDER 0x00000004
-#define XP1_MESSAGE_ORIENTED 0x00000008
-#define XP1_PSEUDO_STREAM 0x00000010
-#define XP1_GRACEFUL_CLOSE 0x00000020
-#define XP1_EXPEDITED_DATA 0x00000040
-#define XP1_CONNECT_DATA 0x00000080
-#define XP1_DISCONNECT_DATA 0x00000100
-#define XP1_SUPPORT_BROADCAST 0x00000200
-#define XP1_SUPPORT_MULTIPOINT 0x00000400
-#define XP1_MULTIPOINT_CONTROL_PLANE 0x00000800
-#define XP1_MULTIPOINT_DATA_PLANE 0x00001000
-#define XP1_QOS_SUPPORTED 0x00002000
-#define XP1_INTERRUPT 0x00004000
-#define XP1_UNI_SEND 0x00008000
-#define XP1_UNI_RECV 0x00010000
-#define XP1_IFS_HANDLES 0x00020000
-#define XP1_PARTIAL_MESSAGE 0x00040000
+#تعریف_کن XP1_CONNECTIONLESS 0x00000001
+#تعریف_کن XP1_GUARANTEED_DELIVERY 0x00000002
+#تعریف_کن XP1_GUARANTEED_ترتیب 0x00000004
+#تعریف_کن XP1_پیام_ORIENTED 0x00000008
+#تعریف_کن XP1_PSEUDO_جریان 0x00000010
+#تعریف_کن XP1_GRACEFUL_CLOSE 0x00000020
+#تعریف_کن XP1_EXPEDITED_داده 0x00000040
+#تعریف_کن XP1_CONNECT_داده 0x00000080
+#تعریف_کن XP1_DISCONNECT_داده 0x00000100
+#تعریف_کن XP1_SUPPORT_پخش 0x00000200
+#تعریف_کن XP1_SUPPORT_MULTIPOINT 0x00000400
+#تعریف_کن XP1_MULTIPOINT_CONTROL_PLANE 0x00000800
+#تعریف_کن XP1_MULTIPOINT_داده_PLANE 0x00001000
+#تعریف_کن XP1_QOS_SUPPORTED 0x00002000
+#تعریف_کن XP1_وقفه 0x00004000
+#تعریف_کن XP1_UNI_SEND 0x00008000
+#تعریف_کن XP1_UNI_RECV 0x00010000
+#تعریف_کن XP1_IFS_HANDLES 0x00020000
+#تعریف_کن XP1_PARTIAL_پیام 0x00040000
 
-#define BIGENDIAN 0x0000
-#define LITTLEENDIAN 0x0001
+#تعریف_کن BIGENDIAN 0x0000
+#تعریف_کن LITTLEENDIAN 0x0001
 
-#define SECURITY_PROTOCOL_NONE 0x0000
+#تعریف_کن SECURITY_PROTOCOL_NONE 0x0000
 
-#define JL_SENDER_ONLY 0x01
-#define JL_RECEIVER_ONLY 0x02
-#define JL_BOTH 0x04
+#تعریف_کن JL_SENDER_ONLY 0x01
+#تعریف_کن JL_RECEIVER_ONLY 0x02
+#تعریف_کن JL_BOTH 0x04
 
-#define WSA_FLAG_OVERLAPPED 0x01
-#define WSA_FLAG_MULTIPOINT_C_ROOT 0x02
-#define WSA_FLAG_MULTIPOINT_C_LEAF 0x04
-#define WSA_FLAG_MULTIPOINT_D_ROOT 0x08
-#define WSA_FLAG_MULTIPOINT_D_LEAF 0x10
+#تعریف_کن WSA_FLAG_OVERLAPPED 0x01
+#تعریف_کن WSA_FLAG_MULTIPOINT_C_ریشه 0x02
+#تعریف_کن WSA_FLAG_MULTIPOINT_C_برگ 0x04
+#تعریف_کن WSA_FLAG_MULTIPOINT_D_ریشه 0x08
+#تعریف_کن WSA_FLAG_MULTIPOINT_D_برگ 0x10
 
-#define IOC_UNIX 0x00000000
-#define IOC_WS2 0x08000000
-#define IOC_PROTOCOL 0x10000000
-#define IOC_VENDOR 0x18000000
+#تعریف_کن IOC_UNIX 0x00000000
+#تعریف_کن IOC_WS2 0x08000000
+#تعریف_کن IOC_PROTOCOL 0x10000000
+#تعریف_کن IOC_VENDOR 0x18000000
 
-#define _WSAIO(x,y) (IOC_VOID|(x)|(y))
-#define _WSAIOR(x,y) (IOC_OUT|(x)|(y))
-#define _WSAIOW(x,y) (IOC_IN|(x)|(y))
-#define _WSAIORW(x,y) (IOC_INOUT|(x)|(y))
+#تعریف_کن _WSAIO(x,y) (IOC_VOID|(x)|(y))
+#تعریف_کن _WSAIOR(x,y) (IOC_بیرون|(x)|(y))
+#تعریف_کن _WSAIOW(x,y) (IOC_درون|(x)|(y))
+#تعریف_کن _WSAIORW(x,y) (IOC_INOUT|(x)|(y))
 
-#define SIO_ASSOCIATE_HANDLE _WSAIOW(IOC_WS2,1)
-#define SIO_ENABLE_CIRCULAR_QUEUEING _WSAIO(IOC_WS2,2)
-#define SIO_FIND_ROUTE _WSAIOR(IOC_WS2,3)
-#define SIO_FLUSH _WSAIO(IOC_WS2,4)
-#define SIO_GET_BROADCAST_ADDRESS _WSAIOR(IOC_WS2,5)
-#define SIO_GET_EXTENSION_FUNCTION_POINTER _WSAIORW(IOC_WS2,6)
-#define SIO_GET_QOS _WSAIORW(IOC_WS2,7)
-#define SIO_GET_GROUP_QOS _WSAIORW(IOC_WS2,8)
-#define SIO_MULTIPOINT_LOOPBACK _WSAIOW(IOC_WS2,9)
-#define SIO_MULTICAST_SCOPE _WSAIOW(IOC_WS2,10)
-#define SIO_SET_QOS _WSAIOW(IOC_WS2,11)
-#define SIO_SET_GROUP_QOS _WSAIOW(IOC_WS2,12)
-#define SIO_TRANSLATE_HANDLE _WSAIORW(IOC_WS2,13)
-#define SIO_ROUTING_INTERFACE_QUERY _WSAIORW(IOC_WS2,20)
-#define SIO_ROUTING_INTERFACE_CHANGE _WSAIOW(IOC_WS2,21)
-#define SIO_ADDRESS_LIST_QUERY _WSAIOR(IOC_WS2,22)
-#define SIO_ADDRESS_LIST_CHANGE _WSAIO(IOC_WS2,23)
-#define SIO_QUERY_TARGET_PNP_HANDLE _WSAIOR(IOC_WS2,24)
-#define SIO_ADDRESS_LIST_SORT _WSAIORW(IOC_WS2,25)
+#تعریف_کن SIO_ASSOCIATE_HANDLE _WSAIOW(IOC_WS2,1)
+#تعریف_کن SIO_ENABLE_CIRCULAR_QUEUEING _WSAIO(IOC_WS2,2)
+#تعریف_کن SIO_پیدا_کن_ROUTE _WSAIOR(IOC_WS2,3)
+#تعریف_کن SIO_FLUSH _WSAIO(IOC_WS2,4)
+#تعریف_کن SIO_GET_پخش_آدرس _WSAIOR(IOC_WS2,5)
+#تعریف_کن SIO_GET_EXTENSION_FUNCTION_اشاره_گر _WSAIORW(IOC_WS2,6)
+#تعریف_کن SIO_GET_QOS _WSAIORW(IOC_WS2,7)
+#تعریف_کن SIO_GET_گروه_QOS _WSAIORW(IOC_WS2,8)
+#تعریف_کن SIO_MULTIPOINT_LOOPBACK _WSAIOW(IOC_WS2,9)
+#تعریف_کن SIO_MULTICAST_SCOPE _WSAIOW(IOC_WS2,10)
+#تعریف_کن SIO_مجموعه_QOS _WSAIOW(IOC_WS2,11)
+#تعریف_کن SIO_مجموعه_گروه_QOS _WSAIOW(IOC_WS2,12)
+#تعریف_کن SIO_TRANSLATE_HANDLE _WSAIORW(IOC_WS2,13)
+#تعریف_کن SIO_ROUTING_INTERFACE_QUERY _WSAIORW(IOC_WS2,20)
+#تعریف_کن SIO_ROUTING_INTERFACE_CHANGE _WSAIOW(IOC_WS2,21)
+#تعریف_کن SIO_آدرس_LIST_QUERY _WSAIOR(IOC_WS2,22)
+#تعریف_کن SIO_آدرس_LIST_CHANGE _WSAIO(IOC_WS2,23)
+#تعریف_کن SIO_QUERY_هدف_PNP_HANDLE _WSAIOR(IOC_WS2,24)
+#تعریف_کن SIO_آدرس_LIST_مرتب_سازی _WSAIORW(IOC_WS2,25)
 
-  typedef int (CALLBACK *LPCONDITIONPROC)(LPWSABUF lpCallerId,LPWSABUF lpCallerData,LPQOS lpSQOS,LPQOS lpGQOS,LPWSABUF lpCalleeId,LPWSABUF lpCalleeData,GROUP *g,DWORD_PTR dwCallbackData);
-  typedef void (CALLBACK *LPWSAOVERLAPPED_COMPLETION_ROUTINE)(DWORD dwError,DWORD cbTransferred,LPWSAOVERLAPPED lpOverlapped,DWORD dwFlags);
+  تعريفنوع صحيح (CALLBACK *LPCONDITIONPROC)(LPWSABUF lpCallerId,LPWSABUF lp_Caller_داده,LPQOS lpSQOS,LPQOS lpGQOS,LPWSABUF lpCalleeId,LPWSABUF lp_Callee_داده,گروه_3 *g,DWORD_PTR dw_Callback_داده);
+  تعريفنوع فراغ (CALLBACK *LPWSAOVERLAPPED_COMPLETION_ROUTINE)(DWORD dwError,DWORD cbTransferred,LPWSAOVERLAPPED lpOverlapped,DWORD dwFlags);
 
-#define SIO_NSP_NOTIFY_CHANGE _WSAIOW(IOC_WS2,25)
+#تعریف_کن SIO_NSP_NOTIFY_CHANGE _WSAIOW(IOC_WS2,25)
 
-  typedef enum _WSACOMPLETIONTYPE {
-    NSP_NOTIFY_IMMEDIATELY = 0,NSP_NOTIFY_HWND,NSP_NOTIFY_EVENT,NSP_NOTIFY_PORT,NSP_NOTIFY_APC
+  تعريفنوع تعداد _WSACOMPLETIONTYPE {
+    NSP_NOTIFY_IMMEDIATELY = 0,NSP_NOTIFY_HWND,NSP_NOTIFY_EVENT,NSP_NOTIFY_پورت,NSP_NOTIFY_APC
   } WSACOMPLETIONTYPE,*PWSACOMPLETIONTYPE,*LPWSACOMPLETIONTYPE;
 
-  typedef struct _WSACOMPLETION {
+  تعريفنوع بنية _WSACOMPLETION {
     WSACOMPLETIONTYPE Type;
-    union {
-      struct {
+    اتحاد {
+      بنية {
 	HWND hWnd;
-	UINT uMsg;
+	UINT u_پیام;
 	WPARAM context;
-      } WindowMessage;
-      struct {
+      } پنجره_پیام;
+      بنية {
 	LPWSAOVERLAPPED lpOverlapped;
       } Event;
-      struct {
+      بنية {
 	LPWSAOVERLAPPED lpOverlapped;
 	LPWSAOVERLAPPED_COMPLETION_ROUTINE lpfnCompletionProc;
       } Apc;
-      struct {
+      بنية {
 	LPWSAOVERLAPPED lpOverlapped;
-	HANDLE hPort;
-	ULONG_PTR Key;
-      } Port;
+	HANDLE h_پورت;
+	ULONG_PTR کلید_3;
+      } پورت;
     } Parameters;
   } WSACOMPLETION,*PWSACOMPLETION,*LPWSACOMPLETION;
 
-#define TH_NETDEV 0x00000001
-#define TH_TAPI 0x00000002
+#تعریف_کن TH_NETDEV 0x00000001
+#تعریف_کن TH_TAPI 0x00000002
 
-  typedef struct sockaddr SOCKADDR;
-  typedef struct sockaddr *PSOCKADDR;
-  typedef struct sockaddr *LPSOCKADDR;
-  typedef struct sockaddr_storage SOCKADDR_STORAGE;
-  typedef struct sockaddr_storage *PSOCKADDR_STORAGE;
-  typedef struct sockaddr_storage *LPSOCKADDR_STORAGE;
+  تعريفنوع بنية sockaddr SOCKADDR;
+  تعريفنوع بنية sockaddr *PSOCKADDR;
+  تعريفنوع بنية sockaddr *LPSOCKADDR;
+  تعريفنوع بنية sockaddr_storage SOCKADDR_STORAGE;
+  تعريفنوع بنية sockaddr_storage *PSOCKADDR_STORAGE;
+  تعريفنوع بنية sockaddr_storage *LPSOCKADDR_STORAGE;
 
-#ifndef _tagBLOB_DEFINED
-#define _tagBLOB_DEFINED
-#define _BLOB_DEFINED
-#define _LPBLOB_DEFINED
-  typedef struct _BLOB {
-    ULONG cbSize;
-    BYTE *pBlobData;
+#اگر_تعریف_نشده برچسب_BLOB_DEFINED
+#تعریف_کن برچسب_BLOB_DEFINED
+#تعریف_کن _BLOB_DEFINED
+#تعریف_کن _LPBLOB_DEFINED
+  تعريفنوع بنية _BLOB {
+    ULONG cb_اندازه;
+    BYTE *p_Blob_داده;
   } BLOB,*LPBLOB;
-#endif
+#پایان_اگر
 
-#define SERVICE_MULTIPLE (0x00000001)
+#تعریف_کن SERVICE_مضرب (0x00000001)
 
-#define NS_ALL (0)
+#تعریف_کن NS_ALL (0)
 
-#define NS_SAP (1)
-#define NS_NDS (2)
-#define NS_PEER_BROWSE (3)
-#define NS_SLP (5)
-#define NS_DHCP (6)
+#تعریف_کن NS_SAP (1)
+#تعریف_کن NS_NDS (2)
+#تعریف_کن NS_PEER_BROWSE (3)
+#تعریف_کن NS_SLP (5)
+#تعریف_کن NS_DHCP (6)
 
-#define NS_TCPIP_LOCAL (10)
-#define NS_TCPIP_HOSTS (11)
-#define NS_DNS (12)
-#define NS_NETBT (13)
-#define NS_WINS (14)
-#define NS_NLA (15)
+#تعریف_کن NS_TCPIP_LOCAL (10)
+#تعریف_کن NS_TCPIP_HOSTS (11)
+#تعریف_کن NS_DNS (12)
+#تعریف_کن NS_NETBT (13)
+#تعریف_کن NS_WINS (14)
+#تعریف_کن NS_NLA (15)
 
-#define NS_NBP (20)
+#تعریف_کن NS_NBP (20)
 
-#define NS_MS (30)
-#define NS_STDA (31)
-#define NS_NTDS (32)
+#تعریف_کن NS_MS (30)
+#تعریف_کن NS_STDA (31)
+#تعریف_کن NS_NTDS (32)
 
-#define NS_X500 (40)
-#define NS_NIS (41)
-#define NS_NISPLUS (42)
+#تعریف_کن NS_X500 (40)
+#تعریف_کن NS_NIS (41)
+#تعریف_کن NS_NISPLUS (42)
 
-#define NS_WRQ (50)
+#تعریف_کن NS_WRQ (50)
 
-#define NS_NETDES (60)
+#تعریف_کن NS_NETDES (60)
 
-#define RES_UNUSED_1 (0x00000001)
-#define RES_FLUSH_CACHE (0x00000002)
-#ifndef RES_SERVICE
-#define RES_SERVICE (0x00000004)
-#endif
+#تعریف_کن RES_استفادهنشده_1 (0x00000001)
+#تعریف_کن RES_FLUSH_CACHE (0x00000002)
+#اگر_تعریف_نشده RES_SERVICE
+#تعریف_کن RES_SERVICE (0x00000004)
+#پایان_اگر
 
-#define SERVICE_TYPE_VALUE_IPXPORTA "IpxSocket"
-#define SERVICE_TYPE_VALUE_IPXPORTW L"IpxSocket"
-#define SERVICE_TYPE_VALUE_SAPIDA "SapId"
-#define SERVICE_TYPE_VALUE_SAPIDW L"SapId"
+#تعریف_کن SERVICE_TYPE_مقدار_IPXPORTA "IpxSocket"
+#تعریف_کن SERVICE_TYPE_مقدار_IPXPORTW L"IpxSocket"
+#تعریف_کن SERVICE_TYPE_مقدار_SAPIDA "SapId"
+#تعریف_کن SERVICE_TYPE_مقدار_SAPIDW L"SapId"
 
-#define SERVICE_TYPE_VALUE_TCPPORTA "TcpPort"
-#define SERVICE_TYPE_VALUE_TCPPORTW L"TcpPort"
+#تعریف_کن SERVICE_TYPE_مقدار_TCPPORTA "TcpPort"
+#تعریف_کن SERVICE_TYPE_مقدار_TCPPORTW L"TcpPort"
 
-#define SERVICE_TYPE_VALUE_UDPPORTA "UdpPort"
-#define SERVICE_TYPE_VALUE_UDPPORTW L"UdpPort"
+#تعریف_کن SERVICE_TYPE_مقدار_UDPPORTA "UdpPort"
+#تعریف_کن SERVICE_TYPE_مقدار_UDPPORTW L"UdpPort"
 
-#define SERVICE_TYPE_VALUE_OBJECTIDA "ObjectId"
-#define SERVICE_TYPE_VALUE_OBJECTIDW L"ObjectId"
+#تعریف_کن SERVICE_TYPE_مقدار_OBJECTIDA "ObjectId"
+#تعریف_کن SERVICE_TYPE_مقدار_OBJECTIDW L"ObjectId"
 
-#ifdef UNICODE
+#اگر_تعریف_شده UNICODE
 
-#define SERVICE_TYPE_VALUE_SAPID SERVICE_TYPE_VALUE_SAPIDW
-#define SERVICE_TYPE_VALUE_TCPPORT SERVICE_TYPE_VALUE_TCPPORTW
-#define SERVICE_TYPE_VALUE_UDPPORT SERVICE_TYPE_VALUE_UDPPORTW
-#define SERVICE_TYPE_VALUE_OBJECTID SERVICE_TYPE_VALUE_OBJECTIDW
-#else
+#تعریف_کن SERVICE_TYPE_مقدار_SAPID SERVICE_TYPE_مقدار_SAPIDW
+#تعریف_کن SERVICE_TYPE_مقدار_TCPPORT SERVICE_TYPE_مقدار_TCPPORTW
+#تعریف_کن SERVICE_TYPE_مقدار_UDPPORT SERVICE_TYPE_مقدار_UDPPORTW
+#تعریف_کن SERVICE_TYPE_مقدار_OBJECTID SERVICE_TYPE_مقدار_OBJECTIDW
+#وإلا
 
-#define SERVICE_TYPE_VALUE_SAPID SERVICE_TYPE_VALUE_SAPIDA
-#define SERVICE_TYPE_VALUE_TCPPORT SERVICE_TYPE_VALUE_TCPPORTA
-#define SERVICE_TYPE_VALUE_UDPPORT SERVICE_TYPE_VALUE_UDPPORTA
-#define SERVICE_TYPE_VALUE_OBJECTID SERVICE_TYPE_VALUE_OBJECTIDA
-#endif
+#تعریف_کن SERVICE_TYPE_مقدار_SAPID SERVICE_TYPE_مقدار_SAPIDA
+#تعریف_کن SERVICE_TYPE_مقدار_TCPPORT SERVICE_TYPE_مقدار_TCPPORTA
+#تعریف_کن SERVICE_TYPE_مقدار_UDPPORT SERVICE_TYPE_مقدار_UDPPORTA
+#تعریف_کن SERVICE_TYPE_مقدار_OBJECTID SERVICE_TYPE_مقدار_OBJECTIDA
+#پایان_اگر
 
-#ifndef __CSADDR_DEFINED__
-#define __CSADDR_DEFINED__
+#اگر_تعریف_نشده __CSADDR_DEFINED__
+#تعریف_کن __CSADDR_DEFINED__
 
-  typedef struct _SOCKET_ADDRESS {
+  تعريفنوع بنية SOCKET_آدرس {
     LPSOCKADDR lpSockaddr;
-    INT iSockaddrLength;
-  } SOCKET_ADDRESS,*PSOCKET_ADDRESS,*LPSOCKET_ADDRESS;
+    INT i_Sockaddr_درازی;
+  } SOCKET_آدرس_2,*PSOCKET_آدرس,*LPSOCKET_آدرس;
 
-  typedef struct _CSADDR_INFO {
-    SOCKET_ADDRESS LocalAddr;
-    SOCKET_ADDRESS RemoteAddr;
+  تعريفنوع بنية _CSADDR_INFO {
+    SOCKET_آدرس_2 LocalAddr;
+    SOCKET_آدرس_2 RemoteAddr;
     INT iSocketType;
     INT iProtocol;
   } CSADDR_INFO,*PCSADDR_INFO,*LPCSADDR_INFO;
-#endif
+#پایان_اگر
 
-  typedef struct _SOCKET_ADDRESS_LIST {
-    INT iAddressCount;
-    SOCKET_ADDRESS Address[1];
-  } SOCKET_ADDRESS_LIST,*LPSOCKET_ADDRESS_LIST;
+  تعريفنوع بنية SOCKET_آدرس_LIST {
+    INT i_آدرس_شمار;
+    SOCKET_آدرس_2 آدرس_2[1];
+  } SOCKET_آدرس_LIST_2,*LPSOCKET_آدرس_LIST;
 
-  typedef struct _AFPROTOCOLS {
-    INT iAddressFamily;
+  تعريفنوع بنية _AFPROTOCOLS {
+    INT i_آدرس_Family;
     INT iProtocol;
   } AFPROTOCOLS,*PAFPROTOCOLS,*LPAFPROTOCOLS;
 
-  typedef enum _WSAEcomparator {
+  تعريفنوع تعداد _WSAEcomparator {
     COMP_EQUAL = 0,COMP_NOTLESS
   } WSAECOMPARATOR,*PWSAECOMPARATOR,*LPWSAECOMPARATOR;
 
-  typedef struct _WSAVersion {
-    DWORD dwVersion;
+  تعريفنوع بنية _WSAVersion {
+    DWORD dw_نسخه;
     WSAECOMPARATOR ecHow;
   } WSAVERSION,*PWSAVERSION,*LPWSAVERSION;
 
-  typedef struct _WSAQuerySetA {
-    DWORD dwSize;
+  تعريفنوع بنية WSAQuery_مجموعه_A {
+    DWORD dw_اندازه;
     LPSTR lpszServiceInstanceName;
     LPGUID lpServiceClassId;
-    LPWSAVERSION lpVersion;
+    LPWSAVERSION lp_نسخه;
     LPSTR lpszComment;
     DWORD dwNameSpace;
     LPGUID lpNSProviderId;
     LPSTR lpszContext;
-    DWORD dwNumberOfProtocols;
+    DWORD dw_عدد_از_Protocols;
     LPAFPROTOCOLS lpafpProtocols;
     LPSTR lpszQueryString;
-    DWORD dwNumberOfCsAddrs;
-    LPCSADDR_INFO lpcsaBuffer;
+    DWORD dw_عدد_از_Cs_Addrs;
+    LPCSADDR_INFO lpcsa_میانگیر;
     DWORD dwOutputFlags;
     LPBLOB lpBlob;
   } WSAQUERYSETA,*PWSAQUERYSETA,*LPWSAQUERYSETA;
 
-  typedef struct _WSAQuerySetW {
-    DWORD dwSize;
+  تعريفنوع بنية WSAQuery_مجموعه_W {
+    DWORD dw_اندازه;
     LPWSTR lpszServiceInstanceName;
     LPGUID lpServiceClassId;
-    LPWSAVERSION lpVersion;
+    LPWSAVERSION lp_نسخه;
     LPWSTR lpszComment;
     DWORD dwNameSpace;
     LPGUID lpNSProviderId;
     LPWSTR lpszContext;
-    DWORD dwNumberOfProtocols;
+    DWORD dw_عدد_از_Protocols;
     LPAFPROTOCOLS lpafpProtocols;
     LPWSTR lpszQueryString;
-    DWORD dwNumberOfCsAddrs;
-    LPCSADDR_INFO lpcsaBuffer;
+    DWORD dw_عدد_از_Cs_Addrs;
+    LPCSADDR_INFO lpcsa_میانگیر;
     DWORD dwOutputFlags;
     LPBLOB lpBlob;
   } WSAQUERYSETW,*PWSAQUERYSETW,*LPWSAQUERYSETW;
 
-#ifdef UNICODE
-  typedef WSAQUERYSETW WSAQUERYSET;
-  typedef PWSAQUERYSETW PWSAQUERYSET;
-  typedef LPWSAQUERYSETW LPWSAQUERYSET;
-#else
-  typedef WSAQUERYSETA WSAQUERYSET;
-  typedef PWSAQUERYSETA PWSAQUERYSET;
-  typedef LPWSAQUERYSETA LPWSAQUERYSET;
-#endif
+#اگر_تعریف_شده UNICODE
+  تعريفنوع WSAQUERYSETW WSAQUERYSET;
+  تعريفنوع PWSAQUERYSETW PWSAQUERYSET;
+  تعريفنوع LPWSAQUERYSETW LPWSAQUERYSET;
+#وإلا
+  تعريفنوع WSAQUERYSETA WSAQUERYSET;
+  تعريفنوع PWSAQUERYSETA PWSAQUERYSET;
+  تعريفنوع LPWSAQUERYSETA LPWSAQUERYSET;
+#پایان_اگر
 
-#define LUP_DEEP 0x0001
-#define LUP_CONTAINERS 0x0002
-#define LUP_NOCONTAINERS 0x0004
-#define LUP_NEAREST 0x0008
-#define LUP_RETURN_NAME 0x0010
-#define LUP_RETURN_TYPE 0x0020
-#define LUP_RETURN_VERSION 0x0040
-#define LUP_RETURN_COMMENT 0x0080
-#define LUP_RETURN_ADDR 0x0100
-#define LUP_RETURN_BLOB 0x0200
-#define LUP_RETURN_ALIASES 0x0400
-#define LUP_RETURN_QUERY_STRING 0x0800
-#define LUP_RETURN_ALL 0x0FF0
-#define LUP_RES_SERVICE 0x8000
+#تعریف_کن LUP_DEEP 0x0001
+#تعریف_کن LUP_CONTAINERS 0x0002
+#تعریف_کن LUP_NOCONTAINERS 0x0004
+#تعریف_کن LUP_نزدیکترین 0x0008
+#تعریف_کن LUP_RETURN_NAME 0x0010
+#تعریف_کن LUP_RETURN_TYPE 0x0020
+#تعریف_کن LUP_RETURN_نسخه 0x0040
+#تعریف_کن LUP_RETURN_COMMENT 0x0080
+#تعریف_کن LUP_RETURN_ADDR 0x0100
+#تعریف_کن LUP_RETURN_BLOB 0x0200
+#تعریف_کن LUP_RETURN_ALIASES 0x0400
+#تعریف_کن LUP_RETURN_QUERY_STRING 0x0800
+#تعریف_کن LUP_RETURN_ALL 0x0FF0
+#تعریف_کن LUP_RES_SERVICE 0x8000
 
-#define LUP_FLUSHCACHE 0x1000
-#define LUP_FLUSHPREVIOUS 0x2000
+#تعریف_کن LUP_FLUSHCACHE 0x1000
+#تعریف_کن LUP_FLUSHPREVIOUS 0x2000
 
-#define RESULT_IS_ALIAS 0x0001
-#define RESULT_IS_ADDED 0x0010
-#define RESULT_IS_CHANGED 0x0020
-#define RESULT_IS_DELETED 0x0040
+#تعریف_کن نتیجه_IS_ALIAS 0x0001
+#تعریف_کن نتیجه_IS_ADDED 0x0010
+#تعریف_کن نتیجه_IS_تغییریافته 0x0020
+#تعریف_کن نتیجه_IS_DELETED 0x0040
 
-  typedef enum _WSAESETSERVICEOP {
-    RNRSERVICE_REGISTER=0,RNRSERVICE_DEREGISTER,RNRSERVICE_DELETE
+  تعريفنوع تعداد _WSAESETSERVICEOP {
+    RNRSERVICE_ثبات=0,RNRSERVICE_DEREGISTER,RNRSERVICE_DELETE
   } WSAESETSERVICEOP,*PWSAESETSERVICEOP,*LPWSAESETSERVICEOP;
 
-  typedef struct _WSANSClassInfoA {
+  تعريفنوع بنية _WSANSClassInfoA {
     LPSTR lpszName;
     DWORD dwNameSpace;
-    DWORD dwValueType;
-    DWORD dwValueSize;
-    LPVOID lpValue;
+    DWORD dw_مقدار_Type;
+    DWORD dw_مقدار_اندازه;
+    LPVOID lp_مقدار;
   } WSANSCLASSINFOA,*PWSANSCLASSINFOA,*LPWSANSCLASSINFOA;
 
-  typedef struct _WSANSClassInfoW {
+  تعريفنوع بنية _WSANSClassInfoW {
     LPWSTR lpszName;
     DWORD dwNameSpace;
-    DWORD dwValueType;
-    DWORD dwValueSize;
-    LPVOID lpValue;
+    DWORD dw_مقدار_Type;
+    DWORD dw_مقدار_اندازه;
+    LPVOID lp_مقدار;
   } WSANSCLASSINFOW,*PWSANSCLASSINFOW,*LPWSANSCLASSINFOW;
 
-#ifdef UNICODE
-  typedef WSANSCLASSINFOW WSANSCLASSINFO;
-  typedef PWSANSCLASSINFOW PWSANSCLASSINFO;
-  typedef LPWSANSCLASSINFOW LPWSANSCLASSINFO;
-#else
-  typedef WSANSCLASSINFOA WSANSCLASSINFO;
-  typedef PWSANSCLASSINFOA PWSANSCLASSINFO;
-  typedef LPWSANSCLASSINFOA LPWSANSCLASSINFO;
-#endif
+#اگر_تعریف_شده UNICODE
+  تعريفنوع WSANSCLASSINFOW WSANSCLASSINFO;
+  تعريفنوع PWSANSCLASSINFOW PWSANSCLASSINFO;
+  تعريفنوع LPWSANSCLASSINFOW LPWSANSCLASSINFO;
+#وإلا
+  تعريفنوع WSANSCLASSINFOA WSANSCLASSINFO;
+  تعريفنوع PWSANSCLASSINFOA PWSANSCLASSINFO;
+  تعريفنوع LPWSANSCLASSINFOA LPWSANSCLASSINFO;
+#پایان_اگر
 
-  typedef struct _WSAServiceClassInfoA {
+  تعريفنوع بنية _WSAServiceClassInfoA {
     LPGUID lpServiceClassId;
     LPSTR lpszServiceClassName;
-    DWORD dwCount;
+    DWORD dw_شمار;
     LPWSANSCLASSINFOA lpClassInfos;
   } WSASERVICECLASSINFOA,*PWSASERVICECLASSINFOA,*LPWSASERVICECLASSINFOA;
 
-  typedef struct _WSAServiceClassInfoW {
+  تعريفنوع بنية _WSAServiceClassInfoW {
     LPGUID lpServiceClassId;
     LPWSTR lpszServiceClassName;
-    DWORD dwCount;
+    DWORD dw_شمار;
     LPWSANSCLASSINFOW lpClassInfos;
   } WSASERVICECLASSINFOW,*PWSASERVICECLASSINFOW,*LPWSASERVICECLASSINFOW;
 
-#ifdef UNICODE
-  typedef WSASERVICECLASSINFOW WSASERVICECLASSINFO;
-  typedef PWSASERVICECLASSINFOW PWSASERVICECLASSINFO;
-  typedef LPWSASERVICECLASSINFOW LPWSASERVICECLASSINFO;
-#else
-  typedef WSASERVICECLASSINFOA WSASERVICECLASSINFO;
-  typedef PWSASERVICECLASSINFOA PWSASERVICECLASSINFO;
-  typedef LPWSASERVICECLASSINFOA LPWSASERVICECLASSINFO;
-#endif
+#اگر_تعریف_شده UNICODE
+  تعريفنوع WSASERVICECLASSINFOW WSASERVICECLASSINFO;
+  تعريفنوع PWSASERVICECLASSINFOW PWSASERVICECLASSINFO;
+  تعريفنوع LPWSASERVICECLASSINFOW LPWSASERVICECLASSINFO;
+#وإلا
+  تعريفنوع WSASERVICECLASSINFOA WSASERVICECLASSINFO;
+  تعريفنوع PWSASERVICECLASSINFOA PWSASERVICECLASSINFO;
+  تعريفنوع LPWSASERVICECLASSINFOA LPWSASERVICECLASSINFO;
+#پایان_اگر
 
-  typedef struct _WSANAMESPACE_INFOA {
+  تعريفنوع بنية _WSANAMESPACE_INFOA {
     GUID NSProviderId;
     DWORD dwNameSpace;
-    WINBOOL fActive;
-    DWORD dwVersion;
+    WINBOOL f_فعال;
+    DWORD dw_نسخه;
     LPSTR lpszIdentifier;
   } WSANAMESPACE_INFOA,*PWSANAMESPACE_INFOA,*LPWSANAMESPACE_INFOA;
 
-  typedef struct _WSANAMESPACE_INFOW {
+  تعريفنوع بنية _WSANAMESPACE_INFOW {
     GUID NSProviderId;
     DWORD dwNameSpace;
-    WINBOOL fActive;
-    DWORD dwVersion;
+    WINBOOL f_فعال;
+    DWORD dw_نسخه;
     LPWSTR lpszIdentifier;
   } WSANAMESPACE_INFOW,*PWSANAMESPACE_INFOW,*LPWSANAMESPACE_INFOW;
 
-#ifdef UNICODE
-  typedef WSANAMESPACE_INFOW WSANAMESPACE_INFO;
-  typedef PWSANAMESPACE_INFOW PWSANAMESPACE_INFO;
-  typedef LPWSANAMESPACE_INFOW LPWSANAMESPACE_INFO;
-#else
-  typedef WSANAMESPACE_INFOA WSANAMESPACE_INFO;
-  typedef PWSANAMESPACE_INFOA PWSANAMESPACE_INFO;
-  typedef LPWSANAMESPACE_INFOA LPWSANAMESPACE_INFO;
-#endif
+#اگر_تعریف_شده UNICODE
+  تعريفنوع WSANAMESPACE_INFOW WSANAMESPACE_INFO;
+  تعريفنوع PWSANAMESPACE_INFOW PWSANAMESPACE_INFO;
+  تعريفنوع LPWSANAMESPACE_INFOW LPWSANAMESPACE_INFO;
+#وإلا
+  تعريفنوع WSANAMESPACE_INFOA WSANAMESPACE_INFO;
+  تعريفنوع PWSANAMESPACE_INFOA PWSANAMESPACE_INFO;
+  تعريفنوع LPWSANAMESPACE_INFOA LPWSANAMESPACE_INFO;
+#پایان_اگر
 
-#if INCL_WINSOCK_API_TYPEDEFS
-#ifdef UNICODE
-#define LPFN_WSADUPLICATESOCKET LPFN_WSADUPLICATESOCKETW
-#define LPFN_WSAENUMPROTOCOLS LPFN_WSAENUMPROTOCOLSW
-#define LPFN_WSASOCKET LPFN_WSASOCKETW
-#define LPFN_WSAADDRESSTOSTRING LPFN_WSAADDRESSTOSTRINGW
-#define LPFN_WSASTRINGTOADDRESS LPFN_WSASTRINGTOADDRESSW
-#define LPFN_WSALOOKUPSERVICEBEGIN LPFN_WSALOOKUPSERVICEBEGINW
-#define LPFN_WSALOOKUPSERVICENEXT LPFN_WSALOOKUPSERVICENEXTW
-#define LPFN_WSAINSTALLSERVICECLASS LPFN_WSAINSTALLSERVICECLASSW
-#define LPFN_WSAGETSERVICECLASSINFO LPFN_WSAGETSERVICECLASSINFOW
-#define LPFN_WSAENUMNAMESPACEPROVIDERS LPFN_WSAENUMNAMESPACEPROVIDERSW
-#define LPFN_WSAGETSERVICECLASSNAMEBYCLASSID LPFN_WSAGETSERVICECLASSNAMEBYCLASSIDW
-#define LPFN_WSASETSERVICE LPFN_WSASETSERVICEW
-#else
-#define LPFN_WSADUPLICATESOCKET LPFN_WSADUPLICATESOCKETA
-#define LPFN_WSAENUMPROTOCOLS LPFN_WSAENUMPROTOCOLSA
-#define LPFN_WSASOCKET LPFN_WSASOCKETA
-#define LPFN_WSAADDRESSTOSTRING LPFN_WSAADDRESSTOSTRINGA
-#define LPFN_WSASTRINGTOADDRESS LPFN_WSASTRINGTOADDRESSA
-#define LPFN_WSALOOKUPSERVICEBEGIN LPFN_WSALOOKUPSERVICEBEGINA
-#define LPFN_WSALOOKUPSERVICENEXT LPFN_WSALOOKUPSERVICENEXTA
-#define LPFN_WSAINSTALLSERVICECLASS LPFN_WSAINSTALLSERVICECLASSA
-#define LPFN_WSAGETSERVICECLASSINFO LPFN_WSAGETSERVICECLASSINFOA
-#define LPFN_WSAENUMNAMESPACEPROVIDERS LPFN_WSAENUMNAMESPACEPROVIDERSA
-#define LPFN_WSAGETSERVICECLASSNAMEBYCLASSID LPFN_WSAGETSERVICECLASSNAMEBYCLASSIDA
-#define LPFN_WSASETSERVICE LPFN_WSASETSERVICEA
-#endif
+#إذا INCL_WINSOCK_API_TYPEDEFS
+#اگر_تعریف_شده UNICODE
+#تعریف_کن LPFN_WSADUPLICATESOCKET LPFN_WSADUPLICATESOCKETW
+#تعریف_کن LPFN_WSAENUMPROTOCOLS LPFN_WSAENUMPROTOCOLSW
+#تعریف_کن LPFN_WSASOCKET LPFN_WSASOCKETW
+#تعریف_کن LPFN_WSAADDRESSTOSTRING LPFN_WSAADDRESSTOSTRINGW
+#تعریف_کن LPFN_WSASTRINGTOADDRESS LPFN_WSASTRINGTOADDRESSW
+#تعریف_کن LPFN_WSALOOKUPSERVICEBEGIN LPFN_WSALOOKUPSERVICEBEGINW
+#تعریف_کن LPFN_WSALOOKUPSERVICENEXT LPFN_WSALOOKUPSERVICENEXTW
+#تعریف_کن LPFN_WSAINSTALLSERVICECLASS LPFN_WSAINSTALLSERVICECLASSW
+#تعریف_کن LPFN_WSAGETSERVICECLASSINFO LPFN_WSAGETSERVICECLASSINFOW
+#تعریف_کن LPFN_WSAENUMNAMESPACEPROVIDERS LPFN_WSAENUMNAMESPACEPROVIDERSW
+#تعریف_کن LPFN_WSAGETSERVICECLASSNAMEBYCLASSID LPFN_WSAGETSERVICECLASSNAMEBYCLASSIDW
+#تعریف_کن LPFN_WSASETSERVICE LPFN_WSASETSERVICEW
+#وإلا
+#تعریف_کن LPFN_WSADUPLICATESOCKET LPFN_WSADUPLICATESOCKETA
+#تعریف_کن LPFN_WSAENUMPROTOCOLS LPFN_WSAENUMPROTOCOLSA
+#تعریف_کن LPFN_WSASOCKET LPFN_WSASOCKETA
+#تعریف_کن LPFN_WSAADDRESSTOSTRING LPFN_WSAADDRESSTOSTRINGA
+#تعریف_کن LPFN_WSASTRINGTOADDRESS LPFN_WSASTRINGTOADDRESSA
+#تعریف_کن LPFN_WSALOOKUPSERVICEBEGIN LPFN_WSALOOKUPSERVICEBEGINA
+#تعریف_کن LPFN_WSALOOKUPSERVICENEXT LPFN_WSALOOKUPSERVICENEXTA
+#تعریف_کن LPFN_WSAINSTALLSERVICECLASS LPFN_WSAINSTALLSERVICECLASSA
+#تعریف_کن LPFN_WSAGETSERVICECLASSINFO LPFN_WSAGETSERVICECLASSINFOA
+#تعریف_کن LPFN_WSAENUMNAMESPACEPROVIDERS LPFN_WSAENUMNAMESPACEPROVIDERSA
+#تعریف_کن LPFN_WSAGETSERVICECLASSNAMEBYCLASSID LPFN_WSAGETSERVICECLASSNAMEBYCLASSIDA
+#تعریف_کن LPFN_WSASETSERVICE LPFN_WSASETSERVICEA
+#پایان_اگر
 
-  typedef SOCKET (WSAAPI *LPFN_ACCEPT)(SOCKET s,struct sockaddr *addr,int *addrlen);
-  typedef int (WSAAPI *LPFN_BIND)(SOCKET s,const struct sockaddr *name,int namelen);
-  typedef int (WSAAPI *LPFN_CLOSESOCKET)(SOCKET s);
-  typedef int (WSAAPI *LPFN_CONNECT)(SOCKET s,const struct sockaddr *name,int namelen);
-  typedef int (WSAAPI *LPFN_IOCTLSOCKET)(SOCKET s,long cmd,u_long *argp);
-  typedef int (WSAAPI *LPFN_GETPEERNAME)(SOCKET s,struct sockaddr *name,int *namelen);
-  typedef int (WSAAPI *LPFN_GETSOCKNAME)(SOCKET s,struct sockaddr *name,int *namelen);
-  typedef int (WSAAPI *LPFN_GETSOCKOPT)(SOCKET s,int level,int optname,char *optval,int *optlen);
-  typedef u_long (WSAAPI *LPFN_HTONL)(u_long hostlong);
-  typedef u_short (WSAAPI *LPFN_HTONS)(u_short hostshort);
-  typedef unsigned long (WSAAPI *LPFN_INET_ADDR)(const char *cp);
-  typedef char *(WSAAPI *LPFN_INET_NTOA)(struct in_addr in);
-  typedef int (WSAAPI *LPFN_LISTEN)(SOCKET s,int backlog);
-  typedef u_long (WSAAPI *LPFN_NTOHL)(u_long netlong);
-  typedef u_short (WSAAPI *LPFN_NTOHS)(u_short netshort);
-  typedef int (WSAAPI *LPFN_RECV)(SOCKET s,char *buf,int len,int flags);
-  typedef int (WSAAPI *LPFN_RECVFROM)(SOCKET s,char *buf,int len,int flags,struct sockaddr *from,int *fromlen);
-  typedef int (WSAAPI *LPFN_SELECT)(int nfds,fd_set *readfds,fd_set *writefds,fd_set *exceptfds,const struct timeval *timeout);
-  typedef int (WSAAPI *LPFN_SEND)(SOCKET s,const char *buf,int len,int flags);
-  typedef int (WSAAPI *LPFN_SENDTO)(SOCKET s,const char *buf,int len,int flags,const struct sockaddr *to,int tolen);
-  typedef int (WSAAPI *LPFN_SETSOCKOPT)(SOCKET s,int level,int optname,const char *optval,int optlen);
-  typedef int (WSAAPI *LPFN_SHUTDOWN)(SOCKET s,int how);
-  typedef SOCKET (WSAAPI *LPFN_SOCKET)(int af,int type,int protocol);
-  typedef struct hostent *(WSAAPI *LPFN_GETHOSTBYADDR)(const char *addr,int len,int type);
-  typedef struct hostent *(WSAAPI *LPFN_GETHOSTBYNAME)(const char *name);
-  typedef int (WSAAPI *LPFN_GETHOSTNAME)(char *name,int namelen);
-  typedef struct servent *(WSAAPI *LPFN_GETSERVBYPORT)(int port,const char *proto);
-  typedef struct servent *(WSAAPI *LPFN_GETSERVBYNAME)(const char *name,const char *proto);
-  typedef struct protoent *(WSAAPI *LPFN_GETPROTOBYNUMBER)(int number);
-  typedef struct protoent *(WSAAPI *LPFN_GETPROTOBYNAME)(const char *name);
-  typedef int (WSAAPI *LPFN_WSASTARTUP)(WORD wVersionRequested,LPWSADATA lpWSAData);
-  typedef int (WSAAPI *LPFN_WSACLEANUP)(void);
-  typedef void (WSAAPI *LPFN_WSASETLASTERROR)(int iError);
-  typedef int (WSAAPI *LPFN_WSAGETLASTERROR)(void);
-  typedef WINBOOL (WSAAPI *LPFN_WSAISBLOCKING)(void);
-  typedef int (WSAAPI *LPFN_WSAUNHOOKBLOCKINGHOOK)(void);
-  typedef FARPROC (WSAAPI *LPFN_WSASETBLOCKINGHOOK)(FARPROC lpBlockFunc);
-  typedef int (WSAAPI *LPFN_WSACANCELBLOCKINGCALL)(void);
-  typedef HANDLE (WSAAPI *LPFN_WSAASYNCGETSERVBYNAME)(HWND hWnd,u_int wMsg,const char *name,const char *proto,char *buf,int buflen);
-  typedef HANDLE (WSAAPI *LPFN_WSAASYNCGETSERVBYPORT)(HWND hWnd,u_int wMsg,int port,const char *proto,char *buf,int buflen);
-  typedef HANDLE (WSAAPI *LPFN_WSAASYNCGETPROTOBYNAME)(HWND hWnd,u_int wMsg,const char *name,char *buf,int buflen);
-  typedef HANDLE (WSAAPI *LPFN_WSAASYNCGETPROTOBYNUMBER)(HWND hWnd,u_int wMsg,int number,char *buf,int buflen);
-  typedef HANDLE (WSAAPI *LPFN_WSAASYNCGETHOSTBYNAME)(HWND hWnd,u_int wMsg,const char *name,char *buf,int buflen);
-  typedef HANDLE (WSAAPI *LPFN_WSAASYNCGETHOSTBYADDR)(HWND hWnd,u_int wMsg,const char *addr,int len,int type,char *buf,int buflen);
-  typedef int (WSAAPI *LPFN_WSACANCELASYNCREQUEST)(HANDLE hAsyncTaskHandle);
-  typedef int (WSAAPI *LPFN_WSAASYNCSELECT)(SOCKET s,HWND hWnd,u_int wMsg,long lEvent);
-  typedef SOCKET (WSAAPI *LPFN_WSAACCEPT)(SOCKET s,struct sockaddr *addr,LPINT addrlen,LPCONDITIONPROC lpfnCondition,DWORD_PTR dwCallbackData);
-  typedef WINBOOL (WSAAPI *LPFN_WSACLOSEEVENT)(WSAEVENT hEvent);
-  typedef int (WSAAPI *LPFN_WSACONNECT)(SOCKET s,const struct sockaddr *name,int namelen,LPWSABUF lpCallerData,LPWSABUF lpCalleeData,LPQOS lpSQOS,LPQOS lpGQOS);
-  typedef WSAEVENT (WSAAPI *LPFN_WSACREATEEVENT)(void);
-  typedef int (WSAAPI *LPFN_WSADUPLICATESOCKETA)(SOCKET s,DWORD dwProcessId,LPWSAPROTOCOL_INFOA lpProtocolInfo);
-  typedef int (WSAAPI *LPFN_WSADUPLICATESOCKETW)(SOCKET s,DWORD dwProcessId,LPWSAPROTOCOL_INFOW lpProtocolInfo);
-  typedef int (WSAAPI *LPFN_WSAENUMNETWORKEVENTS)(SOCKET s,WSAEVENT hEventObject,LPWSANETWORKEVENTS lpNetworkEvents);
-  typedef int (WSAAPI *LPFN_WSAENUMPROTOCOLSA)(LPINT lpiProtocols,LPWSAPROTOCOL_INFOA lpProtocolBuffer,LPDWORD lpdwBufferLength);
-  typedef int (WSAAPI *LPFN_WSAENUMPROTOCOLSW)(LPINT lpiProtocols,LPWSAPROTOCOL_INFOW lpProtocolBuffer,LPDWORD lpdwBufferLength);
-  typedef int (WSAAPI *LPFN_WSAEVENTSELECT)(SOCKET s,WSAEVENT hEventObject,long lNetworkEvents);
-  typedef WINBOOL (WSAAPI *LPFN_WSAGETOVERLAPPEDRESULT)(SOCKET s,LPWSAOVERLAPPED lpOverlapped,LPDWORD lpcbTransfer,WINBOOL fWait,LPDWORD lpdwFlags);
-  typedef WINBOOL (WSAAPI *LPFN_WSAGETQOSBYNAME)(SOCKET s,LPWSABUF lpQOSName,LPQOS lpQOS);
-  typedef int (WSAAPI *LPFN_WSAHTONL)(SOCKET s,u_long hostlong,u_long *lpnetlong);
-  typedef int (WSAAPI *LPFN_WSAHTONS)(SOCKET s,u_short hostshort,u_short *lpnetshort);
-  typedef int (WSAAPI *LPFN_WSAIOCTL)(SOCKET s,DWORD dwIoControlCode,LPVOID lpvInBuffer,DWORD cbInBuffer,LPVOID lpvOutBuffer,DWORD cbOutBuffer,LPDWORD lpcbBytesReturned,LPWSAOVERLAPPED lpOverlapped,LPWSAOVERLAPPED_COMPLETION_ROUTINE lpCompletionRoutine);
-  typedef SOCKET (WSAAPI *LPFN_WSAJOINLEAF)(SOCKET s,const struct sockaddr *name,int namelen,LPWSABUF lpCallerData,LPWSABUF lpCalleeData,LPQOS lpSQOS,LPQOS lpGQOS,DWORD dwFlags);
-  typedef int (WSAAPI *LPFN_WSANTOHL)(SOCKET s,u_long netlong,u_long *lphostlong);
-  typedef int (WSAAPI *LPFN_WSANTOHS)(SOCKET s,u_short netshort,u_short *lphostshort);
-  typedef int (WSAAPI *LPFN_WSARECV)(SOCKET s,LPWSABUF lpBuffers,DWORD dwBufferCount,LPDWORD lpNumberOfBytesRecvd,LPDWORD lpFlags,LPWSAOVERLAPPED lpOverlapped,LPWSAOVERLAPPED_COMPLETION_ROUTINE lpCompletionRoutine);
-  typedef int (WSAAPI *LPFN_WSARECVDISCONNECT)(SOCKET s,LPWSABUF lpInboundDisconnectData);
-  typedef int (WSAAPI *LPFN_WSARECVFROM)(SOCKET s,LPWSABUF lpBuffers,DWORD dwBufferCount,LPDWORD lpNumberOfBytesRecvd,LPDWORD lpFlags,struct sockaddr *lpFrom,LPINT lpFromlen,LPWSAOVERLAPPED lpOverlapped,LPWSAOVERLAPPED_COMPLETION_ROUTINE lpCompletionRoutine);
-  typedef WINBOOL (WSAAPI *LPFN_WSARESETEVENT)(WSAEVENT hEvent);
-  typedef int (WSAAPI *LPFN_WSASEND)(SOCKET s,LPWSABUF lpBuffers,DWORD dwBufferCount,LPDWORD lpNumberOfBytesSent,DWORD dwFlags,LPWSAOVERLAPPED lpOverlapped,LPWSAOVERLAPPED_COMPLETION_ROUTINE lpCompletionRoutine);
-  typedef int (WSAAPI *LPFN_WSASENDDISCONNECT)(SOCKET s,LPWSABUF lpOutboundDisconnectData);
-  typedef int (WSAAPI *LPFN_WSASENDTO)(SOCKET s,LPWSABUF lpBuffers,DWORD dwBufferCount,LPDWORD lpNumberOfBytesSent,DWORD dwFlags,const struct sockaddr *lpTo,int iTolen,LPWSAOVERLAPPED lpOverlapped,LPWSAOVERLAPPED_COMPLETION_ROUTINE lpCompletionRoutine);
-  typedef WINBOOL (WSAAPI *LPFN_WSASETEVENT)(WSAEVENT hEvent);
-  typedef SOCKET (WSAAPI *LPFN_WSASOCKETA)(int af,int type,int protocol,LPWSAPROTOCOL_INFOA lpProtocolInfo,GROUP g,DWORD dwFlags);
-  typedef SOCKET (WSAAPI *LPFN_WSASOCKETW)(int af,int type,int protocol,LPWSAPROTOCOL_INFOW lpProtocolInfo,GROUP g,DWORD dwFlags);
-  typedef DWORD (WSAAPI *LPFN_WSAWAITFORMULTIPLEEVENTS)(DWORD cEvents,const WSAEVENT *lphEvents,WINBOOL fWaitAll,DWORD dwTimeout,WINBOOL fAlertable);
-  typedef INT (WSAAPI *LPFN_WSAADDRESSTOSTRINGA)(LPSOCKADDR lpsaAddress,DWORD dwAddressLength,LPWSAPROTOCOL_INFOA lpProtocolInfo,LPSTR lpszAddressString,LPDWORD lpdwAddressStringLength);
-  typedef INT (WSAAPI *LPFN_WSAADDRESSTOSTRINGW)(LPSOCKADDR lpsaAddress,DWORD dwAddressLength,LPWSAPROTOCOL_INFOW lpProtocolInfo,LPWSTR lpszAddressString,LPDWORD lpdwAddressStringLength);
-  typedef INT (WSAAPI *LPFN_WSASTRINGTOADDRESSA)(LPSTR AddressString,INT AddressFamily,LPWSAPROTOCOL_INFOA lpProtocolInfo,LPSOCKADDR lpAddress,LPINT lpAddressLength);
-  typedef INT (WSAAPI *LPFN_WSASTRINGTOADDRESSW)(LPWSTR AddressString,INT AddressFamily,LPWSAPROTOCOL_INFOW lpProtocolInfo,LPSOCKADDR lpAddress,LPINT lpAddressLength);
-  typedef INT (WSAAPI *LPFN_WSALOOKUPSERVICEBEGINA)(LPWSAQUERYSETA lpqsRestrictions,DWORD dwControlFlags,LPHANDLE lphLookup);
-  typedef INT (WSAAPI *LPFN_WSALOOKUPSERVICEBEGINW)(LPWSAQUERYSETW lpqsRestrictions,DWORD dwControlFlags,LPHANDLE lphLookup);
-  typedef INT (WSAAPI *LPFN_WSALOOKUPSERVICENEXTA)(HANDLE hLookup,DWORD dwControlFlags,LPDWORD lpdwBufferLength,LPWSAQUERYSETA lpqsResults);
-  typedef INT (WSAAPI *LPFN_WSALOOKUPSERVICENEXTW)(HANDLE hLookup,DWORD dwControlFlags,LPDWORD lpdwBufferLength,LPWSAQUERYSETW lpqsResults);
-  typedef INT (WSAAPI *LPFN_WSANSPIOCTL)(HANDLE hLookup,DWORD dwControlCode,LPVOID lpvInBuffer,DWORD cbInBuffer,LPVOID lpvOutBuffer,DWORD cbOutBuffer,LPDWORD lpcbBytesReturned,LPWSACOMPLETION lpCompletion);
-  typedef INT (WSAAPI *LPFN_WSALOOKUPSERVICEEND)(HANDLE hLookup);
-  typedef INT (WSAAPI *LPFN_WSAINSTALLSERVICECLASSA)(LPWSASERVICECLASSINFOA lpServiceClassInfo);
-  typedef INT (WSAAPI *LPFN_WSAINSTALLSERVICECLASSW)(LPWSASERVICECLASSINFOW lpServiceClassInfo);
-  typedef INT (WSAAPI *LPFN_WSAREMOVESERVICECLASS)(LPGUID lpServiceClassId);
-  typedef INT (WSAAPI *LPFN_WSAGETSERVICECLASSINFOA)(LPGUID lpProviderId,LPGUID lpServiceClassId,LPDWORD lpdwBufSize,LPWSASERVICECLASSINFOA lpServiceClassInfo);
-  typedef INT (WSAAPI *LPFN_WSAGETSERVICECLASSINFOW)(LPGUID lpProviderId,LPGUID lpServiceClassId,LPDWORD lpdwBufSize,LPWSASERVICECLASSINFOW lpServiceClassInfo);
-  typedef INT (WSAAPI *LPFN_WSAENUMNAMESPACEPROVIDERSA)(LPDWORD lpdwBufferLength,LPWSANAMESPACE_INFOA lpnspBuffer);
-  typedef INT (WSAAPI *LPFN_WSAENUMNAMESPACEPROVIDERSW)(LPDWORD lpdwBufferLength,LPWSANAMESPACE_INFOW lpnspBuffer);
-  typedef INT (WSAAPI *LPFN_WSAGETSERVICECLASSNAMEBYCLASSIDA)(LPGUID lpServiceClassId,LPSTR lpszServiceClassName,LPDWORD lpdwBufferLength);
-  typedef INT (WSAAPI *LPFN_WSAGETSERVICECLASSNAMEBYCLASSIDW)(LPGUID lpServiceClassId,LPWSTR lpszServiceClassName,LPDWORD lpdwBufferLength);
-  typedef INT (WSAAPI *LPFN_WSASETSERVICEA)(LPWSAQUERYSETA lpqsRegInfo,WSAESETSERVICEOP essoperation,DWORD dwControlFlags);
-  typedef INT (WSAAPI *LPFN_WSASETSERVICEW)(LPWSAQUERYSETW lpqsRegInfo,WSAESETSERVICEOP essoperation,DWORD dwControlFlags);
-  typedef INT (WSAAPI *LPFN_WSAPROVIDERCONFIGCHANGE)(LPHANDLE lpNotificationHandle,LPWSAOVERLAPPED lpOverlapped,LPWSAOVERLAPPED_COMPLETION_ROUTINE lpCompletionRoutine);
-#endif
+  تعريفنوع SOCKET (WSAAPI *LPFN_ACCEPT)(SOCKET s,بنية sockaddr *addr,صحيح *addrlen);
+  تعريفنوع صحيح (WSAAPI *LPFN_BIND)(SOCKET s,ثابت بنية sockaddr *name,صحيح namelen);
+  تعريفنوع صحيح (WSAAPI *LPFN_CLOSESOCKET)(SOCKET s);
+  تعريفنوع صحيح (WSAAPI *LPFN_CONNECT)(SOCKET s,ثابت بنية sockaddr *name,صحيح namelen);
+  تعريفنوع صحيح (WSAAPI *LPFN_IOCTLSOCKET)(SOCKET s,دراز cmd,u_long *argp);
+  تعريفنوع صحيح (WSAAPI *LPFN_GETPEERNAME)(SOCKET s,بنية sockaddr *name,صحيح *namelen);
+  تعريفنوع صحيح (WSAAPI *LPFN_GETSOCKNAME)(SOCKET s,بنية sockaddr *name,صحيح *namelen);
+  تعريفنوع صحيح (WSAAPI *LPFN_GETSOCKOPT)(SOCKET s,صحيح level,صحيح optname,حرف *optval,صحيح *optlen);
+  تعريفنوع u_long (WSAAPI *LPFN_HTONL)(u_long hostlong);
+  تعريفنوع u_short (WSAAPI *LPFN_HTONS)(u_short hostshort);
+  تعريفنوع بیعلامت دراز (WSAAPI *LPFN_INET_ADDR)(ثابت حرف *cp);
+  تعريفنوع حرف *(WSAAPI *LPFN_INET_NTOA)(بنية درون_addr درون);
+  تعريفنوع صحيح (WSAAPI *LPFN_LISTEN)(SOCKET s,صحيح backlog);
+  تعريفنوع u_long (WSAAPI *LPFN_NTOHL)(u_long netlong);
+  تعريفنوع u_short (WSAAPI *LPFN_NTOHS)(u_short netshort);
+  تعريفنوع صحيح (WSAAPI *LPFN_RECV)(SOCKET s,حرف *buf,صحيح len,صحيح flags);
+  تعريفنوع صحيح (WSAAPI *LPFN_RECVFROM)(SOCKET s,حرف *buf,صحيح len,صحيح flags,بنية sockaddr *from,صحيح *fromlen);
+  تعريفنوع صحيح (WSAAPI *LPFN_SELECT)(صحيح nfds,fd_set *readfds,fd_set *writefds,fd_set *exceptfds,ثابت بنية timeval *timeout);
+  تعريفنوع صحيح (WSAAPI *LPFN_SEND)(SOCKET s,ثابت حرف *buf,صحيح len,صحيح flags);
+  تعريفنوع صحيح (WSAAPI *LPFN_SENDTO)(SOCKET s,ثابت حرف *buf,صحيح len,صحيح flags,ثابت بنية sockaddr *مقصد,صحيح tolen);
+  تعريفنوع صحيح (WSAAPI *LPFN_SETSOCKOPT)(SOCKET s,صحيح level,صحيح optname,ثابت حرف *optval,صحيح optlen);
+  تعريفنوع صحيح (WSAAPI *LPFN_SHUTDOWN)(SOCKET s,صحيح how);
+  تعريفنوع SOCKET (WSAAPI *LPFN_SOCKET)(صحيح af,صحيح type,صحيح protocol);
+  تعريفنوع بنية hostent *(WSAAPI *LPFN_GETHOSTBYADDR)(ثابت حرف *addr,صحيح len,صحيح type);
+  تعريفنوع بنية hostent *(WSAAPI *LPFN_GETHOSTBYNAME)(ثابت حرف *name);
+  تعريفنوع صحيح (WSAAPI *LPFN_GETHOSTNAME)(حرف *name,صحيح namelen);
+  تعريفنوع بنية servent *(WSAAPI *LPFN_GETSERVBYPORT)(صحيح پورت_2,ثابت حرف *proto);
+  تعريفنوع بنية servent *(WSAAPI *LPFN_GETSERVBYNAME)(ثابت حرف *name,ثابت حرف *proto);
+  تعريفنوع بنية protoent *(WSAAPI *LPFN_GETPROTOBYNUMBER)(صحيح عدد_3);
+  تعريفنوع بنية protoent *(WSAAPI *LPFN_GETPROTOBYNAME)(ثابت حرف *name);
+  تعريفنوع صحيح (WSAAPI *LPFN_WSASTARTUP)(کلمه_3 w_نسخه_Requested,LPWSADATA lpWSAData);
+  تعريفنوع صحيح (WSAAPI *LPFN_WSACLEANUP)(فراغ);
+  تعريفنوع فراغ (WSAAPI *LPFN_WSASETLASTERROR)(صحيح iError);
+  تعريفنوع صحيح (WSAAPI *LPFN_WSAGETLASTERROR)(فراغ);
+  تعريفنوع WINBOOL (WSAAPI *LPFN_WSAISBLOCKING)(فراغ);
+  تعريفنوع صحيح (WSAAPI *LPFN_WSAUNHOOKBLOCKINGHOOK)(فراغ);
+  تعريفنوع FARPROC (WSAAPI *LPFN_WSASETBLOCKINGHOOK)(FARPROC lp_بلوک_Func);
+  تعريفنوع صحيح (WSAAPI *LPFN_WSACANCELBLOCKINGCALL)(فراغ);
+  تعريفنوع HANDLE (WSAAPI *LPFN_WSAASYNCGETSERVBYNAME)(HWND hWnd,u_int w_پیام,ثابت حرف *name,ثابت حرف *proto,حرف *buf,صحيح buflen);
+  تعريفنوع HANDLE (WSAAPI *LPFN_WSAASYNCGETSERVBYPORT)(HWND hWnd,u_int w_پیام,صحيح پورت_2,ثابت حرف *proto,حرف *buf,صحيح buflen);
+  تعريفنوع HANDLE (WSAAPI *LPFN_WSAASYNCGETPROTOBYNAME)(HWND hWnd,u_int w_پیام,ثابت حرف *name,حرف *buf,صحيح buflen);
+  تعريفنوع HANDLE (WSAAPI *LPFN_WSAASYNCGETPROTOBYNUMBER)(HWND hWnd,u_int w_پیام,صحيح عدد_3,حرف *buf,صحيح buflen);
+  تعريفنوع HANDLE (WSAAPI *LPFN_WSAASYNCGETHOSTBYNAME)(HWND hWnd,u_int w_پیام,ثابت حرف *name,حرف *buf,صحيح buflen);
+  تعريفنوع HANDLE (WSAAPI *LPFN_WSAASYNCGETHOSTBYADDR)(HWND hWnd,u_int w_پیام,ثابت حرف *addr,صحيح len,صحيح type,حرف *buf,صحيح buflen);
+  تعريفنوع صحيح (WSAAPI *LPFN_WSACANCELASYNCREQUEST)(HANDLE hAsyncTaskHandle);
+  تعريفنوع صحيح (WSAAPI *LPFN_WSAASYNCSELECT)(SOCKET s,HWND hWnd,u_int w_پیام,دراز lEvent);
+  تعريفنوع SOCKET (WSAAPI *LPFN_WSAACCEPT)(SOCKET s,بنية sockaddr *addr,LPINT addrlen,LPCONDITIONPROC lpfnCondition,DWORD_PTR dw_Callback_داده);
+  تعريفنوع WINBOOL (WSAAPI *LPFN_WSACLOSEEVENT)(WSAEVENT hEvent);
+  تعريفنوع صحيح (WSAAPI *LPFN_WSACONNECT)(SOCKET s,ثابت بنية sockaddr *name,صحيح namelen,LPWSABUF lp_Caller_داده,LPWSABUF lp_Callee_داده,LPQOS lpSQOS,LPQOS lpGQOS);
+  تعريفنوع WSAEVENT (WSAAPI *LPFN_WSACREATEEVENT)(فراغ);
+  تعريفنوع صحيح (WSAAPI *LPFN_WSADUPLICATESOCKETA)(SOCKET s,DWORD dwProcessId,LPWSAPROTOCOL_INFOA lpProtocolInfo);
+  تعريفنوع صحيح (WSAAPI *LPFN_WSADUPLICATESOCKETW)(SOCKET s,DWORD dwProcessId,LPWSAPROTOCOL_INFOW lpProtocolInfo);
+  تعريفنوع صحيح (WSAAPI *LPFN_WSAENUMNETWORKEVENTS)(SOCKET s,WSAEVENT hEventObject,LPWSANETWORKEVENTS lp_شبکه_Events);
+  تعريفنوع صحيح (WSAAPI *LPFN_WSAENUMPROTOCOLSA)(LPINT lpiProtocols,LPWSAPROTOCOL_INFOA lp_Protocol_میانگیر,LPDWORD lpdw_میانگیر_درازی);
+  تعريفنوع صحيح (WSAAPI *LPFN_WSAENUMPROTOCOLSW)(LPINT lpiProtocols,LPWSAPROTOCOL_INFOW lp_Protocol_میانگیر,LPDWORD lpdw_میانگیر_درازی);
+  تعريفنوع صحيح (WSAAPI *LPFN_WSAEVENTSELECT)(SOCKET s,WSAEVENT hEventObject,دراز l_شبکه_Events);
+  تعريفنوع WINBOOL (WSAAPI *LPFN_WSAGETOVERLAPPEDRESULT)(SOCKET s,LPWSAOVERLAPPED lpOverlapped,LPDWORD lpcbTransfer,WINBOOL fWait,LPDWORD lpdwFlags);
+  تعريفنوع WINBOOL (WSAAPI *LPFN_WSAGETQOSBYNAME)(SOCKET s,LPWSABUF lpQOSName,LPQOS lpQOS);
+  تعريفنوع صحيح (WSAAPI *LPFN_WSAHTONL)(SOCKET s,u_long hostlong,u_long *lpnetlong);
+  تعريفنوع صحيح (WSAAPI *LPFN_WSAHTONS)(SOCKET s,u_short hostshort,u_short *lpnetshort);
+  تعريفنوع صحيح (WSAAPI *LPFN_WSAIOCTL)(SOCKET s,DWORD dw_Io_Control_کد,LPVOID lpv_درون_میانگیر,DWORD cb_درون_میانگیر,LPVOID lpv_بیرون_میانگیر,DWORD cb_بیرون_میانگیر,LPDWORD lpcb_بایتها_Returned,LPWSAOVERLAPPED lpOverlapped,LPWSAOVERLAPPED_COMPLETION_ROUTINE lpCompletionRoutine);
+  تعريفنوع SOCKET (WSAAPI *LPFN_WSAJOINLEAF)(SOCKET s,ثابت بنية sockaddr *name,صحيح namelen,LPWSABUF lp_Caller_داده,LPWSABUF lp_Callee_داده,LPQOS lpSQOS,LPQOS lpGQOS,DWORD dwFlags);
+  تعريفنوع صحيح (WSAAPI *LPFN_WSANTOHL)(SOCKET s,u_long netlong,u_long *lphostlong);
+  تعريفنوع صحيح (WSAAPI *LPFN_WSANTOHS)(SOCKET s,u_short netshort,u_short *lphostshort);
+  تعريفنوع صحيح (WSAAPI *LPFN_WSARECV)(SOCKET s,LPWSABUF lpBuffers,DWORD dw_میانگیر_شمار,LPDWORD lp_عدد_از_بایتها_Recvd,LPDWORD lpFlags,LPWSAOVERLAPPED lpOverlapped,LPWSAOVERLAPPED_COMPLETION_ROUTINE lpCompletionRoutine);
+  تعريفنوع صحيح (WSAAPI *LPFN_WSARECVDISCONNECT)(SOCKET s,LPWSABUF lp_Inbound_Disconnect_داده);
+  تعريفنوع صحيح (WSAAPI *LPFN_WSARECVFROM)(SOCKET s,LPWSABUF lpBuffers,DWORD dw_میانگیر_شمار,LPDWORD lp_عدد_از_بایتها_Recvd,LPDWORD lpFlags,بنية sockaddr *lpFrom,LPINT lpFromlen,LPWSAOVERLAPPED lpOverlapped,LPWSAOVERLAPPED_COMPLETION_ROUTINE lpCompletionRoutine);
+  تعريفنوع WINBOOL (WSAAPI *LPFN_WSARESETEVENT)(WSAEVENT hEvent);
+  تعريفنوع صحيح (WSAAPI *LPFN_WSASEND)(SOCKET s,LPWSABUF lpBuffers,DWORD dw_میانگیر_شمار,LPDWORD lp_عدد_از_بایتها_فرستاده,DWORD dwFlags,LPWSAOVERLAPPED lpOverlapped,LPWSAOVERLAPPED_COMPLETION_ROUTINE lpCompletionRoutine);
+  تعريفنوع صحيح (WSAAPI *LPFN_WSASENDDISCONNECT)(SOCKET s,LPWSABUF lp_Outbound_Disconnect_داده);
+  تعريفنوع صحيح (WSAAPI *LPFN_WSASENDTO)(SOCKET s,LPWSABUF lpBuffers,DWORD dw_میانگیر_شمار,LPDWORD lp_عدد_از_بایتها_فرستاده,DWORD dwFlags,ثابت بنية sockaddr *lp_مقصد,صحيح iTolen,LPWSAOVERLAPPED lpOverlapped,LPWSAOVERLAPPED_COMPLETION_ROUTINE lpCompletionRoutine);
+  تعريفنوع WINBOOL (WSAAPI *LPFN_WSASETEVENT)(WSAEVENT hEvent);
+  تعريفنوع SOCKET (WSAAPI *LPFN_WSASOCKETA)(صحيح af,صحيح type,صحيح protocol,LPWSAPROTOCOL_INFOA lpProtocolInfo,گروه_3 g,DWORD dwFlags);
+  تعريفنوع SOCKET (WSAAPI *LPFN_WSASOCKETW)(صحيح af,صحيح type,صحيح protocol,LPWSAPROTOCOL_INFOW lpProtocolInfo,گروه_3 g,DWORD dwFlags);
+  تعريفنوع DWORD (WSAAPI *LPFN_WSAWAITFORMULTIPLEEVENTS)(DWORD cEvents,ثابت WSAEVENT *lphEvents,WINBOOL fWaitAll,DWORD dwTimeout,WINBOOL fAlertable);
+  تعريفنوع INT (WSAAPI *LPFN_WSAADDRESSTOSTRINGA)(LPSOCKADDR lpsa_آدرس,DWORD dw_آدرس_درازی,LPWSAPROTOCOL_INFOA lpProtocolInfo,LPSTR lpsz_آدرس_String,LPDWORD lpdw_آدرس_String_درازی);
+  تعريفنوع INT (WSAAPI *LPFN_WSAADDRESSTOSTRINGW)(LPSOCKADDR lpsa_آدرس,DWORD dw_آدرس_درازی,LPWSAPROTOCOL_INFOW lpProtocolInfo,LPWSTR lpsz_آدرس_String,LPDWORD lpdw_آدرس_String_درازی);
+  تعريفنوع INT (WSAAPI *LPFN_WSASTRINGTOADDRESSA)(LPSTR آدرس_String,INT آدرس_Family,LPWSAPROTOCOL_INFOA lpProtocolInfo,LPSOCKADDR lp_آدرس,LPINT lp_آدرس_درازی);
+  تعريفنوع INT (WSAAPI *LPFN_WSASTRINGTOADDRESSW)(LPWSTR آدرس_String,INT آدرس_Family,LPWSAPROTOCOL_INFOW lpProtocolInfo,LPSOCKADDR lp_آدرس,LPINT lp_آدرس_درازی);
+  تعريفنوع INT (WSAAPI *LPFN_WSALOOKUPSERVICEBEGINA)(LPWSAQUERYSETA lpqsRestrictions,DWORD dwControlFlags,LPHANDLE lphLookup);
+  تعريفنوع INT (WSAAPI *LPFN_WSALOOKUPSERVICEBEGINW)(LPWSAQUERYSETW lpqsRestrictions,DWORD dwControlFlags,LPHANDLE lphLookup);
+  تعريفنوع INT (WSAAPI *LPFN_WSALOOKUPSERVICENEXTA)(HANDLE hLookup,DWORD dwControlFlags,LPDWORD lpdw_میانگیر_درازی,LPWSAQUERYSETA lpqsResults);
+  تعريفنوع INT (WSAAPI *LPFN_WSALOOKUPSERVICENEXTW)(HANDLE hLookup,DWORD dwControlFlags,LPDWORD lpdw_میانگیر_درازی,LPWSAQUERYSETW lpqsResults);
+  تعريفنوع INT (WSAAPI *LPFN_WSANSPIOCTL)(HANDLE hLookup,DWORD dw_Control_کد,LPVOID lpv_درون_میانگیر,DWORD cb_درون_میانگیر,LPVOID lpv_بیرون_میانگیر,DWORD cb_بیرون_میانگیر,LPDWORD lpcb_بایتها_Returned,LPWSACOMPLETION lpCompletion);
+  تعريفنوع INT (WSAAPI *LPFN_WSALOOKUPSERVICEEND)(HANDLE hLookup);
+  تعريفنوع INT (WSAAPI *LPFN_WSAINSTALLSERVICECLASSA)(LPWSASERVICECLASSINFOA lpServiceClassInfo);
+  تعريفنوع INT (WSAAPI *LPFN_WSAINSTALLSERVICECLASSW)(LPWSASERVICECLASSINFOW lpServiceClassInfo);
+  تعريفنوع INT (WSAAPI *LPFN_WSAREMOVESERVICECLASS)(LPGUID lpServiceClassId);
+  تعريفنوع INT (WSAAPI *LPFN_WSAGETSERVICECLASSINFOA)(LPGUID lpProviderId,LPGUID lpServiceClassId,LPDWORD lpdw_Buf_اندازه,LPWSASERVICECLASSINFOA lpServiceClassInfo);
+  تعريفنوع INT (WSAAPI *LPFN_WSAGETSERVICECLASSINFOW)(LPGUID lpProviderId,LPGUID lpServiceClassId,LPDWORD lpdw_Buf_اندازه,LPWSASERVICECLASSINFOW lpServiceClassInfo);
+  تعريفنوع INT (WSAAPI *LPFN_WSAENUMNAMESPACEPROVIDERSA)(LPDWORD lpdw_میانگیر_درازی,LPWSANAMESPACE_INFOA lpnsp_میانگیر);
+  تعريفنوع INT (WSAAPI *LPFN_WSAENUMNAMESPACEPROVIDERSW)(LPDWORD lpdw_میانگیر_درازی,LPWSANAMESPACE_INFOW lpnsp_میانگیر);
+  تعريفنوع INT (WSAAPI *LPFN_WSAGETSERVICECLASSNAMEBYCLASSIDA)(LPGUID lpServiceClassId,LPSTR lpszServiceClassName,LPDWORD lpdw_میانگیر_درازی);
+  تعريفنوع INT (WSAAPI *LPFN_WSAGETSERVICECLASSNAMEBYCLASSIDW)(LPGUID lpServiceClassId,LPWSTR lpszServiceClassName,LPDWORD lpdw_میانگیر_درازی);
+  تعريفنوع INT (WSAAPI *LPFN_WSASETSERVICEA)(LPWSAQUERYSETA lpqsRegInfo,WSAESETSERVICEOP essoperation,DWORD dwControlFlags);
+  تعريفنوع INT (WSAAPI *LPFN_WSASETSERVICEW)(LPWSAQUERYSETW lpqsRegInfo,WSAESETSERVICEOP essoperation,DWORD dwControlFlags);
+  تعريفنوع INT (WSAAPI *LPFN_WSAPROVIDERCONFIGCHANGE)(LPHANDLE lpNotificationHandle,LPWSAOVERLAPPED lpOverlapped,LPWSAOVERLAPPED_COMPLETION_ROUTINE lpCompletionRoutine);
+#پایان_اگر
 
-#ifdef UNICODE
-#define WSADuplicateSocket WSADuplicateSocketW
-#define WSAEnumProtocols WSAEnumProtocolsW
-#define WSAAddressToString WSAAddressToStringW
-#define WSASocket WSASocketW
-#define WSAStringToAddress WSAStringToAddressW
-#define WSALookupServiceBegin WSALookupServiceBeginW
-#define WSALookupServiceNext WSALookupServiceNextW
-#define WSAInstallServiceClass WSAInstallServiceClassW
-#define WSAGetServiceClassInfo WSAGetServiceClassInfoW
-#define WSAEnumNameSpaceProviders WSAEnumNameSpaceProvidersW
-#define WSAGetServiceClassNameByClassId WSAGetServiceClassNameByClassIdW
-#define WSASetService WSASetServiceW
-#else
-#define WSADuplicateSocket WSADuplicateSocketA
-#define WSAEnumProtocols WSAEnumProtocolsA
-#define WSASocket WSASocketA
-#define WSAAddressToString WSAAddressToStringA
-#define WSAStringToAddress WSAStringToAddressA
-#define WSALookupServiceBegin WSALookupServiceBeginA
-#define WSALookupServiceNext WSALookupServiceNextA
-#define WSAInstallServiceClass WSAInstallServiceClassA
-#define WSAGetServiceClassInfo WSAGetServiceClassInfoA
-#define WSAEnumNameSpaceProviders WSAEnumNameSpaceProvidersA
-#define WSAGetServiceClassNameByClassId WSAGetServiceClassNameByClassIdA
-#define WSASetService WSASetServiceA
-#endif
+#اگر_تعریف_شده UNICODE
+#تعریف_کن WSADuplicateSocket WSADuplicateSocketW
+#تعریف_کن WSAEnumProtocols WSAEnumProtocolsW
+#تعریف_کن WSAAddress_مقصد_String WSAAddress_مقصد_String_W
+#تعریف_کن WSASocket WSASocketW
+#تعریف_کن WSAString_مقصد_آدرس WSAString_مقصد_آدرس_W
+#تعریف_کن WSALookupServiceBegin WSALookupServiceBeginW
+#تعریف_کن WSALookup_Service_بعدی WSALookup_Service_بعدی_W
+#تعریف_کن WSAInstallServiceClass WSAInstallServiceClassW
+#تعریف_کن WSAGetServiceClassInfo WSAGetServiceClassInfoW
+#تعریف_کن WSAEnumNameSpaceProviders WSAEnumNameSpaceProvidersW
+#تعریف_کن WSAGetServiceClassNameByClassId WSAGetServiceClassNameByClassIdW
+#تعریف_کن WSASetService WSASetServiceW
+#وإلا
+#تعریف_کن WSADuplicateSocket WSADuplicateSocketA
+#تعریف_کن WSAEnumProtocols WSAEnumProtocolsA
+#تعریف_کن WSASocket WSASocketA
+#تعریف_کن WSAAddress_مقصد_String WSAAddress_مقصد_String_A
+#تعریف_کن WSAString_مقصد_آدرس WSAString_مقصد_آدرس_A
+#تعریف_کن WSALookupServiceBegin WSALookupServiceBeginA
+#تعریف_کن WSALookup_Service_بعدی WSALookup_Service_بعدی_A
+#تعریف_کن WSAInstallServiceClass WSAInstallServiceClassA
+#تعریف_کن WSAGetServiceClassInfo WSAGetServiceClassInfoA
+#تعریف_کن WSAEnumNameSpaceProviders WSAEnumNameSpaceProvidersA
+#تعریف_کن WSAGetServiceClassNameByClassId WSAGetServiceClassNameByClassIdA
+#تعریف_کن WSASetService WSASetServiceA
+#پایان_اگر
 
-  WINSOCK_API_LINKAGE SOCKET WSAAPI accept(SOCKET s,struct sockaddr *addr,int *addrlen);
-  WINSOCK_API_LINKAGE int WSAAPI bind(SOCKET s,const struct sockaddr *name,int namelen);
-  WINSOCK_API_LINKAGE int WSAAPI closesocket(SOCKET s);
-  WINSOCK_API_LINKAGE int WSAAPI connect(SOCKET s,const struct sockaddr *name,int namelen);
-  WINSOCK_API_LINKAGE int WSAAPI ioctlsocket(SOCKET s,long cmd,u_long *argp);
-  WINSOCK_API_LINKAGE int WSAAPI getpeername(SOCKET s,struct sockaddr *name,int *namelen);
-  WINSOCK_API_LINKAGE int WSAAPI getsockname(SOCKET s,struct sockaddr *name,int *namelen);
-  WINSOCK_API_LINKAGE int WSAAPI getsockopt(SOCKET s,int level,int optname,char *optval,int *optlen);
+  WINSOCK_API_LINKAGE SOCKET WSAAPI accept(SOCKET s,بنية sockaddr *addr,صحيح *addrlen);
+  WINSOCK_API_LINKAGE صحيح WSAAPI bind(SOCKET s,ثابت بنية sockaddr *name,صحيح namelen);
+  WINSOCK_API_LINKAGE صحيح WSAAPI closesocket(SOCKET s);
+  WINSOCK_API_LINKAGE صحيح WSAAPI connect(SOCKET s,ثابت بنية sockaddr *name,صحيح namelen);
+  WINSOCK_API_LINKAGE صحيح WSAAPI ioctlsocket(SOCKET s,دراز cmd,u_long *argp);
+  WINSOCK_API_LINKAGE صحيح WSAAPI getpeername(SOCKET s,بنية sockaddr *name,صحيح *namelen);
+  WINSOCK_API_LINKAGE صحيح WSAAPI getsockname(SOCKET s,بنية sockaddr *name,صحيح *namelen);
+  WINSOCK_API_LINKAGE صحيح WSAAPI getsockopt(SOCKET s,صحيح level,صحيح optname,حرف *optval,صحيح *optlen);
   WINSOCK_API_LINKAGE u_long WSAAPI htonl(u_long hostlong);
   WINSOCK_API_LINKAGE u_short WSAAPI htons(u_short hostshort);
-  WINSOCK_API_LINKAGE unsigned long WSAAPI inet_addr(const char *cp);
-  WINSOCK_API_LINKAGE char *WSAAPI inet_ntoa(struct in_addr in);
-  WINSOCK_API_LINKAGE int WSAAPI listen(SOCKET s,int backlog);
+  WINSOCK_API_LINKAGE بیعلامت دراز WSAAPI inet_addr(ثابت حرف *cp);
+  WINSOCK_API_LINKAGE حرف *WSAAPI inet_ntoa(بنية درون_addr درون);
+  WINSOCK_API_LINKAGE صحيح WSAAPI listen(SOCKET s,صحيح backlog);
   WINSOCK_API_LINKAGE u_long WSAAPI ntohl(u_long netlong);
   WINSOCK_API_LINKAGE u_short WSAAPI ntohs(u_short netshort);
-  WINSOCK_API_LINKAGE int WSAAPI recv(SOCKET s,char *buf,int len,int flags);
-  WINSOCK_API_LINKAGE int WSAAPI recvfrom(SOCKET s,char *buf,int len,int flags,struct sockaddr *from,int *fromlen);
-  WINSOCK_API_LINKAGE int WSAAPI select(int nfds,fd_set *readfds,fd_set *writefds,fd_set *exceptfds,const struct timeval *timeout);
-  WINSOCK_API_LINKAGE int WSAAPI send(SOCKET s,const char *buf,int len,int flags);
-  WINSOCK_API_LINKAGE int WSAAPI sendto(SOCKET s,const char *buf,int len,int flags,const struct sockaddr *to,int tolen);
-  WINSOCK_API_LINKAGE int WSAAPI setsockopt(SOCKET s,int level,int optname,const char *optval,int optlen);
-  WINSOCK_API_LINKAGE int WSAAPI shutdown(SOCKET s,int how);
-  WINSOCK_API_LINKAGE SOCKET WSAAPI socket(int af,int type,int protocol);
-  WINSOCK_API_LINKAGE struct hostent *WSAAPI gethostbyaddr(const char *addr,int len,int type);
-  WINSOCK_API_LINKAGE struct hostent *WSAAPI gethostbyname(const char *name);
-  WINSOCK_API_LINKAGE int WSAAPI gethostname(char *name,int namelen);
-  WINSOCK_API_LINKAGE struct servent *WSAAPI getservbyport(int port,const char *proto);
-  WINSOCK_API_LINKAGE struct servent *WSAAPI getservbyname(const char *name,const char *proto);
-  WINSOCK_API_LINKAGE struct protoent *WSAAPI getprotobynumber(int number);
-  WINSOCK_API_LINKAGE struct protoent *WSAAPI getprotobyname(const char *name);
-  WINSOCK_API_LINKAGE int WSAAPI WSAStartup(WORD wVersionRequested,LPWSADATA lpWSAData);
-  WINSOCK_API_LINKAGE int WSAAPI WSACleanup(void);
-  WINSOCK_API_LINKAGE void WSAAPI WSASetLastError(int iError);
-  WINSOCK_API_LINKAGE int WSAAPI WSAGetLastError(void);
-  WINSOCK_API_LINKAGE WINBOOL WSAAPI WSAIsBlocking(void);
-  WINSOCK_API_LINKAGE int WSAAPI WSAUnhookBlockingHook(void);
-  WINSOCK_API_LINKAGE FARPROC WSAAPI WSASetBlockingHook(FARPROC lpBlockFunc);
-  WINSOCK_API_LINKAGE int WSAAPI WSACancelBlockingCall(void);
-  WINSOCK_API_LINKAGE HANDLE WSAAPI WSAAsyncGetServByName(HWND hWnd,u_int wMsg,const char *name,const char *proto,char *buf,int buflen);
-  WINSOCK_API_LINKAGE HANDLE WSAAPI WSAAsyncGetServByPort(HWND hWnd,u_int wMsg,int port,const char *proto,char *buf,int buflen);
-  WINSOCK_API_LINKAGE HANDLE WSAAPI WSAAsyncGetProtoByName(HWND hWnd,u_int wMsg,const char *name,char *buf,int buflen);
-  WINSOCK_API_LINKAGE HANDLE WSAAPI WSAAsyncGetProtoByNumber(HWND hWnd,u_int wMsg,int number,char *buf,int buflen);
-  WINSOCK_API_LINKAGE HANDLE WSAAPI WSAAsyncGetHostByName(HWND hWnd,u_int wMsg,const char *name,char *buf,int buflen);
-  WINSOCK_API_LINKAGE HANDLE WSAAPI WSAAsyncGetHostByAddr(HWND hWnd,u_int wMsg,const char *addr,int len,int type,char *buf,int buflen);
-  WINSOCK_API_LINKAGE int WSAAPI WSACancelAsyncRequest(HANDLE hAsyncTaskHandle);
-  WINSOCK_API_LINKAGE int WSAAPI WSAAsyncSelect(SOCKET s,HWND hWnd,u_int wMsg,long lEvent);
-  WINSOCK_API_LINKAGE SOCKET WSAAPI WSAAccept(SOCKET s,struct sockaddr *addr,LPINT addrlen,LPCONDITIONPROC lpfnCondition,DWORD_PTR dwCallbackData);
+  WINSOCK_API_LINKAGE صحيح WSAAPI recv(SOCKET s,حرف *buf,صحيح len,صحيح flags);
+  WINSOCK_API_LINKAGE صحيح WSAAPI recvfrom(SOCKET s,حرف *buf,صحيح len,صحيح flags,بنية sockaddr *from,صحيح *fromlen);
+  WINSOCK_API_LINKAGE صحيح WSAAPI select(صحيح nfds,fd_set *readfds,fd_set *writefds,fd_set *exceptfds,ثابت بنية timeval *timeout);
+  WINSOCK_API_LINKAGE صحيح WSAAPI send(SOCKET s,ثابت حرف *buf,صحيح len,صحيح flags);
+  WINSOCK_API_LINKAGE صحيح WSAAPI sendto(SOCKET s,ثابت حرف *buf,صحيح len,صحيح flags,ثابت بنية sockaddr *مقصد,صحيح tolen);
+  WINSOCK_API_LINKAGE صحيح WSAAPI setsockopt(SOCKET s,صحيح level,صحيح optname,ثابت حرف *optval,صحيح optlen);
+  WINSOCK_API_LINKAGE صحيح WSAAPI shutdown(SOCKET s,صحيح how);
+  WINSOCK_API_LINKAGE SOCKET WSAAPI socket(صحيح af,صحيح type,صحيح protocol);
+  WINSOCK_API_LINKAGE بنية hostent *WSAAPI gethostbyaddr(ثابت حرف *addr,صحيح len,صحيح type);
+  WINSOCK_API_LINKAGE بنية hostent *WSAAPI gethostbyname(ثابت حرف *name);
+  WINSOCK_API_LINKAGE صحيح WSAAPI gethostname(حرف *name,صحيح namelen);
+  WINSOCK_API_LINKAGE بنية servent *WSAAPI getservbyport(صحيح پورت_2,ثابت حرف *proto);
+  WINSOCK_API_LINKAGE بنية servent *WSAAPI getservbyname(ثابت حرف *name,ثابت حرف *proto);
+  WINSOCK_API_LINKAGE بنية protoent *WSAAPI getprotobynumber(صحيح عدد_3);
+  WINSOCK_API_LINKAGE بنية protoent *WSAAPI getprotobyname(ثابت حرف *name);
+  WINSOCK_API_LINKAGE صحيح WSAAPI WSAStartup(کلمه_3 w_نسخه_Requested,LPWSADATA lpWSAData);
+  WINSOCK_API_LINKAGE صحيح WSAAPI WSACleanup(فراغ);
+  WINSOCK_API_LINKAGE فراغ WSAAPI WSASet_آخرین_Error(صحيح iError);
+  WINSOCK_API_LINKAGE صحيح WSAAPI WSAGet_آخرین_Error(فراغ);
+  WINSOCK_API_LINKAGE WINBOOL WSAAPI WSAIsBlocking(فراغ);
+  WINSOCK_API_LINKAGE صحيح WSAAPI WSAUnhookBlockingHook(فراغ);
+  WINSOCK_API_LINKAGE FARPROC WSAAPI WSASetBlockingHook(FARPROC lp_بلوک_Func);
+  WINSOCK_API_LINKAGE صحيح WSAAPI WSACancelBlockingCall(فراغ);
+  WINSOCK_API_LINKAGE HANDLE WSAAPI WSAAsyncGetServByName(HWND hWnd,u_int w_پیام,ثابت حرف *name,ثابت حرف *proto,حرف *buf,صحيح buflen);
+  WINSOCK_API_LINKAGE HANDLE WSAAPI WSAAsync_Get_Serv_By_پورت(HWND hWnd,u_int w_پیام,صحيح پورت_2,ثابت حرف *proto,حرف *buf,صحيح buflen);
+  WINSOCK_API_LINKAGE HANDLE WSAAPI WSAAsyncGetProtoByName(HWND hWnd,u_int w_پیام,ثابت حرف *name,حرف *buf,صحيح buflen);
+  WINSOCK_API_LINKAGE HANDLE WSAAPI WSAAsync_Get_Proto_By_عدد(HWND hWnd,u_int w_پیام,صحيح عدد_3,حرف *buf,صحيح buflen);
+  WINSOCK_API_LINKAGE HANDLE WSAAPI WSAAsyncGetHostByName(HWND hWnd,u_int w_پیام,ثابت حرف *name,حرف *buf,صحيح buflen);
+  WINSOCK_API_LINKAGE HANDLE WSAAPI WSAAsyncGetHostByAddr(HWND hWnd,u_int w_پیام,ثابت حرف *addr,صحيح len,صحيح type,حرف *buf,صحيح buflen);
+  WINSOCK_API_LINKAGE صحيح WSAAPI WSACancelAsyncRequest(HANDLE hAsyncTaskHandle);
+  WINSOCK_API_LINKAGE صحيح WSAAPI WSAAsyncSelect(SOCKET s,HWND hWnd,u_int w_پیام,دراز lEvent);
+  WINSOCK_API_LINKAGE SOCKET WSAAPI WSAAccept(SOCKET s,بنية sockaddr *addr,LPINT addrlen,LPCONDITIONPROC lpfnCondition,DWORD_PTR dw_Callback_داده);
   WINSOCK_API_LINKAGE WINBOOL WSAAPI WSACloseEvent(WSAEVENT hEvent);
-  WINSOCK_API_LINKAGE int WSAAPI WSAConnect(SOCKET s,const struct sockaddr *name,int namelen,LPWSABUF lpCallerData,LPWSABUF lpCalleeData,LPQOS lpSQOS,LPQOS lpGQOS);
-  WINSOCK_API_LINKAGE WSAEVENT WSAAPI WSACreateEvent(void);
-  WINSOCK_API_LINKAGE int WSAAPI WSADuplicateSocketA(SOCKET s,DWORD dwProcessId,LPWSAPROTOCOL_INFOA lpProtocolInfo);
-  WINSOCK_API_LINKAGE int WSAAPI WSADuplicateSocketW(SOCKET s,DWORD dwProcessId,LPWSAPROTOCOL_INFOW lpProtocolInfo);
-  WINSOCK_API_LINKAGE int WSAAPI WSAEnumNetworkEvents(SOCKET s,WSAEVENT hEventObject,LPWSANETWORKEVENTS lpNetworkEvents);
-  WINSOCK_API_LINKAGE int WSAAPI WSAEnumProtocolsA(LPINT lpiProtocols,LPWSAPROTOCOL_INFOA lpProtocolBuffer,LPDWORD lpdwBufferLength);
-  WINSOCK_API_LINKAGE int WSAAPI WSAEnumProtocolsW(LPINT lpiProtocols,LPWSAPROTOCOL_INFOW lpProtocolBuffer,LPDWORD lpdwBufferLength);
-  WINSOCK_API_LINKAGE int WSAAPI WSAEventSelect(SOCKET s,WSAEVENT hEventObject,long lNetworkEvents);
-  WINSOCK_API_LINKAGE WINBOOL WSAAPI WSAGetOverlappedResult(SOCKET s,LPWSAOVERLAPPED lpOverlapped,LPDWORD lpcbTransfer,WINBOOL fWait,LPDWORD lpdwFlags);
+  WINSOCK_API_LINKAGE صحيح WSAAPI WSAConnect(SOCKET s,ثابت بنية sockaddr *name,صحيح namelen,LPWSABUF lp_Caller_داده,LPWSABUF lp_Callee_داده,LPQOS lpSQOS,LPQOS lpGQOS);
+  WINSOCK_API_LINKAGE WSAEVENT WSAAPI WSACreateEvent(فراغ);
+  WINSOCK_API_LINKAGE صحيح WSAAPI WSADuplicateSocketA(SOCKET s,DWORD dwProcessId,LPWSAPROTOCOL_INFOA lpProtocolInfo);
+  WINSOCK_API_LINKAGE صحيح WSAAPI WSADuplicateSocketW(SOCKET s,DWORD dwProcessId,LPWSAPROTOCOL_INFOW lpProtocolInfo);
+  WINSOCK_API_LINKAGE صحيح WSAAPI WSAEnum_شبکه_Events(SOCKET s,WSAEVENT hEventObject,LPWSANETWORKEVENTS lp_شبکه_Events);
+  WINSOCK_API_LINKAGE صحيح WSAAPI WSAEnumProtocolsA(LPINT lpiProtocols,LPWSAPROTOCOL_INFOA lp_Protocol_میانگیر,LPDWORD lpdw_میانگیر_درازی);
+  WINSOCK_API_LINKAGE صحيح WSAAPI WSAEnumProtocolsW(LPINT lpiProtocols,LPWSAPROTOCOL_INFOW lp_Protocol_میانگیر,LPDWORD lpdw_میانگیر_درازی);
+  WINSOCK_API_LINKAGE صحيح WSAAPI WSAEventSelect(SOCKET s,WSAEVENT hEventObject,دراز l_شبکه_Events);
+  WINSOCK_API_LINKAGE WINBOOL WSAAPI WSAGet_Overlapped_نتیجه(SOCKET s,LPWSAOVERLAPPED lpOverlapped,LPDWORD lpcbTransfer,WINBOOL fWait,LPDWORD lpdwFlags);
   WINSOCK_API_LINKAGE WINBOOL WSAAPI WSAGetQOSByName(SOCKET s,LPWSABUF lpQOSName,LPQOS lpQOS);
-  WINSOCK_API_LINKAGE int WSAAPI WSAHtonl(SOCKET s,u_long hostlong,u_long *lpnetlong);
-  WINSOCK_API_LINKAGE int WSAAPI WSAHtons(SOCKET s,u_short hostshort,u_short *lpnetshort);
-  WINSOCK_API_LINKAGE int WSAAPI WSAIoctl(SOCKET s,DWORD dwIoControlCode,LPVOID lpvInBuffer,DWORD cbInBuffer,LPVOID lpvOutBuffer,DWORD cbOutBuffer,LPDWORD lpcbBytesReturned,LPWSAOVERLAPPED lpOverlapped,LPWSAOVERLAPPED_COMPLETION_ROUTINE lpCompletionRoutine);
-  WINSOCK_API_LINKAGE SOCKET WSAAPI WSAJoinLeaf(SOCKET s,const struct sockaddr *name,int namelen,LPWSABUF lpCallerData,LPWSABUF lpCalleeData,LPQOS lpSQOS,LPQOS lpGQOS,DWORD dwFlags);
-  WINSOCK_API_LINKAGE int WSAAPI WSANtohl(SOCKET s,u_long netlong,u_long *lphostlong);
-  WINSOCK_API_LINKAGE int WSAAPI WSANtohs(SOCKET s,u_short netshort,u_short *lphostshort);
-  WINSOCK_API_LINKAGE int WSAAPI WSARecv(SOCKET s,LPWSABUF lpBuffers,DWORD dwBufferCount,LPDWORD lpNumberOfBytesRecvd,LPDWORD lpFlags,LPWSAOVERLAPPED lpOverlapped,LPWSAOVERLAPPED_COMPLETION_ROUTINE lpCompletionRoutine);
-  WINSOCK_API_LINKAGE int WSAAPI WSARecvDisconnect(SOCKET s,LPWSABUF lpInboundDisconnectData);
-  WINSOCK_API_LINKAGE int WSAAPI WSARecvFrom(SOCKET s,LPWSABUF lpBuffers,DWORD dwBufferCount,LPDWORD lpNumberOfBytesRecvd,LPDWORD lpFlags,struct sockaddr *lpFrom,LPINT lpFromlen,LPWSAOVERLAPPED lpOverlapped,LPWSAOVERLAPPED_COMPLETION_ROUTINE lpCompletionRoutine);
+  WINSOCK_API_LINKAGE صحيح WSAAPI WSAHtonl(SOCKET s,u_long hostlong,u_long *lpnetlong);
+  WINSOCK_API_LINKAGE صحيح WSAAPI WSAHtons(SOCKET s,u_short hostshort,u_short *lpnetshort);
+  WINSOCK_API_LINKAGE صحيح WSAAPI WSAIoctl(SOCKET s,DWORD dw_Io_Control_کد,LPVOID lpv_درون_میانگیر,DWORD cb_درون_میانگیر,LPVOID lpv_بیرون_میانگیر,DWORD cb_بیرون_میانگیر,LPDWORD lpcb_بایتها_Returned,LPWSAOVERLAPPED lpOverlapped,LPWSAOVERLAPPED_COMPLETION_ROUTINE lpCompletionRoutine);
+  WINSOCK_API_LINKAGE SOCKET WSAAPI WSAJoin_برگ(SOCKET s,ثابت بنية sockaddr *name,صحيح namelen,LPWSABUF lp_Caller_داده,LPWSABUF lp_Callee_داده,LPQOS lpSQOS,LPQOS lpGQOS,DWORD dwFlags);
+  WINSOCK_API_LINKAGE صحيح WSAAPI WSANtohl(SOCKET s,u_long netlong,u_long *lphostlong);
+  WINSOCK_API_LINKAGE صحيح WSAAPI WSANtohs(SOCKET s,u_short netshort,u_short *lphostshort);
+  WINSOCK_API_LINKAGE صحيح WSAAPI WSARecv(SOCKET s,LPWSABUF lpBuffers,DWORD dw_میانگیر_شمار,LPDWORD lp_عدد_از_بایتها_Recvd,LPDWORD lpFlags,LPWSAOVERLAPPED lpOverlapped,LPWSAOVERLAPPED_COMPLETION_ROUTINE lpCompletionRoutine);
+  WINSOCK_API_LINKAGE صحيح WSAAPI WSARecvDisconnect(SOCKET s,LPWSABUF lp_Inbound_Disconnect_داده);
+  WINSOCK_API_LINKAGE صحيح WSAAPI WSARecvFrom(SOCKET s,LPWSABUF lpBuffers,DWORD dw_میانگیر_شمار,LPDWORD lp_عدد_از_بایتها_Recvd,LPDWORD lpFlags,بنية sockaddr *lpFrom,LPINT lpFromlen,LPWSAOVERLAPPED lpOverlapped,LPWSAOVERLAPPED_COMPLETION_ROUTINE lpCompletionRoutine);
   WINSOCK_API_LINKAGE WINBOOL WSAAPI WSAResetEvent(WSAEVENT hEvent);
-  WINSOCK_API_LINKAGE int WSAAPI WSASend(SOCKET s,LPWSABUF lpBuffers,DWORD dwBufferCount,LPDWORD lpNumberOfBytesSent,DWORD dwFlags,LPWSAOVERLAPPED lpOverlapped,LPWSAOVERLAPPED_COMPLETION_ROUTINE lpCompletionRoutine);
-  WINSOCK_API_LINKAGE int WSAAPI WSASendDisconnect(SOCKET s,LPWSABUF lpOutboundDisconnectData);
-  WINSOCK_API_LINKAGE int WSAAPI WSASendTo(SOCKET s,LPWSABUF lpBuffers,DWORD dwBufferCount,LPDWORD lpNumberOfBytesSent,DWORD dwFlags,const struct sockaddr *lpTo,int iTolen,LPWSAOVERLAPPED lpOverlapped,LPWSAOVERLAPPED_COMPLETION_ROUTINE lpCompletionRoutine);
+  WINSOCK_API_LINKAGE صحيح WSAAPI WSASend(SOCKET s,LPWSABUF lpBuffers,DWORD dw_میانگیر_شمار,LPDWORD lp_عدد_از_بایتها_فرستاده,DWORD dwFlags,LPWSAOVERLAPPED lpOverlapped,LPWSAOVERLAPPED_COMPLETION_ROUTINE lpCompletionRoutine);
+  WINSOCK_API_LINKAGE صحيح WSAAPI WSASendDisconnect(SOCKET s,LPWSABUF lp_Outbound_Disconnect_داده);
+  WINSOCK_API_LINKAGE صحيح WSAAPI WSASend_مقصد(SOCKET s,LPWSABUF lpBuffers,DWORD dw_میانگیر_شمار,LPDWORD lp_عدد_از_بایتها_فرستاده,DWORD dwFlags,ثابت بنية sockaddr *lp_مقصد,صحيح iTolen,LPWSAOVERLAPPED lpOverlapped,LPWSAOVERLAPPED_COMPLETION_ROUTINE lpCompletionRoutine);
   WINSOCK_API_LINKAGE WINBOOL WSAAPI WSASetEvent(WSAEVENT hEvent);
-  WINSOCK_API_LINKAGE SOCKET WSAAPI WSASocketA(int af,int type,int protocol,LPWSAPROTOCOL_INFOA lpProtocolInfo,GROUP g,DWORD dwFlags);
-  WINSOCK_API_LINKAGE SOCKET WSAAPI WSASocketW(int af,int type,int protocol,LPWSAPROTOCOL_INFOW lpProtocolInfo,GROUP g,DWORD dwFlags);
-  WINSOCK_API_LINKAGE DWORD WSAAPI WSAWaitForMultipleEvents(DWORD cEvents,const WSAEVENT *lphEvents,WINBOOL fWaitAll,DWORD dwTimeout,WINBOOL fAlertable);
-  WINSOCK_API_LINKAGE INT WSAAPI WSAAddressToStringA(LPSOCKADDR lpsaAddress,DWORD dwAddressLength,LPWSAPROTOCOL_INFOA lpProtocolInfo,LPSTR lpszAddressString,LPDWORD lpdwAddressStringLength);
-  WINSOCK_API_LINKAGE INT WSAAPI WSAAddressToStringW(LPSOCKADDR lpsaAddress,DWORD dwAddressLength,LPWSAPROTOCOL_INFOW lpProtocolInfo,LPWSTR lpszAddressString,LPDWORD lpdwAddressStringLength);
-  WINSOCK_API_LINKAGE INT WSAAPI WSAStringToAddressA(LPSTR AddressString,INT AddressFamily,LPWSAPROTOCOL_INFOA lpProtocolInfo,LPSOCKADDR lpAddress,LPINT lpAddressLength);
-  WINSOCK_API_LINKAGE INT WSAAPI WSAStringToAddressW(LPWSTR AddressString,INT AddressFamily,LPWSAPROTOCOL_INFOW lpProtocolInfo,LPSOCKADDR lpAddress,LPINT lpAddressLength);
+  WINSOCK_API_LINKAGE SOCKET WSAAPI WSASocketA(صحيح af,صحيح type,صحيح protocol,LPWSAPROTOCOL_INFOA lpProtocolInfo,گروه_3 g,DWORD dwFlags);
+  WINSOCK_API_LINKAGE SOCKET WSAAPI WSASocketW(صحيح af,صحيح type,صحيح protocol,LPWSAPROTOCOL_INFOW lpProtocolInfo,گروه_3 g,DWORD dwFlags);
+  WINSOCK_API_LINKAGE DWORD WSAAPI WSAWait_For_مضرب_Events(DWORD cEvents,ثابت WSAEVENT *lphEvents,WINBOOL fWaitAll,DWORD dwTimeout,WINBOOL fAlertable);
+  WINSOCK_API_LINKAGE INT WSAAPI WSAAddress_مقصد_String_A(LPSOCKADDR lpsa_آدرس,DWORD dw_آدرس_درازی,LPWSAPROTOCOL_INFOA lpProtocolInfo,LPSTR lpsz_آدرس_String,LPDWORD lpdw_آدرس_String_درازی);
+  WINSOCK_API_LINKAGE INT WSAAPI WSAAddress_مقصد_String_W(LPSOCKADDR lpsa_آدرس,DWORD dw_آدرس_درازی,LPWSAPROTOCOL_INFOW lpProtocolInfo,LPWSTR lpsz_آدرس_String,LPDWORD lpdw_آدرس_String_درازی);
+  WINSOCK_API_LINKAGE INT WSAAPI WSAString_مقصد_آدرس_A(LPSTR آدرس_String,INT آدرس_Family,LPWSAPROTOCOL_INFOA lpProtocolInfo,LPSOCKADDR lp_آدرس,LPINT lp_آدرس_درازی);
+  WINSOCK_API_LINKAGE INT WSAAPI WSAString_مقصد_آدرس_W(LPWSTR آدرس_String,INT آدرس_Family,LPWSAPROTOCOL_INFOW lpProtocolInfo,LPSOCKADDR lp_آدرس,LPINT lp_آدرس_درازی);
   WINSOCK_API_LINKAGE INT WSAAPI WSALookupServiceBeginA(LPWSAQUERYSETA lpqsRestrictions,DWORD dwControlFlags,LPHANDLE lphLookup);
   WINSOCK_API_LINKAGE INT WSAAPI WSALookupServiceBeginW(LPWSAQUERYSETW lpqsRestrictions,DWORD dwControlFlags,LPHANDLE lphLookup);
-  WINSOCK_API_LINKAGE INT WSAAPI WSALookupServiceNextA(HANDLE hLookup,DWORD dwControlFlags,LPDWORD lpdwBufferLength,LPWSAQUERYSETA lpqsResults);
-  WINSOCK_API_LINKAGE INT WSAAPI WSALookupServiceNextW(HANDLE hLookup,DWORD dwControlFlags,LPDWORD lpdwBufferLength,LPWSAQUERYSETW lpqsResults);
-  WINSOCK_API_LINKAGE INT WSAAPI WSANSPIoctl(HANDLE hLookup,DWORD dwControlCode,LPVOID lpvInBuffer,DWORD cbInBuffer,LPVOID lpvOutBuffer,DWORD cbOutBuffer,LPDWORD lpcbBytesReturned,LPWSACOMPLETION lpCompletion);
-  WINSOCK_API_LINKAGE INT WSAAPI WSALookupServiceEnd(HANDLE hLookup);
+  WINSOCK_API_LINKAGE INT WSAAPI WSALookup_Service_بعدی_A(HANDLE hLookup,DWORD dwControlFlags,LPDWORD lpdw_میانگیر_درازی,LPWSAQUERYSETA lpqsResults);
+  WINSOCK_API_LINKAGE INT WSAAPI WSALookup_Service_بعدی_W(HANDLE hLookup,DWORD dwControlFlags,LPDWORD lpdw_میانگیر_درازی,LPWSAQUERYSETW lpqsResults);
+  WINSOCK_API_LINKAGE INT WSAAPI WSANSPIoctl(HANDLE hLookup,DWORD dw_Control_کد,LPVOID lpv_درون_میانگیر,DWORD cb_درون_میانگیر,LPVOID lpv_بیرون_میانگیر,DWORD cb_بیرون_میانگیر,LPDWORD lpcb_بایتها_Returned,LPWSACOMPLETION lpCompletion);
+  WINSOCK_API_LINKAGE INT WSAAPI WSALookup_Service_انتها(HANDLE hLookup);
   WINSOCK_API_LINKAGE INT WSAAPI WSAInstallServiceClassA(LPWSASERVICECLASSINFOA lpServiceClassInfo);
   WINSOCK_API_LINKAGE INT WSAAPI WSAInstallServiceClassW(LPWSASERVICECLASSINFOW lpServiceClassInfo);
   WINSOCK_API_LINKAGE INT WSAAPI WSARemoveServiceClass(LPGUID lpServiceClassId);
-  WINSOCK_API_LINKAGE INT WSAAPI WSAGetServiceClassInfoA(LPGUID lpProviderId,LPGUID lpServiceClassId,LPDWORD lpdwBufSize,LPWSASERVICECLASSINFOA lpServiceClassInfo);
-  WINSOCK_API_LINKAGE INT WSAAPI WSAGetServiceClassInfoW(LPGUID lpProviderId,LPGUID lpServiceClassId,LPDWORD lpdwBufSize,LPWSASERVICECLASSINFOW lpServiceClassInfo);
-  WINSOCK_API_LINKAGE INT WSAAPI WSAEnumNameSpaceProvidersA(LPDWORD lpdwBufferLength,LPWSANAMESPACE_INFOA lpnspBuffer);
-  WINSOCK_API_LINKAGE INT WSAAPI WSAEnumNameSpaceProvidersW(LPDWORD lpdwBufferLength,LPWSANAMESPACE_INFOW lpnspBuffer);
-  WINSOCK_API_LINKAGE INT WSAAPI WSAGetServiceClassNameByClassIdA(LPGUID lpServiceClassId,LPSTR lpszServiceClassName,LPDWORD lpdwBufferLength);
-  WINSOCK_API_LINKAGE INT WSAAPI WSAGetServiceClassNameByClassIdW(LPGUID lpServiceClassId,LPWSTR lpszServiceClassName,LPDWORD lpdwBufferLength);
+  WINSOCK_API_LINKAGE INT WSAAPI WSAGetServiceClassInfoA(LPGUID lpProviderId,LPGUID lpServiceClassId,LPDWORD lpdw_Buf_اندازه,LPWSASERVICECLASSINFOA lpServiceClassInfo);
+  WINSOCK_API_LINKAGE INT WSAAPI WSAGetServiceClassInfoW(LPGUID lpProviderId,LPGUID lpServiceClassId,LPDWORD lpdw_Buf_اندازه,LPWSASERVICECLASSINFOW lpServiceClassInfo);
+  WINSOCK_API_LINKAGE INT WSAAPI WSAEnumNameSpaceProvidersA(LPDWORD lpdw_میانگیر_درازی,LPWSANAMESPACE_INFOA lpnsp_میانگیر);
+  WINSOCK_API_LINKAGE INT WSAAPI WSAEnumNameSpaceProvidersW(LPDWORD lpdw_میانگیر_درازی,LPWSANAMESPACE_INFOW lpnsp_میانگیر);
+  WINSOCK_API_LINKAGE INT WSAAPI WSAGetServiceClassNameByClassIdA(LPGUID lpServiceClassId,LPSTR lpszServiceClassName,LPDWORD lpdw_میانگیر_درازی);
+  WINSOCK_API_LINKAGE INT WSAAPI WSAGetServiceClassNameByClassIdW(LPGUID lpServiceClassId,LPWSTR lpszServiceClassName,LPDWORD lpdw_میانگیر_درازی);
   WINSOCK_API_LINKAGE INT WSAAPI WSASetServiceA(LPWSAQUERYSETA lpqsRegInfo,WSAESETSERVICEOP essoperation,DWORD dwControlFlags);
   WINSOCK_API_LINKAGE INT WSAAPI WSASetServiceW(LPWSAQUERYSETW lpqsRegInfo,WSAESETSERVICEOP essoperation,DWORD dwControlFlags);
   WINSOCK_API_LINKAGE INT WSAAPI WSAProviderConfigChange(LPHANDLE lpNotificationHandle,LPWSAOVERLAPPED lpOverlapped,LPWSAOVERLAPPED_COMPLETION_ROUTINE lpCompletionRoutine);
 
-  typedef struct sockaddr_in SOCKADDR_IN;
-  typedef struct sockaddr_in *PSOCKADDR_IN;
-  typedef struct sockaddr_in *LPSOCKADDR_IN;
+  تعريفنوع بنية sockaddr_درون SOCKADDR_درون;
+  تعريفنوع بنية sockaddr_درون *PSOCKADDR_درون;
+  تعريفنوع بنية sockaddr_درون *LPSOCKADDR_درون;
 
-  typedef struct linger LINGER;
-  typedef struct linger *PLINGER;
-  typedef struct linger *LPLINGER;
+  تعريفنوع بنية linger LINGER;
+  تعريفنوع بنية linger *PLINGER;
+  تعريفنوع بنية linger *LPLINGER;
 
-  typedef struct in_addr IN_ADDR;
-  typedef struct in_addr *PIN_ADDR;
-  typedef struct in_addr *LPIN_ADDR;
+  تعريفنوع بنية درون_addr درون_ADDR;
+  تعريفنوع بنية درون_addr *PIN_ADDR;
+  تعريفنوع بنية درون_addr *LPIN_ADDR;
 
-  typedef struct fd_set FD_SET;
-  typedef struct fd_set *PFD_SET;
-  typedef struct fd_set *LPFD_SET;
+  تعريفنوع بنية fd_set FD_SET;
+  تعريفنوع بنية fd_set *PFD_مجموعه;
+  تعريفنوع بنية fd_set *LPFD_مجموعه;
 
-  typedef struct hostent HOSTENT;
-  typedef struct hostent *PHOSTENT;
-  typedef struct hostent *LPHOSTENT;
+  تعريفنوع بنية hostent HOSTENT;
+  تعريفنوع بنية hostent *PHOSTENT;
+  تعريفنوع بنية hostent *LPHOSTENT;
 
-  typedef struct servent SERVENT;
-  typedef struct servent *PSERVENT;
-  typedef struct servent *LPSERVENT;
+  تعريفنوع بنية servent SERVENT;
+  تعريفنوع بنية servent *PSERVENT;
+  تعريفنوع بنية servent *LPSERVENT;
 
-  typedef struct protoent PROTOENT;
-  typedef struct protoent *PPROTOENT;
-  typedef struct protoent *LPPROTOENT;
+  تعريفنوع بنية protoent PROTOENT;
+  تعريفنوع بنية protoent *PPROTOENT;
+  تعريفنوع بنية protoent *LPPROTOENT;
 
-  typedef struct timeval TIMEVAL;
-  typedef struct timeval *PTIMEVAL;
-  typedef struct timeval *LPTIMEVAL;
+  تعريفنوع بنية timeval TIMEVAL;
+  تعريفنوع بنية timeval *PTIMEVAL;
+  تعريفنوع بنية timeval *LPTIMEVAL;
 
-#define WSAMAKEASYNCREPLY(buflen,error) MAKELONG(buflen,error)
-#define WSAMAKESELECTREPLY(event,error) MAKELONG(event,error)
-#define WSAGETASYNCBUFLEN(lParam) LOWORD(lParam)
-#define WSAGETASYNCERROR(lParam) HIWORD(lParam)
-#define WSAGETSELECTEVENT(lParam) LOWORD(lParam)
-#define WSAGETSELECTERROR(lParam) HIWORD(lParam)
+#تعریف_کن WSAMAKEASYNCREPLY(buflen,error) MAKELONG(buflen,error)
+#تعریف_کن WSAMAKESELECTREPLY(event,error) MAKELONG(event,error)
+#تعریف_کن WSAGETASYNCBUFLEN(lParam) LOWORD(lParam)
+#تعریف_کن WSAGETASYNCERROR(lParam) HIWORD(lParam)
+#تعریف_کن WSAGETSELECTEVENT(lParam) LOWORD(lParam)
+#تعریف_کن WSAGETSELECTERROR(lParam) HIWORD(lParam)
 
 /* #if (_WIN32_WINNT >= 0x0600) */
-#define POLLRDNORM  0x0100
-#define POLLRDBAND  0x0200
-#define POLLIN      (POLLRDNORM | POLLRDBAND)
-#define POLLPRI     0x0400
+#تعریف_کن POLLRDNORM  0x0100
+#تعریف_کن POLLRDBAND  0x0200
+#تعریف_کن POLLIN      (POLLRDNORM | POLLRDBAND)
+#تعریف_کن POLLPRI     0x0400
 
-#define POLLWRNORM  0x0010
-#define POLLOUT     (POLLWRNORM)
-#define POLLWRBAND  0x0020
+#تعریف_کن POLLWRNORM  0x0010
+#تعریف_کن POLLOUT     (POLLWRNORM)
+#تعریف_کن POLLWRBAND  0x0020
 
-#define POLLERR     0x0001
-#define POLLHUP     0x0002
-#define POLLNVAL    0x0004
+#تعریف_کن POLLERR     0x0001
+#تعریف_کن POLLHUP     0x0002
+#تعریف_کن POLLNVAL    0x0004
 
-typedef struct pollfd {
+تعريفنوع بنية pollfd {
         SOCKET fd;
         SHORT  events;
         SHORT  revents;
 } WSAPOLLFD, *PWSAPOLLFD, FAR *LPWSAPOLLFD;
 
-WINSOCK_API_LINKAGE int WSAAPI WSAPoll(LPWSAPOLLFD fdArray, ULONG fds, INT timeout);
+WINSOCK_API_LINKAGE صحيح WSAAPI WSAPoll(LPWSAPOLLFD fdArray, ULONG fds, INT timeout);
 /* #endif // (_WIN32_WINNT >= 0x0600) */
 
-#ifdef __cplusplus
+#اگر_تعریف_شده __cplusplus
 }
-#endif
+#پایان_اگر
 
-#ifdef _NEED_POPPACK
-#include <poppack.h>
-#endif
+#اگر_تعریف_شده _NEED_POPPACK
+#ضمن <poppack.h>
+#پایان_اگر
 
-#ifdef IPV6STRICT
-#include <wsipv6ok.h>
-#endif
+#اگر_تعریف_شده IPV6STRICT
+#ضمن <wsipv6ok.h>
+#پایان_اگر
 
-#ifndef _WINSOCKAPI_
-#define _WINSOCKAPI_
-#endif
+#اگر_تعریف_نشده _WINSOCKAPI_
+#تعریف_کن _WINSOCKAPI_
+#پایان_اگر
 
-#ifdef _INC_WINSOCK_H
-#include <mswsock.h>
-#endif
+#اگر_تعریف_شده _INC_WINSOCK_H
+#ضمن <mswsock.h>
+#پایان_اگر
 
-#endif
+#پایان_اگر

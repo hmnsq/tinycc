@@ -1,27 +1,27 @@
-#include <stdio.h>
+#ضمن <stdio.h>
 
-typedef struct
+تعريفنوع بنية
 {
-    double average;
-    int count;
+    مزدوج معدل;
+    صحيح شمار_2;
 }
 stats_type;
 
-static void
-testc (stats_type *s, long long data)
+ساكن فراغ
+testc (stats_type *s, دراز دراز داده)
 {
-    s->average = (s->average * s->count + data) / (s->count + 1);
-    s->count++;
+    s->معدل = (s->معدل * s->شمار_2 + داده) / (s->شمار_2 + 1);
+    s->شمار_2++;
 }
 
-int main (void)
+صحيح اصلی (فراغ)
 {
     stats_type s;
 
-    s.average = 0;
-    s.count = 0;
+    s.معدل = 0;
+    s.شمار_2 = 0;
     testc (&s, 10);
     testc (&s, 20);
-    printf ("%g %d\n", s.average, s.count);
-    return 0;
+    چاپ_کن ("%g %d\n", s.معدل, s.شمار_2);
+    أرجع 0;
 }

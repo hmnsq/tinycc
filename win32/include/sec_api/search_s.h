@@ -3,23 +3,23 @@
  * This file is part of the w64 mingw-runtime package.
  * No warranty is given; refer to the file DISCLAIMER within this package.
  */
-#ifndef _INC_SEARCH_S
-#define _INC_SEARCH_S
+#اگر_تعریف_نشده INC_جستجو_S
+#تعریف_کن INC_جستجو_S
 
-#include <search.h>
+#ضمن <search.h>
 
-#if defined(MINGW_HAS_SECURE_API)
+#إذا defined(MINGW_HAS_SECURE_API)
 
-#ifdef __cplusplus
-extern "C" {
-#endif
+#اگر_تعریف_شده __cplusplus
+خارجي "C" {
+#پایان_اگر
 
-  _CRTIMP void *__cdecl _lfind_s(const void *_Key,const void *_Base,unsigned int *_NumOfElements,size_t _SizeOfElements,int (__cdecl *_PtFuncCompare)(void *,const void *,const void *),void *_Context);
-  _CRTIMP void *__cdecl _lsearch_s(const void *_Key,void *_Base,unsigned int *_NumOfElements,size_t _SizeOfElements,int (__cdecl *_PtFuncCompare)(void *,const void *,const void *),void *_Context);
+  _CRTIMP فراغ *__cdecl _lfind_s(ثابت فراغ *کلید_2,ثابت فراغ *پایه_3,بیعلامت صحيح *رقم_از_Elements,اندازه_t اندازه_از_Elements,صحيح (__cdecl *_PtFuncCompare)(فراغ *,ثابت فراغ *,ثابت فراغ *),فراغ *_Context);
+  _CRTIMP فراغ *__cdecl _lsearch_s(ثابت فراغ *کلید_2,فراغ *پایه_3,بیعلامت صحيح *رقم_از_Elements,اندازه_t اندازه_از_Elements,صحيح (__cdecl *_PtFuncCompare)(فراغ *,ثابت فراغ *,ثابت فراغ *),فراغ *_Context);
 
-#ifdef __cplusplus
+#اگر_تعریف_شده __cplusplus
 }
-#endif
+#پایان_اگر
 
-#endif
-#endif
+#پایان_اگر
+#پایان_اگر

@@ -1,85 +1,85 @@
-#include <stdio.h>
+#ضمن <stdio.h>
 
-int main()
+صحيح اصلی()
 {
-   printf("#include test\n");
+   چاپ_کن("#include test\n");
 
-#if 1
-#if 0
-   printf("a\n");
-#else
-   printf("b\n");
-#endif
-#else
-#if 0
-   printf("c\n");
-#else
-   printf("d\n");
-#endif
-#endif
+#إذا 1
+#إذا 0
+   چاپ_کن("a\n");
+#وإلا
+   چاپ_کن("b\n");
+#پایان_اگر
+#وإلا
+#إذا 0
+   چاپ_کن("c\n");
+#وإلا
+   چاپ_کن("d\n");
+#پایان_اگر
+#پایان_اگر
 
-#if 0
-#if 1
-   printf("e\n");
-#else
-   printf("f\n");
-#endif
-#else
-#if 1
-   printf("g\n");
-#else
-   printf("h\n");
-#endif
-#endif
+#إذا 0
+#إذا 1
+   چاپ_کن("e\n");
+#وإلا
+   چاپ_کن("f\n");
+#پایان_اگر
+#وإلا
+#إذا 1
+   چاپ_کن("g\n");
+#وإلا
+   چاپ_کن("h\n");
+#پایان_اگر
+#پایان_اگر
 
-#define DEF
+#تعریف_کن DEF
 
-#ifdef DEF
-#ifdef DEF
-   printf("i\n");
-#else
-   printf("j\n");
-#endif
-#else
-#ifdef DEF
-   printf("k\n");
-#else
-   printf("l\n");
-#endif
-#endif
+#اگر_تعریف_شده DEF
+#اگر_تعریف_شده DEF
+   چاپ_کن("i\n");
+#وإلا
+   چاپ_کن("j\n");
+#پایان_اگر
+#وإلا
+#اگر_تعریف_شده DEF
+   چاپ_کن("k\n");
+#وإلا
+   چاپ_کن("l\n");
+#پایان_اگر
+#پایان_اگر
 
-#ifndef DEF
-#ifndef DEF
-   printf("m\n");
-#else
-   printf("n\n");
-#endif
-#else
-#ifndef DEF
-   printf("o\n");
-#else
-   printf("p\n");
-#endif
-#endif
+#اگر_تعریف_نشده DEF
+#اگر_تعریف_نشده DEF
+   چاپ_کن("m\n");
+#وإلا
+   چاپ_کن("n\n");
+#پایان_اگر
+#وإلا
+#اگر_تعریف_نشده DEF
+   چاپ_کن("o\n");
+#وإلا
+   چاپ_کن("p\n");
+#پایان_اگر
+#پایان_اگر
 
-#define ONE 1
-#define ZERO 0
+#تعریف_کن ONE 1
+#تعریف_کن ZERO 0
 
-#if ONE
-#if ZERO
-   printf("q\n");
-#else
-   printf("r\n");
-#endif
-#else
-#if ZERO
-   printf("s\n");
-#else
-   printf("t\n");
-#endif
-#endif
+#إذا ONE
+#إذا ZERO
+   چاپ_کن("q\n");
+#وإلا
+   چاپ_کن("r\n");
+#پایان_اگر
+#وإلا
+#إذا ZERO
+   چاپ_کن("s\n");
+#وإلا
+   چاپ_کن("t\n");
+#پایان_اگر
+#پایان_اگر
 
-   return 0;
+   أرجع 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

@@ -1,18 +1,18 @@
-#include <stdio.h>
-#include <pthread.h>
-#include <errno.h>
+#ضمن <stdio.h>
+#ضمن <pthread.h>
+#ضمن <errno.h>
 
-int
-main(void)
+صحيح
+اصلی(فراغ)
 {
-  int ret;
+  صحيح ret;
   pthread_condattr_t attr;
   pthread_cond_t condition;
 
   /* This test fails if symbol versioning does not work */
   pthread_condattr_init (&attr);
   pthread_condattr_setpshared (&attr, PTHREAD_PROCESS_SHARED);
-  printf ("%s\n", pthread_cond_init (&condition, &attr) ? "fail":"ok");
+  چاپ_کن ("%s\n", pthread_cond_init (&condition, &attr) ? "fail":"ok");
   pthread_condattr_destroy (&attr);
-  return 0;
+  أرجع 0;
 }

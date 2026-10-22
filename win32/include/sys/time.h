@@ -4,44 +4,44 @@
  * No warranty is given; refer to the file DISCLAIMER within this package.
  */
 
-#ifndef _SYS_TIME_H_
-#define _SYS_TIME_H_
+#اگر_تعریف_نشده SYS_زمان_H
+#تعریف_کن SYS_زمان_H
 
-#include <time.h>
+#ضمن <time.h>
 
-#ifdef  __cplusplus
-extern "C" {
-#endif
+#اگر_تعریف_شده  __cplusplus
+خارجي "C" {
+#پایان_اگر
 
-#ifndef __STRICT_ANSI__
-#ifndef _TIMEVAL_DEFINED /* also in winsock[2].h */
-#define _TIMEVAL_DEFINED
-struct timeval {
-  long tv_sec;
-  long tv_usec;
+#اگر_تعریف_نشده __STRICT_ANSI__
+#اگر_تعریف_نشده _TIMEVAL_DEFINED /* also in winsock[2].h */
+#تعریف_کن _TIMEVAL_DEFINED
+بنية timeval {
+  دراز tv_sec;
+  دراز tv_usec;
 };
-#define timerisset(tvp)	 ((tvp)->tv_sec || (tvp)->tv_usec)
-#define timercmp(tvp, uvp, cmp) \
+#تعریف_کن timerisset(tvp)	 ((tvp)->tv_sec || (tvp)->tv_usec)
+#تعریف_کن timercmp(tvp, uvp, cmp) \
   (((tvp)->tv_sec != (uvp)->tv_sec) ? \
   ((tvp)->tv_sec cmp (uvp)->tv_sec) : \
   ((tvp)->tv_usec cmp (uvp)->tv_usec))
-#define timerclear(tvp)	 (tvp)->tv_sec = (tvp)->tv_usec = 0
-#endif /* _TIMEVAL_DEFINED */
+#تعریف_کن timerclear(tvp)	 (tvp)->tv_sec = (tvp)->tv_usec = 0
+#پایان_اگر /* _TIMEVAL_DEFINED */
 
-#ifndef _TIMEZONE_DEFINED /* also in sys/time.h */
-#define _TIMEZONE_DEFINED
+#اگر_تعریف_نشده _TIMEZONE_DEFINED /* also in sys/time.h */
+#تعریف_کن _TIMEZONE_DEFINED
 /* Provided for compatibility with code that assumes that
    the presence of gettimeofday function implies a definition
    of struct timezone. */
-struct timezone
+بنية timezone
 {
-  int tz_minuteswest; /* of Greenwich */
-  int tz_dsttime;     /* type of dst correction to apply */
+  صحيح tz_minuteswest; /* of Greenwich */
+  صحيح tz_dsttime;     /* type of dst correction to apply */
 };
 
-  extern int __cdecl mingw_gettimeofday (struct timeval *p, struct timezone *z);
+  خارجي صحيح __cdecl mingw_gettimeofday (بنية timeval *p, بنية timezone *z);
 
-#endif
+#پایان_اگر
 
 /*
    Implementation as per:
@@ -50,20 +50,20 @@ struct timezone
 
    The timezone pointer arg is ignored.  Errors are ignored.
 */
-#ifndef _GETTIMEOFDAY_DEFINED
-#define _GETTIMEOFDAY_DEFINED
-int __cdecl gettimeofday(struct timeval *__restrict__,
-                         void *__restrict__  /* tzp (unused) */);
-#endif
+#اگر_تعریف_نشده _GETTIMEOFDAY_DEFINED
+#تعریف_کن _GETTIMEOFDAY_DEFINED
+صحيح __cdecl gettimeofday(بنية timeval *__restrict__,
+                         فراغ *__restrict__  /* tzp (unused) */);
+#پایان_اگر
 
-#endif /* __STRICT_ANSI__ */
+#پایان_اگر /* __STRICT_ANSI__ */
 
-#ifdef  __cplusplus
+#اگر_تعریف_شده  __cplusplus
 }
-#endif
+#پایان_اگر
 
 /* Adding timespec definition.  */
-#include <sys/timeb.h>
+#ضمن <sys/timeb.h>
 
 
-#endif /* _SYS_TIME_H_ */
+#پایان_اگر /* _SYS_TIME_H_ */

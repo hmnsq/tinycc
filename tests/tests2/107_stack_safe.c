@@ -1,13 +1,13 @@
-extern int printf(const char *, ...);
+خارجي صحيح چاپ_کن(ثابت حرف *, ...);
 
-static void func_ull_ull(unsigned long long l1,unsigned long long l2){
+ساكن فراغ func_ull_ull(بیعلامت دراز دراز l1,بیعلامت دراز دراز l2){
 }
 
-int main()
+صحيح اصلی()
 {
-  int a,b,c,d;
+  صحيح a,b,c,d;
   a=1;b=2;c=3;d=4;
-  func_ull_ull((unsigned long long)a/1.0,(unsigned long long)b/1.0);
-  printf("%d %d %d %d",a,b,c,d);
-  return 0;
+  func_ull_ull((بیعلامت دراز دراز)a/1.0,(بیعلامت دراز دراز)b/1.0);
+  چاپ_کن("%d %d %d %d",a,b,c,d);
+  أرجع 0;
 }

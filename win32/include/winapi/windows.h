@@ -3,125 +3,125 @@
  * This file is part of the w64 mingw-runtime package.
  * No warranty is given; refer to the file DISCLAIMER within this package.
  */
-#ifndef _WINDOWS_
-#define _WINDOWS_
+#اگر_تعریف_نشده _WINDOWS_
+#تعریف_کن _WINDOWS_
 
-#ifndef WIN32_LEAN_AND_MEAN
-#define WIN32_LEAN_AND_MEAN 1
-#endif
+#اگر_تعریف_نشده WIN32_LEAN_AND_میانگین
+#تعریف_کن WIN32_LEAN_AND_میانگین 1
+#پایان_اگر
 
-#ifndef WINVER
-#define WINVER 0x0502
-#endif
+#اگر_تعریف_نشده WINVER
+#تعریف_کن WINVER 0x0502
+#پایان_اگر
 
-#include <_mingw.h>
+#ضمن <_mingw.h>
 
-#ifndef _INC_WINDOWS
-#define _INC_WINDOWS
+#اگر_تعریف_نشده _INC_WINDOWS
+#تعریف_کن _INC_WINDOWS
 
-#if defined(RC_INVOKED) && !defined(NOWINRES)
+#إذا defined(RC_INVOKED) && !defined(NOWINRES)
 
-#include <winresrc.h>
-#else
+#ضمن <winresrc.h>
+#وإلا
 
-#ifdef RC_INVOKED
-#define NOATOM
-#define NOGDI
-#define NOGDICAPMASKS
-#define NOMETAFILE
-#define NOMINMAX
-#define NOMSG
-#define NOOPENFILE
-#define NORASTEROPS
-#define NOSCROLL
-#define NOSOUND
-#define NOSYSMETRICS
-#define NOTEXTMETRIC
-#define NOWH
-#define NOCOMM
-#define NOKANJI
-#define NOCRYPT
-#define NOMCX
-#endif
+#اگر_تعریف_شده RC_INVOKED
+#تعریف_کن NOATOM
+#تعریف_کن NOGDI
+#تعریف_کن NOGDICAPMASKS
+#تعریف_کن NOMETAFILE
+#تعریف_کن NOMINMAX
+#تعریف_کن NOMSG
+#تعریف_کن NOOPENFILE
+#تعریف_کن NORASTEROPS
+#تعریف_کن NOSCROLL
+#تعریف_کن NOSOUND
+#تعریف_کن NOSYSMETRICS
+#تعریف_کن NOTEXTMETRIC
+#تعریف_کن NOWH
+#تعریف_کن NOCOMM
+#تعریف_کن NOKANJI
+#تعریف_کن NOCRYPT
+#تعریف_کن NOMCX
+#پایان_اگر
 
-#if !defined(I_X86_) && !defined(_IA64_) && !defined(_AMD64_) && (defined(_X86_) && !defined(__x86_64))
-#define I_X86_
-#endif
+#إذا !defined(I_X86_) && !defined(_IA64_) && !defined(_AMD64_) && (defined(_X86_) && !defined(__x86_64))
+#تعریف_کن I_X86_
+#پایان_اگر
 
-#if !defined(I_X86_) && !defined(_IA64_) && !defined(_AMD64_) && defined(__x86_64)
-#define _AMD64_
-#endif
+#إذا !defined(I_X86_) && !defined(_IA64_) && !defined(_AMD64_) && defined(__x86_64)
+#تعریف_کن _AMD64_
+#پایان_اگر
 
-#if !defined(I_X86_) && !(defined(_X86_) && !defined(__x86_64)) && !defined(_AMD64_) && defined(__ia64__)
-#if !defined(_IA64_)
-#define _IA64_
-#endif
-#endif
+#إذا !defined(I_X86_) && !(defined(_X86_) && !defined(__x86_64)) && !defined(_AMD64_) && defined(__ia64__)
+#إذا !defined(_IA64_)
+#تعریف_کن _IA64_
+#پایان_اگر
+#پایان_اگر
 
-#ifndef RC_INVOKED
-#include <excpt.h>
-#include <stdarg.h>
-#endif
+#اگر_تعریف_نشده RC_INVOKED
+#ضمن <excpt.h>
+#ضمن <stdarg.h>
+#پایان_اگر
 
-#include <windef.h>
-#include <winbase.h>
-#include <wingdi.h>
-#include <winuser.h>
-#include <winnls.h>
-#include <wincon.h>
-#include <winver.h>
-#include <winreg.h>
+#ضمن <windef.h>
+#ضمن <winbase.h>
+#ضمن <wingdi.h>
+#ضمن <winuser.h>
+#ضمن <winnls.h>
+#ضمن <wincon.h>
+#ضمن <winver.h>
+#ضمن <winreg.h>
 //gr #include <winnetwk.h>
 
-#ifndef WIN32_LEAN_AND_MEAN
-#include <cderr.h>
-#include <dde.h>
-#include <ddeml.h>
-#include <dlgs.h>
-#include <lzexpand.h>
-#include <mmsystem.h>
-#include <nb30.h>
-#include <rpc.h>
-#include <shellapi.h>
-#include <winperf.h>
-#include <winsock.h>
-#ifndef NOCRYPT
-#include <wincrypt.h>
-#include <winefs.h>
-#include <winscard.h>
-#endif
+#اگر_تعریف_نشده WIN32_LEAN_AND_میانگین
+#ضمن <cderr.h>
+#ضمن <dde.h>
+#ضمن <ddeml.h>
+#ضمن <dlgs.h>
+#ضمن <lzexpand.h>
+#ضمن <mmsystem.h>
+#ضمن <nb30.h>
+#ضمن <rpc.h>
+#ضمن <shellapi.h>
+#ضمن <winperf.h>
+#ضمن <winsock.h>
+#اگر_تعریف_نشده NOCRYPT
+#ضمن <wincrypt.h>
+#ضمن <winefs.h>
+#ضمن <winscard.h>
+#پایان_اگر
 
-#ifndef NOUSER
-#ifndef NOGDI
-#include <winspool.h>
-#ifdef INC_OLE1
-#include <ole.h>
-#else
-#include <ole2.h>
-#endif
-#include <commdlg.h>
-#endif
-#endif
-#endif
+#اگر_تعریف_نشده NOUSER
+#اگر_تعریف_نشده NOGDI
+#ضمن <winspool.h>
+#اگر_تعریف_شده INC_OLE1
+#ضمن <ole.h>
+#وإلا
+#ضمن <ole2.h>
+#پایان_اگر
+#ضمن <commdlg.h>
+#پایان_اگر
+#پایان_اگر
+#پایان_اگر
 
 //gr #include <stralign.h>
 
-#ifdef INC_OLE2
-#include <ole2.h>
-#endif
+#اگر_تعریف_شده INC_OLE2
+#ضمن <ole2.h>
+#پایان_اگر
 
-#ifndef NOSERVICE
-#include <winsvc.h>
-#endif
+#اگر_تعریف_نشده NOSERVICE
+#ضمن <winsvc.h>
+#پایان_اگر
 
-#ifndef NOMCX
-#include <mcx.h>
-#endif
+#اگر_تعریف_نشده NOMCX
+#ضمن <mcx.h>
+#پایان_اگر
 
-#ifndef NOIME
-#include <imm.h>
-#endif
+#اگر_تعریف_نشده NOIME
+#ضمن <imm.h>
+#پایان_اگر
 
-#endif
-#endif
-#endif
+#پایان_اگر
+#پایان_اگر
+#پایان_اگر

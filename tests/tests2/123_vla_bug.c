@@ -1,40 +1,40 @@
-typedef __SIZE_TYPE__ size_t;
-extern int printf(const char*, ...);
-extern size_t strlen(const char*);
-char str[] = "blabla";
-int g;
-int main()
+تعريفنوع __SIZE_TYPE__ اندازه_t;
+خارجي صحيح چاپ_کن(ثابت حرف*, ...);
+خارجي اندازه_t طول_رشته(ثابت حرف*);
+حرف str[] = "blabla";
+صحيح g;
+صحيح اصلی()
 {
   //char helpme[strlen(str) + 1];
-  int i = 0;
-#if 0
-  if (g) {
-      char buf[strlen(str) + 10];
+  صحيح i = 0;
+#إذا 0
+  إذا (g) {
+      حرف buf[طول_رشته(str) + 10];
       buf[0] = 0;
   }
 alabel:
-  printf("default: i = %d\n", i);
-#else
-  for (i = 0; i < 5; i++) {
-      switch (i) {
-      case 10:
-          if (g) {
-              char buf[strlen(str) + 10];
+  چاپ_کن("default: i = %d\n", i);
+#وإلا
+  لكل (i = 0; i < 5; i++) {
+      بدل (i) {
+      حالة 10:
+          إذا (g) {
+              حرف buf[طول_رشته(str) + 10];
               buf[0] = 0;
-              goto do_cmd;
+              اذهب do_cmd;
           }
-          break;
-      case 1:
-          printf("reached 3\n");
+          اكسر;
+      حالة 1:
+          چاپ_کن("reached 3\n");
     do_cmd:
-          printf("after do_cmd");
-          break;
-      default:
+          چاپ_کن("after do_cmd");
+          اكسر;
+      افتراضي:
           g++;
-          printf("default: i = %d\n", i);
-          break;
+          چاپ_کن("default: i = %d\n", i);
+          اكسر;
       }
   }
-#endif
-  return 0;
+#پایان_اگر
+  أرجع 0;
 }

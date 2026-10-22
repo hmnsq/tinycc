@@ -1,17 +1,17 @@
-#include <stdio.h>
+#ضمن <stdio.h>
 
-static void f(int x)
+ساكن فراغ f(صحيح x)
 {
-     printf("f(%d)\n", x);
+     چاپ_کن("f(%d)\n", x);
 }
 
-int main(void)
+صحيح اصلی(فراغ)
 {
-     int count = 0, i = 0;
-     for (; i < 3; ++i) {
-         printf("%d\n", i);
-         (void)(i || (f(i), ++count));
+     صحيح شمار_2 = 0, i = 0;
+     لكل (; i < 3; ++i) {
+         چاپ_کن("%d\n", i);
+         (فراغ)(i || (f(i), ++شمار_2));
      }
-     printf("count %d\n", count);
-     return count == 1 ? 0 : 1;
+     چاپ_کن("count %d\n", شمار_2);
+     أرجع شمار_2 == 1 ? 0 : 1;
 }

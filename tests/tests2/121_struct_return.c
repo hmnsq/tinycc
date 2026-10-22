@@ -1,53 +1,53 @@
-#include <stdio.h>
+#ضمن <stdio.h>
 
-typedef struct {
-    int data[4];
-    double d1;
-    double d2;
-} Node;
+تعريفنوع بنية {
+    صحيح داده[4];
+    مزدوج d1;
+    مزدوج d2;
+} گره_2;
 
-typedef struct {
-    int a, b, c;
+تعريفنوع بنية {
+    صحيح a, b, c;
 } A;
 
-Node init(Node self) {
-    self.data[0] = 0;
-    self.data[1] = 1;
-    self.data[2] = 2;
-    self.data[3] = 3;
+گره_2 init(گره_2 self) {
+    self.داده[0] = 0;
+    self.داده[1] = 1;
+    self.داده[2] = 2;
+    self.داده[3] = 3;
     self.d1 = 1234;
     self.d2 = 2345;
-    return self;
+    أرجع self;
 }
 
-void dummy(Node self) {
+فراغ dummy(گره_2 self) {
 }
 
-void print_data(Node data) {
-    printf ("%d %d %d %d %g %g\n",
-            data.data[0], data.data[1], data.data[2], data.data[3],
-            data.d1, data.d2);
+فراغ print_داده(گره_2 داده) {
+    چاپ_کن ("%d %d %d %d %g %g\n",
+            داده.داده[0], داده.داده[1], داده.داده[2], داده.داده[3],
+            داده.d1, داده.d2);
 }
 
-A test(void)
+A test(فراغ)
 {
-    int i;
+    صحيح i;
     A arr[30];
 
-    for (i = 0; i < 30; i++)
+    لكل (i = 0; i < 30; i++)
         arr[i].b = i;
-    return arr[29];
+    أرجع arr[29];
 }
 
-int main(void) {
+صحيح اصلی(فراغ) {
     /* This code resulted in a bounds checking error */
-    Node data;
+    گره_2 داده;
     A a;
-    dummy (data);
-    char val;
-    data = init (data);
-    print_data(data);
+    dummy (داده);
+    حرف val;
+    داده = init (داده);
+    print_داده(داده);
     a = test();
-    printf("%d\n", a.b);
-    return 0;
+    چاپ_کن("%d\n", a.b);
+    أرجع 0;
 }

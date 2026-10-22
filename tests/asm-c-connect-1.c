@@ -1,42 +1,42 @@
-#include <stdio.h>
+#ضمن <stdio.h>
 
-#if (defined _WIN32 || defined __APPLE__) && (!defined __TINYC__ || defined __leading_underscore)
+#إذا (defined _WIN32 || defined __APPLE__) && (!defined __TINYC__ || defined __leading_underscore)
 # define _ "_"
-#else
+#وإلا
 # define _
-#endif
+#پایان_اگر
 
-#ifdef __clang__
+#اگر_تعریف_شده __clang__
 /* clang needs some help tp not throw functions away even at -O0 */
-#define __USED __attribute__((__used__))
-#else
-#define __USED
-#endif
+#تعریف_کن __USED __attribute__((__used__))
+#وإلا
+#تعریف_کن __USED
+#پایان_اگر
 
-static int __USED x1_c (void)
+ساكن صحيح __USED x1_c (فراغ)
 {
-    printf(" x1");
-    return 1;
+    چاپ_کن(" x1");
+    أرجع 1;
 }
 
-#if __i386__
+#إذا __i386__
 asm(".text;"_"x1: call "_"x1_c; ret");
-#else
+#وإلا
 /* Keep stack aligned */
 asm(".text;"_"x1: sub $8,%rsp; call "_"x1_c; add $8,%rsp; ret");
-#endif
+#پایان_اگر
 
-void callx4(void);
-void callx5_again(void);
+فراغ callx4(فراغ);
+فراغ callx5_again(فراغ);
 
-void x6()
+فراغ x6()
 {
-    printf(" x6-1");
+    چاپ_کن(" x6-1");
 }
 
-int main(int argc, char *argv[])
+صحيح اصلی(صحيح argc, حرف *argv[])
 {
-    printf("*");
+    چاپ_کن("*");
     asm("call "_"x1");
     asm("call "_"x2");
     asm("call "_"x3");
@@ -44,26 +44,26 @@ int main(int argc, char *argv[])
     asm("call "_"x5");
     callx5_again();
     x6();
-    printf(" *\n");
-    return 0;
+    چاپ_کن(" *\n");
+    أرجع 0;
 }
 
-static
-int __USED x2(void)
+ساكن
+صحيح __USED x2(فراغ)
 {
-    printf(" x2");
-    return 2;
+    چاپ_کن(" x2");
+    أرجع 2;
 }
 
-extern int x3(void);
+خارجي صحيح x3(فراغ);
 
-void x4(void)
+فراغ x4(فراغ)
 {
-    printf(" x4");
+    چاپ_کن(" x4");
 }
 
-void x5(void);
-void x5(void)
+فراغ x5(فراغ);
+فراغ x5(فراغ)
 {
-    printf(" x5");
+    چاپ_کن(" x5");
 }

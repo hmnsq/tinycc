@@ -1,28 +1,28 @@
-#define x 3
-#define f(a) f(x * (a))
-#undef x
-#define x 2
-#define g f
-#define z z[0]
-#define h g(~
-#define m(a) a(w)
-#define w 0,1
-#define t(a) a
-#define p() int
-#define q(x) x
-#define r(x,y) x ## y
-#define str(x) # x
+#تعریف_کن x 3
+#تعریف_کن f(a) f(x * (a))
+#لغو_تعریف x
+#تعریف_کن x 2
+#تعریف_کن g f
+#تعریف_کن z z[0]
+#تعریف_کن h g(~
+#تعریف_کن m(a) a(w)
+#تعریف_کن w 0,1
+#تعریف_کن t(a) a
+#تعریف_کن p() صحيح
+#تعریف_کن q(x) x
+#تعریف_کن r(x,y) x ## y
+#تعریف_کن str(x) # x
 f(y+1) + f(f(z)) % t(t(g)(0) + t)(1);
 g(x+(3,4)-w) | h 5) & m
 (f)^m(m);
-char c[2][6] = { str(hello), str() };
+حرف c[2][6] = { str(hello), str() };
 /*
  * f(2 * (y+1)) + f(2 * (f(2 * (z[0])))) % f(2 * (0)) + t(1);
  * f(2 * (2+(3,4)-0,1)) | f(2 * (~ 5)) & f(2 * (0,1))^m(0,1);
  * char c[2][6] = { "hello", "" };
  */
-#define L21 f(y+1) + f(f(z)) % t(t(g)(0) + t)(1);
-#define L22 g(x+(3,4)-w) | h 5) & m\
+#تعریف_کن L21 f(y+1) + f(f(z)) % t(t(g)(0) + t)(1);
+#تعریف_کن L22 g(x+(3,4)-w) | h 5) & m\
 (f)^m(m);
 L21
 L22

@@ -2,81 +2,81 @@
  * ISO C Standard:  7.22  Type-generic math <tgmath.h>
  */
 
-#ifndef _TGMATH_H
-#define _TGMATH_H
+#اگر_تعریف_نشده _TGMATH_H
+#تعریف_کن _TGMATH_H
 
-#include <math.h>
+#ضمن <math.h>
 
-#ifndef __cplusplus
-#define __tgmath_real(x, F) \
-  _Generic ((x), float: F##f, long double: F##l, default: F)(x)
-#define __tgmath_real_2_1(x, y, F) \
-  _Generic ((x), float: F##f, long double: F##l, default: F)(x, y)
-#define __tgmath_real_2(x, y, F) \
-  _Generic ((x)+(y), float: F##f, long double: F##l, default: F)(x, y)
-#define __tgmath_real_3_2(x, y, z, F) \
-  _Generic ((x)+(y), float: F##f, long double: F##l, default: F)(x, y, z)
-#define __tgmath_real_3(x, y, z, F) \
-  _Generic ((x)+(y)+(z), float: F##f, long double: F##l, default: F)(x, y, z)
+#اگر_تعریف_نشده __cplusplus
+#تعریف_کن __tgmath_real(x, F) \
+  _Generic ((x), عائم: F##f, دراز مزدوج: F##l, افتراضي: F)(x)
+#تعریف_کن __tgmath_real_2_1(x, y, F) \
+  _Generic ((x), عائم: F##f, دراز مزدوج: F##l, افتراضي: F)(x, y)
+#تعریف_کن __tgmath_real_2(x, y, F) \
+  _Generic ((x)+(y), عائم: F##f, دراز مزدوج: F##l, افتراضي: F)(x, y)
+#تعریف_کن __tgmath_real_3_2(x, y, z, F) \
+  _Generic ((x)+(y), عائم: F##f, دراز مزدوج: F##l, افتراضي: F)(x, y, z)
+#تعریف_کن __tgmath_real_3(x, y, z, F) \
+  _Generic ((x)+(y)+(z), عائم: F##f, دراز مزدوج: F##l, افتراضي: F)(x, y, z)
 
 /* Functions defined in both <math.h> and <complex.h> (7.22p4) */
-#define acos(z)          __tgmath_real(z, acos)
-#define asin(z)          __tgmath_real(z, asin)
-#define atan(z)          __tgmath_real(z, atan)
-#define acosh(z)         __tgmath_real(z, acosh)
-#define asinh(z)         __tgmath_real(z, asinh)
-#define atanh(z)         __tgmath_real(z, atanh)
-#define cos(z)           __tgmath_real(z, cos)
-#define sin(z)           __tgmath_real(z, sin)
-#define tan(z)           __tgmath_real(z, tan)
-#define cosh(z)          __tgmath_real(z, cosh)
-#define sinh(z)          __tgmath_real(z, sinh)
-#define tanh(z)          __tgmath_real(z, tanh)
-#define exp(z)           __tgmath_real(z, exp)
-#define log(z)           __tgmath_real(z, log)
-#define pow(z1,z2)       __tgmath_real_2(z1, z2, pow)
-#define sqrt(z)          __tgmath_real(z, sqrt)
-#define fabs(z)          __tgmath_real(z, fabs)
+#تعریف_کن acos(z)          __tgmath_real(z, acos)
+#تعریف_کن asin(z)          __tgmath_real(z, asin)
+#تعریف_کن atan(z)          __tgmath_real(z, atan)
+#تعریف_کن acosh(z)         __tgmath_real(z, acosh)
+#تعریف_کن asinh(z)         __tgmath_real(z, asinh)
+#تعریف_کن atanh(z)         __tgmath_real(z, atanh)
+#تعریف_کن کسینوس(z)           __tgmath_real(z, کسینوس)
+#تعریف_کن سینوس(z)           __tgmath_real(z, سینوس)
+#تعریف_کن tan(z)           __tgmath_real(z, tan)
+#تعریف_کن cosh(z)          __tgmath_real(z, cosh)
+#تعریف_کن sinh(z)          __tgmath_real(z, sinh)
+#تعریف_کن tanh(z)          __tgmath_real(z, tanh)
+#تعریف_کن نمایی_تابع(z)           __tgmath_real(z, نمایی_تابع)
+#تعریف_کن لگاریتم(z)           __tgmath_real(z, لگاریتم)
+#تعریف_کن توان(z1,z2)       __tgmath_real_2(z1, z2, توان)
+#تعریف_کن جذر(z)          __tgmath_real(z, جذر)
+#تعریف_کن fabs(z)          __tgmath_real(z, fabs)
 
 /* Functions defined in <math.h> only (7.22p5) */
-#define atan2(x,y)       __tgmath_real_2(x, y, atan2)
-#define cbrt(x)          __tgmath_real(x, cbrt)
-#define ceil(x)          __tgmath_real(x, ceil)
-#define copysign(x,y)    __tgmath_real_2(x, y, copysign)
-#define erf(x)           __tgmath_real(x, erf)
-#define erfc(x)          __tgmath_real(x, erfc)
-#define exp2(x)          __tgmath_real(x, exp2)
-#define expm1(x)         __tgmath_real(x, expm1)
-#define fdim(x,y)        __tgmath_real_2(x, y, fdim)
-#define floor(x)         __tgmath_real(x, floor)
-#define fma(x,y,z)       __tgmath_real_3(x, y, z, fma)
-#define fmax(x,y)        __tgmath_real_2(x, y, fmax)
-#define fmin(x,y)        __tgmath_real_2(x, y, fmin)
-#define fmod(x,y)        __tgmath_real_2(x, y, fmod)
-#define frexp(x,y)       __tgmath_real_2_1(x, y, frexp)
-#define hypot(x,y)       __tgmath_real_2(x, y, hypot)
-#define ilogb(x)         __tgmath_real(x, ilogb)
-#define ldexp(x,y)       __tgmath_real_2_1(x, y, ldexp)
-#define lgamma(x)        __tgmath_real(x, lgamma)
-#define llrint(x)        __tgmath_real(x, llrint)
-#define llround(x)       __tgmath_real(x, llround)
-#define log10(x)         __tgmath_real(x, log10)
-#define log1p(x)         __tgmath_real(x, log1p)
-#define log2(x)          __tgmath_real(x, log2)
-#define logb(x)          __tgmath_real(x, logb)
-#define lrint(x)         __tgmath_real(x, lrint)
-#define lround(x)        __tgmath_real(x, lround)
-#define nearbyint(x)     __tgmath_real(x, nearbyint)
-#define nextafter(x,y)   __tgmath_real_2(x, y, nextafter)
-#define nexttoward(x,y)  __tgmath_real_2(x, y, nexttoward)
-#define remainder(x,y)   __tgmath_real_2(x, y, remainder)
-#define remquo(x,y,z)    __tgmath_real_3_2(x, y, z, remquo)
-#define rint(x)          __tgmath_real(x, rint)
-#define round(x)         __tgmath_real(x, round)
-#define scalbln(x,y)     __tgmath_real_2_1(x, y, scalbln)
-#define scalbn(x,y)      __tgmath_real_2_1(x, y, scalbn)
-#define tgamma(x)        __tgmath_real(x, tgamma)
-#define trunc(x)         __tgmath_real(x, trunc)
+#تعریف_کن atan2(x,y)       __tgmath_real_2(x, y, atan2)
+#تعریف_کن cbrt(x)          __tgmath_real(x, cbrt)
+#تعریف_کن ceil(x)          __tgmath_real(x, ceil)
+#تعریف_کن copysign(x,y)    __tgmath_real_2(x, y, copysign)
+#تعریف_کن erf(x)           __tgmath_real(x, erf)
+#تعریف_کن erfc(x)          __tgmath_real(x, erfc)
+#تعریف_کن exp2(x)          __tgmath_real(x, exp2)
+#تعریف_کن expm1(x)         __tgmath_real(x, expm1)
+#تعریف_کن fdim(x,y)        __tgmath_real_2(x, y, fdim)
+#تعریف_کن floor(x)         __tgmath_real(x, floor)
+#تعریف_کن fma(x,y,z)       __tgmath_real_3(x, y, z, fma)
+#تعریف_کن fmax(x,y)        __tgmath_real_2(x, y, fmax)
+#تعریف_کن fmin(x,y)        __tgmath_real_2(x, y, fmin)
+#تعریف_کن fmod(x,y)        __tgmath_real_2(x, y, fmod)
+#تعریف_کن frexp(x,y)       __tgmath_real_2_1(x, y, frexp)
+#تعریف_کن hypot(x,y)       __tgmath_real_2(x, y, hypot)
+#تعریف_کن ilogb(x)         __tgmath_real(x, ilogb)
+#تعریف_کن ldexp(x,y)       __tgmath_real_2_1(x, y, ldexp)
+#تعریف_کن lgamma(x)        __tgmath_real(x, lgamma)
+#تعریف_کن llrint(x)        __tgmath_real(x, llrint)
+#تعریف_کن llround(x)       __tgmath_real(x, llround)
+#تعریف_کن log10(x)         __tgmath_real(x, log10)
+#تعریف_کن log1p(x)         __tgmath_real(x, log1p)
+#تعریف_کن log2(x)          __tgmath_real(x, log2)
+#تعریف_کن logb(x)          __tgmath_real(x, logb)
+#تعریف_کن lrint(x)         __tgmath_real(x, lrint)
+#تعریف_کن lround(x)        __tgmath_real(x, lround)
+#تعریف_کن nearbyint(x)     __tgmath_real(x, nearbyint)
+#تعریف_کن nextafter(x,y)   __tgmath_real_2(x, y, nextafter)
+#تعریف_کن nexttoward(x,y)  __tgmath_real_2(x, y, nexttoward)
+#تعریف_کن remainder(x,y)   __tgmath_real_2(x, y, remainder)
+#تعریف_کن remquo(x,y,z)    __tgmath_real_3_2(x, y, z, remquo)
+#تعریف_کن rint(x)          __tgmath_real(x, rint)
+#تعریف_کن دور(x)         __tgmath_real(x, دور)
+#تعریف_کن scalbln(x,y)     __tgmath_real_2_1(x, y, scalbln)
+#تعریف_کن scalbn(x,y)      __tgmath_real_2_1(x, y, scalbn)
+#تعریف_کن tgamma(x)        __tgmath_real(x, tgamma)
+#تعریف_کن trunc(x)         __tgmath_real(x, trunc)
 
 /* Functions defined in <complex.h> only (7.22p6)
 #define carg(z)          __tgmath_cplx_only(z, carg)
@@ -85,5 +85,5 @@
 #define cproj(z)         __tgmath_cplx_only(z, cproj)
 #define creal(z)         __tgmath_cplx_only(z, creal)
 */
-#endif /* __cplusplus */
-#endif /* _TGMATH_H */
+#پایان_اگر /* __cplusplus */
+#پایان_اگر /* _TGMATH_H */

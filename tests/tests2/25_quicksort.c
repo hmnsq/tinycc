@@ -1,52 +1,52 @@
-#include <stdio.h>
+#ضمن <stdio.h>
 
-int array[16];
+صحيح array[16];
 
 //Swap integer values by array indexes
-void swap(int a, int b)
+فراغ جابجا_2(صحيح a, صحيح b)
 {
-   int tmp  = array[a];
+   صحيح tmp  = array[a];
    array[a] = array[b];
    array[b] = tmp;
 }
 
 //Partition the array into two halves and return the
 //index about which the array is partitioned
-int partition(int left, int right)
+صحيح افراز(صحيح چپ, صحيح راست)
 {
-   int pivotIndex = left;
-   int pivotValue = array[pivotIndex];
-   int index = left;
-   int i;
+   صحيح محور_شاخص = چپ;
+   صحيح محور_مقدار = array[محور_شاخص];
+   صحيح شاخص = چپ;
+   صحيح i;
 
-   swap(pivotIndex, right);
-   for(i = left; i < right; i++)
+   جابجا_2(محور_شاخص, راست);
+   لكل(i = چپ; i < راست; i++)
    {
-      if(array[i] < pivotValue)
+      إذا(array[i] < محور_مقدار)
       {
-         swap(i, index);
-         index += 1;
+         جابجا_2(i, شاخص);
+         شاخص += 1;
       }
    }
-   swap(right, index);
+   جابجا_2(راست, شاخص);
 
-   return index;
+   أرجع شاخص;
 }
 
 //Quicksort the array
-void quicksort(int left, int right)
+فراغ quicksort(صحيح چپ, صحيح راست)
 {
-   if(left >= right)
-      return;
+   إذا(چپ >= راست)
+      أرجع;
 
-   int index = partition(left, right);
-   quicksort(left, index - 1);
-   quicksort(index + 1, right);
+   صحيح شاخص = افراز(چپ, راست);
+   quicksort(چپ, شاخص - 1);
+   quicksort(شاخص + 1, راست);
 }
 
-int main()
+صحيح اصلی()
 {
-   int i;
+   صحيح i;
 
    array[0] = 62;
    array[1] = 83;
@@ -65,19 +65,19 @@ int main()
    array[14] = 74;
    array[15] = 55;
 
-   for (i = 0; i < 16; i++)
-      printf("%d ", array[i]);
+   لكل (i = 0; i < 16; i++)
+      چاپ_کن("%d ", array[i]);
 
-   printf("\n");
+   چاپ_کن("\n");
 
    quicksort(0, 15);
 
-   for (i = 0; i < 16; i++)
-      printf("%d ", array[i]);
+   لكل (i = 0; i < 16; i++)
+      چاپ_کن("%d ", array[i]);
 
-   printf("\n");
+   چاپ_کن("\n");
 
-   return 0;
+   أرجع 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

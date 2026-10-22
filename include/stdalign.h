@@ -1,16 +1,16 @@
-#ifndef _STDALIGN_H
-#define _STDALIGN_H
+#اگر_تعریف_نشده _STDALIGN_H
+#تعریف_کن _STDALIGN_H
 
-#if __STDC_VERSION__ < 201112L && (defined(__GNUC__) || defined(__TINYC__))
+#إذا __STDC_VERSION__ < 201112L && (defined(__GNUC__) || defined(__TINYC__))
 # define _Alignas(t) __attribute__((__aligned__(t)))
 # define _Alignof(t) __alignof__(t)
-#endif
+#پایان_اگر
 
-#define alignas _Alignas
-#define alignof _Alignof
+#تعریف_کن alignas _Alignas
+#تعریف_کن alignof _Alignof
 
-#define __alignas_is_defined 1
-#define __alignof_is_defined 1
+#تعریف_کن __alignas_is_defined 1
+#تعریف_کن __alignof_is_defined 1
 
-#endif /* _STDALIGN_H */
+#پایان_اگر /* _STDALIGN_H */
 

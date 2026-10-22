@@ -5,24 +5,24 @@
  */
 /* 7.8 Format conversion of integer types <inttypes.h> */
 
-#ifndef _INTTYPES_H_
-#define _INTTYPES_H_
+#اگر_تعریف_نشده _INTTYPES_H_
+#تعریف_کن _INTTYPES_H_
 
-#include <_mingw.h>
-#include <stdint.h>
-#define __need_wchar_t
-#include <stddef.h>
+#ضمن <_mingw.h>
+#ضمن <stdint.h>
+#تعریف_کن __need_wchar_t
+#ضمن <stddef.h>
 
-#ifdef	__cplusplus
-extern	"C"	{
-#endif
+#اگر_تعریف_شده	__cplusplus
+خارجي	"C"	{
+#پایان_اگر
 
-typedef struct {
+تعريفنوع بنية {
 	intmax_t quot;
 	intmax_t rem;
 	} imaxdiv_t;
 
-#if !defined(__cplusplus) || defined(__STDC_FORMAT_MACROS)
+#إذا !defined(__cplusplus) || defined(__STDC_FORMAT_MACROS)
 
 /* 7.8.1 Macros for format specifiers
  * 
@@ -33,109 +33,109 @@ typedef struct {
  */
 
 /* fprintf macros for signed types */
-#define PRId8 "d"
-#define PRId16 "d"
-#define PRId32 "d"
-#define PRId64 "I64d"
+#تعریف_کن PRId8 "d"
+#تعریف_کن PRId16 "d"
+#تعریف_کن PRId32 "d"
+#تعریف_کن PRId64 "I64d"
 
-#define PRIdLEAST8 "d"
-#define PRIdLEAST16 "d"
-#define PRIdLEAST32 "d"
-#define PRIdLEAST64 "I64d"
+#تعریف_کن PRIdLEAST8 "d"
+#تعریف_کن PRIdLEAST16 "d"
+#تعریف_کن PRIdLEAST32 "d"
+#تعریف_کن PRIdLEAST64 "I64d"
 
-#define PRIdFAST8 "d"
-#define PRIdFAST16 "d"
-#define PRIdFAST32 "d"
-#define PRIdFAST64 "I64d"
+#تعریف_کن PRIdFAST8 "d"
+#تعریف_کن PRIdFAST16 "d"
+#تعریف_کن PRIdFAST32 "d"
+#تعریف_کن PRIdFAST64 "I64d"
 
-#define PRIdMAX "I64d"
+#تعریف_کن PRIdMAX "I64d"
 
-#define PRIi8 "i"
-#define PRIi16 "i"
-#define PRIi32 "i"
-#define PRIi64 "I64i"
+#تعریف_کن PRIi8 "i"
+#تعریف_کن PRIi16 "i"
+#تعریف_کن PRIi32 "i"
+#تعریف_کن PRIi64 "I64i"
 
-#define PRIiLEAST8 "i"
-#define PRIiLEAST16 "i"
-#define PRIiLEAST32 "i"
-#define PRIiLEAST64 "I64i"
+#تعریف_کن PRIiLEAST8 "i"
+#تعریف_کن PRIiLEAST16 "i"
+#تعریف_کن PRIiLEAST32 "i"
+#تعریف_کن PRIiLEAST64 "I64i"
 
-#define PRIiFAST8 "i"
-#define PRIiFAST16 "i"
-#define PRIiFAST32 "i"
-#define PRIiFAST64 "I64i"
+#تعریف_کن PRIiFAST8 "i"
+#تعریف_کن PRIiFAST16 "i"
+#تعریف_کن PRIiFAST32 "i"
+#تعریف_کن PRIiFAST64 "I64i"
 
-#define PRIiMAX "I64i"
+#تعریف_کن PRIiMAX "I64i"
 
-#define PRIo8 "o"
-#define PRIo16 "o"
-#define PRIo32 "o"
-#define PRIo64 "I64o"
+#تعریف_کن PRIo8 "o"
+#تعریف_کن PRIo16 "o"
+#تعریف_کن PRIo32 "o"
+#تعریف_کن PRIo64 "I64o"
 
-#define PRIoLEAST8 "o"
-#define PRIoLEAST16 "o"
-#define PRIoLEAST32 "o"
-#define PRIoLEAST64 "I64o"
+#تعریف_کن PRIoLEAST8 "o"
+#تعریف_کن PRIoLEAST16 "o"
+#تعریف_کن PRIoLEAST32 "o"
+#تعریف_کن PRIoLEAST64 "I64o"
 
-#define PRIoFAST8 "o"
-#define PRIoFAST16 "o"
-#define PRIoFAST32 "o"
-#define PRIoFAST64 "I64o"
+#تعریف_کن PRIoFAST8 "o"
+#تعریف_کن PRIoFAST16 "o"
+#تعریف_کن PRIoFAST32 "o"
+#تعریف_کن PRIoFAST64 "I64o"
 
-#define PRIoMAX "I64o"
+#تعریف_کن PRIoMAX "I64o"
 
 /* fprintf macros for unsigned types */
-#define PRIu8 "u"
-#define PRIu16 "u"
-#define PRIu32 "u"
-#define PRIu64 "I64u"
+#تعریف_کن PRIu8 "u"
+#تعریف_کن PRIu16 "u"
+#تعریف_کن PRIu32 "u"
+#تعریف_کن PRIu64 "I64u"
 
 
-#define PRIuLEAST8 "u"
-#define PRIuLEAST16 "u"
-#define PRIuLEAST32 "u"
-#define PRIuLEAST64 "I64u"
+#تعریف_کن PRIuLEAST8 "u"
+#تعریف_کن PRIuLEAST16 "u"
+#تعریف_کن PRIuLEAST32 "u"
+#تعریف_کن PRIuLEAST64 "I64u"
 
-#define PRIuFAST8 "u"
-#define PRIuFAST16 "u"
-#define PRIuFAST32 "u"
-#define PRIuFAST64 "I64u"
+#تعریف_کن PRIuFAST8 "u"
+#تعریف_کن PRIuFAST16 "u"
+#تعریف_کن PRIuFAST32 "u"
+#تعریف_کن PRIuFAST64 "I64u"
 
-#define PRIuMAX "I64u"
+#تعریف_کن PRIuMAX "I64u"
 
-#define PRIx8 "x"
-#define PRIx16 "x"
-#define PRIx32 "x"
-#define PRIx64 "I64x"
+#تعریف_کن PRIx8 "x"
+#تعریف_کن PRIx16 "x"
+#تعریف_کن PRIx32 "x"
+#تعریف_کن PRIx64 "I64x"
 
-#define PRIxLEAST8 "x"
-#define PRIxLEAST16 "x"
-#define PRIxLEAST32 "x"
-#define PRIxLEAST64 "I64x"
+#تعریف_کن PRIxLEAST8 "x"
+#تعریف_کن PRIxLEAST16 "x"
+#تعریف_کن PRIxLEAST32 "x"
+#تعریف_کن PRIxLEAST64 "I64x"
 
-#define PRIxFAST8 "x"
-#define PRIxFAST16 "x"
-#define PRIxFAST32 "x"
-#define PRIxFAST64 "I64x"
+#تعریف_کن PRIxFAST8 "x"
+#تعریف_کن PRIxFAST16 "x"
+#تعریف_کن PRIxFAST32 "x"
+#تعریف_کن PRIxFAST64 "I64x"
 
-#define PRIxMAX "I64x"
+#تعریف_کن PRIxMAX "I64x"
 
-#define PRIX8 "X"
-#define PRIX16 "X"
-#define PRIX32 "X"
-#define PRIX64 "I64X"
+#تعریف_کن PRIX8 "X"
+#تعریف_کن PRIX16 "X"
+#تعریف_کن PRIX32 "X"
+#تعریف_کن PRIX64 "I64X"
 
-#define PRIXLEAST8 "X"
-#define PRIXLEAST16 "X"
-#define PRIXLEAST32 "X"
-#define PRIXLEAST64 "I64X"
+#تعریف_کن PRIXLEAST8 "X"
+#تعریف_کن PRIXLEAST16 "X"
+#تعریف_کن PRIXLEAST32 "X"
+#تعریف_کن PRIXLEAST64 "I64X"
 
-#define PRIXFAST8 "X"
-#define PRIXFAST16 "X"
-#define PRIXFAST32 "X"
-#define PRIXFAST64 "I64X"
+#تعریف_کن PRIXFAST8 "X"
+#تعریف_کن PRIXFAST16 "X"
+#تعریف_کن PRIXFAST32 "X"
+#تعریف_کن PRIXFAST64 "I64X"
 
-#define PRIXMAX "I64X"
+#تعریف_کن PRIXMAX "I64X"
 
 /*
  *   fscanf macros for signed int types
@@ -144,154 +144,154 @@ typedef struct {
  *   no length identifiers
  */
 
-#define SCNd16 "hd"
-#define SCNd32 "d"
-#define SCNd64 "I64d"
+#تعریف_کن SCNd16 "hd"
+#تعریف_کن SCNd32 "d"
+#تعریف_کن SCNd64 "I64d"
 
-#define SCNdLEAST16 "hd"
-#define SCNdLEAST32 "d"
-#define SCNdLEAST64 "I64d"
+#تعریف_کن SCNdLEAST16 "hd"
+#تعریف_کن SCNdLEAST32 "d"
+#تعریف_کن SCNdLEAST64 "I64d"
 
-#define SCNdFAST16 "hd"
-#define SCNdFAST32 "d"
-#define SCNdFAST64 "I64d"
+#تعریف_کن SCNdFAST16 "hd"
+#تعریف_کن SCNdFAST32 "d"
+#تعریف_کن SCNdFAST64 "I64d"
 
-#define SCNdMAX "I64d"
+#تعریف_کن SCNdMAX "I64d"
 
-#define SCNi16 "hi"
-#define SCNi32 "i"
-#define SCNi64 "I64i"
+#تعریف_کن SCNi16 "hi"
+#تعریف_کن SCNi32 "i"
+#تعریف_کن SCNi64 "I64i"
 
-#define SCNiLEAST16 "hi"
-#define SCNiLEAST32 "i"
-#define SCNiLEAST64 "I64i"
+#تعریف_کن SCNiLEAST16 "hi"
+#تعریف_کن SCNiLEAST32 "i"
+#تعریف_کن SCNiLEAST64 "I64i"
 
-#define SCNiFAST16 "hi"
-#define SCNiFAST32 "i"
-#define SCNiFAST64 "I64i"
+#تعریف_کن SCNiFAST16 "hi"
+#تعریف_کن SCNiFAST32 "i"
+#تعریف_کن SCNiFAST64 "I64i"
 
-#define SCNiMAX "I64i"
+#تعریف_کن SCNiMAX "I64i"
 
-#define SCNo16 "ho"
-#define SCNo32 "o"
-#define SCNo64 "I64o"
+#تعریف_کن SCNo16 "ho"
+#تعریف_کن SCNo32 "o"
+#تعریف_کن SCNo64 "I64o"
 
-#define SCNoLEAST16 "ho"
-#define SCNoLEAST32 "o"
-#define SCNoLEAST64 "I64o"
+#تعریف_کن SCNoLEAST16 "ho"
+#تعریف_کن SCNoLEAST32 "o"
+#تعریف_کن SCNoLEAST64 "I64o"
 
-#define SCNoFAST16 "ho"
-#define SCNoFAST32 "o"
-#define SCNoFAST64 "I64o"
+#تعریف_کن SCNoFAST16 "ho"
+#تعریف_کن SCNoFAST32 "o"
+#تعریف_کن SCNoFAST64 "I64o"
 
-#define SCNoMAX "I64o"
+#تعریف_کن SCNoMAX "I64o"
 
-#define SCNx16 "hx"
-#define SCNx32 "x"
-#define SCNx64 "I64x"
+#تعریف_کن SCNx16 "hx"
+#تعریف_کن SCNx32 "x"
+#تعریف_کن SCNx64 "I64x"
 
-#define SCNxLEAST16 "hx"
-#define SCNxLEAST32 "x"
-#define SCNxLEAST64 "I64x"
+#تعریف_کن SCNxLEAST16 "hx"
+#تعریف_کن SCNxLEAST32 "x"
+#تعریف_کن SCNxLEAST64 "I64x"
 
-#define SCNxFAST16 "hx"
-#define SCNxFAST32 "x"
-#define SCNxFAST64 "I64x"
+#تعریف_کن SCNxFAST16 "hx"
+#تعریف_کن SCNxFAST32 "x"
+#تعریف_کن SCNxFAST64 "I64x"
 
-#define SCNxMAX "I64x"
+#تعریف_کن SCNxMAX "I64x"
 
 /* fscanf macros for unsigned int types */
 
-#define SCNu16 "hu"
-#define SCNu32 "u"
-#define SCNu64 "I64u"
+#تعریف_کن SCNu16 "hu"
+#تعریف_کن SCNu32 "u"
+#تعریف_کن SCNu64 "I64u"
 
-#define SCNuLEAST16 "hu"
-#define SCNuLEAST32 "u"
-#define SCNuLEAST64 "I64u"
+#تعریف_کن SCNuLEAST16 "hu"
+#تعریف_کن SCNuLEAST32 "u"
+#تعریف_کن SCNuLEAST64 "I64u"
 
-#define SCNuFAST16 "hu"
-#define SCNuFAST32 "u"
-#define SCNuFAST64 "I64u"
+#تعریف_کن SCNuFAST16 "hu"
+#تعریف_کن SCNuFAST32 "u"
+#تعریف_کن SCNuFAST64 "I64u"
 
-#define SCNuMAX "I64u"
+#تعریف_کن SCNuMAX "I64u"
 
-#ifdef _WIN64
-#define PRIdPTR "I64d"
-#define PRIiPTR "I64i"
-#define PRIoPTR "I64o"
-#define PRIuPTR "I64u"
-#define PRIxPTR "I64x"
-#define PRIXPTR "I64X"
-#define SCNdPTR "I64d"
-#define SCNiPTR "I64i"
-#define SCNoPTR "I64o"
-#define SCNxPTR "I64x"
-#define SCNuPTR "I64u"
-#else
-#define PRIdPTR "d"
-#define PRIiPTR "i"
-#define PRIoPTR "o"
-#define PRIuPTR "u"
-#define PRIxPTR "x"
-#define PRIXPTR "X"
-#define SCNdPTR "d"
-#define SCNiPTR "i"
-#define SCNoPTR "o"
-#define SCNxPTR "x"
-#define SCNuPTR "u"
-#endif
+#اگر_تعریف_شده _WIN64
+#تعریف_کن PRIdPTR "I64d"
+#تعریف_کن PRIiPTR "I64i"
+#تعریف_کن PRIoPTR "I64o"
+#تعریف_کن PRIuPTR "I64u"
+#تعریف_کن PRIxPTR "I64x"
+#تعریف_کن PRIXPTR "I64X"
+#تعریف_کن SCNdPTR "I64d"
+#تعریف_کن SCNiPTR "I64i"
+#تعریف_کن SCNoPTR "I64o"
+#تعریف_کن SCNxPTR "I64x"
+#تعریف_کن SCNuPTR "I64u"
+#وإلا
+#تعریف_کن PRIdPTR "d"
+#تعریف_کن PRIiPTR "i"
+#تعریف_کن PRIoPTR "o"
+#تعریف_کن PRIuPTR "u"
+#تعریف_کن PRIxPTR "x"
+#تعریف_کن PRIXPTR "X"
+#تعریف_کن SCNdPTR "d"
+#تعریف_کن SCNiPTR "i"
+#تعریف_کن SCNoPTR "o"
+#تعریف_کن SCNxPTR "x"
+#تعریف_کن SCNuPTR "u"
+#پایان_اگر
 
-#if defined (__STDC_VERSION__) && __STDC_VERSION__ >= 199901L
+#إذا defined (__STDC_VERSION__) && __STDC_VERSION__ >= 199901L
 /*
  * no length modifier for char types prior to C9x
  * MS runtime  scanf appears to treat "hh" as "h" 
  */
 
 /* signed char */
-#define SCNd8 "hhd"
-#define SCNdLEAST8 "hhd"
-#define SCNdFAST8 "hhd"
+#تعریف_کن SCNd8 "hhd"
+#تعریف_کن SCNdLEAST8 "hhd"
+#تعریف_کن SCNdFAST8 "hhd"
 
-#define SCNi8 "hhi"
-#define SCNiLEAST8 "hhi"
-#define SCNiFAST8 "hhi"
+#تعریف_کن SCNi8 "hhi"
+#تعریف_کن SCNiLEAST8 "hhi"
+#تعریف_کن SCNiFAST8 "hhi"
 
-#define SCNo8 "hho"
-#define SCNoLEAST8 "hho"
-#define SCNoFAST8 "hho"
+#تعریف_کن SCNo8 "hho"
+#تعریف_کن SCNoLEAST8 "hho"
+#تعریف_کن SCNoFAST8 "hho"
 
-#define SCNx8 "hhx"
-#define SCNxLEAST8 "hhx"
-#define SCNxFAST8 "hhx"
+#تعریف_کن SCNx8 "hhx"
+#تعریف_کن SCNxLEAST8 "hhx"
+#تعریف_کن SCNxFAST8 "hhx"
 
 /* unsigned char */
-#define SCNu8 "hhu"
-#define SCNuLEAST8 "hhu"
-#define SCNuFAST8 "hhu"
-#endif /* __STDC_VERSION__ >= 199901 */
+#تعریف_کن SCNu8 "hhu"
+#تعریف_کن SCNuLEAST8 "hhu"
+#تعریف_کن SCNuFAST8 "hhu"
+#پایان_اگر /* __STDC_VERSION__ >= 199901 */
 
-#endif	/* !defined(__cplusplus) || defined(__STDC_FORMAT_MACROS) */
+#پایان_اگر	/* !defined(__cplusplus) || defined(__STDC_FORMAT_MACROS) */
 
 intmax_t __cdecl imaxabs (intmax_t j);
 __CRT_INLINE intmax_t __cdecl imaxabs (intmax_t j)
-	{return	(j >= 0 ? j : -j);}
+	{أرجع	(j >= 0 ? j : -j);}
 imaxdiv_t __cdecl imaxdiv (intmax_t numer, intmax_t denom);
 
 /* 7.8.2 Conversion functions for greatest-width integer types */
 
-intmax_t __cdecl strtoimax (const char* __restrict__ nptr,
-                            char** __restrict__ endptr, int base);
-uintmax_t __cdecl strtoumax (const char* __restrict__ nptr,
-			     char** __restrict__ endptr, int base);
+intmax_t __cdecl strtoimax (ثابت حرف* __restrict__ nptr,
+                            حرف** __restrict__ endptr, صحيح پایه);
+uintmax_t __cdecl strtoumax (ثابت حرف* __restrict__ nptr,
+			     حرف** __restrict__ endptr, صحيح پایه);
 
-intmax_t __cdecl wcstoimax (const wchar_t* __restrict__ nptr,
-                            wchar_t** __restrict__ endptr, int base);
-uintmax_t __cdecl wcstoumax (const wchar_t* __restrict__ nptr,
-			     wchar_t** __restrict__ endptr, int base);
+intmax_t __cdecl wcstoimax (ثابت wchar_t* __restrict__ nptr,
+                            wchar_t** __restrict__ endptr, صحيح پایه);
+uintmax_t __cdecl wcstoumax (ثابت wchar_t* __restrict__ nptr,
+			     wchar_t** __restrict__ endptr, صحيح پایه);
 
-#ifdef	__cplusplus
+#اگر_تعریف_شده	__cplusplus
 }
-#endif
+#پایان_اگر
 
-#endif /* ndef _INTTYPES_H */
+#پایان_اگر /* ndef _INTTYPES_H */

@@ -3,28 +3,28 @@
  * This file is part of the w64 mingw-runtime package.
  * No warranty is given; refer to the file DISCLAIMER within this package.
  */
-#ifndef _INC_LOCKING
-#define _INC_LOCKING
+#اگر_تعریف_نشده _INC_LOCKING
+#تعریف_کن _INC_LOCKING
 
-#ifndef _WIN32
-#error Only Win32 target is supported!
-#endif
+#اگر_تعریف_نشده _WIN32
+#خطا Only Win32 هدف is supported!
+#پایان_اگر
 
 /* All the headers include this file. */
-#include <_mingw.h>
+#ضمن <_mingw.h>
 
-#define _LK_UNLCK 0
-#define _LK_LOCK 1
-#define _LK_NBLCK 2
-#define _LK_RLCK 3
-#define _LK_NBRLCK 4
+#تعریف_کن _LK_UNLCK 0
+#تعریف_کن LK_قفل 1
+#تعریف_کن _LK_NBLCK 2
+#تعریف_کن _LK_RLCK 3
+#تعریف_کن _LK_NBRLCK 4
 
-#ifndef	NO_OLDNAMES
-#define LK_UNLCK _LK_UNLCK
-#define LK_LOCK _LK_LOCK
-#define LK_NBLCK _LK_NBLCK
-#define LK_RLCK _LK_RLCK
-#define LK_NBRLCK _LK_NBRLCK
-#endif
+#اگر_تعریف_نشده	NO_OLDNAMES
+#تعریف_کن LK_UNLCK _LK_UNLCK
+#تعریف_کن LK_قفل_2 LK_قفل
+#تعریف_کن LK_NBLCK _LK_NBLCK
+#تعریف_کن LK_RLCK _LK_RLCK
+#تعریف_کن LK_NBRLCK _LK_NBRLCK
+#پایان_اگر
 
-#endif
+#پایان_اگر

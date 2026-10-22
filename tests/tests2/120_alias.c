@@ -1,37 +1,37 @@
 /* Check semantics of various constructs to generate renamed symbols.  */
 
-extern int printf (const char *, ...);
-void target(void);
-void target(void) {
-    printf("in target function\n");
+خارجي صحيح چاپ_کن (ثابت حرف *, ...);
+فراغ هدف(فراغ);
+فراغ هدف(فراغ) {
+    چاپ_کن("in target function\n");
 }
-void alias_for_target(void) __attribute__((alias("target")));
+فراغ alias_for_هدف(فراغ) __attribute__((alias("target")));
 
-int g_int = 34;
-int alias_int __attribute__((alias("g_int")));
+صحيح g_int = 34;
+صحيح alias_int __attribute__((alias("g_int")));
 
-#ifdef __leading_underscore
+#اگر_تعریف_شده __leading_underscore
 # define _ "_"
-#else
+#وإلا
 # define _
-#endif
+#پایان_اگر
 
-void asm_for_target(void) __asm__(_"target");
-int asm_int __asm__(_"g_int");
+فراغ asm_for_هدف(فراغ) __asm__(_"target");
+صحيح asm_int __asm__(_"g_int");
 
 /* This is not supposed to compile, alias targets must be defined in the
    same unit.  In TCC they even must be defined before the reference
 void alias_for_undef(void) __attribute__((alias("undefined")));
 */
 
-extern void inunit2(void);
+خارجي فراغ inunit2(فراغ);
 
-int main(void)
+صحيح اصلی(فراغ)
 {
-  target();
-  alias_for_target();
-  asm_for_target();
-  printf("g_int = %d\nalias_int = %d\nasm_int = %d\n", g_int, alias_int, asm_int);
+  هدف();
+  alias_for_هدف();
+  asm_for_هدف();
+  چاپ_کن("g_int = %d\nalias_int = %d\nasm_int = %d\n", g_int, alias_int, asm_int);
   inunit2();
-  return 0;
+  أرجع 0;
 }

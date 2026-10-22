@@ -1,91 +1,91 @@
 /* ----------------------------------------------------------------------- */
-#if TEST == 1
+#إذا TEST == 1
 {
-    struct M P A __s
+    بنية M P A __s
     {
-        unsigned x : 12;
-        unsigned char y : 7;
-        unsigned z : 28;
-        unsigned a: 4;
-        unsigned b: 5;
+        بیعلامت x : 12;
+        بیعلامت حرف y : 7;
+        بیعلامت z : 28;
+        بیعلامت a: 4;
+        بیعلامت b: 5;
     };
     TEST_STRUCT(0x333,0x44,0x555555,6,7);
 }
 
 /* ----------------------------------------------------------------------- */
-#elif TEST == 2
+#وإلاإذا TEST == 2
 {
-    struct M P __s
+    بنية M P __s
     {
-        int x: 12;
-        char y: 6;
-        long long z:63;
-        A char a:4;
-        long long b:2;
+        صحيح x: 12;
+        حرف y: 6;
+        دراز دراز z:63;
+        A حرف a:4;
+        دراز دراز b:2;
 
     };
     TEST_STRUCT(3,30,0x123456789abcdef0LL,5,2);
 }
 
 /* ----------------------------------------------------------------------- */
-#elif TEST == 3
+#وإلاإذا TEST == 3
 {
-    struct M P __s
+    بنية M P __s
     {
-        unsigned x:5, y:5, :0, z:5; char a:5; A short b:5;
+        بیعلامت x:5, y:5, :0, z:5; حرف a:5; A کوتاه b:5;
     };
     TEST_STRUCT(21,23,25,6,14);
 }
 
 /* ----------------------------------------------------------------------- */
-#elif TEST == 4
+#وإلاإذا TEST == 4
 {
-    struct M P __s {
-        int x : 3;
-        int : 2;
-        int y : 1;
-        int : 0;
-        int z : 5;
-        int a : 7;
-        unsigned int b : 7;
+    بنية M P __s {
+        صحيح x : 3;
+        صحيح : 2;
+        صحيح y : 1;
+        صحيح : 0;
+        صحيح z : 5;
+        صحيح a : 7;
+        بیعلامت صحيح b : 7;
     };
     TEST_STRUCT(3,1,15,120,120);
 }
 
 /* ----------------------------------------------------------------------- */
-#elif TEST == 5
+#وإلاإذا TEST == 5
 {
-    struct M P __s {
-        long long x : 45;
-        long long : 2;
-        long long y : 30;
-        unsigned long long z : 38;
-        char a; short b;
+    بنية M P __s {
+        دراز دراز x : 45;
+        دراز دراز : 2;
+        دراز دراز y : 30;
+        بیعلامت دراز دراز z : 38;
+        حرف a; کوتاه b;
     };
     TEST_STRUCT(0x123456789ULL, 120<<25, 120, 0x44, 0x77);
 }
 
 /* ----------------------------------------------------------------------- */
-#elif TEST == 6
+#وإلاإذا TEST == 6
 {
-    struct M P __s {
-	int a;
-	signed char b;
-	int x : 12, y : 4, : 0, : 4, z : 3;
-	char d;
+    بنية M P __s {
+	صحيح a;
+	علامتدار حرف b;
+	صحيح x : 12, y : 4, : 0, : 4, z : 3;
+	حرف d;
     };
     TEST_STRUCT(1,2,3,4,-3);
 }
 
 /* ----------------------------------------------------------------------- */
-#elif TEST == 7
+#وإلاإذا TEST == 7
 {
-#ifdef _WIN32
-    typedef long long int ll;
-#else
-    typedef long int ll;
-#endif
-    struct M P __s {
+#اگر_تعریف_شده _WIN32
+    تعريفنوع دراز دراز صحيح ll;
+#وإلا
+    تعريفنوع دراز صحيح ll;
+#پایان_اگر
+    بنية M P __s {
         ll d : 16;
         ll b : 16;
         ll x : 16;
@@ -99,143 +99,143 @@
 }
 
 /* ----------------------------------------------------------------------- */
-#elif defined PACK
+#وإلاإذا defined PACK
 
-#if PACK
-# pragma pack(push,1)
+#إذا PACK
+# pragma pack(افزودن,1)
 # define P //_P
-#else
+#وإلا
 # define P
-#endif
+#پایان_اگر
 
-printf("\n\n" + 2*top);
-#define TEST 1
-#include SELF
-top = 0;
-#define TEST 2
-#include SELF
-#define TEST 3
-#include SELF
-#define TEST 4
-#include SELF
-#define TEST 5
-#include SELF
-#define TEST 6
-#include SELF
-#define TEST 7
-#include SELF
+چاپ_کن("\n\n" + 2*بالاترین);
+#تعریف_کن TEST 1
+#ضمن SELF
+بالاترین = 0;
+#تعریف_کن TEST 2
+#ضمن SELF
+#تعریف_کن TEST 3
+#ضمن SELF
+#تعریف_کن TEST 4
+#ضمن SELF
+#تعریف_کن TEST 5
+#ضمن SELF
+#تعریف_کن TEST 6
+#ضمن SELF
+#تعریف_کن TEST 7
+#ضمن SELF
 
-#if PACK
-# pragma pack(pop)
-#endif
+#إذا PACK
+# pragma pack(برداشت)
+#پایان_اگر
 
-#undef P
-#undef PACK
+#لغو_تعریف P
+#لغو_تعریف PACK
 
 /* ----------------------------------------------------------------------- */
-#elif defined ALIGN
+#وإلاإذا defined ALIGN
 
-#if ALIGN
+#إذا ALIGN
 # define A _A(16)
-#else
+#وإلا
 # define A
-#endif
+#پایان_اگر
 
-#define PACK 0
-#include SELF
-#define PACK 1
-#include SELF
+#تعریف_کن PACK 0
+#ضمن SELF
+#تعریف_کن PACK 1
+#ضمن SELF
 
-#undef A
-#undef ALIGN
+#لغو_تعریف A
+#لغو_تعریف ALIGN
 
 /* ----------------------------------------------------------------------- */
-#elif defined MS_BF
+#وإلاإذا defined MS_BF
 
-#if MS_BF
+#إذا MS_BF
 # ifdef __TINYC__
 #  pragma comment(option, "-mms-bitfields")
 # elif defined __GNUC__
 #  define M __attribute__((ms_struct))
 # endif
-#else
+#وإلا
 # ifdef __TINYC__
 #  pragma comment(option, "-mno-ms-bitfields")
 # elif defined __GNUC__
 #  define M __attribute__((gcc_struct))
 # endif
-#endif
-#ifndef M
+#پایان_اگر
+#اگر_تعریف_نشده M
 # define M
-#endif
+#پایان_اگر
 
-#define ALIGN 0
-#include SELF
-#define ALIGN 1
-#include SELF
+#تعریف_کن ALIGN 0
+#ضمن SELF
+#تعریف_کن ALIGN 1
+#ضمن SELF
 
-#undef M
-#undef MS_BF
+#لغو_تعریف M
+#لغو_تعریف MS_BF
 
 /* ----------------------------------------------------------------------- */
-#else
+#وإلا
 
-#include <stdio.h>
-#include <string.h>
+#ضمن <stdio.h>
+#ضمن <string.h>
 /* some gcc headers #define __attribute__ to empty if it's not gcc */
-#undef __attribute__
+#لغو_تعریف __attribute__
 
-void dump(void *p, int s)
+فراغ dump(فراغ *p, صحيح s)
 {
-    int i;
-    for (i = s; --i >= 0;)
-        printf("%02X", ((unsigned char*)p)[i]);
-    printf("\n");
+    صحيح i;
+    لكل (i = s; --i >= 0;)
+        چاپ_کن("%02X", ((بیعلامت حرف*)p)[i]);
+    چاپ_کن("\n");
 }
 
-#define pv(m) \
-    printf(sizeof (s->m + 0) == 8 ? " %016llx" : " %02x", s->m)
+#تعریف_کن pv(m) \
+    چاپ_کن(حجم (s->m + 0) == 8 ? " %016llx" : " %02x", s->m)
 
-#define TEST_STRUCT(v1,v2,v3,v4,v5) { \
-        struct __s _s, *s = & _s; \
-        printf("\n---- TEST %d%s%s%s ----\n" + top, \
+#تعریف_کن TEST_STRUCT(v1,v2,v3,v4,v5) { \
+        بنية __s _s, *s = & _s; \
+        چاپ_کن("\n---- TEST %d%s%s%s ----\n" + بالاترین, \
             TEST, MS_BF?" - MS-BITFIELDS":"", \
             PACK?" - PACKED":"", \
             ALIGN?" - WITH ALIGN":""); \
-        memset(s, 0, sizeof *s); \
+        memset(s, 0, حجم *s); \
         s->x = -1, s->y = -1, s->z = -1, s->a = -1, s->b = -1; \
-        printf("bits in use : "), dump(s, sizeof *s); \
+        چاپ_کن("bits in use : "), dump(s, حجم *s); \
         s->x = v1, s->y = v2, s->z = v3, s->a += v4, ++s->a, s->b = v5; \
-        printf("bits as set : "), dump(s, sizeof *s); \
-        printf("values      :"), pv(x), pv(y), pv(z), pv(a), pv(b), printf("\n"); \
-        printf("align/size  : %d %d\n", alignof(struct __s),sizeof(struct __s)); \
+        چاپ_کن("bits as set : "), dump(s, حجم *s); \
+        چاپ_کن("values      :"), pv(x), pv(y), pv(z), pv(a), pv(b), چاپ_کن("\n"); \
+        چاپ_کن("align/size  : %d %d\n", alignof(بنية __s),حجم(بنية __s)); \
     }
 
-#ifdef _MSC_VER
+#اگر_تعریف_شده _MSC_VER
 # define _A(n) __declspec(align(n))
 # define _P
 # define alignof(x) __alignof(x)
-#else
+#وإلا
 # define _A(n) __attribute__((aligned(n)))
 # define _P __attribute__((packed))
 # define alignof(x) __alignof__(x)
-#endif
+#پایان_اگر
 
-#ifndef MS_BITFIELDS
+#اگر_تعریف_نشده MS_BITFIELDS
 # define MS_BITFIELDS 0
-#endif
+#پایان_اگر
 
-#define SELF "95_bitfields.c"
+#تعریف_کن SELF "95_bitfields.c"
 
-int top = 1;
+صحيح بالاترین = 1;
 
-int main()
+صحيح اصلی()
 {
-#define MS_BF MS_BITFIELDS
-#include SELF
-    return 0;
+#تعریف_کن MS_BF MS_BITFIELDS
+#ضمن SELF
+    أرجع 0;
 }
 
 /* ----------------------------------------------------------------------- */
-#endif
-#undef TEST
+#پایان_اگر
+#لغو_تعریف TEST

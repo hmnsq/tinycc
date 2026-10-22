@@ -1,15 +1,15 @@
-int printf(const char *, ...);
-char t[] = "012345678";
+صحيح چاپ_کن(ثابت حرف *, ...);
+حرف t[] = "012345678";
 
-int main(void)
+صحيح اصلی(فراغ)
 {
-    char *data = t;
-    unsigned long long r = 4;
-    unsigned a = 5;
-    unsigned long long b = 12;
+    حرف *داده = t;
+    بیعلامت دراز دراز r = 4;
+    بیعلامت a = 5;
+    بیعلامت دراز دراز b = 12;
 
-    *(unsigned*)(data + r) += a - b;
+    *(بیعلامت*)(داده + r) += a - b;
 
-    printf("data = \"%s\"\n", data);
-    return 0;
+    چاپ_کن("data = \"%s\"\n", داده);
+    أرجع 0;
 }

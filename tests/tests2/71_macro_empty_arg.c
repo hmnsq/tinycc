@@ -1,9 +1,9 @@
-#include <stdio.h>
+#ضمن <stdio.h>
 
-#define T(a,b,c) a b c
+#تعریف_کن T(a,b,c) a b c
 
-int main(void)
+صحيح اصلی(فراغ)
 {
-    printf("%d", T(1,+,2) T(+,,) T(,2,*) T(,7,) T(,,));
-    return 0;
+    چاپ_کن("%d", T(1,+,2) T(+,,) T(,2,*) T(,7,) T(,,));
+    أرجع 0;
 }

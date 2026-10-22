@@ -3,53 +3,53 @@
  * This file is part of the w64 mingw-runtime package.
  * No warranty is given; refer to the file DISCLAIMER within this package.
  */
-#ifndef _INC_DOS
-#define _INC_DOS
+#اگر_تعریف_نشده _INC_DOS
+#تعریف_کن _INC_DOS
 
-#include <_mingw.h>
-#include <io.h>
+#ضمن <_mingw.h>
+#ضمن <io.h>
 
-#pragma pack(push,_CRT_PACKING)
+#رهنمود pack(افزودن,_CRT_PACKING)
 
-#ifdef __cplusplus
-extern "C" {
-#endif
+#اگر_تعریف_شده __cplusplus
+خارجي "C" {
+#پایان_اگر
 
-#ifndef _DISKFREE_T_DEFINED
-#define _DISKFREE_T_DEFINED
+#اگر_تعریف_نشده _DISKFREE_T_DEFINED
+#تعریف_کن _DISKFREE_T_DEFINED
 
-  struct _diskfree_t {
-    unsigned total_clusters;
-    unsigned avail_clusters;
-    unsigned sectors_per_cluster;
-    unsigned bytes_per_sector;
+  بنية _diskfree_t {
+    بیعلامت مجموع_clusters;
+    بیعلامت avail_clusters;
+    بیعلامت sectors_در_هر_cluster;
+    بیعلامت بایتها_در_هر_sector;
   };
-#endif
+#پایان_اگر
 
-#define _A_NORMAL 0x00
-#define _A_RDONLY 0x01
-#define _A_HIDDEN 0x02
-#define _A_SYSTEM 0x04
-#define _A_SUBDIR 0x10
-#define _A_ARCH 0x20
+#تعریف_کن A_نرمال 0x00
+#تعریف_کن _A_RDONLY 0x01
+#تعریف_کن _A_HIDDEN 0x02
+#تعریف_کن _A_SYSTEM 0x04
+#تعریف_کن _A_SUBDIR 0x10
+#تعریف_کن _A_ARCH 0x20
 
-#ifndef _GETDISKFREE_DEFINED
-#define _GETDISKFREE_DEFINED
-  _CRTIMP unsigned __cdecl _getdiskfree(unsigned _Drive,struct _diskfree_t *_DiskFree);
-#endif
+#اگر_تعریف_نشده _GETDISKFREE_DEFINED
+#تعریف_کن _GETDISKFREE_DEFINED
+  _CRTIMP بیعلامت __cdecl _getdiskfree(بیعلامت _Drive,بنية _diskfree_t *_DiskFree);
+#پایان_اگر
 
-#if (defined(_X86_) && !defined(__x86_64))
-  void __cdecl _disable(void);
-  void __cdecl _enable(void);
-#endif
+#إذا (defined(_X86_) && !defined(__x86_64))
+  فراغ __cdecl _disable(فراغ);
+  فراغ __cdecl _enable(فراغ);
+#پایان_اگر
 
-#ifndef	NO_OLDNAMES
-#define diskfree_t _diskfree_t
-#endif
+#اگر_تعریف_نشده	NO_OLDNAMES
+#تعریف_کن diskfree_t _diskfree_t
+#پایان_اگر
 
-#ifdef __cplusplus
+#اگر_تعریف_شده __cplusplus
 }
-#endif
+#پایان_اگر
 
-#pragma pack(pop)
-#endif
+#رهنمود pack(برداشت)
+#پایان_اگر

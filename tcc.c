@@ -18,18 +18,18 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 
-#ifndef ONE_SOURCE
-# define ONE_SOURCE 1
-#endif
+#اگر_تعریف_نشده ONE_منبع
+# define ONE_منبع 1
+#پایان_اگر
 
-#include "tcc.h"
-#if ONE_SOURCE
+#ضمن "tcc.h"
+#إذا ONE_منبع
 # include "libtcc.c"
-#endif
-#include "tcctools.c"
+#پایان_اگر
+#ضمن "tcctools.c"
 
-static const char help[] =
-    "Tiny C Compiler "TCC_VERSION" - Copyright (C) 2001-2006 Fabrice Bellard\n"
+ساكن ثابت حرف help[] =
+    "Tiny C Compiler "TCC_نسخه" - Copyright (C) 2001-2006 Fabrice Bellard\n"
     "Usage: tcc [options...] [-o outfile] [-c] infile(s)...\n"
     "       tcc [options...] -run infile (or --) [arguments...]\n"
     "General options:\n"
@@ -63,15 +63,15 @@ static const char help[] =
     "Debugger options:\n"
     "  -g           generate stab runtime debug info\n"
     "  -gdwarf[-x]  generate dwarf runtime debug info\n"
-#ifdef TCC_TARGET_PE
+#اگر_تعریف_شده TCC_هدف_PE
     "  -g.pdb       create .pdb debug database\n"
-#endif
-#ifdef CONFIG_TCC_BCHECK
+#پایان_اگر
+#اگر_تعریف_شده CONFIG_TCC_BCHECK
     "  -b           compile with built-in memory and bounds checker (implies -g)\n"
-#endif
-#ifdef CONFIG_TCC_BACKTRACE
+#پایان_اگر
+#اگر_تعریف_شده CONFIG_TCC_BACKTRACE
     "  -bt[N]       link with backtrace (stack dump) support [show max N callers]\n"
-#endif
+#پایان_اگر
     "Misc. options:\n"
     "  -std=version define __STDC_VERSION__ according to version (c11/gnu11)\n"
     "  -x[c|a|b|n]  specify type of the next infile (C,ASM,BIN,NONE)\n"
@@ -79,20 +79,20 @@ static const char help[] =
     "  -M[M]D       generate make dependency file [ignore system files]\n"
     "  -M[M]        as above but no other output\n"
     "  -MF file     specify dependency file name\n"
-#if defined(TCC_TARGET_I386) || defined(TCC_TARGET_X86_64)
+#إذا defined(TCC_هدف_I386) || defined(TCC_هدف_X86_64)
     "  -m32/64      defer to i386/x86_64 cross compiler\n"
-#endif
+#پایان_اگر
     "Tools:\n"
     "  create library  : tcc -ar [crstvx] lib [files]\n"
-#ifdef TCC_TARGET_PE
+#اگر_تعریف_شده TCC_هدف_PE
     "  create def file : tcc -impdef lib.dll [-v] [-o lib.def]\n"
-#endif
+#پایان_اگر
     "Discussion & bug reports:\n"
     "  https://lists.nongnu.org/mailman/listinfo/tinycc-devel\n"
     ;
 
-static const char help2[] =
-    "Tiny C Compiler "TCC_VERSION" - More Options\n"
+ساكن ثابت حرف help2[] =
+    "Tiny C Compiler "TCC_نسخه" - More Options\n"
     "Special options:\n"
     "  -P -P1                        with -E: no/alternative #line output\n"
     "  -dD -dM                       with -E: output #define directives\n"
@@ -129,12 +129,12 @@ static const char help2[] =
     "  test-coverage                 create code coverage code\n"
     "-m... target specific options:\n"
     "  ms-bitfields                  use MSVC bitfield layout\n"
-#ifdef TCC_TARGET_ARM
+#اگر_تعریف_شده TCC_هدف_ARM
     "  float-abi                     hard/softfp on arm\n"
-#endif
-#ifdef TCC_TARGET_X86_64
+#پایان_اگر
+#اگر_تعریف_شده TCC_هدف_X86_64
     "  no-sse                        disable floats on x86_64\n"
-#endif
+#پایان_اگر
     "-Wl,... linker options:\n"
     "  -nostdlib                     do not search standard library paths\n"
     "  -[no-]whole-archive           load lib(s) fully/only as needed\n"
@@ -142,7 +142,7 @@ static const char help2[] =
     "  -export-dynamic               same as -rdynamic\n"
     "  -image-base= -Ttext=          set base address of executable\n"
     "  -section-alignment=           set section alignment in executable\n"
-#ifdef TCC_TARGET_PE
+#اگر_تعریف_شده TCC_هدف_PE
     "  -file-alignment=              set PE file alignment\n"
     "  -stack=                       set PE stack reserve\n"
     "  -large-address-aware          set related PE option\n"
@@ -150,37 +150,37 @@ static const char help2[] =
     "  -oformat=[pe-* binary]        set executable output format\n"
     "Predefined macros:\n"
     "  tcc -E -dM - < nul\n"
-#else
+#وإلا
     "  -rpath=                       set dynamic library search path\n"
     "  -enable-new-dtags             set DT_RUNPATH instead of DT_RPATH\n"
     "  -soname=                      set DT_SONAME elf tag\n"
-#if defined(TCC_TARGET_MACHO)
+#إذا defined(TCC_هدف_MACHO)
     "  -install_name=                set DT_SONAME elf tag (soname macOS alias)\n"
-#else
+#وإلا
     "  -Ipath, -dynamic-linker=path  set ELF interpreter to path\n"
-#endif
+#پایان_اگر
     "  -Bsymbolic                    set DT_SYMBOLIC elf tag\n"
     "  -oformat=[elf32/64-* binary]  set executable output format\n"
     "  -init= -fini= -Map= -as-needed -O -z= (ignored)\n"
     "Predefined macros:\n"
     "  tcc -E -dM - < /dev/null\n"
-#endif
+#پایان_اگر
     "See also the manual for more details.\n"
     ;
 
-static const char version[] =
-    "tcc version "TCC_VERSION
-#ifdef TCC_GITHASH
+ساكن ثابت حرف نسخه[] =
+    "tcc version "TCC_نسخه
+#اگر_تعریف_شده TCC_GITHASH
     " "TCC_GITHASH
-#endif
+#پایان_اگر
     " ("
-#ifdef TCC_TARGET_I386
+#اگر_تعریف_شده TCC_هدف_I386
         "i386"
-#elif defined TCC_TARGET_X86_64
+#وإلاإذا defined TCC_هدف_X86_64
         "x86_64"
-#elif defined TCC_TARGET_C67
+#وإلاإذا defined TCC_هدف_C67
         "C67"
-#elif defined TCC_TARGET_ARM
+#وإلاإذا defined TCC_هدف_ARM
         "ARM"
 # ifdef TCC_ARM_EABI
         " eabi"
@@ -188,245 +188,245 @@ static const char version[] =
         "hf"
 #  endif
 # endif
-#elif defined TCC_TARGET_ARM64
+#وإلاإذا defined TCC_هدف_ARM64
         "AArch64"
-#elif defined TCC_TARGET_RISCV64
+#وإلاإذا defined TCC_هدف_RISCV64
         "riscv64"
-#endif
-#ifdef TCC_TARGET_PE
+#پایان_اگر
+#اگر_تعریف_شده TCC_هدف_PE
         " Windows"
-#elif defined(TCC_TARGET_MACHO)
+#وإلاإذا defined(TCC_هدف_MACHO)
         " Darwin"
-#elif TARGETOS_FreeBSD || TARGETOS_FreeBSD_kernel
+#وإلاإذا TARGETOS_FreeBSD || TARGETOS_FreeBSD_kernel
         " FreeBSD"
-#elif TARGETOS_OpenBSD
+#وإلاإذا TARGETOS_OpenBSD
         " OpenBSD"
-#elif TARGETOS_NetBSD
+#وإلاإذا TARGETOS_NetBSD
         " NetBSD"
-#else
+#وإلا
         " Linux"
-#endif
+#پایان_اگر
     ")\n"
     ;
 
-static void print_dirs(const char *msg, char **paths, int nb_paths)
+ساكن فراغ print_dirs(ثابت حرف *پیام, حرف **paths, صحيح nb_paths)
 {
-    int i;
-    printf("%s:\n%s", msg, nb_paths ? "" : "  -\n");
-    for(i = 0; i < nb_paths; i++)
-        printf("  %s\n", paths[i]);
+    صحيح i;
+    چاپ_کن("%s:\n%s", پیام, nb_paths ? "" : "  -\n");
+    لكل(i = 0; i < nb_paths; i++)
+        چاپ_کن("  %s\n", paths[i]);
 }
 
-static void print_search_dirs(TCCState *s)
+ساكن فراغ print_جستجو_dirs(TCCState *s)
 {
-    printf("install: %s\n", s->tcc_lib_path);
+    چاپ_کن("install: %s\n", s->tcc_lib_مسیر);
     /* print_dirs("programs", NULL, 0); */
     print_dirs("include", s->sysinclude_paths, s->nb_sysinclude_paths);
     print_dirs("libraries", s->library_paths, s->nb_library_paths);
-    printf("libtcc1:\n  %s/%s\n", s->library_paths[0], CONFIG_TCC_CROSSPREFIX TCC_LIBTCC1);
-#ifdef TCC_TARGET_UNIX
+    چاپ_کن("libtcc1:\n  %s/%s\n", s->library_paths[0], CONFIG_TCC_CROSSPREFIX TCC_LIBTCC1);
+#اگر_تعریف_شده TCC_هدف_UNIX
     print_dirs("crt", s->crt_paths, s->nb_crt_paths);
-    printf("elfinterp:\n  %s\n",  s->elfint);
-#endif
+    چاپ_کن("elfinterp:\n  %s\n",  s->elfint);
+#پایان_اگر
 }
 
-static void set_environment(TCCState *s)
+ساكن فراغ مجموعه_environment(TCCState *s)
 {
-    char * path;
+    حرف * مسیر;
 
-    path = getenv("C_INCLUDE_PATH");
-    if(path != NULL) {
-        tcc_add_sysinclude_path(s, path);
+    مسیر = getenv("C_INCLUDE_PATH");
+    إذا(مسیر != عدم) {
+        tcc_جمع_کن_sysinclude_مسیر(s, مسیر);
     }
-    path = getenv("CPATH");
-    if(path != NULL) {
-        tcc_add_include_path(s, path);
+    مسیر = getenv("CPATH");
+    إذا(مسیر != عدم) {
+        tcc_جمع_کن_include_مسیر(s, مسیر);
     }
-    path = getenv("LIBRARY_PATH");
-    if(path != NULL) {
-        tcc_add_library_path(s, path);
+    مسیر = getenv("LIBRARY_PATH");
+    إذا(مسیر != عدم) {
+        tcc_جمع_کن_library_مسیر(s, مسیر);
     }
 }
 
-static char *default_outputfile(TCCState *s, const char *first_file)
+ساكن حرف *default_outputfile(TCCState *s, ثابت حرف *اولی_file)
 {
-    char buf[1024];
-    char *ext;
-    const char *name = "a";
+    حرف buf[1024];
+    حرف *ext;
+    ثابت حرف *name = "a";
 
-    if (first_file && strcmp(first_file, "-"))
-        name = tcc_basename(first_file);
-    if (strlen(name) + 4 >= sizeof buf)
+    إذا (اولی_file && strcmp(اولی_file, "-"))
+        name = tcc_basename(اولی_file);
+    إذا (طول_رشته(name) + 4 >= حجم buf)
         name = "a";
     strcpy(buf, name);
     ext = tcc_fileextension(buf);
-#ifdef TCC_TARGET_PE
-    if (s->output_type == TCC_OUTPUT_DLL)
+#اگر_تعریف_شده TCC_هدف_PE
+    إذا (s->output_type == TCC_OUTPUT_DLL)
         strcpy(ext, ".dll");
-    else
-    if (s->output_type == TCC_OUTPUT_EXE)
+    وإلا
+    إذا (s->output_type == TCC_OUTPUT_EXE)
         strcpy(ext, ".exe");
-    else
-#endif
-    if ((s->just_deps || s->output_type == TCC_OUTPUT_OBJ) && !s->option_r && *ext)
+    وإلا
+#پایان_اگر
+    إذا ((s->just_deps || s->output_type == TCC_OUTPUT_OBJ) && !s->option_r && *ext)
         strcpy(ext, ".o");
-    else
+    وإلا
         strcpy(buf, "a.out");
-    return tcc_strdup(buf);
+    أرجع tcc_strdup(buf);
 }
 
-static unsigned getclock_ms(void)
+ساكن بیعلامت getclock_ms(فراغ)
 {
-#ifdef _WIN32
-    return GetTickCount();
-#else
-    struct timeval tv;
-    gettimeofday(&tv, NULL);
-    return tv.tv_sec*1000 + (tv.tv_usec+500)/1000;
-#endif
+#اگر_تعریف_شده _WIN32
+    أرجع Get_Tick_شمار();
+#وإلا
+    بنية timeval tv;
+    gettimeofday(&tv, عدم);
+    أرجع tv.tv_sec*1000 + (tv.tv_usec+500)/1000;
+#پایان_اگر
 }
 
-int main(int argc, char **argv)
+صحيح اصلی(صحيح argc, حرف **argv)
 {
     TCCState *s, *s1;
-    int ret, opt, n = 0, t = 0, done;
-    unsigned start_time = 0, end_time = 0;
-    const char *first_file;
-    int argc0 = argc;
-    char **argv0 = argv;
-    FILE *ppfp = NULL;
+    صحيح ret, opt, n = 0, t = 0, انجامشده;
+    بیعلامت شروع_زمان = 0, انتها_زمان = 0;
+    ثابت حرف *اولی_file;
+    صحيح argc0 = argc;
+    حرف **argv0 = argv;
+    FILE *ppfp = عدم;
 
 redo:
     argc = argc0, argv = argv0;
     s = s1 = tcc_new();
-    opt = tcc_parse_args(s, &argc, &argv);
+    opt = tcc_parse_آرگومانها(s, &argc, &argv);
 
-    if (n == 0) {
+    إذا (n == 0) {
         ret = 0;
-        if (opt == OPT_HELP) {
+        إذا (opt == OPT_HELP) {
             fputs(help, stdout);
-            if (s->verbose)
-                goto help2;
-        } else if (opt == OPT_HELP2) {
+            إذا (s->verbose)
+                اذهب help2;
+        } وإلا إذا (opt == OPT_HELP2) {
             help2: fputs(help2, stdout);
-        } else if (opt == OPT_M32 || opt == OPT_M64) {
+        } وإلا إذا (opt == OPT_M32 || opt == OPT_M64) {
             ret = tcc_tool_cross(argv, opt);
-        } else if (s->verbose)
-            printf("%s", version);
+        } وإلا إذا (s->verbose)
+            چاپ_کن("%s", نسخه);
 
-        if (opt == OPT_AR)
+        إذا (opt == OPT_AR)
             ret = tcc_tool_ar(argc, argv);
-#ifdef TCC_TARGET_PE
-        if (opt == OPT_IMPDEF)
+#اگر_تعریف_شده TCC_هدف_PE
+        إذا (opt == OPT_IMPDEF)
             ret = tcc_tool_impdef(argc, argv);
-#endif
-        if (opt == OPT_PRINT_DIRS) {
+#پایان_اگر
+        إذا (opt == OPT_PRINT_DIRS) {
             /* initialize search dirs */
-            set_environment(s);
-            tcc_set_output_type(s, TCC_OUTPUT_MEMORY);
-            print_search_dirs(s);
+            مجموعه_environment(s);
+            tcc_مجموعه_output_type(s, TCC_OUTPUT_حافظه);
+            print_جستجو_dirs(s);
         }
-        if (opt) {
-            if (opt < 0) err:
+        إذا (opt) {
+            إذا (opt < 0) err:
                 ret = 1;
             tcc_delete(s);
-            return ret;
+            أرجع ret;
         }
-        if (s->nb_files == 0) {
+        إذا (s->nb_files == 0) {
             tcc_error_noabort("no input files");
-        } else if (s->output_type == TCC_OUTPUT_PREPROCESS) {
-            if (s->outfile && 0!=strcmp("-",s->outfile)) {
+        } وإلا إذا (s->output_type == TCC_OUTPUT_PREPROCESS) {
+            إذا (s->outfile && 0!=strcmp("-",s->outfile)) {
                 ppfp = tcc_fopen(s->outfile, "wb");
-                if (!ppfp)
+                إذا (!ppfp)
                     tcc_error_noabort("could not write '%s'", s->outfile);
             }
-        } else if (s->output_type == TCC_OUTPUT_OBJ && !s->option_r) {
-            if (s->nb_libraries)
+        } وإلا إذا (s->output_type == TCC_OUTPUT_OBJ && !s->option_r) {
+            إذا (s->nb_libraries)
                 tcc_error_noabort("cannot specify libraries with -c");
-            else if (s->nb_files > 1 && s->outfile)
+            وإلا إذا (s->nb_files > 1 && s->outfile)
                 tcc_error_noabort("cannot specify output file with -c many files");
         }
-        if (s->nb_errors)
-            goto err;
-        if (s->do_bench)
-            start_time = getclock_ms();
+        إذا (s->nb_errors)
+            اذهب err;
+        إذا (s->do_bench)
+            شروع_زمان = getclock_ms();
     }
 
-    set_environment(s);
-    if (s->output_type == 0)
+    مجموعه_environment(s);
+    إذا (s->output_type == 0)
         s->output_type = TCC_OUTPUT_EXE;
-    ret = tcc_set_output_type(s, s->output_type);
-    if (ppfp)
+    ret = tcc_مجموعه_output_type(s, s->output_type);
+    إذا (ppfp)
         s->ppfp = ppfp;
 
-    if ((s->output_type == TCC_OUTPUT_MEMORY
+    إذا ((s->output_type == TCC_OUTPUT_حافظه
       || s->output_type == TCC_OUTPUT_PREPROCESS)
         && (s->dflag & 16)) { /* -dt option */
-        if (t)
+        إذا (t)
             s->dflag |= 32;
-        s->run_test = ++t;
-        if (n)
+        s->پیاپی_test = ++t;
+        إذا (n)
             --n;
     }
 
     /* compile or add each files or library */
-    first_file = NULL;
-    while (0 == ret) {
-        struct filespec *f = s->files[n];
+    اولی_file = عدم;
+    طالما (0 == ret) {
+        بنية filespec *f = s->files[n];
         s->filetype = f->type;
-        if (f->type & AFF_TYPE_LIB) {
-            ret = tcc_add_library(s, f->name);
-        } else {
-            if (1 == s->verbose)
-                printf("-> %s\n", f->name);
-            if (!first_file)
-                first_file = f->name;
-            ret = tcc_add_file(s, f->name);
+        إذا (f->type & AFF_TYPE_LIB) {
+            ret = tcc_جمع_کن_library(s, f->name);
+        } وإلا {
+            إذا (1 == s->verbose)
+                چاپ_کن("-> %s\n", f->name);
+            إذا (!اولی_file)
+                اولی_file = f->name;
+            ret = tcc_جمع_کن_file(s, f->name);
         }
-        if (++n == s->nb_files)
-            break;
-        if (s->output_type == TCC_OUTPUT_OBJ && !s->option_r)
-            break;
+        إذا (++n == s->nb_files)
+            اكسر;
+        إذا (s->output_type == TCC_OUTPUT_OBJ && !s->option_r)
+            اكسر;
     }
 
-    if (s->do_bench)
-        end_time = getclock_ms();
+    إذا (s->do_bench)
+        انتها_زمان = getclock_ms();
 
-    if (s->run_test) {
+    إذا (s->پیاپی_test) {
         t = 0;
-    } else if (s->output_type == TCC_OUTPUT_PREPROCESS) {
+    } وإلا إذا (s->output_type == TCC_OUTPUT_PREPROCESS) {
         ;
-    } else if (0 == ret) {
-        if (s->output_type == TCC_OUTPUT_MEMORY) {
-#ifdef TCC_IS_NATIVE
-            ret = tcc_run(s, argc, argv);
-#endif
-        } else {
-            if (!s->outfile)
-                s->outfile = default_outputfile(s, first_file);
-            if (!s->just_deps)
+    } وإلا إذا (0 == ret) {
+        إذا (s->output_type == TCC_OUTPUT_حافظه) {
+#اگر_تعریف_شده TCC_IS_NATIVE
+            ret = tcc_پیاپی(s, argc, argv);
+#پایان_اگر
+        } وإلا {
+            إذا (!s->outfile)
+                s->outfile = default_outputfile(s, اولی_file);
+            إذا (!s->just_deps)
                 ret = tcc_output_file(s, s->outfile);
-            if (!ret && s->gen_deps)
+            إذا (!ret && s->gen_deps)
                 gen_makedeps(s, s->outfile, s->deps_outfile);
         }
     }
 
-    done = 1;
-    if (t)
-        done = 0; /* run more tests with -dt -run */
-    else if (ret) {
-        if (s->nb_errors)
+    انجامشده = 1;
+    إذا (t)
+        انجامشده = 0; /* run more tests with -dt -run */
+    وإلا إذا (ret) {
+        إذا (s->nb_errors)
             ret = 1;
         /* else keep the original exit code from tcc_run() */
-    } else if (n < s->nb_files)
-        done = 0; /* compile more files with -c */
-    else if (s->do_bench)
-        tcc_print_stats(s, end_time - start_time);
+    } وإلا إذا (n < s->nb_files)
+        انجامشده = 0; /* compile more files with -c */
+    وإلا إذا (s->do_bench)
+        tcc_print_stats(s, انتها_زمان - شروع_زمان);
 
     tcc_delete(s);
-    if (!done)
-        goto redo;
-    if (ppfp)
+    إذا (!انجامشده)
+        اذهب redo;
+    إذا (ppfp)
         tcc_fclose(ppfp);
-    return ret;
+    أرجع ret;
 }

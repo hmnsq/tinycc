@@ -1,2 +1,2 @@
-#pragma once
-printf ("counter %d\n", __COUNTER__);
+#رهنمود once
+چاپ_کن ("counter %d\n", __COUNTER__);

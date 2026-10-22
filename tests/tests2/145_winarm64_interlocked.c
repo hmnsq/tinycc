@@ -1,35 +1,35 @@
-#include <stdio.h>
-#include <windows.h>
+#ضمن <stdio.h>
+#ضمن <windows.h>
 
-#define PTR(x) ((PVOID)(ULONG_PTR)(x))
-#define CHECK(name, expr) printf("%s: %s\n", name, (expr) ? "yes" : "no")
+#تعریف_کن PTR(x) ((PVOID)(ULONG_PTR)(x))
+#تعریف_کن CHECK(name, عبارت) چاپ_کن("%s: %s\n", name, (عبارت) ? "yes" : "no")
 
-int main(void)
+صحيح اصلی(فراغ)
 {
-    PVOID volatile slot = PTR(0x1111222233334444ULL);
+    PVOID متطاير جایگاه = PTR(0x1111222233334444ULL);
     PVOID old;
 
-    old = InterlockedExchangePointer(&slot, PTR(0x5555666677778888ULL));
+    old = Interlocked_Exchange_اشاره_گر(&جایگاه, PTR(0x5555666677778888ULL));
     CHECK("exchange old", old == PTR(0x1111222233334444ULL));
-    CHECK("exchange stored", slot == PTR(0x5555666677778888ULL));
+    CHECK("exchange stored", جایگاه == PTR(0x5555666677778888ULL));
 
-    old = InterlockedCompareExchangePointer(&slot,
+    old = Interlocked_Compare_Exchange_اشاره_گر(&جایگاه,
                                             PTR(0x9999aaaabbbbccccULL),
                                             PTR(0x5555666677778888ULL));
     CHECK("compare old", old == PTR(0x5555666677778888ULL));
-    CHECK("compare stored", slot == PTR(0x9999aaaabbbbccccULL));
+    CHECK("compare stored", جایگاه == PTR(0x9999aaaabbbbccccULL));
 
-    old = InterlockedCompareExchangePointerAcquire(&slot,
+    old = Interlocked_Compare_Exchange_اشاره_گر_Acquire(&جایگاه,
                                                    PTR(0xdddd111122223333ULL),
                                                    PTR(0x0123456789abcdefULL));
     CHECK("acquire old", old == PTR(0x9999aaaabbbbccccULL));
-    CHECK("acquire stored", slot == PTR(0x9999aaaabbbbccccULL));
+    CHECK("acquire stored", جایگاه == PTR(0x9999aaaabbbbccccULL));
 
-    old = InterlockedCompareExchangePointerRelease(&slot,
+    old = Interlocked_Compare_Exchange_اشاره_گر_Release(&جایگاه,
                                                    PTR(0xdddd111122223333ULL),
                                                    PTR(0x9999aaaabbbbccccULL));
     CHECK("release old", old == PTR(0x9999aaaabbbbccccULL));
-    CHECK("release stored", slot == PTR(0xdddd111122223333ULL));
+    CHECK("release stored", جایگاه == PTR(0xdddd111122223333ULL));
 
-    return 0;
+    أرجع 0;
 }

@@ -17,599 +17,599 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
-#include <stdlib.h>
-#include <stdio.h>
-#include <stdarg.h>
-#include <string.h>
-#include <setjmp.h>
-#include <stdatomic.h>
+#ضمن <stdlib.h>
+#ضمن <stdio.h>
+#ضمن <stdarg.h>
+#ضمن <string.h>
+#ضمن <setjmp.h>
+#ضمن <stdatomic.h>
 
-#if !defined(__FreeBSD__) \
+#إذا !defined(__FreeBSD__) \
  && !defined(__FreeBSD_kernel__) \
  && !defined(__DragonFly__) \
  && !defined(__OpenBSD__) \
  && !defined(__APPLE__) \
  && !defined(__NetBSD__)
-#include <malloc.h>
-#endif
+#ضمن <malloc.h>
+#پایان_اگر
 
-#if !defined(_WIN32)
-#include <unistd.h>
-#include <sys/syscall.h>
-#endif
+#إذا !defined(_WIN32)
+#ضمن <unistd.h>
+#ضمن <sys/syscall.h>
+#پایان_اگر
 
-#include "config.h"
+#ضمن "config.h"
 
-#define BOUND_DEBUG             (1)
-#define BOUND_STATISTIC         (1)
+#تعریف_کن BOUND_DEBUG             (1)
+#تعریف_کن BOUND_STATISTIC         (1)
 
-#if BOUND_DEBUG
- #define dprintf(a...)         if (print_calls) { bounds_loc(a); }
-#else
- #define dprintf(a...)
-#endif
+#إذا BOUND_DEBUG
+ #تعریف_کن dprintf(a...)         إذا (print_calls) { bounds_loc(a); }
+#وإلا
+ #تعریف_کن dprintf(a...)
+#پایان_اگر
 
-#ifdef __attribute__
+#اگر_تعریف_شده __attribute__
   /* an __attribute__ macro is defined in the system headers */
-  #undef __attribute__ 
-#endif
-#ifdef __i386__
-#define FASTCALL __attribute__((regparm(3)))
-#else
-#define FASTCALL
-#endif
+  #لغو_تعریف __attribute__ 
+#پایان_اگر
+#اگر_تعریف_شده __i386__
+#تعریف_کن FASTCALL __attribute__((regparm(3)))
+#وإلا
+#تعریف_کن FASTCALL
+#پایان_اگر
 
-#ifdef _WIN32
+#اگر_تعریف_شده _WIN32
 # define DLL_EXPORT __declspec(dllexport)
-#else
+#وإلا
 # define DLL_EXPORT
-#endif
+#پایان_اگر
 
-#if defined(__FreeBSD__) \
+#إذا defined(__FreeBSD__) \
  || defined(__FreeBSD_kernel__) \
  || defined(__DragonFly__) \
  || defined(__OpenBSD__) \
  || defined(__NetBSD__) \
  || defined(__dietlibc__)
 
-#include <sys/mman.h>
-#define INIT_SEM()
-#define EXIT_SEM()
-#define WAIT_SEM()
-#define POST_SEM()
-#define TRY_SEM()
-#define HAVE_MEMALIGN          (0)
-#define MALLOC_REDIR           (0)
-#define HAVE_PTHREAD_CREATE    (0)
-#define HAVE_CTYPE             (0)
-#define HAVE_ERRNO             (0)
-#define HAVE_SIGNAL            (0)
-#define HAVE_SIGACTION         (0)
-#define HAVE_FORK              (0)
-#define HAVE_TLS_FUNC          (0)
-#define HAVE_TLS_VAR           (0)
+#ضمن <sys/mman.h>
+#تعریف_کن INIT_SEM()
+#تعریف_کن EXIT_SEM()
+#تعریف_کن WAIT_SEM()
+#تعریف_کن POST_SEM()
+#تعریف_کن TRY_SEM()
+#تعریف_کن HAVE_MEMALIGN          (0)
+#تعریف_کن MALLOC_REDIR           (0)
+#تعریف_کن HAVE_PTHREAD_CREATE    (0)
+#تعریف_کن HAVE_CTYPE             (0)
+#تعریف_کن HAVE_ERRNO             (0)
+#تعریف_کن HAVE_SIGNAL            (0)
+#تعریف_کن HAVE_SIGACTION         (0)
+#تعریف_کن HAVE_FORK              (0)
+#تعریف_کن HAVE_TLS_FUNC          (0)
+#تعریف_کن HAVE_TLS_VAR           (0)
 
-#elif defined(_WIN32)
+#وإلاإذا defined(_WIN32)
 
-#include <windows.h>
-#include <signal.h>
-static CRITICAL_SECTION bounds_sem;
-#define INIT_SEM()             InitializeCriticalSection(&bounds_sem)
-#define EXIT_SEM()             DeleteCriticalSection(&bounds_sem)
-#define WAIT_SEM()             EnterCriticalSection(&bounds_sem)
-#define POST_SEM()             LeaveCriticalSection(&bounds_sem)
-#define TRY_SEM()              TryEnterCriticalSection(&bounds_sem)
-#define HAVE_MEMALIGN          (0)
-#define MALLOC_REDIR           (0)
-#define HAVE_PTHREAD_CREATE    (0)
-#define HAVE_CTYPE             (0)
-#define HAVE_ERRNO             (0)
-#define HAVE_SIGNAL            (1)
-#define HAVE_SIGACTION         (0)
-#define HAVE_FORK              (0)
-#define HAVE_TLS_FUNC          (1)
-#define HAVE_TLS_VAR           (0)
+#ضمن <windows.h>
+#ضمن <signal.h>
+ساكن CRITICAL_SECTION bounds_sem;
+#تعریف_کن INIT_SEM()             InitializeCriticalSection(&bounds_sem)
+#تعریف_کن EXIT_SEM()             DeleteCriticalSection(&bounds_sem)
+#تعریف_کن WAIT_SEM()             EnterCriticalSection(&bounds_sem)
+#تعریف_کن POST_SEM()             LeaveCriticalSection(&bounds_sem)
+#تعریف_کن TRY_SEM()              TryEnterCriticalSection(&bounds_sem)
+#تعریف_کن HAVE_MEMALIGN          (0)
+#تعریف_کن MALLOC_REDIR           (0)
+#تعریف_کن HAVE_PTHREAD_CREATE    (0)
+#تعریف_کن HAVE_CTYPE             (0)
+#تعریف_کن HAVE_ERRNO             (0)
+#تعریف_کن HAVE_SIGNAL            (1)
+#تعریف_کن HAVE_SIGACTION         (0)
+#تعریف_کن HAVE_FORK              (0)
+#تعریف_کن HAVE_TLS_FUNC          (1)
+#تعریف_کن HAVE_TLS_VAR           (0)
 
-#else
+#وإلا
 
-#define __USE_GNU              /* get RTLD_NEXT */
-#include <sys/mman.h>
-#include <ctype.h>
-#include <pthread.h>
-#include <dlfcn.h>
-#include <errno.h>
-#include <signal.h>
-#ifdef __APPLE__
-#include <dispatch/dispatch.h>
-static dispatch_semaphore_t bounds_sem;
-#define INIT_SEM()             bounds_sem = dispatch_semaphore_create(1)
-#define EXIT_SEM()             dispatch_release(*(dispatch_object_t*)&bounds_sem)
-#define WAIT_SEM()             if (use_sem) dispatch_semaphore_wait(bounds_sem, DISPATCH_TIME_FOREVER)
-#define POST_SEM()             if (use_sem) dispatch_semaphore_signal(bounds_sem)
-#define TRY_SEM()              if (use_sem) dispatch_semaphore_wait(bounds_sem, DISPATCH_TIME_NOW)
-#elif 0
-#include <semaphore.h>
-static sem_t bounds_sem;
-#define INIT_SEM()             sem_init (&bounds_sem, 0, 1)
-#define EXIT_SEM()             sem_destroy (&bounds_sem)
-#define WAIT_SEM()             if (use_sem) while (sem_wait (&bounds_sem) < 0 \
+#تعریف_کن __USE_GNU              /* get RTLD_NEXT */
+#ضمن <sys/mman.h>
+#ضمن <ctype.h>
+#ضمن <pthread.h>
+#ضمن <dlfcn.h>
+#ضمن <errno.h>
+#ضمن <signal.h>
+#اگر_تعریف_شده __APPLE__
+#ضمن <dispatch/dispatch.h>
+ساكن dispatch_semaphore_t bounds_sem;
+#تعریف_کن INIT_SEM()             bounds_sem = dispatch_semaphore_create(1)
+#تعریف_کن EXIT_SEM()             dispatch_release(*(dispatch_object_t*)&bounds_sem)
+#تعریف_کن WAIT_SEM()             إذا (use_sem) dispatch_semaphore_wait(bounds_sem, DISPATCH_زمان_FOREVER)
+#تعریف_کن POST_SEM()             إذا (use_sem) dispatch_semaphore_signal(bounds_sem)
+#تعریف_کن TRY_SEM()              إذا (use_sem) dispatch_semaphore_wait(bounds_sem, DISPATCH_زمان_NOW)
+#وإلاإذا 0
+#ضمن <semaphore.h>
+ساكن sem_t bounds_sem;
+#تعریف_کن INIT_SEM()             sem_init (&bounds_sem, 0, 1)
+#تعریف_کن EXIT_SEM()             sem_destroy (&bounds_sem)
+#تعریف_کن WAIT_SEM()             إذا (use_sem) طالما (sem_wait (&bounds_sem) < 0 \
                                                    && errno == EINTR)
-#define POST_SEM()             if (use_sem) sem_post (&bounds_sem)
-#define TRY_SEM()              if (use_sem) while (sem_trywait (&bounds_sem) < 0 \
+#تعریف_کن POST_SEM()             إذا (use_sem) sem_post (&bounds_sem)
+#تعریف_کن TRY_SEM()              إذا (use_sem) طالما (sem_trywait (&bounds_sem) < 0 \
                                                    && errno == EINTR)
-#elif 0
-static pthread_mutex_t bounds_mtx;
-#define INIT_SEM()             pthread_mutex_init (&bounds_mtx, NULL)
-#define EXIT_SEM()             pthread_mutex_destroy (&bounds_mtx)
-#define WAIT_SEM()             if (use_sem) pthread_mutex_lock (&bounds_mtx)
-#define POST_SEM()             if (use_sem) pthread_mutex_unlock (&bounds_mtx)
-#define TRY_SEM()              if (use_sem) pthread_mutex_trylock (&bounds_mtx)
-#else
-static pthread_spinlock_t bounds_spin;
+#وإلاإذا 0
+ساكن pthread_mutex_t bounds_mtx;
+#تعریف_کن INIT_SEM()             pthread_mutex_init (&bounds_mtx, عدم)
+#تعریف_کن EXIT_SEM()             pthread_mutex_destroy (&bounds_mtx)
+#تعریف_کن WAIT_SEM()             إذا (use_sem) pthread_mutex_lock (&bounds_mtx)
+#تعریف_کن POST_SEM()             إذا (use_sem) pthread_mutex_unlock (&bounds_mtx)
+#تعریف_کن TRY_SEM()              إذا (use_sem) pthread_mutex_trylock (&bounds_mtx)
+#وإلا
+ساكن pthread_spinlock_t bounds_spin;
 /* about 25% faster then semaphore. */
-#define INIT_SEM()             pthread_spin_init (&bounds_spin, 0)
-#define EXIT_SEM()             pthread_spin_destroy (&bounds_spin)
-#define WAIT_SEM()             if (use_sem) pthread_spin_lock (&bounds_spin)
-#define POST_SEM()             if (use_sem) pthread_spin_unlock (&bounds_spin)
-#define TRY_SEM()              if (use_sem) pthread_spin_trylock (&bounds_spin)
-#endif
-#define HAVE_MEMALIGN          (1)
-#define MALLOC_REDIR           (1)
-#define HAVE_PTHREAD_CREATE    (1)
-#define HAVE_CTYPE             (1)
-#define HAVE_ERRNO             (1)
-#define HAVE_SIGNAL            (1)
-#define HAVE_SIGACTION         (1)
-#define HAVE_FORK              (1)
-#if defined(__APPLE__) || defined(__arm__) || defined(__GNUC__) || defined(BCHECK_RUN)
-#define HAVE_TLS_FUNC          (1)
-#define HAVE_TLS_VAR           (0)
-#else
-#define HAVE_TLS_FUNC          (0)
-#define HAVE_TLS_VAR           (1)
-#endif
-#if defined CONFIG_TCC_MUSL || defined __ANDROID__
+#تعریف_کن INIT_SEM()             pthread_spin_init (&bounds_spin, 0)
+#تعریف_کن EXIT_SEM()             pthread_spin_destroy (&bounds_spin)
+#تعریف_کن WAIT_SEM()             إذا (use_sem) pthread_spin_lock (&bounds_spin)
+#تعریف_کن POST_SEM()             إذا (use_sem) pthread_spin_unlock (&bounds_spin)
+#تعریف_کن TRY_SEM()              إذا (use_sem) pthread_spin_trylock (&bounds_spin)
+#پایان_اگر
+#تعریف_کن HAVE_MEMALIGN          (1)
+#تعریف_کن MALLOC_REDIR           (1)
+#تعریف_کن HAVE_PTHREAD_CREATE    (1)
+#تعریف_کن HAVE_CTYPE             (1)
+#تعریف_کن HAVE_ERRNO             (1)
+#تعریف_کن HAVE_SIGNAL            (1)
+#تعریف_کن HAVE_SIGACTION         (1)
+#تعریف_کن HAVE_FORK              (1)
+#إذا defined(__APPLE__) || defined(__arm__) || defined(__GNUC__) || defined(BCHECK_پیاپی)
+#تعریف_کن HAVE_TLS_FUNC          (1)
+#تعریف_کن HAVE_TLS_VAR           (0)
+#وإلا
+#تعریف_کن HAVE_TLS_FUNC          (0)
+#تعریف_کن HAVE_TLS_VAR           (1)
+#پایان_اگر
+#إذا defined CONFIG_TCC_MUSL || defined __ANDROID__
 # undef HAVE_CTYPE
-#endif
-#endif
+#پایان_اگر
+#پایان_اگر
 
-#if MALLOC_REDIR
-static void *(*malloc_redir) (size_t);
-static void *(*calloc_redir) (size_t, size_t);
-static void (*free_redir) (void *);
-static void *(*realloc_redir) (void *, size_t);
-static unsigned int pool_index;
-static unsigned char __attribute__((aligned(16))) initial_pool[256];
-#endif
-#if HAVE_MEMALIGN
-static void *(*memalign_redir) (size_t, size_t);
-#endif
-#if HAVE_PTHREAD_CREATE
-static int (*pthread_create_redir) (pthread_t *thread,
-                                    const pthread_attr_t *attr,
-                                    void *(*start_routine)(void *), void *arg);
-#endif
-#if HAVE_SIGNAL
-typedef void (*bound_sig)(int);
-static bound_sig (*signal_redir) (int signum, bound_sig handler);
-#endif
-#if HAVE_SIGACTION
-static int (*sigaction_redir) (int signum, const struct sigaction *act,
-                               struct sigaction *oldact);
-#endif
-#if HAVE_FORK
-static int (*fork_redir) (void);
-#endif
+#إذا MALLOC_REDIR
+ساكن فراغ *(*malloc_redir) (اندازه_t);
+ساكن فراغ *(*calloc_redir) (اندازه_t, اندازه_t);
+ساكن فراغ (*free_redir) (فراغ *);
+ساكن فراغ *(*realloc_redir) (فراغ *, اندازه_t);
+ساكن بیعلامت صحيح pool_شاخص;
+ساكن بیعلامت حرف __attribute__((aligned(16))) initial_pool[256];
+#پایان_اگر
+#إذا HAVE_MEMALIGN
+ساكن فراغ *(*memalign_redir) (اندازه_t, اندازه_t);
+#پایان_اگر
+#إذا HAVE_PTHREAD_CREATE
+ساكن صحيح (*pthread_create_redir) (pthread_t *thread,
+                                    ثابت pthread_attr_t *attr,
+                                    فراغ *(*شروع_routine)(فراغ *), فراغ *arg);
+#پایان_اگر
+#إذا HAVE_SIGNAL
+تعريفنوع فراغ (*bound_sig)(صحيح);
+ساكن bound_sig (*signal_redir) (صحيح signum, bound_sig handler);
+#پایان_اگر
+#إذا HAVE_SIGACTION
+ساكن صحيح (*sigaction_redir) (صحيح signum, ثابت بنية sigaction *act,
+                               بنية sigaction *oldact);
+#پایان_اگر
+#إذا HAVE_FORK
+ساكن صحيح (*fork_redir) (فراغ);
+#پایان_اگر
 
-#define TCC_TYPE_NONE           (0)
-#define TCC_TYPE_MALLOC         (1)
-#define TCC_TYPE_CALLOC         (2)
-#define TCC_TYPE_REALLOC        (3)
-#define TCC_TYPE_MEMALIGN       (4)
-#define TCC_TYPE_STRDUP         (5)
+#تعریف_کن TCC_TYPE_NONE           (0)
+#تعریف_کن TCC_TYPE_MALLOC         (1)
+#تعریف_کن TCC_TYPE_CALLOC         (2)
+#تعریف_کن TCC_TYPE_REALLOC        (3)
+#تعریف_کن TCC_TYPE_MEMALIGN       (4)
+#تعریف_کن TCC_TYPE_STRDUP         (5)
 
 /* this pointer is generated when bound check is incorrect */
-#define INVALID_POINTER ((void *)(-2))
+#تعریف_کن INVALID_اشاره_گر ((فراغ *)(-2))
 
-typedef struct tree_node Tree;
-struct tree_node {
-    Tree * left, * right;
-    size_t start;
-    size_t size;
-    unsigned char type;
-    unsigned char is_invalid; /* true if pointers outside region are invalid */
+تعريفنوع بنية گره_درخت درخت;
+بنية گره_درخت {
+    درخت * چپ, * راست;
+    اندازه_t شروع;
+    اندازه_t اندازه;
+    بیعلامت حرف type;
+    بیعلامت حرف is_invalid; /* true if pointers outside region are invalid */
 };
 
-typedef struct alloca_list_struct {
-    size_t fp;
-    void *p;
-    size_t size;
-    struct alloca_list_struct *next;
+تعريفنوع بنية alloca_list_struct {
+    اندازه_t fp;
+    فراغ *p;
+    اندازه_t اندازه;
+    بنية alloca_list_struct *بعدی;
 } alloca_list_type;
 
-#if defined(_WIN32)
-#define BOUND_TID_TYPE		DWORD
-#define BOUND_GET_TID(id)	id = GetCurrentThreadId()
-#elif defined(__OpenBSD__)
-#define BOUND_TID_TYPE		pid_t
-#define BOUND_GET_TID(id)	id = getthrid()
-#elif defined(__FreeBSD__)
-#define BOUND_TID_TYPE		pid_t
-#define BOUND_GET_TID(id)	syscall (SYS_thr_self, &id)
-#elif  defined(__NetBSD__)
-#define BOUND_TID_TYPE		pid_t
-#define BOUND_GET_TID(id)	id = syscall (SYS__lwp_self)
-#elif defined(__linux__)
-#define BOUND_TID_TYPE		pid_t
-#define BOUND_GET_TID(id)	id = syscall (SYS_gettid)
-#else
-#define BOUND_TID_TYPE		int
-#define BOUND_GET_TID(id)	id = 0
-#endif
+#إذا defined(_WIN32)
+#تعریف_کن BOUND_TID_TYPE		DWORD
+#تعریف_کن BOUND_GET_TID(id)	id = GetCurrentThreadId()
+#وإلاإذا defined(__OpenBSD__)
+#تعریف_کن BOUND_TID_TYPE		pid_t
+#تعریف_کن BOUND_GET_TID(id)	id = getthrid()
+#وإلاإذا defined(__FreeBSD__)
+#تعریف_کن BOUND_TID_TYPE		pid_t
+#تعریف_کن BOUND_GET_TID(id)	syscall (SYS_thr_self, &id)
+#وإلاإذا  defined(__NetBSD__)
+#تعریف_کن BOUND_TID_TYPE		pid_t
+#تعریف_کن BOUND_GET_TID(id)	id = syscall (SYS__lwp_self)
+#وإلاإذا defined(__linux__)
+#تعریف_کن BOUND_TID_TYPE		pid_t
+#تعریف_کن BOUND_GET_TID(id)	id = syscall (SYS_gettid)
+#وإلا
+#تعریف_کن BOUND_TID_TYPE		صحيح
+#تعریف_کن BOUND_GET_TID(id)	id = 0
+#پایان_اگر
 
-typedef struct jmp_list_struct {
-    void *penv;
-    size_t fp;
-    size_t end_fp;
+تعريفنوع بنية jmp_list_struct {
+    فراغ *penv;
+    اندازه_t fp;
+    اندازه_t انتها_fp;
     BOUND_TID_TYPE tid;
-    struct jmp_list_struct *next;
+    بنية jmp_list_struct *بعدی;
 } jmp_list_type;
 
-#define BOUND_STATISTIC_SPLAY   (0)
-static Tree * splay (size_t addr, Tree *t);
-static Tree * splay_end (size_t addr, Tree *t);
-static Tree * splay_insert(size_t addr, size_t size, Tree * t);
-static Tree * splay_delete(size_t addr, Tree *t);
-void splay_printtree(Tree * t, int d);
+#تعریف_کن BOUND_STATISTIC_SPLAY   (0)
+ساكن درخت * splay (اندازه_t addr, درخت *t);
+ساكن درخت * splay_انتها (اندازه_t addr, درخت *t);
+ساكن درخت * splay_درج(اندازه_t addr, اندازه_t اندازه, درخت * t);
+ساكن درخت * splay_delete(اندازه_t addr, درخت *t);
+فراغ splay_printtree(درخت * t, صحيح d);
 
 /* external interface */
-void __bounds_checking (int no_check);
-void __bound_checking_lock (void);
-void __bound_checking_unlock (void);
-void __bound_never_fatal (int no_check);
-DLL_EXPORT void * __bound_ptr_add(void *p, size_t offset);
-DLL_EXPORT void * __bound_ptr_indir1(void *p, size_t offset);
-DLL_EXPORT void * __bound_ptr_indir2(void *p, size_t offset);
-DLL_EXPORT void * __bound_ptr_indir4(void *p, size_t offset);
-DLL_EXPORT void * __bound_ptr_indir8(void *p, size_t offset);
-DLL_EXPORT void * __bound_ptr_indir12(void *p, size_t offset);
-DLL_EXPORT void * __bound_ptr_indir16(void *p, size_t offset);
-DLL_EXPORT void FASTCALL __bound_local_new(void *p1);
-DLL_EXPORT void FASTCALL __bound_local_delete(void *p1);
-void __bound_init(size_t *, int);
-void __bound_main_arg(int argc, char **argv, char **envp);
-void __bound_exit(void);
-void __bound_exit_dll(size_t *);
-#if !defined(_WIN32)
-void *__bound_mmap (void *start, size_t size, int prot, int flags, int fd,
-                    off_t offset);
-int __bound_munmap (void *start, size_t size);
-DLL_EXPORT void __bound_siglongjmp(jmp_buf env, int val);
-#endif
-DLL_EXPORT void __bound_new_region(void *p, size_t size);
-DLL_EXPORT void __bound_setjmp(jmp_buf env);
-DLL_EXPORT void __bound_longjmp(jmp_buf env, int val);
-DLL_EXPORT void *__bound_memcpy(void *dst, const void *src, size_t size);
-DLL_EXPORT int __bound_memcmp(const void *s1, const void *s2, size_t size);
-DLL_EXPORT void *__bound_memmove(void *dst, const void *src, size_t size);
-DLL_EXPORT void *__bound_memset(void *dst, int c, size_t size);
-DLL_EXPORT int __bound_strlen(const char *s);
-DLL_EXPORT char *__bound_strcpy(char *dst, const char *src);
-DLL_EXPORT char *__bound_strncpy(char *dst, const char *src, size_t n);
-DLL_EXPORT int __bound_strcmp(const char *s1, const char *s2);
-DLL_EXPORT int __bound_strncmp(const char *s1, const char *s2, size_t n);
-DLL_EXPORT char *__bound_strcat(char *dest, const char *src);
-DLL_EXPORT char *__bound_strncat(char *dest, const char *src, size_t n);
-DLL_EXPORT char *__bound_strchr(const char *string, int ch);
-DLL_EXPORT char *__bound_strrchr(const char *string, int ch);
-DLL_EXPORT char *__bound_strdup(const char *s);
+فراغ __bounds_checking (صحيح no_check);
+فراغ __bound_checking_lock (فراغ);
+فراغ __bound_checking_unlock (فراغ);
+فراغ __bound_never_fatal (صحيح no_check);
+DLL_EXPORT فراغ * __bound_ptr_add(فراغ *p, اندازه_t جابه_جایی);
+DLL_EXPORT فراغ * __bound_ptr_indir1(فراغ *p, اندازه_t جابه_جایی);
+DLL_EXPORT فراغ * __bound_ptr_indir2(فراغ *p, اندازه_t جابه_جایی);
+DLL_EXPORT فراغ * __bound_ptr_indir4(فراغ *p, اندازه_t جابه_جایی);
+DLL_EXPORT فراغ * __bound_ptr_indir8(فراغ *p, اندازه_t جابه_جایی);
+DLL_EXPORT فراغ * __bound_ptr_indir12(فراغ *p, اندازه_t جابه_جایی);
+DLL_EXPORT فراغ * __bound_ptr_indir16(فراغ *p, اندازه_t جابه_جایی);
+DLL_EXPORT فراغ FASTCALL __bound_local_new(فراغ *p1);
+DLL_EXPORT فراغ FASTCALL __bound_local_delete(فراغ *p1);
+فراغ __bound_init(اندازه_t *, صحيح);
+فراغ __bound_main_arg(صحيح argc, حرف **argv, حرف **envp);
+فراغ __bound_exit(فراغ);
+فراغ __bound_exit_dll(اندازه_t *);
+#إذا !defined(_WIN32)
+فراغ *__bound_mmap (فراغ *شروع, اندازه_t اندازه, صحيح prot, صحيح flags, صحيح fd,
+                    off_t جابه_جایی);
+صحيح __bound_munmap (فراغ *شروع, اندازه_t اندازه);
+DLL_EXPORT فراغ __bound_siglongjmp(jmp_buf env, صحيح val);
+#پایان_اگر
+DLL_EXPORT فراغ __bound_new_region(فراغ *p, اندازه_t اندازه);
+DLL_EXPORT فراغ __bound_setjmp(jmp_buf env);
+DLL_EXPORT فراغ __bound_longjmp(jmp_buf env, صحيح val);
+DLL_EXPORT فراغ *__bound_memcpy(فراغ *dst, ثابت فراغ *src, اندازه_t اندازه);
+DLL_EXPORT صحيح __bound_memcmp(ثابت فراغ *s1, ثابت فراغ *s2, اندازه_t اندازه);
+DLL_EXPORT فراغ *__bound_memmove(فراغ *dst, ثابت فراغ *src, اندازه_t اندازه);
+DLL_EXPORT فراغ *__bound_memset(فراغ *dst, صحيح c, اندازه_t اندازه);
+DLL_EXPORT صحيح __bound_strlen(ثابت حرف *s);
+DLL_EXPORT حرف *__bound_strcpy(حرف *dst, ثابت حرف *src);
+DLL_EXPORT حرف *__bound_strncpy(حرف *dst, ثابت حرف *src, اندازه_t n);
+DLL_EXPORT صحيح __bound_strcmp(ثابت حرف *s1, ثابت حرف *s2);
+DLL_EXPORT صحيح __bound_strncmp(ثابت حرف *s1, ثابت حرف *s2, اندازه_t n);
+DLL_EXPORT حرف *__bound_strcat(حرف *dest, ثابت حرف *src);
+DLL_EXPORT حرف *__bound_strncat(حرف *dest, ثابت حرف *src, اندازه_t n);
+DLL_EXPORT حرف *__bound_strchr(ثابت حرف *string, صحيح ch);
+DLL_EXPORT حرف *__bound_strrchr(ثابت حرف *string, صحيح ch);
+DLL_EXPORT حرف *__bound_strdup(ثابت حرف *s);
 
-#if defined(__arm__) && defined(__ARM_EABI__)
-DLL_EXPORT void *__bound___aeabi_memcpy(void *dst, const void *src, size_t size);
-DLL_EXPORT void *__bound___aeabi_memmove(void *dst, const void *src, size_t size);
-DLL_EXPORT void *__bound___aeabi_memmove4(void *dst, const void *src, size_t size);
-DLL_EXPORT void *__bound___aeabi_memmove8(void *dst, const void *src, size_t size);
-DLL_EXPORT void *__bound___aeabi_memset(void *dst, int c, size_t size);
-DLL_EXPORT void *__aeabi_memcpy(void *dst, const void *src, size_t size);
-DLL_EXPORT void *__aeabi_memmove(void *dst, const void *src, size_t size);
-DLL_EXPORT void *__aeabi_memmove4(void *dst, const void *src, size_t size);
-DLL_EXPORT void *__aeabi_memmove8(void *dst, const void *src, size_t size);
-DLL_EXPORT void *__aeabi_memset(void *dst, int c, size_t size);
-#endif
+#إذا defined(__arm__) && defined(__ARM_EABI__)
+DLL_EXPORT فراغ *__bound___aeabi_memcpy(فراغ *dst, ثابت فراغ *src, اندازه_t اندازه);
+DLL_EXPORT فراغ *__bound___aeabi_memmove(فراغ *dst, ثابت فراغ *src, اندازه_t اندازه);
+DLL_EXPORT فراغ *__bound___aeabi_memmove4(فراغ *dst, ثابت فراغ *src, اندازه_t اندازه);
+DLL_EXPORT فراغ *__bound___aeabi_memmove8(فراغ *dst, ثابت فراغ *src, اندازه_t اندازه);
+DLL_EXPORT فراغ *__bound___aeabi_memset(فراغ *dst, صحيح c, اندازه_t اندازه);
+DLL_EXPORT فراغ *__aeabi_memcpy(فراغ *dst, ثابت فراغ *src, اندازه_t اندازه);
+DLL_EXPORT فراغ *__aeabi_memmove(فراغ *dst, ثابت فراغ *src, اندازه_t اندازه);
+DLL_EXPORT فراغ *__aeabi_memmove4(فراغ *dst, ثابت فراغ *src, اندازه_t اندازه);
+DLL_EXPORT فراغ *__aeabi_memmove8(فراغ *dst, ثابت فراغ *src, اندازه_t اندازه);
+DLL_EXPORT فراغ *__aeabi_memset(فراغ *dst, صحيح c, اندازه_t اندازه);
+#پایان_اگر
 
-#if MALLOC_REDIR
-#define BOUND_MALLOC(a)          malloc_redir(a)
-#define BOUND_MEMALIGN(a,b)      memalign_redir(a,b)
-#define BOUND_FREE(a)            free_redir(a)
-#define BOUND_REALLOC(a,b)       realloc_redir(a,b)
-#define BOUND_CALLOC(a,b)        calloc_redir(a,b)
-#else
-#define BOUND_MALLOC(a)          malloc(a)
-#define BOUND_MEMALIGN(a,b)      memalign(a,b)
-#define BOUND_FREE(a)            free(a)
-#define BOUND_REALLOC(a,b)       realloc(a,b)
-#define BOUND_CALLOC(a,b)        calloc(a,b)
-DLL_EXPORT void *__bound_malloc(size_t size, const void *caller);
-DLL_EXPORT void *__bound_memalign(size_t align, size_t size, const void *caller);
-DLL_EXPORT void __bound_free(void *ptr, const void *caller);
-DLL_EXPORT void *__bound_realloc(void *ptr, size_t size, const void *caller);
-DLL_EXPORT void *__bound_calloc(size_t nmemb, size_t size);
-#endif
+#إذا MALLOC_REDIR
+#تعریف_کن BOUND_MALLOC(a)          malloc_redir(a)
+#تعریف_کن BOUND_MEMALIGN(a,b)      memalign_redir(a,b)
+#تعریف_کن BOUND_FREE(a)            free_redir(a)
+#تعریف_کن BOUND_REALLOC(a,b)       realloc_redir(a,b)
+#تعریف_کن BOUND_CALLOC(a,b)        calloc_redir(a,b)
+#وإلا
+#تعریف_کن BOUND_MALLOC(a)          حافظه_بده(a)
+#تعریف_کن BOUND_MEMALIGN(a,b)      memalign(a,b)
+#تعریف_کن BOUND_FREE(a)            حرر(a)
+#تعریف_کن BOUND_REALLOC(a,b)       realloc(a,b)
+#تعریف_کن BOUND_CALLOC(a,b)        حافظه_صفر_بده(a,b)
+DLL_EXPORT فراغ *__bound_malloc(اندازه_t اندازه, ثابت فراغ *caller);
+DLL_EXPORT فراغ *__bound_memalign(اندازه_t align, اندازه_t اندازه, ثابت فراغ *caller);
+DLL_EXPORT فراغ __bound_free(فراغ *ptr, ثابت فراغ *caller);
+DLL_EXPORT فراغ *__bound_realloc(فراغ *ptr, اندازه_t اندازه, ثابت فراغ *caller);
+DLL_EXPORT فراغ *__bound_calloc(اندازه_t nmemb, اندازه_t اندازه);
+#پایان_اگر
 
-#define FREE_REUSE_SIZE (100)
-static unsigned int free_reuse_index;
-static void *free_reuse_list[FREE_REUSE_SIZE];
+#تعریف_کن FREE_REUSE_اندازه (100)
+ساكن بیعلامت صحيح free_reuse_شاخص;
+ساكن فراغ *free_reuse_list[FREE_REUSE_اندازه];
 
-static Tree *tree = NULL;
-#define TREE_REUSE      (1)
-#if TREE_REUSE
-static Tree *tree_free_list;
-#endif
-static alloca_list_type *alloca_list;
-static jmp_list_type *jmp_list;
+ساكن درخت *درخت_2 = عدم;
+#تعریف_کن درخت_REUSE      (1)
+#إذا درخت_REUSE
+ساكن درخت *درخت_free_list;
+#پایان_اگر
+ساكن alloca_list_type *alloca_list;
+ساكن jmp_list_type *jmp_list;
 
-static unsigned char inited;
-static unsigned char print_warn_ptr_add;
-static unsigned char print_calls;
-static unsigned char print_heap;
-static unsigned char print_statistic;
-static unsigned char no_strdup;
-static unsigned char use_sem;
-static _Atomic int never_fatal;
-#if HAVE_TLS_FUNC
-#if defined(_WIN32)
-static int no_checking = 0;
-static DWORD no_checking_key;
-#define NO_CHECKING_CHECK() if (!p) {                                         \
-                                  p = (int *) LocalAlloc(LPTR, sizeof(int));  \
-                                  if (!p) bound_alloc_error("tls malloc");    \
+ساكن بیعلامت حرف inited;
+ساكن بیعلامت حرف print_warn_ptr_جمع_کن;
+ساكن بیعلامت حرف print_calls;
+ساكن بیعلامت حرف print_انباشته;
+ساكن بیعلامت حرف print_statistic;
+ساكن بیعلامت حرف no_strdup;
+ساكن بیعلامت حرف use_sem;
+ساكن _Atomic صحيح never_fatal;
+#إذا HAVE_TLS_FUNC
+#إذا defined(_WIN32)
+ساكن صحيح no_checking = 0;
+ساكن DWORD no_checking_کلید;
+#تعریف_کن NO_CHECKING_CHECK() إذا (!p) {                                         \
+                                  p = (صحيح *) LocalAlloc(LPTR, حجم(صحيح));  \
+                                  إذا (!p) bound_alloc_error("tls malloc");    \
                                   *p = 0;                                     \
-                                  TlsSetValue(no_checking_key, p);            \
+                                  Tls_مجموعه_مقدار(no_checking_کلید, p);            \
                             }
-#define NO_CHECKING_GET()   ({ int *p = TlsGetValue(no_checking_key);         \
+#تعریف_کن NO_CHECKING_GET()   ({ صحيح *p = Tls_Get_مقدار(no_checking_کلید);         \
                                NO_CHECKING_CHECK();                           \
                                *p;                                            \
                             })
-#define NO_CHECKING_SET(v)  { int *p = TlsGetValue(no_checking_key);          \
+#تعریف_کن NO_CHECKING_مجموعه(v)  { صحيح *p = Tls_Get_مقدار(no_checking_کلید);          \
                               NO_CHECKING_CHECK();                            \
                               *p = v;                                         \
                             }
-#else
-static int no_checking = 0;
-static pthread_key_t no_checking_key;
-#define NO_CHECKING_CHECK() if (!p) {                                         \
-                                  p = (int *) BOUND_MALLOC(sizeof(int));      \
-                                  if (!p) bound_alloc_error("tls malloc");    \
+#وإلا
+ساكن صحيح no_checking = 0;
+ساكن pthread_key_t no_checking_کلید;
+#تعریف_کن NO_CHECKING_CHECK() إذا (!p) {                                         \
+                                  p = (صحيح *) BOUND_MALLOC(حجم(صحيح));      \
+                                  إذا (!p) bound_alloc_error("tls malloc");    \
                                   *p = 0;                                     \
-                                  pthread_setspecific(no_checking_key, p);    \
+                                  pthread_setspecific(no_checking_کلید, p);    \
                             }
-#define NO_CHECKING_GET()   ({ int *p = pthread_getspecific(no_checking_key); \
+#تعریف_کن NO_CHECKING_GET()   ({ صحيح *p = pthread_getspecific(no_checking_کلید); \
                                NO_CHECKING_CHECK();                           \
                                *p;                                            \
                             })
-#define NO_CHECKING_SET(v)  { int *p = pthread_getspecific(no_checking_key);  \
+#تعریف_کن NO_CHECKING_مجموعه(v)  { صحيح *p = pthread_getspecific(no_checking_کلید);  \
                               NO_CHECKING_CHECK();                            \
                               *p = v;                                         \
                             }
-#endif
-#elif HAVE_TLS_VAR
-static __thread int no_checking = 0;
-#define NO_CHECKING_GET()  no_checking
-#define NO_CHECKING_SET(v) no_checking = v 
-#else
-static _Atomic int no_checking = 0;
-#define NO_CHECKING_GET()  no_checking
-#define NO_CHECKING_SET(v) no_checking = v 
-#endif
-static char exec[100];
+#پایان_اگر
+#وإلاإذا HAVE_TLS_VAR
+ساكن __thread صحيح no_checking = 0;
+#تعریف_کن NO_CHECKING_GET()  no_checking
+#تعریف_کن NO_CHECKING_مجموعه(v) no_checking = v 
+#وإلا
+ساكن _Atomic صحيح no_checking = 0;
+#تعریف_کن NO_CHECKING_GET()  no_checking
+#تعریف_کن NO_CHECKING_مجموعه(v) no_checking = v 
+#پایان_اگر
+ساكن حرف exec[100];
 
-#if BOUND_STATISTIC
-static unsigned long long bound_ptr_add_count;
-static unsigned long long bound_ptr_indir1_count;
-static unsigned long long bound_ptr_indir2_count;
-static unsigned long long bound_ptr_indir4_count;
-static unsigned long long bound_ptr_indir8_count;
-static unsigned long long bound_ptr_indir12_count;
-static unsigned long long bound_ptr_indir16_count;
-static unsigned long long bound_local_new_count;
-static unsigned long long bound_local_delete_count;
-static unsigned long long bound_malloc_count;
-static unsigned long long bound_calloc_count;
-static unsigned long long bound_realloc_count;
-static unsigned long long bound_free_count;
-static unsigned long long bound_memalign_count;
-static unsigned long long bound_mmap_count;
-static unsigned long long bound_munmap_count;
-static unsigned long long bound_alloca_count;
-static unsigned long long bound_setjmp_count;
-static unsigned long long bound_longjmp_count;
-static unsigned long long bound_mempcy_count;
-static unsigned long long bound_memcmp_count;
-static unsigned long long bound_memmove_count;
-static unsigned long long bound_memset_count;
-static unsigned long long bound_strlen_count;
-static unsigned long long bound_strcpy_count;
-static unsigned long long bound_strncpy_count;
-static unsigned long long bound_strcmp_count;
-static unsigned long long bound_strncmp_count;
-static unsigned long long bound_strcat_count;
-static unsigned long long bound_strncat_count;
-static unsigned long long bound_strchr_count;
-static unsigned long long bound_strrchr_count;
-static unsigned long long bound_strdup_count;
-static unsigned long long bound_not_found;
-#define INCR_COUNT(x)          ++x
-#else
-#define INCR_COUNT(x)
-#endif
-#if BOUND_STATISTIC_SPLAY
-static unsigned long long bound_splay;
-static unsigned long long bound_splay_end;
-static unsigned long long bound_splay_insert;
-static unsigned long long bound_splay_delete;
-#define INCR_COUNT_SPLAY(x)    ++x
-#else
-#define INCR_COUNT_SPLAY(x)
-#endif
+#إذا BOUND_STATISTIC
+ساكن بیعلامت دراز دراز bound_ptr_جمع_کن_شمار;
+ساكن بیعلامت دراز دراز bound_ptr_indir1_شمار;
+ساكن بیعلامت دراز دراز bound_ptr_indir2_شمار;
+ساكن بیعلامت دراز دراز bound_ptr_indir4_شمار;
+ساكن بیعلامت دراز دراز bound_ptr_indir8_شمار;
+ساكن بیعلامت دراز دراز bound_ptr_indir12_شمار;
+ساكن بیعلامت دراز دراز bound_ptr_indir16_شمار;
+ساكن بیعلامت دراز دراز bound_local_new_شمار;
+ساكن بیعلامت دراز دراز bound_local_delete_شمار;
+ساكن بیعلامت دراز دراز bound_malloc_شمار;
+ساكن بیعلامت دراز دراز bound_calloc_شمار;
+ساكن بیعلامت دراز دراز bound_realloc_شمار;
+ساكن بیعلامت دراز دراز bound_free_شمار;
+ساكن بیعلامت دراز دراز bound_memalign_شمار;
+ساكن بیعلامت دراز دراز bound_mmap_شمار;
+ساكن بیعلامت دراز دراز bound_munmap_شمار;
+ساكن بیعلامت دراز دراز bound_alloca_شمار;
+ساكن بیعلامت دراز دراز bound_setjmp_شمار;
+ساكن بیعلامت دراز دراز bound_longjmp_شمار;
+ساكن بیعلامت دراز دراز bound_mempcy_شمار;
+ساكن بیعلامت دراز دراز bound_memcmp_شمار;
+ساكن بیعلامت دراز دراز bound_memmove_شمار;
+ساكن بیعلامت دراز دراز bound_memset_شمار;
+ساكن بیعلامت دراز دراز bound_strlen_شمار;
+ساكن بیعلامت دراز دراز bound_strcpy_شمار;
+ساكن بیعلامت دراز دراز bound_strncpy_شمار;
+ساكن بیعلامت دراز دراز bound_strcmp_شمار;
+ساكن بیعلامت دراز دراز bound_strncmp_شمار;
+ساكن بیعلامت دراز دراز bound_strcat_شمار;
+ساكن بیعلامت دراز دراز bound_strncat_شمار;
+ساكن بیعلامت دراز دراز bound_strchr_شمار;
+ساكن بیعلامت دراز دراز bound_strrchr_شمار;
+ساكن بیعلامت دراز دراز bound_strdup_شمار;
+ساكن بیعلامت دراز دراز bound_not_یافت;
+#تعریف_کن INCR_شمار(x)          ++x
+#وإلا
+#تعریف_کن INCR_شمار(x)
+#پایان_اگر
+#إذا BOUND_STATISTIC_SPLAY
+ساكن بیعلامت دراز دراز bound_splay;
+ساكن بیعلامت دراز دراز bound_splay_انتها;
+ساكن بیعلامت دراز دراز bound_splay_درج;
+ساكن بیعلامت دراز دراز bound_splay_delete;
+#تعریف_کن INCR_شمار_SPLAY(x)    ++x
+#وإلا
+#تعریف_کن INCR_شمار_SPLAY(x)
+#پایان_اگر
 
-int tcc_backtrace(const char *fmt, ...);
+صحيح tcc_backtrace(ثابت حرف *fmt, ...);
 
 /* print a bound error message */
-#define bound_warning(...) \
-    do {                                                 \
+#تعریف_کن bound_warning(...) \
+    افعل {                                                 \
         WAIT_SEM ();                                     \
         tcc_backtrace("^bcheck.c^BCHECK: " __VA_ARGS__); \
         POST_SEM ();                                     \
-    } while (0)
+    } طالما (0)
 
-#define bound_error(...)            \
-    do {                            \
+#تعریف_کن bound_error(...)            \
+    افعل {                            \
         bound_warning(__VA_ARGS__); \
-        if (never_fatal == 0)       \
-            exit(255);              \
-    } while (0)
+        إذا (never_fatal == 0)       \
+            خروج(255);              \
+    } طالما (0)
 
-#define bounds_loc(fp, ...) \
-    do {                            \
+#تعریف_کن bounds_loc(fp, ...) \
+    افعل {                            \
         WAIT_SEM (); \
         tcc_backtrace("^bcheck.c^\001" __VA_ARGS__); \
         POST_SEM (); \
-    } while (0)
+    } طالما (0)
 
-static void bound_alloc_error(const char *s)
+ساكن فراغ bound_alloc_error(ثابت حرف *s)
 {
     fprintf(stderr,"FATAL: %s\n",s);
-    exit (1);
+    خروج (1);
 }
 
-static void bound_not_found_warning(const char *file, const char *function,
-                                    void *ptr)
+ساكن فراغ bound_not_یافت_warning(ثابت حرف *file, ثابت حرف *function,
+                                    فراغ *ptr)
 {
     dprintf(stderr, "%s%s, %s(): Not found %p\n", exec, file, function, ptr);
 }
 
 /* enable/disable checking. This can be used in signal handlers. */
-void __bounds_checking (int no_check)
+فراغ __bounds_checking (صحيح no_check)
 {
-#if HAVE_TLS_FUNC || HAVE_TLS_VAR
-    NO_CHECKING_SET(NO_CHECKING_GET() + no_check);
-#else
+#إذا HAVE_TLS_FUNC || HAVE_TLS_VAR
+    NO_CHECKING_مجموعه(NO_CHECKING_GET() + no_check);
+#وإلا
     atomic_fetch_add (&no_checking, no_check);
-#endif
+#پایان_اگر
 }
 
-void __bound_checking_lock(void)
+فراغ __bound_checking_lock(فراغ)
 {
     WAIT_SEM ();
 }
 
-void __bound_checking_unlock(void)
+فراغ __bound_checking_unlock(فراغ)
 {
     POST_SEM ();
 }
 
 /* enable/disable checking. This can be used in signal handlers. */
-void __bound_never_fatal (int neverfatal)
+فراغ __bound_never_fatal (صحيح neverfatal)
 {
     atomic_fetch_add (&never_fatal, neverfatal);
 }
 
 /* return '(p + offset)' for pointer arithmetic (a pointer can reach
    the end of a region in this case */
-void * __bound_ptr_add(void *p, size_t offset)
+فراغ * __bound_ptr_add(فراغ *p, اندازه_t جابه_جایی)
 {
-    size_t addr = (size_t)p;
+    اندازه_t addr = (اندازه_t)p;
 
-    if (NO_CHECKING_GET())
-        return p + offset;
+    إذا (NO_CHECKING_GET())
+        أرجع p + جابه_جایی;
 
     dprintf(stderr, "%s, %s(): %p 0x%lx\n",
-            __FILE__, __FUNCTION__, p, (unsigned long)offset);
+            __FILE__, __FUNCTION__, p, (بیعلامت دراز)جابه_جایی);
 
     WAIT_SEM ();
-    INCR_COUNT(bound_ptr_add_count);
-    if (tree) {
-        addr -= tree->start;
-        if (addr >= tree->size) {
-            addr = (size_t)p;
-            tree = splay (addr, tree);
-            addr -= tree->start;
+    INCR_شمار(bound_ptr_جمع_کن_شمار);
+    إذا (درخت_2) {
+        addr -= درخت_2->شروع;
+        إذا (addr >= درخت_2->اندازه) {
+            addr = (اندازه_t)p;
+            درخت_2 = splay (addr, درخت_2);
+            addr -= درخت_2->شروع;
         }
-        if (addr >= tree->size) {
-            addr = (size_t)p;
-            tree = splay_end (addr, tree);
-            addr -= tree->start;
+        إذا (addr >= درخت_2->اندازه) {
+            addr = (اندازه_t)p;
+            درخت_2 = splay_انتها (addr, درخت_2);
+            addr -= درخت_2->شروع;
         }
-        if (addr <= tree->size) {
-            if (tree->is_invalid || addr + offset > tree->size) {
+        إذا (addr <= درخت_2->اندازه) {
+            إذا (درخت_2->is_invalid || addr + جابه_جایی > درخت_2->اندازه) {
                 POST_SEM ();
-                if (print_warn_ptr_add)
+                إذا (print_warn_ptr_جمع_کن)
                     bound_warning("%p is outside of the region (0x%lx..0x%lx)",
-                                  p + offset, (long)tree->start,
-                                  (long)(tree->start + tree->size - 1));
-                if (never_fatal <= 0)
-                    return INVALID_POINTER; /* return an invalid pointer */
-                return p + offset;
+                                  p + جابه_جایی, (دراز)درخت_2->شروع,
+                                  (دراز)(درخت_2->شروع + درخت_2->اندازه - 1));
+                إذا (never_fatal <= 0)
+                    أرجع INVALID_اشاره_گر; /* return an invalid pointer */
+                أرجع p + جابه_جایی;
             }
         }
-        else if (p) { /* Allow NULL + offset. offsetoff is using it. */
-            INCR_COUNT(bound_not_found);
+        وإلا إذا (p) { /* Allow NULL + offset. offsetoff is using it. */
+            INCR_شمار(bound_not_یافت);
             POST_SEM ();
-            bound_not_found_warning (__FILE__, __FUNCTION__, p);
-            return p + offset;
+            bound_not_یافت_warning (__FILE__, __FUNCTION__, p);
+            أرجع p + جابه_جایی;
         }
     }
     POST_SEM ();
-    return p + offset;
+    أرجع p + جابه_جایی;
 }
 
 /* return '(p + offset)' for pointer indirection (the resulting must
    be strictly inside the region */
-#define BOUND_PTR_INDIR(dsize)                                                 \
-void * __bound_ptr_indir ## dsize (void *p, size_t offset)                     \
+#تعریف_کن BOUND_PTR_INDIR(dsize)                                                 \
+فراغ * __bound_ptr_indir ## dsize (فراغ *p, اندازه_t جابه_جایی)                     \
 {                                                                              \
-    size_t addr = (size_t)p;                                                   \
+    اندازه_t addr = (اندازه_t)p;                                                   \
                                                                                \
-    if (NO_CHECKING_GET())                                                     \
-        return p + offset;                                                     \
+    إذا (NO_CHECKING_GET())                                                     \
+        أرجع p + جابه_جایی;                                                     \
                                                                                \
     dprintf(stderr, "%s, %s(): %p 0x%lx\n",                                    \
-            __FILE__, __FUNCTION__, p, (unsigned long)offset);                 \
+            __FILE__, __FUNCTION__, p, (بیعلامت دراز)جابه_جایی);                 \
     WAIT_SEM ();                                                               \
-    INCR_COUNT(bound_ptr_indir ## dsize ## _count);                            \
-    if (tree) {                                                                \
-        addr -= tree->start;                                                   \
-        if (addr >= tree->size) {                                              \
-            addr = (size_t)p;                                                  \
-            tree = splay (addr, tree);                                         \
-            addr -= tree->start;                                               \
+    INCR_شمار(bound_ptr_indir ## dsize ## شمار);                            \
+    إذا (درخت_2) {                                                                \
+        addr -= درخت_2->شروع;                                                   \
+        إذا (addr >= درخت_2->اندازه) {                                              \
+            addr = (اندازه_t)p;                                                  \
+            درخت_2 = splay (addr, درخت_2);                                         \
+            addr -= درخت_2->شروع;                                               \
         }                                                                      \
-        if (addr >= tree->size) {                                              \
-            addr = (size_t)p;                                                  \
-            tree = splay_end (addr, tree);                                     \
-            addr -= tree->start;                                               \
+        إذا (addr >= درخت_2->اندازه) {                                              \
+            addr = (اندازه_t)p;                                                  \
+            درخت_2 = splay_انتها (addr, درخت_2);                                     \
+            addr -= درخت_2->شروع;                                               \
         }                                                                      \
-        if (addr <= tree->size) {                                              \
-            if (tree->is_invalid || addr + offset + dsize > tree->size) {      \
+        إذا (addr <= درخت_2->اندازه) {                                              \
+            إذا (درخت_2->is_invalid || addr + جابه_جایی + dsize > درخت_2->اندازه) {      \
                 POST_SEM ();                                                   \
                 bound_warning("%p (size %d) is outside of the region "         \
                               "(0x%lx..0x%lx)",                                \
-                              p + offset, dsize, (long)tree->start,            \
-                              (long)(tree->start + tree->size - 1));           \
-                if (never_fatal <= 0)                                          \
-                    return INVALID_POINTER; /* return an invalid pointer */    \
-                return p + offset;                                             \
+                              p + جابه_جایی, dsize, (دراز)درخت_2->شروع,            \
+                              (دراز)(درخت_2->شروع + درخت_2->اندازه - 1));           \
+                إذا (never_fatal <= 0)                                          \
+                    أرجع INVALID_اشاره_گر; /* return an invalid pointer */    \
+                أرجع p + جابه_جایی;                                             \
             }                                                                  \
         }                                                                      \
-        else {                                                                 \
-            INCR_COUNT(bound_not_found);                                       \
+        وإلا {                                                                 \
+            INCR_شمار(bound_not_یافت);                                       \
             POST_SEM ();                                                       \
-            bound_not_found_warning (__FILE__, __FUNCTION__, p);               \
-            return p + offset;                                                 \
+            bound_not_یافت_warning (__FILE__, __FUNCTION__, p);               \
+            أرجع p + جابه_جایی;                                                 \
         }                                                                      \
     }                                                                          \
     POST_SEM ();                                                               \
-    return p + offset;                                                         \
+    أرجع p + جابه_جایی;                                                         \
 }
 
 BOUND_PTR_INDIR(1)
@@ -620,364 +620,364 @@ BOUND_PTR_INDIR(12)
 BOUND_PTR_INDIR(16)
 
 /* Needed when using ...libtcc1-usegcc=yes in lib/Makefile */
-#if (defined(__GNUC__) && (__GNUC__ >= 6)) || defined(__clang__)
+#إذا (defined(__GNUC__) && (__GNUC__ >= 6)) || defined(__clang__)
 /*
  * At least gcc 6.2 complains when __builtin_frame_address is used with
  * nonzero argument.
  */
-#pragma GCC diagnostic push
-#pragma GCC diagnostic ignored "-Wframe-address"
-#endif
+#رهنمود GCC diagnostic افزودن
+#رهنمود GCC diagnostic ignored "-Wframe-address"
+#پایان_اگر
 
 /* return the frame pointer of the caller */
-#define GET_CALLER_FP(fp)\
+#تعریف_کن GET_CALLER_FP(fp)\
 {\
-    fp = (size_t)__builtin_frame_address(1);\
+    fp = (اندازه_t)__builtin_frame_address(1);\
 }
 
 /* called when entering a function to add all the local regions */
-void FASTCALL __bound_local_new(void *p1) 
+فراغ FASTCALL __bound_local_new(فراغ *p1) 
 {
-    size_t addr, fp, *p = p1;
+    اندازه_t addr, fp, *p = p1;
 
-    if (NO_CHECKING_GET())
-         return;
+    إذا (NO_CHECKING_GET())
+         أرجع;
     GET_CALLER_FP(fp);
     dprintf(stderr, "%s, %s(): p1=%p fp=%p\n",
-            __FILE__, __FUNCTION__, p, (void *)fp);
+            __FILE__, __FUNCTION__, p, (فراغ *)fp);
     WAIT_SEM ();
-    while ((addr = p[0])) {
-        INCR_COUNT(bound_local_new_count);
-        tree = splay_insert(addr + fp, p[1], tree);
+    طالما ((addr = p[0])) {
+        INCR_شمار(bound_local_new_شمار);
+        درخت_2 = splay_درج(addr + fp, p[1], درخت_2);
         p += 2;
     }
     POST_SEM ();
-#if BOUND_DEBUG
-    if (print_calls) {
+#إذا BOUND_DEBUG
+    إذا (print_calls) {
         p = p1;
-        while ((addr = p[0])) {
+        طالما ((addr = p[0])) {
             dprintf(stderr, "%s, %s(): %p 0x%lx\n",
                     __FILE__, __FUNCTION__,
-                    (void *) (addr + fp), (unsigned long) p[1]);
+                    (فراغ *) (addr + fp), (بیعلامت دراز) p[1]);
             p += 2;
         }
     }
-#endif
+#پایان_اگر
 }
 
 /* called when leaving a function to delete all the local regions */
-void FASTCALL __bound_local_delete(void *p1) 
+فراغ FASTCALL __bound_local_delete(فراغ *p1) 
 {
-    size_t addr, fp, *p = p1;
+    اندازه_t addr, fp, *p = p1;
 
-    if (NO_CHECKING_GET())
-         return;
+    إذا (NO_CHECKING_GET())
+         أرجع;
     GET_CALLER_FP(fp);
     dprintf(stderr, "%s, %s(): p1=%p fp=%p\n",
-            __FILE__, __FUNCTION__, p, (void *)fp);
+            __FILE__, __FUNCTION__, p, (فراغ *)fp);
     WAIT_SEM ();
-    while ((addr = p[0])) {
-        INCR_COUNT(bound_local_delete_count);
-        tree = splay_delete(addr + fp, tree);
+    طالما ((addr = p[0])) {
+        INCR_شمار(bound_local_delete_شمار);
+        درخت_2 = splay_delete(addr + fp, درخت_2);
         p += 2;
     }
-    if (alloca_list) {
-        alloca_list_type *last = NULL;
+    إذا (alloca_list) {
+        alloca_list_type *آخرین = عدم;
         alloca_list_type *cur = alloca_list;
 
-        do {
-            if (cur->fp == fp) {
-                if (last)
-                    last->next = cur->next;
-                else
-                    alloca_list = cur->next;
-                tree = splay_delete ((size_t) cur->p, tree);
+        افعل {
+            إذا (cur->fp == fp) {
+                إذا (آخرین)
+                    آخرین->بعدی = cur->بعدی;
+                وإلا
+                    alloca_list = cur->بعدی;
+                درخت_2 = splay_delete ((اندازه_t) cur->p, درخت_2);
                 dprintf(stderr, "%s, %s(): remove alloca/vla %p\n",
                         __FILE__, __FUNCTION__, cur->p);
                 BOUND_FREE (cur);
-                cur = last ? last->next : alloca_list;
+                cur = آخرین ? آخرین->بعدی : alloca_list;
              }
-             else {
-                 last = cur;
-                 cur = cur->next;
+             وإلا {
+                 آخرین = cur;
+                 cur = cur->بعدی;
              }
-        } while (cur);
+        } طالما (cur);
     }
-    if (jmp_list) {
-        jmp_list_type *last = NULL;
+    إذا (jmp_list) {
+        jmp_list_type *آخرین = عدم;
         jmp_list_type *cur = jmp_list;
 
-        do {
-            if (cur->fp == fp) {
-                if (last)
-                    last->next = cur->next;
-                else
-                    jmp_list = cur->next;
+        افعل {
+            إذا (cur->fp == fp) {
+                إذا (آخرین)
+                    آخرین->بعدی = cur->بعدی;
+                وإلا
+                    jmp_list = cur->بعدی;
                 dprintf(stderr, "%s, %s(): remove setjmp %p\n",
                        __FILE__, __FUNCTION__, cur->penv);
                 BOUND_FREE (cur);
-                cur = last ? last->next : jmp_list;
+                cur = آخرین ? آخرین->بعدی : jmp_list;
             }
-            else {
-                last = cur;
-                cur = cur->next;
+            وإلا {
+                آخرین = cur;
+                cur = cur->بعدی;
             }
-        } while (cur);
+        } طالما (cur);
     }
 
     POST_SEM ();
-#if BOUND_DEBUG
-    if (print_calls) {
+#إذا BOUND_DEBUG
+    إذا (print_calls) {
         p = p1;
-        while ((addr = p[0])) {
-            if (addr != 1) {
+        طالما ((addr = p[0])) {
+            إذا (addr != 1) {
                 dprintf(stderr, "%s, %s(): %p 0x%lx\n",
                         __FILE__, __FUNCTION__,
-                        (void *) (addr + fp), (unsigned long) p[1]);
+                        (فراغ *) (addr + fp), (بیعلامت دراز) p[1]);
             }
             p+= 2;
         }
     }
-#endif
+#پایان_اگر
 }
 
 /* used by alloca */
-void __bound_new_region(void *p, size_t size)
+فراغ __bound_new_region(فراغ *p, اندازه_t اندازه)
 {
-    size_t fp;
-    alloca_list_type *last;
+    اندازه_t fp;
+    alloca_list_type *آخرین;
     alloca_list_type *cur;
     alloca_list_type *new;
 
-    if (NO_CHECKING_GET())
-        return;
+    إذا (NO_CHECKING_GET())
+        أرجع;
 
     dprintf(stderr, "%s, %s(): %p, 0x%lx\n",
-            __FILE__, __FUNCTION__, p, (unsigned long)size);
+            __FILE__, __FUNCTION__, p, (بیعلامت دراز)اندازه);
     GET_CALLER_FP (fp);
-    new = BOUND_MALLOC (sizeof (alloca_list_type));
+    new = BOUND_MALLOC (حجم (alloca_list_type));
     WAIT_SEM ();
-    INCR_COUNT(bound_alloca_count);
-    last = NULL;
+    INCR_شمار(bound_alloca_شمار);
+    آخرین = عدم;
     cur = alloca_list;
-    while (cur) {
-#if defined(__i386__) || (defined(__arm__) && !defined(__ARM_EABI__))
-        int align = 4;
-#elif defined(__arm__)
-        int align = 8;
-#else
-        int align = 16;
-#endif
-        void *cure = (void *)((char *)cur->p + ((cur->size + align) & -align));
-        void *pe = (void *)((char *)p + ((size + align) & -align));
-        if (cur->fp == fp && ((cur->p <= p && cure > p) ||
+    طالما (cur) {
+#إذا defined(__i386__) || (defined(__arm__) && !defined(__ARM_EABI__))
+        صحيح align = 4;
+#وإلاإذا defined(__arm__)
+        صحيح align = 8;
+#وإلا
+        صحيح align = 16;
+#پایان_اگر
+        فراغ *cure = (فراغ *)((حرف *)cur->p + ((cur->اندازه + align) & -align));
+        فراغ *pe = (فراغ *)((حرف *)p + ((اندازه + align) & -align));
+        إذا (cur->fp == fp && ((cur->p <= p && cure > p) ||
                               (p <= cur->p && pe > cur->p))) {
-            if (last)
-                last->next = cur->next;
-            else
-                alloca_list = cur->next;
-            tree = splay_delete((size_t)cur->p, tree);
-            break;
+            إذا (آخرین)
+                آخرین->بعدی = cur->بعدی;
+            وإلا
+                alloca_list = cur->بعدی;
+            درخت_2 = splay_delete((اندازه_t)cur->p, درخت_2);
+            اكسر;
         }
-        last = cur;
-        cur = cur->next;
+        آخرین = cur;
+        cur = cur->بعدی;
     }
-    tree = splay_insert((size_t)p, size, tree);
-    if (new) {
+    درخت_2 = splay_درج((اندازه_t)p, اندازه, درخت_2);
+    إذا (new) {
         new->fp = fp;
         new->p = p;
-        new->size = size;
-        new->next = alloca_list;
+        new->اندازه = اندازه;
+        new->بعدی = alloca_list;
         alloca_list = new;
     }
     POST_SEM ();
-    if (cur) {
+    إذا (cur) {
         dprintf(stderr, "%s, %s(): remove alloca/vla %p\n",
                 __FILE__, __FUNCTION__, cur->p);
         BOUND_FREE (cur);
     }
 }
 
-void __bound_setjmp(jmp_buf env)
+فراغ __bound_setjmp(jmp_buf env)
 {
     jmp_list_type *jl;
-    void *e = (void *) env;
+    فراغ *e = (فراغ *) env;
 
-    if (NO_CHECKING_GET() == 0) {
+    إذا (NO_CHECKING_GET() == 0) {
         dprintf(stderr, "%s, %s(): %p\n", __FILE__, __FUNCTION__, e);
         WAIT_SEM ();
-        INCR_COUNT(bound_setjmp_count);
+        INCR_شمار(bound_setjmp_شمار);
         jl = jmp_list;
-        while (jl) {
-            if (jl->penv == e)
-                break;
-            jl = jl->next;
+        طالما (jl) {
+            إذا (jl->penv == e)
+                اكسر;
+            jl = jl->بعدی;
         }
-        if (jl == NULL) {
-            jl = BOUND_MALLOC (sizeof (jmp_list_type));
-            if (jl) {
+        إذا (jl == عدم) {
+            jl = BOUND_MALLOC (حجم (jmp_list_type));
+            إذا (jl) {
                 jl->penv = e;
-                jl->next = jmp_list;
+                jl->بعدی = jmp_list;
                 jmp_list = jl;
             }
         }
-        if (jl) {
-            size_t fp;
+        إذا (jl) {
+            اندازه_t fp;
 
             GET_CALLER_FP (fp);
             jl->fp = fp;
-            jl->end_fp = (size_t)__builtin_frame_address(0);
+            jl->انتها_fp = (اندازه_t)__builtin_frame_address(0);
             BOUND_GET_TID(jl->tid);
         }
         POST_SEM ();
     }
 }
 
-static void __bound_long_jump(jmp_buf env, int val, int sig, const char *func)
+ساكن فراغ __bound_long_jump(jmp_buf env, صحيح val, صحيح sig, ثابت حرف *func)
 {
     jmp_list_type *jl;
-    void *e;
+    فراغ *e;
     BOUND_TID_TYPE tid;
 
-    if (NO_CHECKING_GET() == 0) {
-        e = (void *)env;
+    إذا (NO_CHECKING_GET() == 0) {
+        e = (فراغ *)env;
         BOUND_GET_TID(tid);
         dprintf(stderr, "%s, %s(): %p\n", __FILE__, func, e);
         WAIT_SEM();
-        INCR_COUNT(bound_longjmp_count);
+        INCR_شمار(bound_longjmp_شمار);
         jl = jmp_list;
-        while (jl) {
-            if (jl->penv == e && jl->tid == tid) {
-                size_t start_fp = (size_t)__builtin_frame_address(0);
-                size_t end_fp = jl->end_fp;
+        طالما (jl) {
+            إذا (jl->penv == e && jl->tid == tid) {
+                اندازه_t شروع_fp = (اندازه_t)__builtin_frame_address(0);
+                اندازه_t انتها_fp = jl->انتها_fp;
                 jmp_list_type *cur = jmp_list;
-                jmp_list_type *last = NULL;
+                jmp_list_type *آخرین = عدم;
 
-                while (cur->penv != e || cur->tid != tid) {
-                    if (cur->tid == tid) {
+                طالما (cur->penv != e || cur->tid != tid) {
+                    إذا (cur->tid == tid) {
                         dprintf(stderr, "%s, %s(): remove setjmp %p\n",
                                 __FILE__, func, cur->penv);
-                        if (last)
-                            last->next = cur->next;
-                        else
-                            jmp_list = cur->next;
+                        إذا (آخرین)
+                            آخرین->بعدی = cur->بعدی;
+                        وإلا
+                            jmp_list = cur->بعدی;
                         BOUND_FREE (cur);
-                        cur = last ? last->next : jmp_list;
+                        cur = آخرین ? آخرین->بعدی : jmp_list;
                     }
-                    else {
-                        last = cur;
-                        cur = cur->next;
+                    وإلا {
+                        آخرین = cur;
+                        cur = cur->بعدی;
                     }
                 }
-                for (;;) {
-                    Tree *t = tree;
-                    alloca_list_type *last;
+                لكل (;;) {
+                    درخت *t = درخت_2;
+                    alloca_list_type *آخرین;
                     alloca_list_type *cur;
 
-                    while (t && (t->start < start_fp || t->start > end_fp))
-                        if (t->start < start_fp)
-                            t = t->right;
-                        else
-                            t = t->left;
-                    if (t == NULL)
-                        break;
-                    last = NULL;
+                    طالما (t && (t->شروع < شروع_fp || t->شروع > انتها_fp))
+                        إذا (t->شروع < شروع_fp)
+                            t = t->راست;
+                        وإلا
+                            t = t->چپ;
+                    إذا (t == عدم)
+                        اكسر;
+                    آخرین = عدم;
                     cur = alloca_list;
-                    while (cur) {
-                         if ((size_t) cur->p == t->start) {
+                    طالما (cur) {
+                         إذا ((اندازه_t) cur->p == t->شروع) {
                              dprintf(stderr, "%s, %s(): remove alloca/vla %p\n",
                                      __FILE__, func, cur->p);
-                             if (last)
-                                 last->next = cur->next;
-                             else
-                                 alloca_list = cur->next;
+                             إذا (آخرین)
+                                 آخرین->بعدی = cur->بعدی;
+                             وإلا
+                                 alloca_list = cur->بعدی;
                              BOUND_FREE (cur);
-                             break;
+                             اكسر;
                          }
-                         last = cur;
-                         cur = cur->next;
+                         آخرین = cur;
+                         cur = cur->بعدی;
                     }
                     dprintf(stderr, "%s, %s(): delete %p\n",
-                            __FILE__, func, (void *) t->start);
-                    tree = splay_delete(t->start, tree);
+                            __FILE__, func, (فراغ *) t->شروع);
+                    درخت_2 = splay_delete(t->شروع, درخت_2);
                 }
-                break;
+                اكسر;
             }
-            jl = jl->next;
+            jl = jl->بعدی;
         }
         POST_SEM();
     }
-#if !defined(_WIN32)
+#إذا !defined(_WIN32)
     sig ? siglongjmp(env, val) :
-#endif
+#پایان_اگر
     longjmp (env, val);
 }
 
-void __bound_longjmp(jmp_buf env, int val)
+فراغ __bound_longjmp(jmp_buf env, صحيح val)
 {
     __bound_long_jump(env,val, 0, __FUNCTION__);
 }
 
-#if !defined(_WIN32)
-void __bound_siglongjmp(jmp_buf env, int val)
+#إذا !defined(_WIN32)
+فراغ __bound_siglongjmp(jmp_buf env, صحيح val)
 {
     __bound_long_jump(env,val, 1, __FUNCTION__);
 }
-#endif
+#پایان_اگر
 
-#if (defined(__GNUC__) && (__GNUC__ >= 6)) || defined(__clang__)
-#pragma GCC diagnostic pop
-#endif
+#إذا (defined(__GNUC__) && (__GNUC__ >= 6)) || defined(__clang__)
+#رهنمود GCC diagnostic برداشت
+#پایان_اگر
 
-void __bound_init(size_t *p, int mode)
+فراغ __bound_init(اندازه_t *p, صحيح نما)
 {
     dprintf(stderr, "%s, %s(): start %s\n", __FILE__, __FUNCTION__,
-            mode < 0 ? "lazy" : mode == 0 ? "normal use" : "for -run");
+            نما < 0 ? "lazy" : نما == 0 ? "normal use" : "for -run");
 
-    if (inited) {
+    إذا (inited) {
         WAIT_SEM();
-        goto add_bounds;
+        اذهب جمع_کن_bounds;
     }
     inited = 1;
 
-#if HAVE_TLS_FUNC
-#if defined(_WIN32)
-    no_checking_key = TlsAlloc();
-    TlsSetValue(no_checking_key, &no_checking);
-#else
-    pthread_key_create(&no_checking_key, NULL);
-    pthread_setspecific(no_checking_key, &no_checking);
-#endif
-#endif
-    NO_CHECKING_SET(1);
+#إذا HAVE_TLS_FUNC
+#إذا defined(_WIN32)
+    no_checking_کلید = TlsAlloc();
+    Tls_مجموعه_مقدار(no_checking_کلید, &no_checking);
+#وإلا
+    pthread_key_create(&no_checking_کلید, عدم);
+    pthread_setspecific(no_checking_کلید, &no_checking);
+#پایان_اگر
+#پایان_اگر
+    NO_CHECKING_مجموعه(1);
 
-    print_warn_ptr_add = getenv ("TCC_BOUNDS_WARN_POINTER_ADD") != NULL;
-    print_calls = getenv ("TCC_BOUNDS_PRINT_CALLS") != NULL;
-    print_heap = getenv ("TCC_BOUNDS_PRINT_HEAP") != NULL;
-    print_statistic = getenv ("TCC_BOUNDS_PRINT_STATISTIC") != NULL;
-    never_fatal = getenv ("TCC_BOUNDS_NEVER_FATAL") != NULL;
+    print_warn_ptr_جمع_کن = getenv ("TCC_BOUNDS_WARN_POINTER_ADD") != عدم;
+    print_calls = getenv ("TCC_BOUNDS_PRINT_CALLS") != عدم;
+    print_انباشته = getenv ("TCC_BOUNDS_PRINT_HEAP") != عدم;
+    print_statistic = getenv ("TCC_BOUNDS_PRINT_STATISTIC") != عدم;
+    never_fatal = getenv ("TCC_BOUNDS_NEVER_FATAL") != عدم;
 
     INIT_SEM ();
 
-#if MALLOC_REDIR
+#إذا MALLOC_REDIR
     {
-        void *addr = mode > 0 ? RTLD_DEFAULT : RTLD_NEXT;
+        فراغ *addr = نما > 0 ? RTLD_DEFAULT : RTLD_بعدی;
 
         /* tcc -run required RTLD_DEFAULT. Normal usage requires RTLD_NEXT,
            but using RTLD_NEXT with -run segfaults on MacOS in dyld as the
            generated code segment isn't registered with dyld and hence the
            caller image of dlsym isn't known to it */
-        *(void **) (&malloc_redir) = dlsym (addr, "malloc");
-        if (malloc_redir == NULL) {
+        *(فراغ **) (&malloc_redir) = dlsym (addr, "malloc");
+        إذا (malloc_redir == عدم) {
             dprintf(stderr, "%s, %s(): use RTLD_DEFAULT\n",
                     __FILE__, __FUNCTION__);
             addr = RTLD_DEFAULT;
-            *(void **) (&malloc_redir) = dlsym (addr, "malloc");
+            *(فراغ **) (&malloc_redir) = dlsym (addr, "malloc");
         }
-        *(void **) (&calloc_redir) = dlsym (addr, "calloc");
-        *(void **) (&free_redir) = dlsym (addr, "free");
-        *(void **) (&realloc_redir) = dlsym (addr, "realloc");
-        *(void **) (&memalign_redir) = dlsym (addr, "memalign");
+        *(فراغ **) (&calloc_redir) = dlsym (addr, "calloc");
+        *(فراغ **) (&free_redir) = dlsym (addr, "free");
+        *(فراغ **) (&realloc_redir) = dlsym (addr, "realloc");
+        *(فراغ **) (&memalign_redir) = dlsym (addr, "memalign");
         dprintf(stderr, "%s, %s(): malloc_redir %p\n",
                 __FILE__, __FUNCTION__, malloc_redir);
         dprintf(stderr, "%s, %s(): free_redir %p\n",
@@ -986,601 +986,601 @@ void __bound_init(size_t *p, int mode)
                 __FILE__, __FUNCTION__, realloc_redir);
         dprintf(stderr, "%s, %s(): memalign_redir %p\n",
                 __FILE__, __FUNCTION__, memalign_redir);
-        if (malloc_redir == NULL || free_redir == NULL)
+        إذا (malloc_redir == عدم || free_redir == عدم)
             bound_alloc_error ("Cannot redirect malloc/free");
-#if HAVE_PTHREAD_CREATE
-        *(void **) (&pthread_create_redir) = dlsym (addr, "pthread_create");
+#إذا HAVE_PTHREAD_CREATE
+        *(فراغ **) (&pthread_create_redir) = dlsym (addr, "pthread_create");
         dprintf(stderr, "%s, %s(): pthread_create_redir %p\n",
                 __FILE__, __FUNCTION__, pthread_create_redir);
-        if (pthread_create_redir == NULL)
+        إذا (pthread_create_redir == عدم)
             bound_alloc_error ("Cannot redirect pthread_create");
-#endif
-#if HAVE_SIGNAL
-        *(void **) (&signal_redir) = dlsym (addr, "signal");
+#پایان_اگر
+#إذا HAVE_SIGNAL
+        *(فراغ **) (&signal_redir) = dlsym (addr, "signal");
         dprintf(stderr, "%s, %s(): signal_redir %p\n",
                 __FILE__, __FUNCTION__, signal_redir);
-        if (signal_redir == NULL)
+        إذا (signal_redir == عدم)
             bound_alloc_error ("Cannot redirect signal");
-#endif
-#if HAVE_SIGACTION
-        *(void **) (&sigaction_redir) = dlsym (addr, "sigaction");
+#پایان_اگر
+#إذا HAVE_SIGACTION
+        *(فراغ **) (&sigaction_redir) = dlsym (addr, "sigaction");
         dprintf(stderr, "%s, %s(): sigaction_redir %p\n",
                 __FILE__, __FUNCTION__, sigaction_redir);
-        if (sigaction_redir == NULL)
+        إذا (sigaction_redir == عدم)
             bound_alloc_error ("Cannot redirect sigaction");
-#endif
-#if HAVE_FORK
-        *(void **) (&fork_redir) = dlsym (addr, "fork");
+#پایان_اگر
+#إذا HAVE_FORK
+        *(فراغ **) (&fork_redir) = dlsym (addr, "fork");
         dprintf(stderr, "%s, %s(): fork_redir %p\n",
                 __FILE__, __FUNCTION__, fork_redir);
-        if (fork_redir == NULL)
+        إذا (fork_redir == عدم)
             bound_alloc_error ("Cannot redirect fork");
-#endif
+#پایان_اگر
     }
-#endif
+#پایان_اگر
 
-#ifdef __linux__
+#اگر_تعریف_شده __linux__
     {
         FILE *fp;
-        unsigned char found;
-        unsigned long start;
-        unsigned long end;
-        unsigned long ad =
-            (unsigned long) __builtin_return_address(0);
-        char line[1000];
+        بیعلامت حرف یافت;
+        بیعلامت دراز شروع;
+        بیعلامت دراز انتها;
+        بیعلامت دراز ad =
+            (بیعلامت دراز) __builtin_return_address(0);
+        حرف سطر[1000];
 
         /* Display exec name. Usefull when a lot of code is compiled with tcc */
         fp = fopen ("/proc/self/comm", "r");
-        if (fp) {
-            memset (exec, 0, sizeof(exec));
-            fread (exec, 1, sizeof(exec) - 2, fp);
-            if (strchr(exec,'\n'))
+        إذا (fp) {
+            memset (exec, 0, حجم(exec));
+            fread (exec, 1, حجم(exec) - 2, fp);
+            إذا (strchr(exec,'\n'))
                 *strchr(exec,'\n') = '\0';
             strcat (exec, ":");
             fclose (fp);
         }
         /* check if dlopen is used (is threre a better way?) */ 
-        found = 0;
+        یافت = 0;
         fp = fopen ("/proc/self/maps", "r");
-        if (fp) {
-            while (fgets (line, sizeof(line), fp)) {
-                if (sscanf (line, "%lx-%lx", &start, &end) == 2 &&
-                            ad >= start && ad < end) {
-                    found = 1;
-                    break;
+        إذا (fp) {
+            طالما (fgets (سطر, حجم(سطر), fp)) {
+                إذا (از_رشته_بخوان (سطر, "%lx-%lx", &شروع, &انتها) == 2 &&
+                            ad >= شروع && ad < انتها) {
+                    یافت = 1;
+                    اكسر;
                 }
-                if (strstr (line,"[heap]"))
-                    break;
+                إذا (جستجوی_رشته (سطر,"[heap]"))
+                    اكسر;
             }
             fclose (fp);
         }
-        if (found == 0) {
+        إذا (یافت == 0) {
             use_sem = 1;
             no_strdup = 1;
         }
     }
-#endif
+#پایان_اگر
 
     WAIT_SEM ();
 
-#if HAVE_CTYPE
-#ifdef __APPLE__
-    tree = splay_insert((size_t) &_DefaultRuneLocale,
-                        sizeof (_DefaultRuneLocale), tree);
-#else
+#إذا HAVE_CTYPE
+#اگر_تعریف_شده __APPLE__
+    درخت_2 = splay_درج((اندازه_t) &_DefaultRuneLocale,
+                        حجم (_DefaultRuneLocale), درخت_2);
+#وإلا
     /* XXX: Does not work if locale is changed */
-    tree = splay_insert((size_t) __ctype_b_loc(),
-                        sizeof (unsigned short *), tree);
-    tree = splay_insert((size_t) (*__ctype_b_loc() - 128),
-                        384 * sizeof (unsigned short), tree);
-    tree = splay_insert((size_t) __ctype_tolower_loc(),
-                        sizeof (__int32_t *), tree);
-    tree = splay_insert((size_t) (*__ctype_tolower_loc() - 128),
-                        384 * sizeof (__int32_t), tree);
-    tree = splay_insert((size_t) __ctype_toupper_loc(),
-                        sizeof (__int32_t *), tree);
-    tree = splay_insert((size_t) (*__ctype_toupper_loc() - 128),
-                        384 * sizeof (__int32_t), tree);
-#endif
-#endif
-#if HAVE_ERRNO
-    tree = splay_insert((size_t) (&errno), sizeof (int), tree);
-#endif
+    درخت_2 = splay_درج((اندازه_t) __ctype_b_loc(),
+                        حجم (بیعلامت کوتاه *), درخت_2);
+    درخت_2 = splay_درج((اندازه_t) (*__ctype_b_loc() - 128),
+                        384 * حجم (بیعلامت کوتاه), درخت_2);
+    درخت_2 = splay_درج((اندازه_t) __ctype_tolower_loc(),
+                        حجم (__int32_t *), درخت_2);
+    درخت_2 = splay_درج((اندازه_t) (*__ctype_tolower_loc() - 128),
+                        384 * حجم (__int32_t), درخت_2);
+    درخت_2 = splay_درج((اندازه_t) __ctype_toupper_loc(),
+                        حجم (__int32_t *), درخت_2);
+    درخت_2 = splay_درج((اندازه_t) (*__ctype_toupper_loc() - 128),
+                        384 * حجم (__int32_t), درخت_2);
+#پایان_اگر
+#پایان_اگر
+#إذا HAVE_ERRNO
+    درخت_2 = splay_درج((اندازه_t) (&errno), حجم (صحيح), درخت_2);
+#پایان_اگر
 
-add_bounds:
-    if (!p)
-        goto no_bounds;
+جمع_کن_bounds:
+    إذا (!p)
+        اذهب no_bounds;
 
     /* add all static bound check values */
-    while (p[0] != 0) {
-        tree = splay_insert(p[0], p[1], tree);
-#if BOUND_DEBUG
+    طالما (p[0] != 0) {
+        درخت_2 = splay_درج(p[0], p[1], درخت_2);
+#إذا BOUND_DEBUG
         dprintf(stderr, "%s, %s(): static var %p 0x%lx\n",
                 __FILE__, __FUNCTION__,
-                (void *) p[0], (unsigned long) p[1]);
-#endif
+                (فراغ *) p[0], (بیعلامت دراز) p[1]);
+#پایان_اگر
         p += 2;
     }
 no_bounds:
 
     POST_SEM ();
-    NO_CHECKING_SET(0);
+    NO_CHECKING_مجموعه(0);
     dprintf(stderr, "%s, %s(): end\n\n", __FILE__, __FUNCTION__);
 }
 
-void
-#if (defined(__GLIBC__) && (__GLIBC_MINOR__ >= 4)) || defined(_WIN32)
+فراغ
+#إذا (defined(__GLIBC__) && (__GLIBC_MINOR__ >= 4)) || defined(_WIN32)
 __attribute__((constructor))
-#endif
-__bound_main_arg(int argc, char **argv, char **envp)
+#پایان_اگر
+__bound_main_arg(صحيح argc, حرف **argv, حرف **envp)
 {
     __bound_init (0, -1);
-    if (argc && argv) {
-        int i;
+    إذا (argc && argv) {
+        صحيح i;
 
         WAIT_SEM ();
-        for (i = 0; i < argc; i++)
-            tree = splay_insert((size_t) argv[i], strlen (argv[i]) + 1, tree);
-        tree = splay_insert((size_t) argv, (argc + 1) * sizeof(char *), tree);
+        لكل (i = 0; i < argc; i++)
+            درخت_2 = splay_درج((اندازه_t) argv[i], طول_رشته (argv[i]) + 1, درخت_2);
+        درخت_2 = splay_درج((اندازه_t) argv, (argc + 1) * حجم(حرف *), درخت_2);
         POST_SEM ();
-#if BOUND_DEBUG
-        if (print_calls) {
-            for (i = 0; i < argc; i++)
+#إذا BOUND_DEBUG
+        إذا (print_calls) {
+            لكل (i = 0; i < argc; i++)
                 dprintf(stderr, "%s, %s(): arg %p 0x%lx\n",
                         __FILE__, __FUNCTION__,
-                        argv[i], (unsigned long)(strlen (argv[i]) + 1));
+                        argv[i], (بیعلامت دراز)(طول_رشته (argv[i]) + 1));
             dprintf(stderr, "%s, %s(): argv %p %d\n",
                     __FILE__, __FUNCTION__, argv,
-                    (int)((argc + 1) * sizeof(char *)));
+                    (صحيح)((argc + 1) * حجم(حرف *)));
         }
-#endif
+#پایان_اگر
     }
 
-    if (envp && *envp) {
-        char **p = envp;
+    إذا (envp && *envp) {
+        حرف **p = envp;
 
         WAIT_SEM ();
-        while (*p) {
-            tree = splay_insert((size_t) *p, strlen (*p) + 1, tree);
+        طالما (*p) {
+            درخت_2 = splay_درج((اندازه_t) *p, طول_رشته (*p) + 1, درخت_2);
             ++p;
         }
-        tree = splay_insert((size_t) envp, (++p - envp) * sizeof(char *), tree);
+        درخت_2 = splay_درج((اندازه_t) envp, (++p - envp) * حجم(حرف *), درخت_2);
         POST_SEM ();
-#if BOUND_DEBUG
-        if (print_calls) {
+#إذا BOUND_DEBUG
+        إذا (print_calls) {
             p = envp;
-            while (*p) {
+            طالما (*p) {
                 dprintf(stderr, "%s, %s(): env %p 0x%lx\n",
                         __FILE__, __FUNCTION__,
-                        *p, (unsigned long)(strlen (*p) + 1));
+                        *p, (بیعلامت دراز)(طول_رشته (*p) + 1));
                 ++p;
             }
             dprintf(stderr, "%s, %s(): environ %p %d\n",
                     __FILE__, __FUNCTION__, envp,
-                    (int)((++p - envp) * sizeof(char *)));
+                    (صحيح)((++p - envp) * حجم(حرف *)));
         }
-#endif
+#پایان_اگر
     }
 }
 
-void __attribute__((destructor)) __bound_exit(void)
+فراغ __attribute__((destructor)) __bound_exit(فراغ)
 {
-    int i;
-    static const char * const alloc_type[] = {
+    صحيح i;
+    ساكن ثابت حرف * ثابت alloc_type[] = {
         "", "malloc", "calloc", "realloc", "memalign", "strdup"
     };
 
     dprintf(stderr, "%s, %s():\n", __FILE__, __FUNCTION__);
 
-    if (inited) {
-#if !defined(_WIN32) && !defined(__APPLE__) && !defined CONFIG_TCC_MUSL && \
+    إذا (inited) {
+#إذا !defined(_WIN32) && !defined(__APPLE__) && !defined CONFIG_TCC_MUSL && \
     !defined(__OpenBSD__) && !defined(__FreeBSD__) && !defined(__NetBSD__) && \
     !defined(__ANDROID__)
-        if (print_heap) {
-            extern void __libc_freeres (void);
+        إذا (print_انباشته) {
+            خارجي فراغ __libc_freeres (فراغ);
             __libc_freeres ();
         }
-#endif
+#پایان_اگر
 
-        NO_CHECKING_SET(1);
+        NO_CHECKING_مجموعه(1);
 
         TRY_SEM ();
-        while (alloca_list) {
-            alloca_list_type *next = alloca_list->next;
+        طالما (alloca_list) {
+            alloca_list_type *بعدی = alloca_list->بعدی;
 
-            tree = splay_delete ((size_t) alloca_list->p, tree);
+            درخت_2 = splay_delete ((اندازه_t) alloca_list->p, درخت_2);
             BOUND_FREE (alloca_list);
-            alloca_list = next;
+            alloca_list = بعدی;
         }
-        while (jmp_list) {
-           jmp_list_type *next  = jmp_list->next;
+        طالما (jmp_list) {
+           jmp_list_type *بعدی  = jmp_list->بعدی;
 
            BOUND_FREE (jmp_list);
-           jmp_list = next;
+           jmp_list = بعدی;
         }
-        for (i = 0; i < FREE_REUSE_SIZE; i++) {
-            if (free_reuse_list[i]) {
-                tree = splay_delete ((size_t) free_reuse_list[i], tree);
+        لكل (i = 0; i < FREE_REUSE_اندازه; i++) {
+            إذا (free_reuse_list[i]) {
+                درخت_2 = splay_delete ((اندازه_t) free_reuse_list[i], درخت_2);
                 BOUND_FREE (free_reuse_list[i]);
              }
         }
-        while (tree) {
-            if (print_heap && tree->type != 0)
+        طالما (درخت_2) {
+            إذا (print_انباشته && درخت_2->type != 0)
                 fprintf (stderr, "%s, %s(): %s found size %lu\n",
-                         __FILE__, __FUNCTION__, alloc_type[tree->type],
-                         (unsigned long) tree->size);
-            tree = splay_delete (tree->start, tree);
+                         __FILE__, __FUNCTION__, alloc_type[درخت_2->type],
+                         (بیعلامت دراز) درخت_2->اندازه);
+            درخت_2 = splay_delete (درخت_2->شروع, درخت_2);
         }
-#if TREE_REUSE
-        while (tree_free_list) {
-            Tree *next = tree_free_list->left;
-            BOUND_FREE (tree_free_list);
-            tree_free_list = next;
+#إذا درخت_REUSE
+        طالما (درخت_free_list) {
+            درخت *بعدی = درخت_free_list->چپ;
+            BOUND_FREE (درخت_free_list);
+            درخت_free_list = بعدی;
         }
-#endif
+#پایان_اگر
         POST_SEM ();
         EXIT_SEM ();
-#if HAVE_TLS_FUNC
-#if defined(_WIN32)
-        TlsFree(no_checking_key);
-#else
-        pthread_key_delete(no_checking_key);
-#endif
-#endif
+#إذا HAVE_TLS_FUNC
+#إذا defined(_WIN32)
+        TlsFree(no_checking_کلید);
+#وإلا
+        pthread_key_delete(no_checking_کلید);
+#پایان_اگر
+#پایان_اگر
         inited = 0;
-        if (print_statistic) {
-#if BOUND_STATISTIC
-            fprintf (stderr, "bound_ptr_add_count      %llu\n", bound_ptr_add_count);
-            fprintf (stderr, "bound_ptr_indir1_count   %llu\n", bound_ptr_indir1_count);
-            fprintf (stderr, "bound_ptr_indir2_count   %llu\n", bound_ptr_indir2_count);
-            fprintf (stderr, "bound_ptr_indir4_count   %llu\n", bound_ptr_indir4_count);
-            fprintf (stderr, "bound_ptr_indir8_count   %llu\n", bound_ptr_indir8_count);
-            fprintf (stderr, "bound_ptr_indir12_count  %llu\n", bound_ptr_indir12_count);
-            fprintf (stderr, "bound_ptr_indir16_count  %llu\n", bound_ptr_indir16_count);
-            fprintf (stderr, "bound_local_new_count    %llu\n", bound_local_new_count);
-            fprintf (stderr, "bound_local_delete_count %llu\n", bound_local_delete_count);
-            fprintf (stderr, "bound_malloc_count       %llu\n", bound_malloc_count);
-            fprintf (stderr, "bound_calloc_count       %llu\n", bound_calloc_count);
-            fprintf (stderr, "bound_realloc_count      %llu\n", bound_realloc_count);
-            fprintf (stderr, "bound_free_count         %llu\n", bound_free_count);
-            fprintf (stderr, "bound_memalign_count     %llu\n", bound_memalign_count);
-            fprintf (stderr, "bound_mmap_count         %llu\n", bound_mmap_count);
-            fprintf (stderr, "bound_munmap_count       %llu\n", bound_munmap_count);
-            fprintf (stderr, "bound_alloca_count       %llu\n", bound_alloca_count);
-            fprintf (stderr, "bound_setjmp_count       %llu\n", bound_setjmp_count);
-            fprintf (stderr, "bound_longjmp_count      %llu\n", bound_longjmp_count);
-            fprintf (stderr, "bound_mempcy_count       %llu\n", bound_mempcy_count);
-            fprintf (stderr, "bound_memcmp_count       %llu\n", bound_memcmp_count);
-            fprintf (stderr, "bound_memmove_count      %llu\n", bound_memmove_count);
-            fprintf (stderr, "bound_memset_count       %llu\n", bound_memset_count);
-            fprintf (stderr, "bound_strlen_count       %llu\n", bound_strlen_count);
-            fprintf (stderr, "bound_strcpy_count       %llu\n", bound_strcpy_count);
-            fprintf (stderr, "bound_strncpy_count      %llu\n", bound_strncpy_count);
-            fprintf (stderr, "bound_strcmp_count       %llu\n", bound_strcmp_count);
-            fprintf (stderr, "bound_strncmp_count      %llu\n", bound_strncmp_count);
-            fprintf (stderr, "bound_strcat_count       %llu\n", bound_strcat_count);
-            fprintf (stderr, "bound_strncat_count      %llu\n", bound_strncat_count);
-            fprintf (stderr, "bound_strchr_count       %llu\n", bound_strchr_count);
-            fprintf (stderr, "bound_strrchr_count      %llu\n", bound_strrchr_count);
-            fprintf (stderr, "bound_strdup_count       %llu\n", bound_strdup_count);
-            fprintf (stderr, "bound_not_found          %llu\n", bound_not_found);
-#endif
-#if BOUND_STATISTIC_SPLAY
+        إذا (print_statistic) {
+#إذا BOUND_STATISTIC
+            fprintf (stderr, "bound_ptr_add_count      %llu\n", bound_ptr_جمع_کن_شمار);
+            fprintf (stderr, "bound_ptr_indir1_count   %llu\n", bound_ptr_indir1_شمار);
+            fprintf (stderr, "bound_ptr_indir2_count   %llu\n", bound_ptr_indir2_شمار);
+            fprintf (stderr, "bound_ptr_indir4_count   %llu\n", bound_ptr_indir4_شمار);
+            fprintf (stderr, "bound_ptr_indir8_count   %llu\n", bound_ptr_indir8_شمار);
+            fprintf (stderr, "bound_ptr_indir12_count  %llu\n", bound_ptr_indir12_شمار);
+            fprintf (stderr, "bound_ptr_indir16_count  %llu\n", bound_ptr_indir16_شمار);
+            fprintf (stderr, "bound_local_new_count    %llu\n", bound_local_new_شمار);
+            fprintf (stderr, "bound_local_delete_count %llu\n", bound_local_delete_شمار);
+            fprintf (stderr, "bound_malloc_count       %llu\n", bound_malloc_شمار);
+            fprintf (stderr, "bound_calloc_count       %llu\n", bound_calloc_شمار);
+            fprintf (stderr, "bound_realloc_count      %llu\n", bound_realloc_شمار);
+            fprintf (stderr, "bound_free_count         %llu\n", bound_free_شمار);
+            fprintf (stderr, "bound_memalign_count     %llu\n", bound_memalign_شمار);
+            fprintf (stderr, "bound_mmap_count         %llu\n", bound_mmap_شمار);
+            fprintf (stderr, "bound_munmap_count       %llu\n", bound_munmap_شمار);
+            fprintf (stderr, "bound_alloca_count       %llu\n", bound_alloca_شمار);
+            fprintf (stderr, "bound_setjmp_count       %llu\n", bound_setjmp_شمار);
+            fprintf (stderr, "bound_longjmp_count      %llu\n", bound_longjmp_شمار);
+            fprintf (stderr, "bound_mempcy_count       %llu\n", bound_mempcy_شمار);
+            fprintf (stderr, "bound_memcmp_count       %llu\n", bound_memcmp_شمار);
+            fprintf (stderr, "bound_memmove_count      %llu\n", bound_memmove_شمار);
+            fprintf (stderr, "bound_memset_count       %llu\n", bound_memset_شمار);
+            fprintf (stderr, "bound_strlen_count       %llu\n", bound_strlen_شمار);
+            fprintf (stderr, "bound_strcpy_count       %llu\n", bound_strcpy_شمار);
+            fprintf (stderr, "bound_strncpy_count      %llu\n", bound_strncpy_شمار);
+            fprintf (stderr, "bound_strcmp_count       %llu\n", bound_strcmp_شمار);
+            fprintf (stderr, "bound_strncmp_count      %llu\n", bound_strncmp_شمار);
+            fprintf (stderr, "bound_strcat_count       %llu\n", bound_strcat_شمار);
+            fprintf (stderr, "bound_strncat_count      %llu\n", bound_strncat_شمار);
+            fprintf (stderr, "bound_strchr_count       %llu\n", bound_strchr_شمار);
+            fprintf (stderr, "bound_strrchr_count      %llu\n", bound_strrchr_شمار);
+            fprintf (stderr, "bound_strdup_count       %llu\n", bound_strdup_شمار);
+            fprintf (stderr, "bound_not_found          %llu\n", bound_not_یافت);
+#پایان_اگر
+#إذا BOUND_STATISTIC_SPLAY
             fprintf (stderr, "bound_splay              %llu\n", bound_splay);
-            fprintf (stderr, "bound_splay_end          %llu\n", bound_splay_end);
-            fprintf (stderr, "bound_splay_insert       %llu\n", bound_splay_insert);
+            fprintf (stderr, "bound_splay_end          %llu\n", bound_splay_انتها);
+            fprintf (stderr, "bound_splay_insert       %llu\n", bound_splay_درج);
             fprintf (stderr, "bound_splay_delete       %llu\n", bound_splay_delete);
-#endif
+#پایان_اگر
         }
     }
 }
 
-void __bound_exit_dll(size_t *p)
+فراغ __bound_exit_dll(اندازه_t *p)
 {
     dprintf(stderr, "%s, %s()\n", __FILE__, __FUNCTION__);
 
-    if (p) {
+    إذا (p) {
         WAIT_SEM ();
-	while (p[0] != 0) {
-	    tree = splay_delete(p[0], tree);
-#if BOUND_DEBUG
-            if (print_calls) {
+	طالما (p[0] != 0) {
+	    درخت_2 = splay_delete(p[0], درخت_2);
+#إذا BOUND_DEBUG
+            إذا (print_calls) {
                 dprintf(stderr, "%s, %s(): remove static var %p 0x%lx\n",
                         __FILE__, __FUNCTION__,
-                        (void *) p[0], (unsigned long) p[1]);
+                        (فراغ *) p[0], (بیعلامت دراز) p[1]);
             }
-#endif
+#پایان_اگر
 	    p += 2;
 	}
         POST_SEM ();
     }
 }
 
-#if HAVE_PTHREAD_CREATE
-typedef struct {
-    void *(*start_routine) (void *);
-    void *arg;
-    sigset_t old_mask;
+#إذا HAVE_PTHREAD_CREATE
+تعريفنوع بنية {
+    فراغ *(*شروع_routine) (فراغ *);
+    فراغ *arg;
+    sigset_t old_ماسک;
 } bound_thread_create_type;
 
-static void *bound_thread_create(void *bdata)
+ساكن فراغ *bound_thread_create(فراغ *bdata)
 {
-    bound_thread_create_type *data = (bound_thread_create_type *) bdata;
-    void *retval;
-#if HAVE_TLS_FUNC
-    int *p = (int *) BOUND_MALLOC(sizeof(int));
+    bound_thread_create_type *داده = (bound_thread_create_type *) bdata;
+    فراغ *retval;
+#إذا HAVE_TLS_FUNC
+    صحيح *p = (صحيح *) BOUND_MALLOC(حجم(صحيح));
   
-    if (!p) bound_alloc_error("bound_thread_create malloc");
+    إذا (!p) bound_alloc_error("bound_thread_create malloc");
     *p = 0;
-    pthread_setspecific(no_checking_key, p);
-#endif
-    pthread_sigmask(SIG_SETMASK, &data->old_mask, NULL);
-    retval = data->start_routine(data->arg);
-#if HAVE_TLS_FUNC
-    pthread_setspecific(no_checking_key, NULL);
+    pthread_setspecific(no_checking_کلید, p);
+#پایان_اگر
+    pthread_sigmask(SIG_SETMASK, &داده->old_ماسک, عدم);
+    retval = داده->شروع_routine(داده->arg);
+#إذا HAVE_TLS_FUNC
+    pthread_setspecific(no_checking_کلید, عدم);
     BOUND_FREE (p);
-#endif
-    BOUND_FREE (data);
-    return retval;
+#پایان_اگر
+    BOUND_FREE (داده);
+    أرجع retval;
 }
 
-int pthread_create(pthread_t *thread, const pthread_attr_t *attr,
-                   void *(*start_routine) (void *), void *arg)
+صحيح pthread_create(pthread_t *thread, ثابت pthread_attr_t *attr,
+                   فراغ *(*شروع_routine) (فراغ *), فراغ *arg)
 {
-    int retval;
-    bound_thread_create_type *data;
-    sigset_t mask;
-    sigset_t old_mask;
+    صحيح retval;
+    bound_thread_create_type *داده;
+    sigset_t ماسک;
+    sigset_t old_ماسک;
   
     use_sem = 1;
     dprintf (stderr, "%s, %s()\n", __FILE__, __FUNCTION__);
-    sigfillset(&mask);
-    pthread_sigmask(SIG_SETMASK, &mask, &old_mask);
-    data = (bound_thread_create_type *) BOUND_MALLOC(sizeof(bound_thread_create_type));
-    if (!data) bound_alloc_error("bound_thread_create malloc");
-    data->start_routine = start_routine;
-    data->arg = arg;
-    data->old_mask = old_mask;
-    retval = pthread_create_redir(thread, attr, bound_thread_create, data);
-    pthread_sigmask(SIG_SETMASK, &old_mask, NULL);
-    return retval;
+    sigfillset(&ماسک);
+    pthread_sigmask(SIG_SETMASK, &ماسک, &old_ماسک);
+    داده = (bound_thread_create_type *) BOUND_MALLOC(حجم(bound_thread_create_type));
+    إذا (!داده) bound_alloc_error("bound_thread_create malloc");
+    داده->شروع_routine = شروع_routine;
+    داده->arg = arg;
+    داده->old_ماسک = old_ماسک;
+    retval = pthread_create_redir(thread, attr, bound_thread_create, داده);
+    pthread_sigmask(SIG_SETMASK, &old_ماسک, عدم);
+    أرجع retval;
 }
-#endif
+#پایان_اگر
 
-#if HAVE_SIGNAL || HAVE_SIGACTION
-typedef union {
-#if HAVE_SIGNAL
+#إذا HAVE_SIGNAL || HAVE_SIGACTION
+تعريفنوع اتحاد {
+#إذا HAVE_SIGNAL
     bound_sig signal_handler;
-#endif
-#if HAVE_SIGACTION
-    void (*sig_handler)(int);
-    void (*sig_sigaction)(int, siginfo_t *, void *);
-#endif
+#پایان_اگر
+#إذا HAVE_SIGACTION
+    فراغ (*sig_handler)(صحيح);
+    فراغ (*sig_sigaction)(صحيح, siginfo_t *, فراغ *);
+#پایان_اگر
 } bound_sig_type;
 
-static unsigned char bound_sig_used[NSIG];
-static bound_sig_type bound_sig_data[NSIG];
-#endif
+ساكن بیعلامت حرف bound_sig_استفاده_شده[NSIG];
+ساكن bound_sig_type bound_sig_داده[NSIG];
+#پایان_اگر
 
-#if HAVE_SIGNAL
-static void signal_handler(int sig)
+#إذا HAVE_SIGNAL
+ساكن فراغ signal_handler(صحيح sig)
 {
    __bounds_checking(1);
-   bound_sig_data[sig].signal_handler(sig);
+   bound_sig_داده[sig].signal_handler(sig);
    __bounds_checking(-1);
 }
 
-bound_sig signal(int signum, bound_sig handler)
+bound_sig إشارة(صحيح signum, bound_sig handler)
 {
     bound_sig retval;
 
     dprintf (stderr, "%s, %s() %d %p\n", __FILE__, __FUNCTION__,
              signum, handler);
     retval = signal_redir(signum, handler ? signal_handler : handler);
-    if (retval != SIG_ERR) {
-        if (bound_sig_used[signum])
-            retval = bound_sig_data[signum].signal_handler;
-        if (handler) {
-            bound_sig_used[signum] = 1;
-            bound_sig_data[signum].signal_handler = handler;
+    إذا (retval != SIG_ERR) {
+        إذا (bound_sig_استفاده_شده[signum])
+            retval = bound_sig_داده[signum].signal_handler;
+        إذا (handler) {
+            bound_sig_استفاده_شده[signum] = 1;
+            bound_sig_داده[signum].signal_handler = handler;
         }
     }
-    return retval;
+    أرجع retval;
 }
-#endif
+#پایان_اگر
 
-#if HAVE_SIGACTION
-static void sig_handler(int sig)
+#إذا HAVE_SIGACTION
+ساكن فراغ sig_handler(صحيح sig)
 {
    __bounds_checking(1);
-   bound_sig_data[sig].sig_handler(sig);
+   bound_sig_داده[sig].sig_handler(sig);
    __bounds_checking(-1);
 }
 
-static void sig_sigaction(int sig, siginfo_t *info, void *ucontext)
+ساكن فراغ sig_sigaction(صحيح sig, siginfo_t *info, فراغ *ucontext)
 {
    __bounds_checking(1);
-   bound_sig_data[sig].sig_sigaction(sig, info, ucontext);
+   bound_sig_داده[sig].sig_sigaction(sig, info, ucontext);
    __bounds_checking(-1);
 }
 
-int sigaction(int signum, const struct sigaction *act, struct sigaction *oldact)
+صحيح sigaction(صحيح signum, ثابت بنية sigaction *act, بنية sigaction *oldact)
 {
-    int retval;
-    struct sigaction nact, oact;
+    صحيح retval;
+    بنية sigaction nact, oact;
 
     dprintf (stderr, "%s, %s() %d %p %p\n", __FILE__, __FUNCTION__,
              signum, act, oldact);
 
-    if (sigaction_redir == NULL)
+    إذا (sigaction_redir == عدم)
         __bound_init(0,-1);
 
-    if (act) {
+    إذا (act) {
         nact = *act;
-        if (nact.sa_flags & SA_SIGINFO)
+        إذا (nact.sa_flags & SA_SIGINFO)
             nact.sa_sigaction = sig_sigaction;
-        else
+        وإلا
             nact.sa_handler = sig_handler;
         retval = sigaction_redir(signum, &nact, &oact);
     }
-    else
+    وإلا
         retval = sigaction_redir(signum, act, &oact);
-    if (retval >= 0) {
-        if (bound_sig_used[signum]) {
-            if (oact.sa_flags & SA_SIGINFO)
-                oact.sa_sigaction = bound_sig_data[signum].sig_sigaction;
-            else
-                oact.sa_handler = bound_sig_data[signum].sig_handler;
+    إذا (retval >= 0) {
+        إذا (bound_sig_استفاده_شده[signum]) {
+            إذا (oact.sa_flags & SA_SIGINFO)
+                oact.sa_sigaction = bound_sig_داده[signum].sig_sigaction;
+            وإلا
+                oact.sa_handler = bound_sig_داده[signum].sig_handler;
         }
-        if (oldact) {
+        إذا (oldact) {
             *oldact = oact;
         }
-        if (act) {
-            bound_sig_used[signum] = 1;
-            if (act->sa_flags & SA_SIGINFO)
-                bound_sig_data[signum].sig_sigaction = act->sa_sigaction;
-            else
-                bound_sig_data[signum].sig_handler = act->sa_handler;
+        إذا (act) {
+            bound_sig_استفاده_شده[signum] = 1;
+            إذا (act->sa_flags & SA_SIGINFO)
+                bound_sig_داده[signum].sig_sigaction = act->sa_sigaction;
+            وإلا
+                bound_sig_داده[signum].sig_handler = act->sa_handler;
         }
     }
-    return retval;
+    أرجع retval;
 }
-#endif
+#پایان_اگر
 
-#if HAVE_FORK
-pid_t fork(void)
+#إذا HAVE_FORK
+pid_t fork(فراغ)
 {
     pid_t retval;
 
     WAIT_SEM();
     retval = (*fork_redir)();
-    if (retval == 0)
+    إذا (retval == 0)
         INIT_SEM();
-    else
+    وإلا
         POST_SEM();
-    return retval;
+    أرجع retval;
 }
-#endif
+#پایان_اگر
 
-#if MALLOC_REDIR
-void *malloc(size_t size)
-#else
-void *__bound_malloc(size_t size, const void *caller)
-#endif
+#إذا MALLOC_REDIR
+فراغ *حافظه_بده(اندازه_t اندازه)
+#وإلا
+فراغ *__bound_malloc(اندازه_t اندازه, ثابت فراغ *caller)
+#پایان_اگر
 {
-    void *ptr;
+    فراغ *ptr;
     
-#if MALLOC_REDIR
+#إذا MALLOC_REDIR
     /* This will catch the first dlsym call from __bound_init */
-    if (malloc_redir == NULL) {
+    إذا (malloc_redir == عدم) {
         __bound_init (0, -1);
-        if (malloc_redir == NULL) {
-            ptr = &initial_pool[pool_index];
-            pool_index = (pool_index + size + 15) & ~15;
-            if (pool_index >= sizeof (initial_pool))
+        إذا (malloc_redir == عدم) {
+            ptr = &initial_pool[pool_شاخص];
+            pool_شاخص = (pool_شاخص + اندازه + 15) & ~15;
+            إذا (pool_شاخص >= حجم (initial_pool))
                 bound_alloc_error ("initial memory pool too small");
             dprintf (stderr, "%s, %s(): initial %p, 0x%lx\n",
-                     __FILE__, __FUNCTION__, ptr, (unsigned long)size);
-            return ptr;
+                     __FILE__, __FUNCTION__, ptr, (بیعلامت دراز)اندازه);
+            أرجع ptr;
         }
     }
-#endif
+#پایان_اگر
     /* we allocate one more byte to ensure the regions will be
        separated by at least one byte. With the glibc malloc, it may
        be in fact not necessary */
-    ptr = BOUND_MALLOC (size + 1);
+    ptr = BOUND_MALLOC (اندازه + 1);
     dprintf(stderr, "%s, %s(): %p, 0x%lx\n",
-            __FILE__, __FUNCTION__, ptr, (unsigned long)size);
+            __FILE__, __FUNCTION__, ptr, (بیعلامت دراز)اندازه);
     
-    if (inited && NO_CHECKING_GET() == 0) {
+    إذا (inited && NO_CHECKING_GET() == 0) {
         WAIT_SEM ();
-        INCR_COUNT(bound_malloc_count);
+        INCR_شمار(bound_malloc_شمار);
 
-        if (ptr) {
-            tree = splay_insert ((size_t) ptr, size ? size : size + 1, tree);
-            if (tree && tree->start == (size_t) ptr)
-                tree->type = TCC_TYPE_MALLOC;
+        إذا (ptr) {
+            درخت_2 = splay_درج ((اندازه_t) ptr, اندازه ? اندازه : اندازه + 1, درخت_2);
+            إذا (درخت_2 && درخت_2->شروع == (اندازه_t) ptr)
+                درخت_2->type = TCC_TYPE_MALLOC;
         }
         POST_SEM ();
     }
-    return ptr;
+    أرجع ptr;
 }
 
-#if MALLOC_REDIR
-void *memalign(size_t align, size_t size)
-#else
-void *__bound_memalign(size_t align, size_t size, const void *caller)
-#endif
+#إذا MALLOC_REDIR
+فراغ *memalign(اندازه_t align, اندازه_t اندازه)
+#وإلا
+فراغ *__bound_memalign(اندازه_t align, اندازه_t اندازه, ثابت فراغ *caller)
+#پایان_اگر
 {
-    void *ptr;
+    فراغ *ptr;
 
-#if HAVE_MEMALIGN
+#إذا HAVE_MEMALIGN
     /* we allocate one more byte to ensure the regions will be
        separated by at least one byte. With the glibc malloc, it may
        be in fact not necessary */
-    ptr = BOUND_MEMALIGN(align, size + 1);
-#else
-    if (align > 4) {
+    ptr = BOUND_MEMALIGN(align, اندازه + 1);
+#وإلا
+    إذا (align > 4) {
         /* XXX: handle it ? */
-        ptr = NULL;
-    } else {
+        ptr = عدم;
+    } وإلا {
         /* we suppose that malloc aligns to at least four bytes */
-        ptr = BOUND_MALLOC(size + 1);
+        ptr = BOUND_MALLOC(اندازه + 1);
     }
-#endif
+#پایان_اگر
     dprintf(stderr, "%s, %s(): %p, 0x%lx\n",
-            __FILE__, __FUNCTION__, ptr, (unsigned long)size);
+            __FILE__, __FUNCTION__, ptr, (بیعلامت دراز)اندازه);
 
-    if (NO_CHECKING_GET() == 0) {
+    إذا (NO_CHECKING_GET() == 0) {
         WAIT_SEM ();
-        INCR_COUNT(bound_memalign_count);
+        INCR_شمار(bound_memalign_شمار);
 
-        if (ptr) {
-            tree = splay_insert((size_t) ptr, size ? size : size + 1, tree);
-            if (tree && tree->start == (size_t) ptr)
-                tree->type = TCC_TYPE_MEMALIGN;
+        إذا (ptr) {
+            درخت_2 = splay_درج((اندازه_t) ptr, اندازه ? اندازه : اندازه + 1, درخت_2);
+            إذا (درخت_2 && درخت_2->شروع == (اندازه_t) ptr)
+                درخت_2->type = TCC_TYPE_MEMALIGN;
         }
         POST_SEM ();
     }
-    return ptr;
+    أرجع ptr;
 }
 
-#if MALLOC_REDIR
-void free(void *ptr)
-#else
-void __bound_free(void *ptr, const void *caller)
-#endif
+#إذا MALLOC_REDIR
+فراغ حرر(فراغ *ptr)
+#وإلا
+فراغ __bound_free(فراغ *ptr, ثابت فراغ *caller)
+#پایان_اگر
 {
-    size_t addr = (size_t) ptr;
-    void *p;
+    اندازه_t addr = (اندازه_t) ptr;
+    فراغ *p;
 
-    if (ptr == NULL || tree == NULL
-#if MALLOC_REDIR
-        || ((unsigned char *) ptr >= &initial_pool[0] &&
-            (unsigned char *) ptr < &initial_pool[sizeof(initial_pool)])
-#endif
+    إذا (ptr == عدم || درخت_2 == عدم
+#إذا MALLOC_REDIR
+        || ((بیعلامت حرف *) ptr >= &initial_pool[0] &&
+            (بیعلامت حرف *) ptr < &initial_pool[حجم(initial_pool)])
+#پایان_اگر
         )
-        return;
+        أرجع;
 
     dprintf(stderr, "%s, %s(): %p\n", __FILE__, __FUNCTION__, ptr);
 
-    if (inited && NO_CHECKING_GET() == 0) {
+    إذا (inited && NO_CHECKING_GET() == 0) {
         WAIT_SEM ();
-        INCR_COUNT(bound_free_count);
-        tree = splay (addr, tree);
-        if (tree->start == addr) {
-            if (tree->is_invalid) {
+        INCR_شمار(bound_free_شمار);
+        درخت_2 = splay (addr, درخت_2);
+        إذا (درخت_2->شروع == addr) {
+            إذا (درخت_2->is_invalid) {
                 POST_SEM ();
                 bound_error("freeing invalid region");
-                return;
+                أرجع;
             }
-            tree->is_invalid = 1;
-            memset (ptr, 0x5a, tree->size);
-            p = free_reuse_list[free_reuse_index];
-            free_reuse_list[free_reuse_index] = ptr;
-            free_reuse_index = (free_reuse_index + 1) % FREE_REUSE_SIZE;
-            if (p)
-                tree = splay_delete((size_t)p, tree);
+            درخت_2->is_invalid = 1;
+            memset (ptr, 0x5a, درخت_2->اندازه);
+            p = free_reuse_list[free_reuse_شاخص];
+            free_reuse_list[free_reuse_شاخص] = ptr;
+            free_reuse_شاخص = (free_reuse_شاخص + 1) % FREE_REUSE_اندازه;
+            إذا (p)
+                درخت_2 = splay_delete((اندازه_t)p, درخت_2);
             ptr = p;
         }
         POST_SEM ();
@@ -1588,435 +1588,435 @@ void __bound_free(void *ptr, const void *caller)
     BOUND_FREE (ptr);
 }
 
-#if MALLOC_REDIR
-void *realloc(void *ptr, size_t size)
-#else
-void *__bound_realloc(void *ptr, size_t size, const void *caller)
-#endif
+#إذا MALLOC_REDIR
+فراغ *realloc(فراغ *ptr, اندازه_t اندازه)
+#وإلا
+فراغ *__bound_realloc(فراغ *ptr, اندازه_t اندازه, ثابت فراغ *caller)
+#پایان_اگر
 {
-    void *new_ptr;
+    فراغ *new_ptr;
 
-    if (size == 0) {
-#if MALLOC_REDIR
-        free(ptr);
-#else
+    إذا (اندازه == 0) {
+#إذا MALLOC_REDIR
+        حرر(ptr);
+#وإلا
         __bound_free(ptr, caller);
-#endif
-        return NULL;
+#پایان_اگر
+        أرجع عدم;
     }
 
-    new_ptr = BOUND_REALLOC (ptr, size + 1);
+    new_ptr = BOUND_REALLOC (ptr, اندازه + 1);
     dprintf(stderr, "%s, %s(): %p, 0x%lx\n",
-            __FILE__, __FUNCTION__, new_ptr, (unsigned long)size);
+            __FILE__, __FUNCTION__, new_ptr, (بیعلامت دراز)اندازه);
 
-    if (NO_CHECKING_GET() == 0) {
+    إذا (NO_CHECKING_GET() == 0) {
         WAIT_SEM ();
-        INCR_COUNT(bound_realloc_count);
+        INCR_شمار(bound_realloc_شمار);
 
-        if (ptr)
-            tree = splay_delete ((size_t) ptr, tree);
-        if (new_ptr) {
-            tree = splay_insert ((size_t) new_ptr, size ? size : size + 1, tree);
-            if (tree && tree->start == (size_t) new_ptr)
-                tree->type = TCC_TYPE_REALLOC;
+        إذا (ptr)
+            درخت_2 = splay_delete ((اندازه_t) ptr, درخت_2);
+        إذا (new_ptr) {
+            درخت_2 = splay_درج ((اندازه_t) new_ptr, اندازه ? اندازه : اندازه + 1, درخت_2);
+            إذا (درخت_2 && درخت_2->شروع == (اندازه_t) new_ptr)
+                درخت_2->type = TCC_TYPE_REALLOC;
         }
         POST_SEM ();
     }
-    return new_ptr;
+    أرجع new_ptr;
 }
 
-#if MALLOC_REDIR
-void *calloc(size_t nmemb, size_t size)
-#else
-void *__bound_calloc(size_t nmemb, size_t size)
-#endif
+#إذا MALLOC_REDIR
+فراغ *حافظه_صفر_بده(اندازه_t nmemb, اندازه_t اندازه)
+#وإلا
+فراغ *__bound_calloc(اندازه_t nmemb, اندازه_t اندازه)
+#پایان_اگر
 {
-    void *ptr;
+    فراغ *ptr;
 
-    size *= nmemb;
-#if MALLOC_REDIR
+    اندازه *= nmemb;
+#إذا MALLOC_REDIR
     /* This will catch the first dlsym call from __bound_init */
-    if (malloc_redir == NULL) {
+    إذا (malloc_redir == عدم) {
         __bound_init (0, -1);
-        if (malloc_redir == NULL) {
-            ptr = &initial_pool[pool_index];
-            pool_index = (pool_index + size + 15) & ~15;
-            if (pool_index >= sizeof (initial_pool))
+        إذا (malloc_redir == عدم) {
+            ptr = &initial_pool[pool_شاخص];
+            pool_شاخص = (pool_شاخص + اندازه + 15) & ~15;
+            إذا (pool_شاخص >= حجم (initial_pool))
                 bound_alloc_error ("initial memory pool too small");
             dprintf (stderr, "%s, %s(): initial %p, 0x%lx\n",
-                     __FILE__, __FUNCTION__, ptr, (unsigned long)size);
-            memset (ptr, 0, size);
-            return ptr;
+                     __FILE__, __FUNCTION__, ptr, (بیعلامت دراز)اندازه);
+            memset (ptr, 0, اندازه);
+            أرجع ptr;
         }
     }
-#endif
-    ptr = BOUND_MALLOC(size + 1);
+#پایان_اگر
+    ptr = BOUND_MALLOC(اندازه + 1);
     dprintf (stderr, "%s, %s(): %p, 0x%lx\n",
-             __FILE__, __FUNCTION__, ptr, (unsigned long)size);
+             __FILE__, __FUNCTION__, ptr, (بیعلامت دراز)اندازه);
 
-    if (ptr) {
-        memset (ptr, 0, size);
-        if (NO_CHECKING_GET() == 0) {
+    إذا (ptr) {
+        memset (ptr, 0, اندازه);
+        إذا (NO_CHECKING_GET() == 0) {
             WAIT_SEM ();
-            INCR_COUNT(bound_calloc_count);
-            tree = splay_insert ((size_t) ptr, size ? size : size + 1, tree);
-            if (tree && tree->start == (size_t) ptr)
-                tree->type = TCC_TYPE_CALLOC;
+            INCR_شمار(bound_calloc_شمار);
+            درخت_2 = splay_درج ((اندازه_t) ptr, اندازه ? اندازه : اندازه + 1, درخت_2);
+            إذا (درخت_2 && درخت_2->شروع == (اندازه_t) ptr)
+                درخت_2->type = TCC_TYPE_CALLOC;
             POST_SEM ();
         }
     }
-    return ptr;
+    أرجع ptr;
 }
 
-#if !defined(_WIN32)
-void *__bound_mmap (void *start, size_t size, int prot,
-                    int flags, int fd, off_t offset)
+#إذا !defined(_WIN32)
+فراغ *__bound_mmap (فراغ *شروع, اندازه_t اندازه, صحيح prot,
+                    صحيح flags, صحيح fd, off_t جابه_جایی)
 {
-    void *result;
+    فراغ *نتیجه;
 
     dprintf(stderr, "%s, %s(): %p, 0x%lx\n",
-            __FILE__, __FUNCTION__, start, (unsigned long)size);
-    result = mmap (start, size, prot, flags, fd, offset);
-    if (result && NO_CHECKING_GET() == 0) {
+            __FILE__, __FUNCTION__, شروع, (بیعلامت دراز)اندازه);
+    نتیجه = mmap (شروع, اندازه, prot, flags, fd, جابه_جایی);
+    إذا (نتیجه && NO_CHECKING_GET() == 0) {
         WAIT_SEM ();
-        INCR_COUNT(bound_mmap_count);
-        tree = splay_insert((size_t)result, size, tree);
+        INCR_شمار(bound_mmap_شمار);
+        درخت_2 = splay_درج((اندازه_t)نتیجه, اندازه, درخت_2);
         POST_SEM ();
     }
-    return result;
+    أرجع نتیجه;
 }
 
-int __bound_munmap (void *start, size_t size)
+صحيح __bound_munmap (فراغ *شروع, اندازه_t اندازه)
 {
-    int result;
+    صحيح نتیجه;
 
     dprintf(stderr, "%s, %s(): %p, 0x%lx\n",
-            __FILE__, __FUNCTION__, start, (unsigned long)size);
-    if (start && NO_CHECKING_GET() == 0) {
+            __FILE__, __FUNCTION__, شروع, (بیعلامت دراز)اندازه);
+    إذا (شروع && NO_CHECKING_GET() == 0) {
         WAIT_SEM ();
-        INCR_COUNT(bound_munmap_count);
-        tree = splay_delete ((size_t) start, tree);
+        INCR_شمار(bound_munmap_شمار);
+        درخت_2 = splay_delete ((اندازه_t) شروع, درخت_2);
         POST_SEM ();
     }
-    result = munmap (start, size);
-    return result;
+    نتیجه = munmap (شروع, اندازه);
+    أرجع نتیجه;
 }
-#endif
+#پایان_اگر
 
 /* some useful checked functions */
 
 /* check that (p ... p + size - 1) lies inside 'p' region, if any */
-static void __bound_check(const void *p, size_t size, const char *function)
+ساكن فراغ __bound_check(ثابت فراغ *p, اندازه_t اندازه, ثابت حرف *function)
 {
-    if (size != 0 && __bound_ptr_add((void *)p, size) == INVALID_POINTER) {
+    إذا (اندازه != 0 && __bound_ptr_add((فراغ *)p, اندازه) == INVALID_اشاره_گر) {
         bound_error("invalid pointer %p, size 0x%lx in %s",
-                p, (unsigned long)size, function);
+                p, (بیعلامت دراز)اندازه, function);
     }
 }
 
-static int check_overlap (const void *p1, size_t n1,
-                          const void *p2, size_t n2,
-                          const char *function)
+ساكن صحيح check_overlap (ثابت فراغ *p1, اندازه_t n1,
+                          ثابت فراغ *p2, اندازه_t n2,
+                          ثابت حرف *function)
 {
-    const void *p1e = (const void *) ((const char *) p1 + n1);
-    const void *p2e = (const void *) ((const char *) p2 + n2);
+    ثابت فراغ *p1e = (ثابت فراغ *) ((ثابت حرف *) p1 + n1);
+    ثابت فراغ *p2e = (ثابت فراغ *) ((ثابت حرف *) p2 + n2);
 
-    if (NO_CHECKING_GET() == 0 && n1 != 0 && n2 !=0 &&
+    إذا (NO_CHECKING_GET() == 0 && n1 != 0 && n2 !=0 &&
         ((p1 <= p2 && p1e > p2) ||     /* p1----p2====p1e----p2e */
          (p2 <= p1 && p2e > p1))) {    /* p2----p1====p2e----p1e */
         bound_error("overlapping regions %p(0x%lx), %p(0x%lx) in %s",
-                p1, (unsigned long)n1, p2, (unsigned long)n2, function);
-        return never_fatal < 0;
+                p1, (بیعلامت دراز)n1, p2, (بیعلامت دراز)n2, function);
+        أرجع never_fatal < 0;
     }
-    return 0;
+    أرجع 0;
 }
 
-void *__bound_memcpy(void *dest, const void *src, size_t n)
+فراغ *__bound_memcpy(فراغ *dest, ثابت فراغ *src, اندازه_t n)
 {
     dprintf(stderr, "%s, %s(): %p, %p, 0x%lx\n",
-            __FILE__, __FUNCTION__, dest, src, (unsigned long)n);
-    INCR_COUNT(bound_mempcy_count);
+            __FILE__, __FUNCTION__, dest, src, (بیعلامت دراز)n);
+    INCR_شمار(bound_mempcy_شمار);
     __bound_check(dest, n, "memcpy dest");
     __bound_check(src, n, "memcpy src");
-    if (check_overlap(dest, n, src, n, "memcpy"))
-        return dest;
-    return memcpy(dest, src, n);
+    إذا (check_overlap(dest, n, src, n, "memcpy"))
+        أرجع dest;
+    أرجع کپی_حافظه(dest, src, n);
 }
 
-int __bound_memcmp(const void *s1, const void *s2, size_t n)
+صحيح __bound_memcmp(ثابت فراغ *s1, ثابت فراغ *s2, اندازه_t n)
 {
-    const unsigned char *u1 = (const unsigned char *) s1;
-    const unsigned char *u2 = (const unsigned char *) s2;
-    int retval = 0;
+    ثابت بیعلامت حرف *u1 = (ثابت بیعلامت حرف *) s1;
+    ثابت بیعلامت حرف *u2 = (ثابت بیعلامت حرف *) s2;
+    صحيح retval = 0;
 
     dprintf(stderr, "%s, %s(): %p, %p, 0x%lx\n",
-            __FILE__, __FUNCTION__, s1, s2, (unsigned long)n);
-    INCR_COUNT(bound_memcmp_count);
-    for (;;) {
-        if ((ssize_t) --n == -1)
-            break;
-        else if (*u1 != *u2) {
+            __FILE__, __FUNCTION__, s1, s2, (بیعلامت دراز)n);
+    INCR_شمار(bound_memcmp_شمار);
+    لكل (;;) {
+        إذا ((ssize_t) --n == -1)
+            اكسر;
+        وإلا إذا (*u1 != *u2) {
             retval = *u1++ - *u2++;
-            break;
+            اكسر;
         }
         ++u1;
         ++u2;
     }
-    __bound_check(s1, (const void *)u1 - s1, "memcmp s1");
-    __bound_check(s2, (const void *)u2 - s2, "memcmp s2");
-    return retval;
+    __bound_check(s1, (ثابت فراغ *)u1 - s1, "memcmp s1");
+    __bound_check(s2, (ثابت فراغ *)u2 - s2, "memcmp s2");
+    أرجع retval;
 }
 
-void *__bound_memmove(void *dest, const void *src, size_t n)
+فراغ *__bound_memmove(فراغ *dest, ثابت فراغ *src, اندازه_t n)
 {
     dprintf(stderr, "%s, %s(): %p, %p, 0x%lx\n",
-            __FILE__, __FUNCTION__, dest, src, (unsigned long)n);
-    INCR_COUNT(bound_memmove_count);
+            __FILE__, __FUNCTION__, dest, src, (بیعلامت دراز)n);
+    INCR_شمار(bound_memmove_شمار);
     __bound_check(dest, n, "memmove dest");
     __bound_check(src, n, "memmove src");
-    return memmove(dest, src, n);
+    أرجع memmove(dest, src, n);
 }
 
-void *__bound_memset(void *s, int c, size_t n)
+فراغ *__bound_memset(فراغ *s, صحيح c, اندازه_t n)
 {
     dprintf(stderr, "%s, %s(): %p, %d, 0x%lx\n",
-            __FILE__, __FUNCTION__, s, c, (unsigned long)n);
-    INCR_COUNT(bound_memset_count);
+            __FILE__, __FUNCTION__, s, c, (بیعلامت دراز)n);
+    INCR_شمار(bound_memset_شمار);
     __bound_check(s, n, "memset");
-    return memset(s, c, n);
+    أرجع memset(s, c, n);
 }
 
-#if defined(__arm__) && defined(__ARM_EABI__)
-void *__bound___aeabi_memcpy(void *dest, const void *src, size_t n)
+#إذا defined(__arm__) && defined(__ARM_EABI__)
+فراغ *__bound___aeabi_memcpy(فراغ *dest, ثابت فراغ *src, اندازه_t n)
 {
     dprintf(stderr, "%s, %s(): %p, %p, 0x%lx\n",
-            __FILE__, __FUNCTION__, dest, src, (unsigned long)n);
-    INCR_COUNT(bound_mempcy_count);
+            __FILE__, __FUNCTION__, dest, src, (بیعلامت دراز)n);
+    INCR_شمار(bound_mempcy_شمار);
     __bound_check(dest, n, "memcpy dest");
     __bound_check(src, n, "memcpy src");
-    if (check_overlap(dest, n, src, n, "memcpy"))
-        return dest;
-    return __aeabi_memcpy(dest, src, n);
+    إذا (check_overlap(dest, n, src, n, "memcpy"))
+        أرجع dest;
+    أرجع __aeabi_memcpy(dest, src, n);
 }
 
-void *__bound___aeabi_memmove(void *dest, const void *src, size_t n)
+فراغ *__bound___aeabi_memmove(فراغ *dest, ثابت فراغ *src, اندازه_t n)
 {
     dprintf(stderr, "%s, %s(): %p, %p, 0x%lx\n",
-            __FILE__, __FUNCTION__, dest, src, (unsigned long)n);
-    INCR_COUNT(bound_memmove_count);
+            __FILE__, __FUNCTION__, dest, src, (بیعلامت دراز)n);
+    INCR_شمار(bound_memmove_شمار);
     __bound_check(dest, n, "memmove dest");
     __bound_check(src, n, "memmove src");
-    return __aeabi_memmove(dest, src, n);
+    أرجع __aeabi_memmove(dest, src, n);
 }
 
-void *__bound___aeabi_memmove4(void *dest, const void *src, size_t n)
+فراغ *__bound___aeabi_memmove4(فراغ *dest, ثابت فراغ *src, اندازه_t n)
 {
     dprintf(stderr, "%s, %s(): %p, %p, 0x%lx\n",
-            __FILE__, __FUNCTION__, dest, src, (unsigned long)n);
-    INCR_COUNT(bound_memmove_count);
+            __FILE__, __FUNCTION__, dest, src, (بیعلامت دراز)n);
+    INCR_شمار(bound_memmove_شمار);
     __bound_check(dest, n, "memmove dest");
     __bound_check(src, n, "memmove src");
-    return __aeabi_memmove4(dest, src, n);
+    أرجع __aeabi_memmove4(dest, src, n);
 }
 
-void *__bound___aeabi_memmove8(void *dest, const void *src, size_t n)
+فراغ *__bound___aeabi_memmove8(فراغ *dest, ثابت فراغ *src, اندازه_t n)
 {
     dprintf(stderr, "%s, %s(): %p, %p, 0x%lx\n",
-            __FILE__, __FUNCTION__, dest, src, (unsigned long)n);
-    INCR_COUNT(bound_memmove_count);
+            __FILE__, __FUNCTION__, dest, src, (بیعلامت دراز)n);
+    INCR_شمار(bound_memmove_شمار);
     __bound_check(dest, n, "memmove dest");
     __bound_check(src, n, "memmove src");
-    return __aeabi_memmove8(dest, src, n);
+    أرجع __aeabi_memmove8(dest, src, n);
 }
 
-void *__bound___aeabi_memset(void *s, int c, size_t n)
+فراغ *__bound___aeabi_memset(فراغ *s, صحيح c, اندازه_t n)
 {
     dprintf(stderr, "%s, %s(): %p, %d, 0x%lx\n",
-            __FILE__, __FUNCTION__, s, c, (unsigned long)n);
-    INCR_COUNT(bound_memset_count);
+            __FILE__, __FUNCTION__, s, c, (بیعلامت دراز)n);
+    INCR_شمار(bound_memset_شمار);
     __bound_check(s, n, "memset");
-    return __aeabi_memset(s, c, n);
+    أرجع __aeabi_memset(s, c, n);
 }
-#endif
+#پایان_اگر
 
-int __bound_strlen(const char *s)
+صحيح __bound_strlen(ثابت حرف *s)
 {
-    const char *p = s;
+    ثابت حرف *p = s;
 
     dprintf(stderr, "%s, %s(): %p\n",
             __FILE__, __FUNCTION__, s);
-    INCR_COUNT(bound_strlen_count);
-    while (*p++);
+    INCR_شمار(bound_strlen_شمار);
+    طالما (*p++);
     __bound_check(s, p - s, "strlen");
-    return (p - s) - 1;
+    أرجع (p - s) - 1;
 }
 
-char *__bound_strcpy(char *dest, const char *src)
+حرف *__bound_strcpy(حرف *dest, ثابت حرف *src)
 {
-    size_t len;
-    const char *p = src;
+    اندازه_t len;
+    ثابت حرف *p = src;
 
     dprintf(stderr, "%s, %s(): %p, %p\n",
             __FILE__, __FUNCTION__, dest, src);
-    INCR_COUNT(bound_strcpy_count);
-    while (*p++);
+    INCR_شمار(bound_strcpy_شمار);
+    طالما (*p++);
     len = p - src;
     __bound_check(dest, len, "strcpy dest");
     __bound_check(src, len, "strcpy src");
-    if (check_overlap(dest, len, src, len, "strcpy"))
-        return dest;
-    return strcpy (dest, src);
+    إذا (check_overlap(dest, len, src, len, "strcpy"))
+        أرجع dest;
+    أرجع strcpy (dest, src);
 }
 
-char *__bound_strncpy(char *dest, const char *src, size_t n)
+حرف *__bound_strncpy(حرف *dest, ثابت حرف *src, اندازه_t n)
 {
-    size_t len = n;
-    const char *p = src;
+    اندازه_t len = n;
+    ثابت حرف *p = src;
 
     dprintf(stderr, "%s, %s(): %p, %p, 0x%lx\n",
-            __FILE__, __FUNCTION__, dest, src, (unsigned long)n);
-    INCR_COUNT(bound_strncpy_count);
-    while (len-- && *p++);
+            __FILE__, __FUNCTION__, dest, src, (بیعلامت دراز)n);
+    INCR_شمار(bound_strncpy_شمار);
+    طالما (len-- && *p++);
     len = p - src;
     __bound_check(dest, len, "strncpy dest");
     __bound_check(src, len, "strncpy src");
-    if (check_overlap(dest, len, src, len, "strncpy"))
-        return dest;
-    return strncpy(dest, src, n);
+    إذا (check_overlap(dest, len, src, len, "strncpy"))
+        أرجع dest;
+    أرجع strncpy(dest, src, n);
 }
 
-int __bound_strcmp(const char *s1, const char *s2)
+صحيح __bound_strcmp(ثابت حرف *s1, ثابت حرف *s2)
 {
-    const unsigned char *u1 = (const unsigned char *) s1;
-    const unsigned char *u2 = (const unsigned char *) s2;
+    ثابت بیعلامت حرف *u1 = (ثابت بیعلامت حرف *) s1;
+    ثابت بیعلامت حرف *u2 = (ثابت بیعلامت حرف *) s2;
 
     dprintf(stderr, "%s, %s(): %p, %p\n",
             __FILE__, __FUNCTION__, s1, s2);
-    INCR_COUNT(bound_strcmp_count);
-    while (*u1 && *u1 == *u2) {
+    INCR_شمار(bound_strcmp_شمار);
+    طالما (*u1 && *u1 == *u2) {
         ++u1;
         ++u2;
     }
-    __bound_check(s1, ((const char *)u1 - s1) + 1, "strcmp s1");
-    __bound_check(s2, ((const char *)u2 - s2) + 1, "strcmp s2");
-    return *u1 - *u2;
+    __bound_check(s1, ((ثابت حرف *)u1 - s1) + 1, "strcmp s1");
+    __bound_check(s2, ((ثابت حرف *)u2 - s2) + 1, "strcmp s2");
+    أرجع *u1 - *u2;
 }
 
-int __bound_strncmp(const char *s1, const char *s2, size_t n)
+صحيح __bound_strncmp(ثابت حرف *s1, ثابت حرف *s2, اندازه_t n)
 {
-    const unsigned char *u1 = (const unsigned char *) s1;
-    const unsigned char *u2 = (const unsigned char *) s2;
-    int retval = 0;
+    ثابت بیعلامت حرف *u1 = (ثابت بیعلامت حرف *) s1;
+    ثابت بیعلامت حرف *u2 = (ثابت بیعلامت حرف *) s2;
+    صحيح retval = 0;
 
     dprintf(stderr, "%s, %s(): %p, %p, 0x%lx\n",
-            __FILE__, __FUNCTION__, s1, s2, (unsigned long)n);
-    INCR_COUNT(bound_strncmp_count);
-    do {
-        if ((ssize_t) --n == -1)
-            break;
-        else if (*u1 != *u2) {
+            __FILE__, __FUNCTION__, s1, s2, (بیعلامت دراز)n);
+    INCR_شمار(bound_strncmp_شمار);
+    افعل {
+        إذا ((ssize_t) --n == -1)
+            اكسر;
+        وإلا إذا (*u1 != *u2) {
             retval = *u1++ - *u2++;
-            break;
+            اكسر;
         }
         ++u2;
-    } while (*u1++);
-    __bound_check(s1, (const char *)u1 - s1, "strncmp s1");
-    __bound_check(s2, (const char *)u2 - s2, "strncmp s2");
-    return retval;
+    } طالما (*u1++);
+    __bound_check(s1, (ثابت حرف *)u1 - s1, "strncmp s1");
+    __bound_check(s2, (ثابت حرف *)u2 - s2, "strncmp s2");
+    أرجع retval;
 }
 
-char *__bound_strcat(char *dest, const char *src)
+حرف *__bound_strcat(حرف *dest, ثابت حرف *src)
 {
-    char *r = dest;
-    const char *s = src;
+    حرف *r = dest;
+    ثابت حرف *s = src;
 
     dprintf(stderr, "%s, %s(): %p, %p\n",
             __FILE__, __FUNCTION__, dest, src);
-    INCR_COUNT(bound_strcat_count);
-    while (*dest++);
-    while (*src++);
+    INCR_شمار(bound_strcat_شمار);
+    طالما (*dest++);
+    طالما (*src++);
     __bound_check(r, (dest - r) + (src - s) - 1, "strcat dest");
     __bound_check(s, src - s, "strcat src");
-    if (check_overlap(r, (dest - r) + (src - s) - 1, s, src - s, "strcat"))
-        return dest;
-    return strcat(r, s);
+    إذا (check_overlap(r, (dest - r) + (src - s) - 1, s, src - s, "strcat"))
+        أرجع dest;
+    أرجع strcat(r, s);
 }
 
-char *__bound_strncat(char *dest, const char *src, size_t n)
+حرف *__bound_strncat(حرف *dest, ثابت حرف *src, اندازه_t n)
 {
-    char *r = dest;
-    const char *s = src;
-    size_t len = n;
+    حرف *r = dest;
+    ثابت حرف *s = src;
+    اندازه_t len = n;
 
     dprintf(stderr, "%s, %s(): %p, %p, 0x%lx\n",
-            __FILE__, __FUNCTION__, dest, src, (unsigned long)n);
-    INCR_COUNT(bound_strncat_count);
-    while (*dest++);
-    while (len-- && *src++);
+            __FILE__, __FUNCTION__, dest, src, (بیعلامت دراز)n);
+    INCR_شمار(bound_strncat_شمار);
+    طالما (*dest++);
+    طالما (len-- && *src++);
     __bound_check(r, (dest - r) + (src - s) - 1, "strncat dest");
     __bound_check(s, src - s, "strncat src");
-    if (check_overlap(r, (dest - r) + (src - s) - 1, s, src - s, "strncat"))
-        return dest;
-    return strncat(r, s, n);
+    إذا (check_overlap(r, (dest - r) + (src - s) - 1, s, src - s, "strncat"))
+        أرجع dest;
+    أرجع strncat(r, s, n);
 }
 
-char *__bound_strchr(const char *s, int c)
+حرف *__bound_strchr(ثابت حرف *s, صحيح c)
 {
-    const unsigned char *str = (const unsigned char *) s;
-    unsigned char ch = c;
+    ثابت بیعلامت حرف *str = (ثابت بیعلامت حرف *) s;
+    بیعلامت حرف ch = c;
 
     dprintf(stderr, "%s, %s(): %p, %d\n",
             __FILE__, __FUNCTION__, s, ch);
-    INCR_COUNT(bound_strchr_count);
-    while (*str) {
-        if (*str == ch)
-            break;
+    INCR_شمار(bound_strchr_شمار);
+    طالما (*str) {
+        إذا (*str == ch)
+            اكسر;
         ++str;
     }
-    __bound_check(s, ((const char *)str - s) + 1, "strchr");
-    return *str == ch ? (char *) str : NULL;
+    __bound_check(s, ((ثابت حرف *)str - s) + 1, "strchr");
+    أرجع *str == ch ? (حرف *) str : عدم;
 }
 
-char *__bound_strrchr(const char *s, int c)
+حرف *__bound_strrchr(ثابت حرف *s, صحيح c)
 {
-    const unsigned char *str = (const unsigned char *) s;
-    unsigned char ch = c;
+    ثابت بیعلامت حرف *str = (ثابت بیعلامت حرف *) s;
+    بیعلامت حرف ch = c;
 
     dprintf(stderr, "%s, %s(): %p, %d\n",
             __FILE__, __FUNCTION__, s, ch);
-    INCR_COUNT(bound_strrchr_count);
-    while (*str++);
-    __bound_check(s, (const char *)str - s, "strrchr");
-    while (str != (const unsigned char *)s) {
-        if (*--str == ch)
-            break;
+    INCR_شمار(bound_strrchr_شمار);
+    طالما (*str++);
+    __bound_check(s, (ثابت حرف *)str - s, "strrchr");
+    طالما (str != (ثابت بیعلامت حرف *)s) {
+        إذا (*--str == ch)
+            اكسر;
     }
-    __bound_check(s, (const char *)str - s, "strrchr");
-    return *str == ch ? (char *) str : NULL;
+    __bound_check(s, (ثابت حرف *)str - s, "strrchr");
+    أرجع *str == ch ? (حرف *) str : عدم;
 }
 
-char *__bound_strdup(const char *s)
+حرف *__bound_strdup(ثابت حرف *s)
 {
-    const char *p = s;
-    char *new;
+    ثابت حرف *p = s;
+    حرف *new;
 
-    INCR_COUNT(bound_strdup_count);
-    while (*p++);
+    INCR_شمار(bound_strdup_شمار);
+    طالما (*p++);
     __bound_check(s, p - s, "strdup");
     new = BOUND_MALLOC ((p - s) + 1);
     dprintf(stderr, "%s, %s(): %p, 0x%lx\n",
-            __FILE__, __FUNCTION__, new, (unsigned long)(p -s));
-    if (new) {
-        if (NO_CHECKING_GET() == 0 && no_strdup == 0) {
+            __FILE__, __FUNCTION__, new, (بیعلامت دراز)(p -s));
+    إذا (new) {
+        إذا (NO_CHECKING_GET() == 0 && no_strdup == 0) {
             WAIT_SEM ();
-            tree = splay_insert((size_t)new, p - s, tree);
-            if (tree && tree->start == (size_t) new)
-                tree->type = TCC_TYPE_STRDUP;
+            درخت_2 = splay_درج((اندازه_t)new, p - s, درخت_2);
+            إذا (درخت_2 && درخت_2->شروع == (اندازه_t) new)
+                درخت_2->type = TCC_TYPE_STRDUP;
             POST_SEM ();
         }
-        memcpy (new, s, p - s);
+        کپی_حافظه (new, s, p - s);
     }
-    return new;
+    أرجع new;
 }
 
 /*
@@ -2069,197 +2069,197 @@ char *__bound_strdup(const char *s)
 
 /* Code adapted for tcc */
 
-#define compare(start,tstart,tsize) (start < tstart ? -1 : \
-                                     start >= tstart+tsize  ? 1 : 0)
+#تعریف_کن compare(شروع,tstart,tsize) (شروع < tstart ? -1 : \
+                                     شروع >= tstart+tsize  ? 1 : 0)
 
-static Tree * splay (size_t addr, Tree *t)
+ساكن درخت * splay (اندازه_t addr, درخت *t)
 /* Splay using the key start (which may or may not be in the tree.) */
 /* The starting root is t, and the tree used is defined by rat      */
 {
-    Tree N, *l, *r, *y;
-    int comp;
+    درخت N, *l, *r, *y;
+    صحيح comp;
     
-    INCR_COUNT_SPLAY(bound_splay);
-    if (t == NULL) return t;
-    N.left = N.right = NULL;
+    INCR_شمار_SPLAY(bound_splay);
+    إذا (t == عدم) أرجع t;
+    N.چپ = N.راست = عدم;
     l = r = &N;
  
-    for (;;) {
-        comp = compare(addr, t->start, t->size);
-        if (comp < 0) {
-            y = t->left;
-            if (y == NULL) break;
-            if (compare(addr, y->start, y->size) < 0) {
-                t->left = y->right;                    /* rotate right */
-                y->right = t;
+    لكل (;;) {
+        comp = compare(addr, t->شروع, t->اندازه);
+        إذا (comp < 0) {
+            y = t->چپ;
+            إذا (y == عدم) اكسر;
+            إذا (compare(addr, y->شروع, y->اندازه) < 0) {
+                t->چپ = y->راست;                    /* rotate right */
+                y->راست = t;
                 t = y;
-                if (t->left == NULL) break;
+                إذا (t->چپ == عدم) اكسر;
             }
-            r->left = t;                               /* link right */
+            r->چپ = t;                               /* link right */
             r = t;
-            t = t->left;
-        } else if (comp > 0) {
-            y = t->right;
-            if (y == NULL) break;
-            if (compare(addr, y->start, y->size) > 0) {
-                t->right = y->left;                    /* rotate left */
-                y->left = t;
+            t = t->چپ;
+        } وإلا إذا (comp > 0) {
+            y = t->راست;
+            إذا (y == عدم) اكسر;
+            إذا (compare(addr, y->شروع, y->اندازه) > 0) {
+                t->راست = y->چپ;                    /* rotate left */
+                y->چپ = t;
                 t = y;
-                if (t->right == NULL) break;
+                إذا (t->راست == عدم) اكسر;
             }
-            l->right = t;                              /* link left */
+            l->راست = t;                              /* link left */
             l = t;
-            t = t->right;
-        } else {
-            break;
+            t = t->راست;
+        } وإلا {
+            اكسر;
         }
     }
-    l->right = t->left;                                /* assemble */
-    r->left = t->right;
-    t->left = N.right;
-    t->right = N.left;
+    l->راست = t->چپ;                                /* assemble */
+    r->چپ = t->راست;
+    t->چپ = N.راست;
+    t->راست = N.چپ;
 
-    return t;
+    أرجع t;
 }
 
-#define compare_end(start,tend) (start < tend ? -1 : \
-                                 start > tend  ? 1 : 0)
+#تعریف_کن compare_انتها(شروع,tend) (شروع < tend ? -1 : \
+                                 شروع > tend  ? 1 : 0)
 
-static Tree * splay_end (size_t addr, Tree *t)
+ساكن درخت * splay_انتها (اندازه_t addr, درخت *t)
 /* Splay using the key start (which may or may not be in the tree.) */
 /* The starting root is t, and the tree used is defined by rat  */
 {
-    Tree N, *l, *r, *y;
-    int comp;
+    درخت N, *l, *r, *y;
+    صحيح comp;
     
-    INCR_COUNT_SPLAY(bound_splay_end);
-    if (t == NULL) return t;
-    N.left = N.right = NULL;
+    INCR_شمار_SPLAY(bound_splay_انتها);
+    إذا (t == عدم) أرجع t;
+    N.چپ = N.راست = عدم;
     l = r = &N;
  
-    for (;;) {
-        comp = compare_end(addr, t->start + t->size);
-        if (comp < 0) {
-            y = t->left;
-            if (y == NULL) break;
-            if (compare_end(addr, y->start + y->size) < 0) {
-                t->left = y->right;                    /* rotate right */
-                y->right = t;
+    لكل (;;) {
+        comp = compare_انتها(addr, t->شروع + t->اندازه);
+        إذا (comp < 0) {
+            y = t->چپ;
+            إذا (y == عدم) اكسر;
+            إذا (compare_انتها(addr, y->شروع + y->اندازه) < 0) {
+                t->چپ = y->راست;                    /* rotate right */
+                y->راست = t;
                 t = y;
-                if (t->left == NULL) break;
+                إذا (t->چپ == عدم) اكسر;
             }
-            r->left = t;                               /* link right */
+            r->چپ = t;                               /* link right */
             r = t;
-            t = t->left;
-        } else if (comp > 0) {
-            y = t->right;
-            if (y == NULL) break;
-            if (compare_end(addr, y->start + y->size) > 0) {
-                t->right = y->left;                    /* rotate left */
-                y->left = t;
+            t = t->چپ;
+        } وإلا إذا (comp > 0) {
+            y = t->راست;
+            إذا (y == عدم) اكسر;
+            إذا (compare_انتها(addr, y->شروع + y->اندازه) > 0) {
+                t->راست = y->چپ;                    /* rotate left */
+                y->چپ = t;
                 t = y;
-                if (t->right == NULL) break;
+                إذا (t->راست == عدم) اكسر;
             }
-            l->right = t;                              /* link left */
+            l->راست = t;                              /* link left */
             l = t;
-            t = t->right;
-        } else {
-            break;
+            t = t->راست;
+        } وإلا {
+            اكسر;
         }
     }
-    l->right = t->left;                                /* assemble */
-    r->left = t->right;
-    t->left = N.right;
-    t->right = N.left;
+    l->راست = t->چپ;                                /* assemble */
+    r->چپ = t->راست;
+    t->چپ = N.راست;
+    t->راست = N.چپ;
 
-    return t;
+    أرجع t;
 }
 
-static Tree * splay_insert(size_t addr, size_t size, Tree * t)
+ساكن درخت * splay_درج(اندازه_t addr, اندازه_t اندازه, درخت * t)
 /* Insert key start into the tree t, if it is not already there. */
 /* Return a pointer to the resulting tree.                       */
 {
-    Tree * new;
+    درخت * new;
 
-    INCR_COUNT_SPLAY(bound_splay_insert);
-    if (t != NULL) {
+    INCR_شمار_SPLAY(bound_splay_درج);
+    إذا (t != عدم) {
         t = splay(addr,t);
-        if (compare(addr, t->start, t->size)==0) {
-            return t;  /* it's already there */
+        إذا (compare(addr, t->شروع, t->اندازه)==0) {
+            أرجع t;  /* it's already there */
         }
     }
-#if TREE_REUSE
-    if (tree_free_list) {
-          new = tree_free_list;
-          tree_free_list = new->left;
+#إذا درخت_REUSE
+    إذا (درخت_free_list) {
+          new = درخت_free_list;
+          درخت_free_list = new->چپ;
     }
-    else
-#endif
+    وإلا
+#پایان_اگر
     {
-        new = (Tree *) BOUND_MALLOC (sizeof (Tree));
+        new = (درخت *) BOUND_MALLOC (حجم (درخت));
     }
-    if (new == NULL) {
+    إذا (new == عدم) {
         bound_alloc_error("not enough memory for bound checking code");
     }
-    else {
-        if (t == NULL) {
-            new->left = new->right = NULL;
-        } else if (compare(addr, t->start, t->size) < 0) {
-            new->left = t->left;
-            new->right = t;
-            t->left = NULL;
-        } else {
-            new->right = t->right;
-            new->left = t;
-            t->right = NULL;
+    وإلا {
+        إذا (t == عدم) {
+            new->چپ = new->راست = عدم;
+        } وإلا إذا (compare(addr, t->شروع, t->اندازه) < 0) {
+            new->چپ = t->چپ;
+            new->راست = t;
+            t->چپ = عدم;
+        } وإلا {
+            new->راست = t->راست;
+            new->چپ = t;
+            t->راست = عدم;
         }
-        new->start = addr;
-        new->size = size;
+        new->شروع = addr;
+        new->اندازه = اندازه;
         new->type = TCC_TYPE_NONE;
         new->is_invalid = 0;
     }
-    return new;
+    أرجع new;
 }
 
-#define compare_destroy(start,tstart) (start < tstart ? -1 : \
-                                       start > tstart  ? 1 : 0)
+#تعریف_کن compare_destroy(شروع,tstart) (شروع < tstart ? -1 : \
+                                       شروع > tstart  ? 1 : 0)
 
-static Tree * splay_delete(size_t addr, Tree *t)
+ساكن درخت * splay_delete(اندازه_t addr, درخت *t)
 /* Deletes addr from the tree if it's there.               */
 /* Return a pointer to the resulting tree.                 */
 {
-    Tree * x;
+    درخت * x;
 
-    INCR_COUNT_SPLAY(bound_splay_delete);
-    if (t==NULL) return NULL;
+    INCR_شمار_SPLAY(bound_splay_delete);
+    إذا (t==عدم) أرجع عدم;
     t = splay(addr,t);
-    if (compare_destroy(addr, t->start) == 0) {        /* found it */
-        if (t->left == NULL) {
-            x = t->right;
-        } else {
-            x = splay(addr, t->left);
-            x->right = t->right;
+    إذا (compare_destroy(addr, t->شروع) == 0) {        /* found it */
+        إذا (t->چپ == عدم) {
+            x = t->راست;
+        } وإلا {
+            x = splay(addr, t->چپ);
+            x->راست = t->راست;
         }
-#if TREE_REUSE
-        t->left = tree_free_list;
-        tree_free_list = t;
-#else
+#إذا درخت_REUSE
+        t->چپ = درخت_free_list;
+        درخت_free_list = t;
+#وإلا
         BOUND_FREE(t);
-#endif
-        return x;
-    } else {
-        return t;                                      /* It wasn't there */
+#پایان_اگر
+        أرجع x;
+    } وإلا {
+        أرجع t;                                      /* It wasn't there */
     }
 }
 
-void splay_printtree(Tree * t, int d)
+فراغ splay_printtree(درخت * t, صحيح d)
 {
-    int i;
-    if (t == NULL) return;
-    splay_printtree(t->right, d+1);
-    for (i=0; i<d; i++) fprintf(stderr," ");
+    صحيح i;
+    إذا (t == عدم) أرجع;
+    splay_printtree(t->راست, d+1);
+    لكل (i=0; i<d; i++) fprintf(stderr," ");
     fprintf(stderr,"%p(0x%lx:%u:%u)\n",
-            (void *) t->start, (unsigned long) t->size,
-            (unsigned)t->type, (unsigned)t->is_invalid);
-    splay_printtree(t->left, d+1);
+            (فراغ *) t->شروع, (بیعلامت دراز) t->اندازه,
+            (بیعلامت)t->type, (بیعلامت)t->is_invalid);
+    splay_printtree(t->چپ, d+1);
 }

@@ -1,15 +1,15 @@
-#define str(s) # s
-#define xstr(s) str(s)
-#define debug(s, t) printf("x" # s "= %d, x" # t "= %s", \
+#تعریف_کن str(s) # s
+#تعریف_کن xstr(s) str(s)
+#تعریف_کن debug(s, t) چاپ_کن("x" # s "= %d, x" # t "= %s", \
 	x ## s, x ## t)
-#define INCFILE(n) vers ## n
-#define glue(a, b) a ## b
-#define xglue(a, b) glue(a, b)
-#define HIGHLOW "hello"
-#define LOW LOW ", world"
+#تعریف_کن INCFILE(n) vers ## n
+#تعریف_کن glue(a, b) a ## b
+#تعریف_کن xglue(a, b) glue(a, b)
+#تعریف_کن HIGHLOW "hello"
+#تعریف_کن کم_2 کم_2 ", world"
 debug(1, 2);
-fputs(str(strncmp("abc\0d", "abc", '\4') // this goes away
+fputs(str(مقایسه_رشته("abc\0d", "abc", '\4') // this goes away
 	== 0) str(: @\n), s);
-\#include xstr(INCFILE(2).h)
-glue(HIGH, LOW);
-xglue(HIGH, LOW)
+\#ضمن xstr(INCFILE(2).h)
+glue(بالا_2, کم_2);
+xglue(بالا_2, کم_2)

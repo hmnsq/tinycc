@@ -3,57 +3,57 @@
  * This file is part of the w64 mingw-runtime package.
  * No warranty is given; refer to the file DISCLAIMER within this package.
  */
-#ifndef _INC_SHELLAPI
-#define _INC_SHELLAPI
+#اگر_تعریف_نشده _INC_SHELLAPI
+#تعریف_کن _INC_SHELLAPI
 
-#ifndef WINSHELLAPI
-#if !defined(_SHELL32_)
-#define WINSHELLAPI DECLSPEC_IMPORT
-#else
-#define WINSHELLAPI
-#endif
-#endif
+#اگر_تعریف_نشده WINSHELLAPI
+#إذا !defined(_SHELL32_)
+#تعریف_کن WINSHELLAPI DECLSPEC_IMPORT
+#وإلا
+#تعریف_کن WINSHELLAPI
+#پایان_اگر
+#پایان_اگر
 
-#ifndef SHSTDAPI
-#if !defined(_SHELL32_)
-#define SHSTDAPI EXTERN_C DECLSPEC_IMPORT HRESULT WINAPI
-#define SHSTDAPI_(type) EXTERN_C DECLSPEC_IMPORT type WINAPI
-#else
-#define SHSTDAPI STDAPI
-#define SHSTDAPI_(type) STDAPI_(type)
-#endif
-#endif
+#اگر_تعریف_نشده SHSTDAPI
+#إذا !defined(_SHELL32_)
+#تعریف_کن SHSTDAPI EXTERN_C DECLSPEC_IMPORT HRESULT WINAPI
+#تعریف_کن SHSTDAPI_(type) EXTERN_C DECLSPEC_IMPORT type WINAPI
+#وإلا
+#تعریف_کن SHSTDAPI STDAPI
+#تعریف_کن SHSTDAPI_(type) STDAPI_(type)
+#پایان_اگر
+#پایان_اگر
 
 /* SHDOCAPI[_] definitions not required in this TinyCC minimal header */
 
-#if !defined(_WIN64)
-#include <pshpack1.h>
-#endif
+#إذا !defined(_WIN64)
+#ضمن <pshpack1.h>
+#پایان_اگر
 
-#ifdef __cplusplus
-extern "C" {
-#endif
+#اگر_تعریف_شده __cplusplus
+خارجي "C" {
+#پایان_اگر
 
-#ifdef UNICODE
-#define ShellExecute ShellExecuteW
-#define FindExecutable FindExecutableW
-#else
-#define ShellExecute ShellExecuteA
-#define FindExecutable FindExecutableA
-#endif
+#اگر_تعریف_شده UNICODE
+#تعریف_کن ShellExecute ShellExecuteW
+#تعریف_کن پیدا_کن_Executable پیدا_کن_Executable_W
+#وإلا
+#تعریف_کن ShellExecute ShellExecuteA
+#تعریف_کن پیدا_کن_Executable پیدا_کن_Executable_A
+#پایان_اگر
 
   /* minimal subset distributed with TinyCC. nShowCmd is at winuser.h */
   SHSTDAPI_(HINSTANCE) ShellExecuteA(HWND hwnd,LPCSTR lpOperation,LPCSTR lpFile,LPCSTR lpParameters,LPCSTR lpDirectory,INT nShowCmd);
   SHSTDAPI_(HINSTANCE) ShellExecuteW(HWND hwnd,LPCWSTR lpOperation,LPCWSTR lpFile,LPCWSTR lpParameters,LPCWSTR lpDirectory,INT nShowCmd);
-  SHSTDAPI_(HINSTANCE) FindExecutableA(LPCSTR lpFile,LPCSTR lpDirectory,LPSTR lpResult);
-  SHSTDAPI_(HINSTANCE) FindExecutableW(LPCWSTR lpFile,LPCWSTR lpDirectory,LPWSTR lpResult);
-  SHSTDAPI_(LPWSTR *) CommandLineToArgvW(LPCWSTR lpCmdLine,int*pNumArgs);
+  SHSTDAPI_(HINSTANCE) پیدا_کن_Executable_A(LPCSTR lpFile,LPCSTR lpDirectory,LPSTR lp_نتیجه);
+  SHSTDAPI_(HINSTANCE) پیدا_کن_Executable_W(LPCWSTR lpFile,LPCWSTR lpDirectory,LPWSTR lp_نتیجه);
+  SHSTDAPI_(LPWSTR *) Command_سطر_مقصد_Argv_W(LPCWSTR lp_Cmd_سطر,صحيح*p_رقم_آرگومانها);
 
-#ifdef __cplusplus
+#اگر_تعریف_شده __cplusplus
 }
-#endif
+#پایان_اگر
 
-#if !defined(_WIN64)
-#include <poppack.h>
-#endif
-#endif
+#إذا !defined(_WIN64)
+#ضمن <poppack.h>
+#پایان_اگر
+#پایان_اگر

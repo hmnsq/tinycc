@@ -3,73 +3,73 @@
  * This file is part of the w64 mingw-runtime package.
  * No warranty is given; refer to the file DISCLAIMER within this package.
  */
-#ifndef _INC_ERRNO
-#define _INC_ERRNO
+#اگر_تعریف_نشده _INC_ERRNO
+#تعریف_کن _INC_ERRNO
 
-#include <_mingw.h>
+#ضمن <_mingw.h>
 
-#ifdef __cplusplus
-extern "C" {
-#endif
+#اگر_تعریف_شده __cplusplus
+خارجي "C" {
+#پایان_اگر
 
-#ifndef _CRT_ERRNO_DEFINED
-#define _CRT_ERRNO_DEFINED
-  _CRTIMP int *__cdecl _errno(void);
-#define errno (*_errno())
+#اگر_تعریف_نشده _CRT_ERRNO_DEFINED
+#تعریف_کن _CRT_ERRNO_DEFINED
+  _CRTIMP صحيح *__cdecl _errno(فراغ);
+#تعریف_کن errno (*_errno())
 
-  errno_t __cdecl _set_errno(int _Value);
-  errno_t __cdecl _get_errno(int *_Value);
-#endif
+  errno_t __cdecl مجموعه_errno(صحيح مقدار_2);
+  errno_t __cdecl _get_errno(صحيح *مقدار_2);
+#پایان_اگر
 
-#define EPERM 1
-#define ENOENT 2
-#define ESRCH 3
-#define EINTR 4
-#define EIO 5
-#define ENXIO 6
-#define E2BIG 7
-#define ENOEXEC 8
-#define EBADF 9
-#define ECHILD 10
-#define EAGAIN 11
-#define ENOMEM 12
-#define EACCES 13
-#define EFAULT 14
-#define EBUSY 16
-#define EEXIST 17
-#define EXDEV 18
-#define ENODEV 19
-#define ENOTDIR 20
-#define EISDIR 21
-#define ENFILE 23
-#define EMFILE 24
-#define ENOTTY 25
-#define EFBIG 27
-#define ENOSPC 28
-#define ESPIPE 29
-#define EROFS 30
-#define EMLINK 31
-#define EPIPE 32
-#define EDOM 33
-#define EDEADLK 36
-#define ENAMETOOLONG 38
-#define ENOLCK 39
-#define ENOSYS 40
-#define ENOTEMPTY 41
+#تعریف_کن EPERM 1
+#تعریف_کن ENOENT 2
+#تعریف_کن ESRCH 3
+#تعریف_کن EINTR 4
+#تعریف_کن EIO 5
+#تعریف_کن ENXIO 6
+#تعریف_کن E2BIG 7
+#تعریف_کن ENOEXEC 8
+#تعریف_کن EBADF 9
+#تعریف_کن ECHILD 10
+#تعریف_کن EAGAIN 11
+#تعریف_کن ENOMEM 12
+#تعریف_کن EACCES 13
+#تعریف_کن EFAULT 14
+#تعریف_کن EBUSY 16
+#تعریف_کن EEXIST 17
+#تعریف_کن EXDEV 18
+#تعریف_کن ENODEV 19
+#تعریف_کن ENOTDIR 20
+#تعریف_کن EISDIR 21
+#تعریف_کن ENFILE 23
+#تعریف_کن EMFILE 24
+#تعریف_کن ENOTTY 25
+#تعریف_کن EFBIG 27
+#تعریف_کن ENOSPC 28
+#تعریف_کن ESPIPE 29
+#تعریف_کن EROFS 30
+#تعریف_کن EMLINK 31
+#تعریف_کن EPIPE 32
+#تعریف_کن EDOM 33
+#تعریف_کن EDEADLK 36
+#تعریف_کن ENAMETOOLONG 38
+#تعریف_کن ENOLCK 39
+#تعریف_کن ENOSYS 40
+#تعریف_کن ENOTEMPTY 41
 
-#ifndef RC_INVOKED
-#if !defined(_SECURECRT_ERRCODE_VALUES_DEFINED)
-#define _SECURECRT_ERRCODE_VALUES_DEFINED
-#define EINVAL 22
-#define ERANGE 34
-#define EILSEQ 42
-#define STRUNCATE 80
-#endif
-#endif
+#اگر_تعریف_نشده RC_INVOKED
+#إذا !defined(SECURECRT_ERRCODE_مقادیر_DEFINED)
+#تعریف_کن SECURECRT_ERRCODE_مقادیر_DEFINED
+#تعریف_کن EINVAL 22
+#تعریف_کن ERANGE 34
+#تعریف_کن EILSEQ 42
+#تعریف_کن STRUNCATE 80
+#پایان_اگر
+#پایان_اگر
 
-#define EDEADLOCK EDEADLK
+#تعریف_کن EDEADLOCK EDEADLK
 
-#ifdef __cplusplus
+#اگر_تعریف_شده __cplusplus
 }
-#endif
-#endif
+#پایان_اگر
+#پایان_اگر

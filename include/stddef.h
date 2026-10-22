@@ -1,27 +1,27 @@
-#ifndef _STDDEF_H
-#define _STDDEF_H
+#اگر_تعریف_نشده _STDDEF_H
+#تعریف_کن _STDDEF_H
 
-typedef __SIZE_TYPE__ size_t;
-typedef __PTRDIFF_TYPE__ ssize_t;
-typedef __WCHAR_TYPE__ wchar_t;
-typedef __PTRDIFF_TYPE__ ptrdiff_t;
-typedef __PTRDIFF_TYPE__ intptr_t;
-typedef __SIZE_TYPE__ uintptr_t;
+تعريفنوع __SIZE_TYPE__ اندازه_t;
+تعريفنوع __PTRDIFF_TYPE__ ssize_t;
+تعريفنوع __WCHAR_TYPE__ wchar_t;
+تعريفنوع __PTRDIFF_TYPE__ ptrdiff_t;
+تعريفنوع __PTRDIFF_TYPE__ intptr_t;
+تعريفنوع __SIZE_TYPE__ uintptr_t;
 
-#if __STDC_VERSION__ >= 201112L
-typedef union { long long __ll; long double __ld; } max_align_t;
-#endif
+#إذا __STDC_VERSION__ >= 201112L
+تعريفنوع اتحاد { دراز دراز __ll; دراز مزدوج __ld; } max_align_t;
+#پایان_اگر
 
-#ifndef NULL
-#define NULL ((void*)0)
-#endif
+#اگر_تعریف_نشده عدم
+#تعریف_کن عدم ((فراغ*)0)
+#پایان_اگر
 
-#undef offsetof
-#define offsetof(type, field) __builtin_offsetof(type, field)
+#لغو_تعریف offsetof
+#تعریف_کن offsetof(type, فیلد) __builtin_offsetof(type, فیلد)
 
-void *alloca(size_t size);
+فراغ *alloca(اندازه_t اندازه);
 
-#endif
+#پایان_اگر
 
 /* Older glibc require a wint_t from <stddef.h> (when requested
    by __need_wint_t, as otherwise stddef.h isn't allowed to
@@ -30,10 +30,10 @@ void *alloca(size_t size);
    already (without requiring wint_t).  Some other libs define _WINT_T
    if they've already provided that type, so we can use that as guard.
    TCC defines __WINT_TYPE__ for us.  */
-#if defined (__need_wint_t)
-#ifndef _WINT_T
-#define _WINT_T
-typedef __WINT_TYPE__ wint_t;
-#endif
-#undef __need_wint_t
-#endif
+#إذا defined (__need_wint_t)
+#اگر_تعریف_نشده _WINT_T
+#تعریف_کن _WINT_T
+تعريفنوع __WINT_TYPE__ wint_t;
+#پایان_اگر
+#لغو_تعریف __need_wint_t
+#پایان_اگر

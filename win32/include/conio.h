@@ -3,394 +3,394 @@
  * This file is part of the w64 mingw-runtime package.
  * No warranty is given; refer to the file DISCLAIMER within this package.
  */
-#ifndef _INC_CONIO
-#define _INC_CONIO
+#اگر_تعریف_نشده _INC_CONIO
+#تعریف_کن _INC_CONIO
 
-#include <_mingw.h>
+#ضمن <_mingw.h>
 
-#ifdef __cplusplus
-extern "C" {
-#endif
+#اگر_تعریف_شده __cplusplus
+خارجي "C" {
+#پایان_اگر
 
-  _CRTIMP char *_cgets(char *_Buffer);
-  _CRTIMP int __cdecl _cprintf(const char *_Format,...);
-  _CRTIMP int __cdecl _cputs(const char *_Str);
-  _CRTIMP int __cdecl _cscanf(const char *_Format,...);
-  _CRTIMP int __cdecl _cscanf_l(const char *_Format,_locale_t _Locale,...);
-  _CRTIMP int __cdecl _getch(void);
-  _CRTIMP int __cdecl _getche(void);
-  _CRTIMP int __cdecl _vcprintf(const char *_Format,va_list _ArgList);
-  _CRTIMP int __cdecl _cprintf_p(const char *_Format,...);
-  _CRTIMP int __cdecl _vcprintf_p(const char *_Format,va_list _ArgList);
-  _CRTIMP int __cdecl _cprintf_l(const char *_Format,_locale_t _Locale,...);
-  _CRTIMP int __cdecl _vcprintf_l(const char *_Format,_locale_t _Locale,va_list _ArgList);
-  _CRTIMP int __cdecl _cprintf_p_l(const char *_Format,_locale_t _Locale,...);
-  _CRTIMP int __cdecl _vcprintf_p_l(const char *_Format,_locale_t _Locale,va_list _ArgList);
-  _CRTIMP int __cdecl _kbhit(void);
+  _CRTIMP حرف *_cgets(حرف *میانگیر_2);
+  _CRTIMP صحيح __cdecl _cprintf(ثابت حرف *_Format,...);
+  _CRTIMP صحيح __cdecl _cputs(ثابت حرف *_Str);
+  _CRTIMP صحيح __cdecl _cscanf(ثابت حرف *_Format,...);
+  _CRTIMP صحيح __cdecl _cscanf_l(ثابت حرف *_Format,_locale_t _Locale,...);
+  _CRTIMP صحيح __cdecl _getch(فراغ);
+  _CRTIMP صحيح __cdecl _getche(فراغ);
+  _CRTIMP صحيح __cdecl _vcprintf(ثابت حرف *_Format,va_list _ArgList);
+  _CRTIMP صحيح __cdecl _cprintf_p(ثابت حرف *_Format,...);
+  _CRTIMP صحيح __cdecl _vcprintf_p(ثابت حرف *_Format,va_list _ArgList);
+  _CRTIMP صحيح __cdecl _cprintf_l(ثابت حرف *_Format,_locale_t _Locale,...);
+  _CRTIMP صحيح __cdecl _vcprintf_l(ثابت حرف *_Format,_locale_t _Locale,va_list _ArgList);
+  _CRTIMP صحيح __cdecl _cprintf_p_l(ثابت حرف *_Format,_locale_t _Locale,...);
+  _CRTIMP صحيح __cdecl _vcprintf_p_l(ثابت حرف *_Format,_locale_t _Locale,va_list _ArgList);
+  _CRTIMP صحيح __cdecl _kbhit(فراغ);
 
-#if defined(_X86_) && !defined(__x86_64)
-  int __cdecl _inp(unsigned short);
-  unsigned short __cdecl _inpw(unsigned short);
-  unsigned long __cdecl _inpd(unsigned short);
-  int __cdecl _outp(unsigned short,int);
-  unsigned short __cdecl _outpw(unsigned short,unsigned short);
-  unsigned long __cdecl _outpd(unsigned short,unsigned long);
-#endif
+#إذا defined(_X86_) && !defined(__x86_64)
+  صحيح __cdecl _inp(بیعلامت کوتاه);
+  بیعلامت کوتاه __cdecl _inpw(بیعلامت کوتاه);
+  بیعلامت دراز __cdecl _inpd(بیعلامت کوتاه);
+  صحيح __cdecl _outp(بیعلامت کوتاه,صحيح);
+  بیعلامت کوتاه __cdecl _outpw(بیعلامت کوتاه,بیعلامت کوتاه);
+  بیعلامت دراز __cdecl _outpd(بیعلامت کوتاه,بیعلامت دراز);
+#پایان_اگر
 
-  _CRTIMP int __cdecl _putch(int _Ch);
-  _CRTIMP int __cdecl _ungetch(int _Ch);
-  _CRTIMP int __cdecl _getch_nolock(void);
-  _CRTIMP int __cdecl _getche_nolock(void);
-  _CRTIMP int __cdecl _putch_nolock(int _Ch);
-  _CRTIMP int __cdecl _ungetch_nolock(int _Ch);
+  _CRTIMP صحيح __cdecl _putch(صحيح _Ch);
+  _CRTIMP صحيح __cdecl _ungetch(صحيح _Ch);
+  _CRTIMP صحيح __cdecl _getch_nolock(فراغ);
+  _CRTIMP صحيح __cdecl _getche_nolock(فراغ);
+  _CRTIMP صحيح __cdecl _putch_nolock(صحيح _Ch);
+  _CRTIMP صحيح __cdecl _ungetch_nolock(صحيح _Ch);
 
-#ifndef _WCONIO_DEFINED
-#define _WCONIO_DEFINED
+#اگر_تعریف_نشده _WCONIO_DEFINED
+#تعریف_کن _WCONIO_DEFINED
 
-#ifndef WEOF
-#define WEOF (wint_t)(0xFFFF)
-#endif
+#اگر_تعریف_نشده WEOF
+#تعریف_کن WEOF (wint_t)(0xFFFF)
+#پایان_اگر
 
-  _CRTIMP wchar_t *_cgetws(wchar_t *_Buffer);
-  _CRTIMP wint_t __cdecl _getwch(void);
-  _CRTIMP wint_t __cdecl _getwche(void);
+  _CRTIMP wchar_t *_cgetws(wchar_t *میانگیر_2);
+  _CRTIMP wint_t __cdecl _getwch(فراغ);
+  _CRTIMP wint_t __cdecl _getwche(فراغ);
   _CRTIMP wint_t __cdecl _putwch(wchar_t _WCh);
   _CRTIMP wint_t __cdecl _ungetwch(wint_t _WCh);
-  _CRTIMP int __cdecl _cputws(const wchar_t *_String);
-  _CRTIMP int __cdecl _cwprintf(const wchar_t *_Format,...);
-  _CRTIMP int __cdecl _cwscanf(const wchar_t *_Format,...);
-  _CRTIMP int __cdecl _cwscanf_l(const wchar_t *_Format,_locale_t _Locale,...);
-  _CRTIMP int __cdecl _vcwprintf(const wchar_t *_Format,va_list _ArgList);
-  _CRTIMP int __cdecl _cwprintf_p(const wchar_t *_Format,...);
-  _CRTIMP int __cdecl _vcwprintf_p(const wchar_t *_Format,va_list _ArgList);
-  _CRTIMP int __cdecl _cwprintf_l(const wchar_t *_Format,_locale_t _Locale,...);
-  _CRTIMP int __cdecl _vcwprintf_l(const wchar_t *_Format,_locale_t _Locale,va_list _ArgList);
-  _CRTIMP int __cdecl _cwprintf_p_l(const wchar_t *_Format,_locale_t _Locale,...);
-  _CRTIMP int __cdecl _vcwprintf_p_l(const wchar_t *_Format,_locale_t _Locale,va_list _ArgList);
+  _CRTIMP صحيح __cdecl _cputws(ثابت wchar_t *_String);
+  _CRTIMP صحيح __cdecl _cwprintf(ثابت wchar_t *_Format,...);
+  _CRTIMP صحيح __cdecl _cwscanf(ثابت wchar_t *_Format,...);
+  _CRTIMP صحيح __cdecl _cwscanf_l(ثابت wchar_t *_Format,_locale_t _Locale,...);
+  _CRTIMP صحيح __cdecl _vcwprintf(ثابت wchar_t *_Format,va_list _ArgList);
+  _CRTIMP صحيح __cdecl _cwprintf_p(ثابت wchar_t *_Format,...);
+  _CRTIMP صحيح __cdecl _vcwprintf_p(ثابت wchar_t *_Format,va_list _ArgList);
+  _CRTIMP صحيح __cdecl _cwprintf_l(ثابت wchar_t *_Format,_locale_t _Locale,...);
+  _CRTIMP صحيح __cdecl _vcwprintf_l(ثابت wchar_t *_Format,_locale_t _Locale,va_list _ArgList);
+  _CRTIMP صحيح __cdecl _cwprintf_p_l(ثابت wchar_t *_Format,_locale_t _Locale,...);
+  _CRTIMP صحيح __cdecl _vcwprintf_p_l(ثابت wchar_t *_Format,_locale_t _Locale,va_list _ArgList);
   _CRTIMP wint_t __cdecl _putwch_nolock(wchar_t _WCh);
-  _CRTIMP wint_t __cdecl _getwch_nolock(void);
-  _CRTIMP wint_t __cdecl _getwche_nolock(void);
+  _CRTIMP wint_t __cdecl _getwch_nolock(فراغ);
+  _CRTIMP wint_t __cdecl _getwche_nolock(فراغ);
   _CRTIMP wint_t __cdecl _ungetwch_nolock(wint_t _WCh);
-#endif
+#پایان_اگر
 
-#ifndef	NO_OLDNAMES
-  char *__cdecl cgets(char *_Buffer);
-  int __cdecl cprintf(const char *_Format,...);
-  int __cdecl cputs(const char *_Str);
-  int __cdecl cscanf(const char *_Format,...);
-  int __cdecl getch(void);
-  int __cdecl getche(void);
-  int __cdecl kbhit(void);
-  int __cdecl putch(int _Ch);
-  int __cdecl ungetch(int _Ch);
+#اگر_تعریف_نشده	NO_OLDNAMES
+  حرف *__cdecl cgets(حرف *میانگیر_2);
+  صحيح __cdecl cprintf(ثابت حرف *_Format,...);
+  صحيح __cdecl cputs(ثابت حرف *_Str);
+  صحيح __cdecl cscanf(ثابت حرف *_Format,...);
+  صحيح __cdecl getch(فراغ);
+  صحيح __cdecl getche(فراغ);
+  صحيح __cdecl kbhit(فراغ);
+  صحيح __cdecl putch(صحيح _Ch);
+  صحيح __cdecl ungetch(صحيح _Ch);
 
-#if (defined(_X86_) && !defined(__x86_64))
-  int __cdecl inp(unsigned short);
-  unsigned short __cdecl inpw(unsigned short);
-  int __cdecl outp(unsigned short,int);
-  unsigned short __cdecl outpw(unsigned short,unsigned short);
-#endif
+#إذا (defined(_X86_) && !defined(__x86_64))
+  صحيح __cdecl inp(بیعلامت کوتاه);
+  بیعلامت کوتاه __cdecl inpw(بیعلامت کوتاه);
+  صحيح __cdecl outp(بیعلامت کوتاه,صحيح);
+  بیعلامت کوتاه __cdecl outpw(بیعلامت کوتاه,بیعلامت کوتاه);
+#پایان_اگر
 
   /* I/O intrin functions.  */
-  __CRT_INLINE unsigned char __inbyte(unsigned short Port)
+  __CRT_INLINE بیعلامت حرف __inbyte(بیعلامت کوتاه پورت)
   {
-      unsigned char value;
+      بیعلامت حرف مقدار;
       __asm__ __volatile__ ("inb %w1,%b0"
-          : "=a" (value)
-          : "Nd" (Port));
-      return value;
+          : "=a" (مقدار)
+          : "Nd" (پورت));
+      أرجع مقدار;
   }
-  __CRT_INLINE unsigned short __inword(unsigned short Port)
+  __CRT_INLINE بیعلامت کوتاه __inword(بیعلامت کوتاه پورت)
   {
-      unsigned short value;
+      بیعلامت کوتاه مقدار;
       __asm__ __volatile__ ("inw %w1,%w0"
-          : "=a" (value)
-          : "Nd" (Port));
-      return value;
+          : "=a" (مقدار)
+          : "Nd" (پورت));
+      أرجع مقدار;
   }
-  __CRT_INLINE unsigned long __indword(unsigned short Port)
+  __CRT_INLINE بیعلامت دراز __indword(بیعلامت کوتاه پورت)
   {
-      unsigned long value;
+      بیعلامت دراز مقدار;
       __asm__ __volatile__ ("inl %w1,%0"
-          : "=a" (value)
-          : "Nd" (Port));
-      return value;
+          : "=a" (مقدار)
+          : "Nd" (پورت));
+      أرجع مقدار;
   }
-  __CRT_INLINE void __outbyte(unsigned short Port,unsigned char Data)
+  __CRT_INLINE فراغ __outbyte(بیعلامت کوتاه پورت,بیعلامت حرف داده_3)
   {
       __asm__ __volatile__ ("outb %b0,%w1"
           :
-          : "a" (Data), "Nd" (Port));
+          : "a" (داده_3), "Nd" (پورت));
   }
-  __CRT_INLINE void __outword(unsigned short Port,unsigned short Data)
+  __CRT_INLINE فراغ __outword(بیعلامت کوتاه پورت,بیعلامت کوتاه داده_3)
   {
       __asm__ __volatile__ ("outw %w0,%w1"
           :
-          : "a" (Data), "Nd" (Port));
+          : "a" (داده_3), "Nd" (پورت));
   }
-  __CRT_INLINE void __outdword(unsigned short Port,unsigned long Data)
+  __CRT_INLINE فراغ __outdword(بیعلامت کوتاه پورت,بیعلامت دراز داده_3)
   {
       __asm__ __volatile__ ("outl %0,%w1"
           :
-          : "a" (Data), "Nd" (Port));
+          : "a" (داده_3), "Nd" (پورت));
   }
-  __CRT_INLINE void __inbytestring(unsigned short Port,unsigned char *Buffer,unsigned long Count)
+  __CRT_INLINE فراغ __inbytestring(بیعلامت کوتاه پورت,بیعلامت حرف *میانگیر_3,بیعلامت دراز شمار_3)
   {
 	__asm__ __volatile__ (
 		"cld ; rep ; insb " 
-		: "=D" (Buffer), "=c" (Count)
-		: "d"(Port), "0"(Buffer), "1" (Count)
+		: "=D" (میانگیر_3), "=c" (شمار_3)
+		: "d"(پورت), "0"(میانگیر_3), "1" (شمار_3)
 		);
   }
-  __CRT_INLINE void __inwordstring(unsigned short Port,unsigned short *Buffer,unsigned long Count)
+  __CRT_INLINE فراغ __inwordstring(بیعلامت کوتاه پورت,بیعلامت کوتاه *میانگیر_3,بیعلامت دراز شمار_3)
   {
 	__asm__ __volatile__ (
 		"cld ; rep ; insw " 
-		: "=D" (Buffer), "=c" (Count)
-		: "d"(Port), "0"(Buffer), "1" (Count)
+		: "=D" (میانگیر_3), "=c" (شمار_3)
+		: "d"(پورت), "0"(میانگیر_3), "1" (شمار_3)
 		);
   }
-  __CRT_INLINE void __indwordstring(unsigned short Port,unsigned long *Buffer,unsigned long Count)
+  __CRT_INLINE فراغ __indwordstring(بیعلامت کوتاه پورت,بیعلامت دراز *میانگیر_3,بیعلامت دراز شمار_3)
   {
 	__asm__ __volatile__ (
 		"cld ; rep ; insl " 
-		: "=D" (Buffer), "=c" (Count)
-		: "d"(Port), "0"(Buffer), "1" (Count)
+		: "=D" (میانگیر_3), "=c" (شمار_3)
+		: "d"(پورت), "0"(میانگیر_3), "1" (شمار_3)
 		);
   }
 
-  __CRT_INLINE void __outbytestring(unsigned short Port,unsigned char *Buffer,unsigned long Count)
+  __CRT_INLINE فراغ __outbytestring(بیعلامت کوتاه پورت,بیعلامت حرف *میانگیر_3,بیعلامت دراز شمار_3)
   {
       __asm__ __volatile__ (
           "cld ; rep ; outsb " 
-          : "=S" (Buffer), "=c" (Count)
-          : "d"(Port), "0"(Buffer), "1" (Count)
+          : "=S" (میانگیر_3), "=c" (شمار_3)
+          : "d"(پورت), "0"(میانگیر_3), "1" (شمار_3)
           );
   }
-  __CRT_INLINE void __outwordstring(unsigned short Port,unsigned short *Buffer,unsigned long Count)
+  __CRT_INLINE فراغ __outwordstring(بیعلامت کوتاه پورت,بیعلامت کوتاه *میانگیر_3,بیعلامت دراز شمار_3)
   {
       __asm__ __volatile__ (
           "cld ; rep ; outsw " 
-          : "=S" (Buffer), "=c" (Count)
-          : "d"(Port), "0"(Buffer), "1" (Count)
+          : "=S" (میانگیر_3), "=c" (شمار_3)
+          : "d"(پورت), "0"(میانگیر_3), "1" (شمار_3)
           );
   }
-  __CRT_INLINE void __outdwordstring(unsigned short Port,unsigned long *Buffer,unsigned long Count)
+  __CRT_INLINE فراغ __outdwordstring(بیعلامت کوتاه پورت,بیعلامت دراز *میانگیر_3,بیعلامت دراز شمار_3)
   {
       __asm__ __volatile__ (
           "cld ; rep ; outsl " 
-          : "=S" (Buffer), "=c" (Count)
-          : "d"(Port), "0"(Buffer), "1" (Count)
+          : "=S" (میانگیر_3), "=c" (شمار_3)
+          : "d"(پورت), "0"(میانگیر_3), "1" (شمار_3)
           );
   }
 
-  __CRT_INLINE unsigned __int64 __readcr0(void)
+  __CRT_INLINE بیعلامت __int64 __readcr0(فراغ)
   {
-      unsigned __int64 value;
+      بیعلامت __int64 مقدار;
       __asm__ __volatile__ (
           "mov %%cr0, %[value]" 
-          : [value] "=q" (value));
-      return value;
+          : [مقدار] "=q" (مقدار));
+      أرجع مقدار;
   }
  
   /* Register sizes are different between 32/64 bit mode. So we have to do this for _WIN64 and _WIN32
      separately.  */
  
-#ifdef _WIN64
-  __CRT_INLINE void __writecr0(unsigned __int64 Data)
+#اگر_تعریف_شده _WIN64
+  __CRT_INLINE فراغ __writecr0(بیعلامت __int64 داده_3)
   {
    __asm__ __volatile__ (
        "mov %[Data], %%cr0"
        :
-       : [Data] "q" (Data)
+       : [داده_3] "q" (داده_3)
        : "memory");
   }
  
-  __CRT_INLINE unsigned __int64 __readcr2(void)
+  __CRT_INLINE بیعلامت __int64 __readcr2(فراغ)
   {
-      unsigned __int64 value;
+      بیعلامت __int64 مقدار;
       __asm__ __volatile__ (
           "mov %%cr2, %[value]" 
-          : [value] "=q" (value));
-      return value;
+          : [مقدار] "=q" (مقدار));
+      أرجع مقدار;
   }
 
- __CRT_INLINE void __writecr2(unsigned __int64 Data)
+ __CRT_INLINE فراغ __writecr2(بیعلامت __int64 داده_3)
  {
    __asm__ __volatile__ (
        "mov %[Data], %%cr2"
        :
-       : [Data] "q" (Data)
+       : [داده_3] "q" (داده_3)
        : "memory");
  }
  
-  __CRT_INLINE unsigned __int64 __readcr3(void)
+  __CRT_INLINE بیعلامت __int64 __readcr3(فراغ)
   {
-      unsigned __int64 value;
+      بیعلامت __int64 مقدار;
       __asm__ __volatile__ (
           "mov %%cr3, %[value]" 
-          : [value] "=q" (value));
-      return value;
+          : [مقدار] "=q" (مقدار));
+      أرجع مقدار;
   }
 
- __CRT_INLINE void __writecr3(unsigned __int64 Data)
+ __CRT_INLINE فراغ __writecr3(بیعلامت __int64 داده_3)
  {
    __asm__ __volatile__ (
        "mov %[Data], %%cr3"
        :
-       : [Data] "q" (Data)
+       : [داده_3] "q" (داده_3)
        : "memory");
  }
  
-  __CRT_INLINE unsigned __int64 __readcr4(void)
+  __CRT_INLINE بیعلامت __int64 __readcr4(فراغ)
   {
-      unsigned __int64 value;
+      بیعلامت __int64 مقدار;
       __asm__ __volatile__ (
           "mov %%cr4, %[value]" 
-          : [value] "=q" (value));
-      return value;
+          : [مقدار] "=q" (مقدار));
+      أرجع مقدار;
   }
 
- __CRT_INLINE void __writecr4(unsigned __int64 Data)
+ __CRT_INLINE فراغ __writecr4(بیعلامت __int64 داده_3)
  {
      __asm__ __volatile__ (
          "mov %[Data], %%cr4"
          :
-         : [Data] "q" (Data)
+         : [داده_3] "q" (داده_3)
          : "memory");
  }
  
-  __CRT_INLINE unsigned __int64 __readcr8(void)
+  __CRT_INLINE بیعلامت __int64 __readcr8(فراغ)
   {
-      unsigned __int64 value;
+      بیعلامت __int64 مقدار;
       __asm__ __volatile__ (
           "mov %%cr8, %[value]" 
-          : [value] "=q" (value));
-      return value;
+          : [مقدار] "=q" (مقدار));
+      أرجع مقدار;
   }
 
- __CRT_INLINE void __writecr8(unsigned __int64 Data)
+ __CRT_INLINE فراغ __writecr8(بیعلامت __int64 داده_3)
  {
    __asm__ __volatile__ (
        "mov %[Data], %%cr8"
        :
-       : [Data] "q" (Data)
+       : [داده_3] "q" (داده_3)
        : "memory");
  }
  
-#elif defined(_WIN32)
+#وإلاإذا defined(_WIN32)
 
-  __CRT_INLINE void __writecr0(unsigned Data)
+  __CRT_INLINE فراغ __writecr0(بیعلامت داده_3)
   {
     __asm__ __volatile__ (
        "mov %[Data], %%cr0"
        :
-       : [Data] "q" (Data)
+       : [داده_3] "q" (داده_3)
        : "memory");
   }
  
-  __CRT_INLINE unsigned long __readcr2(void)
+  __CRT_INLINE بیعلامت دراز __readcr2(فراغ)
   {
-      unsigned long value;
+      بیعلامت دراز مقدار;
       __asm__ __volatile__ (
           "mov %%cr2, %[value]" 
-          : [value] "=q" (value));
-      return value;
+          : [مقدار] "=q" (مقدار));
+      أرجع مقدار;
   }
 
- __CRT_INLINE void __writecr2(unsigned Data)
+ __CRT_INLINE فراغ __writecr2(بیعلامت داده_3)
  {
    __asm__ __volatile__ (
        "mov %[Data], %%cr2"
        :
-       : [Data] "q" (Data)
+       : [داده_3] "q" (داده_3)
        : "memory");
  }
  
-  __CRT_INLINE unsigned long __readcr3(void)
+  __CRT_INLINE بیعلامت دراز __readcr3(فراغ)
   {
-      unsigned long value;
+      بیعلامت دراز مقدار;
       __asm__ __volatile__ (
           "mov %%cr3, %[value]" 
-          : [value] "=q" (value));
-      return value;
+          : [مقدار] "=q" (مقدار));
+      أرجع مقدار;
   }
 
- __CRT_INLINE void __writecr3(unsigned Data)
+ __CRT_INLINE فراغ __writecr3(بیعلامت داده_3)
  {
    __asm__ __volatile__ (
        "mov %[Data], %%cr3"
        :
-       : [Data] "q" (Data)
+       : [داده_3] "q" (داده_3)
        : "memory");
  }
  
-  __CRT_INLINE unsigned long __readcr4(void)
+  __CRT_INLINE بیعلامت دراز __readcr4(فراغ)
   {
-      unsigned long value;
+      بیعلامت دراز مقدار;
       __asm__ __volatile__ (
           "mov %%cr4, %[value]" 
-          : [value] "=q" (value));
-      return value;
+          : [مقدار] "=q" (مقدار));
+      أرجع مقدار;
   }
 
- __CRT_INLINE void __writecr4(unsigned Data)
+ __CRT_INLINE فراغ __writecr4(بیعلامت داده_3)
  {
      __asm__ __volatile__ (
          "mov %[Data], %%cr4"
          :
-         : [Data] "q" (Data)
+         : [داده_3] "q" (داده_3)
          : "memory");
  }
  
- __CRT_INLINE unsigned long __readcr8(void)
+ __CRT_INLINE بیعلامت دراز __readcr8(فراغ)
  {
-   unsigned long value;      __asm__ __volatile__ (
+   بیعلامت دراز مقدار;      __asm__ __volatile__ (
           "mov %%cr8, %[value]" 
-          : [value] "=q" (value));
-     return value;
+          : [مقدار] "=q" (مقدار));
+     أرجع مقدار;
  }
 
- __CRT_INLINE void __writecr8(unsigned Data)
+ __CRT_INLINE فراغ __writecr8(بیعلامت داده_3)
  {
    __asm__ __volatile__ (
        "mov %[Data], %%cr8"
        :
-       : [Data] "q" (Data)
+       : [داده_3] "q" (داده_3)
        : "memory");
  }
  
-#endif
+#پایان_اگر
 
-  __CRT_INLINE unsigned __int64 __readmsr(unsigned long msr)
+  __CRT_INLINE بیعلامت __int64 __readmsr(بیعلامت دراز msr)
   {
-      unsigned __int64 val1, val2;
+      بیعلامت __int64 val1, val2;
        __asm__ __volatile__(
            "rdmsr"
            : "=a" (val1), "=d" (val2)
            : "c" (msr));
-      return val1 | (val2 << 32);
+      أرجع val1 | (val2 << 32);
   }
 
- __CRT_INLINE void __writemsr (unsigned long msr, unsigned __int64 Value)
+ __CRT_INLINE فراغ __writemsr (بیعلامت دراز msr, بیعلامت __int64 مقدار_3)
  {
-    unsigned long val1 = Value, val2 = Value >> 32;
+    بیعلامت دراز val1 = مقدار_3, val2 = مقدار_3 >> 32;
    __asm__ __volatile__ (
        "wrmsr"
        :
        : "c" (msr), "a" (val1), "d" (val2));
  }
  
-  __CRT_INLINE unsigned __int64 __rdtsc(void)
+  __CRT_INLINE بیعلامت __int64 __rdtsc(فراغ)
   {
-      unsigned __int64 val1, val2;
+      بیعلامت __int64 val1, val2;
       __asm__ __volatile__ (
           "rdtsc" 
           : "=a" (val1), "=d" (val2));
-      return val1 | (val2 << 32);
+      أرجع val1 | (val2 << 32);
   }
 
-  __CRT_INLINE void __cpuid(int CPUInfo[4], int InfoType)
+  __CRT_INLINE فراغ __cpuid(صحيح CPUInfo[4], صحيح InfoType)
   {
       __asm__ __volatile__ (
           "cpuid"
@@ -398,12 +398,12 @@ extern "C" {
           : "a" (InfoType));
   }
 
-#endif
+#پایان_اگر
 
-#ifdef __cplusplus
+#اگر_تعریف_شده __cplusplus
 }
-#endif
+#پایان_اگر
 
-#include <sec_api/conio_s.h>
+#ضمن <sec_api/conio_s.h>
 
-#endif
+#پایان_اگر
