@@ -1,18 +1,18 @@
-#include <stdio.h>
+#अन्तर्भाव <stdio.h>
 
-int main() 
+पूर्णाङ्क main() 
 {
-   int a;
+   पूर्णाङ्क a;
    a = 42;
-   printf("%d\n", a);
+   म_लिखो("%d\n", a);
 
-   int b = 64;
-   printf("%d\n", b);
+   पूर्णाङ्क b = 64;
+   म_लिखो("%d\n", b);
 
-   int c = 12, d = 34;
-   printf("%d, %d\n", c, d);
+   पूर्णाङ्क c = 12, d = 34;
+   म_लिखो("%d, %d\n", c, d);
 
-   return 0;
+   प्रत्यागम 0;
 }
 
 // vim: set expandtab ts=4 sw=3 sts=3 tw=80 :

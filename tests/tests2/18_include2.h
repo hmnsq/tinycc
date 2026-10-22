@@ -1,2 +1,2 @@
 #pragma once
-printf ("counter %d\n", __COUNTER__);
+म_लिखो ("counter %d\n", __COUNTER__);

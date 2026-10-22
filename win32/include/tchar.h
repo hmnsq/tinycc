@@ -3,7 +3,7 @@
  * This file is part of the w64 mingw-runtime package.
  * No warranty is given; refer to the file DISCLAIMER within this package.
  */
-#include <_mingw.h>
+#अन्तर्भाव <_mingw.h>
 
 #ifndef _INC_TCHAR
 #define _INC_TCHAR
@@ -13,7 +13,7 @@
 #endif
 
 #ifdef __cplusplus
-extern "C" {
+बाह्य "C" {
 #endif
 
 #define _ftcscat _tcscat
@@ -70,9 +70,9 @@ extern "C" {
 
 #ifndef _CONST_RETURN
 #ifdef __cplusplus
-#define _CONST_RETURN const
+#define _CONST_RETURN ध्रुव
 #define _CRT_CONST_CORRECT_OVERLOADS
-#else
+#अन्यथा
 #define _CONST_RETURN
 #endif
 #endif
@@ -85,31 +85,31 @@ extern "C" {
 }
 #endif
 
-#include <wchar.h>
+#अन्तर्भाव <wchar.h>
 
 #ifdef __cplusplus
-extern "C" {
+बाह्य "C" {
 #endif
 
 #ifndef _WCTYPE_T_DEFINED
 #define _WCTYPE_T_DEFINED
-  typedef unsigned short wint_t;
-  typedef unsigned short wctype_t;
+  प्रकारनिर्देश अचिन्हित लघु wint_t;
+  प्रकारनिर्देश अचिन्हित लघु wctype_t;
 #endif
 
 #ifndef __TCHAR_DEFINED
 #define __TCHAR_DEFINED
-  typedef wchar_t _TCHAR;
-  typedef wchar_t _TSCHAR;
-  typedef wchar_t _TUCHAR;
-  typedef wchar_t _TXCHAR;
-  typedef wint_t _TINT;
+  प्रकारनिर्देश ब_अक्षर_प्रकार _TCHAR;
+  प्रकारनिर्देश ब_अक्षर_प्रकार _TSCHAR;
+  प्रकारनिर्देश ब_अक्षर_प्रकार _TUCHAR;
+  प्रकारनिर्देश ब_अक्षर_प्रकार _TXCHAR;
+  प्रकारनिर्देश wint_t _TINT;
 #endif
 
 #ifndef _TCHAR_DEFINED
 #define _TCHAR_DEFINED
 #ifndef	NO_OLDNAMES
-  typedef wchar_t TCHAR;
+  प्रकारनिर्देश ब_अक्षर_प्रकार TCHAR;
 #endif
 #endif
 
@@ -386,7 +386,7 @@ extern "C" {
 #define _tcsclen wcslen
 #define _tcscnlen wcsnlen
 #define _tcsclen_l(_String,_Locale) wcslen(_String)
-#define _tcscnlen_l(_String,_Max_count,_Locale) wcsnlen_l((_String),(_Max_count))
+#define _tcscnlen_l(_String,Max_गिनती_2,_Locale) wcsnlen_l((_String),(Max_गिनती_2))
 #define _tcsnccat wcsncat
 #define _tcsnccat_l _wcsncat_l
 #define _tcsnccpy wcsncpy
@@ -446,18 +446,18 @@ extern "C" {
 #define _istleadbyte(_Char) (0)
 #define _istleadbyte_l(_Char,_Locale) (0)
 
-#define _wcsdec(_cpc1,_cpc2) ((_cpc1)>=(_cpc2) ? NULL : (_cpc2)-1)
+#define _wcsdec(_cpc1,_cpc2) ((_cpc1)>=(_cpc2) ? रिक्त : (_cpc2)-1)
 #define _wcsinc(_pc) ((_pc)+1)
-#define _wcsnextc(_cpc) ((unsigned int) *(_cpc))
+#define _wcsnextc(_cpc) ((अचिन्हित पूर्णाङ्क) *(_cpc))
 #define _wcsninc(_pc,_sz) (((_pc)+(_sz)))
-  _CRTIMP size_t __cdecl __wcsncnt(const wchar_t *_Str,size_t _MaxCount);
+  _CRTIMP माप_प्रकार __cdecl __wcsncnt(ध्रुव ब_अक्षर_प्रकार *_Str,माप_प्रकार Max_गिनती);
 #define _wcsncnt(_cpc,_sz) (__wcsncnt(_cpc,_sz))
-#define _wcsspnp(_cpc1,_cpc2) (!_cpc1 ? NULL : ((*((_cpc1)+wcsspn(_cpc1,_cpc2))) ? ((_cpc1)+wcsspn(_cpc1,_cpc2)) : NULL))
-#define _wcsncpy_l(_Destination,_Source,_Count,_Locale) (wcsncpy(_Destination,_Source,_Count))
-#define _wcsncat_l(_Destination,_Source,_Count,_Locale) (wcsncat(_Destination,_Source,_Count))
+#define _wcsspnp(_cpc1,_cpc2) (!_cpc1 ? रिक्त : ((*((_cpc1)+wcsspn(_cpc1,_cpc2))) ? ((_cpc1)+wcsspn(_cpc1,_cpc2)) : रिक्त))
+#define _wcsncpy_l(_Destination,_Source,गिनती_5,_Locale) (wcsncpy(_Destination,_Source,गिनती_5))
+#define _wcsncat_l(_Destination,_Source,गिनती_5,_Locale) (wcsncat(_Destination,_Source,गिनती_5))
 #define _wcstok_l(_String,_Delimiters,_Locale) (wcstok(_String,_Delimiters))
-#define _wcsnset_l(_Destination,_Value,_Count,_Locale) (_wcsnset(_Destination,_Value,_Count))
-#define _wcsset_l(_Destination,_Value,_Locale) (_wcsset(_Destination,_Value))
+#define _wcsnset_l(_Destination,मूल्य_2,गिनती_5,_Locale) (_wcsnset(_Destination,मूल्य_2,गिनती_5))
+#define _wcsset_l(_Destination,मूल्य_2,_Locale) (_wcsset(_Destination,मूल्य_2))
 
   /* dirent structures and functions */
 #define _tdirent	_wdirent
@@ -469,19 +469,19 @@ extern "C" {
 #define _ttelldir	_wtelldir
 #define _tseekdir	_wseekdir
 
-#else
+#अन्यथा
 
 #ifdef __cplusplus
 }
 #endif
 
-#include <string.h>
+#अन्तर्भाव <string.h>
 
 #ifdef __cplusplus
-extern "C" {
+बाह्य "C" {
 #endif
 
-#define _TEOF EOF
+#define _TEOF खातापूर्ण
 
 #define __T(x) x
 
@@ -489,12 +489,12 @@ extern "C" {
 #define _tWinMain WinMain
 #ifdef _POSIX_
 #define _tenviron environ
-#else
+#अन्यथा
 #define _tenviron _environ
 #endif
 #define __targv __argv
 
-#define _tprintf printf
+#define _tprintf म_लिखो
 #define _tprintf_l _printf_l
 #define _tprintf_p _printf_p
 #define _tprintf_p_l _printf_p_l
@@ -506,11 +506,11 @@ extern "C" {
 #define _vtcprintf_l _vcprintf_l
 #define _vtcprintf_p _vcprintf_p
 #define _vtcprintf_p_l _vcprintf_p_l
-#define _ftprintf fprintf
+#define _ftprintf ख_लिखो
 #define _ftprintf_l _fprintf_l
 #define _ftprintf_p _fprintf_p
 #define _ftprintf_p_l _fprintf_p_l
-#define _stprintf sprintf
+#define _stprintf प्र_लिखो
 #define _stprintf_l _sprintf_l
 #define _stprintf_p _sprintf_p
 #define _stprintf_p_l _sprintf_p_l
@@ -520,15 +520,15 @@ extern "C" {
 #define _sctprintf_p_l _scprintf_p_l
 #define _sntprintf _snprintf
 #define _sntprintf_l _snprintf_l
-#define _vtprintf vprintf
+#define _vtprintf भ_लिखो
 #define _vtprintf_l _vprintf_l
 #define _vtprintf_p _vprintf_p
 #define _vtprintf_p_l _vprintf_p_l
-#define _vftprintf vfprintf
+#define _vftprintf भख_लिखो
 #define _vftprintf_l _vfprintf_l
 #define _vftprintf_p _vfprintf_p
 #define _vftprintf_p_l _vfprintf_p_l
-#define _vstprintf vsprintf
+#define _vstprintf भम_लिखो
 #define _vstprintf_l _vsprintf_l
 #define _vstprintf_p _vsprintf_p
 #define _vstprintf_p_l _vsprintf_p_l
@@ -539,54 +539,54 @@ extern "C" {
 #define _vsntprintf _vsnprintf
 #define _vsntprintf_l _vsnprintf_l
 
-#define _tscanf scanf
+#define _tscanf म_पूछो
 #define _tscanf_l _scanf_l
 #define _tcscanf _cscanf
 #define _tcscanf_l _cscanf_l
-#define _ftscanf fscanf
+#define _ftscanf ख_पूछो
 #define _ftscanf_l _fscanf_l
-#define _stscanf sscanf
+#define _stscanf माला_पूछो
 #define _stscanf_l _sscanf_l
 #define _sntscanf _snscanf
 #define _sntscanf_l _snscanf_l
 
-#define _fgettc fgetc
+#define _fgettc ख_अक्षर_लो
 #define _fgettc_nolock _fgetc_nolock
 #define _fgettchar _fgetchar
-#define _fgetts fgets
-#define _fputtc fputc
+#define _fgetts ख_माला_लो
+#define _fputtc ख_अक्षर_दो
 #define _fputtc_nolock _fputc_nolock
 #define _fputtchar _fputchar
-#define _fputts fputs
+#define _fputts ख_माला_दो
 #define _cputts _cputs
-#define _gettc getc
+#define _gettc अ_लो
 #define _gettc_nolock _getc_nolock
 #define _gettch _getch
 #define _gettch_nolock _getch_nolock
 #define _gettche _getche
 #define _gettche_nolock _getche_nolock
-#define _gettchar getchar
+#define _gettchar अक्षर_लो
 #define _gettchar_nolock _getchar_nolock
-#define _getts gets
+#define _getts माला_लो
 #define _cgetts _cgets
-#define _puttc putc
+#define _puttc अ_दो
 #define _puttc_nolock _putc_nolock
-#define _puttchar putchar
+#define _puttchar अक्षर_दो
 #define _puttchar_nolock _putchar_nolock
 #define _puttch _putch
 #define _puttch_nolock _putch_nolock
-#define _putts puts
-#define _ungettc ungetc
+#define _putts माला_दो
+#define _ungettc अक्षर_वापस
 #define _ungettc_nolock _ungetc_nolock
 #define _ungettch _ungetch
 #define _ungettch_nolock _ungetch_nolock
 
-#define _tcstod strtod
-#define _tcstol strtol
-#define _tcstoul strtoul
-#define _tstof atof
-#define _tstol atol
-#define _tstoi atoi
+#define _tcstod म_से_भग्न
+#define _tcstol म_से_दीर्घ
+#define _tcstoul म_से_अदीर्घ
+#define _tstof म_से_भ
+#define _tstol म_से_द
+#define _tstoi म_से_प
 #define _tstoi64 _atoi64
 #define _tcstod_l _strtod_l
 #define _tcstol_l _strtol_l
@@ -599,8 +599,8 @@ extern "C" {
 #define _itot _itoa
 #define _ltot _ltoa
 #define _ultot _ultoa
-#define _ttoi atoi
-#define _ttol atol
+#define _ttoi म_से_प
+#define _ttol म_से_द
 
 #define _ttoi64 _atoi64
 #define _tcstoi64 _strtoi64
@@ -610,16 +610,16 @@ extern "C" {
 #define _i64tot _i64toa
 #define _ui64tot _ui64toa
 
-#define _tcscat strcat
-#define _tcscpy strcpy
+#define _tcscat म_जोड़ो
+#define _tcscpy म_नकल
 #define _tcsdup _strdup
-#define _tcslen strlen
-#if 0
+#define _tcslen म_माप
+#यदि 0
 #define _tcsnlen strnlen
 #endif
 #define _tcsxfrm strxfrm
 #define _tcsxfrm_l _strxfrm_l
-#define _tcserror strerror
+#define _tcserror म_त्रुटि
 #define __tcserror _strerror
 
 #define _texecl _execl
@@ -640,10 +640,10 @@ extern "C" {
 #define _tspawnvp _spawnvp
 #define _tspawnvpe _spawnvpe
 
-#define _tsystem system
+#define _tsystem प्रणाली
 
-#define _tasctime asctime
-#define _tctime ctime
+#define _tasctime समय_ठीक
+#define _tctime स_समय
 #define _tctime32 _ctime32
 #define _tctime64 _ctime64
 #define _tstrdate _strdate
@@ -651,7 +651,7 @@ extern "C" {
 #define _tutime _utime
 #define _tutime32 _utime32
 #define _tutime64 _utime64
-#define _tcsftime strftime
+#define _tcsftime स_माला
 #define _tcsftime_l _strftime_l
 
 #define _tchdir _chdir
@@ -662,7 +662,7 @@ extern "C" {
 #define _trmdir _rmdir
 
 #define _tfullpath _fullpath
-#define _tgetenv getenv
+#define _tgetenv दो_पर्या
 #define _tmakepath _makepath
 #define _tpgmptr _pgmptr
 #define _get_tpgmptr _get_pgmptr
@@ -672,16 +672,16 @@ extern "C" {
 
 #ifdef _POSIX_
 #define _tfdopen fdopen
-#else
+#अन्यथा
 #define _tfdopen _fdopen
 #endif
 #define _tfsopen _fsopen
-#define _tfopen fopen
-#define _tfreopen freopen
-#define _tperror perror
+#define _tfopen ख_खोलो
+#define _tfreopen ख_व_खोलो
+#define _tperror लिखो_त्रुटि
 #define _tpopen _popen
 #define _ttempnam _tempnam
-#define _ttmpnam tmpnam
+#define _ttmpnam क्षणिक
 
 #define _tchmod _chmod
 #define _tcreat _creat
@@ -700,15 +700,15 @@ extern "C" {
 #define _tmktemp _mktemp
 
 #ifdef _POSIX_
-#define _topen open
+#define _topen खोलो
 #define _taccess access
-#else
+#अन्यथा
 #define _topen _open
 #define _taccess _access
 #endif
 
-#define _tremove remove
-#define _trename rename
+#define _tremove हटाओ
+#define _trename नाम
 #define _tsopen _sopen
 #define _tunlink _unlink
 
@@ -720,9 +720,9 @@ extern "C" {
 #define _tfinddata64i32_t _finddata64i32_t
 
 #define _istascii __isascii
-#define _istcntrl iscntrl
+#define _istcntrl है_नियंत्रण
 #define _istcntrl_l _iscntrl_l
-#define _istxdigit isxdigit
+#define _istxdigit है_षष्ठादशक
 #define _istxdigit_l _isxdigit_l
 
 #define _tstat _stat
@@ -732,7 +732,7 @@ extern "C" {
 #define _tstat64i32 _stat64i32
 #define _tstati64 _stati64
 
-#define _tsetlocale setlocale
+#define _tsetlocale रखो_क्षेत्र
 
 #ifdef _MBCS
 
@@ -740,24 +740,24 @@ extern "C" {
 }
 #endif
 
-#include <mbstring.h>
+#अन्तर्भाव <mbstring.h>
 
 #ifdef __cplusplus
-extern "C" {
+बाह्य "C" {
 #endif
 
 #ifndef __TCHAR_DEFINED
-  typedef char _TCHAR;
-  typedef signed char _TSCHAR;
-  typedef unsigned char _TUCHAR;
-  typedef unsigned char _TXCHAR;
-  typedef unsigned int _TINT;
+  प्रकारनिर्देश वर्ण _TCHAR;
+  प्रकारनिर्देश चिन्हित वर्ण _TSCHAR;
+  प्रकारनिर्देश अचिन्हित वर्ण _TUCHAR;
+  प्रकारनिर्देश अचिन्हित वर्ण _TXCHAR;
+  प्रकारनिर्देश अचिन्हित पूर्णाङ्क _TINT;
 #define __TCHAR_DEFINED
 #endif
 
 #ifndef _TCHAR_DEFINED
 #ifndef	NO_OLDNAMES
-  typedef char TCHAR;
+  प्रकारनिर्देश वर्ण TCHAR;
 #endif
 #define _TCHAR_DEFINED
 #endif
@@ -833,76 +833,76 @@ extern "C" {
 #define _tclen _mbclen
 #define _tccpy _mbccpy
 #define _tccpy_l _mbccpy_l
-#else
+#अन्यथा
 
-  _CRTIMP _CONST_RETURN char *__cdecl _tcschr(const char *_Str,unsigned int _Val);
-  _CRTIMP size_t __cdecl _tcscspn(const char *_Str,const char *_Control);
-  _CRTIMP char *__cdecl _tcsncat(char *_Dst,const char *_Src,size_t _MaxCount);
-  _CRTIMP char *__cdecl _tcsncat_l(char *_Dst,const char *_Src,size_t _MaxCount,_locale_t _Locale);
-  _CRTIMP char *__cdecl _tcsncpy(char *_Dst,const char *_Src,size_t _MaxCount);
-  _CRTIMP char *__cdecl _tcsncpy_l(char *_Dst,const char *_Src,size_t _MaxCount,_locale_t _Locale);
-  _CRTIMP _CONST_RETURN char *__cdecl _tcspbrk(const char *_Str,const char *_Control);
-  _CRTIMP _CONST_RETURN char *__cdecl _tcsrchr(const char *_Str,unsigned int _Ch);
-  _CRTIMP size_t __cdecl _tcsspn(const char *_Str,const char *_Control);
-  _CRTIMP _CONST_RETURN char *__cdecl _tcsstr(const char *_Str,const char *_Substr);
-  _CRTIMP char *__cdecl _tcstok(char *_Str,const char *_Delim);
-  _CRTIMP char *__cdecl _tcstok_l(char *_Str,const char *_Delim,_locale_t _Locale);
-  _CRTIMP char *__cdecl _tcsnset(char *_Str,unsigned int _Val,size_t _MaxCount);
-  _CRTIMP char *__cdecl _tcsrev(char *_Str);
-  _CRTIMP char *__cdecl _tcsset(char *_Str,unsigned int _Val);
-  _CRTIMP char *__cdecl _tcsset_l(char *_Str,unsigned int _Val,_locale_t _Locale);
-  _CRTIMP int __cdecl _tcscmp(const char *_Str1,const char *_Str);
-  _CRTIMP int __cdecl _tcsicmp(const char *_Str1,const char *_Str2);
-  _CRTIMP int __cdecl _tcsicmp_l(const char *_Str1,const char *_Str2,_locale_t _Locale);
-  _CRTIMP int __cdecl _tcsnccmp(const char *_Str1,const char *_Str2,size_t _MaxCount);
-  _CRTIMP int __cdecl _tcsncmp(const char *_Str1,const char *_Str2,size_t _MaxCount);
-  _CRTIMP int __cdecl _tcsncicmp(const char *_Str1,const char *_Str2,size_t _MaxCount);
-  _CRTIMP int __cdecl _tcsncicmp_l(const char *_Str1,const char *_Str2,size_t _MaxCount,_locale_t _Locale);
-  _CRTIMP int __cdecl _tcsnicmp(const char *_Str1,const char *_Str2,size_t _MaxCount);
-  _CRTIMP int __cdecl _tcsnicmp_l(const char *_Str1,const char *_Str2,size_t _MaxCount,_locale_t _Locale);
-  _CRTIMP int __cdecl _tcscoll(const char *_Str1,const char *_Str2);
-  _CRTIMP int __cdecl _tcscoll_l(const char *_Str1,const char *_Str2,_locale_t _Locale);
-  _CRTIMP int __cdecl _tcsicoll(const char *_Str1,const char *_Str2);
-  _CRTIMP int __cdecl _tcsicoll_l(const char *_Str1,const char *_Str2,_locale_t _Locale);
-  _CRTIMP int __cdecl _tcsnccoll(const char *_Str1,const char *_Str2,size_t _MaxCount);
-  _CRTIMP int __cdecl _tcsnccoll_l(const char *_Str1,const char *_Str2,size_t _MaxCount,_locale_t _Locale);
-  _CRTIMP int __cdecl _tcsncoll(const char *_Str1,const char *_Str2,size_t _MaxCount);
-  _CRTIMP int __cdecl _tcsncoll_l(const char *_Str1,const char *_Str2,size_t _MaxCount,_locale_t _Locale);
-  _CRTIMP int __cdecl _tcsncicoll(const char *_Str1,const char *_Str2,size_t _MaxCount);
-  _CRTIMP int __cdecl _tcsncicoll_l(const char *_Str1,const char *_Str2,size_t _MaxCount,_locale_t _Locale);
-  _CRTIMP int __cdecl _tcsnicoll(const char *_Str1,const char *_Str2,size_t _MaxCount);
-  _CRTIMP int __cdecl _tcsnicoll_l(const char *_Str1,const char *_Str2,size_t _MaxCount,_locale_t _Locale);
-  _CRTIMP size_t __cdecl _tcsclen(const char *_Str);
-  _CRTIMP size_t __cdecl _tcscnlen(const char *_Str,size_t _MaxCount);
-  _CRTIMP size_t __cdecl _tcsclen_l(const char *_Str,_locale_t _Locale);
-  _CRTIMP size_t __cdecl _tcscnlen_l(const char *_Str,size_t _MaxCount,_locale_t _Locale);
-  _CRTIMP char *__cdecl _tcsnccat(char *_Dst,const char *_Src,size_t _MaxCount);
-  _CRTIMP char *__cdecl _tcsnccat_l(char *_Dst,const char *_Src,size_t _MaxCount,_locale_t _Locale);
-  _CRTIMP char *__cdecl _tcsnccpy(char *_Dst,const char *_Src,size_t _MaxCount);
-  _CRTIMP char *__cdecl _tcsnccpy_l(char *_Dst,const char *_Src,size_t _MaxCount,_locale_t _Locale);
-  _CRTIMP char *__cdecl _tcsncset(char *_Str,unsigned int _Val,size_t _MaxCount);
-  _CRTIMP char *__cdecl _tcsdec(const char *_Start,const char *_Pos);
-  _CRTIMP char *__cdecl _tcsinc(const char *_Ptr);
-  _CRTIMP size_t __cdecl _tcsnbcnt(const char *_Str,size_t _MaxCount);
-  _CRTIMP size_t __cdecl _tcsnccnt(const char *_Str,size_t _MaxCount);
-  _CRTIMP unsigned int __cdecl _tcsnextc (const char *_Str);
-  _CRTIMP char *__cdecl _tcsninc(const char *_Ptr,size_t _Count);
-  _CRTIMP char *__cdecl _tcsspnp(const char *_Str1,const char *_Str2);
-  _CRTIMP char *__cdecl _tcslwr(char *_Str);
-  _CRTIMP char *__cdecl _tcslwr_l(char *_Str,_locale_t _Locale);
-  _CRTIMP char *__cdecl _tcsupr(char *_Str);
-  _CRTIMP char *__cdecl _tcsupr_l(char *_Str,_locale_t _Locale);
-  _CRTIMP size_t __cdecl _tclen(const char *_Str);
-  _CRTIMP void __cdecl _tccpy(char *_DstCh,const char *_SrcCh);
+  _CRTIMP _CONST_RETURN वर्ण *__cdecl _tcschr(ध्रुव वर्ण *_Str,अचिन्हित पूर्णाङ्क _Val);
+  _CRTIMP माप_प्रकार __cdecl _tcscspn(ध्रुव वर्ण *_Str,ध्रुव वर्ण *_Control);
+  _CRTIMP वर्ण *__cdecl _tcsncat(वर्ण *_Dst,ध्रुव वर्ण *_Src,माप_प्रकार Max_गिनती);
+  _CRTIMP वर्ण *__cdecl _tcsncat_l(वर्ण *_Dst,ध्रुव वर्ण *_Src,माप_प्रकार Max_गिनती,_locale_t _Locale);
+  _CRTIMP वर्ण *__cdecl _tcsncpy(वर्ण *_Dst,ध्रुव वर्ण *_Src,माप_प्रकार Max_गिनती);
+  _CRTIMP वर्ण *__cdecl _tcsncpy_l(वर्ण *_Dst,ध्रुव वर्ण *_Src,माप_प्रकार Max_गिनती,_locale_t _Locale);
+  _CRTIMP _CONST_RETURN वर्ण *__cdecl _tcspbrk(ध्रुव वर्ण *_Str,ध्रुव वर्ण *_Control);
+  _CRTIMP _CONST_RETURN वर्ण *__cdecl _tcsrchr(ध्रुव वर्ण *_Str,अचिन्हित पूर्णाङ्क _Ch);
+  _CRTIMP माप_प्रकार __cdecl _tcsspn(ध्रुव वर्ण *_Str,ध्रुव वर्ण *_Control);
+  _CRTIMP _CONST_RETURN वर्ण *__cdecl _tcsstr(ध्रुव वर्ण *_Str,ध्रुव वर्ण *_Substr);
+  _CRTIMP वर्ण *__cdecl _tcstok(वर्ण *_Str,ध्रुव वर्ण *_Delim);
+  _CRTIMP वर्ण *__cdecl _tcstok_l(वर्ण *_Str,ध्रुव वर्ण *_Delim,_locale_t _Locale);
+  _CRTIMP वर्ण *__cdecl _tcsnset(वर्ण *_Str,अचिन्हित पूर्णाङ्क _Val,माप_प्रकार Max_गिनती);
+  _CRTIMP वर्ण *__cdecl _tcsrev(वर्ण *_Str);
+  _CRTIMP वर्ण *__cdecl _tcsset(वर्ण *_Str,अचिन्हित पूर्णाङ्क _Val);
+  _CRTIMP वर्ण *__cdecl _tcsset_l(वर्ण *_Str,अचिन्हित पूर्णाङ्क _Val,_locale_t _Locale);
+  _CRTIMP पूर्णाङ्क __cdecl _tcscmp(ध्रुव वर्ण *_Str1,ध्रुव वर्ण *_Str);
+  _CRTIMP पूर्णाङ्क __cdecl _tcsicmp(ध्रुव वर्ण *_Str1,ध्रुव वर्ण *_Str2);
+  _CRTIMP पूर्णाङ्क __cdecl _tcsicmp_l(ध्रुव वर्ण *_Str1,ध्रुव वर्ण *_Str2,_locale_t _Locale);
+  _CRTIMP पूर्णाङ्क __cdecl _tcsnccmp(ध्रुव वर्ण *_Str1,ध्रुव वर्ण *_Str2,माप_प्रकार Max_गिनती);
+  _CRTIMP पूर्णाङ्क __cdecl _tcsncmp(ध्रुव वर्ण *_Str1,ध्रुव वर्ण *_Str2,माप_प्रकार Max_गिनती);
+  _CRTIMP पूर्णाङ्क __cdecl _tcsncicmp(ध्रुव वर्ण *_Str1,ध्रुव वर्ण *_Str2,माप_प्रकार Max_गिनती);
+  _CRTIMP पूर्णाङ्क __cdecl _tcsncicmp_l(ध्रुव वर्ण *_Str1,ध्रुव वर्ण *_Str2,माप_प्रकार Max_गिनती,_locale_t _Locale);
+  _CRTIMP पूर्णाङ्क __cdecl _tcsnicmp(ध्रुव वर्ण *_Str1,ध्रुव वर्ण *_Str2,माप_प्रकार Max_गिनती);
+  _CRTIMP पूर्णाङ्क __cdecl _tcsnicmp_l(ध्रुव वर्ण *_Str1,ध्रुव वर्ण *_Str2,माप_प्रकार Max_गिनती,_locale_t _Locale);
+  _CRTIMP पूर्णाङ्क __cdecl _tcscoll(ध्रुव वर्ण *_Str1,ध्रुव वर्ण *_Str2);
+  _CRTIMP पूर्णाङ्क __cdecl _tcscoll_l(ध्रुव वर्ण *_Str1,ध्रुव वर्ण *_Str2,_locale_t _Locale);
+  _CRTIMP पूर्णाङ्क __cdecl _tcsicoll(ध्रुव वर्ण *_Str1,ध्रुव वर्ण *_Str2);
+  _CRTIMP पूर्णाङ्क __cdecl _tcsicoll_l(ध्रुव वर्ण *_Str1,ध्रुव वर्ण *_Str2,_locale_t _Locale);
+  _CRTIMP पूर्णाङ्क __cdecl _tcsnccoll(ध्रुव वर्ण *_Str1,ध्रुव वर्ण *_Str2,माप_प्रकार Max_गिनती);
+  _CRTIMP पूर्णाङ्क __cdecl _tcsnccoll_l(ध्रुव वर्ण *_Str1,ध्रुव वर्ण *_Str2,माप_प्रकार Max_गिनती,_locale_t _Locale);
+  _CRTIMP पूर्णाङ्क __cdecl _tcsncoll(ध्रुव वर्ण *_Str1,ध्रुव वर्ण *_Str2,माप_प्रकार Max_गिनती);
+  _CRTIMP पूर्णाङ्क __cdecl _tcsncoll_l(ध्रुव वर्ण *_Str1,ध्रुव वर्ण *_Str2,माप_प्रकार Max_गिनती,_locale_t _Locale);
+  _CRTIMP पूर्णाङ्क __cdecl _tcsncicoll(ध्रुव वर्ण *_Str1,ध्रुव वर्ण *_Str2,माप_प्रकार Max_गिनती);
+  _CRTIMP पूर्णाङ्क __cdecl _tcsncicoll_l(ध्रुव वर्ण *_Str1,ध्रुव वर्ण *_Str2,माप_प्रकार Max_गिनती,_locale_t _Locale);
+  _CRTIMP पूर्णाङ्क __cdecl _tcsnicoll(ध्रुव वर्ण *_Str1,ध्रुव वर्ण *_Str2,माप_प्रकार Max_गिनती);
+  _CRTIMP पूर्णाङ्क __cdecl _tcsnicoll_l(ध्रुव वर्ण *_Str1,ध्रुव वर्ण *_Str2,माप_प्रकार Max_गिनती,_locale_t _Locale);
+  _CRTIMP माप_प्रकार __cdecl _tcsclen(ध्रुव वर्ण *_Str);
+  _CRTIMP माप_प्रकार __cdecl _tcscnlen(ध्रुव वर्ण *_Str,माप_प्रकार Max_गिनती);
+  _CRTIMP माप_प्रकार __cdecl _tcsclen_l(ध्रुव वर्ण *_Str,_locale_t _Locale);
+  _CRTIMP माप_प्रकार __cdecl _tcscnlen_l(ध्रुव वर्ण *_Str,माप_प्रकार Max_गिनती,_locale_t _Locale);
+  _CRTIMP वर्ण *__cdecl _tcsnccat(वर्ण *_Dst,ध्रुव वर्ण *_Src,माप_प्रकार Max_गिनती);
+  _CRTIMP वर्ण *__cdecl _tcsnccat_l(वर्ण *_Dst,ध्रुव वर्ण *_Src,माप_प्रकार Max_गिनती,_locale_t _Locale);
+  _CRTIMP वर्ण *__cdecl _tcsnccpy(वर्ण *_Dst,ध्रुव वर्ण *_Src,माप_प्रकार Max_गिनती);
+  _CRTIMP वर्ण *__cdecl _tcsnccpy_l(वर्ण *_Dst,ध्रुव वर्ण *_Src,माप_प्रकार Max_गिनती,_locale_t _Locale);
+  _CRTIMP वर्ण *__cdecl _tcsncset(वर्ण *_Str,अचिन्हित पूर्णाङ्क _Val,माप_प्रकार Max_गिनती);
+  _CRTIMP वर्ण *__cdecl _tcsdec(ध्रुव वर्ण *_Start,ध्रुव वर्ण *_Pos);
+  _CRTIMP वर्ण *__cdecl _tcsinc(ध्रुव वर्ण *_Ptr);
+  _CRTIMP माप_प्रकार __cdecl _tcsnbcnt(ध्रुव वर्ण *_Str,माप_प्रकार Max_गिनती);
+  _CRTIMP माप_प्रकार __cdecl _tcsnccnt(ध्रुव वर्ण *_Str,माप_प्रकार Max_गिनती);
+  _CRTIMP अचिन्हित पूर्णाङ्क __cdecl _tcsnextc (ध्रुव वर्ण *_Str);
+  _CRTIMP वर्ण *__cdecl _tcsninc(ध्रुव वर्ण *_Ptr,माप_प्रकार गिनती_5);
+  _CRTIMP वर्ण *__cdecl _tcsspnp(ध्रुव वर्ण *_Str1,ध्रुव वर्ण *_Str2);
+  _CRTIMP वर्ण *__cdecl _tcslwr(वर्ण *_Str);
+  _CRTIMP वर्ण *__cdecl _tcslwr_l(वर्ण *_Str,_locale_t _Locale);
+  _CRTIMP वर्ण *__cdecl _tcsupr(वर्ण *_Str);
+  _CRTIMP वर्ण *__cdecl _tcsupr_l(वर्ण *_Str,_locale_t _Locale);
+  _CRTIMP माप_प्रकार __cdecl _tclen(ध्रुव वर्ण *_Str);
+  _CRTIMP शून्य __cdecl _tccpy(वर्ण *_DstCh,ध्रुव वर्ण *_SrcCh);
 
 #ifdef __cplusplus
 #ifndef _CPP_TCHAR_INLINES_DEFINED
 #define _CPP_TCHAR_INLINES_DEFINED
-  extern "C++" {
-    extern inline char *__cdecl _tcschr(char *_S,unsigned int _C) { return ((char *)_tcschr((const char *)_S,_C)); }
-    extern inline char *__cdecl _tcspbrk(char *_S,const char *_P) { return ((char *)_tcspbrk((const char *)_S,_P)); }
-    extern inline char *__cdecl _tcsrchr(char *_S,unsigned int _C) { return ((char *)_tcsrchr((const char *)_S,_C)); }
-    extern inline char *__cdecl _tcsstr(char *_S,const char *_P) { return ((char *)_tcsstr((const char *)_S,_P)); }
+  बाह्य "C++" {
+    बाह्य अन्तःस्थ वर्ण *__cdecl _tcschr(वर्ण *_S,अचिन्हित पूर्णाङ्क _C) { प्रत्यागम ((वर्ण *)_tcschr((ध्रुव वर्ण *)_S,_C)); }
+    बाह्य अन्तःस्थ वर्ण *__cdecl _tcspbrk(वर्ण *_S,ध्रुव वर्ण *_P) { प्रत्यागम ((वर्ण *)_tcspbrk((ध्रुव वर्ण *)_S,_P)); }
+    बाह्य अन्तःस्थ वर्ण *__cdecl _tcsrchr(वर्ण *_S,अचिन्हित पूर्णाङ्क _C) { प्रत्यागम ((वर्ण *)_tcsrchr((ध्रुव वर्ण *)_S,_C)); }
+    बाह्य अन्तःस्थ वर्ण *__cdecl _tcsstr(वर्ण *_S,ध्रुव वर्ण *_P) { प्रत्यागम ((वर्ण *)_tcsstr((ध्रुव वर्ण *)_S,_P)); }
   }
 #endif
 #endif
@@ -939,35 +939,35 @@ extern "C" {
 #define _istlead _ismbblead
 #define _istleadbyte isleadbyte
 #define _istleadbyte_l _isleadbyte_l
-#else
+#अन्यथा
 
 #ifndef __TCHAR_DEFINED
 #define __TCHAR_DEFINED
-  typedef char _TCHAR;
-  typedef signed char _TSCHAR;
-  typedef unsigned char _TUCHAR;
-  typedef char _TXCHAR;
-  typedef int _TINT;
+  प्रकारनिर्देश वर्ण _TCHAR;
+  प्रकारनिर्देश चिन्हित वर्ण _TSCHAR;
+  प्रकारनिर्देश अचिन्हित वर्ण _TUCHAR;
+  प्रकारनिर्देश वर्ण _TXCHAR;
+  प्रकारनिर्देश पूर्णाङ्क _TINT;
 #endif
 
 #ifndef _TCHAR_DEFINED
 #define _TCHAR_DEFINED
 #ifndef	NO_OLDNAMES
-  typedef char TCHAR;
+  प्रकारनिर्देश वर्ण TCHAR;
 #endif
 #endif
 
-#define _tcschr strchr
-#define _tcscspn strcspn
-#define _tcsncat strncat
+#define _tcschr म_अक्षर
+#define _tcscspn म_खोज
+#define _tcsncat म_जोड़न
 #define _tcsncat_l _strncat_l
-#define _tcsncpy strncpy
+#define _tcsncpy म_नकलन
 #define _tcsncpy_l _strncpy_l
 #define _tcspbrk strpbrk
-#define _tcsrchr strrchr
-#define _tcsspn strspn
-#define _tcsstr strstr
-#define _tcstok strtok
+#define _tcsrchr म_खोजप
+#define _tcsspn म_अखोज
+#define _tcsstr म_माला
+#define _tcstok म_मोहर
 #define _tcstok_l _strtok_l
 
 #define _tcsnset _strnset
@@ -975,11 +975,11 @@ extern "C" {
 #define _tcsrev _strrev
 #define _tcsset _strset
 
-#define _tcscmp strcmp
+#define _tcscmp म_भेद
 #define _tcsicmp _stricmp
 #define _tcsicmp_l _stricmp_l
-#define _tcsnccmp strncmp
-#define _tcsncmp strncmp
+#define _tcsnccmp म_भेदन
+#define _tcsncmp म_भेदन
 #define _tcsncicmp _strnicmp
 #define _tcsncicmp_l _strnicmp_l
 #define _tcsnicmp _strnicmp
@@ -998,13 +998,13 @@ extern "C" {
 #define _tcsnicoll _strnicoll
 #define _tcsnicoll_l _strnicoll_l
 
-#define _tcsclen strlen
+#define _tcsclen म_माप
 #define _tcscnlen strnlen
-#define _tcsclen_l(_String,_Locale) strlen(_String)
-#define _tcscnlen_l(_String,_Max_count,_Locale) strnlen_l((_String),(_Max_count))
-#define _tcsnccat strncat
+#define _tcsclen_l(_String,_Locale) म_माप(_String)
+#define _tcscnlen_l(_String,Max_गिनती_2,_Locale) strnlen_l((_String),(Max_गिनती_2))
+#define _tcsnccat म_जोड़न
 #define _tcsnccat_l _strncat_l
-#define _tcsnccpy strncpy
+#define _tcsnccpy म_नकलन
 #define _tcsnccpy_l _strncpy_l
 #define _tcsncset _strnset
 
@@ -1029,65 +1029,65 @@ extern "C" {
 
 #define _tclen(_pc) (1)
 #define _tccpy(_pc1,_cpc2) (*(_pc1) = *(_cpc2))
-#define _tccmp(_cpc1,_cpc2) (((unsigned char)*(_cpc1))-((unsigned char)*(_cpc2)))
+#define _tccmp(_cpc1,_cpc2) (((अचिन्हित वर्ण)*(_cpc1))-((अचिन्हित वर्ण)*(_cpc2)))
 
   /* dirent structures and functions */
 #define _tdirent	dirent
-#define _TDIR 		DIR
-#define _topendir	opendir
-#define _tclosedir	closedir
-#define _treaddir	readdir
-#define _trewinddir	rewinddir
+#define _TDIR 		सूची
+#define _topendir	सूची_खोलो
+#define _tclosedir	बंद_सूची
+#define _treaddir	सूची_पढ़ो
+#define _trewinddir	सूची_शुरु
 #define _ttelldir	telldir
 #define _tseekdir	seekdir
 
-#define _istalnum isalnum
+#define _istalnum है_अक्षर_अंक
 #define _istalnum_l _isalnum_l
-#define _istalpha isalpha
+#define _istalpha है_अक्षर
 #define _istalpha_l _isalpha_l
-#define _istdigit isdigit
+#define _istdigit है_अंक
 #define _istdigit_l _isdigit_l
-#define _istgraph isgraph
+#define _istgraph है_चित्र
 #define _istgraph_l _isgraph_l
-#define _istlower islower
+#define _istlower है_छोटा
 #define _istlower_l _islower_l
-#define _istprint isprint
+#define _istprint है_छाप
 #define _istprint_l _isprint_l
-#define _istpunct ispunct
+#define _istpunct है_विराम
 #define _istpunct_l _ispunct_l
-#define _istspace isspace
+#define _istspace है_खाली
 #define _istspace_l _isspace_l
-#define _istupper isupper
+#define _istupper है_बड़ा
 #define _istupper_l _isupper_l
 
-#define _totupper toupper
+#define _totupper बड़े
 #define _totupper_l _toupper_l
-#define _totlower tolower
+#define _totlower छोटे
 #define _totlower_l _tolower_l
 
 #define _istlegal(_c) (1)
 
-#ifndef NULL
+#ifndef रिक्त
 #ifdef __cplusplus
-#define NULL 0
-#else
-#define NULL ((void *)0)
+#define रिक्त 0
+#अन्यथा
+#define रिक्त ((शून्य *)0)
 #endif
 #endif
 
-#define _strdec(_cpc1,_cpc2) ((_cpc1)>=(_cpc2) ? NULL : (_cpc2)-1)
+#define _strdec(_cpc1,_cpc2) ((_cpc1)>=(_cpc2) ? रिक्त : (_cpc2)-1)
 #define _strinc(_pc) ((_pc)+1)
-#define _strnextc(_cpc) ((unsigned int) *(const unsigned char *)(_cpc))
+#define _strnextc(_cpc) ((अचिन्हित पूर्णाङ्क) *(ध्रुव अचिन्हित वर्ण *)(_cpc))
 #define _strninc(_pc,_sz) (((_pc)+(_sz)))
-  _CRTIMP size_t __cdecl __strncnt(const char *_Str,size_t _Cnt);
+  _CRTIMP माप_प्रकार __cdecl __strncnt(ध्रुव वर्ण *_Str,माप_प्रकार _Cnt);
 #define _strncnt(_cpc,_sz) (__strncnt(_cpc,_sz))
-#define _strspnp(_cpc1,_cpc2) (!_cpc1 ? NULL : ((*((_cpc1)+strspn(_cpc1,_cpc2))) ? ((_cpc1)+strspn(_cpc1,_cpc2)) : NULL))
+#define _strspnp(_cpc1,_cpc2) (!_cpc1 ? रिक्त : ((*((_cpc1)+म_अखोज(_cpc1,_cpc2))) ? ((_cpc1)+म_अखोज(_cpc1,_cpc2)) : रिक्त))
 
-#define _strncpy_l(_Destination,_Source,_Count,_Locale) (strncpy(_Destination,_Source,_Count))
-#define _strncat_l(_Destination,_Source,_Count,_Locale) (strncat(_Destination,_Source,_Count))
-#define _strtok_l(_String,_Delimiters,_Locale) (strtok(_String,_Delimiters))
-#define _strnset_l(_Destination,_Value,_Count,_Locale) (_strnset(_Destination,_Value,_Count))
-#define _strset_l(_Destination,_Value,_Locale) (_strset(_Destination,_Value))
+#define _strncpy_l(_Destination,_Source,गिनती_5,_Locale) (म_नकलन(_Destination,_Source,गिनती_5))
+#define _strncat_l(_Destination,_Source,गिनती_5,_Locale) (म_जोड़न(_Destination,_Source,गिनती_5))
+#define _strtok_l(_String,_Delimiters,_Locale) (म_मोहर(_String,_Delimiters))
+#define _strnset_l(_Destination,मूल्य_2,गिनती_5,_Locale) (_strnset(_Destination,मूल्य_2,गिनती_5))
+#define _strset_l(_Destination,मूल्य_2,_Locale) (_strset(_Destination,मूल्य_2))
 #endif
 #endif
 
@@ -1098,5 +1098,5 @@ extern "C" {
 }
 #endif
 
-#include <sec_api/tchar_s.h>
+#अन्तर्भाव <sec_api/tchar_s.h>
 #endif

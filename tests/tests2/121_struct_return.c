@@ -1,53 +1,53 @@
-#include <stdio.h>
+#अन्तर्भाव <stdio.h>
 
-typedef struct {
-    int data[4];
-    double d1;
-    double d2;
-} Node;
+प्रकारनिर्देश संरचना {
+    पूर्णाङ्क data[4];
+    द्विगुण d1;
+    द्विगुण d2;
+} गाँठ_2;
 
-typedef struct {
-    int a, b, c;
+प्रकारनिर्देश संरचना {
+    पूर्णाङ्क a, b, c;
 } A;
 
-Node init(Node self) {
+गाँठ_2 init(गाँठ_2 self) {
     self.data[0] = 0;
     self.data[1] = 1;
     self.data[2] = 2;
     self.data[3] = 3;
     self.d1 = 1234;
     self.d2 = 2345;
-    return self;
+    प्रत्यागम self;
 }
 
-void dummy(Node self) {
+शून्य dummy(गाँठ_2 self) {
 }
 
-void print_data(Node data) {
-    printf ("%d %d %d %d %g %g\n",
+शून्य print_data(गाँठ_2 data) {
+    म_लिखो ("%d %d %d %d %g %g\n",
             data.data[0], data.data[1], data.data[2], data.data[3],
             data.d1, data.d2);
 }
 
-A test(void)
+A test(शून्य)
 {
-    int i;
+    पूर्णाङ्क i;
     A arr[30];
 
-    for (i = 0; i < 30; i++)
+    प्रति (i = 0; i < 30; i++)
         arr[i].b = i;
-    return arr[29];
+    प्रत्यागम arr[29];
 }
 
-int main(void) {
+पूर्णाङ्क main(शून्य) {
     /* This code resulted in a bounds checking error */
-    Node data;
+    गाँठ_2 data;
     A a;
     dummy (data);
-    char val;
+    वर्ण val;
     data = init (data);
     print_data(data);
     a = test();
-    printf("%d\n", a.b);
-    return 0;
+    म_लिखो("%d\n", a.b);
+    प्रत्यागम 0;
 }

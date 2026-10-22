@@ -1,131 +1,131 @@
-#include <stdio.h>
+#अन्तर्भाव <stdio.h>
 
-const int a = 0;
+ध्रुव पूर्णाङ्क a = 0;
 
-struct a {
-	int a;
+संरचना a {
+	पूर्णाङ्क a;
 };
 
-struct b {
-	int a;
+संरचना b {
+	पूर्णाङ्क a;
 };
 
-int a_f()
+पूर्णाङ्क a_f()
 {
-	return 20;
+	प्रत्यागम 20;
 }
 
-int b_f()
+पूर्णाङ्क b_f()
 {
-	return 10;
+	प्रत्यागम 10;
 }
 
-typedef int (*fptr)(int);
-typedef void (*vfptr)(int);
-int foo(int i)
+प्रकारनिर्देश पूर्णाङ्क (*fptr)(पूर्णाङ्क);
+प्रकारनिर्देश शून्य (*vfptr)(पूर्णाङ्क);
+पूर्णाङ्क foo(पूर्णाङ्क i)
 {
-  return i;
+  प्रत्यागम i;
 }
-void void_foo(int i) {}
+शून्य void_foo(पूर्णाङ्क i) {}
 
-typedef int int_type1;
+प्रकारनिर्देश पूर्णाङ्क int_type1;
 
-typedef int T[4];
-int f(T t)
+प्रकारनिर्देश पूर्णाङ्क T[4];
+पूर्णाङ्क f(T t)
 {
-	return _Generic(t, __typeof__( ((void)0, (T){0}) ) : 1 );
+	प्रत्यागम _Generic(t, __typeof__( ((शून्य)0, (T){0}) ) : 1 );
 }
 
-#define gen_sw(a) _Generic(a, const char *: 1, default: 8, int: 123);
+#define gen_sw(a) _Generic(a, ध्रुव वर्ण *: 1, स्वभाव: 8, पूर्णाङ्क: 123);
 
-int main()
+पूर्णाङ्क main()
 {
-	int i = 0;
-	signed long int l = 2;
-	struct b titi;
-	const int * const ptr;
-	const char *ti;
+	पूर्णाङ्क i = 0;
+	चिन्हित दीर्घ पूर्णाङ्क l = 2;
+	संरचना b titi;
+	ध्रुव पूर्णाङ्क * ध्रुव ptr;
+	ध्रुव वर्ण *ti;
 	int_type1 i2;
 	T t;
 
-	i = _Generic(a, int: a_f, const int: b_f)();
-	printf("%d\n", i);
-	i = _Generic(a, int: a_f() / 2, const int: b_f() / 2);
-	printf("%d\n", i);
-	i = _Generic(ptr, int *:1, int * const:2, default:20);
-	printf("%d\n", i);
+	i = _Generic(a, पूर्णाङ्क: a_f, ध्रुव पूर्णाङ्क: b_f)();
+	म_लिखो("%d\n", i);
+	i = _Generic(a, पूर्णाङ्क: a_f() / 2, ध्रुव पूर्णाङ्क: b_f() / 2);
+	म_लिखो("%d\n", i);
+	i = _Generic(ptr, पूर्णाङ्क *:1, पूर्णाङ्क * ध्रुव:2, स्वभाव:20);
+	म_लिखो("%d\n", i);
 	i = gen_sw(a);
-	printf("%d\n", i);
-	i = _Generic(titi, struct a:1, struct b:2, default:20);
-	printf("%d\n", i);
-	i = _Generic(i2, char: 1, int : 0);
-	printf("%d\n", i);
-	i = _Generic(a, char:1, int[4]:2, default:5);
-	printf("%d\n", i);
-	i = _Generic(17, int :1, int **:2);
-	printf("%d\n", i);
-	i = _Generic(17L, int :1, long :2, long long : 3);
-	printf("%d\n", i);
-	i = _Generic("17, io", char *: 3, const char *: 1);
-	printf("%d\n", i);
-	i = _Generic(ti, const unsigned char *:1, const char *:4, char *:3,
-		     const signed char *:2);
-	printf("%d\n", i);
-	printf("%s\n", _Generic(i + 2L, long: "long", int: "int",
-				long long: "long long"));
-	i = _Generic(l, long: 1, int: 2);
-	printf("%d\n", i);
-	i = _Generic(foo, fptr: 3, int: 4, vfptr: 5);
-	printf("%d\n", i);
-	i = _Generic(void_foo, fptr: 3, int: 4, vfptr: 5);
-	printf("%d\n", i);
+	म_लिखो("%d\n", i);
+	i = _Generic(titi, संरचना a:1, संरचना b:2, स्वभाव:20);
+	म_लिखो("%d\n", i);
+	i = _Generic(i2, वर्ण: 1, पूर्णाङ्क : 0);
+	म_लिखो("%d\n", i);
+	i = _Generic(a, वर्ण:1, पूर्णाङ्क[4]:2, स्वभाव:5);
+	म_लिखो("%d\n", i);
+	i = _Generic(17, पूर्णाङ्क :1, पूर्णाङ्क **:2);
+	म_लिखो("%d\n", i);
+	i = _Generic(17L, पूर्णाङ्क :1, दीर्घ :2, दीर्घ दीर्घ : 3);
+	म_लिखो("%d\n", i);
+	i = _Generic("17, io", वर्ण *: 3, ध्रुव वर्ण *: 1);
+	म_लिखो("%d\n", i);
+	i = _Generic(ti, ध्रुव अचिन्हित वर्ण *:1, ध्रुव वर्ण *:4, वर्ण *:3,
+		     ध्रुव चिन्हित वर्ण *:2);
+	म_लिखो("%d\n", i);
+	म_लिखो("%s\n", _Generic(i + 2L, दीर्घ: "long", पूर्णाङ्क: "int",
+				दीर्घ दीर्घ: "long long"));
+	i = _Generic(l, दीर्घ: 1, पूर्णाङ्क: 2);
+	म_लिखो("%d\n", i);
+	i = _Generic(foo, fptr: 3, पूर्णाङ्क: 4, vfptr: 5);
+	म_लिखो("%d\n", i);
+	i = _Generic(void_foo, fptr: 3, पूर्णाङ्क: 4, vfptr: 5);
+	म_लिखो("%d\n", i);
 
-	(void)_Generic((int(*)[2]){0}, int(*)[2]:0, int(*)[4]:0); //shouldn't match twice
+	(शून्य)_Generic((पूर्णाङ्क(*)[2]){0}, पूर्णाङ्क(*)[2]:0, पूर्णाङ्क(*)[4]:0); //shouldn't match twice
 
 	//should accept ({ }) in the controlling expr of _Generic even in const_wanted contexts
-	struct { _Bool x_0: _Generic(({0;}),default:1); } my_x;
+	संरचना { _Bool x_0: _Generic(({0;}),स्वभाव:1); } my_x;
 
-	_Generic((__typeof((float const)((float const){42}))*){0}, float*: 0); //casts lose top-level qualifiers
-	int const x = 42; __typeof((__typeof(x))x) *xp = 0; (void)_Generic(xp, int*: 0); //casts lose top-level qualifiers
+	_Generic((__typeof((भिन्न ध्रुव)((भिन्न ध्रुव){42}))*){0}, भिन्न*: 0); //casts lose top-level qualifiers
+	पूर्णाङ्क ध्रुव x = 42; __typeof((__typeof(x))x) *xp = 0; (शून्य)_Generic(xp, पूर्णाङ्क*: 0); //casts lose top-level qualifiers
 
 	//TEST TERNARY:
 	//Same type
-	_Generic( 0?(long*)0:(long*)0,  long*: (void)0);
+	_Generic( 0?(दीर्घ*)0:(दीर्घ*)0,  दीर्घ*: (शून्य)0);
 	//combining of qualifiers
-	_Generic( 0?(long volatile*)0:(long const*)0,  long const volatile*: (void)0);
+	_Generic( 0?(दीर्घ चञ्चल*)0:(दीर्घ ध्रुव*)0,  दीर्घ ध्रुव चञ्चल*: (शून्य)0);
 	//nul-ptr constant selects other type
-	_Generic( 0?(long*)0:0,			long*: (void)0);
-	_Generic( 0?(long*)0:(void*)0, long*: (void)0);
+	_Generic( 0?(दीर्घ*)0:0,			दीर्घ*: (शून्य)0);
+	_Generic( 0?(दीर्घ*)0:(शून्य*)0, दीर्घ*: (शून्य)0);
 
 	//void ptrs get chosen preferentially; qualifs still combine
-	_Generic( 0?(int volatile*)0: (void const*)1, void volatile const*: (void)0);
+	_Generic( 0?(पूर्णाङ्क चञ्चल*)0: (शून्य ध्रुव*)1, शून्य चञ्चल ध्रुव*: (शून्य)0);
         //but this is no null-ptr constant, so fallback to void-choice
         i = 0;
-        _Generic( 1?(void*)(i*0LL):&i, void*:0);
+        _Generic( 1?(शून्य*)(i*0LL):&i, शून्य*:0);
 	//like gcc but not clang, don't treat (void* const as the null-ptr constant)
-	_Generic( 0?(int volatile*)0: (void const*)0, void volatile const*: (void)0);
+	_Generic( 0?(पूर्णाङ्क चञ्चल*)0: (शून्य ध्रुव*)0, शून्य चञ्चल ध्रुव*: (शून्य)0);
 
 	//ptrs to incomplete types get completed
-	(void)(sizeof(struct { int x:_Generic( 0?(int (*)[4])0 : (int (*)[])0, int (*)[4]:+1, int (*)[5]:(void)0); }));
-	(void)(sizeof(struct { int x:_Generic( 0?(int (*)[])0 : (int (*)[4])0, int (*)[4]:+1, int (*)[5]:(void)0); }));
+	(शून्य)(परिमाण(संरचना { पूर्णाङ्क x:_Generic( 0?(पूर्णाङ्क (*)[4])0 : (पूर्णाङ्क (*)[])0, पूर्णाङ्क (*)[4]:+1, पूर्णाङ्क (*)[5]:(शून्य)0); }));
+	(शून्य)(परिमाण(संरचना { पूर्णाङ्क x:_Generic( 0?(पूर्णाङ्क (*)[])0 : (पूर्णाङ्क (*)[4])0, पूर्णाङ्क (*)[4]:+1, पूर्णाङ्क (*)[5]:(शून्य)0); }));
 
 	{
 	  /* completion shouldn't affect the type of decl */
-		char **argv;
-		_Generic(argv, char**: (void)0);
-		_Generic(0?(char const*)0:argv[0], char const*: (void)0);
-		_Generic(argv, char**: (void)0);
+		वर्ण **argv;
+		_Generic(argv, वर्ण**: (शून्य)0);
+		_Generic(0?(वर्ण ध्रुव*)0:argv[0], वर्ण ध्रुव*: (शून्य)0);
+		_Generic(argv, वर्ण**: (शून्य)0);
 	}
 	{
-	  extern int (*ar)[];
-	  (void)(sizeof(struct { int x:_Generic( 0?(int (*)[4])0 : (int (*)[])0, int (*)[4]:+1, int (*)[5]:(void)0); }));
-	  (void)(sizeof(struct { int x:_Generic( 0?(int (*)[])0 : (int (*)[4])0, int (*)[4]:+1, int (*)[5]:(void)0); }));
-	  (void)(sizeof(struct { int x:_Generic( 0?ar : (int (*)[4])0, int (*)[4]:+1, int (*)[5]:(void)0); }));
-	  (void)(sizeof(struct { int x:_Generic( 0?(int (*)[4])0 : ar, int (*)[4]:+1, int (*)[5]:(void)0); }));
-	  (void)(sizeof(struct { int x:_Generic( 0?(int (*)[5])0 : ar, int (*)[5]:+1, int (*)[4]:(void)0); }));
+	  बाह्य पूर्णाङ्क (*ar)[];
+	  (शून्य)(परिमाण(संरचना { पूर्णाङ्क x:_Generic( 0?(पूर्णाङ्क (*)[4])0 : (पूर्णाङ्क (*)[])0, पूर्णाङ्क (*)[4]:+1, पूर्णाङ्क (*)[5]:(शून्य)0); }));
+	  (शून्य)(परिमाण(संरचना { पूर्णाङ्क x:_Generic( 0?(पूर्णाङ्क (*)[])0 : (पूर्णाङ्क (*)[4])0, पूर्णाङ्क (*)[4]:+1, पूर्णाङ्क (*)[5]:(शून्य)0); }));
+	  (शून्य)(परिमाण(संरचना { पूर्णाङ्क x:_Generic( 0?ar : (पूर्णाङ्क (*)[4])0, पूर्णाङ्क (*)[4]:+1, पूर्णाङ्क (*)[5]:(शून्य)0); }));
+	  (शून्य)(परिमाण(संरचना { पूर्णाङ्क x:_Generic( 0?(पूर्णाङ्क (*)[4])0 : ar, पूर्णाङ्क (*)[4]:+1, पूर्णाङ्क (*)[5]:(शून्य)0); }));
+	  (शून्य)(परिमाण(संरचना { पूर्णाङ्क x:_Generic( 0?(पूर्णाङ्क (*)[5])0 : ar, पूर्णाङ्क (*)[5]:+1, पूर्णाङ्क (*)[4]:(शून्य)0); }));
 	}
 
-	printf ("%d\n", f(t));
+	म_लिखो ("%d\n", f(t));
 
-	return 0;
+	प्रत्यागम 0;
 }

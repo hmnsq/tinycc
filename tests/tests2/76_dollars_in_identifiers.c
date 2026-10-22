@@ -1,4 +1,4 @@
-#include <stdio.h>
+#अन्तर्भाव <stdio.h>
 
 #define $(x) x
 #define $fred 10
@@ -8,34 +8,34 @@
 #define $10(x) x*10
 #define _$10(x) x/10
 
-int main()
+पूर्णाङ्क main()
 {
-   printf("fred=%d\n", $fred);
-   printf("joe=%d\n", joe$);
-   printf("henry=%d\n", hen$y);
+   म_लिखो("fred=%d\n", $fred);
+   म_लिखो("joe=%d\n", joe$);
+   म_लिखो("henry=%d\n", hen$y);
 
-   printf("fred2=%d\n", $($fred));
-   printf("joe2=%d\n", $(joe$));
-   printf("henry2=%d\n", $(hen$y));
+   म_लिखो("fred2=%d\n", $($fred));
+   म_लिखो("joe2=%d\n", $(joe$));
+   म_लिखो("henry2=%d\n", $(hen$y));
 
-   printf("fred10=%d\n", $10($fred));
-   printf("joe_10=%d\n", _$10(joe$));
+   म_लिखो("fred10=%d\n", $10($fred));
+   म_लिखो("joe_10=%d\n", _$10(joe$));
 
-   int $ = 10;
-   int a100$ = 100;
-   int a$$ = 1000;
-   int a$c$b = 2121;
-   int $100 = 10000;
-   const char *$$$ = "money";
+   पूर्णाङ्क $ = 10;
+   पूर्णाङ्क a100$ = 100;
+   पूर्णाङ्क a$$ = 1000;
+   पूर्णाङ्क a$c$b = 2121;
+   पूर्णाङ्क $100 = 10000;
+   ध्रुव वर्ण *$$$ = "money";
 
-   printf("local=%d\n", $);
-   printf("a100$=%d\n", a100$);
-   printf("a$$=%d\n", a$$);
-   printf("a$c$b=%d\n", a$c$b);
-   printf("$100=%d\n", $100);
-   printf("$$$=%s", $$$);
+   म_लिखो("local=%d\n", $);
+   म_लिखो("a100$=%d\n", a100$);
+   म_लिखो("a$$=%d\n", a$$);
+   म_लिखो("a$c$b=%d\n", a$c$b);
+   म_लिखो("$100=%d\n", $100);
+   म_लिखो("$$$=%s", $$$);
 
-   return 0;
+   प्रत्यागम 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

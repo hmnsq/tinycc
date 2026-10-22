@@ -1,71 +1,71 @@
-typedef unsigned short uint16_t;
-typedef unsigned char uint8_t;
+प्रकारनिर्देश अचिन्हित लघु uint16_t;
+प्रकारनिर्देश अचिन्हित वर्ण uint8_t;
 
-typedef union Unaligned16a {
+प्रकारनिर्देश सङ्घ Unaligned16a {
   uint16_t u;
   uint8_t b[2];
 } __attribute__((packed)) Unaligned16a;
 
-typedef union __attribute__((packed)) Unaligned16b {
+प्रकारनिर्देश सङ्घ __attribute__((packed)) Unaligned16b {
   uint16_t u;
   uint8_t b[2];
 } Unaligned16b;
 
-extern void foo (void) __attribute__((stdcall));
-void __attribute__((stdcall)) foo (void)
+बाह्य शून्य foo (शून्य) __attribute__((stdcall));
+शून्य __attribute__((stdcall)) foo (शून्य)
 {
 }
 
 #define __stdcall __attribute__((stdcall))
-extern int some_stdcall_func (int, int, int) __stdcall;
-__stdcall int __stdcall some_stdcall_func(int foo, int bar, int baz) {
+बाह्य पूर्णाङ्क some_stdcall_func (पूर्णाङ्क, पूर्णाङ्क, पूर्णाङ्क) __stdcall;
+__stdcall पूर्णाङ्क __stdcall some_stdcall_func(पूर्णाङ्क foo, पूर्णाङ्क bar, पूर्णाङ्क baz) {
 	//printf("Hello from stdcall: %i %i %i\n", foo, bar, baz);
-	return 43;
+	प्रत्यागम 43;
 }
 
 /* The actual attribute isn't important, must just be
    parsable.  */
 #define ATTR __attribute__((__noinline__))
-int ATTR actual_function() {
-  return 42;
+पूर्णाङ्क ATTR actual_function() {
+  प्रत्यागम 42;
 }
 
-int label_attribute (void)
+पूर्णाङ्क label_attribute (शून्य)
 {
 lab1: __attribute__((__unused__));
-  return 0;
+  प्रत्यागम 0;
 }
 
-extern int printf (const char *, ...);
-static int globalvar;
-int main()
+बाह्य पूर्णाङ्क म_लिखो (ध्रुव वर्ण *, ...);
+स्थिर पूर्णाङ्क globalvar;
+पूर्णाङ्क main()
 {
-    void *function_pointer = &actual_function;
-    int localvar = 42, i;
+    शून्य *function_pointer = &actual_function;
+    पूर्णाङ्क localvar = 42, i;
 
-    int a = ((ATTR int(*) (void)) function_pointer)();
-    printf("%i\n", a);
+    पूर्णाङ्क a = ((ATTR पूर्णाङ्क(*) (शून्य)) function_pointer)();
+    म_लिखो("%i\n", a);
 
     /* In the following we once misparsed 'ATTR *' is a btype
        and hence the whole type was garbled.  */
-    int b = ( (int(ATTR *)(void))  function_pointer)();
-    printf("%i\n", b);
+    पूर्णाङ्क b = ( (पूर्णाङ्क(ATTR *)(शून्य))  function_pointer)();
+    म_लिखो("%i\n", b);
 
     /* All these should work and leave the stack pointer in its original
        position.  */
     some_stdcall_func(1, 10, 100);
-    ((int __stdcall (*)(int, int, int))some_stdcall_func) (2, 20, 200);
-    ((int(*__stdcall)(int, int, int))some_stdcall_func) (3, 30, 300);
-    for (i = 0; i < 1024; i++) {
+    ((पूर्णाङ्क __stdcall (*)(पूर्णाङ्क, पूर्णाङ्क, पूर्णाङ्क))some_stdcall_func) (2, 20, 200);
+    ((पूर्णाङ्क(*__stdcall)(पूर्णाङ्क, पूर्णाङ्क, पूर्णाङ्क))some_stdcall_func) (3, 30, 300);
+    प्रति (i = 0; i < 1024; i++) {
 	globalvar = i;
 	/* This was once misparsed at <= gitrev 325241c0, forgetting
 	   the stdcall attribute on the function pointer leading to
 	   stack increment being done twice (in callee and caller).
 	   This will clobber 'i' and 'localvar' which is how we detect
 	   this.  */
-	((int(__stdcall*)(int, int, int))some_stdcall_func) (4, 40, 400);
-	if (localvar != 42 || globalvar != i)
-	  printf("error, localvar=%d i=%d globalvar=%d\n", localvar, i, globalvar);
+	((पूर्णाङ्क(__stdcall*)(पूर्णाङ्क, पूर्णाङ्क, पूर्णाङ्क))some_stdcall_func) (4, 40, 400);
+	यदि (localvar != 42 || globalvar != i)
+	  म_लिखो("error, localvar=%d i=%d globalvar=%d\n", localvar, i, globalvar);
     }
-    return 0;
+    प्रत्यागम 0;
 }

@@ -1,15 +1,15 @@
-static int simple_jump(void)
+स्थिर पूर्णाङ्क simple_jump(शून्य)
 {
-  asm goto ("jmp %l[label]" : : : : label);
-  return 0;
+  यंत्र गच्छ ("jmp %l[label]" : : : : label);
+  प्रत्यागम 0;
 label:
-  return 1;
+  प्रत्यागम 1;
 }
 
-static int three_way_jump(int val, int *addr)
+स्थिर पूर्णाङ्क three_way_jump(पूर्णाङ्क val, पूर्णाङ्क *addr)
 {
   *addr = 42;
-  asm goto ("cmp $0, %1\n\t"
+  यंत्र गच्छ ("cmp $0, %1\n\t"
             "jg %l[larger]\n\t"
             "jl %l[smaller]\n\t"
             "incl %0\n\t"
@@ -17,46 +17,46 @@ static int three_way_jump(int val, int *addr)
             : "r" (val)
             :
             : smaller, larger);
-  return 1;
+  प्रत्यागम 1;
 smaller:
-  return 2;
+  प्रत्यागम 2;
 larger:
-  return 3;
+  प्रत्यागम 3;
 }
 
-static int another_jump(void)
+स्थिर पूर्णाङ्क another_jump(शून्य)
 {
-  asm goto ("jmp %l[label]" : : : : label);
-  return 70;
+  यंत्र गच्छ ("jmp %l[label]" : : : : label);
+  प्रत्यागम 70;
   /* Use the same label name as in simple_jump to check that
      that doesn't confuse our C/ASM symbol tables */
 label:
-  return 71;
+  प्रत्यागम 71;
 }
 
-extern int printf (const char *, ...);
-int main(void)
+बाह्य पूर्णाङ्क म_लिखो (ध्रुव वर्ण *, ...);
+पूर्णाङ्क main(शून्य)
 {
-  int i;
-  if (simple_jump () == 1)
-    printf ("simple_jump: okay\n");
-  else
-    printf ("simple_jump: wrong\n");
-  if (another_jump () == 71)
-    printf ("another_jump: okay\n");
-  else
-    printf ("another_jump: wrong\n");
-  if (three_way_jump(0, &i) == 1 && i == 43)
-    printf ("three_way_jump(0): okay\n");
-  else
-    printf ("three_way_jump(0): wrong (i=%d)\n", i);
-  if (three_way_jump(1, &i) == 3 && i == 42)
-    printf ("three_way_jump(1): okay\n");
-  else
-    printf ("three_way_jump(1): wrong (i=%d)\n", i);
-  if (three_way_jump(-1, &i) == 2 && i == 42)
-    printf ("three_way_jump(-1): okay\n");
-  else
-    printf ("three_way_jump(-1): wrong (i=%d)\n", i);
-  return 0;
+  पूर्णाङ्क i;
+  यदि (simple_jump () == 1)
+    म_लिखो ("simple_jump: okay\n");
+  अन्यथा
+    म_लिखो ("simple_jump: wrong\n");
+  यदि (another_jump () == 71)
+    म_लिखो ("another_jump: okay\n");
+  अन्यथा
+    म_लिखो ("another_jump: wrong\n");
+  यदि (three_way_jump(0, &i) == 1 && i == 43)
+    म_लिखो ("three_way_jump(0): okay\n");
+  अन्यथा
+    म_लिखो ("three_way_jump(0): wrong (i=%d)\n", i);
+  यदि (three_way_jump(1, &i) == 3 && i == 42)
+    म_लिखो ("three_way_jump(1): okay\n");
+  अन्यथा
+    म_लिखो ("three_way_jump(1): wrong (i=%d)\n", i);
+  यदि (three_way_jump(-1, &i) == 2 && i == 42)
+    म_लिखो ("three_way_jump(-1): okay\n");
+  अन्यथा
+    म_लिखो ("three_way_jump(-1): wrong (i=%d)\n", i);
+  प्रत्यागम 0;
 }
