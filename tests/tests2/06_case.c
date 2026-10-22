@@ -1,29 +1,29 @@
-#include <stdio.h>
+#ضمن <stdio.h>
 
-int main()
+صحيح اصلي()
 {
-   int Count;
+   صحيح شمېر_3;
 
-   for (Count = 0; Count < 4; Count++)
+   لكل (شمېر_3 = 0; شمېر_3 < 4; شمېر_3++)
    {
-      printf("%d\n", Count);
-      switch (Count)
+      چاپ_کړه("%d\n", شمېر_3);
+      بدل (شمېر_3)
       {
-         case 1:
-            printf("%d\n", 1);
-            break;
+         حالة 1:
+            چاپ_کړه("%d\n", 1);
+            اكسر;
 
-         case 2:
-            printf("%d\n", 2);
-            break;
+         حالة 2:
+            چاپ_کړه("%d\n", 2);
+            اكسر;
 
-         default:
-            printf("%d\n", 0);
-            break;
+         افتراضي:
+            چاپ_کړه("%d\n", 0);
+            اكسر;
       }
    }
 
-   return 0;
+   أرجع 0;
 }
 
 // vim: set expandtab ts=4 sw=3 sts=3 tw=80 :

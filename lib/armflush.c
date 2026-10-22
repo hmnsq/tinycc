@@ -5,12 +5,12 @@
    itself needs this function */
 
 /* ------------------------------------------------------------- */
-#if defined __arm__
+#إذا defined __arm__
 
-#ifdef __TINYC__
+#که_تعریف_شوی __TINYC__
 
 /* syscall wrapper */
-unsigned _tccsyscall(unsigned syscall_nr, ...);
+بینښه _tccsyscall(بینښه syscall_nr, ...);
 
 /* arm-tcc supports only fake asm currently */
 __asm__(
@@ -26,45 +26,45 @@ __asm__(
     );
 
 /* from unistd.h: */
-#if defined(__thumb__) || defined(__ARM_EABI__)
+#إذا defined(__thumb__) || defined(__ARM_EABI__)
 # define __NR_SYSCALL_BASE      0x0
-#else
+#وإلا
 # define __NR_SYSCALL_BASE      0x900000
-#endif
-#define __ARM_NR_BASE           (__NR_SYSCALL_BASE+0x0f0000)
-#define __ARM_NR_cacheflush     (__ARM_NR_BASE+2)
+#د_که_پای
+#تعریف_کړه __ARM_NR_BASE           (__NR_SYSCALL_BASE+0x0f0000)
+#تعریف_کړه __ARM_NR_cacheflush     (__ARM_NR_BASE+2)
 
-#define syscall _tccsyscall
+#تعریف_کړه syscall _tccsyscall
 
-#else
+#وإلا
 
-#define _GNU_SOURCE
-#include <unistd.h>
-#include <sys/syscall.h>
-#include <stdio.h>
+#تعریف_کړه GNU_سرچینه
+#ضمن <unistd.h>
+#ضمن <sys/syscall.h>
+#ضمن <stdio.h>
 
-#endif
+#د_که_پای
 
 /* Flushing for tccrun */
-void __clear_cache(void *beginning, void *end)
+فراغ __clear_cache(فراغ *beginning, فراغ *پای_ټکی)
 {
 /* __ARM_NR_cacheflush is kernel private and should not be used in user space.
  * However, there is no ARM asm parser in tcc so we use it for now */
-    syscall(__ARM_NR_cacheflush, beginning, end, 0);
+    syscall(__ARM_NR_cacheflush, beginning, پای_ټکی, 0);
 }
 
 /* ------------------------------------------------------------- */
-#elif defined __aarch64__
-void __clear_cache(void *beg, void *end)
+#وإلاإذا defined __aarch64__
+فراغ __clear_cache(فراغ *beg, فراغ *پای_ټکی)
 {
-    __arm64_clear_cache(beg, end);
+    __arm64_clear_cache(beg, پای_ټکی);
 }
 
 /* ------------------------------------------------------------- */
-#elif defined __riscv
-void __clear_cache(void *beg, void *end)
+#وإلاإذا defined __riscv
+فراغ __clear_cache(فراغ *beg, فراغ *پای_ټکی)
 {
-    __riscv64_clear_cache(beg, end);
+    __riscv64_clear_cache(beg, پای_ټکی);
 }
 
-#endif
+#د_که_پای

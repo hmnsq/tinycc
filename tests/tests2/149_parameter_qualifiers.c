@@ -1,71 +1,71 @@
-void pointer_parameters(int *const cp, int *volatile vp, int *restrict rp)
+فراغ اشاره_ګر_parameters(صحيح *ثابت cp, صحيح *متطاير vp, صحيح *محدود rp)
 {
-    _Static_assert(_Generic(&cp, int *const *: 1, default: 0),
+    _Static_assert(_Generic(&cp, صحيح *ثابت *: 1, افتراضي: 0),
                    "const pointer parameter remains qualified");
-    _Static_assert(_Generic(&vp, int *volatile *: 1, default: 0),
+    _Static_assert(_Generic(&vp, صحيح *متطاير *: 1, افتراضي: 0),
                    "volatile pointer parameter remains qualified");
-   _Static_assert(_Generic(&rp, int *restrict *: 1, default: 0),
+   _Static_assert(_Generic(&rp, صحيح *محدود *: 1, افتراضي: 0),
                   "restrict pointer parameter remains qualified");
 }
 
-void array_parameters(int ca[const 2], int va[volatile 2], int ra[restrict 2])
+فراغ array_parameters(صحيح ca[ثابت 2], صحيح va[متطاير 2], صحيح ra[محدود 2])
 {
-    _Static_assert(_Generic(&ca, int *const *: 1, default: 0),
+    _Static_assert(_Generic(&ca, صحيح *ثابت *: 1, افتراضي: 0),
                    "const array parameter adjusts to qualified pointer");
-    _Static_assert(_Generic(&va, int *volatile *: 1, default: 0),
+    _Static_assert(_Generic(&va, صحيح *متطاير *: 1, افتراضي: 0),
                    "volatile array parameter adjusts to qualified pointer");
-    _Static_assert(_Generic(&ra, int *restrict *: 1, default: 0),
+    _Static_assert(_Generic(&ra, صحيح *محدود *: 1, افتراضي: 0),
                    "restrict array parameter adjusts to qualified pointer");
 }
 
-void declared_const(int *const pointer);
-void declared_const(int *pointer)
+فراغ declared_const(صحيح *ثابت اشاره_ګر);
+فراغ declared_const(صحيح *اشاره_ګر)
 {
-    _Static_assert(_Generic(&pointer, int **: 1, default: 0),
+    _Static_assert(_Generic(&اشاره_ګر, صحيح **: 1, افتراضي: 0),
                    "declaration qualifier does not affect definition");
-    pointer = 0;
+    اشاره_ګر = 0;
 }
 
-void defined_const(int *pointer);
-void defined_const(int *const pointer)
+فراغ defined_const(صحيح *اشاره_ګر);
+فراغ defined_const(صحيح *ثابت اشاره_ګر)
 {
-    _Static_assert(_Generic(&pointer, int *const *: 1, default: 0),
+    _Static_assert(_Generic(&اشاره_ګر, صحيح *ثابت *: 1, افتراضي: 0),
                    "definition retains const");
 }
 
-void declared_volatile(int *volatile pointer);
-void declared_volatile(int *pointer)
+فراغ declared_volatile(صحيح *متطاير اشاره_ګر);
+فراغ declared_volatile(صحيح *اشاره_ګر)
 {
-    _Static_assert(_Generic(&pointer, int **: 1, default: 0),
+    _Static_assert(_Generic(&اشاره_ګر, صحيح **: 1, افتراضي: 0),
                    "declaration qualifier does not affect definition");
-    pointer = 0;
+    اشاره_ګر = 0;
 }
 
-void defined_volatile(int *pointer);
-void defined_volatile(int *volatile pointer)
+فراغ defined_volatile(صحيح *اشاره_ګر);
+فراغ defined_volatile(صحيح *متطاير اشاره_ګر)
 {
-    _Static_assert(_Generic(&pointer, int *volatile *: 1, default: 0),
+    _Static_assert(_Generic(&اشاره_ګر, صحيح *متطاير *: 1, افتراضي: 0),
                    "definition retains volatile");
-    pointer = 0;
+    اشاره_ګر = 0;
 }
 
-void declared_restrict(int *restrict pointer);
-void declared_restrict(int *pointer)
+فراغ declared_restrict(صحيح *محدود اشاره_ګر);
+فراغ declared_restrict(صحيح *اشاره_ګر)
 {
-  _Static_assert(_Generic(&pointer, int **: 1, default: 0),
+  _Static_assert(_Generic(&اشاره_ګر, صحيح **: 1, افتراضي: 0),
                  "declaration qualifier does not affect definition");
-  pointer = 0;
+  اشاره_ګر = 0;
 }
 
-void defined_restrict(int *pointer);
-void defined_restrict(int *restrict pointer)
+فراغ defined_restrict(صحيح *اشاره_ګر);
+فراغ defined_restrict(صحيح *محدود اشاره_ګر)
 {
-  _Static_assert(_Generic(&pointer, int *restrict *: 1, default: 0),
+  _Static_assert(_Generic(&اشاره_ګر, صحيح *محدود *: 1, افتراضي: 0),
                  "definition retains restrict");
-  pointer = 0;
+  اشاره_ګر = 0;
 }
 
-int main(void)
+صحيح اصلي(فراغ)
 {
-    return 0;
+    أرجع 0;
 }

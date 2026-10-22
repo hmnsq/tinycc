@@ -3,154 +3,154 @@
  * This file is part of the w64 mingw-runtime package.
  * No warranty is given; refer to the file DISCLAIMER within this package.
  */
-#ifndef GUID_DEFINED
-#define GUID_DEFINED
-typedef struct _GUID {
-  unsigned long Data1;
-  unsigned short Data2;
-  unsigned short Data3;
-  unsigned char Data4[8 ];
+#که_نه_تعریف_شوی GUID_DEFINED
+#تعریف_کړه GUID_DEFINED
+تعريفنوع بنية _GUID {
+  بینښه اوږد Data1;
+  بینښه لنډ Data2;
+  بینښه لنډ Data3;
+  بینښه حرف Data4[8 ];
 } GUID;
-#endif
+#د_که_پای
 
-#ifndef UUID_DEFINED
-#define UUID_DEFINED
-typedef GUID UUID;
-#endif
+#که_نه_تعریف_شوی UUID_DEFINED
+#تعریف_کړه UUID_DEFINED
+تعريفنوع GUID UUID;
+#د_که_پای
 
-#ifndef FAR
-#define FAR
-#endif
+#که_نه_تعریف_شوی FAR
+#تعریف_کړه FAR
+#د_که_پای
 
-#ifndef DECLSPEC_SELECTANY
-#define DECLSPEC_SELECTANY __declspec(selectany)
-#endif
+#که_نه_تعریف_شوی DECLSPEC_SELECTANY
+#تعریف_کړه DECLSPEC_SELECTANY __declspec(selectany)
+#د_که_پای
 
-#ifndef EXTERN_C
-#ifdef __cplusplus
-#define EXTERN_C extern "C"
-#else
-#define EXTERN_C extern
-#endif
-#endif
+#که_نه_تعریف_شوی EXTERN_C
+#که_تعریف_شوی __cplusplus
+#تعریف_کړه EXTERN_C خارجي "C"
+#وإلا
+#تعریف_کړه EXTERN_C خارجي
+#د_که_پای
+#د_که_پای
 
-#ifdef DEFINE_GUID
-#undef DEFINE_GUID
-#endif
+#که_تعریف_شوی DEFINE_GUID
+#تعریف_لغوه DEFINE_GUID
+#د_که_پای
 
-#ifdef INITGUID
-#ifdef __cplusplus
-#define DEFINE_GUID(name,l,w1,w2,b1,b2,b3,b4,b5,b6,b7,b8) EXTERN_C const GUID DECLSPEC_SELECTANY name = { l,w1,w2,{ b1,b2,b3,b4,b5,b6,b7,b8 } }
-#else
-#define DEFINE_GUID(name,l,w1,w2,b1,b2,b3,b4,b5,b6,b7,b8) const GUID DECLSPEC_SELECTANY name = { l,w1,w2,{ b1,b2,b3,b4,b5,b6,b7,b8 } }
-#endif
-#else
-#define DEFINE_GUID(name,l,w1,w2,b1,b2,b3,b4,b5,b6,b7,b8) EXTERN_C const GUID name
-#endif
+#که_تعریف_شوی INITGUID
+#که_تعریف_شوی __cplusplus
+#تعریف_کړه DEFINE_GUID(name,l,w1,w2,b1,b2,b3,b4,b5,b6,b7,b8) EXTERN_C ثابت GUID DECLSPEC_SELECTANY name = { l,w1,w2,{ b1,b2,b3,b4,b5,b6,b7,b8 } }
+#وإلا
+#تعریف_کړه DEFINE_GUID(name,l,w1,w2,b1,b2,b3,b4,b5,b6,b7,b8) ثابت GUID DECLSPEC_SELECTANY name = { l,w1,w2,{ b1,b2,b3,b4,b5,b6,b7,b8 } }
+#د_که_پای
+#وإلا
+#تعریف_کړه DEFINE_GUID(name,l,w1,w2,b1,b2,b3,b4,b5,b6,b7,b8) EXTERN_C ثابت GUID name
+#د_که_پای
 
-#define DEFINE_OLEGUID(name,l,w1,w2) DEFINE_GUID(name,l,w1,w2,0xC0,0,0,0,0,0,0,0x46)
+#تعریف_کړه DEFINE_OLEGUID(name,l,w1,w2) DEFINE_GUID(name,l,w1,w2,0xC0,0,0,0,0,0,0,0x46)
 
-#ifndef _GUIDDEF_H_
-#define _GUIDDEF_H_
+#که_نه_تعریف_شوی _GUIDDEF_H_
+#تعریف_کړه _GUIDDEF_H_
 
-#ifndef __LPGUID_DEFINED__
-#define __LPGUID_DEFINED__
-typedef GUID *LPGUID;
-#endif
+#که_نه_تعریف_شوی __LPGUID_DEFINED__
+#تعریف_کړه __LPGUID_DEFINED__
+تعريفنوع GUID *LPGUID;
+#د_که_پای
 
-#ifndef __LPCGUID_DEFINED__
-#define __LPCGUID_DEFINED__
-typedef const GUID *LPCGUID;
-#endif
+#که_نه_تعریف_شوی __LPCGUID_DEFINED__
+#تعریف_کړه __LPCGUID_DEFINED__
+تعريفنوع ثابت GUID *LPCGUID;
+#د_که_پای
 
-#ifndef __IID_DEFINED__
-#define __IID_DEFINED__
+#که_نه_تعریف_شوی __IID_DEFINED__
+#تعریف_کړه __IID_DEFINED__
 
-typedef GUID IID;
-typedef IID *LPIID;
-#define IID_NULL GUID_NULL
-#define IsEqualIID(riid1,riid2) IsEqualGUID(riid1,riid2)
-typedef GUID CLSID;
-typedef CLSID *LPCLSID;
-#define CLSID_NULL GUID_NULL
-#define IsEqualCLSID(rclsid1,rclsid2) IsEqualGUID(rclsid1,rclsid2)
-typedef GUID FMTID;
-typedef FMTID *LPFMTID;
-#define FMTID_NULL GUID_NULL
-#define IsEqualFMTID(rfmtid1,rfmtid2) IsEqualGUID(rfmtid1,rfmtid2)
+تعريفنوع GUID IID;
+تعريفنوع IID *LPIID;
+#تعریف_کړه IID_NULL GUID_NULL
+#تعریف_کړه IsEqualIID(riid1,riid2) IsEqualGUID(riid1,riid2)
+تعريفنوع GUID CLSID;
+تعريفنوع CLSID *LPCLSID;
+#تعریف_کړه CLSID_NULL GUID_NULL
+#تعریف_کړه IsEqualCLSID(rclsid1,rclsid2) IsEqualGUID(rclsid1,rclsid2)
+تعريفنوع GUID FMTID;
+تعريفنوع FMTID *LPFMTID;
+#تعریف_کړه FMTID_NULL GUID_NULL
+#تعریف_کړه IsEqualFMTID(rfmtid1,rfmtid2) IsEqualGUID(rfmtid1,rfmtid2)
 
-#ifdef __midl_proxy
-#define __MIDL_CONST
-#else
-#define __MIDL_CONST const
-#endif
+#که_تعریف_شوی __midl_proxy
+#تعریف_کړه __MIDL_CONST
+#وإلا
+#تعریف_کړه __MIDL_CONST ثابت
+#د_که_پای
 
-#ifndef _REFGUID_DEFINED
-#define _REFGUID_DEFINED
-#ifdef __cplusplus
-#define REFGUID const GUID &
-#else
-#define REFGUID const GUID *__MIDL_CONST
-#endif
-#endif
+#که_نه_تعریف_شوی _REFGUID_DEFINED
+#تعریف_کړه _REFGUID_DEFINED
+#که_تعریف_شوی __cplusplus
+#تعریف_کړه REFGUID ثابت GUID &
+#وإلا
+#تعریف_کړه REFGUID ثابت GUID *__MIDL_CONST
+#د_که_پای
+#د_که_پای
 
-#ifndef _REFIID_DEFINED
-#define _REFIID_DEFINED
-#ifdef __cplusplus
-#define REFIID const IID &
-#else
-#define REFIID const IID *__MIDL_CONST
-#endif
-#endif
+#که_نه_تعریف_شوی _REFIID_DEFINED
+#تعریف_کړه _REFIID_DEFINED
+#که_تعریف_شوی __cplusplus
+#تعریف_کړه REFIID ثابت IID &
+#وإلا
+#تعریف_کړه REFIID ثابت IID *__MIDL_CONST
+#د_که_پای
+#د_که_پای
 
-#ifndef _REFCLSID_DEFINED
-#define _REFCLSID_DEFINED
-#ifdef __cplusplus
-#define REFCLSID const IID &
-#else
-#define REFCLSID const IID *__MIDL_CONST
-#endif
-#endif
+#که_نه_تعریف_شوی _REFCLSID_DEFINED
+#تعریف_کړه _REFCLSID_DEFINED
+#که_تعریف_شوی __cplusplus
+#تعریف_کړه REFCLSID ثابت IID &
+#وإلا
+#تعریف_کړه REFCLSID ثابت IID *__MIDL_CONST
+#د_که_پای
+#د_که_پای
 
-#ifndef _REFFMTID_DEFINED
-#define _REFFMTID_DEFINED
-#ifdef __cplusplus
-#define REFFMTID const IID &
-#else
-#define REFFMTID const IID *__MIDL_CONST
-#endif
-#endif
-#endif
+#که_نه_تعریف_شوی _REFFMTID_DEFINED
+#تعریف_کړه _REFFMTID_DEFINED
+#که_تعریف_شوی __cplusplus
+#تعریف_کړه REFFMTID ثابت IID &
+#وإلا
+#تعریف_کړه REFFMTID ثابت IID *__MIDL_CONST
+#د_که_پای
+#د_که_پای
+#د_که_پای
 
-#ifndef _SYS_GUID_OPERATORS_
-#define _SYS_GUID_OPERATORS_
-#include <string.h>
+#که_نه_تعریف_شوی _SYS_GUID_OPERATORS_
+#تعریف_کړه _SYS_GUID_OPERATORS_
+#ضمن <string.h>
 
-#ifdef __cplusplus
-__inline int InlineIsEqualGUID(REFGUID rguid1,REFGUID rguid2) {
-  return (((unsigned long *) &rguid1)[0]==((unsigned long *) &rguid2)[0] && ((unsigned long *) &rguid1)[1]==((unsigned long *) &rguid2)[1] &&
-    ((unsigned long *) &rguid1)[2]==((unsigned long *) &rguid2)[2] && ((unsigned long *) &rguid1)[3]==((unsigned long *) &rguid2)[3]);
+#که_تعریف_شوی __cplusplus
+__inline صحيح InlineIsEqualGUID(REFGUID rguid1,REFGUID rguid2) {
+  أرجع (((بینښه اوږد *) &rguid1)[0]==((بینښه اوږد *) &rguid2)[0] && ((بینښه اوږد *) &rguid1)[1]==((بینښه اوږد *) &rguid2)[1] &&
+    ((بینښه اوږد *) &rguid1)[2]==((بینښه اوږد *) &rguid2)[2] && ((بینښه اوږد *) &rguid1)[3]==((بینښه اوږد *) &rguid2)[3]);
 }
-__inline int IsEqualGUID(REFGUID rguid1,REFGUID rguid2) { return !memcmp(&rguid1,&rguid2,sizeof(GUID)); }
-#else
-#define InlineIsEqualGUID(rguid1,rguid2) (((unsigned long *) rguid1)[0]==((unsigned long *) rguid2)[0] && ((unsigned long *) rguid1)[1]==((unsigned long *) rguid2)[1] && ((unsigned long *) rguid1)[2]==((unsigned long *) rguid2)[2] && ((unsigned long *) rguid1)[3]==((unsigned long *) rguid2)[3])
-#define IsEqualGUID(rguid1,rguid2) (!memcmp(rguid1,rguid2,sizeof(GUID)))
-#endif
+__inline صحيح IsEqualGUID(REFGUID rguid1,REFGUID rguid2) { أرجع !memcmp(&rguid1,&rguid2,حجم(GUID)); }
+#وإلا
+#تعریف_کړه InlineIsEqualGUID(rguid1,rguid2) (((بینښه اوږد *) rguid1)[0]==((بینښه اوږد *) rguid2)[0] && ((بینښه اوږد *) rguid1)[1]==((بینښه اوږد *) rguid2)[1] && ((بینښه اوږد *) rguid1)[2]==((بینښه اوږد *) rguid2)[2] && ((بینښه اوږد *) rguid1)[3]==((بینښه اوږد *) rguid2)[3])
+#تعریف_کړه IsEqualGUID(rguid1,rguid2) (!memcmp(rguid1,rguid2,حجم(GUID)))
+#د_که_پای
 
-#ifdef __INLINE_ISEQUAL_GUID
-#undef IsEqualGUID
-#define IsEqualGUID(rguid1,rguid2) InlineIsEqualGUID(rguid1,rguid2)
-#endif
+#که_تعریف_شوی __INLINE_ISEQUAL_GUID
+#تعریف_لغوه IsEqualGUID
+#تعریف_کړه IsEqualGUID(rguid1,rguid2) InlineIsEqualGUID(rguid1,rguid2)
+#د_که_پای
 
-#define IsEqualIID(riid1,riid2) IsEqualGUID(riid1,riid2)
-#define IsEqualCLSID(rclsid1,rclsid2) IsEqualGUID(rclsid1,rclsid2)
+#تعریف_کړه IsEqualIID(riid1,riid2) IsEqualGUID(riid1,riid2)
+#تعریف_کړه IsEqualCLSID(rclsid1,rclsid2) IsEqualGUID(rclsid1,rclsid2)
 
-#if !defined _SYS_GUID_OPERATOR_EQ_ && !defined _NO_SYS_GUID_OPERATOR_EQ_
-#define _SYS_GUID_OPERATOR_EQ_
-#ifdef __cplusplus
-__inline int operator==(REFGUID guidOne,REFGUID guidOther) { return IsEqualGUID(guidOne,guidOther); }
-__inline int operator!=(REFGUID guidOne,REFGUID guidOther) { return !(guidOne==guidOther); }
-#endif
-#endif
-#endif
-#endif
+#إذا !defined _SYS_GUID_OPERATOR_EQ_ && !defined _NO_SYS_GUID_OPERATOR_EQ_
+#تعریف_کړه _SYS_GUID_OPERATOR_EQ_
+#که_تعریف_شوی __cplusplus
+__inline صحيح چلوونکی==(REFGUID guidOne,REFGUID guidOther) { أرجع IsEqualGUID(guidOne,guidOther); }
+__inline صحيح چلوونکی!=(REFGUID guidOne,REFGUID guidOther) { أرجع !(guidOne==guidOther); }
+#د_که_پای
+#د_که_پای
+#د_که_پای
+#د_که_پای

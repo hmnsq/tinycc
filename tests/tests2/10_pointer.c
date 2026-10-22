@@ -1,40 +1,40 @@
-#include <stdio.h>
+#ضمن <stdio.h>
 
-struct ziggy
+بنية ziggy
 {
-   int a;
-   int b;
-   int c;
+   صحيح a;
+   صحيح b;
+   صحيح c;
 } bolshevic;
 
-int main()
+صحيح اصلي()
 {
-   int a;
-   int *b;
-   int c;
+   صحيح a;
+   صحيح *b;
+   صحيح c;
 
    a = 42;
    b = &a;
-   printf("a = %d\n", *b);
+   چاپ_کړه("a = %d\n", *b);
 
    bolshevic.a = 12;
    bolshevic.b = 34;
    bolshevic.c = 56;
 
-   printf("bolshevic.a = %d\n", bolshevic.a);
-   printf("bolshevic.b = %d\n", bolshevic.b);
-   printf("bolshevic.c = %d\n", bolshevic.c);
+   چاپ_کړه("bolshevic.a = %d\n", bolshevic.a);
+   چاپ_کړه("bolshevic.b = %d\n", bolshevic.b);
+   چاپ_کړه("bolshevic.c = %d\n", bolshevic.c);
 
-   struct ziggy *tsar = &bolshevic;
+   بنية ziggy *tsar = &bolshevic;
 
-   printf("tsar->a = %d\n", tsar->a);
-   printf("tsar->b = %d\n", tsar->b);
-   printf("tsar->c = %d\n", tsar->c);
+   چاپ_کړه("tsar->a = %d\n", tsar->a);
+   چاپ_کړه("tsar->b = %d\n", tsar->b);
+   چاپ_کړه("tsar->c = %d\n", tsar->c);
 
    b = &(bolshevic.b);
-   printf("bolshevic.b = %d\n", *b);
+   چاپ_کړه("bolshevic.b = %d\n", *b);
 
-   return 0;
+   أرجع 0;
 }
 
 // vim: set expandtab ts=4 sw=3 sts=3 tw=80 :

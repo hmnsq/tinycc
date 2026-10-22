@@ -3,26 +3,26 @@
  * This file is part of the w64 mingw-runtime package.
  * No warranty is given; refer to the file DISCLAIMER within this package.
  */
-#ifndef _INC_SHARE
-#define _INC_SHARE
+#که_نه_تعریف_شوی _INC_SHARE
+#تعریف_کړه _INC_SHARE
 
-#ifndef _WIN32
-#error Only Win32 target is supported!
-#endif
+#که_نه_تعریف_شوی _WIN32
+#تېروتنه Only Win32 موخه is supported!
+#د_که_پای
 
-#define _SH_COMPAT 0x00
-#define _SH_DENYRW 0x10
-#define _SH_DENYWR 0x20
-#define _SH_DENYRD 0x30
-#define _SH_DENYNO 0x40
-#define _SH_SECURE 0x80
+#تعریف_کړه _SH_COMPAT 0x00
+#تعریف_کړه _SH_DENYRW 0x10
+#تعریف_کړه _SH_DENYWR 0x20
+#تعریف_کړه _SH_DENYRD 0x30
+#تعریف_کړه _SH_DENYNO 0x40
+#تعریف_کړه _SH_SECURE 0x80
 
-#ifndef	NO_OLDNAMES
-#define SH_COMPAT _SH_COMPAT
-#define SH_DENYRW _SH_DENYRW
-#define SH_DENYWR _SH_DENYWR
-#define SH_DENYRD _SH_DENYRD
-#define SH_DENYNO _SH_DENYNO
-#endif
+#که_نه_تعریف_شوی	NO_OLDNAMES
+#تعریف_کړه SH_COMPAT _SH_COMPAT
+#تعریف_کړه SH_DENYRW _SH_DENYRW
+#تعریف_کړه SH_DENYWR _SH_DENYWR
+#تعریف_کړه SH_DENYRD _SH_DENYRD
+#تعریف_کړه SH_DENYNO _SH_DENYNO
+#د_که_پای
 
-#endif
+#د_که_پای

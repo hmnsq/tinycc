@@ -1,30 +1,30 @@
-#define _ISOC99_SOURCE 1
+#تعریف_کړه ISOC99_سرچینه 1
 
-#include <stdio.h>
-#include <math.h>
+#ضمن <stdio.h>
+#ضمن <math.h>
 
-int main()
+صحيح اصلي()
 {
-   printf("%f\n", sin(0.12));
-   printf("%f\n", cos(0.12));
-   printf("%f\n", tan(0.12));
-   printf("%f\n", asin(0.12));
-   printf("%f\n", acos(0.12));
-   printf("%f\n", atan(0.12));
-   printf("%f\n", sinh(0.12));
-   printf("%f\n", cosh(0.12));
-   printf("%f\n", tanh(0.12));
-   printf("%f\n", exp(0.12));
-   printf("%f\n", fabs(-0.12));
-   printf("%f\n", log(0.12));
-   printf("%f\n", log10(0.12));
-   printf("%f\n", pow(0.12, 0.12));
-   printf("%f\n", sqrt(0.12));
-   printf("%f\n", round(12.34));
-   printf("%f\n", ceil(12.34));
-   printf("%f\n", floor(12.34));
+   چاپ_کړه("%f\n", ساین(0.12));
+   چاپ_کړه("%f\n", کوساین(0.12));
+   چاپ_کړه("%f\n", tan(0.12));
+   چاپ_کړه("%f\n", asin(0.12));
+   چاپ_کړه("%f\n", acos(0.12));
+   چاپ_کړه("%f\n", atan(0.12));
+   چاپ_کړه("%f\n", sinh(0.12));
+   چاپ_کړه("%f\n", cosh(0.12));
+   چاپ_کړه("%f\n", tanh(0.12));
+   چاپ_کړه("%f\n", توانیز_تابع(0.12));
+   چاپ_کړه("%f\n", fabs(-0.12));
+   چاپ_کړه("%f\n", لوګاریتم(0.12));
+   چاپ_کړه("%f\n", log10(0.12));
+   چاپ_کړه("%f\n", توان(0.12, 0.12));
+   چاپ_کړه("%f\n", جذر(0.12));
+   چاپ_کړه("%f\n", پړاو(12.34));
+   چاپ_کړه("%f\n", ceil(12.34));
+   چاپ_کړه("%f\n", floor(12.34));
 
-   return 0;
+   أرجع 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

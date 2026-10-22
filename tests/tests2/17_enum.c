@@ -1,6 +1,6 @@
-#include <stdio.h>
+#ضمن <stdio.h>
 
-enum fred
+تعداد fred
 {
    a,
    b,
@@ -19,54 +19,54 @@ enum fred
 /* Strict ISO C doesn't allow this kind of forward declaration of
    enums, but GCC accepts it (and gives only pedantic warning), and
    it occurs in the wild.  */
-enum efoo;
-struct Sforward_use {
-    int (*fmember) (enum efoo x);
+تعداد efoo;
+بنية Sforward_use {
+    صحيح (*fmember) (تعداد efoo x);
 };
 
-extern enum efoo it_real_fn(void);
-enum efoo {
+خارجي تعداد efoo it_real_fn(فراغ);
+تعداد efoo {
   ONE,
   TWO,
 };
-struct S2 {
-  enum efoo (*f2) (void);
+بنية S2 {
+  تعداد efoo (*f2) (فراغ);
 };
-void should_compile(struct S2 *s)
+فراغ should_compile(بنية S2 *s)
 {
   s->f2 = it_real_fn;
 }
 
-enum efoo it_real_fn(void)
+تعداد efoo it_real_fn(فراغ)
 {
-  return TWO;
+  أرجع TWO;
 }
 
-static unsigned int deref_uintptr(unsigned int *p)
+ساكن بینښه صحيح deref_uintptr(بینښه صحيح *p)
 {
-  return *p;
+  أرجع *p;
 }
 
-enum Epositive {
+تعداد Epositive {
     epos_one, epos_two
 };
 
-int main()
+صحيح اصلي()
 {
-   enum fred frod;
-   enum Epositive epos = epos_two;
+   تعداد fred frod;
+   تعداد Epositive epos = epos_two;
 
-   printf("%d %d %d %d %d %d %d %d\n", a, b, c, d, e, f, g, h);
+   چاپ_کړه("%d %d %d %d %d %d %d %d\n", a, b, c, d, e, f, g, h);
    /* printf("%d\n", frod); */
    frod = 12;
-   printf("%d\n", frod);
+   چاپ_کړه("%d\n", frod);
    frod = e;
-   printf("%d\n", frod);
+   چاپ_کړه("%d\n", frod);
 
    /* Following should compile without warning.  */
-   printf ("enum to int: %u\n", deref_uintptr(&epos));
+   چاپ_کړه ("enum to int: %u\n", deref_uintptr(&epos));
 
-   return 0;
+   أرجع 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

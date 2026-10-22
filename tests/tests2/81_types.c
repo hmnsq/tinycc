@@ -1,55 +1,55 @@
 /* The following are all valid decls, even though some subtypes
    are incomplete.  */
-enum E *e;
-const enum E *e1;
-enum E const *e2;
-struct S *s;
-const struct S *s1;
-struct S const *s2;
+تعداد E *e;
+ثابت تعداد E *e1;
+تعداد E ثابت *e2;
+بنية S *s;
+ثابت بنية S *s1;
+بنية S ثابت *s2;
 
 /* Various strangely looking declarators, which are all valid
    and have to map to the same numbered typedefs. */
-typedef int (*fptr1)();
-int f1 (int (), int);
-typedef int (*fptr2)(int x);
-int f2 (int (int x), int);
-typedef int (*fptr3)(int);
-int f3 (int (int), int);
-typedef int (*fptr4[4])(int);
-int f4 (int (*[4])(int), int);
-typedef int (*fptr5)(fptr1);
-int f5 (int (int()), fptr1);
-int f1 (fptr1 fp, int i)
+تعريفنوع صحيح (*fptr1)();
+صحيح f1 (صحيح (), صحيح);
+تعريفنوع صحيح (*fptr2)(صحيح x);
+صحيح f2 (صحيح (صحيح x), صحيح);
+تعريفنوع صحيح (*fptr3)(صحيح);
+صحيح f3 (صحيح (صحيح), صحيح);
+تعريفنوع صحيح (*fptr4[4])(صحيح);
+صحيح f4 (صحيح (*[4])(صحيح), صحيح);
+تعريفنوع صحيح (*fptr5)(fptr1);
+صحيح f5 (صحيح (صحيح()), fptr1);
+صحيح f1 (fptr1 fp, صحيح i)
 {
-  return (*fp)(i);
+  أرجع (*fp)(i);
 }
-int f2 (fptr2 fp, int i)
+صحيح f2 (fptr2 fp, صحيح i)
 {
-  return (*fp)(i);
+  أرجع (*fp)(i);
 }
-int f3 (fptr3 fp, int i)
+صحيح f3 (fptr3 fp, صحيح i)
 {
-  return (*fp)(i);
+  أرجع (*fp)(i);
 }
-int f4 (fptr4 fp, int i)
+صحيح f4 (fptr4 fp, صحيح i)
 {
-  return (*fp[i])(i);
+  أرجع (*fp[i])(i);
 }
-int f5 (fptr5 fp, fptr1 i)
+صحيح f5 (fptr5 fp, fptr1 i)
 {
-  return fp(i);
+  أرجع fp(i);
 }
-typedef int intx4[4];
-int f8 (intx4, int);
-int f8 (int ([4]), int);
-int f8 (int y[4], int i)
+تعريفنوع صحيح intx4[4];
+صحيح f8 (intx4, صحيح);
+صحيح f8 (صحيح ([4]), صحيح);
+صحيح f8 (صحيح y[4], صحيح i)
 {
-  return y[i];
+  أرجع y[i];
 }
-int f9 (int (*)(int), int);
-int f9 (int ((int)), int);
-int f9 (int f(int), int i)
+صحيح f9 (صحيح (*)(صحيح), صحيح);
+صحيح f9 (صحيح ((صحيح)), صحيح);
+صحيح f9 (صحيح f(صحيح), صحيح i)
 {
-  return f(i);
+  أرجع f(i);
 }
-int main () { return 0; }
+صحيح اصلي () { أرجع 0; }

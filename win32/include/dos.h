@@ -3,53 +3,53 @@
  * This file is part of the w64 mingw-runtime package.
  * No warranty is given; refer to the file DISCLAIMER within this package.
  */
-#ifndef _INC_DOS
-#define _INC_DOS
+#که_نه_تعریف_شوی _INC_DOS
+#تعریف_کړه _INC_DOS
 
-#include <_mingw.h>
-#include <io.h>
+#ضمن <_mingw.h>
+#ضمن <io.h>
 
-#pragma pack(push,_CRT_PACKING)
+#لارښوونه pack(ټېل,_CRT_PACKING)
 
-#ifdef __cplusplus
-extern "C" {
-#endif
+#که_تعریف_شوی __cplusplus
+خارجي "C" {
+#د_که_پای
 
-#ifndef _DISKFREE_T_DEFINED
-#define _DISKFREE_T_DEFINED
+#که_نه_تعریف_شوی _DISKFREE_T_DEFINED
+#تعریف_کړه _DISKFREE_T_DEFINED
 
-  struct _diskfree_t {
-    unsigned total_clusters;
-    unsigned avail_clusters;
-    unsigned sectors_per_cluster;
-    unsigned bytes_per_sector;
+  بنية _diskfree_t {
+    بینښه ټول_clusters;
+    بینښه avail_clusters;
+    بینښه sectors_فی_cluster;
+    بینښه بایټونه_فی_sector;
   };
-#endif
+#د_که_پای
 
-#define _A_NORMAL 0x00
-#define _A_RDONLY 0x01
-#define _A_HIDDEN 0x02
-#define _A_SYSTEM 0x04
-#define _A_SUBDIR 0x10
-#define _A_ARCH 0x20
+#تعریف_کړه A_نورمال 0x00
+#تعریف_کړه _A_RDONLY 0x01
+#تعریف_کړه _A_HIDDEN 0x02
+#تعریف_کړه _A_SYSTEM 0x04
+#تعریف_کړه _A_SUBDIR 0x10
+#تعریف_کړه _A_ARCH 0x20
 
-#ifndef _GETDISKFREE_DEFINED
-#define _GETDISKFREE_DEFINED
-  _CRTIMP unsigned __cdecl _getdiskfree(unsigned _Drive,struct _diskfree_t *_DiskFree);
-#endif
+#که_نه_تعریف_شوی _GETDISKFREE_DEFINED
+#تعریف_کړه _GETDISKFREE_DEFINED
+  _CRTIMP بینښه __cdecl _getdiskfree(بینښه _Drive,بنية _diskfree_t *_DiskFree);
+#د_که_پای
 
-#if (defined(_X86_) && !defined(__x86_64))
-  void __cdecl _disable(void);
-  void __cdecl _enable(void);
-#endif
+#إذا (defined(_X86_) && !defined(__x86_64))
+  فراغ __cdecl _disable(فراغ);
+  فراغ __cdecl _enable(فراغ);
+#د_که_پای
 
-#ifndef	NO_OLDNAMES
-#define diskfree_t _diskfree_t
-#endif
+#که_نه_تعریف_شوی	NO_OLDNAMES
+#تعریف_کړه diskfree_t _diskfree_t
+#د_که_پای
 
-#ifdef __cplusplus
+#که_تعریف_شوی __cplusplus
 }
-#endif
+#د_که_پای
 
-#pragma pack(pop)
-#endif
+#لارښوونه pack(راوباسه)
+#د_که_پای

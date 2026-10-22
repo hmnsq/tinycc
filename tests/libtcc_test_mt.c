@@ -2,77 +2,77 @@
  * Multi-thread Test for libtcc
  */
 
-#ifndef FIB
-#include <stdlib.h>
-#include <stdio.h>
-#include <string.h>
-#include <setjmp.h>
-#include "libtcc.h"
+#که_نه_تعریف_شوی FIB
+#ضمن <stdlib.h>
+#ضمن <stdio.h>
+#ضمن <string.h>
+#ضمن <setjmp.h>
+#ضمن "libtcc.h"
 
-#define M 20 /* number of states */
-#define F(n) (n % 20 + 2) /* fib argument */
+#تعریف_کړه M 20 /* number of states */
+#تعریف_کړه F(n) (n % 20 + 2) /* fib argument */
 
-#ifdef _WIN32
-#include <windows.h>
-#define TF_TYPE(func, param) DWORD WINAPI func(void *param)
-typedef TF_TYPE(ThreadFunc, x);
+#که_تعریف_شوی _WIN32
+#ضمن <windows.h>
+#تعریف_کړه TF_TYPE(func, param) DWORD WINAPI func(فراغ *param)
+تعريفنوع TF_TYPE(ThreadFunc, x);
 HANDLE hh[M];
-void create_thread(ThreadFunc f, int n)
+فراغ create_thread(ThreadFunc f, صحيح n)
 {
     DWORD tid;
-    hh[n] = CreateThread(NULL, 0, f, (void*)(size_t)n, 0, &tid);
+    hh[n] = CreateThread(عدم, 0, f, (فراغ*)(اندازه_t)n, 0, &tid);
 }
-void wait_threads(int n)
+فراغ wait_تارونه(صحيح n)
 {
-    WaitForMultipleObjects(n, hh, TRUE, INFINITE);
-    while (n)
+    Wait_For_مضرب_Objects(n, hh, TRUE, INFINITE);
+    طالما (n)
         CloseHandle(hh[--n]);
 }
-void sleep_ms(unsigned n)
+فراغ sleep_ms(بینښه n)
 {
     Sleep(n);
 }
-#else
-#include <sys/time.h>
-#include <unistd.h>
-#include <pthread.h>
-#define TF_TYPE(func, param) void* func(void *param)
-typedef TF_TYPE(ThreadFunc, x);
+#وإلا
+#ضمن <sys/time.h>
+#ضمن <unistd.h>
+#ضمن <pthread.h>
+#تعریف_کړه TF_TYPE(func, param) فراغ* func(فراغ *param)
+تعريفنوع TF_TYPE(ThreadFunc, x);
 pthread_t hh[M];
-void create_thread(ThreadFunc f, int n)
+فراغ create_thread(ThreadFunc f, صحيح n)
 {
-    pthread_create(&hh[n], NULL, f, (void*)(size_t)n);
+    pthread_create(&hh[n], عدم, f, (فراغ*)(اندازه_t)n);
 }
-void wait_threads(int n)
+فراغ wait_تارونه(صحيح n)
 {
-    while (n)
-        pthread_join(hh[--n], NULL);
+    طالما (n)
+        pthread_join(hh[--n], عدم);
 
 }
-void sleep_ms(unsigned n)
+فراغ sleep_ms(بینښه n)
 {
     usleep(n * 1000);
 }
-#endif
+#د_که_پای
 
-void handle_error(void *opaque, const char *msg)
+فراغ handle_error(فراغ *opaque, ثابت حرف *پیغام)
 {
-    fprintf(opaque, "%s\n", msg);
+    fprintf(opaque, "%s\n", پیغام);
 }
 
 /* this function is called by the generated code */
-int add(int a, int b)
+صحيح جمع_کړه(صحيح a, صحيح b)
 {
-    return a + b;
+    أرجع a + b;
 }
 
-#define _str(s) #s
-#define str(s) _str(s)
+#تعریف_کړه _str(s) #s
+#تعریف_کړه str(s) _str(s)
 /* as a trick, prepend #line directive for better error/warning messages */
-#define PROG(lbl) \
-    char lbl[] = "#line " str(__LINE__) " " str(__FILE__) "\n\n"
+#تعریف_کړه PROG(lbl) \
+    حرف lbl[] = "#line " str(__LINE__) " " str(__FILE__) "\n\n"
 
-PROG(my_program)
+PROG(my_پروګرام)
 "#include <tcclib.h>\n" /* include the "Simple libc header for TCC" */
 "int add(int a, int b);\n"
 "int fib(int n)\n"
@@ -94,270 +94,270 @@ PROG(my_program)
 "#  warning is this the correct file:line...\n"
 "}\n";
 
-int g_argc; char **g_argv;
+صحيح g_argc; حرف **g_argv;
 
-void parse_args(TCCState *s)
+فراغ parse_دلیلونه(TCCState *s)
 {
-    int i;
+    صحيح i;
     /* if tcclib.h and libtcc1.a are not installed, where can we find them */
-    for (i = 1; i < g_argc; ++i) {
-        char *a = g_argv[i];
-        if (a[0] == '-') {
-            if (a[1] == 'B')
-                tcc_set_lib_path(s, a+2);
-            else if (a[1] == 'I')
-                tcc_add_include_path(s, a+2);
-            else if (a[1] == 'L')
-                tcc_add_library_path(s, a+2);
-            else if (a[1] == 'D')
-                tcc_define_symbol(s, a+2, NULL);
+    لكل (i = 1; i < g_argc; ++i) {
+        حرف *a = g_argv[i];
+        إذا (a[0] == '-') {
+            إذا (a[1] == 'B')
+                tcc_سېټ_lib_لار(s, a+2);
+            وإلا إذا (a[1] == 'I')
+                tcc_جمع_کړه_include_لار(s, a+2);
+            وإلا إذا (a[1] == 'L')
+                tcc_جمع_کړه_library_لار(s, a+2);
+            وإلا إذا (a[1] == 'D')
+                tcc_define_نښه(s, a+2, عدم);
         }
     }
 }
 
-int backtrace_func(
-    void *ud,
-    void *pc,
-    const char *file,
-    int line,
-    const char *func,
-    const char *msg)
+صحيح backtrace_func(
+    فراغ *ud,
+    فراغ *pc,
+    ثابت حرف *file,
+    صحيح کرښه,
+    ثابت حرف *func,
+    ثابت حرف *پیغام)
 {
-#if 0
-    printf("\n  *** %p %s %s:%d in '%s'",
+#إذا 0
+    چاپ_کړه("\n  *** %p %s %s:%d in '%s'",
         pc,
-        msg ? "at" : "by",
+        پیغام ? "at" : "by",
         file ? file : "?",
-        line,
+        کرښه,
         func ? func : "?");
-    return 1; // want more backtrace levels
-#else
+    أرجع 1; // want more backtrace levels
+#وإلا
     //printf(" [%d]", *(int*)ud);
-    printf("!");
-    return 0; // cancel backtrace
-#endif
+    چاپ_کړه("!");
+    أرجع 0; // cancel backtrace
+#د_که_پای
 }
 
-TCCState *new_state(int w)
+TCCState *new_state(صحيح w)
 {
     TCCState *s = tcc_new();
-    if (!s) {
+    إذا (!s) {
         fprintf(stderr, __FILE__ ": could not create tcc state\n");
-        exit(1);
+        وتل(1);
     }
-    tcc_set_error_func(s, stdout, handle_error);
-    parse_args(s);
-    if (0 == (w & 1))
-        tcc_set_options(s, "-w");
-    if (w & 2) {
-        tcc_set_options(s, "-bt");
-        tcc_define_symbol(s, "N_CRASH", str(M/2));
-    } else
-        tcc_define_symbol(s, "N_CRASH", "-1000");
-    tcc_set_output_type(s, TCC_OUTPUT_MEMORY);
-    return s;
+    tcc_سېټ_error_func(s, stdout, handle_error);
+    parse_دلیلونه(s);
+    إذا (0 == (w & 1))
+        tcc_سېټ_options(s, "-w");
+    إذا (w & 2) {
+        tcc_سېټ_options(s, "-bt");
+        tcc_define_نښه(s, "N_CRASH", str(M/2));
+    } وإلا
+        tcc_define_نښه(s, "N_CRASH", "-1000");
+    tcc_سېټ_output_type(s, TCC_OUTPUT_حافظه);
+    أرجع s;
 }
 
-void *reloc_state(TCCState *s, const char *entry)
+فراغ *reloc_state(TCCState *s, ثابت حرف *entry)
 {
-    void *func;
-    tcc_add_symbol(s, "add", add);
-    tcc_add_symbol(s, "printf", printf);
-    if (tcc_relocate(s) < 0) {
+    فراغ *func;
+    tcc_جمع_کړه_نښه(s, "add", جمع_کړه);
+    tcc_جمع_کړه_نښه(s, "printf", چاپ_کړه);
+    إذا (tcc_relocate(s) < 0) {
         fprintf(stderr, __FILE__ ": could not relocate tcc state.\n");
-        return NULL;
+        أرجع عدم;
     }
-    func = tcc_get_symbol(s, entry);
-    if (!func)
+    func = tcc_get_نښه(s, entry);
+    إذا (!func)
         fprintf(stderr, __FILE__ ": could not get entry symbol.\n");
-    return func;
+    أرجع func;
 }
 
 /* work with several states at the same time */
-int state_test(int w)
+صحيح state_test(صحيح w)
 {
     TCCState *s[M];
-    int (*funcs[M])(int);
-    int n;
+    صحيح (*funcs[M])(صحيح);
+    صحيح n;
     jmp_buf jb;
 
-    for (n = 0; n < M + 4; ++n) {
-        unsigned a = n, b = n - 1, c = n - 2, d = n - 3, e = n - 4;
-        if (a < M)
+    لكل (n = 0; n < M + 4; ++n) {
+        بینښه a = n, b = n - 1, c = n - 2, d = n - 3, e = n - 4;
+        إذا (a < M)
             s[a] = new_state(w);
-        if (b < M)
-            if (tcc_compile_string(s[b], my_program) == -1)
-                break;
-        if (c < M)
+        إذا (b < M)
+            إذا (tcc_compile_string(s[b], my_پروګرام) == -1)
+                اكسر;
+        إذا (c < M)
             funcs[c] = reloc_state(s[c], "foo");
-        if (d < M && funcs[d]) {
-            tcc_set_backtrace_func(s[d], &d, backtrace_func);
-            if (0 == tcc_setjmp(s[d], jb, funcs[d]))
+        إذا (d < M && funcs[d]) {
+            tcc_سېټ_backtrace_func(s[d], &d, backtrace_func);
+            إذا (0 == tcc_setjmp(s[d], jb, funcs[d]))
                 funcs[d](F(d));
         }
-        if (e < M)
+        إذا (e < M)
             tcc_delete(s[e]);
     }
-    return 0;
+    أرجع 0;
 }
 
 /* simple compilation in threads */
 TF_TYPE(thread_test_simple, vn)
 {
     TCCState *s;
-    int (*func)(int);
-    int ret;
-    int n = (size_t)vn;
+    صحيح (*func)(صحيح);
+    صحيح ret;
+    صحيح n = (اندازه_t)vn;
     jmp_buf jb;
 
     s = new_state(0); /* '2' for exceptions */
     sleep_ms(1);
-    ret = tcc_compile_string(s, my_program);
+    ret = tcc_compile_string(s, my_پروګرام);
     sleep_ms(1);
-    if (ret >= 0) {
+    إذا (ret >= 0) {
         func = reloc_state(s, "foo");
-        tcc_set_backtrace_func(s, &n, backtrace_func);
-        if (func) {
-            if (0 == tcc_setjmp(s, jb, func))
+        tcc_سېټ_backtrace_func(s, &n, backtrace_func);
+        إذا (func) {
+            إذا (0 == tcc_setjmp(s, jb, func))
                 func(F(n));
         }
     }
     tcc_delete(s);
-    return 0;
+    أرجع 0;
 }
 
 /* more complex compilation in threads */
 TF_TYPE(thread_test_complex, vn)
 {
     TCCState *s;
-    int ret;
-    int n = (size_t)vn;
-    char *argv[30], b[10];
-    int argc = 0, i;
+    صحيح ret;
+    صحيح n = (اندازه_t)vn;
+    حرف *argv[30], b[10];
+    صحيح argc = 0, i;
 
     sprintf(b, "%d", F(n));
 
-    for (i = 1; i < g_argc; ++i) argv[argc++] = g_argv[i];
-#if 0
+    لكل (i = 1; i < g_argc; ++i) argv[argc++] = g_argv[i];
+#إذا 0
     argv[argc++] = "-run";
-    for (i = 1; i < g_argc; ++i) argv[argc++] = g_argv[i];
-#endif
+    لكل (i = 1; i < g_argc; ++i) argv[argc++] = g_argv[i];
+#د_که_پای
     argv[argc++] = "-DFIB";
     argv[argc++] = "-run";
     argv[argc++] = __FILE__;
     argv[argc++] = b;
-    argv[argc] = NULL;
+    argv[argc] = عدم;
 
     s = new_state(1);
     sleep_ms(2);
-    ret = tcc_add_file(s, argv[0]);
+    ret = tcc_جمع_کړه_file(s, argv[0]);
     sleep_ms(3);
-    if (ret == 0)
-        tcc_run(s, argc, argv);
+    إذا (ret == 0)
+        tcc_پرلپسې(s, argc, argv);
     tcc_delete(s);
     fflush(stdout);
-    return 0;
+    أرجع 0;
 }
 
-void time_tcc(int n, const char *src)
+فراغ وخت_tcc(صحيح n, ثابت حرف *src)
 {
     TCCState *s;
-    int ret, i = 0;
-    while (i++ < n) {
+    صحيح ret, i = 0;
+    طالما (i++ < n) {
         s = new_state(1);
-        printf(" %d", i), fflush(stdout);
-        ret = tcc_add_file(s, src);
+        چاپ_کړه(" %d", i), fflush(stdout);
+        ret = tcc_جمع_کړه_file(s, src);
         tcc_delete(s);
-        if (ret < 0)
-            exit(1);
+        إذا (ret < 0)
+            وتل(1);
     }
 }
 
-static unsigned getclock_ms(void)
+ساكن بینښه getclock_ms(فراغ)
 {
-#ifdef _WIN32
-    return GetTickCount();
-#else
-    struct timeval tv;
-    gettimeofday(&tv, NULL);
-    return tv.tv_sec*1000 + (tv.tv_usec+500)/1000;
-#endif
+#که_تعریف_شوی _WIN32
+    أرجع Get_Tick_شمېر();
+#وإلا
+    بنية timeval tv;
+    gettimeofday(&tv, عدم);
+    أرجع tv.tv_sec*1000 + (tv.tv_usec+500)/1000;
+#د_که_پای
 }
 
-int main(int argc, char **argv)
+صحيح اصلي(صحيح argc, حرف **argv)
 {
-    int n;
-    unsigned t;
+    صحيح n;
+    بینښه t;
 
     g_argc = argc;
     g_argv = argv;
 
-    if (argc < 2) {
+    إذا (argc < 2) {
         fprintf(stderr, "usage: libtcc_test_mt tcc.c <options>\n");
-        return 1;
+        أرجع 1;
     }
 
-#if 1
-    printf("running fib with mixed calls\n "), fflush(stdout);
+#إذا 1
+    چاپ_کړه("running fib with mixed calls\n "), fflush(stdout);
     t = getclock_ms();
     state_test(0);
-    printf("\n (%u ms)\n", getclock_ms() - t);
-#endif
-#if 1
-    printf("producing some exceptions (!)\n "), fflush(stdout);
+    چاپ_کړه("\n (%u ms)\n", getclock_ms() - t);
+#د_که_پای
+#إذا 1
+    چاپ_کړه("producing some exceptions (!)\n "), fflush(stdout);
     t = getclock_ms();
     state_test(2);
-    printf("\n (%u ms)\n", getclock_ms() - t);
-#endif
-#if 1
+    چاپ_کړه("\n (%u ms)\n", getclock_ms() - t);
+#د_که_پای
+#إذا 1
     //{ int i; for (i = 0; i < 100; ++i) { printf("(%d) ", i);
-    printf("running fib in threads\n "), fflush(stdout);
+    چاپ_کړه("running fib in threads\n "), fflush(stdout);
     t = getclock_ms();
-    for (n = 0; n < M; ++n)
+    لكل (n = 0; n < M; ++n)
         create_thread(thread_test_simple, n);
-    wait_threads(n);
-    printf("\n (%u ms)\n", getclock_ms() - t);
+    wait_تارونه(n);
+    چاپ_کړه("\n (%u ms)\n", getclock_ms() - t);
         //}}
-#endif
-#if 1
-    printf("running tcc.c in threads to run fib\n "), fflush(stdout);
+#د_که_پای
+#إذا 1
+    چاپ_کړه("running tcc.c in threads to run fib\n "), fflush(stdout);
     t = getclock_ms();
-    for (n = 0; n < M; ++n)
+    لكل (n = 0; n < M; ++n)
         create_thread(thread_test_complex, n);
-    wait_threads(n);
-    printf("\n (%u ms)\n", getclock_ms() - t);
-#endif
-#if 1
-    printf("compiling tcc.c 10 times\n "), fflush(stdout);
+    wait_تارونه(n);
+    چاپ_کړه("\n (%u ms)\n", getclock_ms() - t);
+#د_که_پای
+#إذا 1
+    چاپ_کړه("compiling tcc.c 10 times\n "), fflush(stdout);
     t = getclock_ms();
-    time_tcc(10, argv[1]);
-    printf("\n (%u ms)\n", getclock_ms() - t), fflush(stdout);
-#endif
-    return 0;
+    وخت_tcc(10, argv[1]);
+    چاپ_کړه("\n (%u ms)\n", getclock_ms() - t), fflush(stdout);
+#د_که_پای
+    أرجع 0;
 }
 
-#else
-#include <tcclib.h>
-#ifdef _WIN32
+#وإلا
+#ضمن <tcclib.h>
+#که_تعریف_شوی _WIN32
 # ifndef _WIN64
     __declspec(stdcall)
 # endif
-    void Sleep(unsigned);
+    فراغ Sleep(بینښه);
 # define sleep_ms Sleep
-#else
-    int usleep(unsigned long);
+#وإلا
+    صحيح usleep(بینښه اوږد);
 # define sleep_ms(x) usleep((x)*1000);
-#endif
+#د_که_پای
 
-int fib(n)
+صحيح fib(n)
 {
-    return (n <= 2) ? 1 : fib(n-1) + fib(n-2);
+    أرجع (n <= 2) ? 1 : fib(n-1) + fib(n-2);
 }
 
-int main(int argc, char **argv)
+صحيح اصلي(صحيح argc, حرف **argv)
 {
     sleep_ms(333);
-    printf(" %d", fib(atoi(argv[1])));
-    return 0;
+    چاپ_کړه(" %d", fib(atoi(argv[1])));
+    أرجع 0;
 }
-#endif
+#د_که_پای

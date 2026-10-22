@@ -1,113 +1,113 @@
-#include <stdio.h>
+#ضمن <stdio.h>
 
-int f(void)
+صحيح f(فراغ)
 {
-  return 5;
+  أرجع 5;
 }
 
-void test1()
+فراغ test1()
 {
-  int count = 10;
-  void *addr[10];
-  for(;count--;) {
-    int a[f()];
+  صحيح شمېر_2 = 10;
+  فراغ *addr[10];
+  لكل(;شمېر_2--;) {
+    صحيح a[f()];
 
-    addr[count] = a;
+    addr[شمېر_2] = a;
 
-    continue;
+    استمر;
   }
 
-  if(addr[9] == addr[0]) {
-    printf("OK\n");
-  } else {
-    printf("NOT OK\n");
-  }
-}
-
-void test2()
-{
-  int count = 10;
-  void *addr[count];
-  for(;count--;) {
-    int a[f()];
-
-    addr[count] = a;
-
-    continue;
-  }
-
-  if(addr[9] == addr[0]) {
-    printf("OK\n");
-  } else {
-    printf("NOT OK\n");
+  إذا(addr[9] == addr[0]) {
+    چاپ_کړه("OK\n");
+  } وإلا {
+    چاپ_کړه("NOT OK\n");
   }
 }
 
-void test3()
+فراغ test2()
 {
-  int count = 10;
-  void *addr[count];
-  while(count--) {
-      int b[f()];
-      if (count >= 0) {
-          int a[f()];
+  صحيح شمېر_2 = 10;
+  فراغ *addr[شمېر_2];
+  لكل(;شمېر_2--;) {
+    صحيح a[f()];
 
-          addr[count] = a;
+    addr[شمېر_2] = a;
 
-          continue;
+    استمر;
+  }
+
+  إذا(addr[9] == addr[0]) {
+    چاپ_کړه("OK\n");
+  } وإلا {
+    چاپ_کړه("NOT OK\n");
+  }
+}
+
+فراغ test3()
+{
+  صحيح شمېر_2 = 10;
+  فراغ *addr[شمېر_2];
+  طالما(شمېر_2--) {
+      صحيح b[f()];
+      إذا (شمېر_2 >= 0) {
+          صحيح a[f()];
+
+          addr[شمېر_2] = a;
+
+          استمر;
       }
   }
 
-  if(addr[9] == addr[0]) {
-    printf("OK\n");
-  } else {
-    printf("NOT OK\n");
+  إذا(addr[9] == addr[0]) {
+    چاپ_کړه("OK\n");
+  } وإلا {
+    چاپ_کړه("NOT OK\n");
   }
 }
 
-void test4()
+فراغ test4()
 {
-  int count = 10;
-  void *addr[count];
-  do {
-    int a[f()];
+  صحيح شمېر_2 = 10;
+  فراغ *addr[شمېر_2];
+  افعل {
+    صحيح a[f()];
 
-    addr[--count] = a;
+    addr[--شمېر_2] = a;
 
-    continue;
-  } while (count);
+    استمر;
+  } طالما (شمېر_2);
 
-  if(addr[9] == addr[0]) {
-    printf("OK\n");
-  } else {
-    printf("NOT OK\n");
+  إذا(addr[9] == addr[0]) {
+    چاپ_کړه("OK\n");
+  } وإلا {
+    چاپ_کړه("NOT OK\n");
   }
 }
 
-void test5()
+فراغ test5()
 {
-  int count = 10;
-  int a[f()];
-  int c[f()];
+  صحيح شمېر_2 = 10;
+  صحيح a[f()];
+  صحيح c[f()];
 
   c[0] = 42;
 
-  for(;count--;) {
-    int b[f()];
-    int i;
-    for (i=0; i<f(); i++) {
-      b[i] = count;
+  لكل(;شمېر_2--;) {
+    صحيح b[f()];
+    صحيح i;
+    لكل (i=0; i<f(); i++) {
+      b[i] = شمېر_2;
     }
   }
 
-  if (c[0] == 42) {
-    printf("OK\n");
-  } else {
-    printf("NOT OK\n");
+  إذا (c[0] == 42) {
+    چاپ_کړه("OK\n");
+  } وإلا {
+    چاپ_کړه("NOT OK\n");
   }
 }
 
-int main(void)
+صحيح اصلي(فراغ)
 {
   test1();
   test2();
@@ -115,5 +115,5 @@ int main(void)
   test4();
   test5();
 
-  return 0;
+  أرجع 0;
 }

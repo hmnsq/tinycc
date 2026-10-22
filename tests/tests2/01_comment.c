@@ -1,14 +1,14 @@
-#include <stdio.h>
+#ضمن <stdio.h>
 
-int main() 
+صحيح اصلي() 
 {
-   printf("Hello\n");
-   printf("Hello\n"); /* this is a comment */ printf("Hello\n");
-   printf("Hello\n");
+   چاپ_کړه("Hello\n");
+   چاپ_کړه("Hello\n"); /* this is a comment */ چاپ_کړه("Hello\n");
+   چاپ_کړه("Hello\n");
    // this is also a comment sayhello();
-   printf("Hello\n");
+   چاپ_کړه("Hello\n");
 
-   return 0;
+   أرجع 0;
 }
 
 // vim: set expandtab ts=4 sw=3 sts=3 tw=80 :

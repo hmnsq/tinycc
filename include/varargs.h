@@ -3,10 +3,10 @@
  * This file is part of the w64 mingw-runtime package.
  * No warranty is given; refer to the file DISCLAIMER within this package.
  */
-#ifndef _VARARGS_H
-#define _VARARGS_H
+#که_نه_تعریف_شوی _VARARGS_H
+#تعریف_کړه _VARARGS_H
 
-#error "TinyCC no longer implements <varargs.h>."
-#error "Revise your code to use <stdarg.h>."
+#تېروتنه "TinyCC no longer implements <varargs.h>."
+#تېروتنه "Revise your code to use <stdarg.h>."
 
-#endif
+#د_که_پای

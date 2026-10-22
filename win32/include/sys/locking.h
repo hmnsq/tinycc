@@ -3,28 +3,28 @@
  * This file is part of the w64 mingw-runtime package.
  * No warranty is given; refer to the file DISCLAIMER within this package.
  */
-#ifndef _INC_LOCKING
-#define _INC_LOCKING
+#که_نه_تعریف_شوی _INC_LOCKING
+#تعریف_کړه _INC_LOCKING
 
-#ifndef _WIN32
-#error Only Win32 target is supported!
-#endif
+#که_نه_تعریف_شوی _WIN32
+#تېروتنه Only Win32 موخه is supported!
+#د_که_پای
 
 /* All the headers include this file. */
-#include <_mingw.h>
+#ضمن <_mingw.h>
 
-#define _LK_UNLCK 0
-#define _LK_LOCK 1
-#define _LK_NBLCK 2
-#define _LK_RLCK 3
-#define _LK_NBRLCK 4
+#تعریف_کړه _LK_UNLCK 0
+#تعریف_کړه LK_قلف 1
+#تعریف_کړه _LK_NBLCK 2
+#تعریف_کړه _LK_RLCK 3
+#تعریف_کړه _LK_NBRLCK 4
 
-#ifndef	NO_OLDNAMES
-#define LK_UNLCK _LK_UNLCK
-#define LK_LOCK _LK_LOCK
-#define LK_NBLCK _LK_NBLCK
-#define LK_RLCK _LK_RLCK
-#define LK_NBRLCK _LK_NBRLCK
-#endif
+#که_نه_تعریف_شوی	NO_OLDNAMES
+#تعریف_کړه LK_UNLCK _LK_UNLCK
+#تعریف_کړه LK_قلف_2 LK_قلف
+#تعریف_کړه LK_NBLCK _LK_NBLCK
+#تعریف_کړه LK_RLCK _LK_RLCK
+#تعریف_کړه LK_NBRLCK _LK_NBRLCK
+#د_که_پای
 
-#endif
+#د_که_پای

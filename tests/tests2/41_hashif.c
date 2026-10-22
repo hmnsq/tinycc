@@ -1,85 +1,85 @@
-#include <stdio.h>
+#ضمن <stdio.h>
 
-int main()
+صحيح اصلي()
 {
-   printf("#include test\n");
+   چاپ_کړه("#include test\n");
 
-#if 1
-#if 0
-   printf("a\n");
-#else
-   printf("b\n");
-#endif
-#else
-#if 0
-   printf("c\n");
-#else
-   printf("d\n");
-#endif
-#endif
+#إذا 1
+#إذا 0
+   چاپ_کړه("a\n");
+#وإلا
+   چاپ_کړه("b\n");
+#د_که_پای
+#وإلا
+#إذا 0
+   چاپ_کړه("c\n");
+#وإلا
+   چاپ_کړه("d\n");
+#د_که_پای
+#د_که_پای
 
-#if 0
-#if 1
-   printf("e\n");
-#else
-   printf("f\n");
-#endif
-#else
-#if 1
-   printf("g\n");
-#else
-   printf("h\n");
-#endif
-#endif
+#إذا 0
+#إذا 1
+   چاپ_کړه("e\n");
+#وإلا
+   چاپ_کړه("f\n");
+#د_که_پای
+#وإلا
+#إذا 1
+   چاپ_کړه("g\n");
+#وإلا
+   چاپ_کړه("h\n");
+#د_که_پای
+#د_که_پای
 
-#define DEF
+#تعریف_کړه DEF
 
-#ifdef DEF
-#ifdef DEF
-   printf("i\n");
-#else
-   printf("j\n");
-#endif
-#else
-#ifdef DEF
-   printf("k\n");
-#else
-   printf("l\n");
-#endif
-#endif
+#که_تعریف_شوی DEF
+#که_تعریف_شوی DEF
+   چاپ_کړه("i\n");
+#وإلا
+   چاپ_کړه("j\n");
+#د_که_پای
+#وإلا
+#که_تعریف_شوی DEF
+   چاپ_کړه("k\n");
+#وإلا
+   چاپ_کړه("l\n");
+#د_که_پای
+#د_که_پای
 
-#ifndef DEF
-#ifndef DEF
-   printf("m\n");
-#else
-   printf("n\n");
-#endif
-#else
-#ifndef DEF
-   printf("o\n");
-#else
-   printf("p\n");
-#endif
-#endif
+#که_نه_تعریف_شوی DEF
+#که_نه_تعریف_شوی DEF
+   چاپ_کړه("m\n");
+#وإلا
+   چاپ_کړه("n\n");
+#د_که_پای
+#وإلا
+#که_نه_تعریف_شوی DEF
+   چاپ_کړه("o\n");
+#وإلا
+   چاپ_کړه("p\n");
+#د_که_پای
+#د_که_پای
 
-#define ONE 1
-#define ZERO 0
+#تعریف_کړه ONE 1
+#تعریف_کړه ZERO 0
 
-#if ONE
-#if ZERO
-   printf("q\n");
-#else
-   printf("r\n");
-#endif
-#else
-#if ZERO
-   printf("s\n");
-#else
-   printf("t\n");
-#endif
-#endif
+#إذا ONE
+#إذا ZERO
+   چاپ_کړه("q\n");
+#وإلا
+   چاپ_کړه("r\n");
+#د_که_پای
+#وإلا
+#إذا ZERO
+   چاپ_کړه("s\n");
+#وإلا
+   چاپ_کړه("t\n");
+#د_که_پای
+#د_که_پای
 
-   return 0;
+   أرجع 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

@@ -1,24 +1,24 @@
-#include <stdio.h>
+#ضمن <stdio.h>
 
-int main()
+صحيح اصلي()
 {
-   int a;
-   int b;
-   int *d;
-   int *e;
+   صحيح a;
+   صحيح b;
+   صحيح *d;
+   صحيح *e;
    d = &a;
    e = &b;
    a = 12;
    b = 34;
-   printf("%d\n", *d);
-   printf("%d\n", *e);
-   printf("%d\n", d == e);
-   printf("%d\n", d != e);
+   چاپ_کړه("%d\n", *d);
+   چاپ_کړه("%d\n", *e);
+   چاپ_کړه("%d\n", d == e);
+   چاپ_کړه("%d\n", d != e);
    d = e;
-   printf("%d\n", d == e);
-   printf("%d\n", d != e);
+   چاپ_کړه("%d\n", d == e);
+   چاپ_کړه("%d\n", d != e);
 
-   return 0;
+   أرجع 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

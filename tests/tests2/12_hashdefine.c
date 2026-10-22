@@ -1,14 +1,14 @@
-#include <stdio.h>
+#ضمن <stdio.h>
 
-#define FRED 12
-#define BLOGGS(x) (12*(x))
+#تعریف_کړه FRED 12
+#تعریف_کړه BLOGGS(x) (12*(x))
 
-int main()
+صحيح اصلي()
 {
-   printf("%d\n", FRED);
-   printf("%d, %d, %d\n", BLOGGS(1), BLOGGS(2), BLOGGS(3));
+   چاپ_کړه("%d\n", FRED);
+   چاپ_کړه("%d, %d, %d\n", BLOGGS(1), BLOGGS(2), BLOGGS(3));
 
-   return 0;
+   أرجع 0;
 }
 
 // vim: set expandtab ts=4 sw=3 sts=3 tw=80 :

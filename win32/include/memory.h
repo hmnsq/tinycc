@@ -3,38 +3,38 @@
  * This file is part of the w64 mingw-runtime package.
  * No warranty is given; refer to the file DISCLAIMER within this package.
  */
-#ifndef _INC_MEMORY
-#define _INC_MEMORY
+#که_نه_تعریف_شوی INC_حافظه
+#تعریف_کړه INC_حافظه
 
-#include <_mingw.h>
+#ضمن <_mingw.h>
 
-#ifdef __cplusplus
-extern "C" {
-#endif
+#که_تعریف_شوی __cplusplus
+خارجي "C" {
+#د_که_پای
 
-#ifndef _CONST_RETURN
-#define _CONST_RETURN
-#endif
+#که_نه_تعریف_شوی _CONST_RETURN
+#تعریف_کړه _CONST_RETURN
+#د_که_پای
 
-#define _WConst_return _CONST_RETURN
+#تعریف_کړه _WConst_return _CONST_RETURN
 
-#ifndef _CRT_MEMORY_DEFINED
-#define _CRT_MEMORY_DEFINED
-  _CRTIMP void *__cdecl _memccpy(void *_Dst,const void *_Src,int _Val,size_t _MaxCount);
-  _CONST_RETURN void *__cdecl memchr(const void *_Buf ,int _Val,size_t _MaxCount);
-  _CRTIMP int __cdecl _memicmp(const void *_Buf1,const void *_Buf2,size_t _Size);
-  _CRTIMP int __cdecl _memicmp_l(const void *_Buf1,const void *_Buf2,size_t _Size,_locale_t _Locale);
-  int __cdecl memcmp(const void *_Buf1,const void *_Buf2,size_t _Size);
-  void *__cdecl memcpy(void *_Dst,const void *_Src,size_t _Size);
-  void *__cdecl memset(void *_Dst,int _Val,size_t _Size);
+#که_نه_تعریف_شوی CRT_حافظه_DEFINED
+#تعریف_کړه CRT_حافظه_DEFINED
+  _CRTIMP فراغ *__cdecl _memccpy(فراغ *_Dst,ثابت فراغ *_Src,صحيح _Val,اندازه_t Max_شمېر);
+  _CONST_RETURN فراغ *__cdecl memchr(ثابت فراغ *_Buf ,صحيح _Val,اندازه_t Max_شمېر);
+  _CRTIMP صحيح __cdecl _memicmp(ثابت فراغ *_Buf1,ثابت فراغ *_Buf2,اندازه_t اندازه_4);
+  _CRTIMP صحيح __cdecl _memicmp_l(ثابت فراغ *_Buf1,ثابت فراغ *_Buf2,اندازه_t اندازه_4,_locale_t _Locale);
+  صحيح __cdecl memcmp(ثابت فراغ *_Buf1,ثابت فراغ *_Buf2,اندازه_t اندازه_4);
+  فراغ *__cdecl حافظه_نقل(فراغ *_Dst,ثابت فراغ *_Src,اندازه_t اندازه_4);
+  فراغ *__cdecl memset(فراغ *_Dst,صحيح _Val,اندازه_t اندازه_4);
 
-#ifndef	NO_OLDNAMES
-  void *__cdecl memccpy(void *_Dst,const void *_Src,int _Val,size_t _Size);
-  int __cdecl memicmp(const void *_Buf1,const void *_Buf2,size_t _Size);
-#endif
-#endif
+#که_نه_تعریف_شوی	NO_OLDNAMES
+  فراغ *__cdecl memccpy(فراغ *_Dst,ثابت فراغ *_Src,صحيح _Val,اندازه_t اندازه_4);
+  صحيح __cdecl memicmp(ثابت فراغ *_Buf1,ثابت فراغ *_Buf2,اندازه_t اندازه_4);
+#د_که_پای
+#د_که_پای
 
-#ifdef __cplusplus
+#که_تعریف_شوی __cplusplus
 }
-#endif
-#endif
+#د_که_پای
+#د_که_پای

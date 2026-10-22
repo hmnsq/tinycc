@@ -1,13 +1,13 @@
-#define W Z
-#define Z(X) W(X,2)
-#define Y(X) Z(X)
-#define X Y
-return X(X(1));
+#تعریف_کړه W Z
+#تعریف_کړه Z(X) W(X,2)
+#تعریف_کړه Y(X) Z(X)
+#تعریف_کړه X Y
+أرجع X(X(1));
 
-#define P Q
-#define Q(n) P(n,2)
-return P(1);
+#تعریف_کړه P Q
+#تعریف_کړه Q(n) P(n,2)
+أرجع P(1);
 
-#define A (B * B)
-#define B (A + A)
-return A + B;
+#تعریف_کړه A (B * B)
+#تعریف_کړه B (A + A)
+أرجع A + B;

@@ -1,11 +1,11 @@
 
-#define GOT(f) \
-    __attribute__((weak)) void f(void); \
-    printf("%d %s\n", !!((__SIZE_TYPE__)f & ~0u), #f);
+#تعریف_کړه GOT(f) \
+    __attribute__((weak)) فراغ f(فراغ); \
+    چاپ_کړه("%d %s\n", !!((__SIZE_TYPE__)f & ~0u), #f);
 
-int printf(const char*, ...);
+صحيح چاپ_کړه(ثابت حرف*, ...);
 
-void check_exports()
+فراغ check_exports()
 {
     // 0
     GOT(inline_inline_2decl_only)
@@ -39,7 +39,7 @@ void check_exports()
     GOT(inst3_extern_inline_predeclared)
     GOT(inst_extern_inline_postdeclared)
     GOT(inst_extern_inline_predeclared)
-    GOT(main)
+    GOT(اصلي)
     GOT(noinst_extern_inline_func)
     GOT(noinst_extern_inline_postdeclared)
     GOT(noinst_extern_inline_postdeclared2)

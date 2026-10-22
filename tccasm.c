@@ -18,43 +18,43 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 
-#define USING_GLOBALS
-#include "tcc.h"
-#ifdef CONFIG_TCC_ASM
+#تعریف_کړه USING_GLOBALS
+#ضمن "tcc.h"
+#که_تعریف_شوی CONFIG_TCC_ASM
 
-static Section *last_text_section; /* to handle .previous asm directive */
-static int asmgoto_n;
+ساكن Section *وروستی_متن_section; /* to handle .previous asm directive */
+ساكن صحيح asmgoto_n;
 
-static int tcc_assemble_internal(TCCState *s1, int do_preprocess, int global);
-static Sym* asm_new_label(TCCState *s1, int label, int is_local);
-static Sym* asm_new_label1(TCCState *s1, int label, int is_local, int sh_num, int value);
+ساكن صحيح tcc_assemble_دننی(TCCState *s1, صحيح do_preprocess, صحيح global);
+ساكن Sym* asm_new_label(TCCState *s1, صحيح label, صحيح is_local);
+ساكن Sym* asm_new_label1(TCCState *s1, صحيح label, صحيح is_local, صحيح sh_عدد, صحيح ارزښت);
 
-#if PTR_SIZE == 8
+#إذا PTR_اندازه == 8
 /* output constant with relocation if 'r & VT_SYM' is true */
-ST_FUNC void gen_addr64(int r, Sym *sym, int64_t c)
+ST_FUNC فراغ gen_addr64(صحيح r, Sym *sym, int64_t c)
 {
-    if (r & VT_SYM)
-        greloca(cur_text_section, sym, ind, R_DATA_PTR, c), c=0;
+    إذا (r & VT_SYM)
+        greloca(cur_متن_section, sym, ind, R_معلومات_PTR, c), c=0;
     gen_le32(c);
     gen_le32(c>>32);
 }
 
-ST_FUNC void gen_expr64(ExprValue *pe)
+ST_FUNC فراغ gen_expr64(بیان_ارزښت *pe)
 {
     gen_addr64(pe->sym ? VT_SYM : 0, pe->sym, pe->v);
 }
-#endif
+#د_که_پای
 
-static int asm_get_prefix_name(TCCState *s1, const char *prefix, unsigned int n)
+ساكن صحيح asm_get_مختاړی_name(TCCState *s1, ثابت حرف *مختاړی, بینښه صحيح n)
 {
-    char buf[64];
-    snprintf(buf, sizeof(buf), "%s%u", prefix, n);
-    return tok_alloc_const(buf);
+    حرف buf[64];
+    snprintf(buf, حجم(buf), "%s%u", مختاړی, n);
+    أرجع tok_alloc_const(buf);
 }
 
-ST_FUNC int asm_get_local_label_name(TCCState *s1, unsigned int n)
+ST_FUNC صحيح asm_get_local_label_name(TCCState *s1, بینښه صحيح n)
 {
-    return asm_get_prefix_name(s1, "L..", n);
+    أرجع asm_get_مختاړی_name(s1, "L..", n);
 }
 
 /* If a C name has an _ prepended then only asm labels that start
@@ -63,47 +63,47 @@ ST_FUNC int asm_get_local_label_name(TCCState *s1, unsigned int n)
    the global C symbol table to track ASM names as well, so we need to
    transform those into ones that don't conflict with a C name,
    so prepend a '.' for them, but force the ELF asm name to be set.  */
-static int asm2cname(int v, int *addeddot)
+ساكن صحيح asm2cname(صحيح v, صحيح *addeddot)
 {
-    const char *name;
+    ثابت حرف *name;
     *addeddot = 0;
-    if (!tcc_state->leading_underscore)
-      return v;
-    name = get_tok_str(v, NULL);
-    if (!name)
-      return v;
-    if (name[0] == '_') {
+    إذا (!tcc_state->leading_underscore)
+      أرجع v;
+    name = get_tok_str(v, عدم);
+    إذا (!name)
+      أرجع v;
+    إذا (name[0] == '_') {
         v = tok_alloc_const(name + 1);
-    } else if (!strchr(name, '.')) {
-        char newname[256];
-        snprintf(newname, sizeof newname, ".%s", name);
+    } وإلا إذا (!strchr(name, '.')) {
+        حرف newname[256];
+        snprintf(newname, حجم newname, ".%s", name);
         v = tok_alloc_const(newname);
         *addeddot = 1;
     }
-    return v;
+    أرجع v;
 }
 
-static Sym *asm_label_find(int v)
+ساكن Sym *asm_label_پیدا_کړه(صحيح v)
 {
     Sym *sym;
-    int addeddot;
+    صحيح addeddot;
     v = asm2cname(v, &addeddot);
-    sym = sym_find(v);
-    while (sym && sym->sym_scope && !(sym->type.t & VT_STATIC))
+    sym = sym_پیدا_کړه(v);
+    طالما (sym && sym->sym_scope && !(sym->type.t & VT_STATIC))
         sym = sym->prev_tok;
-    return sym;
+    أرجع sym;
 }
 
-static Sym *asm_label_push(int v)
+ساكن Sym *asm_label_ټېل(صحيح v)
 {
-    int addeddot, v2 = asm2cname(v, &addeddot);
+    صحيح addeddot, v2 = asm2cname(v, &addeddot);
     /* We always add VT_EXTERN, for sym definition that's tentative
        (for .set, removed for real defs), for mere references it's correct
        as is.  */
-    Sym *sym = global_identifier_push(v2, VT_ASM | VT_EXTERN | VT_STATIC, 0);
-    if (addeddot)
+    Sym *sym = global_identifier_ټېل(v2, VT_ASM | VT_EXTERN | VT_STATIC, 0);
+    إذا (addeddot)
         sym->asm_label = v;
-    return sym;
+    أرجع sym;
 }
 
 /* Return a symbol we can use inside the assembler, having name NAME.
@@ -116,243 +116,243 @@ static Sym *asm_label_push(int v)
    are anonymous in C, in this case CSYM can be used to transfer
    all information from that symbol to the (possibly newly created)
    asm symbol.  */
-ST_FUNC Sym* get_asm_sym(int name, Sym *csym)
+ST_FUNC Sym* get_asm_sym(صحيح name, Sym *csym)
 {
-    Sym *sym = asm_label_find(name);
-    if (!sym) {
-	sym = asm_label_push(name);
-	if (csym)
+    Sym *sym = asm_label_پیدا_کړه(name);
+    إذا (!sym) {
+	sym = asm_label_ټېل(name);
+	إذا (csym)
 	  sym->c = csym->c;
     }
-    return sym;
+    أرجع sym;
 }
 
-static Sym* asm_section_sym(TCCState *s1, Section *sec)
+ساكن Sym* asm_section_sym(TCCState *s1, Section *sec)
 {
-    char buf[100]; int label; Sym *sym;
-    snprintf(buf, sizeof buf, "L.%s", sec->name);
+    حرف buf[100]; صحيح label; Sym *sym;
+    snprintf(buf, حجم buf, "L.%s", sec->name);
     label = tok_alloc_const(buf);
-    sym = asm_label_find(label);
-    return sym ? sym : asm_new_label1(s1, label, 1, sec->sh_num, 0);
+    sym = asm_label_پیدا_کړه(label);
+    أرجع sym ? sym : asm_new_label1(s1, label, 1, sec->sh_عدد, 0);
 }
 
 /* We do not use the C expression parser to handle symbols. Maybe the
    C expression parser could be tweaked to do so. */
 
-static void asm_expr_unary(TCCState *s1, ExprValue *pe)
+ساكن فراغ asm_بیان_unary(TCCState *s1, بیان_ارزښت *pe)
 {
     Sym *sym;
-    int op, label;
+    صحيح op, label;
     uint64_t n;
-    const char *p;
+    ثابت حرف *p;
 
-    switch(tok) {
-    case TOK_PPNUM:
-        p = tokc.str.data;
-        n = strtoull(p, (char **)&p, 0);
-        if (*p == 'b' || *p == 'f') {
+    بدل(tok) {
+    حالة TOK_PPNUM:
+        p = tokc.str.معلومات;
+        n = strtoull(p, (حرف **)&p, 0);
+        إذا (*p == 'b' || *p == 'f') {
             /* backward or forward label */
             label = asm_get_local_label_name(s1, n);
-            sym = asm_label_find(label);
-            if (*p == 'b') {
+            sym = asm_label_پیدا_کړه(label);
+            إذا (*p == 'b') {
                 /* backward : find the last corresponding defined label */
-                if (sym && (!sym->c || elfsym(sym)->st_shndx == SHN_UNDEF))
+                إذا (sym && (!sym->c || elfsym(sym)->st_shndx == SHN_UNDEF))
                     sym = sym->prev_tok;
-                if (!sym)
-                    tcc_error("local label '%d' not found backward", (int)n);
-            } else {
+                إذا (!sym)
+                    tcc_error("local label '%d' not found backward", (صحيح)n);
+            } وإلا {
                 /* forward */
-                if (!sym || (sym->c && elfsym(sym)->st_shndx != SHN_UNDEF)) {
+                إذا (!sym || (sym->c && elfsym(sym)->st_shndx != SHN_UNDEF)) {
                     /* if the last label is defined, then define a new one */
-		    sym = asm_label_push(label);
+		    sym = asm_label_ټېل(label);
                 }
             }
 	    pe->v = 0;
 	    pe->sym = sym;
 	    pe->pcrel = 0;
-        } else if (*p == '\0') {
+        } وإلا إذا (*p == '\0') {
             pe->v = n;
-            pe->sym = NULL;
+            pe->sym = عدم;
 	    pe->pcrel = 0;
-        } else {
+        } وإلا {
             tcc_error("invalid number syntax");
         }
-        next();
-        break;
-    case '+':
-        next();
-        asm_expr_unary(s1, pe);
-        break;
-    case '-':
-    case '~':
+        بل();
+        اكسر;
+    حالة '+':
+        بل();
+        asm_بیان_unary(s1, pe);
+        اكسر;
+    حالة '-':
+    حالة '~':
         op = tok;
-        next();
-        asm_expr_unary(s1, pe);
-        if (pe->sym)
+        بل();
+        asm_بیان_unary(s1, pe);
+        إذا (pe->sym)
             tcc_error("invalid operation with label");
-        if (op == '-')
+        إذا (op == '-')
             pe->v = -pe->v;
-        else
+        وإلا
             pe->v = ~pe->v;
-        break;
-    case TOK_CCHAR:
-    case TOK_LCHAR:
+        اكسر;
+    حالة TOK_CCHAR:
+    حالة TOK_LCHAR:
 	pe->v = tokc.i;
-	pe->sym = NULL;
+	pe->sym = عدم;
 	pe->pcrel = 0;
-	next();
-	break;
-    case '(':
-        next();
-        asm_expr(s1, pe);
+	بل();
+	اكسر;
+    حالة '(':
+        بل();
+        asm_بیان(s1, pe);
         skip(')');
-        break;
-    case '.':
+        اكسر;
+    حالة '.':
         pe->v = ind;
-        pe->sym = asm_section_sym(s1, cur_text_section);
+        pe->sym = asm_section_sym(s1, cur_متن_section);
         pe->pcrel = 0;
-        next();
-        break;
-    default:
-        if (tok >= TOK_IDENT) {
+        بل();
+        اكسر;
+    افتراضي:
+        إذا (tok >= TOK_IDENT) {
 	    ElfSym *esym;
             /* label case : if the label was not found, add one */
-	    sym = get_asm_sym(tok, NULL);
+	    sym = get_asm_sym(tok, عدم);
 	    esym = elfsym(sym);
-            if (esym && esym->st_shndx == SHN_ABS) {
+            إذا (esym && esym->st_shndx == SHN_ABS) {
                 /* if absolute symbol, no need to put a symbol value */
-                pe->v = esym->st_value;
-                pe->sym = NULL;
+                pe->v = esym->st_ارزښت;
+                pe->sym = عدم;
 		pe->pcrel = 0;
-            } else {
+            } وإلا {
                 pe->v = 0;
                 pe->sym = sym;
 		pe->pcrel = 0;
             }
-            next();
-        } else {
+            بل();
+        } وإلا {
             tcc_error("bad expression syntax [%s]", get_tok_str(tok, &tokc));
         }
-        break;
+        اكسر;
     }
 }
     
-static void asm_expr_prod(TCCState *s1, ExprValue *pe)
+ساكن فراغ asm_بیان_prod(TCCState *s1, بیان_ارزښت *pe)
 {
-    int op;
-    ExprValue e2;
+    صحيح op;
+    بیان_ارزښت e2;
 
-    asm_expr_unary(s1, pe);
-    for(;;) {
+    asm_بیان_unary(s1, pe);
+    لكل(;;) {
         op = tok;
-        if (op != '*' && op != '/' && op != '%' && 
+        إذا (op != '*' && op != '/' && op != '%' && 
             op != TOK_SHL && op != TOK_SAR)
-            break;
-        next();
-        asm_expr_unary(s1, &e2);
-        if (pe->sym || e2.sym)
+            اكسر;
+        بل();
+        asm_بیان_unary(s1, &e2);
+        إذا (pe->sym || e2.sym)
             tcc_error("invalid operation with label");
-        switch(op) {
-        case '*':
+        بدل(op) {
+        حالة '*':
             pe->v *= e2.v;
-            break;
-        case '/':  
-            if (e2.v == 0) {
+            اكسر;
+        حالة '/':  
+            إذا (e2.v == 0) {
             div_error:
                 tcc_error("division by zero");
             }
             pe->v /= e2.v;
-            break;
-        case '%':  
-            if (e2.v == 0)
-                goto div_error;
+            اكسر;
+        حالة '%':  
+            إذا (e2.v == 0)
+                اذهب div_error;
             pe->v %= e2.v;
-            break;
-        case TOK_SHL:
+            اكسر;
+        حالة TOK_SHL:
             pe->v <<= e2.v;
-            break;
-        default:
-        case TOK_SAR:
+            اكسر;
+        افتراضي:
+        حالة TOK_SAR:
             pe->v >>= e2.v;
-            break;
+            اكسر;
         }
     }
 }
 
-static void asm_expr_logic(TCCState *s1, ExprValue *pe)
+ساكن فراغ asm_بیان_logic(TCCState *s1, بیان_ارزښت *pe)
 {
-    int op;
-    ExprValue e2;
+    صحيح op;
+    بیان_ارزښت e2;
 
-    asm_expr_prod(s1, pe);
-    for(;;) {
+    asm_بیان_prod(s1, pe);
+    لكل(;;) {
         op = tok;
-        if (op != '&' && op != '|' && op != '^')
-            break;
-        next();
-        asm_expr_prod(s1, &e2);
-        if (pe->sym || e2.sym)
+        إذا (op != '&' && op != '|' && op != '^')
+            اكسر;
+        بل();
+        asm_بیان_prod(s1, &e2);
+        إذا (pe->sym || e2.sym)
             tcc_error("invalid operation with label");
-        switch(op) {
-        case '&':
+        بدل(op) {
+        حالة '&':
             pe->v &= e2.v;
-            break;
-        case '|':  
+            اكسر;
+        حالة '|':  
             pe->v |= e2.v;
-            break;
-        default:
-        case '^':
+            اكسر;
+        افتراضي:
+        حالة '^':
             pe->v ^= e2.v;
-            break;
+            اكسر;
         }
     }
 }
 
-static inline void asm_expr_sum(TCCState *s1, ExprValue *pe)
+ساكن مضمن فراغ asm_بیان_مجموعه(TCCState *s1, بیان_ارزښت *pe)
 {
-    int op;
-    ExprValue e2;
+    صحيح op;
+    بیان_ارزښت e2;
 
-    asm_expr_logic(s1, pe);
-    for(;;) {
+    asm_بیان_logic(s1, pe);
+    لكل(;;) {
         op = tok;
-        if (op != '+' && op != '-')
-            break;
-        next();
-        asm_expr_logic(s1, &e2);
-        if (op == '+') {
-            if (pe->sym != NULL && e2.sym != NULL)
-                goto cannot_relocate;
+        إذا (op != '+' && op != '-')
+            اكسر;
+        بل();
+        asm_بیان_logic(s1, &e2);
+        إذا (op == '+') {
+            إذا (pe->sym != عدم && e2.sym != عدم)
+                اذهب cannot_relocate;
             pe->v += e2.v;
-            if (pe->sym == NULL && e2.sym != NULL)
+            إذا (pe->sym == عدم && e2.sym != عدم)
                 pe->sym = e2.sym;
-        } else {
+        } وإلا {
             pe->v -= e2.v;
             /* NOTE: we are less powerful than gas in that case
                because we store only one symbol in the expression */
-	    if (!e2.sym) {
+	    إذا (!e2.sym) {
 		/* OK */
-	    } else if (pe->sym == e2.sym) { 
+	    } وإلا إذا (pe->sym == e2.sym) { 
 		/* OK */
-		pe->sym = NULL; /* same symbols can be subtracted to NULL */
-	    } else {
+		pe->sym = عدم; /* same symbols can be subtracted to NULL */
+	    } وإلا {
 		ElfSym *esym1, *esym2;
 		esym1 = elfsym(pe->sym);
 		esym2 = elfsym(e2.sym);
-		if (!esym2)
-		    goto cannot_relocate;
-		if (esym1 && esym1->st_shndx == esym2->st_shndx
+		إذا (!esym2)
+		    اذهب cannot_relocate;
+		إذا (esym1 && esym1->st_shndx == esym2->st_shndx
 		    && esym1->st_shndx != SHN_UNDEF) {
 		    /* we also accept defined symbols in the same section */
-		    pe->v += (int)(esym1->st_value - esym2->st_value);
-		    pe->sym = NULL;
-		} else if (esym2->st_shndx == cur_text_section->sh_num) {
+		    pe->v += (صحيح)(esym1->st_ارزښت - esym2->st_ارزښت);
+		    pe->sym = عدم;
+		} وإلا إذا (esym2->st_shndx == cur_متن_section->sh_عدد) {
 		    /* When subtracting a defined symbol in current section
 		       this actually makes the value PC-relative.  */
-		    pe->v += (int)(0 - esym2->st_value);
+		    pe->v += (صحيح)(0 - esym2->st_ارزښت);
 		    pe->pcrel = 1;
-		    e2.sym = NULL;
-		} else {
+		    e2.sym = عدم;
+		} وإلا {
 cannot_relocate:
 		    tcc_error("invalid operation with label");
 		}
@@ -361,304 +361,304 @@ cannot_relocate:
     }
 }
 
-static inline void asm_expr_cmp(TCCState *s1, ExprValue *pe)
+ساكن مضمن فراغ asm_بیان_cmp(TCCState *s1, بیان_ارزښت *pe)
 {
-    int op;
-    ExprValue e2;
+    صحيح op;
+    بیان_ارزښت e2;
 
-    asm_expr_sum(s1, pe);
-    for(;;) {
+    asm_بیان_مجموعه(s1, pe);
+    لكل(;;) {
         op = tok;
-	if (op != TOK_EQ && op != TOK_NE
+	إذا (op != TOK_EQ && op != TOK_NE
 	    && (op > TOK_GT || op < TOK_ULE))
-            break;
-        next();
-        asm_expr_sum(s1, &e2);
-        if (pe->sym || e2.sym)
+            اكسر;
+        بل();
+        asm_بیان_مجموعه(s1, &e2);
+        إذا (pe->sym || e2.sym)
             tcc_error("invalid operation with label");
-        switch(op) {
-	case TOK_EQ:
+        بدل(op) {
+	حالة TOK_EQ:
 	    pe->v = pe->v == e2.v;
-	    break;
-	case TOK_NE:
+	    اكسر;
+	حالة TOK_NE:
 	    pe->v = pe->v != e2.v;
-	    break;
-	case TOK_LT:
+	    اكسر;
+	حالة TOK_LT:
 	    pe->v = (int64_t)pe->v < (int64_t)e2.v;
-	    break;
-	case TOK_GE:
+	    اكسر;
+	حالة TOK_GE:
 	    pe->v = (int64_t)pe->v >= (int64_t)e2.v;
-	    break;
-	case TOK_LE:
+	    اكسر;
+	حالة TOK_LE:
 	    pe->v = (int64_t)pe->v <= (int64_t)e2.v;
-	    break;
-	case TOK_GT:
+	    اكسر;
+	حالة TOK_GT:
 	    pe->v = (int64_t)pe->v > (int64_t)e2.v;
-	    break;
-        default:
-            break;
+	    اكسر;
+        افتراضي:
+            اكسر;
         }
 	/* GAS compare results are -1/0 not 1/0.  */
 	pe->v = -(int64_t)pe->v;
     }
 }
 
-ST_FUNC void asm_expr(TCCState *s1, ExprValue *pe)
+ST_FUNC فراغ asm_بیان(TCCState *s1, بیان_ارزښت *pe)
 {
-    asm_expr_cmp(s1, pe);
+    asm_بیان_cmp(s1, pe);
 }
 
-ST_FUNC int asm_int_expr(TCCState *s1)
+ST_FUNC صحيح asm_int_بیان(TCCState *s1)
 {
-    ExprValue e;
-    asm_expr(s1, &e);
-    if (e.sym)
+    بیان_ارزښت e;
+    asm_بیان(s1, &e);
+    إذا (e.sym)
         expect("constant");
-    if ((int)e.v != e.v)
-	tcc_error("integer out of range %lld", (long long)e.v);
-    return e.v;
+    إذا ((صحيح)e.v != e.v)
+	tcc_error("integer out of range %lld", (اوږد اوږد)e.v);
+    أرجع e.v;
 }
 
-static Sym* asm_new_label1(TCCState *s1, int label, int is_local,
-                           int sh_num, int value)
+ساكن Sym* asm_new_label1(TCCState *s1, صحيح label, صحيح is_local,
+                           صحيح sh_عدد, صحيح ارزښت)
 {
     Sym *sym;
     ElfSym *esym;
 
-    sym = asm_label_find(label);
-    if (sym) {
+    sym = asm_label_پیدا_کړه(label);
+    إذا (sym) {
 	esym = elfsym(sym);
 	/* A VT_EXTERN symbol, even if it has a section is considered
 	   overridable.  This is how we "define" .set targets.  Real
 	   definitions won't have VT_EXTERN set.  */
-        if (esym && esym->st_shndx != SHN_UNDEF) {
+        إذا (esym && esym->st_shndx != SHN_UNDEF) {
             /* the label is already defined */
-            if (IS_ASM_SYM(sym)
+            إذا (IS_ASM_SYM(sym)
                 && (is_local == 1 || (sym->type.t & VT_EXTERN)))
-                goto new_label;
-            if (!(sym->type.t & VT_EXTERN))
+                اذهب new_label;
+            إذا (!(sym->type.t & VT_EXTERN))
                 tcc_error("assembler label '%s' already defined",
-                          get_tok_str(label, NULL));
+                          get_tok_str(label, عدم));
         }
-    } else {
+    } وإلا {
     new_label:
-        sym = asm_label_push(label);
+        sym = asm_label_ټېل(label);
     }
-    if (!sym->c)
+    إذا (!sym->c)
       put_extern_sym2(sym, SHN_UNDEF, 0, 0, 1);
     esym = elfsym(sym);
-    esym->st_shndx = sh_num;
-    esym->st_value = value;
-    if (is_local != 2)
+    esym->st_shndx = sh_عدد;
+    esym->st_ارزښت = ارزښت;
+    إذا (is_local != 2)
         sym->type.t &= ~VT_EXTERN;
-    return sym;
+    أرجع sym;
 }
 
-static Sym* asm_new_label(TCCState *s1, int label, int is_local)
+ساكن Sym* asm_new_label(TCCState *s1, صحيح label, صحيح is_local)
 {
-    return asm_new_label1(s1, label, is_local, cur_text_section->sh_num, ind);
+    أرجع asm_new_label1(s1, label, is_local, cur_متن_section->sh_عدد, ind);
 }
 
 /* Set the value of LABEL to that of some expression (possibly
    involving other symbols).  LABEL can be overwritten later still.  */
-static Sym* set_symbol(TCCState *s1, int label)
+ساكن Sym* سېټ_نښه(TCCState *s1, صحيح label)
 {
-    long n;
-    ExprValue e;
+    اوږد n;
+    بیان_ارزښت e;
     Sym *sym;
     ElfSym *esym;
-    next();
-    asm_expr(s1, &e);
+    بل();
+    asm_بیان(s1, &e);
     n = e.v;
     esym = elfsym(e.sym);
-    if (esym)
-	n += esym->st_value;
+    إذا (esym)
+	n += esym->st_ارزښت;
     sym = asm_new_label1(s1, label, 2, esym ? esym->st_shndx : SHN_ABS, n);
-    elfsym(sym)->st_other |= ST_ASM_SET;
-    return sym;
+    elfsym(sym)->st_other |= ST_ASM_سېټ;
+    أرجع sym;
 }
 
-static void use_section1(TCCState *s1, Section *sec)
+ساكن فراغ use_section1(TCCState *s1, Section *sec)
 {
-    cur_text_section->data_offset = ind;
-    cur_text_section = sec;
-    ind = cur_text_section->data_offset;
+    cur_متن_section->معلومات_دننه_واټن = ind;
+    cur_متن_section = sec;
+    ind = cur_متن_section->معلومات_دننه_واټن;
 }
 
-static void use_section(TCCState *s1, const char *name)
+ساكن فراغ use_section(TCCState *s1, ثابت حرف *name)
 {
     Section *sec;
-    sec = find_section(s1, name);
+    sec = پیدا_کړه_section(s1, name);
     use_section1(s1, sec);
 }
 
-static void push_section(TCCState *s1, const char *name)
+ساكن فراغ ټېل_section(TCCState *s1, ثابت حرف *name)
 {
-    Section *sec = find_section(s1, name);
-    sec->prev = cur_text_section;
+    Section *sec = پیدا_کړه_section(s1, name);
+    sec->prev = cur_متن_section;
     use_section1(s1, sec);
 }
 
-static void pop_section(TCCState *s1)
+ساكن فراغ راوباسه_section(TCCState *s1)
 {
-    Section *prev = cur_text_section->prev;
-    if (!prev)
+    Section *prev = cur_متن_section->prev;
+    إذا (!prev)
         tcc_error(".popsection without .pushsection");
-    cur_text_section->prev = NULL;
+    cur_متن_section->prev = عدم;
     use_section1(s1, prev);
 }
 
-static void asm_parse_directive(TCCState *s1, int global)
+ساكن فراغ asm_parse_directive(TCCState *s1, صحيح global)
 {
-    int n, offset, v, size, tok1, c;
+    صحيح n, دننه_واټن, v, اندازه, tok1, c;
     Section *sec;
     uint8_t *ptr;
 
     /* assembler directive */
-    sec = cur_text_section;
-    switch(tok) {
-    case TOK_ASMDIR_align:
-    case TOK_ASMDIR_balign:
-    case TOK_ASMDIR_p2align:
-    case TOK_ASMDIR_skip:
-    case TOK_ASMDIR_space:
+    sec = cur_متن_section;
+    بدل(tok) {
+    حالة TOK_ASMDIR_align:
+    حالة TOK_ASMDIR_balign:
+    حالة TOK_ASMDIR_p2align:
+    حالة TOK_ASMDIR_skip:
+    حالة TOK_ASMDIR_space:
         tok1 = tok;
-        next();
-        n = asm_int_expr(s1);
-        if (tok1 == TOK_ASMDIR_p2align)
+        بل();
+        n = asm_int_بیان(s1);
+        إذا (tok1 == TOK_ASMDIR_p2align)
         {
-            if (n < 0 || n > 30)
+            إذا (n < 0 || n > 30)
                 tcc_error("invalid p2align, must be between 0 and 30");
             n = 1 << n;
             tok1 = TOK_ASMDIR_align;
         }
-        if (tok1 == TOK_ASMDIR_align || tok1 == TOK_ASMDIR_balign) {
-            if (n <= 0 || (n & (n-1)) != 0)
+        إذا (tok1 == TOK_ASMDIR_align || tok1 == TOK_ASMDIR_balign) {
+            إذا (n <= 0 || (n & (n-1)) != 0)
                 tcc_error("alignment must be a positive power of two");
-            offset = (ind + n - 1) & -n;
-            size = offset - ind;
+            دننه_واټن = (ind + n - 1) & -n;
+            اندازه = دننه_واټن - ind;
             /* the section must have a compatible alignment */
-            if (sec->sh_addralign < n)
+            إذا (sec->sh_addralign < n)
                 sec->sh_addralign = n;
             c = sec->sh_flags & SHF_EXECINSTR;
-        } else {
-	    if (n < 0)
+        } وإلا {
+	    إذا (n < 0)
 	        n = 0;
-            size = n, c = 0;
+            اندازه = n, c = 0;
         }
         v = 0;
-        if (tok == ',') {
-            next();
-            v = asm_int_expr(s1), c = 0;
+        إذا (tok == ',') {
+            بل();
+            v = asm_int_بیان(s1), c = 0;
         }
     zero_pad:
-	if ((uint64_t)ind + size >= 1<<30)
+	إذا ((uint64_t)ind + اندازه >= 1<<30)
 	    tcc_error("too much data");
-        if (sec->sh_type != SHT_NOBITS) {
-            if (c) {
-                gen_fill_nops(size);
-                break;
+        إذا (sec->sh_type != SHT_NOBITS) {
+            إذا (c) {
+                gen_fill_nops(اندازه);
+                اكسر;
             }
-            sec->data_offset = ind;
-            ptr = section_ptr_add(sec, size);
-            memset(ptr, v, size);
+            sec->معلومات_دننه_واټن = ind;
+            ptr = section_ptr_جمع_کړه(sec, اندازه);
+            memset(ptr, v, اندازه);
         }
-        ind += size;
-        break;
-    case TOK_ASMDIR_quad:
-#if PTR_SIZE == 8
-	size = 8;
-	goto asm_data;
-#else
-        next();
-        for(;;) {
+        ind += اندازه;
+        اكسر;
+    حالة TOK_ASMDIR_quad:
+#إذا PTR_اندازه == 8
+	اندازه = 8;
+	اذهب asm_معلومات;
+#وإلا
+        بل();
+        لكل(;;) {
             uint64_t vl;
-            const char *p;
+            ثابت حرف *p;
 
-            p = tokc.str.data;
-            if (tok != TOK_PPNUM) {
+            p = tokc.str.معلومات;
+            إذا (tok != TOK_PPNUM) {
             error_constant:
                 tcc_error("64 bit constant");
             }
-            vl = strtoll(p, (char **)&p, 0);
-            if (*p != '\0')
-                goto error_constant;
-            next();
-            if (sec->sh_type != SHT_NOBITS) {
+            vl = strtoll(p, (حرف **)&p, 0);
+            إذا (*p != '\0')
+                اذهب error_constant;
+            بل();
+            إذا (sec->sh_type != SHT_NOBITS) {
                 /* XXX: endianness */
                 gen_le32(vl);
                 gen_le32(vl >> 32);
-            } else {
+            } وإلا {
                 ind += 8;
             }
-            if (tok != ',')
-                break;
-            next();
+            إذا (tok != ',')
+                اكسر;
+            بل();
         }
-        break;
-#endif
-    case TOK_ASMDIR_byte:
-        size = 1;
-        goto asm_data;
-    case TOK_ASMDIR_word:
-    case TOK_ASMDIR_short:
-        size = 2;
-        goto asm_data;
-    case TOK_ASMDIR_long:
-    case TOK_ASMDIR_int:
-        size = 4;
-    asm_data:
-        next();
-        for(;;) {
-            ExprValue e;
-            asm_expr(s1, &e);
-            if (sec->sh_type != SHT_NOBITS) {
-                if (size == 4) {
+        اكسر;
+#د_که_پای
+    حالة TOK_ASMDIR_byte:
+        اندازه = 1;
+        اذهب asm_معلومات;
+    حالة TOK_ASMDIR_کلمه:
+    حالة TOK_ASMDIR_short:
+        اندازه = 2;
+        اذهب asm_معلومات;
+    حالة TOK_ASMDIR_long:
+    حالة TOK_ASMDIR_int:
+        اندازه = 4;
+    asm_معلومات:
+        بل();
+        لكل(;;) {
+            بیان_ارزښت e;
+            asm_بیان(s1, &e);
+            إذا (sec->sh_type != SHT_NOBITS) {
+                إذا (اندازه == 4) {
                     gen_expr32(&e);
-#if PTR_SIZE == 8
-		} else if (size == 8) {
+#إذا PTR_اندازه == 8
+		} وإلا إذا (اندازه == 8) {
 		    gen_expr64(&e);
-#endif
-                } else {
-                    if (e.sym)
+#د_که_پای
+                } وإلا {
+                    إذا (e.sym)
                         expect("constant");
-                    if (size == 1)
+                    إذا (اندازه == 1)
                         g(e.v);
-                    else
+                    وإلا
                         gen_le16(e.v);
                 }
-            } else {
-                ind += size;
+            } وإلا {
+                ind += اندازه;
             }
-            if (tok != ',')
-                break;
-            next();
+            إذا (tok != ',')
+                اكسر;
+            بل();
         }
-        break;
-    case TOK_ASMDIR_fill:
+        اكسر;
+    حالة TOK_ASMDIR_fill:
         {
-            int repeat, size, val, i, j;
+            صحيح repeat, اندازه, val, i, j;
             uint8_t repeat_buf[8];
-            next();
-            repeat = asm_int_expr(s1);
-            if (repeat < 0) {
+            بل();
+            repeat = asm_int_بیان(s1);
+            إذا (repeat < 0) {
                 tcc_error("repeat < 0; .fill ignored");
-                break;
+                اكسر;
             }
-            size = 1;
+            اندازه = 1;
             val = 0;
-            if (tok == ',') {
-                next();
-                size = asm_int_expr(s1);
-                if (size < 0) {
+            إذا (tok == ',') {
+                بل();
+                اندازه = asm_int_بیان(s1);
+                إذا (اندازه < 0) {
                     tcc_error("size < 0; .fill ignored");
-                    break;
+                    اكسر;
                 }
-                if (size > 8)
-                    size = 8;
-                if (tok == ',') {
-                    next();
-                    val = asm_int_expr(s1);
+                إذا (اندازه > 8)
+                    اندازه = 8;
+                إذا (tok == ',') {
+                    بل();
+                    val = asm_int_بیان(s1);
                 }
             }
             /* XXX: endianness */
@@ -670,476 +670,476 @@ static void asm_parse_directive(TCCState *s1, int global)
             repeat_buf[5] = 0;
             repeat_buf[6] = 0;
             repeat_buf[7] = 0;
-            for(i = 0; i < repeat; i++) {
-                for(j = 0; j < size; j++) {
+            لكل(i = 0; i < repeat; i++) {
+                لكل(j = 0; j < اندازه; j++) {
                     g(repeat_buf[j]);
                 }
             }
         }
-        break;
-    case TOK_ASMDIR_rept:
+        اكسر;
+    حالة TOK_ASMDIR_rept:
         {
-            int repeat;
+            صحيح repeat;
             TokenString *init_str;
-            next();
-            repeat = asm_int_expr(s1);
+            بل();
+            repeat = asm_int_بیان(s1);
             init_str = tok_str_alloc();
-            while (next(), tok != TOK_ASMDIR_endr) {
-                if (tok == CH_EOF)
+            طالما (بل(), tok != TOK_ASMDIR_endr) {
+                إذا (tok == CH_EOF)
                     tcc_error("we at end of file, .endr not found");
-                tok_str_add_tok(init_str);
+                tok_str_جمع_کړه_tok(init_str);
             }
-            tok_str_add(init_str, TOK_EOF);
+            tok_str_جمع_کړه(init_str, TOK_EOF);
             begin_macro(init_str, 1);
-            while (repeat-- > 0) {
-                tcc_assemble_internal(s1, (parse_flags & PARSE_FLAG_PREPROCESS),
+            طالما (repeat-- > 0) {
+                tcc_assemble_دننی(s1, (parse_flags & PARSE_FLAG_PREPROCESS),
 				      global);
                 macro_ptr = init_str->str;
             }
-            end_macro();
-            next();
-            break;
+            پای_ټکی_macro();
+            بل();
+            اكسر;
         }
-    case TOK_ASMDIR_org:
+    حالة TOK_ASMDIR_org:
         {
-	    ExprValue e;
+	    بیان_ارزښت e;
 	    ElfSym *esym;
-            next();
-	    asm_expr(s1, &e);
+            بل();
+	    asm_بیان(s1, &e);
 	    n = e.v;
 	    esym = elfsym(e.sym);
-	    if (esym) {
-		if (esym->st_shndx != cur_text_section->sh_num)
+	    إذا (esym) {
+		إذا (esym->st_shndx != cur_متن_section->sh_عدد)
 		  expect("constant or same-section symbol");
-		n += esym->st_value;
+		n += esym->st_ارزښت;
 	    }
-            if (n < ind)
+            إذا (n < ind)
                 tcc_error("attempt to .org backwards");
             v = c = 0;
-            size = n - ind;
-            goto zero_pad;
+            اندازه = n - ind;
+            اذهب zero_pad;
         }
-        break;
-    case TOK_ASMDIR_set:
-	next();
+        اكسر;
+    حالة TOK_ASMDIR_سېټ:
+	بل();
 	tok1 = tok;
-	next();
+	بل();
 	/* Also accept '.set stuff', but don't do anything with this.
 	   It's used in GAS to set various features like '.set mips16'.  */
-	if (tok == ',')
-	    set_symbol(s1, tok1);
-	break;
-    case TOK_ASMDIR_globl:
-    case TOK_ASMDIR_global:
-    case TOK_ASMDIR_weak:
-    case TOK_ASMDIR_hidden:
+	إذا (tok == ',')
+	    سېټ_نښه(s1, tok1);
+	اكسر;
+    حالة TOK_ASMDIR_globl:
+    حالة TOK_ASMDIR_global:
+    حالة TOK_ASMDIR_weak:
+    حالة TOK_ASMDIR_hidden:
 	tok1 = tok;
-	do { 
+	افعل { 
             Sym *sym;
-            next();
-	    if (tok < TOK_IDENT)
+            بل();
+	    إذا (tok < TOK_IDENT)
 		expect("identifier");
-            sym = get_asm_sym(tok, NULL);
-	    if (tok1 != TOK_ASMDIR_hidden)
+            sym = get_asm_sym(tok, عدم);
+	    إذا (tok1 != TOK_ASMDIR_hidden)
                 sym->type.t &= ~VT_STATIC;
-            if (tok1 == TOK_ASMDIR_weak)
+            إذا (tok1 == TOK_ASMDIR_weak)
                 sym->a.weak = 1;
-	    else if (tok1 == TOK_ASMDIR_hidden)
+	    وإلا إذا (tok1 == TOK_ASMDIR_hidden)
 	        sym->a.visibility = STV_HIDDEN;
             update_storage(sym);
-            next();
-	} while (tok == ',');
-	break;
-    case TOK_ASMDIR_string:
-    case TOK_ASMDIR_ascii:
-    case TOK_ASMDIR_asciz:
+            بل();
+	} طالما (tok == ',');
+	اكسر;
+    حالة TOK_ASMDIR_string:
+    حالة TOK_ASMDIR_ascii:
+    حالة TOK_ASMDIR_asciz:
         {
-            const char *p;
-            int i, size, t;
+            ثابت حرف *p;
+            صحيح i, اندازه, t;
 
             t = tok;
-            next();
-            for(;;) {
-                if (tok != TOK_STR)
+            بل();
+            لكل(;;) {
+                إذا (tok != TOK_STR)
                     expect("string constant");
-                p = tokc.str.data;
-                size = tokc.str.size;
-                if (t == TOK_ASMDIR_ascii && size > 0)
-                    size--;
-                for(i = 0; i < size; i++)
+                p = tokc.str.معلومات;
+                اندازه = tokc.str.اندازه;
+                إذا (t == TOK_ASMDIR_ascii && اندازه > 0)
+                    اندازه--;
+                لكل(i = 0; i < اندازه; i++)
                     g(p[i]);
-                next();
-                if (tok == ',') {
-                    next();
-                } else if (tok != TOK_STR) {
-                    break;
+                بل();
+                إذا (tok == ',') {
+                    بل();
+                } وإلا إذا (tok != TOK_STR) {
+                    اكسر;
                 }
             }
 	}
-	break;
-    case TOK_ASMDIR_text:
-    case TOK_ASMDIR_data:
-    case TOK_ASMDIR_bss:
+	اكسر;
+    حالة TOK_ASMDIR_متن:
+    حالة TOK_ASMDIR_معلومات:
+    حالة TOK_ASMDIR_bss:
 	{ 
-            char sname[64];
+            حرف sname[64];
             tok1 = tok;
             n = 0;
-            next();
-            if (tok != ';' && tok != TOK_LINEFEED) {
-		n = asm_int_expr(s1);
-		next();
+            بل();
+            إذا (tok != ';' && tok != TOK_LINEFEED) {
+		n = asm_int_بیان(s1);
+		بل();
             }
-            if (n)
-                sprintf(sname, "%s%d", get_tok_str(tok1, NULL), n);
-            else
-                sprintf(sname, "%s", get_tok_str(tok1, NULL));
+            إذا (n)
+                sprintf(sname, "%s%d", get_tok_str(tok1, عدم), n);
+            وإلا
+                sprintf(sname, "%s", get_tok_str(tok1, عدم));
             use_section(s1, sname);
 	}
-	break;
-    case TOK_ASMDIR_file:
+	اكسر;
+    حالة TOK_ASMDIR_file:
         {
-            const char *p;
+            ثابت حرف *p;
             parse_flags &= ~PARSE_FLAG_TOK_STR;
-            next();
-            if (tok == TOK_PPNUM)
-                next();
-            if (tok == TOK_PPSTR && tokc.str.data[0] == '"') {
-                tokc.str.data[tokc.str.size - 2] = 0;
-                p = tokc.str.data + 1;
-            } else if (tok >= TOK_IDENT) {
+            بل();
+            إذا (tok == TOK_PPNUM)
+                بل();
+            إذا (tok == TOK_PPSTR && tokc.str.معلومات[0] == '"') {
+                tokc.str.معلومات[tokc.str.اندازه - 2] = 0;
+                p = tokc.str.معلومات + 1;
+            } وإلا إذا (tok >= TOK_IDENT) {
                 p = get_tok_str(tok, &tokc);
-            } else {
-                skip_to_eol(0);
-                break;
+            } وإلا {
+                skip_منزل_eol(0);
+                اكسر;
             }
             tccpp_putfile(p);
-            next();
+            بل();
         }
-        break;
-    case TOK_ASMDIR_ident:
+        اكسر;
+    حالة TOK_ASMDIR_ident:
         {
-            char ident[256];
+            حرف ident[256];
 
             ident[0] = '\0';
-            next();
-            if (tok == TOK_STR)
-                pstrcat(ident, sizeof(ident), tokc.str.data);
-            else
-                pstrcat(ident, sizeof(ident), get_tok_str(tok, &tokc));
+            بل();
+            إذا (tok == TOK_STR)
+                pstrcat(ident, حجم(ident), tokc.str.معلومات);
+            وإلا
+                pstrcat(ident, حجم(ident), get_tok_str(tok, &tokc));
             tcc_warning_c(warn_unsupported)("ignoring .ident %s", ident);
-            next();
+            بل();
         }
-        break;
-    case TOK_ASMDIR_size:
+        اكسر;
+    حالة TOK_ASMDIR_اندازه:
         { 
             Sym *sym;
             ElfSym *esym;
 
-            next();
-	    if (tok < TOK_IDENT)
+            بل();
+	    إذا (tok < TOK_IDENT)
 		expect("identifier");
-            sym = asm_label_find(tok);
-            if (!sym)
-                tcc_error("label not found: %s", get_tok_str(tok, NULL));
+            sym = asm_label_پیدا_کړه(tok);
+            إذا (!sym)
+                tcc_error("label not found: %s", get_tok_str(tok, عدم));
             /* XXX .size name,label2-label1 */
-            tcc_warning_c(warn_unsupported)("ignoring .size %s,*", get_tok_str(tok, NULL));
-            next();
+            tcc_warning_c(warn_unsupported)("ignoring .size %s,*", get_tok_str(tok, عدم));
+            بل();
             skip(',');
-            n = asm_int_expr(s1);
+            n = asm_int_بیان(s1);
             esym = elfsym(sym);
-            if (esym) {
-                esym->st_size = n;
+            إذا (esym) {
+                esym->st_اندازه = n;
             }
         }
-        break;
-    case TOK_ASMDIR_type:
+        اكسر;
+    حالة TOK_ASMDIR_type:
         { 
             Sym *sym;
-            const char *newtype;
-            int st_type;
+            ثابت حرف *newtype;
+            صحيح st_type;
 
-            next();
-	    if (tok < TOK_IDENT)
+            بل();
+	    إذا (tok < TOK_IDENT)
 		expect("identifier");
-            sym = get_asm_sym(tok, NULL);
-            next();
+            sym = get_asm_sym(tok, عدم);
+            بل();
             skip(',');
-            if (tok == TOK_STR) {
-                newtype = tokc.str.data;
-            } else {
-                if (tok == '@' || tok == '%')
-                    next();
-                newtype = get_tok_str(tok, NULL);
+            إذا (tok == TOK_STR) {
+                newtype = tokc.str.معلومات;
+            } وإلا {
+                إذا (tok == '@' || tok == '%')
+                    بل();
+                newtype = get_tok_str(tok, عدم);
             }
 
-            if (!strcmp(newtype, "function") || !strcmp(newtype, "STT_FUNC")) {
-                if (IS_ASM_SYM(sym))
+            إذا (!strcmp(newtype, "function") || !strcmp(newtype, "STT_FUNC")) {
+                إذا (IS_ASM_SYM(sym))
                     sym->type.t |= VT_ASM_FUNC;
                 st_type = STT_FUNC;
-            set_st_type:
-                if (sym->c) {
+            سېټ_st_type:
+                إذا (sym->c) {
                     ElfSym *esym = elfsym(sym);
                     esym->st_info = ELFW(ST_INFO)(ELFW(ST_BIND)(esym->st_info), st_type);
                 }
-            } else if (!strcmp(newtype, "object") || !strcmp(newtype, "STT_OBJECT")) {
+            } وإلا إذا (!strcmp(newtype, "object") || !strcmp(newtype, "STT_OBJECT")) {
                 st_type = STT_OBJECT;
-                goto set_st_type;
-            } else
+                اذهب سېټ_st_type;
+            } وإلا
                 tcc_warning_c(warn_unsupported)("change type of '%s' from 0x%x to '%s' ignored",
-                    get_tok_str(sym->v, NULL), sym->type.t, newtype);
+                    get_tok_str(sym->v, عدم), sym->type.t, newtype);
 
-            next();
+            بل();
         }
-        break;
-    case TOK_ASMDIR_pushsection:
-    case TOK_ASMDIR_section:
+        اكسر;
+    حالة TOK_ASMDIR_pushsection:
+    حالة TOK_ASMDIR_section:
         {
-            char sname[256];
-	    int old_nb_section = s1->nb_sections;
-            int flags = SHF_ALLOC;
+            حرف sname[256];
+	    صحيح old_nb_section = s1->nb_sections;
+            صحيح flags = SHF_ALLOC;
 
 	    tok1 = tok;
             /* XXX: support more options */
-            next();
+            بل();
             sname[0] = '\0';
-            while (tok != ';' && tok != TOK_LINEFEED && tok != ',') {
-                if (tok == TOK_STR)
-                    pstrcat(sname, sizeof(sname), tokc.str.data);
-                else
-                    pstrcat(sname, sizeof(sname), get_tok_str(tok, NULL));
-                next();
+            طالما (tok != ';' && tok != TOK_LINEFEED && tok != ',') {
+                إذا (tok == TOK_STR)
+                    pstrcat(sname, حجم(sname), tokc.str.معلومات);
+                وإلا
+                    pstrcat(sname, حجم(sname), get_tok_str(tok, عدم));
+                بل();
             }
-            if (tok == ',') {
-                const char *p;
+            إذا (tok == ',') {
+                ثابت حرف *p;
                 /* skip section options */
-                next();
-                if (tok != TOK_STR)
+                بل();
+                إذا (tok != TOK_STR)
                     expect("string constant");
-                for (p = tokc.str.data; *p; ++p) {
-                    if (*p == 'w')
+                لكل (p = tokc.str.معلومات; *p; ++p) {
+                    إذا (*p == 'w')
                         flags |= SHF_WRITE;
-                    if (*p == 'x')
+                    إذا (*p == 'x')
                         flags |= SHF_EXECINSTR;
                 }
-                next();
-                if (tok == ',') {
-                    next();
-                    if (tok == '@' || tok == '%')
-                        next();
-                    next();
+                بل();
+                إذا (tok == ',') {
+                    بل();
+                    إذا (tok == '@' || tok == '%')
+                        بل();
+                    بل();
                 }
             }
-            last_text_section = cur_text_section;
-	    if (tok1 == TOK_ASMDIR_section)
+            وروستی_متن_section = cur_متن_section;
+	    إذا (tok1 == TOK_ASMDIR_section)
 	        use_section(s1, sname);
-	    else
-	        push_section(s1, sname);
+	    وإلا
+	        ټېل_section(s1, sname);
 	    /* If we just allocated a new section reset its alignment to
 	       1.  new_section normally acts for GCC compatibility and
 	       sets alignment to PTR_SIZE.  The assembler behaves different. */
-	    if (old_nb_section != s1->nb_sections) {
-	        cur_text_section->sh_addralign = 1;
+	    إذا (old_nb_section != s1->nb_sections) {
+	        cur_متن_section->sh_addralign = 1;
                 /* Make .init and .fini sections executable by default.
                    GAS does so, too, and musl relies on it. */
-                if (!strcmp(sname, ".init") || !strcmp(sname, ".fini"))
+                إذا (!strcmp(sname, ".init") || !strcmp(sname, ".fini"))
                     flags |= SHF_EXECINSTR;
-	        cur_text_section->sh_flags = flags;
+	        cur_متن_section->sh_flags = flags;
             }
         }
-        break;
-    case TOK_ASMDIR_previous:
+        اكسر;
+    حالة TOK_ASMDIR_پخوانی:
         { 
             Section *sec;
-            next();
-            if (!last_text_section)
+            بل();
+            إذا (!وروستی_متن_section)
                 tcc_error("no previous section referenced");
-            sec = cur_text_section;
-            use_section1(s1, last_text_section);
-            last_text_section = sec;
+            sec = cur_متن_section;
+            use_section1(s1, وروستی_متن_section);
+            وروستی_متن_section = sec;
         }
-        break;
-    case TOK_ASMDIR_popsection:
-	next();
-	pop_section(s1);
-	break;
-#ifdef TCC_TARGET_I386
-    case TOK_ASMDIR_code16:
+        اكسر;
+    حالة TOK_ASMDIR_popsection:
+	بل();
+	راوباسه_section(s1);
+	اكسر;
+#که_تعریف_شوی TCC_موخه_I386
+    حالة TOK_ASMDIR_code16:
         {
-            next();
-            s1->seg_size = 16;
+            بل();
+            s1->seg_اندازه = 16;
         }
-        break;
-    case TOK_ASMDIR_code32:
+        اكسر;
+    حالة TOK_ASMDIR_code32:
         {
-            next();
-            s1->seg_size = 32;
+            بل();
+            s1->seg_اندازه = 32;
         }
-        break;
-#endif
-#if PTR_SIZE == 8
+        اكسر;
+#د_که_پای
+#إذا PTR_اندازه == 8
     /* added for compatibility with GAS */
-    case TOK_ASMDIR_code64:
-        next();
-        break;
-#endif
-#ifdef TCC_TARGET_RISCV64
-    case TOK_ASMDIR_option:
-        next();
-        switch(tok){
-            case TOK_ASM_rvc:    /* Will be deprecated soon in favor of arch */
-            case TOK_ASM_norvc:  /* Will be deprecated soon in favor of arch */
-            case TOK_ASM_pic:
-            case TOK_ASM_nopic:
-            case TOK_ASM_relax:
-            case TOK_ASM_norelax:
-            case TOK_ASM_push:
-            case TOK_ASM_pop:
+    حالة TOK_ASMDIR_code64:
+        بل();
+        اكسر;
+#د_که_پای
+#که_تعریف_شوی TCC_موخه_RISCV64
+    حالة TOK_ASMDIR_option:
+        بل();
+        بدل(tok){
+            حالة TOK_ASM_rvc:    /* Will be deprecated soon in favor of arch */
+            حالة TOK_ASM_norvc:  /* Will be deprecated soon in favor of arch */
+            حالة TOK_ASM_pic:
+            حالة TOK_ASM_nopic:
+            حالة TOK_ASM_relax:
+            حالة TOK_ASM_norelax:
+            حالة TOK_ASM_ټېل:
+            حالة TOK_ASM_راوباسه:
                 /* TODO: unimplemented */
-                next();
-                break;
-            case TOK_ASM_arch:
+                بل();
+                اكسر;
+            حالة TOK_ASM_arch:
                 /* TODO: unimplemented, requires extra parsing */
-                tcc_error("unimp .option '.%s'", get_tok_str(tok, NULL));
-                break;
-            default:
-                tcc_error("unknown .option '.%s'", get_tok_str(tok, NULL));
-                break;
+                tcc_error("unimp .option '.%s'", get_tok_str(tok, عدم));
+                اكسر;
+            افتراضي:
+                tcc_error("unknown .option '.%s'", get_tok_str(tok, عدم));
+                اكسر;
         }
-        break;
-#endif
+        اكسر;
+#د_که_پای
     /* TODO: Implement symvar support. FreeBSD >= 14 needs this */
-    case TOK_ASMDIR_symver:
-	next();
-	next();
+    حالة TOK_ASMDIR_symver:
+	بل();
+	بل();
         skip(',');
-	next();
+	بل();
         skip('@');
-	next();
-	break;
-    case TOK_ASMDIR_reloc:
+	بل();
+	اكسر;
+    حالة TOK_ASMDIR_reloc:
 	{
-	    ExprValue e;
-	    const char *reloc_name;
-	    int reloc_type = -1;
+	    بیان_ارزښت e;
+	    ثابت حرف *reloc_name;
+	    صحيح reloc_type = -1;
 
-	    next();
-	    asm_expr(s1, &e);
+	    بل();
+	    asm_بیان(s1, &e);
 	    skip(',');
-	    reloc_name = get_tok_str(tok, NULL);
-#if defined(TCC_TARGET_ARM64)
-	    if (!strcmp(reloc_name, "R_AARCH64_CALL26"))
+	    reloc_name = get_tok_str(tok, عدم);
+#إذا defined(TCC_موخه_ARM64)
+	    إذا (!strcmp(reloc_name, "R_AARCH64_CALL26"))
 	        reloc_type = R_AARCH64_CALL26;
-#elif defined(TCC_TARGET_RISCV64)
-	    if (!strcmp(reloc_name, "R_RISCV_CALL") || !strcmp(reloc_name, "R_RISCV_CALL_PLT"))
+#وإلاإذا defined(TCC_موخه_RISCV64)
+	    إذا (!strcmp(reloc_name, "R_RISCV_CALL") || !strcmp(reloc_name, "R_RISCV_CALL_PLT"))
 	        reloc_type = R_RISCV_CALL;
-	    else if (!strcmp(reloc_name, "R_RISCV_BRANCH"))
+	    وإلا إذا (!strcmp(reloc_name, "R_RISCV_BRANCH"))
 	        reloc_type = R_RISCV_BRANCH;
-	    else if (!strcmp(reloc_name, "R_RISCV_JAL"))
+	    وإلا إذا (!strcmp(reloc_name, "R_RISCV_JAL"))
 	        reloc_type = R_RISCV_JAL;
-	    else if (!strcmp(reloc_name, "R_RISCV_PCREL_HI20"))
+	    وإلا إذا (!strcmp(reloc_name, "R_RISCV_PCREL_HI20"))
 	        reloc_type = R_RISCV_PCREL_HI20;
-	    else if (!strcmp(reloc_name, "R_RISCV_PCREL_LO12_I"))
+	    وإلا إذا (!strcmp(reloc_name, "R_RISCV_PCREL_LO12_I"))
 	        reloc_type = R_RISCV_PCREL_LO12_I;
-	    else if (!strcmp(reloc_name, "R_RISCV_PCREL_LO12_S"))
+	    وإلا إذا (!strcmp(reloc_name, "R_RISCV_PCREL_LO12_S"))
 	        reloc_type = R_RISCV_PCREL_LO12_S;
-	    else if (!strcmp(reloc_name, "R_RISCV_32_PCREL"))
+	    وإلا إذا (!strcmp(reloc_name, "R_RISCV_32_PCREL"))
 	        reloc_type = R_RISCV_32_PCREL;
-	    else if (!strcmp(reloc_name, "R_RISCV_32"))
+	    وإلا إذا (!strcmp(reloc_name, "R_RISCV_32"))
 	        reloc_type = R_RISCV_32;
-	    else if (!strcmp(reloc_name, "R_RISCV_64"))
+	    وإلا إذا (!strcmp(reloc_name, "R_RISCV_64"))
 	        reloc_type = R_RISCV_64;
-#endif
-	    if (reloc_type < 0)
+#د_که_پای
+	    إذا (reloc_type < 0)
 	        tcc_error("unimp: reloc '%s' unknown", reloc_name);
-	    next();
+	    بل();
 	    skip(',');
-	    greloca(cur_text_section, get_asm_sym(tok, NULL), e.v, reloc_type, 0);
-	    next();
+	    greloca(cur_متن_section, get_asm_sym(tok, عدم), e.v, reloc_type, 0);
+	    بل();
 	}
-	break;
-    default:
-        tcc_error("unknown assembler directive '.%s'", get_tok_str(tok, NULL));
-        break;
+	اكسر;
+    افتراضي:
+        tcc_error("unknown assembler directive '.%s'", get_tok_str(tok, عدم));
+        اكسر;
     }
 }
 
 
 /* assemble a file */
-static int tcc_assemble_internal(TCCState *s1, int do_preprocess, int global)
+ساكن صحيح tcc_assemble_دننی(TCCState *s1, صحيح do_preprocess, صحيح global)
 {
-    int opcode;
-    int saved_parse_flags = parse_flags;
+    صحيح opcode;
+    صحيح saved_parse_flags = parse_flags;
 
     parse_flags = PARSE_FLAG_ASM_FILE | PARSE_FLAG_TOK_STR;
-    if (do_preprocess)
+    إذا (do_preprocess)
         parse_flags |= PARSE_FLAG_PREPROCESS;
-    for(;;) {
-        next();
-        if (tok == TOK_EOF)
-            break;
-        tcc_debug_line(s1);
+    لكل(;;) {
+        بل();
+        إذا (tok == TOK_EOF)
+            اكسر;
+        tcc_debug_کرښه(s1);
         parse_flags |= PARSE_FLAG_LINEFEED; /* XXX: suppress that hack */
     redo:
-#if !defined(TCC_TARGET_ARM64)
-        if (tok == '#') {
+#إذا !defined(TCC_موخه_ARM64)
+        إذا (tok == '#') {
             /* horrible gas comment */
-            while (tok != TOK_LINEFEED)
-                next();
-        } else
-#endif
-        if (tok >= TOK_ASMDIR_FIRST && tok <= TOK_ASMDIR_LAST) {
+            طالما (tok != TOK_LINEFEED)
+                بل();
+        } وإلا
+#د_که_پای
+        إذا (tok >= TOK_ASMDIR_لومړی && tok <= TOK_ASMDIR_وروستی) {
             asm_parse_directive(s1, global);
-        } else if (tok == TOK_PPNUM) {
-            const char *p;
-            int n;
-            p = tokc.str.data;
-            n = strtoul(p, (char **)&p, 10);
-            if (*p != '\0')
+        } وإلا إذا (tok == TOK_PPNUM) {
+            ثابت حرف *p;
+            صحيح n;
+            p = tokc.str.معلومات;
+            n = strtoul(p, (حرف **)&p, 10);
+            إذا (*p != '\0')
                 expect("':'");
             /* new local label */
             asm_new_label(s1, asm_get_local_label_name(s1, n), 1);
-            next();
+            بل();
             skip(':');
-            goto redo;
-        } else if (tok >= TOK_IDENT) {
+            اذهب redo;
+        } وإلا إذا (tok >= TOK_IDENT) {
             /* instruction or label */
             opcode = tok;
-            next();
-            if (tok == ':') {
+            بل();
+            إذا (tok == ':') {
                 /* new label */
                 asm_new_label(s1, opcode, 0);
-                next();
-                goto redo;
-            } else if (tok == '=') {
-		set_symbol(s1, opcode);
-                goto redo;
-            } else {
+                بل();
+                اذهب redo;
+            } وإلا إذا (tok == '=') {
+		سېټ_نښه(s1, opcode);
+                اذهب redo;
+            } وإلا {
                 asm_opcode(s1, opcode);
             }
         }
         /* end of line */
-        if (tok != ';' && tok != TOK_LINEFEED)
+        إذا (tok != ';' && tok != TOK_LINEFEED)
             expect("end of line");
         parse_flags &= ~PARSE_FLAG_LINEFEED; /* XXX: suppress that hack */
     }
 
     parse_flags = saved_parse_flags;
-    return 0;
+    أرجع 0;
 }
 
 /* Assemble the current file */
-ST_FUNC int tcc_assemble(TCCState *s1, int do_preprocess)
+ST_FUNC صحيح tcc_assemble(TCCState *s1, صحيح do_preprocess)
 {
-    int ret;
-    tcc_debug_start(s1);
+    صحيح ret;
+    tcc_debug_پیل(s1);
     /* default section is text */
-    cur_text_section = text_section;
-    ind = cur_text_section->data_offset;
+    cur_متن_section = متن_section;
+    ind = cur_متن_section->معلومات_دننه_واټن;
     nocode_wanted = 0;
-    ret = tcc_assemble_internal(s1, do_preprocess, 1);
-    cur_text_section->data_offset = ind;
-    tcc_debug_end(s1);
-    return ret;
+    ret = tcc_assemble_دننی(s1, do_preprocess, 1);
+    cur_متن_section->معلومات_دننه_واټن = ind;
+    tcc_debug_پای_ټکی(s1);
+    أرجع ret;
 }
 
 /********************************************************************/
@@ -1147,176 +1147,176 @@ ST_FUNC int tcc_assemble(TCCState *s1, int do_preprocess)
 
 /* assemble the string 'str' in the current C compilation unit without
    C preprocessing. */
-static void tcc_assemble_inline(TCCState *s1, const char *str, int len, int global)
+ساكن فراغ tcc_assemble_inline(TCCState *s1, ثابت حرف *str, صحيح len, صحيح global)
 {
-    const int *saved_macro_ptr = macro_ptr;
-    int dotid = set_idnum('.', IS_ID);
-#if !defined(TCC_TARGET_RISCV64) && !defined(TCC_TARGET_X86_64)
-    int dolid = set_idnum('$', 0);
-#endif
+    ثابت صحيح *saved_macro_ptr = macro_ptr;
+    صحيح dotid = سېټ_idnum('.', IS_ID);
+#إذا !defined(TCC_موخه_RISCV64) && !defined(TCC_موخه_X86_64)
+    صحيح dolid = سېټ_idnum('$', 0);
+#د_که_پای
 
     tcc_open_bf(s1, ":asm:", len);
-    memcpy(file->buffer, str, len);
-    macro_ptr = NULL;
-    tcc_assemble_internal(s1, 0, global);
+    حافظه_نقل(file->بفر, str, len);
+    macro_ptr = عدم;
+    tcc_assemble_دننی(s1, 0, global);
     tcc_close();
 
-#if !defined(TCC_TARGET_RISCV64) && !defined(TCC_TARGET_X86_64)
-    set_idnum('$', dolid);
-#endif
-    set_idnum('.', dotid);
+#إذا !defined(TCC_موخه_RISCV64) && !defined(TCC_موخه_X86_64)
+    سېټ_idnum('$', dolid);
+#د_که_پای
+    سېټ_idnum('.', dotid);
     macro_ptr = saved_macro_ptr;
 }
 
 /* find a constraint by its number or id (gcc 3 extended
    syntax). return -1 if not found. Return in *pp in char after the
    constraint */
-ST_FUNC int find_constraint(ASMOperand *operands, int nb_operands, 
-                           const char *name, const char **pp)
+ST_FUNC صحيح پیدا_کړه_constraint(ASMOperand *operands, صحيح nb_operands, 
+                           ثابت حرف *name, ثابت حرف **pp)
 {
-    int index;
+    صحيح شاخص;
     TokenSym *ts;
-    const char *p;
+    ثابت حرف *p;
 
-    if (isnum(*name)) {
-        index = 0;
-        while (isnum(*name)) {
-            index = (index * 10) + (*name) - '0';
+    إذا (isnum(*name)) {
+        شاخص = 0;
+        طالما (isnum(*name)) {
+            شاخص = (شاخص * 10) + (*name) - '0';
             name++;
         }
-        if ((unsigned)index >= nb_operands)
-            index = -1;
-    } else if (*name == '[') {
+        إذا ((بینښه)شاخص >= nb_operands)
+            شاخص = -1;
+    } وإلا إذا (*name == '[') {
         name++;
         p = strchr(name, ']');
-        if (p) {
+        إذا (p) {
             ts = tok_alloc(name, p - name);
-            for(index = 0; index < nb_operands; index++) {
-                if (operands[index].id == ts->tok)
-                    goto found;
+            لكل(شاخص = 0; شاخص < nb_operands; شاخص++) {
+                إذا (operands[شاخص].id == ts->tok)
+                    اذهب وموندل;
             }
-            index = -1;
-        found:
+            شاخص = -1;
+        وموندل:
             name = p + 1;
-        } else {
-            index = -1;
+        } وإلا {
+            شاخص = -1;
         }
-    } else {
-        index = -1;
+    } وإلا {
+        شاخص = -1;
     }
-    if (pp)
+    إذا (pp)
         *pp = name;
-    return index;
+    أرجع شاخص;
 }
 
-static void subst_asm_operands(ASMOperand *operands, int nb_operands, 
-                               CString *out_str, const char *str)
+ساكن فراغ subst_asm_operands(ASMOperand *operands, صحيح nb_operands, 
+                               CString *بهر_str, ثابت حرف *str)
 {
-    int c, index, modifier;
+    صحيح c, شاخص, modifier;
     ASMOperand *op;
     SValue sv;
 
-    for(;;) {
+    لكل(;;) {
         c = *str++;
-        if (c == '%') {
-            if (*str == '%') {
+        إذا (c == '%') {
+            إذا (*str == '%') {
                 str++;
-                goto add_char;
+                اذهب جمع_کړه_char;
             }
             modifier = 0;
-            if (*str == 'c' || *str == 'n' ||
+            إذا (*str == 'c' || *str == 'n' ||
                 *str == 'b' || *str == 'w' || *str == 'h' || *str == 'k' ||
 		*str == 'q' || *str == 'l' ||
-#ifdef TCC_TARGET_ARM64
+#که_تعریف_شوی TCC_موخه_ARM64
                 *str == 'x' || *str == 's' || *str == 'd' || *str == 'Z' ||
-#endif
-#ifdef TCC_TARGET_RISCV64
+#د_که_پای
+#که_تعریف_شوی TCC_موخه_RISCV64
 		*str == 'z' ||
-#endif
+#د_که_پای
 		/* P in GCC would add "@PLT" to symbol refs in PIC mode,
 		   and make literal operands not be decorated with '$'.  */
 		*str == 'P')
                 modifier = *str++;
-            index = find_constraint(operands, nb_operands, str, &str);
-            if (index < 0)
+            شاخص = پیدا_کړه_constraint(operands, nb_operands, str, &str);
+            إذا (شاخص < 0)
         error:
                 tcc_error("invalid operand reference after %%");
-            op = &operands[index];
-            if (modifier == 'l') {
-                cstr_cat(out_str, get_tok_str(op->is_label, NULL), -1);
-            } else {
-		if (op->vt == NULL)
-		    goto error;
+            op = &operands[شاخص];
+            إذا (modifier == 'l') {
+                cstr_cat(بهر_str, get_tok_str(op->is_label, عدم), -1);
+            } وإلا {
+		إذا (op->vt == عدم)
+		    اذهب error;
                 sv = *op->vt;
-                if (op->reg >= 0) {
+                إذا (op->reg >= 0) {
                     sv.r = op->reg;
-                    if (op->is_memory)
+                    إذا (op->is_حافظه)
                       sv.r |= VT_LVAL;
                 }
-                subst_asm_operand(out_str, &sv, modifier);
+                subst_asm_عملوند(بهر_str, &sv, modifier);
             }
-        } else {
-        add_char:
-            cstr_ccat(out_str, c);
-            if (c == '\0')
-                break;
+        } وإلا {
+        جمع_کړه_char:
+            cstr_ccat(بهر_str, c);
+            إذا (c == '\0')
+                اكسر;
         }
     }
 }
 
 
-static void parse_asm_operands(ASMOperand *operands, int *nb_operands_ptr,
-                               int is_output)
+ساكن فراغ parse_asm_operands(ASMOperand *operands, صحيح *nb_operands_ptr,
+                               صحيح is_output)
 {
     ASMOperand *op;
-    int nb_operands;
-    char* astr;
+    صحيح nb_operands;
+    حرف* astr;
 
-    if (tok != ':') {
+    إذا (tok != ':') {
         nb_operands = *nb_operands_ptr;
-        for(;;) {
-            if (nb_operands >= MAX_ASM_OPERANDS)
+        لكل(;;) {
+            إذا (nb_operands >= MAX_ASM_OPERANDS)
                 tcc_error("too many asm operands");
             op = &operands[nb_operands++];
             op->id = 0;
-            if (tok == '[') {
-                next();
-                if (tok < TOK_IDENT)
+            إذا (tok == '[') {
+                بل();
+                إذا (tok < TOK_IDENT)
                     expect("identifier");
                 op->id = tok;
-                next();
+                بل();
                 skip(']');
             }
-	    astr = parse_mult_str("string constant")->data;
-            pstrcpy(op->constraint, sizeof op->constraint, astr);
+	    astr = parse_mult_str("string constant")->معلومات;
+            pstrcpy(op->constraint, حجم op->constraint, astr);
             skip('(');
             gexpr();
-            if (is_output) {
-                if (!(vtop->type.t & VT_ARRAY))
+            إذا (is_output) {
+                إذا (!(vtop->type.t & VT_ARRAY))
                     test_lvalue();
-            } else {
+            } وإلا {
                 /* we want to avoid LLOCAL case, except when the 'm'
                    constraint is used. Note that it may come from
                    register storage, so we need to convert (reg)
                    case */
-                if ((vtop->r & VT_LVAL) &&
+                إذا ((vtop->r & VT_LVAL) &&
                     ((vtop->r & VT_VALMASK) == VT_LLOCAL ||
                      (vtop->r & VT_VALMASK) < VT_CONST) &&
                     !strchr(op->constraint, 'm')
-#ifdef TCC_TARGET_ARM64
+#که_تعریف_شوی TCC_موخه_ARM64
                     && !strchr(op->constraint, 'Q')
-                    && !strstr(op->constraint, "Ump")
-#endif
+                    && !مزي_پلټنه(op->constraint, "Ump")
+#د_که_پای
                     ) {
                     gv(RC_INT);
                 }
             }
             op->vt = vtop;
             skip(')');
-            if (tok == ',') {
-                next();
-            } else {
-                break;
+            إذا (tok == ',') {
+                بل();
+            } وإلا {
+                اكسر;
             }
         }
         *nb_operands_ptr = nb_operands;
@@ -1324,93 +1324,93 @@ static void parse_asm_operands(ASMOperand *operands, int *nb_operands_ptr,
 }
 
 /* parse the GCC asm() instruction */
-ST_FUNC void asm_instr(void)
+ST_FUNC فراغ asm_instr(فراغ)
 {
     CString astr, *astr1;
 
     ASMOperand operands[MAX_ASM_OPERANDS];
-    int nb_outputs, nb_operands, i, must_subst, out_reg, nb_labels;
+    صحيح nb_outputs, nb_operands, i, must_subst, بهر_reg, nb_labels;
     uint8_t clobber_regs[NB_ASM_REGS];
     Section *sec;
 
     /* since we always generate the asm() instruction, we can ignore
        volatile */
-    while (tok == TOK_VOLATILE1 || tok == TOK_VOLATILE2 || tok == TOK_VOLATILE3
+    طالما (tok == TOK_VOLATILE1 || tok == TOK_VOLATILE2 || tok == TOK_VOLATILE3
            || tok == TOK_GOTO) {
-        next();
+        بل();
     }
 
     astr1 = parse_asm_str();
     cstr_new_s(&astr);
-    cstr_cat(&astr, astr1->data, astr1->size);
+    cstr_cat(&astr, astr1->معلومات, astr1->اندازه);
 
     nb_operands = 0;
     nb_outputs = 0;
     nb_labels = 0;
     must_subst = 0;
-    memset(clobber_regs, 0, sizeof(clobber_regs));
-    if (tok == ':') {
-        next();
+    memset(clobber_regs, 0, حجم(clobber_regs));
+    إذا (tok == ':') {
+        بل();
         must_subst = 1;
         /* output args */
         parse_asm_operands(operands, &nb_operands, 1);
         nb_outputs = nb_operands;
-        if (tok == ':') {
-            next();
-            if (tok != ')') {
+        إذا (tok == ':') {
+            بل();
+            إذا (tok != ')') {
                 /* input args */
                 parse_asm_operands(operands, &nb_operands, 0);
-                if (tok == ':') {
+                إذا (tok == ':') {
                     /* clobber list */
                     /* XXX: handle registers */
-                    next();
-                    for(;;) {
-                        if (tok == ':')
-                          break;
-                        if (tok != TOK_STR)
+                    بل();
+                    لكل(;;) {
+                        إذا (tok == ':')
+                          اكسر;
+                        إذا (tok != TOK_STR)
                             expect("string constant");
-                        asm_clobber(clobber_regs, tokc.str.data);
-                        next();
-                        if (tok == ',') {
-                            next();
-                        } else {
-                            break;
+                        asm_clobber(clobber_regs, tokc.str.معلومات);
+                        بل();
+                        إذا (tok == ',') {
+                            بل();
+                        } وإلا {
+                            اكسر;
                         }
                     }
                 }
-                if (tok == ':') {
+                إذا (tok == ':') {
                     /* goto labels */
-                    next();
-                    for (;;) {
+                    بل();
+                    لكل (;;) {
                         Sym *csym;
-                        int asmname;
-                        if (nb_operands + nb_labels >= MAX_ASM_OPERANDS)
+                        صحيح asmname;
+                        إذا (nb_operands + nb_labels >= MAX_ASM_OPERANDS)
                           tcc_error("too many asm operands");
-                        if (tok < TOK_UIDENT)
+                        إذا (tok < TOK_UIDENT)
                           expect("label identifier");
 			memset(operands + nb_operands + nb_labels, 0,
-			       sizeof(operands[0]));
+			       حجم(operands[0]));
                         operands[nb_operands + nb_labels++].id = tok;
 
-                        csym = label_find(tok);
-                        if (!csym) {
-                            csym = label_push(&global_label_stack, tok,
+                        csym = label_پیدا_کړه(tok);
+                        إذا (!csym) {
+                            csym = label_ټېل(&global_label_ډېری, tok,
                                               LABEL_FORWARD);
-                        } else {
-                            if (csym->r == LABEL_DECLARED)
+                        } وإلا {
+                            إذا (csym->r == LABEL_DECLARED)
                               csym->r = LABEL_FORWARD;
                         }
-                        next();
-                        asmname = asm_get_prefix_name(tcc_state, "LG.",
+                        بل();
+                        asmname = asm_get_مختاړی_name(tcc_state, "LG.",
                                                       ++asmgoto_n);
-                        if (!csym->c)
+                        إذا (!csym->c)
                           put_extern_sym2(csym, SHN_UNDEF, 0, 0, 1);
                         get_asm_sym(asmname, csym);
                         operands[nb_operands + nb_labels - 1].is_label = asmname;
 
-                        if (tok != ',')
-                          break;
-                        next();
+                        إذا (tok != ',')
+                          اكسر;
+                        بل();
                     }
                 }
             }
@@ -1419,7 +1419,7 @@ ST_FUNC void asm_instr(void)
     skip(')');
     /* NOTE: we do not eat the ';' so that we can restore the current
        token after the assembler parsing */
-    if (tok != ';')
+    إذا (tok != ';')
         expect("';'");
     
     /* save all values in the memory */
@@ -1427,99 +1427,99 @@ ST_FUNC void asm_instr(void)
 
     /* compute constraints */
     asm_compute_constraints(operands, nb_operands, nb_outputs, 
-                            clobber_regs, &out_reg);
+                            clobber_regs, &بهر_reg);
 
     /* substitute the operands in the asm string. No substitution is
        done if no operands (GCC behaviour) */
-#ifdef ASM_DEBUG
-    printf("asm: \"%s\"\n", (char *)astr.data);
-#endif
-    if (must_subst) {
+#که_تعریف_شوی ASM_DEBUG
+    چاپ_کړه("asm: \"%s\"\n", (حرف *)astr.معلومات);
+#د_که_پای
+    إذا (must_subst) {
         cstr_reset(astr1);
-        cstr_cat(astr1, astr.data, astr.size);
+        cstr_cat(astr1, astr.معلومات, astr.اندازه);
         cstr_reset(&astr);
-        subst_asm_operands(operands, nb_operands + nb_labels, &astr, astr1->data);
+        subst_asm_operands(operands, nb_operands + nb_labels, &astr, astr1->معلومات);
     }
 
-#ifdef ASM_DEBUG
-    printf("subst_asm: \"%s\"\n", (char *)astr.data);
-#endif
+#که_تعریف_شوی ASM_DEBUG
+    چاپ_کړه("subst_asm: \"%s\"\n", (حرف *)astr.معلومات);
+#د_که_پای
 
     /* generate loads */
-    asm_gen_code(operands, nb_operands, nb_outputs, 0, 
-                 clobber_regs, out_reg);    
+    asm_gen_کوډ(operands, nb_operands, nb_outputs, 0, 
+                 clobber_regs, بهر_reg);    
 
     /* We don't allow switching section within inline asm to
        bleed out to surrounding code.  */
-    sec = cur_text_section;
+    sec = cur_متن_section;
     /* assemble the string with tcc internal assembler */
-    tcc_assemble_inline(tcc_state, astr.data, astr.size - 1, 0);
+    tcc_assemble_inline(tcc_state, astr.معلومات, astr.اندازه - 1, 0);
     cstr_free_s(&astr);
-    if (sec != cur_text_section) {
+    إذا (sec != cur_متن_section) {
         tcc_warning("inline asm tries to change current section");
         use_section1(tcc_state, sec);
     }
 
     /* restore the current C token */
-    next();
+    بل();
 
     /* store the output values if needed */
-    asm_gen_code(operands, nb_operands, nb_outputs, 1, 
-                 clobber_regs, out_reg);
+    asm_gen_کوډ(operands, nb_operands, nb_outputs, 1, 
+                 clobber_regs, بهر_reg);
     
     /* free everything */
-    for(i=0;i<nb_operands;i++) {
+    لكل(i=0;i<nb_operands;i++) {
         vpop();
     }
 
 }
 
-ST_FUNC void asm_global_instr(void)
+ST_FUNC فراغ asm_global_instr(فراغ)
 {
     CString *astr;
-    int saved_nocode_wanted = nocode_wanted;
+    صحيح saved_nocode_wanted = nocode_wanted;
 
     /* Global asm blocks are always emitted.  */
     nocode_wanted = 0;
-    next();
+    بل();
     astr = parse_asm_str();
     skip(')');
     /* NOTE: we do not eat the ';' so that we can restore the current
        token after the assembler parsing */
-    if (tok != ';')
+    إذا (tok != ';')
         expect("';'");
     
-#ifdef ASM_DEBUG
-    printf("asm_global: \"%s\"\n", (char *)astr->data);
-#endif
-    cur_text_section = text_section;
-    ind = cur_text_section->data_offset;
+#که_تعریف_شوی ASM_DEBUG
+    چاپ_کړه("asm_global: \"%s\"\n", (حرف *)astr->معلومات);
+#د_که_پای
+    cur_متن_section = متن_section;
+    ind = cur_متن_section->معلومات_دننه_واټن;
 
     /* assemble the string with tcc internal assembler */
-    tcc_assemble_inline(tcc_state, astr->data, astr->size - 1, 1);
+    tcc_assemble_inline(tcc_state, astr->معلومات, astr->اندازه - 1, 1);
     
-    cur_text_section->data_offset = ind;
+    cur_متن_section->معلومات_دننه_واټن = ind;
 
     /* restore the current C token */
-    next();
+    بل();
 
     nocode_wanted = saved_nocode_wanted;
 }
 
 /********************************************************/
-#else
-ST_FUNC int tcc_assemble(TCCState *s1, int do_preprocess)
+#وإلا
+ST_FUNC صحيح tcc_assemble(TCCState *s1, صحيح do_preprocess)
 {
     tcc_error("asm not supported");
 }
 
-ST_FUNC void asm_instr(void)
+ST_FUNC فراغ asm_instr(فراغ)
 {
     tcc_error("inline asm() not supported");
 }
 
-ST_FUNC void asm_global_instr(void)
+ST_FUNC فراغ asm_global_instr(فراغ)
 {
     tcc_error("inline asm() not supported");
 }
-#endif /* CONFIG_TCC_ASM */
+#د_که_پای /* CONFIG_TCC_ASM */

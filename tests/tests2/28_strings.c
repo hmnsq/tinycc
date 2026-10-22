@@ -1,45 +1,45 @@
-#include <stdio.h>
-#include <string.h>
+#ضمن <stdio.h>
+#ضمن <string.h>
 
-int main()
+صحيح اصلي()
 {
-   char a[10];
+   حرف a[10];
 
    strcpy(a, "hello");
-   printf("%s\n", a);
+   چاپ_کړه("%s\n", a);
 
    strncpy(a, "gosh", 2);
-   printf("%s\n", a);
+   چاپ_کړه("%s\n", a);
 
-   printf("%d\n", strcmp(a, "apple") > 0);
-   printf("%d\n", strcmp(a, "goere") > 0);
-   printf("%d\n", strcmp(a, "zebra") < 0);
+   چاپ_کړه("%d\n", strcmp(a, "apple") > 0);
+   چاپ_کړه("%d\n", strcmp(a, "goere") > 0);
+   چاپ_کړه("%d\n", strcmp(a, "zebra") < 0);
 
-   printf("%d\n", strlen(a));
+   چاپ_کړه("%d\n", مزي_اوږدوالی(a));
 
    strcat(a, "!");
-   printf("%s\n", a);
+   چاپ_کړه("%s\n", a);
 
-   printf("%d\n", strncmp(a, "apple", 2) > 0);
-   printf("%d\n", strncmp(a, "goere", 2) == 0);
-   printf("%d\n", strncmp(a, "goerg", 2) == 0);
-   printf("%d\n", strncmp(a, "zebra", 2) < 0);
+   چاپ_کړه("%d\n", مزي_پرتله(a, "apple", 2) > 0);
+   چاپ_کړه("%d\n", مزي_پرتله(a, "goere", 2) == 0);
+   چاپ_کړه("%d\n", مزي_پرتله(a, "goerg", 2) == 0);
+   چاپ_کړه("%d\n", مزي_پرتله(a, "zebra", 2) < 0);
 
-   printf("%s\n", strchr(a, 'o'));
-   printf("%s\n", strrchr(a, 'l'));
-   printf("%d\n", strrchr(a, 'x') == NULL);
+   چاپ_کړه("%s\n", strchr(a, 'o'));
+   چاپ_کړه("%s\n", strrchr(a, 'l'));
+   چاپ_کړه("%d\n", strrchr(a, 'x') == عدم);
 
    memset(&a[1], 'r', 4);
-   printf("%s\n", a);
+   چاپ_کړه("%s\n", a);
 
-   memcpy(&a[2], a, 2);
-   printf("%s\n", a);
+   حافظه_نقل(&a[2], a, 2);
+   چاپ_کړه("%s\n", a);
 
-   printf("%d\n", memcmp(a, "apple", 4) > 0);
-   printf("%d\n", memcmp(a, "grgr", 4) == 0);
-   printf("%d\n", memcmp(a, "zebra", 4) < 0);
+   چاپ_کړه("%d\n", memcmp(a, "apple", 4) > 0);
+   چاپ_کړه("%d\n", memcmp(a, "grgr", 4) == 0);
+   چاپ_کړه("%d\n", memcmp(a, "zebra", 4) < 0);
 
-   return 0;
+   أرجع 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

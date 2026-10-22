@@ -2,103 +2,103 @@
 // crt1.c
 
 // _UNICODE for tchar.h, UNICODE for API
-#include <tchar.h>
+#ضمن <tchar.h>
 
-#include <windows.h>
-#include <stdio.h>
-#include <stdlib.h>
+#ضمن <windows.h>
+#ضمن <stdio.h>
+#ضمن <stdlib.h>
 
-#define _UNKNOWN_APP    0
-#define _CONSOLE_APP    1
-#define _GUI_APP        2
+#تعریف_کړه _UNKNOWN_APP    0
+#تعریف_کړه _CONSOLE_APP    1
+#تعریف_کړه _GUI_APP        2
 
-#define _MCW_PC         0x00030000 // Precision Control
-#define _PC_24          0x00020000 // 24 bits
-#define _PC_53          0x00010000 // 53 bits
-#define _PC_64          0x00000000 // 64 bits
+#تعریف_کړه _MCW_PC         0x00030000 // Precision Control
+#تعریف_کړه _PC_24          0x00020000 // 24 bits
+#تعریف_کړه _PC_53          0x00010000 // 53 bits
+#تعریف_کړه _PC_64          0x00000000 // 64 bits
 
-#ifdef _UNICODE
-#define __tgetmainargs __wgetmainargs
-#define _tstart _wstart
-#define _tmain wmain
-#define _runtmain _runwmain
-#else
-#define __tgetmainargs __getmainargs
-#define _tstart _start
-#define _tmain main
-#define _runtmain _runmain
-#endif
+#که_تعریف_شوی _UNICODE
+#تعریف_کړه __tgetmainargs __wgetmainargs
+#تعریف_کړه _tstart _wstart
+#تعریف_کړه _tmain wmain
+#تعریف_کړه _runtmain _runwmain
+#وإلا
+#تعریف_کړه __tgetmainargs __getmainargs
+#تعریف_کړه _tstart پیل_5
+#تعریف_کړه _tmain اصلي
+#تعریف_کړه _runtmain _runmain
+#د_که_پای
 
-typedef struct { int newmode; } _startupinfo;
-int __cdecl __tgetmainargs(int *pargc, _TCHAR ***pargv, _TCHAR ***penv, int globb, _startupinfo*);
-void __cdecl __set_app_type(int apptype);
-unsigned int __cdecl _controlfp(unsigned int new_value, unsigned int mask);
-extern int _tmain(int argc, _TCHAR * argv[], _TCHAR * env[]);
+تعريفنوع بنية { صحيح newmode; } _startupinfo;
+صحيح __cdecl __tgetmainargs(صحيح *pargc, _TCHAR ***pargv, _TCHAR ***penv, صحيح globb, _startupinfo*);
+فراغ __cdecl __set_app_type(صحيح apptype);
+بینښه صحيح __cdecl _controlfp(بینښه صحيح new_ارزښت, بینښه صحيح ماسک);
+خارجي صحيح _tmain(صحيح argc, _TCHAR * argv[], _TCHAR * env[]);
 
-#include "crtinit.c"
+#ضمن "crtinit.c"
 
 /* Allow command-line globbing with "int _dowildcard = 1;" in the user source */
-int _dowildcard;
+صحيح _dowildcard;
 
-static LONG WINAPI catch_sig(EXCEPTION_POINTERS *ex)
+ساكن LONG WINAPI catch_sig(EXCEPTION_اشارې *ex)
 {
-  return _XcptFilter(ex->ExceptionRecord->ExceptionCode, ex);
+  أرجع _XcptFilter(ex->Exception_ریکارډ->Exception_کوډ, ex);
 }
 
-void _tstart(void)
+فراغ _tstart(فراغ)
 {
-    int ret;
+    صحيح ret;
 
-    _startupinfo start_info = {0};
-    SetUnhandledExceptionFilter(catch_sig);
+    _startupinfo پیل_info = {0};
+    سېټ_Unhandled_Exception_Filter(catch_sig);
     // Sets the current application type
     __set_app_type(_CONSOLE_APP);
 
     // Set default FP precision to 53 bits (8-byte double)
     // _MCW_PC (Precision control) is not supported on ARM
-#if defined __i386__ || defined __x86_64__
+#إذا defined __i386__ || defined __x86_64__
     _controlfp(_PC_53, _MCW_PC);
-#endif
+#د_که_پای
 
-    __tgetmainargs( &__argc, &__targv, &_tenviron, _dowildcard, &start_info);
-    run_ctors(__argc, __targv, _tenviron);
+    __tgetmainargs( &__argc, &__targv, &_tenviron, _dowildcard, &پیل_info);
+    پرلپسې_ctors(__argc, __targv, _tenviron);
     ret = _tmain(__argc, __targv, _tenviron);
-    run_dtors();
-    exit(ret);
+    پرلپسې_dtors();
+    وتل(ret);
 }
 
 // =============================================
 // for 'tcc -run ,,,'
 
-__attribute__((weak)) extern int __run_on_exit();
+__attribute__((weak)) خارجي صحيح __run_on_exit();
 
-int _runtmain(int argc, /* as tcc passed in */ char **argv)
+صحيح _runtmain(صحيح argc, /* as tcc passed in */ حرف **argv)
 {
-    int ret;
-#if defined UNICODE || defined __aarch64__
-    _startupinfo start_info = {0};
-    __tgetmainargs(&__argc, &__targv, &_tenviron, 0, &start_info);
-#endif
-#ifdef UNICODE
+    صحيح ret;
+#إذا defined UNICODE || defined __aarch64__
+    _startupinfo پیل_info = {0};
+    __tgetmainargs(&__argc, &__targv, &_tenviron, 0, &پیل_info);
+#د_که_پای
+#که_تعریف_شوی UNICODE
     /* may be wrong when tcc has received wildcards (*.c) */
-    if (argc < __argc) {
+    إذا (argc < __argc) {
         __targv += __argc - argc;
         __argc = argc;
     }
-#else
+#وإلا
     __argc = argc;
     __targv = argv;
-#endif
-#if defined __i386__ || defined __x86_64__
+#د_که_پای
+#إذا defined __i386__ || defined __x86_64__
     _controlfp(_PC_53, _MCW_PC);
-#endif
-    run_ctors(__argc, __targv, _tenviron);
+#د_که_پای
+    پرلپسې_ctors(__argc, __targv, _tenviron);
     ret = _tmain(__argc, __targv, _tenviron);
     fflush(stdout);
     fflush(stderr);
-    run_dtors();
+    پرلپسې_dtors();
     __run_on_exit(ret);
-    return ret;
+    أرجع ret;
 }
 
 // =============================================

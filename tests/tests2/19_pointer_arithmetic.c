@@ -1,28 +1,28 @@
-#include <stdio.h>
+#ضمن <stdio.h>
 
-int main()
+صحيح اصلي()
 {
-   int a;
-   int *b;
-   int *c;
+   صحيح a;
+   صحيح *b;
+   صحيح *c;
 
    a = 42;
    b = &a;
-   c = NULL;
+   c = عدم;
 
-   printf("%d\n", *b);
+   چاپ_کړه("%d\n", *b);
 
-   if (b == NULL)
-      printf("b is NULL\n");
-   else
-      printf("b is not NULL\n");
+   إذا (b == عدم)
+      چاپ_کړه("b is NULL\n");
+   وإلا
+      چاپ_کړه("b is not NULL\n");
 
-   if (c == NULL)
-      printf("c is NULL\n");
-   else
-      printf("c is not NULL\n");
+   إذا (c == عدم)
+      چاپ_کړه("c is NULL\n");
+   وإلا
+      چاپ_کړه("c is not NULL\n");
 
-   return 0;
+   أرجع 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

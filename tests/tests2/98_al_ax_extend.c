@@ -1,5 +1,5 @@
-#include <stdio.h>
-#include <stdlib.h>
+#ضمن <stdio.h>
+#ضمن <stdlib.h>
 asm (
     ".text;"
     ".globl _us;.globl _ss;.globl _uc;.globl _sc;"
@@ -8,34 +8,34 @@ asm (
 	"ret;"
 );
 
-#ifndef __leading_underscore
-#define us _us
-#define ss _ss
-#define uc _uc
-#define sc _sc
-#endif
+#که_نه_تعریف_شوی __leading_underscore
+#تعریف_کړه us _us
+#تعریف_کړه ss _ss
+#تعریف_کړه uc _uc
+#تعریف_کړه sc _sc
+#د_که_پای
 
-int main()
+صحيح اصلي()
 {
-    unsigned short us(void);
-    short ss(void);
-    unsigned char uc(void);
-    signed char sc(void);
+    بینښه لنډ us(فراغ);
+    لنډ ss(فراغ);
+    بینښه حرف uc(فراغ);
+    نښهدار حرف sc(فراغ);
 
-    unsigned short (*fpus)(void) = us;
-    short (*fpss)(void) = ss;
-    unsigned char (*fpuc)(void) = uc;
-    signed char (*fpsc)(void) = sc;
+    بینښه لنډ (*fpus)(فراغ) = us;
+    لنډ (*fpss)(فراغ) = ss;
+    بینښه حرف (*fpuc)(فراغ) = uc;
+    نښهدار حرف (*fpsc)(فراغ) = sc;
 
-    printf("%08X %08X\n", us() + 1, fpus() + 1);
-    printf("%08X %08X\n", ss() + 1, fpss() + 1);
-    printf("%08X %08X\n", uc() + 1, fpuc() + 1);
-    printf("%08X %08X\n", sc() + 1, fpsc() + 1);
-    printf("\n");
-    printf("%08X %08X\n", fpus() + 1, us() + 1);
-    printf("%08X %08X\n", fpss() + 1, ss() + 1);
-    printf("%08X %08X\n", fpuc() + 1, uc() + 1);
-    printf("%08X %08X\n", fpsc() + 1, sc() + 1);
+    چاپ_کړه("%08X %08X\n", us() + 1, fpus() + 1);
+    چاپ_کړه("%08X %08X\n", ss() + 1, fpss() + 1);
+    چاپ_کړه("%08X %08X\n", uc() + 1, fpuc() + 1);
+    چاپ_کړه("%08X %08X\n", sc() + 1, fpsc() + 1);
+    چاپ_کړه("\n");
+    چاپ_کړه("%08X %08X\n", fpus() + 1, us() + 1);
+    چاپ_کړه("%08X %08X\n", fpss() + 1, ss() + 1);
+    چاپ_کړه("%08X %08X\n", fpuc() + 1, uc() + 1);
+    چاپ_کړه("%08X %08X\n", fpsc() + 1, sc() + 1);
 
-    return 0;
+    أرجع 0;
 }

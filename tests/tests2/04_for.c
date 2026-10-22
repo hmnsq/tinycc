@@ -1,15 +1,15 @@
-#include <stdio.h>
+#ضمن <stdio.h>
 
-int main() 
+صحيح اصلي() 
 {
-   int Count;
+   صحيح شمېر_3;
 
-   for (Count = 1; Count <= 10; Count++)
+   لكل (شمېر_3 = 1; شمېر_3 <= 10; شمېر_3++)
    {
-      printf("%d\n", Count);
+      چاپ_کړه("%d\n", شمېر_3);
    }
 
-   return 0;
+   أرجع 0;
 }
 
 // vim: set expandtab ts=4 sw=3 sts=3 tw=80 :

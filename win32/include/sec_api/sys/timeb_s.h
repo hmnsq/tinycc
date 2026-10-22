@@ -4,31 +4,31 @@
  * No warranty is given; refer to the file DISCLAIMER within this package.
  */
 
-#ifndef _TIMEB_H_S
-#define _TIMEB_H_S
+#که_نه_تعریف_شوی _TIMEB_H_S
+#تعریف_کړه _TIMEB_H_S
 
-#include <sys/timeb.h>
+#ضمن <sys/timeb.h>
 
-#ifdef __cplusplus
-extern "C" {
-#endif
+#که_تعریف_شوی __cplusplus
+خارجي "C" {
+#د_که_پای
 
-#if defined(MINGW_HAS_SECURE_API)
+#إذا defined(MINGW_HAS_SECURE_API)
 
-#ifdef _USE_32BIT_TIME_T
-#define _ftime_s _ftime32_s
-#else
-#define _ftime_s _ftime64_s
-#endif
+#که_تعریف_شوی USE_32_بټ_وخت_T
+#تعریف_کړه _ftime_s _ftime32_s
+#وإلا
+#تعریف_کړه _ftime_s _ftime64_s
+#د_که_پای
 
-  _CRTIMP errno_t __cdecl _ftime32_s(struct __timeb32 *_Time);
-#if _INTEGRAL_MAX_BITS >= 64
-  _CRTIMP errno_t __cdecl _ftime64_s(struct __timeb64 *_Time);
-#endif
-#endif
+  _CRTIMP errno_t __cdecl _ftime32_s(بنية __timeb32 *وخت_2);
+#إذا INTEGRAL_MAX_بټونه >= 64
+  _CRTIMP errno_t __cdecl _ftime64_s(بنية __timeb64 *وخت_2);
+#د_که_پای
+#د_که_پای
 
-#ifdef __cplusplus
+#که_تعریف_شوی __cplusplus
 }
-#endif
+#د_که_پای
 
-#endif
+#د_که_پای

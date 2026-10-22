@@ -1,22 +1,22 @@
-#include <stdio.h>
+#ضمن <stdio.h>
 
-int fred(int p)
+صحيح fred(صحيح p)
 {
-   printf("yo %d\n", p);
-   return 42;
+   چاپ_کړه("yo %d\n", p);
+   أرجع 42;
 }
 
-int (*f)(int) = &fred;
+صحيح (*f)(صحيح) = &fred;
 
 /* To test what this is supposed to test the destination function
    (fprint here) must not be called directly anywhere in the test.  */
-int (*fprintfptr)(FILE *, const char *, ...) = &fprintf;
+صحيح (*fprintfptr)(FILE *, ثابت حرف *, ...) = &fprintf;
 
-int main()
+صحيح اصلي()
 {
    fprintfptr(stdout, "%d\n", (*f)(24));
 
-   return 0;
+   أرجع 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

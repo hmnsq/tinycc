@@ -1,62 +1,62 @@
 /* accept 'defined' as result of substitution */
 
 ----- 1 ------
-#define AAA 2
-#define BBB
-#define CCC (defined ( AAA ) && AAA > 1 && !defined BBB)
-#if !CCC
+#تعریف_کړه AAA 2
+#تعریف_کړه BBB
+#تعریف_کړه CCC (defined ( AAA ) && AAA > 1 && !defined BBB)
+#إذا !CCC
 OK
-#else
+#وإلا
 NOT OK
-#endif
+#د_که_پای
 
 ----- 2 ------
-#undef BBB
-#if CCC
+#تعریف_لغوه BBB
+#إذا CCC
 OK
-#else
+#وإلا
 NOT OK
-#endif
+#د_که_پای
 
 ----- 3 ------
-#define DEFINED defined
-#define DDD (DEFINED ( AAA ) && AAA > 1 && !DEFINED BBB)
-#if (DDD)
+#تعریف_کړه DEFINED defined
+#تعریف_کړه DDD (DEFINED ( AAA ) && AAA > 1 && !DEFINED BBB)
+#إذا (DDD)
 OK
-#else
+#وإلا
 NOT OK
-#endif
+#د_که_پای
 
 ----- 4 ------
-#undef AAA
-#if !(DDD)
+#تعریف_لغوه AAA
+#إذا !(DDD)
 OK
-#else
+#وإلا
 NOT OK
-#endif
+#د_که_پای
 
 ----- 5 ------
-line __LINE__
-#define __LINE__ # ## #
-line __LINE__
+کرښه __LINE__
+#تعریف_کړه __LINE__ # ## #
+کرښه __LINE__
 
 ----- 10 ------
 /* preprocessor numbers are (u)intmax_t */
-#if -2147483648 < 0
+#إذا -2147483648 < 0
 1 true
-#endif
-#if -0x80000000 < 0
+#د_که_پای
+#إذا -0x80000000 < 0
 2 true
-#endif
-#if -9223372036854775808U > 0
+#د_که_پای
+#إذا -9223372036854775808U > 0
 3 true
-#endif
-#if -0x8000000000000000 > 0 // unsigned by overflow
+#د_که_پای
+#إذا -0x8000000000000000 > 0 // unsigned by overflow
 4 true
-#endif
-#if 1 << 31 > 2 && 1 << 32 > 2 && 1 << 63 < 2 && 1U << 63 > 2
+#د_که_پای
+#إذا 1 << 31 > 2 && 1 << 32 > 2 && 1 << 63 < 2 && 1U << 63 > 2
 5 true
-#endif
-#if (1<<29) * 11 >= 1<<32 && defined DDD << 63 < 0
+#د_که_پای
+#إذا (1<<29) * 11 >= 1<<32 && defined DDD << 63 < 0
 6 true
-#endif
+#د_که_پای

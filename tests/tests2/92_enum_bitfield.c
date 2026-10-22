@@ -3,56 +3,56 @@
    when stored into/loaded from a 8 bit bit-field of enum type (which
    itself is implementation defined, so isn't necessarily supported by all
    other compilers).  */
-enum tree_code {
-  SOME_CODE = 148, /* has bit 7 set, and hence all further enum values as well */
-  LAST_AND_UNUSED_TREE_CODE
+تعداد ونه_کوډ {
+  SOME_کوډ = 148, /* has bit 7 set, and hence all further enum values as well */
+  وروستی_AND_ناکارول_شوی_ونه_کوډ
 };
-typedef union tree_node *tree;
-struct tree_common
+تعريفنوع اتحاد ونې_غوټه *ونه_2;
+بنية ونه_common
 {
-  union tree_node *chain;
-  union tree_node *type;
-  enum tree_code code : 8;
-  unsigned side_effects_flag : 1;
+  اتحاد ونې_غوټه *chain;
+  اتحاد ونې_غوټه *type;
+  تعداد ونه_کوډ کوډ : 8;
+  بینښه side_effects_flag : 1;
 };
-union tree_node
+اتحاد ونې_غوټه
 {
-  struct tree_common common;
+  بنية ونه_common common;
  };
-enum c_tree_code {
-  C_DUMMY_TREE_CODE = LAST_AND_UNUSED_TREE_CODE,
-  STMT_EXPR,
-  LAST_C_TREE_CODE
+تعداد c_ونه_کوډ {
+  C_DUMMY_ونه_کوډ = وروستی_AND_ناکارول_شوی_ونه_کوډ,
+  STMT_بیان,
+  وروستی_C_ونه_کوډ
 };
-enum cplus_tree_code {
-  CP_DUMMY_TREE_CODE = LAST_C_TREE_CODE,
+تعداد cplus_ونه_کوډ {
+  CP_DUMMY_ونه_کوډ = وروستی_C_ونه_کوډ,
   AMBIG_CONV,
-  LAST_CPLUS_TREE_CODE
+  وروستی_CPLUS_ونه_کوډ
 };
 
-extern int printf(const char *, ...);
-int blah(){return 0;}
+خارجي صحيح چاپ_کړه(ثابت حرف *, ...);
+صحيح blah(){أرجع 0;}
 
-int convert_like_real (tree convs)
+صحيح convert_like_real (ونه_2 convs)
 {
-  switch (((enum tree_code) (convs)->common.code))
+  بدل (((تعداد ونه_کوډ) (convs)->common.کوډ))
     {
-    case AMBIG_CONV: /* This has bit 7 set, which must not be the sign
+    حالة AMBIG_CONV: /* This has bit 7 set, which must not be the sign
 			bit in tree_common.code, i.e. the bitfield must
 			be somehow marked unsigned.  */
-      return blah();
-    default:
-      break;
+      أرجع blah();
+    افتراضي:
+      اكسر;
     };
-   printf("unsigned enum bit-fields broken\n");
-   return 0;
+   چاپ_کړه("unsigned enum bit-fields broken\n");
+   أرجع 0;
 }
 
-int main()
+صحيح اصلي()
 {
-  union tree_node convs;
+  اتحاد ونې_غوټه convs;
 
-  convs.common.code = AMBIG_CONV;
+  convs.common.کوډ = AMBIG_CONV;
   convert_like_real (&convs);
-  return 0;
+  أرجع 0;
 }

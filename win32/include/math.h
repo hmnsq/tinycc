@@ -3,229 +3,229 @@
  * This file is part of the w64 mingw-runtime package.
  * No warranty is given; refer to the file DISCLAIMER within this package.
  */
-#ifndef _MATH_H_
-#define _MATH_H_
+#که_نه_تعریف_شوی _MATH_H_
+#تعریف_کړه _MATH_H_
 
-#if __GNUC__ >= 3
-#pragma GCC system_header
-#endif
+#إذا __GNUC__ >= 3
+#لارښوونه GCC system_سرلیک
+#د_که_پای
 
-#include <_mingw.h>
+#ضمن <_mingw.h>
 
-struct exception;
+بنية exception;
 
-#pragma pack(push,_CRT_PACKING)
+#لارښوونه pack(ټېل,_CRT_PACKING)
 
-#define _DOMAIN 1
-#define _SING 2
-#define _OVERFLOW 3
-#define _UNDERFLOW 4
-#define _TLOSS 5
-#define _PLOSS 6
+#تعریف_کړه _DOMAIN 1
+#تعریف_کړه _SING 2
+#تعریف_کړه ډکېدنه 3
+#تعریف_کړه _UNDERFLOW 4
+#تعریف_کړه _TLOSS 5
+#تعریف_کړه _PLOSS 6
 
-#ifndef __STRICT_ANSI__
-#ifndef	NO_OLDNAMES
-#define DOMAIN _DOMAIN
-#define SING _SING
-#define OVERFLOW _OVERFLOW
-#define UNDERFLOW _UNDERFLOW
-#define TLOSS _TLOSS
-#define PLOSS _PLOSS
-#endif
-#endif
+#که_نه_تعریف_شوی __STRICT_ANSI__
+#که_نه_تعریف_شوی	NO_OLDNAMES
+#تعریف_کړه DOMAIN _DOMAIN
+#تعریف_کړه SING _SING
+#تعریف_کړه ډکېدنه_2 ډکېدنه
+#تعریف_کړه UNDERFLOW _UNDERFLOW
+#تعریف_کړه TLOSS _TLOSS
+#تعریف_کړه PLOSS _PLOSS
+#د_که_پای
+#د_که_پای
 
-#ifndef __STRICT_ANSI__
-#define M_E 2.71828182845904523536
-#define M_LOG2E 1.44269504088896340736
-#define M_LOG10E 0.434294481903251827651
-#define M_LN2 0.693147180559945309417
-#define M_LN10 2.30258509299404568402
-#define M_PI 3.14159265358979323846
-#define M_PI_2 1.57079632679489661923
-#define M_PI_4 0.785398163397448309616
-#define M_1_PI 0.318309886183790671538
-#define M_2_PI 0.636619772367581343076
-#define M_2_SQRTPI 1.12837916709551257390
-#define M_SQRT2 1.41421356237309504880
-#define M_SQRT1_2 0.707106781186547524401
-#endif
+#که_نه_تعریف_شوی __STRICT_ANSI__
+#تعریف_کړه M_E 2.71828182845904523536
+#تعریف_کړه M_LOG2E 1.44269504088896340736
+#تعریف_کړه M_LOG10E 0.434294481903251827651
+#تعریف_کړه M_LN2 0.693147180559945309417
+#تعریف_کړه M_LN10 2.30258509299404568402
+#تعریف_کړه M_PI 3.14159265358979323846
+#تعریف_کړه M_PI_2 1.57079632679489661923
+#تعریف_کړه M_PI_4 0.785398163397448309616
+#تعریف_کړه M_1_PI 0.318309886183790671538
+#تعریف_کړه M_2_PI 0.636619772367581343076
+#تعریف_کړه M_2_SQRTPI 1.12837916709551257390
+#تعریف_کړه M_SQRT2 1.41421356237309504880
+#تعریف_کړه M_SQRT1_2 0.707106781186547524401
+#د_که_پای
 
-#ifndef __STRICT_ANSI__
+#که_نه_تعریف_شوی __STRICT_ANSI__
 /* See also float.h  */
-#ifndef __MINGW_FPCLASS_DEFINED
-#define __MINGW_FPCLASS_DEFINED 1
-#define	_FPCLASS_SNAN	0x0001	/* Signaling "Not a Number" */
-#define	_FPCLASS_QNAN	0x0002	/* Quiet "Not a Number" */
-#define	_FPCLASS_NINF	0x0004	/* Negative Infinity */
-#define	_FPCLASS_NN	0x0008	/* Negative Normal */
-#define	_FPCLASS_ND	0x0010	/* Negative Denormal */
-#define	_FPCLASS_NZ	0x0020	/* Negative Zero */
-#define	_FPCLASS_PZ	0x0040	/* Positive Zero */
-#define	_FPCLASS_PD	0x0080	/* Positive Denormal */
-#define	_FPCLASS_PN	0x0100	/* Positive Normal */
-#define	_FPCLASS_PINF	0x0200	/* Positive Infinity */
-#endif
-#endif
+#که_نه_تعریف_شوی __MINGW_FPCLASS_DEFINED
+#تعریف_کړه __MINGW_FPCLASS_DEFINED 1
+#تعریف_کړه	_FPCLASS_SNAN	0x0001	/* Signaling "Not a Number" */
+#تعریف_کړه	_FPCLASS_QNAN	0x0002	/* Quiet "Not a Number" */
+#تعریف_کړه	_FPCLASS_NINF	0x0004	/* Negative Infinity */
+#تعریف_کړه	_FPCLASS_NN	0x0008	/* Negative Normal */
+#تعریف_کړه	_FPCLASS_ND	0x0010	/* Negative Denormal */
+#تعریف_کړه	_FPCLASS_NZ	0x0020	/* Negative Zero */
+#تعریف_کړه	_FPCLASS_PZ	0x0040	/* Positive Zero */
+#تعریف_کړه	_FPCLASS_PD	0x0080	/* Positive Denormal */
+#تعریف_کړه	_FPCLASS_PN	0x0100	/* Positive Normal */
+#تعریف_کړه	_FPCLASS_PINF	0x0200	/* Positive Infinity */
+#د_که_پای
+#د_که_پای
 
-#ifdef __cplusplus
-extern "C" {
-#endif
+#که_تعریف_شوی __cplusplus
+خارجي "C" {
+#د_که_پای
 
-#ifndef _EXCEPTION_DEFINED
-#define _EXCEPTION_DEFINED
-  struct _exception {
-    int type;
-    char *name;
-    double arg1;
-    double arg2;
-    double retval;
+#که_نه_تعریف_شوی _EXCEPTION_DEFINED
+#تعریف_کړه _EXCEPTION_DEFINED
+  بنية _exception {
+    صحيح type;
+    حرف *name;
+    مزدوج arg1;
+    مزدوج arg2;
+    مزدوج retval;
   };
-#endif
+#د_که_پای
 
-#ifndef _COMPLEX_DEFINED
-#define _COMPLEX_DEFINED
-  struct _complex {
-    double x,y;
+#که_نه_تعریف_شوی _COMPLEX_DEFINED
+#تعریف_کړه _COMPLEX_DEFINED
+  بنية _complex {
+    مزدوج x,y;
   };
-#endif
+#د_که_پای
 
-#define EDOM 33
-#define ERANGE 34
+#تعریف_کړه EDOM 33
+#تعریف_کړه ERANGE 34
 
-#ifndef _HUGE
-#ifdef _MSVCRT_
-  extern double *_HUGE;
-#else
-  extern double *_imp___HUGE;
-#define _HUGE	(*_imp___HUGE)
-#endif
-#endif
+#که_نه_تعریف_شوی _HUGE
+#که_تعریف_شوی _MSVCRT_
+  خارجي مزدوج *_HUGE;
+#وإلا
+  خارجي مزدوج *_imp___HUGE;
+#تعریف_کړه _HUGE	(*_imp___HUGE)
+#د_که_پای
+#د_که_پای
 
-#define HUGE_VAL _HUGE
+#تعریف_کړه HUGE_VAL _HUGE
 
-#ifndef _CRT_ABS_DEFINED
-#define _CRT_ABS_DEFINED
-  int __cdecl abs(int _X);
-  long __cdecl labs(long _X);
-#endif
-  double __cdecl acos(double _X);
-  double __cdecl asin(double _X);
-  double __cdecl atan(double _X);
-  double __cdecl atan2(double _Y,double _X);
-#ifndef _SIGN_DEFINED
-#define _SIGN_DEFINED
-  _CRTIMP double __cdecl _copysign (double _Number,double _Sign);
-  _CRTIMP double __cdecl _chgsign (double _X);
-#endif
-  double __cdecl cos(double _X);
-  double __cdecl cosh(double _X);
-  double __cdecl exp(double _X);
-  double __cdecl expm1(double _X);
-  double __cdecl fabs(double _X);
-  double __cdecl fmod(double _X,double _Y);
-  double __cdecl log(double _X);
-  double __cdecl log10(double _X);
-  double __cdecl pow(double _X,double _Y);
-  double __cdecl sin(double _X);
-  double __cdecl sinh(double _X);
-  double __cdecl tan(double _X);
-  double __cdecl tanh(double _X);
-  double __cdecl sqrt(double _X);
-#ifndef _CRT_ATOF_DEFINED
-#define _CRT_ATOF_DEFINED
-  double __cdecl atof(const char *_String);
-  double __cdecl _atof_l(const char *_String,_locale_t _Locale);
-#endif
+#که_نه_تعریف_شوی _CRT_ABS_DEFINED
+#تعریف_کړه _CRT_ABS_DEFINED
+  صحيح __cdecl مطلق_قیمت(صحيح _X);
+  اوږد __cdecl labs(اوږد _X);
+#د_که_پای
+  مزدوج __cdecl acos(مزدوج _X);
+  مزدوج __cdecl asin(مزدوج _X);
+  مزدوج __cdecl atan(مزدوج _X);
+  مزدوج __cdecl atan2(مزدوج _Y,مزدوج _X);
+#که_نه_تعریف_شوی _SIGN_DEFINED
+#تعریف_کړه _SIGN_DEFINED
+  _CRTIMP مزدوج __cdecl _copysign (مزدوج شمېره,مزدوج _Sign);
+  _CRTIMP مزدوج __cdecl _chgsign (مزدوج _X);
+#د_که_پای
+  مزدوج __cdecl کوساین(مزدوج _X);
+  مزدوج __cdecl cosh(مزدوج _X);
+  مزدوج __cdecl توانیز_تابع(مزدوج _X);
+  مزدوج __cdecl expm1(مزدوج _X);
+  مزدوج __cdecl fabs(مزدوج _X);
+  مزدوج __cdecl fmod(مزدوج _X,مزدوج _Y);
+  مزدوج __cdecl لوګاریتم(مزدوج _X);
+  مزدوج __cdecl log10(مزدوج _X);
+  مزدوج __cdecl توان(مزدوج _X,مزدوج _Y);
+  مزدوج __cdecl ساین(مزدوج _X);
+  مزدوج __cdecl sinh(مزدوج _X);
+  مزدوج __cdecl tan(مزدوج _X);
+  مزدوج __cdecl tanh(مزدوج _X);
+  مزدوج __cdecl جذر(مزدوج _X);
+#که_نه_تعریف_شوی _CRT_ATOF_DEFINED
+#تعریف_کړه _CRT_ATOF_DEFINED
+  مزدوج __cdecl atof(ثابت حرف *_String);
+  مزدوج __cdecl _atof_l(ثابت حرف *_String,_locale_t _Locale);
+#د_که_پای
 
-  _CRTIMP double __cdecl _cabs(struct _complex _ComplexA);
-  double __cdecl ceil(double _X);
-  double __cdecl floor(double _X);
-  double __cdecl frexp(double _X,int *_Y);
-  double __cdecl _hypot(double _X,double _Y);
-  _CRTIMP double __cdecl _j0(double _X);
-  _CRTIMP double __cdecl _j1(double _X);
-  _CRTIMP double __cdecl _jn(int _X,double _Y);
-  double __cdecl ldexp(double _X,int _Y);
-#ifndef _CRT_MATHERR_DEFINED
-#define _CRT_MATHERR_DEFINED
-  int __cdecl _matherr(struct _exception *_Except);
-#endif
-  double __cdecl modf(double _X,double *_Y);
-  _CRTIMP double __cdecl _y0(double _X);
-  _CRTIMP double __cdecl _y1(double _X);
-  _CRTIMP double __cdecl _yn(int _X,double _Y);
+  _CRTIMP مزدوج __cdecl _cabs(بنية _complex _ComplexA);
+  مزدوج __cdecl ceil(مزدوج _X);
+  مزدوج __cdecl floor(مزدوج _X);
+  مزدوج __cdecl frexp(مزدوج _X,صحيح *_Y);
+  مزدوج __cdecl _hypot(مزدوج _X,مزدوج _Y);
+  _CRTIMP مزدوج __cdecl _j0(مزدوج _X);
+  _CRTIMP مزدوج __cdecl _j1(مزدوج _X);
+  _CRTIMP مزدوج __cdecl _jn(صحيح _X,مزدوج _Y);
+  مزدوج __cdecl ldexp(مزدوج _X,صحيح _Y);
+#که_نه_تعریف_شوی _CRT_MATHERR_DEFINED
+#تعریف_کړه _CRT_MATHERR_DEFINED
+  صحيح __cdecl _matherr(بنية _exception *_Except);
+#د_که_پای
+  مزدوج __cdecl modf(مزدوج _X,مزدوج *_Y);
+  _CRTIMP مزدوج __cdecl _y0(مزدوج _X);
+  _CRTIMP مزدوج __cdecl _y1(مزدوج _X);
+  _CRTIMP مزدوج __cdecl _yn(صحيح _X,مزدوج _Y);
 
-#if(defined(_X86_) && !defined(__x86_64))
-  _CRTIMP int __cdecl _set_SSE2_enable(int _Flag);
+#إذا(defined(_X86_) && !defined(__x86_64))
+  _CRTIMP صحيح __cdecl سېټ_SSE2_enable(صحيح _Flag);
   /* from libmingwex */
-  float __cdecl _hypotf(float _X,float _Y);
-#endif
+  عائم __cdecl _hypotf(عائم _X,عائم _Y);
+#د_که_پای
 
-  float frexpf(float _X,int *_Y);
-  float __cdecl ldexpf(float _X,int _Y);
-  long double __cdecl ldexpl(long double _X,int _Y);
-  float __cdecl acosf(float _X);
-  float __cdecl asinf(float _X);
-   float __cdecl atanf(float _X);
-   float __cdecl atan2f(float _X,float _Y);
-   float __cdecl cosf(float _X);
-   float __cdecl sinf(float _X);
-   float __cdecl tanf(float _X);
-   float __cdecl coshf(float _X);
-   float __cdecl sinhf(float _X);
-   float __cdecl tanhf(float _X);
-   float __cdecl expf(float _X);
-   float __cdecl expm1f(float _X);
-   float __cdecl logf(float _X);
-   float __cdecl log10f(float _X);
-   float __cdecl modff(float _X,float *_Y);
-   float __cdecl powf(float _X,float _Y);
-   float __cdecl sqrtf(float _X);
-   float __cdecl ceilf(float _X);
-   float __cdecl floorf(float _X);
-  float __cdecl fmodf(float _X,float _Y);
-   float __cdecl _hypotf(float _X,float _Y);
-  float __cdecl fabsf(float _X);
-#if !defined(__ia64__)
+  عائم frexpf(عائم _X,صحيح *_Y);
+  عائم __cdecl ldexpf(عائم _X,صحيح _Y);
+  اوږد مزدوج __cdecl ldexpl(اوږد مزدوج _X,صحيح _Y);
+  عائم __cdecl acosf(عائم _X);
+  عائم __cdecl asinf(عائم _X);
+   عائم __cdecl atanf(عائم _X);
+   عائم __cdecl atan2f(عائم _X,عائم _Y);
+   عائم __cdecl cosf(عائم _X);
+   عائم __cdecl sinf(عائم _X);
+   عائم __cdecl tanf(عائم _X);
+   عائم __cdecl coshf(عائم _X);
+   عائم __cdecl sinhf(عائم _X);
+   عائم __cdecl tanhf(عائم _X);
+   عائم __cdecl expf(عائم _X);
+   عائم __cdecl expm1f(عائم _X);
+   عائم __cdecl logf(عائم _X);
+   عائم __cdecl log10f(عائم _X);
+   عائم __cdecl modff(عائم _X,عائم *_Y);
+   عائم __cdecl powf(عائم _X,عائم _Y);
+   عائم __cdecl sqrtf(عائم _X);
+   عائم __cdecl ceilf(عائم _X);
+   عائم __cdecl floorf(عائم _X);
+  عائم __cdecl fmodf(عائم _X,عائم _Y);
+   عائم __cdecl _hypotf(عائم _X,عائم _Y);
+  عائم __cdecl fabsf(عائم _X);
+#إذا !defined(__ia64__)
    /* from libmingwex */
-   float __cdecl _copysignf (float _Number,float _Sign);
-   float __cdecl _chgsignf (float _X);
-   float __cdecl _logbf(float _X);
-   float __cdecl _nextafterf(float _X,float _Y);
-   int __cdecl _finitef(float _X);
-   int __cdecl _isnanf(float _X);
-   int __cdecl _fpclassf(float _X);
-#endif
+   عائم __cdecl _copysignf (عائم شمېره,عائم _Sign);
+   عائم __cdecl _chgsignf (عائم _X);
+   عائم __cdecl _logbf(عائم _X);
+   عائم __cdecl _nextafterf(عائم _X,عائم _Y);
+   صحيح __cdecl _finitef(عائم _X);
+   صحيح __cdecl _isnanf(عائم _X);
+   صحيح __cdecl _fpclassf(عائم _X);
+#د_که_پای
 
-#ifndef	NO_OLDNAMES
-#define matherr _matherr
+#که_نه_تعریف_شوی	NO_OLDNAMES
+#تعریف_کړه matherr _matherr
 
-#define HUGE	_HUGE
+#تعریف_کړه HUGE	_HUGE
   /*	double __cdecl cabs(struct _complex _X); */
-  double __cdecl hypot(double _X,double _Y);
-  _CRTIMP double __cdecl j0(double _X);
-  _CRTIMP double __cdecl j1(double _X);
-  _CRTIMP double __cdecl jn(int _X,double _Y);
-  _CRTIMP double __cdecl y0(double _X);
-  _CRTIMP double __cdecl y1(double _X);
-  _CRTIMP double __cdecl yn(int _X,double _Y);
-#endif
+  مزدوج __cdecl hypot(مزدوج _X,مزدوج _Y);
+  _CRTIMP مزدوج __cdecl j0(مزدوج _X);
+  _CRTIMP مزدوج __cdecl j1(مزدوج _X);
+  _CRTIMP مزدوج __cdecl jn(صحيح _X,مزدوج _Y);
+  _CRTIMP مزدوج __cdecl y0(مزدوج _X);
+  _CRTIMP مزدوج __cdecl y1(مزدوج _X);
+  _CRTIMP مزدوج __cdecl yn(صحيح _X,مزدوج _Y);
+#د_که_پای
 
-#ifndef __NO_ISOCEXT
-#if (defined (__STDC_VERSION__) && __STDC_VERSION__ >= 199901L) \
+#که_نه_تعریف_شوی __NO_ISOCEXT
+#إذا (defined (__STDC_VERSION__) && __STDC_VERSION__ >= 199901L) \
   || !defined __STRICT_ANSI__ || defined __GLIBCPP__
 
-#define NAN (0.0F/0.0F)
-#define HUGE_VALF (1.0F/0.0F)
-#define HUGE_VALL (1.0L/0.0L)
-#define INFINITY (1.0F/0.0F)
+#تعریف_کړه NAN (0.0F/0.0F)
+#تعریف_کړه HUGE_VALF (1.0F/0.0F)
+#تعریف_کړه HUGE_VALL (1.0L/0.0L)
+#تعریف_کړه INFINITY (1.0F/0.0F)
 
 
-#define FP_NAN		0x0100
-#define FP_NORMAL	0x0400
-#define FP_INFINITE	(FP_NAN | FP_NORMAL)
-#define FP_ZERO		0x4000
-#define FP_SUBNORMAL	(FP_NORMAL | FP_ZERO)
+#تعریف_کړه FP_NAN		0x0100
+#تعریف_کړه FP_NORMAL	0x0400
+#تعریف_کړه FP_INFINITE	(FP_NAN | FP_NORMAL)
+#تعریف_کړه FP_ZERO		0x4000
+#تعریف_کړه FP_SUBNORMAL	(FP_NORMAL | FP_ZERO)
   /* 0x0200 is signbit mask */
 
 
@@ -236,220 +236,220 @@ extern "C" {
   converted to double, and zero when converted to float.)
   */
 
-  extern int __cdecl __fpclassifyf (float);
-  extern int __cdecl __fpclassify (double);
-  extern int __cdecl __fpclassifyl (long double);
+  خارجي صحيح __cdecl __fpclassifyf (عائم);
+  خارجي صحيح __cdecl __fpclassify (مزدوج);
+  خارجي صحيح __cdecl __fpclassifyl (اوږد مزدوج);
 
 /* Implemented at tcc/tcc_libm.h
 #define fpclassify(x) (sizeof (x) == sizeof (float) ? __fpclassifyf (x)	  \
   : sizeof (x) == sizeof (double) ? __fpclassify (x) \
   : __fpclassifyl (x))
 */
-#define fpclassify(x) \
-  _Generic(x, float: __fpclassifyf, double: __fpclassify, long double: __fpclassifyl)(x)
+#تعریف_کړه fpclassify(x) \
+  _Generic(x, عائم: __fpclassifyf, مزدوج: __fpclassify, اوږد مزدوج: __fpclassifyl)(x)
 
   /* 7.12.3.2 */
-#define isfinite(x) ((fpclassify(x) & FP_NAN) == 0)
+#تعریف_کړه isfinite(x) ((fpclassify(x) & FP_NAN) == 0)
 
   /* 7.12.3.3 */
-#define isinf(x) (fpclassify(x) == FP_INFINITE)
+#تعریف_کړه isinf(x) (fpclassify(x) == FP_INFINITE)
 
   /* 7.12.3.4 */
   /* We don't need to worry about truncation here:
   A NaN stays a NaN. */
-#define isnan(x) (fpclassify(x) == FP_NAN)
+#تعریف_کړه isnan(x) (fpclassify(x) == FP_NAN)
 
   /* 7.12.3.5 */
-#define isnormal(x) (fpclassify(x) == FP_NORMAL)
+#تعریف_کړه isnormal(x) (fpclassify(x) == FP_NORMAL)
 
   /* 7.12.3.6 The signbit macro */
 
-  extern int __cdecl __signbitf (float);
-  extern int __cdecl __signbit (double);
-  extern int __cdecl __signbitl (long double);
+  خارجي صحيح __cdecl __signbitf (عائم);
+  خارجي صحيح __cdecl __signbit (مزدوج);
+  خارجي صحيح __cdecl __signbitl (اوږد مزدوج);
 
 /* Implemented at tcc/tcc_libm.h
 #define signbit(x) (sizeof (x) == sizeof (float) ? __signbitf (x)	\
   : sizeof (x) == sizeof (double) ? __signbit (x)	\
   : __signbitl (x))
 */
-#define signbit(x) \
-  _Generic(x, float: __signbitf, double: __signbit, long double: __signbitl)(x)
+#تعریف_کړه signbit(x) \
+  _Generic(x, عائم: __signbitf, مزدوج: __signbit, اوږد مزدوج: __signbitl)(x)
 
-  extern double __cdecl exp2(double);
-  extern float __cdecl exp2f(float);
-  extern long double __cdecl exp2l(long double);
+  خارجي مزدوج __cdecl exp2(مزدوج);
+  خارجي عائم __cdecl exp2f(عائم);
+  خارجي اوږد مزدوج __cdecl exp2l(اوږد مزدوج);
 
-#define FP_ILOGB0 ((int)0x80000000)
-#define FP_ILOGBNAN ((int)0x80000000)
-  extern int __cdecl ilogb (double);
-  extern int __cdecl ilogbf (float);
-  extern int __cdecl ilogbl (long double);
+#تعریف_کړه FP_ILOGB0 ((صحيح)0x80000000)
+#تعریف_کړه FP_ILOGBNAN ((صحيح)0x80000000)
+  خارجي صحيح __cdecl ilogb (مزدوج);
+  خارجي صحيح __cdecl ilogbf (عائم);
+  خارجي صحيح __cdecl ilogbl (اوږد مزدوج);
 
-  extern double __cdecl log1p(double);
-  extern float __cdecl log1pf(float);
-  extern long double __cdecl log1pl(long double);
+  خارجي مزدوج __cdecl log1p(مزدوج);
+  خارجي عائم __cdecl log1pf(عائم);
+  خارجي اوږد مزدوج __cdecl log1pl(اوږد مزدوج);
 
-  extern double __cdecl log2 (double);
-  extern float __cdecl log2f (float);
-  extern long double __cdecl log2l (long double);
+  خارجي مزدوج __cdecl log2 (مزدوج);
+  خارجي عائم __cdecl log2f (عائم);
+  خارجي اوږد مزدوج __cdecl log2l (اوږد مزدوج);
 
-  extern double __cdecl logb (double);
-  extern float __cdecl logbf (float);
-  extern long double __cdecl logbl (long double);
+  خارجي مزدوج __cdecl logb (مزدوج);
+  خارجي عائم __cdecl logbf (عائم);
+  خارجي اوږد مزدوج __cdecl logbl (اوږد مزدوج);
 
-  extern long double __cdecl modfl (long double, long double*);
+  خارجي اوږد مزدوج __cdecl modfl (اوږد مزدوج, اوږد مزدوج*);
 
   /* 7.12.6.13 */
-  extern double __cdecl scalbn (double, int);
-  extern float __cdecl scalbnf (float, int);
-  extern long double __cdecl scalbnl (long double, int);
+  خارجي مزدوج __cdecl scalbn (مزدوج, صحيح);
+  خارجي عائم __cdecl scalbnf (عائم, صحيح);
+  خارجي اوږد مزدوج __cdecl scalbnl (اوږد مزدوج, صحيح);
 
-  extern double __cdecl scalbln (double, long);
-  extern float __cdecl scalblnf (float, long);
-  extern long double __cdecl scalblnl (long double, long);
+  خارجي مزدوج __cdecl scalbln (مزدوج, اوږد);
+  خارجي عائم __cdecl scalblnf (عائم, اوږد);
+  خارجي اوږد مزدوج __cdecl scalblnl (اوږد مزدوج, اوږد);
 
   /* 7.12.7.1 */
   /* Implementations adapted from Cephes versions */ 
-  extern double __cdecl cbrt (double);
-  extern float __cdecl cbrtf (float);
-  extern long double __cdecl cbrtl (long double);
+  خارجي مزدوج __cdecl cbrt (مزدوج);
+  خارجي عائم __cdecl cbrtf (عائم);
+  خارجي اوږد مزدوج __cdecl cbrtl (اوږد مزدوج);
 
-  extern double __cdecl hypot (double, double);
-  extern float __cdecl hypotf (float, float);
-  extern long double __cdecl hypotl (long double, long double);
+  خارجي مزدوج __cdecl hypot (مزدوج, مزدوج);
+  خارجي عائم __cdecl hypotf (عائم, عائم);
+  خارجي اوږد مزدوج __cdecl hypotl (اوږد مزدوج, اوږد مزدوج);
 
-  extern long double __cdecl powl (long double, long double);
-  extern long double __cdecl expl(long double);
-  extern long double __cdecl expm1l(long double);
-  extern long double __cdecl coshl(long double);
-  extern long double __cdecl fabsl (long double);
-  extern long double __cdecl acosl(long double);
-  extern long double __cdecl asinl(long double);
-  extern long double __cdecl atanl(long double);
-  extern long double __cdecl atan2l(long double,long double);
-  extern long double __cdecl sinhl(long double);
-  extern long double __cdecl tanhl(long double);
+  خارجي اوږد مزدوج __cdecl powl (اوږد مزدوج, اوږد مزدوج);
+  خارجي اوږد مزدوج __cdecl expl(اوږد مزدوج);
+  خارجي اوږد مزدوج __cdecl expm1l(اوږد مزدوج);
+  خارجي اوږد مزدوج __cdecl coshl(اوږد مزدوج);
+  خارجي اوږد مزدوج __cdecl fabsl (اوږد مزدوج);
+  خارجي اوږد مزدوج __cdecl acosl(اوږد مزدوج);
+  خارجي اوږد مزدوج __cdecl asinl(اوږد مزدوج);
+  خارجي اوږد مزدوج __cdecl atanl(اوږد مزدوج);
+  خارجي اوږد مزدوج __cdecl atan2l(اوږد مزدوج,اوږد مزدوج);
+  خارجي اوږد مزدوج __cdecl sinhl(اوږد مزدوج);
+  خارجي اوږد مزدوج __cdecl tanhl(اوږد مزدوج);
 
   /* 7.12.8.1 The erf functions  */
-  extern double __cdecl erf (double);
-  extern float __cdecl erff (float);
+  خارجي مزدوج __cdecl erf (مزدوج);
+  خارجي عائم __cdecl erff (عائم);
   /* TODO
   extern long double __cdecl erfl (long double);
   */ 
 
   /* 7.12.8.2 The erfc functions  */
-  extern double __cdecl erfc (double);
-  extern float __cdecl erfcf (float);
+  خارجي مزدوج __cdecl erfc (مزدوج);
+  خارجي عائم __cdecl erfcf (عائم);
   /* TODO
   extern long double __cdecl erfcl (long double);
   */ 
 
   /* 7.12.8.3 The lgamma functions */
-  extern double __cdecl lgamma (double);
-  extern float __cdecl lgammaf (float);
-  extern long double __cdecl lgammal (long double);
+  خارجي مزدوج __cdecl lgamma (مزدوج);
+  خارجي عائم __cdecl lgammaf (عائم);
+  خارجي اوږد مزدوج __cdecl lgammal (اوږد مزدوج);
 
   /* 7.12.8.4 The tgamma functions */
-  extern double __cdecl tgamma (double);
-  extern float __cdecl tgammaf (float);
-  extern long double __cdecl tgammal (long double);
+  خارجي مزدوج __cdecl tgamma (مزدوج);
+  خارجي عائم __cdecl tgammaf (عائم);
+  خارجي اوږد مزدوج __cdecl tgammal (اوږد مزدوج);
 
-  extern long double __cdecl ceill (long double);
-  extern long double __cdecl floorl (long double);
-  extern long double __cdecl frexpl(long double,int *);
-  extern long double __cdecl log10l(long double);
-  extern long double __cdecl logl(long double);
-  extern long double __cdecl cosl(long double);
-  extern long double __cdecl sinl(long double);
-  extern long double __cdecl tanl(long double);
-  extern long double sqrtl(long double);
+  خارجي اوږد مزدوج __cdecl ceill (اوږد مزدوج);
+  خارجي اوږد مزدوج __cdecl floorl (اوږد مزدوج);
+  خارجي اوږد مزدوج __cdecl frexpl(اوږد مزدوج,صحيح *);
+  خارجي اوږد مزدوج __cdecl log10l(اوږد مزدوج);
+  خارجي اوږد مزدوج __cdecl logl(اوږد مزدوج);
+  خارجي اوږد مزدوج __cdecl cosl(اوږد مزدوج);
+  خارجي اوږد مزدوج __cdecl sinl(اوږد مزدوج);
+  خارجي اوږد مزدوج __cdecl tanl(اوږد مزدوج);
+  خارجي اوږد مزدوج sqrtl(اوږد مزدوج);
 
   /* 7.12.9.3 */
-  extern double __cdecl nearbyint ( double);
-  extern float __cdecl nearbyintf (float);
-  extern long double __cdecl nearbyintl (long double);
+  خارجي مزدوج __cdecl nearbyint ( مزدوج);
+  خارجي عائم __cdecl nearbyintf (عائم);
+  خارجي اوږد مزدوج __cdecl nearbyintl (اوږد مزدوج);
 
   /* 7.12.9.4 */
   /* round, using fpu control word settings */
-  extern double __cdecl rint (double);
-  extern float __cdecl rintf (float);
-  extern long double __cdecl rintl (long double);
+  خارجي مزدوج __cdecl rint (مزدوج);
+  خارجي عائم __cdecl rintf (عائم);
+  خارجي اوږد مزدوج __cdecl rintl (اوږد مزدوج);
 
-  extern long __cdecl lrint (double);
-  extern long __cdecl lrintf (float);
-  extern long __cdecl lrintl (long double);
+  خارجي اوږد __cdecl lrint (مزدوج);
+  خارجي اوږد __cdecl lrintf (عائم);
+  خارجي اوږد __cdecl lrintl (اوږد مزدوج);
 
-  extern long long __cdecl llrint (double);
-  extern long long __cdecl llrintf (float);
-  extern long long __cdecl llrintl (long double);
+  خارجي اوږد اوږد __cdecl llrint (مزدوج);
+  خارجي اوږد اوږد __cdecl llrintf (عائم);
+  خارجي اوږد اوږد __cdecl llrintl (اوږد مزدوج);
 
-  #define FE_TONEAREST	0x0000
-  #define FE_DOWNWARD	0x0400
-  #define FE_UPWARD	0x0800
-  #define FE_TOWARDZERO	0x0c00
+  #تعریف_کړه FE_TONEAREST	0x0000
+  #تعریف_کړه FE_DOWNWARD	0x0400
+  #تعریف_کړه FE_UPWARD	0x0800
+  #تعریف_کړه FE_TOWARDZERO	0x0c00
 
   /* 7.12.9.6 */
   /* round away from zero, regardless of fpu control word settings */
-  extern double __cdecl round (double);
-  extern float __cdecl roundf (float);
-  extern long double __cdecl roundl (long double);
+  خارجي مزدوج __cdecl پړاو (مزدوج);
+  خارجي عائم __cdecl roundf (عائم);
+  خارجي اوږد مزدوج __cdecl roundl (اوږد مزدوج);
 
   /* 7.12.9.7  */
-  extern long __cdecl lround (double);
-  extern long __cdecl lroundf (float);
-  extern long __cdecl lroundl (long double);
+  خارجي اوږد __cdecl lround (مزدوج);
+  خارجي اوږد __cdecl lroundf (عائم);
+  خارجي اوږد __cdecl lroundl (اوږد مزدوج);
 
-  extern long long __cdecl llround (double);
-  extern long long __cdecl llroundf (float);
-  extern long long __cdecl llroundl (long double);
+  خارجي اوږد اوږد __cdecl llround (مزدوج);
+  خارجي اوږد اوږد __cdecl llroundf (عائم);
+  خارجي اوږد اوږد __cdecl llroundl (اوږد مزدوج);
 
   /* 7.12.9.8 */
   /* round towards zero, regardless of fpu control word settings */
-  extern double __cdecl trunc (double);
-  extern float __cdecl truncf (float);
-  extern long double __cdecl truncl (long double);
+  خارجي مزدوج __cdecl trunc (مزدوج);
+  خارجي عائم __cdecl truncf (عائم);
+  خارجي اوږد مزدوج __cdecl truncl (اوږد مزدوج);
 
-  extern long double __cdecl fmodl (long double, long double);
+  خارجي اوږد مزدوج __cdecl fmodl (اوږد مزدوج, اوږد مزدوج);
 
   /* 7.12.10.2 */ 
-  extern double __cdecl remainder (double, double);
-  extern float __cdecl remainderf (float, float);
-  extern long double __cdecl remainderl (long double, long double);
+  خارجي مزدوج __cdecl remainder (مزدوج, مزدوج);
+  خارجي عائم __cdecl remainderf (عائم, عائم);
+  خارجي اوږد مزدوج __cdecl remainderl (اوږد مزدوج, اوږد مزدوج);
 
   /* 7.12.10.3 */
-  extern double __cdecl remquo(double, double, int *);
-  extern float __cdecl remquof(float, float, int *);
-  extern long double __cdecl remquol(long double, long double, int *);
+  خارجي مزدوج __cdecl remquo(مزدوج, مزدوج, صحيح *);
+  خارجي عائم __cdecl remquof(عائم, عائم, صحيح *);
+  خارجي اوږد مزدوج __cdecl remquol(اوږد مزدوج, اوږد مزدوج, صحيح *);
 
   /* 7.12.11.1 */
-  extern double __cdecl copysign (double, double); /* in libmoldname.a */
-  extern float __cdecl copysignf (float, float);
-  extern long double __cdecl copysignl (long double, long double);
+  خارجي مزدوج __cdecl copysign (مزدوج, مزدوج); /* in libmoldname.a */
+  خارجي عائم __cdecl copysignf (عائم, عائم);
+  خارجي اوږد مزدوج __cdecl copysignl (اوږد مزدوج, اوږد مزدوج);
 
   /* 7.12.11.2 Return a NaN */
-  extern double __cdecl nan(const char *tagp);
-  extern float __cdecl nanf(const char *tagp);
-  extern long double __cdecl nanl(const char *tagp);
+  خارجي مزدوج __cdecl nan(ثابت حرف *tagp);
+  خارجي عائم __cdecl nanf(ثابت حرف *tagp);
+  خارجي اوږد مزدوج __cdecl nanl(ثابت حرف *tagp);
 
-#ifndef __STRICT_ANSI__
-#define _nan() nan("")
-#define _nanf() nanf("")
-#define _nanl() nanl("")
-#endif
+#که_نه_تعریف_شوی __STRICT_ANSI__
+#تعریف_کړه _nan() nan("")
+#تعریف_کړه _nanf() nanf("")
+#تعریف_کړه _nanl() nanl("")
+#د_که_پای
 
   /* 7.12.11.3 */
-  extern double __cdecl nextafter (double, double); /* in libmoldname.a */
-  extern float __cdecl nextafterf (float, float);
-  extern long double __cdecl nextafterl (long double, long double);
+  خارجي مزدوج __cdecl nextafter (مزدوج, مزدوج); /* in libmoldname.a */
+  خارجي عائم __cdecl nextafterf (عائم, عائم);
+  خارجي اوږد مزدوج __cdecl nextafterl (اوږد مزدوج, اوږد مزدوج);
 
   /* 7.12.11.4 The nexttoward functions: TODO */
 
   /* 7.12.12.1 */
   /*  x > y ? (x - y) : 0.0  */
-  extern double __cdecl fdim (double x, double y);
-  extern float __cdecl fdimf (float x, float y);
-  extern long double __cdecl fdiml (long double x, long double y);
+  خارجي مزدوج __cdecl fdim (مزدوج x, مزدوج y);
+  خارجي عائم __cdecl fdimf (عائم x, عائم y);
+  خارجي اوږد مزدوج __cdecl fdiml (اوږد مزدوج x, اوږد مزدوج y);
 
   /* fmax and fmin.
   NaN arguments are treated as missing data: if one argument is a NaN
@@ -457,29 +457,29 @@ extern "C" {
   value. */
 
   /* 7.12.12.2 */
-  extern double __cdecl fmax  (double, double);
-  extern float __cdecl fmaxf (float, float);
-  extern long double __cdecl fmaxl (long double, long double);
+  خارجي مزدوج __cdecl fmax  (مزدوج, مزدوج);
+  خارجي عائم __cdecl fmaxf (عائم, عائم);
+  خارجي اوږد مزدوج __cdecl fmaxl (اوږد مزدوج, اوږد مزدوج);
 
   /* 7.12.12.3 */
-  extern double __cdecl fmin (double, double);
-  extern float __cdecl fminf (float, float);
-  extern long double __cdecl fminl (long double, long double);
+  خارجي مزدوج __cdecl fmin (مزدوج, مزدوج);
+  خارجي عائم __cdecl fminf (عائم, عائم);
+  خارجي اوږد مزدوج __cdecl fminl (اوږد مزدوج, اوږد مزدوج);
 
   /* 7.12.13.1 */
   /* return x * y + z as a ternary op */ 
-  extern double __cdecl fma (double, double, double);
-  extern float __cdecl fmaf (float, float, float);
-  extern long double __cdecl fmal (long double, long double, long double);
+  خارجي مزدوج __cdecl fma (مزدوج, مزدوج, مزدوج);
+  خارجي عائم __cdecl fmaf (عائم, عائم, عائم);
+  خارجي اوږد مزدوج __cdecl fmal (اوږد مزدوج, اوږد مزدوج, اوږد مزدوج);
 
 
-#endif /* __STDC_VERSION__ >= 199901L */
-#endif /* __NO_ISOCEXT */
+#د_که_پای /* __STDC_VERSION__ >= 199901L */
+#د_که_پای /* __NO_ISOCEXT */
 
-#ifdef __cplusplus
+#که_تعریف_شوی __cplusplus
 }
-#endif
-#pragma pack(pop)
+#د_که_پای
+#لارښوونه pack(راوباسه)
 
 /* 7.12.14 */
 /* 
@@ -491,7 +491,7 @@ extern "C" {
  */
 
 /* Mini libm (inline __fpclassify*, __signbit* and variants) */
-#include "tcc/tcc_libm.h"
+#ضمن "tcc/tcc_libm.h"
 
-#endif /* End _MATH_H_ */
+#د_که_پای /* End _MATH_H_ */
 

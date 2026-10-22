@@ -1,304 +1,304 @@
-#include <stdio.h>
+#ضمن <stdio.h>
 
-#ifdef __riscv
+#که_تعریف_شوی __riscv
 
 /* P0.4 + P1.4: riscv64 asm pseudo-instructions test.
    Exercises neg/negw, sext.w, fmv.s/d, fneg.s/d.  */
 
-int test_neg(int x)
+صحيح test_neg(صحيح x)
 {
-    int r;
+    صحيح r;
     asm("neg %0, %1" : "=r"(r) : "r"(x));
-    return r;
+    أرجع r;
 }
 
-long long test_negw(long long x)
+اوږد اوږد test_negw(اوږد اوږد x)
 {
-    int r;
-    asm("negw %0, %1" : "=r"(r) : "r"((int)x));
-    return (long long)r;
+    صحيح r;
+    asm("negw %0, %1" : "=r"(r) : "r"((صحيح)x));
+    أرجع (اوږد اوږد)r;
 }
 
-long long test_sextw(int x)
+اوږد اوږد test_sextw(صحيح x)
 {
-    long long r;
+    اوږد اوږد r;
     asm("sext.w %0, %1" : "=r"(r) : "r"(x));
-    return r;
+    أرجع r;
 }
 
-float test_fmv_s(float a)
+عائم test_fmv_s(عائم a)
 {
-    float r;
+    عائم r;
     asm("fmv.s %0, %1" : "=f"(r) : "f"(a));
-    return r;
+    أرجع r;
 }
 
-float test_fneg_s(float a)
+عائم test_fneg_s(عائم a)
 {
-    float r;
+    عائم r;
     asm("fneg.s %0, %1" : "=f"(r) : "f"(a));
-    return r;
+    أرجع r;
 }
 
-double test_fmv_d(double a)
+مزدوج test_fmv_d(مزدوج a)
 {
-    double r;
+    مزدوج r;
     asm("fmv.d %0, %1" : "=f"(r) : "f"(a));
-    return r;
+    أرجع r;
 }
 
-double test_fneg_d(double a)
+مزدوج test_fneg_d(مزدوج a)
 {
-    double r;
+    مزدوج r;
     asm("fneg.d %0, %1" : "=f"(r) : "f"(a));
-    return r;
+    أرجع r;
 }
 
-int test_pseudo(void)
+صحيح test_pseudo(فراغ)
 {
-    int ok = 1;
+    صحيح ok = 1;
 
-    if (test_neg(42) != -42) {
-        printf("FAIL: neg\n");
+    إذا (test_neg(42) != -42) {
+        چاپ_کړه("FAIL: neg\n");
         ok = 0;
     }
-    if (test_negw(100) != -100) {
-        printf("FAIL: negw\n");
+    إذا (test_negw(100) != -100) {
+        چاپ_کړه("FAIL: negw\n");
         ok = 0;
     }
-    if (test_sextw(0x80000000) != 0xffffffff80000000LL) {
-        printf("FAIL: sext.w\n");
+    إذا (test_sextw(0x80000000) != 0xffffffff80000000LL) {
+        چاپ_کړه("FAIL: sext.w\n");
         ok = 0;
     }
-    if (test_fmv_s(3.14f) != 3.14f) {
-        printf("FAIL: fmv.s\n");
+    إذا (test_fmv_s(3.14f) != 3.14f) {
+        چاپ_کړه("FAIL: fmv.s\n");
         ok = 0;
     }
-    if (test_fneg_s(3.14f) != -3.14f) {
-        printf("FAIL: fneg.s\n");
+    إذا (test_fneg_s(3.14f) != -3.14f) {
+        چاپ_کړه("FAIL: fneg.s\n");
         ok = 0;
     }
-    if (test_fmv_d(2.718281828) != 2.718281828) {
-        printf("FAIL: fmv.d\n");
+    إذا (test_fmv_d(2.718281828) != 2.718281828) {
+        چاپ_کړه("FAIL: fmv.d\n");
         ok = 0;
     }
-    if (test_fneg_d(2.718281828) != -2.718281828) {
-        printf("FAIL: fneg.d\n");
+    إذا (test_fneg_d(2.718281828) != -2.718281828) {
+        چاپ_کړه("FAIL: fneg.d\n");
         ok = 0;
     }
-    return ok;
+    أرجع ok;
 }
 
 /* P1.1: riscv64 inline asm with 64-bit immediate (li).
    Tests that long long immediates assemble correctly,
    including the lui+addi sequence for large constants.  */
 
-long long test_li_small(void)
+اوږد اوږد test_li_small(فراغ)
 {
-    long long r;
+    اوږد اوږد r;
     asm("li %0, 42" : "=r"(r));
-    return r;
+    أرجع r;
 }
 
-long long test_li_large(void)
+اوږد اوږد test_li_large(فراغ)
 {
-    long long r;
+    اوږد اوږد r;
     asm("li %0, 0x123456789ABCDEF0" : "=r"(r));
-    return r;
+    أرجع r;
 }
 
-long long test_li_negative(void)
+اوږد اوږد test_li_negative(فراغ)
 {
-    long long r;
+    اوږد اوږد r;
     asm("li %0, -1" : "=r"(r));
-    return r;
+    أرجع r;
 }
 
-int test_ll(void)
+صحيح test_ll(فراغ)
 {
-    int ok = 1;
+    صحيح ok = 1;
 
-    if (test_li_small() != 42) {
-        printf("FAIL: li small\n");
+    إذا (test_li_small() != 42) {
+        چاپ_کړه("FAIL: li small\n");
         ok = 0;
     }
-    if (test_li_large() != 0x123456789ABCDEF0LL) {
-        printf("FAIL: li large\n");
+    إذا (test_li_large() != 0x123456789ABCDEF0LL) {
+        چاپ_کړه("FAIL: li large\n");
         ok = 0;
     }
-    if (test_li_negative() != -1) {
-        printf("FAIL: li negative\n");
+    إذا (test_li_negative() != -1) {
+        چاپ_کړه("FAIL: li negative\n");
         ok = 0;
     }
-    return ok;
+    أرجع ok;
 }
 
 /* P1.3: riscv64 F/D extension arithmetic instructions.
    Tests fadd/fsub/fmul/fdiv for both single and double precision.  */
 
-float test_fadd_s(float a, float b)
+عائم test_fadd_s(عائم a, عائم b)
 {
-    float r;
+    عائم r;
     asm("fadd.s %0, %1, %2" : "=f"(r) : "f"(a), "f"(b));
-    return r;
+    أرجع r;
 }
 
-float test_fsub_s(float a, float b)
+عائم test_fsub_s(عائم a, عائم b)
 {
-    float r;
+    عائم r;
     asm("fsub.s %0, %1, %2" : "=f"(r) : "f"(a), "f"(b));
-    return r;
+    أرجع r;
 }
 
-float test_fmul_s(float a, float b)
+عائم test_fmul_s(عائم a, عائم b)
 {
-    float r;
+    عائم r;
     asm("fmul.s %0, %1, %2" : "=f"(r) : "f"(a), "f"(b));
-    return r;
+    أرجع r;
 }
 
-float test_fdiv_s(float a, float b)
+عائم test_fdiv_s(عائم a, عائم b)
 {
-    float r;
+    عائم r;
     asm("fdiv.s %0, %1, %2" : "=f"(r) : "f"(a), "f"(b));
-    return r;
+    أرجع r;
 }
 
-double test_fadd_d(double a, double b)
+مزدوج test_fadd_d(مزدوج a, مزدوج b)
 {
-    double r;
+    مزدوج r;
     asm("fadd.d %0, %1, %2" : "=f"(r) : "f"(a), "f"(b));
-    return r;
+    أرجع r;
 }
 
-double test_fsub_d(double a, double b)
+مزدوج test_fsub_d(مزدوج a, مزدوج b)
 {
-    double r;
+    مزدوج r;
     asm("fsub.d %0, %1, %2" : "=f"(r) : "f"(a), "f"(b));
-    return r;
+    أرجع r;
 }
 
-double test_fmul_d(double a, double b)
+مزدوج test_fmul_d(مزدوج a, مزدوج b)
 {
-    double r;
+    مزدوج r;
     asm("fmul.d %0, %1, %2" : "=f"(r) : "f"(a), "f"(b));
-    return r;
+    أرجع r;
 }
 
-double test_fdiv_d(double a, double b)
+مزدوج test_fdiv_d(مزدوج a, مزدوج b)
 {
-    double r;
+    مزدوج r;
     asm("fdiv.d %0, %1, %2" : "=f"(r) : "f"(a), "f"(b));
-    return r;
+    أرجع r;
 }
 
-int test_farith(void)
+صحيح test_farith(فراغ)
 {
-    int ok = 1;
+    صحيح ok = 1;
 
-    if (test_fadd_s(1.5f, 2.5f) != 4.0f) {
-        printf("FAIL: fadd.s\n");
+    إذا (test_fadd_s(1.5f, 2.5f) != 4.0f) {
+        چاپ_کړه("FAIL: fadd.s\n");
         ok = 0;
     }
-    if (test_fsub_s(5.0f, 2.0f) != 3.0f) {
-        printf("FAIL: fsub.s\n");
+    إذا (test_fsub_s(5.0f, 2.0f) != 3.0f) {
+        چاپ_کړه("FAIL: fsub.s\n");
         ok = 0;
     }
-    if (test_fmul_s(3.0f, 4.0f) != 12.0f) {
-        printf("FAIL: fmul.s\n");
+    إذا (test_fmul_s(3.0f, 4.0f) != 12.0f) {
+        چاپ_کړه("FAIL: fmul.s\n");
         ok = 0;
     }
-    if (test_fdiv_s(12.0f, 4.0f) != 3.0f) {
-        printf("FAIL: fdiv.s\n");
+    إذا (test_fdiv_s(12.0f, 4.0f) != 3.0f) {
+        چاپ_کړه("FAIL: fdiv.s\n");
         ok = 0;
     }
 
-    if (test_fadd_d(1.5, 2.5) != 4.0) {
-        printf("FAIL: fadd.d\n");
+    إذا (test_fadd_d(1.5, 2.5) != 4.0) {
+        چاپ_کړه("FAIL: fadd.d\n");
         ok = 0;
     }
-    if (test_fsub_d(5.0, 2.0) != 3.0) {
-        printf("FAIL: fsub.d\n");
+    إذا (test_fsub_d(5.0, 2.0) != 3.0) {
+        چاپ_کړه("FAIL: fsub.d\n");
         ok = 0;
     }
-    if (test_fmul_d(3.0, 4.0) != 12.0) {
-        printf("FAIL: fmul.d\n");
+    إذا (test_fmul_d(3.0, 4.0) != 12.0) {
+        چاپ_کړه("FAIL: fmul.d\n");
         ok = 0;
     }
-    if (test_fdiv_d(12.0, 4.0) != 3.0) {
-        printf("FAIL: fdiv.d\n");
+    إذا (test_fdiv_d(12.0, 4.0) != 3.0) {
+        چاپ_کړه("FAIL: fdiv.d\n");
         ok = 0;
     }
-    return ok;
+    أرجع ok;
 }
 
-int csr_pseudo_main(void)
+صحيح csr_pseudo_main(فراغ)
 {
-    int ok = 1;
-    int old, tmp;
+    صحيح ok = 1;
+    صحيح old, tmp;
 
-    asm volatile("csrr %0, 0x003" : "=r"(old));
+    asm متطاير("csrr %0, 0x003" : "=r"(old));
 
-    asm volatile("csrr %0, 0x003" : "=r"(tmp));
-    printf("csrr fcsr=%x\n", (unsigned)tmp);
+    asm متطاير("csrr %0, 0x003" : "=r"(tmp));
+    چاپ_کړه("csrr fcsr=%x\n", (بینښه)tmp);
 
-    asm volatile("csrw 0x003, %0" : : "r"(0xE0));
-    asm volatile("csrr %0, 0x003" : "=r"(tmp));
-    printf("csrw: wrote e0 got %x\n", (unsigned)tmp);
-    if (tmp != 0xE0) { printf("FAIL: csrw\n"); ok = 0; }
-    asm volatile("csrw 0x003, %0" : : "r"(old));
+    asm متطاير("csrw 0x003, %0" : : "r"(0xE0));
+    asm متطاير("csrr %0, 0x003" : "=r"(tmp));
+    چاپ_کړه("csrw: wrote e0 got %x\n", (بینښه)tmp);
+    إذا (tmp != 0xE0) { چاپ_کړه("FAIL: csrw\n"); ok = 0; }
+    asm متطاير("csrw 0x003, %0" : : "r"(old));
 
-    asm volatile("csrwi 0x003, 0x10");
-    asm volatile("csrr %0, 0x003" : "=r"(tmp));
-    printf("csrwi: wrote 0x10 got %x\n", (unsigned)tmp);
-    if (tmp != 0x10) { printf("FAIL: csrwi\n"); ok = 0; }
-    asm volatile("csrw 0x003, %0" : : "r"(old));
+    asm متطاير("csrwi 0x003, 0x10");
+    asm متطاير("csrr %0, 0x003" : "=r"(tmp));
+    چاپ_کړه("csrwi: wrote 0x10 got %x\n", (بینښه)tmp);
+    إذا (tmp != 0x10) { چاپ_کړه("FAIL: csrwi\n"); ok = 0; }
+    asm متطاير("csrw 0x003, %0" : : "r"(old));
 
-    asm volatile("csrsi 0x003, 0x03");
-    asm volatile("csrr %0, 0x003" : "=r"(tmp));
-    printf("csrsi: old|3=%x\n", (unsigned)tmp);
-    if ((old | 0x03) != tmp) { printf("FAIL: csrsi\n"); ok = 0; }
-    asm volatile("csrw 0x003, %0" : : "r"(old));
+    asm متطاير("csrsi 0x003, 0x03");
+    asm متطاير("csrr %0, 0x003" : "=r"(tmp));
+    چاپ_کړه("csrsi: old|3=%x\n", (بینښه)tmp);
+    إذا ((old | 0x03) != tmp) { چاپ_کړه("FAIL: csrsi\n"); ok = 0; }
+    asm متطاير("csrw 0x003, %0" : : "r"(old));
 
-    asm volatile("csrci 0x003, 0x03");
-    asm volatile("csrr %0, 0x003" : "=r"(tmp));
-    printf("csrci: old&~3=%x\n", (unsigned)tmp);
-    if ((old & ~0x03) != tmp) { printf("FAIL: csrci\n"); ok = 0; }
-    asm volatile("csrw 0x003, %0" : : "r"(old));
+    asm متطاير("csrci 0x003, 0x03");
+    asm متطاير("csrr %0, 0x003" : "=r"(tmp));
+    چاپ_کړه("csrci: old&~3=%x\n", (بینښه)tmp);
+    إذا ((old & ~0x03) != tmp) { چاپ_کړه("FAIL: csrci\n"); ok = 0; }
+    asm متطاير("csrw 0x003, %0" : : "r"(old));
 
-    return ok;
+    أرجع ok;
 }
 
-int fp_cmp_cvt_main(void)
+صحيح fp_cmp_cvt_main(فراغ)
 {
     /* F/D comparison (use raw regs to avoid inline asm float→int bug) */
-    asm volatile("feq.s a0, fa0, fa1");
-    asm volatile("feq.d a0, fa0, fa1");
-    asm volatile("flt.s a0, fa0, fa1");
-    asm volatile("flt.d a0, fa0, fa1");
-    asm volatile("fle.s a0, fa0, fa1");
-    asm volatile("fle.d a0, fa0, fa1");
+    asm متطاير("feq.s a0, fa0, fa1");
+    asm متطاير("feq.d a0, fa0, fa1");
+    asm متطاير("flt.s a0, fa0, fa1");
+    asm متطاير("flt.d a0, fa0, fa1");
+    asm متطاير("fle.s a0, fa0, fa1");
+    asm متطاير("fle.d a0, fa0, fa1");
 
     /* fcvt conversions */
-    asm volatile("fcvt.w.s a0, fa0");
-    asm volatile("fcvt.wu.s a0, fa0");
-    asm volatile("fcvt.s.w fa0, a0");
-    asm volatile("fcvt.w.d a0, fa0");
-    asm volatile("fcvt.d.w fa0, a0");
-    asm volatile("fcvt.d.s fa0, fa0");
-    asm volatile("fcvt.s.d fa0, fa0");
+    asm متطاير("fcvt.w.s a0, fa0");
+    asm متطاير("fcvt.wu.s a0, fa0");
+    asm متطاير("fcvt.s.w fa0, a0");
+    asm متطاير("fcvt.w.d a0, fa0");
+    asm متطاير("fcvt.d.w fa0, a0");
+    asm متطاير("fcvt.d.s fa0, fa0");
+    asm متطاير("fcvt.s.d fa0, fa0");
 
     /* fclass */
-    asm volatile("fclass.s a0, fa0");
-    asm volatile("fclass.d a0, fa0");
+    asm متطاير("fclass.s a0, fa0");
+    asm متطاير("fclass.d a0, fa0");
 
-    return 1;
+    أرجع 1;
 }
 
-int amo_main(void)
+صحيح amo_main(فراغ)
 {
-    int x = 0, r;
-    long long xd = 0xCAFEBABECAFEBABELL, rd, val = 0xDEADBEEFDEADBEEFLL;
+    صحيح x = 0, r;
+    اوږد اوږد xd = 0xCAFEBABECAFEBABELL, rd, val = 0xDEADBEEFDEADBEEFLL;
     asm("amoadd.w %0, %2, (%1)" : "=r"(r) : "r"(&x), "r"(val));
     asm("amoswap.w %0, %2, (%1)" : "=r"(r) : "r"(&x), "r"(val));
     asm("amoand.w %0, %2, (%1)" : "=r"(r) : "r"(&x), "r"(val));
@@ -321,36 +321,36 @@ int amo_main(void)
     asm("amomaxu.w.aqrl %0, %2, (%1)" : "=r"(r) : "r"(&x), "r"(val));
     asm("amomin.w.rl %0, %2, (%1)" : "=r"(r) : "r"(&x), "r"(val));
     asm("amominu.d.aq %0, %2, (%1)" : "=r"(rd) : "r"(&xd), "r"(val));
-    return 1;
+    أرجع 1;
 }
 
-int fcvt_round_main(void)
+صحيح fcvt_پړاو_main(فراغ)
 {
-    asm volatile("fcvt.w.s a0, fa0, rne");
-    asm volatile("fcvt.w.s a0, fa0, rtz");
-    asm volatile("fcvt.w.s a0, fa0, rup");
-    asm volatile("fcvt.w.d a0, fa0, rne");
-    asm volatile("fcvt.w.d a0, fa0, rtz");
-    return 1;
+    asm متطاير("fcvt.w.s a0, fa0, rne");
+    asm متطاير("fcvt.w.s a0, fa0, rtz");
+    asm متطاير("fcvt.w.s a0, fa0, rup");
+    asm متطاير("fcvt.w.d a0, fa0, rne");
+    asm متطاير("fcvt.w.d a0, fa0, rtz");
+    أرجع 1;
 }
 
-int main()
+صحيح اصلي()
 {
-    int ok = 1;
+    صحيح ok = 1;
     ok &= test_pseudo();
     ok &= test_ll();
     ok &= test_farith();
     ok &= csr_pseudo_main();
     ok &= fp_cmp_cvt_main();
     ok &= amo_main();
-    ok &= fcvt_round_main();
-    printf("%s\n", ok ? "PASS" : "FAIL");
-    return !ok;
+    ok &= fcvt_پړاو_main();
+    چاپ_کړه("%s\n", ok ? "PASS" : "FAIL");
+    أرجع !ok;
 }
 
-#else
-int main()
+#وإلا
+صحيح اصلي()
 {
-    printf("SKIP\n");
+    چاپ_کړه("SKIP\n");
 }
-#endif
+#د_که_پای

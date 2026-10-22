@@ -1,2 +1,2 @@
-#define MS_BITFIELDS 1
-#include "95_bitfields.c"
+#تعریف_کړه MS_BITFIELDS 1
+#ضمن "95_bitfields.c"

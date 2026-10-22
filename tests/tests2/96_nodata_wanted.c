@@ -1,102 +1,102 @@
 /*****************************************************************************/
 /* test 'nodata_wanted' data output suppression */
 
-#if defined test_static_data_error
-void foo() {
-    if (1) {
-	static short w = (int)&foo; /* initializer not computable */
+#إذا defined test_static_معلومات_error
+فراغ foo() {
+    إذا (1) {
+	ساكن لنډ w = (صحيح)&foo; /* initializer not computable */
     }
 }
 
-#elif defined test_static_nodata_error
-void foo() {
-    if (0) {
-	static short w = (int)&foo; /* initializer not computable */
+#وإلاإذا defined test_static_nodata_error
+فراغ foo() {
+    إذا (0) {
+	ساكن لنډ w = (صحيح)&foo; /* initializer not computable */
     }
 }
 
-#elif defined test_global_data_error
-void foo();
-static short w = (int)&foo; /* initializer not computable */
+#وإلاإذا defined test_global_معلومات_error
+فراغ foo();
+ساكن لنډ w = (صحيح)&foo; /* initializer not computable */
 
 
-#elif defined test_local_data_noerror
-void foo() {
-    short w = &foo; /* 2 cast warnings */
+#وإلاإذا defined test_local_معلومات_noerror
+فراغ foo() {
+    لنډ w = &foo; /* 2 cast warnings */
 }
 
-#elif defined test_data_suppression_off || defined test_data_suppression_on
+#وإلاإذا defined test_معلومات_suppression_off || defined test_معلومات_suppression_on
 
-#if defined test_data_suppression_on
+#إذا defined test_معلومات_suppression_on
 # define SKIP 1
-#else
+#وإلا
 # define SKIP 0
-#endif
+#د_که_پای
 
-#include <stdio.h>
+#ضمن <stdio.h>
 /* some gcc headers #define __attribute__ to empty if it's not gcc */
-#undef __attribute__
+#تعریف_لغوه __attribute__
 
-int main()
+صحيح اصلي()
 {
     __label__ ts0, te0, ts1, te1;
-    int tl, dl;
+    صحيح tl, dl;
 
-    static const char ds0 = 0;
-    static const char de0 = 0;
+    ساكن ثابت حرف ds0 = 0;
+    ساكن ثابت حرف de0 = 0;
     /* get reference size of empty jmp */
 ts0:;
-    if (!SKIP) {}
+    إذا (!SKIP) {}
 te0:;
     dl = -(&de0 - &ds0);
     tl = -(&&te0 - &&ts0);
 
     /* test data and code suppression */
-    static const char ds1 = 0;
+    ساكن ثابت حرف ds1 = 0;
 ts1:;
-    if (!SKIP) {
-        void *p = (void*)&main;
-        char cc[] = "static string";
-        double d = 8.0;
-        struct
-#ifndef __arm__
+    إذا (!SKIP) {
+        فراغ *p = (فراغ*)&اصلي;
+        حرف cc[] = "static string";
+        مزدوج d = 8.0;
+        بنية
+#که_نه_تعریف_شوی __arm__
         __attribute__((packed))
-#endif
+#د_که_پای
         {
-            unsigned x : 12;
-            unsigned char y : 7;
-            unsigned z : 28, a: 4, b: 5;
+            بینښه x : 12;
+            بینښه حرف y : 7;
+            بینښه z : 28, a: 4, b: 5;
         } s = { 0x333,0x44,0x555555,6,7 };
 
-        printf("data:\n");
-        printf("  %d - %.1f - %.1f - %s - %s\n",
-            sizeof 8.0, 8.0, d, __FUNCTION__, cc);
-        printf("  %x %x %x %x %x\n",
+        چاپ_کړه("data:\n");
+        چاپ_کړه("  %d - %.1f - %.1f - %s - %s\n",
+            حجم 8.0, 8.0, d, __FUNCTION__, cc);
+        چاپ_کړه("  %x %x %x %x %x\n",
             s.x, s.y, s.z, s.a, s.b);
     }
 te1:;
-    static const char de1 = 0;
+    ساكن ثابت حرف de1 = 0;
 
     dl += &de1 - &ds1;
     tl += &&te1 - &&ts1;
-    printf("size of data/text:\n  %s/%s\n",
+    چاپ_کړه("size of data/text:\n  %s/%s\n",
         dl ? "non-zero":"zero", tl ? "non-zero":"zero");
     /*printf("# %d/%d\n", dl, tl);*/
 }
 
-#elif defined test_static_data
+#وإلاإذا defined test_static_معلومات
 
-#include <stdio.h>
-int main(int argc, char **argv)
+#ضمن <stdio.h>
+صحيح اصلي(صحيح argc, حرف **argv)
 {
-    goto there;
-    if (0) {
-        static int a = 1;
-        printf("hello\n"); /* the "hello\n" string is still suppressed */
+    اذهب there;
+    إذا (0) {
+        ساكن صحيح a = 1;
+        چاپ_کړه("hello\n"); /* the "hello\n" string is still suppressed */
 there:
-        printf("a = %d\n", a);
+        چاپ_کړه("a = %d\n", a);
     }
-    return 0;
+    أرجع 0;
 }
 
-#endif
+#د_که_پای

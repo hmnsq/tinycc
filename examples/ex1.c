@@ -1,8 +1,8 @@
-#!/usr/local/bin/tcc -run
-#include <tcclib.h>
+#!/usr/local/bin/tcc -پرلپسې
+#ضمن <tcclib.h>
 
-int main()
+صحيح اصلي()
 {
-    printf("Hello World\n");
-    return 0;
+    چاپ_کړه("Hello World\n");
+    أرجع 0;
 }

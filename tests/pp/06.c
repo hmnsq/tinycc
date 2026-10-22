@@ -1,4 +1,4 @@
-#define X(a,b, \
+#تعریف_کړه X(a,b, \
 	c,d) \
 	foo
 

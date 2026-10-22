@@ -3,50 +3,50 @@
  * This file is part of the w64 mingw-runtime package.
  * No warranty is given; refer to the file DISCLAIMER within this package.
  */
-#ifndef _INC_MBSTRING_S
-#define _INC_MBSTRING_S
+#که_نه_تعریف_شوی _INC_MBSTRING_S
+#تعریف_کړه _INC_MBSTRING_S
 
-#include <mbstring.h>
+#ضمن <mbstring.h>
 
-#if defined(MINGW_HAS_SECURE_API)
+#إذا defined(MINGW_HAS_SECURE_API)
 
-#ifdef __cplusplus
-extern "C" {
-#endif
+#که_تعریف_شوی __cplusplus
+خارجي "C" {
+#د_که_پای
 
-#ifndef _MBSTRING_S_DEFINED
-#define _MBSTRING_S_DEFINED
-  _CRTIMP errno_t __cdecl _mbscat_s(unsigned char *_Dst,size_t _DstSizeInBytes,const unsigned char *_Src);
-  _CRTIMP errno_t __cdecl _mbscat_s_l(unsigned char *_Dst,size_t _DstSizeInBytes,const unsigned char *_Src,_locale_t _Locale);
-  _CRTIMP errno_t __cdecl _mbscpy_s(unsigned char *_Dst,size_t _DstSizeInBytes,const unsigned char *_Src);
-  _CRTIMP errno_t __cdecl _mbscpy_s_l(unsigned char *_Dst,size_t _DstSizeInBytes,const unsigned char *_Src,_locale_t _Locale);
-  _CRTIMP errno_t __cdecl _mbslwr_s(unsigned char *_Str,size_t _SizeInBytes);
-  _CRTIMP errno_t __cdecl _mbslwr_s_l(unsigned char *_Str,size_t _SizeInBytes,_locale_t _Locale);
-  _CRTIMP errno_t __cdecl _mbsnbcat_s(unsigned char *_Dst,size_t _DstSizeInBytes,const unsigned char *_Src,size_t _MaxCount);
-  _CRTIMP errno_t __cdecl _mbsnbcat_s_l(unsigned char *_Dst,size_t _DstSizeInBytes,const unsigned char *_Src,size_t _MaxCount,_locale_t _Locale);
-  _CRTIMP errno_t __cdecl _mbsnbcpy_s(unsigned char *_Dst,size_t _DstSizeInBytes,const unsigned char *_Src,size_t _MaxCount);
-  _CRTIMP errno_t __cdecl _mbsnbcpy_s_l(unsigned char *_Dst,size_t _DstSizeInBytes,const unsigned char *_Src,size_t _MaxCount,_locale_t _Locale);
-  _CRTIMP errno_t __cdecl _mbsnbset_s(unsigned char *_Dst,size_t _DstSizeInBytes,unsigned int _Ch,size_t _MaxCount);
-  _CRTIMP errno_t __cdecl _mbsnbset_s_l(unsigned char *_Dst,size_t _DstSizeInBytes,unsigned int _Ch,size_t _MaxCount,_locale_t _Locale);
-  _CRTIMP errno_t __cdecl _mbsncat_s(unsigned char *_Dst,size_t _DstSizeInBytes,const unsigned char *_Src,size_t _MaxCount);
-  _CRTIMP errno_t __cdecl _mbsncat_s_l(unsigned char *_Dst,size_t _DstSizeInBytes,const unsigned char *_Src,size_t _MaxCount,_locale_t _Locale);
-  _CRTIMP errno_t __cdecl _mbsncpy_s(unsigned char *_Dst,size_t _DstSizeInBytes,const unsigned char *_Src,size_t _MaxCount);
-  _CRTIMP errno_t __cdecl _mbsncpy_s_l(unsigned char *_Dst,size_t _DstSizeInBytes,const unsigned char *_Src,size_t _MaxCount,_locale_t _Locale);
-  _CRTIMP errno_t __cdecl _mbsnset_s(unsigned char *_Dst,size_t _DstSizeInBytes,unsigned int _Val,size_t _MaxCount);
-  _CRTIMP errno_t __cdecl _mbsnset_s_l(unsigned char *_Dst,size_t _DstSizeInBytes,unsigned int _Val,size_t _MaxCount,_locale_t _Locale);
-  _CRTIMP errno_t __cdecl _mbsset_s(unsigned char *_Dst,size_t _DstSizeInBytes,unsigned int _Val);
-  _CRTIMP errno_t __cdecl _mbsset_s_l(unsigned char *_Dst,size_t _DstSizeInBytes,unsigned int _Val,_locale_t _Locale);
-  _CRTIMP unsigned char *__cdecl _mbstok_s(unsigned char *_Str,const unsigned char *_Delim,unsigned char **_Context);
-  _CRTIMP unsigned char *__cdecl _mbstok_s_l(unsigned char *_Str,const unsigned char *_Delim,unsigned char **_Context,_locale_t _Locale);
-  _CRTIMP errno_t __cdecl _mbsupr_s(unsigned char *_Str,size_t _SizeInBytes);
-  _CRTIMP errno_t __cdecl _mbsupr_s_l(unsigned char *_Str,size_t _SizeInBytes,_locale_t _Locale);
-  _CRTIMP errno_t __cdecl _mbccpy_s(unsigned char *_Dst,size_t _DstSizeInBytes,int *_PCopied,const unsigned char *_Src);
-  _CRTIMP errno_t __cdecl _mbccpy_s_l(unsigned char *_Dst,size_t _DstSizeInBytes,int *_PCopied,const unsigned char *_Src,_locale_t _Locale);
-#endif
+#که_نه_تعریف_شوی _MBSTRING_S_DEFINED
+#تعریف_کړه _MBSTRING_S_DEFINED
+  _CRTIMP errno_t __cdecl _mbscat_s(بینښه حرف *_Dst,اندازه_t Dst_اندازه_دننه_بایټونه,ثابت بینښه حرف *_Src);
+  _CRTIMP errno_t __cdecl _mbscat_s_l(بینښه حرف *_Dst,اندازه_t Dst_اندازه_دننه_بایټونه,ثابت بینښه حرف *_Src,_locale_t _Locale);
+  _CRTIMP errno_t __cdecl _mbscpy_s(بینښه حرف *_Dst,اندازه_t Dst_اندازه_دننه_بایټونه,ثابت بینښه حرف *_Src);
+  _CRTIMP errno_t __cdecl _mbscpy_s_l(بینښه حرف *_Dst,اندازه_t Dst_اندازه_دننه_بایټونه,ثابت بینښه حرف *_Src,_locale_t _Locale);
+  _CRTIMP errno_t __cdecl _mbslwr_s(بینښه حرف *_Str,اندازه_t اندازه_دننه_بایټونه);
+  _CRTIMP errno_t __cdecl _mbslwr_s_l(بینښه حرف *_Str,اندازه_t اندازه_دننه_بایټونه,_locale_t _Locale);
+  _CRTIMP errno_t __cdecl _mbsnbcat_s(بینښه حرف *_Dst,اندازه_t Dst_اندازه_دننه_بایټونه,ثابت بینښه حرف *_Src,اندازه_t Max_شمېر);
+  _CRTIMP errno_t __cdecl _mbsnbcat_s_l(بینښه حرف *_Dst,اندازه_t Dst_اندازه_دننه_بایټونه,ثابت بینښه حرف *_Src,اندازه_t Max_شمېر,_locale_t _Locale);
+  _CRTIMP errno_t __cdecl _mbsnbcpy_s(بینښه حرف *_Dst,اندازه_t Dst_اندازه_دننه_بایټونه,ثابت بینښه حرف *_Src,اندازه_t Max_شمېر);
+  _CRTIMP errno_t __cdecl _mbsnbcpy_s_l(بینښه حرف *_Dst,اندازه_t Dst_اندازه_دننه_بایټونه,ثابت بینښه حرف *_Src,اندازه_t Max_شمېر,_locale_t _Locale);
+  _CRTIMP errno_t __cdecl _mbsnbset_s(بینښه حرف *_Dst,اندازه_t Dst_اندازه_دننه_بایټونه,بینښه صحيح _Ch,اندازه_t Max_شمېر);
+  _CRTIMP errno_t __cdecl _mbsnbset_s_l(بینښه حرف *_Dst,اندازه_t Dst_اندازه_دننه_بایټونه,بینښه صحيح _Ch,اندازه_t Max_شمېر,_locale_t _Locale);
+  _CRTIMP errno_t __cdecl _mbsncat_s(بینښه حرف *_Dst,اندازه_t Dst_اندازه_دننه_بایټونه,ثابت بینښه حرف *_Src,اندازه_t Max_شمېر);
+  _CRTIMP errno_t __cdecl _mbsncat_s_l(بینښه حرف *_Dst,اندازه_t Dst_اندازه_دننه_بایټونه,ثابت بینښه حرف *_Src,اندازه_t Max_شمېر,_locale_t _Locale);
+  _CRTIMP errno_t __cdecl _mbsncpy_s(بینښه حرف *_Dst,اندازه_t Dst_اندازه_دننه_بایټونه,ثابت بینښه حرف *_Src,اندازه_t Max_شمېر);
+  _CRTIMP errno_t __cdecl _mbsncpy_s_l(بینښه حرف *_Dst,اندازه_t Dst_اندازه_دننه_بایټونه,ثابت بینښه حرف *_Src,اندازه_t Max_شمېر,_locale_t _Locale);
+  _CRTIMP errno_t __cdecl _mbsnset_s(بینښه حرف *_Dst,اندازه_t Dst_اندازه_دننه_بایټونه,بینښه صحيح _Val,اندازه_t Max_شمېر);
+  _CRTIMP errno_t __cdecl _mbsnset_s_l(بینښه حرف *_Dst,اندازه_t Dst_اندازه_دننه_بایټونه,بینښه صحيح _Val,اندازه_t Max_شمېر,_locale_t _Locale);
+  _CRTIMP errno_t __cdecl _mbsset_s(بینښه حرف *_Dst,اندازه_t Dst_اندازه_دننه_بایټونه,بینښه صحيح _Val);
+  _CRTIMP errno_t __cdecl _mbsset_s_l(بینښه حرف *_Dst,اندازه_t Dst_اندازه_دننه_بایټونه,بینښه صحيح _Val,_locale_t _Locale);
+  _CRTIMP بینښه حرف *__cdecl _mbstok_s(بینښه حرف *_Str,ثابت بینښه حرف *_Delim,بینښه حرف **_Context);
+  _CRTIMP بینښه حرف *__cdecl _mbstok_s_l(بینښه حرف *_Str,ثابت بینښه حرف *_Delim,بینښه حرف **_Context,_locale_t _Locale);
+  _CRTIMP errno_t __cdecl _mbsupr_s(بینښه حرف *_Str,اندازه_t اندازه_دننه_بایټونه);
+  _CRTIMP errno_t __cdecl _mbsupr_s_l(بینښه حرف *_Str,اندازه_t اندازه_دننه_بایټونه,_locale_t _Locale);
+  _CRTIMP errno_t __cdecl _mbccpy_s(بینښه حرف *_Dst,اندازه_t Dst_اندازه_دننه_بایټونه,صحيح *_PCopied,ثابت بینښه حرف *_Src);
+  _CRTIMP errno_t __cdecl _mbccpy_s_l(بینښه حرف *_Dst,اندازه_t Dst_اندازه_دننه_بایټونه,صحيح *_PCopied,ثابت بینښه حرف *_Src,_locale_t _Locale);
+#د_که_پای
 
-#ifdef __cplusplus
+#که_تعریف_شوی __cplusplus
 }
-#endif
+#د_که_پای
 
-#endif
-#endif
+#د_که_پای
+#د_که_پای

@@ -3,131 +3,131 @@
  * This file is part of the w64 mingw-runtime package.
  * No warranty is given; refer to the file DISCLAIMER within this package.
  */
-#ifndef _TIMEB_H_
-#define _TIMEB_H_
+#که_نه_تعریف_شوی _TIMEB_H_
+#تعریف_کړه _TIMEB_H_
 
-#include <_mingw.h>
+#ضمن <_mingw.h>
 
-#ifndef _WIN32
-#error Only Win32 target is supported!
-#endif
+#که_نه_تعریف_شوی _WIN32
+#تېروتنه Only Win32 موخه is supported!
+#د_که_پای
 
-#pragma pack(push,_CRT_PACKING)
+#لارښوونه pack(ټېل,_CRT_PACKING)
 
-#ifdef __cplusplus
-extern "C" {
-#endif
+#که_تعریف_شوی __cplusplus
+خارجي "C" {
+#د_که_پای
 
-#ifndef _CRTIMP
-#define _CRTIMP __declspec(dllimport)
-#endif
+#که_نه_تعریف_شوی _CRTIMP
+#تعریف_کړه _CRTIMP __declspec(dllimport)
+#د_که_پای
 
-#ifndef __TINYC__ /* gr */
-#ifdef _USE_32BIT_TIME_T
-#ifdef _WIN64
-#undef _USE_32BIT_TIME_T
-#endif
-#else
-#if _INTEGRAL_MAX_BITS < 64
-#define _USE_32BIT_TIME_T
-#endif
-#endif
-#endif
+#که_نه_تعریف_شوی __TINYC__ /* gr */
+#که_تعریف_شوی USE_32_بټ_وخت_T
+#که_تعریف_شوی _WIN64
+#تعریف_لغوه USE_32_بټ_وخت_T
+#د_که_پای
+#وإلا
+#إذا INTEGRAL_MAX_بټونه < 64
+#تعریف_کړه USE_32_بټ_وخت_T
+#د_که_پای
+#د_که_پای
+#د_که_پای
 
-#ifndef _TIME32_T_DEFINED
-  typedef long __time32_t;
-#define _TIME32_T_DEFINED
-#endif
+#که_نه_تعریف_شوی _TIME32_T_DEFINED
+  تعريفنوع اوږد __time32_t;
+#تعریف_کړه _TIME32_T_DEFINED
+#د_که_پای
 
-#ifndef _TIME64_T_DEFINED
-#if _INTEGRAL_MAX_BITS >= 64
-  typedef __int64 __time64_t;
-#endif
-#define _TIME64_T_DEFINED
-#endif
+#که_نه_تعریف_شوی _TIME64_T_DEFINED
+#إذا INTEGRAL_MAX_بټونه >= 64
+  تعريفنوع __int64 __time64_t;
+#د_که_پای
+#تعریف_کړه _TIME64_T_DEFINED
+#د_که_پای
 
-#ifndef _TIME_T_DEFINED
-#ifdef _USE_32BIT_TIME_T
-  typedef __time32_t time_t;
-#else
-  typedef __time64_t time_t;
-#endif
-#define _TIME_T_DEFINED
-#endif
+#که_نه_تعریف_شوی وخت_T_DEFINED
+#که_تعریف_شوی USE_32_بټ_وخت_T
+  تعريفنوع __time32_t time_t;
+#وإلا
+  تعريفنوع __time64_t time_t;
+#د_که_پای
+#تعریف_کړه وخت_T_DEFINED
+#د_که_پای
 
-#ifndef _TIMEB_DEFINED
-#define _TIMEB_DEFINED
+#که_نه_تعریف_شوی _TIMEB_DEFINED
+#تعریف_کړه _TIMEB_DEFINED
 
-  struct __timeb32 {
-    __time32_t time;
-    unsigned short millitm;
-    short timezone;
-    short dstflag;
+  بنية __timeb32 {
+    __time32_t وخت;
+    بینښه لنډ millitm;
+    لنډ timezone;
+    لنډ dstflag;
   };
 
-#ifndef	NO_OLDNAMES
-  struct timeb {
-    time_t time;
-    unsigned short millitm;
-    short timezone;
-    short dstflag;
+#که_نه_تعریف_شوی	NO_OLDNAMES
+  بنية timeb {
+    time_t وخت;
+    بینښه لنډ millitm;
+    لنډ timezone;
+    لنډ dstflag;
   };
-#endif
+#د_که_پای
 
-#if _INTEGRAL_MAX_BITS >= 64
-  struct __timeb64 {
-    __time64_t time;
-    unsigned short millitm;
-    short timezone;
-    short dstflag;
+#إذا INTEGRAL_MAX_بټونه >= 64
+  بنية __timeb64 {
+    __time64_t وخت;
+    بینښه لنډ millitm;
+    لنډ timezone;
+    لنډ dstflag;
   };
-#endif
+#د_که_پای
 
-#ifdef _USE_32BIT_TIME_T
-#define _timeb __timeb32
+#که_تعریف_شوی USE_32_بټ_وخت_T
+#تعریف_کړه _timeb __timeb32
 //gr #define _ftime _ftime32
-#define _ftime32 _ftime
-#else
-#define _timeb __timeb64
-#define _ftime _ftime64
-#endif
-#endif
+#تعریف_کړه _ftime32 _ftime
+#وإلا
+#تعریف_کړه _timeb __timeb64
+#تعریف_کړه _ftime _ftime64
+#د_که_پای
+#د_که_پای
 
-  _CRTIMP void __cdecl _ftime32(struct __timeb32 *_Time);
-#if _INTEGRAL_MAX_BITS >= 64
-  _CRTIMP void __cdecl _ftime64(struct __timeb64 *_Time);
-#endif
+  _CRTIMP فراغ __cdecl _ftime32(بنية __timeb32 *وخت_2);
+#إذا INTEGRAL_MAX_بټونه >= 64
+  _CRTIMP فراغ __cdecl _ftime64(بنية __timeb64 *وخت_2);
+#د_که_پای
 
-#ifndef _TIMESPEC_DEFINED
-#define _TIMESPEC_DEFINED
-struct timespec {
+#که_نه_تعریف_شوی _TIMESPEC_DEFINED
+#تعریف_کړه _TIMESPEC_DEFINED
+بنية timespec {
   time_t  tv_sec;   /* Seconds */
-  long    tv_nsec;  /* Nanoseconds */
+  اوږد    tv_nsec;  /* Nanoseconds */
 };
 
-struct itimerspec {
-  struct timespec  it_interval;  /* Timer period */
-  struct timespec  it_value;     /* Timer expiration */
+بنية itimerspec {
+  بنية timespec  it_interval;  /* Timer period */
+  بنية timespec  it_value;     /* Timer expiration */
 };
-#endif
+#د_که_پای
 
-#if !defined (RC_INVOKED) && !defined (NO_OLDNAMES)
-#ifdef _USE_32BIT_TIME_T
-__CRT_INLINE void __cdecl ftime(struct timeb *_Tmb) {
-  _ftime32((struct __timeb32 *)_Tmb);
+#إذا !defined (RC_INVOKED) && !defined (NO_OLDNAMES)
+#که_تعریف_شوی USE_32_بټ_وخت_T
+__CRT_INLINE فراغ __cdecl ftime(بنية timeb *_Tmb) {
+  _ftime32((بنية __timeb32 *)_Tmb);
 }
-#else
-__CRT_INLINE void __cdecl ftime(struct timeb *_Tmb) {
-  _ftime64((struct __timeb64 *)_Tmb);
+#وإلا
+__CRT_INLINE فراغ __cdecl ftime(بنية timeb *_Tmb) {
+  _ftime64((بنية __timeb64 *)_Tmb);
 }
-#endif
-#endif
+#د_که_پای
+#د_که_پای
 
-#ifdef __cplusplus
+#که_تعریف_شوی __cplusplus
 }
-#endif
+#د_که_پای
 
-#pragma pack(pop)
+#لارښوونه pack(راوباسه)
 
-#include <sec_api/sys/timeb_s.h>
-#endif
+#ضمن <sec_api/sys/timeb_s.h>
+#د_که_پای
