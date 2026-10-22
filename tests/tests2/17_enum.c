@@ -1,6 +1,6 @@
-#include <stdio.h>
+#अन्तर्भाव <stdio.h>
 
-enum fred
+गणना fred
 {
    a,
    b,
@@ -19,54 +19,54 @@ enum fred
 /* Strict ISO C doesn't allow this kind of forward declaration of
    enums, but GCC accepts it (and gives only pedantic warning), and
    it occurs in the wild.  */
-enum efoo;
-struct Sforward_use {
-    int (*fmember) (enum efoo x);
+गणना efoo;
+संरचना Sforward_use {
+    पूर्णाङ्क (*fmember) (गणना efoo x);
 };
 
-extern enum efoo it_real_fn(void);
-enum efoo {
+बाह्य गणना efoo it_real_fn(शून्य);
+गणना efoo {
   ONE,
   TWO,
 };
-struct S2 {
-  enum efoo (*f2) (void);
+संरचना S2 {
+  गणना efoo (*f2) (शून्य);
 };
-void should_compile(struct S2 *s)
+शून्य should_compile(संरचना S2 *s)
 {
   s->f2 = it_real_fn;
 }
 
-enum efoo it_real_fn(void)
+गणना efoo it_real_fn(शून्य)
 {
-  return TWO;
+  फर्काऊ TWO;
 }
 
-static unsigned int deref_uintptr(unsigned int *p)
+स्थिर अचिन्हित पूर्णाङ्क deref_uintptr(अचिन्हित पूर्णाङ्क *p)
 {
-  return *p;
+  फर्काऊ *p;
 }
 
-enum Epositive {
+गणना Epositive {
     epos_one, epos_two
 };
 
-int main()
+पूर्णाङ्क main()
 {
-   enum fred frod;
-   enum Epositive epos = epos_two;
+   गणना fred frod;
+   गणना Epositive epos = epos_two;
 
-   printf("%d %d %d %d %d %d %d %d\n", a, b, c, d, e, f, g, h);
+   म_लिखो("%d %d %d %d %d %d %d %d\n", a, b, c, d, e, f, g, h);
    /* printf("%d\n", frod); */
    frod = 12;
-   printf("%d\n", frod);
+   म_लिखो("%d\n", frod);
    frod = e;
-   printf("%d\n", frod);
+   म_लिखो("%d\n", frod);
 
    /* Following should compile without warning.  */
-   printf ("enum to int: %u\n", deref_uintptr(&epos));
+   म_लिखो ("enum to int: %u\n", deref_uintptr(&epos));
 
-   return 0;
+   फर्काऊ 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

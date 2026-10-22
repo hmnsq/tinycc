@@ -1,7 +1,7 @@
 /*
  * TCC auto test program
  */
-#include "config.h"
+#अन्तर्भाव "config.h"
 
 /* identify the configured reference compiler in use */
 #define CC_gcc 1
@@ -17,7 +17,7 @@
 /* __VA_ARGS__ and __func__ support */
 #define C99_MACROS
 
-#if defined(_WIN32) \
+#यदि defined(_WIN32) \
     || (defined(__arm__) \
         && (defined(__FreeBSD__) \
          || defined(__OpenBSD__) \
@@ -26,7 +26,7 @@
 #define LONG_LONG_FORMAT "%lld"
 #define ULONG_LONG_FORMAT "%llu"
 #define XLONG_LONG_FORMAT "%llx"
-#else
+#अन्यथा
 #define LONG_LONG_FORMAT "%Ld"
 #define ULONG_LONG_FORMAT "%Lu"
 #define XLONG_LONG_FORMAT "%Lx"
@@ -34,15 +34,15 @@
 
 /* MinGW has 80-bit rather than 64-bit long double which isn't
    compatible with printf in msvcrt */
-#if defined(_WIN32)
-#define LONG_DOUBLE double
+#यदि defined(_WIN32)
+#define LONG_DOUBLE द्विगुण
 #define LONG_DOUBLE_LITERAL(x) x
-#else
-#define LONG_DOUBLE long double
+#अन्यथा
+#define LONG_DOUBLE दीर्घ द्विगुण
 #define LONG_DOUBLE_LITERAL(x) x ## L
 #endif
 
-typedef __SIZE_TYPE__ uintptr_t;
+प्रकारनिर्देश __SIZE_TYPE__ uintptr_t;
 
 /* test various include syntaxes */
 
@@ -51,19 +51,19 @@ typedef __SIZE_TYPE__ uintptr_t;
 #define TCCLIB_INC2 h>
 #define TCCLIB_INC3 "tcclib.h"
 
-#include TCCLIB_INC
+#अन्तर्भाव TCCLIB_INC
 
-#include TCCLIB_INC1.TCCLIB_INC2
+#अन्तर्भाव TCCLIB_INC1.TCCLIB_INC2
 
-#include TCCLIB_INC1.h>
+#अन्तर्भाव TCCLIB_INC1.h>
 
-#include TCCLIB_INC3
+#अन्तर्भाव TCCLIB_INC3
 
-#include <tcclib.h>
+#अन्तर्भाव <tcclib.h>
 
-#include "tcclib.h"
+#अन्तर्भाव "tcclib.h"
 
-#include "tcctest.h"
+#अन्तर्भाव "tcctest.h"
 
 /* Test two more ways to include a file named like a pp-number */
 #define INC(name) <tests/name.h>
@@ -73,28 +73,28 @@ typedef __SIZE_TYPE__ uintptr_t;
 /* clang's preprocessor is broken in this regard and adds spaces
    to the tokens 'incdir' and 'funnyname' when expanding */
 #define incname <tests/42test.h>
-#else
+#अन्यथा
 #define incname < incdir funnyname >
 #endif
 #define __stringify(x) #x
 #define stringify(x) __stringify(x)
-#include INC(42test)
-#include incname
-#include stringify(funnyname)
+#अन्तर्भाव INC(42test)
+#अन्तर्भाव incname
+#अन्तर्भाव stringify(funnyname)
 
-int fib(int n);
-void num(int n);
-void forward_ref(void);
-int isid(int c);
+पूर्णाङ्क fib(पूर्णाङ्क n);
+शून्य अङ्क(पूर्णाङ्क n);
+शून्य forward_ref(शून्य);
+पूर्णाङ्क isid(पूर्णाङ्क c);
 
 /* Line joining happens before tokenization, so the following
    must be parsed as ellipsis.  */
-void funny_line_continuation (int, ..\
+शून्य funny_पङ्क्ति_continuation (पूर्णाङ्क, ..\
 . );
 
 #define A 2
 #define N 1234 + A
-#define pf printf
+#define pf म_लिखो
 #define M1(a, b)  (a) + (b)
 
 #define str\
@@ -102,20 +102,20 @@ void funny_line_continuation (int, ..\
 #define glue(a, b) a ## b
 #define xglue(a, b) glue(a, b)
 #define HIGHLOW "hello"
-#define LOW LOW ", world"
+#define तल्लो_2 तल्लो_2 ", world"
 
-static int onetwothree = 123;
+स्थिर पूर्णाङ्क onetwothree = 123;
 #define onetwothree4 onetwothree
 #define onetwothree xglue(onetwothree,4)
 
 #define min(a, b) ((a) < (b) ? (a) : (b))
 
 #ifdef C99_MACROS
-#define dprintf(level,...) printf(__VA_ARGS__)
+#define dprintf(level,...) म_लिखो(__VA_ARGS__)
 #endif
 
 /* gcc vararg macros */
-#define dprintf1(level, fmt, args...) printf(fmt, ## args)
+#define dprintf1(level, fmt, args...) म_लिखो(fmt, ## args)
 
 #define MACRO_NOARGS()
 
@@ -126,110 +126,110 @@ static int onetwothree = 123;
 #undef AAA
 #define AAA 4
 
-#if 1
+#यदि 1
 #define B3 1
-#elif 1
+#अथवायदि 1
 #define B3 2
-#elif 0
+#अथवायदि 0
 #define B3 3
-#else
+#अन्यथा
 #define B3 4
 #endif
 
 #define __INT64_C(c)	c ## LL
 #define INT64_MIN	(-__INT64_C(9223372036854775807)-1)
 
-int qq(int x)
+पूर्णाङ्क qq(पूर्णाङ्क x)
 {
-    return x + 40;
+    फर्काऊ x + 40;
 }
 #define qq(x) x
 
-#define spin_lock(lock) do { } while (0)
+#define spin_lock(lock) गर { } जबसम्म (0)
 #define wq_spin_lock spin_lock
 #define TEST2() wq_spin_lock(a)
 
-void macro_test(void)
+शून्य macro_test(शून्य)
 {
     pf("N=%d\n", N);
-    printf("aaa=%d\n", AAA);
+    म_लिखो("aaa=%d\n", AAA);
 
-    printf("min=%d\n", min(1, min(2, -1)));
+    म_लिखो("min=%d\n", min(1, min(2, -1)));
 
-    printf("s1=%s\n", glue(HIGH, LOW));
-    printf("s2=%s\n", xglue(HIGH, LOW));
-    printf("s3=%s\n", str("c"));
-    printf("s4=%s\n", str(a1));
-    printf("B3=%d\n", B3);
+    म_लिखो("s1=%s\n", glue(माथिल्लो_2, तल्लो_2));
+    म_लिखो("s2=%s\n", xglue(माथिल्लो_2, तल्लो_2));
+    म_लिखो("s3=%s\n", str("c"));
+    म_लिखो("s4=%s\n", str(a1));
+    म_लिखो("B3=%d\n", B3);
 
-    printf("onetwothree=%d\n", onetwothree);
-
-#ifdef A
-    printf("A defined\n");
-#endif
-#ifdef B
-    printf("B defined\n");
-#endif
-#ifdef A
-    printf("A defined\n");
-#else
-    printf("A not defined\n");
-#endif
-#ifdef B
-    printf("B defined\n");
-#else
-    printf("B not defined\n");
-#endif
+    म_लिखो("onetwothree=%d\n", onetwothree);
 
 #ifdef A
-    printf("A defined\n");
-#ifdef B
-    printf("B1 defined\n");
-#else
-    printf("B1 not defined\n");
+    म_लिखो("A defined\n");
 #endif
-#else
-    printf("A not defined\n");
 #ifdef B
-    printf("B2 defined\n");
-#else
-    printf("B2 not defined\n");
+    म_लिखो("B defined\n");
+#endif
+#ifdef A
+    म_लिखो("A defined\n");
+#अन्यथा
+    म_लिखो("A not defined\n");
+#endif
+#ifdef B
+    म_लिखो("B defined\n");
+#अन्यथा
+    म_लिखो("B not defined\n");
+#endif
+
+#ifdef A
+    म_लिखो("A defined\n");
+#ifdef B
+    म_लिखो("B1 defined\n");
+#अन्यथा
+    म_लिखो("B1 not defined\n");
+#endif
+#अन्यथा
+    म_लिखो("A not defined\n");
+#ifdef B
+    म_लिखो("B2 defined\n");
+#अन्यथा
+    म_लिखो("B2 not defined\n");
 #endif
 #endif
 
-#if 1+1
-    printf("test true1\n");
+#यदि 1+1
+    म_लिखो("test true1\n");
 #endif
-#if 0
-    printf("test true2\n");
+#यदि 0
+    म_लिखो("test true2\n");
 #endif
-#if 1-1
-    printf("test true3\n");
+#यदि 1-1
+    म_लिखो("test true3\n");
 #endif
-#if defined(A)
-    printf("test trueA\n");
+#यदि defined(A)
+    म_लिखो("test trueA\n");
 #endif
-#if defined(B)
-    printf("test trueB\n");
+#यदि defined(B)
+    म_लिखो("test trueB\n");
 #endif
 
-#if 0
-    printf("test 0\n");
-#elif 0
-    printf("test 1\n");
-#elif 2
-    printf("test 2\n");
-#else
-    printf("test 3\n");
+#यदि 0
+    म_लिखो("test 0\n");
+#अथवायदि 0
+    म_लिखो("test 1\n");
+#अथवायदि 2
+    म_लिखो("test 2\n");
+#अन्यथा
+    म_लिखो("test 3\n");
 #endif
 
     MACRO_NOARGS();
 
-    printf("%d\n", TEST_CALL(TEST_CONST));
+    म_लिखो("%d\n", TEST_CALL(TEST_CONST));
 
     /* not strictly preprocessor, but we test it there */
 #ifdef C99_MACROS
-    printf("__func__ = %s\n", __func__);
+    म_लिखो("__func__ = %s\n", __func__);
     dprintf(1, "vaarg=%d\n", 1);
 #endif
     dprintf1(1, "vaarg1\n");
@@ -237,36 +237,36 @@ void macro_test(void)
     dprintf1(1, "vaarg1=%d %d\n", 1, 2);
 
     /* gcc extension */
-    printf("func='%s'\n", __FUNCTION__);
+    म_लिखो("func='%s'\n", __FUNCTION__);
 
     /* complicated macros in glibc */
-    printf("INT64_MIN=" LONG_LONG_FORMAT "\n", INT64_MIN);
+    म_लिखो("INT64_MIN=" LONG_LONG_FORMAT "\n", INT64_MIN);
     {
-        int a;
+        पूर्णाङ्क a;
         a = 1;
         glue(a+, +);
-        printf("a=%d\n", a);
+        म_लिखो("a=%d\n", a);
         glue(a <, <= 2);
-        printf("a=%d\n", a);
+        म_लिखो("a=%d\n", a);
     }
     
     /* macro function with argument outside the macro string */
 #define MF_s MF_hello
-#define MF_hello(msg) printf("%s\n",msg)
+#define MF_hello(सन्देश) म_लिखो("%s\n",सन्देश)
 
-#define MF_t printf("tralala\n"); MF_hello
+#define MF_t म_लिखो("tralala\n"); MF_hello
 
     MF_s("hi");
     MF_t("hi");
     
     /* test macro substitution inside args (should not eat stream) */
-    printf("qq=%d\n", qq(qq)(2));
+    म_लिखो("qq=%d\n", qq(qq)(2));
 
     /* test zero argument case. NOTE: gcc 2.95.x does not accept a
        null argument without a space. gcc 3.2 fixes that. */
 
 #define qq1(x) 1
-    printf("qq1=%d\n", qq1( ));
+    म_लिखो("qq1=%d\n", qq1( ));
 
     /* comment with stray handling *\
 /
@@ -283,20 +283,20 @@ comment
        comment.  */
     TEST2 /* the comment */ ();
 
-    printf("basefromheader %s\n", get_basefile_from_header());
-    printf("base %s\n", __BASE_FILE__);
-#if !(defined _WIN32 && CC_NAME == CC_clang)
+    म_लिखो("basefromheader %s\n", get_basefile_from_header());
+    म_लिखो("base %s\n", __BASE_FILE__);
+#यदि !(defined _WIN32 && CC_NAME == CC_clang)
     {
       /* Some compilers (clang) prepend './' to __FILE__ from included
          files.  */
-      const char *fn = get_file_from_header();
-      if (fn[0] == '.' && fn[1] == '/')
+      अचर वर्ण *fn = get_file_from_header();
+      यदि (fn[0] == '.' && fn[1] == '/')
         fn += 2;
-      printf("filefromheader %s\n", fn);
+      म_लिखो("filefromheader %s\n", fn);
     }
 #endif
 
-    printf("file %s\n", __FILE__);
+    म_लिखो("file %s\n", __FILE__);
 
     /* Check that funnily named include was in fact included */
     have_included_42test_h = 1;
@@ -304,186 +304,186 @@ comment
     have_included_42test_h_third = 1;
 
     /* Check that we don't complain about stray \ here */
-    printf("print a backslash: %s\n", stringify(\\));
+    म_लिखो("print a backslash: %s\n", stringify(\\));
 }
 
 
-static void print_num(char *fn, int line, int num) {
-    printf("fn %s, line %d, num %d\n", fn, line, num);
+स्थिर शून्य print_अङ्क(वर्ण *fn, पूर्णाङ्क पङ्क्ति, पूर्णाङ्क अङ्क) {
+    म_लिखो("fn %s, line %d, num %d\n", fn, पङ्क्ति, अङ्क);
 }
 
-void recursive_macro_test(void)
+शून्य recursive_macro_test(शून्य)
 {
 
 #define ELF32_ST_TYPE(val)              ((val) & 0xf)
 #define ELF32_ST_INFO(bind, type)       (((bind) << 4) + ((type) & 0xf))
 #define STB_WEAK        2               /* Weak symbol */
 #define ELFW(type) ELF##32##_##type
-    printf("%d\n", ELFW(ST_INFO)(STB_WEAK, ELFW(ST_TYPE)(123)));
+    म_लिखो("%d\n", ELFW(ST_INFO)(STB_WEAK, ELFW(ST_TYPE)(123)));
 
 #define WRAP(x) x
     
-#define print_num(x) print_num(__FILE__,__LINE__,x)
-    print_num(123);
-    WRAP(print_num(123));
-    WRAP(WRAP(print_num(123)));
+#define print_अङ्क(x) print_अङ्क(__FILE__,__LINE__,x)
+    print_अङ्क(123);
+    WRAP(print_अङ्क(123));
+    WRAP(WRAP(print_अङ्क(123)));
 
-static struct recursive_macro { int rm_field; } G;
+स्थिर संरचना recursive_macro { पूर्णाङ्क rm_field; } G;
 #define rm_field (G.rm_field)
-    printf("rm_field = %d\n", rm_field);
-    printf("rm_field = %d\n", WRAP(rm_field));
-    WRAP((printf("rm_field = %d %d\n", rm_field, WRAP(rm_field))));
+    म_लिखो("rm_field = %d\n", rm_field);
+    म_लिखो("rm_field = %d\n", WRAP(rm_field));
+    WRAP((म_लिखो("rm_field = %d %d\n", rm_field, WRAP(rm_field))));
 }
 
-#if __TINYC__
-int op(a, b)
+#यदि __TINYC__
+पूर्णाङ्क op(a, b)
 {
-    return a / b;
+    फर्काऊ a / b;
 }
 
-int ret(a)
+पूर्णाङ्क ret(a)
 {
-    if (a == 2)
-        return 1;
-    if (a == 3)
-        return 2;
-    return 0;
+    यदि (a == 2)
+        फर्काऊ 1;
+    यदि (a == 3)
+        फर्काऊ 2;
+    फर्काऊ 0;
 }
 #endif
 
-#if !defined(__TINYC__) && (__GNUC__ >= 8)
+#यदि !defined(__TINYC__) && (__GNUC__ >= 8)
 /* Old GCCs don't regard "foo"[1] as constant, even in GNU dialect. */
 #define CONSTANTINDEXEDSTRLIT
 #endif
-char str_ag1[] = "b";
-char str_ag2[] = { "b" };
+वर्ण str_ag1[] = "b";
+वर्ण str_ag2[] = { "b" };
 /*char str_bg1[] = ("cccc"); GCC accepts this with pedantic warning, TCC not */
 #ifdef CONSTANTINDEXEDSTRLIT
-char str_ag3[] = { "ab"[1], 0 };
-char str_x[2] = { "xy" "z"[2], 0 };
+वर्ण str_ag3[] = { "ab"[1], 0 };
+वर्ण str_x[2] = { "xy" "z"[2], 0 };
 #endif
-char *str_ar[] = { "one", "two" };
-struct str_SS {unsigned char a[3], b; };
-struct str_SS str_sinit15 = { "r" };
-struct str_SS str_sinit16[] = { { "q" }, 2 };
+वर्ण *str_ar[] = { "one", "two" };
+संरचना str_SS {अचिन्हित वर्ण a[3], b; };
+संरचना str_SS str_sinit15 = { "r" };
+संरचना str_SS str_sinit16[] = { { "q" }, 2 };
 
-static void string_test2()
+स्थिर शून्य string_test2()
 {
-    char *p = "hello";
-    char a3[2] = { "p" };
-    char a4[2] = { "ab" "c"[2], 0 };
-    char *pa1 = "def" + 1;
-    char *pa2 = { "xyz" + 1 };
-    int i = 0;
-    struct str_SS ss = { { [0 ... 1] = 'a' }, 0 };
+    वर्ण *p = "hello";
+    वर्ण a3[2] = { "p" };
+    वर्ण a4[2] = { "ab" "c"[2], 0 };
+    वर्ण *pa1 = "def" + 1;
+    वर्ण *pa2 = { "xyz" + 1 };
+    पूर्णाङ्क i = 0;
+    संरचना str_SS ss = { { [0 ... 1] = 'a' }, 0 };
 #ifndef CONSTANTINDEXEDSTRLIT
-    char str_ag3[] = { "ab"[1], 0 };
-    char str_x[2] = { "xy" "z"[2], 0 };
+    वर्ण str_ag3[] = { "ab"[1], 0 };
+    वर्ण str_x[2] = { "xy" "z"[2], 0 };
 #endif
-    puts("string_test2");
-    puts(str_ag1);
-    puts(str_ag2);
+    माला_दो("string_test2");
+    माला_दो(str_ag1);
+    माला_दो(str_ag2);
     /*puts(str_bg1);*/
-    puts(str_ag3);
-    puts(str_x);
-    puts(str_sinit15.a);
-    puts(str_sinit16[0].a);
-    puts(a3);
-    puts(a4);
-    puts(p);
-    puts("world");
-    printf("%s\n", "bla");
-    puts(str_ar[0]);
-    puts(str_ar[1]);
-    puts(ss.a);
-    puts(i >= 0 ? "one" : "two");
-    puts(pa1);
-    puts(pa2);
+    माला_दो(str_ag3);
+    माला_दो(str_x);
+    माला_दो(str_sinit15.a);
+    माला_दो(str_sinit16[0].a);
+    माला_दो(a3);
+    माला_दो(a4);
+    माला_दो(p);
+    माला_दो("world");
+    म_लिखो("%s\n", "bla");
+    माला_दो(str_ar[0]);
+    माला_दो(str_ar[1]);
+    माला_दो(ss.a);
+    माला_दो(i >= 0 ? "one" : "two");
+    माला_दो(pa1);
+    माला_दो(pa2);
 }
 
-void ps(const char *s)
+शून्य ps(अचर वर्ण *s)
 {
-    int c;
-    while (1) {
+    पूर्णाङ्क c;
+    जबसम्म (1) {
         c = *s;
-        if (c == 0)
-            break;
-        printf("%c", c);
+        यदि (c == 0)
+            रोक;
+        म_लिखो("%c", c);
         s++;
     }
 }
 
-const char foo1_string[] = "\
+अचर वर्ण foo1_string[] = "\
 bar\n\
 test\14\
 1";
 
-void string_test()
+शून्य string_test()
 {
-    unsigned int b;
-    printf("string:\n");
-    printf("\141\1423\143\n");/* dezdez test */
-    printf("\x41\x42\x43\x3a\n");
-    printf("c=%c\n", 'r');
-    printf("wc=%C 0x%lx %C\n", L'a', L'\x1234', L'c');
-    printf("foo1_string='%s'\n", foo1_string);
-#if 0
-    printf("wstring=%S\n", L"abc");
-    printf("wstring=%S\n", L"abc" L"def" "ghi");
-    printf("'\\377'=%d '\\xff'=%d\n", '\377', '\xff');
-    printf("L'\\377'=%d L'\\xff'=%d\n", L'\377', L'\xff');
+    अचिन्हित पूर्णाङ्क b;
+    म_लिखो("string:\n");
+    म_लिखो("\141\1423\143\n");/* dezdez test */
+    म_लिखो("\x41\x42\x43\x3a\n");
+    म_लिखो("c=%c\n", 'r');
+    म_लिखो("wc=%C 0x%lx %C\n", L'a', L'\x1234', L'c');
+    म_लिखो("foo1_string='%s'\n", foo1_string);
+#यदि 0
+    म_लिखो("wstring=%S\n", L"abc");
+    म_लिखो("wstring=%S\n", L"abc" L"def" "ghi");
+    म_लिखो("'\\377'=%d '\\xff'=%d\n", '\377', '\xff');
+    म_लिखो("L'\\377'=%d L'\\xff'=%d\n", L'\377', L'\xff');
 #endif
     ps("test\n");
     b = 32;
-    while ((b = b + 1) < 96) {
-        printf("%c", b);
+    जबसम्म ((b = b + 1) < 96) {
+        म_लिखो("%c", b);
     }
-    printf("\n");
-    printf("fib=%d\n", fib(33));
+    म_लिखो("\n");
+    म_लिखो("fib=%d\n", fib(33));
     b = 262144;
-    while (b != 0x80000000) {
-        num(b);
+    जबसम्म (b != 0x80000000) {
+        अङ्क(b);
         b = b * 2;
     }
     string_test2();
 }
 
 
-void if1t(int n, int a, int b, int c)
+शून्य if1t(पूर्णाङ्क n, पूर्णाङ्क a, पूर्णाङ्क b, पूर्णाङ्क c)
 {
-    if (a && b) printf("if1t: %d 1 %d %d\n", n, a, b);
-    if (a && !b) printf("if1t: %d 2 %d %d\n", n, a, b);
-    if (!a && b) printf("if1t: %d 3 %d %d\n", n, a, b);
-    if (!a && !b) printf("if1t: %d 4 %d %d\n", n, a, b);
-    if (a || b) printf("if1t: %d 5 %d %d\n", n, a, b);
-    if (a || !b) printf("if1t: %d 6 %d %d\n", n, a, b);
-    if (!a || b) printf("if1t: %d 7 %d %d\n", n, a, b);
-    if (!a || !b) printf("if1t: %d 8 %d %d\n", n, a, b);
-    if (a && b || c) printf("if1t: %d 9 %d %d %d\n", n, a, b, c);
-    if (a || b && c) printf("if1t: %d 10 %d %d %d\n", n, a, b, c);
-    if (a > b - 1 && c) printf("if1t: %d 11 %d %d %d\n", n, a, b, c);
-    if (a > b - 1 || c) printf("if1t: %d 12 %d %d %d\n", n, a, b, c);
-    if (a > 0 && 1) printf("if1t: %d 13 %d %d %d\n", n, a, b, c);
-    if (a > 0 || 0) printf("if1t: %d 14 %d %d %d\n", n, a, b, c);
+    यदि (a && b) म_लिखो("if1t: %d 1 %d %d\n", n, a, b);
+    यदि (a && !b) म_लिखो("if1t: %d 2 %d %d\n", n, a, b);
+    यदि (!a && b) म_लिखो("if1t: %d 3 %d %d\n", n, a, b);
+    यदि (!a && !b) म_लिखो("if1t: %d 4 %d %d\n", n, a, b);
+    यदि (a || b) म_लिखो("if1t: %d 5 %d %d\n", n, a, b);
+    यदि (a || !b) म_लिखो("if1t: %d 6 %d %d\n", n, a, b);
+    यदि (!a || b) म_लिखो("if1t: %d 7 %d %d\n", n, a, b);
+    यदि (!a || !b) म_लिखो("if1t: %d 8 %d %d\n", n, a, b);
+    यदि (a && b || c) म_लिखो("if1t: %d 9 %d %d %d\n", n, a, b, c);
+    यदि (a || b && c) म_लिखो("if1t: %d 10 %d %d %d\n", n, a, b, c);
+    यदि (a > b - 1 && c) म_लिखो("if1t: %d 11 %d %d %d\n", n, a, b, c);
+    यदि (a > b - 1 || c) म_लिखो("if1t: %d 12 %d %d %d\n", n, a, b, c);
+    यदि (a > 0 && 1) म_लिखो("if1t: %d 13 %d %d %d\n", n, a, b, c);
+    यदि (a > 0 || 0) म_लिखो("if1t: %d 14 %d %d %d\n", n, a, b, c);
 }
 
-void if2t(void)
+शून्य if2t(शून्य)
 {
-    if (0 && 1 || printf("if2t:ok\n") || 1)
-      printf("if2t:ok2\n");
-    printf("if2t:ok3\n");
+    यदि (0 && 1 || म_लिखो("if2t:ok\n") || 1)
+      म_लिखो("if2t:ok2\n");
+    म_लिखो("if2t:ok3\n");
 }
 
-void if3t(void)
+शून्य if3t(शून्य)
 {
-    volatile long long i = 1;
-    if (i <= 18446744073709551615ULL)
+    चञ्चल दीर्घ दीर्घ i = 1;
+    यदि (i <= 18446744073709551615ULL)
       ;
-    else
-      printf ("if3t:wrong 1\n");
+    अन्यथा
+      म_लिखो ("if3t:wrong 1\n");
 }
 
-void if_test(void)
+शून्य if_test(शून्य)
 {
     if1t(1, 0, 0, 0);
     if1t(2, 0, 3, 0);
@@ -493,103 +493,103 @@ void if_test(void)
     if3t();
 }
 
-void loop_test()
+शून्य loop_test()
 {
-    int i;
+    पूर्णाङ्क i;
     i = 0;
-    while (i < 10)
-        printf("%d", i++);
-    printf("\n");
-    for(i = 0; i < 10;i++)
-        printf("%d", i);
-    printf("\n");
+    जबसम्म (i < 10)
+        म_लिखो("%d", i++);
+    म_लिखो("\n");
+    लागि(i = 0; i < 10;i++)
+        म_लिखो("%d", i);
+    म_लिखो("\n");
     i = 0;
-    do {
-        printf("%d", i++);
-    } while (i < 10);
-    printf("\n");
+    गर {
+        म_लिखो("%d", i++);
+    } जबसम्म (i < 10);
+    म_लिखो("\n");
 
-    char count = 123;
+    वर्ण गन्ती_2 = 123;
     /* c99 for loop init test */
-    for (size_t count = 1; count < 3; count++)
-        printf("count=%d\n", count);
-    printf("count = %d\n", count);
+    लागि (माप_प्रकार गन्ती_2 = 1; गन्ती_2 < 3; गन्ती_2++)
+        म_लिखो("count=%d\n", गन्ती_2);
+    म_लिखो("count = %d\n", गन्ती_2);
 
     /* break/continue tests */
     i = 0;
-    while (1) {
-        if (i == 6)
-            break;
+    जबसम्म (1) {
+        यदि (i == 6)
+            रोक;
         i++;
-        if (i == 3)
-            continue;
-        printf("%d", i);
+        यदि (i == 3)
+            जारी;
+        म_लिखो("%d", i);
     }
-    printf("\n");
+    म_लिखो("\n");
 
     /* break/continue tests */
     i = 0;
-    do {
-        if (i == 6)
-            break;
+    गर {
+        यदि (i == 6)
+            रोक;
         i++;
-        if (i == 3)
-            continue;
-        printf("%d", i);
-    } while(1);
-    printf("\n");
+        यदि (i == 3)
+            जारी;
+        म_लिखो("%d", i);
+    } जबसम्म(1);
+    म_लिखो("\n");
 
-    for(i = 0;i < 10;i++) {
-        if (i == 3)
-            continue;
-        printf("%d", i);
+    लागि(i = 0;i < 10;i++) {
+        यदि (i == 3)
+            जारी;
+        म_लिखो("%d", i);
     }
-    printf("\n");
+    म_लिखो("\n");
 }
 
-typedef int typedef_and_label;
+प्रकारनिर्देश पूर्णाङ्क typedef_and_label;
 
-void goto_test()
+शून्य goto_test()
 {
-    int i;
-    static void *label_table[3] = { &&label1, &&label2, &&label3 };
-    struct {
-        int bla;
+    पूर्णाङ्क i;
+    स्थिर शून्य *label_table[3] = { &&label1, &&label2, &&label3 };
+    संरचना {
+        पूर्णाङ्क bla;
         /* This needs to parse as typedef, not as label.  */
         typedef_and_label : 32;
     } y = {1};
 
-    printf("\ngoto:\n");
+    म_लिखो("\ngoto:\n");
     i = 0;
     /* This is a normal decl.  */
     typedef_and_label x;
     /* This needs to parse as label, not as start of decl.  */
  typedef_and_label:
  s_loop:
-    if (i >= 10) 
-        goto s_end;
-    printf("%d", i);
+    यदि (i >= 10) 
+        गच्छ s_end;
+    म_लिखो("%d", i);
     i++;
-    goto s_loop;
+    गच्छ s_loop;
  s_end:
-    printf("\n");
+    म_लिखो("\n");
 
     /* we also test computed gotos (GCC extension) */
-    for(i=0;i<3;i++) {
-        goto *label_table[i];
+    लागि(i=0;i<3;i++) {
+        गच्छ *label_table[i];
     label1:
-        printf("label1\n");
-        goto next;
+        म_लिखो("label1\n");
+        गच्छ next;
     label2:
-        printf("label2\n");
-        goto next;
+        म_लिखो("label2\n");
+        गच्छ next;
     label3:
-        printf("label3\n");
+        म_लिखो("label3\n");
     next: ;
     }
 }
 
-enum {
+गणना {
     E0,
     E1 = 2,
     E2 = 4,
@@ -597,936 +597,936 @@ enum {
     E4,
 };
 
-enum test {
+गणना test {
     E5 = 1000,
 };
 
-struct S_enum {
-    enum {E6 = 42, E7, E8} e:8;
+संरचना S_enum {
+    गणना {E6 = 42, E7, E8} e:8;
 };
 
-enum ELong {
+गणना ELong {
     /* This is either 0 on L32 machines, or a large number
        on L64 machines.  We should be able to store this.  */
-    EL_large = ((unsigned long)0xf000 << 31) << 1,
+    EL_large = ((अचिन्हित दीर्घ)0xf000 << 31) << 1,
 };
 
-enum { BIASU = -1U<<31 };
-enum { BIASS = -1 << 31 };
+गणना { BIASU = -1U<<31 };
+गणना { BIASS = -1 << 31 };
 
-static int getint(int i)
+स्थिर पूर्णाङ्क getint(पूर्णाङ्क i)
 {
-  if (i)
-    return 0;
-  else
-    return (int)(-1U << 31);
+  यदि (i)
+    फर्काऊ 0;
+  अन्यथा
+    फर्काऊ (पूर्णाङ्क)(-1U << 31);
 }
 
-void enum_test()
+शून्य enum_test()
 {
-    enum test b1;
+    गणना test b1;
     /* The following should give no warning */
-    unsigned *p = &b1;
-    struct S_enum s = {E7};
-    printf("%d %d %d %d %d %d %d\n", s.e,
+    अचिन्हित *p = &b1;
+    संरचना S_enum s = {E7};
+    म_लिखो("%d %d %d %d %d %d %d\n", s.e,
            E0, E1, E2, E3, E4, E5);
     b1 = 1;
-    printf("b1=%d\n", b1);
-    printf("enum large: %ld\n", EL_large);
+    म_लिखो("b1=%d\n", b1);
+    म_लिखो("enum large: %ld\n", EL_large);
 
-    if (getint(0) == BIASU)
-      printf("enum unsigned: ok\n");
-    else
-      printf("enum unsigned: wrong\n");
-    if (getint(0) == BIASS)
-      printf("enum unsigned: ok\n");
-    else
-      printf("enum unsigned: wrong\n");
+    यदि (getint(0) == BIASU)
+      म_लिखो("enum unsigned: ok\n");
+    अन्यथा
+      म_लिखो("enum unsigned: wrong\n");
+    यदि (getint(0) == BIASS)
+      म_लिखो("enum unsigned: ok\n");
+    अन्यथा
+      म_लिखो("enum unsigned: wrong\n");
 }
 
-typedef int *my_ptr;
+प्रकारनिर्देश पूर्णाङ्क *my_ptr;
 
-typedef int mytype1;
-typedef int mytype2;
+प्रकारनिर्देश पूर्णाङ्क mytype1;
+प्रकारनिर्देश पूर्णाङ्क mytype2;
 
-void typedef_test()
+शून्य typedef_test()
 {
     my_ptr a;
     mytype1 mytype2;
-    int b;
+    पूर्णाङ्क b;
 
     a = &b;
     *a = 1234;
-    printf("a=%d\n", *a);
+    म_लिखो("a=%d\n", *a);
     mytype2 = 2;
-    printf("mytype2=%d\n", mytype2);
+    म_लिखो("mytype2=%d\n", mytype2);
 }
 
-void forward_test()
+शून्य forward_test()
 {
     forward_ref();
     forward_ref();
 }
 
 
-void forward_ref(void)
+शून्य forward_ref(शून्य)
 {
-    printf("forward ok\n");
+    म_लिखो("forward ok\n");
 }
 
-typedef struct struct1 {
-    int f1;
-    int f2, f3;
-    union union1 {
-        int v1;
-        int v2;
+प्रकारनिर्देश संरचना struct1 {
+    पूर्णाङ्क f1;
+    पूर्णाङ्क f2, f3;
+    सङ्घ union1 {
+        पूर्णाङ्क v1;
+        पूर्णाङ्क v2;
     } u;
-    char str[3];
+    वर्ण str[3];
 } struct1;
 
-struct struct2 {
-    int a;
-    char b;
+संरचना struct2 {
+    पूर्णाङ्क a;
+    वर्ण b;
 };
 
-union union2 {
-    int w1;
-    int w2;
+सङ्घ union2 {
+    पूर्णाङ्क w1;
+    पूर्णाङ्क w2;
 };
 
-struct struct1 st1, st2;
+संरचना struct1 st1, st2;
 
-struct empty_mem {
+संरचना empty_mem {
     /* nothing */ ;
-    int x;
+    पूर्णाङ्क x;
 };
 
-int tab[3];
-int tab2[3][2];
+पूर्णाङ्क tab[3];
+पूर्णाङ्क tab2[3][2];
 
-int g;
+पूर्णाङ्क g;
 
-void f1(int g)
+शून्य f1(पूर्णाङ्क g)
 {
-    printf("g1=%d\n", g);
+    म_लिखो("g1=%d\n", g);
 }
 
-void scope_test()
+शून्य scope_test()
 {
     g = 2;
     f1(1);
-    printf("g2=%d\n", g);
+    म_लिखो("g2=%d\n", g);
     {
-        int g;
+        पूर्णाङ्क g;
         g = 3;
-        printf("g3=%d\n", g);
+        म_लिखो("g3=%d\n", g);
         {
-            int g;
+            पूर्णाङ्क g;
             g = 4;
-            printf("g4=%d\n", g);
+            म_लिखो("g4=%d\n", g);
         }
     }
-    printf("g5=%d\n", g);
+    म_लिखो("g5=%d\n", g);
 }
 
-int st2_i;
-int *st2_p = &st2_i;
-void scope2_test()
+पूर्णाङ्क st2_i;
+पूर्णाङ्क *st2_p = &st2_i;
+शून्य scope2_test()
 {
-    char a[50];
+    वर्ण a[50];
     st2_i = 42;
-    for (int st2_i = 1; st2_i < 10; st2_i++) {
-        extern int st2_i;
+    लागि (पूर्णाङ्क st2_i = 1; st2_i < 10; st2_i++) {
+        बाह्य पूर्णाङ्क st2_i;
         st2_i++;
-        printf("exloc: %d\n", st2_i);
+        म_लिखो("exloc: %d\n", st2_i);
     }
-    printf("exloc: %d\n", *st2_p);
+    म_लिखो("exloc: %d\n", *st2_p);
 }
 
 /* C has tentative definition, and they may be repeated.  */
-extern int st_global1;
-int st_global1=42;
-extern int st_global1;
-int st_global1;
-extern int st_global2;
-int st_global2;
-extern int st_global2;
-int st_global2;
+बाह्य पूर्णाङ्क st_global1;
+पूर्णाङ्क st_global1=42;
+बाह्य पूर्णाङ्क st_global1;
+पूर्णाङ्क st_global1;
+बाह्य पूर्णाङ्क st_global2;
+पूर्णाङ्क st_global2;
+बाह्य पूर्णाङ्क st_global2;
+पूर्णाङ्क st_global2;
 
-void array_test()
+शून्य array_test()
 {
-    int i, j, a[4];
+    पूर्णाङ्क i, j, a[4];
 
-    printf("sizeof(a) = %d\n", sizeof(a));
-    printf("sizeof(\"a\") = %d\n", sizeof("a"));
+    म_लिखो("sizeof(a) = %d\n", परिमाण(a));
+    म_लिखो("sizeof(\"a\") = %d\n", परिमाण("a"));
 #ifdef C99_MACROS
-    printf("sizeof(__func__) = %d\n", sizeof(__func__));
+    म_लिखो("sizeof(__func__) = %d\n", परिमाण(__func__));
 #endif
-    printf("sizeof tab %d\n", sizeof(tab));
-    printf("sizeof tab2 %d\n", sizeof tab2);
+    म_लिखो("sizeof tab %d\n", परिमाण(tab));
+    म_लिखो("sizeof tab2 %d\n", परिमाण tab2);
     tab[0] = 1;
     tab[1] = 2;
     tab[2] = 3;
-    printf("%d %d %d\n", tab[0], tab[1], tab[2]);
-    for(i=0;i<3;i++)
-        for(j=0;j<2;j++)
+    म_लिखो("%d %d %d\n", tab[0], tab[1], tab[2]);
+    लागि(i=0;i<3;i++)
+        लागि(j=0;j<2;j++)
             tab2[i][j] = 10 * i + j;
-    for(i=0;i<3*2;i++) {
-        printf(" %3d", ((int *)tab2)[i]);
+    लागि(i=0;i<3*2;i++) {
+        म_लिखो(" %3d", ((पूर्णाङ्क *)tab2)[i]);
     }
-    printf("\n");
-    printf("sizeof(size_t)=%d\n", sizeof(size_t));
-    printf("sizeof(ptrdiff_t)=%d\n", sizeof(ptrdiff_t));
+    म_लिखो("\n");
+    म_लिखो("sizeof(size_t)=%d\n", परिमाण(माप_प्रकार));
+    म_लिखो("sizeof(ptrdiff_t)=%d\n", परिमाण(सूचक_भेद_प्रकार));
 }
 
-void expr_test()
+शून्य अभिव्यक्ति_test()
 {
-    int a, b;
+    पूर्णाङ्क a, b;
     a = 0;
-    printf("%d\n", a += 1);
-    printf("%d\n", a -= 2);
-    printf("%d\n", a *= 31232132);
-    printf("%d\n", a /= 4);
-    printf("%d\n", a %= 20);
-    printf("%d\n", a &= 6);
-    printf("%d\n", a ^= 7);
-    printf("%d\n", a |= 8);
-    printf("%d\n", a >>= 3);
-    printf("%d\n", a <<= 4);
+    म_लिखो("%d\n", a += 1);
+    म_लिखो("%d\n", a -= 2);
+    म_लिखो("%d\n", a *= 31232132);
+    म_लिखो("%d\n", a /= 4);
+    म_लिखो("%d\n", a %= 20);
+    म_लिखो("%d\n", a &= 6);
+    म_लिखो("%d\n", a ^= 7);
+    म_लिखो("%d\n", a |= 8);
+    म_लिखो("%d\n", a >>= 3);
+    म_लिखो("%d\n", a <<= 4);
 
     a = 22321;
     b = -22321;
-    printf("%d\n", a + 1);
-    printf("%d\n", a - 2);
-    printf("%d\n", a * 312);
-    printf("%d\n", a / 4);
-    printf("%d\n", b / 4);
-    printf("%d\n", (unsigned)b / 4);
-    printf("%d\n", a % 20);
-    printf("%d\n", b % 20);
-    printf("%d\n", (unsigned)b % 20);
-    printf("%d\n", a & 6);
-    printf("%d\n", a ^ 7);
-    printf("%d\n", a | 8);
-    printf("%d\n", a >> 3);
-    printf("%d\n", b >> 3);
-    printf("%d\n", (unsigned)b >> 3);
-    printf("%d\n", a << 4);
-    printf("%d\n", ~a);
-    printf("%d\n", -a);
-    printf("%d\n", +a);
+    म_लिखो("%d\n", a + 1);
+    म_लिखो("%d\n", a - 2);
+    म_लिखो("%d\n", a * 312);
+    म_लिखो("%d\n", a / 4);
+    म_लिखो("%d\n", b / 4);
+    म_लिखो("%d\n", (अचिन्हित)b / 4);
+    म_लिखो("%d\n", a % 20);
+    म_लिखो("%d\n", b % 20);
+    म_लिखो("%d\n", (अचिन्हित)b % 20);
+    म_लिखो("%d\n", a & 6);
+    म_लिखो("%d\n", a ^ 7);
+    म_लिखो("%d\n", a | 8);
+    म_लिखो("%d\n", a >> 3);
+    म_लिखो("%d\n", b >> 3);
+    म_लिखो("%d\n", (अचिन्हित)b >> 3);
+    म_लिखो("%d\n", a << 4);
+    म_लिखो("%d\n", ~a);
+    म_लिखो("%d\n", -a);
+    म_लिखो("%d\n", +a);
 
-    printf("%d\n", 12 + 1);
-    printf("%d\n", 12 - 2);
-    printf("%d\n", 12 * 312);
-    printf("%d\n", 12 / 4);
-    printf("%d\n", 12 % 20);
-    printf("%d\n", 12 & 6);
-    printf("%d\n", 12 ^ 7);
-    printf("%d\n", 12 | 8);
-    printf("%d\n", 12 >> 2);
-    printf("%d\n", 12 << 4);
-    printf("%d\n", ~12);
-    printf("%d\n", -12);
-    printf("%d\n", +12);
-    printf("%d %d %d %d\n", 
+    म_लिखो("%d\n", 12 + 1);
+    म_लिखो("%d\n", 12 - 2);
+    म_लिखो("%d\n", 12 * 312);
+    म_लिखो("%d\n", 12 / 4);
+    म_लिखो("%d\n", 12 % 20);
+    म_लिखो("%d\n", 12 & 6);
+    म_लिखो("%d\n", 12 ^ 7);
+    म_लिखो("%d\n", 12 | 8);
+    म_लिखो("%d\n", 12 >> 2);
+    म_लिखो("%d\n", 12 << 4);
+    म_लिखो("%d\n", ~12);
+    म_लिखो("%d\n", -12);
+    म_लिखो("%d\n", +12);
+    म_लिखो("%d %d %d %d\n", 
            isid('a'), 
            isid('g'), 
            isid('T'), 
            isid('('));
 }
 
-int isid(int c)
+पूर्णाङ्क isid(पूर्णाङ्क c)
 {
-    return (c >= 'a' & c <= 'z') | (c >= 'A' & c <= 'Z') | c == '_';
+    फर्काऊ (c >= 'a' & c <= 'z') | (c >= 'A' & c <= 'Z') | c == '_';
 }
 
 /**********************/
 
-int vstack[10], *vstack_ptr;
+पूर्णाङ्क vstack[10], *vstack_ptr;
 
-void vpush(int vt, int vc)
+शून्य vpush(पूर्णाङ्क vt, पूर्णाङ्क vc)
 {
     *vstack_ptr++ = vt;
     *vstack_ptr++ = vc;
 }
 
-void vpop(int *ft, int *fc)
+शून्य vpop(पूर्णाङ्क *ft, पूर्णाङ्क *fc)
 {
     *fc = *--vstack_ptr;
     *ft = *--vstack_ptr;
 }
 
-void expr2_test()
+शून्य expr2_test()
 {
-    int a, b;
+    पूर्णाङ्क a, b;
 
     vstack_ptr = vstack;
     vpush(1432432, 2);
     vstack_ptr[-2] &= ~0xffffff80;
     vpop(&a, &b);
-    printf("res= %d %d\n", a, b);
+    म_लिखो("res= %d %d\n", a, b);
 }
 
-int const_len_ar[sizeof(1/0)]; /* div-by-zero, but in unevaluated context */
+पूर्णाङ्क const_len_ar[परिमाण(1/0)]; /* div-by-zero, but in unevaluated context */
 
-void constant_expr_test()
+शून्य constant_अभिव्यक्ति_test()
 {
-    int a;
+    पूर्णाङ्क a;
     a = 3;
-    printf("%d\n", a * 16);
-    printf("%d\n", a * 1);
-    printf("%d\n", a + 0);
-    printf("%d\n", sizeof(const_len_ar));
+    म_लिखो("%d\n", a * 16);
+    म_लिखो("%d\n", a * 1);
+    म_लिखो("%d\n", a + 0);
+    म_लिखो("%d\n", परिमाण(const_len_ar));
 }
 
-int tab4[10];
+पूर्णाङ्क tab4[10];
 
-void expr_ptr_test()
+शून्य अभिव्यक्ति_ptr_test()
 {
-    int arr[10], *p, *q;
-    int i = -1;
+    पूर्णाङ्क arr[10], *p, *q;
+    पूर्णाङ्क i = -1;
 
     p = tab4;
     q = tab4 + 10;
-    printf("diff=%d\n", q - p);
+    म_लिखो("diff=%d\n", q - p);
     p++;
-    printf("inc=%d\n", p - tab4);
+    म_लिखो("inc=%d\n", p - tab4);
     p--;
-    printf("dec=%d\n", p - tab4);
+    म_लिखो("dec=%d\n", p - tab4);
     ++p;
-    printf("inc=%d\n", p - tab4);
+    म_लिखो("inc=%d\n", p - tab4);
     --p;
-    printf("dec=%d\n", p - tab4);
-    printf("add=%d\n", p + 3 - tab4);
-    printf("add=%d\n", 3 + p - tab4);
+    म_लिखो("dec=%d\n", p - tab4);
+    म_लिखो("add=%d\n", p + 3 - tab4);
+    म_लिखो("add=%d\n", 3 + p - tab4);
 
     /* check if 64bit support is ok */
     q = p = 0;
     q += i;
-    printf("%p %p %ld\n", q, p, p-q);
-    printf("%d %d %d %d %d %d\n",
+    म_लिखो("%p %p %ld\n", q, p, p-q);
+    म_लिखो("%d %d %d %d %d %d\n",
            p == q, p != q, p < q, p <= q, p >= q, p > q);
     i = 0xf0000000;
     p += i;
-    printf("%p %p %ld\n", q, p, p-q);
-    printf("%d %d %d %d %d %d\n",
+    म_लिखो("%p %p %ld\n", q, p, p-q);
+    म_लिखो("%d %d %d %d %d %d\n",
            p == q, p != q, p < q, p <= q, p >= q, p > q);
-    p = (int *)((char *)p + 0xf0000000);
-    printf("%p %p %ld\n", q, p, p-q);
-    printf("%d %d %d %d %d %d\n",
+    p = (पूर्णाङ्क *)((वर्ण *)p + 0xf0000000);
+    म_लिखो("%p %p %ld\n", q, p, p-q);
+    म_लिखो("%d %d %d %d %d %d\n",
            p == q, p != q, p < q, p <= q, p >= q, p > q);
     p += 0xf0000000;
-    printf("%p %p %ld\n", q, p, p-q);
-    printf("%d %d %d %d %d %d\n",
+    म_लिखो("%p %p %ld\n", q, p, p-q);
+    म_लिखो("%d %d %d %d %d %d\n",
            p == q, p != q, p < q, p <= q, p >= q, p > q);
     {
-        struct size12 {
-            int i, j, k;
+        संरचना size12 {
+            पूर्णाङ्क i, j, k;
         };
-        struct size12 s[2], *sp = s;
-        int i, j;
+        संरचना size12 s[2], *sp = s;
+        पूर्णाङ्क i, j;
         sp->i = 42;
         sp++;
         j = -1;
-        printf("%d\n", sp[j].i);
+        म_लिखो("%d\n", sp[j].i);
     }
 #ifdef __LP64__
     i = 1;
-    p = (int*)0x100000000UL + i;
-    i = ((long)p) >> 32;
-    printf("largeptr: %p %d\n", p, i);
+    p = (पूर्णाङ्क*)0x100000000UL + i;
+    i = ((दीर्घ)p) >> 32;
+    म_लिखो("largeptr: %p %d\n", p, i);
 #endif
     p = &arr[0];
     q = p + 3;
-    printf ("%d\n", (int)((p - q) / 3));
+    म_लिखो ("%d\n", (पूर्णाङ्क)((p - q) / 3));
 }
 
-void expr_cmp_test()
+शून्य अभिव्यक्ति_cmp_test()
 {
-    int a, b;
+    पूर्णाङ्क a, b;
     a = -1;
     b = 1;
-    printf("%d\n", a == a);
-    printf("%d\n", a != a);
+    म_लिखो("%d\n", a == a);
+    म_लिखो("%d\n", a != a);
 
-    printf("%d\n", a < b);
-    printf("%d\n", a <= b);
-    printf("%d\n", a <= a);
-    printf("%d\n", b >= a);
-    printf("%d\n", a >= a);
-    printf("%d\n", b > a);
+    म_लिखो("%d\n", a < b);
+    म_लिखो("%d\n", a <= b);
+    म_लिखो("%d\n", a <= a);
+    म_लिखो("%d\n", b >= a);
+    म_लिखो("%d\n", a >= a);
+    म_लिखो("%d\n", b > a);
 
-    printf("%d\n", (unsigned)a < b);
-    printf("%d\n", (unsigned)a <= b);
-    printf("%d\n", (unsigned)a <= a);
-    printf("%d\n", (unsigned)b >= a);
-    printf("%d\n", (unsigned)a >= a);
-    printf("%d\n", (unsigned)b > a);
+    म_लिखो("%d\n", (अचिन्हित)a < b);
+    म_लिखो("%d\n", (अचिन्हित)a <= b);
+    म_लिखो("%d\n", (अचिन्हित)a <= a);
+    म_लिखो("%d\n", (अचिन्हित)b >= a);
+    म_लिखो("%d\n", (अचिन्हित)a >= a);
+    म_लिखो("%d\n", (अचिन्हित)b > a);
 }
 
-struct empty {
+संरचना empty {
 };
 
-struct aligntest1 {
-    char a[10];
+संरचना aligntest1 {
+    वर्ण a[10];
 };
 
-struct aligntest2 {
-    int a;
-    char b[10];
+संरचना aligntest2 {
+    पूर्णाङ्क a;
+    वर्ण b[10];
 };
 
-struct aligntest3 {
-    double a, b;
+संरचना aligntest3 {
+    द्विगुण a, b;
 };
 
-struct aligntest4 {
-    double a[0];
+संरचना aligntest4 {
+    द्विगुण a[0];
 };
 
-struct __attribute__((aligned(16))) aligntest5
+संरचना __attribute__((aligned(16))) aligntest5
 {
-    int i;
+    पूर्णाङ्क i;
 };
-struct aligntest6
+संरचना aligntest6
 {
-    int i;
+    पूर्णाङ्क i;
 } __attribute__((aligned(16)));
-struct aligntest7
+संरचना aligntest7
 {
-    int i;
+    पूर्णाङ्क i;
 };
-struct aligntest5 altest5[2];
-struct aligntest6 altest6[2];
-int pad1;
+संरचना aligntest5 altest5[2];
+संरचना aligntest6 altest6[2];
+पूर्णाङ्क pad1;
 /* altest7 is correctly aligned to 16 bytes also with TCC,
    but __alignof__ returns the wrong result (4) because we
    can't store the alignment yet when specified on symbols
    directly (it's stored in the type so we'd need to make
    a copy of it). -- FIXED */
-struct aligntest7 altest7[2] __attribute__((aligned(16)));
+संरचना aligntest7 altest7[2] __attribute__((aligned(16)));
 
-struct aligntest8
+संरचना aligntest8
 {
-  int i;
+  पूर्णाङ्क i;
 } __attribute__((aligned(4096)));
 
-struct Large {
-    unsigned long flags;
-    union {
-	void *u1;
-	int *u2;
+संरचना Large {
+    अचिन्हित दीर्घ flags;
+    सङ्घ {
+	शून्य *u1;
+	पूर्णाङ्क *u2;
     };
 
-    struct {
-	union {
-	    unsigned long index;
-	    void *freelist;
+    संरचना {
+	सङ्घ {
+	    अचिन्हित दीर्घ index;
+	    शून्य *freelist;
 	};
-	union {
-	    unsigned long counters;
-	    struct {
-		int bla;
+	सङ्घ {
+	    अचिन्हित दीर्घ counters;
+	    संरचना {
+		पूर्णाङ्क bla;
 	    };
 	};
     };
 
-    union {
-	struct {
-	    long u3;
-	    long u4;
+    सङ्घ {
+	संरचना {
+	    दीर्घ u3;
+	    दीर्घ u4;
 	};
-	void *u5;
-	struct {
-	    unsigned long compound_head;
-	    unsigned int compound_dtor;
-	    unsigned int compound_order;
+	शून्य *u5;
+	संरचना {
+	    अचिन्हित दीर्घ compound_head;
+	    अचिन्हित पूर्णाङ्क compound_dtor;
+	    अचिन्हित पूर्णाङ्क compound_order;
 	};
     };
-} __attribute__((aligned(2 * sizeof(long))));
+} __attribute__((aligned(2 * परिमाण(दीर्घ))));
 
-typedef unsigned long long __attribute__((aligned(4))) unaligned_u64;
+प्रकारनिर्देश अचिन्हित दीर्घ दीर्घ __attribute__((aligned(4))) unaligned_u64;
 
-struct aligntest9 {
-    unsigned int buf_nr;
+संरचना aligntest9 {
+    अचिन्हित पूर्णाङ्क buf_nr;
     unaligned_u64 start_lba;
 };
 
-struct aligntest10 {
-    unsigned int buf_nr;
-    unsigned long long start_lba;
+संरचना aligntest10 {
+    अचिन्हित पूर्णाङ्क buf_nr;
+    अचिन्हित दीर्घ दीर्घ start_lba;
 };
 
-void struct_test()
+शून्य struct_test()
 {
     struct1 *s;
-    union union2 u;
-    struct Large ls;
+    सङ्घ union2 u;
+    संरचना Large ls;
 
-    printf("sizes: %d %d %d %d\n",
-           sizeof(struct struct1),
-           sizeof(struct struct2),
-           sizeof(union union1),
-           sizeof(union union2));
-    printf("offsets: %d\n", (int)((char*)&st1.u.v1 - (char*)&st1));
+    म_लिखो("sizes: %d %d %d %d\n",
+           परिमाण(संरचना struct1),
+           परिमाण(संरचना struct2),
+           परिमाण(सङ्घ union1),
+           परिमाण(सङ्घ union2));
+    म_लिखो("offsets: %d\n", (पूर्णाङ्क)((वर्ण*)&st1.u.v1 - (वर्ण*)&st1));
     st1.f1 = 1;
     st1.f2 = 2;
     st1.f3 = 3;
-    printf("st1: %d %d %d\n",
+    म_लिखो("st1: %d %d %d\n",
            st1.f1, st1.f2, st1.f3);
     st1.u.v1 = 1;
     st1.u.v2 = 2;
-    printf("union1: %d\n", st1.u.v1);
+    म_लिखो("union1: %d\n", st1.u.v1);
     u.w1 = 1;
     u.w2 = 2;
-    printf("union2: %d\n", u.w1);
+    म_लिखो("union2: %d\n", u.w1);
     s = &st2;
     s->f1 = 3;
     s->f2 = 2;
     s->f3 = 1;
-    printf("st2: %d %d %d\n",
+    म_लिखो("st2: %d %d %d\n",
            s->f1, s->f2, s->f3);
-    printf("str_addr=%x\n", (int)(uintptr_t)st1.str - (int)(uintptr_t)&st1.f1);
+    म_लिखो("str_addr=%x\n", (पूर्णाङ्क)(uintptr_t)st1.str - (पूर्णाङ्क)(uintptr_t)&st1.f1);
 
     /* align / size tests */
-    printf("aligntest1 sizeof=%d alignof=%d\n",
-           sizeof(struct aligntest1), __alignof__(struct aligntest1));
-    printf("aligntest2 sizeof=%d alignof=%d\n",
-           sizeof(struct aligntest2), __alignof__(struct aligntest2));
-    printf("aligntest3 sizeof=%d alignof=%d\n",
-           sizeof(struct aligntest3), __alignof__(struct aligntest3));
-#if !(defined _WIN32 && CC_NAME == CC_clang)
-    printf("aligntest4 sizeof=%d alignof=%d\n",
-           sizeof(struct aligntest4), __alignof__(struct aligntest4));
+    म_लिखो("aligntest1 sizeof=%d alignof=%d\n",
+           परिमाण(संरचना aligntest1), __alignof__(संरचना aligntest1));
+    म_लिखो("aligntest2 sizeof=%d alignof=%d\n",
+           परिमाण(संरचना aligntest2), __alignof__(संरचना aligntest2));
+    म_लिखो("aligntest3 sizeof=%d alignof=%d\n",
+           परिमाण(संरचना aligntest3), __alignof__(संरचना aligntest3));
+#यदि !(defined _WIN32 && CC_NAME == CC_clang)
+    म_लिखो("aligntest4 sizeof=%d alignof=%d\n",
+           परिमाण(संरचना aligntest4), __alignof__(संरचना aligntest4));
 #endif
-    printf("aligntest5 sizeof=%d alignof=%d\n",
-           sizeof(struct aligntest5), __alignof__(struct aligntest5));
-    printf("aligntest6 sizeof=%d alignof=%d\n",
-           sizeof(struct aligntest6), __alignof__(struct aligntest6));
-    printf("aligntest7 sizeof=%d alignof=%d\n",
-           sizeof(struct aligntest7), __alignof__(struct aligntest7));
-    printf("aligntest8 sizeof=%d alignof=%d\n",
-           sizeof(struct aligntest8), __alignof__(struct aligntest8));
-#if !(defined _WIN32 && CC_NAME == CC_clang)
-    printf("aligntest9 sizeof=%d alignof=%d\n",
-           sizeof(struct aligntest9), __alignof__(struct aligntest9));
+    म_लिखो("aligntest5 sizeof=%d alignof=%d\n",
+           परिमाण(संरचना aligntest5), __alignof__(संरचना aligntest5));
+    म_लिखो("aligntest6 sizeof=%d alignof=%d\n",
+           परिमाण(संरचना aligntest6), __alignof__(संरचना aligntest6));
+    म_लिखो("aligntest7 sizeof=%d alignof=%d\n",
+           परिमाण(संरचना aligntest7), __alignof__(संरचना aligntest7));
+    म_लिखो("aligntest8 sizeof=%d alignof=%d\n",
+           परिमाण(संरचना aligntest8), __alignof__(संरचना aligntest8));
+#यदि !(defined _WIN32 && CC_NAME == CC_clang)
+    म_लिखो("aligntest9 sizeof=%d alignof=%d\n",
+           परिमाण(संरचना aligntest9), __alignof__(संरचना aligntest9));
 #endif
-    printf("aligntest10 sizeof=%d alignof=%d\n",
-           sizeof(struct aligntest10), __alignof__(struct aligntest10));
-    printf("altest5 sizeof=%d alignof=%d\n",
-           sizeof(altest5), __alignof__(altest5));
-    printf("altest6 sizeof=%d alignof=%d\n",
-           sizeof(altest6), __alignof__(altest6));
-    printf("altest7 sizeof=%d alignof=%d\n",
-           sizeof(altest7), __alignof__(altest7));
+    म_लिखो("aligntest10 sizeof=%d alignof=%d\n",
+           परिमाण(संरचना aligntest10), __alignof__(संरचना aligntest10));
+    म_लिखो("altest5 sizeof=%d alignof=%d\n",
+           परिमाण(altest5), __alignof__(altest5));
+    म_लिखो("altest6 sizeof=%d alignof=%d\n",
+           परिमाण(altest6), __alignof__(altest6));
+    म_लिखो("altest7 sizeof=%d alignof=%d\n",
+           परिमाण(altest7), __alignof__(altest7));
            
     /* empty structures (GCC extension) */
-#if !(defined _WIN32 && CC_NAME == CC_clang)
-    printf("sizeof(struct empty) = %d\n", sizeof(struct empty));
+#यदि !(defined _WIN32 && CC_NAME == CC_clang)
+    म_लिखो("sizeof(struct empty) = %d\n", परिमाण(संरचना empty));
 #endif
-    printf("alignof(struct empty) = %d\n", __alignof__(struct empty));
+    म_लिखो("alignof(struct empty) = %d\n", __alignof__(संरचना empty));
 
-    printf("Large: sizeof=%d\n", sizeof(ls));
-    memset(&ls, 0, sizeof(ls));
+    म_लिखो("Large: sizeof=%d\n", परिमाण(ls));
+    स_रखो(&ls, 0, परिमाण(ls));
     ls.compound_head = 42;
-    printf("Large: offsetof(compound_head)=%d\n", (int)((char*)&ls.compound_head - (char*)&ls));
+    म_लिखो("Large: offsetof(compound_head)=%d\n", (पूर्णाङ्क)((वर्ण*)&ls.compound_head - (वर्ण*)&ls));
 }
 
 /* simulate char/short return value with undefined upper bits */
-static int __csf(int x) { return x; }
-static void *_csf = __csf;
-#define csf(t,n) ((t(*)(int))_csf)(n)
+स्थिर पूर्णाङ्क __csf(पूर्णाङ्क x) { फर्काऊ x; }
+स्थिर शून्य *_csf = __csf;
+#define csf(t,n) ((t(*)(पूर्णाङ्क))_csf)(n)
 
 /* XXX: depend on endianness */
-void char_short_test()
+शून्य char_short_test()
 {
-    int var1, var2;
-    signed char var3;
-    long long var4;
+    पूर्णाङ्क var1, var2;
+    चिन्हित वर्ण var3;
+    दीर्घ दीर्घ var4;
 
     var1 = 0x01020304;
     var2 = 0xfffefdfc;
-    printf("s8=%d %d\n", 
-           *(signed char *)&var1, *(signed char *)&var2);
-    printf("u8=%d %d\n", 
-           *(unsigned char *)&var1, *(unsigned char *)&var2);
-    printf("s16=%d %d\n", 
-           *(short *)&var1, *(short *)&var2);
-    printf("u16=%d %d\n", 
-           *(unsigned short *)&var1, *(unsigned short *)&var2);
-    printf("s32=%d %d\n", 
-           *(int *)&var1, *(int *)&var2);
-    printf("u32=%d %d\n", 
-           *(unsigned int *)&var1, *(unsigned int *)&var2);
-    *(signed char *)&var1 = 0x08;
-    printf("var1=%x\n", var1);
-    *(short *)&var1 = 0x0809;
-    printf("var1=%x\n", var1);
-    *(int *)&var1 = 0x08090a0b;
-    printf("var1=%x\n", var1);
+    म_लिखो("s8=%d %d\n", 
+           *(चिन्हित वर्ण *)&var1, *(चिन्हित वर्ण *)&var2);
+    म_लिखो("u8=%d %d\n", 
+           *(अचिन्हित वर्ण *)&var1, *(अचिन्हित वर्ण *)&var2);
+    म_लिखो("s16=%d %d\n", 
+           *(लघु *)&var1, *(लघु *)&var2);
+    म_लिखो("u16=%d %d\n", 
+           *(अचिन्हित लघु *)&var1, *(अचिन्हित लघु *)&var2);
+    म_लिखो("s32=%d %d\n", 
+           *(पूर्णाङ्क *)&var1, *(पूर्णाङ्क *)&var2);
+    म_लिखो("u32=%d %d\n", 
+           *(अचिन्हित पूर्णाङ्क *)&var1, *(अचिन्हित पूर्णाङ्क *)&var2);
+    *(चिन्हित वर्ण *)&var1 = 0x08;
+    म_लिखो("var1=%x\n", var1);
+    *(लघु *)&var1 = 0x0809;
+    म_लिखो("var1=%x\n", var1);
+    *(पूर्णाङ्क *)&var1 = 0x08090a0b;
+    म_लिखो("var1=%x\n", var1);
 
     var1 = 0x778899aa;
     var4 = 0x11223344aa998877ULL;
     var1 = var3 = var1 + 1;
     var4 = var3 = var4 + 1;
-    printf("promote char/short assign %d "LONG_LONG_FORMAT"\n", var1, var4);
+    म_लिखो("promote char/short assign %d "LONG_LONG_FORMAT"\n", var1, var4);
     var1 = 0x778899aa;
     var4 = 0x11223344aa998877ULL;
-    printf("promote char/short assign VA %d %d\n", var3 = var1 + 1, var3 = var4 + 1);
-    printf("promote char/short cast VA %d %d\n", (signed char)(var1 + 1), (signed char)(var4 + 1));
-#if !defined __arm__ && !defined __riscv
+    म_लिखो("promote char/short assign VA %d %d\n", var3 = var1 + 1, var3 = var4 + 1);
+    म_लिखो("promote char/short cast VA %d %d\n", (चिन्हित वर्ण)(var1 + 1), (चिन्हित वर्ण)(var4 + 1));
+#यदि !defined __arm__ && !defined __riscv
     /* We can't really express GCC behaviour of return type promotion in
        the presence of undefined behaviour (like __csf is).  */
-    var1 = csf(unsigned char,0x89898989);
-    var4 = csf(signed char,0xabababab);
+    var1 = csf(अचिन्हित वर्ण,0x89898989);
+    var4 = csf(चिन्हित वर्ण,0xabababab);
 #ifdef __clang__
     /* on macos 15 arm64 this prints -1987475063 instead of 137 */
     var1 &= 0xff;
 #endif
-    printf("promote char/short funcret %d "LONG_LONG_FORMAT"\n", var1, var4);
-    printf("promote char/short fumcret VA %d %d %d %d\n",
-        csf(unsigned short,0xcdcdcdcd),
-        csf(short,0xefefefef),
+    म_लिखो("promote char/short funcret %d "LONG_LONG_FORMAT"\n", var1, var4);
+    म_लिखो("promote char/short fumcret VA %d %d %d %d\n",
+        csf(अचिन्हित लघु,0xcdcdcdcd),
+        csf(लघु,0xefefefef),
         csf(_Bool,0x33221100),
         csf(_Bool,0x33221101));
 #endif
     var3 = -10;
-    var1 = (signed char)(unsigned char)(var3 + 1);
-    var4 = (signed char)(unsigned char)(var3 + 1);
-    printf("promote multicast (char)(unsigned char) %d "LONG_LONG_FORMAT"\n", var1, var4);
+    var1 = (चिन्हित वर्ण)(अचिन्हित वर्ण)(var3 + 1);
+    var4 = (चिन्हित वर्ण)(अचिन्हित वर्ण)(var3 + 1);
+    म_लिखो("promote multicast (char)(unsigned char) %d "LONG_LONG_FORMAT"\n", var1, var4);
     var4 = 0x11223344aa998877ULL;
-    var4 = (unsigned)(int)(var4 + 1);
-    printf("promote multicast (unsigned)(int) "LONG_LONG_FORMAT"\n", var4);
+    var4 = (अचिन्हित)(पूर्णाङ्क)(var4 + 1);
+    म_लिखो("promote multicast (unsigned)(int) "LONG_LONG_FORMAT"\n", var4);
     var4 = 0x11223344bbaa9988ULL;
-    var4 = (unsigned)(signed char)(var4 + 1);
-    printf("promote multicast (unsigned)(char) "LONG_LONG_FORMAT"\n", var4);
+    var4 = (अचिन्हित)(चिन्हित वर्ण)(var4 + 1);
+    म_लिखो("promote multicast (unsigned)(char) "LONG_LONG_FORMAT"\n", var4);
 }
 
 /******************/
 
-typedef struct Sym {
-    int v;
-    int t;
-    int c;
-    struct Sym *next;
-    struct Sym *prev;
+प्रकारनिर्देश संरचना Sym {
+    पूर्णाङ्क v;
+    पूर्णाङ्क t;
+    पूर्णाङ्क c;
+    संरचना Sym *next;
+    संरचना Sym *prev;
 } Sym;
 
 #define ISLOWER(c) ('a' <= (c) && (c) <= 'z')
 #define TOUPPER(c) (ISLOWER(c) ? 'A' + ((c) - 'a') : (c))
 
-static int toupper1(int a)
+स्थिर पूर्णाङ्क toupper1(पूर्णाङ्क a)
 {
-    return TOUPPER(a);
+    फर्काऊ TOUPPER(a);
 }
 
-static unsigned int calc_vm_flags(unsigned int prot)
+स्थिर अचिन्हित पूर्णाङ्क calc_vm_flags(अचिन्हित पूर्णाङ्क prot)
 {
-  unsigned int prot_bits;
+  अचिन्हित पूर्णाङ्क prot_bits;
   /* This used to segfault in some revisions: */
   prot_bits = ((0x1==0x00000001)?(prot&0x1):(prot&0x1)?0x00000001:0);
-  return prot_bits;
+  फर्काऊ prot_bits;
 }
 
-enum cast_enum { FIRST, LAST };
+गणना cast_enum { FIRST, LAST };
 
-static void tst_cast(enum cast_enum ce)
+स्थिर शून्य tst_cast(गणना cast_enum ce)
 {
-    printf("%d\n", ce);
+    म_लिखो("%d\n", ce);
 }
 
-void bool_test()
+शून्य bool_test()
 {
-    int *s, a, b, t, f, i;
+    पूर्णाङ्क *s, a, b, t, f, i;
 
     a = 0;
-    s = (void*)0;
-    printf("!s=%d\n", !s);
+    s = (शून्य*)0;
+    म_लिखो("!s=%d\n", !s);
 
-    if (!s || !s[0])
+    यदि (!s || !s[0])
         a = 1;
-    printf("a=%d\n", a);
+    म_लिखो("a=%d\n", a);
 
-    printf("a=%d %d %d\n", 0 || 0, 0 || 1, 1 || 1);
-    printf("a=%d %d %d\n", 0 && 0, 0 && 1, 1 && 1);
-    printf("a=%d %d\n", 1 ? 1 : 0, 0 ? 1 : 0);
-#if 1 && 1
-    printf("a1\n");
+    म_लिखो("a=%d %d %d\n", 0 || 0, 0 || 1, 1 || 1);
+    म_लिखो("a=%d %d %d\n", 0 && 0, 0 && 1, 1 && 1);
+    म_लिखो("a=%d %d\n", 1 ? 1 : 0, 0 ? 1 : 0);
+#यदि 1 && 1
+    म_लिखो("a1\n");
 #endif
-#if 1 || 0
-    printf("a2\n");
+#यदि 1 || 0
+    म_लिखो("a2\n");
 #endif
-#if 1 ? 0 : 1
-    printf("a3\n");
+#यदि 1 ? 0 : 1
+    म_लिखो("a3\n");
 #endif
-#if 0 ? 0 : 1
-    printf("a4\n");
+#यदि 0 ? 0 : 1
+    म_लिखो("a4\n");
 #endif
 
     a = 4;
-    printf("b=%d\n", a + (0 ? 1 : a / 2));
+    म_लिखो("b=%d\n", a + (0 ? 1 : a / 2));
 
     /* test register spilling */
     a = 10;
     b = 10;
     a = (a + b) * ((a < b) ?
                    ((b - a) * (a - b)): a + b);
-    printf("a=%d\n", a);
+    म_लिखो("a=%d\n", a);
 
     /* test complex || or && expressions */
     t = 1;
     f = 0;
     a = 32;
-    printf("exp=%d\n", f == (32 <= a && a <= 3));
-    printf("r=%d\n", (t || f) + (t && f));
+    म_लिखो("exp=%d\n", f == (32 <= a && a <= 3));
+    म_लिखो("r=%d\n", (t || f) + (t && f));
 
     /* check that types of casted &&/|| are preserved (here the unsignedness) */
     t = 1;
-    printf("type of bool: %d\n", (int) ( (~ ((unsigned int) (t && 1))) / 2) );
+    म_लिखो("type of bool: %d\n", (पूर्णाङ्क) ( (~ ((अचिन्हित पूर्णाङ्क) (t && 1))) / 2) );
     tst_cast(t >= 0 ? FIRST : LAST);
 
-    printf("type of cond: %d\n", (~(t ? 0U : (unsigned int)0)) / 2 );
+    म_लिखो("type of cond: %d\n", (~(t ? 0U : (अचिन्हित पूर्णाङ्क)0)) / 2 );
     /* test ? : cast */
     {
-        int aspect_on;
-        int aspect_native = 65536;
-        double bfu_aspect = 1.0;
-        int aspect;
-        for(aspect_on = 0; aspect_on < 2; aspect_on++) {
+        पूर्णाङ्क aspect_on;
+        पूर्णाङ्क aspect_native = 65536;
+        द्विगुण bfu_aspect = 1.0;
+        पूर्णाङ्क aspect;
+        लागि(aspect_on = 0; aspect_on < 2; aspect_on++) {
             aspect=aspect_on?(aspect_native*bfu_aspect+0.5):65535UL;
-            printf("aspect=%d\n", aspect);
+            म_लिखो("aspect=%d\n", aspect);
         }
     }
 
     /* test ? : GCC extension */
     {
-        static int v1 = 34 ? : -1; /* constant case */
-        static int v2 = 0 ? : -1; /* constant case */
-        int a = 30;
+        स्थिर पूर्णाङ्क v1 = 34 ? : -1; /* constant case */
+        स्थिर पूर्णाङ्क v2 = 0 ? : -1; /* constant case */
+        पूर्णाङ्क a = 30;
         
-        printf("%d %d\n", v1, v2);
-        printf("%d %d\n", a - 30 ? : a * 2, a + 1 ? : a * 2);
+        म_लिखो("%d %d\n", v1, v2);
+        म_लिखो("%d %d\n", a - 30 ? : a * 2, a + 1 ? : a * 2);
     }
 
     /* again complex expression */
-    for(i=0;i<256;i++) {
-        if (toupper1 (i) != TOUPPER (i))
-            printf("error %d\n", i);
+    लागि(i=0;i<256;i++) {
+        यदि (toupper1 (i) != TOUPPER (i))
+            म_लिखो("error %d\n", i);
     }
-    printf ("bits = 0x%x\n", calc_vm_flags (0x1));
+    म_लिखो ("bits = 0x%x\n", calc_vm_flags (0x1));
 }
 
-extern int undefined_function(void);
-extern int defined_function(void);
+बाह्य पूर्णाङ्क undefined_function(शून्य);
+बाह्य पूर्णाङ्क defined_function(शून्य);
 
 #ifdef __clang__
-int undefined_function(void) {}
+पूर्णाङ्क undefined_function(शून्य) {}
 #endif
 
-static inline void refer_to_undefined(void)
+स्थिर अन्तःस्थ शून्य refer_to_undefined(शून्य)
 {
   undefined_function();
 }
 
-void optimize_out_test(void)
+शून्य optimize_out_test(शून्य)
 {
-  int i = 0 ? undefined_function() : defined_function();
-  printf ("oo:%d\n", i);
-  int j = 1 ? defined_function() : undefined_function();
-  printf ("oo:%d\n", j);
-  if (0)
-    printf("oo:%d\n", undefined_function());
-  else
-    printf("oo:%d\n", defined_function());
-  if (1)
-    printf("oo:%d\n", defined_function());
-  else
-    printf("oo:%d\n", undefined_function());
-  while (1) {
-      printf("oow:%d\n", defined_function());
-      break;
-      printf("oow:%d\n", undefined_function());
+  पूर्णाङ्क i = 0 ? undefined_function() : defined_function();
+  म_लिखो ("oo:%d\n", i);
+  पूर्णाङ्क j = 1 ? defined_function() : undefined_function();
+  म_लिखो ("oo:%d\n", j);
+  यदि (0)
+    म_लिखो("oo:%d\n", undefined_function());
+  अन्यथा
+    म_लिखो("oo:%d\n", defined_function());
+  यदि (1)
+    म_लिखो("oo:%d\n", defined_function());
+  अन्यथा
+    म_लिखो("oo:%d\n", undefined_function());
+  जबसम्म (1) {
+      म_लिखो("oow:%d\n", defined_function());
+      रोक;
+      म_लिखो("oow:%d\n", undefined_function());
   }
   j = 1;
   /* Following is a switch without {} block intentionally.  */
-  switch (j)
-    case 1: break;
-  printf ("oos:%d\n", defined_function());
+  विकल्प (j)
+    पक्ष 1: रोक;
+  म_लिखो ("oos:%d\n", defined_function());
   /* The following break shouldn't lead to disabled code after
      the while.  */
-  while (1)
-    break;
-  printf ("ool1:%d\n", defined_function());
+  जबसम्म (1)
+    रोक;
+  म_लिखो ("ool1:%d\n", defined_function());
   /* Same for the other types of loops.  */
-  do
-    break;
-  while (1);
-  printf ("ool2:%d\n", defined_function());
-  for (;;)
-    break;
-  printf ("ool3:%d\n", defined_function());
+  गर
+    रोक;
+  जबसम्म (1);
+  म_लिखो ("ool2:%d\n", defined_function());
+  लागि (;;)
+    रोक;
+  म_लिखो ("ool3:%d\n", defined_function());
   /* Normal {} blocks without controlling statements
      shouldn't reactivate code emission */
-  while (1) {
+  जबसम्म (1) {
 	{
-	  break;
+	  रोक;
 	}
-      printf ("ool4:%d\n", undefined_function());
+      म_लिखो ("ool4:%d\n", undefined_function());
   }
   j = 1;
-  while (j) {
-      if (j == 0)
-	break; /* this break shouldn't disable code outside the if. */
-      printf("ool5:%d\n", defined_function());
+  जबसम्म (j) {
+      यदि (j == 0)
+	रोक; /* this break shouldn't disable code outside the if. */
+      म_लिखो("ool5:%d\n", defined_function());
       j--;
   }
 
   j = 1;
-  while (j) {
-      if (1)
+  जबसम्म (j) {
+      यदि (1)
 	j--;
-      else
-	breakhere: break;
-      printf("ool6:%d\n", defined_function());
-      goto breakhere;
+      अन्यथा
+	breakhere: रोक;
+      म_लिखो("ool6:%d\n", defined_function());
+      गच्छ breakhere;
   }
   j = 1;
-  while (j) {
+  जबसम्म (j) {
       j--;
-      continue;
-      printf("ool7:%d\n", undefined_function());
+      जारी;
+      म_लिखो("ool7:%d\n", undefined_function());
   }
 
   /* Test that constants in logical && are optimized: */
   i = 0 && undefined_function();
   i = defined_function() && 0 && undefined_function();
-  if (0 && undefined_function())
+  यदि (0 && undefined_function())
     undefined_function();
-  if (defined_function() && 0)
+  यदि (defined_function() && 0)
     undefined_function();
-  if (0 && 0)
+  यदि (0 && 0)
     undefined_function();
-  if (defined_function() && 0 && undefined_function())
+  यदि (defined_function() && 0 && undefined_function())
     undefined_function();
   /* The same for || : */
   i = 1 || undefined_function();
   i = defined_function() || 1 || undefined_function();
-  if (1 || undefined_function())
+  यदि (1 || undefined_function())
     ;
-  else
+  अन्यथा
     undefined_function();
-  if (defined_function() || 1)
+  यदि (defined_function() || 1)
     ;
-  else
+  अन्यथा
     undefined_function();
-  if (1 || 1)
+  यदि (1 || 1)
     ;
-  else
+  अन्यथा
     undefined_function();
-  if (defined_function() || 1 || undefined_function())
+  यदि (defined_function() || 1 || undefined_function())
     ;
-  else
+  अन्यथा
     undefined_function();
 
-  if (defined_function() && 0)
+  यदि (defined_function() && 0)
     refer_to_undefined();
 
-  if (0) {
-      (void)sizeof( ({
-		     do { } while (0);
+  यदि (0) {
+      (शून्य)परिमाण( ({
+		     गर { } जबसम्म (0);
 		     0;
 		     }) );
       undefined_function();
   }
 
-  if (0) {
-      switch (defined_function()) {
-          case 0: undefined_function(); break;
-          default: undefined_function(); break;
+  यदि (0) {
+      विकल्प (defined_function()) {
+          पक्ष 0: undefined_function(); रोक;
+          स्वभाव: undefined_function(); रोक;
       }
   }
 
   /* Leave the "if(1)return; printf()" in this order and last in the function */
-  if (1)
-    return;
-  printf ("oor:%d\n", undefined_function());
+  यदि (1)
+    फर्काऊ;
+  म_लिखो ("oor:%d\n", undefined_function());
 }
 
-int defined_function(void)
+पूर्णाङ्क defined_function(शून्य)
 {
-  static int i = 40;
-  return i++;
+  स्थिर पूर्णाङ्क i = 40;
+  फर्काऊ i++;
 }
 
 /* GCC accepts that */
-static int tab_reinit[];
-static int tab_reinit[10];
+स्थिर पूर्णाङ्क tab_reinit[];
+स्थिर पूर्णाङ्क tab_reinit[10];
 
-static int tentative_ar[];
-static int tentative_ar[] = {1,2,3};
+स्थिर पूर्णाङ्क tentative_ar[];
+स्थिर पूर्णाङ्क tentative_ar[] = {1,2,3};
 
-int cinit1; /* a global variable can be defined several times without error ! */
-int cinit1; 
-int cinit1 = 0;
-int *cinit2 = (int []){3, 2, 1};
+पूर्णाङ्क cinit1; /* a global variable can be defined several times without error ! */
+पूर्णाङ्क cinit1; 
+पूर्णाङ्क cinit1 = 0;
+पूर्णाङ्क *cinit2 = (पूर्णाङ्क []){3, 2, 1};
 uintptr_t cinit3 = (uintptr_t)"AA";
-char const * const cinit8[] = { [0 ... 1] = "BB", [2 ... 4] = "CC" };
-void *cinit52 = &(void*){ (void*) 52 };
+वर्ण अचर * अचर cinit8[] = { [0 ... 1] = "BB", [2 ... 4] = "CC" };
+शून्य *cinit52 = &(शून्य*){ (शून्य*) 52 };
 
-#if __TINYC__ || __GNUC__ >= 6
-int cinit4 = (int){44};
-void *cinit51 = (void*){ (void*) 51 };
-struct _c6 { int a,b; } cinit6 = (struct _c6){61,62}, *cinit7 = &(struct _c6){71,72};
-#else
-int cinit4 = 44;
-void *cinit51 = (void*)51;
-struct _c6 { int a,b; } cinit6 = { 61,62 }, cinit70 = {71,72}, *cinit7 = &cinit70;
+#यदि __TINYC__ || __GNUC__ >= 6
+पूर्णाङ्क cinit4 = (पूर्णाङ्क){44};
+शून्य *cinit51 = (शून्य*){ (शून्य*) 51 };
+संरचना _c6 { पूर्णाङ्क a,b; } cinit6 = (संरचना _c6){61,62}, *cinit7 = &(संरचना _c6){71,72};
+#अन्यथा
+पूर्णाङ्क cinit4 = 44;
+शून्य *cinit51 = (शून्य*)51;
+संरचना _c6 { पूर्णाङ्क a,b; } cinit6 = { 61,62 }, cinit70 = {71,72}, *cinit7 = &cinit70;
 #endif
 
-void compound_literal_test(void)
+शून्य compound_literal_test(शून्य)
 {
-    int *p, i;
-    char *q, *q3;
+    पूर्णाङ्क *p, i;
+    वर्ण *q, *q3;
 
-    printf("cinit3 : %s\n", cinit3);
-    printf("cinit4 : %d\n", cinit4);
-    printf("cinit51 : %d\n", (int)cinit51);
-    printf("cinit52 : %d\n", *(int*)cinit52);
-    printf("cinit6 : %d %d\n", cinit6.a, cinit6.b);
-    printf("cinit7 : %d %d\n", cinit7->a, cinit7->b);
-    printf("cinit8 : %s %s %s %s %s\n", cinit8[0], cinit8[1], cinit8[2], cinit8[3], cinit8[4]);
+    म_लिखो("cinit3 : %s\n", cinit3);
+    म_लिखो("cinit4 : %d\n", cinit4);
+    म_लिखो("cinit51 : %d\n", (पूर्णाङ्क)cinit51);
+    म_लिखो("cinit52 : %d\n", *(पूर्णाङ्क*)cinit52);
+    म_लिखो("cinit6 : %d %d\n", cinit6.a, cinit6.b);
+    म_लिखो("cinit7 : %d %d\n", cinit7->a, cinit7->b);
+    म_लिखो("cinit8 : %s %s %s %s %s\n", cinit8[0], cinit8[1], cinit8[2], cinit8[3], cinit8[4]);
 
-    p = (int []){1, 2, 3};
-    for(i=0;i<3;i++)
-        printf(" %d", p[i]);
-    printf("\n");
+    p = (पूर्णाङ्क []){1, 2, 3};
+    लागि(i=0;i<3;i++)
+        म_लिखो(" %d", p[i]);
+    म_लिखो("\n");
 
-    for(i=0;i<3;i++)
-        printf("%d", cinit2[i]);
-    printf("\n");
+    लागि(i=0;i<3;i++)
+        म_लिखो("%d", cinit2[i]);
+    म_लिखो("\n");
 
     q = "tralala1";
-    printf("q1=%s\n", q);
+    म_लिखो("q1=%s\n", q);
 
-    q = (char *){ "tralala2" };
-    printf("q2=%s\n", q);
+    q = (वर्ण *){ "tralala2" };
+    म_लिखो("q2=%s\n", q);
 
-    q3 = (char *){ q };
-    printf("q3=%s\n", q3);
+    q3 = (वर्ण *){ q };
+    म_लिखो("q3=%s\n", q3);
 
-    q = (char []){ "tralala3" };
-    printf("q4=%s\n", q);
+    q = (वर्ण []){ "tralala3" };
+    म_लिखो("q4=%s\n", q);
 
 #ifdef ALL_ISOC99
-    p = (int []){1, 2, cinit1 + 3};
-    for(i=0;i<3;i++)
-        printf(" %d", p[i]);
-    printf("\n");
+    p = (पूर्णाङ्क []){1, 2, cinit1 + 3};
+    लागि(i=0;i<3;i++)
+        म_लिखो(" %d", p[i]);
+    म_लिखो("\n");
 
-    for(i=0;i<3;i++) {
-        p = (int []){1, 2, 4 + i};
-        printf("%d %d %d\n", 
+    लागि(i=0;i<3;i++) {
+        p = (पूर्णाङ्क []){1, 2, 4 + i};
+        म_लिखो("%d %d %d\n", 
                p[0],
                p[1],
                p[2]);
@@ -1535,196 +1535,196 @@ void compound_literal_test(void)
 }
 
 
-#if __TINYC__
+#यदि __TINYC__
 
 /* K & R protos */
 
 kr_func1(a, b)
 {
-    return a + b;
+    फर्काऊ a + b;
 }
 
-int kr_func2(a, b)
+पूर्णाङ्क kr_func2(a, b)
 {
-    return a + b;
+    फर्काऊ a + b;
 }
 
 kr_test()
 {
-    printf("func1=%d\n", kr_func1(3, 4));
-    printf("func2=%d\n", kr_func2(3, 4));
-    return 0;
+    म_लिखो("func1=%d\n", kr_func1(3, 4));
+    म_लिखो("func2=%d\n", kr_func2(3, 4));
+    फर्काऊ 0;
 }
 
 /* We try to handle this syntax.  Make at least sure it doesn't segfault.  */
-char invalid_function_def()[] {return 0;}
+वर्ण invalid_function_def()[] {फर्काऊ 0;}
 
-#else
-# define kr_test() printf("func1=7\nfunc2=7\n")
+#अन्यथा
+# define kr_test() म_लिखो("func1=7\nfunc2=7\n")
 #endif
 
-void num(int n)
+शून्य अङ्क(पूर्णाङ्क n)
 {
-    char *tab, *p;
-    tab = (char*)malloc(20); 
+    वर्ण *tab, *p;
+    tab = (वर्ण*)दो_स्मृति(20); 
     p = tab;
-    while (1) {
+    जबसम्म (1) {
         *p = 48 + (n % 10);
         p++;
         n = n / 10;
-        if (n == 0)
-            break;
+        यदि (n == 0)
+            रोक;
     }
-    while (p != tab) {
+    जबसम्म (p != tab) {
         p--;
-        printf("%c", *p);
+        म_लिखो("%c", *p);
     }
-    printf("\n");
-    free(tab);
+    म_लिखो("\n");
+    मुक्त(tab);
 }
 
 /* structure assignment tests */
-struct structa1 {
-    int f1;
-    char f2;
+संरचना structa1 {
+    पूर्णाङ्क f1;
+    वर्ण f2;
 };
 
-void struct_assign_test1(struct structa1 s1, int t, float f)
+शून्य struct_assign_test1(संरचना structa1 s1, पूर्णाङ्क t, भिन्न f)
 {
-    printf("%d %d %d %f\n", s1.f1, s1.f2, t, f);
+    म_लिखो("%d %d %d %f\n", s1.f1, s1.f2, t, f);
 }
 
-struct structa1 struct_assign_test2(struct structa1 s1, int t)
+संरचना structa1 struct_assign_test2(संरचना structa1 s1, पूर्णाङ्क t)
 {
     s1.f1 += t;
     s1.f2 -= t;
-    return s1;
+    फर्काऊ s1;
 }
 
-void struct_assign_test(void)
+शून्य struct_assign_test(शून्य)
 {
-    struct S {
-      struct structa1 lsta1, lsta2;
-      int i;
+    संरचना S {
+      संरचना structa1 lsta1, lsta2;
+      पूर्णाङ्क i;
     } s = {{1,2}, {3,4}}, *ps;
     
     ps = &s;
     ps->i = 4;
 
     struct_assign_test1(ps->lsta2, 3, 4.5);
-    printf("before call: %d %d\n", s.lsta2.f1, s.lsta2.f2);
+    म_लिखो("before call: %d %d\n", s.lsta2.f1, s.lsta2.f2);
     ps->lsta2 = struct_assign_test2(ps->lsta2, ps->i);
-    printf("after call: %d %d\n", ps->lsta2.f1, ps->lsta2.f2);
+    म_लिखो("after call: %d %d\n", ps->lsta2.f1, ps->lsta2.f2);
 
-    static struct {
-        void (*elem)();
+    स्थिर संरचना {
+        शून्य (*elem)();
     } t[] = {
         /* XXX: we should allow this even without braces */
         { struct_assign_test }
     };
-    printf("%d\n", struct_assign_test == t[0].elem);
+    म_लिखो("%d\n", struct_assign_test == t[0].elem);
 
     s.lsta1 = s.lsta2 = struct_assign_test2(s.lsta1, 1);
-    printf("%d %d\n", s.lsta1.f1, s.lsta1.f2);
+    म_लिखो("%d %d\n", s.lsta1.f1, s.lsta1.f2);
 }
 
 /* casts to short/char */
 
-void cast1(char a, short b, unsigned char c, unsigned short d)
+शून्य cast1(वर्ण a, लघु b, अचिन्हित वर्ण c, अचिन्हित लघु d)
 {
-    printf("%d %d %d %d\n", a, b, c, d);
+    म_लिखो("%d %d %d %d\n", a, b, c, d);
 }
 
-char bcast;
-short scast;
+वर्ण bcast;
+लघु scast;
 
-void cast_test()
+शून्य cast_test()
 {
-    int a;
-    char c;
-    char tab[10];
-    unsigned b,d;
-    short s;
-    char *p = NULL;
-    unsigned long ul = 0x80000000UL;
+    पूर्णाङ्क a;
+    वर्ण c;
+    वर्ण tab[10];
+    अचिन्हित b,d;
+    लघु s;
+    वर्ण *p = रिक्त;
+    अचिन्हित दीर्घ ul = 0x80000000UL;
     p -= 0x700000000042;
 
     a = 0xfffff;
     cast1(a, a, a, a);
     a = 0xffffe;
-    printf("%d %d %d %d\n",
-           (char)(a + 1),
-           (short)(a + 1),
-           (unsigned char)(a + 1),
-           (unsigned short)(a + 1));
-    printf("%d %d %d %d\n",
-           (char)0xfffff,
-           (short)0xfffff,
-           (unsigned char)0xfffff,
-           (unsigned short)0xfffff);
+    म_लिखो("%d %d %d %d\n",
+           (वर्ण)(a + 1),
+           (लघु)(a + 1),
+           (अचिन्हित वर्ण)(a + 1),
+           (अचिन्हित लघु)(a + 1));
+    म_लिखो("%d %d %d %d\n",
+           (वर्ण)0xfffff,
+           (लघु)0xfffff,
+           (अचिन्हित वर्ण)0xfffff,
+           (अचिन्हित लघु)0xfffff);
 
     a = (bcast = 128) + 1;
-    printf("%d\n", a);
+    म_लिखो("%d\n", a);
     a = (scast = 65536) + 1;
-    printf("%d\n", a);
+    म_लिखो("%d\n", a);
     
-    printf("sizeof(c) = %d, sizeof((int)c) = %d\n", sizeof(c), sizeof((int)c));
+    म_लिखो("sizeof(c) = %d, sizeof((int)c) = %d\n", परिमाण(c), परिमाण((पूर्णाङ्क)c));
     
     /* test cast from unsigned to signed short to int */
     b = 0xf000;
-    d = (short)b;
-    printf("((unsigned)(short)0x%08x) = 0x%08x\n", b, d);
+    d = (लघु)b;
+    म_लिखो("((unsigned)(short)0x%08x) = 0x%08x\n", b, d);
     b = 0xf0f0;
-    d = (char)b;
-    printf("((unsigned)(char)0x%08x) = 0x%08x\n", b, d);
+    d = (वर्ण)b;
+    म_लिखो("((unsigned)(char)0x%08x) = 0x%08x\n", b, d);
     
     /* test implicit int casting for array accesses */
     c = 0;
     tab[1] = 2;
     tab[c] = 1;
-    printf("%d %d\n", tab[0], tab[1]);
+    म_लिखो("%d %d\n", tab[0], tab[1]);
 
     /* test implicit casting on some operators */
-    printf("sizeof(+(char)'a') = %d\n", sizeof(+(char)'a'));
-    printf("sizeof(-(char)'a') = %d\n", sizeof(-(char)'a'));
-    printf("sizeof(~(char)'a') = %d\n", sizeof(-(char)'a'));
+    म_लिखो("sizeof(+(char)'a') = %d\n", परिमाण(+(वर्ण)'a'));
+    म_लिखो("sizeof(-(char)'a') = %d\n", परिमाण(-(वर्ण)'a'));
+    म_लिखो("sizeof(~(char)'a') = %d\n", परिमाण(-(वर्ण)'a'));
 
-#if CC_NAME != CC_clang /* clang doesn't support non-portable conversions */
+#यदि CC_NAME != CC_clang /* clang doesn't support non-portable conversions */
     /* from pointer to integer types */
-    printf("%d %d %ld %ld %lld %lld\n",
-           (int)p, (unsigned int)p,
-           (long)p, (unsigned long)p,
-           (long long)p, (unsigned long long)p);
+    म_लिखो("%d %d %ld %ld %lld %lld\n",
+           (पूर्णाङ्क)p, (अचिन्हित पूर्णाङ्क)p,
+           (दीर्घ)p, (अचिन्हित दीर्घ)p,
+           (दीर्घ दीर्घ)p, (अचिन्हित दीर्घ दीर्घ)p);
 #endif
 
     /* from integers to pointers */
-    printf("%p %p %p %p\n",
-           (void *)a, (void *)b, (void *)c, (void *)d);
+    म_लिखो("%p %p %p %p\n",
+           (शून्य *)a, (शून्य *)b, (शून्य *)c, (शून्य *)d);
 
     /* int to int with sign set */
-    printf("0x%lx\n", (unsigned long)(int)ul);
+    म_लिखो("0x%lx\n", (अचिन्हित दीर्घ)(पूर्णाङ्क)ul);
 }
 
 /* initializers tests */
-struct structinit1 {
-    int f1;
-    char f2;
-    short f3;
-    int farray[3];
+संरचना structinit1 {
+    पूर्णाङ्क f1;
+    वर्ण f2;
+    लघु f3;
+    पूर्णाङ्क farray[3];
 };
 
-int sinit1 = 2;
-int sinit2 = { 3 };
-int sinit3[3] = { 1, 2, {3}, };
-int sinit4[3][2] = { {1, 2}, {3, 4}, {5, 6} };
-int sinit5[3][2] = { 1, 2, 3, 4, 5, 6 };
-int sinit6[] = { 1, 2, 3 };
-int sinit7[] = { [2] = 3, [0] = 1, 2 };
-char sinit8[] = "hello" "trala";
+पूर्णाङ्क sinit1 = 2;
+पूर्णाङ्क sinit2 = { 3 };
+पूर्णाङ्क sinit3[3] = { 1, 2, {3}, };
+पूर्णाङ्क sinit4[3][2] = { {1, 2}, {3, 4}, {5, 6} };
+पूर्णाङ्क sinit5[3][2] = { 1, 2, 3, 4, 5, 6 };
+पूर्णाङ्क sinit6[] = { 1, 2, 3 };
+पूर्णाङ्क sinit7[] = { [2] = 3, [0] = 1, 2 };
+वर्ण sinit8[] = "hello" "trala";
 
-struct structinit1 sinit9 = { 1, 2, 3 };
-struct structinit1 sinit10 = { .f2 = 2, 3, .f1 = 1 };
-struct structinit1 sinit11 = { .f2 = 2, 3, .f1 = 1, 
+संरचना structinit1 sinit9 = { 1, 2, 3 };
+संरचना structinit1 sinit10 = { .f2 = 2, 3, .f1 = 1 };
+संरचना structinit1 sinit11 = { .f2 = 2, 3, .f1 = 1, 
 #ifdef ALL_ISOC99
                                .farray[0] = 10,
                                .farray[1] = 11,
@@ -1732,45 +1732,45 @@ struct structinit1 sinit11 = { .f2 = 2, 3, .f1 = 1,
 #endif
 };
 
-char *sinit12 = "hello world";
-char *sinit13[] = {
+वर्ण *sinit12 = "hello world";
+वर्ण *sinit13[] = {
     "test1",
     "test2",
     "test3",
 };
-char sinit14[10] = { "abc" };
-int sinit15[3] = { sizeof(sinit15), 1, 2 };
+वर्ण sinit14[10] = { "abc" };
+पूर्णाङ्क sinit15[3] = { परिमाण(sinit15), 1, 2 };
 
-struct { int a[3], b; } sinit16[] = { { 1 }, 2 };
+संरचना { पूर्णाङ्क a[3], b; } sinit16[] = { { 1 }, 2 };
 
-struct bar {
-        char *s;
-        int len;
+संरचना bar {
+        वर्ण *s;
+        पूर्णाङ्क len;
 } sinit17[] = {
         "a1", 4,
         "a2", 1
 };
 
-int sinit18[10] = {
+पूर्णाङ्क sinit18[10] = {
     [2 ... 5] = 20,
     2,
     [8] = 10,
 };
 
-struct complexinit0 {
-    int a;
-    int b;
+संरचना complexinit0 {
+    पूर्णाङ्क a;
+    पूर्णाङ्क b;
 };
 
-struct complexinit {
-    int a;
-    const struct complexinit0 *b;
+संरचना complexinit {
+    पूर्णाङ्क a;
+    अचर संरचना complexinit0 *b;
 };
 
-const static struct complexinit cix[] = {
+अचर स्थिर संरचना complexinit cix[] = {
     [0] = {
 	.a = 2000,
-	.b = (const struct complexinit0[]) {
+	.b = (अचर संरचना complexinit0[]) {
 		{ 2001, 2002 },
 		{ 2003, 2003 },
 		{}
@@ -1778,105 +1778,105 @@ const static struct complexinit cix[] = {
     }
 };
 
-struct complexinit2 {
-	int a;
-	int b[];
+संरचना complexinit2 {
+	पूर्णाङ्क a;
+	पूर्णाङ्क b[];
 };
 
-struct complexinit2 cix20;
+संरचना complexinit2 cix20;
 
-struct complexinit2 cix21 = {
+संरचना complexinit2 cix21 = {
 	.a = 3000,
 	.b = { 3001, 3002, 3003 }
 };
 
-struct complexinit2 cix22 = {
+संरचना complexinit2 cix22 = {
 	.a = 4000,
 	.b = { 4001, 4002, 4003, 4004, 4005, 4006 }
 };
 
-typedef int arrtype1[];
+प्रकारनिर्देश पूर्णाङ्क arrtype1[];
 arrtype1 sinit19;
 arrtype1 sinit20;
 arrtype1 sinit19 = {1};
 arrtype1 sinit20 = {2,3};
-typedef int arrtype2[3];
+प्रकारनिर्देश पूर्णाङ्क arrtype2[3];
 arrtype2 sinit21;
 arrtype2 sinit22;
 arrtype2 sinit21 = {4};
 arrtype2 sinit22 = {5,6,7};
 
 /* Address comparisons of non-weak symbols with zero can be const-folded */
-int sinit23[2] = { "astring" ? sizeof("astring") : -1,
+पूर्णाङ्क sinit23[2] = { "astring" ? परिमाण("astring") : -1,
 		   &sinit23 ? 42 : -1 };
 
-int sinit24 = 2 || 1 / 0; /* exception in constant but unevaluated context */
+पूर्णाङ्क sinit24 = 2 || 1 / 0; /* exception in constant but unevaluated context */
 
 /* bitfield init */
-struct bf_SS {unsigned int bit:1,bits31:31; };
-struct bf_SS bf_init = { .bit = 1 };
-struct bfn_SS {int a,b; struct bf_SS c; int d,e; };
-struct bfn_SS bfn_init = { .c.bit = 1 };
-struct bfa_SS {int a,b; struct bf_SS c[3]; int d,e; };
-struct bfa_SS bfa_init = { .c[1].bit = 1 };
-struct bf_SS bfaa_init[3] = { [1].bit = 1 };
-struct bf_SS bfaa_vinit[] = { [2].bit = 1 };
-struct b2_SS {long long int field : 52; long long int pad : 12; };
-struct b2_SS bf_init2 = {0xFFF000FFF000FLL, 0x123};
+संरचना bf_SS {अचिन्हित पूर्णाङ्क bit:1,bits31:31; };
+संरचना bf_SS bf_init = { .bit = 1 };
+संरचना bfn_SS {पूर्णाङ्क a,b; संरचना bf_SS c; पूर्णाङ्क d,e; };
+संरचना bfn_SS bfn_init = { .c.bit = 1 };
+संरचना bfa_SS {पूर्णाङ्क a,b; संरचना bf_SS c[3]; पूर्णाङ्क d,e; };
+संरचना bfa_SS bfa_init = { .c[1].bit = 1 };
+संरचना bf_SS bfaa_init[3] = { [1].bit = 1 };
+संरचना bf_SS bfaa_vinit[] = { [2].bit = 1 };
+संरचना b2_SS {दीर्घ दीर्घ पूर्णाङ्क field : 52; दीर्घ दीर्घ पूर्णाङ्क pad : 12; };
+संरचना b2_SS bf_init2 = {0xFFF000FFF000FLL, 0x123};
 
-extern int external_inited = 42;
+बाह्य पूर्णाङ्क external_inited = 42;
 
-void init_test(void)
+शून्य init_test(शून्य)
 {
-    int linit1 = 2;
-    int linit2 = { 3 };
-    int linit4[3][2] = { {1, 2}, {3, 4}, {5, 6} };
-    int linit6[] = { 1, 2, 3 };
-    int i, j;
-    char linit8[] = "hello" "trala";
-    int linit12[10] = { 1, 2 };
-    int linit13[10] = { 1, 2, [7] = 3, [3] = 4, };
-    char linit14[10] = "abc";
-    int linit15[10] = { linit1, linit1 + 1, [6] = linit1 + 2, };
-    struct linit16 { int a1, a2, a3, a4; } linit16 = { 1, .a3 = 2 };
-    int linit17 = sizeof(linit17);
-    int zero = 0;
+    पूर्णाङ्क linit1 = 2;
+    पूर्णाङ्क linit2 = { 3 };
+    पूर्णाङ्क linit4[3][2] = { {1, 2}, {3, 4}, {5, 6} };
+    पूर्णाङ्क linit6[] = { 1, 2, 3 };
+    पूर्णाङ्क i, j;
+    वर्ण linit8[] = "hello" "trala";
+    पूर्णाङ्क linit12[10] = { 1, 2 };
+    पूर्णाङ्क linit13[10] = { 1, 2, [7] = 3, [3] = 4, };
+    वर्ण linit14[10] = "abc";
+    पूर्णाङ्क linit15[10] = { linit1, linit1 + 1, [6] = linit1 + 2, };
+    संरचना linit16 { पूर्णाङ्क a1, a2, a3, a4; } linit16 = { 1, .a3 = 2 };
+    पूर्णाङ्क linit17 = परिमाण(linit17);
+    पूर्णाङ्क zero = 0;
     /* Addresses on non-weak symbols are non-zero, but not the access itself */
-    int linit18[2] = {&zero ? 1 : -1, zero ? -1 : 1 };
-    struct bf_SS bf_finit = { .bit = 1 };
-    struct bfn_SS bfn_finit = { .c.bit = 1 };
-    struct bfa_SS bfa_finit = { .c[1].bit = 1 };
-    struct bf_SS bfaa_finit[3] = { [1].bit = 1 };
-    struct bf_SS bfaa_fvinit[] = { [2].bit = 1 };
-    struct b2_SS bf_finit2 = {0xFFF000FFF000FLL, 0x123};
+    पूर्णाङ्क linit18[2] = {&zero ? 1 : -1, zero ? -1 : 1 };
+    संरचना bf_SS bf_finit = { .bit = 1 };
+    संरचना bfn_SS bfn_finit = { .c.bit = 1 };
+    संरचना bfa_SS bfa_finit = { .c[1].bit = 1 };
+    संरचना bf_SS bfaa_finit[3] = { [1].bit = 1 };
+    संरचना bf_SS bfaa_fvinit[] = { [2].bit = 1 };
+    संरचना b2_SS bf_finit2 = {0xFFF000FFF000FLL, 0x123};
     
-    printf("sinit1=%d\n", sinit1);
-    printf("sinit2=%d\n", sinit2);
-    printf("sinit3=%d %d %d %d\n", 
-           sizeof(sinit3),
+    म_लिखो("sinit1=%d\n", sinit1);
+    म_लिखो("sinit2=%d\n", sinit2);
+    म_लिखो("sinit3=%d %d %d %d\n", 
+           परिमाण(sinit3),
            sinit3[0],
            sinit3[1],
            sinit3[2]
            );
-    printf("sinit6=%d\n", sizeof(sinit6));
-    printf("sinit7=%d %d %d %d\n", 
-           sizeof(sinit7),
+    म_लिखो("sinit6=%d\n", परिमाण(sinit6));
+    म_लिखो("sinit7=%d %d %d %d\n", 
+           परिमाण(sinit7),
            sinit7[0],
            sinit7[1],
            sinit7[2]
            );
-    printf("sinit8=%s\n", sinit8);
-    printf("sinit9=%d %d %d\n", 
+    म_लिखो("sinit8=%s\n", sinit8);
+    म_लिखो("sinit9=%d %d %d\n", 
            sinit9.f1,
            sinit9.f2,
            sinit9.f3
            );
-    printf("sinit10=%d %d %d\n", 
+    म_लिखो("sinit10=%d %d %d\n", 
            sinit10.f1,
            sinit10.f2,
            sinit10.f3
            );
-    printf("sinit11=%d %d %d %d %d %d\n", 
+    म_लिखो("sinit11=%d %d %d %d %d %d\n", 
            sinit11.f1,
            sinit11.f2,
            sinit11.f3,
@@ -1885,235 +1885,235 @@ void init_test(void)
            sinit11.farray[2]
            );
 
-    for(i=0;i<3;i++)
-        for(j=0;j<2;j++)
-            printf("[%d][%d] = %d %d %d\n", 
+    लागि(i=0;i<3;i++)
+        लागि(j=0;j<2;j++)
+            म_लिखो("[%d][%d] = %d %d %d\n", 
                    i, j, sinit4[i][j], sinit5[i][j], linit4[i][j]);
-    printf("linit1=%d\n", linit1);
-    printf("linit2=%d\n", linit2);
-    printf("linit6=%d\n", sizeof(linit6));
-    printf("linit8=%d %s\n", sizeof(linit8), linit8);
+    म_लिखो("linit1=%d\n", linit1);
+    म_लिखो("linit2=%d\n", linit2);
+    म_लिखो("linit6=%d\n", परिमाण(linit6));
+    म_लिखो("linit8=%d %s\n", परिमाण(linit8), linit8);
 
-    printf("sinit12=%s\n", sinit12);
-    printf("sinit13=%d %s %s %s\n",
-           sizeof(sinit13), 
+    म_लिखो("sinit12=%s\n", sinit12);
+    म_लिखो("sinit13=%d %s %s %s\n",
+           परिमाण(sinit13), 
            sinit13[0],
            sinit13[1],
            sinit13[2]);
-    printf("sinit14=%s\n", sinit14);
+    म_लिखो("sinit14=%s\n", sinit14);
 
-    for(i=0;i<10;i++) printf(" %d", linit12[i]);
-    printf("\n");
-    for(i=0;i<10;i++) printf(" %d", linit13[i]);
-    printf("\n");
-    for(i=0;i<10;i++) printf(" %d", linit14[i]);
-    printf("\n");
-    for(i=0;i<10;i++) printf(" %d", linit15[i]);
-    printf("\n");
-    printf("%d %d %d %d\n", 
+    लागि(i=0;i<10;i++) म_लिखो(" %d", linit12[i]);
+    म_लिखो("\n");
+    लागि(i=0;i<10;i++) म_लिखो(" %d", linit13[i]);
+    म_लिखो("\n");
+    लागि(i=0;i<10;i++) म_लिखो(" %d", linit14[i]);
+    म_लिखो("\n");
+    लागि(i=0;i<10;i++) म_लिखो(" %d", linit15[i]);
+    म_लिखो("\n");
+    म_लिखो("%d %d %d %d\n", 
            linit16.a1,
            linit16.a2,
            linit16.a3,
            linit16.a4);
     /* test that initialisation is done after variable declare */
-    printf("linit17=%d\n", linit17);
-    printf("sinit15=%d\n", sinit15[0]);
-    printf("sinit16=%d %d\n", sinit16[0].a[0], sinit16[1].a[0]);
-    printf("sinit17=%s %d %s %d\n",
+    म_लिखो("linit17=%d\n", linit17);
+    म_लिखो("sinit15=%d\n", sinit15[0]);
+    म_लिखो("sinit16=%d %d\n", sinit16[0].a[0], sinit16[1].a[0]);
+    म_लिखो("sinit17=%s %d %s %d\n",
            sinit17[0].s, sinit17[0].len,
            sinit17[1].s, sinit17[1].len);
-    for(i=0;i<10;i++)
-        printf("%x ", sinit18[i]);
-    printf("\n");
+    लागि(i=0;i<10;i++)
+        म_लिखो("%x ", sinit18[i]);
+    म_लिखो("\n");
     /* complex init check */
-    printf("cix: %d %d %d %d %d %d %d\n",
+    म_लिखो("cix: %d %d %d %d %d %d %d\n",
 	cix[0].a,
 	cix[0].b[0].a, cix[0].b[0].b,
 	cix[0].b[1].a, cix[0].b[1].b,
 	cix[0].b[2].a, cix[0].b[2].b);
-    printf("cix2: %d %d\n", cix21.b[2], cix22.b[5]);
-    printf("sizeof cix20 %d, cix21 %d, sizeof cix22 %d\n", sizeof cix20, sizeof cix21, sizeof cix22);
+    म_लिखो("cix2: %d %d\n", cix21.b[2], cix22.b[5]);
+    म_लिखो("sizeof cix20 %d, cix21 %d, sizeof cix22 %d\n", परिमाण cix20, परिमाण cix21, परिमाण cix22);
 
-    printf("arrtype1: %d %d %d\n", sinit19[0], sinit20[0], sinit20[1]);
-    printf("arrtype2: %d %d\n", sizeof(sinit19), sizeof(sinit20));
-    printf("arrtype3: %d %d %d\n", sinit21[0], sinit21[1], sinit21[2]);
-    printf("arrtype4: %d %d %d\n", sinit22[0], sinit22[1], sinit22[2]);
-    printf("arrtype5: %d %d\n", sizeof(sinit21), sizeof(sinit22));
-    printf("arrtype6: %d\n", sizeof(arrtype2));
+    म_लिखो("arrtype1: %d %d %d\n", sinit19[0], sinit20[0], sinit20[1]);
+    म_लिखो("arrtype2: %d %d\n", परिमाण(sinit19), परिमाण(sinit20));
+    म_लिखो("arrtype3: %d %d %d\n", sinit21[0], sinit21[1], sinit21[2]);
+    म_लिखो("arrtype4: %d %d %d\n", sinit22[0], sinit22[1], sinit22[2]);
+    म_लिखो("arrtype5: %d %d\n", परिमाण(sinit21), परिमाण(sinit22));
+    म_लिखो("arrtype6: %d\n", परिमाण(arrtype2));
 
-    printf("sinit23= %d %d\n", sinit23[0], sinit23[1]);
-    printf("sinit24=%d\n", sinit24);
-    printf("linit18= %d %d\n", linit18[0], linit18[1]);
-    printf ("bf1: %u %u\n", bf_init.bit, bf_init.bits31);
-    printf ("bf2: %u %u\n", bf_finit.bit, bf_finit.bits31);
-    printf ("bf3: %u %u\n", bfn_init.c.bit, bfn_init.c.bits31);
-    printf ("bf4: %u %u\n", bfn_finit.c.bit, bfn_finit.c.bits31);
-    for (i = 0; i < 3; i++)
-        printf ("bf5[%d]: %u %u\n", i, bfa_init.c[i].bit, bfa_init.c[i].bits31);
-    for (i = 0; i < 3; i++)
-        printf ("bf6[%d]: %u %u\n", i, bfa_finit.c[i].bit, bfa_finit.c[i].bits31);
-    for (i = 0; i < 3; i++)
-        printf ("bf7[%d]: %u %u\n", i, bfaa_init[i].bit, bfaa_init[i].bits31);
-    for (i = 0; i < 3; i++)
-        printf ("bf8[%d]: %u %u\n", i, bfaa_finit[i].bit, bfaa_finit[i].bits31);
-    for (i = 0; i < 3; i++)
-        printf ("bf9[%d]: %u %u\n", i, bfaa_vinit[i].bit, bfaa_vinit[i].bits31);
-    for (i = 0; i < 3; i++)
-        printf ("bf10[%d]: %u %u\n", i, bfaa_fvinit[i].bit, bfaa_fvinit[i].bits31);
+    म_लिखो("sinit23= %d %d\n", sinit23[0], sinit23[1]);
+    म_लिखो("sinit24=%d\n", sinit24);
+    म_लिखो("linit18= %d %d\n", linit18[0], linit18[1]);
+    म_लिखो ("bf1: %u %u\n", bf_init.bit, bf_init.bits31);
+    म_लिखो ("bf2: %u %u\n", bf_finit.bit, bf_finit.bits31);
+    म_लिखो ("bf3: %u %u\n", bfn_init.c.bit, bfn_init.c.bits31);
+    म_लिखो ("bf4: %u %u\n", bfn_finit.c.bit, bfn_finit.c.bits31);
+    लागि (i = 0; i < 3; i++)
+        म_लिखो ("bf5[%d]: %u %u\n", i, bfa_init.c[i].bit, bfa_init.c[i].bits31);
+    लागि (i = 0; i < 3; i++)
+        म_लिखो ("bf6[%d]: %u %u\n", i, bfa_finit.c[i].bit, bfa_finit.c[i].bits31);
+    लागि (i = 0; i < 3; i++)
+        म_लिखो ("bf7[%d]: %u %u\n", i, bfaa_init[i].bit, bfaa_init[i].bits31);
+    लागि (i = 0; i < 3; i++)
+        म_लिखो ("bf8[%d]: %u %u\n", i, bfaa_finit[i].bit, bfaa_finit[i].bits31);
+    लागि (i = 0; i < 3; i++)
+        म_लिखो ("bf9[%d]: %u %u\n", i, bfaa_vinit[i].bit, bfaa_vinit[i].bits31);
+    लागि (i = 0; i < 3; i++)
+        म_लिखो ("bf10[%d]: %u %u\n", i, bfaa_fvinit[i].bit, bfaa_fvinit[i].bits31);
 }
 
-void switch_uc(unsigned char uc)
+शून्य switch_uc(अचिन्हित वर्ण uc)
 {
-	switch (uc) {
-	    case 0xfb ... 0xfe:
-		printf("ucsw:1\n");
-		break;
-	    case 0xff:
-		printf("ucsw:2\n");
-		break;
-	    case 0 ... 5:
-		printf("ucsw:3\n");
-		break;
-	    default:
-		printf("ucsw: broken!\n");
+	विकल्प (uc) {
+	    पक्ष 0xfb ... 0xfe:
+		म_लिखो("ucsw:1\n");
+		रोक;
+	    पक्ष 0xff:
+		म_लिखो("ucsw:2\n");
+		रोक;
+	    पक्ष 0 ... 5:
+		म_लिखो("ucsw:3\n");
+		रोक;
+	    स्वभाव:
+		म_लिखो("ucsw: broken!\n");
 	}
 }
 
-void switch_sc(signed char sc)
+शून्य switch_sc(चिन्हित वर्ण sc)
 {
-	switch (sc) {
-	    case -5 ... -2:
-		printf("scsw:1\n");
-		break;
-	    case -1:
-		printf("scsw:2\n");
-		break;
-	    case 0 ... 5:
-		printf("scsw:3\n");
-		break;
-	    default:
-		printf("scsw: broken!\n");
+	विकल्प (sc) {
+	    पक्ष -5 ... -2:
+		म_लिखो("scsw:1\n");
+		रोक;
+	    पक्ष -1:
+		म_लिखो("scsw:2\n");
+		रोक;
+	    पक्ष 0 ... 5:
+		म_लिखो("scsw:3\n");
+		रोक;
+	    स्वभाव:
+		म_लिखो("scsw: broken!\n");
 	}
 }
 
-void switch_test()
+शून्य switch_test()
 {
-    int i;
-    unsigned long long ull;
-    long long ll;
+    पूर्णाङ्क i;
+    अचिन्हित दीर्घ दीर्घ ull;
+    दीर्घ दीर्घ ll;
 
-    for(i=0;i<15;i++) {
-        switch(i) {
-        case 0:
-        case 1:
-            printf("a");
-            break;
-        default:
-            printf("%d", i);
-            break;
-        case 8 ... 12:
-            printf("c");
-            break;
-        case 3:
-            printf("b");
-            break;
-        case 0xc33c6b9fU:
-        case 0x7c9eeeb9U:
-            break;
+    लागि(i=0;i<15;i++) {
+        विकल्प(i) {
+        पक्ष 0:
+        पक्ष 1:
+            म_लिखो("a");
+            रोक;
+        स्वभाव:
+            म_लिखो("%d", i);
+            रोक;
+        पक्ष 8 ... 12:
+            म_लिखो("c");
+            रोक;
+        पक्ष 3:
+            म_लिखो("b");
+            रोक;
+        पक्ष 0xc33c6b9fU:
+        पक्ष 0x7c9eeeb9U:
+            रोक;
         }
     }
-    printf("\n");
+    म_लिखो("\n");
 
-    for (i = 1; i <= 5; i++) {
-	ull = (unsigned long long)i << 61;
-	switch (ull) {
-	    case 1ULL << 61:
-		printf("ullsw:1\n");
-		break;
-	    case 2ULL << 61:
-		printf("ullsw:2\n");
-		break;
-	    case 3ULL << 61:
-		printf("ullsw:3\n");
-		break;
-	    case 4ULL << 61:
-		printf("ullsw:4\n");
-		break;
-	    case 5ULL << 61:
-		printf("ullsw:5\n");
-		break;
-	    default:
-		printf("ullsw: broken!\n");
+    लागि (i = 1; i <= 5; i++) {
+	ull = (अचिन्हित दीर्घ दीर्घ)i << 61;
+	विकल्प (ull) {
+	    पक्ष 1ULL << 61:
+		म_लिखो("ullsw:1\n");
+		रोक;
+	    पक्ष 2ULL << 61:
+		म_लिखो("ullsw:2\n");
+		रोक;
+	    पक्ष 3ULL << 61:
+		म_लिखो("ullsw:3\n");
+		रोक;
+	    पक्ष 4ULL << 61:
+		म_लिखो("ullsw:4\n");
+		रोक;
+	    पक्ष 5ULL << 61:
+		म_लिखो("ullsw:5\n");
+		रोक;
+	    स्वभाव:
+		म_लिखो("ullsw: broken!\n");
 	}
     }
 
-    for (i = 1; i <= 5; i++) {
-	ll = (long long)i << 61;
-	switch (ll) {
-	    case 1LL << 61:
-		printf("llsw:1\n");
-		break;
-	    case 2LL << 61:
-		printf("llsw:2\n");
-		break;
-	    case 3LL << 61:
-		printf("llsw:3\n");
-		break;
-	    case 4LL << 61:
-		printf("llsw:4\n");
-		break;
-	    case 5LL << 61:
-		printf("llsw:5\n");
-		break;
-	    default:
-		printf("llsw: broken!\n");
+    लागि (i = 1; i <= 5; i++) {
+	ll = (दीर्घ दीर्घ)i << 61;
+	विकल्प (ll) {
+	    पक्ष 1LL << 61:
+		म_लिखो("llsw:1\n");
+		रोक;
+	    पक्ष 2LL << 61:
+		म_लिखो("llsw:2\n");
+		रोक;
+	    पक्ष 3LL << 61:
+		म_लिखो("llsw:3\n");
+		रोक;
+	    पक्ष 4LL << 61:
+		म_लिखो("llsw:4\n");
+		रोक;
+	    पक्ष 5LL << 61:
+		म_लिखो("llsw:5\n");
+		रोक;
+	    स्वभाव:
+		म_लिखो("llsw: broken!\n");
 	}
     }
 
-    for (i = -5; i <= 5; i++) {
-	switch_uc((unsigned char)i);
+    लागि (i = -5; i <= 5; i++) {
+	switch_uc((अचिन्हित वर्ण)i);
     }
 
-    for (i = -5; i <= 5; i++) {
-	switch_sc ((signed char)i);
+    लागि (i = -5; i <= 5; i++) {
+	switch_sc ((चिन्हित वर्ण)i);
     }
 }
 
 /* ISOC99 _Bool type */
-void c99_bool_test(void)
+शून्य c99_bool_test(शून्य)
 {
 #ifdef BOOL_ISOC99
-    int a;
+    पूर्णाङ्क a;
     _Bool b, b2;
 
-    printf("sizeof(_Bool) = %d\n", sizeof(_Bool));
+    म_लिखो("sizeof(_Bool) = %d\n", परिमाण(_Bool));
     a = 3;
-    printf("cast: %d %d %d\n", (_Bool)10, (_Bool)0, (_Bool)a);
+    म_लिखो("cast: %d %d %d\n", (_Bool)10, (_Bool)0, (_Bool)a);
     b = 3;
-    printf("b = %d\n", b);
+    म_लिखो("b = %d\n", b);
     b++;
-    printf("b = %d\n", b);
+    म_लिखो("b = %d\n", b);
     b2 = 0;
-    printf("sizeof(x ? _Bool : _Bool) = %d (should be sizeof int)\n",
-           sizeof ((volatile int)a ? b : b2));
+    म_लिखो("sizeof(x ? _Bool : _Bool) = %d (should be sizeof int)\n",
+           परिमाण ((चञ्चल पूर्णाङ्क)a ? b : b2));
 #endif
 }
 
-void bitfield_test(void)
+शून्य bitfield_test(शून्य)
 {
-    int a;
-    short sa;
-    unsigned char ca;
-    struct sbf1 {
-        int f1 : 3;
-        int : 2;
-        int f2 : 1;
-        int : 0;
-        int f3 : 5;
-        int f4 : 7;
-        unsigned int f5 : 7;
+    पूर्णाङ्क a;
+    लघु sa;
+    अचिन्हित वर्ण ca;
+    संरचना sbf1 {
+        पूर्णाङ्क f1 : 3;
+        पूर्णाङ्क : 2;
+        पूर्णाङ्क f2 : 1;
+        पूर्णाङ्क : 0;
+        पूर्णाङ्क f3 : 5;
+        पूर्णाङ्क f4 : 7;
+        अचिन्हित पूर्णाङ्क f5 : 7;
     } st1;
-    printf("sizeof(st1) = %d\n", sizeof(st1));
+    म_लिखो("sizeof(st1) = %d\n", परिमाण(st1));
 
     st1.f1 = 3;
     st1.f2 = 1;
@@ -2122,98 +2122,98 @@ void bitfield_test(void)
     st1.f4 = a;
     st1.f5 = a;
     st1.f5++;
-    printf("%d %d %d %d %d\n",
+    म_लिखो("%d %d %d %d %d\n",
            st1.f1, st1.f2, st1.f3, st1.f4, st1.f5);
     sa = st1.f5;
     ca = st1.f5;
-    printf("%d %d\n", sa, ca);
+    म_लिखो("%d %d\n", sa, ca);
 
     st1.f1 = 7;
-    if (st1.f1 == -1) 
-        printf("st1.f1 == -1\n");
-    else 
-        printf("st1.f1 != -1\n");
-    if (st1.f2 == -1) 
-        printf("st1.f2 == -1\n");
-    else 
-        printf("st1.f2 != -1\n");
+    यदि (st1.f1 == -1) 
+        म_लिखो("st1.f1 == -1\n");
+    अन्यथा 
+        म_लिखो("st1.f1 != -1\n");
+    यदि (st1.f2 == -1) 
+        म_लिखो("st1.f2 == -1\n");
+    अन्यथा 
+        म_लिखो("st1.f2 != -1\n");
 
-    struct sbf2 {
-        long long f1 : 45;
-        long long : 2;
-        long long f2 : 35;
-        unsigned long long f3 : 38;
+    संरचना sbf2 {
+        दीर्घ दीर्घ f1 : 45;
+        दीर्घ दीर्घ : 2;
+        दीर्घ दीर्घ f2 : 35;
+        अचिन्हित दीर्घ दीर्घ f3 : 38;
     } st2;
     st2.f1 = 0x123456789ULL;
     a = 120;
-    st2.f2 = (long long)a << 25;
+    st2.f2 = (दीर्घ दीर्घ)a << 25;
     st2.f3 = a;
     st2.f2++;
-    printf("%lld %lld %lld\n", st2.f1, st2.f2, st2.f3);
+    म_लिखो("%lld %lld %lld\n", st2.f1, st2.f2, st2.f3);
 
-#if 0
-    Disabled for now until further clarification re GCC compatibility
-    struct sbf3 {
-        int f1 : 7;
-        int f2 : 1;
-        char f3;
-        int f4 : 8;
-        int f5 : 1;
-        int f6 : 16;
+#यदि 0
+    Disabled लागि now until further clarification re GCC compatibility
+    संरचना sbf3 {
+        पूर्णाङ्क f1 : 7;
+        पूर्णाङ्क f2 : 1;
+        वर्ण f3;
+        पूर्णाङ्क f4 : 8;
+        पूर्णाङ्क f5 : 1;
+        पूर्णाङ्क f6 : 16;
     } st3;
-    printf("sizeof(st3) = %d\n", sizeof(st3));
+    म_लिखो("sizeof(st3) = %d\n", परिमाण(st3));
 #endif
 
-    struct sbf4 {
-	int x : 31;
-	char y : 2;
+    संरचना sbf4 {
+	पूर्णाङ्क x : 31;
+	वर्ण y : 2;
     } st4;
     st4.y = 1;
-    printf("st4.y == %d\n", st4.y);
-    struct sbf5 {
-	int a;
-	char b;
-	int x : 12, y : 4, : 0, : 4, z : 3;
-	char c;
+    म_लिखो("st4.y == %d\n", st4.y);
+    संरचना sbf5 {
+	पूर्णाङ्क a;
+	वर्ण b;
+	पूर्णाङ्क x : 12, y : 4, : 0, : 4, z : 3;
+	वर्ण c;
     } st5 = { 1, 2, 3, 4, -3, 6 };
-    printf("st5 = %d %d %d %d %d %d\n", st5.a, st5.b, st5.x, st5.y, st5.z, st5.c);
-    struct sbf6 {
-	short x : 12;
-	unsigned char y : 2;
+    म_लिखो("st5 = %d %d %d %d %d %d\n", st5.a, st5.b, st5.x, st5.y, st5.z, st5.c);
+    संरचना sbf6 {
+	लघु x : 12;
+	अचिन्हित वर्ण y : 2;
     } st6;
     st6.y = 1;
-    printf("st6.y == %d\n", st6.y);
+    म_लिखो("st6.y == %d\n", st6.y);
 }
 
 #ifdef __x86_64__
 #define FLOAT_FMT "%f\n"
-#else
+#अन्यथा
 /* x86's float isn't compatible with GCC */
 #define FLOAT_FMT "%.5f\n"
 #endif
 
 /* declare strto* functions as they are C99 */
-double strtod(const char *nptr, char **endptr);
+द्विगुण म_से_भग्न(अचर वर्ण *nptr, वर्ण **endptr);
 
-#if defined(_WIN32)
-float strtof(const char *nptr, char **endptr) {return (float)strtod(nptr, endptr);}
-LONG_DOUBLE strtold(const char *nptr, char **endptr) {return (LONG_DOUBLE)strtod(nptr, endptr);}
-#else
-float strtof(const char *nptr, char **endptr);
-LONG_DOUBLE strtold(const char *nptr, char **endptr);
+#यदि defined(_WIN32)
+भिन्न strtof(अचर वर्ण *nptr, वर्ण **endptr) {फर्काऊ (भिन्न)म_से_भग्न(nptr, endptr);}
+LONG_DOUBLE strtold(अचर वर्ण *nptr, वर्ण **endptr) {फर्काऊ (LONG_DOUBLE)म_से_भग्न(nptr, endptr);}
+#अन्यथा
+भिन्न strtof(अचर वर्ण *nptr, वर्ण **endptr);
+LONG_DOUBLE strtold(अचर वर्ण *nptr, वर्ण **endptr);
 #endif
 
 #define FTEST(prefix, typename, type, fmt)\
-void prefix ## cmp(type a, type b)\
+शून्य prefix ## cmp(type a, type b)\
 {\
-    printf("%d %d %d %d %d %d\n",\
+    म_लिखो("%d %d %d %d %d %d\n",\
            a == b,\
            a != b,\
            a < b,\
            a > b,\
            a >= b,\
            a <= b);\
-    printf(fmt " " fmt " " fmt " " fmt " " fmt " " fmt " " fmt "\n",\
+    म_लिखो(fmt " " fmt " " fmt " " fmt " " fmt " " fmt " " fmt "\n",\
            a,\
            b,\
            a + b,\
@@ -2221,96 +2221,96 @@ void prefix ## cmp(type a, type b)\
            a * b,\
            a / b,\
            -a);\
-    printf(fmt "\n", ++a);\
-    printf(fmt "\n", a++);\
-    printf(fmt "\n", a);\
+    म_लिखो(fmt "\n", ++a);\
+    म_लिखो(fmt "\n", a++);\
+    म_लिखो(fmt "\n", a);\
     b = 0;\
-    printf("%d %d\n", !a, !b);\
+    म_लिखो("%d %d\n", !a, !b);\
 }\
-void prefix ## fcast(type a)\
+शून्य prefix ## fcast(type a)\
 {\
-    float fa;\
-    double da;\
+    भिन्न fa;\
+    द्विगुण da;\
     LONG_DOUBLE la;\
-    int ia;\
-    long long llia;\
-    unsigned int ua;\
-    unsigned long long llua;\
+    पूर्णाङ्क ia;\
+    दीर्घ दीर्घ llia;\
+    अचिन्हित पूर्णाङ्क ua;\
+    अचिन्हित दीर्घ दीर्घ llua;\
     type b;\
     fa = a;\
     da = a;\
     la = a;\
-    printf("ftof: %f %f %Lf\n", fa, da, la);\
-    ia = (int)a;\
-    llia = (long long)a;\
+    म_लिखो("ftof: %f %f %Lf\n", fa, da, la);\
+    ia = (पूर्णाङ्क)a;\
+    llia = (दीर्घ दीर्घ)a;\
     a = (a >= 0) ? a : -a;\
-    ua = (unsigned int)a;\
-    llua = (unsigned long long)a;\
-    printf("ftoi: %d %u %lld %llu\n", ia, ua, llia, llua);\
+    ua = (अचिन्हित पूर्णाङ्क)a;\
+    llua = (अचिन्हित दीर्घ दीर्घ)a;\
+    म_लिखो("ftoi: %d %u %lld %llu\n", ia, ua, llia, llua);\
     ia = -1234;\
     ua = 0x81234500;\
     llia = -0x123456789012345LL;\
     llua = 0xf123456789012345LLU;\
     b = ia;\
-    printf("itof: " fmt "\n", b);\
+    म_लिखो("itof: " fmt "\n", b);\
     b = ua;\
-    printf("utof: " fmt "\n", b);\
+    म_लिखो("utof: " fmt "\n", b);\
     b = llia;\
-    printf("lltof: " fmt "\n", b);\
+    म_लिखो("lltof: " fmt "\n", b);\
     b = llua;\
-    if (CC_NAME != CC_clang) printf("ulltof: " fmt "\n", b);\
+    यदि (CC_NAME != CC_clang) म_लिखो("ulltof: " fmt "\n", b);\
 }\
 \
-float prefix ## retf(type a) { return a; }\
-double prefix ## retd(type a) { return a; }\
-LONG_DOUBLE prefix ## retld(type a) { return a; }\
+भिन्न prefix ## retf(type a) { फर्काऊ a; }\
+द्विगुण prefix ## retd(type a) { फर्काऊ a; }\
+LONG_DOUBLE prefix ## retld(type a) { फर्काऊ a; }\
 \
-void prefix ## call(void)\
+शून्य prefix ## call(शून्य)\
 {\
-    printf("float: " FLOAT_FMT, prefix ## retf(42.123456789));\
-    printf("double: %f\n", prefix ## retd(42.123456789));\
-    printf("long double: %Lf\n", prefix ## retld(42.123456789));\
-    printf("strto%s: %f\n", #prefix, (double)strto ## prefix("1.2", NULL));\
+    म_लिखो("float: " FLOAT_FMT, prefix ## retf(42.123456789));\
+    म_लिखो("double: %f\n", prefix ## retd(42.123456789));\
+    म_लिखो("long double: %Lf\n", prefix ## retld(42.123456789));\
+    म_लिखो("strto%s: %f\n", #prefix, (द्विगुण)strto ## prefix("1.2", रिक्त));\
 }\
 \
-void prefix ## signed_zeros(void) \
+शून्य prefix ## signed_zeros(शून्य) \
 {\
   type x = 0.0, y = -0.0, n, p;\
-  if (x == y)\
-    printf ("Test 1.0 / x != 1.0 / y  returns %d (should be 1).\n",\
+  यदि (x == y)\
+    म_लिखो ("Test 1.0 / x != 1.0 / y  returns %d (should be 1).\n",\
             1.0 / x != 1.0 / y);\
-  else\
-    printf ("x != y; this is wrong!\n");\
+  अन्यथा\
+    म_लिखो ("x != y; this is wrong!\n");\
 \
   n = -x;\
-  if (x == n)\
-    printf ("Test 1.0 / x != 1.0 / -x returns %d (should be 1).\n",\
+  यदि (x == n)\
+    म_लिखो ("Test 1.0 / x != 1.0 / -x returns %d (should be 1).\n",\
             1.0 / x != 1.0 / n);\
-  else\
-    printf ("x != -x; this is wrong!\n");\
+  अन्यथा\
+    म_लिखो ("x != -x; this is wrong!\n");\
 \
   p = +y;\
-  if (x == p)\
-    printf ("Test 1.0 / x != 1.0 / +y returns %d (should be 1).\n",\
+  यदि (x == p)\
+    म_लिखो ("Test 1.0 / x != 1.0 / +y returns %d (should be 1).\n",\
             1.0 / x != 1.0 / p);\
-  else\
-    printf ("x != +y; this is wrong!\n");\
+  अन्यथा\
+    म_लिखो ("x != +y; this is wrong!\n");\
   p = -y;\
-  if (x == p)\
-    printf ("Test 1.0 / x != 1.0 / -y returns %d (should be 0).\n",\
+  यदि (x == p)\
+    म_लिखो ("Test 1.0 / x != 1.0 / -y returns %d (should be 0).\n",\
             1.0 / x != 1.0 / p);\
-  else\
-    printf ("x != -y; this is wrong!\n");\
+  अन्यथा\
+    म_लिखो ("x != -y; this is wrong!\n");\
 }\
-void prefix ## nan(void)\
+शून्य prefix ## nan(शून्य)\
 {\
     type nan = 0.0/0.0;\
     type nnan = -nan; \
-    printf("nantest: " fmt " " fmt "\n", nan, nnan);\
+    म_लिखो("nantest: " fmt " " fmt "\n", nan, nnan);\
 }\
-void prefix ## test(void)\
+शून्य prefix ## test(शून्य)\
 {\
-    printf("testing '%s'\n", #typename);\
+    म_लिखो("testing '%s'\n", #typename);\
     prefix ## cmp(1, 2.5);\
     prefix ## cmp(2, 1.5);\
     prefix ## cmp(1, 1);\
@@ -2318,150 +2318,150 @@ void prefix ## test(void)\
     prefix ## fcast(-2334.6);\
     prefix ## call();\
     prefix ## signed_zeros();\
-    if (CC_NAME != CC_clang) prefix ## nan();\
+    यदि (CC_NAME != CC_clang) prefix ## nan();\
 }
 
-FTEST(f, float, float, "%f")
-FTEST(d, double, double, "%f")
-FTEST(ld, long double, LONG_DOUBLE, "%Lf")
+FTEST(f, भिन्न, भिन्न, "%f")
+FTEST(d, द्विगुण, द्विगुण, "%f")
+FTEST(ld, दीर्घ द्विगुण, LONG_DOUBLE, "%Lf")
 
-double ftab1[3] = { 1.2, 3.4, -5.6 };
+द्विगुण ftab1[3] = { 1.2, 3.4, -5.6 };
 
 
-void float_test(void)
+शून्य float_test(शून्य)
 {
-#if !defined(__arm__) || defined(__ARM_PCS_VFP) || defined __ANDROID__
-    volatile float fa, fb;
-    volatile double da, db;
-    int a;
-    unsigned int b;
-    static double nan2 = 0.0/0.0;
-    static double inf1 = 1.0/0.0;
-    static double inf2 = 1e5000;
-    volatile LONG_DOUBLE la;
+#यदि !defined(__arm__) || defined(__ARM_PCS_VFP) || defined __ANDROID__
+    चञ्चल भिन्न fa, fb;
+    चञ्चल द्विगुण da, db;
+    पूर्णाङ्क a;
+    अचिन्हित पूर्णाङ्क b;
+    स्थिर द्विगुण nan2 = 0.0/0.0;
+    स्थिर द्विगुण inf1 = 1.0/0.0;
+    स्थिर द्विगुण inf2 = 1e5000;
+    चञ्चल LONG_DOUBLE la;
 
-    printf("sizeof(float) = %d\n", sizeof(float));
-    printf("sizeof(double) = %d\n", sizeof(double));
-    printf("sizeof(long double) = %d\n", sizeof(LONG_DOUBLE));
+    म_लिखो("sizeof(float) = %d\n", परिमाण(भिन्न));
+    म_लिखो("sizeof(double) = %d\n", परिमाण(द्विगुण));
+    म_लिखो("sizeof(long double) = %d\n", परिमाण(LONG_DOUBLE));
     ftest();
     dtest();
     ldtest();
-    printf("%f %f %f\n", ftab1[0], ftab1[1], ftab1[2]);
-    printf("%f %f %f\n", 2.12, .5, 2.3e10);
+    म_लिखो("%f %f %f\n", ftab1[0], ftab1[1], ftab1[2]);
+    म_लिखो("%f %f %f\n", 2.12, .5, 2.3e10);
     //    printf("%f %f %f\n", 0x1234p12, 0x1e23.23p10, 0x12dp-10);
     da = 123;
-    printf("da=%f\n", da);
+    म_लिखो("da=%f\n", da);
     fa = 123;
-    printf("fa=%f\n", fa);
+    म_लिखो("fa=%f\n", fa);
     a = 4000000000;
     da = a;
-    printf("da = %f\n", da);
+    म_लिखो("da = %f\n", da);
     b = 4000000000;
     db = b;
-    printf("db = %f\n", db);
-    printf("nan != nan = %d, inf1 = %f, inf2 = %f\n", nan2 != nan2, inf1, inf2);
+    म_लिखो("db = %f\n", db);
+    म_लिखो("nan != nan = %d, inf1 = %f, inf2 = %f\n", nan2 != nan2, inf1, inf2);
     da = 0x0.88p-1022;  /* a subnormal */
     la = da;
-    printf ("da subnormal = %a\n", da);
-    printf ("da subnormal = %.40g\n", da);
-    printf ("la subnormal = %La\n", la);
-    printf ("la subnormal = %.40Lg\n", la);
+    म_लिखो ("da subnormal = %a\n", da);
+    म_लिखो ("da subnormal = %.40g\n", da);
+    म_लिखो ("la subnormal = %La\n", la);
+    म_लिखो ("la subnormal = %.40Lg\n", la);
     da /= 2;
     la = da;
-    printf ("da/2 subnormal = %a\n", da);
-    printf ("da/2 subnormal = %.40g\n", da);
-    printf ("la/2 subnormal = %La\n", la);
-    printf ("la/2 subnormal = %.40Lg\n", la);
+    म_लिखो ("da/2 subnormal = %a\n", da);
+    म_लिखो ("da/2 subnormal = %.40g\n", da);
+    म_लिखो ("la/2 subnormal = %La\n", la);
+    म_लिखो ("la/2 subnormal = %.40Lg\n", la);
     fa = 0x0.88p-126f;  /* a subnormal */
     la = fa;
-    printf ("fa subnormal = %a\n", fa);
-    printf ("fa subnormal = %.40g\n", fa);
-    printf ("la subnormal = %La\n", la);
-    printf ("la subnormal = %.40Lg\n", la);
+    म_लिखो ("fa subnormal = %a\n", fa);
+    म_लिखो ("fa subnormal = %.40g\n", fa);
+    म_लिखो ("la subnormal = %La\n", la);
+    म_लिखो ("la subnormal = %.40Lg\n", la);
     fa /= 2;
     la = fa;
-    printf ("fa/2 subnormal = %a\n", fa);
-    printf ("fa/2 subnormal = %.40g\n", fa);
-    printf ("la/2 subnormal = %La\n", la);
-    printf ("la/2 subnormal = %.40Lg\n", la);
+    म_लिखो ("fa/2 subnormal = %a\n", fa);
+    म_लिखो ("fa/2 subnormal = %.40g\n", fa);
+    म_लिखो ("la/2 subnormal = %La\n", la);
+    म_लिखो ("la/2 subnormal = %.40Lg\n", la);
 #endif
 }
 
-int fib(int n)
+पूर्णाङ्क fib(पूर्णाङ्क n)
 {
-    if (n <= 2)
-        return 1;
-    else
-        return fib(n-1) + fib(n-2);
+    यदि (n <= 2)
+        फर्काऊ 1;
+    अन्यथा
+        फर्काऊ fib(n-1) + fib(n-2);
 }
 
-#if __GNUC__ == 3 || __GNUC__ == 4
+#यदि __GNUC__ == 3 || __GNUC__ == 4
 # define aligned_function 0
-#else
-void __attribute__((aligned(16))) aligned_function(int i) {}
+#अन्यथा
+शून्य __attribute__((aligned(16))) aligned_function(पूर्णाङ्क i) {}
 #endif
 
-void funcptr_test()
+शून्य funcptr_test()
 {
-    void (*func)(int);
-    int a;
-    struct {
-        int dummy;
-        void (*func)(int);
+    शून्य (*func)(पूर्णाङ्क);
+    पूर्णाङ्क a;
+    संरचना {
+        पूर्णाङ्क dummy;
+        शून्य (*func)(पूर्णाङ्क);
     } st1;
-    long diff;
+    दीर्घ diff;
 
-    func = &num;
+    func = &अङ्क;
     (*func)(12345);
-    func = num;
+    func = अङ्क;
     a = 1;
     a = 1;
     func(12345);
     /* more complicated pointer computation */
-    st1.func = num;
+    st1.func = अङ्क;
     st1.func(12346);
-    printf("sizeof1 = %d\n", sizeof(funcptr_test));
-    printf("sizeof2 = %d\n", sizeof funcptr_test);
-    printf("sizeof3 = %d\n", sizeof(&funcptr_test));
-    printf("sizeof4 = %d\n", sizeof &funcptr_test);
+    म_लिखो("sizeof1 = %d\n", परिमाण(funcptr_test));
+    म_लिखो("sizeof2 = %d\n", परिमाण funcptr_test);
+    म_लिखो("sizeof3 = %d\n", परिमाण(&funcptr_test));
+    म_लिखो("sizeof4 = %d\n", परिमाण &funcptr_test);
     a = 0;
-    func = num + a;
-    diff = func - num;
+    func = अङ्क + a;
+    diff = func - अङ्क;
     func(42);
     (func + diff)(42);
-    (num + a)(43);
+    (अङ्क + a)(43);
 
     /* Check that we can align functions */
     func = aligned_function;
-    printf("aligned_function (should be zero): %d\n", ((int)(uintptr_t)func) & 15);
+    म_लिखो("aligned_function (should be zero): %d\n", ((पूर्णाङ्क)(uintptr_t)func) & 15);
 }
 
-void lloptest(long long a, long long b)
+शून्य lloptest(दीर्घ दीर्घ a, दीर्घ दीर्घ b)
 {
-    unsigned long long ua, ub;
+    अचिन्हित दीर्घ दीर्घ ua, ub;
 
     ua = a;
     ub = b;
     /* arith */
-    printf("arith: " LONG_LONG_FORMAT " " LONG_LONG_FORMAT " " LONG_LONG_FORMAT "\n",
+    म_लिखो("arith: " LONG_LONG_FORMAT " " LONG_LONG_FORMAT " " LONG_LONG_FORMAT "\n",
            a + b,
            a - b,
            a * b);
     
-    if (b != 0) {
-        printf("arith1: " LONG_LONG_FORMAT " " LONG_LONG_FORMAT "\n",
+    यदि (b != 0) {
+        म_लिखो("arith1: " LONG_LONG_FORMAT " " LONG_LONG_FORMAT "\n",
            a / b,
            a % b);
     }
 
-    /* binary */
-    printf("bin: " LONG_LONG_FORMAT " " LONG_LONG_FORMAT " " LONG_LONG_FORMAT "\n",
+    /*द्विआधारी*/
+    म_लिखो("bin: " LONG_LONG_FORMAT " " LONG_LONG_FORMAT " " LONG_LONG_FORMAT "\n",
            a & b,
            a | b,
            a ^ b);
 
     /* tests */
-    printf("test: %d %d %d %d %d %d\n",
+    म_लिखो("test: %d %d %d %d %d %d\n",
            a == b,
            a != b,
            a < b,
@@ -2469,7 +2469,7 @@ void lloptest(long long a, long long b)
            a >= b,
            a <= b);
     
-    printf("utest: %d %d %d %d %d %d\n",
+    म_लिखो("utest: %d %d %d %d %d %d\n",
            ua == ub,
            ua != ub,
            ua < ub,
@@ -2480,107 +2480,107 @@ void lloptest(long long a, long long b)
     /* arith2 */
     a++;
     b++;
-    printf("arith2: " LONG_LONG_FORMAT " " LONG_LONG_FORMAT "\n", a, b);
-    printf("arith2: " LONG_LONG_FORMAT " " LONG_LONG_FORMAT "\n", a++, b++);
-    printf("arith2: " LONG_LONG_FORMAT " " LONG_LONG_FORMAT "\n", --a, --b);
-    printf("arith2: " LONG_LONG_FORMAT " " LONG_LONG_FORMAT "\n", a, b);
+    म_लिखो("arith2: " LONG_LONG_FORMAT " " LONG_LONG_FORMAT "\n", a, b);
+    म_लिखो("arith2: " LONG_LONG_FORMAT " " LONG_LONG_FORMAT "\n", a++, b++);
+    म_लिखो("arith2: " LONG_LONG_FORMAT " " LONG_LONG_FORMAT "\n", --a, --b);
+    म_लिखो("arith2: " LONG_LONG_FORMAT " " LONG_LONG_FORMAT "\n", a, b);
     b = ub = 0;
-    printf("not: %d %d %d %d\n", !a, !ua, !b, !ub);
+    म_लिखो("not: %d %d %d %d\n", !a, !ua, !b, !ub);
 }
 
-void llshift(long long a, int b)
+शून्य llshift(दीर्घ दीर्घ a, पूर्णाङ्क b)
 {
-    printf("shift: " LONG_LONG_FORMAT " " LONG_LONG_FORMAT " " LONG_LONG_FORMAT "\n",
-           (unsigned long long)a >> b,
+    म_लिखो("shift: " LONG_LONG_FORMAT " " LONG_LONG_FORMAT " " LONG_LONG_FORMAT "\n",
+           (अचिन्हित दीर्घ दीर्घ)a >> b,
            a >> b,
            a << b);
-    printf("shiftc: " LONG_LONG_FORMAT " " LONG_LONG_FORMAT " " LONG_LONG_FORMAT "\n",
-           (unsigned long long)a >> 3,
+    म_लिखो("shiftc: " LONG_LONG_FORMAT " " LONG_LONG_FORMAT " " LONG_LONG_FORMAT "\n",
+           (अचिन्हित दीर्घ दीर्घ)a >> 3,
            a >> 3,
            a << 3);
-    printf("shiftc: " LONG_LONG_FORMAT " " LONG_LONG_FORMAT " " LONG_LONG_FORMAT "\n",
-           (unsigned long long)a >> 35,
+    म_लिखो("shiftc: " LONG_LONG_FORMAT " " LONG_LONG_FORMAT " " LONG_LONG_FORMAT "\n",
+           (अचिन्हित दीर्घ दीर्घ)a >> 35,
            a >> 35,
            a << 35);
 }
 
-void llfloat(void)
+शून्य llfloat(शून्य)
 {
-    float fa;
-    double da;
+    भिन्न fa;
+    द्विगुण da;
     LONG_DOUBLE lda;
-    long long la, lb, lc;
-    unsigned long long ula, ulb, ulc;
+    दीर्घ दीर्घ la, lb, lc;
+    अचिन्हित दीर्घ दीर्घ ula, ulb, ulc;
     la = 0x12345678;
     ula = 0x72345678;
     la = (la << 20) | 0x12345;
     ula = ula << 33;
-    printf("la=" LONG_LONG_FORMAT " ula=" ULONG_LONG_FORMAT "\n", la, ula);
+    म_लिखो("la=" LONG_LONG_FORMAT " ula=" ULONG_LONG_FORMAT "\n", la, ula);
 
     fa = la;
     da = la;
     lda = la;
-    printf("lltof: %f %f %Lf\n", fa, da, lda);
+    म_लिखो("lltof: %f %f %Lf\n", fa, da, lda);
 
     la = fa;
     lb = da;
     lc = lda;
-    printf("ftoll: " LONG_LONG_FORMAT " " LONG_LONG_FORMAT " " LONG_LONG_FORMAT "\n", la, lb, lc);
+    म_लिखो("ftoll: " LONG_LONG_FORMAT " " LONG_LONG_FORMAT " " LONG_LONG_FORMAT "\n", la, lb, lc);
 
     fa = ula;
     da = ula;
     lda = ula;
-    printf("ulltof: %f %f %Lf\n", fa, da, lda);
+    म_लिखो("ulltof: %f %f %Lf\n", fa, da, lda);
 
     ula = fa;
     ulb = da;
     ulc = lda;
-    printf("ftoull: " ULONG_LONG_FORMAT " " ULONG_LONG_FORMAT " " ULONG_LONG_FORMAT "\n", ula, ulb, ulc);
+    म_लिखो("ftoull: " ULONG_LONG_FORMAT " " ULONG_LONG_FORMAT " " ULONG_LONG_FORMAT "\n", ula, ulb, ulc);
 }
 
-long long llfunc1(int a)
+दीर्घ दीर्घ llfunc1(पूर्णाङ्क a)
 {
-    return a * 2;
+    फर्काऊ a * 2;
 }
 
-struct S {
-    int id; 
-    char item;
+संरचना S {
+    पूर्णाङ्क id; 
+    वर्ण item;
 };
 
-long long int value(struct S *v)
+दीर्घ दीर्घ पूर्णाङ्क मान(संरचना S *v)
 {
-    return ((long long int)v->item);
+    फर्काऊ ((दीर्घ दीर्घ पूर्णाङ्क)v->item);
 }
 
-long long llfunc2(long long x, long long y, int z)
+दीर्घ दीर्घ llfunc2(दीर्घ दीर्घ x, दीर्घ दीर्घ y, पूर्णाङ्क z)
 {
-    return x * y * z;
+    फर्काऊ x * y * z;
 }
 
-void check_opl_save_regs(char *a, long long b, int c)
+शून्य check_opl_save_regs(वर्ण *a, दीर्घ दीर्घ b, पूर्णाङ्क c)
 {
     *a = b < 0 && !c;
 }
 
-void longlong_test(void)
+शून्य longlong_test(शून्य)
 {
-    long long a, b, c;
-    int ia;
-    unsigned int ua;
-    printf("sizeof(long long) = %d\n", sizeof(long long));
+    दीर्घ दीर्घ a, b, c;
+    पूर्णाङ्क ia;
+    अचिन्हित पूर्णाङ्क ua;
+    म_लिखो("sizeof(long long) = %d\n", परिमाण(दीर्घ दीर्घ));
     ia = -1;
     ua = -2;
     a = ia;
     b = ua;
-    printf(LONG_LONG_FORMAT " " LONG_LONG_FORMAT "\n", a, b);
-    printf(LONG_LONG_FORMAT " " LONG_LONG_FORMAT " " LONG_LONG_FORMAT " "XLONG_LONG_FORMAT"\n",
-           (long long)1,
-           (long long)-2,
+    म_लिखो(LONG_LONG_FORMAT " " LONG_LONG_FORMAT "\n", a, b);
+    म_लिखो(LONG_LONG_FORMAT " " LONG_LONG_FORMAT " " LONG_LONG_FORMAT " "XLONG_LONG_FORMAT"\n",
+           (दीर्घ दीर्घ)1,
+           (दीर्घ दीर्घ)-2,
            1LL,
            0x1234567812345679);
     a = llfunc1(-3);
-    printf(LONG_LONG_FORMAT "\n", a);
+    म_लिखो(LONG_LONG_FORMAT "\n", a);
 
     lloptest(1000, 23);
     lloptest(0xff, 0x1234);
@@ -2592,85 +2592,85 @@ void longlong_test(void)
     llshift(b, 47);
 
     llfloat();
-#if 1
+#यदि 1
     b = 0x12345678;
     a = -1;
     c = a + b;
-    printf(XLONG_LONG_FORMAT"\n", c);
+    म_लिखो(XLONG_LONG_FORMAT"\n", c);
 #endif
 
     /* long long reg spill test */
     {
-          struct S a;
+          संरचना S a;
 
           a.item = 3;
-          printf("%lld\n", value(&a));
+          म_लिखो("%lld\n", मान(&a));
     }
     lloptest(0x80000000, 0);
 
     {
-        long long *p, v, **pp;
+        दीर्घ दीर्घ *p, v, **pp;
         v = 1;
         p = &v;
         p[0]++;
-        printf("another long long spill test : %lld\n", *p);
+        म_लिखो("another long long spill test : %lld\n", *p);
         pp = &p;
 
         v = llfunc2(**pp, **pp, ia);
-        printf("a long long function (arm-)reg-args test : %lld\n", v);
+        म_लिखो("a long long function (arm-)reg-args test : %lld\n", v);
     }
     a = 68719476720LL;
     b = 4294967295LL;
-    printf("%d %d %d %d\n", a > b, a < b, a >= b, a <= b);
+    म_लिखो("%d %d %d %d\n", a > b, a < b, a >= b, a <= b);
 
-    printf(LONG_LONG_FORMAT "\n", 0x123456789LLU);
+    म_लिखो(LONG_LONG_FORMAT "\n", 0x123456789LLU);
 
     /* long long pointer deref in argument passing test */
     a = 0x123;
-    long long *p = &a;
+    दीर्घ दीर्घ *p = &a;
     llshift(*p, 5);
 
     /* shortening followed by widening */
-    unsigned long long u = 0x8000000000000001ULL;
-    u = (unsigned)(u + 1);
-    printf("long long u=" ULONG_LONG_FORMAT "\n", u);
+    अचिन्हित दीर्घ दीर्घ u = 0x8000000000000001ULL;
+    u = (अचिन्हित)(u + 1);
+    म_लिखो("long long u=" ULONG_LONG_FORMAT "\n", u);
     u = 0x11223344aa998877ULL;
-    u = (unsigned)(int)(u + 1);
-    printf("long long u=" ULONG_LONG_FORMAT "\n", u);
+    u = (अचिन्हित)(पूर्णाङ्क)(u + 1);
+    म_लिखो("long long u=" ULONG_LONG_FORMAT "\n", u);
 
     /* was a problem with missing save_regs in gen_opl on 32-bit platforms */
-    char cc = 78;
+    वर्ण cc = 78;
     check_opl_save_regs(&cc, -1, 0);
-    printf("check_opl_save_regs: %d\n", cc);
+    म_लिखो("check_opl_save_regs: %d\n", cc);
 }
 
-void manyarg_test(void)
+शून्य manyarg_test(शून्य)
 {
     LONG_DOUBLE ld = 1234567891234LL;
-    printf("%d %d %d %d %d %d %d %d %f %f %f %f %f %f %f %f %f %f\n",
+    म_लिखो("%d %d %d %d %d %d %d %d %f %f %f %f %f %f %f %f %f %f\n",
            1, 2, 3, 4, 5, 6, 7, 8,
            0.1, 1.2, 2.3, 3.4, 4.5, 5.6, 6.7, 7.8, 8.9, 9.0);
-    printf("%d %d %d %d %d %d %d %d %f %f %f %f %f %f %f %f %f %f "
+    म_लिखो("%d %d %d %d %d %d %d %d %f %f %f %f %f %f %f %f %f %f "
            LONG_LONG_FORMAT " " LONG_LONG_FORMAT " %f %f\n",
            1, 2, 3, 4, 5, 6, 7, 8,
            0.1, 1.2, 2.3, 3.4, 4.5, 5.6, 6.7, 7.8, 8.9, 9.0,
            1234567891234LL, 987654321986LL,
            42.0, 43.0);
-    printf("%Lf %d %d %d %d %d %d %d %d %f %f %f %f %f %f %f %f %f %f "
+    म_लिखो("%Lf %d %d %d %d %d %d %d %d %f %f %f %f %f %f %f %f %f %f "
            LONG_LONG_FORMAT " " LONG_LONG_FORMAT " %f %f\n",
            ld, 1, 2, 3, 4, 5, 6, 7, 8,
            0.1, 1.2, 2.3, 3.4, 4.5, 5.6, 6.7, 7.8, 8.9, 9.0,
            1234567891234LL, 987654321986LL,
            42.0, 43.0);
-    printf("%d %d %d %d %d %d %d %d %Lf\n",
+    म_लिखो("%d %d %d %d %d %d %d %d %Lf\n",
            1, 2, 3, 4, 5, 6, 7, 8, ld);
-    printf("%d %d %d %d %d %d %d %d %f %f %f %f %f %f %f %f %f %f "
+    म_लिखो("%d %d %d %d %d %d %d %d %f %f %f %f %f %f %f %f %f %f "
            LONG_LONG_FORMAT " " LONG_LONG_FORMAT "%f %f %Lf\n",
            1, 2, 3, 4, 5, 6, 7, 8,
            0.1, 1.2, 2.3, 3.4, 4.5, 5.6, 6.7, 7.8, 8.9, 9.0,
            1234567891234LL, 987654321986LL,
            42.0, 43.0, ld);
-    printf("%d %d %d %d %d %d %d %d %f %f %f %f %f %f %f %f %f %f "
+    म_लिखो("%d %d %d %d %d %d %d %d %f %f %f %f %f %f %f %f %f %f "
            "%Lf " LONG_LONG_FORMAT " " LONG_LONG_FORMAT " %f %f %Lf\n",
            1, 2, 3, 4, 5, 6, 7, 8,
            0.1, 1.2, 2.3, 3.4, 4.5, 5.6, 6.7, 7.8, 8.9, 9.0,
@@ -2678,166 +2678,166 @@ void manyarg_test(void)
            42.0, 43.0, ld);
 }
 
-void*
-va_arg_with_struct_ptr(va_list ap) {
+शून्य*
+va_arg_with_struct_ptr(बहु_सूची ap) {
         /*
          * This was a BUG identified with FFTW-3.3.8 on arm64.
          * The test case only checks it compiles on all supported
          * architectures. This function is not currently called.
          */
-        struct X { int _x; };
-        struct X *x = va_arg(ap, struct X *);
-        return x;
+        संरचना X { पूर्णाङ्क _x; };
+        संरचना X *x = बहु_तर्क(ap, संरचना X *);
+        फर्काऊ x;
 }
 
-void vprintf1(const char *fmt, ...)
+शून्य vprintf1(अचर वर्ण *fmt, ...)
 {
-    va_list ap, aq;
-    const char *p;
-    int c, i;
-    double d;
-    long long ll;
+    बहु_सूची ap, aq;
+    अचर वर्ण *p;
+    पूर्णाङ्क c, i;
+    द्विगुण d;
+    दीर्घ दीर्घ ll;
     LONG_DOUBLE ld;
 
-    va_start(aq, fmt);
+    बहु_शुरू(aq, fmt);
     va_copy(ap, aq);
     
     p = fmt;
-    for(;;) {
+    लागि(;;) {
         c = *p;
-        if (c == '\0')
-            break;
+        यदि (c == '\0')
+            रोक;
         p++;
-        if (c == '%') {
+        यदि (c == '%') {
             c = *p;
-            switch(c) {
-            case '\0':
-                goto the_end;
-            case 'd':
-                i = va_arg(ap, int);
-                printf("%d", i);
-                break;
-            case 'f':
-                d = va_arg(ap, double);
-                printf("%f", d);
-                break;
-            case 'l':
-                ll = va_arg(ap, long long);
-                printf(LONG_LONG_FORMAT, ll);
-                break;
-            case 'F':
-                ld = va_arg(ap, LONG_DOUBLE);
-                printf("%Lf", ld);
-                break;
+            विकल्प(c) {
+            पक्ष '\0':
+                गच्छ the_end;
+            पक्ष 'd':
+                i = बहु_तर्क(ap, पूर्णाङ्क);
+                म_लिखो("%d", i);
+                रोक;
+            पक्ष 'f':
+                d = बहु_तर्क(ap, द्विगुण);
+                म_लिखो("%f", d);
+                रोक;
+            पक्ष 'l':
+                ll = बहु_तर्क(ap, दीर्घ दीर्घ);
+                म_लिखो(LONG_LONG_FORMAT, ll);
+                रोक;
+            पक्ष 'F':
+                ld = बहु_तर्क(ap, LONG_DOUBLE);
+                म_लिखो("%Lf", ld);
+                रोक;
             }
             p++;
-        } else {
-            putchar(c);
+        } अन्यथा {
+            अक्षर_दो(c);
         }
     }
  the_end:
-    va_end(aq);
-    va_end(ap);
+    बहु_पूर्ण(aq);
+    बहु_पूर्ण(ap);
 }
 
-struct myspace {
-    short int profile;
+संरचना myspace {
+    लघु पूर्णाङ्क profile;
 };
-struct myspace2 {
-#if CC_NAME == CC_clang /* clang7 doesn't support zero sized structs */
-    char a[1];
-#else
-    char a[0];
+संरचना myspace2 {
+#यदि CC_NAME == CC_clang /* clang7 doesn't support zero sized structs */
+    वर्ण a[1];
+#अन्यथा
+    वर्ण a[0];
 #endif
 };
-struct myspace3 {
-    char a[1];
+संरचना myspace3 {
+    वर्ण a[1];
 };
-struct myspace4 {
-    char a[2];
+संरचना myspace4 {
+    वर्ण a[2];
 };
-struct mytest {
-    void *foo, *bar, *baz;
+संरचना mytest {
+    शून्य *foo, *bar, *baz;
 };
 
-struct mytest stdarg_for_struct(struct myspace bob, ...)
+संरचना mytest stdarg_for_struct(संरचना myspace bob, ...)
 {
-    struct myspace george, bill;
-    struct myspace2 alex1;
-    struct myspace3 alex2;
-    struct myspace4 alex3;
-    va_list ap;
-    short int validate;
+    संरचना myspace george, bill;
+    संरचना myspace2 alex1;
+    संरचना myspace3 alex2;
+    संरचना myspace4 alex3;
+    बहु_सूची ap;
+    लघु पूर्णाङ्क validate;
 
-    va_start(ap, bob);
-    alex1    = va_arg(ap, struct myspace2);
-    alex2    = va_arg(ap, struct myspace3);
-    alex3    = va_arg(ap, struct myspace4);
-    bill     = va_arg(ap, struct myspace);
-    george   = va_arg(ap, struct myspace);
-    validate = va_arg(ap, int);
-    printf("stdarg_for_struct: %d %d %d %d %d %d %d\n",
+    बहु_शुरू(ap, bob);
+    alex1    = बहु_तर्क(ap, संरचना myspace2);
+    alex2    = बहु_तर्क(ap, संरचना myspace3);
+    alex3    = बहु_तर्क(ap, संरचना myspace4);
+    bill     = बहु_तर्क(ap, संरचना myspace);
+    george   = बहु_तर्क(ap, संरचना myspace);
+    validate = बहु_तर्क(ap, पूर्णाङ्क);
+    म_लिखो("stdarg_for_struct: %d %d %d %d %d %d %d\n",
            alex2.a[0], alex3.a[0], alex3.a[1],
            bob.profile, bill.profile, george.profile, validate);
-    va_end(ap);
-    return (struct mytest) {};
+    बहु_पूर्ण(ap);
+    फर्काऊ (संरचना mytest) {};
 }
 
-void stdarg_for_libc(const char *fmt, ...)
+शून्य stdarg_for_libc(अचर वर्ण *fmt, ...)
 {
-    va_list args;
-    va_start(args, fmt);
-    vprintf(fmt, args);
-    va_end(args);
+    बहु_सूची args;
+    बहु_शुरू(args, fmt);
+    भ_लिखो(fmt, args);
+    बहु_पूर्ण(args);
 }
 
-void stdarg_syntax(int n, ...)
+शून्य stdarg_syntax(पूर्णाङ्क n, ...)
 {
-    int i;
-    va_list ap;
-    if (1)
-      va_start(ap, n);
-    else
+    पूर्णाङ्क i;
+    बहु_सूची ap;
+    यदि (1)
+      बहु_शुरू(ap, n);
+    अन्यथा
       ;
-    i = va_arg(ap, int);
-    printf("stdarg_void_expr: %d\n", i);
-    (va_end(ap));
+    i = बहु_तर्क(ap, पूर्णाङ्क);
+    म_लिखो("stdarg_void_expr: %d\n", i);
+    (बहु_पूर्ण(ap));
 }
 
-typedef struct{
-    double x,y;
+प्रकारनिर्देश संरचना{
+    द्विगुण x,y;
 } point;
 point pts[]={{1.0,2.0},{3.0,4.0},{5.0,6.0},{7.0,8.0},{9.0,10.0},{11.0,12.0}};
 
-static void stdarg_double_struct(int nargs, int posd,...)
+स्थिर शून्य stdarg_double_struct(पूर्णाङ्क nargs, पूर्णाङ्क posd,...)
 {
-    int i;
-    double d;
+    पूर्णाङ्क i;
+    द्विगुण d;
     point pi;
-    va_list args;
+    बहु_सूची args;
 
-    printf ("stdarg_double_struct: %d\n", posd);
-    va_start(args,posd);
-    for(i = 0; i < nargs; i++) {
-        if (i == posd) {
-            d = va_arg (args, double);
-            printf ("d %d = %g\n", i, d);
+    म_लिखो ("stdarg_double_struct: %d\n", posd);
+    बहु_शुरू(args,posd);
+    लागि(i = 0; i < nargs; i++) {
+        यदि (i == posd) {
+            d = बहु_तर्क (args, द्विगुण);
+            म_लिखो ("d %d = %g\n", i, d);
         }
-        else {
-            pi = va_arg (args, point);
-            printf ("pts[%d] = %g %g\n", i, pi.x, pi.y);
+        अन्यथा {
+            pi = बहु_तर्क (args, point);
+            म_लिखो ("pts[%d] = %g %g\n", i, pi.x, pi.y);
         }
     }
-    va_end(args);
+    बहु_पूर्ण(args);
 }
 
-void stdarg_test(void)
+शून्य stdarg_test(शून्य)
 {
     LONG_DOUBLE ld = 1234567891234LL;
-    struct myspace bob;
-    struct myspace2 bob2;
-    struct myspace3 bob3;
-    struct myspace4 bob4;
+    संरचना myspace bob;
+    संरचना myspace2 bob2;
+    संरचना myspace3 bob3;
+    संरचना myspace4 bob4;
 
     vprintf1("%d %d %d\n", 1, 2, 3);
     vprintf1("%f %d %f\n", 1.0, 2, 3.0);
@@ -2885,7 +2885,7 @@ void stdarg_test(void)
     stdarg_for_struct(bob, bob2, bob3, bob4, bob, bob, bob.profile);
     stdarg_for_libc("stdarg_for_libc: %s %.2f %d\n", "string", 1.23, 456);
     stdarg_syntax(1, 17);
-#if !(defined _WIN32 && CC_NAME == CC_clang) /* broken clang */
+#यदि !(defined _WIN32 && CC_NAME == CC_clang) /* broken clang */
     stdarg_double_struct(6,-1,pts[0],pts[1],pts[2],pts[3],pts[4],pts[5]);
     stdarg_double_struct(7,1,pts[0],-1.0,pts[1],pts[2],pts[3],pts[4],pts[5]);
     stdarg_double_struct(7,2,pts[0],pts[1],-1.0,pts[2],pts[3],pts[4],pts[5]);
@@ -2895,209 +2895,209 @@ void stdarg_test(void)
 #endif
 }
 
-int reltab[3] = { 1, 2, 3 };
+पूर्णाङ्क reltab[3] = { 1, 2, 3 };
 
-int *rel1 = &reltab[1];
-int *rel2 = &reltab[2];
+पूर्णाङ्क *rel1 = &reltab[1];
+पूर्णाङ्क *rel2 = &reltab[2];
 
-void getmyaddress(void)
+शून्य getmyaddress(शून्य)
 {
-    printf("in getmyaddress\n");
+    म_लिखो("in getmyaddress\n");
 }
 
 #ifdef __LP64__
-long __pa_symbol(void)
+दीर्घ __pa_symbol(शून्य)
 {
     /* This 64bit constant was handled incorrectly, it was used as addend
        (which can hold 64bit just fine) in connection with a symbol,
        and TCC generates wrong code for that (displacements are 32bit only).
        This effectively is "+ 0x80000000", and if addresses of globals
        are below 2GB the result should be a number without high 32 bits set.  */
-       return ((long)(((unsigned long)(&rel1))) - (0xffffffff80000000UL));
+       फर्काऊ ((दीर्घ)(((अचिन्हित दीर्घ)(&rel1))) - (0xffffffff80000000UL));
 }
 #endif
 
 uintptr_t theaddress = (uintptr_t)getmyaddress;
-void relocation_test(void)
+शून्य relocation_test(शून्य)
 {
-    void (*fptr)(void) = (void (*)(void))theaddress;
-    printf("*rel1=%d\n", *rel1);
-    printf("*rel2=%d\n", *rel2);
+    शून्य (*fptr)(शून्य) = (शून्य (*)(शून्य))theaddress;
+    म_लिखो("*rel1=%d\n", *rel1);
+    म_लिखो("*rel2=%d\n", *rel2);
     fptr();
 #ifdef __LP64__
     // compare 'addend' displacement versus conventional arithmetics
-    printf("pa_symbol: %d\n", (long)&rel1 == __pa_symbol() - 0x80000000);
+    म_लिखो("pa_symbol: %d\n", (दीर्घ)&rel1 == __pa_symbol() - 0x80000000);
 #endif
 }
 
-void old_style_f(a,b,c)
-     int a, b;
-     double c;
+शून्य old_style_f(a,b,c)
+     पूर्णाङ्क a, b;
+     द्विगुण c;
 {
-    printf("a=%d b=%d b=%f\n", a, b, c);
+    म_लिखो("a=%d b=%d b=%f\n", a, b, c);
 }
 
-void decl_func1(int cmpfn())
+शून्य decl_func1(पूर्णाङ्क cmpfn())
 {
-    printf("cmpfn=%lx\n", (long)cmpfn);
+    म_लिखो("cmpfn=%lx\n", (दीर्घ)cmpfn);
 }
 
-void decl_func2(cmpfn)
-int cmpfn();
+शून्य decl_func2(cmpfn)
+पूर्णाङ्क cmpfn();
 {
-    printf("cmpfn=%lx\n", (long)cmpfn);
+    म_लिखो("cmpfn=%lx\n", (दीर्घ)cmpfn);
 }
 
-void old_style_function_test(void)
+शून्य old_style_function_test(शून्य)
 {
-#if CC_NAME == CC_clang
+#यदि CC_NAME == CC_clang
     /* recent clang versions (at least 15.0) raise an error:
        incompatible pointer to integer conversion passing 'void *'
        For the purpose of this test, pass 1 instead.
      */
     old_style_f(1, 2, 3.0);
-#else
-    old_style_f((void *)1, 2, 3.0);
+#अन्यथा
+    old_style_f((शून्य *)1, 2, 3.0);
 #endif
-    decl_func1(NULL);
-    decl_func2(NULL);
+    decl_func1(रिक्त);
+    decl_func2(रिक्त);
 }
 
-void alloca_test()
+शून्य alloca_test()
 {
-    char *p = alloca(16);
-    strcpy(p,"123456789012345");
-    printf("alloca: p is %s\n", p);
-    char *demo = "This is only a test.\n";
+    वर्ण *p = alloca(16);
+    म_नकल(p,"123456789012345");
+    म_लिखो("alloca: p is %s\n", p);
+    वर्ण *demo = "This is only a test.\n";
     /* Test alloca embedded in a larger expression */
-    printf("alloca: %s\n", strcpy(alloca(strlen(demo)+1),demo) );
+    म_लिखो("alloca: %s\n", म_नकल(alloca(म_माप(demo)+1),demo) );
 }
 
-void *bounds_checking_is_enabled()
+शून्य *bounds_checking_is_enabled()
 {
-    char ca[10], *cp = ca-1;
-    return (ca != cp + 1) ? cp : NULL;
+    वर्ण ca[10], *cp = ca-1;
+    फर्काऊ (ca != cp + 1) ? cp : रिक्त;
 }
 
-typedef int constant_negative_array_size_as_compile_time_assertion_idiom[(1 ? 2 : 0) - 1];
+प्रकारनिर्देश पूर्णाङ्क constant_negative_array_size_as_compile_time_assertion_idiom[(1 ? 2 : 0) - 1];
 
-void c99_vla_test_1(int size1, int size2)
+शून्य c99_vla_test_1(पूर्णाङ्क size1, पूर्णाङ्क size2)
 {
-    int size = size1 * size2;
-    int tab1[size][2], tab2[10][2];
-    void *tab1_ptr, *tab2_ptr, *bad_ptr;
+    पूर्णाङ्क size = size1 * size2;
+    पूर्णाङ्क tab1[size][2], tab2[10][2];
+    शून्य *tab1_ptr, *tab2_ptr, *bad_ptr;
 
     /* "size" should have been 'captured' at tab1 declaration, 
         so modifying it should have no effect on VLA behaviour. */
     size = size-1;
     
-    printf("Test C99 VLA 1 (sizeof): ");
-    printf("%s\n", (sizeof tab1 == size1 * size2 * 2 * sizeof(int)) ? "PASSED" : "FAILED");
+    म_लिखो("Test C99 VLA 1 (sizeof): ");
+    म_लिखो("%s\n", (परिमाण tab1 == size1 * size2 * 2 * परिमाण(पूर्णाङ्क)) ? "PASSED" : "FAILED");
     tab1_ptr = tab1;
     tab2_ptr = tab2;
-    printf("Test C99 VLA 2 (ptrs subtract): ");
-    printf("%s\n", (tab2 - tab1 == (tab2_ptr - tab1_ptr) / (sizeof(int) * 2)) ? "PASSED" : "FAILED");
-    printf("Test C99 VLA 3 (ptr add): ");
-    printf("%s\n", &tab1[5][1] == (tab1_ptr + (5 * 2 + 1) * sizeof(int)) ? "PASSED" : "FAILED");
-    printf("Test C99 VLA 4 (ptr access): ");
+    म_लिखो("Test C99 VLA 2 (ptrs subtract): ");
+    म_लिखो("%s\n", (tab2 - tab1 == (tab2_ptr - tab1_ptr) / (परिमाण(पूर्णाङ्क) * 2)) ? "PASSED" : "FAILED");
+    म_लिखो("Test C99 VLA 3 (ptr add): ");
+    म_लिखो("%s\n", &tab1[5][1] == (tab1_ptr + (5 * 2 + 1) * परिमाण(पूर्णाङ्क)) ? "PASSED" : "FAILED");
+    म_लिखो("Test C99 VLA 4 (ptr access): ");
     tab1[size1][1] = 42;
-    printf("%s\n", (*((int *) (tab1_ptr + (size1 * 2 + 1) * sizeof(int))) == 42) ? "PASSED" : "FAILED");
+    म_लिखो("%s\n", (*((पूर्णाङ्क *) (tab1_ptr + (size1 * 2 + 1) * परिमाण(पूर्णाङ्क))) == 42) ? "PASSED" : "FAILED");
 
-    printf("Test C99 VLA 5 (bounds checking (might be disabled)): ");
-    if (bad_ptr = bounds_checking_is_enabled()) {
-        int *t1 = &tab1[size1 * size2 - 1][3];
-        int *t2 = &tab2[9][3];
-        printf("%s ", bad_ptr == t1 ? "PASSED" : "FAILED");
-        printf("%s ", bad_ptr == t2 ? "PASSED" : "FAILED");
+    म_लिखो("Test C99 VLA 5 (bounds checking (might be disabled)): ");
+    यदि (bad_ptr = bounds_checking_is_enabled()) {
+        पूर्णाङ्क *t1 = &tab1[size1 * size2 - 1][3];
+        पूर्णाङ्क *t2 = &tab2[9][3];
+        म_लिखो("%s ", bad_ptr == t1 ? "PASSED" : "FAILED");
+        म_लिखो("%s ", bad_ptr == t2 ? "PASSED" : "FAILED");
 
-        char*c1 = 1 + sizeof(tab1) + (char*)tab1;
-        char*c2 = 1 + sizeof(tab2) + (char*)tab2;
-        printf("%s ", bad_ptr == c1 ? "PASSED" : "FAILED");
-        printf("%s ", bad_ptr == c2 ? "PASSED" : "FAILED");
+        वर्ण*c1 = 1 + परिमाण(tab1) + (वर्ण*)tab1;
+        वर्ण*c2 = 1 + परिमाण(tab2) + (वर्ण*)tab2;
+        म_लिखो("%s ", bad_ptr == c1 ? "PASSED" : "FAILED");
+        म_लिखो("%s ", bad_ptr == c2 ? "PASSED" : "FAILED");
 
-        int *i1 = tab1[-1];
-        int *i2 = tab2[-1];
-        printf("%s ", bad_ptr == i1 ? "PASSED" : "FAILED");
-        printf("%s ", bad_ptr == i2 ? "PASSED" : "FAILED");
+        पूर्णाङ्क *i1 = tab1[-1];
+        पूर्णाङ्क *i2 = tab2[-1];
+        म_लिखो("%s ", bad_ptr == i1 ? "PASSED" : "FAILED");
+        म_लिखो("%s ", bad_ptr == i2 ? "PASSED" : "FAILED");
 
-        int *x1 = tab1[size1 * size2 + 1];
-        int *x2 = tab2[10 + 1];
-        printf("%s ", bad_ptr == x1 ? "PASSED" : "FAILED");
-        printf("%s ", bad_ptr == x2 ? "PASSED" : "FAILED");
-    } else {
-        printf("PASSED PASSED PASSED PASSED PASSED PASSED PASSED PASSED ");
+        पूर्णाङ्क *x1 = tab1[size1 * size2 + 1];
+        पूर्णाङ्क *x2 = tab2[10 + 1];
+        म_लिखो("%s ", bad_ptr == x1 ? "PASSED" : "FAILED");
+        म_लिखो("%s ", bad_ptr == x2 ? "PASSED" : "FAILED");
+    } अन्यथा {
+        म_लिखो("PASSED PASSED PASSED PASSED PASSED PASSED PASSED PASSED ");
     }
-    printf("\n");
+    म_लिखो("\n");
 }
 
-void c99_vla_test_2(int d, int h, int w)
+शून्य c99_vla_test_2(पूर्णाङ्क d, पूर्णाङ्क h, पूर्णाङ्क w)
 {
-    int x, y, z;
-    int (*arr)[h][w] = malloc(sizeof(int) * d*h*w);
-    int c = 1;
-    static int (*starr)[h][w];
+    पूर्णाङ्क x, y, z;
+    पूर्णाङ्क (*arr)[h][w] = दो_स्मृति(परिमाण(पूर्णाङ्क) * d*h*w);
+    पूर्णाङ्क c = 1;
+    स्थिर पूर्णाङ्क (*starr)[h][w];
 
-    printf("Test C99 VLA 6 (pointer)\n");
+    म_लिखो("Test C99 VLA 6 (pointer)\n");
 
-    for (z=0; z<d; z++) {
-        for (y=0; y<h; y++) {
-            for (x=0; x<w; x++) {
+    लागि (z=0; z<d; z++) {
+        लागि (y=0; y<h; y++) {
+            लागि (x=0; x<w; x++) {
                 arr[z][y][x] = c++;
             }
         }
     }
-    for (z=0; z<d; z++) {
-        for (y=0; y<h; y++) {
-            for (x=0; x<w; x++) {
-                printf(" %2d", arr[z][y][x]);
+    लागि (z=0; z<d; z++) {
+        लागि (y=0; y<h; y++) {
+            लागि (x=0; x<w; x++) {
+                म_लिखो(" %2d", arr[z][y][x]);
             }
-            puts("");
+            माला_दो("");
         }
-        puts("");
+        माला_दो("");
     }
     starr = &arr[1];
-    printf(" sizes : %d %d %d\n"
+    म_लिखो(" sizes : %d %d %d\n"
            " pdiff : %d %d\n"
            " tests : %d %d %d\n",
-        sizeof (*arr), sizeof (*arr)[0], sizeof (*arr)[0][0],
+        परिमाण (*arr), परिमाण (*arr)[0], परिमाण (*arr)[0][0],
         arr + 2 - arr, *arr + 3 - *arr,
-        0 == sizeof (*arr + 1) - sizeof arr,
-        0 == sizeof sizeof *arr - sizeof arr,
+        0 == परिमाण (*arr + 1) - परिमाण arr,
+        0 == परिमाण परिमाण *arr - परिमाण arr,
         starr[0][2][3] == arr[1][2][3]
         );
-    free (arr);
+    मुक्त (arr);
 }
 
-void c99_vla_test_3a (int arr[2][3][4])
+शून्य c99_vla_test_3a (पूर्णाङ्क arr[2][3][4])
 {
-    printf ("%d\n", arr[1][2][3]);
+    म_लिखो ("%d\n", arr[1][2][3]);
 }
 
-void c99_vla_test_3b(int s, int arr[s][3][4])
+शून्य c99_vla_test_3b(पूर्णाङ्क s, पूर्णाङ्क arr[s][3][4])
 {
-    printf ("%d\n", arr[1][2][3]);
+    म_लिखो ("%d\n", arr[1][2][3]);
 }
 
-void c99_vla_test_3c(int s, int arr[2][s][4])
+शून्य c99_vla_test_3c(पूर्णाङ्क s, पूर्णाङ्क arr[2][s][4])
 {
-    printf ("%d\n", arr[1][2][3]);
+    म_लिखो ("%d\n", arr[1][2][3]);
 }
 
-void c99_vla_test_3d(int s, int arr[2][3][s])
+शून्य c99_vla_test_3d(पूर्णाङ्क s, पूर्णाङ्क arr[2][3][s])
 {
-    printf ("%d\n", arr[1][2][3]);
+    म_लिखो ("%d\n", arr[1][2][3]);
 }
 
-void c99_vla_test_3e(int s, int arr[][3][--s])
+शून्य c99_vla_test_3e(पूर्णाङ्क s, पूर्णाङ्क arr[][3][--s])
 {
-    printf ("%d %d %d\n", sizeof arr, s, arr[1][2][3]);
+    म_लिखो ("%d %d %d\n", परिमाण arr, s, arr[1][2][3]);
 }
 
-void c99_vla_test_3(void)
+शून्य c99_vla_test_3(शून्य)
 {
-    int a[2][3][4];
+    पूर्णाङ्क a[2][3][4];
 
-    memset (a, 0, sizeof(a));
+    स_रखो (a, 0, परिमाण(a));
     a[1][2][3] = 123;
     c99_vla_test_3a(a);
     c99_vla_test_3b(2, a);
@@ -3106,7 +3106,7 @@ void c99_vla_test_3(void)
     c99_vla_test_3e(5, a);
 }
 
-void c99_vla_test(void)
+शून्य c99_vla_test(शून्य)
 {
     c99_vla_test_1(5, 2);
     c99_vla_test_2(3, 4, 5);
@@ -3114,29 +3114,29 @@ void c99_vla_test(void)
 }
 
 
-void sizeof_test(void)
+शून्य sizeof_test(शून्य)
 {
-    int a;
-    int **ptr;
+    पूर्णाङ्क a;
+    पूर्णाङ्क **ptr;
 
-    printf("sizeof(int) = %d\n", sizeof(int));
-    printf("sizeof(unsigned int) = %d\n", sizeof(unsigned int));
-    printf("sizeof(long) = %d\n", sizeof(long));
-    printf("sizeof(unsigned long) = %d\n", sizeof(unsigned long));
-    printf("sizeof(short) = %d\n", sizeof(short));
-    printf("sizeof(unsigned short) = %d\n", sizeof(unsigned short));
-    printf("sizeof(char) = %d\n", sizeof(char));
-    printf("sizeof(unsigned char) = %d\n", sizeof(unsigned char));
-    printf("sizeof(func) = %d\n", sizeof sizeof_test());
+    म_लिखो("sizeof(int) = %d\n", परिमाण(पूर्णाङ्क));
+    म_लिखो("sizeof(unsigned int) = %d\n", परिमाण(अचिन्हित पूर्णाङ्क));
+    म_लिखो("sizeof(long) = %d\n", परिमाण(दीर्घ));
+    म_लिखो("sizeof(unsigned long) = %d\n", परिमाण(अचिन्हित दीर्घ));
+    म_लिखो("sizeof(short) = %d\n", परिमाण(लघु));
+    म_लिखो("sizeof(unsigned short) = %d\n", परिमाण(अचिन्हित लघु));
+    म_लिखो("sizeof(char) = %d\n", परिमाण(वर्ण));
+    म_लिखो("sizeof(unsigned char) = %d\n", परिमाण(अचिन्हित वर्ण));
+    म_लिखो("sizeof(func) = %d\n", परिमाण sizeof_test());
     a = 1;
-    printf("sizeof(a++) = %d\n", sizeof a++);
-    printf("a=%d\n", a);
-    ptr = NULL;
-    printf("sizeof(**ptr) = %d\n", sizeof (**ptr));
+    म_लिखो("sizeof(a++) = %d\n", परिमाण a++);
+    म_लिखो("a=%d\n", a);
+    ptr = रिक्त;
+    म_लिखो("sizeof(**ptr) = %d\n", परिमाण (**ptr));
 
     /* The type of sizeof should be as large as a pointer, actually
        it should be size_t.  */
-    printf("sizeof(sizeof(int) = %d\n", sizeof(sizeof(int)));
+    म_लिखो("sizeof(sizeof(int) = %d\n", परिमाण(परिमाण(पूर्णाङ्क)));
     uintptr_t t = 1;
     uintptr_t t2;
     /* Effectively <<32, but defined also on 32bit machines.  */
@@ -3145,121 +3145,121 @@ void sizeof_test(void)
     t++;
     /* This checks that sizeof really can be used to manipulate 
        uintptr_t objects, without truncation.  */
-    t2 = t & -sizeof(uintptr_t);
-    printf ("%lu %lu\n", t, t2);
+    t2 = t & -परिमाण(uintptr_t);
+    म_लिखो ("%lu %lu\n", t, t2);
 
     /* some alignof tests */
-    printf("__alignof__(int) = %d\n", __alignof__(int));
-    printf("__alignof__(unsigned int) = %d\n", __alignof__(unsigned int));
-    printf("__alignof__(short) = %d\n", __alignof__(short));
-    printf("__alignof__(unsigned short) = %d\n", __alignof__(unsigned short));
-    printf("__alignof__(char) = %d\n", __alignof__(char));
-    printf("__alignof__(unsigned char) = %d\n", __alignof__(unsigned char));
-    printf("__alignof__(func) = %d\n", __alignof__ sizeof_test());
+    म_लिखो("__alignof__(int) = %d\n", __alignof__(पूर्णाङ्क));
+    म_लिखो("__alignof__(unsigned int) = %d\n", __alignof__(अचिन्हित पूर्णाङ्क));
+    म_लिखो("__alignof__(short) = %d\n", __alignof__(लघु));
+    म_लिखो("__alignof__(unsigned short) = %d\n", __alignof__(अचिन्हित लघु));
+    म_लिखो("__alignof__(char) = %d\n", __alignof__(वर्ण));
+    म_लिखो("__alignof__(unsigned char) = %d\n", __alignof__(अचिन्हित वर्ण));
+    म_लिखो("__alignof__(func) = %d\n", __alignof__ sizeof_test());
 
     /* sizes of VLAs need to be evaluated even inside sizeof: */
     a = 2;
-    printf("sizeof(char[1+2*a]) = %d\n", sizeof(char[1+2*a]));
+    म_लिखो("sizeof(char[1+2*a]) = %d\n", परिमाण(वर्ण[1+2*a]));
     /* And checking if sizeof compound literal works.  Parenthesized: */
-    printf("sizeof( (struct {int i; int j;}){4,5} ) = %d\n",
-	   sizeof( (struct {int i; int j;}){4,5} ));
+    म_लिखो("sizeof( (struct {int i; int j;}){4,5} ) = %d\n",
+	   परिमाण( (संरचना {पूर्णाङ्क i; पूर्णाङ्क j;}){4,5} ));
     /* And as direct sizeof argument (as unary expression): */
-    printf("sizeof (struct {short i; short j;}){4,5} = %d\n",
-	   sizeof (struct {short i; short j;}){4,5} );
+    म_लिखो("sizeof (struct {short i; short j;}){4,5} = %d\n",
+	   परिमाण (संरचना {लघु i; लघु j;}){4,5} );
 
     /* sizeof(x && y) should be sizeof(int), even if constant
        evaluating is possible. */
-    printf("sizeof(t && 0) = %d\n", sizeof(t && 0));
-    printf("sizeof(1 && 1) = %d\n", sizeof(1 && 1));
-    printf("sizeof(t || 1) = %d\n", sizeof(t || 1));
-    printf("sizeof(0 || 0) = %d\n", sizeof(0 || 0));
+    म_लिखो("sizeof(t && 0) = %d\n", परिमाण(t && 0));
+    म_लिखो("sizeof(1 && 1) = %d\n", परिमाण(1 && 1));
+    म_लिखो("sizeof(t || 1) = %d\n", परिमाण(t || 1));
+    म_लिखो("sizeof(0 || 0) = %d\n", परिमाण(0 || 0));
 
-    int arr[4], fn();
-    printf("sizeof(0, arr) = %d\n", sizeof(0, arr));
-    printf("sizeof(0, fn) = %d\n", sizeof(0, fn));
+    पूर्णाङ्क arr[4], fn();
+    म_लिखो("sizeof(0, arr) = %d\n", परिमाण(0, arr));
+    म_लिखो("sizeof(0, fn) = %d\n", परिमाण(0, fn));
 }
 
-void typeof_test(void)
+शून्य typeof_test(शून्य)
 {
-    double a;
+    द्विगुण a;
     typeof(a) b;
-    typeof(float) c;
+    typeof(भिन्न) c;
 
     a = 1.5;
     b = 2.5;
     c = 3.5;
-    printf("a=%f b=%f c=%f\n", a, b, c);
+    म_लिखो("a=%f b=%f c=%f\n", a, b, c);
 }
 
 
-struct hlist_node;
-struct hlist_head {
-    struct hlist_node *first, *last;
+संरचना hlist_गाँठो;
+संरचना hlist_head {
+    संरचना hlist_गाँठो *first, *last;
 };
 
-void consume_ulong (unsigned long i)
+शून्य consume_ulong (अचिन्हित दीर्घ i)
 {
     i = 0;
 }
 
-void statement_expr_test(void)
+शून्य statement_अभिव्यक्ति_test(शून्य)
 {
-    int a, i;
+    पूर्णाङ्क a, i;
 
     /* Basic stmt expr test */
     a = 0;
-    for(i=0;i<10;i++) {
+    लागि(i=0;i<10;i++) {
         a += 1 + 
-            ( { int b, j; 
+            ( { पूर्णाङ्क b, j; 
                 b = 0; 
-                for(j=0;j<5;j++) 
+                लागि(j=0;j<5;j++) 
                     b += j; b; 
             } );
     }
-    printf("a=%d\n", a);
+    म_लिखो("a=%d\n", a);
     
     /* Test that symbols aren't freed prematurely.
        With SYM_DEBUG valgrind will show a read from a freed
        symbol, and tcc will show an (invalid) warning on the initialization
        of 'ptr' below, if symbols are popped after the stmt expr.  */
-    void *v = (void*)39;
+    शून्य *v = (शून्य*)39;
     typeof(({
-	    (struct hlist_node *)v;
+	    (संरचना hlist_गाँठो *)v;
 	    })) x;
     typeof (x)
-	ptr = (struct hlist_node *)v;
+	ptr = (संरचना hlist_गाँठो *)v;
 
     /* This part used to segfault when symbols were popped prematurely.
        The symbols for the static local would be overwritten with
        helper symbols from the pre-processor expansions in between.  */
 #define some_attr     __attribute__((aligned(1)))
 #define tps(str) ({                  \
-            static const char *t some_attr = str; \
+            स्थिर अचर वर्ण *t some_attr = str; \
             t;                                    \
           })
-    printf ("stmtexpr: %s %s\n",
+    म_लिखो ("stmtexpr: %s %s\n",
 	    tps("somerandomlongstring"),
 	    tps("anotherlongstring"));
 
     /* Test that the three decls of 't' don't interact.  */
-    int t = 40;
-    int b = ({ int t = 41; t; });
-    int c = ({ int t = 42; t; });
+    पूर्णाङ्क t = 40;
+    पूर्णाङ्क b = ({ पूर्णाङ्क t = 41; t; });
+    पूर्णाङ्क c = ({ पूर्णाङ्क t = 42; t; });
 
     /* Test that aggregate return values work.  */
-    struct hlist_head h
+    संरचना hlist_head h
 	= ({
-	   typedef struct hlist_head T;
-	   long pre = 48;
-	   T t = { (void*)43, (void*)44 };
-	   long post = 49;
+	   प्रकारनिर्देश संरचना hlist_head T;
+	   दीर्घ pre = 48;
+	   T t = { (शून्य*)43, (शून्य*)44 };
+	   दीर्घ post = 49;
 	   t;
 	   });
-    printf ("stmtexpr: %d %d %d\n", t, b, c);
-    printf ("stmtexpr: %ld %ld\n", (long)h.first, (long)h.last);
+    म_लिखो ("stmtexpr: %d %d %d\n", t, b, c);
+    म_लिखो ("stmtexpr: %ld %ld\n", (दीर्घ)h.first, (दीर्घ)h.last);
 
     /* Test that we can give out addresses of local labels.  */
-    consume_ulong(({ __label__ __here; __here: (unsigned long)&&__here; }));
+    consume_ulong(({ __label__ __here; __here: (अचिन्हित दीर्घ)&&__here; }));
 
     /* Test interaction between local and global label stacks and the
        need to defer popping symbol from them when within statement
@@ -3268,53 +3268,53 @@ void statement_expr_test(void)
     ({
       {
         __label__ LBL;
-       LBL: if (i++ == 0) goto LBL;
+       LBL: यदि (i++ == 0) गच्छ LBL;
       }
       /* jump to a classical label out of an expr-stmt that had previously
          overshadowed that classical label */
-      goto LBL;
+      गच्छ LBL;
     });
   LBL:
-    printf("stmtexpr: %d should be 2\n", i);
+    म_लिखो("stmtexpr: %d should be 2\n", i);
 }
 
-void local_label_test(void)
+शून्य local_label_test(शून्य)
 {
-    int a;
-    goto l1;
+    पूर्णाङ्क a;
+    गच्छ l1;
  l2:
     a = 1 + ({
         __label__ l1, l2, l3, l4;
-        goto l1;
+        गच्छ l1;
     l4:
-        printf("aa1\n");
-        goto l3;
+        म_लिखो("aa1\n");
+        गच्छ l3;
     l2:
-        printf("aa3\n");
-        goto l4;
+        म_लिखो("aa3\n");
+        गच्छ l4;
     l1:
-        printf("aa2\n");
-        goto l2;
+        म_लिखो("aa2\n");
+        गच्छ l2;
     l3:;
         1;
     });
-    printf("a=%d\n", a);
-    return;
+    म_लिखो("a=%d\n", a);
+    फर्काऊ;
  l4:
-    printf("bb1\n");
-    goto l2;
+    म_लिखो("bb1\n");
+    गच्छ l2;
  l1:
-    printf("bb2\n");
-    goto l4;
+    म_लिखो("bb2\n");
+    गच्छ l4;
 }
 
 /* inline assembler test */
-#if (defined(__i386__) || defined(__x86_64__)) && !(defined _WIN32 && CC_NAME == CC_clang)
+#यदि (defined(__i386__) || defined(__x86_64__)) && !(defined _WIN32 && CC_NAME == CC_clang)
 
-typedef __SIZE_TYPE__ word;
+प्रकारनिर्देश __SIZE_TYPE__ word;
 
 /* from linux kernel */
-static char * strncat1(char * dest,const char * src,size_t count)
+स्थिर वर्ण * strncat1(वर्ण * dest,अचर वर्ण * src,माप_प्रकार गन्ती_2)
 {
 word d0, d1, d2, d3;
 __asm__ __volatile__(
@@ -3331,12 +3331,12 @@ __asm__ __volatile__(
 	"2:\txor %2,%2\n\t"
 	"stosb"
 	: "=&S" (d0), "=&D" (d1), "=&a" (d2), "=&c" (d3)
-	: "0" (src),"1" (dest),"2" (0),"3" (0xffffffff), "g" (count)
+	: "0" (src),"1" (dest),"2" (0),"3" (0xffffffff), "g" (गन्ती_2)
 	: "memory");
-return dest;
+फर्काऊ dest;
 }
 
-static char * strncat2(char * dest,const char * src,size_t count)
+स्थिर वर्ण * strncat2(वर्ण * dest,अचर वर्ण * src,माप_प्रकार गन्ती_2)
 {
 word d0, d1, d2, d3;
 __asm__ __volatile__(
@@ -3352,12 +3352,12 @@ __asm__ __volatile__(
 	"2:\txor %2,%2\n\t"
 	"stosb"
 	: "=&S" (d0), "=&D" (d1), "=&a" (d2), "=&c" (d3)
-	: "0" (src),"1" (dest),"2" (0),"3" (0xffffffff), "g" (count)
+	: "0" (src),"1" (dest),"2" (0),"3" (0xffffffff), "g" (गन्ती_2)
 	: "memory");
-return dest;
+फर्काऊ dest;
 }
 
-static inline void * memcpy1(void * to, const void * from, size_t n)
+स्थिर अन्तःस्थ शून्य * memcpy1(शून्य * to, अचर शून्य * from, माप_प्रकार n)
 {
 word d0, d1, d2;
 __asm__ __volatile__(
@@ -3372,10 +3372,10 @@ __asm__ __volatile__(
 	: "=&c" (d0), "=&D" (d1), "=&S" (d2)
 	:"0" (n/4), "q" (n),"1" ((word) to),"2" ((word) from)
 	: "memory");
-return (to);
+फर्काऊ (to);
 }
 
-static inline void * memcpy2(void * to, const void * from, size_t n)
+स्थिर अन्तःस्थ शून्य * memcpy2(शून्य * to, अचर शून्य * from, माप_प्रकार n)
 {
 word d0, d1, d2;
 __asm__ __volatile__(
@@ -3390,132 +3390,132 @@ __asm__ __volatile__(
 	: "=&c" (d0), "=&D" (d1), "=&S" (d2)
 	:"0" (n/4), "q" (n),"1" ((word) to),"2" ((word) from)
 	: "memory");
-return (to);
+फर्काऊ (to);
 }
 
-static __inline__ void sigaddset1(unsigned int *set, int _sig)
+स्थिर __inline__ शून्य sigaddset1(अचिन्हित पूर्णाङ्क *set, पूर्णाङ्क _sig)
 {
 	__asm__("btsl %1,%0" : "=m"(*set) : "Ir"(_sig - 1) : "cc");
 }
 
-static __inline__ void sigdelset1(unsigned int *set, int _sig)
+स्थिर __inline__ शून्य sigdelset1(अचिन्हित पूर्णाङ्क *set, पूर्णाङ्क _sig)
 {
-	asm("btrl %1,%0" : "=m"(*set) : "Ir"(_sig - 1) : "cc", "flags");
+	यंत्र("btrl %1,%0" : "=m"(*set) : "Ir"(_sig - 1) : "cc", "flags");
 }
 
 #ifdef __clang__
 /* clang's inline asm is uncapable of 'xchgb %b0,%h0' */
-static __inline__ __const__ unsigned int swab32(unsigned int x)
+स्थिर __inline__ __const__ अचिन्हित पूर्णाङ्क swab32(अचिन्हित पूर्णाङ्क x)
 {
-        return ((x >> 24) & 0xff) |
+        फर्काऊ ((x >> 24) & 0xff) |
                ((x >> 8) & 0xff00) |
                ((x << 8) & 0xff0000) |
                ((x << 24) & 0xff000000);
 }
-#else
-static __inline__ __const__ unsigned int swab32(unsigned int x)
+#अन्यथा
+स्थिर __inline__ __const__ अचिन्हित पूर्णाङ्क swab32(अचिन्हित पूर्णाङ्क x)
 {
 	__asm__("xchgb %b0,%h0\n\t"	/* swap lower bytes	*/
 		"rorl $16,%0\n\t"	/* swap words		*/
 		"xchgb %b0,%h0"		/* swap higher bytes	*/
 		:"=" "q" (x)
 		: "0" (x));
-	return x;
+	फर्काऊ x;
 }
 #endif
 
-static __inline__ unsigned long long mul64(unsigned int a, unsigned int b)
+स्थिर __inline__ अचिन्हित दीर्घ दीर्घ mul64(अचिन्हित पूर्णाङ्क a, अचिन्हित पूर्णाङ्क b)
 {
-    unsigned long long res;
+    अचिन्हित दीर्घ दीर्घ res;
 #ifdef __x86_64__
     /* Using the A constraint is wrong (it means rdx:rax, which is too large)
        but still test the 32bit->64bit mull.  */
-    unsigned int resh, resl;
+    अचिन्हित पूर्णाङ्क resh, resl;
     __asm__("mull %2" : "=a" (resl), "=d" (resh) : "a" (a), "r" (b));
-    res = ((unsigned long long)resh << 32) | resl;
-#else
+    res = ((अचिन्हित दीर्घ दीर्घ)resh << 32) | resl;
+#अन्यथा
     __asm__("mull %2" : "=A" (res) : "a" (a), "r" (b));
 #endif
-    return res;
+    फर्काऊ res;
 }
 
-static __inline__ unsigned long long inc64(unsigned long long a)
+स्थिर __inline__ अचिन्हित दीर्घ दीर्घ inc64(अचिन्हित दीर्घ दीर्घ a)
 {
-    unsigned long long res;
+    अचिन्हित दीर्घ दीर्घ res;
 #ifdef __x86_64__
     /* Using the A constraint is wrong, and increments are tested
        elsewhere.  */
     res = a + 1;
-#else
+#अन्यथा
     __asm__("addl $1, %%eax ; adcl $0, %%edx" : "=A" (res) : "A" (a));
 #endif
-    return res;
+    फर्काऊ res;
 }
 
-struct struct123 {
-    int a;
-    int b;
+संरचना struct123 {
+    पूर्णाङ्क a;
+    पूर्णाङ्क b;
 };
-struct struct1231 {
+संरचना struct1231 {
     word addr;
 };
 
-word mconstraint_test(struct struct1231 *r)
+word mconstraint_test(संरचना struct1231 *r)
 {
     word ret;
-    unsigned int a[2];
+    अचिन्हित पूर्णाङ्क a[2];
     a[0] = 0;
-    __asm__ volatile ("lea %2,%0; movl 4(%0),%k0; addl %2,%k0; movl $51,%2; movl $52,4%2; movl $63,%1"
+    __asm__ चञ्चल ("lea %2,%0; movl 4(%0),%k0; addl %2,%k0; movl $51,%2; movl $52,4%2; movl $63,%1"
 	             : "=&r" (ret), "=m" (a)
-	             : "m" (*(struct struct123 *)r->addr));
-    return ret + a[0];
+	             : "m" (*(संरचना struct123 *)r->addr));
+    फर्काऊ ret + a[0];
 }
 
 #ifdef __x86_64__
-int fls64(unsigned long long x)
+पूर्णाङ्क fls64(अचिन्हित दीर्घ दीर्घ x)
 {
-  int bitpos = -1;
-  asm("bsrq %1,%q0"
+  पूर्णाङ्क bitpos = -1;
+  यंत्र("bsrq %1,%q0"
       : "+r" (bitpos)
       : "rm" (x));
-  return bitpos + 1;
+  फर्काऊ bitpos + 1;
 }
 #endif
 
-void other_constraints_test(void)
+शून्य other_constraints_test(शून्य)
 {
     word ret;
-    int var;
-#if CC_NAME != CC_clang
-    __asm__ volatile ("mov %P1,%0" : "=r" (ret) : "p" (&var));
-    printf ("oc1: %d\n", ret == (word)&var);
+    पूर्णाङ्क var;
+#यदि CC_NAME != CC_clang
+    __asm__ चञ्चल ("mov %P1,%0" : "=r" (ret) : "p" (&var));
+    म_लिखो ("oc1: %d\n", ret == (word)&var);
 #endif
 }
 
 #ifndef _WIN32
 /* Test global asm blocks playing with aliases.  */
-void base_func(void)
+शून्य base_func(शून्य)
 {
-  printf ("asmc: base\n");
+  म_लिखो ("asmc: base\n");
 }
 
 #ifndef __APPLE__
-extern void override_func1 (void);
-extern void override_func2 (void);
+बाह्य शून्य override_func1 (शून्य);
+बाह्य शून्य override_func2 (शून्य);
 
-asm(".weak override_func1\n.set override_func1, base_func");
-asm(".set override_func1, base_func");
-asm(".set override_func2, base_func");
+यंत्र(".weak override_func1\n.set override_func1, base_func");
+यंत्र(".set override_func1, base_func");
+यंत्र(".set override_func2, base_func");
 
-void override_func2 (void)
+शून्य override_func2 (शून्य)
 {
-  printf ("asmc: override2\n");
+  म_लिखो ("asmc: override2\n");
 }
 
 /* This checks a construct used by the linux kernel to encode
    references to strings by PC relative references.  */
-extern int bug_table[] __attribute__((section("__bug_table")));
-char * get_asm_string (void)
+बाह्य पूर्णाङ्क bug_table[] __attribute__((section("__bug_table")));
+वर्ण * get_asm_string (शून्य)
 {
   /* On i386 when -fPIC is enabled this would cause a compile error with GCC,
      the problem being the "i" constraint used with a symbolic operand
@@ -3532,8 +3532,8 @@ char * get_asm_string (void)
      bare operand ".LC0").  But the code below is what the linux kernel
      happens to use and as such is the one we want to test.  */
 #ifndef __clang__
-  extern int some_symbol;
-  asm volatile (".globl some_symbol\n"
+  बाह्य पूर्णाङ्क some_चिह्न;
+  यंत्र चञ्चल (".globl some_symbol\n"
 		"jmp .+6\n"
 		"1:\n"
 		"some_symbol: .long 0\n"
@@ -3545,16 +3545,16 @@ char * get_asm_string (void)
 		   PC-relative references work.  */
 		"2:\t.long 1b - 2b, %c0 - 2b\n"
 		".popsection\n" : : "i" ("A string"));
-  char * str = ((char*)bug_table) + bug_table[1];
-  return str;
-#else
-  return (char *) "A string";
+  वर्ण * str = ((वर्ण*)bug_table) + bug_table[1];
+  फर्काऊ str;
+#अन्यथा
+  फर्काऊ (वर्ण *) "A string";
 #endif
 }
 
 /* This checks another constructs with local labels.  */
-extern unsigned char alld_stuff[];
-asm(".data\n"
+बाह्य अचिन्हित वर्ण alld_stuff[];
+यंत्र(".data\n"
     ".byte 41\n"
     "alld_stuff:\n"
     "661:\n"
@@ -3567,73 +3567,73 @@ asm(".data\n"
     ".popsection\n"
     ".byte 662b - 661b\n"  /* So that this value is undeniably 1.  */);
 
-void asm_local_label_diff (void)
+शून्य asm_local_label_diff (शून्य)
 {
-  printf ("asm_local_label_diff: %d %d\n", alld_stuff[0], alld_stuff[1]);
+  म_लिखो ("asm_local_label_diff: %d %d\n", alld_stuff[0], alld_stuff[1]);
 }
 #endif //!__APPLE__
 #endif //!_WIN32
 
 /* This checks that static local variables are available from assembler.  */
-void asm_local_statics (void)
+शून्य asm_local_statics (शून्य)
 {
-  static int localint = 41;
-  asm("incl %0" : "+m" (localint));
-  printf ("asm_local_statics: %d\n", localint);
+  स्थिर पूर्णाङ्क localint = 41;
+  यंत्र("incl %0" : "+m" (localint));
+  म_लिखो ("asm_local_statics: %d\n", localint);
 }
 
-static
-unsigned int set;
+स्थिर
+अचिन्हित पूर्णाङ्क set;
 
-void fancy_copy (unsigned *in, unsigned *out)
+शून्य fancy_copy (अचिन्हित *in, अचिन्हित *out)
 {
-  asm volatile ("" : "=r" (*out) : "0" (*in));
+  यंत्र चञ्चल ("" : "=r" (*out) : "0" (*in));
 }
 
-void fancy_copy2 (unsigned *in, unsigned *out)
+शून्य fancy_copy2 (अचिन्हित *in, अचिन्हित *out)
 {
-  asm volatile ("mov %0,(%1)" : : "r" (*in), "r" (out) : "memory");
+  यंत्र चञ्चल ("mov %0,(%1)" : : "r" (*in), "r" (out) : "memory");
 }
 
-#if defined __x86_64__
-void clobber_r12(void)
+#यदि defined __x86_64__
+शून्य clobber_r12(शून्य)
 {
-    asm volatile("mov $1, %%r12" ::: "r12");
+    यंत्र चञ्चल("mov $1, %%r12" ::: "r12");
 }
 #endif
 
-void test_high_clobbers_really(void)
+शून्य test_माथिल्लो_clobbers_really(शून्य)
 {
-#if defined __x86_64__
-    register word val asm("r12");
+#यदि defined __x86_64__
+    पञ्जिका word val यंत्र("r12");
     word val2;
     /* This tests if asm clobbers correctly save/restore callee saved
        registers if they are clobbered and if it's the high 8 x86-64
        registers.  This is fragile for GCC as the constraints do not
        correctly capture the data flow, but good enough for us.  */
-    asm volatile("mov $0x4542, %%r12" : "=r" (val):: "memory");
+    यंत्र चञ्चल("mov $0x4542, %%r12" : "=r" (val):: "memory");
     clobber_r12();
-    asm volatile("mov %%r12, %0" : "=r" (val2) : "r" (val): "memory");
-    printf("asmhc: 0x%x\n", val2);
+    यंत्र चञ्चल("mov %%r12, %0" : "=r" (val2) : "r" (val): "memory");
+    म_लिखो("asmhc: 0x%x\n", val2);
 #endif
 }
 
-void test_high_clobbers(void)
+शून्य test_माथिल्लो_clobbers(शून्य)
 {
-#if defined __x86_64__
+#यदि defined __x86_64__
     word x1, x2;
-    asm volatile("mov %%r12,%0" :: "m" (x1)); /* save r12 */
-    test_high_clobbers_really();
-    asm volatile("mov %%r12,%0" :: "m" (x2)); /* new r12 */
-    asm volatile("mov %0,%%r12" :: "m" (x1)); /* restore r12 */
+    यंत्र चञ्चल("mov %%r12,%0" :: "m" (x1)); /* save r12 */
+    test_माथिल्लो_clobbers_really();
+    यंत्र चञ्चल("mov %%r12,%0" :: "m" (x2)); /* new r12 */
+    यंत्र चञ्चल("mov %0,%%r12" :: "m" (x1)); /* restore r12 */
     /* should be 0 but tcc doesn't save r12 automatically, which has
        bad effects when gcc helds TCCState *s in r12 in tcc.c:main */
     //printf("r12-clobber-diff: %lx\n", x2 - x1);
 #endif
 }
 
-static long cpu_number;
-void trace_console(long len, long len2)
+स्थिर दीर्घ cpu_सङ्ख्या;
+शून्य trace_console(दीर्घ len, दीर्घ len2)
 {
 #ifdef __x86_64__
     /* This generated invalid code when the emission of the switch
@@ -3649,51 +3649,51 @@ void trace_console(long len, long len2)
        It also is necessary that the switches are in a statement expression
        (which has the property of not being enterable from outside. no
        matter what).  */
-    if (0
+    यदि (0
         &&
             ({
-              long pscr_ret__;
-              switch(len) {
-                case 4:
+              दीर्घ pscr_ret__;
+              विकल्प(len) {
+                पक्ष 4:
                     {
-                       long pfo_ret__;
-                       switch (len2) {
-                         case 8:	printf("bla"); pfo_ret__ = 42; break;
+                       दीर्घ pfo_ret__;
+                       विकल्प (len2) {
+                         पक्ष 8:	म_लिखो("bla"); pfo_ret__ = 42; रोक;
                        }
                        pscr_ret__ = pfo_ret__;
                     }
-                  break;
-                case 8:
+                  रोक;
+                पक्ष 8:
                     {
-                       long pfo_ret__;
-                       switch (len2) {
-                         case 1:asm("movq %1,%0": "=r" (pfo_ret__)	: "m" (cpu_number));	break;
-                         case 2:asm("movq %1,%0": "=r" (pfo_ret__)	: "m" (cpu_number));	break;
-                         case 4:asm("movq %1,%0": "=r" (pfo_ret__)	: "m" (cpu_number));	break;
-                         case 8:asm("movq %1,%0": "=r" (pfo_ret__)	: "m" (cpu_number));	break;
-                         default: printf("impossible\n");
+                       दीर्घ pfo_ret__;
+                       विकल्प (len2) {
+                         पक्ष 1:यंत्र("movq %1,%0": "=r" (pfo_ret__)	: "m" (cpu_सङ्ख्या));	रोक;
+                         पक्ष 2:यंत्र("movq %1,%0": "=r" (pfo_ret__)	: "m" (cpu_सङ्ख्या));	रोक;
+                         पक्ष 4:यंत्र("movq %1,%0": "=r" (pfo_ret__)	: "m" (cpu_सङ्ख्या));	रोक;
+                         पक्ष 8:यंत्र("movq %1,%0": "=r" (pfo_ret__)	: "m" (cpu_सङ्ख्या));	रोक;
+                         स्वभाव: म_लिखो("impossible\n");
                        }
                        pscr_ret__ = pfo_ret__;
                     };
-                  break;
+                  रोक;
               }
               pscr_ret__;
             }))
       {
-        printf("huh?\n");
+        म_लिखो("huh?\n");
       }
 #endif
 }
 
-void test_asm_dead_code(void)
+शून्य test_asm_dead_code(शून्य)
 {
   word rdi;
   /* Try to make sure that xdi contains a zero, and hence will
      lead to a segfault if the next asm is evaluated without
      arguments being set up.  */
-  asm volatile ("" : "=D" (rdi) : "0" (0));
-  (void)sizeof (({
-      int var;
+  यंत्र चञ्चल ("" : "=D" (rdi) : "0" (0));
+  (शून्य)परिमाण (({
+      पूर्णाङ्क var;
       /* This shouldn't trigger a segfault, either the argument
          registers need to be set up and the asm emitted despite
 	 this being in an unevaluated context, or both the argument
@@ -3701,16 +3701,16 @@ void test_asm_dead_code(void)
 	 is better.  Disabling asm code gen when suppression is on
 	 also fixes the above trace_console bug, but that came earlier
 	 than asm suppression.  */
-      asm volatile ("movl $0,(%0)" : : "D" (&var) : "memory");
+      यंत्र चञ्चल ("movl $0,(%0)" : : "D" (&var) : "memory");
       var;
   }));
 }
 
-void test_asm_call(void)
+शून्य test_asm_call(शून्य)
 {
-#if defined __x86_64__ && !defined _WIN64  && !defined(__APPLE__)
-  static char str[] = "PATH";
-  char *s;
+#यदि defined __x86_64__ && !defined _WIN64  && !defined(__APPLE__)
+  स्थिर वर्ण str[] = "PATH";
+  वर्ण *s;
   /* This tests if a reference to an undefined symbol from an asm
      block, which isn't otherwise referenced in this file, is correctly
      regarded as global symbol, so that it's resolved by other object files
@@ -3719,139 +3719,139 @@ void test_asm_call(void)
      would have a global symbol entry, not triggering the bug which is
      tested here).  */
   /* two pushes so stack remains aligned */
-  asm volatile ("push %%rdi; push %%rdi; mov %0, %%rdi;"
-#if 1 && !defined(__TINYC__) && (defined(__PIC__) || defined(__PIE__))
+  यंत्र चञ्चल ("push %%rdi; push %%rdi; mov %0, %%rdi;"
+#यदि 1 && !defined(__TINYC__) && (defined(__PIC__) || defined(__PIE__))
 		"call getenv@plt;"
-#else
+#अन्यथा
 		"call getenv;"
 #endif
 		"pop %%rdi; pop %%rdi"
 		: "=a" (s) : "r" (str));
-  printf("asmd: %s\n", s);
+  म_लिखो("asmd: %s\n", s);
 #endif
 }
 
-#if defined __x86_64__
+#यदि defined __x86_64__
 # define RX "(%rip)"
-#else
+#अन्यथा
 # define RX
 #endif
 
-void asm_dot_test(void)
+शून्य asm_dot_test(शून्य)
 {
 #ifndef __APPLE__
-    int x;
-    for (x = 1;; ++x) {
-        int r = x;
-        switch (x) {
-        case 1:
-            asm(".text; lea S"RX",%eax; lea ."RX",%ecx; sub %ecx,%eax; S=.; jmp p0");
-        case 2:
+    पूर्णाङ्क x;
+    लागि (x = 1;; ++x) {
+        पूर्णाङ्क r = x;
+        विकल्प (x) {
+        पक्ष 1:
+            यंत्र(".text; lea S"RX",%eax; lea ."RX",%ecx; sub %ecx,%eax; S=.; jmp p0");
+        पक्ष 2:
 #ifndef __clang__
             /* clangs internal assembler is broken */
-            asm(".text; jmp .+6; .int 123; mov .-4"RX",%eax; jmp p0");
-#else
-            asm(".text; mov $123, %eax; jmp p0");
+            यंत्र(".text; jmp .+6; .int 123; mov .-4"RX",%eax; jmp p0");
+#अन्यथा
+            यंत्र(".text; mov $123, %eax; jmp p0");
 #endif
-	case 3:
-#if !defined(_WIN32) && !defined(__clang__)
-            asm(".pushsection \".data\"; Y=.; .int 999; X=Y; .int 456; X=.-4; .popsection");
-#else
-            asm(".data; Y=.; .int 999; X=Y; .int 456; X=.-4; .text");
+	पक्ष 3:
+#यदि !defined(_WIN32) && !defined(__clang__)
+            यंत्र(".pushsection \".data\"; Y=.; .int 999; X=Y; .int 456; X=.-4; .popsection");
+#अन्यथा
+            यंत्र(".data; Y=.; .int 999; X=Y; .int 456; X=.-4; .text");
 #endif
-            asm(".text; mov X"RX",%eax; jmp p0");
-        case 4:
+            यंत्र(".text; mov X"RX",%eax; jmp p0");
+        पक्ष 4:
 #ifdef __clang__
             /* Bah!  Clang!  Doesn't want to redefine 'X'  */
-            asm(".text; mov $789,%eax; jmp p0");
-#else
+            यंत्र(".text; mov $789,%eax; jmp p0");
+#अन्यथा
 #ifndef _WIN32
-            asm(".data; X=.; .int 789; Y=.; .int 999; .previous");
-#else
-            asm(".data; X=.; .int 789; Y=.; .int 999; .text");
+            यंत्र(".data; X=.; .int 789; Y=.; .int 999; .previous");
+#अन्यथा
+            यंत्र(".data; X=.; .int 789; Y=.; .int 999; .text");
 #endif
-            asm(".text; mov X"RX",%eax; X=Y; jmp p0");
+            यंत्र(".text; mov X"RX",%eax; X=Y; jmp p0");
 #endif
-        case 0:
-	    asm(".text; p0=.; mov %%eax,%0;" : "=m"(r)); break;
+        पक्ष 0:
+	    यंत्र(".text; p0=.; mov %%eax,%0;" : "=m"(r)); रोक;
 	}
-        if (r == x)
-            break;
-        printf("asm_dot_test %d: %d\n", x, r);
+        यदि (r == x)
+            रोक;
+        म_लिखो("asm_dot_test %d: %d\n", x, r);
     }
 #endif
 }
 
-void asm_pcrel_test(void)
+शून्य asm_pcrel_test(शून्य)
 {
-    unsigned o1, o2;
+    अचिन्हित o1, o2;
     /* subtract text-section label from forward or other-section label */
-    asm("1: mov $2f-1b,%%eax; mov %%eax,%0" : "=m"(o1));
+    यंत्र("1: mov $2f-1b,%%eax; mov %%eax,%0" : "=m"(o1));
     /* verify ... */
-    asm("2: lea 2b"RX",%eax; lea 1b"RX",%ecx; sub %ecx,%eax");
-    asm("mov %%eax,%0" : "=m"(o2));
-    printf("%s : %x\n", __FUNCTION__, o1 - o2); /* should be zero */
+    यंत्र("2: lea 2b"RX",%eax; lea 1b"RX",%ecx; sub %ecx,%eax");
+    यंत्र("mov %%eax,%0" : "=m"(o2));
+    म_लिखो("%s : %x\n", __FUNCTION__, o1 - o2); /* should be zero */
 }
 
-void asm_test(void)
+शून्य asm_test(शून्य)
 {
-    char buf[128];
-    unsigned int val, val2;
-    struct struct123 s1;
-    struct struct1231 s2 = { (word)&s1 };
+    वर्ण buf[128];
+    अचिन्हित पूर्णाङ्क val, val2;
+    संरचना struct123 s1;
+    संरचना struct1231 s2 = { (word)&s1 };
     /* Hide the outer base_func, but check later that the inline
        asm block gets the outer one.  */
-    int base_func = 42;
-    void override_func3 (void);
+    पूर्णाङ्क base_func = 42;
+    शून्य override_func3 (शून्य);
     word asmret;
 #ifdef BOOL_ISOC99
     _Bool somebool;
 #endif
-    register int regvar asm("%esi");
+    पञ्जिका पूर्णाङ्क regvar यंत्र("%esi");
 
     // parse 0x1E-1 as 3 tokens in asm mode
-    asm volatile ("mov $0x1E-1,%eax");
+    यंत्र चञ्चल ("mov $0x1E-1,%eax");
 
     /* test the no operand case */
-    asm volatile ("xorl %eax, %eax");
+    यंत्र चञ्चल ("xorl %eax, %eax");
 
     memcpy1(buf, "hello", 6);
     strncat1(buf, " worldXXXXX", 3);
-    printf("%s\n", buf);
+    म_लिखो("%s\n", buf);
 
     memcpy2(buf, "hello", 6);
     strncat2(buf, " worldXXXXX", 3);
-    printf("%s\n", buf);
+    म_लिखो("%s\n", buf);
 
     /* 'A' constraint test */
-    printf("mul64=0x%Lx\n", mul64(0x12345678, 0xabcd1234));
-    printf("inc64=0x%Lx\n", inc64(0x12345678ffffffff));
+    म_लिखो("mul64=0x%Lx\n", mul64(0x12345678, 0xabcd1234));
+    म_लिखो("inc64=0x%Lx\n", inc64(0x12345678ffffffff));
 
     s1.a = 42;
     s1.b = 43;
-    printf("mconstraint: %d", mconstraint_test(&s2));
-    printf(" %d %d\n", s1.a, s1.b);
+    म_लिखो("mconstraint: %d", mconstraint_test(&s2));
+    म_लिखो(" %d %d\n", s1.a, s1.b);
     other_constraints_test();
     set = 0xff;
     sigdelset1(&set, 2);
     sigaddset1(&set, 16);
     /* NOTE: we test here if C labels are correctly restored after the
        asm statement */
-    goto label1;
+    गच्छ label1;
  label2:
     __asm__("btsl %1,%0" : "=m"(set) : "Ir"(20) : "cc");
-    printf("set=0x%x\n", set);
+    म_लिखो("set=0x%x\n", set);
     val = 0x01020304;
-    printf("swab32(0x%08x) = 0x%0x\n", val, swab32(val));
+    म_लिखो("swab32(0x%08x) = 0x%0x\n", val, swab32(val));
 #ifndef _WIN32
 #ifndef __APPLE__
     override_func1();
     override_func2();
     /* The base_func ref from the following inline asm should find
        the global one, not the local decl from this function.  */
-    asm volatile(".weak override_func3\n.set override_func3, base_func");
+    यंत्र चञ्चल(".weak override_func3\n.set override_func3, base_func");
     override_func3();
-    printf("asmstr: %s\n", get_asm_string());
+    म_लिखो("asmstr: %s\n", get_asm_string());
     asm_local_label_diff();
 #endif
 #endif
@@ -3860,39 +3860,39 @@ void asm_test(void)
     /* clang can't deal with the type change */
     /* Check that we can also load structs of appropriate layout
        into registers.  */
-    asm volatile("" : "=r" (asmret) : "0"(s2));
-    if (asmret != s2.addr)
-      printf("asmstr: failed\n");
+    यंत्र चञ्चल("" : "=r" (asmret) : "0"(s2));
+    यदि (asmret != s2.addr)
+      म_लिखो("asmstr: failed\n");
 #endif
 #ifdef BOOL_ISOC99
     /* Check that the typesize correctly sets the register size to
        8 bit.  */
-    asm volatile("cmp %1,%2; sete %0" : "=a"(somebool) : "r"(1), "r"(2));
-    if (!somebool)
-      printf("asmbool: failed\n");
+    यंत्र चञ्चल("cmp %1,%2; sete %0" : "=a"(somebool) : "r"(1), "r"(2));
+    यदि (!somebool)
+      म_लिखो("asmbool: failed\n");
 #endif
     val = 43;
     fancy_copy (&val, &val2);
-    printf ("fancycpy(%d)=%d\n", val, val2);
+    म_लिखो ("fancycpy(%d)=%d\n", val, val2);
     val = 44;
     fancy_copy2 (&val, &val2);
-    printf ("fancycpy2(%d)=%d\n", val, val2);
-    asm volatile ("mov $0x4243, %%esi" : "=r" (regvar));
-    printf ("regvar=%x\n", regvar);
-    test_high_clobbers();
+    म_लिखो ("fancycpy2(%d)=%d\n", val, val2);
+    यंत्र चञ्चल ("mov $0x4243, %%esi" : "=r" (regvar));
+    म_लिखो ("regvar=%x\n", regvar);
+    test_माथिल्लो_clobbers();
     trace_console(8, 8);
     test_asm_dead_code();
     test_asm_call();
     asm_dot_test();
     asm_pcrel_test();
-    return;
+    फर्काऊ;
  label1:
-    goto label2;
+    गच्छ label2;
 }
 
-#else
+#अन्यथा
 
-void asm_test(void)
+शून्य asm_test(शून्य)
 {
 }
 
@@ -3900,32 +3900,32 @@ void asm_test(void)
 
 #define COMPAT_TYPE(type1, type2) \
 {\
-    printf("__builtin_types_compatible_p(%s, %s) = %d\n", #type1, #type2, \
+    म_लिखो("__builtin_types_compatible_p(%s, %s) = %d\n", #type1, #type2, \
            __builtin_types_compatible_p (type1, type2));\
 }
 
-int constant_p_var;
+पूर्णाङ्क constant_p_var;
 
-int func(void);
+पूर्णाङ्क func(शून्य);
 
 
 /* __builtin_clz and __builtin_ctz return random values for 0 */
-static void builtin_test_bits(unsigned long long x, int cnt[])
+स्थिर शून्य builtin_test_bits(अचिन्हित दीर्घ दीर्घ x, पूर्णाङ्क cnt[])
 {
-#if GCC_MAJOR >= 4
+#यदि GCC_MAJOR >= 4
     cnt[0] += __builtin_ffs(x);
     cnt[1] += __builtin_ffsl(x);
     cnt[2] += __builtin_ffsll(x);
 
-    if ((unsigned int) x) cnt[3] += __builtin_clz(x);
-    if ((unsigned long) x) cnt[4] += __builtin_clzl(x);
-    if ((unsigned long long) x) cnt[5] += __builtin_clzll(x);
+    यदि ((अचिन्हित पूर्णाङ्क) x) cnt[3] += __builtin_clz(x);
+    यदि ((अचिन्हित दीर्घ) x) cnt[4] += __builtin_clzl(x);
+    यदि ((अचिन्हित दीर्घ दीर्घ) x) cnt[5] += __builtin_clzll(x);
 
-    if ((unsigned int) x) cnt[6] += __builtin_ctz(x);
-    if ((unsigned long) x) cnt[7] += __builtin_ctzl(x);
-    if ((unsigned long long) x) cnt[8] += __builtin_ctzll(x);
+    यदि ((अचिन्हित पूर्णाङ्क) x) cnt[6] += __builtin_ctz(x);
+    यदि ((अचिन्हित दीर्घ) x) cnt[7] += __builtin_ctzl(x);
+    यदि ((अचिन्हित दीर्घ दीर्घ) x) cnt[8] += __builtin_ctzll(x);
 
-#if GCC_MAJOR >= 6 && (CC_NAME != CC_clang || GCC_MAJOR >= 11)
+#यदि GCC_MAJOR >= 6 && (CC_NAME != CC_clang || GCC_MAJOR >= 11)
 /* Apple clang 10 does not have __builtin_clrsb[l[l]] */
     cnt[9] += __builtin_clrsb(x);
     cnt[10] += __builtin_clrsbl(x);
@@ -3942,234 +3942,234 @@ static void builtin_test_bits(unsigned long long x, int cnt[])
 #endif
 }
 
-void builtin_test(void)
+शून्य builtin_test(शून्य)
 {
-    short s;
-    int i;
-    long long ll;
-#if GCC_MAJOR >= 3
-    COMPAT_TYPE(int, int);
-    COMPAT_TYPE(int, unsigned int);
-    COMPAT_TYPE(int, char);
-    COMPAT_TYPE(int, const int);
-    COMPAT_TYPE(int, volatile int);
-    COMPAT_TYPE(int[2], const int[2]);
-    COMPAT_TYPE(int[2][3], volatile int[][3]);
-    COMPAT_TYPE(int (*)[], const int (*)[]);
+    लघु s;
+    पूर्णाङ्क i;
+    दीर्घ दीर्घ ll;
+#यदि GCC_MAJOR >= 3
+    COMPAT_TYPE(पूर्णाङ्क, पूर्णाङ्क);
+    COMPAT_TYPE(पूर्णाङ्क, अचिन्हित पूर्णाङ्क);
+    COMPAT_TYPE(पूर्णाङ्क, वर्ण);
+    COMPAT_TYPE(पूर्णाङ्क, अचर पूर्णाङ्क);
+    COMPAT_TYPE(पूर्णाङ्क, चञ्चल पूर्णाङ्क);
+    COMPAT_TYPE(पूर्णाङ्क[2], अचर पूर्णाङ्क[2]);
+    COMPAT_TYPE(पूर्णाङ्क[2][3], चञ्चल पूर्णाङ्क[][3]);
+    COMPAT_TYPE(पूर्णाङ्क (*)[], अचर पूर्णाङ्क (*)[]);
 #ifndef __clang__
-    COMPAT_TYPE(__typeof__(1 ? (const int (*)[2])0 : (int (*)[2])0),
-                const int (*)[2]);
-    COMPAT_TYPE(__typeof__(1 ? (const int (*)[2][3])0 :
-                              (volatile int (*)[2][3])0),
-                const volatile int (*)[2][3]);
-    COMPAT_TYPE(__typeof__(1 ? (volatile int (*)[2][3])0 :
-                              (const int (*)[2][3])0),
-                const volatile int (*)[2][3]);
-#else
+    COMPAT_TYPE(__typeof__(1 ? (अचर पूर्णाङ्क (*)[2])0 : (पूर्णाङ्क (*)[2])0),
+                अचर पूर्णाङ्क (*)[2]);
+    COMPAT_TYPE(__typeof__(1 ? (अचर पूर्णाङ्क (*)[2][3])0 :
+                              (चञ्चल पूर्णाङ्क (*)[2][3])0),
+                अचर चञ्चल पूर्णाङ्क (*)[2][3]);
+    COMPAT_TYPE(__typeof__(1 ? (चञ्चल पूर्णाङ्क (*)[2][3])0 :
+                              (अचर पूर्णाङ्क (*)[2][3])0),
+                अचर चञ्चल पूर्णाङ्क (*)[2][3]);
+#अन्यथा
     /* clang doesn't combine qualifiers through array types */
-    printf("__builtin_types_compatible_p(__typeof__(1 ? (const int (*)[2])0 : (int (*)[2])0), const int (*)[2]) = 1\n");
-    printf("__builtin_types_compatible_p(__typeof__(1 ? (const int (*)[2][3])0 : (volatile int (*)[2][3])0), const volatile int (*)[2][3]) = 1\n");
-    printf("__builtin_types_compatible_p(__typeof__(1 ? (volatile int (*)[2][3])0 : (const int (*)[2][3])0), const volatile int (*)[2][3]) = 1\n");
+    म_लिखो("__builtin_types_compatible_p(__typeof__(1 ? (const int (*)[2])0 : (int (*)[2])0), const int (*)[2]) = 1\n");
+    म_लिखो("__builtin_types_compatible_p(__typeof__(1 ? (const int (*)[2][3])0 : (volatile int (*)[2][3])0), const volatile int (*)[2][3]) = 1\n");
+    म_लिखो("__builtin_types_compatible_p(__typeof__(1 ? (volatile int (*)[2][3])0 : (const int (*)[2][3])0), const volatile int (*)[2][3]) = 1\n");
 #endif
-    COMPAT_TYPE(int *, int *);
-    COMPAT_TYPE(int *, void *);
-    COMPAT_TYPE(int *, const int *);
-    COMPAT_TYPE(char *, unsigned char *);
-    COMPAT_TYPE(char *, signed char *);
-    COMPAT_TYPE(char *, char *);
-    COMPAT_TYPE(char **, void *);
+    COMPAT_TYPE(पूर्णाङ्क *, पूर्णाङ्क *);
+    COMPAT_TYPE(पूर्णाङ्क *, शून्य *);
+    COMPAT_TYPE(पूर्णाङ्क *, अचर पूर्णाङ्क *);
+    COMPAT_TYPE(वर्ण *, अचिन्हित वर्ण *);
+    COMPAT_TYPE(वर्ण *, चिन्हित वर्ण *);
+    COMPAT_TYPE(वर्ण *, वर्ण *);
+    COMPAT_TYPE(वर्ण **, शून्य *);
 #endif
-    printf("res1 = %d\n", __builtin_constant_p(1));
-    printf("res2 = %d\n", __builtin_constant_p(1 + 2));
-    printf("res3 = %d\n", __builtin_constant_p(&constant_p_var));
-    printf("res4 = %d\n", __builtin_constant_p(constant_p_var));
-    printf("res5 = %d\n", __builtin_constant_p(100000 / constant_p_var));
-    printf("res6 = %d\n", __builtin_constant_p(i && 1));
-    printf("res7 = %d\n", __builtin_constant_p("hi"));
-    printf("res8 = %d\n", __builtin_constant_p(func()));
+    म_लिखो("res1 = %d\n", __builtin_constant_p(1));
+    म_लिखो("res2 = %d\n", __builtin_constant_p(1 + 2));
+    म_लिखो("res3 = %d\n", __builtin_constant_p(&constant_p_var));
+    म_लिखो("res4 = %d\n", __builtin_constant_p(constant_p_var));
+    म_लिखो("res5 = %d\n", __builtin_constant_p(100000 / constant_p_var));
+    म_लिखो("res6 = %d\n", __builtin_constant_p(i && 1));
+    म_लिखो("res7 = %d\n", __builtin_constant_p("hi"));
+    म_लिखो("res8 = %d\n", __builtin_constant_p(func()));
 #ifndef __clang__
-    printf("res10 = %d\n", __builtin_constant_p(i && 0));
-    printf("res11 = %d\n", __builtin_constant_p(i * 0));
-    printf("res12 = %d\n", __builtin_constant_p(i && 0 ? i : 34));
-    printf("res13 = %d\n", __builtin_constant_p((1,7)));
-#else
+    म_लिखो("res10 = %d\n", __builtin_constant_p(i && 0));
+    म_लिखो("res11 = %d\n", __builtin_constant_p(i * 0));
+    म_लिखो("res12 = %d\n", __builtin_constant_p(i && 0 ? i : 34));
+    म_लिखो("res13 = %d\n", __builtin_constant_p((1,7)));
+#अन्यथा
     /* clang doesn't regard these as constant expression */
-    printf("res10 = 1\n");
-    printf("res11 = 1\n");
-    printf("res12 = 1\n");
-    printf("res13 = 0\n");
+    म_लिखो("res10 = 1\n");
+    म_लिखो("res11 = 1\n");
+    म_लिखो("res12 = 1\n");
+    म_लिखो("res13 = 0\n");
 #endif
 
     s = 1;
     ll = 2;
     i = __builtin_choose_expr (1 != 0, ll, s);
-    printf("bce: %d\n", i);
+    म_लिखो("bce: %d\n", i);
     i = __builtin_choose_expr (1 != 1, ll, s);
-    printf("bce: %d\n", i);
-    i = sizeof (__builtin_choose_expr (1, ll, s));
-    printf("bce: %d\n", i);
-    i = sizeof (__builtin_choose_expr (0, ll, s));
-    printf("bce: %d\n", i);
+    म_लिखो("bce: %d\n", i);
+    i = परिमाण (__builtin_choose_expr (1, ll, s));
+    म_लिखो("bce: %d\n", i);
+    i = परिमाण (__builtin_choose_expr (0, ll, s));
+    म_लिखो("bce: %d\n", i);
 
     //printf("bera: %p\n", __builtin_extract_return_addr((void*)43));
 
     {
-	int cnt[18];
-	unsigned long long r = 0;
+	पूर्णाङ्क cnt[18];
+	अचिन्हित दीर्घ दीर्घ r = 0;
 
-	memset(cnt, 0, sizeof(cnt));
+	स_रखो(cnt, 0, परिमाण(cnt));
 	builtin_test_bits(0, cnt);
 	builtin_test_bits(0xffffffffffffffffull, cnt);
-        for (i = 0; i < 64; i++)
+        लागि (i = 0; i < 64; i++)
 	    builtin_test_bits(1ull << i, cnt);
-        for (i = 0; i < 1000; i++) {
+        लागि (i = 0; i < 1000; i++) {
 	    r = 0x5851f42d4c957f2dull * r + 0x14057b7ef767814full;
 	    builtin_test_bits(r, cnt);
 	}
-	for (i = 0; i < 18; i++)
-	    printf ("%d %d\n", i, cnt[i]);
+	लागि (i = 0; i < 18; i++)
+	    म_लिखो ("%d %d\n", i, cnt[i]);
     }
 }
 
-#if defined _WIN32 || (defined __APPLE__ && GCC_MAJOR >= 15)
-void weak_test(void) {}
-#else
-extern int __attribute__((weak)) weak_f1(void);
-extern int __attribute__((weak)) weak_f2(void);
-extern int                       weak_f3(void);
-extern int __attribute__((weak)) weak_v1;
-extern int __attribute__((weak)) weak_v2;
-extern int                       weak_v3;
+#यदि defined _WIN32 || (defined __APPLE__ && GCC_MAJOR >= 15)
+शून्य weak_test(शून्य) {}
+#अन्यथा
+बाह्य पूर्णाङ्क __attribute__((weak)) weak_f1(शून्य);
+बाह्य पूर्णाङ्क __attribute__((weak)) weak_f2(शून्य);
+बाह्य पूर्णाङ्क                       weak_f3(शून्य);
+बाह्य पूर्णाङ्क __attribute__((weak)) weak_v1;
+बाह्य पूर्णाङ्क __attribute__((weak)) weak_v2;
+बाह्य पूर्णाङ्क                       weak_v3;
 
-extern int                           (*weak_fpa)() __attribute__((weak));
-extern int __attribute__((weak))     (*weak_fpb)();
-extern     __attribute__((weak)) int (*weak_fpc)();
+बाह्य पूर्णाङ्क                           (*weak_fpa)() __attribute__((weak));
+बाह्य पूर्णाङ्क __attribute__((weak))     (*weak_fpb)();
+बाह्य     __attribute__((weak)) पूर्णाङ्क (*weak_fpc)();
 
-extern int                     weak_asm_f1(void) asm("weak_asm_f1x") __attribute((weak));
-extern int __attribute((weak)) weak_asm_f2(void) asm("weak_asm_f2x")                    ;
-extern int __attribute((weak)) weak_asm_f3(void) asm("weak_asm_f3x") __attribute((weak));
-extern int                     weak_asm_v1       asm("weak_asm_v1x") __attribute((weak));
-extern int __attribute((weak)) weak_asm_v2       asm("weak_asm_v2x")                    ;
-extern int __attribute((weak)) weak_asm_v3(void) asm("weak_asm_v3x") __attribute((weak));
+बाह्य पूर्णाङ्क                     weak_asm_f1(शून्य) यंत्र("weak_asm_f1x") __attribute((weak));
+बाह्य पूर्णाङ्क __attribute((weak)) weak_asm_f2(शून्य) यंत्र("weak_asm_f2x")                    ;
+बाह्य पूर्णाङ्क __attribute((weak)) weak_asm_f3(शून्य) यंत्र("weak_asm_f3x") __attribute((weak));
+बाह्य पूर्णाङ्क                     weak_asm_v1       यंत्र("weak_asm_v1x") __attribute((weak));
+बाह्य पूर्णाङ्क __attribute((weak)) weak_asm_v2       यंत्र("weak_asm_v2x")                    ;
+बाह्य पूर्णाङ्क __attribute((weak)) weak_asm_v3(शून्य) यंत्र("weak_asm_v3x") __attribute((weak));
 
 #ifndef __clang__
-static const size_t dummy = 0;
-extern __typeof(dummy) weak_dummy1 __attribute__((weak, alias("dummy")));
-extern __typeof(dummy) __attribute__((weak, alias("dummy"))) weak_dummy2;
-extern __attribute__((weak, alias("dummy"))) __typeof(dummy) weak_dummy3;
+स्थिर अचर माप_प्रकार dummy = 0;
+बाह्य __typeof(dummy) weak_dummy1 __attribute__((weak, alias("dummy")));
+बाह्य __typeof(dummy) __attribute__((weak, alias("dummy"))) weak_dummy2;
+बाह्य __attribute__((weak, alias("dummy"))) __typeof(dummy) weak_dummy3;
 #endif
 
-int some_lib_func(void);
-int dummy_impl_of_slf(void) { return 444; }
+पूर्णाङ्क some_lib_func(शून्य);
+पूर्णाङ्क dummy_impl_of_slf(शून्य) { फर्काऊ 444; }
 #ifndef __clang__
-int some_lib_func(void) __attribute__((weak, alias("dummy_impl_of_slf")));
+पूर्णाङ्क some_lib_func(शून्य) __attribute__((weak, alias("dummy_impl_of_slf")));
 #endif
 
-int weak_toolate() __attribute__((weak));
-int weak_toolate() { return 0; }
+पूर्णाङ्क weak_toolate() __attribute__((weak));
+पूर्णाङ्क weak_toolate() { फर्काऊ 0; }
 
-void __attribute__((weak)) weak_test(void)
+शून्य __attribute__((weak)) weak_test(शून्य)
 {
-	printf("weak_f1=%d\n", weak_f1 ? weak_f1() : 123);
-	printf("weak_f2=%d\n", weak_f2 ? weak_f2() : 123);
-	printf("weak_f3=%d\n", weak_f3 ? weak_f3() : 123);
-	printf("weak_v1=%d\n",&weak_v1 ? weak_v1   : 123);
-	printf("weak_v2=%d\n",&weak_v2 ? weak_v2   : 123);
-	printf("weak_v3=%d\n",&weak_v3 ? weak_v3   : 123);
+	म_लिखो("weak_f1=%d\n", weak_f1 ? weak_f1() : 123);
+	म_लिखो("weak_f2=%d\n", weak_f2 ? weak_f2() : 123);
+	म_लिखो("weak_f3=%d\n", weak_f3 ? weak_f3() : 123);
+	म_लिखो("weak_v1=%d\n",&weak_v1 ? weak_v1   : 123);
+	म_लिखो("weak_v2=%d\n",&weak_v2 ? weak_v2   : 123);
+	म_लिखो("weak_v3=%d\n",&weak_v3 ? weak_v3   : 123);
 
-	printf("weak_fpa=%d\n",&weak_fpa ? weak_fpa() : 123);
-	printf("weak_fpb=%d\n",&weak_fpb ? weak_fpb() : 123);
-	printf("weak_fpc=%d\n",&weak_fpc ? weak_fpc() : 123);
+	म_लिखो("weak_fpa=%d\n",&weak_fpa ? weak_fpa() : 123);
+	म_लिखो("weak_fpb=%d\n",&weak_fpb ? weak_fpb() : 123);
+	म_लिखो("weak_fpc=%d\n",&weak_fpc ? weak_fpc() : 123);
 	
-	printf("weak_asm_f1=%d\n", weak_asm_f1 != NULL);
-	printf("weak_asm_f2=%d\n", weak_asm_f2 != NULL);
-	printf("weak_asm_f3=%d\n", weak_asm_f3 != NULL);
-	printf("weak_asm_v1=%d\n",&weak_asm_v1 != NULL);
-	printf("weak_asm_v2=%d\n",&weak_asm_v2 != NULL);
-	printf("weak_asm_v3=%d\n",&weak_asm_v3 != NULL);
+	म_लिखो("weak_asm_f1=%d\n", weak_asm_f1 != रिक्त);
+	म_लिखो("weak_asm_f2=%d\n", weak_asm_f2 != रिक्त);
+	म_लिखो("weak_asm_f3=%d\n", weak_asm_f3 != रिक्त);
+	म_लिखो("weak_asm_v1=%d\n",&weak_asm_v1 != रिक्त);
+	म_लिखो("weak_asm_v2=%d\n",&weak_asm_v2 != रिक्त);
+	म_लिखो("weak_asm_v3=%d\n",&weak_asm_v3 != रिक्त);
 #ifdef __clang__
-	printf("some_lib_func=444\n");
-#else
-	printf("some_lib_func=%d\n", &some_lib_func ? some_lib_func() : 0);
+	म_लिखो("some_lib_func=444\n");
+#अन्यथा
+	म_लिखो("some_lib_func=%d\n", &some_lib_func ? some_lib_func() : 0);
 #endif
 }
 
-int __attribute__((weak)) weak_f2() { return 222; }
-int __attribute__((weak)) weak_f3() { return 333; }
-int __attribute__((weak)) weak_v2 = 222;
-int __attribute__((weak)) weak_v3 = 333;
+पूर्णाङ्क __attribute__((weak)) weak_f2() { फर्काऊ 222; }
+पूर्णाङ्क __attribute__((weak)) weak_f3() { फर्काऊ 333; }
+पूर्णाङ्क __attribute__((weak)) weak_v2 = 222;
+पूर्णाङ्क __attribute__((weak)) weak_v3 = 333;
 #endif
 
-void const_func(const int a)
+शून्य const_func(अचर पूर्णाङ्क a)
 {
 }
 
-void const_warn_test(void)
+शून्य const_warn_test(शून्य)
 {
     const_func(1);
 }
 
-struct condstruct {
-  int i;
+संरचना condstruct {
+  पूर्णाङ्क i;
 };
 
-int getme (struct condstruct *s, int i)
+पूर्णाङ्क getme (संरचना condstruct *s, पूर्णाङ्क i)
 {
-  int i1 = (i == 0 ? 0 : s)->i;
-  int i2 = (i == 0 ? s : 0)->i;
-  int i3 = (i == 0 ? (void*)0 : s)->i;
-  int i4 = (i == 0 ? s : (void*)0)->i;
-  return i1 + i2 + i3 + i4;
+  पूर्णाङ्क i1 = (i == 0 ? 0 : s)->i;
+  पूर्णाङ्क i2 = (i == 0 ? s : 0)->i;
+  पूर्णाङ्क i3 = (i == 0 ? (शून्य*)0 : s)->i;
+  पूर्णाङ्क i4 = (i == 0 ? s : (शून्य*)0)->i;
+  फर्काऊ i1 + i2 + i3 + i4;
 }
 
-struct global_data
+संरचना global_data
 {
-  int a[40];
-  int *b[40];
+  पूर्णाङ्क a[40];
+  पूर्णाङ्क *b[40];
 };
 
-struct global_data global_data;
+संरचना global_data global_data;
 
-int global_data_getstuff (int *, int);
+पूर्णाङ्क global_data_getstuff (पूर्णाङ्क *, पूर्णाङ्क);
 
-void global_data_callit (int i)
+शून्य global_data_callit (पूर्णाङ्क i)
 {
   *global_data.b[i] = global_data_getstuff (global_data.b[i], 1);
 }
 
-int global_data_getstuff (int *p, int i)
+पूर्णाङ्क global_data_getstuff (पूर्णाङ्क *p, पूर्णाङ्क i)
 {
-  return *p + i;
+  फर्काऊ *p + i;
 }
 
-void global_data_test (void)
+शून्य global_data_test (शून्य)
 {
   global_data.a[0] = 42;
   global_data.b[0] = &global_data.a[0];
   global_data_callit (0);
-  printf ("%d\n", global_data.a[0]);
+  म_लिखो ("%d\n", global_data.a[0]);
 }
 
-struct cmpcmpS
+संरचना cmpcmpS
 {
-  unsigned char fill : 3;
-  unsigned char b1 : 1;
-  unsigned char b2 : 1;
-  unsigned char fill2 : 3;
+  अचिन्हित वर्ण fill : 3;
+  अचिन्हित वर्ण b1 : 1;
+  अचिन्हित वर्ण b2 : 1;
+  अचिन्हित वर्ण fill2 : 3;
 };
 
-int glob1, glob2, glob3;
+पूर्णाङ्क glob1, glob2, glob3;
 
-void compare_comparisons (struct cmpcmpS *s)
+शून्य compare_comparisons (संरचना cmpcmpS *s)
 {
-  if (s->b1 != (glob1 == glob2)
+  यदि (s->b1 != (glob1 == glob2)
       || (s->b2 != (glob1 == glob3)))
-    printf ("comparing comparisons broken\n");
+    म_लिखो ("comparing comparisons broken\n");
 }
 
-void cmp_comparison_test(void)
+शून्य cmp_comparison_test(शून्य)
 {
-  struct cmpcmpS s;
+  संरचना cmpcmpS s;
   s.b1 = 1;
   glob1 = 42; glob2 = 42;
   s.b2 = 0;
@@ -4177,27 +4177,27 @@ void cmp_comparison_test(void)
   compare_comparisons (&s);
 }
 
-int fcompare (double a, double b, int code)
+पूर्णाङ्क fcompare (द्विगुण a, द्विगुण b, पूर्णाङ्क code)
 {
-  switch (code) {
-    case 0: return a == b;
-    case 1: return a != b;
-    case 2: return a < b;
-    case 3: return a >= b;
-    case 4: return a > b;
-    case 5: return a <= b;
+  विकल्प (code) {
+    पक्ष 0: फर्काऊ a == b;
+    पक्ष 1: फर्काऊ a != b;
+    पक्ष 2: फर्काऊ a < b;
+    पक्ष 3: फर्काऊ a >= b;
+    पक्ष 4: फर्काऊ a > b;
+    पक्ष 5: फर्काऊ a <= b;
   }
-  return 0;
+  फर्काऊ 0;
 }
 
-void math_cmp_test(void)
+शून्य math_cmp_test(शून्य)
 {
-  double nan = 0.0/0.0;
-  double one = 1.0;
-  double two = 2.0;
-  int comp = 0;
-  int v;
-#define bug(a,b,op,iop,part) printf("Test broken: %s %s %s %s %d\n", #a, #b, #op, #iop, part)
+  द्विगुण nan = 0.0/0.0;
+  द्विगुण one = 1.0;
+  द्विगुण two = 2.0;
+  पूर्णाङ्क comp = 0;
+  पूर्णाङ्क v;
+#define bug(a,b,op,iop,part) म_लिखो("Test broken: %s %s %s %s %d\n", #a, #b, #op, #iop, part)
 
   /* This asserts that "a op b" is _not_ true, but "a iop b" is true.
      And it does this in various ways so that all code generation paths
@@ -4205,28 +4205,28 @@ void math_cmp_test(void)
      producing a 0/1 value without jumps (that's done in the fcompare
      function).  */
 #define FCMP(a,b,op,iop,code) \
-  if (fcompare (a,b,code))    \
+  यदि (fcompare (a,b,code))    \
     bug (a,b,op,iop,1); \
-  if (a op b) \
+  यदि (a op b) \
     bug (a,b,op,iop,2); \
-  if (a iop b) \
+  यदि (a iop b) \
     ; \
-  else \
+  अन्यथा \
     bug (a,b,op,iop,3); \
-  if ((a op b) || comp) \
+  यदि ((a op b) || comp) \
     bug (a,b,op,iop,4); \
-  if ((a iop b) || comp) \
+  यदि ((a iop b) || comp) \
     ; \
-  else \
+  अन्यथा \
     bug (a,b,op,iop,5); \
-  if (v = !(a op b), !v) bug(a,b,op,iop,7);
+  यदि (v = !(a op b), !v) bug(a,b,op,iop,7);
 
   /* Equality tests.  */
   FCMP(nan, nan, ==, !=, 0);
   FCMP(one, two, ==, !=, 0);
   FCMP(one, one, !=, ==, 1);
   /* Non-equality is a bit special.  */
-  if (!fcompare (nan, nan, 1))
+  यदि (!fcompare (nan, nan, 1))
     bug (nan, nan, !=, ==, 6);
 
   /* Relational tests on numbers.  */
@@ -4244,14 +4244,14 @@ void math_cmp_test(void)
   FCMP(nan, nan, <=, !=, 5);
 }
 
-double get100 () { return 100.0; }
+द्विगुण get100 () { फर्काऊ 100.0; }
 
-void callsave_test(void)
+शून्य callsave_test(शून्य)
 {
-  int i, s; double *d; double t;
-  s = sizeof (double);
-  printf ("callsavetest: %d\n", s);
-  d = alloca (sizeof(double));
+  पूर्णाङ्क i, s; द्विगुण *d; द्विगुण t;
+  s = परिमाण (द्विगुण);
+  म_लिखो ("callsavetest: %d\n", s);
+  d = alloca (परिमाण(द्विगुण));
   d[0] = 10.0;
   /* x86-64 had a bug were the next call to get100 would evict
      the lvalue &d[0] as VT_LLOCAL, and the reload would be done
@@ -4259,128 +4259,128 @@ void callsave_test(void)
      with the high 32 bit set (which is likely on x86-64) the access
      generates a segfault.  */
   i = d[0] > get100 ();
-  printf ("%d\n", i);
+  म_लिखो ("%d\n", i);
 }
 
 
-void bfa3(ptrdiff_t str_offset)
+शून्य bfa3(सूचक_भेद_प्रकार str_offset)
 {
-    printf("bfa3: %s\n", (char *)__builtin_frame_address(3) + str_offset);
+    म_लिखो("bfa3: %s\n", (वर्ण *)__builtin_frame_address(3) + str_offset);
 }
-void bfa2(ptrdiff_t str_offset)
+शून्य bfa2(सूचक_भेद_प्रकार str_offset)
 {
-    printf("bfa2: %s\n", (char *)__builtin_frame_address(2) + str_offset);
+    म_लिखो("bfa2: %s\n", (वर्ण *)__builtin_frame_address(2) + str_offset);
     bfa3(str_offset);
 }
-void bfa1(ptrdiff_t str_offset)
+शून्य bfa1(सूचक_भेद_प्रकार str_offset)
 {
-    printf("bfa1: %s\n", (char *)__builtin_frame_address(1) + str_offset);
+    म_लिखो("bfa1: %s\n", (वर्ण *)__builtin_frame_address(1) + str_offset);
     bfa2(str_offset);
 }
 
-void builtin_frame_address_test(void)
+शून्य builtin_frame_address_test(शून्य)
 {
 /* builtin_frame_address fails on ARM with gcc which make test3 fail */
 #ifndef __arm__
-    char str[] = "__builtin_frame_address";
-    char *fp0 = __builtin_frame_address(0);
+    वर्ण str[] = "__builtin_frame_address";
+    वर्ण *fp0 = __builtin_frame_address(0);
 
-    printf("str: %s\n", str);
+    म_लिखो("str: %s\n", str);
 #ifndef __riscv // gcc dumps core. tcc, clang work
     bfa1(str-fp0);
 #endif
 #endif
 }
 
-char via_volatile (char i)
+वर्ण via_volatile (वर्ण i)
 {
-  char volatile vi;
+  वर्ण चञ्चल vi;
   vi = i;
-  return vi;
+  फर्काऊ vi;
 }
 
-void volatile_test(void)
+शून्य volatile_test(शून्य)
 {
-    if (via_volatile (42) != 42)
-      printf (" broken\n");
-    else
-      printf (" ok\n");
+    यदि (via_volatile (42) != 42)
+      म_लिखो (" broken\n");
+    अन्यथा
+      म_लिखो (" ok\n");
 }
 
-struct __attribute__((__packed__)) Spacked {
-    char a;
-    short b;
-    int c;
+संरचना __attribute__((__packed__)) Spacked {
+    वर्ण a;
+    लघु b;
+    पूर्णाङ्क c;
 };
-struct Spacked spacked;
-typedef struct __attribute__((__packed__)) {
-    char a;
-    short b;
-    int c;
+संरचना Spacked spacked;
+प्रकारनिर्देश संरचना __attribute__((__packed__)) {
+    वर्ण a;
+    लघु b;
+    पूर्णाङ्क c;
 } Spacked2;
 Spacked2 spacked2;
-typedef struct Spacked3_s {
-    char a;
-    short b;
-    int c;
+प्रकारनिर्देश संरचना Spacked3_s {
+    वर्ण a;
+    लघु b;
+    पूर्णाङ्क c;
 } __attribute__((__packed__)) Spacked3;
 Spacked3 spacked3;
-struct gate_struct64 {
-    unsigned short offset_low;
-    unsigned short segment;
-    unsigned ist : 3, zero0 : 5, type : 5, dpl : 2, p : 1;
-    unsigned short offset_middle;
-    unsigned offset_high;
-    unsigned zero1;
+संरचना gate_struct64 {
+    अचिन्हित लघु offset_तल्लो;
+    अचिन्हित लघु segment;
+    अचिन्हित ist : 3, zero0 : 5, type : 5, dpl : 2, p : 1;
+    अचिन्हित लघु offset_बीच;
+    अचिन्हित offset_माथिल्लो;
+    अचिन्हित zero1;
 } __attribute__((packed));
-typedef struct gate_struct64 gate_desc;
+प्रकारनिर्देश संरचना gate_struct64 gate_desc;
 gate_desc a_gate_desc;
-void attrib_test(void)
+शून्य attrib_test(शून्य)
 {
 #ifndef _WIN32
-  printf("attr: %d %d %d %d\n", sizeof(struct Spacked),
-	 sizeof(spacked), sizeof(Spacked2), sizeof(spacked2));
-  printf("attr: %d %d\n", sizeof(Spacked3), sizeof(spacked3));
-  printf("attr: %d %d\n", sizeof(gate_desc), sizeof(a_gate_desc));
+  म_लिखो("attr: %d %d %d %d\n", परिमाण(संरचना Spacked),
+	 परिमाण(spacked), परिमाण(Spacked2), परिमाण(spacked2));
+  म_लिखो("attr: %d %d\n", परिमाण(Spacked3), परिमाण(spacked3));
+  म_लिखो("attr: %d %d\n", परिमाण(gate_desc), परिमाण(a_gate_desc));
 #endif
 }
-extern __attribute__((__unused__)) char * __attribute__((__unused__)) *
-strange_attrib_placement (void);
+बाह्य __attribute__((__unused__)) वर्ण * __attribute__((__unused__)) *
+strange_attrib_placement (शून्य);
 
-void * __attribute__((__unused__)) get_void_ptr (void *a)
+शून्य * __attribute__((__unused__)) get_void_ptr (शून्य *a)
 {
-  return a;
+  फर्काऊ a;
 }
 
 /* This part checks for a bug in TOK_GET (used for inline expansion),
    where the large long long constant left the the high bits set for
    the integer constant token.  */
-static inline
-int __get_order(unsigned long long size)
+स्थिर अन्तःस्थ
+पूर्णाङ्क __get_order(अचिन्हित दीर्घ दीर्घ size)
 {
-  int order;
+  पूर्णाङ्क order;
   size -= 0xffff880000000000ULL; // this const left high bits set in the token
     {
-      struct S { int i : 1; } s; // constructed for this '1'
+      संरचना S { पूर्णाङ्क i : 1; } s; // constructed for this '1'
     }
   order = size;
-  return order;
+  फर्काऊ order;
 }
 
 /* This just forces the above inline function to be actually emitted.  */
-int force_get_order(unsigned long s)
+पूर्णाङ्क force_get_order(अचिन्हित दीर्घ s)
 {
-    return __get_order(s);
+    फर्काऊ __get_order(s);
 }
 
-#define pv(m) printf(sizeof (s->m + 0) == 8 ? "%016llx\n" : "%02x\n", s->m)
+#define pv(m) म_लिखो(परिमाण (s->m + 0) == 8 ? "%016llx\n" : "%02x\n", s->m)
 
 /* Test failed when using bounds checking */
-void bounds_check1_test (void)
+शून्य bounds_check1_test (शून्य)
 {
-    struct s {
-        int x;
-        long long y;
+    संरचना s {
+        पूर्णाङ्क x;
+        दीर्घ दीर्घ y;
     } _s, *s = &_s;
     s->x = 10;
     s->y = 20;
@@ -4389,15 +4389,15 @@ void bounds_check1_test (void)
 }
 
 /* This failed on arm64/riscv64 */
-void map_add(int a, int b, int c, int d, int e, int f, int g, int h, int i)
+शून्य map_add(पूर्णाङ्क a, पूर्णाङ्क b, पूर्णाङ्क c, पूर्णाङ्क d, पूर्णाङ्क e, पूर्णाङ्क f, पूर्णाङ्क g, पूर्णाङ्क h, पूर्णाङ्क i)
 {
-  printf ("%d %d %d %d %d %d %d %d %d\n", a, b, c, d, e, f, g, h, i);
+  म_लिखो ("%d %d %d %d %d %d %d %d %d\n", a, b, c, d, e, f, g, h, i);
 }
 
-void func_arg_test(void)
+शून्य func_arg_test(शून्य)
 {
-    int a = 0;
-    int b = 1;
+    पूर्णाङ्क a = 0;
+    पूर्णाङ्क b = 1;
     map_add(0, 1, 2, 3, 4, 5, 6, 7, a && b);
 }
 
@@ -4414,12 +4414,12 @@ void func_arg_test(void)
 
 /* keep this as the last test because GCC messes up line-numbers
    with the ^L^K^M characters below */
-void whitespace_test(void)
+शून्य whitespace_test(शून्य)
 {
-    char *str;
-    int tcc_test = 1;
+    वर्ण *str;
+    पूर्णाङ्क tcc_test = 1;
 
-#if 1
+#यदि 1
     pri\
 ntf("whitspace:\n");
 #endif
@@ -4435,54 +4435,54 @@ ntf("aaa=%d\n", 3);
 ntf("min=%d\n", 4);
 
 #ifdef ACCEPT_LF_IN_STRINGS
-    printf("len1=%d\n", strlen("
+    म_लिखो("len1=%d\n", म_माप("
 "));
 #ifdef CORRECT_CR_HANDLING
     str = "
 ";
-    printf("len1=%d str[0]=%d\n", strlen(str), str[0]);
+    म_लिखो("len1=%d str[0]=%d\n", म_माप(str), str[0]);
 #endif
-    printf("len1=%d\n", strlen("a
+    म_लिखो("len1=%d\n", म_माप("a
 "));
-#else
-    printf("len1=1\nlen1=1 str[0]=10\nlen1=3\n");
+#अन्यथा
+    म_लिखो("len1=1\nlen1=1 str[0]=10\nlen1=3\n");
 #endif /* ACCEPT_LF_IN_STRINGS */
 
 #ifdef __LINE__
-    printf("__LINE__ defined\n");
+    म_लिखो("__LINE__ defined\n");
 #endif
 
-#if 0
+#यदि 0
     /* wrong with GCC */
-    printf("__LINE__=%d __FILE__=%s\n", __LINE__, __FILE__);
+    म_लिखो("__LINE__=%d __FILE__=%s\n", __LINE__, __FILE__);
 #line 1111
-    printf("__LINE__=%d __FILE__=%s\n", __LINE__, __FILE__);
+    म_लिखो("__LINE__=%d __FILE__=%s\n", __LINE__, __FILE__);
 #line 2222 "test"
-    printf("__LINE__=%d __FILE__=%s\n", __LINE__, __FILE__);
+    म_लिखो("__LINE__=%d __FILE__=%s\n", __LINE__, __FILE__);
 #endif
 
-    printf("\\
+    म_लिखो("\\
 "12\\
 063\\
 n 456\"\n");
 
-    printf ("%d\n",
-#if 1
+    म_लिखो ("%d\n",
+#यदि 1
 	    tcc_test
 #endif
             );
 
 }
 
-#define RUN(test) puts("---- " #test " ----"), test(), puts("")
+#define RUN(test) माला_दो("---- " #test " ----"), test(), माला_दो("")
 
-int main(int argc, char **argv)
+पूर्णाङ्क main(पूर्णाङ्क argc, वर्ण **argv)
 {
     RUN(whitespace_test);
     RUN(macro_test);
     RUN(recursive_macro_test);
     RUN(string_test);
-    RUN(expr_test);
+    RUN(अभिव्यक्ति_test);
     RUN(scope_test);
     RUN(scope2_test);
     RUN(forward_test);
@@ -4495,12 +4495,12 @@ int main(int argc, char **argv)
     RUN(typedef_test);
     RUN(struct_test);
     RUN(array_test);
-    RUN(expr_ptr_test);
+    RUN(अभिव्यक्ति_ptr_test);
     RUN(bool_test);
     RUN(optimize_out_test);
     RUN(expr2_test);
-    RUN(constant_expr_test);
-    RUN(expr_cmp_test);
+    RUN(constant_अभिव्यक्ति_test);
+    RUN(अभिव्यक्ति_cmp_test);
     RUN(char_short_test);
     RUN(init_test);
     RUN(compound_literal_test);
@@ -4519,7 +4519,7 @@ int main(int argc, char **argv)
     RUN(c99_vla_test);
     RUN(sizeof_test);
     RUN(typeof_test);
-    RUN(statement_expr_test);
+    RUN(statement_अभिव्यक्ति_test);
     RUN(local_label_test);
     RUN(asm_test);
     RUN(builtin_test);
@@ -4534,5 +4534,5 @@ int main(int argc, char **argv)
     RUN(bounds_check1_test);
     RUN(func_arg_test);
 
-    return 0;
+    फर्काऊ 0;
 }

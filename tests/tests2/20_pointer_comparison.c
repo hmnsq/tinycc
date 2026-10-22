@@ -1,24 +1,24 @@
-#include <stdio.h>
+#अन्तर्भाव <stdio.h>
 
-int main()
+पूर्णाङ्क main()
 {
-   int a;
-   int b;
-   int *d;
-   int *e;
+   पूर्णाङ्क a;
+   पूर्णाङ्क b;
+   पूर्णाङ्क *d;
+   पूर्णाङ्क *e;
    d = &a;
    e = &b;
    a = 12;
    b = 34;
-   printf("%d\n", *d);
-   printf("%d\n", *e);
-   printf("%d\n", d == e);
-   printf("%d\n", d != e);
+   म_लिखो("%d\n", *d);
+   म_लिखो("%d\n", *e);
+   म_लिखो("%d\n", d == e);
+   म_लिखो("%d\n", d != e);
    d = e;
-   printf("%d\n", d == e);
-   printf("%d\n", d != e);
+   म_लिखो("%d\n", d == e);
+   म_लिखो("%d\n", d != e);
 
-   return 0;
+   फर्काऊ 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

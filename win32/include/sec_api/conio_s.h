@@ -7,31 +7,31 @@
 #ifndef _INC_CONIO_S
 #define _INC_CONIO_S
 
-#include <conio.h>
+#अन्तर्भाव <conio.h>
 
-#if defined(MINGW_HAS_SECURE_API)
+#यदि defined(MINGW_HAS_SECURE_API)
 
 #ifdef __cplusplus
-extern "C" {
+बाह्य "C" {
 #endif
 
-  _CRTIMP errno_t __cdecl _cgets_s(char *_Buffer,size_t _Size,size_t *_SizeRead);
-  _CRTIMP int __cdecl _cprintf_s(const char *_Format,...);
-  _CRTIMP int __cdecl _cscanf_s(const char *_Format,...);
-  _CRTIMP int __cdecl _cscanf_s_l(const char *_Format,_locale_t _Locale,...);
-  _CRTIMP int __cdecl _vcprintf_s(const char *_Format,va_list _ArgList);
-  _CRTIMP int __cdecl _cprintf_s_l(const char *_Format,_locale_t _Locale,...);
-  _CRTIMP int __cdecl _vcprintf_s_l(const char *_Format,_locale_t _Locale,va_list _ArgList);
+  _CRTIMP errno_t __cdecl _cgets_s(वर्ण *_Buffer,माप_प्रकार _Size,माप_प्रकार *_SizeRead);
+  _CRTIMP पूर्णाङ्क __cdecl _cprintf_s(अचर वर्ण *_Format,...);
+  _CRTIMP पूर्णाङ्क __cdecl _cscanf_s(अचर वर्ण *_Format,...);
+  _CRTIMP पूर्णाङ्क __cdecl _cscanf_s_l(अचर वर्ण *_Format,_locale_t _Locale,...);
+  _CRTIMP पूर्णाङ्क __cdecl _vcprintf_s(अचर वर्ण *_Format,बहु_सूची _ArgList);
+  _CRTIMP पूर्णाङ्क __cdecl _cprintf_s_l(अचर वर्ण *_Format,_locale_t _Locale,...);
+  _CRTIMP पूर्णाङ्क __cdecl _vcprintf_s_l(अचर वर्ण *_Format,_locale_t _Locale,बहु_सूची _ArgList);
 
 #ifndef _WCONIO_DEFINED_S
 #define _WCONIO_DEFINED_S
-  _CRTIMP errno_t __cdecl _cgetws_s(wchar_t *_Buffer,size_t _SizeInWords,size_t *_SizeRead);
-  _CRTIMP int __cdecl _cwprintf_s(const wchar_t *_Format,...);
-  _CRTIMP int __cdecl _cwscanf_s(const wchar_t *_Format,...);
-  _CRTIMP int __cdecl _cwscanf_s_l(const wchar_t *_Format,_locale_t _Locale,...);
-  _CRTIMP int __cdecl _vcwprintf_s(const wchar_t *_Format,va_list _ArgList);
-  _CRTIMP int __cdecl _cwprintf_s_l(const wchar_t *_Format,_locale_t _Locale,...);
-  _CRTIMP int __cdecl _vcwprintf_s_l(const wchar_t *_Format,_locale_t _Locale,va_list _ArgList);
+  _CRTIMP errno_t __cdecl _cgetws_s(ब_अक्षर_प्रकार *_Buffer,माप_प्रकार Size_In_शब्दहरू,माप_प्रकार *_SizeRead);
+  _CRTIMP पूर्णाङ्क __cdecl _cwprintf_s(अचर ब_अक्षर_प्रकार *_Format,...);
+  _CRTIMP पूर्णाङ्क __cdecl _cwscanf_s(अचर ब_अक्षर_प्रकार *_Format,...);
+  _CRTIMP पूर्णाङ्क __cdecl _cwscanf_s_l(अचर ब_अक्षर_प्रकार *_Format,_locale_t _Locale,...);
+  _CRTIMP पूर्णाङ्क __cdecl _vcwprintf_s(अचर ब_अक्षर_प्रकार *_Format,बहु_सूची _ArgList);
+  _CRTIMP पूर्णाङ्क __cdecl _cwprintf_s_l(अचर ब_अक्षर_प्रकार *_Format,_locale_t _Locale,...);
+  _CRTIMP पूर्णाङ्क __cdecl _vcwprintf_s_l(अचर ब_अक्षर_प्रकार *_Format,_locale_t _Locale,बहु_सूची _ArgList);
 #endif
 
 #ifdef __cplusplus

@@ -1,29 +1,29 @@
-#include <stdio.h>
+#अन्तर्भाव <stdio.h>
 
-int fred()
+पूर्णाङ्क fred()
 {
-   printf("fred\n");
-   return 0;
+   म_लिखो("fred\n");
+   फर्काऊ 0;
 }
 
-int joe()
+पूर्णाङ्क joe()
 {
-   printf("joe\n");
-   return 1;
+   म_लिखो("joe\n");
+   फर्काऊ 1;
 }
 
-int main()
+पूर्णाङ्क main()
 {
-   printf("%d\n", fred() && joe());
-   printf("%d\n", fred() || joe());
-   printf("%d\n", joe() && fred());
-   printf("%d\n", joe() || fred());
-   printf("%d\n", fred() && (1 + joe()));
-   printf("%d\n", fred() || (0 + joe()));
-   printf("%d\n", joe() && (0 + fred()));
-   printf("%d\n", joe() || (1 + fred()));
+   म_लिखो("%d\n", fred() && joe());
+   म_लिखो("%d\n", fred() || joe());
+   म_लिखो("%d\n", joe() && fred());
+   म_लिखो("%d\n", joe() || fred());
+   म_लिखो("%d\n", fred() && (1 + joe()));
+   म_लिखो("%d\n", fred() || (0 + joe()));
+   म_लिखो("%d\n", joe() && (0 + fred()));
+   म_लिखो("%d\n", joe() || (1 + fred()));
 
-   return 0;
+   फर्काऊ 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

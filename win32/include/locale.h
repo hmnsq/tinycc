@@ -6,19 +6,19 @@
 #ifndef _INC_LOCALE
 #define _INC_LOCALE
 
-#include <_mingw.h>
+#अन्तर्भाव <_mingw.h>
 
-#pragma pack(push,_CRT_PACKING)
+#pragma pack(थप,_CRT_PACKING)
 
 #ifdef __cplusplus
-extern "C" {
+बाह्य "C" {
 #endif
 
-#ifndef NULL
+#ifndef रिक्त
 #ifdef __cplusplus
-#define NULL 0
-#else
-#define NULL ((void *)0)
+#define रिक्त 0
+#अन्यथा
+#define रिक्त ((शून्य *)0)
 #endif
 #endif
 
@@ -34,25 +34,25 @@ extern "C" {
 
 #ifndef _LCONV_DEFINED
 #define _LCONV_DEFINED
-  struct lconv {
-    char *decimal_point;
-    char *thousands_sep;
-    char *grouping;
-    char *int_curr_symbol;
-    char *currency_symbol;
-    char *mon_decimal_point;
-    char *mon_thousands_sep;
-    char *mon_grouping;
-    char *positive_sign;
-    char *negative_sign;
-    char int_frac_digits;
-    char frac_digits;
-    char p_cs_precedes;
-    char p_sep_by_space;
-    char n_cs_precedes;
-    char n_sep_by_space;
-    char p_sign_posn;
-    char n_sign_posn;
+  संरचना स्था_बदल {
+    वर्ण *decimal_point;
+    वर्ण *thousands_sep;
+    वर्ण *grouping;
+    वर्ण *int_curr_चिह्न;
+    वर्ण *currency_चिह्न;
+    वर्ण *mon_decimal_point;
+    वर्ण *mon_thousands_sep;
+    वर्ण *mon_grouping;
+    वर्ण *positive_sign;
+    वर्ण *negative_sign;
+    वर्ण int_frac_digits;
+    वर्ण frac_digits;
+    वर्ण p_cs_precedes;
+    वर्ण p_sep_by_space;
+    वर्ण n_cs_precedes;
+    वर्ण n_sep_by_space;
+    वर्ण p_sign_posn;
+    वर्ण n_sign_posn;
   };
 #endif
 
@@ -68,24 +68,24 @@ extern "C" {
 
 #endif
 
-  int __cdecl _configthreadlocale(int _Flag);
-  char *__cdecl setlocale(int _Category,const char *_Locale);
-  _CRTIMP struct lconv *__cdecl localeconv(void);
-  _locale_t __cdecl _get_current_locale(void);
-  _locale_t __cdecl _create_locale(int _Category,const char *_Locale);
-  void __cdecl _free_locale(_locale_t _Locale);
-  _locale_t __cdecl __get_current_locale(void);
-  _locale_t __cdecl __create_locale(int _Category,const char *_Locale);
-  void __cdecl __free_locale(_locale_t _Locale);
+  पूर्णाङ्क __cdecl _configthreadlocale(पूर्णाङ्क _Flag);
+  वर्ण *__cdecl रखो_क्षेत्र(पूर्णाङ्क _Category,अचर वर्ण *_Locale);
+  _CRTIMP संरचना स्था_बदल *__cdecl क्षेत्र_बदलो(शून्य);
+  _locale_t __cdecl _get_current_locale(शून्य);
+  _locale_t __cdecl _create_locale(पूर्णाङ्क _Category,अचर वर्ण *_Locale);
+  शून्य __cdecl _free_locale(_locale_t _Locale);
+  _locale_t __cdecl __get_current_locale(शून्य);
+  _locale_t __cdecl __create_locale(पूर्णाङ्क _Category,अचर वर्ण *_Locale);
+  शून्य __cdecl __free_locale(_locale_t _Locale);
 
 #ifndef _WLOCALE_DEFINED
 #define _WLOCALE_DEFINED
-  _CRTIMP wchar_t *__cdecl _wsetlocale(int _Category,const wchar_t *_Locale);
+  _CRTIMP ब_अक्षर_प्रकार *__cdecl _wsetlocale(पूर्णाङ्क _Category,अचर ब_अक्षर_प्रकार *_Locale);
 #endif
 
 #ifdef __cplusplus
 }
 #endif
 
-#pragma pack(pop)
+#pragma pack(झिक)
 #endif

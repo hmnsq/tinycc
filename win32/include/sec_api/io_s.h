@@ -6,23 +6,23 @@
 #ifndef _INC_IO_S
 #define _INC_IO_S
 
-#include <io.h>
+#अन्तर्भाव <io.h>
 
-#if defined(MINGW_HAS_SECURE_API)
+#यदि defined(MINGW_HAS_SECURE_API)
 
 #ifdef __cplusplus
-extern "C" {
+बाह्य "C" {
 #endif
 
-  _CRTIMP errno_t __cdecl _access_s(const char *_Filename,int _AccessMode);
-  _CRTIMP errno_t __cdecl _chsize_s(int _FileHandle,__int64 _Size);
-  _CRTIMP errno_t __cdecl _mktemp_s(char *_TemplateName,size_t _Size);
-  _CRTIMP errno_t __cdecl _umask_s(int _NewMode,int *_OldMode);
+  _CRTIMP errno_t __cdecl _access_s(अचर वर्ण *_Filename,पूर्णाङ्क _AccessMode);
+  _CRTIMP errno_t __cdecl _chsize_s(पूर्णाङ्क _FileHandle,__int64 _Size);
+  _CRTIMP errno_t __cdecl _mktemp_s(वर्ण *_TemplateName,माप_प्रकार _Size);
+  _CRTIMP errno_t __cdecl _umask_s(पूर्णाङ्क _NewMode,पूर्णाङ्क *_OldMode);
 
 #ifndef _WIO_S_DEFINED
 #define _WIO_S_DEFINED
-  _CRTIMP errno_t __cdecl _waccess_s(const wchar_t *_Filename,int _AccessMode);
-  _CRTIMP errno_t __cdecl _wmktemp_s(wchar_t *_TemplateName,size_t _SizeInWords);
+  _CRTIMP errno_t __cdecl _waccess_s(अचर ब_अक्षर_प्रकार *_Filename,पूर्णाङ्क _AccessMode);
+  _CRTIMP errno_t __cdecl _wmktemp_s(ब_अक्षर_प्रकार *_TemplateName,माप_प्रकार Size_In_शब्दहरू);
 #endif
 
 #ifdef __cplusplus

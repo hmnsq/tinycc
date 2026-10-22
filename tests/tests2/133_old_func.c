@@ -1,41 +1,41 @@
-int printf(const char *s, ...);
+पूर्णाङ्क म_लिखो(अचर वर्ण *s, ...);
 
-float fx(x)
-float x;
+भिन्न fx(x)
+भिन्न x;
 {
-    return 2.0 * x;
+    फर्काऊ 2.0 * x;
 }
 
-void func(float a);
+शून्य func(भिन्न a);
 
-void func3(struct p { int a; int b; } *q) {
+शून्य func3(संरचना p { पूर्णाङ्क a; पूर्णाङ्क b; } *q) {
 }
 
-void func4(q)
- struct p { int a; int b; int c; } *q;
+शून्य func4(q)
+ संरचना p { पूर्णाङ्क a; पूर्णाङ्क b; पूर्णाङ्क c; } *q;
 {
 }
 
-struct p { int a; int b; int c; int d; };
+संरचना p { पूर्णाङ्क a; पूर्णाङ्क b; पूर्णाङ्क c; पूर्णाङ्क d; };
 
-int
-main(void)
+पूर्णाङ्क
+main(शून्य)
 {
-    float fy();
+    भिन्न fy();
 
-    printf("%g %g\n", fx(2.0), fy(10.0));
-    printf("%g %g\n", fx(2.0f), fy(10.0f));
+    म_लिखो("%g %g\n", fx(2.0), fy(10.0));
+    म_लिखो("%g %g\n", fx(2.0f), fy(10.0f));
     func(1);
 }
 
-float fy(x)
-float x;
+भिन्न fy(x)
+भिन्न x;
 {
-    return 3.0 * x;
+    फर्काऊ 3.0 * x;
 }
 
-void func(a)
-float a;
+शून्य func(a)
+भिन्न a;
 {
-    printf("%g\n", a);
+    म_लिखो("%g\n", a);
 }

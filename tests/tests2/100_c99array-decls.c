@@ -1,31 +1,31 @@
-void foo(int [5]);
-void fooc(int x[const 5]);
-void foos(int x[static 5]);
-void foov(int x[volatile 5]);
-void foor(int x[restrict 5]);
-void fooc(int [const 5]);
-void foos(int [static 5]);
-void foov(int [volatile 5]);
-void foor(int [restrict 5]);
-void fooc(int (* const x));
-void foos(int *x);
-void foov(int * volatile x);
-void foor(int * restrict x);
-void fooc(int x[volatile 5])
+शून्य foo(पूर्णाङ्क [5]);
+शून्य fooc(पूर्णाङ्क x[अचर 5]);
+शून्य foos(पूर्णाङ्क x[स्थिर 5]);
+शून्य foov(पूर्णाङ्क x[चञ्चल 5]);
+शून्य foor(पूर्णाङ्क x[restrict 5]);
+शून्य fooc(पूर्णाङ्क [अचर 5]);
+शून्य foos(पूर्णाङ्क [स्थिर 5]);
+शून्य foov(पूर्णाङ्क [चञ्चल 5]);
+शून्य foor(पूर्णाङ्क [restrict 5]);
+शून्य fooc(पूर्णाङ्क (* अचर x));
+शून्य foos(पूर्णाङ्क *x);
+शून्य foov(पूर्णाङ्क * चञ्चल x);
+शून्य foor(पूर्णाङ्क * restrict x);
+शून्य fooc(पूर्णाङ्क x[चञ्चल 5])
 {
   x[3] = 42;
 #ifdef INVALID
   x = 0;
 #endif
 }
-void foovm(int x[const *]);
-void foovm(int * const x);
+शून्य foovm(पूर्णाङ्क x[अचर *]);
+शून्य foovm(पूर्णाङ्क * अचर x);
 
-typedef int *pointer_array[2];
-typedef int *restrict restricted_pointer;
-typedef restrict pointer_array restricted_pointer_array;
+प्रकारनिर्देश पूर्णाङ्क *pointer_array[2];
+प्रकारनिर्देश पूर्णाङ्क *restrict restricted_pointer;
+प्रकारनिर्देश restrict pointer_array restricted_pointer_array;
 
-_Static_assert(!__builtin_types_compatible_p(int **,
+_Static_assert(!__builtin_types_compatible_p(पूर्णाङ्क **,
                                              restricted_pointer *),
                "nested restrict qualifier is retained");
 _Static_assert(__builtin_types_compatible_p(restricted_pointer_array,
@@ -33,7 +33,7 @@ _Static_assert(__builtin_types_compatible_p(restricted_pointer_array,
                "restrict can qualify an array of pointer types");
 
 restricted_pointer *restricted_pp;
-int **unrestricted_pp;
+पूर्णाङ्क **unrestricted_pp;
 
 _Static_assert(__builtin_types_compatible_p(
                    __typeof__(1 ? restricted_pp : unrestricted_pp),
@@ -41,14 +41,14 @@ _Static_assert(__builtin_types_compatible_p(
                "conditional expression combines restrict qualifiers");
 
 #ifdef INVALID
-void wrongc(int x[3][const 4]);
-void wrongvm(int x[static *]);
-void foovm(int x[const *])
+शून्य wrongc(पूर्णाङ्क x[3][अचर 4]);
+शून्य wrongvm(पूर्णाङ्क x[स्थिर *]);
+शून्य foovm(पूर्णाङ्क x[अचर *])
 {
   x[2] = 1;
 }
 #endif
-int main()
+पूर्णाङ्क main()
 {
-  return 0;
+  फर्काऊ 0;
 }

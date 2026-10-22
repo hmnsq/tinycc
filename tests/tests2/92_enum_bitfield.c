@@ -3,56 +3,56 @@
    when stored into/loaded from a 8 bit bit-field of enum type (which
    itself is implementation defined, so isn't necessarily supported by all
    other compilers).  */
-enum tree_code {
+गणना रूख_code {
   SOME_CODE = 148, /* has bit 7 set, and hence all further enum values as well */
-  LAST_AND_UNUSED_TREE_CODE
+  LAST_AND_UNUSED_रूख_CODE
 };
-typedef union tree_node *tree;
-struct tree_common
+प्रकारनिर्देश सङ्घ रूख_गाँठो *रूख_2;
+संरचना रूख_common
 {
-  union tree_node *chain;
-  union tree_node *type;
-  enum tree_code code : 8;
-  unsigned side_effects_flag : 1;
+  सङ्घ रूख_गाँठो *chain;
+  सङ्घ रूख_गाँठो *type;
+  गणना रूख_code code : 8;
+  अचिन्हित side_effects_flag : 1;
 };
-union tree_node
+सङ्घ रूख_गाँठो
 {
-  struct tree_common common;
+  संरचना रूख_common common;
  };
-enum c_tree_code {
-  C_DUMMY_TREE_CODE = LAST_AND_UNUSED_TREE_CODE,
-  STMT_EXPR,
-  LAST_C_TREE_CODE
+गणना c_रूख_code {
+  C_DUMMY_रूख_CODE = LAST_AND_UNUSED_रूख_CODE,
+  STMT_अभिव्यक्ति,
+  LAST_C_रूख_CODE
 };
-enum cplus_tree_code {
-  CP_DUMMY_TREE_CODE = LAST_C_TREE_CODE,
+गणना cplus_रूख_code {
+  CP_DUMMY_रूख_CODE = LAST_C_रूख_CODE,
   AMBIG_CONV,
-  LAST_CPLUS_TREE_CODE
+  LAST_CPLUS_रूख_CODE
 };
 
-extern int printf(const char *, ...);
-int blah(){return 0;}
+बाह्य पूर्णाङ्क म_लिखो(अचर वर्ण *, ...);
+पूर्णाङ्क blah(){फर्काऊ 0;}
 
-int convert_like_real (tree convs)
+पूर्णाङ्क convert_like_real (रूख_2 convs)
 {
-  switch (((enum tree_code) (convs)->common.code))
+  विकल्प (((गणना रूख_code) (convs)->common.code))
     {
-    case AMBIG_CONV: /* This has bit 7 set, which must not be the sign
+    पक्ष AMBIG_CONV: /* This has bit 7 set, which must not be the sign
 			bit in tree_common.code, i.e. the bitfield must
 			be somehow marked unsigned.  */
-      return blah();
-    default:
-      break;
+      फर्काऊ blah();
+    स्वभाव:
+      रोक;
     };
-   printf("unsigned enum bit-fields broken\n");
-   return 0;
+   म_लिखो("unsigned enum bit-fields broken\n");
+   फर्काऊ 0;
 }
 
-int main()
+पूर्णाङ्क main()
 {
-  union tree_node convs;
+  सङ्घ रूख_गाँठो convs;
 
   convs.common.code = AMBIG_CONV;
   convert_like_real (&convs);
-  return 0;
+  फर्काऊ 0;
 }

@@ -6,51 +6,51 @@
 #ifndef _INC_SETJMP
 #define _INC_SETJMP
 
-#include <_mingw.h>
+#अन्तर्भाव <_mingw.h>
 
-#pragma pack(push,_CRT_PACKING)
+#pragma pack(थप,_CRT_PACKING)
 
 #ifdef __cplusplus
-extern "C" {
+बाह्य "C" {
 #endif
 
-#if (defined(_X86_) && !defined(__x86_64))
+#यदि (defined(_X86_) && !defined(__x86_64))
 
 #define _JBLEN 16
-#define _JBTYPE int
+#define _JBTYPE पूर्णाङ्क
 
-  typedef struct __JUMP_BUFFER {
-    unsigned long Ebp;
-    unsigned long Ebx;
-    unsigned long Edi;
-    unsigned long Esi;
-    unsigned long Esp;
-    unsigned long Eip;
-    unsigned long Registration;
-    unsigned long TryLevel;
-    unsigned long Cookie;
-    unsigned long UnwindFunc;
-    unsigned long UnwindData[6];
+  प्रकारनिर्देश संरचना __JUMP_BUFFER {
+    अचिन्हित दीर्घ Ebp;
+    अचिन्हित दीर्घ Ebx;
+    अचिन्हित दीर्घ Edi;
+    अचिन्हित दीर्घ Esi;
+    अचिन्हित दीर्घ Esp;
+    अचिन्हित दीर्घ Eip;
+    अचिन्हित दीर्घ Registration;
+    अचिन्हित दीर्घ TryLevel;
+    अचिन्हित दीर्घ Cookie;
+    अचिन्हित दीर्घ UnwindFunc;
+    अचिन्हित दीर्घ UnwindData[6];
   } _JUMP_BUFFER;
-#elif defined(__ia64__)
-  typedef _CRT_ALIGN(16) struct _SETJMP_FLOAT128 {
-    __int64 LowPart;
-    __int64 HighPart;
+#अथवायदि defined(__ia64__)
+  प्रकारनिर्देश _CRT_ALIGN(16) संरचना _SETJMP_FLOAT128 {
+    __int64 तल्लो_Part;
+    __int64 माथिल्लो_Part;
   } SETJMP_FLOAT128;
 
 #define _JBLEN 33
-  typedef SETJMP_FLOAT128 _JBTYPE;
+  प्रकारनिर्देश SETJMP_FLOAT128 _JBTYPE;
 
-  typedef struct __JUMP_BUFFER {
+  प्रकारनिर्देश संरचना __JUMP_BUFFER {
 
-    unsigned long iAReserved[6];
+    अचिन्हित दीर्घ iAReserved[6];
 
-    unsigned long Registration;
-    unsigned long TryLevel;
-    unsigned long Cookie;
-    unsigned long UnwindFunc;
+    अचिन्हित दीर्घ Registration;
+    अचिन्हित दीर्घ TryLevel;
+    अचिन्हित दीर्घ Cookie;
+    अचिन्हित दीर्घ UnwindFunc;
 
-    unsigned long UnwindData[6];
+    अचिन्हित दीर्घ UnwindData[6];
 
     SETJMP_FLOAT128 FltS0;
     SETJMP_FLOAT128 FltS1;
@@ -92,27 +92,27 @@ extern "C" {
     __int64 Preds;
 
   } _JUMP_BUFFER;
-#elif defined(__x86_64)
-  typedef _CRT_ALIGN(16) struct _SETJMP_FLOAT128 {
-    unsigned __int64 Part[2];
+#अथवायदि defined(__x86_64)
+  प्रकारनिर्देश _CRT_ALIGN(16) संरचना _SETJMP_FLOAT128 {
+    अचिन्हित __int64 Part[2];
   } SETJMP_FLOAT128;
 
 #define _JBLEN 16
-  typedef SETJMP_FLOAT128 _JBTYPE;
+  प्रकारनिर्देश SETJMP_FLOAT128 _JBTYPE;
 
-  typedef struct _JUMP_BUFFER {
-    unsigned __int64 Frame;
-    unsigned __int64 Rbx;
-    unsigned __int64 Rsp;
-    unsigned __int64 Rbp;
-    unsigned __int64 Rsi;
-    unsigned __int64 Rdi;
-    unsigned __int64 R12;
-    unsigned __int64 R13;
-    unsigned __int64 R14;
-    unsigned __int64 R15;
-    unsigned __int64 Rip;
-    unsigned __int64 Spare;
+  प्रकारनिर्देश संरचना _JUMP_BUFFER {
+    अचिन्हित __int64 Frame;
+    अचिन्हित __int64 Rbx;
+    अचिन्हित __int64 Rsp;
+    अचिन्हित __int64 Rbp;
+    अचिन्हित __int64 Rsi;
+    अचिन्हित __int64 Rdi;
+    अचिन्हित __int64 R12;
+    अचिन्हित __int64 R13;
+    अचिन्हित __int64 R14;
+    अचिन्हित __int64 R15;
+    अचिन्हित __int64 Rip;
+    अचिन्हित __int64 Spare;
     SETJMP_FLOAT128 Xmm6;
     SETJMP_FLOAT128 Xmm7;
     SETJMP_FLOAT128 Xmm8;
@@ -124,74 +124,74 @@ extern "C" {
     SETJMP_FLOAT128 Xmm14;
     SETJMP_FLOAT128 Xmm15;
   } _JUMP_BUFFER;
-#elif defined(_ARM_)
+#अथवायदि defined(_ARM_)
 
 #define _JBLEN 28
-#define _JBTYPE int
+#define _JBTYPE पूर्णाङ्क
 
-  typedef struct __JUMP_BUFFER {
-    unsigned long Frame;
-    unsigned long R4;
-    unsigned long R5;
-    unsigned long R6;
-    unsigned long R7;
-    unsigned long R8;
-    unsigned long R9;
-    unsigned long R10;
-    unsigned long R11;
-    unsigned long Sp;
-    unsigned long Pc;
-    unsigned long Fpscr;
-    unsigned long long D[8];
+  प्रकारनिर्देश संरचना __JUMP_BUFFER {
+    अचिन्हित दीर्घ Frame;
+    अचिन्हित दीर्घ R4;
+    अचिन्हित दीर्घ R5;
+    अचिन्हित दीर्घ R6;
+    अचिन्हित दीर्घ R7;
+    अचिन्हित दीर्घ R8;
+    अचिन्हित दीर्घ R9;
+    अचिन्हित दीर्घ R10;
+    अचिन्हित दीर्घ R11;
+    अचिन्हित दीर्घ Sp;
+    अचिन्हित दीर्घ Pc;
+    अचिन्हित दीर्घ Fpscr;
+    अचिन्हित दीर्घ दीर्घ D[8];
   } _JUMP_BUFFER;
-#elif defined(_ARM64_)
+#अथवायदि defined(_ARM64_)
 
 #define _JBLEN 24
-#define _JBTYPE unsigned __int64
+#define _JBTYPE अचिन्हित __int64
 
-  typedef struct __JUMP_BUFFER {
-    unsigned __int64 Frame;
-    unsigned __int64 Reserved;
-    unsigned __int64 X19;
-    unsigned __int64 X20;
-    unsigned __int64 X21;
-    unsigned __int64 X22;
-    unsigned __int64 X23;
-    unsigned __int64 X24;
-    unsigned __int64 X25;
-    unsigned __int64 X26;
-    unsigned __int64 X27;
-    unsigned __int64 X28;
-    unsigned __int64 Fp;
-    unsigned __int64 Lr;
-    unsigned __int64 Sp;
-    unsigned long Fpcr;
-    unsigned long Fpsr;
-    double D[8];
+  प्रकारनिर्देश संरचना __JUMP_BUFFER {
+    अचिन्हित __int64 Frame;
+    अचिन्हित __int64 Reserved;
+    अचिन्हित __int64 X19;
+    अचिन्हित __int64 X20;
+    अचिन्हित __int64 X21;
+    अचिन्हित __int64 X22;
+    अचिन्हित __int64 X23;
+    अचिन्हित __int64 X24;
+    अचिन्हित __int64 X25;
+    अचिन्हित __int64 X26;
+    अचिन्हित __int64 X27;
+    अचिन्हित __int64 X28;
+    अचिन्हित __int64 Fp;
+    अचिन्हित __int64 Lr;
+    अचिन्हित __int64 Sp;
+    अचिन्हित दीर्घ Fpcr;
+    अचिन्हित दीर्घ Fpsr;
+    द्विगुण D[8];
   } _JUMP_BUFFER;
-#else
+#अन्यथा
 #define _JBLEN 1
-#define _JBTYPE int
+#define _JBTYPE पूर्णाङ्क
 #endif
 #ifndef _JMP_BUF_DEFINED
-  typedef _JBTYPE jmp_buf[_JBLEN];
+  प्रकारनिर्देश _JBTYPE लाँघ_बफ[_JBLEN];
 #define _JMP_BUF_DEFINED
 #endif
 
-#pragma pack(pop)
+#pragma pack(झिक)
 
-#if defined __aarch64__
-  int _setjmpex(jmp_buf _Buf, void *frame);
-  #define setjmp(BUF) _setjmpex((BUF), (char*)__builtin_frame_address(0) + 224)
-#elif defined __x86_64__
-  int _setjmp(jmp_buf _Buf, void *frame);
-  #define setjmp(BUF) _setjmp((BUF), __builtin_frame_address(0))
-#else /* __i386__ */
-  int _setjmp(jmp_buf _Buf);
-  #define setjmp _setjmp
+#यदि defined __aarch64__
+  पूर्णाङ्क _setjmpex(लाँघ_बफ _Buf, शून्य *frame);
+  #define बनाओ_लाँघ(BUF) _setjmpex((BUF), (वर्ण*)__builtin_frame_address(0) + 224)
+#अथवायदि defined __x86_64__
+  पूर्णाङ्क _setjmp(लाँघ_बफ _Buf, शून्य *frame);
+  #define बनाओ_लाँघ(BUF) _setjmp((BUF), __builtin_frame_address(0))
+#अन्यथा /* __i386__ */
+  पूर्णाङ्क _setjmp(लाँघ_बफ _Buf);
+  #define बनाओ_लाँघ _setjmp
 #endif
 
-__declspec(noreturn) void longjmp(jmp_buf _Buf,int _Value);
+__declspec(noreturn) शून्य दीर्घ_लाँघ(लाँघ_बफ _Buf,पूर्णाङ्क मान_2);
 
 #ifdef __cplusplus
 }

@@ -60,7 +60,7 @@
 #define RC_FRET    RC_C67_A4	/* function return: float register */
 
 /* pretty names for the registers */
-enum {
+गणना {
     TREG_EAX = 0,		// really A2
     TREG_ECX,			// really A3
     TREG_EDX,			// really B0
@@ -111,16 +111,16 @@ enum {
 #undef CONFIG_TCC_BCHECK
 
 /******************************************************/
-#else /* ! TARGET_DEFS_ONLY */
+#अन्यथा /* ! TARGET_DEFS_ONLY */
 /******************************************************/
 #define USING_GLOBALS
-#include "tcc.h"
+#अन्तर्भाव "tcc.h"
 
-ST_DATA const char * const target_machine_defs =
+ST_DATA अचर वर्ण * अचर target_machine_defs =
     "__C67__\0"
     ;
 
-ST_DATA const int reg_classes[NB_REGS] = {
+ST_DATA अचर पूर्णाङ्क reg_classes[NB_REGS] = {
     /* eax */ RC_INT | RC_FLOAT | RC_EAX,
     // only allow even regs for floats (allow for doubles)
     /* ecx */ RC_INT | RC_ECX,
@@ -155,11 +155,11 @@ ST_DATA const int reg_classes[NB_REGS] = {
 // the stack offsets so we can translate to the appropriate 
 // reg (pair)
 
-#define NoCallArgsPassedOnStack 10
-int NoOfCurFuncArgs;
-int TranslateStackToReg[NoCallArgsPassedOnStack];
-int ParamLocOnStack[NoCallArgsPassedOnStack];
-int TotalBytesPushedOnStack;
+#define No_Call_Args_Passed_On_थाक 10
+पूर्णाङ्क NoOfCurFuncArgs;
+पूर्णाङ्क Translate_थाक_To_Reg[No_Call_Args_Passed_On_थाक];
+पूर्णाङ्क Param_Loc_On_थाक[No_Call_Args_Passed_On_थाक];
+पूर्णाङ्क Total_Bytes_Pushed_On_थाक;
 
 #ifndef FALSE
 # define FALSE 0
@@ -167,35 +167,35 @@ int TotalBytesPushedOnStack;
 #endif
 
 #undef BOOL
-#define BOOL int
+#define BOOL पूर्णाङ्क
 
 #define ALWAYS_ASSERT(x) \
-do {\
-   if (!(x))\
+गर {\
+   यदि (!(x))\
        tcc_error("internal compiler error file at %s:%d", __FILE__, __LINE__);\
-} while (0)
+} जबसम्म (0)
 
 /******************************************************/
-static unsigned long func_sub_sp_offset;
-static int func_ret_sub;
+स्थिर अचिन्हित दीर्घ func_sub_sp_offset;
+स्थिर पूर्णाङ्क func_ret_sub;
 
-static BOOL C67_invert_test;
-static int C67_compare_reg;
+स्थिर BOOL C67_invert_test;
+स्थिर पूर्णाङ्क C67_compare_reg;
 
 #ifdef ASSEMBLY_LISTING_C67
-FILE *f = NULL;
+खाता *f = रिक्त;
 #endif
 
-void C67_g(int c)
+शून्य C67_g(पूर्णाङ्क c)
 {
-    int ind1;
-    if (nocode_wanted)
-        return;
+    पूर्णाङ्क ind1;
+    यदि (nocode_wanted)
+        फर्काऊ;
 #ifdef ASSEMBLY_LISTING_C67
-    fprintf(f, " %08X", c);
+    ख_लिखो(f, " %08X", c);
 #endif
     ind1 = ind + 4;
-    if (ind1 > (int) cur_text_section->data_allocated)
+    यदि (ind1 > (पूर्णाङ्क) cur_text_section->data_allocated)
 	section_realloc(cur_text_section, ind1);
     cur_text_section->data[ind] = c & 0xff;
     cur_text_section->data[ind + 1] = (c >> 8) & 0xff;
@@ -206,11 +206,11 @@ void C67_g(int c)
 
 
 /* output a symbol and patch all calls to it */
-void gsym_addr(int t, int a)
+शून्य gsym_addr(पूर्णाङ्क t, पूर्णाङ्क a)
 {
-    int n, *ptr;
-    while (t) {
-	ptr = (int *) (cur_text_section->data + t);
+    पूर्णाङ्क n, *ptr;
+    जबसम्म (t) {
+	ptr = (पूर्णाङ्क *) (cur_text_section->data + t);
 	{
 	    Sym *sym;
 
@@ -245,44 +245,44 @@ void gsym_addr(int t, int a)
 #define C67_CREG_ZERO -1	/* Special code for no condition reg test */
 
 
-int ConvertRegToRegClass(int r)
+पूर्णाङ्क ConvertRegToRegClass(पूर्णाङ्क r)
 {
     // only works for A4-B13
 
-    return RC_C67_A4 << (r - TREG_C67_A4);
+    फर्काऊ RC_C67_A4 << (r - TREG_C67_A4);
 }
 
 
 // map TCC reg to C67 reg number
 
-int C67_map_regn(int r)
+पूर्णाङ्क C67_map_regn(पूर्णाङ्क r)
 {
-    if (r == 0)			// normal tcc regs
-	return 0x2;		// A2
-    else if (r == 1)		// normal tcc regs
-	return 3;		// A3
-    else if (r == 2)		// normal tcc regs
-	return 0;		// B0
-    else if (r == 3)		// normal tcc regs
-	return 1;		// B1
-    else if (r >= TREG_C67_A4 && r <= TREG_C67_B13)	// these form a pattern of alt pairs
-	return (((r & 0xfffffffc) >> 1) | (r & 1)) + 2;
-    else if (r == C67_A0)
-	return 0;		// set to A0 (offset reg)
-    else if (r == C67_B2)
-	return 2;		// set to B2 (offset reg)
-    else if (r == C67_B3)
-	return 3;		// set to B3 (return address reg)
-    else if (r == C67_SP)
-	return 15;		// set to SP (B15) (offset reg)
-    else if (r == C67_FP)
-	return 15;		// set to FP (A15) (offset reg)
-    else if (r == C67_CREG_ZERO)
-	return 0;		// Special code for no condition reg test
-    else
+    यदि (r == 0)			// normal tcc regs
+	फर्काऊ 0x2;		// A2
+    अन्यथा यदि (r == 1)		// normal tcc regs
+	फर्काऊ 3;		// A3
+    अन्यथा यदि (r == 2)		// normal tcc regs
+	फर्काऊ 0;		// B0
+    अन्यथा यदि (r == 3)		// normal tcc regs
+	फर्काऊ 1;		// B1
+    अन्यथा यदि (r >= TREG_C67_A4 && r <= TREG_C67_B13)	// these form a pattern of alt pairs
+	फर्काऊ (((r & 0xfffffffc) >> 1) | (r & 1)) + 2;
+    अन्यथा यदि (r == C67_A0)
+	फर्काऊ 0;		// set to A0 (offset reg)
+    अन्यथा यदि (r == C67_B2)
+	फर्काऊ 2;		// set to B2 (offset reg)
+    अन्यथा यदि (r == C67_B3)
+	फर्काऊ 3;		// set to B3 (return address reg)
+    अन्यथा यदि (r == C67_SP)
+	फर्काऊ 15;		// set to SP (B15) (offset reg)
+    अन्यथा यदि (r == C67_FP)
+	फर्काऊ 15;		// set to FP (A15) (offset reg)
+    अन्यथा यदि (r == C67_CREG_ZERO)
+	फर्काऊ 0;		// Special code for no condition reg test
+    अन्यथा
 	ALWAYS_ASSERT(FALSE);
 
-    return 0;
+    फर्काऊ 0;
 }
 
 // mapping from tcc reg number to 
@@ -296,100 +296,100 @@ int C67_map_regn(int r)
 // tcc reg 1 -> A3 -> X
 // tcc reg      B2 -> 3
 
-int C67_map_regc(int r)
+पूर्णाङ्क C67_map_regc(पूर्णाङ्क r)
 {
-    if (r == 0)			// normal tcc regs
-	return 0x5;
-    else if (r == 2)		// normal tcc regs
-	return 0x1;
-    else if (r == 3)		// normal tcc regs
-	return 0x2;
-    else if (r == C67_B2)	// normal tcc regs
-	return 0x3;
-    else if (r == C67_CREG_ZERO)
-	return 0;		// Special code for no condition reg test
-    else
+    यदि (r == 0)			// normal tcc regs
+	फर्काऊ 0x5;
+    अन्यथा यदि (r == 2)		// normal tcc regs
+	फर्काऊ 0x1;
+    अन्यथा यदि (r == 3)		// normal tcc regs
+	फर्काऊ 0x2;
+    अन्यथा यदि (r == C67_B2)	// normal tcc regs
+	फर्काऊ 0x3;
+    अन्यथा यदि (r == C67_CREG_ZERO)
+	फर्काऊ 0;		// Special code for no condition reg test
+    अन्यथा
 	ALWAYS_ASSERT(FALSE);
 
-    return 0;
+    फर्काऊ 0;
 }
 
 
 // map TCC reg to C67 reg side A or B
 
-int C67_map_regs(int r)
+पूर्णाङ्क C67_map_regs(पूर्णाङ्क r)
 {
-    if (r == 0)			// normal tcc regs
-	return 0x0;
-    else if (r == 1)		// normal tcc regs
-	return 0x0;
-    else if (r == 2)		// normal tcc regs
-	return 0x1;
-    else if (r == 3)		// normal tcc regs
-	return 0x1;
-    else if (r >= TREG_C67_A4 && r <= TREG_C67_B13)	// these form a pattern of alt pairs
-	return (r & 2) >> 1;
-    else if (r == C67_A0)
-	return 0;		// set to A side 
-    else if (r == C67_B2)
-	return 1;		// set to B side 
-    else if (r == C67_B3)
-	return 1;		// set to B side
-    else if (r == C67_SP)
-	return 0x1;		// set to SP (B15) B side 
-    else if (r == C67_FP)
-	return 0x0;		// set to FP (A15) A side 
-    else
+    यदि (r == 0)			// normal tcc regs
+	फर्काऊ 0x0;
+    अन्यथा यदि (r == 1)		// normal tcc regs
+	फर्काऊ 0x0;
+    अन्यथा यदि (r == 2)		// normal tcc regs
+	फर्काऊ 0x1;
+    अन्यथा यदि (r == 3)		// normal tcc regs
+	फर्काऊ 0x1;
+    अन्यथा यदि (r >= TREG_C67_A4 && r <= TREG_C67_B13)	// these form a pattern of alt pairs
+	फर्काऊ (r & 2) >> 1;
+    अन्यथा यदि (r == C67_A0)
+	फर्काऊ 0;		// set to A side 
+    अन्यथा यदि (r == C67_B2)
+	फर्काऊ 1;		// set to B side 
+    अन्यथा यदि (r == C67_B3)
+	फर्काऊ 1;		// set to B side
+    अन्यथा यदि (r == C67_SP)
+	फर्काऊ 0x1;		// set to SP (B15) B side 
+    अन्यथा यदि (r == C67_FP)
+	फर्काऊ 0x0;		// set to FP (A15) A side 
+    अन्यथा
 	ALWAYS_ASSERT(FALSE);
 
-    return 0;
+    फर्काऊ 0;
 }
 
-int C67_map_S12(char *s)
+पूर्णाङ्क C67_map_S12(वर्ण *s)
 {
-    if (strstr(s, ".S1") != NULL)
-	return 0;
-    else if (strcmp(s, ".S2"))
-	return 1;
-    else
+    यदि (म_माला(s, ".S1") != रिक्त)
+	फर्काऊ 0;
+    अन्यथा यदि (म_भेद(s, ".S2"))
+	फर्काऊ 1;
+    अन्यथा
 	ALWAYS_ASSERT(FALSE);
 
-    return 0;
+    फर्काऊ 0;
 }
 
-int C67_map_D12(char *s)
+पूर्णाङ्क C67_map_D12(वर्ण *s)
 {
-    if (strstr(s, ".D1") != NULL)
-	return 0;
-    else if (strcmp(s, ".D2"))
-	return 1;
-    else
+    यदि (म_माला(s, ".D1") != रिक्त)
+	फर्काऊ 0;
+    अन्यथा यदि (म_भेद(s, ".D2"))
+	फर्काऊ 1;
+    अन्यथा
 	ALWAYS_ASSERT(FALSE);
 
-    return 0;
+    फर्काऊ 0;
 }
 
 
 
-void C67_asm(const char *s, int a, int b, int c)
+शून्य C67_asm(अचर वर्ण *s, पूर्णाङ्क a, पूर्णाङ्क b, पूर्णाङ्क c)
 {
     BOOL xpath;
 
 #ifdef ASSEMBLY_LISTING_C67
-    if (!f) {
-	f = fopen("TCC67_out.txt", "wt");
+    यदि (!f) {
+	f = ख_खोलो("TCC67_out.txt", "wt");
     }
-    fprintf(f, "%04X ", ind);
+    ख_लिखो(f, "%04X ", ind);
 #endif
 
-    if (strstr(s, "MVKL") == s) {
+    यदि (म_माला(s, "MVKL") == s) {
 	C67_g((C67_map_regn(b) << 23) |
 	      ((a & 0xffff) << 7) | (0x0a << 2) | (C67_map_regs(b) << 1));
-    } else if (strstr(s, "MVKH") == s) {
+    } अन्यथा यदि (म_माला(s, "MVKH") == s) {
 	C67_g((C67_map_regn(b) << 23) |
 	      (((a >> 16) & 0xffff) << 7) |
 	      (0x1a << 2) | (C67_map_regs(b) << 1));
-    } else if (strstr(s, "STW.D SP POST DEC") == s) {
+    } अन्यथा यदि (म_माला(s, "STW.D SP POST DEC") == s) {
 	C67_g((C67_map_regn(a) << 23) |	//src
 	      (15 << 18) |	//SP B15
 	      (2 << 13) |	//ucst5 (must keep 8 byte boundary !!)
@@ -400,7 +400,7 @@ void C67_asm(const char *s, int a, int b, int c)
 	      (1 << 2) |	//opcode
 	      (C67_map_regs(a) << 1) |	//side of src
 	      (0 << 0));	//parallel
-    } else if (strstr(s, "STB.D *+SP[A0]") == s) {
+    } अन्यथा यदि (म_माला(s, "STB.D *+SP[A0]") == s) {
 	C67_g((C67_map_regn(a) << 23) |	//src
 	      (15 << 18) |	//base reg A15
 	      (0 << 13) |	//offset reg A0
@@ -411,7 +411,7 @@ void C67_asm(const char *s, int a, int b, int c)
 	      (1 << 2) |	//opcode
 	      (C67_map_regs(a) << 1) |	//side of src
 	      (0 << 0));	//parallel
-    } else if (strstr(s, "STH.D *+SP[A0]") == s) {
+    } अन्यथा यदि (म_माला(s, "STH.D *+SP[A0]") == s) {
 	C67_g((C67_map_regn(a) << 23) |	//src
 	      (15 << 18) |	//base reg A15
 	      (0 << 13) |	//offset reg A0
@@ -422,7 +422,7 @@ void C67_asm(const char *s, int a, int b, int c)
 	      (1 << 2) |	//opcode
 	      (C67_map_regs(a) << 1) |	//side of src
 	      (0 << 0));	//parallel
-    } else if (strstr(s, "STB.D *+SP[A0]") == s) {
+    } अन्यथा यदि (म_माला(s, "STB.D *+SP[A0]") == s) {
 	C67_g((C67_map_regn(a) << 23) |	//src
 	      (15 << 18) |	//base reg A15
 	      (0 << 13) |	//offset reg A0
@@ -433,7 +433,7 @@ void C67_asm(const char *s, int a, int b, int c)
 	      (1 << 2) |	//opcode
 	      (C67_map_regs(a) << 1) |	//side of src
 	      (0 << 0));	//parallel
-    } else if (strstr(s, "STH.D *+SP[A0]") == s) {
+    } अन्यथा यदि (म_माला(s, "STH.D *+SP[A0]") == s) {
 	C67_g((C67_map_regn(a) << 23) |	//src
 	      (15 << 18) |	//base reg A15
 	      (0 << 13) |	//offset reg A0
@@ -444,7 +444,7 @@ void C67_asm(const char *s, int a, int b, int c)
 	      (1 << 2) |	//opcode
 	      (C67_map_regs(a) << 1) |	//side of src
 	      (0 << 0));	//parallel
-    } else if (strstr(s, "STW.D *+SP[A0]") == s) {
+    } अन्यथा यदि (म_माला(s, "STW.D *+SP[A0]") == s) {
 	C67_g((C67_map_regn(a) << 23) |	//src
 	      (15 << 18) |	//base reg A15
 	      (0 << 13) |	//offset reg A0
@@ -455,7 +455,7 @@ void C67_asm(const char *s, int a, int b, int c)
 	      (1 << 2) |	//opcode
 	      (C67_map_regs(a) << 1) |	//side of src
 	      (0 << 0));	//parallel
-    } else if (strstr(s, "STW.D *") == s) {
+    } अन्यथा यदि (म_माला(s, "STW.D *") == s) {
 	C67_g((C67_map_regn(a) << 23) |	//src
 	      (C67_map_regn(b) << 18) |	//base reg A0
 	      (0 << 13) |	//cst5
@@ -466,7 +466,7 @@ void C67_asm(const char *s, int a, int b, int c)
 	      (1 << 2) |	//opcode
 	      (C67_map_regs(a) << 1) |	//side of src
 	      (0 << 0));	//parallel
-    } else if (strstr(s, "STH.D *") == s) {
+    } अन्यथा यदि (म_माला(s, "STH.D *") == s) {
 	C67_g((C67_map_regn(a) << 23) |	//src
 	      (C67_map_regn(b) << 18) |	//base reg A0
 	      (0 << 13) |	//cst5
@@ -477,7 +477,7 @@ void C67_asm(const char *s, int a, int b, int c)
 	      (1 << 2) |	//opcode
 	      (C67_map_regs(a) << 1) |	//side of src
 	      (0 << 0));	//parallel
-    } else if (strstr(s, "STB.D *") == s) {
+    } अन्यथा यदि (म_माला(s, "STB.D *") == s) {
 	C67_g((C67_map_regn(a) << 23) |	//src
 	      (C67_map_regn(b) << 18) |	//base reg A0
 	      (0 << 13) |	//cst5
@@ -488,7 +488,7 @@ void C67_asm(const char *s, int a, int b, int c)
 	      (1 << 2) |	//opcode
 	      (C67_map_regs(a) << 1) |	//side of src
 	      (0 << 0));	//parallel
-    } else if (strstr(s, "STW.D +*") == s) {
+    } अन्यथा यदि (म_माला(s, "STW.D +*") == s) {
 	ALWAYS_ASSERT(c < 32);
 	C67_g((C67_map_regn(a) << 23) |	//src
 	      (C67_map_regn(b) << 18) |	//base reg A0
@@ -500,7 +500,7 @@ void C67_asm(const char *s, int a, int b, int c)
 	      (1 << 2) |	//opcode
 	      (C67_map_regs(a) << 1) |	//side of src
 	      (0 << 0));	//parallel
-    } else if (strstr(s, "LDW.D SP PRE INC") == s) {
+    } अन्यथा यदि (म_माला(s, "LDW.D SP PRE INC") == s) {
 	C67_g((C67_map_regn(a) << 23) |	//dst
 	      (15 << 18) |	//base reg B15
 	      (2 << 13) |	//ucst5 (must keep 8 byte boundary)
@@ -511,7 +511,7 @@ void C67_asm(const char *s, int a, int b, int c)
 	      (1 << 2) |	//opcode
 	      (C67_map_regs(a) << 1) |	//side of dst
 	      (0 << 0));	//parallel
-    } else if (strstr(s, "LDDW.D SP PRE INC") == s) {
+    } अन्यथा यदि (म_माला(s, "LDDW.D SP PRE INC") == s) {
 	C67_g((C67_map_regn(a) << 23) |	//dst
 	      (15 << 18) |	//base reg B15
 	      (1 << 13) |	//ucst5 (must keep 8 byte boundary)
@@ -522,7 +522,7 @@ void C67_asm(const char *s, int a, int b, int c)
 	      (1 << 2) |	//opcode
 	      (C67_map_regs(a) << 1) |	//side of dst
 	      (0 << 0));	//parallel
-    } else if (strstr(s, "LDW.D *+SP[A0]") == s) {
+    } अन्यथा यदि (म_माला(s, "LDW.D *+SP[A0]") == s) {
 	C67_g((C67_map_regn(a) << 23) |	//dst
 	      (15 << 18) |	//base reg A15
 	      (0 << 13) |	//offset reg A0
@@ -533,7 +533,7 @@ void C67_asm(const char *s, int a, int b, int c)
 	      (1 << 2) |	//opcode
 	      (C67_map_regs(a) << 1) |	//side of dst
 	      (0 << 0));	//parallel
-    } else if (strstr(s, "LDDW.D *+SP[A0]") == s) {
+    } अन्यथा यदि (म_माला(s, "LDDW.D *+SP[A0]") == s) {
 	C67_g((C67_map_regn(a) << 23) |	//dst
 	      (15 << 18) |	//base reg A15
 	      (0 << 13) |	//offset reg A0
@@ -544,7 +544,7 @@ void C67_asm(const char *s, int a, int b, int c)
 	      (1 << 2) |	//opcode
 	      (C67_map_regs(a) << 1) |	//side of dst
 	      (0 << 0));	//parallel
-    } else if (strstr(s, "LDH.D *+SP[A0]") == s) {
+    } अन्यथा यदि (म_माला(s, "LDH.D *+SP[A0]") == s) {
 	C67_g((C67_map_regn(a) << 23) |	//dst
 	      (15 << 18) |	//base reg A15
 	      (0 << 13) |	//offset reg A0
@@ -555,7 +555,7 @@ void C67_asm(const char *s, int a, int b, int c)
 	      (1 << 2) |	//opcode
 	      (C67_map_regs(a) << 1) |	//side of dst
 	      (0 << 0));	//parallel
-    } else if (strstr(s, "LDB.D *+SP[A0]") == s) {
+    } अन्यथा यदि (म_माला(s, "LDB.D *+SP[A0]") == s) {
 	C67_g((C67_map_regn(a) << 23) |	//dst
 	      (15 << 18) |	//base reg A15
 	      (0 << 13) |	//offset reg A0
@@ -566,7 +566,7 @@ void C67_asm(const char *s, int a, int b, int c)
 	      (1 << 2) |	//opcode
 	      (C67_map_regs(a) << 1) |	//side of dst
 	      (0 << 0));	//parallel
-    } else if (strstr(s, "LDHU.D *+SP[A0]") == s) {
+    } अन्यथा यदि (म_माला(s, "LDHU.D *+SP[A0]") == s) {
 	C67_g((C67_map_regn(a) << 23) |	//dst
 	      (15 << 18) |	//base reg A15
 	      (0 << 13) |	//offset reg A0
@@ -577,7 +577,7 @@ void C67_asm(const char *s, int a, int b, int c)
 	      (1 << 2) |	//opcode
 	      (C67_map_regs(a) << 1) |	//side of dst
 	      (0 << 0));	//parallel
-    } else if (strstr(s, "LDBU.D *+SP[A0]") == s) {
+    } अन्यथा यदि (म_माला(s, "LDBU.D *+SP[A0]") == s) {
 	C67_g((C67_map_regn(a) << 23) |	//dst
 	      (15 << 18) |	//base reg A15
 	      (0 << 13) |	//offset reg A0
@@ -588,7 +588,7 @@ void C67_asm(const char *s, int a, int b, int c)
 	      (1 << 2) |	//opcode
 	      (C67_map_regs(a) << 1) |	//side of dst
 	      (0 << 0));	//parallel
-    } else if (strstr(s, "LDW.D *") == s) {
+    } अन्यथा यदि (म_माला(s, "LDW.D *") == s) {
 	C67_g((C67_map_regn(b) << 23) |	//dst
 	      (C67_map_regn(a) << 18) |	//base reg A15
 	      (0 << 13) |	//cst5
@@ -599,7 +599,7 @@ void C67_asm(const char *s, int a, int b, int c)
 	      (1 << 2) |	//opcode
 	      (C67_map_regs(b) << 1) |	//side of dst
 	      (0 << 0));	//parallel
-    } else if (strstr(s, "LDDW.D *") == s) {
+    } अन्यथा यदि (म_माला(s, "LDDW.D *") == s) {
 	C67_g((C67_map_regn(b) << 23) |	//dst
 	      (C67_map_regn(a) << 18) |	//base reg A15
 	      (0 << 13) |	//cst5
@@ -610,7 +610,7 @@ void C67_asm(const char *s, int a, int b, int c)
 	      (1 << 2) |	//opcode
 	      (C67_map_regs(b) << 1) |	//side of dst
 	      (0 << 0));	//parallel
-    } else if (strstr(s, "LDH.D *") == s) {
+    } अन्यथा यदि (म_माला(s, "LDH.D *") == s) {
 	C67_g((C67_map_regn(b) << 23) |	//dst
 	      (C67_map_regn(a) << 18) |	//base reg A15
 	      (0 << 13) |	//cst5
@@ -621,7 +621,7 @@ void C67_asm(const char *s, int a, int b, int c)
 	      (1 << 2) |	//opcode
 	      (C67_map_regs(b) << 1) |	//side of dst
 	      (0 << 0));	//parallel
-    } else if (strstr(s, "LDB.D *") == s) {
+    } अन्यथा यदि (म_माला(s, "LDB.D *") == s) {
 	C67_g((C67_map_regn(b) << 23) |	//dst
 	      (C67_map_regn(a) << 18) |	//base reg A15
 	      (0 << 13) |	//cst5
@@ -632,7 +632,7 @@ void C67_asm(const char *s, int a, int b, int c)
 	      (1 << 2) |	//opcode
 	      (C67_map_regs(b) << 1) |	//side of dst
 	      (0 << 0));	//parallel
-    } else if (strstr(s, "LDHU.D *") == s) {
+    } अन्यथा यदि (म_माला(s, "LDHU.D *") == s) {
 	C67_g((C67_map_regn(b) << 23) |	//dst
 	      (C67_map_regn(a) << 18) |	//base reg A15
 	      (0 << 13) |	//cst5
@@ -643,7 +643,7 @@ void C67_asm(const char *s, int a, int b, int c)
 	      (1 << 2) |	//opcode
 	      (C67_map_regs(b) << 1) |	//side of dst
 	      (0 << 0));	//parallel
-    } else if (strstr(s, "LDBU.D *") == s) {
+    } अन्यथा यदि (म_माला(s, "LDBU.D *") == s) {
 	C67_g((C67_map_regn(b) << 23) |	//dst
 	      (C67_map_regn(a) << 18) |	//base reg A15
 	      (0 << 13) |	//cst5
@@ -654,7 +654,7 @@ void C67_asm(const char *s, int a, int b, int c)
 	      (1 << 2) |	//opcode
 	      (C67_map_regs(b) << 1) |	//side of dst
 	      (0 << 0));	//parallel
-    } else if (strstr(s, "LDW.D +*") == s) {
+    } अन्यथा यदि (म_माला(s, "LDW.D +*") == s) {
 	C67_g((C67_map_regn(b) << 23) |	//dst
 	      (C67_map_regn(a) << 18) |	//base reg A15
 	      (1 << 13) |	//cst5
@@ -665,7 +665,7 @@ void C67_asm(const char *s, int a, int b, int c)
 	      (1 << 2) |	//opcode
 	      (C67_map_regs(b) << 1) |	//side of dst
 	      (0 << 0));	//parallel
-    } else if (strstr(s, "CMPLTSP") == s) {
+    } अन्यथा यदि (म_माला(s, "CMPLTSP") == s) {
 	xpath = C67_map_regs(a) ^ C67_map_regs(b);
 	ALWAYS_ASSERT(C67_map_regs(c) == C67_map_regs(a));
 
@@ -677,7 +677,7 @@ void C67_asm(const char *s, int a, int b, int c)
 	      (0x8 << 2) |	//opcode fixed
 	      (C67_map_regs(c) << 1) |	//side for reg c
 	      (0 << 0));	//parallel
-    } else if (strstr(s, "CMPGTSP") == s) {
+    } अन्यथा यदि (म_माला(s, "CMPGTSP") == s) {
 	xpath = C67_map_regs(a) ^ C67_map_regs(b);
 	ALWAYS_ASSERT(C67_map_regs(c) == C67_map_regs(a));
 
@@ -689,7 +689,7 @@ void C67_asm(const char *s, int a, int b, int c)
 	      (0x8 << 2) |	//opcode fixed
 	      (C67_map_regs(c) << 1) |	//side for reg c
 	      (0 << 0));	//parallel
-    } else if (strstr(s, "CMPEQSP") == s) {
+    } अन्यथा यदि (म_माला(s, "CMPEQSP") == s) {
 	xpath = C67_map_regs(a) ^ C67_map_regs(b);
 	ALWAYS_ASSERT(C67_map_regs(c) == C67_map_regs(a));
 
@@ -703,7 +703,7 @@ void C67_asm(const char *s, int a, int b, int c)
 	      (0 << 0));	//parallel
     }
 
-    else if (strstr(s, "CMPLTDP") == s) {
+    अन्यथा यदि (म_माला(s, "CMPLTDP") == s) {
 	xpath = C67_map_regs(a) ^ C67_map_regs(b);
 	ALWAYS_ASSERT(C67_map_regs(c) == C67_map_regs(a));
 
@@ -715,7 +715,7 @@ void C67_asm(const char *s, int a, int b, int c)
 	      (0x8 << 2) |	//opcode fixed
 	      (C67_map_regs(c) << 1) |	//side for reg c
 	      (0 << 0));	//parallel
-    } else if (strstr(s, "CMPGTDP") == s) {
+    } अन्यथा यदि (म_माला(s, "CMPGTDP") == s) {
 	xpath = C67_map_regs(a) ^ C67_map_regs(b);
 	ALWAYS_ASSERT(C67_map_regs(c) == C67_map_regs(a));
 
@@ -727,7 +727,7 @@ void C67_asm(const char *s, int a, int b, int c)
 	      (0x8 << 2) |	//opcode fixed
 	      (C67_map_regs(c) << 1) |	//side for reg c
 	      (0 << 0));	//parallel
-    } else if (strstr(s, "CMPEQDP") == s) {
+    } अन्यथा यदि (म_माला(s, "CMPEQDP") == s) {
 	xpath = C67_map_regs(a) ^ C67_map_regs(b);
 	ALWAYS_ASSERT(C67_map_regs(c) == C67_map_regs(a));
 
@@ -739,7 +739,7 @@ void C67_asm(const char *s, int a, int b, int c)
 	      (0x8 << 2) |	//opcode fixed
 	      (C67_map_regs(c) << 1) |	//side for reg c
 	      (0 << 0));	//parallel
-    } else if (strstr(s, "CMPLT") == s) {
+    } अन्यथा यदि (म_माला(s, "CMPLT") == s) {
 	xpath = C67_map_regs(a) ^ C67_map_regs(b);
 	ALWAYS_ASSERT(C67_map_regs(c) == C67_map_regs(a));
 
@@ -751,7 +751,7 @@ void C67_asm(const char *s, int a, int b, int c)
 	      (0x6 << 2) |	//opcode fixed
 	      (C67_map_regs(c) << 1) |	//side for reg c
 	      (0 << 0));	//parallel
-    } else if (strstr(s, "CMPGT") == s) {
+    } अन्यथा यदि (म_माला(s, "CMPGT") == s) {
 	xpath = C67_map_regs(a) ^ C67_map_regs(b);
 	ALWAYS_ASSERT(C67_map_regs(c) == C67_map_regs(a));
 
@@ -763,7 +763,7 @@ void C67_asm(const char *s, int a, int b, int c)
 	      (0x6 << 2) |	//opcode fixed
 	      (C67_map_regs(c) << 1) |	//side for reg c
 	      (0 << 0));	//parallel
-    } else if (strstr(s, "CMPEQ") == s) {
+    } अन्यथा यदि (म_माला(s, "CMPEQ") == s) {
 	xpath = C67_map_regs(a) ^ C67_map_regs(b);
 	ALWAYS_ASSERT(C67_map_regs(c) == C67_map_regs(a));
 
@@ -775,7 +775,7 @@ void C67_asm(const char *s, int a, int b, int c)
 	      (0x6 << 2) |	//opcode fixed
 	      (C67_map_regs(c) << 1) |	//side for reg c
 	      (0 << 0));	//parallel
-    } else if (strstr(s, "CMPLTU") == s) {
+    } अन्यथा यदि (म_माला(s, "CMPLTU") == s) {
 	xpath = C67_map_regs(a) ^ C67_map_regs(b);
 	ALWAYS_ASSERT(C67_map_regs(c) == C67_map_regs(a));
 
@@ -787,7 +787,7 @@ void C67_asm(const char *s, int a, int b, int c)
 	      (0x6 << 2) |	//opcode fixed
 	      (C67_map_regs(c) << 1) |	//side for reg c
 	      (0 << 0));	//parallel
-    } else if (strstr(s, "CMPGTU") == s) {
+    } अन्यथा यदि (म_माला(s, "CMPGTU") == s) {
 	xpath = C67_map_regs(a) ^ C67_map_regs(b);
 	ALWAYS_ASSERT(C67_map_regs(c) == C67_map_regs(a));
 
@@ -799,14 +799,14 @@ void C67_asm(const char *s, int a, int b, int c)
 	      (0x6 << 2) |	//opcode fixed
 	      (C67_map_regs(c) << 1) |	//side for reg c
 	      (0 << 0));	//parallel
-    } else if (strstr(s, "B DISP") == s) {
+    } अन्यथा यदि (म_माला(s, "B DISP") == s) {
 	C67_g((0 << 29) |	//creg
 	      (0 << 28) |	//z
 	      (a << 7) |	//cnst
 	      (0x4 << 2) |	//opcode fixed
 	      (0 << 1) |	//S0/S1
 	      (0 << 0));	//parallel
-    } else if (strstr(s, "B.") == s) {
+    } अन्यथा यदि (म_माला(s, "B.") == s) {
 	xpath = C67_map_regs(c) ^ 1;
 
 	C67_g((C67_map_regc(b) << 29) |	//creg
@@ -819,7 +819,7 @@ void C67_asm(const char *s, int a, int b, int c)
 	      (0x8 << 2) |	//opcode fixed
 	      (1 << 1) |	//must be S2
 	      (0 << 0));	//parallel
-    } else if (strstr(s, "MV.L") == s) {
+    } अन्यथा यदि (म_माला(s, "MV.L") == s) {
 	xpath = C67_map_regs(b) ^ C67_map_regs(c);
 
 	C67_g((0 << 29) |	//creg
@@ -832,7 +832,7 @@ void C67_asm(const char *s, int a, int b, int c)
 	      (0x6 << 2) |	//opcode fixed
 	      (C67_map_regs(c) << 1) |	//side of dest
 	      (0 << 0));	//parallel
-    } else if (strstr(s, "SPTRUNC.L") == s) {
+    } अन्यथा यदि (म_माला(s, "SPTRUNC.L") == s) {
 	xpath = C67_map_regs(b) ^ C67_map_regs(c);
 
 	C67_g((0 << 29) |	//creg
@@ -845,7 +845,7 @@ void C67_asm(const char *s, int a, int b, int c)
 	      (0x6 << 2) |	//opcode fixed
 	      (C67_map_regs(c) << 1) |	//side of dest
 	      (0 << 0));	//parallel
-    } else if (strstr(s, "DPTRUNC.L") == s) {
+    } अन्यथा यदि (म_माला(s, "DPTRUNC.L") == s) {
 	xpath = C67_map_regs(b) ^ C67_map_regs(c);
 
 	C67_g((0 << 29) |	//creg
@@ -858,7 +858,7 @@ void C67_asm(const char *s, int a, int b, int c)
 	      (0x6 << 2) |	//opcode fixed
 	      (C67_map_regs(c) << 1) |	//side of dest
 	      (0 << 0));	//parallel
-    } else if (strstr(s, "INTSP.L") == s) {
+    } अन्यथा यदि (म_माला(s, "INTSP.L") == s) {
 	xpath = C67_map_regs(b) ^ C67_map_regs(c);
 
 	C67_g((0 << 29) |	//creg
@@ -871,7 +871,7 @@ void C67_asm(const char *s, int a, int b, int c)
 	      (0x6 << 2) |	//opcode fixed
 	      (C67_map_regs(c) << 1) |	//side of dest
 	      (0 << 0));	//parallel
-    } else if (strstr(s, "INTSPU.L") == s) {
+    } अन्यथा यदि (म_माला(s, "INTSPU.L") == s) {
 	xpath = C67_map_regs(b) ^ C67_map_regs(c);
 
 	C67_g((0 << 29) |	//creg
@@ -884,7 +884,7 @@ void C67_asm(const char *s, int a, int b, int c)
 	      (0x6 << 2) |	//opcode fixed
 	      (C67_map_regs(c) << 1) |	//side of dest
 	      (0 << 0));	//parallel
-    } else if (strstr(s, "INTDP.L") == s) {
+    } अन्यथा यदि (म_माला(s, "INTDP.L") == s) {
 	xpath = C67_map_regs(b) ^ C67_map_regs(c);
 
 	C67_g((0 << 29) |	//creg
@@ -897,7 +897,7 @@ void C67_asm(const char *s, int a, int b, int c)
 	      (0x6 << 2) |	//opcode fixed
 	      (C67_map_regs(c) << 1) |	//side of dest
 	      (0 << 0));	//parallel
-    } else if (strstr(s, "INTDPU.L") == s) {
+    } अन्यथा यदि (म_माला(s, "INTDPU.L") == s) {
 	xpath = C67_map_regs(b) ^ C67_map_regs(c);
 
 	C67_g((0 << 29) |	//creg
@@ -910,7 +910,7 @@ void C67_asm(const char *s, int a, int b, int c)
 	      (0x6 << 2) |	//opcode fixed
 	      (C67_map_regs(c) << 1) |	//side of dest
 	      (0 << 0));	//parallel
-    } else if (strstr(s, "SPDP.L") == s) {
+    } अन्यथा यदि (म_माला(s, "SPDP.L") == s) {
 	xpath = C67_map_regs(b) ^ C67_map_regs(c);
 
 	C67_g((0 << 29) |	//creg
@@ -923,7 +923,7 @@ void C67_asm(const char *s, int a, int b, int c)
 	      (0x8 << 2) |	//opcode fixed
 	      (C67_map_regs(c) << 1) |	//side of dest
 	      (0 << 0));	//parallel
-    } else if (strstr(s, "DPSP.L") == s) {
+    } अन्यथा यदि (म_माला(s, "DPSP.L") == s) {
 	ALWAYS_ASSERT(C67_map_regs(b) == C67_map_regs(c));
 
 	C67_g((0 << 29) |	//creg
@@ -936,7 +936,7 @@ void C67_asm(const char *s, int a, int b, int c)
 	      (0x6 << 2) |	//opcode fixed
 	      (C67_map_regs(c) << 1) |	//side of dest
 	      (0 << 0));	//parallel
-    } else if (strstr(s, "ADD.L") == s) {
+    } अन्यथा यदि (म_माला(s, "ADD.L") == s) {
 	xpath = C67_map_regs(b) ^ C67_map_regs(c);
 
 	ALWAYS_ASSERT(C67_map_regs(a) == C67_map_regs(c));
@@ -951,7 +951,7 @@ void C67_asm(const char *s, int a, int b, int c)
 	      (0x6 << 2) |	//opcode fixed
 	      (C67_map_regs(c) << 1) |	//side of dest
 	      (0 << 0));	//parallel
-    } else if (strstr(s, "SUB.L") == s) {
+    } अन्यथा यदि (म_माला(s, "SUB.L") == s) {
 	xpath = C67_map_regs(b) ^ C67_map_regs(c);
 
 	ALWAYS_ASSERT(C67_map_regs(a) == C67_map_regs(c));
@@ -966,7 +966,7 @@ void C67_asm(const char *s, int a, int b, int c)
 	      (0x6 << 2) |	//opcode fixed
 	      (C67_map_regs(c) << 1) |	//side of dest
 	      (0 << 0));	//parallel
-    } else if (strstr(s, "OR.L") == s) {
+    } अन्यथा यदि (म_माला(s, "OR.L") == s) {
 	xpath = C67_map_regs(b) ^ C67_map_regs(c);
 
 	ALWAYS_ASSERT(C67_map_regs(a) == C67_map_regs(c));
@@ -981,7 +981,7 @@ void C67_asm(const char *s, int a, int b, int c)
 	      (0x6 << 2) |	//opcode fixed
 	      (C67_map_regs(c) << 1) |	//side of dest
 	      (0 << 0));	//parallel
-    } else if (strstr(s, "AND.L") == s) {
+    } अन्यथा यदि (म_माला(s, "AND.L") == s) {
 	xpath = C67_map_regs(b) ^ C67_map_regs(c);
 
 	ALWAYS_ASSERT(C67_map_regs(a) == C67_map_regs(c));
@@ -996,7 +996,7 @@ void C67_asm(const char *s, int a, int b, int c)
 	      (0x6 << 2) |	//opcode fixed
 	      (C67_map_regs(c) << 1) |	//side of dest
 	      (0 << 0));	//parallel
-    } else if (strstr(s, "XOR.L") == s) {
+    } अन्यथा यदि (म_माला(s, "XOR.L") == s) {
 	xpath = C67_map_regs(b) ^ C67_map_regs(c);
 
 	ALWAYS_ASSERT(C67_map_regs(a) == C67_map_regs(c));
@@ -1011,7 +1011,7 @@ void C67_asm(const char *s, int a, int b, int c)
 	      (0x6 << 2) |	//opcode fixed
 	      (C67_map_regs(c) << 1) |	//side of dest
 	      (0 << 0));	//parallel
-    } else if (strstr(s, "ADDSP.L") == s) {
+    } अन्यथा यदि (म_माला(s, "ADDSP.L") == s) {
 	xpath = C67_map_regs(b) ^ C67_map_regs(c);
 
 	ALWAYS_ASSERT(C67_map_regs(a) == C67_map_regs(c));
@@ -1026,7 +1026,7 @@ void C67_asm(const char *s, int a, int b, int c)
 	      (0x6 << 2) |	//opcode fixed
 	      (C67_map_regs(c) << 1) |	//side of dest
 	      (0 << 0));	//parallel
-    } else if (strstr(s, "ADDDP.L") == s) {
+    } अन्यथा यदि (म_माला(s, "ADDDP.L") == s) {
 	xpath = C67_map_regs(b) ^ C67_map_regs(c);
 
 	ALWAYS_ASSERT(C67_map_regs(a) == C67_map_regs(c));
@@ -1041,7 +1041,7 @@ void C67_asm(const char *s, int a, int b, int c)
 	      (0x6 << 2) |	//opcode fixed
 	      (C67_map_regs(c) << 1) |	//side of dest
 	      (0 << 0));	//parallel
-    } else if (strstr(s, "SUBSP.L") == s) {
+    } अन्यथा यदि (म_माला(s, "SUBSP.L") == s) {
 	xpath = C67_map_regs(b) ^ C67_map_regs(c);
 
 	ALWAYS_ASSERT(C67_map_regs(a) == C67_map_regs(c));
@@ -1056,7 +1056,7 @@ void C67_asm(const char *s, int a, int b, int c)
 	      (0x6 << 2) |	//opcode fixed
 	      (C67_map_regs(c) << 1) |	//side of dest
 	      (0 << 0));	//parallel
-    } else if (strstr(s, "SUBDP.L") == s) {
+    } अन्यथा यदि (म_माला(s, "SUBDP.L") == s) {
 	xpath = C67_map_regs(b) ^ C67_map_regs(c);
 
 	ALWAYS_ASSERT(C67_map_regs(a) == C67_map_regs(c));
@@ -1071,7 +1071,7 @@ void C67_asm(const char *s, int a, int b, int c)
 	      (0x6 << 2) |	//opcode fixed
 	      (C67_map_regs(c) << 1) |	//side of dest
 	      (0 << 0));	//parallel
-    } else if (strstr(s, "MPYSP.M") == s) {
+    } अन्यथा यदि (म_माला(s, "MPYSP.M") == s) {
 	xpath = C67_map_regs(b) ^ C67_map_regs(c);
 
 	ALWAYS_ASSERT(C67_map_regs(a) == C67_map_regs(c));
@@ -1086,7 +1086,7 @@ void C67_asm(const char *s, int a, int b, int c)
 	      (0x0 << 2) |	//opcode fixed
 	      (C67_map_regs(c) << 1) |	//side of dest
 	      (0 << 0));	//parallel
-    } else if (strstr(s, "MPYDP.M") == s) {
+    } अन्यथा यदि (म_माला(s, "MPYDP.M") == s) {
 	xpath = C67_map_regs(b) ^ C67_map_regs(c);
 
 	ALWAYS_ASSERT(C67_map_regs(a) == C67_map_regs(c));
@@ -1101,7 +1101,7 @@ void C67_asm(const char *s, int a, int b, int c)
 	      (0x0 << 2) |	//opcode fixed
 	      (C67_map_regs(c) << 1) |	//side of dest
 	      (0 << 0));	//parallel
-    } else if (strstr(s, "MPYI.M") == s) {
+    } अन्यथा यदि (म_माला(s, "MPYI.M") == s) {
 	xpath = C67_map_regs(b) ^ C67_map_regs(c);
 
 	ALWAYS_ASSERT(C67_map_regs(a) == C67_map_regs(c));
@@ -1116,7 +1116,7 @@ void C67_asm(const char *s, int a, int b, int c)
 	      (0x0 << 2) |	//opcode fixed
 	      (C67_map_regs(c) << 1) |	//side of dest
 	      (0 << 0));	//parallel
-    } else if (strstr(s, "SHR.S") == s) {
+    } अन्यथा यदि (म_माला(s, "SHR.S") == s) {
 	xpath = C67_map_regs(b) ^ C67_map_regs(c);
 
 	ALWAYS_ASSERT(C67_map_regs(c) == C67_map_regs(a));
@@ -1131,7 +1131,7 @@ void C67_asm(const char *s, int a, int b, int c)
 	      (0x8 << 2) |	//opcode fixed
 	      (C67_map_regs(c) << 1) |	//side of dest
 	      (0 << 0));	//parallel
-    } else if (strstr(s, "SHRU.S") == s) {
+    } अन्यथा यदि (म_माला(s, "SHRU.S") == s) {
 	xpath = C67_map_regs(b) ^ C67_map_regs(c);
 
 	ALWAYS_ASSERT(C67_map_regs(c) == C67_map_regs(a));
@@ -1146,7 +1146,7 @@ void C67_asm(const char *s, int a, int b, int c)
 	      (0x8 << 2) |	//opcode fixed
 	      (C67_map_regs(c) << 1) |	//side of dest
 	      (0 << 0));	//parallel
-    } else if (strstr(s, "SHL.S") == s) {
+    } अन्यथा यदि (म_माला(s, "SHL.S") == s) {
 	xpath = C67_map_regs(b) ^ C67_map_regs(c);
 
 	ALWAYS_ASSERT(C67_map_regs(c) == C67_map_regs(a));
@@ -1161,7 +1161,7 @@ void C67_asm(const char *s, int a, int b, int c)
 	      (0x8 << 2) |	//opcode fixed
 	      (C67_map_regs(c) << 1) |	//side of dest
 	      (0 << 0));	//parallel
-    } else if (strstr(s, "||ADDK") == s) {
+    } अन्यथा यदि (म_माला(s, "||ADDK") == s) {
 	xpath = 0;		// no xpath required just use the side of the src/dst
 
 	C67_g((0 << 29) |	//creg
@@ -1171,7 +1171,7 @@ void C67_asm(const char *s, int a, int b, int c)
 	      (0x14 << 2) |	//opcode fixed
 	      (C67_map_regs(b) << 1) |	//side of dst
 	      (1 << 0));	//parallel
-    } else if (strstr(s, "ADDK") == s) {
+    } अन्यथा यदि (म_माला(s, "ADDK") == s) {
 	xpath = 0;		// no xpath required just use the side of the src/dst
 
 	C67_g((0 << 29) |	//creg
@@ -1181,203 +1181,203 @@ void C67_asm(const char *s, int a, int b, int c)
 	      (0x14 << 2) |	//opcode fixed
 	      (C67_map_regs(b) << 1) |	//side of dst
 	      (0 << 0));	//parallel
-    } else if (strstr(s, "NOP") == s) {
+    } अन्यथा यदि (म_माला(s, "NOP") == s) {
 	C67_g(((a - 1) << 13) |	//no of cycles
 	      (0 << 0));	//parallel
-    } else
+    } अन्यथा
 	ALWAYS_ASSERT(FALSE);
 
 #ifdef ASSEMBLY_LISTING_C67
-    fprintf(f, " %s %d %d %d\n", s, a, b, c);
+    ख_लिखो(f, " %s %d %d %d\n", s, a, b, c);
 #endif
 
 }
 
 //r=reg to load, fr=from reg, symbol for relocation, constant
 
-void C67_MVKL(int r, int fc)
+शून्य C67_MVKL(पूर्णाङ्क r, पूर्णाङ्क fc)
 {
     C67_asm("MVKL.", fc, r, 0);
 }
 
-void C67_MVKH(int r, int fc)
+शून्य C67_MVKH(पूर्णाङ्क r, पूर्णाङ्क fc)
 {
     C67_asm("MVKH.", fc, r, 0);
 }
 
-void C67_STB_SP_A0(int r)
+शून्य C67_STB_SP_A0(पूर्णाङ्क r)
 {
     C67_asm("STB.D *+SP[A0]", r, 0, 0);	// STB  r,*+SP[A0]
 }
 
-void C67_STH_SP_A0(int r)
+शून्य C67_STH_SP_A0(पूर्णाङ्क r)
 {
     C67_asm("STH.D *+SP[A0]", r, 0, 0);	// STH  r,*+SP[A0]
 }
 
-void C67_STW_SP_A0(int r)
+शून्य C67_STW_SP_A0(पूर्णाङ्क r)
 {
     C67_asm("STW.D *+SP[A0]", r, 0, 0);	// STW  r,*+SP[A0]
 }
 
-void C67_STB_PTR(int r, int r2)
+शून्य C67_STB_PTR(पूर्णाङ्क r, पूर्णाङ्क r2)
 {
     C67_asm("STB.D *", r, r2, 0);	// STB  r, *r2
 }
 
-void C67_STH_PTR(int r, int r2)
+शून्य C67_STH_PTR(पूर्णाङ्क r, पूर्णाङ्क r2)
 {
     C67_asm("STH.D *", r, r2, 0);	// STH  r, *r2
 }
 
-void C67_STW_PTR(int r, int r2)
+शून्य C67_STW_PTR(पूर्णाङ्क r, पूर्णाङ्क r2)
 {
     C67_asm("STW.D *", r, r2, 0);	// STW  r, *r2
 }
 
-void C67_STW_PTR_PRE_INC(int r, int r2, int n)
+शून्य C67_STW_PTR_PRE_INC(पूर्णाङ्क r, पूर्णाङ्क r2, पूर्णाङ्क n)
 {
     C67_asm("STW.D +*", r, r2, n);	// STW  r, *+r2
 }
 
-void C67_PUSH(int r)
+शून्य C67_थप(पूर्णाङ्क r)
 {
     C67_asm("STW.D SP POST DEC", r, 0, 0);	// STW  r,*SP--
 }
 
-void C67_LDW_SP_A0(int r)
+शून्य C67_LDW_SP_A0(पूर्णाङ्क r)
 {
     C67_asm("LDW.D *+SP[A0]", r, 0, 0);	// LDW  *+SP[A0],r
 }
 
-void C67_LDDW_SP_A0(int r)
+शून्य C67_LDDW_SP_A0(पूर्णाङ्क r)
 {
     C67_asm("LDDW.D *+SP[A0]", r, 0, 0);	// LDDW  *+SP[A0],r
 }
 
-void C67_LDH_SP_A0(int r)
+शून्य C67_LDH_SP_A0(पूर्णाङ्क r)
 {
     C67_asm("LDH.D *+SP[A0]", r, 0, 0);	// LDH  *+SP[A0],r
 }
 
-void C67_LDB_SP_A0(int r)
+शून्य C67_LDB_SP_A0(पूर्णाङ्क r)
 {
     C67_asm("LDB.D *+SP[A0]", r, 0, 0);	// LDB  *+SP[A0],r
 }
 
-void C67_LDHU_SP_A0(int r)
+शून्य C67_LDHU_SP_A0(पूर्णाङ्क r)
 {
     C67_asm("LDHU.D *+SP[A0]", r, 0, 0);	// LDHU  *+SP[A0],r
 }
 
-void C67_LDBU_SP_A0(int r)
+शून्य C67_LDBU_SP_A0(पूर्णाङ्क r)
 {
     C67_asm("LDBU.D *+SP[A0]", r, 0, 0);	// LDBU  *+SP[A0],r
 }
 
-void C67_LDW_PTR(int r, int r2)
+शून्य C67_LDW_PTR(पूर्णाङ्क r, पूर्णाङ्क r2)
 {
     C67_asm("LDW.D *", r, r2, 0);	// LDW  *r,r2
 }
 
-void C67_LDDW_PTR(int r, int r2)
+शून्य C67_LDDW_PTR(पूर्णाङ्क r, पूर्णाङ्क r2)
 {
     C67_asm("LDDW.D *", r, r2, 0);	// LDDW  *r,r2
 }
 
-void C67_LDH_PTR(int r, int r2)
+शून्य C67_LDH_PTR(पूर्णाङ्क r, पूर्णाङ्क r2)
 {
     C67_asm("LDH.D *", r, r2, 0);	// LDH  *r,r2
 }
 
-void C67_LDB_PTR(int r, int r2)
+शून्य C67_LDB_PTR(पूर्णाङ्क r, पूर्णाङ्क r2)
 {
     C67_asm("LDB.D *", r, r2, 0);	// LDB  *r,r2
 }
 
-void C67_LDHU_PTR(int r, int r2)
+शून्य C67_LDHU_PTR(पूर्णाङ्क r, पूर्णाङ्क r2)
 {
     C67_asm("LDHU.D *", r, r2, 0);	// LDHU  *r,r2
 }
 
-void C67_LDBU_PTR(int r, int r2)
+शून्य C67_LDBU_PTR(पूर्णाङ्क r, पूर्णाङ्क r2)
 {
     C67_asm("LDBU.D *", r, r2, 0);	// LDBU  *r,r2
 }
 
-void C67_LDW_PTR_PRE_INC(int r, int r2)
+शून्य C67_LDW_PTR_PRE_INC(पूर्णाङ्क r, पूर्णाङ्क r2)
 {
     C67_asm("LDW.D +*", r, r2, 0);	// LDW  *+r,r2
 }
 
-void C67_POP(int r)
+शून्य C67_झिक(पूर्णाङ्क r)
 {
     C67_asm("LDW.D SP PRE INC", r, 0, 0);	// LDW  *++SP,r
 }
 
-void C67_POP_DW(int r)
+शून्य C67_झिक_DW(पूर्णाङ्क r)
 {
     C67_asm("LDDW.D SP PRE INC", r, 0, 0);	// LDDW  *++SP,r
 }
 
-void C67_CMPLT(int s1, int s2, int dst)
+शून्य C67_CMPLT(पूर्णाङ्क s1, पूर्णाङ्क s2, पूर्णाङ्क dst)
 {
     C67_asm("CMPLT.L1", s1, s2, dst);
 }
 
-void C67_CMPGT(int s1, int s2, int dst)
+शून्य C67_CMPGT(पूर्णाङ्क s1, पूर्णाङ्क s2, पूर्णाङ्क dst)
 {
     C67_asm("CMPGT.L1", s1, s2, dst);
 }
 
-void C67_CMPEQ(int s1, int s2, int dst)
+शून्य C67_CMPEQ(पूर्णाङ्क s1, पूर्णाङ्क s2, पूर्णाङ्क dst)
 {
     C67_asm("CMPEQ.L1", s1, s2, dst);
 }
 
-void C67_CMPLTU(int s1, int s2, int dst)
+शून्य C67_CMPLTU(पूर्णाङ्क s1, पूर्णाङ्क s2, पूर्णाङ्क dst)
 {
     C67_asm("CMPLTU.L1", s1, s2, dst);
 }
 
-void C67_CMPGTU(int s1, int s2, int dst)
+शून्य C67_CMPGTU(पूर्णाङ्क s1, पूर्णाङ्क s2, पूर्णाङ्क dst)
 {
     C67_asm("CMPGTU.L1", s1, s2, dst);
 }
 
 
-void C67_CMPLTSP(int s1, int s2, int dst)
+शून्य C67_CMPLTSP(पूर्णाङ्क s1, पूर्णाङ्क s2, पूर्णाङ्क dst)
 {
     C67_asm("CMPLTSP.S1", s1, s2, dst);
 }
 
-void C67_CMPGTSP(int s1, int s2, int dst)
+शून्य C67_CMPGTSP(पूर्णाङ्क s1, पूर्णाङ्क s2, पूर्णाङ्क dst)
 {
     C67_asm("CMPGTSP.S1", s1, s2, dst);
 }
 
-void C67_CMPEQSP(int s1, int s2, int dst)
+शून्य C67_CMPEQSP(पूर्णाङ्क s1, पूर्णाङ्क s2, पूर्णाङ्क dst)
 {
     C67_asm("CMPEQSP.S1", s1, s2, dst);
 }
 
-void C67_CMPLTDP(int s1, int s2, int dst)
+शून्य C67_CMPLTDP(पूर्णाङ्क s1, पूर्णाङ्क s2, पूर्णाङ्क dst)
 {
     C67_asm("CMPLTDP.S1", s1, s2, dst);
 }
 
-void C67_CMPGTDP(int s1, int s2, int dst)
+शून्य C67_CMPGTDP(पूर्णाङ्क s1, पूर्णाङ्क s2, पूर्णाङ्क dst)
 {
     C67_asm("CMPGTDP.S1", s1, s2, dst);
 }
 
-void C67_CMPEQDP(int s1, int s2, int dst)
+शून्य C67_CMPEQDP(पूर्णाङ्क s1, पूर्णाङ्क s2, पूर्णाङ्क dst)
 {
     C67_asm("CMPEQDP.S1", s1, s2, dst);
 }
 
 
-void C67_IREG_B_REG(int inv, int r1, int r2)	// [!R] B  r2
+शून्य C67_IREG_B_REG(पूर्णाङ्क inv, पूर्णाङ्क r1, पूर्णाङ्क r2)	// [!R] B  r2
 {
     C67_asm("B.S2", inv, r1, r2);
 }
@@ -1386,7 +1386,7 @@ void C67_IREG_B_REG(int inv, int r1, int r2)	// [!R] B  r2
 // call with how many 32 bit words to skip
 // (0 would branch to the branch instruction)
 
-void C67_B_DISP(int disp)	//  B  +2  Branch with constant displacement
+शून्य C67_B_DISP(पूर्णाङ्क disp)	//  B  +2  Branch with constant displacement
 {
     // Branch point is relative to the 8 word fetch packet
     //
@@ -1398,149 +1398,149 @@ void C67_B_DISP(int disp)	//  B  +2  Branch with constant displacement
     C67_asm("B DISP", disp + ((ind & 31) >> 2), 0, 0);
 }
 
-void C67_NOP(int n)
+शून्य C67_NOP(पूर्णाङ्क n)
 {
     C67_asm("NOP", n, 0, 0);
 }
 
-void C67_ADDK(int n, int r)
+शून्य C67_ADDK(पूर्णाङ्क n, पूर्णाङ्क r)
 {
-    ALWAYS_ASSERT(abs(n) < 32767);
+    ALWAYS_ASSERT(असल(n) < 32767);
 
     C67_asm("ADDK", n, r, 0);
 }
 
-void C67_ADDK_PARALLEL(int n, int r)
+शून्य C67_ADDK_PARALLEL(पूर्णाङ्क n, पूर्णाङ्क r)
 {
-    ALWAYS_ASSERT(abs(n) < 32767);
+    ALWAYS_ASSERT(असल(n) < 32767);
 
     C67_asm("||ADDK", n, r, 0);
 }
 
-void C67_Adjust_ADDK(int *inst, int n)
+शून्य C67_Adjust_ADDK(पूर्णाङ्क *inst, पूर्णाङ्क n)
 {
-    ALWAYS_ASSERT(abs(n) < 32767);
+    ALWAYS_ASSERT(असल(n) < 32767);
 
     *inst = (*inst & (~(0xffff << 7))) | ((n & 0xffff) << 7);
 }
 
-void C67_MV(int r, int v)
+शून्य C67_MV(पूर्णाङ्क r, पूर्णाङ्क v)
 {
     C67_asm("MV.L", 0, r, v);
 }
 
 
-void C67_DPTRUNC(int r, int v)
+शून्य C67_DPTRUNC(पूर्णाङ्क r, पूर्णाङ्क v)
 {
     C67_asm("DPTRUNC.L", 0, r, v);
 }
 
-void C67_SPTRUNC(int r, int v)
+शून्य C67_SPTRUNC(पूर्णाङ्क r, पूर्णाङ्क v)
 {
     C67_asm("SPTRUNC.L", 0, r, v);
 }
 
-void C67_INTSP(int r, int v)
+शून्य C67_INTSP(पूर्णाङ्क r, पूर्णाङ्क v)
 {
     C67_asm("INTSP.L", 0, r, v);
 }
 
-void C67_INTDP(int r, int v)
+शून्य C67_INTDP(पूर्णाङ्क r, पूर्णाङ्क v)
 {
     C67_asm("INTDP.L", 0, r, v);
 }
 
-void C67_INTSPU(int r, int v)
+शून्य C67_INTSPU(पूर्णाङ्क r, पूर्णाङ्क v)
 {
     C67_asm("INTSPU.L", 0, r, v);
 }
 
-void C67_INTDPU(int r, int v)
+शून्य C67_INTDPU(पूर्णाङ्क r, पूर्णाङ्क v)
 {
     C67_asm("INTDPU.L", 0, r, v);
 }
 
-void C67_SPDP(int r, int v)
+शून्य C67_SPDP(पूर्णाङ्क r, पूर्णाङ्क v)
 {
     C67_asm("SPDP.L", 0, r, v);
 }
 
-void C67_DPSP(int r, int v)	// note regs must be on the same side
+शून्य C67_DPSP(पूर्णाङ्क r, पूर्णाङ्क v)	// note regs must be on the same side
 {
     C67_asm("DPSP.L", 0, r, v);
 }
 
-void C67_ADD(int r, int v)
+शून्य C67_ADD(पूर्णाङ्क r, पूर्णाङ्क v)
 {
     C67_asm("ADD.L", v, r, v);
 }
 
-void C67_SUB(int r, int v)
+शून्य C67_SUB(पूर्णाङ्क r, पूर्णाङ्क v)
 {
     C67_asm("SUB.L", v, r, v);
 }
 
-void C67_AND(int r, int v)
+शून्य C67_AND(पूर्णाङ्क r, पूर्णाङ्क v)
 {
     C67_asm("AND.L", v, r, v);
 }
 
-void C67_OR(int r, int v)
+शून्य C67_OR(पूर्णाङ्क r, पूर्णाङ्क v)
 {
     C67_asm("OR.L", v, r, v);
 }
 
-void C67_XOR(int r, int v)
+शून्य C67_XOR(पूर्णाङ्क r, पूर्णाङ्क v)
 {
     C67_asm("XOR.L", v, r, v);
 }
 
-void C67_ADDSP(int r, int v)
+शून्य C67_ADDSP(पूर्णाङ्क r, पूर्णाङ्क v)
 {
     C67_asm("ADDSP.L", v, r, v);
 }
 
-void C67_SUBSP(int r, int v)
+शून्य C67_SUBSP(पूर्णाङ्क r, पूर्णाङ्क v)
 {
     C67_asm("SUBSP.L", v, r, v);
 }
 
-void C67_MPYSP(int r, int v)
+शून्य C67_MPYSP(पूर्णाङ्क r, पूर्णाङ्क v)
 {
     C67_asm("MPYSP.M", v, r, v);
 }
 
-void C67_ADDDP(int r, int v)
+शून्य C67_ADDDP(पूर्णाङ्क r, पूर्णाङ्क v)
 {
     C67_asm("ADDDP.L", v, r, v);
 }
 
-void C67_SUBDP(int r, int v)
+शून्य C67_SUBDP(पूर्णाङ्क r, पूर्णाङ्क v)
 {
     C67_asm("SUBDP.L", v, r, v);
 }
 
-void C67_MPYDP(int r, int v)
+शून्य C67_MPYDP(पूर्णाङ्क r, पूर्णाङ्क v)
 {
     C67_asm("MPYDP.M", v, r, v);
 }
 
-void C67_MPYI(int r, int v)
+शून्य C67_MPYI(पूर्णाङ्क r, पूर्णाङ्क v)
 {
     C67_asm("MPYI.M", v, r, v);
 }
 
-void C67_SHL(int r, int v)
+शून्य C67_SHL(पूर्णाङ्क r, पूर्णाङ्क v)
 {
     C67_asm("SHL.S", r, v, v);
 }
 
-void C67_SHRU(int r, int v)
+शून्य C67_SHRU(पूर्णाङ्क r, पूर्णाङ्क v)
 {
     C67_asm("SHRU.S", r, v, v);
 }
 
-void C67_SHR(int r, int v)
+शून्य C67_SHR(पूर्णाङ्क r, पूर्णाङ्क v)
 {
     C67_asm("SHR.S", r, v, v);
 }
@@ -1548,9 +1548,9 @@ void C67_SHR(int r, int v)
 
 
 /* load 'r' from value 'sv' */
-void load(int r, SValue * sv)
+शून्य load(पूर्णाङ्क r, SValue * sv)
 {
-    int v, t, ft, fc, fr, size = 0, element;
+    पूर्णाङ्क v, t, ft, fc, fr, size = 0, element;
     BOOL Unsigned = FALSE;
     SValue v1;
 
@@ -1559,28 +1559,28 @@ void load(int r, SValue * sv)
     fc = sv->c.i;
 
     v = fr & VT_VALMASK;
-    if (fr & VT_LVAL) {
-	if (v == VT_LLOCAL) {
+    यदि (fr & VT_LVAL) {
+	यदि (v == VT_LLOCAL) {
 	    v1.type.t = VT_INT;
 	    v1.r = VT_LOCAL | VT_LVAL;
 	    v1.c.i = fc;
 	    load(r, &v1);
 	    fr = r;
-	} else if ((ft & VT_BTYPE) == VT_LDOUBLE) {
+	} अन्यथा यदि ((ft & VT_BTYPE) == VT_LDOUBLE) {
 	    tcc_error("long double not supported");
-	} else if ((ft & VT_TYPE) == VT_BYTE) {
+	} अन्यथा यदि ((ft & VT_TYPE) == VT_BYTE) {
 	    size = 1;
-	} else if ((ft & VT_TYPE) == (VT_BYTE | VT_UNSIGNED)) {
+	} अन्यथा यदि ((ft & VT_TYPE) == (VT_BYTE | VT_UNSIGNED)) {
 	    size = 1;
 	    Unsigned = TRUE;
-	} else if ((ft & VT_TYPE) == VT_SHORT) {
+	} अन्यथा यदि ((ft & VT_TYPE) == VT_SHORT) {
 	    size = 2;
-	} else if ((ft & VT_TYPE) == (VT_SHORT | VT_UNSIGNED)) {
+	} अन्यथा यदि ((ft & VT_TYPE) == (VT_SHORT | VT_UNSIGNED)) {
 	    size = 2;
 	    Unsigned = TRUE;
-	} else if ((ft & VT_BTYPE) == VT_DOUBLE) {
+	} अन्यथा यदि ((ft & VT_BTYPE) == VT_DOUBLE) {
 	    size = 8;
-	} else {
+	} अन्यथा {
 	    size = 4;
 	}
 
@@ -1589,42 +1589,42 @@ void load(int r, SValue * sv)
 	// on the stack, so check if it is really in a register.
 
 
-	if (v == VT_LOCAL && fc > 0) {
-	    int stack_pos = 8;
+	यदि (v == VT_LOCAL && fc > 0) {
+	    पूर्णाङ्क थाक_pos = 8;
 
-	    for (t = 0; t < NoCallArgsPassedOnStack; t++) {
-		if (fc == stack_pos)
-		    break;
+	    लागि (t = 0; t < No_Call_Args_Passed_On_थाक; t++) {
+		यदि (fc == थाक_pos)
+		    रोक;
 
-		stack_pos += TranslateStackToReg[t];
+		थाक_pos += Translate_थाक_To_Reg[t];
 	    }
 
 	    // param has been pushed on stack, get it like a local var
 
-	    fc = ParamLocOnStack[t] - 8;
+	    fc = Param_Loc_On_थाक[t] - 8;
 	}
 
-	if ((fr & VT_VALMASK) < VT_CONST)	// check for pure indirect
+	यदि ((fr & VT_VALMASK) < VT_CONST)	// check for pure indirect
 	{
-	    if (size == 1) {
-		if (Unsigned)
+	    यदि (size == 1) {
+		यदि (Unsigned)
 		    C67_LDBU_PTR(v, r);	// LDBU  *v,r
-		else
+		अन्यथा
 		    C67_LDB_PTR(v, r);	// LDB  *v,r
-	    } else if (size == 2) {
-		if (Unsigned)
+	    } अन्यथा यदि (size == 2) {
+		यदि (Unsigned)
 		    C67_LDHU_PTR(v, r);	// LDHU  *v,r
-		else
+		अन्यथा
 		    C67_LDH_PTR(v, r);	// LDH  *v,r
-	    } else if (size == 4) {
+	    } अन्यथा यदि (size == 4) {
 		C67_LDW_PTR(v, r);	// LDW  *v,r
-	    } else if (size == 8) {
+	    } अन्यथा यदि (size == 8) {
 		C67_LDDW_PTR(v, r);	// LDDW  *v,r
 	    }
 
 	    C67_NOP(4);		// NOP 4
-	    return;
-	} else if (fr & VT_SYM) {
+	    फर्काऊ;
+	} अन्यथा यदि (fr & VT_SYM) {
 	    greloc(cur_text_section, sv->sym, ind, R_C60LO16);	// rem the inst need to be patched
 	    greloc(cur_text_section, sv->sym, ind + 4, R_C60HI16);
 
@@ -1633,76 +1633,76 @@ void load(int r, SValue * sv)
 	    C67_MVKH(C67_A0, fc);	//r=reg to load,  constant
 
 
-	    if (size == 1) {
-		if (Unsigned)
+	    यदि (size == 1) {
+		यदि (Unsigned)
 		    C67_LDBU_PTR(C67_A0, r);	// LDBU  *A0,r
-		else
+		अन्यथा
 		    C67_LDB_PTR(C67_A0, r);	// LDB  *A0,r
-	    } else if (size == 2) {
-		if (Unsigned)
+	    } अन्यथा यदि (size == 2) {
+		यदि (Unsigned)
 		    C67_LDHU_PTR(C67_A0, r);	// LDHU  *A0,r
-		else
+		अन्यथा
 		    C67_LDH_PTR(C67_A0, r);	// LDH  *A0,r
-	    } else if (size == 4) {
+	    } अन्यथा यदि (size == 4) {
 		C67_LDW_PTR(C67_A0, r);	// LDW  *A0,r
-	    } else if (size == 8) {
+	    } अन्यथा यदि (size == 8) {
 		C67_LDDW_PTR(C67_A0, r);	// LDDW  *A0,r
 	    }
 
 	    C67_NOP(4);		// NOP 4
-	    return;
-	} else {
+	    फर्काऊ;
+	} अन्यथा {
 	    element = size;
 
 	    // divide offset in bytes to create element index
 	    C67_MVKL(C67_A0, (fc / element) + 8 / element);	//r=reg to load,  constant
 	    C67_MVKH(C67_A0, (fc / element) + 8 / element);	//r=reg to load,  constant
 
-	    if (size == 1) {
-		if (Unsigned)
+	    यदि (size == 1) {
+		यदि (Unsigned)
 		    C67_LDBU_SP_A0(r);	// LDBU  r, SP[A0]
-		else
+		अन्यथा
 		    C67_LDB_SP_A0(r);	// LDB  r, SP[A0]
-	    } else if (size == 2) {
-		if (Unsigned)
+	    } अन्यथा यदि (size == 2) {
+		यदि (Unsigned)
 		    C67_LDHU_SP_A0(r);	// LDHU  r, SP[A0]
-		else
+		अन्यथा
 		    C67_LDH_SP_A0(r);	// LDH  r, SP[A0]
-	    } else if (size == 4) {
+	    } अन्यथा यदि (size == 4) {
 		C67_LDW_SP_A0(r);	// LDW  r, SP[A0]
-	    } else if (size == 8) {
+	    } अन्यथा यदि (size == 8) {
 		C67_LDDW_SP_A0(r);	// LDDW  r, SP[A0]
 	    }
 
 
 	    C67_NOP(4);		// NOP 4
-	    return;
+	    फर्काऊ;
 	}
-    } else {
-	if (v == VT_CONST) {
-	    if (fr & VT_SYM) {
+    } अन्यथा {
+	यदि (v == VT_CONST) {
+	    यदि (fr & VT_SYM) {
 		greloc(cur_text_section, sv->sym, ind, R_C60LO16);	// rem the inst need to be patched
 		greloc(cur_text_section, sv->sym, ind + 4, R_C60HI16);
 	    }
 	    C67_MVKL(r, fc);	//r=reg to load, constant
 	    C67_MVKH(r, fc);	//r=reg to load, constant
-	} else if (v == VT_LOCAL) {
+	} अन्यथा यदि (v == VT_LOCAL) {
 	    C67_MVKL(r, fc + 8);	//r=reg to load, constant C67 stack points to next free
 	    C67_MVKH(r, fc + 8);	//r=reg to load, constant
 	    C67_ADD(C67_FP, r);	// MV v,r   v -> r
-	} else if (v == VT_CMP) {
+	} अन्यथा यदि (v == VT_CMP) {
 	    C67_MV(C67_compare_reg, r);	// MV v,r   v -> r
-	} else if (v == VT_JMP || v == VT_JMPI) {
+	} अन्यथा यदि (v == VT_JMP || v == VT_JMPI) {
 	    t = v & 1;
 	    C67_B_DISP(4);	//  Branch with constant displacement, skip over this branch, load, nop, load
 	    C67_MVKL(r, t);	//  r=reg to load, 0 or 1 (do this while branching)
 	    C67_NOP(4);		//  NOP 4
 	    gsym(fc);		//  modifies other branches to branch here
 	    C67_MVKL(r, t ^ 1);	//  r=reg to load, 0 or 1
-	} else if (v != r) {
+	} अन्यथा यदि (v != r) {
 	    C67_MV(v, r);	// MV v,r   v -> r
 
-	    if ((ft & VT_BTYPE) == VT_DOUBLE)
+	    यदि ((ft & VT_BTYPE) == VT_DOUBLE)
 		C67_MV(v + 1, r + 1);	// MV v,r   v -> r
 	}
     }
@@ -1710,9 +1710,9 @@ void load(int r, SValue * sv)
 
 
 /* store register 'r' in lvalue 'v' */
-void store(int r, SValue * v)
+शून्य store(पूर्णाङ्क r, SValue * v)
 {
-    int fr, bt, ft, fc, size, t, element;
+    पूर्णाङ्क fr, bt, ft, fc, size, t, element;
 
     ft = v->type.t;
     fc = v->c.i;
@@ -1720,64 +1720,64 @@ void store(int r, SValue * v)
     bt = ft & VT_BTYPE;
     /* XXX: incorrect if float reg to reg */
 
-    if (bt == VT_LDOUBLE) {
+    यदि (bt == VT_LDOUBLE) {
 	tcc_error("long double not supported");
-    } else {
-	if (bt == VT_SHORT)
+    } अन्यथा {
+	यदि (bt == VT_SHORT)
 	    size = 2;
-	else if (bt == VT_BYTE)
+	अन्यथा यदि (bt == VT_BYTE)
 	    size = 1;
-	else if (bt == VT_DOUBLE)
+	अन्यथा यदि (bt == VT_DOUBLE)
 	    size = 8;
-	else
+	अन्यथा
 	    size = 4;
 
-	if ((v->r & VT_VALMASK) == VT_CONST) {
+	यदि ((v->r & VT_VALMASK) == VT_CONST) {
 	    /* constant memory reference */
 
-	    if (v->r & VT_SYM) {
+	    यदि (v->r & VT_SYM) {
 		greloc(cur_text_section, v->sym, ind, R_C60LO16);	// rem the inst need to be patched
 		greloc(cur_text_section, v->sym, ind + 4, R_C60HI16);
 	    }
 	    C67_MVKL(C67_A0, fc);	//r=reg to load,  constant
 	    C67_MVKH(C67_A0, fc);	//r=reg to load,  constant
 
-	    if (size == 1)
+	    यदि (size == 1)
 		C67_STB_PTR(r, C67_A0);	// STB  r, *A0
-	    else if (size == 2)
+	    अन्यथा यदि (size == 2)
 		C67_STH_PTR(r, C67_A0);	// STH  r, *A0
-	    else if (size == 4 || size == 8)
+	    अन्यथा यदि (size == 4 || size == 8)
 		C67_STW_PTR(r, C67_A0);	// STW  r, *A0
 
-	    if (size == 8)
+	    यदि (size == 8)
 		C67_STW_PTR_PRE_INC(r + 1, C67_A0, 1);	// STW  r, *+A0[1]
-	} else if ((v->r & VT_VALMASK) == VT_LOCAL) {
+	} अन्यथा यदि ((v->r & VT_VALMASK) == VT_LOCAL) {
 	    // check case of storing to passed argument that
 	    // tcc thinks is on the stack but for C67 is
 	    // passed as a reg.  However it may have been
 	    // saved to the stack, if that reg was required
 	    // for a call to a child function
 
-	    if (fc > 0)		// argument ??
+	    यदि (fc > 0)		// argument ??
 	    {
 		// walk through sizes and figure which param
 
-		int stack_pos = 8;
+		पूर्णाङ्क थाक_pos = 8;
 
-		for (t = 0; t < NoCallArgsPassedOnStack; t++) {
-		    if (fc == stack_pos)
-			break;
+		लागि (t = 0; t < No_Call_Args_Passed_On_थाक; t++) {
+		    यदि (fc == थाक_pos)
+			रोक;
 
-		    stack_pos += TranslateStackToReg[t];
+		    थाक_pos += Translate_थाक_To_Reg[t];
 		}
 
 		// param has been pushed on stack, get it like a local var
-		fc = ParamLocOnStack[t] - 8;
+		fc = Param_Loc_On_थाक[t] - 8;
 	    }
 
-	    if (size == 8)
+	    यदि (size == 8)
 		element = 4;
-	    else
+	    अन्यथा
 		element = size;
 
 	    // divide offset in bytes to create word index
@@ -1786,26 +1786,26 @@ void store(int r, SValue * v)
 
 
 
-	    if (size == 1)
+	    यदि (size == 1)
 		C67_STB_SP_A0(r);	// STB  r, SP[A0]
-	    else if (size == 2)
+	    अन्यथा यदि (size == 2)
 		C67_STH_SP_A0(r);	// STH  r, SP[A0]
-	    else if (size == 4 || size == 8)
+	    अन्यथा यदि (size == 4 || size == 8)
 		C67_STW_SP_A0(r);	// STW  r, SP[A0]
 
-	    if (size == 8) {
+	    यदि (size == 8) {
 		C67_ADDK(1, C67_A0);	//  ADDK 1,A0
 		C67_STW_SP_A0(r + 1);	//  STW  r, SP[A0]
 	    }
-	} else {
-	    if (size == 1)
+	} अन्यथा {
+	    यदि (size == 1)
 		C67_STB_PTR(r, fr);	// STB  r, *fr
-	    else if (size == 2)
+	    अन्यथा यदि (size == 2)
 		C67_STH_PTR(r, fr);	// STH  r, *fr
-	    else if (size == 4 || size == 8)
+	    अन्यथा यदि (size == 4 || size == 8)
 		C67_STW_PTR(r, fr);	// STW  r, *fr
 
-	    if (size == 8) {
+	    यदि (size == 8) {
 		C67_STW_PTR_PRE_INC(r + 1, fr, 1);	// STW  r, *+fr[1]
 	    }
 	}
@@ -1813,14 +1813,14 @@ void store(int r, SValue * v)
 }
 
 /* 'is_jmp' is '1' if it is a jump */
-static void gcall_or_jmp(int is_jmp)
+स्थिर शून्य gcall_or_jmp(पूर्णाङ्क is_jmp)
 {
-    int r;
+    पूर्णाङ्क r;
     Sym *sym;
 
-    if ((vtop->r & (VT_VALMASK | VT_LVAL)) == VT_CONST) {
+    यदि ((vtop->r & (VT_VALMASK | VT_LVAL)) == VT_CONST) {
 	/* constant case */
-	if (vtop->r & VT_SYM) {
+	यदि (vtop->r & VT_SYM) {
 	    /* relocation case */
 
 	    // get add into A0, then start the jump B3
@@ -1832,9 +1832,9 @@ static void gcall_or_jmp(int is_jmp)
 	    C67_MVKH(C67_A0, 0);	//r=reg to load, constant
 	    C67_IREG_B_REG(0, C67_CREG_ZERO, C67_A0);	//  B.S2x  A0
 
-	    if (is_jmp) {
+	    यदि (is_jmp) {
 		C67_NOP(5);	// simple jump, just put NOP
-	    } else {
+	    } अन्यथा {
 		// Call, must load return address into B3 during delay slots
 
 		sym = get_sym_ref(&char_pointer_type, cur_text_section, ind + 12, 0);	// symbol for return address
@@ -1844,18 +1844,18 @@ static void gcall_or_jmp(int is_jmp)
 		C67_MVKH(C67_B3, 0);	//r=reg to load, constant
 		C67_NOP(3);	// put remaining NOPs
 	    }
-	} else {
+	} अन्यथा {
 	    /* put an empty PC32 relocation */
 	    ALWAYS_ASSERT(FALSE);
 	}
-    } else {
+    } अन्यथा {
 	/* otherwise, indirect call */
 	r = gv(RC_INT);
 	C67_IREG_B_REG(0, C67_CREG_ZERO, r);	//  B.S2x  r
 
-	if (is_jmp) {
+	यदि (is_jmp) {
 	    C67_NOP(5);		// simple jump, just put NOP
-	} else {
+	} अन्यथा {
 	    // Call, must load return address into B3 during delay slots
 
 	    sym = get_sym_ref(&char_pointer_type, cur_text_section, ind + 12, 0);	// symbol for return address
@@ -1870,38 +1870,38 @@ static void gcall_or_jmp(int is_jmp)
 
 /* Return the number of registers needed to return the struct, or 0 if
    returning via struct pointer. */
-ST_FUNC int gfunc_sret(CType *vt, int variadic, CType *ret, int *ret_align, int *regsize) {
+ST_FUNC पूर्णाङ्क gfunc_sret(CType *vt, पूर्णाङ्क variadic, CType *ret, पूर्णाङ्क *ret_align, पूर्णाङ्क *regsize) {
     *ret_align = 1; // Never have to re-align return values for x86-64
-    return 0;
+    फर्काऊ 0;
 }
 
 /* generate function call with address in (vtop->t, vtop->c) and free function
    context. Stack entry is popped */
-void gfunc_call(int nb_args)
+शून्य gfunc_call(पूर्णाङ्क nb_args)
 {
-    int i, r, size = 0;
-    int args_sizes[NoCallArgsPassedOnStack];
+    पूर्णाङ्क i, r, size = 0;
+    पूर्णाङ्क args_sizes[No_Call_Args_Passed_On_थाक];
 
-    if (nb_args > NoCallArgsPassedOnStack) {
+    यदि (nb_args > No_Call_Args_Passed_On_थाक) {
 	tcc_error("more than 10 function params not currently supported");
 	// handle more than 10, put some on the stack
     }
 
-    for (i = 0; i < nb_args; i++) {
-	if ((vtop->type.t & VT_BTYPE) == VT_STRUCT) {
+    लागि (i = 0; i < nb_args; i++) {
+	यदि ((vtop->type.t & VT_BTYPE) == VT_STRUCT) {
 	    ALWAYS_ASSERT(FALSE);
-	} else {
+	} अन्यथा {
 	    /* simple type (currently always same size) */
 	    /* XXX: implicit cast ? */
 
 
-	    if ((vtop->type.t & VT_BTYPE) == VT_LLONG) {
+	    यदि ((vtop->type.t & VT_BTYPE) == VT_LLONG) {
 		tcc_error("long long not supported");
-	    } else if ((vtop->type.t & VT_BTYPE) == VT_LDOUBLE) {
+	    } अन्यथा यदि ((vtop->type.t & VT_BTYPE) == VT_LDOUBLE) {
 		tcc_error("long double not supported");
-	    } else if ((vtop->type.t & VT_BTYPE) == VT_DOUBLE) {
+	    } अन्यथा यदि ((vtop->type.t & VT_BTYPE) == VT_DOUBLE) {
 		size = 8;
-	    } else {
+	    } अन्यथा {
 		size = 4;
 	    }
 
@@ -1912,9 +1912,9 @@ void gfunc_call(int nb_args)
 	    // must put on stack because with 1 pass compiler , no way to tell
 	    // if an up coming nested call might overwrite these regs
 
-	    C67_PUSH(r);
+	    C67_थप(r);
 
-	    if (size == 8) {
+	    यदि (size == 8) {
 		C67_STW_PTR_PRE_INC(r + 1, C67_SP, 3);	// STW  r, *+SP[3] (go back and put the other)
 	    }
 	    args_sizes[i] = size;
@@ -1924,12 +1924,12 @@ void gfunc_call(int nb_args)
     // POP all the params on the stack into registers for the
     // immediate call (in reverse order)
 
-    for (i = nb_args - 1; i >= 0; i--) {
+    लागि (i = nb_args - 1; i >= 0; i--) {
 
-	if (args_sizes[i] == 8)
-	    C67_POP_DW(TREG_C67_A4 + i * 2);
-	else
-	    C67_POP(TREG_C67_A4 + i * 2);
+	यदि (args_sizes[i] == 8)
+	    C67_झिक_DW(TREG_C67_A4 + i * 2);
+	अन्यथा
+	    C67_झिक(TREG_C67_A4 + i * 2);
     }
     gcall_or_jmp(0);
     vtop--;
@@ -1946,10 +1946,10 @@ void gfunc_call(int nb_args)
 // parameters are loaded and restored upon return (or if/when needed).
 
 /* generate function prolog of type 't' */
-void gfunc_prolog(Sym *func_sym)
+शून्य gfunc_prolog(Sym *func_sym)
 {
     CType *func_type = &func_sym->type;
-    int addr, align, size, func_call, i;
+    पूर्णाङ्क addr, align, size, func_call, i;
     Sym *sym;
     CType *type;
 
@@ -1958,7 +1958,7 @@ void gfunc_prolog(Sym *func_sym)
     addr = 8;
     /* if the function returns a structure, then add an
        implicit pointer parameter */
-    if ((func_vt.t & VT_BTYPE) == VT_STRUCT) {
+    यदि ((func_vt.t & VT_BTYPE) == VT_STRUCT) {
 	func_vc = addr;
 	addr += 4;
     }
@@ -1966,7 +1966,7 @@ void gfunc_prolog(Sym *func_sym)
     NoOfCurFuncArgs = 0;
 
     /* define parameters */
-    while ((sym = sym->next) != NULL) {
+    जबसम्म ((sym = sym->next) != रिक्त) {
 	type = &sym->type;
 	gfunc_set_param(sym, addr, 0);
 	size = type_size(type, &align);
@@ -1976,12 +1976,12 @@ void gfunc_prolog(Sym *func_sym)
 	// we can translate where tcc thinks they
 	// are on the stack into the appropriate reg
 
-	TranslateStackToReg[NoOfCurFuncArgs] = size;
+	Translate_थाक_To_Reg[NoOfCurFuncArgs] = size;
 	NoOfCurFuncArgs++;
 
 #ifdef FUNC_STRUCT_PARAM_AS_PTR
 	/* structs are passed as pointer */
-	if ((type->t & VT_BTYPE) == VT_STRUCT) {
+	यदि ((type->t & VT_BTYPE) == VT_STRUCT) {
 	    size = 4;
 	}
 #endif
@@ -1989,7 +1989,7 @@ void gfunc_prolog(Sym *func_sym)
     }
     func_ret_sub = 0;
     /* pascal type call ? */
-    if (func_call == FUNC_STDCALL)
+    यदि (func_call == FUNC_STDCALL)
 	func_ret_sub = addr - 8;
 
     C67_MV(C67_FP, C67_A0);	//  move FP -> A0
@@ -1998,70 +1998,70 @@ void gfunc_prolog(Sym *func_sym)
     // place all the args passed in regs onto the stack
 
     loc = 0;
-    for (i = 0; i < NoOfCurFuncArgs; i++) {
+    लागि (i = 0; i < NoOfCurFuncArgs; i++) {
 
-	ParamLocOnStack[i] = loc;	// remember where the param is
+	Param_Loc_On_थाक[i] = loc;	// remember where the param is
 	loc += -8;
 
-	C67_PUSH(TREG_C67_A4 + i * 2);
+	C67_थप(TREG_C67_A4 + i * 2);
 
-	if (TranslateStackToReg[i] == 8) {
+	यदि (Translate_थाक_To_Reg[i] == 8) {
 	    C67_STW_PTR_PRE_INC(TREG_C67_A4 + i * 2 + 1, C67_SP, 3);	// STW  r, *+SP[1] (go back and put the other)
 	}
     }
 
-    TotalBytesPushedOnStack = -loc;
+    Total_Bytes_Pushed_On_थाक = -loc;
 
     func_sub_sp_offset = ind;	// remember where we put the stack instruction 
     C67_ADDK(0, C67_SP);	//  ADDK.L2 loc,SP  (just put zero temporarily)
 
-    C67_PUSH(C67_A0);
-    C67_PUSH(C67_B3);
+    C67_थप(C67_A0);
+    C67_थप(C67_B3);
 }
 
 /* generate function epilog */
-void gfunc_epilog(void)
+शून्य gfunc_epilog(शून्य)
 {
     {
-	int local = (-loc + 7) & -8;	// stack must stay aligned to 8 bytes for LDDW instr
-	C67_POP(C67_B3);
+	पूर्णाङ्क local = (-loc + 7) & -8;	// stack must stay aligned to 8 bytes for LDDW instr
+	C67_झिक(C67_B3);
 	C67_NOP(4);		// NOP wait for load
 	C67_IREG_B_REG(0, C67_CREG_ZERO, C67_B3);	//  B.S2  B3
-	C67_POP(C67_FP);
+	C67_झिक(C67_FP);
 	C67_ADDK(local, C67_SP);	//  ADDK.L2 loc,SP  
-	C67_Adjust_ADDK((int *) (cur_text_section->data +
+	C67_Adjust_ADDK((पूर्णाङ्क *) (cur_text_section->data +
 				 func_sub_sp_offset),
-			-local + TotalBytesPushedOnStack);
+			-local + Total_Bytes_Pushed_On_थाक);
 	C67_NOP(3);		// NOP 
     }
 }
 
-ST_FUNC void gen_fill_nops(int bytes)
+ST_FUNC शून्य gen_fill_nops(पूर्णाङ्क bytes)
 {
-    if ((bytes & 3))
+    यदि ((bytes & 3))
       tcc_error("alignment of code section not multiple of 4");
-    while (bytes > 0) {
+    जबसम्म (bytes > 0) {
 	C67_NOP(4);
 	bytes -= 4;
     }
 }
 
 /* generate a jump to a label */
-int gjmp(int t)
+पूर्णाङ्क gjmp(पूर्णाङ्क t)
 {
-    int ind1 = ind;
-    if (nocode_wanted)
-        return t;
+    पूर्णाङ्क ind1 = ind;
+    यदि (nocode_wanted)
+        फर्काऊ t;
 
     C67_MVKL(C67_A0, t);	//r=reg to load,  constant
     C67_MVKH(C67_A0, t);	//r=reg to load,  constant
     C67_IREG_B_REG(0, C67_CREG_ZERO, C67_A0);	// [!R] B.S2x  A0
     C67_NOP(5);
-    return ind1;
+    फर्काऊ ind1;
 }
 
 /* generate a jump to a fixed address */
-void gjmp_addr(int a)
+शून्य gjmp_addr(पूर्णाङ्क a)
 {
     Sym *sym;
     // I guess this routine is used for relative short
@@ -2078,12 +2078,12 @@ void gjmp_addr(int a)
 }
 
 /* generate a test. set 'inv' to invert test. Stack entry is popped */
-ST_FUNC int gjmp_cond(int op, int t)
+ST_FUNC पूर्णाङ्क gjmp_cond(पूर्णाङ्क op, पूर्णाङ्क t)
 {
-        int ind1;
-        int inv = op & 1;
-        if (nocode_wanted)
-            return t;
+        पूर्णाङ्क ind1;
+        पूर्णाङ्क inv = op & 1;
+        यदि (nocode_wanted)
+            फर्काऊ t;
 
 	/* fast case : can jump directly since flags are set */
 	// C67 uses B2 sort of as flags register
@@ -2091,7 +2091,7 @@ ST_FUNC int gjmp_cond(int op, int t)
 	C67_MVKL(C67_A0, t);	//r=reg to load, constant
 	C67_MVKH(C67_A0, t);	//r=reg to load, constant
 
-	if (C67_compare_reg != TREG_EAX &&	// check if not already in a conditional test reg
+	यदि (C67_compare_reg != TREG_EAX &&	// check if not already in a conditional test reg
 	    C67_compare_reg != TREG_EDX &&
 	    C67_compare_reg != TREG_ST0 && C67_compare_reg != C67_B2) {
 	    C67_MV(C67_compare_reg, C67_B2);
@@ -2102,20 +2102,20 @@ ST_FUNC int gjmp_cond(int op, int t)
 	C67_NOP(5);
 	t = ind1;		//return where we need to patch
 
-        return t;
+        फर्काऊ t;
 }
 
-ST_FUNC int gjmp_append(int n0, int t)
+ST_FUNC पूर्णाङ्क gjmp_append(पूर्णाङ्क n0, पूर्णाङ्क t)
 {
-    if (n0) {
-            int n = n0, *p;
+    यदि (n0) {
+            पूर्णाङ्क n = n0, *p;
 	    /* insert vtop->c jump list in t */
 
 	    // I guess the idea is to traverse to the
 	    // null at the end of the list and store t
 	    // there
-	    while (n != 0) {
-		p = (int *) (cur_text_section->data + n);
+	    जबसम्म (n != 0) {
+		p = (पूर्णाङ्क *) (cur_text_section->data + n);
 
 		// extract 32 bit address from MVKH/MVKL
 		n = ((*p >> 7) & 0xffff);
@@ -2125,17 +2125,17 @@ ST_FUNC int gjmp_append(int n0, int t)
 	    *(p + 1) |= ((t >> 16) & 0xffff) << 7;
 	    t = n0;
     }
-    return t;
+    फर्काऊ t;
 }
 
 /* generate an integer binary operation */
-void gen_opi(int op)
+शून्य gen_opi(पूर्णाङ्क op)
 {
-    int r, fr, opc, t;
+    पूर्णाङ्क r, fr, opc, t;
 
-    switch (op) {
-    case '+':
-    case TOK_ADDC1:		/* add with carry generation */
+    विकल्प (op) {
+    पक्ष '+':
+    पक्ष TOK_ADDC1:		/* add with carry generation */
 	opc = 0;
       gen_op8:
 
@@ -2145,9 +2145,9 @@ void gen_opi(int op)
 
 
 
-	if (op >= TOK_ULT && op <= TOK_GT)
+	यदि (op >= TOK_ULT && op <= TOK_GT)
 	    gv2(RC_INT_BSIDE, RC_INT);	// make sure r (src1) is on the B Side of CPU
-	else
+	अन्यथा
 	    gv2(RC_INT, RC_INT);
 
 	r = vtop[-1].r;
@@ -2156,106 +2156,106 @@ void gen_opi(int op)
 	C67_compare_reg = C67_B2;
 
 
-	if (op == TOK_LT) {
+	यदि (op == TOK_LT) {
 	    C67_CMPLT(r, fr, C67_B2);
 	    C67_invert_test = FALSE;
-	} else if (op == TOK_GE) {
+	} अन्यथा यदि (op == TOK_GE) {
 	    C67_CMPLT(r, fr, C67_B2);
 	    C67_invert_test = TRUE;
-	} else if (op == TOK_GT) {
+	} अन्यथा यदि (op == TOK_GT) {
 	    C67_CMPGT(r, fr, C67_B2);
 	    C67_invert_test = FALSE;
-	} else if (op == TOK_LE) {
+	} अन्यथा यदि (op == TOK_LE) {
 	    C67_CMPGT(r, fr, C67_B2);
 	    C67_invert_test = TRUE;
-	} else if (op == TOK_EQ) {
+	} अन्यथा यदि (op == TOK_EQ) {
 	    C67_CMPEQ(r, fr, C67_B2);
 	    C67_invert_test = FALSE;
-	} else if (op == TOK_NE) {
+	} अन्यथा यदि (op == TOK_NE) {
 	    C67_CMPEQ(r, fr, C67_B2);
 	    C67_invert_test = TRUE;
-	} else if (op == TOK_ULT) {
+	} अन्यथा यदि (op == TOK_ULT) {
 	    C67_CMPLTU(r, fr, C67_B2);
 	    C67_invert_test = FALSE;
-	} else if (op == TOK_UGE) {
+	} अन्यथा यदि (op == TOK_UGE) {
 	    C67_CMPLTU(r, fr, C67_B2);
 	    C67_invert_test = TRUE;
-	} else if (op == TOK_UGT) {
+	} अन्यथा यदि (op == TOK_UGT) {
 	    C67_CMPGTU(r, fr, C67_B2);
 	    C67_invert_test = FALSE;
-	} else if (op == TOK_ULE) {
+	} अन्यथा यदि (op == TOK_ULE) {
 	    C67_CMPGTU(r, fr, C67_B2);
 	    C67_invert_test = TRUE;
-	} else if (op == '+')
+	} अन्यथा यदि (op == '+')
 	    C67_ADD(fr, r);	// ADD  r,fr,r
-	else if (op == '-')
+	अन्यथा यदि (op == '-')
 	    C67_SUB(fr, r);	// SUB  r,fr,r
-	else if (op == '&')
+	अन्यथा यदि (op == '&')
 	    C67_AND(fr, r);	// AND  r,fr,r
-	else if (op == '|')
+	अन्यथा यदि (op == '|')
 	    C67_OR(fr, r);	// OR  r,fr,r
-	else if (op == '^')
+	अन्यथा यदि (op == '^')
 	    C67_XOR(fr, r);	// XOR  r,fr,r
-	else
+	अन्यथा
 	    ALWAYS_ASSERT(FALSE);
 
 	vtop--;
-	if (op >= TOK_ULT && op <= TOK_GT)
+	यदि (op >= TOK_ULT && op <= TOK_GT)
             vset_VT_CMP(0x80);
-	break;
-    case '-':
-    case TOK_SUBC1:		/* sub with carry generation */
+	रोक;
+    पक्ष '-':
+    पक्ष TOK_SUBC1:		/* sub with carry generation */
 	opc = 5;
-	goto gen_op8;
-    case TOK_ADDC2:		/* add with carry use */
+	गच्छ gen_op8;
+    पक्ष TOK_ADDC2:		/* add with carry use */
 	opc = 2;
-	goto gen_op8;
-    case TOK_SUBC2:		/* sub with carry use */
+	गच्छ gen_op8;
+    पक्ष TOK_SUBC2:		/* sub with carry use */
 	opc = 3;
-	goto gen_op8;
-    case '&':
+	गच्छ gen_op8;
+    पक्ष '&':
 	opc = 4;
-	goto gen_op8;
-    case '^':
+	गच्छ gen_op8;
+    पक्ष '^':
 	opc = 6;
-	goto gen_op8;
-    case '|':
+	गच्छ gen_op8;
+    पक्ष '|':
 	opc = 1;
-	goto gen_op8;
-    case '*':
-    case TOK_UMULL:
+	गच्छ gen_op8;
+    पक्ष '*':
+    पक्ष TOK_UMULL:
 	gv2(RC_INT, RC_INT);
 	r = vtop[-1].r;
 	fr = vtop[0].r;
 	vtop--;
 	C67_MPYI(fr, r);	// 32 bit multiply  fr,r,fr
 	C67_NOP(8);		// NOP 8 for worst case
-	break;
-    case TOK_SHL:
+	रोक;
+    पक्ष TOK_SHL:
 	gv2(RC_INT_BSIDE, RC_INT_BSIDE);	// shift amount must be on same side as dst
 	r = vtop[-1].r;
 	fr = vtop[0].r;
 	vtop--;
 	C67_SHL(fr, r);		// arithmetic/logical shift
-	break;
+	रोक;
 
-    case TOK_SHR:
+    पक्ष TOK_SHR:
 	gv2(RC_INT_BSIDE, RC_INT_BSIDE);	// shift amount must be on same side as dst
 	r = vtop[-1].r;
 	fr = vtop[0].r;
 	vtop--;
 	C67_SHRU(fr, r);	// logical shift
-	break;
+	रोक;
 
-    case TOK_SAR:
+    पक्ष TOK_SAR:
 	gv2(RC_INT_BSIDE, RC_INT_BSIDE);	// shift amount must be on same side as dst
 	r = vtop[-1].r;
 	fr = vtop[0].r;
 	vtop--;
 	C67_SHR(fr, r);		// arithmetic shift
-	break;
+	रोक;
 
-    case '/':
+    पक्ष '/':
 	t = TOK__divi;
       call_func:
 	vswap();
@@ -2266,34 +2266,34 @@ void gen_opi(int op)
 	vpushi(0);
 	vtop->r = REG_IRET;
 	vtop->r2 = VT_CONST;
-	break;
-    case TOK_UDIV:
-    case TOK_PDIV:
+	रोक;
+    पक्ष TOK_UDIV:
+    पक्ष TOK_PDIV:
 	t = TOK__divu;
-	goto call_func;
-    case '%':
+	गच्छ call_func;
+    पक्ष '%':
 	t = TOK__remi;
-	goto call_func;
-    case TOK_UMOD:
+	गच्छ call_func;
+    पक्ष TOK_UMOD:
 	t = TOK__remu;
-	goto call_func;
+	गच्छ call_func;
 
-    default:
+    स्वभाव:
 	opc = 7;
-	goto gen_op8;
+	गच्छ gen_op8;
     }
 }
 
 /* generate a floating point operation 'v = t1 op t2' instruction. The
    two operands are guaranteed to have the same floating point type */
 /* XXX: need to use ST1 too */
-void gen_opf(int op)
+शून्य gen_opf(पूर्णाङ्क op)
 {
-    int ft, fc, fr, r;
+    पूर्णाङ्क ft, fc, fr, r;
 
-    if (op >= TOK_ULT && op <= TOK_GT)
+    यदि (op >= TOK_ULT && op <= TOK_GT)
 	gv2(RC_EDX, RC_EAX);	// make sure src2 is on b side
-    else
+    अन्यथा
 	gv2(RC_FLOAT, RC_FLOAT);	// make sure src2 is on b side
 
     ft = vtop->type.t;
@@ -2302,92 +2302,92 @@ void gen_opf(int op)
     fr = vtop[-1].r;
 
 
-    if ((ft & VT_BTYPE) == VT_LDOUBLE)
+    यदि ((ft & VT_BTYPE) == VT_LDOUBLE)
 	tcc_error("long doubles not supported");
 
-    if (op >= TOK_ULT && op <= TOK_GT) {
+    यदि (op >= TOK_ULT && op <= TOK_GT) {
 
 	r = vtop[-1].r;
 	fr = vtop[0].r;
 
 	C67_compare_reg = C67_B2;
 
-	if (op == TOK_LT) {
-	    if ((ft & VT_BTYPE) == VT_DOUBLE)
+	यदि (op == TOK_LT) {
+	    यदि ((ft & VT_BTYPE) == VT_DOUBLE)
 		C67_CMPLTDP(r, fr, C67_B2);
-	    else
+	    अन्यथा
 		C67_CMPLTSP(r, fr, C67_B2);
 
 	    C67_invert_test = FALSE;
-	} else if (op == TOK_GE) {
-	    if ((ft & VT_BTYPE) == VT_DOUBLE)
+	} अन्यथा यदि (op == TOK_GE) {
+	    यदि ((ft & VT_BTYPE) == VT_DOUBLE)
 		C67_CMPLTDP(r, fr, C67_B2);
-	    else
+	    अन्यथा
 		C67_CMPLTSP(r, fr, C67_B2);
 
 	    C67_invert_test = TRUE;
-	} else if (op == TOK_GT) {
-	    if ((ft & VT_BTYPE) == VT_DOUBLE)
+	} अन्यथा यदि (op == TOK_GT) {
+	    यदि ((ft & VT_BTYPE) == VT_DOUBLE)
 		C67_CMPGTDP(r, fr, C67_B2);
-	    else
+	    अन्यथा
 		C67_CMPGTSP(r, fr, C67_B2);
 
 	    C67_invert_test = FALSE;
-	} else if (op == TOK_LE) {
-	    if ((ft & VT_BTYPE) == VT_DOUBLE)
+	} अन्यथा यदि (op == TOK_LE) {
+	    यदि ((ft & VT_BTYPE) == VT_DOUBLE)
 		C67_CMPGTDP(r, fr, C67_B2);
-	    else
+	    अन्यथा
 		C67_CMPGTSP(r, fr, C67_B2);
 
 	    C67_invert_test = TRUE;
-	} else if (op == TOK_EQ) {
-	    if ((ft & VT_BTYPE) == VT_DOUBLE)
+	} अन्यथा यदि (op == TOK_EQ) {
+	    यदि ((ft & VT_BTYPE) == VT_DOUBLE)
 		C67_CMPEQDP(r, fr, C67_B2);
-	    else
+	    अन्यथा
 		C67_CMPEQSP(r, fr, C67_B2);
 
 	    C67_invert_test = FALSE;
-	} else if (op == TOK_NE) {
-	    if ((ft & VT_BTYPE) == VT_DOUBLE)
+	} अन्यथा यदि (op == TOK_NE) {
+	    यदि ((ft & VT_BTYPE) == VT_DOUBLE)
 		C67_CMPEQDP(r, fr, C67_B2);
-	    else
+	    अन्यथा
 		C67_CMPEQSP(r, fr, C67_B2);
 
 	    C67_invert_test = TRUE;
-	} else {
+	} अन्यथा {
 	    ALWAYS_ASSERT(FALSE);
 	}
         vset_VT_CMP(0x80);
-    } else {
-	if (op == '+') {
-	    if ((ft & VT_BTYPE) == VT_DOUBLE) {
+    } अन्यथा {
+	यदि (op == '+') {
+	    यदि ((ft & VT_BTYPE) == VT_DOUBLE) {
 		C67_ADDDP(r, fr);	// ADD  fr,r,fr
 		C67_NOP(6);
-	    } else {
+	    } अन्यथा {
 		C67_ADDSP(r, fr);	// ADD  fr,r,fr
 		C67_NOP(3);
 	    }
 	    vtop--;
-	} else if (op == '-') {
-	    if ((ft & VT_BTYPE) == VT_DOUBLE) {
+	} अन्यथा यदि (op == '-') {
+	    यदि ((ft & VT_BTYPE) == VT_DOUBLE) {
 		C67_SUBDP(r, fr);	// SUB  fr,r,fr
 		C67_NOP(6);
-	    } else {
+	    } अन्यथा {
 		C67_SUBSP(r, fr);	// SUB  fr,r,fr
 		C67_NOP(3);
 	    }
 	    vtop--;
-	} else if (op == '*') {
-	    if ((ft & VT_BTYPE) == VT_DOUBLE) {
+	} अन्यथा यदि (op == '*') {
+	    यदि ((ft & VT_BTYPE) == VT_DOUBLE) {
 		C67_MPYDP(r, fr);	// MPY  fr,r,fr
 		C67_NOP(9);
-	    } else {
+	    } अन्यथा {
 		C67_MPYSP(r, fr);	// MPY  fr,r,fr
 		C67_NOP(3);
 	    }
 	    vtop--;
-	} else if (op == '/') {
-	    if ((ft & VT_BTYPE) == VT_DOUBLE) {
+	} अन्यथा यदि (op == '/') {
+	    यदि ((ft & VT_BTYPE) == VT_DOUBLE) {
 		// must call intrinsic DP floating point divide
 		vswap();
 		/* call generic idiv function */
@@ -2398,7 +2398,7 @@ void gen_opf(int op)
 		vtop->r = REG_FRET;
 		vtop->r2 = REG_IRE2;
 
-	    } else {
+	    } अन्यथा {
 		// must call intrinsic SP floating point divide
 		vswap();
 		/* call generic idiv function */
@@ -2409,7 +2409,7 @@ void gen_opf(int op)
 		vtop->r = REG_FRET;
 		vtop->r2 = VT_CONST;
 	    }
-	} else
+	} अन्यथा
 	    ALWAYS_ASSERT(FALSE);
 
 
@@ -2419,25 +2419,25 @@ void gen_opf(int op)
 
 /* convert integers to fp 't' type. Must handle 'int', 'unsigned int'
    and 'long long' cases. */
-void gen_cvt_itof(int t)
+शून्य gen_cvt_itof(पूर्णाङ्क t)
 {
-    int r;
+    पूर्णाङ्क r;
 
     gv(RC_INT);
     r = vtop->r;
 
-    if ((t & VT_BTYPE) == VT_DOUBLE) {
-	if (t & VT_UNSIGNED)
+    यदि ((t & VT_BTYPE) == VT_DOUBLE) {
+	यदि (t & VT_UNSIGNED)
 	    C67_INTDPU(r, r);
-	else
+	अन्यथा
 	    C67_INTDP(r, r);
 
 	C67_NOP(4);
 	vtop->type.t = VT_DOUBLE;
-    } else {
-	if (t & VT_UNSIGNED)
+    } अन्यथा {
+	यदि (t & VT_UNSIGNED)
 	    C67_INTSPU(r, r);
-	else
+	अन्यथा
 	    C67_INTSP(r, r);
 	C67_NOP(3);
 	vtop->type.t = VT_FLOAT;
@@ -2447,20 +2447,20 @@ void gen_cvt_itof(int t)
 
 /* convert fp to int 't' type */
 /* XXX: handle long long case */
-void gen_cvt_ftoi(int t)
+शून्य gen_cvt_ftoi(पूर्णाङ्क t)
 {
-    int r;
+    पूर्णाङ्क r;
 
     gv(RC_FLOAT);
     r = vtop->r;
 
-    if (t != VT_INT)
+    यदि (t != VT_INT)
 	tcc_error("long long not supported");
-    else {
-	if ((vtop->type.t & VT_BTYPE) == VT_DOUBLE) {
+    अन्यथा {
+	यदि ((vtop->type.t & VT_BTYPE) == VT_DOUBLE) {
 	    C67_DPTRUNC(r, r);
 	    C67_NOP(3);
-	} else {
+	} अन्यथा {
 	    C67_SPTRUNC(r, r);
 	    C67_NOP(3);
 	}
@@ -2471,11 +2471,11 @@ void gen_cvt_ftoi(int t)
 }
 
 /* convert from one floating point type to another */
-void gen_cvt_ftof(int t)
+शून्य gen_cvt_ftof(पूर्णाङ्क t)
 {
-    int r, r2;
+    पूर्णाङ्क r, r2;
 
-    if ((vtop->type.t & VT_BTYPE) == VT_DOUBLE &&
+    यदि ((vtop->type.t & VT_BTYPE) == VT_DOUBLE &&
 	(t & VT_BTYPE) == VT_FLOAT) {
 	// convert double to float
 
@@ -2488,7 +2488,7 @@ void gen_cvt_ftof(int t)
 
 	vtop->type.t = VT_FLOAT;
 	vtop->r2 = VT_CONST;	// set this as unused
-    } else if ((vtop->type.t & VT_BTYPE) == VT_FLOAT &&
+    } अन्यथा यदि ((vtop->type.t & VT_BTYPE) == VT_FLOAT &&
 	       (t & VT_BTYPE) == VT_DOUBLE) {
 	// convert float to double
 
@@ -2496,11 +2496,11 @@ void gen_cvt_ftof(int t)
 
 	r = vtop->r;
 
-	if (r == TREG_EAX) {	// make sure the paired reg is avail
+	यदि (r == TREG_EAX) {	// make sure the paired reg is avail
 	    r2 = get_reg(RC_ECX);
-	} else if (r == TREG_EDX) {
+	} अन्यथा यदि (r == TREG_EDX) {
 	    r2 = get_reg(RC_ST0);
-	} else {
+	} अन्यथा {
 	    ALWAYS_ASSERT(FALSE);
             r2 = 0; /* avoid warning */
         }
@@ -2510,30 +2510,30 @@ void gen_cvt_ftof(int t)
 
 	vtop->type.t = VT_DOUBLE;
 	vtop->r2 = r2;		// set this as unused
-    } else {
+    } अन्यथा {
 	ALWAYS_ASSERT(FALSE);
     }
 }
 
 /* computed goto support */
-void ggoto(void)
+शून्य ggoto(शून्य)
 {
     gcall_or_jmp(1);
     vtop--;
 }
 
 /* Save the stack pointer onto the stack and return the location of its address */
-ST_FUNC void gen_vla_sp_save(int addr) {
+ST_FUNC शून्य gen_vla_sp_save(पूर्णाङ्क addr) {
     tcc_error("variable length arrays unsupported for this target");
 }
 
 /* Restore the SP from a location on the stack */
-ST_FUNC void gen_vla_sp_restore(int addr) {
+ST_FUNC शून्य gen_vla_sp_restore(पूर्णाङ्क addr) {
     tcc_error("variable length arrays unsupported for this target");
 }
 
 /* Subtract from the stack pointer, and push the resulting value onto the stack */
-ST_FUNC void gen_vla_alloc(CType *type, int align) {
+ST_FUNC शून्य gen_vla_alloc(CType *type, पूर्णाङ्क align) {
     tcc_error("variable length arrays unsupported for this target");
 }
 

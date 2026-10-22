@@ -7,46 +7,46 @@ each of the operands. The type of the result is that of the promoted
 left operand."
 */
 
-#include <stdio.h>
+#अन्तर्भाव <stdio.h>
 
-#define PTYPE(M) ((M) < 0 || -(M) < 0 ? -1 : 1) * (int) sizeof((M)+0)
+#define PTYPE(M) ((M) < 0 || -(M) < 0 ? -1 : 1) * (पूर्णाङ्क) परिमाण((M)+0)
 #define CHECK(X,T) check(#X, PTYPE(X), PTYPE((X) << (T) 1))
-#define TEST1(X,T) do { CHECK(X,T); CHECK(X,unsigned T); } while (0)
+#define TEST1(X,T) गर { CHECK(X,T); CHECK(X,अचिन्हित T); } जबसम्म (0)
 #define TEST2(X)                 \
-  do                             \
+  गर                             \
     {                            \
-      TEST1((X),short);          \
-      TEST1((X),int);            \
-      TEST1((X),long);           \
-      TEST1((X),long long);      \
+      TEST1((X),लघु);          \
+      TEST1((X),पूर्णाङ्क);            \
+      TEST1((X),दीर्घ);           \
+      TEST1((X),दीर्घ दीर्घ);      \
     }                            \
-  while (0)
-#define TEST3(X,T) do { TEST2((T)(X)); TEST2((unsigned T)(X)); } while (0)
+  जबसम्म (0)
+#define TEST3(X,T) गर { TEST2((T)(X)); TEST2((अचिन्हित T)(X)); } जबसम्म (0)
 #define TEST4(X)                 \
-  do                             \
+  गर                             \
     {                            \
-      TEST3((X),short);          \
-      TEST3((X),int);            \
-      TEST3((X),long);           \
-      TEST3((X),long long);      \
+      TEST3((X),लघु);          \
+      TEST3((X),पूर्णाङ्क);            \
+      TEST3((X),दीर्घ);           \
+      TEST3((X),दीर्घ दीर्घ);      \
     }                            \
- while (0)
+ जबसम्म (0)
 
-static int debug, nfailed = 0;
+स्थिर पूर्णाङ्क debug, nfailed = 0;
 
-static void check (const char *s, int arg1, int shift)
+स्थिर शून्य check (अचर वर्ण *s, पूर्णाङ्क arg1, पूर्णाङ्क shift)
 {
-  int failed = arg1 != shift;
-  if (debug || failed)
-    printf ("%s %d %d\n", s, arg1, shift);
+  पूर्णाङ्क failed = arg1 != shift;
+  यदि (debug || failed)
+    म_लिखो ("%s %d %d\n", s, arg1, shift);
   nfailed += failed;
 }
 
-int main (int argc, char **argv)
+पूर्णाङ्क main (पूर्णाङ्क argc, वर्ण **argv)
 {
   debug = argc > 1;
   TEST4(1);
   TEST4(-1);
-  printf ("%d test(s) failed\n", nfailed);
-  return nfailed != 0;
+  म_लिखो ("%d test(s) failed\n", nfailed);
+  फर्काऊ nfailed != 0;
 }

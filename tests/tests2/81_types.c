@@ -1,55 +1,55 @@
 /* The following are all valid decls, even though some subtypes
    are incomplete.  */
-enum E *e;
-const enum E *e1;
-enum E const *e2;
-struct S *s;
-const struct S *s1;
-struct S const *s2;
+गणना E *e;
+अचर गणना E *e1;
+गणना E अचर *e2;
+संरचना S *s;
+अचर संरचना S *s1;
+संरचना S अचर *s2;
 
 /* Various strangely looking declarators, which are all valid
    and have to map to the same numbered typedefs. */
-typedef int (*fptr1)();
-int f1 (int (), int);
-typedef int (*fptr2)(int x);
-int f2 (int (int x), int);
-typedef int (*fptr3)(int);
-int f3 (int (int), int);
-typedef int (*fptr4[4])(int);
-int f4 (int (*[4])(int), int);
-typedef int (*fptr5)(fptr1);
-int f5 (int (int()), fptr1);
-int f1 (fptr1 fp, int i)
+प्रकारनिर्देश पूर्णाङ्क (*fptr1)();
+पूर्णाङ्क f1 (पूर्णाङ्क (), पूर्णाङ्क);
+प्रकारनिर्देश पूर्णाङ्क (*fptr2)(पूर्णाङ्क x);
+पूर्णाङ्क f2 (पूर्णाङ्क (पूर्णाङ्क x), पूर्णाङ्क);
+प्रकारनिर्देश पूर्णाङ्क (*fptr3)(पूर्णाङ्क);
+पूर्णाङ्क f3 (पूर्णाङ्क (पूर्णाङ्क), पूर्णाङ्क);
+प्रकारनिर्देश पूर्णाङ्क (*fptr4[4])(पूर्णाङ्क);
+पूर्णाङ्क f4 (पूर्णाङ्क (*[4])(पूर्णाङ्क), पूर्णाङ्क);
+प्रकारनिर्देश पूर्णाङ्क (*fptr5)(fptr1);
+पूर्णाङ्क f5 (पूर्णाङ्क (पूर्णाङ्क()), fptr1);
+पूर्णाङ्क f1 (fptr1 fp, पूर्णाङ्क i)
 {
-  return (*fp)(i);
+  फर्काऊ (*fp)(i);
 }
-int f2 (fptr2 fp, int i)
+पूर्णाङ्क f2 (fptr2 fp, पूर्णाङ्क i)
 {
-  return (*fp)(i);
+  फर्काऊ (*fp)(i);
 }
-int f3 (fptr3 fp, int i)
+पूर्णाङ्क f3 (fptr3 fp, पूर्णाङ्क i)
 {
-  return (*fp)(i);
+  फर्काऊ (*fp)(i);
 }
-int f4 (fptr4 fp, int i)
+पूर्णाङ्क f4 (fptr4 fp, पूर्णाङ्क i)
 {
-  return (*fp[i])(i);
+  फर्काऊ (*fp[i])(i);
 }
-int f5 (fptr5 fp, fptr1 i)
+पूर्णाङ्क f5 (fptr5 fp, fptr1 i)
 {
-  return fp(i);
+  फर्काऊ fp(i);
 }
-typedef int intx4[4];
-int f8 (intx4, int);
-int f8 (int ([4]), int);
-int f8 (int y[4], int i)
+प्रकारनिर्देश पूर्णाङ्क intx4[4];
+पूर्णाङ्क f8 (intx4, पूर्णाङ्क);
+पूर्णाङ्क f8 (पूर्णाङ्क ([4]), पूर्णाङ्क);
+पूर्णाङ्क f8 (पूर्णाङ्क y[4], पूर्णाङ्क i)
 {
-  return y[i];
+  फर्काऊ y[i];
 }
-int f9 (int (*)(int), int);
-int f9 (int ((int)), int);
-int f9 (int f(int), int i)
+पूर्णाङ्क f9 (पूर्णाङ्क (*)(पूर्णाङ्क), पूर्णाङ्क);
+पूर्णाङ्क f9 (पूर्णाङ्क ((पूर्णाङ्क)), पूर्णाङ्क);
+पूर्णाङ्क f9 (पूर्णाङ्क f(पूर्णाङ्क), पूर्णाङ्क i)
 {
-  return f(i);
+  फर्काऊ f(i);
 }
-int main () { return 0; }
+पूर्णाङ्क main () { फर्काऊ 0; }

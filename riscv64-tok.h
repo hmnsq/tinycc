@@ -255,7 +255,7 @@
  DEF_ASM(mulh)
  DEF_ASM(mulhsu)
  DEF_ASM(mulhu)
- DEF_ASM(div)
+ DEF_ASM(भाग)
  DEF_ASM(divu)
  DEF_ASM(rem)
  DEF_ASM(remu)
@@ -398,7 +398,7 @@
  DEF_ASM(fflags)
  DEF_ASM(frm)
  DEF_ASM(instret)
- DEF_ASM(time)
+ DEF_ASM(समय)
  /* RV32I-only */
  DEF_ASM(cycleh)
  DEF_ASM(instreth)
@@ -437,8 +437,8 @@
  DEF_ASM(bltz)
  DEF_ASM(bnez)
  DEF_ASM(call)
- DEF_ASM_WITH_SUFFIX(fabs, d)
- DEF_ASM_WITH_SUFFIX(fabs, s)
+ DEF_ASM_WITH_SUFFIX(भ_असल, d)
+ DEF_ASM_WITH_SUFFIX(भ_असल, s)
  DEF_ASM(fld)
  DEF_ASM(flw)
  DEF_ASM_WITH_SUFFIX(fmv, d)
@@ -474,8 +474,8 @@
  DEF_ASM(nopic)
  DEF_ASM(relax)
  DEF_ASM(norelax)
- DEF_ASM(push)
- DEF_ASM(pop)
+ DEF_ASM(थप)
+ DEF_ASM(झिक)
 
 /* “A” Standard Extension for Atomic Instructions, Version 2.1 */
  /* XXX: Atomic memory operations */

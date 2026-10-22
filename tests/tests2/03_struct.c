@@ -1,38 +1,38 @@
-extern int printf(const char*, ...);
+बाह्य पूर्णाङ्क म_लिखो(अचर वर्ण*, ...);
 
-struct fred;
+संरचना fred;
 
-void fred$(struct fred* this)
+शून्य fred$(संरचना fred* this)
 {
-    printf("~fred()\n");
+    म_लिखो("~fred()\n");
 }
 
-struct __attribute__((__cleanup__(fred$))) fred
+संरचना __attribute__((__cleanup__(fred$))) fred
 {
-   int boris;
-   int natasha;
+   पूर्णाङ्क boris;
+   पूर्णाङ्क natasha;
 };
 
-int main()
+पूर्णाङ्क main()
 {
-    struct fred  __attribute__((__cleanup__(fred$))) bloggs;
+    संरचना fred  __attribute__((__cleanup__(fred$))) bloggs;
 
    bloggs.boris = 12;
    bloggs.natasha = 34;
 
-   printf("%d\n", bloggs.boris);
-   printf("%d\n", bloggs.natasha);
+   म_लिखो("%d\n", bloggs.boris);
+   म_लिखो("%d\n", bloggs.natasha);
 
-   struct fred jones[2];
+   संरचना fred jones[2];
    jones[0].boris = 12;
    jones[0].natasha = 34;
    jones[1].boris = 56;
    jones[1].natasha = 78;
 
-   printf("%d\n", jones[0].boris);
-   printf("%d\n", jones[0].natasha);
-   printf("%d\n", jones[1].boris);
-   printf("%d\n", jones[1].natasha);
+   म_लिखो("%d\n", jones[0].boris);
+   म_लिखो("%d\n", jones[0].natasha);
+   म_लिखो("%d\n", jones[1].boris);
+   म_लिखो("%d\n", jones[1].natasha);
 
-   return 0;
+   फर्काऊ 0;
 }

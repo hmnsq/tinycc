@@ -1,20 +1,20 @@
-#include <stddef.h>
-#include <stdint.h>
-#include <stdlib.h>
-#include <stdio.h>
-#include "threads.h"
-#include <stdatomic.h>
+#अन्तर्भाव <stddef.h>
+#अन्तर्भाव <stdint.h>
+#अन्तर्भाव <stdlib.h>
+#अन्तर्भाव <stdio.h>
+#अन्तर्भाव "threads.h"
+#अन्तर्भाव <stdatomic.h>
 
 #define NR_THREADS 16
 #define NR_STEPS 10000
 
 #define BUG_ON(COND) \
-    do { \
-        if (!!(COND)) \
-            abort(); \
-    } while (0)
+    गर { \
+        यदि (!!(COND)) \
+            पात(); \
+    } जबसम्म (0)
 
-typedef struct {
+प्रकारनिर्देश संरचना {
     atomic_flag flag;
     atomic_uchar uc;
     atomic_ushort us;
@@ -22,67 +22,67 @@ typedef struct {
     atomic_size_t ul;
 } counter_type;
 
-static
-void *adder_simple(void *arg)
+स्थिर
+शून्य *adder_simple(शून्य *arg)
 {
-    size_t step;
+    माप_प्रकार step;
     counter_type *counter = arg;
 
-    for (step = 0; step < NR_STEPS; ++step) {
+    लागि (step = 0; step < NR_STEPS; ++step) {
         atomic_fetch_add_explicit(&counter->uc, 1, memory_order_relaxed);
         atomic_fetch_add_explicit(&counter->us, 1, memory_order_relaxed);
         atomic_fetch_add_explicit(&counter->ui, 1, memory_order_relaxed);
         atomic_fetch_add_explicit(&counter->ul, 1, memory_order_relaxed);
     }
 
-    return NULL;
+    फर्काऊ रिक्त;
 }
 
-static
-void *adder_cmpxchg(void *arg)
+स्थिर
+शून्य *adder_cmpxchg(शून्य *arg)
 {
-    size_t step;
+    माप_प्रकार step;
     counter_type *counter = arg;
 
-    for (step = 0; step < NR_STEPS; ++step) {
-        unsigned char xchgc;
-        unsigned short xchgs;
-        unsigned int xchgi;
-        size_t xchgl;
-        unsigned char cmpc = atomic_load_explicit(&counter->uc, memory_order_relaxed);
-        unsigned short cmps = atomic_load_explicit(&counter->us, memory_order_relaxed);
-        unsigned int cmpi = atomic_load_explicit(&counter->ui, memory_order_relaxed);
-        size_t cmpl = atomic_load_explicit(&counter->ul, memory_order_relaxed);
+    लागि (step = 0; step < NR_STEPS; ++step) {
+        अचिन्हित वर्ण xchgc;
+        अचिन्हित लघु xchgs;
+        अचिन्हित पूर्णाङ्क xchgi;
+        माप_प्रकार xchgl;
+        अचिन्हित वर्ण cmpc = atomic_load_explicit(&counter->uc, memory_order_relaxed);
+        अचिन्हित लघु cmps = atomic_load_explicit(&counter->us, memory_order_relaxed);
+        अचिन्हित पूर्णाङ्क cmpi = atomic_load_explicit(&counter->ui, memory_order_relaxed);
+        माप_प्रकार cmpl = atomic_load_explicit(&counter->ul, memory_order_relaxed);
 
-        do {
+        गर {
             xchgc = (cmpc + 1);
-        } while (!atomic_compare_exchange_strong_explicit(&counter->uc,
+        } जबसम्म (!atomic_compare_exchange_strong_explicit(&counter->uc,
             &cmpc, xchgc, memory_order_relaxed, memory_order_relaxed));
-        do {
+        गर {
             xchgs = (cmps + 1);
-        } while (!atomic_compare_exchange_strong_explicit(&counter->us,
+        } जबसम्म (!atomic_compare_exchange_strong_explicit(&counter->us,
             &cmps, xchgs, memory_order_relaxed, memory_order_relaxed));
-        do {
+        गर {
             xchgi = (cmpi + 1);
-        } while (!atomic_compare_exchange_strong_explicit(&counter->ui,
+        } जबसम्म (!atomic_compare_exchange_strong_explicit(&counter->ui,
             &cmpi, xchgi, memory_order_relaxed, memory_order_relaxed));
-        do {
+        गर {
             xchgl = (cmpl + 1);
-        } while (!atomic_compare_exchange_strong_explicit(&counter->ul,
+        } जबसम्म (!atomic_compare_exchange_strong_explicit(&counter->ul,
             &cmpl, xchgl, memory_order_relaxed, memory_order_relaxed));
     }
 
-    return NULL;
+    फर्काऊ रिक्त;
 }
 
-static
-void *adder_test_and_set(void *arg)
+स्थिर
+शून्य *adder_test_and_set(शून्य *arg)
 {
-    size_t step;
+    माप_प्रकार step;
     counter_type *counter = arg;
 
-    for (step = 0; step < NR_STEPS; ++step) {
-        while (atomic_flag_test_and_set(&counter->flag));
+    लागि (step = 0; step < NR_STEPS; ++step) {
+        जबसम्म (atomic_flag_test_and_set(&counter->flag));
         ++counter->uc;
         ++counter->us;
         ++counter->ui;
@@ -90,13 +90,13 @@ void *adder_test_and_set(void *arg)
         atomic_flag_clear(&counter->flag);
     }
 
-    return NULL;
+    फर्काऊ रिक्त;
 }
 
-static
-void atomic_counter_test(void *(*adder)(void *arg))
+स्थिर
+शून्य atomic_counter_test(शून्य *(*adder)(शून्य *arg))
 {
-    size_t index;
+    माप_प्रकार index;
     counter_type counter;
     pthread_t thread[NR_THREADS];
 
@@ -106,27 +106,27 @@ void atomic_counter_test(void *(*adder)(void *arg))
     atomic_init(&counter.ui, 0);
     atomic_init(&counter.ul, 0);
 
-    for (index = 0; index < NR_THREADS; ++index)
-        BUG_ON(pthread_create(&thread[index], NULL, adder, (void *)&counter));
+    लागि (index = 0; index < NR_THREADS; ++index)
+        BUG_ON(pthread_create(&thread[index], रिक्त, adder, (शून्य *)&counter));
 
-    for (index = 0; index < NR_THREADS; ++index)
-        BUG_ON(pthread_join(thread[index], NULL));
+    लागि (index = 0; index < NR_THREADS; ++index)
+        BUG_ON(pthread_join(thread[index], रिक्त));
 
-    if (atomic_load(&counter.uc) == ((NR_THREADS * NR_STEPS) & 0xffu)
+    यदि (atomic_load(&counter.uc) == ((NR_THREADS * NR_STEPS) & 0xffu)
         && atomic_load(&counter.us) == ((NR_THREADS * NR_STEPS) & 0xffffu)
         && atomic_load(&counter.ui) == (NR_THREADS * NR_STEPS)
         && atomic_load(&counter.ul) == (NR_THREADS * NR_STEPS)
         )
-        printf("SUCCESS\n");
-    else
-        printf("FAILURE\n");
+        म_लिखो("SUCCESS\n");
+    अन्यथा
+        म_लिखो("FAILURE\n");
 }
 
-int main(void)
+पूर्णाङ्क main(शून्य)
 {
     atomic_counter_test(adder_simple);
     atomic_counter_test(adder_cmpxchg);
     atomic_counter_test(adder_test_and_set);
 
-    return 0;
+    फर्काऊ 0;
 }

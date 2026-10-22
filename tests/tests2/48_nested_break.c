@@ -1,26 +1,26 @@
-#include <stdio.h>
+#अन्तर्भाव <stdio.h>
 
-int main()
+पूर्णाङ्क main()
 {
-   int a;
-   char b;
+   पूर्णाङ्क a;
+   वर्ण b;
 
    a = 0;
-   while (a < 2)
+   जबसम्म (a < 2)
    {
-      printf("%d", a++);
-      break;
+      म_लिखो("%d", a++);
+      रोक;
 
       b = 'A';
-      while (b < 'C')
+      जबसम्म (b < 'C')
       {
-         printf("%c", b++);
+         म_लिखो("%c", b++);
       }
-      printf("e");
+      म_लिखो("e");
    }
-   printf("\n");
+   म_लिखो("\n");
 
-   return 0;
+   फर्काऊ 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

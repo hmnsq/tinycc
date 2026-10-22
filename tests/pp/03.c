@@ -1,15 +1,15 @@
 #define str(s) # s
 #define xstr(s) str(s)
-#define debug(s, t) printf("x" # s "= %d, x" # t "= %s", \
+#define debug(s, t) म_लिखो("x" # s "= %d, x" # t "= %s", \
 	x ## s, x ## t)
 #define INCFILE(n) vers ## n
 #define glue(a, b) a ## b
 #define xglue(a, b) glue(a, b)
 #define HIGHLOW "hello"
-#define LOW LOW ", world"
+#define तल्लो_2 तल्लो_2 ", world"
 debug(1, 2);
-fputs(str(strncmp("abc\0d", "abc", '\4') // this goes away
+ख_माला_दो(str(म_भेदन("abc\0d", "abc", '\4') // this goes away
 	== 0) str(: @\n), s);
-\#include xstr(INCFILE(2).h)
-glue(HIGH, LOW);
-xglue(HIGH, LOW)
+\#अन्तर्भाव xstr(INCFILE(2).h)
+glue(माथिल्लो_2, तल्लो_2);
+xglue(माथिल्लो_2, तल्लो_2)

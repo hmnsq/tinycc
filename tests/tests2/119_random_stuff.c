@@ -1,138 +1,138 @@
-#include <stdio.h>
+#अन्तर्भाव <stdio.h>
 
-struct big_struct { char a[262144]; };
+संरचना big_struct { वर्ण a[262144]; };
 
-static const char str[] = "abcdefghijklmnopqrstuvwxyz";
+स्थिर अचर वर्ण str[] = "abcdefghijklmnopqrstuvwxyz";
 
-void tst_branch(void)
+शून्य tst_branch(शून्य)
 {
-  printf("tst_branch --");
-  goto *&&a; 
-  printf (" dummy");
+  म_लिखो("tst_branch --");
+  गच्छ *&&a; 
+  म_लिखो (" dummy");
 a: ;
-  printf(" --\n");
+  म_लिखो(" --\n");
 }
 
-void tst_void_ptr(void *pv, int i) 
+शून्य tst_void_ptr(शून्य *pv, पूर्णाङ्क i) 
 {
   i ? *pv : *pv; // dr106
 }
 
-void tst_shift(void)
+शून्य tst_shift(शून्य)
 {
-  int i = 1;
-  long long l = 1;
+  पूर्णाङ्क i = 1;
+  दीर्घ दीर्घ l = 1;
   i = i << 32; // illegal. just test
   l = l << 64; // illegal. just test
 }
 
-#if !defined(_WIN32)
-#include <sys/mman.h>
+#यदि !defined(_WIN32)
+#अन्तर्भाव <sys/mman.h>
 
-void tst_const_addr(void)
+शून्य tst_const_addr(शून्य)
 {
-  void *addr = mmap ((void *)0x20000000, 4096, PROT_READ | PROT_WRITE, MAP_FIXED | MAP_ANONYMOUS, -1, 0);
-  if (addr != (void *) -1) {
-    *(int *)0x20000000 += 42;
+  शून्य *addr = mmap ((शून्य *)0x20000000, 4096, PROT_READ | PROT_WRITE, MAP_FIXED | MAP_ANONYMOUS, -1, 0);
+  यदि (addr != (शून्य *) -1) {
+    *(पूर्णाङ्क *)0x20000000 += 42;
     munmap (addr, 4096);
   }
 }
 #endif
 
-struct zero_struct {};
+संरचना zero_struct {};
 
-struct zero_struct tst_zero_struct(void)
+संरचना zero_struct tst_zero_struct(शून्य)
 {
-  struct zero_struct ret;
-  return ret;
+  संरचना zero_struct ret;
+  फर्काऊ ret;
 }
 
-struct big_struct tst_big(struct big_struct tst)
+संरचना big_struct tst_big(संरचना big_struct tst)
 {
-   return tst;
+   फर्काऊ tst;
 }
 
-void tst_adr (int (*fp)(char *, const char *, ...))
+शून्य tst_adr (पूर्णाङ्क (*fp)(वर्ण *, अचर वर्ण *, ...))
 {
-  char buf[10];
+  वर्ण buf[10];
   (*fp)(buf, "%.0f", 5.0);
-  printf("tst_adr %s\n", buf);
+  म_लिखो("tst_adr %s\n", buf);
 }
 
-int tst(void)
+पूर्णाङ्क tst(शून्य)
 {
-  long long value = 3;
-  return -value;
+  दीर्घ दीर्घ मान = 3;
+  फर्काऊ -मान;
 }
 
-void tst_compare(void)
+शून्य tst_compare(शून्य)
 {
   /* This failed on risc64 */
-  printf ("tst_compare: %s\n", tst() > 0 ? "error" : "ok");
+  म_लिखो ("tst_compare: %s\n", tst() > 0 ? "error" : "ok");
 }
 
 #pragma pack(1)
-struct S { int d:24; int f:14; } i, j;
+संरचना S { पूर्णाङ्क d:24; पूर्णाङ्क f:14; } i, j;
 #pragma pack()
 
-void tst_pack (void)
+शून्य tst_pack (शून्य)
 {
   i.f = 5; j.f = 5;
-  printf("tst_pack: j.f = %d, i.f = %d\n", j.f, i.f);
+  म_लिखो("tst_pack: j.f = %d, i.f = %d\n", j.f, i.f);
 }
 
-void tst_cast(void)
+शून्य tst_cast(शून्य)
 {
-  signed char c = (signed char) 0xaaaaaaaa;
-  int r = (unsigned short) c ^ (signed char) 0x99999999;
-  printf ("schar to ushort cast: %x\n", r);
+  चिन्हित वर्ण c = (चिन्हित वर्ण) 0xaaaaaaaa;
+  पूर्णाङ्क r = (अचिन्हित लघु) c ^ (चिन्हित वर्ण) 0x99999999;
+  म_लिखो ("schar to ushort cast: %x\n", r);
 }
 
-struct {
-    int (*print)(const char *format, ...);
+संरचना {
+    पूर्णाङ्क (*print)(अचर वर्ण *format, ...);
 } tst_indir = {
-    printf
+    म_लिखो
 };
 
-void tst_indir_func(void)
+शून्य tst_indir_func(शून्य)
 {
     tst_indir.print("tst_indir_func %d\n", 10);
 }
 
-struct V {
-  int x, y, z;
+संरचना V {
+  पूर्णाङ्क x, y, z;
 };
 
-struct V vec(void)
+संरचना V vec(शून्य)
 {
-  return (struct V) { 1, 2, 3 };
+  फर्काऊ (संरचना V) { 1, 2, 3 };
 }
 
-void func(float f, struct V v)
+शून्य func(भिन्न f, संरचना V v)
 {
-  printf("%g\n", f);
+  म_लिखो("%g\n", f);
 }
 
-void tst_struct_return_align(void)
+शून्य tst_struct_return_align(शून्य)
 {
-  float d = 5.0f;
+  भिन्न d = 5.0f;
   func(d, vec());
 }
 
-int
-main (void)
+पूर्णाङ्क
+main (शून्य)
 {
-  struct big_struct big;
+  संरचना big_struct big;
 
   tst_branch();
   tst_shift();
   tst_void_ptr(&big.a[0], 0);
-#if !defined(_WIN32)
+#यदि !defined(_WIN32)
   tst_const_addr();
 #endif
   tst_zero_struct();
   tst_big(big);
-  tst_adr(&sprintf);
+  tst_adr(&प्र_लिखो);
   tst_compare();
   tst_pack();
   tst_cast();

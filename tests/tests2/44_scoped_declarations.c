@@ -1,17 +1,17 @@
-#include <stdio.h>
+#अन्तर्भाव <stdio.h>
 
-int main()
+पूर्णाङ्क main()
 {
-   int a;
+   पूर्णाङ्क a;
 
-   for (a = 0; a < 2; a++)
+   लागि (a = 0; a < 2; a++)
    {
-      int b = a;
+      पूर्णाङ्क b = a;
    }
 
-   printf("it's all good\n");
+   म_लिखो("it's all good\n");
 
-   return 0;
+   फर्काऊ 0;
 }
 
 /* vim: set expandtab ts=4 sw=3 sts=3 tw=80 :*/

@@ -1,9 +1,9 @@
-static inline const char *get_basefile_from_header(void)
+स्थिर अन्तःस्थ अचर वर्ण *get_basefile_from_header(शून्य)
 {
-  return __BASE_FILE__;
+  फर्काऊ __BASE_FILE__;
 }
 
-static inline const char *get_file_from_header(void)
+स्थिर अन्तःस्थ अचर वर्ण *get_file_from_header(शून्य)
 {
-  return __FILE__;
+  फर्काऊ __FILE__;
 }

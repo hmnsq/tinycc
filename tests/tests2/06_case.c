@@ -1,29 +1,29 @@
-#include <stdio.h>
+#अन्तर्भाव <stdio.h>
 
-int main()
+पूर्णाङ्क main()
 {
-   int Count;
+   पूर्णाङ्क गन्ती_3;
 
-   for (Count = 0; Count < 4; Count++)
+   लागि (गन्ती_3 = 0; गन्ती_3 < 4; गन्ती_3++)
    {
-      printf("%d\n", Count);
-      switch (Count)
+      म_लिखो("%d\n", गन्ती_3);
+      विकल्प (गन्ती_3)
       {
-         case 1:
-            printf("%d\n", 1);
-            break;
+         पक्ष 1:
+            म_लिखो("%d\n", 1);
+            रोक;
 
-         case 2:
-            printf("%d\n", 2);
-            break;
+         पक्ष 2:
+            म_लिखो("%d\n", 2);
+            रोक;
 
-         default:
-            printf("%d\n", 0);
-            break;
+         स्वभाव:
+            म_लिखो("%d\n", 0);
+            रोक;
       }
    }
 
-   return 0;
+   फर्काऊ 0;
 }
 
 // vim: set expandtab ts=4 sw=3 sts=3 tw=80 :

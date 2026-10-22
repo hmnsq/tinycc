@@ -1,30 +1,30 @@
-int printf(const char*, ...);
+पूर्णाङ्क म_लिखो(अचर वर्ण*, ...);
 
-int main()
+पूर्णाङ्क main()
 {
-    char a;
-    short b;
+    वर्ण a;
+    लघु b;
 
-    printf("sizeof a : %d %d\n", sizeof(char), sizeof(a));
-    printf("sizeof b : %d %d\n", sizeof(short), sizeof(b));
+    म_लिखो("sizeof a : %d %d\n", परिमाण(वर्ण), परिमाण(a));
+    म_लिखो("sizeof b : %d %d\n", परिमाण(लघु), परिमाण(b));
 
-    int ii[] = {}; /* gnu extension, size = 0 */
-    printf("sizeof ii : %d\n", sizeof ii);
+    पूर्णाङ्क ii[] = {}; /* gnu extension, size = 0 */
+    म_लिखो("sizeof ii : %d\n", परिमाण ii);
 
-    int kk[] = { 1 };
-    printf("sizeof kk : %d\n", sizeof kk);
+    पूर्णाङ्क kk[] = { 1 };
+    म_लिखो("sizeof kk : %d\n", परिमाण kk);
 
-    char cc[] = "12";
-    printf("sizeof cc : %d\n", sizeof cc);
+    वर्ण cc[] = "12";
+    म_लिखो("sizeof cc : %d\n", परिमाण cc);
 
     __WCHAR_TYPE__ ll[] = L"12345";
-    printf("len-of ll : %d\n", sizeof ll / sizeof ll[0]);
+    म_लिखो("len-of ll : %d\n", परिमाण ll / परिमाण ll[0]);
 
-    static struct {
-        int a,b,c;
-        int d[];
+    स्थिर संरचना {
+        पूर्णाङ्क a,b,c;
+        पूर्णाङ्क d[];
     } ss[] = {{ 1, 2, 3, {} }};
-    printf("sizeof ss : %d\n", sizeof ss);
+    म_लिखो("sizeof ss : %d\n", परिमाण ss);
 
-    return 0;
+    फर्काऊ 0;
 }
